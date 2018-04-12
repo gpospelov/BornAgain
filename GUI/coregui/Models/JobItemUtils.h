@@ -19,11 +19,9 @@
 #include <QMap>
 
 class DataItem;
-class Simulation;
 class InstrumentItem;
-class IntensityDataItem;
 class JobItem;
-class SpecularDataItem;
+class Simulation;
 
 //! Contains set of convenience methods to set data to the IntensityDataItem from domain simulation.
 //! Used to modify OutputData's axes units as requested by IntensityDataItem.
@@ -34,14 +32,8 @@ namespace JobItemUtils
 //! Sets simulation results to the JobItem.
 BA_CORE_API_ void setResults(JobItem* jobItem, const Simulation* simulation);
 
-//! Sets simulation results into the IntensityDataItem
-BA_CORE_API_ void setResults(IntensityDataItem* intensityItem, const Simulation* simulation);
-
-//! Sets simulation results into the SpecularDataItem
-BA_CORE_API_ void setResults(SpecularDataItem* specItem, const Simulation* simulation);
-
 //! updates axes of OutputData in IntensityData item
-BA_CORE_API_ void updateDataAxes(IntensityDataItem* intensityItem,
+BA_CORE_API_ void updateDataAxes(DataItem* intensityItem,
                                  const InstrumentItem* instrumentItem);
 
 //! loads intensity data from project directory
@@ -56,22 +48,14 @@ BA_CORE_API_ QString nameFromAxesUnits(AxesUnits units);
 //! returns domain axes units type from their GUI name
 BA_CORE_API_ AxesUnits axesUnitsFromName(const QString& name);
 
-//! converts detector default axes units into units most suitable for GUI
-BA_CORE_API_ AxesUnits preferableGUIAxesUnits(AxesUnits default_units);
-
-BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
+BA_CORE_API_ void setIntensityItemAxesUnits(DataItem *intensityItem,
                                             const InstrumentItem* instrumentItem);
 
-BA_CORE_API_ void setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                            const IDetector* detector);
+BA_CORE_API_ void setIntensityItemAxesUnits(DataItem* intensityItem,
+                                            const IUnitConverter& converter);
 
-BA_CORE_API_ void updateAxesTitle(IntensityDataItem* intensityItem);
-
-BA_CORE_API_ void createDefaultDetectorMap(IntensityDataItem* intensityItem,
+BA_CORE_API_ void createDefaultDetectorMap(DataItem* intensityItem,
                                            const InstrumentItem* instrumentItem);
-
-BA_CORE_API_ OutputData<double>* createDetectorMap(const InstrumentItem* instrumentItem,
-                                                   AxesUnits units);
 }
 
 #endif // JOBITEMUTILS_H

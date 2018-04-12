@@ -63,6 +63,9 @@ public:
     //! Provide AxisInfo for each axis and the given units
     std::vector<AxisInfo> axisInfo(AxesUnits units = AxesUnits::DEFAULT) const;
 
+    //! Returns underlying unit converter
+    const IUnitConverter& converter() const;
+
     //! Data element access
     double& operator[](size_t i);
     const double& operator[](size_t i) const;

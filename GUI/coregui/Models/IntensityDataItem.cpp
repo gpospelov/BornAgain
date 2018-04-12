@@ -34,7 +34,6 @@ ComboProperty gradientCombo() {
 }
 }
 
-const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
 const QString IntensityDataItem::P_TITLE = "Title";
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
 const QString IntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
@@ -47,9 +46,6 @@ const QString IntensityDataItem::T_PROJECTIONS = "Projection tag";
 
 IntensityDataItem::IntensityDataItem() : DataItem(Constants::IntensityDataType)
 {
-    ComboProperty units = ComboProperty() << Constants::UnitsNbins;
-    addProperty(P_AXES_UNITS, units.variant());
-
     addProperty(P_TITLE, QString())->setVisible(false);
 
     addProperty(P_PROJECTIONS_FLAG, false)->setVisible(false);
@@ -193,10 +189,23 @@ void IntensityDataItem::setZAxisLocked(bool state)
     return getItem(P_ZAXIS)->setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
 }
 
-QString IntensityDataItem::selectedAxesUnits() const
+void IntensityDataItem::setXaxisTitle(QString xtitle)
 {
-    ComboProperty combo = getItemValue(IntensityDataItem::P_AXES_UNITS).value<ComboProperty>();
-    return combo.getValue();
+    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
+}
+
+void IntensityDataItem::setYaxisTitle(QString ytitle)
+{
+    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_TITLE, ytitle);
+}
+
+//! set zoom range of x,y axes to axes of input data
+void IntensityDataItem::setAxesRangeToData()
+{
+    setLowerX(getXmin());
+    setUpperX(getXmax());
+    setLowerY(getYmin());
+    setUpperY(getYmax());
 }
 
 void IntensityDataItem::setLowerX(double xmin)
@@ -246,25 +255,6 @@ void IntensityDataItem::setLogz(bool logz)
 void IntensityDataItem::setInterpolated(bool interp)
 {
     setItemValue(P_IS_INTERPOLATED, interp);
-}
-
-void IntensityDataItem::setXaxisTitle(QString xtitle)
-{
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
-}
-
-void IntensityDataItem::setYaxisTitle(QString ytitle)
-{
-    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_TITLE, ytitle);
-}
-
-//! set zoom range of x,y axes to axes of input data
-void IntensityDataItem::setAxesRangeToData()
-{
-    setLowerX(getXmin());
-    setUpperX(getXmax());
-    setLowerY(getYmin());
-    setUpperY(getYmax());
 }
 
 //! Sets zoom range of X,Y axes, if it was not yet defined.

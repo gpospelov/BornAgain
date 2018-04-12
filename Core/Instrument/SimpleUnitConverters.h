@@ -32,13 +32,16 @@ class BA_CORE_API_ UnitConverterSimple : public IUnitConverter
 {
 public:
     UnitConverterSimple(const Beam& beam);
-    virtual ~UnitConverterSimple() =default;
+    ~UnitConverterSimple() override = default;
 
     virtual size_t dimension() const override;
 
     double calculateMin(size_t i_axis, AxesUnits units_type) const override;
     double calculateMax(size_t i_axis, AxesUnits units_type) const override;
     size_t axisSize(size_t i_axis) const override;
+
+    //! Returns the list of all available units
+    std::vector<AxesUnits> availableUnits() const override;
 
     std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const override;
 
@@ -77,9 +80,12 @@ class BA_CORE_API_ SphericalConverter : public UnitConverterSimple
 public:
     SphericalConverter(const SphericalDetector& detector, const Beam& beam);
 
-    virtual ~SphericalConverter();
+    ~SphericalConverter() override;
 
     SphericalConverter* clone() const override;
+
+    //! Returns the list of all available units
+    std::vector<AxesUnits> availableUnits() const override;
 
     AxesUnits defaultUnits() const override;
 
@@ -97,9 +103,12 @@ class BA_CORE_API_ RectangularConverter : public UnitConverterSimple
 {
 public:
     RectangularConverter(const RectangularDetector& detector, const Beam& beam);
-    virtual ~RectangularConverter();
+    ~RectangularConverter() override;
 
     RectangularConverter* clone() const override;
+
+    //! Returns the list of all available units
+    std::vector<AxesUnits> availableUnits() const override;
 
     AxesUnits defaultUnits() const override;
 
@@ -121,7 +130,7 @@ class BA_CORE_API_ OffSpecularConverter : public UnitConverterSimple
 {
 public:
     OffSpecularConverter(const IDetector2D& detector, const Beam& beam, const IAxis& alpha_axis);
-    virtual ~OffSpecularConverter();
+    ~OffSpecularConverter() override;
 
     OffSpecularConverter* clone() const override;
 
@@ -142,7 +151,7 @@ class BA_CORE_API_ DepthProbeConverter : public UnitConverterSimple
 {
 public:
     DepthProbeConverter(const Beam& beam, const IAxis& alpha_axis, const IAxis& z_axis);
-    virtual ~DepthProbeConverter();
+    ~DepthProbeConverter() override;
 
     DepthProbeConverter* clone() const override;
 
@@ -151,6 +160,10 @@ public:
 
     // TODO: remove axisName after implementing functionality for two axis in different units
     std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const override;
+
+    //! Returns the list of all available units
+    std::vector<AxesUnits> availableUnits() const override;
+
     AxesUnits defaultUnits() const override { return AxesUnits::DEGREES; }
     std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const override;
 

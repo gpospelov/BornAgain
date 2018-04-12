@@ -63,7 +63,7 @@ void SpecularPlot::onPropertyChanged(const QString& property_name)
     if (m_block_update)
         return;
 
-    if (property_name == SpecularDataItem::P_AXES_UNITS) {
+    if (property_name == DataItem::P_AXES_UNITS) {
         setAxesRangeFromItem(specularItem());
         replot();
     }

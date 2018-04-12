@@ -150,7 +150,7 @@ void ColorMap::onPropertyChanged(const QString& property_name)
     } else if (property_name == IntensityDataItem::P_IS_INTERPOLATED) {
         m_colorMap->setInterpolate(intensityItem()->isInterpolated());
         replot();
-    } else if (property_name == IntensityDataItem::P_AXES_UNITS) {
+    } else if (property_name == DataItem::P_AXES_UNITS) {
         setAxesRangeFromItem(intensityItem());
         replot();
     }

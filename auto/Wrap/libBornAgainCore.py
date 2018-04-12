@@ -1787,7 +1787,7 @@ class ICloneable(_object):
         """
         clone(ICloneable self) -> ICloneable
 
-        virtual ICloneable* ICloneable::clone() const  =0
+        virtual ICloneable* ICloneable::clone() const =0
 
         """
         return _libBornAgainCore.ICloneable_clone(self)
@@ -1851,7 +1851,7 @@ class INamed(_object):
         """
         getName(INamed self) -> std::string
 
-        std::string INamed::getName() const 
+        std::string INamed::getName() const
 
         """
         return _libBornAgainCore.INamed_getName(self)
@@ -2104,7 +2104,7 @@ class INode(IParameterized):
         """
         accept(INode self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const  =0
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
@@ -3857,7 +3857,7 @@ class WavevectorInfo(_object):
         """
         transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo
 
-        WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const 
+        WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
 
         """
         return _libBornAgainCore.WavevectorInfo_transformed(self, transform)
@@ -3867,7 +3867,7 @@ class WavevectorInfo(_object):
         """
         getKi(WavevectorInfo self) -> cvector_t
 
-        cvector_t WavevectorInfo::getKi() const 
+        cvector_t WavevectorInfo::getKi() const
 
         """
         return _libBornAgainCore.WavevectorInfo_getKi(self)
@@ -3877,7 +3877,7 @@ class WavevectorInfo(_object):
         """
         getKf(WavevectorInfo self) -> cvector_t
 
-        cvector_t WavevectorInfo::getKf() const 
+        cvector_t WavevectorInfo::getKf() const
 
         """
         return _libBornAgainCore.WavevectorInfo_getKf(self)
@@ -3887,7 +3887,7 @@ class WavevectorInfo(_object):
         """
         getQ(WavevectorInfo self) -> cvector_t
 
-        cvector_t WavevectorInfo::getQ() const 
+        cvector_t WavevectorInfo::getQ() const
 
         """
         return _libBornAgainCore.WavevectorInfo_getQ(self)
@@ -3897,7 +3897,7 @@ class WavevectorInfo(_object):
         """
         getWavelength(WavevectorInfo self) -> double
 
-        double WavevectorInfo::getWavelength() const 
+        double WavevectorInfo::getWavelength() const
 
         """
         return _libBornAgainCore.WavevectorInfo_getWavelength(self)
@@ -4064,7 +4064,7 @@ class Beam(INode):
         """
         getBlochVector(Beam self) -> kvector_t
 
-        kvector_t Beam::getBlochVector() const 
+        kvector_t Beam::getBlochVector() const
 
         """
         return _libBornAgainCore.Beam_getBlochVector(self)
@@ -4074,7 +4074,7 @@ class Beam(INode):
         """
         getWavelength(Beam self) -> double
 
-        double Beam::getWavelength() const 
+        double Beam::getWavelength() const
 
         """
         return _libBornAgainCore.Beam_getWavelength(self)
@@ -4084,7 +4084,7 @@ class Beam(INode):
         """
         getAlpha(Beam self) -> double
 
-        double Beam::getAlpha() const 
+        double Beam::getAlpha() const
 
         """
         return _libBornAgainCore.Beam_getAlpha(self)
@@ -4094,7 +4094,7 @@ class Beam(INode):
         """
         getPhi(Beam self) -> double
 
-        double Beam::getPhi() const 
+        double Beam::getPhi() const
 
         """
         return _libBornAgainCore.Beam_getPhi(self)
@@ -4104,7 +4104,7 @@ class Beam(INode):
         """
         accept(Beam self, INodeVisitor visitor)
 
-        void Beam::accept(INodeVisitor *visitor) const  override
+        void Beam::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -4116,7 +4116,7 @@ class Beam(INode):
         """
         getChildren(Beam self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > Beam::getChildren() const  override
+        std::vector< const INode * > Beam::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -4161,7 +4161,7 @@ class Bin1D(_object):
         """
         getMidPoint(Bin1D self) -> double
 
-        double Bin1D::getMidPoint() const 
+        double Bin1D::getMidPoint() const
 
         """
         return _libBornAgainCore.Bin1D_getMidPoint(self)
@@ -4171,7 +4171,7 @@ class Bin1D(_object):
         """
         getBinSize(Bin1D self) -> double
 
-        double Bin1D::getBinSize() const 
+        double Bin1D::getBinSize() const
 
         """
         return _libBornAgainCore.Bin1D_getBinSize(self)
@@ -4229,7 +4229,7 @@ class Bin1DKVector(_object):
         """
         getMidPoint(Bin1DKVector self) -> kvector_t
 
-        kvector_t Bin1DKVector::getMidPoint() const 
+        kvector_t Bin1DKVector::getMidPoint() const
 
         """
         return _libBornAgainCore.Bin1DKVector_getMidPoint(self)
@@ -4239,7 +4239,7 @@ class Bin1DKVector(_object):
         """
         getDelta(Bin1DKVector self) -> kvector_t
 
-        kvector_t Bin1DKVector::getDelta() const 
+        kvector_t Bin1DKVector::getDelta() const
 
         """
         return _libBornAgainCore.Bin1DKVector_getDelta(self)
@@ -4294,7 +4294,7 @@ class Bin1DCVector(_object):
         """
         getMidPoint(Bin1DCVector self) -> cvector_t
 
-        cvector_t Bin1DCVector::getMidPoint() const 
+        cvector_t Bin1DCVector::getMidPoint() const
 
         """
         return _libBornAgainCore.Bin1DCVector_getMidPoint(self)
@@ -4304,7 +4304,7 @@ class Bin1DCVector(_object):
         """
         getDelta(Bin1DCVector self) -> cvector_t
 
-        cvector_t Bin1DCVector::getDelta() const 
+        cvector_t Bin1DCVector::getDelta() const
 
         """
         return _libBornAgainCore.Bin1DCVector_getDelta(self)
@@ -4345,7 +4345,7 @@ class IAxis(_object):
         """
         clone(IAxis self) -> IAxis
 
-        virtual IAxis* IAxis::clone() const  =0
+        virtual IAxis* IAxis::clone() const =0
 
         clone function 
 
@@ -4371,7 +4371,7 @@ class IAxis(_object):
         """
         size(IAxis self) -> size_t
 
-        virtual size_t IAxis::size() const  =0
+        virtual size_t IAxis::size() const =0
 
         retrieve the number of bins 
 
@@ -4407,7 +4407,7 @@ class IAxis(_object):
         """
         getBin(IAxis self, size_t index) -> Bin1D
 
-        virtual Bin1D IAxis::getBin(size_t index) const  =0
+        virtual Bin1D IAxis::getBin(size_t index) const =0
 
         retrieve a 1d bin for the given index 
 
@@ -4419,7 +4419,7 @@ class IAxis(_object):
         """
         getMin(IAxis self) -> double
 
-        virtual double IAxis::getMin() const  =0
+        virtual double IAxis::getMin() const =0
 
         Returns value of first point of axis. 
 
@@ -4431,7 +4431,7 @@ class IAxis(_object):
         """
         getMax(IAxis self) -> double
 
-        virtual double IAxis::getMax() const  =0
+        virtual double IAxis::getMax() const =0
 
         Returns value of last point of axis. 
 
@@ -4443,7 +4443,7 @@ class IAxis(_object):
         """
         getBinCenter(IAxis self, size_t index) -> double
 
-        virtual double IAxis::getBinCenter(size_t index) const  =0
+        virtual double IAxis::getBinCenter(size_t index) const =0
 
         """
         return _libBornAgainCore.IAxis_getBinCenter(self, index)
@@ -4453,7 +4453,7 @@ class IAxis(_object):
         """
         findClosestIndex(IAxis self, double value) -> size_t
 
-        virtual size_t IAxis::findClosestIndex(double value) const  =0
+        virtual size_t IAxis::findClosestIndex(double value) const =0
 
         find bin index which is best match for given value 
 
@@ -4487,7 +4487,7 @@ class IAxis(_object):
         """
         getBinCenters(IAxis self) -> vdouble1d_t
 
-        std::vector< double > IAxis::getBinCenters() const 
+        std::vector< double > IAxis::getBinCenters() const
 
         """
         return _libBornAgainCore.IAxis_getBinCenters(self)
@@ -4497,7 +4497,7 @@ class IAxis(_object):
         """
         getBinBoundaries(IAxis self) -> vdouble1d_t
 
-        std::vector< double > IAxis::getBinBoundaries() const 
+        std::vector< double > IAxis::getBinBoundaries() const
 
         """
         return _libBornAgainCore.IAxis_getBinBoundaries(self)
@@ -4653,7 +4653,7 @@ class VariableBinAxis(IAxis):
         """
         getBinCenter(VariableBinAxis self, size_t index) -> double
 
-        double VariableBinAxis::getBinCenter(size_t index) const 
+        double VariableBinAxis::getBinCenter(size_t index) const
 
         """
         return _libBornAgainCore.VariableBinAxis_getBinCenter(self, index)
@@ -4675,7 +4675,7 @@ class VariableBinAxis(IAxis):
         """
         getBinCenters(VariableBinAxis self) -> vdouble1d_t
 
-        std::vector< double > VariableBinAxis::getBinCenters() const 
+        std::vector< double > VariableBinAxis::getBinCenters() const
 
         """
         return _libBornAgainCore.VariableBinAxis_getBinCenters(self)
@@ -4685,7 +4685,7 @@ class VariableBinAxis(IAxis):
         """
         getBinBoundaries(VariableBinAxis self) -> vdouble1d_t
 
-        std::vector<double> VariableBinAxis::getBinBoundaries() const 
+        std::vector<double> VariableBinAxis::getBinBoundaries() const
 
         """
         return _libBornAgainCore.VariableBinAxis_getBinBoundaries(self)
@@ -4766,7 +4766,7 @@ class ConstKBinAxis(VariableBinAxis):
         """
         clone(ConstKBinAxis self) -> ConstKBinAxis
 
-        ConstKBinAxis * ConstKBinAxis::clone() const  final
+        ConstKBinAxis * ConstKBinAxis::clone() const final
 
         clone function 
 
@@ -4778,7 +4778,7 @@ class ConstKBinAxis(VariableBinAxis):
         """
         createClippedAxis(ConstKBinAxis self, double left, double right) -> ConstKBinAxis
 
-        ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const  final
+        ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const final
 
         Creates a new clipped axis. 
 
@@ -4868,7 +4868,7 @@ class CustomBinAxis(VariableBinAxis):
         """
         getBinCenters(CustomBinAxis self) -> vdouble1d_t
 
-        std::vector< double > CustomBinAxis::getBinCenters() const 
+        std::vector< double > CustomBinAxis::getBinCenters() const
 
         """
         return _libBornAgainCore.CustomBinAxis_getBinCenters(self)
@@ -4915,7 +4915,7 @@ class IShape2D(ICloneable, INamed):
         """
         clone(IShape2D self) -> IShape2D
 
-        virtual IShape2D* IShape2D::clone() const  =0
+        virtual IShape2D* IShape2D::clone() const =0
 
         """
         return _libBornAgainCore.IShape2D_clone(self)
@@ -4926,7 +4926,7 @@ class IShape2D(ICloneable, INamed):
         contains(IShape2D self, double x, double y) -> bool
         contains(IShape2D self, Bin1D binx, Bin1D biny) -> bool
 
-        virtual bool IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const  =0
+        virtual bool IShape2D::contains(const Bin1D &binx, const Bin1D &biny) const =0
 
         Returns true if area defined by two bins is inside or on border of polygon (more precisely, if mid point of two bins satisfy this condition). 
 
@@ -4962,7 +4962,7 @@ class ISample(ICloneable, INode):
         """
         clone(ISample self) -> ISample
 
-        ISample* ISample::clone() const  override=0
+        ISample* ISample::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -5054,7 +5054,7 @@ class IChiSquaredModule(ICloneable):
         """
         clone(IChiSquaredModule self) -> IChiSquaredModule
 
-        virtual IChiSquaredModule* IChiSquaredModule::clone() const  =0
+        virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
 
         clone method 
 
@@ -5348,7 +5348,7 @@ class IFitStrategy(INamed):
         """
         clone(IFitStrategy self) -> IFitStrategy
 
-        virtual IFitStrategy* IFitStrategy::clone() const  =0
+        virtual IFitStrategy* IFitStrategy::clone() const =0
 
         """
         return _libBornAgainCore.IFitStrategy_clone(self)
@@ -5413,7 +5413,7 @@ class FitStrategyDefault(IFitStrategy):
         """
         clone(FitStrategyDefault self) -> FitStrategyDefault
 
-        FitStrategyDefault * FitStrategyDefault::clone() const 
+        FitStrategyDefault * FitStrategyDefault::clone() const
 
         """
         return _libBornAgainCore.FitStrategyDefault_clone(self)
@@ -5458,7 +5458,7 @@ class IIntensityFunction(_object):
         """
         clone(IIntensityFunction self) -> IIntensityFunction
 
-        virtual IIntensityFunction* IIntensityFunction::clone() const  =0
+        virtual IIntensityFunction* IIntensityFunction::clone() const =0
 
         """
         return _libBornAgainCore.IIntensityFunction_clone(self)
@@ -5468,7 +5468,7 @@ class IIntensityFunction(_object):
         """
         evaluate(IIntensityFunction self, double value) -> double
 
-        virtual double IIntensityFunction::evaluate(double value) const  =0
+        virtual double IIntensityFunction::evaluate(double value) const =0
 
         """
         return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
@@ -5502,7 +5502,7 @@ class IntensityFunctionLog(IIntensityFunction):
         """
         clone(IntensityFunctionLog self) -> IntensityFunctionLog
 
-        virtual IntensityFunctionLog* IntensityFunctionLog::clone() const 
+        virtual IntensityFunctionLog* IntensityFunctionLog::clone() const
 
         """
         return _libBornAgainCore.IntensityFunctionLog_clone(self)
@@ -5512,7 +5512,7 @@ class IntensityFunctionLog(IIntensityFunction):
         """
         evaluate(IntensityFunctionLog self, double value) -> double
 
-        double IntensityFunctionLog::evaluate(double value) const 
+        double IntensityFunctionLog::evaluate(double value) const
 
         """
         return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
@@ -5563,7 +5563,7 @@ class IntensityFunctionSqrt(IIntensityFunction):
         """
         clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
 
-        virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const 
+        virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const
 
         """
         return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
@@ -5573,7 +5573,7 @@ class IntensityFunctionSqrt(IIntensityFunction):
         """
         evaluate(IntensityFunctionSqrt self, double value) -> double
 
-        double IntensityFunctionSqrt::evaluate(double value) const 
+        double IntensityFunctionSqrt::evaluate(double value) const
 
         """
         return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
@@ -5627,7 +5627,7 @@ class IIntensityNormalizer(ICloneable, INode):
         """
         clone(IIntensityNormalizer self) -> IIntensityNormalizer
 
-        virtual IIntensityNormalizer* IIntensityNormalizer::clone() const  =0
+        virtual IIntensityNormalizer* IIntensityNormalizer::clone() const =0
 
         """
         return _libBornAgainCore.IIntensityNormalizer_clone(self)
@@ -5637,7 +5637,7 @@ class IIntensityNormalizer(ICloneable, INode):
         """
         createNormalizedData(IIntensityNormalizer self, IntensityData data) -> IntensityData
 
-        virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const  =0
+        virtual OutputData<double>* IIntensityNormalizer::createNormalizedData(const OutputData< double > &data) const =0
 
         """
         return _libBornAgainCore.IIntensityNormalizer_createNormalizedData(self, data)
@@ -5647,7 +5647,7 @@ class IIntensityNormalizer(ICloneable, INode):
         """
         apply(IIntensityNormalizer self, IntensityData data)
 
-        virtual void IIntensityNormalizer::apply(OutputData< double > &data) const  =0
+        virtual void IIntensityNormalizer::apply(OutputData< double > &data) const =0
 
         """
         return _libBornAgainCore.IIntensityNormalizer_apply(self, data)
@@ -5706,7 +5706,7 @@ class IntensityNormalizer(IIntensityNormalizer):
         """
         clone(IntensityNormalizer self) -> IntensityNormalizer
 
-        IntensityNormalizer * IntensityNormalizer::clone() const 
+        IntensityNormalizer * IntensityNormalizer::clone() const
 
         """
         return _libBornAgainCore.IntensityNormalizer_clone(self)
@@ -5728,7 +5728,7 @@ class IntensityNormalizer(IIntensityNormalizer):
         """
         createNormalizedData(IntensityNormalizer self, IntensityData data) -> IntensityData
 
-        OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const 
+        OutputData< double > * IntensityNormalizer::createNormalizedData(const OutputData< double > &data) const
 
         """
         return _libBornAgainCore.IntensityNormalizer_createNormalizedData(self, data)
@@ -5738,7 +5738,7 @@ class IntensityNormalizer(IIntensityNormalizer):
         """
         apply(IntensityNormalizer self, IntensityData data)
 
-        void IntensityNormalizer::apply(OutputData< double > &data) const  final
+        void IntensityNormalizer::apply(OutputData< double > &data) const final
 
         """
         return _libBornAgainCore.IntensityNormalizer_apply(self, data)
@@ -5797,7 +5797,7 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
         """
         accept(IntensityScaleAndShiftNormalizer self, INodeVisitor visitor)
 
-        void IntensityScaleAndShiftNormalizer::accept(INodeVisitor *visitor) const  final
+        void IntensityScaleAndShiftNormalizer::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -5819,7 +5819,7 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
         """
         clone(IntensityScaleAndShiftNormalizer self) -> IntensityScaleAndShiftNormalizer
 
-        IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const  final
+        IntensityScaleAndShiftNormalizer* IntensityScaleAndShiftNormalizer::clone() const final
 
         """
         return _libBornAgainCore.IntensityScaleAndShiftNormalizer_clone(self)
@@ -5852,7 +5852,7 @@ class ISquaredFunction(_object):
         """
         clone(ISquaredFunction self) -> ISquaredFunction
 
-        virtual ISquaredFunction* ISquaredFunction::clone() const  =0
+        virtual ISquaredFunction* ISquaredFunction::clone() const =0
 
         """
         return _libBornAgainCore.ISquaredFunction_clone(self)
@@ -5862,7 +5862,7 @@ class ISquaredFunction(_object):
         """
         calculateSquaredDifference(ISquaredFunction self, double real_value, double simulated_value) -> double
 
-        virtual double ISquaredFunction::calculateSquaredDifference(double real_value, double simulated_value) const  =0
+        virtual double ISquaredFunction::calculateSquaredDifference(double real_value, double simulated_value) const =0
 
         """
         return _libBornAgainCore.ISquaredFunction_calculateSquaredDifference(self, real_value, simulated_value)
@@ -5873,7 +5873,7 @@ class ISquaredFunction(_object):
         calculateSquaredError(ISquaredFunction self, double real_value, double simulated_value=0.0) -> double
         calculateSquaredError(ISquaredFunction self, double real_value) -> double
 
-        virtual double ISquaredFunction::calculateSquaredError(double real_value, double simulated_value=0.0) const  =0
+        virtual double ISquaredFunction::calculateSquaredError(double real_value, double simulated_value=0.0) const =0
 
         """
         return _libBornAgainCore.ISquaredFunction_calculateSquaredError(self, real_value, simulated_value)
@@ -5920,7 +5920,7 @@ class SquaredFunctionDefault(ISquaredFunction):
         """
         clone(SquaredFunctionDefault self) -> SquaredFunctionDefault
 
-        SquaredFunctionDefault * SquaredFunctionDefault::clone() const  override
+        SquaredFunctionDefault * SquaredFunctionDefault::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionDefault_clone(self)
@@ -5930,7 +5930,7 @@ class SquaredFunctionDefault(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double
 
-        double SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const  override
+        double SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredDifference(self, real_value, simulated_value)
@@ -5941,7 +5941,7 @@ class SquaredFunctionDefault(ISquaredFunction):
         calculateSquaredError(SquaredFunctionDefault self, double real_value, double simulated_value=0) -> double
         calculateSquaredError(SquaredFunctionDefault self, double real_value) -> double
 
-        double SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value=0) const  override
+        double SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value=0) const override
 
         """
         return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredError(self, real_value, simulated_value)
@@ -5978,7 +5978,7 @@ class SquaredFunctionSimError(ISquaredFunction):
         """
         clone(SquaredFunctionSimError self) -> SquaredFunctionSimError
 
-        SquaredFunctionSimError * SquaredFunctionSimError::clone() const  override
+        SquaredFunctionSimError * SquaredFunctionSimError::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionSimError_clone(self)
@@ -5988,7 +5988,7 @@ class SquaredFunctionSimError(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double
 
-        double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const  override
+        double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredDifference(self, real_value, simulated_value)
@@ -5998,7 +5998,7 @@ class SquaredFunctionSimError(ISquaredFunction):
         """
         calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double
 
-        double SquaredFunctionSimError::calculateSquaredError(double real_value, double simulated_value) const  override
+        double SquaredFunctionSimError::calculateSquaredError(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredError(self, real_value, simulated_value)
@@ -6035,7 +6035,7 @@ class SquaredFunctionMeanSquaredError(ISquaredFunction):
         """
         clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError
 
-        SquaredFunctionMeanSquaredError * SquaredFunctionMeanSquaredError::clone() const  override
+        SquaredFunctionMeanSquaredError * SquaredFunctionMeanSquaredError::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionMeanSquaredError_clone(self)
@@ -6045,7 +6045,7 @@ class SquaredFunctionMeanSquaredError(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
 
-        double SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const  override
+        double SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredDifference(self, real_value, simulated_value)
@@ -6055,7 +6055,7 @@ class SquaredFunctionMeanSquaredError(ISquaredFunction):
         """
         calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
 
-        double SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const  override
+        double SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredError(self, real_value, simulated_value)
@@ -6092,7 +6092,7 @@ class SquaredFunctionSystematicError(ISquaredFunction):
         """
         clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError
 
-        SquaredFunctionSystematicError * SquaredFunctionSystematicError::clone() const  override
+        SquaredFunctionSystematicError * SquaredFunctionSystematicError::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionSystematicError_clone(self)
@@ -6102,7 +6102,7 @@ class SquaredFunctionSystematicError(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double
 
-        double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const  override
+        double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredDifference(self, real_value, simulated_value)
@@ -6112,7 +6112,7 @@ class SquaredFunctionSystematicError(ISquaredFunction):
         """
         calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double
 
-        double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double simulated_value) const  override
+        double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredError(self, real_value, simulated_value)
@@ -6149,7 +6149,7 @@ class SquaredFunctionGaussianError(ISquaredFunction):
         """
         clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError
 
-        SquaredFunctionGaussianError * SquaredFunctionGaussianError::clone() const  override
+        SquaredFunctionGaussianError * SquaredFunctionGaussianError::clone() const override
 
         """
         return _libBornAgainCore.SquaredFunctionGaussianError_clone(self)
@@ -6159,7 +6159,7 @@ class SquaredFunctionGaussianError(ISquaredFunction):
         """
         calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double
 
-        double SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const  override
+        double SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredDifference(self, real_value, simulated_value)
@@ -6169,7 +6169,7 @@ class SquaredFunctionGaussianError(ISquaredFunction):
         """
         calculateSquaredError(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double
 
-        double SquaredFunctionGaussianError::calculateSquaredError(double real_value, double simulated_value) const  override
+        double SquaredFunctionGaussianError::calculateSquaredError(double real_value, double simulated_value) const override
 
         """
         return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredError(self, real_value, simulated_value)
@@ -6294,7 +6294,7 @@ class FitObject(INode):
         """
         accept(FitObject self, INodeVisitor visitor)
 
-        void FitObject::accept(INodeVisitor *visitor) const  final
+        void FitObject::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -6463,7 +6463,7 @@ class FitParameter(libBornAgainFit.IFitParameter):
         """
         clone(FitParameter self) -> FitParameter
 
-        FitParameter * FitParameter::clone() const 
+        FitParameter * FitParameter::clone() const
 
         """
         return _libBornAgainCore.FitParameter_clone(self)
@@ -6521,7 +6521,7 @@ class FitParameter(libBornAgainFit.IFitParameter):
         """
         patterns(FitParameter self) -> vector_string_t
 
-        std::vector< std::string > FitParameter::patterns() const 
+        std::vector< std::string > FitParameter::patterns() const
 
         """
         return _libBornAgainCore.FitParameter_patterns(self)
@@ -6933,7 +6933,7 @@ class FitSuite(IObservable):
         getSimulationOutputData(FitSuite self, size_t i_item=0) -> IntensityData
         getSimulationOutputData(FitSuite self) -> IntensityData
 
-        const OutputData< double > * FitSuite::getSimulationOutputData(size_t i_item=0) const 
+        const OutputData< double > * FitSuite::getSimulationOutputData(size_t i_item=0) const
 
         """
         return _libBornAgainCore.FitSuite_getSimulationOutputData(self, i_item)
@@ -7016,7 +7016,7 @@ class FitSuiteObjects(INode):
         """
         accept(FitSuiteObjects self, INodeVisitor visitor)
 
-        void FitSuiteObjects::accept(INodeVisitor *visitor) const  final
+        void FitSuiteObjects::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -7152,7 +7152,7 @@ class FitSuiteObjects(INode):
         """
         size(FitSuiteObjects self) -> size_t
 
-        size_t FitSuiteObjects::size() const 
+        size_t FitSuiteObjects::size() const
 
         """
         return _libBornAgainCore.FitSuiteObjects_size(self)
@@ -7421,7 +7421,7 @@ class AdjustMinimizerStrategy(IFitStrategy):
         """
         clone(AdjustMinimizerStrategy self) -> AdjustMinimizerStrategy
 
-        AdjustMinimizerStrategy * AdjustMinimizerStrategy::clone() const 
+        AdjustMinimizerStrategy * AdjustMinimizerStrategy::clone() const
 
         """
         return _libBornAgainCore.AdjustMinimizerStrategy_clone(self)
@@ -7494,7 +7494,7 @@ class IMultiLayerBuilder(IParameterized):
         """
         buildSample(IMultiLayerBuilder self) -> MultiLayer
 
-        virtual MultiLayer* IMultiLayerBuilder::buildSample() const  =0
+        virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
 
         """
         return _libBornAgainCore.IMultiLayerBuilder_buildSample(self)
@@ -7797,7 +7797,7 @@ class IClusteredParticles(ISample):
         """
         clone(IClusteredParticles self) -> IClusteredParticles
 
-        IClusteredParticles* IClusteredParticles::clone() const  override=0
+        IClusteredParticles* IClusteredParticles::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -7809,7 +7809,7 @@ class IClusteredParticles(ISample):
         """
         accept(IClusteredParticles self, INodeVisitor visitor)
 
-        void IClusteredParticles::accept(INodeVisitor *visitor) const  override=0
+        void IClusteredParticles::accept(INodeVisitor *visitor) const override=0
 
         Calls the  INodeVisitor's visit method. 
 
@@ -7821,7 +7821,7 @@ class IClusteredParticles(ISample):
         """
         createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
 
-        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const  =0
+        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 
@@ -7833,7 +7833,7 @@ class IClusteredParticles(ISample):
         """
         homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
 
-        virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const  =0
+        virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
 
         Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
 
@@ -7884,7 +7884,7 @@ class Crystal(IClusteredParticles):
         """
         clone(Crystal self) -> Crystal
 
-        Crystal * Crystal::clone() const  override final
+        Crystal * Crystal::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -7896,7 +7896,7 @@ class Crystal(IClusteredParticles):
         """
         accept(Crystal self, INodeVisitor visitor)
 
-        void Crystal::accept(INodeVisitor *visitor) const  override final
+        void Crystal::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -7908,7 +7908,7 @@ class Crystal(IClusteredParticles):
         """
         createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
 
-        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const  override final
+        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final
 
         Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
 
@@ -7920,7 +7920,7 @@ class Crystal(IClusteredParticles):
         """
         homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
 
-        std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const  override final
+        std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const override final
 
         Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
 
@@ -7933,7 +7933,7 @@ class Crystal(IClusteredParticles):
         transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice
         transformedLattice(Crystal self) -> Lattice
 
-        Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const 
+        Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
 
         """
         return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
@@ -7953,7 +7953,7 @@ class Crystal(IClusteredParticles):
         """
         getChildren(Crystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > Crystal::getChildren() const  override final
+        std::vector< const INode * > Crystal::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -7992,7 +7992,7 @@ class IDistribution1D(ICloneable, INode):
         """
         clone(IDistribution1D self) -> IDistribution1D
 
-        virtual IDistribution1D* IDistribution1D::clone() const  =0
+        virtual IDistribution1D* IDistribution1D::clone() const =0
 
         """
         return _libBornAgainCore.IDistribution1D_clone(self)
@@ -8002,7 +8002,7 @@ class IDistribution1D(ICloneable, INode):
         """
         probabilityDensity(IDistribution1D self, double x) -> double
 
-        virtual double IDistribution1D::probabilityDensity(double x) const  =0
+        virtual double IDistribution1D::probabilityDensity(double x) const =0
 
         Returns the distribution-specific probability density for value x. 
 
@@ -8014,7 +8014,7 @@ class IDistribution1D(ICloneable, INode):
         """
         getMean(IDistribution1D self) -> double
 
-        virtual double IDistribution1D::getMean() const  =0
+        virtual double IDistribution1D::getMean() const =0
 
         Returns the distribution-specific mean. 
 
@@ -8053,7 +8053,7 @@ class IDistribution1D(ICloneable, INode):
         equidistantPoints(IDistribution1D self, size_t nbr_samples, double sigma_factor, RealLimits limits) -> vdouble1d_t
         equidistantPoints(IDistribution1D self, size_t nbr_samples, double sigma_factor) -> vdouble1d_t
 
-        virtual std::vector<double> IDistribution1D::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const  =0
+        virtual std::vector<double> IDistribution1D::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const =0
 
         Returns equidistant interpolation points, with range computed in distribution-specific way from mean and width parameter, taking into account limits and sigma_factor. 
 
@@ -8077,7 +8077,7 @@ class IDistribution1D(ICloneable, INode):
         """
         isDelta(IDistribution1D self) -> bool
 
-        virtual bool IDistribution1D::isDelta() const  =0
+        virtual bool IDistribution1D::isDelta() const =0
 
         Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 
@@ -8139,7 +8139,7 @@ class DistributionGate(IDistribution1D):
         """
         clone(DistributionGate self) -> DistributionGate
 
-        DistributionGate* DistributionGate::clone() const  final
+        DistributionGate* DistributionGate::clone() const final
 
         """
         return _libBornAgainCore.DistributionGate_clone(self)
@@ -8149,7 +8149,7 @@ class DistributionGate(IDistribution1D):
         """
         probabilityDensity(DistributionGate self, double x) -> double
 
-        double DistributionGate::probabilityDensity(double x) const  final
+        double DistributionGate::probabilityDensity(double x) const final
 
         Returns the distribution-specific probability density for value x. 
 
@@ -8161,7 +8161,7 @@ class DistributionGate(IDistribution1D):
         """
         getMean(DistributionGate self) -> double
 
-        double DistributionGate::getMean() const  final
+        double DistributionGate::getMean() const final
 
         Returns the distribution-specific mean. 
 
@@ -8173,7 +8173,7 @@ class DistributionGate(IDistribution1D):
         """
         getMin(DistributionGate self) -> double
 
-        double DistributionGate::getMin() const 
+        double DistributionGate::getMin() const
 
         """
         return _libBornAgainCore.DistributionGate_getMin(self)
@@ -8183,7 +8183,7 @@ class DistributionGate(IDistribution1D):
         """
         getMax(DistributionGate self) -> double
 
-        double DistributionGate::getMax() const 
+        double DistributionGate::getMax() const
 
         """
         return _libBornAgainCore.DistributionGate_getMax(self)
@@ -8206,7 +8206,7 @@ class DistributionGate(IDistribution1D):
         """
         isDelta(DistributionGate self) -> bool
 
-        bool DistributionGate::isDelta() const  final
+        bool DistributionGate::isDelta() const final
 
         Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 
@@ -8218,7 +8218,7 @@ class DistributionGate(IDistribution1D):
         """
         accept(DistributionGate self, INodeVisitor visitor)
 
-        void DistributionGate::accept(INodeVisitor *visitor) const  final
+        void DistributionGate::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8268,7 +8268,7 @@ class DistributionLorentz(IDistribution1D):
         """
         clone(DistributionLorentz self) -> DistributionLorentz
 
-        DistributionLorentz* DistributionLorentz::clone() const  final
+        DistributionLorentz* DistributionLorentz::clone() const final
 
         """
         return _libBornAgainCore.DistributionLorentz_clone(self)
@@ -8278,7 +8278,7 @@ class DistributionLorentz(IDistribution1D):
         """
         probabilityDensity(DistributionLorentz self, double x) -> double
 
-        double DistributionLorentz::probabilityDensity(double x) const  final
+        double DistributionLorentz::probabilityDensity(double x) const final
 
         Returns the distribution-specific probability density for value x. 
 
@@ -8290,7 +8290,7 @@ class DistributionLorentz(IDistribution1D):
         """
         getMean(DistributionLorentz self) -> double
 
-        double DistributionLorentz::getMean() const  final
+        double DistributionLorentz::getMean() const final
 
         Returns the distribution-specific mean. 
 
@@ -8302,7 +8302,7 @@ class DistributionLorentz(IDistribution1D):
         """
         getHWHM(DistributionLorentz self) -> double
 
-        double DistributionLorentz::getHWHM() const 
+        double DistributionLorentz::getHWHM() const
 
         """
         return _libBornAgainCore.DistributionLorentz_getHWHM(self)
@@ -8325,7 +8325,7 @@ class DistributionLorentz(IDistribution1D):
         """
         isDelta(DistributionLorentz self) -> bool
 
-        bool DistributionLorentz::isDelta() const  final
+        bool DistributionLorentz::isDelta() const final
 
         Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 
@@ -8337,7 +8337,7 @@ class DistributionLorentz(IDistribution1D):
         """
         accept(DistributionLorentz self, INodeVisitor visitor)
 
-        void DistributionLorentz::accept(INodeVisitor *visitor) const  final
+        void DistributionLorentz::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8387,7 +8387,7 @@ class DistributionGaussian(IDistribution1D):
         """
         clone(DistributionGaussian self) -> DistributionGaussian
 
-        DistributionGaussian* DistributionGaussian::clone() const  final
+        DistributionGaussian* DistributionGaussian::clone() const final
 
         """
         return _libBornAgainCore.DistributionGaussian_clone(self)
@@ -8397,7 +8397,7 @@ class DistributionGaussian(IDistribution1D):
         """
         probabilityDensity(DistributionGaussian self, double x) -> double
 
-        double DistributionGaussian::probabilityDensity(double x) const  final
+        double DistributionGaussian::probabilityDensity(double x) const final
 
         Returns the distribution-specific probability density for value x. 
 
@@ -8409,7 +8409,7 @@ class DistributionGaussian(IDistribution1D):
         """
         getMean(DistributionGaussian self) -> double
 
-        double DistributionGaussian::getMean() const  final
+        double DistributionGaussian::getMean() const final
 
         Returns the distribution-specific mean. 
 
@@ -8421,7 +8421,7 @@ class DistributionGaussian(IDistribution1D):
         """
         getStdDev(DistributionGaussian self) -> double
 
-        double DistributionGaussian::getStdDev() const 
+        double DistributionGaussian::getStdDev() const
 
         """
         return _libBornAgainCore.DistributionGaussian_getStdDev(self)
@@ -8444,7 +8444,7 @@ class DistributionGaussian(IDistribution1D):
         """
         isDelta(DistributionGaussian self) -> bool
 
-        bool DistributionGaussian::isDelta() const  final
+        bool DistributionGaussian::isDelta() const final
 
         Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 
@@ -8456,7 +8456,7 @@ class DistributionGaussian(IDistribution1D):
         """
         accept(DistributionGaussian self, INodeVisitor visitor)
 
-        void DistributionGaussian::accept(INodeVisitor *visitor) const  final
+        void DistributionGaussian::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8506,7 +8506,7 @@ class DistributionLogNormal(IDistribution1D):
         """
         clone(DistributionLogNormal self) -> DistributionLogNormal
 
-        DistributionLogNormal* DistributionLogNormal::clone() const  final
+        DistributionLogNormal* DistributionLogNormal::clone() const final
 
         """
         return _libBornAgainCore.DistributionLogNormal_clone(self)
@@ -8516,7 +8516,7 @@ class DistributionLogNormal(IDistribution1D):
         """
         probabilityDensity(DistributionLogNormal self, double x) -> double
 
-        double DistributionLogNormal::probabilityDensity(double x) const  final
+        double DistributionLogNormal::probabilityDensity(double x) const final
 
         Returns the distribution-specific probability density for value x. 
 
@@ -8528,7 +8528,7 @@ class DistributionLogNormal(IDistribution1D):
         """
         getMean(DistributionLogNormal self) -> double
 
-        double DistributionLogNormal::getMean() const  final
+        double DistributionLogNormal::getMean() const final
 
         Returns the distribution-specific mean. 
 
@@ -8540,7 +8540,7 @@ class DistributionLogNormal(IDistribution1D):
         """
         getMedian(DistributionLogNormal self) -> double
 
-        double DistributionLogNormal::getMedian() const 
+        double DistributionLogNormal::getMedian() const
 
         """
         return _libBornAgainCore.DistributionLogNormal_getMedian(self)
@@ -8550,7 +8550,7 @@ class DistributionLogNormal(IDistribution1D):
         """
         getScalePar(DistributionLogNormal self) -> double
 
-        double DistributionLogNormal::getScalePar() const 
+        double DistributionLogNormal::getScalePar() const
 
         """
         return _libBornAgainCore.DistributionLogNormal_getScalePar(self)
@@ -8573,7 +8573,7 @@ class DistributionLogNormal(IDistribution1D):
         """
         isDelta(DistributionLogNormal self) -> bool
 
-        bool DistributionLogNormal::isDelta() const  final
+        bool DistributionLogNormal::isDelta() const final
 
         Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 
@@ -8585,7 +8585,7 @@ class DistributionLogNormal(IDistribution1D):
         """
         accept(DistributionLogNormal self, INodeVisitor visitor)
 
-        void DistributionLogNormal::accept(INodeVisitor *visitor) const  final
+        void DistributionLogNormal::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8647,7 +8647,7 @@ class DistributionCosine(IDistribution1D):
         """
         clone(DistributionCosine self) -> DistributionCosine
 
-        DistributionCosine* DistributionCosine::clone() const  final
+        DistributionCosine* DistributionCosine::clone() const final
 
         """
         return _libBornAgainCore.DistributionCosine_clone(self)
@@ -8657,7 +8657,7 @@ class DistributionCosine(IDistribution1D):
         """
         probabilityDensity(DistributionCosine self, double x) -> double
 
-        double DistributionCosine::probabilityDensity(double x) const  final
+        double DistributionCosine::probabilityDensity(double x) const final
 
         Returns the distribution-specific probability density for value x. 
 
@@ -8669,7 +8669,7 @@ class DistributionCosine(IDistribution1D):
         """
         getMean(DistributionCosine self) -> double
 
-        double DistributionCosine::getMean() const  final
+        double DistributionCosine::getMean() const final
 
         Returns the distribution-specific mean. 
 
@@ -8681,7 +8681,7 @@ class DistributionCosine(IDistribution1D):
         """
         getSigma(DistributionCosine self) -> double
 
-        double DistributionCosine::getSigma() const 
+        double DistributionCosine::getSigma() const
 
         """
         return _libBornAgainCore.DistributionCosine_getSigma(self)
@@ -8704,7 +8704,7 @@ class DistributionCosine(IDistribution1D):
         """
         isDelta(DistributionCosine self) -> bool
 
-        bool DistributionCosine::isDelta() const  final
+        bool DistributionCosine::isDelta() const final
 
         Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 
@@ -8716,7 +8716,7 @@ class DistributionCosine(IDistribution1D):
         """
         accept(DistributionCosine self, INodeVisitor visitor)
 
-        void DistributionCosine::accept(INodeVisitor *visitor) const  final
+        void DistributionCosine::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8766,7 +8766,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         clone(DistributionTrapezoid self) -> DistributionTrapezoid
 
-        DistributionTrapezoid* DistributionTrapezoid::clone() const  final
+        DistributionTrapezoid* DistributionTrapezoid::clone() const final
 
         """
         return _libBornAgainCore.DistributionTrapezoid_clone(self)
@@ -8776,7 +8776,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         probabilityDensity(DistributionTrapezoid self, double x) -> double
 
-        double DistributionTrapezoid::probabilityDensity(double x) const  final
+        double DistributionTrapezoid::probabilityDensity(double x) const final
 
         Returns the distribution-specific probability density for value x. 
 
@@ -8788,7 +8788,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         getMean(DistributionTrapezoid self) -> double
 
-        double DistributionTrapezoid::getMean() const  final
+        double DistributionTrapezoid::getMean() const final
 
         Returns the distribution-specific mean. 
 
@@ -8800,7 +8800,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         getLeftWidth(DistributionTrapezoid self) -> double
 
-        double DistributionTrapezoid::getLeftWidth() const 
+        double DistributionTrapezoid::getLeftWidth() const
 
         """
         return _libBornAgainCore.DistributionTrapezoid_getLeftWidth(self)
@@ -8810,7 +8810,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         getMiddleWidth(DistributionTrapezoid self) -> double
 
-        double DistributionTrapezoid::getMiddleWidth() const 
+        double DistributionTrapezoid::getMiddleWidth() const
 
         """
         return _libBornAgainCore.DistributionTrapezoid_getMiddleWidth(self)
@@ -8820,7 +8820,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         getRightWidth(DistributionTrapezoid self) -> double
 
-        double DistributionTrapezoid::getRightWidth() const 
+        double DistributionTrapezoid::getRightWidth() const
 
         """
         return _libBornAgainCore.DistributionTrapezoid_getRightWidth(self)
@@ -8843,7 +8843,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         isDelta(DistributionTrapezoid self) -> bool
 
-        bool DistributionTrapezoid::isDelta() const  final
+        bool DistributionTrapezoid::isDelta() const final
 
         Returns true if the distribution is in the limit case of a Dirac delta distribution. 
 
@@ -8855,7 +8855,7 @@ class DistributionTrapezoid(IDistribution1D):
         """
         accept(DistributionTrapezoid self, INodeVisitor visitor)
 
-        void DistributionTrapezoid::accept(INodeVisitor *visitor) const  final
+        void DistributionTrapezoid::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -8931,7 +8931,7 @@ class DetectorMask(_object):
         """
         isMasked(DetectorMask self, size_t index) -> bool
 
-        bool DetectorMask::isMasked(size_t index) const 
+        bool DetectorMask::isMasked(size_t index) const
 
         """
         return _libBornAgainCore.DetectorMask_isMasked(self, index)
@@ -8941,7 +8941,7 @@ class DetectorMask(_object):
         """
         getMaskData(DetectorMask self) -> OutputData< bool > const *
 
-        const OutputData<bool>* DetectorMask::getMaskData() const 
+        const OutputData<bool>* DetectorMask::getMaskData() const
 
         """
         return _libBornAgainCore.DetectorMask_getMaskData(self)
@@ -8951,7 +8951,7 @@ class DetectorMask(_object):
         """
         createHistogram(DetectorMask self) -> Histogram2D
 
-        Histogram2D * DetectorMask::createHistogram() const 
+        Histogram2D * DetectorMask::createHistogram() const
 
         """
         return _libBornAgainCore.DetectorMask_createHistogram(self)
@@ -8985,7 +8985,7 @@ class DetectorMask(_object):
         """
         numberOfMaskedChannels(DetectorMask self) -> int
 
-        int DetectorMask::numberOfMaskedChannels() const 
+        int DetectorMask::numberOfMaskedChannels() const
 
         """
         return _libBornAgainCore.DetectorMask_numberOfMaskedChannels(self)
@@ -8995,7 +8995,7 @@ class DetectorMask(_object):
         """
         numberOfMasks(DetectorMask self) -> size_t
 
-        size_t DetectorMask::numberOfMasks() const 
+        size_t DetectorMask::numberOfMasks() const
 
         """
         return _libBornAgainCore.DetectorMask_numberOfMasks(self)
@@ -9005,7 +9005,7 @@ class DetectorMask(_object):
         """
         getMaskShape(DetectorMask self, size_t mask_index, bool & mask_value) -> IShape2D
 
-        const IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const 
+        const IShape2D * DetectorMask::getMaskShape(size_t mask_index, bool &mask_value) const
 
         """
         return _libBornAgainCore.DetectorMask_getMaskShape(self, mask_index, mask_value)
@@ -9071,7 +9071,7 @@ class Ellipse(IShape2D):
         """
         clone(Ellipse self) -> Ellipse
 
-        Ellipse* Ellipse::clone() const 
+        Ellipse* Ellipse::clone() const
 
         """
         return _libBornAgainCore.Ellipse_clone(self)
@@ -9094,7 +9094,7 @@ class Ellipse(IShape2D):
         """
         getCenterX(Ellipse self) -> double
 
-        double Ellipse::getCenterX() const 
+        double Ellipse::getCenterX() const
 
         """
         return _libBornAgainCore.Ellipse_getCenterX(self)
@@ -9104,7 +9104,7 @@ class Ellipse(IShape2D):
         """
         getCenterY(Ellipse self) -> double
 
-        double Ellipse::getCenterY() const 
+        double Ellipse::getCenterY() const
 
         """
         return _libBornAgainCore.Ellipse_getCenterY(self)
@@ -9114,7 +9114,7 @@ class Ellipse(IShape2D):
         """
         getRadiusX(Ellipse self) -> double
 
-        double Ellipse::getRadiusX() const 
+        double Ellipse::getRadiusX() const
 
         """
         return _libBornAgainCore.Ellipse_getRadiusX(self)
@@ -9124,7 +9124,7 @@ class Ellipse(IShape2D):
         """
         getRadiusY(Ellipse self) -> double
 
-        double Ellipse::getRadiusY() const 
+        double Ellipse::getRadiusY() const
 
         """
         return _libBornAgainCore.Ellipse_getRadiusY(self)
@@ -9134,7 +9134,7 @@ class Ellipse(IShape2D):
         """
         getTheta(Ellipse self) -> double
 
-        double Ellipse::getTheta() const 
+        double Ellipse::getTheta() const
 
         """
         return _libBornAgainCore.Ellipse_getTheta(self)
@@ -9171,7 +9171,7 @@ class IFTDecayFunction1D(ICloneable, INode):
         """
         clone(IFTDecayFunction1D self) -> IFTDecayFunction1D
 
-        virtual IFTDecayFunction1D* IFTDecayFunction1D::clone() const  =0
+        virtual IFTDecayFunction1D* IFTDecayFunction1D::clone() const =0
 
         """
         return _libBornAgainCore.IFTDecayFunction1D_clone(self)
@@ -9181,7 +9181,7 @@ class IFTDecayFunction1D(ICloneable, INode):
         """
         evaluate(IFTDecayFunction1D self, double q) -> double
 
-        virtual double IFTDecayFunction1D::evaluate(double q) const  =0
+        virtual double IFTDecayFunction1D::evaluate(double q) const =0
 
         """
         return _libBornAgainCore.IFTDecayFunction1D_evaluate(self, q)
@@ -9191,7 +9191,7 @@ class IFTDecayFunction1D(ICloneable, INode):
         """
         decayLength(IFTDecayFunction1D self) -> double
 
-        double IFTDecayFunction1D::decayLength() const 
+        double IFTDecayFunction1D::decayLength() const
 
         """
         return _libBornAgainCore.IFTDecayFunction1D_decayLength(self)
@@ -9238,7 +9238,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DCauchy self) -> FTDecayFunction1DCauchy
 
-        FTDecayFunction1DCauchy * FTDecayFunction1DCauchy::clone() const 
+        FTDecayFunction1DCauchy * FTDecayFunction1DCauchy::clone() const
 
         """
         return _libBornAgainCore.FTDecayFunction1DCauchy_clone(self)
@@ -9248,7 +9248,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
         """
         accept(FTDecayFunction1DCauchy self, INodeVisitor visitor)
 
-        void FTDecayFunction1DCauchy::accept(INodeVisitor *visitor) const  final
+        void FTDecayFunction1DCauchy::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9260,7 +9260,7 @@ class FTDecayFunction1DCauchy(IFTDecayFunction1D):
         """
         evaluate(FTDecayFunction1DCauchy self, double q) -> double
 
-        double FTDecayFunction1DCauchy::evaluate(double q) const  final
+        double FTDecayFunction1DCauchy::evaluate(double q) const final
 
         """
         return _libBornAgainCore.FTDecayFunction1DCauchy_evaluate(self, q)
@@ -9307,7 +9307,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DGauss self) -> FTDecayFunction1DGauss
 
-        FTDecayFunction1DGauss * FTDecayFunction1DGauss::clone() const 
+        FTDecayFunction1DGauss * FTDecayFunction1DGauss::clone() const
 
         """
         return _libBornAgainCore.FTDecayFunction1DGauss_clone(self)
@@ -9317,7 +9317,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
         """
         accept(FTDecayFunction1DGauss self, INodeVisitor visitor)
 
-        void FTDecayFunction1DGauss::accept(INodeVisitor *visitor) const  final
+        void FTDecayFunction1DGauss::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9329,7 +9329,7 @@ class FTDecayFunction1DGauss(IFTDecayFunction1D):
         """
         evaluate(FTDecayFunction1DGauss self, double q) -> double
 
-        double FTDecayFunction1DGauss::evaluate(double q) const  final
+        double FTDecayFunction1DGauss::evaluate(double q) const final
 
         """
         return _libBornAgainCore.FTDecayFunction1DGauss_evaluate(self, q)
@@ -9376,7 +9376,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DTriangle self) -> FTDecayFunction1DTriangle
 
-        FTDecayFunction1DTriangle * FTDecayFunction1DTriangle::clone() const 
+        FTDecayFunction1DTriangle * FTDecayFunction1DTriangle::clone() const
 
         """
         return _libBornAgainCore.FTDecayFunction1DTriangle_clone(self)
@@ -9386,7 +9386,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
         """
         accept(FTDecayFunction1DTriangle self, INodeVisitor visitor)
 
-        void FTDecayFunction1DTriangle::accept(INodeVisitor *visitor) const  final
+        void FTDecayFunction1DTriangle::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9398,7 +9398,7 @@ class FTDecayFunction1DTriangle(IFTDecayFunction1D):
         """
         evaluate(FTDecayFunction1DTriangle self, double q) -> double
 
-        double FTDecayFunction1DTriangle::evaluate(double q) const  final
+        double FTDecayFunction1DTriangle::evaluate(double q) const final
 
         """
         return _libBornAgainCore.FTDecayFunction1DTriangle_evaluate(self, q)
@@ -9456,7 +9456,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         """
         clone(FTDecayFunction1DVoigt self) -> FTDecayFunction1DVoigt
 
-        FTDecayFunction1DVoigt * FTDecayFunction1DVoigt::clone() const 
+        FTDecayFunction1DVoigt * FTDecayFunction1DVoigt::clone() const
 
         """
         return _libBornAgainCore.FTDecayFunction1DVoigt_clone(self)
@@ -9466,7 +9466,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         """
         accept(FTDecayFunction1DVoigt self, INodeVisitor visitor)
 
-        void FTDecayFunction1DVoigt::accept(INodeVisitor *visitor) const  final
+        void FTDecayFunction1DVoigt::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9478,7 +9478,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         """
         evaluate(FTDecayFunction1DVoigt self, double q) -> double
 
-        double FTDecayFunction1DVoigt::evaluate(double q) const  final
+        double FTDecayFunction1DVoigt::evaluate(double q) const final
 
         """
         return _libBornAgainCore.FTDecayFunction1DVoigt_evaluate(self, q)
@@ -9488,7 +9488,7 @@ class FTDecayFunction1DVoigt(IFTDecayFunction1D):
         """
         eEta(FTDecayFunction1DVoigt self) -> double
 
-        double FTDecayFunction1DVoigt::eEta() const 
+        double FTDecayFunction1DVoigt::eEta() const
 
         """
         return _libBornAgainCore.FTDecayFunction1DVoigt_eEta(self)
@@ -9525,7 +9525,7 @@ class IFTDecayFunction2D(ICloneable, INode):
         """
         clone(IFTDecayFunction2D self) -> IFTDecayFunction2D
 
-        virtual IFTDecayFunction2D* IFTDecayFunction2D::clone() const  =0
+        virtual IFTDecayFunction2D* IFTDecayFunction2D::clone() const =0
 
         """
         return _libBornAgainCore.IFTDecayFunction2D_clone(self)
@@ -9595,7 +9595,7 @@ class IFTDecayFunction2D(ICloneable, INode):
         """
         evaluate(IFTDecayFunction2D self, double qx, double qy) -> double
 
-        virtual double IFTDecayFunction2D::evaluate(double qx, double qy) const  =0
+        virtual double IFTDecayFunction2D::evaluate(double qx, double qy) const =0
 
         evaluate Fourier transformed decay function for q in X,Y coordinates 
 
@@ -9657,7 +9657,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         """
         clone(FTDecayFunction2DCauchy self) -> FTDecayFunction2DCauchy
 
-        FTDecayFunction2DCauchy * FTDecayFunction2DCauchy::clone() const 
+        FTDecayFunction2DCauchy * FTDecayFunction2DCauchy::clone() const
 
         """
         return _libBornAgainCore.FTDecayFunction2DCauchy_clone(self)
@@ -9667,7 +9667,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         """
         accept(FTDecayFunction2DCauchy self, INodeVisitor visitor)
 
-        void FTDecayFunction2DCauchy::accept(INodeVisitor *visitor) const  final
+        void FTDecayFunction2DCauchy::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9679,7 +9679,7 @@ class FTDecayFunction2DCauchy(IFTDecayFunction2D):
         """
         evaluate(FTDecayFunction2DCauchy self, double qx, double qy) -> double
 
-        double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const  final
+        double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed decay function for q in X,Y coordinates 
 
@@ -9729,7 +9729,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         """
         clone(FTDecayFunction2DGauss self) -> FTDecayFunction2DGauss
 
-        FTDecayFunction2DGauss * FTDecayFunction2DGauss::clone() const 
+        FTDecayFunction2DGauss * FTDecayFunction2DGauss::clone() const
 
         """
         return _libBornAgainCore.FTDecayFunction2DGauss_clone(self)
@@ -9739,7 +9739,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         """
         accept(FTDecayFunction2DGauss self, INodeVisitor visitor)
 
-        void FTDecayFunction2DGauss::accept(INodeVisitor *visitor) const  final
+        void FTDecayFunction2DGauss::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9751,7 +9751,7 @@ class FTDecayFunction2DGauss(IFTDecayFunction2D):
         """
         evaluate(FTDecayFunction2DGauss self, double qx, double qy) -> double
 
-        double FTDecayFunction2DGauss::evaluate(double qx, double qy) const  final
+        double FTDecayFunction2DGauss::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed decay function for q in X,Y coordinates 
 
@@ -9818,7 +9818,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         """
         clone(FTDecayFunction2DVoigt self) -> FTDecayFunction2DVoigt
 
-        FTDecayFunction2DVoigt * FTDecayFunction2DVoigt::clone() const 
+        FTDecayFunction2DVoigt * FTDecayFunction2DVoigt::clone() const
 
         """
         return _libBornAgainCore.FTDecayFunction2DVoigt_clone(self)
@@ -9828,7 +9828,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         """
         accept(FTDecayFunction2DVoigt self, INodeVisitor visitor)
 
-        void FTDecayFunction2DVoigt::accept(INodeVisitor *visitor) const  final
+        void FTDecayFunction2DVoigt::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9840,7 +9840,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         """
         evaluate(FTDecayFunction2DVoigt self, double qx, double qy) -> double
 
-        double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const  final
+        double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed decay function for q in X,Y coordinates 
 
@@ -9852,7 +9852,7 @@ class FTDecayFunction2DVoigt(IFTDecayFunction2D):
         """
         eta(FTDecayFunction2DVoigt self) -> double
 
-        double FTDecayFunction2DVoigt::eta() const 
+        double FTDecayFunction2DVoigt::eta() const
 
         """
         return _libBornAgainCore.FTDecayFunction2DVoigt_eta(self)
@@ -9889,7 +9889,7 @@ class IFTDistribution1D(ICloneable, INode):
         """
         clone(IFTDistribution1D self) -> IFTDistribution1D
 
-        virtual IFTDistribution1D* IFTDistribution1D::clone() const  =0
+        virtual IFTDistribution1D* IFTDistribution1D::clone() const =0
 
         """
         return _libBornAgainCore.IFTDistribution1D_clone(self)
@@ -9899,7 +9899,7 @@ class IFTDistribution1D(ICloneable, INode):
         """
         evaluate(IFTDistribution1D self, double q) -> double
 
-        virtual double IFTDistribution1D::evaluate(double q) const  =0
+        virtual double IFTDistribution1D::evaluate(double q) const =0
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -9921,7 +9921,7 @@ class IFTDistribution1D(ICloneable, INode):
         """
         omega(IFTDistribution1D self) -> double
 
-        double IFTDistribution1D::omega() const 
+        double IFTDistribution1D::omega() const
 
         """
         return _libBornAgainCore.IFTDistribution1D_omega(self)
@@ -9968,7 +9968,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         clone(FTDistribution1DCauchy self) -> FTDistribution1DCauchy
 
-        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const  final
+        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DCauchy_clone(self)
@@ -9978,7 +9978,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         accept(FTDistribution1DCauchy self, INodeVisitor visitor)
 
-        void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const  final
+        void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9990,7 +9990,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         evaluate(FTDistribution1DCauchy self, double q) -> double
 
-        double FTDistribution1DCauchy::evaluate(double q) const  final
+        double FTDistribution1DCauchy::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -10039,7 +10039,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         clone(FTDistribution1DGauss self) -> FTDistribution1DGauss
 
-        FTDistribution1DGauss * FTDistribution1DGauss::clone() const  final
+        FTDistribution1DGauss * FTDistribution1DGauss::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DGauss_clone(self)
@@ -10049,7 +10049,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         accept(FTDistribution1DGauss self, INodeVisitor visitor)
 
-        void FTDistribution1DGauss::accept(INodeVisitor *visitor) const  final
+        void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10061,7 +10061,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         evaluate(FTDistribution1DGauss self, double q) -> double
 
-        double FTDistribution1DGauss::evaluate(double q) const  final
+        double FTDistribution1DGauss::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -10110,7 +10110,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         clone(FTDistribution1DGate self) -> FTDistribution1DGate
 
-        FTDistribution1DGate * FTDistribution1DGate::clone() const  final
+        FTDistribution1DGate * FTDistribution1DGate::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DGate_clone(self)
@@ -10120,7 +10120,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         accept(FTDistribution1DGate self, INodeVisitor visitor)
 
-        void FTDistribution1DGate::accept(INodeVisitor *visitor) const  final
+        void FTDistribution1DGate::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10132,7 +10132,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         evaluate(FTDistribution1DGate self, double q) -> double
 
-        double FTDistribution1DGate::evaluate(double q) const  final
+        double FTDistribution1DGate::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -10181,7 +10181,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         clone(FTDistribution1DTriangle self) -> FTDistribution1DTriangle
 
-        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const  final
+        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DTriangle_clone(self)
@@ -10191,7 +10191,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         accept(FTDistribution1DTriangle self, INodeVisitor visitor)
 
-        void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const  final
+        void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10203,7 +10203,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         evaluate(FTDistribution1DTriangle self, double q) -> double
 
-        double FTDistribution1DTriangle::evaluate(double q) const  final
+        double FTDistribution1DTriangle::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -10252,7 +10252,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         clone(FTDistribution1DCosine self) -> FTDistribution1DCosine
 
-        FTDistribution1DCosine * FTDistribution1DCosine::clone() const  final
+        FTDistribution1DCosine * FTDistribution1DCosine::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_clone(self)
@@ -10262,7 +10262,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         accept(FTDistribution1DCosine self, INodeVisitor visitor)
 
-        void FTDistribution1DCosine::accept(INodeVisitor *visitor) const  final
+        void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10274,7 +10274,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         evaluate(FTDistribution1DCosine self, double q) -> double
 
-        double FTDistribution1DCosine::evaluate(double q) const  final
+        double FTDistribution1DCosine::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -10334,7 +10334,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         clone(FTDistribution1DVoigt self) -> FTDistribution1DVoigt
 
-        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const  final
+        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_clone(self)
@@ -10344,7 +10344,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         accept(FTDistribution1DVoigt self, INodeVisitor visitor)
 
-        void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const  final
+        void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10356,7 +10356,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         evaluate(FTDistribution1DVoigt self, double q) -> double
 
-        double FTDistribution1DVoigt::evaluate(double q) const  final
+        double FTDistribution1DVoigt::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -10368,7 +10368,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         eta(FTDistribution1DVoigt self) -> double
 
-        double FTDistribution1DVoigt::eta() const 
+        double FTDistribution1DVoigt::eta() const
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_eta(self)
@@ -10405,7 +10405,7 @@ class IFTDistribution2D(ICloneable, INode):
         """
         clone(IFTDistribution2D self) -> IFTDistribution2D
 
-        IFTDistribution2D* IFTDistribution2D::clone() const  =0
+        IFTDistribution2D* IFTDistribution2D::clone() const =0
 
         """
         return _libBornAgainCore.IFTDistribution2D_clone(self)
@@ -10425,7 +10425,7 @@ class IFTDistribution2D(ICloneable, INode):
         """
         gamma(IFTDistribution2D self) -> double
 
-        double IFTDistribution2D::gamma() const 
+        double IFTDistribution2D::gamma() const
 
         """
         return _libBornAgainCore.IFTDistribution2D_gamma(self)
@@ -10435,7 +10435,7 @@ class IFTDistribution2D(ICloneable, INode):
         """
         delta(IFTDistribution2D self) -> double
 
-        double IFTDistribution2D::delta() const 
+        double IFTDistribution2D::delta() const
 
         """
         return _libBornAgainCore.IFTDistribution2D_delta(self)
@@ -10445,7 +10445,7 @@ class IFTDistribution2D(ICloneable, INode):
         """
         omegaX(IFTDistribution2D self) -> double
 
-        double IFTDistribution2D::omegaX() const 
+        double IFTDistribution2D::omegaX() const
 
         """
         return _libBornAgainCore.IFTDistribution2D_omegaX(self)
@@ -10455,7 +10455,7 @@ class IFTDistribution2D(ICloneable, INode):
         """
         omegaY(IFTDistribution2D self) -> double
 
-        double IFTDistribution2D::omegaY() const 
+        double IFTDistribution2D::omegaY() const
 
         """
         return _libBornAgainCore.IFTDistribution2D_omegaY(self)
@@ -10465,7 +10465,7 @@ class IFTDistribution2D(ICloneable, INode):
         """
         evaluate(IFTDistribution2D self, double qx, double qy) -> double
 
-        virtual double IFTDistribution2D::evaluate(double qx, double qy) const  =0
+        virtual double IFTDistribution2D::evaluate(double qx, double qy) const =0
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -10515,7 +10515,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         """
         clone(FTDistribution2DCauchy self) -> FTDistribution2DCauchy
 
-        FTDistribution2DCauchy * FTDistribution2DCauchy::clone() const  final
+        FTDistribution2DCauchy * FTDistribution2DCauchy::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DCauchy_clone(self)
@@ -10525,7 +10525,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         """
         accept(FTDistribution2DCauchy self, INodeVisitor visitor)
 
-        void FTDistribution2DCauchy::accept(INodeVisitor *visitor) const  final
+        void FTDistribution2DCauchy::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10537,7 +10537,7 @@ class FTDistribution2DCauchy(IFTDistribution2D):
         """
         evaluate(FTDistribution2DCauchy self, double qx, double qy) -> double
 
-        double FTDistribution2DCauchy::evaluate(double qx, double qy) const  final
+        double FTDistribution2DCauchy::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -10587,7 +10587,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         """
         clone(FTDistribution2DGauss self) -> FTDistribution2DGauss
 
-        FTDistribution2DGauss * FTDistribution2DGauss::clone() const  final
+        FTDistribution2DGauss * FTDistribution2DGauss::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DGauss_clone(self)
@@ -10597,7 +10597,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         """
         accept(FTDistribution2DGauss self, INodeVisitor visitor)
 
-        void FTDistribution2DGauss::accept(INodeVisitor *visitor) const  final
+        void FTDistribution2DGauss::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10609,7 +10609,7 @@ class FTDistribution2DGauss(IFTDistribution2D):
         """
         evaluate(FTDistribution2DGauss self, double qx, double qy) -> double
 
-        double FTDistribution2DGauss::evaluate(double qx, double qy) const  final
+        double FTDistribution2DGauss::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -10659,7 +10659,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         """
         clone(FTDistribution2DGate self) -> FTDistribution2DGate
 
-        FTDistribution2DGate * FTDistribution2DGate::clone() const  final
+        FTDistribution2DGate * FTDistribution2DGate::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DGate_clone(self)
@@ -10669,7 +10669,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         """
         accept(FTDistribution2DGate self, INodeVisitor visitor)
 
-        void FTDistribution2DGate::accept(INodeVisitor *visitor) const  final
+        void FTDistribution2DGate::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10681,7 +10681,7 @@ class FTDistribution2DGate(IFTDistribution2D):
         """
         evaluate(FTDistribution2DGate self, double qx, double qy) -> double
 
-        double FTDistribution2DGate::evaluate(double qx, double qy) const  final
+        double FTDistribution2DGate::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -10731,7 +10731,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         """
         clone(FTDistribution2DCone self) -> FTDistribution2DCone
 
-        FTDistribution2DCone * FTDistribution2DCone::clone() const  final
+        FTDistribution2DCone * FTDistribution2DCone::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DCone_clone(self)
@@ -10741,7 +10741,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         """
         accept(FTDistribution2DCone self, INodeVisitor visitor)
 
-        void FTDistribution2DCone::accept(INodeVisitor *visitor) const  final
+        void FTDistribution2DCone::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10753,7 +10753,7 @@ class FTDistribution2DCone(IFTDistribution2D):
         """
         evaluate(FTDistribution2DCone self, double qx, double qy) -> double
 
-        double FTDistribution2DCone::evaluate(double qx, double qy) const  final
+        double FTDistribution2DCone::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -10820,7 +10820,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         """
         clone(FTDistribution2DVoigt self) -> FTDistribution2DVoigt
 
-        FTDistribution2DVoigt * FTDistribution2DVoigt::clone() const  final
+        FTDistribution2DVoigt * FTDistribution2DVoigt::clone() const final
 
         """
         return _libBornAgainCore.FTDistribution2DVoigt_clone(self)
@@ -10830,7 +10830,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         """
         accept(FTDistribution2DVoigt self, INodeVisitor visitor)
 
-        void FTDistribution2DVoigt::accept(INodeVisitor *visitor) const  final
+        void FTDistribution2DVoigt::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -10842,7 +10842,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         """
         evaluate(FTDistribution2DVoigt self, double qx, double qy) -> double
 
-        double FTDistribution2DVoigt::evaluate(double qx, double qy) const  final
+        double FTDistribution2DVoigt::evaluate(double qx, double qy) const final
 
         evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 
@@ -10854,7 +10854,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
         """
         eta(FTDistribution2DVoigt self) -> double
 
-        double FTDistribution2DVoigt::eta() const 
+        double FTDistribution2DVoigt::eta() const
 
         """
         return _libBornAgainCore.FTDistribution2DVoigt_eta(self)
@@ -10980,7 +10980,7 @@ class FixedBinAxis(IAxis):
         """
         getBinCenter(FixedBinAxis self, size_t index) -> double
 
-        double FixedBinAxis::getBinCenter(size_t index) const 
+        double FixedBinAxis::getBinCenter(size_t index) const
 
         """
         return _libBornAgainCore.FixedBinAxis_getBinCenter(self, index)
@@ -11002,7 +11002,7 @@ class FixedBinAxis(IAxis):
         """
         getBinCenters(FixedBinAxis self) -> vdouble1d_t
 
-        std::vector< double > FixedBinAxis::getBinCenters() const 
+        std::vector< double > FixedBinAxis::getBinCenters() const
 
         """
         return _libBornAgainCore.FixedBinAxis_getBinCenters(self)
@@ -11012,7 +11012,7 @@ class FixedBinAxis(IAxis):
         """
         getBinBoundaries(FixedBinAxis self) -> vdouble1d_t
 
-        std::vector< double > FixedBinAxis::getBinBoundaries() const 
+        std::vector< double > FixedBinAxis::getBinBoundaries() const
 
         """
         return _libBornAgainCore.FixedBinAxis_getBinBoundaries(self)
@@ -11084,7 +11084,7 @@ class IFormFactor(ISample):
         """
         clone(IFormFactor self) -> IFormFactor
 
-        IFormFactor* IFormFactor::clone() const  override=0
+        IFormFactor* IFormFactor::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -11120,7 +11120,7 @@ class IFormFactor(ISample):
         """
         evaluate(IFormFactor self, WavevectorInfo wavevectors) -> complex_t
 
-        virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const  =0
+        virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -11144,7 +11144,7 @@ class IFormFactor(ISample):
         """
         radialExtension(IFormFactor self) -> double
 
-        virtual double IFormFactor::radialExtension() const  =0
+        virtual double IFormFactor::radialExtension() const =0
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11156,7 +11156,7 @@ class IFormFactor(ISample):
         """
         bottomZ(IFormFactor self, IRotation rotation) -> double
 
-        virtual double IFormFactor::bottomZ(const IRotation &rotation) const  =0
+        virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -11168,7 +11168,7 @@ class IFormFactor(ISample):
         """
         topZ(IFormFactor self, IRotation rotation) -> double
 
-        virtual double IFormFactor::topZ(const IRotation &rotation) const  =0
+        virtual double IFormFactor::topZ(const IRotation &rotation) const =0
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -11458,7 +11458,7 @@ class IFormFactorBorn(IFormFactor):
         """
         clone(IFormFactorBorn self) -> IFormFactorBorn
 
-        IFormFactorBorn* IFormFactorBorn::clone() const  override=0
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -11482,7 +11482,7 @@ class IFormFactorBorn(IFormFactor):
         """
         evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const  override
+        complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -11494,7 +11494,7 @@ class IFormFactorBorn(IFormFactor):
         """
         bottomZ(IFormFactorBorn self, IRotation rotation) -> double
 
-        double IFormFactorBorn::bottomZ(const IRotation &rotation) const  override
+        double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -11506,7 +11506,7 @@ class IFormFactorBorn(IFormFactor):
         """
         topZ(IFormFactorBorn self, IRotation rotation) -> double
 
-        double IFormFactorBorn::topZ(const IRotation &rotation) const  override
+        double IFormFactorBorn::topZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -11518,7 +11518,7 @@ class IFormFactorBorn(IFormFactor):
         """
         evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
 
-        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const  =0
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -11622,7 +11622,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         clone(IFormFactorDecorator self) -> IFormFactorDecorator
 
-        IFormFactorDecorator* IFormFactorDecorator::clone() const  override=0
+        IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -11634,7 +11634,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         accept(IFormFactorDecorator self, INodeVisitor visitor)
 
-        void IFormFactorDecorator::accept(INodeVisitor *visitor) const  override=0
+        void IFormFactorDecorator::accept(INodeVisitor *visitor) const override=0
 
         Calls the  INodeVisitor's visit method. 
 
@@ -11658,7 +11658,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         volume(IFormFactorDecorator self) -> double
 
-        double IFormFactorDecorator::volume() const  override
+        double IFormFactorDecorator::volume() const override
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -11670,7 +11670,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         radialExtension(IFormFactorDecorator self) -> double
 
-        double IFormFactorDecorator::radialExtension() const  override
+        double IFormFactorDecorator::radialExtension() const override
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11682,7 +11682,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         bottomZ(IFormFactorDecorator self, IRotation rotation) -> double
 
-        double IFormFactorDecorator::bottomZ(const IRotation &rotation) const  override
+        double IFormFactorDecorator::bottomZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -11694,7 +11694,7 @@ class IFormFactorDecorator(IFormFactor):
         """
         topZ(IFormFactorDecorator self, IRotation rotation) -> double
 
-        double IFormFactorDecorator::topZ(const IRotation &rotation) const  override
+        double IFormFactorDecorator::topZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -11827,7 +11827,7 @@ class PolyhedralEdge(_object):
         """
         E(PolyhedralEdge self) -> kvector_t
 
-        kvector_t PolyhedralEdge::E() const 
+        kvector_t PolyhedralEdge::E() const
 
         """
         return _libBornAgainCore.PolyhedralEdge_E(self)
@@ -11837,7 +11837,7 @@ class PolyhedralEdge(_object):
         """
         R(PolyhedralEdge self) -> kvector_t
 
-        kvector_t PolyhedralEdge::R() const 
+        kvector_t PolyhedralEdge::R() const
 
         """
         return _libBornAgainCore.PolyhedralEdge_R(self)
@@ -11847,7 +11847,7 @@ class PolyhedralEdge(_object):
         """
         qE(PolyhedralEdge self, cvector_t q) -> complex_t
 
-        complex_t PolyhedralEdge::qE(cvector_t q) const 
+        complex_t PolyhedralEdge::qE(cvector_t q) const
 
         """
         return _libBornAgainCore.PolyhedralEdge_qE(self, q)
@@ -11857,7 +11857,7 @@ class PolyhedralEdge(_object):
         """
         qR(PolyhedralEdge self, cvector_t q) -> complex_t
 
-        complex_t PolyhedralEdge::qR(cvector_t q) const 
+        complex_t PolyhedralEdge::qR(cvector_t q) const
 
         """
         return _libBornAgainCore.PolyhedralEdge_qR(self, q)
@@ -11931,7 +11931,7 @@ class PolyhedralFace(_object):
         """
         area(PolyhedralFace self) -> double
 
-        double PolyhedralFace::area() const 
+        double PolyhedralFace::area() const
 
         """
         return _libBornAgainCore.PolyhedralFace_area(self)
@@ -11941,7 +11941,7 @@ class PolyhedralFace(_object):
         """
         center(PolyhedralFace self) -> kvector_t
 
-        kvector_t PolyhedralFace::center() const 
+        kvector_t PolyhedralFace::center() const
 
         """
         return _libBornAgainCore.PolyhedralFace_center(self)
@@ -11951,7 +11951,7 @@ class PolyhedralFace(_object):
         """
         pyramidalVolume(PolyhedralFace self) -> double
 
-        double PolyhedralFace::pyramidalVolume() const 
+        double PolyhedralFace::pyramidalVolume() const
 
         """
         return _libBornAgainCore.PolyhedralFace_pyramidalVolume(self)
@@ -11961,7 +11961,7 @@ class PolyhedralFace(_object):
         """
         radius3d(PolyhedralFace self) -> double
 
-        double PolyhedralFace::radius3d() const 
+        double PolyhedralFace::radius3d() const
 
         """
         return _libBornAgainCore.PolyhedralFace_radius3d(self)
@@ -12062,7 +12062,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
 
         Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
 
@@ -12086,7 +12086,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         volume(FormFactorPolyhedron self) -> double
 
-        double FormFactorPolyhedron::volume() const  override final
+        double FormFactorPolyhedron::volume() const override final
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -12098,7 +12098,7 @@ class FormFactorPolyhedron(IFormFactorBorn):
         """
         radialExtension(FormFactorPolyhedron self) -> double
 
-        double FormFactorPolyhedron::radialExtension() const  override final
+        double FormFactorPolyhedron::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12149,7 +12149,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolygonalPrism self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const override final
 
         Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 
@@ -12161,7 +12161,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         volume(FormFactorPolygonalPrism self) -> double
 
-        double FormFactorPolygonalPrism::volume() const  override final
+        double FormFactorPolygonalPrism::volume() const override final
 
         Returns the volume of this prism. 
 
@@ -12173,7 +12173,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         getHeight(FormFactorPolygonalPrism self) -> double
 
-        double FormFactorPolygonalPrism::getHeight() const 
+        double FormFactorPolygonalPrism::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorPolygonalPrism_getHeight(self)
@@ -12183,7 +12183,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
         """
         radialExtension(FormFactorPolygonalPrism self) -> double
 
-        double FormFactorPolygonalPrism::radialExtension() const  override final
+        double FormFactorPolygonalPrism::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12222,7 +12222,7 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorPolygonalSurface self, cvector_t q) -> complex_t
 
-        complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorPolygonalSurface::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -12234,7 +12234,7 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
         """
         volume(FormFactorPolygonalSurface self) -> double
 
-        double FormFactorPolygonalSurface::volume() const  override
+        double FormFactorPolygonalSurface::volume() const override
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -12246,7 +12246,7 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
         """
         radialExtension(FormFactorPolygonalSurface self) -> double
 
-        double FormFactorPolygonalSurface::radialExtension() const  override final
+        double FormFactorPolygonalSurface::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12312,7 +12312,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         """
         clone(FormFactorAnisoPyramid self) -> FormFactorAnisoPyramid
 
-        FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const  override final
+        FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -12324,7 +12324,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         """
         accept(FormFactorAnisoPyramid self, INodeVisitor visitor)
 
-        void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const  override final
+        void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -12336,7 +12336,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         """
         getLength(FormFactorAnisoPyramid self) -> double
 
-        double FormFactorAnisoPyramid::getLength() const 
+        double FormFactorAnisoPyramid::getLength() const
 
         """
         return _libBornAgainCore.FormFactorAnisoPyramid_getLength(self)
@@ -12346,7 +12346,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         """
         getWidth(FormFactorAnisoPyramid self) -> double
 
-        double FormFactorAnisoPyramid::getWidth() const 
+        double FormFactorAnisoPyramid::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorAnisoPyramid_getWidth(self)
@@ -12356,7 +12356,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         """
         getHeight(FormFactorAnisoPyramid self) -> double
 
-        double FormFactorAnisoPyramid::getHeight() const 
+        double FormFactorAnisoPyramid::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorAnisoPyramid_getHeight(self)
@@ -12366,7 +12366,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
         """
         getAlpha(FormFactorAnisoPyramid self) -> double
 
-        double FormFactorAnisoPyramid::getAlpha() const 
+        double FormFactorAnisoPyramid::getAlpha() const
 
         """
         return _libBornAgainCore.FormFactorAnisoPyramid_getAlpha(self)
@@ -12427,7 +12427,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         clone(FormFactorBox self) -> FormFactorBox
 
-        FormFactorBox* FormFactorBox::clone() const  override final
+        FormFactorBox* FormFactorBox::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -12439,7 +12439,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         accept(FormFactorBox self, INodeVisitor visitor)
 
-        void FormFactorBox::accept(INodeVisitor *visitor) const  override final
+        void FormFactorBox::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -12451,7 +12451,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         getLength(FormFactorBox self) -> double
 
-        double FormFactorBox::getLength() const 
+        double FormFactorBox::getLength() const
 
         """
         return _libBornAgainCore.FormFactorBox_getLength(self)
@@ -12461,7 +12461,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         getHeight(FormFactorBox self) -> double
 
-        double FormFactorBox::getHeight() const 
+        double FormFactorBox::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorBox_getHeight(self)
@@ -12471,7 +12471,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         getWidth(FormFactorBox self) -> double
 
-        double FormFactorBox::getWidth() const 
+        double FormFactorBox::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorBox_getWidth(self)
@@ -12481,7 +12481,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         radialExtension(FormFactorBox self) -> double
 
-        double FormFactorBox::radialExtension() const  override final
+        double FormFactorBox::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12493,7 +12493,7 @@ class FormFactorBox(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t
 
-        complex_t FormFactorBox::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -12556,7 +12556,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         clone(FormFactorCone self) -> FormFactorCone
 
-        FormFactorCone* FormFactorCone::clone() const  override final
+        FormFactorCone* FormFactorCone::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -12568,7 +12568,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         accept(FormFactorCone self, INodeVisitor visitor)
 
-        void FormFactorCone::accept(INodeVisitor *visitor) const  override final
+        void FormFactorCone::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -12580,7 +12580,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         getHeight(FormFactorCone self) -> double
 
-        double FormFactorCone::getHeight() const 
+        double FormFactorCone::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorCone_getHeight(self)
@@ -12590,7 +12590,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         getAlpha(FormFactorCone self) -> double
 
-        double FormFactorCone::getAlpha() const 
+        double FormFactorCone::getAlpha() const
 
         """
         return _libBornAgainCore.FormFactorCone_getAlpha(self)
@@ -12600,7 +12600,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         getRadius(FormFactorCone self) -> double
 
-        double FormFactorCone::getRadius() const 
+        double FormFactorCone::getRadius() const
 
         """
         return _libBornAgainCore.FormFactorCone_getRadius(self)
@@ -12610,7 +12610,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         radialExtension(FormFactorCone self) -> double
 
-        double FormFactorCone::radialExtension() const  override final
+        double FormFactorCone::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12622,7 +12622,7 @@ class FormFactorCone(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorCone self, cvector_t q) -> complex_t
 
-        complex_t FormFactorCone::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorCone::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -12685,7 +12685,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         """
         clone(FormFactorCone6 self) -> FormFactorCone6
 
-        FormFactorCone6* FormFactorCone6::clone() const  override final
+        FormFactorCone6* FormFactorCone6::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -12697,7 +12697,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         """
         accept(FormFactorCone6 self, INodeVisitor visitor)
 
-        void FormFactorCone6::accept(INodeVisitor *visitor) const  override final
+        void FormFactorCone6::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -12709,7 +12709,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         """
         getBaseEdge(FormFactorCone6 self) -> double
 
-        double FormFactorCone6::getBaseEdge() const 
+        double FormFactorCone6::getBaseEdge() const
 
         """
         return _libBornAgainCore.FormFactorCone6_getBaseEdge(self)
@@ -12719,7 +12719,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         """
         getHeight(FormFactorCone6 self) -> double
 
-        double FormFactorCone6::getHeight() const 
+        double FormFactorCone6::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorCone6_getHeight(self)
@@ -12729,7 +12729,7 @@ class FormFactorCone6(FormFactorPolyhedron):
         """
         getAlpha(FormFactorCone6 self) -> double
 
-        double FormFactorCone6::getAlpha() const 
+        double FormFactorCone6::getAlpha() const
 
         """
         return _libBornAgainCore.FormFactorCone6_getAlpha(self)
@@ -12778,7 +12778,7 @@ class FormFactorCrystal(IFormFactor):
         """
         clone(FormFactorCrystal self) -> FormFactorCrystal
 
-        FormFactorCrystal* FormFactorCrystal::clone() const  override final
+        FormFactorCrystal* FormFactorCrystal::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -12790,7 +12790,7 @@ class FormFactorCrystal(IFormFactor):
         """
         accept(FormFactorCrystal self, INodeVisitor visitor)
 
-        void FormFactorCrystal::accept(INodeVisitor *visitor) const  override final
+        void FormFactorCrystal::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -12814,7 +12814,7 @@ class FormFactorCrystal(IFormFactor):
         """
         volume(FormFactorCrystal self) -> double
 
-        double FormFactorCrystal::volume() const  override final
+        double FormFactorCrystal::volume() const override final
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -12826,7 +12826,7 @@ class FormFactorCrystal(IFormFactor):
         """
         radialExtension(FormFactorCrystal self) -> double
 
-        double FormFactorCrystal::radialExtension() const  override final
+        double FormFactorCrystal::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12838,7 +12838,7 @@ class FormFactorCrystal(IFormFactor):
         """
         bottomZ(FormFactorCrystal self, IRotation rotation) -> double
 
-        double FormFactorCrystal::bottomZ(const IRotation &rotation) const  override
+        double FormFactorCrystal::bottomZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -12850,7 +12850,7 @@ class FormFactorCrystal(IFormFactor):
         """
         topZ(FormFactorCrystal self, IRotation rotation) -> double
 
-        double FormFactorCrystal::topZ(const IRotation &rotation) const  override final
+        double FormFactorCrystal::topZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -12862,7 +12862,7 @@ class FormFactorCrystal(IFormFactor):
         """
         evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const  override final
+        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override final
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -12926,7 +12926,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         clone(FormFactorCuboctahedron self) -> FormFactorCuboctahedron
 
-        FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const  override final
+        FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -12938,7 +12938,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         accept(FormFactorCuboctahedron self, INodeVisitor visitor)
 
-        void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const  override final
+        void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -12950,7 +12950,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         getLength(FormFactorCuboctahedron self) -> double
 
-        double FormFactorCuboctahedron::getLength() const 
+        double FormFactorCuboctahedron::getLength() const
 
         """
         return _libBornAgainCore.FormFactorCuboctahedron_getLength(self)
@@ -12960,7 +12960,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         getHeight(FormFactorCuboctahedron self) -> double
 
-        double FormFactorCuboctahedron::getHeight() const 
+        double FormFactorCuboctahedron::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorCuboctahedron_getHeight(self)
@@ -12970,7 +12970,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         getHeightRatio(FormFactorCuboctahedron self) -> double
 
-        double FormFactorCuboctahedron::getHeightRatio() const 
+        double FormFactorCuboctahedron::getHeightRatio() const
 
         """
         return _libBornAgainCore.FormFactorCuboctahedron_getHeightRatio(self)
@@ -12980,7 +12980,7 @@ class FormFactorCuboctahedron(FormFactorPolyhedron):
         """
         getAlpha(FormFactorCuboctahedron self) -> double
 
-        double FormFactorCuboctahedron::getAlpha() const 
+        double FormFactorCuboctahedron::getAlpha() const
 
         """
         return _libBornAgainCore.FormFactorCuboctahedron_getAlpha(self)
@@ -13038,7 +13038,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         clone(FormFactorCylinder self) -> FormFactorCylinder
 
-        FormFactorCylinder* FormFactorCylinder::clone() const  override final
+        FormFactorCylinder* FormFactorCylinder::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -13050,7 +13050,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         accept(FormFactorCylinder self, INodeVisitor visitor)
 
-        void FormFactorCylinder::accept(INodeVisitor *visitor) const  override final
+        void FormFactorCylinder::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13062,7 +13062,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         getHeight(FormFactorCylinder self) -> double
 
-        double FormFactorCylinder::getHeight() const 
+        double FormFactorCylinder::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorCylinder_getHeight(self)
@@ -13072,7 +13072,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         getRadius(FormFactorCylinder self) -> double
 
-        double FormFactorCylinder::getRadius() const 
+        double FormFactorCylinder::getRadius() const
 
         """
         return _libBornAgainCore.FormFactorCylinder_getRadius(self)
@@ -13082,7 +13082,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         radialExtension(FormFactorCylinder self) -> double
 
-        double FormFactorCylinder::radialExtension() const  override final
+        double FormFactorCylinder::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13094,7 +13094,7 @@ class FormFactorCylinder(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorCylinder self, cvector_t q) -> complex_t
 
-        complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13146,7 +13146,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         clone(FormFactorDecoratorDebyeWaller self) -> FormFactorDecoratorDebyeWaller
 
-        FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const  override final
+        FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -13158,7 +13158,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         accept(FormFactorDecoratorDebyeWaller self, INodeVisitor visitor)
 
-        void FormFactorDecoratorDebyeWaller::accept(INodeVisitor *visitor) const  override final
+        void FormFactorDecoratorDebyeWaller::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13170,7 +13170,7 @@ class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
         """
         evaluate(FormFactorDecoratorDebyeWaller self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const  override final
+        complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const override final
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -13235,7 +13235,7 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         """
         clone(FormFactorDodecahedron self) -> FormFactorDodecahedron
 
-        FormFactorDodecahedron* FormFactorDodecahedron::clone() const  override final
+        FormFactorDodecahedron* FormFactorDodecahedron::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -13247,7 +13247,7 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         """
         accept(FormFactorDodecahedron self, INodeVisitor visitor)
 
-        void FormFactorDodecahedron::accept(INodeVisitor *visitor) const  override final
+        void FormFactorDodecahedron::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13259,7 +13259,7 @@ class FormFactorDodecahedron(FormFactorPolyhedron):
         """
         getEdge(FormFactorDodecahedron self) -> double
 
-        double FormFactorDodecahedron::getEdge() const 
+        double FormFactorDodecahedron::getEdge() const
 
         """
         return _libBornAgainCore.FormFactorDodecahedron_getEdge(self)
@@ -13306,7 +13306,7 @@ class FormFactorDot(IFormFactorBorn):
         """
         clone(FormFactorDot self) -> FormFactorDot
 
-        FormFactorDot* FormFactorDot::clone() const  override final
+        FormFactorDot* FormFactorDot::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -13318,7 +13318,7 @@ class FormFactorDot(IFormFactorBorn):
         """
         accept(FormFactorDot self, INodeVisitor visitor)
 
-        void FormFactorDot::accept(INodeVisitor *visitor) const  override final
+        void FormFactorDot::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13330,7 +13330,7 @@ class FormFactorDot(IFormFactorBorn):
         """
         radialExtension(FormFactorDot self) -> double
 
-        double FormFactorDot::radialExtension() const  override final
+        double FormFactorDot::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13342,7 +13342,7 @@ class FormFactorDot(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorDot self, cvector_t arg2) -> complex_t
 
-        complex_t FormFactorDot::evaluate_for_q(cvector_t) const  override final
+        complex_t FormFactorDot::evaluate_for_q(cvector_t) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13405,7 +13405,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         clone(FormFactorEllipsoidalCylinder self) -> FormFactorEllipsoidalCylinder
 
-        FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const  override final
+        FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -13417,7 +13417,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         accept(FormFactorEllipsoidalCylinder self, INodeVisitor visitor)
 
-        void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const  override final
+        void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13429,7 +13429,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         getRadiusX(FormFactorEllipsoidalCylinder self) -> double
 
-        double FormFactorEllipsoidalCylinder::getRadiusX() const 
+        double FormFactorEllipsoidalCylinder::getRadiusX() const
 
         """
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_getRadiusX(self)
@@ -13439,7 +13439,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         getRadiusY(FormFactorEllipsoidalCylinder self) -> double
 
-        double FormFactorEllipsoidalCylinder::getRadiusY() const 
+        double FormFactorEllipsoidalCylinder::getRadiusY() const
 
         """
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_getRadiusY(self)
@@ -13449,7 +13449,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         getHeight(FormFactorEllipsoidalCylinder self) -> double
 
-        double FormFactorEllipsoidalCylinder::getHeight() const 
+        double FormFactorEllipsoidalCylinder::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorEllipsoidalCylinder_getHeight(self)
@@ -13459,7 +13459,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         radialExtension(FormFactorEllipsoidalCylinder self) -> double
 
-        double FormFactorEllipsoidalCylinder::radialExtension() const  override final
+        double FormFactorEllipsoidalCylinder::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13471,7 +13471,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorEllipsoidalCylinder self, cvector_t q) -> complex_t
 
-        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13528,7 +13528,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         clone(FormFactorFullSphere self) -> FormFactorFullSphere
 
-        FormFactorFullSphere* FormFactorFullSphere::clone() const  override final
+        FormFactorFullSphere* FormFactorFullSphere::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -13540,7 +13540,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         accept(FormFactorFullSphere self, INodeVisitor visitor)
 
-        void FormFactorFullSphere::accept(INodeVisitor *visitor) const  override final
+        void FormFactorFullSphere::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13552,7 +13552,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         getRadius(FormFactorFullSphere self) -> double
 
-        double FormFactorFullSphere::getRadius() const 
+        double FormFactorFullSphere::getRadius() const
 
         """
         return _libBornAgainCore.FormFactorFullSphere_getRadius(self)
@@ -13562,7 +13562,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         radialExtension(FormFactorFullSphere self) -> double
 
-        double FormFactorFullSphere::radialExtension() const  override final
+        double FormFactorFullSphere::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13574,7 +13574,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         bottomZ(FormFactorFullSphere self, IRotation rotation) -> double
 
-        double FormFactorFullSphere::bottomZ(const IRotation &rotation) const  override final
+        double FormFactorFullSphere::bottomZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -13586,7 +13586,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         topZ(FormFactorFullSphere self, IRotation rotation) -> double
 
-        double FormFactorFullSphere::topZ(const IRotation &rotation) const  override final
+        double FormFactorFullSphere::topZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -13598,7 +13598,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorFullSphere self, cvector_t q) -> complex_t
 
-        complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13658,7 +13658,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         clone(FormFactorFullSpheroid self) -> FormFactorFullSpheroid
 
-        FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const  override final
+        FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -13670,7 +13670,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         accept(FormFactorFullSpheroid self, INodeVisitor visitor)
 
-        void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const  override final
+        void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13682,7 +13682,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         getHeight(FormFactorFullSpheroid self) -> double
 
-        double FormFactorFullSpheroid::getHeight() const 
+        double FormFactorFullSpheroid::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorFullSpheroid_getHeight(self)
@@ -13692,7 +13692,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         getRadius(FormFactorFullSpheroid self) -> double
 
-        double FormFactorFullSpheroid::getRadius() const 
+        double FormFactorFullSpheroid::getRadius() const
 
         """
         return _libBornAgainCore.FormFactorFullSpheroid_getRadius(self)
@@ -13702,7 +13702,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         radialExtension(FormFactorFullSpheroid self) -> double
 
-        double FormFactorFullSpheroid::radialExtension() const  override final
+        double FormFactorFullSpheroid::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13714,7 +13714,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorFullSpheroid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13764,7 +13764,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         clone(FormFactorGauss self) -> FormFactorGauss
 
-        FormFactorGauss* FormFactorGauss::clone() const  override final
+        FormFactorGauss* FormFactorGauss::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -13776,7 +13776,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         accept(FormFactorGauss self, INodeVisitor visitor)
 
-        void FormFactorGauss::accept(INodeVisitor *visitor) const  override final
+        void FormFactorGauss::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13788,7 +13788,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         getWidth(FormFactorGauss self) -> double
 
-        double FormFactorGauss::getWidth() const 
+        double FormFactorGauss::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorGauss_getWidth(self)
@@ -13798,7 +13798,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         getHeight(FormFactorGauss self) -> double
 
-        double FormFactorGauss::getHeight() const 
+        double FormFactorGauss::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorGauss_getHeight(self)
@@ -13808,7 +13808,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         radialExtension(FormFactorGauss self) -> double
 
-        double FormFactorGauss::radialExtension() const  override final
+        double FormFactorGauss::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13820,7 +13820,7 @@ class FormFactorGauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorGauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -13885,7 +13885,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         clone(FormFactorHemiEllipsoid self) -> FormFactorHemiEllipsoid
 
-        FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const  override final
+        FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -13897,7 +13897,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         accept(FormFactorHemiEllipsoid self, INodeVisitor visitor)
 
-        void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const  override final
+        void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -13909,7 +13909,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         getHeight(FormFactorHemiEllipsoid self) -> double
 
-        double FormFactorHemiEllipsoid::getHeight() const 
+        double FormFactorHemiEllipsoid::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorHemiEllipsoid_getHeight(self)
@@ -13919,7 +13919,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         getRadiusX(FormFactorHemiEllipsoid self) -> double
 
-        double FormFactorHemiEllipsoid::getRadiusX() const 
+        double FormFactorHemiEllipsoid::getRadiusX() const
 
         """
         return _libBornAgainCore.FormFactorHemiEllipsoid_getRadiusX(self)
@@ -13929,7 +13929,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         getRadiusY(FormFactorHemiEllipsoid self) -> double
 
-        double FormFactorHemiEllipsoid::getRadiusY() const 
+        double FormFactorHemiEllipsoid::getRadiusY() const
 
         """
         return _libBornAgainCore.FormFactorHemiEllipsoid_getRadiusY(self)
@@ -13939,7 +13939,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         radialExtension(FormFactorHemiEllipsoid self) -> double
 
-        double FormFactorHemiEllipsoid::radialExtension() const  override final
+        double FormFactorHemiEllipsoid::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -13951,7 +13951,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorHemiEllipsoid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -14006,7 +14006,7 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         """
         clone(FormFactorIcosahedron self) -> FormFactorIcosahedron
 
-        FormFactorIcosahedron* FormFactorIcosahedron::clone() const  override final
+        FormFactorIcosahedron* FormFactorIcosahedron::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -14018,7 +14018,7 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         """
         accept(FormFactorIcosahedron self, INodeVisitor visitor)
 
-        void FormFactorIcosahedron::accept(INodeVisitor *visitor) const  override final
+        void FormFactorIcosahedron::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -14030,7 +14030,7 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
         """
         getEdge(FormFactorIcosahedron self) -> double
 
-        double FormFactorIcosahedron::getEdge() const 
+        double FormFactorIcosahedron::getEdge() const
 
         """
         return _libBornAgainCore.FormFactorIcosahedron_getEdge(self)
@@ -14091,7 +14091,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         clone(FormFactorLongBoxGauss self) -> FormFactorLongBoxGauss
 
-        FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const  override final
+        FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -14103,7 +14103,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         accept(FormFactorLongBoxGauss self, INodeVisitor visitor)
 
-        void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const  override final
+        void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -14115,7 +14115,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         getLength(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::getLength() const 
+        double FormFactorLongBoxGauss::getLength() const
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_getLength(self)
@@ -14125,7 +14125,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         getHeight(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::getHeight() const 
+        double FormFactorLongBoxGauss::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_getHeight(self)
@@ -14135,7 +14135,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         getWidth(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::getWidth() const 
+        double FormFactorLongBoxGauss::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorLongBoxGauss_getWidth(self)
@@ -14145,7 +14145,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         radialExtension(FormFactorLongBoxGauss self) -> double
 
-        double FormFactorLongBoxGauss::radialExtension() const  override final
+        double FormFactorLongBoxGauss::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14157,7 +14157,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongBoxGauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -14220,7 +14220,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         clone(FormFactorLongBoxLorentz self) -> FormFactorLongBoxLorentz
 
-        FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const  override final
+        FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -14232,7 +14232,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         accept(FormFactorLongBoxLorentz self, INodeVisitor visitor)
 
-        void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const  override final
+        void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -14244,7 +14244,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         getLength(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::getLength() const 
+        double FormFactorLongBoxLorentz::getLength() const
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_getLength(self)
@@ -14254,7 +14254,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         getHeight(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::getHeight() const 
+        double FormFactorLongBoxLorentz::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_getHeight(self)
@@ -14264,7 +14264,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         getWidth(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::getWidth() const 
+        double FormFactorLongBoxLorentz::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorLongBoxLorentz_getWidth(self)
@@ -14274,7 +14274,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         radialExtension(FormFactorLongBoxLorentz self) -> double
 
-        double FormFactorLongBoxLorentz::radialExtension() const  override final
+        double FormFactorLongBoxLorentz::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14286,7 +14286,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongBoxLorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -14349,7 +14349,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         clone(FormFactorLongRipple1Gauss self) -> FormFactorLongRipple1Gauss
 
-        FormFactorLongRipple1Gauss* FormFactorLongRipple1Gauss::clone() const  override final
+        FormFactorLongRipple1Gauss* FormFactorLongRipple1Gauss::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -14361,7 +14361,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         accept(FormFactorLongRipple1Gauss self, INodeVisitor visitor)
 
-        void FormFactorLongRipple1Gauss::accept(INodeVisitor *visitor) const  override final
+        void FormFactorLongRipple1Gauss::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -14373,7 +14373,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         getHeight(FormFactorLongRipple1Gauss self) -> double
 
-        double FormFactorLongRipple1Gauss::getHeight() const 
+        double FormFactorLongRipple1Gauss::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_getHeight(self)
@@ -14383,7 +14383,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         getWidth(FormFactorLongRipple1Gauss self) -> double
 
-        double FormFactorLongRipple1Gauss::getWidth() const 
+        double FormFactorLongRipple1Gauss::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_getWidth(self)
@@ -14393,7 +14393,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         getLength(FormFactorLongRipple1Gauss self) -> double
 
-        double FormFactorLongRipple1Gauss::getLength() const 
+        double FormFactorLongRipple1Gauss::getLength() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_getLength(self)
@@ -14403,7 +14403,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         radialExtension(FormFactorLongRipple1Gauss self) -> double
 
-        double FormFactorLongRipple1Gauss::radialExtension() const  override final
+        double FormFactorLongRipple1Gauss::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14415,7 +14415,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Gauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple1Gauss::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorLongRipple1Gauss::evaluate_for_q(cvector_t q) const override final
 
         Complex formfactor. 
 
@@ -14478,7 +14478,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         clone(FormFactorLongRipple1Lorentz self) -> FormFactorLongRipple1Lorentz
 
-        FormFactorLongRipple1Lorentz* FormFactorLongRipple1Lorentz::clone() const  override final
+        FormFactorLongRipple1Lorentz* FormFactorLongRipple1Lorentz::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -14490,7 +14490,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         accept(FormFactorLongRipple1Lorentz self, INodeVisitor visitor)
 
-        void FormFactorLongRipple1Lorentz::accept(INodeVisitor *visitor) const  override final
+        void FormFactorLongRipple1Lorentz::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -14502,7 +14502,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         radialExtension(FormFactorLongRipple1Lorentz self) -> double
 
-        double FormFactorLongRipple1Lorentz::radialExtension() const  override final
+        double FormFactorLongRipple1Lorentz::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14514,7 +14514,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         getHeight(FormFactorLongRipple1Lorentz self) -> double
 
-        double FormFactorLongRipple1Lorentz::getHeight() const 
+        double FormFactorLongRipple1Lorentz::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_getHeight(self)
@@ -14524,7 +14524,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         getWidth(FormFactorLongRipple1Lorentz self) -> double
 
-        double FormFactorLongRipple1Lorentz::getWidth() const 
+        double FormFactorLongRipple1Lorentz::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_getWidth(self)
@@ -14534,7 +14534,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         getLength(FormFactorLongRipple1Lorentz self) -> double
 
-        double FormFactorLongRipple1Lorentz::getLength() const 
+        double FormFactorLongRipple1Lorentz::getLength() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_getLength(self)
@@ -14544,7 +14544,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple1Lorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(cvector_t q) const override final
 
         Complex formfactor. 
 
@@ -14610,7 +14610,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         clone(FormFactorLongRipple2Gauss self) -> FormFactorLongRipple2Gauss
 
-        FormFactorLongRipple2Gauss* FormFactorLongRipple2Gauss::clone() const  override final
+        FormFactorLongRipple2Gauss* FormFactorLongRipple2Gauss::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -14622,7 +14622,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         accept(FormFactorLongRipple2Gauss self, INodeVisitor visitor)
 
-        void FormFactorLongRipple2Gauss::accept(INodeVisitor *visitor) const  override final
+        void FormFactorLongRipple2Gauss::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -14634,7 +14634,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         getHeight(FormFactorLongRipple2Gauss self) -> double
 
-        double FormFactorLongRipple2Gauss::getHeight() const 
+        double FormFactorLongRipple2Gauss::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getHeight(self)
@@ -14644,7 +14644,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         getWidth(FormFactorLongRipple2Gauss self) -> double
 
-        double FormFactorLongRipple2Gauss::getWidth() const 
+        double FormFactorLongRipple2Gauss::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getWidth(self)
@@ -14654,7 +14654,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         getLength(FormFactorLongRipple2Gauss self) -> double
 
-        double FormFactorLongRipple2Gauss::getLength() const 
+        double FormFactorLongRipple2Gauss::getLength() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getLength(self)
@@ -14664,7 +14664,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         getAsymmetry(FormFactorLongRipple2Gauss self) -> double
 
-        double FormFactorLongRipple2Gauss::getAsymmetry() const 
+        double FormFactorLongRipple2Gauss::getAsymmetry() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_getAsymmetry(self)
@@ -14674,7 +14674,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         radialExtension(FormFactorLongRipple2Gauss self) -> double
 
-        double FormFactorLongRipple2Gauss::radialExtension() const  override final
+        double FormFactorLongRipple2Gauss::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14686,7 +14686,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Gauss self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple2Gauss::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorLongRipple2Gauss::evaluate_for_q(cvector_t q) const override final
 
         Complex formfactor. 
 
@@ -14750,7 +14750,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         clone(FormFactorLongRipple2Lorentz self) -> FormFactorLongRipple2Lorentz
 
-        FormFactorLongRipple2Lorentz* FormFactorLongRipple2Lorentz::clone() const  override final
+        FormFactorLongRipple2Lorentz* FormFactorLongRipple2Lorentz::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -14762,7 +14762,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         accept(FormFactorLongRipple2Lorentz self, INodeVisitor visitor)
 
-        void FormFactorLongRipple2Lorentz::accept(INodeVisitor *visitor) const  override final
+        void FormFactorLongRipple2Lorentz::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -14774,7 +14774,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         getHeight(FormFactorLongRipple2Lorentz self) -> double
 
-        double FormFactorLongRipple2Lorentz::getHeight() const 
+        double FormFactorLongRipple2Lorentz::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getHeight(self)
@@ -14784,7 +14784,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         getWidth(FormFactorLongRipple2Lorentz self) -> double
 
-        double FormFactorLongRipple2Lorentz::getWidth() const 
+        double FormFactorLongRipple2Lorentz::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getWidth(self)
@@ -14794,7 +14794,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         getLength(FormFactorLongRipple2Lorentz self) -> double
 
-        double FormFactorLongRipple2Lorentz::getLength() const 
+        double FormFactorLongRipple2Lorentz::getLength() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getLength(self)
@@ -14804,7 +14804,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         getAsymmetry(FormFactorLongRipple2Lorentz self) -> double
 
-        double FormFactorLongRipple2Lorentz::getAsymmetry() const 
+        double FormFactorLongRipple2Lorentz::getAsymmetry() const
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_getAsymmetry(self)
@@ -14814,7 +14814,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         radialExtension(FormFactorLongRipple2Lorentz self) -> double
 
-        double FormFactorLongRipple2Lorentz::radialExtension() const  override final
+        double FormFactorLongRipple2Lorentz::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14826,7 +14826,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLongRipple2Lorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const override final
 
         Complex formfactor. 
 
@@ -14876,7 +14876,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         clone(FormFactorLorentz self) -> FormFactorLorentz
 
-        FormFactorLorentz* FormFactorLorentz::clone() const  override final
+        FormFactorLorentz* FormFactorLorentz::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -14888,7 +14888,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         accept(FormFactorLorentz self, INodeVisitor visitor)
 
-        void FormFactorLorentz::accept(INodeVisitor *visitor) const  override final
+        void FormFactorLorentz::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -14900,7 +14900,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         getWidth(FormFactorLorentz self) -> double
 
-        double FormFactorLorentz::getWidth() const 
+        double FormFactorLorentz::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorLorentz_getWidth(self)
@@ -14910,7 +14910,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         getHeight(FormFactorLorentz self) -> double
 
-        double FormFactorLorentz::getHeight() const 
+        double FormFactorLorentz::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorLorentz_getHeight(self)
@@ -14920,7 +14920,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         radialExtension(FormFactorLorentz self) -> double
 
-        double FormFactorLorentz::radialExtension() const  override final
+        double FormFactorLorentz::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -14932,7 +14932,7 @@ class FormFactorLorentz(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorLorentz self, cvector_t q) -> complex_t
 
-        complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -14992,7 +14992,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         """
         clone(FormFactorPrism3 self) -> FormFactorPrism3
 
-        FormFactorPrism3* FormFactorPrism3::clone() const  override final
+        FormFactorPrism3* FormFactorPrism3::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15004,7 +15004,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         """
         accept(FormFactorPrism3 self, INodeVisitor visitor)
 
-        void FormFactorPrism3::accept(INodeVisitor *visitor) const  override final
+        void FormFactorPrism3::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15016,7 +15016,7 @@ class FormFactorPrism3(FormFactorPolygonalPrism):
         """
         getBaseEdge(FormFactorPrism3 self) -> double
 
-        double FormFactorPrism3::getBaseEdge() const 
+        double FormFactorPrism3::getBaseEdge() const
 
         """
         return _libBornAgainCore.FormFactorPrism3_getBaseEdge(self)
@@ -15074,7 +15074,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         """
         clone(FormFactorPrism6 self) -> FormFactorPrism6
 
-        FormFactorPrism6* FormFactorPrism6::clone() const  override final
+        FormFactorPrism6* FormFactorPrism6::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15086,7 +15086,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         """
         accept(FormFactorPrism6 self, INodeVisitor visitor)
 
-        void FormFactorPrism6::accept(INodeVisitor *visitor) const  override final
+        void FormFactorPrism6::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15098,7 +15098,7 @@ class FormFactorPrism6(FormFactorPolygonalPrism):
         """
         getBaseEdge(FormFactorPrism6 self) -> double
 
-        double FormFactorPrism6::getBaseEdge() const 
+        double FormFactorPrism6::getBaseEdge() const
 
         """
         return _libBornAgainCore.FormFactorPrism6_getBaseEdge(self)
@@ -15159,7 +15159,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         """
         clone(FormFactorPyramid self) -> FormFactorPyramid
 
-        FormFactorPyramid* FormFactorPyramid::clone() const  override final
+        FormFactorPyramid* FormFactorPyramid::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15171,7 +15171,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         """
         accept(FormFactorPyramid self, INodeVisitor visitor)
 
-        void FormFactorPyramid::accept(INodeVisitor *visitor) const  override final
+        void FormFactorPyramid::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15183,7 +15183,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         """
         getHeight(FormFactorPyramid self) -> double
 
-        double FormFactorPyramid::getHeight() const 
+        double FormFactorPyramid::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorPyramid_getHeight(self)
@@ -15193,7 +15193,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         """
         getBaseEdge(FormFactorPyramid self) -> double
 
-        double FormFactorPyramid::getBaseEdge() const 
+        double FormFactorPyramid::getBaseEdge() const
 
         """
         return _libBornAgainCore.FormFactorPyramid_getBaseEdge(self)
@@ -15203,7 +15203,7 @@ class FormFactorPyramid(FormFactorPolyhedron):
         """
         getAlpha(FormFactorPyramid self) -> double
 
-        double FormFactorPyramid::getAlpha() const 
+        double FormFactorPyramid::getAlpha() const
 
         """
         return _libBornAgainCore.FormFactorPyramid_getAlpha(self)
@@ -15264,7 +15264,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         clone(FormFactorRipple1 self) -> FormFactorRipple1
 
-        FormFactorRipple1* FormFactorRipple1::clone() const  override final
+        FormFactorRipple1* FormFactorRipple1::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15276,7 +15276,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         accept(FormFactorRipple1 self, INodeVisitor visitor)
 
-        void FormFactorRipple1::accept(INodeVisitor *visitor) const  override final
+        void FormFactorRipple1::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15288,7 +15288,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         getLength(FormFactorRipple1 self) -> double
 
-        double FormFactorRipple1::getLength() const 
+        double FormFactorRipple1::getLength() const
 
         """
         return _libBornAgainCore.FormFactorRipple1_getLength(self)
@@ -15298,7 +15298,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         getHeight(FormFactorRipple1 self) -> double
 
-        double FormFactorRipple1::getHeight() const 
+        double FormFactorRipple1::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorRipple1_getHeight(self)
@@ -15308,7 +15308,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         getWidth(FormFactorRipple1 self) -> double
 
-        double FormFactorRipple1::getWidth() const 
+        double FormFactorRipple1::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorRipple1_getWidth(self)
@@ -15318,7 +15318,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         radialExtension(FormFactorRipple1 self) -> double
 
-        double FormFactorRipple1::radialExtension() const  override final
+        double FormFactorRipple1::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -15330,7 +15330,7 @@ class FormFactorRipple1(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorRipple1 self, cvector_t q) -> complex_t
 
-        complex_t FormFactorRipple1::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorRipple1::evaluate_for_q(cvector_t q) const override final
 
         Complex formfactor. 
 
@@ -15396,7 +15396,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         clone(FormFactorRipple2 self) -> FormFactorRipple2
 
-        FormFactorRipple2* FormFactorRipple2::clone() const  override final
+        FormFactorRipple2* FormFactorRipple2::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15408,7 +15408,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         accept(FormFactorRipple2 self, INodeVisitor visitor)
 
-        void FormFactorRipple2::accept(INodeVisitor *visitor) const  override final
+        void FormFactorRipple2::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15420,7 +15420,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         getHeight(FormFactorRipple2 self) -> double
 
-        double FormFactorRipple2::getHeight() const 
+        double FormFactorRipple2::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorRipple2_getHeight(self)
@@ -15430,7 +15430,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         getWidth(FormFactorRipple2 self) -> double
 
-        double FormFactorRipple2::getWidth() const 
+        double FormFactorRipple2::getWidth() const
 
         """
         return _libBornAgainCore.FormFactorRipple2_getWidth(self)
@@ -15440,7 +15440,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         getLength(FormFactorRipple2 self) -> double
 
-        double FormFactorRipple2::getLength() const 
+        double FormFactorRipple2::getLength() const
 
         """
         return _libBornAgainCore.FormFactorRipple2_getLength(self)
@@ -15450,7 +15450,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         getAsymmetry(FormFactorRipple2 self) -> double
 
-        double FormFactorRipple2::getAsymmetry() const 
+        double FormFactorRipple2::getAsymmetry() const
 
         """
         return _libBornAgainCore.FormFactorRipple2_getAsymmetry(self)
@@ -15460,7 +15460,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         radialExtension(FormFactorRipple2 self) -> double
 
-        double FormFactorRipple2::radialExtension() const  override final
+        double FormFactorRipple2::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -15472,7 +15472,7 @@ class FormFactorRipple2(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorRipple2 self, cvector_t q) -> complex_t
 
-        complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const override final
 
         Complex formfactor. 
 
@@ -15521,7 +15521,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         clone(FormFactorSphereGaussianRadius self) -> FormFactorSphereGaussianRadius
 
-        FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const  override final
+        FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15533,7 +15533,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         accept(FormFactorSphereGaussianRadius self, INodeVisitor visitor)
 
-        void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const  override final
+        void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15545,7 +15545,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         radialExtension(FormFactorSphereGaussianRadius self) -> double
 
-        double FormFactorSphereGaussianRadius::radialExtension() const  override final
+        double FormFactorSphereGaussianRadius::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -15557,7 +15557,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereGaussianRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -15606,7 +15606,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         clone(FormFactorSphereLogNormalRadius self) -> FormFactorSphereLogNormalRadius
 
-        FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const  override final
+        FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15618,7 +15618,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         accept(FormFactorSphereLogNormalRadius self, INodeVisitor visitor)
 
-        void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const  override final
+        void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15630,7 +15630,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         radialExtension(FormFactorSphereLogNormalRadius self) -> double
 
-        double FormFactorSphereLogNormalRadius::radialExtension() const  override final
+        double FormFactorSphereLogNormalRadius::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -15642,7 +15642,7 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereLogNormalRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -15691,7 +15691,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         clone(FormFactorSphereUniformRadius self) -> FormFactorSphereUniformRadius
 
-        FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const  override final
+        FormFactorSphereUniformRadius* FormFactorSphereUniformRadius::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15703,7 +15703,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         accept(FormFactorSphereUniformRadius self, INodeVisitor visitor)
 
-        void FormFactorSphereUniformRadius::accept(INodeVisitor *visitor) const  override final
+        void FormFactorSphereUniformRadius::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15715,7 +15715,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         radialExtension(FormFactorSphereUniformRadius self) -> double
 
-        double FormFactorSphereUniformRadius::radialExtension() const  override final
+        double FormFactorSphereUniformRadius::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -15727,7 +15727,7 @@ class FormFactorSphereUniformRadius(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorSphereUniformRadius self, cvector_t q) -> complex_t
 
-        complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorSphereUniformRadius::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -15790,7 +15790,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         clone(FormFactorTetrahedron self) -> FormFactorTetrahedron
 
-        FormFactorTetrahedron* FormFactorTetrahedron::clone() const  override final
+        FormFactorTetrahedron* FormFactorTetrahedron::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15802,7 +15802,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         accept(FormFactorTetrahedron self, INodeVisitor visitor)
 
-        void FormFactorTetrahedron::accept(INodeVisitor *visitor) const  override final
+        void FormFactorTetrahedron::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15814,7 +15814,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         getBaseEdge(FormFactorTetrahedron self) -> double
 
-        double FormFactorTetrahedron::getBaseEdge() const 
+        double FormFactorTetrahedron::getBaseEdge() const
 
         """
         return _libBornAgainCore.FormFactorTetrahedron_getBaseEdge(self)
@@ -15824,7 +15824,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         getHeight(FormFactorTetrahedron self) -> double
 
-        double FormFactorTetrahedron::getHeight() const 
+        double FormFactorTetrahedron::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorTetrahedron_getHeight(self)
@@ -15834,7 +15834,7 @@ class FormFactorTetrahedron(FormFactorPolyhedron):
         """
         getAlpha(FormFactorTetrahedron self) -> double
 
-        double FormFactorTetrahedron::getAlpha() const 
+        double FormFactorTetrahedron::getAlpha() const
 
         """
         return _libBornAgainCore.FormFactorTetrahedron_getAlpha(self)
@@ -15892,7 +15892,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         """
         clone(FormFactorTruncatedCube self) -> FormFactorTruncatedCube
 
-        FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const  override final
+        FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -15904,7 +15904,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         """
         accept(FormFactorTruncatedCube self, INodeVisitor visitor)
 
-        void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const  override final
+        void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -15916,7 +15916,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         """
         getLength(FormFactorTruncatedCube self) -> double
 
-        double FormFactorTruncatedCube::getLength() const 
+        double FormFactorTruncatedCube::getLength() const
 
         """
         return _libBornAgainCore.FormFactorTruncatedCube_getLength(self)
@@ -15926,7 +15926,7 @@ class FormFactorTruncatedCube(FormFactorPolyhedron):
         """
         getRemovedLength(FormFactorTruncatedCube self) -> double
 
-        double FormFactorTruncatedCube::getRemovedLength() const 
+        double FormFactorTruncatedCube::getRemovedLength() const
 
         """
         return _libBornAgainCore.FormFactorTruncatedCube_getRemovedLength(self)
@@ -15988,7 +15988,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         clone(FormFactorTruncatedSphere self) -> FormFactorTruncatedSphere
 
-        FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const  override final
+        FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -16000,7 +16000,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         accept(FormFactorTruncatedSphere self, INodeVisitor visitor)
 
-        void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const  override final
+        void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -16012,7 +16012,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         getHeight(FormFactorTruncatedSphere self) -> double
 
-        double FormFactorTruncatedSphere::getHeight() const 
+        double FormFactorTruncatedSphere::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_getHeight(self)
@@ -16022,7 +16022,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         getRadius(FormFactorTruncatedSphere self) -> double
 
-        double FormFactorTruncatedSphere::getRadius() const 
+        double FormFactorTruncatedSphere::getRadius() const
 
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_getRadius(self)
@@ -16032,7 +16032,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         getRemovedTop(FormFactorTruncatedSphere self) -> double
 
-        double FormFactorTruncatedSphere::getRemovedTop() const 
+        double FormFactorTruncatedSphere::getRemovedTop() const
 
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_getRemovedTop(self)
@@ -16042,7 +16042,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         radialExtension(FormFactorTruncatedSphere self) -> double
 
-        double FormFactorTruncatedSphere::radialExtension() const  override final
+        double FormFactorTruncatedSphere::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -16054,7 +16054,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t
 
-        complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const override final
 
         Complex formfactor. 
 
@@ -16121,7 +16121,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         clone(FormFactorTruncatedSpheroid self) -> FormFactorTruncatedSpheroid
 
-        FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const  override final
+        FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -16133,7 +16133,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         accept(FormFactorTruncatedSpheroid self, INodeVisitor visitor)
 
-        void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const  override final
+        void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -16145,7 +16145,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         getRadius(FormFactorTruncatedSpheroid self) -> double
 
-        double FormFactorTruncatedSpheroid::getRadius() const 
+        double FormFactorTruncatedSpheroid::getRadius() const
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getRadius(self)
@@ -16155,7 +16155,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         getHeight(FormFactorTruncatedSpheroid self) -> double
 
-        double FormFactorTruncatedSpheroid::getHeight() const 
+        double FormFactorTruncatedSpheroid::getHeight() const
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getHeight(self)
@@ -16165,7 +16165,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         getHeightFlattening(FormFactorTruncatedSpheroid self) -> double
 
-        double FormFactorTruncatedSpheroid::getHeightFlattening() const 
+        double FormFactorTruncatedSpheroid::getHeightFlattening() const
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getHeightFlattening(self)
@@ -16175,7 +16175,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         getRemovedTop(FormFactorTruncatedSpheroid self) -> double
 
-        double FormFactorTruncatedSpheroid::getRemovedTop() const 
+        double FormFactorTruncatedSpheroid::getRemovedTop() const
 
         """
         return _libBornAgainCore.FormFactorTruncatedSpheroid_getRemovedTop(self)
@@ -16185,7 +16185,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         radialExtension(FormFactorTruncatedSpheroid self) -> double
 
-        double FormFactorTruncatedSpheroid::radialExtension() const  override final
+        double FormFactorTruncatedSpheroid::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -16197,7 +16197,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
         """
         evaluate_for_q(FormFactorTruncatedSpheroid self, cvector_t q) -> complex_t
 
-        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const  override final
+        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -16250,7 +16250,7 @@ class FormFactorWeighted(IFormFactor):
         """
         clone(FormFactorWeighted self) -> FormFactorWeighted
 
-        FormFactorWeighted * FormFactorWeighted::clone() const  override final
+        FormFactorWeighted * FormFactorWeighted::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -16262,7 +16262,7 @@ class FormFactorWeighted(IFormFactor):
         """
         accept(FormFactorWeighted self, INodeVisitor visitor)
 
-        void FormFactorWeighted::accept(INodeVisitor *visitor) const  override final
+        void FormFactorWeighted::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -16274,7 +16274,7 @@ class FormFactorWeighted(IFormFactor):
         """
         radialExtension(FormFactorWeighted self) -> double
 
-        double FormFactorWeighted::radialExtension() const  override final
+        double FormFactorWeighted::radialExtension() const override final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -16286,7 +16286,7 @@ class FormFactorWeighted(IFormFactor):
         """
         bottomZ(FormFactorWeighted self, IRotation rotation) -> double
 
-        double FormFactorWeighted::bottomZ(const IRotation &rotation) const  override final
+        double FormFactorWeighted::bottomZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -16298,7 +16298,7 @@ class FormFactorWeighted(IFormFactor):
         """
         topZ(FormFactorWeighted self, IRotation rotation) -> double
 
-        double FormFactorWeighted::topZ(const IRotation &rotation) const  override final
+        double FormFactorWeighted::topZ(const IRotation &rotation) const override final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -16333,7 +16333,7 @@ class FormFactorWeighted(IFormFactor):
         """
         evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t
 
-        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const  override final
+        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override final
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -16372,7 +16372,7 @@ class IFootprintFactor(ICloneable, INode):
         """
         clone(IFootprintFactor self) -> IFootprintFactor
 
-        virtual IFootprintFactor* IFootprintFactor::clone() const  =0
+        virtual IFootprintFactor* IFootprintFactor::clone() const =0
 
         """
         return _libBornAgainCore.IFootprintFactor_clone(self)
@@ -16392,7 +16392,7 @@ class IFootprintFactor(ICloneable, INode):
         """
         widthRatio(IFootprintFactor self) -> double
 
-        double IFootprintFactor::widthRatio() const 
+        double IFootprintFactor::widthRatio() const
 
         """
         return _libBornAgainCore.IFootprintFactor_widthRatio(self)
@@ -16402,7 +16402,7 @@ class IFootprintFactor(ICloneable, INode):
         """
         calculate(IFootprintFactor self, double alpha) -> double
 
-        virtual double IFootprintFactor::calculate(double alpha) const  =0
+        virtual double IFootprintFactor::calculate(double alpha) const =0
 
         Calculate footprint correction coefficient from the beam incident angle  alpha. 
 
@@ -16449,7 +16449,7 @@ class FootprintFactorGaussian(IFootprintFactor):
         """
         accept(FootprintFactorGaussian self, INodeVisitor visitor)
 
-        void FootprintFactorGaussian::accept(INodeVisitor *visitor) const  override
+        void FootprintFactorGaussian::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -16461,7 +16461,7 @@ class FootprintFactorGaussian(IFootprintFactor):
         """
         clone(FootprintFactorGaussian self) -> FootprintFactorGaussian
 
-        FootprintFactorGaussian * FootprintFactorGaussian::clone() const  override
+        FootprintFactorGaussian * FootprintFactorGaussian::clone() const override
 
         """
         return _libBornAgainCore.FootprintFactorGaussian_clone(self)
@@ -16471,7 +16471,7 @@ class FootprintFactorGaussian(IFootprintFactor):
         """
         calculate(FootprintFactorGaussian self, double alpha) -> double
 
-        double FootprintFactorGaussian::calculate(double alpha) const  override
+        double FootprintFactorGaussian::calculate(double alpha) const override
 
         Calculate footprint correction coefficient from the beam incident angle  alpha. 
 
@@ -16520,7 +16520,7 @@ class FootprintFactorSquare(IFootprintFactor):
         """
         accept(FootprintFactorSquare self, INodeVisitor visitor)
 
-        void FootprintFactorSquare::accept(INodeVisitor *visitor) const  override
+        void FootprintFactorSquare::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -16532,7 +16532,7 @@ class FootprintFactorSquare(IFootprintFactor):
         """
         clone(FootprintFactorSquare self) -> FootprintFactorSquare
 
-        FootprintFactorSquare * FootprintFactorSquare::clone() const  override
+        FootprintFactorSquare * FootprintFactorSquare::clone() const override
 
         """
         return _libBornAgainCore.FootprintFactorSquare_clone(self)
@@ -16542,7 +16542,7 @@ class FootprintFactorSquare(IFootprintFactor):
         """
         calculate(FootprintFactorSquare self, double alpha) -> double
 
-        double FootprintFactorSquare::calculate(double alpha) const  override
+        double FootprintFactorSquare::calculate(double alpha) const override
 
         Calculate footprint correction coefficient from the beam incident angle  alpha. 
 
@@ -16583,7 +16583,7 @@ class Simulation(ICloneable, INode):
         """
         clone(Simulation self) -> Simulation
 
-        virtual Simulation* Simulation::clone() const  =0
+        virtual Simulation* Simulation::clone() const =0
 
         """
         return _libBornAgainCore.Simulation_clone(self)
@@ -16662,7 +16662,7 @@ class Simulation(ICloneable, INode):
         """
         getBeamIntensity(Simulation self) -> double
 
-        double Simulation::getBeamIntensity() const 
+        double Simulation::getBeamIntensity() const
 
         """
         return _libBornAgainCore.Simulation_getBeamIntensity(self)
@@ -16728,7 +16728,7 @@ class Simulation(ICloneable, INode):
         """
         sample(Simulation self) -> MultiLayer
 
-        const MultiLayer * Simulation::sample() const 
+        const MultiLayer * Simulation::sample() const
 
         """
         return _libBornAgainCore.Simulation_sample(self)
@@ -16758,7 +16758,7 @@ class Simulation(ICloneable, INode):
         """
         background(Simulation self) -> IBackground
 
-        const IBackground* Simulation::background() const 
+        const IBackground* Simulation::background() const
 
         """
         return _libBornAgainCore.Simulation_background(self)
@@ -16768,7 +16768,7 @@ class Simulation(ICloneable, INode):
         """
         numberOfSimulationElements(Simulation self) -> size_t
 
-        virtual size_t Simulation::numberOfSimulationElements() const  =0
+        virtual size_t Simulation::numberOfSimulationElements() const =0
 
         """
         return _libBornAgainCore.Simulation_numberOfSimulationElements(self)
@@ -16778,7 +16778,7 @@ class Simulation(ICloneable, INode):
         """
         result(Simulation self) -> SimulationResult
 
-        virtual SimulationResult Simulation::result() const  =0
+        virtual SimulationResult Simulation::result() const =0
 
         Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 
@@ -16803,7 +16803,7 @@ class Simulation(ICloneable, INode):
         """
         getDistributionHandler(Simulation self) -> DistributionHandler const &
 
-        const DistributionHandler& Simulation::getDistributionHandler() const 
+        const DistributionHandler& Simulation::getDistributionHandler() const
 
         """
         return _libBornAgainCore.Simulation_getDistributionHandler(self)
@@ -16900,7 +16900,7 @@ class Simulation2D(Simulation):
         """
         clone(Simulation2D self) -> Simulation2D
 
-        Simulation2D* Simulation2D::clone() const  override=0
+        Simulation2D* Simulation2D::clone() const override=0
 
         """
         return _libBornAgainCore.Simulation2D_clone(self)
@@ -17046,7 +17046,7 @@ class SimulationOptions(_object):
         """
         isIntegrate(SimulationOptions self) -> bool
 
-        bool SimulationOptions::isIntegrate() const 
+        bool SimulationOptions::isIntegrate() const
 
         """
         return _libBornAgainCore.SimulationOptions_isIntegrate(self)
@@ -17056,7 +17056,7 @@ class SimulationOptions(_object):
         """
         getMcPoints(SimulationOptions self) -> size_t
 
-        size_t SimulationOptions::getMcPoints() const 
+        size_t SimulationOptions::getMcPoints() const
 
         """
         return _libBornAgainCore.SimulationOptions_getMcPoints(self)
@@ -17101,7 +17101,7 @@ class SimulationOptions(_object):
         """
         getNumberOfThreads(SimulationOptions self) -> unsigned int
 
-        unsigned SimulationOptions::getNumberOfThreads() const 
+        unsigned SimulationOptions::getNumberOfThreads() const
 
         """
         return _libBornAgainCore.SimulationOptions_getNumberOfThreads(self)
@@ -17123,7 +17123,7 @@ class SimulationOptions(_object):
         """
         getNumberOfBatches(SimulationOptions self) -> unsigned int
 
-        unsigned SimulationOptions::getNumberOfBatches() const 
+        unsigned SimulationOptions::getNumberOfBatches() const
 
         """
         return _libBornAgainCore.SimulationOptions_getNumberOfBatches(self)
@@ -17133,7 +17133,7 @@ class SimulationOptions(_object):
         """
         getCurrentBatch(SimulationOptions self) -> unsigned int
 
-        unsigned SimulationOptions::getCurrentBatch() const 
+        unsigned SimulationOptions::getCurrentBatch() const
 
         """
         return _libBornAgainCore.SimulationOptions_getCurrentBatch(self)
@@ -17155,7 +17155,7 @@ class SimulationOptions(_object):
         """
         getHardwareConcurrency(SimulationOptions self) -> unsigned int
 
-        unsigned SimulationOptions::getHardwareConcurrency() const 
+        unsigned SimulationOptions::getHardwareConcurrency() const
 
         """
         return _libBornAgainCore.SimulationOptions_getHardwareConcurrency(self)
@@ -17175,7 +17175,7 @@ class SimulationOptions(_object):
         """
         includeSpecular(SimulationOptions self) -> bool
 
-        bool SimulationOptions::includeSpecular() const 
+        bool SimulationOptions::includeSpecular() const
 
         """
         return _libBornAgainCore.SimulationOptions_includeSpecular(self)
@@ -17195,7 +17195,7 @@ class SimulationOptions(_object):
         """
         useAvgMaterials(SimulationOptions self) -> bool
 
-        bool SimulationOptions::useAvgMaterials() const 
+        bool SimulationOptions::useAvgMaterials() const
 
         """
         return _libBornAgainCore.SimulationOptions_useAvgMaterials(self)
@@ -17246,7 +17246,7 @@ class GISASSimulation(Simulation2D):
         """
         clone(GISASSimulation self) -> GISASSimulation
 
-        GISASSimulation* GISASSimulation::clone() const  override
+        GISASSimulation* GISASSimulation::clone() const override
 
         """
         return _libBornAgainCore.GISASSimulation_clone(self)
@@ -17256,7 +17256,7 @@ class GISASSimulation(Simulation2D):
         """
         accept(GISASSimulation self, INodeVisitor visitor)
 
-        void GISASSimulation::accept(INodeVisitor *visitor) const  override
+        void GISASSimulation::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -17280,7 +17280,7 @@ class GISASSimulation(Simulation2D):
         """
         numberOfSimulationElements(GISASSimulation self) -> size_t
 
-        size_t GISASSimulation::numberOfSimulationElements() const  override
+        size_t GISASSimulation::numberOfSimulationElements() const override
 
         Gets the number of elements this simulation needs to calculate. 
 
@@ -17292,7 +17292,7 @@ class GISASSimulation(Simulation2D):
         """
         result(GISASSimulation self) -> SimulationResult
 
-        SimulationResult GISASSimulation::result() const  override
+        SimulationResult GISASSimulation::result() const override
 
         Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 
@@ -17343,7 +17343,7 @@ class IHistogram(_object):
         """
         clone(IHistogram self) -> IHistogram
 
-        virtual IHistogram* IHistogram::clone() const  =0
+        virtual IHistogram* IHistogram::clone() const =0
 
         """
         return _libBornAgainCore.IHistogram_clone(self)
@@ -17353,7 +17353,7 @@ class IHistogram(_object):
         """
         getRank(IHistogram self) -> size_t
 
-        virtual size_t IHistogram::getRank() const  =0
+        virtual size_t IHistogram::getRank() const =0
 
         Returns number of histogram dimensions. 
 
@@ -18017,7 +18017,7 @@ class Histogram1D(IHistogram):
         """
         getBinCentersNumpy(Histogram1D self) -> PyObject *
 
-        PyObject * Histogram1D::getBinCentersNumpy() const 
+        PyObject * Histogram1D::getBinCentersNumpy() const
 
         """
         return _libBornAgainCore.Histogram1D_getBinCentersNumpy(self)
@@ -18027,7 +18027,7 @@ class Histogram1D(IHistogram):
         """
         getBinValuesNumpy(Histogram1D self) -> PyObject *
 
-        PyObject * Histogram1D::getBinValuesNumpy() const 
+        PyObject * Histogram1D::getBinValuesNumpy() const
 
         """
         return _libBornAgainCore.Histogram1D_getBinValuesNumpy(self)
@@ -18037,7 +18037,7 @@ class Histogram1D(IHistogram):
         """
         getBinErrorsNumpy(Histogram1D self) -> PyObject *
 
-        PyObject * Histogram1D::getBinErrorsNumpy() const 
+        PyObject * Histogram1D::getBinErrorsNumpy() const
 
         """
         return _libBornAgainCore.Histogram1D_getBinErrorsNumpy(self)
@@ -18327,7 +18327,7 @@ class SimulationResult(_object):
         data(SimulationResult self, AxesUnits units) -> IntensityData
         data(SimulationResult self) -> IntensityData
 
-        OutputData< double > * SimulationResult::data(AxesUnits units=AxesUnits::DEFAULT) const 
+        OutputData< double > * SimulationResult::data(AxesUnits units=AxesUnits::DEFAULT) const
 
         """
         return _libBornAgainCore.SimulationResult_data(self, *args)
@@ -18338,7 +18338,7 @@ class SimulationResult(_object):
         histogram1d(SimulationResult self, AxesUnits units) -> Histogram1D
         histogram1d(SimulationResult self) -> Histogram1D
 
-        Histogram1D * SimulationResult::histogram1d(AxesUnits units=AxesUnits::DEFAULT) const 
+        Histogram1D * SimulationResult::histogram1d(AxesUnits units=AxesUnits::DEFAULT) const
 
         """
         return _libBornAgainCore.SimulationResult_histogram1d(self, *args)
@@ -18349,7 +18349,7 @@ class SimulationResult(_object):
         histogram2d(SimulationResult self, AxesUnits units) -> Histogram2D
         histogram2d(SimulationResult self) -> Histogram2D
 
-        Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const 
+        Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
 
         """
         return _libBornAgainCore.SimulationResult_histogram2d(self, *args)
@@ -18368,11 +18368,23 @@ class SimulationResult(_object):
         return _libBornAgainCore.SimulationResult_axisInfo(self, *args)
 
 
+    def converter(self):
+        """
+        converter(SimulationResult self) -> IUnitConverter
+
+        const IUnitConverter & SimulationResult::converter() const
+
+        Returns underlying unit converter. 
+
+        """
+        return _libBornAgainCore.SimulationResult_converter(self)
+
+
     def size(self):
         """
         size(SimulationResult self) -> size_t
 
-        size_t SimulationResult::size() const 
+        size_t SimulationResult::size() const
 
         """
         return _libBornAgainCore.SimulationResult_size(self)
@@ -18423,7 +18435,7 @@ class IBackground(ICloneable, INode):
         """
         clone(IBackground self) -> IBackground
 
-        virtual IBackground* IBackground::clone() const  =0
+        virtual IBackground* IBackground::clone() const =0
 
         """
         return _libBornAgainCore.IBackground_clone(self)
@@ -18433,7 +18445,7 @@ class IBackground(ICloneable, INode):
         """
         addBackGround(IBackground self, double element) -> double
 
-        virtual double IBackground::addBackGround(double element) const  =0
+        virtual double IBackground::addBackGround(double element) const =0
 
         """
         return _libBornAgainCore.IBackground_addBackGround(self, element)
@@ -18480,7 +18492,7 @@ class ConstantBackground(IBackground):
         """
         clone(ConstantBackground self) -> ConstantBackground
 
-        ConstantBackground * ConstantBackground::clone() const  override final
+        ConstantBackground * ConstantBackground::clone() const override final
 
         """
         return _libBornAgainCore.ConstantBackground_clone(self)
@@ -18490,7 +18502,7 @@ class ConstantBackground(IBackground):
         """
         backgroundValue(ConstantBackground self) -> double
 
-        double ConstantBackground::backgroundValue() const 
+        double ConstantBackground::backgroundValue() const
 
         """
         return _libBornAgainCore.ConstantBackground_backgroundValue(self)
@@ -18500,7 +18512,7 @@ class ConstantBackground(IBackground):
         """
         accept(ConstantBackground self, INodeVisitor visitor)
 
-        void ConstantBackground::accept(INodeVisitor *visitor) const  override
+        void ConstantBackground::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -18512,7 +18524,7 @@ class ConstantBackground(IBackground):
         """
         addBackGround(ConstantBackground self, double intensity) -> double
 
-        double ConstantBackground::addBackGround(double intensity) const  override final
+        double ConstantBackground::addBackGround(double intensity) const override final
 
         """
         return _libBornAgainCore.ConstantBackground_addBackGround(self, intensity)
@@ -18547,7 +18559,7 @@ class IDetector(ICloneable, INode):
         """
         clone(IDetector self) -> IDetector
 
-        IDetector* IDetector::clone() const  override=0
+        IDetector* IDetector::clone() const override=0
 
         """
         return _libBornAgainCore.IDetector_clone(self)
@@ -18591,7 +18603,7 @@ class IDetector(ICloneable, INode):
         """
         getAxis(IDetector self, size_t index) -> IAxis
 
-        const IAxis & IDetector::getAxis(size_t index) const 
+        const IAxis & IDetector::getAxis(size_t index) const
 
         """
         return _libBornAgainCore.IDetector_getAxis(self, index)
@@ -18637,7 +18649,7 @@ class IDetector(ICloneable, INode):
         """
         detectorMask(IDetector self) -> DetectorMask
 
-        virtual const DetectorMask* IDetector::detectorMask() const  =0
+        virtual const DetectorMask* IDetector::detectorMask() const =0
 
         Returns detector masks container. 
 
@@ -18719,7 +18731,7 @@ class IDetector(ICloneable, INode):
         """
         regionOfInterest(IDetector self) -> RegionOfInterest const *
 
-        virtual const RegionOfInterest* IDetector::regionOfInterest() const  =0
+        virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
 
         Returns region of interest if exists. 
 
@@ -18816,7 +18828,7 @@ class IDetector(ICloneable, INode):
         """
         getChildren(IDetector self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > IDetector::getChildren() const  override
+        std::vector< const INode * > IDetector::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -18853,7 +18865,7 @@ class IDetector2D(IDetector):
         """
         clone(IDetector2D self) -> IDetector2D
 
-        IDetector2D* IDetector2D::clone() const  override=0
+        IDetector2D* IDetector2D::clone() const override=0
 
         """
         return _libBornAgainCore.IDetector2D_clone(self)
@@ -18901,7 +18913,7 @@ class IDetector2D(IDetector):
         """
         detectorMask(IDetector2D self) -> DetectorMask
 
-        const DetectorMask * IDetector2D::detectorMask() const  override
+        const DetectorMask * IDetector2D::detectorMask() const override
 
         Returns detector masks container. 
 
@@ -18947,7 +18959,7 @@ class IDetector2D(IDetector):
         """
         regionOfInterest(IDetector2D self) -> RegionOfInterest const *
 
-        const RegionOfInterest * IDetector2D::regionOfInterest() const  override
+        const RegionOfInterest * IDetector2D::regionOfInterest() const override
 
         Returns region of interest if exists. 
 
@@ -19010,7 +19022,7 @@ class IDetectorResolution(ICloneable, INode):
         """
         applyDetectorResolution(IDetectorResolution self, IntensityData p_intensity_map)
 
-        virtual void IDetectorResolution::applyDetectorResolution(OutputData< double > *p_intensity_map) const  =0
+        virtual void IDetectorResolution::applyDetectorResolution(OutputData< double > *p_intensity_map) const =0
 
         Apply the resolution function to the intensity data. 
 
@@ -19022,7 +19034,7 @@ class IDetectorResolution(ICloneable, INode):
         """
         clone(IDetectorResolution self) -> IDetectorResolution
 
-        virtual IDetectorResolution* IDetectorResolution::clone() const  =0
+        virtual IDetectorResolution* IDetectorResolution::clone() const =0
 
         """
         return _libBornAgainCore.IDetectorResolution_clone(self)
@@ -19056,7 +19068,7 @@ class IInterferenceFunction(ISample):
         """
         clone(IInterferenceFunction self) -> IInterferenceFunction
 
-        virtual IInterferenceFunction* IInterferenceFunction::clone() const  =0
+        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
 
         Returns a clone of this  ISample object. 
 
@@ -19068,7 +19080,7 @@ class IInterferenceFunction(ISample):
         """
         accept(IInterferenceFunction self, INodeVisitor visitor)
 
-        virtual void IInterferenceFunction::accept(INodeVisitor *visitor) const  =0
+        virtual void IInterferenceFunction::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
@@ -19080,7 +19092,7 @@ class IInterferenceFunction(ISample):
         """
         evaluate(IInterferenceFunction self, kvector_t q) -> double
 
-        virtual double IInterferenceFunction::evaluate(const kvector_t q) const  =0
+        virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -19170,7 +19182,7 @@ class ILayout(ISample):
         """
         clone(ILayout self) -> ILayout
 
-        virtual ILayout* ILayout::clone() const  =0
+        virtual ILayout* ILayout::clone() const =0
 
         Returns a clone of this  ISample object. 
 
@@ -19182,7 +19194,7 @@ class ILayout(ISample):
         """
         cloneWithOffset(ILayout self, double offset) -> ILayout
 
-        virtual ILayout* ILayout::cloneWithOffset(double offset) const  =0
+        virtual ILayout* ILayout::cloneWithOffset(double offset) const =0
 
         """
         return _libBornAgainCore.ILayout_cloneWithOffset(self, offset)
@@ -19192,7 +19204,7 @@ class ILayout(ISample):
         """
         accept(ILayout self, INodeVisitor visitor)
 
-        virtual void ILayout::accept(INodeVisitor *visitor) const  =0
+        virtual void ILayout::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
@@ -19204,7 +19216,7 @@ class ILayout(ISample):
         """
         particles(ILayout self) -> SafePointerVector< IParticle const >
 
-        virtual SafePointerVector<const IParticle> ILayout::particles() const  =0
+        virtual SafePointerVector<const IParticle> ILayout::particles() const =0
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
@@ -19216,7 +19228,7 @@ class ILayout(ISample):
         """
         getTotalAbundance(ILayout self) -> double
 
-        virtual double ILayout::getTotalAbundance() const  =0
+        virtual double ILayout::getTotalAbundance() const =0
 
         Get total abundance of all particles. 
 
@@ -19228,7 +19240,7 @@ class ILayout(ISample):
         """
         totalParticleSurfaceDensity(ILayout self) -> double
 
-        virtual double ILayout::totalParticleSurfaceDensity() const  =0
+        virtual double ILayout::totalParticleSurfaceDensity() const =0
 
         Returns surface density of all particles. 
 
@@ -19305,7 +19317,7 @@ class IAbstractParticle(ISample):
         """
         clone(IAbstractParticle self) -> IAbstractParticle
 
-        virtual IAbstractParticle* IAbstractParticle::clone() const  =0
+        virtual IAbstractParticle* IAbstractParticle::clone() const =0
 
         Returns a clone of this  ISample object. 
 
@@ -19329,7 +19341,7 @@ class IAbstractParticle(ISample):
         """
         abundance(IAbstractParticle self) -> double
 
-        double IAbstractParticle::abundance() const 
+        double IAbstractParticle::abundance() const
 
         """
         return _libBornAgainCore.IAbstractParticle_abundance(self)
@@ -19407,7 +19419,7 @@ class IParameterReal(INamed):
         clone(IParameterReal self, std::string const & new_name) -> IParameterReal
         clone(IParameterReal self) -> IParameterReal
 
-        virtual IParameter* IParameter< T >::clone(const std::string &new_name="") const  =0
+        virtual IParameter* IParameter< T >::clone(const std::string &new_name="") const =0
 
         """
         return _libBornAgainCore.IParameterReal_clone(self, *args)
@@ -19429,7 +19441,7 @@ class IParameterReal(INamed):
         """
         getData(IParameterReal self) -> double &
 
-        T& IParameter< T >::getData() const 
+        T& IParameter< T >::getData() const
 
         """
         return _libBornAgainCore.IParameterReal_getData(self)
@@ -19519,7 +19531,7 @@ class IParticle(IAbstractParticle):
         """
         clone(IParticle self) -> IParticle
 
-        IParticle* IParticle::clone() const  override=0
+        IParticle* IParticle::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
@@ -19531,7 +19543,7 @@ class IParticle(IAbstractParticle):
         """
         accept(IParticle self, INodeVisitor visitor)
 
-        void IParticle::accept(INodeVisitor *visitor) const  override
+        void IParticle::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -19652,7 +19664,7 @@ class IParticle(IAbstractParticle):
         """
         getChildren(IParticle self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > IParticle::getChildren() const  override
+        std::vector< const INode * > IParticle::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -19739,7 +19751,7 @@ class IResolutionFunction2D(ICloneable, INode):
         """
         evaluateCDF(IResolutionFunction2D self, double x, double y) -> double
 
-        virtual double IResolutionFunction2D::evaluateCDF(double x, double y) const  =0
+        virtual double IResolutionFunction2D::evaluateCDF(double x, double y) const =0
 
         """
         return _libBornAgainCore.IResolutionFunction2D_evaluateCDF(self, x, y)
@@ -19749,7 +19761,7 @@ class IResolutionFunction2D(ICloneable, INode):
         """
         clone(IResolutionFunction2D self) -> IResolutionFunction2D
 
-        virtual IResolutionFunction2D* IResolutionFunction2D::clone() const  =0
+        virtual IResolutionFunction2D* IResolutionFunction2D::clone() const =0
 
         """
         return _libBornAgainCore.IResolutionFunction2D_clone(self)
@@ -19798,7 +19810,7 @@ class IRotation(ISample):
         """
         clone(IRotation self) -> IRotation
 
-        virtual IRotation* IRotation::clone() const  =0
+        virtual IRotation* IRotation::clone() const =0
 
         Returns a clone of this  ISample object. 
 
@@ -19810,7 +19822,7 @@ class IRotation(ISample):
         """
         createInverse(IRotation self) -> IRotation
 
-        virtual IRotation* IRotation::createInverse() const  =0
+        virtual IRotation* IRotation::createInverse() const =0
 
         Returns a new  IRotation object that is the current object's inverse. 
 
@@ -19834,7 +19846,7 @@ class IRotation(ISample):
         """
         getTransform3D(IRotation self) -> Transform3D
 
-        virtual Transform3D IRotation::getTransform3D() const  =0
+        virtual Transform3D IRotation::getTransform3D() const =0
 
         Returns transformation. 
 
@@ -20048,7 +20060,7 @@ class RotationX(IRotation):
         """
         getAngle(RotationX self) -> double
 
-        double RotationX::getAngle() const 
+        double RotationX::getAngle() const
 
         """
         return _libBornAgainCore.RotationX_getAngle(self)
@@ -20144,7 +20156,7 @@ class RotationY(IRotation):
         """
         getAngle(RotationY self) -> double
 
-        double RotationY::getAngle() const 
+        double RotationY::getAngle() const
 
         """
         return _libBornAgainCore.RotationY_getAngle(self)
@@ -20241,7 +20253,7 @@ class RotationZ(IRotation):
         """
         getAngle(RotationZ self) -> double
 
-        double RotationZ::getAngle() const 
+        double RotationZ::getAngle() const
 
         """
         return _libBornAgainCore.RotationZ_getAngle(self)
@@ -20343,7 +20355,7 @@ class RotationEuler(IRotation):
         """
         getAlpha(RotationEuler self) -> double
 
-        double RotationEuler::getAlpha() const 
+        double RotationEuler::getAlpha() const
 
         """
         return _libBornAgainCore.RotationEuler_getAlpha(self)
@@ -20353,7 +20365,7 @@ class RotationEuler(IRotation):
         """
         getBeta(RotationEuler self) -> double
 
-        double RotationEuler::getBeta() const 
+        double RotationEuler::getBeta() const
 
         """
         return _libBornAgainCore.RotationEuler_getBeta(self)
@@ -20363,7 +20375,7 @@ class RotationEuler(IRotation):
         """
         getGamma(RotationEuler self) -> double
 
-        double RotationEuler::getGamma() const 
+        double RotationEuler::getGamma() const
 
         """
         return _libBornAgainCore.RotationEuler_getGamma(self)
@@ -20410,7 +20422,7 @@ class ISelectionRule(_object):
         """
         clone(ISelectionRule self) -> ISelectionRule
 
-        virtual ISelectionRule* ISelectionRule::clone() const  =0
+        virtual ISelectionRule* ISelectionRule::clone() const =0
 
         """
         return _libBornAgainCore.ISelectionRule_clone(self)
@@ -20420,7 +20432,7 @@ class ISelectionRule(_object):
         """
         coordinateSelected(ISelectionRule self, ivector_t const & coordinate) -> bool
 
-        virtual bool ISelectionRule::coordinateSelected(const ivector_t &coordinate) const  =0
+        virtual bool ISelectionRule::coordinateSelected(const ivector_t &coordinate) const =0
 
         """
         return _libBornAgainCore.ISelectionRule_coordinateSelected(self, coordinate)
@@ -20467,7 +20479,7 @@ class SimpleSelectionRule(ISelectionRule):
         """
         clone(SimpleSelectionRule self) -> SimpleSelectionRule
 
-        SimpleSelectionRule * SimpleSelectionRule::clone() const 
+        SimpleSelectionRule * SimpleSelectionRule::clone() const
 
         """
         return _libBornAgainCore.SimpleSelectionRule_clone(self)
@@ -20477,7 +20489,7 @@ class SimpleSelectionRule(ISelectionRule):
         """
         coordinateSelected(SimpleSelectionRule self, ivector_t const & coordinate) -> bool
 
-        bool SimpleSelectionRule::coordinateSelected(const ivector_t &coordinate) const 
+        bool SimpleSelectionRule::coordinateSelected(const ivector_t &coordinate) const
 
         """
         return _libBornAgainCore.SimpleSelectionRule_coordinateSelected(self, coordinate)
@@ -20525,7 +20537,7 @@ class Instrument(INode):
         """
         accept(Instrument self, INodeVisitor visitor)
 
-        void Instrument::accept(INodeVisitor *visitor) const  final
+        void Instrument::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -20538,7 +20550,7 @@ class Instrument(INode):
         getBeam(Instrument self) -> Beam
         getBeam(Instrument self) -> Beam
 
-        const Beam& Instrument::getBeam() const 
+        const Beam& Instrument::getBeam() const
 
         """
         return _libBornAgainCore.Instrument_getBeam(self, *args)
@@ -20617,7 +20629,7 @@ class Instrument(INode):
         """
         getDetectorMask(Instrument self) -> DetectorMask
 
-        const DetectorMask * Instrument::getDetectorMask() const 
+        const DetectorMask * Instrument::getDetectorMask() const
 
         """
         return _libBornAgainCore.Instrument_getDetectorMask(self)
@@ -20965,7 +20977,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice
 
-        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const  final
+        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -20977,7 +20989,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction1DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const  final
+        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21007,7 +21019,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         getLatticeParameters(InterferenceFunction1DLattice self) -> Lattice1DParameters
 
-        Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const 
+        Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
 
         """
         return _libBornAgainCore.InterferenceFunction1DLattice_getLatticeParameters(self)
@@ -21017,7 +21029,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         evaluate(InterferenceFunction1DLattice self, kvector_t q) -> double
 
-        double InterferenceFunction1DLattice::evaluate(const kvector_t q) const  final
+        double InterferenceFunction1DLattice::evaluate(const kvector_t q) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -21029,7 +21041,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const  override
+        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -21088,7 +21100,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
 
-        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const  final
+        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -21100,7 +21112,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor visitor)
 
-        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const  final
+        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21130,7 +21142,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         kappa(InterferenceFunctionRadialParaCrystal self) -> double
 
-        double InterferenceFunctionRadialParaCrystal::kappa() const  final
+        double InterferenceFunctionRadialParaCrystal::kappa() const final
 
         Retrieves the size-distance coupling constant (default 0.0) 
 
@@ -21160,7 +21172,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         domainSize(InterferenceFunctionRadialParaCrystal self) -> double
 
-        double InterferenceFunctionRadialParaCrystal::domainSize() const 
+        double InterferenceFunctionRadialParaCrystal::domainSize() const
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_domainSize(self)
@@ -21170,7 +21182,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         evaluate(InterferenceFunctionRadialParaCrystal self, kvector_t q) -> double
 
-        double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const  final
+        double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -21182,7 +21194,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         FTPDF(InterferenceFunctionRadialParaCrystal self, double qpar) -> complex_t
 
-        complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const 
+        complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_FTPDF(self, qpar)
@@ -21210,7 +21222,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         peakDistance(InterferenceFunctionRadialParaCrystal self) -> double
 
-        double InterferenceFunctionRadialParaCrystal::peakDistance() const 
+        double InterferenceFunctionRadialParaCrystal::peakDistance() const
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_peakDistance(self)
@@ -21220,7 +21232,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         dampingLength(InterferenceFunctionRadialParaCrystal self) -> double
 
-        double InterferenceFunctionRadialParaCrystal::dampingLength() const 
+        double InterferenceFunctionRadialParaCrystal::dampingLength() const
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_dampingLength(self)
@@ -21230,7 +21242,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const  override
+        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -21300,7 +21312,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice
 
-        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const  final
+        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -21312,7 +21324,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction2DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const  final
+        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21360,7 +21372,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         evaluate(InterferenceFunction2DLattice self, kvector_t q) -> double
 
-        double InterferenceFunction2DLattice::evaluate(const kvector_t q) const  final
+        double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -21382,7 +21394,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         integrationOverXi(InterferenceFunction2DLattice self) -> bool
 
-        bool InterferenceFunction2DLattice::integrationOverXi() const 
+        bool InterferenceFunction2DLattice::integrationOverXi() const
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_integrationOverXi(self)
@@ -21392,7 +21404,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         lattice(InterferenceFunction2DLattice self) -> Lattice2D
 
-        const Lattice2D & InterferenceFunction2DLattice::lattice() const 
+        const Lattice2D & InterferenceFunction2DLattice::lattice() const
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_lattice(self)
@@ -21402,7 +21414,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunction2DLattice self) -> double
 
-        double InterferenceFunction2DLattice::getParticleDensity() const  final
+        double InterferenceFunction2DLattice::getParticleDensity() const final
 
         Returns the particle density associated with this 2d lattice. 
 
@@ -21414,7 +21426,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction2DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const  override
+        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override
 
         Returns a vector of children (const). 
 
@@ -21515,7 +21527,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal
 
-        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const  final
+        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -21527,7 +21539,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         accept(InterferenceFunction2DParaCrystal self, INodeVisitor visitor)
 
-        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const  final
+        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21621,7 +21633,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         evaluate(InterferenceFunction2DParaCrystal self, kvector_t q) -> double
 
-        double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const  final
+        double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -21633,7 +21645,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         domainSizes(InterferenceFunction2DParaCrystal self) -> vdouble1d_t
 
-        std::vector< double > InterferenceFunction2DParaCrystal::domainSizes() const 
+        std::vector< double > InterferenceFunction2DParaCrystal::domainSizes() const
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_domainSizes(self)
@@ -21661,7 +21673,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         integrationOverXi(InterferenceFunction2DParaCrystal self) -> bool
 
-        bool InterferenceFunction2DParaCrystal::integrationOverXi() const 
+        bool InterferenceFunction2DParaCrystal::integrationOverXi() const
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_integrationOverXi(self)
@@ -21671,7 +21683,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         dampingLength(InterferenceFunction2DParaCrystal self) -> double
 
-        double InterferenceFunction2DParaCrystal::dampingLength() const 
+        double InterferenceFunction2DParaCrystal::dampingLength() const
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_dampingLength(self)
@@ -21681,7 +21693,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         lattice(InterferenceFunction2DParaCrystal self) -> Lattice2D
 
-        const Lattice2D & InterferenceFunction2DParaCrystal::lattice() const 
+        const Lattice2D & InterferenceFunction2DParaCrystal::lattice() const
 
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_lattice(self)
@@ -21691,7 +21703,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunction2DParaCrystal self) -> double
 
-        double InterferenceFunction2DParaCrystal::getParticleDensity() const  final
+        double InterferenceFunction2DParaCrystal::getParticleDensity() const final
 
         If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 
@@ -21768,7 +21780,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         clone(InterferenceFunctionNone self) -> InterferenceFunctionNone
 
-        InterferenceFunctionNone* InterferenceFunctionNone::clone() const  final
+        InterferenceFunctionNone* InterferenceFunctionNone::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -21780,7 +21792,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         accept(InterferenceFunctionNone self, INodeVisitor visitor)
 
-        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const  final
+        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21792,7 +21804,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         evaluate(InterferenceFunctionNone self, kvector_t arg2) -> double
 
-        double InterferenceFunctionNone::evaluate(const kvector_t) const  final
+        double InterferenceFunctionNone::evaluate(const kvector_t) const final
 
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
@@ -21829,7 +21841,7 @@ class IPixel(_object):
         """
         clone(IPixel self) -> IPixel
 
-        virtual IPixel* IPixel::clone() const  =0
+        virtual IPixel* IPixel::clone() const =0
 
         """
         return _libBornAgainCore.IPixel_clone(self)
@@ -21839,7 +21851,7 @@ class IPixel(_object):
         """
         createZeroSizePixel(IPixel self, double x, double y) -> IPixel
 
-        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const  =0
+        virtual IPixel* IPixel::createZeroSizePixel(double x, double y) const =0
 
         """
         return _libBornAgainCore.IPixel_createZeroSizePixel(self, x, y)
@@ -21849,7 +21861,7 @@ class IPixel(_object):
         """
         getK(IPixel self, double x, double y, double wavelength) -> kvector_t
 
-        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const  =0
+        virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
 
         """
         return _libBornAgainCore.IPixel_getK(self, x, y, wavelength)
@@ -21859,7 +21871,7 @@ class IPixel(_object):
         """
         getIntegrationFactor(IPixel self, double x, double y) -> double
 
-        virtual double IPixel::getIntegrationFactor(double x, double y) const  =0
+        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
 
         """
         return _libBornAgainCore.IPixel_getIntegrationFactor(self, x, y)
@@ -21869,7 +21881,7 @@ class IPixel(_object):
         """
         getSolidAngle(IPixel self) -> double
 
-        virtual double IPixel::getSolidAngle() const  =0
+        virtual double IPixel::getSolidAngle() const =0
 
         """
         return _libBornAgainCore.IPixel_getSolidAngle(self)
@@ -21916,7 +21928,7 @@ class SphericalDetector(IDetector2D):
         """
         clone(SphericalDetector self) -> SphericalDetector
 
-        SphericalDetector * SphericalDetector::clone() const  override
+        SphericalDetector * SphericalDetector::clone() const override
 
         """
         return _libBornAgainCore.SphericalDetector_clone(self)
@@ -21926,7 +21938,7 @@ class SphericalDetector(IDetector2D):
         """
         accept(SphericalDetector self, INodeVisitor visitor)
 
-        void SphericalDetector::accept(INodeVisitor *visitor) const  override
+        void SphericalDetector::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21940,7 +21952,7 @@ class SphericalDetector(IDetector2D):
         """
         validAxesUnits(SphericalDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
 
-        std::vector< AxesUnits > SphericalDetector::validAxesUnits() const  override
+        std::vector< AxesUnits > SphericalDetector::validAxesUnits() const override
 
         returns vector of valid axes units 
 
@@ -21952,7 +21964,7 @@ class SphericalDetector(IDetector2D):
         """
         defaultAxesUnits(SphericalDetector self) -> AxesUnits
 
-        AxesUnits SphericalDetector::defaultAxesUnits() const  override
+        AxesUnits SphericalDetector::defaultAxesUnits() const override
 
         return default axes units 
 
@@ -21994,7 +22006,7 @@ class SphericalPixel(IPixel):
         """
         clone(SphericalPixel self) -> SphericalPixel
 
-        SphericalPixel * SphericalPixel::clone() const  override
+        SphericalPixel * SphericalPixel::clone() const override
 
         """
         return _libBornAgainCore.SphericalPixel_clone(self)
@@ -22004,7 +22016,7 @@ class SphericalPixel(IPixel):
         """
         createZeroSizePixel(SphericalPixel self, double x, double y) -> SphericalPixel
 
-        SphericalPixel * SphericalPixel::createZeroSizePixel(double x, double y) const  override
+        SphericalPixel * SphericalPixel::createZeroSizePixel(double x, double y) const override
 
         """
         return _libBornAgainCore.SphericalPixel_createZeroSizePixel(self, x, y)
@@ -22014,7 +22026,7 @@ class SphericalPixel(IPixel):
         """
         getK(SphericalPixel self, double x, double y, double wavelength) -> kvector_t
 
-        kvector_t SphericalPixel::getK(double x, double y, double wavelength) const  override
+        kvector_t SphericalPixel::getK(double x, double y, double wavelength) const override
 
         """
         return _libBornAgainCore.SphericalPixel_getK(self, x, y, wavelength)
@@ -22024,7 +22036,7 @@ class SphericalPixel(IPixel):
         """
         getIntegrationFactor(SphericalPixel self, double x, double y) -> double
 
-        double SphericalPixel::getIntegrationFactor(double x, double y) const  override
+        double SphericalPixel::getIntegrationFactor(double x, double y) const override
 
         """
         return _libBornAgainCore.SphericalPixel_getIntegrationFactor(self, x, y)
@@ -22034,7 +22046,7 @@ class SphericalPixel(IPixel):
         """
         getSolidAngle(SphericalPixel self) -> double
 
-        double SphericalPixel::getSolidAngle() const  override
+        double SphericalPixel::getSolidAngle() const override
 
         """
         return _libBornAgainCore.SphericalPixel_getSolidAngle(self)
@@ -22081,7 +22093,7 @@ class IsGISAXSDetector(SphericalDetector):
         """
         clone(IsGISAXSDetector self) -> IsGISAXSDetector
 
-        IsGISAXSDetector * IsGISAXSDetector::clone() const  override
+        IsGISAXSDetector * IsGISAXSDetector::clone() const override
 
         """
         return _libBornAgainCore.IsGISAXSDetector_clone(self)
@@ -22091,7 +22103,7 @@ class IsGISAXSDetector(SphericalDetector):
         """
         accept(IsGISAXSDetector self, INodeVisitor visitor)
 
-        void IsGISAXSDetector::accept(INodeVisitor *visitor) const  final
+        void IsGISAXSDetector::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22143,7 +22155,7 @@ class Lattice(INode):
         """
         accept(Lattice self, INodeVisitor visitor)
 
-        void Lattice::accept(INodeVisitor *visitor) const  override
+        void Lattice::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22388,7 +22400,7 @@ class Lattice2D(ICloneable, INode):
         """
         clone(Lattice2D self) -> Lattice2D
 
-        Lattice2D* Lattice2D::clone() const  =0
+        Lattice2D* Lattice2D::clone() const =0
 
         """
         return _libBornAgainCore.Lattice2D_clone(self)
@@ -22398,7 +22410,7 @@ class Lattice2D(ICloneable, INode):
         """
         length1(Lattice2D self) -> double
 
-        virtual double Lattice2D::length1() const  =0
+        virtual double Lattice2D::length1() const =0
 
         """
         return _libBornAgainCore.Lattice2D_length1(self)
@@ -22408,7 +22420,7 @@ class Lattice2D(ICloneable, INode):
         """
         length2(Lattice2D self) -> double
 
-        virtual double Lattice2D::length2() const  =0
+        virtual double Lattice2D::length2() const =0
 
         """
         return _libBornAgainCore.Lattice2D_length2(self)
@@ -22418,7 +22430,7 @@ class Lattice2D(ICloneable, INode):
         """
         latticeAngle(Lattice2D self) -> double
 
-        virtual double Lattice2D::latticeAngle() const  =0
+        virtual double Lattice2D::latticeAngle() const =0
 
         """
         return _libBornAgainCore.Lattice2D_latticeAngle(self)
@@ -22428,7 +22440,7 @@ class Lattice2D(ICloneable, INode):
         """
         unitCellArea(Lattice2D self) -> double
 
-        virtual double Lattice2D::unitCellArea() const  =0
+        virtual double Lattice2D::unitCellArea() const =0
 
         """
         return _libBornAgainCore.Lattice2D_unitCellArea(self)
@@ -22438,7 +22450,7 @@ class Lattice2D(ICloneable, INode):
         """
         rotationAngle(Lattice2D self) -> double
 
-        double Lattice2D::rotationAngle() const 
+        double Lattice2D::rotationAngle() const
 
         """
         return _libBornAgainCore.Lattice2D_rotationAngle(self)
@@ -22448,7 +22460,7 @@ class Lattice2D(ICloneable, INode):
         """
         reciprocalBases(Lattice2D self) -> Lattice2D::ReciprocalBases
 
-        Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const 
+        Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const
 
         """
         return _libBornAgainCore.Lattice2D_reciprocalBases(self)
@@ -22499,7 +22511,7 @@ class BasicLattice(Lattice2D):
         """
         clone(BasicLattice self) -> BasicLattice
 
-        BasicLattice * BasicLattice::clone() const 
+        BasicLattice * BasicLattice::clone() const
 
         """
         return _libBornAgainCore.BasicLattice_clone(self)
@@ -22509,7 +22521,7 @@ class BasicLattice(Lattice2D):
         """
         accept(BasicLattice self, INodeVisitor visitor)
 
-        void BasicLattice::accept(INodeVisitor *visitor) const  final
+        void BasicLattice::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22521,7 +22533,7 @@ class BasicLattice(Lattice2D):
         """
         length1(BasicLattice self) -> double
 
-        virtual double BasicLattice::length1() const 
+        virtual double BasicLattice::length1() const
 
         """
         return _libBornAgainCore.BasicLattice_length1(self)
@@ -22531,7 +22543,7 @@ class BasicLattice(Lattice2D):
         """
         length2(BasicLattice self) -> double
 
-        virtual double BasicLattice::length2() const 
+        virtual double BasicLattice::length2() const
 
         """
         return _libBornAgainCore.BasicLattice_length2(self)
@@ -22541,7 +22553,7 @@ class BasicLattice(Lattice2D):
         """
         latticeAngle(BasicLattice self) -> double
 
-        virtual double BasicLattice::latticeAngle() const 
+        virtual double BasicLattice::latticeAngle() const
 
         """
         return _libBornAgainCore.BasicLattice_latticeAngle(self)
@@ -22551,7 +22563,7 @@ class BasicLattice(Lattice2D):
         """
         unitCellArea(BasicLattice self) -> double
 
-        double BasicLattice::unitCellArea() const 
+        double BasicLattice::unitCellArea() const
 
         """
         return _libBornAgainCore.BasicLattice_unitCellArea(self)
@@ -22592,7 +22604,7 @@ class SquareLattice(Lattice2D):
         """
         clone(SquareLattice self) -> SquareLattice
 
-        SquareLattice * SquareLattice::clone() const 
+        SquareLattice * SquareLattice::clone() const
 
         """
         return _libBornAgainCore.SquareLattice_clone(self)
@@ -22602,7 +22614,7 @@ class SquareLattice(Lattice2D):
         """
         accept(SquareLattice self, INodeVisitor visitor)
 
-        void SquareLattice::accept(INodeVisitor *visitor) const  final
+        void SquareLattice::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22614,7 +22626,7 @@ class SquareLattice(Lattice2D):
         """
         length1(SquareLattice self) -> double
 
-        virtual double SquareLattice::length1() const 
+        virtual double SquareLattice::length1() const
 
         """
         return _libBornAgainCore.SquareLattice_length1(self)
@@ -22624,7 +22636,7 @@ class SquareLattice(Lattice2D):
         """
         length2(SquareLattice self) -> double
 
-        virtual double SquareLattice::length2() const 
+        virtual double SquareLattice::length2() const
 
         """
         return _libBornAgainCore.SquareLattice_length2(self)
@@ -22634,7 +22646,7 @@ class SquareLattice(Lattice2D):
         """
         latticeAngle(SquareLattice self) -> double
 
-        double SquareLattice::latticeAngle() const 
+        double SquareLattice::latticeAngle() const
 
         """
         return _libBornAgainCore.SquareLattice_latticeAngle(self)
@@ -22644,7 +22656,7 @@ class SquareLattice(Lattice2D):
         """
         unitCellArea(SquareLattice self) -> double
 
-        double SquareLattice::unitCellArea() const 
+        double SquareLattice::unitCellArea() const
 
         """
         return _libBornAgainCore.SquareLattice_unitCellArea(self)
@@ -22685,7 +22697,7 @@ class HexagonalLattice(Lattice2D):
         """
         clone(HexagonalLattice self) -> HexagonalLattice
 
-        HexagonalLattice * HexagonalLattice::clone() const 
+        HexagonalLattice * HexagonalLattice::clone() const
 
         """
         return _libBornAgainCore.HexagonalLattice_clone(self)
@@ -22695,7 +22707,7 @@ class HexagonalLattice(Lattice2D):
         """
         accept(HexagonalLattice self, INodeVisitor visitor)
 
-        void HexagonalLattice::accept(INodeVisitor *visitor) const  final
+        void HexagonalLattice::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22707,7 +22719,7 @@ class HexagonalLattice(Lattice2D):
         """
         length1(HexagonalLattice self) -> double
 
-        virtual double HexagonalLattice::length1() const 
+        virtual double HexagonalLattice::length1() const
 
         """
         return _libBornAgainCore.HexagonalLattice_length1(self)
@@ -22717,7 +22729,7 @@ class HexagonalLattice(Lattice2D):
         """
         length2(HexagonalLattice self) -> double
 
-        virtual double HexagonalLattice::length2() const 
+        virtual double HexagonalLattice::length2() const
 
         """
         return _libBornAgainCore.HexagonalLattice_length2(self)
@@ -22727,7 +22739,7 @@ class HexagonalLattice(Lattice2D):
         """
         latticeAngle(HexagonalLattice self) -> double
 
-        double HexagonalLattice::latticeAngle() const 
+        double HexagonalLattice::latticeAngle() const
 
         """
         return _libBornAgainCore.HexagonalLattice_latticeAngle(self)
@@ -22737,7 +22749,7 @@ class HexagonalLattice(Lattice2D):
         """
         unitCellArea(HexagonalLattice self) -> double
 
-        double HexagonalLattice::unitCellArea() const 
+        double HexagonalLattice::unitCellArea() const
 
         """
         return _libBornAgainCore.HexagonalLattice_unitCellArea(self)
@@ -22802,7 +22814,7 @@ class Layer(ISample):
         """
         clone(Layer self) -> Layer
 
-        Layer * Layer::clone() const  override final
+        Layer * Layer::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -22814,7 +22826,7 @@ class Layer(ISample):
         """
         cloneInvertB(Layer self) -> Layer
 
-        Layer * Layer::cloneInvertB() const 
+        Layer * Layer::cloneInvertB() const
 
         """
         return _libBornAgainCore.Layer_cloneInvertB(self)
@@ -22824,7 +22836,7 @@ class Layer(ISample):
         """
         accept(Layer self, INodeVisitor visitor)
 
-        void Layer::accept(INodeVisitor *visitor) const  override final
+        void Layer::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22848,7 +22860,7 @@ class Layer(ISample):
         """
         thickness(Layer self) -> double
 
-        double Layer::thickness() const 
+        double Layer::thickness() const
 
         """
         return _libBornAgainCore.Layer_thickness(self)
@@ -22858,7 +22870,7 @@ class Layer(ISample):
         """
         material(Layer self) -> Material
 
-        const Material* Layer::material() const  override final
+        const Material* Layer::material() const override final
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -22890,7 +22902,7 @@ class Layer(ISample):
         """
         numberOfLayouts(Layer self) -> size_t
 
-        size_t Layer::numberOfLayouts() const 
+        size_t Layer::numberOfLayouts() const
 
         """
         return _libBornAgainCore.Layer_numberOfLayouts(self)
@@ -22900,7 +22912,7 @@ class Layer(ISample):
         """
         layouts(Layer self) -> std::vector< ILayout const *,std::allocator< ILayout const * > >
 
-        std::vector< const ILayout * > Layer::layouts() const 
+        std::vector< const ILayout * > Layer::layouts() const
 
         """
         return _libBornAgainCore.Layer_layouts(self)
@@ -22910,7 +22922,7 @@ class Layer(ISample):
         """
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > Layer::getChildren() const  override final
+        std::vector< const INode * > Layer::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -22943,7 +22955,7 @@ class Layer(ISample):
         """
         numberOfSlices(Layer self) -> unsigned int
 
-        unsigned int Layer::numberOfSlices() const 
+        unsigned int Layer::numberOfSlices() const
 
         """
         return _libBornAgainCore.Layer_numberOfSlices(self)
@@ -22953,7 +22965,7 @@ class Layer(ISample):
         """
         slice(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >
 
-        SafePointerVector< Layer > Layer::slice(ZLimits limits, ELayerType layer_type) const 
+        SafePointerVector< Layer > Layer::slice(ZLimits limits, ELayerType layer_type) const
 
         """
         return _libBornAgainCore.Layer_slice(self, limits, layer_type)
@@ -23201,7 +23213,7 @@ class Line(IShape2D):
         """
         clone(Line self) -> Line
 
-        Line* Line::clone() const 
+        Line* Line::clone() const
 
         """
         return _libBornAgainCore.Line_clone(self)
@@ -23267,7 +23279,7 @@ class VerticalLine(IShape2D):
         """
         clone(VerticalLine self) -> VerticalLine
 
-        VerticalLine* VerticalLine::clone() const 
+        VerticalLine* VerticalLine::clone() const
 
         """
         return _libBornAgainCore.VerticalLine_clone(self)
@@ -23290,7 +23302,7 @@ class VerticalLine(IShape2D):
         """
         getXpos(VerticalLine self) -> double
 
-        double VerticalLine::getXpos() const 
+        double VerticalLine::getXpos() const
 
         """
         return _libBornAgainCore.VerticalLine_getXpos(self)
@@ -23343,7 +23355,7 @@ class HorizontalLine(IShape2D):
         """
         clone(HorizontalLine self) -> HorizontalLine
 
-        HorizontalLine* HorizontalLine::clone() const 
+        HorizontalLine* HorizontalLine::clone() const
 
         """
         return _libBornAgainCore.HorizontalLine_clone(self)
@@ -23366,7 +23378,7 @@ class HorizontalLine(IShape2D):
         """
         getYpos(HorizontalLine self) -> double
 
-        double HorizontalLine::getYpos() const 
+        double HorizontalLine::getYpos() const
 
         """
         return _libBornAgainCore.HorizontalLine_getYpos(self)
@@ -23460,7 +23472,7 @@ class Material(_object):
         """
         isMagneticMaterial(Material self) -> bool
 
-        bool Material::isMagneticMaterial() const 
+        bool Material::isMagneticMaterial() const
 
         """
         return _libBornAgainCore.Material_isMagneticMaterial(self)
@@ -23542,7 +23554,7 @@ class Material(_object):
         """
         transformedMaterial(Material self, Transform3D const & transform) -> Material
 
-        Material Material::transformedMaterial(const Transform3D &transform) const 
+        Material Material::transformedMaterial(const Transform3D &transform) const
 
         """
         return _libBornAgainCore.Material_transformedMaterial(self, transform)
@@ -23634,7 +23646,7 @@ class MesoCrystal(IParticle):
         """
         clone(MesoCrystal self) -> MesoCrystal
 
-        MesoCrystal * MesoCrystal::clone() const  override final
+        MesoCrystal * MesoCrystal::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -23646,7 +23658,7 @@ class MesoCrystal(IParticle):
         """
         accept(MesoCrystal self, INodeVisitor visitor)
 
-        void MesoCrystal::accept(INodeVisitor *visitor) const  override final
+        void MesoCrystal::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -23658,7 +23670,7 @@ class MesoCrystal(IParticle):
         """
         createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
 
-        SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const  override final
+        SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const override final
 
         Create a sliced form factor for this particle. 
 
@@ -23670,7 +23682,7 @@ class MesoCrystal(IParticle):
         """
         getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > MesoCrystal::getChildren() const  override final
+        std::vector< const INode * > MesoCrystal::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -23721,7 +23733,7 @@ class MultiLayer(ISample):
         """
         accept(MultiLayer self, INodeVisitor visitor)
 
-        void MultiLayer::accept(INodeVisitor *visitor) const  final override
+        void MultiLayer::accept(INodeVisitor *visitor) const final override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -23733,7 +23745,7 @@ class MultiLayer(ISample):
         """
         numberOfLayers(MultiLayer self) -> size_t
 
-        size_t MultiLayer::numberOfLayers() const 
+        size_t MultiLayer::numberOfLayers() const
 
         """
         return _libBornAgainCore.MultiLayer_numberOfLayers(self)
@@ -23743,7 +23755,7 @@ class MultiLayer(ISample):
         """
         numberOfInterfaces(MultiLayer self) -> size_t
 
-        size_t MultiLayer::numberOfInterfaces() const 
+        size_t MultiLayer::numberOfInterfaces() const
 
         """
         return _libBornAgainCore.MultiLayer_numberOfInterfaces(self)
@@ -23891,7 +23903,7 @@ class MultiLayer(ISample):
         """
         clone(MultiLayer self) -> MultiLayer
 
-        MultiLayer * MultiLayer::clone() const  final override
+        MultiLayer * MultiLayer::clone() const final override
 
         Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
 
@@ -24025,7 +24037,7 @@ class MultiLayer(ISample):
         """
         containsMagneticMaterial(MultiLayer self) -> bool
 
-        bool MultiLayer::containsMagneticMaterial() const 
+        bool MultiLayer::containsMagneticMaterial() const
 
         """
         return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)
@@ -24059,7 +24071,7 @@ class MultiLayer(ISample):
         """
         hasRoughness(MultiLayer self) -> bool
 
-        bool MultiLayer::hasRoughness() const 
+        bool MultiLayer::hasRoughness() const
 
         """
         return _libBornAgainCore.MultiLayer_hasRoughness(self)
@@ -24069,7 +24081,7 @@ class MultiLayer(ISample):
         """
         totalNofLayouts(MultiLayer self) -> size_t
 
-        size_t MultiLayer::totalNofLayouts() const 
+        size_t MultiLayer::totalNofLayouts() const
 
         """
         return _libBornAgainCore.MultiLayer_totalNofLayouts(self)
@@ -24079,7 +24091,7 @@ class MultiLayer(ISample):
         """
         getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > MultiLayer::getChildren() const  final override
+        std::vector< const INode * > MultiLayer::getChildren() const final override
 
         Returns a vector of children (const). 
 
@@ -24130,7 +24142,7 @@ class OffSpecSimulation(Simulation2D):
         """
         clone(OffSpecSimulation self) -> OffSpecSimulation
 
-        OffSpecSimulation* OffSpecSimulation::clone() const  override
+        OffSpecSimulation* OffSpecSimulation::clone() const override
 
         """
         return _libBornAgainCore.OffSpecSimulation_clone(self)
@@ -24140,7 +24152,7 @@ class OffSpecSimulation(Simulation2D):
         """
         accept(OffSpecSimulation self, INodeVisitor visitor)
 
-        void OffSpecSimulation::accept(INodeVisitor *visitor) const  final
+        void OffSpecSimulation::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -24164,7 +24176,7 @@ class OffSpecSimulation(Simulation2D):
         """
         numberOfSimulationElements(OffSpecSimulation self) -> size_t
 
-        size_t OffSpecSimulation::numberOfSimulationElements() const  final
+        size_t OffSpecSimulation::numberOfSimulationElements() const final
 
         Gets the number of elements this simulation needs to calculate. 
 
@@ -24176,7 +24188,7 @@ class OffSpecSimulation(Simulation2D):
         """
         result(OffSpecSimulation self) -> SimulationResult
 
-        SimulationResult OffSpecSimulation::result() const  override
+        SimulationResult OffSpecSimulation::result() const override
 
         Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 
@@ -24245,7 +24257,7 @@ class IntensityData(_object):
         """
         clone(IntensityData self) -> IntensityData
 
-        OutputData< T > * OutputData< T >::clone() const 
+        OutputData< T > * OutputData< T >::clone() const
 
         """
         return _libBornAgainCore.IntensityData_clone(self)
@@ -24265,7 +24277,7 @@ class IntensityData(_object):
         """
         meanValues(IntensityData self) -> IntensityData
 
-        OutputData< double > * OutputData< T >::meanValues() const 
+        OutputData< double > * OutputData< T >::meanValues() const
 
         """
         return _libBornAgainCore.IntensityData_meanValues(self)
@@ -24803,7 +24815,7 @@ class ParameterDistribution(IParameterized):
         """
         getLimits(ParameterDistribution self) -> RealLimits
 
-        RealLimits ParameterDistribution::getLimits() const 
+        RealLimits ParameterDistribution::getLimits() const
 
         """
         return _libBornAgainCore.ParameterDistribution_getLimits(self)
@@ -24813,7 +24825,7 @@ class ParameterDistribution(IParameterized):
         """
         getMinValue(ParameterDistribution self) -> double
 
-        double ParameterDistribution::getMinValue() const 
+        double ParameterDistribution::getMinValue() const
 
         """
         return _libBornAgainCore.ParameterDistribution_getMinValue(self)
@@ -24823,7 +24835,7 @@ class ParameterDistribution(IParameterized):
         """
         getMaxValue(ParameterDistribution self) -> double
 
-        double ParameterDistribution::getMaxValue() const 
+        double ParameterDistribution::getMaxValue() const
 
         """
         return _libBornAgainCore.ParameterDistribution_getMaxValue(self)
@@ -25019,7 +25031,7 @@ class ParameterPool(ICloneable):
         """
         parameterNames(ParameterPool self) -> vector_string_t
 
-        std::vector< std::string > ParameterPool::parameterNames() const 
+        std::vector< std::string > ParameterPool::parameterNames() const
 
         """
         return _libBornAgainCore.ParameterPool_parameterNames(self)
@@ -25343,7 +25355,7 @@ class Particle(IParticle):
         """
         clone(Particle self) -> Particle
 
-        Particle * Particle::clone() const  override final
+        Particle * Particle::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -25355,7 +25367,7 @@ class Particle(IParticle):
         """
         accept(Particle self, INodeVisitor visitor)
 
-        void Particle::accept(INodeVisitor *visitor) const  override final
+        void Particle::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -25367,7 +25379,7 @@ class Particle(IParticle):
         """
         createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle
 
-        SlicedParticle Particle::createSlicedParticle(ZLimits limits) const  override final
+        SlicedParticle Particle::createSlicedParticle(ZLimits limits) const override final
 
         Create a sliced form factor for this particle. 
 
@@ -25389,7 +25401,7 @@ class Particle(IParticle):
         """
         material(Particle self) -> Material
 
-        const Material* Particle::material() const  override final
+        const Material* Particle::material() const override final
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -25411,7 +25423,7 @@ class Particle(IParticle):
         """
         getChildren(Particle self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > Particle::getChildren() const  override final
+        std::vector< const INode * > Particle::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -25463,7 +25475,7 @@ class ParticleComposition(IParticle):
         """
         clone(ParticleComposition self) -> ParticleComposition
 
-        ParticleComposition * ParticleComposition::clone() const  override final
+        ParticleComposition * ParticleComposition::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -25475,7 +25487,7 @@ class ParticleComposition(IParticle):
         """
         accept(ParticleComposition self, INodeVisitor visitor)
 
-        void ParticleComposition::accept(INodeVisitor *visitor) const  override final
+        void ParticleComposition::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -25487,7 +25499,7 @@ class ParticleComposition(IParticle):
         """
         createFormFactor(ParticleComposition self) -> IFormFactor
 
-        IFormFactor * ParticleComposition::createFormFactor() const  override final
+        IFormFactor * ParticleComposition::createFormFactor() const override final
 
         Create a form factor for this particle. 
 
@@ -25532,7 +25544,7 @@ class ParticleComposition(IParticle):
         """
         getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleComposition::getChildren() const  override final
+        std::vector< const INode * > ParticleComposition::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -25544,7 +25556,7 @@ class ParticleComposition(IParticle):
         """
         decompose(ParticleComposition self) -> SafePointerVector< IParticle >
 
-        SafePointerVector< IParticle > ParticleComposition::decompose() const  override final
+        SafePointerVector< IParticle > ParticleComposition::decompose() const override final
 
         Decompose in constituent  IParticle objects. 
 
@@ -25556,7 +25568,7 @@ class ParticleComposition(IParticle):
         """
         bottomTopZ(ParticleComposition self) -> ParticleLimits
 
-        ParticleLimits ParticleComposition::bottomTopZ() const  override final
+        ParticleLimits ParticleComposition::bottomTopZ() const override final
 
         Top and bottom z-coordinate. 
 
@@ -25606,7 +25618,7 @@ class ParticleCoreShell(IParticle):
         """
         clone(ParticleCoreShell self) -> ParticleCoreShell
 
-        ParticleCoreShell * ParticleCoreShell::clone() const  override final
+        ParticleCoreShell * ParticleCoreShell::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -25618,7 +25630,7 @@ class ParticleCoreShell(IParticle):
         """
         accept(ParticleCoreShell self, INodeVisitor visitor)
 
-        void ParticleCoreShell::accept(INodeVisitor *visitor) const  override final
+        void ParticleCoreShell::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -25630,7 +25642,7 @@ class ParticleCoreShell(IParticle):
         """
         createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle
 
-        SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const  override final
+        SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const override final
 
         Create a sliced form factor for this particle. 
 
@@ -25642,7 +25654,7 @@ class ParticleCoreShell(IParticle):
         """
         coreParticle(ParticleCoreShell self) -> Particle
 
-        const Particle * ParticleCoreShell::coreParticle() const 
+        const Particle * ParticleCoreShell::coreParticle() const
 
         """
         return _libBornAgainCore.ParticleCoreShell_coreParticle(self)
@@ -25652,7 +25664,7 @@ class ParticleCoreShell(IParticle):
         """
         shellParticle(ParticleCoreShell self) -> Particle
 
-        const Particle * ParticleCoreShell::shellParticle() const 
+        const Particle * ParticleCoreShell::shellParticle() const
 
         """
         return _libBornAgainCore.ParticleCoreShell_shellParticle(self)
@@ -25662,7 +25674,7 @@ class ParticleCoreShell(IParticle):
         """
         getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleCoreShell::getChildren() const  override final
+        std::vector< const INode * > ParticleCoreShell::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -25709,7 +25721,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         clone(ParticleDistribution self) -> ParticleDistribution
 
-        ParticleDistribution * ParticleDistribution::clone() const  override final
+        ParticleDistribution * ParticleDistribution::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -25721,7 +25733,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         accept(ParticleDistribution self, INodeVisitor visitor)
 
-        void ParticleDistribution::accept(INodeVisitor *visitor) const  override final
+        void ParticleDistribution::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -25795,7 +25807,7 @@ class ParticleDistribution(IAbstractParticle):
         """
         getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleDistribution::getChildren() const  override final
+        std::vector< const INode * > ParticleDistribution::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -25848,7 +25860,7 @@ class ParticleLayout(ILayout):
         """
         clone(ParticleLayout self) -> ParticleLayout
 
-        ParticleLayout * ParticleLayout::clone() const  final override
+        ParticleLayout * ParticleLayout::clone() const final override
 
         Returns a clone of this  ISample object. 
 
@@ -25860,7 +25872,7 @@ class ParticleLayout(ILayout):
         """
         cloneWithOffset(ParticleLayout self, double offset) -> ParticleLayout
 
-        ParticleLayout * ParticleLayout::cloneWithOffset(double offset) const  final override
+        ParticleLayout * ParticleLayout::cloneWithOffset(double offset) const final override
 
         """
         return _libBornAgainCore.ParticleLayout_cloneWithOffset(self, offset)
@@ -25870,7 +25882,7 @@ class ParticleLayout(ILayout):
         """
         accept(ParticleLayout self, INodeVisitor visitor)
 
-        void ParticleLayout::accept(INodeVisitor *visitor) const  final override
+        void ParticleLayout::accept(INodeVisitor *visitor) const final override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -25912,7 +25924,7 @@ class ParticleLayout(ILayout):
         """
         particles(ParticleLayout self) -> SafePointerVector< IParticle const >
 
-        SafePointerVector< const IParticle > ParticleLayout::particles() const  final override
+        SafePointerVector< const IParticle > ParticleLayout::particles() const final override
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
@@ -25924,7 +25936,7 @@ class ParticleLayout(ILayout):
         """
         getTotalAbundance(ParticleLayout self) -> double
 
-        double ParticleLayout::getTotalAbundance() const  final override
+        double ParticleLayout::getTotalAbundance() const final override
 
         Get total abundance of all particles. 
 
@@ -25948,7 +25960,7 @@ class ParticleLayout(ILayout):
         """
         totalParticleSurfaceDensity(ParticleLayout self) -> double
 
-        double ParticleLayout::totalParticleSurfaceDensity() const  final override
+        double ParticleLayout::totalParticleSurfaceDensity() const final override
 
         Returns surface density of all particles. 
 
@@ -25978,7 +25990,7 @@ class ParticleLayout(ILayout):
         """
         getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > ParticleLayout::getChildren() const  final override
+        std::vector< const INode * > ParticleLayout::getChildren() const final override
 
         Returns a vector of children (const). 
 
@@ -26027,7 +26039,7 @@ class PoissonNoiseBackground(IBackground):
         """
         clone(PoissonNoiseBackground self) -> PoissonNoiseBackground
 
-        PoissonNoiseBackground * PoissonNoiseBackground::clone() const  override final
+        PoissonNoiseBackground * PoissonNoiseBackground::clone() const override final
 
         """
         return _libBornAgainCore.PoissonNoiseBackground_clone(self)
@@ -26037,7 +26049,7 @@ class PoissonNoiseBackground(IBackground):
         """
         accept(PoissonNoiseBackground self, INodeVisitor visitor)
 
-        void PoissonNoiseBackground::accept(INodeVisitor *visitor) const  override
+        void PoissonNoiseBackground::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
@@ -26049,7 +26061,7 @@ class PoissonNoiseBackground(IBackground):
         """
         addBackGround(PoissonNoiseBackground self, double intensity) -> double
 
-        double PoissonNoiseBackground::addBackGround(double intensity) const  override final
+        double PoissonNoiseBackground::addBackGround(double intensity) const override final
 
         """
         return _libBornAgainCore.PoissonNoiseBackground_addBackGround(self, intensity)
@@ -26098,7 +26110,7 @@ class Polygon(IShape2D):
         """
         clone(Polygon self) -> Polygon
 
-        virtual Polygon* Polygon::clone() const 
+        virtual Polygon* Polygon::clone() const
 
         """
         return _libBornAgainCore.Polygon_clone(self)
@@ -26121,7 +26133,7 @@ class Polygon(IShape2D):
         """
         getArea(Polygon self) -> double
 
-        double Polygon::getArea() const 
+        double Polygon::getArea() const
 
         """
         return _libBornAgainCore.Polygon_getArea(self)
@@ -26131,7 +26143,7 @@ class Polygon(IShape2D):
         """
         getPoints(Polygon self, vdouble1d_t xpos, vdouble1d_t ypos)
 
-        void Polygon::getPoints(std::vector< double > &xpos, std::vector< double > &ypos) const 
+        void Polygon::getPoints(std::vector< double > &xpos, std::vector< double > &ypos) const
 
         """
         return _libBornAgainCore.Polygon_getPoints(self, xpos, ypos)
@@ -26181,7 +26193,7 @@ class RealParameter(IParameterReal):
         clone(RealParameter self, std::string const & new_name) -> RealParameter
         clone(RealParameter self) -> RealParameter
 
-        RealParameter * RealParameter::clone(const std::string &new_name="") const 
+        RealParameter * RealParameter::clone(const std::string &new_name="") const
 
         """
         return _libBornAgainCore.RealParameter_clone(self, *args)
@@ -26225,7 +26237,7 @@ class RealParameter(IParameterReal):
         """
         limits(RealParameter self) -> RealLimits
 
-        RealLimits RealParameter::limits() const 
+        RealLimits RealParameter::limits() const
 
         """
         return _libBornAgainCore.RealParameter_limits(self)
@@ -26275,7 +26287,7 @@ class RealParameter(IParameterReal):
         """
         unit(RealParameter self) -> std::string
 
-        std::string RealParameter::unit() const 
+        std::string RealParameter::unit() const
 
         """
         return _libBornAgainCore.RealParameter_unit(self)
@@ -26337,7 +26349,7 @@ class Rectangle(IShape2D):
         """
         clone(Rectangle self) -> Rectangle
 
-        Rectangle* Rectangle::clone() const 
+        Rectangle* Rectangle::clone() const
 
         """
         return _libBornAgainCore.Rectangle_clone(self)
@@ -26360,7 +26372,7 @@ class Rectangle(IShape2D):
         """
         getArea(Rectangle self) -> double
 
-        double Rectangle::getArea() const 
+        double Rectangle::getArea() const
 
         """
         return _libBornAgainCore.Rectangle_getArea(self)
@@ -26370,7 +26382,7 @@ class Rectangle(IShape2D):
         """
         getXlow(Rectangle self) -> double
 
-        double Rectangle::getXlow() const 
+        double Rectangle::getXlow() const
 
         """
         return _libBornAgainCore.Rectangle_getXlow(self)
@@ -26380,7 +26392,7 @@ class Rectangle(IShape2D):
         """
         getYlow(Rectangle self) -> double
 
-        double Rectangle::getYlow() const 
+        double Rectangle::getYlow() const
 
         """
         return _libBornAgainCore.Rectangle_getYlow(self)
@@ -26390,7 +26402,7 @@ class Rectangle(IShape2D):
         """
         getXup(Rectangle self) -> double
 
-        double Rectangle::getXup() const 
+        double Rectangle::getXup() const
 
         """
         return _libBornAgainCore.Rectangle_getXup(self)
@@ -26400,7 +26412,7 @@ class Rectangle(IShape2D):
         """
         getYup(Rectangle self) -> double
 
-        double Rectangle::getYup() const 
+        double Rectangle::getYup() const
 
         """
         return _libBornAgainCore.Rectangle_getYup(self)
@@ -26453,7 +26465,7 @@ class RectangularDetector(IDetector2D):
         """
         clone(RectangularDetector self) -> RectangularDetector
 
-        RectangularDetector * RectangularDetector::clone() const  override
+        RectangularDetector * RectangularDetector::clone() const override
 
         """
         return _libBornAgainCore.RectangularDetector_clone(self)
@@ -26463,7 +26475,7 @@ class RectangularDetector(IDetector2D):
         """
         accept(RectangularDetector self, INodeVisitor visitor)
 
-        void RectangularDetector::accept(INodeVisitor *visitor) const  final
+        void RectangularDetector::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -26490,7 +26502,7 @@ class RectangularDetector(IDetector2D):
         setPosition(RectangularDetector self, kvector_t normal_to_detector, double u0, double v0, kvector_t direction)
         setPosition(RectangularDetector self, kvector_t normal_to_detector, double u0, double v0)
 
-        void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0,-1.0, 0.0))
+        void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0, const kvector_t direction=kvector_t(0.0, -1.0, 0.0))
 
         """
         return _libBornAgainCore.RectangularDetector_setPosition(self, *args)
@@ -26542,7 +26554,7 @@ class RectangularDetector(IDetector2D):
         """
         getWidth(RectangularDetector self) -> double
 
-        double RectangularDetector::getWidth() const 
+        double RectangularDetector::getWidth() const
 
         """
         return _libBornAgainCore.RectangularDetector_getWidth(self)
@@ -26552,7 +26564,7 @@ class RectangularDetector(IDetector2D):
         """
         getHeight(RectangularDetector self) -> double
 
-        double RectangularDetector::getHeight() const 
+        double RectangularDetector::getHeight() const
 
         """
         return _libBornAgainCore.RectangularDetector_getHeight(self)
@@ -26562,7 +26574,7 @@ class RectangularDetector(IDetector2D):
         """
         getNbinsX(RectangularDetector self) -> size_t
 
-        size_t RectangularDetector::getNbinsX() const 
+        size_t RectangularDetector::getNbinsX() const
 
         """
         return _libBornAgainCore.RectangularDetector_getNbinsX(self)
@@ -26572,7 +26584,7 @@ class RectangularDetector(IDetector2D):
         """
         getNbinsY(RectangularDetector self) -> size_t
 
-        size_t RectangularDetector::getNbinsY() const 
+        size_t RectangularDetector::getNbinsY() const
 
         """
         return _libBornAgainCore.RectangularDetector_getNbinsY(self)
@@ -26582,7 +26594,7 @@ class RectangularDetector(IDetector2D):
         """
         getNormalVector(RectangularDetector self) -> kvector_t
 
-        kvector_t RectangularDetector::getNormalVector() const 
+        kvector_t RectangularDetector::getNormalVector() const
 
         """
         return _libBornAgainCore.RectangularDetector_getNormalVector(self)
@@ -26592,7 +26604,7 @@ class RectangularDetector(IDetector2D):
         """
         getU0(RectangularDetector self) -> double
 
-        double RectangularDetector::getU0() const 
+        double RectangularDetector::getU0() const
 
         """
         return _libBornAgainCore.RectangularDetector_getU0(self)
@@ -26602,7 +26614,7 @@ class RectangularDetector(IDetector2D):
         """
         getV0(RectangularDetector self) -> double
 
-        double RectangularDetector::getV0() const 
+        double RectangularDetector::getV0() const
 
         """
         return _libBornAgainCore.RectangularDetector_getV0(self)
@@ -26612,7 +26624,7 @@ class RectangularDetector(IDetector2D):
         """
         getDirectionVector(RectangularDetector self) -> kvector_t
 
-        kvector_t RectangularDetector::getDirectionVector() const 
+        kvector_t RectangularDetector::getDirectionVector() const
 
         """
         return _libBornAgainCore.RectangularDetector_getDirectionVector(self)
@@ -26622,7 +26634,7 @@ class RectangularDetector(IDetector2D):
         """
         getDistance(RectangularDetector self) -> double
 
-        double RectangularDetector::getDistance() const 
+        double RectangularDetector::getDistance() const
 
         """
         return _libBornAgainCore.RectangularDetector_getDistance(self)
@@ -26632,7 +26644,7 @@ class RectangularDetector(IDetector2D):
         """
         getDirectBeamU0(RectangularDetector self) -> double
 
-        double RectangularDetector::getDirectBeamU0() const 
+        double RectangularDetector::getDirectBeamU0() const
 
         """
         return _libBornAgainCore.RectangularDetector_getDirectBeamU0(self)
@@ -26642,7 +26654,7 @@ class RectangularDetector(IDetector2D):
         """
         getDirectBeamV0(RectangularDetector self) -> double
 
-        double RectangularDetector::getDirectBeamV0() const 
+        double RectangularDetector::getDirectBeamV0() const
 
         """
         return _libBornAgainCore.RectangularDetector_getDirectBeamV0(self)
@@ -26652,7 +26664,7 @@ class RectangularDetector(IDetector2D):
         """
         getDetectorArrangment(RectangularDetector self) -> RectangularDetector::EDetectorArrangement
 
-        RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const 
+        RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
 
         """
         return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
@@ -26662,7 +26674,7 @@ class RectangularDetector(IDetector2D):
         """
         validAxesUnits(RectangularDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
 
-        std::vector< AxesUnits > RectangularDetector::validAxesUnits() const  override
+        std::vector< AxesUnits > RectangularDetector::validAxesUnits() const override
 
         returns vector of valid axes units 
 
@@ -26674,7 +26686,7 @@ class RectangularDetector(IDetector2D):
         """
         defaultAxesUnits(RectangularDetector self) -> AxesUnits
 
-        AxesUnits RectangularDetector::defaultAxesUnits() const  override
+        AxesUnits RectangularDetector::defaultAxesUnits() const override
 
         return default axes units 
 
@@ -26686,7 +26698,7 @@ class RectangularDetector(IDetector2D):
         """
         regionOfInterestPixel(RectangularDetector self) -> RectangularPixel
 
-        RectangularPixel * RectangularDetector::regionOfInterestPixel() const 
+        RectangularPixel * RectangularDetector::regionOfInterestPixel() const
 
         """
         return _libBornAgainCore.RectangularDetector_regionOfInterestPixel(self)
@@ -26726,7 +26738,7 @@ class RectangularPixel(IPixel):
         """
         clone(RectangularPixel self) -> RectangularPixel
 
-        RectangularPixel * RectangularPixel::clone() const  override
+        RectangularPixel * RectangularPixel::clone() const override
 
         """
         return _libBornAgainCore.RectangularPixel_clone(self)
@@ -26736,7 +26748,7 @@ class RectangularPixel(IPixel):
         """
         createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
 
-        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const  override
+        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const override
 
         """
         return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
@@ -26746,7 +26758,7 @@ class RectangularPixel(IPixel):
         """
         getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
 
-        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const  override
+        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const override
 
         """
         return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
@@ -26756,7 +26768,7 @@ class RectangularPixel(IPixel):
         """
         getPosition(RectangularPixel self, double x, double y) -> kvector_t
 
-        kvector_t RectangularPixel::getPosition(double x, double y) const 
+        kvector_t RectangularPixel::getPosition(double x, double y) const
 
         """
         return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
@@ -26766,7 +26778,7 @@ class RectangularPixel(IPixel):
         """
         getIntegrationFactor(RectangularPixel self, double x, double y) -> double
 
-        double RectangularPixel::getIntegrationFactor(double x, double y) const  override
+        double RectangularPixel::getIntegrationFactor(double x, double y) const override
 
         """
         return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
@@ -26776,7 +26788,7 @@ class RectangularPixel(IPixel):
         """
         getSolidAngle(RectangularPixel self) -> double
 
-        double RectangularPixel::getSolidAngle() const  override
+        double RectangularPixel::getSolidAngle() const override
 
         """
         return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
@@ -26821,7 +26833,7 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
         """
         evaluateCDF(ResolutionFunction2DGaussian self, double x, double y) -> double
 
-        double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const 
+        double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
 
         """
         return _libBornAgainCore.ResolutionFunction2DGaussian_evaluateCDF(self, x, y)
@@ -26831,7 +26843,7 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
         """
         clone(ResolutionFunction2DGaussian self) -> ResolutionFunction2DGaussian
 
-        ResolutionFunction2DGaussian* ResolutionFunction2DGaussian::clone() const 
+        ResolutionFunction2DGaussian* ResolutionFunction2DGaussian::clone() const
 
         """
         return _libBornAgainCore.ResolutionFunction2DGaussian_clone(self)
@@ -26841,7 +26853,7 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
         """
         accept(ResolutionFunction2DGaussian self, INodeVisitor visitor)
 
-        void ResolutionFunction2DGaussian::accept(INodeVisitor *visitor) const  final
+        void ResolutionFunction2DGaussian::accept(INodeVisitor *visitor) const final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -26853,7 +26865,7 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
         """
         getSigmaX(ResolutionFunction2DGaussian self) -> double
 
-        double ResolutionFunction2DGaussian::getSigmaX() const 
+        double ResolutionFunction2DGaussian::getSigmaX() const
 
         """
         return _libBornAgainCore.ResolutionFunction2DGaussian_getSigmaX(self)
@@ -26863,7 +26875,7 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
         """
         getSigmaY(ResolutionFunction2DGaussian self) -> double
 
-        double ResolutionFunction2DGaussian::getSigmaY() const 
+        double ResolutionFunction2DGaussian::getSigmaY() const
 
         """
         return _libBornAgainCore.ResolutionFunction2DGaussian_getSigmaY(self)
@@ -26907,7 +26919,7 @@ class DepthProbeSimulation(Simulation):
         """
         clone(DepthProbeSimulation self) -> DepthProbeSimulation
 
-        DepthProbeSimulation * DepthProbeSimulation::clone() const  override
+        DepthProbeSimulation * DepthProbeSimulation::clone() const override
 
         """
         return _libBornAgainCore.DepthProbeSimulation_clone(self)
@@ -26917,7 +26929,7 @@ class DepthProbeSimulation(Simulation):
         """
         accept(DepthProbeSimulation self, INodeVisitor visitor)
 
-        void DepthProbeSimulation::accept(INodeVisitor *visitor) const  override final
+        void DepthProbeSimulation::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -26929,7 +26941,7 @@ class DepthProbeSimulation(Simulation):
         """
         numberOfSimulationElements(DepthProbeSimulation self) -> size_t
 
-        size_t DepthProbeSimulation::numberOfSimulationElements() const  override
+        size_t DepthProbeSimulation::numberOfSimulationElements() const override
 
         """
         return _libBornAgainCore.DepthProbeSimulation_numberOfSimulationElements(self)
@@ -26939,7 +26951,7 @@ class DepthProbeSimulation(Simulation):
         """
         result(DepthProbeSimulation self) -> SimulationResult
 
-        SimulationResult DepthProbeSimulation::result() const  override
+        SimulationResult DepthProbeSimulation::result() const override
 
         Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 
@@ -27039,7 +27051,7 @@ class SpecularSimulation(Simulation):
         """
         clone(SpecularSimulation self) -> SpecularSimulation
 
-        SpecularSimulation * SpecularSimulation::clone() const  override
+        SpecularSimulation * SpecularSimulation::clone() const override
 
         """
         return _libBornAgainCore.SpecularSimulation_clone(self)
@@ -27061,7 +27073,7 @@ class SpecularSimulation(Simulation):
         """
         accept(SpecularSimulation self, INodeVisitor visitor)
 
-        void SpecularSimulation::accept(INodeVisitor *visitor) const  override final
+        void SpecularSimulation::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -27073,7 +27085,7 @@ class SpecularSimulation(Simulation):
         """
         numberOfSimulationElements(SpecularSimulation self) -> size_t
 
-        size_t SpecularSimulation::numberOfSimulationElements() const  override
+        size_t SpecularSimulation::numberOfSimulationElements() const override
 
         """
         return _libBornAgainCore.SpecularSimulation_numberOfSimulationElements(self)
@@ -27083,7 +27095,7 @@ class SpecularSimulation(Simulation):
         """
         result(SpecularSimulation self) -> SimulationResult
 
-        SimulationResult SpecularSimulation::result() const  override
+        SimulationResult SpecularSimulation::result() const override
 
         Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 
@@ -27226,7 +27238,7 @@ class SampleBuilderFactoryTemp(_object):
         """
         contains(SampleBuilderFactoryTemp self, std::string const & item_key) -> bool
 
-        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const 
+        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_contains(self, item_key)
@@ -27250,7 +27262,7 @@ class SampleBuilderFactoryTemp(_object):
         """
         begin(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
 
-        const_iterator IFactory< Key, AbstractProduct >::begin() const 
+        const_iterator IFactory< Key, AbstractProduct >::begin() const
 
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_begin(self)
@@ -27260,7 +27272,7 @@ class SampleBuilderFactoryTemp(_object):
         """
         end(SampleBuilderFactoryTemp self) -> IFactory< std::string,IMultiLayerBuilder >::const_iterator
 
-        const_iterator IFactory< Key, AbstractProduct >::end() const 
+        const_iterator IFactory< Key, AbstractProduct >::end() const
 
         """
         return _libBornAgainCore.SampleBuilderFactoryTemp_end(self)
@@ -27375,7 +27387,7 @@ class SimulationFactoryTemp(_object):
         """
         contains(SimulationFactoryTemp self, std::string const & item_key) -> bool
 
-        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const 
+        bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 
         """
         return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)
@@ -27399,7 +27411,7 @@ class SimulationFactoryTemp(_object):
         """
         begin(SimulationFactoryTemp self) -> IFactory< std::string,Simulation >::const_iterator
 
-        const_iterator IFactory< Key, AbstractProduct >::begin() const 
+        const_iterator IFactory< Key, AbstractProduct >::begin() const
 
         """
         return _libBornAgainCore.SimulationFactoryTemp_begin(self)
@@ -27409,7 +27421,7 @@ class SimulationFactoryTemp(_object):
         """
         end(SimulationFactoryTemp self) -> IFactory< std::string,Simulation >::const_iterator
 
-        const_iterator IFactory< Key, AbstractProduct >::end() const 
+        const_iterator IFactory< Key, AbstractProduct >::end() const
 
         """
         return _libBornAgainCore.SimulationFactoryTemp_end(self)
@@ -27513,7 +27525,7 @@ class IUnitConverter(ICloneable):
         """
         clone(IUnitConverter self) -> IUnitConverter
 
-        virtual IUnitConverter* IUnitConverter::clone() const  =0
+        virtual IUnitConverter* IUnitConverter::clone() const =0
 
         """
         return _libBornAgainCore.IUnitConverter_clone(self)
@@ -27523,7 +27535,7 @@ class IUnitConverter(ICloneable):
         """
         dimension(IUnitConverter self) -> size_t
 
-        virtual size_t IUnitConverter::dimension() const  =0
+        virtual size_t IUnitConverter::dimension() const =0
 
         """
         return _libBornAgainCore.IUnitConverter_dimension(self)
@@ -27533,7 +27545,7 @@ class IUnitConverter(ICloneable):
         """
         calculateMin(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
 
-        virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const  =0
+        virtual double IUnitConverter::calculateMin(size_t i_axis, AxesUnits units_type) const =0
 
         """
         return _libBornAgainCore.IUnitConverter_calculateMin(self, i_axis, units_type)
@@ -27543,7 +27555,7 @@ class IUnitConverter(ICloneable):
         """
         calculateMax(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> double
 
-        virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const  =0
+        virtual double IUnitConverter::calculateMax(size_t i_axis, AxesUnits units_type) const =0
 
         """
         return _libBornAgainCore.IUnitConverter_calculateMax(self, i_axis, units_type)
@@ -27553,7 +27565,7 @@ class IUnitConverter(ICloneable):
         """
         axisSize(IUnitConverter self, size_t i_axis) -> size_t
 
-        virtual size_t IUnitConverter::axisSize(size_t i_axis) const  =0
+        virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
 
         """
         return _libBornAgainCore.IUnitConverter_axisSize(self, i_axis)
@@ -27564,17 +27576,27 @@ class IUnitConverter(ICloneable):
         axisName(IUnitConverter self, size_t i_axis, AxesUnits units_type) -> std::string
         axisName(IUnitConverter self, size_t i_axis) -> std::string
 
-        std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const 
+        std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
 
         """
         return _libBornAgainCore.IUnitConverter_axisName(self, *args)
+
+
+    def availableUnits(self):
+        """
+        availableUnits(IUnitConverter self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
+
+        virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_availableUnits(self)
 
 
     def defaultUnits(self):
         """
         defaultUnits(IUnitConverter self) -> AxesUnits
 
-        virtual AxesUnits IUnitConverter::defaultUnits() const  =0
+        virtual AxesUnits IUnitConverter::defaultUnits() const =0
 
         """
         return _libBornAgainCore.IUnitConverter_defaultUnits(self)
@@ -27582,14 +27604,5 @@ class IUnitConverter(ICloneable):
 IUnitConverter_swigregister = _libBornAgainCore.IUnitConverter_swigregister
 IUnitConverter_swigregister(IUnitConverter)
 
-
-def SubstituteDefaultUnits(converter, units):
-    """
-    SubstituteDefaultUnits(IUnitConverter converter, AxesUnits units) -> AxesUnits
-
-    AxesUnits SubstituteDefaultUnits(const IUnitConverter &converter, AxesUnits units)
-
-    """
-    return _libBornAgainCore.SubstituteDefaultUnits(converter, units)
 # This file is compatible with both classic and new-style classes.
 

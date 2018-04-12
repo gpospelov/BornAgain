@@ -13,15 +13,22 @@
 // ************************************************************************** //
 
 #include "DomainObjectBuilder.h"
+#include "AxesItems.h"
 #include "BeamItems.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "IDetector2D.h"
 #include "InstrumentItems.h"
 #include "InterferenceFunctionItems.h"
 #include "LayerItem.h"
 #include "ParticleDistributionItem.h"
 #include "ParticleLayoutItem.h"
+#include "SimpleUnitConverters.h"
+#include "SpecularBeamInclinationItem.h"
 #include "TransformToDomain.h"
+#include "UnitConverter1D.h"
+#include "UnitConverterUtils.h"
+#include "Units.h"
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionItem& multilayer_item)
 {
@@ -122,4 +129,35 @@ std::unique_ptr<Instrument>
 DomainObjectBuilder::buildInstrument(const InstrumentItem& instrumentItem)
 {
     return instrumentItem.createInstrument();
+}
+
+std::unique_ptr<IUnitConverter>
+DomainObjectBuilder::createUnitConverter(const InstrumentItem* instrumentItem)
+{
+    const auto instrument = instrumentItem->createInstrument();
+    instrument->initDetector();
+
+    if (instrumentItem->modelType() == Constants::GISASInstrumentType)
+        return UnitConverterUtils::createConverterForGISAS(*instrument);
+
+    if (instrumentItem->modelType() == Constants::SpecularInstrumentType)
+    {
+        auto axis_item = dynamic_cast<BasicAxisItem*>(
+            instrumentItem->beamItem()
+                ->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
+                ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
+        return std::make_unique<UnitConverter1D>(instrument->getBeam(),
+                                                 *axis_item->createAxis(Units::degree));
+    }
+
+    if (instrumentItem->modelType() == Constants::OffSpecInstrumentType) {
+        auto axis_item = dynamic_cast<BasicAxisItem*>(
+            instrumentItem->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
+        const auto detector2d = dynamic_cast<const IDetector2D*>(instrument->getDetector());
+        return std::make_unique<OffSpecularConverter>(*detector2d, instrument->getBeam(),
+                                                      *axis_item->createAxis(Units::degree));
+    }
+
+    throw GUIHelpers::Error(
+        "Error in DomainObjectBuilder::createUnitConverter: unknown instrument type.");
 }

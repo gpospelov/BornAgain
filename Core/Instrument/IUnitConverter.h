@@ -53,7 +53,9 @@ public:
 
     virtual std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const;
 
+    virtual std::vector<AxesUnits> availableUnits() const = 0;
     virtual AxesUnits defaultUnits() const=0;
+
 #ifndef SWIG
     virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const = 0;
 #endif // SWIG
@@ -61,11 +63,5 @@ public:
 private:
     virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const=0;
 };
-
-inline AxesUnits SubstituteDefaultUnits(const IUnitConverter& converter, AxesUnits units)
-{
-    return units == AxesUnits::DEFAULT ? converter.defaultUnits()
-                                       : units;
-}
 
 #endif // IUNITCONVERTER_H

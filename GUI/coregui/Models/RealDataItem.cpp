@@ -60,7 +60,7 @@ RealDataItem::RealDataItem()
                 [this](SessionItem* item, const QString &name)
     {
         if (item && item->modelType() == Constants::IntensityDataType
-            && name == IntensityDataItem::P_AXES_UNITS) {
+            && name == DataItem::P_AXES_UNITS) {
             if(!m_linkedInstrument)
                 return;
             mapper()->setActive(false);
@@ -129,8 +129,8 @@ void RealDataItem::updateToInstrument()
 
     if(m_linkedInstrument == 0) {
         ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
-        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
-        item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
+        item->setItemValue(DataItem::P_AXES_UNITS, combo.variant());
+        item->getItem(DataItem::P_AXES_UNITS)->setVisible(true);
         item->setXaxisTitle("X [nbins]");
         item->setYaxisTitle("Y [nbins]");
         MaskUnitsConverter converter;

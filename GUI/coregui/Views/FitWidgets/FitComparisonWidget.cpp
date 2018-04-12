@@ -128,7 +128,7 @@ void FitComparisonWidget::subscribeToItem()
     if (auto diff_item = diffItem()) {
         diff_item->mapper()->setOnPropertyChange([this](const QString& name)
         {
-            if (name == IntensityDataItem::P_AXES_UNITS) {
+            if (name == DataItem::P_AXES_UNITS) {
                 JobItemUtils::updateDataAxes(diffItem(), jobItem()->instrumentItem());
             }
         }, this);

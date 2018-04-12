@@ -28,7 +28,6 @@ public:
     static const QString P_TITLE;
     static const QString P_IS_INTERPOLATED;
     static const QString P_GRADIENT;
-    static const QString P_AXES_UNITS;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_ZAXIS;
@@ -73,8 +72,6 @@ public:
     bool isZAxisLocked() const;
     void setZAxisLocked(bool state);
 
-    QString selectedAxesUnits() const;
-
     void updateDataRange();
     void computeDataRange();
     QPair<double, double> dataRange() const;
@@ -91,6 +88,10 @@ public:
     MaskContainerItem* maskContainerItem();
     ProjectionContainerItem* projectionContainerItem();
 
+    void setXaxisTitle(QString xtitle) override;
+    void setYaxisTitle(QString ytitle) override;
+    void setAxesRangeToData() override;
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);
@@ -101,9 +102,6 @@ public slots:
     void setUpperZ(double zmax);
     void setLogz(bool logz);
     void setInterpolated(bool interp);
-    void setXaxisTitle(QString xtitle);
-    void setYaxisTitle(QString ytitle);
-    void setAxesRangeToData();
 
 private:
     void updateAxesZoomLevel();

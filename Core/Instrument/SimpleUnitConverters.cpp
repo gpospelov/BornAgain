@@ -23,6 +23,7 @@
 #include "RegionOfInterest.h"
 #include "SimpleUnitConverters.h"
 #include "SphericalDetector.h"
+#include "UnitConverterUtils.h"
 #include "Units.h"
 
 UnitConverterSimple::UnitConverterSimple(const Beam& beam)
@@ -46,7 +47,7 @@ void UnitConverterSimple::addAxisData(std::string name, double min, double max,
 double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) const
 {
     checkIndex(i_axis);
-    units_type = SubstituteDefaultUnits(*this, units_type);
+    units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
     auto axis_data = m_axis_data_table[i_axis];
     if (units_type==AxesUnits::NBINS) {
         return 0.0;
@@ -57,7 +58,7 @@ double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) co
 double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) const
 {
     checkIndex(i_axis);
-    units_type = SubstituteDefaultUnits(*this, units_type);
+    units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
     auto axis_data = m_axis_data_table[i_axis];
     if (units_type==AxesUnits::NBINS) {
         return static_cast<double>(axis_data.nbins);
@@ -70,6 +71,11 @@ size_t UnitConverterSimple::axisSize(size_t i_axis) const
     checkIndex(i_axis);
     auto axis_data = m_axis_data_table[i_axis];
     return axis_data.nbins;
+}
+
+std::vector<AxesUnits> UnitConverterSimple::availableUnits() const
+{
+    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES};
 }
 
 std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
@@ -137,6 +143,13 @@ SphericalConverter* SphericalConverter::clone() const
     return new SphericalConverter(*this);
 }
 
+std::vector<AxesUnits> SphericalConverter::availableUnits() const
+{
+    auto result = UnitConverterSimple::availableUnits();
+    result.push_back(AxesUnits::QSPACE);
+    return result;
+}
+
 AxesUnits SphericalConverter::defaultUnits() const { return AxesUnits::DEGREES; }
 
 SphericalConverter::SphericalConverter(const SphericalConverter& other)
@@ -198,6 +211,14 @@ RectangularConverter::~RectangularConverter() =default;
 RectangularConverter* RectangularConverter::clone() const
 {
     return new RectangularConverter(*this);
+}
+
+std::vector<AxesUnits> RectangularConverter::availableUnits() const
+{
+    auto result = UnitConverterSimple::availableUnits();
+    result.push_back(AxesUnits::QSPACE);
+    result.push_back(AxesUnits::MM);
+    return result;
 }
 
 AxesUnits RectangularConverter::defaultUnits() const { return AxesUnits::MM; }
@@ -404,6 +425,11 @@ std::string DepthProbeConverter::axisName(size_t i_axis, AxesUnits units_type) c
     }
     return IUnitConverter::axisName(i_axis, units_type);
 
+}
+
+std::vector<AxesUnits> DepthProbeConverter::availableUnits() const
+{
+    throw std::runtime_error("Error in DepthProbeConverter::availableUnits: not implemented");
 }
 
 std::unique_ptr<IAxis> DepthProbeConverter::createConvertedAxis(size_t i_axis,

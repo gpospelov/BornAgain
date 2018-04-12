@@ -81,6 +81,39 @@ def get_axes_labels(result, units):
     return labels
 
 
+def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
+               title=None, axes_limits=None):
+    """
+    Plots numpy array as a colormap in log scale.
+    """
+
+    zmax = np.amax(array) if zmax is None else zmax
+    zmin = 1e-6*zmax if zmin is None else zmin
+
+    if zmin == zmax == 0.0:
+        zmin, zmax = 1e-06, 1.0
+
+    im = plt.imshow(
+        array,
+        norm=colors.LogNorm(zmin, zmax),
+        extent=axes_limits,
+        aspect='auto',
+    )
+    cb = plt.colorbar(im, pad=0.025)
+
+    if xlabel:
+        plt.xlabel(xlabel, fontsize=label_fontsize)
+
+    if ylabel:
+        plt.ylabel(ylabel, fontsize=label_fontsize)
+
+    if zlabel:
+        cb.set_label(zlabel, size=label_fontsize)
+
+    if title:
+        plt.title(title)
+
+
 def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
                   xlabel=None, ylabel=None, zlabel=None,
                   title=None):

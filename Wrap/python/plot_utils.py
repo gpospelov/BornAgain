@@ -114,6 +114,24 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
         plt.title(title)
 
 
+def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
+                  title=None):
+    """
+    Plots intensity data as color map
+    :param intensity: Histogram2D object obtained from GISASSimulation
+    :param zmin: Min value on amplitude's color bar
+    :param zmax: Max value on amplitude's color bar
+    """
+    xlabel = hist.getXaxis().getName() if xlabel is None else xlabel
+    ylabel = hist.getYaxis().getName() if ylabel is None else ylabel
+    zlabel = "Intensity" if zlabel is None else zlabel
+    axes_limits = [hist.getXmin(), hist.getXmax(),
+                   hist.getYmin(), hist.getYmax()]
+
+    plot_array(hist.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
+               zlabel=zlabel, title=title, axes_limits=axes_limits)
+
+
 def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
                   xlabel=None, ylabel=None, zlabel=None,
                   title=None):
@@ -184,45 +202,6 @@ def plot_simulation_result(result, intensity_min=None, intensity_max=None, units
     plt.tight_layout()
     if not postpone_show:
         plt.show()
-
-
-def plot_histogram(intensity, zmin=None, zmax=None,
-                  xlabel=None, ylabel=None, zlabel=None,
-                  title=None):
-    """
-    Plots intensity data as color map
-    :param intensity: Histogram2D object obtained from GISASSimulation
-    :param zmin: Min value on amplitude's color bar
-    :param zmax: Max value on amplitude's color bar
-    """
-    zmax = intensity.getMaximum() if zmax is None else zmax
-    zmin = 1e-6*zmax if zmin is None else zmin
-
-    xlabel = intensity.getXaxis().getName() if xlabel is None else xlabel
-    ylabel = intensity.getYaxis().getName() if ylabel is None else ylabel
-    zlabel = "Intensity" if zlabel is None else zlabel
-    axes_limits = [intensity.getXmin(), intensity.getXmax(),
-                   intensity.getYmin(), intensity.getYmax()]
-
-    im = plt.imshow(
-        intensity.array(),
-        norm=colors.LogNorm(zmin, zmax),
-        extent=axes_limits,
-        aspect='auto',
-    )
-    cb = plt.colorbar(im, pad=0.025)
-
-    if xlabel:
-        plt.xlabel(xlabel, fontsize=label_fontsize)
-
-    if ylabel:
-        plt.ylabel(ylabel, fontsize=label_fontsize)
-
-    if zlabel:
-        cb.set_label(zlabel, size=label_fontsize)
-
-    if title:
-        plt.title(title)
 
 
 class Plotter:

@@ -33,6 +33,7 @@
 %include "shared_pointers.i"
 
 %include "warnings.i"
+%include "deprecated.i"
 %include "extendCore.i"
 %include "ignores.i"
 %include "directors.i"

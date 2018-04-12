@@ -96,7 +96,7 @@ class Plotter:
     def reset(self):
         self._fig.clf()
 
-    def plot(self, simulation, data):
+    def plot(self, params, iter, simulation, data):
         self.reset()
 
         sim_data = simulation.result().histogram2d()
@@ -124,11 +124,19 @@ class Plotter:
         plt.ylabel('Y, bins', fontsize=14)
         plt.title("Relative difference")
 
+        self.make_subplot(4)
+        plt.title('Parameters')
+        plt.axis('off')
+        plt.text(0.01, 0.85, "Iterations  {:d}". format(iter))
+        for index, p in enumerate(params):
+            print(index, p)
+            plt.text(0.01, 0.55 - index * 0.1, '{:30.30s}: {:6.3f}'.format(p, params[p].value))
+
         plt.tight_layout()
         plt.pause(0.03)
 
     def iter_cb(self, params, iter, resid, simulation, data):
-        self.plot(simulation, data)
+        self.plot(params, iter, simulation, data)
 
 
 def run_fitting():

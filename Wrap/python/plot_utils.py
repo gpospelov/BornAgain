@@ -87,18 +87,17 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
     Plots numpy array as a colormap in log scale.
     """
 
+    zlabel = "Intensity" if zlabel is None else zlabel
+
     zmax = np.amax(array) if zmax is None else zmax
     zmin = 1e-6*zmax if zmin is None else zmin
 
     if zmin == zmax == 0.0:
-        zmin, zmax = 1e-06, 1.0
+        norm = colors.Normalize(0, 1)
+    else:
+        norm = colors.LogNorm(zmin, zmax)
 
-    im = plt.imshow(
-        array,
-        norm=colors.LogNorm(zmin, zmax),
-        extent=axes_limits,
-        aspect='auto',
-    )
+    im = plt.imshow(array, norm=norm, extent=axes_limits, aspect='auto')
     cb = plt.colorbar(im, pad=0.025)
 
     if xlabel:
@@ -122,9 +121,13 @@ def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
-    xlabel = hist.getXaxis().getName() if xlabel is None else xlabel
-    ylabel = hist.getYaxis().getName() if ylabel is None else ylabel
-    zlabel = "Intensity" if zlabel is None else zlabel
+
+    if not xlabel:
+        xlabel = translate_axis_label(hist.getXaxis().getName())
+
+    if not ylabel:
+        ylabel = translate_axis_label(hist.getYaxis().getName())
+
     axes_limits = [hist.getXmin(), hist.getXmax(),
                    hist.getYmin(), hist.getYmax()]
 
@@ -146,7 +149,6 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     axes_labels = get_axes_labels(result, units)
     xlabel = axes_labels[0] if xlabel is None else xlabel
     ylabel = axes_labels[1] if ylabel is None else ylabel
-    zlabel = "Intensity" if zlabel is None else zlabel
 
     plot_array(result.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
                zlabel=zlabel, title=title, axes_limits=axes_limits)

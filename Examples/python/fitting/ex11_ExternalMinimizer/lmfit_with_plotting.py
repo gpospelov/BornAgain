@@ -114,8 +114,8 @@ class Plotter:
         ba.plot_histogram(sim_data, title="Simulated data", zmin=zmin, zmax=zmax, zlabel='')
 
         self.make_subplot(3)
-        sim_array = sim_data.getArray()
-        exp_array = real_data.getArray()
+        sim_array = sim_data.array()
+        exp_array = real_data.array()
 
         rel_diff = 2.0 * np.abs(sim_array - exp_array) / (sim_array + exp_array)
         im = plt.imshow(rel_diff, norm=colors.LogNorm(1e-6, 1.0), aspect='auto')

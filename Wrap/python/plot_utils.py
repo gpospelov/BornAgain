@@ -192,7 +192,7 @@ def plot_histogram(intensity, zmin=None, zmax=None,
                    intensity.getYmin(), intensity.getYmax()]
 
     im = plt.imshow(
-        intensity.getArray(),
+        intensity.array(),
         norm=colors.LogNorm(zmin, zmax),
         extent=axes_limits,
         aspect='auto',

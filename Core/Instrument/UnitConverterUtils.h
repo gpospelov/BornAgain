@@ -31,12 +31,12 @@ inline AxesUnits substituteDefaultUnits(const IUnitConverter& converter, AxesUni
 }
 
 //! Returns zero-valued output data array in specified units
-std::unique_ptr<OutputData<double>> createOutputData(const IUnitConverter& converter,
-                                                     AxesUnits units);
+BA_CORE_API_ std::unique_ptr<OutputData<double>> createOutputData(const IUnitConverter& converter,
+                                                                  AxesUnits units);
 
 //! Helper factory function to use in GISASSimulation. Depending on the type of detector,
 //! returns either RectangularConverter or SphericalConverter.
-std::unique_ptr<IUnitConverter> createConverterForGISAS(const Instrument& instrument);
+BA_CORE_API_ std::unique_ptr<IUnitConverter> createConverterForGISAS(const Instrument& instrument);
 }
 
 #endif // UNITCONVERTERUTILS_H

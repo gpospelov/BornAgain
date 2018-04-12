@@ -17,6 +17,7 @@
 #include "Beam.h"
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
+#include "UnitConverterUtils.h"
 #include "Units.h"
 #include "VariableBinAxis.h"
 
@@ -52,7 +53,7 @@ size_t UnitConverter1D::dimension() const
 double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
 {
     checkDimensions(i_axis);
-    units_type = SubstituteDefaultUnits(*this, units_type);
+    units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
     if (units_type == AxesUnits::NBINS)
         return 0.0;
     auto translator = getTranslator(units_type);
@@ -62,7 +63,7 @@ double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
 double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const
 {
     checkDimensions(i_axis);
-    units_type = SubstituteDefaultUnits(*this, units_type);
+    units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
     if (units_type == AxesUnits::NBINS)
         return static_cast<double>(m_axis->size());
     auto translator = getTranslator(units_type);
@@ -88,7 +89,7 @@ AxesUnits UnitConverter1D::defaultUnits() const
 std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const
 {
     checkDimensions(i_axis);
-    units = SubstituteDefaultUnits(*this, units);
+    units = UnitConverterUtils::substituteDefaultUnits(*this, units);
     if (units == AxesUnits::NBINS)
         return std::make_unique<FixedBinAxis>(axisName(0, units), m_axis->size(),
                                               calculateMin(0, units), calculateMax(0, units));

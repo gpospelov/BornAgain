@@ -64,10 +64,4 @@ private:
     virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const=0;
 };
 
-inline AxesUnits SubstituteDefaultUnits(const IUnitConverter& converter, AxesUnits units)
-{
-    return units == AxesUnits::DEFAULT ? converter.defaultUnits()
-                                       : units;
-}
-
 #endif // IUNITCONVERTER_H

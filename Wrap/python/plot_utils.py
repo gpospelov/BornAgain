@@ -123,9 +123,6 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
-    intensity = result.array()
-    zmax = np.amax(intensity) if zmax is None else zmax
-    zmin = 1e-6*zmax if zmin is None else zmin
 
     axes_limits = get_axes_limits(result, units)
     axes_labels = get_axes_labels(result, units)
@@ -133,25 +130,8 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     ylabel = axes_labels[1] if ylabel is None else ylabel
     zlabel = "Intensity" if zlabel is None else zlabel
 
-    im = plt.imshow(
-        intensity,
-        norm=colors.LogNorm(zmin, zmax),
-        extent=axes_limits,
-        aspect='auto',
-    )
-    cb = plt.colorbar(im, pad=0.025)
-
-    if xlabel:
-        plt.xlabel(xlabel, fontsize=label_fontsize)
-
-    if ylabel:
-        plt.ylabel(ylabel, fontsize=label_fontsize)
-
-    if zlabel:
-        cb.set_label(zlabel, size=label_fontsize)
-
-    if title:
-        plt.title(title)
+    plot_array(result.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
+               zlabel=zlabel, title=title, axes_limits=axes_limits)
 
 
 def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesUnits.DEFAULT,

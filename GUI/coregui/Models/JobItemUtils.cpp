@@ -194,7 +194,7 @@ void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
     AxesUnits preferrable_units = converter.defaultUnits();
 
     combo.setValue(nameFromAxesUnits(preferrable_units));
-    intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
+    intensityItem->setItemValue(DataItem::P_AXES_UNITS, combo.variant());
 }
 
 void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,

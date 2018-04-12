@@ -29,6 +29,7 @@ class BA_CORE_API_ DataItem : public SessionItem
 {
 public:
     static const QString P_FILE_NAME;
+    static const QString P_AXES_UNITS;
 
     OutputData<double>* getOutputData() { return m_data.get(); }
     const OutputData<double>* getOutputData() const { return m_data.get(); }
@@ -39,6 +40,12 @@ public:
 
     QDateTime lastModified() const;
     void setLastModified(const QDateTime& dtime);
+
+    QString selectedAxesUnits() const;
+
+    virtual void setXaxisTitle(QString xtitle) = 0;
+    virtual void setYaxisTitle(QString ytitle) = 0;
+    virtual void setAxesRangeToData() = 0;
 
 protected:
     DataItem(const QString& modelType);

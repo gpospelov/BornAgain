@@ -84,7 +84,7 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
         if (item->parent() == this && item->modelType() == Constants::IntensityDataType
-            && name == IntensityDataItem::P_AXES_UNITS) {
+            && name == DataItem::P_AXES_UNITS) {
             auto intensityItem = dynamic_cast<IntensityDataItem*>(item);
 
             MaskUnitsConverter converter;

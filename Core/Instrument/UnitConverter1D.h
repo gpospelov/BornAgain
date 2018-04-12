@@ -30,7 +30,7 @@ public:
     //! Constructs the object for unit conversion. Input axis
     //! is in radians.
     UnitConverter1D(const Beam& beam, const IAxis& axis);
-    virtual ~UnitConverter1D();
+    ~UnitConverter1D() override;
 
     UnitConverter1D* clone() const override;
 
@@ -45,6 +45,9 @@ public:
 
     //! Returns the size of underlying axis.
     size_t axisSize(size_t i_axis) const override;
+
+    //! Returns the list of all available units
+    std::vector<AxesUnits> availableUnits() const override;
 
     //! Returns default units to convert to.
     AxesUnits defaultUnits() const override;

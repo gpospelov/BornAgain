@@ -75,6 +75,11 @@ size_t UnitConverter1D::axisSize(size_t i_axis) const
     return m_axis->size();
 }
 
+std::vector<AxesUnits> UnitConverter1D::availableUnits() const
+{
+    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE};
+}
+
 AxesUnits UnitConverter1D::defaultUnits() const
 {
     return AxesUnits::DEGREES;

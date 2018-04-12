@@ -18,7 +18,6 @@
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
 #include "IntensityDataItem.h"
-#include "IntensityDataItem.h"
 #include "JobItemFunctions.h"
 #include "JobItemUtils.h"
 #include "MaskUnitsConverter.h"
@@ -26,6 +25,7 @@
 #include "ParameterTreeItems.h"
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
+#include "SpecularDataItem.h"
 #include "item_constants.h"
 
 const QString JobItem::P_IDENTIFIER = "Identifier";
@@ -83,17 +83,18 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
-        if (item->parent() == this && item->modelType() == Constants::IntensityDataType
-            && name == DataItem::P_AXES_UNITS) {
-            auto intensityItem = dynamic_cast<IntensityDataItem*>(item);
+        if (item->parent() != this || name != DataItem::P_AXES_UNITS)
+            return;
 
+        if (auto intensityItem = dynamic_cast<IntensityDataItem*>(item)) {
             MaskUnitsConverter converter;
             converter.convertToNbins(intensityItem);
 
             JobItemUtils::updateDataAxes(intensityItem, instrumentItem());
 
             converter.convertFromNbins(intensityDataItem());
-        }
+        } else if (auto specularItem = dynamic_cast<SpecularDataItem*>(item))
+            JobItemUtils::updateDataAxes(specularItem, instrumentItem());
     });
 
     mapper()->setOnPropertyChange([this](const QString& name) {

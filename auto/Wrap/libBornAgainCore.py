@@ -211,6 +211,20 @@ SwigPyIterator_swigregister(SwigPyIterator)
 
 SHARED_PTR_DISOWN = _libBornAgainCore.SHARED_PTR_DISOWN
 
+import warnings
+def deprecated(message):
+  def deprecated_decorator(func):
+      def deprecated_func(*args, **kwargs):
+          warnings.simplefilter('always', DeprecationWarning)  # turn off filter
+          warnings.warn("{} is a deprecated function. {}".format(func.__name__, message),
+                        category=DeprecationWarning,
+                        stacklevel=2)
+          warnings.simplefilter('default', DeprecationWarning)  # reset filter
+          return func(*args, **kwargs)
+      return deprecated_func
+  return deprecated_decorator
+
+
 class ParameterPoolIterator(object):
 
     def __init__(self, pool):
@@ -17749,10 +17763,10 @@ class IHistogram(_object):
         return _libBornAgainCore.IHistogram_array(self, *args)
 
 
-    def getArray(self, *args):
+    def getArrayObsolete(self, *args):
         """
-        getArray(IHistogram self, IHistogram::DataType dataType) -> PyObject
-        getArray(IHistogram self) -> PyObject *
+        getArrayObsolete(IHistogram self, IHistogram::DataType dataType) -> PyObject
+        getArrayObsolete(IHistogram self) -> PyObject *
 
         PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
 
@@ -17760,7 +17774,7 @@ class IHistogram(_object):
         Use  array() instead. 
 
         """
-        return _libBornAgainCore.IHistogram_getArray(self, *args)
+        return _libBornAgainCore.IHistogram_getArrayObsolete(self, *args)
 
 
     def reset(self):
@@ -17868,6 +17882,11 @@ class IHistogram(_object):
 
         """
         return _libBornAgainCore.IHistogram_load(self, filename)
+
+
+    @deprecated("Deprecated. Use array() instead.")
+    def getArray(self):
+        return self.getArrayObsolete()
 
 IHistogram_swigregister = _libBornAgainCore.IHistogram_swigregister
 IHistogram_swigregister(IHistogram)

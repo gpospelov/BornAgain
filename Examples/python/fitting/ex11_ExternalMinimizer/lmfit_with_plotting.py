@@ -108,10 +108,12 @@ class Plotter:
         zmin = zmax*1e-6
 
         self.make_subplot(1)
-        ba.plot_histogram(real_data, title="Real data", zmin=zmin, zmax=zmax, zlabel='')
+        ba.plot_histogram(real_data, title="Real data",
+                          zmin=zmin, zmax=zmax, zlabel='')
 
         self.make_subplot(2)
-        ba.plot_histogram(sim_data, title="Simulated data", zmin=zmin, zmax=zmax, zlabel='')
+        ba.plot_histogram(sim_data, title="Simulated data",
+                          zmin=zmin, zmax=zmax, zlabel='')
 
         self.make_subplot(3)
         sim_array = sim_data.array()
@@ -130,7 +132,8 @@ class Plotter:
         plt.text(0.01, 0.85, "Iterations  {:d}". format(iter))
         for index, p in enumerate(params):
             print(index, p)
-            plt.text(0.01, 0.55 - index * 0.1, '{:30.30s}: {:6.3f}'.format(p, params[p].value))
+            plt.text(0.01, 0.55 - index * 0.1,
+                     '{:30.30s}: {:6.3f}'.format(p, params[p].value))
 
         plt.tight_layout()
         plt.pause(0.03)
@@ -155,7 +158,8 @@ def run_fitting():
 
     plotter = Plotter()
 
-    result = lmfit.minimize(residual, params, iter_cb=plotter.iter_cb, args=(simulation, real_data))
+    result = lmfit.minimize(residual, params, iter_cb=plotter.iter_cb,
+                            args=(simulation, real_data))
 
     result.params.pretty_print()
     print(lmfit.fit_report(result))

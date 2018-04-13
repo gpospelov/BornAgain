@@ -252,3 +252,17 @@ std::vector<const INode*> IDetector::getChildren() const
 {
     return std::vector<const INode*>() << &m_detection_properties << mP_detector_resolution;
 }
+
+void IDetector::iterate(std::function<void (IDetector::const_iterator)> func,
+                        bool visit_masks) const
+{
+    if (visit_masks) {
+        SimulationRoiArea area(this);
+        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
+            func(it);
+    } else {
+        SimulationArea area(this);
+        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
+            func(it);
+    }
+}

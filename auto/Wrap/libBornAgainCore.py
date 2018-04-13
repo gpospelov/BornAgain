@@ -18835,6 +18835,14 @@ class IDetector(ICloneable, INode):
         """
         return _libBornAgainCore.IDetector_getChildren(self)
 
+
+    def iterate(self, fun, visit_masks=False):
+        """
+        iterate(IDetector self, std::function< void (IDetector::const_iterator) > fun, bool visit_masks=False)
+        iterate(IDetector self, std::function< void (IDetector::const_iterator) > fun)
+        """
+        return _libBornAgainCore.IDetector_iterate(self, fun, visit_masks)
+
 IDetector_swigregister = _libBornAgainCore.IDetector_swigregister
 IDetector_swigregister(IDetector)
 

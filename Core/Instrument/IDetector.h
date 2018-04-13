@@ -21,6 +21,7 @@
 #include "IUnitConverter.h"
 #include "DetectionProperties.h"
 #include "SafePointerVector.h"
+#include "SimulationAreaIterator.h"
 
 class Beam;
 class DetectorElement;
@@ -37,6 +38,7 @@ class RegionOfInterest;
 class BA_CORE_API_ IDetector :  public ICloneable, public INode
 {
 public:
+    using const_iterator = const SimulationAreaIterator&;
     IDetector();
 
     IDetector* clone() const override =0;
@@ -116,6 +118,8 @@ public:
     size_t numberOfSimulationElements() const;
 
     std::vector<const INode*> getChildren() const override;
+
+    void iterate(std::function<void(const_iterator)> fun, bool visit_masks=false) const;
 
 protected:
     IDetector(const IDetector& other);

@@ -36,6 +36,7 @@ FitObject::FitObject(const Simulation& simulation, const OutputData<double>& rea
     m_fit_elements_count = m_simulation->numberOfSimulationElements();
     registerChild(m_simulation.get());
     init_dataset(real_data);
+    // TODO FIXME line below breaks FitSpecularBasics.py
     m_simulation_result = m_simulation->result();
 }
 

@@ -76,6 +76,8 @@ size_t SpecularSimulation::numberOfSimulationElements() const
 
 SimulationResult SpecularSimulation::result() const
 {
+    // TODO FIXME Make SpecularSimulation return valid container with zero amplitudes
+
     const size_t i_layer = 0; // detector intensity is proportional to reflectivity from top layer
     validityCheck(i_layer);
     auto data = createIntensityData();

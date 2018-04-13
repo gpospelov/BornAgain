@@ -46,6 +46,7 @@ public:
 
     SimulationResult simulationResult(size_t i_item = 0) const;
     SimulationResult experimentalData(size_t i_item = 0) const;
+    SimulationResult relativeDifference(size_t i_item = 0) const;
 
     //! run all simulation defined in fit pairs
     void runSimulations();
@@ -67,13 +68,6 @@ public:
     iterator end() { return m_fit_objects.end(); }
 
     std::vector<const INode*> getChildren() const;
-
-#ifndef SWIG
-    //! Returns new chi-squared map from corresponding FitObject. ROI is taken into account.
-    //! @param i_item Index of FitObject
-    std::unique_ptr<IHistogram> createChiSquaredHistogram(size_t i_item = 0) const;
-
-#endif
 
 protected:
     //! Registers some class members for later access via parameter pool

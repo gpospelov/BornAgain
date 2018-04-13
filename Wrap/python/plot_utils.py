@@ -232,28 +232,27 @@ class PlotterGISAS(Plotter):
     def plot(self, fit_suite):
         Plotter.reset(self)
 
-        self.make_subplot(1)
         real_data = fit_suite.experimentalData()
+        sim_data = fit_suite.simulationResult()
+        diff = fit_suite.relativeDifference()
 
+        self.make_subplot(1)
+
+        # same limits for both plots
         arr = real_data.array()
         zmax = np.amax(arr)
         zmin = zmax*1e-6
 
-        plot_colormap(real_data, title="\"Real\" data",
-                      zmin=zmin, zmax=zmax,
+        plot_colormap(real_data, title="\"Experimental\" data", zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(2)
-        sim_data = fit_suite.simulationResult()
-        plot_colormap(sim_data, title="Simulated data",
-                      zmin=zmin, zmax=zmax,
+        plot_colormap(sim_data, title="Simulated data", zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(3)
-        chi_data = fit_suite.getChiSquaredMap()
-        plot_histogram(chi_data, title="Chi2 map",
-                      zmin=0.001, zmax=10.0,
-                      xlabel='', ylabel='', zlabel='')
+        plot_colormap(diff, title="Relative difference", zmin=0.001, zmax=10.0,
+                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(4)
         plt.title('Parameters')

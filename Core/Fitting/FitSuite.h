@@ -117,10 +117,6 @@ public:
     //! Returns number of fit objects, where fit object stands for (real, simulated) pair.
     size_t numberOfFitObjects() const;
 
-    //! returns chi2 histogram calculated for (real, simulated) data pair
-    //! @param i_item The index of fit object
-    IHistogram* getChiSquaredMap(size_t i_item = 0) const;
-
     //! returns FitObject (pair of simulation/real data)
     FitSuiteObjects* fitObjects();
 
@@ -165,9 +161,13 @@ public:
     //! @param i_item: the index of fit pair
     SimulationResult simulationResult(size_t i_item = 0) const;
 
-    //! Returns experimental dat.
+    //! Returns experimental data.
     //! @param i_item: the index of fit pair
     SimulationResult experimentalData(size_t i_item = 0) const;
+
+    //! Returns relative difference between simulation and real data.
+    //! @param i_item: the index of fit pair
+    SimulationResult relativeDifference(size_t i_item = 0) const;
 
 private:
     std::unique_ptr<FitSuiteImpl> m_impl;

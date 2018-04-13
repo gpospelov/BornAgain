@@ -6719,25 +6719,6 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_numberOfFitObjects(self)
 
 
-    def getChiSquaredMap(self, i_item=0):
-        """
-        getChiSquaredMap(FitSuite self, size_t i_item=0) -> IHistogram
-        getChiSquaredMap(FitSuite self) -> IHistogram
-
-        IHistogram * FitSuite::getChiSquaredMap(size_t i_item=0) const
-
-        returns chi2 histogram calculated for (real, simulated) data pair
-
-        Parameters:
-        -----------
-
-        i_item: 
-        The index of fit object 
-
-        """
-        return _libBornAgainCore.FitSuite_getChiSquaredMap(self, i_item)
-
-
     def fitObjects(self):
         """
         fitObjects(FitSuite self) -> FitSuiteObjects
@@ -6927,6 +6908,14 @@ class FitSuite(IObservable):
         """
         return _libBornAgainCore.FitSuite_experimentalData(self, i_item)
 
+
+    def relativeDifference(self, i_item=0):
+        """
+        relativeDifference(FitSuite self, size_t i_item=0) -> SimulationResult
+        relativeDifference(FitSuite self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuite_relativeDifference(self, i_item)
+
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 
@@ -7030,6 +7019,14 @@ class FitSuiteObjects(INode):
         experimentalData(FitSuiteObjects self) -> SimulationResult
         """
         return _libBornAgainCore.FitSuiteObjects_experimentalData(self, i_item)
+
+
+    def relativeDifference(self, i_item=0):
+        """
+        relativeDifference(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
+        relativeDifference(FitSuiteObjects self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuiteObjects_relativeDifference(self, i_item)
 
 
     def runSimulations(self):

@@ -62,7 +62,7 @@ std::unique_ptr<IHistogram> FitObject::createRealDataHistogram() const
         if (rdata_index >= m_real_data->getAllocatedSize())
             throw ("FitObject::prepareFitElements() -> Error. Out-of-bounds.");
         buff[it.roiIndex()] = (*m_real_data)[rdata_index];
-    });
+    }, /*visit_masked*/true);
 
     return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
 }

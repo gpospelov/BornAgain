@@ -150,7 +150,7 @@ double ParticleLayout::totalParticleSurfaceDensity() const
 }
 
 //! Sets total particle surface density.
-//! @params particle_density: number of particles per square nanometer
+//! @param particle_density: number of particles per square nanometer
 void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
 {
     m_total_particle_density = particle_density;

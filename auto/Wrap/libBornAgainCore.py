@@ -211,6 +211,20 @@ SwigPyIterator_swigregister(SwigPyIterator)
 
 SHARED_PTR_DISOWN = _libBornAgainCore.SHARED_PTR_DISOWN
 
+import warnings
+def deprecated(message):
+  def deprecated_decorator(func):
+      def deprecated_func(*args, **kwargs):
+          warnings.simplefilter('always', DeprecationWarning)  # turn off filter
+          warnings.warn("{} is a deprecated function. {}".format(func.__name__, message),
+                        category=DeprecationWarning,
+                        stacklevel=2)
+          warnings.simplefilter('default', DeprecationWarning)  # reset filter
+          return func(*args, **kwargs)
+      return deprecated_func
+  return deprecated_decorator
+
+
 class ParameterPoolIterator(object):
 
     def __init__(self, pool):
@@ -7533,14 +7547,7 @@ class IMultiLayerBuilder(IParameterized):
 
 
     def onChange(self):
-        """
-        onChange(IMultiLayerBuilder self)
-
-        virtual void IMultiLayerBuilder::onChange()
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
+        """onChange(IMultiLayerBuilder self)"""
         return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
 
 
@@ -17743,12 +17750,31 @@ class IHistogram(_object):
         return _libBornAgainCore.IHistogram_integral(self)
 
 
-    def getArray(self, *args):
+    def array(self, *args):
         """
-        getArray(IHistogram self, IHistogram::DataType dataType) -> PyObject
-        getArray(IHistogram self) -> PyObject *
+        array(IHistogram self, IHistogram::DataType dataType) -> PyObject
+        array(IHistogram self) -> PyObject *
+
+        PyObject * IHistogram::array(DataType dataType=DataType::INTEGRAL) const
+
+        Returns numpy array with bin content (accumulated values). 
+
         """
-        return _libBornAgainCore.IHistogram_getArray(self, *args)
+        return _libBornAgainCore.IHistogram_array(self, *args)
+
+
+    def getArrayObsolete(self, *args):
+        """
+        getArrayObsolete(IHistogram self, IHistogram::DataType dataType) -> PyObject
+        getArrayObsolete(IHistogram self) -> PyObject *
+
+        PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
+
+        Deprecated
+        Use  array() instead. 
+
+        """
+        return _libBornAgainCore.IHistogram_getArrayObsolete(self, *args)
 
 
     def reset(self):
@@ -17856,6 +17882,11 @@ class IHistogram(_object):
 
         """
         return _libBornAgainCore.IHistogram_load(self, filename)
+
+
+    @deprecated("Deprecated. Use array() instead.")
+    def getArray(self):
+        return self.getArrayObsolete()
 
 IHistogram_swigregister = _libBornAgainCore.IHistogram_swigregister
 IHistogram_swigregister(IHistogram)
@@ -17983,17 +18014,32 @@ class Histogram1D(IHistogram):
 
 
     def getBinCentersNumpy(self):
-        """getBinCentersNumpy(Histogram1D self) -> PyObject *"""
+        """
+        getBinCentersNumpy(Histogram1D self) -> PyObject *
+
+        PyObject * Histogram1D::getBinCentersNumpy() const
+
+        """
         return _libBornAgainCore.Histogram1D_getBinCentersNumpy(self)
 
 
     def getBinValuesNumpy(self):
-        """getBinValuesNumpy(Histogram1D self) -> PyObject *"""
+        """
+        getBinValuesNumpy(Histogram1D self) -> PyObject *
+
+        PyObject * Histogram1D::getBinValuesNumpy() const
+
+        """
         return _libBornAgainCore.Histogram1D_getBinValuesNumpy(self)
 
 
     def getBinErrorsNumpy(self):
-        """getBinErrorsNumpy(Histogram1D self) -> PyObject *"""
+        """
+        getBinErrorsNumpy(Histogram1D self) -> PyObject *
+
+        PyObject * Histogram1D::getBinErrorsNumpy() const
+
+        """
         return _libBornAgainCore.Histogram1D_getBinErrorsNumpy(self)
 
 
@@ -18322,6 +18368,18 @@ class SimulationResult(_object):
         return _libBornAgainCore.SimulationResult_axisInfo(self, *args)
 
 
+    def converter(self):
+        """
+        converter(SimulationResult self) -> IUnitConverter
+
+        const IUnitConverter & SimulationResult::converter() const
+
+        Returns underlying unit converter. 
+
+        """
+        return _libBornAgainCore.SimulationResult_converter(self)
+
+
     def size(self):
         """
         size(SimulationResult self) -> size_t
@@ -18333,7 +18391,14 @@ class SimulationResult(_object):
 
 
     def array(self):
-        """array(SimulationResult self) -> PyObject *"""
+        """
+        array(SimulationResult self) -> PyObject *
+
+        PyObject * SimulationResult::array() const
+
+        returns data as Python numpy array 
+
+        """
         return _libBornAgainCore.SimulationResult_array(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
@@ -24586,7 +24651,14 @@ class IntensityData(_object):
 
 
     def getArray(self):
-        """getArray(IntensityData self) -> PyObject *"""
+        """
+        getArray(IntensityData self) -> PyObject *
+
+        PyObject* OutputData< T >::getArray() const
+
+        returns data as Python numpy array 
+
+        """
         return _libBornAgainCore.IntensityData_getArray(self)
 
 
@@ -24595,8 +24667,6 @@ class IntensityData(_object):
         isInitialized(IntensityData self) -> bool
 
         bool OutputData< T >::isInitialized() const
-
-        returns data as Python numpy array
 
         returns true if object is correctly initialized 
 
@@ -25904,7 +25974,13 @@ class ParticleLayout(ILayout):
 
         void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
 
-        Sets total particle surface density.  particle_density: number of particles per square nanometer 
+        Sets total particle surface density.
+
+        Parameters:
+        -----------
+
+        particle_density: 
+        number of particles per square nanometer 
 
         """
         return _libBornAgainCore.ParticleLayout_setTotalParticleSurfaceDensity(self, particle_density)
@@ -27506,6 +27582,16 @@ class IUnitConverter(ICloneable):
         return _libBornAgainCore.IUnitConverter_axisName(self, *args)
 
 
+    def availableUnits(self):
+        """
+        availableUnits(IUnitConverter self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
+
+        virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
+
+        """
+        return _libBornAgainCore.IUnitConverter_availableUnits(self)
+
+
     def defaultUnits(self):
         """
         defaultUnits(IUnitConverter self) -> AxesUnits
@@ -27518,14 +27604,5 @@ class IUnitConverter(ICloneable):
 IUnitConverter_swigregister = _libBornAgainCore.IUnitConverter_swigregister
 IUnitConverter_swigregister(IUnitConverter)
 
-
-def SubstituteDefaultUnits(converter, units):
-    """
-    SubstituteDefaultUnits(IUnitConverter converter, AxesUnits units) -> AxesUnits
-
-    AxesUnits SubstituteDefaultUnits(const IUnitConverter &converter, AxesUnits units)
-
-    """
-    return _libBornAgainCore.SubstituteDefaultUnits(converter, units)
 # This file is compatible with both classic and new-style classes.
 

@@ -93,6 +93,14 @@ std::vector<AxisInfo> SimulationResult::axisInfo(AxesUnits units) const
     return result;
 }
 
+const IUnitConverter& SimulationResult::converter() const
+{
+    if (!mP_unit_converter)
+        throw std::runtime_error(
+            "Error in SimulationResult::converter: unit converter was not initialized");
+    return *mP_unit_converter;
+}
+
 double& SimulationResult::operator[](size_t i)
 {
     if (mP_data) return (*mP_data)[i];

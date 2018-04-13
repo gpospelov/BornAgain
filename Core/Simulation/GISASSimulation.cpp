@@ -19,10 +19,8 @@
 #include "Histogram2D.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
-#include "RectangularDetector.h"
-#include "SimpleUnitConverters.h"
 #include "SimulationElement.h"
-#include "SphericalDetector.h"
+#include "UnitConverterUtils.h"
 
 GISASSimulation::GISASSimulation()
 {
@@ -57,23 +55,11 @@ size_t GISASSimulation::numberOfSimulationElements() const
 
 SimulationResult GISASSimulation::result() const
 {
-    auto data = std::unique_ptr<OutputData<double>>(
-                    m_instrument.createDetectorIntensity(m_sim_elements));
-    auto p_det = getInstrument().getDetector();
-    if (p_det) {
-        auto p_spher_det = dynamic_cast<const SphericalDetector*>(p_det);
-        if (p_spher_det) {
-            SphericalConverter converter(*p_spher_det, getInstrument().getBeam());
-            return SimulationResult(*data, converter);
-        }
-        auto p_rect_det = dynamic_cast<const RectangularDetector*>(p_det);
-        if (p_rect_det) {
-            RectangularConverter converter(*p_rect_det, getInstrument().getBeam());
-            return SimulationResult(*data, converter);
-        }
-    }
-    throw std::runtime_error("Error in GISASSimulation::result: "
-                             "wrong or absent detector type");
+    const auto& instrument = getInstrument();
+    const auto converter = UnitConverterUtils::createConverterForGISAS(instrument);
+    const std::unique_ptr<OutputData<double>> data(
+        instrument.createDetectorIntensity(m_sim_elements));
+    return SimulationResult(*data, *converter);
 }
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)

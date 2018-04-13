@@ -1246,7 +1246,7 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  DepthProbeConverter::DepthProbeConverter "DepthProbeConverter::DepthProbeConverter(const Beam &beam, const IAxis &alpha_axis, const IAxis &z_axis)
 ";
 
-%feature("docstring")  DepthProbeConverter::~DepthProbeConverter "DepthProbeConverter::~DepthProbeConverter()
+%feature("docstring")  DepthProbeConverter::~DepthProbeConverter "DepthProbeConverter::~DepthProbeConverter() override
 ";
 
 %feature("docstring")  DepthProbeConverter::clone "DepthProbeConverter * DepthProbeConverter::clone() const override
@@ -1259,6 +1259,11 @@ C++ includes: SimpleUnitConverters.h
 ";
 
 %feature("docstring")  DepthProbeConverter::axisName "std::string DepthProbeConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const override
+";
+
+%feature("docstring")  DepthProbeConverter::availableUnits "std::vector< AxesUnits > DepthProbeConverter::availableUnits() const override
+
+Returns the list of all available units. 
 ";
 
 %feature("docstring")  DepthProbeConverter::defaultUnits "AxesUnits DepthProbeConverter::defaultUnits() const override
@@ -6036,6 +6041,15 @@ returns vector of bin content (the value accumulated by bins)
 returns vector of bin errors 
 ";
 
+%feature("docstring")  Histogram1D::getBinCentersNumpy "PyObject * Histogram1D::getBinCentersNumpy() const
+";
+
+%feature("docstring")  Histogram1D::getBinValuesNumpy "PyObject * Histogram1D::getBinValuesNumpy() const
+";
+
+%feature("docstring")  Histogram1D::getBinErrorsNumpy "PyObject * Histogram1D::getBinErrorsNumpy() const
+";
+
 %feature("docstring")  Histogram1D::crop "Histogram1D * Histogram1D::crop(double xmin, double xmax)
 
 Create new histogram by applying crop on axis. 
@@ -7699,6 +7713,17 @@ Multiply this histogram (every bin content value) by a constant.
 Returns integral of bins content (computed as a sum of all bin content). 
 ";
 
+%feature("docstring")  IHistogram::array "PyObject * IHistogram::array(DataType dataType=DataType::INTEGRAL) const
+
+Returns numpy array with bin content (accumulated values). 
+";
+
+%feature("docstring")  IHistogram::getArray "PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
+
+Deprecated
+Use  array() instead. 
+";
+
 %feature("docstring")  IHistogram::reset "void IHistogram::reset()
 
 Reset histogram content (axes remains) 
@@ -7970,11 +7995,6 @@ C++ includes: IMultiLayerBuilder.h
 ";
 
 %feature("docstring")  IMultiLayerBuilder::buildSample "virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
-";
-
-%feature("docstring")  IMultiLayerBuilder::onChange "virtual void IMultiLayerBuilder::onChange()
-
-Action to be taken in inherited class when a parameter has changed. 
 ";
 
 %feature("docstring")  IMultiLayerBuilder::createSample "virtual MultiLayer* IMultiLayerBuilder::createSample(size_t index=0)
@@ -9791,6 +9811,9 @@ C++ includes: IUnitConverter.h
 %feature("docstring")  IUnitConverter::axisName "std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const
 ";
 
+%feature("docstring")  IUnitConverter::availableUnits "virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
+";
+
 %feature("docstring")  IUnitConverter::defaultUnits "virtual AxesUnits IUnitConverter::defaultUnits() const =0
 ";
 
@@ -11071,7 +11094,7 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  OffSpecularConverter::OffSpecularConverter "OffSpecularConverter::OffSpecularConverter(const IDetector2D &detector, const Beam &beam, const IAxis &alpha_axis)
 ";
 
-%feature("docstring")  OffSpecularConverter::~OffSpecularConverter "OffSpecularConverter::~OffSpecularConverter()
+%feature("docstring")  OffSpecularConverter::~OffSpecularConverter "OffSpecularConverter::~OffSpecularConverter() override
 ";
 
 %feature("docstring")  OffSpecularConverter::clone "OffSpecularConverter * OffSpecularConverter::clone() const override
@@ -11432,9 +11455,12 @@ Returns true if objects a) have same dimensions b) bin boundaries of axes coinci
 Returns true if object have same dimensions and shape of axis. 
 ";
 
-%feature("docstring")  OutputData::isInitialized "bool OutputData< T >::isInitialized() const
+%feature("docstring")  OutputData::getArray "PyObject* OutputData< T >::getArray() const
 
-returns data as Python numpy array
+returns data as Python numpy array 
+";
+
+%feature("docstring")  OutputData::isInitialized "bool OutputData< T >::isInitialized() const
 
 returns true if object is correctly initialized 
 ";
@@ -12109,7 +12135,13 @@ Returns surface density of all particles.
 
 %feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
 
-Sets total particle surface density.  particle_density: number of particles per square nanometer 
+Sets total particle surface density.
+
+Parameters:
+-----------
+
+particle_density: 
+number of particles per square nanometer 
 ";
 
 %feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const final override
@@ -12620,10 +12652,15 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  RectangularConverter::RectangularConverter "RectangularConverter::RectangularConverter(const RectangularDetector &detector, const Beam &beam)
 ";
 
-%feature("docstring")  RectangularConverter::~RectangularConverter "RectangularConverter::~RectangularConverter()
+%feature("docstring")  RectangularConverter::~RectangularConverter "RectangularConverter::~RectangularConverter() override
 ";
 
 %feature("docstring")  RectangularConverter::clone "RectangularConverter * RectangularConverter::clone() const override
+";
+
+%feature("docstring")  RectangularConverter::availableUnits "std::vector< AxesUnits > RectangularConverter::availableUnits() const override
+
+Returns the list of all available units. 
 ";
 
 %feature("docstring")  RectangularConverter::defaultUnits "AxesUnits RectangularConverter::defaultUnits() const override
@@ -14119,7 +14156,17 @@ C++ includes: SimulationResult.h
 Provide  AxisInfo for each axis and the given units. 
 ";
 
+%feature("docstring")  SimulationResult::converter "const IUnitConverter & SimulationResult::converter() const
+
+Returns underlying unit converter. 
+";
+
 %feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const
+";
+
+%feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array() const
+
+returns data as Python numpy array 
 ";
 
 
@@ -14497,10 +14544,15 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  SphericalConverter::SphericalConverter "SphericalConverter::SphericalConverter(const SphericalDetector &detector, const Beam &beam)
 ";
 
-%feature("docstring")  SphericalConverter::~SphericalConverter "SphericalConverter::~SphericalConverter()
+%feature("docstring")  SphericalConverter::~SphericalConverter "SphericalConverter::~SphericalConverter() override
 ";
 
 %feature("docstring")  SphericalConverter::clone "SphericalConverter * SphericalConverter::clone() const override
+";
+
+%feature("docstring")  SphericalConverter::availableUnits "std::vector< AxesUnits > SphericalConverter::availableUnits() const override
+
+Returns the list of all available units. 
 ";
 
 %feature("docstring")  SphericalConverter::defaultUnits "AxesUnits SphericalConverter::defaultUnits() const override
@@ -15056,7 +15108,7 @@ C++ includes: UnitConverter1D.h
 Constructs the object for unit conversion. Input axis is in radians. 
 ";
 
-%feature("docstring")  UnitConverter1D::~UnitConverter1D "UnitConverter1D::~UnitConverter1D()
+%feature("docstring")  UnitConverter1D::~UnitConverter1D "UnitConverter1D::~UnitConverter1D() override
 ";
 
 %feature("docstring")  UnitConverter1D::clone "UnitConverter1D * UnitConverter1D::clone() const override
@@ -15082,6 +15134,11 @@ Calculates maximum on-axis value in given units.
 Returns the size of underlying axis. 
 ";
 
+%feature("docstring")  UnitConverter1D::availableUnits "std::vector< AxesUnits > UnitConverter1D::availableUnits() const override
+
+Returns the list of all available units. 
+";
+
 %feature("docstring")  UnitConverter1D::defaultUnits "AxesUnits UnitConverter1D::defaultUnits() const override
 
 Returns default units to convert to. 
@@ -15104,7 +15161,7 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  UnitConverterSimple::UnitConverterSimple "UnitConverterSimple::UnitConverterSimple(const Beam &beam)
 ";
 
-%feature("docstring")  UnitConverterSimple::~UnitConverterSimple "virtual UnitConverterSimple::~UnitConverterSimple()=default
+%feature("docstring")  UnitConverterSimple::~UnitConverterSimple "UnitConverterSimple::~UnitConverterSimple() override=default
 ";
 
 %feature("docstring")  UnitConverterSimple::dimension "size_t UnitConverterSimple::dimension() const override
@@ -15117,6 +15174,11 @@ C++ includes: SimpleUnitConverters.h
 ";
 
 %feature("docstring")  UnitConverterSimple::axisSize "size_t UnitConverterSimple::axisSize(size_t i_axis) const override
+";
+
+%feature("docstring")  UnitConverterSimple::availableUnits "std::vector< AxesUnits > UnitConverterSimple::availableUnits() const override
+
+Returns the list of all available units. 
 ";
 
 %feature("docstring")  UnitConverterSimple::createConvertedAxis "std::unique_ptr< IAxis > UnitConverterSimple::createConvertedAxis(size_t i_axis, AxesUnits units) const override
@@ -15318,10 +15380,7 @@ C++ includes: ZLimits.h
 // File: namespace_0D300.xml
 
 
-// File: namespace_0D319.xml
-
-
-// File: namespace_0D323.xml
+// File: namespace_0D321.xml
 
 
 // File: namespace_0D325.xml
@@ -15330,40 +15389,40 @@ C++ includes: ZLimits.h
 // File: namespace_0D327.xml
 
 
-// File: namespace_0D335.xml
+// File: namespace_0D329.xml
 
 
-// File: namespace_0D350.xml
+// File: namespace_0D337.xml
 
 
-// File: namespace_0D358.xml
+// File: namespace_0D352.xml
 
 
-// File: namespace_0D364.xml
+// File: namespace_0D360.xml
 
 
-// File: namespace_0D367.xml
+// File: namespace_0D366.xml
 
 
 // File: namespace_0D369.xml
 
 
-// File: namespace_0D390.xml
+// File: namespace_0D371.xml
 
 
-// File: namespace_0D399.xml
+// File: namespace_0D392.xml
 
 
-// File: namespace_0D432.xml
+// File: namespace_0D401.xml
 
 
-// File: namespace_0D439.xml
+// File: namespace_0D434.xml
 
 
-// File: namespace_0D477.xml
+// File: namespace_0D441.xml
 
 
-// File: namespace_0D485.xml
+// File: namespace_0D479.xml
 
 
 // File: namespace_0D487.xml
@@ -15372,10 +15431,13 @@ C++ includes: ZLimits.h
 // File: namespace_0D489.xml
 
 
-// File: namespace_0D567.xml
+// File: namespace_0D491.xml
 
 
-// File: namespace_0D589.xml
+// File: namespace_0D569.xml
+
+
+// File: namespace_0D591.xml
 
 
 // File: namespace_0D84.xml
@@ -15388,6 +15450,9 @@ C++ includes: ZLimits.h
 %feature("docstring")  ArrayUtils::getShape "std::pair< size_t, size_t > ArrayUtils::getShape(const T &data)
 
 Returns shape nrows, ncols of 2D array. 
+";
+
+%feature("docstring")  ArrayUtils::createNumpyArray "PyObject * ArrayUtils::createNumpyArray(const std::vector< double > &data)
 ";
 
 
@@ -16196,6 +16261,21 @@ Returns environment variable.
 %feature("docstring")  SysUtils::isWindowsHost "bool SysUtils::isWindowsHost()
 
 Returns true if operation system is Windows. 
+";
+
+
+// File: namespaceUnitConverterUtils.xml
+%feature("docstring")  UnitConverterUtils::substituteDefaultUnits "AxesUnits UnitConverterUtils::substituteDefaultUnits(const IUnitConverter &converter, AxesUnits units)
+";
+
+%feature("docstring")  UnitConverterUtils::createOutputData "std::unique_ptr< OutputData< double > > UnitConverterUtils::createOutputData(const IUnitConverter &converter, AxesUnits units)
+
+Returns zero-valued output data array in specified units. 
+";
+
+%feature("docstring")  UnitConverterUtils::createConverterForGISAS "std::unique_ptr< IUnitConverter > UnitConverterUtils::createConverterForGISAS(const Instrument &instrument)
+
+Helper factory function to use in  GISASSimulation. Depending on the type of detector, returns either  RectangularConverter or  SphericalConverter. 
 ";
 
 
@@ -17045,8 +17125,6 @@ global helper function for comparison of axes
 
 
 // File: IUnitConverter_8h.xml
-%feature("docstring")  SubstituteDefaultUnits "AxesUnits SubstituteDefaultUnits(const IUnitConverter &converter, AxesUnits units)
-";
 
 
 // File: LLData_8cpp.xml
@@ -17140,6 +17218,12 @@ make Swappable
 
 
 // File: UnitConverter1D_8h.xml
+
+
+// File: UnitConverterUtils_8cpp.xml
+
+
+// File: UnitConverterUtils_8h.xml
 
 
 // File: ISelectionRule_8h.xml
@@ -18284,6 +18368,9 @@ Calculates the z-coordinate of the highest vertex after rotation.
 
 
 // File: WavevectorInfo_8h.xml
+
+
+// File: deprecated.xml
 
 
 // File: dir_52a2c863b7b3435f7dcd40f26828d521.xml

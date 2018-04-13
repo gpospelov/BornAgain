@@ -218,7 +218,7 @@ const ModelType UnitsNbins = "nbins";
 const ModelType UnitsRadians = "Radians";
 const ModelType UnitsDegrees = "Degrees";
 const ModelType UnitsMm = "mm";
-const ModelType UnitsQyQz = "Qy,Qz";
+const ModelType UnitsQyQz = "q-space";
 
 const ModelType STATUS_IDLE = "Idle";
 const ModelType STATUS_RUNNING = "Running";

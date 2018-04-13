@@ -41,7 +41,6 @@ public slots:
     void closeEvent(QCloseEvent*);
 
 private:
-    void init_material_editor();
     void readSettings();
     void writeSettings();
 

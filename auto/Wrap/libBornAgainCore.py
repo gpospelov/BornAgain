@@ -6302,18 +6302,6 @@ class FitObject(INode):
         return _libBornAgainCore.FitObject_accept(self, visitor)
 
 
-    def simulationData(self):
-        """
-        simulationData(FitObject self) -> IntensityData
-
-        const OutputData< double > & FitObject::simulationData() const
-
-        Returns simulated data. 
-
-        """
-        return _libBornAgainCore.FitObject_simulationData(self)
-
-
     def weight(self):
         """
         weight(FitObject self) -> double
@@ -6338,9 +6326,9 @@ class FitObject(INode):
         return _libBornAgainCore.FitObject_numberOfFitElements(self)
 
 
-    def prepareFitElements(self, fit_elements, weight, normalizer=None):
+    def prepareFitElements(self, fit_elements, weight, arg4=None):
         """
-        prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight, IIntensityNormalizer normalizer=None)
+        prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight, IIntensityNormalizer arg4=None)
         prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight)
 
         void FitObject::prepareFitElements(std::vector< FitElement > &fit_elements, double weight, IIntensityNormalizer *normalizer=0)
@@ -6348,7 +6336,7 @@ class FitObject(INode):
         Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. 
 
         """
-        return _libBornAgainCore.FitObject_prepareFitElements(self, fit_elements, weight, normalizer)
+        return _libBornAgainCore.FitObject_prepareFitElements(self, fit_elements, weight, arg4)
 
 
     def getChildren(self):
@@ -6926,17 +6914,6 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_isInterrupted(self)
 
 
-    def getSimulationOutputData(self, i_item=0):
-        """
-        getSimulationOutputData(FitSuite self, size_t i_item=0) -> IntensityData
-        getSimulationOutputData(FitSuite self) -> IntensityData
-
-        const OutputData< double > * FitSuite::getSimulationOutputData(size_t i_item=0) const
-
-        """
-        return _libBornAgainCore.FitSuite_getSimulationOutputData(self, i_item)
-
-
     def parametersToString(self):
         """
         parametersToString(FitSuite self) -> std::string
@@ -7091,25 +7068,6 @@ class FitSuiteObjects(INode):
         experimentalData(FitSuiteObjects self) -> SimulationResult
         """
         return _libBornAgainCore.FitSuiteObjects_experimentalData(self, i_item)
-
-
-    def getSimulationData(self, i_item=0):
-        """
-        getSimulationData(FitSuiteObjects self, size_t i_item=0) -> IntensityData
-        getSimulationData(FitSuiteObjects self) -> IntensityData
-
-        const OutputData< double > & FitSuiteObjects::getSimulationData(size_t i_item=0) const
-
-        Returns simulated data from corresponding  FitObject
-
-        Parameters:
-        -----------
-
-        i_item: 
-        Index of  FitObject
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_getSimulationData(self, i_item)
 
 
     def runSimulations(self):

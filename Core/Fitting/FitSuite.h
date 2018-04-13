@@ -160,8 +160,6 @@ public:
     void resetInterrupt();
     bool isInterrupted();
 
-    const OutputData<double>* getSimulationOutputData(size_t i_item = 0) const;
-
     //! Returns multiline string representing possible fit parameters.
     std::string parametersToString() const;
 

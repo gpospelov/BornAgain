@@ -47,10 +47,6 @@ public:
     SimulationResult simulationResult(size_t i_item = 0) const;
     SimulationResult experimentalData(size_t i_item = 0) const;
 
-    //! Returns simulated data from corresponding FitObject
-    //! @param i_item Index of FitObject
-    const OutputData<double>& getSimulationData(size_t i_item = 0) const;
-
     //! run all simulation defined in fit pairs
     void runSimulations();
 

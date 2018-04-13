@@ -43,9 +43,6 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    //! Returns simulated data.
-    const OutputData<double>& simulationData() const;
-
     //! Returns weight of data set in chi2 calculations.
     double weight() const { return m_weight; }
 
@@ -54,7 +51,7 @@ public:
     size_t numberOfFitElements() const;
 
     void prepareFitElements(std::vector<FitElement>& fit_elements, double weight,
-                            IIntensityNormalizer* normalizer=0);
+                            IIntensityNormalizer* =0);
 
     std::vector<const INode*> getChildren() const;
 

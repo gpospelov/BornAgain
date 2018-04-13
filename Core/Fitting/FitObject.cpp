@@ -42,8 +42,6 @@ FitObject::FitObject(const Simulation& simulation, const OutputData<double>& rea
 
 FitObject::~FitObject() {}
 
-const OutputData<double>& FitObject::simulationData() const { return *m_simulation_data.get(); }
-
 std::vector<const INode*> FitObject::getChildren() const
 {
     return std::vector<const INode*>() << m_simulation;
@@ -93,14 +91,15 @@ size_t FitObject::numberOfFitElements() const { return m_fit_elements_count; }
 //! Masked channels will be excluded from the vector.
 
 void FitObject::prepareFitElements(std::vector<FitElement>& fit_elements, double weight,
-                                   IIntensityNormalizer* normalizer)
+                                   IIntensityNormalizer* )
 {
     m_simulation->runSimulation();
     m_simulation_result = m_simulation->result();
     m_simulation_data.reset(m_simulation_result.data());
 
-    if (normalizer)
-        normalizer->apply(*m_simulation_data.get());
+// TODO FIXE Consider normalizer removal. Now FitScaleAndShift example is broken.
+//    if (normalizer)
+//        normalizer->apply(*m_simulation_data.get());
 
     m_simulation->getInstrument().getDetector()->iterate([&](IDetector::const_iterator it){
         // FIXME find elegant way (issue #2018)

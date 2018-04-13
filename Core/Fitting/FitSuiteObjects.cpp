@@ -68,11 +68,6 @@ SimulationResult FitSuiteObjects::experimentalData(size_t i_item) const
     return m_fit_objects[check_index(i_item)]->experimentalData();
 }
 
-const OutputData<double> &FitSuiteObjects::getSimulationData(size_t i_item) const
-{
-    return m_fit_objects[check_index(i_item)]->simulationData();
-}
-
 //! loop through all defined simulations and run them
 void FitSuiteObjects::runSimulations()
 {

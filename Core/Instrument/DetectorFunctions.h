@@ -54,12 +54,6 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>> createDataSet(const Instrument&
     const OutputData<double> &data, bool put_masked_areas_to_zero=true,
     AxesUnits units=AxesUnits::DEFAULT);
 
-//! Iterates through detector area intended for simulation (over unmasked areas in the ROI).
-//! @param visit_masks: Will visit masked areas too, if true.
-BA_CORE_API_ void iterate(const IDetector& detector,
-                          std::function<void(const SimulationAreaIterator&)> fun,
-                          bool visit_masks=false);
-
 }
 
 #endif // DETECTORFUNCTIONS_H

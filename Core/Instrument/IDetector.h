@@ -119,7 +119,7 @@ public:
 
     std::vector<const INode*> getChildren() const override;
 
-    void iterate(std::function<void(const_iterator)> fun, bool visit_masks=false) const;
+    void iterate(std::function<void(const_iterator)> func, bool visit_masks=false) const;
 
 protected:
     IDetector(const IDetector& other);

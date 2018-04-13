@@ -171,12 +171,12 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration)
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
     EXPECT_EQ(roiIndexes, expectedRoiIndexes);
 
-    // Now same as above, but using DetectorDunction::iterate
+    // Now same as above, but using IDetector::iterate
     indexes.clear();
     elementIndexes.clear();
     detectorIndexes.clear();
     roiIndexes.clear();
-    DetectorFunctions::iterate(detector, [&](const SimulationAreaIterator& it){
+    detector.iterate([&](IDetector::const_iterator it){
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
         detectorIndexes.push_back(it.detectorIndex());
@@ -215,12 +215,12 @@ TEST_F(SimulationAreaTest, maskAndRoiIterationVisitMasks)
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
     EXPECT_EQ(roiIndexes, expectedRoiIndexes);
 
-    // Now same as above, but using DetectorDunction::iterate
+    // Now same as above, but using IDetector::iterate
     indexes.clear();
     elementIndexes.clear();
     detectorIndexes.clear();
     roiIndexes.clear();
-    DetectorFunctions::iterate(detector, [&](const SimulationAreaIterator& it){
+    detector.iterate([&](IDetector::const_iterator it){
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
         detectorIndexes.push_back(it.detectorIndex());

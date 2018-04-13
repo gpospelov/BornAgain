@@ -79,32 +79,10 @@ std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instr
 
     std::unique_ptr<OutputData<double>> result(instrument.createDetectorMap(units));
 
-    if(put_masked_areas_to_zero) {
-        SimulationArea area(instrument.getDetector());
-        for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-            (*result)[it.roiIndex()] = data[it.detectorIndex()];
-        }
+    instrument.getDetector()->iterate([&](IDetector::const_iterator it){
+        (*result)[it.roiIndex()] = data[it.detectorIndex()];
+    }, /*visit_masked*/!put_masked_areas_to_zero);
 
-    } else {
-        SimulationRoiArea area(instrument.getDetector());
-        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it) {
-            (*result)[it.roiIndex()] = data[it.detectorIndex()];
-        }
-    }
     return result;
 }
 
-void DetectorFunctions::iterate(const IDetector& detector,
-                                std::function<void(const SimulationAreaIterator&)> fun,
-                                bool visit_masks)
-{
-    if (visit_masks) {
-        SimulationRoiArea area(&detector);
-        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
-            fun(it);
-    } else {
-        SimulationArea area(&detector);
-        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
-            fun(it);
-    }
-}

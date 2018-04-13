@@ -53,8 +53,7 @@ std::unique_ptr<IHistogram> FitObject::createRealDataHistogram() const
     OutputData<double> buff;
     buff.copyShapeFrom(simulationData());
 
-    SimulationRoiArea area(m_simulation->getInstrument().getDetector());
-    for (SimulationRoiArea::iterator it = area.begin(); it != area.end(); ++it) {
+    m_simulation->getInstrument().getDetector()->iterate([&](IDetector::const_iterator it){
         // FIXME find elegant (issue #2018)
         size_t rdata_index
             = m_simulation_data->getAllocatedSize() == m_real_data->getAllocatedSize()
@@ -63,7 +62,8 @@ std::unique_ptr<IHistogram> FitObject::createRealDataHistogram() const
         if (rdata_index >= m_real_data->getAllocatedSize())
             throw ("FitObject::prepareFitElements() -> Error. Out-of-bounds.");
         buff[it.roiIndex()] = (*m_real_data)[rdata_index];
-    }
+    });
+
     return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
 }
 
@@ -97,8 +97,7 @@ void FitObject::prepareFitElements(std::vector<FitElement>& fit_elements, double
     if (normalizer)
         normalizer->apply(*m_simulation_data.get());
 
-    SimulationArea area(m_simulation->getInstrument().getDetector());
-    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
+    m_simulation->getInstrument().getDetector()->iterate([&](IDetector::const_iterator it){
         // FIXME find elegant way (issue #2018)
         size_t rdata_index
             = m_simulation_data->getAllocatedSize() == m_real_data->getAllocatedSize()
@@ -110,5 +109,5 @@ void FitObject::prepareFitElements(std::vector<FitElement>& fit_elements, double
         FitElement element(it.roiIndex(), (*m_simulation_data)[it.roiIndex()],
                            (*m_real_data)[rdata_index], weight);
         fit_elements.push_back(element);
-    }
+    });
 }

@@ -24,7 +24,7 @@
 #include <QPushButton>
 #include <QToolButton>
 
-#include <RealSpaceViewerDialog.h>
+#include <RealSpaceDialog.h>
 
 //! main tool bar on top of SampleView window
 SampleToolBar::SampleToolBar(SampleModel *sampleModel, QItemSelectionModel* selectionModel,
@@ -166,7 +166,7 @@ void SampleToolBar::onRealSpaceViewerCall()
     if(!m_dialog_on)
     {
         m_dialog_on = true;
-        m_dialog = new RealSpaceViewerDialog(m_sampleModel, m_selectionModel, this);
+        m_dialog = new RealSpaceDialog(m_sampleModel, m_selectionModel, this);
         m_dialog->show();
 
         // undo the flag when the dialog is destroyed on close event

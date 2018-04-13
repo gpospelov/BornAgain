@@ -18,6 +18,7 @@
 #include "StyledToolBar.h"
 
 class QToolButton;
+class QCheckBox;
 
 //! Thin toolbar on top of RealSpaceWidget.
 
@@ -32,11 +33,13 @@ signals:
     void defaultViewAction();
     void edgeViewAction();
     void faceViewAction();
+    void lockViewAction(bool);
 
 private:
     QToolButton *m_defaultViewButton;
     QToolButton *m_edgeViewButton;
     QToolButton *m_faceViewButton;
+    QCheckBox *m_lockViewCheckBox;
 };
 
 #endif // REALSPACETOOLBAR_H

@@ -2,6 +2,7 @@
 #include "Rectangle.h"
 #include "SimulationArea.h"
 #include "SphericalDetector.h"
+#include "DetectorFunctions.h"
 #include <iostream>
 #include <memory>
 
@@ -169,6 +170,22 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration)
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
     EXPECT_EQ(roiIndexes, expectedRoiIndexes);
+
+    // Now same as above, but using DetectorDunction::iterate
+    indexes.clear();
+    elementIndexes.clear();
+    detectorIndexes.clear();
+    roiIndexes.clear();
+    DetectorFunctions::iterate(detector, [&](const SimulationAreaIterator& it){
+        indexes.push_back(it.index());
+        elementIndexes.push_back(it.elementIndex());
+        detectorIndexes.push_back(it.detectorIndex());
+        roiIndexes.push_back(it.roiIndex());
+    });
+    EXPECT_EQ(indexes, expectedRoiIndexes);
+    EXPECT_EQ(elementIndexes, expectedElementIndexes);
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
+    EXPECT_EQ(roiIndexes, expectedRoiIndexes);
 }
 
 //! Iteration when RegionOfInterest and masks are present. Iteration visit masked areas too.
@@ -193,6 +210,22 @@ TEST_F(SimulationAreaTest, maskAndRoiIterationVisitMasks)
         detectorIndexes.push_back(it.detectorIndex());
         roiIndexes.push_back(it.roiIndex());
     }
+    EXPECT_EQ(indexes, expectedRoiIndexes);
+    EXPECT_EQ(elementIndexes, expectedElementIndexes);
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
+    EXPECT_EQ(roiIndexes, expectedRoiIndexes);
+
+    // Now same as above, but using DetectorDunction::iterate
+    indexes.clear();
+    elementIndexes.clear();
+    detectorIndexes.clear();
+    roiIndexes.clear();
+    DetectorFunctions::iterate(detector, [&](const SimulationAreaIterator& it){
+        indexes.push_back(it.index());
+        elementIndexes.push_back(it.elementIndex());
+        detectorIndexes.push_back(it.detectorIndex());
+        roiIndexes.push_back(it.roiIndex());
+    }, /*visit_masked*/true);
     EXPECT_EQ(indexes, expectedRoiIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);

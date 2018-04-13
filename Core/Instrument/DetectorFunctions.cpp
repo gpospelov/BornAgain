@@ -16,6 +16,7 @@
 #include "OutputData.h"
 #include "Instrument.h"
 #include "SimulationArea.h"
+#include "SimulationAreaIterator.h"
 #include "StringUtils.h"
 #include <sstream>
 #include <algorithm>
@@ -91,4 +92,19 @@ std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instr
         }
     }
     return result;
+}
+
+void DetectorFunctions::iterate(const IDetector& detector,
+                                std::function<void(const SimulationAreaIterator&)> fun,
+                                bool visit_masks)
+{
+    if (visit_masks) {
+        SimulationRoiArea area(&detector);
+        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
+            fun(it);
+    } else {
+        SimulationArea area(&detector);
+        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
+            fun(it);
+    }
 }

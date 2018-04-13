@@ -48,7 +48,7 @@ public slots:
     void onDefaultViewAction();
     void onEdgeViewAction();
     void onFaceViewAction();
-    void onLockViewAction(bool);
+    void onLockViewAction(bool view_locked);
 
 private slots:
     void updateScene();
@@ -71,7 +71,7 @@ private:
     std::unique_ptr<RealSpaceModel> m_realSpaceModel;
 
     QItemSelectionModel* m_selectionModel;
-    bool m_lockView_on;
+    bool m_view_locked;
 };
 
 #endif // REALSPACESCENE_H

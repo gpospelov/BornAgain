@@ -25,7 +25,7 @@ RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent)
     , m_sampleModel(nullptr)
     , m_view(new RealSpaceView)
-    , m_lockView_on(false)
+    , m_view_locked(false)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -63,7 +63,7 @@ void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* se
                     m_currentSelection = FilterPropertyProxy::toSourceIndex(indices.back());
             }
 
-            if(m_lockView_on == false)
+            if(m_view_locked == false)
                 updateScene();
         }
     }
@@ -72,7 +72,7 @@ void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* se
 void RealSpaceCanvas::onSelectionChanged(const QItemSelection &selected /* selected */,
                                          const QItemSelection & /* deselected */)
 {
-    if(m_lockView_on == false)
+    if(m_view_locked == false)
     {
         QModelIndexList indices = selected.indexes();
 
@@ -101,17 +101,17 @@ void RealSpaceCanvas::onFaceViewAction()
     faceView();
 }
 
-void RealSpaceCanvas::onLockViewAction(bool lockView_on)
+void RealSpaceCanvas::onLockViewAction(bool view_locked)
 {
-    // if lockView is unchecked i.e. previously it was checked (true) and now it's unchecked (false)
-    // then emit a signal to display the current selection on the canvas
-    if(m_lockView_on == true && lockView_on == false)
+    // if Lock View box is unchecked i.e. previously it was checked (true) and now it's
+    // unchecked (false), then emit a signal to display the current selection on the canvas
+    if(m_view_locked == true && view_locked == false)
     {
-        m_lockView_on = lockView_on;
+        m_view_locked = view_locked;
         emit lockViewUnchecked(m_selectionModel->selection(), m_selectionModel->selection());
     }
 
-    m_lockView_on = lockView_on;
+    m_view_locked = view_locked;
 }
 
 void RealSpaceCanvas::updateScene()

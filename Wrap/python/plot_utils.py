@@ -216,8 +216,8 @@ class Plotter:
         self._fig.clf()
 
     def plot(self, fit_suite):
+        self._fig.tight_layout()
         plt.pause(0.03)
-
 
 
 class PlotterGISAS(Plotter):
@@ -366,8 +366,6 @@ class PlotterSpecular(Plotter):
 
         self.plot_graph(fit_suite)
         self.plot_table(fit_suite)
-
-        plt.tight_layout()
 
         Plotter.plot(self, fit_suite)
 

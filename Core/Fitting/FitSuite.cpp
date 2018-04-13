@@ -156,6 +156,16 @@ std::string FitSuite::setupToString()
     return m_impl->setupToString();
 }
 
+SimulationResult FitSuite::simulationResult(size_t i_item) const
+{
+    return m_impl->fitObjects()->simulationResult(i_item);
+}
+
+SimulationResult FitSuite::experimentalData(size_t i_item) const
+{
+    return m_impl->fitObjects()->experimentalData(i_item);
+}
+
 FitSuiteObjects* FitSuite::fitObjects()
 {
     return m_impl->fitObjects();

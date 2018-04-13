@@ -6972,6 +6972,22 @@ class FitSuite(IObservable):
         """
         return _libBornAgainCore.FitSuite_setupToString(self)
 
+
+    def simulationResult(self, i_item=0):
+        """
+        simulationResult(FitSuite self, size_t i_item=0) -> SimulationResult
+        simulationResult(FitSuite self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuite_simulationResult(self, i_item)
+
+
+    def experimentalData(self, i_item=0):
+        """
+        experimentalData(FitSuite self, size_t i_item=0) -> SimulationResult
+        experimentalData(FitSuite self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuite_experimentalData(self, i_item)
+
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
 
@@ -7059,6 +7075,22 @@ class FitSuiteObjects(INode):
 
         """
         return _libBornAgainCore.FitSuiteObjects_setChiSquaredModule(self, chi2_module)
+
+
+    def simulationResult(self, i_item=0):
+        """
+        simulationResult(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
+        simulationResult(FitSuiteObjects self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuiteObjects_simulationResult(self, i_item)
+
+
+    def experimentalData(self, i_item=0):
+        """
+        experimentalData(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
+        experimentalData(FitSuiteObjects self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuiteObjects_experimentalData(self, i_item)
 
 
     def getSimulationData(self, i_item=0):

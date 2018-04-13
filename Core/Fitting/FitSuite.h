@@ -18,6 +18,7 @@
 #include "IObserver.h"
 #include "OutputData.h"
 #include "AttLimits.h"
+#include "SimulationResult.h"
 #include <vector>
 
 class Simulation;
@@ -169,6 +170,10 @@ public:
 
     //! Returns multiline string representing fit setup
     std::string setupToString();
+
+    SimulationResult simulationResult(size_t i_item = 0) const;
+    SimulationResult experimentalData(size_t i_item = 0) const;
+
 private:
     std::unique_ptr<FitSuiteImpl> m_impl;
 };

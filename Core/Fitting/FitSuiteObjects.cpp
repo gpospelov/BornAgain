@@ -58,6 +58,16 @@ void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule& chi2_module)
     m_chi2_module.reset(chi2_module.clone());
 }
 
+SimulationResult FitSuiteObjects::simulationResult(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->simulationResult();
+}
+
+SimulationResult FitSuiteObjects::experimentalData(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->experimentalData();
+}
+
 const OutputData<double> &FitSuiteObjects::getSimulationData(size_t i_item) const
 {
     return m_fit_objects[check_index(i_item)]->simulationData();

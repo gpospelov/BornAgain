@@ -44,6 +44,9 @@ public:
     //! Replaces default ChiSquaredModule with new one
     void setChiSquaredModule(const IChiSquaredModule &chi2_module);
 
+    SimulationResult simulationResult(size_t i_item = 0) const;
+    SimulationResult experimentalData(size_t i_item = 0) const;
+
     //! Returns simulated data from corresponding FitObject
     //! @param i_item Index of FitObject
     const OutputData<double>& getSimulationData(size_t i_item = 0) const;

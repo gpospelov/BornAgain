@@ -121,7 +121,9 @@ std::vector<const INode*> FitSuiteObjects::getChildren() const
 
 std::unique_ptr<IHistogram> FitSuiteObjects::createRealDataHistogram(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->createRealDataHistogram();
+    auto result = m_fit_objects[check_index(i_item)]->experimentalData();
+    std::unique_ptr<OutputData<double>> data(result.data());
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(*data));
 }
 
 std::unique_ptr<IHistogram> FitSuiteObjects::createSimulationHistogram(size_t i_item) const

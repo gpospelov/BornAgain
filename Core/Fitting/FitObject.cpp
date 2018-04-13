@@ -50,25 +50,6 @@ std::vector<const INode*> FitObject::getChildren() const
     return std::vector<const INode*>() << m_simulation;
 }
 
-std::unique_ptr<IHistogram> FitObject::createRealDataHistogram() const
-{
-    OutputData<double> buff;
-    buff.copyShapeFrom(simulationData());
-
-    m_simulation->getInstrument().getDetector()->iterate([&](IDetector::const_iterator it){
-        // FIXME find elegant (issue #2018)
-        size_t rdata_index
-            = m_simulation_data->getAllocatedSize() == m_real_data->getAllocatedSize()
-                  ? it.roiIndex()
-                  : it.detectorIndex();
-        if (rdata_index >= m_real_data->getAllocatedSize())
-            throw ("FitObject::prepareFitElements() -> Error. Out-of-bounds.");
-        buff[it.roiIndex()] = (*m_real_data)[rdata_index];
-    }, /*visit_masked*/true);
-
-    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
-}
-
 SimulationResult FitObject::simulationResult() const
 {
     return m_simulation_result;
@@ -97,6 +78,7 @@ void FitObject::init_dataset(const OutputData<double>& real_data)
         detector->iterate([&](IDetector::const_iterator it){
             (*roi_data)[it.roiIndex()] = real_data[it.detectorIndex()];
         }, /*visit_masked*/true);
+
     } else {
         throw std::runtime_error("FitObject::init_dataset() -> Error. Detector and exp data have "
                                  "different shape.");

@@ -158,7 +158,7 @@ TEST_F(FitObjectTest, WhenExpDataIsClipped)
 
 // Attempt to assign experimental which doesn't fit neither detector or ROI.
 
-TEST_F(FitObjectTest, AssignWrinExpData)
+TEST_F(FitObjectTest, AssignWrongExpData)
 {
     const size_t nx(5), ny(4);
     const double xmin(-1.0*Units::deg), xmax(4.0*Units::deg);

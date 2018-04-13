@@ -61,11 +61,6 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
-#ifndef SWIG
-    //! Returns histogram representing real data clipped to ROI
-    std::unique_ptr<IHistogram> createRealDataHistogram() const;
-#endif
-
     SimulationResult simulationResult() const;
     SimulationResult experimentalData() const;
 

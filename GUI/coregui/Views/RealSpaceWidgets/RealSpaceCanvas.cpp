@@ -33,9 +33,9 @@ RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     layout->addWidget(m_view);
     setLayout(layout);
 
-    // listening whether lock view in RealSpaceToolBar has been unchecked or not
-    connect(this, &RealSpaceCanvas::lockViewUnchecked,
-            this, &RealSpaceCanvas::onSelectionChanged);
+    // listening whether Lock View box in RealSpaceToolBar has been unchecked or not
+    // in order to display the current selection as soon as the box is unchecked
+    connect(this, &RealSpaceCanvas::lockViewUnchecked, this, &RealSpaceCanvas::updateToSelection);
 }
 
 RealSpaceCanvas::~RealSpaceCanvas()
@@ -69,18 +69,24 @@ void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* se
     }
 }
 
-void RealSpaceCanvas::onSelectionChanged(const QItemSelection &selected /* selected */,
-                                         const QItemSelection & /* deselected */)
+void RealSpaceCanvas::onSelectionChanged(const QItemSelection &selection /* selection */,
+                                         const QItemSelection & /* deselection */)
+{
+    // propagate selection from selectionChanged() signal to updateToSelection() method
+    updateToSelection(selection);
+}
+
+void RealSpaceCanvas::updateToSelection(const QItemSelection &selection)
 {
     if(!m_view_locked)
     {
-        QModelIndexList indices = selected.indexes();
+        QModelIndexList indices = selection.indexes();
 
         if(indices.size())
             m_currentSelection = FilterPropertyProxy::toSourceIndex(indices.back());
         else
             m_currentSelection = QModelIndex();
-            // if no object is selected -> display nothing on canvas
+            // if no object is selected then display nothing on canvas
 
         updateScene();
     }
@@ -108,10 +114,10 @@ void RealSpaceCanvas::onLockViewAction(bool view_locked)
     if(m_view_locked && !view_locked)
     {
         m_view_locked = view_locked;
-        emit lockViewUnchecked(m_selectionModel->selection(), m_selectionModel->selection());
+        emit lockViewUnchecked(m_selectionModel->selection());
     }
-
-    m_view_locked = view_locked;
+    else
+        m_view_locked = view_locked;
 }
 
 void RealSpaceCanvas::updateScene()

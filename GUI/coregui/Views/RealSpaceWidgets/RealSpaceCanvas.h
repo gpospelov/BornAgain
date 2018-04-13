@@ -40,10 +40,12 @@ public:
                   QItemSelectionModel* selectionModel = nullptr);
 
 signals:
-    void lockViewUnchecked(const QItemSelection &, const QItemSelection &);
+    //void lockViewUnchecked(const QItemSelection &, const QItemSelection &);
+    void lockViewUnchecked(const QItemSelection &);
 
 public slots:
-    void onSelectionChanged(const QItemSelection &selected, const QItemSelection &);
+    void onSelectionChanged(const QItemSelection &selection, const QItemSelection &);
+    void updateToSelection(const QItemSelection &selection);
 
     void onDefaultViewAction();
     void onEdgeViewAction();

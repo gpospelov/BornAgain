@@ -6302,18 +6302,6 @@ class FitObject(INode):
         return _libBornAgainCore.FitObject_accept(self, visitor)
 
 
-    def realData(self):
-        """
-        realData(FitObject self) -> IntensityData
-
-        const OutputData< double > & FitObject::realData() const
-
-        Returns real (experimental) data. 
-
-        """
-        return _libBornAgainCore.FitObject_realData(self)
-
-
     def simulationData(self):
         """
         simulationData(FitObject self) -> IntensityData

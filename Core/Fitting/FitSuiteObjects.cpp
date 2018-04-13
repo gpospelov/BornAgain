@@ -128,19 +128,22 @@ std::unique_ptr<IHistogram> FitSuiteObjects::createRealDataHistogram(size_t i_it
 
 std::unique_ptr<IHistogram> FitSuiteObjects::createSimulationHistogram(size_t i_item) const
 {
-    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(getSimulationData(i_item)));
+    auto result = m_fit_objects[check_index(i_item)]->simulationResult();
+    std::unique_ptr<OutputData<double>> data(result.data());
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(*data));
 }
 
 std::unique_ptr<IHistogram> FitSuiteObjects::createChiSquaredHistogram(size_t i_item) const
 {
     // copying shape and axes labels from SimulationResults
-    OutputData<double> buff;
-    buff.copyShapeFrom(getSimulationData(i_item));
+    auto result = m_fit_objects[check_index(i_item)]->simulationResult();
+    std::unique_ptr<OutputData<double>> buff(result.data());
+    buff->setAllTo(0.0);
 
     for(std::vector<FitElement>::const_iterator it=getStart(i_item); it!=getEnd(i_item); ++it)
-        buff[it->getIndex()] = it->getSquaredDifference();
+        (*buff)[it->getIndex()] = it->getSquaredDifference();
 
-    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
+    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(*buff));
 }
 
 double FitSuiteObjects::calculateChiSquaredValue()

@@ -41,8 +41,6 @@ FitObject::FitObject(const Simulation& simulation, const OutputData<double>& rea
 
 FitObject::~FitObject() {}
 
-const OutputData<double>& FitObject::realData() const { return *m_real_data.get(); }
-
 const OutputData<double>& FitObject::simulationData() const { return *m_simulation_data.get(); }
 
 std::vector<const INode*> FitObject::getChildren() const

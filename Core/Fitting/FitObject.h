@@ -43,9 +43,6 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    //! Returns real (experimental) data.
-    const OutputData<double>& realData() const;
-
     //! Returns simulated data.
     const OutputData<double>& simulationData() const;
 

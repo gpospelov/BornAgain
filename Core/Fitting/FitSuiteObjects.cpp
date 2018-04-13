@@ -124,20 +124,6 @@ std::vector<const INode*> FitSuiteObjects::getChildren() const
     return result;
 }
 
-std::unique_ptr<IHistogram> FitSuiteObjects::createRealDataHistogram(size_t i_item) const
-{
-    auto result = m_fit_objects[check_index(i_item)]->experimentalData();
-    std::unique_ptr<OutputData<double>> data(result.data());
-    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(*data));
-}
-
-std::unique_ptr<IHistogram> FitSuiteObjects::createSimulationHistogram(size_t i_item) const
-{
-    auto result = m_fit_objects[check_index(i_item)]->simulationResult();
-    std::unique_ptr<OutputData<double>> data(result.data());
-    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(*data));
-}
-
 std::unique_ptr<IHistogram> FitSuiteObjects::createChiSquaredHistogram(size_t i_item) const
 {
     // copying shape and axes labels from SimulationResults

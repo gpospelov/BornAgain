@@ -6719,44 +6719,6 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_numberOfFitObjects(self)
 
 
-    def getRealData(self, i_item=0):
-        """
-        getRealData(FitSuite self, size_t i_item=0) -> IHistogram
-        getRealData(FitSuite self) -> IHistogram
-
-        IHistogram * FitSuite::getRealData(size_t i_item=0) const
-
-        returns real data histogram
-
-        Parameters:
-        -----------
-
-        i_item: 
-        The index of fit object 
-
-        """
-        return _libBornAgainCore.FitSuite_getRealData(self, i_item)
-
-
-    def getSimulationData(self, i_item=0):
-        """
-        getSimulationData(FitSuite self, size_t i_item=0) -> IHistogram
-        getSimulationData(FitSuite self) -> IHistogram
-
-        IHistogram * FitSuite::getSimulationData(size_t i_item=0) const
-
-        returns simulated data histogram
-
-        Parameters:
-        -----------
-
-        i_item: 
-        The index of fit object 
-
-        """
-        return _libBornAgainCore.FitSuite_getSimulationData(self, i_item)
-
-
     def getChiSquaredMap(self, i_item=0):
         """
         getChiSquaredMap(FitSuite self, size_t i_item=0) -> IHistogram

@@ -117,14 +117,6 @@ public:
     //! Returns number of fit objects, where fit object stands for (real, simulated) pair.
     size_t numberOfFitObjects() const;
 
-    //! returns real data histogram
-    //! @param i_item The index of fit object
-    IHistogram* getRealData(size_t i_item = 0) const;
-
-    //! returns simulated data  histogram
-    //! @param i_item The index of fit object
-    IHistogram* getSimulationData(size_t i_item = 0) const;
-
     //! returns chi2 histogram calculated for (real, simulated) data pair
     //! @param i_item The index of fit object
     IHistogram* getChiSquaredMap(size_t i_item = 0) const;
@@ -169,7 +161,12 @@ public:
     //! Returns multiline string representing fit setup
     std::string setupToString();
 
+    //! Returns simulation result.
+    //! @param i_item: the index of fit pair
     SimulationResult simulationResult(size_t i_item = 0) const;
+
+    //! Returns experimental dat.
+    //! @param i_item: the index of fit pair
     SimulationResult experimentalData(size_t i_item = 0) const;
 
 private:

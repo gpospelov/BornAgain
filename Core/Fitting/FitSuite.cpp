@@ -121,16 +121,6 @@ size_t FitSuite::numberOfFitObjects() const
     return m_impl->fitObjects()->size();
 }
 
-IHistogram* FitSuite::getRealData(size_t i_item) const
-{
-    return m_impl->fitObjects()->createRealDataHistogram(i_item).release();
-}
-
-IHistogram* FitSuite::getSimulationData(size_t i_item) const
-{
-    return m_impl->fitObjects()->createSimulationHistogram(i_item).release();
-}
-
 IHistogram* FitSuite::getChiSquaredMap(size_t i_item) const
 {
     return m_impl->fitObjects()->createChiSquaredHistogram(i_item).release();

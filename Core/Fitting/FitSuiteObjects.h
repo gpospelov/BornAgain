@@ -69,14 +69,6 @@ public:
     std::vector<const INode*> getChildren() const;
 
 #ifndef SWIG
-    //! Returns real data from corresponding FitObject. ROI is taken into account.
-    //! @param i_item Index of FitObject
-    std::unique_ptr<IHistogram> createRealDataHistogram(size_t i_item = 0) const;
-
-    //! Returns simulated data from corresponding FitObject.  ROI is taken into account.
-    //! @param i_item Index of FitObject
-    std::unique_ptr<IHistogram> createSimulationHistogram(size_t i_item = 0) const;
-
     //! Returns new chi-squared map from corresponding FitObject. ROI is taken into account.
     //! @param i_item Index of FitObject
     std::unique_ptr<IHistogram> createChiSquaredHistogram(size_t i_item = 0) const;

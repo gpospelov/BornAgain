@@ -18,6 +18,7 @@
 #include "RectangularDetector.h"
 #include "SimpleUnitConverters.h"
 #include "SphericalDetector.h"
+#include "UnitConverter1D.h"
 #include "GISASSimulation.h"
 #include "OffSpecSimulation.h"
 #include "SpecularSimulation.h"
@@ -50,6 +51,11 @@ std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const Simula
 {
     if(auto gisas = dynamic_cast<const GISASSimulation*>(&simulation)) {
         return createConverterForGISAS(gisas->getInstrument());
+
+    } else if (auto spec = dynamic_cast<const SpecularSimulation*>(&simulation)) {
+        return std::make_unique<UnitConverter1D>(spec->getInstrument().getBeam(),
+                                                 *spec->getAlphaAxis());
+
     } else {
         throw std::runtime_error("UnitConverterUtils::createConverter -> "
                                  "Not implemented simulation.");

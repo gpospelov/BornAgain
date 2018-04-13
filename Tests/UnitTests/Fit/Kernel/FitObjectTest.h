@@ -14,7 +14,7 @@ FitObjectTest::~FitObjectTest() = default;
 
 //! Test of standard simulation/real_data pair.
 
-TEST_F(FitObjectTest, StandardPair)
+TEST_F(FitObjectTest, StandardPairObsolete)
 {
     size_t nx(5), ny(4);
     double xmin(-1.0), xmax(4.0), ymin(0.0), ymax(4.0);
@@ -41,6 +41,33 @@ TEST_F(FitObjectTest, StandardPair)
     EXPECT_EQ(obj.realData().getAxis(1).getMin(), ymin);
     EXPECT_EQ(obj.realData().getAxis(1).getMax(), ymax);
     EXPECT_EQ(obj.realData().totalSum(), intensity * nx * ny);
+}
+
+TEST_F(FitObjectTest, StandardPair)
+{
+    size_t nx(5), ny(4);
+    double xmin(-1.0), xmax(4.0), ymin(0.0), ymax(4.0);
+
+    // creating simulation and real data
+    GISASSimulation simulation;
+    simulation.setDetectorParameters(nx, xmin, xmax, ny, ymin, ymax);
+
+    OutputData<double> data;
+    data.addAxis(FixedBinAxis(BornAgain::PHI_AXIS_NAME, nx, xmin, xmax));
+    data.addAxis(FixedBinAxis(BornAgain::ALPHA_AXIS_NAME, ny, ymin, ymax));
+    double intensity(10.0);
+    data.setAllTo(intensity);
+
+    // creating fit object
+    double weight(0.5);
+    FitObject obj(simulation, data, weight);
+
+    EXPECT_EQ(obj.weight(), weight);
+    EXPECT_EQ(obj.numberOfFitElements(), size_t(nx * ny));
+
+    // access to simulation result
+//    auto sim_result = obj.simulationResult();
+//    EXPECT_EQ(sim_result.size(), nx*ny);
 }
 
 //! Test of the case when simulation has ROI.

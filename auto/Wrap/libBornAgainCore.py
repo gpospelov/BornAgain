@@ -6374,6 +6374,16 @@ class FitObject(INode):
         """
         return _libBornAgainCore.FitObject_getChildren(self)
 
+
+    def simulationResult(self):
+        """simulationResult(FitObject self) -> SimulationResult"""
+        return _libBornAgainCore.FitObject_simulationResult(self)
+
+
+    def experimentalData(self):
+        """experimentalData(FitObject self) -> SimulationResult"""
+        return _libBornAgainCore.FitObject_experimentalData(self)
+
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)
 

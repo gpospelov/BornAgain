@@ -17,6 +17,7 @@
 
 #include "INode.h"
 #include "OutputData.h"
+#include "SimulationResult.h"
 #include <memory>
 
 class FitElement;
@@ -65,6 +66,9 @@ public:
     std::unique_ptr<IHistogram> createRealDataHistogram() const;
 #endif
 
+    SimulationResult simulationResult() const;
+    SimulationResult experimentalData() const;
+
 protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {}
@@ -75,6 +79,8 @@ private:
     std::unique_ptr<Simulation> m_simulation;
     std::unique_ptr<OutputData<double>> m_real_data;
     std::unique_ptr<OutputData<double>> m_simulation_data;
+    SimulationResult m_simulation_result;
+    SimulationResult m_experimental_data;
     double m_weight;
     size_t m_fit_elements_count;
 };

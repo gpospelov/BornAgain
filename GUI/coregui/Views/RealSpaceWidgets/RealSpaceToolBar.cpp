@@ -20,11 +20,14 @@
 
 RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     : StyledToolBar(parent)
+    , m_defaultViewButton(new QToolButton)
+    , m_edgeViewButton(new QToolButton)
+    , m_faceViewButton(new QToolButton)
+    , m_lockViewCheckBox(new QCheckBox)
 {
     setMinimumSize(Constants::styled_toolbar_height, Constants::styled_toolbar_height);
 
     // Default View
-    m_defaultViewButton = new QToolButton;
     m_defaultViewButton->setText("Default View");
     //m_defaultViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
     m_defaultViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -35,7 +38,6 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     addSeparator();
 
     // Edge View
-    m_edgeViewButton = new QToolButton;
     m_edgeViewButton->setText("Edge View");
     //m_edgeViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
     m_edgeViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -46,7 +48,6 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     addSeparator();
 
     // Face View
-    m_faceViewButton = new QToolButton;
     m_faceViewButton->setText("Face View");
     //m_faceViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
     m_faceViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -57,7 +58,6 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     addSeparator();
 
     // Lock View
-    m_lockViewCheckBox = new QCheckBox;
     m_lockViewCheckBox->setText("Lock View");
     m_lockViewCheckBox->setToolTip("Lock/unlock current sample selection");
     m_lockViewCheckBox->setCheckable(true);

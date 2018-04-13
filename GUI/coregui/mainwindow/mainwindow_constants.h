@@ -29,6 +29,7 @@ const char S_MASKEDITOR[]          = "MaskEditor";
 const char S_UPDATES[]             = "Updates";
 const char S_MATERIALEDITOR[]      = "MaterialEditor";
 const char S_SESSIONMODELVIEW[]    = "SessionModelView";
+const char S_REALSPACEDIALOG[]    = "RealSpaceDialog";
 
 // Settings keys
 const char S_WINDOWSIZE[]          = "size";

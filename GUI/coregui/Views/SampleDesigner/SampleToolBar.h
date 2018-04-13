@@ -19,7 +19,7 @@
 
 #include "SampleModel.h"
 #include <QTreeView>
-#include "RealSpaceViewerDialog.h"
+#include "RealSpaceDialog.h"
 
 class QAction;
 class QToolButton;
@@ -68,7 +68,7 @@ private:
     QToolButton *m_RealSpaceViewerButton;
     SampleModel *m_sampleModel;
     QItemSelectionModel *m_selectionModel;
-    RealSpaceViewerDialog *m_dialog;
+    RealSpaceDialog *m_dialog;
 
     bool m_dialog_on;
 };

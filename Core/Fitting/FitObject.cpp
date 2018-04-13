@@ -82,7 +82,6 @@ void FitObject::init_dataset(const OutputData<double>& real_data)
     }
 
     m_experimental_data = SimulationResult(*roi_data, *converter);
-    m_real_data.reset(real_data.clone());
 }
 
 size_t FitObject::numberOfFitElements() const { return m_fit_elements_count; }
@@ -95,23 +94,14 @@ void FitObject::prepareFitElements(std::vector<FitElement>& fit_elements, double
 {
     m_simulation->runSimulation();
     m_simulation_result = m_simulation->result();
-    m_simulation_data.reset(m_simulation_result.data());
 
 // TODO FIXE Consider normalizer removal. Now FitScaleAndShift example is broken.
 //    if (normalizer)
 //        normalizer->apply(*m_simulation_data.get());
 
     m_simulation->getInstrument().getDetector()->iterate([&](IDetector::const_iterator it){
-        // FIXME find elegant way (issue #2018)
-        size_t rdata_index
-            = m_simulation_data->getAllocatedSize() == m_real_data->getAllocatedSize()
-                  ? it.roiIndex()
-                  : it.detectorIndex();
-
-        if (rdata_index >= m_real_data->getAllocatedSize())
-            throw ("FitObject::prepareFitElements() -> Error. Out-of-bounds.");
-        FitElement element(it.roiIndex(), (*m_simulation_data)[it.roiIndex()],
-                           (*m_real_data)[rdata_index], weight);
+        FitElement element(it.roiIndex(), m_simulation_result[it.roiIndex()],
+                           m_experimental_data[it.roiIndex()], weight);
         fit_elements.push_back(element);
     });
 }

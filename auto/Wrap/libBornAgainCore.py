@@ -18001,20 +18001,10 @@ class Histogram1D(IHistogram):
         """
         return _libBornAgainCore.Histogram1D_crop(self, xmin, xmax)
 
-
-    def dynamicCast(pHistogram):
-        """dynamicCast(IHistogram pHistogram) -> Histogram1D"""
-        return _libBornAgainCore.Histogram1D_dynamicCast(pHistogram)
-
-    dynamicCast = staticmethod(dynamicCast)
     __swig_destroy__ = _libBornAgainCore.delete_Histogram1D
     __del__ = lambda self: None
 Histogram1D_swigregister = _libBornAgainCore.Histogram1D_swigregister
 Histogram1D_swigregister(Histogram1D)
-
-def Histogram1D_dynamicCast(pHistogram):
-    """Histogram1D_dynamicCast(IHistogram pHistogram) -> Histogram1D"""
-    return _libBornAgainCore.Histogram1D_dynamicCast(pHistogram)
 
 class Histogram2D(IHistogram):
     """
@@ -18173,20 +18163,10 @@ class Histogram2D(IHistogram):
         """
         return _libBornAgainCore.Histogram2D_addContent(self, data)
 
-
-    def dynamicCast(pHistogram):
-        """dynamicCast(IHistogram pHistogram) -> Histogram2D"""
-        return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
-
-    dynamicCast = staticmethod(dynamicCast)
     __swig_destroy__ = _libBornAgainCore.delete_Histogram2D
     __del__ = lambda self: None
 Histogram2D_swigregister = _libBornAgainCore.Histogram2D_swigregister
 Histogram2D_swigregister(Histogram2D)
-
-def Histogram2D_dynamicCast(pHistogram):
-    """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
-    return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
 class AxisInfo(_object):
     """

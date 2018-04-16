@@ -18743,29 +18743,16 @@ class IDetector(ICloneable, INode):
         return _libBornAgainCore.IDetector_detectionProperties(self)
 
 
-    def initOutputData(self, data):
+    def createDetectorIntensity(self, elements):
         """
-        initOutputData(IDetector self, IntensityData data)
-
-        void IDetector::initOutputData(OutputData< double > &data) const
-
-        Inits axes of  OutputData to match the detector and sets values to zero. 
-
-        """
-        return _libBornAgainCore.IDetector_initOutputData(self, data)
-
-
-    def createDetectorIntensity(self, *args):
-        """
-        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, AxesUnits units_type) -> IntensityData
-        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
+        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
 
         OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
 
         Returns new intensity map with detector resolution applied and axes in requested units. 
 
         """
-        return _libBornAgainCore.IDetector_createDetectorIntensity(self, *args)
+        return _libBornAgainCore.IDetector_createDetectorIntensity(self, elements)
 
 
     def defaultAxesUnits(self):
@@ -18778,18 +18765,6 @@ class IDetector(ICloneable, INode):
 
         """
         return _libBornAgainCore.IDetector_defaultAxesUnits(self)
-
-
-    def validAxesUnits(self):
-        """
-        validAxesUnits(IDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
-
-        virtual std::vector<AxesUnits> IDetector::validAxesUnits() const
-
-        Returns vector of valid axes units. 
-
-        """
-        return _libBornAgainCore.IDetector_validAxesUnits(self)
 
 
     def numberOfSimulationElements(self):
@@ -20710,9 +20685,8 @@ class Instrument(INode):
         return _libBornAgainCore.Instrument_applyDetectorResolution(self, p_intensity_map)
 
 
-    def createDetectorIntensity(self, *args):
+    def createDetectorIntensity(self, elements):
         """
-        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, AxesUnits units) -> IntensityData
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
 
         OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, AxesUnits units=AxesUnits::DEFAULT) const
@@ -20720,20 +20694,7 @@ class Instrument(INode):
         Returns new intensity map with detector resolution applied and axes in requested units. 
 
         """
-        return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
-
-
-    def createDetectorMap(self, *args):
-        """
-        createDetectorMap(Instrument self, AxesUnits units) -> IntensityData
-        createDetectorMap(Instrument self) -> IntensityData
-
-        OutputData< double > * Instrument::createDetectorMap(AxesUnits units=AxesUnits::DEFAULT) const
-
-        Returns empty detector map in given axes units. 
-
-        """
-        return _libBornAgainCore.Instrument_createDetectorMap(self, *args)
+        return _libBornAgainCore.Instrument_createDetectorIntensity(self, elements)
 
 
     def initDetector(self):
@@ -22133,18 +22094,6 @@ class SphericalDetector(IDetector2D):
 
     __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
     __del__ = lambda self: None
-
-    def validAxesUnits(self):
-        """
-        validAxesUnits(SphericalDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
-
-        std::vector< AxesUnits > SphericalDetector::validAxesUnits() const override
-
-        returns vector of valid axes units 
-
-        """
-        return _libBornAgainCore.SphericalDetector_validAxesUnits(self)
-
 
     def defaultAxesUnits(self):
         """
@@ -26854,18 +26803,6 @@ class RectangularDetector(IDetector2D):
 
         """
         return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
-
-
-    def validAxesUnits(self):
-        """
-        validAxesUnits(RectangularDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
-
-        std::vector< AxesUnits > RectangularDetector::validAxesUnits() const override
-
-        returns vector of valid axes units 
-
-        """
-        return _libBornAgainCore.RectangularDetector_validAxesUnits(self)
 
 
     def defaultAxesUnits(self):

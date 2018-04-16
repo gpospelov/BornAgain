@@ -149,25 +149,6 @@ IDetector::createDetectorIntensity(const std::vector<SimulationElement>& element
     return detectorMap.release();
 }
 
-void IDetector::checkAxesUnits(AxesUnits units) const
-{
-    if(units == AxesUnits::DEFAULT)
-        return;
-
-    auto validUnits = validAxesUnits();
-    if(std::find(validUnits.begin(), validUnits.end(), units) == validUnits.end()) {
-        std::ostringstream message;
-        message << "IDetector::createDetectorMap() -> Error. Unknown axes unit "
-                << static_cast<int>(units) << "\n";
-        message << "Available units for this detector type \n";
-        for(size_t i=0; i<validUnits.size(); ++i)
-        for(auto unit : validUnits)
-            message << static_cast<int>(unit) << " ";
-        message << "\n";
-        throw std::runtime_error(message.str());
-    }
-}
-
 std::unique_ptr<OutputData<double>> IDetector::createDetectorMap() const
 {
     const size_t dim = dimension();

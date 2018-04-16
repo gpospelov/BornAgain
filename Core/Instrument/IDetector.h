@@ -132,9 +132,6 @@ protected:
                                               double max) const;
 
 private:
-    //! Checks if given unit is valid for the detector. Throws exception if it is not the case.
-    void checkAxesUnits(AxesUnits units) const;
-
     void setDataToDetectorMap(OutputData<double>& detectorMap,
                               const std::vector<SimulationElement>& elements) const;
 

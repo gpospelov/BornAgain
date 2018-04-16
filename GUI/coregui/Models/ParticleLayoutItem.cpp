@@ -60,11 +60,12 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
                               << Constants::ParticleCompositionType << Constants::MesoCrystalType
                               << Constants::ParticleDistributionType);
     setDefaultTag(T_PARTICLES);
-    registerTag(T_INTERFERENCE, 0, 1, QStringList()
-                                          << Constants::InterferenceFunctionRadialParaCrystalType
-                                          << Constants::InterferenceFunction2DParaCrystalType
-                                          << Constants::InterferenceFunction1DLatticeType
-                                          << Constants::InterferenceFunction2DLatticeType);
+    registerTag(T_INTERFERENCE, 0, 1,
+                QStringList() << Constants::InterferenceFunctionRadialParaCrystalType
+                              << Constants::InterferenceFunction2DParaCrystalType
+                              << Constants::InterferenceFunction1DLatticeType
+                              << Constants::InterferenceFunction2DLatticeType
+                              << Constants::InterferenceFunctionFinite2DLatticeType);
 
     mapper()->setOnChildrenChange([this](SessionItem*) {
         updateDensityAppearance();

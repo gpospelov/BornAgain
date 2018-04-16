@@ -56,7 +56,7 @@ public:
     static int getDefaultParticleLayoutWidth() { return m_default_layer_height*3.5; }
     static int getDefaultParticleLayoutHeight() { return m_default_layer_height*4.5; }
 
-    static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*4; }
+    static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*4.5; }
     static int getDefaultInterferenceFunctionHeight() { return m_default_layer_height*4; }
 
     static int getDefaultParticleWidth() { return m_default_layer_height*3.5; }

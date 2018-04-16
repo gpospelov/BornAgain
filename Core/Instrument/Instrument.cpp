@@ -99,11 +99,6 @@ OutputData<double>* Instrument::createDetectorIntensity(
     return mP_detector->createDetectorIntensity(elements, m_beam, units);
 }
 
-OutputData<double>* Instrument::createDetectorMap(AxesUnits units) const
-{
-    return mP_detector->createDetectorMap(m_beam, units).release();
-}
-
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
     m_beam.setCentralK(wavelength, alpha_i, phi_i);

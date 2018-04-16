@@ -20667,19 +20667,6 @@ class Instrument(INode):
         return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
 
 
-    def createDetectorMap(self, *args):
-        """
-        createDetectorMap(Instrument self, AxesUnits units) -> IntensityData
-        createDetectorMap(Instrument self) -> IntensityData
-
-        OutputData< double > * Instrument::createDetectorMap(AxesUnits units=AxesUnits::DEFAULT) const
-
-        Returns empty detector map in given axes units. 
-
-        """
-        return _libBornAgainCore.Instrument_createDetectorMap(self, *args)
-
-
     def initDetector(self):
         """
         initDetector(Instrument self)

@@ -64,25 +64,3 @@ std::string DetectorFunctions::axesToString(const OutputData<double> &data)
 
     return result.str();
 }
-
-std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instrument &instrument,
-    const OutputData<double> &data, bool put_masked_areas_to_zero, AxesUnits units)
-{
-    if(!DetectorFunctions::hasSameDimensions(*instrument.getDetector(), data)){
-        std::ostringstream message;
-        message << "DetectorFunctions::createDataSet -> Error. Axes of the real data doesn't match "
-                << "the detector. Real data:" << DetectorFunctions::axesToString(data)
-                        << ", detector:"
-                        << DetectorFunctions::axesToString(*instrument.getDetector()) << ".";
-        throw Exceptions::RuntimeErrorException(message.str());
-    }
-
-    std::unique_ptr<OutputData<double>> result(instrument.createDetectorMap(units));
-
-    instrument.getDetector()->iterate([&](IDetector::const_iterator it){
-        (*result)[it.roiIndex()] = data[it.detectorIndex()];
-    }, /*visit_masked*/!put_masked_areas_to_zero);
-
-    return result;
-}
-

@@ -16,6 +16,7 @@
 #define COLORMAPEVENT_H
 
 #include "PlotStatusDescriptors.h"
+#include <memory>
 #include <QObject>
 
 class ColorMap;
@@ -46,10 +47,10 @@ private:
     ColorMap* colorMap();
     const ColorMap* colorMap() const;
     QCustomPlot* customPlot();
-    ColorMapDescriptor currentColorMapDescriptor(QMouseEvent* event) const;
+    std::unique_ptr<IPlotDescriptor> currentColorMapDescriptor(QMouseEvent* event) const;
 
     ColorMap* m_colorMap;
-    ColorMapDescriptor m_prevPos;
+    std::unique_ptr<IPlotDescriptor> m_prevPos;
 };
 
 #endif // COLORMAPEVENT_H

@@ -91,22 +91,21 @@ bool ColorMap::axesRangeContains(double xpos, double ypos) const
     return false;
 }
 
-ColorMapDescriptor ColorMap::colorMapDescriptor(double xpos, double ypos) const
+std::unique_ptr<IPlotDescriptor> ColorMap::plotDescriptor(double xpos, double ypos) const
 {
-    ColorMapDescriptor result;
+    std::unique_ptr<ColorMapDescriptor> result(new ColorMapDescriptor);
     if (!intensityItem())
         return result;
 
-    result.x() = xpos;
-    result.y() = ypos;
+    result->x() = xpos;
+    result->y() = ypos;
 
-    if (axesRangeContains(xpos, ypos))
-        result.inAxesRange() = true;
+    result->inAxesRange() = axesRangeContains(xpos, ypos);
 
-    m_colorMap->data()->coordToCell(xpos, ypos, &result.m_nx, &result.m_ny);
-    result.m_value = m_colorMap->data()->cell(result.m_nx, result.m_ny);
+    m_colorMap->data()->coordToCell(xpos, ypos, &result->m_nx, &result->m_ny);
+    result->m_value = m_colorMap->data()->cell(result->m_nx, result->m_ny);
 
-    result.m_logz = intensityItem()->isLogz();
+    result->m_logz = intensityItem()->isLogz();
 
     return result;
 }

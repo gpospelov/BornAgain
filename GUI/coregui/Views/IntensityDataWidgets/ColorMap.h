@@ -65,7 +65,7 @@ public:
     bool axesRangeContains(double xpos, double ypos) const;
 
     //! Returns ColorMapBin corresponding to given axes coordinates.
-    ColorMapDescriptor colorMapDescriptor(double xpos, double ypos) const;
+    std::unique_ptr<IPlotDescriptor> plotDescriptor(double xpos, double ypos) const override;
 
     void setMouseTrackingEnabled(bool enable);
 

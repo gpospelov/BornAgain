@@ -39,24 +39,21 @@ void ColorMapEvent::setMouseTrackingEnabled(bool enable)
 
 void ColorMapEvent::onCustomMouseMove(QMouseEvent* event)
 {
-    ColorMapDescriptor currentPos = currentColorMapDescriptor(event);
+    auto currentPos = currentColorMapDescriptor(event);
 
-    if (currentPos.inAxesRange()) {
-        colorMap()->statusString(currentPos.statusString());
+    if (currentPos->inAxesRange()) {
+        colorMap()->statusString(currentPos->statusString());
 
-        if (!m_prevPos.inAxesRange())
+        if (!m_prevPos || !m_prevPos->inAxesRange())
             enteringColorMap();
 
-        positionChanged(currentPos.x(), currentPos.y());
-
-    } else {
-        if (m_prevPos.inAxesRange()) {
-            colorMap()->statusString(QString());
-            leavingColorMap();
-        }
+        positionChanged(currentPos->x(), currentPos->y());
+    } else if (m_prevPos && m_prevPos->inAxesRange()) {
+        colorMap()->statusString(QString());
+        leavingColorMap();
     }
 
-    m_prevPos = currentPos;
+    m_prevPos = std::move(currentPos);
 }
 
 ColorMap* ColorMapEvent::colorMap()
@@ -76,9 +73,9 @@ QCustomPlot* ColorMapEvent::customPlot()
 
 //! Constructs current position of the data.
 
-ColorMapDescriptor ColorMapEvent::currentColorMapDescriptor(QMouseEvent* event) const
+std::unique_ptr<IPlotDescriptor> ColorMapEvent::currentColorMapDescriptor(QMouseEvent* event) const
 {
     double x = colorMap()->pixelToXaxisCoord(event->pos().x());
     double y = colorMap()->pixelToYaxisCoord(event->pos().y());
-    return colorMap()->colorMapDescriptor(x, y);
+    return colorMap()->plotDescriptor(x, y);
 }

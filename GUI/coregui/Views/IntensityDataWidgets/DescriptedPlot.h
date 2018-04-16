@@ -16,6 +16,9 @@
 #define DESCRIPTEDPLOT_H
 
 #include "SessionItemWidget.h"
+#include <memory>
+
+class IPlotDescriptor;
 
 //! Common interface for plot-descriptor interaction
 
@@ -26,6 +29,9 @@ class BA_CORE_API_ DescriptedPlot : public SessionItemWidget
 public:
     explicit DescriptedPlot(QWidget* parent);
     ~DescriptedPlot() override;
+
+    //! Returns plot descriptor corresponding to given axes coordinates.
+    virtual std::unique_ptr<IPlotDescriptor> plotDescriptor(double xpos, double ypos) const = 0;
 
 signals:
     void statusString(const QString& text);

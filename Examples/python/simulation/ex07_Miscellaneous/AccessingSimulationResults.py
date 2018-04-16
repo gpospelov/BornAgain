@@ -96,7 +96,7 @@ def plot_slices(hist):
     # projection along Y for all X values between [xlow, xup], averaged
     proj3 = noisy.projectionY(0.41, 0.59)
     plt.semilogy(proj3.getBinCenters(),
-                 proj3.getArray(ba.IHistogram.AVERAGE),
+                 proj3.array(ba.IHistogram.AVERAGE),
                  label=r'$<\phi>=0.5^{\circ}$')
 
     plt.xlim(proj1.getXmin(), proj1.getXmax())

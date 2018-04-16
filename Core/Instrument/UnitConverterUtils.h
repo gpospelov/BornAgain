@@ -18,6 +18,7 @@
 #include "IUnitConverter.h"
 
 class Instrument;
+class Simulation;
 template<class T> class OutputData;
 
 //! Namespace enclosing a number of utilities/helpers for unit converters
@@ -37,6 +38,8 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>> createOutputData(const IUnitCon
 //! Helper factory function to use in GISASSimulation. Depending on the type of detector,
 //! returns either RectangularConverter or SphericalConverter.
 BA_CORE_API_ std::unique_ptr<IUnitConverter> createConverterForGISAS(const Instrument& instrument);
+
+BA_CORE_API_ std::unique_ptr<IUnitConverter> createConverter(const Simulation& simulation);
 }
 
 #endif // UNITCONVERTERUTILS_H

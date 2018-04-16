@@ -82,15 +82,7 @@ class DrawObserver(ba.IFitObserver):
     def plot_real_data(self, data, nplot):
         plt.subplot(2, 2, nplot)
         plt.subplots_adjust(wspace=0.2, hspace=0.2)
-        im = plt.imshow(
-            data.getArray(),
-            norm=matplotlib.colors.LogNorm(1.0, data.getMaximum()),
-            extent=[data.getXmin(), data.getXmax(),
-                    data.getYmin(), data.getYmax()])
-        plt.colorbar(im)
-        plt.title("\"Real\" data")
-        plt.xlabel(r'$\phi_f$', fontsize=12)
-        plt.ylabel(r'$\alpha_f$', fontsize=12)
+        ba.plot_histogram(data, title="Experimental data")
         # line representing vertical slice
         plt.plot([phi_slice_value, phi_slice_value],
                  [data.getYmin(), data.getYmax()],
@@ -123,18 +115,15 @@ class DrawObserver(ba.IFitObserver):
             plt.text(0.01, 0.55 - index*0.1,
                      '{:30.30s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
 
+        plt.tight_layout()
         plt.draw()
         plt.pause(0.01)
 
     def update(self, fit_suite):
         self.fig.clf()
 
-        real_data = fit_suite.getRealData()
-        simul_data = fit_suite.getSimulationData()
-
-        # These lines add to make cast explicit, see Bug #1367
-        real_data = ba.Histogram2D.dynamicCast(real_data)
-        simul_data = ba.Histogram2D.dynamicCast(simul_data)
+        real_data = fit_suite.experimentalData().histogram2d()
+        simul_data = fit_suite.simulationResult().histogram2d()
 
         # plot real data
         self.plot_real_data(real_data, nplot=1)

@@ -19,8 +19,11 @@
 #include "IDetector.h"
 #include <string>
 #include <memory>
+#include <functional>
 template<class T> class OutputData;
 class Instrument;
+class IDetector;
+class SimulationAreaIterator;
 
 
 //! Contains set of detector-related convenience functions.
@@ -50,6 +53,7 @@ BA_CORE_API_ std::string axesToString(const OutputData<double>& data);
 BA_CORE_API_ std::unique_ptr<OutputData<double>> createDataSet(const Instrument& instrument,
     const OutputData<double> &data, bool put_masked_areas_to_zero=true,
     AxesUnits units=AxesUnits::DEFAULT);
+
 }
 
 #endif // DETECTORFUNCTIONS_H

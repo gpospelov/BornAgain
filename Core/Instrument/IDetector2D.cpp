@@ -99,15 +99,15 @@ std::vector<DetectorElement> IDetector2D::createDetectorElements(const Beam& bea
         m_detector_mask.initMaskData(*this);
     size_t spec_index = getIndexOfSpecular(beam);
 
-    SimulationArea area(this);
-    result.reserve(area.totalSize());
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
+    result.reserve(numberOfSimulationElements());
+    iterate([&](const_iterator it){
         result.emplace_back(createPixel(it.detectorIndex()), analyzer_operator);
         if (it.index()==spec_index) {
             auto& detector_element = result.back();
             detector_element.setSpecular();
         }
-    }
+    });
+
     return result;
 }
 

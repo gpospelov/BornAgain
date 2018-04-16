@@ -81,31 +81,23 @@ def get_axes_labels(result, units):
     return labels
 
 
-def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
-                  xlabel=None, ylabel=None, zlabel=None,
-                  title=None):
+def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
+               title=None, axes_limits=None):
     """
-    Plots intensity data as color map
-    :param result: SimulationResult from GISAS/OffSpecSimulation
-    :param zmin: Min value on amplitude's color bar
-    :param zmax: Max value on amplitude's color bar
+    Plots numpy array as a colormap in log scale.
     """
-    intensity = result.array()
-    zmax = np.amax(intensity) if zmax is None else zmax
-    zmin = 1e-6*zmax if zmin is None else zmin
 
-    axes_limits = get_axes_limits(result, units)
-    axes_labels = get_axes_labels(result, units)
-    xlabel = axes_labels[0] if xlabel is None else xlabel
-    ylabel = axes_labels[1] if ylabel is None else ylabel
     zlabel = "Intensity" if zlabel is None else zlabel
 
-    im = plt.imshow(
-        intensity,
-        norm=colors.LogNorm(zmin, zmax),
-        extent=axes_limits,
-        aspect='auto',
-    )
+    zmax = np.amax(array) if zmax is None else zmax
+    zmin = 1e-6*zmax if zmin is None else zmin
+
+    if zmin == zmax == 0.0:
+        norm = colors.Normalize(0, 1)
+    else:
+        norm = colors.LogNorm(zmin, zmax)
+
+    im = plt.imshow(array, norm=norm, extent=axes_limits, aspect='auto')
     cb = plt.colorbar(im, pad=0.025)
 
     if xlabel:
@@ -119,6 +111,47 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
 
     if title:
         plt.title(title)
+
+
+def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
+                  title=None):
+    """
+    Plots intensity data as color map
+    :param intensity: Histogram2D object obtained from GISASSimulation
+    :param zmin: Min value on amplitude's color bar
+    :param zmax: Max value on amplitude's color bar
+    """
+
+    if not xlabel:
+        xlabel = translate_axis_label(hist.getXaxis().getName())
+
+    if not ylabel:
+        ylabel = translate_axis_label(hist.getYaxis().getName())
+
+    axes_limits = [hist.getXmin(), hist.getXmax(),
+                   hist.getYmin(), hist.getYmax()]
+
+    plot_array(hist.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
+               zlabel=zlabel, title=title, axes_limits=axes_limits)
+
+
+def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
+                  xlabel=None, ylabel=None, zlabel=None,
+                  title=None):
+    """
+    Plots intensity data as color map
+    :param result: SimulationResult from GISAS/OffSpecSimulation
+    :param zmin: Min value on amplitude's color bar
+    :param zmax: Max value on amplitude's color bar
+    """
+
+    axes_limits = get_axes_limits(result, units)
+    axes_labels = get_axes_labels(result, units)
+    xlabel = axes_labels[0] if xlabel is None else xlabel
+    ylabel = axes_labels[1] if ylabel is None else ylabel
+
+    plot_array(result.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
+               zlabel=zlabel, title=title, axes_limits=axes_limits)
 
 
 def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesUnits.DEFAULT,
@@ -173,45 +206,6 @@ def plot_simulation_result(result, intensity_min=None, intensity_max=None, units
         plt.show()
 
 
-def plot_histogram(intensity, zmin=None, zmax=None,
-                  xlabel=None, ylabel=None, zlabel=None,
-                  title=None):
-    """
-    Plots intensity data as color map
-    :param intensity: Histogram2D object obtained from GISASSimulation
-    :param zmin: Min value on amplitude's color bar
-    :param zmax: Max value on amplitude's color bar
-    """
-    zmax = intensity.getMaximum() if zmax is None else zmax
-    zmin = 1e-6*zmax if zmin is None else zmin
-
-    xlabel = intensity.getXaxis().getName() if xlabel is None else xlabel
-    ylabel = intensity.getYaxis().getName() if ylabel is None else ylabel
-    zlabel = "Intensity" if zlabel is None else zlabel
-    axes_limits = [intensity.getXmin(), intensity.getXmax(),
-                   intensity.getYmin(), intensity.getYmax()]
-
-    im = plt.imshow(
-        intensity.array(),
-        norm=colors.LogNorm(zmin, zmax),
-        extent=axes_limits,
-        aspect='auto',
-    )
-    cb = plt.colorbar(im, pad=0.025)
-
-    if xlabel:
-        plt.xlabel(xlabel, fontsize=label_fontsize)
-
-    if ylabel:
-        plt.ylabel(ylabel, fontsize=label_fontsize)
-
-    if zlabel:
-        cb.set_label(zlabel, size=label_fontsize)
-
-    if title:
-        plt.title(title)
-
-
 class Plotter:
     def __init__(self):
 
@@ -222,8 +216,8 @@ class Plotter:
         self._fig.clf()
 
     def plot(self, fit_suite):
+        self._fig.tight_layout()
         plt.pause(0.03)
-
 
 
 class PlotterGISAS(Plotter):
@@ -238,28 +232,27 @@ class PlotterGISAS(Plotter):
     def plot(self, fit_suite):
         Plotter.reset(self)
 
+        real_data = fit_suite.experimentalData()
+        sim_data = fit_suite.simulationResult()
+        diff = fit_suite.relativeDifference()
 
         self.make_subplot(1)
-        real_data = fit_suite.getRealData()
 
-        zmax = real_data.getMaximum()
+        # same limits for both plots
+        arr = real_data.array()
+        zmax = np.amax(arr)
         zmin = zmax*1e-6
 
-        plot_histogram(real_data, title="\"Real\" data",
-                      zmin=zmin, zmax=zmax,
+        plot_colormap(real_data, title="\"Experimental\" data", zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(2)
-        sim_data = fit_suite.getSimulationData()
-        plot_histogram(sim_data, title="Simulated data",
-                      zmin=zmin, zmax=zmax,
+        plot_colormap(sim_data, title="Simulated data", zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(3)
-        chi_data = fit_suite.getChiSquaredMap()
-        plot_histogram(chi_data, title="Chi2 map",
-                      zmin=0.001, zmax=10.0,
-                      xlabel='', ylabel='', zlabel='')
+        plot_colormap(diff, title="Relative difference", zmin=0.001, zmax=10.0,
+                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(4)
         plt.title('Parameters')
@@ -373,8 +366,6 @@ class PlotterSpecular(Plotter):
 
         self.plot_graph(fit_suite)
         self.plot_table(fit_suite)
-
-        plt.tight_layout()
 
         Plotter.plot(self, fit_suite)
 

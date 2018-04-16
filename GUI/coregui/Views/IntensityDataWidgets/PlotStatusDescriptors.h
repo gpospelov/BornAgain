@@ -19,6 +19,24 @@
 #include "PythonFormatting.h"
 #include <QString>
 
+//! Contains parameters of 1D intensity data bin under current mouse position.
+
+class BA_CORE_API_ SpecularPlotDescriptor
+{
+public:
+    SpecularPlotDescriptor();
+
+    QString statusString() const;
+
+    bool inAxesRange() const { return in_axes_range; }
+    QString valueToString() const;
+
+    bool in_axes_range;
+    int m_nx;
+    double m_x, m_y;
+    bool m_logz;
+};
+
 //! Contains parameters of 2D intensity data bin under current mouse position.
 
 class BA_CORE_API_ ColorMapDescriptor

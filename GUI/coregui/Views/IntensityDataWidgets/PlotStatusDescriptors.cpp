@@ -14,6 +14,27 @@
 
 #include "PlotStatusDescriptors.h"
 
+SpecularPlotDescriptor::SpecularPlotDescriptor()
+    : in_axes_range(false), m_nx(0), m_x(0), m_y(0), m_logz(false)
+{
+}
+
+QString SpecularPlotDescriptor::statusString() const
+{
+    QString result = QString(" [x: %1, y: %2]    [binx: %3]")
+                         .arg(QString::number(m_x, 'f', 4))
+                         .arg(valueToString())
+                         .arg(m_nx, 2);
+
+    return result;
+}
+
+QString SpecularPlotDescriptor::valueToString() const
+{
+    return m_logz ? QString::fromStdString(PythonFormatting::printScientificDouble(m_y))
+                  : QString::number(m_y, 'f', 4);
+}
+
 ColorMapDescriptor::ColorMapDescriptor()
     : in_axes_range(false), m_nx(0), m_ny(0), m_x(0), m_y(0), m_value(0), m_logz(false)
 {

@@ -64,9 +64,15 @@ public:
     //! Returns relative difference between simulation and experimental data.
     SimulationResult relativeDifference() const;
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters() {}
+    void runSimulation();
+
+    //! Returns one dimensional array representing experimental data.
+    //! Masked areas and the area outside of region of interest are not included.
+    std::vector<double> experimental_array() const;
+
+    //! Returns one dimensional array representing simulated intensities data.
+    //! Masked areas and the area outside of region of interest are not included.
+    std::vector<double> simulation_array() const;
 
 private:
     void init_dataset(const OutputData<double>& real_data);

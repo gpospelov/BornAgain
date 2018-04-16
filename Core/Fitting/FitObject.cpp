@@ -72,6 +72,38 @@ SimulationResult FitObject::relativeDifference() const
     return SimulationResult(*roi_data, *converter);
 }
 
+void FitObject::runSimulation()
+{
+    m_simulation->runSimulation();
+    m_simulation_result = m_simulation->result();
+}
+
+std::vector<double> FitObject::experimental_array() const
+{
+    std::vector<double> result;
+    result.reserve(numberOfFitElements());
+
+    auto detector = m_simulation->getInstrument().getDetector();
+    detector->iterate([&](IDetector::const_iterator it){
+        result.push_back(m_experimental_data[it.roiIndex()]);
+    });
+
+    return result;
+}
+
+std::vector<double> FitObject::simulation_array() const
+{
+    std::vector<double> result;
+    result.reserve(numberOfFitElements());
+
+    auto detector = m_simulation->getInstrument().getDetector();
+    detector->iterate([&](IDetector::const_iterator it){
+        result.push_back(m_simulation_result[it.roiIndex()]);
+    });
+
+    return result;
+}
+
 //! Check if real_data shape corresponds with the detector.
 
 void FitObject::init_dataset(const OutputData<double>& real_data)

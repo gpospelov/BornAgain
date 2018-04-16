@@ -44,24 +44,6 @@ TEST_F(SpecularDetectorTest, basicBehaviour)
     ASSERT_THROW(detector.getAxis(0), std::runtime_error);
 }
 
-// Init external data with detector axes.
-TEST_F(SpecularDetectorTest, initOutputData)
-{
-    FixedBinAxis axis("axis0", 10, 0.0, 10.0);
-    SpecularDetector1D detector(axis);
-    OutputData<double> data;
-    detector.initOutputData(data);
-
-    EXPECT_EQ(data.getAllocatedSize(), 10u);
-
-    EXPECT_EQ(10u, data.getAxis(0).size());
-    EXPECT_EQ(0.0, data.getAxis(0).getMin());
-    EXPECT_EQ(10.0, data.getAxis(0).getMax());
-    EXPECT_EQ(axis.getName(), data.getAxis(0).getName());
-
-    EXPECT_EQ(1u, data.getRank());
-}
-
 // Creation of the detector map with axes in given units
 TEST_F(SpecularDetectorTest, createDetectorMap)
 {

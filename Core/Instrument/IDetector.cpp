@@ -127,13 +127,6 @@ const IDetectorResolution* IDetector::detectorResolution() const
     return mP_detector_resolution.get();
 }
 
-void IDetector::initOutputData(OutputData<double> &data) const {
-  data.clear();
-  for (size_t i = 0; i < dimension(); ++i)
-      data.addAxis(getAxis(i));
-  data.setAllTo(0.);
-}
-
 OutputData<double>*
 IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements) const
 {

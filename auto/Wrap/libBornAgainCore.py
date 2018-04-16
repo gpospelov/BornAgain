@@ -18690,18 +18690,6 @@ class IDetector(ICloneable, INode):
         return _libBornAgainCore.IDetector_detectionProperties(self)
 
 
-    def initOutputData(self, data):
-        """
-        initOutputData(IDetector self, IntensityData data)
-
-        void IDetector::initOutputData(OutputData< double > &data) const
-
-        Inits axes of  OutputData to match the detector and sets values to zero. 
-
-        """
-        return _libBornAgainCore.IDetector_initOutputData(self, data)
-
-
     def createDetectorIntensity(self, elements):
         """
         createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData

@@ -100,9 +100,6 @@ public:
     //! Returns detection properties
     const DetectionProperties& detectionProperties() const {return m_detection_properties;}
 
-    //! Inits axes of OutputData to match the detector and sets values to zero.
-    void initOutputData(OutputData<double>& data) const;
-
     //! Returns new intensity map with detector resolution applied. Map will be cropped to ROI
     //! if ROI is present.
     OutputData<double>* createDetectorIntensity(

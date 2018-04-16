@@ -21553,6 +21553,16 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_evaluate(self, q)
 
 
+    def domainSize1(self):
+        """domainSize1(InterferenceFunctionFinite2DLattice self) -> unsigned int"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_domainSize1(self)
+
+
+    def domainSize2(self):
+        """domainSize2(InterferenceFunctionFinite2DLattice self) -> unsigned int"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_domainSize2(self)
+
+
     def setPositionVariance(self, sigma2):
         """
         setPositionVariance(InterferenceFunctionFinite2DLattice self, double sigma2)

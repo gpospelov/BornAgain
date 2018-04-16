@@ -43,6 +43,9 @@ public:
 
     double evaluate(const kvector_t q) const final;
 
+    unsigned domainSize1() const { return m_size_1; }
+    unsigned domainSize2() const { return m_size_2; }
+
     void setPositionVariance(double sigma2) { m_sigma2 = sigma2; }
     double positionVariance() const { return m_sigma2; }
 

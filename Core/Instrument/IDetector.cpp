@@ -231,24 +231,36 @@ void IDetector::setDataToDetectorMap(OutputData<double> &detectorMap,
 {
     if(elements.empty())
         return;
-    SimulationArea area(this);
-    for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+    iterate([&](const_iterator it) {
         detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
-
+    });
 }
 
 size_t IDetector::numberOfSimulationElements() const
 {
     size_t result(0);
-    if (this->dimension() != 0) {
-        SimulationArea area(this);
-        for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it)
-            ++result;
-    }
+    iterate([&result](const_iterator) { ++result;});
     return result;
 }
 
 std::vector<const INode*> IDetector::getChildren() const
 {
     return std::vector<const INode*>() << &m_detection_properties << mP_detector_resolution;
+}
+
+void IDetector::iterate(std::function<void (IDetector::const_iterator)> func,
+                        bool visit_masks) const
+{
+    if (this->dimension() == 0)
+        return;
+
+    if (visit_masks) {
+        SimulationRoiArea area(this);
+        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
+            func(it);
+    } else {
+        SimulationArea area(this);
+        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
+            func(it);
+    }
 }

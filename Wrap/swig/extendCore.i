@@ -53,18 +53,6 @@
         return true; }
 };
 
-// necessary to export this since Python does not support dynamic casting
-%extend Histogram2D {
-    static Histogram2D* dynamicCast(IHistogram* pHistogram) {
-        return dynamic_cast<Histogram2D*>(pHistogram); }
-};
-
-// necessary to export this since Python does not support dynamic casting
-%extend Histogram1D {
-    static Histogram1D* dynamicCast(IHistogram* pHistogram) {
-        return dynamic_cast<Histogram1D*>(pHistogram); }
-};
-
 // needed to prevent ownership problems with passed IMultiLayerBuilder
 %rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
 %extend Simulation {

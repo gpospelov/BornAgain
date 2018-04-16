@@ -6302,30 +6302,6 @@ class FitObject(INode):
         return _libBornAgainCore.FitObject_accept(self, visitor)
 
 
-    def realData(self):
-        """
-        realData(FitObject self) -> IntensityData
-
-        const OutputData< double > & FitObject::realData() const
-
-        Returns real (experimental) data. 
-
-        """
-        return _libBornAgainCore.FitObject_realData(self)
-
-
-    def simulationData(self):
-        """
-        simulationData(FitObject self) -> IntensityData
-
-        const OutputData< double > & FitObject::simulationData() const
-
-        Returns simulated data. 
-
-        """
-        return _libBornAgainCore.FitObject_simulationData(self)
-
-
     def weight(self):
         """
         weight(FitObject self) -> double
@@ -6350,9 +6326,9 @@ class FitObject(INode):
         return _libBornAgainCore.FitObject_numberOfFitElements(self)
 
 
-    def prepareFitElements(self, fit_elements, weight, normalizer=None):
+    def prepareFitElements(self, fit_elements, weight, arg4=None):
         """
-        prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight, IIntensityNormalizer normalizer=None)
+        prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight, IIntensityNormalizer arg4=None)
         prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight)
 
         void FitObject::prepareFitElements(std::vector< FitElement > &fit_elements, double weight, IIntensityNormalizer *normalizer=0)
@@ -6360,7 +6336,7 @@ class FitObject(INode):
         Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. 
 
         """
-        return _libBornAgainCore.FitObject_prepareFitElements(self, fit_elements, weight, normalizer)
+        return _libBornAgainCore.FitObject_prepareFitElements(self, fit_elements, weight, arg4)
 
 
     def getChildren(self):
@@ -6373,6 +6349,16 @@ class FitObject(INode):
 
         """
         return _libBornAgainCore.FitObject_getChildren(self)
+
+
+    def simulationResult(self):
+        """simulationResult(FitObject self) -> SimulationResult"""
+        return _libBornAgainCore.FitObject_simulationResult(self)
+
+
+    def experimentalData(self):
+        """experimentalData(FitObject self) -> SimulationResult"""
+        return _libBornAgainCore.FitObject_experimentalData(self)
 
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)
@@ -6733,63 +6719,6 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_numberOfFitObjects(self)
 
 
-    def getRealData(self, i_item=0):
-        """
-        getRealData(FitSuite self, size_t i_item=0) -> IHistogram
-        getRealData(FitSuite self) -> IHistogram
-
-        IHistogram * FitSuite::getRealData(size_t i_item=0) const
-
-        returns real data histogram
-
-        Parameters:
-        -----------
-
-        i_item: 
-        The index of fit object 
-
-        """
-        return _libBornAgainCore.FitSuite_getRealData(self, i_item)
-
-
-    def getSimulationData(self, i_item=0):
-        """
-        getSimulationData(FitSuite self, size_t i_item=0) -> IHistogram
-        getSimulationData(FitSuite self) -> IHistogram
-
-        IHistogram * FitSuite::getSimulationData(size_t i_item=0) const
-
-        returns simulated data histogram
-
-        Parameters:
-        -----------
-
-        i_item: 
-        The index of fit object 
-
-        """
-        return _libBornAgainCore.FitSuite_getSimulationData(self, i_item)
-
-
-    def getChiSquaredMap(self, i_item=0):
-        """
-        getChiSquaredMap(FitSuite self, size_t i_item=0) -> IHistogram
-        getChiSquaredMap(FitSuite self) -> IHistogram
-
-        IHistogram * FitSuite::getChiSquaredMap(size_t i_item=0) const
-
-        returns chi2 histogram calculated for (real, simulated) data pair
-
-        Parameters:
-        -----------
-
-        i_item: 
-        The index of fit object 
-
-        """
-        return _libBornAgainCore.FitSuite_getChiSquaredMap(self, i_item)
-
-
     def fitObjects(self):
         """
         fitObjects(FitSuite self) -> FitSuiteObjects
@@ -6928,17 +6857,6 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_isInterrupted(self)
 
 
-    def getSimulationOutputData(self, i_item=0):
-        """
-        getSimulationOutputData(FitSuite self, size_t i_item=0) -> IntensityData
-        getSimulationOutputData(FitSuite self) -> IntensityData
-
-        const OutputData< double > * FitSuite::getSimulationOutputData(size_t i_item=0) const
-
-        """
-        return _libBornAgainCore.FitSuite_getSimulationOutputData(self, i_item)
-
-
     def parametersToString(self):
         """
         parametersToString(FitSuite self) -> std::string
@@ -6973,6 +6891,30 @@ class FitSuite(IObservable):
 
         """
         return _libBornAgainCore.FitSuite_setupToString(self)
+
+
+    def simulationResult(self, i_item=0):
+        """
+        simulationResult(FitSuite self, size_t i_item=0) -> SimulationResult
+        simulationResult(FitSuite self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuite_simulationResult(self, i_item)
+
+
+    def experimentalData(self, i_item=0):
+        """
+        experimentalData(FitSuite self, size_t i_item=0) -> SimulationResult
+        experimentalData(FitSuite self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuite_experimentalData(self, i_item)
+
+
+    def relativeDifference(self, i_item=0):
+        """
+        relativeDifference(FitSuite self, size_t i_item=0) -> SimulationResult
+        relativeDifference(FitSuite self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuite_relativeDifference(self, i_item)
 
 FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
 FitSuite_swigregister(FitSuite)
@@ -7063,23 +7005,28 @@ class FitSuiteObjects(INode):
         return _libBornAgainCore.FitSuiteObjects_setChiSquaredModule(self, chi2_module)
 
 
-    def getSimulationData(self, i_item=0):
+    def simulationResult(self, i_item=0):
         """
-        getSimulationData(FitSuiteObjects self, size_t i_item=0) -> IntensityData
-        getSimulationData(FitSuiteObjects self) -> IntensityData
-
-        const OutputData< double > & FitSuiteObjects::getSimulationData(size_t i_item=0) const
-
-        Returns simulated data from corresponding  FitObject
-
-        Parameters:
-        -----------
-
-        i_item: 
-        Index of  FitObject
-
+        simulationResult(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
+        simulationResult(FitSuiteObjects self) -> SimulationResult
         """
-        return _libBornAgainCore.FitSuiteObjects_getSimulationData(self, i_item)
+        return _libBornAgainCore.FitSuiteObjects_simulationResult(self, i_item)
+
+
+    def experimentalData(self, i_item=0):
+        """
+        experimentalData(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
+        experimentalData(FitSuiteObjects self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuiteObjects_experimentalData(self, i_item)
+
+
+    def relativeDifference(self, i_item=0):
+        """
+        relativeDifference(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
+        relativeDifference(FitSuiteObjects self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitSuiteObjects_relativeDifference(self, i_item)
 
 
     def runSimulations(self):
@@ -18054,20 +18001,10 @@ class Histogram1D(IHistogram):
         """
         return _libBornAgainCore.Histogram1D_crop(self, xmin, xmax)
 
-
-    def dynamicCast(pHistogram):
-        """dynamicCast(IHistogram pHistogram) -> Histogram1D"""
-        return _libBornAgainCore.Histogram1D_dynamicCast(pHistogram)
-
-    dynamicCast = staticmethod(dynamicCast)
     __swig_destroy__ = _libBornAgainCore.delete_Histogram1D
     __del__ = lambda self: None
 Histogram1D_swigregister = _libBornAgainCore.Histogram1D_swigregister
 Histogram1D_swigregister(Histogram1D)
-
-def Histogram1D_dynamicCast(pHistogram):
-    """Histogram1D_dynamicCast(IHistogram pHistogram) -> Histogram1D"""
-    return _libBornAgainCore.Histogram1D_dynamicCast(pHistogram)
 
 class Histogram2D(IHistogram):
     """
@@ -18226,20 +18163,10 @@ class Histogram2D(IHistogram):
         """
         return _libBornAgainCore.Histogram2D_addContent(self, data)
 
-
-    def dynamicCast(pHistogram):
-        """dynamicCast(IHistogram pHistogram) -> Histogram2D"""
-        return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
-
-    dynamicCast = staticmethod(dynamicCast)
     __swig_destroy__ = _libBornAgainCore.delete_Histogram2D
     __del__ = lambda self: None
 Histogram2D_swigregister = _libBornAgainCore.Histogram2D_swigregister
 Histogram2D_swigregister(Histogram2D)
-
-def Histogram2D_dynamicCast(pHistogram):
-    """Histogram2D_dynamicCast(IHistogram pHistogram) -> Histogram2D"""
-    return _libBornAgainCore.Histogram2D_dynamicCast(pHistogram)
 
 class AxisInfo(_object):
     """
@@ -18834,6 +18761,14 @@ class IDetector(ICloneable, INode):
 
         """
         return _libBornAgainCore.IDetector_getChildren(self)
+
+
+    def iterate(self, func, visit_masks=False):
+        """
+        iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)
+        iterate(IDetector self, std::function< void (IDetector::const_iterator) > func)
+        """
+        return _libBornAgainCore.IDetector_iterate(self, func, visit_masks)
 
 IDetector_swigregister = _libBornAgainCore.IDetector_swigregister
 IDetector_swigregister(IDetector)

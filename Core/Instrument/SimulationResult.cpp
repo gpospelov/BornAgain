@@ -28,9 +28,13 @@ SimulationResult::SimulationResult(const OutputData<double>& data,
 }
 
 SimulationResult::SimulationResult(const SimulationResult& other)
-    : mP_data(other.mP_data->clone())
-    , mP_unit_converter(other.mP_unit_converter->clone())
-{}
+{
+    if (!other.mP_data || !other.mP_unit_converter)
+        throw std::runtime_error("Error in SimulationResult(const SimulationResult& other): "
+                                 "not initialized");
+    mP_data.reset(other.mP_data->clone());
+    mP_unit_converter.reset(other.mP_unit_converter->clone());
+}
 
 SimulationResult::SimulationResult(SimulationResult&& other)
     : mP_data(std::move(other.mP_data))
@@ -39,6 +43,10 @@ SimulationResult::SimulationResult(SimulationResult&& other)
 
 SimulationResult& SimulationResult::operator=(const SimulationResult& other)
 {
+    if (!other.mP_data || !other.mP_unit_converter)
+        throw std::runtime_error("Error in SimulationResult(const SimulationResult& other): "
+                                 "not initialized");
+
     mP_data.reset(other.mP_data->clone());
     mP_unit_converter.reset(other.mP_unit_converter->clone());
     return *this;

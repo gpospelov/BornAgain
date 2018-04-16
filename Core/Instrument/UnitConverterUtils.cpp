@@ -18,6 +18,10 @@
 #include "RectangularDetector.h"
 #include "SimpleUnitConverters.h"
 #include "SphericalDetector.h"
+#include "UnitConverter1D.h"
+#include "GISASSimulation.h"
+#include "OffSpecSimulation.h"
+#include "SpecularSimulation.h"
 
 std::unique_ptr<OutputData<double>>
 UnitConverterUtils::createOutputData(const IUnitConverter& converter, AxesUnits units)
@@ -41,4 +45,19 @@ UnitConverterUtils::createConverterForGISAS(const Instrument& instrument)
 
     throw std::runtime_error(
         "Error in createConverterForGISAS: wrong or absent detector type");
+}
+
+std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const Simulation& simulation)
+{
+    if(auto gisas = dynamic_cast<const GISASSimulation*>(&simulation)) {
+        return createConverterForGISAS(gisas->getInstrument());
+
+    } else if (auto spec = dynamic_cast<const SpecularSimulation*>(&simulation)) {
+        return std::make_unique<UnitConverter1D>(spec->getInstrument().getBeam(),
+                                                 *spec->getAlphaAxis());
+
+    } else {
+        throw std::runtime_error("UnitConverterUtils::createConverter -> "
+                                 "Not implemented simulation.");
+    }
 }

@@ -150,28 +150,19 @@ void IDetector::initOutputData(OutputData<double> &data) const {
 }
 
 OutputData<double>*
-IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements, const Beam& beam,
-                                   AxesUnits units_type) const
+IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements,
+                                   const Beam& beam) const
 {
-    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
+    const AxesUnits units = AxesUnits::DEFAULT;
+    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units));
     if (!detectorMap)
         throw Exceptions::RuntimeErrorException("Instrument::createDetectorIntensity:"
                                                 "can't create detector map.");
 
-    if (mP_detector_resolution) {
-        if (units_type != AxesUnits::DEFAULT) {
-            std::unique_ptr<OutputData<double>> defaultMap(
-                createDetectorMap(beam, AxesUnits::DEFAULT));
-            setDataToDetectorMap(*defaultMap, elements);
-            applyDetectorResolution(defaultMap.get());
-            detectorMap->setRawDataVector(defaultMap->getRawDataVector());
-        } else {
-            setDataToDetectorMap(*detectorMap, elements);
-            applyDetectorResolution(detectorMap.get());
-        }
-    } else {
-        setDataToDetectorMap(*detectorMap, elements);
-    }
+    setDataToDetectorMap(*detectorMap, elements);
+    if (mP_detector_resolution)
+        applyDetectorResolution(detectorMap.get());
+
     return detectorMap.release();
 }
 

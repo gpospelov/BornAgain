@@ -105,8 +105,7 @@ public:
 
     //! Returns new intensity map with detector resolution applied and axes in requested units
     OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement>& elements,
-                                                const Beam& beam,
-                                                AxesUnits units_type = AxesUnits::DEFAULT) const;
+                                                const Beam& beam) const;
 
     //! Return default axes units
     virtual AxesUnits defaultAxesUnits() const {return AxesUnits::DEFAULT;}

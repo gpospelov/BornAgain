@@ -18702,9 +18702,8 @@ class IDetector(ICloneable, INode):
         return _libBornAgainCore.IDetector_initOutputData(self, data)
 
 
-    def createDetectorIntensity(self, *args):
+    def createDetectorIntensity(self, elements, beam):
         """
-        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam, AxesUnits units_type) -> IntensityData
         createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
 
         OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
@@ -18712,7 +18711,7 @@ class IDetector(ICloneable, INode):
         Returns new intensity map with detector resolution applied and axes in requested units. 
 
         """
-        return _libBornAgainCore.IDetector_createDetectorIntensity(self, *args)
+        return _libBornAgainCore.IDetector_createDetectorIntensity(self, elements, beam)
 
 
     def defaultAxesUnits(self):
@@ -20654,9 +20653,8 @@ class Instrument(INode):
         return _libBornAgainCore.Instrument_applyDetectorResolution(self, p_intensity_map)
 
 
-    def createDetectorIntensity(self, *args):
+    def createDetectorIntensity(self, elements):
         """
-        createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, AxesUnits units) -> IntensityData
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
 
         OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, AxesUnits units=AxesUnits::DEFAULT) const
@@ -20664,7 +20662,7 @@ class Instrument(INode):
         Returns new intensity map with detector resolution applied and axes in requested units. 
 
         """
-        return _libBornAgainCore.Instrument_createDetectorIntensity(self, *args)
+        return _libBornAgainCore.Instrument_createDetectorIntensity(self, elements)
 
 
     def initDetector(self):

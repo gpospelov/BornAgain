@@ -87,8 +87,8 @@ public:
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
     //! Returns new intensity map with detector resolution applied and axes in requested units
-    OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement> &elements,
-            AxesUnits units=AxesUnits::DEFAULT) const;
+    OutputData<double>* createDetectorIntensity(
+            const std::vector<SimulationElement> &elements) const;
 
     //! init detector with beam settings
     void initDetector();

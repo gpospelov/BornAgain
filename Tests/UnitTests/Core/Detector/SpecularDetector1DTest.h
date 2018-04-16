@@ -73,11 +73,8 @@ TEST_F(SpecularDetectorTest, createDetectorMap)
     FixedBinAxis axis("axis0", 10, 1.0 * Units::deg, 10.0 * Units::deg);
     SpecularDetector1D detector(axis);
 
-    Beam beam;
-    beam.setCentralK(1.0 * Units::angstrom, 1.0 * Units::deg, 0.0);
-
     // creating map in default units, which are radians and checking axes
-    auto data = detector.createDetectorMap(beam, AxesUnits::DEFAULT);
+    auto data = detector.createDetectorMap();
     EXPECT_EQ(data->getAxis(0).size(), 10u);
     EXPECT_EQ(data->getAxis(0).getMin(), 1.0 * Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 10.0 * Units::deg);
@@ -88,10 +85,8 @@ TEST_F(SpecularDetectorTest, Clone)
     FixedBinAxis axis("axis0", 5, 1.0 * Units::deg, 10.0 * Units::deg);
     SpecularDetector1D detector(axis);
     std::unique_ptr<SpecularDetector1D> clone(detector.clone());
-    Beam beam;
-    beam.setCentralK(1.0 * Units::angstrom, 0.4 * Units::deg, 0.0);
 
-    const auto data = clone->createDetectorMap(beam, AxesUnits::DEFAULT);
+    const auto data = clone->createDetectorMap();
     EXPECT_EQ(data->getAxis(0).size(), 5u);
     EXPECT_EQ(data->getAxis(0).getMin(), 1.0 * Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 10.0 * Units::deg);

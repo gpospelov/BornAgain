@@ -115,11 +115,8 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     SphericalDetector detector(10, -1.0 * Units::deg, 1.0 * Units::deg, 20, 0.0 * Units::deg,
                                2.0 * Units::deg);
 
-    Beam beam;
-    beam.setCentralK(1.0 * Units::angstrom, 0.4 * Units::deg, 0.0);
-
     // creating map in default units, which are radians and checking axes
-    auto data = detector.createDetectorMap(beam, AxesUnits::DEFAULT);
+    auto data = detector.createDetectorMap();
     EXPECT_EQ(data->getAxis(0).size(), 10u);
     EXPECT_EQ(data->getAxis(0).getMin(), -1.0 * Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 1.0 * Units::deg);
@@ -188,12 +185,9 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
 
     detector.setRegionOfInterest(0.1 * Units::deg, 1.1 * Units::deg, 3.0 * Units::deg,
                                  2.9 * Units::deg);
-    Beam beam;
-    beam.setCentralK(1.0 * Units::angstrom, 0.4 * Units::deg, 0.0);
-
     // Creating map in default units, which are radians and checking that axes are clipped
     // to region of interest.
-    auto data = detector.createDetectorMap(beam, AxesUnits::DEFAULT);
+    auto data = detector.createDetectorMap();
     EXPECT_EQ(data->getAxis(0).size(), 4u);
     EXPECT_EQ(data->getAxis(0).getMin(), 0.0 * Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 4.0 * Units::deg);
@@ -273,9 +267,6 @@ TEST_F(SphericalDetectorTest, MaskOfDetector)
 // Checking clone in the presence of ROI and masks.
 TEST_F(SphericalDetectorTest, Clone)
 {
-    Beam beam;
-    beam.setCentralK(1.0 * Units::angstrom, 0.4 * Units::deg, 0.0);
-
     SphericalDetector detector(6, -1.0 * Units::deg, 5.0 * Units::deg, 4, 0.0 * Units::deg,
                                4.0 * Units::deg);
     detector.setRegionOfInterest(0.1 * Units::deg, 1.1 * Units::deg, 3.0 * Units::deg,
@@ -289,7 +280,7 @@ TEST_F(SphericalDetectorTest, Clone)
 
     std::unique_ptr<SphericalDetector> clone(detector.clone());
 
-    auto data = clone->createDetectorMap(beam, AxesUnits::DEFAULT);
+    auto data = clone->createDetectorMap();
     EXPECT_EQ(data->getAxis(0).size(), 4u);
     EXPECT_EQ(data->getAxis(0).getMin(), 0.0*Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 4.0*Units::deg);

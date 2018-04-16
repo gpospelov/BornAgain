@@ -85,7 +85,7 @@ public:
 
 #ifndef SWIG
     //! Returns empty detector map in given axes units.
-    std::unique_ptr<OutputData<double>> createDetectorMap(const Beam& beam, AxesUnits units) const;
+    std::unique_ptr<OutputData<double>> createDetectorMap() const;
 
     //! Create a vector of DetectorElement objects according to the detector and its mask
     virtual std::vector<DetectorElement> createDetectorElements(const Beam& beam) =0;

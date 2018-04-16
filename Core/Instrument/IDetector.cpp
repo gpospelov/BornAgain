@@ -153,8 +153,7 @@ OutputData<double>*
 IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements,
                                    const Beam& beam) const
 {
-    const AxesUnits units = AxesUnits::DEFAULT;
-    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units));
+    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap());
     if (!detectorMap)
         throw Exceptions::RuntimeErrorException("Instrument::createDetectorIntensity:"
                                                 "can't create detector map.");
@@ -201,8 +200,7 @@ void IDetector::calculateAxisRange(size_t axis_index, const Beam&, AxesUnits uni
     }
 }
 
-std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& beam,
-                                                                 AxesUnits units) const
+std::unique_ptr<OutputData<double>> IDetector::createDetectorMap() const
 {
     const size_t dim = dimension();
     if (dim == 0)

@@ -26,6 +26,7 @@ namespace
 bool isInterference2D(const QString& name)
 {
     if (name == Constants::InterferenceFunction2DLatticeType
+        || name == Constants::InterferenceFunctionFinite2DLatticeType
         || name == Constants::InterferenceFunction2DParaCrystalType)
         return true;
     return false;

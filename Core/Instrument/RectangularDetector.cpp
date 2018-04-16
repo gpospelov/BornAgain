@@ -162,15 +162,6 @@ RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrang
     return m_detector_arrangement;
 }
 
-std::vector<AxesUnits> RectangularDetector::validAxesUnits() const
-{
-    std::vector<AxesUnits> result = IDetector2D::validAxesUnits();
-    std::vector<AxesUnits> addon =
-        { AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::MM, AxesUnits::QSPACE };
-    result.insert(result.end(), addon.begin(), addon.end());
-    return result;
-}
-
 AxesUnits RectangularDetector::defaultAxesUnits() const
 {
     return AxesUnits::MM;

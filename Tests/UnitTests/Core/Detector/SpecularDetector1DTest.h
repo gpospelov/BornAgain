@@ -23,11 +23,6 @@ TEST_F(SpecularDetectorTest, basicBehaviour)
     FixedBinAxis axis("axis0", 10, 0.0, 10.0);
     SpecularDetector1D detector(axis);
 
-    // detector units
-    EXPECT_EQ(AxesUnits::RADIANS, detector.defaultAxesUnits());
-    std::vector<AxesUnits> validUnits = {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES};
-    EXPECT_EQ(validUnits, detector.validAxesUnits());
-
     // masks, regions of interest, detector resolution
     EXPECT_EQ(nullptr, detector.detectorMask());
     EXPECT_EQ(nullptr, detector.regionOfInterest());

@@ -111,9 +111,6 @@ public:
     //! Return default axes units
     virtual AxesUnits defaultAxesUnits() const {return AxesUnits::DEFAULT;}
 
-    //! Returns vector of valid axes units
-    virtual std::vector<AxesUnits> validAxesUnits() const {return {AxesUnits::NBINS};}
-
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
 

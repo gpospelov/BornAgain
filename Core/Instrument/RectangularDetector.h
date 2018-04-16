@@ -73,9 +73,6 @@ public:
     double getDirectBeamV0() const;
     EDetectorArrangement getDetectorArrangment() const;
 
-    //! returns vector of valid axes units
-    std::vector<AxesUnits> validAxesUnits() const override;
-
     //! return default axes units
     AxesUnits defaultAxesUnits() const override;
 

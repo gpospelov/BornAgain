@@ -18726,18 +18726,6 @@ class IDetector(ICloneable, INode):
         return _libBornAgainCore.IDetector_defaultAxesUnits(self)
 
 
-    def validAxesUnits(self):
-        """
-        validAxesUnits(IDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
-
-        virtual std::vector<AxesUnits> IDetector::validAxesUnits() const
-
-        Returns vector of valid axes units. 
-
-        """
-        return _libBornAgainCore.IDetector_validAxesUnits(self)
-
-
     def numberOfSimulationElements(self):
         """
         numberOfSimulationElements(IDetector self) -> size_t
@@ -21867,18 +21855,6 @@ class SphericalDetector(IDetector2D):
 
     __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
     __del__ = lambda self: None
-
-    def validAxesUnits(self):
-        """
-        validAxesUnits(SphericalDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
-
-        std::vector< AxesUnits > SphericalDetector::validAxesUnits() const override
-
-        returns vector of valid axes units 
-
-        """
-        return _libBornAgainCore.SphericalDetector_validAxesUnits(self)
-
 
     def defaultAxesUnits(self):
         """
@@ -26588,18 +26564,6 @@ class RectangularDetector(IDetector2D):
 
         """
         return _libBornAgainCore.RectangularDetector_getDetectorArrangment(self)
-
-
-    def validAxesUnits(self):
-        """
-        validAxesUnits(RectangularDetector self) -> std::vector< AxesUnits,std::allocator< AxesUnits > >
-
-        std::vector< AxesUnits > RectangularDetector::validAxesUnits() const override
-
-        returns vector of valid axes units 
-
-        """
-        return _libBornAgainCore.RectangularDetector_validAxesUnits(self)
 
 
     def defaultAxesUnits(self):

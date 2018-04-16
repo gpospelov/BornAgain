@@ -32,11 +32,6 @@ TEST_F(SphericalDetectorTest, initialState)
     EXPECT_EQ(0u, detector.dimension());
     EXPECT_EQ(AxesUnits::RADIANS, detector.defaultAxesUnits());
 
-    // detector units
-    std::vector<AxesUnits> validUnits
-        = {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE};
-    EXPECT_EQ(validUnits, detector.validAxesUnits());
-
     // masks
     EXPECT_FALSE(detector.detectorMask()->hasMasks());
     EXPECT_EQ(0, detector.detectorMask()->numberOfMaskedChannels());

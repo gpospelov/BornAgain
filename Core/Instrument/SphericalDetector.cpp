@@ -44,15 +44,6 @@ SphericalDetector* SphericalDetector::clone() const
     return new SphericalDetector(*this);
 }
 
-std::vector<AxesUnits> SphericalDetector::validAxesUnits() const
-{
-    std::vector<AxesUnits> result = IDetector2D::validAxesUnits();
-    std::vector<AxesUnits> addon =
-        { AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE };
-    result.insert(result.end(), addon.begin(), addon.end());
-    return result;
-}
-
 AxesUnits SphericalDetector::defaultAxesUnits() const
 {
     return AxesUnits::RADIANS;

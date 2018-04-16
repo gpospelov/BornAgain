@@ -42,13 +42,6 @@ AxesUnits SpecularDetector1D::defaultAxesUnits() const {
     return AxesUnits::RADIANS;
 }
 
-std::vector<AxesUnits> SpecularDetector1D::validAxesUnits() const {
-    std::vector<AxesUnits> result = IDetector::validAxesUnits();
-    const std::vector<AxesUnits> addon = {AxesUnits::RADIANS, AxesUnits::DEGREES};
-    result.insert(result.end(), addon.begin(), addon.end());
-    return result;
-}
-
 std::vector<DetectorElement> SpecularDetector1D::createDetectorElements(const Beam&)
 {
     throw std::runtime_error(

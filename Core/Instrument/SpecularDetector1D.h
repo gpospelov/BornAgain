@@ -47,9 +47,6 @@ public:
     //! Return default axes units
     AxesUnits defaultAxesUnits() const override;
 
-    //! Returns vector of valid axes units
-    std::vector<AxesUnits> validAxesUnits() const override;
-
 protected:
     SpecularDetector1D(const SpecularDetector1D& other);
 

@@ -65,20 +65,6 @@ std::string SpecularDetector1D::axisName(size_t index) const
             "SpecularDetector1D::getAxisName(size_t index) -> Error! index > 0");
 }
 
-void SpecularDetector1D::calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
-                                            double& amin, double& amax) const
-{
-    if (units == AxesUnits::DEGREES) {
-        amin = getAxis(axis_index).getMin() / Units::degree;
-        amax = getAxis(axis_index).getMax() / Units::degree;
-    } else if (units == AxesUnits::RADIANS) {
-        amin = getAxis(axis_index).getMin();
-        amax = getAxis(axis_index).getMax();
-    } else {
-        IDetector::calculateAxisRange(axis_index, beam, units, amin, amax);
-    }
-}
-
 void SpecularDetector1D::initialize()
 {
     setName(BornAgain::SpecularDetectorType);

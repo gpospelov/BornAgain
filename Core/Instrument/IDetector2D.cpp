@@ -120,32 +120,6 @@ SimulationElement IDetector2D::getSimulationElement(size_t index, const Beam& be
                              std::unique_ptr<IPixel>(createPixel(index)));
 }
 
-void IDetector2D::calculateAxisRange(size_t axis_index, const Beam &beam,
-        AxesUnits units, double &amin, double &amax) const
-{
-    if(units == AxesUnits::QSPACE && axis_index == BornAgain::X_AXIS_INDEX) {
-        const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
-        SimulationElement el_left_bottom
-            = getSimulationElement(getGlobalIndex(0, 0), beam);
-        SimulationElement el_right_bottom
-            = getSimulationElement(getGlobalIndex(aX.size()-1, 0), beam);
-        amin = el_left_bottom.getQ(0.0, 0.0).y();
-        amax = el_right_bottom.getQ(1.0, 0.0).y();
-
-    } else if(units == AxesUnits::QSPACE && axis_index == BornAgain::Y_AXIS_INDEX) {
-        const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
-        const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
-        SimulationElement el_center_bottom
-            = getSimulationElement(getGlobalIndex(aX.size()/2, 0), beam);
-        SimulationElement el_center_top
-            = getSimulationElement(getGlobalIndex(aX.size()/2, aY.size()-1), beam);
-        amin = -el_center_bottom.getQ(0.5, 0.0).z();
-        amax = -el_center_top.getQ(0.5, 1.0).z();
-
-    } else
-        return IDetector::calculateAxisRange(axis_index, beam, units, amin, amax);
-}
-
 size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
 {
     if (dimension() != 2)

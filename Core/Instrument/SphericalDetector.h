@@ -55,10 +55,6 @@ protected:
     //! Create an IPixel for the given OutputData object and index
     IPixel* createPixel(size_t index) const override;
 
-    //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
-                                    double &amin, double &amax) const override;
-
     //! Returns the name for the axis with given index
     std::string axisName(size_t index) const override;
 

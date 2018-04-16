@@ -127,10 +127,6 @@ protected:
     //! Returns the name for the axis with given index
     virtual std::string axisName(size_t index) const = 0;
 
-    //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
-                                    double& amin, double& amax) const;
-
     //! Generates an axis with correct name and default binning for given index
     virtual std::unique_ptr<IAxis> createAxis(size_t index, size_t n_bins, double min,
                                               double max) const;

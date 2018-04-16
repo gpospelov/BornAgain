@@ -216,40 +216,6 @@ IPixel* RectangularDetector::createPixel(size_t index) const
     return new RectangularPixel(corner_position, width, height);
 }
 
-void RectangularDetector::calculateAxisRange(size_t axis_index, const Beam& beam,
-    AxesUnits units, double& amin, double& amax) const
-{
-    amin = 0.0; amax=0.0;
-    if(units == AxesUnits::MM) {
-        amin = getAxis(axis_index).getMin();
-        amax = getAxis(axis_index).getMax();
-    }else if(units == AxesUnits::RADIANS || units == AxesUnits::DEGREES) {
-        double scale(1.0);
-        if (units == AxesUnits::DEGREES)
-            scale = 1. / Units::degree;
-        if(axis_index == BornAgain::X_AXIS_INDEX) {
-            const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
-            SimulationElement el_left_bottom
-                = getSimulationElement(getGlobalIndex(0, 0), beam);
-            SimulationElement el_right_bottom
-                = getSimulationElement(getGlobalIndex(aX.size()-1, 0), beam);
-            amin = scale * el_left_bottom.getPhi(0.0, 0.0);
-            amax = scale * el_right_bottom.getPhi(1.0, 0.0);
-        } else if(axis_index == BornAgain::Y_AXIS_INDEX) {
-            const IAxis &aX = getAxis(BornAgain::X_AXIS_INDEX);
-            const IAxis &aY = getAxis(BornAgain::Y_AXIS_INDEX);
-            SimulationElement el_center_bottom
-                = getSimulationElement(getGlobalIndex(aX.size()/2, 0), beam);
-            SimulationElement el_center_top
-                = getSimulationElement(getGlobalIndex(aX.size()/2, aY.size()-1), beam);
-            amin = scale * el_center_bottom.getAlpha(0.5, 0.0);
-            amax = scale * el_center_top.getAlpha(0.5, 1.0);
-        }
-    } else {
-        IDetector2D::calculateAxisRange(axis_index, beam, units, amin, amax);
-    }
-}
-
 std::string RectangularDetector::axisName(size_t index) const
 {
     switch (index) {

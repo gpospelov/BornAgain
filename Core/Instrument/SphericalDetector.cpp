@@ -70,21 +70,6 @@ IPixel* SphericalDetector::createPixel(size_t index) const
     return new SphericalPixel(alpha_bin, phi_bin);
 }
 
-void SphericalDetector::calculateAxisRange(size_t axis_index, const Beam &beam,
-        AxesUnits units, double &amin, double &amax) const
-{
-    amin = 0.0; amax=0.0;
-    if(units == AxesUnits::DEGREES) {
-        amin = getAxis(axis_index).getMin()/Units::degree;
-        amax = getAxis(axis_index).getMax()/Units::degree;
-    }else if(units == AxesUnits::RADIANS) {
-        amin = getAxis(axis_index).getMin();
-        amax = getAxis(axis_index).getMax();
-    } else {
-        IDetector2D::calculateAxisRange(axis_index, beam, units, amin, amax);
-    }
-}
-
 std::string SphericalDetector::axisName(size_t index) const
 {
     switch (index) {

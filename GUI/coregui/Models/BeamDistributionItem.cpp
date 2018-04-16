@@ -121,7 +121,7 @@ void BeamDistributionItem::resetToValue(double value)
     distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
 }
 
-//! Scales the values provided by distribution (to perform deg->rad convertion in the case
+//! Scales the values provided by distribution (to perform deg->rad conversion in the case
 //! of AngleDistributionItems.
 
 double BeamDistributionItem::scaleFactor() const

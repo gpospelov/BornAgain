@@ -85,7 +85,7 @@ public:
 
 #ifndef SWIG
     //! Returns empty detector map in given axes units.
-    std::unique_ptr<OutputData<double>> createDetectorMap(const Beam& beam, AxesUnits units) const;
+    std::unique_ptr<OutputData<double>> createDetectorMap() const;
 
     //! Create a vector of DetectorElement objects according to the detector and its mask
     virtual std::vector<DetectorElement> createDetectorElements(const Beam& beam) =0;
@@ -100,19 +100,13 @@ public:
     //! Returns detection properties
     const DetectionProperties& detectionProperties() const {return m_detection_properties;}
 
-    //! Inits axes of OutputData to match the detector and sets values to zero.
-    void initOutputData(OutputData<double>& data) const;
-
-    //! Returns new intensity map with detector resolution applied and axes in requested units
-    OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement>& elements,
-                                                const Beam& beam,
-                                                AxesUnits units_type = AxesUnits::DEFAULT) const;
+    //! Returns new intensity map with detector resolution applied. Map will be cropped to ROI
+    //! if ROI is present.
+    OutputData<double>* createDetectorIntensity(
+            const std::vector<SimulationElement>& elements) const;
 
     //! Return default axes units
     virtual AxesUnits defaultAxesUnits() const {return AxesUnits::DEFAULT;}
-
-    //! Returns vector of valid axes units
-    virtual std::vector<AxesUnits> validAxesUnits() const {return {AxesUnits::NBINS};}
 
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
@@ -127,22 +121,11 @@ protected:
     //! Returns the name for the axis with given index
     virtual std::string axisName(size_t index) const = 0;
 
-    //! Calculates axis range from original detector axes in given units (mm, rad, etc)
-    virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
-                                    double& amin, double& amax) const;
-
-    //! Constructs axis with min, max corresponding to selected units
-    std::unique_ptr<IAxis> translateAxisToUnits(size_t axis_index, const Beam& beam,
-                                                 AxesUnits units) const;
-
     //! Generates an axis with correct name and default binning for given index
     virtual std::unique_ptr<IAxis> createAxis(size_t index, size_t n_bins, double min,
                                               double max) const;
 
 private:
-    //! Checks if given unit is valid for the detector. Throws exception if it is not the case.
-    void checkAxesUnits(AxesUnits units) const;
-
     void setDataToDetectorMap(OutputData<double>& detectorMap,
                               const std::vector<SimulationElement>& elements) const;
 

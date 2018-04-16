@@ -65,21 +65,6 @@ size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
                              "Error! No axis with given number");
 }
 
-std::unique_ptr<IAxis> IDetector::translateAxisToUnits(size_t axis_index, const Beam &beam,
-                                                  AxesUnits units) const
-{
-    double amin(0), amax(0);
-    calculateAxisRange(axis_index, beam, units, amin, amax);
-
-    std::unique_ptr<IAxis> result(new FixedBinAxis(axisName(axis_index),
-                                                   getAxis(axis_index).size(), amin, amax));
-
-    if (regionOfInterest())
-        return regionOfInterest()->clipAxisToRoi(axis_index, *result);
-
-    return result;
-}
-
 std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins,
                                              double min, double max) const
 {
@@ -142,78 +127,23 @@ const IDetectorResolution* IDetector::detectorResolution() const
     return mP_detector_resolution.get();
 }
 
-void IDetector::initOutputData(OutputData<double> &data) const {
-  data.clear();
-  for (size_t i = 0; i < dimension(); ++i)
-      data.addAxis(getAxis(i));
-  data.setAllTo(0.);
-}
-
 OutputData<double>*
-IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements, const Beam& beam,
-                                   AxesUnits units_type) const
+IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements) const
 {
-    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap(beam, units_type));
+    std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap());
     if (!detectorMap)
         throw Exceptions::RuntimeErrorException("Instrument::createDetectorIntensity:"
                                                 "can't create detector map.");
 
-    if (mP_detector_resolution) {
-        if (units_type != AxesUnits::DEFAULT) {
-            std::unique_ptr<OutputData<double>> defaultMap(
-                createDetectorMap(beam, AxesUnits::DEFAULT));
-            setDataToDetectorMap(*defaultMap, elements);
-            applyDetectorResolution(defaultMap.get());
-            detectorMap->setRawDataVector(defaultMap->getRawDataVector());
-        } else {
-            setDataToDetectorMap(*detectorMap, elements);
-            applyDetectorResolution(detectorMap.get());
-        }
-    } else {
-        setDataToDetectorMap(*detectorMap, elements);
-    }
+    setDataToDetectorMap(*detectorMap, elements);
+    if (mP_detector_resolution)
+        applyDetectorResolution(detectorMap.get());
+
     return detectorMap.release();
 }
 
-void IDetector::checkAxesUnits(AxesUnits units) const
+std::unique_ptr<OutputData<double>> IDetector::createDetectorMap() const
 {
-    if(units == AxesUnits::DEFAULT)
-        return;
-
-    auto validUnits = validAxesUnits();
-    if(std::find(validUnits.begin(), validUnits.end(), units) == validUnits.end()) {
-        std::ostringstream message;
-        message << "IDetector::createDetectorMap() -> Error. Unknown axes unit "
-                << static_cast<int>(units) << "\n";
-        message << "Available units for this detector type \n";
-        for(size_t i=0; i<validUnits.size(); ++i)
-        for(auto unit : validUnits)
-            message << static_cast<int>(unit) << " ";
-        message << "\n";
-        throw std::runtime_error(message.str());
-    }
-}
-
-void IDetector::calculateAxisRange(size_t axis_index, const Beam&, AxesUnits units,
-                                   double& amin, double& amax) const
-{
-    if (units == AxesUnits::DEFAULT) {
-        amin = getAxis(axis_index).getMin();
-        amax = getAxis(axis_index).getMax();
-    } else if (units == AxesUnits::NBINS) {
-        amin = 0.0;
-        amax = static_cast<double>(getAxis(axis_index).size());
-    } else {
-        throw std::runtime_error("IDetector::calculateAxisRange() -> Error. "
-                                 "Unknown units "
-                                 + std::to_string(static_cast<int>(units)));
-    }
-}
-
-std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& beam,
-                                                                 AxesUnits units) const
-{
-    checkAxesUnits(units);
     const size_t dim = dimension();
     if (dim == 0)
         throw std::runtime_error(
@@ -221,8 +151,11 @@ std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& bea
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < dim; ++i)
-        result->addAxis(*translateAxisToUnits(i, beam, units));
-    result->setAllTo(0.);
+        if (auto roi = regionOfInterest())
+            result->addAxis(*roi->clipAxisToRoi(i, getAxis(i)));
+        else
+            result->addAxis(getAxis(i));
+
     return result;
 }
 
@@ -260,7 +193,7 @@ void IDetector::iterate(std::function<void (IDetector::const_iterator)> func,
             func(it);
     } else {
         SimulationArea area(this);
-        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
+        for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
             func(it);
     }
 }

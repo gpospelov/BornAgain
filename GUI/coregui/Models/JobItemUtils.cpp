@@ -165,10 +165,10 @@ void JobItemUtils::createDefaultDetectorMap(DataItem* intensityItem,
                                             const InstrumentItem* instrumentItem)
 {
     const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
-    setIntensityItemAxesUnits(intensityItem, *converter);
-    updateAxesTitle(intensityItem, *converter, converter->defaultUnits());
     auto output_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
     intensityItem->setOutputData(output_data.release());
+    setIntensityItemAxesUnits(intensityItem, *converter);
+    updateAxesTitle(intensityItem, *converter, converter->defaultUnits());
 }
 
 namespace

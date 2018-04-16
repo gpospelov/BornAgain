@@ -15,7 +15,7 @@
 #ifndef COLORMAP_H
 #define COLORMAP_H
 
-#include "SessionItemWidget.h"
+#include "DescriptedPlot.h"
 #include "PlotStatusDescriptors.h"
 #include "qcustomplot.h"
 #include <QMap>
@@ -34,12 +34,12 @@ class ColorMapEvent;
 //! Provides a minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. This is a replacement for ColorMapPlot.
 
-class BA_CORE_API_ ColorMap : public SessionItemWidget
+class BA_CORE_API_ ColorMap : public DescriptedPlot
 {
     Q_OBJECT
 
 public:
-    explicit ColorMap(QWidget* parent = 0);
+    explicit ColorMap(QWidget* parent = nullptr);
 
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
@@ -70,7 +70,6 @@ public:
     void setMouseTrackingEnabled(bool enable);
 
 signals:
-    void statusString(const QString& text);
     void marginsChanged(double left, double right);
 
 public slots:

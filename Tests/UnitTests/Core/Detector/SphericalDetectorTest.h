@@ -126,24 +126,6 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
     EXPECT_EQ(data->getAxis(1).size(), 20u);
     EXPECT_EQ(data->getAxis(1).getMin(), 0.0 * Units::deg);
     EXPECT_EQ(data->getAxis(1).getMax(), 2.0 * Units::deg);
-
-    // creating map in degrees and checking axes
-    data = detector.createDetectorMap(beam, AxesUnits::DEGREES);
-    EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), -1.0);
-    EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 1.0);
-    EXPECT_EQ(data->getAxis(1).size(), 20u);
-    EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
-    EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 2.0);
-
-    // creating map in nbins and checking axes
-    data = detector.createDetectorMap(beam, AxesUnits::NBINS);
-    EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), 0.0);
-    EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
-    EXPECT_EQ(data->getAxis(1).size(), 20u);
-    EXPECT_DOUBLE_EQ(data->getAxis(1).getMin(), 0.0);
-    EXPECT_DOUBLE_EQ(data->getAxis(1).getMax(), 20.0);
 }
 
 // Testing region of interest.
@@ -218,15 +200,6 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
     EXPECT_EQ(data->getAxis(1).size(), 2u);
     EXPECT_EQ(data->getAxis(1).getMin(), 1.0 * Units::deg);
     EXPECT_EQ(data->getAxis(1).getMax(), 3.0 * Units::deg);
-
-    // Creating map with axes in degrees, and checking that it is clipped to the region of interest
-    data = detector.createDetectorMap(beam, AxesUnits::DEGREES);
-    EXPECT_EQ(data->getAxis(0).size(), 4u);
-    EXPECT_EQ(data->getAxis(0).getMin(), 0.0);
-    EXPECT_EQ(data->getAxis(0).getMax(), 4.0);
-    EXPECT_EQ(data->getAxis(1).size(), 2u);
-    EXPECT_EQ(data->getAxis(1).getMin(), 1.0);
-    EXPECT_EQ(data->getAxis(1).getMax(), 3.0);
 }
 
 // Checking IDetector2D::getIntensityData in the presence of region of interest.
@@ -316,13 +289,13 @@ TEST_F(SphericalDetectorTest, Clone)
 
     std::unique_ptr<SphericalDetector> clone(detector.clone());
 
-    auto data = clone->createDetectorMap(beam, AxesUnits::DEGREES);
+    auto data = clone->createDetectorMap(beam, AxesUnits::DEFAULT);
     EXPECT_EQ(data->getAxis(0).size(), 4u);
-    EXPECT_EQ(data->getAxis(0).getMin(), 0.0);
-    EXPECT_EQ(data->getAxis(0).getMax(), 4.0);
+    EXPECT_EQ(data->getAxis(0).getMin(), 0.0*Units::deg);
+    EXPECT_EQ(data->getAxis(0).getMax(), 4.0*Units::deg);
     EXPECT_EQ(data->getAxis(1).size(), 2u);
-    EXPECT_EQ(data->getAxis(1).getMin(), 1.0);
-    EXPECT_EQ(data->getAxis(1).getMax(), 3.0);
+    EXPECT_EQ(data->getAxis(1).getMin(), 1.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1).getMax(), 3.0*Units::deg);
 
     EXPECT_EQ(std::string("ConvolutionDetectorResolution"), clone->detectorResolution()->getName());
 

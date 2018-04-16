@@ -81,27 +81,6 @@ TEST_F(SpecularDetectorTest, createDetectorMap)
     EXPECT_EQ(data->getAxis(0).size(), 10u);
     EXPECT_EQ(data->getAxis(0).getMin(), 1.0 * Units::deg);
     EXPECT_EQ(data->getAxis(0).getMax(), 10.0 * Units::deg);
-
-    // explicitly creating map in radians and checking axes
-    data = detector.createDetectorMap(beam, AxesUnits::RADIANS);
-    EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_EQ(data->getAxis(0).getMin(), 1.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(0).getMax(), 10.0 * Units::deg);
-
-    // creating map in degrees and checking axes
-    data = detector.createDetectorMap(beam, AxesUnits::DEGREES);
-    EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), 1.0);
-    EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
-
-    // creating map in nbins and checking axes
-    data = detector.createDetectorMap(beam, AxesUnits::NBINS);
-    EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_DOUBLE_EQ(data->getAxis(0).getMin(), 0.0);
-    EXPECT_DOUBLE_EQ(data->getAxis(0).getMax(), 10.0);
-
-    // wrong units in input
-    EXPECT_THROW(detector.createDetectorMap(beam, AxesUnits::QSPACE), std::runtime_error);
 }
 
 TEST_F(SpecularDetectorTest, Clone)
@@ -112,10 +91,10 @@ TEST_F(SpecularDetectorTest, Clone)
     Beam beam;
     beam.setCentralK(1.0 * Units::angstrom, 0.4 * Units::deg, 0.0);
 
-    const auto data = clone->createDetectorMap(beam, AxesUnits::DEGREES);
+    const auto data = clone->createDetectorMap(beam, AxesUnits::DEFAULT);
     EXPECT_EQ(data->getAxis(0).size(), 5u);
-    EXPECT_EQ(data->getAxis(0).getMin(), 1.0);
-    EXPECT_EQ(data->getAxis(0).getMax(), 10.0);
+    EXPECT_EQ(data->getAxis(0).getMin(), 1.0 * Units::deg);
+    EXPECT_EQ(data->getAxis(0).getMax(), 10.0 * Units::deg);
 
     EXPECT_EQ(nullptr, clone->detectorResolution());
     EXPECT_EQ(nullptr, clone->detectorMask());

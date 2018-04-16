@@ -204,7 +204,6 @@ void IDetector::calculateAxisRange(size_t axis_index, const Beam&, AxesUnits uni
 std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& beam,
                                                                  AxesUnits units) const
 {
-    checkAxesUnits(units);
     const size_t dim = dimension();
     if (dim == 0)
         throw std::runtime_error(
@@ -212,8 +211,11 @@ std::unique_ptr<OutputData<double>> IDetector::createDetectorMap(const Beam& bea
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < dim; ++i)
-        result->addAxis(*translateAxisToUnits(i, beam, units));
-    result->setAllTo(0.);
+        if (auto roi = regionOfInterest())
+            result->addAxis(*roi->clipAxisToRoi(i, getAxis(i)));
+        else
+            result->addAxis(getAxis(i));
+
     return result;
 }
 

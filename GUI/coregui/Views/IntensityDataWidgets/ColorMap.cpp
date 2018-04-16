@@ -101,7 +101,7 @@ ColorMapDescriptor ColorMap::colorMapDescriptor(double xpos, double ypos) const
     result.m_y = ypos;
 
     if (axesRangeContains(xpos, ypos))
-        result.in_axes_range = true;
+        result.setInAxesRange(true);
 
     m_colorMap->data()->coordToCell(xpos, ypos, &result.m_nx, &result.m_ny);
     result.m_value = m_colorMap->data()->cell(result.m_nx, result.m_ny);

@@ -14,10 +14,19 @@
 
 #include "PlotStatusDescriptors.h"
 
-SpecularPlotDescriptor::SpecularPlotDescriptor()
-    : in_axes_range(false), m_nx(0), m_x(0), m_y(0), m_logz(false)
+IPlotDescriptor::IPlotDescriptor()
+    : in_axes_range(false)
 {
 }
+
+IPlotDescriptor::~IPlotDescriptor() = default;
+
+SpecularPlotDescriptor::SpecularPlotDescriptor()
+    : IPlotDescriptor(), m_nx(0), m_x(0), m_y(0), m_logz(false)
+{
+}
+
+SpecularPlotDescriptor::~SpecularPlotDescriptor() = default;
 
 QString SpecularPlotDescriptor::statusString() const
 {
@@ -36,9 +45,11 @@ QString SpecularPlotDescriptor::valueToString() const
 }
 
 ColorMapDescriptor::ColorMapDescriptor()
-    : in_axes_range(false), m_nx(0), m_ny(0), m_x(0), m_y(0), m_value(0), m_logz(false)
+    : IPlotDescriptor(), m_nx(0), m_ny(0), m_x(0), m_y(0), m_value(0), m_logz(false)
 {
 }
+
+ColorMapDescriptor::~ColorMapDescriptor() = default;
 
 QString ColorMapDescriptor::statusString() const
 {

@@ -21,10 +21,10 @@
 
 //! Contains parameters of 2D intensity data bin under current mouse position.
 
-class BA_CORE_API_ ColorMapBin
+class BA_CORE_API_ ColorMapDescriptor
 {
 public:
-    ColorMapBin();
+    ColorMapDescriptor();
 
     QString statusString() const;
 

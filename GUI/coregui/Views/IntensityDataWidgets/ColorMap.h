@@ -65,7 +65,7 @@ public:
     bool axesRangeContains(double xpos, double ypos) const;
 
     //! Returns ColorMapBin corresponding to given axes coordinates.
-    ColorMapBin colorMapBin(double xpos, double ypos) const;
+    ColorMapDescriptor colorMapDescriptor(double xpos, double ypos) const;
 
     void setMouseTrackingEnabled(bool enable);
 

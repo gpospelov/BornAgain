@@ -39,7 +39,7 @@ void ColorMapEvent::setMouseTrackingEnabled(bool enable)
 
 void ColorMapEvent::onCustomMouseMove(QMouseEvent* event)
 {
-    ColorMapBin currentPos = currentColorMapBin(event);
+    ColorMapDescriptor currentPos = currentColorMapDescriptor(event);
 
     if (currentPos.inAxesRange()) {
         colorMap()->statusString(currentPos.statusString());
@@ -76,9 +76,9 @@ QCustomPlot* ColorMapEvent::customPlot()
 
 //! Constructs current position of the data.
 
-ColorMapBin ColorMapEvent::currentColorMapBin(QMouseEvent* event) const
+ColorMapDescriptor ColorMapEvent::currentColorMapDescriptor(QMouseEvent* event) const
 {
     double x = colorMap()->pixelToXaxisCoord(event->pos().x());
     double y = colorMap()->pixelToYaxisCoord(event->pos().y());
-    return colorMap()->colorMapBin(x, y);
+    return colorMap()->colorMapDescriptor(x, y);
 }

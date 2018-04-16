@@ -14,12 +14,12 @@
 
 #include "PlotStatusDescriptors.h"
 
-ColorMapBin::ColorMapBin()
+ColorMapDescriptor::ColorMapDescriptor()
     : in_axes_range(false), m_nx(0), m_ny(0), m_x(0), m_y(0), m_value(0), m_logz(false)
 {
 }
 
-QString ColorMapBin::statusString() const
+QString ColorMapDescriptor::statusString() const
 {
     QString result = QString(" [x: %1, y: %2]    [binx: %3, biny:%4]    [value: %5]")
                          .arg(QString::number(m_x, 'f', 4))
@@ -31,7 +31,7 @@ QString ColorMapBin::statusString() const
     return result;
 }
 
-QString ColorMapBin::valueToString() const
+QString ColorMapDescriptor::valueToString() const
 {
     return m_logz ? QString::fromStdString(PythonFormatting::printScientificDouble(m_value))
                   : QString::number(m_value, 'f', 2);

@@ -46,10 +46,10 @@ private:
     ColorMap* colorMap();
     const ColorMap* colorMap() const;
     QCustomPlot* customPlot();
-    ColorMapBin currentColorMapBin(QMouseEvent* event) const;
+    ColorMapDescriptor currentColorMapDescriptor(QMouseEvent* event) const;
 
     ColorMap* m_colorMap;
-    ColorMapBin m_prevPos;
+    ColorMapDescriptor m_prevPos;
 };
 
 #endif // COLORMAPEVENT_H

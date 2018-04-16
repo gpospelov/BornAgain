@@ -91,9 +91,9 @@ bool ColorMap::axesRangeContains(double xpos, double ypos) const
     return false;
 }
 
-ColorMapBin ColorMap::colorMapBin(double xpos, double ypos) const
+ColorMapDescriptor ColorMap::colorMapDescriptor(double xpos, double ypos) const
 {
-    ColorMapBin result;
+    ColorMapDescriptor result;
     if (!intensityItem())
         return result;
 

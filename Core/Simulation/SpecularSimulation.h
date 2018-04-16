@@ -49,7 +49,8 @@ public:
     size_t numberOfSimulationElements() const override;
 
     //! Returns the results of the simulation in a format that supports unit conversion and export
-    //! to numpy arrays
+    //! to numpy arrays. If simulation was not run, returns an array of proper size filled with
+    //! zeros.
     SimulationResult result() const override;
 
     //! Sets beam parameters with alpha_i of the beam defined in the range.
@@ -75,9 +76,6 @@ private:
     //! @param n_elements Number of elements to process
     std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
                                                                     size_t n_elements) override;
-
-    //! Checks if simulation data is ready for retrieval.
-    void validityCheck(size_t i_layer) const;
 
     void checkCache() const;
 

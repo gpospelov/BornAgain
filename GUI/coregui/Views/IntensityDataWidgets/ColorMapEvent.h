@@ -15,7 +15,7 @@
 #ifndef COLORMAPEVENT_H
 #define COLORMAPEVENT_H
 
-#include "ColorMapBin.h"
+#include "PlotStatusDescriptors.h"
 #include <QObject>
 
 class ColorMap;

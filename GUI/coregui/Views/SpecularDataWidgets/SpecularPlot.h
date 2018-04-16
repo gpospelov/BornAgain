@@ -16,7 +16,7 @@
 #define SPECULARPLOT_H
 
 #include "SessionItemWidget.h"
-#include "ColorMapBin.h"
+#include "PlotStatusDescriptors.h"
 #include "qcustomplot.h"
 #include <memory>
 

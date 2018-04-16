@@ -103,9 +103,10 @@ public:
     //! Inits axes of OutputData to match the detector and sets values to zero.
     void initOutputData(OutputData<double>& data) const;
 
-    //! Returns new intensity map with detector resolution applied and axes in requested units
-    OutputData<double>* createDetectorIntensity(const std::vector<SimulationElement>& elements,
-                                                const Beam& beam) const;
+    //! Returns new intensity map with detector resolution applied. Map will be cropped to ROI
+    //! if ROI is present.
+    OutputData<double>* createDetectorIntensity(
+            const std::vector<SimulationElement>& elements) const;
 
     //! Return default axes units
     virtual AxesUnits defaultAxesUnits() const {return AxesUnits::DEFAULT;}
@@ -129,10 +130,6 @@ protected:
     //! Calculates axis range from original detector axes in given units (mm, rad, etc)
     virtual void calculateAxisRange(size_t axis_index, const Beam& beam, AxesUnits units,
                                     double& amin, double& amax) const;
-
-    //! Constructs axis with min, max corresponding to selected units
-    std::unique_ptr<IAxis> translateAxisToUnits(size_t axis_index, const Beam& beam,
-                                                 AxesUnits units) const;
 
     //! Generates an axis with correct name and default binning for given index
     virtual std::unique_ptr<IAxis> createAxis(size_t index, size_t n_bins, double min,

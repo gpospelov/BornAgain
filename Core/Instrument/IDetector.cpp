@@ -65,21 +65,6 @@ size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
                              "Error! No axis with given number");
 }
 
-std::unique_ptr<IAxis> IDetector::translateAxisToUnits(size_t axis_index, const Beam &beam,
-                                                  AxesUnits units) const
-{
-    double amin(0), amax(0);
-    calculateAxisRange(axis_index, beam, units, amin, amax);
-
-    std::unique_ptr<IAxis> result(new FixedBinAxis(axisName(axis_index),
-                                                   getAxis(axis_index).size(), amin, amax));
-
-    if (regionOfInterest())
-        return regionOfInterest()->clipAxisToRoi(axis_index, *result);
-
-    return result;
-}
-
 std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins,
                                              double min, double max) const
 {
@@ -150,8 +135,7 @@ void IDetector::initOutputData(OutputData<double> &data) const {
 }
 
 OutputData<double>*
-IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements,
-                                   const Beam& beam) const
+IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements) const
 {
     std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap());
     if (!detectorMap)
@@ -251,7 +235,7 @@ void IDetector::iterate(std::function<void (IDetector::const_iterator)> func,
             func(it);
     } else {
         SimulationArea area(this);
-        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
+        for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
             func(it);
     }
 }

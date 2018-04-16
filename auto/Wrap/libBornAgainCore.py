@@ -18702,16 +18702,16 @@ class IDetector(ICloneable, INode):
         return _libBornAgainCore.IDetector_initOutputData(self, data)
 
 
-    def createDetectorIntensity(self, elements, beam):
+    def createDetectorIntensity(self, elements):
         """
-        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements, Beam beam) -> IntensityData
+        createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
 
         OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
 
         Returns new intensity map with detector resolution applied and axes in requested units. 
 
         """
-        return _libBornAgainCore.IDetector_createDetectorIntensity(self, elements, beam)
+        return _libBornAgainCore.IDetector_createDetectorIntensity(self, elements)
 
 
     def defaultAxesUnits(self):

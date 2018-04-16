@@ -96,7 +96,7 @@ void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) co
 OutputData<double>*
 Instrument::createDetectorIntensity(const std::vector<SimulationElement>& elements) const
 {
-    return mP_detector->createDetectorIntensity(elements, m_beam);
+    return mP_detector->createDetectorIntensity(elements);
 }
 
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)

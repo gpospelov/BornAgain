@@ -71,22 +71,7 @@ SimulationResult FitSuiteObjects::experimentalData(size_t i_item) const
 
 SimulationResult FitSuiteObjects::relativeDifference(size_t i_item) const
 {
-    // TODO find shorter way
-    auto fitObject = m_fit_objects[check_index(i_item)];
-
-    auto sim = fitObject->simulationResult();
-    auto data = fitObject->experimentalData();
-
-    std::unique_ptr<OutputData<double>> diff(sim.data());
-    diff->setAllTo(0.0);
-
-    // this loop only to not to go through masked areas and have relative diff for them 0.0
-    for(std::vector<FitElement>::const_iterator it=getStart(i_item); it!=getEnd(i_item); ++it) {
-        const size_t index = it->getIndex();
-        (*diff)[index] = Numeric::get_relative_difference(sim[index], data[index]);
-    }
-
-    return SimulationResult(*diff, sim.converter());
+    return m_fit_objects[check_index(i_item)]->relativeDifference();
 }
 
 //! loop through all defined simulations and run them

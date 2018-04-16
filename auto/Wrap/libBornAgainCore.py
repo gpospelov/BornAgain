@@ -6360,6 +6360,11 @@ class FitObject(INode):
         """experimentalData(FitObject self) -> SimulationResult"""
         return _libBornAgainCore.FitObject_experimentalData(self)
 
+
+    def relativeDifference(self):
+        """relativeDifference(FitObject self) -> SimulationResult"""
+        return _libBornAgainCore.FitObject_relativeDifference(self)
+
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)
 

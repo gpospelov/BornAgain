@@ -55,8 +55,14 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
+    //! Returns simulation result.
     SimulationResult simulationResult() const;
+
+    //! Returns experimental data.
     SimulationResult experimentalData() const;
+
+    //! Returns relative difference between simulation and experimental data.
+    SimulationResult relativeDifference() const;
 
 protected:
     //! Registers some class members for later access via parameter pool

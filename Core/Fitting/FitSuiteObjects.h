@@ -44,8 +44,16 @@ public:
     //! Replaces default ChiSquaredModule with new one
     void setChiSquaredModule(const IChiSquaredModule &chi2_module);
 
+    //! Returns simulation result.
+    //! @param i_item: the index of fit pair
     SimulationResult simulationResult(size_t i_item = 0) const;
+
+    //! Returns experimental data.
+    //! @param i_item: the index of fit pair
     SimulationResult experimentalData(size_t i_item = 0) const;
+
+    //! Returns relative difference between simulation and experimental data.
+    //! @param i_item: the index of fit pair
     SimulationResult relativeDifference(size_t i_item = 0) const;
 
     //! run all simulation defined in fit pairs

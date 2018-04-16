@@ -21,6 +21,7 @@
 #include "Simulation.h"
 #include "SimulationArea.h"
 #include "UnitConverterUtils.h"
+#include "Numeric.h"
 
 static_assert(std::is_copy_constructible<FitObject>::value == false,
               "FitObject should not be copy constructable");
@@ -54,6 +55,21 @@ SimulationResult FitObject::simulationResult() const
 SimulationResult FitObject::experimentalData() const
 {
     return m_experimental_data;
+}
+
+SimulationResult FitObject::relativeDifference() const
+{
+    auto converter = UnitConverterUtils::createConverter(*m_simulation);
+    auto roi_data = UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
+    auto detector = m_simulation->getInstrument().getDetector();
+
+    detector->iterate([&](IDetector::const_iterator it){
+        const size_t index = it.roiIndex();
+        (*roi_data)[index] = Numeric::get_relative_difference(
+                    m_simulation_result[index], m_experimental_data[index]);
+    });
+
+    return SimulationResult(*roi_data, *converter);
 }
 
 //! Check if real_data shape corresponds with the detector.

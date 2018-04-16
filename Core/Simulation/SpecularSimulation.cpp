@@ -68,20 +68,13 @@ void SpecularSimulation::prepareSimulation()
 
 size_t SpecularSimulation::numberOfSimulationElements() const
 {
-    if (!m_coordinate_axis)
-        throw std::runtime_error("Error in SpecularSimulation::numberOfSimulationElements: "
-                                 "coordinate axis of the simulation is not initialized");
-    return m_coordinate_axis->size();
+    return getAlphaAxis()->size();
 }
 
 SimulationResult SpecularSimulation::result() const
 {
-    // TODO FIXME Make SpecularSimulation return valid container with zero amplitudes
-
-    const size_t i_layer = 0; // detector intensity is proportional to reflectivity from top layer
-    validityCheck(i_layer);
     auto data = createIntensityData();
-    UnitConverter1D converter(m_instrument.getBeam(), *m_coordinate_axis);
+    UnitConverter1D converter(m_instrument.getBeam(), *getAlphaAxis());
     return SimulationResult(*data, converter);
 }
 
@@ -151,7 +144,7 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
     handler.setAnalyzerOperator(
         m_instrument.getDetector()->detectionProperties().analyzerOperator());
 
-    const size_t axis_size = m_coordinate_axis->size();
+    const size_t axis_size = getAlphaAxis()->size();
     result.reserve(axis_size);
     for (size_t i = 0; i < axis_size; ++i) {
         double result_angle = incidentAngle(i) + angle_shift;
@@ -182,22 +175,6 @@ SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     if (other.m_coordinate_axis)
         m_coordinate_axis.reset(other.m_coordinate_axis->clone());
     initialize();
-}
-
-void SpecularSimulation::validityCheck(size_t i_layer) const
-{
-    const MultiLayer* current_sample = sample();
-    if (!current_sample)
-        throw std::runtime_error(
-            "Error in SpecularSimulation::validityCheck: no sample found in the simulation.");
-    if (i_layer >= current_sample->numberOfLayers())
-        throw std::runtime_error("Error in SpecularSimulation::validityCheck: passed layer number "
-                                 "exceeds the number of layers in the sample.");
-
-    const size_t data_size = m_sim_elements.size();
-    if (data_size != getAlphaAxis()->size())
-        throw std::runtime_error("Error in SpecularSimulation::validityCheck: length of simulation "
-                                 "element vector is not equal to the number of inclination angles");
 }
 
 void SpecularSimulation::checkCache() const
@@ -270,17 +247,20 @@ void SpecularSimulation::moveDataFromCache()
 
 double SpecularSimulation::incidentAngle(size_t index) const
 {
-    return m_coordinate_axis->getBin(index).getMidPoint();
+    return getAlphaAxis()->getBin(index).getMidPoint();
 }
 
 std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() const
 {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    result->addAxis(*m_coordinate_axis);
+    result->addAxis(*getAlphaAxis());
 
-    size_t i = 0;
-    for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter, ++i)
-        result->operator[](i) = iter->getIntensity();
+    if (!m_sim_elements.empty()) {
+        size_t i = 0;
+        for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter, ++i)
+            result->operator[](i) = iter->getIntensity();
+    } else
+        result->setAllTo(0.0);
 
     return result;
 }

@@ -313,14 +313,14 @@ class PlotterSpecular(Plotter):
         n_digits = 1  # number of decimal digits to print
         n_iterations = fit_suite.numberOfIterations()  # number of iterations
         minimizer = fit_suite.minimizer().minimizerName()
-        fom_max = fit_suite.getChiSquaredMap().getArray().max()  # max Figure Of Merit (FOM) value
+        rel_dif = fit_suite.relativeDifference().array().max()  # maximum relative difference
         fitted_parameters = fit_suite.fitParameters()
 
         # creating table content
         labels = ("Parameter", "Value")
         table_data = [["Minimizer", '{:s}'.format(self.trunc_str(minimizer, trunc_length))],
                       ["Iteration", '${:d}$'.format(n_iterations)],
-                      ["$\chi^2_{max}$", '${:s}$'.format(self.as_si(fom_max, n_digits))]]
+                      ["$d_{r, max}$", '${:s}$'.format(self.as_si(rel_dif, n_digits))]]
         for fitPar in fitted_parameters:
             table_data.append(['{:s}'.format(self.trunc_str(fitPar.name(), trunc_length)),
                                '${:s}$'.format(self.as_si(fitPar.value(), n_digits))])
@@ -340,8 +340,8 @@ class PlotterSpecular(Plotter):
 
     def plot_graph(self, fit_suite):
         # retrieving data from fit suite
-        real_data = fit_suite.getRealData()
-        sim_data = fit_suite.getSimulationData()
+        real_data = fit_suite.experimentalData().histogram1d()
+        sim_data = fit_suite.simulationResult().histogram1d()
 
         # normalizing axis coordinates
         axis = sim_data.getXaxis().getBinCenters()
@@ -353,8 +353,8 @@ class PlotterSpecular(Plotter):
                 'size': label_fontsize}
 
         plt.subplot(self.gs[0])
-        plt.semilogy(axis_values, sim_data.getArray(), 'b',
-                     axis_values, real_data.getArray(), 'k--')
+        plt.semilogy(axis_values, sim_data.array(), 'b',
+                     axis_values, real_data.array(), 'k--')
         plt.ylim((0.5 * real_data.getMinimum(), 5 * real_data.getMaximum()))
         plt.legend(['BornAgain', 'Reference'], loc='upper right', prop=font)
         plt.xlabel(sim_data.getXaxis().getName(), fontdict=font)

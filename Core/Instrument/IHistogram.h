@@ -17,13 +17,7 @@
 
 #include "CumulativeValue.h"
 #include "OutputData.h"
-
-#ifdef BORNAGAIN_PYTHON
-#ifndef PyObject_HEAD
-struct _object;
-typedef _object PyObject;
-#endif
-#endif
+#include "PyObject.h"
 
 class Histogram1D;
 

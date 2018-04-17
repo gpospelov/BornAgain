@@ -227,7 +227,6 @@ void MaskGraphicsScene::onSessionSelectionChanged(const QItemSelection&, const Q
         if (index.isValid())
             it.value()->setSelected(m_selectionModel->isSelected(index));
     }
-
     m_block_selection = false;
 }
 
@@ -242,7 +241,7 @@ void MaskGraphicsScene::onSceneSelectionChanged()
 
     m_selectionModel->clearSelection();
 
-    foreach(QGraphicsItem *graphicsItem, selectedItems()) {
+    for(QGraphicsItem *graphicsItem : selectedItems()) {
         if (IShape2DView *view = dynamic_cast<IShape2DView *>(graphicsItem)) {
             QModelIndex itemIndex = m_maskModel->indexOfItem(view->parameterizedItem());
             Q_ASSERT(itemIndex.isValid());
@@ -250,7 +249,6 @@ void MaskGraphicsScene::onSceneSelectionChanged()
                 m_selectionModel->select(itemIndex, QItemSelectionModel::Select);
         }
     }
-
     m_block_selection = false;
 }
 
@@ -265,27 +263,22 @@ void MaskGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
         return;
     }
-
     if(isValidForPolygonDrawing(event)) {
         processPolygonItem(event);
         return;
     }
-
     if(isValidForLineDrawing(event)) {
         processLineItem(event);
         return;
     }
-
     if(isValidForMaskAllDrawing(event)) {
         processMaskAllItem(event);
         return;
     }
-
     if(isValidForRectangleShapeDrawing(event)) {
         processRectangleShapeItem(event);
         return;
     }
-
     QGraphicsScene::mousePressEvent(event);
 }
 
@@ -295,7 +288,6 @@ void MaskGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         processRectangleShapeItem(event);
         return;
     }
-
     QGraphicsScene::mouseMoveEvent(event);
 
     if( (isDrawingInProgress() && m_context.isPolygonMode()) || m_context.isLineMode()) {
@@ -321,10 +313,8 @@ void MaskGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                 // making item beneath of mouse release position to be selected
                 makeViewAtMousePosSelected(event);
             }
-
             setDrawingInProgress(false);
         }
-
     } else {
         QGraphicsScene::mouseReleaseEvent(event);
     }
@@ -397,7 +387,6 @@ void MaskGraphicsScene::updateViews(const QModelIndex &parentIndex, IShape2DView
     for (int i_row = 0; i_row < m_maskModel->rowCount(parentIndex); ++i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row, 0, parentIndex);
         if (SessionItem *item = m_maskModel->itemForIndex(itemIndex)) {
-
             if (item->modelType() == Constants::GroupItemType ||
                     item->modelType() == Constants::PropertyType)
                 continue;
@@ -479,7 +468,7 @@ bool MaskGraphicsScene::isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent
     if(isAreaContains(event, MaskEditorHelper::SIZEHANDLE)) return false;
     if(m_context.isROIMode()) {
         // only one ROI is allowed
-        foreach(SessionItem *item, m_ItemToView.keys())
+        for(SessionItem *item : m_ItemToView.keys())
             if(item->modelType() == Constants::RegionOfInterestType)
                 return false;
     }
@@ -519,7 +508,7 @@ bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event
     if(!isValidMouseClick(event)) return false;
     if(isDrawingInProgress()) return false;
     if(!m_context.isMaskAllMode()) return false;
-    foreach(SessionItem *item, m_ItemToView.keys())
+    for(SessionItem *item : m_ItemToView.keys())
         if(item->modelType() == Constants::MaskAllType)
             return false;
     return true;
@@ -530,7 +519,7 @@ bool MaskGraphicsScene::isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event
 bool MaskGraphicsScene::isAreaContains(QGraphicsSceneMouseEvent *event,
                                        MaskEditorHelper::EViewTypes viewType)
 {
-    foreach(QGraphicsItem *graphicsItem, this->items(event->scenePos()))
+    for(QGraphicsItem *graphicsItem : this->items(event->scenePos()))
         if(graphicsItem->type() == viewType)
             return true;
     return false;
@@ -558,7 +547,7 @@ void MaskGraphicsScene::setInPanAndZoomMode(bool value)
         m_selectionModel->clearSelection();
 
     Qt::MouseButtons acceptedButton = (value ? Qt::NoButton : Qt::LeftButton);
-    foreach(IShape2DView *view, m_ItemToView.values())
+    for(IShape2DView *view : m_ItemToView.values())
         view->setAcceptedMouseButtons(acceptedButton);
 
     m_proxy->setInZoomMode(value);
@@ -605,7 +594,6 @@ void MaskGraphicsScene::processRectangleShapeItem(QGraphicsSceneMouseEvent *even
                                              m_context.getMaskValue());
         setItemName(m_currentItem);
     }
-
     if(!m_currentItem)
         return;
 
@@ -621,7 +609,6 @@ void MaskGraphicsScene::processRectangleShapeItem(QGraphicsSceneMouseEvent *even
         m_currentItem->setItemValue(RectangleItem::P_XUP, m_adaptor->fromSceneX(xmax));
         m_currentItem->setItemValue(RectangleItem::P_YUP, m_adaptor->fromSceneY(ymin));
     }
-
     else if(m_currentItem->modelType() == Constants::EllipseMaskType){
         m_currentItem->setItemValue(EllipseItem::P_XCENTER,
                                              m_adaptor->fromSceneX(xmin + (xmax-xmin)/2.));
@@ -647,7 +634,6 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
         m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem), QItemSelectionModel::Select);
         setItemName(m_currentItem);
     }
-
     Q_ASSERT(m_currentItem->modelType() == Constants::PolygonMaskType);
 
     if(PolygonView *polygon = currentPolygon()) {
@@ -657,7 +643,6 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent *event)
             return;
         }
     }
-
     SessionItem *point = m_maskModel->insertNewItem(Constants::PolygonPointType,
                                                           m_maskModel->indexOfItem(m_currentItem));
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);

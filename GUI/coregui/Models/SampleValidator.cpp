@@ -23,7 +23,6 @@
 SampleValidator::SampleValidator()
     : m_valid_sample(true)
 {
-
 }
 
 void SampleValidator::initValidator()
@@ -34,7 +33,7 @@ void SampleValidator::initValidator()
 
 void SampleValidator::iterateItems(const SessionItem *parentItem)
 {
-    foreach(const SessionItem *child, parentItem->children()) {
+    for(const SessionItem *child : parentItem->children()) {
         validateItem(child);
         iterateItems(child);
     }
@@ -49,23 +48,18 @@ void SampleValidator::validateItem(const SessionItem *item)
     if(item->modelType() == Constants::MultiLayerType) {
         diagnosis = validateMultiLayerItem(item);
     }
-
     else if(item->modelType() == Constants::ParticleLayoutType) {
         diagnosis = validateParticleLayoutItem(item);
     }
-
     else if(item->modelType() == Constants::ParticleCoreShellType) {
         diagnosis = validateParticleCoreShellItem(item);
     }
-
     else if(item->modelType() == Constants::ParticleCompositionType) {
         diagnosis = validateParticleCompositionItem(item);
     }
-
     else if(item->modelType() == Constants::ParticleDistributionType) {
         diagnosis = validateParticleDistributionItem(item);
     }
-
     if(!diagnosis.isEmpty()) {
         m_valid_sample = false;
         m_validation_message += QString("* ") + diagnosis + QString("\n");
@@ -81,7 +75,6 @@ QString SampleValidator::validateMultiLayerItem(const SessionItem *item)
     if(layers.isEmpty()) {
         result = QStringLiteral("MultiLayer should contain at least one layer.");
     }
-
     else if(layers.size() == 1) {
         if(layers.front()->getItems(LayerItem::T_LAYOUTS).isEmpty()) {
             result = QStringLiteral(
@@ -132,7 +125,6 @@ QString SampleValidator::validateParticleDistributionItem(const SessionItem *ite
         result = QStringLiteral("ParticleDistribution doesn't have any particle.");
 
     return result;
-
 }
 
 bool SampleValidator::isValidMultiLayer(const MultiLayerItem *multilayer)
@@ -146,7 +138,5 @@ bool SampleValidator::isValidMultiLayer(const MultiLayerItem *multilayer)
         m_validation_message = QStringLiteral(
                     "Can't setup DWBA simulation for given MultiLayer.\n") + m_validation_message;
     }
-
     return m_valid_sample;
 }
-

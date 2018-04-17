@@ -50,7 +50,7 @@ void FitParameterHelper::removeFromFitParameters(FitParameterContainerItem *cont
     FitParameterItem *fitParItem = getFitParameterItem(container, parameterItem);
 
     if (fitParItem) {
-        foreach (SessionItem *linkItem, fitParItem->getItems(FitParameterItem::T_LINK)) {
+        for(auto linkItem : fitParItem->getItems(FitParameterItem::T_LINK)) {
             if (getParameterItemPath(parameterItem)
                 == linkItem->getItemValue(FitParameterLinkItem::P_LINK)) {
                 fitParItem->model()->removeRow(linkItem->index().row(), linkItem->index().parent());
@@ -69,8 +69,7 @@ void FitParameterHelper::addToFitParameter(FitParameterContainerItem *container,
     Q_ASSERT(container);
 
     removeFromFitParameters(container, parameterItem);
-    foreach (SessionItem *fitPar,
-             container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+    for(auto fitPar : container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         if (fitPar->displayName() == fitParName) {
             SessionItem *link
                 = fitPar->model()->insertNewItem(Constants::FitParameterLinkType, fitPar->index());
@@ -95,7 +94,7 @@ QStringList FitParameterHelper::getFitParameterNames(FitParameterContainerItem *
 {
     Q_ASSERT(container);
     QStringList result;
-    foreach (SessionItem *item, container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+    for(auto item : container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         result.append(item->displayName());
     }
     return result;

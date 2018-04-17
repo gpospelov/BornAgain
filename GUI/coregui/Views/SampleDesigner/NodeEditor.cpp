@@ -24,9 +24,7 @@ NodeEditor::NodeEditor(QObject *parent)
     : QObject(parent)
     , m_scene(0)
     , m_conn(0)
-{
-
-}
+{}
 
 void NodeEditor::install(QGraphicsScene *scene)
 {
@@ -38,11 +36,11 @@ QGraphicsItem* NodeEditor::itemAt(const QPointF &pos)
 {
     QList<QGraphicsItem*> items = m_scene->items(QRectF(pos - QPointF(1,1), QSize(3,3)));
 
-	foreach(QGraphicsItem *item, items)
-		if (item->type() > QGraphicsItem::UserType)
-			return item;
+    for(QGraphicsItem* item : items)
+        if (item->type() > QGraphicsItem::UserType)
+            return item;
 
-    return 0;
+    return nullptr;
 }
 
 bool NodeEditor::eventFilter(QObject *object, QEvent *event)
@@ -55,17 +53,13 @@ bool NodeEditor::eventFilter(QObject *object, QEvent *event)
     if(event->type() == QEvent::GraphicsSceneMousePress) {
         isProcessedEvent = processMousePress(mouseEvent);
     }
-
     else if(event->type() == QEvent::GraphicsSceneMouseMove) {
         isProcessedEvent = processMouseMove(mouseEvent);
     }
-
     else if(event->type() == QEvent::GraphicsSceneMouseRelease) {
         isProcessedEvent = processMouseRelease(mouseEvent);
     }
-
     return isProcessedEvent ? isProcessedEvent : QObject::eventFilter(object, event);
-
 }
 
 bool NodeEditor::processMousePress(QGraphicsSceneMouseEvent *event)
@@ -85,7 +79,6 @@ bool NodeEditor::processMousePress(QGraphicsSceneMouseEvent *event)
             result = true;
         }
     }
-
     return result;
 }
 
@@ -98,7 +91,6 @@ bool NodeEditor::processMouseMove(QGraphicsSceneMouseEvent *event)
         m_conn->updatePath();
         result = true;
     }
-
     return result;
 }
 
@@ -130,12 +122,9 @@ bool NodeEditor::processMouseRelease(QGraphicsSceneMouseEvent *event)
                 return true;
             }
         }
-
         delete m_conn;
         m_conn = 0;
         result = true;
     }
-
     return result;
 }
-

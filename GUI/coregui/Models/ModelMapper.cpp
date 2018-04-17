@@ -123,9 +123,7 @@ void ModelMapper::setModel(SessionModel* model)
                    this, &ModelMapper::onBeginRemoveRows);
         disconnect(m_model, &SessionModel::rowsRemoved, this, &ModelMapper::onRowRemoved);
     }
-
     m_model = model;
-
     if (m_model) {
         connect(m_model, &SessionModel::dataChanged, this, &ModelMapper::onDataChanged);
         connect(m_model, &SessionModel::rowsInserted, this, &ModelMapper::onRowsInserted);
@@ -139,7 +137,6 @@ int ModelMapper::nestlingDepth(SessionItem* item, int level)
 {
     if (item == nullptr || item == m_model->rootItem())
         return -1;
-
     if (item == m_item)
         return level;
 
@@ -247,7 +244,6 @@ void ModelMapper::onDataChanged(const QModelIndex& topLeft, const QModelIndex& b
             }
         }
     }
-
     if (nestling > 1) {
         if (SessionItem* parent = item->parent()) {
             const QString tag = parent->tagFromItem(item);
@@ -256,7 +252,6 @@ void ModelMapper::onDataChanged(const QModelIndex& topLeft, const QModelIndex& b
             }
         }
     }
-
     if (nestling > 0)
         callOnAnyChildChange(item);
 }
@@ -270,19 +265,14 @@ void ModelMapper::onRowsInserted(const QModelIndex& parent, int first, int /*las
     if (newChild)
         if (m_item == newChild)
             callOnParentChange(m_model->itemForIndex(parent));
-
     if (nestling == 1)
         callOnChildrenChange(newChild);
-
     if (SessionItem* parent = newChild->parent()) {
         QVector<SessionItem*> items = parent->getChildrenOfType(newChild->modelType());
-
-        foreach (SessionItem* sibling, items)
+        for(auto sibling : items)
             if (m_item == sibling)
                 callOnSiblingsChange();
-
     }
-
     if (nestling > 0) {
         callOnAnyChildChange(newChild);
     }
@@ -296,12 +286,10 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex& parent, int first, int /*
 
     if (oldChild) {
         if (m_item == oldChild)
-            callOnParentChange(0);
-
+            callOnParentChange(nullptr);
         if (nestling == 0)
             callOnAboutToRemoveChild(oldChild);
     }
-
     if (m_item == oldChild)
         m_aboutToDelete = parent.child(first, 0);
 }
@@ -314,10 +302,8 @@ void ModelMapper::onRowRemoved(const QModelIndex& parent, int first, int /*last*
         callOnAnyChildChange(nullptr);
         callOnSiblingsChange();
     }
-
     if (nestling == 0 )
         callOnChildrenChange(nullptr);
-
     if (m_aboutToDelete.isValid() && m_aboutToDelete == parent.child(first, 0))
         clearMapper();
 }

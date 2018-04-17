@@ -105,7 +105,7 @@ void RectangleBaseView::create_size_handle_elements()
            << SizeHandleElement::BOTTOMRIGHT << SizeHandleElement::BOTTOMMIDLE
            << SizeHandleElement::BOTTOMLEFT << SizeHandleElement::MIDDLELEFT;
 
-    foreach (SizeHandleElement::EHandleLocation point_type, points) {
+    for(SizeHandleElement::EHandleLocation point_type : points) {
         SizeHandleElement* el = new SizeHandleElement(point_type, this);
         connect(el, SIGNAL(resize_request(bool)), this, SLOT(onSizeHandleElementRequest(bool)));
         el->setVisible(false);

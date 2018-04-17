@@ -39,6 +39,8 @@ template <class T>
 class OutputData
 {
 public:
+    using value_type = T;
+
     OutputData();
     OutputData(const OutputData&) = delete;
     const OutputData& operator=(const OutputData&) = delete;

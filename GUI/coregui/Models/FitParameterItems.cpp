@@ -122,7 +122,7 @@ std::unique_ptr<FitParameter> FitParameterItem::createFitParameter() const
     const JobItem* jobItem = dynamic_cast<const JobItem*>(ModelPath::ancestor(this, Constants::JobItemType));
     Q_ASSERT(jobItem);
 
-    foreach (SessionItem* linkItem, getItems(FitParameterItem::T_LINK)) {
+    for(auto linkItem : getItems(FitParameterItem::T_LINK)) {
         QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
 
         ParameterItem *parItem = dynamic_cast<ParameterItem*>(
@@ -255,8 +255,8 @@ FitParameterContainerItem::FitParameterContainerItem()
 
 FitParameterItem* FitParameterContainerItem::fitParameterItem(const QString& link)
 {
-    foreach (SessionItem* item, getItems(T_FIT_PARAMETERS)) {
-        foreach (SessionItem* linkItem, item->getItems(FitParameterItem::T_LINK)) {
+    for(auto item : getItems(T_FIT_PARAMETERS)) {
+        for(auto linkItem : item->getItems(FitParameterItem::T_LINK)) {
             if (link == linkItem->getItemValue(FitParameterLinkItem::P_LINK))
                 return dynamic_cast<FitParameterItem*>(item);
         }
@@ -267,7 +267,7 @@ FitParameterItem* FitParameterContainerItem::fitParameterItem(const QString& lin
 QVector<FitParameterItem*> FitParameterContainerItem::fitParameterItems()
 {
     QVector<FitParameterItem*> result;
-    foreach (SessionItem* parItem, getItems(T_FIT_PARAMETERS))
+    for(auto parItem : getItems(T_FIT_PARAMETERS))
         result.push_back(dynamic_cast<FitParameterItem*>(parItem));
     return result;
 }
@@ -291,7 +291,7 @@ void FitParameterContainerItem::setValuesInParameterContainer(
         auto link_list = fitPars[i]->getItems(FitParameterItem::T_LINK);
         if (link_list.size() == 0)
             continue;
-        foreach (SessionItem* linkItem, link_list) {
+        for(auto linkItem : link_list) {
             QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
             SessionItem* itemInTuningTree = ModelPath::getItemFromPath(parPath, parameterContainer);
             Q_ASSERT(itemInTuningTree);

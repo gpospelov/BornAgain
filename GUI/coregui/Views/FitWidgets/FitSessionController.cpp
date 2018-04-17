@@ -74,7 +74,6 @@ void FitSessionController::setItem(JobItem* item)
             }
         },
         this);
-
 }
 
 void FitSessionController::onStartFittingRequest()
@@ -185,13 +184,11 @@ void FitSessionController::updateLog(const FitProgressInfo& info)
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();
     int index(0);
     QVector<double> values = info.parValues();
-    foreach (SessionItem* item,
-             fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+    for(auto item : fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         if (item->getItems(FitParameterItem::T_LINK).size() == 0)
             continue;
         QString parinfo = QString("      %1 %2\n").arg(item->displayName()).arg(values[index++]);
         message.append(parinfo);
     }
-
     m_fitlog->append(message.toStdString(), FitLogFlags::DEFAULT);
 }

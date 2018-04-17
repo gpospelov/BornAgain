@@ -117,7 +117,7 @@ void MultiLayerView::updateHeight()
 
     int total_height = 0;
     if(m_layers.size()) {
-        foreach(ILayerView* layer, m_layers) {
+        for(ILayerView* layer : m_layers) {
             layer->setY(total_height);
             layer->update();
             qreal drop_area_height = layer->boundingRect().height();
@@ -149,7 +149,7 @@ void MultiLayerView::updateWidth()
 {
     const double wider_than_children(1.15);
     double max_width(0);
-    foreach(ILayerView* layer, m_layers) {
+    for(ILayerView* layer : m_layers) {
         if(layer->boundingRect().width() > max_width)
             max_width = layer->boundingRect().width();
     }
@@ -160,7 +160,7 @@ void MultiLayerView::updateWidth()
     m_rect.setWidth(max_width);
     update();
 
-    foreach(ILayerView* layer, m_layers) {
+    for(ILayerView* layer : m_layers) {
         int xpos = ((boundingRect().width() - layer->boundingRect().width()))/2.;
         layer->setX(xpos);
         layer->update();

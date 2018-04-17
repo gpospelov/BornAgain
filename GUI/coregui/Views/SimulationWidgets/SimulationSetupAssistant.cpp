@@ -91,7 +91,7 @@ void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem* instrumen
 QString SimulationSetupAssistant::composeMessage()
 {
     QString result("Can't run the job with current settings\n\n");
-    foreach(QString message, m_messages) {
+    for(auto message : m_messages) {
         QString text = QString("- %1 \n").arg(message);
         result.append(text);
     }

@@ -65,14 +65,13 @@ QString ItemComboToolBar::currentPresentation() const
 
 void ItemComboToolBar::setActionList(const QList<QAction*>& actionList)
 {
-    foreach (QAction* action, actions())
+    for(auto action : actions())
         removeAction(action);
 
-    foreach (QAction* action, actionList) {
+    for(auto action : actionList) {
         addAction(action);
         addSpacing();
     }
-
     addStyledExpand();
     addAction(m_comboBoxAction);
 }

@@ -29,7 +29,7 @@
 SampleView::SampleView(MainWindow *mainWindow)
     : Manhattan::FancyMainWindow(mainWindow)
     , m_sampleDesigner(new SampleDesigner(this))
-    , m_toolBar(0)
+    , m_toolBar(nullptr)
     , m_models(mainWindow->models())
 {
     setObjectName("SampleView");
@@ -74,7 +74,7 @@ SampleView::~SampleView()
 void SampleView::initSubWindows()
 {
     qFill(m_subWindows, m_subWindows + NUMBER_OF_SUB_WINDOWS,
-          static_cast<QWidget*>(0));
+          static_cast<QWidget*>(nullptr));
 
     m_subWindows[WIDGET_BOX] =
             SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
@@ -115,11 +115,10 @@ void SampleView::resetToDefaultLayout()
 {
     setTrackingEnabled(false);
     QList<QDockWidget *> dockWidgetList = dockWidgets();
-    foreach (QDockWidget *dockWidget, dockWidgetList) {
+    for(QDockWidget *dockWidget : dockWidgetList) {
         dockWidget->setFloating(false);
         removeDockWidget(dockWidget);
     }
-
     addDockWidget(Qt::LeftDockWidgetArea,
                   m_dockWidgets[WIDGET_BOX]);
     addDockWidget(Qt::RightDockWidgetArea,
@@ -129,7 +128,7 @@ void SampleView::resetToDefaultLayout()
     addDockWidget(Qt::BottomDockWidgetArea,
                   m_dockWidgets[INFO]);
 
-    foreach (QDockWidget *dockWidget, dockWidgetList)
+    for(QDockWidget *dockWidget : dockWidgetList)
         dockWidget->show();
 
     setTrackingEnabled(true);
@@ -214,8 +213,8 @@ void SampleView::showContextMenu(const QPoint &pnt)
         addItemNames = getSampleModel()->acceptableDefaultItemTypes(parent_index);
     }
     if (addItemNames.size() > 0) {
-        foreach (QString item_name, addItemNames) {
-            QAction *add_action = 0;
+        for(QString item_name : addItemNames) {
+            QAction *add_action = nullptr;
             if (m_add_action_map.contains(item_name)) {
                 add_action = m_add_action_map[item_name];
             }
@@ -241,7 +240,7 @@ void SampleView::dockToMinMaxSizes()
     Q_ASSERT(m_dock_info.m_dock);
     m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
     m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
-    m_dock_info.m_dock = 0;
+    m_dock_info.m_dock = nullptr;
 }
 
 void SampleView::onDockVisibilityChangeV2(bool status)

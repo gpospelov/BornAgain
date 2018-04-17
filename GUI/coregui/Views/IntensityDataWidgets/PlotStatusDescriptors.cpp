@@ -15,14 +15,14 @@
 #include "PlotStatusDescriptors.h"
 
 IPlotDescriptor::IPlotDescriptor()
-    : in_axes_range(false)
+    : m_in_axes_range(false), m_x(0.0), m_y(0.0)
 {
 }
 
 IPlotDescriptor::~IPlotDescriptor() = default;
 
 SpecularPlotDescriptor::SpecularPlotDescriptor()
-    : IPlotDescriptor(), m_nx(0), m_x(0), m_y(0), m_logz(false)
+    : IPlotDescriptor(), m_nx(0), m_logz(false)
 {
 }
 
@@ -31,7 +31,7 @@ SpecularPlotDescriptor::~SpecularPlotDescriptor() = default;
 QString SpecularPlotDescriptor::statusString() const
 {
     QString result = QString(" [x: %1, y: %2]    [binx: %3]")
-                         .arg(QString::number(m_x, 'f', 4))
+                         .arg(QString::number(x(), 'f', 4))
                          .arg(valueToString())
                          .arg(m_nx, 2);
 
@@ -40,12 +40,12 @@ QString SpecularPlotDescriptor::statusString() const
 
 QString SpecularPlotDescriptor::valueToString() const
 {
-    return m_logz ? QString::fromStdString(PythonFormatting::printScientificDouble(m_y))
-                  : QString::number(m_y, 'f', 4);
+    return m_logz ? QString::fromStdString(PythonFormatting::printScientificDouble(y()))
+                  : QString::number(y(), 'f', 4);
 }
 
 ColorMapDescriptor::ColorMapDescriptor()
-    : IPlotDescriptor(), m_nx(0), m_ny(0), m_x(0), m_y(0), m_value(0), m_logz(false)
+    : IPlotDescriptor(), m_nx(0), m_ny(0), m_value(0), m_logz(false)
 {
 }
 
@@ -54,8 +54,8 @@ ColorMapDescriptor::~ColorMapDescriptor() = default;
 QString ColorMapDescriptor::statusString() const
 {
     QString result = QString(" [x: %1, y: %2]    [binx: %3, biny:%4]    [value: %5]")
-                         .arg(QString::number(m_x, 'f', 4))
-                         .arg(QString::number(m_y, 'f', 4), 2)
+                         .arg(QString::number(x(), 'f', 4))
+                         .arg(QString::number(y(), 'f', 4), 2)
                          .arg(m_nx, 2)
                          .arg(m_ny, 2)
                          .arg(valueToString());

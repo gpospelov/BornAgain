@@ -29,11 +29,16 @@ public:
 
     virtual QString statusString() const = 0;
 
-    void setInAxesRange(bool in_range) { in_axes_range = in_range; }
-    bool inAxesRange() const { return in_axes_range; }
+    bool& inAxesRange() { return m_in_axes_range; }
+    bool inAxesRange() const { return m_in_axes_range; }
+    double& x() {return m_x;}
+    double x() const {return m_x;}
+    double& y() {return m_y;}
+    double y() const {return m_y;}
 
 private:
-    bool in_axes_range;
+    bool m_in_axes_range;
+    double m_x, m_y;
 };
 
 //! Contains parameters of 1D intensity data bin under current mouse position.
@@ -47,7 +52,6 @@ public:
     QString statusString() const override;
 
     int m_nx;
-    double m_x, m_y;
     bool m_logz;
 
 private:
@@ -65,7 +69,7 @@ public:
     QString statusString() const override;
 
     int m_nx, m_ny;
-    double m_x, m_y, m_value;
+    double m_value;
     bool m_logz;
 
 private:

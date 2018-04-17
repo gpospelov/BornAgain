@@ -47,7 +47,7 @@ void ColorMapEvent::onCustomMouseMove(QMouseEvent* event)
         if (!m_prevPos.inAxesRange())
             enteringColorMap();
 
-        positionChanged(currentPos.m_x, currentPos.m_y);
+        positionChanged(currentPos.x(), currentPos.y());
 
     } else {
         if (m_prevPos.inAxesRange()) {

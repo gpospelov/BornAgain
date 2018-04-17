@@ -52,7 +52,7 @@ std::unique_ptr<IPlotDescriptor> SpecularPlot::plotDescriptor(double xpos, doubl
     result->y() = ypos;
 
     result->inAxesRange() = axesRangeContains(xpos, ypos);
-    result->m_logz = specularItem()->isLog();
+    result->nx() = m_custom_plot->graph()->findBegin(result->x());
 
     return result;
 }

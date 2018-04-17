@@ -50,12 +50,13 @@ public:
     ~SpecularPlotDescriptor() override;
 
     QString statusString() const override;
-
-    int m_nx;
-    bool m_logz;
+    int& nx() {return m_nx;}
+    int nx() const {return m_nx;}
 
 private:
     QString valueToString() const;
+
+    int m_nx;
 };
 
 //! Contains parameters of 2D intensity data bin under current mouse position.

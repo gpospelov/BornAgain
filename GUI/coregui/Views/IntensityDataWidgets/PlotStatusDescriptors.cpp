@@ -22,7 +22,7 @@ IPlotDescriptor::IPlotDescriptor()
 IPlotDescriptor::~IPlotDescriptor() = default;
 
 SpecularPlotDescriptor::SpecularPlotDescriptor()
-    : IPlotDescriptor(), m_nx(0), m_logz(false)
+    : IPlotDescriptor(), m_nx(0)
 {
 }
 
@@ -40,8 +40,7 @@ QString SpecularPlotDescriptor::statusString() const
 
 QString SpecularPlotDescriptor::valueToString() const
 {
-    return m_logz ? QString::fromStdString(PythonFormatting::printScientificDouble(y()))
-                  : QString::number(y(), 'f', 4);
+    return QString::fromStdString(PythonFormatting::printScientificDouble(y()));
 }
 
 ColorMapDescriptor::ColorMapDescriptor()

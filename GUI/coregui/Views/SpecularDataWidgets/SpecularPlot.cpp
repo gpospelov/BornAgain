@@ -26,10 +26,9 @@ const int replot_update_interval = 10;
 }
 
 SpecularPlot::SpecularPlot(QWidget* parent)
-    : SessionItemWidget(parent)
+    : DescriptedPlot(parent)
     , m_custom_plot(new QCustomPlot)
     , m_update_timer(new UpdateTimer(replot_update_interval, this))
-    , m_plot_event(new SpecularPlotEvent(this))
     , m_block_update(true)
 {
     initPlot();
@@ -43,9 +42,19 @@ SpecularPlot::SpecularPlot(QWidget* parent)
     setMouseTrackingEnabled(true);
 }
 
-void SpecularPlot::setMouseTrackingEnabled(bool enable)
+std::unique_ptr<IPlotDescriptor> SpecularPlot::plotDescriptor(double xpos, double ypos) const
 {
-    m_plot_event->setMouseTrackingEnabled(enable);
+    std::unique_ptr<SpecularPlotDescriptor> result(new SpecularPlotDescriptor);
+    if (!specularItem())
+        return result;
+
+    result->x() = xpos;
+    result->y() = ypos;
+
+    result->inAxesRange() = axesRangeContains(xpos, ypos);
+    result->m_logz = specularItem()->isLog();
+
+    return result;
 }
 
 void SpecularPlot::setLog(bool log)

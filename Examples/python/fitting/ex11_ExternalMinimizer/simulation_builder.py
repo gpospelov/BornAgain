@@ -12,7 +12,8 @@ class SimulationBuilder:
             self.radius = params["radius"].value
             self.lattice_length = params["length"].value
 
-        print("radius: {:6.3f} length:{:6.3f}".format(self.radius, self.lattice_length))
+        print("radius: {:6.3f} length:{:6.3f}".format(
+            self.radius, self.lattice_length))
 
         simulation = ba.GISASSimulation()
         simulation.setDetectorParameters(100, -1.0 * deg, 1.0 * deg,
@@ -32,7 +33,8 @@ class SimulationBuilder:
         particle_layout = ba.ParticleLayout()
         particle_layout.addParticle(sphere)
 
-        interference = ba.InterferenceFunction2DLattice.createHexagonal(self.lattice_length)
+        interference = ba.InterferenceFunction2DLattice.createHexagonal(
+            self.lattice_length)
         pdf = ba.FTDecayFunction2DCauchy(10 * nm, 10 * nm)
         interference.setDecayFunction(pdf)
 

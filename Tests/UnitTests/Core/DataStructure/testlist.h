@@ -4,3 +4,4 @@
 #include "OutputDataTest.h"
 #include "OutputDataIteratorTest.h"
 #include "LLDataTest.h"
+#include "ArrayUtilsTest.h"

@@ -18,8 +18,8 @@
 #include "StatusLabel.h"
 #include <QList>
 
-class ColorMap;
 class ColorMapCanvas;
+class DescriptedPlot;
 class QResizeEvent;
 
 //! The ColorMapLabel class shows status string as reported by ColorMap in a frame.
@@ -31,9 +31,9 @@ class BA_CORE_API_ ColorMapLabel : public StatusLabel
 {
     Q_OBJECT
 public:
-    ColorMapLabel(ColorMap* colorMap, QWidget* parent = nullptr);
+    ColorMapLabel(DescriptedPlot* colorMap, QWidget* parent = nullptr);
 
-    void addColorMap(ColorMap* colorMap);
+    void addColorMap(DescriptedPlot* colorMap);
     void addColorMap(ColorMapCanvas* colorMapCanvas);
 
     void setLabelEnabled(bool flag);
@@ -47,10 +47,10 @@ private slots:
     void onColorMapDestroyed(QObject* obj);
 
 private:
-    void setColorMapLabelEnabled(ColorMap* colorMap, bool flag);
-    void setConnected(ColorMap* colorMap, bool flag);
+    void setColorMapLabelEnabled(DescriptedPlot* colorMap, bool flag);
+    void setConnected(DescriptedPlot* colorMap, bool flag);
 
-    QList<ColorMap*> m_colorMaps;
+    QList<DescriptedPlot*> m_colorMaps;
 };
 
 #endif // COLORMAPLABEL_H

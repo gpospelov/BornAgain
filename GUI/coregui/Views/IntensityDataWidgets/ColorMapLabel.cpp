@@ -15,14 +15,15 @@
 #include "ColorMapLabel.h"
 #include "ColorMap.h"
 #include "ColorMapCanvas.h"
+#include "DescriptedPlot.h"
 
-ColorMapLabel::ColorMapLabel(ColorMap* colorMap, QWidget* parent) : StatusLabel(parent)
+ColorMapLabel::ColorMapLabel(DescriptedPlot* colorMap, QWidget* parent) : StatusLabel(parent)
 {
     if (colorMap)
         addColorMap(colorMap);
 }
 
-void ColorMapLabel::addColorMap(ColorMap* colorMap)
+void ColorMapLabel::addColorMap(DescriptedPlot* colorMap)
 {
     if (m_colorMaps.contains(colorMap))
         return;
@@ -60,7 +61,7 @@ void ColorMapLabel::onColorMapStatusString(const QString& text) { setText(text);
 
 //! Enables/disables showing of label for given color map.
 
-void ColorMapLabel::setColorMapLabelEnabled(ColorMap* colorMap, bool flag)
+void ColorMapLabel::setColorMapLabelEnabled(DescriptedPlot* colorMap, bool flag)
 {
     colorMap->setMouseTrackingEnabled(flag);
     setConnected(colorMap, flag);
@@ -68,7 +69,7 @@ void ColorMapLabel::setColorMapLabelEnabled(ColorMap* colorMap, bool flag)
 
 //! Connects with colorMap's status string signal.
 
-void ColorMapLabel::setConnected(ColorMap* colorMap, bool flag)
+void ColorMapLabel::setConnected(DescriptedPlot* colorMap, bool flag)
 {
     if (flag) {
         connect(colorMap, &ColorMap::statusString, this,
@@ -82,6 +83,6 @@ void ColorMapLabel::setConnected(ColorMap* colorMap, bool flag)
 void ColorMapLabel::onColorMapDestroyed(QObject* obj)
 {
     auto it = std::remove_if(m_colorMaps.begin(), m_colorMaps.end(),
-                             [obj](ColorMap* cm) { return cm == obj; });
+                             [obj](DescriptedPlot* cm) { return cm == obj; });
     m_colorMaps.erase(it, m_colorMaps.end());
 }

@@ -44,30 +44,15 @@ public:
     QSize sizeHint() const { return QSize(500, 400); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
-    QCustomPlot* customPlot() { return m_customPlot; }
-    const QCustomPlot* customPlot() const { return m_customPlot; }
+    QCustomPlot* customPlot() override { return m_customPlot; }
+    const QCustomPlot* customPlot() const override { return m_customPlot; }
     QCPColorScale* colorScale() { return m_colorScale; }
-
-    ColorMapEvent* colorMapEvent() { return m_colorMapEvent; }
-
-    //! transform axes coordinates to CustomPlot widget coordinates
-    double xAxisCoordToPixel(double axis_coordinate) const;
-    double yAxisCoordToPixel(double axis_coordinate) const;
-
-    //! transform widget coordinates to axes coordinates
-    double pixelToXaxisCoord(double pixel) const;
-    double pixelToYaxisCoord(double pixel) const;
 
     //! returns rectangle representing current axes zoom state in widget coordinates
     QRectF viewportRectangleInWidgetCoordinates();
 
-    //! Returns true if axes rectangle contains given in axes coordinates.
-    bool axesRangeContains(double xpos, double ypos) const;
-
     //! Returns ColorMapBin corresponding to given axes coordinates.
     std::unique_ptr<IPlotDescriptor> plotDescriptor(double xpos, double ypos) const override;
-
-    void setMouseTrackingEnabled(bool enable);
 
 signals:
     void marginsChanged(double left, double right);
@@ -118,7 +103,6 @@ private:
     QCPColorMap* m_colorMap;
     QCPColorScale* m_colorScale;
     UpdateTimer* m_updateTimer;
-    ColorMapEvent* m_colorMapEvent;
     QCPLayoutGrid* m_colorBarLayout;
 
     bool m_block_update;

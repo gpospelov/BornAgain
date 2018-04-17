@@ -32,7 +32,6 @@ ColorMap::ColorMap(QWidget* parent)
     , m_customPlot(new QCustomPlot)
     , m_colorMap(nullptr), m_colorScale(nullptr)
     , m_updateTimer(new UpdateTimer(replot_update_interval, this))
-    , m_colorMapEvent(new ColorMapEvent(this))
     , m_colorBarLayout(new  QCPLayoutGrid)
     , m_block_update(true)    
 {
@@ -48,26 +47,6 @@ ColorMap::ColorMap(QWidget* parent)
     //    setFixedColorMapMargins();
 }
 
-double ColorMap::xAxisCoordToPixel(double axis_coordinate) const
-{
-    return m_customPlot->xAxis->coordToPixel(axis_coordinate);
-}
-
-double ColorMap::yAxisCoordToPixel(double axis_coordinate) const
-{
-    return m_customPlot->yAxis->coordToPixel(axis_coordinate);
-}
-
-double ColorMap::pixelToXaxisCoord(double pixel) const
-{
-    return m_customPlot->xAxis->pixelToCoord(pixel);
-}
-
-double ColorMap::pixelToYaxisCoord(double pixel) const
-{
-    return m_customPlot->yAxis->pixelToCoord(pixel);
-}
-
 QRectF ColorMap::viewportRectangleInWidgetCoordinates()
 {
     QCPRange xrange = m_customPlot->xAxis->range();
@@ -80,15 +59,6 @@ QRectF ColorMap::viewportRectangleInWidgetCoordinates()
     return QRectF(xAxisCoordToPixel(left), yAxisCoordToPixel(top),
                   xAxisCoordToPixel(right) - xAxisCoordToPixel(left),
                   yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
-}
-
-bool ColorMap::axesRangeContains(double xpos, double ypos) const
-{
-    if (customPlot()->xAxis->range().contains(xpos)
-        && customPlot()->yAxis->range().contains(ypos)) {
-        return true;
-    }
-    return false;
 }
 
 std::unique_ptr<IPlotDescriptor> ColorMap::plotDescriptor(double xpos, double ypos) const
@@ -108,13 +78,6 @@ std::unique_ptr<IPlotDescriptor> ColorMap::plotDescriptor(double xpos, double yp
     result->m_logz = intensityItem()->isLogz();
 
     return result;
-}
-
-//! to track move events (used when showing profile histograms and printing status string)
-
-void ColorMap::setMouseTrackingEnabled(bool enable)
-{
-    m_colorMapEvent->setMouseTrackingEnabled(enable);
 }
 
 //! sets logarithmic scale

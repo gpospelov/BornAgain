@@ -13,10 +13,11 @@
 // ************************************************************************** //
 
 #include "ColorMapEvent.h"
-#include "ColorMap.h"
+#include "DescriptedPlot.h"
 #include <QMouseEvent>
+#include <qcustomplot.h>
 
-ColorMapEvent::ColorMapEvent(ColorMap* colorMap) : QObject(colorMap), m_colorMap(colorMap) {}
+ColorMapEvent::ColorMapEvent(DescriptedPlot* colorMap) : QObject(colorMap), m_colorMap(colorMap) {}
 
 //! Sets tracking of the mouse for parent COlorMap
 
@@ -56,12 +57,12 @@ void ColorMapEvent::onCustomMouseMove(QMouseEvent* event)
     m_prevPos = std::move(currentPos);
 }
 
-ColorMap* ColorMapEvent::colorMap()
+DescriptedPlot* ColorMapEvent::colorMap()
 {
     return m_colorMap;
 }
 
-const ColorMap* ColorMapEvent::colorMap() const
+const DescriptedPlot* ColorMapEvent::colorMap() const
 {
     return m_colorMap;
 }

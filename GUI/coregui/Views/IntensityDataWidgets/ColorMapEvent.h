@@ -19,7 +19,7 @@
 #include <memory>
 #include <QObject>
 
-class ColorMap;
+class DescriptedPlot;
 class QMouseEvent;
 class QCustomPlot;
 
@@ -31,7 +31,7 @@ class BA_CORE_API_ ColorMapEvent : public QObject
     Q_OBJECT
 
 public:
-    explicit ColorMapEvent(ColorMap* colorMap);
+    explicit ColorMapEvent(DescriptedPlot* colorMap);
 
     void setMouseTrackingEnabled(bool enable);
 
@@ -44,12 +44,12 @@ public slots:
     void onCustomMouseMove(QMouseEvent* event);
 
 private:
-    ColorMap* colorMap();
-    const ColorMap* colorMap() const;
+    DescriptedPlot* colorMap();
+    const DescriptedPlot* colorMap() const;
     QCustomPlot* customPlot();
     std::unique_ptr<IPlotDescriptor> currentColorMapDescriptor(QMouseEvent* event) const;
 
-    ColorMap* m_colorMap;
+    DescriptedPlot* m_colorMap;
     std::unique_ptr<IPlotDescriptor> m_prevPos;
 };
 

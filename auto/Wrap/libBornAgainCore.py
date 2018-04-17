@@ -6257,10 +6257,12 @@ class FitObject(INode):
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
 
-    def __init__(self, simulation, real_data, weight=1):
+    def __init__(self, *args):
         """
-        __init__(FitObject self, Simulation simulation, IntensityData real_data, double weight=1) -> FitObject
-        __init__(FitObject self, Simulation simulation, IntensityData real_data) -> FitObject
+        __init__(FitObject self, Simulation simulation, IntensityData data, double weight=1) -> FitObject
+        __init__(FitObject self, Simulation simulation, IntensityData data) -> FitObject
+        __init__(FitObject self, Simulation simulation, vdouble2d_t data, double weight=1) -> FitObject
+        __init__(FitObject self, Simulation simulation, vdouble2d_t data) -> FitObject
 
         FitObject::FitObject(const Simulation &simulation, const OutputData< double > &real_data, double weight=1)
 
@@ -6282,7 +6284,7 @@ class FitObject(INode):
         Detector axes will be adjusted to real data axes, if true 
 
         """
-        this = _libBornAgainCore.new_FitObject(simulation, real_data, weight)
+        this = _libBornAgainCore.new_FitObject(*args)
         try:
             self.this.append(this)
         except __builtin__.Exception:

@@ -17,7 +17,7 @@
 
 #include "SessionItemWidget.h"
 
-class ColorMapLabel;
+class PlotStatusLabel;
 class QCustomPlot;
 class SpecularPlot;
 
@@ -43,7 +43,7 @@ public slots:
 
 private:
     SpecularPlot* m_plot;
-    ColorMapLabel* m_statusLabel;
+    PlotStatusLabel* m_statusLabel;
 };
 
 #endif // SPECULARPLOTCANVAS_H

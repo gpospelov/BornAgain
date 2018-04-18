@@ -18,7 +18,7 @@
 #include "SessionModel.h"
 #include "IntensityDataItem.h"
 #include "ColorMap.h"
-#include "ColorMapLabel.h"
+#include "PlotStatusLabel.h"
 #include "MouseMoveEvent.h"
 #include "MaskItems.h"
 #include <QVBoxLayout>
@@ -29,7 +29,7 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     , m_scene(new MaskGraphicsScene(this))
     , m_view(new MaskGraphicsView(m_scene))
     , m_colorMap(nullptr)
-    , m_statusLabel(new ColorMapLabel(0, this))
+    , m_statusLabel(new PlotStatusLabel(0, this))
     , m_liveProjection(nullptr)
     , m_model(nullptr)
     , m_intensityDataItem(nullptr)
@@ -158,7 +158,7 @@ void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)
     setConnected(true);
 
     m_statusLabel->reset();
-    m_statusLabel->addColorMap(colorMap);
+    m_statusLabel->addPlot(colorMap);
 }
 
 void ProjectionsEditorCanvas::setConnected(bool isConnected)

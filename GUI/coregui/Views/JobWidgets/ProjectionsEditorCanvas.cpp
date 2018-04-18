@@ -19,7 +19,7 @@
 #include "IntensityDataItem.h"
 #include "ColorMap.h"
 #include "ColorMapLabel.h"
-#include "ColorMapEvent.h"
+#include "MouseMoveEvent.h"
 #include "MaskItems.h"
 #include <QVBoxLayout>
 #include <QItemSelectionModel>

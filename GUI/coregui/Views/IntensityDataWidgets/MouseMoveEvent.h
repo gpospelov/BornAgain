@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapEvent.h
-//! @brief     Defines class ColorMapEvent
+//! @file      GUI/coregui/Views/IntensityDataWidgets/MouseMoveEvent.h
+//! @brief     Defines class MouseMoveEvent
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef COLORMAPEVENT_H
-#define COLORMAPEVENT_H
+#ifndef MOUSEMOVEEVENT_H
+#define MOUSEMOVEEVENT_H
 
 #include <memory>
 #include <QObject>
@@ -24,34 +24,34 @@ class IPlotDescriptor;
 class QMouseEvent;
 class QCustomPlot;
 
-//! Helps ColorMap to handle mouse events. Particularly, it constructs a valid status string.
-//! Can be extended to play a role of event filter.
+//! Helps DescriptedPlot to handle mouse events. Particularly, it constructs a valid
+//! status string. Can be extended to play a role of event filter.
 
-class BA_CORE_API_ ColorMapEvent : public QObject
+class BA_CORE_API_ MouseMoveEvent : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit ColorMapEvent(DescriptedPlot* colorMap);
+    explicit MouseMoveEvent(DescriptedPlot* descriptedPlot);
 
     void setMouseTrackingEnabled(bool enable);
 
 signals:
-    void enteringColorMap();
-    void leavingColorMap();
+    void enteringPlot();
+    void leavingPlot();
     void positionChanged(double x, double y);
 
 public slots:
     void onCustomMouseMove(QMouseEvent* event);
 
 private:
-    DescriptedPlot* colorMap();
-    const DescriptedPlot* colorMap() const;
+    DescriptedPlot* descriptedPlot();
+    const DescriptedPlot* descriptedPlot() const;
     QCustomPlot* customPlot();
-    std::unique_ptr<IPlotDescriptor> currentColorMapDescriptor(QMouseEvent* event) const;
+    std::unique_ptr<IPlotDescriptor> currentPlotDescriptor(QMouseEvent* event) const;
 
-    DescriptedPlot* m_colorMap;
+    DescriptedPlot* m_plot;
     std::unique_ptr<IPlotDescriptor> m_prevPos;
 };
 
-#endif // COLORMAPEVENT_H
+#endif // MOUSEMOVEEVENT_H

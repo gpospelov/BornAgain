@@ -1,10 +1,10 @@
 #include "DescriptedPlot.h"
-#include "ColorMapEvent.h"
+#include "MouseMoveEvent.h"
 #include <qcustomplot.h>
 
 DescriptedPlot::DescriptedPlot(QWidget* parent)
     : SessionItemWidget(parent)
-    , m_colorMapEvent(new ColorMapEvent(this))
+    , m_mouse_move_event(new MouseMoveEvent(this))
 {
 }
 
@@ -32,7 +32,7 @@ double DescriptedPlot::pixelToYaxisCoord(double pixel) const
 
 void DescriptedPlot::setMouseTrackingEnabled(bool enable)
 {
-    m_colorMapEvent->setMouseTrackingEnabled(enable);
+    m_mouse_move_event->setMouseTrackingEnabled(enable);
 }
 
 bool DescriptedPlot::axesRangeContains(double xpos, double ypos) const

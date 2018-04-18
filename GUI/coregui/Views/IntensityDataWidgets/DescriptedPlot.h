@@ -19,7 +19,7 @@
 #include <memory>
 
 class IPlotDescriptor;
-class ColorMapEvent;
+class MouseMoveEvent;
 class QCustomPlot;
 
 //! Common interface for plot-descriptor interaction
@@ -38,7 +38,7 @@ public:
     virtual QCustomPlot* customPlot() = 0;
     virtual const QCustomPlot* customPlot() const = 0;
 
-    ColorMapEvent* colorMapEvent() { return m_colorMapEvent; }
+    MouseMoveEvent* colorMapEvent() { return m_mouse_move_event; }
 
     //! transform axes coordinates to CustomPlot widget coordinates
     double xAxisCoordToPixel(double axis_coordinate) const;
@@ -58,7 +58,7 @@ signals:
     void statusString(const QString& text);
 
 private:
-    ColorMapEvent* m_colorMapEvent;
+    MouseMoveEvent* m_mouse_move_event;
 };
 
 #endif // DESCRIPTEDPLOT_H

@@ -27,7 +27,7 @@ class QCustomPlot;
 class QCPColorMap;
 class QCPColorScale;
 class UpdateTimer;
-class ColorMapEvent;
+class MouseMoveEvent;
 
 //! The ColorMap class presents 2D intensity data from IntensityDataItem as color map.
 

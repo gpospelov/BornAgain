@@ -13,8 +13,6 @@
 // ************************************************************************** //
 
 #include "PlotStatusLabel.h"
-#include "ColorMap.h"
-#include "ColorMapCanvas.h"
 #include "DescriptedPlot.h"
 
 PlotStatusLabel::PlotStatusLabel(DescriptedPlot* plot, QWidget* parent) : StatusLabel(parent)
@@ -30,11 +28,6 @@ void PlotStatusLabel::addPlot(DescriptedPlot* plot)
 
     m_plots.push_back(plot);
     setPlotLabelEnabled(plot, true);
-}
-
-void PlotStatusLabel::addPlot(ColorMapCanvas* colorMapCanvas)
-{
-    addPlot(colorMapCanvas->colorMap());
 }
 
 //! Enables/disables label. If disabled, all colorMaps are disconnected and label is hiding.
@@ -72,11 +65,11 @@ void PlotStatusLabel::setPlotLabelEnabled(DescriptedPlot* plot, bool flag)
 void PlotStatusLabel::setConnected(DescriptedPlot* plot, bool flag)
 {
     if (flag) {
-        connect(plot, &ColorMap::statusString, this,
+        connect(plot, &DescriptedPlot::statusString, this,
                 &PlotStatusLabel::onPlotStatusString, Qt::UniqueConnection);
-        connect(plot, &ColorMap::destroyed, this, &PlotStatusLabel::onPlotDestroyed);
+        connect(plot, &DescriptedPlot::destroyed, this, &PlotStatusLabel::onPlotDestroyed);
     } else {
-        disconnect(plot, &ColorMap::statusString, this, &PlotStatusLabel::onPlotStatusString);
+        disconnect(plot, &DescriptedPlot::statusString, this, &PlotStatusLabel::onPlotStatusString);
     }
 }
 

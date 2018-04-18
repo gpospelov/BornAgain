@@ -14,6 +14,7 @@
 
 #include "FitComparisonWidget.h"
 #include "AxesItems.h"
+#include "ColorMap.h"
 #include "ColorMapCanvas.h"
 #include "PlotStatusLabel.h"
 #include "FitFlowWidget.h"
@@ -119,9 +120,9 @@ void FitComparisonWidget::subscribeToItem()
     m_fitFlowWidget->setItem(jobItem()->fitSuiteItem());
 
     m_statusLabel->reset();
-    m_statusLabel->addPlot(m_realDataPlot);
-    m_statusLabel->addPlot(m_simulatedDataPlot);
-    m_statusLabel->addPlot(m_relativeDiffPlot);
+    m_statusLabel->addPlot(m_realDataPlot->colorMap());
+    m_statusLabel->addPlot(m_simulatedDataPlot->colorMap());
+    m_statusLabel->addPlot(m_relativeDiffPlot->colorMap());
 
     m_comparisonController->setItems(realDataItem(), simulatedDataItem());
 

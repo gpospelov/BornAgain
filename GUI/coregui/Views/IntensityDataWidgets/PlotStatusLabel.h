@@ -18,7 +18,6 @@
 #include "StatusLabel.h"
 #include <QList>
 
-class ColorMapCanvas;
 class DescriptedPlot;
 class QResizeEvent;
 
@@ -34,7 +33,6 @@ public:
     PlotStatusLabel(DescriptedPlot* plot, QWidget* parent = nullptr);
 
     void addPlot(DescriptedPlot* plot);
-    void addPlot(ColorMapCanvas* colorMapCanvas);
 
     void setLabelEnabled(bool flag);
 

@@ -14,7 +14,6 @@
 
 #include "ColorMap.h"
 #include "AxesItems.h"
-#include "ColorMapEvent.h"
 #include "ColorMapUtils.h"
 #include "IntensityDataItem.h"
 #include "MathConstants.h"

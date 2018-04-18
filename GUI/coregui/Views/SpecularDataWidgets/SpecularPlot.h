@@ -16,7 +16,6 @@
 #define SPECULARPLOT_H
 
 #include "DescriptedPlot.h"
-#include "PlotStatusDescriptors.h"
 #include "qcustomplot.h"
 #include <memory>
 

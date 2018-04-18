@@ -15,11 +15,12 @@
 #ifndef COLORMAPEVENT_H
 #define COLORMAPEVENT_H
 
-#include "PlotStatusDescriptors.h"
 #include <memory>
 #include <QObject>
+#include "WinDllMacros.h"
 
 class DescriptedPlot;
+class IPlotDescriptor;
 class QMouseEvent;
 class QCustomPlot;
 

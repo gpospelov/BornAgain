@@ -14,6 +14,7 @@
 
 #include "ColorMapEvent.h"
 #include "DescriptedPlot.h"
+#include "PlotStatusDescriptors.h"
 #include <QMouseEvent>
 #include <qcustomplot.h>
 

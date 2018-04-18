@@ -15,11 +15,11 @@
 #include "SpecularPlot.h"
 #include "AxesItems.h"
 #include "ColorMapUtils.h"
-#include "SpecularPlotEvent.h"
 #include "MathConstants.h"
+#include "PlotStatusDescriptors.h"
+#include "plot_constants.h"
 #include "SpecularDataItem.h"
 #include "UpdateTimer.h"
-#include "plot_constants.h"
 
 namespace {
 const int replot_update_interval = 10;

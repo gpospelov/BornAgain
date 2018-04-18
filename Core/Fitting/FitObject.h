@@ -31,12 +31,17 @@ class IHistogram;
 class BA_CORE_API_ FitObject : public INode
 {
 public:
-    //! FitObject constructor
-    //! @param simulation The simulation to run
-    //! @param real_data The real data
-    //! @param weight Weight of dataset in chi2 calculations
-    //! @param adjust_detector_to_data Detector axes will be adjusted to real data axes, if true
-    FitObject(const Simulation& simulation, const OutputData<double>& real_data,
+    //! Constructs simulation/data pair for later fit.
+    //! @param simulation: simulation to run
+    //! @param data: experimental data
+    //! @param weight: weight of dataset in chi2 calculations
+    FitObject(const Simulation& simulation, const OutputData<double>& data, double weight = 1);
+
+    //! Constructs simulation/data pair for later fit.
+    //! @param simulation: simulation to run
+    //! @param data: experimental data
+    //! @param weight: weight of dataset in chi2 calculations
+    FitObject(const Simulation& simulation, const std::vector<std::vector<double>>& data,
               double weight = 1);
 
     virtual ~FitObject();
@@ -55,14 +60,28 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
+    //! Returns simulation result.
     SimulationResult simulationResult() const;
+
+    //! Returns experimental data.
     SimulationResult experimentalData() const;
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters() {}
+    //! Returns relative difference between simulation and experimental data.
+    SimulationResult relativeDifference() const;
+
+    //! Runs internal simulation object.
+    void runSimulation();
+
+    //! Returns one dimensional array representing experimental data.
+    //! Masked areas and the area outside of region of interest are not included.
+    std::vector<double> experimental_array() const;
+
+    //! Returns one dimensional array representing simulated intensities data.
+    //! Masked areas and the area outside of region of interest are not included.
+    std::vector<double> simulation_array() const;
 
 private:
+    void init_parameters();
     void init_dataset(const OutputData<double>& real_data);
 
     std::unique_ptr<Simulation> m_simulation;

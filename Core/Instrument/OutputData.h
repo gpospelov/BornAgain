@@ -20,15 +20,9 @@
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
 #include "ThreadInfo.h"
+#include "PyObject.h"
 #include <sstream>
 #include <cassert>
-
-#ifdef BORNAGAIN_PYTHON
-#ifndef PyObject_HEAD
-struct _object;
-typedef _object PyObject;
-#endif
-#endif
 
 using std::size_t;
 
@@ -39,6 +33,8 @@ template <class T>
 class OutputData
 {
 public:
+    using value_type = T;
+
     OutputData();
     OutputData(const OutputData&) = delete;
     const OutputData& operator=(const OutputData&) = delete;

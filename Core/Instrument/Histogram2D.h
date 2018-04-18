@@ -18,13 +18,6 @@
 #include "IHistogram.h"
 #include "ArrayUtils.h"
 
-#ifdef BORNAGAIN_PYTHON
-#ifndef PyObject_HEAD
-struct _object;
-typedef _object PyObject;
-#endif
-#endif
-
 //! Two dimensional histogram.
 //! @ingroup tools
 

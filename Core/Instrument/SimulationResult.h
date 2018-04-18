@@ -17,15 +17,9 @@
 
 #include "IUnitConverter.h"
 #include "WinDllMacros.h"
+#include "PyObject.h"
 #include <memory>
 #include <vector>
-
-#ifdef BORNAGAIN_PYTHON
-#ifndef PyObject_HEAD
-struct _object;
-typedef _object PyObject;
-#endif
-#endif
 
 class Histogram1D;
 class Histogram2D;

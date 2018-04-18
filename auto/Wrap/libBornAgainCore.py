@@ -6257,10 +6257,12 @@ class FitObject(INode):
     __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
     __repr__ = _swig_repr
 
-    def __init__(self, simulation, real_data, weight=1):
+    def __init__(self, *args):
         """
-        __init__(FitObject self, Simulation simulation, IntensityData real_data, double weight=1) -> FitObject
-        __init__(FitObject self, Simulation simulation, IntensityData real_data) -> FitObject
+        __init__(FitObject self, Simulation simulation, IntensityData data, double weight=1) -> FitObject
+        __init__(FitObject self, Simulation simulation, IntensityData data) -> FitObject
+        __init__(FitObject self, Simulation simulation, vdouble2d_t data, double weight=1) -> FitObject
+        __init__(FitObject self, Simulation simulation, vdouble2d_t data) -> FitObject
 
         FitObject::FitObject(const Simulation &simulation, const OutputData< double > &real_data, double weight=1)
 
@@ -6282,7 +6284,7 @@ class FitObject(INode):
         Detector axes will be adjusted to real data axes, if true 
 
         """
-        this = _libBornAgainCore.new_FitObject(simulation, real_data, weight)
+        this = _libBornAgainCore.new_FitObject(*args)
         try:
             self.this.append(this)
         except __builtin__.Exception:
@@ -6369,6 +6371,26 @@ class FitObject(INode):
 
         """
         return _libBornAgainCore.FitObject_experimentalData(self)
+
+
+    def relativeDifference(self):
+        """relativeDifference(FitObject self) -> SimulationResult"""
+        return _libBornAgainCore.FitObject_relativeDifference(self)
+
+
+    def runSimulation(self):
+        """runSimulation(FitObject self)"""
+        return _libBornAgainCore.FitObject_runSimulation(self)
+
+
+    def experimental_array(self):
+        """experimental_array(FitObject self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitObject_experimental_array(self)
+
+
+    def simulation_array(self):
+        """simulation_array(FitObject self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitObject_simulation_array(self)
 
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
 FitObject_swigregister(FitObject)

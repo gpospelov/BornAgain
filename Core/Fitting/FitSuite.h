@@ -165,7 +165,7 @@ public:
     //! @param i_item: the index of fit pair
     SimulationResult experimentalData(size_t i_item = 0) const;
 
-    //! Returns relative difference between simulation and real data.
+    //! Returns relative difference between simulation and experimental data.
     //! @param i_item: the index of fit pair
     SimulationResult relativeDifference(size_t i_item = 0) const;
 

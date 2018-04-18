@@ -25,7 +25,8 @@ class FitObjectTest(unittest.TestCase):
         data = ba.IntensityData()
         data.addAxis(ba.FixedBinAxis("phi", nx, xmin, xmax))
         data.addAxis(ba.FixedBinAxis("alpha", ny, ymin, ymax))
-        buff = np.linspace(0, 12, num=12, endpoint=False, dtype=np.float64)
+        buff = np.linspace(0, 12, num=12, endpoint=False)
+        buff = np.asarray(buff, dtype=np.float64)
         data.setRawDataVector(buff)
 
         # constructing FitObject

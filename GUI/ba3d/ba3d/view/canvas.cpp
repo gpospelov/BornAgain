@@ -246,7 +246,7 @@ void Canvas::defaultView()
     }
 }
 
-void Canvas::edgeView()
+void Canvas::sideView()
 {
     if (model){
         // Edge view
@@ -262,10 +262,10 @@ void Canvas::edgeView()
     }
 }
 
-void Canvas::faceView()
+void Canvas::topView()
 {
     if (model){
-        // Top-face view
+        // Top view
         // Setting a tiny offset in x value of eye such that eye and up vectors are not parallel
         camera->lookAt(RealSpace::Camera::Position(
                                    RealSpace::Vector3D(0.5, 0, 140),   // eye

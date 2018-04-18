@@ -53,14 +53,14 @@ void Widget3D::defaultView()
     canvas->defaultView();
 }
 
-void Widget3D::edgeView()
+void Widget3D::sideView()
 {
-    canvas->edgeView();
+    canvas->sideView();
 }
 
-void Widget3D::faceView()
+void Widget3D::topView()
 {
-    canvas->faceView();
+    canvas->topView();
 }
 
 Model* Widget3D::model() {

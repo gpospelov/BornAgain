@@ -44,8 +44,8 @@ public:
 
     // ToolBar Actions
     void defaultView();
-    void edgeView();
-    void faceView();
+    void sideView();
+    void topView();
 
     void canvasHintMessageBox();
 

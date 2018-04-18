@@ -97,14 +97,14 @@ void RealSpaceCanvas::onDefaultViewAction()
     defaultView();
 }
 
-void RealSpaceCanvas::onEdgeViewAction()
+void RealSpaceCanvas::onSideViewAction()
 {
-    edgeView();
+    sideView();
 }
 
-void RealSpaceCanvas::onFaceViewAction()
+void RealSpaceCanvas::onTopViewAction()
 {
-    faceView();
+    topView();
 }
 
 void RealSpaceCanvas::onLockViewAction(bool view_locked)
@@ -144,14 +144,14 @@ void RealSpaceCanvas::defaultView()
     m_view->defaultView();
 }
 
-void RealSpaceCanvas::edgeView()
+void RealSpaceCanvas::sideView()
 {
-    m_view->edgeView();
+    m_view->sideView();
 }
 
-void RealSpaceCanvas::faceView()
+void RealSpaceCanvas::topView()
 {
-    m_view->faceView();
+    m_view->topView();
 }
 
 void RealSpaceCanvas::showEvent(QShowEvent*)

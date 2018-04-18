@@ -39,12 +39,12 @@ void RealSpaceView::defaultView()
     m_3dview->defaultView();
 }
 
-void RealSpaceView::edgeView()
+void RealSpaceView::sideView()
 {
-    m_3dview->edgeView();
+    m_3dview->sideView();
 }
 
-void RealSpaceView::faceView()
+void RealSpaceView::topView()
 {
-    m_3dview->faceView();
+    m_3dview->topView();
 }

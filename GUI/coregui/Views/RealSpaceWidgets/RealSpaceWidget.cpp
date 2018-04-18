@@ -50,11 +50,11 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
     connect(m_toolBar, &RealSpaceToolBar::defaultViewAction,
             m_canvas, &RealSpaceCanvas::onDefaultViewAction);
 
-    connect(m_toolBar, &RealSpaceToolBar::edgeViewAction,
-            m_canvas, &RealSpaceCanvas::onEdgeViewAction);
+    connect(m_toolBar, &RealSpaceToolBar::sideViewAction,
+            m_canvas, &RealSpaceCanvas::onSideViewAction);
 
-    connect(m_toolBar, &RealSpaceToolBar::faceViewAction,
-            m_canvas, &RealSpaceCanvas::onFaceViewAction);
+    connect(m_toolBar, &RealSpaceToolBar::topViewAction,
+            m_canvas, &RealSpaceCanvas::onTopViewAction);
 
     connect(m_toolBar, &RealSpaceToolBar::lockViewAction,
             m_canvas, &RealSpaceCanvas::onLockViewAction);

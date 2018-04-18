@@ -31,14 +31,14 @@ public:
 
 signals:
     void defaultViewAction();
-    void edgeViewAction();
-    void faceViewAction();
+    void sideViewAction();
+    void topViewAction();
     void lockViewAction(bool);
 
 private:
     QToolButton *m_defaultViewButton;
-    QToolButton *m_edgeViewButton;
-    QToolButton *m_faceViewButton;
+    QToolButton *m_sideViewButton;
+    QToolButton *m_topViewButton;
     QCheckBox *m_lockViewCheckBox;
 };
 

@@ -48,8 +48,8 @@ public slots:
     void updateToSelection(const QItemSelection &selection);
 
     void onDefaultViewAction();
-    void onEdgeViewAction();
-    void onFaceViewAction();
+    void onSideViewAction();
+    void onTopViewAction();
     void onLockViewAction(bool view_locked);
 
 private slots:
@@ -57,8 +57,8 @@ private slots:
     void resetScene();
 
     void defaultView();
-    void edgeView();
-    void faceView();
+    void sideView();
+    void topView();
 
 protected:
     virtual void showEvent(QShowEvent*);

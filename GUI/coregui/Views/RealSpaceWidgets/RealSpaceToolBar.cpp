@@ -21,8 +21,8 @@
 RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     : StyledToolBar(parent)
     , m_defaultViewButton(new QToolButton)
-    , m_edgeViewButton(new QToolButton)
-    , m_faceViewButton(new QToolButton)
+    , m_sideViewButton(new QToolButton)
+    , m_topViewButton(new QToolButton)
     , m_lockViewCheckBox(new QCheckBox)
 {
     setMinimumSize(Constants::styled_toolbar_height, Constants::styled_toolbar_height);
@@ -37,23 +37,23 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
 
     addSeparator();
 
-    // Edge View
-    m_edgeViewButton->setText("Edge View");
-    //m_edgeViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
-    m_edgeViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_edgeViewButton->setToolTip("View the sample from the edge");
-    connect(m_edgeViewButton, &QToolButton::clicked, this, &RealSpaceToolBar::edgeViewAction);
-    addWidget(m_edgeViewButton);
+    // Side View
+    m_sideViewButton->setText("Side View");
+    //m_sideViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_sideViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_sideViewButton->setToolTip("View the sample from the side");
+    connect(m_sideViewButton, &QToolButton::clicked, this, &RealSpaceToolBar::sideViewAction);
+    addWidget(m_sideViewButton);
 
     addSeparator();
 
-    // Face View
-    m_faceViewButton->setText("Face View");
-    //m_faceViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
-    m_faceViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_faceViewButton->setToolTip("View the sample from the top (face)");
-    connect(m_faceViewButton, &QToolButton::clicked, this, &RealSpaceToolBar::faceViewAction);
-    addWidget(m_faceViewButton);
+    // Top View
+    m_topViewButton->setText("Top View");
+    //m_topViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_topViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_topViewButton->setToolTip("View the sample from the top");
+    connect(m_topViewButton, &QToolButton::clicked, this, &RealSpaceToolBar::topViewAction);
+    addWidget(m_topViewButton);
 
     addSeparator();
 

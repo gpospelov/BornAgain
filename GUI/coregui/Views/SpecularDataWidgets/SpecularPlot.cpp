@@ -46,7 +46,7 @@ std::unique_ptr<IPlotDescriptor> SpecularPlot::plotDescriptor(double xpos, doubl
 {
     std::unique_ptr<SpecularPlotDescriptor> result(new SpecularPlotDescriptor);
     if (!specularItem())
-        return result;
+        return std::move(result);
 
     result->x() = xpos;
     result->y() = ypos;
@@ -54,7 +54,7 @@ std::unique_ptr<IPlotDescriptor> SpecularPlot::plotDescriptor(double xpos, doubl
     result->inAxesRange() = axesRangeContains(xpos, ypos);
     result->nx() = m_custom_plot->graph()->findBegin(result->x());
 
-    return result;
+    return std::move(result);
 }
 
 void SpecularPlot::setLog(bool log)

@@ -41,8 +41,8 @@ class BA_CORE_API_ ColorMap : public DescriptedPlot
 public:
     explicit ColorMap(QWidget* parent = nullptr);
 
-    QSize sizeHint() const { return QSize(500, 400); }
-    QSize minimumSizeHint() const { return QSize(128, 128); }
+    QSize sizeHint() const override { return QSize(500, 400); }
+    QSize minimumSizeHint() const override { return QSize(128, 128); }
 
     QCustomPlot* customPlot() override { return m_customPlot; }
     const QCustomPlot* customPlot() const override { return m_customPlot; }
@@ -73,8 +73,8 @@ private slots:
     void marginsChangedNotify();
 
 protected:
-    virtual void subscribeToItem();
-    virtual void unsubscribeFromItem();
+    void subscribeToItem() override;
+    void unsubscribeFromItem() override;
 
 private:
     void initColorMap();

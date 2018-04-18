@@ -33,6 +33,7 @@ class BA_CORE_API_ MouseMoveEvent : public QObject
 
 public:
     explicit MouseMoveEvent(DescriptedPlot* descriptedPlot);
+    ~MouseMoveEvent() override;
 
     void setMouseTrackingEnabled(bool enable);
 

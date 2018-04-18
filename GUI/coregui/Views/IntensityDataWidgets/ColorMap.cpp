@@ -64,7 +64,7 @@ std::unique_ptr<IPlotDescriptor> ColorMap::plotDescriptor(double xpos, double yp
 {
     std::unique_ptr<ColorMapDescriptor> result(new ColorMapDescriptor);
     if (!intensityItem())
-        return result;
+        return std::move(result);
 
     result->x() = xpos;
     result->y() = ypos;
@@ -76,7 +76,7 @@ std::unique_ptr<IPlotDescriptor> ColorMap::plotDescriptor(double xpos, double yp
 
     result->m_logz = intensityItem()->isLogz();
 
-    return result;
+    return std::move(result);
 }
 
 //! sets logarithmic scale

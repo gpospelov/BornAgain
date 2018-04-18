@@ -23,6 +23,8 @@ MouseMoveEvent::MouseMoveEvent(DescriptedPlot* descriptedPlot)
 {
 }
 
+MouseMoveEvent::~MouseMoveEvent() = default;
+
 //! Sets tracking of the mouse for parent DescriptedPlot
 
 void MouseMoveEvent::setMouseTrackingEnabled(bool enable)

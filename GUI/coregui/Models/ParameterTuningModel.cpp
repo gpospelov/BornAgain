@@ -45,7 +45,7 @@ QMimeData *ParameterTuningModel::mimeData(const QModelIndexList &proxyIndexes) c
 {
     QMimeData *mimeData = new QMimeData();
 
-    foreach(QModelIndex proxyIndex, proxyIndexes) {
+    for(auto proxyIndex : proxyIndexes) {
         if(ParameterItem *parameterItem = getParameterItem(proxyIndex)) {
             QString path = FitParameterHelper::getParameterItemPath(parameterItem);
             mimeData->setData(SessionXML::LinkMimeType, path.toLatin1());

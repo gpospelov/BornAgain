@@ -131,10 +131,9 @@ void ConnectableView::setPortCoordinates()
         // if total number of ports is 1, place it in the middle
         ypos = getRectangle().height() - hspace + hspace / 2;
     }
-
     int nOutPorts = getNumberOfOutputPorts();
     int nport(0);
-    foreach (QGraphicsItem *item, childItems()) {
+    for(QGraphicsItem *item : childItems()) {
         NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
         if (!port)
             continue;

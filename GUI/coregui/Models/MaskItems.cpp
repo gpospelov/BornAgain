@@ -116,7 +116,7 @@ PolygonItem::PolygonItem()
 std::unique_ptr<IShape2D> PolygonItem::createShape(double scale) const
 {
     std::vector<double> x,y;
-    foreach(SessionItem *item, this->getChildrenOfType(Constants::PolygonPointType)) {
+    for(auto item : this->getChildrenOfType(Constants::PolygonPointType)) {
         x.push_back(scale*item->getItemValue(PolygonPointItem::P_POSX).toDouble());
         y.push_back(scale*item->getItemValue(PolygonPointItem::P_POSY).toDouble());
     }

@@ -78,7 +78,7 @@ QVector<ParameterItem*> ParameterTuningWidget::getSelectedParameters()
 {
     QVector<ParameterItem*> result;
     QModelIndexList proxyIndexes = selectionModel()->selectedIndexes();
-    foreach (QModelIndex proxyIndex, proxyIndexes) {
+    for(auto proxyIndex : proxyIndexes) {
         if (ParameterItem* parItem = m_parameterTuningModel->getParameterItem(proxyIndex))
             result.push_back(parItem);
     }

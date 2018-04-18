@@ -39,7 +39,7 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
     FitParameterContainerItem *container = fitSuiteItem->fitParameterContainerItem();
     Q_ASSERT(container);
 
-    foreach(FitParameterItem *parItem, container->fitParameterItems()) {
+    for(auto parItem : container->fitParameterItems()) {
         if(auto fitPar = parItem->createFitParameter())
             result->addFitParameter(*fitPar);
     }

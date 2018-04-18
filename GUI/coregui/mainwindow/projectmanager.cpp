@@ -106,7 +106,7 @@ ProjectDocument* ProjectManager::document()
 QStringList ProjectManager::recentProjects()
 {
     QStringList updatedList;
-    foreach (QString fileName, m_recentProjects) {
+    for(QString fileName : m_recentProjects) {
         QFile fin(fileName);
         if (fin.exists())
             updatedList.append(fileName);

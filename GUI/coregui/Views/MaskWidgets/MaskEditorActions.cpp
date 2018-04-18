@@ -124,7 +124,7 @@ void MaskEditorActions::onToggleMaskValueAction()
 {
     Q_ASSERT(m_maskModel);
     Q_ASSERT(m_selectionModel);
-    foreach (QModelIndex itemIndex, m_selectionModel->selectedIndexes()) {
+    for(auto itemIndex : m_selectionModel->selectedIndexes()) {
         if (SessionItem* item = m_maskModel->itemForIndex(itemIndex)) {
             bool old_value = item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
             item->setItemValue(MaskItem::P_MASK_VALUE, !old_value);
@@ -156,7 +156,7 @@ void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
 
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
 
-    foreach (QModelIndex itemIndex, indexes) {
+    for(auto itemIndex : indexes) {
         if (SessionItem* item = m_maskModel->itemForIndex(itemIndex)) {
             int new_row = itemIndex.row() + change_in_row;
             if (new_row >= 0 && new_row <= m_maskModel->rowCount(m_rootIndex)) {

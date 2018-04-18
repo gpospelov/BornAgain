@@ -114,7 +114,7 @@ WidgetBoxTreeWidget::WidgetBoxTreeWidget(SampleDesignerInterface* core, QWidget*
     QTreeWidget(parent),
     m_core(core),
     m_iconMode(false),
-    m_scratchPadDeleteTimer(0)
+    m_scratchPadDeleteTimer(nullptr)
 {
     setFocusPolicy(Qt::NoFocus);
     setIndentation(0);
@@ -148,7 +148,7 @@ QIcon WidgetBoxTreeWidget::iconForWidget(QString iconName) const
 
 WidgetBoxCategoryListView* WidgetBoxTreeWidget::categoryViewAt(int idx) const
 {
-    WidgetBoxCategoryListView* rc = 0;
+    WidgetBoxCategoryListView* rc = nullptr;
     if (QTreeWidgetItem* cat_item = topLevelItem(idx))
         if (QTreeWidgetItem* embedItem = cat_item->child(0))
             rc = qobject_cast<WidgetBoxCategoryListView*>(itemWidget(embedItem, 0));
@@ -213,13 +213,13 @@ void WidgetBoxTreeWidget::slotSave()
 
 void WidgetBoxTreeWidget::handleMousePress(QTreeWidgetItem* item)
 {
-    if (item == 0)
+    if (item == nullptr)
         return;
 
     if (QApplication::mouseButtons() != Qt::LeftButton)
         return;
 
-    if (item->parent() == 0) {
+    if (item->parent() == nullptr) {
         setItemExpanded(item, !isItemExpanded(item));
         return;
     }
@@ -286,7 +286,6 @@ bool WidgetBoxTreeWidget::load(QDesignerWidgetBox::LoadMode loadMode)
     default:
         break;
     }
-
     const QString name = fileName();
 
     QFile f(name);
@@ -305,8 +304,7 @@ bool WidgetBoxTreeWidget::loadContents(const QString& contents)
         qdesigner_internal::designerWarning(errorMessage);
         return false;
     }
-
-    foreach(const Category& cat, cat_list)
+    for(const Category& cat : cat_list)
         addCategory(cat);
 
     return true;
@@ -538,7 +536,7 @@ void WidgetBoxTreeWidget::writeCategories(QXmlStreamWriter& writer, const Catego
 
     writer.writeStartElement(widgetbox);
 
-    foreach (const Category& cat, cat_list) {
+    for(const Category& cat : cat_list) {
         writer.writeStartElement(category);
         writer.writeAttribute(name, cat.name());
         if (cat.type() == Category::Scratchpad)
@@ -561,12 +559,10 @@ void WidgetBoxTreeWidget::writeCategories(QXmlStreamWriter& writer, const Catego
                 domUI->write(writer);
                 delete domUI;
             }
-
             writer.writeEndElement(); // categoryEntry
         }
         writer.writeEndElement(); // categoryEntry
     }
-
     writer.writeEndElement(); // widgetBox
 }
 
@@ -581,7 +577,7 @@ WidgetBoxTreeWidget::CategoryList WidgetBoxTreeWidget::loadCustomCategoryList() 
 void WidgetBoxTreeWidget::adjustSubListSize(QTreeWidgetItem* cat_item)
 {
     QTreeWidgetItem* embedItem = cat_item->child(0);
-    if (embedItem == 0)
+    if (embedItem == nullptr)
         return;
 
     WidgetBoxCategoryListView* list_widget = static_cast<WidgetBoxCategoryListView*>(itemWidget(embedItem, 0));
@@ -789,8 +785,8 @@ void WidgetBoxTreeWidget::contextMenuEvent(QContextMenuEvent* e)
 {
     QTreeWidgetItem* item = itemAt(e->pos());
 
-    const bool scratchpad_menu = item != 0
-                            && item->parent() != 0
+    const bool scratchpad_menu = item != nullptr
+                            && item->parent() != nullptr
                             && topLevelRole(item->parent()) ==  SCRATCHPAD_ITEM;
 
     QMenu menu;
@@ -824,17 +820,17 @@ void WidgetBoxTreeWidget::contextMenuEvent(QContextMenuEvent* e)
 
 void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface*>& item_list)
 {
-    QTreeWidgetItem* scratch_item = 0;
-    WidgetBoxCategoryListView* categoryView = 0;
+    QTreeWidgetItem* scratch_item = nullptr;
+    WidgetBoxCategoryListView* categoryView = nullptr;
     bool added = false;
 
-    foreach (QDesignerDnDItemInterface* item, item_list) {
+    for(QDesignerDnDItemInterface* item : item_list) {
         QWidget* w = item->widget();
-        if (w == 0)
+        if (w == nullptr)
             continue;
 
         DomUI* dom_ui = item->domUi();
-        if (dom_ui == 0)
+        if (dom_ui == nullptr)
             continue;
 
         const int scratch_idx = ensureScratchpad();
@@ -843,7 +839,7 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface*>& i
 
         // Temporarily remove the fake toplevel in-between
         DomWidget* fakeTopLevel = dom_ui->takeElementWidget();
-        DomWidget* firstWidget = 0;
+        DomWidget* firstWidget = nullptr;
         if (fakeTopLevel && !fakeTopLevel->elementWidget().isEmpty()) {
             firstWidget = fakeTopLevel->elementWidget().first();
             dom_ui->setElementWidget(firstWidget);
@@ -851,7 +847,6 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface*>& i
             dom_ui->setElementWidget(fakeTopLevel);
             continue;
         }
-
         // Serialize to XML
         QString xml;
         {
@@ -862,7 +857,6 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface*>& i
             dom_ui->write(writer);
             writer.writeEndDocument();
         }
-
         // Insert fake toplevel again
         dom_ui->takeElementWidget();
         dom_ui->setElementWidget(fakeTopLevel);
@@ -872,7 +866,6 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface*>& i
         setItemExpanded(scratch_item, true);
         added = true;
     }
-
     if (added) {
         save();
         QApplication::setActiveWindow(this);

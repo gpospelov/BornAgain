@@ -7640,6 +7640,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FitSuiteObjects arg2)
         visit(INodeVisitor self, FootprintFactorGaussian arg2)
         visit(INodeVisitor self, FootprintFactorSquare arg2)
+        visit(INodeVisitor self, FormFactor2DLattice arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
         visit(INodeVisitor self, FormFactorBox arg2)
         visit(INodeVisitor self, FormFactorCone arg2)
@@ -12279,6 +12280,130 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
     __del__ = lambda self: None
 FormFactorPolygonalSurface_swigregister = _libBornAgainCore.FormFactorPolygonalSurface_swigregister
 FormFactorPolygonalSurface_swigregister(FormFactorPolygonalSurface)
+
+class FormFactor2DLattice(IFormFactor):
+    """Proxy of C++ FormFactor2DLattice class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IFormFactor]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactor2DLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactor]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactor2DLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(FormFactor2DLattice self, IFormFactor form_factor, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> FormFactor2DLattice
+        __init__(FormFactor2DLattice self, IFormFactor form_factor, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> FormFactor2DLattice
+        """
+        this = _libBornAgainCore.new_FormFactor2DLattice(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactor2DLattice
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(FormFactor2DLattice self) -> FormFactor2DLattice
+
+        IFormFactor* IFormFactor::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactor2DLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FormFactor2DLattice self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactor2DLattice_accept(self, visitor)
+
+
+    def setAmbientMaterial(self, material):
+        """
+        setAmbientMaterial(FormFactor2DLattice self, Material material)
+
+        virtual void IFormFactor::setAmbientMaterial(Material)=0
+
+        Passes the material in which this particle is embedded. 
+
+        """
+        return _libBornAgainCore.FormFactor2DLattice_setAmbientMaterial(self, material)
+
+
+    def volume(self):
+        """
+        volume(FormFactor2DLattice self) -> double
+
+        double IFormFactor::volume() const
+
+        Returns the total volume of the particle of this form factor's shape. 
+
+        """
+        return _libBornAgainCore.FormFactor2DLattice_volume(self)
+
+
+    def radialExtension(self):
+        """
+        radialExtension(FormFactor2DLattice self) -> double
+
+        virtual double IFormFactor::radialExtension() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactor2DLattice_radialExtension(self)
+
+
+    def bottomZ(self, rotation):
+        """
+        bottomZ(FormFactor2DLattice self, IRotation rotation) -> double
+
+        virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactor2DLattice_bottomZ(self, rotation)
+
+
+    def topZ(self, rotation):
+        """
+        topZ(FormFactor2DLattice self, IRotation rotation) -> double
+
+        virtual double IFormFactor::topZ(const IRotation &rotation) const =0
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactor2DLattice_topZ(self, rotation)
+
+
+    def evaluate(self, wavevectors):
+        """
+        evaluate(FormFactor2DLattice self, WavevectorInfo wavevectors) -> complex_t
+
+        virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
+
+        Returns scattering amplitude for complex wavevectors ki, kf. 
+
+        """
+        return _libBornAgainCore.FormFactor2DLattice_evaluate(self, wavevectors)
+
+FormFactor2DLattice_swigregister = _libBornAgainCore.FormFactor2DLattice_swigregister
+FormFactor2DLattice_swigregister(FormFactor2DLattice)
 
 class FormFactorAnisoPyramid(FormFactorPolyhedron):
     """

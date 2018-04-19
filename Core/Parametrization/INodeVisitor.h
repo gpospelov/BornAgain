@@ -32,6 +32,7 @@ class FitObject;
 class FitSuiteObjects;
 class FootprintFactorGaussian;
 class FootprintFactorSquare;
+class FormFactor2DLattice;
 class FormFactorAnisoPyramid;
 class FormFactorBox;
 class FormFactorCone;
@@ -160,6 +161,7 @@ public:
     virtual void visit(const FitSuiteObjects*) {}
     virtual void visit(const FootprintFactorGaussian*) {}
     virtual void visit(const FootprintFactorSquare*) {}
+    virtual void visit(const FormFactor2DLattice*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
     virtual void visit(const FormFactorBox*) {}
     virtual void visit(const FormFactorCone*) {}

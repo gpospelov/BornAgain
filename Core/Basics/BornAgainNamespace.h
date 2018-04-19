@@ -79,6 +79,7 @@ const std::string CrystalType = "Crystal";
 const std::string LatticeType = "Lattice";
 const std::string MesoCrystalType = "MesoCrystal";
 
+const std::string FF2DLattice = "2DLatticeFF";
 const std::string FFAnisoPyramidType = "AnisoPyramid";
 const std::string FFBoxType = "Box";
 const std::string FFConeType = "Cone";

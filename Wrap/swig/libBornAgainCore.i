@@ -98,6 +98,7 @@
 #include "FixedBinAxis.h"
 #include "FootprintFactorGaussian.h"
 #include "FootprintFactorSquare.h"
+#include "FormFactor2DLattice.h"
 #include "FormFactorAnisoPyramid.h"
 #include "FormFactorBox.h"
 #include "FormFactorCone.h"
@@ -314,6 +315,7 @@
 %include "IFormFactorDecorator.h"
 %include "FormFactorPolyhedron.h"
 
+%include "FormFactor2DLattice.h"
 %include "FormFactorAnisoPyramid.h"
 %include "FormFactorBox.h"
 %include "FormFactorCone.h"

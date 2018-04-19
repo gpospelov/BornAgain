@@ -15,6 +15,7 @@
 #ifndef FORMFACTORS_H
 #define FORMFACTORS_H
 
+#include "FormFactor2DLattice.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorPositionFactor.h"

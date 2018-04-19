@@ -19,7 +19,8 @@
 #include <qcustomplot.h>
 
 ScientificPlotEvent::ScientificPlotEvent(ScientificPlot* scientific_plot)
-    : QObject(scientific_plot), m_plot(scientific_plot)
+    : QObject(scientific_plot)
+    , m_plot(scientific_plot)
 {
 }
 
@@ -48,14 +49,14 @@ void ScientificPlotEvent::onCustomMouseMove(QMouseEvent* event)
 {
     auto currentPos = currentPlotDescriptor(event);
 
-    if (currentPos->inAxesRange()) {
-        scientificPlot()->statusString(currentPos->statusString());
+    if (currentPos.inAxesRange()) {
+        scientificPlot()->statusString(currentPos.statusString());
 
-        if (!m_prevPos || !m_prevPos->inAxesRange())
+        if (!m_prevPos.inAxesRange())
             enteringPlot();
 
-        positionChanged(currentPos->x(), currentPos->y());
-    } else if (m_prevPos && m_prevPos->inAxesRange()) {
+        positionChanged(currentPos.x(), currentPos.y());
+    } else if (m_prevPos.inAxesRange()) {
         scientificPlot()->statusString(QString());
         leavingPlot();
     }
@@ -80,8 +81,7 @@ QCustomPlot* ScientificPlotEvent::customPlot()
 
 //! Constructs current position of the data.
 
-std::unique_ptr<IPlotDescriptor>
-ScientificPlotEvent::currentPlotDescriptor(QMouseEvent* event) const
+PlotEventInfo ScientificPlotEvent::currentPlotDescriptor(QMouseEvent* event) const
 {
     double x = scientificPlot()->pixelToXaxisCoord(event->pos().x());
     double y = scientificPlot()->pixelToYaxisCoord(event->pos().y());

@@ -15,12 +15,12 @@
 #ifndef SCIENTIFICPLOTEVENT_H
 #define SCIENTIFICPLOTEVENT_H
 
-#include <memory>
 #include <QObject>
+#include <memory>
+#include "PlotStatusDescriptors.h"
 #include "WinDllMacros.h"
 
 class ScientificPlot;
-class IPlotDescriptor;
 class QMouseEvent;
 class QCustomPlot;
 
@@ -49,10 +49,10 @@ private:
     ScientificPlot* scientificPlot();
     const ScientificPlot* scientificPlot() const;
     QCustomPlot* customPlot();
-    std::unique_ptr<IPlotDescriptor> currentPlotDescriptor(QMouseEvent* event) const;
+    PlotEventInfo currentPlotDescriptor(QMouseEvent* event) const;
 
     ScientificPlot* m_plot;
-    std::unique_ptr<IPlotDescriptor> m_prevPos;
+    PlotEventInfo m_prevPos;
 };
 
 #endif // SCIENTIFICPLOTEVENT_H

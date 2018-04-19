@@ -51,8 +51,8 @@ public:
     //! returns rectangle representing current axes zoom state in widget coordinates
     QRectF viewportRectangleInWidgetCoordinates();
 
-    //! Returns ColorMapBin corresponding to given axes coordinates.
-    std::unique_ptr<IPlotDescriptor> plotDescriptor(double xpos, double ypos) const override;
+    //! Returns PlotEventInfo corresponding to given axes coordinates.
+    PlotEventInfo plotDescriptor(double xpos, double ypos) const override;
 
 signals:
     void marginsChanged(double left, double right);

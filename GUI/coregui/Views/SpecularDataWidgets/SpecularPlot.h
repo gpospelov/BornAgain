@@ -39,8 +39,8 @@ public:
     QSize sizeHint() const override { return QSize(500, 400); }
     QSize minimumSizeHint() const override { return QSize(128, 128); }
 
-    //! Returns plot descriptor corresponding to given axes coordinates.
-    std::unique_ptr<IPlotDescriptor> plotDescriptor(double xpos, double ypos) const override;
+    //! Returns PlotEventInfo corresponding to given axes coordinates.
+    PlotEventInfo plotDescriptor(double xpos, double ypos) const override;
 
     QCustomPlot* customPlot() override { return m_custom_plot; }
     const QCustomPlot* customPlot() const override { return m_custom_plot; }

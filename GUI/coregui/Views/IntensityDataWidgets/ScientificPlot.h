@@ -16,9 +16,9 @@
 #define SCIENTIFICPLOT_H
 
 #include "SessionItemWidget.h"
+#include "PlotStatusDescriptors.h"
 #include <memory>
 
-class IPlotDescriptor;
 class ScientificPlotEvent;
 class QCustomPlot;
 
@@ -33,7 +33,7 @@ public:
     ~ScientificPlot() override;
 
     //! Returns plot descriptor corresponding to given axes coordinates.
-    virtual std::unique_ptr<IPlotDescriptor> plotDescriptor(double xpos, double ypos) const = 0;
+    virtual PlotEventInfo plotDescriptor(double xpos, double ypos) const = 0;
 
     virtual QCustomPlot* customPlot() = 0;
     virtual const QCustomPlot* customPlot() const = 0;

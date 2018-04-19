@@ -60,23 +60,25 @@ QRectF ColorMap::viewportRectangleInWidgetCoordinates()
                   yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
 }
 
-std::unique_ptr<IPlotDescriptor> ColorMap::plotDescriptor(double xpos, double ypos) const
+PlotEventInfo ColorMap::plotDescriptor(double xpos, double ypos) const
 {
-    std::unique_ptr<ColorMapDescriptor> result(new ColorMapDescriptor);
+    PlotEventInfo result(this);
     if (!intensityItem())
-        return std::move(result);
+        return result;
 
-    result->x() = xpos;
-    result->y() = ypos;
+    int nx(0), ny(0);
+    m_colorMap->data()->coordToCell(xpos, ypos, &nx, &ny);
 
-    result->inAxesRange() = axesRangeContains(xpos, ypos);
+    result.setX(xpos);
+    result.setY(ypos);
+    result.setNx(nx);
+    result.setNy(ny);
 
-    m_colorMap->data()->coordToCell(xpos, ypos, &result->m_nx, &result->m_ny);
-    result->m_value = m_colorMap->data()->cell(result->m_nx, result->m_ny);
+    result.setInAxesRange(axesRangeContains(xpos, ypos));
+    result.setValue(m_colorMap->data()->cell(result.nx(), result.ny()));
+    result.setLogValueAxis(intensityItem()->isLogz());
 
-    result->m_logz = intensityItem()->isLogz();
-
-    return std::move(result);
+    return result;
 }
 
 //! sets logarithmic scale

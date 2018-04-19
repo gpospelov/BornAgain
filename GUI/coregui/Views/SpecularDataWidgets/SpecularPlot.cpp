@@ -42,19 +42,19 @@ SpecularPlot::SpecularPlot(QWidget* parent)
     setMouseTrackingEnabled(true);
 }
 
-std::unique_ptr<IPlotDescriptor> SpecularPlot::plotDescriptor(double xpos, double ypos) const
+PlotEventInfo SpecularPlot::plotDescriptor(double xpos, double ypos) const
 {
-    std::unique_ptr<SpecularPlotDescriptor> result(new SpecularPlotDescriptor);
+    PlotEventInfo result(this);
     if (!specularItem())
-        return std::move(result);
+        return result;
 
-    result->x() = xpos;
-    result->y() = ypos;
+    result.setX(xpos);
+    result.setValue(ypos);
 
-    result->inAxesRange() = axesRangeContains(xpos, ypos);
-    result->nx() = m_custom_plot->graph()->findBegin(result->x());
+    result.setInAxesRange(axesRangeContains(xpos, ypos));
+    result.setNx(m_custom_plot->graph()->findBegin(result.x()));
 
-    return std::move(result);
+    return result;
 }
 
 void SpecularPlot::setLog(bool log)

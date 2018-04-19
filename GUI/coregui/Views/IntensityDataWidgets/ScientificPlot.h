@@ -33,12 +33,12 @@ public:
     ~ScientificPlot() override;
 
     //! Returns plot descriptor corresponding to given axes coordinates.
-    virtual PlotEventInfo plotDescriptor(double xpos, double ypos) const = 0;
+    virtual PlotEventInfo eventInfo(double xpos, double ypos) const = 0;
 
     virtual QCustomPlot* customPlot() = 0;
     virtual const QCustomPlot* customPlot() const = 0;
 
-    ScientificPlotEvent* colorMapEvent() { return m_event; }
+    ScientificPlotEvent* plotEvent() { return m_event; }
 
     //! transform axes coordinates to CustomPlot widget coordinates
     double xAxisCoordToPixel(double axis_coordinate) const;

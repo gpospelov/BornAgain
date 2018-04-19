@@ -84,5 +84,5 @@ PlotEventInfo ScientificPlotEvent::currentPlotDescriptor(QMouseEvent* event) con
 {
     double x = scientificPlot()->pixelToXaxisCoord(event->pos().x());
     double y = scientificPlot()->pixelToYaxisCoord(event->pos().y());
-    return scientificPlot()->plotDescriptor(x, y);
+    return scientificPlot()->eventInfo(x, y);
 }

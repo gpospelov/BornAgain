@@ -51,7 +51,7 @@ public:
     QRectF viewportRectangleInWidgetCoordinates();
 
     //! Returns PlotEventInfo corresponding to given axes coordinates.
-    PlotEventInfo plotDescriptor(double xpos, double ypos) const override;
+    PlotEventInfo eventInfo(double xpos, double ypos) const override;
 
 signals:
     void marginsChanged(double left, double right);

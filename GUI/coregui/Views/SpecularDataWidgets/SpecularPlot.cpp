@@ -41,7 +41,7 @@ SpecularPlot::SpecularPlot(QWidget* parent)
     setMouseTrackingEnabled(true);
 }
 
-PlotEventInfo SpecularPlot::plotDescriptor(double xpos, double ypos) const
+PlotEventInfo SpecularPlot::eventInfo(double xpos, double ypos) const
 {
     PlotEventInfo result(this);
     if (!specularItem())

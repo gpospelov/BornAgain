@@ -40,7 +40,7 @@ public:
     QSize minimumSizeHint() const override { return QSize(128, 128); }
 
     //! Returns PlotEventInfo corresponding to given axes coordinates.
-    PlotEventInfo plotDescriptor(double xpos, double ypos) const override;
+    PlotEventInfo eventInfo(double xpos, double ypos) const override;
 
     QCustomPlot* customPlot() override { return m_custom_plot; }
     const QCustomPlot* customPlot() const override { return m_custom_plot; }

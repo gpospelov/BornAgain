@@ -60,7 +60,7 @@ QRectF ColorMap::viewportRectangleInWidgetCoordinates()
                   yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
 }
 
-PlotEventInfo ColorMap::plotDescriptor(double xpos, double ypos) const
+PlotEventInfo ColorMap::eventInfo(double xpos, double ypos) const
 {
     PlotEventInfo result(this);
     if (!intensityItem())

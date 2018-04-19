@@ -17,7 +17,7 @@
 
 #include <QObject>
 #include <memory>
-#include "PlotStatusDescriptors.h"
+#include "PlotEventInfo.h"
 #include "WinDllMacros.h"
 
 class ScientificPlot;

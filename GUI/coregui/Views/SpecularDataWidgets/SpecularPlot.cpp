@@ -16,7 +16,6 @@
 #include "AxesItems.h"
 #include "ColorMapUtils.h"
 #include "MathConstants.h"
-#include "PlotStatusDescriptors.h"
 #include "plot_constants.h"
 #include "SpecularDataItem.h"
 #include "UpdateTimer.h"

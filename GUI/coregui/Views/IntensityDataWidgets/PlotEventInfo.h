@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/PlotStatusDescriptors.h
-//! @brief     Specifications of plot descriptors to manage mouse position info
+//! @file      GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.h
+//! @brief     Defines the class PlotEventInfo
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PLOTSTATUSDESCRIPTORS_H
-#define PLOTSTATUSDESCRIPTORS_H
+#ifndef PLOTEVENTINFO_H
+#define PLOTEVENTINFO_H
 
 #include "WinDllMacros.h"
 #include <QString>
@@ -66,4 +66,4 @@ private:
     INFO_TYPE m_info_type;
 };
 
-#endif // PLOTSTATUSDESCRIPTORS_H
+#endif // PLOTEVENTINFO_H

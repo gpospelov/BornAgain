@@ -14,7 +14,6 @@
 
 #include "ScientificPlotEvent.h"
 #include "ScientificPlot.h"
-#include "PlotStatusDescriptors.h"
 #include <QMouseEvent>
 #include <qcustomplot.h>
 

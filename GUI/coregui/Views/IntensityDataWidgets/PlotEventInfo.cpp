@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/PlotStatusDescriptors.cpp
-//! @brief     Implementations of plot descriptors to manage mouse position info
+//! @file      GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.cpp
+//! @brief     Implementation of the class PlotEventInfo
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "PlotStatusDescriptors.h"
+#include "PlotEventInfo.h"
 #include "PythonFormatting.h"
 #include "GUIHelpers.h"
 

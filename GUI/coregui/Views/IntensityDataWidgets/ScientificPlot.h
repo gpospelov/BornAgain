@@ -16,7 +16,7 @@
 #define SCIENTIFICPLOT_H
 
 #include "SessionItemWidget.h"
-#include "PlotStatusDescriptors.h"
+#include "PlotEventInfo.h"
 #include <memory>
 
 class ScientificPlotEvent;

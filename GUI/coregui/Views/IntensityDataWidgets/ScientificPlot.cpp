@@ -1,0 +1,42 @@
+#include "ScientificPlot.h"
+#include "ScientificPlotEvent.h"
+#include <qcustomplot.h>
+
+ScientificPlot::ScientificPlot(QWidget* parent)
+    : SessionItemWidget(parent)
+    , m_event(new ScientificPlotEvent(this))
+{
+}
+
+ScientificPlot::~ScientificPlot() = default;
+
+double ScientificPlot::xAxisCoordToPixel(double axis_coordinate) const
+{
+    return customPlot()->xAxis->coordToPixel(axis_coordinate);
+}
+
+double ScientificPlot::yAxisCoordToPixel(double axis_coordinate) const
+{
+    return customPlot()->yAxis->coordToPixel(axis_coordinate);
+}
+
+double ScientificPlot::pixelToXaxisCoord(double pixel) const
+{
+    return customPlot()->xAxis->pixelToCoord(pixel);
+}
+
+double ScientificPlot::pixelToYaxisCoord(double pixel) const
+{
+    return customPlot()->yAxis->pixelToCoord(pixel);
+}
+
+void ScientificPlot::setMouseTrackingEnabled(bool enable)
+{
+    m_event->setMouseTrackingEnabled(enable);
+}
+
+bool ScientificPlot::axesRangeContains(double xpos, double ypos) const
+{
+    return customPlot()->xAxis->range().contains(xpos)
+           && customPlot()->yAxis->range().contains(ypos);
+}

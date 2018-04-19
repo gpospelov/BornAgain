@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/DescriptedPlot.h
-//! @brief     Declares class DescriptedPlot
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ScientificPlot.h
+//! @brief     Declares class ScientificPlot
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,25 +12,25 @@
 //
 // ************************************************************************** //
 
-#ifndef DESCRIPTEDPLOT_H
-#define DESCRIPTEDPLOT_H
+#ifndef SCIENTIFICPLOT_H
+#define SCIENTIFICPLOT_H
 
 #include "SessionItemWidget.h"
 #include <memory>
 
 class IPlotDescriptor;
-class MouseMoveEvent;
+class ScientificPlotEvent;
 class QCustomPlot;
 
 //! Common interface for plot-descriptor interaction
 
-class BA_CORE_API_ DescriptedPlot : public SessionItemWidget
+class BA_CORE_API_ ScientificPlot : public SessionItemWidget
 {
     Q_OBJECT
 
 public:
-    explicit DescriptedPlot(QWidget* parent);
-    ~DescriptedPlot() override;
+    explicit ScientificPlot(QWidget* parent);
+    ~ScientificPlot() override;
 
     //! Returns plot descriptor corresponding to given axes coordinates.
     virtual std::unique_ptr<IPlotDescriptor> plotDescriptor(double xpos, double ypos) const = 0;
@@ -38,7 +38,7 @@ public:
     virtual QCustomPlot* customPlot() = 0;
     virtual const QCustomPlot* customPlot() const = 0;
 
-    MouseMoveEvent* colorMapEvent() { return m_mouse_move_event; }
+    ScientificPlotEvent* colorMapEvent() { return m_event; }
 
     //! transform axes coordinates to CustomPlot widget coordinates
     double xAxisCoordToPixel(double axis_coordinate) const;
@@ -58,7 +58,7 @@ signals:
     void statusString(const QString& text);
 
 private:
-    MouseMoveEvent* m_mouse_move_event;
+    ScientificPlotEvent* m_event;
 };
 
-#endif // DESCRIPTEDPLOT_H
+#endif // SCIENTIFICPLOT_H

@@ -27,7 +27,7 @@ const int colorbar_width = 80;
 }
 
 ColorMap::ColorMap(QWidget* parent)
-    : DescriptedPlot(parent)
+    : ScientificPlot(parent)
     , m_customPlot(new QCustomPlot)
     , m_colorMap(nullptr), m_colorScale(nullptr)
     , m_updateTimer(new UpdateTimer(replot_update_interval, this))

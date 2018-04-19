@@ -19,7 +19,7 @@
 #include "IntensityDataItem.h"
 #include "ColorMap.h"
 #include "PlotStatusLabel.h"
-#include "MouseMoveEvent.h"
+#include "ScientificPlotEvent.h"
 #include "MaskItems.h"
 #include <QVBoxLayout>
 #include <QItemSelectionModel>
@@ -167,22 +167,22 @@ void ProjectionsEditorCanvas::setConnected(bool isConnected)
         return;
 
     if(isConnected) {
-        connect(m_colorMap->colorMapEvent(), &MouseMoveEvent::enteringPlot, this,
+        connect(m_colorMap->colorMapEvent(), &ScientificPlotEvent::enteringPlot, this,
                 &ProjectionsEditorCanvas::onEnteringColorMap, Qt::UniqueConnection);
-        connect(m_colorMap->colorMapEvent(), &MouseMoveEvent::leavingPlot, this,
+        connect(m_colorMap->colorMapEvent(), &ScientificPlotEvent::leavingPlot, this,
                 &ProjectionsEditorCanvas::onLeavingColorMap, Qt::UniqueConnection);
-        connect(m_colorMap->colorMapEvent(), &MouseMoveEvent::positionChanged, this,
+        connect(m_colorMap->colorMapEvent(), &ScientificPlotEvent::positionChanged, this,
                 &ProjectionsEditorCanvas::onPositionChanged, Qt::UniqueConnection);
         connect(m_colorMap, &ColorMap::marginsChanged, this,
                 &ProjectionsEditorCanvas::marginsChanged, Qt::UniqueConnection);
     }
 
     else {
-        disconnect(m_colorMap->colorMapEvent(), &MouseMoveEvent::enteringPlot, this,
+        disconnect(m_colorMap->colorMapEvent(), &ScientificPlotEvent::enteringPlot, this,
                    &ProjectionsEditorCanvas::onEnteringColorMap);
-        disconnect(m_colorMap->colorMapEvent(), &MouseMoveEvent::leavingPlot, this,
+        disconnect(m_colorMap->colorMapEvent(), &ScientificPlotEvent::leavingPlot, this,
                    &ProjectionsEditorCanvas::onLeavingColorMap);
-        disconnect(m_colorMap->colorMapEvent(), &MouseMoveEvent::positionChanged, this,
+        disconnect(m_colorMap->colorMapEvent(), &ScientificPlotEvent::positionChanged, this,
                    &ProjectionsEditorCanvas::onPositionChanged);
         disconnect(m_colorMap, &ColorMap::marginsChanged, this,
                    &ProjectionsEditorCanvas::marginsChanged);

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/MouseMoveEvent.cpp
-//! @brief     Implements class MouseMoveEvent
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ScientificPlotEvent.cpp
+//! @brief     Implements class ScientificPlotEvent
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,77 +12,78 @@
 //
 // ************************************************************************** //
 
-#include "MouseMoveEvent.h"
-#include "DescriptedPlot.h"
+#include "ScientificPlotEvent.h"
+#include "ScientificPlot.h"
 #include "PlotStatusDescriptors.h"
 #include <QMouseEvent>
 #include <qcustomplot.h>
 
-MouseMoveEvent::MouseMoveEvent(DescriptedPlot* descriptedPlot)
-    : QObject(descriptedPlot), m_plot(descriptedPlot)
+ScientificPlotEvent::ScientificPlotEvent(ScientificPlot* scientific_plot)
+    : QObject(scientific_plot), m_plot(scientific_plot)
 {
 }
 
-MouseMoveEvent::~MouseMoveEvent() = default;
+ScientificPlotEvent::~ScientificPlotEvent() = default;
 
 //! Sets tracking of the mouse for parent DescriptedPlot
 
-void MouseMoveEvent::setMouseTrackingEnabled(bool enable)
+void ScientificPlotEvent::setMouseTrackingEnabled(bool enable)
 {
     m_plot->setMouseTracking(enable);
     customPlot()->setMouseTracking(enable);
 
     if (enable)
         connect(customPlot(), &QCustomPlot::mouseMove,
-                this, &MouseMoveEvent::onCustomMouseMove, Qt::UniqueConnection);
+                this, &ScientificPlotEvent::onCustomMouseMove, Qt::UniqueConnection);
     else
         disconnect(customPlot(), &QCustomPlot::mouseMove,
-                this, &MouseMoveEvent::onCustomMouseMove);
+                this, &ScientificPlotEvent::onCustomMouseMove);
 }
 
 //! Constructs status string on mouse move event coming from QCustomPlot. String is emitted
 //! if mouse is in axes's viewport rectangle. Once mouse goes out of it, an
 //! empty string is emitted once again.
 
-void MouseMoveEvent::onCustomMouseMove(QMouseEvent* event)
+void ScientificPlotEvent::onCustomMouseMove(QMouseEvent* event)
 {
     auto currentPos = currentPlotDescriptor(event);
 
     if (currentPos->inAxesRange()) {
-        descriptedPlot()->statusString(currentPos->statusString());
+        scientificPlot()->statusString(currentPos->statusString());
 
         if (!m_prevPos || !m_prevPos->inAxesRange())
             enteringPlot();
 
         positionChanged(currentPos->x(), currentPos->y());
     } else if (m_prevPos && m_prevPos->inAxesRange()) {
-        descriptedPlot()->statusString(QString());
+        scientificPlot()->statusString(QString());
         leavingPlot();
     }
 
     m_prevPos = std::move(currentPos);
 }
 
-DescriptedPlot* MouseMoveEvent::descriptedPlot()
+ScientificPlot* ScientificPlotEvent::scientificPlot()
 {
     return m_plot;
 }
 
-const DescriptedPlot* MouseMoveEvent::descriptedPlot() const
+const ScientificPlot* ScientificPlotEvent::scientificPlot() const
 {
     return m_plot;
 }
 
-QCustomPlot* MouseMoveEvent::customPlot()
+QCustomPlot* ScientificPlotEvent::customPlot()
 {
     return m_plot->customPlot();
 }
 
 //! Constructs current position of the data.
 
-std::unique_ptr<IPlotDescriptor> MouseMoveEvent::currentPlotDescriptor(QMouseEvent* event) const
+std::unique_ptr<IPlotDescriptor>
+ScientificPlotEvent::currentPlotDescriptor(QMouseEvent* event) const
 {
-    double x = descriptedPlot()->pixelToXaxisCoord(event->pos().x());
-    double y = descriptedPlot()->pixelToYaxisCoord(event->pos().y());
-    return descriptedPlot()->plotDescriptor(x, y);
+    double x = scientificPlot()->pixelToXaxisCoord(event->pos().x());
+    double y = scientificPlot()->pixelToYaxisCoord(event->pos().y());
+    return scientificPlot()->plotDescriptor(x, y);
 }

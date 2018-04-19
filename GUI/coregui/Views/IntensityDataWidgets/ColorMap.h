@@ -15,7 +15,7 @@
 #ifndef COLORMAP_H
 #define COLORMAP_H
 
-#include "DescriptedPlot.h"
+#include "ScientificPlot.h"
 #include "PlotStatusDescriptors.h"
 #include "qcustomplot.h"
 #include <QMap>
@@ -27,14 +27,14 @@ class QCustomPlot;
 class QCPColorMap;
 class QCPColorScale;
 class UpdateTimer;
-class MouseMoveEvent;
+class ScientificPlotEvent;
 
 //! The ColorMap class presents 2D intensity data from IntensityDataItem as color map.
 
 //! Provides a minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. This is a replacement for ColorMapPlot.
 
-class BA_CORE_API_ ColorMap : public DescriptedPlot
+class BA_CORE_API_ ColorMap : public ScientificPlot
 {
     Q_OBJECT
 

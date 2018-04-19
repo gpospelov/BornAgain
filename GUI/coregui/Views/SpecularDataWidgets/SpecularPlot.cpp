@@ -26,7 +26,7 @@ const int replot_update_interval = 10;
 }
 
 SpecularPlot::SpecularPlot(QWidget* parent)
-    : DescriptedPlot(parent)
+    : ScientificPlot(parent)
     , m_custom_plot(new QCustomPlot)
     , m_update_timer(new UpdateTimer(replot_update_interval, this))
     , m_block_update(true)

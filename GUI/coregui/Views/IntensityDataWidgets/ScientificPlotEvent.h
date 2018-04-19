@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/MouseMoveEvent.h
-//! @brief     Defines class MouseMoveEvent
+//! @file      GUI/coregui/Views/IntensityDataWidgets/ScientificPlotEvent.h
+//! @brief     Defines class ScientificPlotEvent
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,28 +12,28 @@
 //
 // ************************************************************************** //
 
-#ifndef MOUSEMOVEEVENT_H
-#define MOUSEMOVEEVENT_H
+#ifndef SCIENTIFICPLOTEVENT_H
+#define SCIENTIFICPLOTEVENT_H
 
 #include <memory>
 #include <QObject>
 #include "WinDllMacros.h"
 
-class DescriptedPlot;
+class ScientificPlot;
 class IPlotDescriptor;
 class QMouseEvent;
 class QCustomPlot;
 
-//! Helps DescriptedPlot to handle mouse events. Particularly, it constructs a valid
+//! Helps ScientificPlot to handle mouse events. Particularly, it constructs a valid
 //! status string. Can be extended to play a role of event filter.
 
-class BA_CORE_API_ MouseMoveEvent : public QObject
+class BA_CORE_API_ ScientificPlotEvent : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit MouseMoveEvent(DescriptedPlot* descriptedPlot);
-    ~MouseMoveEvent() override;
+    explicit ScientificPlotEvent(ScientificPlot* scientific_plot);
+    ~ScientificPlotEvent() override;
 
     void setMouseTrackingEnabled(bool enable);
 
@@ -46,13 +46,13 @@ public slots:
     void onCustomMouseMove(QMouseEvent* event);
 
 private:
-    DescriptedPlot* descriptedPlot();
-    const DescriptedPlot* descriptedPlot() const;
+    ScientificPlot* scientificPlot();
+    const ScientificPlot* scientificPlot() const;
     QCustomPlot* customPlot();
     std::unique_ptr<IPlotDescriptor> currentPlotDescriptor(QMouseEvent* event) const;
 
-    DescriptedPlot* m_plot;
+    ScientificPlot* m_plot;
     std::unique_ptr<IPlotDescriptor> m_prevPos;
 };
 
-#endif // MOUSEMOVEEVENT_H
+#endif // SCIENTIFICPLOTEVENT_H

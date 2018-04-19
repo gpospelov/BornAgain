@@ -61,16 +61,18 @@ Eigen::Matrix2cd FormFactor2DLattice::evaluatePol(const WavevectorInfo& wavevect
 void FormFactor2DLattice::setFormFactor(const IFormFactor& ff)
 {
     mP_form_factor.reset(ff.clone());
+    registerChild(mP_form_factor.get());
 }
 
 void FormFactor2DLattice::setLattice(const Lattice2D& lattice)
 {
     mP_lattice.reset(lattice.clone());
+    registerChild(mP_lattice.get());
 }
 
 complex_t FormFactor2DLattice::getLatticeFactor(const WavevectorInfo& wavevectors) const
 {
-    static complex_t IM {0.0, 1.0};
+    static const complex_t IM {0.0, 1.0};
     double a = mP_lattice->length1();
     double b = mP_lattice->length2();
     double xi = mP_lattice->rotationAngle();

@@ -34,8 +34,8 @@ public:
     void setModel(RealSpaceModel* model);
 
     void defaultView();
-    void edgeView();
-    void faceView();
+    void sideView();
+    void topView();
 
 private:
     RealSpace::Widget3D* m_3dview;

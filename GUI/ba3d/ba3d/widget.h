@@ -39,8 +39,8 @@ public:
   void setModel(Model*); // model owned elsewhere, may be nullptr
 
   void defaultView();
-  void edgeView();
-  void faceView();
+  void sideView();
+  void topView();
 
   Model* model();
 

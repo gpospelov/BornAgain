@@ -22,10 +22,14 @@
 #include <QMouseEvent>
 #include <qmath.h>
 #include <QMessageBox>
+#include <math.h>
 
 namespace {
     const float zoom_in_scale = 1.25f;
     const float zoom_out_scale = 0.8f;
+
+    const float rot_speed_h = 0.4f; // camera rotation speed in horizontal direction
+    const float rot_speed_v = 0.4f; // camera rotation speed in vertical direction
 }
 
 namespace RealSpace {
@@ -145,20 +149,28 @@ void Canvas::mousePressEvent(QMouseEvent* e) {
     if (camera) {
         matModel = camera->matModel;
         matProj  = camera->matProj;
-        lastV    = unproject(e->pos());
-        lastY    = e->y();
+        e_last = e->pos();
     }
 }
 
 void Canvas::mouseMoveEvent(QMouseEvent* e) {
     if (camera) {
-        auto v = unproject(e->pos());
+        float delta_x = e->pos().x() - e_last.x();
+        float delta_y = e->pos().y() - e_last.y();
+
         switch (mouseButton) {
-        case btnTURN:
-            camera->turnBy(QQuaternion::rotationTo(v, lastV));
+        case btnTURN: {
+            if(delta_x != 0)
+                horizontalCameraTurn(-delta_x*rot_speed_h); // -ve for consistency with Blender
+
+            if(delta_y != 0)
+                verticalCameraTurn(-delta_y*rot_speed_v); // -ve for consistency with Blender
+
+            e_last = e->pos();
             break;
+        }
         case btnZOOM: {
-            float d = (e->y() - lastY) / float(viewport.height());
+            float d = (e->y() - e_last.y()) / float(viewport.height());
             camera->zoomBy(1+d);
             break;
         }
@@ -234,7 +246,7 @@ void Canvas::defaultView()
     }
 }
 
-void Canvas::edgeView()
+void Canvas::sideView()
 {
     if (model){
         // Edge view
@@ -250,14 +262,15 @@ void Canvas::edgeView()
     }
 }
 
-void Canvas::faceView()
+void Canvas::topView()
 {
     if (model){
-        // Top-face view
+        // Top view
+        // Setting a tiny offset in x value of eye such that eye and up vectors are not parallel
         camera->lookAt(RealSpace::Camera::Position(
-                                   RealSpace::Vector3D(0, 0, 140),   // eye
+                                   RealSpace::Vector3D(0.5, 0, 140),   // eye
                                    RealSpace::Vector3D(0, 0, 0),       // center
-                                   RealSpace::Vector3D::_y));
+                                   RealSpace::Vector3D::_z));
         camera->endTransform(true);
         update();
     }
@@ -277,6 +290,56 @@ void Canvas::canvasHintMessageBox()
                         "\n2. Select it from the panel on the right.");
     box.setWindowFlags(box.windowFlags() & ~Qt::WindowCloseButtonHint); // Hide Close Button
     box.exec();
+}
+
+void Canvas::horizontalCameraTurn(float angle)
+{
+    if (model){
+
+        float theta = angle*static_cast<float>(M_PI/180.0); // in radians
+
+        Camera::Position initial_pos = camera->getPos();
+
+        RealSpace::Vector3D v_eye = initial_pos.eye; // camera's position vector
+        RealSpace::Vector3D v_ctr = initial_pos.ctr;
+        RealSpace::Vector3D v_up = initial_pos.up;
+
+        RealSpace::Vector3D v_axis = v_up.normalized(); // normalized rotation axis
+
+        // Rotating camera's position (eye) about up vector
+        RealSpace::Vector3D v_rot_eye = v_up*(1-std::cos(theta))*dot(v_axis,v_eye) +
+                v_eye*std::cos(theta) + cross(v_axis,v_eye)*std::sin(theta);
+
+        Camera::Position rotated_pos(v_rot_eye, v_ctr, v_up);
+
+        camera->lookAt(rotated_pos);
+        camera->endTransform(true);
+    }
+}
+
+void Canvas::verticalCameraTurn(float angle)
+{
+    if (model){
+
+        float theta = angle*static_cast<float>(M_PI/180.0); // in radians
+
+        Camera::Position initial_pos = camera->getPos();
+
+        RealSpace::Vector3D v_eye = initial_pos.eye; // camera's position vector
+        RealSpace::Vector3D v_ctr = initial_pos.ctr;
+        RealSpace::Vector3D v_up = initial_pos.up;
+
+        RealSpace::Vector3D v_axis = cross(v_up, v_eye).normalized(); // normalized rotation axis
+
+        // Rotating camera's position (eye) about an axis perpendicular to up and eye vectors
+        RealSpace::Vector3D v_rot_eye = v_up*(1-std::cos(theta))*dot(v_axis,v_eye) +
+                v_eye*std::cos(theta) + cross(v_axis,v_eye)*std::sin(theta);
+
+        Camera::Position rotated_pos(v_rot_eye, v_ctr, v_up);
+
+        camera->lookAt(rotated_pos);
+        camera->endTransform(true);
+    }
 }
 
 }  // namespace RealSpace

@@ -29,6 +29,12 @@
 #include "Lattice2DItems.h"
 #include "Units.h"
 
+namespace {
+    // defining layer size and thickness (taken from namespace in TransformTo3D)
+    const double layer_size = 50.0;
+    const double layer_thickness = 25.0;
+}
+
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item)
 {
     model->defCamPos = RealSpace::Camera::Position(
@@ -208,10 +214,6 @@ void RealSpaceBuilder::populateInterference2DBasic(RealSpaceModel* model,
 
         cumulative_abundances.append(total_abundance);
     }
-
-    // defining layer size and thickness (taken from namespace in TransformTo3D)
-    double layer_size = 50.0;
-    double layer_thickness = 25.0;
 
     // Estimate the limit 'n' of the integer multiple i and j of the lattice vectors required in
     // order to populate particles correctly within the 3D model's boundaries

@@ -29,6 +29,12 @@
 #include "Lattice2DItems.h"
 #include "Units.h"
 
+namespace {
+    // defining layer size and thickness (taken from namespace in TransformTo3D)
+    const double layer_size = 50.0;
+    const double layer_thickness = 25.0;
+}
+
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item)
 {
     model->defCamPos = RealSpace::Camera::Position(
@@ -178,18 +184,7 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
     // If there is NO interference
     else
     {
-        for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
-        {
-            // Retrieving local x,y,z offset from the lattice point for the current particle
-            SessionItem* particle_position = particle->getItem(ParticleItem::P_POSITION);
-            double x = particle_position->getItemValue(VectorItem::P_X).toDouble();
-            double y = particle_position->getItemValue(VectorItem::P_Y).toDouble();
-            double z = particle_position->getItemValue(VectorItem::P_Z).toDouble();
-
-            populateParticle(model, *particle, QVector3D(static_cast<float>(x),
-                                                         static_cast<float>(y),
-                                                         static_cast<float>(z)));
-        }
+        populateRandomDistribution(model, layoutItem);
     }
 }
 
@@ -209,10 +204,6 @@ void RealSpaceBuilder::populateInterference2DBasic(RealSpaceModel* model,
         cumulative_abundances.append(total_abundance);
     }
 
-    // defining layer size and thickness (taken from namespace in TransformTo3D)
-    double layer_size = 50.0;
-    double layer_thickness = 25.0;
-
     // Estimate the limit 'n' of the integer multiple i and j of the lattice vectors required in
     // order to populate particles correctly within the 3D model's boundaries
     int n1 = static_cast<int>(layer_size*2)/
@@ -224,12 +215,14 @@ void RealSpaceBuilder::populateInterference2DBasic(RealSpaceModel* model,
     // Choosing the larger between n1 and n2
     int n = std::max(n1,n2);
 
+    srand(static_cast<unsigned int>(time(0)));
+
     for (int i = -n; i <= n; ++i)
     {
         for (int j = -n; j <= n; ++j)
         {
             // for random selection of particles based on their abundances
-            double rand_num = (rand()/static_cast<double>(RAND_MAX));
+            double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
 
             int k = 0;
 
@@ -277,6 +270,72 @@ void RealSpaceBuilder::populateInterference2DBasic(RealSpaceModel* model,
     }
 
     cumulative_abundances.clear();
+}
+
+void RealSpaceBuilder::populateRandomDistribution(RealSpaceModel *model, const SessionItem &layoutItem)
+{
+    // Retrieving abundances of particles
+    double total_abundance = 0;
+    QVector<double> cumulative_abundances;
+
+    for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
+    {
+        total_abundance = total_abundance +
+                particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
+
+        cumulative_abundances.append(total_abundance);
+    }
+
+    // to compute total number of particles we use the total particle density
+    // and multiply by the area of the layer
+    double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
+    int num_particles = static_cast<int>(total_density * (2*layer_size) * (2*layer_size));
+
+    srand(static_cast<unsigned int>(time(0)));
+
+    for (int i = 1; i <= num_particles; ++i)
+    {
+        // for random selection of particles based on their abundances
+        double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
+
+        // for random x, y coordinates of the particle on the layer
+        double rand_x = (rand()/static_cast<double>(RAND_MAX))*2*layer_size - layer_size;
+        double rand_y = (rand()/static_cast<double>(RAND_MAX))*2*layer_size - layer_size;
+
+        int k = 0;
+
+        for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
+        {
+            // Retrieving local x,y,z offset from the lattice point for the current particle
+            SessionItem* particle_position =
+                    particle->getItem(ParticleItem::P_POSITION);
+            double x = particle_position->getItemValue(VectorItem::P_X).toDouble();
+            double y = particle_position->getItemValue(VectorItem::P_Y).toDouble();
+            double z = particle_position->getItemValue(VectorItem::P_Z).toDouble();
+
+            // For calculating lattice coordinates we use random x and y coordinates
+            double pos_x = rand_x + x;
+            double pos_y = rand_y + y;
+            double pos_z = z;
+
+            // Check if the position lies within the boundaries of the 3D model
+            if (std::abs(pos_x) <= layer_size && std::abs(pos_y) <= layer_size
+                    && std::abs(pos_z) <= layer_thickness)
+            {
+                // Randomly display a particle at the position, given its abundance
+                if (rand_num <= cumulative_abundances.at(k)/total_abundance)
+                {
+                    populateParticle(model, *particle,
+                                     QVector3D(static_cast<float>(pos_x),
+                                               static_cast<float>(pos_y),
+                                               static_cast<float>(pos_z)));
+                    break;
+                }
+                else
+                    ++k;
+            }
+        }
+    }
 }
 
 void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem& particleItem,

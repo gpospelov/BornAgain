@@ -39,6 +39,8 @@ BA_CORE_API_ void populateLayout(RealSpaceModel* model, const SessionItem& layou
 BA_CORE_API_ void populateInterference2DBasic(RealSpaceModel* model, const SessionItem& layoutItem,
                                               double l1, double l2, double l_alpha, double l_xi);
 
+BA_CORE_API_ void populateRandomDistribution(RealSpaceModel* model, const SessionItem& layoutItem);
+
 BA_CORE_API_ void populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
                                    const QVector3D& origin = QVector3D());
 }

@@ -222,7 +222,7 @@ void RealSpaceBuilder::populateInterference2DBasic(RealSpaceModel* model,
         for (int j = -n; j <= n; ++j)
         {
             // for random selection of particles based on their abundances
-            double rand_num = (rand()/static_cast<double>(RAND_MAX));
+            double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
 
             int k = 0;
 
@@ -296,7 +296,7 @@ void RealSpaceBuilder::populateRandomDistribution(RealSpaceModel *model, const S
     for (int i = 1; i <= num_particles; ++i)
     {
         // for random selection of particles based on their abundances
-        double rand_num = (rand()/static_cast<double>(RAND_MAX));
+        double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
 
         // for random x, y coordinates of the particle on the layer
         double rand_x = (rand()/static_cast<double>(RAND_MAX))*2*layer_size - layer_size;

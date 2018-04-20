@@ -40,7 +40,6 @@ public:
                   QItemSelectionModel* selectionModel = nullptr);
 
 signals:
-    //void lockViewUnchecked(const QItemSelection &, const QItemSelection &);
     void lockViewUnchecked(const QItemSelection &);
 
 public slots:

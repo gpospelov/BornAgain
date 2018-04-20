@@ -17,6 +17,7 @@
 #include "ColorMapUtils.h"
 #include "MathConstants.h"
 #include "plot_constants.h"
+#include "PlotEventInfo.h"
 #include "SpecularDataItem.h"
 #include "UpdateTimer.h"
 
@@ -25,7 +26,7 @@ const int replot_update_interval = 10;
 }
 
 SpecularPlot::SpecularPlot(QWidget* parent)
-    : ScientificPlot(parent)
+    : ScientificPlot(parent, PLOT_TYPE::Plot1D)
     , m_custom_plot(new QCustomPlot)
     , m_update_timer(new UpdateTimer(replot_update_interval, this))
     , m_block_update(true)

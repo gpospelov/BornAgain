@@ -15,7 +15,7 @@
 #ifndef SPECULARPLOT_H
 #define SPECULARPLOT_H
 
-#include "DescriptedPlot.h"
+#include "ScientificPlot.h"
 #include "qcustomplot.h"
 #include <memory>
 
@@ -29,7 +29,7 @@ class UpdateTimer;
 //! Provides minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. Corresponds to ColorMap for 2D intensity data.
 
-class BA_CORE_API_ SpecularPlot : public DescriptedPlot
+class BA_CORE_API_ SpecularPlot : public ScientificPlot
 {
     Q_OBJECT
 
@@ -39,8 +39,8 @@ public:
     QSize sizeHint() const override { return QSize(500, 400); }
     QSize minimumSizeHint() const override { return QSize(128, 128); }
 
-    //! Returns plot descriptor corresponding to given axes coordinates.
-    std::unique_ptr<IPlotDescriptor> plotDescriptor(double xpos, double ypos) const override;
+    //! Returns PlotEventInfo corresponding to given axes coordinates.
+    PlotEventInfo eventInfo(double xpos, double ypos) const override;
 
     QCustomPlot* customPlot() override { return m_custom_plot; }
     const QCustomPlot* customPlot() const override { return m_custom_plot; }

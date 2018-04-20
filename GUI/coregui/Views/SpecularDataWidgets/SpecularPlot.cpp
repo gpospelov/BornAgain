@@ -16,7 +16,6 @@
 #include "AxesItems.h"
 #include "ColorMapUtils.h"
 #include "MathConstants.h"
-#include "PlotStatusDescriptors.h"
 #include "plot_constants.h"
 #include "SpecularDataItem.h"
 #include "UpdateTimer.h"
@@ -26,7 +25,7 @@ const int replot_update_interval = 10;
 }
 
 SpecularPlot::SpecularPlot(QWidget* parent)
-    : DescriptedPlot(parent)
+    : ScientificPlot(parent)
     , m_custom_plot(new QCustomPlot)
     , m_update_timer(new UpdateTimer(replot_update_interval, this))
     , m_block_update(true)
@@ -42,19 +41,19 @@ SpecularPlot::SpecularPlot(QWidget* parent)
     setMouseTrackingEnabled(true);
 }
 
-std::unique_ptr<IPlotDescriptor> SpecularPlot::plotDescriptor(double xpos, double ypos) const
+PlotEventInfo SpecularPlot::eventInfo(double xpos, double ypos) const
 {
-    std::unique_ptr<SpecularPlotDescriptor> result(new SpecularPlotDescriptor);
+    PlotEventInfo result(this);
     if (!specularItem())
-        return std::move(result);
+        return result;
 
-    result->x() = xpos;
-    result->y() = ypos;
+    result.setX(xpos);
+    result.setValue(ypos);
 
-    result->inAxesRange() = axesRangeContains(xpos, ypos);
-    result->nx() = m_custom_plot->graph()->findBegin(result->x());
+    result.setInAxesRange(axesRangeContains(xpos, ypos));
+    result.setNx(m_custom_plot->graph()->findBegin(result.x()));
 
-    return std::move(result);
+    return result;
 }
 
 void SpecularPlot::setLog(bool log)

@@ -15,8 +15,7 @@
 #ifndef COLORMAP_H
 #define COLORMAP_H
 
-#include "DescriptedPlot.h"
-#include "PlotStatusDescriptors.h"
+#include "ScientificPlot.h"
 #include "qcustomplot.h"
 #include <QMap>
 #include <QPoint>
@@ -27,14 +26,14 @@ class QCustomPlot;
 class QCPColorMap;
 class QCPColorScale;
 class UpdateTimer;
-class MouseMoveEvent;
+class ScientificPlotEvent;
 
 //! The ColorMap class presents 2D intensity data from IntensityDataItem as color map.
 
 //! Provides a minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. This is a replacement for ColorMapPlot.
 
-class BA_CORE_API_ ColorMap : public DescriptedPlot
+class BA_CORE_API_ ColorMap : public ScientificPlot
 {
     Q_OBJECT
 
@@ -51,8 +50,8 @@ public:
     //! returns rectangle representing current axes zoom state in widget coordinates
     QRectF viewportRectangleInWidgetCoordinates();
 
-    //! Returns ColorMapBin corresponding to given axes coordinates.
-    std::unique_ptr<IPlotDescriptor> plotDescriptor(double xpos, double ypos) const override;
+    //! Returns PlotEventInfo corresponding to given axes coordinates.
+    PlotEventInfo eventInfo(double xpos, double ypos) const override;
 
 signals:
     void marginsChanged(double left, double right);

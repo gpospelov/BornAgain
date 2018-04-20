@@ -13,15 +13,15 @@
 // ************************************************************************** //
 
 #include "PlotStatusLabel.h"
-#include "DescriptedPlot.h"
+#include "ScientificPlot.h"
 
-PlotStatusLabel::PlotStatusLabel(DescriptedPlot* plot, QWidget* parent) : StatusLabel(parent)
+PlotStatusLabel::PlotStatusLabel(ScientificPlot* plot, QWidget* parent) : StatusLabel(parent)
 {
     if (plot)
         addPlot(plot);
 }
 
-void PlotStatusLabel::addPlot(DescriptedPlot* plot)
+void PlotStatusLabel::addPlot(ScientificPlot* plot)
 {
     if (m_plots.contains(plot))
         return;
@@ -54,7 +54,7 @@ void PlotStatusLabel::onPlotStatusString(const QString& text) { setText(text); }
 
 //! Enables/disables showing of label for given plot.
 
-void PlotStatusLabel::setPlotLabelEnabled(DescriptedPlot* plot, bool flag)
+void PlotStatusLabel::setPlotLabelEnabled(ScientificPlot* plot, bool flag)
 {
     plot->setMouseTrackingEnabled(flag);
     setConnected(plot, flag);
@@ -62,20 +62,20 @@ void PlotStatusLabel::setPlotLabelEnabled(DescriptedPlot* plot, bool flag)
 
 //! Connects with colorMap's status string signal.
 
-void PlotStatusLabel::setConnected(DescriptedPlot* plot, bool flag)
+void PlotStatusLabel::setConnected(ScientificPlot* plot, bool flag)
 {
     if (flag) {
-        connect(plot, &DescriptedPlot::statusString, this,
+        connect(plot, &ScientificPlot::statusString, this,
                 &PlotStatusLabel::onPlotStatusString, Qt::UniqueConnection);
-        connect(plot, &DescriptedPlot::destroyed, this, &PlotStatusLabel::onPlotDestroyed);
+        connect(plot, &ScientificPlot::destroyed, this, &PlotStatusLabel::onPlotDestroyed);
     } else {
-        disconnect(plot, &DescriptedPlot::statusString, this, &PlotStatusLabel::onPlotStatusString);
+        disconnect(plot, &ScientificPlot::statusString, this, &PlotStatusLabel::onPlotStatusString);
     }
 }
 
 void PlotStatusLabel::onPlotDestroyed(QObject* obj)
 {
     auto it = std::remove_if(m_plots.begin(), m_plots.end(),
-                             [obj](DescriptedPlot* cm) { return cm == obj; });
+                             [obj](ScientificPlot* cm) { return cm == obj; });
     m_plots.erase(it, m_plots.end());
 }

@@ -18,7 +18,7 @@
 #include "StatusLabel.h"
 #include <QList>
 
-class DescriptedPlot;
+class ScientificPlot;
 class QResizeEvent;
 
 //! The PlotStatusLabel class shows status string as reported by DescriptedPlot in a frame.
@@ -30,9 +30,9 @@ class BA_CORE_API_ PlotStatusLabel : public StatusLabel
 {
     Q_OBJECT
 public:
-    PlotStatusLabel(DescriptedPlot* plot, QWidget* parent = nullptr);
+    PlotStatusLabel(ScientificPlot* plot, QWidget* parent = nullptr);
 
-    void addPlot(DescriptedPlot* plot);
+    void addPlot(ScientificPlot* plot);
 
     void setLabelEnabled(bool flag);
 
@@ -45,10 +45,10 @@ private slots:
     void onPlotDestroyed(QObject* obj);
 
 private:
-    void setPlotLabelEnabled(DescriptedPlot* plot, bool flag);
-    void setConnected(DescriptedPlot* plot, bool flag);
+    void setPlotLabelEnabled(ScientificPlot* plot, bool flag);
+    void setConnected(ScientificPlot* plot, bool flag);
 
-    QList<DescriptedPlot*> m_plots;
+    QList<ScientificPlot*> m_plots;
 };
 
 #endif // PLOTSTATUSLABEL_H

@@ -14,10 +14,8 @@
 
 #include "FontScalingEvent.h"
 #include "ColorMap.h"
-#include "ColorMapCanvas.h"
 #include "qcustomplot.h"
-#include <QLabel>
-#include <QRect>
+#include "ScientificPlot.h"
 #include <QResizeEvent>
 
 namespace {
@@ -25,9 +23,9 @@ const QString tick_font = "tick-font-key";
 const int widget_size_to_switch_font = 500;
 }
 
-FontScalingEvent::FontScalingEvent(ColorMapCanvas* canvas) : QObject(canvas), m_canvas(canvas)
+FontScalingEvent::FontScalingEvent(ScientificPlot* plot, QWidget* parent)
+    : QObject(parent), m_plot(plot)
 {
-    canvas->installEventFilter(this);
 }
 
 bool FontScalingEvent::eventFilter(QObject* obj, QEvent* event)
@@ -55,7 +53,7 @@ bool FontScalingEvent::eventFilter(QObject* obj, QEvent* event)
 
 void FontScalingEvent::backupFonts()
 {
-    m_fonts[tick_font] = m_canvas->colorMap()->customPlot()->xAxis->tickLabelFont();
+    m_fonts[tick_font] = m_plot->customPlot()->xAxis->tickLabelFont();
 }
 
 void FontScalingEvent::restoreFonts()
@@ -73,7 +71,11 @@ void FontScalingEvent::scaleFonts(double factor)
 
 void FontScalingEvent::setTickLabelFont(const QFont& font)
 {
-    m_canvas->colorMap()->customPlot()->xAxis->setTickLabelFont(font);
-    m_canvas->colorMap()->customPlot()->yAxis->setTickLabelFont(font);
-    m_canvas->colorMap()->colorScale()->axis()->setTickLabelFont(font);
+    m_plot->customPlot()->xAxis->setTickLabelFont(font);
+    m_plot->customPlot()->yAxis->setTickLabelFont(font);
+    if (m_plot->plotType() != ScientificPlot::PLOT_TYPE::Plot2D)
+        return;
+
+    auto color_map = dynamic_cast<ColorMap*>(m_plot);
+    color_map->colorScale()->axis()->setTickLabelFont(font);
 }

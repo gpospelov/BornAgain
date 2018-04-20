@@ -15,14 +15,13 @@
 #ifndef FONTSCALINGEVENT_H
 #define FONTSCALINGEVENT_H
 
-#include "WinDllMacros.h"
 #include <QFont>
 #include <QMap>
 #include <QObject>
+#include "WinDllMacros.h"
 
-class ColorMapCanvas;
-class QObject;
 class QEvent;
+class ScientificPlot;
 
 //! Provides event filter for ScientificPlot. Its goal is to make font size adjustments
 //! on resize events.
@@ -32,7 +31,7 @@ class BA_CORE_API_ FontScalingEvent : public QObject
     Q_OBJECT
 
 public:
-    explicit FontScalingEvent(ColorMapCanvas* canvas);
+    explicit FontScalingEvent(ScientificPlot* plot, QWidget* parent);
 
 protected:
     bool eventFilter(QObject* obj, QEvent* event);
@@ -43,7 +42,7 @@ private:
     void scaleFonts(double factor);
     void setTickLabelFont(const QFont& font);
 
-    ColorMapCanvas* m_canvas;
+    ScientificPlot* m_plot;
     QMap<QString, QFont> m_fonts;
 };
 

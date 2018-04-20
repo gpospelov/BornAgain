@@ -44,7 +44,7 @@ SpecularPlot::SpecularPlot(QWidget* parent)
 
 PlotEventInfo SpecularPlot::eventInfo(double xpos, double ypos) const
 {
-    PlotEventInfo result(this);
+    PlotEventInfo result(plotType());
     if (!specularItem())
         return result;
 

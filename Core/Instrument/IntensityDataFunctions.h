@@ -25,7 +25,8 @@ class Simulation;
 //! Functions to work with intensity data.
 //! @ingroup tools
 
-namespace IntensityDataFunctions {
+namespace IntensityDataFunctions
+{
 //! Returns sum of relative differences between each pair of elements:
 //! (a, b) -> 2*abs(a - b)/(a + b)      ( and zero if  a-b=0 )
 BA_CORE_API_ double RelativeDifference(const SimulationResult& dat, const SimulationResult& ref);
@@ -87,14 +88,13 @@ BA_CORE_API_ std::unique_ptr<OutputData<double>> createFFT(const OutputData<doub
 //! @param simulation: Simulation object with possible ROI and masks defined.
 //! @param data: User data with amplitudes with the shape of data matching the detector.
 //! @return SimulationResult object.
-SimulationResult ConvertData(const Simulation& simulation,
-                             const OutputData<double>& data,
-                             bool put_masked_areas_to_zero = true);
+BA_CORE_API_ SimulationResult ConvertData(const Simulation& simulation,
+                                          const OutputData<double>& data,
+                                          bool put_masked_areas_to_zero = true);
 
-SimulationResult ConvertData(const Simulation& simulation,
-                             const std::vector<std::vector<double>>& data,
-                             bool put_masked_areas_to_zero = true);
-
+BA_CORE_API_ SimulationResult ConvertData(const Simulation& simulation,
+                                          const std::vector<std::vector<double>>& data,
+                                          bool put_masked_areas_to_zero = true);
 
 }; // namespace IntensityDataFunctions
 

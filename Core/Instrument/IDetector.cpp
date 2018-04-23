@@ -19,6 +19,7 @@
 #include "RegionOfInterest.h"
 #include "SimulationArea.h"
 #include "SimulationElement.h"
+#include "DetectorMask.h"
 
 IDetector::IDetector()
 {
@@ -113,8 +114,19 @@ void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) con
     if (!p_intensity_map)
         throw std::runtime_error("IDetector::applyDetectorResolution() -> "
                                    "Error! Null pointer to intensity map");
-    if (mP_detector_resolution)
+    if (mP_detector_resolution) {
         mP_detector_resolution->applyDetectorResolution(p_intensity_map);
+        if (detectorMask() && detectorMask()->hasMasks()) {
+            // sets amplitude in masked areas to zero
+            std::unique_ptr<OutputData<double>> buff(new OutputData<double>());
+            buff->copyShapeFrom(*p_intensity_map);
+
+            iterate([&](const_iterator it) {
+                (*buff)[it.roiIndex()] = (*p_intensity_map)[it.roiIndex()];
+            });
+            p_intensity_map->setRawDataVector(buff->getRawDataVector());
+        }
+    }
 }
 
 void IDetector::removeDetectorResolution()

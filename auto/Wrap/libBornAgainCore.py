@@ -20814,6 +20814,15 @@ def FT2DArray(signal):
 
     """
     return _libBornAgainCore.FT2DArray(signal)
+
+def ConvertData(*args):
+    """
+    ConvertData(Simulation simulation, IntensityData data, bool put_masked_areas_to_zero=True) -> SimulationResult
+    ConvertData(Simulation simulation, IntensityData data) -> SimulationResult
+    ConvertData(Simulation simulation, vdouble2d_t data, bool put_masked_areas_to_zero=True) -> SimulationResult
+    ConvertData(Simulation simulation, vdouble2d_t data) -> SimulationResult
+    """
+    return _libBornAgainCore.ConvertData(*args)
 class IntensityDataIOFactory(_object):
     """
 

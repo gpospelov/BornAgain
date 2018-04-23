@@ -20,6 +20,7 @@
 
 class IHistogram;
 class SimulationResult;
+class Simulation;
 
 //! Functions to work with intensity data.
 //! @ingroup tools
@@ -79,6 +80,21 @@ createOutputDatafrom2DArray(const std::vector<std::vector<double>>& array_2d);
 BA_CORE_API_ std::unique_ptr<OutputData<double>> createFFT(const OutputData<double>& data);
 
 #endif // SWIG
+
+//! Convert user data to SimulationResult object for later drawing in various axes units.
+//! User data will be cropped to the ROI defined in the simulation, amplitudes in areas
+//! corresponding to the masked areas of the detector will be set to zero.
+//! @param simulation: Simulation object with possible ROI and masks defined.
+//! @param data: User data with amplitudes with the shape of data matching the detector.
+//! @return SimulationResult object.
+SimulationResult ConvertData(const Simulation& simulation,
+                             const OutputData<double>& data,
+                             bool put_masked_areas_to_zero = true);
+
+SimulationResult ConvertData(const Simulation& simulation,
+                             const std::vector<std::vector<double>>& data,
+                             bool put_masked_areas_to_zero = true);
+
 
 }; // namespace IntensityDataFunctions
 

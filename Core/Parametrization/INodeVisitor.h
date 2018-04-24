@@ -32,7 +32,6 @@ class FitObject;
 class FitSuiteObjects;
 class FootprintFactorGaussian;
 class FootprintFactorSquare;
-class FormFactor2DLattice;
 class FormFactorAnisoPyramid;
 class FormFactorBox;
 class FormFactorCone;
@@ -104,6 +103,7 @@ class IntensityNormalizer;
 class IntensityScaleAndShiftNormalizer;
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
+class InterferenceFunction2DSuperLattice;
 class InterferenceFunctionFinite2DLattice;
 class InterferenceFunction2DParaCrystal;
 class InterferenceFunctionNone;
@@ -161,7 +161,6 @@ public:
     virtual void visit(const FitSuiteObjects*) {}
     virtual void visit(const FootprintFactorGaussian*) {}
     virtual void visit(const FootprintFactorSquare*) {}
-    virtual void visit(const FormFactor2DLattice*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
     virtual void visit(const FormFactorBox*) {}
     virtual void visit(const FormFactorCone*) {}
@@ -233,6 +232,7 @@ public:
     virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
     virtual void visit(const InterferenceFunction1DLattice*) {}
     virtual void visit(const InterferenceFunction2DLattice*) {}
+    virtual void visit(const InterferenceFunction2DSuperLattice*) {}
     virtual void visit(const InterferenceFunctionFinite2DLattice*) {}
     virtual void visit(const InterferenceFunction2DParaCrystal*) {}
     virtual void visit(const InterferenceFunctionNone*) {}

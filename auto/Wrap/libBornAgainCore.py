@@ -7693,7 +7693,6 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FitSuiteObjects arg2)
         visit(INodeVisitor self, FootprintFactorGaussian arg2)
         visit(INodeVisitor self, FootprintFactorSquare arg2)
-        visit(INodeVisitor self, FormFactor2DLattice arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
         visit(INodeVisitor self, FormFactorBox arg2)
         visit(INodeVisitor self, FormFactorCone arg2)
@@ -7765,6 +7764,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
         visit(INodeVisitor self, InterferenceFunction1DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunction2DSuperLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionFinite2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DParaCrystal arg2)
         visit(INodeVisitor self, InterferenceFunctionNone arg2)
@@ -12333,140 +12333,6 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
     __del__ = lambda self: None
 FormFactorPolygonalSurface_swigregister = _libBornAgainCore.FormFactorPolygonalSurface_swigregister
 FormFactorPolygonalSurface_swigregister(FormFactorPolygonalSurface)
-
-class FormFactor2DLattice(IFormFactor):
-    """
-
-
-    The formfactor of a finite 2d lattice of other shapes.
-
-    C++ includes: FormFactor2DLattice.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IFormFactor]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactor2DLattice, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IFormFactor]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FormFactor2DLattice, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(FormFactor2DLattice self, IFormFactor form_factor, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> FormFactor2DLattice
-        __init__(FormFactor2DLattice self, IFormFactor form_factor, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> FormFactor2DLattice
-
-        FormFactor2DLattice::FormFactor2DLattice(const IFormFactor &form_factor, double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
-
-        """
-        this = _libBornAgainCore.new_FormFactor2DLattice(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactor2DLattice
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(FormFactor2DLattice self) -> FormFactor2DLattice
-
-        FormFactor2DLattice * FormFactor2DLattice::clone() const overridefinal
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactor2DLattice_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(FormFactor2DLattice self, INodeVisitor visitor)
-
-        void FormFactor2DLattice::accept(INodeVisitor *visitor) const overridefinal
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactor2DLattice_accept(self, visitor)
-
-
-    def setAmbientMaterial(self, material):
-        """
-        setAmbientMaterial(FormFactor2DLattice self, Material material)
-
-        void FormFactor2DLattice::setAmbientMaterial(Material material) overridefinal
-
-        Passes the material in which this particle is embedded. 
-
-        """
-        return _libBornAgainCore.FormFactor2DLattice_setAmbientMaterial(self, material)
-
-
-    def volume(self):
-        """
-        volume(FormFactor2DLattice self) -> double
-
-        double FormFactor2DLattice::volume() const overridefinal
-
-        Returns the total volume of the particle of this form factor's shape. 
-
-        """
-        return _libBornAgainCore.FormFactor2DLattice_volume(self)
-
-
-    def radialExtension(self):
-        """
-        radialExtension(FormFactor2DLattice self) -> double
-
-        double FormFactor2DLattice::radialExtension() const overridefinal
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactor2DLattice_radialExtension(self)
-
-
-    def bottomZ(self, rotation):
-        """
-        bottomZ(FormFactor2DLattice self, IRotation rotation) -> double
-
-        double FormFactor2DLattice::bottomZ(const IRotation &rotation) const override
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
-        return _libBornAgainCore.FormFactor2DLattice_bottomZ(self, rotation)
-
-
-    def topZ(self, rotation):
-        """
-        topZ(FormFactor2DLattice self, IRotation rotation) -> double
-
-        double FormFactor2DLattice::topZ(const IRotation &rotation) const overridefinal
-
-        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-
-        """
-        return _libBornAgainCore.FormFactor2DLattice_topZ(self, rotation)
-
-
-    def evaluate(self, wavevectors):
-        """
-        evaluate(FormFactor2DLattice self, WavevectorInfo wavevectors) -> complex_t
-
-        complex_t FormFactor2DLattice::evaluate(const WavevectorInfo &wavevectors) const overridefinal
-
-        Returns scattering amplitude for complex wavevectors ki, kf. 
-
-        """
-        return _libBornAgainCore.FormFactor2DLattice_evaluate(self, wavevectors)
-
-FormFactor2DLattice_swigregister = _libBornAgainCore.FormFactor2DLattice_swigregister
-FormFactor2DLattice_swigregister(FormFactor2DLattice)
 
 class FormFactorAnisoPyramid(FormFactorPolyhedron):
     """

@@ -642,21 +642,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -3048,69 +3048,6 @@ Calculate footprint correction coefficient from the beam incident angle  alpha.
 %feature("docstring") Exceptions::FormatErrorException "";
 
 %feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
-";
-
-
-// File: classFormFactor2DLattice.xml
-%feature("docstring") FormFactor2DLattice "
-
-The formfactor of a finite 2d lattice of other shapes.
-
-C++ includes: FormFactor2DLattice.h
-";
-
-%feature("docstring")  FormFactor2DLattice::FormFactor2DLattice "FormFactor2DLattice::FormFactor2DLattice(const IFormFactor &form_factor, const Lattice2D &lattice, unsigned size_1, unsigned size_2)
-";
-
-%feature("docstring")  FormFactor2DLattice::FormFactor2DLattice "FormFactor2DLattice::FormFactor2DLattice(const IFormFactor &form_factor, double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
-";
-
-%feature("docstring")  FormFactor2DLattice::~FormFactor2DLattice "FormFactor2DLattice::~FormFactor2DLattice() overridefinal
-";
-
-%feature("docstring")  FormFactor2DLattice::clone "FormFactor2DLattice * FormFactor2DLattice::clone() const overridefinal
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactor2DLattice::accept "void FormFactor2DLattice::accept(INodeVisitor *visitor) const overridefinal
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactor2DLattice::setAmbientMaterial "void FormFactor2DLattice::setAmbientMaterial(Material material) overridefinal
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  FormFactor2DLattice::volume "double FormFactor2DLattice::volume() const overridefinal
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactor2DLattice::radialExtension "double FormFactor2DLattice::radialExtension() const overridefinal
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactor2DLattice::bottomZ "double FormFactor2DLattice::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactor2DLattice::topZ "double FormFactor2DLattice::topZ(const IRotation &rotation) const overridefinal
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactor2DLattice::evaluate "complex_t FormFactor2DLattice::evaluate(const WavevectorInfo &wavevectors) const overridefinal
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  FormFactor2DLattice::evaluatePol "Eigen::Matrix2cd FormFactor2DLattice::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
-
-Returns scattering amplitude for matrix interactions. 
 ";
 
 
@@ -8254,9 +8191,6 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FootprintFactorSquare *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactor2DLattice *)
-";
-
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorAnisoPyramid *)
 ";
 
@@ -8468,6 +8402,9 @@ C++ includes: INodeVisitor.h
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DLattice *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DSuperLattice *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionFinite2DLattice *)
@@ -15675,16 +15612,16 @@ C++ includes: ZLimits.h
 // File: namespace_0D405.xml
 
 
-// File: namespace_0D417.xml
+// File: namespace_0D438.xml
 
 
-// File: namespace_0D440.xml
+// File: namespace_0D445.xml
 
 
-// File: namespace_0D447.xml
+// File: namespace_0D483.xml
 
 
-// File: namespace_0D485.xml
+// File: namespace_0D491.xml
 
 
 // File: namespace_0D493.xml
@@ -15693,13 +15630,10 @@ C++ includes: ZLimits.h
 // File: namespace_0D495.xml
 
 
-// File: namespace_0D497.xml
+// File: namespace_0D573.xml
 
 
-// File: namespace_0D575.xml
-
-
-// File: namespace_0D597.xml
+// File: namespace_0D595.xml
 
 
 // File: namespace_0D88.xml
@@ -17978,12 +17912,6 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 
 
 // File: Crystal_8h.xml
-
-
-// File: FormFactor2DLattice_8cpp.xml
-
-
-// File: FormFactor2DLattice_8h.xml
 
 
 // File: FormFactorCoreShell_8cpp.xml

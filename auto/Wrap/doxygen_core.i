@@ -642,21 +642,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -2064,24 +2064,38 @@ Holds simulation description and real data to run the fit.
 C++ includes: FitObject.h
 ";
 
-%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const Simulation &simulation, const OutputData< double > &real_data, double weight=1)
+%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const Simulation &simulation, const OutputData< double > &data, double weight=1)
 
-FitObject constructor
+Constructs simulation/data pair for later fit.
 
 Parameters:
 -----------
 
 simulation: 
-The simulation to run
+simulation to run
 
-real_data: 
-The real data
+data: 
+experimental data
 
 weight: 
-Weight of dataset in chi2 calculations
+weight of dataset in chi2 calculations 
+";
 
-adjust_detector_to_data: 
-Detector axes will be adjusted to real data axes, if true 
+%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const Simulation &simulation, const std::vector< std::vector< double >> &data, double weight=1)
+
+Constructs simulation/data pair for later fit.
+
+Parameters:
+-----------
+
+simulation: 
+simulation to run
+
+data: 
+experimental data
+
+weight: 
+weight of dataset in chi2 calculations 
 ";
 
 %feature("docstring")  FitObject::~FitObject "FitObject::~FitObject()
@@ -2112,10 +2126,34 @@ Runs simulation and put results (the real and simulated intensities) into extern
 Returns a vector of children (const). 
 ";
 
-%feature("docstring")  FitObject::simulationResult "SimulationResult FitObject::simulationResult() const 
+%feature("docstring")  FitObject::simulationResult "SimulationResult FitObject::simulationResult() const
+
+Returns simulation result. 
 ";
 
-%feature("docstring")  FitObject::experimentalData "SimulationResult FitObject::experimentalData() const 
+%feature("docstring")  FitObject::experimentalData "SimulationResult FitObject::experimentalData() const
+
+Returns experimental data. 
+";
+
+%feature("docstring")  FitObject::relativeDifference "SimulationResult FitObject::relativeDifference() const
+
+Returns relative difference between simulation and experimental data. 
+";
+
+%feature("docstring")  FitObject::runSimulation "void FitObject::runSimulation()
+
+Runs internal simulation object. 
+";
+
+%feature("docstring")  FitObject::experimental_array "std::vector< double > FitObject::experimental_array() const
+
+Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. 
+";
+
+%feature("docstring")  FitObject::simulation_array "std::vector< double > FitObject::simulation_array() const
+
+Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. 
 ";
 
 
@@ -2516,7 +2554,7 @@ the index of fit pair
 
 %feature("docstring")  FitSuite::relativeDifference "SimulationResult FitSuite::relativeDifference(size_t i_item=0) const
 
-Returns relative difference between simulation and real data.
+Returns relative difference between simulation and experimental data.
 
 Parameters:
 -----------
@@ -2742,13 +2780,37 @@ Returns total number of data points.
 Replaces default  ChiSquaredModule with new one. 
 ";
 
-%feature("docstring")  FitSuiteObjects::simulationResult "SimulationResult FitSuiteObjects::simulationResult(size_t i_item=0) const 
+%feature("docstring")  FitSuiteObjects::simulationResult "SimulationResult FitSuiteObjects::simulationResult(size_t i_item=0) const
+
+Returns simulation result.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
 ";
 
-%feature("docstring")  FitSuiteObjects::experimentalData "SimulationResult FitSuiteObjects::experimentalData(size_t i_item=0) const 
+%feature("docstring")  FitSuiteObjects::experimentalData "SimulationResult FitSuiteObjects::experimentalData(size_t i_item=0) const
+
+Returns experimental data.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
 ";
 
-%feature("docstring")  FitSuiteObjects::relativeDifference "SimulationResult FitSuiteObjects::relativeDifference(size_t i_item=0) const 
+%feature("docstring")  FitSuiteObjects::relativeDifference "SimulationResult FitSuiteObjects::relativeDifference(size_t i_item=0) const
+
+Returns relative difference between simulation and experimental data.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
 ";
 
 %feature("docstring")  FitSuiteObjects::runSimulations "void FitSuiteObjects::runSimulations()
@@ -2771,7 +2833,7 @@ Parameters:
 -----------
 
 global_index: 
-index accross all element in  FitElement vector 
+index across all element in  FitElement vector 
 ";
 
 %feature("docstring")  FitSuiteObjects::setNfreeParameters "void FitSuiteObjects::setNfreeParameters(int nfree_parameters)
@@ -2986,6 +3048,69 @@ Calculate footprint correction coefficient from the beam incident angle  alpha.
 %feature("docstring") Exceptions::FormatErrorException "";
 
 %feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
+";
+
+
+// File: classFormFactor2DLattice.xml
+%feature("docstring") FormFactor2DLattice "
+
+The formfactor of a finite 2d lattice of other shapes.
+
+C++ includes: FormFactor2DLattice.h
+";
+
+%feature("docstring")  FormFactor2DLattice::FormFactor2DLattice "FormFactor2DLattice::FormFactor2DLattice(const IFormFactor &form_factor, const Lattice2D &lattice, unsigned size_1, unsigned size_2)
+";
+
+%feature("docstring")  FormFactor2DLattice::FormFactor2DLattice "FormFactor2DLattice::FormFactor2DLattice(const IFormFactor &form_factor, double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+";
+
+%feature("docstring")  FormFactor2DLattice::~FormFactor2DLattice "FormFactor2DLattice::~FormFactor2DLattice() overridefinal
+";
+
+%feature("docstring")  FormFactor2DLattice::clone "FormFactor2DLattice * FormFactor2DLattice::clone() const overridefinal
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactor2DLattice::accept "void FormFactor2DLattice::accept(INodeVisitor *visitor) const overridefinal
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactor2DLattice::setAmbientMaterial "void FormFactor2DLattice::setAmbientMaterial(Material material) overridefinal
+
+Passes the material in which this particle is embedded. 
+";
+
+%feature("docstring")  FormFactor2DLattice::volume "double FormFactor2DLattice::volume() const overridefinal
+
+Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  FormFactor2DLattice::radialExtension "double FormFactor2DLattice::radialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactor2DLattice::bottomZ "double FormFactor2DLattice::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactor2DLattice::topZ "double FormFactor2DLattice::topZ(const IRotation &rotation) const overridefinal
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactor2DLattice::evaluate "complex_t FormFactor2DLattice::evaluate(const WavevectorInfo &wavevectors) const overridefinal
+
+Returns scattering amplitude for complex wavevectors ki, kf. 
+";
+
+%feature("docstring")  FormFactor2DLattice::evaluatePol "Eigen::Matrix2cd FormFactor2DLattice::evaluatePol(const WavevectorInfo &wavevectors) const overridefinal
+
+Returns scattering amplitude for matrix interactions. 
 ";
 
 
@@ -6691,7 +6816,7 @@ Removes detector resolution function.
 Returns a pointer to detector resolution object. 
 ";
 
-%feature("docstring")  IDetector::createDetectorMap "std::unique_ptr< OutputData< double > > IDetector::createDetectorMap(const Beam &beam, AxesUnits units) const
+%feature("docstring")  IDetector::createDetectorMap "std::unique_ptr< OutputData< double > > IDetector::createDetectorMap() const
 
 Returns empty detector map in given axes units. 
 ";
@@ -6716,24 +6841,14 @@ Resets region of interest making whole detector plane available for the simulati
 Returns detection properties. 
 ";
 
-%feature("docstring")  IDetector::initOutputData "void IDetector::initOutputData(OutputData< double > &data) const
+%feature("docstring")  IDetector::createDetectorIntensity "OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
 
-Inits axes of  OutputData to match the detector and sets values to zero. 
-";
-
-%feature("docstring")  IDetector::createDetectorIntensity "OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
-
-Returns new intensity map with detector resolution applied and axes in requested units. 
+Returns new intensity map with detector resolution applied. Map will be cropped to ROI if ROI is present. 
 ";
 
 %feature("docstring")  IDetector::defaultAxesUnits "virtual AxesUnits IDetector::defaultAxesUnits() const
 
 Return default axes units. 
-";
-
-%feature("docstring")  IDetector::validAxesUnits "virtual std::vector<AxesUnits> IDetector::validAxesUnits() const
-
-Returns vector of valid axes units. 
 ";
 
 %feature("docstring")  IDetector::numberOfSimulationElements "size_t IDetector::numberOfSimulationElements() const
@@ -8139,6 +8254,9 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FootprintFactorSquare *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactor2DLattice *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorAnisoPyramid *)
 ";
 
@@ -8352,6 +8470,9 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DLattice *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionFinite2DLattice *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DParaCrystal *)
 ";
 
@@ -8547,14 +8668,9 @@ Sets the polarization analyzer characteristics of the detector.
 apply the detector resolution to the given intensity map 
 ";
 
-%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, AxesUnits units=AxesUnits::DEFAULT) const
+%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
 
 Returns new intensity map with detector resolution applied and axes in requested units. 
-";
-
-%feature("docstring")  Instrument::createDetectorMap "OutputData< double > * Instrument::createDetectorMap(AxesUnits units=AxesUnits::DEFAULT) const
-
-Returns empty detector map in given axes units. 
 ";
 
 %feature("docstring")  Instrument::initDetector "void Instrument::initDetector()
@@ -9022,6 +9138,93 @@ Returns a vector of children (const).
 ";
 
 
+// File: classInterferenceFunction2DSuperLattice.xml
+%feature("docstring") InterferenceFunction2DSuperLattice "
+
+Interference function of 2D superlattice with a configurable interference function for each lattice site.
+
+C++ includes: InterferenceFunction2DSuperLattice.h
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(const Lattice2D &lattice, unsigned size_1, unsigned size_2)
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+
+Constructor of two-dimensional interference function.
+
+Parameters:
+-----------
+
+length_1: 
+length of first lattice vector in nanometers
+
+length_2: 
+length of second lattice vector in nanometers
+
+alpha: 
+angle between lattice vectors in radians
+
+xi: 
+rotation of lattice with respect to x-axis (beam direction) in radians 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice() final
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::clone "InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::accept "void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::setSubstructureIFF "void InterferenceFunction2DSuperLattice::setSubstructureIFF(const IInterferenceFunction &sub_iff)
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::substructureIFF "const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::evaluate "double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
+
+Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::domainSize1 "unsigned InterferenceFunction2DSuperLattice::domainSize1() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::domainSize2 "unsigned InterferenceFunction2DSuperLattice::domainSize2() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::setPositionVariance "void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::positionVariance "double InterferenceFunction2DSuperLattice::positionVariance() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::setIntegrationOverXi "void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::integrationOverXi "bool InterferenceFunction2DSuperLattice::integrationOverXi() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::lattice "const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::getParticleDensity "double InterferenceFunction2DSuperLattice::getParticleDensity() const final
+
+Returns the particle density associated with this 2d lattice. 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::getChildren "std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
+
+Returns a vector of children (const). 
+";
+
+
 // File: classInterferenceFunctionFinite2DLattice.xml
 %feature("docstring") InterferenceFunctionFinite2DLattice "
 
@@ -9069,6 +9272,12 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  InterferenceFunctionFinite2DLattice::evaluate "double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const final
 
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::domainSize1 "unsigned InterferenceFunctionFinite2DLattice::domainSize1() const 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::domainSize2 "unsigned InterferenceFunctionFinite2DLattice::domainSize2() const 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::setPositionVariance "void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
@@ -12811,11 +13020,6 @@ Inits detector with the beam settings.
 %feature("docstring")  RectangularDetector::getDetectorArrangment "RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const 
 ";
 
-%feature("docstring")  RectangularDetector::validAxesUnits "std::vector< AxesUnits > RectangularDetector::validAxesUnits() const override
-
-returns vector of valid axes units 
-";
-
 %feature("docstring")  RectangularDetector::defaultAxesUnits "AxesUnits RectangularDetector::defaultAxesUnits() const override
 
 return default axes units 
@@ -14428,11 +14632,6 @@ Resets region of interest making whole detector plane available for the simulati
 Return default axes units. 
 ";
 
-%feature("docstring")  SpecularDetector1D::validAxesUnits "std::vector< AxesUnits > SpecularDetector1D::validAxesUnits() const override
-
-Returns vector of valid axes units. 
-";
-
 
 // File: classSpecularMagnetic.xml
 %feature("docstring") SpecularMagnetic "
@@ -14490,7 +14689,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  SpecularSimulation::result "SimulationResult SpecularSimulation::result() const override
 
-Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays. If simulation was not run, returns an array of proper size filled with zeros. 
 ";
 
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
@@ -14654,11 +14853,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  SphericalDetector::~SphericalDetector "SphericalDetector::~SphericalDetector() override
-";
-
-%feature("docstring")  SphericalDetector::validAxesUnits "std::vector< AxesUnits > SphericalDetector::validAxesUnits() const override
-
-returns vector of valid axes units 
 ";
 
 %feature("docstring")  SphericalDetector::defaultAxesUnits "AxesUnits SphericalDetector::defaultAxesUnits() const override
@@ -15375,10 +15569,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -15408,34 +15602,34 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D101.xml
+// File: namespace_0D103.xml
 
 
-// File: namespace_0D110.xml
+// File: namespace_0D112.xml
 
 
-// File: namespace_0D178.xml
+// File: namespace_0D180.xml
 
 
 // File: namespace_0D20.xml
 
 
-// File: namespace_0D219.xml
+// File: namespace_0D22.xml
 
 
-// File: namespace_0D26.xml
+// File: namespace_0D221.xml
 
 
-// File: namespace_0D286.xml
+// File: namespace_0D28.xml
 
 
-// File: namespace_0D302.xml
+// File: namespace_0D288.xml
 
 
-// File: namespace_0D323.xml
+// File: namespace_0D304.xml
 
 
-// File: namespace_0D327.xml
+// File: namespace_0D325.xml
 
 
 // File: namespace_0D329.xml
@@ -15444,55 +15638,61 @@ C++ includes: ZLimits.h
 // File: namespace_0D331.xml
 
 
-// File: namespace_0D339.xml
+// File: namespace_0D333.xml
 
 
-// File: namespace_0D354.xml
+// File: namespace_0D341.xml
 
 
-// File: namespace_0D362.xml
+// File: namespace_0D356.xml
 
 
-// File: namespace_0D368.xml
+// File: namespace_0D364.xml
 
 
-// File: namespace_0D371.xml
+// File: namespace_0D370.xml
 
 
 // File: namespace_0D373.xml
 
 
-// File: namespace_0D394.xml
+// File: namespace_0D375.xml
 
 
-// File: namespace_0D403.xml
+// File: namespace_0D396.xml
 
 
-// File: namespace_0D436.xml
+// File: namespace_0D405.xml
 
 
-// File: namespace_0D443.xml
+// File: namespace_0D417.xml
 
 
-// File: namespace_0D481.xml
+// File: namespace_0D440.xml
 
 
-// File: namespace_0D489.xml
+// File: namespace_0D447.xml
 
 
-// File: namespace_0D491.xml
+// File: namespace_0D485.xml
 
 
 // File: namespace_0D493.xml
 
 
-// File: namespace_0D571.xml
+// File: namespace_0D495.xml
 
 
-// File: namespace_0D593.xml
+// File: namespace_0D497.xml
 
 
-// File: namespace_0D86.xml
+// File: namespace_0D575.xml
+
+
+// File: namespace_0D597.xml
+
+
+// File: namespace_0D88.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -15502,6 +15702,58 @@ Returns shape nrows, ncols of 2D array.
 ";
 
 %feature("docstring")  ArrayUtils::createNumpyArray "PyObject * ArrayUtils::createNumpyArray(const std::vector< double > &data)
+";
+
+%feature("docstring")  ArrayUtils::createData1D "decltype(auto) ArrayUtils::createData1D(const T &vec)
+
+Creates  OutputData from 1D vector.
+
+Parameters:
+-----------
+
+vec: 
+std::vector<double>
+
+std::unique_ptr< OutputData<double>> 
+";
+
+%feature("docstring")  ArrayUtils::createVector1D "decltype(auto) ArrayUtils::createVector1D(const T &data)
+
+Creates 1D vector from  OutputData.
+
+Parameters:
+-----------
+
+vec: 
+ OutputData<double>
+
+vector<double> 
+";
+
+%feature("docstring")  ArrayUtils::createData2D "decltype(auto) ArrayUtils::createData2D(const T &vec)
+
+Creates  OutputData from 2D vector.
+
+Parameters:
+-----------
+
+vec: 
+std::vector<std::vector<double>>
+
+std::unique_ptr< OutputData<double>> 
+";
+
+%feature("docstring")  ArrayUtils::createVector2D "decltype(auto) ArrayUtils::createVector2D(const T &data)
+
+Creates 2D vector from  OutputData.
+
+Parameters:
+-----------
+
+vec: 
+ OutputData<double>
+
+vector<vector<double>> 
 ";
 
 
@@ -15630,11 +15882,6 @@ Returns string representation of axes dimension in the form \"(nx,ny)\".
 %feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const OutputData< double > &data)
 
 Returns string representation of axes dimension in the form \"(nx,ny)\". 
-";
-
-%feature("docstring")  DetectorFunctions::createDataSet "std::unique_ptr< OutputData< double > > DetectorFunctions::createDataSet(const Instrument &instrument, const OutputData< double > &data, bool put_masked_areas_to_zero=true, AxesUnits units=AxesUnits::DEFAULT)
-
-Creates real data containing original user data clipped to the ROI area of the detector. If put_masked_areas_to_zero==true: resulting data will have 0.0 in all masked areas If put_masked_areas_to_zero==false: resulting data will be only cropped, masked areas will still contain intensities TODO: what users will like more (this appears on FitSuitePlotObserver)? 
 ";
 
 
@@ -16397,6 +16644,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: InterferenceFunction2DParaCrystal_8h.xml
+
+
+// File: InterferenceFunction2DSuperLattice_8cpp.xml
+
+
+// File: InterferenceFunction2DSuperLattice_8h.xml
 
 
 // File: InterferenceFunctionFinite2DLattice_8cpp.xml
@@ -17370,7 +17623,7 @@ Constructs a material with  name,  refractive_index and  magnetization (in A/m).
 
 %feature("docstring")  MaterialBySLD "Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization)
 
-Constructs a wavelength-independent material with a given complex-valued scattering lenght density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
+Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 
 Parameters:
 -----------
@@ -17411,7 +17664,7 @@ Constructs a material with  name,  refractive_index and  magnetization (in A/m).
 
 %feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization=kvector_t())
 
-Constructs a wavelength-independent material with a given complex-valued scattering lenght density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
+Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 
 Parameters:
 -----------
@@ -17715,6 +17968,12 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 
 
 // File: Crystal_8h.xml
+
+
+// File: FormFactor2DLattice_8cpp.xml
+
+
+// File: FormFactor2DLattice_8h.xml
 
 
 // File: FormFactorCoreShell_8cpp.xml
@@ -18361,6 +18620,9 @@ Template function to create an integrator object.
 
 
 // File: PyImport_8h.xml
+
+
+// File: PyObject_8h.xml
 
 
 // File: PythonCore_8h.xml

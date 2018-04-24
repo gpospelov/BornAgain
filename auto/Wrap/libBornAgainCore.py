@@ -6264,24 +6264,21 @@ class FitObject(INode):
         __init__(FitObject self, Simulation simulation, vdouble2d_t data, double weight=1) -> FitObject
         __init__(FitObject self, Simulation simulation, vdouble2d_t data) -> FitObject
 
-        FitObject::FitObject(const Simulation &simulation, const OutputData< double > &real_data, double weight=1)
+        FitObject::FitObject(const Simulation &simulation, const std::vector< std::vector< double >> &data, double weight=1)
 
-        FitObject constructor
+        Constructs simulation/data pair for later fit.
 
         Parameters:
         -----------
 
         simulation: 
-        The simulation to run
+        simulation to run
 
-        real_data: 
-        The real data
+        data: 
+        experimental data
 
         weight: 
-        Weight of dataset in chi2 calculations
-
-        adjust_detector_to_data: 
-        Detector axes will be adjusted to real data axes, if true 
+        weight of dataset in chi2 calculations 
 
         """
         this = _libBornAgainCore.new_FitObject(*args)
@@ -6357,7 +6354,9 @@ class FitObject(INode):
         """
         simulationResult(FitObject self) -> SimulationResult
 
-        SimulationResult FitObject::simulationResult() const 
+        SimulationResult FitObject::simulationResult() const
+
+        Returns simulation result. 
 
         """
         return _libBornAgainCore.FitObject_simulationResult(self)
@@ -6367,29 +6366,59 @@ class FitObject(INode):
         """
         experimentalData(FitObject self) -> SimulationResult
 
-        SimulationResult FitObject::experimentalData() const 
+        SimulationResult FitObject::experimentalData() const
+
+        Returns experimental data. 
 
         """
         return _libBornAgainCore.FitObject_experimentalData(self)
 
 
     def relativeDifference(self):
-        """relativeDifference(FitObject self) -> SimulationResult"""
+        """
+        relativeDifference(FitObject self) -> SimulationResult
+
+        SimulationResult FitObject::relativeDifference() const
+
+        Returns relative difference between simulation and experimental data. 
+
+        """
         return _libBornAgainCore.FitObject_relativeDifference(self)
 
 
     def runSimulation(self):
-        """runSimulation(FitObject self)"""
+        """
+        runSimulation(FitObject self)
+
+        void FitObject::runSimulation()
+
+        Runs internal simulation object. 
+
+        """
         return _libBornAgainCore.FitObject_runSimulation(self)
 
 
     def experimental_array(self):
-        """experimental_array(FitObject self) -> vdouble1d_t"""
+        """
+        experimental_array(FitObject self) -> vdouble1d_t
+
+        std::vector< double > FitObject::experimental_array() const
+
+        Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. 
+
+        """
         return _libBornAgainCore.FitObject_experimental_array(self)
 
 
     def simulation_array(self):
-        """simulation_array(FitObject self) -> vdouble1d_t"""
+        """
+        simulation_array(FitObject self) -> vdouble1d_t
+
+        std::vector< double > FitObject::simulation_array() const
+
+        Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. 
+
+        """
         return _libBornAgainCore.FitObject_simulation_array(self)
 
 FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
@@ -6970,7 +6999,7 @@ class FitSuite(IObservable):
 
         SimulationResult FitSuite::relativeDifference(size_t i_item=0) const
 
-        Returns relative difference between simulation and real data.
+        Returns relative difference between simulation and experimental data.
 
         Parameters:
         -----------
@@ -7075,7 +7104,15 @@ class FitSuiteObjects(INode):
         simulationResult(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
         simulationResult(FitSuiteObjects self) -> SimulationResult
 
-        SimulationResult FitSuiteObjects::simulationResult(size_t i_item=0) const 
+        SimulationResult FitSuiteObjects::simulationResult(size_t i_item=0) const
+
+        Returns simulation result.
+
+        Parameters:
+        -----------
+
+        i_item: 
+        the index of fit pair 
 
         """
         return _libBornAgainCore.FitSuiteObjects_simulationResult(self, i_item)
@@ -7086,7 +7123,15 @@ class FitSuiteObjects(INode):
         experimentalData(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
         experimentalData(FitSuiteObjects self) -> SimulationResult
 
-        SimulationResult FitSuiteObjects::experimentalData(size_t i_item=0) const 
+        SimulationResult FitSuiteObjects::experimentalData(size_t i_item=0) const
+
+        Returns experimental data.
+
+        Parameters:
+        -----------
+
+        i_item: 
+        the index of fit pair 
 
         """
         return _libBornAgainCore.FitSuiteObjects_experimentalData(self, i_item)
@@ -7097,7 +7142,15 @@ class FitSuiteObjects(INode):
         relativeDifference(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
         relativeDifference(FitSuiteObjects self) -> SimulationResult
 
-        SimulationResult FitSuiteObjects::relativeDifference(size_t i_item=0) const 
+        SimulationResult FitSuiteObjects::relativeDifference(size_t i_item=0) const
+
+        Returns relative difference between simulation and experimental data.
+
+        Parameters:
+        -----------
+
+        i_item: 
+        the index of fit pair 
 
         """
         return _libBornAgainCore.FitSuiteObjects_relativeDifference(self, i_item)
@@ -7141,7 +7194,7 @@ class FitSuiteObjects(INode):
         -----------
 
         global_index: 
-        index accross all element in  FitElement vector 
+        index across all element in  FitElement vector 
 
         """
         return _libBornAgainCore.FitSuiteObjects_getResidualValue(self, global_index)
@@ -12282,7 +12335,14 @@ FormFactorPolygonalSurface_swigregister = _libBornAgainCore.FormFactorPolygonalS
 FormFactorPolygonalSurface_swigregister(FormFactorPolygonalSurface)
 
 class FormFactor2DLattice(IFormFactor):
-    """Proxy of C++ FormFactor2DLattice class."""
+    """
+
+
+    The formfactor of a finite 2d lattice of other shapes.
+
+    C++ includes: FormFactor2DLattice.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IFormFactor]:
@@ -12298,6 +12358,9 @@ class FormFactor2DLattice(IFormFactor):
         """
         __init__(FormFactor2DLattice self, IFormFactor form_factor, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> FormFactor2DLattice
         __init__(FormFactor2DLattice self, IFormFactor form_factor, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> FormFactor2DLattice
+
+        FormFactor2DLattice::FormFactor2DLattice(const IFormFactor &form_factor, double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+
         """
         this = _libBornAgainCore.new_FormFactor2DLattice(*args)
         try:
@@ -12311,7 +12374,7 @@ class FormFactor2DLattice(IFormFactor):
         """
         clone(FormFactor2DLattice self) -> FormFactor2DLattice
 
-        IFormFactor* IFormFactor::clone() const override=0
+        FormFactor2DLattice * FormFactor2DLattice::clone() const overridefinal
 
         Returns a clone of this  ISample object. 
 
@@ -12323,7 +12386,7 @@ class FormFactor2DLattice(IFormFactor):
         """
         accept(FormFactor2DLattice self, INodeVisitor visitor)
 
-        virtual void INode::accept(INodeVisitor *visitor) const =0
+        void FormFactor2DLattice::accept(INodeVisitor *visitor) const overridefinal
 
         Calls the  INodeVisitor's visit method. 
 
@@ -12335,7 +12398,7 @@ class FormFactor2DLattice(IFormFactor):
         """
         setAmbientMaterial(FormFactor2DLattice self, Material material)
 
-        virtual void IFormFactor::setAmbientMaterial(Material)=0
+        void FormFactor2DLattice::setAmbientMaterial(Material material) overridefinal
 
         Passes the material in which this particle is embedded. 
 
@@ -12347,7 +12410,7 @@ class FormFactor2DLattice(IFormFactor):
         """
         volume(FormFactor2DLattice self) -> double
 
-        double IFormFactor::volume() const
+        double FormFactor2DLattice::volume() const overridefinal
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -12359,7 +12422,7 @@ class FormFactor2DLattice(IFormFactor):
         """
         radialExtension(FormFactor2DLattice self) -> double
 
-        virtual double IFormFactor::radialExtension() const =0
+        double FormFactor2DLattice::radialExtension() const overridefinal
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -12371,7 +12434,7 @@ class FormFactor2DLattice(IFormFactor):
         """
         bottomZ(FormFactor2DLattice self, IRotation rotation) -> double
 
-        virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
+        double FormFactor2DLattice::bottomZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -12383,7 +12446,7 @@ class FormFactor2DLattice(IFormFactor):
         """
         topZ(FormFactor2DLattice self, IRotation rotation) -> double
 
-        virtual double IFormFactor::topZ(const IRotation &rotation) const =0
+        double FormFactor2DLattice::topZ(const IRotation &rotation) const overridefinal
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -12395,7 +12458,7 @@ class FormFactor2DLattice(IFormFactor):
         """
         evaluate(FormFactor2DLattice self, WavevectorInfo wavevectors) -> complex_t
 
-        virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
+        complex_t FormFactor2DLattice::evaluate(const WavevectorInfo &wavevectors) const overridefinal
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -18894,9 +18957,9 @@ class IDetector(ICloneable, INode):
         """
         createDetectorIntensity(IDetector self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
 
-        OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
+        OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
 
-        Returns new intensity map with detector resolution applied and axes in requested units. 
+        Returns new intensity map with detector resolution applied. Map will be cropped to ROI if ROI is present. 
 
         """
         return _libBornAgainCore.IDetector_createDetectorIntensity(self, elements)
@@ -20836,7 +20899,7 @@ class Instrument(INode):
         """
         createDetectorIntensity(Instrument self, std::vector< SimulationElement,std::allocator< SimulationElement > > const & elements) -> IntensityData
 
-        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, AxesUnits units=AxesUnits::DEFAULT) const
+        OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
 
         Returns new intensity map with detector resolution applied and axes in requested units. 
 
@@ -21672,12 +21735,22 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
 
 
     def domainSize1(self):
-        """domainSize1(InterferenceFunctionFinite2DLattice self) -> unsigned int"""
+        """
+        domainSize1(InterferenceFunctionFinite2DLattice self) -> unsigned int
+
+        unsigned InterferenceFunctionFinite2DLattice::domainSize1() const 
+
+        """
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_domainSize1(self)
 
 
     def domainSize2(self):
-        """domainSize2(InterferenceFunctionFinite2DLattice self) -> unsigned int"""
+        """
+        domainSize2(InterferenceFunctionFinite2DLattice self) -> unsigned int
+
+        unsigned InterferenceFunctionFinite2DLattice::domainSize2() const 
+
+        """
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_domainSize2(self)
 
 
@@ -21764,6 +21837,231 @@ def InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, size_1,
 def InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, size_1, size_2):
     """InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice"""
     return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, size_1, size_2)
+
+class InterferenceFunction2DSuperLattice(IInterferenceFunction):
+    """
+
+
+    Interference function of 2D superlattice with a configurable interference function for each lattice site.
+
+    C++ includes: InterferenceFunction2DSuperLattice.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunction2DSuperLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction2DSuperLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(InterferenceFunction2DSuperLattice self, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
+        __init__(InterferenceFunction2DSuperLattice self, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
+
+        InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+
+        Constructor of two-dimensional interference function.
+
+        Parameters:
+        -----------
+
+        length_1: 
+        length of first lattice vector in nanometers
+
+        length_2: 
+        length of second lattice vector in nanometers
+
+        alpha: 
+        angle between lattice vectors in radians
+
+        xi: 
+        rotation of lattice with respect to x-axis (beam direction) in radians 
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunction2DSuperLattice(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction2DSuperLattice
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
+
+        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunction2DSuperLattice self, INodeVisitor visitor)
+
+        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_accept(self, visitor)
+
+
+    def setSubstructureIFF(self, sub_iff):
+        """
+        setSubstructureIFF(InterferenceFunction2DSuperLattice self, IInterferenceFunction sub_iff)
+
+        void InterferenceFunction2DSuperLattice::setSubstructureIFF(const IInterferenceFunction &sub_iff)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setSubstructureIFF(self, sub_iff)
+
+
+    def substructureIFF(self):
+        """
+        substructureIFF(InterferenceFunction2DSuperLattice self) -> IInterferenceFunction
+
+        const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_substructureIFF(self)
+
+
+    def createSquare(lattice_length, xi, size_1, size_2):
+        """createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
+
+    createSquare = staticmethod(createSquare)
+
+    def createHexagonal(lattice_length, xi, size_1, size_2):
+        """createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
+
+    createHexagonal = staticmethod(createHexagonal)
+
+    def evaluate(self, q):
+        """
+        evaluate(InterferenceFunction2DSuperLattice self, kvector_t q) -> double
+
+        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
+
+        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q)
+
+
+    def domainSize1(self):
+        """
+        domainSize1(InterferenceFunction2DSuperLattice self) -> unsigned int
+
+        unsigned InterferenceFunction2DSuperLattice::domainSize1() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize1(self)
+
+
+    def domainSize2(self):
+        """
+        domainSize2(InterferenceFunction2DSuperLattice self) -> unsigned int
+
+        unsigned InterferenceFunction2DSuperLattice::domainSize2() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize2(self)
+
+
+    def setPositionVariance(self, sigma2):
+        """
+        setPositionVariance(InterferenceFunction2DSuperLattice self, double sigma2)
+
+        void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setPositionVariance(self, sigma2)
+
+
+    def positionVariance(self):
+        """
+        positionVariance(InterferenceFunction2DSuperLattice self) -> double
+
+        double InterferenceFunction2DSuperLattice::positionVariance() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_positionVariance(self)
+
+
+    def setIntegrationOverXi(self, integrate_xi):
+        """
+        setIntegrationOverXi(InterferenceFunction2DSuperLattice self, bool integrate_xi)
+
+        void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setIntegrationOverXi(self, integrate_xi)
+
+
+    def integrationOverXi(self):
+        """
+        integrationOverXi(InterferenceFunction2DSuperLattice self) -> bool
+
+        bool InterferenceFunction2DSuperLattice::integrationOverXi() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_integrationOverXi(self)
+
+
+    def lattice(self):
+        """
+        lattice(InterferenceFunction2DSuperLattice self) -> Lattice2D
+
+        const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_lattice(self)
+
+
+    def getParticleDensity(self):
+        """
+        getParticleDensity(InterferenceFunction2DSuperLattice self) -> double
+
+        double InterferenceFunction2DSuperLattice::getParticleDensity() const final
+
+        Returns the particle density associated with this 2d lattice. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_getParticleDensity(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_getChildren(self)
+
+InterferenceFunction2DSuperLattice_swigregister = _libBornAgainCore.InterferenceFunction2DSuperLattice_swigregister
+InterferenceFunction2DSuperLattice_swigregister(InterferenceFunction2DSuperLattice)
+
+def InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2):
+    """InterferenceFunction2DSuperLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
+
+def InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2):
+    """InterferenceFunction2DSuperLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
 
 class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     """
@@ -23879,7 +24177,7 @@ def MaterialBySLD(*args):
 
     BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization=kvector_t())
 
-    Constructs a wavelength-independent material with a given complex-valued scattering lenght density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
+    Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 
     Parameters:
     -----------
@@ -27376,7 +27674,7 @@ class SpecularSimulation(Simulation):
 
         SimulationResult SpecularSimulation::result() const override
 
-        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+        Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays. If simulation was not run, returns an array of proper size filled with zeros. 
 
         """
         return _libBornAgainCore.SpecularSimulation_result(self)

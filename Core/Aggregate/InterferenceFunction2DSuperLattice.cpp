@@ -145,7 +145,7 @@ InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(
     setName(other.getName());
     if(other.mP_lattice)
         setLattice(*other.mP_lattice);
-    setSubstructureIFF(*mP_substructure);
+    setSubstructureIFF(*other.mP_substructure);
     setIntegrationOverXi(other.integrationOverXi());
     init_parameters();
 }

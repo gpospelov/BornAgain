@@ -124,6 +124,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Finite 2D lattice");
 
     registerItem(
+        "SuperLatticeBuilder",
+        create_new<SuperLatticeBuilder>,
+        "Superlattice");
+
+    registerItem(
         "CustomMorphologyBuilder",
         create_new<CustomMorphologyBuilder>,
         "Mixture of different particles a la IsGISAXS morphology file");

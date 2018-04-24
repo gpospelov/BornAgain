@@ -82,7 +82,6 @@ public:
 
 private:
     void init_parameters();
-    void init_dataset(const OutputData<double>& real_data);
 
     std::unique_ptr<Simulation> m_simulation;
     SimulationResult m_simulation_result;

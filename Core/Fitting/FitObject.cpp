@@ -35,7 +35,7 @@ FitObject::FitObject(const Simulation& simulation, const OutputData<double>& dat
 
 {
     init_parameters();
-    init_dataset(data);
+    m_experimental_data = IntensityDataFunctions::ConvertData(simulation, data, false);
 }
 
 FitObject::FitObject(const Simulation& simulation, const std::vector<std::vector<double>>& data,
@@ -44,8 +44,7 @@ FitObject::FitObject(const Simulation& simulation, const std::vector<std::vector
 
 {
     init_parameters();
-    auto output_data = ArrayUtils::createData2D(data);
-    init_dataset(*output_data);
+    m_experimental_data = IntensityDataFunctions::ConvertData(simulation, data, false);
 }
 
 FitObject::~FitObject() = default;
@@ -118,33 +117,6 @@ void FitObject::init_parameters()
     m_fit_elements_count = m_simulation->numberOfSimulationElements();
     registerChild(m_simulation.get());
     m_simulation_result = m_simulation->result();
-}
-
-//! Check if real_data shape corresponds with the detector.
-
-void FitObject::init_dataset(const OutputData<double>& real_data)
-{
-    auto converter = UnitConverterUtils::createConverter(*m_simulation);
-    auto roi_data = UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
-
-    auto detector = m_simulation->getInstrument().getDetector();
-
-    if (roi_data->hasSameDimensions(real_data)) {
-        // data is already cropped to ROI
-        roi_data->setRawDataVector(real_data.getRawDataVector());
-
-    }  else if(DetectorFunctions::hasSameDimensions(*detector, real_data)) {
-        // exp data has same shape as the detector and will be placed in roi_data
-        detector->iterate([&](IDetector::const_iterator it){
-            (*roi_data)[it.roiIndex()] = real_data[it.detectorIndex()];
-        }, /*visit_masked*/true);
-
-    } else {
-        throw std::runtime_error("FitObject::init_dataset() -> Error. Detector and exp data have "
-                                 "different shape.");
-    }
-
-    m_experimental_data = SimulationResult(*roi_data, *converter);
 }
 
 size_t FitObject::numberOfFitElements() const { return m_fit_elements_count; }

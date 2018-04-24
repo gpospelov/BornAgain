@@ -243,6 +243,7 @@ MultiLayer* SuperLatticeBuilder::buildSample() const
     particle_layout.addParticle(particle, 1.0, kvector_t(0.0, 0.0, -10.0*Units::nanometer));
 
     particle_layout.setInterferenceFunction(*P_interference_function);
+    particle_layout.setTotalParticleSurfaceDensity(100.0/4e4);
 
     substrate_layer.addLayout(particle_layout);
 

@@ -18,10 +18,10 @@
 #include "SessionItemWidget.h"
 
 class ColorMap;
-class QCustomPlot;
-class ColorMapCanvasEvent;
+class FontScalingEvent;
 class IntensityDataItem;
 class PlotStatusLabel;
+class QCustomPlot;
 
 //! The ColorMapCanvas class contains ColorMap for intensity data presentation, and provide
 //! control of font size, status string appearance, defines common actions
@@ -32,7 +32,7 @@ class BA_CORE_API_ ColorMapCanvas : public SessionItemWidget
     Q_OBJECT
 
 public:
-    explicit ColorMapCanvas(QWidget* parent = 0);
+    explicit ColorMapCanvas(QWidget* parent = nullptr);
 
     void setItem(SessionItem* intensityDataItem);
 
@@ -46,7 +46,7 @@ public slots:
 
 private:
     ColorMap* m_colorMap;
-    ColorMapCanvasEvent* m_canvasEvent;
+    FontScalingEvent* m_canvasEvent;
     PlotStatusLabel* m_statusLabel;
 };
 

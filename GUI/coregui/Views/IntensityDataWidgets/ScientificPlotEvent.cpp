@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "ScientificPlotEvent.h"
-#include "ScientificPlot.h"
 #include <QMouseEvent>
 #include <qcustomplot.h>
 
 ScientificPlotEvent::ScientificPlotEvent(ScientificPlot* scientific_plot)
     : QObject(scientific_plot)
     , m_plot(scientific_plot)
+    , m_prevPos(scientific_plot->plotType())
 {
 }
 

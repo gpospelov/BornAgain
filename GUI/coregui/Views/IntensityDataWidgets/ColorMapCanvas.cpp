@@ -14,19 +14,19 @@
 
 #include "ColorMapCanvas.h"
 #include "ColorMap.h"
-#include "ColorMapCanvasEvent.h"
+#include "FontScalingEvent.h"
 #include "PlotStatusLabel.h"
 #include "IntensityDataItem.h"
-#include "StatusLabel.h"
 #include <QLabel>
 #include <QVBoxLayout>
 
-ColorMapCanvas::ColorMapCanvas(QWidget *parent)
+ColorMapCanvas::ColorMapCanvas(QWidget* parent)
     : SessionItemWidget(parent)
     , m_colorMap(new ColorMap)
-    , m_canvasEvent(new ColorMapCanvasEvent(this))
+    , m_canvasEvent(new FontScalingEvent(m_colorMap, this))
     , m_statusLabel(new PlotStatusLabel(m_colorMap, this))
 {
+    this->installEventFilter(m_canvasEvent);
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);

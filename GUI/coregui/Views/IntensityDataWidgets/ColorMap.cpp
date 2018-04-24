@@ -17,6 +17,7 @@
 #include "ColorMapUtils.h"
 #include "IntensityDataItem.h"
 #include "MathConstants.h"
+#include "PlotEventInfo.h"
 #include "UpdateTimer.h"
 #include "plot_constants.h"
 
@@ -27,7 +28,7 @@ const int colorbar_width = 80;
 }
 
 ColorMap::ColorMap(QWidget* parent)
-    : ScientificPlot(parent)
+    : ScientificPlot(parent, PLOT_TYPE::Plot2D)
     , m_customPlot(new QCustomPlot)
     , m_colorMap(nullptr), m_colorScale(nullptr)
     , m_updateTimer(new UpdateTimer(replot_update_interval, this))
@@ -62,7 +63,7 @@ QRectF ColorMap::viewportRectangleInWidgetCoordinates()
 
 PlotEventInfo ColorMap::eventInfo(double xpos, double ypos) const
 {
-    PlotEventInfo result(this);
+    PlotEventInfo result(plotType());
     if (!intensityItem())
         return result;
 

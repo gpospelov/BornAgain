@@ -22029,18 +22029,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DSuperLattice_lattice(self)
 
 
-    def getParticleDensity(self):
-        """
-        getParticleDensity(InterferenceFunction2DSuperLattice self) -> double
-
-        double InterferenceFunction2DSuperLattice::getParticleDensity() const final
-
-        Returns the particle density associated with this 2d lattice. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_getParticleDensity(self)
-
-
     def getChildren(self):
         """
         getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector

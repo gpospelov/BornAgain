@@ -9214,11 +9214,6 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction2DSuperLattice::lattice "const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const 
 ";
 
-%feature("docstring")  InterferenceFunction2DSuperLattice::getParticleDensity "double InterferenceFunction2DSuperLattice::getParticleDensity() const final
-
-Returns the particle density associated with this 2d lattice. 
-";
-
 %feature("docstring")  InterferenceFunction2DSuperLattice::getChildren "std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
 
 Returns a vector of children (const). 

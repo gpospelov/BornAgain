@@ -123,14 +123,6 @@ const Lattice2D& InterferenceFunction2DSuperLattice::lattice() const
     return *mP_lattice;
 }
 
-double InterferenceFunction2DSuperLattice::getParticleDensity() const
-{
-    double area = mP_lattice->unitCellArea();
-    double density = (area == 0.0) ? 0.0
-                                   : 1.0/area;
-    return density*mP_substructure->getParticleDensity();
-}
-
 std::vector<const INode*> InterferenceFunction2DSuperLattice::getChildren() const
 {
     return std::vector<const INode*>() << mP_lattice << mP_substructure;

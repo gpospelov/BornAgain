@@ -12,7 +12,7 @@ SpecularInstrumentEditor::SpecularInstrumentEditor(QWidget* parent)
     , m_columnResizer(new ColumnResizer(this))
     , m_beamEditor(new SpecularBeamEditor(m_columnResizer))
     , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
-    , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
+    , m_polarizationAnalysisEditor(nullptr)
 {
     auto mainLayout = new QVBoxLayout;
 

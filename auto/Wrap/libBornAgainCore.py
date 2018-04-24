@@ -20875,6 +20875,9 @@ def ConvertData(*args):
     ConvertData(Simulation simulation, IntensityData data) -> SimulationResult
     ConvertData(Simulation simulation, vdouble2d_t data, bool put_masked_areas_to_zero=True) -> SimulationResult
     ConvertData(Simulation simulation, vdouble2d_t data) -> SimulationResult
+
+    SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
+
     """
     return _libBornAgainCore.ConvertData(*args)
 class IntensityDataIOFactory(_object):

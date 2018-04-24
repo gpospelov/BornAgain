@@ -15999,6 +15999,25 @@ Creates  OutputData from a 2D Array.
 Creates Fourier Transform ( OutputData format) of intensity map ( OutputData format). 
 ";
 
+%feature("docstring")  IntensityDataFunctions::ConvertData "SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const OutputData< double > &data, bool put_masked_areas_to_zero=true)
+
+Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero.
+
+Parameters:
+-----------
+
+simulation: 
+ Simulation object with possible ROI and masks defined.
+
+data: 
+User data with amplitudes with the shape of data matching the detector.
+
+SimulationResult object. 
+";
+
+%feature("docstring")  IntensityDataFunctions::ConvertData "SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
+";
+
 
 // File: namespaceMaterialUtils.xml
 %feature("docstring")  MaterialUtils::ScalarReducedPotential "complex_t MaterialUtils::ScalarReducedPotential(complex_t n, kvector_t k, double n_ref)

@@ -16,11 +16,11 @@
 #define SCIENTIFICPLOT_H
 
 #include "SessionItemWidget.h"
-#include "PlotEventInfo.h"
 #include <memory>
 
-class ScientificPlotEvent;
+class PlotEventInfo;
 class QCustomPlot;
+class ScientificPlotEvent;
 
 //! Common interface for plot-descriptor interaction
 
@@ -29,7 +29,9 @@ class BA_CORE_API_ ScientificPlot : public SessionItemWidget
     Q_OBJECT
 
 public:
-    explicit ScientificPlot(QWidget* parent);
+    enum class PLOT_TYPE {Plot1D, Plot2D};
+
+    explicit ScientificPlot(QWidget* parent, PLOT_TYPE plot_type);
     ~ScientificPlot() override;
 
     //! Returns plot descriptor corresponding to given axes coordinates.
@@ -54,10 +56,14 @@ public:
     //! Returns true if axes rectangle contains given in axes coordinates.
     bool axesRangeContains(double xpos, double ypos) const;
 
+    //! Returns the type of current plot
+    PLOT_TYPE plotType() const {return m_plot_type;}
+
 signals:
     void statusString(const QString& text);
 
 private:
+    PLOT_TYPE m_plot_type;
     ScientificPlotEvent* m_event;
 };
 

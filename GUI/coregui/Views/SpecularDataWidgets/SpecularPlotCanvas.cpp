@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "SpecularPlotCanvas.h"
+#include "FontScalingEvent.h"
 #include "PlotStatusLabel.h"
 #include "SpecularPlot.h"
 #include "SpecularDataItem.h"
@@ -21,8 +22,10 @@
 SpecularPlotCanvas::SpecularPlotCanvas(QWidget *parent)
     : SessionItemWidget(parent)
     , m_plot(new SpecularPlot)
+    , m_canvasEvent(new FontScalingEvent(m_plot, this))
     , m_statusLabel(new PlotStatusLabel(m_plot, this))
 {
+    this->installEventFilter(m_canvasEvent);
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);

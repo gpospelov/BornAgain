@@ -29,7 +29,6 @@ SpecularDataCanvas::SpecularDataCanvas(QWidget* parent)
 
 {
     QVBoxLayout* vlayout = new QVBoxLayout(this);
-    vlayout->setMargin(0);
     vlayout->setSpacing(0);
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->addWidget(m_plot_canvas);

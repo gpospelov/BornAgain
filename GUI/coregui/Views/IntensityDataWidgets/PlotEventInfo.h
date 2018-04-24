@@ -15,6 +15,7 @@
 #ifndef PLOTEVENTINFO_H
 #define PLOTEVENTINFO_H
 
+#include "ScientificPlot.h"
 #include "WinDllMacros.h"
 #include <QString>
 
@@ -25,10 +26,9 @@ class SpecularPlot;
 
 class BA_CORE_API_ PlotEventInfo
 {
+    using PLOT_TYPE = ScientificPlot::PLOT_TYPE;
 public:
-    PlotEventInfo();
-    PlotEventInfo(const ColorMap*);
-    PlotEventInfo(const SpecularPlot*);
+    PlotEventInfo(PLOT_TYPE type);
 
     QString statusString() const;
 
@@ -54,16 +54,12 @@ public:
 
 
 private:
-    enum class INFO_TYPE {Undefined, Plot1D, Plot2D};
-
-    PlotEventInfo(INFO_TYPE type);
     QString valueToString() const;
-    void checkPlotType() const;
 
     bool m_in_axes_range, m_log_valued_axis;
     double m_x, m_y, m_value;
     int m_nx, m_ny;
-    INFO_TYPE m_info_type;
+    PLOT_TYPE m_info_type;
 };
 
 #endif // PLOTEVENTINFO_H

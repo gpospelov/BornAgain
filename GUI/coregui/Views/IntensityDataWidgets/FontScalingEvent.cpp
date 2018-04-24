@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/ColorMapCanvasEvent.cpp
-//! @brief     Implements class ColorMapCanvasEvent
+//! @file      GUI/coregui/Views/IntensityDataWidgets/FontScalingEvent.cpp
+//! @brief     Implements class FontScalingEvent
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,12 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "ColorMapCanvasEvent.h"
+#include "FontScalingEvent.h"
 #include "ColorMap.h"
-#include "ColorMapCanvas.h"
 #include "qcustomplot.h"
-#include <QLabel>
-#include <QRect>
+#include "ScientificPlot.h"
 #include <QResizeEvent>
 
 namespace {
@@ -25,12 +23,12 @@ const QString tick_font = "tick-font-key";
 const int widget_size_to_switch_font = 500;
 }
 
-ColorMapCanvasEvent::ColorMapCanvasEvent(ColorMapCanvas* canvas) : QObject(canvas), m_canvas(canvas)
+FontScalingEvent::FontScalingEvent(ScientificPlot* plot, QWidget* parent)
+    : QObject(parent), m_plot(plot)
 {
-    canvas->installEventFilter(this);
 }
 
-bool ColorMapCanvasEvent::eventFilter(QObject* obj, QEvent* event)
+bool FontScalingEvent::eventFilter(QObject* obj, QEvent* event)
 {
     if (event->type() == QEvent::Resize) {
         QResizeEvent* resizeEvent = static_cast<QResizeEvent*>(event);
@@ -53,27 +51,31 @@ bool ColorMapCanvasEvent::eventFilter(QObject* obj, QEvent* event)
 
 //! Backup all fonts.
 
-void ColorMapCanvasEvent::backupFonts()
+void FontScalingEvent::backupFonts()
 {
-    m_fonts[tick_font] = m_canvas->colorMap()->customPlot()->xAxis->tickLabelFont();
+    m_fonts[tick_font] = m_plot->customPlot()->xAxis->tickLabelFont();
 }
 
-void ColorMapCanvasEvent::restoreFonts()
+void FontScalingEvent::restoreFonts()
 {
     QFont ff = m_fonts[tick_font];
     setTickLabelFont(ff);
 }
 
-void ColorMapCanvasEvent::scaleFonts(double factor)
+void FontScalingEvent::scaleFonts(double factor)
 {
     QFont ff = m_fonts[tick_font];
     ff.setPointSizeF(ff.pointSizeF() * factor);
     setTickLabelFont(ff);
 }
 
-void ColorMapCanvasEvent::setTickLabelFont(const QFont& font)
+void FontScalingEvent::setTickLabelFont(const QFont& font)
 {
-    m_canvas->colorMap()->customPlot()->xAxis->setTickLabelFont(font);
-    m_canvas->colorMap()->customPlot()->yAxis->setTickLabelFont(font);
-    m_canvas->colorMap()->colorScale()->axis()->setTickLabelFont(font);
+    m_plot->customPlot()->xAxis->setTickLabelFont(font);
+    m_plot->customPlot()->yAxis->setTickLabelFont(font);
+    if (m_plot->plotType() != ScientificPlot::PLOT_TYPE::Plot2D)
+        return;
+
+    auto color_map = dynamic_cast<ColorMap*>(m_plot);
+    color_map->colorScale()->axis()->setTickLabelFont(font);
 }

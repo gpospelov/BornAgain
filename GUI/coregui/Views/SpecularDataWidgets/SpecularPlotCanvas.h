@@ -17,6 +17,7 @@
 
 #include "SessionItemWidget.h"
 
+class FontScalingEvent;
 class PlotStatusLabel;
 class QCustomPlot;
 class SpecularPlot;
@@ -43,6 +44,7 @@ public slots:
 
 private:
     SpecularPlot* m_plot;
+    FontScalingEvent* m_canvasEvent;
     PlotStatusLabel* m_statusLabel;
 };
 

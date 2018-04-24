@@ -74,11 +74,13 @@ const std::string InterferenceFunction2DParaCrystalType = "Interference2DParaCry
 const std::string InterferenceFunction1DLatticeType = "Interference1DLattice";
 const std::string InterferenceFunction2DLatticeType = "Interference2DLattice";
 const std::string InterferenceFunctionFinite2DLatticeType = "InterferenceFinite2DLattice";
+const std::string InterferenceFunction2DSuperLattice = "Interference2DSuperLattice";
 
 const std::string CrystalType = "Crystal";
 const std::string LatticeType = "Lattice";
 const std::string MesoCrystalType = "MesoCrystal";
 
+const std::string FF2DLattice = "2DLatticeFF";
 const std::string FFAnisoPyramidType = "AnisoPyramid";
 const std::string FFBoxType = "Box";
 const std::string FFConeType = "Cone";

@@ -70,4 +70,14 @@ public:
     MultiLayer* buildSample() const;
 };
 
+//! Builds sample: 2D finite lattice of 2D finite lattices (superlattice).
+//! @ingroup standard_samples
+
+class BA_CORE_API_ SuperLatticeBuilder : public IMultiLayerBuilder
+{
+public:
+    SuperLatticeBuilder(){}
+    MultiLayer* buildSample() const;
+};
+
 #endif // TWODIMLATTICEBUILDER_H

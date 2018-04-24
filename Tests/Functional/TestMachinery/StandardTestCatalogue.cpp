@@ -118,6 +118,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "FiniteSquareLatticeBuilder",
         2e-10);
 
+    add("SuperLattice",
+        "Interference function of 2D superlattice",
+        "MiniGISAS",
+        "SuperLatticeBuilder",
+        2e-10);
+
     add("RotatedPyramids",
         "Interference function of rotated 2D square lattice",
         "MiniGISAS",

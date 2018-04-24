@@ -16,6 +16,7 @@
 #include "MaterialFactoryFuncs.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction2DLattice.h"
+#include "InterferenceFunction2DSuperLattice.h"
 #include "InterferenceFunctionFinite2DLattice.h"
 #include "Layer.h"
 #include "MultiLayer.h"
@@ -206,6 +207,45 @@ MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
     particle_layout.setInterferenceFunction(*P_interference_function);
 
     air_layer.addLayout(particle_layout);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
+
+// -----------------------------------------------------------------------------
+// lattice #5: superlattice
+// -----------------------------------------------------------------------------
+MultiLayer* SuperLatticeBuilder::buildSample() const
+{
+    MultiLayer* multi_layer = new MultiLayer();
+
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    std::unique_ptr<InterferenceFunction2DSuperLattice> P_interference_function{
+        InterferenceFunction2DSuperLattice::createSquare(200.0*Units::nanometer, 0.0,
+                                                         40, 40) };
+    std::unique_ptr<InterferenceFunctionFinite2DLattice> P_substructure{
+        InterferenceFunctionFinite2DLattice::createSquare(10.0*Units::nanometer, 0.0,
+                                                          10, 10) };
+    P_interference_function->setSubstructureIFF(*P_substructure);
+    P_interference_function->setPositionVariance(1.0);
+
+    // particles
+    ParticleLayout particle_layout;
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 10.0*Units::nanometer);
+    Particle particle(air_material, ff_cyl);
+    particle_layout.addParticle(particle, 1.0, kvector_t(0.0, 0.0, -10.0*Units::nanometer));
+
+    particle_layout.setInterferenceFunction(*P_interference_function);
+    particle_layout.setTotalParticleSurfaceDensity(100.0/4e4);
+
+    substrate_layer.addLayout(particle_layout);
 
     multi_layer->addLayer(air_layer);
     multi_layer->addLayer(substrate_layer);

@@ -16,7 +16,6 @@
 #define INTERFERENCEFUNCTIONFINITE2DLATTICE_H
 
 #include "IInterferenceFunction.h"
-#include "FTDecayFunctions.h"
 #include "Lattice2D.h"
 
 template <class T> class IntegratorReal;

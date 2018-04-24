@@ -5,3 +5,6 @@
 # fitting via FitSuite
 add_subdirectory(FitSuite)
 
+# fitting via FitKernel
+add_subdirectory(FitKernel)
+

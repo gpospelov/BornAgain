@@ -15,7 +15,7 @@
 #ifndef STANDALONEFITTEST_H
 #define STANDALONEFITTEST_H
 
-#include "IMinimizerTest.h"
+#include "IFunctionalTest.h"
 #include "StandaloneFitPlan.h"
 
 //! @class StandaloneFitTest

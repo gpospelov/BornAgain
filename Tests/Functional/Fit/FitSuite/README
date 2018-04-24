@@ -1,7 +1,6 @@
 Collection of functional tests (C++)
 
-Collection of fitting tests for libBornAgainFit library.
-Different geometries, number of fit parameters, variety of minimizers
+Collection of fitting tests for various geometries, number of fit parameters, variety of minimizers
 and minimization strategies.
 
 Tests are compiled and executed automatically when user builds

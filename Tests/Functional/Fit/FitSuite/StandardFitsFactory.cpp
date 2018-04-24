@@ -17,7 +17,6 @@
 #include "RectDetectorFitTest.h"
 #include "AdjustMinimizerStrategyTest.h"
 #include "SpecularFitTest.h"
-#include "StandaloneFitTest.h"
 #include "MultiPatternFitTest.h"
 
 StandardFitsFactory::StandardFitsFactory()
@@ -71,11 +70,6 @@ StandardFitsFactory::StandardFitsFactory()
         "MultiPatternFit",
         create_new<MultiPatternFitTest>,
         "Test of multipattern fit");
-
-    registerItem(
-        "StandaloneFit",
-        create_new<StandaloneFitTest>,
-                "Test of standalone fit of arbitrary functions");
 
     registerItem(
         "SpecularFit",

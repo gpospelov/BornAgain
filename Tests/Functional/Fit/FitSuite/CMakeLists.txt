@@ -11,7 +11,6 @@ set(test_cases
     RectDetectorFit
     AdjustMinimizerStrategy
     SpecularFit
-    StandaloneFit
 )
 
 include_directories(${RootMinimizers_INCLUDE_DIRS})

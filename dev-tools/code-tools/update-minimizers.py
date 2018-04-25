@@ -4,11 +4,17 @@ from ROOT to our source tree.
 """
 import os
 import filecmp
+import shutil
 
-ROOT_SOURCE = "/home/pospelov/software/root/root_v6.06.02.source"
-BORNAGAIN_SOURCE = "/home/pospelov/development/BornAgain/BornAgain/ThirdParty/RootMinimizers"
+ROOT_SOURCE = "/home/pospelov/software/root/root-6.12.06-source"
+BORNAGAIN_SOURCE = "/home/pospelov/development/BornAgainHub/BornAgain/ThirdParty/Fit/RootMinimizers"
 
 
+def copy_file_to_file(source, destination):
+    """
+    Copies file to another.
+    """
+    shutil.copyfile(source, destination)
 
 
 def find_files(rootdir):
@@ -46,10 +52,19 @@ def get_source_files(rootdir):
 
 
 def find_files_with_same_name(filename_list, name_to_find):
-    result = []
+    same_names = []
     for filename in filename_list:
         if os.path.basename(filename) == name_to_find:
-            result.append(filename)
+            same_names.append(filename)
+
+    result = []
+    if len(same_names) > 1:
+        for name in same_names:
+            if "Math" in name or "TMVA" in name:
+                result.append(name)
+    else:
+        result = same_names
+
     return result
 
 
@@ -62,10 +77,10 @@ def build_difference_map():
         if len(found_files) == 1:
             if filecmp.cmp(ba_file, found_files[0]) == False:
                 cmd = "cp " + found_files[0] + " " + os.path.dirname(ba_file)
-                print ba_file, found_files[0]
-                #os.system(cmd)
+                print(len(found_files), found_files[0], ba_file)
+                # copy_file_to_file(found_files[0], ba_file)
         else:
-            print ba_file, len(found_files), found_files
+            print(len(found_files), found_files, ba_file)
 
 
 if __name__ == '__main__':

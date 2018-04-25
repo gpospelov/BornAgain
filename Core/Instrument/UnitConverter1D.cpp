@@ -22,8 +22,6 @@
 #include "VariableBinAxis.h"
 
 namespace {
-void checkDimensions(size_t i_axis);
-
 double getQ(double wavelength, double angle)
 {
     return 4.0 * M_PI * std::sin(angle) / wavelength;
@@ -52,7 +50,7 @@ size_t UnitConverter1D::dimension() const
 
 double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
 {
-    checkDimensions(i_axis);
+    checkIndex(i_axis);
     units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
     if (units_type == AxesUnits::NBINS)
         return 0.0;
@@ -62,7 +60,7 @@ double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
 
 double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const
 {
-    checkDimensions(i_axis);
+    checkIndex(i_axis);
     units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
     if (units_type == AxesUnits::NBINS)
         return static_cast<double>(m_axis->size());
@@ -72,7 +70,7 @@ double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const
 
 size_t UnitConverter1D::axisSize(size_t i_axis) const
 {
-    checkDimensions(i_axis);
+    checkIndex(i_axis);
     return m_axis->size();
 }
 
@@ -88,7 +86,7 @@ AxesUnits UnitConverter1D::defaultUnits() const
 
 std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const
 {
-    checkDimensions(i_axis);
+    checkIndex(i_axis);
     units = UnitConverterUtils::substituteDefaultUnits(*this, units);
     if (units == AxesUnits::NBINS)
         return std::make_unique<FixedBinAxis>(axisName(0, units), m_axis->size(),
@@ -129,15 +127,4 @@ std::vector<std::map<AxesUnits, std::string>> UnitConverter1D::createNameMaps() 
     std::vector<std::map<AxesUnits, std::string>> result;
     result.push_back(AxisNames::InitSpecAxis());
     return result;
-}
-
-namespace {
-void checkDimensions(size_t i_axis)
-{
-    if (i_axis == 0)
-        return;
-    throw std::runtime_error("Error in UnitConverter1D::checkDimensions: "
-                             "input dimension"
-                             + std::to_string(i_axis) + "exceeds dimensionality of the converter.");
-}
 }

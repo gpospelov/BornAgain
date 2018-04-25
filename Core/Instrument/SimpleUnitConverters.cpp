@@ -12,6 +12,7 @@
 //
 // ************************************************************************** //
 
+#include <algorithm>
 #include <cmath>
 #include <stdexcept>
 
@@ -25,6 +26,13 @@
 #include "SphericalDetector.h"
 #include "UnitConverterUtils.h"
 #include "Units.h"
+
+namespace {
+double getQ(double wavelength, double angle)
+{
+    return 4.0 * M_PI * std::sin(angle) / wavelength;
+}
+}
 
 UnitConverterSimple::UnitConverterSimple(const Beam& beam)
     : m_wavelength(beam.getWavelength())
@@ -107,20 +115,6 @@ void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_ax
     } else {
         addAxisData(axis_name, axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
     }
-}
-
-void UnitConverterSimple::checkIndex(size_t i_axis) const
-{
-    if (i_axis < dimension()) return;
-    throw std::runtime_error("Error in UnitConverterSimple::checkIndex: passed axis index too big: "
-                             + std::to_string(static_cast<int>(i_axis)));
-}
-
-void UnitConverterSimple::checkDimension(size_t dim) const
-{
-    if (dim == dimension()) return;
-    throw std::runtime_error("Error in UnitConverterSimple::checkDimension: wrong dimension: "
-                             + std::to_string(static_cast<int>(dim)));
 }
 
 /* SphericalConverter **********************************************/
@@ -381,10 +375,11 @@ DepthProbeConverter::DepthProbeConverter(const Beam& beam, const IAxis& alpha_ax
                                          const IAxis& z_axis)
     : UnitConverterSimple(beam)
 {
-    auto alpha_axis_name = axisName(0);
+    const auto& alpha_axis_name = axisName(0);
+    const auto& z_axis_name = axisName(1);
     addAxisData(alpha_axis_name, alpha_axis.getMin(), alpha_axis.getMax(), defaultUnits(),
                 alpha_axis.size());
-    addZAxis(z_axis);
+    addAxisData(z_axis_name, z_axis.getMin(), z_axis.getMax(), defaultUnits(), z_axis.size());
 }
 
 DepthProbeConverter::~DepthProbeConverter() = default;
@@ -394,77 +389,29 @@ DepthProbeConverter* DepthProbeConverter::clone() const
     return new DepthProbeConverter(*this);
 }
 
-double DepthProbeConverter::calculateMin(size_t i_axis, AxesUnits units_type) const
-{
-    checkForDefaultUnits(units_type);
-    if (i_axis > 0) {
-        checkIndex(i_axis);
-        const AxisData& axis_data = m_axis_data_table[i_axis];
-        return axis_data.min;
-    }
-    return UnitConverterSimple::calculateMin(i_axis, units_type);
-}
-
-double DepthProbeConverter::calculateMax(size_t i_axis, AxesUnits units_type) const
-{
-    checkForDefaultUnits(units_type);
-    if (i_axis > 0) {
-        checkIndex(i_axis);
-        const AxisData& axis_data = m_axis_data_table[i_axis];
-        return axis_data.max;
-    }
-    return UnitConverterSimple::calculateMax(i_axis, units_type);
-}
-
-std::string DepthProbeConverter::axisName(size_t i_axis, AxesUnits units_type) const
-{
-    checkForDefaultUnits(units_type);
-    if (i_axis > 0) {
-        checkIndex(i_axis);
-        return z_axis_name;
-    }
-    return IUnitConverter::axisName(i_axis, units_type);
-
-}
-
 std::vector<AxesUnits> DepthProbeConverter::availableUnits() const
 {
-    throw std::runtime_error("Error in DepthProbeConverter::availableUnits: not implemented");
-}
-
-std::unique_ptr<IAxis> DepthProbeConverter::createConvertedAxis(size_t i_axis,
-                                                                AxesUnits units) const
-{
-    checkForDefaultUnits(units);
-    if (i_axis > 0) {
-        checkIndex(i_axis);
-        const AxisData& axis_data = m_axis_data_table[i_axis];
-        return std::make_unique<FixedBinAxis>(axis_data.name, axis_data.nbins, axis_data.min,
-                                              axis_data.max);
-    }
-    return UnitConverterSimple::createConvertedAxis(i_axis, units);
+    auto result = UnitConverterSimple::availableUnits();
+    result.push_back(AxesUnits::QSPACE);
+    return result;
 }
 
 DepthProbeConverter::DepthProbeConverter(const DepthProbeConverter& other)
     : UnitConverterSimple(other)
 {}
 
-void DepthProbeConverter::checkForDefaultUnits(AxesUnits units_type) const
+double DepthProbeConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
 {
-    if (units_type != AxesUnits::DEFAULT)
-        throw std::runtime_error(
-            "Error DepthProbeConverter::checkForDefaultUnits: only default units are allowed.");
-}
-
-double DepthProbeConverter::calculateValue(size_t, AxesUnits units_type, double value) const
-{
+    checkUnits(units_type);
+    if (i_axis == 1)
+        return value; // unit conversions are not applied to sample position axis
     switch(units_type) {
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
+    case AxesUnits::QSPACE:
+        return getQ(m_wavelength, value);
     default:
-        throw std::runtime_error("Error in DepthProbeConverter::calculateValue: "
-                                 "target units not available: "
-                                 + std::to_string(static_cast<int>(units_type)));
+        return value;
     }
 }
 
@@ -472,10 +419,15 @@ std::vector<std::map<AxesUnits, std::string>> DepthProbeConverter::createNameMap
 {
     std::vector<std::map<AxesUnits, std::string>> result;
     result.push_back(AxisNames::InitSpecAxis());
+    result.push_back(AxisNames::InitSampleDepthAxis());
     return result;
 }
 
-void DepthProbeConverter::addZAxis(const IAxis &z_axis)
+void DepthProbeConverter::checkUnits(AxesUnits units_type) const
 {
-    addAxisData(z_axis_name, z_axis.getMin(), z_axis.getMax(), AxesUnits::NM, z_axis.size());
+    const auto& available_units = availableUnits();
+    if (std::find(available_units.begin(), available_units.end(), units_type)
+        == available_units.cend())
+        throw std::runtime_error("Error in IUnitConverter::checkUnits: passed unit type is not "
+                                 "supported by the converter");
 }

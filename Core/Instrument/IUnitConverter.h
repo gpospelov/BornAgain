@@ -15,13 +15,11 @@
 #ifndef IUNITCONVERTER_H
 #define IUNITCONVERTER_H
 
-#include <cstddef>
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
 #include "ICloneable.h"
-#include "WinDllMacros.h"
 
 class IAxis;
 
@@ -31,7 +29,7 @@ class IAxis;
 
 // workaround for SWIG (instead of just writing enum class AxesUnits...)
 struct BA_CORE_API_ AxesUnitsWrap {
-    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, NM, QSPACE };
+    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE };
 };
 typedef AxesUnitsWrap::AxesUnits AxesUnits;
 
@@ -51,7 +49,7 @@ public:
     virtual double calculateMax(size_t i_axis, AxesUnits units_type) const=0;
     virtual size_t axisSize(size_t i_axis) const=0;
 
-    virtual std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const;
+    std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const;
 
     virtual std::vector<AxesUnits> availableUnits() const = 0;
     virtual AxesUnits defaultUnits() const=0;
@@ -59,6 +57,9 @@ public:
 #ifndef SWIG
     virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const = 0;
 #endif // SWIG
+
+protected:
+    void checkIndex(size_t i_axis) const;
 
 private:
     virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const=0;

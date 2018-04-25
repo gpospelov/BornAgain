@@ -14,22 +14,17 @@
 #define ROOT_Fit_FitConfig
 
 
-#ifndef ROOT_Fit_ParameterSettings
 #include "Fit/ParameterSettings.h"
-#endif
 
-#ifndef ROOT_Math_MinimizerOptions
 #include "Math/MinimizerOptions.h"
-#endif
 
-#ifndef ROOT_Math_IParamFunctionfwd
 #include "Math/IParamFunctionfwd.h"
-#endif
 
+#include "TMath.h"
 
 #include <vector>
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 
@@ -87,12 +82,12 @@ public:
    /**
       get the vector of parameter settings  (const method)
    */
-   const std::vector<BA_ROOT::Fit::ParameterSettings> & ParamsSettings() const { return fSettings; }
+   const std::vector<ROOT::Fit::ParameterSettings> & ParamsSettings() const { return fSettings; }
 
    /**
       get the vector of parameter settings  (non-const method)
    */
-   std::vector<BA_ROOT::Fit::ParameterSettings> & ParamsSettings() { return fSettings; }
+   std::vector<ROOT::Fit::ParameterSettings> & ParamsSettings() { return fSettings; }
 
    /**
       number of parameters settings
@@ -100,10 +95,43 @@ public:
    unsigned int NPar() const { return fSettings.size(); }
 
    /**
+      return a vector of stored parameter values (i.e initial fit parameters)
+    */
+   std::vector<double> ParamsValues() const;
+
+
+   /**
       set the parameter settings from a model function.
       Create always new parameter setting list from a given model function
    */
-   void CreateParamsSettings(const BA_ROOT::Math::IParamMultiFunction & func);
+   template <class T>
+   void CreateParamsSettings(const ROOT::Math::IParamMultiFunctionTempl<T> &func) {
+      // initialize from model function
+      // set the parameters values from the function
+      unsigned int npar = func.NPar();
+      const double *begin = func.Parameters();
+      if (begin == 0) {
+         fSettings = std::vector<ParameterSettings>(npar);
+         return;
+      }
+
+      fSettings.clear();
+      fSettings.reserve(npar);
+      const double *end = begin + npar;
+      unsigned int i = 0;
+      for (const double *ipar = begin; ipar != end; ++ipar) {
+         double val = *ipar;
+         double step = 0.3 * fabs(val); // step size is 30% of par value
+         // double step = 2.0*fabs(val);   // step size is 30% of par value
+         if (val == 0) step = 0.3;
+
+         fSettings.push_back(ParameterSettings(func.ParameterName(i), val, step));
+#ifdef DEBUG
+         std::cout << "FitConfig: add parameter " << func.ParameterName(i) << " val = " << val << std::endl;
+#endif
+         i++;
+      }
+   }
 
    /**
       set the parameter settings from number of parameters and a vector of values and optionally step values. If there are not existing or number of parameters does not match existing one, create a new parameter setting list.
@@ -113,7 +141,7 @@ public:
    /*
      Set the parameter settings from a vector of parameter settings
    */
-   void SetParamsSettings (const std::vector<BA_ROOT::Fit::ParameterSettings>& pars ) {
+   void SetParamsSettings (const std::vector<ROOT::Fit::ParameterSettings>& pars ) {
       fSettings = pars;
    }
 
@@ -128,21 +156,21 @@ public:
    /**
       create a new minimizer according to chosen configuration
    */
-   BA_ROOT::Math::Minimizer * CreateMinimizer();
+   ROOT::Math::Minimizer * CreateMinimizer();
 
 
 
    /**
       access to the minimizer  control parameter (non const method)
    */
-   BA_ROOT::Math::MinimizerOptions & MinimizerOptions()  { return fMinimizerOpts; }
+   ROOT::Math::MinimizerOptions & MinimizerOptions()  { return fMinimizerOpts; }
 
 
 #ifndef __CINT__   // this method fails on Windows
    /**
       set all the minimizer options using class MinimizerOptions
     */
-   void SetMinimizerOptions(const BA_ROOT::Math::MinimizerOptions & minopt);
+   void SetMinimizerOptions(const ROOT::Math::MinimizerOptions & minopt);
 #endif
 
 
@@ -231,10 +259,10 @@ private:
    bool fUpdateAfterFit;   // update the configuration after a fit using the result
    bool fWeightCorr;       // apply correction to errors for weights fits
 
-   std::vector<BA_ROOT::Fit::ParameterSettings> fSettings;  // vector with the parameter settings
+   std::vector<ROOT::Fit::ParameterSettings> fSettings;  // vector with the parameter settings
    std::vector<unsigned int> fMinosParams;               // vector with the parameter indeces for running Minos
 
-   BA_ROOT::Math::MinimizerOptions fMinimizerOpts;   //minimizer control parameters including name and algo type
+   ROOT::Math::MinimizerOptions fMinimizerOpts;   //minimizer control parameters including name and algo type
 
 };
 

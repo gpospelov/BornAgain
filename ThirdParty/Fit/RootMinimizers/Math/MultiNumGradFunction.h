@@ -28,16 +28,12 @@
 #define ROOT_Math_MultiNumGradFunction
 
 
-#ifndef ROOT_Math_IFunction
 #include "Math/IFunction.h"
-#endif
 
-#ifndef ROOT_Math_WrappedFunction
 #include "Math/WrappedFunction.h"
-#endif
 
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 
@@ -77,7 +73,7 @@ public:
       fOwner(true)
    {
       // create a wrapped function
-      fFunc = new BA_ROOT::Math::WrappedMultiFunction<FuncType> (f, n);
+      fFunc = new ROOT::Math::WrappedMultiFunction<FuncType> (f, n);
    }
 
    /**

@@ -13,7 +13,7 @@
 #include "Minuit2/FCNBase.h"
 #include <cassert>
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

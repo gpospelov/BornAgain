@@ -13,7 +13,7 @@
 #include "Minuit2/MinimumState.h"
 #include <iomanip>
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_MnParabolaFactory
 #define ROOT_Minuit2_MnParabolaFactory
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

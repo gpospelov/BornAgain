@@ -13,7 +13,7 @@
 #include "Minuit2/MnApplication.h"
 #include "Minuit2/SimplexMinimizer.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

@@ -9,7 +9,7 @@
 
 #include "Minuit2/LAVector.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

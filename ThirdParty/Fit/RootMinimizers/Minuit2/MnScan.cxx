@@ -10,7 +10,7 @@
 #include "Minuit2/MnScan.h"
 #include "Minuit2/MnParameterScan.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

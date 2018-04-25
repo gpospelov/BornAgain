@@ -12,13 +12,11 @@
 #define ROOT_Math_IOptions
 
 
-#ifndef ROOT_Math_Error
 #include "Math/Error.h"
-#endif
 
 #include <iostream>
 
-namespace BA_ROOT {
+namespace ROOT {
 
 
    namespace Math {

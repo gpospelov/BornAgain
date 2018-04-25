@@ -36,7 +36,7 @@
 
 #include "gsl/gsl_vector.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
 
 

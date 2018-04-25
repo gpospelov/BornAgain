@@ -34,16 +34,12 @@
 #define ROOT_Math_Derivator
 
 
-#ifndef ROOT_Math_IFunctionfwd
 #include "Math/IFunctionfwd.h"
-#endif
 
-#ifndef ROOT_Math_IParamFunctionfwd
 #include "Math/IParamFunctionfwd.h"
-#endif
 
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
 
 

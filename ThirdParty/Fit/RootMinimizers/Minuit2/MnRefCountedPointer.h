@@ -12,7 +12,7 @@
 
 #include "MnReferenceCounter.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

@@ -10,13 +10,11 @@
 #ifndef ROOT_Minuit2_MnUserCovariance
 #define ROOT_Minuit2_MnUserCovariance
 
-#ifndef ROOT_Minuit2_MnConfig
 #include "Minuit2/MnConfig.h"
-#endif
 #include <vector>
 #include <cassert>
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

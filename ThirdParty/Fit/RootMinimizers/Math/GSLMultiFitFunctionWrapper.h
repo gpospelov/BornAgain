@@ -38,7 +38,7 @@
 
 #include <cassert>
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
 
 
@@ -67,6 +67,10 @@ public:
       fFunc.n = 0;
       fFunc.p = 0;
       fFunc.params = 0;
+#if GSL_MAJOR_VERSION > 1
+      fFunc.nevalf = 0;
+      fFunc.nevaldf = 0;
+#endif
    }
 
 

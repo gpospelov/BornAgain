@@ -6,7 +6,7 @@
 #ifndef ROOT_Math_MinimizerVariableTransformation
 #define ROOT_Math_MinimizerVariableTransformation
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 

@@ -27,7 +27,7 @@
 #define WIDTH     20
 
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

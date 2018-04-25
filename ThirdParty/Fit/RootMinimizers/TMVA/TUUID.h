@@ -2,9 +2,9 @@
 #define TUUID_H
 
 
-#include "TMVA/Types.h"
+#include "RtypesCore.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
 class TUUID {
 public:

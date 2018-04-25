@@ -11,7 +11,7 @@
 #include "Minuit2/FunctionMinimum.h"
 #include "Minuit2/FumiliMinimizer.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

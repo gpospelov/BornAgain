@@ -14,7 +14,7 @@
 #include "Minuit2/FumiliMinimizer.h"
 #include "Minuit2/FumiliFCNBase.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

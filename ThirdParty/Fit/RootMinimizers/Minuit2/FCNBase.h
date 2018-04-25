@@ -16,7 +16,7 @@
 
 #include "Minuit2/GenericFunction.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

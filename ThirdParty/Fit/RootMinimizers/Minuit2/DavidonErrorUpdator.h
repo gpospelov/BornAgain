@@ -10,11 +10,9 @@
 #ifndef ROOT_Minuit2_DavidonErrorUpdator
 #define ROOT_Minuit2_DavidonErrorUpdator
 
-#ifndef ROOT_Minuit2_MinimumErrorUpdator
 #include "Minuit2/MinimumErrorUpdator.h"
-#endif
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

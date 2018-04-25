@@ -38,7 +38,7 @@
 
 #include <cassert>
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
 
 

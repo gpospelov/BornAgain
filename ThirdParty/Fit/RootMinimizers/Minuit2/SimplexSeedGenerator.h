@@ -12,7 +12,7 @@
 
 #include "Minuit2/MinimumSeedGenerator.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

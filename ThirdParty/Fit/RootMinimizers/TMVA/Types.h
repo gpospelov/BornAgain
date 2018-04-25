@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id$
+// @(#)root/tmva $Id$   
 // Author: Andreas Hoecker, Joerg Stelzer, Helge Voss
 
 /**********************************************************************************
@@ -17,9 +17,9 @@
  *      Helge Voss      <Helge.Voss@cern.ch>     - MPI-K Heidelberg, Germany      *
  *                                                                                *
  * Copyright (c) 2005:                                                            *
- *      CERN, Switzerland                                                         *
- *      U. of Victoria, Canada                                                    *
- *      MPI-K Heidelberg, Germany                                                 *
+ *      CERN, Switzerland                                                         * 
+ *      U. of Victoria, Canada                                                    * 
+ *      MPI-K Heidelberg, Germany                                                 * 
  *                                                                                *
  * Redistribution and use in source and binary forms, with or without             *
  * modification, are permitted according to the terms listed in LICENSE           *
@@ -37,81 +37,20 @@
 //                                                                      //
 //////////////////////////////////////////////////////////////////////////
 
-//#include <map>
+#include <map>
 #if __cplusplus > 199711L
 #include <atomic>
 #endif
 
-//#ifndef ROOT_Rtypes
-//#include "Rtypes.h"
-//#endif
+#include "Rtypes.h"
 
-//#ifndef ROOT_TString
-//#include "TString.h"
-//#endif
+#include "TString.h"
 
-#include <string>
-#include <map>
-typedef unsigned int   UInt_t;      //Unsigned integer 4 bytes (unsigned int)
-typedef int            Int_t;       //Signed integer 4 bytes (int)
-typedef bool           Bool_t;      //Boolean (0=false, 1=true) (bool)
-typedef double         Double_t;    //Double 8 bytes
-typedef float          Float_t;     //Float 4 bytes (float)
-typedef long           Long_t;      //Signed long integer 8 bytes (long)
-typedef long double    LongDouble_t;//Long Double
-typedef long long          Long64_t; //Portable signed long integer 8 bytes
-typedef unsigned long  ULong_t;     //Unsigned long integer 4 bytes (unsigned long)
-typedef unsigned char  UChar_t;     //Unsigned Character 1 byte (unsigned char)
-
-
-const Bool_t kTRUE  = true;
-const Bool_t kFALSE = false;
-
-//extern void Info(const char *location, const char *msgfmt, ...)
-//#if defined(__GNUC__) && !defined(__CINT__)
-//__attribute__((format(printf, 2, 3)))
-//#endif
-//;
-//extern void Warning(const char *location, const char *msgfmt, ...)
-//#if defined(__GNUC__) && !defined(__CINT__)
-//__attribute__((format(printf, 2, 3)))
-//#endif
-//;
-//extern void Error(const char *location, const char *msgfmt, ...)
-//#if defined(__GNUC__) && !defined(__CINT__)
-//__attribute__((format(printf, 2, 3)))
-//#endif
-//;
-
-namespace BA_ROOT {
-
-class TNamed {
-public:
-    TNamed() {}
-
-    TNamed(const std::string &name, const std::string &title) {
-        m_name = name;
-        m_title = title;
-    }
-
-    void SetName(const std::string &name) { m_name = name; }
-    void SetTitle(const std::string &title) { m_title = title; }
-
-    std::string GetName() const { return m_name; }
-
-private:
-    std::string m_name;
-    std::string m_title;
-};
-
-//class TObject : public TNamed {};
-}
-
-namespace BA_TMVA {
+namespace TMVA {
 
    typedef UInt_t TMVAVersion_t;
 
-//   class MsgLogger;
+   class MsgLogger;
 
    // message types for MsgLogger
    // define outside of Types class to facilite access
@@ -122,12 +61,15 @@ namespace BA_TMVA {
       kWARNING = 4,
       kERROR   = 5,
       kFATAL   = 6,
-      kSILENT  = 7
+      kSILENT  = 7,
+      kHEADER  = 8
    };
 
    enum HistType { kMVAType = 0, kProbaType = 1, kRarityType = 2, kCompareType = 3 };
 
-
+   //Variable Importance type
+   enum VIType {kShort=0,kAll=1,kRandom=2};
+   
    class Types {
 
    public:
@@ -155,6 +97,15 @@ namespace BA_TMVA {
          kLD             ,
          kPlugins        ,
          kCategory       ,
+         kDNN            ,
+         kPyRandomForest ,
+         kPyAdaBoost     ,
+         kPyGTB          ,
+         kPyKeras        ,
+         kC50            ,
+         kRSNNS          ,
+         kRSVM           ,
+         kRXGB           ,
          kMaxMethod
       };
 
@@ -190,9 +141,9 @@ namespace BA_TMVA {
       enum ETreeType {
          kTraining = 0,
          kTesting,
-         kMaxTreeType,  // also used as temporary storage for trees not yet assigned for testing;training...
+         kMaxTreeType,  // also used as temporary storage for trees not yet assigned for testing;training... 
          kValidation,   // these are placeholders... currently not used, but could be moved "forward" if
-         kTrainingOriginal     // ever needed
+         kTrainingOriginal     // ever needed 
       };
 
       enum EBoostStage {
@@ -209,15 +160,10 @@ namespace BA_TMVA {
       static void   DestroyInstance();
       ~Types();
 
-//      Types::EMVA   GetMethodType( const TString& method ) const;
-//      TString       GetMethodName( Types::EMVA    method ) const;
+      Types::EMVA   GetMethodType( const TString& method ) const;
+      TString       GetMethodName( Types::EMVA    method ) const;
 
-//      Bool_t        AddTypeMapping(Types::EMVA method, const TString& methodname);
-
-      Types::EMVA   GetMethodType( const std::string& method ) const;
-      std::string       GetMethodName( Types::EMVA    method ) const;
-
-      Bool_t        AddTypeMapping(Types::EMVA method, const std::string& methodname);
+      Bool_t        AddTypeMapping(Types::EMVA method, const TString& methodname);
 
    private:
 
@@ -230,9 +176,9 @@ namespace BA_TMVA {
 
    private:
 
-      std::map<std::string, BA_TMVA::Types::EMVA> fStr2type; // types-to-text map
-//      mutable MsgLogger* fLogger;   // message logger
-//      MsgLogger& Log() const { return *fLogger; }
+      std::map<TString, TMVA::Types::EMVA> fStr2type; // types-to-text map
+      mutable MsgLogger* fLogger;   // message logger
+      MsgLogger& Log() const { return *fLogger; }
 
    };
 }

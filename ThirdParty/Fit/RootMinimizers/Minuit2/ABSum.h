@@ -12,7 +12,7 @@
 
 #include "Minuit2/ABObj.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

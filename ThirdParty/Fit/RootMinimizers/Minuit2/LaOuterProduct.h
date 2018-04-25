@@ -10,19 +10,20 @@
 #ifndef MA_LaOuterProd_H_
 #define MA_LaOuterProd_H_
 
-/** LAPACK Algebra
-    specialize the Outer_product function for LAVector;
- */
+
 
 #include "Minuit2/VectorOuterProduct.h"
 #include "Minuit2/ABSum.h"
 #include "Minuit2/LAVector.h"
 #include "Minuit2/LASymMatrix.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 
+
+///    LAPACK Algebra function
+///    specialize the Outer_product function for LAVector;
 
 inline ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, double>, double>, double> Outer_product(const ABObj<vec, LAVector, double>& obj) {
 //   std::cout<<"ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, double>, double>, double> Outer_product(const ABObj<vec, LAVector, double>& obj)"<<std::endl;

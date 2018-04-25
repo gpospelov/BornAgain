@@ -4,7 +4,7 @@
 set(library_name RootMinimizers)
 
 # --- source and include files ---------
-set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR})
+set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/base)
 include_directories(${include_dirs})
 
 file(GLOB source_files
@@ -15,6 +15,7 @@ file(GLOB source_files
 )
 
 file(GLOB include_files
+    "base/*.h"
     "Minuit2/*.h"
     "Math/*.h"
     "Fit/*.h"

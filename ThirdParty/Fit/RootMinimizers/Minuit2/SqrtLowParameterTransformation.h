@@ -16,7 +16,7 @@
 #ifndef ROOT_Minuit2_SqrtLowParameterTransformation
 #define ROOT_Minuit2_SqrtLowParameterTransformation
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

@@ -14,7 +14,7 @@
 #include "Minuit2/MnSeedGenerator.h"
 #include "Minuit2/CombinedMinimumBuilder.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

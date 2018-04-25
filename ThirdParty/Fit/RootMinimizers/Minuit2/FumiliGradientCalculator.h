@@ -13,7 +13,7 @@
 #include "Minuit2/GradientCalculator.h"
 #include "Minuit2/MnMatrix.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

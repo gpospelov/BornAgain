@@ -36,30 +36,21 @@
 #include <string>
 #include <vector>
 
-//#ifndef ROOT_Riosfwd
-//#include "Riosfwd.h"
-//#endif
-#ifndef ROOT_TMVA_GeneticGenes
 #include "TMVA/GeneticGenes.h"
-#endif
-#ifndef ROOT_TMVA_Interval
 #include "TMVA/Interval.h"
-#endif
-#ifndef ROOT_TMVA_GeneticRange
 #include "TMVA/GeneticRange.h"
-#endif
 
-//class TH1F;
+class TH1F;
 
-namespace BA_TMVA {
+namespace TMVA {
 
-//   class MsgLogger;
+   class MsgLogger;
 
    class GeneticPopulation {
 
    public:
 
-      GeneticPopulation(const std::vector<BA_TMVA::Interval*>& ranges, Int_t size, UInt_t seed = 0);
+      GeneticPopulation(const std::vector<TMVA::Interval*>& ranges, Int_t size, UInt_t seed = 0);
       virtual ~GeneticPopulation();
 
       void SetRandomSeed( UInt_t seed = 0);
@@ -72,11 +63,11 @@ namespace BA_TMVA {
       Int_t         GetPopulationSize() const { return fGenePool.size(); }
       Double_t      GetFitness() const { return fGenePool.size()>0? fGenePool[0].GetFitness() : 0; }
 
-      const std::vector<BA_TMVA::GeneticGenes>& GetGenePool() const { return fGenePool; }
-      const std::vector<BA_TMVA::GeneticRange*>& GetRanges() const { return fRanges; }
+      const std::vector<TMVA::GeneticGenes>& GetGenePool() const { return fGenePool; }
+      const std::vector<TMVA::GeneticRange*>& GetRanges() const { return fRanges; }
 
-      std::vector<BA_TMVA::GeneticGenes>&  GetGenePool() { return fGenePool; }
-      std::vector<BA_TMVA::GeneticRange*>& GetRanges()   { return fRanges; }
+      std::vector<TMVA::GeneticGenes>&  GetGenePool() { return fGenePool; }
+      std::vector<TMVA::GeneticRange*>& GetRanges()   { return fRanges; }
 
       void Print( Int_t untilIndex = -1 );
       void Print( std::ostream & out, Int_t utilIndex = -1 );
@@ -101,17 +92,17 @@ namespace BA_TMVA {
   
    private:
 
-      std::vector<BA_TMVA::GeneticGenes>  fGenePool;    // the "genePool" where the individuals of the current generation are stored
-      std::vector<BA_TMVA::GeneticRange*> fRanges;      // contains the ranges inbetween the values of the coefficients have to be
+      std::vector<TMVA::GeneticGenes>  fGenePool;    // the "genePool" where the individuals of the current generation are stored
+      std::vector<TMVA::GeneticRange*> fRanges;      // contains the ranges inbetween the values of the coefficients have to be
 
-      BA_ROOT::TRandom3*fRandomGenerator;    // random Generator for this population
+      TRandom3*fRandomGenerator;    // random Generator for this population
 
-//      mutable MsgLogger* fLogger;   // message logger
-//      MsgLogger& Log() const { return *fLogger; }
+      mutable MsgLogger* fLogger;   // message logger
+      MsgLogger& Log() const { return *fLogger; }    
 
       Int_t fPopulationSizeLimit;
 
-//      ClassDef(GeneticPopulation,0) //Population definition for genetic algorithm
+      ClassDef(GeneticPopulation,0); //Population definition for genetic algorithm
    };
 
 } // namespace TMVA

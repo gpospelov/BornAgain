@@ -9,7 +9,7 @@
 
 #include "Minuit2/MnUserParameters.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

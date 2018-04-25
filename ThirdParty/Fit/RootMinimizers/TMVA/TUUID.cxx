@@ -6,7 +6,7 @@
 #include <boost/uuid/uuid_generators.hpp>
 //#include <boost/uuid/uuid_io.hpp>
 
-namespace BA_ROOT {
+namespace ROOT {
 
 TUUID::TUUID() : fTimeLow(0)
 {

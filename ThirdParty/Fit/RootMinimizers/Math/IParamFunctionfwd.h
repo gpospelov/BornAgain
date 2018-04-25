@@ -13,24 +13,30 @@
 #ifndef ROOT_Math_IParamFunctionfwd
 #define ROOT_Math_IParamFunctionfwd
 
-#ifndef ROOT_Math_IFunctionfwd
 #include "Math/IFunctionfwd.h"
-#endif
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 
       class IParametricFunctionOneDim;
       class IParametricGradFunctionOneDim;
-      class IParametricFunctionMultiDim;
-      class IParametricGradFunctionMultiDim;
+      template<class T>
+      class IParametricFunctionMultiDimTempl;
+      using IParametricFunctionMultiDim = IParametricFunctionMultiDimTempl<double>;
+      template<class T>
+      class IParametricGradFunctionMultiDimTempl;
+      using IParametricGradFunctionMultiDim = IParametricGradFunctionMultiDimTempl<double>;
 
       typedef IParametricFunctionOneDim        IParamFunction;
       typedef IParametricFunctionMultiDim      IParamMultiFunction;
+      template<class T>
+      using IParamMultiFunctionTempl = IParametricFunctionMultiDimTempl<T>;
 
       typedef IParametricGradFunctionOneDim        IParamGradFunction;
       typedef IParametricGradFunctionMultiDim      IParamMultiGradFunction;
+      template<class T>
+      using IParamMultiGradFunctionTempl = IParametricGradFunctionMultiDimTempl<T>;
 
 
    } // end namespace Math

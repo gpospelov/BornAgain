@@ -10,7 +10,7 @@
 #include "Minuit2/MnMachinePrecision.h"
 #include "Minuit2/MnTiny.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

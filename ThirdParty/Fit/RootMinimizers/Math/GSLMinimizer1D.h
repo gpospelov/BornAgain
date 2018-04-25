@@ -35,7 +35,7 @@
 #include "Math/GSLFunctionAdapter.h"
 
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
 
    namespace Minim1D {

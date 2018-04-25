@@ -14,7 +14,7 @@
 #include "Minuit2/MinimumState.h"
 #include "Minuit2/MnFcn.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

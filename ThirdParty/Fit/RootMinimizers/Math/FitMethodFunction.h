@@ -13,15 +13,13 @@
 #ifndef ROOT_Math_FitMethodFunction
 #define ROOT_Math_FitMethodFunction
 
-#ifndef ROOT_Math_IFunction
 #include "Math/IFunction.h"
-#endif
 
 // #ifndef ROOT_Math_IParamFunctionfwd
 // #include "Math/IParamFunctionfwd.h"
 // #endif
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 
@@ -114,8 +112,8 @@ private:
 };
 
       // define the normal and gradient function
-      typedef BasicFitMethodFunction<BA_ROOT::Math::IMultiGenFunction>  FitMethodFunction;
-      typedef BasicFitMethodFunction<BA_ROOT::Math::IMultiGradFunction> FitMethodGradFunction;
+      typedef BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>  FitMethodFunction;
+      typedef BasicFitMethodFunction<ROOT::Math::IMultiGradFunction> FitMethodGradFunction;
 
 
       // useful template definition to use these interface in

@@ -14,7 +14,7 @@
 #include <vector>
 #include "Minuit2/ParametricFunction.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 
@@ -56,7 +56,6 @@ public:
   FumiliChi2FCN() {}
 
   virtual ~FumiliChi2FCN() {}
-
 
 
   /**
@@ -169,7 +168,7 @@ public:
  private:
 
   // A pointer to the model function which describes the data
-  const ParametricFunction *fModelFunction;
+  const ParametricFunction *fModelFunction = nullptr;
 
 
 

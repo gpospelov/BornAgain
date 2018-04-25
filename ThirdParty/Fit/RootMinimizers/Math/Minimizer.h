@@ -13,25 +13,14 @@
 #ifndef ROOT_Math_Minimizer
 #define ROOT_Math_Minimizer
 
-#ifndef ROOT_Math_IFunction
 #include "Math/IFunction.h"
-#endif
 
-#ifndef ROOT_Math_MinimizerOptions
 #include "Math/MinimizerOptions.h"
-#endif
 
-#ifndef ROOT_Math_Util
 #include "Math/Util.h"
-#endif
 
-#ifndef ROOT_Math_Error
 #include "Math/Error.h"
-#endif
 
-#ifndef ROOT_Fit_ParameterSettings
-#include "Fit/ParameterSettings.h"
-#endif
 
 
 #include <vector>
@@ -41,7 +30,11 @@
 #include <cmath>
 
 
-namespace BA_ROOT {
+namespace ROOT {
+
+   namespace Fit {
+      class ParameterSettings;
+   }
 
 
    namespace Math {
@@ -124,12 +117,12 @@ public:
    virtual void Clear() {}
 
    /// set the function to minimize
-   virtual void SetFunction(const BA_ROOT::Math::IMultiGenFunction & func) = 0;
+   virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func) = 0;
 
    /// set a function to minimize using gradient
-   virtual void SetFunction(const BA_ROOT::Math::IMultiGradFunction & func)
+   virtual void SetFunction(const ROOT::Math::IMultiGradFunction & func)
    {
-      SetFunction(static_cast<const ::BA_ROOT::Math::IMultiGenFunction &> (func));
+      SetFunction(static_cast<const ::ROOT::Math::IMultiGenFunction &> (func));
    }
 
 
@@ -236,7 +229,7 @@ public:
       return false;
    }
    /// get variable settings in a variable object (like ROOT::Fit::ParamsSettings)
-   virtual bool GetVariableSettings(unsigned int ivar, BA_ROOT::Fit::ParameterSettings & pars) const {
+   virtual bool GetVariableSettings(unsigned int ivar, ROOT::Fit::ParameterSettings & pars) const {
       MATH_ERROR_MSG("Minimizer::GetVariableSettings","Quering an existing variable not implemented");
       MATH_UNUSED(ivar); MATH_UNUSED(pars);
       return false;

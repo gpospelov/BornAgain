@@ -25,12 +25,10 @@
 #ifndef ROOT_Math_WrappedFunction
 #define ROOT_Math_WrappedFunction
 
-#ifndef ROOT_Math_IFunction
 #include "IFunction.h"
-#endif
 
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
 
 

@@ -29,12 +29,10 @@
 #include <cmath>
 #include <algorithm>    // needed for std::max on Solaris
 
-#ifndef ROOT_Math_Derivator
 #include "Math/Derivator.h"
-#endif
 
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 
@@ -50,7 +48,7 @@ double MultiNumGradFunction::DoDerivative (const double * x, unsigned int icoord
    //double step = (x0 > 0) ? kPrecision * x0 : kPrecision;
    // this seems to work better than above
    double step = (x0>0) ? std::max( fgEps* x0, 8.0*kPrecision*(x0 + kPrecision) ) : kPrecision;
-   return BA_ROOT::Math::Derivator::Eval(*fFunc, x, icoord, step);
+   return ROOT::Math::Derivator::Eval(*fFunc, x, icoord, step);
 }
 
 void MultiNumGradFunction::SetDerivPrecision(double eps) { fgEps = eps; }

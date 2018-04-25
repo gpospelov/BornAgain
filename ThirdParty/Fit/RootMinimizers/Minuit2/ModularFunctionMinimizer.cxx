@@ -31,7 +31,7 @@
 #endif
 
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

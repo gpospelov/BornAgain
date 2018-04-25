@@ -37,28 +37,22 @@
 #include <deque>
 #include <iosfwd>
 
-#ifndef ROOT_TMVA_IFitterTarget
 #include "TMVA/IFitterTarget.h"
-#endif
-#ifndef ROOT_TMVA_GeneticPopulation
 #include "TMVA/GeneticPopulation.h"
-#endif
-#ifndef ROOT_TMVA_Types
 #include "TMVA/Types.h"
-#endif
 
-namespace BA_TMVA {
+namespace TMVA {
      
    class IFitterTarget;
    class Interval;
-//   class MsgLogger;
+   class MsgLogger;
 
    class GeneticAlgorithm {
 
    public:
     
       GeneticAlgorithm( IFitterTarget& target, Int_t populationSize, 
-                        const std::vector<BA_TMVA::Interval*>& ranges, UInt_t seed = 0 );
+                        const std::vector<TMVA::Interval*>& ranges, UInt_t seed = 0 );
       virtual ~GeneticAlgorithm();
 
       void Init();
@@ -99,15 +93,15 @@ namespace BA_TMVA {
                                           // avoid for speed performance.
       Int_t             fPopulationSize;  // the size of the population
 
-      const std::vector<BA_TMVA::Interval*>& fRanges; // parameter ranges
+      const std::vector<TMVA::Interval*>& fRanges; // parameter ranges
 
       GeneticPopulation fPopulation;      // contains and controls the "individual"
       Double_t fBestFitness;
 
-//      mutable MsgLogger* fLogger;         // message logger
-//      MsgLogger& Log() const { return *fLogger; }
+      mutable MsgLogger* fLogger;         // message logger
+      MsgLogger& Log() const { return *fLogger; }          
 
-//      ClassDef(GeneticAlgorithm, 0)  // Genetic algorithm controller
+      ClassDef(GeneticAlgorithm, 0);  // Genetic algorithm controller
    };
    
 } // namespace TMVA

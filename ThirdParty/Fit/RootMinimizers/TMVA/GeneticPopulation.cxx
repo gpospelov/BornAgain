@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id$    
+// @(#)root/tmva $Id$
 // Author: Peter Speckmayer
 
 /**********************************************************************************
@@ -22,102 +22,102 @@
  * (http://tmva.sourceforge.net/LICENSE)                                          *
  **********************************************************************************/
 
+/*! \class TMVA::GeneticPopulation
+\ingroup TMVA
+
+Population definition for genetic algorithm.
+
+*/
+
 #include <iostream>
 #include <iomanip>
 
-//#include "Rstrstream.h"
-//#include "TSystem.h"
-#include "TMVA/TRandom3.h"
-//#include "TH1.h"
+#include "TRandom3.h"
 #include <algorithm>
 
 #include "TMVA/GeneticPopulation.h"
 #include "TMVA/GeneticGenes.h"
-//#include "MsgLogger.h"
+#include "TMVA/MsgLogger.h"
 
-//ClassImp(TMVA::GeneticPopulation)
+ClassImp(TMVA::GeneticPopulation);
 
 using namespace std;
-   
-//_______________________________________________________________________
-//                                                                      
-// Population definition for genetic algorithm                          
-//_______________________________________________________________________
 
-//_______________________________________________________________________
-BA_TMVA::GeneticPopulation::GeneticPopulation(const std::vector<Interval*>& ranges, Int_t size, UInt_t seed)
+////////////////////////////////////////////////////////////////////////////////
+/// Constructor
+
+TMVA::GeneticPopulation::GeneticPopulation(const std::vector<Interval*>& ranges, Int_t size, UInt_t seed)
    : fGenePool(size),
-     fRanges(ranges.size())
-//     fLogger( new MsgLogger("GeneticPopulation") )
+     fRanges(ranges.size()),
+     fLogger( new MsgLogger("GeneticPopulation") )
 {
-   // Constructor
-   
    // create a randomGenerator for this population and set a seed
    // create the genePools
    //
-   fRandomGenerator = new BA_ROOT::TRandom3( 100 ); //please check
+   fRandomGenerator = new TRandom3( 100 ); //please check
    fRandomGenerator->Uniform(0.,1.);
    fRandomGenerator->SetSeed( seed );
 
    for ( unsigned int i = 0; i < ranges.size(); ++i )
-      fRanges[i] = new BA_TMVA::GeneticRange( fRandomGenerator, ranges[i] );
+      fRanges[i] = new TMVA::GeneticRange( fRandomGenerator, ranges[i] );
 
    vector<Double_t> newEntry( fRanges.size() );
    for ( int i = 0; i < size; ++i )
       {
          for ( unsigned int rIt = 0; rIt < fRanges.size(); ++rIt )
             newEntry[rIt] = fRanges[rIt]->Random();
-         fGenePool[i] = BA_TMVA::GeneticGenes( newEntry);
+         fGenePool[i] = TMVA::GeneticGenes( newEntry);
       }
 
    fPopulationSizeLimit = size;
 }
 
-//_______________________________________________________________________
-BA_TMVA::GeneticPopulation::~GeneticPopulation()
+////////////////////////////////////////////////////////////////////////////////
+/// destructor
+
+TMVA::GeneticPopulation::~GeneticPopulation()
 {
-   // destructor
    if (fRandomGenerator != NULL) delete fRandomGenerator;
 
    std::vector<GeneticRange*>::iterator it = fRanges.begin();
    for (;it!=fRanges.end(); it++) delete *it;
 
-//   delete fLogger;
+   delete fLogger;
 }
 
 
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::SetRandomSeed( UInt_t seed )
+////////////////////////////////////////////////////////////////////////////////
+/// the random seed of the random generator
+
+void TMVA::GeneticPopulation::SetRandomSeed( UInt_t seed )
 {
-   // the random seed of the random generator
    fRandomGenerator->SetSeed( seed );
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::MakeCopies( int number )
+////////////////////////////////////////////////////////////////////////////////
+/// Produces offspring which is are copies of their parents.
+///
+/// Parameters:
+///  - int number : the number of the last individual to be copied
+
+void TMVA::GeneticPopulation::MakeCopies( int number )
 {
-   // produces offspring which is are copies of their parents
-   // Parameters:
-   //         int number : the number of the last individual to be copied
-   //
-   
-   int i=0; 
-   for (std::vector<BA_TMVA::GeneticGenes>::iterator it = fGenePool.begin();
-        it != fGenePool.end() && i < number; 
+   int i=0;
+   for (std::vector<TMVA::GeneticGenes>::iterator it = fGenePool.begin();
+        it != fGenePool.end() && i < number;
         ++it, ++i ) {
       GiveHint( it->GetFactors(), it->GetFitness() );
    }
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::MakeChildren()
-{
-   // does what the name says,... it creates children out of members of the
-   // current generation
-   // children have a combination of the coefficients of their parents
-   //
+////////////////////////////////////////////////////////////////////////////////
+/// Creates children out of members of the current generation.
+///
+/// Children have a combination of the coefficients of their parents
 
+void TMVA::GeneticPopulation::MakeChildren()
+{
 #ifdef _GLIBCXX_PARALLEL
 #pragma omp parallel
 #pragma omp for
@@ -129,13 +129,13 @@ void BA_TMVA::GeneticPopulation::MakeChildren()
       }
 }
 
-//_______________________________________________________________________
-BA_TMVA::GeneticGenes BA_TMVA::GeneticPopulation::MakeSex( BA_TMVA::GeneticGenes male,
-                                                     BA_TMVA::GeneticGenes female )
+////////////////////////////////////////////////////////////////////////////////
+/// this function takes two individuals and produces offspring by mixing
+/// (recombining) their coefficients.
+
+TMVA::GeneticGenes TMVA::GeneticPopulation::MakeSex( TMVA::GeneticGenes male,
+                                                     TMVA::GeneticGenes female )
 {
-   // this function takes two individuals and produces offspring by mixing (recombining) their
-   // coefficients
-   //
    vector< Double_t > child(fRanges.size());
    for (unsigned int i = 0; i < fRanges.size(); ++i) {
       if (fRandomGenerator->Integer( 2 ) == 0) {
@@ -144,31 +144,32 @@ BA_TMVA::GeneticGenes BA_TMVA::GeneticPopulation::MakeSex( BA_TMVA::GeneticGenes
          child[i] = female.GetFactors()[i];
       }
    }
-   return BA_TMVA::GeneticGenes( child );
+   return TMVA::GeneticGenes( child );
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::Mutate( Double_t probability , Int_t startIndex,
-                                      Bool_t near, Double_t spread, Bool_t mirror ) 
-{
-   // mutates the individuals in the genePool
-   // Parameters:
-   //         double probability : gives the probability (in percent) of a mutation of a coefficient
-   //         int startIndex : leaves unchanged (without mutation) the individuals which are better ranked
-   //                     than indicated by "startIndex". This means: if "startIndex==3", the first (and best)
-   //                     three individuals are not mutaded. This allows to preserve the best result of the 
-   //                     current Generation for the next generation. 
-   //         Bool_t near : if true, the mutation will produce a new coefficient which is "near" the old one
-   //                     (gaussian around the current value)
-   //         double spread : if near==true, spread gives the sigma of the gaussian
-   //         Bool_t mirror : if the new value obtained would be outside of the given constraints
-   //                    the value is mapped between the constraints again. This can be done either
-   //                    by a kind of periodic boundary conditions or mirrored at the boundary.
-   //                    (mirror = true seems more "natural")
-   //
+////////////////////////////////////////////////////////////////////////////////
+/// Mutates the individuals in the genePool.
+///
+/// Parameters:
+///
+///  - double probability : gives the probability (in percent) of a mutation of a coefficient
+///  - int startIndex : leaves unchanged (without mutation) the individuals which are better ranked
+///                     than indicated by "startIndex". This means: if "startIndex==3", the first (and best)
+///                     three individuals are not mutated. This allows to preserve the best result of the
+///                     current Generation for the next generation.
+///  - Bool_t near : if true, the mutation will produce a new coefficient which is "near" the old one
+///                     (gaussian around the current value)
+///  - double spread : if near==true, spread gives the sigma of the gaussian
+///  - Bool_t mirror : if the new value obtained would be outside of the given constraints
+///                    the value is mapped between the constraints again. This can be done either
+///                    by a kind of periodic boundary conditions or mirrored at the boundary.
+///                    (mirror = true seems more "natural")
 
+void TMVA::GeneticPopulation::Mutate( Double_t probability , Int_t startIndex,
+                                      Bool_t near, Double_t spread, Bool_t mirror )
+{
    vector< Double_t>::iterator vec;
-   vector< BA_TMVA::GeneticRange* >::iterator vecRange;
+   vector< TMVA::GeneticRange* >::iterator vecRange;
 
    //#ifdef _GLIBCXX_PARALLEL
    // #pragma omp parallel
@@ -187,21 +188,20 @@ void BA_TMVA::GeneticPopulation::Mutate( Double_t probability , Int_t startIndex
 }
 
 
-//_______________________________________________________________________
-BA_TMVA::GeneticGenes* BA_TMVA::GeneticPopulation::GetGenes( Int_t index )
+////////////////////////////////////////////////////////////////////////////////
+/// gives back the "Genes" of the population with the given index.
+
+TMVA::GeneticGenes* TMVA::GeneticPopulation::GetGenes( Int_t index )
 {
-   // gives back the "Genes" of the population with the given index.
-   //
    return &(fGenePool[index]);
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::Print( Int_t untilIndex )
-{
-   // make a little printout of the individuals up to index "untilIndex"
-   // this means, .. write out the best "untilIndex" individuals.
-   //
+////////////////////////////////////////////////////////////////////////////////
+/// make a little printout of the individuals up to index "untilIndex"
+/// this means, .. write out the best "untilIndex" individuals.
 
+void TMVA::GeneticPopulation::Print( Int_t untilIndex )
+{
    for ( unsigned int it = 0; it < fGenePool.size(); ++it )
       {
          Int_t n=0;
@@ -209,29 +209,21 @@ void BA_TMVA::GeneticPopulation::Print( Int_t untilIndex )
             if (untilIndex == -1 ) return;
             untilIndex--;
          }
-//         Log() << "fitness: " << fGenePool[it].GetFitness() << "    ";
-//         for (vector< Double_t >::iterator vec = fGenePool[it].GetFactors().begin();
-//              vec < fGenePool[it].GetFactors().end(); vec++ ) {
-//            Log() << "f_" << n++ << ": " << (*vec) << "     ";
-//         }
-//         Log() << Endl;
-         std::cout << "fitness: " << fGenePool[it].GetFitness() << "    ";
+         Log() << "fitness: " << fGenePool[it].GetFitness() << "    ";
          for (vector< Double_t >::iterator vec = fGenePool[it].GetFactors().begin();
               vec < fGenePool[it].GetFactors().end(); vec++ ) {
-            std::cout << "f_" << n++ << ": " << (*vec) << "     ";
+            Log() << "f_" << n++ << ": " << (*vec) << "     ";
          }
-         std::cout << std::endl;
-
+         Log() << Endl;
       }
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::Print( ostream & out, Int_t untilIndex )
-{
-   // make a little printout to the stream "out" of the individuals up to index "untilIndex"
-   // this means, .. write out the best "untilIndex" individuals.
-   //
+////////////////////////////////////////////////////////////////////////////////
+/// make a little printout to the stream "out" of the individuals up to index "untilIndex"
+/// this means, .. write out the best "untilIndex" individuals.
 
+void TMVA::GeneticPopulation::Print( ostream & out, Int_t untilIndex )
+{
    for ( unsigned int it = 0; it < fGenePool.size(); ++it ) {
       Int_t n=0;
       if (untilIndex >= -1 ) {
@@ -239,7 +231,7 @@ void BA_TMVA::GeneticPopulation::Print( ostream & out, Int_t untilIndex )
          untilIndex--;
       }
       out << "fitness: " << fGenePool[it].GetFitness() << "    ";
-      for (vector< Double_t >::iterator vec = fGenePool[it].GetFactors().begin(); 
+      for (vector< Double_t >::iterator vec = fGenePool[it].GetFactors().begin();
            vec < fGenePool[it].GetFactors().end(); vec++ ) {
          out << "f_" << n++ << ": " << (*vec) << "     ";
       }
@@ -247,17 +239,18 @@ void BA_TMVA::GeneticPopulation::Print( ostream & out, Int_t untilIndex )
    }
 }
 
-//_______________________________________________________________________
+////////////////////////////////////////////////////////////////////////////////
+/// give back a histogram with the distribution of the coefficients.
+///
+/// Parameters:
+///
+///  - int bins : number of bins of the histogram
+///  - int min : histogram minimum
+///  - int max : maximum value of the histogram
+
 //TH1F* TMVA::GeneticPopulation::VariableDistribution( Int_t varNumber, Int_t bins,
 //                                                     Int_t min, Int_t max )
 //{
-//   // give back a histogram with the distribution of the coefficients
-//   // parameters:
-//   //          int bins : number of bins of the histogram
-//   //          int min : histogram minimum
-//   //          int max : maximum value of the histogram
-//   //
-
 //   std::cout << "FAILED! TMVA::GeneticPopulation::VariableDistribution" << std::endl;
 
 //   std::stringstream histName;
@@ -269,12 +262,11 @@ void BA_TMVA::GeneticPopulation::Print( ostream & out, Int_t untilIndex )
 //   return hist;
 //}
 
-//_______________________________________________________________________
-vector<Double_t> BA_TMVA::GeneticPopulation::VariableDistribution( Int_t /*varNumber*/ )
-{
-   // gives back all the values of coefficient "varNumber" of the current generation
-   //
+////////////////////////////////////////////////////////////////////////////////
+/// gives back all the values of coefficient "varNumber" of the current generation
 
+vector<Double_t> TMVA::GeneticPopulation::VariableDistribution( Int_t /*varNumber*/ )
+{
    std::cout << "FAILED! TMVA::GeneticPopulation::VariableDistribution" << std::endl;
 
    vector< Double_t > varDist;
@@ -282,47 +274,52 @@ vector<Double_t> BA_TMVA::GeneticPopulation::VariableDistribution( Int_t /*varNu
    return varDist;
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::AddPopulation( GeneticPopulation *strangers )
+////////////////////////////////////////////////////////////////////////////////
+/// add another population (strangers) to the one of this GeneticPopulation
+
+void TMVA::GeneticPopulation::AddPopulation( GeneticPopulation *strangers )
 {
-   // add another population (strangers) to the one of this GeneticPopulation
-   for (std::vector<BA_TMVA::GeneticGenes>::iterator it = strangers->fGenePool.begin();
+   for (std::vector<TMVA::GeneticGenes>::iterator it = strangers->fGenePool.begin();
         it != strangers->fGenePool.end(); it++ ) {
       GiveHint( it->GetFactors(), it->GetFitness() );
    }
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::AddPopulation( GeneticPopulation &strangers )
+////////////////////////////////////////////////////////////////////////////////
+/// add another population (strangers) to the one of this GeneticPopulation
+
+void TMVA::GeneticPopulation::AddPopulation( GeneticPopulation &strangers )
 {
-   // add another population (strangers) to the one of this GeneticPopulation
    AddPopulation(&strangers);
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::TrimPopulation()
+////////////////////////////////////////////////////////////////////////////////
+/// trim the population to the predefined size
+
+void TMVA::GeneticPopulation::TrimPopulation()
 {
-   // trim the population to the predefined size
    std::sort(fGenePool.begin(), fGenePool.end());
    while ( fGenePool.size() > (unsigned int) fPopulationSizeLimit )
       fGenePool.pop_back();
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::GiveHint( std::vector< Double_t >& hint, Double_t fitness )
+////////////////////////////////////////////////////////////////////////////////
+/// add an individual (a set of variables) to the population
+/// if there is a set of variables which is known to perform good, they can be given as a hint to the population
+
+void TMVA::GeneticPopulation::GiveHint( std::vector< Double_t >& hint, Double_t fitness )
 {
-   // add an individual (a set of variables) to the population
-   // if there is a set of variables which is known to perform good, they can be given as a hint to the population
-   BA_TMVA::GeneticGenes g(hint);
+   TMVA::GeneticGenes g(hint);
    g.SetFitness(fitness);
 
    fGenePool.push_back( g );
 }
 
-//_______________________________________________________________________
-void BA_TMVA::GeneticPopulation::Sort()
+////////////////////////////////////////////////////////////////////////////////
+/// sort the genepool according to the fitness of the individuals
+
+void TMVA::GeneticPopulation::Sort()
 {
-   // sort the genepool according to the fitness of the individuals
    std::sort(fGenePool.begin(), fGenePool.end());
 }
 

@@ -32,10 +32,11 @@
 /**
 
    @defgroup Min1D One-dimensional Minimization
+   Classes for one-dimensional minimization
    @ingroup NumAlgo
  */
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
 
 //___________________________________________________________________________________________

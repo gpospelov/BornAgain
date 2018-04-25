@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id$    
+// @(#)root/tmva $Id$
 // Author: Peter Speckmayer
 
 /**********************************************************************************
@@ -25,23 +25,29 @@
 #include "TMVA/GeneticGenes.h"
 #include "TMVA/GeneticPopulation.h"
 
-//_______________________________________________________________________
-//                                                                      
-// Cut optimisation interface class for genetic algorithm               //
-//_______________________________________________________________________
+#include "Rtypes.h"
+#include "RtypesCore.h"
 
-//ClassImp(TMVA::GeneticGenes)
-   
-//_______________________________________________________________________
-BA_TMVA::GeneticGenes::GeneticGenes( std::vector<Double_t> & f  ) 
+/*! \class TMVA::GeneticGenes
+\ingroup TMVA
+
+Cut optimisation interface class for genetic algorithm.
+
+*/
+
+ClassImp(TMVA::GeneticGenes);
+
+////////////////////////////////////////////////////////////////////////////////
+/// Constructor:
+/// set the factors of this individual
+
+TMVA::GeneticGenes::GeneticGenes( std::vector<Double_t> & f  )
 {
-   // Constructor:
-   // set the factors of this individual
    fFactors = f;
    fFitness = 0;
 }
 
-Bool_t BA_TMVA::operator <(const BA_TMVA::GeneticGenes& first, const BA_TMVA::GeneticGenes& second)
+Bool_t TMVA::operator <(const TMVA::GeneticGenes& first, const TMVA::GeneticGenes& second)
 {
    return first.fFitness < second.fFitness;
 }

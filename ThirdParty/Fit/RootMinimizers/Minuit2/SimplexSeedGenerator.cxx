@@ -15,7 +15,7 @@
 #include "Minuit2/InitialGradientCalculator.h"
 #include "Minuit2/VariableMetricEDMEstimator.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

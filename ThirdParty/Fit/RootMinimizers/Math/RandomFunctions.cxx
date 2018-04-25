@@ -16,11 +16,11 @@
 //
 #include "Math/RandomFunctions.h"
 
-//#include "Math/DistFunc.h"
+#include "Math/DistFunc.h"
 
-//#include "TMath.h"
+#include "TMath.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
    
 
@@ -42,7 +42,7 @@ Double_t RandomFunctionsImpl<TRandomEngine>::BreitWigner(Double_t mean, Double_t
 {
    Double_t rval, displ;
    rval = 2*Rndm() - 1;
-   displ = 0.5*gamma*std::tan(rval*M_PI/2.);
+   displ = 0.5*gamma*TMath::Tan(rval*TMath::PiOver2());
 
    return (mean+displ);
 }
@@ -54,9 +54,9 @@ Double_t RandomFunctionsImpl<TRandomEngine>::BreitWigner(Double_t mean, Double_t
 
 void RandomFunctionsImpl<TRandomEngine>::Circle(Double_t &x, Double_t &y, Double_t r)
 {
-   Double_t phi = Uniform(0,M_PI*2.0);
-   x = r*std::cos(phi);
-   y = r*std::sin(phi);
+   Double_t phi = Uniform(0,TMath::TwoPi());
+   x = r*TMath::Cos(phi);
+   y = r*TMath::Sin(phi);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ void RandomFunctionsImpl<TRandomEngine>::Circle(Double_t &x, Double_t &y, Double
 Double_t RandomFunctionsImpl<TRandomEngine>::Exp(Double_t tau)
 {
    Double_t x = Rndm();              // uniform on ] 0, 1 ]
-   Double_t t = -tau * std::log( x ); // convert to exponential distribution
+   Double_t t = -tau * TMath::Log( x ); // convert to exponential distribution
    return t;
 }
 
@@ -140,7 +140,7 @@ double RandomFunctionsImpl<TRandomEngine>::GausACR(Double_t mean, Double_t sigma
          rn = Rndm();
          rn = rn-1+rn;
          z = (rn>0) ? 2-rn : -2-rn;
-         if ((kC1-y)*(kC3+std::abs(z))<kC2) {
+         if ((kC1-y)*(kC3+TMath::Abs(z))<kC2) {
             result = z; break; }
          else {
             x = rn*rn;
@@ -188,13 +188,13 @@ double RandomFunctionsImpl<TRandomEngine>::GausACR(Double_t mean, Double_t sigma
 /// the inverse of the landau cumulative distribution.
 /// landau_quantile has been converted from CERNLIB ranlan(G110).
 
-//Double_t RandomFunctionsImpl<TRandomEngine>::Landau(Double_t mu, Double_t sigma)
-//{
-//   if (sigma <= 0) return 0;
-//   Double_t x = Rndm();
-//   Double_t res = mu + BA_ROOT::Math::landau_quantile(x, sigma);
-//   return res;
-//}
+Double_t RandomFunctionsImpl<TRandomEngine>::Landau(Double_t mu, Double_t sigma)
+{
+   if (sigma <= 0) return 0;
+   Double_t x = Rndm();
+   Double_t res = mu + ROOT::Math::landau_quantile(x, sigma);
+   return res;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Generates a random integer N according to a Poisson law.
@@ -210,100 +210,100 @@ double RandomFunctionsImpl<TRandomEngine>::GausACR(Double_t mean, Double_t sigma
 /// larger than 2*10**9.
 /// One should then use the Trandom::PoissonD for such large values.
 
-//Int_t RandomFunctionsImpl<TRandomEngine>::Poisson(Double_t mean)
-//{
-//   Int_t n;
-//   if (mean <= 0) return 0;
-//   if (mean < 25) {
-//      Double_t expmean = std::exp(-mean);
-//      Double_t pir = 1;
-//      n = -1;
-//      while(1) {
-//         n++;
-//         pir *= Rndm();
-//         if (pir <= expmean) break;
-//      }
-//      return n;
-//   }
-//   // for large value we use inversion method
-//   else if (mean < 1E9) {
-//      Double_t em, t, y;
-//      Double_t sq, alxm, g;
-//      Double_t pi = M_PI;
+Int_t RandomFunctionsImpl<TRandomEngine>::Poisson(Double_t mean)
+{
+   Int_t n;
+   if (mean <= 0) return 0;
+   if (mean < 25) {
+      Double_t expmean = TMath::Exp(-mean);
+      Double_t pir = 1;
+      n = -1;
+      while(1) {
+         n++;
+         pir *= Rndm();
+         if (pir <= expmean) break;
+      }
+      return n;
+   }
+   // for large value we use inversion method
+   else if (mean < 1E9) {
+      Double_t em, t, y;
+      Double_t sq, alxm, g;
+      Double_t pi = TMath::Pi();
 
-//      sq = std::sqrt(2.0*mean);
-//      alxm = std::log(mean);
-//      g = mean*alxm - TMath::LnGamma(mean + 1.0);
+      sq = TMath::Sqrt(2.0*mean);
+      alxm = TMath::Log(mean);
+      g = mean*alxm - TMath::LnGamma(mean + 1.0);
 
-//      do {
-//         do {
-//            y = std::tan(pi*Rndm());
-//            em = sq*y + mean;
-//         } while( em < 0.0 );
+      do {
+         do {
+            y = TMath::Tan(pi*Rndm());
+            em = sq*y + mean;
+         } while( em < 0.0 );
 
-//         em = std::floor(em);
-//         t = 0.9*(1.0 + y*y)* std::exp(em*alxm - TMath::LnGamma(em + 1.0) - g);
-//      } while( Rndm() > t );
+         em = TMath::Floor(em);
+         t = 0.9*(1.0 + y*y)* TMath::Exp(em*alxm - TMath::LnGamma(em + 1.0) - g);
+      } while( Rndm() > t );
 
-//      return static_cast<Int_t> (em);
+      return static_cast<Int_t> (em);
 
-//   }
-//   else {
-//      // use Gaussian approximation vor very large values
-//      n = Int_t(Gaus(0,1)*std::sqrt(mean) + mean +0.5);
-//      return n;
-//   }
-//}
+   }
+   else {
+      // use Gaussian approximation vor very large values
+      n = Int_t(Gaus(0,1)*TMath::Sqrt(mean) + mean +0.5);
+      return n;
+   }
+}
 
-//////////////////////////////////////////////////////////////////////////////////
-///// Generates a random number according to a Poisson law.
-///// Prob(N) = exp(-mean)*mean^N/Factorial(N)
-/////
-///// This function is a variant of RandomFunctionsImpl<TRandomEngine>::Poisson returning a double
-///// instead of an integer.
+////////////////////////////////////////////////////////////////////////////////
+/// Generates a random number according to a Poisson law.
+/// Prob(N) = exp(-mean)*mean^N/Factorial(N)
+///
+/// This function is a variant of RandomFunctionsImpl<TRandomEngine>::Poisson returning a double
+/// instead of an integer.
 
-//Double_t RandomFunctionsImpl<TRandomEngine>::PoissonD(Double_t mean)
-//{
-//   Int_t n;
-//   if (mean <= 0) return 0;
-//   if (mean < 25) {
-//      Double_t expmean = std::exp(-mean);
-//      Double_t pir = 1;
-//      n = -1;
-//      while(1) {
-//         n++;
-//         pir *= Rndm();
-//         if (pir <= expmean) break;
-//      }
-//      return static_cast<Double_t>(n);
-//   }
-//   // for large value we use inversion method
-//   else if (mean < 1E9) {
-//      Double_t em, t, y;
-//      Double_t sq, alxm, g;
-//      Double_t pi = M_PI;
+Double_t RandomFunctionsImpl<TRandomEngine>::PoissonD(Double_t mean)
+{
+   Int_t n;
+   if (mean <= 0) return 0;
+   if (mean < 25) {
+      Double_t expmean = TMath::Exp(-mean);
+      Double_t pir = 1;
+      n = -1;
+      while(1) {
+         n++;
+         pir *= Rndm();
+         if (pir <= expmean) break;
+      }
+      return static_cast<Double_t>(n);
+   }
+   // for large value we use inversion method
+   else if (mean < 1E9) {
+      Double_t em, t, y;
+      Double_t sq, alxm, g;
+      Double_t pi = TMath::Pi();
 
-//      sq = std::sqrt(2.0*mean);
-//      alxm = std::log(mean);
-//      g = mean*alxm - TMath::LnGamma(mean + 1.0);
+      sq = TMath::Sqrt(2.0*mean);
+      alxm = TMath::Log(mean);
+      g = mean*alxm - TMath::LnGamma(mean + 1.0);
 
-//      do {
-//         do {
-//            y = std::tan(pi*Rndm());
-//            em = sq*y + mean;
-//         } while( em < 0.0 );
+      do {
+         do {
+            y = TMath::Tan(pi*Rndm());
+            em = sq*y + mean;
+         } while( em < 0.0 );
 
-//         em = std::floor(em);
-//         t = 0.9*(1.0 + y*y)* std::exp(em*alxm - TMath::LnGamma(em + 1.0) - g);
-//      } while( Rndm() > t );
+         em = TMath::Floor(em);
+         t = 0.9*(1.0 + y*y)* TMath::Exp(em*alxm - TMath::LnGamma(em + 1.0) - g);
+      } while( Rndm() > t );
 
-//      return em;
+      return em;
 
-//   } else {
-//      // use Gaussian approximation vor very large values
-//      return Gaus(0,1)*std::sqrt(mean) + mean +0.5;
-//   }
-//}
+   } else {
+      // use Gaussian approximation vor very large values
+      return Gaus(0,1)*TMath::Sqrt(mean) + mean +0.5;
+   }
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -316,9 +316,9 @@ void RandomFunctionsImpl<TRandomEngine>::Rannor(Double_t &a, Double_t &b)
    y = Rndm();
    z = Rndm();
    x = z * 6.28318530717958623;
-   r = std::sqrt(-2*std::log(y));
-   a = r * std::sin(x);
-   b = r * std::cos(x);
+   r = TMath::Sqrt(-2*TMath::Log(y));
+   a = r * TMath::Sin(x);
+   b = r * TMath::Cos(x);
 }
    
 ////////////////////////////////////////////////////////////////////////////////
@@ -339,7 +339,7 @@ void RandomFunctionsImpl<TRandomEngine>::Sphere(Double_t &x, Double_t &y, Double
    }
    z = r* ( -1. + 8.0 * r2 );
 
-   Double_t scale = 8.0 * r * std::sqrt(0.25 - r2);
+   Double_t scale = 8.0 * r * TMath::Sqrt(0.25 - r2);
    x = a*scale;
    y = b*scale;
 }

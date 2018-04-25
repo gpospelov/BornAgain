@@ -25,57 +25,70 @@
  * (http://mva.sourceforge.net/license.txt)                                       *
  **********************************************************************************/
 
+/*! \class TMVA::Types
+\ingroup TMVA
+Singleton class for Global types used by TMVA
+*/
+
+#include "TMVA/Types.h"
+
+#include "TMVA/MsgLogger.h"
+
+#include "RtypesCore.h"
+#include "TString.h"
+
 #include <map>
 #include <iostream>
 #if __cplusplus > 199711L
 #include <mutex>
 #endif
 
-#include "TMVA/Types.h"
-//#include "MsgLogger.h"
-
 #if __cplusplus > 199711L
-std::atomic<BA_TMVA::Types*> BA_TMVA::Types::fgTypesPtr{0};
+std::atomic<TMVA::Types*> TMVA::Types::fgTypesPtr{0};
 static std::mutex gTypesMutex;
 #else
-BA_TMVA::Types* BA_TMVA::Types::fgTypesPtr = 0;
+TMVA::Types* TMVA::Types::fgTypesPtr = 0;
 #endif
 
-//_______________________________________________________________________
-BA_TMVA::Types::Types()
-//   : fLogger( new MsgLogger("Types") )
+////////////////////////////////////////////////////////////////////////////////
+/// constructor
+
+TMVA::Types::Types()
+   : fLogger( new MsgLogger("Types") )
 {
-   // constructor
 }
 
-BA_TMVA::Types::~Types()
+TMVA::Types::~Types()
 {
    // destructor
-//   delete fLogger;
+   delete fLogger;
 }
 
-//_______________________________________________________________________
-BA_TMVA::Types& BA_TMVA::Types::Instance()
+////////////////////////////////////////////////////////////////////////////////
+/// the the single instance of "Types" if existing already, or create it  (Singleton)
+
+TMVA::Types& TMVA::Types::Instance()
 {
-   // the the single instance of "Types" if existin already, or create it  (Signleton)
-//#if __cplusplus > 199711L
-//  if(!fgTypesPtr) {
-//    Types* tmp = new Types();
-//    Types* expected = 0;
-//    if(!fgTypesPtr.compare_exchange_strong(expected,tmp)) {
-//      //Another thread already did it
-//      delete tmp;
-//    }
-//  }
-//  return *fgTypesPtr;
-//#else
+#if __cplusplus > 199711L
+   if(!fgTypesPtr) {
+      Types* tmp = new Types();
+      Types* expected = 0;
+      if(!fgTypesPtr.compare_exchange_strong(expected,tmp)) {
+         //Another thread already did it
+         delete tmp;
+      }
+   }
+   return *fgTypesPtr;
+#else
    return fgTypesPtr ? *fgTypesPtr : *(fgTypesPtr = new Types());
-//#endif
+#endif
 }
-//_______________________________________________________________________
-void   BA_TMVA::Types::DestroyInstance()
+
+////////////////////////////////////////////////////////////////////////////////
+/// "destructor" of the single instance
+
+void   TMVA::Types::DestroyInstance()
 {
-   // "destructor" of the single instance
 #if __cplusplus > 199711L
    if (fgTypesPtr != 0) { delete fgTypesPtr.load(); fgTypesPtr = 0; }
 #else
@@ -83,21 +96,18 @@ void   BA_TMVA::Types::DestroyInstance()
 #endif
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-//_______________________________________________________________________
-Bool_t BA_TMVA::Types::AddTypeMapping( Types::EMVA method, const std::string& methodname )
+Bool_t TMVA::Types::AddTypeMapping( Types::EMVA method, const TString& methodname )
 {
-//#if __cplusplus > 199711L
-//   std::lock_guard<std::mutex> guard(gTypesMutex);
-//#endif
-   std::map<std::string, EMVA>::const_iterator it = fStr2type.find( methodname );
+#if __cplusplus > 199711L
+   std::lock_guard<std::mutex> guard(gTypesMutex);
+#endif
+   std::map<TString, EMVA>::const_iterator it = fStr2type.find( methodname );
    if (it != fStr2type.end()) {
-//       Log() << kFATAL
-//             << "Cannot add method " << methodname
-//             << " to the name->type map because it exists already" << Endl;
-       std::cout << kFATAL
-             << "TMVA::Types::AddTypeMapping() -> Fatal. Cannot add method " << methodname
-             << " to the name->type map because it exists already" << std::endl;
+      Log() << kFATAL
+            << "Cannot add method " << methodname
+            << " to the name->type map because it exists already" << Endl;
       return kFALSE;
    }
 
@@ -105,31 +115,31 @@ Bool_t BA_TMVA::Types::AddTypeMapping( Types::EMVA method, const std::string& me
    return kTRUE;
 }
 
-//_______________________________________________________________________
-BA_TMVA::Types::EMVA BA_TMVA::Types::GetMethodType( const std::string& method ) const
+////////////////////////////////////////////////////////////////////////////////
+/// returns the method type (enum) for a given method (string)
+
+TMVA::Types::EMVA TMVA::Types::GetMethodType( const TString& method ) const
 {
-//#if __cplusplus > 199711L
-//   std::lock_guard<std::mutex> guard(gTypesMutex);
-//#endif
-   // returns the method type (enum) for a given method (string)
-   std::map<std::string, EMVA>::const_iterator it = fStr2type.find( method );
+#if __cplusplus > 199711L
+   std::lock_guard<std::mutex> guard(gTypesMutex);
+#endif
+   std::map<TString, EMVA>::const_iterator it = fStr2type.find( method );
    if (it == fStr2type.end()) {
-//       Log() << kFATAL << "Unknown method in map: " << method << Endl;
-       std::cout << kFATAL << "TMVA::Types::GetMethodType-> Fatal. Unknown method in map: " << method << std::endl;
+      Log() << kFATAL << "Unknown method in map: " << method << Endl;
       return kVariable; // Inserted to get rid of GCC warning...
    }
    else return it->second;
 }
 
-//_______________________________________________________________________
-std::string BA_TMVA::Types::GetMethodName( BA_TMVA::Types::EMVA method ) const
+////////////////////////////////////////////////////////////////////////////////
+
+TString TMVA::Types::GetMethodName( TMVA::Types::EMVA method ) const
 {
-//#if __cplusplus > 199711L
-//   std::lock_guard<std::mutex> guard(gTypesMutex);
-//#endif
-   std::map<std::string, EMVA>::const_iterator it = fStr2type.begin();
+#if __cplusplus > 199711L
+   std::lock_guard<std::mutex> guard(gTypesMutex);
+#endif
+   std::map<TString, EMVA>::const_iterator it = fStr2type.begin();
    for (; it!=fStr2type.end(); it++) if (it->second == method) return it->first;
-//   Log() << kFATAL << "Unknown method index in map: " << method << Endl;
-   std::cout << kFATAL << "TMVA::Types::GetMethodName() -> Fatal. Unknown method index in map: " << method << std::endl;
+   Log() << kFATAL << "Unknown method index in map: " << method << Endl;
    return "";
 }

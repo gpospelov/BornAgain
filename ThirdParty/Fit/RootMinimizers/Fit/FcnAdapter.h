@@ -10,9 +10,7 @@
 #ifndef ROOT_Fit_FcnAdapter_H_
 #define ROOT_Fit_FcnAdapter_H_
 
-#ifndef ROOT_Math_IFunction
 #include "Math/IFunction.h"
-#endif
 
 
 //___________________________________________________________
@@ -22,11 +20,11 @@
 // (ROOT::Math::IMultiGenFunction)
 //
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Fit {
 
-class FcnAdapter : public BA_ROOT::Math::IMultiGenFunction {
+class FcnAdapter : public ROOT::Math::IMultiGenFunction {
 
 public:
 
@@ -39,7 +37,7 @@ public:
 
    virtual  unsigned int NDim() const { return fDim; }
 
-   BA_ROOT::Math::IMultiGenFunction * Clone() const {
+   ROOT::Math::IMultiGenFunction * Clone() const {
       return new FcnAdapter(fFCN,fDim);
    }
 

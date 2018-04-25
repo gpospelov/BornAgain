@@ -35,7 +35,7 @@
 #define ROOT_Math_GSLFunctionAdapter
 
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
 
   /**

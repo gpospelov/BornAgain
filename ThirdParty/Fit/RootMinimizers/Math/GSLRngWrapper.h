@@ -14,7 +14,7 @@
 #define ROOT_Math_GSLRngWrapper
 
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 
@@ -97,7 +97,7 @@ public:
       if (fRngType == 0) SetDefaultType();
       if (fRng != 0 && fOwn) Free();
       fRng = gsl_rng_alloc( fRngType );
-      //std::cout << " allocate   " << fRng <<  std::endl;
+      fOwn = true;
     }
 
     void Free() {

@@ -11,7 +11,7 @@
 #include "Minuit2/MnUserCovariance.h"
 #include "Minuit2/MnMatrix.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

@@ -13,7 +13,7 @@
 #include "Minuit2/MnRefCountedPointer.h"
 #include "Minuit2/BasicMinimumParameters.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

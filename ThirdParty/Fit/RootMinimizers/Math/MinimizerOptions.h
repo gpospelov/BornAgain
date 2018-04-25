@@ -15,7 +15,7 @@
 
 #include <iostream>
 
-namespace BA_ROOT {
+namespace ROOT {
 
 
 namespace Math {
@@ -57,10 +57,10 @@ public:
    static IOptions * DefaultExtraOptions();
 
    /// retrieve extra options - if not existing create a IOptions
-   static BA_ROOT::Math::IOptions & Default(const char * name);
+   static ROOT::Math::IOptions & Default(const char * name);
 
    // find extra options - return 0 if not existing
-   static BA_ROOT::Math::IOptions * FindDefault(const char * name);
+   static ROOT::Math::IOptions * FindDefault(const char * name);
 
    /// print all the default options for the name given
    static void PrintDefault(const char * name, std::ostream & os = std::cout);
@@ -161,7 +161,7 @@ private:
    std::string fAlgoType;    // Minimizer algorithmic specification (Migrad, Minimize, ...)
 
    // extra options
-   BA_ROOT::Math::IOptions *   fExtraOptions;  // extra options
+   ROOT::Math::IOptions *   fExtraOptions;  // extra options
 
 };
 

@@ -15,7 +15,7 @@
 #include "Minuit2/MnSeedGenerator.h"
 #include "Minuit2/VariableMetricBuilder.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

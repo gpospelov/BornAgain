@@ -33,7 +33,7 @@
 #include "Minuit2/LaInverse.h"
 #include "Minuit2/LaOuterProduct.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

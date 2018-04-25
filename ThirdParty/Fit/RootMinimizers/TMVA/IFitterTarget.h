@@ -1,4 +1,4 @@
-// @(#)root/tmva $Id$
+// @(#)root/tmva $Id$ 
 // Author: Andreas Hoecker, Peter Speckmayer
 
 /**********************************************************************************
@@ -15,8 +15,8 @@
  *      Peter Speckmayer <speckmay@mail.cern.ch>  - CERN, Switzerland             *
  *                                                                                *
  * Copyright (c) 2005:                                                            *
- *      CERN, Switzerland                                                         *
- *      MPI-K Heidelberg, Germany                                                 *
+ *      CERN, Switzerland                                                         * 
+ *      MPI-K Heidelberg, Germany                                                 * 
  *                                                                                *
  * Redistribution and use in source and binary forms, with or without             *
  * modification, are permitted according to the terms listed in LICENSE           *
@@ -36,12 +36,10 @@
 
 #include <vector>
 
-#ifndef ROOT_TMVA_Types
 #include "TMVA/Types.h"
-#endif
 
 
-namespace BA_TMVA {
+namespace TMVA {
 
    class IFitterTarget {
 
@@ -56,11 +54,11 @@ namespace BA_TMVA {
       // function to notify the FitterTarget of the progress status of the fitter
       // sender : "GA", "MC", ...
       // progress : "init", "iteration", "last", "stop"
-      virtual void     ProgressNotifier ( std::string /*sender*/, std::string /* progress */ ) {}
+      virtual void     ProgressNotifier ( TString /*sender*/, TString /* progress */ ) {}   
 
    private:
 
-//      ClassDef(IFitterTarget,0) // base class for a fitter "target"
+      ClassDef(IFitterTarget,0); // base class for a fitter "target"
    };
 
 } // namespace TMVA

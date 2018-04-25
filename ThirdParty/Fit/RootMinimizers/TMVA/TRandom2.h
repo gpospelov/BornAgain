@@ -22,13 +22,7 @@
 //                                                                      //
 //////////////////////////////////////////////////////////////////////////
 
-//#ifndef ROOT_TRandom
-//#include "TRandom.h"
-//#endif
-
-#include "TMVA/TRandom.h"
-
-namespace BA_ROOT {
+#include "TRandom.h"
 
 class TRandom2 : public TRandom {
 
@@ -39,15 +33,15 @@ protected:
 public:
    TRandom2(UInt_t seed=1);
    virtual ~TRandom2();
-   virtual  Double_t Rndm(Int_t i=0);
+   virtual  Double_t Rndm( );
+   using TRandom::Rndm;
    virtual  void     RndmArray(Int_t n, Float_t *array);
    virtual  void     RndmArray(Int_t n, Double_t *array);
-   virtual  void     SetSeed(UInt_t seed=0);
+   virtual  void     SetSeed(ULong_t seed=0);
 
-//   ClassDef(TRandom2,1)  //Random number generator with periodicity of 10**26
+   ClassDef(TRandom2,1)  //Random number generator with periodicity of 10**26
 };
 
 //R__EXTERN TRandom *gRandom;
-}
 
 #endif

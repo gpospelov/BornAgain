@@ -10,11 +10,9 @@
 #ifndef ROOT_Minuit2_FCNAdapter
 #define ROOT_Minuit2_FCNAdapter
 
-#ifndef ROOT_Minuit2_FCNBase
 #include "Minuit2/FCNBase.h"
-#endif
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

@@ -28,7 +28,7 @@
 #include <cstdlib>
 #include <new>
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

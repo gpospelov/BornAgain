@@ -15,19 +15,15 @@
 #define ROOT_Math_MinimTransformFunction
 
 
-#ifndef ROOT_Math_IFunction
 #include "Math/IFunction.h"
-#endif
 
-#ifndef ROOT_Math_MinimTransformVariable
 #include "Math/MinimTransformVariable.h"
-#endif
 
 
 #include <vector>
 #include <map>
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 
@@ -44,8 +40,8 @@ class MinimTransformFunction : public IMultiGradFunction {
 
 public:
 
-   typedef  BA_ROOT::Math::IMultiGradFunction BaseGradFunc;
-   typedef  BA_ROOT::Math::IMultiGradFunction::BaseFunc BaseFunc;
+   typedef  ROOT::Math::IMultiGradFunction BaseGradFunc;
+   typedef  ROOT::Math::IMultiGradFunction::BaseFunc BaseFunc;
 
 
    /**
@@ -54,7 +50,7 @@ public:
      variable values (used for the fixed ones) and a map with the bounds (for the bounded variables)
 
    */
-   MinimTransformFunction ( const IMultiGradFunction * f, const std::vector<BA_ROOT::Math::EMinimVariableType> & types, const std::vector<double> & values,
+   MinimTransformFunction ( const IMultiGradFunction * f, const std::vector<ROOT::Math::EMinimVariableType> & types, const std::vector<double> & values,
                             const std::map<unsigned int, std::pair<double, double> > & bounds);
 
 
@@ -72,7 +68,7 @@ public:
 
    unsigned int NTot() const { return fFunc->NDim(); }
 
-   /// clone:  not supported (since auto_ptr used in the fVariables)
+   /// clone:  not supported (since unique_ptr used in the fVariables)
    IMultiGenFunction * Clone() const {
       return 0;
    }

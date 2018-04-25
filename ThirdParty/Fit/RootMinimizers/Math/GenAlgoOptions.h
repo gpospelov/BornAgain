@@ -12,14 +12,12 @@
 #define ROOT_Math_GenAlgoOptions
 
 
-#ifndef ROOT_Math_IOptions
 #include "Math/IOptions.h"
-#endif
 
 #include <map>
 #include <iomanip>
 
-namespace BA_ROOT {
+namespace ROOT {
       namespace Math {
 
 //_______________________________________________________________________________

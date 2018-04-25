@@ -20,16 +20,14 @@
 
 #include <type_traits>
 #include <cmath>
-//#include "Rtypes.h"
-//#include "TMath.h"
-#include "TMVA/Types.h"
+#include "Rtypes.h"
+#include "TMath.h"
 #include <cassert>
-#include <vector>
 
 #include "TRandomEngine.h"
 
 
-namespace BA_ROOT {
+namespace ROOT {
 namespace Math {
 
 
@@ -73,7 +71,7 @@ namespace Math {
    public: 
 
       /// class constructor 
-      RandomFunctionsImpl() {}
+      RandomFunctionsImpl() : fBaseEngine(0) {}
 
       void SetEngine(void *r) {
          fBaseEngine = static_cast<TRandomEngine*>(r);
@@ -105,12 +103,12 @@ namespace Math {
       /// Generate a random number following a Landau distribution
       /// with location parameter mu and scale parameter sigma:
       ///      Landau( (x-mu)/sigma )
-//      double Landau(double mu, double sigma);
+      double Landau(double mu, double sigma);
 
       /// Generates a random integer N according to a Poisson law.
       /// Prob(N) = exp(-mean)*mean^N/Factorial(N)
-//      int Poisson(double mean);
-//      double PoissonD(double mean);
+      int Poisson(double mean);
+      double PoissonD(double mean);
 
       /// Generate numbers distributed following a gaussian with mean=0 and sigma=1.
       /// Using the Box-Muller method 
@@ -125,7 +123,7 @@ namespace Math {
       double Uniform(double a);
 
    protected:
-      TRandomEngine * fBaseEngine;
+      TRandomEngine* fBaseEngine;
 
    private:
       // Internal method used by the functions 
@@ -251,12 +249,28 @@ namespace Math {
          static_assert(std::is_fundamental<Engine>::value,"Error: Gamma() requires a GSL Engine type");
          return 0;
       }
+      double Beta( double , double ) {
+         static_assert(std::is_fundamental<Engine>::value,"Error: Beta() requires a GSL Engine type");
+         return 0;
+      }
       double LogNormal(double, double) {
          static_assert(std::is_fundamental<Engine>::value,"Error: LogNormal() requires a GSL Engine type");
          return 0;
       }
       double ChiSquare(double) {
          static_assert(std::is_fundamental<Engine>::value,"Error: ChiSquare() requires a GSL Engine type");
+         return 0;
+      }
+      double Rayleigh( double ) {
+         static_assert(std::is_fundamental<Engine>::value,"Error: Rayleigh() requires a GSL Engine type");
+         return 0;
+      }
+      double Logistic( double ) {
+         static_assert(std::is_fundamental<Engine>::value,"Error: Logistic() requires a GSL Engine type");
+         return 0;
+      }
+      double Pareto( double , double ) {
+         static_assert(std::is_fundamental<Engine>::value,"Error: Pareto() requires a GSL Engine type");
          return 0;
       }
       double FDist(double, double) {

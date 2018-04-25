@@ -11,7 +11,7 @@
 #include "Minuit2/FunctionGradient.h"
 #include "Minuit2/MinimumError.h"
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

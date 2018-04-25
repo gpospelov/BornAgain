@@ -17,7 +17,7 @@
 #include <vector>
 #include <cmath>
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

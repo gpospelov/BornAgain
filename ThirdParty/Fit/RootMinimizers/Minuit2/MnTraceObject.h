@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_MnTraceObject
 #define ROOT_Minuit2_MnTraceObject
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

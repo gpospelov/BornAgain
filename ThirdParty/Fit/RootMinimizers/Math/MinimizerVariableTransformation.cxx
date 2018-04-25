@@ -9,7 +9,7 @@
 #include <cmath>
 #include <limits>
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 

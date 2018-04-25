@@ -11,12 +11,13 @@
 // Implementation file for class MinimTransformFunction
 
 #include "Math/MinimTransformFunction.h"
+#include "Math/IFunctionfwd.h"
 
 //#include <iostream>
 #include <cmath>
 #include <cassert>
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Math {
 

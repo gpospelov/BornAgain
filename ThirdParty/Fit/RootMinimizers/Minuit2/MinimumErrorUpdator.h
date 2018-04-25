@@ -10,7 +10,7 @@
 #ifndef ROOT_Minuit2_MinimumErrorUpdator
 #define ROOT_Minuit2_MinimumErrorUpdator
 
-namespace BA_ROOT {
+namespace ROOT {
 
    namespace Minuit2 {
 

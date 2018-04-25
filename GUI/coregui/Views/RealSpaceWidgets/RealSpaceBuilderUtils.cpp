@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilder.cpp
-//! @brief     Implements RealSpaceBuilder namespace
+//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.cpp
+//! @brief     Implements RealSpaceBuilderUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,137 +12,28 @@
 //
 // ************************************************************************** //
 
+#include "RealSpaceBuilderUtils.h"
 #include "RealSpaceBuilder.h"
 #include "RealSpaceModel.h"
 #include "SessionItem.h"
-#include "RealSpaceBuilderUtils.h"
-#include "LayerItem.h"
-#include "ExternalProperty.h"
-#include "MultiLayerItem.h"
-#include "TransformTo3D.h"
-#include "ParticleLayoutItem.h"
-#include <ba3d/model/layer.h>
-#include <QDebug>
 
+#include "LayerItem.h"
+#include "MultiLayerItem.h"
+#include "ParticleLayoutItem.h"
 #include "ParticleItem.h"
 #include "VectorItem.h"
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
 #include "Units.h"
 
-void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item)
-{
-    model->defCamPos = RealSpace::Camera::Position(
-        RealSpace::Vector3D(0, -140, 90),   // eye
-        RealSpace::Vector3D(0, 0, 0),       // center
-        RealSpace::Vector3D::_z);             // up vector
-
-    if (item.modelType() == Constants::MultiLayerType)
-        populateMultiLayer(model, item);
-
-    else if (item.modelType() == Constants::LayerType)
-        populateLayer(model, item);
-
-    else if (item.modelType() == Constants::ParticleLayoutType)
-        populateLayout(model, item);
-
-    else if (item.modelType() == Constants::ParticleType)
-        populateParticle(model, item);
+namespace {
+    // defining layer size and thickness (taken from namespace in TransformTo3D)
+    const double layer_size = 50.0;
+    const double layer_thickness = 25.0;
 }
 
-void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
-                                          const QVector3D&)
-{
-    double total_height(0.0);
-    int index(0);
-    for (auto layer : item.getItems(MultiLayerItem::T_LAYERS)) {
-
-        if(index != 0)
-            total_height += TransformTo3D::visualLayerThickness(*layer);
-
-        populateLayer(model, *layer, QVector3D(0, 0, static_cast<float>(-total_height)));
-        ++index;
-    }
-
-}
-
-void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
-                                     const QVector3D& origin)
-{
-    auto layer = TransformTo3D::createLayer(layerItem, origin);
-    model->addBlend(layer.release());
-
-    for (auto layout : layerItem.getItems(LayerItem::T_LAYOUTS))
-        populateLayout(model, *layout, origin);
-}
-
-void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
-                                      const QVector3D& origin)
-{
-    Q_ASSERT(layoutItem.modelType() == Constants::ParticleLayoutType);
-
-    Q_UNUSED(origin);
-
-    // If there is any interference function
-    if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))
-        populateInterference(model, layoutItem);
-    else
-        RealSpaceBuilderUtils::populateRandomDistribution(model, layoutItem);
-}
-
-void RealSpaceBuilder::populateInterference(RealSpaceModel* model, const SessionItem& layoutItem)
-{
-    // If there is no particle to populate
-    if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
-        return;
-
-    auto interference = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
-
-    // If interference type is 2D Lattice
-    if (interference->modelType() == Constants::InterferenceFunction2DLatticeType)
-        RealSpaceBuilderUtils::populateInterference2DLatticeType(model, layoutItem);
-
-    /*
-
-    // If interference type is 1D Lattice
-    else if (interference->modelType() == Constants::InterferenceFunction1DLatticeType)
-    {
-        QMessageBox box;
-        box.setText(interference->displayName());
-        box.exec();
-    }
-
-    // If interference type is 2D ParaCrystal
-    else if (interference->modelType() == Constants::InterferenceFunction2DParaCrystalType)
-    {
-    }
-
-    // If interference type is Radial ParaCrystal
-    else if (interference->modelType() == Constants::InterferenceFunctionRadialParaCrystalType)
-    {
-    }
-
-    */
-}
-
-void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
-                                        const QVector3D& origin)
-{
-    Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
-
-    auto particle = TransformTo3D::createParticle(particleItem);
-
-    if (particle) {
-        particle->transform(RealSpace::Vector3D::_0, RealSpace::Vector3D(origin.x(),
-                                                                         origin.y(),
-                                                                         origin.z()));
-        model->add(particle.release());
-    }
-}
-
-/*
 // compute cumulative abundances of particles
-QVector<double> RealSpaceBuilder::computeCumulativeAbundances(const SessionItem &layoutItem)
+QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
 {
     // Retrieving abundances of particles
     double total_abundance = 0;
@@ -160,7 +51,7 @@ QVector<double> RealSpaceBuilder::computeCumulativeAbundances(const SessionItem 
 }
 
 // No interference - random distribution of particles
-void RealSpaceBuilder::populateRandomDistribution(RealSpaceModel *model,
+void RealSpaceBuilderUtils::populateRandomDistribution(RealSpaceModel *model,
                                                   const SessionItem &layoutItem)
 {
     // If there is no particle to populate
@@ -202,7 +93,7 @@ void RealSpaceBuilder::populateRandomDistribution(RealSpaceModel *model,
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
-                    populateParticle(model, *particle,
+                    RealSpaceBuilder::populateParticle(model, *particle,
                                      QVector3D(static_cast<float>(pos_x),
                                                static_cast<float>(pos_y),
                                                static_cast<float>(pos_z)));
@@ -215,7 +106,7 @@ void RealSpaceBuilder::populateRandomDistribution(RealSpaceModel *model,
     }
 }
 
-QVector<QVector<double> > RealSpaceBuilder::computeRandomDistributionLatticePositions(
+QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLatticePositions(
         const SessionItem &layoutItem)
 {
     QVector<QVector<double>> lattice_positions;
@@ -245,7 +136,7 @@ QVector<QVector<double> > RealSpaceBuilder::computeRandomDistributionLatticePosi
 
 
 // InterferenceFunction2DLatticeType
-void RealSpaceBuilder::populateInterference2DLatticeType(RealSpaceModel *model,
+void RealSpaceBuilderUtils::populateInterference2DLatticeType(RealSpaceModel *model,
                                             const SessionItem& layoutItem)
 {
     auto interference = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
@@ -288,7 +179,7 @@ void RealSpaceBuilder::populateInterference2DLatticeType(RealSpaceModel *model,
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
-                    populateParticle(model, *particle,
+                    RealSpaceBuilder::populateParticle(model, *particle,
                                      QVector3D(static_cast<float>(pos_x),
                                                static_cast<float>(pos_y),
                                                static_cast<float>(pos_z)));
@@ -303,7 +194,7 @@ void RealSpaceBuilder::populateInterference2DLatticeType(RealSpaceModel *model,
     cumulative_abundances.clear();
 }
 
-QVector<QVector<double>> RealSpaceBuilder::getInterference2DLatticePositions(
+QVector<QVector<double>> RealSpaceBuilderUtils::getInterference2DLatticePositions(
         const SessionItem &interference2DLatticeItem)
 {
     double l1 = 0.0, l2 = 0.0, l_alpha = 0.0, l_xi = 0.0;
@@ -357,7 +248,7 @@ QVector<QVector<double>> RealSpaceBuilder::getInterference2DLatticePositions(
     return computeInterference2DLatticePositions(l1, l2, l_alpha, l_xi);
 }
 
-QVector<QVector<double>> RealSpaceBuilder::computeInterference2DLatticePositions(
+QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePositions(
         double l1, double l2, double l_alpha, double l_xi)
 {
     QVector<QVector<double>> lattice_positions;
@@ -398,4 +289,3 @@ QVector<QVector<double>> RealSpaceBuilder::computeInterference2DLatticePositions
 
     return lattice_positions;
 }
-*/

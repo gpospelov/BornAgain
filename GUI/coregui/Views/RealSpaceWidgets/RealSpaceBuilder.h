@@ -40,7 +40,7 @@ BA_CORE_API_ void populateInterference(RealSpaceModel* model, const SessionItem&
 
 BA_CORE_API_ void populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
                                    const QVector3D& origin = QVector3D());
-
+/*
 // compute cumulative abundances of particles
 BA_CORE_API_ QVector<double> computeCumulativeAbundances(const SessionItem& layoutItem);
 
@@ -59,6 +59,7 @@ BA_CORE_API_ QVector<QVector<double>>  getInterference2DLatticePositions(
 
 BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
         double l1, double l2, double l_alpha, double l_xi);
+*/
 }
 
 #endif // REALSPACEBUILDER_H

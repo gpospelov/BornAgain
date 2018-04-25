@@ -127,6 +127,8 @@ void RealSpaceCanvas::updateScene()
     SessionItem* item = m_sampleModel->itemForIndex(m_currentSelection);
 
     Q_ASSERT(item);
+    //RealSpaceBuilder builder(const* SceneGeometry&);
+
     RealSpaceBuilder::populate(m_realSpaceModel.get(), *item);
 
     m_view->setModel(m_realSpaceModel.get());

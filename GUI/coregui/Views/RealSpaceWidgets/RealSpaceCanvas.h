@@ -27,7 +27,6 @@ class RealSpaceView;
 class RealSpaceModel;
 
 //! Provides 3D object generation for RealSpaceWidget.
-
 class BA_CORE_API_ RealSpaceCanvas : public QWidget
 {
     Q_OBJECT

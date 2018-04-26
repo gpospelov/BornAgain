@@ -55,12 +55,14 @@ def translate_axis_label(label):
                  'alpha_i [deg]' : r'$\alpha_i \; (deg)$',
                  'X [mm]'        : r'$X \; (mm)$',
                  'Qy [1/nm]'     : r'$Q_y \; (nm^{-1})$',
+                 'Q [1/nm]'      : r'$Q \; (nm^{-1})$',
 
                  'Y [nbins]'     : r'$Y \; (bins)$',
                  'alpha_f [rad]' : r'$\alpha_f \; (rad)$',
                  'alpha_f [deg]' : r'$\alpha_f \; (deg)$',
                  'Y [mm]'        : r'$Y \; (mm)$',
-                 'Qz [1/nm]'     : r'$Q_z \; (nm^{-1})$'
+                 'Qz [1/nm]'     : r'$Q_z \; (nm^{-1})$',
+                 'Position [nm]' : r'$Position \; (nm)$'
                  }
     if label in label_dict.keys():
         return label_dict[label]

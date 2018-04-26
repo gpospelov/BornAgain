@@ -27923,7 +27923,6 @@ class AxesUnits(_object):
     RADIANS = _libBornAgainCore.AxesUnits_RADIANS
     DEGREES = _libBornAgainCore.AxesUnits_DEGREES
     MM = _libBornAgainCore.AxesUnits_MM
-    NM = _libBornAgainCore.AxesUnits_NM
     QSPACE = _libBornAgainCore.AxesUnits_QSPACE
     __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
     __del__ = lambda self: None

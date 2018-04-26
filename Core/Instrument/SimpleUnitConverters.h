@@ -51,8 +51,6 @@ protected:
 
     void addAxisData(std::string name, double min, double max,
                      AxesUnits default_units, size_t nbins);
-    void checkIndex(size_t i_axis) const;
-    void checkDimension(size_t dim) const;
 
 #ifndef SWIG
     struct AxisData {
@@ -155,24 +153,16 @@ public:
 
     DepthProbeConverter* clone() const override;
 
-    double calculateMin(size_t i_axis, AxesUnits units_type) const override;
-    double calculateMax(size_t i_axis, AxesUnits units_type) const override;
-
-    // TODO: remove axisName after implementing functionality for two axis in different units
-    std::string axisName(size_t i_axis, AxesUnits units_type = AxesUnits::DEFAULT) const override;
-
     //! Returns the list of all available units
     std::vector<AxesUnits> availableUnits() const override;
 
     AxesUnits defaultUnits() const override { return AxesUnits::DEGREES; }
-    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const override;
 
 private:
     DepthProbeConverter(const DepthProbeConverter& other);
-    void checkForDefaultUnits(AxesUnits units_type) const;
     double calculateValue(size_t, AxesUnits units_type, double value) const override;
     std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
-    void addZAxis(const IAxis& z_axis);
+    void checkUnits(AxesUnits units_type) const;
 };
 
 #endif // SIMPLEUNITCONVERTERS_H

@@ -38,14 +38,35 @@ void DepthProbeConverterTest::checkMainFunctionality(const DepthProbeConverter& 
 {
     EXPECT_EQ(test_object.dimension(), 2u);
 
-    EXPECT_NEAR(test_object.calculateMin(0, AxesUnits::DEFAULT), Units::rad2deg(m_alpha_start),
-                Units::rad2deg(m_alpha_start) * 1e-10);
+    EXPECT_NEAR(test_object.calculateMin(0, AxesUnits::DEFAULT), 2.8647889757e+1,
+                2.8647889757e+1 * 1e-10);
+    EXPECT_NEAR(test_object.calculateMin(0, AxesUnits::DEGREES), 2.8647889757e+1,
+                2.8647889757e+1 * 1e-10);
+    EXPECT_NEAR(test_object.calculateMin(0, AxesUnits::QSPACE), 6.0246390001, 6.0246390001 * 1e-10);
+    EXPECT_EQ(test_object.calculateMin(0, AxesUnits::RADIANS), m_alpha_start);
+    EXPECT_EQ(test_object.calculateMin(0, AxesUnits::NBINS), 0.0);
 
-    EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::DEFAULT), Units::rad2deg(m_alpha_end),
-                Units::rad2deg(m_alpha_end) * 1e-10);
+    EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::DEFAULT), 5.7295779513e+1,
+                5.7295779513e+1 * 1e-10);
+    EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::DEGREES), 5.7295779513e+1,
+                5.7295779513e+1 * 1e-10);
+    EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::QSPACE), 1.0574236256e+1,
+                1.0574236256e+1 * 1e-10);
+    EXPECT_EQ(test_object.calculateMax(0, AxesUnits::RADIANS), m_alpha_end);
+    const double n_bins = static_cast<double>(m_nbins);
+    EXPECT_NEAR(test_object.calculateMax(0, AxesUnits::NBINS), n_bins, n_bins * 1e-10);
 
     checkAlphaAxis(AxesUnits::DEFAULT, test_object);
+    checkAlphaAxis(AxesUnits::DEGREES, test_object);
+    checkAlphaAxis(AxesUnits::RADIANS, test_object);
+    checkAlphaAxis(AxesUnits::QSPACE, test_object);
+    checkAlphaAxis(AxesUnits::NBINS, test_object);
+
     checkZAxis(AxesUnits::DEFAULT, test_object);
+    checkZAxis(AxesUnits::DEGREES, test_object);
+    checkZAxis(AxesUnits::RADIANS, test_object);
+    checkZAxis(AxesUnits::QSPACE, test_object);
+    checkZAxis(AxesUnits::NBINS, test_object);
 }
 
 void DepthProbeConverterTest::checkAlphaAxis(AxesUnits units,
@@ -67,10 +88,14 @@ void DepthProbeConverterTest::checkZAxis(AxesUnits units, const DepthProbeConver
     EXPECT_EQ(axis->size(), test_object.axisSize(1));
     EXPECT_EQ(axis->size(), m_nbins);
     EXPECT_EQ(axis->getName(), test_object.axisName(1, units));
+
     EXPECT_EQ(axis->getMin(), test_object.calculateMin(1, units));
-    EXPECT_NEAR(axis->getMin(), m_z_start, std::abs(m_z_start) * 1e-10);
+    const double test_min = units == AxesUnits::NBINS ? 0 : m_z_start;
+    EXPECT_NEAR(axis->getMin(), test_min, std::abs(test_min) * 1e-10);
+
     EXPECT_EQ(axis->getMax(), test_object.calculateMax(1, units));
-    EXPECT_NEAR(axis->getMax(), m_z_end, std::abs(m_z_end) * 1e-10);
+    const double test_max = units == AxesUnits::NBINS ? m_nbins : m_z_end;
+    EXPECT_NEAR(axis->getMax(), test_max, std::abs(test_max) * 1e-10);
 }
 
 TEST_F(DepthProbeConverterTest, DepthProbeConverter)
@@ -84,30 +109,18 @@ TEST_F(DepthProbeConverterTest, DepthProbeConverterExceptions)
     DepthProbeConverter converter(m_beam, m_inclination_axis, m_z_axis);
 
     EXPECT_THROW(converter.axisName(0, AxesUnits::MM), std::runtime_error);
-    EXPECT_THROW(converter.axisName(0, AxesUnits::DEGREES), std::runtime_error);
-    EXPECT_THROW(converter.axisName(0, AxesUnits::RADIANS), std::runtime_error);
-    EXPECT_THROW(converter.axisName(0, AxesUnits::QSPACE), std::runtime_error);
     EXPECT_THROW(converter.axisName(1, AxesUnits::MM), std::runtime_error);
     EXPECT_THROW(converter.axisName(2, AxesUnits::DEFAULT), std::runtime_error);
 
     EXPECT_THROW(converter.calculateMin(0, AxesUnits::MM), std::runtime_error);
-    EXPECT_THROW(converter.calculateMin(0, AxesUnits::DEGREES), std::runtime_error);
-    EXPECT_THROW(converter.calculateMin(0, AxesUnits::RADIANS), std::runtime_error);
-    EXPECT_THROW(converter.calculateMin(0, AxesUnits::QSPACE), std::runtime_error);
     EXPECT_THROW(converter.calculateMin(1, AxesUnits::MM), std::runtime_error);
     EXPECT_THROW(converter.calculateMin(2, AxesUnits::DEFAULT), std::runtime_error);
 
     EXPECT_THROW(converter.calculateMax(0, AxesUnits::MM), std::runtime_error);
-    EXPECT_THROW(converter.calculateMax(0, AxesUnits::DEGREES), std::runtime_error);
-    EXPECT_THROW(converter.calculateMax(0, AxesUnits::RADIANS), std::runtime_error);
-    EXPECT_THROW(converter.calculateMax(0, AxesUnits::QSPACE), std::runtime_error);
     EXPECT_THROW(converter.calculateMax(1, AxesUnits::MM), std::runtime_error);
     EXPECT_THROW(converter.calculateMax(2, AxesUnits::RADIANS), std::runtime_error);
 
     EXPECT_THROW(converter.createConvertedAxis(0, AxesUnits::MM), std::runtime_error);
-    EXPECT_THROW(converter.createConvertedAxis(0, AxesUnits::DEGREES), std::runtime_error);
-    EXPECT_THROW(converter.createConvertedAxis(0, AxesUnits::RADIANS), std::runtime_error);
-    EXPECT_THROW(converter.createConvertedAxis(0, AxesUnits::QSPACE), std::runtime_error);
     EXPECT_THROW(converter.createConvertedAxis(1, AxesUnits::MM), std::runtime_error);
     EXPECT_THROW(converter.createConvertedAxis(2, AxesUnits::DEFAULT), std::runtime_error);
 }

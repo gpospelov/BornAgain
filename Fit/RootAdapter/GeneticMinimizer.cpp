@@ -31,7 +31,7 @@ std::map<int, std::string> statusDescription()
 
 GeneticMinimizer::GeneticMinimizer()
     : RootMinimizerAdapter(MinimizerInfo::buildGeneticInfo())
-    , m_genetic_minimizer(new BA_ROOT::Math::GeneticMinimizer())
+    , m_genetic_minimizer(new ROOT::Math::GeneticMinimizer())
 {
     addOption(OptionNames::Tolerance, 0.01, "Tolerance on the function value at the minimum");
     addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
@@ -134,7 +134,7 @@ std::map<std::string, std::string> GeneticMinimizer::statusMap() const
 
 void GeneticMinimizer::propagateOptions()
 {
-    BA_ROOT::Math::GeneticMinimizerParameters pars;
+    ROOT::Math::GeneticMinimizerParameters pars;
     pars.fPopSize = populationSize();
     pars.fNsteps = maxIterations();
 //    pars.fCycles = m_options.getIntValue("Cycles"); // seems it's not used inside ROOT

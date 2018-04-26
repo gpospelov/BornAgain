@@ -18,7 +18,7 @@
 #include "RootMinimizerAdapter.h"
 #include "MinimizerConstants.h"
 
-namespace BA_ROOT { namespace Math { class GSLMinimizer; } }
+namespace ROOT { namespace Math { class GSLMinimizer; } }
 
 //! Wrapper for the CERN ROOT facade of the GSL multi minimizer family (gradient descent based).
 //! @ingroup fitting_internal
@@ -45,7 +45,7 @@ protected:
     const root_minimizer_t* rootMinimizer() const;
 
 private:
-    std::unique_ptr<BA_ROOT::Math::GSLMinimizer> m_gsl_minimizer;
+    std::unique_ptr<ROOT::Math::GSLMinimizer> m_gsl_minimizer;
 };
 
 #endif // GSLMULTIMINIMIZER_H

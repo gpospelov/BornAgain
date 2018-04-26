@@ -482,103 +482,41 @@ struct Limits {
    Double_t LnGamma(Double_t z);
 }
 
-
-//---- Trig and other functions ------------------------------------------------
-
-#include <float.h>
-
-#if defined(R__WIN32) && !defined(__CINT__)
-#   ifndef finite
-#      define finite _finite
-#   endif
-#endif
-#if defined(R__AIX) || defined(R__SOLARIS_CC50) || \
-    defined(R__HPUX11) || defined(R__GLIBC) || \
-    (defined(R__MACOSX) )
-// math functions are defined inline so we have to include them here
-#   include <math.h>
-#   ifdef R__SOLARIS_CC50
-       extern "C" { int finite(double); }
-#   endif
-// #   if defined(R__GLIBC) && defined(__STRICT_ANSI__)
-// #      ifndef finite
-// #         define finite __finite
-// #      endif
-// #      ifndef isnan
-// #         define isnan  __isnan
-// #      endif
-// #   endif
-#else
-// don't want to include complete <math.h>
-extern "C" {
-   extern double sin(double);
-   extern double cos(double);
-   extern double tan(double);
-   extern double sinh(double);
-   extern double cosh(double);
-   extern double tanh(double);
-   extern double asin(double);
-   extern double acos(double);
-   extern double atan(double);
-   extern double atan2(double, double);
-   extern double sqrt(double);
-   extern double exp(double);
-   extern double pow(double, double);
-   extern double log(double);
-   extern double log10(double);
-#ifndef R__WIN32
-#   if !defined(finite)
-       extern int finite(double);
-#   endif
-#   if !defined(isnan)
-       extern int isnan(double);
-#   endif
-   extern double ldexp(double, int);
-   extern double ceil(double);
-   extern double floor(double);
-#else
-   _CRTIMP double ldexp(double, int);
-   _CRTIMP double ceil(double);
-   _CRTIMP double floor(double);
-#endif
-}
-#endif
-
 inline Double_t TMath::Sin(Double_t x)
-   { return sin(x); }
+   { return std::sin(x); }
 
 inline Double_t TMath::Cos(Double_t x)
-   { return cos(x); }
+   { return std::cos(x); }
 
 inline Double_t TMath::Tan(Double_t x)
-   { return tan(x); }
+   { return std::tan(x); }
 
 inline Double_t TMath::SinH(Double_t x)
-   { return sinh(x); }
+   { return std::sinh(x); }
 
 inline Double_t TMath::CosH(Double_t x)
-   { return cosh(x); }
+   { return std::cosh(x); }
 
 inline Double_t TMath::TanH(Double_t x)
-   { return tanh(x); }
+   { return std::tanh(x); }
 
 inline Double_t TMath::ASin(Double_t x)
    { if (x < -1.) return -TMath::Pi()/2;
      if (x >  1.) return  TMath::Pi()/2;
-     return asin(x);
+     return std::asin(x);
    }
 
 inline Double_t TMath::ACos(Double_t x)
    { if (x < -1.) return TMath::Pi();
      if (x >  1.) return 0;
-     return acos(x);
+     return std::acos(x);
    }
 
 inline Double_t TMath::ATan(Double_t x)
-   { return atan(x); }
+   { return std::atan(x); }
 
 inline Double_t TMath::ATan2(Double_t y, Double_t x)
-   { if (x != 0) return  atan2(y, x);
+   { if (x != 0) return  std::atan2(y, x);
      if (y == 0) return  0;
      if (y >  0) return  Pi()/2;
      else        return -Pi()/2;
@@ -588,16 +526,16 @@ inline Double_t TMath::Sq(Double_t x)
    { return x*x; }
 
 inline Double_t TMath::Sqrt(Double_t x)
-   { return sqrt(x); }
+   { return std::sqrt(x); }
 
 inline Double_t TMath::Ceil(Double_t x)
-   { return ceil(x); }
+   { return std::ceil(x); }
 
 inline Int_t TMath::CeilNint(Double_t x)
    { return TMath::Nint(ceil(x)); }
 
 inline Double_t TMath::Floor(Double_t x)
-   { return floor(x); }
+   { return std::floor(x); }
 
 inline Int_t TMath::FloorNint(Double_t x)
    { return TMath::Nint(floor(x)); }
@@ -619,7 +557,7 @@ inline Int_t TMath::Nint(T x)
 }
 
 inline Double_t TMath::Exp(Double_t x)
-   { return exp(x); }
+   { return std::exp(x); }
 
 inline Double_t TMath::Ldexp(Double_t x, Int_t exp)
    { return ldexp(x, exp); }
@@ -640,7 +578,7 @@ inline Double_t TMath::Power(Double_t x, Int_t y) {
 #ifdef R__ANSISTREAM
    return std::pow(x, y);
 #else
-   return pow(x, (Double_t) y);
+   return std::pow(x, (Double_t) y);
 #endif
 }
 

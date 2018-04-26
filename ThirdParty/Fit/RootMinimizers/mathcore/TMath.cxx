@@ -19,7 +19,6 @@
 
 #include "TMath.h"
 #include "TError.h"
-#include <math.h>
 #include <string.h>
 #include <algorithm>
 #include "Riostream.h"

@@ -154,32 +154,6 @@ namespace TMVA {
          kBoostProcEnd
       };
 
-   public:
-
-      static Types& Instance();
-      static void   DestroyInstance();
-      ~Types();
-
-      Types::EMVA   GetMethodType( const TString& method ) const;
-      TString       GetMethodName( Types::EMVA    method ) const;
-
-      Bool_t        AddTypeMapping(Types::EMVA method, const TString& methodname);
-
-   private:
-
-      Types();
-#if __cplusplus > 199711L
-      static std::atomic<Types*> fgTypesPtr;
-#else
-      static Types* fgTypesPtr;
-#endif
-
-   private:
-
-      std::map<TString, TMVA::Types::EMVA> fStr2type; // types-to-text map
-      mutable MsgLogger* fLogger;   // message logger
-      MsgLogger& Log() const { return *fLogger; }
-
    };
 }
 

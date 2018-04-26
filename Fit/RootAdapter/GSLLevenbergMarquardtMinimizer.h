@@ -17,7 +17,7 @@
 
 #include "RootMinimizerAdapter.h"
 
-namespace BA_ROOT { namespace Math { class GSLNLSMinimizer; } }
+namespace ROOT { namespace Math { class GSLNLSMinimizer; } }
 
 //! Wrapper for CERN ROOT facade of the GSL Levenberg-Marquardt minimizer.
 //! It's a facade to ROOT::Math::GSLNLSMinimizer which adapts ROOT::Math::GSLMultiFit
@@ -54,7 +54,7 @@ protected:
     const root_minimizer_t* rootMinimizer() const;
 
 private:
-    std::unique_ptr<BA_ROOT::Math::GSLNLSMinimizer> m_gsl_minimizer;
+    std::unique_ptr<ROOT::Math::GSLNLSMinimizer> m_gsl_minimizer;
 };
 
 #endif // GSLLEVENBERGMARQUARDTMINIMIZER_H

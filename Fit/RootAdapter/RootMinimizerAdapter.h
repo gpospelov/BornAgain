@@ -24,7 +24,7 @@
 class RootObjectiveFunctionAdapter;
 class IFitParameter;
 
-namespace BA_ROOT { namespace Math { class Minimizer; } }
+namespace ROOT { namespace Math { class Minimizer; } }
 
 //! Pure virtual interface that adapts the CERN ROOT minimizer to our IMinimizer.
 //! @ingroup fitting_internal
@@ -32,7 +32,7 @@ namespace BA_ROOT { namespace Math { class Minimizer; } }
 class BA_CORE_API_ RootMinimizerAdapter : public IMinimizer
 {
 public:
-    typedef BA_ROOT::Math::Minimizer root_minimizer_t;
+    typedef ROOT::Math::Minimizer root_minimizer_t;
 
     virtual ~RootMinimizerAdapter();
 

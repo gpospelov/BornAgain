@@ -188,13 +188,13 @@ double RandomFunctionsImpl<TRandomEngine>::GausACR(Double_t mean, Double_t sigma
 /// the inverse of the landau cumulative distribution.
 /// landau_quantile has been converted from CERNLIB ranlan(G110).
 
-Double_t RandomFunctionsImpl<TRandomEngine>::Landau(Double_t mu, Double_t sigma)
-{
-   if (sigma <= 0) return 0;
-   Double_t x = Rndm();
-   Double_t res = mu + ROOT::Math::landau_quantile(x, sigma);
-   return res;
-}
+//Double_t RandomFunctionsImpl<TRandomEngine>::Landau(Double_t mu, Double_t sigma)
+//{
+//   if (sigma <= 0) return 0;
+//   Double_t x = Rndm();
+//   Double_t res = mu + ROOT::Math::landau_quantile(x, sigma);
+//   return res;
+//}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Generates a random integer N according to a Poisson law.

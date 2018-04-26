@@ -157,7 +157,7 @@ A TRandom object may be written to a Root file
 #include "TRandom3.h"
 //#include "TSystem.h"
 //#include "TDirectory.h"
-#include "Math/QuantFuncMathCore.h"
+//#include "Math/QuantFuncMathCore.h"
 #include "TUUID.h"
 
 ClassImp(TRandom);
@@ -358,13 +358,13 @@ UInt_t TRandom::Integer(UInt_t imax)
 /// the inverse of the landau cumulative distribution.
 /// landau_quantile has been converted from CERNLIB ranlan(G110).
 
-Double_t TRandom::Landau(Double_t mu, Double_t sigma)
-{
-   if (sigma <= 0) return 0;
-   Double_t x = Rndm();
-   Double_t res = mu + ROOT::Math::landau_quantile(x, sigma);
-   return res;
-}
+//Double_t TRandom::Landau(Double_t mu, Double_t sigma)
+//{
+//   if (sigma <= 0) return 0;
+//   Double_t x = Rndm();
+//   Double_t res = mu + ROOT::Math::landau_quantile(x, sigma);
+//   return res;
+//}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Generates a random integer N according to a Poisson law.

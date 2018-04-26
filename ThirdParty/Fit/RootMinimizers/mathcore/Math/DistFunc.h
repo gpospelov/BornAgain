@@ -30,7 +30,7 @@
 //#include "Math/ProbFuncMathCore.h"
 
 ////quantiles functions from mathcore
-#include "Math/QuantFuncMathCore.h"
+//#include "Math/QuantFuncMathCore.h"
 
 //// include distributions from MathMore when is there
 //#ifdef R__HAS_MATHMORE

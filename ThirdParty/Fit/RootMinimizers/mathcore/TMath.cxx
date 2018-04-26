@@ -35,9 +35,9 @@
 
 
 // Without this macro the THtml doc for TMath can not be generated
-#if !defined(R__SOLARIS) && !defined(R__ACC) && !defined(R__FBSD)
-NamespaceImp(TMath)
-#endif
+//#if !defined(R__SOLARIS) && !defined(R__ACC) && !defined(R__FBSD)
+//NamespaceImp(TMath)
+//#endif
 
 namespace TMath {
 
@@ -785,72 +785,72 @@ Double_t TMath::KolmogorovProb(Double_t z)
 ///  A good description of the Kolmogorov test can be seen at:
 ///    http://www.itl.nist.gov/div898/handbook/eda/section3/eda35g.htm
 
-Double_t TMath::KolmogorovTest(Int_t na, const Double_t *a, Int_t nb, const Double_t *b, Option_t *option)
-{
-//  LM: Nov 2010: clean up and returns now a zero distance when vectors are the same
+//Double_t TMath::KolmogorovTest(Int_t na, const Double_t *a, Int_t nb, const Double_t *b, Option_t *option)
+//{
+////  LM: Nov 2010: clean up and returns now a zero distance when vectors are the same
 
-   TString opt = option;
-   opt.ToUpper();
+//   TString opt = option;
+//   opt.ToUpper();
 
-   Double_t prob = -1;
-//      Require at least two points in each graph
-   if (!a || !b || na <= 2 || nb <= 2) {
-      Error("KolmogorovTest","Sets must have more than 2 points");
-      return prob;
-   }
-//     Constants needed
-   Double_t rna = na;
-   Double_t rnb = nb;
-   Double_t sa  = 1./rna;
-   Double_t sb  = 1./rnb;
-   Double_t rdiff = 0;
-   Double_t rdmax = 0;
-   Int_t ia = 0;
-   Int_t ib = 0;
+//   Double_t prob = -1;
+////      Require at least two points in each graph
+//   if (!a || !b || na <= 2 || nb <= 2) {
+//      Error("KolmogorovTest","Sets must have more than 2 points");
+//      return prob;
+//   }
+////     Constants needed
+//   Double_t rna = na;
+//   Double_t rnb = nb;
+//   Double_t sa  = 1./rna;
+//   Double_t sb  = 1./rnb;
+//   Double_t rdiff = 0;
+//   Double_t rdmax = 0;
+//   Int_t ia = 0;
+//   Int_t ib = 0;
 
-//    Main loop over point sets to find max distance
-//    rdiff is the running difference, and rdmax the max.
-   Bool_t ok = kFALSE;
-   for (Int_t i=0;i<na+nb;i++) {
-      if (a[ia] < b[ib]) {
-         rdiff -= sa;
-         ia++;
-         if (ia >= na) {ok = kTRUE; break;}
-      } else if (a[ia] > b[ib]) {
-         rdiff += sb;
-         ib++;
-         if (ib >= nb) {ok = kTRUE; break;}
-      } else {
-         // special cases for the ties
-         double x = a[ia];
-         while(a[ia] == x && ia < na) {
-            rdiff -= sa;
-            ia++;
-         }
-         while(b[ib] == x && ib < nb) {
-            rdiff += sb;
-            ib++;
-         }
-         if (ia >= na) {ok = kTRUE; break;}
-         if (ib >= nb) {ok = kTRUE; break;}
-      }
-      rdmax = TMath::Max(rdmax,TMath::Abs(rdiff));
-   }
-   //    Should never terminate this loop with ok = kFALSE!
-   R__ASSERT(ok);
+////    Main loop over point sets to find max distance
+////    rdiff is the running difference, and rdmax the max.
+//   Bool_t ok = kFALSE;
+//   for (Int_t i=0;i<na+nb;i++) {
+//      if (a[ia] < b[ib]) {
+//         rdiff -= sa;
+//         ia++;
+//         if (ia >= na) {ok = kTRUE; break;}
+//      } else if (a[ia] > b[ib]) {
+//         rdiff += sb;
+//         ib++;
+//         if (ib >= nb) {ok = kTRUE; break;}
+//      } else {
+//         // special cases for the ties
+//         double x = a[ia];
+//         while(a[ia] == x && ia < na) {
+//            rdiff -= sa;
+//            ia++;
+//         }
+//         while(b[ib] == x && ib < nb) {
+//            rdiff += sb;
+//            ib++;
+//         }
+//         if (ia >= na) {ok = kTRUE; break;}
+//         if (ib >= nb) {ok = kTRUE; break;}
+//      }
+//      rdmax = TMath::Max(rdmax,TMath::Abs(rdiff));
+//   }
+//   //    Should never terminate this loop with ok = kFALSE!
+//   R__ASSERT(ok);
 
-   if (ok) {
-      rdmax = TMath::Max(rdmax,TMath::Abs(rdiff));
-      Double_t z = rdmax * TMath::Sqrt(rna*rnb/(rna+rnb));
-      prob = TMath::KolmogorovProb(z);
-   }
-      // debug printout
-   if (opt.Contains("D")) {
-      printf(" Kolmogorov Probability = %g, Max Dist = %g\n",prob,rdmax);
-   }
-   if(opt.Contains("M")) return rdmax;
-   else                  return prob;
-}
+//   if (ok) {
+//      rdmax = TMath::Max(rdmax,TMath::Abs(rdiff));
+//      Double_t z = rdmax * TMath::Sqrt(rna*rnb/(rna+rnb));
+//      prob = TMath::KolmogorovProb(z);
+//   }
+//      // debug printout
+//   if (opt.Contains("D")) {
+//      printf(" Kolmogorov Probability = %g, Max Dist = %g\n",prob,rdmax);
+//   }
+//   if(opt.Contains("M")) return rdmax;
+//   else                  return prob;
+//}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1375,18 +1375,18 @@ void TMath::BubbleLow(Int_t Narr, Double_t *arr1, Int_t *arr2)
 /// This function is kept for back compatibility. The code previously in this function
 /// has been moved to the static function TString::Hash
 
-ULong_t TMath::Hash(const void *txt, Int_t ntxt)
-{
-   return TString::Hash(txt,ntxt);
-}
+//ULong_t TMath::Hash(const void *txt, Int_t ntxt)
+//{
+//   return TString::Hash(txt,ntxt);
+//}
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
-ULong_t TMath::Hash(const char *txt)
-{
-   return Hash(txt, Int_t(strlen(txt)));
-}
+//ULong_t TMath::Hash(const char *txt)
+//{
+//   return Hash(txt, Int_t(strlen(txt)));
+//}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Compute the modified Bessel function I_0(x) for any real x.

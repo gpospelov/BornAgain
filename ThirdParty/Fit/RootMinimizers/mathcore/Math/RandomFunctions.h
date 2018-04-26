@@ -103,7 +103,7 @@ namespace Math {
       /// Generate a random number following a Landau distribution
       /// with location parameter mu and scale parameter sigma:
       ///      Landau( (x-mu)/sigma )
-      double Landau(double mu, double sigma);
+//      double Landau(double mu, double sigma);
 
       /// Generates a random integer N according to a Poisson law.
       /// Prob(N) = exp(-mean)*mean^N/Factorial(N)

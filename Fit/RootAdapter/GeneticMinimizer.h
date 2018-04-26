@@ -17,7 +17,7 @@
 
 #include "RootMinimizerAdapter.h"
 
-namespace BA_ROOT { namespace Math { class GeneticMinimizer; } }
+namespace ROOT { namespace Math { class GeneticMinimizer; } }
 
 //! Wrapper for the CERN ROOT Genetic minimizer.
 //! @ingroup fitting_internal
@@ -60,7 +60,7 @@ protected:
     const root_minimizer_t* rootMinimizer() const;
 
 private:
-    std::unique_ptr<BA_ROOT::Math::GeneticMinimizer> m_genetic_minimizer;
+    std::unique_ptr<ROOT::Math::GeneticMinimizer> m_genetic_minimizer;
 };
 
 #endif // GENETICMINIMIZER_H

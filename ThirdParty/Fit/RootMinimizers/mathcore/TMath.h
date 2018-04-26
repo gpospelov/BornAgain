@@ -345,8 +345,8 @@ struct Limits {
    template <typename Iterator, typename Element> Iterator BinarySearch(Iterator first, Iterator last, Element value);
 
    // Hashing
-   ULong_t Hash(const void *txt, Int_t ntxt);
-   ULong_t Hash(const char *str);
+//   ULong_t Hash(const void *txt, Int_t ntxt);
+//   ULong_t Hash(const char *str);
 
    // Sorting
    template <typename Element, typename Index>
@@ -401,7 +401,7 @@ struct Limits {
    Double_t FDistI(Double_t F, Double_t N, Double_t M);
    Double_t Gaus(Double_t x, Double_t mean=0, Double_t sigma=1, Bool_t norm=kFALSE);
    Double_t KolmogorovProb(Double_t z);
-   Double_t KolmogorovTest(Int_t na, const Double_t *a, Int_t nb, const Double_t *b, Option_t *option);
+//   Double_t KolmogorovTest(Int_t na, const Double_t *a, Int_t nb, const Double_t *b, Option_t *option);
    Double_t Landau(Double_t x, Double_t mpv=0, Double_t sigma=1, Bool_t norm=kFALSE);
    Double_t LandauI(Double_t x);
    Double_t LaplaceDist(Double_t x, Double_t alpha=0, Double_t beta=1);

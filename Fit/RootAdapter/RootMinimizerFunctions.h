@@ -31,29 +31,29 @@
 //! The chi2 function for use in minimizers.
 //! @ingroup fitting_internal
 
-class RootObjectiveFunction : public BA_ROOT::Math::Functor
+class RootObjectiveFunction : public ROOT::Math::Functor
 {
  public:
     RootObjectiveFunction(root_objective_t fcn, int ndims )
-        : BA_ROOT::Math::Functor(fcn, ndims) {}
+        : ROOT::Math::Functor(fcn, ndims) {}
 };
 
 //! Minimizer function with access to single data element residuals,
 //! required by Fumili, Fumili2 and GSLMultiMin minimizers.
 //! @ingroup fitting_internal
 
-class RootGradientFunction : public BA_ROOT::Math::FitMethodFunction
+class RootGradientFunction : public ROOT::Math::FitMethodFunction
 {
  public:
-    typedef BA_ROOT::Math::BasicFitMethodFunction<BA_ROOT::Math::IMultiGenFunction>::Type_t Type_t;
+    typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t Type_t;
 
     RootGradientFunction(root_gradient_t fun_gradient, size_t npars, size_t ndatasize)
-        : BA_ROOT::Math::FitMethodFunction((int)npars, (int)ndatasize)
+        : ROOT::Math::FitMethodFunction((int)npars, (int)ndatasize)
         , m_fun_gradient(fun_gradient) { }
 
-    Type_t Type() const { return BA_ROOT::Math::FitMethodFunction::kLeastSquare; }
+    Type_t Type() const { return ROOT::Math::FitMethodFunction::kLeastSquare; }
 
-    BA_ROOT::Math::IMultiGenFunction* Clone() const {
+    ROOT::Math::IMultiGenFunction* Clone() const {
         return new RootGradientFunction(m_fun_gradient, NDim(), NPoints()); }
 
     //! evaluation of single data element residual

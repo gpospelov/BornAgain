@@ -39,7 +39,7 @@ public:
    virtual  Double_t Gaus(Double_t mean=0, Double_t sigma=1);
    virtual  UInt_t   GetSeed() const {return fSeed;}
    virtual  UInt_t   Integer(UInt_t imax);
-   virtual  Double_t Landau(Double_t mean=0, Double_t sigma=1);
+//   virtual  Double_t Landau(Double_t mean=0, Double_t sigma=1);
    virtual  Int_t    Poisson(Double_t mean);
    virtual  Double_t PoissonD(Double_t mean);
    virtual  void     Rannor(Float_t &a, Float_t &b);

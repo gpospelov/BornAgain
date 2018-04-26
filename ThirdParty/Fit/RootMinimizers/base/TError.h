@@ -5,6 +5,7 @@
 #include <utility>
 #include <sstream>
 #include <iostream>
+#include <cassert>
 
 const Int_t kUnset    =  -1;
 const Int_t kPrint    =   0;
@@ -15,7 +16,7 @@ const Int_t kBreak    =   4000;
 const Int_t kSysError =   5000;
 const Int_t kFatal    =   6000;
 
-void insert_messages(std::stringstream& ss)
+inline void insert_messages(std::stringstream& ss)
 {
     (void)ss;
 }

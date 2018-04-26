@@ -4,22 +4,31 @@
 set(library_name RootMinimizers)
 
 # --- source and include files ---------
-set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/base)
+set(include_dirs
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/base
+    ${CMAKE_CURRENT_SOURCE_DIR}/mathcore
+)
+
 include_directories(${include_dirs})
 
 file(GLOB source_files
     "Minuit2/*.cxx"
-    "Math/*.cxx"
+    "mathcore/*.cxx"
+    "mathcore/Math/*.cxx"
     "Fit/*.cxx"
     "TMVA/*.cxx"
+    "base/*.cxx"
 )
 
 file(GLOB include_files
     "base/*.h"
     "Minuit2/*.h"
     "Math/*.h"
+    "mathcore/Math/*.h"
     "Fit/*.h"
     "TMVA/*.h"
+    "base/*.h"
 )
 
 # --- definitions ---------

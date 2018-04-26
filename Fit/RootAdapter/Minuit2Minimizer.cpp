@@ -45,7 +45,7 @@ namespace {
 
 Minuit2Minimizer::Minuit2Minimizer(const std::string &algorithmName)
     : RootMinimizerAdapter(MinimizerInfo::buildMinuit2Info(algorithmName))
-    , m_minuit2_minimizer(new BA_ROOT::Minuit2::Minuit2Minimizer(algorithmName.c_str()))
+    , m_minuit2_minimizer(new ROOT::Minuit2::Minuit2Minimizer(algorithmName.c_str()))
 {
     addOption(OptionNames::Strategy, 1,
               "Minimization strategy (0-low, 1-medium, 2-high quality)");

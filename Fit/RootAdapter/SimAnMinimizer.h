@@ -17,7 +17,7 @@
 
 #include "RootMinimizerAdapter.h"
 
-namespace BA_ROOT { namespace Math { class GSLSimAnMinimizer; } }
+namespace ROOT { namespace Math { class GSLSimAnMinimizer; } }
 
 //! Wrapper for the CERN ROOT facade of the GSL simmulated annealing minimizer.
 //! @ingroup fitting_internal
@@ -68,7 +68,7 @@ protected:
     const root_minimizer_t* rootMinimizer() const;
 
 private:
-    std::unique_ptr<BA_ROOT::Math::GSLSimAnMinimizer> m_siman_minimizer;
+    std::unique_ptr<ROOT::Math::GSLSimAnMinimizer> m_siman_minimizer;
 };
 
 #endif // SIMANMINIMIZER_H

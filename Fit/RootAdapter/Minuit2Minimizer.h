@@ -19,7 +19,7 @@
 #include "MinimizerConstants.h"
 #include <memory>
 
-namespace BA_ROOT { namespace Minuit2 { class Minuit2Minimizer; } }
+namespace ROOT { namespace Minuit2 { class Minuit2Minimizer; } }
 
 //! Wrapper for the CERN ROOT facade of the Minuit2 minimizer.
 //! See Minuit2 user manual https://root.cern.ch/root/htmldoc/guides/minuit2/Minuit2.pdf.
@@ -75,7 +75,7 @@ protected:
     const root_minimizer_t* rootMinimizer() const;
 
 private:
-    std::unique_ptr<BA_ROOT::Minuit2::Minuit2Minimizer> m_minuit2_minimizer;
+    std::unique_ptr<ROOT::Minuit2::Minuit2Minimizer> m_minuit2_minimizer;
 };
 
 #endif // MINUIT2MINIMIZER_H

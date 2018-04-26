@@ -68,7 +68,7 @@
 End_Html */
 
 //#include "TMath.h"
-#include "TMVA/TRandom3.h"
+#include "TRandom3.h"
 //#include "ThreadLocalStorage.h"
 
 #include "TMVA/Interval.h"

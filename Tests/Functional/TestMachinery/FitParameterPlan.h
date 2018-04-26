@@ -15,6 +15,7 @@
 #ifndef FITPARAMETERPLAN_H
 #define FITPARAMETERPLAN_H
 
+#include "WinDllMacros.h"
 #include "AttLimits.h"
 #include "FitParameter.h"
 #include <memory>
@@ -24,7 +25,7 @@
 //! @brief The FitParameterPlan defines fit parameter settings and the value which has to be found
 //! in the course of minimization.
 
-class FitParameterPlan
+class BA_CORE_API_ FitParameterPlan
 {
 public:
     FitParameterPlan(const std::string &name, double start_value, double expected_value,

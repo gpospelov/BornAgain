@@ -14,6 +14,7 @@
 
 #include "Math/IOptions.h"
 
+#include <string>
 #include <map>
 #include <iomanip>
 

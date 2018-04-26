@@ -19,6 +19,7 @@
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunctionFinite2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
+#include "InterferenceFunction2DSuperLattice.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 

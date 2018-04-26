@@ -155,11 +155,6 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
     SimulationResult sim_result = sim->result();
 
     EXPECT_THROW(sim_result.histogram1d(), std::runtime_error);
-    EXPECT_THROW(sim_result.histogram2d(AxesUnits::DEGREES), std::runtime_error);
-    EXPECT_THROW(sim_result.histogram2d(AxesUnits::RADIANS), std::runtime_error);
-    EXPECT_THROW(sim_result.histogram2d(AxesUnits::QSPACE), std::runtime_error);
-    EXPECT_THROW(sim_result.histogram2d(AxesUnits::NBINS), std::runtime_error);
-    EXPECT_THROW(sim_result.histogram2d(AxesUnits::NM), std::runtime_error);
     EXPECT_THROW(sim_result.histogram2d(AxesUnits::MM), std::runtime_error);
 
     const std::unique_ptr<Histogram2D> depth_map(sim_result.histogram2d());
@@ -170,11 +165,6 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
     EXPECT_EQ(-30.0, depth_map->getYaxis().getMin());
     EXPECT_EQ(10.0, depth_map->getYaxis().getMax());
 
-    EXPECT_THROW(sim_result.data(AxesUnits::DEGREES), std::runtime_error);
-    EXPECT_THROW(sim_result.data(AxesUnits::RADIANS), std::runtime_error);
-    EXPECT_THROW(sim_result.data(AxesUnits::QSPACE), std::runtime_error);
-    EXPECT_THROW(sim_result.data(AxesUnits::NBINS), std::runtime_error);
-    EXPECT_THROW(sim_result.data(AxesUnits::NM), std::runtime_error);
     EXPECT_THROW(sim_result.data(AxesUnits::MM), std::runtime_error);
 
     const std::unique_ptr<OutputData<double>> output(sim_result.data());

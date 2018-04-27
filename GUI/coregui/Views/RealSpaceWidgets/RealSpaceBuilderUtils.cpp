@@ -46,8 +46,9 @@ QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const Session
 }
 
 // No interference - random distribution of particles
-void RealSpaceBuilderUtils::populateRandomDistribution(RealSpaceModel *model, const SessionItem &layoutItem, const SceneGeometry &sceneGeometry,
-        const RealSpaceBuilder &builder3D)
+void RealSpaceBuilderUtils::populateRandomDistribution(
+        RealSpaceModel *model, const SessionItem &layoutItem, const SceneGeometry &sceneGeometry,
+        const RealSpaceBuilder *builder3D)
 {
     // If there is no particle to populate
     if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
@@ -92,7 +93,7 @@ void RealSpaceBuilderUtils::populateRandomDistribution(RealSpaceModel *model, co
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
-                    builder3D.populateParticle(model, *particle,
+                    builder3D->populateParticle(model, *particle,
                                      QVector3D(static_cast<float>(pos_x),
                                                static_cast<float>(pos_y),
                                                static_cast<float>(pos_z)));
@@ -139,7 +140,7 @@ QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLattic
 // InterferenceFunction2DLatticeType
 void RealSpaceBuilderUtils::populateInterference2DLatticeType(
         RealSpaceModel *model, const SessionItem& layoutItem, const SceneGeometry& sceneGeometry,
-        const RealSpaceBuilder& builder3D)
+        const RealSpaceBuilder *builder3D)
 {
     double layer_size = sceneGeometry.layer_size();
     double layer_thickness = std::max(sceneGeometry.layer_top_thickness(),
@@ -185,7 +186,7 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
-                    builder3D.populateParticle(model, *particle,
+                    builder3D->populateParticle(model, *particle,
                                      QVector3D(static_cast<float>(pos_x),
                                                static_cast<float>(pos_y),
                                                static_cast<float>(pos_z)));

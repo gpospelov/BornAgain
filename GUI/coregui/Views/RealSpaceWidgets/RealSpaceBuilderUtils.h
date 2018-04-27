@@ -30,14 +30,15 @@ BA_CORE_API_ QVector<double> computeCumulativeAbundances(const SessionItem& layo
 
 // No interference - random distribution of particles
 BA_CORE_API_ void populateRandomDistribution(RealSpaceModel* model, const SessionItem& layoutItem,
-        const SceneGeometry& sceneGeometry, const RealSpaceBuilder &builder3D);
+        const SceneGeometry& sceneGeometry, const RealSpaceBuilder *builder3D);
 
 BA_CORE_API_ QVector<QVector<double>> computeRandomDistributionLatticePositions(
         const SessionItem& layoutItem, const SceneGeometry &sceneGeometry);
 
 // InterferenceFunction2DLatticeType
-BA_CORE_API_ void populateInterference2DLatticeType(RealSpaceModel* model, const SessionItem& layoutItem,
-        const SceneGeometry &sceneGeometry, const RealSpaceBuilder &builder3D);
+BA_CORE_API_ void populateInterference2DLatticeType(
+        RealSpaceModel* model, const SessionItem& layoutItem, const SceneGeometry &sceneGeometry,
+        const RealSpaceBuilder *builder3D);
 
 BA_CORE_API_ QVector<QVector<double>>  getInterference2DLatticePositions(
         const SessionItem& interference2DLatticeItem, const SceneGeometry &sceneGeometry);

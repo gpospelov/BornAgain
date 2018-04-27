@@ -10,6 +10,7 @@ endif()
 
 # --- source and include files ------
 set(FIT_SOURCE_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/NewKernel
     ${CMAKE_CURRENT_SOURCE_DIR}/Kernel
     ${CMAKE_CURRENT_SOURCE_DIR}/Minimizer
     ${CMAKE_CURRENT_SOURCE_DIR}/Options

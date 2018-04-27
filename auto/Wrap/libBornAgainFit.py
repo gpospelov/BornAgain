@@ -2017,6 +2017,11 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_minimize(self)
 
 
+    def minimize_scalar(self, arg2, arg3):
+        """minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Fit::Parameters const & arg3)"""
+        return _libBornAgainFit.IMinimizer_minimize_scalar(self, arg2, arg3)
+
+
     def clear(self):
         """
         clear(IMinimizer self)

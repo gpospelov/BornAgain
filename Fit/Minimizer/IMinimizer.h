@@ -20,6 +20,7 @@
 #include <string>
 
 class FitParameterSet;
+namespace Fit {class Parameters;}
 
 //! Pure virtual interface for all kind minimizers.
 //! @ingroup fitting_internal
@@ -41,6 +42,7 @@ class BA_CORE_API_ IMinimizer
 
     //! run minimization
     virtual void minimize() =0;
+    virtual void minimize_scalar(fcn_scalar_t, const Fit::Parameters&) {}
 
     //! clear resources (parameters) for consecutives minimizations
     virtual void clear() {}

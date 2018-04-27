@@ -23,7 +23,7 @@
 
 class RootObjectiveFunctionAdapter;
 class IFitParameter;
-
+namespace Fit {class Parameters; class Parameter; class ObjectiveFunctionAdapter;}
 namespace ROOT { namespace Math { class Minimizer; } }
 
 //! Pure virtual interface that adapts the CERN ROOT minimizer to our IMinimizer.
@@ -37,6 +37,7 @@ public:
     virtual ~RootMinimizerAdapter();
 
     void minimize() override;
+    void minimize_scalar(fcn_scalar_t fcn, const Fit::Parameters& parameters) override;
 
     //! Returns name of the minimizer.
     std::string minimizerName() const override final;
@@ -45,6 +46,7 @@ public:
     std::string algorithmName() const override final;
 
     void setParameters(const FitParameterSet& parameters) override final;
+    void setParameters(const Fit::Parameters& parameters);
 
     void setObjectiveFunction(objective_function_t func) override final;
 
@@ -77,6 +79,7 @@ protected:
 
     virtual bool isGradientBasedAgorithm() { return false;}
     virtual void setParameter(size_t index, const IFitParameter *par);
+    virtual void setParameter(unsigned int index, const Fit::Parameter& par);
     size_t fitDimension() const;
     std::vector<double> parValuesAtMinimum() const;
     std::vector<double> parErrorsAtMinimum() const;
@@ -99,6 +102,7 @@ private:
     MinimizerOptions m_options;
     MinimizerInfo m_minimizerInfo;
     std::unique_ptr<RootObjectiveFunctionAdapter> m_obj_func;
+    std::unique_ptr<Fit::ObjectiveFunctionAdapter> m_adapter;
     bool m_status;
 };
 

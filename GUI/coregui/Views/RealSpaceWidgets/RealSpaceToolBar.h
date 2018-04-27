@@ -34,12 +34,16 @@ signals:
     void sideViewAction();
     void topViewAction();
     void lockViewAction(bool);
+    void changeLayerSizeAction(double);
 
 private:
     QToolButton *m_defaultViewButton;
     QToolButton *m_sideViewButton;
     QToolButton *m_topViewButton;
     QCheckBox *m_lockViewCheckBox;
+
+    QToolButton *m_increaseLayerSizeButton;
+    QToolButton *m_decreaseLayerSizeButton;
 };
 
 #endif // REALSPACETOOLBAR_H

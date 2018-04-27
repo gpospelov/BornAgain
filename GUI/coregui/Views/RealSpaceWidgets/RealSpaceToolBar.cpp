@@ -18,12 +18,20 @@
 #include <QToolButton>
 #include <QCheckBox>
 
+namespace
+{
+    const double increaseLayerSizeScale = 1.25;
+    const double decreaseLayerSizeScale = 0.8;
+}
+
 RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     : StyledToolBar(parent)
     , m_defaultViewButton(new QToolButton)
     , m_sideViewButton(new QToolButton)
     , m_topViewButton(new QToolButton)
     , m_lockViewCheckBox(new QCheckBox)
+    , m_increaseLayerSizeButton(new QToolButton)
+    , m_decreaseLayerSizeButton(new QToolButton)
 {
     setMinimumSize(Constants::styled_toolbar_height, Constants::styled_toolbar_height);
 
@@ -64,5 +72,29 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     connect(m_lockViewCheckBox, &QCheckBox::clicked,
             this, [&](){emit RealSpaceToolBar::lockViewAction(m_lockViewCheckBox->isChecked());});
     addWidget(m_lockViewCheckBox);
+
+    addSeparator();
+
+    // Increase layer size
+    m_increaseLayerSizeButton->setText("Enlarge");
+    //m_increaseLayerSizeButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_increaseLayerSizeButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_increaseLayerSizeButton->setToolTip("Increase layer size");
+    connect(m_increaseLayerSizeButton, &QToolButton::clicked,
+            this, [&](){emit RealSpaceToolBar::changeLayerSizeAction(increaseLayerSizeScale);});
+    addWidget(m_increaseLayerSizeButton);
+
+    addSeparator();
+
+    // Decrease layer size
+    m_decreaseLayerSizeButton->setText("Reduce");
+    //m_decreaseLayerSizeButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_decreaseLayerSizeButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_decreaseLayerSizeButton->setToolTip("Decrease layer size");
+    connect(m_decreaseLayerSizeButton, &QToolButton::clicked,
+            this, [&](){emit RealSpaceToolBar::changeLayerSizeAction(decreaseLayerSizeScale);});
+    addWidget(m_decreaseLayerSizeButton);
+
+    addSeparator();
 
 }

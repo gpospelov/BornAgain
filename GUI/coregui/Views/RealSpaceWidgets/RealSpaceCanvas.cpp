@@ -26,6 +26,7 @@ RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     , m_sampleModel(nullptr)
     , m_view(new RealSpaceView)
     , m_view_locked(false)
+    , m_sceneGeometry(new SceneGeometry)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -120,6 +121,16 @@ void RealSpaceCanvas::onLockViewAction(bool view_locked)
         m_view_locked = view_locked;
 }
 
+void RealSpaceCanvas::onChangeLayerSizeAction(double layerSizeChangeScale)
+{
+    // when no object is selected --> take no action
+    if(m_currentSelection == QModelIndex())
+        return;
+
+    m_sceneGeometry->set_layer_size(m_sceneGeometry->layer_size()*layerSizeChangeScale);
+    updateScene();
+}
+
 void RealSpaceCanvas::updateScene()
 {
     m_realSpaceModel.reset(new RealSpaceModel);
@@ -127,9 +138,9 @@ void RealSpaceCanvas::updateScene()
     SessionItem* item = m_sampleModel->itemForIndex(m_currentSelection);
 
     Q_ASSERT(item);
-    //RealSpaceBuilder builder(const* SceneGeometry&);
 
-    RealSpaceBuilder::populate(m_realSpaceModel.get(), *item);
+    RealSpaceBuilder builder3D;
+    builder3D.populate(m_realSpaceModel.get(), *item, *m_sceneGeometry);
 
     m_view->setModel(m_realSpaceModel.get());
 }

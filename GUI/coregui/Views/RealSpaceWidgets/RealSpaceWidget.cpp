@@ -58,6 +58,9 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
 
     connect(m_toolBar, &RealSpaceToolBar::lockViewAction,
             m_canvas, &RealSpaceCanvas::onLockViewAction);
+
+    connect(m_toolBar, &RealSpaceToolBar::changeLayerSizeAction,
+            m_canvas, &RealSpaceCanvas::onChangeLayerSizeAction);
 }
 
 void RealSpaceWidget::setModel(SampleModel* sampleModel, QItemSelectionModel *selectionModel)

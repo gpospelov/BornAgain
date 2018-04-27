@@ -41,7 +41,6 @@ private:
     RealSpaceActions* m_actions;
     RealSpaceToolBar* m_toolBar;
     RealSpaceCanvas* m_canvas;
-
     SampleModel* m_sampleModel;
     QItemSelectionModel* m_selectionModel;
 };

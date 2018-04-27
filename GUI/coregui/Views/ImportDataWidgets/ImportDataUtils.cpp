@@ -42,7 +42,8 @@ int getRank(const RealDataItem& item)
 }
 
 int getRank(const InstrumentItem& item) {
-    if (item.modelType() == Constants::GISASInstrumentType)
+    if (item.modelType() == Constants::GISASInstrumentType
+        || item.modelType() == Constants::OffSpecInstrumentType)
         return 2;
     return -1;
 }
@@ -50,6 +51,8 @@ int getRank(const InstrumentItem& item) {
 std::pair<int, int> RealDataShape(const RealDataItem& realData);
 
 std::pair<int, int> DetectorShape(const InstrumentItem& instrumentItem);
+std::pair<int, int> DetectorShape(const GISASInstrumentItem& instrumentItem);
+std::pair<int, int> DetectorShape(const OffSpecInstrumentItem& instrumentItem);
 
 }
 
@@ -172,24 +175,32 @@ std::pair<int, int> RealDataShape(const RealDataItem& realData)
 
 //! Returns shape of Instrument's detector axes.
 
-// TODO refactor this after appearance of specular instrument
+// TODO refactor DetectorShape functions after specular instrument emergence
 
 std::pair<int, int> DetectorShape(const InstrumentItem& instrumentItem)
 {
-    if(auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(&instrumentItem)) {
-        std::unique_ptr<IDetector2D> detector = offspecInstrument->detectorItem()->createDetector();
-        return std::make_pair(static_cast<int>(detector->getAxis(0).size()),
-                              static_cast<int>(detector->getAxis(1).size()));
-
-    } else if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(&instrumentItem)) {
-        std::unique_ptr<IDetector2D> detector = gisasInstrument->detectorItem()->createDetector();
-        return std::make_pair(static_cast<int>(detector->getAxis(0).size()),
-                              static_cast<int>(detector->getAxis(1).size()));
-    } else {
+    if (const auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(&instrumentItem))
+        return DetectorShape(*offspecInstrument);
+    else if (const auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(&instrumentItem))
+        return DetectorShape(*gisasInstrument);
+    else
         throw GUIHelpers::Error("ImportDataUtils::DetectorShape() -> Error."
                                 "Not supported instrument type");
-    }
+}
 
+std::pair<int, int> DetectorShape(const GISASInstrumentItem& instrumentItem)
+{
+    std::unique_ptr<IDetector2D> detector = instrumentItem.detectorItem()->createDetector();
+    return std::make_pair(static_cast<int>(detector->getAxis(0).size()),
+                          static_cast<int>(detector->getAxis(1).size()));
+}
+
+std::pair<int, int> DetectorShape(const OffSpecInstrumentItem& instrumentItem)
+{
+    const int alpha_nbins = instrumentItem.getItem(OffSpecInstrumentItem::P_ALPHA_AXIS)
+                                ->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    std::unique_ptr<IDetector2D> detector = instrumentItem.detectorItem()->createDetector();
+    return std::make_pair(alpha_nbins, static_cast<int>(detector->getAxis(1).size()));
 }
 
 }

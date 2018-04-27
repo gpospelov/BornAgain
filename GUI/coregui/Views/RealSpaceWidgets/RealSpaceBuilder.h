@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilder.h
-//! @brief     Defines RealSpaceBuilder namespace
+//! @brief     Defines class RealSpaceBuilder
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,50 +16,43 @@
 #define REALSPACEBUILDER_H
 
 #include "WinDllMacros.h"
+#include <QWidget>
 #include <QVector3D>
 
 class SessionItem;
 class RealSpaceModel;
 class Shape3D;
 
-namespace RealSpaceBuilder
+class SceneGeometry;
+
+class BA_CORE_API_ RealSpaceBuilder : public QWidget
 {
+    Q_OBJECT
 
-BA_CORE_API_ void populate(RealSpaceModel* model, const SessionItem& item);
+public:
+    RealSpaceBuilder(QWidget* parent = 0);
 
-BA_CORE_API_ void populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
-                                     const QVector3D& origin = QVector3D());
+    ~RealSpaceBuilder();
 
-BA_CORE_API_ void populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
-                                const QVector3D& origin = QVector3D());
+    void populate(RealSpaceModel* model, const SessionItem& item,
+                  const SceneGeometry& sceneGeometry);
 
-BA_CORE_API_ void populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
-                                 const QVector3D& origin = QVector3D());
+    void populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
+                            const SceneGeometry& sceneGeometry,
+                            const QVector3D& origin = QVector3D());
 
-BA_CORE_API_ void populateInterference(RealSpaceModel* model, const SessionItem& layoutItem);
+    void populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
+                       const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D());
 
-BA_CORE_API_ void populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
-                                   const QVector3D& origin = QVector3D());
-/*
-// compute cumulative abundances of particles
-BA_CORE_API_ QVector<double> computeCumulativeAbundances(const SessionItem& layoutItem);
+    void populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
+                        const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D());
 
-// No interference - random distribution of particles
-BA_CORE_API_ void populateRandomDistribution(RealSpaceModel* model, const SessionItem& layoutItem);
+    void populateInterference(RealSpaceModel* model, const SessionItem& layoutItem,
+                              const SceneGeometry& sceneGeometry);
 
-BA_CORE_API_ QVector<QVector<double>> computeRandomDistributionLatticePositions(
-        const SessionItem& layoutItem);
+    void populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
+                          const QVector3D& origin = QVector3D()) const;
 
-// InterferenceFunction2DLatticeType
-BA_CORE_API_ void populateInterference2DLatticeType(RealSpaceModel* model,
-                                                    const SessionItem& layoutItem);
-
-BA_CORE_API_ QVector<QVector<double>>  getInterference2DLatticePositions(
-        const SessionItem& interference2DLatticeItem);
-
-BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
-        double l1, double l2, double l_alpha, double l_xi);
-*/
-}
+};
 
 #endif // REALSPACEBUILDER_H

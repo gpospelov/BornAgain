@@ -15,6 +15,7 @@
 #include "RealSpaceBuilderUtils.h"
 #include "RealSpaceBuilder.h"
 #include "RealSpaceModel.h"
+#include "RealSpaceCanvas.h"
 #include "SessionItem.h"
 
 #include "LayerItem.h"
@@ -26,17 +27,11 @@
 #include "Lattice2DItems.h"
 #include "Units.h"
 
-namespace {
-    // defining layer size and thickness (taken from namespace in TransformTo3D)
-    const double layer_size = 50.0;
-    const double layer_thickness = 25.0;
-}
-
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
 {
     // Retrieving abundances of particles
-    double total_abundance = 0;
+    double total_abundance = 0.0;
     QVector<double> cumulative_abundances;
 
     for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
@@ -51,18 +46,22 @@ QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const Session
 }
 
 // No interference - random distribution of particles
-void RealSpaceBuilderUtils::populateRandomDistribution(RealSpaceModel *model,
-                                                  const SessionItem &layoutItem)
+void RealSpaceBuilderUtils::populateRandomDistribution(RealSpaceModel *model, const SessionItem &layoutItem, const SceneGeometry &sceneGeometry,
+        const RealSpaceBuilder &builder3D)
 {
     // If there is no particle to populate
     if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
         return;
 
+    double layer_size = sceneGeometry.layer_size();
+    double layer_thickness = std::max(sceneGeometry.layer_top_thickness(),
+                                      sceneGeometry.layer_bottom_thickness());
+
     QVector<double> cumulative_abundances = computeCumulativeAbundances(layoutItem);
 
     // get the lattice positions at which to populate the particles
     QVector<QVector<double>> lattice_positions =
-            computeRandomDistributionLatticePositions(layoutItem);
+            computeRandomDistributionLatticePositions(layoutItem, sceneGeometry);
 
     srand(static_cast<unsigned int>(time(0)));
 
@@ -93,7 +92,7 @@ void RealSpaceBuilderUtils::populateRandomDistribution(RealSpaceModel *model,
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
-                    RealSpaceBuilder::populateParticle(model, *particle,
+                    builder3D.populateParticle(model, *particle,
                                      QVector3D(static_cast<float>(pos_x),
                                                static_cast<float>(pos_y),
                                                static_cast<float>(pos_z)));
@@ -107,8 +106,10 @@ void RealSpaceBuilderUtils::populateRandomDistribution(RealSpaceModel *model,
 }
 
 QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLatticePositions(
-        const SessionItem &layoutItem)
+        const SessionItem &layoutItem, const SceneGeometry& sceneGeometry)
 {
+    double layer_size = sceneGeometry.layer_size();
+
     QVector<QVector<double>> lattice_positions;
 
     QVector<double> position;
@@ -136,9 +137,14 @@ QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLattic
 
 
 // InterferenceFunction2DLatticeType
-void RealSpaceBuilderUtils::populateInterference2DLatticeType(RealSpaceModel *model,
-                                            const SessionItem& layoutItem)
+void RealSpaceBuilderUtils::populateInterference2DLatticeType(
+        RealSpaceModel *model, const SessionItem& layoutItem, const SceneGeometry& sceneGeometry,
+        const RealSpaceBuilder& builder3D)
 {
+    double layer_size = sceneGeometry.layer_size();
+    double layer_thickness = std::max(sceneGeometry.layer_top_thickness(),
+                                      sceneGeometry.layer_bottom_thickness());
+
     auto interference = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
 
     auto interference2DLatticeItem =
@@ -150,7 +156,7 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(RealSpaceModel *mo
 
     // get the lattice positions at which to populate the particles
     QVector<QVector<double>> lattice_positions =
-            getInterference2DLatticePositions(*interference2DLatticeItem);
+            getInterference2DLatticePositions(*interference2DLatticeItem, sceneGeometry);
 
     for (QVector<double> position : lattice_positions)
     {
@@ -179,7 +185,7 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(RealSpaceModel *mo
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
-                    RealSpaceBuilder::populateParticle(model, *particle,
+                    builder3D.populateParticle(model, *particle,
                                      QVector3D(static_cast<float>(pos_x),
                                                static_cast<float>(pos_y),
                                                static_cast<float>(pos_z)));
@@ -195,7 +201,7 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(RealSpaceModel *mo
 }
 
 QVector<QVector<double>> RealSpaceBuilderUtils::getInterference2DLatticePositions(
-        const SessionItem &interference2DLatticeItem)
+        const SessionItem &interference2DLatticeItem, const SceneGeometry &sceneGeometry)
 {
     double l1 = 0.0, l2 = 0.0, l_alpha = 0.0, l_xi = 0.0;
 
@@ -245,12 +251,14 @@ QVector<QVector<double>> RealSpaceBuilderUtils::getInterference2DLatticePosition
                     SquareLatticeItem::P_LATTICE_ROTATION_ANGLE).toDouble();
     }
 
-    return computeInterference2DLatticePositions(l1, l2, l_alpha, l_xi);
+    return computeInterference2DLatticePositions(l1, l2, l_alpha, l_xi, sceneGeometry);
 }
 
 QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePositions(
-        double l1, double l2, double l_alpha, double l_xi)
+        double l1, double l2, double l_alpha, double l_xi, const SceneGeometry &sceneGeometry)
 {
+    double layer_size = sceneGeometry.layer_size();
+
     QVector<QVector<double>> lattice_positions;
 
     QVector<double> position;

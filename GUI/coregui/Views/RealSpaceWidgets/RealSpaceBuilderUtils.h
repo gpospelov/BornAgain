@@ -48,7 +48,7 @@ BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
         double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry);
 
 // Implement Rotation of a particle
-BA_CORE_API_ QVector3D implementRotation(const SessionItem& particleItem);
+BA_CORE_API_ QVector3D implementParticleRotation(const SessionItem& particleItem);
 
 } // namespace RealSpaceBuilderUtils
 

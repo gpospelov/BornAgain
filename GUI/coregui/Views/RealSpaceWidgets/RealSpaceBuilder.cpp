@@ -151,7 +151,7 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem
 
     if(particleItem.getItem(ParticleItem::T_TRANSFORMATION))
     {
-        rotate = RealSpaceBuilderUtils::implementRotation(particleItem);
+        rotate = RealSpaceBuilderUtils::implementParticleRotation(particleItem);
 
         /*
         auto transformationItem = particleItem.getItem(ParticleItem::T_TRANSFORMATION);

@@ -19,6 +19,8 @@
 #include <QWidget>
 #include <QVector3D>
 
+#include "../../ba3d/ba3d/view/camera.h"
+
 class SessionItem;
 class RealSpaceModel;
 class Shape3D;
@@ -35,7 +37,11 @@ public:
     ~RealSpaceBuilder();
 
     void populate(RealSpaceModel* model, const SessionItem& item,
-                  const SceneGeometry& sceneGeometry);
+                  const SceneGeometry& sceneGeometry,
+                  const RealSpace::Camera::Position cameraPosition =
+                            RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 90),  // eye
+                                                        RealSpace::Vector3D(0, 0, 0),      // center
+                                                        RealSpace::Vector3D::_z));         // up
 
     void populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
                             const SceneGeometry& sceneGeometry,

@@ -43,12 +43,12 @@ RealSpaceBuilder::~RealSpaceBuilder()
 }
 
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
-                                const SceneGeometry& sceneGeometry)
+                                const SceneGeometry& sceneGeometry,
+                                const RealSpace::Camera::Position& cameraPosition)
 {
-    model->defCamPos = RealSpace::Camera::Position(
-        RealSpace::Vector3D(0, -140, 90),   // eye
-        RealSpace::Vector3D(0, 0, 0),       // center
-        RealSpace::Vector3D::_z);             // up vector
+    // default value of cameraPosition is in RealSpaceBuilder.h
+
+    model->defCamPos = cameraPosition;
 
     if (item.modelType() == Constants::MultiLayerType)
         populateMultiLayer(model, item, sceneGeometry);

@@ -27,6 +27,9 @@
 #include "Lattice2DItems.h"
 #include "Units.h"
 
+#include "TransformationItem.h"
+#include "RotationItems.h"
+
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
 {
@@ -297,4 +300,43 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
     }
 
     return lattice_positions;
+}
+
+QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &particleItem)
+{
+    float pitch = 0.0f;
+    float yaw = 0.0f;
+    float roll = 0.0f;
+
+    auto transformationItem = particleItem.getItem(ParticleItem::T_TRANSFORMATION);
+
+    auto rotItem = transformationItem->getGroupItem(TransformationItem::P_ROT);
+
+    if(rotItem->modelType() == Constants::ZRotationType)
+    {
+        auto ZRotItem = static_cast<ZRotationItem*>(rotItem);
+        roll = ZRotItem->getItemValue(ZRotationItem::P_ANGLE).toFloat(); // about z-axis
+    }
+    else if(rotItem->modelType() == Constants::XRotationType)
+    {
+        auto YRotItem = static_cast<XRotationItem*>(rotItem);
+        pitch = YRotItem->getItemValue(XRotationItem::P_ANGLE).toFloat(); // about x-axis
+    }
+    else if(rotItem->modelType() == Constants::YRotationType)
+    {
+        auto XRotItem = static_cast<YRotationItem*>(rotItem); // about y-axis
+        yaw = XRotItem->getItemValue(YRotationItem::P_ANGLE).toFloat();
+    }
+    else if(rotItem->modelType() == Constants::EulerRotationType)
+    {
+
+        // dubious!! roll pitch yaw not the same thing as alpha beta gamma
+        auto EulerRotItem = static_cast<EulerRotationItem*>(rotItem);
+
+        roll = EulerRotItem->getItemValue(EulerRotationItem::P_ALPHA).toFloat(); // alpha
+        pitch = EulerRotItem->getItemValue(EulerRotationItem::P_BETA).toFloat(); // beta
+        yaw = EulerRotItem->getItemValue(EulerRotationItem::P_GAMMA).toFloat(); // gamma
+    }
+
+    return QVector3D(pitch, yaw, roll);
 }

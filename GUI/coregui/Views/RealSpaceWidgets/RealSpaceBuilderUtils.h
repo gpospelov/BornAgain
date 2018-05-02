@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 #include <QVector>
+#include <QVector3D>
 
 class RealSpaceModel;
 class SessionItem;
@@ -45,6 +46,9 @@ BA_CORE_API_ QVector<QVector<double>>  getInterference2DLatticePositions(
 
 BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
         double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry);
+
+// Implement Rotation of a particle
+BA_CORE_API_ QVector3D implementRotation(const SessionItem& particleItem);
 
 } // namespace RealSpaceBuilderUtils
 

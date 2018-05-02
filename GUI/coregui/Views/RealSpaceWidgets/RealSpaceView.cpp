@@ -48,3 +48,8 @@ void RealSpaceView::topView()
 {
     m_3dview->topView();
 }
+
+RealSpace::Camera &RealSpaceView::getCamera()
+{
+    return m_3dview->cam();
+}

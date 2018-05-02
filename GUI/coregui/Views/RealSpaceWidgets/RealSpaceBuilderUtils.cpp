@@ -314,27 +314,16 @@ QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &pa
     auto rotItem = transformationItem->getGroupItem(TransformationItem::P_ROT);
 
     if(rotItem->modelType() == Constants::ZRotationType)
-    {
-        auto ZRotItem = static_cast<ZRotationItem*>(rotItem);
-        z_angle = ZRotItem->getItemValue(ZRotationItem::P_ANGLE).toFloat(); // about z-axis
-    }
+        z_angle = rotItem->getItemValue(ZRotationItem::P_ANGLE).toFloat(); // about z-axis
     else if(rotItem->modelType() == Constants::XRotationType)
-    {
-        auto YRotItem = static_cast<XRotationItem*>(rotItem);
-        x_angle = YRotItem->getItemValue(XRotationItem::P_ANGLE).toFloat(); // about x-axis
-    }
+        x_angle = rotItem->getItemValue(XRotationItem::P_ANGLE).toFloat(); // about x-axis
     else if(rotItem->modelType() == Constants::YRotationType)
-    {
-        auto XRotItem = static_cast<YRotationItem*>(rotItem);
-        y_angle = XRotItem->getItemValue(YRotationItem::P_ANGLE).toFloat(); // about y-axis
-    }
+        y_angle = rotItem->getItemValue(YRotationItem::P_ANGLE).toFloat(); // about y-axis
     else if(rotItem->modelType() == Constants::EulerRotationType)
     {
-        auto EulerRotItem = static_cast<EulerRotationItem*>(rotItem);
-
-        z_angle = EulerRotItem->getItemValue(EulerRotationItem::P_ALPHA).toFloat();
-        y_angle = EulerRotItem->getItemValue(EulerRotationItem::P_BETA).toFloat();
-        x_angle = EulerRotItem->getItemValue(EulerRotationItem::P_GAMMA).toFloat();
+        z_angle = rotItem->getItemValue(EulerRotationItem::P_ALPHA).toFloat();
+        y_angle = rotItem->getItemValue(EulerRotationItem::P_BETA).toFloat();
+        x_angle = rotItem->getItemValue(EulerRotationItem::P_GAMMA).toFloat();
     }
 
     return QVector3D(x_angle, y_angle, z_angle);

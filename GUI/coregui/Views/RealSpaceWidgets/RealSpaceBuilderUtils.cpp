@@ -304,9 +304,10 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
 
 QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &particleItem)
 {
-    float pitch = 0.0f;
-    float yaw = 0.0f;
-    float roll = 0.0f;
+    // defined in accordance with QQuaternion::fromEulerAngles function parameters
+    float x_angle = 0.0f;
+    float y_angle = 0.0f;
+    float z_angle = 0.0f;
 
     auto transformationItem = particleItem.getItem(ParticleItem::T_TRANSFORMATION);
 
@@ -315,28 +316,26 @@ QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &pa
     if(rotItem->modelType() == Constants::ZRotationType)
     {
         auto ZRotItem = static_cast<ZRotationItem*>(rotItem);
-        roll = ZRotItem->getItemValue(ZRotationItem::P_ANGLE).toFloat(); // about z-axis
+        z_angle = ZRotItem->getItemValue(ZRotationItem::P_ANGLE).toFloat(); // about z-axis
     }
     else if(rotItem->modelType() == Constants::XRotationType)
     {
         auto YRotItem = static_cast<XRotationItem*>(rotItem);
-        pitch = YRotItem->getItemValue(XRotationItem::P_ANGLE).toFloat(); // about x-axis
+        x_angle = YRotItem->getItemValue(XRotationItem::P_ANGLE).toFloat(); // about x-axis
     }
     else if(rotItem->modelType() == Constants::YRotationType)
     {
-        auto XRotItem = static_cast<YRotationItem*>(rotItem); // about y-axis
-        yaw = XRotItem->getItemValue(YRotationItem::P_ANGLE).toFloat();
+        auto XRotItem = static_cast<YRotationItem*>(rotItem);
+        y_angle = XRotItem->getItemValue(YRotationItem::P_ANGLE).toFloat(); // about y-axis
     }
     else if(rotItem->modelType() == Constants::EulerRotationType)
     {
-
-        // dubious!! roll pitch yaw not the same thing as alpha beta gamma
         auto EulerRotItem = static_cast<EulerRotationItem*>(rotItem);
 
-        roll = EulerRotItem->getItemValue(EulerRotationItem::P_ALPHA).toFloat(); // alpha
-        pitch = EulerRotItem->getItemValue(EulerRotationItem::P_BETA).toFloat(); // beta
-        yaw = EulerRotItem->getItemValue(EulerRotationItem::P_GAMMA).toFloat(); // gamma
+        z_angle = EulerRotItem->getItemValue(EulerRotationItem::P_ALPHA).toFloat();
+        y_angle = EulerRotItem->getItemValue(EulerRotationItem::P_BETA).toFloat();
+        x_angle = EulerRotItem->getItemValue(EulerRotationItem::P_GAMMA).toFloat();
     }
 
-    return QVector3D(pitch, yaw, roll);
+    return QVector3D(x_angle, y_angle, z_angle);
 }

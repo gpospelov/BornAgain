@@ -145,12 +145,54 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem
 {
     Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
 
+    // For checking if there is any rotation (transformation) of the particle
+
+    RealSpace::Vector3D rotate;
+
+    if(particleItem.getItem(ParticleItem::T_TRANSFORMATION))
+    {
+        rotate = RealSpaceBuilderUtils::implementRotation(particleItem);
+
+        /*
+        auto transformationItem = particleItem.getItem(ParticleItem::T_TRANSFORMATION);
+
+        auto rotItem = transformationItem->getGroupItem(TransformationItem::P_ROT);
+
+        // Same function as the one above
+        //auto rotItem = static_cast<TransformationItem*>(transformationItem->getGroupItem(TransformationItem::P_ROT));
+
+        if(rotItem->modelType() == Constants::ZRotationType)
+        {
+            auto ZRotItem = static_cast<ZRotationItem*>(rotItem);
+            ZRotAngle = ZRotItem->getItemValue(ZRotationItem::P_ANGLE).toFloat();
+        }
+        else if(rotItem->modelType() == Constants::YRotationType)
+        {
+            auto YRotItem = static_cast<YRotationItem*>(rotItem);
+            YRotAngle = YRotItem->getItemValue(YRotationItem::P_ANGLE).toFloat();
+        }
+        else if(rotItem->modelType() == Constants::XRotationType)
+        {
+            auto XRotItem = static_cast<XRotationItem*>(rotItem);
+            XRotAngle = XRotItem->getItemValue(XRotationItem::P_ANGLE).toFloat();
+        }
+        else if(rotItem->modelType() == Constants::EulerRotationType)
+        {
+            auto EulerRotItem = static_cast<EulerRotationItem*>(rotItem);
+            XRotAngle = EulerRotItem->getItemValue(EulerRotationItem::P_ALPHA).toFloat();
+            YRotAngle = EulerRotItem->getItemValue(EulerRotationItem::P_BETA).toFloat();
+            ZRotAngle = EulerRotItem->getItemValue(EulerRotationItem::P_GAMMA).toFloat();
+        }
+        else
+        {
+        }
+        */
+    }
+
     auto particle = TransformTo3D::createParticle(particleItem);
 
     if (particle) {
-        particle->transform(RealSpace::Vector3D::_0, RealSpace::Vector3D(origin.x(),
-                                                                         origin.y(),
-                                                                         origin.z()));
+        particle->transform(rotate, RealSpace::Vector3D(origin.x(), origin.y(), origin.z()));
         model->add(particle.release());
     }
 }

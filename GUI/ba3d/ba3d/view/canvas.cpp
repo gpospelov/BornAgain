@@ -237,7 +237,9 @@ void Canvas::defaultView()
 {
     if (model){
         // Default view
-        camera->lookAt(model->defCamPos);
+        camera->lookAt(RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 90),  // eye
+                                                   RealSpace::Vector3D(0, 0, 0),      // center
+                                                   RealSpace::Vector3D::_z));         // up
         camera->endTransform(true);
         update();
     }
@@ -252,8 +254,8 @@ void Canvas::sideView()
         // Edge view
         camera->lookAt(RealSpace::Camera::Position(
                                    RealSpace::Vector3D(0, -140, 0),   // eye
-                                   RealSpace::Vector3D(0, 0, 0),       // center
-                                   RealSpace::Vector3D::_z));
+                                   RealSpace::Vector3D(0, 0, 0),      // center
+                                   RealSpace::Vector3D::_z));         // up
         camera->endTransform(true);
         update();
     }
@@ -270,7 +272,7 @@ void Canvas::topView()
         camera->lookAt(RealSpace::Camera::Position(
                                    RealSpace::Vector3D(0.5, 0, 140),   // eye
                                    RealSpace::Vector3D(0, 0, 0),       // center
-                                   RealSpace::Vector3D::_z));
+                                   RealSpace::Vector3D::_z));          // up
         camera->endTransform(true);
         update();
     }

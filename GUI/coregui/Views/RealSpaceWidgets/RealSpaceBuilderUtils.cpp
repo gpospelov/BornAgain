@@ -27,6 +27,9 @@
 #include "Lattice2DItems.h"
 #include "Units.h"
 
+#include "TransformationItem.h"
+#include "RotationItems.h"
+
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
 {
@@ -297,4 +300,31 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
     }
 
     return lattice_positions;
+}
+
+QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &particleItem)
+{
+    // defined in accordance with QQuaternion::fromEulerAngles function parameters
+    float x_angle = 0.0f;
+    float y_angle = 0.0f;
+    float z_angle = 0.0f;
+
+    auto transformationItem = particleItem.getItem(ParticleItem::T_TRANSFORMATION);
+
+    auto rotItem = transformationItem->getGroupItem(TransformationItem::P_ROT);
+
+    if(rotItem->modelType() == Constants::ZRotationType)
+        z_angle = rotItem->getItemValue(ZRotationItem::P_ANGLE).toFloat(); // about z-axis
+    else if(rotItem->modelType() == Constants::XRotationType)
+        x_angle = rotItem->getItemValue(XRotationItem::P_ANGLE).toFloat(); // about x-axis
+    else if(rotItem->modelType() == Constants::YRotationType)
+        y_angle = rotItem->getItemValue(YRotationItem::P_ANGLE).toFloat(); // about y-axis
+    else if(rotItem->modelType() == Constants::EulerRotationType)
+    {
+        z_angle = rotItem->getItemValue(EulerRotationItem::P_ALPHA).toFloat();
+        y_angle = rotItem->getItemValue(EulerRotationItem::P_BETA).toFloat();
+        x_angle = rotItem->getItemValue(EulerRotationItem::P_GAMMA).toFloat();
+    }
+
+    return QVector3D(x_angle, y_angle, z_angle);
 }

@@ -140,7 +140,14 @@ void RealSpaceCanvas::updateScene()
     Q_ASSERT(item);
 
     RealSpaceBuilder builder3D;
-    builder3D.populate(m_realSpaceModel.get(), *item, *m_sceneGeometry);
+
+    // if the view is locked, keep the current orientation of the camera
+    if(m_view_locked)
+        builder3D.populate(m_realSpaceModel.get(), *item, *m_sceneGeometry,
+                           m_view->getCamera().getPos());
+    // otherwise use default orientation of camera
+    else
+        builder3D.populate(m_realSpaceModel.get(), *item, *m_sceneGeometry);
 
     m_view->setModel(m_realSpaceModel.get());
 }

@@ -102,7 +102,7 @@ private:
     std::unique_ptr<RealSpaceModel> m_realSpaceModel;
     QItemSelectionModel* m_selectionModel;
     bool m_view_locked;
-    SceneGeometry* m_sceneGeometry;
+    std::unique_ptr<SceneGeometry> m_sceneGeometry;
 };
 
 #endif // REALSPACESCENE_H

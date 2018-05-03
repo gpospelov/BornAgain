@@ -91,7 +91,7 @@ void Parameters::setErrors(const std::vector<double>& errors)
     check_array_size(errors);
     size_t index = 0;
     for (auto& par: m_parameters)
-        par.setError(errors[++index]);
+        par.setError(errors[index++]);
 }
 
 bool Parameters::exists(const std::string& name) const

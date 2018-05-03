@@ -47,7 +47,6 @@ void RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
     rootMinimizer()->SetFunction(*m_adapter->rootObjectiveFunction(fcn, parameters));
     propagateOptions();
     m_status = rootMinimizer()->Minimize();
-    std::cout << reportOutcome() << std::endl;
 }
 
 std::string RootMinimizerAdapter::minimizerName() const
@@ -154,6 +153,12 @@ void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
         }
         parameters.setCorrelationMatrix(matrix);
     }
+}
+
+void RootMinimizerAdapter::propagateResults(Fit::Parameters& parameters)
+{
+    parameters.setValues(parValuesAtMinimum());
+    parameters.setErrors(parErrorsAtMinimum());
 }
 
 void RootMinimizerAdapter::setOptions(const std::string &optionString)

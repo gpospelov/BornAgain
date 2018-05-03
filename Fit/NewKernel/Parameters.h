@@ -43,8 +43,15 @@ public:
 
     size_t size() const;
 
+    std::vector<double> values() const;
+    void setValues(const std::vector<double>& values);
+
+    std::vector<double> errors() const;
+    void setErrors(const std::vector<double>& errors);
+
 private:
     bool exists(const std::string& parameter_name) const;
+    void check_array_size(const std::vector<double>& values) const;
 
     parameters_t m_parameters;
 };

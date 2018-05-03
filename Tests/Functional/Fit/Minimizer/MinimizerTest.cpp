@@ -41,7 +41,9 @@ bool MinimizerTest::runTest()
     auto plan = plan_factory.create(m_fit_plan_name);
 
     Minimizer minimizer;
-    minimizer.minimize(plan->objectiveFunction(), plan->parameters());
+    auto result = minimizer.minimize(plan->objectiveFunction(), plan->parameters());
+
+    std::cout << result.toString() << std::endl;
 
     std::cout << "MinimizerTest::runTest() -> " << (success ? "OK" : "FAILED") << std::endl;
     return success;

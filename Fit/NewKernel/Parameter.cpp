@@ -41,6 +41,11 @@ std::string Parameter::name() const
     return m_name;
 }
 
+double Parameter::startValue() const
+{
+    return m_start_value;
+}
+
 AttLimits Parameter::limits() const
 {
     return m_limits;
@@ -51,7 +56,22 @@ double Parameter::value() const
     return m_value;
 }
 
+void Parameter::setValue(double value)
+{
+    m_value = value;
+}
+
 double Parameter::step() const
 {
     return m_step;
+}
+
+double Parameter::error() const
+{
+    return m_error;
+}
+
+void Parameter::setError(double value)
+{
+    m_error = value;
 }

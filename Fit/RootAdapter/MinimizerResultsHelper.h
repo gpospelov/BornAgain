@@ -20,6 +20,7 @@
 
 class RootMinimizerAdapter;
 class FitParameterSet;
+namespace Fit { class Parameters; }
 
 //! Contains all logic to generate reports with the result of minimization.
 //! @ingroup fitting_internal
@@ -33,6 +34,7 @@ public:
 
     //! Reports fit parameters settings and final results
     static std::string reportParameters(const FitParameterSet* parameters);
+    static std::string reportParameters(const Fit::Parameters& parameters);
 
 private:
     static std::string reportDescription(const RootMinimizerAdapter* minimizer);

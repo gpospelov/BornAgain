@@ -33,18 +33,24 @@ public:
 
     std::string name() const;
 
+    double startValue() const;
+
     AttLimits limits() const;
 
     double value() const;
+    void setValue(double value);
 
     double step() const;
 
+    double error() const;
+    void setError(double value);
+
 private:
-    std::string m_name;
-    double m_start_value;
-    double m_value;
-    double m_step;
-    double m_error;
+    std::string m_name; //!< unique fit parameter name
+    double m_start_value; //!< starting value of fit parameters
+    double m_value; //!< current value of fit parameters
+    double m_step; //!< approximate initial step for the minimizer
+    double m_error; //!< error of fit parameter calculated by the minimizer
     AttLimits m_limits;
 };
 

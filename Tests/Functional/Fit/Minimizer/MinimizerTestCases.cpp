@@ -14,4 +14,4 @@
 
 #include "MinimizerTestCases.h"
 
-MinuitTestV1::MinuitTestV1() : MinimizerTest("Minuit2", "Migrad", "Rosenbrock1") {}
+MinuitTestV1::MinuitTestV1() : MinimizerTest("Minuit2", "Migrad", "RosenbrockPlan") {}

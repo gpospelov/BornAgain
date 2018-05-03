@@ -70,6 +70,7 @@ public:
 
     //! Propagates results of minimization to fit parameter set
     void propagateResults(FitParameterSet& parameters) override;
+    void propagateResults(Fit::Parameters& parameters) override;
 
     //! Sets option string to the minimizer
     void setOptions(const std::string& optionString) override final;

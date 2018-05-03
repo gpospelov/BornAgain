@@ -21,12 +21,9 @@
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
 #include "Units.h"
+#include "RealSpaceCanvas.h"
 
 namespace {
-    const double layer_size = 50.0;
-    const double top_layer_thickness = 25.0;
-    const double bottom_layer_thickness = 25.0;
-    const double layer_min_thickness = 2.0;
 
     bool isTopLayer(const SessionItem& layerItem) {
         auto layers = layerItem.parent()->getItems(MultiLayerItem::T_LAYERS);
@@ -40,28 +37,30 @@ namespace {
 
 }
 
-double TransformTo3D::visualLayerThickness(const SessionItem& layerItem)
+double TransformTo3D::visualLayerThickness(
+        const SessionItem& layerItem, const SceneGeometry& sceneGeometry)
 {
     Q_ASSERT(layerItem.modelType() == Constants::LayerType);
 
     double thickness(0.0);
     if(isTopLayer(layerItem))
-        thickness = top_layer_thickness;
+        thickness = sceneGeometry.layer_top_thickness();
     else if(isBottomLayer(layerItem))
-        thickness = bottom_layer_thickness;
+        thickness = sceneGeometry.layer_bottom_thickness();
     else
         thickness = layerItem.getItemValue(LayerItem::P_THICKNESS).toDouble();
 
-    return thickness == 0.0 ? layer_min_thickness :  thickness;
+    return thickness == 0.0 ? sceneGeometry.layer_min_thickness() :  thickness;
 }
 
-std::unique_ptr<RealSpace::Layer> TransformTo3D::createLayer(const SessionItem& layerItem, const QVector3D& origin)
+std::unique_ptr<RealSpace::Layer> TransformTo3D::createLayer(
+        const SessionItem& layerItem, const SceneGeometry &sceneGeometry, const QVector3D& origin)
 {
     Q_ASSERT(layerItem.modelType() == Constants::LayerType);
 
-    double thickness = TransformTo3D::visualLayerThickness(layerItem);
+    double thickness = TransformTo3D::visualLayerThickness(layerItem, sceneGeometry);
 
-    double s2 = layer_size;
+    double s2 = sceneGeometry.layer_size();
     double ztop = static_cast<double>(origin.z()) + thickness;
     double zbottom = static_cast<double>(origin.z());
 

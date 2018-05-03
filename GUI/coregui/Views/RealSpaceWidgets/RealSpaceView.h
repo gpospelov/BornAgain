@@ -20,7 +20,11 @@
 
 class RealSpaceModel;
 
-namespace RealSpace { class Widget3D;}
+namespace RealSpace
+{
+    class Widget3D;
+    class Camera;
+}
 
 //! Contains 3D view.
 
@@ -36,6 +40,8 @@ public:
     void defaultView();
     void sideView();
     void topView();
+
+    RealSpace::Camera &getCamera();
 
 private:
     RealSpace::Widget3D* m_3dview;

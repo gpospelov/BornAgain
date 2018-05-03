@@ -73,7 +73,11 @@ void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem 
     JobModelFunctions::copyRealDataItem(jobItem, realDataItem);
     JobModelFunctions::processInstrumentLink(jobItem);
     JobModelFunctions::copyMasksToInstrument(jobItem);
-    JobModelFunctions::cropRealData(jobItem);
+
+    // TODO: remove if when other simulation types are ready for roi & masks
+    if (jobItem->instrumentItem()->modelType() == Constants::GISASInstrumentType)
+        JobModelFunctions::cropRealData(jobItem);
+
     JobModelFunctions::createFitContainers(jobItem);
     jobItem->setItemValue(JobItem::P_PRESENTATION_TYPE, Constants::FitComparisonPresentation);
 }
@@ -141,10 +145,12 @@ void JobModelFunctions::cropRealData(JobItem *jobItem) {
     JobItemUtils::createDefaultDetectorMap(intensityItem, jobItem->instrumentItem());
 
     auto instrument = jobItem->instrumentItem()->createInstrument();
-    instrument->getDetector()->iterate([&](IDetector::const_iterator it){
-        auto cropped_data = intensityItem->getOutputData();
-        (*cropped_data)[it.roiIndex()] = (*origData)[it.detectorIndex()];
-    }, /*visit_masked*/false);
+    instrument->getDetector()->iterate(
+        [&](IDetector::const_iterator it) {
+            auto cropped_data = intensityItem->getOutputData();
+            (*cropped_data)[it.roiIndex()] = (*origData)[it.detectorIndex()];
+        },
+        /*visit_masked*/ false);
 
     intensityItem->updateDataRange();
 }

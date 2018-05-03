@@ -22,17 +22,20 @@
 #include <memory>
 
 class SessionItem;
+class SceneGeometry;
 
 //! Collection of utility functions to build 3D objects from session items.
 
 namespace TransformTo3D
 {
 
-BA_CORE_API_ double visualLayerThickness(const SessionItem& layerItem);
+BA_CORE_API_ double visualLayerThickness(
+        const SessionItem& layerItem, const SceneGeometry& sceneGeometry);
 
 BA_CORE_API_
 std::unique_ptr<RealSpace::Layer> createLayer(const SessionItem& layerItem,
-                                         const QVector3D& origin = QVector3D());
+                                              const SceneGeometry& sceneGeometry,
+                                              const QVector3D& origin = QVector3D());
 
 BA_CORE_API_
 std::unique_ptr<RealSpace::Particles::Particle> createParticle(const SessionItem& particleItem);

@@ -207,14 +207,6 @@ TransformTo3D::createParticle(const SessionItem& particleItem)
             = particleItem.getItemValue(ParticleItem::P_MATERIAL).value<ExternalProperty>();
 
         result->color = material.color();
-
-        SessionItem* positionItem = particleItem.getItem(ParticleItem::P_POSITION);
-        double x = positionItem->getItemValue(VectorItem::P_X).toDouble();
-        double y = positionItem->getItemValue(VectorItem::P_Y).toDouble();
-        double z = positionItem->getItemValue(VectorItem::P_Z).toDouble();
-        result->transform(RealSpace::Vector3D::_0, RealSpace::Vector3D(static_cast<float>(x),
-                                                                       static_cast<float>(y),
-                                                                       static_cast<float>(z)) );
     }
     return result;
 }

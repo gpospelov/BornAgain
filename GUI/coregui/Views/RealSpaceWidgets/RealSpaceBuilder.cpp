@@ -155,7 +155,12 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem
     auto particle = TransformTo3D::createParticle(particleItem);
 
     if (particle) {
-        particle->transform(rotate, RealSpace::Vector3D(origin.x(), origin.y(), origin.z()));
+        SessionItem* positionItem = particleItem.getItem(ParticleItem::P_POSITION);
+        float x = positionItem->getItemValue(VectorItem::P_X).toFloat();
+        float y = positionItem->getItemValue(VectorItem::P_Y).toFloat();
+        float z = positionItem->getItemValue(VectorItem::P_Z).toFloat();
+        RealSpace::Vector3D position(x + origin.x(),y + origin.y(),z + origin.z());
+        particle->transform(rotate, position);
         model->add(particle.release());
     }
 }

@@ -21,6 +21,7 @@
 #include "MinimizerResult.h"
 #include <functional>
 #include <vector>
+#include <string>
 #include <memory>
 
 namespace Fit {
@@ -35,6 +36,9 @@ class BA_CORE_API_ Minimizer
 public:
     Minimizer();
     ~Minimizer();
+
+    void setMinimizer(const std::string& minimizerName, const std::string& algorithmName = "",
+                      const std::string& options = "");
 
     MinimizerResult minimize(fcn_scalar_t fcn, const Parameters& parameters);
 

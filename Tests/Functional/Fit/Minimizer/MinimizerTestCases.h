@@ -31,4 +31,64 @@ public:
     MinuitTestV2();
 };
 
+class SteepestDescentTestV1 : public MinimizerTest
+{
+public:
+    SteepestDescentTestV1();
+};
+
+class SteepestDescentTestV2 : public MinimizerTest
+{
+public:
+    SteepestDescentTestV2();
+};
+
+class ConjugateFRTestV1 : public MinimizerTest
+{
+public:
+    ConjugateFRTestV1();
+};
+
+class ConjugateFRTestV2 : public MinimizerTest
+{
+public:
+    ConjugateFRTestV2();
+};
+
+class ConjugatePRTestV1 : public MinimizerTest
+{
+public:
+    ConjugatePRTestV1();
+};
+
+class ConjugatePRTestV2 : public MinimizerTest
+{
+public:
+    ConjugatePRTestV2();
+};
+
+class BfgsTestV1 : public MinimizerTest
+{
+public:
+    BfgsTestV1();
+};
+
+class BfgsTestV2 : public MinimizerTest
+{
+public:
+    BfgsTestV2();
+};
+
+class Bfgs2TestV1 : public MinimizerTest
+{
+public:
+    Bfgs2TestV1();
+};
+
+class Bfgs2TestV2 : public MinimizerTest
+{
+public:
+    Bfgs2TestV2();
+};
+
 #endif //   MINIMIZERTESTCASES_H

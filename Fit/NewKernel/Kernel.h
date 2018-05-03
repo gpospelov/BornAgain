@@ -36,7 +36,8 @@ public:
     Kernel();
     ~Kernel();
 
-    void setMinimizer(const std::string& minimizerName, const std::string& algorithmName = "");
+    void setMinimizer(const std::string& minimizerName, const std::string& algorithmName = "",
+                      const std::string& options = "");
 
     MinimizerResult minimize(fcn_scalar_t fcn, const Parameters& parameters);
 

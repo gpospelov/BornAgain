@@ -46,6 +46,7 @@ bool MinimizerTest::runTest()
     auto plan = plan_factory.create(m_fit_plan_name);
 
     Minimizer minimizer;
+    minimizer.setMinimizer(m_minimizer_name, m_algorithm_name);
     auto result = minimizer.minimize(plan->objectiveFunction(), plan->parameters());
 
     std::cout << result.toString() << std::endl;
@@ -60,7 +61,7 @@ namespace {
 bool checkResult(const Fit::MinimizerResult& result, const FunctionTestPlan& plan)
 {
     bool success(true);
-    std::cout << "MinimizerTest::checkResult()" << std::endl;
+    std::cout << "MinimizerTest::checkResult() -> " << plan.name() << std::endl;
 
     success &= plan.valuesAsExpected(result.parameters().values());
     success &= plan.minimumAsExpected(result.minValue());

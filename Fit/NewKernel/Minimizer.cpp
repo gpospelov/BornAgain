@@ -23,6 +23,12 @@ Minimizer::Minimizer()
 
 }
 
+void Minimizer::setMinimizer(const std::string& minimizerName, const std::string& algorithmName,
+                             const std::string& options)
+{
+    m_kernel->setMinimizer(minimizerName, algorithmName, options);
+}
+
 Minimizer::~Minimizer() = default;
 
 MinimizerResult Minimizer::minimize(fcn_scalar_t fcn,

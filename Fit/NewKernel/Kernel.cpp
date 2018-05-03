@@ -30,9 +30,10 @@ Kernel::Kernel()
 
 Kernel::~Kernel() = default;
 
-void Kernel::setMinimizer(const std::string& minimizerName, const std::string& algorithmName)
+void Kernel::setMinimizer(const std::string& minimizerName, const std::string& algorithmName,
+                          const std::string& options)
 {
-    m_minimizer.reset(MinimizerFactory::createMinimizer(minimizerName, algorithmName));
+    m_minimizer.reset(MinimizerFactory::createMinimizer(minimizerName, algorithmName, options));
 }
 
 MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters)

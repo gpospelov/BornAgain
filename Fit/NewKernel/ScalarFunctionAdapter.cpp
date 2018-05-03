@@ -19,22 +19,21 @@
 using namespace Fit;
 
 ScalarFunctionAdapter::ScalarFunctionAdapter(fcn_scalar_t func, const Parameters& parameters)
-    : m_fcn(func)
-    , m_parameters(parameters)
+    : m_fcn(func), m_parameters(parameters)
 {
-
 }
 
 const RootObjectiveFunction* ScalarFunctionAdapter::rootObjectiveFunction()
 {
-    root_objective_t rootfun = [&] (const double* pars) {
+    root_objective_t rootfun = [&](const double* pars) {
         std::vector<double> vec;
         vec.resize(m_parameters.size(), 0.0);
-        std::copy(pars, pars+m_parameters.size(), vec.begin());
+        std::copy(pars, pars + m_parameters.size(), vec.begin());
         ++m_number_of_calls;
         return m_fcn(vec);
     };
 
-    m_root_objective.reset(new RootObjectiveFunction(rootfun, static_cast<int>(m_parameters.size())));
+    m_root_objective.reset(
+        new RootObjectiveFunction(rootfun, static_cast<int>(m_parameters.size())));
     return m_root_objective.get();
 }

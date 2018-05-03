@@ -17,4 +17,5 @@
 FunctionTestPlanFactory::FunctionTestPlanFactory()
 {
     registerItem("RosenbrockPlan", create_new<RosenbrockPlan>);
+    registerItem("WoodFourPlan", create_new<WoodFourPlan>);
 }

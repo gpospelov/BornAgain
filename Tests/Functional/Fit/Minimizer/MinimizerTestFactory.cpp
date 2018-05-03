@@ -18,4 +18,5 @@
 MinimizerTestFactory::MinimizerTestFactory()
 {
     registerItem("MinuitTestV1", create_new<MinuitTestV1>, "Minuit + Migrad + Rosenbrock");
+    registerItem("MinuitTestV2", create_new<MinuitTestV2>, "Minuit + Migrad + WoodFour");
 }

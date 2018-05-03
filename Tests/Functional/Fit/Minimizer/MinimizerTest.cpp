@@ -65,6 +65,8 @@ bool checkResult(const Fit::MinimizerResult& result, const FunctionTestPlan& pla
     success &= plan.valuesAsExpected(result.parameters().values());
     success &= plan.minimumAsExpected(result.minValue());
 
+    std::cout << std::endl;
+
     return success;
 }
 }

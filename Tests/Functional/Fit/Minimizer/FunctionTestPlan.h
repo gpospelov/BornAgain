@@ -59,4 +59,12 @@ public:
     RosenbrockPlan();
 };
 
+//! Setting for standalone fit of WoodFour function.
+
+class WoodFourPlan : public FunctionTestPlan
+{
+public:
+    WoodFourPlan();
+};
+
 #endif // OBJECTIVEFUNCTIONPLAN_H

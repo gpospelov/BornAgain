@@ -25,4 +25,10 @@ public:
     MinuitTestV1();
 };
 
+class MinuitTestV2 : public MinimizerTest
+{
+public:
+    MinuitTestV2();
+};
+
 #endif //   MINIMIZERTESTCASES_H

@@ -42,8 +42,7 @@ bool MinimizerTest::runTest()
     std::cout << "Testing " << m_minimizer_name << "/" << m_algorithm_name << " " << m_fit_plan_name
               << std::endl;
 
-    FunctionTestPlanFactory plan_factory;
-    auto plan = plan_factory.create(m_fit_plan_name);
+    auto plan = createPlan();
 
     Minimizer minimizer;
     minimizer.setMinimizer(m_minimizer_name, m_algorithm_name);
@@ -55,6 +54,12 @@ bool MinimizerTest::runTest()
 
     std::cout << "MinimizerTest::runTest() -> " << (success ? "OK" : "FAILED") << std::endl;
     return success;
+}
+
+std::unique_ptr<FunctionTestPlan> MinimizerTest::createPlan() const
+{
+    FunctionTestPlanFactory plan_factory;
+    return plan_factory.create(m_fit_plan_name);
 }
 
 namespace {

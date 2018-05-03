@@ -59,6 +59,7 @@ protected:
 
     using RootMinimizerAdapter::setParameter;
     void setParameter(size_t index, const IFitParameter* par) override;
+    void setParameter(unsigned int index, const Fit::Parameter& par) override;
 
 private:
     std::unique_ptr<ROOT::Math::GeneticMinimizer> m_genetic_minimizer;

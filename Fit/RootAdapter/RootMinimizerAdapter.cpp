@@ -43,8 +43,9 @@ void RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
                                     const Fit::Parameters& parameters)
 {
     (void)fcn;
-    setParameters(parameters);
+    // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootObjectiveFunction(fcn, parameters));
+    setParameters(parameters);
     propagateOptions();
     m_status = rootMinimizer()->Minimize();
 }

@@ -47,4 +47,14 @@ MinimizerTestFactory::MinimizerTestFactory()
     registerItem("Bfgs2TestV2", create_new<Bfgs2TestV2>,
                  "GSLMultiMin + BFGS2 + WoodFour");
 
+    registerItem("GSLSimAnTestV1", create_new<GSLSimAnTestV1>,
+                 "GSLSimAn + Rosenbrock");
+    registerItem("GSLSimAnTestV2", create_new<GSLSimAnTestV2>,
+                 "GSLSimAn + WoodFour");
+
+    registerItem("GeneticTestV1", create_new<GeneticTestV1>,
+                 "Genetic + Rosenbrock");
+    registerItem("GeneticTestV2", create_new<GeneticTestV2>,
+                 "Genetic + WoodFour");
+
 }

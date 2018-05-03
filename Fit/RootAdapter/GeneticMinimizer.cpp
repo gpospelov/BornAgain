@@ -16,6 +16,7 @@
 #include "IFitParameter.h"
 #include "MinimizerConstants.h"
 #include "Math/GeneticMinimizer.h"
+#include "Parameter.h"
 
 namespace {
 
@@ -115,6 +116,19 @@ void GeneticMinimizer::setParameter(size_t index, const IFitParameter *par)
              << "Genetic minimizer requires either fixed or "
              << "limited AttLimits::limited(left,right) parameter. "
              << " Parameter name '" << par->name() << "', limits:" << par->limits().toString();
+        throw std::runtime_error(ostr.str());
+    }
+    RootMinimizerAdapter::setParameter(index, par);
+}
+
+void GeneticMinimizer::setParameter(unsigned int index, const Fit::Parameter& par)
+{
+    if( !par.limits().isFixed() && !par.limits().isLimited()) {
+        std::ostringstream ostr;
+        ostr << "GeneticMinimizer::setParameter() -> Error! "
+             << "Genetic minimizer requires either fixed or "
+             << "limited AttLimits::limited(left,right) parameter. "
+             << " Parameter name '" << par.name() << "', limits:" << par.limits().toString();
         throw std::runtime_error(ostr.str());
     }
     RootMinimizerAdapter::setParameter(index, par);

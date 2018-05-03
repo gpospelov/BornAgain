@@ -49,3 +49,15 @@ Bfgs2TestV1::Bfgs2TestV1()
 
 Bfgs2TestV2::Bfgs2TestV2()
     : MinimizerTest("GSLMultiMin", "BFGS2", "WoodFourPlan") {}
+
+GSLSimAnTestV1::GSLSimAnTestV1()
+    : MinimizerTest("GSLSimAn", "Default", "RosenbrockPlan") {}
+
+GSLSimAnTestV2::GSLSimAnTestV2()
+    : MinimizerTest("GSLSimAn", "Default", "WoodFourPlan") {}
+
+GeneticTestV1::GeneticTestV1()
+    : MinimizerTest("Genetic", "Default", "RosenbrockPlan") {}
+
+GeneticTestV2::GeneticTestV2()
+    : MinimizerTest("Genetic", "Default", "WoodFourPlan") {}

@@ -91,4 +91,28 @@ public:
     Bfgs2TestV2();
 };
 
+class GSLSimAnTestV1 : public MinimizerTest
+{
+public:
+    GSLSimAnTestV1();
+};
+
+class GSLSimAnTestV2 : public MinimizerTest
+{
+public:
+    GSLSimAnTestV2();
+};
+
+class GeneticTestV1 : public MinimizerTest
+{
+public:
+    GeneticTestV1();
+};
+
+class GeneticTestV2 : public MinimizerTest
+{
+public:
+    GeneticTestV2();
+};
+
 #endif //   MINIMIZERTESTCASES_H

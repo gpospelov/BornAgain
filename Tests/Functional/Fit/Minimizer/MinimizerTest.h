@@ -17,6 +17,9 @@
 
 #include "IFunctionalTest.h"
 #include <string>
+#include <memory>
+
+class FunctionTestPlan;
 
 //! Collection of standalone tests for fitting library.
 
@@ -29,6 +32,8 @@ public:
     bool runTest();
 
 protected:
+    virtual std::unique_ptr<FunctionTestPlan> createPlan() const;
+
     std::string m_minimizer_name;
     std::string m_algorithm_name;
     std::string m_fit_plan_name;

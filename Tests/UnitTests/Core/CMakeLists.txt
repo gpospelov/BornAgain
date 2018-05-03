@@ -1,17 +1,18 @@
 ############################################################################
 # Core unit tests
 ############################################################################
+set(test UnitTestCore)
 
 set(libs BornAgainCore)
 
-ADD_GTEST(Core "Axes"        ${libs} 0)
-ADD_GTEST(Core "Sample"        ${libs} 0)
-ADD_GTEST(Core "Fresnel"        ${libs} 0)
-ADD_GTEST(Core "Detector"        ${libs} 0)
-ADD_GTEST(Core "ExportToPython"        ${libs} 0)
-ADD_GTEST(Core "Parameters"        ${libs} 0)
-ADD_GTEST(Core "DataStructure"        ${libs} 0)
-ADD_GTEST(Core "Other"        ${libs} 0)
-ADD_GTEST(Core "SimulationElement"        ${libs} 0)
-ADD_GTEST(Core "Numeric0" ${libs} 2)
-ADD_GTEST(Core "Numeric1" ${libs} 2)
+ADD_GTEST(${test} "Axes" ${libs} 0)
+ADD_GTEST(${test} "Sample" ${libs} 0)
+ADD_GTEST(${test} "Fresnel" ${libs} 0)
+ADD_GTEST(${test} "Detector" ${libs} 0)
+ADD_GTEST(${test} "ExportToPython" ${libs} 0)
+ADD_GTEST(${test} "Parameters" ${libs} 0)
+ADD_GTEST(${test} "DataStructure" ${libs} 0)
+ADD_GTEST(${test} "Other" ${libs} 0)
+ADD_GTEST(${test} "SimulationElement" ${libs} 0)
+ADD_GTEST(${test} "Numeric0" ${libs} 2)
+ADD_GTEST(${test} "Numeric1" ${libs} 2)

@@ -17,9 +17,10 @@
 
 #  stage=0: test run at compile time
 #  stage=1: test run upon "ctest"="make check"
+#  stage=2: test run upon "ctest"="make fullcheck"
 
 MACRO(ADD_GTEST project subdir libs stage)
-    set(TEST_NAME ${project}UnitTest${subdir})
+    set(TEST_NAME ${project}${subdir})
     set(EXE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TEST_NAME})
     file(GLOB include_files ${subdir}/*.h)
     add_executable(${TEST_NAME} ${subdir}/../../utilities/main_testlist.cpp ${include_files})

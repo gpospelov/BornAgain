@@ -2,6 +2,8 @@
 # Fit unit tests
 ############################################################################
 
+set(test UnitTestFit)
 set(libs BornAgainCore BornAgainFit)
-ADD_GTEST(Fit "Kernel" "${libs}" 0)
+
+ADD_GTEST(${test} "Kernel" "${libs}" 0)
 

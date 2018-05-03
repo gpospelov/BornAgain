@@ -15,9 +15,10 @@
 #ifndef FUNCTIONTESTPLAN_H
 #define FUNCTIONTESTPLAN_H
 
-#include <memory>
 #include "KernelTypes.h"
 #include "ParameterPlan.h"
+#include <memory>
+#include <vector>
 
 namespace Fit { class Parameter; class Parameters;}
 
@@ -38,6 +39,10 @@ public:
     std::string name() const { return m_name; }
 
     Fit::Parameters parameters() const;
+
+    bool valuesAsExpected(const std::vector<double>& values) const;
+
+    bool minimumAsExpected(double found_minimum, double tolerance = 0.01) const;
 
 private:
     std::string m_name; //!< plan name

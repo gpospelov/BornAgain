@@ -21,6 +21,11 @@
 #include "Parameters.h"
 #include <iostream>
 
+namespace {
+//! Returns true if minimization result is consistent with expectancies.
+bool checkResult(const Fit::MinimizerResult& result, const FunctionTestPlan& plan);
+}
+
 using namespace Fit;
 
 MinimizerTest::MinimizerTest(const std::string& minimizer_name, const std::string& algorithm_name,
@@ -45,6 +50,21 @@ bool MinimizerTest::runTest()
 
     std::cout << result.toString() << std::endl;
 
+    success = checkResult(result, *plan);
+
     std::cout << "MinimizerTest::runTest() -> " << (success ? "OK" : "FAILED") << std::endl;
     return success;
+}
+
+namespace {
+bool checkResult(const Fit::MinimizerResult& result, const FunctionTestPlan& plan)
+{
+    bool success(true);
+    std::cout << "MinimizerTest::checkResult()" << std::endl;
+
+    success &= plan.valuesAsExpected(result.parameters().values());
+    success &= plan.minimumAsExpected(result.minValue());
+
+    return success;
+}
 }

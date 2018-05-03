@@ -1,4 +1,4 @@
-set(test PyEmbedded)
+set(test TestPyEmbedded)
 
 set(test_cases
     SysPath

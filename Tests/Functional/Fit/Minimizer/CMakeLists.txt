@@ -1,4 +1,4 @@
-set(test Minimizer)
+set(test TestMinimizer)
 
 set(test_cases
     MinuitTestV1

@@ -2,6 +2,8 @@
 # Tests/Functional/Core/CMakeLists.txt
 ############################################################################
 
+set(test TestCoreStandard)
+
 # CoreStandardTest cases:
 set(test_cases
     ApproximationDA
@@ -73,9 +75,9 @@ set(test_cases
     DepthProbeTest
     )
 
-add_executable(CoreStandardTest main.cpp CoreStandardTest.h CoreStandardTest.cpp)
-target_link_libraries(CoreStandardTest BornAgainCore BornAgainTestMachinery)
+add_executable(${test} main.cpp CoreStandardTest.h CoreStandardTest.cpp)
+target_link_libraries(${test} BornAgainCore BornAgainTestMachinery)
 foreach(test_case ${test_cases})
-    add_test(CoreStandardTest/${test_case}
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/CoreStandardTest ${test_case})
+    add_test(${test}/${test_case}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} ${test_case})
 endforeach()

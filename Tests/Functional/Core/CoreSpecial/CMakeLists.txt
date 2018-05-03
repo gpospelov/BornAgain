@@ -1,4 +1,4 @@
-set(test CoreSpecial)
+set(test TestCoreSpecial)
 
 set(test_cases
     BatchSimulation

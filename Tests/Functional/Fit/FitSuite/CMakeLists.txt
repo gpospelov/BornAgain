@@ -1,4 +1,4 @@
-set(test FitSuite)
+set(test TestFitSuite)
 
 set(test_cases
     GSLLevenbergMarquardt

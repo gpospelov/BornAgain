@@ -1,4 +1,4 @@
-set(test GUISpecial)
+set(test TestGUISpecial)
 
 set(test_cases
     BasicTranslation

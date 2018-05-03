@@ -20176,7 +20176,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IMinimizer_propagateResults(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IMinimizer_propagateResults__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
   FitParameterSet *arg2 = 0 ;
@@ -20206,6 +20206,89 @@ SWIGINTERN PyObject *_wrap_IMinimizer_propagateResults(PyObject *SWIGUNUSEDPARM(
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_propagateResults__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IMinimizer *arg1 = (IMinimizer *) 0 ;
+  Fit::Parameters *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IMinimizer_propagateResults",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IMinimizer_propagateResults" "', argument " "1"" of type '" "IMinimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< IMinimizer * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Fit__Parameters,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IMinimizer_propagateResults" "', argument " "2"" of type '" "Fit::Parameters &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IMinimizer_propagateResults" "', argument " "2"" of type '" "Fit::Parameters &""'"); 
+  }
+  arg2 = reinterpret_cast< Fit::Parameters * >(argp2);
+  (arg1)->propagateResults(*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IMinimizer_propagateResults(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IMinimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FitParameterSet, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_IMinimizer_propagateResults__SWIG_0(self, args);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_IMinimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Fit__Parameters, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_IMinimizer_propagateResults__SWIG_1(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'IMinimizer_propagateResults'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    IMinimizer::propagateResults(FitParameterSet &)\n"
+    "    IMinimizer::propagateResults(Fit::Parameters &)\n");
+  return 0;
 }
 
 
@@ -23286,7 +23369,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"\n"
-		"IMinimizer_propagateResults(IMinimizer self, FitParameterSet parameters)\n"
+		"propagateResults(FitParameterSet parameters)\n"
+		"IMinimizer_propagateResults(IMinimizer self, Fit::Parameters & parameters)\n"
 		"\n"
 		"void IMinimizer::propagateResults(FitParameterSet &parameters)\n"
 		"\n"

@@ -18,6 +18,7 @@
 #include "WinDllMacros.h"
 #include "Parameters.h"
 #include "KernelTypes.h"
+#include "MinimizerResult.h"
 #include <functional>
 #include <vector>
 #include <memory>
@@ -35,7 +36,7 @@ public:
     Minimizer();
     ~Minimizer();
 
-   void minimize(fcn_scalar_t fcn, const Parameters& parameters);
+    MinimizerResult minimize(fcn_scalar_t fcn, const Parameters& parameters);
 
 private:
    std::unique_ptr<Kernel> m_kernel;

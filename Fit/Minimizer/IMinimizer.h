@@ -61,6 +61,7 @@ class BA_CORE_API_ IMinimizer
 
     //! Propagates results of minimization to fit parameter set
     virtual void propagateResults(FitParameterSet& parameters);
+    virtual void propagateResults(Fit::Parameters& parameters);
 
     //! Sets option string to the minimizer
     virtual void setOptions(const std::string& options);

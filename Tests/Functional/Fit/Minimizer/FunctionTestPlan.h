@@ -31,7 +31,7 @@ public:
 
     virtual ~FunctionTestPlan();
 
-    void addPlan(const Fit::Parameter& param, double expected_value, double tolerance = 0.01);
+    void addParameter(const Fit::Parameter& param, double expected_value, double tolerance = 0.01);
 
     objective_function_t objectiveFunction() const { return m_objective_function; }
 

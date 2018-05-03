@@ -35,10 +35,19 @@ void Kernel::setMinimizer(const std::string& minimizerName, const std::string& a
     m_minimizer.reset(MinimizerFactory::createMinimizer(minimizerName, algorithmName));
 }
 
-void Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters)
+MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters)
 {
     setParameters(parameters);
     m_minimizer->minimize_scalar(fcn, parameters);
+
+    m_minimizer->propagateResults(m_parameters);
+
+    MinimizerResult result;
+    result.setParameters(m_parameters);
+    result.setMinValue(m_minimizer->minValue());
+    result.setReport(m_minimizer->reportOutcome());
+
+    return result;
 }
 
 void Kernel::setParameters(const Parameters& parameters)

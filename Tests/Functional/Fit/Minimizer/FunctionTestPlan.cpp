@@ -27,7 +27,7 @@ FunctionTestPlan::FunctionTestPlan(const std::string& name, fcn_scalar_t func,
 
 FunctionTestPlan::~FunctionTestPlan() = default;
 
-void FunctionTestPlan::addPlan(const Parameter& param, double expected_value, double tolerance)
+void FunctionTestPlan::addParameter(const Parameter& param, double expected_value, double tolerance)
 {
     m_parameter_plan.push_back(ParameterPlan(param, expected_value, tolerance));
 }
@@ -47,6 +47,6 @@ Parameters FunctionTestPlan::parameters() const
 
 RosenbrockPlan::RosenbrockPlan() : FunctionTestPlan("Rosenbrock1", TestFunctions::RosenBrock, 0.0)
 {
-    addPlan(Parameter("par1", -1.2, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
-    addPlan(Parameter("par2", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
+    addParameter(Parameter("par1", -1.2, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
+    addParameter(Parameter("par2", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
 }

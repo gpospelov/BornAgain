@@ -2088,16 +2088,17 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_reportOutcome(self)
 
 
-    def propagateResults(self, parameters):
+    def propagateResults(self, *args):
         """
         propagateResults(IMinimizer self, FitParameterSet parameters)
+        propagateResults(IMinimizer self, Fit::Parameters & parameters)
 
         void IMinimizer::propagateResults(FitParameterSet &parameters)
 
         Propagates results of minimization to fit parameter set. 
 
         """
-        return _libBornAgainFit.IMinimizer_propagateResults(self, parameters)
+        return _libBornAgainFit.IMinimizer_propagateResults(self, *args)
 
 
     def setOptions(self, options):

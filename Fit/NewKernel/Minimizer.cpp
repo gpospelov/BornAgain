@@ -25,8 +25,8 @@ Minimizer::Minimizer()
 
 Minimizer::~Minimizer() = default;
 
-void Minimizer::minimize(fcn_scalar_t fcn,
+MinimizerResult Minimizer::minimize(fcn_scalar_t fcn,
                          const Parameters& parameters)
 {
-    m_kernel->minimize(fcn, parameters);
+    return m_kernel->minimize(fcn, parameters);
 }

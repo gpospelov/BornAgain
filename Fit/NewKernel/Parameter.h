@@ -28,6 +28,13 @@ class BA_CORE_API_ Parameter
 {
 public:
     Parameter();
+
+    //! Fit parameter constructor.
+    //! @param name: unique name of fit parameters
+    //! @param value: starting value of fit parameter
+    //! @param limits: fit parameter limits
+    //! @param step: initial step of fit parameter during the minimization,
+    //! will be calculated automatically, if zero.
     Parameter(const std::string& name, double value, const AttLimits& limits=AttLimits::limitless(),
               double step=0.0);
 

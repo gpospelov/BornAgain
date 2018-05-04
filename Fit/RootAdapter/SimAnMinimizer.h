@@ -60,12 +60,12 @@ public:
     void setBoltzmannMinTemp(double value);
     double boltzmannMinTemp() const;
 
-    std::map<std::string, std::string> statusMap() const;
-    virtual bool isGradientBasedAgorithm() { return false; }
+    std::map<std::string, std::string> statusMap() const override;
+    virtual bool isGradientBasedAgorithm()  override;
 
 protected:
-    void propagateOptions();
-    const root_minimizer_t* rootMinimizer() const;
+    void propagateOptions() override;
+    const root_minimizer_t* rootMinimizer() const override;
 
 private:
     std::unique_ptr<ROOT::Math::GSLSimAnMinimizer> m_siman_minimizer;

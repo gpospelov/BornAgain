@@ -66,13 +66,13 @@ public:
     void setMaxFunctionCalls(int value);
     int maxFunctionCalls() const;
 
-    std::string statusToString() const;
-    std::map<std::string, std::string> statusMap() const;
+    std::string statusToString() const override;
+    std::map<std::string, std::string> statusMap() const override;
 
 protected:
-    bool isGradientBasedAgorithm();
-    void propagateOptions();
-    const root_minimizer_t* rootMinimizer() const;
+    bool isGradientBasedAgorithm() override;
+    void propagateOptions() override;
+    const root_minimizer_t* rootMinimizer() const override;
 
 private:
     std::unique_ptr<ROOT::Minuit2::Minuit2Minimizer> m_minuit2_minimizer;

@@ -97,6 +97,8 @@ std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() c
     return result;
 }
 
+bool GSLLevenbergMarquardtMinimizer::isGradientBasedAgorithm() { return true; }
+
 void GSLLevenbergMarquardtMinimizer::propagateOptions()
 {
     m_gsl_minimizer->SetTolerance(tolerance());

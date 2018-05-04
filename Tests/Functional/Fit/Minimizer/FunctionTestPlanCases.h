@@ -17,12 +17,21 @@
 
 #include "FunctionTestPlan.h"
 
-//! Setting for standalone fit of rosenbrock function.
+//! Setting for standalone fit of Rosenbrock function.
 
 class RosenbrockPlan : public FunctionTestPlan
 {
 public:
     RosenbrockPlan();
+};
+
+//! Setting for standalone fit of Rosenbrock function. Fit parameter limits
+//! are made small here to help stochastic minimizer to converge in reasonable time.
+
+class EasyRosenbrockPlan : public FunctionTestPlan
+{
+public:
+    EasyRosenbrockPlan();
 };
 
 //! Setting for standalone fit of WoodFour function.
@@ -31,6 +40,15 @@ class WoodFourPlan : public FunctionTestPlan
 {
 public:
     WoodFourPlan();
+};
+
+//! Setting for standalone fit of WoodFour function. Fit parameter limits
+//! are made small here to help stochastic minimizer to converge in reasonable time.
+
+class EasyWoodFourPlan : public FunctionTestPlan
+{
+public:
+    EasyWoodFourPlan();
 };
 
 #endif  //  FUNCTIONTESTPLANCASES_H

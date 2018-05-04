@@ -13,10 +13,10 @@ set(test_cases
     BfgsTestV2
     Bfgs2TestV1
     Bfgs2TestV2
-#    GSLSimAnTestV1
-#    GSLSimAnTestV2
-#    GeneticTestV1
-#    GeneticTestV2
+    GSLSimAnTestV1
+    GSLSimAnTestV2
+    GeneticTestV1
+    GeneticTestV2
 )
 
 include_directories(${RootMinimizers_INCLUDE_DIRS})

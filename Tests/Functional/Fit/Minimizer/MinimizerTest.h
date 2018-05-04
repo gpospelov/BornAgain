@@ -20,6 +20,7 @@
 #include <memory>
 
 class FunctionTestPlan;
+namespace Fit {class MinimizerResult;}
 
 //! Collection of standalone tests for fitting library.
 
@@ -33,10 +34,12 @@ public:
 
 protected:
     virtual std::unique_ptr<FunctionTestPlan> createPlan() const;
+    bool checkResult(const Fit::MinimizerResult& result, const FunctionTestPlan& plan);
 
     std::string m_minimizer_name;
     std::string m_algorithm_name;
     std::string m_fit_plan_name;
+    double m_tolerance; //!< Tolerance on found minimum of objective function wrt expected.
 };
 
 #endif // MINIMIZERTEST_H

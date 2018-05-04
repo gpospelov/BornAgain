@@ -29,6 +29,15 @@ RosenbrockPlan::RosenbrockPlan()
     addParameter(Parameter("par1", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
 }
 
+EasyRosenbrockPlan::EasyRosenbrockPlan()
+    : FunctionTestPlan("EasyRosenbrockPlan", TestFunctions::RosenBrock, 0.0)
+{
+    // narrow parameter limits and big tolerance for stochastic minimizers
+    const double tolerance = 0.1;
+    addParameter(Parameter("par0", 1.1, AttLimits::limited(0.8, 1.2), 0.01), 1.0, tolerance);
+    addParameter(Parameter("par1", 1.1, AttLimits::limited(0.8, 1.2), 0.01), 1.0, tolerance);
+}
+
 //! Plan for WoodFour function
 //!   start point: F(-3,-1,-3,-1) = 19192
 //!   minimum    : F(1,1,1,1)  =   0.
@@ -39,4 +48,15 @@ WoodFourPlan::WoodFourPlan() : FunctionTestPlan("WoodFourPlan", TestFunctions::W
     addParameter(Parameter("par1", -1.0, AttLimits::limited(-5.0, 5.0)), 1.0);
     addParameter(Parameter("par2", -3.0, AttLimits::limited(-5.0, 5.0)), 1.0);
     addParameter(Parameter("par3", -1.0, AttLimits::limited(-5.0, 5.0)), 1.0);
+}
+
+EasyWoodFourPlan::EasyWoodFourPlan()
+    : FunctionTestPlan("EasyWoodFourPlan", TestFunctions::WoodFour, 0.0)
+{
+    // narrow parameter limits and big tolerance for stochastic minimizers
+    const double tolerance = 0.1;
+    addParameter(Parameter("par0", 1.1, AttLimits::limited(0.8, 1.2)), 1.0, tolerance);
+    addParameter(Parameter("par1", 1.1, AttLimits::limited(0.8, 1.2)), 1.0, tolerance);
+    addParameter(Parameter("par2", 1.1, AttLimits::limited(0.8, 1.2)), 1.0, tolerance);
+    addParameter(Parameter("par3", 1.1, AttLimits::limited(0.8, 1.2)), 1.0, tolerance);
 }

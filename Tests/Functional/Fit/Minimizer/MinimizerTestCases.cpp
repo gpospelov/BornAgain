@@ -51,13 +51,25 @@ Bfgs2TestV2::Bfgs2TestV2()
     : MinimizerTest("GSLMultiMin", "BFGS2", "WoodFourPlan") {}
 
 GSLSimAnTestV1::GSLSimAnTestV1()
-    : MinimizerTest("GSLSimAn", "Default", "RosenbrockPlan") {}
+    : MinimizerTest("GSLSimAn", "Default", "EasyRosenbrockPlan")
+{
+    m_tolerance = 0.1;
+}
 
 GSLSimAnTestV2::GSLSimAnTestV2()
-    : MinimizerTest("GSLSimAn", "Default", "WoodFourPlan") {}
+    : MinimizerTest("GSLSimAn", "Default", "EasyWoodFourPlan")
+{
+    m_tolerance = 0.1;
+}
 
 GeneticTestV1::GeneticTestV1()
-    : MinimizerTest("Genetic", "Default", "RosenbrockPlan") {}
+    : MinimizerTest("Genetic", "Default", "EasyRosenbrockPlan")
+{
+    m_tolerance = 0.1;
+}
 
 GeneticTestV2::GeneticTestV2()
-    : MinimizerTest("Genetic", "Default", "WoodFourPlan") {}
+    : MinimizerTest("Genetic", "Default", "EasyWoodFourPlan")
+{
+    m_tolerance = 0.1;
+}

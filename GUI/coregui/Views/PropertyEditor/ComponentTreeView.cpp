@@ -110,7 +110,11 @@ void ComponentTreeView::setShowRootItem(bool show)
 void ComponentTreeView::onCustomContextMenuRequested(const QPoint& pos)
 {
     auto point = m_tree->mapToGlobal(pos);
-    auto index = m_proxyModel->mapToSource(m_tree->indexAt(pos));
+    auto treeIndex = m_tree->indexAt(pos);
+    if (!treeIndex.isValid())
+        return;
+
+    auto index = m_proxyModel->mapToSource(treeIndex);
 
     SessionItem* item = static_cast<SessionItem*>(index.internalPointer());
     if (item->value().type() != QVariant::Double)

@@ -96,10 +96,12 @@ void RealSpaceBuilderUtils::populateRandomDistribution(
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
+                    // pass only the lattice position as parameter and not the added offset
+                    // since populateParticle intrinsically adds the offset to the lattice position
                     builder3D->populateParticle(model, *particle,
-                                     QVector3D(static_cast<float>(pos_x),
-                                               static_cast<float>(pos_y),
-                                               static_cast<float>(pos_z)));
+                                     QVector3D(static_cast<float>(position[0]),
+                                               static_cast<float>(position[1]),
+                                               static_cast<float>(0.0)));
                     break;
                 }
                 else
@@ -189,10 +191,12 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
+                    // pass only the lattice position as parameter and not the added offset
+                    // since populateParticle intrinsically adds the offset to the lattice position
                     builder3D->populateParticle(model, *particle,
-                                     QVector3D(static_cast<float>(pos_x),
-                                               static_cast<float>(pos_y),
-                                               static_cast<float>(pos_z)));
+                                     QVector3D(static_cast<float>(position[0]),
+                                               static_cast<float>(position[1]),
+                                               static_cast<float>(0.0)));
                     break;
                 }
                 else
@@ -304,7 +308,6 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
 
 QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &particleItem)
 {
-    // defined in accordance with QQuaternion::fromEulerAngles function parameters
     double alpha = 0.0;
     double beta = 0.0;
     double gamma = 0.0;

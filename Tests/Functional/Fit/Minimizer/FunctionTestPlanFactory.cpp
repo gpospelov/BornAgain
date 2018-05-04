@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "FunctionTestPlanFactory.h"
+#include "FunctionTestPlanCases.h"
 
 FunctionTestPlanFactory::FunctionTestPlanFactory()
 {

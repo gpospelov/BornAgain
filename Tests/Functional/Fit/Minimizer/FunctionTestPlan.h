@@ -51,20 +51,4 @@ private:
     double m_expected_minimum; //!< expected function minimum
 };
 
-//! Setting for standalone fit of rosenbrock function.
-
-class RosenbrockPlan : public FunctionTestPlan
-{
-public:
-    RosenbrockPlan();
-};
-
-//! Setting for standalone fit of WoodFour function.
-
-class WoodFourPlan : public FunctionTestPlan
-{
-public:
-    WoodFourPlan();
-};
-
 #endif // OBJECTIVEFUNCTIONPLAN_H

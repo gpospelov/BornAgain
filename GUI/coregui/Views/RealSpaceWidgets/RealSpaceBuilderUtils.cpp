@@ -305,26 +305,31 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
 QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &particleItem)
 {
     // defined in accordance with QQuaternion::fromEulerAngles function parameters
-    float x_angle = 0.0f;
-    float y_angle = 0.0f;
-    float z_angle = 0.0f;
+    double alpha = 0.0;
+    double beta = 0.0;
+    double gamma = 0.0;
 
     auto transformationItem = particleItem.getItem(ParticleItem::T_TRANSFORMATION);
 
     auto rotItem = transformationItem->getGroupItem(TransformationItem::P_ROT);
 
-    if(rotItem->modelType() == Constants::ZRotationType)
-        z_angle = rotItem->getItemValue(ZRotationItem::P_ANGLE).toFloat(); // about z-axis
-    else if(rotItem->modelType() == Constants::XRotationType)
-        x_angle = rotItem->getItemValue(XRotationItem::P_ANGLE).toFloat(); // about x-axis
-    else if(rotItem->modelType() == Constants::YRotationType)
-        y_angle = rotItem->getItemValue(YRotationItem::P_ANGLE).toFloat(); // about y-axis
-    else if(rotItem->modelType() == Constants::EulerRotationType)
-    {
-        z_angle = rotItem->getItemValue(EulerRotationItem::P_ALPHA).toFloat();
-        y_angle = rotItem->getItemValue(EulerRotationItem::P_BETA).toFloat();
-        x_angle = rotItem->getItemValue(EulerRotationItem::P_GAMMA).toFloat();
+    if(rotItem->modelType() == Constants::XRotationType) {
+        beta = rotItem->getItemValue(XRotationItem::P_ANGLE).toDouble(); // about x-axis
+    } else if(rotItem->modelType() == Constants::YRotationType) {
+        alpha = -90.0;
+        beta = -rotItem->getItemValue(YRotationItem::P_ANGLE).toDouble(); // about y-axis
+        gamma = 90.0;
+    } else if(rotItem->modelType() == Constants::ZRotationType) {
+        alpha = rotItem->getItemValue(ZRotationItem::P_ANGLE).toDouble(); // about z-axis
+    } else if(rotItem->modelType() == Constants::EulerRotationType) {
+        gamma = rotItem->getItemValue(EulerRotationItem::P_ALPHA).toDouble();
+        beta = rotItem->getItemValue(EulerRotationItem::P_BETA).toDouble();
+        alpha = rotItem->getItemValue(EulerRotationItem::P_GAMMA).toDouble();
     }
-
-    return QVector3D(x_angle, y_angle, z_angle);
+    alpha = Units::deg2rad(alpha);
+    beta = Units::deg2rad(beta);
+    gamma = Units::deg2rad(gamma);
+    return QVector3D(static_cast<float>(alpha),
+                     static_cast<float>(beta),
+                     static_cast<float>(gamma));
 }

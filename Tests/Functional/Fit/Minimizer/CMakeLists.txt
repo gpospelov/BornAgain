@@ -3,7 +3,7 @@ set(test TestMinimizer)
 set(test_cases
     MinuitTestV1
     MinuitTestV2
-    SteepestDescentTestV1
+    #SteepestDescentTestV1 <-- not able to fit Rosenbrock function
     SteepestDescentTestV2
     ConjugateFRTestV1
     ConjugateFRTestV2

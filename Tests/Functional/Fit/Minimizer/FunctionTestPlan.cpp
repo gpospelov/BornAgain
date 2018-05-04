@@ -82,7 +82,7 @@ bool FunctionTestPlan::valuesAsExpected(const std::vector<double>& values) const
 
     std::cout << text.str();
 
-    return true;
+    return success;
 }
 
 //! Returns true if found minimum of objective function coincide with expected.

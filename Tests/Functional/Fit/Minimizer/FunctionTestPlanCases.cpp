@@ -23,14 +23,14 @@ using namespace Fit;
 //! minimum    : F(1.0,1.0)  = 0.
 
 RosenbrockPlan::RosenbrockPlan()
-    : FunctionTestPlan("RosenbrockPlan", TestFunctions::RosenBrock, 0.0)
+    : ScalarTestPlan("RosenbrockPlan", TestFunctions::RosenBrock, 0.0)
 {
     addParameter(Parameter("par0", -1.2, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
     addParameter(Parameter("par1", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
 }
 
 EasyRosenbrockPlan::EasyRosenbrockPlan()
-    : FunctionTestPlan("EasyRosenbrockPlan", TestFunctions::RosenBrock, 0.0)
+    : ScalarTestPlan("EasyRosenbrockPlan", TestFunctions::RosenBrock, 0.0)
 {
     // narrow parameter limits and big tolerance for stochastic minimizers
     const double tolerance = 0.1;
@@ -42,7 +42,7 @@ EasyRosenbrockPlan::EasyRosenbrockPlan()
 //!   start point: F(-3,-1,-3,-1) = 19192
 //!   minimum    : F(1,1,1,1)  =   0.
 
-WoodFourPlan::WoodFourPlan() : FunctionTestPlan("WoodFourPlan", TestFunctions::WoodFour, 0.0)
+WoodFourPlan::WoodFourPlan() : ScalarTestPlan("WoodFourPlan", TestFunctions::WoodFour, 0.0)
 {
     addParameter(Parameter("par0", -3.0, AttLimits::limited(-5.0, 5.0)), 1.0);
     addParameter(Parameter("par1", -1.0, AttLimits::limited(-5.0, 5.0)), 1.0);
@@ -51,7 +51,7 @@ WoodFourPlan::WoodFourPlan() : FunctionTestPlan("WoodFourPlan", TestFunctions::W
 }
 
 EasyWoodFourPlan::EasyWoodFourPlan()
-    : FunctionTestPlan("EasyWoodFourPlan", TestFunctions::WoodFour, 0.0)
+    : ScalarTestPlan("EasyWoodFourPlan", TestFunctions::WoodFour, 0.0)
 {
     // narrow parameter limits and big tolerance for stochastic minimizers
     const double tolerance = 0.1;

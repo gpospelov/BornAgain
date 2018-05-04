@@ -102,3 +102,9 @@ bool FunctionTestPlan::minimumAsExpected(double found_minimum,  double tolerance
 
     return success;
 }
+
+ScalarTestPlan::ScalarTestPlan(const std::string& name, fcn_scalar_t func, double expected_minimum)
+    : FunctionTestPlan(name, func, expected_minimum)
+{
+
+}

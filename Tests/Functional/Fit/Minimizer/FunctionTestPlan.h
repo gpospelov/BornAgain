@@ -34,7 +34,7 @@ public:
 
     void addParameter(const Fit::Parameter& param, double expected_value, double tolerance = 0.01);
 
-    objective_function_t objectiveFunction() const { return m_objective_function; }
+    fcn_scalar_t scalarFunction() const { return m_objective_function; }
 
     std::string name() const { return m_name; }
 
@@ -49,6 +49,14 @@ private:
     fcn_scalar_t m_objective_function; //!< objective function to minimize
     std::vector<ParameterPlan> m_parameter_plan; //! initial/expected parameter values
     double m_expected_minimum; //!< expected function minimum
+};
+
+
+class ScalarTestPlan : public FunctionTestPlan
+{
+public:
+    ScalarTestPlan(const std::string &name, fcn_scalar_t func, double expected_minimum);
+
 };
 
 #endif // OBJECTIVEFUNCTIONPLAN_H

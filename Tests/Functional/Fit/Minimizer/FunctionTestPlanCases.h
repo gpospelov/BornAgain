@@ -19,7 +19,7 @@
 
 //! Setting for standalone fit of Rosenbrock function.
 
-class RosenbrockPlan : public FunctionTestPlan
+class RosenbrockPlan : public ScalarTestPlan
 {
 public:
     RosenbrockPlan();
@@ -28,7 +28,7 @@ public:
 //! Setting for standalone fit of Rosenbrock function. Fit parameter limits
 //! are made small here to help stochastic minimizer to converge in reasonable time.
 
-class EasyRosenbrockPlan : public FunctionTestPlan
+class EasyRosenbrockPlan : public ScalarTestPlan
 {
 public:
     EasyRosenbrockPlan();
@@ -36,7 +36,7 @@ public:
 
 //! Setting for standalone fit of WoodFour function.
 
-class WoodFourPlan : public FunctionTestPlan
+class WoodFourPlan : public ScalarTestPlan
 {
 public:
     WoodFourPlan();
@@ -45,7 +45,7 @@ public:
 //! Setting for standalone fit of WoodFour function. Fit parameter limits
 //! are made small here to help stochastic minimizer to converge in reasonable time.
 
-class EasyWoodFourPlan : public FunctionTestPlan
+class EasyWoodFourPlan : public ScalarTestPlan
 {
 public:
     EasyWoodFourPlan();

@@ -47,7 +47,7 @@ bool MinimizerTest::runTest()
 
     Minimizer minimizer;
     minimizer.setMinimizer(m_minimizer_name, m_algorithm_name);
-    auto result = minimizer.minimize(plan->objectiveFunction(), plan->parameters());
+    auto result = minimizer.minimize(plan->scalarFunction(), plan->parameters());
 
     std::cout << result.toString() << std::endl;
 

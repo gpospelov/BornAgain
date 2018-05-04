@@ -50,14 +50,16 @@ public:
     void setRandomSeed(int value);
     int randomSeed() const;
 
-    void setParameter(size_t index, const IFitParameter* par);
-
-    std::string statusToString() const;
-    std::map<std::string, std::string> statusMap() const;
+    std::string statusToString() const override;
+    std::map<std::string, std::string> statusMap() const override;
 
 protected:
-    void propagateOptions();
-    const root_minimizer_t* rootMinimizer() const;
+    void propagateOptions() override;
+    const root_minimizer_t* rootMinimizer() const override;
+
+    using RootMinimizerAdapter::setParameter;
+    void setParameter(size_t index, const IFitParameter* par) override;
+    void setParameter(unsigned int index, const Fit::Parameter& par) override;
 
 private:
     std::unique_ptr<ROOT::Math::GeneticMinimizer> m_genetic_minimizer;

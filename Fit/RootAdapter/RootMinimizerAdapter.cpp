@@ -20,11 +20,14 @@
 #include "RootMinimizerFunctions.h"
 #include "RootObjectiveFuncAdapter.h"
 #include "StringUtils.h"
-
+#include "Parameter.h"
+#include "Parameters.h"
+#include "ObjectiveFunctionAdapter.h"
 
 RootMinimizerAdapter::RootMinimizerAdapter(const MinimizerInfo &minimizerInfo)
     :  m_minimizerInfo(minimizerInfo)
     , m_obj_func(new RootObjectiveFunctionAdapter)
+    , m_adapter(new Fit::ObjectiveFunctionAdapter)
     , m_status(false)
 {}
 
@@ -32,6 +35,17 @@ RootMinimizerAdapter::~RootMinimizerAdapter() {}
 
 void RootMinimizerAdapter::minimize()
 {
+    propagateOptions();
+    m_status = rootMinimizer()->Minimize();
+}
+
+void RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
+                                    const Fit::Parameters& parameters)
+{
+    (void)fcn;
+    // Genetic minimizer requires SetFunction before setParameters, others don't care
+    rootMinimizer()->SetFunction(*m_adapter->rootObjectiveFunction(fcn, parameters));
+    setParameters(parameters);
     propagateOptions();
     m_status = rootMinimizer()->Minimize();
 }
@@ -68,6 +82,13 @@ void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters)
         ostr << "parameters.size = " << parameters.size();
         throw std::runtime_error(ostr.str());
     }
+}
+
+void RootMinimizerAdapter::setParameters(const Fit::Parameters& parameters)
+{
+    unsigned int index(0);
+    for (const auto& par : parameters)
+        setParameter(index++, par );
 }
 
 void RootMinimizerAdapter::setObjectiveFunction(objective_function_t func)
@@ -135,6 +156,12 @@ void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
     }
 }
 
+void RootMinimizerAdapter::propagateResults(Fit::Parameters& parameters)
+{
+    parameters.setValues(parValuesAtMinimum());
+    parameters.setErrors(parErrorsAtMinimum());
+}
+
 void RootMinimizerAdapter::setOptions(const std::string &optionString)
 {
     options().setOptionString(optionString);
@@ -185,6 +212,52 @@ void RootMinimizerAdapter::setParameter(size_t index, const IFitParameter *par)
         ostr << "Index:" << index << " name '" << par->name() << "'";
         throw std::runtime_error(ostr.str());
     }
+}
+
+void RootMinimizerAdapter::setParameter(unsigned int index, const Fit::Parameter& par)
+{
+    bool success;
+    if (par.limits().isFixed()) {
+        success = rootMinimizer()->SetFixedVariable(index, par.name().c_str(),
+                                                    par.value());
+
+    }
+
+    else if (par.limits().isLimited()) {
+        success = rootMinimizer()->SetLimitedVariable(index, par.name().c_str(),
+                                                      par.value(), par.step(),
+                                                      par.limits().lowerLimit(),
+                                                      par.limits().upperLimit());
+    }
+
+    else if (par.limits().isLowerLimited()) {
+        success = rootMinimizer()->SetLowerLimitedVariable(index, par.name().c_str(),
+                                                           par.value(), par.step(),
+                                                           par.limits().lowerLimit());
+    }
+
+    else if (par.limits().isUpperLimited()) {
+        success = rootMinimizer()->SetUpperLimitedVariable(index, par.name().c_str(),
+                                                           par.value(), par.step(),
+                                                           par.limits().upperLimit());
+    }
+
+    else if (par.limits().isLimitless()) {
+        success = rootMinimizer()->SetVariable(index, par.name().c_str(), par.value(),
+                                               par.step());
+    }
+
+    else {
+        throw std::runtime_error("BasicMinimizer::setParameter() -> Error! Unexpected parameter.");
+    }
+
+    if( !success ) {
+        std::ostringstream ostr;
+        ostr << "BasicMinimizer::setParameter() -> Error! Can't set minimizer's fit parameter";
+        ostr << "Index:" << index << " name '" << par.name() << "'";
+        throw std::runtime_error(ostr.str());
+    }
+
 }
 
 //! Returns number of fit parameters defined (i.e. dimension of the function to be minimized).

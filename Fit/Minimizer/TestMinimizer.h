@@ -37,6 +37,7 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
 
     std::string reportOutcome() const override;
 
+    using IMinimizer::propagateResults;
     void propagateResults(FitParameterSet&) override;
 
  private:

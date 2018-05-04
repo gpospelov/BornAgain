@@ -1,4 +1,4 @@
-set(test FitKernel)
+set(test TestFitKernel)
 
 set(test_cases
     StandaloneFit

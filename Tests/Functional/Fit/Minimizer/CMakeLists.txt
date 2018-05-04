@@ -1,16 +1,22 @@
-set(test TestFitSuite)
+set(test TestMinimizer)
 
 set(test_cases
-    GSLLevenbergMarquardt
-    GSLMultiMinBFGS
-    GSLMultiMinSteepestDescent
-    GSLSimulatedAnnealing
-    GeneticMinimizer
-    Minuit2_Fumili
-    Minuit2_Migrad
-    RectDetectorFit
-    AdjustMinimizerStrategy
-    SpecularFit
+    MinuitTestV1
+    MinuitTestV2
+    SteepestDescentTestV1
+    SteepestDescentTestV2
+    ConjugateFRTestV1
+    ConjugateFRTestV2
+    ConjugatePRTestV1
+    ConjugatePRTestV2
+    BfgsTestV1
+    BfgsTestV2
+    Bfgs2TestV1
+    Bfgs2TestV2
+#    GSLSimAnTestV1
+#    GSLSimAnTestV2
+#    GeneticTestV1
+#    GeneticTestV2
 )
 
 include_directories(${RootMinimizers_INCLUDE_DIRS})

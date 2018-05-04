@@ -24,6 +24,11 @@ void IMinimizer::propagateResults(FitParameterSet&)
     throw std::runtime_error("IMinimizer::propagateResults() -> Not implemented.");
 }
 
+void IMinimizer::propagateResults(Fit::Parameters&)
+{
+    throw std::runtime_error("IMinimizer::propagateResults() -> Not implemented.");
+}
+
 void IMinimizer::setOptions(const std::string&)
 {
     throw std::runtime_error("IMinimizer::setOptions() -> Not implemented.");

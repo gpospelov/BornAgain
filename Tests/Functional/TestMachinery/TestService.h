@@ -37,7 +37,7 @@ public:
 
         if (!m_test_factory.contains(test_name)) {
             for (auto it : m_test_factory)
-                std::cout << boost::format("%-15s | %-50s\n") % it.first % it.second;
+                std::cout << boost::format("%-30s | %-50s\n") % it.first % it.second;
             return false;
         }
 

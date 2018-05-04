@@ -16,6 +16,7 @@
 #include "ParameterPlan.h"
 #include "Parameters.h"
 #include "Numeric.h"
+#include "FixedBinAxis.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>
@@ -30,9 +31,8 @@ double get_difference(double a, double b)
 
 using namespace Fit;
 
-FunctionTestPlan::FunctionTestPlan(const std::string& name, fcn_scalar_t func,
-                                   double expected_minimum)
-    : m_name(name), m_objective_function(func), m_expected_minimum(expected_minimum)
+FunctionTestPlan::FunctionTestPlan(const std::string& name)
+    : m_name(name)
 {
 }
 
@@ -85,9 +85,22 @@ bool FunctionTestPlan::valuesAsExpected(const std::vector<double>& values) const
     return success;
 }
 
+fcn_scalar_t FunctionTestPlan::scalarFunction() const
+{
+    throw std::runtime_error("Not implemented");
+}
+
+ScalarTestPlan::ScalarTestPlan(const std::string& name, fcn_scalar_t func, double expected_minimum)
+    : FunctionTestPlan(name)
+    , m_objective_function(func)
+    , m_expected_minimum(expected_minimum)
+{
+
+}
+
 //! Returns true if found minimum of objective function coincide with expected.
 
-bool FunctionTestPlan::minimumAsExpected(double found_minimum,  double tolerance) const
+bool ScalarTestPlan::minimumAsExpected(double found_minimum,  double tolerance) const
 {
     bool success(true);
 
@@ -103,8 +116,52 @@ bool FunctionTestPlan::minimumAsExpected(double found_minimum,  double tolerance
     return success;
 }
 
-ScalarTestPlan::ScalarTestPlan(const std::string& name, fcn_scalar_t func, double expected_minimum)
-    : FunctionTestPlan(name, func, expected_minimum)
+ResidualTestPlan::ResidualTestPlan(const std::string& name, test_funct_t func)
+    : FunctionTestPlan(name)
+    , m_test_func(func)
 {
+    FixedBinAxis axis("x", 100, 0.0, 10.0);
+    m_xvalues = axis.getBinBoundaries();
 
 }
+
+ResidualTestPlan::~ResidualTestPlan() = default;
+
+fcn_residual_t ResidualTestPlan::residualFunction()
+{
+    fcn_residual_t func =
+        [&](const std::vector<double>& pars) -> std::vector<double>
+    {
+        return evaluate(pars);
+    };
+
+    return func;
+}
+
+void ResidualTestPlan::init_data_values()
+{
+    std::vector<double> pars;
+    for (const auto& plan : m_parameter_plan)
+        pars.push_back(plan.expectedValue());
+
+    for(auto x : m_xvalues)
+        m_data_values.push_back(m_test_func(x, pars));
+}
+
+
+std::vector<double> ResidualTestPlan::evaluate(const std::vector<double>& pars)
+{
+    if (m_data_values.empty())
+        init_data_values();
+
+    std::vector<double> result;
+
+    size_t index(0);
+    for(auto x : m_xvalues) {
+        result.push_back(m_test_func(x, pars) - m_data_values[index]);
+        ++index;
+    }
+
+    return result;
+}
+

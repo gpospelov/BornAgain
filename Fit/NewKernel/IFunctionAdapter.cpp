@@ -22,5 +22,10 @@ IFunctionAdapter::IFunctionAdapter()
 
 }
 
+int IFunctionAdapter::numberOfCalls() const
+{
+    return m_number_of_calls;
+}
+
 IFunctionAdapter::~IFunctionAdapter() = default;
 

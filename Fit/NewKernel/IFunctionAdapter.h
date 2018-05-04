@@ -26,6 +26,8 @@ class BA_CORE_API_ IFunctionAdapter {
 public:
     IFunctionAdapter();
     virtual ~IFunctionAdapter();
+    int numberOfCalls() const;
+
 protected:
     int m_number_of_calls;
 };

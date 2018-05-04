@@ -30,3 +30,8 @@ const RootObjectiveFunction* ObjectiveFunctionAdapter::rootObjectiveFunction(fcn
     m_adapter.reset(temp_adapter.release());
     return result;
 }
+
+int ObjectiveFunctionAdapter::numberOfCalls() const
+{
+    return m_adapter ? m_adapter->numberOfCalls() : 0;
+}

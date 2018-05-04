@@ -19,6 +19,7 @@
 #include "Parameters.h"
 #include "KernelTypes.h"
 #include "MinimizerResult.h"
+#include "TimeInterval.h"
 #include <functional>
 #include <vector>
 #include <memory>
@@ -46,6 +47,7 @@ private:
 
     Parameters m_parameters;
     std::unique_ptr<IMinimizer> m_minimizer;
+    TimeInterval m_time_interval;
 };
 
 }  // namespace Fit

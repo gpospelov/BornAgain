@@ -37,6 +37,8 @@ public:
     const RootObjectiveFunction* rootObjectiveFunction(fcn_scalar_t fcn,
                                                        const Parameters& parameters);
 
+    int numberOfCalls() const;
+
 private:
     std::unique_ptr<IFunctionAdapter> m_adapter;
 };

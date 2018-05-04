@@ -23,7 +23,9 @@
 
 class RootObjectiveFunctionAdapter;
 class IFitParameter;
-namespace Fit {class Parameters; class Parameter; class ObjectiveFunctionAdapter;}
+namespace Fit {
+    class Parameters; class Parameter; class ObjectiveFunctionAdapter; class MinimizerResult;
+}
 namespace ROOT { namespace Math { class Minimizer; } }
 
 //! Pure virtual interface that adapts the CERN ROOT minimizer to our IMinimizer.
@@ -37,7 +39,7 @@ public:
     virtual ~RootMinimizerAdapter();
 
     void minimize() override;
-    void minimize_scalar(fcn_scalar_t fcn, const Fit::Parameters& parameters) override;
+    Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
 
     //! Returns name of the minimizer.
     std::string minimizerName() const override final;

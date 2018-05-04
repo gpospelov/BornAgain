@@ -24,6 +24,8 @@
 #include "Parameters.h"
 #include "ObjectiveFunctionAdapter.h"
 
+using namespace Fit;
+
 RootMinimizerAdapter::RootMinimizerAdapter(const MinimizerInfo &minimizerInfo)
     :  m_minimizerInfo(minimizerInfo)
     , m_obj_func(new RootObjectiveFunctionAdapter)
@@ -39,15 +41,24 @@ void RootMinimizerAdapter::minimize()
     m_status = rootMinimizer()->Minimize();
 }
 
-void RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
-                                    const Fit::Parameters& parameters)
+MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
+                                    Parameters parameters)
 {
-    (void)fcn;
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootObjectiveFunction(fcn, parameters));
     setParameters(parameters);
     propagateOptions();
+
     m_status = rootMinimizer()->Minimize();
+    propagateResults(parameters);
+
+    MinimizerResult result;
+    result.setParameters(parameters);
+    result.setMinValue(minValue());
+    result.setReport(reportOutcome());
+    result.setNumberOfCalls(m_adapter->numberOfCalls());
+
+    return result;
 }
 
 std::string RootMinimizerAdapter::minimizerName() const

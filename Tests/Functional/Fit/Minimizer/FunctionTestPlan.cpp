@@ -17,6 +17,7 @@
 #include "Parameters.h"
 #include "Numeric.h"
 #include "FixedBinAxis.h"
+#include "Minimizer.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>
@@ -90,10 +91,12 @@ fcn_scalar_t FunctionTestPlan::scalarFunction() const
     throw std::runtime_error("Not implemented");
 }
 
-ScalarTestPlan::ScalarTestPlan(const std::string& name, fcn_scalar_t func, double expected_minimum)
+ScalarTestPlan::ScalarTestPlan(const std::string& name, fcn_scalar_t func, double expected_minimum,
+                               double tolerance)
     : FunctionTestPlan(name)
     , m_objective_function(func)
     , m_expected_minimum(expected_minimum)
+    , m_tolerance_on_minimum(tolerance)
 {
 
 }
@@ -112,6 +115,22 @@ bool ScalarTestPlan::minimumAsExpected(double found_minimum,  double tolerance) 
     text << "Found minimum:" << found_minimum << " Expected minimum:" << m_expected_minimum
          << " diff:" << diff << " " << (success ? "OK" : "FAILED");
     std::cout << text.str() << std::endl;
+
+    return success;
+}
+
+bool ScalarTestPlan::checkMinimizer(Minimizer& minimizer)
+{
+    bool success(true);
+
+    auto result = minimizer.minimize(scalarFunction(), parameters());
+    std::cout << result.toString() << std::endl;
+
+    std::cout << "ScalarTestPlan::checkResult() -> " << name() << std::endl;
+
+    success &= valuesAsExpected(result.parameters().values());
+    success &= minimumAsExpected(result.minValue(), m_tolerance_on_minimum);
+    std::cout << std::endl;
 
     return success;
 }
@@ -136,6 +155,11 @@ fcn_residual_t ResidualTestPlan::residualFunction()
     };
 
     return func;
+}
+
+bool ResidualTestPlan::checkMinimizer(Minimizer& )
+{
+    return true;
 }
 
 void ResidualTestPlan::init_data_values()

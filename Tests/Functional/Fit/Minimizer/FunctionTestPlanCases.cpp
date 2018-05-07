@@ -16,6 +16,11 @@
 #include "ObjectiveTestFunctions.h"
 #include "Parameter.h"
 
+namespace {
+const double loose_tolerance_on_function_min = 0.1;
+}
+
+
 using namespace Fit;
 
 //! Plan to minimize a Rosenbrock function.
@@ -30,7 +35,8 @@ RosenbrockPlan::RosenbrockPlan()
 }
 
 EasyRosenbrockPlan::EasyRosenbrockPlan()
-    : ScalarTestPlan("EasyRosenbrockPlan", TestFunctions::RosenBrock, 0.0)
+    : ScalarTestPlan("EasyRosenbrockPlan", TestFunctions::RosenBrock, 0.0,
+                     loose_tolerance_on_function_min)
 {
     // narrow parameter limits and big tolerance for stochastic minimizers
     const double tolerance = 0.1;
@@ -51,7 +57,8 @@ WoodFourPlan::WoodFourPlan() : ScalarTestPlan("WoodFourPlan", TestFunctions::Woo
 }
 
 EasyWoodFourPlan::EasyWoodFourPlan()
-    : ScalarTestPlan("EasyWoodFourPlan", TestFunctions::WoodFour, 0.0)
+    : ScalarTestPlan("EasyWoodFourPlan", TestFunctions::WoodFour, 0.0,
+                     loose_tolerance_on_function_min)
 {
     // narrow parameter limits and big tolerance for stochastic minimizers
     const double tolerance = 0.1;

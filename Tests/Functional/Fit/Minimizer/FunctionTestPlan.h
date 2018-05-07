@@ -20,7 +20,7 @@
 #include <memory>
 #include <vector>
 
-namespace Fit { class Parameter; class Parameters;}
+namespace Fit { class Parameter; class Parameters; class Minimizer;}
 
 //! Defines objective function to fit, expected minimum, initial fit parameters and
 //! expected values of fit parameters at minimum.
@@ -44,6 +44,9 @@ public:
 
     virtual bool minimumAsExpected(double, double) const { return false;}
 
+    //! Runs minimization and check minimization result.
+    virtual bool checkMinimizer(Fit::Minimizer& minimizer) = 0;
+
 protected:
     std::string m_name; //!< plan name
     std::vector<ParameterPlan> m_parameter_plan; //! initial/expected parameter values
@@ -53,15 +56,20 @@ protected:
 class ScalarTestPlan : public FunctionTestPlan
 {
 public:
-    ScalarTestPlan(const std::string &name, fcn_scalar_t func, double expected_minimum);
+    ScalarTestPlan(const std::string &name, fcn_scalar_t func, double expected_minimum,
+                   double tolerance = 0.01);
 
     fcn_scalar_t scalarFunction() const { return m_objective_function; }
 
     bool minimumAsExpected(double found_minimum, double tolerance = 0.01) const;
 
+    bool checkMinimizer(Fit::Minimizer& minimizer);
+
 private:
     fcn_scalar_t m_objective_function; //!< objective function to minimize
     double m_expected_minimum; //!< expected function minimum
+    //!< Tolerance on found minimum of objective function wrt expected.
+    double m_tolerance_on_minimum;
 };
 
 class ResidualTestPlan : public FunctionTestPlan
@@ -73,6 +81,9 @@ public:
     ~ResidualTestPlan();
 
     fcn_residual_t residualFunction();
+
+    bool checkMinimizer(Fit::Minimizer& minimizer);
+
 private:
     void init_data_values();
 

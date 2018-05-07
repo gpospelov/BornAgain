@@ -156,9 +156,18 @@ fcn_residual_t ResidualTestPlan::residualFunction()
     return func;
 }
 
-bool ResidualTestPlan::checkMinimizer(Minimizer& )
+bool ResidualTestPlan::checkMinimizer(Minimizer& minimizer)
 {
-    return true;
+    bool success(true);
+
+    auto result = minimizer.minimize(residualFunction(), parameters());
+    std::cout << result.toString() << std::endl;
+
+    std::cout << "ScalarTestPlan::checkResult() -> " << name() << std::endl;
+    success &= valuesAsExpected(result.parameters().values());
+    std::cout << std::endl;
+
+    return success;
 }
 
 void ResidualTestPlan::init_data_values()

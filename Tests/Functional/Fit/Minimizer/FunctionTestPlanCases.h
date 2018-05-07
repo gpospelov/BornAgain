@@ -51,5 +51,14 @@ public:
     EasyWoodFourPlan();
 };
 
+//! Settings for standalone fit using Minimizer's residual interface.
+//! "Decaying sin" objective function from lmfit tutorial is used.
+
+class DecayingSinPlan : public ResidualTestPlan
+{
+public:
+    DecayingSinPlan();
+};
+
 #endif  //  FUNCTIONTESTPLANCASES_H
 

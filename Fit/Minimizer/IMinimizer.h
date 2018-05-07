@@ -44,6 +44,7 @@ class BA_CORE_API_ IMinimizer
     //! run minimization
     virtual void minimize() =0;
     virtual Fit::MinimizerResult minimize_scalar(fcn_scalar_t, Fit::Parameters);
+    virtual Fit::MinimizerResult minimize_residual(fcn_residual_t, Fit::Parameters);
 
     //! clear resources (parameters) for consecutives minimizations
     virtual void clear() {}

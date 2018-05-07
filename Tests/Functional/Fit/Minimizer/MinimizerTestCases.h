@@ -31,6 +31,12 @@ public:
     MinuitTestV2();
 };
 
+class MinuitTestV3 : public MinimizerTest
+{
+public:
+    MinuitTestV3();
+};
+
 class SteepestDescentTestV1 : public MinimizerTest
 {
 public:

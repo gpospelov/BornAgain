@@ -20,6 +20,9 @@ MinuitTestV1::MinuitTestV1()
 MinuitTestV2::MinuitTestV2()
     : MinimizerTest("Minuit2", "Migrad", "WoodFourPlan") {}
 
+MinuitTestV3::MinuitTestV3()
+    : MinimizerTest("Minuit2", "Migrad", "DecayingSinPlan") {}
+
 SteepestDescentTestV1::SteepestDescentTestV1()
     : MinimizerTest("GSLMultiMin", "SteepestDescent", "RosenbrockPlan") {}
 

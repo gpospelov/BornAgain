@@ -48,6 +48,18 @@ MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters)
     return result;
 }
 
+MinimizerResult Kernel::minimize(fcn_residual_t fcn, const Parameters& parameters)
+{
+    setParameters(parameters);
+
+    m_time_interval.start();
+    auto result = m_minimizer->minimize_residual(fcn, parameters);
+    m_time_interval.stop();
+
+    result.setDuration(m_time_interval.runTime());
+    return result;
+}
+
 void Kernel::setParameters(const Parameters& parameters)
 {
     m_parameters = parameters;

@@ -67,3 +67,12 @@ EasyWoodFourPlan::EasyWoodFourPlan()
     addParameter(Parameter("par2", 1.1, AttLimits::limited(0.8, 1.2)), 1.0, tolerance);
     addParameter(Parameter("par3", 1.1, AttLimits::limited(0.8, 1.2)), 1.0, tolerance);
 }
+
+DecayingSinPlan::DecayingSinPlan()
+    : ResidualTestPlan ("DecayingSinPlan", TestFunctions::DecayingSin)
+{
+    addParameter(Parameter("amp", 1.0, AttLimits::nonnegative()), 10.0);
+    addParameter(Parameter("frequency", 1.0, AttLimits::nonnegative()), 4.0);
+    addParameter(Parameter("phase", 0.1, AttLimits::limited(0.0, 3.1)), 1.0);
+    addParameter(Parameter("decay", 0.1, AttLimits::nonnegative()), 0.05);
+}

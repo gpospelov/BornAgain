@@ -36,18 +36,13 @@ public:
 
     std::string name() const { return m_name; }
 
-    Fit::Parameters parameters() const;
-
-    bool valuesAsExpected(const std::vector<double>& values) const;
-
-    virtual fcn_scalar_t scalarFunction() const;
-
-    virtual bool minimumAsExpected(double, double) const { return false;}
-
     //! Runs minimization and check minimization result.
     virtual bool checkMinimizer(Fit::Minimizer& minimizer) = 0;
 
 protected:
+    Fit::Parameters parameters() const;
+    bool valuesAsExpected(const std::vector<double>& values) const;
+
     std::string m_name; //!< plan name
     std::vector<ParameterPlan> m_parameter_plan; //! initial/expected parameter values
 };
@@ -59,13 +54,12 @@ public:
     ScalarTestPlan(const std::string &name, fcn_scalar_t func, double expected_minimum,
                    double tolerance = 0.01);
 
-    fcn_scalar_t scalarFunction() const { return m_objective_function; }
-
-    bool minimumAsExpected(double found_minimum, double tolerance = 0.01) const;
-
     bool checkMinimizer(Fit::Minimizer& minimizer);
 
 private:
+    fcn_scalar_t scalarFunction() const { return m_objective_function; }
+    bool minimumAsExpected(double found_minimum, double tolerance = 0.01) const;
+
     fcn_scalar_t m_objective_function; //!< objective function to minimize
     double m_expected_minimum; //!< expected function minimum
     //!< Tolerance on found minimum of objective function wrt expected.

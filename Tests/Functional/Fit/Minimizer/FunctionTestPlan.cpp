@@ -86,10 +86,7 @@ bool FunctionTestPlan::valuesAsExpected(const std::vector<double>& values) const
     return success;
 }
 
-fcn_scalar_t FunctionTestPlan::scalarFunction() const
-{
-    throw std::runtime_error("Not implemented");
-}
+// ------------------------------------------------------------------------------------------------
 
 ScalarTestPlan::ScalarTestPlan(const std::string& name, fcn_scalar_t func, double expected_minimum,
                                double tolerance)
@@ -134,6 +131,8 @@ bool ScalarTestPlan::checkMinimizer(Minimizer& minimizer)
 
     return success;
 }
+
+// ------------------------------------------------------------------------------------------------
 
 ResidualTestPlan::ResidualTestPlan(const std::string& name, test_funct_t func)
     : FunctionTestPlan(name)

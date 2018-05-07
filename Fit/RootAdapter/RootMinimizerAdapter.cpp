@@ -23,6 +23,7 @@
 #include "Parameter.h"
 #include "Parameters.h"
 #include "ObjectiveFunctionAdapter.h"
+#include "RootResidualFunction.h"
 
 using namespace Fit;
 
@@ -46,6 +47,25 @@ MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
 {
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootObjectiveFunction(fcn, parameters));
+    setParameters(parameters);
+    propagateOptions();
+
+    m_status = rootMinimizer()->Minimize();
+    propagateResults(parameters);
+
+    MinimizerResult result;
+    result.setParameters(parameters);
+    result.setMinValue(minValue());
+    result.setReport(reportOutcome());
+    result.setNumberOfCalls(m_adapter->numberOfCalls());
+
+    return result;
+}
+
+MinimizerResult RootMinimizerAdapter::minimize_residual(fcn_residual_t fcn, Parameters parameters)
+{
+    // Genetic minimizer requires SetFunction before setParameters, others don't care
+    rootMinimizer()->SetFunction(*m_adapter->rootResidualFunction(fcn, parameters));
     setParameters(parameters);
     propagateOptions();
 

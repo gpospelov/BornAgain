@@ -40,6 +40,7 @@ public:
 
     void minimize() override;
     Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
+    Fit::MinimizerResult minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override;
 
     //! Returns name of the minimizer.
     std::string minimizerName() const override final;

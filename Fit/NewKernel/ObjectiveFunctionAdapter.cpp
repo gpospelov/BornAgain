@@ -13,7 +13,9 @@
 // ************************************************************************** //
 
 #include "ObjectiveFunctionAdapter.h"
+#include "ResidualFunctionAdapter.h"
 #include "RootMinimizerFunctions.h"
+#include "RootResidualFunction.h"
 #include "ScalarFunctionAdapter.h"
 
 using namespace Fit;
@@ -22,11 +24,21 @@ ObjectiveFunctionAdapter::ObjectiveFunctionAdapter() = default;
 
 ObjectiveFunctionAdapter::~ObjectiveFunctionAdapter() = default;
 
-const RootObjectiveFunction* ObjectiveFunctionAdapter::rootObjectiveFunction(fcn_scalar_t fcn,
-        const Parameters& parameters)
+const RootObjectiveFunction*
+ObjectiveFunctionAdapter::rootObjectiveFunction(fcn_scalar_t fcn, const Parameters& parameters)
 {
     std::unique_ptr<ScalarFunctionAdapter> temp_adapter(new ScalarFunctionAdapter(fcn, parameters));
     auto result = temp_adapter->rootObjectiveFunction();
+    m_adapter.reset(temp_adapter.release());
+    return result;
+}
+
+const RootResidualFunction*
+ObjectiveFunctionAdapter::rootResidualFunction(fcn_residual_t fcn, const Parameters& parameters)
+{
+    std::unique_ptr<ResidualFunctionAdapter> temp_adapter(
+        new ResidualFunctionAdapter(fcn, parameters));
+    auto result = temp_adapter->rootResidualFunction();
     m_adapter.reset(temp_adapter.release());
     return result;
 }

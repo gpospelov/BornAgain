@@ -60,10 +60,19 @@ GSLSimAnTestV2::GSLSimAnTestV2()
     : MinimizerTest("GSLSimAn", "Default", "EasyWoodFourPlan") {}
 
 GeneticTestV1::GeneticTestV1()
-    : MinimizerTest("Genetic", "Default", "EasyRosenbrockPlan") {}
+    : MinimizerTest("Genetic", "Default", "EasyRosenbrockPlan")
+{
+    setMinimizerOptions("RandomSeed=1");
+}
 
 GeneticTestV2::GeneticTestV2()
-    : MinimizerTest("Genetic", "Default", "EasyWoodFourPlan") {}
+    : MinimizerTest("Genetic", "Default", "EasyWoodFourPlan")
+{
+    setMinimizerOptions("RandomSeed=1");
+}
 
 FumiliTestV3::FumiliTestV3()
-    : MinimizerTest("Minuit2", "Fumili", "DecayingSinPlan") {}
+    : MinimizerTest("Minuit2", "Fumili", "DecayingSinPlan")
+{
+    setMinimizerOptions("MaxFunctionCalls=10000");
+}

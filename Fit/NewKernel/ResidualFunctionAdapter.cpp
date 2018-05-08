@@ -104,7 +104,6 @@ double ResidualFunctionAdapter::element_residual(const std::vector<double>& pars
 {
     if (index == 0) {
         m_residuals = get_residuals(pars);
-        ++m_number_of_calls;
     }
 
     if (gradients.size()) {
@@ -123,6 +122,8 @@ double ResidualFunctionAdapter::element_residual(const std::vector<double>& pars
 
 double ResidualFunctionAdapter::chi2(const std::vector<double>& pars)
 {
+    ++m_number_of_calls;
+
     auto residuals = get_residuals(pars);
     double result(0.0);
     for(auto x : get_residuals(pars))

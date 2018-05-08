@@ -19,6 +19,7 @@
 #include "Exceptions.h"
 #include <algorithm>
 #include <limits>
+#include <numeric>
 
 //! Template class to store data of any type in multi-dimensional space (low-level).
 //! @ingroup tools_internal

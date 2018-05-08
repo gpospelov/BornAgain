@@ -2018,8 +2018,13 @@ class IMinimizer(_object):
 
 
     def minimize_scalar(self, arg2, arg3):
-        """minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Fit::Parameters const & arg3)"""
+        """minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Fit::Parameters arg3) -> Fit::MinimizerResult"""
         return _libBornAgainFit.IMinimizer_minimize_scalar(self, arg2, arg3)
+
+
+    def minimize_residual(self, arg2, arg3):
+        """minimize_residual(IMinimizer self, fcn_residual_t arg2, Fit::Parameters arg3) -> Fit::MinimizerResult"""
+        return _libBornAgainFit.IMinimizer_minimize_residual(self, arg2, arg3)
 
 
     def clear(self):

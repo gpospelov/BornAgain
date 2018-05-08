@@ -31,6 +31,12 @@ public:
     MinuitTestV2();
 };
 
+class MinuitTestV3 : public MinimizerTest
+{
+public:
+    MinuitTestV3();
+};
+
 class SteepestDescentTestV1 : public MinimizerTest
 {
 public:
@@ -113,6 +119,18 @@ class GeneticTestV2 : public MinimizerTest
 {
 public:
     GeneticTestV2();
+};
+
+class FumiliTestV3 : public MinimizerTest
+{
+public:
+    FumiliTestV3();
+};
+
+class LevenbergMarquardtV3 : public MinimizerTest
+{
+public:
+    LevenbergMarquardtV3();
 };
 
 #endif //   MINIMIZERTESTCASES_H

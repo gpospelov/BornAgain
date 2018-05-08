@@ -36,3 +36,8 @@ MinimizerResult Minimizer::minimize(fcn_scalar_t fcn,
 {
     return m_kernel->minimize(fcn, parameters);
 }
+
+MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters& parameters)
+{
+    return m_kernel->minimize(fcn, parameters);
+}

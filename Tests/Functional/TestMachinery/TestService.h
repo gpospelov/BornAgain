@@ -36,6 +36,8 @@ public:
         std::string test_name = argc>1 ? std::string(argv[1]) : std::string();
 
         if (!m_test_factory.contains(test_name)) {
+            if (!test_name.empty())
+                std::cout << "No test with name '" << test_name << "'.\n";
             for (auto it : m_test_factory)
                 std::cout << boost::format("%-30s | %-50s\n") % it.first % it.second;
             return false;

@@ -45,13 +45,13 @@ public:
     void setMaxIterations(int value);
     int maxIterations() const;
 
-    std::string statusToString() const;
-    std::map<std::string, std::string> statusMap() const;
+    std::string statusToString() const override;
+    std::map<std::string, std::string> statusMap() const override;
 
 protected:
-    virtual bool isGradientBasedAgorithm() { return true; }
-    void propagateOptions();
-    const root_minimizer_t* rootMinimizer() const;
+    virtual bool isGradientBasedAgorithm() override;
+    void propagateOptions() override;
+    const root_minimizer_t* rootMinimizer() const override;
 
 private:
     std::unique_ptr<ROOT::Math::GSLNLSMinimizer> m_gsl_minimizer;

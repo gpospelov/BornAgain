@@ -20,6 +20,7 @@
 #include <memory>
 
 class RootObjectiveFunction;
+class RootResidualFunction;
 
 namespace Fit {
 
@@ -36,6 +37,12 @@ public:
 
     const RootObjectiveFunction* rootObjectiveFunction(fcn_scalar_t fcn,
                                                        const Parameters& parameters);
+
+    const RootResidualFunction* rootResidualFunction(fcn_residual_t fcn,
+                                                     const Parameters& parameters);
+
+    int numberOfCalls() const;
+    int numberOfGradientCalls() const;
 
 private:
     std::unique_ptr<IFunctionAdapter> m_adapter;

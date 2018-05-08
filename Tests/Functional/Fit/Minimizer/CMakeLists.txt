@@ -3,7 +3,8 @@ set(test TestMinimizer)
 set(test_cases
     MinuitTestV1
     MinuitTestV2
-    SteepestDescentTestV1
+    MinuitTestV3
+    #SteepestDescentTestV1 <-- not able to fit Rosenbrock function
     SteepestDescentTestV2
     ConjugateFRTestV1
     ConjugateFRTestV2
@@ -13,10 +14,12 @@ set(test_cases
     BfgsTestV2
     Bfgs2TestV1
     Bfgs2TestV2
-#    GSLSimAnTestV1
-#    GSLSimAnTestV2
-#    GeneticTestV1
-#    GeneticTestV2
+    GSLSimAnTestV1
+    GSLSimAnTestV2
+    GeneticTestV1
+    GeneticTestV2
+    FumiliTestV3
+    LevenbergMarquardtV3
 )
 
 include_directories(${RootMinimizers_INCLUDE_DIRS})

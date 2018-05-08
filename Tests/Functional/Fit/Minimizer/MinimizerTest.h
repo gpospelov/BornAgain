@@ -20,6 +20,7 @@
 #include <memory>
 
 class FunctionTestPlan;
+namespace Fit {class MinimizerResult;}
 
 //! Collection of standalone tests for fitting library.
 
@@ -31,11 +32,14 @@ public:
 
     bool runTest();
 
+    void setMinimizerOptions(const std::string& options);
+
 protected:
     virtual std::unique_ptr<FunctionTestPlan> createPlan() const;
 
     std::string m_minimizer_name;
     std::string m_algorithm_name;
+    std::string m_option_string;
     std::string m_fit_plan_name;
 };
 

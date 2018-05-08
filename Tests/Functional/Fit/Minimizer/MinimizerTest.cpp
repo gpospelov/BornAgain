@@ -21,10 +21,6 @@
 #include "Parameters.h"
 #include <iostream>
 
-namespace {
-//! Returns true if minimization result is consistent with expectancies.
-bool checkResult(const Fit::MinimizerResult& result, const FunctionTestPlan& plan);
-}
 
 using namespace Fit;
 
@@ -35,25 +31,26 @@ MinimizerTest::MinimizerTest(const std::string& minimizer_name, const std::strin
 {
 }
 
+//! Runs minimization and check results of minimization.
+
 bool MinimizerTest::runTest()
 {
-    bool success(true);
-
     std::cout << "Testing " << m_minimizer_name << "/" << m_algorithm_name << " " << m_fit_plan_name
               << std::endl;
 
     auto plan = createPlan();
 
     Minimizer minimizer;
-    minimizer.setMinimizer(m_minimizer_name, m_algorithm_name);
-    auto result = minimizer.minimize(plan->objectiveFunction(), plan->parameters());
-
-    std::cout << result.toString() << std::endl;
-
-    success = checkResult(result, *plan);
+    minimizer.setMinimizer(m_minimizer_name, m_algorithm_name, m_option_string);
+    auto success = plan->checkMinimizer(minimizer);
 
     std::cout << "MinimizerTest::runTest() -> " << (success ? "OK" : "FAILED") << std::endl;
     return success;
+}
+
+void MinimizerTest::setMinimizerOptions(const std::string& options)
+{
+    m_option_string = options;
 }
 
 std::unique_ptr<FunctionTestPlan> MinimizerTest::createPlan() const
@@ -62,17 +59,3 @@ std::unique_ptr<FunctionTestPlan> MinimizerTest::createPlan() const
     return plan_factory.create(m_fit_plan_name);
 }
 
-namespace {
-bool checkResult(const Fit::MinimizerResult& result, const FunctionTestPlan& plan)
-{
-    bool success(true);
-    std::cout << "MinimizerTest::checkResult() -> " << plan.name() << std::endl;
-
-    success &= plan.valuesAsExpected(result.parameters().values());
-    success &= plan.minimumAsExpected(result.minValue());
-
-    std::cout << std::endl;
-
-    return success;
-}
-}

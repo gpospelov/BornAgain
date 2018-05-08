@@ -20,6 +20,9 @@ MinuitTestV1::MinuitTestV1()
 MinuitTestV2::MinuitTestV2()
     : MinimizerTest("Minuit2", "Migrad", "WoodFourPlan") {}
 
+MinuitTestV3::MinuitTestV3()
+    : MinimizerTest("Minuit2", "Migrad", "DecayingSinPlan") {}
+
 SteepestDescentTestV1::SteepestDescentTestV1()
     : MinimizerTest("GSLMultiMin", "SteepestDescent", "RosenbrockPlan") {}
 
@@ -51,13 +54,29 @@ Bfgs2TestV2::Bfgs2TestV2()
     : MinimizerTest("GSLMultiMin", "BFGS2", "WoodFourPlan") {}
 
 GSLSimAnTestV1::GSLSimAnTestV1()
-    : MinimizerTest("GSLSimAn", "Default", "RosenbrockPlan") {}
+    : MinimizerTest("GSLSimAn", "Default", "EasyRosenbrockPlan") {}
 
 GSLSimAnTestV2::GSLSimAnTestV2()
-    : MinimizerTest("GSLSimAn", "Default", "WoodFourPlan") {}
+    : MinimizerTest("GSLSimAn", "Default", "EasyWoodFourPlan") {}
 
 GeneticTestV1::GeneticTestV1()
-    : MinimizerTest("Genetic", "Default", "RosenbrockPlan") {}
+    : MinimizerTest("Genetic", "Default", "EasyRosenbrockPlan")
+{
+    setMinimizerOptions("RandomSeed=1");
+}
 
 GeneticTestV2::GeneticTestV2()
-    : MinimizerTest("Genetic", "Default", "WoodFourPlan") {}
+    : MinimizerTest("Genetic", "Default", "EasyWoodFourPlan")
+{
+    setMinimizerOptions("RandomSeed=1");
+}
+
+FumiliTestV3::FumiliTestV3()
+    : MinimizerTest("Minuit2", "Fumili", "DecayingSinPlan")
+{
+    setMinimizerOptions("MaxFunctionCalls=10000");
+}
+
+LevenbergMarquardtV3::LevenbergMarquardtV3()
+    : MinimizerTest("GSLLMA", "Default", "DecayingSinPlan") {}
+

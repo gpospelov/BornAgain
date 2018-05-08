@@ -39,15 +39,24 @@ void Kernel::setMinimizer(const std::string& minimizerName, const std::string& a
 MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters)
 {
     setParameters(parameters);
-    m_minimizer->minimize_scalar(fcn, parameters);
 
-    m_minimizer->propagateResults(m_parameters);
+    m_time_interval.start();
+    auto result = m_minimizer->minimize_scalar(fcn, parameters);
+    m_time_interval.stop();
 
-    MinimizerResult result;
-    result.setParameters(m_parameters);
-    result.setMinValue(m_minimizer->minValue());
-    result.setReport(m_minimizer->reportOutcome());
+    result.setDuration(m_time_interval.runTime());
+    return result;
+}
 
+MinimizerResult Kernel::minimize(fcn_residual_t fcn, const Parameters& parameters)
+{
+    setParameters(parameters);
+
+    m_time_interval.start();
+    auto result = m_minimizer->minimize_residual(fcn, parameters);
+    m_time_interval.stop();
+
+    result.setDuration(m_time_interval.runTime());
     return result;
 }
 

@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 #include "KernelTypes.h"
+#include "MinimizerResult.h"
 #include <string>
 
 class FitParameterSet;
@@ -42,7 +43,8 @@ class BA_CORE_API_ IMinimizer
 
     //! run minimization
     virtual void minimize() =0;
-    virtual void minimize_scalar(fcn_scalar_t, const Fit::Parameters&) {}
+    virtual Fit::MinimizerResult minimize_scalar(fcn_scalar_t, Fit::Parameters);
+    virtual Fit::MinimizerResult minimize_residual(fcn_residual_t, Fit::Parameters);
 
     //! clear resources (parameters) for consecutives minimizations
     virtual void clear() {}

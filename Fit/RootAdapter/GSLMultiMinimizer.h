@@ -38,11 +38,11 @@ public:
     void setMaxIterations(int value);
     int maxIterations() const;
 
-    std::string statusToString() const;
+    std::string statusToString() const override;
 
 protected:
-    void propagateOptions();
-    const root_minimizer_t* rootMinimizer() const;
+    void propagateOptions() override;
+    const root_minimizer_t* rootMinimizer() const override;
 
 private:
     std::unique_ptr<ROOT::Math::GSLMinimizer> m_gsl_minimizer;

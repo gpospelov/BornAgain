@@ -21,6 +21,8 @@ MinimizerTestFactory::MinimizerTestFactory()
                  "Minuit + Migrad + Rosenbrock");
     registerItem("MinuitTestV2", create_new<MinuitTestV2>,
                  "Minuit + Migrad + WoodFour");
+    registerItem("MinuitTestV3", create_new<MinuitTestV3>,
+                 "Minuit + Migrad + DecayingSinPlan");
 
     registerItem("SteepestDescentTestV1", create_new<SteepestDescentTestV1>,
                  "GSLMultiMin + SteepestDescent + Rosenbrock");
@@ -56,5 +58,11 @@ MinimizerTestFactory::MinimizerTestFactory()
                  "Genetic + Rosenbrock");
     registerItem("GeneticTestV2", create_new<GeneticTestV2>,
                  "Genetic + WoodFour");
+
+    registerItem("FumiliTestV3", create_new<FumiliTestV3>,
+                 "Minuit + Fumili + DecayingSinPlan");
+
+    registerItem("LevenbergMarquardtV3", create_new<LevenbergMarquardtV3>,
+                 "LevenbergMarquardt + DecayingSinPlan");
 
 }

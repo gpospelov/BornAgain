@@ -23,6 +23,9 @@
 #include "Parameter.h"
 #include "Parameters.h"
 #include "ObjectiveFunctionAdapter.h"
+#include "RootResidualFunction.h"
+
+using namespace Fit;
 
 RootMinimizerAdapter::RootMinimizerAdapter(const MinimizerInfo &minimizerInfo)
     :  m_minimizerInfo(minimizerInfo)
@@ -39,15 +42,44 @@ void RootMinimizerAdapter::minimize()
     m_status = rootMinimizer()->Minimize();
 }
 
-void RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
-                                    const Fit::Parameters& parameters)
+MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
+                                    Parameters parameters)
 {
-    (void)fcn;
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootObjectiveFunction(fcn, parameters));
     setParameters(parameters);
     propagateOptions();
+
     m_status = rootMinimizer()->Minimize();
+    propagateResults(parameters);
+
+    MinimizerResult result;
+    result.setParameters(parameters);
+    result.setMinValue(minValue());
+    result.setReport(reportOutcome());
+    result.setNumberOfCalls(m_adapter->numberOfCalls());
+
+    return result;
+}
+
+MinimizerResult RootMinimizerAdapter::minimize_residual(fcn_residual_t fcn, Parameters parameters)
+{
+    // Genetic minimizer requires SetFunction before setParameters, others don't care
+    rootMinimizer()->SetFunction(*m_adapter->rootResidualFunction(fcn, parameters));
+    setParameters(parameters);
+    propagateOptions();
+
+    m_status = rootMinimizer()->Minimize();
+    propagateResults(parameters);
+
+    MinimizerResult result;
+    result.setParameters(parameters);
+    result.setMinValue(minValue());
+    result.setReport(reportOutcome());
+    result.setNumberOfCalls(m_adapter->numberOfCalls());
+    result.setNumberOfGradientCalls(m_adapter->numberOfGradientCalls());
+
+    return result;
 }
 
 std::string RootMinimizerAdapter::minimizerName() const

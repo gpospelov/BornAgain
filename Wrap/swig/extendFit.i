@@ -41,3 +41,44 @@ class FitParameterSetIterator(object):
 };
 
 
+%pythoncode %{
+class ParametersIterator(object):
+
+    def __init__(self, parameters):
+        self.parameters = parameters
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index += 1
+        if self.index < self.parameters.size():
+            return self.parameters[self.index]
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        return self.next()
+%}
+
+// Parameters accessors
+namespace Fit {
+
+%extend Parameters {
+    const Parameter& __getitem__(std::string name) const
+    {
+        return (*($self))[name];
+    }
+    const Parameter& __getitem__(size_t index) const
+    {
+        return (*($self))[index];
+    }
+
+%pythoncode {
+    def __iter__(self):
+        return ParametersIterator(self)
+}
+};
+
+}

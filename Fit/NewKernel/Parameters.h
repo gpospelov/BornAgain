@@ -49,9 +49,13 @@ public:
     std::vector<double> errors() const;
     void setErrors(const std::vector<double>& errors);
 
+    const Parameter& operator[](const std::string& name) const;
+    const Parameter& operator[](size_t index) const;
+
 private:
     bool exists(const std::string& parameter_name) const;
     void check_array_size(const std::vector<double>& values) const;
+    size_t check_index(size_t index) const;
 
     parameters_t m_parameters;
 };

@@ -1960,6 +1960,151 @@ def AttLimits_fixed():
     """AttLimits_fixed() -> AttLimits"""
     return _libBornAgainFit.AttLimits_fixed()
 
+class Parameter(_object):
+    """Proxy of C++ Fit::Parameter class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Parameter, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Parameter, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(Fit::Parameter self) -> Parameter
+        __init__(Fit::Parameter self, std::string const & name, double value, AttLimits limits, double step=0.0) -> Parameter
+        __init__(Fit::Parameter self, std::string const & name, double value, AttLimits limits) -> Parameter
+        __init__(Fit::Parameter self, std::string const & name, double value) -> Parameter
+        """
+        this = _libBornAgainFit.new_Parameter(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def name(self):
+        """name(Parameter self) -> std::string"""
+        return _libBornAgainFit.Parameter_name(self)
+
+
+    def startValue(self):
+        """startValue(Parameter self) -> double"""
+        return _libBornAgainFit.Parameter_startValue(self)
+
+
+    def limits(self):
+        """limits(Parameter self) -> AttLimits"""
+        return _libBornAgainFit.Parameter_limits(self)
+
+
+    def value(self):
+        """value(Parameter self) -> double"""
+        return _libBornAgainFit.Parameter_value(self)
+
+
+    def setValue(self, value):
+        """setValue(Parameter self, double value)"""
+        return _libBornAgainFit.Parameter_setValue(self, value)
+
+
+    def step(self):
+        """step(Parameter self) -> double"""
+        return _libBornAgainFit.Parameter_step(self)
+
+
+    def error(self):
+        """error(Parameter self) -> double"""
+        return _libBornAgainFit.Parameter_error(self)
+
+
+    def setError(self, value):
+        """setError(Parameter self, double value)"""
+        return _libBornAgainFit.Parameter_setError(self, value)
+
+    __swig_destroy__ = _libBornAgainFit.delete_Parameter
+    __del__ = lambda self: None
+Parameter_swigregister = _libBornAgainFit.Parameter_swigregister
+Parameter_swigregister(Parameter)
+
+class Parameters(_object):
+    """Proxy of C++ Fit::Parameters class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Parameters, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Parameters, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(Fit::Parameters self) -> Parameters"""
+        this = _libBornAgainFit.new_Parameters()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def add(self, par):
+        """add(Parameters self, Parameter par)"""
+        return _libBornAgainFit.Parameters_add(self, par)
+
+
+    def begin(self, *args):
+        """
+        begin(Parameters self) -> Fit::Parameters::const_iterator
+        begin(Parameters self) -> Fit::Parameters::iterator
+        """
+        return _libBornAgainFit.Parameters_begin(self, *args)
+
+
+    def end(self, *args):
+        """
+        end(Parameters self) -> Fit::Parameters::const_iterator
+        end(Parameters self) -> Fit::Parameters::iterator
+        """
+        return _libBornAgainFit.Parameters_end(self, *args)
+
+
+    def size(self):
+        """size(Parameters self) -> size_t"""
+        return _libBornAgainFit.Parameters_size(self)
+
+
+    def values(self):
+        """values(Parameters self) -> vdouble1d_t"""
+        return _libBornAgainFit.Parameters_values(self)
+
+
+    def setValues(self, values):
+        """setValues(Parameters self, vdouble1d_t values)"""
+        return _libBornAgainFit.Parameters_setValues(self, values)
+
+
+    def errors(self):
+        """errors(Parameters self) -> vdouble1d_t"""
+        return _libBornAgainFit.Parameters_errors(self)
+
+
+    def setErrors(self, errors):
+        """setErrors(Parameters self, vdouble1d_t errors)"""
+        return _libBornAgainFit.Parameters_setErrors(self, errors)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(Parameters self, std::string name) -> Parameter
+        __getitem__(Parameters self, size_t index) -> Parameter
+        """
+        return _libBornAgainFit.Parameters___getitem__(self, *args)
+
+
+    def __iter__(self):
+        return ParametersIterator(self)
+
+    __swig_destroy__ = _libBornAgainFit.delete_Parameters
+    __del__ = lambda self: None
+Parameters_swigregister = _libBornAgainFit.Parameters_swigregister
+Parameters_swigregister(Parameters)
+
 class IMinimizer(_object):
     """
 
@@ -2018,12 +2163,12 @@ class IMinimizer(_object):
 
 
     def minimize_scalar(self, arg2, arg3):
-        """minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Fit::Parameters arg3) -> Fit::MinimizerResult"""
+        """minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Parameters arg3) -> Fit::MinimizerResult"""
         return _libBornAgainFit.IMinimizer_minimize_scalar(self, arg2, arg3)
 
 
     def minimize_residual(self, arg2, arg3):
-        """minimize_residual(IMinimizer self, fcn_residual_t arg2, Fit::Parameters arg3) -> Fit::MinimizerResult"""
+        """minimize_residual(IMinimizer self, fcn_residual_t arg2, Parameters arg3) -> Fit::MinimizerResult"""
         return _libBornAgainFit.IMinimizer_minimize_residual(self, arg2, arg3)
 
 
@@ -2096,7 +2241,7 @@ class IMinimizer(_object):
     def propagateResults(self, *args):
         """
         propagateResults(IMinimizer self, FitParameterSet parameters)
-        propagateResults(IMinimizer self, Fit::Parameters & parameters)
+        propagateResults(IMinimizer self, Parameters parameters)
 
         void IMinimizer::propagateResults(FitParameterSet &parameters)
 
@@ -2812,6 +2957,26 @@ class FitParameterSetIterator(object):
         self.index += 1
         if self.index < self.fitParameters.size():
             return self.fitParameters[self.index]
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        return self.next()
+
+
+class ParametersIterator(object):
+
+    def __init__(self, parameters):
+        self.parameters = parameters
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index += 1
+        if self.index < self.parameters.size():
+            return self.parameters[self.index]
         else:
             raise StopIteration
 

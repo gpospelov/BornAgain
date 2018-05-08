@@ -3454,56 +3454,60 @@ namespace Swig {
 #define SWIGTYPE_p_AttLimits swig_types[0]
 #define SWIGTYPE_p_FitParameterSet swig_types[1]
 #define SWIGTYPE_p_Fit__MinimizerResult swig_types[2]
-#define SWIGTYPE_p_Fit__Parameters swig_types[3]
-#define SWIGTYPE_p_IFitParameter swig_types[4]
-#define SWIGTYPE_p_IMinimizer swig_types[5]
-#define SWIGTYPE_p_MinimizerCatalogue swig_types[6]
-#define SWIGTYPE_p_MinimizerFactory swig_types[7]
-#define SWIGTYPE_p_MinimizerInfo swig_types[8]
-#define SWIGTYPE_p_RealLimits swig_types[9]
-#define SWIGTYPE_p_allocator_type swig_types[10]
-#define SWIGTYPE_p_char swig_types[11]
-#define SWIGTYPE_p_const_iterator swig_types[12]
-#define SWIGTYPE_p_container_t swig_types[13]
-#define SWIGTYPE_p_corr_matrix_t swig_types[14]
-#define SWIGTYPE_p_difference_type swig_types[15]
-#define SWIGTYPE_p_fcn_residual_t swig_types[16]
-#define SWIGTYPE_p_fcn_scalar_t swig_types[17]
-#define SWIGTYPE_p_gradient_function_t swig_types[18]
-#define SWIGTYPE_p_int swig_types[19]
-#define SWIGTYPE_p_iterator swig_types[20]
-#define SWIGTYPE_p_long_long swig_types[21]
-#define SWIGTYPE_p_objective_function_t swig_types[22]
-#define SWIGTYPE_p_p_PyObject swig_types[23]
-#define SWIGTYPE_p_short swig_types[24]
-#define SWIGTYPE_p_signed_char swig_types[25]
-#define SWIGTYPE_p_size_type swig_types[26]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[27]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[28]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[29]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[30]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[31]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[32]
-#define SWIGTYPE_p_std__invalid_argument swig_types[33]
-#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[34]
-#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[35]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[36]
-#define SWIGTYPE_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator swig_types[37]
-#define SWIGTYPE_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator swig_types[38]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[39]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[40]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[41]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[42]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[43]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[44]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[45]
-#define SWIGTYPE_p_unsigned_char swig_types[46]
-#define SWIGTYPE_p_unsigned_int swig_types[47]
-#define SWIGTYPE_p_unsigned_long_long swig_types[48]
-#define SWIGTYPE_p_unsigned_short swig_types[49]
-#define SWIGTYPE_p_value_type swig_types[50]
-static swig_type_info *swig_types[52];
-static swig_module_info swig_module = {swig_types, 51, 0, 0, 0, 0};
+#define SWIGTYPE_p_Fit__Parameter swig_types[3]
+#define SWIGTYPE_p_Fit__Parameters swig_types[4]
+#define SWIGTYPE_p_IFitParameter swig_types[5]
+#define SWIGTYPE_p_IMinimizer swig_types[6]
+#define SWIGTYPE_p_MinimizerCatalogue swig_types[7]
+#define SWIGTYPE_p_MinimizerFactory swig_types[8]
+#define SWIGTYPE_p_MinimizerInfo swig_types[9]
+#define SWIGTYPE_p_RealLimits swig_types[10]
+#define SWIGTYPE_p_allocator_type swig_types[11]
+#define SWIGTYPE_p_char swig_types[12]
+#define SWIGTYPE_p_const_iterator swig_types[13]
+#define SWIGTYPE_p_container_t swig_types[14]
+#define SWIGTYPE_p_corr_matrix_t swig_types[15]
+#define SWIGTYPE_p_difference_type swig_types[16]
+#define SWIGTYPE_p_fcn_residual_t swig_types[17]
+#define SWIGTYPE_p_fcn_scalar_t swig_types[18]
+#define SWIGTYPE_p_gradient_function_t swig_types[19]
+#define SWIGTYPE_p_int swig_types[20]
+#define SWIGTYPE_p_iterator swig_types[21]
+#define SWIGTYPE_p_long_long swig_types[22]
+#define SWIGTYPE_p_objective_function_t swig_types[23]
+#define SWIGTYPE_p_p_PyObject swig_types[24]
+#define SWIGTYPE_p_parameters_t swig_types[25]
+#define SWIGTYPE_p_short swig_types[26]
+#define SWIGTYPE_p_signed_char swig_types[27]
+#define SWIGTYPE_p_size_type swig_types[28]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[29]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[30]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[31]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[32]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[33]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[34]
+#define SWIGTYPE_p_std__invalid_argument swig_types[35]
+#define SWIGTYPE_p_std__shared_ptrT_IFitObserver_t swig_types[36]
+#define SWIGTYPE_p_std__shared_ptrT_IMultiLayerBuilder_t swig_types[37]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[38]
+#define SWIGTYPE_p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__const_iterator swig_types[39]
+#define SWIGTYPE_p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__iterator swig_types[40]
+#define SWIGTYPE_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator swig_types[41]
+#define SWIGTYPE_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator swig_types[42]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[43]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[44]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[45]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[46]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[47]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[48]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[49]
+#define SWIGTYPE_p_unsigned_char swig_types[50]
+#define SWIGTYPE_p_unsigned_int swig_types[51]
+#define SWIGTYPE_p_unsigned_long_long swig_types[52]
+#define SWIGTYPE_p_unsigned_short swig_types[53]
+#define SWIGTYPE_p_value_type swig_types[54]
+static swig_type_info *swig_types[56];
+static swig_module_info swig_module = {swig_types, 55, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6282,6 +6286,8 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 
 #include "RealLimits.h"
 #include "AttLimits.h"
+#include "Parameter.h"
+#include "Parameters.h"
 #include "IFitParameter.h"
 #include "FitParameterSet.h"
 #include "IMinimizer.h"
@@ -6302,6 +6308,12 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
   return SWIG_OK;
 }
 
+SWIGINTERN Fit::Parameter const &Fit_Parameters___getitem____SWIG_0(Fit::Parameters const *self,std::string name){
+        return (*(self))[name];
+    }
+SWIGINTERN Fit::Parameter const &Fit_Parameters___getitem____SWIG_1(Fit::Parameters const *self,size_t index){
+        return (*(self))[index];
+    }
 SWIGINTERN IFitParameter const *FitParameterSet___getitem____SWIG_0(FitParameterSet const *self,std::string name){
         return (*(self))[name];
     }
@@ -19859,6 +19871,965 @@ SWIGINTERN PyObject *AttLimits_swigregister(PyObject *SWIGUNUSEDPARM(self), PyOb
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_new_Parameter__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_Parameter")) SWIG_fail;
+  result = (Fit::Parameter *)new Fit::Parameter();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Fit__Parameter, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Parameter__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  double arg2 ;
+  AttLimits *arg3 = 0 ;
+  double arg4 ;
+  int res1 = SWIG_OLDOBJ ;
+  double val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  Fit::Parameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:new_Parameter",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Parameter" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Parameter" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_Parameter" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_AttLimits,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_Parameter" "', argument " "3"" of type '" "AttLimits const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Parameter" "', argument " "3"" of type '" "AttLimits const &""'"); 
+  }
+  arg3 = reinterpret_cast< AttLimits * >(argp3);
+  ecode4 = SWIG_AsVal_double(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_Parameter" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (Fit::Parameter *)new Fit::Parameter((std::string const &)*arg1,arg2,(AttLimits const &)*arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Fit__Parameter, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Parameter__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  double arg2 ;
+  AttLimits *arg3 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  double val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  Fit::Parameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:new_Parameter",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Parameter" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Parameter" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_Parameter" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_AttLimits,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_Parameter" "', argument " "3"" of type '" "AttLimits const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Parameter" "', argument " "3"" of type '" "AttLimits const &""'"); 
+  }
+  arg3 = reinterpret_cast< AttLimits * >(argp3);
+  result = (Fit::Parameter *)new Fit::Parameter((std::string const &)*arg1,arg2,(AttLimits const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Fit__Parameter, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Parameter__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  double arg2 ;
+  int res1 = SWIG_OLDOBJ ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Fit::Parameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_Parameter",&obj0,&obj1)) SWIG_fail;
+  {
+    std::string *ptr = (std::string *)0;
+    res1 = SWIG_AsPtr_std_string(obj0, &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Parameter" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Parameter" "', argument " "1"" of type '" "std::string const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_Parameter" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (Fit::Parameter *)new Fit::Parameter((std::string const &)*arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Fit__Parameter, SWIG_POINTER_NEW |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Parameter(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 4) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    return _wrap_new_Parameter__SWIG_0(self, args);
+  }
+  if (argc == 2) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_Parameter__SWIG_3(self, args);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_AttLimits, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_new_Parameter__SWIG_2(self, args);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    int res = SWIG_AsPtr_std_string(argv[0], (std::string**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_AttLimits, 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_Parameter__SWIG_1(self, args);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_Parameter'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Fit::Parameter::Parameter()\n"
+    "    Fit::Parameter::Parameter(std::string const &,double,AttLimits const &,double)\n"
+    "    Fit::Parameter::Parameter(std::string const &,double,AttLimits const &)\n"
+    "    Fit::Parameter::Parameter(std::string const &,double)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameter_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *arg1 = (Fit::Parameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::string result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameter_name",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameter_name" "', argument " "1"" of type '" "Fit::Parameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameter * >(argp1);
+  result = ((Fit::Parameter const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameter_startValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *arg1 = (Fit::Parameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameter_startValue",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameter_startValue" "', argument " "1"" of type '" "Fit::Parameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameter * >(argp1);
+  result = (double)((Fit::Parameter const *)arg1)->startValue();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameter_limits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *arg1 = (Fit::Parameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  AttLimits result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameter_limits",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameter_limits" "', argument " "1"" of type '" "Fit::Parameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameter * >(argp1);
+  result = ((Fit::Parameter const *)arg1)->limits();
+  resultobj = SWIG_NewPointerObj((new AttLimits(static_cast< const AttLimits& >(result))), SWIGTYPE_p_AttLimits, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameter_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *arg1 = (Fit::Parameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameter_value",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameter_value" "', argument " "1"" of type '" "Fit::Parameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameter * >(argp1);
+  result = (double)((Fit::Parameter const *)arg1)->value();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameter_setValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *arg1 = (Fit::Parameter *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Parameter_setValue",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameter_setValue" "', argument " "1"" of type '" "Fit::Parameter *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameter * >(argp1);
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Parameter_setValue" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setValue(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameter_step(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *arg1 = (Fit::Parameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameter_step",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameter_step" "', argument " "1"" of type '" "Fit::Parameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameter * >(argp1);
+  result = (double)((Fit::Parameter const *)arg1)->step();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameter_error(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *arg1 = (Fit::Parameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameter_error",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameter_error" "', argument " "1"" of type '" "Fit::Parameter const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameter * >(argp1);
+  result = (double)((Fit::Parameter const *)arg1)->error();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameter_setError(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *arg1 = (Fit::Parameter *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Parameter_setError",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameter_setError" "', argument " "1"" of type '" "Fit::Parameter *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameter * >(argp1);
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Parameter_setError" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setError(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Parameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameter *arg1 = (Fit::Parameter *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_Parameter",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameter, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Parameter" "', argument " "1"" of type '" "Fit::Parameter *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameter * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Parameter_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char *)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Fit__Parameter, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_new_Parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_Parameters")) SWIG_fail;
+  result = (Fit::Parameters *)new Fit::Parameters();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_add(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  Fit::Parameter *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Parameters_add",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_add" "', argument " "1"" of type '" "Fit::Parameters *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Fit__Parameter,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Parameters_add" "', argument " "2"" of type '" "Fit::Parameter const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Parameters_add" "', argument " "2"" of type '" "Fit::Parameter const &""'"); 
+  }
+  arg2 = reinterpret_cast< Fit::Parameter * >(argp2);
+  (arg1)->add((Fit::Parameter const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_begin__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  SwigValueWrapper< std::vector< Fit::Parameter,std::allocator< Fit::Parameter > >::const_iterator > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_begin",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_begin" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = ((Fit::Parameters const *)arg1)->begin();
+  resultobj = SWIG_NewPointerObj((new Fit::Parameters::const_iterator(static_cast< const Fit::Parameters::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_end__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  SwigValueWrapper< std::vector< Fit::Parameter,std::allocator< Fit::Parameter > >::const_iterator > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_end",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_end" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = ((Fit::Parameters const *)arg1)->end();
+  resultobj = SWIG_NewPointerObj((new Fit::Parameters::const_iterator(static_cast< const Fit::Parameters::const_iterator& >(result))), SWIGTYPE_p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__const_iterator, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_begin__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  SwigValueWrapper< std::vector< Fit::Parameter,std::allocator< Fit::Parameter > >::iterator > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_begin",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_begin" "', argument " "1"" of type '" "Fit::Parameters *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = (arg1)->begin();
+  resultobj = SWIG_NewPointerObj((new Fit::Parameters::iterator(static_cast< const Fit::Parameters::iterator& >(result))), SWIGTYPE_p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__iterator, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_begin(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Fit__Parameters, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_Parameters_begin__SWIG_1(self, args);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Fit__Parameters, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_Parameters_begin__SWIG_0(self, args);
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'Parameters_begin'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Fit::Parameters::begin() const\n"
+    "    Fit::Parameters::begin()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_end__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  SwigValueWrapper< std::vector< Fit::Parameter,std::allocator< Fit::Parameter > >::iterator > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_end",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_end" "', argument " "1"" of type '" "Fit::Parameters *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = (arg1)->end();
+  resultobj = SWIG_NewPointerObj((new Fit::Parameters::iterator(static_cast< const Fit::Parameters::iterator& >(result))), SWIGTYPE_p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__iterator, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_end(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Fit__Parameters, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_Parameters_end__SWIG_1(self, args);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Fit__Parameters, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_Parameters_end__SWIG_0(self, args);
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'Parameters_end'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Fit::Parameters::end() const\n"
+    "    Fit::Parameters::end()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  size_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_size" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = ((Fit::Parameters const *)arg1)->size();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_values(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_values",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_values" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = ((Fit::Parameters const *)arg1)->values();
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_setValues(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  std::vector< double,std::allocator< double > > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Parameters_setValues",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_setValues" "', argument " "1"" of type '" "Fit::Parameters *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res2 = swig::asptr(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Parameters_setValues" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Parameters_setValues" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  (arg1)->setValues((std::vector< double,std::allocator< double > > const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_errors(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_errors",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_errors" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = ((Fit::Parameters const *)arg1)->errors();
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_setErrors(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  std::vector< double,std::allocator< double > > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Parameters_setErrors",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_setErrors" "', argument " "1"" of type '" "Fit::Parameters *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res2 = swig::asptr(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Parameters_setErrors" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Parameters_setErrors" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  (arg1)->setErrors((std::vector< double,std::allocator< double > > const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters___getitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  std::string arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Fit::Parameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Parameters___getitem__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters___getitem__" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    int res = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "Parameters___getitem__" "', argument " "2"" of type '" "std::string""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  result = (Fit::Parameter *) &Fit_Parameters___getitem____SWIG_0((Fit::Parameters const *)arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters___getitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Fit::Parameter *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Parameters___getitem__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters___getitem__" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Parameters___getitem__" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = (Fit::Parameter *) &Fit_Parameters___getitem____SWIG_1((Fit::Parameters const *)arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Fit__Parameter, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters___getitem__(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Fit__Parameters, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_Parameters___getitem____SWIG_1(self, args);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Fit__Parameters, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_Parameters___getitem____SWIG_0(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'Parameters___getitem__'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Fit::Parameters::__getitem__(std::string) const\n"
+    "    Fit::Parameters::__getitem__(size_t) const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_Parameters",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Parameters" "', argument " "1"" of type '" "Fit::Parameters *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Parameters_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char *)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Fit__Parameters, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_delete_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
@@ -23359,6 +24330,43 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"delete_AttLimits", _wrap_delete_AttLimits, METH_VARARGS, (char *)"delete_AttLimits(AttLimits self)"},
 	 { (char *)"AttLimits_swigregister", AttLimits_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_Parameter", _wrap_new_Parameter, METH_VARARGS, (char *)"\n"
+		"Parameter()\n"
+		"Parameter(std::string const & name, double value, AttLimits limits, double step=0.0)\n"
+		"Parameter(std::string const & name, double value, AttLimits limits)\n"
+		"new_Parameter(std::string const & name, double value) -> Parameter\n"
+		""},
+	 { (char *)"Parameter_name", _wrap_Parameter_name, METH_VARARGS, (char *)"Parameter_name(Parameter self) -> std::string"},
+	 { (char *)"Parameter_startValue", _wrap_Parameter_startValue, METH_VARARGS, (char *)"Parameter_startValue(Parameter self) -> double"},
+	 { (char *)"Parameter_limits", _wrap_Parameter_limits, METH_VARARGS, (char *)"Parameter_limits(Parameter self) -> AttLimits"},
+	 { (char *)"Parameter_value", _wrap_Parameter_value, METH_VARARGS, (char *)"Parameter_value(Parameter self) -> double"},
+	 { (char *)"Parameter_setValue", _wrap_Parameter_setValue, METH_VARARGS, (char *)"Parameter_setValue(Parameter self, double value)"},
+	 { (char *)"Parameter_step", _wrap_Parameter_step, METH_VARARGS, (char *)"Parameter_step(Parameter self) -> double"},
+	 { (char *)"Parameter_error", _wrap_Parameter_error, METH_VARARGS, (char *)"Parameter_error(Parameter self) -> double"},
+	 { (char *)"Parameter_setError", _wrap_Parameter_setError, METH_VARARGS, (char *)"Parameter_setError(Parameter self, double value)"},
+	 { (char *)"delete_Parameter", _wrap_delete_Parameter, METH_VARARGS, (char *)"delete_Parameter(Parameter self)"},
+	 { (char *)"Parameter_swigregister", Parameter_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_Parameters", _wrap_new_Parameters, METH_VARARGS, (char *)"new_Parameters() -> Parameters"},
+	 { (char *)"Parameters_add", _wrap_Parameters_add, METH_VARARGS, (char *)"Parameters_add(Parameters self, Parameter par)"},
+	 { (char *)"Parameters_begin", _wrap_Parameters_begin, METH_VARARGS, (char *)"\n"
+		"begin() -> Fit::Parameters::const_iterator\n"
+		"Parameters_begin(Parameters self) -> Fit::Parameters::iterator\n"
+		""},
+	 { (char *)"Parameters_end", _wrap_Parameters_end, METH_VARARGS, (char *)"\n"
+		"end() -> Fit::Parameters::const_iterator\n"
+		"Parameters_end(Parameters self) -> Fit::Parameters::iterator\n"
+		""},
+	 { (char *)"Parameters_size", _wrap_Parameters_size, METH_VARARGS, (char *)"Parameters_size(Parameters self) -> size_t"},
+	 { (char *)"Parameters_values", _wrap_Parameters_values, METH_VARARGS, (char *)"Parameters_values(Parameters self) -> vdouble1d_t"},
+	 { (char *)"Parameters_setValues", _wrap_Parameters_setValues, METH_VARARGS, (char *)"Parameters_setValues(Parameters self, vdouble1d_t values)"},
+	 { (char *)"Parameters_errors", _wrap_Parameters_errors, METH_VARARGS, (char *)"Parameters_errors(Parameters self) -> vdouble1d_t"},
+	 { (char *)"Parameters_setErrors", _wrap_Parameters_setErrors, METH_VARARGS, (char *)"Parameters_setErrors(Parameters self, vdouble1d_t errors)"},
+	 { (char *)"Parameters___getitem__", _wrap_Parameters___getitem__, METH_VARARGS, (char *)"\n"
+		"__getitem__(std::string name) -> Parameter\n"
+		"Parameters___getitem__(Parameters self, size_t index) -> Parameter\n"
+		""},
+	 { (char *)"delete_Parameters", _wrap_delete_Parameters, METH_VARARGS, (char *)"delete_Parameters(Parameters self)"},
+	 { (char *)"Parameters_swigregister", Parameters_swigregister, METH_VARARGS, NULL},
 	 { (char *)"delete_IMinimizer", _wrap_delete_IMinimizer, METH_VARARGS, (char *)"\n"
 		"delete_IMinimizer(IMinimizer self)\n"
 		"\n"
@@ -23389,8 +24397,8 @@ static PyMethodDef SwigMethods[] = {
 		"run minimization \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_minimize_scalar", _wrap_IMinimizer_minimize_scalar, METH_VARARGS, (char *)"IMinimizer_minimize_scalar(IMinimizer self, fcn_scalar_t arg3, Fit::Parameters arg4) -> Fit::MinimizerResult"},
-	 { (char *)"IMinimizer_minimize_residual", _wrap_IMinimizer_minimize_residual, METH_VARARGS, (char *)"IMinimizer_minimize_residual(IMinimizer self, fcn_residual_t arg3, Fit::Parameters arg4) -> Fit::MinimizerResult"},
+	 { (char *)"IMinimizer_minimize_scalar", _wrap_IMinimizer_minimize_scalar, METH_VARARGS, (char *)"IMinimizer_minimize_scalar(IMinimizer self, fcn_scalar_t arg3, Parameters arg4) -> Fit::MinimizerResult"},
+	 { (char *)"IMinimizer_minimize_residual", _wrap_IMinimizer_minimize_residual, METH_VARARGS, (char *)"IMinimizer_minimize_residual(IMinimizer self, fcn_residual_t arg3, Parameters arg4) -> Fit::MinimizerResult"},
 	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"\n"
 		"IMinimizer_clear(IMinimizer self)\n"
 		"\n"
@@ -23435,7 +24443,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"IMinimizer_propagateResults", _wrap_IMinimizer_propagateResults, METH_VARARGS, (char *)"\n"
 		"propagateResults(FitParameterSet parameters)\n"
-		"IMinimizer_propagateResults(IMinimizer self, Fit::Parameters & parameters)\n"
+		"IMinimizer_propagateResults(IMinimizer self, Parameters parameters)\n"
 		"\n"
 		"void IMinimizer::propagateResults(FitParameterSet &parameters)\n"
 		"\n"
@@ -23819,6 +24827,7 @@ static PyMethodDef SwigMethods[] = {
 static swig_type_info _swigt__p_AttLimits = {"_p_AttLimits", "AttLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitParameterSet = {"_p_FitParameterSet", "FitParameterSet *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Fit__MinimizerResult = {"_p_Fit__MinimizerResult", "Fit::MinimizerResult *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Fit__Parameter = {"_p_Fit__Parameter", "Fit::Parameter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Fit__Parameters = {"_p_Fit__Parameters", "Fit::Parameters *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFitParameter = {"_p_IFitParameter", "IFitParameter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IMinimizer = {"_p_IMinimizer", "IMinimizer *", 0, 0, (void*)0, 0};
@@ -23840,6 +24849,7 @@ static swig_type_info _swigt__p_iterator = {"_p_iterator", "iterator *", 0, 0, (
 static swig_type_info _swigt__p_long_long = {"_p_long_long", "int_least64_t *|int_fast64_t *|int64_t *|long long *|intmax_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_objective_function_t = {"_p_objective_function_t", "objective_function_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_p_PyObject = {"_p_p_PyObject", "PyObject **", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_parameters_t = {"_p_parameters_t", "parameters_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_short = {"_p_short", "short *|int_least16_t *|int16_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "signed char *|int_least8_t *|int_fast8_t *|int8_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
@@ -23853,6 +24863,8 @@ static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argume
 static swig_type_info _swigt__p_std__shared_ptrT_IFitObserver_t = {"_p_std__shared_ptrT_IFitObserver_t", "std::shared_ptr< IFitObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IMultiLayerBuilder_t = {"_p_std__shared_ptrT_IMultiLayerBuilder_t", "std::shared_ptr< IMultiLayerBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__const_iterator = {"_p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__const_iterator", "std::vector< Fit::Parameter,std::allocator< Fit::Parameter > >::const_iterator *|Fit::Parameters::const_iterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__iterator = {"_p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__iterator", "std::vector< Fit::Parameter,std::allocator< Fit::Parameter > >::iterator *|Fit::Parameters::iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator = {"_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator", "FitParameterSet::const_iterator *|std::vector< IFitParameter *,std::allocator< IFitParameter * > >::const_iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator = {"_p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator", "FitParameterSet::iterator *|std::vector< IFitParameter *,std::allocator< IFitParameter * > >::iterator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
@@ -23872,6 +24884,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_AttLimits,
   &_swigt__p_FitParameterSet,
   &_swigt__p_Fit__MinimizerResult,
+  &_swigt__p_Fit__Parameter,
   &_swigt__p_Fit__Parameters,
   &_swigt__p_IFitParameter,
   &_swigt__p_IMinimizer,
@@ -23893,6 +24906,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_long_long,
   &_swigt__p_objective_function_t,
   &_swigt__p_p_PyObject,
+  &_swigt__p_parameters_t,
   &_swigt__p_short,
   &_swigt__p_signed_char,
   &_swigt__p_size_type,
@@ -23906,6 +24920,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__shared_ptrT_IFitObserver_t,
   &_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t,
   &_swigt__p_std__shared_ptrT_IObserver_t,
+  &_swigt__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__const_iterator,
+  &_swigt__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__iterator,
   &_swigt__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator,
   &_swigt__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
@@ -23925,6 +24941,7 @@ static swig_type_info *swig_type_initial[] = {
 static swig_cast_info _swigc__p_AttLimits[] = {  {&_swigt__p_AttLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FitParameterSet[] = {  {&_swigt__p_FitParameterSet, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Fit__MinimizerResult[] = {  {&_swigt__p_Fit__MinimizerResult, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Fit__Parameter[] = {  {&_swigt__p_Fit__Parameter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Fit__Parameters[] = {  {&_swigt__p_Fit__Parameters, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFitParameter[] = {  {&_swigt__p_IFitParameter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IMinimizer[] = {  {&_swigt__p_IMinimizer, 0, 0, 0},{0, 0, 0, 0}};
@@ -23946,6 +24963,7 @@ static swig_cast_info _swigc__p_iterator[] = {  {&_swigt__p_iterator, 0, 0, 0},{
 static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_objective_function_t[] = {  {&_swigt__p_objective_function_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_p_PyObject[] = {  {&_swigt__p_p_PyObject, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_parameters_t[] = {  {&_swigt__p_parameters_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -23959,6 +24977,8 @@ static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__in
 static swig_cast_info _swigc__p_std__shared_ptrT_IFitObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IFitObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_IMultiLayerBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__const_iterator[] = {  {&_swigt__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__iterator[] = {  {&_swigt__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator[] = {  {&_swigt__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator[] = {  {&_swigt__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -23978,6 +24998,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_AttLimits,
   _swigc__p_FitParameterSet,
   _swigc__p_Fit__MinimizerResult,
+  _swigc__p_Fit__Parameter,
   _swigc__p_Fit__Parameters,
   _swigc__p_IFitParameter,
   _swigc__p_IMinimizer,
@@ -23999,6 +25020,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_long_long,
   _swigc__p_objective_function_t,
   _swigc__p_p_PyObject,
+  _swigc__p_parameters_t,
   _swigc__p_short,
   _swigc__p_signed_char,
   _swigc__p_size_type,
@@ -24012,6 +25034,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__shared_ptrT_IFitObserver_t,
   _swigc__p_std__shared_ptrT_IMultiLayerBuilder_t,
   _swigc__p_std__shared_ptrT_IObserver_t,
+  _swigc__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__const_iterator,
+  _swigc__p_std__vectorT_Fit__Parameter_std__allocatorT_Fit__Parameter_t_t__iterator,
   _swigc__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__const_iterator,
   _swigc__p_std__vectorT_IFitParameter_p_std__allocatorT_IFitParameter_p_t_t__iterator,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,

@@ -108,15 +108,18 @@ public:
    }
 
    void FdF (const double * x, double & f, double * g) const {
-      unsigned int n = NDim();
-      std::copy(x,x+n,fX2.begin());
-      const double kEps = 1.0E-4;
+//      unsigned int n = NDim();
+//      std::copy(x,x+n,fX2.begin());
+//      const double kEps = 1.0E-4;
+//      f = DoEval(x);
+//      for (unsigned int i = 0; i < n; ++i) {
+//         fX2[i] += kEps;
+//         g[i] =  ( DoEval(&fX2.front()) - f )/kEps;
+//         fX2[i] = x[i];
+//      }
+      // BornAgain -> G.P. Fast derivative calculation using values caching
       f = DoEval(x);
-      for (unsigned int i = 0; i < n; ++i) {
-         fX2[i] += kEps;
-         g[i] =  ( DoEval(&fX2.front()) - f )/kEps;
-         fX2[i] = x[i];
-      }
+      fChi2->DataElement(x, fIndex, g);
    }
 
 

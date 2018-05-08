@@ -36,12 +36,18 @@ ResidualFunctionAdapter::ResidualFunctionAdapter(fcn_residual_t func,
 
 const RootResidualFunction* ResidualFunctionAdapter::rootResidualFunction()
 {
-    gradient_function_t rootfun
+    gradient_function_t gradient_fun
         = [&](const std::vector<double>& pars, unsigned int index, std::vector<double>& gradients) {
               return element_residual(pars, index, gradients);
           };
 
-    m_root_objective.reset(new RootResidualFunction(rootfun, m_parameters.size(), m_datasize));
+    objective_function_t objective_fun
+        = [&](const std::vector<double>& pars) {
+              return chi2(pars);
+          };
+
+    m_root_objective.reset(new RootResidualFunction(objective_fun, gradient_fun,
+                                                    m_parameters.size(), m_datasize));
 
     return m_root_objective.get();
 }
@@ -69,7 +75,16 @@ void ResidualFunctionAdapter::calculate_gradients(const std::vector<double>& par
 
 std::vector<double> ResidualFunctionAdapter::get_residuals(const std::vector<double>& pars)
 {
+    if (pars.size() != m_parameters.size()) {
+        std::ostringstream ostr;
+        ostr << "ResidualFunctionAdapter::residuals() -> Error. Number of fit parameters "
+             << "has changed in the course of minimization. Initially was " << m_parameters.size()
+             << " become " << pars.size() << "\n";
+        throw std::runtime_error(ostr.str());
+    }
+
     auto result = m_fcn(pars);
+
     if (result.size() != m_datasize) {
         std::ostringstream ostr;
         ostr << "ResidualFunctionAdapter::residuals() -> Error. Size of data "
@@ -104,4 +119,14 @@ double ResidualFunctionAdapter::element_residual(const std::vector<double>& pars
     }
 
     return m_residuals[index];
+}
+
+double ResidualFunctionAdapter::chi2(const std::vector<double>& pars)
+{
+    auto residuals = get_residuals(pars);
+    double result(0.0);
+    for(auto x : get_residuals(pars))
+        result += x*x;
+    // FIXME make correct normalization taking into account number of free parameters
+    return result/static_cast<double>(m_datasize);
 }

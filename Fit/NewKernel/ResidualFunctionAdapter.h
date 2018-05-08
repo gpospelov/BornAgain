@@ -42,6 +42,8 @@ private:
     //! evaluate method for gradients and residuals called directly from the minimizer
     double element_residual(const std::vector<double>& pars, unsigned int index,
                     std::vector<double>& gradients);
+    //! Evaluate chi2
+    double chi2(const std::vector<double>& pars);
 
     //!< Length of vector with residuals, should stay the same during minimization.
     size_t m_datasize;

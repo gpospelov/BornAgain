@@ -14,10 +14,13 @@
 
 #include "RootResidualFunction.h"
 
-RootResidualFunction::RootResidualFunction(gradient_function_t fun_gradient, size_t npars,
-                                           size_t ndatasize)
-    : ROOT::Math::FitMethodFunction(static_cast<int>(npars), static_cast<int>(ndatasize)),
-      m_npars(npars), m_datasize(ndatasize), m_fun_gradient(fun_gradient)
+RootResidualFunction::RootResidualFunction(objective_function_t objective_fun,
+    gradient_function_t gradient_fun, size_t npars, size_t ndatasize)
+    : ROOT::Math::FitMethodFunction(static_cast<int>(npars), static_cast<int>(ndatasize))
+    , m_objective_fun(objective_fun)
+    , m_gradient_fun(gradient_fun)
+    , m_npars(npars)
+    , m_datasize(ndatasize)
 {
 }
 
@@ -28,7 +31,7 @@ RootResidualFunction::Type_t RootResidualFunction::Type() const
 
 ROOT::Math::IMultiGenFunction* RootResidualFunction::Clone() const
 {
-    return new RootResidualFunction(m_fun_gradient, m_npars, m_datasize);
+    return new RootResidualFunction(m_objective_fun, m_gradient_fun, m_npars, m_datasize);
 }
 
 //! Returns residual value for given data element index. Transform call of ancient
@@ -51,7 +54,7 @@ double RootResidualFunction::DataElement(const double* pars, unsigned int index,
         par_gradients.resize(m_npars);
 
     // retrieving result from user function
-    double result = m_fun_gradient(par_values, index, par_gradients);
+    double result = m_gradient_fun(par_values, index, par_gradients);
 
     // packing result back to minimizer's array
     if (gradients)
@@ -63,10 +66,8 @@ double RootResidualFunction::DataElement(const double* pars, unsigned int index,
 
 double RootResidualFunction::DoEval(const double* pars) const
 {
-    double chi2 = 0.0;
-    for (size_t i_data = 0; i_data < NPoints(); ++i_data) {
-        double res = DataElement(pars, static_cast<unsigned int>(i_data));
-        chi2 += res * res;
-    }
-    return chi2 / double(NPoints());
+    std::vector<double> par_values;
+    par_values.resize(m_npars, 0.0);
+    std::copy(pars, pars + m_npars, par_values.begin());
+    return m_objective_fun(par_values);
 }

@@ -56,11 +56,9 @@ std::string MinimizerResult::toString() const
 {
     std::ostringstream result;
     result << MinimizerUtils::sectionString();
-    result << "Run time (sec)                     : " << m_duration << "\n";
-    result << "Number of objective function calls : " << m_number_of_calls << "\n";
-    if (m_number_of_gradient_calls) {
-        result << "Number of gradient calls : " << m_number_of_gradient_calls << "\n";
-    }
+    result << "Run time (sec)           : " << m_duration << "\n";
+    result << "Objective function calls : " << m_number_of_calls << "\n";
+    result << "Gradient calls           : " << m_number_of_gradient_calls << "\n";
     result << m_minimizer_report;
     result << MinimizerResultsHelper::reportParameters(m_parameters);
     return result.str();

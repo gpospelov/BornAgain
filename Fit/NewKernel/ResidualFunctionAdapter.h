@@ -26,7 +26,8 @@ class RootResidualFunction;
 
 namespace Fit {
 
-//! Converts user objective function to chi2 like function which ROOT expects.
+//! Provides RootResidualFunction which will be minimizer by ROOT.
+//! Converts ROOT calls to the call of fcn_residual_t.
 
 class ResidualFunctionAdapter : public IFunctionAdapter {
 public:

@@ -64,3 +64,6 @@ GeneticTestV1::GeneticTestV1()
 
 GeneticTestV2::GeneticTestV2()
     : MinimizerTest("Genetic", "Default", "EasyWoodFourPlan") {}
+
+FumiliTestV3::FumiliTestV3()
+    : MinimizerTest("Minuit2", "Fumili", "DecayingSinPlan") {}

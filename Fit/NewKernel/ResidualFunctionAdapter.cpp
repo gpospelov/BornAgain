@@ -92,9 +92,11 @@ double ResidualFunctionAdapter::element_residual(const std::vector<double>& pars
         ++m_number_of_calls;
     }
 
-    assert(pars.size() == gradients.size());
-
     if (gradients.size()) {
+        // Non zero size means that minimizer wants to know gradients.
+        if (pars.size() != gradients.size())
+            throw std::runtime_error("ResidualFunctionAdapter::element_residual() -> Error. "
+                                     "Number of gradients doesn't match number of fit parameters.");
         if (index == 0)
             calculate_gradients(pars);
         for (size_t i_par = 0; i_par < pars.size(); ++i_par)

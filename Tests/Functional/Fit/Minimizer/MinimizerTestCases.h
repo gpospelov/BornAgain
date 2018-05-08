@@ -121,4 +121,10 @@ public:
     GeneticTestV2();
 };
 
+class FumiliTestV3 : public MinimizerTest
+{
+public:
+    FumiliTestV3();
+};
+
 #endif //   MINIMIZERTESTCASES_H

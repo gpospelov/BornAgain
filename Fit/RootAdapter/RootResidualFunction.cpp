@@ -31,23 +31,32 @@ ROOT::Math::IMultiGenFunction* RootResidualFunction::Clone() const
     return new RootResidualFunction(m_fun_gradient, m_npars, m_datasize);
 }
 
-double RootResidualFunction::DataElement(const double* pars, unsigned int i_data,
-                                         double* gradient) const
+//! Returns residual value for given data element index. Transform call of ancient
+//! pointer based function to safer gradient_function_t.
+//! @param pars: array of fit parameter values from the minimizer
+//! @param index: index of residual element
+//! @param gradients: if not zero, then array where we have to put gradients
+//! @return value of residual for given data element index
+
+double RootResidualFunction::DataElement(const double* pars, unsigned int index,
+                                         double* gradients) const
 {
-    std::vector<double> vec;
-    vec.resize(m_npars, 0.0);
-    std::copy(pars, pars + m_npars, vec.begin());
+    std::vector<double> par_values;
+    par_values.resize(m_npars, 0.0);
+    std::copy(pars, pars + m_npars, par_values.begin());
 
-    std::vector<double> vec_gradients;
+    std::vector<double> par_gradients;
 
-    if (gradient)
-        vec_gradients.resize(m_npars);
+    if (gradients)
+        par_gradients.resize(m_npars);
 
-    double result = m_fun_gradient(vec, i_data, vec_gradients);
+    // retrieving result from user function
+    double result = m_fun_gradient(par_values, index, par_gradients);
 
-    if (gradient)
+    // packing result back to minimizer's array
+    if (gradients)
         for (size_t i = 0; i < m_npars; ++i)
-            gradient[i] = vec_gradients[i];
+            gradients[i] = par_gradients[i];
 
     return result;
 }

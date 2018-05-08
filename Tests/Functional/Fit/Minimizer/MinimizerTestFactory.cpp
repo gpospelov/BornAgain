@@ -59,4 +59,7 @@ MinimizerTestFactory::MinimizerTestFactory()
     registerItem("GeneticTestV2", create_new<GeneticTestV2>,
                  "Genetic + WoodFour");
 
+    registerItem("FumiliTestV3", create_new<FumiliTestV3>,
+                 "Minuit + Fumili + DecayingSinPlan");
+
 }

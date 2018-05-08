@@ -42,6 +42,7 @@ public:
                                                      const Parameters& parameters);
 
     int numberOfCalls() const;
+    int numberOfGradientCalls() const;
 
 private:
     std::unique_ptr<IFunctionAdapter> m_adapter;

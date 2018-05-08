@@ -77,6 +77,7 @@ MinimizerResult RootMinimizerAdapter::minimize_residual(fcn_residual_t fcn, Para
     result.setMinValue(minValue());
     result.setReport(reportOutcome());
     result.setNumberOfCalls(m_adapter->numberOfCalls());
+    result.setNumberOfGradientCalls(m_adapter->numberOfGradientCalls());
 
     return result;
 }

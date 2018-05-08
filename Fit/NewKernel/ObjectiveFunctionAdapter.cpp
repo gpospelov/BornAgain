@@ -47,3 +47,8 @@ int ObjectiveFunctionAdapter::numberOfCalls() const
 {
     return m_adapter ? m_adapter->numberOfCalls() : 0;
 }
+
+int ObjectiveFunctionAdapter::numberOfGradientCalls() const
+{
+    return m_adapter ? m_adapter->numberOfGradientCalls() : 0;
+}

@@ -69,7 +69,7 @@ EasyWoodFourPlan::EasyWoodFourPlan()
 }
 
 DecayingSinPlan::DecayingSinPlan()
-    : ResidualTestPlan ("DecayingSinPlan", TestFunctions::DecayingSin)
+    : ResidualTestPlan("DecayingSinPlan", TestFunctions::DecayingSin)
 {
     addParameter(Parameter("amp", 1.0, AttLimits::nonnegative()), 10.0);
     addParameter(Parameter("frequency", 1.0, AttLimits::nonnegative()), 4.0);

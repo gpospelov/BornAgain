@@ -27,9 +27,11 @@ public:
     IFunctionAdapter();
     virtual ~IFunctionAdapter();
     int numberOfCalls() const;
+    int numberOfGradientCalls() const;
 
 protected:
     int m_number_of_calls;
+    int m_number_of_gradient_calls;
 };
 
 }  // namespace Fit

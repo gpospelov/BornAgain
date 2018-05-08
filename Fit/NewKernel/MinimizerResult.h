@@ -42,9 +42,12 @@ public:
 
     void setNumberOfCalls(int value);
 
+    void setNumberOfGradientCalls(int value);
+
 private:
     double m_min_value; //!< Found minimum of objective function.
     int m_number_of_calls; //!< Number of objective function calls.
+    int m_number_of_gradient_calls; //!< Number of calls to calculate gradients
     double m_duration; //!< Duration of minimization in sec.msec
     std::string m_minimizer_report;
     Parameters m_parameters;

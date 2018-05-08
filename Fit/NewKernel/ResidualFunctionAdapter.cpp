@@ -14,10 +14,11 @@
 
 #include "ResidualFunctionAdapter.h"
 #include "RootResidualFunction.h"
-#include <sstream>
 #include <cassert>
+#include <sstream>
 
-namespace {
+namespace
+{
 // step size of derivative calculations
 const double kEps = 1.0E-9;
 }
@@ -35,9 +36,10 @@ ResidualFunctionAdapter::ResidualFunctionAdapter(fcn_residual_t func,
 
 const RootResidualFunction* ResidualFunctionAdapter::rootResidualFunction()
 {
-    gradient_function_t rootfun =
-        [&] (const std::vector<double>& pars, unsigned int index, std::vector<double>& gradients)
-        { return element_residual(pars, index, gradients); };
+    gradient_function_t rootfun
+        = [&](const std::vector<double>& pars, unsigned int index, std::vector<double>& gradients) {
+              return element_residual(pars, index, gradients);
+          };
 
     m_root_objective.reset(new RootResidualFunction(rootfun, m_parameters.size(), m_datasize));
 
@@ -48,19 +50,20 @@ void ResidualFunctionAdapter::calculate_gradients(const std::vector<double>& par
 {
     m_gradients.clear();
     m_gradients.resize(pars.size());
-    for(size_t i_par=0; i_par<pars.size(); ++i_par)
+    for (size_t i_par = 0; i_par < pars.size(); ++i_par)
         m_gradients[i_par].resize(m_datasize, 0.0);
 
     auto residuals = get_residuals(pars);
+    m_number_of_gradient_calls++;
 
-    for(size_t i_par=0; i_par<pars.size(); ++i_par ) {
-        std::vector<double > pars_deriv = pars; // values of parameters for derivative calculation
+    for (size_t i_par = 0; i_par < pars.size(); ++i_par) {
+        std::vector<double> pars_deriv = pars; // values of parameters for derivative calculation
         pars_deriv[i_par] += kEps;
 
         auto residuals2 = get_residuals(pars_deriv);
 
-        for(size_t i_data=0; i_data <m_datasize; ++i_data)
-            m_gradients[i_par][i_data] = (residuals2[i_data] - residuals[i_data])/kEps;
+        for (size_t i_data = 0; i_data < m_datasize; ++i_data)
+            m_gradients[i_par][i_data] = (residuals2[i_data] - residuals[i_data]) / kEps;
     }
 }
 
@@ -71,7 +74,7 @@ std::vector<double> ResidualFunctionAdapter::get_residuals(const std::vector<dou
         std::ostringstream ostr;
         ostr << "ResidualFunctionAdapter::residuals() -> Error. Size of data "
              << "has changed in the course of minimization. Initial length " << m_datasize
-             << " new length " <<result.size() << "\n";
+             << " new length " << result.size() << "\n";
         throw std::runtime_error(ostr.str());
     }
     return result;
@@ -84,19 +87,19 @@ std::vector<double> ResidualFunctionAdapter::get_residuals(const std::vector<dou
 double ResidualFunctionAdapter::element_residual(const std::vector<double>& pars,
                                                  unsigned int index, std::vector<double>& gradients)
 {
-    if (index == 0)
+    if (index == 0) {
         m_residuals = get_residuals(pars);
+        ++m_number_of_calls;
+    }
 
     assert(pars.size() == gradients.size());
 
-    if(gradients.size()) {
-        if(index == 0)
+    if (gradients.size()) {
+        if (index == 0)
             calculate_gradients(pars);
-        for(size_t i_par=0; i_par<pars.size(); ++i_par)
+        for (size_t i_par = 0; i_par < pars.size(); ++i_par)
             gradients[i_par] = m_gradients[i_par][index];
     }
 
     return m_residuals[index];
 }
-
-

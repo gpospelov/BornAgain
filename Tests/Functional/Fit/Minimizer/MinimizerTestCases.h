@@ -127,4 +127,10 @@ public:
     FumiliTestV3();
 };
 
+class LevenbergMarquardtV3 : public MinimizerTest
+{
+public:
+    LevenbergMarquardtV3();
+};
+
 #endif //   MINIMIZERTESTCASES_H

@@ -76,3 +76,7 @@ FumiliTestV3::FumiliTestV3()
 {
     setMinimizerOptions("MaxFunctionCalls=10000");
 }
+
+LevenbergMarquardtV3::LevenbergMarquardtV3()
+    : MinimizerTest("GSLLMA", "Default", "DecayingSinPlan") {}
+

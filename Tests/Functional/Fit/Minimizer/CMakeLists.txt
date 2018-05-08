@@ -19,6 +19,7 @@ set(test_cases
     GeneticTestV1
     GeneticTestV2
     FumiliTestV3
+    LevenbergMarquardtV3
 )
 
 include_directories(${RootMinimizers_INCLUDE_DIRS})

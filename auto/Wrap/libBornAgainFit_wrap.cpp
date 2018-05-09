@@ -24447,14 +24447,14 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Minimizer_minimize__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Minimizer_minimize_cpp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Fit::Minimizer *arg1 = (Fit::Minimizer *) 0 ;
-  fcn_scalar_t arg2 ;
+  PyCallback *arg2 = 0 ;
   Fit::Parameters *arg3 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 ;
+  void *argp2 = 0 ;
   int res2 = 0 ;
   void *argp3 = 0 ;
   int res3 = 0 ;
@@ -24463,145 +24463,33 @@ SWIGINTERN PyObject *_wrap_Minimizer_minimize__SWIG_0(PyObject *SWIGUNUSEDPARM(s
   PyObject * obj2 = 0 ;
   Fit::MinimizerResult result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:Minimizer_minimize",&obj0,&obj1,&obj2)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OOO:Minimizer_minimize_cpp",&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Minimizer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_minimize" "', argument " "1"" of type '" "Fit::Minimizer *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_minimize_cpp" "', argument " "1"" of type '" "Fit::Minimizer *""'"); 
   }
   arg1 = reinterpret_cast< Fit::Minimizer * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_fcn_scalar_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_minimize" "', argument " "2"" of type '" "fcn_scalar_t""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize" "', argument " "2"" of type '" "fcn_scalar_t""'");
-    } else {
-      fcn_scalar_t * temp = reinterpret_cast< fcn_scalar_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_PyCallback,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_minimize_cpp" "', argument " "2"" of type '" "PyCallback &""'"); 
   }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize_cpp" "', argument " "2"" of type '" "PyCallback &""'"); 
+  }
+  arg2 = reinterpret_cast< PyCallback * >(argp2);
   res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_Fit__Parameters,  0  | 0);
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Minimizer_minimize" "', argument " "3"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Minimizer_minimize_cpp" "', argument " "3"" of type '" "Fit::Parameters const &""'"); 
   }
   if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize" "', argument " "3"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize_cpp" "', argument " "3"" of type '" "Fit::Parameters const &""'"); 
   }
   arg3 = reinterpret_cast< Fit::Parameters * >(argp3);
-  result = (arg1)->minimize(arg2,(Fit::Parameters const &)*arg3);
+  result = (arg1)->minimize(*arg2,(Fit::Parameters const &)*arg3);
   resultobj = SWIG_NewPointerObj((new Fit::MinimizerResult(static_cast< const Fit::MinimizerResult& >(result))), SWIGTYPE_p_Fit__MinimizerResult, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Minimizer_minimize__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Fit::Minimizer *arg1 = (Fit::Minimizer *) 0 ;
-  fcn_residual_t arg2 ;
-  Fit::Parameters *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  Fit::MinimizerResult result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:Minimizer_minimize",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Minimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_minimize" "', argument " "1"" of type '" "Fit::Minimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< Fit::Minimizer * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_fcn_residual_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_minimize" "', argument " "2"" of type '" "fcn_residual_t""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize" "', argument " "2"" of type '" "fcn_residual_t""'");
-    } else {
-      fcn_residual_t * temp = reinterpret_cast< fcn_residual_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_Fit__Parameters,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Minimizer_minimize" "', argument " "3"" of type '" "Fit::Parameters const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize" "', argument " "3"" of type '" "Fit::Parameters const &""'"); 
-  }
-  arg3 = reinterpret_cast< Fit::Parameters * >(argp3);
-  result = (arg1)->minimize(arg2,(Fit::Parameters const &)*arg3);
-  resultobj = SWIG_NewPointerObj((new Fit::MinimizerResult(static_cast< const Fit::MinimizerResult& >(result))), SWIGTYPE_p_Fit__MinimizerResult, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Minimizer_minimize(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  Py_ssize_t ii;
-  
-  if (!PyTuple_Check(args)) SWIG_fail;
-  argc = args ? PyObject_Length(args) : 0;
-  for (ii = 0; (ii < 3) && (ii < argc); ii++) {
-    argv[ii] = PyTuple_GET_ITEM(args,ii);
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Fit__Minimizer, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_fcn_scalar_t, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_Fit__Parameters, 0);
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_Minimizer_minimize__SWIG_0(self, args);
-        }
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Fit__Minimizer, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_fcn_residual_t, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_Fit__Parameters, 0);
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_Minimizer_minimize__SWIG_1(self, args);
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'Minimizer_minimize'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Fit::Minimizer::minimize(fcn_scalar_t,Fit::Parameters const &)\n"
-    "    Fit::Minimizer::minimize(fcn_residual_t,Fit::Parameters const &)\n");
-  return 0;
 }
 
 
@@ -25777,10 +25665,7 @@ static PyMethodDef SwigMethods[] = {
 		"setMinimizer(std::string const & minimizerName, std::string const & algorithmName)\n"
 		"Minimizer_setMinimizer(Minimizer self, std::string const & minimizerName)\n"
 		""},
-	 { (char *)"Minimizer_minimize", _wrap_Minimizer_minimize, METH_VARARGS, (char *)"\n"
-		"minimize(fcn_scalar_t fcn, Parameters parameters) -> MinimizerResult\n"
-		"Minimizer_minimize(Minimizer self, fcn_residual_t fcn, Parameters parameters) -> MinimizerResult\n"
-		""},
+	 { (char *)"Minimizer_minimize_cpp", _wrap_Minimizer_minimize_cpp, METH_VARARGS, (char *)"Minimizer_minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult"},
 	 { (char *)"Minimizer_test_callback_cpp", _wrap_Minimizer_test_callback_cpp, METH_VARARGS, (char *)"Minimizer_test_callback_cpp(Minimizer self, PyCallback callback)"},
 	 { (char *)"Minimizer_swigregister", Minimizer_swigregister, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }

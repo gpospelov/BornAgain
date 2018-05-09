@@ -43,6 +43,14 @@ MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters& parame
     return m_kernel->minimize(fcn, parameters);
 }
 
+MinimizerResult Minimizer::minimize(PyCallback& callback, const Parameters& parameters)
+{
+    fcn_scalar_t fcn = [&](const std::vector<double>& pars) {
+        return callback.call(pars);
+    };
+    return minimize(fcn, parameters);
+}
+
 
 #include <iostream>
 void Minimizer::test_callback(PyCallback& callback)

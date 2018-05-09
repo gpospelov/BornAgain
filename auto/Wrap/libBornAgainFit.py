@@ -3071,12 +3071,9 @@ class Minimizer(_object):
         return _libBornAgainFit.Minimizer_setMinimizer(self, *args)
 
 
-    def minimize(self, *args):
-        """
-        minimize(Minimizer self, fcn_scalar_t fcn, Parameters parameters) -> MinimizerResult
-        minimize(Minimizer self, fcn_residual_t fcn, Parameters parameters) -> MinimizerResult
-        """
-        return _libBornAgainFit.Minimizer_minimize(self, *args)
+    def minimize_cpp(self, callback, parameters):
+        """minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult"""
+        return _libBornAgainFit.Minimizer_minimize_cpp(self, callback, parameters)
 
 
     def test_callback_cpp(self, callback):
@@ -3088,6 +3085,11 @@ class Minimizer(_object):
         if callable(args):
             wrp = CallableWrapper(args)
             result = self.test_callback_cpp(wrp)
+
+    def minimize(self, callback, pars):
+        if callable(callback):
+            wrp = CallableWrapper(callback)
+            return self.minimize_cpp(wrp, pars)
 
 
 Minimizer_swigregister = _libBornAgainFit.Minimizer_swigregister

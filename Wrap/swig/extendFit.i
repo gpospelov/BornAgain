@@ -103,6 +103,11 @@ namespace Fit {
             wrp = CallableWrapper(args)
             result = self.test_callback_cpp(wrp)
 
+    def minimize(self, callback, pars):
+        if callable(callback):
+            wrp = CallableWrapper(callback)
+            return self.minimize_cpp(wrp, pars)
+
 %}
 };
 

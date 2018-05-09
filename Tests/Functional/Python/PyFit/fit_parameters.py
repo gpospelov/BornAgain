@@ -14,6 +14,17 @@ def some_callable(pars):
     return 42.0
 
 
+class TestMinimizerHelper:
+    def __init__(self):
+        self.m_ncalls = 0
+        self.m_pars = None
+
+    def objective_function(self, pars):
+        self.m_ncalls += 1
+        self.m_pars = pars
+        return 42.0
+
+
 class FitParametersAPITest(unittest.TestCase):
 
     def test_ParametersSetIterator(self):
@@ -34,7 +45,26 @@ class FitParametersAPITest(unittest.TestCase):
         minimizer = ba.Minimizer()
         minimizer.test_callback(some_callable)
 
+    def test_SimpleMinimizer(self):
+        minimizer = ba.Minimizer()
+        minimizer.setMinimizer("Test")
 
+        pars = ba.Parameters()
+        pars.add(ba.Parameter("par0", 0.0))
+        pars.add(ba.Parameter("par1", 1.0))
+        pars.add(ba.Parameter("par2", 2.0))
+
+        helper = TestMinimizerHelper()
+        result = minimizer.minimize(helper.objective_function, pars)
+
+        # return value of objective function was propagated to MinimizerResult
+        self.assertEqual(result.minValue(), 42.0)
+
+        # objective function was called once
+        self.assertEqual(helper.m_ncalls, 1)
+
+        # starting values of fit parameters were correctly send to objective func
+        self.assertEqual(list(helper.m_pars), [0.0, 1.0, 2.0])
 
 if __name__ == '__main__':
     unittest.main()

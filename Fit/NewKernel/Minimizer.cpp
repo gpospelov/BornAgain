@@ -14,6 +14,7 @@
 
 #include "Minimizer.h"
 #include "Kernel.h"
+#include "PyCallback.h"
 
 using namespace Fit;
 
@@ -40,4 +41,14 @@ MinimizerResult Minimizer::minimize(fcn_scalar_t fcn,
 MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters& parameters)
 {
     return m_kernel->minimize(fcn, parameters);
+}
+
+
+#include <iostream>
+void Minimizer::test_callback(PyCallback& callback)
+{
+    std::vector<double> pars = {1.0, 2.0, 3.0};
+
+    std::cout << "Minimizer::test_callback" << std::endl;
+    std::cout << "calling  " << callback.call(pars) << std::endl;
 }

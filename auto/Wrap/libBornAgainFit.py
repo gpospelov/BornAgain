@@ -2163,12 +2163,12 @@ class IMinimizer(_object):
 
 
     def minimize_scalar(self, arg2, arg3):
-        """minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Parameters arg3) -> Fit::MinimizerResult"""
+        """minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Parameters arg3) -> MinimizerResult"""
         return _libBornAgainFit.IMinimizer_minimize_scalar(self, arg2, arg3)
 
 
     def minimize_residual(self, arg2, arg3):
-        """minimize_residual(IMinimizer self, fcn_residual_t arg2, Parameters arg3) -> Fit::MinimizerResult"""
+        """minimize_residual(IMinimizer self, fcn_residual_t arg2, Parameters arg3) -> MinimizerResult"""
         return _libBornAgainFit.IMinimizer_minimize_residual(self, arg2, arg3)
 
 
@@ -2943,6 +2943,156 @@ def MinimizerFactory_catalogue():
     """MinimizerFactory_catalogue() -> MinimizerCatalogue"""
     return _libBornAgainFit.MinimizerFactory_catalogue()
 
+class PyCallback(_object):
+    """Proxy of C++ PyCallback class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PyCallback, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PyCallback, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(PyCallback self) -> PyCallback"""
+        if self.__class__ == PyCallback:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainFit.new_PyCallback(_self, )
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainFit.delete_PyCallback
+    __del__ = lambda self: None
+
+    def call(self, arg0):
+        """call(PyCallback self, vdouble1d_t arg0) -> double"""
+        return _libBornAgainFit.PyCallback_call(self, arg0)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_PyCallback(self)
+        return weakref_proxy(self)
+PyCallback_swigregister = _libBornAgainFit.PyCallback_swigregister
+PyCallback_swigregister(PyCallback)
+
+class MinimizerResult(_object):
+    """Proxy of C++ Fit::MinimizerResult class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, MinimizerResult, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, MinimizerResult, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(Fit::MinimizerResult self) -> MinimizerResult"""
+        this = _libBornAgainFit.new_MinimizerResult()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def setParameters(self, parameters):
+        """setParameters(MinimizerResult self, Parameters parameters)"""
+        return _libBornAgainFit.MinimizerResult_setParameters(self, parameters)
+
+
+    def parameters(self):
+        """parameters(MinimizerResult self) -> Parameters"""
+        return _libBornAgainFit.MinimizerResult_parameters(self)
+
+
+    def setMinValue(self, value):
+        """setMinValue(MinimizerResult self, double value)"""
+        return _libBornAgainFit.MinimizerResult_setMinValue(self, value)
+
+
+    def minValue(self):
+        """minValue(MinimizerResult self) -> double"""
+        return _libBornAgainFit.MinimizerResult_minValue(self)
+
+
+    def toString(self):
+        """toString(MinimizerResult self) -> std::string"""
+        return _libBornAgainFit.MinimizerResult_toString(self)
+
+
+    def setReport(self, value):
+        """setReport(MinimizerResult self, std::string const & value)"""
+        return _libBornAgainFit.MinimizerResult_setReport(self, value)
+
+
+    def setDuration(self, value):
+        """setDuration(MinimizerResult self, double value)"""
+        return _libBornAgainFit.MinimizerResult_setDuration(self, value)
+
+
+    def setNumberOfCalls(self, value):
+        """setNumberOfCalls(MinimizerResult self, int value)"""
+        return _libBornAgainFit.MinimizerResult_setNumberOfCalls(self, value)
+
+
+    def setNumberOfGradientCalls(self, value):
+        """setNumberOfGradientCalls(MinimizerResult self, int value)"""
+        return _libBornAgainFit.MinimizerResult_setNumberOfGradientCalls(self, value)
+
+    __swig_destroy__ = _libBornAgainFit.delete_MinimizerResult
+    __del__ = lambda self: None
+MinimizerResult_swigregister = _libBornAgainFit.MinimizerResult_swigregister
+MinimizerResult_swigregister(MinimizerResult)
+
+class Minimizer(_object):
+    """Proxy of C++ Fit::Minimizer class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Minimizer, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Minimizer, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(Fit::Minimizer self) -> Minimizer"""
+        this = _libBornAgainFit.new_Minimizer()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainFit.delete_Minimizer
+    __del__ = lambda self: None
+
+    def setMinimizer(self, *args):
+        """
+        setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName, std::string const & options)
+        setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName)
+        setMinimizer(Minimizer self, std::string const & minimizerName)
+        """
+        return _libBornAgainFit.Minimizer_setMinimizer(self, *args)
+
+
+    def minimize(self, *args):
+        """
+        minimize(Minimizer self, fcn_scalar_t fcn, Parameters parameters) -> MinimizerResult
+        minimize(Minimizer self, fcn_residual_t fcn, Parameters parameters) -> MinimizerResult
+        """
+        return _libBornAgainFit.Minimizer_minimize(self, *args)
+
+
+    def test_callback_cpp(self, callback):
+        """test_callback_cpp(Minimizer self, PyCallback callback)"""
+        return _libBornAgainFit.Minimizer_test_callback_cpp(self, callback)
+
+
+    def test_callback(self, args):
+        if callable(args):
+            wrp = CallableWrapper(args)
+            result = self.test_callback_cpp(wrp)
+
+
+Minimizer_swigregister = _libBornAgainFit.Minimizer_swigregister
+Minimizer_swigregister(Minimizer)
+
 
 class FitParameterSetIterator(object):
 
@@ -2982,6 +3132,14 @@ class ParametersIterator(object):
 
     def __next__(self):
         return self.next()
+
+
+class CallableWrapper(PyCallback):
+    def __init__(self, f):
+        super(CallableWrapper, self).__init__()
+        self.f_ = f
+    def call(self, obj):
+        return self.f_(obj)
 
 # This file is compatible with both classic and new-style classes.
 

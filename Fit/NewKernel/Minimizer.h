@@ -24,6 +24,8 @@
 #include <string>
 #include <memory>
 
+class PyCallback;
+
 namespace Fit {
 
 class Kernel;
@@ -43,6 +45,9 @@ public:
     MinimizerResult minimize(fcn_scalar_t fcn, const Parameters& parameters);
 
     MinimizerResult minimize(fcn_residual_t fcn, const Parameters& parameters);
+
+    void test_callback(PyCallback& callback);
+
 
 private:
    std::unique_ptr<Kernel> m_kernel;

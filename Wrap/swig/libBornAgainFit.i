@@ -29,6 +29,7 @@
 
 %include "warnings.i"
 %include "ignores.i"
+%include "renameFit.i"
 %include "directors.i"
 %include "../../auto/Wrap/doxygen_fit.i"
 
@@ -70,6 +71,10 @@ import_array();
 #include "IMinimizer.h"
 #include "MinimizerCatalogue.h"
 #include "MinimizerFactory.h"
+
+#include "PyCallback.h"
+#include "MinimizerResult.h"
+#include "Minimizer.h"
 %}
 
 // ownership
@@ -89,5 +94,9 @@ import_array();
 %include "FitParameterSet.h"
 %include "MinimizerCatalogue.h"
 %include "MinimizerFactory.h"
+
+%include "PyCallback.h"
+%include "MinimizerResult.h"
+%include "Minimizer.h"
 
 %include "extendFit.i"

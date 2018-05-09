@@ -75,10 +75,36 @@ namespace Fit {
         return (*($self))[index];
     }
 
-%pythoncode {
-    def __iter__(self):
-        return ParametersIterator(self)
-}
+%pythoncode %{
+def __iter__(self):
+    return ParametersIterator(self)
+%}
 };
 
 }
+
+// --- Setting up Minimizer callback ---
+
+%pythoncode %{
+class CallableWrapper(PyCallback):
+    def __init__(self, f):
+        super(CallableWrapper, self).__init__()
+        self.f_ = f
+    def call(self, obj):
+        return self.f_(obj)
+%}
+
+namespace Fit {
+
+%extend Minimizer {
+%pythoncode %{
+    def test_callback(self, args):
+        if callable(args):
+            wrp = CallableWrapper(args)
+            result = self.test_callback_cpp(wrp)
+
+%}
+};
+
+}
+

@@ -30,6 +30,6 @@ typedef std::function<double(const double*)> root_objective_t;
 typedef std::function<double(const double*, unsigned int, double*)> root_gradient_t;
 
 using fcn_scalar_t = std::function<double(const Fit::Parameters&)>;
-using fcn_residual_t = std::function<std::vector<double>(std::vector<double>)>;
+using fcn_residual_t = std::function<std::vector<double>(const Fit::Parameters&)>;
 
 #endif // KERNELTYPES_H

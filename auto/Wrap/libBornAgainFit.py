@@ -3084,8 +3084,7 @@ class Minimizer(_object):
     def minimize(self, callback, pars):
         if callable(callback):
             wrp = CallableWrapper(callback)
-            result = self.minimize_cpp(wrp, pars)
-            return result
+            return self.minimize_cpp(wrp, pars)
 
 
 Minimizer_swigregister = _libBornAgainFit.Minimizer_swigregister

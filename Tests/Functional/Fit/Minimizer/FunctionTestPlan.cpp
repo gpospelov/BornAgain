@@ -156,9 +156,9 @@ ResidualTestPlan::~ResidualTestPlan() = default;
 fcn_residual_t ResidualTestPlan::residualFunction()
 {
     fcn_residual_t func =
-        [&](const std::vector<double>& pars) -> std::vector<double>
+        [&](Fit::Parameters pars) -> std::vector<double>
     {
-        return evaluate(pars);
+        return evaluate(pars.values());
     };
 
     return func;

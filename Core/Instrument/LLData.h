@@ -17,7 +17,9 @@
 
 #include "EigenCore.h"
 #include "Exceptions.h"
+#include <algorithm>
 #include <limits>
+#include <numeric>
 
 //! Template class to store data of any type in multi-dimensional space (low-level).
 //! @ingroup tools_internal
@@ -58,7 +60,7 @@ public:
 private:
     void allocate(size_t rank, const int* dimensions);
     void clear();
-    int checkPositiveDimension(int dimension) const;
+    bool checkDimensions(size_t rank, const int* dimensions) const;
     size_t convertCoordinate(int* coordinate) const;
     void swapContents(LLData<T>& other);
     T getZeroElement() const;
@@ -198,40 +200,36 @@ template<class T> LLData<T>& LLData<T>::operator/=(const LLData& right)
 
 template<class T> void LLData<T>::setAll(const T& value)
 {
-    for (size_t i=0; i<getTotalSize(); ++i)
-        m_data_array[i] = value;
+    std::fill(m_data_array, m_data_array + getTotalSize(), value);
 }
 
 template<class T> void LLData<T>::scaleAll(const T& factor)
 {
-    for (size_t i=0; i<getTotalSize(); ++i)
-        m_data_array[i] *= factor;
+    std::transform(m_data_array, m_data_array + getTotalSize(), m_data_array,
+            [&factor](const T& value) -> T { return value*factor; });
 }
 
 template<class T> inline size_t LLData<T>::getTotalSize() const
 {
-    size_t result = 1;
-    for (size_t i=0; i<m_rank; ++i)
-        result *= m_dims[i];
-    return result;
+    int result = std::accumulate(m_dims, m_dims + m_rank, 1, std::multiplies<int>{});
+    return static_cast<size_t>(result);
 }
 
 template<class T> T LLData<T>::getTotalSum() const
 {
-    T result = getZeroElement();
-    for (size_t i=0; i<getTotalSize(); ++i)
-        result += m_data_array[i];
-    return result;
+    return std::accumulate(m_data_array, m_data_array + getTotalSize(), getZeroElement());
 }
 
 template<class T> void LLData<T>::allocate(size_t rank, const int* dimensions)
 {
     clear();
+    if (!checkDimensions(rank, dimensions)) {
+        throw std::runtime_error("LLData<T>::allocate error: dimensions must be > 0");
+    }
     m_rank = rank;
     if (m_rank) {
         m_dims = new int[m_rank];
-        for (size_t i=0; i<m_rank; ++i)
-            m_dims[i] = checkPositiveDimension(dimensions[i]);
+        std::copy(dimensions, dimensions + rank, m_dims);
         m_data_array = new T[getTotalSize()];
     }
     else {
@@ -245,19 +243,18 @@ template<class T> void LLData<T>::clear()
         m_rank = 0;
         delete[] m_data_array;
         delete[] m_dims;
-        m_data_array = 0;
-        m_dims = 0;
+        m_data_array = nullptr;
+        m_dims = nullptr;
     } else {
         delete[] m_data_array;
     }
 }
 
-template<class T> inline int LLData<T>::checkPositiveDimension(int dimension) const
+template<class T> inline
+bool LLData<T>::checkDimensions(size_t rank, const int* dimensions) const
 {
-    if (dimension<1) {
-        throw Exceptions::OutOfBoundsException("Dimension must be bigger than zero.");
-    }
-    return dimension;
+    return std::all_of(dimensions, dimensions + rank,
+                       [](const int& dim) -> bool { return dim > 0; });
 }
 
 template<class T> inline size_t LLData<T>::convertCoordinate(int* coordinate) const

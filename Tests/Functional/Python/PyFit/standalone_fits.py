@@ -43,7 +43,8 @@ class DecayingSin:
         self.m_params.add(ba.Parameter('decay', 0.05))
         self.m_params.add(ba.Parameter('phase', 1.0))
         self.m_params.add(ba.Parameter('frequency', 4.0))
-        self.m_eps_data = np.full_like(self.m_x, 0.01)
+        self.m_eps_data = np.linspace(0.0, 10.0, 100)
+        self.m_eps_data.fill(0.01)
         self.m_data = decaying_sin(self.m_params, self.m_x)
 
     def objective_function(self, params):

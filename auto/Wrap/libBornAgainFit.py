@@ -2956,14 +2956,19 @@ class PyCallback(_object):
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, PyCallback, name)
     __repr__ = _swig_repr
+    SCALAR = _libBornAgainFit.PyCallback_SCALAR
+    RESIDUAL = _libBornAgainFit.PyCallback_RESIDUAL
 
-    def __init__(self):
-        """__init__(PyCallback self) -> PyCallback"""
+    def __init__(self, *args):
+        """
+        __init__(PyCallback self, PyCallback::CallbackType callback_type) -> PyCallback
+        __init__(PyCallback self) -> PyCallback
+        """
         if self.__class__ == PyCallback:
             _self = None
         else:
             _self = self
-        this = _libBornAgainFit.new_PyCallback(_self, )
+        this = _libBornAgainFit.new_PyCallback(_self, *args)
         try:
             self.this.append(this)
         except __builtin__.Exception:
@@ -2971,9 +2976,19 @@ class PyCallback(_object):
     __swig_destroy__ = _libBornAgainFit.delete_PyCallback
     __del__ = lambda self: None
 
-    def call(self, arg0):
-        """call(PyCallback self, Parameters arg0) -> double"""
-        return _libBornAgainFit.PyCallback_call(self, arg0)
+    def callback_type(self):
+        """callback_type(PyCallback self) -> PyCallback::CallbackType"""
+        return _libBornAgainFit.PyCallback_callback_type(self)
+
+
+    def call_scalar(self, pars):
+        """call_scalar(PyCallback self, Parameters pars) -> double"""
+        return _libBornAgainFit.PyCallback_call_scalar(self, pars)
+
+
+    def call_residuals(self, arg0):
+        """call_residuals(PyCallback self, Parameters arg0) -> vdouble1d_t"""
+        return _libBornAgainFit.PyCallback_call_residuals(self, arg0)
 
     def __disown__(self):
         self.this.disown()
@@ -3081,15 +3096,21 @@ class Minimizer(_object):
         return _libBornAgainFit.Minimizer_minimize_cpp(self, callback, parameters)
 
 
-    def test_callback(self, args):
-        if callable(args):
-            wrp = CallableWrapper(args)
-            result = self.test_callback_cpp(wrp)
-
     def minimize(self, callback, pars):
-        if callable(callback):
-            wrp = CallableWrapper(callback)
+        if not callable(callback):
+            raise Exception("Not a Python callable")
+
+    # single call to callback to check return type
+        result = callback(pars)
+
+        if isinstance(result, float):
+            wrp = CallableWrapper(callback, PyCallback.SCALAR)
             return self.minimize_cpp(wrp, pars)
+        elif hasattr(result, '__len__'):
+            wrp = CallableWrapper(callback, PyCallback.RESIDUAL)
+            return self.minimize_cpp(wrp, pars)
+        else:
+            raise Exception("Wrong callable type")
 
 
 Minimizer_swigregister = _libBornAgainFit.Minimizer_swigregister
@@ -3137,10 +3158,12 @@ class ParametersIterator(object):
 
 
 class CallableWrapper(PyCallback):
-    def __init__(self, f):
-        super(CallableWrapper, self).__init__()
+    def __init__(self, f, callable_type):
+        super(CallableWrapper, self).__init__(callable_type)
         self.f_ = f
-    def call(self, obj):
+    def call_scalar(self, obj):
+        return self.f_(obj)
+    def call_residuals(self, obj):
         return self.f_(obj)
 
 # This file is compatible with both classic and new-style classes.

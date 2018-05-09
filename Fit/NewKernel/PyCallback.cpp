@@ -13,20 +13,27 @@
 // ************************************************************************** //
 
 #include "PyCallback.h"
-#include <iostream>
 
-PyCallback::PyCallback()
+PyCallback::PyCallback(PyCallback::CallbackType callback_type)
+    : m_callback_type(callback_type)
 {
-    std::cout << "PyCallback::PyCallback() " << std::endl;
+
 }
 
-PyCallback::~PyCallback()
+PyCallback::CallbackType PyCallback::callback_type() const
 {
-    std::cout << "PyCallback::~PyCallback() " << std::endl;
+    return m_callback_type;
 }
 
+PyCallback::~PyCallback() = default;
 
-double PyCallback::call(Fit::Parameters)
+
+double PyCallback::call_scalar(Fit::Parameters)
 {
-    return 0.0;
+    throw std::runtime_error("PyCallback::call_scalar() -> Error. Not implemented");
+}
+
+std::vector<double> PyCallback::call_residuals(Fit::Parameters)
+{
+    throw std::runtime_error("PyCallback::call_residuals() -> Error. Not implemented");
 }

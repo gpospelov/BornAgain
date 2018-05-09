@@ -18,9 +18,10 @@
 class SwigDirector_PyCallback : public PyCallback, public Swig::Director {
 
 public:
-    SwigDirector_PyCallback(PyObject *self);
+    SwigDirector_PyCallback(PyObject *self, PyCallback::CallbackType callback_type = PyCallback::SCALAR);
     virtual ~SwigDirector_PyCallback();
-    virtual double call(Fit::Parameters arg0);
+    virtual double call_scalar(Fit::Parameters pars);
+    virtual std::vector< double,std::allocator< double > > call_residuals(Fit::Parameters arg0);
 
 /* Internal director utilities */
 public:
@@ -51,7 +52,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[1];
+    mutable swig::SwigVar_PyObject vtable[2];
 #endif
 
 };

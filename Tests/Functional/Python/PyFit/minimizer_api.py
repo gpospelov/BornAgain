@@ -60,8 +60,9 @@ class MinimizerAPITest(unittest.TestCase):
         # return value of objective function was propagated to MinimizerResult
         self.assertEqual(result.minValue(), 42.0)
 
-        # objective function was called once
-        self.assertEqual(helper.m_ncalls, 1)
+        # objective function was called twice
+        #(once by test minimizer, and second time during return type deduction)
+        self.assertEqual(helper.m_ncalls, 2)
 
         # starting values of fit parameters were correctly send to objective func
         self.assertEqual(list(helper.m_pars.values()), [0.0, 1.0, 2.0])

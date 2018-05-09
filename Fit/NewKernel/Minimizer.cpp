@@ -44,8 +44,18 @@ MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters& parame
 
 MinimizerResult Minimizer::minimize(PyCallback& callback, const Parameters& parameters)
 {
-    fcn_scalar_t fcn = [&](const Parameters& pars) {
-        return callback.call(pars);
-    };
-    return minimize(fcn, parameters);
+    if (callback.callback_type() == PyCallback::SCALAR) {
+        fcn_scalar_t fcn = [&](const Parameters& pars) {
+            return callback.call_scalar(pars);
+        };
+        return minimize(fcn, parameters);
+
+    } else if(callback.callback_type() == PyCallback::RESIDUAL) {
+        fcn_residual_t fcn = [&](const Parameters& pars) {
+            return callback.call_residuals(pars);
+        };
+        return minimize(fcn, parameters);
+    }
+
+    throw std::runtime_error("Minimizer::minimize() -> Error. Unexpected user function");
 }

@@ -19,18 +19,31 @@
 #include "Parameters.h"
 #include <vector>
 
-
-//! Base class to wrap Python callable and pass it to C++. Used in swig interface file.
+//! Base class to wrap Python callable and pass it to C++. Used in swig interface file,
+//! intended to be overloaded from Python.
 
 class BA_CORE_API_ PyCallback
 {
 public:
-    PyCallback();
+    enum CallbackType {SCALAR, RESIDUAL};
+
+    PyCallback(CallbackType callback_type = SCALAR);
     virtual ~PyCallback();
 
-    //! Call Python callable and returns its result. Should be overloaded in swig interface.
-    //! Intentionally pass by value.
-    virtual double call(Fit::Parameters);
+    CallbackType callback_type() const;
+
+    //! Call Python callable and returns its result. Intended to be overloaded in Python.
+    //! @param pars: Fit parameters object (intentionally passed by value).
+    //! @return value of objective function.
+    virtual double call_scalar(Fit::Parameters pars);
+
+    //! Call Python callable and returns its result. Intended to be overloaded in Python.
+    //! @param pars: Fit parameters object (intentionally passed by value).
+    //! @return vector of residuals
+    virtual std::vector<double> call_residuals(Fit::Parameters);
+
+private:
+    CallbackType m_callback_type;
 };
 
 #endif  // PYCALLBACK_H

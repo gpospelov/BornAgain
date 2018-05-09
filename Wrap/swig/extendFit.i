@@ -101,10 +101,12 @@ if _newclass: value = property(value, setValue)
 
 %pythoncode %{
 class CallableWrapper(PyCallback):
-    def __init__(self, f):
-        super(CallableWrapper, self).__init__()
+    def __init__(self, f, callable_type):
+        super(CallableWrapper, self).__init__(callable_type)
         self.f_ = f
-    def call(self, obj):
+    def call_scalar(self, obj):
+        return self.f_(obj)
+    def call_residuals(self, obj):
         return self.f_(obj)
 %}
 
@@ -112,15 +114,21 @@ namespace Fit {
 
 %extend Minimizer {
 %pythoncode %{
-    def test_callback(self, args):
-        if callable(args):
-            wrp = CallableWrapper(args)
-            result = self.test_callback_cpp(wrp)
-
     def minimize(self, callback, pars):
-        if callable(callback):
-            wrp = CallableWrapper(callback)
+        if not callable(callback):
+            raise Exception("Not a Python callable")
+
+        # single call to callback to check return type
+        result = callback(pars)
+
+        if isinstance(result, float):
+            wrp = CallableWrapper(callback, PyCallback.SCALAR)
             return self.minimize_cpp(wrp, pars)
+        elif hasattr(result, '__len__'):
+            wrp = CallableWrapper(callback, PyCallback.RESIDUAL)
+            return self.minimize_cpp(wrp, pars)
+        else:
+            raise Exception("Wrong callable type")
 
 %}
 };

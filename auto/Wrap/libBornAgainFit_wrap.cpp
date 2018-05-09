@@ -6334,7 +6334,7 @@ SWIGINTERN IFitParameter const *FitParameterSet___getitem____SWIG_1(FitParameter
 
 #include "libBornAgainFit_wrap.h"
 
-SwigDirector_PyCallback::SwigDirector_PyCallback(PyObject *self): PyCallback(), Swig::Director(self) {
+SwigDirector_PyCallback::SwigDirector_PyCallback(PyObject *self, PyCallback::CallbackType callback_type): PyCallback(callback_type), Swig::Director(self) {
   SWIG_DIRECTOR_RGTR((PyCallback *)this, this); 
 }
 
@@ -6344,20 +6344,20 @@ SwigDirector_PyCallback::SwigDirector_PyCallback(PyObject *self): PyCallback(), 
 SwigDirector_PyCallback::~SwigDirector_PyCallback() {
 }
 
-double SwigDirector_PyCallback::call(Fit::Parameters arg0) {
+double SwigDirector_PyCallback::call_scalar(Fit::Parameters pars) {
   double c_result;
   swig::SwigVar_PyObject obj0;
-  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new Fit::Parameters((const Fit::Parameters &)arg0)), SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_OWN |  0 );
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new Fit::Parameters((const Fit::Parameters &)pars)), SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_OWN |  0 );
   if (!swig_get_self()) {
     Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call PyCallback.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 0;
-  const char *const swig_method_name = "call";
+  const char *const swig_method_name = "call_scalar";
   PyObject *method = swig_get_method(swig_method_index, swig_method_name);
   swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
 #else
-  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"call", (char *)"(O)" ,(PyObject *)obj0);
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"call_scalar", (char *)"(O)" ,(PyObject *)obj0);
 #endif
   if (!result) {
     PyObject *error = PyErr_Occurred();
@@ -6378,6 +6378,44 @@ double SwigDirector_PyCallback::call(Fit::Parameters arg0) {
   }
   c_result = static_cast< double >(swig_val);
   return (double) c_result;
+}
+
+
+std::vector< double,std::allocator< double > > SwigDirector_PyCallback::call_residuals(Fit::Parameters arg0) {
+  std::vector< double,std::allocator< double > > c_result;
+  swig::SwigVar_PyObject obj0;
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new Fit::Parameters((const Fit::Parameters &)arg0)), SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_OWN |  0 );
+  if (!swig_get_self()) {
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call PyCallback.__init__.");
+  }
+#if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
+  const size_t swig_method_index = 1;
+  const char *const swig_method_name = "call_residuals";
+  PyObject *method = swig_get_method(swig_method_index, swig_method_name);
+  swig::SwigVar_PyObject result = PyObject_CallFunction(method, (char *)"(O)" ,(PyObject *)obj0);
+#else
+  swig::SwigVar_PyObject result = PyObject_CallMethod(swig_get_self(), (char *)"call_residuals", (char *)"(O)" ,(PyObject *)obj0);
+#endif
+  if (!result) {
+    PyObject *error = PyErr_Occurred();
+    {
+      if( error != NULL ) {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch( &ptype, &pvalue, &ptraceback );
+        PyErr_Restore( ptype, pvalue, ptraceback );
+        PyErr_Print();
+        Py_Exit(1);
+      }
+    }
+  }
+  std::vector< double,std::allocator< double > > *swig_optr = 0;
+  int swig_ores = swig::asptr(result, &swig_optr);
+  if (!SWIG_IsOK(swig_ores) || !swig_optr) {
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError((swig_optr ? swig_ores : SWIG_TypeError))), "in output value of type '""std::vector< double,std::allocator< double > >""'");
+  }
+  c_result = *swig_optr;
+  if (SWIG_IsNewObj(swig_ores)) delete swig_optr;
+  return (std::vector< double,std::allocator< double > >) c_result;
 }
 
 
@@ -23763,7 +23801,38 @@ SWIGINTERN PyObject *MinimizerFactory_swigregister(PyObject *SWIGUNUSEDPARM(self
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_PyCallback(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_PyCallback__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyCallback::CallbackType arg2 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyCallback *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:new_PyCallback",&obj0,&obj1)) SWIG_fail;
+  arg1 = obj0;
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_PyCallback" "', argument " "2"" of type '" "PyCallback::CallbackType""'");
+  } 
+  arg2 = static_cast< PyCallback::CallbackType >(val2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (PyCallback *)new SwigDirector_PyCallback(arg1,arg2); 
+  } else {
+    result = (PyCallback *)new PyCallback(arg2); 
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PyCallback, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_PyCallback__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   PyObject *arg1 = (PyObject *) 0 ;
   PyObject * obj0 = 0 ;
@@ -23782,6 +23851,48 @@ SWIGINTERN PyObject *_wrap_new_PyCallback(PyObject *SWIGUNUSEDPARM(self), PyObje
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_PyCallback(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 2) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      return _wrap_new_PyCallback__SWIG_1(self, args);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_int(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_PyCallback__SWIG_0(self, args);
+      }
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_PyCallback'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    PyCallback::PyCallback(PyCallback::CallbackType)\n"
+    "    PyCallback::PyCallback(PyObject *)\n");
+  return 0;
 }
 
 
@@ -23806,7 +23917,29 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_PyCallback_call(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_PyCallback_callback_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyCallback *arg1 = (PyCallback *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyCallback::CallbackType result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:PyCallback_callback_type",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_callback_type" "', argument " "1"" of type '" "PyCallback const *""'"); 
+  }
+  arg1 = reinterpret_cast< PyCallback * >(argp1);
+  result = (PyCallback::CallbackType)((PyCallback const *)arg1)->callback_type();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PyCallback_call_scalar(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   PyCallback *arg1 = (PyCallback *) 0 ;
   Fit::Parameters arg2 ;
@@ -23820,19 +23953,19 @@ SWIGINTERN PyObject *_wrap_PyCallback_call(PyObject *SWIGUNUSEDPARM(self), PyObj
   bool upcall = false;
   double result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:PyCallback_call",&obj0,&obj1)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OO:PyCallback_call_scalar",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_call" "', argument " "1"" of type '" "PyCallback *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_call_scalar" "', argument " "1"" of type '" "PyCallback *""'"); 
   }
   arg1 = reinterpret_cast< PyCallback * >(argp1);
   {
     res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Fit__Parameters,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "PyCallback_call" "', argument " "2"" of type '" "Fit::Parameters""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "PyCallback_call_scalar" "', argument " "2"" of type '" "Fit::Parameters""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PyCallback_call" "', argument " "2"" of type '" "Fit::Parameters""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PyCallback_call_scalar" "', argument " "2"" of type '" "Fit::Parameters""'");
     } else {
       Fit::Parameters * temp = reinterpret_cast< Fit::Parameters * >(argp2);
       arg2 = *temp;
@@ -23843,14 +23976,65 @@ SWIGINTERN PyObject *_wrap_PyCallback_call(PyObject *SWIGUNUSEDPARM(self), PyObj
   upcall = (director && (director->swig_get_self()==obj0));
   try {
     if (upcall) {
-      result = (double)(arg1)->PyCallback::call(arg2);
+      result = (double)(arg1)->PyCallback::call_scalar(arg2);
     } else {
-      result = (double)(arg1)->call(arg2);
+      result = (double)(arg1)->call_scalar(arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
   }
   resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PyCallback_call_residuals(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyCallback *arg1 = (PyCallback *) 0 ;
+  Fit::Parameters arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  std::vector< double,std::allocator< double > > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:PyCallback_call_residuals",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_call_residuals" "', argument " "1"" of type '" "PyCallback *""'"); 
+  }
+  arg1 = reinterpret_cast< PyCallback * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Fit__Parameters,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "PyCallback_call_residuals" "', argument " "2"" of type '" "Fit::Parameters""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PyCallback_call_residuals" "', argument " "2"" of type '" "Fit::Parameters""'");
+    } else {
+      Fit::Parameters * temp = reinterpret_cast< Fit::Parameters * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==obj0));
+  try {
+    if (upcall) {
+      result = (arg1)->PyCallback::call_residuals(arg2);
+    } else {
+      result = (arg1)->call_residuals(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
   return NULL;
@@ -25614,9 +25798,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"delete_MinimizerFactory", _wrap_delete_MinimizerFactory, METH_VARARGS, (char *)"delete_MinimizerFactory(MinimizerFactory self)"},
 	 { (char *)"MinimizerFactory_swigregister", MinimizerFactory_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_PyCallback", _wrap_new_PyCallback, METH_VARARGS, (char *)"new_PyCallback(PyObject * arg2) -> PyCallback"},
+	 { (char *)"new_PyCallback", _wrap_new_PyCallback, METH_VARARGS, (char *)"\n"
+		"PyCallback(PyCallback::CallbackType callback_type)\n"
+		"new_PyCallback(PyObject * arg2) -> PyCallback\n"
+		""},
 	 { (char *)"delete_PyCallback", _wrap_delete_PyCallback, METH_VARARGS, (char *)"delete_PyCallback(PyCallback self)"},
-	 { (char *)"PyCallback_call", _wrap_PyCallback_call, METH_VARARGS, (char *)"PyCallback_call(PyCallback self, Parameters arg0) -> double"},
+	 { (char *)"PyCallback_callback_type", _wrap_PyCallback_callback_type, METH_VARARGS, (char *)"PyCallback_callback_type(PyCallback self) -> PyCallback::CallbackType"},
+	 { (char *)"PyCallback_call_scalar", _wrap_PyCallback_call_scalar, METH_VARARGS, (char *)"PyCallback_call_scalar(PyCallback self, Parameters pars) -> double"},
+	 { (char *)"PyCallback_call_residuals", _wrap_PyCallback_call_residuals, METH_VARARGS, (char *)"PyCallback_call_residuals(PyCallback self, Parameters arg0) -> vdouble1d_t"},
 	 { (char *)"disown_PyCallback", _wrap_disown_PyCallback, METH_VARARGS, NULL},
 	 { (char *)"PyCallback_swigregister", PyCallback_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_MinimizerResult", _wrap_new_MinimizerResult, METH_VARARGS, (char *)"new_MinimizerResult() -> MinimizerResult"},
@@ -26574,6 +26763,8 @@ SWIG_init(void) {
   
   import_array();
   
+  SWIG_Python_SetConstant(d, "PyCallback_SCALAR",SWIG_From_int(static_cast< int >(PyCallback::SCALAR)));
+  SWIG_Python_SetConstant(d, "PyCallback_RESIDUAL",SWIG_From_int(static_cast< int >(PyCallback::RESIDUAL)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

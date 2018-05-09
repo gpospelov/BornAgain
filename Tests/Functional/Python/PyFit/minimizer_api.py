@@ -1,5 +1,5 @@
 """
-Testing python specific FitSuite API.
+Testing python specific API for Minimizer related classes.
 """
 import sys
 import os
@@ -20,7 +20,7 @@ class TestMinimizerHelper:
         return 42.0
 
 
-class FitParametersAPITest(unittest.TestCase):
+class MinimizerAPITest(unittest.TestCase):
 
     def test_ParametersSetIterator(self):
         """

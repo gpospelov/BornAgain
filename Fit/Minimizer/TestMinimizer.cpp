@@ -15,7 +15,10 @@
 #include "TestMinimizer.h"
 #include "MinimizerConstants.h"
 #include "FitParameterSet.h"
+#include "Parameters.h"
 #include <sstream>
+
+using namespace Fit;
 
 std::string TestMinimizer::minimizerName() const
 {
@@ -49,4 +52,25 @@ std::string TestMinimizer::reportOutcome() const
 void TestMinimizer::propagateResults(FitParameterSet &)
 {
     // nothing to do
+}
+
+MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters)
+{
+    auto values = parameters.values();
+
+    // calling user function once
+    auto min_value = fcn(values);
+
+    MinimizerResult result;
+    result.setParameters(parameters);
+    result.setMinValue(min_value);
+
+    std::ostringstream report;
+    report << "TestMinimizer::printOutcome() -> Done. Objective function value = "
+           << min_value << std::endl;
+
+    result.setReport(report.str());
+    result.setNumberOfCalls(1);
+
+    return result;
 }

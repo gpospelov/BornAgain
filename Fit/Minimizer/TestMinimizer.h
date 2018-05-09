@@ -40,6 +40,8 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
     using IMinimizer::propagateResults;
     void propagateResults(FitParameterSet&) override;
 
+    Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
+
  private:
     double m_min_value;
     std::vector<double> m_parameter_values;

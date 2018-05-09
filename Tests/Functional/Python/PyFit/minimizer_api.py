@@ -22,6 +22,15 @@ class TestMinimizerHelper:
 
 class MinimizerAPITest(unittest.TestCase):
 
+    def test_ParameterAttribute(self):
+        """
+        Testing p.value attribute
+        """
+        par = ba.Parameter("par", 1.0)
+        self.assertEqual(par.value, 1.0)
+        par.value = 42.0
+        self.assertEqual(par.value, 42.0)
+
     def test_ParametersSetIterator(self):
         """
         Testing of python iterator over defined fit parameters.

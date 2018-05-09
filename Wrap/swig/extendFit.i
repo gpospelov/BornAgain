@@ -83,6 +83,20 @@ def __iter__(self):
 
 }
 
+// --- Parameter x.value attribute
+namespace Fit {
+
+%extend Parameter{
+%pythoncode %{
+__swig_getmethods__["value"] = value
+__swig_setmethods__["value"] = setValue
+if _newclass: value = property(value, setValue)
+%}
+};
+
+}
+
+
 // --- Setting up Minimizer callback ---
 
 %pythoncode %{

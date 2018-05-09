@@ -2021,6 +2021,11 @@ class Parameter(_object):
         """setError(Parameter self, double value)"""
         return _libBornAgainFit.Parameter_setError(self, value)
 
+
+    __swig_getmethods__["value"] = value
+    __swig_setmethods__["value"] = setValue
+    if _newclass: value = property(value, setValue)
+
     __swig_destroy__ = _libBornAgainFit.delete_Parameter
     __del__ = lambda self: None
 Parameter_swigregister = _libBornAgainFit.Parameter_swigregister

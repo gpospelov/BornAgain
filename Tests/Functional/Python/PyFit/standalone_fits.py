@@ -20,8 +20,8 @@ class Rosenbrock:
         """
         Returns the value of Rosenbrock function
         """
-        x = params["x"].value()
-        y = params["y"].value()
+        x = params["x"].value
+        y = params["y"].value
         tmp1 = y - x * x
         tmp2 = 1 - x
         return 100 * tmp1 * tmp1 + tmp2 * tmp2

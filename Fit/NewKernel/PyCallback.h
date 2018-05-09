@@ -16,7 +16,9 @@
 #define PYCALLBACK_H
 
 #include "WinDllMacros.h"
+#include "Parameters.h"
 #include <vector>
+
 
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file.
 
@@ -26,7 +28,9 @@ public:
     PyCallback();
     virtual ~PyCallback();
 
-    virtual double call(const std::vector<double>);
+    //! Call Python callable and returns its result. Should be overloaded in swig interface.
+    //! Intentionally pass by value.
+    virtual double call(Fit::Parameters);
 };
 
 #endif  // PYCALLBACK_H

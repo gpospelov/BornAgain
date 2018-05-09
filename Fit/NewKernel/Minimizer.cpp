@@ -32,8 +32,7 @@ void Minimizer::setMinimizer(const std::string& minimizerName, const std::string
 
 Minimizer::~Minimizer() = default;
 
-MinimizerResult Minimizer::minimize(fcn_scalar_t fcn,
-                         const Parameters& parameters)
+MinimizerResult Minimizer::minimize(fcn_scalar_t fcn, const Parameters& parameters)
 {
     return m_kernel->minimize(fcn, parameters);
 }
@@ -45,19 +44,8 @@ MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters& parame
 
 MinimizerResult Minimizer::minimize(PyCallback& callback, const Parameters& parameters)
 {
-//    fcn_scalar_t fcn = [&](const std::vector<double>& pars) {
-//        return callback.call(pars);
-//    };
-//    return minimize(fcn, parameters);
-    return MinimizerResult();
-}
-
-
-#include <iostream>
-void Minimizer::test_callback(PyCallback& callback)
-{
-    std::vector<double> pars = {1.0, 2.0, 3.0};
-
-    std::cout << "Minimizer::test_callback" << std::endl;
-    std::cout << "calling  " << callback.call(pars) << std::endl;
+    fcn_scalar_t fcn = [&](const Parameters& pars) {
+        return callback.call(pars);
+    };
+    return minimize(fcn, parameters);
 }

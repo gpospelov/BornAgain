@@ -2967,7 +2967,7 @@ class PyCallback(_object):
     __del__ = lambda self: None
 
     def call(self, arg0):
-        """call(PyCallback self, vdouble1d_t arg0) -> double"""
+        """call(PyCallback self, Parameters arg0) -> double"""
         return _libBornAgainFit.PyCallback_call(self, arg0)
 
     def __disown__(self):
@@ -3076,11 +3076,6 @@ class Minimizer(_object):
         return _libBornAgainFit.Minimizer_minimize_cpp(self, callback, parameters)
 
 
-    def test_callback_cpp(self, callback):
-        """test_callback_cpp(Minimizer self, PyCallback callback)"""
-        return _libBornAgainFit.Minimizer_test_callback_cpp(self, callback)
-
-
     def test_callback(self, args):
         if callable(args):
             wrp = CallableWrapper(args)
@@ -3089,7 +3084,8 @@ class Minimizer(_object):
     def minimize(self, callback, pars):
         if callable(callback):
             wrp = CallableWrapper(callback)
-            return self.minimize_cpp(wrp, pars)
+            result = self.minimize_cpp(wrp, pars)
+            return result
 
 
 Minimizer_swigregister = _libBornAgainFit.Minimizer_swigregister

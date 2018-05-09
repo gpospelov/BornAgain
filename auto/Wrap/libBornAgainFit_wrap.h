@@ -20,7 +20,7 @@ class SwigDirector_PyCallback : public PyCallback, public Swig::Director {
 public:
     SwigDirector_PyCallback(PyObject *self);
     virtual ~SwigDirector_PyCallback();
-    virtual double call(std::vector< double,std::allocator< double > > const arg0);
+    virtual double call(Fit::Parameters arg0);
 
 /* Internal director utilities */
 public:

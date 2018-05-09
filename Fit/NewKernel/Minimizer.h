@@ -50,8 +50,6 @@ public:
 
     MinimizerResult minimize(PyCallback& callback, const Parameters& parameters);
 
-    void test_callback(PyCallback& callback);
-
 
 private:
    std::unique_ptr<Kernel> m_kernel;

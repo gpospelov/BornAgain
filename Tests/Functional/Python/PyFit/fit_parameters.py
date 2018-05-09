@@ -9,11 +9,6 @@ sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
 
-def some_callable(pars):
-    print("here", pars)
-    return 42.0
-
-
 class TestMinimizerHelper:
     def __init__(self):
         self.m_ncalls = 0
@@ -41,10 +36,6 @@ class FitParametersAPITest(unittest.TestCase):
         for index, p in enumerate(pars):
             self.assertEqual(p.name(), expected_names[index])
 
-    def test_Callback(self):
-        minimizer = ba.Minimizer()
-        minimizer.test_callback(some_callable)
-
     def test_SimpleMinimizer(self):
         minimizer = ba.Minimizer()
         minimizer.setMinimizer("Test")
@@ -64,7 +55,7 @@ class FitParametersAPITest(unittest.TestCase):
         self.assertEqual(helper.m_ncalls, 1)
 
         # starting values of fit parameters were correctly send to objective func
-        self.assertEqual(list(helper.m_pars), [0.0, 1.0, 2.0])
+        self.assertEqual(list(helper.m_pars.values()), [0.0, 1.0, 2.0])
 
 if __name__ == '__main__':
     unittest.main()

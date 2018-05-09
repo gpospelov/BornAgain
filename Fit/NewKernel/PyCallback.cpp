@@ -26,7 +26,7 @@ PyCallback::~PyCallback()
 }
 
 
-double PyCallback::call(const std::vector<double>)
+double PyCallback::call(Fit::Parameters)
 {
     return 0.0;
 }

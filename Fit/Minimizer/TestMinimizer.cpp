@@ -56,10 +56,8 @@ void TestMinimizer::propagateResults(FitParameterSet &)
 
 MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters)
 {
-    auto values = parameters.values();
-
     // calling user function once
-    auto min_value = fcn(values);
+    auto min_value = fcn(parameters);
 
     MinimizerResult result;
     result.setParameters(parameters);

@@ -45,10 +45,11 @@ MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters& parame
 
 MinimizerResult Minimizer::minimize(PyCallback& callback, const Parameters& parameters)
 {
-    fcn_scalar_t fcn = [&](const std::vector<double>& pars) {
-        return callback.call(pars);
-    };
-    return minimize(fcn, parameters);
+//    fcn_scalar_t fcn = [&](const std::vector<double>& pars) {
+//        return callback.call(pars);
+//    };
+//    return minimize(fcn, parameters);
+    return MinimizerResult();
 }
 
 

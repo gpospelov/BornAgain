@@ -88,8 +88,8 @@ bool FunctionTestPlan::valuesAsExpected(const std::vector<double>& values) const
 
 // ------------------------------------------------------------------------------------------------
 
-ScalarTestPlan::ScalarTestPlan(const std::string& name, fcn_scalar_t func, double expected_minimum,
-                               double tolerance)
+ScalarTestPlan::ScalarTestPlan(const std::string& name, objective_function_t func,
+                               double expected_minimum, double tolerance)
     : FunctionTestPlan(name)
     , m_objective_function(func)
     , m_expected_minimum(expected_minimum)
@@ -130,6 +130,14 @@ bool ScalarTestPlan::checkMinimizer(Minimizer& minimizer)
     std::cout << std::endl;
 
     return success;
+}
+
+fcn_scalar_t ScalarTestPlan::scalarFunction() const
+{
+    fcn_scalar_t func = [&](const Parameters& params) {
+       return m_objective_function(params.values());
+    };
+    return func;
 }
 
 // ------------------------------------------------------------------------------------------------

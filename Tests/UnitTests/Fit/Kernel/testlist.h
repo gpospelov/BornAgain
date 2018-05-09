@@ -11,4 +11,6 @@
 #include "OptionContainerTest.h"
 #include "RealLimitsTest.h"
 #include "StringUtilsTest.h"
+#include "ParameterTest.h"
+#include "ParametersTest.h"
 

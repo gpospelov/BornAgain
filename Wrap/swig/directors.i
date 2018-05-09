@@ -11,6 +11,7 @@
 %feature("director") IFitObserver;
 %feature("director") IObservable;
 %feature("director") IInterferenceFunction;
+%feature("director") PyCallback;
 
 // Propagate python exceptions
 // taken from

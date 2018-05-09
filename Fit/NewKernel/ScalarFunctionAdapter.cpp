@@ -29,8 +29,9 @@ const RootObjectiveFunction* ScalarFunctionAdapter::rootObjectiveFunction()
         std::vector<double> vec;
         vec.resize(m_parameters.size(), 0.0);
         std::copy(pars, pars + m_parameters.size(), vec.begin());
+        m_parameters.setValues(vec);
         ++m_number_of_calls;
-        return m_fcn(vec);
+        return m_fcn(m_parameters);
     };
 
     m_root_objective.reset(

@@ -65,4 +65,6 @@ MinimizerTestFactory::MinimizerTestFactory()
     registerItem("LevenbergMarquardtV3", create_new<LevenbergMarquardtV3>,
                  "LevenbergMarquardt + DecayingSinPlan");
 
+    registerItem("TestMinimizerV1", create_new<TestMinimizerV1>,
+                 "Test minimizer");
 }

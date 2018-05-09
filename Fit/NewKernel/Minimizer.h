@@ -24,6 +24,8 @@
 #include <string>
 #include <memory>
 
+class PyCallback;
+
 namespace Fit {
 
 class Kernel;
@@ -40,9 +42,14 @@ public:
     void setMinimizer(const std::string& minimizerName, const std::string& algorithmName = "",
                       const std::string& options = "");
 
+#ifndef SWIG
     MinimizerResult minimize(fcn_scalar_t fcn, const Parameters& parameters);
 
     MinimizerResult minimize(fcn_residual_t fcn, const Parameters& parameters);
+#endif
+
+    //! Finds minimum of user objective function (to be called from Python).
+    MinimizerResult minimize(PyCallback& callback, const Parameters& parameters);
 
 private:
    std::unique_ptr<Kernel> m_kernel;

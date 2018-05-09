@@ -133,4 +133,10 @@ public:
     LevenbergMarquardtV3();
 };
 
+class TestMinimizerV1 : public MinimizerTest
+{
+public:
+    TestMinimizerV1();
+};
+
 #endif //   MINIMIZERTESTCASES_H

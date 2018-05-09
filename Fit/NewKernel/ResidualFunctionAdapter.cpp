@@ -30,7 +30,7 @@ ResidualFunctionAdapter::ResidualFunctionAdapter(fcn_residual_t func,
     : m_datasize(0), m_fcn(func), m_parameters(parameters)
 {
     // single call of user function to get dataset size
-    auto residuals = m_fcn(parameters.values());
+    auto residuals = m_fcn(parameters);
     m_datasize = residuals.size();
 }
 
@@ -83,7 +83,8 @@ std::vector<double> ResidualFunctionAdapter::get_residuals(const std::vector<dou
         throw std::runtime_error(ostr.str());
     }
 
-    auto result = m_fcn(pars);
+    m_parameters.setValues(pars);
+    auto result = m_fcn(m_parameters);
 
     if (result.size() != m_datasize) {
         std::ostringstream ostr;

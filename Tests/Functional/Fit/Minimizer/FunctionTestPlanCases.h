@@ -60,5 +60,13 @@ public:
     DecayingSinPlan();
 };
 
+//! Special plan to test TestMinimizer.
+
+class TestMinimizerPlan : public ScalarTestPlan
+{
+public:
+    TestMinimizerPlan();
+};
+
 #endif  //  FUNCTIONTESTPLANCASES_H
 

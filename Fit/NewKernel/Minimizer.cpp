@@ -14,6 +14,7 @@
 
 #include "Minimizer.h"
 #include "Kernel.h"
+#include "PyCallback.h"
 
 using namespace Fit;
 
@@ -31,8 +32,7 @@ void Minimizer::setMinimizer(const std::string& minimizerName, const std::string
 
 Minimizer::~Minimizer() = default;
 
-MinimizerResult Minimizer::minimize(fcn_scalar_t fcn,
-                         const Parameters& parameters)
+MinimizerResult Minimizer::minimize(fcn_scalar_t fcn, const Parameters& parameters)
 {
     return m_kernel->minimize(fcn, parameters);
 }
@@ -40,4 +40,22 @@ MinimizerResult Minimizer::minimize(fcn_scalar_t fcn,
 MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters& parameters)
 {
     return m_kernel->minimize(fcn, parameters);
+}
+
+MinimizerResult Minimizer::minimize(PyCallback& callback, const Parameters& parameters)
+{
+    if (callback.callback_type() == PyCallback::SCALAR) {
+        fcn_scalar_t fcn = [&](const Parameters& pars) {
+            return callback.call_scalar(pars);
+        };
+        return minimize(fcn, parameters);
+
+    } else if(callback.callback_type() == PyCallback::RESIDUAL) {
+        fcn_residual_t fcn = [&](const Parameters& pars) {
+            return callback.call_residuals(pars);
+        };
+        return minimize(fcn, parameters);
+    }
+
+    throw std::runtime_error("Minimizer::minimize() -> Error. Unexpected user function");
 }

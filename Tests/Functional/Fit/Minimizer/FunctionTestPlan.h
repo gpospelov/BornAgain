@@ -51,16 +51,16 @@ protected:
 class ScalarTestPlan : public FunctionTestPlan
 {
 public:
-    ScalarTestPlan(const std::string &name, fcn_scalar_t func, double expected_minimum,
+    ScalarTestPlan(const std::string &name, objective_function_t func, double expected_minimum,
                    double tolerance = 0.01);
 
     bool checkMinimizer(Fit::Minimizer& minimizer);
 
 private:
-    fcn_scalar_t scalarFunction() const { return m_objective_function; }
+    fcn_scalar_t scalarFunction() const;
     bool minimumAsExpected(double found_minimum, double tolerance = 0.01) const;
 
-    fcn_scalar_t m_objective_function; //!< objective function to minimize
+    objective_function_t m_objective_function; //!< objective function to minimize
     double m_expected_minimum; //!< expected function minimum
     //!< Tolerance on found minimum of objective function wrt expected.
     double m_tolerance_on_minimum;

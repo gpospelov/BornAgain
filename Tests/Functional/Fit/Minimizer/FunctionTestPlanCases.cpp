@@ -76,3 +76,11 @@ DecayingSinPlan::DecayingSinPlan()
     addParameter(Parameter("phase", 0.1, AttLimits::limited(0.0, 3.1)), 1.0);
     addParameter(Parameter("decay", 0.1, AttLimits::nonnegative()), 0.05);
 }
+
+TestMinimizerPlan::TestMinimizerPlan()
+    : ScalarTestPlan("TestMinimizerPlan", TestFunctions::RosenBrock, 0.0)
+{
+    // starting values of fit parameters are already correct
+    addParameter(Parameter("par0", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
+    addParameter(Parameter("par1", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
+}

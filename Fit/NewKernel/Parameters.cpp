@@ -94,6 +94,25 @@ void Parameters::setErrors(const std::vector<double>& errors)
         par.setError(errors[index++]);
 }
 
+const Parameter& Parameters::operator[](const std::string& name) const
+{
+    for (const auto& par: m_parameters)
+        if (par.name() == name)
+            return par;
+
+    std::ostringstream ostr;
+    ostr << "Parameters::operator[] -> Error. No parameter with name '" << name << "'. ";
+    ostr << "Existing names:\n";
+    for (const auto& par: m_parameters)
+        ostr << par.name() << "\n";
+    throw std::runtime_error(ostr.str());
+}
+
+const Parameter& Parameters::operator[](size_t index) const
+{
+    return m_parameters[check_index(index)];
+}
+
 bool Parameters::exists(const std::string& name) const
 {
     for (const auto& par: m_parameters)
@@ -111,4 +130,11 @@ void Parameters::check_array_size(const std::vector<double>& values) const
              << m_parameters.size() << "." << std::endl;
         throw std::runtime_error(ostr.str());
     }
+}
+
+size_t Parameters::check_index(size_t index) const
+{
+    if (index >= m_parameters.size())
+        throw std::runtime_error("Parameters::check_index() -> Index out of bounds");
+    return index;
 }

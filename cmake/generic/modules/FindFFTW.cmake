@@ -33,18 +33,23 @@ if(NOT WIN32)
     )
 else()
     find_path(FFTW_INCLUDE_DIR fftw3.h
-        $ENV{FFTW_DIR}/include
-        "C:/opt/local/include"
+        HINTS ENV PATH
+        PATHS "C:/opt/local_x64/include"  # if fftw cannot be found in env path
+        PATH_SUFFIXES ../include
+        NO_DEFAULT_PATH
     )
 #    message("XXX ${FFTW_INCLUDE_DIR}")
 
-    find_library(FFTW_LIBRARY NAMES libfftw3-3 PATHS
-        $ENV{FFTW_DIR}/lib
-        $ENV{FFTW3} $ENV{FFTW3}/lib $ENV{FFTW3}/.libs
-        "C:/opt/local/lib"
+    find_library(FFTW_LIBRARY libfftw3-3
+        HINTS ENV PATH
+        PATHS "C:/opt/local_x64/lib"  # if fftw cannot be found in env path
+        NO_DEFAULT_PATH
     )
-#    message("XXX ${FFTW_LIBRARY}")
-    
+
+    string( REPLACE ".lib" ".dll" FFTW_LIBRARY_DLL "${FFTW_LIBRARY}" )
+    if (NOT EXISTS ${FFTW_LIBRARY_DLL})
+        message(FATAL_ERROR "File ${FFTW_LIBRARY_DLL} does not exist")
+    endif (NOT EXISTS ${FFTW_LIBRARY_DLL})
 endif()
 
 if(FFTW_INCLUDE_DIR AND FFTW_LIBRARY)
@@ -65,4 +70,4 @@ endif()
 
 set(FFTW_LIBRARIES ${FFTW_LIBRARY})
 
-mark_as_advanced(FFTW_FOUND FFTW_LIBRARY FFTW_INCLUDE_DIR)
+mark_as_advanced(FFTW_FOUND FFTW_LIBRARY FFTW_INCLUDE_DIR FFTW_LIBRARY_DLL)

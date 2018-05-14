@@ -228,8 +228,8 @@ if(WIN32)
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
     install(FILES
-        ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
-        ${CMAKE_LIBRARY_PATH}/libtiff.dll
+        ${FFTW_LIBRARY_DLL}
+        ${TIFF_LIBRARY_DLL}
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
 else()

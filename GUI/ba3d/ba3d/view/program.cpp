@@ -21,6 +21,8 @@ inline void InitShaderResources() {
     Q_INIT_RESOURCE(shaders);
 }
 
+static constexpr float AMBIENT = 0.4f;
+
 namespace RealSpace {
 
 Program::Program()
@@ -44,13 +46,9 @@ void Program::init() {
                                                 ":/shaders/vertex_shader.vert");
     if (!shader_found)
         throw std::runtime_error("Vertex shader not loaded");
-#ifdef Q_OS_OSX
-    shader_found = addShaderFromSourceFile(QOpenGLShader::Fragment,
-                                           ":/shaders/fragment_shader_OSX.frag");
-#else
+
     shader_found = addShaderFromSourceFile(QOpenGLShader::Fragment,
                                            ":/shaders/fragment_shader.frag");
-#endif
     if (!shader_found)
         throw std::runtime_error("Fragment shader not loaded");
 
@@ -65,13 +63,17 @@ void Program::init() {
     locMatObject = uniformLocation("matObject");
     locLightPos  = uniformLocation("lightPos");
     locColor     = uniformLocation("color");
+    ambient      = uniformLocation("ambient");
+    eye          = uniformLocation("eye");
     release();
 }
 
 void Program::set(Camera const& camera) {
+    setUniformValue(ambient, AMBIENT);
     setUniformValue(locMatProj,  camera.matProj);
     setUniformValue(locMatModel, camera.matModel);
     setUniformValue(locLightPos, camera.lightPosRotated);
+    setUniformValue(eye, camera.getPos().eye);
 }
 
 void Program::set(QColor const&color) {

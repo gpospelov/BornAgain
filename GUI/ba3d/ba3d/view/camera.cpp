@@ -19,7 +19,7 @@ namespace RealSpace {
 Camera::Camera()
     : pos(Vector3D::_z, Vector3D::_0, Vector3D::_x)
     , zoom(1), vertAngle(60), nearPlane(1), farPlane(10000)
-    , lightPos(pos.eye), lightPosRotated(lightPos)
+    , lightPos(pos.eye*1000.0f), lightPosRotated(lightPos)
 {
     setAspectRatio(1);
 }
@@ -43,7 +43,7 @@ Camera::Position Camera::Position::interpolateTo(const Position& to, float r) co
 void Camera::lookAt(const Position& pos_)
 {
     pos = pos_;
-    lightPos = pos.eye;
+//    lightPos = pos.eye;
     set();
 }
 

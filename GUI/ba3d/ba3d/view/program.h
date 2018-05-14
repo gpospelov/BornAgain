@@ -38,8 +38,7 @@ private:
     void set(QMatrix4x4 const&);  // object transf
 
     bool doInit;
-    int  locMatProj, locMatModel, locMatObject,
-    locLightPos, locColor;
+    int  locMatProj, locMatModel, locMatObject, locLightPos, locColor, ambient, eye;
 };
 
 }  // namespace RealSpace

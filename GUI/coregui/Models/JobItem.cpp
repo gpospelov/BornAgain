@@ -132,7 +132,7 @@ void JobItem::setStatus(const QString& status)
 {
     setItemValue(P_STATUS, status);
     if (status == Constants::STATUS_FAILED) {
-        if (IntensityDataItem* intensityItem = intensityDataItem()) {
+        if (DataItem* intensityItem = dataItem()) {
             if (intensityItem->getOutputData())
                 intensityItem->getOutputData()->setAllTo(0.0);
             emit intensityItem->emitDataChanged();
@@ -298,7 +298,7 @@ void JobItem::updateIntensityDataFileName()
                            JobItemFunctions::jobResultsFileName(*this));
 
     if (RealDataItem* realItem = realDataItem())
-        if (IntensityDataItem* item = realItem->intensityDataItem())
+        if (DataItem* item = realItem->dataItem())
             item->setItemValue(DataItem::P_FILE_NAME,
                                JobItemFunctions::jobReferenceFileName(*this));
 }

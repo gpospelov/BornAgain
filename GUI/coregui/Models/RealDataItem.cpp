@@ -106,7 +106,7 @@ const DataItem* RealDataItem::dataItem() const
 
 void RealDataItem::setOutputData(OutputData<double> *data)
 {
-    IntensityDataItem *item = intensityDataItem();
+    DataItem* item = dataItem();
     Q_ASSERT(item);
     item->setOutputData(data);
 }
@@ -122,17 +122,16 @@ void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_
 
 void RealDataItem::updateIntensityDataFileName()
 {
-    if(IntensityDataItem *item = intensityDataItem())
-        item->setItemValue(IntensityDataItem::P_FILE_NAME,
-                           JobItemFunctions::realDataFileName(*this));
+    if (DataItem* item = dataItem())
+        item->setItemValue(DataItem::P_FILE_NAME, JobItemFunctions::realDataFileName(*this));
 }
 
 void RealDataItem::updateToInstrument()
 {
-    if(!intensityDataItem())
+    if(!dataItem())
         return;
 
-    if(!intensityDataItem()->getOutputData())
+    if(!dataItem()->getOutputData())
         return;
 
     IntensityDataItem *item = intensityDataItem();

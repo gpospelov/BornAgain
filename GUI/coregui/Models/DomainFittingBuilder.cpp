@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "DomainFittingBuilder.h"
+#include "DataItem.h"
 #include "DomainSimulationBuilder.h"
 #include "FitParameterItems.h"
 #include "FitSuite.h"
@@ -20,7 +21,6 @@
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "IMinimizer.h"
-#include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "MinimizerItem.h"
 #include "RealDataItem.h"
@@ -51,11 +51,11 @@ std::shared_ptr<FitSuite> DomainFittingBuilder::createFitSuite(JobItem *jobItem)
     if(!realDataItem)
         throw GUIHelpers::Error("DomainFittingBuilder::createFitSuite() -> No Real Data defined.");
 
-    const IntensityDataItem *intensityItem = realDataItem->intensityDataItem();
-    Q_ASSERT(intensityItem);
-    Q_ASSERT(intensityItem->getOutputData());
+    const DataItem* intensity_item = realDataItem->dataItem();
+    Q_ASSERT(intensity_item);
+    Q_ASSERT(intensity_item->getOutputData());
 
-    result->addSimulationAndRealData(*simulation.get(), *intensityItem->getOutputData());
+    result->addSimulationAndRealData(*simulation.get(), *intensity_item->getOutputData());
 
     return result;
 }

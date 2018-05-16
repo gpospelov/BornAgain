@@ -94,8 +94,6 @@ bool ImportDataUtils::Compatible(const InstrumentItem& instrumentItem,
     return getRank(instrumentItem) == getRank(realDataItem);
 }
 
-//! Creates OutputData with bin-valued axes.
-
 std::unique_ptr<OutputData<double>>
 ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
 {
@@ -116,8 +114,6 @@ ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
 
     return result;
 }
-
-//! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 
 bool ImportDataUtils::HasSameShape(const InstrumentItem& instrumentItem,
                                    const RealDataItem& realDataItem, QString* message)

@@ -32,6 +32,7 @@ namespace ImportDataUtils
 
 BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportData(QString& baseNameOfLoadedFile);
 
+//! Creates OutputData with bin-valued axes.
 BA_CORE_API_ std::unique_ptr<OutputData<double>>
 CreateSimplifiedOutputData(const OutputData<double>& data);
 
@@ -39,6 +40,7 @@ CreateSimplifiedOutputData(const OutputData<double>& data);
 BA_CORE_API_ bool Compatible(const InstrumentItem& instrumentItem,
                              const RealDataItem& realDataItem);
 
+//! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 BA_CORE_API_ bool HasSameShape(const InstrumentItem& instrumentItem,
                                const RealDataItem& realDataItem, QString* message = nullptr);
 

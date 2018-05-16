@@ -19,9 +19,7 @@
 #include "OutputData.h"
 #include <QDateTime>
 
-class BasicAxisItem;
-class MaskContainerItem;
-class ProjectionContainerItem;
+class InstrumentItem;
 
 //! Provides common functionality for IntensityDataItem and SpecularDataItem
 
@@ -46,6 +44,7 @@ public:
     virtual void setXaxisTitle(QString xtitle) = 0;
     virtual void setYaxisTitle(QString ytitle) = 0;
     virtual void setAxesRangeToData() = 0;
+    virtual void updateAxesUnits(const InstrumentItem* instrument) = 0;
 
 protected:
     DataItem(const QString& modelType);

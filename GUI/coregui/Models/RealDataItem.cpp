@@ -56,26 +56,15 @@ RealDataItem::RealDataItem()
         }
     );
 
-    mapper()->setOnChildPropertyChange(
-                [this](SessionItem* item, const QString &name)
-    {
-        if (item && item->modelType() == Constants::IntensityDataType
-            && name == DataItem::P_AXES_UNITS) {
-            if(!m_linkedInstrument)
-                return;
-            mapper()->setActive(false);
+    mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
+        auto data_item = dynamic_cast<DataItem*>(item);
+        if (!data_item || !m_linkedInstrument || name != DataItem::P_AXES_UNITS)
+            return;
 
-            MaskUnitsConverter converter;
-            converter.convertToNbins(intensityDataItem());
-
-            JobItemUtils::updateDataAxes(intensityDataItem(), m_linkedInstrument);
-
-            converter.convertFromNbins(intensityDataItem());
-
-            mapper()->setActive(true);
-        }
+        mapper()->setActive(false);
+        data_item->updateAxesUnits(m_linkedInstrument);
+        mapper()->setActive(true);
     });
-
 }
 
 IntensityDataItem *RealDataItem::intensityDataItem()

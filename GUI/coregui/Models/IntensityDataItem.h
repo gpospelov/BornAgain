@@ -91,6 +91,7 @@ public:
     void setXaxisTitle(QString xtitle) override;
     void setYaxisTitle(QString ytitle) override;
     void setAxesRangeToData() override;
+    void updateAxesUnits(const InstrumentItem* instrument) override;
 
 public slots:
     void setLowerX(double xmin);

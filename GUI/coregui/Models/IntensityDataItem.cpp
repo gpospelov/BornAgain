@@ -17,7 +17,9 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "JobItemUtils.h"
 #include "MaskItems.h"
+#include "MaskUnitsConverter.h"
 #include "ProjectionItems.h"
 #include "BornAgainNamespace.h"
 
@@ -206,6 +208,16 @@ void IntensityDataItem::setAxesRangeToData()
     setUpperX(getXmax());
     setLowerY(getYmin());
     setUpperY(getYmax());
+}
+
+void IntensityDataItem::updateAxesUnits(const InstrumentItem* instrument)
+{
+    MaskUnitsConverter converter;
+    converter.convertToNbins(this);
+
+    JobItemUtils::updateDataAxes(this, instrument);
+
+    converter.convertFromNbins(this);
 }
 
 void IntensityDataItem::setLowerX(double xmin)

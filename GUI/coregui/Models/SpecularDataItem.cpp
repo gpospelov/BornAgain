@@ -16,7 +16,7 @@
 #include "AxesItems.h"
 #include "BornAgainNamespace.h"
 #include "GUIHelpers.h"
-#include "BornAgainNamespace.h"
+#include "JobItemUtils.h"
 
 const QString SpecularDataItem::P_TITLE = "Title";
 const QString SpecularDataItem::P_XAXIS = "x-axis";
@@ -143,6 +143,11 @@ void SpecularDataItem::setAxesRangeToData()
     setUpperX(getXmax());
     setLowerY(getYmin());
     setUpperY(getYmax());
+}
+
+void SpecularDataItem::updateAxesUnits(const InstrumentItem* instrument)
+{
+    JobItemUtils::updateDataAxes(this, instrument);
 }
 
 void SpecularDataItem::setLowerX(double xmin)

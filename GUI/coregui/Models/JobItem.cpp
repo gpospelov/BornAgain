@@ -83,18 +83,8 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
-        if (item->parent() != this || name != DataItem::P_AXES_UNITS)
-            return;
-
-        if (auto intensityItem = dynamic_cast<IntensityDataItem*>(item)) {
-            MaskUnitsConverter converter;
-            converter.convertToNbins(intensityItem);
-
-            JobItemUtils::updateDataAxes(intensityItem, instrumentItem());
-
-            converter.convertFromNbins(intensityDataItem());
-        } else if (auto specularItem = dynamic_cast<SpecularDataItem*>(item))
-            JobItemUtils::updateDataAxes(specularItem, instrumentItem());
+        if (item->parent() == this && name == DataItem::P_AXES_UNITS)
+            dynamic_cast<DataItem*>(item)->updateAxesUnits(instrumentItem());
     });
 
     mapper()->setOnPropertyChange([this](const QString& name) {

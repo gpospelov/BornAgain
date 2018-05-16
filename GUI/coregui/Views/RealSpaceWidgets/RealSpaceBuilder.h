@@ -31,7 +31,7 @@ class BA_CORE_API_ RealSpaceBuilder : public QWidget
     Q_OBJECT
 
 public:
-    RealSpaceBuilder(QWidget* parent = 0);
+    RealSpaceBuilder(QWidget* parent = nullptr);
 
     ~RealSpaceBuilder();
 

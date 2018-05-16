@@ -94,26 +94,24 @@ bool ImportDataUtils::Compatible(const InstrumentItem& instrumentItem,
     return getRank(instrumentItem) == getRank(realDataItem);
 }
 
-//! Creates OutputData with simplified axes [0,nxbin]x[0,nybin].
+//! Creates OutputData with bin-valued axes.
 
 std::unique_ptr<OutputData<double>>
 ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
 {
-    if (data.getRank() != 2)
-        throw std::runtime_error("ImportDataAssistant::createSimplifiedOutputData() -> Error. "
-                                 "Not a two-dimensional data");
-
-    double xmin(0.0), ymin(0.0);
-
-    const IAxis& aX = data.getAxis(BornAgain::X_AXIS_INDEX);
-    const IAxis& aY = data.getAxis(BornAgain::Y_AXIS_INDEX);
-
-    double xmax = double(aX.size());
-    double ymax = double(aY.size());
+    const size_t data_rank = data.getRank();
+    if (data_rank > 2 || data_rank < 1)
+        throw std::runtime_error("Error in ImportDataUtils::CreateSimplifiedOutputData: passed "
+                                 "array is neither 1D nor 2D");
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    result->addAxis(FixedBinAxis(aX.getName(), aX.size(), xmin, xmax));
-    result->addAxis(FixedBinAxis(aY.getName(), aY.size(), ymin, ymax));
+    for (size_t i = 0; i < data_rank; ++i) {
+        const IAxis& axis = data.getAxis(i);
+        const size_t axis_size = axis.size();
+        const double min = 0.0;
+        const double max = axis_size;
+        result->addAxis(FixedBinAxis(axis.getName(), axis_size, min, max));
+    }
     result->setRawDataVector(data.getRawDataVector());
 
     return result;

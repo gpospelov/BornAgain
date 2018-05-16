@@ -91,6 +91,17 @@ const IntensityDataItem *RealDataItem::intensityDataItem() const
     return result;
 }
 
+DataItem* RealDataItem::dataItem()
+{
+    return const_cast<DataItem*>(static_cast<const RealDataItem*>(this)->dataItem());
+}
+
+const DataItem* RealDataItem::dataItem() const
+{
+    const DataItem* result = dynamic_cast<const DataItem*>(getItem(T_INTENSITY_DATA));
+    return result;
+}
+
 //! Sets OutputData to underlying item. Creates it, if not exists.
 
 void RealDataItem::setOutputData(OutputData<double> *data)

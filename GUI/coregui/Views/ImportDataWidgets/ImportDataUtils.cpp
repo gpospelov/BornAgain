@@ -32,7 +32,7 @@
 
 namespace
 {
-const QString filter_string = "Intensity File (*.int *.gz *.tif *.txt);;"
+const QString filter_string = "Intensity File (*.int *.gz *.tif *.tiff *.txt);;"
                               "Other (*)";
 
 int getRank(const RealDataItem& item)

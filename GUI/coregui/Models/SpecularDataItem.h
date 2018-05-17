@@ -70,6 +70,9 @@ public:
     void setAxesRangeToData() override;
     void updateAxesUnits(const InstrumentItem* instrument) override;
 
+    //! Returns data to default state (no dimensional units, default axes' names)
+    void resetToDefault() override;
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);

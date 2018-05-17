@@ -117,28 +117,12 @@ void RealDataItem::updateIntensityDataFileName()
 
 void RealDataItem::updateToInstrument()
 {
-    if(!dataItem())
-        return;
-
-    if(!dataItem()->getOutputData())
-        return;
-
-    IntensityDataItem *item = intensityDataItem();
-    Q_ASSERT(item);
-
-    if(m_linkedInstrument == 0) {
-        ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
-        item->setItemValue(DataItem::P_AXES_UNITS, combo.variant());
-        item->getItem(DataItem::P_AXES_UNITS)->setVisible(true);
-        item->setXaxisTitle("X [nbins]");
-        item->setYaxisTitle("Y [nbins]");
-        MaskUnitsConverter converter;
-        converter.convertToNbins(intensityDataItem());
-        item->setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*item->getOutputData()).release());
-        item->setAxesRangeToData();
-        converter.convertFromNbins(intensityDataItem());
-    }
-    else {
-        JobItemUtils::setIntensityItemAxesUnits(item, m_linkedInstrument);
-    }
+    DataItem* item = dataItem();
+    assert(item
+           && "RealDataItem::updateToInstrument assertion failed: underlying data item doesn't "
+              "exist");
+    assert(item->getOutputData()
+           && "RealDataItem::updateToInstrument assertion failed: underlying data item doesn't "
+              "contain data");
+    JobItemUtils::setIntensityItemAxesUnits(item, m_linkedInstrument);
 }

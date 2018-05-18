@@ -27,6 +27,8 @@
 namespace
 {
 const QString undefinedInstrumentName = "Undefined";
+
+bool QuestionOnInstrumentReshaping(const QString& message);
 }
 
 LinkInstrumentManager::InstrumentInfo::InstrumentInfo()
@@ -100,7 +102,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     auto instrumentItem = getInstrument(identifier);
 
     // linking to null instrument is possible, it means unlinking from currently linked
-    if (instrumentItem == nullptr)
+    if (!instrumentItem)
         return true;
 
     if (!ImportDataUtils::Compatible(*instrumentItem, *realDataItem)) {
@@ -113,32 +115,11 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     QString message;
     if (ImportDataUtils::HasSameShape(*instrumentItem, *realDataItem, &message))
         return true;
+    else if (!QuestionOnInstrumentReshaping(message))
+        return false;
 
-    bool canLink(false);
-
-    QMessageBox msgBox;
-    msgBox.setText("The shape of data and detector differs.");
-
-    QString informative;
-    informative.append(message);
-    informative.append(
-        "\n\nDo you want to modify instrument so it matches shape of real data?\n\n");
-    msgBox.setInformativeText(informative);
-
-    QPushButton* modifyInstrumentButton
-        = msgBox.addButton("Yes, please modify instrument", QMessageBox::YesRole);
-    QPushButton* cancelButton = msgBox.addButton("No, leave as it is", QMessageBox::NoRole);
-
-    msgBox.exec();
-
-    if (msgBox.clickedButton() == modifyInstrumentButton) {
-        canLink = true;
-        ImportDataUtils::SetInstrumentShapeToData(*instrumentItem, *realDataItem);
-    } else if (msgBox.clickedButton() == cancelButton) {
-        canLink = false;
-    }
-
-    return canLink;
+    instrumentItem->setShape(realDataItem->shape());
+    return true;
 }
 
 //! Calls rebuild of instrument map if the name or identifier of the instrument have changed.
@@ -339,4 +320,26 @@ void LinkInstrumentManager::setRealDataModel(RealDataModel* model)
         connect(m_realDataModel, &RealDataModel::rowsRemoved,
                 this, &LinkInstrumentManager::onRealDataRowsChange);
     }
+}
+
+namespace {
+bool QuestionOnInstrumentReshaping(const QString& message)
+{
+    QMessageBox msgBox;
+    msgBox.setText("The shape of data and detector differs.");
+
+    QString informative;
+    informative.append(message);
+    informative.append(
+        "\n\nDo you want to modify instrument so it matches shape of real data?\n\n");
+    msgBox.setInformativeText(informative);
+
+    QPushButton* modifyInstrumentButton
+        = msgBox.addButton("Yes, please modify instrument", QMessageBox::YesRole);
+    msgBox.addButton("No, leave as it is", QMessageBox::NoRole);
+
+    msgBox.exec();
+
+    return msgBox.clickedButton() == modifyInstrumentButton;
+}
 }

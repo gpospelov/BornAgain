@@ -43,9 +43,6 @@ BA_CORE_API_ bool Compatible(const InstrumentItem& instrumentItem,
 //! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
 BA_CORE_API_ bool HasSameShape(const InstrumentItem& instrumentItem,
                                const RealDataItem& realDataItem, QString* message = nullptr);
-
-BA_CORE_API_ void SetInstrumentShapeToData(InstrumentItem& instrumentItem,
-                                           const RealDataItem& realDataItemItem);
 };
 
 #endif // IMPORTDATAUTILS_H

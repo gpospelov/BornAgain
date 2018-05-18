@@ -137,23 +137,6 @@ bool ImportDataUtils::HasSameShape(const InstrumentItem& instrumentItem,
     return isSame;
 }
 
-// TODO refactor this after appearance of specular instrument
-void ImportDataUtils::SetInstrumentShapeToData(InstrumentItem& instrumentItem,
-                                               const RealDataItem& realDataItemItem)
-{
-    auto dataShape = RealDataShape(realDataItemItem);
-    if(auto offspecInstrument = dynamic_cast<OffSpecInstrumentItem*>(&instrumentItem)) {
-        offspecInstrument->detectorItem()->setXSize(dataShape.first);
-        offspecInstrument->detectorItem()->setYSize(dataShape.second);
-    } else if (auto gisasInstrument = dynamic_cast<GISASInstrumentItem*>(&instrumentItem)) {
-        gisasInstrument->detectorItem()->setXSize(dataShape.first);
-        gisasInstrument->detectorItem()->setYSize(dataShape.second);
-    } else {
-        throw GUIHelpers::Error("ImportDataUtils::SetInstrumentShapeToData() -> Error."
-                                "Not supported instrument type");
-    }
-}
-
 namespace {
 //! Returns shape of RealDataItem axes.
 

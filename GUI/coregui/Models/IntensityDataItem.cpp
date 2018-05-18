@@ -224,6 +224,11 @@ void IntensityDataItem::updateAxesUnits(const InstrumentItem* instrument)
     converter.convertFromNbins(this);
 }
 
+std::vector<int> IntensityDataItem::shape() const
+{
+    return {getNbinsX(), getNbinsY()};
+}
+
 void IntensityDataItem::resetToDefault()
 {
     assert(getOutputData()

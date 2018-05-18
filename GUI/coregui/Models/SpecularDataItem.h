@@ -69,6 +69,7 @@ public:
     void setYaxisTitle(QString ytitle) override;
     void setAxesRangeToData() override;
     void updateAxesUnits(const InstrumentItem* instrument) override;
+    std::vector<int> shape() const override;
 
     //! Returns data to default state (no dimensional units, default axes' names)
     void resetToDefault() override;

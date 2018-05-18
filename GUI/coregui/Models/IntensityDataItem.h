@@ -39,6 +39,8 @@ public:
     void setOutputData(OutputData<double>* data) override;
     void setRawDataVector(const OutputData<double>* data) override;
 
+    // TODO: consider using index-based functions for axes' handlers
+
     int getNbinsX() const;
     int getNbinsY() const;
 
@@ -92,6 +94,7 @@ public:
     void setYaxisTitle(QString ytitle) override;
     void setAxesRangeToData() override;
     void updateAxesUnits(const InstrumentItem* instrument) override;
+    std::vector<int> shape() const override;
 
     //! Returns data to default state (no dimensional units, default axes' names)
     void resetToDefault() override;

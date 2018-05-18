@@ -37,6 +37,7 @@ public:
     GroupItem* backgroundGroup();
 
     virtual std::unique_ptr<Instrument> createInstrument() const = 0;
+    virtual std::vector<int> shape() const = 0;
 
 protected:
     explicit InstrumentItem(const QString& modelType);
@@ -53,6 +54,7 @@ public:
     SpecularBeamItem* beamItem() const override;
 
     std::unique_ptr<Instrument> createInstrument() const override;
+    std::vector<int> shape() const override;
 };
 
 class BA_CORE_API_ Instrument2DItem : public InstrumentItem
@@ -81,6 +83,7 @@ class BA_CORE_API_ GISASInstrumentItem : public Instrument2DItem
 {
 public:
     GISASInstrumentItem();
+    std::vector<int> shape() const override;
 };
 
 class BA_CORE_API_ OffSpecInstrumentItem : public Instrument2DItem
@@ -89,6 +92,7 @@ public:
     static const QString P_ALPHA_AXIS;
 
     OffSpecInstrumentItem();
+    std::vector<int> shape() const override;
 };
 
 #endif // INSTRUMENTITEMS_H

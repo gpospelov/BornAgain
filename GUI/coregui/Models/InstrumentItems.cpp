@@ -114,6 +114,12 @@ std::unique_ptr<Instrument> SpecularInstrumentItem::createInstrument() const
     return InstrumentItem::createInstrument();
 }
 
+std::vector<int> SpecularInstrumentItem::shape() const
+{
+    const auto& axis_item = beamItem()->getInclinationAngleAxis();
+    return {axis_item.getItemValue(BasicAxisItem::P_NBINS).toInt()};
+}
+
 const QString Instrument2DItem::P_DETECTOR = "Detector";
 
 Instrument2DItem::Instrument2DItem(const QString& modelType)
@@ -167,12 +173,25 @@ GISASInstrumentItem::GISASInstrumentItem()
 {
 }
 
+std::vector<int> GISASInstrumentItem::shape() const
+{
+    auto detector_item = detectorItem();
+    return {detector_item->xSize(), detector_item->ySize()};
+}
+
 const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
 
 OffSpecInstrumentItem::OffSpecInstrumentItem()
     : Instrument2DItem(Constants::OffSpecInstrumentType)
 {
     addAxisGroupProperty(this, P_ALPHA_AXIS);
+}
+
+std::vector<int> OffSpecInstrumentItem::shape() const
+{
+    const int x_size = getItem(P_ALPHA_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    auto detector_item = detectorItem();
+    return {x_size, detector_item->ySize()};
 }
 
 namespace

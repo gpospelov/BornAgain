@@ -17,6 +17,7 @@
 
 #include "SessionItem.h"
 
+class BasicAxisItem;
 class Beam;
 class FootprintItem;
 
@@ -62,6 +63,7 @@ public:
     double getInclinationAngle() const override;
     void setInclinationAngle(double value) override;
 
+    BasicAxisItem& getInclinationAngleAxis();
     FootprintItem* currentFootprintItem() const;
 };
 

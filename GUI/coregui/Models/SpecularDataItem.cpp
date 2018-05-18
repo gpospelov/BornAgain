@@ -155,6 +155,11 @@ void SpecularDataItem::updateAxesUnits(const InstrumentItem* instrument)
     JobItemUtils::updateDataAxes(this, instrument);
 }
 
+std::vector<int> SpecularDataItem::shape() const
+{
+    return {getNbins()};
+}
+
 void SpecularDataItem::resetToDefault()
 {
     assert(getOutputData()

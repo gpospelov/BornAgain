@@ -35,6 +35,9 @@ public:
     RectangularDetectorItem();
 
     void setDetectorAlignment(const QString& alignment);
+
+    int xSize() const override;
+    int ySize() const override;
     void setXSize(int nx) override;
     void setYSize(int ny) override;
 

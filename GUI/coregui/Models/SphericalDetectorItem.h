@@ -24,6 +24,8 @@ public:
     static const QString P_ALPHA_AXIS;
     SphericalDetectorItem();
 
+    int xSize() const override;
+    int ySize() const override;
     void setXSize(int nx) override;
     void setYSize(int ny) override;
 

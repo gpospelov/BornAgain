@@ -42,6 +42,9 @@ public:
 
     void linkToInstrument(const InstrumentItem* instrument, bool make_update = true);
 
+    //! Returns the shape of undelying data item
+    std::vector<int> shape() const;
+
 private:
     void updateIntensityDataFileName();
     void updateToInstrument();

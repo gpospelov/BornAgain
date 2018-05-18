@@ -107,6 +107,16 @@ void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_
         updateToInstrument();
 }
 
+std::vector<int> RealDataItem::shape() const
+{
+    auto data_item = dataItem();
+    if (!data_item) {
+        assert(data_item);
+        return {};
+    }
+    return data_item->shape();
+}
+
 //! Updates the name of file to store intensity data.
 
 void RealDataItem::updateIntensityDataFileName()

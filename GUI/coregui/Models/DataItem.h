@@ -45,6 +45,7 @@ public:
     virtual void setYaxisTitle(QString ytitle) = 0;
     virtual void setAxesRangeToData() = 0;
     virtual void updateAxesUnits(const InstrumentItem* instrument) = 0;
+    virtual std::vector<int> shape() const = 0;
 
     //! Returns data to default state (no dimensional units, default axes' names)
     virtual void resetToDefault() = 0;

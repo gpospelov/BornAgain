@@ -158,7 +158,7 @@ double InterferenceFunction2DLattice::interferenceForXi(double xi) const
         for (int j = -m_nb - 1; j < m_nb + 2; ++j) {
             double qx = qx_frac + i * m_sbase.m_asx + j * m_sbase.m_bsx;
             double qy = qy_frac + i * m_sbase.m_asy + j * m_sbase.m_bsy;
-            result += interferenceAtOneRecLatticePoint(qx, qy, xi);
+            result += interferenceAtOneRecLatticePoint(qx, qy, 0.0);
         }
     }
     return getParticleDensity()*result;
@@ -190,12 +190,15 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
 {
     double a = m_lattice->length1();
     double b = m_lattice->length2();
-    double xialpha = xi + m_lattice->latticeAngle();
+    double alpha = m_lattice->latticeAngle();
+    double qx_rot =  qx*std::cos(xi) + qy*std::sin(xi);
+    double qy_rot = -qx*std::sin(xi) + qy*std::cos(xi);
 
-    int qa_int = std::lround(a * (qx * std::cos(xi) + qy * std::sin(xi)) / M_TWOPI);
-    int qb_int = std::lround(b * (qx * std::cos(xialpha) + qy * std::sin(xialpha)) / M_TWOPI);
-    qx_frac = qx - qa_int * m_sbase.m_asx - qb_int * m_sbase.m_bsx;
-    qy_frac = qy - qa_int * m_sbase.m_asy - qb_int * m_sbase.m_bsy;
+    int qa_int = static_cast<int>(std::lround(a*qx_rot / M_TWOPI));
+    int qb_int = static_cast<int>(
+                     std::lround(b*(qx*std::cos(alpha) + qy*std::sin(alpha)) / M_TWOPI));
+    qx_frac = qx_rot - qa_int * m_sbase.m_asx - qb_int * m_sbase.m_bsx;
+    qy_frac = qy_rot - qa_int * m_sbase.m_asy - qb_int * m_sbase.m_bsy;
 }
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()
@@ -204,7 +207,9 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
         throw std::runtime_error("InterferenceFunction2DLattice::initialize_rec_vectors() -> "
                                  "Error. No lattice defined yet");
 
-    m_sbase = m_lattice->reciprocalBases();
+    BasicLattice base_lattice(m_lattice->length1(), m_lattice->length2(),
+                              m_lattice->latticeAngle());
+    m_sbase = base_lattice.reciprocalBases();
 }
 
 void InterferenceFunction2DLattice::initialize_calc_factors()
@@ -221,6 +226,6 @@ void InterferenceFunction2DLattice::initialize_calc_factors()
                                   nmax / m_decay->decayLengthY(),
                                   m_lattice->latticeAngle(), m_lattice->length1(),
                                   m_lattice->length2(), qa_max, qb_max);
-    m_na = std::lround(std::abs(qa_max));
-    m_nb = std::lround(std::abs(qb_max));
+    m_na = static_cast<int>(std::lround(std::abs(qa_max)));
+    m_nb = static_cast<int>(std::lround(std::abs(qb_max)));
 }

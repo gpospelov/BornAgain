@@ -35,7 +35,8 @@ public:
     RectangularDetectorItem();
 
     void setDetectorAlignment(const QString& alignment);
-    void setSize(int nx, int ny) override;
+    void setXSize(int nx) override;
+    void setYSize(int ny) override;
 
 private:
     std::unique_ptr<IDetector2D> createDomainDetector() const override;

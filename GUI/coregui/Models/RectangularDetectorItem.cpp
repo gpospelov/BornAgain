@@ -134,9 +134,13 @@ void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)
     setItemValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.variant());
 }
 
-void RectangularDetectorItem::setSize(int nx, int ny)
+void RectangularDetectorItem::setXSize(int nx)
 {
     getItem(RectangularDetectorItem::P_X_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
+}
+
+void RectangularDetectorItem::setYSize(int ny)
+{
     getItem(RectangularDetectorItem::P_Y_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 

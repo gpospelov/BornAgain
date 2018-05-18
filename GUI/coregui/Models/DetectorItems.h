@@ -34,7 +34,8 @@ public:
 
     std::unique_ptr<IDetector2D> createDetector() const;
 
-    virtual void setSize(int nx, int ny) = 0;
+    virtual void setXSize(int nx) = 0;
+    virtual void setYSize(int ny) = 0;
 
     void clearMasks();
 

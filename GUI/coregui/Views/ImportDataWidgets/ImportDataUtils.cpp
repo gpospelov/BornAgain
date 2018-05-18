@@ -143,9 +143,11 @@ void ImportDataUtils::SetInstrumentShapeToData(InstrumentItem& instrumentItem,
 {
     auto dataShape = RealDataShape(realDataItemItem);
     if(auto offspecInstrument = dynamic_cast<OffSpecInstrumentItem*>(&instrumentItem)) {
-        offspecInstrument->detectorItem()->setSize(dataShape.first, dataShape.second);
+        offspecInstrument->detectorItem()->setXSize(dataShape.first);
+        offspecInstrument->detectorItem()->setYSize(dataShape.second);
     } else if (auto gisasInstrument = dynamic_cast<GISASInstrumentItem*>(&instrumentItem)) {
-        gisasInstrument->detectorItem()->setSize(dataShape.first, dataShape.second);
+        gisasInstrument->detectorItem()->setXSize(dataShape.first);
+        gisasInstrument->detectorItem()->setYSize(dataShape.second);
     } else {
         throw GUIHelpers::Error("ImportDataUtils::SetInstrumentShapeToData() -> Error."
                                 "Not supported instrument type");

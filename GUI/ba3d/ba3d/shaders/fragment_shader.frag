@@ -19,7 +19,7 @@ void main() {
     float spec = 0.0;
     highp vec3 E = normalize(eye-vo);
     if(NL > 0.0f)
-        spec = pow(max(0.0, dot(E, reflect(-L, N))), 5);
+        spec = pow(max(0.0, dot(E, reflect(-L, N))), 5.0f);
     vec3 spec_col = spec * vec3(1.0f, 1.0f, 1.0f);
 
     highp vec3 tot_col = amb_col + diff_col + spec_col;

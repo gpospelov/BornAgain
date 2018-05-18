@@ -158,21 +158,20 @@ double InterferenceFunction2DLattice::interferenceForXi(double xi) const
         for (int j = -m_nb - 1; j < m_nb + 2; ++j) {
             double qx = qx_frac + i * m_sbase.m_asx + j * m_sbase.m_bsx;
             double qy = qy_frac + i * m_sbase.m_asy + j * m_sbase.m_bsy;
-            result += interferenceAtOneRecLatticePoint(qx, qy, 0.0);
+            result += interferenceAtOneRecLatticePoint(qx, qy);
         }
     }
     return getParticleDensity()*result;
 }
 
-double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(
-        double qx, double qy, double xi) const
+double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
 {
     if (!m_decay)
         throw Exceptions::NullPointerException(
             "InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
             " -> Error! No decay function defined.");
     double qp1, qp2;
-    double gamma = xi + m_decay->gamma();
+    double gamma = m_decay->gamma();
     double delta = m_decay->delta();
     transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
     return m_decay->evaluate(qp1, qp2);

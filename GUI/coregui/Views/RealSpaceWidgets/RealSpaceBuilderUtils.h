@@ -23,6 +23,7 @@ class RealSpaceModel;
 class SessionItem;
 class SceneGeometry;
 class RealSpaceBuilder;
+class IRotation;
 
 namespace RealSpaceBuilderUtils
 {
@@ -30,16 +31,19 @@ namespace RealSpaceBuilderUtils
 BA_CORE_API_ QVector<double> computeCumulativeAbundances(const SessionItem& layoutItem);
 
 // No interference - random distribution of particles
-BA_CORE_API_ void populateRandomDistribution(RealSpaceModel* model, const SessionItem& layoutItem,
-        const SceneGeometry& sceneGeometry, const RealSpaceBuilder *builder3D);
+BA_CORE_API_ void populateRandomDistribution(RealSpaceModel* model,
+                                             const SessionItem& layoutItem,
+                                             const SceneGeometry& sceneGeometry,
+                                             const RealSpaceBuilder *builder3D);
 
 BA_CORE_API_ QVector<QVector<double>> computeRandomDistributionLatticePositions(
         const SessionItem& layoutItem, const SceneGeometry &sceneGeometry);
 
 // InterferenceFunction2DLatticeType
-BA_CORE_API_ void populateInterference2DLatticeType(
-        RealSpaceModel* model, const SessionItem& layoutItem, const SceneGeometry &sceneGeometry,
-        const RealSpaceBuilder *builder3D);
+BA_CORE_API_ void populateInterference2DLatticeType(RealSpaceModel* model,
+                                                    const SessionItem& layoutItem,
+                                                    const SceneGeometry &sceneGeometry,
+                                                    const RealSpaceBuilder *builder3D);
 
 BA_CORE_API_ QVector<QVector<double>>  getInterference2DLatticePositions(
         const SessionItem& interference2DLatticeItem, const SceneGeometry &sceneGeometry);
@@ -49,6 +53,9 @@ BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
 
 // Implement Rotation of a particle
 BA_CORE_API_ QVector3D implementParticleRotation(const SessionItem& particleItem);
+
+// Implement Rotation of a particle using parameters from IRotation Object
+BA_CORE_API_ QVector3D implementParticleRotationfromIRotation(IRotation* &rotation);
 
 } // namespace RealSpaceBuilderUtils
 

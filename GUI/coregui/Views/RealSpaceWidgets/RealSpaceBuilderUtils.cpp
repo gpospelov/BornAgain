@@ -29,6 +29,7 @@
 
 #include "TransformationItem.h"
 #include "RotationItems.h"
+#include "Rotations.h"
 
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
@@ -332,6 +333,31 @@ QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &pa
     alpha = Units::deg2rad(alpha);
     beta = Units::deg2rad(beta);
     gamma = Units::deg2rad(gamma);
+    return QVector3D(static_cast<float>(alpha),
+                     static_cast<float>(beta),
+                     static_cast<float>(gamma));
+}
+
+
+QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(IRotation* &rotation)
+{
+    double alpha = 0.0;
+    double beta = 0.0;
+    double gamma = 0.0;
+
+    if(auto rotX = dynamic_cast<RotationX*>(rotation)) {
+        beta = rotX->getAngle(); // about x-axis
+    } else if(auto rotY = dynamic_cast<RotationY*>(rotation)) {
+        alpha = -90.0;
+        beta = rotY->getAngle(); // about y-axis
+        gamma = 90.0;
+    } else if(auto rotZ = dynamic_cast<RotationZ*>(rotation)) {
+        alpha = rotZ->getAngle(); // about z-axis
+    } else if (auto rotEuler = dynamic_cast<RotationEuler*>(rotation)) {
+        gamma = rotEuler->getAlpha();
+        beta = rotEuler->getBeta();
+        alpha = rotEuler->getGamma();
+    }
     return QVector3D(static_cast<float>(alpha),
                      static_cast<float>(beta),
                      static_cast<float>(gamma));

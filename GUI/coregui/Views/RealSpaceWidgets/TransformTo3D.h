@@ -23,6 +23,7 @@
 
 class SessionItem;
 class SceneGeometry;
+class IFormFactor;
 
 //! Collection of utility functions to build 3D objects from session items.
 
@@ -39,6 +40,13 @@ std::unique_ptr<RealSpace::Layer> createLayer(const SessionItem& layerItem,
 
 BA_CORE_API_
 std::unique_ptr<RealSpace::Particles::Particle> createParticle(const SessionItem& particleItem);
+
+BA_CORE_API_
+std::unique_ptr<RealSpace::Particles::Particle> createParticleVersion2(
+        const SessionItem& particleItem);
+
+BA_CORE_API_
+std::unique_ptr<RealSpace::Particles::Particle> createParticlefromIFormFactor(IFormFactor* ff);
 
 }
 

@@ -106,16 +106,18 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
         return true;
 
     if (!ImportDataUtils::Compatible(*instrumentItem, *realDataItem)) {
-        QMessageBox::warning(0, "Can't link to instrument",
+        QMessageBox::warning(nullptr, "Can't link to instrument",
                              "Can't link, data is uncompatible with the instrument.");
 
         return false;
     }
 
-    QString message;
-    if (ImportDataUtils::HasSameShape(*instrumentItem, *realDataItem, &message))
+    if (instrumentItem->shape() == realDataItem->shape())
         return true;
-    else if (!QuestionOnInstrumentReshaping(message))
+
+    QString message
+        = ImportDataUtils::printShapeMessage(instrumentItem->shape(), realDataItem->shape());
+    if (!QuestionOnInstrumentReshaping(message))
         return false;
 
     instrumentItem->setShape(realDataItem->shape());
@@ -250,7 +252,7 @@ void LinkInstrumentManager::updateRealDataMap()
 void LinkInstrumentManager::onInstrumentBinningChange(InstrumentItem* changedInstrument)
 {
     for(auto realDataItem : linkedItems(changedInstrument))
-        if (!ImportDataUtils::HasSameShape(*changedInstrument, *realDataItem))
+        if (changedInstrument->shape() != realDataItem->shape())
             realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
 }
 
@@ -326,7 +328,7 @@ namespace {
 bool QuestionOnInstrumentReshaping(const QString& message)
 {
     QMessageBox msgBox;
-    msgBox.setText("The shape of data and detector differs.");
+    msgBox.setText("The shape of data and instrument differs.");
 
     QString informative;
     informative.append(message);

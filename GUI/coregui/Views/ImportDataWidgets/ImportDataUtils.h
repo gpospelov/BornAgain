@@ -40,9 +40,9 @@ CreateSimplifiedOutputData(const OutputData<double>& data);
 BA_CORE_API_ bool Compatible(const InstrumentItem& instrumentItem,
                              const RealDataItem& realDataItem);
 
-//! Returns trues if [nxbin X nybin] of the detector is the same as in realData.
-BA_CORE_API_ bool HasSameShape(const InstrumentItem& instrumentItem,
-                               const RealDataItem& realDataItem, QString* message = nullptr);
+//! Composes a message with the shapes of InstrumentItem and RealDataItem.
+BA_CORE_API_ QString printShapeMessage(const std::vector<int>& instrument_shape,
+                                           const std::vector<int>& data_shape);
 };
 
 #endif // IMPORTDATAUTILS_H

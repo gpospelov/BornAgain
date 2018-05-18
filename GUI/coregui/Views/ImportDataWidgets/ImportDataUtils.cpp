@@ -16,15 +16,11 @@
 #include "AppSvc.h"
 #include "AxesItems.h"
 #include "BornAgainNamespace.h"
-#include "DetectorItems.h"
 #include "GUIHelpers.h"
-#include "IDetector2D.h"
 #include "InstrumentItems.h"
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "RealDataItem.h"
-#include "RectangularDetectorItem.h"
-#include "SphericalDetectorItem.h"
 #include "projectmanager.h"
 #include <QFileDialog>
 #include <QFileInfo>
@@ -37,23 +33,12 @@ const QString filter_string = "Intensity File (*.int *.gz *.tif *.tiff *.txt);;"
 
 int getRank(const RealDataItem& item)
 {
-    Q_UNUSED(item); // to be extended
-    return 2;
+    return static_cast<int>(item.shape().size());
 }
 
 int getRank(const InstrumentItem& item) {
-    if (item.modelType() == Constants::GISASInstrumentType
-        || item.modelType() == Constants::OffSpecInstrumentType)
-        return 2;
-    return -1;
+    return static_cast<int>(item.shape().size());
 }
-
-std::pair<int, int> RealDataShape(const RealDataItem& realData);
-
-std::pair<int, int> DetectorShape(const InstrumentItem& instrumentItem);
-std::pair<int, int> DetectorShape(const GISASInstrumentItem& instrumentItem);
-std::pair<int, int> DetectorShape(const OffSpecInstrumentItem& instrumentItem);
-
 }
 
 std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
@@ -115,71 +100,23 @@ ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
     return result;
 }
 
-bool ImportDataUtils::HasSameShape(const InstrumentItem& instrumentItem,
-                                   const RealDataItem& realDataItem, QString* message)
+QString ImportDataUtils::printShapeMessage(const std::vector<int>& instrument_shape,
+                                           const std::vector<int>& data_shape)
 {
-    if (!Compatible(instrumentItem, realDataItem))
-        return false;
+    auto to_str = [](const std::vector<int>& shape) {
+        std::string result;
+        for (size_t i = 0, size = shape.size(); i < size; ++i) {
+            result += std::to_string(shape[i]);
+            if (i + 1 != size)
+                result += ", ";
+        }
+        return result;
+    };
 
-    bool isSame(true);
-
-    auto dataShape = RealDataShape(realDataItem);
-    auto detectorShape = DetectorShape(instrumentItem);
-
-    if (dataShape != detectorShape) {
-        isSame = false;
-        if (message)
-            *message = QString("detector [%1x%2], data [%3x%4]")
-                      .arg(detectorShape.first).arg(detectorShape.second)
-                      .arg(dataShape.first).arg(dataShape.second);
-    }
-
-    return isSame;
-}
-
-namespace {
-//! Returns shape of RealDataItem axes.
-
-std::pair<int, int> RealDataShape(const RealDataItem& realData)
-{
-    std::pair<int, int> result;
-    if (const auto intensityItem = realData.intensityDataItem()) {
-        auto xaxis = intensityItem->getItem(IntensityDataItem::P_XAXIS);
-        result.first = xaxis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-        auto yaxis = intensityItem->getItem(IntensityDataItem::P_YAXIS);
-        result.second = yaxis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-    }
-    return result;
-}
-
-//! Returns shape of Instrument's detector axes.
-
-// TODO refactor DetectorShape functions after specular instrument emergence
-
-std::pair<int, int> DetectorShape(const InstrumentItem& instrumentItem)
-{
-    if (const auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(&instrumentItem))
-        return DetectorShape(*offspecInstrument);
-    else if (const auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(&instrumentItem))
-        return DetectorShape(*gisasInstrument);
-    else
-        throw GUIHelpers::Error("ImportDataUtils::DetectorShape() -> Error."
-                                "Not supported instrument type");
-}
-
-std::pair<int, int> DetectorShape(const GISASInstrumentItem& instrumentItem)
-{
-    std::unique_ptr<IDetector2D> detector = instrumentItem.detectorItem()->createDetector();
-    return std::make_pair(static_cast<int>(detector->getAxis(0).size()),
-                          static_cast<int>(detector->getAxis(1).size()));
-}
-
-std::pair<int, int> DetectorShape(const OffSpecInstrumentItem& instrumentItem)
-{
-    const int alpha_nbins = instrumentItem.getItem(OffSpecInstrumentItem::P_ALPHA_AXIS)
-                                ->getItemValue(BasicAxisItem::P_NBINS).toInt();
-    std::unique_ptr<IDetector2D> detector = instrumentItem.detectorItem()->createDetector();
-    return std::make_pair(alpha_nbins, static_cast<int>(detector->getAxis(1).size()));
-}
-
+    std::string message_string = "instrument [";
+    message_string += to_str(instrument_shape);
+    message_string += "], data [";
+    message_string += to_str(data_shape);
+    message_string += "]";
+    return QString::fromStdString(std::move(message_string));
 }

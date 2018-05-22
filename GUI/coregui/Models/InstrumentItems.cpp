@@ -13,18 +13,16 @@
 // ************************************************************************** //
 
 #include "InstrumentItems.h"
+#include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "BeamItems.h"
-#include "BornAgainNamespace.h"
 #include "DetectorItems.h"
-#include "GUIHelpers.h"
-#include "SessionModel.h"
 #include "GroupItem.h"
-#include "MaskItems.h"
-#include "ParameterTranslators.h"
-#include "Instrument.h"
+#include "GUIHelpers.h"
 #include "IDetector2D.h"
-#include "AxesItems.h"
+#include "Instrument.h"
+#include "MaskItems.h"
+#include "SessionModel.h"
 
 namespace {
 const QString background_group_label = "Type";
@@ -120,6 +118,15 @@ std::vector<int> SpecularInstrumentItem::shape() const
     return {axis_item.getItemValue(BasicAxisItem::P_NBINS).toInt()};
 }
 
+void SpecularInstrumentItem::setShape(const std::vector<int>& data_shape)
+{
+    if (shape().size() != data_shape.size())
+        throw GUIHelpers::Error("Error in SpecularInstrumentItem::setShape: The type of "
+                                "instrument is incompatible with passed data shape.");
+    auto& axis_item = beamItem()->getInclinationAngleAxis();
+    axis_item.setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
+}
+
 const QString Instrument2DItem::P_DETECTOR = "Detector";
 
 Instrument2DItem::Instrument2DItem(const QString& modelType)
@@ -179,6 +186,15 @@ std::vector<int> GISASInstrumentItem::shape() const
     return {detector_item->xSize(), detector_item->ySize()};
 }
 
+void GISASInstrumentItem::setShape(const std::vector<int>& data_shape)
+{
+    if (shape().size() != data_shape.size())
+        throw GUIHelpers::Error("Error in GISASInstrumentItem::setShape: The type of "
+                                "instrument is incompatible with passed data shape.");
+    detectorItem()->setXSize(data_shape[0]);
+    detectorItem()->setYSize(data_shape[1]);
+}
+
 const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
 
 OffSpecInstrumentItem::OffSpecInstrumentItem()
@@ -192,6 +208,16 @@ std::vector<int> OffSpecInstrumentItem::shape() const
     const int x_size = getItem(P_ALPHA_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
     auto detector_item = detectorItem();
     return {x_size, detector_item->ySize()};
+}
+
+void OffSpecInstrumentItem::setShape(const std::vector<int>& data_shape)
+{
+    if (shape().size() != data_shape.size())
+        throw GUIHelpers::Error("Error in OffSpecInstrumentItem::setShape: The type of "
+                                "instrument is incompatible with passed data shape.");
+    getItem(OffSpecInstrumentItem::P_ALPHA_AXIS)
+        ->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
+    detectorItem()->setYSize(data_shape[1]);
 }
 
 namespace

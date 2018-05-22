@@ -19,9 +19,7 @@ PropertyRepeater::PropertyRepeater(QObject* parent, bool repeat_child_properties
     : QObject(parent)
     , m_block_repeater(false)
     , m_repeat_child_properties(repeat_child_properties)
-{
-
-}
+{}
 
 PropertyRepeater::~PropertyRepeater()
 {
@@ -29,16 +27,14 @@ PropertyRepeater::~PropertyRepeater()
         item->mapper()->unsubscribe(this);
 }
 
-void PropertyRepeater::addItem(SessionItem* sessionItem, const QStringList& activeProperties)
+void PropertyRepeater::addItem(SessionItem* sessionItem)
 {
     if (!sessionItem || m_dataItems.contains(sessionItem))
         return;
 
-
     sessionItem->mapper()->setOnItemDestroy([this](SessionItem* item)
     {
         m_dataItems.removeAll(item);
-        m_itemProperties.remove(item);
     }, this);
 
     sessionItem->mapper()->setOnPropertyChange(
@@ -50,10 +46,7 @@ void PropertyRepeater::addItem(SessionItem* sessionItem, const QStringList& acti
                 setOnChildPropertyChange(item, name);
             }, this);
     }
-
     m_dataItems.push_back(sessionItem);
-    if (!activeProperties.isEmpty())
-        m_itemProperties[sessionItem] = activeProperties;
 }
 
 void PropertyRepeater::clear()
@@ -62,7 +55,6 @@ void PropertyRepeater::clear()
         item->mapper()->unsubscribe(this);
 
     m_dataItems.clear();
-    m_itemProperties.clear();
 }
 
 void PropertyRepeater::setActive(bool isActive)
@@ -77,18 +69,12 @@ void PropertyRepeater::onPropertyChanged(SessionItem* item, const QString& prope
 
     m_block_repeater = true;
 
-    if (isPropertyBroadcastAllowed(item, propertyName)) {
-        QVariant value = item->getItemValue(propertyName);
-
-        for (auto target : targetItems(item))
-            if (isPropertyReceiveAllowed(target, propertyName))
-                target->setItemValue(propertyName, value);
+    QVariant value = item->getItemValue(propertyName);
+    for (auto target : targetItems(item)) {
+        target->setItemValue(propertyName, value);
     }
-
     m_block_repeater = false;
-
 }
-
 
 void PropertyRepeater::setOnChildPropertyChange(SessionItem* item, const QString& propertyName)
 {
@@ -98,16 +84,11 @@ void PropertyRepeater::setOnChildPropertyChange(SessionItem* item, const QString
     m_block_repeater = true;
 
     SessionItem* sourceItem = item->parent();
-
-    if (isPropertyBroadcastAllowed(sourceItem, propertyName)) {
-        QString tag = sourceItem->tagFromItem(item);
-        QVariant value = item->getItemValue(propertyName);
-
-        for (auto target : targetItems(sourceItem))
-            if (isPropertyReceiveAllowed(target, propertyName))
-                target->getItem(tag)->setItemValue(propertyName, value);
+    QString tag = sourceItem->tagFromItem(item);
+    QVariant value = item->getItemValue(propertyName);
+    for (auto target : targetItems(sourceItem)) {
+        target->getItem(tag)->setItemValue(propertyName, value);
     }
-
     m_block_repeater = false;
 }
 
@@ -118,22 +99,4 @@ QVector<SessionItem*> PropertyRepeater::targetItems(SessionItem* sourceItem)
     QVector<SessionItem*> result = m_dataItems;
     result.removeAll(sourceItem);
     return result;
-}
-
-//! Returns true if given item is allowed to send updates about property with given name.
-
-bool PropertyRepeater::isPropertyBroadcastAllowed(SessionItem* item, const QString& propertyName)
-{
-    auto it = m_itemProperties.find(item);
-    if (it == m_itemProperties.end())
-        return true; // no special wishes, broadcast is allowed
-
-    return it.value().contains(propertyName) ? true : false;
-}
-
-bool PropertyRepeater::isPropertyReceiveAllowed(SessionItem* item, const QString& propertyName)
-{
-    // for the moment item which is allowed to send notifications on property update
-    // is also allowed to received updates from other properties
-    return isPropertyBroadcastAllowed(item, propertyName);
 }

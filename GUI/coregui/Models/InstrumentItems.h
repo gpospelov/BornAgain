@@ -18,6 +18,7 @@
 #include "BeamItems.h"
 
 class BackgroundItem;
+class DataItem;
 class DetectorItem;
 class GroupItem;
 class Instrument;
@@ -37,6 +38,8 @@ public:
     GroupItem* backgroundGroup();
 
     virtual std::unique_ptr<Instrument> createInstrument() const = 0;
+    virtual std::vector<int> shape() const = 0;
+    virtual void setShape(const std::vector<int>& shape) = 0;
 
 protected:
     explicit InstrumentItem(const QString& modelType);
@@ -53,6 +56,8 @@ public:
     SpecularBeamItem* beamItem() const override;
 
     std::unique_ptr<Instrument> createInstrument() const override;
+    std::vector<int> shape() const override;
+    void setShape(const std::vector<int>& shape) override;
 };
 
 class BA_CORE_API_ Instrument2DItem : public InstrumentItem
@@ -81,6 +86,8 @@ class BA_CORE_API_ GISASInstrumentItem : public Instrument2DItem
 {
 public:
     GISASInstrumentItem();
+    std::vector<int> shape() const override;
+    void setShape(const std::vector<int>& data_shape) override;
 };
 
 class BA_CORE_API_ OffSpecInstrumentItem : public Instrument2DItem
@@ -89,6 +96,8 @@ public:
     static const QString P_ALPHA_AXIS;
 
     OffSpecInstrumentItem();
+    std::vector<int> shape() const override;
+    void setShape(const std::vector<int>& data_shape) override;
 };
 
 #endif // INSTRUMENTITEMS_H

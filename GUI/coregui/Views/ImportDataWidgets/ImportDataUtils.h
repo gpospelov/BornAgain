@@ -32,6 +32,7 @@ namespace ImportDataUtils
 
 BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportData(QString& baseNameOfLoadedFile);
 
+//! Creates OutputData with bin-valued axes.
 BA_CORE_API_ std::unique_ptr<OutputData<double>>
 CreateSimplifiedOutputData(const OutputData<double>& data);
 
@@ -39,11 +40,9 @@ CreateSimplifiedOutputData(const OutputData<double>& data);
 BA_CORE_API_ bool Compatible(const InstrumentItem& instrumentItem,
                              const RealDataItem& realDataItem);
 
-BA_CORE_API_ bool HasSameShape(const InstrumentItem& instrumentItem,
-                               const RealDataItem& realDataItem, QString* message = nullptr);
-
-BA_CORE_API_ void SetInstrumentShapeToData(InstrumentItem& instrumentItem,
-                                           const RealDataItem& realDataItemItem);
+//! Composes a message with the shapes of InstrumentItem and RealDataItem.
+BA_CORE_API_ QString printShapeMessage(const std::vector<int>& instrument_shape,
+                                           const std::vector<int>& data_shape);
 };
 
 #endif // IMPORTDATAUTILS_H

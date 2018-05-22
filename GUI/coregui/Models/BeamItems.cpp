@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "BeamItems.h"
+#include "AxesItems.h"
 #include "Beam.h"
 #include "BeamAngleItems.h"
 #include "BeamDistributionItem.h"
@@ -22,6 +23,7 @@
 #include "GUIHelpers.h"
 #include "ParameterTranslators.h"
 #include "SessionItemUtils.h"
+#include "SpecularBeamInclinationItem.h"
 #include "Units.h"
 
 using SessionItemUtils::GetVectorItem;
@@ -149,6 +151,12 @@ void SpecularBeamItem::setInclinationAngle(double value)
     Q_ASSERT(value == 0.0);
     value = 0.0;
     BeamItem::setInclinationAngle(value);
+}
+
+BasicAxisItem& SpecularBeamItem::getInclinationAngleAxis()
+{
+    return getItem(BeamItem::P_INCLINATION_ANGLE)
+        ->item<BasicAxisItem>(SpecularBeamInclinationItem::P_ALPHA_AXIS);
 }
 
 FootprintItem* SpecularBeamItem::currentFootprintItem() const

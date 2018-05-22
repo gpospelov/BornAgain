@@ -109,10 +109,10 @@ TEST_F(TestProjectDocument, test_projectDocumentWithData)
     RealDataItem* realData = dynamic_cast<RealDataItem*>(
         models.realDataModel()->insertNewItem(Constants::RealDataType));
     Q_ASSERT(realData);
-    IntensityDataItem* intensityItem = realData->intensityDataItem();
+    DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,
                                            models.instrumentModel()->instrumentItem());
-    intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
+    intensityItem->setItemValue(DataItem::P_FILE_NAME, "realdata.int.gz");
 
     ProjectDocument document;
     document.setApplicationModels(&models);

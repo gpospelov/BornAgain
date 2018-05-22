@@ -19,8 +19,6 @@
 
 class AmplitudeAxisItem;
 class BasicAxisItem;
-class MaskContainerItem;
-class ProjectionContainerItem;
 
 class BA_CORE_API_ SpecularDataItem : public DataItem
 {
@@ -70,6 +68,11 @@ public:
     void setXaxisTitle(QString xtitle) override;
     void setYaxisTitle(QString ytitle) override;
     void setAxesRangeToData() override;
+    void updateAxesUnits(const InstrumentItem* instrument) override;
+    std::vector<int> shape() const override;
+
+    //! Returns data to default state (no dimensional units, default axes' names)
+    void resetToDefault() override;
 
 public slots:
     void setLowerX(double xmin);

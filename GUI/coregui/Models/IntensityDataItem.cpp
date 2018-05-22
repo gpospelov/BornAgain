@@ -17,7 +17,10 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "ImportDataUtils.h"
+#include "JobItemUtils.h"
 #include "MaskItems.h"
+#include "MaskUnitsConverter.h"
 #include "ProjectionItems.h"
 #include "BornAgainNamespace.h"
 
@@ -33,6 +36,9 @@ ComboProperty gradientCombo() {
     return result;
 }
 }
+
+const QString x_axis_default_name = "X [nbins]";
+const QString y_axis_default_name = "Y [nbins]";
 
 const QString IntensityDataItem::P_TITLE = "Title";
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
@@ -61,8 +67,8 @@ IntensityDataItem::IntensityDataItem() : DataItem(Constants::IntensityDataType)
     item = addGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    setXaxisTitle("X [nbins]");
-    setYaxisTitle("Y [nbins]");
+    setXaxisTitle(x_axis_default_name);
+    setYaxisTitle(y_axis_default_name);
 
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
@@ -206,6 +212,37 @@ void IntensityDataItem::setAxesRangeToData()
     setUpperX(getXmax());
     setLowerY(getYmin());
     setUpperY(getYmax());
+}
+
+void IntensityDataItem::updateAxesUnits(const InstrumentItem* instrument)
+{
+    MaskUnitsConverter converter;
+    converter.convertToNbins(this);
+
+    JobItemUtils::updateDataAxes(this, instrument);
+
+    converter.convertFromNbins(this);
+}
+
+std::vector<int> IntensityDataItem::shape() const
+{
+    return {getNbinsX(), getNbinsY()};
+}
+
+void IntensityDataItem::resetToDefault()
+{
+    assert(getOutputData()
+           && "IntensityDataItem::resetToDefault assertion failed: associated output data should "
+              "not be empty");
+    DataItem::resetToDefault();
+
+    setXaxisTitle(x_axis_default_name);
+    setYaxisTitle(y_axis_default_name);
+    MaskUnitsConverter converter;
+    converter.convertToNbins(this);
+    setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*getOutputData()).release());
+    setAxesRangeToData();
+    converter.convertFromNbins(this);
 }
 
 void IntensityDataItem::setLowerX(double xmin)

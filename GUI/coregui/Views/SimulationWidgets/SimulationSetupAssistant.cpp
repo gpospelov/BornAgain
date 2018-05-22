@@ -13,9 +13,10 @@
 // ************************************************************************** //
 
 #include "SimulationSetupAssistant.h"
-#include "SampleValidator.h"
 #include "ImportDataUtils.h"
 #include "InstrumentItems.h"
+#include "RealDataItem.h"
+#include "SampleValidator.h"
 #include <QMessageBox>
 
 //! Returns true if given setup is valid for submitting the job
@@ -74,16 +75,15 @@ void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem* instrum
 //! its axes will be compared with current detector item.
 
 void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem* instrumentItem,
-                                                 const RealDataItem *realData)
+                                                 const RealDataItem* realData)
 {
-    if(!realData)
+    if(!realData || instrumentItem->shape() == realData->shape())
         return;
 
-    QString message;
-    if(!ImportDataUtils::HasSameShape(*instrumentItem, *realData, &message)) {
-        m_isValid = false;
-        m_messages.append("The RealData doesn't match selected instrument: "+message);
-    }
+    m_isValid = false;
+    QString message
+        = ImportDataUtils::printShapeMessage(instrumentItem->shape(), realData->shape());
+    m_messages.append("The RealData doesn't match selected instrument: " + message);
 }
 
 //! Composes the error message for message box.

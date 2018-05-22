@@ -126,14 +126,13 @@ void FitComparisonWidget::subscribeToItem()
 
     m_comparisonController->setItems(realDataItem(), simulatedDataItem());
 
-    if (auto diff_item = diffItem()) {
-        diff_item->mapper()->setOnPropertyChange([this](const QString& name)
-        {
-            if (name == DataItem::P_AXES_UNITS) {
-                JobItemUtils::updateDataAxes(diffItem(), jobItem()->instrumentItem());
-            }
-        }, this);
-    }
+    if (auto diff_item = diffItem())
+        diff_item->mapper()->setOnPropertyChange(
+            [this, diff_item](const QString& name) {
+                if (name == DataItem::P_AXES_UNITS)
+                    diff_item->updateAxesUnits(jobItem()->instrumentItem());
+            },
+            this);
 
     m_propertyWidget->setItem(simulatedDataItem());
 }

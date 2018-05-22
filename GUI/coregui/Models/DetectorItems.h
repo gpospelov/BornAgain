@@ -34,7 +34,19 @@ public:
 
     std::unique_ptr<IDetector2D> createDetector() const;
 
-    virtual void setSize(int nx, int ny) = 0;
+    // TODO: consider using index-based access functions
+
+    //! returns the size of x-axis of the detector
+    virtual int xSize() const = 0;
+
+    //! returns the size of y-axis of the detector
+    virtual int ySize() const = 0;
+
+    //! sets the size of x-axis of the detector
+    virtual void setXSize(int nx) = 0;
+
+    //! sets the size of y-axis of the detector
+    virtual void setYSize(int ny) = 0;
 
     void clearMasks();
 

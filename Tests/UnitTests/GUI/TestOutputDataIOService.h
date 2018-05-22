@@ -1,12 +1,12 @@
 #include "google_test.h"
 #include <memory>
 #include "ApplicationModels.h"
+#include "DataItem.h"
 #include "OutputDataIOService.h"
 #include "RealDataItem.h"
 #include "JobModel.h"
 #include "JobItem.h"
 #include "JobItemUtils.h"
-#include "IntensityDataItem.h"
 #include "OutputDataIOHistory.h"
 #include "GUIHelpers.h"
 #include "OutputData.h"
@@ -42,7 +42,7 @@ public:
     {
         RealDataItem* result = dynamic_cast<RealDataItem*>(
             models.realDataModel()->insertNewItem(Constants::RealDataType));
-        result->intensityDataItem()->setOutputData(createData(value).release());
+        result->dataItem()->setOutputData(createData(value).release());
         result->setItemValue(SessionItem::P_NAME, name);
         return result;
     }
@@ -107,8 +107,7 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
 TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo)
 {
     SessionModel model("TempModel");
-    IntensityDataItem* item
-        = dynamic_cast<IntensityDataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
     item->setLastModified(QDateTime::currentDateTime());
 
@@ -129,11 +128,9 @@ TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo)
 TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
 {
     SessionModel model("TempModel");
-    IntensityDataItem* item1
-        = dynamic_cast<IntensityDataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
-    IntensityDataItem* item2
-        = dynamic_cast<IntensityDataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
     item1->setLastModified(QDateTime::currentDateTime());
     item2->setLastModified(QDateTime::currentDateTime());
@@ -169,11 +166,9 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
 TEST_F(TestOutputDataIOService, test_OutputDataIOHistory)
 {
     SessionModel model("TempModel");
-    IntensityDataItem* item1
-        = dynamic_cast<IntensityDataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
-    IntensityDataItem* item2
-        = dynamic_cast<IntensityDataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
     item1->setLastModified(QDateTime::currentDateTime());
     item2->setLastModified(QDateTime::currentDateTime());
@@ -234,19 +229,19 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
         IntensityDataIOFactory::readOutputData(fname1.toStdString()));
     std::unique_ptr<OutputData<double>> dataOnDisk2(
         IntensityDataIOFactory::readOutputData(fname2.toStdString()));
-    EXPECT_TRUE(isTheSame(*dataOnDisk1, *realData1->intensityDataItem()->getOutputData()));
-    EXPECT_TRUE(isTheSame(*dataOnDisk2, *realData2->intensityDataItem()->getOutputData()));
+    EXPECT_TRUE(isTheSame(*dataOnDisk1, *realData1->dataItem()->getOutputData()));
+    EXPECT_TRUE(isTheSame(*dataOnDisk2, *realData2->dataItem()->getOutputData()));
 
     // Modifying data and saving the project.
-    realData2->intensityDataItem()->setOutputData(createData(value3).release());
+    realData2->dataItem()->setOutputData(createData(value3).release());
     service.save(projectDir);
     QTest::qSleep(10);
 
-    EXPECT_TRUE(isTheSame(*dataOnDisk1, *realData1->intensityDataItem()->getOutputData()));
-    EXPECT_TRUE(isTheSame(*dataOnDisk2, *realData2->intensityDataItem()->getOutputData()) == false);
+    EXPECT_TRUE(isTheSame(*dataOnDisk1, *realData1->dataItem()->getOutputData()));
+    EXPECT_TRUE(isTheSame(*dataOnDisk2, *realData2->dataItem()->getOutputData()) == false);
     // checking that data on disk has changed
     dataOnDisk2.reset(IntensityDataIOFactory::readOutputData(fname2.toStdString()));
-    EXPECT_TRUE(isTheSame(*dataOnDisk2, *realData2->intensityDataItem()->getOutputData()));
+    EXPECT_TRUE(isTheSame(*dataOnDisk2, *realData2->dataItem()->getOutputData()));
 
     // Renaming RealData and check that file on disk changed the name
     realData2->setItemName("data2new");
@@ -255,7 +250,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
 
     QString fname2new = "./" + projectDir + "/" + "realdata_data2new_0.int.gz";
     EXPECT_TRUE(ProjectUtils::exists(fname2new));
-    EXPECT_TRUE(isTheSame(fname2new, *realData2->intensityDataItem()->getOutputData()));
+    EXPECT_TRUE(isTheSame(fname2new, *realData2->dataItem()->getOutputData()));
 
     // Check that file with old name was removed.
     EXPECT_TRUE(ProjectUtils::exists(fname2) == false);

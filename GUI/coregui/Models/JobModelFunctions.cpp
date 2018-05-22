@@ -96,11 +96,11 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
         model->copyItem(realDataItem, jobItem, JobItem::T_REALDATA));
     Q_ASSERT(realDataItemCopy);
 
-    realDataItemCopy->intensityDataItem()->setOutputData(
-                realDataItem->intensityDataItem()->getOutputData()->clone());
+    realDataItemCopy->dataItem()->setOutputData(
+                realDataItem->dataItem()->getOutputData()->clone());
 
     // adapting the name to job name
-    realDataItemCopy->intensityDataItem()->setItemValue(IntensityDataItem::P_FILE_NAME,
+    realDataItemCopy->dataItem()->setItemValue(DataItem::P_FILE_NAME,
         JobItemFunctions::jobReferenceFileName(*jobItem));
 }
 

@@ -112,7 +112,6 @@ void FitComparisonWidget::subscribeToItem()
     if (auto simItem = simulatedDataItem()) {
         simItem->mapper()->setOnValueChange([this]() { calculateRelativeDifference(); }, this);
     }
-
     calculateRelativeDifference();
 
     m_realDataPlot->setItem(realDataItem());
@@ -149,20 +148,12 @@ void FitComparisonWidget::unsubscribeFromItem()
 
 void FitComparisonWidget::onResetViewAction()
 {
-    m_comparisonController->setActive(false);
-
     if (auto item = realDataItem())
         item->resetView();
 
-    if (auto item = simulatedDataItem())
-        item->resetView();
-
     if (diffItem()) {
-        diffItem()->resetView();
         diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
     }
-
-    m_comparisonController->setActive(true);
 }
 
 void FitComparisonWidget::calculateRelativeDifference()
@@ -181,7 +172,6 @@ void FitComparisonWidget::calculateRelativeDifference()
     diffItem()->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getYaxisTitle());
     diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
     diffItem()->setAxesRangeToData();
-
 }
 
 void FitComparisonWidget::unsubscribeFromChildren()

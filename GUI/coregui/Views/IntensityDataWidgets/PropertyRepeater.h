@@ -32,7 +32,7 @@ public:
     explicit PropertyRepeater(QObject* parent = nullptr, bool repeat_child_properties = false);
     ~PropertyRepeater();
 
-    void addItem(SessionItem* sessionItem, const QStringList& activeProperties = QStringList());
+    void addItem(SessionItem* sessionItem);
 
     void clear();
 
@@ -41,12 +41,8 @@ private:
     void onPropertyChanged(SessionItem* item, const QString& propertyName);
     void setOnChildPropertyChange(SessionItem* item, const QString& propertyName);
     QVector<SessionItem*> targetItems(SessionItem* sourceItem);
-    bool isPropertyBroadcastAllowed(SessionItem* item, const QString& propertyName);
-    bool isPropertyReceiveAllowed(SessionItem* item, const QString& propertyName);
 
     QVector<SessionItem*> m_dataItems;
-    //! List of properties which item is allowed to report to others and receive updates.
-    QMap<SessionItem*, QStringList> m_itemProperties;
     bool m_block_repeater;
     bool m_repeat_child_properties;
 };

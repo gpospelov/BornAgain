@@ -38,6 +38,10 @@ IntensityDataItem* FitComparisonController::diffItem()
 void FitComparisonController::setItems(IntensityDataItem* realDataItem,
                                        IntensityDataItem* simDataItem)
 {
+    double zmin = realDataItem->getLowerZ();
+    double zmax = realDataItem->getUpperZ();
+    simDataItem->setLowerAndUpperZ(zmin, zmax);
+
     m_appearanceRepeater->addItem(realDataItem);
     m_appearanceRepeater->addItem(simDataItem);
     m_appearanceRepeater->addItem(diffItem());

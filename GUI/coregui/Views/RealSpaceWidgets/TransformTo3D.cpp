@@ -27,25 +27,7 @@
 #include "ParticleCompositionItem.h"
 #include "GUIDomainSampleVisitor.h"
 
-#include "FormFactorAnisoPyramid.h"
-#include "FormFactorBox.h"
-#include "FormFactorCone.h"
-#include "FormFactorCone6.h"
-#include "FormFactorCuboctahedron.h"
-#include "FormFactorCylinder.h"
-#include "FormFactorDodecahedron.h"
-#include "FormFactorEllipsoidalCylinder.h"
-#include "FormFactorFullSphere.h"
-#include "FormFactorFullSpheroid.h"
-#include "FormFactorHemiEllipsoid.h"
-#include "FormFactorIcosahedron.h"
-#include "FormFactorPrism3.h"
-#include "FormFactorPrism6.h"
-#include "FormFactorPyramid.h"
-#include "FormFactorTetrahedron.h"
-#include "FormFactorTruncatedCube.h"
-#include "FormFactorTruncatedSphere.h"
-#include "FormFactorTruncatedSpheroid.h"
+#include "HardParticles.h"
 
 namespace {
     bool isTopLayer(const SessionItem& layerItem) {

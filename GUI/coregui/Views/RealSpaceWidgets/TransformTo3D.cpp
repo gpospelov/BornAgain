@@ -247,7 +247,7 @@ TransformTo3D::createParticleVersion2(const SessionItem &particleItem)
 
     auto unique_ff = ffItem->createFormFactor();
 
-    result = createParticlefromIFormFactor(unique_ff.release());
+    result = createParticlefromIFormFactor(unique_ff.get());
 
     // setting colour of the particle
     if(result) {
@@ -260,11 +260,11 @@ TransformTo3D::createParticleVersion2(const SessionItem &particleItem)
 }
 
 std::unique_ptr<RealSpace::Particles::Particle>
-TransformTo3D::createParticlefromIFormFactor(IFormFactor* ff)
+TransformTo3D::createParticlefromIFormFactor(const IFormFactor* ff)
 {
     std::unique_ptr<RealSpace::Particles::Particle> result;
 
-    if(auto ff_AnisoPyramid = dynamic_cast<FormFactorAnisoPyramid*>(ff)) {
+    if(auto ff_AnisoPyramid = dynamic_cast<const FormFactorAnisoPyramid*>(ff)) {
         double length = ff_AnisoPyramid->getLength();
         double width = ff_AnisoPyramid->getWidth();
         double height = ff_AnisoPyramid->getHeight();
@@ -272,25 +272,25 @@ TransformTo3D::createParticlefromIFormFactor(IFormFactor* ff)
         result = std::make_unique<RealSpace::Particles::AnisoPyramid>(length, width, height,
                                                                       alpha);
     }
-    else if(auto ff_Box = dynamic_cast<FormFactorBox*>(ff)) {
+    else if(auto ff_Box = dynamic_cast<const FormFactorBox*>(ff)) {
         double length = ff_Box->getLength();
         double width = ff_Box->getWidth();
         double height = ff_Box->getHeight();
         result = std::make_unique<RealSpace::Particles::Box>(length, width, height);
     }
-    else if(auto ff_Cone = dynamic_cast<FormFactorCone*>(ff)) {
+    else if(auto ff_Cone = dynamic_cast<const FormFactorCone*>(ff)) {
         double radius = ff_Cone->getRadius();
         double height = ff_Cone->getHeight();
         double alpha = ff_Cone->getAlpha();
         result = std::make_unique<RealSpace::Particles::Cone>(radius, height, alpha);
     }
-    else if(auto ff_Cone6 = dynamic_cast<FormFactorCone6*>(ff)) {
+    else if(auto ff_Cone6 = dynamic_cast<const FormFactorCone6*>(ff)) {
         double baseedge = ff_Cone6->getBaseEdge();
         double height = ff_Cone6->getHeight();
         double alpha = ff_Cone6->getAlpha();
         result = std::make_unique<RealSpace::Particles::Cone6>(baseedge, height, alpha);
     }
-    else if(auto ff_Cuboctahedron = dynamic_cast<FormFactorCuboctahedron*>(ff)) {
+    else if(auto ff_Cuboctahedron = dynamic_cast<const FormFactorCuboctahedron*>(ff)) {
         double length = ff_Cuboctahedron->getLength();
         double height = ff_Cuboctahedron->getHeight();
         double height_ratio = ff_Cuboctahedron->getHeightRatio();
@@ -298,78 +298,78 @@ TransformTo3D::createParticlefromIFormFactor(IFormFactor* ff)
         result = std::make_unique<RealSpace::Particles::Cuboctahedron>(length, height,
                                                                        height_ratio, alpha);
     }
-    else if(auto ff_Cylinder = dynamic_cast<FormFactorCylinder*>(ff)) {
+    else if(auto ff_Cylinder = dynamic_cast<const FormFactorCylinder*>(ff)) {
         double radius = ff_Cylinder->getRadius();
         double height = ff_Cylinder->getHeight();
         result = std::make_unique<RealSpace::Particles::Cylinder>(radius, height);
     }
-    else if(auto ff_Dodecahedron = dynamic_cast<FormFactorDodecahedron*>(ff)) {
+    else if(auto ff_Dodecahedron = dynamic_cast<const FormFactorDodecahedron*>(ff)) {
         double edge = ff_Dodecahedron->getEdge();
         result = std::make_unique<RealSpace::Particles::Dodecahedron>(edge);
     }
-    else if(auto ff_EllipsoidalCylinder = dynamic_cast<FormFactorEllipsoidalCylinder*>(ff)) {
+    else if(auto ff_EllipsoidalCylinder = dynamic_cast<const FormFactorEllipsoidalCylinder*>(ff)) {
         double radius_x = ff_EllipsoidalCylinder->getRadiusX();
         double radius_y = ff_EllipsoidalCylinder->getRadiusY();
         double height = ff_EllipsoidalCylinder->getHeight();
         result = std::make_unique<RealSpace::Particles::EllipsoidalCylinder>(radius_x, radius_y,
                                                                              height);
     }
-    else if(auto ff_FullSphere = dynamic_cast<FormFactorFullSphere*>(ff)) {
+    else if(auto ff_FullSphere = dynamic_cast<const FormFactorFullSphere*>(ff)) {
         double radius = ff_FullSphere->getRadius();
         result = std::make_unique<RealSpace::Particles::FullSphere>(radius);
     }
 
-    else if(auto ff_FullSpheroid = dynamic_cast<FormFactorFullSpheroid*>(ff)) {
+    else if(auto ff_FullSpheroid = dynamic_cast<const FormFactorFullSpheroid*>(ff)) {
         double radius = ff_FullSpheroid->getRadius();
         double height = ff_FullSpheroid->getHeight();
         result = std::make_unique<RealSpace::Particles::FullSpheroid>(radius, height);
     }
-    else if(auto ff_HemiEllipsoid = dynamic_cast<FormFactorHemiEllipsoid*>(ff)) {
+    else if(auto ff_HemiEllipsoid = dynamic_cast<const FormFactorHemiEllipsoid*>(ff)) {
         double radius_x = ff_HemiEllipsoid->getRadiusX();
         double radius_y = ff_HemiEllipsoid->getRadiusY();
         double height = ff_HemiEllipsoid->getHeight();
         result = std::make_unique<RealSpace::Particles::HemiEllipsoid>(radius_x, radius_y,
                                                                              height);
     }
-    else if(auto ff_Icosahedron = dynamic_cast<FormFactorIcosahedron*>(ff)) {
+    else if(auto ff_Icosahedron = dynamic_cast<const FormFactorIcosahedron*>(ff)) {
         double edge = ff_Icosahedron->getEdge();
         result = std::make_unique<RealSpace::Particles::Icosahedron>(edge);
     }
 
-    else if(auto ff_Prism3 = dynamic_cast<FormFactorPrism3*>(ff)) {
+    else if(auto ff_Prism3 = dynamic_cast<const FormFactorPrism3*>(ff)) {
         double baseedge = ff_Prism3->getBaseEdge();
         double height = ff_Prism3->getHeight();
         result = std::make_unique<RealSpace::Particles::Prism3>(baseedge, height);
     }
-    else if(auto ff_Prism6 = dynamic_cast<FormFactorPrism6*>(ff)) {
+    else if(auto ff_Prism6 = dynamic_cast<const FormFactorPrism6*>(ff)) {
         double baseedge = ff_Prism6->getBaseEdge();
         double height = ff_Prism6->getHeight();
         result = std::make_unique<RealSpace::Particles::Prism6>(baseedge, height);
     }
-    else if(auto ff_Pyramid = dynamic_cast<FormFactorPyramid*>(ff)) {
+    else if(auto ff_Pyramid = dynamic_cast<const FormFactorPyramid*>(ff)) {
         double baseedge = ff_Pyramid->getBaseEdge();
         double height = ff_Pyramid->getHeight();
         double alpha = ff_Pyramid->getAlpha();
         result = std::make_unique<RealSpace::Particles::Pyramid>(baseedge, height, alpha);
     }
-    else if(auto ff_Tetrahedron = dynamic_cast<FormFactorTetrahedron*>(ff)) {
+    else if(auto ff_Tetrahedron = dynamic_cast<const FormFactorTetrahedron*>(ff)) {
         double baseedge = ff_Tetrahedron->getBaseEdge();
         double height = ff_Tetrahedron->getHeight();
         double alpha = ff_Tetrahedron->getAlpha();
         result = std::make_unique<RealSpace::Particles::Tetrahedron>(baseedge, height, alpha);
     }
-    else if(auto ff_TruncatedCube = dynamic_cast<FormFactorTruncatedCube*>(ff)) {
+    else if(auto ff_TruncatedCube = dynamic_cast<const FormFactorTruncatedCube*>(ff)) {
         double length = ff_TruncatedCube->getLength();
         double removed_length = ff_TruncatedCube->getRemovedLength();
         result = std::make_unique<RealSpace::Particles::TruncatedCube>(length, removed_length);
     }
-    else if(auto ff_TruncatedSphere = dynamic_cast<FormFactorTruncatedSphere*>(ff)) {
+    else if(auto ff_TruncatedSphere = dynamic_cast<const FormFactorTruncatedSphere*>(ff)) {
         double radius = ff_TruncatedSphere->getRadius();
         double height = ff_TruncatedSphere->getHeight();
         //double removed_top = ff_TruncatedSphere->getRemovedTop();
         result = std::make_unique<RealSpace::Particles::TruncatedSphere>(radius, height);
     }
-    else if(auto ff_TruncatedSpheroid = dynamic_cast<FormFactorTruncatedSpheroid*>(ff)) {
+    else if(auto ff_TruncatedSpheroid = dynamic_cast<const FormFactorTruncatedSpheroid*>(ff)) {
         double radius = ff_TruncatedSpheroid->getRadius();
         double height = ff_TruncatedSpheroid->getHeight();
         double hfc = ff_TruncatedSpheroid->getHeightFlattening();

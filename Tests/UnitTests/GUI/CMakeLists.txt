@@ -15,14 +15,15 @@ endif()
 file(GLOB source_files "*.cpp")
 file(GLOB include_files "*.h")
 
-find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Test REQUIRED)
 
 include_directories(${BornAgainGUI_INCLUDE_DIRS})
 
 set(CMAKE_AUTOMOC ON)
 add_executable(${test} ${source_files} ${include_files})
 target_link_libraries(${test} ${BornAgainGUI_LIBRARY} gtest)
-qt5_use_modules(${test} Widgets Core Gui Designer PrintSupport Network Test)
+target_link_libraries(${test} Qt5::Core Qt5::Test)
 
 # add execution of TestCore just after compilation
 add_custom_target(${test}_run ALL DEPENDS ${test} COMMAND ${test})

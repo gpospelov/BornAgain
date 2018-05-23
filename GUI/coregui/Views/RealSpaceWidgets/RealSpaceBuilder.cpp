@@ -175,11 +175,11 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
 
         for (IParticle* pc_particle : pc_vector)
         {
-            IFormFactor* ff = pc_particle->createFormFactor(); // abbreviating FormFactor as ff
+            const IFormFactor* ff = pc_particle->createFormFactor(); // abbreviating FormFactor as ff
 
             // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
-            while(dynamic_cast<IFormFactorDecorator*>(ff))
-                ff = dynamic_cast<IFormFactorDecorator*>(ff)->getFormFactor();
+            while(dynamic_cast<const IFormFactorDecorator*>(ff))
+                ff = dynamic_cast<const IFormFactorDecorator*>(ff)->getFormFactor();
 
             auto particle = TransformTo3D::createParticlefromIFormFactor(ff);
 

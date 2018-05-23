@@ -37,7 +37,6 @@
 #include "Rotations.h"
 #include "Particle.h"
 #include "Material.h"
-
 #include <AppSvc.h>
 #include "MaterialModel.h"
 #include "MaterialItem.h"
@@ -164,23 +163,19 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
                                         const SessionItem& particleItem,
                                         const QVector3D& origin) const
 {
-
     // if particle composition is present
     if(particleItem.modelType() == Constants::ParticleCompositionType)
     {
-        const ParticleCompositionItem* particleCompositionItem =
-                dynamic_cast<const ParticleCompositionItem*>(&particleItem);
+        auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
 
-        std::unique_ptr<ParticleComposition> particleComposition =
-                particleCompositionItem->createParticleComposition();
+        auto particleComposition = particleCompositionItem->createParticleComposition();
 
         // abbreviating ParticleComposition as pc
         SafePointerVector<IParticle> pc_vector = particleComposition->decompose();
 
         for (IParticle* pc_particle : pc_vector)
         {
-            // abbreviating FormFactor as ff
-            IFormFactor* ff = pc_particle->createFormFactor();
+            IFormFactor* ff = pc_particle->createFormFactor(); // abbreviating FormFactor as ff
 
             // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
             while(dynamic_cast<IFormFactorDecorator*>(ff))
@@ -188,27 +183,29 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
 
             auto particle = TransformTo3D::createParticlefromIFormFactor(ff);
 
-            if (particle) {
-                // position of the current particle within the particle composition
+            if (particle)
+            {
+                // position of the current particle
                 float x = static_cast<float>(pc_particle->position().x());
                 float y = static_cast<float>(pc_particle->position().y());
                 float z = static_cast<float>(pc_particle->position().z());
                 RealSpace::Vector3D position(x + origin.x(), y + origin.y(), z + origin.z());
 
-
-                // rotation of the current particle within the particle composition
+                // rotation of the current particle
                 RealSpace::Vector3D pc_particle_rotate;
 
                 IRotation* rotation = nullptr;
 
                 rotation = const_cast<IRotation*>(pc_particle->rotation());
 
-                // Checking if there is any rotation of the particle within the composition
                 if(rotation)
                     pc_particle_rotate =
                             RealSpaceBuilderUtils::implementParticleRotationfromIRotation(rotation);
 
+                // NOTE: Along with the particle's intrinsic transformations, position() and
+                // rotation() also accounts for the translation and rotation of the composition
 
+                // assign correct colour to the particle from the knowledge of its material
                 if(dynamic_cast<Particle*>(pc_particle))
                 {
                     Material* pc_particle_material = const_cast<Material*>(
@@ -218,24 +215,19 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
 
                     auto materialItem = AppSvc::materialModel()->materialFromName(material_name);
 
-                    //auto matmodel = AppSvc::materialModel()->createCopy();
-                    //auto materialItem = matmodel->materialFromName(material_name);
-
                     particle->color = materialItem->color();
-
                 }
 
                 particle->transform(pc_particle_rotate, position);
                 model->add(particle.release());
             }
-
         }
     }
+
     else
     {
         Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
 
-        //auto particle = TransformTo3D::createParticle(particleItem);
         auto particle = TransformTo3D::createParticleVersion2(particleItem);
 
         RealSpace::Vector3D rotate;

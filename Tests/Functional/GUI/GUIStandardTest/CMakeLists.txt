@@ -66,7 +66,6 @@ set(test_cases
 
 add_executable(${test} main.cpp GUIStandardTest.cpp GUIStandardTest.h )
 target_link_libraries(${test} BornAgainCore BornAgainGUI BornAgainTestMachinery)
-qt5_use_modules(${test} Widgets Core Gui Designer PrintSupport Network)
 
 foreach(test_case ${test_cases})
     add_test(${test}/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} ${test_case})

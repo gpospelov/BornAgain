@@ -27,7 +27,6 @@
 
 namespace
 {
-
 const int bin_centers_colwidth = 12;
 const int bin_values_colwidth = 20;
 
@@ -42,7 +41,7 @@ QString to_double_str(double value)
     auto str = PythonFormatting::printDouble(value);
     return QString("%1").arg(QString::fromStdString(str), -bin_centers_colwidth);
 }
-}
+}  // unnamed namespace
 
 SaveProjectionsAssistant::SaveProjectionsAssistant() = default;
 SaveProjectionsAssistant::~SaveProjectionsAssistant() = default;
@@ -97,13 +96,12 @@ QString SaveProjectionsAssistant::projectionsToString(const QString& projections
     auto bin_centers = projData.bin_centers;
 
     for (int i_point = 0; i_point < bin_centers.size(); ++i_point) {
-        out << to_double_str(bin_centers[i_point]);
+        out << to_double_str(bin_centers[i_point]) << QString(" ");
         for (auto& data : projData.projections) {
             out << to_scientific_str(data.bin_values[i_point]);
         }
         out << "\n";
     }
-
     return result;
 }
 
@@ -128,14 +126,12 @@ SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
             data.axis_value = item->getItemValue(VerticalLineItem::P_POSX).toDouble();
             hist.reset(m_hist2d->projectionY(data.axis_value));
         }
-
         data.bin_values = QVector<double>::fromStdVector(hist->getBinValues());
         if (result.bin_centers.isEmpty())
             result.bin_centers = QVector<double>::fromStdVector(hist->getBinCenters());
 
         result.projections.push_back(data);
     }
-
     return result;
 }
 
@@ -153,7 +149,6 @@ QVector<SessionItem*> SaveProjectionsAssistant::projectionItems(const QString& p
         return item1->getItemValue(propertyName).toDouble()
                < item2->getItemValue(propertyName).toDouble();
     });
-
     return result;
 }
 
@@ -165,7 +160,7 @@ QString SaveProjectionsAssistant::projectionFileHeader(ProjectionsData& projecti
     QString xcol, ycol;
 
     projectionsData.is_horizontal ? xcol = "# x" : xcol = "# y";
-    projectionsData.is_horizontal ? ycol = "y=" : ycol = "x=";
+    projectionsData.is_horizontal ? ycol = " y=" : ycol = " x=";
 
     QString result;
     result.append(QString("%1").arg(xcol, -bin_centers_colwidth));

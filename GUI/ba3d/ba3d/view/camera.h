@@ -67,7 +67,7 @@ private:
     float vertAngle, nearPlane, farPlane;
 
     // light
-    Vector3D lightPos, lightPosRotated;
+    Vector3D lightPos1, lightPosRotated1;
 
     // transformation
     QQuaternion addRot;        // rotation, additional rotation

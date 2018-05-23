@@ -31,13 +31,13 @@ namespace
 const int bin_centers_colwidth = 12;
 const int bin_values_colwidth = 20;
 
-QString to_scientific(double value)
+QString to_scientific_str(double value)
 {
     auto str = PythonFormatting::printScientificDouble(value);
     return QString("%1").arg(QString::fromStdString(str), -bin_values_colwidth);
 }
 
-QString to_double(double value)
+QString to_double_str(double value)
 {
     auto str = PythonFormatting::printDouble(value);
     return QString("%1").arg(QString::fromStdString(str), -bin_centers_colwidth);
@@ -97,9 +97,9 @@ QString SaveProjectionsAssistant::projectionsToString(const QString& projections
     auto bin_centers = projData.bin_centers;
 
     for (int i_point = 0; i_point < bin_centers.size(); ++i_point) {
-        out << to_double(bin_centers[i_point]);
+        out << to_double_str(bin_centers[i_point]);
         for (auto& data : projData.projections) {
-            out << to_scientific(data.bin_values[i_point]);
+            out << to_scientific_str(data.bin_values[i_point]);
         }
         out << "\n";
     }

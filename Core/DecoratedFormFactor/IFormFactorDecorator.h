@@ -48,6 +48,9 @@ public:
     double topZ(const IRotation& rotation) const override {
         return mp_form_factor->topZ(rotation); }
 
+    const IFormFactor* getFormFactor() const {
+        return mp_form_factor; }
+
 protected:
     IFormFactor* mp_form_factor;
 };

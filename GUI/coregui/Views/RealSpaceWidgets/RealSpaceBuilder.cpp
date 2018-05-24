@@ -31,6 +31,17 @@
 #include "Lattice2DItems.h"
 #include "Units.h"
 
+#include "ParticleCompositionItem.h"
+#include "IParticle.h"
+#include "IFormFactorDecorator.h"
+#include "Rotations.h"
+#include "Particle.h"
+#include "Material.h"
+#include <AppSvc.h>
+#include "MaterialModel.h"
+#include "MaterialItem.h"
+#include "MaterialItemUtils.h"
+
 RealSpaceBuilder::RealSpaceBuilder(QWidget* parent)
     : QWidget(parent)
 {
@@ -42,7 +53,8 @@ RealSpaceBuilder::~RealSpaceBuilder()
 
 }
 
-void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
+void RealSpaceBuilder::populate(RealSpaceModel* model,
+                                const SessionItem& item,
                                 const SceneGeometry& sceneGeometry,
                                 const RealSpace::Camera::Position& cameraPosition)
 {
@@ -63,8 +75,10 @@ void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
         populateParticle(model, item);
 }
 
-void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
-                                          const SceneGeometry& sceneGeometry, const QVector3D&)
+void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model,
+                                          const SessionItem& item,
+                                          const SceneGeometry& sceneGeometry,
+                                          const QVector3D&)
 {
     double total_height(0.0);
     int index(0);
@@ -79,8 +93,10 @@ void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionIt
 
 }
 
-void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
-                                     const SceneGeometry& sceneGeometry, const QVector3D& origin)
+void RealSpaceBuilder::populateLayer(RealSpaceModel* model,
+                                     const SessionItem& layerItem,
+                                     const SceneGeometry& sceneGeometry,
+                                     const QVector3D& origin)
 {
     auto layer = TransformTo3D::createLayer(layerItem, sceneGeometry, origin);
     model->addBlend(layer.release());
@@ -89,8 +105,10 @@ void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& l
         populateLayout(model, *layout, sceneGeometry, origin);
 }
 
-void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
-                                      const SceneGeometry& sceneGeometry, const QVector3D& origin)
+void RealSpaceBuilder::populateLayout(RealSpaceModel* model,
+                                      const SessionItem& layoutItem,
+                                      const SceneGeometry& sceneGeometry,
+                                      const QVector3D& origin)
 {
     Q_ASSERT(layoutItem.modelType() == Constants::ParticleLayoutType);
 
@@ -103,7 +121,8 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
         RealSpaceBuilderUtils::populateRandomDistribution(model, layoutItem, sceneGeometry, this);
 }
 
-void RealSpaceBuilder::populateInterference(RealSpaceModel* model, const SessionItem& layoutItem,
+void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
+                                            const SessionItem& layoutItem,
                                             const SceneGeometry& sceneGeometry)
 {
     // If there is no particle to populate
@@ -140,27 +159,92 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model, const Session
     */
 }
 
-void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
+void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
+                                        const SessionItem& particleItem,
                                         const QVector3D& origin) const
 {
-    Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
+    // if particle composition is present
+    if(particleItem.modelType() == Constants::ParticleCompositionType)
+    {
+        auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
 
-    // Checking if there is any rotation (transformation) of the particle
+        auto particleComposition = particleCompositionItem->createParticleComposition();
 
-    RealSpace::Vector3D rotate;
+        // abbreviating ParticleComposition as pc
+        SafePointerVector<IParticle> pc_vector = particleComposition->decompose();
 
-    if(particleItem.getItem(ParticleItem::T_TRANSFORMATION))
-        rotate = RealSpaceBuilderUtils::implementParticleRotation(particleItem);
+        for (IParticle* pc_particle : pc_vector)
+        {
+            const IFormFactor* ff = pc_particle->createFormFactor(); // abbreviating FormFactor as ff
 
-    auto particle = TransformTo3D::createParticle(particleItem);
+            // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
+            while(dynamic_cast<const IFormFactorDecorator*>(ff))
+                ff = dynamic_cast<const IFormFactorDecorator*>(ff)->getFormFactor();
 
-    if (particle) {
-        SessionItem* positionItem = particleItem.getItem(ParticleItem::P_POSITION);
-        float x = positionItem->getItemValue(VectorItem::P_X).toFloat();
-        float y = positionItem->getItemValue(VectorItem::P_Y).toFloat();
-        float z = positionItem->getItemValue(VectorItem::P_Z).toFloat();
-        RealSpace::Vector3D position(x + origin.x(),y + origin.y(),z + origin.z());
-        particle->transform(rotate, position);
-        model->add(particle.release());
+            auto particle = TransformTo3D::createParticlefromIFormFactor(ff);
+
+            if (particle)
+            {
+                // position of the current particle
+                float x = static_cast<float>(pc_particle->position().x());
+                float y = static_cast<float>(pc_particle->position().y());
+                float z = static_cast<float>(pc_particle->position().z());
+                RealSpace::Vector3D position(x + origin.x(), y + origin.y(), z + origin.z());
+
+                // rotation of the current particle
+                RealSpace::Vector3D pc_particle_rotate;
+
+                IRotation* rotation = nullptr;
+
+                rotation = const_cast<IRotation*>(pc_particle->rotation());
+
+                if(rotation)
+                    pc_particle_rotate =
+                            RealSpaceBuilderUtils::implementParticleRotationfromIRotation(rotation);
+
+                // NOTE: Along with the particle's intrinsic transformations, position() and
+                // rotation() also accounts for the translation and rotation of the composition
+
+                // assign correct colour to the particle from the knowledge of its material
+                if(dynamic_cast<Particle*>(pc_particle))
+                {
+                    Material* pc_particle_material = const_cast<Material*>(
+                                dynamic_cast<Particle*>(pc_particle)->material());
+
+                    QString material_name = QString::fromStdString(pc_particle_material->getName());
+
+                    auto materialItem = AppSvc::materialModel()->materialFromName(material_name);
+
+                    particle->color = materialItem->color();
+                }
+
+                particle->transform(pc_particle_rotate, position);
+                model->add(particle.release());
+            }
+        }
+    }
+
+    else
+    {
+        Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
+
+        auto particle = TransformTo3D::createParticleVersion2(particleItem);
+
+        RealSpace::Vector3D rotate;
+
+        // Checking if there is any rotation (transformation) of the particle
+        if(particleItem.getItem(ParticleItem::T_TRANSFORMATION))
+            rotate = RealSpaceBuilderUtils::implementParticleRotation(particleItem);
+
+        if (particle) {
+            SessionItem* positionItem = particleItem.getItem(ParticleItem::P_POSITION);
+            float x = positionItem->getItemValue(VectorItem::P_X).toFloat();
+            float y = positionItem->getItemValue(VectorItem::P_Y).toFloat();
+            float z = positionItem->getItemValue(VectorItem::P_Z).toFloat();
+            RealSpace::Vector3D position(x + origin.x(), y + origin.y(), z + origin.z());
+
+            particle->transform(rotate, position);
+            model->add(particle.release());
+        }
     }
 }

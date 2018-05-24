@@ -19,7 +19,7 @@ void main() {
     // specular
     float spec = 0.0;
     highp vec3 E = normalize(eye-vo);
-    highp float ELN1 = pow(max(0.0, dot(E, reflect(-L1, N))), 20);
+    highp float ELN1 = pow(max(0.0, dot(E, reflect(-L1, N))), 20.0f);
     if(NL > 0.0f)
         spec = ELN1;
     vec3 spec_col = spec * vec3(1.0f, 1.0f, 1.0f);

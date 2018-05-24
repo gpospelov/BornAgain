@@ -23,14 +23,15 @@
 
 class SessionItem;
 class SceneGeometry;
+class IFormFactor;
 
 //! Collection of utility functions to build 3D objects from session items.
 
 namespace TransformTo3D
 {
 
-BA_CORE_API_ double visualLayerThickness(
-        const SessionItem& layerItem, const SceneGeometry& sceneGeometry);
+BA_CORE_API_ double visualLayerThickness(const SessionItem& layerItem,
+                                         const SceneGeometry& sceneGeometry);
 
 BA_CORE_API_
 std::unique_ptr<RealSpace::Layer> createLayer(const SessionItem& layerItem,
@@ -39,6 +40,13 @@ std::unique_ptr<RealSpace::Layer> createLayer(const SessionItem& layerItem,
 
 BA_CORE_API_
 std::unique_ptr<RealSpace::Particles::Particle> createParticle(const SessionItem& particleItem);
+
+BA_CORE_API_
+std::unique_ptr<RealSpace::Particles::Particle> createParticleVersion2(const SessionItem&
+                                                                       particleItem);
+
+BA_CORE_API_
+std::unique_ptr<RealSpace::Particles::Particle> createParticlefromIFormFactor(const IFormFactor *ff);
 
 }
 

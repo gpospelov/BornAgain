@@ -16,52 +16,52 @@ public:
 
 TestMaterialPropertyController::~TestMaterialPropertyController() = default;
 
-TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
-{
-    MaterialModel materialModel;
-    auto mat1 = materialModel.addRefractiveMaterial("name1", 1.0, 2.0);
-    materialModel.addRefractiveMaterial("name2", 3.0, 4.0);
+//TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
+//{
+//    MaterialModel materialModel;
+//    auto mat1 = materialModel.addRefractiveMaterial("name1", 1.0, 2.0);
+//    materialModel.addRefractiveMaterial("name2", 3.0, 4.0);
 
-    SampleModel sampleModel;
-    auto layer = sampleModel.insertNewItem(Constants::LayerType);
+//    SampleModel sampleModel;
+//    auto layer = sampleModel.insertNewItem(Constants::LayerType);
 
-    int property_changed(0);
-    layer->mapper()->setOnPropertyChange(
-        [&property_changed](const QString& name) {
-            if (name == LayerItem::P_MATERIAL)
-                ++property_changed;
-        },
-        this);
+//    int property_changed(0);
+//    layer->mapper()->setOnPropertyChange(
+//        [&property_changed](const QString& name) {
+//            if (name == LayerItem::P_MATERIAL)
+//                ++property_changed;
+//        },
+//        this);
 
-    MaterialPropertyController controller;
-    controller.setModels(&materialModel, &sampleModel);
-    EXPECT_EQ(property_changed, 0);
+//    MaterialPropertyController controller;
+//    controller.setModels(&materialModel, &sampleModel);
+//    EXPECT_EQ(property_changed, 0);
 
-    // changing name of MaterialItem in MaterialModel, looking for MaterialProperty change
-    mat1->setItemName("newname");
-    EXPECT_EQ(property_changed, 1);
-    ExternalProperty property
-        = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    EXPECT_EQ(property.identifier(), mat1->identifier());
-    EXPECT_EQ(property.text(), mat1->itemName());
-    EXPECT_EQ(property.color(), mat1->color());
+//    // changing name of MaterialItem in MaterialModel, looking for MaterialProperty change
+//    mat1->setItemName("newname");
+//    EXPECT_EQ(property_changed, 1);
+//    ExternalProperty property
+//        = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
+//    EXPECT_EQ(property.identifier(), mat1->identifier());
+//    EXPECT_EQ(property.text(), mat1->itemName());
+//    EXPECT_EQ(property.color(), mat1->color());
 
-    // changing color of MaterialItem
-    ExternalProperty colorProperty = MaterialItemUtils::colorProperty(QColor(Qt::red));
-    mat1->setItemValue(MaterialItem::P_COLOR, colorProperty.variant());
-    EXPECT_EQ(property_changed, 2);
-    property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    EXPECT_EQ(property.identifier(), mat1->identifier());
-    EXPECT_EQ(property.text(), mat1->itemName());
-    EXPECT_EQ(property.color(), mat1->color());
-    EXPECT_EQ(property.color(), QColor(Qt::red));
+//    // changing color of MaterialItem
+//    ExternalProperty colorProperty = MaterialItemUtils::colorProperty(QColor(Qt::red));
+//    mat1->setItemValue(MaterialItem::P_COLOR, colorProperty.variant());
+//    EXPECT_EQ(property_changed, 2);
+//    property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
+//    EXPECT_EQ(property.identifier(), mat1->identifier());
+//    EXPECT_EQ(property.text(), mat1->itemName());
+//    EXPECT_EQ(property.color(), mat1->color());
+//    EXPECT_EQ(property.color(), QColor(Qt::red));
 
-    // removing material from the model, property should become undefined
-    materialModel.removeRows(0, 1, QModelIndex());
-    EXPECT_EQ(property_changed, 3);
-    property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
-    EXPECT_TRUE(property.isValid() == false);
-}
+//    // removing material from the model, property should become undefined
+//    materialModel.removeRows(0, 1, QModelIndex());
+//    EXPECT_EQ(property_changed, 3);
+//    property = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
+//    EXPECT_TRUE(property.isValid() == false);
+//}
 
 //! Test MaterialProperty update in sample items when working on model clone.
 

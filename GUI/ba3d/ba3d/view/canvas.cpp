@@ -270,7 +270,7 @@ void Canvas::topView()
         // Top view
         // Setting a tiny offset in x value of eye such that eye and up vectors are not parallel
         camera->lookAt(RealSpace::Camera::Position(
-                                   RealSpace::Vector3D(0.5, 0, 140),   // eye
+                                   RealSpace::Vector3D(0, -0.5, 140),   // eye
                                    RealSpace::Vector3D(0, 0, 0),       // center
                                    RealSpace::Vector3D::_z));          // up
         camera->endTransform(true);

@@ -31,6 +31,11 @@
 #include "RotationItems.h"
 #include "Rotations.h"
 
+#include "Particle.h"
+#include <AppSvc.h>
+#include "MaterialModel.h"
+#include "MaterialItem.h"
+
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
 {
@@ -68,7 +73,7 @@ void RealSpaceBuilderUtils::populateRandomDistribution(
     QVector<QVector<double>> lattice_positions =
             computeRandomDistributionLatticePositions(layoutItem, sceneGeometry);
 
-    srand(static_cast<unsigned int>(time(0)));
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     for (QVector<double> position : lattice_positions)
     {
@@ -159,7 +164,7 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
 
     QVector<double> cumulative_abundances = computeCumulativeAbundances(layoutItem);
 
-    srand(static_cast<unsigned int>(time(0)));
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     // get the lattice positions at which to populate the particles
     QVector<QVector<double>> lattice_positions =
@@ -307,6 +312,7 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
     return lattice_positions;
 }
 
+
 QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &particleItem)
 {
     double alpha = 0.0;
@@ -338,29 +344,67 @@ QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &pa
                      static_cast<float>(gamma));
 }
 
-QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(IRotation* &rotation)
+QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation* &rotation)
 {
     double alpha = 0.0;
     double beta = 0.0;
     double gamma = 0.0;
 
-    if(auto rotX = dynamic_cast<RotationX*>(rotation)) {
+    if(auto rotX = dynamic_cast<const RotationX*>(rotation)) {
         beta = rotX->getAngle(); // about x-axis
-    } else if(auto rotY = dynamic_cast<RotationY*>(rotation)) {
-//        alpha = Units::deg2rad(-90.0);
-//        beta = rotY->getAngle(); // about y-axis
-//        gamma = Units::deg2rad(90.0);
+    } else if(auto rotY = dynamic_cast<const RotationY*>(rotation)) {
         alpha = Units::deg2rad(90.0);
         beta = rotY->getAngle(); // about y-axis
         gamma = Units::deg2rad(-90.0);
-    } else if(auto rotZ = dynamic_cast<RotationZ*>(rotation)) {
+    } else if(auto rotZ = dynamic_cast<const RotationZ*>(rotation)) {
         alpha = rotZ->getAngle(); // about z-axis
-    } else if (auto rotEuler = dynamic_cast<RotationEuler*>(rotation)) {
-        gamma = rotEuler->getAlpha();
+    } else if (auto rotEuler = dynamic_cast<const RotationEuler*>(rotation)) {
+        alpha = rotEuler->getAlpha();
         beta = rotEuler->getBeta();
-        alpha = rotEuler->getGamma();
+        gamma = rotEuler->getGamma();
     }
     return QVector3D(static_cast<float>(alpha),
                      static_cast<float>(beta),
                      static_cast<float>(gamma));
+}
+
+void RealSpaceBuilderUtils::applyParticleTransformations(Particle* particle,
+                                                         RealSpace::Particles::Particle* particle3D,
+                                                         const QVector3D& origin)
+{
+    if (particle && particle3D)
+    {
+        // position of the current particle
+        float x = static_cast<float>(particle->position().x());
+        float y = static_cast<float>(particle->position().y());
+        float z = static_cast<float>(particle->position().z());
+        RealSpace::Vector3D position(x + origin.x(), y + origin.y(), z + origin.z());
+
+        // rotation of the current particle
+        RealSpace::Vector3D particle_rotate;
+
+        const IRotation* rotation = particle->rotation();
+
+        if(rotation)
+            particle_rotate =
+                    RealSpaceBuilderUtils::implementParticleRotationfromIRotation(rotation);
+
+        // NOTE: If the particle belongs to a particle composition, along with the particle's
+        // intrinsic transformations, position() and rotation() methods also account for the
+        // translation and rotation (if present) of the particle composition as well
+
+        // assign correct colour to the particle from the knowledge of its material
+        const Material* particle_material = particle->material();
+
+        QString material_name = QString::fromStdString(particle_material->getName());
+
+        auto materialItem = AppSvc::materialModel()->materialFromName(material_name);
+
+        particle3D->color = materialItem->color();
+
+        particle3D->transform(particle_rotate, position);
+    }
+
+    else
+        return;
 }

@@ -25,6 +25,9 @@ class SceneGeometry;
 class RealSpaceBuilder;
 class IRotation;
 
+class Particle;
+namespace RealSpace{ namespace Particles { class Particle; } }
+
 namespace RealSpaceBuilderUtils
 {
 // compute cumulative abundances of particles
@@ -55,7 +58,12 @@ BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
 BA_CORE_API_ QVector3D implementParticleRotation(const SessionItem& particleItem);
 
 // Implement Rotation of a particle using parameters from IRotation Object
-BA_CORE_API_ QVector3D implementParticleRotationfromIRotation(IRotation* &rotation);
+BA_CORE_API_ QVector3D implementParticleRotationfromIRotation(const IRotation *&rotation);
+
+// Apply transformations (translation, rotation, colour) to particle
+BA_CORE_API_ void applyParticleTransformations(Particle* particle,
+                                               RealSpace::Particles::Particle *particle3D,
+                                               const QVector3D &origin);
 
 } // namespace RealSpaceBuilderUtils
 

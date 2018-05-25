@@ -17,7 +17,6 @@
 #include "RealSpaceModel.h"
 #include "RealSpaceCanvas.h"
 #include "SessionItem.h"
-
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
 #include "ParticleLayoutItem.h"
@@ -26,11 +25,9 @@
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
 #include "Units.h"
-
 #include "TransformationItem.h"
 #include "RotationItems.h"
 #include "Rotations.h"
-
 #include "Particle.h"
 #include <AppSvc.h>
 #include "MaterialModel.h"
@@ -79,7 +76,6 @@ void RealSpaceBuilderUtils::populateRandomDistribution(
     {
         // for random selection of particles based on their abundances
         double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
-
         int k = 0;
 
         for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
@@ -121,9 +117,7 @@ QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLattic
         const SessionItem &layoutItem, const SceneGeometry& sceneGeometry)
 {
     double layer_size = sceneGeometry.layer_size();
-
     QVector<QVector<double>> lattice_positions;
-
     QVector<double> position;
 
     // to compute total number of particles we use the total particle density
@@ -158,7 +152,6 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
                                       sceneGeometry.layer_bottom_thickness());
 
     auto interference = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
-
     auto interference2DLatticeItem =
             interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
 
@@ -174,7 +167,6 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
     {
         // for random selection of particles based on their abundances
         double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
-
         int k = 0;
 
         for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
@@ -242,11 +234,8 @@ QVector<QVector<double>> RealSpaceBuilderUtils::getInterference2DLatticePosition
     {
         l1 = interference2DLatticeItem.getItemValue(
                     HexagonalLatticeItem::P_LATTICE_LENGTH).toDouble();
-
         l2 = l1;
-
         l_alpha = 120.0; // 120 degrees for a Hexagonal lattice
-
         l_xi = interference2DLatticeItem.getItemValue(
                     HexagonalLatticeItem::P_LATTICE_ROTATION_ANGLE).toDouble();
     }
@@ -256,11 +245,8 @@ QVector<QVector<double>> RealSpaceBuilderUtils::getInterference2DLatticePosition
     {
         l1 = interference2DLatticeItem.getItemValue(
                     SquareLatticeItem::P_LATTICE_LENGTH).toDouble();
-
         l2 = l1;
-
         l_alpha = 90.0; // 90 degrees for a Square lattice
-
         l_xi = interference2DLatticeItem.getItemValue(
                     SquareLatticeItem::P_LATTICE_ROTATION_ANGLE).toDouble();
     }
@@ -272,9 +258,7 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
         double l1, double l2, double l_alpha, double l_xi, const SceneGeometry &sceneGeometry)
 {
     double layer_size = sceneGeometry.layer_size();
-
     QVector<QVector<double>> lattice_positions;
-
     QVector<double> position;
 
     // Estimate the limit 'n' of the integer multiple i and j of the lattice vectors required in
@@ -310,38 +294,6 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
     }
 
     return lattice_positions;
-}
-
-
-QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &particleItem)
-{
-    double alpha = 0.0;
-    double beta = 0.0;
-    double gamma = 0.0;
-
-    auto transformationItem = particleItem.getItem(ParticleItem::T_TRANSFORMATION);
-
-    auto rotItem = transformationItem->getGroupItem(TransformationItem::P_ROT);
-
-    if(rotItem->modelType() == Constants::XRotationType) {
-        beta = rotItem->getItemValue(XRotationItem::P_ANGLE).toDouble(); // about x-axis
-    } else if(rotItem->modelType() == Constants::YRotationType) {
-        alpha = -90.0;
-        beta = -rotItem->getItemValue(YRotationItem::P_ANGLE).toDouble(); // about y-axis
-        gamma = 90.0;
-    } else if(rotItem->modelType() == Constants::ZRotationType) {
-        alpha = rotItem->getItemValue(ZRotationItem::P_ANGLE).toDouble(); // about z-axis
-    } else if(rotItem->modelType() == Constants::EulerRotationType) {
-        gamma = rotItem->getItemValue(EulerRotationItem::P_ALPHA).toDouble();
-        beta = rotItem->getItemValue(EulerRotationItem::P_BETA).toDouble();
-        alpha = rotItem->getItemValue(EulerRotationItem::P_GAMMA).toDouble();
-    }
-    alpha = Units::deg2rad(alpha);
-    beta = Units::deg2rad(beta);
-    gamma = Units::deg2rad(gamma);
-    return QVector3D(static_cast<float>(alpha),
-                     static_cast<float>(beta),
-                     static_cast<float>(gamma));
 }
 
 QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation* &rotation)
@@ -382,7 +334,6 @@ void RealSpaceBuilderUtils::applyParticleTransformations(Particle* particle,
 
         // rotation of the current particle
         RealSpace::Vector3D particle_rotate;
-
         const IRotation* rotation = particle->rotation();
 
         if(rotation)
@@ -391,15 +342,12 @@ void RealSpaceBuilderUtils::applyParticleTransformations(Particle* particle,
 
         // NOTE: If the particle belongs to a particle composition, along with the particle's
         // intrinsic transformations, position() and rotation() methods also account for the
-        // translation and rotation (if present) of the particle composition as well
+        // translation and rotation (if present) of the particle composition
 
         // assign correct colour to the particle from the knowledge of its material
         const Material* particle_material = particle->material();
-
         QString material_name = QString::fromStdString(particle_material->getName());
-
         auto materialItem = AppSvc::materialModel()->materialFromName(material_name);
-
         particle3D->color = materialItem->color();
 
         particle3D->transform(particle_rotate, position);

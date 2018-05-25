@@ -338,7 +338,6 @@ QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &pa
                      static_cast<float>(gamma));
 }
 
-
 QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(IRotation* &rotation)
 {
     double alpha = 0.0;
@@ -348,9 +347,12 @@ QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(IRotatio
     if(auto rotX = dynamic_cast<RotationX*>(rotation)) {
         beta = rotX->getAngle(); // about x-axis
     } else if(auto rotY = dynamic_cast<RotationY*>(rotation)) {
-        alpha = -90.0;
+//        alpha = Units::deg2rad(-90.0);
+//        beta = rotY->getAngle(); // about y-axis
+//        gamma = Units::deg2rad(90.0);
+        alpha = Units::deg2rad(90.0);
         beta = rotY->getAngle(); // about y-axis
-        gamma = 90.0;
+        gamma = Units::deg2rad(-90.0);
     } else if(auto rotZ = dynamic_cast<RotationZ*>(rotation)) {
         alpha = rotZ->getAngle(); // about z-axis
     } else if (auto rotEuler = dynamic_cast<RotationEuler*>(rotation)) {

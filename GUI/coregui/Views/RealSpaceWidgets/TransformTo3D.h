@@ -39,11 +39,7 @@ std::unique_ptr<RealSpace::Layer> createLayer(const SessionItem& layerItem,
                                               const QVector3D& origin = QVector3D());
 
 BA_CORE_API_
-std::unique_ptr<RealSpace::Particles::Particle> createParticle(const SessionItem& particleItem);
-
-BA_CORE_API_
-std::unique_ptr<RealSpace::Particles::Particle> createParticleVersion2(const SessionItem&
-                                                                       particleItem);
+std::unique_ptr<RealSpace::Particles::Particle> createParticle3D(const SessionItem& particleItem);
 
 BA_CORE_API_
 std::unique_ptr<RealSpace::Particles::Particle> createParticlefromIFormFactor(const IFormFactor *ff);

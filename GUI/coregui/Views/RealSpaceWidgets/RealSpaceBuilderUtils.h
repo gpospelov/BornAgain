@@ -24,6 +24,8 @@ class SessionItem;
 class SceneGeometry;
 class RealSpaceBuilder;
 class IRotation;
+class Particle;
+namespace RealSpace{ namespace Particles { class Particle; } }
 
 namespace RealSpaceBuilderUtils
 {
@@ -51,11 +53,13 @@ BA_CORE_API_ QVector<QVector<double>>  getInterference2DLatticePositions(
 BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
         double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry);
 
-// Implement Rotation of a particle
-BA_CORE_API_ QVector3D implementParticleRotation(const SessionItem& particleItem);
+// Implement Rotation of a 3D particle using parameters from IRotation Object
+BA_CORE_API_ QVector3D implementParticleRotationfromIRotation(const IRotation *&rotation);
 
-// Implement Rotation of a particle using parameters from IRotation Object
-BA_CORE_API_ QVector3D implementParticleRotationfromIRotation(IRotation* &rotation);
+// Apply transformations (translation, rotation, colour) to a 3D particle
+BA_CORE_API_ void applyParticleTransformations(Particle* particle,
+                                               RealSpace::Particles::Particle *particle3D,
+                                               const QVector3D &origin);
 
 } // namespace RealSpaceBuilderUtils
 

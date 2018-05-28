@@ -11777,6 +11777,16 @@ class IFormFactorDecorator(IFormFactor):
         """
         return _libBornAgainCore.IFormFactorDecorator_topZ(self, rotation)
 
+
+    def getFormFactor(self):
+        """
+        getFormFactor(IFormFactorDecorator self) -> IFormFactor
+
+        const IFormFactor* IFormFactorDecorator::getFormFactor() const 
+
+        """
+        return _libBornAgainCore.IFormFactorDecorator_getFormFactor(self)
+
 IFormFactorDecorator_swigregister = _libBornAgainCore.IFormFactorDecorator_swigregister
 IFormFactorDecorator_swigregister(IFormFactorDecorator)
 

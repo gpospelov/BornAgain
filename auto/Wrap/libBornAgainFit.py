@@ -1961,7 +1961,14 @@ def AttLimits_fixed():
     return _libBornAgainFit.AttLimits_fixed()
 
 class Parameter(_object):
-    """Proxy of C++ Fit::Parameter class."""
+    """
+
+
+    A fittable parameter with value, error, step, and limits.
+
+    C++ includes: Parameter.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Parameter, name, value)
@@ -1975,6 +1982,26 @@ class Parameter(_object):
         __init__(Fit::Parameter self, std::string const & name, double value, AttLimits limits, double step=0.0) -> Parameter
         __init__(Fit::Parameter self, std::string const & name, double value, AttLimits limits) -> Parameter
         __init__(Fit::Parameter self, std::string const & name, double value) -> Parameter
+
+        Parameter::Parameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
+
+        Fit parameter constructor.
+
+        Parameters:
+        -----------
+
+        name: 
+        unique name of fit parameters
+
+        value: 
+        starting value of fit parameter
+
+        limits: 
+        fit parameter limits
+
+        step: 
+        initial step of fit parameter during the minimization, will be calculated automatically, if zero. 
+
         """
         this = _libBornAgainFit.new_Parameter(*args)
         try:
@@ -1983,42 +2010,82 @@ class Parameter(_object):
             self.this = this
 
     def name(self):
-        """name(Parameter self) -> std::string"""
+        """
+        name(Parameter self) -> std::string
+
+        std::string Parameter::name() const 
+
+        """
         return _libBornAgainFit.Parameter_name(self)
 
 
     def startValue(self):
-        """startValue(Parameter self) -> double"""
+        """
+        startValue(Parameter self) -> double
+
+        double Parameter::startValue() const 
+
+        """
         return _libBornAgainFit.Parameter_startValue(self)
 
 
     def limits(self):
-        """limits(Parameter self) -> AttLimits"""
+        """
+        limits(Parameter self) -> AttLimits
+
+        AttLimits Parameter::limits() const 
+
+        """
         return _libBornAgainFit.Parameter_limits(self)
 
 
     def value(self):
-        """value(Parameter self) -> double"""
+        """
+        value(Parameter self) -> double
+
+        double Parameter::value() const 
+
+        """
         return _libBornAgainFit.Parameter_value(self)
 
 
     def setValue(self, value):
-        """setValue(Parameter self, double value)"""
+        """
+        setValue(Parameter self, double value)
+
+        void Parameter::setValue(double value)
+
+        """
         return _libBornAgainFit.Parameter_setValue(self, value)
 
 
     def step(self):
-        """step(Parameter self) -> double"""
+        """
+        step(Parameter self) -> double
+
+        double Parameter::step() const 
+
+        """
         return _libBornAgainFit.Parameter_step(self)
 
 
     def error(self):
-        """error(Parameter self) -> double"""
+        """
+        error(Parameter self) -> double
+
+        double Parameter::error() const 
+
+        """
         return _libBornAgainFit.Parameter_error(self)
 
 
     def setError(self, value):
-        """setError(Parameter self, double value)"""
+        """
+        setError(Parameter self, double value)
+
+        void Parameter::setError(double value)
+
+        """
         return _libBornAgainFit.Parameter_setError(self, value)
 
 
@@ -2032,7 +2099,14 @@ Parameter_swigregister = _libBornAgainFit.Parameter_swigregister
 Parameter_swigregister(Parameter)
 
 class Parameters(_object):
-    """Proxy of C++ Fit::Parameters class."""
+    """
+
+
+    A collection of fit parameters.
+
+    C++ includes: Parameters.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Parameters, name, value)
@@ -2041,7 +2115,12 @@ class Parameters(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(Fit::Parameters self) -> Parameters"""
+        """
+        __init__(Fit::Parameters self) -> Parameters
+
+        Fit::Parameters::Parameters()=default
+
+        """
         this = _libBornAgainFit.new_Parameters()
         try:
             self.this.append(this)
@@ -2049,7 +2128,12 @@ class Parameters(_object):
             self.this = this
 
     def add(self, par):
-        """add(Parameters self, Parameter par)"""
+        """
+        add(Parameters self, Parameter par)
+
+        void Parameters::add(const Parameter &par)
+
+        """
         return _libBornAgainFit.Parameters_add(self, par)
 
 
@@ -2057,6 +2141,9 @@ class Parameters(_object):
         """
         begin(Parameters self) -> Fit::Parameters::const_iterator
         begin(Parameters self) -> Fit::Parameters::iterator
+
+        Parameters::iterator Parameters::begin()
+
         """
         return _libBornAgainFit.Parameters_begin(self, *args)
 
@@ -2065,32 +2152,60 @@ class Parameters(_object):
         """
         end(Parameters self) -> Fit::Parameters::const_iterator
         end(Parameters self) -> Fit::Parameters::iterator
+
+        Parameters::iterator Parameters::end()
+
         """
         return _libBornAgainFit.Parameters_end(self, *args)
 
 
     def size(self):
-        """size(Parameters self) -> size_t"""
+        """
+        size(Parameters self) -> size_t
+
+        size_t Parameters::size() const 
+
+        """
         return _libBornAgainFit.Parameters_size(self)
 
 
     def values(self):
-        """values(Parameters self) -> vdouble1d_t"""
+        """
+        values(Parameters self) -> vdouble1d_t
+
+        std::vector< double > Parameters::values() const 
+
+        """
         return _libBornAgainFit.Parameters_values(self)
 
 
     def setValues(self, values):
-        """setValues(Parameters self, vdouble1d_t values)"""
+        """
+        setValues(Parameters self, vdouble1d_t values)
+
+        void Parameters::setValues(const std::vector< double > &values)
+
+        """
         return _libBornAgainFit.Parameters_setValues(self, values)
 
 
     def errors(self):
-        """errors(Parameters self) -> vdouble1d_t"""
+        """
+        errors(Parameters self) -> vdouble1d_t
+
+        std::vector< double > Parameters::errors() const 
+
+        """
         return _libBornAgainFit.Parameters_errors(self)
 
 
     def setErrors(self, errors):
-        """setErrors(Parameters self, vdouble1d_t errors)"""
+        """
+        setErrors(Parameters self, vdouble1d_t errors)
+
+        void Parameters::setErrors(const std::vector< double > &errors)
+
+        """
         return _libBornAgainFit.Parameters_setErrors(self, errors)
 
 
@@ -2168,12 +2283,22 @@ class IMinimizer(_object):
 
 
     def minimize_scalar(self, arg2, arg3):
-        """minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Parameters arg3) -> MinimizerResult"""
+        """
+        minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Parameters arg3) -> MinimizerResult
+
+        Fit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, Fit::Parameters)
+
+        """
         return _libBornAgainFit.IMinimizer_minimize_scalar(self, arg2, arg3)
 
 
     def minimize_residual(self, arg2, arg3):
-        """minimize_residual(IMinimizer self, fcn_residual_t arg2, Parameters arg3) -> MinimizerResult"""
+        """
+        minimize_residual(IMinimizer self, fcn_residual_t arg2, Parameters arg3) -> MinimizerResult
+
+        Fit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, Fit::Parameters)
+
+        """
         return _libBornAgainFit.IMinimizer_minimize_residual(self, arg2, arg3)
 
 
@@ -2248,9 +2373,7 @@ class IMinimizer(_object):
         propagateResults(IMinimizer self, FitParameterSet parameters)
         propagateResults(IMinimizer self, Parameters parameters)
 
-        void IMinimizer::propagateResults(FitParameterSet &parameters)
-
-        Propagates results of minimization to fit parameter set. 
+        void IMinimizer::propagateResults(Fit::Parameters &parameters)
 
         """
         return _libBornAgainFit.IMinimizer_propagateResults(self, *args)
@@ -2949,7 +3072,14 @@ def MinimizerFactory_catalogue():
     return _libBornAgainFit.MinimizerFactory_catalogue()
 
 class PyCallback(_object):
-    """Proxy of C++ PyCallback class."""
+    """
+
+
+    Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
+
+    C++ includes: PyCallback.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, PyCallback, name, value)
@@ -2963,6 +3093,9 @@ class PyCallback(_object):
         """
         __init__(PyCallback self, PyCallback::CallbackType callback_type) -> PyCallback
         __init__(PyCallback self) -> PyCallback
+
+        PyCallback::PyCallback(CallbackType callback_type=SCALAR)
+
         """
         if self.__class__ == PyCallback:
             _self = None
@@ -2977,17 +3110,52 @@ class PyCallback(_object):
     __del__ = lambda self: None
 
     def callback_type(self):
-        """callback_type(PyCallback self) -> PyCallback::CallbackType"""
+        """
+        callback_type(PyCallback self) -> PyCallback::CallbackType
+
+        PyCallback::CallbackType PyCallback::callback_type() const 
+
+        """
         return _libBornAgainFit.PyCallback_callback_type(self)
 
 
     def call_scalar(self, pars):
-        """call_scalar(PyCallback self, Parameters pars) -> double"""
+        """
+        call_scalar(PyCallback self, Parameters pars) -> double
+
+        double PyCallback::call_scalar(Fit::Parameters pars)
+
+        Call Python callable and returns its result. Intended to be overloaded in Python.
+
+        Parameters:
+        -----------
+
+        pars: 
+        Fit parameters object (intentionally passed by value).
+
+        value of objective function. 
+
+        """
         return _libBornAgainFit.PyCallback_call_scalar(self, pars)
 
 
     def call_residuals(self, arg0):
-        """call_residuals(PyCallback self, Parameters arg0) -> vdouble1d_t"""
+        """
+        call_residuals(PyCallback self, Parameters arg0) -> vdouble1d_t
+
+        std::vector< double > PyCallback::call_residuals(Fit::Parameters)
+
+        Call Python callable and returns its result. Intended to be overloaded in Python.
+
+        Parameters:
+        -----------
+
+        pars: 
+        Fit parameters object (intentionally passed by value).
+
+        vector of residuals 
+
+        """
         return _libBornAgainFit.PyCallback_call_residuals(self, arg0)
 
     def __disown__(self):
@@ -2998,7 +3166,14 @@ PyCallback_swigregister = _libBornAgainFit.PyCallback_swigregister
 PyCallback_swigregister(PyCallback)
 
 class MinimizerResult(_object):
-    """Proxy of C++ Fit::MinimizerResult class."""
+    """
+
+
+    Result of minimization round.
+
+    C++ includes: MinimizerResult.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, MinimizerResult, name, value)
@@ -3007,7 +3182,12 @@ class MinimizerResult(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(Fit::MinimizerResult self) -> MinimizerResult"""
+        """
+        __init__(Fit::MinimizerResult self) -> MinimizerResult
+
+        MinimizerResult::MinimizerResult()
+
+        """
         this = _libBornAgainFit.new_MinimizerResult()
         try:
             self.this.append(this)
@@ -3015,47 +3195,96 @@ class MinimizerResult(_object):
             self.this = this
 
     def setParameters(self, parameters):
-        """setParameters(MinimizerResult self, Parameters parameters)"""
+        """
+        setParameters(MinimizerResult self, Parameters parameters)
+
+        void MinimizerResult::setParameters(const Parameters &parameters)
+
+        """
         return _libBornAgainFit.MinimizerResult_setParameters(self, parameters)
 
 
     def parameters(self):
-        """parameters(MinimizerResult self) -> Parameters"""
+        """
+        parameters(MinimizerResult self) -> Parameters
+
+        Parameters MinimizerResult::parameters() const 
+
+        """
         return _libBornAgainFit.MinimizerResult_parameters(self)
 
 
     def setMinValue(self, value):
-        """setMinValue(MinimizerResult self, double value)"""
+        """
+        setMinValue(MinimizerResult self, double value)
+
+        void MinimizerResult::setMinValue(double value)
+
+        """
         return _libBornAgainFit.MinimizerResult_setMinValue(self, value)
 
 
     def minValue(self):
-        """minValue(MinimizerResult self) -> double"""
+        """
+        minValue(MinimizerResult self) -> double
+
+        double MinimizerResult::minValue() const
+
+        Minimum value of objective function found by minimizer. 
+
+        """
         return _libBornAgainFit.MinimizerResult_minValue(self)
 
 
     def toString(self):
-        """toString(MinimizerResult self) -> std::string"""
+        """
+        toString(MinimizerResult self) -> std::string
+
+        std::string MinimizerResult::toString() const
+
+        Returns multi-line string representing minimization results. 
+
+        """
         return _libBornAgainFit.MinimizerResult_toString(self)
 
 
     def setReport(self, value):
-        """setReport(MinimizerResult self, std::string const & value)"""
+        """
+        setReport(MinimizerResult self, std::string const & value)
+
+        void MinimizerResult::setReport(const std::string &value)
+
+        """
         return _libBornAgainFit.MinimizerResult_setReport(self, value)
 
 
     def setDuration(self, value):
-        """setDuration(MinimizerResult self, double value)"""
+        """
+        setDuration(MinimizerResult self, double value)
+
+        void MinimizerResult::setDuration(double value)
+
+        """
         return _libBornAgainFit.MinimizerResult_setDuration(self, value)
 
 
     def setNumberOfCalls(self, value):
-        """setNumberOfCalls(MinimizerResult self, int value)"""
+        """
+        setNumberOfCalls(MinimizerResult self, int value)
+
+        void MinimizerResult::setNumberOfCalls(int value)
+
+        """
         return _libBornAgainFit.MinimizerResult_setNumberOfCalls(self, value)
 
 
     def setNumberOfGradientCalls(self, value):
-        """setNumberOfGradientCalls(MinimizerResult self, int value)"""
+        """
+        setNumberOfGradientCalls(MinimizerResult self, int value)
+
+        void MinimizerResult::setNumberOfGradientCalls(int value)
+
+        """
         return _libBornAgainFit.MinimizerResult_setNumberOfGradientCalls(self, value)
 
     __swig_destroy__ = _libBornAgainFit.delete_MinimizerResult
@@ -3064,7 +3293,14 @@ MinimizerResult_swigregister = _libBornAgainFit.MinimizerResult_swigregister
 MinimizerResult_swigregister(MinimizerResult)
 
 class Minimizer(_object):
-    """Proxy of C++ Fit::Minimizer class."""
+    """
+
+
+    A main class to run fitting.
+
+    C++ includes: Minimizer.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Minimizer, name, value)
@@ -3073,7 +3309,12 @@ class Minimizer(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(Fit::Minimizer self) -> Minimizer"""
+        """
+        __init__(Fit::Minimizer self) -> Minimizer
+
+        Minimizer::Minimizer()
+
+        """
         this = _libBornAgainFit.new_Minimizer()
         try:
             self.this.append(this)
@@ -3087,12 +3328,22 @@ class Minimizer(_object):
         setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName, std::string const & options)
         setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName)
         setMinimizer(Minimizer self, std::string const & minimizerName)
+
+        void Minimizer::setMinimizer(const std::string &minimizerName, const std::string &algorithmName="", const std::string &options="")
+
         """
         return _libBornAgainFit.Minimizer_setMinimizer(self, *args)
 
 
     def minimize_cpp(self, callback, parameters):
-        """minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult"""
+        """
+        minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult
+
+        MinimizerResult Minimizer::minimize(PyCallback &callback, const Parameters &parameters)
+
+        Finds minimum of user objective function (to be called from Python). 
+
+        """
         return _libBornAgainFit.Minimizer_minimize_cpp(self, callback, parameters)
 
 

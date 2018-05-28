@@ -25315,32 +25315,133 @@ static PyMethodDef SwigMethods[] = {
 		"Parameter(std::string const & name, double value, AttLimits limits, double step=0.0)\n"
 		"Parameter(std::string const & name, double value, AttLimits limits)\n"
 		"new_Parameter(std::string const & name, double value) -> Parameter\n"
+		"\n"
+		"Parameter::Parameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)\n"
+		"\n"
+		"Fit parameter constructor.\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"name: \n"
+		"unique name of fit parameters\n"
+		"\n"
+		"value: \n"
+		"starting value of fit parameter\n"
+		"\n"
+		"limits: \n"
+		"fit parameter limits\n"
+		"\n"
+		"step: \n"
+		"initial step of fit parameter during the minimization, will be calculated automatically, if zero. \n"
+		"\n"
 		""},
-	 { (char *)"Parameter_name", _wrap_Parameter_name, METH_VARARGS, (char *)"Parameter_name(Parameter self) -> std::string"},
-	 { (char *)"Parameter_startValue", _wrap_Parameter_startValue, METH_VARARGS, (char *)"Parameter_startValue(Parameter self) -> double"},
-	 { (char *)"Parameter_limits", _wrap_Parameter_limits, METH_VARARGS, (char *)"Parameter_limits(Parameter self) -> AttLimits"},
-	 { (char *)"Parameter_value", _wrap_Parameter_value, METH_VARARGS, (char *)"Parameter_value(Parameter self) -> double"},
-	 { (char *)"Parameter_setValue", _wrap_Parameter_setValue, METH_VARARGS, (char *)"Parameter_setValue(Parameter self, double value)"},
-	 { (char *)"Parameter_step", _wrap_Parameter_step, METH_VARARGS, (char *)"Parameter_step(Parameter self) -> double"},
-	 { (char *)"Parameter_error", _wrap_Parameter_error, METH_VARARGS, (char *)"Parameter_error(Parameter self) -> double"},
-	 { (char *)"Parameter_setError", _wrap_Parameter_setError, METH_VARARGS, (char *)"Parameter_setError(Parameter self, double value)"},
+	 { (char *)"Parameter_name", _wrap_Parameter_name, METH_VARARGS, (char *)"\n"
+		"Parameter_name(Parameter self) -> std::string\n"
+		"\n"
+		"std::string Parameter::name() const \n"
+		"\n"
+		""},
+	 { (char *)"Parameter_startValue", _wrap_Parameter_startValue, METH_VARARGS, (char *)"\n"
+		"Parameter_startValue(Parameter self) -> double\n"
+		"\n"
+		"double Parameter::startValue() const \n"
+		"\n"
+		""},
+	 { (char *)"Parameter_limits", _wrap_Parameter_limits, METH_VARARGS, (char *)"\n"
+		"Parameter_limits(Parameter self) -> AttLimits\n"
+		"\n"
+		"AttLimits Parameter::limits() const \n"
+		"\n"
+		""},
+	 { (char *)"Parameter_value", _wrap_Parameter_value, METH_VARARGS, (char *)"\n"
+		"Parameter_value(Parameter self) -> double\n"
+		"\n"
+		"double Parameter::value() const \n"
+		"\n"
+		""},
+	 { (char *)"Parameter_setValue", _wrap_Parameter_setValue, METH_VARARGS, (char *)"\n"
+		"Parameter_setValue(Parameter self, double value)\n"
+		"\n"
+		"void Parameter::setValue(double value)\n"
+		"\n"
+		""},
+	 { (char *)"Parameter_step", _wrap_Parameter_step, METH_VARARGS, (char *)"\n"
+		"Parameter_step(Parameter self) -> double\n"
+		"\n"
+		"double Parameter::step() const \n"
+		"\n"
+		""},
+	 { (char *)"Parameter_error", _wrap_Parameter_error, METH_VARARGS, (char *)"\n"
+		"Parameter_error(Parameter self) -> double\n"
+		"\n"
+		"double Parameter::error() const \n"
+		"\n"
+		""},
+	 { (char *)"Parameter_setError", _wrap_Parameter_setError, METH_VARARGS, (char *)"\n"
+		"Parameter_setError(Parameter self, double value)\n"
+		"\n"
+		"void Parameter::setError(double value)\n"
+		"\n"
+		""},
 	 { (char *)"delete_Parameter", _wrap_delete_Parameter, METH_VARARGS, (char *)"delete_Parameter(Parameter self)"},
 	 { (char *)"Parameter_swigregister", Parameter_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_Parameters", _wrap_new_Parameters, METH_VARARGS, (char *)"new_Parameters() -> Parameters"},
-	 { (char *)"Parameters_add", _wrap_Parameters_add, METH_VARARGS, (char *)"Parameters_add(Parameters self, Parameter par)"},
+	 { (char *)"new_Parameters", _wrap_new_Parameters, METH_VARARGS, (char *)"\n"
+		"new_Parameters() -> Parameters\n"
+		"\n"
+		"Fit::Parameters::Parameters()=default\n"
+		"\n"
+		""},
+	 { (char *)"Parameters_add", _wrap_Parameters_add, METH_VARARGS, (char *)"\n"
+		"Parameters_add(Parameters self, Parameter par)\n"
+		"\n"
+		"void Parameters::add(const Parameter &par)\n"
+		"\n"
+		""},
 	 { (char *)"Parameters_begin", _wrap_Parameters_begin, METH_VARARGS, (char *)"\n"
 		"begin() -> Fit::Parameters::const_iterator\n"
 		"Parameters_begin(Parameters self) -> Fit::Parameters::iterator\n"
+		"\n"
+		"Parameters::iterator Parameters::begin()\n"
+		"\n"
 		""},
 	 { (char *)"Parameters_end", _wrap_Parameters_end, METH_VARARGS, (char *)"\n"
 		"end() -> Fit::Parameters::const_iterator\n"
 		"Parameters_end(Parameters self) -> Fit::Parameters::iterator\n"
+		"\n"
+		"Parameters::iterator Parameters::end()\n"
+		"\n"
 		""},
-	 { (char *)"Parameters_size", _wrap_Parameters_size, METH_VARARGS, (char *)"Parameters_size(Parameters self) -> size_t"},
-	 { (char *)"Parameters_values", _wrap_Parameters_values, METH_VARARGS, (char *)"Parameters_values(Parameters self) -> vdouble1d_t"},
-	 { (char *)"Parameters_setValues", _wrap_Parameters_setValues, METH_VARARGS, (char *)"Parameters_setValues(Parameters self, vdouble1d_t values)"},
-	 { (char *)"Parameters_errors", _wrap_Parameters_errors, METH_VARARGS, (char *)"Parameters_errors(Parameters self) -> vdouble1d_t"},
-	 { (char *)"Parameters_setErrors", _wrap_Parameters_setErrors, METH_VARARGS, (char *)"Parameters_setErrors(Parameters self, vdouble1d_t errors)"},
+	 { (char *)"Parameters_size", _wrap_Parameters_size, METH_VARARGS, (char *)"\n"
+		"Parameters_size(Parameters self) -> size_t\n"
+		"\n"
+		"size_t Parameters::size() const \n"
+		"\n"
+		""},
+	 { (char *)"Parameters_values", _wrap_Parameters_values, METH_VARARGS, (char *)"\n"
+		"Parameters_values(Parameters self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > Parameters::values() const \n"
+		"\n"
+		""},
+	 { (char *)"Parameters_setValues", _wrap_Parameters_setValues, METH_VARARGS, (char *)"\n"
+		"Parameters_setValues(Parameters self, vdouble1d_t values)\n"
+		"\n"
+		"void Parameters::setValues(const std::vector< double > &values)\n"
+		"\n"
+		""},
+	 { (char *)"Parameters_errors", _wrap_Parameters_errors, METH_VARARGS, (char *)"\n"
+		"Parameters_errors(Parameters self) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > Parameters::errors() const \n"
+		"\n"
+		""},
+	 { (char *)"Parameters_setErrors", _wrap_Parameters_setErrors, METH_VARARGS, (char *)"\n"
+		"Parameters_setErrors(Parameters self, vdouble1d_t errors)\n"
+		"\n"
+		"void Parameters::setErrors(const std::vector< double > &errors)\n"
+		"\n"
+		""},
 	 { (char *)"Parameters___getitem__", _wrap_Parameters___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> Parameter\n"
 		"Parameters___getitem__(Parameters self, size_t index) -> Parameter\n"
@@ -25377,8 +25478,18 @@ static PyMethodDef SwigMethods[] = {
 		"run minimization \n"
 		"\n"
 		""},
-	 { (char *)"IMinimizer_minimize_scalar", _wrap_IMinimizer_minimize_scalar, METH_VARARGS, (char *)"IMinimizer_minimize_scalar(IMinimizer self, fcn_scalar_t arg3, Parameters arg4) -> MinimizerResult"},
-	 { (char *)"IMinimizer_minimize_residual", _wrap_IMinimizer_minimize_residual, METH_VARARGS, (char *)"IMinimizer_minimize_residual(IMinimizer self, fcn_residual_t arg3, Parameters arg4) -> MinimizerResult"},
+	 { (char *)"IMinimizer_minimize_scalar", _wrap_IMinimizer_minimize_scalar, METH_VARARGS, (char *)"\n"
+		"IMinimizer_minimize_scalar(IMinimizer self, fcn_scalar_t arg3, Parameters arg4) -> MinimizerResult\n"
+		"\n"
+		"Fit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, Fit::Parameters)\n"
+		"\n"
+		""},
+	 { (char *)"IMinimizer_minimize_residual", _wrap_IMinimizer_minimize_residual, METH_VARARGS, (char *)"\n"
+		"IMinimizer_minimize_residual(IMinimizer self, fcn_residual_t arg3, Parameters arg4) -> MinimizerResult\n"
+		"\n"
+		"Fit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, Fit::Parameters)\n"
+		"\n"
+		""},
 	 { (char *)"IMinimizer_clear", _wrap_IMinimizer_clear, METH_VARARGS, (char *)"\n"
 		"IMinimizer_clear(IMinimizer self)\n"
 		"\n"
@@ -25425,9 +25536,7 @@ static PyMethodDef SwigMethods[] = {
 		"propagateResults(FitParameterSet parameters)\n"
 		"IMinimizer_propagateResults(IMinimizer self, Parameters parameters)\n"
 		"\n"
-		"void IMinimizer::propagateResults(FitParameterSet &parameters)\n"
-		"\n"
-		"Propagates results of minimization to fit parameter set. \n"
+		"void IMinimizer::propagateResults(Fit::Parameters &parameters)\n"
 		"\n"
 		""},
 	 { (char *)"IMinimizer_setOptions", _wrap_IMinimizer_setOptions, METH_VARARGS, (char *)"\n"
@@ -25801,33 +25910,150 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"new_PyCallback", _wrap_new_PyCallback, METH_VARARGS, (char *)"\n"
 		"PyCallback(PyCallback::CallbackType callback_type)\n"
 		"new_PyCallback(PyObject * arg2) -> PyCallback\n"
+		"\n"
+		"PyCallback::PyCallback(CallbackType callback_type=SCALAR)\n"
+		"\n"
 		""},
-	 { (char *)"delete_PyCallback", _wrap_delete_PyCallback, METH_VARARGS, (char *)"delete_PyCallback(PyCallback self)"},
-	 { (char *)"PyCallback_callback_type", _wrap_PyCallback_callback_type, METH_VARARGS, (char *)"PyCallback_callback_type(PyCallback self) -> PyCallback::CallbackType"},
-	 { (char *)"PyCallback_call_scalar", _wrap_PyCallback_call_scalar, METH_VARARGS, (char *)"PyCallback_call_scalar(PyCallback self, Parameters pars) -> double"},
-	 { (char *)"PyCallback_call_residuals", _wrap_PyCallback_call_residuals, METH_VARARGS, (char *)"PyCallback_call_residuals(PyCallback self, Parameters arg0) -> vdouble1d_t"},
+	 { (char *)"delete_PyCallback", _wrap_delete_PyCallback, METH_VARARGS, (char *)"\n"
+		"delete_PyCallback(PyCallback self)\n"
+		"\n"
+		"PyCallback::~PyCallback()\n"
+		"\n"
+		""},
+	 { (char *)"PyCallback_callback_type", _wrap_PyCallback_callback_type, METH_VARARGS, (char *)"\n"
+		"PyCallback_callback_type(PyCallback self) -> PyCallback::CallbackType\n"
+		"\n"
+		"PyCallback::CallbackType PyCallback::callback_type() const \n"
+		"\n"
+		""},
+	 { (char *)"PyCallback_call_scalar", _wrap_PyCallback_call_scalar, METH_VARARGS, (char *)"\n"
+		"PyCallback_call_scalar(PyCallback self, Parameters pars) -> double\n"
+		"\n"
+		"double PyCallback::call_scalar(Fit::Parameters pars)\n"
+		"\n"
+		"Call Python callable and returns its result. Intended to be overloaded in Python.\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"pars: \n"
+		"Fit parameters object (intentionally passed by value).\n"
+		"\n"
+		"value of objective function. \n"
+		"\n"
+		""},
+	 { (char *)"PyCallback_call_residuals", _wrap_PyCallback_call_residuals, METH_VARARGS, (char *)"\n"
+		"PyCallback_call_residuals(PyCallback self, Parameters arg0) -> vdouble1d_t\n"
+		"\n"
+		"std::vector< double > PyCallback::call_residuals(Fit::Parameters)\n"
+		"\n"
+		"Call Python callable and returns its result. Intended to be overloaded in Python.\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"pars: \n"
+		"Fit parameters object (intentionally passed by value).\n"
+		"\n"
+		"vector of residuals \n"
+		"\n"
+		""},
 	 { (char *)"disown_PyCallback", _wrap_disown_PyCallback, METH_VARARGS, NULL},
 	 { (char *)"PyCallback_swigregister", PyCallback_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_MinimizerResult", _wrap_new_MinimizerResult, METH_VARARGS, (char *)"new_MinimizerResult() -> MinimizerResult"},
-	 { (char *)"MinimizerResult_setParameters", _wrap_MinimizerResult_setParameters, METH_VARARGS, (char *)"MinimizerResult_setParameters(MinimizerResult self, Parameters parameters)"},
-	 { (char *)"MinimizerResult_parameters", _wrap_MinimizerResult_parameters, METH_VARARGS, (char *)"MinimizerResult_parameters(MinimizerResult self) -> Parameters"},
-	 { (char *)"MinimizerResult_setMinValue", _wrap_MinimizerResult_setMinValue, METH_VARARGS, (char *)"MinimizerResult_setMinValue(MinimizerResult self, double value)"},
-	 { (char *)"MinimizerResult_minValue", _wrap_MinimizerResult_minValue, METH_VARARGS, (char *)"MinimizerResult_minValue(MinimizerResult self) -> double"},
-	 { (char *)"MinimizerResult_toString", _wrap_MinimizerResult_toString, METH_VARARGS, (char *)"MinimizerResult_toString(MinimizerResult self) -> std::string"},
-	 { (char *)"MinimizerResult_setReport", _wrap_MinimizerResult_setReport, METH_VARARGS, (char *)"MinimizerResult_setReport(MinimizerResult self, std::string const & value)"},
-	 { (char *)"MinimizerResult_setDuration", _wrap_MinimizerResult_setDuration, METH_VARARGS, (char *)"MinimizerResult_setDuration(MinimizerResult self, double value)"},
-	 { (char *)"MinimizerResult_setNumberOfCalls", _wrap_MinimizerResult_setNumberOfCalls, METH_VARARGS, (char *)"MinimizerResult_setNumberOfCalls(MinimizerResult self, int value)"},
-	 { (char *)"MinimizerResult_setNumberOfGradientCalls", _wrap_MinimizerResult_setNumberOfGradientCalls, METH_VARARGS, (char *)"MinimizerResult_setNumberOfGradientCalls(MinimizerResult self, int value)"},
+	 { (char *)"new_MinimizerResult", _wrap_new_MinimizerResult, METH_VARARGS, (char *)"\n"
+		"new_MinimizerResult() -> MinimizerResult\n"
+		"\n"
+		"MinimizerResult::MinimizerResult()\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerResult_setParameters", _wrap_MinimizerResult_setParameters, METH_VARARGS, (char *)"\n"
+		"MinimizerResult_setParameters(MinimizerResult self, Parameters parameters)\n"
+		"\n"
+		"void MinimizerResult::setParameters(const Parameters &parameters)\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerResult_parameters", _wrap_MinimizerResult_parameters, METH_VARARGS, (char *)"\n"
+		"MinimizerResult_parameters(MinimizerResult self) -> Parameters\n"
+		"\n"
+		"Parameters MinimizerResult::parameters() const \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerResult_setMinValue", _wrap_MinimizerResult_setMinValue, METH_VARARGS, (char *)"\n"
+		"MinimizerResult_setMinValue(MinimizerResult self, double value)\n"
+		"\n"
+		"void MinimizerResult::setMinValue(double value)\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerResult_minValue", _wrap_MinimizerResult_minValue, METH_VARARGS, (char *)"\n"
+		"MinimizerResult_minValue(MinimizerResult self) -> double\n"
+		"\n"
+		"double MinimizerResult::minValue() const\n"
+		"\n"
+		"Minimum value of objective function found by minimizer. \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerResult_toString", _wrap_MinimizerResult_toString, METH_VARARGS, (char *)"\n"
+		"MinimizerResult_toString(MinimizerResult self) -> std::string\n"
+		"\n"
+		"std::string MinimizerResult::toString() const\n"
+		"\n"
+		"Returns multi-line string representing minimization results. \n"
+		"\n"
+		""},
+	 { (char *)"MinimizerResult_setReport", _wrap_MinimizerResult_setReport, METH_VARARGS, (char *)"\n"
+		"MinimizerResult_setReport(MinimizerResult self, std::string const & value)\n"
+		"\n"
+		"void MinimizerResult::setReport(const std::string &value)\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerResult_setDuration", _wrap_MinimizerResult_setDuration, METH_VARARGS, (char *)"\n"
+		"MinimizerResult_setDuration(MinimizerResult self, double value)\n"
+		"\n"
+		"void MinimizerResult::setDuration(double value)\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerResult_setNumberOfCalls", _wrap_MinimizerResult_setNumberOfCalls, METH_VARARGS, (char *)"\n"
+		"MinimizerResult_setNumberOfCalls(MinimizerResult self, int value)\n"
+		"\n"
+		"void MinimizerResult::setNumberOfCalls(int value)\n"
+		"\n"
+		""},
+	 { (char *)"MinimizerResult_setNumberOfGradientCalls", _wrap_MinimizerResult_setNumberOfGradientCalls, METH_VARARGS, (char *)"\n"
+		"MinimizerResult_setNumberOfGradientCalls(MinimizerResult self, int value)\n"
+		"\n"
+		"void MinimizerResult::setNumberOfGradientCalls(int value)\n"
+		"\n"
+		""},
 	 { (char *)"delete_MinimizerResult", _wrap_delete_MinimizerResult, METH_VARARGS, (char *)"delete_MinimizerResult(MinimizerResult self)"},
 	 { (char *)"MinimizerResult_swigregister", MinimizerResult_swigregister, METH_VARARGS, NULL},
-	 { (char *)"new_Minimizer", _wrap_new_Minimizer, METH_VARARGS, (char *)"new_Minimizer() -> Minimizer"},
-	 { (char *)"delete_Minimizer", _wrap_delete_Minimizer, METH_VARARGS, (char *)"delete_Minimizer(Minimizer self)"},
+	 { (char *)"new_Minimizer", _wrap_new_Minimizer, METH_VARARGS, (char *)"\n"
+		"new_Minimizer() -> Minimizer\n"
+		"\n"
+		"Minimizer::Minimizer()\n"
+		"\n"
+		""},
+	 { (char *)"delete_Minimizer", _wrap_delete_Minimizer, METH_VARARGS, (char *)"\n"
+		"delete_Minimizer(Minimizer self)\n"
+		"\n"
+		"Minimizer::~Minimizer()\n"
+		"\n"
+		""},
 	 { (char *)"Minimizer_setMinimizer", _wrap_Minimizer_setMinimizer, METH_VARARGS, (char *)"\n"
 		"setMinimizer(std::string const & minimizerName, std::string const & algorithmName, std::string const & options)\n"
 		"setMinimizer(std::string const & minimizerName, std::string const & algorithmName)\n"
 		"Minimizer_setMinimizer(Minimizer self, std::string const & minimizerName)\n"
+		"\n"
+		"void Minimizer::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &options=\"\")\n"
+		"\n"
 		""},
-	 { (char *)"Minimizer_minimize_cpp", _wrap_Minimizer_minimize_cpp, METH_VARARGS, (char *)"Minimizer_minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult"},
+	 { (char *)"Minimizer_minimize_cpp", _wrap_Minimizer_minimize_cpp, METH_VARARGS, (char *)"\n"
+		"Minimizer_minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult\n"
+		"\n"
+		"MinimizerResult Minimizer::minimize(PyCallback &callback, const Parameters &parameters)\n"
+		"\n"
+		"Finds minimum of user objective function (to be called from Python). \n"
+		"\n"
+		""},
 	 { (char *)"Minimizer_swigregister", Minimizer_swigregister, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };

@@ -370,17 +370,12 @@ Sets random seed.
 %feature("docstring")  GeneticMinimizer::randomSeed "int GeneticMinimizer::randomSeed() const 
 ";
 
-%feature("docstring")  GeneticMinimizer::setParameter "void GeneticMinimizer::setParameter(size_t index, const IFitParameter *par)
-
-Sets minimizer parameter. Overload is required to check that parameter is properly limited. 
-";
-
-%feature("docstring")  GeneticMinimizer::statusToString "std::string GeneticMinimizer::statusToString() const
+%feature("docstring")  GeneticMinimizer::statusToString "std::string GeneticMinimizer::statusToString() const override
 
 Returns string representation of current minimizer status. 
 ";
 
-%feature("docstring")  GeneticMinimizer::statusMap "std::map< std::string, std::string > GeneticMinimizer::statusMap() const
+%feature("docstring")  GeneticMinimizer::statusMap "std::map< std::string, std::string > GeneticMinimizer::statusMap() const override
 
 Returns map of string representing different minimizer statuses. 
 ";
@@ -424,12 +419,12 @@ Sets maximum number of iterations. This is an internal minimizer setting which h
 %feature("docstring")  GSLLevenbergMarquardtMinimizer::maxIterations "int GSLLevenbergMarquardtMinimizer::maxIterations() const 
 ";
 
-%feature("docstring")  GSLLevenbergMarquardtMinimizer::statusToString "std::string GSLLevenbergMarquardtMinimizer::statusToString() const
+%feature("docstring")  GSLLevenbergMarquardtMinimizer::statusToString "std::string GSLLevenbergMarquardtMinimizer::statusToString() const override
 
 Returns string representation of current minimizer status. 
 ";
 
-%feature("docstring")  GSLLevenbergMarquardtMinimizer::statusMap "std::map< std::string, std::string > GSLLevenbergMarquardtMinimizer::statusMap() const
+%feature("docstring")  GSLLevenbergMarquardtMinimizer::statusMap "std::map< std::string, std::string > GSLLevenbergMarquardtMinimizer::statusMap() const override
 
 Returns map of string representing different minimizer statuses. 
 ";
@@ -465,7 +460,7 @@ Sets maximum number of iterations. This is an internal minimizer setting which h
 %feature("docstring")  GSLMultiMinimizer::maxIterations "int GSLMultiMinimizer::maxIterations() const 
 ";
 
-%feature("docstring")  GSLMultiMinimizer::statusToString "std::string GSLMultiMinimizer::statusToString() const
+%feature("docstring")  GSLMultiMinimizer::statusToString "std::string GSLMultiMinimizer::statusToString() const override
 
 Returns string representation of current minimizer status. 
 ";
@@ -555,6 +550,27 @@ C++ includes: IFitParameter.h
 ";
 
 
+// File: classFit_1_1IFunctionAdapter.xml
+%feature("docstring") Fit::IFunctionAdapter "
+
+Base class for objective function adapters, which converts user functions to minimize into the function which minimization machinery expects.
+
+C++ includes: IFunctionAdapter.h
+";
+
+%feature("docstring")  Fit::IFunctionAdapter::IFunctionAdapter "IFunctionAdapter::IFunctionAdapter()
+";
+
+%feature("docstring")  Fit::IFunctionAdapter::~IFunctionAdapter "IFunctionAdapter::~IFunctionAdapter()
+";
+
+%feature("docstring")  Fit::IFunctionAdapter::numberOfCalls "int IFunctionAdapter::numberOfCalls() const 
+";
+
+%feature("docstring")  Fit::IFunctionAdapter::numberOfGradientCalls "int IFunctionAdapter::numberOfGradientCalls() const 
+";
+
+
 // File: classIMinimizer.xml
 %feature("docstring") IMinimizer "
 
@@ -587,6 +603,12 @@ return name of the minimization algorithm
 run minimization 
 ";
 
+%feature("docstring")  IMinimizer::minimize_scalar "Fit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, Fit::Parameters)
+";
+
+%feature("docstring")  IMinimizer::minimize_residual "Fit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, Fit::Parameters)
+";
+
 %feature("docstring")  IMinimizer::clear "virtual void IMinimizer::clear()
 
 clear resources (parameters) for consecutives minimizations 
@@ -616,6 +638,9 @@ Returns minimum function value.
 Propagates results of minimization to fit parameter set. 
 ";
 
+%feature("docstring")  IMinimizer::propagateResults "void IMinimizer::propagateResults(Fit::Parameters &parameters)
+";
+
 %feature("docstring")  IMinimizer::setOptions "void IMinimizer::setOptions(const std::string &options)
 
 Sets option string to the minimizer. 
@@ -640,6 +665,59 @@ C++ includes: MinimizerInfo.h
 ";
 
 %feature("docstring")  InfoItem::description "std::string InfoItem::description() const 
+";
+
+
+// File: classFit_1_1Kernel.xml
+%feature("docstring") Fit::Kernel "
+
+A main class to run fitting.
+
+C++ includes: Kernel.h
+";
+
+%feature("docstring")  Fit::Kernel::Kernel "Kernel::Kernel()
+";
+
+%feature("docstring")  Fit::Kernel::~Kernel "Kernel::~Kernel()
+";
+
+%feature("docstring")  Fit::Kernel::setMinimizer "void Kernel::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &options=\"\")
+";
+
+%feature("docstring")  Fit::Kernel::minimize "MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters &parameters)
+";
+
+%feature("docstring")  Fit::Kernel::minimize "MinimizerResult Kernel::minimize(fcn_residual_t fcn, const Parameters &parameters)
+";
+
+
+// File: classFit_1_1Minimizer.xml
+%feature("docstring") Fit::Minimizer "
+
+A main class to run fitting.
+
+C++ includes: Minimizer.h
+";
+
+%feature("docstring")  Fit::Minimizer::Minimizer "Minimizer::Minimizer()
+";
+
+%feature("docstring")  Fit::Minimizer::~Minimizer "Minimizer::~Minimizer()
+";
+
+%feature("docstring")  Fit::Minimizer::setMinimizer "void Minimizer::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &options=\"\")
+";
+
+%feature("docstring")  Fit::Minimizer::minimize "MinimizerResult Minimizer::minimize(fcn_scalar_t fcn, const Parameters &parameters)
+";
+
+%feature("docstring")  Fit::Minimizer::minimize "MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters &parameters)
+";
+
+%feature("docstring")  Fit::Minimizer::minimize "MinimizerResult Minimizer::minimize(PyCallback &callback, const Parameters &parameters)
+
+Finds minimum of user objective function (to be called from Python). 
 ";
 
 
@@ -739,6 +817,49 @@ Set options from their string representation.
 ";
 
 
+// File: classFit_1_1MinimizerResult.xml
+%feature("docstring") Fit::MinimizerResult "
+
+Result of minimization round.
+
+C++ includes: MinimizerResult.h
+";
+
+%feature("docstring")  Fit::MinimizerResult::MinimizerResult "MinimizerResult::MinimizerResult()
+";
+
+%feature("docstring")  Fit::MinimizerResult::setParameters "void MinimizerResult::setParameters(const Parameters &parameters)
+";
+
+%feature("docstring")  Fit::MinimizerResult::parameters "Parameters MinimizerResult::parameters() const 
+";
+
+%feature("docstring")  Fit::MinimizerResult::setMinValue "void MinimizerResult::setMinValue(double value)
+";
+
+%feature("docstring")  Fit::MinimizerResult::minValue "double MinimizerResult::minValue() const
+
+Minimum value of objective function found by minimizer. 
+";
+
+%feature("docstring")  Fit::MinimizerResult::toString "std::string MinimizerResult::toString() const
+
+Returns multi-line string representing minimization results. 
+";
+
+%feature("docstring")  Fit::MinimizerResult::setReport "void MinimizerResult::setReport(const std::string &value)
+";
+
+%feature("docstring")  Fit::MinimizerResult::setDuration "void MinimizerResult::setDuration(double value)
+";
+
+%feature("docstring")  Fit::MinimizerResult::setNumberOfCalls "void MinimizerResult::setNumberOfCalls(int value)
+";
+
+%feature("docstring")  Fit::MinimizerResult::setNumberOfGradientCalls "void MinimizerResult::setNumberOfGradientCalls(int value)
+";
+
+
 // File: classMinimizerResultsHelper.xml
 %feature("docstring") MinimizerResultsHelper "
 
@@ -813,12 +934,12 @@ Sets maximum number of objective function calls.
 %feature("docstring")  Minuit2Minimizer::maxFunctionCalls "int Minuit2Minimizer::maxFunctionCalls() const 
 ";
 
-%feature("docstring")  Minuit2Minimizer::statusToString "std::string Minuit2Minimizer::statusToString() const
+%feature("docstring")  Minuit2Minimizer::statusToString "std::string Minuit2Minimizer::statusToString() const override
 
 Returns string representation of current minimizer status. 
 ";
 
-%feature("docstring")  Minuit2Minimizer::statusMap "std::map< std::string, std::string > Minuit2Minimizer::statusMap() const
+%feature("docstring")  Minuit2Minimizer::statusMap "std::map< std::string, std::string > Minuit2Minimizer::statusMap() const override
 
 Returns map of string representing different minimizer statuses. 
 ";
@@ -903,6 +1024,33 @@ Evaluates residual and gradients of the function for given vector of function pa
 ";
 
 
+// File: classFit_1_1ObjectiveFunctionAdapter.xml
+%feature("docstring") Fit::ObjectiveFunctionAdapter "
+
+Converts user objective function to function ROOT expects. Handles time of life of function objects.
+
+C++ includes: ObjectiveFunctionAdapter.h
+";
+
+%feature("docstring")  Fit::ObjectiveFunctionAdapter::ObjectiveFunctionAdapter "ObjectiveFunctionAdapter::ObjectiveFunctionAdapter()
+";
+
+%feature("docstring")  Fit::ObjectiveFunctionAdapter::~ObjectiveFunctionAdapter "ObjectiveFunctionAdapter::~ObjectiveFunctionAdapter()
+";
+
+%feature("docstring")  Fit::ObjectiveFunctionAdapter::rootObjectiveFunction "const RootObjectiveFunction * ObjectiveFunctionAdapter::rootObjectiveFunction(fcn_scalar_t fcn, const Parameters &parameters)
+";
+
+%feature("docstring")  Fit::ObjectiveFunctionAdapter::rootResidualFunction "const RootResidualFunction * ObjectiveFunctionAdapter::rootResidualFunction(fcn_residual_t fcn, const Parameters &parameters)
+";
+
+%feature("docstring")  Fit::ObjectiveFunctionAdapter::numberOfCalls "int ObjectiveFunctionAdapter::numberOfCalls() const 
+";
+
+%feature("docstring")  Fit::ObjectiveFunctionAdapter::numberOfGradientCalls "int ObjectiveFunctionAdapter::numberOfGradientCalls() const 
+";
+
+
 // File: classOptionContainer.xml
 %feature("docstring") OptionContainer "
 
@@ -949,6 +1097,148 @@ Sets the value of option. Option should hold same value type already.
 ";
 
 %feature("docstring")  OptionContainer::size "size_t OptionContainer::size() const 
+";
+
+
+// File: classFit_1_1Parameter.xml
+%feature("docstring") Fit::Parameter "
+
+A fittable parameter with value, error, step, and limits.
+
+C++ includes: Parameter.h
+";
+
+%feature("docstring")  Fit::Parameter::Parameter "Parameter::Parameter()
+";
+
+%feature("docstring")  Fit::Parameter::Parameter "Parameter::Parameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
+
+Fit parameter constructor.
+
+Parameters:
+-----------
+
+name: 
+unique name of fit parameters
+
+value: 
+starting value of fit parameter
+
+limits: 
+fit parameter limits
+
+step: 
+initial step of fit parameter during the minimization, will be calculated automatically, if zero. 
+";
+
+%feature("docstring")  Fit::Parameter::name "std::string Parameter::name() const 
+";
+
+%feature("docstring")  Fit::Parameter::startValue "double Parameter::startValue() const 
+";
+
+%feature("docstring")  Fit::Parameter::limits "AttLimits Parameter::limits() const 
+";
+
+%feature("docstring")  Fit::Parameter::value "double Parameter::value() const 
+";
+
+%feature("docstring")  Fit::Parameter::setValue "void Parameter::setValue(double value)
+";
+
+%feature("docstring")  Fit::Parameter::step "double Parameter::step() const 
+";
+
+%feature("docstring")  Fit::Parameter::error "double Parameter::error() const 
+";
+
+%feature("docstring")  Fit::Parameter::setError "void Parameter::setError(double value)
+";
+
+
+// File: classFit_1_1Parameters.xml
+%feature("docstring") Fit::Parameters "
+
+A collection of fit parameters.
+
+C++ includes: Parameters.h
+";
+
+%feature("docstring")  Fit::Parameters::Parameters "Fit::Parameters::Parameters()=default
+";
+
+%feature("docstring")  Fit::Parameters::add "void Parameters::add(const Parameter &par)
+";
+
+%feature("docstring")  Fit::Parameters::begin "Parameters::const_iterator Parameters::begin() const 
+";
+
+%feature("docstring")  Fit::Parameters::end "Parameters::const_iterator Parameters::end() const 
+";
+
+%feature("docstring")  Fit::Parameters::begin "Parameters::iterator Parameters::begin()
+";
+
+%feature("docstring")  Fit::Parameters::end "Parameters::iterator Parameters::end()
+";
+
+%feature("docstring")  Fit::Parameters::size "size_t Parameters::size() const 
+";
+
+%feature("docstring")  Fit::Parameters::values "std::vector< double > Parameters::values() const 
+";
+
+%feature("docstring")  Fit::Parameters::setValues "void Parameters::setValues(const std::vector< double > &values)
+";
+
+%feature("docstring")  Fit::Parameters::errors "std::vector< double > Parameters::errors() const 
+";
+
+%feature("docstring")  Fit::Parameters::setErrors "void Parameters::setErrors(const std::vector< double > &errors)
+";
+
+
+// File: classPyCallback.xml
+%feature("docstring") PyCallback "
+
+Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
+
+C++ includes: PyCallback.h
+";
+
+%feature("docstring")  PyCallback::PyCallback "PyCallback::PyCallback(CallbackType callback_type=SCALAR)
+";
+
+%feature("docstring")  PyCallback::~PyCallback "PyCallback::~PyCallback()
+";
+
+%feature("docstring")  PyCallback::callback_type "PyCallback::CallbackType PyCallback::callback_type() const 
+";
+
+%feature("docstring")  PyCallback::call_scalar "double PyCallback::call_scalar(Fit::Parameters pars)
+
+Call Python callable and returns its result. Intended to be overloaded in Python.
+
+Parameters:
+-----------
+
+pars: 
+Fit parameters object (intentionally passed by value).
+
+value of objective function. 
+";
+
+%feature("docstring")  PyCallback::call_residuals "std::vector< double > PyCallback::call_residuals(Fit::Parameters)
+
+Call Python callable and returns its result. Intended to be overloaded in Python.
+
+Parameters:
+-----------
+
+pars: 
+Fit parameters object (intentionally passed by value).
+
+vector of residuals 
 ";
 
 
@@ -1045,6 +1335,21 @@ returns true if proposed value is in limits range
 ";
 
 
+// File: classFit_1_1ResidualFunctionAdapter.xml
+%feature("docstring") Fit::ResidualFunctionAdapter "
+
+Provides  RootResidualFunction which will be minimizer by ROOT. Converts ROOT calls to the call of fcn_residual_t.
+
+C++ includes: ResidualFunctionAdapter.h
+";
+
+%feature("docstring")  Fit::ResidualFunctionAdapter::ResidualFunctionAdapter "ResidualFunctionAdapter::ResidualFunctionAdapter(fcn_residual_t func, const Parameters &parameters)
+";
+
+%feature("docstring")  Fit::ResidualFunctionAdapter::rootResidualFunction "const RootResidualFunction * ResidualFunctionAdapter::rootResidualFunction()
+";
+
+
 // File: classRootGradientFunction.xml
 %feature("docstring") RootGradientFunction "
 
@@ -1059,7 +1364,7 @@ C++ includes: RootMinimizerFunctions.h
 %feature("docstring")  RootGradientFunction::Type "Type_t RootGradientFunction::Type() const 
 ";
 
-%feature("docstring")  RootGradientFunction::Clone "BA_ROOT::Math::IMultiGenFunction* RootGradientFunction::Clone() const 
+%feature("docstring")  RootGradientFunction::Clone "ROOT::Math::IMultiGenFunction* RootGradientFunction::Clone() const 
 ";
 
 %feature("docstring")  RootGradientFunction::DataElement "double RootGradientFunction::DataElement(const double *pars, unsigned int i_data, double *gradient=0) const
@@ -1084,6 +1389,12 @@ C++ includes: RootMinimizerAdapter.h
 run minimization 
 ";
 
+%feature("docstring")  RootMinimizerAdapter::minimize_scalar "MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override
+";
+
+%feature("docstring")  RootMinimizerAdapter::minimize_residual "MinimizerResult RootMinimizerAdapter::minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override
+";
+
 %feature("docstring")  RootMinimizerAdapter::minimizerName "std::string RootMinimizerAdapter::minimizerName() const overridefinal
 
 Returns name of the minimizer. 
@@ -1097,6 +1408,9 @@ Returns name of the minimization algorithm.
 %feature("docstring")  RootMinimizerAdapter::setParameters "void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters) overridefinal
 
 Sets internal minimizer parameters using external parameter list. 
+";
+
+%feature("docstring")  RootMinimizerAdapter::setParameters "void RootMinimizerAdapter::setParameters(const Fit::Parameters &parameters)
 ";
 
 %feature("docstring")  RootMinimizerAdapter::setObjectiveFunction "void RootMinimizerAdapter::setObjectiveFunction(objective_function_t func) overridefinal
@@ -1137,6 +1451,9 @@ Returns map of string representing different minimizer statuses.
 %feature("docstring")  RootMinimizerAdapter::propagateResults "void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters) override
 
 Propagates results of minimization to fit parameter set. 
+";
+
+%feature("docstring")  RootMinimizerAdapter::propagateResults "void RootMinimizerAdapter::propagateResults(Fit::Parameters &parameters) override
 ";
 
 %feature("docstring")  RootMinimizerAdapter::setOptions "void RootMinimizerAdapter::setOptions(const std::string &optionString) overridefinal
@@ -1191,6 +1508,76 @@ Creates and returns objective function suitable for ROOT minimizers.
 %feature("docstring")  RootObjectiveFunctionAdapter::rootGradientFunction "const RootGradientFunction * RootObjectiveFunctionAdapter::rootGradientFunction()
 
 Creates and returns gradient function suitable for ROOT minimizers. 
+";
+
+
+// File: classRootResidualFunction.xml
+%feature("docstring") RootResidualFunction "
+
+Minimizer function with access to single data element residuals, required by Fumili2 and GSLMultiMin minimizers.
+
+C++ includes: RootResidualFunction.h
+";
+
+%feature("docstring")  RootResidualFunction::RootResidualFunction "RootResidualFunction::RootResidualFunction(objective_function_t objective_fun, gradient_function_t gradient_fun, size_t npars, size_t ndatasize)
+
+Constructs  RootResidualFunction
+
+Parameters:
+-----------
+
+fun_gradient: 
+user function to call
+
+npars: 
+number of fit parameters
+
+ndatasize: 
+number of residual elements in dataset 
+";
+
+%feature("docstring")  RootResidualFunction::Type "RootResidualFunction::Type_t RootResidualFunction::Type() const override
+";
+
+%feature("docstring")  RootResidualFunction::Clone "ROOT::Math::IMultiGenFunction * RootResidualFunction::Clone() const override
+";
+
+%feature("docstring")  RootResidualFunction::DataElement "double RootResidualFunction::DataElement(const double *pars, unsigned int index, double *gradients=0) const override
+
+Evaluation of single data element residual. Will be called by ROOT minimizer.
+
+Returns residual value for given data element index. Transform call of ancient pointer based function to safer gradient_function_t.
+
+Parameters:
+-----------
+
+pars: 
+array of fit parameter values from the minimizer
+
+index: 
+index of residual element
+
+gradients: 
+if not zero, then array where we have to put gradients
+
+value of residual for given data element index 
+";
+
+
+// File: classFit_1_1ScalarFunctionAdapter.xml
+%feature("docstring") Fit::ScalarFunctionAdapter "
+
+Converts user objective function to chi2 like function which ROOT expects.
+
+More precisely, ROOT call to std::function<double(const double*)> will cause the call of user function std::function<double(std::vector<double>)>, where function input parameters will be current values fit parameters.
+
+C++ includes: ScalarFunctionAdapter.h
+";
+
+%feature("docstring")  Fit::ScalarFunctionAdapter::ScalarFunctionAdapter "ScalarFunctionAdapter::ScalarFunctionAdapter(fcn_scalar_t func, const Parameters &parameters)
+";
+
+%feature("docstring")  Fit::ScalarFunctionAdapter::rootObjectiveFunction "const RootObjectiveFunction * ScalarFunctionAdapter::rootObjectiveFunction()
 ";
 
 
@@ -1272,12 +1659,12 @@ Sets Boltzmann distribution parameter: minimal temperature.
 %feature("docstring")  SimAnMinimizer::boltzmannMinTemp "double SimAnMinimizer::boltzmannMinTemp() const 
 ";
 
-%feature("docstring")  SimAnMinimizer::statusMap "std::map< std::string, std::string > SimAnMinimizer::statusMap() const
+%feature("docstring")  SimAnMinimizer::statusMap "std::map< std::string, std::string > SimAnMinimizer::statusMap() const override
 
 Returns map of string representing different minimizer statuses. 
 ";
 
-%feature("docstring")  SimAnMinimizer::isGradientBasedAgorithm "virtual bool SimAnMinimizer::isGradientBasedAgorithm()
+%feature("docstring")  SimAnMinimizer::isGradientBasedAgorithm "bool SimAnMinimizer::isGradientBasedAgorithm() override
 ";
 
 
@@ -1326,6 +1713,9 @@ Sets internal minimizer parameters using external parameter list.
 Propagates results of minimization to fit parameter set. 
 ";
 
+%feature("docstring")  TestMinimizer::minimize_scalar "MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override
+";
+
 
 // File: classTimeInterval.xml
 %feature("docstring") TimeInterval "";
@@ -1358,31 +1748,34 @@ returns run time in sec.msec
 // File: namespace_0D0.xml
 
 
-// File: namespace_0D19.xml
+// File: namespace_0D20.xml
+
+
+// File: namespace_0D28.xml
 
 
 // File: namespace_0D34.xml
 
 
-// File: namespace_0D36.xml
+// File: namespace_0D39.xml
 
 
-// File: namespace_0D40.xml
+// File: namespace_0D54.xml
 
 
-// File: namespace_0D42.xml
+// File: namespace_0D56.xml
+
+
+// File: namespace_0D60.xml
+
+
+// File: namespace_0D62.xml
 
 
 // File: namespaceAlgorithmNames.xml
 
 
-// File: namespaceBA__ROOT.xml
-
-
-// File: namespaceBA__ROOT_1_1Math.xml
-
-
-// File: namespaceBA__ROOT_1_1Minuit2.xml
+// File: namespaceFit.xml
 
 
 // File: namespaceMinimizerNames.xml
@@ -1410,6 +1803,15 @@ Returns horizontal line of 80 characters length with section name in it.
 
 
 // File: namespaceOptionNames.xml
+
+
+// File: namespaceROOT.xml
+
+
+// File: namespaceROOT_1_1Math.xml
+
+
+// File: namespaceROOT_1_1Minuit2.xml
 
 
 // File: namespaceStringUtils.xml
@@ -1510,6 +1912,66 @@ Returns new string which is lower case of text.
 // File: TestMinimizer_8h.xml
 
 
+// File: IFunctionAdapter_8cpp.xml
+
+
+// File: IFunctionAdapter_8h.xml
+
+
+// File: Kernel_8cpp.xml
+
+
+// File: Kernel_8h.xml
+
+
+// File: Minimizer_8cpp.xml
+
+
+// File: Minimizer_8h.xml
+
+
+// File: MinimizerResult_8cpp.xml
+
+
+// File: MinimizerResult_8h.xml
+
+
+// File: ObjectiveFunctionAdapter_8cpp.xml
+
+
+// File: ObjectiveFunctionAdapter_8h.xml
+
+
+// File: Parameter_8cpp.xml
+
+
+// File: Parameter_8h.xml
+
+
+// File: Parameters_8cpp.xml
+
+
+// File: Parameters_8h.xml
+
+
+// File: PyCallback_8cpp.xml
+
+
+// File: PyCallback_8h.xml
+
+
+// File: ResidualFunctionAdapter_8cpp.xml
+
+
+// File: ResidualFunctionAdapter_8h.xml
+
+
+// File: ScalarFunctionAdapter_8cpp.xml
+
+
+// File: ScalarFunctionAdapter_8h.xml
+
+
 // File: FitOptions_8h.xml
 
 
@@ -1603,6 +2065,12 @@ Returns new string which is lower case of text.
 // File: RootObjectiveFuncAdapter_8h.xml
 
 
+// File: RootResidualFunction_8cpp.xml
+
+
+// File: RootResidualFunction_8h.xml
+
+
 // File: SimAnMinimizer_8cpp.xml
 
 
@@ -1637,6 +2105,9 @@ Returns new string which is lower case of text.
 
 
 // File: dir_f668eca225435178269b3663d40ba22e.xml
+
+
+// File: dir_8609ab863c9692d0c6e768a2f88f7f85.xml
 
 
 // File: dir_154d691091a050434159f2fb00439691.xml

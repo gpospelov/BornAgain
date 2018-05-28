@@ -1252,24 +1252,12 @@ C++ includes: SimpleUnitConverters.h
 %feature("docstring")  DepthProbeConverter::clone "DepthProbeConverter * DepthProbeConverter::clone() const override
 ";
 
-%feature("docstring")  DepthProbeConverter::calculateMin "double DepthProbeConverter::calculateMin(size_t i_axis, AxesUnits units_type) const override
-";
-
-%feature("docstring")  DepthProbeConverter::calculateMax "double DepthProbeConverter::calculateMax(size_t i_axis, AxesUnits units_type) const override
-";
-
-%feature("docstring")  DepthProbeConverter::axisName "std::string DepthProbeConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const override
-";
-
 %feature("docstring")  DepthProbeConverter::availableUnits "std::vector< AxesUnits > DepthProbeConverter::availableUnits() const override
 
 Returns the list of all available units. 
 ";
 
 %feature("docstring")  DepthProbeConverter::defaultUnits "AxesUnits DepthProbeConverter::defaultUnits() const override
-";
-
-%feature("docstring")  DepthProbeConverter::createConvertedAxis "std::unique_ptr< IAxis > DepthProbeConverter::createConvertedAxis(size_t i_axis, AxesUnits units) const override
 ";
 
 
@@ -7273,6 +7261,9 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 %feature("docstring")  IFormFactorDecorator::topZ "double IFormFactorDecorator::topZ(const IRotation &rotation) const override
 
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IFormFactorDecorator::getFormFactor "const IFormFactor* IFormFactorDecorator::getFormFactor() const 
 ";
 
 
@@ -15573,6 +15564,9 @@ C++ includes: ZLimits.h
 // File: namespace_0D288.xml
 
 
+// File: namespace_0D292.xml
+
+
 // File: namespace_0D304.xml
 
 
@@ -15721,6 +15715,9 @@ vector<vector<double>>
 ";
 
 %feature("docstring")  AxisNames::InitSpecAxis "std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
+";
+
+%feature("docstring")  AxisNames::InitSampleDepthAxis "std::map< AxesUnits, std::string > AxisNames::InitSampleDepthAxis()
 ";
 
 

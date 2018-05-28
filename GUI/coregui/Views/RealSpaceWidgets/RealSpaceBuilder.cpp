@@ -93,7 +93,8 @@ void RealSpaceBuilder::populateLayer(RealSpaceModel* model,
                                      const QVector3D& origin)
 {
     auto layer = TransformTo3D::createLayer(layerItem, sceneGeometry, origin);
-    model->addBlend(layer.release());
+    if (layer)
+        model->addBlend(layer.release());
 
     for (auto layout : layerItem.getItems(LayerItem::T_LAYOUTS))
         populateLayout(model, *layout, sceneGeometry, origin);
@@ -159,7 +160,7 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
 {
     // if particle composition is present
     if(particleItem.modelType() == Constants::ParticleCompositionType)
-    {    
+    {
         auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
         auto particleComposition = particleCompositionItem->createParticleComposition();
 
@@ -178,7 +179,8 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
             auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff); // 3D GUI particle
 
             RealSpaceBuilderUtils::applyParticleTransformations(particle, particle3D.get(), origin);
-            model->add(particle3D.release());
+            if (particle3D)
+                model->add(particle3D.release());
         }
     }
 
@@ -188,7 +190,9 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
         auto particle = pItem->createParticle(); // create core Particle object
         auto particle3D = TransformTo3D::createParticle3D(particleItem); // 3D GUI particle
 
-        RealSpaceBuilderUtils::applyParticleTransformations(particle.get(), particle3D.get(), origin);
-        model->add(particle3D.release());
+        RealSpaceBuilderUtils::applyParticleTransformations(particle.get(), particle3D.get(),
+                                                            origin);
+        if (particle3D)
+            model->add(particle3D.release());
     }
 }

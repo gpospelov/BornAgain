@@ -29,7 +29,7 @@ namespace
 
 RealSpaceDialog::RealSpaceDialog(SampleModel *sampleModel,
                                              QItemSelectionModel* selectionModel, QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
     , m_sampleModel(sampleModel)
     , m_selectionModel(selectionModel)
 {
@@ -37,6 +37,7 @@ RealSpaceDialog::RealSpaceDialog(SampleModel *sampleModel,
     setMinimumSize(minimum_dialog_size);
     resize(default_dialog_size);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setWindowFlags(windowFlags() | Qt::Window | Qt::WindowStaysOnTopHint);
 
     // read the user's last persistent settings (size and position) of the dialog box
     readSettings();
@@ -54,7 +55,6 @@ RealSpaceDialog::RealSpaceDialog(SampleModel *sampleModel,
 
     setLayout(layout);
     setAttribute(Qt::WA_DeleteOnClose, true);
-    StyleUtils::setResizable(this);
 }
 
 void RealSpaceDialog::closeEvent(QCloseEvent *)

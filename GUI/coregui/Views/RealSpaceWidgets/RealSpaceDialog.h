@@ -28,7 +28,7 @@ class QBoxLayout;
 
 //! Dialog to hold RealSpaceWidget.
 
-class BA_CORE_API_ RealSpaceDialog : public QDialog
+class BA_CORE_API_ RealSpaceDialog : public QWidget
 {
     Q_OBJECT
 

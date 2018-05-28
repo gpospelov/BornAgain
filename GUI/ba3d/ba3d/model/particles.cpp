@@ -65,7 +65,7 @@ AnisoPyramid::AnisoPyramid(float L, float W, float H, float alpha)
     : Particle(Key(BaseShape::Column, (1.0f - H/(std::sqrt((L*L/4)+(W*W/4))*std::tan(alpha))), 4))
 {
     isNull = (L <= 0 || W <= 0  || H <= 0 || alpha <= 0);
-    turn = Vector3D(0,0,45);
+    turn = Vector3D(0,0,45*pi/180.0f);
     scale  = Vector3D(L*sqrt2f, W*sqrt2f, H);
     offset = Vector3D(0, 0, H/2);
     set();
@@ -75,7 +75,7 @@ Box::Box(float L, float W, float H)
     : Particle(Key(BaseShape::Column, 1.0f, 4))
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
-    turn = Vector3D(0,0,45);
+    turn = Vector3D(0,0,45*pi/180.0f);
     scale  = Vector3D(L*sqrt2f, W*sqrt2f, H);
     offset = Vector3D(0, 0, H/2);
     set();
@@ -196,7 +196,7 @@ Pyramid::Pyramid(float L, float H, float alpha)
 {
     isNull = (L <= 0 || H <= 0 || alpha <= 0);
     float L2 = L * sqrt2f;
-    turn = Vector3D(0,0,45);
+    turn = Vector3D(0,0,45*pi/180.0f);
     scale  = Vector3D(L2, L2, H);
     offset = Vector3D(0, 0, H/2);
     set();

@@ -61,7 +61,7 @@ void Program::init() {
     locMatProj   = uniformLocation("matProj");
     locMatModel  = uniformLocation("matModel");
     locMatObject = uniformLocation("matObject");
-    locLightPos  = uniformLocation("lightPos");
+    locLightPos1  = uniformLocation("lightPos1");
     locColor     = uniformLocation("color");
     ambient      = uniformLocation("ambient");
     eye          = uniformLocation("eye");
@@ -72,7 +72,7 @@ void Program::set(Camera const& camera) {
     setUniformValue(ambient, AMBIENT);
     setUniformValue(locMatProj,  camera.matProj);
     setUniformValue(locMatModel, camera.matModel);
-    setUniformValue(locLightPos, camera.lightPosRotated);
+    setUniformValue(locLightPos1, camera.lightPosRotated1);
     setUniformValue(eye, camera.getPos().eye);
 }
 

@@ -17,7 +17,6 @@
 #include "RealSpaceModel.h"
 #include "RealSpaceCanvas.h"
 #include "SessionItem.h"
-
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
 #include "ParticleLayoutItem.h"
@@ -26,9 +25,13 @@
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
 #include "Units.h"
-
 #include "TransformationItem.h"
 #include "RotationItems.h"
+#include "Rotations.h"
+#include "Particle.h"
+#include <AppSvc.h>
+#include "MaterialModel.h"
+#include "MaterialItem.h"
 
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
@@ -67,13 +70,12 @@ void RealSpaceBuilderUtils::populateRandomDistribution(
     QVector<QVector<double>> lattice_positions =
             computeRandomDistributionLatticePositions(layoutItem, sceneGeometry);
 
-    srand(static_cast<unsigned int>(time(0)));
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     for (QVector<double> position : lattice_positions)
     {
         // for random selection of particles based on their abundances
         double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
-
         int k = 0;
 
         for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
@@ -96,10 +98,12 @@ void RealSpaceBuilderUtils::populateRandomDistribution(
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
+                    // pass only the lattice position as parameter and not the added offset
+                    // since populateParticle intrinsically adds the offset to the lattice position
                     builder3D->populateParticle(model, *particle,
-                                     QVector3D(static_cast<float>(pos_x),
-                                               static_cast<float>(pos_y),
-                                               static_cast<float>(pos_z)));
+                                     QVector3D(static_cast<float>(position[0]),
+                                               static_cast<float>(position[1]),
+                                               static_cast<float>(0.0)));
                     break;
                 }
                 else
@@ -113,9 +117,7 @@ QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLattic
         const SessionItem &layoutItem, const SceneGeometry& sceneGeometry)
 {
     double layer_size = sceneGeometry.layer_size();
-
     QVector<QVector<double>> lattice_positions;
-
     QVector<double> position;
 
     // to compute total number of particles we use the total particle density
@@ -150,13 +152,12 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
                                       sceneGeometry.layer_bottom_thickness());
 
     auto interference = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
-
     auto interference2DLatticeItem =
             interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
 
     QVector<double> cumulative_abundances = computeCumulativeAbundances(layoutItem);
 
-    srand(static_cast<unsigned int>(time(0)));
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     // get the lattice positions at which to populate the particles
     QVector<QVector<double>> lattice_positions =
@@ -166,7 +167,6 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
     {
         // for random selection of particles based on their abundances
         double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
-
         int k = 0;
 
         for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
@@ -189,10 +189,12 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
                 // Randomly display a particle at the position, given its normalized abundance
                 if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
                 {
+                    // pass only the lattice position as parameter and not the added offset
+                    // since populateParticle intrinsically adds the offset to the lattice position
                     builder3D->populateParticle(model, *particle,
-                                     QVector3D(static_cast<float>(pos_x),
-                                               static_cast<float>(pos_y),
-                                               static_cast<float>(pos_z)));
+                                     QVector3D(static_cast<float>(position[0]),
+                                               static_cast<float>(position[1]),
+                                               static_cast<float>(0.0)));
                     break;
                 }
                 else
@@ -232,11 +234,8 @@ QVector<QVector<double>> RealSpaceBuilderUtils::getInterference2DLatticePosition
     {
         l1 = interference2DLatticeItem.getItemValue(
                     HexagonalLatticeItem::P_LATTICE_LENGTH).toDouble();
-
         l2 = l1;
-
         l_alpha = 120.0; // 120 degrees for a Hexagonal lattice
-
         l_xi = interference2DLatticeItem.getItemValue(
                     HexagonalLatticeItem::P_LATTICE_ROTATION_ANGLE).toDouble();
     }
@@ -246,11 +245,8 @@ QVector<QVector<double>> RealSpaceBuilderUtils::getInterference2DLatticePosition
     {
         l1 = interference2DLatticeItem.getItemValue(
                     SquareLatticeItem::P_LATTICE_LENGTH).toDouble();
-
         l2 = l1;
-
         l_alpha = 90.0; // 90 degrees for a Square lattice
-
         l_xi = interference2DLatticeItem.getItemValue(
                     SquareLatticeItem::P_LATTICE_ROTATION_ANGLE).toDouble();
     }
@@ -262,9 +258,7 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
         double l1, double l2, double l_alpha, double l_xi, const SceneGeometry &sceneGeometry)
 {
     double layer_size = sceneGeometry.layer_size();
-
     QVector<QVector<double>> lattice_positions;
-
     QVector<double> position;
 
     // Estimate the limit 'n' of the integer multiple i and j of the lattice vectors required in
@@ -302,34 +296,63 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
     return lattice_positions;
 }
 
-QVector3D RealSpaceBuilderUtils::implementParticleRotation(const SessionItem &particleItem)
+QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation* &rotation)
 {
-    // defined in accordance with QQuaternion::fromEulerAngles function parameters
     double alpha = 0.0;
     double beta = 0.0;
     double gamma = 0.0;
 
-    auto transformationItem = particleItem.getItem(ParticleItem::T_TRANSFORMATION);
-
-    auto rotItem = transformationItem->getGroupItem(TransformationItem::P_ROT);
-
-    if(rotItem->modelType() == Constants::XRotationType) {
-        beta = rotItem->getItemValue(XRotationItem::P_ANGLE).toDouble(); // about x-axis
-    } else if(rotItem->modelType() == Constants::YRotationType) {
-        alpha = -90.0;
-        beta = -rotItem->getItemValue(YRotationItem::P_ANGLE).toDouble(); // about y-axis
-        gamma = 90.0;
-    } else if(rotItem->modelType() == Constants::ZRotationType) {
-        alpha = rotItem->getItemValue(ZRotationItem::P_ANGLE).toDouble(); // about z-axis
-    } else if(rotItem->modelType() == Constants::EulerRotationType) {
-        gamma = rotItem->getItemValue(EulerRotationItem::P_ALPHA).toDouble();
-        beta = rotItem->getItemValue(EulerRotationItem::P_BETA).toDouble();
-        alpha = rotItem->getItemValue(EulerRotationItem::P_GAMMA).toDouble();
+    if(auto rotX = dynamic_cast<const RotationX*>(rotation)) {
+        beta = rotX->getAngle(); // about x-axis
+    } else if(auto rotY = dynamic_cast<const RotationY*>(rotation)) {
+        alpha = Units::deg2rad(90.0);
+        beta = rotY->getAngle(); // about y-axis
+        gamma = Units::deg2rad(-90.0);
+    } else if(auto rotZ = dynamic_cast<const RotationZ*>(rotation)) {
+        alpha = rotZ->getAngle(); // about z-axis
+    } else if (auto rotEuler = dynamic_cast<const RotationEuler*>(rotation)) {
+        alpha = rotEuler->getAlpha();
+        beta = rotEuler->getBeta();
+        gamma = rotEuler->getGamma();
     }
-    alpha = Units::deg2rad(alpha);
-    beta = Units::deg2rad(beta);
-    gamma = Units::deg2rad(gamma);
     return QVector3D(static_cast<float>(alpha),
                      static_cast<float>(beta),
                      static_cast<float>(gamma));
+}
+
+void RealSpaceBuilderUtils::applyParticleTransformations(Particle* particle,
+                                                         RealSpace::Particles::Particle* particle3D,
+                                                         const QVector3D& origin)
+{
+    if (particle && particle3D)
+    {
+        // position of the current particle
+        float x = static_cast<float>(particle->position().x());
+        float y = static_cast<float>(particle->position().y());
+        float z = static_cast<float>(particle->position().z());
+        RealSpace::Vector3D position(x + origin.x(), y + origin.y(), z + origin.z());
+
+        // rotation of the current particle
+        RealSpace::Vector3D particle_rotate;
+        const IRotation* rotation = particle->rotation();
+
+        if(rotation)
+            particle_rotate =
+                    RealSpaceBuilderUtils::implementParticleRotationfromIRotation(rotation);
+
+        // NOTE: If the particle belongs to a particle composition, along with the particle's
+        // intrinsic transformations, position() and rotation() methods also account for the
+        // translation and rotation (if present) of the particle composition
+
+        // assign correct colour to the particle from the knowledge of its material
+        const Material* particle_material = particle->material();
+        QString material_name = QString::fromStdString(particle_material->getName());
+        auto materialItem = AppSvc::materialModel()->materialFromName(material_name);
+        particle3D->color = materialItem->color();
+
+        particle3D->transform(particle_rotate, position);
+    }
+
+    else
+        return;
 }

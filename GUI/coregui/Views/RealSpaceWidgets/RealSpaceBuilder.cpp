@@ -31,6 +31,11 @@
 #include "Lattice2DItems.h"
 #include "Units.h"
 
+#include "ParticleCompositionItem.h"
+#include "IParticle.h"
+#include "IFormFactorDecorator.h"
+#include "Particle.h"
+
 RealSpaceBuilder::RealSpaceBuilder(QWidget* parent)
     : QWidget(parent)
 {
@@ -42,7 +47,8 @@ RealSpaceBuilder::~RealSpaceBuilder()
 
 }
 
-void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
+void RealSpaceBuilder::populate(RealSpaceModel* model,
+                                const SessionItem& item,
                                 const SceneGeometry& sceneGeometry,
                                 const RealSpace::Camera::Position& cameraPosition)
 {
@@ -63,8 +69,10 @@ void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
         populateParticle(model, item);
 }
 
-void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
-                                          const SceneGeometry& sceneGeometry, const QVector3D&)
+void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model,
+                                          const SessionItem& item,
+                                          const SceneGeometry& sceneGeometry,
+                                          const QVector3D&)
 {
     double total_height(0.0);
     int index(0);
@@ -79,8 +87,10 @@ void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionIt
 
 }
 
-void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
-                                     const SceneGeometry& sceneGeometry, const QVector3D& origin)
+void RealSpaceBuilder::populateLayer(RealSpaceModel* model,
+                                     const SessionItem& layerItem,
+                                     const SceneGeometry& sceneGeometry,
+                                     const QVector3D& origin)
 {
     auto layer = TransformTo3D::createLayer(layerItem, sceneGeometry, origin);
     model->addBlend(layer.release());
@@ -89,8 +99,10 @@ void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& l
         populateLayout(model, *layout, sceneGeometry, origin);
 }
 
-void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
-                                      const SceneGeometry& sceneGeometry, const QVector3D& origin)
+void RealSpaceBuilder::populateLayout(RealSpaceModel* model,
+                                      const SessionItem& layoutItem,
+                                      const SceneGeometry& sceneGeometry,
+                                      const QVector3D& origin)
 {
     Q_ASSERT(layoutItem.modelType() == Constants::ParticleLayoutType);
 
@@ -103,7 +115,8 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
         RealSpaceBuilderUtils::populateRandomDistribution(model, layoutItem, sceneGeometry, this);
 }
 
-void RealSpaceBuilder::populateInterference(RealSpaceModel* model, const SessionItem& layoutItem,
+void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
+                                            const SessionItem& layoutItem,
                                             const SceneGeometry& sceneGeometry)
 {
     // If there is no particle to populate
@@ -140,27 +153,42 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model, const Session
     */
 }
 
-void RealSpaceBuilder::populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
+void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
+                                        const SessionItem& particleItem,
                                         const QVector3D& origin) const
 {
-    Q_ASSERT(particleItem.modelType() == Constants::ParticleType);
+    // if particle composition is present
+    if(particleItem.modelType() == Constants::ParticleCompositionType)
+    {    
+        auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
+        auto particleComposition = particleCompositionItem->createParticleComposition();
 
-    // Checking if there is any rotation (transformation) of the particle
+        // abbreviate ParticleComposition as pc
+        SafePointerVector<IParticle> pc_vector = particleComposition->decompose();
 
-    RealSpace::Vector3D rotate;
+        for (IParticle* pc_particle : pc_vector)
+        {
+            auto particle = dynamic_cast<Particle*>(pc_particle); // core Particle object
+            const IFormFactor* ff = pc_particle->createFormFactor(); // abbreviate FormFactor as ff
 
-    if(particleItem.getItem(ParticleItem::T_TRANSFORMATION))
-        rotate = RealSpaceBuilderUtils::implementParticleRotation(particleItem);
+            // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
+            while(dynamic_cast<const IFormFactorDecorator*>(ff))
+                ff = dynamic_cast<const IFormFactorDecorator*>(ff)->getFormFactor();
 
-    auto particle = TransformTo3D::createParticle(particleItem);
+            auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff); // 3D GUI particle
 
-    if (particle) {
-        SessionItem* positionItem = particleItem.getItem(ParticleItem::P_POSITION);
-        float x = positionItem->getItemValue(VectorItem::P_X).toFloat();
-        float y = positionItem->getItemValue(VectorItem::P_Y).toFloat();
-        float z = positionItem->getItemValue(VectorItem::P_Z).toFloat();
-        RealSpace::Vector3D position(x + origin.x(),y + origin.y(),z + origin.z());
-        particle->transform(rotate, position);
-        model->add(particle.release());
+            RealSpaceBuilderUtils::applyParticleTransformations(particle, particle3D.get(), origin);
+            model->add(particle3D.release());
+        }
+    }
+
+    else if(particleItem.modelType() == Constants::ParticleType)
+    {
+        auto pItem = dynamic_cast<const ParticleItem*>(&particleItem);
+        auto particle = pItem->createParticle(); // create core Particle object
+        auto particle3D = TransformTo3D::createParticle3D(particleItem); // 3D GUI particle
+
+        RealSpaceBuilderUtils::applyParticleTransformations(particle.get(), particle3D.get(), origin);
+        model->add(particle3D.release());
     }
 }

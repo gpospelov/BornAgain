@@ -47,7 +47,7 @@ TestView::TestView(MainWindow *mainWindow)
     : QWidget(mainWindow)
     , m_mainWindow(mainWindow)
 {
-    test_ComponentProxyModel();
+//    test_ComponentProxyModel();
 //    test_MaterialEditor();
 //    test_MinimizerSettings();
 //    test_AccordionWidget();
@@ -170,12 +170,15 @@ void TestView::test_AccordionWidget()
 
 void TestView::test_ba3d()
 {
+    // After putting this 3D view in Sample Viewer with the necessary changes, it does not work
+    // in test view and needs to be refactored in order to be used.
+
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
 #ifdef BORNAGAIN_OPENGL
-    RealSpaceWidget* widget = new RealSpaceWidget;
-    widget->setModel(m_mainWindow->sampleModel());
+    RealSpaceWidget* widget = new RealSpaceWidget(m_mainWindow->sampleModel());
+    widget->setModel(m_mainWindow->sampleModel(), nullptr);
     layout->addWidget(widget);
 #endif
     setLayout(layout);

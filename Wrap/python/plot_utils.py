@@ -55,12 +55,14 @@ def translate_axis_label(label):
                  'alpha_i [deg]' : r'$\alpha_i \; (deg)$',
                  'X [mm]'        : r'$X \; (mm)$',
                  'Qy [1/nm]'     : r'$Q_y \; (nm^{-1})$',
+                 'Q [1/nm]'      : r'$Q \; (nm^{-1})$',
 
                  'Y [nbins]'     : r'$Y \; (bins)$',
                  'alpha_f [rad]' : r'$\alpha_f \; (rad)$',
                  'alpha_f [deg]' : r'$\alpha_f \; (deg)$',
                  'Y [mm]'        : r'$Y \; (mm)$',
-                 'Qz [1/nm]'     : r'$Q_z \; (nm^{-1})$'
+                 'Qz [1/nm]'     : r'$Q_z \; (nm^{-1})$',
+                 'Position [nm]' : r'$Position \; (nm)$'
                  }
     if label in label_dict.keys():
         return label_dict[label]
@@ -81,6 +83,60 @@ def get_axes_labels(result, units):
     return labels
 
 
+def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
+               title=None, axes_limits=None):
+    """
+    Plots numpy array as a colormap in log scale.
+    """
+
+    zlabel = "Intensity" if zlabel is None else zlabel
+
+    zmax = np.amax(array) if zmax is None else zmax
+    zmin = 1e-6*zmax if zmin is None else zmin
+
+    if zmin == zmax == 0.0:
+        norm = colors.Normalize(0, 1)
+    else:
+        norm = colors.LogNorm(zmin, zmax)
+
+    im = plt.imshow(array, norm=norm, extent=axes_limits, aspect='auto')
+    cb = plt.colorbar(im, pad=0.025)
+
+    if xlabel:
+        plt.xlabel(xlabel, fontsize=label_fontsize)
+
+    if ylabel:
+        plt.ylabel(ylabel, fontsize=label_fontsize)
+
+    if zlabel:
+        cb.set_label(zlabel, size=label_fontsize)
+
+    if title:
+        plt.title(title)
+
+
+def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
+                  title=None):
+    """
+    Plots intensity data as color map
+    :param intensity: Histogram2D object obtained from GISASSimulation
+    :param zmin: Min value on amplitude's color bar
+    :param zmax: Max value on amplitude's color bar
+    """
+
+    if not xlabel:
+        xlabel = translate_axis_label(hist.getXaxis().getName())
+
+    if not ylabel:
+        ylabel = translate_axis_label(hist.getYaxis().getName())
+
+    axes_limits = [hist.getXmin(), hist.getXmax(),
+                   hist.getYmin(), hist.getYmax()]
+
+    plot_array(hist.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
+               zlabel=zlabel, title=title, axes_limits=axes_limits)
+
+
 def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
                   xlabel=None, ylabel=None, zlabel=None,
                   title=None):
@@ -90,23 +146,38 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
-    intensity = result.array()
-    zmax = np.amax(intensity) if zmax is None else zmax
-    zmin = 1e-6*zmax if zmin is None else zmin
 
     axes_limits = get_axes_limits(result, units)
     axes_labels = get_axes_labels(result, units)
     xlabel = axes_labels[0] if xlabel is None else xlabel
     ylabel = axes_labels[1] if ylabel is None else ylabel
-    zlabel = "Intensity" if zlabel is None else zlabel
 
-    im = plt.imshow(
-        intensity,
-        norm=colors.LogNorm(zmin, zmax),
-        extent=axes_limits,
-        aspect='auto',
-    )
-    cb = plt.colorbar(im, pad=0.025)
+    plot_array(result.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
+               zlabel=zlabel, title=title, axes_limits=axes_limits)
+
+
+def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesUnits.DEFAULT,
+              xlabel=None, ylabel=None, title=None):
+    """
+    Plots intensity data for specular simulation result
+    :param result: SimulationResult from SpecularSimulation
+    :param ymin: minimal y-axis value to show
+    :param ymax: maximum y-axis value to show
+    :param units: units on the x-axis
+    """
+
+    data = result.data(units)
+    intensity = data.getArray()
+    x_axis = data.getAxis(0).getBinCenters()
+    ymax = np.amax(intensity) * 2.0 if ymax is None else ymax
+    ymin = max(np.amin(intensity) * 0.5, 1e-18 * ymax) if ymin is None else ymin
+
+    xlabel = get_axes_labels(result, units)[0] if xlabel is None else xlabel
+    ylabel = "Intensity" if ylabel is None else ylabel
+
+    plt.semilogy(x_axis, intensity)
+
+    plt.ylim([ymin, ymax])
 
     if xlabel:
         plt.xlabel(xlabel, fontsize=label_fontsize)
@@ -114,63 +185,27 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     if ylabel:
         plt.ylabel(ylabel, fontsize=label_fontsize)
 
-    if zlabel:
-        cb.set_label(zlabel, size=label_fontsize)
-
     if title:
         plt.title(title)
 
 
-def plot_simulation_result(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT):
+def plot_simulation_result(result, intensity_min=None, intensity_max=None, units=ba.AxesUnits.DEFAULT,
+                           postpone_show=False):
     """
-    Plots simulation result as color map and hold the plot.
+    Draws simulation result and (optionally) shows the plot.
     :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
-    :param zmin: Min value on amplitude's color bar
-    :param zmax: Max value on amplitude's color bar
+    :param intensity_min: Min value on amplitude's axis or color bar
+    :param intensity_max: Max value on amplitude's axis or color bar
+    :param units: units for plot axes
+    :param postpone_show: postpone showing the plot for later tuning (False by default)
     """
-    plot_colormap(result, zmin, zmax, units)
+    if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
+        plot_specular_simulation_result(result, intensity_min, intensity_max)
+    else:
+        plot_colormap(result, intensity_min, intensity_max, units)
     plt.tight_layout()
-    plt.show()
-
-
-def plot_histogram(intensity, zmin=None, zmax=None,
-                  xlabel=None, ylabel=None, zlabel=None,
-                  title=None):
-    """
-    Plots intensity data as color map
-    :param intensity: Histogram2D object obtained from GISASSimulation
-    :param zmin: Min value on amplitude's color bar
-    :param zmax: Max value on amplitude's color bar
-    """
-    zmax = intensity.getMaximum() if zmax is None else zmax
-    zmin = 1e-6*zmax if zmin is None else zmin
-
-    xlabel = intensity.getXaxis().getName() if xlabel is None else xlabel
-    ylabel = intensity.getYaxis().getName() if ylabel is None else ylabel
-    zlabel = "Intensity" if zlabel is None else zlabel
-    axes_limits = [intensity.getXmin(), intensity.getXmax(),
-                   intensity.getYmin(), intensity.getYmax()]
-
-    plt.tight_layout()
-    im = plt.imshow(
-        intensity.getArray(),
-        norm=colors.LogNorm(zmin, zmax),
-        extent=axes_limits,
-        aspect='auto',
-    )
-    cb = plt.colorbar(im, pad=0.025)
-
-    if xlabel:
-        plt.xlabel(xlabel, fontsize=label_fontsize)
-
-    if ylabel:
-        plt.ylabel(ylabel, fontsize=label_fontsize)
-
-    if zlabel:
-        cb.set_label(zlabel, size=label_fontsize)
-
-    if title:
-        plt.title(title)
+    if not postpone_show:
+        plt.show()
 
 
 class Plotter:
@@ -183,8 +218,8 @@ class Plotter:
         self._fig.clf()
 
     def plot(self, fit_suite):
+        self._fig.tight_layout()
         plt.pause(0.03)
-
 
 
 class PlotterGISAS(Plotter):
@@ -199,28 +234,27 @@ class PlotterGISAS(Plotter):
     def plot(self, fit_suite):
         Plotter.reset(self)
 
+        real_data = fit_suite.experimentalData()
+        sim_data = fit_suite.simulationResult()
+        diff = fit_suite.relativeDifference()
 
         self.make_subplot(1)
-        real_data = fit_suite.getRealData()
 
-        zmax = real_data.getMaximum()
+        # same limits for both plots
+        arr = real_data.array()
+        zmax = np.amax(arr)
         zmin = zmax*1e-6
 
-        plot_histogram(real_data, title="\"Real\" data",
-                      zmin=zmin, zmax=zmax,
+        plot_colormap(real_data, title="\"Experimental\" data", zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(2)
-        sim_data = fit_suite.getSimulationData()
-        plot_histogram(sim_data, title="Simulated data",
-                      zmin=zmin, zmax=zmax,
+        plot_colormap(sim_data, title="Simulated data", zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(3)
-        chi_data = fit_suite.getChiSquaredMap()
-        plot_histogram(chi_data, title="Chi2 map",
-                      zmin=0.001, zmax=10.0,
-                      xlabel='', ylabel='', zlabel='')
+        plot_colormap(diff, title="Relative difference", zmin=0.001, zmax=10.0,
+                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(4)
         plt.title('Parameters')
@@ -281,14 +315,14 @@ class PlotterSpecular(Plotter):
         n_digits = 1  # number of decimal digits to print
         n_iterations = fit_suite.numberOfIterations()  # number of iterations
         minimizer = fit_suite.minimizer().minimizerName()
-        fom_max = fit_suite.getChiSquaredMap().getArray().max()  # max Figure Of Merit (FOM) value
+        rel_dif = fit_suite.relativeDifference().array().max()  # maximum relative difference
         fitted_parameters = fit_suite.fitParameters()
 
         # creating table content
         labels = ("Parameter", "Value")
         table_data = [["Minimizer", '{:s}'.format(self.trunc_str(minimizer, trunc_length))],
                       ["Iteration", '${:d}$'.format(n_iterations)],
-                      ["$\chi^2_{max}$", '${:s}$'.format(self.as_si(fom_max, n_digits))]]
+                      ["$d_{r, max}$", '${:s}$'.format(self.as_si(rel_dif, n_digits))]]
         for fitPar in fitted_parameters:
             table_data.append(['{:s}'.format(self.trunc_str(fitPar.name(), trunc_length)),
                                '${:s}$'.format(self.as_si(fitPar.value(), n_digits))])
@@ -308,8 +342,8 @@ class PlotterSpecular(Plotter):
 
     def plot_graph(self, fit_suite):
         # retrieving data from fit suite
-        real_data = fit_suite.getRealData()
-        sim_data = fit_suite.getSimulationData()
+        real_data = fit_suite.experimentalData().histogram1d()
+        sim_data = fit_suite.simulationResult().histogram1d()
 
         # normalizing axis coordinates
         axis = sim_data.getXaxis().getBinCenters()
@@ -321,8 +355,8 @@ class PlotterSpecular(Plotter):
                 'size': label_fontsize}
 
         plt.subplot(self.gs[0])
-        plt.semilogy(axis_values, sim_data.getArray(), 'b',
-                     axis_values, real_data.getArray(), 'k--')
+        plt.semilogy(axis_values, sim_data.array(), 'b',
+                     axis_values, real_data.array(), 'k--')
         plt.ylim((0.5 * real_data.getMinimum(), 5 * real_data.getMaximum()))
         plt.legend(['BornAgain', 'Reference'], loc='upper right', prop=font)
         plt.xlabel(sim_data.getXaxis().getName(), fontdict=font)
@@ -334,8 +368,6 @@ class PlotterSpecular(Plotter):
 
         self.plot_graph(fit_suite)
         self.plot_table(fit_suite)
-
-        plt.tight_layout()
 
         Plotter.plot(self, fit_suite)
 

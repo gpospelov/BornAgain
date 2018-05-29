@@ -2,6 +2,8 @@
 # Tests/Functional/PyCore/suite/CMakeLists.txt
 ############################################################################
 
+set(test TestPyStandard)
+
 set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyStandard)
 file(MAKE_DIRECTORY ${output_dir})
 
@@ -45,6 +47,7 @@ set(test_cases
     RotatedCylinder
     RotatedPyramids
     RotatedSquareLattice
+    FiniteSquareLattice
     SimulationWithMasks
     SquareLattice
     TransformBox
@@ -58,11 +61,15 @@ set(test_cases
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
     OffSpecularResonator
+    GaussianBeamFootprint
+    SpecularDivergentBeam
+    HomogeneousTiNiSampleWithAbsorption
 )
 
-add_executable(PyStandardTest main.cpp PyStandardTest.h PyStandardTest.cpp)
-target_link_libraries(PyStandardTest BornAgainCore BornAgainTestMachinery)
+add_executable(${test} main.cpp PyStandardTest.h PyStandardTest.cpp)
+target_link_libraries(${test} BornAgainCore BornAgainTestMachinery)
+
 foreach(test_case ${test_cases})
-    add_test(PyStandardTest/${test_case}
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PyStandardTest ${test_case})
+    add_test(${test}/${test_case}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} ${test_case})
 endforeach()

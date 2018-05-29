@@ -33,3 +33,23 @@ void RealSpaceView::setModel(RealSpaceModel* model)
 {
     m_3dview->setModel(model);
 }
+
+void RealSpaceView::defaultView()
+{
+    m_3dview->defaultView();
+}
+
+void RealSpaceView::sideView()
+{
+    m_3dview->sideView();
+}
+
+void RealSpaceView::topView()
+{
+    m_3dview->topView();
+}
+
+RealSpace::Camera &RealSpaceView::getCamera()
+{
+    return m_3dview->cam();
+}

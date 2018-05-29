@@ -95,25 +95,20 @@ def run_simulation():
     return simulation.result()
 
 
-def plot(data):
+def plot(results):
     """
     Plots data for several selected layers
     """
     from matplotlib import pyplot as plt
-    plt.figure(figsize=(12.80, 10.24))
 
-    hist = data.histogram1d()
-    axis = hist.getXaxis().getBinCenters()
-    intensities = data.array()
+    ba.plot_simulation_result(results, postpone_show=True)
 
     genx_axis, genx_values = create_real_data()
 
-    plt.xlabel(r'$\alpha_f$ (deg)', fontsize=16)
-    plt.ylabel(r'Reflectivity, a.u.', fontsize=16)
-    plt.semilogy(axis, intensities, genx_axis, genx_values, 'ko', markevery=300)
+    plt.semilogy(genx_axis, genx_values, 'ko', markevery=300)
     plt.legend(['BornAgain',
                 'GenX'],
-               loc='upper right', fontsize=16)
+               loc='upper right')
 
     plt.show()
 

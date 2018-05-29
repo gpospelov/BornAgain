@@ -17,11 +17,11 @@
 
 #include "SessionItemWidget.h"
 
+class BeamItem;
+class ColumnResizer;
 class ComponentEditor;
 class QGridLayout;
 class SpecularInstrumentItem;
-class BeamItem;
-class ColumnResizer;
 
 //! Specular beam editor. Operates on SpecularInstrumentItem.
 
@@ -38,13 +38,13 @@ protected:
 
 private:
     SpecularInstrumentItem* instrumentItem();
-    BeamItem* beamItem();
     void onDialogRequest(SessionItem* item, const QString& name);
 
     ColumnResizer* m_columnResizer;
     ComponentEditor* m_intensityEditor;
     ComponentEditor* m_wavelengthEditor;
     ComponentEditor* m_inclinationEditor;
+    ComponentEditor* m_footprint_editor;
     QGridLayout* m_gridLayout;
 };
 

@@ -73,7 +73,11 @@ void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem 
     JobModelFunctions::copyRealDataItem(jobItem, realDataItem);
     JobModelFunctions::processInstrumentLink(jobItem);
     JobModelFunctions::copyMasksToInstrument(jobItem);
-    JobModelFunctions::cropRealData(jobItem);
+
+    // TODO: remove if when other simulation types are ready for roi & masks
+    if (jobItem->instrumentItem()->modelType() == Constants::GISASInstrumentType)
+        JobModelFunctions::cropRealData(jobItem);
+
     JobModelFunctions::createFitContainers(jobItem);
     jobItem->setItemValue(JobItem::P_PRESENTATION_TYPE, Constants::FitComparisonPresentation);
 }
@@ -92,11 +96,11 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
         model->copyItem(realDataItem, jobItem, JobItem::T_REALDATA));
     Q_ASSERT(realDataItemCopy);
 
-    realDataItemCopy->intensityDataItem()->setOutputData(
-                realDataItem->intensityDataItem()->getOutputData()->clone());
+    realDataItemCopy->dataItem()->setOutputData(
+                realDataItem->dataItem()->getOutputData()->clone());
 
     // adapting the name to job name
-    realDataItemCopy->intensityDataItem()->setItemValue(IntensityDataItem::P_FILE_NAME,
+    realDataItemCopy->dataItem()->setItemValue(DataItem::P_FILE_NAME,
         JobItemFunctions::jobReferenceFileName(*jobItem));
 }
 
@@ -136,16 +140,19 @@ void JobModelFunctions::cropRealData(JobItem *jobItem) {
     // adjusting real data to the size of region of interest
     IntensityDataItem *intensityItem = realData->intensityDataItem();
 
-    auto instrument = DomainObjectBuilder::buildInstrument(*jobItem->instrumentItem());
-    instrument->initDetector();
+    std::unique_ptr<OutputData<double>> origData(intensityItem->getOutputData()->clone());
 
-    AxesUnits requested_units
-        = JobItemUtils::axesUnitsFromName(intensityItem->selectedAxesUnits());
+    JobItemUtils::createDefaultDetectorMap(intensityItem, jobItem->instrumentItem());
 
-    std::unique_ptr<OutputData<double>> adjustedData = DetectorFunctions::createDataSet(
-                *instrument.get(), *intensityItem->getOutputData(), true, requested_units);
-    intensityItem->setOutputData(adjustedData.release());
-    intensityItem->setAxesRangeToData();
+    auto instrument = jobItem->instrumentItem()->createInstrument();
+    instrument->getDetector()->iterate(
+        [&](IDetector::const_iterator it) {
+            auto cropped_data = intensityItem->getOutputData();
+            (*cropped_data)[it.roiIndex()] = (*origData)[it.detectorIndex()];
+        },
+        /*visit_masked*/ false);
+
+    intensityItem->updateDataRange();
 }
 
 //! Creates necessary fit containers for jobItem intended for fitting.

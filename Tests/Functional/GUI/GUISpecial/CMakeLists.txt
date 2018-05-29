@@ -1,4 +1,4 @@
-set(test GUISpecial)
+set(test TestGUISpecial)
 
 set(test_cases
     BasicTranslation
@@ -23,11 +23,12 @@ set(test_cases
 file(GLOB source_files "*.cpp")
 file(GLOB include_files "*.h")
 
+find_package(Qt5Core REQUIRED)
+
 add_executable(${test} ${include_files} ${source_files})
 target_link_libraries(${test} BornAgainCore BornAgainGUI BornAgainTestMachinery)
-qt5_use_modules(${test} Widgets Core Gui Designer PrintSupport Network)
+target_link_libraries(${test} Qt5::Core)
 
 foreach(test_case ${test_cases})
     add_test(${test}/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} ${test_case})
 endforeach()
-

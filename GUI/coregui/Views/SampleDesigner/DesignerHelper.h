@@ -40,6 +40,7 @@ public:
         INTERFERENCE_FUNCTION_2D_PARA,
         INTERFERENCE_FUNCTION_1D_LATTICE,
         INTERFERENCE_FUNCTION_2D_LATTICE,
+        INTERFERENCE_FUNCTION_FINITE_2D_LATTICE,
         PARTICLE,
         TRANSFORMATION,
     };
@@ -55,7 +56,7 @@ public:
     static int getDefaultParticleLayoutWidth() { return m_default_layer_height*3.5; }
     static int getDefaultParticleLayoutHeight() { return m_default_layer_height*4.5; }
 
-    static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*4; }
+    static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*4.5; }
     static int getDefaultInterferenceFunctionHeight() { return m_default_layer_height*4; }
 
     static int getDefaultParticleWidth() { return m_default_layer_height*3.5; }
@@ -87,7 +88,7 @@ public:
         return left->y() < right->y();
     }
 
-    //! non-linear convertion of layer's thickness in nanometers to screen size
+    //! non-linear conversion of layer's thickness in nanometers to screen size
     //! to have reasonable graphics representation of layer in the form of QRect
     static int nanometerToScreen(double nanometer);
 

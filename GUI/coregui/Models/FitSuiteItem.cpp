@@ -43,17 +43,3 @@ MinimizerContainerItem *FitSuiteItem::minimizerContainerItem()
 {
     return dynamic_cast<MinimizerContainerItem *>(getItem(FitSuiteItem::T_MINIMIZER));
 }
-
-//std::unique_ptr<FitSuite> FitSuiteItem::createFitSuite()
-//{
-//    std::unique_ptr<FitSuite> result(new FitSuite);
-
-////    SessionItem *container = getItem(T_FIT_PARAMETERS);
-////    Q_ASSERT(container);
-
-////    foreach(SessionItem *parItem, container->getItems(T_FIT_PARAMETERS)) {
-
-////    }
-
-//    return std::move(result);
-//}

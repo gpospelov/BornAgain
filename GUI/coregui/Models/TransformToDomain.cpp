@@ -14,7 +14,7 @@
 
 #include "TransformToDomain.h"
 #include "BeamAngleItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
@@ -50,11 +50,20 @@
 #include "RotationItems.h"
 #include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
+#include "SpecularBeamInclinationItem.h"
+#include "SpecularSimulation.h"
 #include "TransformationItem.h"
 #include "Units.h"
 #include "VectorItem.h"
 
 using SessionItemUtils::GetVectorItem;
+
+namespace
+{
+template <class T>
+void setParameterDistributionToSimulation(const std::string& parameter_name,
+                                          const SessionItem* item, Simulation& simulation);
+}
 
 std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
@@ -146,37 +155,34 @@ std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribut
 
 //! adds DistributionParameters to the Simulation
 void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
-                                                              GISASSimulation* simulation)
+                                                              GISASSimulation& simulation)
 {
-    ParameterPattern pattern_wavelength;
-    pattern_wavelength.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
-    ParameterPattern pattern_alpha;
-    pattern_alpha.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
-    ParameterPattern pattern_phi;
-    pattern_phi.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Azimuth);
-    if (beam_item.modelType() == Constants::BeamType) {
-        if (auto beamWavelength
-            = dynamic_cast<BeamWavelengthItem*>(beam_item.getItem(BeamItem::P_WAVELENGTH))) {
-            auto P_par_distr = beamWavelength->getParameterDistributionForName(
-                        pattern_wavelength.toStdString());
-            if (P_par_distr)
-                simulation->addParameterDistribution(*P_par_distr);
-        }
-        if (auto inclinationAngle = dynamic_cast<BeamInclinationAngleItem*>(
-                beam_item.getItem(BeamItem::P_INCLINATION_ANGLE))) {
-            auto P_par_distr = inclinationAngle->getParameterDistributionForName(
-                        pattern_alpha.toStdString());
-            if (P_par_distr)
-                simulation->addParameterDistribution(*P_par_distr);
-        }
-        if (auto azimuthalAngle = dynamic_cast<BeamAzimuthalAngleItem*>(
-                beam_item.getItem(BeamItem::P_AZIMUTHAL_ANGLE))) {
-            auto P_par_distr = azimuthalAngle->getParameterDistributionForName(
-                        pattern_phi.toStdString());
-            if (P_par_distr)
-                simulation->addParameterDistribution(*P_par_distr);
-        }
+    if (beam_item.modelType() != Constants::GISASBeamType) {
+        Q_ASSERT(beam_item.modelType() == Constants::GISASBeamType);
+        return;
     }
+
+    setParameterDistributionToSimulation<BeamWavelengthItem>(
+        BornAgain::Wavelength, beam_item.getItem(BeamItem::P_WAVELENGTH), simulation);
+    setParameterDistributionToSimulation<BeamInclinationAngleItem>(
+        BornAgain::Inclination, beam_item.getItem(BeamItem::P_INCLINATION_ANGLE), simulation);
+    setParameterDistributionToSimulation<BeamAzimuthalAngleItem>(
+        BornAgain::Azimuth, beam_item.getItem(BeamItem::P_AZIMUTHAL_ANGLE), simulation);
+}
+
+void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
+                                                              SpecularSimulation& simulation)
+{
+    if (beam_item.modelType() != Constants::SpecularBeamType) {
+        Q_ASSERT(beam_item.modelType() == Constants::SpecularBeamType);
+        return;
+    }
+
+    setParameterDistributionToSimulation<BeamWavelengthItem>(
+        BornAgain::Wavelength, beam_item.getItem(SpecularBeamItem::P_WAVELENGTH), simulation);
+    setParameterDistributionToSimulation<SpecularBeamInclinationItem>(
+        BornAgain::Inclination, beam_item.getItem(SpecularBeamItem::P_INCLINATION_ANGLE),
+        simulation);
 }
 
 void TransformToDomain::setSimulationOptions(Simulation* simulation,
@@ -221,4 +227,25 @@ void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& it
             break;
         }
     }
+}
+
+namespace  {
+template <class T>
+void setParameterDistributionToSimulation(const std::string& parameter_name,
+                                          const SessionItem* item, Simulation& simulation)
+{
+    const auto parameter_item = dynamic_cast<const T*>(item);
+    if (!parameter_item) {
+        Q_ASSERT(parameter_item);
+        return;
+    }
+
+    ParameterPattern parameter_pattern;
+    parameter_pattern.beginsWith("*").add(BornAgain::BeamType).add(parameter_name);
+
+    auto P_par_distr
+        = parameter_item->getParameterDistributionForName(parameter_pattern.toStdString());
+    if (P_par_distr)
+        simulation.addParameterDistribution(*P_par_distr);
+}
 }

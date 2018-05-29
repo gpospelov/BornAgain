@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 
+class DepthProbeSimulation;
 class GISASSimulation;
 class SpecularSimulation;
 class OffSpecSimulation;
@@ -63,6 +64,8 @@ BA_CORE_API_ SpecularSimulation* SpecularDivergentBeam();
 // OffSpec simulations
 BA_CORE_API_ OffSpecSimulation* MiniOffSpec();
 
+// Depth probe simulations
+BA_CORE_API_ DepthProbeSimulation* BasicDepthProbe();
 
 } // namespace StandardSimulations
 

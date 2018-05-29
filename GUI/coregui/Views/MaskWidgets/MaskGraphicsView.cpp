@@ -52,7 +52,6 @@ void MaskGraphicsView::wheelEvent(QWheelEvent *event)
         if(event->delta() > 0) {
             // Zoom in
             increazeZoomValue();
-
         } else {
             // Zooming out
             if(horizontalScrollBar()->isVisible() || verticalScrollBar()->isVisible())
@@ -68,7 +67,7 @@ void MaskGraphicsView::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
     updateSize(event->size());
-//    foreach (QGraphicsItem *graphicsItem, scene()->items()) {
+//    for(QGraphicsItem *graphicsItem : scene()->items()) {
 //        if(MaskGraphicsProxy *proxy = dynamic_cast<MaskGraphicsProxy *>(graphicsItem)) {
 //            proxy->resize(event->size());
 //            scene()->setSceneRect(0,0,event->size().width(),event->size().height());
@@ -155,14 +154,11 @@ void MaskGraphicsView::increazeZoomValue()
 
 void MaskGraphicsView::updateSize(const QSize &newSize)
 {
-    foreach (QGraphicsItem *graphicsItem, scene()->items()) {
+    for(QGraphicsItem *graphicsItem : scene()->items()) {
         if(MaskGraphicsProxy *proxy = dynamic_cast<MaskGraphicsProxy *>(graphicsItem)) {
             proxy->resize(newSize);
             scene()->setSceneRect(0, 0, newSize.width(), newSize.height());
             proxy->setPos(0,0);
         }
     }
-
 }
-
-

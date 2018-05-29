@@ -18,7 +18,6 @@
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
 #include "IntensityDataItem.h"
-#include "IntensityDataItem.h"
 #include "JobItemFunctions.h"
 #include "JobItemUtils.h"
 #include "MaskUnitsConverter.h"
@@ -26,6 +25,7 @@
 #include "ParameterTreeItems.h"
 #include "RealDataItem.h"
 #include "SimulationOptionsItem.h"
+#include "SpecularDataItem.h"
 #include "item_constants.h"
 
 const QString JobItem::P_IDENTIFIER = "Identifier";
@@ -83,17 +83,8 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
-        if (item->parent() == this && item->modelType() == Constants::IntensityDataType
-            && name == IntensityDataItem::P_AXES_UNITS) {
-            auto intensityItem = dynamic_cast<IntensityDataItem*>(item);
-
-            MaskUnitsConverter converter;
-            converter.convertToNbins(intensityItem);
-
-            JobItemUtils::updateDataAxes(intensityItem, instrumentItem());
-
-            converter.convertFromNbins(intensityDataItem());
-        }
+        if (item->parent() == this && name == DataItem::P_AXES_UNITS)
+            dynamic_cast<DataItem*>(item)->updateAxesUnits(instrumentItem());
     });
 
     mapper()->setOnPropertyChange([this](const QString& name) {
@@ -131,7 +122,7 @@ void JobItem::setStatus(const QString& status)
 {
     setItemValue(P_STATUS, status);
     if (status == Constants::STATUS_FAILED) {
-        if (IntensityDataItem* intensityItem = intensityDataItem()) {
+        if (DataItem* intensityItem = dataItem()) {
             if (intensityItem->getOutputData())
                 intensityItem->getOutputData()->setAllTo(0.0);
             emit intensityItem->emitDataChanged();
@@ -272,8 +263,9 @@ QString JobItem::defaultPresentationType()
 {
     auto instrument = instrumentItem();
     if (!instrument)
-        GUIHelpers::Error("Error in JobItem::defaultPresentationType: default presentation type "
-                          "cannot be determined");
+        throw GUIHelpers::Error(
+            "Error in JobItem::defaultPresentationType: default presentation type "
+            "cannot be determined");
 
     auto instrument_type = instrument->modelType();
     if (instrument_type == Constants::SpecularInstrumentType)
@@ -296,7 +288,7 @@ void JobItem::updateIntensityDataFileName()
                            JobItemFunctions::jobResultsFileName(*this));
 
     if (RealDataItem* realItem = realDataItem())
-        if (IntensityDataItem* item = realItem->intensityDataItem())
+        if (DataItem* item = realItem->dataItem())
             item->setItemValue(DataItem::P_FILE_NAME,
                                JobItemFunctions::jobReferenceFileName(*this));
 }

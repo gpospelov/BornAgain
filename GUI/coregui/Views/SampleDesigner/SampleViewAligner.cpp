@@ -55,7 +55,7 @@ void SampleViewAligner::updateViews(const QModelIndex & parentIndex)
 void SampleViewAligner::updateForces()
 {
     m_viewToPos.clear();
-    foreach(IView *view, m_views) {
+    for(IView *view : m_views) {
         calculateForces(view);
     }
 }
@@ -71,7 +71,7 @@ void SampleViewAligner::calculateForces(IView *view)
     // repulsive forces which are pushing items away
 
     double weight1(200.0);
-    foreach(IView *other, m_views) {
+    for(IView *other : m_views) {
         QPointF vec = view->mapToItem(other, other->boundingRect().center());
         qreal dx = view->boundingRect().center().x() - vec.x();
         qreal dy = view->boundingRect().center().y() - vec.y();
@@ -81,17 +81,15 @@ void SampleViewAligner::calculateForces(IView *view)
             yvel -= (dy * weight1) / l;
         }
     }
-
     // attracting forces which are pulling views together
     double weight2(100.0);
-    foreach(IView *other, getConnectedViews(view)) {
+    for(IView *other : getConnectedViews(view)) {
         QPointF vec = view->mapToItem(other, other->boundingRect().center());
         qreal dx = view->boundingRect().center().x() - vec.x();
         qreal dy = view->boundingRect().center().y() - vec.y();
         xvel += dx/weight2;
         yvel += dy/weight2;
     }
-
     QPointF newPos = view->pos() + QPointF(xvel, yvel);
     m_viewToPos[view] = newPos;
 }
@@ -100,7 +98,7 @@ void SampleViewAligner::calculateForces(IView *view)
 //! Applies calculated positions to views
 void SampleViewAligner::advance()
 {
-    foreach(IView *view, m_views) {
+    for(IView *view : m_views) {
         view->setPos(m_viewToPos[view]);
     }
 }
@@ -125,25 +123,20 @@ QList<IView *> SampleViewAligner::getConnectedViews(IView *view)
     } else {
         connected_items.append(itemOfView->parent());
     }
-
     if(itemOfView->modelType() == Constants::MultiLayerType) {
         // MultiLayer will not interact with its Layers, but with they children, e.g. with ParticleLayouts
-        foreach(SessionItem *child,  itemOfView->children()) {
+        for(auto child : itemOfView->children()) {
             connected_items.append(child->children().toList());
         }
     } else {
         connected_items.append(itemOfView->children().toList());
-
     }
-
-    foreach(SessionItem *item, connected_items) {
+    for(auto item : connected_items) {
         IView *view = m_scene->getViewForItem(item);
         if(view) {
             result.append(view);
         }
-
     }
-
     return result;
 }
 
@@ -174,7 +167,6 @@ void SampleViewAligner::alignSample(const QModelIndex & parentIndex, QPointF ref
             reference = view->pos();
         }
     }
-
     int child_counter = 0;
     for( int i_row = 0; i_row < sampleModel->rowCount( parentIndex ); ++i_row) {
          QModelIndex itemIndex = sampleModel->index( i_row, 0, parentIndex );

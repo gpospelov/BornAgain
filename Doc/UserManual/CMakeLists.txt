@@ -13,11 +13,9 @@ set(LATEX_COMPILER_FLAGS "-interaction=errorstopmode" CACHE STRING "Flags passed
 
 if(BORNAGAIN_USERMANUAL)
     include(UseLATEX)
-
 else()
     # to compile in standalone mode
     include("../../cmake/modules/UseLATEX.cmake")
-
 endif()
 
 file(GLOB tex_inputs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.tex)

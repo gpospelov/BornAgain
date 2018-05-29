@@ -65,9 +65,25 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDomainDetector() const
     return std::move(result);
 }
 
-void SphericalDetectorItem::setSize(int nx, int ny)
+int SphericalDetectorItem::xSize() const
+{
+    return getItem(SphericalDetectorItem::P_PHI_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
+}
+
+int SphericalDetectorItem::ySize() const
+{
+    return getItem(SphericalDetectorItem::P_ALPHA_AXIS)
+        ->getItemValue(BasicAxisItem::P_NBINS)
+        .toInt();
+}
+
+void SphericalDetectorItem::setXSize(int nx)
 {
     getItem(SphericalDetectorItem::P_PHI_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
+}
+
+void SphericalDetectorItem::setYSize(int ny)
+{
     getItem(SphericalDetectorItem::P_ALPHA_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 

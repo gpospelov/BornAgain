@@ -32,11 +32,11 @@ void MaterialPropertyController::setModels(MaterialModel* materialModel, SampleM
     m_materialModel = materialModel;
     m_sampleModel = sampleModel;
 
-    connect(m_materialModel, &MaterialModel::dataChanged, this,
-            &MaterialPropertyController::onMaterialDataChanged);
+//    connect(m_materialModel, &MaterialModel::dataChanged, this,
+//            &MaterialPropertyController::onMaterialDataChanged);
 
-    connect(m_materialModel, &MaterialModel::rowsAboutToBeRemoved, this,
-            &MaterialPropertyController::onMaterialRowsAboutToBeRemoved);
+//    connect(m_materialModel, &MaterialModel::rowsAboutToBeRemoved, this,
+//            &MaterialPropertyController::onMaterialRowsAboutToBeRemoved);
 
     connect(m_materialModel, &MaterialModel::modelLoaded, this,
             &MaterialPropertyController::onMaterialModelLoad);

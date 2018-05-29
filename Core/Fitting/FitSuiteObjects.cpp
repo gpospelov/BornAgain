@@ -15,6 +15,7 @@
 #include "FitSuiteObjects.h"
 #include "ChiSquaredModule.h"
 #include "Histogram2D.h"
+#include "Numeric.h"
 
 static_assert(std::is_copy_constructible<FitSuiteObjects>::value == false,
     "FitSuiteObjects should not be copy constructable");
@@ -58,9 +59,19 @@ void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule& chi2_module)
     m_chi2_module.reset(chi2_module.clone());
 }
 
-const OutputData<double> &FitSuiteObjects::getSimulationData(size_t i_item) const
+SimulationResult FitSuiteObjects::simulationResult(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->simulationData();
+    return m_fit_objects[check_index(i_item)]->simulationResult();
+}
+
+SimulationResult FitSuiteObjects::experimentalData(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->experimentalData();
+}
+
+SimulationResult FitSuiteObjects::relativeDifference(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->relativeDifference();
 }
 
 //! loop through all defined simulations and run them
@@ -117,28 +128,6 @@ std::vector<const INode*> FitSuiteObjects::getChildren() const
     }
 
     return result;
-}
-
-std::unique_ptr<IHistogram> FitSuiteObjects::createRealDataHistogram(size_t i_item) const
-{
-    return m_fit_objects[check_index(i_item)]->createRealDataHistogram();
-}
-
-std::unique_ptr<IHistogram> FitSuiteObjects::createSimulationHistogram(size_t i_item) const
-{
-    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(getSimulationData(i_item)));
-}
-
-std::unique_ptr<IHistogram> FitSuiteObjects::createChiSquaredHistogram(size_t i_item) const
-{
-    // copying shape and axes labels from SimulationResults
-    OutputData<double> buff;
-    buff.copyShapeFrom(getSimulationData(i_item));
-
-    for(std::vector<FitElement>::const_iterator it=getStart(i_item); it!=getEnd(i_item); ++it)
-        buff[it->getIndex()] = it->getSquaredDifference();
-
-    return std::unique_ptr<IHistogram>(IHistogram::createHistogram(buff));
 }
 
 double FitSuiteObjects::calculateChiSquaredValue()

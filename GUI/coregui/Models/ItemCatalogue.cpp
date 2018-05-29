@@ -16,13 +16,14 @@
 #include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "BeamAngleItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "BeamWavelengthItem.h"
 #include "DetectorItems.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"
 #include "FitParameterItems.h"
 #include "FitSuiteItem.h"
+#include "FootprintItems.h"
 #include "FormFactorItems.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
@@ -54,6 +55,7 @@
 #include "RotationItems.h"
 #include "SimulationOptionsItem.h"
 #include "SpecularDataItem.h"
+#include "SpecularBeamInclinationItem.h"
 #include "SphericalDetectorItem.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
@@ -77,15 +79,21 @@ ItemCatalogue::ItemCatalogue()
         create_new<InterferenceFunction2DParaCrystalItem>);
     add(Constants::InterferenceFunction2DLatticeType,
         create_new<InterferenceFunction2DLatticeItem>);
+    add(Constants::InterferenceFunctionFinite2DLatticeType,
+        create_new<InterferenceFunctionFinite2DLatticeItem>);
     add(Constants::InterferenceFunction1DLatticeType,
         create_new<InterferenceFunction1DLatticeItem>);
     add(Constants::GISASInstrumentType, create_new<GISASInstrumentItem>);
     add(Constants::OffSpecInstrumentType, create_new<OffSpecInstrumentItem>);
     add(Constants::SpecularInstrumentType, create_new<SpecularInstrumentItem>);
-    add(Constants::BeamType, create_new<BeamItem>);
+    add(Constants::GISASBeamType, create_new<GISASBeamItem>);
+    add(Constants::SpecularBeamType, create_new<SpecularBeamItem>);
     add(Constants::BackgroundNoneType, create_new<BackgroundNoneItem>);
     add(Constants::ConstantBackgroundType, create_new<ConstantBackgroundItem>);
     add(Constants::PoissonNoiseBackgroundType, create_new<PoissonNoiseBackgroundItem>);
+    add(Constants::FootprintNoneType, create_new<FootprintNoneItem>);
+    add(Constants::FootprintGaussianType, create_new<FootprintGaussianItem>);
+    add(Constants::FootprintSquareType, create_new<FootprintSquareItem>);
     add(Constants::VectorType, create_new<VectorItem>);
     add(Constants::PropertyType, create_new<PropertyItem>);
 
@@ -173,6 +181,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::BeamWavelengthType, create_new<BeamWavelengthItem>);
     add(Constants::BeamAzimuthalAngleType, create_new<BeamAzimuthalAngleItem>);
     add(Constants::BeamInclinationAngleType, create_new<BeamInclinationAngleItem>);
+    add(Constants::SpecularBeamInclinationType, create_new<SpecularBeamInclinationItem>);
 
     add(Constants::ResolutionFunctionNoneType, create_new<ResolutionFunctionNoneItem>);
     add(Constants::ResolutionFunction2DGaussianType, create_new<ResolutionFunction2DGaussianItem>);

@@ -82,6 +82,23 @@ std::map<AxesUnits, std::string> InitSpecAxis()
     result[AxesUnits::NBINS] = "X [nbins]";
     result[AxesUnits::RADIANS] = "alpha_i [rad]";
     result[AxesUnits::DEGREES] = "alpha_i [deg]";
+    result[AxesUnits::QSPACE] = "Q [1/nm]";
+    return result;
+}
+
+// corner case: axis corresponding to the position
+// across sample is accepts only bins and nanometers,
+// but the units specified in dedicated unit
+// converter correspond to inclination angular axis.
+// For this reason depth axis map returns always
+// nanometers except for bins.
+std::map<AxesUnits, std::string> InitSampleDepthAxis()
+{
+    std::map<AxesUnits, std::string> result;
+    result[AxesUnits::NBINS] = "Y [nbins]";
+    result[AxesUnits::RADIANS] = "Position [nm]";
+    result[AxesUnits::DEGREES] = "Position [nm]";
+    result[AxesUnits::QSPACE] = "Position [nm]";
     return result;
 }
 

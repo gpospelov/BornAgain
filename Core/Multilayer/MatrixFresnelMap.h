@@ -33,26 +33,24 @@ class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
     MatrixFresnelMap();
-    virtual ~MatrixFresnelMap();
+    ~MatrixFresnelMap() override;
 
-    const ILayerRTCoefficients* getOutCoefficients(const SimulationElement& sim_element,
-                                                   size_t layer_index) const final override;
-
-    const ILayerRTCoefficients* getInCoefficients(const SimulationElement& sim_element,
-                                                  size_t layer_index) const final override;
+    std::unique_ptr<const ILayerRTCoefficients>
+    getOutCoefficients(const SimulationElement& sim_element,
+                       size_t layer_index) const final override;
 
     void setMultilayer(const MultiLayer& multilayer) final override;
-
-    //! Fills simulation element specular data
-    void fillSpecularData(SpecularSimulationElement& sim_element) const override;
 
     typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>
         CoefficientHash;
 
 private:
-    const ILayerRTCoefficients* getCoefficients(kvector_t kvec, size_t layer_index,
-                                                const MultiLayer& multilayer,
-                                                CoefficientHash& hash_table) const;
+    std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
+                                                                size_t layer_index) const override;
+    std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
+                                                                size_t layer_index,
+                                                                const MultiLayer& multilayer,
+                                                                CoefficientHash& hash_table) const;
 
     std::unique_ptr<MultiLayer> mP_inverted_multilayer;
     mutable CoefficientHash m_hash_table_out;

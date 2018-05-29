@@ -13,12 +13,18 @@
 // ************************************************************************** //
 
 #include "IntensityDataFunctions.h"
+#include "ArrayUtils.h"
 #include "BornAgainNamespace.h"
 #include "ConvolutionDetectorResolution.h"
+#include "DetectorFunctions.h"
 #include "FourierTransform.h"
+#include "IDetector.h"
 #include "IHistogram.h"
+#include "Instrument.h"
 #include "Numeric.h"
+#include "Simulation.h"
 #include "SimulationResult.h"
+#include "UnitConverterUtils.h"
 #include <math.h>
 
 //! Returns sum of relative differences between each pair of elements:
@@ -29,14 +35,14 @@ double IntensityDataFunctions::RelativeDifference(const SimulationResult& dat,
     if (dat.size() != ref.size())
         throw std::runtime_error("Error in IntensityDataFunctions::RelativeDifference: "
                                  "different number of elements");
-    if (dat.size()==0) return 0.0;
+    if (dat.size() == 0)
+        return 0.0;
     double sum_of_diff = 0.0;
-    for (size_t i=0; i<dat.size(); ++i) {
+    for (size_t i = 0; i < dat.size(); ++i) {
         sum_of_diff += Numeric::get_relative_difference(dat[i], ref[i]);
     }
     return sum_of_diff / dat.size();
 }
-
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double IntensityDataFunctions::getRelativeDifference(const OutputData<double>& dat,
@@ -163,7 +169,7 @@ IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, d
 // be converted into 0.5 (which is a bin center expressed in bin fraction coordinates).
 // The coordinate -5.0 (outside of axis definition) will be converted to -0.5
 // (center of non-existing bin #-1).
-// Used for Mask convertion.
+// Used for Mask conversion.
 
 double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis& axis)
 {
@@ -272,4 +278,49 @@ IntensityDataFunctions::createFFT(const OutputData<double>& data)
     auto array_2d = IntensityDataFunctions::create2DArrayfromOutputData(data);
     auto fft_array_2d = IntensityDataFunctions::FT2DArray(array_2d);
     return IntensityDataFunctions::createOutputDatafrom2DArray(fft_array_2d);
+}
+
+SimulationResult IntensityDataFunctions::ConvertData(const Simulation& simulation,
+                                                     const OutputData<double>& data,
+                                                     bool put_masked_areas_to_zero)
+{
+    auto converter = UnitConverterUtils::createConverter(simulation);
+    auto roi_data
+        = UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
+
+    auto detector = simulation.getInstrument().getDetector();
+
+    if (roi_data->hasSameDimensions(data)) {
+        // data is already cropped to ROI
+        if (put_masked_areas_to_zero) {
+            detector->iterate(
+                [&](IDetector::const_iterator it) {
+                    (*roi_data)[it.roiIndex()] = data[it.roiIndex()];
+                }, /*visit_masked*/ false);
+        } else {
+            roi_data->setRawDataVector(data.getRawDataVector());
+        }
+
+    } else if (DetectorFunctions::hasSameDimensions(*detector, data)) {
+        // exp data has same shape as the detector, we have to put orig data to smaller roi map
+        detector->iterate(
+            [&](IDetector::const_iterator it) {
+                (*roi_data)[it.roiIndex()] = data[it.detectorIndex()];
+            },
+            /*visit_masked*/ !put_masked_areas_to_zero);
+
+    } else {
+        throw std::runtime_error("FitObject::init_dataset() -> Error. Detector and exp data have "
+                                 "different shape.");
+    }
+
+    return SimulationResult(*roi_data, *converter);
+}
+
+SimulationResult IntensityDataFunctions::ConvertData(const Simulation& simulation,
+                                                     const std::vector<std::vector<double>>& data,
+                                                     bool put_masked_areas_to_zero)
+{
+    auto output_data = ArrayUtils::createData2D(data);
+    return IntensityDataFunctions::ConvertData(simulation, *output_data, put_masked_areas_to_zero);
 }

@@ -25,6 +25,7 @@ class ParticleLayout;
 class IInterferenceFunction;
 class SessionItem;
 class InstrumentItem;
+class IUnitConverter;
 
 namespace DomainObjectBuilder
 {
@@ -34,6 +35,10 @@ BA_CORE_API_ std::unique_ptr<ParticleLayout> buildParticleLayout(const SessionIt
 BA_CORE_API_ std::unique_ptr<IInterferenceFunction>
 buildInterferenceFunction(const SessionItem& item);
 BA_CORE_API_ std::unique_ptr<Instrument> buildInstrument(const InstrumentItem& instrumentItem);
+
+//! Creates a unit converter corresponding to the given instrument item
+BA_CORE_API_ std::unique_ptr<IUnitConverter>
+createUnitConverter(const InstrumentItem* instrumentItem);
 };
 
 #endif // DOMAINOBJECTBUILDER_H

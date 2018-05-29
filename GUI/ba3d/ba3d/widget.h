@@ -37,6 +37,11 @@ public:
 
   void setBackground(QColor const&);
   void setModel(Model*); // model owned elsewhere, may be nullptr
+
+  void defaultView();
+  void sideView();
+  void topView();
+
   Model* model();
 
 private:

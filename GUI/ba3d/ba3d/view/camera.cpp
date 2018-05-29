@@ -16,10 +16,14 @@
 
 namespace RealSpace {
 
+const Vector3D LIGHT1 = Vector3D(0.5f, 1.0f, 1.0f)*1000.0f;
+const Vector3D LIGHT2 = Vector3D(1.0f, 0.0f, 1.0f)*1000.0f;
+const Vector3D LIGHT3 = Vector3D(1.0f, 1.0f, 0.0f)*1000.0f;
+
 Camera::Camera()
     : pos(Vector3D::_z, Vector3D::_0, Vector3D::_x)
     , zoom(1), vertAngle(60), nearPlane(1), farPlane(10000)
-    , lightPos(pos.eye), lightPosRotated(lightPos)
+    , lightPos1(LIGHT1), lightPosRotated1(lightPos1)
 {
     setAspectRatio(1);
 }
@@ -43,7 +47,7 @@ Camera::Position Camera::Position::interpolateTo(const Position& to, float r) co
 void Camera::lookAt(const Position& pos_)
 {
     pos = pos_;
-    lightPos = pos.eye;
+//    lightPos = pos.eye;
     set();
 }
 
@@ -58,7 +62,7 @@ void Camera::set()
     matModel.rotate(rt);
     matModel.translate(-pos.ctr);
 
-    lightPosRotated = rt.inverted().rotatedVector(lightPos);
+    lightPosRotated1 = rt.inverted().rotatedVector(lightPos1);
 
     emit updated(*this);
 }

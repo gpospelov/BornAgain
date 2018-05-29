@@ -52,8 +52,7 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
 
 NodeEditorPort::~NodeEditorPort()
 {
-    QVector<NodeEditorConnection *> connections = m_connections;
-    foreach (NodeEditorConnection *conn, connections) {
+    for(auto conn : m_connections) {
         conn->setSelected(false);
         delete conn;
     }
@@ -82,7 +81,7 @@ void NodeEditorPort::append(NodeEditorConnection *connection)
 
 bool NodeEditorPort::isConnected(NodeEditorPort *other)
 {
-    foreach (NodeEditorConnection *conn, m_connections)
+    for(auto conn : m_connections)
         if (conn->port1() == other || conn->port2() == other)
             return true;
 
@@ -116,7 +115,7 @@ QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::EPortType port_type)
 QVariant NodeEditorPort::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     if (change == ItemScenePositionHasChanged) {
-        foreach (NodeEditorConnection *conn, m_connections) {
+        for(auto conn : m_connections) {
             conn->updatePosFromPorts();
             conn->updatePath();
         }

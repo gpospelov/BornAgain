@@ -16,6 +16,7 @@
 #include "OutputData.h"
 #include "Instrument.h"
 #include "SimulationArea.h"
+#include "SimulationAreaIterator.h"
 #include "StringUtils.h"
 #include <sstream>
 #include <algorithm>
@@ -62,33 +63,4 @@ std::string DetectorFunctions::axesToString(const OutputData<double> &data)
     result << ")";
 
     return result.str();
-}
-
-std::unique_ptr<OutputData<double>> DetectorFunctions::createDataSet(const Instrument &instrument,
-    const OutputData<double> &data, bool put_masked_areas_to_zero, AxesUnits units)
-{
-    if(!DetectorFunctions::hasSameDimensions(*instrument.getDetector(), data)){
-        std::ostringstream message;
-        message << "DetectorFunctions::createDataSet -> Error. Axes of the real data doesn't match "
-                << "the detector. Real data:" << DetectorFunctions::axesToString(data)
-                        << ", detector:"
-                        << DetectorFunctions::axesToString(*instrument.getDetector()) << ".";
-        throw Exceptions::RuntimeErrorException(message.str());
-    }
-
-    std::unique_ptr<OutputData<double>> result(instrument.createDetectorMap(units));
-
-    if(put_masked_areas_to_zero) {
-        SimulationArea area(instrument.getDetector());
-        for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it) {
-            (*result)[it.roiIndex()] = data[it.detectorIndex()];
-        }
-
-    } else {
-        SimulationRoiArea area(instrument.getDetector());
-        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it) {
-            (*result)[it.roiIndex()] = data[it.detectorIndex()];
-        }
-    }
-    return result;
 }

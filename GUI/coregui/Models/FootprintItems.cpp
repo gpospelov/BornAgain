@@ -1,0 +1,86 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      GUI/coregui/Models/FootprintItems.cpp
+//! @brief     Implements FootprintItem classes
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
+#include "FootprintItems.h"
+#include "FootprintFactorGaussian.h"
+#include "FootprintFactorSquare.h"
+#include "BornAgainNamespace.h"
+#include "item_constants.h"
+
+namespace {
+const QString footprint_value_name = "Width ratio";
+const QString footprint_value_tooltip =
+        "The ratio of beam and sample full widths";
+}
+
+// Base class
+/* ------------------------------------------------ */
+
+FootprintItem::FootprintItem(const QString& model_type)
+    : SessionItem(model_type)
+{}
+
+FootprintItem::~FootprintItem() = default;
+
+// Footprint none
+/* ------------------------------------------------ */
+
+FootprintNoneItem::FootprintNoneItem()
+    : FootprintItem(Constants::FootprintNoneType)
+{}
+
+FootprintNoneItem::~FootprintNoneItem() = default;
+
+std::unique_ptr<IFootprintFactor> FootprintNoneItem::createFootprint() const
+{
+    return {};
+}
+
+// Gaussian footprint
+/* ------------------------------------------------ */
+
+const QString FootprintGaussianItem::P_VALUE = footprint_value_name;
+
+FootprintGaussianItem::FootprintGaussianItem()
+    : FootprintItem(Constants::FootprintGaussianType)
+{
+    addProperty(P_VALUE, 0.0)->setLimits(RealLimits::nonnegative())
+            .setToolTip(footprint_value_tooltip);
+}
+
+FootprintGaussianItem::~FootprintGaussianItem() = default;
+
+std::unique_ptr<IFootprintFactor> FootprintGaussianItem::createFootprint() const
+{
+    return std::make_unique<FootprintFactorGaussian>(getItemValue(P_VALUE).toDouble());
+}
+
+// Square footprint
+/* ------------------------------------------------ */
+
+const QString FootprintSquareItem::P_VALUE = footprint_value_name;
+
+FootprintSquareItem::FootprintSquareItem()
+    : FootprintItem(Constants::FootprintSquareType)
+{
+    addProperty(P_VALUE, 0.0)->setLimits(RealLimits::nonnegative())
+            .setToolTip(footprint_value_tooltip);
+}
+
+FootprintSquareItem::~FootprintSquareItem() = default;
+
+std::unique_ptr<IFootprintFactor> FootprintSquareItem::createFootprint() const
+{
+    return std::make_unique<FootprintFactorSquare>(getItemValue(P_VALUE).toDouble());
+}

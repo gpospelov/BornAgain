@@ -12,13 +12,13 @@ SpecularInstrumentEditor::SpecularInstrumentEditor(QWidget* parent)
     , m_columnResizer(new ColumnResizer(this))
     , m_beamEditor(new SpecularBeamEditor(m_columnResizer))
     , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
-    , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
+    , m_polarizationAnalysisEditor(nullptr)
 {
     auto mainLayout = new QVBoxLayout;
 
     addEditor(mainLayout, m_beamEditor, "Beam parameters");
 //    addEditor(mainLayout, m_polarizationAnalysisEditor, "Polarization analysis", /*expanded*/false);
-//    addEditor(mainLayout, m_environmentEditor, "Environment", /*expanded*/false);
+    addEditor(mainLayout, m_environmentEditor, "Environment", /*expanded*/false);
 
     mainLayout->addStretch();
 
@@ -28,7 +28,7 @@ SpecularInstrumentEditor::SpecularInstrumentEditor(QWidget* parent)
 void SpecularInstrumentEditor::subscribeToItem()
 {
     m_beamEditor->setItem(instrumentItem());
-//    m_environmentEditor->setItem(instrumentItem());
+    m_environmentEditor->setItem(instrumentItem());
 //    m_polarizationAnalysisEditor->setItem(instrumentItem());
 }
 

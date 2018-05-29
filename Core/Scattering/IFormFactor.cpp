@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "IFormFactor.h"
+#include "ILayerRTCoefficients.h"
 #include "Exceptions.h"
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorRotation.h"
@@ -51,6 +52,10 @@ double IFormFactor::volume() const
     auto zero_wavevectors = WavevectorInfo::GetZeroQ();
     return std::abs(evaluate(zero_wavevectors));
 }
+
+void IFormFactor::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients>,
+                                  std::unique_ptr<const ILayerRTCoefficients>)
+{}
 
 bool IFormFactor::canSliceAnalytically(const IRotation&) const
 {

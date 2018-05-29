@@ -67,7 +67,7 @@ TEST_F(TestLinkInstrument, test_canLinkToInstrument)
     // populating real data model, setting intensity data
     RealDataItem* realData
         = dynamic_cast<RealDataItem*>(realDataModel.insertNewItem(Constants::RealDataType));
-    JobItemUtils::createDefaultDetectorMap(realData->intensityDataItem(), instrument);
+    JobItemUtils::createDefaultDetectorMap(realData->dataItem(), instrument);
 
     QVERIFY(manager.canLinkDataToInstrument(realData, identifier));
 

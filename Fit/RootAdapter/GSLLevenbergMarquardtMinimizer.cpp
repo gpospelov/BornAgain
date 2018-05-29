@@ -20,12 +20,12 @@
 #ifdef _WIN32
 #pragma warning ( push )
 #pragma warning ( disable: 4267 )
-#include "Math/PatchedGSLNLSMinimizer.h"
+#include "Math/GSLNLSMinimizer.h"
 #pragma warning ( pop )
 #else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#include "Math/PatchedGSLNLSMinimizer.h"
+#include "Math/GSLNLSMinimizer.h"
 #pragma GCC diagnostic pop
 #endif
 
@@ -44,7 +44,7 @@ namespace {
 
 GSLLevenbergMarquardtMinimizer::GSLLevenbergMarquardtMinimizer()
     : RootMinimizerAdapter(MinimizerInfo::buildGSLLMAInfo())
-    , m_gsl_minimizer(new BA_ROOT::Math::GSLNLSMinimizer(2))
+    , m_gsl_minimizer(new ROOT::Math::GSLNLSMinimizer(2))
 {
     addOption(OptionNames::Tolerance, 0.01, "Tolerance on the function value at the minimum");
     addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
@@ -96,6 +96,8 @@ std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() c
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
     return result;
 }
+
+bool GSLLevenbergMarquardtMinimizer::isGradientBasedAgorithm() { return true; }
 
 void GSLLevenbergMarquardtMinimizer::propagateOptions()
 {

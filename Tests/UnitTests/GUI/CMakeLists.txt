@@ -2,7 +2,7 @@
 # GUI unit tests
 ############################################################################
 
-set(TestName TestGUI)
+set(test UnitTestGUI)
 
 if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
@@ -15,14 +15,15 @@ endif()
 file(GLOB source_files "*.cpp")
 file(GLOB include_files "*.h")
 
-find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Test REQUIRED)
 
 include_directories(${BornAgainGUI_INCLUDE_DIRS})
 
 set(CMAKE_AUTOMOC ON)
-add_executable(${TestName} ${source_files} ${include_files})
-target_link_libraries(${TestName} ${BornAgainGUI_LIBRARY} gtest)
-qt5_use_modules(${TestName} Widgets Core Gui Designer PrintSupport Network Test)
+add_executable(${test} ${source_files} ${include_files})
+target_link_libraries(${test} ${BornAgainGUI_LIBRARY} gtest)
+target_link_libraries(${test} Qt5::Core Qt5::Test)
 
 # add execution of TestCore just after compilation
-add_custom_target(${TestName}Target ALL DEPENDS TestGUI COMMAND ${TestName})
+add_custom_target(${test}_run ALL DEPENDS ${test} COMMAND ${test})

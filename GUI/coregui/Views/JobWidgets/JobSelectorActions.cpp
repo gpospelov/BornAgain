@@ -49,7 +49,7 @@ void JobSelectorActions::setSelectionModel(QItemSelectionModel* selectionModel)
 void JobSelectorActions::onRunJob()
 {
     QModelIndexList indexList = m_selectionModel->selectedIndexes();
-    foreach (QModelIndex index, indexList) {
+    for(auto index : indexList) {
         if (canRunJob(index))
             m_jobModel->runJob(index);
     }
@@ -58,11 +58,11 @@ void JobSelectorActions::onRunJob()
 void JobSelectorActions::onRemoveJob()
 {
     QList<QPersistentModelIndex> toRemove;
-    for (auto index : m_selectionModel->selectedIndexes())
+    for(auto index : m_selectionModel->selectedIndexes())
         if (canRemoveJob(index))
             toRemove.append(QPersistentModelIndex(index));
 
-    for (auto index : toRemove)
+    for(auto index : toRemove)
         m_jobModel->removeJob(index);
 }
 
@@ -93,11 +93,10 @@ void JobSelectorActions::equalizeSelectedToJob(int selected_id)
     if (!referenceDataItem)
         return;
 
-    foreach (QModelIndex index, selectedList) {
+    for(auto index : selectedList) {
         JobItem* jobItem = m_jobModel->getJobItemForIndex(index);
         if (jobItem == referenceItem)
             continue;
-
         if (IntensityDataItem* dataItem = jobItem->intensityDataItem()) {
             dataItem->setLowerX(referenceDataItem->getLowerX());
             dataItem->setUpperX(referenceDataItem->getUpperX());
@@ -122,7 +121,6 @@ void JobSelectorActions::initItemContextMenu(QMenu& menu, const QModelIndex& ind
         if (indexList.size())
             targetIndex = indexList.first();
     }
-
     m_runJobAction->setEnabled(canRunJob(targetIndex));
     m_removeJobAction->setEnabled(canRemoveJob(targetIndex));
 
@@ -143,7 +141,6 @@ void JobSelectorActions::setupEqualizeMenu(QMenu& menu)
         equalize_menu->setDisabled(true);
         return;
     }
-
     std::sort(selected.begin(), selected.end(),
               [](const QModelIndex& a, const QModelIndex& b) { return a.row() < b.row(); });
 

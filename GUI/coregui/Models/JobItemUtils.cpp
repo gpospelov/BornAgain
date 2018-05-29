@@ -15,15 +15,14 @@
 #include "JobItemUtils.h"
 #include "ComboProperty.h"
 #include "DomainObjectBuilder.h"
-#include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
 #include "IntensityDataIOFactory.h"
-#include "IntensityDataItem.h"
+#include "DataItem.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
-#include "SpecularSimulation.h"
-#include "SpecularDataItem.h"
+#include "Simulation.h"
+#include "UnitConverterUtils.h"
 #include <QFileInfo>
 #include <QDebug>
 
@@ -50,47 +49,31 @@ QMap<AxesUnits, QString> init_description_to_units_map()
     result[AxesUnits::QSPACE] = Constants::UnitsQyQz;
     return result;
 }
+
+//! Sets simulation results into the DataItem
+void setResultsToDataItem(DataItem* intensityItem, const Simulation* simulation);
+
+//! Updates axes' titles
+void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, AxesUnits units);
 }
 
 void JobItemUtils::setResults(JobItem* jobItem, const Simulation* simulation)
 {
-    auto dataItem = jobItem->getItem(JobItem::T_OUTPUT);
+    auto dataItem = jobItem->dataItem();
     Q_ASSERT(dataItem);
 
-    if (dataItem->modelType() == Constants::IntensityDataType) {
-        setResults(jobItem->intensityDataItem(), simulation);
-    } else if (dataItem->modelType() == Constants::SpecularDataType) {
-        auto specItem = dynamic_cast<SpecularDataItem*>(dataItem);
-        setResults(specItem, simulation);
+    if (dataItem->modelType() == Constants::IntensityDataType
+        || dataItem->modelType() == Constants::SpecularDataType) {
+        setResultsToDataItem(dataItem, simulation);
     } else {
         throw GUIHelpers::Error("JobItemUtils::setResults() -> Error. Unsupported data item.");
     }
 }
 
-void JobItemUtils::setResults(SpecularDataItem* specItem, const Simulation* simulation) {
-    specItem->setOutputData(simulation->result().data());
-}
-
-void JobItemUtils::setResults(IntensityDataItem* intensityItem, const Simulation* simulation)
-{
-    if (dynamic_cast<const SpecularSimulation*>(simulation))
-        throw GUIHelpers::Error("Error in JobItemUtils::setResults: specular simulation "
-                                 "currently is not handled by GUI");
-    auto sim_result = simulation->result();
-    if (intensityItem->getOutputData() == nullptr) {
-        const IDetector* detector = simulation->getInstrument().getDetector();
-        setIntensityItemAxesUnits(intensityItem, detector);
-        updateAxesTitle(intensityItem);
-    }
-    auto selected_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
-    std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
-    intensityItem->setOutputData(data.release());
-}
-
 //! Updates axes of OutputData in IntensityData item to correspond with ::P_AXES_UNITS selection.
 //! InstrumentItem is used to get domain's detector map for given units.
 
-void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
+void JobItemUtils::updateDataAxes(DataItem* intensityItem,
                                   const InstrumentItem* instrumentItem)
 {
     Q_ASSERT(intensityItem);
@@ -108,12 +91,13 @@ void JobItemUtils::updateDataAxes(IntensityDataItem* intensityItem,
     AxesUnits requested_units
         = axesUnitsFromName(intensityItem->selectedAxesUnits());
 
-    OutputData<double>* newData = createDetectorMap(instrumentItem, requested_units);
+    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    auto newData = UnitConverterUtils::createOutputData(*converter.get(), requested_units);
     newData->setRawDataVector(intensityItem->getOutputData()->getRawDataVector());
 
-    intensityItem->setOutputData(newData);
+    intensityItem->setOutputData(newData.release());
     intensityItem->setAxesRangeToData();
-    updateAxesTitle(intensityItem);
+    updateAxesTitle(intensityItem, *converter, requested_units);
 }
 
 //! loads intensity data from project directory
@@ -154,99 +138,63 @@ AxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
     return name_to_units[name];
 }
 
-//! Converts detector default axes units into units most suitable for GUI.
-//! SphericalDetector's default units (RADIANS) will be converted to DEGREES
-//! RectangularDetector's default units (MM) will remain the same
-
-AxesUnits JobItemUtils::preferableGUIAxesUnits(AxesUnits default_units)
-{
-    if (default_units == AxesUnits::RADIANS)
-        return AxesUnits::DEGREES;
-
-    if (default_units == AxesUnits::MM)
-        return AxesUnits::MM;
-
-    return default_units;
-}
-
 //! Sets axes units suitable for given instrument.
 
-void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
+void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
                                               const InstrumentItem* instrumentItem)
 {
-    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
-    instrument->initDetector();
-    setIntensityItemAxesUnits(intensityItem, instrument->getDetector());
+    if (!instrumentItem) {
+        intensityItem->resetToDefault();
+        return;
+    }
+    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    setIntensityItemAxesUnits(intensityItem, *converter);
 }
 
-//! Sets axes units suitable for given detector. Currently selected units will  be preserved.
-
-void JobItemUtils::setIntensityItemAxesUnits(IntensityDataItem* intensityItem,
-                                              const IDetector* detector)
+void JobItemUtils::setIntensityItemAxesUnits(DataItem *intensityItem,
+                                             const IUnitConverter& converter)
 {
     ComboProperty combo;
 
-    for (auto units : detector->validAxesUnits())
+    for (auto units : converter.availableUnits())
         combo << nameFromAxesUnits(units);
 
-    AxesUnits preferrable_units
-        = preferableGUIAxesUnits(detector->defaultAxesUnits());
+    AxesUnits preferrable_units = converter.defaultUnits();
 
     combo.setValue(nameFromAxesUnits(preferrable_units));
-    intensityItem->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
+    intensityItem->setItemValue(DataItem::P_AXES_UNITS, combo.variant());
 }
 
-void JobItemUtils::updateAxesTitle(IntensityDataItem* intensityItem)
-{
-    // axes labels
-    if (intensityItem->selectedAxesUnits() == Constants::UnitsRadians) {
-        intensityItem->setXaxisTitle(QStringLiteral("phi_f [rad]"));
-        intensityItem->setYaxisTitle(QStringLiteral("alpha_f [rad]"));
-    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsDegrees) {
-        intensityItem->setXaxisTitle(QStringLiteral("phi_f [deg]"));
-        intensityItem->setYaxisTitle(QStringLiteral("alpha_f [deg]"));
-    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsQyQz) {
-        intensityItem->setXaxisTitle(QStringLiteral("Qy [1/nm]"));
-        intensityItem->setYaxisTitle(QStringLiteral("Qz [1/nm]"));
-    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsMm) {
-        intensityItem->setXaxisTitle(QStringLiteral("X [mm]"));
-        intensityItem->setYaxisTitle(QStringLiteral("Y [mm]"));
-    } else if (intensityItem->selectedAxesUnits() == Constants::UnitsNbins) {
-        intensityItem->setXaxisTitle(QStringLiteral("X [nbins]"));
-        intensityItem->setYaxisTitle(QStringLiteral("Y [nbins]"));
-    }
-}
-
-void JobItemUtils::createDefaultDetectorMap(IntensityDataItem* intensityItem,
+void JobItemUtils::createDefaultDetectorMap(DataItem* intensityItem,
                                             const InstrumentItem* instrumentItem)
 {
-    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
-    instrument->initDetector();
-    AxesUnits units = instrument->getDetector()->defaultAxesUnits();
-    auto detector = instrument->getDetector();
-    setIntensityItemAxesUnits(intensityItem, detector);
-    updateAxesTitle(intensityItem);
-    intensityItem->setOutputData(
-        detector->createDetectorMap(instrument->getBeam(), preferableGUIAxesUnits(units))
-            .release());
+    const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    auto output_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
+    intensityItem->setOutputData(output_data.release());
+    setIntensityItemAxesUnits(intensityItem, *converter);
+    updateAxesTitle(intensityItem, *converter, converter->defaultUnits());
 }
 
-//! creates detector map from instrument description with axes corresponding to given units
-OutputData<double>* JobItemUtils::createDetectorMap(const InstrumentItem* instrumentItem,
-                                                     AxesUnits units)
+namespace
 {
-    auto instrument = DomainObjectBuilder::buildInstrument(*instrumentItem);
-    instrument->initDetector();
-
-    if (units == AxesUnits::DEFAULT)
-        units = instrument->getDetector()->defaultAxesUnits();
-
-    auto result = instrument->getDetector()->createDetectorMap(instrument->getBeam(), units);
-    if (!result) {
-        throw GUIHelpers::Error("JobResultsPresenter::createDetectorMap -> Error. "
-                                "Can't create detector map.");
+void setResultsToDataItem(DataItem* intensityItem, const Simulation* simulation)
+{
+    const auto sim_result = simulation->result();
+    if (intensityItem->getOutputData() == nullptr) {
+        const auto& converter = sim_result.converter();
+        JobItemUtils::setIntensityItemAxesUnits(intensityItem, converter);
+        updateAxesTitle(intensityItem, converter, converter.defaultUnits());
     }
-
-    return result.release();
+    auto selected_units = JobItemUtils::axesUnitsFromName(intensityItem->selectedAxesUnits());
+    std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
+    intensityItem->setOutputData(data.release());
 }
 
+void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter,
+                     AxesUnits units)
+{
+    intensityItem->setXaxisTitle(QString::fromStdString(converter.axisName(0, units)));
+    if (converter.dimension() > 1)
+        intensityItem->setYaxisTitle(QString::fromStdString(converter.axisName(1, units)));
+}
+}

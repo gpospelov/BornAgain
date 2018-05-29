@@ -17,6 +17,7 @@
 
 #include "INode.h"
 #include "OutputData.h"
+#include "SimulationResult.h"
 #include <memory>
 
 class FitElement;
@@ -30,23 +31,22 @@ class IHistogram;
 class BA_CORE_API_ FitObject : public INode
 {
 public:
-    //! FitObject constructor
-    //! @param simulation The simulation to run
-    //! @param real_data The real data
-    //! @param weight Weight of dataset in chi2 calculations
-    //! @param adjust_detector_to_data Detector axes will be adjusted to real data axes, if true
-    FitObject(const Simulation& simulation, const OutputData<double>& real_data,
+    //! Constructs simulation/data pair for later fit.
+    //! @param simulation: simulation to run
+    //! @param data: experimental data
+    //! @param weight: weight of dataset in chi2 calculations
+    FitObject(const Simulation& simulation, const OutputData<double>& data, double weight = 1);
+
+    //! Constructs simulation/data pair for later fit.
+    //! @param simulation: simulation to run
+    //! @param data: experimental data
+    //! @param weight: weight of dataset in chi2 calculations
+    FitObject(const Simulation& simulation, const std::vector<std::vector<double>>& data,
               double weight = 1);
 
     virtual ~FitObject();
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
-
-    //! Returns real (experimental) data.
-    const OutputData<double>& realData() const;
-
-    //! Returns simulated data.
-    const OutputData<double>& simulationData() const;
 
     //! Returns weight of data set in chi2 calculations.
     double weight() const { return m_weight; }
@@ -56,25 +56,36 @@ public:
     size_t numberOfFitElements() const;
 
     void prepareFitElements(std::vector<FitElement>& fit_elements, double weight,
-                            IIntensityNormalizer* normalizer=0);
+                            IIntensityNormalizer* =0);
 
     std::vector<const INode*> getChildren() const;
 
-#ifndef SWIG
-    //! Returns histogram representing real data clipped to ROI
-    std::unique_ptr<IHistogram> createRealDataHistogram() const;
-#endif
+    //! Returns simulation result.
+    SimulationResult simulationResult() const;
 
-protected:
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters() {}
+    //! Returns experimental data.
+    SimulationResult experimentalData() const;
+
+    //! Returns relative difference between simulation and experimental data.
+    SimulationResult relativeDifference() const;
+
+    //! Runs internal simulation object.
+    void runSimulation();
+
+    //! Returns one dimensional array representing experimental data.
+    //! Masked areas and the area outside of region of interest are not included.
+    std::vector<double> experimental_array() const;
+
+    //! Returns one dimensional array representing simulated intensities data.
+    //! Masked areas and the area outside of region of interest are not included.
+    std::vector<double> simulation_array() const;
 
 private:
-    void init_dataset(const OutputData<double>& real_data);
+    void init_parameters();
 
     std::unique_ptr<Simulation> m_simulation;
-    std::unique_ptr<OutputData<double>> m_real_data;
-    std::unique_ptr<OutputData<double>> m_simulation_data;
+    SimulationResult m_simulation_result;
+    SimulationResult m_experimental_data;
     double m_weight;
     size_t m_fit_elements_count;
 };

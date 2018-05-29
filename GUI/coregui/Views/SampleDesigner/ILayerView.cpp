@@ -193,7 +193,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
     QVector<MultiLayerCandidate> candidates;
 
     QRectF layerRect = mapRectToScene(boundingRect());
-    foreach (QGraphicsItem *item, scene()->items()) {
+    for(auto item : scene()->items()) {
         if (item->type() == DesignerHelper::MULTILAYER && item != this
             && !childItems().contains(item)) {
             MultiLayerView *multilayer = qgraphicsitem_cast<MultiLayerView *>(item);
@@ -212,7 +212,6 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
             }
         }
     }
-
     // sorting MultiLayerView candidates to find one whose drop area is closer
     if (candidates.size()) {
         qSort(candidates.begin(), candidates.end());

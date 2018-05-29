@@ -28,9 +28,13 @@ SimulationResult::SimulationResult(const OutputData<double>& data,
 }
 
 SimulationResult::SimulationResult(const SimulationResult& other)
-    : mP_data(other.mP_data->clone())
-    , mP_unit_converter(other.mP_unit_converter->clone())
-{}
+{
+    if (!other.mP_data || !other.mP_unit_converter)
+        throw std::runtime_error("Error in SimulationResult(const SimulationResult& other): "
+                                 "not initialized");
+    mP_data.reset(other.mP_data->clone());
+    mP_unit_converter.reset(other.mP_unit_converter->clone());
+}
 
 SimulationResult::SimulationResult(SimulationResult&& other)
     : mP_data(std::move(other.mP_data))
@@ -39,6 +43,10 @@ SimulationResult::SimulationResult(SimulationResult&& other)
 
 SimulationResult& SimulationResult::operator=(const SimulationResult& other)
 {
+    if (!other.mP_data || !other.mP_unit_converter)
+        throw std::runtime_error("Error in SimulationResult(const SimulationResult& other): "
+                                 "not initialized");
+
     mP_data.reset(other.mP_data->clone());
     mP_unit_converter.reset(other.mP_unit_converter->clone());
     return *this;
@@ -93,6 +101,14 @@ std::vector<AxisInfo> SimulationResult::axisInfo(AxesUnits units) const
     return result;
 }
 
+const IUnitConverter& SimulationResult::converter() const
+{
+    if (!mP_unit_converter)
+        throw std::runtime_error(
+            "Error in SimulationResult::converter: unit converter was not initialized");
+    return *mP_unit_converter;
+}
+
 double& SimulationResult::operator[](size_t i)
 {
     if (mP_data) return (*mP_data)[i];
@@ -129,9 +145,5 @@ void SimulationResult::checkDimensions() const
 
 std::unique_ptr<IAxis> SimulationResult::createConvertedAxis(size_t i_axis, AxesUnits units) const
 {
-    double min = mP_unit_converter->calculateMin(i_axis, units);
-    double max = mP_unit_converter->calculateMax(i_axis, units);
-    auto axis_name = mP_unit_converter->axisName(i_axis);
-    auto axis_size = mP_unit_converter->axisSize(i_axis);
-    return std::make_unique<FixedBinAxis>(axis_name, axis_size, min, max);
+    return mP_unit_converter->createConvertedAxis(i_axis, units);
 }

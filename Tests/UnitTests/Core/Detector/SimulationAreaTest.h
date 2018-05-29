@@ -2,6 +2,7 @@
 #include "Rectangle.h"
 #include "SimulationArea.h"
 #include "SphericalDetector.h"
+#include "DetectorFunctions.h"
 #include <iostream>
 #include <memory>
 
@@ -143,7 +144,7 @@ TEST_F(SimulationAreaTest, allMaskedIteration)
     EXPECT_EQ(elementIndexes.size(), size_t(0));
 }
 
-//! Iteration when RegionOfInterest is present
+//! Iteration when RegionOfInterest and masks are present
 
 TEST_F(SimulationAreaTest, maskAndRoiIteration)
 {
@@ -165,6 +166,66 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration)
         detectorIndexes.push_back(it.detectorIndex());
         roiIndexes.push_back(it.roiIndex());
     }
+    EXPECT_EQ(indexes, expectedRoiIndexes);
+    EXPECT_EQ(elementIndexes, expectedElementIndexes);
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
+    EXPECT_EQ(roiIndexes, expectedRoiIndexes);
+
+    // Now same as above, but using IDetector::iterate
+    indexes.clear();
+    elementIndexes.clear();
+    detectorIndexes.clear();
+    roiIndexes.clear();
+    detector.iterate([&](IDetector::const_iterator it){
+        indexes.push_back(it.index());
+        elementIndexes.push_back(it.elementIndex());
+        detectorIndexes.push_back(it.detectorIndex());
+        roiIndexes.push_back(it.roiIndex());
+    });
+    EXPECT_EQ(indexes, expectedRoiIndexes);
+    EXPECT_EQ(elementIndexes, expectedElementIndexes);
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
+    EXPECT_EQ(roiIndexes, expectedRoiIndexes);
+}
+
+//! Iteration when RegionOfInterest and masks are present. Iteration visit masked areas too.
+
+TEST_F(SimulationAreaTest, maskAndRoiIterationVisitMasks)
+{
+    SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
+    detector.setRegionOfInterest(0.1, 1.1, 2.9, 3.9);
+    detector.addMask(Rectangle(-0.9, 0.1, 0.9, 1.9), true);
+    SimulationRoiArea area(&detector);
+
+    std::vector<size_t> expectedRoiIndexes = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<size_t> expectedDetectorIndexes = {5, 6, 7, 9, 10, 11, 13, 14, 15};
+    std::vector<size_t> expectedElementIndexes = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<size_t> indexes;
+    std::vector<size_t> elementIndexes;
+    std::vector<size_t> detectorIndexes;
+    std::vector<size_t> roiIndexes;
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
+        indexes.push_back(it.index());
+        elementIndexes.push_back(it.elementIndex());
+        detectorIndexes.push_back(it.detectorIndex());
+        roiIndexes.push_back(it.roiIndex());
+    }
+    EXPECT_EQ(indexes, expectedRoiIndexes);
+    EXPECT_EQ(elementIndexes, expectedElementIndexes);
+    EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);
+    EXPECT_EQ(roiIndexes, expectedRoiIndexes);
+
+    // Now same as above, but using IDetector::iterate
+    indexes.clear();
+    elementIndexes.clear();
+    detectorIndexes.clear();
+    roiIndexes.clear();
+    detector.iterate([&](IDetector::const_iterator it){
+        indexes.push_back(it.index());
+        elementIndexes.push_back(it.elementIndex());
+        detectorIndexes.push_back(it.detectorIndex());
+        roiIndexes.push_back(it.roiIndex());
+    }, /*visit_masked*/true);
     EXPECT_EQ(indexes, expectedRoiIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);

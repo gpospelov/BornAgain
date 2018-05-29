@@ -18,10 +18,11 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+#include <QTreeView>
+
 class RealSpaceToolBar;
 class RealSpaceCanvas;
 class RealSpaceActions;
-class RealSpacePanel;
 class SampleModel;
 
 //! Prototype of real space widget to present sample structure in 3D view.
@@ -31,15 +32,17 @@ class BA_CORE_API_ RealSpaceWidget : public QWidget
     Q_OBJECT
 
 public:
-    RealSpaceWidget(QWidget* parent = 0);
+    RealSpaceWidget(SampleModel* sampleModel = nullptr,
+                    QItemSelectionModel* selectionModel = nullptr, QWidget* parent = nullptr);
 
-    void setModel(SampleModel* model);
+    void setModel(SampleModel* model, QItemSelectionModel* selectionModel);
 
 private:
     RealSpaceActions* m_actions;
     RealSpaceToolBar* m_toolBar;
     RealSpaceCanvas* m_canvas;
-    RealSpacePanel* m_panel;
+    SampleModel* m_sampleModel;
+    QItemSelectionModel* m_selectionModel;
 };
 
 #endif // REALSPACEWIDGET_H

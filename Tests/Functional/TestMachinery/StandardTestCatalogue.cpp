@@ -112,6 +112,18 @@ StandardTestCatalogue::StandardTestCatalogue()
         "RotatedSquareLatticeBuilder",
         2e-10);
 
+    add("FiniteSquareLattice",
+        "Interference function of finite 2D square lattice",
+        "MiniGISAS",
+        "FiniteSquareLatticeBuilder",
+        2e-10);
+
+    add("SuperLattice",
+        "Interference function of 2D superlattice",
+        "MiniGISAS",
+        "SuperLatticeBuilder",
+        2e-10);
+
     add("RotatedPyramids",
         "Interference function of rotated 2D square lattice",
         "MiniGISAS",
@@ -415,10 +427,20 @@ StandardTestCatalogue::StandardTestCatalogue()
         "HomogeneousMultilayerBuilder",
         1e-10);
 
+    // off-specular simulation
+
     add("OffSpecularResonator",
         "Simulates resonator in OffSpec setup",
         "OffSpecMini",
         "ResonatorBuilder",
+        1e-10);
+
+    // depth probe simulation
+
+    add("DepthProbeTest",
+        "Test for basic functionality of depth probe",
+        "BasicDepthProbe",
+        "HomogeneousMultilayerBuilder",
         1e-10);
 }
 

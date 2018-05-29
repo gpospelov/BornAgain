@@ -30,11 +30,12 @@ const std::string FixedBinAxisType = "FixedBinAxis";
 const std::string VariableBinAxisType = "VariableBinAxis";
 const std::string ConstKBinAxisType = "ConstKBinAxis";
 const std::string CustomBinAxisType = "CustomBinAxis";
-const std::string GzipExtention = ".gz";
-const std::string BzipExtention = ".bz2";
-const std::string IntExtention = ".int";
-const std::string TxtExtention = ".txt";
-const std::string TiffExtention = ".tif";
+const std::string GzipExtension = ".gz";
+const std::string BzipExtension = ".bz2";
+const std::string IntExtension = ".int";
+const std::string TxtExtension = ".txt";
+const std::string TiffExtension = ".tif";
+const std::string TiffExtension2 = ".tiff";
 
 //! Returns true if name contains *.gz extension
 BA_CORE_API_ bool isCompressed(const std::string& name);

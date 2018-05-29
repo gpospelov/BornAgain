@@ -142,14 +142,14 @@ void ColumnResizer::updateWidth()
 {
     if(d->block_update) return;
     int width = 0;
-    Q_FOREACH(QWidget* widget, d->m_widgets) {
+    for(auto widget : d->m_widgets) {
         width = qMax(widget->sizeHint().width(), width);
     }
-    Q_FOREACH(FormLayoutWidgetItem* item, d->m_wrWidgetItemList) {
+    for(auto item : d->m_wrWidgetItemList) {
         item->setWidth(width);
         item->formLayout()->update();
     }
-    Q_FOREACH(GridColumnInfo info, d->m_gridColumnInfoList) {
+    for(auto info : d->m_gridColumnInfoList) {
         info.first->setColumnMinimumWidth(info.second, width);
     }
 }

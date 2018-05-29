@@ -19,18 +19,18 @@
 #ifdef _WIN32
 #pragma warning ( push )
 #pragma warning ( disable: 4267 )
-#include "Math/PatchedGSLSimAnMinimizer.h"
+#include "Math/GSLSimAnMinimizer.h"
 #pragma warning ( pop )
 #else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#include "Math/PatchedGSLSimAnMinimizer.h"
+#include "Math/GSLSimAnMinimizer.h"
 #pragma GCC diagnostic pop
 #endif
 
 SimAnMinimizer::SimAnMinimizer()
     : RootMinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo())
-    , m_siman_minimizer(new BA_ROOT::Math::GSLSimAnMinimizer())
+    , m_siman_minimizer(new ROOT::Math::GSLSimAnMinimizer())
 {
     addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
     addOption(OptionNames::MaxIterations, 100, "Number of points to try for each step");
@@ -131,9 +131,11 @@ std::map<std::string, std::string> SimAnMinimizer::statusMap() const
     return result;
 }
 
+bool SimAnMinimizer::isGradientBasedAgorithm() { return false; }
+
 void SimAnMinimizer::propagateOptions()
 {
-    BA_ROOT::Math::GSLSimAnParams& pars = m_siman_minimizer->getSolver().Params();
+    ROOT::Math::GSLSimAnParams& pars = m_siman_minimizer->getSolver().Params();
     pars.n_tries = maxIterations();
     pars.iters_fixed_T = iterationsAtEachTemp();
     pars.step_size = stepSize();

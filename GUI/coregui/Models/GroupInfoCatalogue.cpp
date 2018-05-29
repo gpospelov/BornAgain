@@ -85,6 +85,14 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.setDefaultType(Constants::DistributionNoneType);
     addInfo(info);
 
+    info = GroupInfo(Constants::DistributionWithZeroAverageGroup);
+    info.add(Constants::DistributionNoneType, "None");
+    info.add(Constants::DistributionLorentzType, "Lorentz");
+    info.add(Constants::DistributionGaussianType, "Gaussian");
+    info.add(Constants::DistributionCosineType, "Cosine");
+    info.setDefaultType(Constants::DistributionNoneType);
+    addInfo(info);
+
     info = GroupInfo(Constants::FTDistribution1DGroup);
     info.add(Constants::FTDistribution1DCauchyType, "Cauchy 1D");
     info.add(Constants::FTDistribution1DGaussType, "Gauss 1D");
@@ -163,6 +171,13 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::MaterialRefractiveDataType, "Refractive index based");
     info.add(Constants::MaterialSLDDataType, "SLD based");
     info.setDefaultType(Constants::MaterialRefractiveDataType);
+    addInfo(info);
+
+    info = GroupInfo(Constants::FootprintGroup);
+    info.add(Constants::FootprintNoneType, "None");
+    info.add(Constants::FootprintGaussianType, "Gaussian footprint");
+    info.add(Constants::FootprintSquareType, "Square footprint");
+    info.setDefaultType(Constants::FootprintNoneType);
     addInfo(info);
 }
 

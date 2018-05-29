@@ -17,18 +17,18 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
-#include "BornAgainNamespace.h"
+#include "ImportDataUtils.h"
+#include "JobItemUtils.h"
 
-const QString SpecularDataItem::P_AXES_UNITS = "Axes Units";
+const QString x_axis_default_name = "X [nbins]";
+const QString y_axis_default_name = "Signal [a.u.]";
+
 const QString SpecularDataItem::P_TITLE = "Title";
 const QString SpecularDataItem::P_XAXIS = "x-axis";
 const QString SpecularDataItem::P_YAXIS = "y-axis";
 
 SpecularDataItem::SpecularDataItem() : DataItem(Constants::SpecularDataType)
 {
-    ComboProperty units = ComboProperty() << Constants::UnitsNbins;
-    addProperty(P_AXES_UNITS, units.variant());
-
     addProperty(P_TITLE, QString())->setVisible(false);
 
     SessionItem* item = addGroupProperty(P_XAXIS, Constants::BasicAxisType);
@@ -42,8 +42,8 @@ SpecularDataItem::SpecularDataItem() : DataItem(Constants::SpecularDataType)
     item->setValue(true);
     item->setVisible(false);
 
-    setXaxisTitle("X [nbins]");
-    setYaxisTitle("Signal [a.u.]");
+    setXaxisTitle(x_axis_default_name);
+    setYaxisTitle(y_axis_default_name);
 }
 
 void SpecularDataItem::setOutputData(OutputData<double>* data)
@@ -131,10 +131,46 @@ QString SpecularDataItem::getYaxisTitle() const
     return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
 }
 
-QString SpecularDataItem::selectedAxesUnits() const
+void SpecularDataItem::setXaxisTitle(QString xtitle)
 {
-    ComboProperty combo = getItemValue(SpecularDataItem::P_AXES_UNITS).value<ComboProperty>();
-    return combo.getValue();
+    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
+}
+
+void SpecularDataItem::setYaxisTitle(QString ytitle)
+{
+    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_TITLE, ytitle);
+}
+
+//! set zoom range of x,y axes to axes of input data
+void SpecularDataItem::setAxesRangeToData()
+{
+    setLowerX(getXmin());
+    setUpperX(getXmax());
+    setLowerY(getYmin());
+    setUpperY(getYmax());
+}
+
+void SpecularDataItem::updateAxesUnits(const InstrumentItem* instrument)
+{
+    JobItemUtils::updateDataAxes(this, instrument);
+}
+
+std::vector<int> SpecularDataItem::shape() const
+{
+    return {getNbins()};
+}
+
+void SpecularDataItem::resetToDefault()
+{
+    assert(getOutputData()
+           && "SpecularDataItem::resetToDefault assertion failed: associated output data should "
+              "not be empty");
+    DataItem::resetToDefault();
+
+    setXaxisTitle(x_axis_default_name);
+    setYaxisTitle(y_axis_default_name);
+    setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*getOutputData()).release());
+    setAxesRangeToData();
 }
 
 void SpecularDataItem::setLowerX(double xmin)
@@ -160,25 +196,6 @@ void SpecularDataItem::setUpperY(double ymax)
 void SpecularDataItem::setLog(bool log_flag)
 {
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, log_flag);
-}
-
-void SpecularDataItem::setXaxisTitle(QString xtitle)
-{
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
-}
-
-void SpecularDataItem::setYaxisTitle(QString ytitle)
-{
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_TITLE, ytitle);
-}
-
-//! set zoom range of x,y axes to axes of input data
-void SpecularDataItem::setAxesRangeToData()
-{
-    setLowerX(getXmin());
-    setUpperX(getXmax());
-    setLowerY(getYmin());
-    setUpperY(getYmax());
 }
 
 //! Sets zoom range of X,Y axes, if it was not yet defined.

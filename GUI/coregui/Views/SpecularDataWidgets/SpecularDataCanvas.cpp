@@ -29,7 +29,6 @@ SpecularDataCanvas::SpecularDataCanvas(QWidget* parent)
 
 {
     QVBoxLayout* vlayout = new QVBoxLayout(this);
-    vlayout->setMargin(0);
     vlayout->setSpacing(0);
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->addWidget(m_plot_canvas);
@@ -37,6 +36,8 @@ SpecularDataCanvas::SpecularDataCanvas(QWidget* parent)
     setStyleSheet("background-color:white;");
 
     initActions();
+
+    m_plot_canvas->setStatusLabelEnabled(true);
 
     connect(m_plot_canvas->customPlot(), &QCustomPlot::mousePress, this,
             &SpecularDataCanvas::onMousePress, Qt::UniqueConnection);

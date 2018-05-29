@@ -35,6 +35,22 @@ def get_simulation_SpecularSimulation():
     return simulation
 
 
+def get_simulation_DepthProbe():
+    """
+    Returns custom simulation in the case of depth probe.
+    """
+    simulation = example.get_simulation()
+    beam = simulation.getInstrument().getBeam()
+    wavelength = beam.getWavelength()
+    incl_axis = simulation.getAlphaAxis()
+    z_axis = simulation.getZAxis()
+    footprint = beam.footprintFactor()
+    simulation.setBeamParameters(
+        wavelength, 10, incl_axis.getMin(), incl_axis.getMax(), footprint)
+    simulation.setZSpan(10, z_axis.getMin(), z_axis.getMax())
+    return simulation
+
+
 def get_simulation_RectangularGrating():
     """
     Returns custom simulation for RectangularGrating.py.
@@ -66,7 +82,7 @@ def get_simulation_GenericExample():
 
 def get_minified_simulation():
     """
-    Returns a GISAXS simulation constructed from example simulation with smaller detector.
+    Returns a simulation constructed from example simulation with smaller detector.
     """
     if "ex06_Reflectometry" in EXAMPLE_DIR:
         return get_simulation_SpecularSimulation()
@@ -74,8 +90,11 @@ def get_minified_simulation():
     elif EXAMPLE_NAME == "RectangularGrating":
         return get_simulation_RectangularGrating()
 
+    elif EXAMPLE_NAME == "DepthProbe":
+        return get_simulation_DepthProbe()
+
     else:
-        return get_simulation_GenericExample();
+        return get_simulation_GenericExample()
 
 
 def adjusted_simulation():

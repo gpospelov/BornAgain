@@ -17,6 +17,8 @@
 
 #include "SessionItemWidget.h"
 
+class FontScalingEvent;
+class PlotStatusLabel;
 class QCustomPlot;
 class SpecularPlot;
 
@@ -28,15 +30,22 @@ class BA_CORE_API_ SpecularPlotCanvas : public SessionItemWidget
     Q_OBJECT
 
 public:
-    explicit SpecularPlotCanvas(QWidget* parent = 0);
+    explicit SpecularPlotCanvas(QWidget* parent = nullptr);
 
     void setItem(SessionItem* specularDataItem) override;
 
     SpecularPlot* specularPlot();
     QCustomPlot* customPlot();
 
+    void setStatusLabelEnabled(bool flag);
+
+public slots:
+    void onStatusString(const QString& name);
+
 private:
     SpecularPlot* m_plot;
+    FontScalingEvent* m_canvasEvent;
+    PlotStatusLabel* m_statusLabel;
 };
 
 #endif // SPECULARPLOTCANVAS_H

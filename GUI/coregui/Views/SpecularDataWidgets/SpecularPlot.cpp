@@ -15,27 +15,26 @@
 #include "SpecularPlot.h"
 #include "AxesItems.h"
 #include "ColorMapUtils.h"
-#include "SpecularPlotEvent.h"
 #include "MathConstants.h"
+#include "plot_constants.h"
+#include "PlotEventInfo.h"
 #include "SpecularDataItem.h"
 #include "UpdateTimer.h"
-#include "plot_constants.h"
 
 namespace {
 const int replot_update_interval = 10;
 }
 
 SpecularPlot::SpecularPlot(QWidget* parent)
-    : SessionItemWidget(parent)
+    : ScientificPlot(parent, PLOT_TYPE::Plot1D)
     , m_custom_plot(new QCustomPlot)
     , m_update_timer(new UpdateTimer(replot_update_interval, this))
-    , m_plot_event(new SpecularPlotEvent(this))
     , m_block_update(true)
 {
     initPlot();
 
     QVBoxLayout* vlayout = new QVBoxLayout(this);
-    vlayout->setMargin(0);
+    vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
     vlayout->addWidget(m_custom_plot);
     setLayout(vlayout);
@@ -43,14 +42,25 @@ SpecularPlot::SpecularPlot(QWidget* parent)
     setMouseTrackingEnabled(true);
 }
 
-void SpecularPlot::setMouseTrackingEnabled(bool enable)
+PlotEventInfo SpecularPlot::eventInfo(double xpos, double ypos) const
 {
-    m_plot_event->setMouseTrackingEnabled(enable);
+    PlotEventInfo result(plotType());
+    if (!specularItem())
+        return result;
+
+    result.setX(xpos);
+    result.setValue(ypos);
+
+    result.setInAxesRange(axesRangeContains(xpos, ypos));
+    result.setNx(m_custom_plot->graph()->findBegin(result.x()));
+
+    return result;
 }
 
 void SpecularPlot::setLog(bool log)
 {
     ColorMapUtils::setLogz(m_custom_plot->yAxis, log);
+    ColorMapUtils::setLogz(m_custom_plot->yAxis2, log);
 }
 
 void SpecularPlot::resetView()
@@ -63,7 +73,7 @@ void SpecularPlot::onPropertyChanged(const QString& property_name)
     if (m_block_update)
         return;
 
-    if (property_name == SpecularDataItem::P_AXES_UNITS) {
+    if (property_name == DataItem::P_AXES_UNITS) {
         setAxesRangeFromItem(specularItem());
         replot();
     }
@@ -128,11 +138,6 @@ void SpecularPlot::initPlot()
         QFont(QFont().family(), Constants::plot_tick_label_size));
     m_custom_plot->yAxis->setTickLabelFont(
         QFont(QFont().family(), Constants::plot_tick_label_size));
-
-    m_custom_plot->xAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
-    m_custom_plot->yAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
-
-    ColorMapUtils::setDefaultMargins(m_custom_plot);
 }
 
 void SpecularPlot::setConnected(bool isConnected)
@@ -144,28 +149,32 @@ void SpecularPlot::setConnected(bool isConnected)
 void SpecularPlot::setAxesRangeConnected(bool isConnected)
 {
     if (isConnected) {
-        connect(m_custom_plot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
-                SLOT(onXaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+        connect(m_custom_plot->xAxis,
+                static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
+                &SpecularPlot::onXaxisRangeChanged, Qt::UniqueConnection);
 
-        connect(m_custom_plot->yAxis, SIGNAL(rangeChanged(QCPRange)), this,
-                SLOT(onYaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+        connect(m_custom_plot->yAxis,
+                static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
+                &SpecularPlot::onYaxisRangeChanged, Qt::UniqueConnection);
 
     } else {
-        disconnect(m_custom_plot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
-                   SLOT(onXaxisRangeChanged(QCPRange)));
+        disconnect(m_custom_plot->xAxis,
+                   static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
+                   &SpecularPlot::onXaxisRangeChanged);
 
-        disconnect(m_custom_plot->yAxis, SIGNAL(rangeChanged(QCPRange)), this,
-                   SLOT(onYaxisRangeChanged(QCPRange)));
+        disconnect(m_custom_plot->yAxis,
+                   static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
+                   &SpecularPlot::onYaxisRangeChanged);
     }
 }
 
 void SpecularPlot::setUpdateTimerConnected(bool isConnected)
 {
     if (isConnected)
-        connect(m_update_timer, SIGNAL(timeToUpdate()), this, SLOT(onTimeToReplot()),
+        connect(m_update_timer, &UpdateTimer::timeToUpdate, this, &SpecularPlot::onTimeToReplot,
                 Qt::UniqueConnection);
     else
-        disconnect(m_update_timer, SIGNAL(timeToUpdate()), this, SLOT(onTimeToReplot()));
+        disconnect(m_update_timer, &UpdateTimer::timeToUpdate, this, &SpecularPlot::onTimeToReplot);
 }
 
 void SpecularPlot::setPlotFromItem(SpecularDataItem* specularItem)

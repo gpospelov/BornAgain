@@ -107,6 +107,11 @@ void DistributionNoneItem::init_distribution(double value)
     setItemValue(DistributionNoneItem::P_VALUE, value);
 }
 
+void DistributionNoneItem::showMean(bool flag)
+{
+    getItem(P_VALUE)->setVisible(flag);
+}
+
 // --------------------------------------------------------------------------------------------- //
 
 const QString DistributionGateItem::P_MIN = QString::fromStdString(BornAgain::Minimum);
@@ -170,6 +175,11 @@ void DistributionLorentzItem::init_distribution(double value)
     getItem(P_HWHM)->setLimits(RealLimits::lowerLimited(0.0));
 }
 
+void DistributionLorentzItem::showMean(bool flag)
+{
+    getItem(P_MEAN)->setVisible(flag);
+}
+
 // --------------------------------------------------------------------------------------------- //
 
 const QString DistributionGaussianItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
@@ -201,6 +211,11 @@ void DistributionGaussianItem::init_distribution(double value)
     setItemValue(P_MEAN, value);
     setItemValue(P_STD_DEV, sigma);
     getItem(P_STD_DEV)->setLimits(RealLimits::lowerLimited(0.0));
+}
+
+void DistributionGaussianItem::showMean(bool flag)
+{
+    getItem(P_MEAN)->setVisible(flag);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -237,6 +252,11 @@ void DistributionLogNormalItem::init_distribution(double value)
     getItem(P_SCALE_PAR)->setLimits(RealLimits::lowerLimited(0.0));
 }
 
+void DistributionLogNormalItem::showMean(bool flag)
+{
+    getItem(P_MEDIAN)->setVisible(flag);
+}
+
 // --------------------------------------------------------------------------------------------- //
 
 const QString DistributionCosineItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
@@ -268,6 +288,11 @@ void DistributionCosineItem::init_distribution(double value)
     setItemValue(P_MEAN, value);
     setItemValue(P_SIGMA, sigma);
     getItem(P_SIGMA)->setLimits(RealLimits::lowerLimited(0.0));
+}
+
+void DistributionCosineItem::showMean(bool flag)
+{
+    getItem(P_MEAN)->setVisible(flag);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -309,4 +334,9 @@ void DistributionTrapezoidItem::init_distribution(double value)
     setItemValue(P_LEFTWIDTH, width);
     setItemValue(P_MIDDLEWIDTH, width);
     setItemValue(P_RIGHTWIDTH, width);
+}
+
+void DistributionTrapezoidItem::showMean(bool flag)
+{
+    getItem(P_CENTER)->setVisible(flag);
 }

@@ -23,8 +23,10 @@
 
 class RootObjectiveFunctionAdapter;
 class IFitParameter;
-
-namespace BA_ROOT { namespace Math { class Minimizer; } }
+namespace Fit {
+    class Parameters; class Parameter; class ObjectiveFunctionAdapter; class MinimizerResult;
+}
+namespace ROOT { namespace Math { class Minimizer; } }
 
 //! Pure virtual interface that adapts the CERN ROOT minimizer to our IMinimizer.
 //! @ingroup fitting_internal
@@ -32,11 +34,13 @@ namespace BA_ROOT { namespace Math { class Minimizer; } }
 class BA_CORE_API_ RootMinimizerAdapter : public IMinimizer
 {
 public:
-    typedef BA_ROOT::Math::Minimizer root_minimizer_t;
+    typedef ROOT::Math::Minimizer root_minimizer_t;
 
     virtual ~RootMinimizerAdapter();
 
     void minimize() override;
+    Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
+    Fit::MinimizerResult minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override;
 
     //! Returns name of the minimizer.
     std::string minimizerName() const override final;
@@ -45,6 +49,7 @@ public:
     std::string algorithmName() const override final;
 
     void setParameters(const FitParameterSet& parameters) override final;
+    void setParameters(const Fit::Parameters& parameters);
 
     void setObjectiveFunction(objective_function_t func) override final;
 
@@ -68,6 +73,7 @@ public:
 
     //! Propagates results of minimization to fit parameter set
     void propagateResults(FitParameterSet& parameters) override;
+    void propagateResults(Fit::Parameters& parameters) override;
 
     //! Sets option string to the minimizer
     void setOptions(const std::string& optionString) override final;
@@ -77,6 +83,7 @@ protected:
 
     virtual bool isGradientBasedAgorithm() { return false;}
     virtual void setParameter(size_t index, const IFitParameter *par);
+    virtual void setParameter(unsigned int index, const Fit::Parameter& par);
     size_t fitDimension() const;
     std::vector<double> parValuesAtMinimum() const;
     std::vector<double> parErrorsAtMinimum() const;
@@ -99,6 +106,7 @@ private:
     MinimizerOptions m_options;
     MinimizerInfo m_minimizerInfo;
     std::unique_ptr<RootObjectiveFunctionAdapter> m_obj_func;
+    std::unique_ptr<Fit::ObjectiveFunctionAdapter> m_adapter;
     bool m_status;
 };
 

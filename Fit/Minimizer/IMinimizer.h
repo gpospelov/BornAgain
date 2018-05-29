@@ -17,9 +17,11 @@
 
 #include "WinDllMacros.h"
 #include "KernelTypes.h"
+#include "MinimizerResult.h"
 #include <string>
 
 class FitParameterSet;
+namespace Fit {class Parameters;}
 
 //! Pure virtual interface for all kind minimizers.
 //! @ingroup fitting_internal
@@ -41,9 +43,11 @@ class BA_CORE_API_ IMinimizer
 
     //! run minimization
     virtual void minimize() =0;
+    virtual Fit::MinimizerResult minimize_scalar(fcn_scalar_t, Fit::Parameters);
+    virtual Fit::MinimizerResult minimize_residual(fcn_residual_t, Fit::Parameters);
 
     //! clear resources (parameters) for consecutives minimizations
-    virtual void clear() {};
+    virtual void clear() {}
 
     //! Sets internal minimizer parameters using external parameter list
     virtual void setParameters(const FitParameterSet& parameters) =0;
@@ -59,6 +63,7 @@ class BA_CORE_API_ IMinimizer
 
     //! Propagates results of minimization to fit parameter set
     virtual void propagateResults(FitParameterSet& parameters);
+    virtual void propagateResults(Fit::Parameters& parameters);
 
     //! Sets option string to the minimizer
     virtual void setOptions(const std::string& options);

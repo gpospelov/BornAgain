@@ -15,7 +15,7 @@
 #include "PolarizationAnalysisEditor.h"
 #include "ComponentEditor.h"
 #include "InstrumentItems.h"
-#include "BeamItem.h"
+#include "BeamItems.h"
 #include "DetectorItems.h"
 #include "ColumnResizer.h"
 #include "LayoutUtils.h"

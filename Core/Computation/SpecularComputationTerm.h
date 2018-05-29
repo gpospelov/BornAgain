@@ -37,8 +37,6 @@ public:
               const SpecularElementIter& end_it) const;
 
 private:
-    void evalSingle(const SpecularElementIter& iter) const;
-
     const MultiLayer* mp_multilayer;
     const IFresnelMap* mp_fresnel_map;
 };

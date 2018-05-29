@@ -14,10 +14,10 @@
 
 #include "ColorMap.h"
 #include "AxesItems.h"
-#include "ColorMapEvent.h"
 #include "ColorMapUtils.h"
 #include "IntensityDataItem.h"
 #include "MathConstants.h"
+#include "PlotEventInfo.h"
 #include "UpdateTimer.h"
 #include "plot_constants.h"
 
@@ -28,11 +28,10 @@ const int colorbar_width = 80;
 }
 
 ColorMap::ColorMap(QWidget* parent)
-    : SessionItemWidget(parent)
+    : ScientificPlot(parent, PLOT_TYPE::Plot2D)
     , m_customPlot(new QCustomPlot)
     , m_colorMap(nullptr), m_colorScale(nullptr)
     , m_updateTimer(new UpdateTimer(replot_update_interval, this))
-    , m_colorMapEvent(new ColorMapEvent(this))
     , m_colorBarLayout(new  QCPLayoutGrid)
     , m_block_update(true)    
 {
@@ -46,26 +45,6 @@ ColorMap::ColorMap(QWidget* parent)
 
     setMouseTrackingEnabled(true);
     //    setFixedColorMapMargins();
-}
-
-double ColorMap::xAxisCoordToPixel(double axis_coordinate) const
-{
-    return m_customPlot->xAxis->coordToPixel(axis_coordinate);
-}
-
-double ColorMap::yAxisCoordToPixel(double axis_coordinate) const
-{
-    return m_customPlot->yAxis->coordToPixel(axis_coordinate);
-}
-
-double ColorMap::pixelToXaxisCoord(double pixel) const
-{
-    return m_customPlot->xAxis->pixelToCoord(pixel);
-}
-
-double ColorMap::pixelToYaxisCoord(double pixel) const
-{
-    return m_customPlot->yAxis->pixelToCoord(pixel);
 }
 
 QRectF ColorMap::viewportRectangleInWidgetCoordinates()
@@ -82,40 +61,25 @@ QRectF ColorMap::viewportRectangleInWidgetCoordinates()
                   yAxisCoordToPixel(bottom) - yAxisCoordToPixel(top));
 }
 
-bool ColorMap::axesRangeContains(double xpos, double ypos) const
+PlotEventInfo ColorMap::eventInfo(double xpos, double ypos) const
 {
-    if (customPlot()->xAxis->range().contains(xpos)
-        && customPlot()->yAxis->range().contains(ypos)) {
-        return true;
-    }
-    return false;
-}
-
-ColorMapBin ColorMap::colorMapBin(double xpos, double ypos) const
-{
-    ColorMapBin result;
+    PlotEventInfo result(plotType());
     if (!intensityItem())
         return result;
 
-    result.m_x = xpos;
-    result.m_y = ypos;
+    int nx(0), ny(0);
+    m_colorMap->data()->coordToCell(xpos, ypos, &nx, &ny);
 
-    if (axesRangeContains(xpos, ypos))
-        result.in_axes_range = true;
+    result.setX(xpos);
+    result.setY(ypos);
+    result.setNx(nx);
+    result.setNy(ny);
 
-    m_colorMap->data()->coordToCell(xpos, ypos, &result.m_nx, &result.m_ny);
-    result.m_value = m_colorMap->data()->cell(result.m_nx, result.m_ny);
-
-    result.m_logz = intensityItem()->isLogz();
+    result.setInAxesRange(axesRangeContains(xpos, ypos));
+    result.setValue(m_colorMap->data()->cell(result.nx(), result.ny()));
+    result.setLogValueAxis(intensityItem()->isLogz());
 
     return result;
-}
-
-//! to track move events (used when showing profile histograms and printing status string)
-
-void ColorMap::setMouseTrackingEnabled(bool enable)
-{
-    m_colorMapEvent->setMouseTrackingEnabled(enable);
 }
 
 //! sets logarithmic scale
@@ -150,7 +114,7 @@ void ColorMap::onPropertyChanged(const QString& property_name)
     } else if (property_name == IntensityDataItem::P_IS_INTERPOLATED) {
         m_colorMap->setInterpolate(intensityItem()->isInterpolated());
         replot();
-    } else if (property_name == IntensityDataItem::P_AXES_UNITS) {
+    } else if (property_name == DataItem::P_AXES_UNITS) {
         setAxesRangeFromItem(intensityItem());
         replot();
     }

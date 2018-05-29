@@ -13,6 +13,8 @@
 // ************************************************************************** //
 
 #include "SpecularPlotCanvas.h"
+#include "FontScalingEvent.h"
+#include "PlotStatusLabel.h"
 #include "SpecularPlot.h"
 #include "SpecularDataItem.h"
 #include <QVBoxLayout>
@@ -20,14 +22,20 @@
 SpecularPlotCanvas::SpecularPlotCanvas(QWidget *parent)
     : SessionItemWidget(parent)
     , m_plot(new SpecularPlot)
+    , m_canvasEvent(new FontScalingEvent(m_plot, this))
+    , m_statusLabel(new PlotStatusLabel(m_plot, this))
 {
+    this->installEventFilter(m_canvasEvent);
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
 
     layout->addWidget(m_plot);
+    layout->addWidget(m_statusLabel);
 
     setLayout(layout);
+
+    setStatusLabelEnabled(false);
 }
 
 void SpecularPlotCanvas::setItem(SessionItem* specularDataItem)
@@ -44,4 +52,15 @@ SpecularPlot* SpecularPlotCanvas::specularPlot()
 QCustomPlot* SpecularPlotCanvas::customPlot()
 {
     return m_plot->customPlot();
+}
+
+void SpecularPlotCanvas::setStatusLabelEnabled(bool flag)
+{
+    m_statusLabel->setLabelEnabled(flag);
+    m_statusLabel->setHidden(!flag);
+}
+
+void SpecularPlotCanvas::onStatusString(const QString& name)
+{
+    m_statusLabel->setText(name);
 }

@@ -56,26 +56,15 @@ RealDataItem::RealDataItem()
         }
     );
 
-    mapper()->setOnChildPropertyChange(
-                [this](SessionItem* item, const QString &name)
-    {
-        if (item && item->modelType() == Constants::IntensityDataType
-            && name == IntensityDataItem::P_AXES_UNITS) {
-            if(!m_linkedInstrument)
-                return;
-            mapper()->setActive(false);
+    mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
+        auto data_item = dynamic_cast<DataItem*>(item);
+        if (!data_item || !m_linkedInstrument || name != DataItem::P_AXES_UNITS)
+            return;
 
-            MaskUnitsConverter converter;
-            converter.convertToNbins(intensityDataItem());
-
-            JobItemUtils::updateDataAxes(intensityDataItem(), m_linkedInstrument);
-
-            converter.convertFromNbins(intensityDataItem());
-
-            mapper()->setActive(true);
-        }
+        mapper()->setActive(false);
+        data_item->updateAxesUnits(m_linkedInstrument);
+        mapper()->setActive(true);
     });
-
 }
 
 IntensityDataItem *RealDataItem::intensityDataItem()
@@ -91,11 +80,22 @@ const IntensityDataItem *RealDataItem::intensityDataItem() const
     return result;
 }
 
+DataItem* RealDataItem::dataItem()
+{
+    return const_cast<DataItem*>(static_cast<const RealDataItem*>(this)->dataItem());
+}
+
+const DataItem* RealDataItem::dataItem() const
+{
+    const DataItem* result = dynamic_cast<const DataItem*>(getItem(T_INTENSITY_DATA));
+    return result;
+}
+
 //! Sets OutputData to underlying item. Creates it, if not exists.
 
 void RealDataItem::setOutputData(OutputData<double> *data)
 {
-    IntensityDataItem *item = intensityDataItem();
+    DataItem* item = dataItem();
     Q_ASSERT(item);
     item->setOutputData(data);
 }
@@ -107,39 +107,32 @@ void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_
         updateToInstrument();
 }
 
+std::vector<int> RealDataItem::shape() const
+{
+    auto data_item = dataItem();
+    if (!data_item) {
+        assert(data_item);
+        return {};
+    }
+    return data_item->shape();
+}
+
 //! Updates the name of file to store intensity data.
 
 void RealDataItem::updateIntensityDataFileName()
 {
-    if(IntensityDataItem *item = intensityDataItem())
-        item->setItemValue(IntensityDataItem::P_FILE_NAME,
-                           JobItemFunctions::realDataFileName(*this));
+    if (DataItem* item = dataItem())
+        item->setItemValue(DataItem::P_FILE_NAME, JobItemFunctions::realDataFileName(*this));
 }
 
 void RealDataItem::updateToInstrument()
 {
-    if(!intensityDataItem())
-        return;
-
-    if(!intensityDataItem()->getOutputData())
-        return;
-
-    IntensityDataItem *item = intensityDataItem();
-    Q_ASSERT(item);
-
-    if(m_linkedInstrument == 0) {
-        ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
-        item->setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
-        item->getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
-        item->setXaxisTitle("X [nbins]");
-        item->setYaxisTitle("Y [nbins]");
-        MaskUnitsConverter converter;
-        converter.convertToNbins(intensityDataItem());
-        item->setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*item->getOutputData()).release());
-        item->setAxesRangeToData();
-        converter.convertFromNbins(intensityDataItem());
-    }
-    else {
-        JobItemUtils::setIntensityItemAxesUnits(item, m_linkedInstrument);
-    }
+    DataItem* item = dataItem();
+    assert(item
+           && "RealDataItem::updateToInstrument assertion failed: underlying data item doesn't "
+              "exist");
+    assert(item->getOutputData()
+           && "RealDataItem::updateToInstrument assertion failed: underlying data item doesn't "
+              "contain data");
+    JobItemUtils::setIntensityItemAxesUnits(item, m_linkedInstrument);
 }

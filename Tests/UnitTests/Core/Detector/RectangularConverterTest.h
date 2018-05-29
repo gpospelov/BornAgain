@@ -1,9 +1,10 @@
 #include "google_test.h"
 #include "Beam.h"
 #include "RectangularDetector.h"
-#include "UnitConverters.h"
+#include "SimpleUnitConverters.h"
 #include "Units.h"
 #include "Vectors3D.h"
+#include <cmath>
 
 namespace {
 const double det_width = 200.0;
@@ -84,6 +85,22 @@ TEST_F(RectangularConverterTest, RectangularConverter)
 
     EXPECT_THROW(converter.calculateMin(2, AxesUnits::DEFAULT), std::runtime_error);
     EXPECT_THROW(converter.calculateMax(2, AxesUnits::DEFAULT), std::runtime_error);
+
+    auto axis = converter.createConvertedAxis(0, AxesUnits::DEFAULT);
+    EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis.get()));
+    EXPECT_EQ(axis->size(), converter.axisSize(0));
+    EXPECT_EQ(axis->getName(), converter.axisName(0));
+    EXPECT_EQ(axis->getMin(), converter.calculateMin(0, AxesUnits::DEFAULT));
+    EXPECT_EQ(axis->getMax(), converter.calculateMax(0, AxesUnits::DEFAULT));
+
+    auto axis2 = converter.createConvertedAxis(1, AxesUnits::QSPACE);
+    EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis2.get()));
+    EXPECT_EQ(axis2->size(), converter.axisSize(1));
+    EXPECT_EQ(axis2->getName(), converter.axisName(1, AxesUnits::QSPACE));
+    EXPECT_EQ(axis2->getMin(), converter.calculateMin(1, AxesUnits::QSPACE));
+    EXPECT_EQ(axis2->getMax(), converter.calculateMax(1, AxesUnits::QSPACE));
+
+    EXPECT_THROW(converter.createConvertedAxis(2, AxesUnits::DEFAULT), std::runtime_error);
 }
 
 TEST_F(RectangularConverterTest, RectangularConverterClone)
@@ -129,4 +146,25 @@ TEST_F(RectangularConverterTest, RectangularConverterClone)
 
     EXPECT_THROW(P_clone->calculateMin(2, AxesUnits::DEFAULT), std::runtime_error);
     EXPECT_THROW(P_clone->calculateMax(2, AxesUnits::DEFAULT), std::runtime_error);
+}
+
+TEST_F(RectangularConverterTest, RectangularConverterWithROI)
+{
+    const double roi_xmin = 100;
+    const double roi_xmax = 150; // xmax in roi will be 152 due to binning
+    const double roi_ymin = 50;
+    const double roi_ymax = 100; // ymax in roi will be 102 due to binning
+
+    m_detector.setRegionOfInterest(roi_xmin, roi_ymin, roi_xmax, roi_ymax);
+    RectangularConverter converter(m_detector, m_beam);
+
+    EXPECT_EQ(converter.calculateMin(0, AxesUnits::DEFAULT), 100);
+    EXPECT_EQ(converter.calculateMax(0, AxesUnits::DEFAULT), 152);
+    EXPECT_EQ(converter.calculateMin(1, AxesUnits::DEFAULT), 50);
+    EXPECT_EQ(converter.calculateMax(1, AxesUnits::DEFAULT), 102);
+
+    EXPECT_NEAR(converter.calculateMin(0, AxesUnits::DEGREES), 0.0, 1e-10);
+    EXPECT_NEAR(converter.calculateMax(0, AxesUnits::DEGREES), 2.97669946811, 1e-10);
+    EXPECT_NEAR(converter.calculateMin(1, AxesUnits::DEGREES), 2.86240522611, 1e-10);
+    EXPECT_NEAR(converter.calculateMax(1, AxesUnits::DEGREES), 5.82402751615, 1e-10);
 }

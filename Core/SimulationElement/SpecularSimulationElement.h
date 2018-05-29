@@ -18,7 +18,6 @@
 #include "Complex.h"
 #include "Vectors3D.h"
 #include "PolarizationHandler.h"
-#include "SpecularData.h"
 #include <memory>
 
 //! Data stucture containing both input and output of a single image pixel
@@ -55,12 +54,6 @@ public:
     void addIntensity(double intensity) { m_intensity += intensity; }
     double getIntensity() const { return m_intensity; }
 
-    //! Returns specular data container
-    const SpecularData& specularData() const { return m_specular_data; }
-
-    //! Set specular data
-    void setSpecular(SpecularData specular_data);
-
     //! Set calculation flag (if it's false, zero intensity is assigned to the element)
     void setCalculationFlag(bool calculation_flag) {m_calculation_flag = calculation_flag;}
     bool isCalculated() const {return m_calculation_flag;}
@@ -72,9 +65,6 @@ private:
     double m_wavelength, m_alpha_i;  //!< the wavelength and the incident angle of the beam
     double m_intensity;                      //!< simulated intensity for detector cell
 
-    // TODO: remove this when we have a simulation type that generates intensity as a function
-    //       of depth and inclination angle
-    SpecularData m_specular_data;
     bool m_calculation_flag;
 };
 

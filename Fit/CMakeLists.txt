@@ -10,6 +10,7 @@ endif()
 
 # --- source and include files ------
 set(FIT_SOURCE_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/NewKernel
     ${CMAKE_CURRENT_SOURCE_DIR}/Kernel
     ${CMAKE_CURRENT_SOURCE_DIR}/Minimizer
     ${CMAKE_CURRENT_SOURCE_DIR}/Options
@@ -81,6 +82,8 @@ if(BORNAGAIN_PYTHON)
         ${library_name}_python
         COMMAND ${CMAKE_COMMAND} -E copy ${AUTO_DIR}/libBornAgainFit.py
              ${CMAKE_BINARY_DIR}/lib/libBornAgainFit.py
+        COMMAND ${CMAKE_COMMAND} -E copy ${AUTO_DIR}/libBornAgainFit.py
+             ${CMAKE_BINARY_DIR}/lib/bornagain/libBornAgainFit.py
         DEPENDS ${AUTO_DIR}/libBornAgainFit.py
         )
 

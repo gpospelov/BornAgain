@@ -39,10 +39,12 @@ const ModelType InterferenceFunctionRadialParaCrystalType = "InterferenceRadialP
 const ModelType InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
 const ModelType InterferenceFunction1DLatticeType = "Interference1DLattice";
 const ModelType InterferenceFunction2DLatticeType = "Interference2DLattice";
+const ModelType InterferenceFunctionFinite2DLatticeType = "InterferenceFinite2DLattice";
 const ModelType GISASInstrumentType = "GISASInstrument";
 const ModelType OffSpecInstrumentType = "OffSpecInstrument";
 const ModelType SpecularInstrumentType = "SpecularInstrument";
-const ModelType BeamType = "Beam";
+const ModelType GISASBeamType = "GISASBeam";
+const ModelType SpecularBeamType = "SpecularBeam";
 
 const ModelType FormFactorType = "FormFactor";
 const ModelType AnisoPyramidType = "AnisoPyramid";
@@ -144,6 +146,7 @@ const ModelType BeamDistributionType = "BeamDistribution";
 const ModelType BeamWavelengthType = "BeamWavelength";
 const ModelType BeamAzimuthalAngleType = "BeamAzimuthalAngle";
 const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
+const ModelType SpecularBeamInclinationType = "SpecularBeamInclinationAxis";
 
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
@@ -184,6 +187,10 @@ const ModelType BackgroundNoneType = "NoBackground";
 const ModelType ConstantBackgroundType = "ConstantBackground";
 const ModelType PoissonNoiseBackgroundType = "PoissonNoiseBackground";
 
+const ModelType FootprintNoneType = "NoFootprint";
+const ModelType FootprintGaussianType = "GaussianFootrpint";
+const ModelType FootprintSquareType = "SquareFootprint";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -192,6 +199,7 @@ const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType DistributionGroup = "Distribution group";
 const ModelType DistributionExtendedGroup = "Distribution extended group";
+const ModelType DistributionWithZeroAverageGroup = "Distribution with zero average group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType FTDecayFunction1DGroup = "Decay function 1D";
@@ -203,6 +211,7 @@ const ModelType MinimizerLibraryGroup = "Minimizer library group";
 const ModelType RealLimitsGroup = "RealLimits group";
 const ModelType BackgroundGroup = "Background group";
 const ModelType MaterialDataGroup = "Material data group";
+const ModelType FootprintGroup = "Footprint group";
 
 // --- Units&Constants----------------------------------------------------------
 
@@ -210,7 +219,7 @@ const ModelType UnitsNbins = "nbins";
 const ModelType UnitsRadians = "Radians";
 const ModelType UnitsDegrees = "Degrees";
 const ModelType UnitsMm = "mm";
-const ModelType UnitsQyQz = "Qy,Qz";
+const ModelType UnitsQyQz = "q-space";
 
 const ModelType STATUS_IDLE = "Idle";
 const ModelType STATUS_RUNNING = "Running";

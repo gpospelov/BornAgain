@@ -15,7 +15,7 @@
 #ifndef AXISNAMES_H
 #define AXISNAMES_H
 
-#include "UnitConverters.h"
+#include "IUnitConverter.h"
 #include <map>
 
 //! Contains functions to create maps that give the right axis names for different
@@ -31,6 +31,7 @@ std::map<AxesUnits, std::string> InitRectangularAxis1();
 std::map<AxesUnits, std::string> InitOffSpecAxis0();
 std::map<AxesUnits, std::string> InitOffSpecAxis1();
 std::map<AxesUnits, std::string> InitSpecAxis();
+std::map<AxesUnits, std::string> InitSampleDepthAxis();
 }
 
 #endif // AXISNAMES_H

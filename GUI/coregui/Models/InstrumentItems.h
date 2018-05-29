@@ -15,14 +15,14 @@
 #ifndef INSTRUMENTITEMS_H
 #define INSTRUMENTITEMS_H
 
-#include "SessionItem.h"
+#include "BeamItems.h"
 
 class BackgroundItem;
-class BeamItem;
+class DataItem;
 class DetectorItem;
-class MaskContainerItem;
 class GroupItem;
 class Instrument;
+class MaskContainerItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
@@ -33,32 +33,39 @@ public:
 
     QStringList translateList(const QStringList& list) const override;
 
-    BeamItem* beamItem() const;
+    virtual BeamItem* beamItem() const;
     BackgroundItem* backgroundItem() const;
     GroupItem* backgroundGroup();
 
     virtual std::unique_ptr<Instrument> createInstrument() const = 0;
+    virtual std::vector<int> shape() const = 0;
+    virtual void setShape(const std::vector<int>& shape) = 0;
 
 protected:
     explicit InstrumentItem(const QString& modelType);
+
+    void initBeamGroup(const QString& beam_model);
 };
 
 class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem
 {
 public:
-    static const QString P_ALPHA_AXIS;
-
     SpecularInstrumentItem();
+    virtual ~SpecularInstrumentItem();
+
+    SpecularBeamItem* beamItem() const override;
 
     std::unique_ptr<Instrument> createInstrument() const override;
+    std::vector<int> shape() const override;
+    void setShape(const std::vector<int>& shape) override;
 };
 
 class BA_CORE_API_ Instrument2DItem : public InstrumentItem
 {
 public:
-    virtual ~Instrument2DItem();
-
     static const QString P_DETECTOR;
+
+    virtual ~Instrument2DItem();
 
     DetectorItem* detectorItem() const;
     GroupItem* detectorGroup();
@@ -79,6 +86,8 @@ class BA_CORE_API_ GISASInstrumentItem : public Instrument2DItem
 {
 public:
     GISASInstrumentItem();
+    std::vector<int> shape() const override;
+    void setShape(const std::vector<int>& data_shape) override;
 };
 
 class BA_CORE_API_ OffSpecInstrumentItem : public Instrument2DItem
@@ -87,6 +96,8 @@ public:
     static const QString P_ALPHA_AXIS;
 
     OffSpecInstrumentItem();
+    std::vector<int> shape() const override;
+    void setShape(const std::vector<int>& data_shape) override;
 };
 
 #endif // INSTRUMENTITEMS_H

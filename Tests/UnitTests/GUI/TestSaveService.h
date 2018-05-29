@@ -146,10 +146,10 @@ TEST_F(TestSaveService, test_saveServiceWithData)
     RealDataItem* realData = dynamic_cast<RealDataItem*>(
         models.realDataModel()->insertNewItem(Constants::RealDataType));
     Q_ASSERT(realData);
-    IntensityDataItem* intensityItem = realData->intensityDataItem();
+    DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,
                                            models.instrumentModel()->instrumentItem());
-    intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
+    intensityItem->setItemValue(DataItem::P_FILE_NAME, "realdata.int.gz");
 
     std::unique_ptr<ProjectDocument> document(new ProjectDocument);
     document->setApplicationModels(&models);
@@ -181,10 +181,10 @@ TEST_F(TestSaveService, test_autosaveEnabled)
     ApplicationModels models;
     RealDataItem* realData = dynamic_cast<RealDataItem*>(
         models.realDataModel()->insertNewItem(Constants::RealDataType));
-    IntensityDataItem* intensityItem = realData->intensityDataItem();
+    DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,
                                            models.instrumentModel()->instrumentItem());
-    intensityItem->setItemValue(IntensityDataItem::P_FILE_NAME, "realdata.int.gz");
+    intensityItem->setItemValue(DataItem::P_FILE_NAME, "realdata.int.gz");
 
     std::unique_ptr<ProjectDocument> document(new ProjectDocument(projectFileName));
     document->setApplicationModels(&models);

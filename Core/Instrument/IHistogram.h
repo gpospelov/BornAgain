@@ -17,13 +17,7 @@
 
 #include "CumulativeValue.h"
 #include "OutputData.h"
-
-#ifdef BORNAGAIN_PYTHON
-#ifndef PyObject_HEAD
-struct _object;
-typedef _object PyObject;
-#endif
-#endif
+#include "PyObject.h"
 
 class Histogram1D;
 
@@ -163,7 +157,7 @@ public:
     //! Multiply this histogram (every bin content value) by a constant
     void scale(double value);
 
-    //! Returns integral of bins content (computed as a sum of all bin content).
+    //! @brief Returns integral of bins content (computed as a sum of all bin content).
     double integral() const;
 
 //    double& operator[](size_t index);
@@ -171,7 +165,10 @@ public:
 
 
 #ifdef BORNAGAIN_PYTHON
-    //! Returns numpy array with bin content (accumulated values)
+    //! Returns numpy array with bin content (accumulated values).
+    PyObject* array(DataType dataType = DataType::INTEGRAL) const;
+
+    //! \deprecated Use array() instead.
     PyObject* getArray(DataType dataType = DataType::INTEGRAL) const;
 #endif
 

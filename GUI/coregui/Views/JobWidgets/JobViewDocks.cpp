@@ -102,7 +102,7 @@ void JobViewDocks::onResetLayout()
 {
     m_jobView->setTrackingEnabled(false);
     QList<QDockWidget*> dockWidgetList = m_jobView->dockWidgets();
-    foreach (QDockWidget* dockWidget, dockWidgetList) {
+    for(QDockWidget* dockWidget : dockWidgetList) {
         dockWidget->setFloating(false);
         m_jobView->removeDockWidget(dockWidget);
     }
@@ -112,7 +112,7 @@ void JobViewDocks::onResetLayout()
     m_jobView->addDockWidget(Qt::RightDockWidgetArea, dock(JobViewFlags::FIT_PANEL_DOCK));
     m_jobView->addDockWidget(Qt::BottomDockWidgetArea, dock(JobViewFlags::JOB_MESSAGE_DOCK));
 
-    foreach (QDockWidget* dockWidget, dockWidgetList)
+    for(QDockWidget* dockWidget : dockWidgetList)
         dockWidget->show();
 
     m_jobView->setTrackingEnabled(true);

@@ -309,10 +309,9 @@ void DesignerScene::deleteSelectedItems()
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
 
     QList<IView *> views_which_will_be_deleted;
-    foreach (QModelIndex index, indexes) {
+    for(auto index : indexes) {
         views_which_will_be_deleted.append(m_ItemToView[m_sampleModel->itemForIndex(m_proxy->mapToSource(index))]);
     }
-
     // deleting selected items on model side, corresponding views will be deleted automatically
     // Since we don't know the order of items and their parent/child relationship, we need this
     while (indexes.size()) {
@@ -320,11 +319,10 @@ void DesignerScene::deleteSelectedItems()
         m_sampleModel->removeRows(current.row(), 1, current.parent());
         indexes = m_selectionModel->selectedIndexes();
     }
-
     // Connections will be deleted automatically if one of connected views has been deleted.
     // For the moment, we have to delete connections which are: 1) were selected 2) Do not connect
     // views scheduled for deletion.
-    foreach (QGraphicsItem *graphicsItem, selectedItems()) {
+    for(auto graphicsItem : selectedItems()) {
         if (NodeEditorConnection *connection = dynamic_cast<NodeEditorConnection *>(graphicsItem)) {
             if (views_which_will_be_deleted.contains(connection->getParentView())
                 || views_which_will_be_deleted.contains(connection->getChildView()))
@@ -471,7 +469,7 @@ bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent *event)
 {
     QRectF rect = DesignerHelper::getDefaultMultiLayerRect();
     rect.moveCenter(event->scenePos());
-    foreach (QGraphicsItem *item, items(rect)) {
+    for(QGraphicsItem* item : items(rect)) {
         if (item->type() == DesignerHelper::MULTILAYER)
             return true;
     }

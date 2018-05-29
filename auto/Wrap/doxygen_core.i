@@ -47,7 +47,7 @@ C++ includes: AdjustMinimizerStrategy.h
 
 Wrapper for detector axes units, required for a better representation of detector axes units in python
 
-C++ includes: UnitConverters.h
+C++ includes: IUnitConverter.h
 ";
 
 
@@ -642,21 +642,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -1205,6 +1205,159 @@ C++ includes: DelayedProgressCounter.h
 %feature("docstring")  DelayedProgressCounter::stepProgress "void DelayedProgressCounter::stepProgress(ProgressHandler *progress)
 
 Increments inner counter; at regular intervals updates progress handler. 
+";
+
+
+// File: classDepthProbeComputation.xml
+%feature("docstring") DepthProbeComputation "
+
+Performs a single-threaded depth probe computation with given sample.
+
+Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+
+C++ includes: DepthProbeComputation.h
+";
+
+%feature("docstring")  DepthProbeComputation::DepthProbeComputation "DepthProbeComputation::DepthProbeComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, DepthProbeElementIter begin_it, DepthProbeElementIter end_it)
+";
+
+%feature("docstring")  DepthProbeComputation::~DepthProbeComputation "DepthProbeComputation::~DepthProbeComputation()
+";
+
+
+// File: classDepthProbeComputationTerm.xml
+%feature("docstring") DepthProbeComputationTerm "";
+
+%feature("docstring")  DepthProbeComputationTerm::DepthProbeComputationTerm "DepthProbeComputationTerm::DepthProbeComputationTerm(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
+";
+
+%feature("docstring")  DepthProbeComputationTerm::eval "void DepthProbeComputationTerm::eval(ProgressHandler *progress, const DepthProbeElementIter &begin_it, const DepthProbeElementIter &end_it) const 
+";
+
+
+// File: classDepthProbeConverter.xml
+%feature("docstring") DepthProbeConverter "
+
+DepthProbeConverter class handles the unit translations for depth probe simulations Its default units are radians for x-axis and nm for y-axis
+
+C++ includes: SimpleUnitConverters.h
+";
+
+%feature("docstring")  DepthProbeConverter::DepthProbeConverter "DepthProbeConverter::DepthProbeConverter(const Beam &beam, const IAxis &alpha_axis, const IAxis &z_axis)
+";
+
+%feature("docstring")  DepthProbeConverter::~DepthProbeConverter "DepthProbeConverter::~DepthProbeConverter() override
+";
+
+%feature("docstring")  DepthProbeConverter::clone "DepthProbeConverter * DepthProbeConverter::clone() const override
+";
+
+%feature("docstring")  DepthProbeConverter::availableUnits "std::vector< AxesUnits > DepthProbeConverter::availableUnits() const override
+
+Returns the list of all available units. 
+";
+
+%feature("docstring")  DepthProbeConverter::defaultUnits "AxesUnits DepthProbeConverter::defaultUnits() const override
+";
+
+
+// File: classDepthProbeElement.xml
+%feature("docstring") DepthProbeElement "";
+
+%feature("docstring")  DepthProbeElement::DepthProbeElement "DepthProbeElement::DepthProbeElement(double wavelength, double alpha_i, const IAxis *z_positions)
+";
+
+%feature("docstring")  DepthProbeElement::DepthProbeElement "DepthProbeElement::DepthProbeElement(const DepthProbeElement &other)
+";
+
+%feature("docstring")  DepthProbeElement::DepthProbeElement "DepthProbeElement::DepthProbeElement(DepthProbeElement &&other) noexcept
+";
+
+%feature("docstring")  DepthProbeElement::~DepthProbeElement "DepthProbeElement::~DepthProbeElement()
+";
+
+%feature("docstring")  DepthProbeElement::getWavelength "double DepthProbeElement::getWavelength() const 
+";
+
+%feature("docstring")  DepthProbeElement::getAlphaI "double DepthProbeElement::getAlphaI() const 
+";
+
+%feature("docstring")  DepthProbeElement::getKi "kvector_t DepthProbeElement::getKi() const 
+";
+
+%feature("docstring")  DepthProbeElement::setIntensities "void DepthProbeElement::setIntensities(T &&intensities)
+";
+
+%feature("docstring")  DepthProbeElement::getIntensities "const std::valarray<double>& DepthProbeElement::getIntensities() const 
+";
+
+%feature("docstring")  DepthProbeElement::setZPositions "void DepthProbeElement::setZPositions(const IAxis *z_positions)
+";
+
+%feature("docstring")  DepthProbeElement::getZPositions "const IAxis* DepthProbeElement::getZPositions() const 
+";
+
+%feature("docstring")  DepthProbeElement::size "size_t DepthProbeElement::size() const 
+";
+
+%feature("docstring")  DepthProbeElement::setCalculationFlag "void DepthProbeElement::setCalculationFlag(bool calculation_flag)
+
+Set calculation flag (if it's false, zero intensity is assigned to the element) 
+";
+
+%feature("docstring")  DepthProbeElement::isCalculated "bool DepthProbeElement::isCalculated() const 
+";
+
+
+// File: classDepthProbeSimulation.xml
+%feature("docstring") DepthProbeSimulation "";
+
+%feature("docstring")  DepthProbeSimulation::DepthProbeSimulation "DepthProbeSimulation::DepthProbeSimulation()
+";
+
+%feature("docstring")  DepthProbeSimulation::DepthProbeSimulation "DepthProbeSimulation::DepthProbeSimulation(const MultiLayer &sample)
+";
+
+%feature("docstring")  DepthProbeSimulation::DepthProbeSimulation "DepthProbeSimulation::DepthProbeSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
+";
+
+%feature("docstring")  DepthProbeSimulation::~DepthProbeSimulation "DepthProbeSimulation::~DepthProbeSimulation() override
+";
+
+%feature("docstring")  DepthProbeSimulation::clone "DepthProbeSimulation * DepthProbeSimulation::clone() const override
+";
+
+%feature("docstring")  DepthProbeSimulation::accept "void DepthProbeSimulation::accept(INodeVisitor *visitor) const overridefinal
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  DepthProbeSimulation::numberOfSimulationElements "size_t DepthProbeSimulation::numberOfSimulationElements() const override
+";
+
+%feature("docstring")  DepthProbeSimulation::result "SimulationResult DepthProbeSimulation::result() const override
+
+Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+";
+
+%feature("docstring")  DepthProbeSimulation::setBeamParameters "void DepthProbeSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
+
+Sets beam parameters with alpha_i of the beam defined in the range. 
+";
+
+%feature("docstring")  DepthProbeSimulation::setZSpan "void DepthProbeSimulation::setZSpan(size_t n_bins, double z_min, double z_max)
+
+Set z positions for intensity calculations. Negative z's correspond to the area under sample surface. The more negative z is, the deeper layer corresponds to it. 
+";
+
+%feature("docstring")  DepthProbeSimulation::getAlphaAxis "const IAxis * DepthProbeSimulation::getAlphaAxis() const
+
+Returns a pointer to incident angle axis. 
+";
+
+%feature("docstring")  DepthProbeSimulation::getZAxis "const IAxis * DepthProbeSimulation::getZAxis() const
+
+Returns a pointer to z-position axis. 
 ";
 
 
@@ -1834,6 +1987,21 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 ";
 
 
+// File: classFiniteSquareLatticeBuilder.xml
+%feature("docstring") FiniteSquareLatticeBuilder "
+
+Builds sample: 2D finite lattice with thermal disorder.
+
+C++ includes: TwoDimLatticeBuilder.h
+";
+
+%feature("docstring")  FiniteSquareLatticeBuilder::FiniteSquareLatticeBuilder "FiniteSquareLatticeBuilder::FiniteSquareLatticeBuilder()
+";
+
+%feature("docstring")  FiniteSquareLatticeBuilder::buildSample "MultiLayer * FiniteSquareLatticeBuilder::buildSample() const 
+";
+
+
 // File: classFitElement.xml
 %feature("docstring") FitElement "
 
@@ -1884,24 +2052,38 @@ Holds simulation description and real data to run the fit.
 C++ includes: FitObject.h
 ";
 
-%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const Simulation &simulation, const OutputData< double > &real_data, double weight=1)
+%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const Simulation &simulation, const OutputData< double > &data, double weight=1)
 
-FitObject constructor
+Constructs simulation/data pair for later fit.
 
 Parameters:
 -----------
 
 simulation: 
-The simulation to run
+simulation to run
 
-real_data: 
-The real data
+data: 
+experimental data
 
 weight: 
-Weight of dataset in chi2 calculations
+weight of dataset in chi2 calculations 
+";
 
-adjust_detector_to_data: 
-Detector axes will be adjusted to real data axes, if true 
+%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const Simulation &simulation, const std::vector< std::vector< double >> &data, double weight=1)
+
+Constructs simulation/data pair for later fit.
+
+Parameters:
+-----------
+
+simulation: 
+simulation to run
+
+data: 
+experimental data
+
+weight: 
+weight of dataset in chi2 calculations 
 ";
 
 %feature("docstring")  FitObject::~FitObject "FitObject::~FitObject()
@@ -1910,16 +2092,6 @@ Detector axes will be adjusted to real data axes, if true
 %feature("docstring")  FitObject::accept "void FitObject::accept(INodeVisitor *visitor) const final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FitObject::realData "const OutputData< double > & FitObject::realData() const
-
-Returns real (experimental) data. 
-";
-
-%feature("docstring")  FitObject::simulationData "const OutputData< double > & FitObject::simulationData() const
-
-Returns simulated data. 
 ";
 
 %feature("docstring")  FitObject::weight "double FitObject::weight() const
@@ -1932,7 +2104,7 @@ Returns weight of data set in chi2 calculations.
 Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
 ";
 
-%feature("docstring")  FitObject::prepareFitElements "void FitObject::prepareFitElements(std::vector< FitElement > &fit_elements, double weight, IIntensityNormalizer *normalizer=0)
+%feature("docstring")  FitObject::prepareFitElements "void FitObject::prepareFitElements(std::vector< FitElement > &fit_elements, double weight, IIntensityNormalizer *=0)
 
 Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. 
 ";
@@ -1942,9 +2114,34 @@ Runs simulation and put results (the real and simulated intensities) into extern
 Returns a vector of children (const). 
 ";
 
-%feature("docstring")  FitObject::createRealDataHistogram "std::unique_ptr< IHistogram > FitObject::createRealDataHistogram() const
+%feature("docstring")  FitObject::simulationResult "SimulationResult FitObject::simulationResult() const
 
-Returns histogram representing real data clipped to ROI. 
+Returns simulation result. 
+";
+
+%feature("docstring")  FitObject::experimentalData "SimulationResult FitObject::experimentalData() const
+
+Returns experimental data. 
+";
+
+%feature("docstring")  FitObject::relativeDifference "SimulationResult FitObject::relativeDifference() const
+
+Returns relative difference between simulation and experimental data. 
+";
+
+%feature("docstring")  FitObject::runSimulation "void FitObject::runSimulation()
+
+Runs internal simulation object. 
+";
+
+%feature("docstring")  FitObject::experimental_array "std::vector< double > FitObject::experimental_array() const
+
+Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. 
+";
+
+%feature("docstring")  FitObject::simulation_array "std::vector< double > FitObject::simulation_array() const
+
+Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. 
 ";
 
 
@@ -2252,39 +2449,6 @@ main method to run the fitting
 Returns number of fit objects, where fit object stands for (real, simulated) pair. 
 ";
 
-%feature("docstring")  FitSuite::getRealData "IHistogram * FitSuite::getRealData(size_t i_item=0) const
-
-returns real data histogram
-
-Parameters:
------------
-
-i_item: 
-The index of fit object 
-";
-
-%feature("docstring")  FitSuite::getSimulationData "IHistogram * FitSuite::getSimulationData(size_t i_item=0) const
-
-returns simulated data histogram
-
-Parameters:
------------
-
-i_item: 
-The index of fit object 
-";
-
-%feature("docstring")  FitSuite::getChiSquaredMap "IHistogram * FitSuite::getChiSquaredMap(size_t i_item=0) const
-
-returns chi2 histogram calculated for (real, simulated) data pair
-
-Parameters:
------------
-
-i_item: 
-The index of fit object 
-";
-
 %feature("docstring")  FitSuite::fitObjects "FitSuiteObjects * FitSuite::fitObjects()
 
 returns  FitObject (pair of simulation/real data) 
@@ -2339,9 +2503,6 @@ Returns minimum chi squared value found.
 %feature("docstring")  FitSuite::isInterrupted "bool FitSuite::isInterrupted()
 ";
 
-%feature("docstring")  FitSuite::getSimulationOutputData "const OutputData< double > * FitSuite::getSimulationOutputData(size_t i_item=0) const 
-";
-
 %feature("docstring")  FitSuite::parametersToString "std::string FitSuite::parametersToString() const
 
 Returns multiline string representing possible fit parameters. 
@@ -2355,6 +2516,39 @@ Returns multiline string representing tree structure of fit components.
 %feature("docstring")  FitSuite::setupToString "std::string FitSuite::setupToString()
 
 Returns multiline string representing fit setup. 
+";
+
+%feature("docstring")  FitSuite::simulationResult "SimulationResult FitSuite::simulationResult(size_t i_item=0) const
+
+Returns simulation result.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
+";
+
+%feature("docstring")  FitSuite::experimentalData "SimulationResult FitSuite::experimentalData(size_t i_item=0) const
+
+Returns experimental data.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
+";
+
+%feature("docstring")  FitSuite::relativeDifference "SimulationResult FitSuite::relativeDifference(size_t i_item=0) const
+
+Returns relative difference between simulation and experimental data.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
 ";
 
 
@@ -2574,15 +2768,37 @@ Returns total number of data points.
 Replaces default  ChiSquaredModule with new one. 
 ";
 
-%feature("docstring")  FitSuiteObjects::getSimulationData "const OutputData< double > & FitSuiteObjects::getSimulationData(size_t i_item=0) const
+%feature("docstring")  FitSuiteObjects::simulationResult "SimulationResult FitSuiteObjects::simulationResult(size_t i_item=0) const
 
-Returns simulated data from corresponding  FitObject
+Returns simulation result.
 
 Parameters:
 -----------
 
 i_item: 
-Index of  FitObject
+the index of fit pair 
+";
+
+%feature("docstring")  FitSuiteObjects::experimentalData "SimulationResult FitSuiteObjects::experimentalData(size_t i_item=0) const
+
+Returns experimental data.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
+";
+
+%feature("docstring")  FitSuiteObjects::relativeDifference "SimulationResult FitSuiteObjects::relativeDifference(size_t i_item=0) const
+
+Returns relative difference between simulation and experimental data.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
 ";
 
 %feature("docstring")  FitSuiteObjects::runSimulations "void FitSuiteObjects::runSimulations()
@@ -2605,7 +2821,7 @@ Parameters:
 -----------
 
 global_index: 
-index accross all element in  FitElement vector 
+index across all element in  FitElement vector 
 ";
 
 %feature("docstring")  FitSuiteObjects::setNfreeParameters "void FitSuiteObjects::setNfreeParameters(int nfree_parameters)
@@ -2628,39 +2844,6 @@ clear all data
 %feature("docstring")  FitSuiteObjects::getChildren "std::vector< const INode * > FitSuiteObjects::getChildren() const
 
 Returns a vector of children (const). 
-";
-
-%feature("docstring")  FitSuiteObjects::createRealDataHistogram "std::unique_ptr< IHistogram > FitSuiteObjects::createRealDataHistogram(size_t i_item=0) const
-
-Returns real data from corresponding  FitObject. ROI is taken into account.
-
-Parameters:
------------
-
-i_item: 
-Index of  FitObject
-";
-
-%feature("docstring")  FitSuiteObjects::createSimulationHistogram "std::unique_ptr< IHistogram > FitSuiteObjects::createSimulationHistogram(size_t i_item=0) const
-
-Returns simulated data from corresponding  FitObject. ROI is taken into account.
-
-Parameters:
------------
-
-i_item: 
-Index of  FitObject
-";
-
-%feature("docstring")  FitSuiteObjects::createChiSquaredHistogram "std::unique_ptr< IHistogram > FitSuiteObjects::createChiSquaredHistogram(size_t i_item=0) const
-
-Returns new chi-squared map from corresponding  FitObject. ROI is taken into account.
-
-Parameters:
------------
-
-i_item: 
-Index of  FitObject
 ";
 
 
@@ -3657,7 +3840,7 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
-%feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs) override
+%feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
 
 Sets reflection/transmission info. 
 ";
@@ -3722,7 +3905,7 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
-%feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(const ILayerRTCoefficients *p_in_coeffs, const ILayerRTCoefficients *p_out_coeffs) override
+%feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
 
 Sets reflection/transmission info. 
 ";
@@ -5876,6 +6059,15 @@ returns vector of bin content (the value accumulated by bins)
 returns vector of bin errors 
 ";
 
+%feature("docstring")  Histogram1D::getBinCentersNumpy "PyObject * Histogram1D::getBinCentersNumpy() const 
+";
+
+%feature("docstring")  Histogram1D::getBinValuesNumpy "PyObject * Histogram1D::getBinValuesNumpy() const 
+";
+
+%feature("docstring")  Histogram1D::getBinErrorsNumpy "PyObject * Histogram1D::getBinErrorsNumpy() const 
+";
+
 %feature("docstring")  Histogram1D::crop "Histogram1D * Histogram1D::crop(double xmin, double xmax)
 
 Create new histogram by applying crop on axis. 
@@ -6549,7 +6741,7 @@ Removes detector resolution function.
 Returns a pointer to detector resolution object. 
 ";
 
-%feature("docstring")  IDetector::createDetectorMap "std::unique_ptr< OutputData< double > > IDetector::createDetectorMap(const Beam &beam, AxesUnits units) const
+%feature("docstring")  IDetector::createDetectorMap "std::unique_ptr< OutputData< double > > IDetector::createDetectorMap() const
 
 Returns empty detector map in given axes units. 
 ";
@@ -6574,24 +6766,14 @@ Resets region of interest making whole detector plane available for the simulati
 Returns detection properties. 
 ";
 
-%feature("docstring")  IDetector::initOutputData "void IDetector::initOutputData(OutputData< double > &data) const
+%feature("docstring")  IDetector::createDetectorIntensity "OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
 
-Inits axes of  OutputData to match the detector and sets values to zero. 
-";
-
-%feature("docstring")  IDetector::createDetectorIntensity "OutputData< double > * IDetector::createDetectorIntensity(const std::vector< SimulationElement > &elements, const Beam &beam, AxesUnits units_type=AxesUnits::DEFAULT) const
-
-Returns new intensity map with detector resolution applied and axes in requested units. 
+Returns new intensity map with detector resolution applied. Map will be cropped to ROI if ROI is present. 
 ";
 
 %feature("docstring")  IDetector::defaultAxesUnits "virtual AxesUnits IDetector::defaultAxesUnits() const
 
 Return default axes units. 
-";
-
-%feature("docstring")  IDetector::validAxesUnits "virtual std::vector<AxesUnits> IDetector::validAxesUnits() const
-
-Returns vector of valid axes units. 
 ";
 
 %feature("docstring")  IDetector::numberOfSimulationElements "size_t IDetector::numberOfSimulationElements() const
@@ -6602,6 +6784,9 @@ Returns number of simulation elements.
 %feature("docstring")  IDetector::getChildren "std::vector< const INode * > IDetector::getChildren() const override
 
 Returns a vector of children (const). 
+";
+
+%feature("docstring")  IDetector::iterate "void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const 
 ";
 
 
@@ -6969,7 +7154,7 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
-%feature("docstring")  IFormFactor::setSpecularInfo "virtual void IFormFactor::setSpecularInfo(const ILayerRTCoefficients *, const ILayerRTCoefficients *)
+%feature("docstring")  IFormFactor::setSpecularInfo "void IFormFactor::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients >, std::unique_ptr< const ILayerRTCoefficients >)
 
 Sets reflection/transmission info. 
 ";
@@ -7078,6 +7263,9 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
+%feature("docstring")  IFormFactorDecorator::getFormFactor "const IFormFactor* IFormFactorDecorator::getFormFactor() const 
+";
+
 
 // File: classIFresnelMap.xml
 %feature("docstring") IFresnelMap "
@@ -7093,19 +7281,14 @@ C++ includes: IFresnelMap.h
 %feature("docstring")  IFresnelMap::~IFresnelMap "IFresnelMap::~IFresnelMap()
 ";
 
-%feature("docstring")  IFresnelMap::getOutCoefficients "virtual const ILayerRTCoefficients* IFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
+%feature("docstring")  IFresnelMap::getOutCoefficients "virtual std::unique_ptr<const ILayerRTCoefficients> IFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
 
 Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
 ";
 
-%feature("docstring")  IFresnelMap::getInCoefficients "virtual const ILayerRTCoefficients* IFresnelMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const =0
+%feature("docstring")  IFresnelMap::getInCoefficients "std::unique_ptr<const ILayerRTCoefficients> IFresnelMap::getInCoefficients(const T &sim_element, size_t layer_index) const
 
 Retrieves the amplitude coefficients for an incoming wavevector. 
-";
-
-%feature("docstring")  IFresnelMap::fillSpecularData "virtual void IFresnelMap::fillSpecularData(SpecularSimulationElement &sim_element) const =0
-
-Fills simulation element specular data. 
 ";
 
 %feature("docstring")  IFresnelMap::setMultilayer "void IFresnelMap::setMultilayer(const MultiLayer &multilayer)
@@ -7544,6 +7727,17 @@ Multiply this histogram (every bin content value) by a constant.
 Returns integral of bins content (computed as a sum of all bin content). 
 ";
 
+%feature("docstring")  IHistogram::array "PyObject * IHistogram::array(DataType dataType=DataType::INTEGRAL) const
+
+Returns numpy array with bin content (accumulated values). 
+";
+
+%feature("docstring")  IHistogram::getArray "PyObject * IHistogram::getArray(DataType dataType=DataType::INTEGRAL) const
+
+Deprecated
+Use  array() instead. 
+";
+
 %feature("docstring")  IHistogram::reset "void IHistogram::reset()
 
 Reset histogram content (axes remains) 
@@ -7632,7 +7826,7 @@ Pure virtual base class of interference functions.
 C++ includes: IInterferenceFunction.h
 ";
 
-%feature("docstring")  IInterferenceFunction::~IInterferenceFunction "virtual IInterferenceFunction::~IInterferenceFunction()
+%feature("docstring")  IInterferenceFunction::~IInterferenceFunction "IInterferenceFunction::~IInterferenceFunction()
 ";
 
 %feature("docstring")  IInterferenceFunction::clone "virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
@@ -7815,11 +8009,6 @@ C++ includes: IMultiLayerBuilder.h
 ";
 
 %feature("docstring")  IMultiLayerBuilder::buildSample "virtual MultiLayer* IMultiLayerBuilder::buildSample() const =0
-";
-
-%feature("docstring")  IMultiLayerBuilder::onChange "virtual void IMultiLayerBuilder::onChange()
-
-Action to be taken in inherited class when a parameter has changed. 
 ";
 
 %feature("docstring")  IMultiLayerBuilder::createSample "virtual MultiLayer* IMultiLayerBuilder::createSample(size_t index=0)
@@ -8206,6 +8395,12 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DLattice *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DSuperLattice *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionFinite2DLattice *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DParaCrystal *)
 ";
 
@@ -8401,14 +8596,9 @@ Sets the polarization analyzer characteristics of the detector.
 apply the detector resolution to the given intensity map 
 ";
 
-%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements, AxesUnits units=AxesUnits::DEFAULT) const
+%feature("docstring")  Instrument::createDetectorIntensity "OutputData< double > * Instrument::createDetectorIntensity(const std::vector< SimulationElement > &elements) const
 
 Returns new intensity map with detector resolution applied and axes in requested units. 
-";
-
-%feature("docstring")  Instrument::createDetectorMap "OutputData< double > * Instrument::createDetectorMap(AxesUnits units=AxesUnits::DEFAULT) const
-
-Returns empty detector map in given axes units. 
 ";
 
 %feature("docstring")  Instrument::initDetector "void Instrument::initDetector()
@@ -8871,6 +9061,169 @@ If defined by this interference function's parameters, returns the particle dens
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::getChildren "std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const
+
+Returns a vector of children (const). 
+";
+
+
+// File: classInterferenceFunction2DSuperLattice.xml
+%feature("docstring") InterferenceFunction2DSuperLattice "
+
+Interference function of 2D superlattice with a configurable interference function for each lattice site.
+
+C++ includes: InterferenceFunction2DSuperLattice.h
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(const Lattice2D &lattice, unsigned size_1, unsigned size_2)
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+
+Constructor of two-dimensional interference function.
+
+Parameters:
+-----------
+
+length_1: 
+length of first lattice vector in nanometers
+
+length_2: 
+length of second lattice vector in nanometers
+
+alpha: 
+angle between lattice vectors in radians
+
+xi: 
+rotation of lattice with respect to x-axis (beam direction) in radians 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice() final
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::clone "InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::accept "void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::setSubstructureIFF "void InterferenceFunction2DSuperLattice::setSubstructureIFF(const IInterferenceFunction &sub_iff)
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::substructureIFF "const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::evaluate "double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
+
+Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::domainSize1 "unsigned InterferenceFunction2DSuperLattice::domainSize1() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::domainSize2 "unsigned InterferenceFunction2DSuperLattice::domainSize2() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::setPositionVariance "void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::positionVariance "double InterferenceFunction2DSuperLattice::positionVariance() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::setIntegrationOverXi "void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::integrationOverXi "bool InterferenceFunction2DSuperLattice::integrationOverXi() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::lattice "const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const 
+";
+
+%feature("docstring")  InterferenceFunction2DSuperLattice::getChildren "std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
+
+Returns a vector of children (const). 
+";
+
+
+// File: classInterferenceFunctionFinite2DLattice.xml
+%feature("docstring") InterferenceFunctionFinite2DLattice "
+
+Interference function of 2D lattice.
+
+C++ includes: InterferenceFunctionFinite2DLattice.h
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const Lattice2D &lattice, unsigned size_1, unsigned size_2)
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+
+Constructor of two-dimensional interference function.
+
+Parameters:
+-----------
+
+length_1: 
+length of first lattice vector in nanometers
+
+length_2: 
+length of second lattice vector in nanometers
+
+alpha: 
+angle between lattice vectors in radians
+
+xi: 
+rotation of lattice with respect to x-axis (beam direction) in radians 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() final
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::clone "InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::accept "void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::evaluate "double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const final
+
+Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::domainSize1 "unsigned InterferenceFunctionFinite2DLattice::domainSize1() const 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::domainSize2 "unsigned InterferenceFunctionFinite2DLattice::domainSize2() const 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::setPositionVariance "void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::positionVariance "double InterferenceFunctionFinite2DLattice::positionVariance() const 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::setIntegrationOverXi "void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::integrationOverXi "bool InterferenceFunctionFinite2DLattice::integrationOverXi() const 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::lattice "const Lattice2D & InterferenceFunctionFinite2DLattice::lattice() const 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::getParticleDensity "double InterferenceFunctionFinite2DLattice::getParticleDensity() const final
+
+Returns the particle density associated with this 2d lattice. 
+";
+
+%feature("docstring")  InterferenceFunctionFinite2DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override
 
 Returns a vector of children (const). 
 ";
@@ -9610,12 +9963,12 @@ C++ includes: NodeIterator.h
 // File: classIUnitConverter.xml
 %feature("docstring") IUnitConverter "
 
-Interface for objects that provide axis translations to different units for  IDetector objects
+Interface to provide axis translations to different units for simulation output
 
-C++ includes: UnitConverters.h
+C++ includes: IUnitConverter.h
 ";
 
-%feature("docstring")  IUnitConverter::~IUnitConverter "virtual IUnitConverter::~IUnitConverter()=default
+%feature("docstring")  IUnitConverter::~IUnitConverter "IUnitConverter::~IUnitConverter()
 ";
 
 %feature("docstring")  IUnitConverter::clone "virtual IUnitConverter* IUnitConverter::clone() const =0
@@ -9633,10 +9986,16 @@ C++ includes: UnitConverters.h
 %feature("docstring")  IUnitConverter::axisSize "virtual size_t IUnitConverter::axisSize(size_t i_axis) const =0
 ";
 
-%feature("docstring")  IUnitConverter::axisName "virtual std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const =0
+%feature("docstring")  IUnitConverter::axisName "std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const 
+";
+
+%feature("docstring")  IUnitConverter::availableUnits "virtual std::vector<AxesUnits> IUnitConverter::availableUnits() const =0
 ";
 
 %feature("docstring")  IUnitConverter::defaultUnits "virtual AxesUnits IUnitConverter::defaultUnits() const =0
+";
+
+%feature("docstring")  IUnitConverter::createConvertedAxis "virtual std::unique_ptr<IAxis> IUnitConverter::createConvertedAxis(size_t i_axis, AxesUnits units) const =0
 ";
 
 
@@ -10477,27 +10836,17 @@ C++ includes: MatrixFresnelMap.h
 %feature("docstring")  MatrixFresnelMap::MatrixFresnelMap "MatrixFresnelMap::MatrixFresnelMap()
 ";
 
-%feature("docstring")  MatrixFresnelMap::~MatrixFresnelMap "MatrixFresnelMap::~MatrixFresnelMap()
+%feature("docstring")  MatrixFresnelMap::~MatrixFresnelMap "MatrixFresnelMap::~MatrixFresnelMap() override
 ";
 
-%feature("docstring")  MatrixFresnelMap::getOutCoefficients "const ILayerRTCoefficients * MatrixFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
+%feature("docstring")  MatrixFresnelMap::getOutCoefficients "std::unique_ptr< const ILayerRTCoefficients > MatrixFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
 
 Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
-";
-
-%feature("docstring")  MatrixFresnelMap::getInCoefficients "const ILayerRTCoefficients * MatrixFresnelMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
-
-Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
 %feature("docstring")  MatrixFresnelMap::setMultilayer "void MatrixFresnelMap::setMultilayer(const MultiLayer &multilayer) finaloverride
 
 Sets the multilayer to be used for the Fresnel calculations. 
-";
-
-%feature("docstring")  MatrixFresnelMap::fillSpecularData "void MatrixFresnelMap::fillSpecularData(SpecularSimulationElement &sim_element) const override
-
-Fills simulation element specular data. 
 ";
 
 
@@ -10597,6 +10946,13 @@ C++ includes: MesoCrystalBuilder.h
 ";
 
 %feature("docstring")  MesoCrystalBuilder::buildSample "MultiLayer * MesoCrystalBuilder::buildSample() const 
+";
+
+
+// File: classMPISimulation.xml
+%feature("docstring") MPISimulation "";
+
+%feature("docstring")  MPISimulation::runSimulation "void MPISimulation::runSimulation(Simulation *simulation)
 ";
 
 
@@ -10910,13 +11266,13 @@ Returns axis of the beam.
 
 IUnitConverter class that handles the unit translations for off-specular simulations with a spherical detector Its default units are radians for both axes
 
-C++ includes: UnitConverters.h
+C++ includes: SimpleUnitConverters.h
 ";
 
 %feature("docstring")  OffSpecularConverter::OffSpecularConverter "OffSpecularConverter::OffSpecularConverter(const IDetector2D &detector, const Beam &beam, const IAxis &alpha_axis)
 ";
 
-%feature("docstring")  OffSpecularConverter::~OffSpecularConverter "OffSpecularConverter::~OffSpecularConverter()
+%feature("docstring")  OffSpecularConverter::~OffSpecularConverter "OffSpecularConverter::~OffSpecularConverter() override
 ";
 
 %feature("docstring")  OffSpecularConverter::clone "OffSpecularConverter * OffSpecularConverter::clone() const override
@@ -11277,9 +11633,12 @@ Returns true if objects a) have same dimensions b) bin boundaries of axes coinci
 Returns true if object have same dimensions and shape of axis. 
 ";
 
-%feature("docstring")  OutputData::isInitialized "bool OutputData< T >::isInitialized() const
+%feature("docstring")  OutputData::getArray "PyObject* OutputData< T >::getArray() const
 
-returns data as Python numpy array
+returns data as Python numpy array 
+";
+
+%feature("docstring")  OutputData::isInitialized "bool OutputData< T >::isInitialized() const
 
 returns true if object is correctly initialized 
 ";
@@ -11954,7 +12313,13 @@ Returns surface density of all particles.
 
 %feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) finaloverride
 
-Sets total particle surface density.  particle_density: number of particles per square nanometer 
+Sets total particle surface density.
+
+Parameters:
+-----------
+
+particle_density: 
+number of particles per square nanometer 
 ";
 
 %feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const finaloverride
@@ -12459,16 +12824,21 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 
 IUnitConverter class that handles the unit translations for rectangular detectors Its default units are mm for both axes
 
-C++ includes: UnitConverters.h
+C++ includes: SimpleUnitConverters.h
 ";
 
 %feature("docstring")  RectangularConverter::RectangularConverter "RectangularConverter::RectangularConverter(const RectangularDetector &detector, const Beam &beam)
 ";
 
-%feature("docstring")  RectangularConverter::~RectangularConverter "RectangularConverter::~RectangularConverter()
+%feature("docstring")  RectangularConverter::~RectangularConverter "RectangularConverter::~RectangularConverter() override
 ";
 
 %feature("docstring")  RectangularConverter::clone "RectangularConverter * RectangularConverter::clone() const override
+";
+
+%feature("docstring")  RectangularConverter::availableUnits "std::vector< AxesUnits > RectangularConverter::availableUnits() const override
+
+Returns the list of all available units. 
 ";
 
 %feature("docstring")  RectangularConverter::defaultUnits "AxesUnits RectangularConverter::defaultUnits() const override
@@ -12571,11 +12941,6 @@ Inits detector with the beam settings.
 ";
 
 %feature("docstring")  RectangularDetector::getDetectorArrangment "RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const 
-";
-
-%feature("docstring")  RectangularDetector::validAxesUnits "std::vector< AxesUnits > RectangularDetector::validAxesUnits() const override
-
-returns vector of valid axes units 
 ";
 
 %feature("docstring")  RectangularDetector::defaultAxesUnits "AxesUnits RectangularDetector::defaultAxesUnits() const override
@@ -13375,19 +13740,9 @@ C++ includes: ScalarFresnelMap.h
 %feature("docstring")  ScalarFresnelMap::~ScalarFresnelMap "ScalarFresnelMap::~ScalarFresnelMap() final
 ";
 
-%feature("docstring")  ScalarFresnelMap::getOutCoefficients "const ILayerRTCoefficients * ScalarFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
+%feature("docstring")  ScalarFresnelMap::getOutCoefficients "std::unique_ptr< const ILayerRTCoefficients > ScalarFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const override
 
 Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
-";
-
-%feature("docstring")  ScalarFresnelMap::getInCoefficients "const ILayerRTCoefficients * ScalarFresnelMap::getInCoefficients(const SimulationElement &sim_element, size_t layer_index) const finaloverride
-
-Retrieves the amplitude coefficients for an incoming wavevector. 
-";
-
-%feature("docstring")  ScalarFresnelMap::fillSpecularData "void ScalarFresnelMap::fillSpecularData(SpecularSimulationElement &sim_element) const override
-
-Fills simulation element specular data. 
 ";
 
 
@@ -13512,6 +13867,11 @@ Put into a clean state for running a simulation.
 Run a simulation, possibly averaged over parameter distributions.
 
 Run simulation with possible averaging over parameter distributions. 
+";
+
+%feature("docstring")  Simulation::runMPISimulation "void Simulation::runMPISimulation()
+
+Run a simulation in a MPI environment. 
 ";
 
 %feature("docstring")  Simulation::setInstrument "void Simulation::setInstrument(const Instrument &instrument)
@@ -13969,7 +14329,17 @@ C++ includes: SimulationResult.h
 Provide  AxisInfo for each axis and the given units. 
 ";
 
+%feature("docstring")  SimulationResult::converter "const IUnitConverter & SimulationResult::converter() const
+
+Returns underlying unit converter. 
+";
+
 %feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const 
+";
+
+%feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array() const
+
+returns data as Python numpy array 
 ";
 
 
@@ -14138,48 +14508,6 @@ C++ includes: SpecularComputationTerm.h
 ";
 
 
-// File: classSpecularConverter.xml
-%feature("docstring") SpecularConverter "
-
-IUnitConverter class that handles the unit translations for off-specular simulations with a spherical detector Its default units are radians for both axes
-
-C++ includes: UnitConverters.h
-";
-
-%feature("docstring")  SpecularConverter::SpecularConverter "SpecularConverter::SpecularConverter(const Beam &beam, const IAxis &alpha_axis)
-";
-
-%feature("docstring")  SpecularConverter::~SpecularConverter "SpecularConverter::~SpecularConverter()
-";
-
-%feature("docstring")  SpecularConverter::clone "SpecularConverter * SpecularConverter::clone() const override
-";
-
-%feature("docstring")  SpecularConverter::defaultUnits "AxesUnits SpecularConverter::defaultUnits() const override
-";
-
-
-// File: classSpecularData.xml
-%feature("docstring") SpecularData "
-
-Helper class for  SpecularSimulationElement to carry specular information
-
-C++ includes: SpecularData.h
-";
-
-%feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData()
-";
-
-%feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData(MatrixVector coefficients)
-";
-
-%feature("docstring")  SpecularData::SpecularData "SpecularData::SpecularData(ScalarVector coefficients)
-";
-
-%feature("docstring")  SpecularData::isInited "bool SpecularData::isInited() const 
-";
-
-
 // File: classSpecularDetector1D.xml
 %feature("docstring") SpecularDetector1D "
 
@@ -14227,11 +14555,6 @@ Resets region of interest making whole detector plane available for the simulati
 Return default axes units. 
 ";
 
-%feature("docstring")  SpecularDetector1D::validAxesUnits "std::vector< AxesUnits > SpecularDetector1D::validAxesUnits() const override
-
-Returns vector of valid axes units. 
-";
-
 
 // File: classSpecularMagnetic.xml
 %feature("docstring") SpecularMagnetic "
@@ -14268,7 +14591,7 @@ C++ includes: SpecularSimulation.h
 %feature("docstring")  SpecularSimulation::SpecularSimulation "SpecularSimulation::SpecularSimulation(const std::shared_ptr< IMultiLayerBuilder > sample_builder)
 ";
 
-%feature("docstring")  SpecularSimulation::~SpecularSimulation "SpecularSimulation::~SpecularSimulation()
+%feature("docstring")  SpecularSimulation::~SpecularSimulation "SpecularSimulation::~SpecularSimulation() override
 ";
 
 %feature("docstring")  SpecularSimulation::clone "SpecularSimulation * SpecularSimulation::clone() const override
@@ -14289,7 +14612,7 @@ Calls the  INodeVisitor's visit method.
 
 %feature("docstring")  SpecularSimulation::result "SimulationResult SpecularSimulation::result() const override
 
-Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays. If simulation was not run, returns an array of proper size filled with zeros. 
 ";
 
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
@@ -14354,16 +14677,6 @@ Returns assigned  PolarizationHandler.
 %feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const 
 ";
 
-%feature("docstring")  SpecularSimulationElement::specularData "const SpecularData& SpecularSimulationElement::specularData() const
-
-Returns specular data container. 
-";
-
-%feature("docstring")  SpecularSimulationElement::setSpecular "void SpecularSimulationElement::setSpecular(SpecularData specular_data)
-
-Set specular data. 
-";
-
 %feature("docstring")  SpecularSimulationElement::setCalculationFlag "void SpecularSimulationElement::setCalculationFlag(bool calculation_flag)
 
 Set calculation flag (if it's false, zero intensity is assigned to the element) 
@@ -14393,16 +14706,21 @@ C++ includes: ParticleDistributionsBuilder.h
 
 IUnitConverter class that handles the unit translations for spherical detectors Its default units are radians for both axes
 
-C++ includes: UnitConverters.h
+C++ includes: SimpleUnitConverters.h
 ";
 
 %feature("docstring")  SphericalConverter::SphericalConverter "SphericalConverter::SphericalConverter(const SphericalDetector &detector, const Beam &beam)
 ";
 
-%feature("docstring")  SphericalConverter::~SphericalConverter "SphericalConverter::~SphericalConverter()
+%feature("docstring")  SphericalConverter::~SphericalConverter "SphericalConverter::~SphericalConverter() override
 ";
 
 %feature("docstring")  SphericalConverter::clone "SphericalConverter * SphericalConverter::clone() const override
+";
+
+%feature("docstring")  SphericalConverter::availableUnits "std::vector< AxesUnits > SphericalConverter::availableUnits() const override
+
+Returns the list of all available units. 
 ";
 
 %feature("docstring")  SphericalConverter::defaultUnits "AxesUnits SphericalConverter::defaultUnits() const override
@@ -14458,11 +14776,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  SphericalDetector::~SphericalDetector "SphericalDetector::~SphericalDetector() override
-";
-
-%feature("docstring")  SphericalDetector::validAxesUnits "std::vector< AxesUnits > SphericalDetector::validAxesUnits() const override
-
-returns vector of valid axes units 
 ";
 
 %feature("docstring")  SphericalDetector::defaultAxesUnits "AxesUnits SphericalDetector::defaultAxesUnits() const override
@@ -14697,6 +15010,21 @@ C++ includes: SSCApproximationStrategy.h
 ";
 
 %feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(SimulationOptions sim_params, double kappa, bool polarized)
+";
+
+
+// File: classSuperLatticeBuilder.xml
+%feature("docstring") SuperLatticeBuilder "
+
+Builds sample: 2D finite lattice of 2D finite lattices (superlattice).
+
+C++ includes: TwoDimLatticeBuilder.h
+";
+
+%feature("docstring")  SuperLatticeBuilder::SuperLatticeBuilder "SuperLatticeBuilder::SuperLatticeBuilder()
+";
+
+%feature("docstring")  SuperLatticeBuilder::buildSample "MultiLayer * SuperLatticeBuilder::buildSample() const 
 ";
 
 
@@ -14945,18 +15273,73 @@ C++ includes: Unit.h
 ";
 
 
+// File: classUnitConverter1D.xml
+%feature("docstring") UnitConverter1D "
+
+Conversion of axis units for the case of 1D simulation result (specular simulation in particular).
+
+C++ includes: UnitConverter1D.h
+";
+
+%feature("docstring")  UnitConverter1D::UnitConverter1D "UnitConverter1D::UnitConverter1D(const Beam &beam, const IAxis &axis)
+
+Constructs the object for unit conversion. Input axis is in radians. 
+";
+
+%feature("docstring")  UnitConverter1D::~UnitConverter1D "UnitConverter1D::~UnitConverter1D() override
+";
+
+%feature("docstring")  UnitConverter1D::clone "UnitConverter1D * UnitConverter1D::clone() const override
+";
+
+%feature("docstring")  UnitConverter1D::dimension "size_t UnitConverter1D::dimension() const override
+
+Returns dimensionality of converted canvas. 
+";
+
+%feature("docstring")  UnitConverter1D::calculateMin "double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const override
+
+Calculates minimum on-axis value in given units. 
+";
+
+%feature("docstring")  UnitConverter1D::calculateMax "double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const override
+
+Calculates maximum on-axis value in given units. 
+";
+
+%feature("docstring")  UnitConverter1D::axisSize "size_t UnitConverter1D::axisSize(size_t i_axis) const override
+
+Returns the size of underlying axis. 
+";
+
+%feature("docstring")  UnitConverter1D::availableUnits "std::vector< AxesUnits > UnitConverter1D::availableUnits() const override
+
+Returns the list of all available units. 
+";
+
+%feature("docstring")  UnitConverter1D::defaultUnits "AxesUnits UnitConverter1D::defaultUnits() const override
+
+Returns default units to convert to. 
+";
+
+%feature("docstring")  UnitConverter1D::createConvertedAxis "std::unique_ptr< IAxis > UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const override
+
+Creates axis in converted units. 
+";
+
+
 // File: classUnitConverterSimple.xml
 %feature("docstring") UnitConverterSimple "
 
 Interface for objects that provide axis translations to different units for  IDetector objects
 
-C++ includes: UnitConverters.h
+C++ includes: SimpleUnitConverters.h
 ";
 
 %feature("docstring")  UnitConverterSimple::UnitConverterSimple "UnitConverterSimple::UnitConverterSimple(const Beam &beam)
 ";
 
-%feature("docstring")  UnitConverterSimple::~UnitConverterSimple "virtual UnitConverterSimple::~UnitConverterSimple()=default
+%feature("docstring")  UnitConverterSimple::~UnitConverterSimple "UnitConverterSimple::~UnitConverterSimple() override=default
 ";
 
 %feature("docstring")  UnitConverterSimple::dimension "size_t UnitConverterSimple::dimension() const override
@@ -14971,7 +15354,12 @@ C++ includes: UnitConverters.h
 %feature("docstring")  UnitConverterSimple::axisSize "size_t UnitConverterSimple::axisSize(size_t i_axis) const override
 ";
 
-%feature("docstring")  UnitConverterSimple::axisName "std::string UnitConverterSimple::axisName(size_t i_axis, AxesUnits units_type=AxesUnits::DEFAULT) const override
+%feature("docstring")  UnitConverterSimple::availableUnits "std::vector< AxesUnits > UnitConverterSimple::availableUnits() const override
+
+Returns the list of all available units. 
+";
+
+%feature("docstring")  UnitConverterSimple::createConvertedAxis "std::unique_ptr< IAxis > UnitConverterSimple::createConvertedAxis(size_t i_axis, AxesUnits units) const override
 ";
 
 
@@ -15119,10 +15507,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -15155,85 +15543,155 @@ C++ includes: ZLimits.h
 // File: namespace_0D103.xml
 
 
-// File: namespace_0D171.xml
+// File: namespace_0D112.xml
 
 
-// File: namespace_0D212.xml
+// File: namespace_0D180.xml
 
 
-// File: namespace_0D23.xml
+// File: namespace_0D20.xml
 
 
-// File: namespace_0D277.xml
+// File: namespace_0D22.xml
 
 
-// File: namespace_0D310.xml
+// File: namespace_0D221.xml
 
 
-// File: namespace_0D314.xml
+// File: namespace_0D28.xml
 
 
-// File: namespace_0D316.xml
+// File: namespace_0D288.xml
 
 
-// File: namespace_0D318.xml
+// File: namespace_0D292.xml
 
 
-// File: namespace_0D326.xml
+// File: namespace_0D304.xml
+
+
+// File: namespace_0D325.xml
+
+
+// File: namespace_0D329.xml
+
+
+// File: namespace_0D331.xml
+
+
+// File: namespace_0D333.xml
 
 
 // File: namespace_0D341.xml
 
 
-// File: namespace_0D349.xml
+// File: namespace_0D356.xml
 
 
-// File: namespace_0D355.xml
+// File: namespace_0D364.xml
 
 
-// File: namespace_0D358.xml
+// File: namespace_0D370.xml
 
 
-// File: namespace_0D360.xml
+// File: namespace_0D373.xml
 
 
-// File: namespace_0D381.xml
+// File: namespace_0D375.xml
 
 
-// File: namespace_0D390.xml
+// File: namespace_0D396.xml
 
 
-// File: namespace_0D423.xml
+// File: namespace_0D405.xml
 
 
-// File: namespace_0D430.xml
+// File: namespace_0D438.xml
 
 
-// File: namespace_0D472.xml
+// File: namespace_0D445.xml
 
 
-// File: namespace_0D474.xml
+// File: namespace_0D483.xml
 
 
-// File: namespace_0D476.xml
+// File: namespace_0D491.xml
 
 
-// File: namespace_0D554.xml
+// File: namespace_0D493.xml
 
 
-// File: namespace_0D576.xml
+// File: namespace_0D495.xml
 
 
-// File: namespace_0D79.xml
+// File: namespace_0D573.xml
 
 
-// File: namespace_0D94.xml
+// File: namespace_0D595.xml
+
+
+// File: namespace_0D88.xml
 
 
 // File: namespaceArrayUtils.xml
 %feature("docstring")  ArrayUtils::getShape "std::pair< size_t, size_t > ArrayUtils::getShape(const T &data)
 
 Returns shape nrows, ncols of 2D array. 
+";
+
+%feature("docstring")  ArrayUtils::createNumpyArray "PyObject * ArrayUtils::createNumpyArray(const std::vector< double > &data)
+";
+
+%feature("docstring")  ArrayUtils::createData1D "decltype(auto) ArrayUtils::createData1D(const T &vec)
+
+Creates  OutputData from 1D vector.
+
+Parameters:
+-----------
+
+vec: 
+std::vector<double>
+
+std::unique_ptr< OutputData<double>> 
+";
+
+%feature("docstring")  ArrayUtils::createVector1D "decltype(auto) ArrayUtils::createVector1D(const T &data)
+
+Creates 1D vector from  OutputData.
+
+Parameters:
+-----------
+
+vec: 
+ OutputData<double>
+
+vector<double> 
+";
+
+%feature("docstring")  ArrayUtils::createData2D "decltype(auto) ArrayUtils::createData2D(const T &vec)
+
+Creates  OutputData from 2D vector.
+
+Parameters:
+-----------
+
+vec: 
+std::vector<std::vector<double>>
+
+std::unique_ptr< OutputData<double>> 
+";
+
+%feature("docstring")  ArrayUtils::createVector2D "decltype(auto) ArrayUtils::createVector2D(const T &data)
+
+Creates 2D vector from  OutputData.
+
+Parameters:
+-----------
+
+vec: 
+ OutputData<double>
+
+vector<vector<double>> 
 ";
 
 
@@ -15257,6 +15715,9 @@ Returns shape nrows, ncols of 2D array.
 ";
 
 %feature("docstring")  AxisNames::InitSpecAxis "std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
+";
+
+%feature("docstring")  AxisNames::InitSampleDepthAxis "std::map< AxesUnits, std::string > AxisNames::InitSampleDepthAxis()
 ";
 
 
@@ -15362,11 +15823,6 @@ Returns string representation of axes dimension in the form \"(nx,ny)\".
 %feature("docstring")  DetectorFunctions::axesToString "std::string DetectorFunctions::axesToString(const OutputData< double > &data)
 
 Returns string representation of axes dimension in the form \"(nx,ny)\". 
-";
-
-%feature("docstring")  DetectorFunctions::createDataSet "std::unique_ptr< OutputData< double > > DetectorFunctions::createDataSet(const Instrument &instrument, const OutputData< double > &data, bool put_masked_areas_to_zero=true, AxesUnits units=AxesUnits::DEFAULT)
-
-Creates real data containing original user data clipped to the ROI area of the detector. If put_masked_areas_to_zero==true: resulting data will have 0.0 in all masked areas If put_masked_areas_to_zero==false: resulting data will be only cropped, masked areas will still contain intensities TODO: what users will like more (this appears on FitSuitePlotObserver)? 
 ";
 
 
@@ -15538,6 +15994,25 @@ Creates  OutputData from a 2D Array.
 %feature("docstring")  IntensityDataFunctions::createFFT "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createFFT(const OutputData< double > &data)
 
 Creates Fourier Transform ( OutputData format) of intensity map ( OutputData format). 
+";
+
+%feature("docstring")  IntensityDataFunctions::ConvertData "SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const OutputData< double > &data, bool put_masked_areas_to_zero=true)
+
+Convert user data to  SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero.
+
+Parameters:
+-----------
+
+simulation: 
+ Simulation object with possible ROI and masks defined.
+
+data: 
+User data with amplitudes with the shape of data matching the detector.
+
+SimulationResult object. 
+";
+
+%feature("docstring")  IntensityDataFunctions::ConvertData "SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
 ";
 
 
@@ -16019,6 +16494,9 @@ GISAS simulation with rectangular detector, region of interest and mask.
 %feature("docstring")  StandardSimulations::MiniOffSpec "OffSpecSimulation * StandardSimulations::MiniOffSpec()
 ";
 
+%feature("docstring")  StandardSimulations::BasicDepthProbe "DepthProbeSimulation * StandardSimulations::BasicDepthProbe()
+";
+
 
 // File: namespaceSysUtils.xml
 %feature("docstring")  SysUtils::getCurrentDateAndTime "std::string SysUtils::getCurrentDateAndTime()
@@ -16039,6 +16517,24 @@ Returns environment variable.
 %feature("docstring")  SysUtils::isWindowsHost "bool SysUtils::isWindowsHost()
 
 Returns true if operation system is Windows. 
+";
+
+
+// File: namespaceUnitConverterUtils.xml
+%feature("docstring")  UnitConverterUtils::substituteDefaultUnits "AxesUnits UnitConverterUtils::substituteDefaultUnits(const IUnitConverter &converter, AxesUnits units)
+";
+
+%feature("docstring")  UnitConverterUtils::createOutputData "std::unique_ptr< OutputData< double > > UnitConverterUtils::createOutputData(const IUnitConverter &converter, AxesUnits units)
+
+Returns zero-valued output data array in specified units. 
+";
+
+%feature("docstring")  UnitConverterUtils::createConverterForGISAS "std::unique_ptr< IUnitConverter > UnitConverterUtils::createConverterForGISAS(const Instrument &instrument)
+
+Helper factory function to use in  GISASSimulation. Depending on the type of detector, returns either  RectangularConverter or  SphericalConverter. 
+";
+
+%feature("docstring")  UnitConverterUtils::createConverter "std::unique_ptr< IUnitConverter > UnitConverterUtils::createConverter(const Simulation &simulation)
 ";
 
 
@@ -16080,6 +16576,9 @@ Returns true if operation system is Windows.
 // File: FTDistributions2D_8h.xml
 
 
+// File: IInterferenceFunction_8cpp.xml
+
+
 // File: IInterferenceFunction_8h.xml
 
 
@@ -16105,6 +16604,18 @@ Returns true if operation system is Windows.
 
 
 // File: InterferenceFunction2DParaCrystal_8h.xml
+
+
+// File: InterferenceFunction2DSuperLattice_8cpp.xml
+
+
+// File: InterferenceFunction2DSuperLattice_8h.xml
+
+
+// File: InterferenceFunctionFinite2DLattice_8cpp.xml
+
+
+// File: InterferenceFunctionFinite2DLattice_8h.xml
 
 
 // File: InterferenceFunctionNone_8cpp.xml
@@ -16258,6 +16769,18 @@ global helper function for comparison of axes
 
 
 // File: DelayedProgressCounter_8h.xml
+
+
+// File: DepthProbeComputation_8cpp.xml
+
+
+// File: DepthProbeComputation_8h.xml
+
+
+// File: DepthProbeComputationTerm_8cpp.xml
+
+
+// File: DepthProbeComputationTerm_8h.xml
 
 
 // File: DWBAComputation_8cpp.xml
@@ -16869,6 +17392,12 @@ global helper function for comparison of axes
 // File: ISquaredFunction_8h.xml
 
 
+// File: IUnitConverter_8cpp.xml
+
+
+// File: IUnitConverter_8h.xml
+
+
 // File: LLData_8cpp.xml
 
 
@@ -16920,6 +17449,12 @@ make Swappable
 // File: SampleProvider_8h.xml
 
 
+// File: SimpleUnitConverters_8cpp.xml
+
+
+// File: SimpleUnitConverters_8h.xml
+
+
 // File: SimulationArea_8cpp.xml
 
 
@@ -16950,10 +17485,16 @@ make Swappable
 // File: SphericalDetector_8h.xml
 
 
-// File: UnitConverters_8cpp.xml
+// File: UnitConverter1D_8cpp.xml
 
 
-// File: UnitConverters_8h.xml
+// File: UnitConverter1D_8h.xml
+
+
+// File: UnitConverterUtils_8cpp.xml
+
+
+// File: UnitConverterUtils_8h.xml
 
 
 // File: ISelectionRule_8h.xml
@@ -17042,7 +17583,7 @@ Constructs a material with  name,  refractive_index and  magnetization (in A/m).
 
 %feature("docstring")  MaterialBySLD "Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization)
 
-Constructs a wavelength-independent material with a given complex-valued scattering lenght density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
+Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 
 Parameters:
 -----------
@@ -17083,7 +17624,7 @@ Constructs a material with  name,  refractive_index and  magnetization (in A/m).
 
 %feature("docstring")  MaterialBySLD "BA_CORE_API_ Material MaterialBySLD(const std::string &name, double sld_real, double sld_imag, kvector_t magnetization=kvector_t())
 
-Constructs a wavelength-independent material with a given complex-valued scattering lenght density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
+Constructs a wavelength-independent material with a given complex-valued scattering length density (SLD). SLD values for a wide variety of materials can be found on https://sld-calculator.appspot.com/ and https://www.ncnr.nist.gov/resources/activation/ By convention, SLD imaginary part is treated as negative by default, which corresponds to attenuation of the signal. With no parameters given, MaterialBySLD constructs default (vacuum) material with zero sld and zero magnetization.
 
 Parameters:
 -----------
@@ -17663,10 +18204,22 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: TruncatedEllipsoid_8h.xml
 
 
+// File: DepthProbeSimulation_8cpp.xml
+
+
+// File: DepthProbeSimulation_8h.xml
+
+
 // File: GISASSimulation_8cpp.xml
 
 
 // File: GISASSimulation_8h.xml
+
+
+// File: MPISimulation_8cpp.xml
+
+
+// File: MPISimulation_8h.xml
 
 
 // File: OffSpecSimulation_8cpp.xml
@@ -17693,6 +18246,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: SpecularSimulation_8h.xml
 
 
+// File: DepthProbeElement_8cpp.xml
+
+
+// File: DepthProbeElement_8h.xml
+
+
 // File: PolarizationHandler_8cpp.xml
 
 
@@ -17703,12 +18262,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SimulationElement_8h.xml
-
-
-// File: SpecularData_8cpp.xml
-
-
-// File: SpecularData_8h.xml
 
 
 // File: SpecularSimulationElement_8cpp.xml
@@ -18023,6 +18576,9 @@ Template function to create an integrator object.
 // File: PyImport_8h.xml
 
 
+// File: PyObject_8h.xml
+
+
 // File: PythonCore_8h.xml
 
 
@@ -18086,6 +18642,9 @@ Calculates the z-coordinate of the highest vertex after rotation.
 
 
 // File: WavevectorInfo_8h.xml
+
+
+// File: deprecated.xml
 
 
 // File: dir_52a2c863b7b3435f7dcd40f26828d521.xml

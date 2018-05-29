@@ -4,11 +4,11 @@ find_package(Threads REQUIRED)
 find_package(FFTW REQUIRED)
 find_package(GSL REQUIRED)
 
-# --- Eigen3 is a git submodule; use system eigen if this submodule was not properly cloned ---
+# --- Eigen3 is a git submodule; throw an error if submodule is not initialized ---
 set(EIGEN3_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/ThirdParty/Core/eigen3" CACHE INTERNAL "")
-if(NOT EXISTS "${EIGEN3_INCLUDE_DIR}/signature_of_eigen3_matrix_library")
-    unset(EIGEN3_INCLUDE_DIR CACHE)
-    find_package(Eigen3 REQUIRED)
+if( NOT EXISTS "${EIGEN3_INCLUDE_DIR}/.git" )
+    message( FATAL_ERROR "Eigen3 submodule was not initialized. Please run
+                          git submodule update --init")
 endif()
 
 # --- Boost ---
@@ -18,7 +18,7 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
 #add_definitions(-DBOOST_LIB_DIAGNOSTIC) # shows during compilation auto-linked libraries
-set(boost_libraries_required date_time chrono program_options iostreams system filesystem regex)
+set(boost_libraries_required date_time chrono program_options regex iostreams system filesystem)
 if(WIN32)
     set(boost_libraries_required ${boost_libraries_required} zlib bzip2)
 endif()
@@ -28,10 +28,12 @@ message(STATUS "Found Boost includes at ${Boost_INCLUDE_DIRS}, libraries at ${Bo
 
 # === optional packages ===
 
-# --- multithreading ---
-if(BORNAGAIN_OPENMPI)
-    message(STATUS "Configuring with OpenMPI support")
+# --- MPI support ---
+if(BORNAGAIN_MPI)
+    message(STATUS "Configuring with MPI support")
     find_package(MPI REQUIRED)
+    message(STATUS "MPI_CXX_INCLUDE_PATH: ${MPI_CXX_INCLUDE_PATH}")
+    message(STATUS "MPI_CXX_LIBRARIES: ${MPI_CXX_LIBRARIES}")
 endif()
 
 # --- Tiff ---

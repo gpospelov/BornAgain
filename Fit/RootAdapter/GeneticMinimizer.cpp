@@ -16,6 +16,7 @@
 #include "IFitParameter.h"
 #include "MinimizerConstants.h"
 #include "Math/GeneticMinimizer.h"
+#include "Parameter.h"
 
 namespace {
 
@@ -31,7 +32,7 @@ std::map<int, std::string> statusDescription()
 
 GeneticMinimizer::GeneticMinimizer()
     : RootMinimizerAdapter(MinimizerInfo::buildGeneticInfo())
-    , m_genetic_minimizer(new BA_ROOT::Math::GeneticMinimizer())
+    , m_genetic_minimizer(new ROOT::Math::GeneticMinimizer())
 {
     addOption(OptionNames::Tolerance, 0.01, "Tolerance on the function value at the minimum");
     addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
@@ -120,6 +121,19 @@ void GeneticMinimizer::setParameter(size_t index, const IFitParameter *par)
     RootMinimizerAdapter::setParameter(index, par);
 }
 
+void GeneticMinimizer::setParameter(unsigned int index, const Fit::Parameter& par)
+{
+    if( !par.limits().isFixed() && !par.limits().isLimited()) {
+        std::ostringstream ostr;
+        ostr << "GeneticMinimizer::setParameter() -> Error! "
+             << "Genetic minimizer requires either fixed or "
+             << "limited AttLimits::limited(left,right) parameter. "
+             << " Parameter name '" << par.name() << "', limits:" << par.limits().toString();
+        throw std::runtime_error(ostr.str());
+    }
+    RootMinimizerAdapter::setParameter(index, par);
+}
+
 std::string GeneticMinimizer::statusToString() const
 {
     return statusDescription()[rootMinimizer()->Status()];
@@ -134,7 +148,7 @@ std::map<std::string, std::string> GeneticMinimizer::statusMap() const
 
 void GeneticMinimizer::propagateOptions()
 {
-    BA_ROOT::Math::GeneticMinimizerParameters pars;
+    ROOT::Math::GeneticMinimizerParameters pars;
     pars.fPopSize = populationSize();
     pars.fNsteps = maxIterations();
 //    pars.fCycles = m_options.getIntValue("Cycles"); // seems it's not used inside ROOT

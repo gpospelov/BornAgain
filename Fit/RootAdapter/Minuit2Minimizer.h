@@ -19,7 +19,7 @@
 #include "MinimizerConstants.h"
 #include <memory>
 
-namespace BA_ROOT { namespace Minuit2 { class Minuit2Minimizer; } }
+namespace ROOT { namespace Minuit2 { class Minuit2Minimizer; } }
 
 //! Wrapper for the CERN ROOT facade of the Minuit2 minimizer.
 //! See Minuit2 user manual https://root.cern.ch/root/htmldoc/guides/minuit2/Minuit2.pdf.
@@ -66,16 +66,16 @@ public:
     void setMaxFunctionCalls(int value);
     int maxFunctionCalls() const;
 
-    std::string statusToString() const;
-    std::map<std::string, std::string> statusMap() const;
+    std::string statusToString() const override;
+    std::map<std::string, std::string> statusMap() const override;
 
 protected:
-    bool isGradientBasedAgorithm();
-    void propagateOptions();
-    const root_minimizer_t* rootMinimizer() const;
+    bool isGradientBasedAgorithm() override;
+    void propagateOptions() override;
+    const root_minimizer_t* rootMinimizer() const override;
 
 private:
-    std::unique_ptr<BA_ROOT::Minuit2::Minuit2Minimizer> m_minuit2_minimizer;
+    std::unique_ptr<ROOT::Minuit2::Minuit2Minimizer> m_minuit2_minimizer;
 };
 
 #endif // MINUIT2MINIMIZER_H

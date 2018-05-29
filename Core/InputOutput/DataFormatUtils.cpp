@@ -30,12 +30,12 @@ bool DataFormatUtils::isCompressed(const std::string& name)
 
 bool DataFormatUtils::isGZipped(const std::string& name)
 {
-    return FileSystemUtils::extension(name) == GzipExtention;
+    return FileSystemUtils::extension(name) == GzipExtension;
 }
 
 bool DataFormatUtils::isBZipped(const std::string& name)
 {
-    return FileSystemUtils::extension(name) == BzipExtention;
+    return FileSystemUtils::extension(name) == BzipExtension;
 }
 
 
@@ -45,10 +45,9 @@ std::string DataFormatUtils::GetFileMainExtension(const std::string& name)
 {
     std::string stripped_name(name);
     if(isGZipped(name)) {
-        stripped_name = name.substr(0, name.size()-GzipExtention.size());
-    }
-    else if(isBZipped(name)) {
-        stripped_name = name.substr(0, name.size()-BzipExtention.size());
+        stripped_name = name.substr(0, name.size()-GzipExtension.size());
+    } else if(isBZipped(name)) {
+        stripped_name = name.substr(0, name.size()-BzipExtension.size());
     }
     return FileSystemUtils::extension(stripped_name);
 }
@@ -66,17 +65,18 @@ bool DataFormatUtils::isBinaryFile(const std::string& file_name)
 
 bool DataFormatUtils::isIntFile(const std::string& file_name)
 {
-    return GetFileMainExtension(file_name) == IntExtention;
+    return GetFileMainExtension(file_name) == IntExtension;
 }
 
 bool DataFormatUtils::isTxtFile(const std::string& file_name)
 {
-    return GetFileMainExtension(file_name) == TxtExtention;
+    return GetFileMainExtension(file_name) == TxtExtension;
 }
 
 bool DataFormatUtils::isTiffFile(const std::string& file_name)
 {
-    return GetFileMainExtension(file_name) == TiffExtention;
+    return (GetFileMainExtension(file_name) == TiffExtension ||
+            GetFileMainExtension(file_name) == TiffExtension2 );
 }
 
 //! Returns true if string representation of the axis contains one of
@@ -84,9 +84,9 @@ bool DataFormatUtils::isTiffFile(const std::string& file_name)
 //! similar way.
 bool DataFormatUtils::isSimilarToFixedBinAxisType(const std::string& line)
 {
-    return line.find(FixedBinAxisType) != std::string::npos ||
-        line.find(ConstKBinAxisType) != std::string::npos ||
-        line.find(CustomBinAxisType) != std::string::npos;
+    return line.find(FixedBinAxisType)  != std::string::npos ||
+           line.find(ConstKBinAxisType) != std::string::npos ||
+           line.find(CustomBinAxisType) != std::string::npos;
 }
 
 bool DataFormatUtils::isVariableBinAxisType(const std::string& line)
@@ -101,15 +101,11 @@ IAxis *DataFormatUtils::createAxis(std::istream& input_stream)
     std::string line;
     std::getline(input_stream, line);
 
-    if(isSimilarToFixedBinAxisType(line))
-    {
+    if(isSimilarToFixedBinAxisType(line)) {
         return createFixedBinAxis(line);
-    }
-    else if(isVariableBinAxisType(line))
-    {
+    } else if(isVariableBinAxisType(line)) {
         return createVariableBinAxis(line);
-    }
-    else {
+    } else {
         throw Exceptions::LogicErrorException("DataFormatUtils::createAxis() -> Error. "
                                               "Unknown axis '"+line+"'");
     }
@@ -141,14 +137,11 @@ IAxis *DataFormatUtils::createFixedBinAxis(std::string line)
 
     if(type == FixedBinAxisType) {
         return new FixedBinAxis(name, nbins, boundaries[0], boundaries[1]);
-    }
-    else if(type == ConstKBinAxisType) {
+    } else if(type == ConstKBinAxisType) {
         return new ConstKBinAxis(name, nbins, boundaries[0], boundaries[1]);
-    }
-    else if(type == CustomBinAxisType) {
+    } else if(type == CustomBinAxisType) {
         return new CustomBinAxis(name, nbins, boundaries[0], boundaries[1]);
-    }
-    else {
+    } else {
         throw Exceptions::LogicErrorException(
             "DataFormatUtils::createOneOfFixedBinAxis() -> Error. Unexpected place.");
     }

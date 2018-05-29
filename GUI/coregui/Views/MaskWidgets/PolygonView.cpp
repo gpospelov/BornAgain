@@ -63,7 +63,7 @@ QPointF PolygonView::lastAddedPoint() const
 bool PolygonView::closePolygonIfNecessary()
 {
     if (m_close_polygon_request) {
-        foreach (QGraphicsItem* childItem, childItems()) {
+        for(QGraphicsItem* childItem : childItems()) {
             childItem->setFlag(QGraphicsItem::ItemIsMovable);
             childItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
             childItem->setAcceptHoverEvents(false);
@@ -136,12 +136,11 @@ void PolygonView::update_polygon()
 
         m_polygon.clear();
 
-        foreach (SessionItem* item, m_item->getChildrenOfType(Constants::PolygonPointType)) {
+        for(SessionItem* item : m_item->getChildrenOfType(Constants::PolygonPointType)) {
             qreal px = toSceneX(item->getItemValue(PolygonPointItem::P_POSX).toReal());
             qreal py = toSceneY(item->getItemValue(PolygonPointItem::P_POSY).toReal());
             m_polygon << QPointF(px, py);
         }
-
         QRectF scene_rect = m_polygon.boundingRect().marginsAdded(
             QMarginsF(bbox_margins, bbox_margins, bbox_margins, bbox_margins));
 
@@ -162,18 +161,17 @@ void PolygonView::update_polygon()
 
         setPos(scene_rect.x(), scene_rect.y());
     }
-
     m_block_on_point_update = false;
 }
 
-//! When polygon moves as a whole thing accross the scene, given method updates coordinates
+//! When polygon moves as a whole thing across the scene, given method updates coordinates
 //! of PolygonPointItem's
 void PolygonView::update_points()
 {
     if (m_block_on_point_update)
         return;
 
-    foreach (QGraphicsItem* childItem, childItems()) {
+    for(QGraphicsItem* childItem : childItems()) {
         PolygonPointView* view = dynamic_cast<PolygonPointView*>(childItem);
         QPointF pos = view->scenePos();
         disconnect(view, SIGNAL(propertyChanged()), this, SLOT(update_view()));
@@ -184,6 +182,6 @@ void PolygonView::update_points()
 
 void PolygonView::setChildrenVisible(bool value)
 {
-    foreach (QGraphicsItem* childItem, childItems())
+    for(QGraphicsItem* childItem : childItems())
         childItem->setVisible(value);
 }

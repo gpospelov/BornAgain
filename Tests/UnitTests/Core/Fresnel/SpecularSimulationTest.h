@@ -146,10 +146,13 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
 
     EXPECT_EQ(3u, sim->sample()->numberOfLayers());
 
-    ASSERT_THROW(sim->result(), std::runtime_error);
+    SimulationResult sim_result = sim->result();
+    std::unique_ptr<OutputData<double>> data(sim_result.data());
+    EXPECT_EQ(data->getAllocatedSize(), 10u);
+    EXPECT_EQ(data->totalSum(), 0.0);
 
     sim->runSimulation();
-    auto sim_result = sim->result();
+    sim_result = sim->result();
 
     const std::unique_ptr<Histogram1D> reflectivity(sim_result.histogram1d(AxesUnits::RADIANS));
     EXPECT_EQ(10u, reflectivity->getTotalNumberOfBins());
@@ -175,14 +178,17 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     EXPECT_EQ(3u, clone->sample()->numberOfLayers());
 
-    ASSERT_THROW(clone->result(), std::runtime_error);
+    SimulationResult clone_result = clone->result();
+    std::unique_ptr<OutputData<double>> data(clone_result.data());
+    EXPECT_EQ(data->getAllocatedSize(), 10u);
+    EXPECT_EQ(data->totalSum(), 0.0);
 
     checkBeamState(*clone);
 
     sim->runSimulation();
 
     std::unique_ptr<SpecularSimulation> clone2(sim->clone());
-    auto clone_result = clone2->result();
+    clone_result = clone2->result();
 
     std::unique_ptr<Histogram1D> output(clone_result.histogram1d());
     EXPECT_EQ(10u, output->getTotalNumberOfBins());

@@ -97,6 +97,8 @@ if(BORNAGAIN_PYTHON)
         ${library_name}_python
         COMMAND ${CMAKE_COMMAND} -E copy
             ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/libBornAgainCore.py
+        COMMAND ${CMAKE_COMMAND} -E copy
+            ${AUTO_DIR}/libBornAgainCore.py ${CMAKE_BINARY_DIR}/lib/bornagain/libBornAgainCore.py
         DEPENDS ${AUTO_DIR}/libBornAgainCore.py
         )
 
@@ -159,8 +161,8 @@ include_directories(${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW_LIBRARY} ${GSL_LIBRARIES}
     ${Faddeeva_LIBRARY})
 
-if(BORNAGAIN_OPENMPI)
-    add_definitions(-DBORNAGAIN_OPENMPI)
+if(BORNAGAIN_MPI)
+    add_definitions(-DBORNAGAIN_MPI)
     include_directories(${MPI_INCLUDE_PATH})
     target_link_libraries(${library_name} ${MPI_LIBRARIES})
 endif()
@@ -228,8 +230,8 @@ if(WIN32)
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
     install(FILES
-        ${CMAKE_LIBRARY_PATH}/libfftw3-3.dll
-        ${CMAKE_LIBRARY_PATH}/libtiff.dll
+        ${FFTW_LIBRARY_DLL}
+        ${TIFF_LIBRARY_DLL}
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
 else()
@@ -266,7 +268,8 @@ else()
 endif()
 
 # Install bornagain/__init__.py and utilites
-install(FILES "${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py"
-        DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)
-install(FILES "${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py"
-        DESTINATION ${destination_libexec}/bornagain/ COMPONENT Libraries)
+install(DIRECTORY "${CMAKE_BINARY_DIR}/lib/bornagain/"
+        DESTINATION "${destination_libexec}/bornagain"
+        COMPONENT Libraries
+        FILES_MATCHING PATTERN "*.py"
+        PATTERN "__pycache__" EXCLUDE)

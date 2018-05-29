@@ -22,8 +22,10 @@ class BeamDistributionItem;
 class BeamItem;
 class Simulation;
 class GISASSimulation;
+class IFootprintFactor;
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
+class InterferenceFunctionFinite2DLattice;
 class InterferenceFunction2DParaCrystal;
 class InterferenceFunctionRadialParaCrystal;
 class Layer;
@@ -34,6 +36,8 @@ class ParticleDistribution;
 class RectangularDetector;
 class RectangularDetectorItem;
 class SessionItem;
+class SpecularBeamItem;
+class SpecularSimulation;
 class SphericalDetector;
 class SphericalDetectorItem;
 class DetectorItem;
@@ -41,6 +45,7 @@ class MaskContainerItem;
 class IDetector;
 class GISASInstrumentItem;
 class Instrument2DItem;
+class InstrumentItem;
 class Simulation2D;
 class OffSpecSimulation;
 class IAxis;
@@ -57,6 +62,9 @@ BA_CORE_API_ void set1DLatticeItem(SessionItem* item, const InterferenceFunction
 
 BA_CORE_API_ void set2DLatticeItem(SessionItem* item, const InterferenceFunction2DLattice& sample);
 
+BA_CORE_API_ void set2DLatticeItem(SessionItem* item,
+                                   const InterferenceFunctionFinite2DLattice& sample);
+
 BA_CORE_API_ void setLayerItem(SessionItem* layer_item, const Layer* layer,
                                const LayerInterface* top_interface);
 
@@ -70,6 +78,9 @@ BA_CORE_API_ bool isValidRoughness(const LayerRoughness* roughness);
 BA_CORE_API_ void setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation);
 
 BA_CORE_API_ void setOffSpecBeamItem(BeamItem* beam_item, const OffSpecSimulation& simulation);
+
+BA_CORE_API_ void setSpecularBeamItem(SpecularBeamItem* beam_item,
+                                      const SpecularSimulation& simulation);
 
 BA_CORE_API_ void setDetector(Instrument2DItem* instrument_item, const Simulation2D& simulation);
 
@@ -93,7 +104,10 @@ BA_CORE_API_ void setMaskContainer(MaskContainerItem* container_item, const IDet
 BA_CORE_API_ void setItemFromSample(BeamDistributionItem* beam_distribution_item,
                                     const ParameterDistribution& parameter_distribution);
 
-BA_CORE_API_ void setBackground(Instrument2DItem* instrument_item, const Simulation& simulation);
+BA_CORE_API_ void setBackground(InstrumentItem* instrument_item, const Simulation& simulation);
+
+BA_CORE_API_ void setFootprintFactor(const IFootprintFactor* footprint,
+                                     SpecularBeamItem* beam_item);
 
 BA_CORE_API_ void setAxisItem(SessionItem* item, const IAxis& axis, double factor = 1.0);
 

@@ -19,9 +19,7 @@
 #include "OutputData.h"
 #include <QDateTime>
 
-class BasicAxisItem;
-class MaskContainerItem;
-class ProjectionContainerItem;
+class InstrumentItem;
 
 //! Provides common functionality for IntensityDataItem and SpecularDataItem
 
@@ -29,6 +27,7 @@ class BA_CORE_API_ DataItem : public SessionItem
 {
 public:
     static const QString P_FILE_NAME;
+    static const QString P_AXES_UNITS;
 
     OutputData<double>* getOutputData() { return m_data.get(); }
     const OutputData<double>* getOutputData() const { return m_data.get(); }
@@ -39,6 +38,17 @@ public:
 
     QDateTime lastModified() const;
     void setLastModified(const QDateTime& dtime);
+
+    QString selectedAxesUnits() const;
+
+    virtual void setXaxisTitle(QString xtitle) = 0;
+    virtual void setYaxisTitle(QString ytitle) = 0;
+    virtual void setAxesRangeToData() = 0;
+    virtual void updateAxesUnits(const InstrumentItem* instrument) = 0;
+    virtual std::vector<int> shape() const = 0;
+
+    //! Returns data to default state (no dimensional units, default axes' names)
+    virtual void resetToDefault() = 0;
 
 protected:
     DataItem(const QString& modelType);

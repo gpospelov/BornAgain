@@ -15,14 +15,17 @@
 #ifndef IFRESNELMAP_H
 #define IFRESNELMAP_H
 
+#include "ILayerRTCoefficients.h"
 #include "WinDllMacros.h"
 #include <cstddef>
 #include <memory>
 
-class ILayerRTCoefficients;
+template<class T> class BasicVector3D;
 class MultiLayer;
 class SimulationElement;
 class SpecularSimulationElement;
+
+typedef BasicVector3D<double> kvector_t;
 
 //! Holds the necessary information to calculate the radiation wavefunction in every layer
 //! for different incoming (outgoing) angles of the beam in the top layer
@@ -36,15 +39,16 @@ public:
     virtual ~IFresnelMap();
 
     //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
-    virtual const ILayerRTCoefficients* getOutCoefficients(
-            const SimulationElement& sim_element, size_t layer_index) const =0;
+    virtual std::unique_ptr<const ILayerRTCoefficients>
+    getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const = 0;
 
     //! Retrieves the amplitude coefficients for an incoming wavevector.
-    virtual const ILayerRTCoefficients* getInCoefficients(
-            const SimulationElement& sim_element, size_t layer_index) const =0;
-
-    //! Fills simulation element specular data
-    virtual void fillSpecularData(SpecularSimulationElement& sim_element) const = 0;
+    template <typename T>
+    std::unique_ptr<const ILayerRTCoefficients> getInCoefficients(const T& sim_element,
+                                                                  size_t layer_index) const
+    {
+        return getCoefficients(sim_element.getKi(), layer_index);
+    }
 
     //! Sets the multilayer to be used for the Fresnel calculations.
     virtual void setMultilayer(const MultiLayer& multilayer);
@@ -53,6 +57,9 @@ public:
     void disableCaching();
 
 protected:
+    virtual std::unique_ptr<const ILayerRTCoefficients>
+    getCoefficients(const kvector_t& kvec, size_t layer_index) const = 0;
+
     bool m_use_cache;
     std::unique_ptr<MultiLayer> mP_multilayer;
 };

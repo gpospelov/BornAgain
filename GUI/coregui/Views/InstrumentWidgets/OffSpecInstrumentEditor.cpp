@@ -27,8 +27,11 @@ OffSpecInstrumentEditor::OffSpecInstrumentEditor(QWidget* parent)
     , m_columnResizer(new ColumnResizer(this))
     , m_beamEditor(new OffSpecBeamEditor(m_columnResizer))
     , m_detectorEditor(new GISASDetectorEditor)
-    , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
-    , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
+    // temporary switched off to avoid memory leakage
+    //, m_environmentEditor(new EnvironmentEditor(m_columnResizer))
+    //, m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
+    , m_environmentEditor(nullptr)
+    , m_polarizationAnalysisEditor(nullptr)
 {
     auto mainLayout = new QVBoxLayout;
 

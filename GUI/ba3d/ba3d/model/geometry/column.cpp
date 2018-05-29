@@ -17,19 +17,29 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshColumn(float alpha, float numSides) {
+Geometry::Mesh Geometry::meshColumn(float ratio_Rt_Rb, float numSides) {
     int  const sides  = qRound(numSides);
-    bool const smooth = (0 == sides); // sides: 0->smooth
+    bool const smooth = (0 == sides); // sides = 0 implies smooth -> e.g. cylinder
     int  const slices = smooth ? SLICES : sides;
 
-    float const R = .5f, Rb = R, Rt = Rb - 2*R/tanf(alpha);
+    // Rt is the top radius, Rb is the bottom radius, H is the height
+    // Values are chosen such that diameter and height are 1
+    float const R = .5f;
+    float Rb = R, Rt = Rb*ratio_Rt_Rb, H = 2*R;
 
-    // mesh of vertices and normals
+    // mesh of vertices (bottom and top) and normals (bottom to top)
     Vertices vb(slices), vt(slices), nbt(slices);
-    float const nz = (1 - Rt/Rb)*2*R;
+    float const nz = (1 - Rt/Rb)*H;
+
     for(int s=0; s < slices; ++s) {
         float th = float(2*M_PI*s/slices), st = sinf(th), ct = cosf(th);
-        Vector3D vb_(Rb*ct, Rb*st, -R), vt_(Rt*ct, Rt*st, +R);
+
+        /* This base shape is constructed symmetric about the xy plane, centered at the origin.
+        i.e. xy-plane goes through the center of the shape (object extension: -H/2 to +H/2 in z)
+        Later when the particle is created based upon this shape and scaled to proper dimensions,
+        the offset is kept at H/2 to bring the base of the object to 0 in z (see particles.cpp) */
+
+        Vector3D vb_(Rb*ct, Rb*st, -H/2), vt_(Rt*ct, Rt*st, +H/2);
         vb[s] = vb_; vt[s] = vt_;
         if (smooth)
             nbt[s] = Vector3D(vb_.x, vb_.y, nz).normalized();
@@ -43,11 +53,11 @@ Geometry::Mesh Geometry::meshColumn(float alpha, float numSides) {
     for(int s=0; s < slices; ++s) {
         int s1 = s, s2 = (s+1) % slices;
 
-        vs.addTriangle(vb.at(s1), Vector3D(0,0,-R), vb.at(s2));          // bottom
+        vs.addTriangle(vb.at(s1), Vector3D(0,0,-H/2), vb.at(s2));          // bottom
         if (smooth)
             ns.addVertex(-Vector3D::_z, 3);
 
-        vs.addTriangle(Vector3D(0,0,+R), vt.at(s1), vt.at(s2));          // top
+        vs.addTriangle(Vector3D(0,0,+H/2), vt.at(s1), vt.at(s2));          // top
         if (smooth)
             ns.addVertex(+Vector3D::_z, 3);
 

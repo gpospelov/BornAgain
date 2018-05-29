@@ -28,7 +28,6 @@ public:
     static const QString P_TITLE;
     static const QString P_IS_INTERPOLATED;
     static const QString P_GRADIENT;
-    static const QString P_AXES_UNITS;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_ZAXIS;
@@ -39,6 +38,8 @@ public:
 
     void setOutputData(OutputData<double>* data) override;
     void setRawDataVector(const OutputData<double>* data) override;
+
+    // TODO: consider using index-based functions for axes' handlers
 
     int getNbinsX() const;
     int getNbinsY() const;
@@ -73,8 +74,6 @@ public:
     bool isZAxisLocked() const;
     void setZAxisLocked(bool state);
 
-    QString selectedAxesUnits() const;
-
     void updateDataRange();
     void computeDataRange();
     QPair<double, double> dataRange() const;
@@ -91,6 +90,15 @@ public:
     MaskContainerItem* maskContainerItem();
     ProjectionContainerItem* projectionContainerItem();
 
+    void setXaxisTitle(QString xtitle) override;
+    void setYaxisTitle(QString ytitle) override;
+    void setAxesRangeToData() override;
+    void updateAxesUnits(const InstrumentItem* instrument) override;
+    std::vector<int> shape() const override;
+
+    //! Returns data to default state (no dimensional units, default axes' names)
+    void resetToDefault() override;
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);
@@ -101,9 +109,6 @@ public slots:
     void setUpperZ(double zmax);
     void setLogz(bool logz);
     void setInterpolated(bool interp);
-    void setXaxisTitle(QString xtitle);
-    void setYaxisTitle(QString ytitle);
-    void setAxesRangeToData();
 
 private:
     void updateAxesZoomLevel();

@@ -1,27 +1,13 @@
-set(test FitTest)
+############################################################################
+# Tests/Functional/Core/CMakeLists.txt
+############################################################################
 
-set(test_cases
-    GSLLevenbergMarquardt
-    GSLMultiMinBFGS
-    GSLMultiMinSteepestDescent
-    GSLSimulatedAnnealing
-    GeneticMinimizer
-    Minuit2_Fumili
-    Minuit2_Migrad
-    RectDetectorFit
-    AdjustMinimizerStrategy
-    SpecularFit
-    StandaloneFit
-)
+# fitting via FitSuite
+add_subdirectory(FitSuite)
 
-include_directories(${RootMinimizers_INCLUDE_DIRS})
+# fitting via FitKernel
+add_subdirectory(FitKernel)
 
-file(GLOB source_files "*.cpp")
-file(GLOB include_files "*.h")
+# fitting via new Kernel machinery
+add_subdirectory(Minimizer)
 
-add_executable(${test} ${include_files} ${source_files})
-target_link_libraries(${test} BornAgainCore BornAgainTestMachinery)
-
-foreach(test_case ${test_cases})
-    add_test(${test}/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} ${test_case})
-endforeach()

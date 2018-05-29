@@ -37,7 +37,10 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
 
     std::string reportOutcome() const override;
 
+    using IMinimizer::propagateResults;
     void propagateResults(FitParameterSet&) override;
+
+    Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
 
  private:
     double m_min_value;

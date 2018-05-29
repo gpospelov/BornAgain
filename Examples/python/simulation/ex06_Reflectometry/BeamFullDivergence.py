@@ -82,24 +82,6 @@ def run_simulation():
     return simulation.result()
 
 
-def plot(data):
-    """
-    Plots data for several selected layers
-    """
-    from matplotlib import pyplot as plt
-    plt.figure(figsize=(12.80, 10.24))
-
-    hist = data.histogram1d()
-    axis = hist.getXaxis().getBinCenters()
-    intensities = data.array()
-
-    plt.xlabel(r'$\alpha_f$ (deg)', fontsize=16)
-    plt.ylabel(r'Reflectivity, a.u.', fontsize=16)
-    plt.semilogy(axis, intensities)
-
-    plt.show()
-
-
 if __name__ == '__main__':
     results = run_simulation()
-    plot(results)
+    ba.plot_simulation_result(results)

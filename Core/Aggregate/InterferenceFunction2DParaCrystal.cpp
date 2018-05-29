@@ -209,12 +209,12 @@ double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy, d
         throw Exceptions::NullPointerException(
             "InterferenceFunction2DParaCrystal::"
             "interference1D() -> Error! Probability distributions for "
-            "interference funtion not properly initialized");
+            "interference function not properly initialized");
 
     double result(0.0);
     double length = index ? m_lattice->length2() : m_lattice->length1();
-    int n = (int)std::abs(m_domain_sizes[index] / length);
-    double nd = (double)n;
+    int n = static_cast<int>(std::abs(m_domain_sizes[index] / length));
+    double nd = static_cast<double>(n);
     complex_t fp = FTPDF(qx, qy, xi, index);
     if (n < 1) {
         result = ((1.0 + fp) / (1.0 - fp)).real();

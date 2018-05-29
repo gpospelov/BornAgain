@@ -17,7 +17,10 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "ImportDataUtils.h"
+#include "JobItemUtils.h"
 #include "MaskItems.h"
+#include "MaskUnitsConverter.h"
 #include "ProjectionItems.h"
 #include "BornAgainNamespace.h"
 
@@ -34,7 +37,9 @@ ComboProperty gradientCombo() {
 }
 }
 
-const QString IntensityDataItem::P_AXES_UNITS = "Axes Units";
+const QString x_axis_default_name = "X [nbins]";
+const QString y_axis_default_name = "Y [nbins]";
+
 const QString IntensityDataItem::P_TITLE = "Title";
 const QString IntensityDataItem::P_PROJECTIONS_FLAG = "Projections";
 const QString IntensityDataItem::P_IS_INTERPOLATED = "Interpolation";
@@ -47,9 +52,6 @@ const QString IntensityDataItem::T_PROJECTIONS = "Projection tag";
 
 IntensityDataItem::IntensityDataItem() : DataItem(Constants::IntensityDataType)
 {
-    ComboProperty units = ComboProperty() << Constants::UnitsNbins;
-    addProperty(P_AXES_UNITS, units.variant());
-
     addProperty(P_TITLE, QString())->setVisible(false);
 
     addProperty(P_PROJECTIONS_FLAG, false)->setVisible(false);
@@ -65,8 +67,8 @@ IntensityDataItem::IntensityDataItem() : DataItem(Constants::IntensityDataType)
     item = addGroupProperty(P_ZAXIS, Constants::AmplitudeAxisType);
     item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    setXaxisTitle("X [nbins]");
-    setYaxisTitle("Y [nbins]");
+    setXaxisTitle(x_axis_default_name);
+    setYaxisTitle(y_axis_default_name);
 
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
@@ -193,10 +195,54 @@ void IntensityDataItem::setZAxisLocked(bool state)
     return getItem(P_ZAXIS)->setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
 }
 
-QString IntensityDataItem::selectedAxesUnits() const
+void IntensityDataItem::setXaxisTitle(QString xtitle)
 {
-    ComboProperty combo = getItemValue(IntensityDataItem::P_AXES_UNITS).value<ComboProperty>();
-    return combo.getValue();
+    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
+}
+
+void IntensityDataItem::setYaxisTitle(QString ytitle)
+{
+    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_TITLE, ytitle);
+}
+
+//! set zoom range of x,y axes to axes of input data
+void IntensityDataItem::setAxesRangeToData()
+{
+    setLowerX(getXmin());
+    setUpperX(getXmax());
+    setLowerY(getYmin());
+    setUpperY(getYmax());
+}
+
+void IntensityDataItem::updateAxesUnits(const InstrumentItem* instrument)
+{
+    MaskUnitsConverter converter;
+    converter.convertToNbins(this);
+
+    JobItemUtils::updateDataAxes(this, instrument);
+
+    converter.convertFromNbins(this);
+}
+
+std::vector<int> IntensityDataItem::shape() const
+{
+    return {getNbinsX(), getNbinsY()};
+}
+
+void IntensityDataItem::resetToDefault()
+{
+    assert(getOutputData()
+           && "IntensityDataItem::resetToDefault assertion failed: associated output data should "
+              "not be empty");
+    DataItem::resetToDefault();
+
+    setXaxisTitle(x_axis_default_name);
+    setYaxisTitle(y_axis_default_name);
+    MaskUnitsConverter converter;
+    converter.convertToNbins(this);
+    setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*getOutputData()).release());
+    setAxesRangeToData();
+    converter.convertFromNbins(this);
 }
 
 void IntensityDataItem::setLowerX(double xmin)
@@ -246,25 +292,6 @@ void IntensityDataItem::setLogz(bool logz)
 void IntensityDataItem::setInterpolated(bool interp)
 {
     setItemValue(P_IS_INTERPOLATED, interp);
-}
-
-void IntensityDataItem::setXaxisTitle(QString xtitle)
-{
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
-}
-
-void IntensityDataItem::setYaxisTitle(QString ytitle)
-{
-    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_TITLE, ytitle);
-}
-
-//! set zoom range of x,y axes to axes of input data
-void IntensityDataItem::setAxesRangeToData()
-{
-    setLowerX(getXmin());
-    setUpperX(getXmax());
-    setLowerY(getYmin());
-    setUpperY(getYmax());
 }
 
 //! Sets zoom range of X,Y axes, if it was not yet defined.

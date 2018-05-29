@@ -19,14 +19,11 @@
 
 class AmplitudeAxisItem;
 class BasicAxisItem;
-class MaskContainerItem;
-class ProjectionContainerItem;
 
 class BA_CORE_API_ SpecularDataItem : public DataItem
 {
 public:
     static const QString P_TITLE;
-    static const QString P_AXES_UNITS;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
 
@@ -58,8 +55,6 @@ public:
     QString getXaxisTitle() const;
     QString getYaxisTitle() const;
 
-    QString selectedAxesUnits() const;
-
     void updateDataRange();
     void computeDataRange();
     QPair<double, double> dataRange() const;
@@ -70,15 +65,21 @@ public:
 
     void resetView();
 
+    void setXaxisTitle(QString xtitle) override;
+    void setYaxisTitle(QString ytitle) override;
+    void setAxesRangeToData() override;
+    void updateAxesUnits(const InstrumentItem* instrument) override;
+    std::vector<int> shape() const override;
+
+    //! Returns data to default state (no dimensional units, default axes' names)
+    void resetToDefault() override;
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);
     void setLowerY(double ymin);
     void setUpperY(double ymax);
     void setLog(bool log_flag);
-    void setXaxisTitle(QString xtitle);
-    void setYaxisTitle(QString ytitle);
-    void setAxesRangeToData();
 
 private:
     void updateAxesZoomLevel();

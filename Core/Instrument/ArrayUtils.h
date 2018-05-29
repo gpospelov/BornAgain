@@ -18,18 +18,41 @@
 #include <vector>
 #include "WinDllMacros.h"
 #include "PythonCore.h"
+#include "OutputData.h"
+#include <stdexcept>
+#include <memory>
 
 //! Array and Numpy utility functions getShape, createNumpyArray.
 
 namespace ArrayUtils
 {
 
-    //! Returns shape nrows, ncols of 2D array.
-    template<class T> std::pair<size_t, size_t> getShape(const T& data);
+//! Returns shape nrows, ncols of 2D array.
+template<class T> std::pair<size_t, size_t> getShape(const T& data);
 
 #ifdef BORNAGAIN_PYTHON
-    PyObject* createNumpyArray(const std::vector<double>& data);
+PyObject* createNumpyArray(const std::vector<double>& data);
 #endif // BORNAGAIN_PYTHON
+
+//! Creates OutputData from 1D vector.
+//! @param vec: std::vector<double>
+//! @return std::unique_ptr<OutputData<double>>
+template<class T> decltype(auto) createData1D(const T& vec);
+
+//! Creates 1D vector from OutputData.
+//! @param vec: OutputData<double>
+//! @return vector<double>
+template<class T> decltype(auto) createVector1D(const T& data);
+
+//! Creates OutputData from 2D vector.
+//! @param vec: std::vector<std::vector<double>>
+//! @return std::unique_ptr<OutputData<double>>
+template<class T> decltype(auto) createData2D(const T& vec);
+
+//! Creates 2D vector from OutputData.
+//! @param vec: OutputData<double>
+//! @return vector<vector<double>>
+template<class T> decltype(auto) createVector2D(const T& data);
 
 }
 
@@ -43,5 +66,75 @@ template<class T>  std::pair<size_t, size_t> ArrayUtils::getShape(const T& data)
                                      "Number of elements is different from row to row.");
     return std::make_pair(nrows, ncols);
 }
+
+
+template<class T> decltype(auto) ArrayUtils::createData1D(const T& vec)
+{
+    using value_type = typename T::value_type;
+    std::unique_ptr<OutputData<value_type>> result(new OutputData<value_type>());
+    const size_t length = vec.size();
+    result->addAxis(FixedBinAxis("axis0", length, 0.0, static_cast<double>(length)));
+    result->setRawDataVector(vec);
+    return result;
+}
+
+template<class T> decltype(auto) ArrayUtils::createVector1D(const T& data)
+{
+    if (data.getRank() != 1)
+        throw std::runtime_error("ArrayUtils::createVector1D() -> Error. Not 1D data.");
+
+    using value_type = typename T::value_type;
+    std::vector<value_type> result = data.getRawDataVector();
+    return result;
+}
+
+template<class T> decltype(auto) ArrayUtils::createData2D(const T& vec)
+{
+    using value_type = typename T::value_type::value_type;
+    std::unique_ptr<OutputData<value_type>> result(new OutputData<value_type>());
+
+    auto shape = ArrayUtils::getShape(vec);
+    const size_t nrows = shape.first;
+    const size_t ncols = shape.second;
+
+    if(nrows == 0 || ncols == 0)
+        throw Exceptions::LogicErrorException("ArrayUtils::createData2D() -> Error. "
+                                              "Not a two-dimensional array");
+
+    result->addAxis(FixedBinAxis("axis0", ncols, 0.0, static_cast<double>(ncols)));
+    result->addAxis(FixedBinAxis("axis1", nrows, 0.0, static_cast<double>(nrows)));
+
+    // filling the data
+    for(size_t row=0; row<nrows; ++row) {
+        for(size_t col=0; col<ncols; ++col) {
+            size_t globalbin = nrows - row - 1 + col*nrows;
+            (*result)[globalbin] = vec[row][col];
+        }
+    }
+
+    return result;
+}
+
+template<class T> decltype(auto) ArrayUtils::createVector2D(const T& data)
+{
+    using value_type = typename T::value_type;
+    std::vector<std::vector<value_type>> result;
+
+    const size_t nrows = data.getAxis(1).size();
+    const size_t ncols = data.getAxis(0).size();
+
+    result.resize(nrows);
+
+    for(size_t row=0; row<nrows; ++row) {
+        result[row].resize(ncols, 0.0);
+        for(size_t col=0; col<ncols; ++col) {
+            size_t globalbin = nrows - row - 1 + col*nrows;
+            result[row][col] = data[globalbin];
+        }
+    }
+
+    return result;
+}
+
 
 #endif // ARRAYUTILS_H

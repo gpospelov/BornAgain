@@ -75,7 +75,7 @@ void GUIFitObserver::update(FitSuite *subject)
 
         emit progressInfoUpdate(info);
 
-        m_simData.reset(subject->getSimulationOutputData()->clone());
+        m_simData.reset(subject->simulationResult().data());
         emit plotsUpdate();
     }
 

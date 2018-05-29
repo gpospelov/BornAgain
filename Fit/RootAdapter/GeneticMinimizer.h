@@ -17,7 +17,7 @@
 
 #include "RootMinimizerAdapter.h"
 
-namespace BA_ROOT { namespace Math { class GeneticMinimizer; } }
+namespace ROOT { namespace Math { class GeneticMinimizer; } }
 
 //! Wrapper for the CERN ROOT Genetic minimizer.
 //! @ingroup fitting_internal
@@ -50,17 +50,19 @@ public:
     void setRandomSeed(int value);
     int randomSeed() const;
 
-    void setParameter(size_t index, const IFitParameter* par);
-
-    std::string statusToString() const;
-    std::map<std::string, std::string> statusMap() const;
+    std::string statusToString() const override;
+    std::map<std::string, std::string> statusMap() const override;
 
 protected:
-    void propagateOptions();
-    const root_minimizer_t* rootMinimizer() const;
+    void propagateOptions() override;
+    const root_minimizer_t* rootMinimizer() const override;
+
+    using RootMinimizerAdapter::setParameter;
+    void setParameter(size_t index, const IFitParameter* par) override;
+    void setParameter(unsigned int index, const Fit::Parameter& par) override;
 
 private:
-    std::unique_ptr<BA_ROOT::Math::GeneticMinimizer> m_genetic_minimizer;
+    std::unique_ptr<ROOT::Math::GeneticMinimizer> m_genetic_minimizer;
 };
 
 #endif // GENETICMINIMIZER_H

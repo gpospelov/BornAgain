@@ -62,7 +62,7 @@ private:
     double interferenceForXi(double xi) const;
 
     //! Returns interference from a single reciprocal lattice vector
-    double interferenceAtOneRecLatticePoint(double qx, double qy, double xi) const;
+    double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
     //! Returns reciprocal coordinates in the principal axis system
     void transformToPrincipalAxes(double qx, double qy, double gamma,

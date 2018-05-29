@@ -134,9 +134,23 @@ void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)
     setItemValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.variant());
 }
 
-void RectangularDetectorItem::setSize(int nx, int ny)
+int RectangularDetectorItem::xSize() const
+{
+    return getItem(RectangularDetectorItem::P_X_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
+}
+
+int RectangularDetectorItem::ySize() const
+{
+    return getItem(RectangularDetectorItem::P_Y_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
+}
+
+void RectangularDetectorItem::setXSize(int nx)
 {
     getItem(RectangularDetectorItem::P_X_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
+}
+
+void RectangularDetectorItem::setYSize(int ny)
+{
     getItem(RectangularDetectorItem::P_Y_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 
@@ -164,21 +178,16 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() con
 
     if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
         result->setPosition(normalVector(), u0, v0, directionVector());
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
         result->setPerpendicularToDirectBeam(distance, dbeam_u0, dbeam_v0);
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
         result->setPerpendicularToSampleX(distance, u0, v0);
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
         result->setPerpendicularToReflectedBeam(distance, u0, v0);
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
         result->setPerpendicularToReflectedBeam(distance);
         result->setDirectBeamPosition(dbeam_u0, dbeam_v0);
     }
-
     return std::move(result);
 }
 
@@ -189,7 +198,7 @@ void RectangularDetectorItem::update_properties_appearance()
     ComboProperty alignment = getItemValue(P_ALIGNMENT).value<ComboProperty>();
     QStringList prop_list;
     prop_list << P_NORMAL << P_DIRECTION << P_U0 << P_V0 << P_DBEAM_U0 << P_DBEAM_V0 << P_DISTANCE;
-    foreach (auto prop, prop_list)
+    for(auto prop : prop_list)
         getItem(prop)->setVisible(false);
 
     // enabling some properties back, depending from detector alignment mode
@@ -200,26 +209,22 @@ void RectangularDetectorItem::update_properties_appearance()
         getItem(P_U0)->setToolTip(tooltip_u0);
         getItem(P_V0)->setVisible(true);
         getItem(P_V0)->setToolTip(tooltip_v0);
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_SAMPLE) {
         getItem(P_DISTANCE)->setVisible(true);
         getItem(P_U0)->setVisible(true);
         getItem(P_U0)->setToolTip(tooltip_samplex_u0);
         getItem(P_V0)->setVisible(true);
         getItem(P_V0)->setToolTip(tooltip_samplex_v0);
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_DIRECT_BEAM) {
         getItem(P_DISTANCE)->setVisible(true);
         getItem(P_DBEAM_U0)->setVisible(true);
         getItem(P_DBEAM_V0)->setVisible(true);
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM) {
         getItem(P_DISTANCE)->setVisible(true);
         getItem(P_U0)->setVisible(true);
         getItem(P_U0)->setToolTip(tooltip_refbeam_u0);
         getItem(P_V0)->setVisible(true);
         getItem(P_V0)->setToolTip(tooltip_refbeam_v0);
-
     } else if (alignment.getValue() == Constants::ALIGNMENT_TO_REFLECTED_BEAM_DPOS) {
         getItem(P_DISTANCE)->setVisible(true);
         getItem(P_DBEAM_U0)->setVisible(true);

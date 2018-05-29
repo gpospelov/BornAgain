@@ -14,9 +14,11 @@
 
 #include "DataItem.h"
 #include "BornAgainNamespace.h"
+#include "ComboProperty.h"
 #include "GUIHelpers.h"
 
 const QString DataItem::P_FILE_NAME = "FileName";
+const QString DataItem::P_AXES_UNITS = "Axes Units";
 
 void DataItem::setOutputData(OutputData<double>* data)
 {
@@ -49,10 +51,26 @@ void DataItem::setLastModified(const QDateTime& dtime)
     m_last_modified = dtime;
 }
 
+QString DataItem::selectedAxesUnits() const
+{
+    ComboProperty combo = getItemValue(DataItem::P_AXES_UNITS).value<ComboProperty>();
+    return combo.getValue();
+}
+
+void DataItem::resetToDefault()
+{
+    ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
+    setItemValue(DataItem::P_AXES_UNITS, combo.variant());
+    getItem(DataItem::P_AXES_UNITS)->setVisible(true);
+}
+
 DataItem::DataItem(const QString& modelType) : SessionItem(modelType)
 {
     // name of the file used to serialize given IntensityDataItem
     addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
+
+    ComboProperty units = ComboProperty() << Constants::UnitsNbins;
+    addProperty(P_AXES_UNITS, units.variant());
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_FILE_NAME)

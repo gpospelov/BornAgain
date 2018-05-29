@@ -80,7 +80,6 @@ void IParameterized::setParameterValue(const std::string& name, double value)
         else
             P_pool->setParameterValue(name, value);
     }
-    onChange();
 }
 
 void IParameterized::setVectorValue(const std::string& base_name, kvector_t value)

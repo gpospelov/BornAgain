@@ -130,7 +130,8 @@ void GUIPerformanceTest::test_real_time()
                                               *sample);
 
         if (auto instrument2DItem = dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem())) {
-            instrument2DItem->detectorItem()->setSize(50, 50);
+            instrument2DItem->detectorItem()->setXSize(50);
+            instrument2DItem->detectorItem()->setYSize(50);
         } else {
             throw GUIHelpers::Error("GUISaveLoadProject::run_job() -> Error. ApplicationModels is "
                                     "in unexpected state");

@@ -78,5 +78,5 @@ void DetectorMaskDelegate::createIntensityDataItem()
     JobItemUtils::createDefaultDetectorMap(m_intensityItem, instrument);
 
     m_intensityItem->getOutputData()->setAllTo(1.0);
-    m_intensityItem->getItem(IntensityDataItem::P_AXES_UNITS)->setEnabled(false);
+    m_intensityItem->getItem(DataItem::P_AXES_UNITS)->setEnabled(false);
 }

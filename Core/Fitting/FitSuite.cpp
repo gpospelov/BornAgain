@@ -121,26 +121,6 @@ size_t FitSuite::numberOfFitObjects() const
     return m_impl->fitObjects()->size();
 }
 
-IHistogram* FitSuite::getRealData(size_t i_item) const
-{
-    return m_impl->fitObjects()->createRealDataHistogram(i_item).release();
-}
-
-IHistogram* FitSuite::getSimulationData(size_t i_item) const
-{
-    return m_impl->fitObjects()->createSimulationHistogram(i_item).release();
-}
-
-IHistogram* FitSuite::getChiSquaredMap(size_t i_item) const
-{
-    return m_impl->fitObjects()->createChiSquaredHistogram(i_item).release();
-}
-
-const OutputData<double>* FitSuite::getSimulationOutputData(size_t i_item) const
-{
-    return &m_impl->fitObjects()->getSimulationData(i_item);
-}
-
 std::string FitSuite::parametersToString() const
 {
     return m_impl->fitObjects()->parametersToString();
@@ -215,3 +195,19 @@ bool FitSuite::isInterrupted()
 {
     return m_impl->isInterrupted();
 }
+
+SimulationResult FitSuite::simulationResult(size_t i_item) const
+{
+    return m_impl->fitObjects()->simulationResult(i_item);
+}
+
+SimulationResult FitSuite::experimentalData(size_t i_item) const
+{
+    return m_impl->fitObjects()->experimentalData(i_item);
+}
+
+SimulationResult FitSuite::relativeDifference(size_t i_item) const
+{
+    return m_impl->fitObjects()->relativeDifference(i_item);
+}
+

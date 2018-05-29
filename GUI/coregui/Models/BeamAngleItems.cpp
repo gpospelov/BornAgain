@@ -16,16 +16,16 @@
 #include "Units.h"
 
 BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
-    : BeamDistributionItem(Constants::BeamAzimuthalAngleType)
+    : BeamDistributionItem(Constants::BeamAzimuthalAngleType, m_show_mean)
 {
-    register_distribution_group();
+    register_distribution_group(Constants::DistributionExtendedGroup);
 
     SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_VALUE);
     valueItem->setLimits(RealLimits::limited(-90.0, 90.0));
     valueItem->setDecimals(3);
     valueItem->setValue(0.0);
 
-    initDistributionItem();
+    initDistributionItem(m_show_mean);
 }
 
 //! Returns beam azimuthal angle. In the case of distribution applied, returns its mean.
@@ -43,16 +43,16 @@ double BeamAzimuthalAngleItem::scaleFactor() const
 // ------------------------------------------------------------------------------------------------
 
 BeamInclinationAngleItem::BeamInclinationAngleItem()
-    : BeamDistributionItem(Constants::BeamInclinationAngleType)
+    : BeamDistributionItem(Constants::BeamInclinationAngleType, m_show_mean)
 {
-    register_distribution_group();
+    register_distribution_group(Constants::DistributionExtendedGroup);
 
     SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_VALUE);
     valueItem->setLimits(RealLimits::limited(0.0, 90.0));
     valueItem->setDecimals(3);
     valueItem->setValue(0.2);
 
-    initDistributionItem();
+    initDistributionItem(m_show_mean);
 }
 
 //! Returns beam inclination angle. In the case of distribution applied, returns its mean.

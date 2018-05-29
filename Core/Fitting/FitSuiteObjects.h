@@ -44,9 +44,17 @@ public:
     //! Replaces default ChiSquaredModule with new one
     void setChiSquaredModule(const IChiSquaredModule &chi2_module);
 
-    //! Returns simulated data from corresponding FitObject
-    //! @param i_item Index of FitObject
-    const OutputData<double>& getSimulationData(size_t i_item = 0) const;
+    //! Returns simulation result.
+    //! @param i_item: the index of fit pair
+    SimulationResult simulationResult(size_t i_item = 0) const;
+
+    //! Returns experimental data.
+    //! @param i_item: the index of fit pair
+    SimulationResult experimentalData(size_t i_item = 0) const;
+
+    //! Returns relative difference between simulation and experimental data.
+    //! @param i_item: the index of fit pair
+    SimulationResult relativeDifference(size_t i_item = 0) const;
 
     //! run all simulation defined in fit pairs
     void runSimulations();
@@ -55,7 +63,7 @@ public:
     double getChiSquaredValue() const { return m_chi_squared_value; }
 
     //! Returns residuals for single data element
-    //! @param global_index index accross all element in FitElement vector
+    //! @param global_index index across all element in FitElement vector
     double getResidualValue(size_t global_index);
 
     void setNfreeParameters(int nfree_parameters) { m_nfree_parameters = nfree_parameters; }
@@ -68,21 +76,6 @@ public:
     iterator end() { return m_fit_objects.end(); }
 
     std::vector<const INode*> getChildren() const;
-
-#ifndef SWIG
-    //! Returns real data from corresponding FitObject. ROI is taken into account.
-    //! @param i_item Index of FitObject
-    std::unique_ptr<IHistogram> createRealDataHistogram(size_t i_item = 0) const;
-
-    //! Returns simulated data from corresponding FitObject.  ROI is taken into account.
-    //! @param i_item Index of FitObject
-    std::unique_ptr<IHistogram> createSimulationHistogram(size_t i_item = 0) const;
-
-    //! Returns new chi-squared map from corresponding FitObject. ROI is taken into account.
-    //! @param i_item Index of FitObject
-    std::unique_ptr<IHistogram> createChiSquaredHistogram(size_t i_item = 0) const;
-
-#endif
 
 protected:
     //! Registers some class members for later access via parameter pool

@@ -2,6 +2,8 @@
 # Tests/Functional/GUI/CMakeLists.txt
 ############################################################################
 
+set(test TestGUIStandard)
+
 set(test_cases
     ApproximationDA
     ApproximationLMA
@@ -42,6 +44,7 @@ set(test_cases
     RotatedCylinder
     RotatedPyramids
     RotatedSquareLattice
+    FiniteSquareLattice
     SimulationWithMasks
     SquareLattice
     TransformBox
@@ -55,12 +58,15 @@ set(test_cases
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
     OffSpecularResonator
+    SquareBeamFootprint
+    GaussianBeamFootprint
+    SpecularDivergentBeam
+    HomogeneousTiNiSampleWithAbsorption
 )
 
-add_executable(GUIStandardTest main.cpp GUIStandardTest.cpp GUIStandardTest.h )
-target_link_libraries(GUIStandardTest BornAgainCore BornAgainGUI BornAgainTestMachinery)
+add_executable(${test} main.cpp GUIStandardTest.cpp GUIStandardTest.h )
+target_link_libraries(${test} BornAgainCore BornAgainGUI BornAgainTestMachinery)
 
-qt5_use_modules(GUIStandardTest Widgets Core Gui Designer PrintSupport Network)
 foreach(test_case ${test_cases})
-    add_test(GUIStandardTest/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/GUIStandardTest ${test_case})
+    add_test(${test}/${test_case} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test} ${test_case})
 endforeach()

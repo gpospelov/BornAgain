@@ -42,6 +42,17 @@ public:
     void setModel(Model*);
     Model* getModel();
 
+    // ToolBar Actions
+    void defaultView();
+    void sideView();
+    void topView();
+
+    void canvasHintMessageBox();
+
+    // Flying Camera implementation (similar to Blender's camera system)
+    void horizontalCameraTurn(float angle);
+    void verticalCameraTurn(float angle);
+
 private:
     QRect viewport;
     float aspectRatio, colorBgR, colorBgG, colorBgB;
@@ -52,8 +63,7 @@ private:
     void resizeGL(int, int);
     void paintGL();
 
-    QVector3D lastV;    // unprojected vector
-    float     lastY;    // screen coordinate
+    QPoint e_last; // latest mouse event's (x,y) screen coordinates
     QMatrix4x4 matModel, matProj;
     QVector3D  unproject(QPoint const&);
 
@@ -61,6 +71,7 @@ private:
     void mousePressEvent(QMouseEvent*);
     void mouseMoveEvent(QMouseEvent*);
     void mouseReleaseEvent(QMouseEvent*);
+    void wheelEvent(QWheelEvent*);
 
     Camera  *camera;
     Program *program;

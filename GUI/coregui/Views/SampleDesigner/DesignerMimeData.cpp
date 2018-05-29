@@ -44,9 +44,7 @@ DesignerMimeData::DesignerMimeData(const QString &entryname, const QString &xmld
 
     drag->setPixmap(getPixmap(m_classname));
     drag->setHotSpot(QPoint(drag->pixmap().width()/2, drag->pixmap().height()/2));
-
 }
-
 
 void DesignerMimeData::read_xmldescr(const QString &xmldescr)
 {
@@ -64,7 +62,6 @@ void DesignerMimeData::read_xmldescr(const QString &xmldescr)
                 reader.raiseError("Unexpected element <"+name.toString()+">");
         }
     }
-
     if (reader.hasError()) {
         QString errorMessage = tr("A parse error occurred at line %1, column %2 of the XML code "
                                    "specified for the widget %3: %4\n%5")
@@ -75,11 +72,10 @@ void DesignerMimeData::read_xmldescr(const QString &xmldescr)
     }
 }
 
-
 // extract class name and skip the rest
 void DesignerMimeData::read_widget(QXmlStreamReader &reader)
 {
-    foreach (const QXmlStreamAttribute &attribute, reader.attributes()) {
+    for(const QXmlStreamAttribute &attribute : reader.attributes()) {
         QStringRef name = attribute.name();
         if (name == QStringLiteral("class")) {
             m_classname = attribute.value().toString();
@@ -89,7 +85,6 @@ void DesignerMimeData::read_widget(QXmlStreamReader &reader)
     }
     reader.skipCurrentElement();
 }
-
 
 // Execute a drag and drop operation.
 Qt::DropAction DesignerMimeData::execDrag(const QString &name, const QString &xmldescr, QWidget *dragSource)
@@ -104,7 +99,6 @@ Qt::DropAction DesignerMimeData::execDrag(const QString &name, const QString &xm
 
     return executedAction;
 }
-
 
 QPixmap DesignerMimeData::getPixmap(const QString &name)
 {

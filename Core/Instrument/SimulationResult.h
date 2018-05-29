@@ -15,22 +15,16 @@
 #ifndef SIMULATIONRESULT_H
 #define SIMULATIONRESULT_H
 
-#include "UnitConverters.h"
+#include "IUnitConverter.h"
 #include "WinDllMacros.h"
+#include "PyObject.h"
 #include <memory>
-
-#ifdef BORNAGAIN_PYTHON
-#ifndef PyObject_HEAD
-struct _object;
-typedef _object PyObject;
-#endif
-#endif
+#include <vector>
 
 class Histogram1D;
 class Histogram2D;
 class IAxis;
 template<class T> class OutputData;
-class IUnitConverter;
 
 //! Information about an axis in specific units. Can be used for plotting.
 //! @ingroup simulation
@@ -62,6 +56,9 @@ public:
 
     //! Provide AxisInfo for each axis and the given units
     std::vector<AxisInfo> axisInfo(AxesUnits units = AxesUnits::DEFAULT) const;
+
+    //! Returns underlying unit converter
+    const IUnitConverter& converter() const;
 
     //! Data element access
     double& operator[](size_t i);

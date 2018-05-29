@@ -17,9 +17,12 @@
 #include "FitParameterSet.h"
 #include "IFitParameter.h"
 #include "MinimizerUtils.h"
+#include "Parameters.h"
 #include <boost/format.hpp>
 #include <iomanip>
 #include <sstream>
+
+using namespace Fit;
 
 namespace {
 
@@ -75,6 +78,26 @@ std::string MinimizerResultsHelper::reportParameters(const FitParameterSet* para
             result << std::endl;
         }
 
+    }
+
+    return result.str();
+}
+
+std::string MinimizerResultsHelper::reportParameters(const Fit::Parameters& parameters)
+{
+    std::ostringstream result;
+
+    result << MinimizerUtils::sectionString("FitParameters");
+
+    result << "Name       StartValue  Limits                FitValue  Error" << std::endl;
+
+    for(const auto& par : parameters) {
+        result << boost::format("# %-8s %-7.4f     %-20s  %-6.4f    %5.4f \n")
+                  % par.name()
+                  % par.startValue()
+                  % par.limits().toString()
+                  % par.value()
+                  % par.error();
     }
 
     return result.str();

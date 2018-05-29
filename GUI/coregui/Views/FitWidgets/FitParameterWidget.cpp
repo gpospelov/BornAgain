@@ -131,23 +131,21 @@ void FitParameterWidget::onFitParametersSelectionChanged(const QItemSelection &s
     if (selection.indexes().isEmpty())
         return;
 
-    foreach(QModelIndex index, selection.indexes()) {
+    for(auto index : selection.indexes()) {
         m_tuningWidget->selectionModel()->clearSelection();
         SessionItem *item = m_fitParameterModel->itemForIndex(index);
         if(item->parent()->modelType() == Constants::FitParameterLinkType) {
             QString link = item->parent()->getItemValue(FitParameterLinkItem::P_LINK).toString();
             m_tuningWidget->makeSelected(FitParameterHelper::getParameterItem(jobItem()->fitParameterContainerItem(), link));
         }
-
     }
-
 }
 
 //! Creates fit parameters for all selected ParameterItem's in tuning widget
 
 void FitParameterWidget::onCreateFitParAction()
 {
-    foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
+    for(auto item : m_tuningWidget->getSelectedParameters()) {
         if(!FitParameterHelper::getFitParameterItem(jobItem()->fitParameterContainerItem(), item)) {
             FitParameterHelper::createFitParameter(jobItem()->fitParameterContainerItem(), item);
         }
@@ -159,7 +157,7 @@ void FitParameterWidget::onCreateFitParAction()
 
 void FitParameterWidget::onRemoveFromFitParAction()
 {
-    foreach(ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
+    for(auto item : m_tuningWidget->getSelectedParameters()) {
         if(FitParameterHelper::getFitParameterItem(jobItem()->fitParameterContainerItem(), item)) {
             FitParameterHelper::removeFromFitParameters(jobItem()->fitParameterContainerItem(), item);
         }
@@ -175,7 +173,7 @@ void FitParameterWidget::onRemoveFitParAction()
     // retrieve both, selected FitParameterItem and FitParameterItemLink
     QVector<FitParameterLinkItem *> linksToRemove = selectedFitParameterLinks();
 
-    foreach(FitParameterLinkItem *item, linksToRemove) {
+    for(auto item : linksToRemove) {
         container->model()->removeRow(item->index().row(), item->index().parent());
     }
 
@@ -184,7 +182,7 @@ void FitParameterWidget::onRemoveFitParAction()
     // removal too (if it doesn't have other links)
     //  QVector<FitParameterItem *> itemsToRemove = selectedFitParameters()+emptyFitParameters();
 
-    foreach(FitParameterItem *item, itemsToRemove) {
+    for(auto item : itemsToRemove) {
         container->model()->removeRow(item->index().row(), item->index().parent());
     }
 }
@@ -195,7 +193,7 @@ void FitParameterWidget::onAddToFitParAction(int ipar)
 {
     QStringList fitParNames
         = FitParameterHelper::getFitParameterNames(jobItem()->fitParameterContainerItem());
-    foreach (ParameterItem *item, m_tuningWidget->getSelectedParameters()) {
+    for(auto item : m_tuningWidget->getSelectedParameters()) {
         FitParameterHelper::addToFitParameter(jobItem()->fitParameterContainerItem(), item,
                                           fitParNames.at(ipar));
     }
@@ -257,7 +255,6 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
         if (fitParNames.isEmpty() || canCreateFitParameter() == false) {
             addToFitParMenu->setEnabled(false);
         }
-
         for (int i = 0; i < fitParNames.count(); ++i) {
             QAction* action
                 = new QAction(QString("to ").append(fitParNames.at(i)), addToFitParMenu);
@@ -265,7 +262,6 @@ void FitParameterWidget::initTuningWidgetContextMenu(QMenu &menu)
             addToFitParMenu->addAction(action);
         }
     }
-
     menu.addSeparator();
     menu.addAction(m_removeFromFitParAction);
 }
@@ -306,7 +302,7 @@ void FitParameterWidget::init_fit_model()
 bool FitParameterWidget::canCreateFitParameter()
 {
     QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
-    foreach(ParameterItem *item, selected) {
+    for(auto item : selected) {
         if(FitParameterHelper::getFitParameterItem(
                     jobItem()->fitParameterContainerItem(), item) == nullptr)
             return true;
@@ -320,7 +316,7 @@ bool FitParameterWidget::canCreateFitParameter()
 bool FitParameterWidget::canRemoveFromFitParameters()
 {
     QVector<ParameterItem *> selected = m_tuningWidget->getSelectedParameters();
-    foreach(ParameterItem *item, selected) {
+    for(auto item : selected) {
         if(FitParameterHelper::getFitParameterItem(jobItem()->fitParameterContainerItem(), item))
             return true;
     }
@@ -342,7 +338,7 @@ QVector<FitParameterItem *> FitParameterWidget::selectedFitParameters()
 {
     QVector<FitParameterItem *> result;
     QModelIndexList indexes = m_treeView->selectionModel()->selectedIndexes();
-    foreach(QModelIndex index, indexes) {
+    for(auto index : indexes) {
         if(SessionItem *item = m_fitParameterModel->itemForIndex(index)) {
             if(item->modelType() == Constants::FitParameterType) {
                 FitParameterItem *fitParItem = dynamic_cast<FitParameterItem *>(item);
@@ -372,7 +368,7 @@ QVector<FitParameterLinkItem *> FitParameterWidget::selectedFitParameterLinks()
 {
     QVector<FitParameterLinkItem *> result;
     QModelIndexList indexes = m_treeView->selectionModel()->selectedIndexes();
-    foreach (QModelIndex index, indexes) {
+    for(QModelIndex index : indexes) {
         if (SessionItem *item = m_fitParameterModel->itemForIndex(index)) {
             if (item->parent()->modelType() == Constants::FitParameterLinkType) {
                 FitParameterLinkItem *fitParItem

@@ -17,9 +17,10 @@
 
 #include "SessionItem.h"
 
-template <class T> class OutputData;
-class IntensityDataItem;
+class DataItem;
 class InstrumentItem;
+class IntensityDataItem;
+template <class T> class OutputData;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
 
@@ -31,17 +32,23 @@ public:
     static const QString T_INTENSITY_DATA;
     RealDataItem();
 
-    IntensityDataItem *intensityDataItem();
-    const IntensityDataItem *intensityDataItem() const;
+    IntensityDataItem* intensityDataItem();
+    const IntensityDataItem* intensityDataItem() const;
 
-    void setOutputData(OutputData<double> *data);
+    DataItem* dataItem();
+    const DataItem* dataItem() const;
 
-    void linkToInstrument(const InstrumentItem *instrument, bool make_update = true);
+    void setOutputData(OutputData<double>* data);
+
+    void linkToInstrument(const InstrumentItem* instrument, bool make_update = true);
+
+    //! Returns the shape of undelying data item
+    std::vector<int> shape() const;
 
 private:
     void updateIntensityDataFileName();
     void updateToInstrument();
-    const InstrumentItem *m_linkedInstrument;
+    const InstrumentItem* m_linkedInstrument;
 };
 
 #endif // REALDATAITEM_H

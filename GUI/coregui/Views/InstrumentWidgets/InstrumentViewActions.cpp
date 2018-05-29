@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "InstrumentViewActions.h"
+#include "InstrumentItems.h"
 #include "SessionModel.h"
 #include "ModelUtils.h"
 #include <QAction>
@@ -116,7 +117,13 @@ void InstrumentViewActions::onCloneInstrument()
     if (currentIndex.isValid()) {
         SessionItem* item  = m_model->itemForIndex(currentIndex);
         QString nameOfClone = suggestInstrumentName(item->itemName());
-        SessionItem *clone = m_model->copyItem(item);
+        SessionItem *clone = m_model->insertNewItem(item->modelType());
+        for (auto child : item->children()) {
+            if (child->displayName() == InstrumentItem::P_IDENTIFIER)
+                continue;
+            auto tag = item->tagFromItem(child);
+            m_model->copyItem(child, clone, tag);
+        }
         clone->setItemName(nameOfClone);
     }
 }
@@ -201,9 +208,8 @@ void InstrumentViewActions::initAddInstrumentMenu()
     action->setToolTip("Add OffSpec instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 
-    // TODO: enable after specular instrument is ready
-    /*action = m_addInstrumentMenu->addAction("Specular");
+    action = m_addInstrumentMenu->addAction("Specular");
     action->setData(QVariant::fromValue(Constants::SpecularInstrumentType));
     action->setToolTip("Add Specular instrument with default settings");
-    connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);*/
+    connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 }

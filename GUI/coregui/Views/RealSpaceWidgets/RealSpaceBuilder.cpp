@@ -181,35 +181,7 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
     {
         auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
         auto particleComposition = particleCompositionItem->createParticleComposition();
-        SafePointerVector<IParticle> pc_vector = particleComposition->decompose();
-
-        for (IParticle* pc_particle : pc_vector)
-        {
-            if(dynamic_cast<ParticleCoreShell*>(pc_particle))
-            {
-                auto particleCoreShell = dynamic_cast<ParticleCoreShell*>(pc_particle);
-                populateParticleCoreShell(model, particleCoreShell->coreParticle(),
-                                          particleCoreShell->shellParticle(), origin);
-            }
-            else
-            {
-                auto particle = dynamic_cast<Particle*>(pc_particle);
-                const IFormFactor* ff = pc_particle->createFormFactor();
-
-                // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
-                while(dynamic_cast<const IFormFactorDecorator*>(ff))
-                    ff = dynamic_cast<const IFormFactorDecorator*>(ff)->getFormFactor();
-
-                auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
-
-                RealSpaceBuilderUtils::applyParticleTransformations(particle, particle3D.get(),
-                                                                    origin);
-                RealSpaceBuilderUtils::applyParticleColor(particle, particle3D.get());
-
-                if (particle3D)
-                    model->add(particle3D.release());
-            }
-        }
+        populateParticleComposition(model, particleComposition.get(), origin);
     }
 
     else if(particleItem.modelType() == Constants::ParticleType)
@@ -227,9 +199,43 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
     }
 }
 
+void RealSpaceBuilder::populateParticleComposition(RealSpaceModel *model,
+                                                   const ParticleComposition *particleComposition,
+                                                   const QVector3D &origin) const
+{
+    SafePointerVector<IParticle> pc_vector = particleComposition->decompose();
+
+    for (IParticle* pc_particle : pc_vector)
+    {
+        if(dynamic_cast<ParticleCoreShell*>(pc_particle))
+        {
+            auto particleCoreShell = dynamic_cast<ParticleCoreShell*>(pc_particle);
+            populateParticleCoreShell(model, particleCoreShell->coreParticle(),
+                                      particleCoreShell->shellParticle(), origin);
+        }
+        else
+        {
+            auto particle = dynamic_cast<Particle*>(pc_particle);
+            const IFormFactor* ff = pc_particle->createFormFactor();
+
+            // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
+            while(dynamic_cast<const IFormFactorDecorator*>(ff))
+                ff = dynamic_cast<const IFormFactorDecorator*>(ff)->getFormFactor();
+
+            auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
+
+            RealSpaceBuilderUtils::applyParticleTransformations(particle, particle3D.get(),
+                                                                origin);
+            RealSpaceBuilderUtils::applyParticleColor(particle, particle3D.get());
+
+            if (particle3D)
+                model->add(particle3D.release());
+        }
+    }
+}
+
 void RealSpaceBuilder::populateParticleCoreShell(RealSpaceModel *model,
-                                                 const Particle* coreParticle,
-                                                 const Particle* shellParticle,
+                                                 const Particle *coreParticle, const Particle *shellParticle,
                                                  const QVector3D &origin) const
 {
     const IFormFactor* coreParticleff = coreParticle->createFormFactor();

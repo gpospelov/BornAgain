@@ -328,13 +328,7 @@ void RealSpaceBuilderUtils::applyParticleTransformations(const Particle* particl
 {
     if (particle && particle3D)
     {
-        // position of the current particle
-        float x = static_cast<float>(particle->position().x());
-        float y = static_cast<float>(particle->position().y());
-        float z = static_cast<float>(particle->position().z());
-        RealSpace::Vector3D position(x + origin.x(), y + origin.y(), z + origin.z());
-
-        // rotation of the current particle
+        // rotation
         RealSpace::Vector3D particle_rotate;
         const IRotation* rotation = particle->rotation();
 
@@ -342,9 +336,16 @@ void RealSpaceBuilderUtils::applyParticleTransformations(const Particle* particl
             particle_rotate =
                     RealSpaceBuilderUtils::implementParticleRotationfromIRotation(rotation);
 
+        // translation
+        float x = static_cast<float>(particle->position().x());
+        float y = static_cast<float>(particle->position().y());
+        float z = static_cast<float>(particle->position().z());
+        RealSpace::Vector3D position(x + origin.x(), y + origin.y(), z + origin.z());
+
         // NOTE: If the particle belongs to a particle composition, along with the particle's
         // intrinsic transformations, position() and rotation() methods also account for the
-        // translation and rotation (if present) of the particle composition
+        // translation and rotation (if present) of the particle composition as the
+        // particleComposition's decompose() method already does this
 
         particle3D->transform(particle_rotate, position);
     }
@@ -359,33 +360,29 @@ void RealSpaceBuilderUtils::applyParticleCoreShellTransformations(
 {
     if (particle && particle3D && particleCoreShell)
     {
-        // position of the particle within the particleCoreShell
-        float x = static_cast<float>(particle->position().x());
-        float y = static_cast<float>(particle->position().y());
-        float z = static_cast<float>(particle->position().z());
+        std::unique_ptr<Particle> P_clone(particle->clone()); // clone of the current particle
 
-        // position of the whole particleCoreShell
-        kvector_t positionCoreShell = particleCoreShell->position();
-
-        RealSpace::Vector3D position(x + origin.x() + static_cast<float>(positionCoreShell.x()),
-                                     y + origin.y() + static_cast<float>(positionCoreShell.y()),
-                                     z + origin.z() + static_cast<float>(positionCoreShell.z()));
-
+        // rotation
         RealSpace::Vector3D particle_rotate;
-        std::unique_ptr<Particle> P_clone(particle->clone());
-
-        // rotation of the whole particleCoreShell
         const IRotation* rotationCoreShell = particleCoreShell->rotation();
 
         if(rotationCoreShell)
             P_clone->rotate(*rotationCoreShell);
 
-        // rotation of the current particle
         const IRotation* rotation = P_clone->rotation();
 
         if(rotation)
             particle_rotate =
                     RealSpaceBuilderUtils::implementParticleRotationfromIRotation(rotation);
+
+        // translation
+        kvector_t positionCoreShell = particleCoreShell->position();
+
+        P_clone->translate(positionCoreShell);
+
+        RealSpace::Vector3D position(static_cast<float>(P_clone->position().x()) + origin.x(),
+                                     static_cast<float>(P_clone->position().y()) + origin.y(),
+                                     static_cast<float>(P_clone->position().z()) + origin.z());
 
         particle3D->transform(particle_rotate, position);
     }

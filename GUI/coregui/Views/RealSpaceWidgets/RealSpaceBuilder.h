@@ -23,11 +23,9 @@
 class SessionItem;
 class RealSpaceModel;
 class Shape3D;
-
 class SceneGeometry;
-class ParticleComposition;
 class ParticleCoreShell;
-
+class ParticleComposition;
 
 class BA_CORE_API_ RealSpaceBuilder : public QWidget
 {

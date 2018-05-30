@@ -24,18 +24,15 @@
 #include "ParticleLayoutItem.h"
 #include <ba3d/model/layer.h>
 #include <QDebug>
-
 #include "ParticleItem.h"
 #include "VectorItem.h"
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
 #include "Units.h"
-
 #include "ParticleCompositionItem.h"
 #include "IParticle.h"
 #include "IFormFactorDecorator.h"
 #include "Particle.h"
-
 #include "ParticleCoreShellItem.h"
 #include "ParticleCoreShell.h"
 
@@ -118,7 +115,7 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model,
 
     Q_UNUSED(origin);
 
-    // If there is any interference function
+    // If there is an interference function present
     if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))
         populateInterference(model, layoutItem, sceneGeometry);
     else
@@ -167,31 +164,25 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
                                         const SessionItem& particleItem,
                                         const QVector3D& origin) const
 {
-    // if particle core shell is present
-    if( particleItem.modelType() == Constants::ParticleCoreShellType)
-    {
-        auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(&particleItem);
-        auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-        populateParticleCoreShell(model, particleCoreShell->coreParticle(),
-                                  particleCoreShell->shellParticle(), origin);
-    }
-
-    // if particle composition is present
-    else if(particleItem.modelType() == Constants::ParticleCompositionType)
+    if(particleItem.modelType() == Constants::ParticleCompositionType)
     {
         auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
         auto particleComposition = particleCompositionItem->createParticleComposition();
         populateParticleComposition(model, particleComposition.get(), origin);
     }
-
+    else if( particleItem.modelType() == Constants::ParticleCoreShellType)
+    {
+        auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(&particleItem);
+        auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
+        populateParticleCoreShell(model, particleCoreShell.get(), origin);
+    }
     else if(particleItem.modelType() == Constants::ParticleType)
     {
         auto pItem = dynamic_cast<const ParticleItem*>(&particleItem);
         auto particle = pItem->createParticle();
         auto particle3D = TransformTo3D::createParticle3D(particleItem);
 
-        RealSpaceBuilderUtils::applyParticleTransformations(particle.get(), particle3D.get(),
-                                                            origin);
+        RealSpaceBuilderUtils::applyParticleTransformations(particle.get(), particle3D.get(), origin);
         RealSpaceBuilderUtils::applyParticleColor(particle.get(), particle3D.get());
 
         if (particle3D)
@@ -210,8 +201,7 @@ void RealSpaceBuilder::populateParticleComposition(RealSpaceModel *model,
         if(dynamic_cast<ParticleCoreShell*>(pc_particle))
         {
             auto particleCoreShell = dynamic_cast<ParticleCoreShell*>(pc_particle);
-            populateParticleCoreShell(model, particleCoreShell->coreParticle(),
-                                      particleCoreShell->shellParticle(), origin);
+            populateParticleCoreShell(model, particleCoreShell, origin);
         }
         else
         {
@@ -235,11 +225,11 @@ void RealSpaceBuilder::populateParticleComposition(RealSpaceModel *model,
 }
 
 void RealSpaceBuilder::populateParticleCoreShell(RealSpaceModel *model,
-                                                 const Particle *coreParticle, const Particle *shellParticle,
+                                                 const ParticleCoreShell *particleCoreShell,
                                                  const QVector3D &origin) const
 {
-    const IFormFactor* coreParticleff = coreParticle->createFormFactor();
-    const IFormFactor* shellParticleff = shellParticle->createFormFactor();
+    const IFormFactor* coreParticleff = particleCoreShell->coreParticle()->createFormFactor();
+    const IFormFactor* shellParticleff = particleCoreShell->shellParticle()->createFormFactor();
 
     // TRUE as long as coreParticleff is of IFormFactorDecorator (or its derived) type
     while(dynamic_cast<const IFormFactorDecorator*>(coreParticleff))
@@ -254,13 +244,21 @@ void RealSpaceBuilder::populateParticleCoreShell(RealSpaceModel *model,
     auto coreParticle3D = TransformTo3D::createParticlefromIFormFactor(coreParticleff);
     auto shellParticle3D = TransformTo3D::createParticlefromIFormFactor(shellParticleff);
 
-    // core particle
-    RealSpaceBuilderUtils::applyParticleTransformations(coreParticle, coreParticle3D.get(), origin);
-    RealSpaceBuilderUtils::applyParticleColor(coreParticle, coreParticle3D.get());
+    // core
+    RealSpaceBuilderUtils::applyParticleCoreShellTransformations(particleCoreShell->coreParticle(),
+                                                                 coreParticle3D.get(),
+                                                                 particleCoreShell,
+                                                                 origin);
+    RealSpaceBuilderUtils::applyParticleColor(particleCoreShell->coreParticle(),
+                                              coreParticle3D.get());
 
-    // shell particle (set an alpha value of 0.5 for transparency)
-    RealSpaceBuilderUtils::applyParticleTransformations(shellParticle, shellParticle3D.get(), origin);
-    RealSpaceBuilderUtils::applyParticleColor(shellParticle, shellParticle3D.get(), 0.5);
+    // shell (set an alpha value of 0.5 for transparency)
+    RealSpaceBuilderUtils::applyParticleCoreShellTransformations(particleCoreShell->shellParticle(),
+                                                                 shellParticle3D.get(),
+                                                                 particleCoreShell,
+                                                                 origin);
+    RealSpaceBuilderUtils::applyParticleColor(particleCoreShell->shellParticle(),
+                                              shellParticle3D.get(), 0.5);
 
     if (coreParticle3D)
         model->add(coreParticle3D.release());

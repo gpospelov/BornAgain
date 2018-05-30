@@ -320,7 +320,7 @@ QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IR
                      static_cast<float>(gamma));
 }
 
-void RealSpaceBuilderUtils::applyParticleTransformations(Particle* particle,
+void RealSpaceBuilderUtils::applyParticleTransformations(const Particle* particle,
                                                          RealSpace::Particles::Particle* particle3D,
                                                          const QVector3D& origin)
 {
@@ -344,13 +344,26 @@ void RealSpaceBuilderUtils::applyParticleTransformations(Particle* particle,
         // intrinsic transformations, position() and rotation() methods also account for the
         // translation and rotation (if present) of the particle composition
 
-        // assign correct colour to the particle from the knowledge of its material
+        particle3D->transform(particle_rotate, position);
+    }
+
+    else
+        return;
+}
+
+void RealSpaceBuilderUtils::applyParticleColor(const Particle *particle,
+                                               RealSpace::Particles::Particle *particle3D,
+                                               double alpha)
+{
+    if (particle && particle3D)
+    {
+        // assign correct color to the particle from the knowledge of its material
         const Material* particle_material = particle->material();
         QString material_name = QString::fromStdString(particle_material->getName());
         auto materialItem = AppSvc::materialModel()->materialFromName(material_name);
-        particle3D->color = materialItem->color();
-
-        particle3D->transform(particle_rotate, position);
+        QColor color = materialItem->color();
+        color.setAlphaF(alpha);
+        particle3D->color = color;
     }
 
     else

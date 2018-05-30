@@ -56,10 +56,15 @@ BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
 // Implement Rotation of a 3D particle using parameters from IRotation Object
 BA_CORE_API_ QVector3D implementParticleRotationfromIRotation(const IRotation *&rotation);
 
-// Apply transformations (translation, rotation, colour) to a 3D particle
-BA_CORE_API_ void applyParticleTransformations(Particle* particle,
+// Apply transformations (translation, rotation) to a 3D particle
+BA_CORE_API_ void applyParticleTransformations(const Particle *particle,
                                                RealSpace::Particles::Particle *particle3D,
                                                const QVector3D &origin);
+
+// Apply color to a 3D particle
+BA_CORE_API_ void applyParticleColor(const Particle *particle,
+                                     RealSpace::Particles::Particle *particle3D,
+                                     double alpha = 1);
 
 } // namespace RealSpaceBuilderUtils
 

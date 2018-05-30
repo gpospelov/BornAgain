@@ -179,6 +179,9 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
             auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff); // 3D GUI particle
 
             RealSpaceBuilderUtils::applyParticleTransformations(particle, particle3D.get(), origin);
+
+            RealSpaceBuilderUtils::applyParticleColor(particle, particle3D.get());
+
             if (particle3D)
                 model->add(particle3D.release());
         }
@@ -192,6 +195,9 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
 
         RealSpaceBuilderUtils::applyParticleTransformations(particle.get(), particle3D.get(),
                                                             origin);
+
+        RealSpaceBuilderUtils::applyParticleColor(particle.get(), particle3D.get());
+
         if (particle3D)
             model->add(particle3D.release());
     }

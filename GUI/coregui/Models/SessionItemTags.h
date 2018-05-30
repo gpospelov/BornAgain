@@ -18,6 +18,7 @@
 #include "WinDllMacros.h"
 #include <QVector>
 #include <QString>
+#include <QStringList>
 
 //! Holds all tag info for SessionItem.
 

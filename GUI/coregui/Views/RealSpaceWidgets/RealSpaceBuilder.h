@@ -23,8 +23,9 @@
 class SessionItem;
 class RealSpaceModel;
 class Shape3D;
-
 class SceneGeometry;
+class ParticleCoreShell;
+class ParticleComposition;
 
 class BA_CORE_API_ RealSpaceBuilder : public QWidget
 {
@@ -57,6 +58,14 @@ public:
 
     void populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
                           const QVector3D& origin = QVector3D()) const;
+
+    void populateParticleComposition(RealSpaceModel *model,
+                                     const ParticleComposition* particleComposition,
+                                     const QVector3D &origin) const;
+
+    void populateParticleCoreShell(RealSpaceModel *model,
+                                   const ParticleCoreShell* particleCoreShell,
+                                   const QVector3D &origin) const;
 
 };
 

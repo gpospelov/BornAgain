@@ -35,6 +35,14 @@
 #include "ParticleCoreShell.h"
 #include "Rotations.h"
 
+#include "ParticleCompositionItem.h"
+#include "IParticle.h"
+#include "IFormFactorDecorator.h"
+#include "Particle.h"
+#include "ParticleCoreShellItem.h"
+#include "ParticleCoreShell.h"
+#include "TransformTo3D.h"
+
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
 {
@@ -408,4 +416,85 @@ void RealSpaceBuilderUtils::applyParticleColor(const Particle *particle,
 
     else
         return;
+}
+
+void RealSpaceBuilderUtils::populateParticleComposition(
+        RealSpaceModel *model, const ParticleComposition *particleComposition,
+        const QVector3D &origin)
+{
+    SafePointerVector<IParticle> pc_vector = particleComposition->decompose();
+
+    for (IParticle* pc_particle : pc_vector)
+    {
+        if(dynamic_cast<ParticleCoreShell*>(pc_particle))
+        {
+            auto particleCoreShell = dynamic_cast<ParticleCoreShell*>(pc_particle);
+            RealSpaceBuilderUtils::populateParticleCoreShell(model, particleCoreShell, origin);
+        }
+        else
+        {
+            auto particle = dynamic_cast<Particle*>(pc_particle);
+            RealSpaceBuilderUtils::populateSingleParticle(model, particle, origin);
+        }
+    }
+}
+
+void RealSpaceBuilderUtils::populateParticleCoreShell(
+        RealSpaceModel *model, const ParticleCoreShell *particleCoreShell, const QVector3D &origin)
+{
+    const IFormFactor* coreParticleff = particleCoreShell->coreParticle()->createFormFactor();
+    const IFormFactor* shellParticleff = particleCoreShell->shellParticle()->createFormFactor();
+
+    // TRUE as long as coreParticleff is of IFormFactorDecorator (or its derived) type
+    while(dynamic_cast<const IFormFactorDecorator*>(coreParticleff))
+        coreParticleff =
+                dynamic_cast<const IFormFactorDecorator*>(coreParticleff)->getFormFactor();
+
+    // TRUE as long as shellParticleff is of IFormFactorDecorator (or its derived) type
+    while(dynamic_cast<const IFormFactorDecorator*>(shellParticleff))
+        shellParticleff =
+                dynamic_cast<const IFormFactorDecorator*>(shellParticleff)->getFormFactor();
+
+    auto coreParticle3D = TransformTo3D::createParticlefromIFormFactor(coreParticleff);
+    auto shellParticle3D = TransformTo3D::createParticlefromIFormFactor(shellParticleff);
+
+    // core
+    RealSpaceBuilderUtils::applyParticleCoreShellTransformations(particleCoreShell->coreParticle(),
+                                                                 coreParticle3D.get(),
+                                                                 particleCoreShell,
+                                                                 origin);
+    RealSpaceBuilderUtils::applyParticleColor(particleCoreShell->coreParticle(),
+                                              coreParticle3D.get());
+
+    // shell (set an alpha value of 0.5 for transparency)
+    RealSpaceBuilderUtils::applyParticleCoreShellTransformations(particleCoreShell->shellParticle(),
+                                                                 shellParticle3D.get(),
+                                                                 particleCoreShell,
+                                                                 origin);
+    RealSpaceBuilderUtils::applyParticleColor(particleCoreShell->shellParticle(),
+                                              shellParticle3D.get(), 0.5);
+
+    if (coreParticle3D)
+        model->add(coreParticle3D.release());
+
+    if (shellParticle3D)
+        model->addBlend(shellParticle3D.release()); // use addBlend() for transparent object
+}
+
+void RealSpaceBuilderUtils::populateSingleParticle(
+        RealSpaceModel *model, const Particle *particle, const QVector3D &origin)
+{
+    const IFormFactor* ff = particle->createFormFactor();
+
+    // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
+    while(dynamic_cast<const IFormFactorDecorator*>(ff))
+        ff = dynamic_cast<const IFormFactorDecorator*>(ff)->getFormFactor();
+
+    auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
+
+    RealSpaceBuilderUtils::applyParticleTransformations(particle, particle3D.get(), origin);
+    RealSpaceBuilderUtils::applyParticleColor(particle, particle3D.get());
+
+    if (particle3D)
+        model->add(particle3D.release());
 }

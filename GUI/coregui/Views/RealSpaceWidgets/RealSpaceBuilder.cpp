@@ -31,6 +31,8 @@
 #include "Units.h"
 #include "ParticleCompositionItem.h"
 #include "ParticleCoreShellItem.h"
+#include "ParticleCoreShell.h"
+#include "Particle.h"
 
 RealSpaceBuilder::RealSpaceBuilder(QWidget* parent)
     : QWidget(parent)

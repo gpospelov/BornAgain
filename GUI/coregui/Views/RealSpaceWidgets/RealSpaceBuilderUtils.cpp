@@ -40,6 +40,7 @@
 #include "Particle.h"
 #include "ParticleCoreShellItem.h"
 #include "TransformTo3D.h"
+#include "ParticleDistribution.h"
 
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
@@ -88,11 +89,16 @@ void RealSpaceBuilderUtils::populateRandomDistribution(
 
         for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
         {
-            // Retrieving local x,y,z offset from the lattice point for the current particle
-            SessionItem* particle_position = particle->getItem(ParticleItem::P_POSITION);
-            double x = particle_position->getItemValue(VectorItem::P_X).toDouble();
-            double y = particle_position->getItemValue(VectorItem::P_Y).toDouble();
-            double z = particle_position->getItemValue(VectorItem::P_Z).toDouble();
+            double x = 0.0, y = 0.0, z = 0.0;
+            if(particle->modelType() != Constants::ParticleDistributionType)
+            {
+                // Retrieving local x,y,z offset from the lattice point for the current particle
+                // except for ParticleDistribution as it doesn't have an associated position
+                SessionItem* particle_position = particle->getItem(ParticleItem::P_POSITION);
+                x = particle_position->getItemValue(VectorItem::P_X).toDouble();
+                y = particle_position->getItemValue(VectorItem::P_Y).toDouble();
+                z = particle_position->getItemValue(VectorItem::P_Z).toDouble();
+            }
 
             // lattice position + offset
             double pos_x = position[0] + x;
@@ -109,9 +115,9 @@ void RealSpaceBuilderUtils::populateRandomDistribution(
                     // pass only the lattice position as parameter and not the added offset
                     // since populateParticle intrinsically adds the offset to the lattice position
                     builder3D->populateParticle(model, *particle,
-                                     QVector3D(static_cast<float>(position[0]),
-                                               static_cast<float>(position[1]),
-                                               static_cast<float>(0.0)));
+                                                QVector3D(static_cast<float>(position[0]),
+                                                static_cast<float>(position[1]),
+                                                static_cast<float>(0.0)));
                     break;
                 }
                 else
@@ -179,11 +185,16 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
 
         for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
         {
-            // Retrieving local x,y,z offset from the lattice point for the current particle
-            SessionItem* particle_position = particle->getItem(ParticleItem::P_POSITION);
-            double x = particle_position->getItemValue(VectorItem::P_X).toDouble();
-            double y = particle_position->getItemValue(VectorItem::P_Y).toDouble();
-            double z = particle_position->getItemValue(VectorItem::P_Z).toDouble();
+            double x = 0.0, y = 0.0, z = 0.0;
+            if(particle->modelType() != Constants::ParticleDistributionType)
+            {
+                // Retrieving local x,y,z offset from the lattice point for the current particle
+                // except for ParticleDistribution as it doesn't have an associated position
+                SessionItem* particle_position = particle->getItem(ParticleItem::P_POSITION);
+                x = particle_position->getItemValue(VectorItem::P_X).toDouble();
+                y = particle_position->getItemValue(VectorItem::P_Y).toDouble();
+                z = particle_position->getItemValue(VectorItem::P_Z).toDouble();
+            }
 
             // lattice position + offset
             double pos_x = position[0] + x;
@@ -200,9 +211,9 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
                     // pass only the lattice position as parameter and not the added offset
                     // since populateParticle intrinsically adds the offset to the lattice position
                     builder3D->populateParticle(model, *particle,
-                                     QVector3D(static_cast<float>(position[0]),
-                                               static_cast<float>(position[1]),
-                                               static_cast<float>(0.0)));
+                                                QVector3D(static_cast<float>(position[0]),
+                                                static_cast<float>(position[1]),
+                                                static_cast<float>(0.0)));
                     break;
                 }
                 else
@@ -469,6 +480,31 @@ void RealSpaceBuilderUtils::populateParticleCoreShell(
 
     if (shellParticle3D)
         model->addBlend(shellParticle3D.release()); // use addBlend() for transparent object
+}
+
+void RealSpaceBuilderUtils::populateParticleDistribution(
+        RealSpaceModel *model, const ParticleDistribution *particleDistribution,
+        const QVector3D &origin)
+{
+    auto pd_vector = particleDistribution->generateParticles();
+    for (auto pd_particle : pd_vector)
+    {
+        if(dynamic_cast<const ParticleComposition*>(pd_particle))
+        {
+            auto particleComposition = dynamic_cast<const ParticleComposition*>(pd_particle);
+            populateParticleComposition(model, particleComposition, origin);
+        }
+        else if(dynamic_cast<const ParticleCoreShell*>(pd_particle))
+        {
+            auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pd_particle);
+            populateParticleCoreShell(model, particleCoreShell, origin);
+        }
+        else
+        {
+            auto particle = dynamic_cast<const Particle*>(pd_particle);
+            populateSingleParticle(model, particle, origin);
+        }
+    }
 }
 
 void RealSpaceBuilderUtils::populateSingleParticle(

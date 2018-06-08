@@ -33,6 +33,7 @@
 #include "ParticleCoreShellItem.h"
 #include "ParticleCoreShell.h"
 #include "Particle.h"
+#include "ParticleDistributionItem.h"
 
 RealSpaceBuilder::RealSpaceBuilder(QWidget* parent)
     : QWidget(parent)
@@ -70,6 +71,9 @@ void RealSpaceBuilder::populate(RealSpaceModel* model,
         populateParticle(model, item);
 
     else if (item.modelType() == Constants::ParticleCoreShellType)
+        populateParticle(model, item);
+
+    else if (item.modelType() == Constants::ParticleDistributionType)
         populateParticle(model, item);
 }
 
@@ -173,6 +177,12 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
         auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(&particleItem);
         auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
         RealSpaceBuilderUtils::populateParticleCoreShell(model, particleCoreShell.get(), origin);
+    }
+    else if(particleItem.modelType() == Constants::ParticleDistributionType)
+    {
+        auto particleDistributionItem = dynamic_cast<const ParticleDistributionItem*>(&particleItem);
+        auto particleDistribution = particleDistributionItem->createParticleDistribution();
+        RealSpaceBuilderUtils::populateParticleDistribution(model, particleDistribution.get(), origin);
     }
     else if(particleItem.modelType() == Constants::ParticleType)
     {

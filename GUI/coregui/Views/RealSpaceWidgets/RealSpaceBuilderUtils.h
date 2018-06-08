@@ -27,6 +27,7 @@ class IRotation;
 class Particle;
 class ParticleComposition;
 class ParticleCoreShell;
+class ParticleDistribution;
 namespace RealSpace{ namespace Particles { class Particle; } }
 
 namespace RealSpaceBuilderUtils
@@ -83,6 +84,10 @@ BA_CORE_API_ void populateParticleComposition(RealSpaceModel *model,
 BA_CORE_API_ void populateParticleCoreShell(RealSpaceModel *model,
                                             const ParticleCoreShell* particleCoreShell,
                                             const QVector3D &origin);
+
+BA_CORE_API_ void populateParticleDistribution(RealSpaceModel *model,
+                                               const ParticleDistribution* particleDistribution,
+                                               const QVector3D &origin);
 
 BA_CORE_API_ void populateSingleParticle(RealSpaceModel *model, const Particle* particle,
                                          const QVector3D &origin);

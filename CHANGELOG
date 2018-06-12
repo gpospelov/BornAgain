@@ -1,3 +1,8 @@
+BornAgain-1.12.1, released 2018.06.12
+  > Hotfix
+  * Bug #2068: Missing analyzer direction in GUI
+  * Bug #2069: Loading GUI first time takes 30 minutes (MacOS)
+
 BornAgain-1.12.0, released 2018.05.30
   > No API changes
   > Summary:

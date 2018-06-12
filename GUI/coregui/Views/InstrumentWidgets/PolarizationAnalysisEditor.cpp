@@ -91,6 +91,7 @@ DetectorItem* PolarizationAnalysisEditor::detectorItem()
 void PolarizationAnalysisEditor::updateAnalyserEditor()
 {
     m_analyserEditor->clearEditor();
+    m_analyserEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_DIRECTION));
     m_analyserEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
     m_analyserEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
 }

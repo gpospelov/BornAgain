@@ -45,6 +45,8 @@ protected:
     virtual std::unique_ptr<Simulation> createSimulation();
     virtual std::unique_ptr<OutputData<double>> createOutputData(const Simulation* simulation);
 
+    bool analyzeResults(FitSuite& fit_suite) const;
+
     std::vector<std::unique_ptr<FitParameterPlan>> m_parplans;
     std::string m_minimizer_name;
     std::string m_minimizer_algorithm;

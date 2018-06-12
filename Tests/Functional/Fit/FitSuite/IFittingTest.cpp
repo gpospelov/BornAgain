@@ -59,21 +59,7 @@ bool IFittingTest::runTest()
     std::cout << fitSuite->setupToString() << std::endl;
     fitSuite->runFit();
 
-    std::vector<double> valuesAtMinimum = fitSuite->fitParameters()->values();
-
-    // analyze results
-    bool success = true;
-    size_t index(0);
-    for(auto& plan : m_parplans) {
-        double foundValue = valuesAtMinimum[index];
-        double diff = std::abs(foundValue - plan->expectedValue()) / plan->expectedValue();
-        if (diff > plan->tolerance())
-            success = false;
-        std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) %s\n") %
-            ("par"+std::to_string(index)) % foundValue % diff % (success ? "OK" : "FAILED");
-        ++index;
-    }
-
+    const bool success = analyzeResults(*fitSuite);
     return success;
 }
 
@@ -117,4 +103,18 @@ std::unique_ptr<OutputData<double> > IFittingTest::createOutputData(
 {
     auto sim_result = simulation->result();
     return std::unique_ptr<OutputData<double>>(sim_result.data());
+}
+
+bool IFittingTest::analyzeResults(FitSuite& fit_suite) const
+{
+    const std::vector<double>& actual = fit_suite.fitParameters()->values();
+    std::vector<bool> result(actual.size(), true);
+    for(size_t i = 0; i < m_parplans.size(); ++i) {
+        const double expected = m_parplans[i]->expectedValue();
+        const double diff = std::abs(actual[i] - expected) / expected;
+        result[i] = diff <= m_parplans[i]->tolerance();
+        std::cout << boost::format("%|12t| %-10s : %-6.4f (diff %6.4g) %s\n") %
+            ("par"+std::to_string(i)) % actual[i] % diff % (result[i] ? "OK" : "FAILED");
+    }
+    return std::accumulate(result.cbegin(), result.cend(), true, std::logical_and<>());
 }

@@ -46,7 +46,8 @@ private:
 
     ColumnResizer* m_columnResizer;
     ComponentEditor* m_polarizationEditor;
-    ComponentEditor* m_analyserEditor;
+    ComponentEditor* m_analyserDirectionEditor;
+    ComponentEditor* m_analyserPropertiesEditor;
     QGridLayout* m_gridLayout;
 };
 

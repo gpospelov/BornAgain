@@ -70,10 +70,10 @@ public slots:
     void openRecentProject();
     void onRunSimulationShortcut();
     void onSessionModelViewActive(bool isActive);
+    void checkUpdates();
 
 protected:
-    virtual void closeEvent(QCloseEvent* event);
-    virtual void showEvent(QShowEvent* event);
+    void closeEvent(QCloseEvent* event);
 
 private:
     void initApplication();

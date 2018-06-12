@@ -37,20 +37,20 @@ int main(int argc, char* argv[])
     if (!options.find("with-debug"))
         qInstallMessageHandler(messageHandler);
 
-    MainWindow win;
+    std::unique_ptr<SplashScreen> splash;
+    if (!options.find("no-splash")) {
+        splash.reset(new SplashScreen);
+        splash->start(/*show_during*/1200);
+    }
 
+    MainWindow win;
     if (options.find("geometry"))
         win.resize(options.mainWindowSize());
 
-    if (options.find("no-splash")) {
-        win.show();
+    win.show();
 
-    } else {
-        SplashScreen splash;
-        splash.start(/*show_during*/1500);
-        win.show();
-        splash.finish(&win);
-    }
+    if (splash)
+        splash->finish(&win);
 
     return app.exec();
 }

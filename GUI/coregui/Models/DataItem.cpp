@@ -22,7 +22,6 @@ const QString DataItem::P_AXES_UNITS = "Axes Units";
 
 void DataItem::setOutputData(OutputData<double>* data)
 {
-    Q_ASSERT(data);
     m_data.reset(data);
 }
 

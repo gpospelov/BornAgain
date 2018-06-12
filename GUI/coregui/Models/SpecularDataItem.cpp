@@ -48,6 +48,10 @@ SpecularDataItem::SpecularDataItem() : DataItem(Constants::SpecularDataType)
 
 void SpecularDataItem::setOutputData(OutputData<double>* data)
 {
+    assert(data && "Assertion failed in SpecularDataItem::setOutputData: nullptr data passed");
+    if (data->getRank() != 1)
+        throw GUIHelpers::Error(
+            "Error in SpecularDataItem::setOutputData: cannot handle non-1D data");
     DataItem::setOutputData(data);
 
     updateAxesZoomLevel();

@@ -44,7 +44,8 @@ DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 
     addGroupProperty(P_ANALYZER_DIRECTION, Constants::VectorType)->setToolTip(
                 analyzer_direction_tooltip);
-    addProperty(P_ANALYZER_EFFICIENCY, 0.0)->setToolTip(analyzer_efficiency_tooltip);
+    addProperty(P_ANALYZER_EFFICIENCY, 0.0)->setLimits(RealLimits::limitless())
+        .setToolTip(analyzer_efficiency_tooltip);
     addProperty(P_ANALYZER_TOTAL_TRANSMISSION, 1.0)->setToolTip(analyzer_transmission_tooltip);
 
     QString additional_name = QString::fromStdString(BornAgain::DetectorAnalyzer);

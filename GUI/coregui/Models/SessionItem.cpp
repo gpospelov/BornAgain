@@ -264,10 +264,10 @@ SessionItem* SessionItem::takeItem(int row, const QString& tag)
     const QString tagName = tag.isEmpty() ? defaultTag() : tag;
 
     if (!m_tags->isValid(tagName))
-        throw GUIHelpers::Error("SessionItem::insertItem() -> Invalid tag, modelType.");
+        throw GUIHelpers::Error("SessionItem::takeItem() -> Invalid tag, modelType.");
 
     if (m_tags->isSingleItemTag(tagName))
-        throw GUIHelpers::Error("SessionItem::insertItem() -> Single item tag.");
+        throw GUIHelpers::Error("SessionItem::takeItem() -> Single item tag.");
 
     int index = m_tags->indexFromTagRow(tagName, row);
     Q_ASSERT(index >= 0 && index <= m_children.size());

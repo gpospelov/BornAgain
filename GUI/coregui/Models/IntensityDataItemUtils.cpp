@@ -27,8 +27,8 @@ IntensityDataItem* IntensityDataItemUtils::intensityDataItem(SessionItem* parent
 
     if (parent->modelType() == Constants::JobItemType)
         return &parent->item<IntensityDataItem>(JobItem::T_OUTPUT);
-    else if(parent->modelType() == Constants::RealDataType)
-        return &parent->item<IntensityDataItem>(RealDataItem::T_INTENSITY_DATA);
+    else if(auto real_data = dynamic_cast<RealDataItem*>(parent))
+        return real_data->intensityDataItem();
     else if(parent->modelType() == Constants::IntensityDataType)
         return dynamic_cast<IntensityDataItem *>(parent);
     else

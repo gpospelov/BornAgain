@@ -24,6 +24,24 @@ public:
         auto instrument = models->instrumentModel()->instrumentItem();
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
+
+    std::unique_ptr<OutputData<double>> createData(double value = 0.0)
+    {
+        std::unique_ptr<OutputData<double>> result(new OutputData<double>());
+        result->addAxis("x", 5, -1.0, 1.0);
+        result->addAxis("y", 10, 0.0, 2.0);
+        result->setAllTo(value);
+        return result;
+    }
+
+    //! Helper function to create test RealData
+    RealDataItem* createRealData(SessionModel& model)
+    {
+        RealDataItem* result = dynamic_cast<RealDataItem*>(
+            model.insertNewItem(Constants::RealDataType));
+        result->setOutputData(createData().release());
+        return result;
+    }
 };
 
 TestProjectDocument::~TestProjectDocument() = default;
@@ -106,8 +124,7 @@ TEST_F(TestProjectDocument, test_projectDocumentWithData)
     TestUtils::create_dir(projectDir);
 
     ApplicationModels models;
-    RealDataItem* realData = dynamic_cast<RealDataItem*>(
-        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    RealDataItem* realData = createRealData(*models.realDataModel());
     Q_ASSERT(realData);
     DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,

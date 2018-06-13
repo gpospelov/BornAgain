@@ -78,6 +78,10 @@ IntensityDataItem::IntensityDataItem() : DataItem(Constants::IntensityDataType)
 
 void IntensityDataItem::setOutputData(OutputData<double>* data)
 {
+    assert(data && "Assertion failed in IntensityDataItem::setOutputData: nullptr data passed");
+    if (data->getRank() != 2)
+        throw GUIHelpers::Error(
+            "Error in IntensityDataItem::setOutputData: cannot handle non-2D data");
     DataItem::setOutputData(data);
 
     updateAxesZoomLevel();

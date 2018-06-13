@@ -20,6 +20,8 @@
 namespace {
 const int nxsize = 5;
 const int nysize = 10;
+
+enum class DIMENSION {D1 = 1, D2 = 2};
 }
 
 class TestOutputDataIOService : public ::testing::Test
@@ -28,11 +30,13 @@ public:
     ~TestOutputDataIOService();
 
     //! Helper function to create test OutputData.
+    template<DIMENSION dim = DIMENSION::D2>
     std::unique_ptr<OutputData<double>> createData(double value = 0.0)
     {
         std::unique_ptr<OutputData<double>> result(new OutputData<double>());
         result->addAxis("x", nxsize, -1.0, 1.0);
-        result->addAxis("y", nysize, 0.0, 2.0);
+        if (dim == DIMENSION::D2)
+            result->addAxis("y", nysize, 0.0, 2.0);
         result->setAllTo(value);
         return result;
     }
@@ -42,7 +46,7 @@ public:
     {
         RealDataItem* result = dynamic_cast<RealDataItem*>(
             models.realDataModel()->insertNewItem(Constants::RealDataType));
-        result->dataItem()->setOutputData(createData(value).release());
+        result->setOutputData(createData(value).release());
         result->setItemValue(SessionItem::P_NAME, name);
         return result;
     }
@@ -76,7 +80,10 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     EXPECT_EQ(dataItems.size(), 0);
 
     // adding RealDataItem
-    SessionItem* realData = models.realDataModel()->insertNewItem(Constants::RealDataType);
+    RealDataItem* realData = dynamic_cast<RealDataItem*>(
+        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    EXPECT_THROW(models.realDataModel()->nonXMLData().size(), GUIHelpers::Error);
+    realData->setOutputData(createData().release());
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
 
     // adding JobItem
@@ -86,20 +93,32 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // adding RealDataItem to jobItem
-    SessionItem* realData2 = models.jobModel()->insertNewItem(
-        Constants::RealDataType, jobItem->index(), -1, JobItem::T_REALDATA);
+    RealDataItem* realData2 = dynamic_cast<RealDataItem*>(models.jobModel()->insertNewItem(
+        Constants::RealDataType, jobItem->index(), -1, JobItem::T_REALDATA));
+    EXPECT_THROW(models.jobModel()->nonXMLData().size(), GUIHelpers::Error);
+    realData2->setOutputData(createData<DIMENSION::D1>().release());
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);
-
-    // checking data items of ApplicationModel
-    dataItems = models.nonXMLData();
-    EXPECT_EQ(dataItems.size(), 3);
-    EXPECT_EQ(dataItems.indexOf(realData->getItem(RealDataItem::T_INTENSITY_DATA)), 0);
-    EXPECT_EQ(dataItems.indexOf(dataItem), 1);
-    EXPECT_EQ(dataItems.indexOf(realData2->getItem(RealDataItem::T_INTENSITY_DATA)), 2);
 
     // checking data items of OutputDataIOService
     OutputDataIOService service(&models);
     EXPECT_EQ(service.dataItems().size(), 3);
+
+    // checking data items of ApplicationModels
+    dataItems = models.nonXMLData();
+    EXPECT_EQ(dataItems.size(), 3);
+    EXPECT_EQ(dataItems.indexOf(realData->dataItem()), 0);
+    EXPECT_EQ(dataItems.indexOf(dataItem), 1);
+    EXPECT_EQ(dataItems.indexOf(realData2->dataItem()), 2);
+
+    // Replacing the data inside RealDataItem with the data of the same dimensions
+    realData->setOutputData(createData(2.0).release());
+    EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
+
+    // Replacing the data inside RealDataItem with the data of different dimensions
+    auto data = createData<DIMENSION::D1>(3.0);
+    EXPECT_THROW(dynamic_cast<RealDataItem*>(realData)->setOutputData(data.get()),
+                 GUIHelpers::Error);
+    EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
 }
 
 //! Tests OutputDataSaveInfo class intended for storing info about the last save.
@@ -233,7 +252,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
     EXPECT_TRUE(isTheSame(*dataOnDisk2, *realData2->dataItem()->getOutputData()));
 
     // Modifying data and saving the project.
-    realData2->dataItem()->setOutputData(createData(value3).release());
+    realData2->setOutputData(createData(value3).release());
     service.save(projectDir);
     QTest::qSleep(10);
 

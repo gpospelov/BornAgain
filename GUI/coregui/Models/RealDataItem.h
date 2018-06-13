@@ -46,6 +46,9 @@ public:
     //! Returns the shape of undelying data item
     std::vector<int> shape() const;
 
+    //! Returns the model type of the underlying data item
+    QString underlyingDataModel();
+
 private:
     void updateIntensityDataFileName();
     void updateToInstrument();

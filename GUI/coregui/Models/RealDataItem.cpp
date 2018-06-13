@@ -129,6 +129,11 @@ std::vector<int> RealDataItem::shape() const
     return data_item->shape();
 }
 
+QString RealDataItem::underlyingDataModel()
+{
+    return dataItem()->modelType();
+}
+
 //! Updates the name of file to store intensity data.
 
 void RealDataItem::updateIntensityDataFileName()

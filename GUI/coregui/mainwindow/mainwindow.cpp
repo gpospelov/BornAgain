@@ -153,6 +153,11 @@ void MainWindow::onSessionModelViewActive(bool isActive)
     }
 }
 
+void MainWindow::checkUpdates()
+{
+    m_updateNotifier->askForUpdates();
+}
+
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     if (jobModel()->hasUnfinishedJobs()) {
@@ -168,13 +173,6 @@ void MainWindow::closeEvent(QCloseEvent* event)
     } else {
         event->ignore();
     }
-}
-
-//! Launch update notifier after main window appears
-void MainWindow::showEvent(QShowEvent* event)
-{
-    QWidget::showEvent(event);
-    QTimer::singleShot(100, m_updateNotifier, SLOT(askForUpdates()));
 }
 
 void MainWindow::initApplication()

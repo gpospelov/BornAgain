@@ -25,19 +25,21 @@
 namespace
 {
 const QString beam_pol_title("Polarization (Bloch vector)");
-const QString analyzer_title = "Analyzer orientation";
+const QString analyzer_orientation_title = "Analyzer orientation";
+const QString analyzer_properties_title = "Analyzer properties";
 }
 
 PolarizationAnalysisEditor::PolarizationAnalysisEditor(ColumnResizer* columnResizer, QWidget* parent)
     : SessionItemWidget(parent)
     , m_columnResizer(columnResizer)
     , m_polarizationEditor(new ComponentEditor(ComponentEditor::GroupWidget, beam_pol_title))
-    , m_analyserEditor(new ComponentEditor(ComponentEditor::GroupWidget, analyzer_title))
+    , m_analyserDirectionEditor(new ComponentEditor(ComponentEditor::GroupWidget, analyzer_orientation_title))
+    , m_analyserPropertiesEditor(new ComponentEditor(ComponentEditor::GroupWidget, analyzer_properties_title))
     , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_polarizationEditor, 0, 0);
-    m_gridLayout->addWidget(m_analyserEditor, 0, 1);
-    m_gridLayout->addWidget(LayoutUtils::placeHolder(), 0, 2);
+    m_gridLayout->addWidget(m_analyserDirectionEditor, 0, 1);
+    m_gridLayout->addWidget(m_analyserPropertiesEditor, 0, 2);
 
     auto mainLayout = new QVBoxLayout;
     mainLayout->addLayout(m_gridLayout);
@@ -65,7 +67,8 @@ void PolarizationAnalysisEditor::subscribeToItem()
 void PolarizationAnalysisEditor::unsubscribeFromItem()
 {
     m_polarizationEditor->clearEditor();
-    m_analyserEditor->clearEditor();
+    m_analyserDirectionEditor->clearEditor();
+    m_analyserPropertiesEditor->clearEditor();
 }
 
 GISASInstrumentItem* PolarizationAnalysisEditor::instrumentItem()
@@ -90,7 +93,9 @@ DetectorItem* PolarizationAnalysisEditor::detectorItem()
 
 void PolarizationAnalysisEditor::updateAnalyserEditor()
 {
-    m_analyserEditor->clearEditor();
-    m_analyserEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
-    m_analyserEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
+    m_analyserDirectionEditor->clearEditor();
+    m_analyserPropertiesEditor->clearEditor();
+    m_analyserDirectionEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_DIRECTION));
+    m_analyserPropertiesEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
+    m_analyserPropertiesEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
 }

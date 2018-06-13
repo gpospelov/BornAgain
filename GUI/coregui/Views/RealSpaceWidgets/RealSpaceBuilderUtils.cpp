@@ -42,6 +42,18 @@
 #include "TransformTo3D.h"
 #include "ParticleDistribution.h"
 
+namespace
+{
+    const IFormFactor* getUnderlyingFormFactor(const IFormFactor *ff)
+    {
+        // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
+        while(dynamic_cast<const IFormFactorDecorator*>(ff))
+            ff = dynamic_cast<const IFormFactorDecorator*>(ff)->getFormFactor();
+
+        return ff;
+    }
+}
+
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem &layoutItem)
 {
@@ -431,16 +443,16 @@ void RealSpaceBuilderUtils::populateParticleComposition(
 {
     SafePointerVector<IParticle> pc_vector = particleComposition->decompose();
 
-    for (IParticle* pc_particle : pc_vector)
+    for (const IParticle* pc_particle : pc_vector)
     {
-        if(dynamic_cast<ParticleCoreShell*>(pc_particle))
+        if(dynamic_cast<const ParticleCoreShell*>(pc_particle))
         {
-            auto particleCoreShell = dynamic_cast<ParticleCoreShell*>(pc_particle);
+            auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pc_particle);
             populateParticleCoreShell(model, particleCoreShell, origin);
         }
         else
         {
-            auto particle = dynamic_cast<Particle*>(pc_particle);
+            auto particle = dynamic_cast<const Particle*>(pc_particle);
             populateSingleParticle(model, particle, origin);
         }
     }
@@ -449,21 +461,16 @@ void RealSpaceBuilderUtils::populateParticleComposition(
 void RealSpaceBuilderUtils::populateParticleCoreShell(
         RealSpaceModel *model, const ParticleCoreShell *particleCoreShell, const QVector3D &origin)
 {
-    const IFormFactor* coreParticleff = particleCoreShell->coreParticle()->createFormFactor();
-    const IFormFactor* shellParticleff = particleCoreShell->shellParticle()->createFormFactor();
+    std::unique_ptr<const IFormFactor> coreParticleff(
+                particleCoreShell->coreParticle()->createFormFactor());
+    std::unique_ptr<const IFormFactor> shellParticleff(
+                particleCoreShell->shellParticle()->createFormFactor());
 
-    // TRUE as long as coreParticleff is of IFormFactorDecorator (or its derived) type
-    while(dynamic_cast<const IFormFactorDecorator*>(coreParticleff))
-        coreParticleff =
-                dynamic_cast<const IFormFactorDecorator*>(coreParticleff)->getFormFactor();
+    auto coreff = getUnderlyingFormFactor(coreParticleff.get());
+    auto shellff = getUnderlyingFormFactor(shellParticleff.get());
 
-    // TRUE as long as shellParticleff is of IFormFactorDecorator (or its derived) type
-    while(dynamic_cast<const IFormFactorDecorator*>(shellParticleff))
-        shellParticleff =
-                dynamic_cast<const IFormFactorDecorator*>(shellParticleff)->getFormFactor();
-
-    auto coreParticle3D = TransformTo3D::createParticlefromIFormFactor(coreParticleff);
-    auto shellParticle3D = TransformTo3D::createParticlefromIFormFactor(shellParticleff);
+    auto coreParticle3D = TransformTo3D::createParticlefromIFormFactor(coreff);
+    auto shellParticle3D = TransformTo3D::createParticlefromIFormFactor(shellff);
 
     // core
     applyParticleCoreShellTransformations(particleCoreShell->coreParticle(), coreParticle3D.get(),
@@ -510,12 +517,8 @@ void RealSpaceBuilderUtils::populateParticleDistribution(
 void RealSpaceBuilderUtils::populateSingleParticle(
         RealSpaceModel *model, const Particle *particle, const QVector3D &origin)
 {
-    const IFormFactor* ff = particle->createFormFactor();
-
-    // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
-    while(dynamic_cast<const IFormFactorDecorator*>(ff))
-        ff = dynamic_cast<const IFormFactorDecorator*>(ff)->getFormFactor();
-
+    std::unique_ptr<const IFormFactor> particleff(particle->createFormFactor());
+    auto ff = getUnderlyingFormFactor(particleff.get());
     auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
 
     applyParticleTransformations(particle, particle3D.get(), origin);

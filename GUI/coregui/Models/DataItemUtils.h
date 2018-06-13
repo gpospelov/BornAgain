@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/IntensityDataItemUtils.h
-//! @brief     Defines namespace IntensityDataItemUtils
+//! @file      GUI/coregui/Models/DataItemUtils.h
+//! @brief     Defines namespace DataItemUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,22 +12,24 @@
 //
 // ************************************************************************** //
 
-#ifndef INTENSITYDATAITEMUTILS_H
-#define INTENSITYDATAITEMUTILS_H
+#ifndef DATAITEMUTILS_H
+#define DATAITEMUTILS_H
 
 #include "WinDllMacros.h"
 
 class IntensityDataItem;
 class SessionItem;
+class SpecularDataItem;
 
-//! Utility functions for IntensityDataItem
+//! Utility functions for Intensity and Specular DataItems
 
-namespace IntensityDataItemUtils
+namespace DataItemUtils
 {
-
 //! Returns IntensityDataItem contained as a child in givent parent.
 BA_CORE_API_ IntensityDataItem* intensityDataItem(SessionItem* parent);
 
+//! Returns SpecularDataItem contained as a child in givent parent.
+BA_CORE_API_ SpecularDataItem* specularDataItem(SessionItem* parent);
 }
 
-#endif  //  INTENSITYDATAITEMUTILS_H
+#endif  //  DATAITEMUTILS_H

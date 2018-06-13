@@ -17,7 +17,7 @@
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataCanvas.h"
 #include "JobItem.h"
-#include "IntensityDataItemUtils.h"
+#include "DataItemUtils.h"
 #include "IntensityDataFFTPresenter.h"
 #include <QBoxLayout>
 #include <QMenu>
@@ -88,5 +88,5 @@ void IntensityDataWidget::onFFTAction()
 
 IntensityDataItem* IntensityDataWidget::intensityDataItem()
 {
-    return IntensityDataItemUtils::intensityDataItem(currentItem());
+    return DataItemUtils::intensityDataItem(currentItem());
 }

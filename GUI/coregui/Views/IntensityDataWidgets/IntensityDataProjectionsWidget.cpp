@@ -18,7 +18,7 @@
 #include "SessionModel.h"
 #include "JobItem.h"
 #include "ProjectionsEditor.h"
-#include "IntensityDataItemUtils.h"
+#include "DataItemUtils.h"
 #include <QVBoxLayout>
 
 IntensityDataProjectionsWidget::IntensityDataProjectionsWidget(QWidget* parent)
@@ -53,7 +53,7 @@ void IntensityDataProjectionsWidget::unsubscribeFromItem()
 
 IntensityDataItem* IntensityDataProjectionsWidget::intensityDataItem()
 {
-    return IntensityDataItemUtils::intensityDataItem(currentItem());
+    return DataItemUtils::intensityDataItem(currentItem());
 }
 
 ProjectionContainerItem*

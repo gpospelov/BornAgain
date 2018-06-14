@@ -104,10 +104,9 @@ void RealDataItem::setOutputData(OutputData<double>* data)
         throw GUIHelpers::Error("Error in RealDataItem::setOutputData: trying to set data "
                                 "incompatible with underlying data item");
     if (!data_item) {
-        auto result
-            = this->model()->insertNewItem(target_model_type, this->index(), 0, T_INTENSITY_DATA);
-        assert(result
-               && "Assertion failed in RealDataItem::setOutputData: cannot insert new data item");
+        this->model()->insertNewItem(target_model_type, this->index(), 0, T_INTENSITY_DATA);
+        assert(getItem(T_INTENSITY_DATA)
+               && "Assertion failed in RealDataItem::setOutputData: inserting data item failed.");
     }
     dataItem()->setOutputData(data);
 }

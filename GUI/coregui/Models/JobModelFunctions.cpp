@@ -123,13 +123,8 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
 
 void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
 {
-    IntensityDataItem *intensityItem = jobItem->realDataItem()->intensityDataItem();
-    if (auto instrument2DItem = dynamic_cast<Instrument2DItem*>(jobItem->instrumentItem())) {
-        instrument2DItem->importMasks(intensityItem->maskContainerItem());
-    } else {
-        throw GUIHelpers::Error("JobModelFunctions::copyMasksToInstrument() -> Error. Not "
-                                "implemented instrument type.");
-    }
+    auto mask_container = jobItem->realDataItem()->maskContainerItem();
+    jobItem->instrumentItem()->importMasks(mask_container);
 }
 
 //! Crops RealDataItem to the region of interest.

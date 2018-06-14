@@ -40,6 +40,8 @@ public:
     virtual std::unique_ptr<Instrument> createInstrument() const = 0;
     virtual std::vector<int> shape() const = 0;
     virtual void setShape(const std::vector<int>& shape) = 0;
+    virtual void clearMasks() {}
+    virtual void importMasks(const MaskContainerItem*) {}
 
 protected:
     explicit InstrumentItem(const QString& modelType);
@@ -72,9 +74,8 @@ public:
 
     void setDetectorGroup(const QString& modelType);
 
-    void clearMasks();
-
-    void importMasks(MaskContainerItem* maskContainer);
+    void clearMasks() override;
+    void importMasks(const MaskContainerItem* maskContainer) override;
 
     std::unique_ptr<Instrument> createInstrument() const override;
 

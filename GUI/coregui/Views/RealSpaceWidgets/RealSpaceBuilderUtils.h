@@ -25,7 +25,9 @@ class SceneGeometry;
 class RealSpaceBuilder;
 class IRotation;
 class Particle;
+class ParticleComposition;
 class ParticleCoreShell;
+class ParticleDistribution;
 namespace RealSpace{ namespace Particles { class Particle; } }
 
 namespace RealSpaceBuilderUtils
@@ -73,6 +75,22 @@ BA_CORE_API_ void applyParticleCoreShellTransformations(const Particle *particle
 BA_CORE_API_ void applyParticleColor(const Particle *particle,
                                      RealSpace::Particles::Particle *particle3D,
                                      double alpha = 1);
+
+// Methods to populate different Particle Types
+BA_CORE_API_ void populateParticleComposition(RealSpaceModel *model,
+                                              const ParticleComposition* particleComposition,
+                                              const QVector3D &origin);
+
+BA_CORE_API_ void populateParticleCoreShell(RealSpaceModel *model,
+                                            const ParticleCoreShell* particleCoreShell,
+                                            const QVector3D &origin);
+
+BA_CORE_API_ void populateParticleDistribution(RealSpaceModel *model,
+                                               const ParticleDistribution* particleDistribution,
+                                               const QVector3D &origin);
+
+BA_CORE_API_ void populateSingleParticle(RealSpaceModel *model, const Particle* particle,
+                                         const QVector3D &origin);
 
 } // namespace RealSpaceBuilderUtils
 

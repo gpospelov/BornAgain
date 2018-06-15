@@ -139,16 +139,12 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
         RealSpaceBuilderUtils::populateInterference2DLatticeType(model, layoutItem,
                                                                  sceneGeometry, this);
 
-    /*
-
     // If interference type is 1D Lattice
     else if (interference->modelType() == Constants::InterferenceFunction1DLatticeType)
-    {
-        QMessageBox box;
-        box.setText(interference->displayName());
-        box.exec();
-    }
+            RealSpaceBuilderUtils::populateInterference1DLatticeType(model, layoutItem,
+                                                                 sceneGeometry, this);
 
+    /*
     // If interference type is 2D ParaCrystal
     else if (interference->modelType() == Constants::InterferenceFunction2DParaCrystalType)
     {

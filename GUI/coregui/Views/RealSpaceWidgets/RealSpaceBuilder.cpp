@@ -139,7 +139,7 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
     if (interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType)
     {
         auto interferenceItem =
-                dynamic_cast<InterferenceFunction2DLatticeItem *>(interferenceLattice);
+                dynamic_cast<const InterferenceFunction2DLatticeItem *>(interferenceLattice);
         auto interference = interferenceItem->createInterferenceFunction();
         RealSpaceBuilderUtils::populateInterference2DLatticeType(interference.get(), model,
                                                                  layoutItem, sceneGeometry, this);
@@ -149,7 +149,7 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
     else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType)
     {
         auto interferenceItem =
-                dynamic_cast<InterferenceFunction1DLatticeItem *>(interferenceLattice);
+                dynamic_cast<const InterferenceFunction1DLatticeItem *>(interferenceLattice);
         auto interference = interferenceItem->createInterferenceFunction();
         RealSpaceBuilderUtils::populateInterference1DLatticeType(interference.get(), model,
                                                                  layoutItem, sceneGeometry, this);
@@ -157,12 +157,12 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
     }
     /*
     // If interference type is 2D ParaCrystal
-    else if (interference->modelType() == Constants::InterferenceFunction2DParaCrystalType)
+    else if (interferenceLattice->modelType() == Constants::InterferenceFunction2DParaCrystalType)
     {
     }
 
     // If interference type is Radial ParaCrystal
-    else if (interference->modelType() == Constants::InterferenceFunctionRadialParaCrystalType)
+    else if (interferenceLattice->modelType() == Constants::InterferenceFunctionRadialParaCrystalType)
     {
     }
 

@@ -84,8 +84,6 @@ void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
 
     QVector<double> cumulative_abundances = computeCumulativeAbundances(layoutItem);
 
-    srand(static_cast<unsigned int>(time(nullptr)));
-
     for (QVector<double> position : lattice_positions)
     {
         // for random selection of particles based on their abundances
@@ -426,24 +424,48 @@ void RealSpaceBuilderUtils::populateParticleDistribution(
         const QVector3D &origin)
 {
     auto pd_vector = particleDistribution->generateParticles();
+
+    // Retrieving abundances of particles
+    double total_abundance = 0.0;
+    QVector<double> cumulative_abundances;
+
     for (auto pd_particle : pd_vector)
     {
-        if(dynamic_cast<const ParticleComposition*>(pd_particle))
+        total_abundance = total_abundance + pd_particle->abundance();
+        cumulative_abundances.append(total_abundance);
+    }
+
+    double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
+    int k = 0;
+
+    // randomly pick and populate a single particle from pd_vector using the particle's
+    // abundance which has been computed according to the associated distribution
+    for (auto pd_particle : pd_vector)
+    {
+        if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
         {
-            auto particleComposition = dynamic_cast<const ParticleComposition*>(pd_particle);
-            populateParticleComposition(model, particleComposition, origin);
-        }
-        else if(dynamic_cast<const ParticleCoreShell*>(pd_particle))
-        {
-            auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pd_particle);
-            populateParticleCoreShell(model, particleCoreShell, origin);
+            if(dynamic_cast<const ParticleComposition*>(pd_particle))
+            {
+                auto particleComposition = dynamic_cast<const ParticleComposition*>(pd_particle);
+                populateParticleComposition(model, particleComposition, origin);
+            }
+            else if(dynamic_cast<const ParticleCoreShell*>(pd_particle))
+            {
+                auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pd_particle);
+                populateParticleCoreShell(model, particleCoreShell, origin);
+            }
+            else
+            {
+                auto particle = dynamic_cast<const Particle*>(pd_particle);
+                populateSingleParticle(model, particle, origin);
+            }
+            break;
         }
         else
-        {
-            auto particle = dynamic_cast<const Particle*>(pd_particle);
-            populateSingleParticle(model, particle, origin);
-        }
+            ++k;
     }
+
+    cumulative_abundances.clear();
 }
 
 void RealSpaceBuilderUtils::populateSingleParticle(

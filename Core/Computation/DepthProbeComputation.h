@@ -37,7 +37,7 @@ public:
     DepthProbeComputation(const MultiLayer& multilayer, const SimulationOptions& options,
                           ProgressHandler& progress, DepthProbeElementIter begin_it,
                           DepthProbeElementIter end_it);
-    virtual ~DepthProbeComputation();
+    ~DepthProbeComputation() override;
 
 private:
     void runProtected() override;

@@ -44,9 +44,6 @@ RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi
     : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
-RoughMultiLayerComputation::~RoughMultiLayerComputation()
-{}
-
 void RoughMultiLayerComputation::eval(ProgressHandler* progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const

@@ -37,7 +37,7 @@ public:
                     ProgressHandler& progress,
                     std::vector<SimulationElement>::iterator begin_it,
                     std::vector<SimulationElement>::iterator end_it);
-    ~DWBAComputation();
+    ~DWBAComputation() override;
 
 private:
     void runProtected() override;

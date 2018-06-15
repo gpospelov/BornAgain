@@ -44,12 +44,13 @@ public:
     std::string errorMessage() const { return m_status.errorMessage(); }
 
 protected:
-    virtual void runProtected() = 0;
-
     SimulationOptions m_sim_options;
     ProgressHandler* m_progress;
     ComputationStatus m_status;
     std::unique_ptr<MultiLayer> mP_multi_layer;
+
+private:
+    virtual void runProtected() = 0;
 };
 
 #endif // ICOMPUTATION_H

@@ -41,7 +41,6 @@ public:
 
 private:
     void runProtected() override;
-    std::unique_ptr<IFresnelMap> createFresnelMap();
 
     DepthProbeElementIter m_begin_it, m_end_it;
     std::unique_ptr<IFresnelMap> mP_fresnel_map;

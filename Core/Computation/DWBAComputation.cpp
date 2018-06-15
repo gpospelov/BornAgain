@@ -14,7 +14,7 @@
 
 #include "DWBAComputation.h"
 #include "GISASSpecularComputationTerm.h"
-#include "IFresnelMap.h"
+#include "IComputationUtils.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
 #include "MatrixFresnelMap.h"
@@ -38,7 +38,7 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
     , m_begin_it(begin_it)
     , m_end_it(end_it)
 {
-    mP_fresnel_map = createFresnelMap();
+    mP_fresnel_map = IComputationUtils::CreateFresnelMap(multilayer, options);
     bool polarized = mP_multi_layer->containsMagneticMaterial();
     size_t nLayers = mP_multi_layer->numberOfLayers();
     for (size_t i=0; i<nLayers; ++i) {
@@ -74,20 +74,6 @@ void DWBAComputation::runProtected()
             return;
         comp->eval(m_progress, m_begin_it, m_end_it );
     }
-}
-
-std::unique_ptr<IFresnelMap> DWBAComputation::createFresnelMap()
-{
-    std::unique_ptr<IFresnelMap> P_result;
-    if (!mP_multi_layer->requiresMatrixRTCoefficients())
-        P_result.reset(new ScalarFresnelMap());
-    else
-        P_result.reset(new MatrixFresnelMap());
-    // Disable caching of R,T coefficients when using Monte Carlo integration
-    if (P_result && m_sim_options.isIntegrate()) {
-        P_result->disableCaching();
-    }
-    return P_result;
 }
 
 std::unique_ptr<MultiLayer> DWBAComputation::getAveragedMultilayer() const

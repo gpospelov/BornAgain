@@ -16,7 +16,6 @@
 #define SPECULARCOMPUTATION_H_
 
 #include "IComputation.h"
-#include "Complex.h"
 #include "SimulationOptions.h"
 #include "SpecularComputationTerm.h"
 

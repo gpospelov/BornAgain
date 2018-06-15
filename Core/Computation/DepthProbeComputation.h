@@ -16,13 +16,11 @@
 #define DEPTHPROBECOMPUTATION_H
 
 #include "IComputation.h"
-#include "Complex.h"
 #include "SimulationOptions.h"
 #include "DepthProbeComputationTerm.h"
 
 class IFresnelMap;
 class MultiLayer;
-struct HomogeneousRegion;
 
 //! Performs a single-threaded depth probe computation with given sample.
 //!

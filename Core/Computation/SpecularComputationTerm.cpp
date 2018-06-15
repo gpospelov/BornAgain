@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/SpecularComputationTerm.h
+//! @file      Core/Computation/SpecularComputationTerm.cpp
 //! @brief     Implements functor SpecularComputationTerm.
 //!
 //! @homepage  http://www.bornagainproject.org

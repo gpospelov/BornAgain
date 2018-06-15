@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "DepthProbeComputation.h"
+#include "DepthProbeElement.h"
 #include "IComputationUtils.h"
-#include "Layer.h"
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "ProgressHandler.h"
@@ -40,7 +40,7 @@ DepthProbeComputation::~DepthProbeComputation() = default;
 
 void DepthProbeComputation::runProtected()
 {
-    if (!m_progress->alive())
+    if (!m_progress->alive() || mP_multi_layer->requiresMatrixRTCoefficients())
         return;
-    m_computation_term.eval(m_progress, m_begin_it, m_end_it);
+    std::for_each(m_begin_it, m_end_it, m_computation_term);
 }

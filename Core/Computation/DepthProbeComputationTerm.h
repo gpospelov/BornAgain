@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Computation/DepthProbeComputationTerm.h
-//! @brief     Defines class DepthProbeComputationTerm.
+//! @brief     Defines functor DepthProbeComputationTerm.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -24,16 +24,12 @@ class DepthProbeElement;
 
 class DepthProbeComputationTerm
 {
-    using DepthProbeElementIter = std::vector<DepthProbeElement>::iterator;
 public:
     DepthProbeComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
-    void eval(ProgressHandler* progress, const DepthProbeElementIter& begin_it,
-              const DepthProbeElementIter& end_it) const;
+    void operator()(DepthProbeElement& elem) const;
 
 private:
-    void evalSingle(const DepthProbeElementIter& iter) const;
-
     const MultiLayer* mp_multilayer;
     const IFresnelMap* mp_fresnel_map;
 };

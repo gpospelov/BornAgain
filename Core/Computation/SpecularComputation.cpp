@@ -14,7 +14,6 @@
 
 #include "SpecularComputation.h"
 #include "IComputationUtils.h"
-#include "Layer.h"
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "ProgressHandler.h"

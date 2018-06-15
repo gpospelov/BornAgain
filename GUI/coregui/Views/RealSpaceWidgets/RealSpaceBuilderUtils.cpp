@@ -72,122 +72,18 @@ QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const Session
     return cumulative_abundances;
 }
 
-// No interference - random distribution of particles
-void RealSpaceBuilderUtils::populateRandomDistribution(
-        RealSpaceModel *model, const SessionItem &layoutItem, const SceneGeometry &sceneGeometry,
-        const RealSpaceBuilder *builder3D)
-{
-    // If there is no particle to populate
-    if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
-        return;
-
-    double layer_size = sceneGeometry.layer_size();
-    double layer_thickness = std::max(sceneGeometry.layer_top_thickness(),
-                                      sceneGeometry.layer_bottom_thickness());
-
-    QVector<double> cumulative_abundances = computeCumulativeAbundances(layoutItem);
-
-    // get the lattice positions at which to populate the particles
-    QVector<QVector<double>> lattice_positions =
-            computeRandomDistributionLatticePositions(layoutItem, sceneGeometry);
-
-    srand(static_cast<unsigned int>(time(nullptr)));
-
-    for (QVector<double> position : lattice_positions)
-    {
-        // for random selection of particles based on their abundances
-        double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
-        int k = 0;
-
-        for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES))
-        {
-            double x = 0.0, y = 0.0, z = 0.0;
-            if(particle->modelType() != Constants::ParticleDistributionType)
-            {
-                // Retrieving local x,y,z offset from the lattice point for the current particle
-                // except for ParticleDistribution as it doesn't have an associated position
-                SessionItem* particle_position = particle->getItem(ParticleItem::P_POSITION);
-                x = particle_position->getItemValue(VectorItem::P_X).toDouble();
-                y = particle_position->getItemValue(VectorItem::P_Y).toDouble();
-                z = particle_position->getItemValue(VectorItem::P_Z).toDouble();
-            }
-
-            // lattice position + offset
-            double pos_x = position[0] + x;
-            double pos_y = position[1] + y;
-            double pos_z = z;
-
-            // Check if the position lies within the boundaries of the 3D model
-            if (std::abs(pos_x) <= layer_size && std::abs(pos_y) <= layer_size
-                    && std::abs(pos_z) <= layer_thickness)
-            {
-                // Randomly display a particle at the position, given its normalized abundance
-                if (rand_num <= cumulative_abundances.at(k)/cumulative_abundances.last())
-                {
-                    // pass only the lattice position as parameter and not the added offset
-                    // since populateParticle intrinsically adds the offset to the lattice position
-                    builder3D->populateParticle(model, *particle,
-                                                QVector3D(static_cast<float>(position[0]),
-                                                static_cast<float>(position[1]),
-                                                static_cast<float>(0.0)));
-                    break;
-                }
-                else
-                    ++k;
-            }
-        }
-    }
-}
-
-QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLatticePositions(
-        const SessionItem &layoutItem, const SceneGeometry& sceneGeometry)
-{
-    double layer_size = sceneGeometry.layer_size();
-    QVector<QVector<double>> lattice_positions;
-    QVector<double> position;
-
-    // to compute total number of particles we use the total particle density
-    // and multiply by the area of the layer
-    double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
-    int num_particles = static_cast<int>(total_density * (2*layer_size) * (2*layer_size));
-
-    for (int i = 1; i <= num_particles; ++i)
-    {
-        // For calculating lattice coordinates we use random x and y coordinates
-        position.push_back((rand()/static_cast<double>(RAND_MAX))*2*layer_size - layer_size); // x
-        position.push_back((rand()/static_cast<double>(RAND_MAX))*2*layer_size - layer_size); // y
-
-        // no need for z coordinate as all lattice positions are calculated in the xy plane
-
-        lattice_positions.push_back(position);
-
-        position.clear();
-    }
-
-    return lattice_positions;
-}
-
-
-// InterferenceFunction2DLatticeType
-void RealSpaceBuilderUtils::populateInterference2DLatticeType(
-        RealSpaceModel *model, const SessionItem& layoutItem, const SceneGeometry& sceneGeometry,
+void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
+        QVector<QVector<double>> lattice_positions, RealSpaceModel *model,
+        const SessionItem& layoutItem, const SceneGeometry& sceneGeometry,
         const RealSpaceBuilder *builder3D)
 {
     double layer_size = sceneGeometry.layer_size();
     double layer_thickness = std::max(sceneGeometry.layer_top_thickness(),
                                       sceneGeometry.layer_bottom_thickness());
 
-    auto interference = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
-    auto interference2DLatticeItem =
-            interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
-
     QVector<double> cumulative_abundances = computeCumulativeAbundances(layoutItem);
 
     srand(static_cast<unsigned int>(time(nullptr)));
-
-    // get the lattice positions at which to populate the particles
-    QVector<QVector<double>> lattice_positions =
-            getInterference2DLatticePositions(*interference2DLatticeItem, sceneGeometry);
 
     for (QVector<double> position : lattice_positions)
     {
@@ -235,6 +131,69 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
     }
 
     cumulative_abundances.clear();
+}
+
+// No interference - random distribution of particles
+void RealSpaceBuilderUtils::populateRandomDistribution(
+        RealSpaceModel *model, const SessionItem &layoutItem, const SceneGeometry &sceneGeometry,
+        const RealSpaceBuilder *builder3D)
+{
+    // If there is no particle to populate
+    if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
+        return;
+
+    // get the lattice positions at which to populate the particles
+    QVector<QVector<double>> lattice_positions =
+            computeRandomDistributionLatticePositions(layoutItem, sceneGeometry);
+
+    populateParticlesAtLatticePositions(lattice_positions, model, layoutItem,
+                                        sceneGeometry, builder3D);
+}
+
+QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLatticePositions(
+        const SessionItem &layoutItem, const SceneGeometry& sceneGeometry)
+{
+    double layer_size = sceneGeometry.layer_size();
+    QVector<QVector<double>> lattice_positions;
+    QVector<double> position;
+
+    // to compute total number of particles we use the total particle density
+    // and multiply by the area of the layer
+    double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
+    int num_particles = static_cast<int>(total_density * (2*layer_size) * (2*layer_size));
+
+    for (int i = 1; i <= num_particles; ++i)
+    {
+        // For calculating lattice coordinates we use random x and y coordinates
+        position.push_back((rand()/static_cast<double>(RAND_MAX))*2*layer_size - layer_size); // x
+        position.push_back((rand()/static_cast<double>(RAND_MAX))*2*layer_size - layer_size); // y
+
+        // no need for z coordinate as all lattice positions are calculated in the xy plane
+
+        lattice_positions.push_back(position);
+
+        position.clear();
+    }
+
+    return lattice_positions;
+}
+
+
+// InterferenceFunction2DLatticeType
+void RealSpaceBuilderUtils::populateInterference2DLatticeType(
+        RealSpaceModel *model, const SessionItem& layoutItem, const SceneGeometry& sceneGeometry,
+        const RealSpaceBuilder *builder3D)
+{
+    auto interference = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
+    auto interference2DLatticeItem =
+            interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
+
+    // get the lattice positions at which to populate the particles
+    QVector<QVector<double>> lattice_positions =
+            getInterference2DLatticePositions(*interference2DLatticeItem, sceneGeometry);
+
+    populateParticlesAtLatticePositions(lattice_positions, model, layoutItem,
+                                        sceneGeometry, builder3D);
 }
 
 QVector<QVector<double>> RealSpaceBuilderUtils::getInterference2DLatticePositions(

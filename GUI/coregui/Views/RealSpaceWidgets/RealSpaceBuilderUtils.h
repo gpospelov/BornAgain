@@ -35,6 +35,12 @@ namespace RealSpaceBuilderUtils
 // compute cumulative abundances of particles
 BA_CORE_API_ QVector<double> computeCumulativeAbundances(const SessionItem& layoutItem);
 
+BA_CORE_API_ void populateParticlesAtLatticePositions(QVector<QVector<double>> lattice_positions,
+                                                      RealSpaceModel *model,
+                                                      const SessionItem& layoutItem,
+                                                      const SceneGeometry& sceneGeometry,
+                                                      const RealSpaceBuilder *builder3D);
+
 // No interference - random distribution of particles
 BA_CORE_API_ void populateRandomDistribution(RealSpaceModel* model,
                                              const SessionItem& layoutItem,

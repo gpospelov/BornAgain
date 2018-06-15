@@ -20,6 +20,9 @@
 #include "ProgressHandler.h"
 #include "ScalarFresnelMap.h"
 #include "SpecularComputationTerm.h"
+#include "SpecularSimulationElement.h"
+
+#include <algorithm>
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
               "SpecularComputation should not be copy constructible");
@@ -35,15 +38,14 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
     , m_begin_it(begin_it)
     , m_end_it(end_it)
     , mP_fresnel_map(IComputationUtils::CreateFresnelMap(multilayer, options, false))
-    , m_computation_term(mP_multi_layer.get(), mP_fresnel_map.get())
-{
-}
+    , m_computation_term(mP_fresnel_map.get())
+{}
 
 SpecularComputation::~SpecularComputation() = default;
 
 void SpecularComputation::runProtected()
 {
-    if (!m_progress->alive())
+    if (!m_progress->alive() || mP_multi_layer->requiresMatrixRTCoefficients())
         return;
-    m_computation_term.eval(m_progress, m_begin_it, m_end_it);
+    std::for_each(m_begin_it, m_end_it, m_computation_term);
 }

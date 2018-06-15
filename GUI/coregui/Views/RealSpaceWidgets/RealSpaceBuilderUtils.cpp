@@ -41,9 +41,7 @@
 #include "ParticleCoreShellItem.h"
 #include "TransformTo3D.h"
 #include "ParticleDistribution.h"
-
 #include "InterferenceFunctions.h"
-#include "Lattice2D.h"
 
 namespace
 {
@@ -174,7 +172,6 @@ QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLattic
         // no need for z coordinate as all lattice positions are calculated in the xy plane
 
         lattice_positions.push_back(position);
-
         position.clear();
     }
 
@@ -188,15 +185,11 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
         const RealSpaceBuilder *builder3D)
 {
     auto interference2D = dynamic_cast<const InterferenceFunction2DLattice*>(interference);
-
     const Lattice2D& lattice2D = interference2D->lattice();
 
-    // get the lattice positions at which to populate the particles
     QVector<QVector<double>> lattice_positions =
-            computeInterference2DLatticePositions(lattice2D.length1(),
-                                                  lattice2D.length2(),
-                                                  Units::rad2deg(lattice2D.latticeAngle()),
-                                                  Units::rad2deg(lattice2D.rotationAngle()),
+            computeInterference2DLatticePositions(lattice2D.length1(), lattice2D.length2(),
+                                                  lattice2D.latticeAngle(), lattice2D.rotationAngle(),
                                                   sceneGeometry);
 
     populateParticlesAtLatticePositions(lattice_positions, model, layoutItem,
@@ -213,13 +206,13 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
     // Estimate the limit n1 and n2 of the integer multiple i and j of the lattice vectors required
     // for populating particles correctly within the 3D model's boundaries
     int n1 = 0, n2 = 0;
-    n1 = static_cast<int>(layer_size*2)/static_cast<int>(l1*std::cos(Units::deg2rad(l_xi)));
+    n1 = static_cast<int>(layer_size*2)/static_cast<int>(l1*std::cos(l_xi));
 
     // This condition is required when this function is used to compute 1D Lattice positions
     if(l2 != 0)
     {
         n2 = static_cast<int>(layer_size*2)/
-                static_cast<int>(l2*std::sin(Units::deg2rad(l_alpha+l_xi)));
+                static_cast<int>(l2*std::sin(l_alpha+l_xi));
 
         n1 = std::max(n1,n2);
         n2 = std::max(n1,n2);
@@ -233,15 +226,12 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
             // where l1 and l2 are the lattice vectors,
             // i and j are the integer multiples of l1 and l2 respectively
 
-            position.push_back(i*l1*std::cos(Units::deg2rad(l_xi))+
-                               j*l2*std::cos(Units::deg2rad(l_alpha + l_xi))); // x coordinate
-            position.push_back(i*l1*std::sin(Units::deg2rad(l_xi))+
-                               j*l2*std::sin(Units::deg2rad(l_alpha + l_xi))); // y coordinate
+            position.push_back(i*l1*std::cos(l_xi)+ j*l2*std::cos(l_alpha + l_xi)); // x coordinate
+            position.push_back(i*l1*std::sin(l_xi)+ j*l2*std::sin(l_alpha + l_xi)); // y coordinate
 
             // no need for z coordinate as all lattice positions are calculated in the xy plane
 
             lattice_positions.push_back(position);
-
             position.clear();
         }
     }
@@ -251,31 +241,21 @@ QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePosi
 
 // InterferenceFunction1DLatticeType
 void RealSpaceBuilderUtils::populateInterference1DLatticeType(
-        RealSpaceModel *model, const SessionItem &layoutItem, const SceneGeometry &sceneGeometry,
+        const IInterferenceFunction *interference, RealSpaceModel *model,
+        const SessionItem &layoutItem, const SceneGeometry &sceneGeometry,
         const RealSpaceBuilder *builder3D)
 {
-    auto interference1DLatticeItem = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
-    QVector<double> cumulative_abundances = computeCumulativeAbundances(layoutItem);
-
-    // get the lattice positions at which to populate the particles
-    QVector<QVector<double>> lattice_positions =
-            getInterference1DLatticePositions(*interference1DLatticeItem, sceneGeometry);
-
-    populateParticlesAtLatticePositions(lattice_positions, model, layoutItem,
-                                        sceneGeometry, builder3D);
-}
-
-QVector<QVector<double>> RealSpaceBuilderUtils::getInterference1DLatticePositions(
-        const SessionItem &interference1DLatticeItem, const SceneGeometry &sceneGeometry)
-{
-    double l = interference1DLatticeItem.getItemValue(
-                InterferenceFunction1DLatticeItem::P_LENGTH).toDouble();
-    double l_xi = interference1DLatticeItem.getItemValue(
-                InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE).toDouble();
+    auto interference1D = dynamic_cast<const InterferenceFunction1DLattice *>(interference);
+    auto interference1DParameters = interference1D->getLatticeParameters();
 
     // Simply set the parameters l1 = l, l2 = 0, l_alpha = 0 and l_xi = l_xi in
     // computeInterference2DLatticePositions() to compute lattice positions for 1D Lattice
-    return computeInterference2DLatticePositions(l, 0.0, 0.0, l_xi, sceneGeometry);
+    QVector<QVector<double>> lattice_positions =
+            computeInterference2DLatticePositions(interference1DParameters.m_length, 0.0, 0.0,
+                                                  interference1DParameters.m_xi, sceneGeometry);
+
+    populateParticlesAtLatticePositions(lattice_positions, model, layoutItem,
+                                        sceneGeometry, builder3D);
 }
 
 // Implement Rotation of a 3D particle using parameters from IRotation Object

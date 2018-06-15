@@ -147,9 +147,14 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
 
     // If interference type is 1D Lattice
     else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType)
-            RealSpaceBuilderUtils::populateInterference1DLatticeType(model, layoutItem,
-                                                                 sceneGeometry, this);
+    {
+        auto interferenceItem =
+                dynamic_cast<InterferenceFunction1DLatticeItem *>(interferenceLattice);
+        auto interference = interferenceItem->createInterferenceFunction();
+        RealSpaceBuilderUtils::populateInterference1DLatticeType(interference.get(), model,
+                                                                 layoutItem, sceneGeometry, this);
 
+    }
     /*
     // If interference type is 2D ParaCrystal
     else if (interference->modelType() == Constants::InterferenceFunction2DParaCrystalType)

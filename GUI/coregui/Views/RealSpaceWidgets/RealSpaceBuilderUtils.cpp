@@ -42,6 +42,9 @@
 #include "TransformTo3D.h"
 #include "ParticleDistribution.h"
 
+#include "InterferenceFunctions.h"
+#include "Lattice2D.h"
+
 namespace
 {
     const IFormFactor* getUnderlyingFormFactor(const IFormFactor *ff)
@@ -178,70 +181,26 @@ QVector<QVector<double> > RealSpaceBuilderUtils::computeRandomDistributionLattic
     return lattice_positions;
 }
 
-
 // InterferenceFunction2DLatticeType
 void RealSpaceBuilderUtils::populateInterference2DLatticeType(
-        RealSpaceModel *model, const SessionItem& layoutItem, const SceneGeometry& sceneGeometry,
+        const IInterferenceFunction *interference, RealSpaceModel *model,
+        const SessionItem& layoutItem, const SceneGeometry& sceneGeometry,
         const RealSpaceBuilder *builder3D)
 {
-    auto interference = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
-    auto interference2DLatticeItem =
-            interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
+    auto interference2D = dynamic_cast<const InterferenceFunction2DLattice*>(interference);
+
+    const Lattice2D& lattice2D = interference2D->lattice();
 
     // get the lattice positions at which to populate the particles
     QVector<QVector<double>> lattice_positions =
-            getInterference2DLatticePositions(*interference2DLatticeItem, sceneGeometry);
+            computeInterference2DLatticePositions(lattice2D.length1(),
+                                                  lattice2D.length2(),
+                                                  Units::rad2deg(lattice2D.latticeAngle()),
+                                                  Units::rad2deg(lattice2D.rotationAngle()),
+                                                  sceneGeometry);
 
     populateParticlesAtLatticePositions(lattice_positions, model, layoutItem,
                                         sceneGeometry, builder3D);
-}
-
-QVector<QVector<double>> RealSpaceBuilderUtils::getInterference2DLatticePositions(
-        const SessionItem &interference2DLatticeItem, const SceneGeometry &sceneGeometry)
-{
-    double l1 = 0.0, l2 = 0.0, l_alpha = 0.0, l_xi = 0.0;
-
-    // If 2D Lattice interference type is Basic
-    if (interference2DLatticeItem.modelType() == Constants::BasicLatticeType)
-    {
-        // lattice vector 1
-        l1 = interference2DLatticeItem.getItemValue(BasicLatticeItem::P_LATTICE_LENGTH1).toDouble();
-
-        // lattice vector 2
-        l2 = interference2DLatticeItem.getItemValue(BasicLatticeItem::P_LATTICE_LENGTH2).toDouble();
-
-        // lattice angle (between l1 and l2)
-        l_alpha = interference2DLatticeItem.getItemValue(
-                    BasicLatticeItem::P_LATTICE_ANGLE).toDouble();
-
-        // lattice rotation angle (between x axis and l1)
-        l_xi = interference2DLatticeItem.getItemValue(
-                    BasicLatticeItem::P_LATTICE_ROTATION_ANGLE).toDouble();
-    }
-
-    // If 2D Lattice interference type is Hexagonal
-    else if (interference2DLatticeItem.modelType() == Constants::HexagonalLatticeType)
-    {
-        l1 = interference2DLatticeItem.getItemValue(
-                    HexagonalLatticeItem::P_LATTICE_LENGTH).toDouble();
-        l2 = l1;
-        l_alpha = 120.0; // 120 degrees for a Hexagonal lattice
-        l_xi = interference2DLatticeItem.getItemValue(
-                    HexagonalLatticeItem::P_LATTICE_ROTATION_ANGLE).toDouble();
-    }
-
-    // If 2D Lattice interference type is Square
-    else if (interference2DLatticeItem.modelType() == Constants::SquareLatticeType)
-    {
-        l1 = interference2DLatticeItem.getItemValue(
-                    SquareLatticeItem::P_LATTICE_LENGTH).toDouble();
-        l2 = l1;
-        l_alpha = 90.0; // 90 degrees for a Square lattice
-        l_xi = interference2DLatticeItem.getItemValue(
-                    SquareLatticeItem::P_LATTICE_ROTATION_ANGLE).toDouble();
-    }
-
-    return computeInterference2DLatticePositions(l1, l2, l_alpha, l_xi, sceneGeometry);
 }
 
 QVector<QVector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePositions(

@@ -28,6 +28,8 @@ class Particle;
 class ParticleComposition;
 class ParticleCoreShell;
 class ParticleDistribution;
+class IInterferenceFunction;
+class InterferenceFunction2DLattice;
 namespace RealSpace{ namespace Particles { class Particle; } }
 
 namespace RealSpaceBuilderUtils
@@ -51,13 +53,11 @@ BA_CORE_API_ QVector<QVector<double>> computeRandomDistributionLatticePositions(
         const SessionItem& layoutItem, const SceneGeometry &sceneGeometry);
 
 // InterferenceFunction2DLatticeType
-BA_CORE_API_ void populateInterference2DLatticeType(RealSpaceModel* model,
+BA_CORE_API_ void populateInterference2DLatticeType(const IInterferenceFunction* interference,
+                                                    RealSpaceModel* model,
                                                     const SessionItem& layoutItem,
                                                     const SceneGeometry &sceneGeometry,
                                                     const RealSpaceBuilder *builder3D);
-
-BA_CORE_API_ QVector<QVector<double>>  getInterference2DLatticePositions(
-        const SessionItem& interference2DLatticeItem, const SceneGeometry &sceneGeometry);
 
 BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
         double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry);

@@ -34,6 +34,7 @@
 #include "ParticleCoreShell.h"
 #include "Particle.h"
 #include "ParticleDistributionItem.h"
+#include "IInterferenceFunction.h"
 
 RealSpaceBuilder::RealSpaceBuilder(QWidget* parent)
     : QWidget(parent)
@@ -132,15 +133,20 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
     if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
         return;
 
-    auto interference = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
+    auto interferenceLattice = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
 
     // If interference type is 2D Lattice
-    if (interference->modelType() == Constants::InterferenceFunction2DLatticeType)
-        RealSpaceBuilderUtils::populateInterference2DLatticeType(model, layoutItem,
-                                                                 sceneGeometry, this);
+    if (interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType)
+    {
+        auto interferenceItem =
+                dynamic_cast<InterferenceFunction2DLatticeItem *>(interferenceLattice);
+        auto interference = interferenceItem->createInterferenceFunction();
+        RealSpaceBuilderUtils::populateInterference2DLatticeType(interference.get(), model,
+                                                                 layoutItem, sceneGeometry, this);
+    }
 
     // If interference type is 1D Lattice
-    else if (interference->modelType() == Constants::InterferenceFunction1DLatticeType)
+    else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType)
             RealSpaceBuilderUtils::populateInterference1DLatticeType(model, layoutItem,
                                                                  sceneGeometry, this);
 

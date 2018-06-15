@@ -19,10 +19,11 @@
 #include "Complex.h"
 #include "SimulationOptions.h"
 
-class IFresnelMap;
-class MultiLayer;
-struct HomogeneousRegion;
 class IComputationTerm;
+class IFresnelMap;
+struct HomogeneousRegion;
+class MultiLayer;
+class SimulationElement;
 
 //! Performs a single-threaded DWBA computation with given sample and simulation parameters.
 //!

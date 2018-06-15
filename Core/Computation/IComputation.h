@@ -22,7 +22,6 @@
 
 class MultiLayer;
 class ProgressHandler;
-class SimulationElement;
 
 //! Interface for a single-threaded computation with given range of SimulationElements
 //! and ProgressHandler.

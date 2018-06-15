@@ -20,7 +20,6 @@
 class IFresnelMap;
 class MultiLayer;
 class ProgressHandler;
-class SimulationElement;
 class SpecularSimulationElement;
 
 //! Computes the specular scattering.

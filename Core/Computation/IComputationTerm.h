@@ -36,6 +36,8 @@ public:
     IComputationTerm(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map);
     virtual ~IComputationTerm();
 
+    void setProgressHandler(ProgressHandler* p_progress);
+
     //! Calculate scattering intensity for each SimulationElement
     //! returns false if nothing needed to be calculated
     virtual void eval(ProgressHandler* progress,
@@ -49,6 +51,7 @@ protected:
     const MultiLayer* mp_multilayer;
     const IFresnelMap* mp_fresnel_map;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
+    ProgressHandler* mp_progress;
 };
 
 #endif // ICOMPUTATIONTERM_H

@@ -40,7 +40,7 @@ DepthProbeComputation::~DepthProbeComputation() = default;
 
 void DepthProbeComputation::runProtected()
 {
-    if (!m_progress->alive() || mP_multi_layer->requiresMatrixRTCoefficients())
+    if (!mp_progress->alive() || mP_multi_layer->requiresMatrixRTCoefficients())
         return;
     std::for_each(m_begin_it, m_end_it, m_computation_term);
 }

@@ -70,9 +70,10 @@ void DWBAComputation::runProtected()
 {
     // add intensity of all IComputationTerms:
     for (auto& comp: m_computation_terms) {
-        if (!m_progress->alive())
+        comp->setProgressHandler(mp_progress);
+        if (!mp_progress->alive())
             return;
-        comp->eval(m_progress, m_begin_it, m_end_it );
+        comp->eval(mp_progress, m_begin_it, m_end_it );
     }
 }
 

@@ -44,7 +44,7 @@ public:
 
 protected:
     SimulationOptions m_sim_options;
-    ProgressHandler* m_progress;
+    ProgressHandler* mp_progress;
     ComputationStatus m_status;
     std::unique_ptr<MultiLayer> mP_multi_layer;
 

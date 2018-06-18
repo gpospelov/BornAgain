@@ -29,7 +29,8 @@ FitSessionWidget::FitSessionWidget(QWidget* parent)
     , m_controlWidget(new RunFitControlWidget)
     , m_fitParametersWidget(new FitParameterWidget)
     , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
-    , m_fitResultsWidget(new FitResultsWidget)
+    // , m_fitResultsWidget(new FitResultsWidget)
+    , m_fitResultsWidget(nullptr) // temporary replacement to fix a memory leak
     , m_sessionController(nullptr)
 {
     auto layout = new QVBoxLayout;

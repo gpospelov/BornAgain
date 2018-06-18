@@ -49,21 +49,6 @@ void RoughMultiLayerComputation::setProgressHandler(ProgressHandler* p_progress)
     mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
 }
 
-void RoughMultiLayerComputation::eval(ProgressHandler* progress,
-    const std::vector<SimulationElement>::iterator& begin_it,
-    const std::vector<SimulationElement>::iterator& end_it) const
-{
-    if (mp_multilayer->requiresMatrixRTCoefficients()) {
-        return;
-    }
-    for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
-        if (!progress->alive())
-            return;
-        it->addIntensity(evaluate(*it));
-        mP_progress_counter->stepProgress();
-    }
-}
-
 void RoughMultiLayerComputation::operator()(SimulationElement& elem) const
 {
     if (elem.getAlphaMean()<0.0)
@@ -101,46 +86,6 @@ void RoughMultiLayerComputation::operator()(SimulationElement& elem) const
     elem.addIntensity((autocorr+crosscorr.real())*M_PI/4./wavelength/wavelength);
 
     mP_progress_counter->stepProgress();
-}
-
-double RoughMultiLayerComputation::evaluate(const SimulationElement& sim_element) const
-{
-    if (sim_element.getAlphaMean()<0.0)
-        return 0.0;
-    kvector_t q = sim_element.getMeanQ();
-    double wavelength = sim_element.getWavelength();
-    double autocorr(0.0);
-    complex_t crosscorr(0.0, 0.0);
-
-    std::vector<complex_t > rterm( mp_multilayer->numberOfLayers()-1 );
-    std::vector<complex_t > sterm( mp_multilayer->numberOfLayers()-1 );
-
-    for (size_t i=0; i<mp_multilayer->numberOfLayers()-1; i++){
-        rterm[i] = get_refractive_term(i, wavelength);
-        sterm[i] = get_sum8terms(i, sim_element);
-    }
-
-    for (size_t i=0; i<mp_multilayer->numberOfLayers()-1; i++) {
-        const LayerRoughness *rough =
-            mp_multilayer->layerBottomInterface(i)->getRoughness();
-        if(rough)
-            autocorr += std::norm( rterm[i] ) * std::norm( sterm[i] ) * rough->getSpectralFun(q);
-    }
-
-    // cross correlation between layers
-    if (mp_multilayer->crossCorrLength() != 0.0) {
-        for(size_t j=0; j<mp_multilayer->numberOfLayers()-1; j++){
-            for(size_t k=0; k<mp_multilayer->numberOfLayers()-1; k++) {
-                if(j==k) continue;
-                crosscorr += rterm[j]*sterm[j]*
-                    mp_multilayer->crossCorrSpectralFun(q,j,k)*
-                    std::conj(rterm[k])*std::conj(sterm[k]);
-            }
-        }
-    }
-
-    //! @TODO clarify complex vs double
-    return (autocorr+crosscorr.real())*M_PI/4./wavelength/wavelength;
 }
 
 complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer, double wavelength) const

@@ -73,7 +73,10 @@ void DWBAComputation::runProtected()
         comp->setProgressHandler(mp_progress);
         if (!mp_progress->alive())
             return;
-        comp->eval(mp_progress, m_begin_it, m_end_it );
+        auto p_comp = comp.get();
+        std::for_each(m_begin_it, m_end_it, [p_comp](SimulationElement& elem){
+            p_comp->operator()(elem);
+        });
     }
 }
 

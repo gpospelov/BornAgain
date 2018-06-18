@@ -38,12 +38,6 @@ public:
 
     virtual void setProgressHandler(ProgressHandler* p_progress) =0;
 
-    //! Calculate scattering intensity for each SimulationElement
-    //! returns false if nothing needed to be calculated
-    virtual void eval(ProgressHandler* progress,
-                      const std::vector<SimulationElement>::iterator& begin_it,
-                      const std::vector<SimulationElement>::iterator& end_it) const =0;
-
     //! Calculate scattering intensity for the given SimulationElement
     virtual void operator()(SimulationElement& elem) const=0;
 

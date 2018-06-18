@@ -37,10 +37,6 @@ public:
 
     void setProgressHandler(ProgressHandler* p_progress) override;
 
-    void eval(ProgressHandler* progress,
-              const std::vector<SimulationElement>::iterator& begin_it,
-              const std::vector<SimulationElement>::iterator& end_it) const override;
-
     void operator()(SimulationElement& elem) const override;
 
 private:

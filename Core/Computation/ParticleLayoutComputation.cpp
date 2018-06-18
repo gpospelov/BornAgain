@@ -40,27 +40,6 @@ void ParticleLayoutComputation::setProgressHandler(ProgressHandler* p_progress)
     mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
 }
 
-//! Computes scattering intensity for given range of simulation elements.
-void ParticleLayoutComputation::eval(ProgressHandler* progress,
-    const std::vector<SimulationElement>::iterator& begin_it,
-    const std::vector<SimulationElement>::iterator& end_it) const
-{
-    for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
-        if (!progress->alive())
-            return;
-        double alpha_f = it->getAlphaMean();
-        size_t n_layers = mp_multilayer->numberOfLayers();
-        if (n_layers > 1 && alpha_f < 0) {
-            continue; // zero for transmission with multilayers (n>1)
-        } else {
-            it->addIntensity(mP_strategy->evaluate(*it) * m_surface_density);
-        }
-        if (mP_progress_counter) {
-            mP_progress_counter->stepProgress();
-        }
-    }
-}
-
 void ParticleLayoutComputation::operator()(SimulationElement& elem) const
 {
     double alpha_f = elem.getAlphaMean();

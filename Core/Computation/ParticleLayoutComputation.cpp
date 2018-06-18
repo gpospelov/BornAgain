@@ -35,12 +35,16 @@ ParticleLayoutComputation::ParticleLayoutComputation(
     m_surface_density = p_layout->totalParticleSurfaceDensity();
 }
 
+void ParticleLayoutComputation::setProgressHandler(ProgressHandler* p_progress)
+{
+    mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
+}
+
 //! Computes scattering intensity for given range of simulation elements.
 void ParticleLayoutComputation::eval(ProgressHandler* progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
 {
-    DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
             return;
@@ -51,6 +55,8 @@ void ParticleLayoutComputation::eval(ProgressHandler* progress,
         } else {
             it->addIntensity(mP_strategy->evaluate(*it) * m_surface_density);
         }
-        counter.stepProgress(progress);
+        if (mP_progress_counter) {
+            mP_progress_counter->stepProgress();
+        }
     }
 }

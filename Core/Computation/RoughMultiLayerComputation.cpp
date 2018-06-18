@@ -44,6 +44,11 @@ RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi
     : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
+void RoughMultiLayerComputation::setProgressHandler(ProgressHandler* p_progress)
+{
+    mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
+}
+
 void RoughMultiLayerComputation::eval(ProgressHandler* progress,
     const std::vector<SimulationElement>::iterator& begin_it,
     const std::vector<SimulationElement>::iterator& end_it) const
@@ -51,12 +56,11 @@ void RoughMultiLayerComputation::eval(ProgressHandler* progress,
     if (mp_multilayer->requiresMatrixRTCoefficients()) {
         return;
     }
-    DelayedProgressCounter counter(100);
     for (std::vector<SimulationElement>::iterator it = begin_it; it != end_it; ++it) {
         if (!progress->alive())
             return;
         it->addIntensity(evaluate(*it));
-        counter.stepProgress(progress);
+        mP_progress_counter->stepProgress();
     }
 }
 

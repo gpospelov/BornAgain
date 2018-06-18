@@ -19,16 +19,10 @@ IComputationTerm::IComputationTerm(const MultiLayer* p_multilayer,
                                    const IFresnelMap* p_fresnel_map)
     : mp_multilayer(p_multilayer)
     , mp_fresnel_map(p_fresnel_map)
-    , mp_progress(nullptr)
 {}
 
 IComputationTerm::~IComputationTerm()
 {}
-
-void IComputationTerm::setProgressHandler(ProgressHandler* p_progress)
-{
-    mp_progress = p_progress;
-}
 
 void IComputationTerm::mergeRegionMap(
         std::map<size_t, std::vector<HomogeneousRegion> >& region_map) const

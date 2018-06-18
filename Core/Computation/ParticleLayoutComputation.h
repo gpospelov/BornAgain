@@ -20,6 +20,7 @@
 
 using std::size_t;
 
+class DelayedProgressCounter;
 class ILayout;
 class IInterferenceFunctionStrategy;
 
@@ -34,6 +35,8 @@ public:
         const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map, const ILayout* p_layout,
         size_t layer_index, const SimulationOptions& options, bool polarized);
 
+    void setProgressHandler(ProgressHandler* p_progress) override;
+
     void eval(ProgressHandler* progress,
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
@@ -41,6 +44,7 @@ public:
 private:
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;
+    std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
 };
 
 #endif // PARTICLELAYOUTCOMPUTATION_H

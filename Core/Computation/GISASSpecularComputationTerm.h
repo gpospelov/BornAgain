@@ -25,6 +25,8 @@ class GISASSpecularComputationTerm final : public IComputationTerm
 public:
     GISASSpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
+    void setProgressHandler(ProgressHandler*) override {}
+
     void eval(ProgressHandler* progress, const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
 

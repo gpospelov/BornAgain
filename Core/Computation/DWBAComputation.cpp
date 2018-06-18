@@ -44,18 +44,17 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
     for (size_t i=0; i<nLayers; ++i) {
         const Layer* layer = mP_multi_layer->layer(i);
         for (auto p_layout : layer->layouts())
-            m_computation_terms.emplace_back(
-                        new ParticleLayoutComputation(
-                            mP_multi_layer.get(), mP_fresnel_map.get(), p_layout, i,
-                            m_sim_options, polarized));
+            m_single_computation.addLayoutComputation(
+                        new ParticleLayoutComputation(mP_multi_layer.get(), mP_fresnel_map.get(),
+                                                      p_layout, i, m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
-        m_computation_terms.emplace_back(new RoughMultiLayerComputation(mP_multi_layer.get(),
-                                                                     mP_fresnel_map.get()));
+        m_single_computation.setRoughnessComputation(
+                    new RoughMultiLayerComputation(mP_multi_layer.get(), mP_fresnel_map.get()));
     if (m_sim_options.includeSpecular())
-        m_computation_terms.emplace_back(new GISASSpecularComputationTerm(mP_multi_layer.get(),
-                                                              mP_fresnel_map.get()));
+        m_single_computation.setSpecularBinComputation(
+                    new GISASSpecularComputationTerm(mP_multi_layer.get(), mP_fresnel_map.get()));
     initFresnelMap();
 }
 
@@ -68,24 +67,18 @@ DWBAComputation::~DWBAComputation() = default;
 // This allows them to be added and normalized together to the beam afterwards
 void DWBAComputation::runProtected()
 {
-    // add intensity of all IComputationTerms:
-    for (auto& comp: m_computation_terms) {
-        comp->setProgressHandler(mp_progress);
-        if (!mp_progress->alive())
-            return;
-        auto p_comp = comp.get();
-        std::for_each(m_begin_it, m_end_it, [p_comp](SimulationElement& elem){
-            p_comp->operator()(elem);
-        });
+    m_single_computation.setProgressHandler(mp_progress);
+    if (!mp_progress->alive())
+        return;
+    for (auto it=m_begin_it; it != m_end_it; ++it) {
+        m_single_computation(*it);
     }
 }
 
 std::unique_ptr<MultiLayer> DWBAComputation::getAveragedMultilayer() const
 {
     std::map<size_t, std::vector<HomogeneousRegion>> region_map;
-    for (auto& comp: m_computation_terms) {
-        comp->mergeRegionMap(region_map);
-    }
+    m_single_computation.mergeRegionMap(region_map);
     std::unique_ptr<MultiLayer> P_result(mP_multi_layer->clone());
     auto last_layer_index = P_result->numberOfLayers()-1;
     for (auto& entry : region_map)

@@ -23,7 +23,7 @@ GISASSpecularComputationTerm::GISASSpecularComputationTerm(const MultiLayer* p_m
     : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
-void GISASSpecularComputationTerm::operator()(SimulationElement& elem) const
+void GISASSpecularComputationTerm::compute(SimulationElement& elem) const
 {
     if (mp_multilayer->requiresMatrixRTCoefficients())
         return;

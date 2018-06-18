@@ -1,0 +1,62 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/Computation/DWBASingleComputation.h
+//! @brief     Defines class DWBASingleComputation.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
+#ifndef DWBASINGLECOMPUTATION_H
+#define DWBASINGLECOMPUTATION_H
+
+#include "SlicedParticle.h"
+#include <map>
+#include <memory>
+#include <vector>
+
+class DelayedProgressCounter;
+class GISASSpecularComputationTerm;
+class ParticleLayoutComputation;
+class ProgressHandler;
+class RoughMultiLayerComputation;
+class SimulationElement;
+
+//! Class that handles all the computations involved in GISAS (particles, roughness,...) for
+//! a single detector bin.
+//!
+//! Called by DWBASimulation on each detector bin.
+//!
+//! @ingroup algorithms_internal
+
+class DWBASingleComputation
+{
+public:
+    DWBASingleComputation();
+    ~DWBASingleComputation();
+    DWBASingleComputation(DWBASingleComputation&& other);
+
+    void setProgressHandler(ProgressHandler* p_progress);
+
+    void addLayoutComputation(ParticleLayoutComputation* p_layout_comp);
+    void setRoughnessComputation(RoughMultiLayerComputation* p_roughness_comp);
+    void setSpecularBinComputation(GISASSpecularComputationTerm* p_spec_comp);
+    void operator()(SimulationElement& elem) const;
+
+    //! Merges its region map into the given one (notice non-const reference parameter)
+    void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
+
+private:
+    std::vector<std::unique_ptr<ParticleLayoutComputation>> m_layout_comps;
+    std::unique_ptr<RoughMultiLayerComputation> mP_roughness_comp;
+    std::unique_ptr<GISASSpecularComputationTerm> mP_spec_comp;
+    std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
+    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
+};
+
+#endif // DWBASINGLECOMPUTATION_H

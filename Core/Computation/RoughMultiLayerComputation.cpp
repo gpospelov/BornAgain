@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "RoughMultiLayerComputation.h"
-#include "DelayedProgressCounter.h"
 #include "ILayerRTCoefficients.h"
 #include "IFresnelMap.h"
 #include "Faddeeva.hh"
@@ -22,7 +21,6 @@
 #include "LayerRoughness.h"
 #include "MultiLayer.h"
 #include "MathConstants.h"
-#include "ProgressHandler.h"
 #include "SimulationElement.h"
 
 // Diffuse scattering from rough interfaces is modelled after
@@ -44,12 +42,7 @@ RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi
     : IComputationTerm(p_multi_layer, p_fresnel_map)
 {}
 
-void RoughMultiLayerComputation::setProgressHandler(ProgressHandler* p_progress)
-{
-    mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
-}
-
-void RoughMultiLayerComputation::operator()(SimulationElement& elem) const
+void RoughMultiLayerComputation::compute(SimulationElement& elem) const
 {
     if (elem.getAlphaMean()<0.0)
         return;
@@ -84,8 +77,6 @@ void RoughMultiLayerComputation::operator()(SimulationElement& elem) const
     }
     //! @TODO clarify complex vs double
     elem.addIntensity((autocorr+crosscorr.real())*M_PI/4./wavelength/wavelength);
-
-    mP_progress_counter->stepProgress();
 }
 
 complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer, double wavelength) const

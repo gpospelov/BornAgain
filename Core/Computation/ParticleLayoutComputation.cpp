@@ -35,12 +35,9 @@ ParticleLayoutComputation::ParticleLayoutComputation(
     m_surface_density = p_layout->totalParticleSurfaceDensity();
 }
 
-void ParticleLayoutComputation::setProgressHandler(ProgressHandler* p_progress)
-{
-    mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
-}
+ParticleLayoutComputation::~ParticleLayoutComputation() =default;
 
-void ParticleLayoutComputation::operator()(SimulationElement& elem) const
+void ParticleLayoutComputation::compute(SimulationElement& elem) const
 {
     double alpha_f = elem.getAlphaMean();
     size_t n_layers = mp_multilayer->numberOfLayers();
@@ -49,7 +46,15 @@ void ParticleLayoutComputation::operator()(SimulationElement& elem) const
     } else {
         elem.addIntensity(mP_strategy->evaluate(elem) * m_surface_density);
     }
-    if (mP_progress_counter) {
-        mP_progress_counter->stepProgress();
+}
+
+void ParticleLayoutComputation::mergeRegionMap(
+        std::map<size_t, std::vector<HomogeneousRegion> >& region_map) const
+{
+    for (auto& entry : m_region_map)
+    {
+        size_t i = entry.first;
+        auto& regions = entry.second;
+        region_map[i].insert(region_map[i].begin(), regions.begin(), regions.end());
     }
 }

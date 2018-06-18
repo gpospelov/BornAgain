@@ -16,10 +16,9 @@
 #define MAINCOMPUTATION_H
 
 #include "IComputation.h"
-#include "Complex.h"
+#include "DWBASingleComputation.h"
 #include "SimulationOptions.h"
 
-class IComputationTerm;
 class IFresnelMap;
 struct HomogeneousRegion;
 class MultiLayer;
@@ -53,7 +52,7 @@ private:
 
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
     std::unique_ptr<IFresnelMap> mP_fresnel_map; //!< Contains the information, necessary to calculate the Fresnel coefficients.
-    std::vector<std::unique_ptr<IComputationTerm>> m_computation_terms;
+    DWBASingleComputation m_single_computation;
 };
 
 #endif // MAINCOMPUTATION_H

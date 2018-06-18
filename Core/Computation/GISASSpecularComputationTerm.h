@@ -16,6 +16,9 @@
 #define GISASSPECULARCOMPUTATIONTERM_H_
 
 #include "IComputationTerm.h"
+#include <vector>
+
+class SimulationElement;
 
 //! Computes the specular scattering. Used by DWBAComputation.
 //! @ingroup algorithms_internal
@@ -25,12 +28,7 @@ class GISASSpecularComputationTerm final : public IComputationTerm
 public:
     GISASSpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
-    void setProgressHandler(ProgressHandler*) override {}
-
-    void operator()(SimulationElement& elem) const override;
-
-private:
-    void evalSingle(const std::vector<SimulationElement>::iterator& iter) const;
+    void compute(SimulationElement& elem) const;
 };
 
 #endif // GISASSPECULARCOMPUTATIONTERM_H_

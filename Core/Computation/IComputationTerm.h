@@ -15,15 +15,8 @@
 #ifndef ICOMPUTATIONTERM_H
 #define ICOMPUTATIONTERM_H
 
-#include "SlicedParticle.h"
-#include <vector>
-#include <map>
-
 class IFresnelMap;
 class MultiLayer;
-class ProgressHandler;
-class SimulationElement;
-class SimulationOptions;
 
 //! Computes an independent term of the scattering intensity.
 //! Used by DWBAComputation, which adds up all contributions from subclasses
@@ -36,18 +29,9 @@ public:
     IComputationTerm(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map);
     virtual ~IComputationTerm();
 
-    virtual void setProgressHandler(ProgressHandler* p_progress) =0;
-
-    //! Calculate scattering intensity for the given SimulationElement
-    virtual void operator()(SimulationElement& elem) const=0;
-
-    //! Merges its region map into the given one (notice non-const reference parameter)
-    void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
-
 protected:
     const MultiLayer* mp_multilayer;
     const IFresnelMap* mp_fresnel_map;
-    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
 #endif // ICOMPUTATIONTERM_H

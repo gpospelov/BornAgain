@@ -16,13 +16,17 @@
 #define PARTICLELAYOUTCOMPUTATION_H
 
 #include "IComputationTerm.h"
+#include "SlicedParticle.h"
+#include <map>
 #include <memory>
+#include <vector>
 
 using std::size_t;
 
-class DelayedProgressCounter;
 class ILayout;
 class IInterferenceFunctionStrategy;
+class SimulationElement;
+class SimulationOptions;
 
 //! Computes the scattering contribution from one particle layout.
 //! Used by DWBAComputation.
@@ -34,15 +38,17 @@ public:
     ParticleLayoutComputation(
         const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map, const ILayout* p_layout,
         size_t layer_index, const SimulationOptions& options, bool polarized);
+    ~ParticleLayoutComputation() override;
 
-    void setProgressHandler(ProgressHandler* p_progress) override;
+    void compute(SimulationElement& elem) const;
 
-    void operator()(SimulationElement& elem) const override;
+    //! Merges its region map into the given one (notice non-const reference parameter)
+    void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
 
 private:
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;
-    std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
+    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
 #endif // PARTICLELAYOUTCOMPUTATION_H

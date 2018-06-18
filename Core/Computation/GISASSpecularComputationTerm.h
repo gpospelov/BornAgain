@@ -30,6 +30,8 @@ public:
     void eval(ProgressHandler* progress, const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
 
+    void operator()(SimulationElement& elem) const override;
+
 private:
     void evalSingle(const std::vector<SimulationElement>::iterator& iter) const;
 };

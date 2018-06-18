@@ -35,6 +35,24 @@ void GISASSpecularComputationTerm::eval(
             evalSingle(it);
 }
 
+void GISASSpecularComputationTerm::operator()(SimulationElement& elem) const
+{
+    if (mp_multilayer->requiresMatrixRTCoefficients())
+        return;
+
+    if (elem.isSpecular()) {
+        complex_t R = mp_fresnel_map->getInCoefficients(elem, 0)->getScalarR();
+        double sin_alpha_i = std::abs(std::sin(elem.getAlphaI()));
+        if (sin_alpha_i == 0.0)
+            sin_alpha_i = 1.0;
+        const double solid_angle = elem.getSolidAngle();
+        if (solid_angle <= 0.0)
+            return;
+        const double intensity = std::norm(R) * sin_alpha_i / solid_angle;
+        elem.setIntensity(intensity);
+    }
+}
+
 void GISASSpecularComputationTerm::evalSingle(const std::vector<SimulationElement>::iterator& iter) const
 {
     complex_t R = mp_fresnel_map->getInCoefficients(*iter, 0)->getScalarR();

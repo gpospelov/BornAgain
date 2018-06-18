@@ -41,6 +41,8 @@ public:
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
 
+    void operator()(SimulationElement& elem) const override;
+
 private:
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;

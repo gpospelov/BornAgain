@@ -60,3 +60,17 @@ void ParticleLayoutComputation::eval(ProgressHandler* progress,
         }
     }
 }
+
+void ParticleLayoutComputation::operator()(SimulationElement& elem) const
+{
+    double alpha_f = elem.getAlphaMean();
+    size_t n_layers = mp_multilayer->numberOfLayers();
+    if (n_layers > 1 && alpha_f < 0) {
+        return; // zero for transmission with multilayers (n>1)
+    } else {
+        elem.addIntensity(mP_strategy->evaluate(elem) * m_surface_density);
+    }
+    if (mP_progress_counter) {
+        mP_progress_counter->stepProgress();
+    }
+}

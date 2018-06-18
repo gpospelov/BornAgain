@@ -39,6 +39,8 @@ public:
               const std::vector<SimulationElement>::iterator& begin_it,
               const std::vector<SimulationElement>::iterator& end_it) const override;
 
+    void operator()(SimulationElement& elem) const override;
+
 private:
     double evaluate(const SimulationElement& sim_element) const;
     complex_t get_refractive_term(size_t ilayer, double wavelength) const;

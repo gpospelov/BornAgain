@@ -41,14 +41,8 @@ public:
 
 private:
     void runProtected() override;
-    // creates a multilayer that contains averaged materials, for use in Fresnel calculations
-    std::unique_ptr<MultiLayer> getAveragedMultilayer() const;
-    // creates a multilayer for use in Fresnel calculations; if needed, it calculates average
-    // materials and precalculates the magnetic B fields
-    std::unique_ptr<MultiLayer> getMultilayerForFresnel() const;
     // sets the correct layer materials for the Fresnel map to use
     void initFresnelMap();
-    bool checkRegions(const std::vector<HomogeneousRegion>& regions) const;
 
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
     std::unique_ptr<IFresnelMap> mP_fresnel_map; //!< Contains the information, necessary to calculate the Fresnel coefficients.

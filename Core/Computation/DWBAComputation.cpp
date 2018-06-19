@@ -75,46 +75,13 @@ void DWBAComputation::runProtected()
     }
 }
 
-std::unique_ptr<MultiLayer> DWBAComputation::getAveragedMultilayer() const
-{
-    std::map<size_t, std::vector<HomogeneousRegion>> region_map;
-    m_single_computation.mergeRegionMap(region_map);
-    std::unique_ptr<MultiLayer> P_result(mP_multi_layer->clone());
-    auto last_layer_index = P_result->numberOfLayers()-1;
-    for (auto& entry : region_map)
-    {
-        auto i_layer = entry.first;
-        if (i_layer==0 || i_layer==last_layer_index)
-            continue;  // skip semi-infinite layers
-        auto layer_mat = P_result->layerMaterial(i_layer);
-        if (!checkRegions(entry.second))
-            throw std::runtime_error("DWBAComputation::getAveragedMultilayer: "
-                                     "total volumetric fraction of particles exceeds 1!");
-        auto new_mat = createAveragedMaterial(layer_mat, entry.second);
-        P_result->setLayerMaterial(i_layer, new_mat);
-    }
-    return P_result;
-}
-
-std::unique_ptr<MultiLayer> DWBAComputation::getMultilayerForFresnel() const
-{
-    std::unique_ptr<MultiLayer> P_result = m_sim_options.useAvgMaterials()
-                                           ? getAveragedMultilayer()
-                                           : std::unique_ptr<MultiLayer>(mP_multi_layer->clone());
-    P_result->initBFields();
-    return P_result;
-}
-
 void DWBAComputation::initFresnelMap()
 {
-    auto multilayer = getMultilayerForFresnel();
-    mP_fresnel_map->setMultilayer(*multilayer);
-}
-
-bool DWBAComputation::checkRegions(const std::vector<HomogeneousRegion>& regions) const
-{
-    double total_fraction = 0;
-    for (auto& region : regions)
-        total_fraction += region.m_volume;
-    return (total_fraction >= 0 && total_fraction <= 1);
+    auto region_map = m_single_computation.regionMap();
+    std::unique_ptr<MultiLayer> P_multilayer =
+            m_sim_options.useAvgMaterials()
+                 ? IComputationUtils::CreateAveragedMultilayer(*mP_multi_layer, region_map)
+                 : std::unique_ptr<MultiLayer>(mP_multi_layer->clone());
+    P_multilayer->initBFields();
+    mP_fresnel_map->setMultilayer(*P_multilayer);
 }

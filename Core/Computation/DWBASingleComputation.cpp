@@ -33,6 +33,7 @@ void DWBASingleComputation::setProgressHandler(ProgressHandler* p_progress)
 void DWBASingleComputation::addLayoutComputation(ParticleLayoutComputation* p_layout_comp)
 {
     m_layout_comps.emplace_back(p_layout_comp);
+    p_layout_comp->mergeRegionMap(m_region_map);
 }
 
 void DWBASingleComputation::setRoughnessComputation(RoughMultiLayerComputation* p_roughness_comp)
@@ -61,14 +62,7 @@ void DWBASingleComputation::compute(SimulationElement& elem) const
     }
 }
 
-void DWBASingleComputation::mergeRegionMap(
-        std::map<size_t, std::vector<HomogeneousRegion> >& region_map) const
+const std::map<size_t, std::vector<HomogeneousRegion>>& DWBASingleComputation::regionMap() const
 {
-    for (auto& layout_comp : m_layout_comps) {
-        layout_comp->mergeRegionMap(region_map);
-    }
+    return m_region_map;
 }
-
-static_assert(std::is_move_constructible<DWBASingleComputation>::value,
-              "DWBASingleComputation should be move constructable");
-

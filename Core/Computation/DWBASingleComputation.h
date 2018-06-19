@@ -48,8 +48,8 @@ public:
     void setSpecularBinComputation(GISASSpecularComputation* p_spec_comp);
     void compute(SimulationElement& elem) const;
 
-    //! Merges its region map into the given one (notice non-const reference parameter)
-    void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
+    //! Retrieves a map of regions for the calculation of averaged layers
+    const std::map<size_t, std::vector<HomogeneousRegion>>& regionMap() const;
 
 private:
     std::vector<std::unique_ptr<ParticleLayoutComputation>> m_layout_comps;

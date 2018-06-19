@@ -14,6 +14,7 @@
 
 #include "JobResultsPresenter.h"
 #include "FitComparisonWidget.h"
+#include "GUIHelpers.h"
 #include "IntensityDataProjectionsWidget.h"
 #include "IntensityDataWidget.h"
 #include "JobItem.h"
@@ -22,6 +23,37 @@
 namespace {
 // Will switch to the presentation which was used before for given item
 const bool use_job_last_presentation = true;
+
+const std::map<QString, QString> instrument_to_default_presentaion{
+    {Constants::SpecularInstrumentType, Constants::SpecularDataPresentation},
+    {Constants::GISASInstrumentType, Constants::IntensityDataPresentation},
+    {Constants::OffSpecInstrumentType, Constants::IntensityDataPresentation}};
+
+const std::map<QString, QString> instrument_to_fit_presentaion{
+    {Constants::SpecularInstrumentType, Constants::FitComparisonPresentation1D},
+    {Constants::GISASInstrumentType, Constants::FitComparisonPresentation2D},
+    {Constants::OffSpecInstrumentType, Constants::FitComparisonPresentation2D}};
+
+const std::map<JobViewFlags::EActivities, std::map<QString, QString>> activity_to_presentation{
+    {JobViewFlags::FITTING_ACTIVITY, instrument_to_fit_presentaion},
+    {JobViewFlags::REAL_TIME_ACTIVITY, instrument_to_default_presentaion},
+    {JobViewFlags::JOB_VIEW_ACTIVITY, instrument_to_default_presentaion}};
+
+const std::map<QString, QStringList> default_active_presentation_list{
+    {Constants::SpecularInstrumentType, {Constants::SpecularDataPresentation}},
+    {{Constants::GISASInstrumentType},
+     {Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}},
+    {{Constants::OffSpecInstrumentType},
+     {Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}}};
+
+template<class QStringObj>
+QStringObj getPresentations(const SessionItem* job_item, const std::map<QString, QStringObj>& presentation_map) {
+    const QString& instrument_type = job_item->getItem(JobItem::T_INSTRUMENT)->modelType();
+    const auto list_iter = presentation_map.find(instrument_type);
+    if (list_iter == presentation_map.cend())
+        throw GUIHelpers::Error("Error in JobResultsPresenter::getPresentations: unknown instrument");
+    return list_iter->second;
+}
 }
 
 JobResultsPresenter::JobResultsPresenter(QWidget* parent)
@@ -32,17 +64,15 @@ JobResultsPresenter::JobResultsPresenter(QWidget* parent)
     registerWidget(Constants::IntensityProjectionsPresentation,
                    create_new<IntensityDataProjectionsWidget>);
 
-    registerWidget(Constants::FitComparisonPresentation, create_new<FitComparisonWidget>);
+    registerWidget(Constants::FitComparisonPresentation2D, create_new<FitComparisonWidget>);
 
     registerWidget(Constants::SpecularDataPresentation, create_new<SpecularDataWidget>);
 }
 
 QString JobResultsPresenter::itemPresentation() const
 {
-    if (use_job_last_presentation)
-        return currentItem()->getItemValue(JobItem::P_PRESENTATION_TYPE).toString();
-    else
-        return selectedPresentation();
+    const auto& value = currentItem()->getItemValue(JobItem::P_PRESENTATION_TYPE);
+    return use_job_last_presentation && value.isValid() ? value.toString() : selectedPresentation();
 }
 
 void JobResultsPresenter::setPresentation(const QString& presentationType)
@@ -51,11 +81,14 @@ void JobResultsPresenter::setPresentation(const QString& presentationType)
     currentItem()->setItemValue(JobItem::P_PRESENTATION_TYPE, presentationType);
 }
 
-void JobResultsPresenter::setDefaultPresentation()
+void JobResultsPresenter::setPresentation(JobViewFlags::EActivities activity)
 {
-    auto job_item = dynamic_cast<JobItem*>(currentItem());
-    Q_ASSERT(job_item);
-    setPresentation(job_item->defaultPresentationType());
+    auto iter = activity_to_presentation.find(activity);
+    if (iter == activity_to_presentation.cend())
+        throw GUIHelpers::Error(
+            "Error in JobResultsPresenter::setPresentation: unknown activity.");
+
+    setPresentation(getPresentations(currentItem(), iter->second));
 }
 
 //! Returns list of presentation types, available for given item. JobItem with fitting abilities
@@ -63,28 +96,19 @@ void JobResultsPresenter::setDefaultPresentation()
 
 QStringList JobResultsPresenter::activePresentationList(SessionItem* item)
 {
-    JobItem* jobItem = dynamic_cast<JobItem*>(item);
+    auto result = getPresentations(item, default_active_presentation_list);
 
-    QStringList result = presentationList(jobItem);
-
-    if (!jobItem->isValidForFitting())
-        result.removeAll(Constants::FitComparisonPresentation);
+    auto job_item = dynamic_cast<JobItem*>(item);
+    if (job_item && job_item->isValidForFitting())
+        result << getPresentations(item, instrument_to_fit_presentaion);
 
     return result;
 }
 
 QStringList JobResultsPresenter::presentationList(SessionItem* item)
 {
-    Q_ASSERT(item->modelType() == Constants::JobItemType);
+    auto result = getPresentations(item, default_active_presentation_list);
+    result << getPresentations(item, instrument_to_fit_presentaion);
 
-    auto job_item = dynamic_cast<JobItem*>(item);
-    Q_ASSERT(job_item);
-
-    QStringList result;
-    if (job_item->defaultPresentationType() == Constants::SpecularDataPresentation)
-        result << Constants::SpecularDataPresentation;
-    else
-        result << Constants::IntensityDataPresentation
-               << Constants::IntensityProjectionsPresentation;
-    return result << Constants::FitComparisonPresentation;
+    return result;
 }

@@ -160,7 +160,7 @@ void Instrument2DItem::clearMasks()
     detectorItem()->clearMasks();
 }
 
-void Instrument2DItem::importMasks(MaskContainerItem* maskContainer)
+void Instrument2DItem::importMasks(const MaskContainerItem* maskContainer)
 {
     detectorItem()->importMasks(maskContainer);
 }

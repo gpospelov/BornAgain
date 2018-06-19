@@ -133,6 +133,13 @@ QString RealDataItem::underlyingDataModel()
     return dataItem()->modelType();
 }
 
+MaskContainerItem* RealDataItem::maskContainerItem()
+{
+    if (auto intensity_data = intensityDataItem())
+        return intensity_data->maskContainerItem();
+    return nullptr;
+}
+
 //! Updates the name of file to store intensity data.
 
 void RealDataItem::updateIntensityDataFileName()

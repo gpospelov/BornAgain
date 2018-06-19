@@ -20,6 +20,7 @@
 class DataItem;
 class InstrumentItem;
 class IntensityDataItem;
+class MaskContainerItem;
 template <class T> class OutputData;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
@@ -48,6 +49,9 @@ public:
 
     //! Returns the model type of the underlying data item
     QString underlyingDataModel();
+
+    //! Returns mask container item
+    MaskContainerItem* maskContainerItem();
 
 private:
     void updateIntensityDataFileName();

@@ -80,9 +80,6 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
             customEditor->setData(index.data());
             connect(customEditor, &CustomEditor::dataChanged,
                     this, &SessionModelDelegate::onCustomEditorDataChanged);
-        } else {
-            // Int and Double will be handled by standard spin boxes
-            // QStyledItemDelegate already knows how to handle it, no special connections are required
         }
     } else {
         result = QStyledItemDelegate::createEditor(parent, option, index);

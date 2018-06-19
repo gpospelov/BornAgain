@@ -28,7 +28,6 @@
 #include <cmath>
 
 namespace {
-QWidget* createCustomIntEditor(const SessionItem& item);
 QWidget* createCustomStringEditor(const SessionItem& item);
 
 bool isDoubleProperty(const QVariant& variant)
@@ -108,7 +107,10 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
         }
     }
     else if(isIntProperty(item.value())) {
-        result = createCustomIntEditor(item);
+        auto editor = new IntEditor;
+        editor->setLimits(item.limits());
+        editor->setData(item.value());
+        result = editor;
     }
     else if(isBoolProperty(item.value())) {
         auto editor = new BoolEditor;
@@ -139,26 +141,6 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
 
 
 namespace {
-
-QWidget* createCustomIntEditor(const SessionItem& item)
-{
-    auto result = new QSpinBox;
-    result->setFocusPolicy(Qt::StrongFocus);
-//    result->installEventFilter(new WheelEventEater(result));
-
-    result->setMaximum(std::numeric_limits<int>::max());
-    result->setKeyboardTracking(true);
-
-    RealLimits limits = item.limits();
-    if (limits.hasLowerLimit())
-        result->setMinimum(static_cast<int>(limits.getLowerLimit()));
-    if (limits.hasUpperLimit())
-        result->setMaximum(static_cast<int>(limits.getUpperLimit()));
-
-    result->setValue(item.value().toInt());
-
-    return result;
-}
 
 QWidget* createCustomStringEditor(const SessionItem& item)
 {

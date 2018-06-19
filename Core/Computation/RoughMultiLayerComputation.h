@@ -24,7 +24,7 @@ class SimulationElement;
 //! Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
-class RoughMultiLayerComputation final : public IComputationTerm
+class RoughMultiLayerComputation final
 {
 public:
     RoughMultiLayerComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
@@ -32,6 +32,7 @@ public:
     void compute(SimulationElement& elem) const;
 
 private:
+    IComputationTerm m_multilayer_info;
     complex_t get_refractive_term(size_t ilayer, double wavelength) const;
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element) const;
 };

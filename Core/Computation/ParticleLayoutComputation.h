@@ -32,13 +32,13 @@ class SimulationOptions;
 //! Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
-class ParticleLayoutComputation final : public IComputationTerm
+class ParticleLayoutComputation final
 {
 public:
-    ParticleLayoutComputation(
-        const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map, const ILayout* p_layout,
-        size_t layer_index, const SimulationOptions& options, bool polarized);
-    ~ParticleLayoutComputation() override;
+    ParticleLayoutComputation(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map,
+                              const ILayout* p_layout, size_t layer_index,
+                              const SimulationOptions& options, bool polarized);
+    ~ParticleLayoutComputation();
 
     void compute(SimulationElement& elem) const;
 
@@ -46,6 +46,7 @@ public:
     void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
 
 private:
+    IComputationTerm m_multilayer_info;
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;

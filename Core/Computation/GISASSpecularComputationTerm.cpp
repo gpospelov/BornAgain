@@ -20,16 +20,18 @@
 
 GISASSpecularComputationTerm::GISASSpecularComputationTerm(const MultiLayer* p_multi_layer,
                                                            const IFresnelMap* p_fresnel_map)
-    : IComputationTerm(p_multi_layer, p_fresnel_map)
+    : m_multilayer_info(p_multi_layer, p_fresnel_map)
 {}
 
 void GISASSpecularComputationTerm::compute(SimulationElement& elem) const
 {
-    if (mp_multilayer->requiresMatrixRTCoefficients())
+    auto p_multilayer = m_multilayer_info.mp_multilayer;
+    if (p_multilayer->requiresMatrixRTCoefficients())
         return;
 
+    auto p_fresnel_map = m_multilayer_info.mp_fresnel_map;
     if (elem.isSpecular()) {
-        complex_t R = mp_fresnel_map->getInCoefficients(elem, 0)->getScalarR();
+        complex_t R = p_fresnel_map->getInCoefficients(elem, 0)->getScalarR();
         double sin_alpha_i = std::abs(std::sin(elem.getAlphaI()));
         if (sin_alpha_i == 0.0)
             sin_alpha_i = 1.0;

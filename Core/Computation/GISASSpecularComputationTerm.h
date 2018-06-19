@@ -23,12 +23,14 @@ class SimulationElement;
 //! Computes the specular scattering. Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
-class GISASSpecularComputationTerm final : public IComputationTerm
+class GISASSpecularComputationTerm final
 {
 public:
     GISASSpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
     void compute(SimulationElement& elem) const;
+private:
+    IComputationTerm m_multilayer_info;
 };
 
 #endif // GISASSPECULARCOMPUTATIONTERM_H_

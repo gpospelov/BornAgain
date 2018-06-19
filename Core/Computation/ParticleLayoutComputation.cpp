@@ -26,9 +26,9 @@
 ParticleLayoutComputation::ParticleLayoutComputation(
         const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map, const ILayout* p_layout,
         size_t layer_index, const SimulationOptions& options, bool polarized)
-    : IComputationTerm(p_multilayer, p_fresnel_map)
+    : m_multilayer_info(p_multilayer, p_fresnel_map)
 {
-    LayoutStrategyBuilder builder(mp_multilayer, p_layout, mp_fresnel_map,
+    LayoutStrategyBuilder builder(p_multilayer, p_layout, p_fresnel_map,
                                   polarized, options, layer_index);
     mP_strategy.reset(builder.releaseStrategy());
     m_region_map = builder.regionMap();
@@ -39,8 +39,9 @@ ParticleLayoutComputation::~ParticleLayoutComputation() =default;
 
 void ParticleLayoutComputation::compute(SimulationElement& elem) const
 {
+    auto p_multilayer = m_multilayer_info.mp_multilayer;
     double alpha_f = elem.getAlphaMean();
-    size_t n_layers = mp_multilayer->numberOfLayers();
+    size_t n_layers = p_multilayer->numberOfLayers();
     if (n_layers > 1 && alpha_f < 0) {
         return; // zero for transmission with multilayers (n>1)
     } else {

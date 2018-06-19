@@ -29,7 +29,6 @@ public:
     IComputationTerm(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map);
     virtual ~IComputationTerm();
 
-protected:
     const MultiLayer* mp_multilayer;
     const IFresnelMap* mp_fresnel_map;
 };

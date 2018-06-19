@@ -17,6 +17,7 @@
 #include "PropertyEditorFactory.h"
 #include "CustomEditors.h"
 #include "SessionFlags.h"
+#include "CustomEventFilters.h"
 #include <QApplication>
 #include <QLocale>
 
@@ -75,14 +76,14 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 {
     auto result = createEditorFromIndex(index, parent);
 
+    auto filter = new TabFromFocusProxy(result);
+    Q_UNUSED(filter);
+
     if (result) {
         if(auto customEditor = dynamic_cast<CustomEditor*>(result)) {
             customEditor->setData(index.data());
             connect(customEditor, &CustomEditor::dataChanged,
                     this, &SessionModelDelegate::onCustomEditorDataChanged);
-        } else {
-            // Int and Double will be handled by standard spin boxes
-            // QStyledItemDelegate already knows how to handle it, no special connections are required
         }
     } else {
         result = QStyledItemDelegate::createEditor(parent, option, index);

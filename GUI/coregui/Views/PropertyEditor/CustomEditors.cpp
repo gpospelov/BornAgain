@@ -30,6 +30,8 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QApplication>
+#include <cmath>
+
 
 namespace {
 //! Single step for QDoubleSpinBox.

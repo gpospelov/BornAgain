@@ -25,7 +25,6 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <limits>
-#include <cmath>
 
 namespace {
 QWidget* createCustomStringEditor(const SessionItem& item);

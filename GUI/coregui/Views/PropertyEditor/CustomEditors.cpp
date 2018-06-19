@@ -27,6 +27,9 @@
 #include <QLineEdit>
 #include <QCheckBox>
 #include <QDoubleSpinBox>
+#include <QEvent>
+#include <QKeyEvent>
+#include <QApplication>
 
 namespace {
 //! Single step for QDoubleSpinBox.
@@ -45,6 +48,7 @@ void CustomEditor::setData(const QVariant& data)
     m_data = data;
     initEditor();
 }
+
 
 //! Inits editor widgets from m_data.
 
@@ -259,6 +263,7 @@ DoubleEditor::DoubleEditor(QWidget* parent)
     , m_doubleEditor(new QDoubleSpinBox)
 {
     setAutoFillBackground(true);
+    setFocusPolicy(Qt::StrongFocus);
     m_doubleEditor->setFocusPolicy(Qt::StrongFocus);
     m_doubleEditor->setKeyboardTracking(false);
 
@@ -273,6 +278,8 @@ DoubleEditor::DoubleEditor(QWidget* parent)
             [=] { this->onEditingFinished(); });
 
     setLayout(layout);
+
+    setFocusProxy(m_doubleEditor);
 }
 
 void DoubleEditor::setLimits(const RealLimits& limits)
@@ -327,6 +334,8 @@ IntEditor::IntEditor(QWidget* parent)
             [=] { this->onEditingFinished(); });
 
     setLayout(layout);
+
+    setFocusProxy(m_intEditor);
 }
 
 void IntEditor::setLimits(const RealLimits& limits)

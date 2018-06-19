@@ -95,11 +95,8 @@ const SessionItem* PropertyWidgetItem::item()
 
 void PropertyWidgetItem::connectEditor(QWidget* editor)
 {
-    if (auto customEditor = dynamic_cast<ComboPropertyEditor*>(editor)) {
-        connect(customEditor, &ComboPropertyEditor::dataChanged,
-                [=] { m_delegate->commitData(customEditor); });
-    } else if (auto customEditor = dynamic_cast<ScientificDoublePropertyEditor*>(editor)) {
-        connect(customEditor, &ScientificDoublePropertyEditor::dataChanged,
-                [=] { m_delegate->commitData(customEditor); });
+    if (auto customEditor = dynamic_cast<CustomEditor*>(editor)) {
+        connect(customEditor, &CustomEditor::dataChanged,
+                m_delegate, &SessionModelDelegate::onCustomEditorDataChanged);
     }
 }

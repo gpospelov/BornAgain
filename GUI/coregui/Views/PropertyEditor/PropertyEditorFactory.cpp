@@ -28,16 +28,8 @@
 #include <cmath>
 
 namespace {
-QWidget* createCustomDoubleEditor(const SessionItem& item);
 QWidget* createCustomIntEditor(const SessionItem& item);
 QWidget* createCustomStringEditor(const SessionItem& item);
-
-//! Single step for QDoubleSpinBox.
-
-double singleStep(const SessionItem& item) {
-    // For item with decimals=3 (i.e. 0.001) single step will be 0.1
-    return 1. / std::pow(10., item.decimals() - 1);
-}
 
 bool isDoubleProperty(const QVariant& variant)
 {
@@ -108,7 +100,11 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             editor->setData(item.value());
             result = editor;
         } else {
-            result = createCustomDoubleEditor(item);
+            auto editor = new DoubleEditor;
+            editor->setLimits(item.limits());
+            editor->setDecimals(item.decimals());
+            editor->setData(item.value());
+            result = editor;
         }
     }
     else if(isIntProperty(item.value())) {
@@ -143,30 +139,6 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
 
 
 namespace {
-
-QWidget* createCustomDoubleEditor(const SessionItem& item)
-{
-    auto result = new QDoubleSpinBox;
-    result->setKeyboardTracking(true);
-
-    result->setFocusPolicy(Qt::StrongFocus);
-//    result->installEventFilter(new WheelEventEater(result));
-
-    result->setMaximum(std::numeric_limits<double>::max());
-    result->setMinimum(std::numeric_limits<double>::lowest());
-
-    result->setDecimals(item.decimals());
-    result->setSingleStep(singleStep(item));
-
-    RealLimits limits = item.limits();
-    if (limits.hasLowerLimit())
-        result->setMinimum(limits.getLowerLimit());
-    if (limits.hasUpperLimit())
-        result->setMaximum(limits.getUpperLimit());
-
-    result->setValue(item.value().toDouble());
-    return result;
-}
 
 QWidget* createCustomIntEditor(const SessionItem& item)
 {

@@ -115,6 +115,27 @@ private:
     class QDoubleValidator* m_validator;
 };
 
+//! Editor for Double variant.
+
+class BA_CORE_API_ DoubleEditor : public CustomEditor
+{
+    Q_OBJECT
+public:
+    DoubleEditor(QWidget *parent = nullptr);
+
+    void setLimits(const RealLimits& limits);
+    void setDecimals(int decimals);
+
+private slots:
+    void onEditingFinished();
+
+protected:
+    void initEditor();
+
+private:
+    class QDoubleSpinBox* m_doubleEditor;
+};
+
 //! Editor for boolean.
 
 class QCheckBox;

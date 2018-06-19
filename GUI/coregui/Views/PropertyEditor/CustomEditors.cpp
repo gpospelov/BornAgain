@@ -26,6 +26,17 @@
 #include <QColorDialog>
 #include <QLineEdit>
 #include <QCheckBox>
+#include <QDoubleSpinBox>
+
+namespace {
+//! Single step for QDoubleSpinBox.
+
+double singleStep(int decimals) {
+    // For item with decimals=3 (i.e. 0.001) single step will be 0.1
+    return 1. / std::pow(10., decimals - 1);
+}
+
+}
 
 //! Sets the data from the model to editor.
 
@@ -239,6 +250,60 @@ void ScientificDoublePropertyEditor::initEditor()
 {
     Q_ASSERT(m_data.type() == QVariant::Double);
     m_lineEdit->setText(QString::number(m_data.toDouble(), 'g'));
+}
+
+// --- DoubleEditor ---
+
+DoubleEditor::DoubleEditor(QWidget* parent)
+    : CustomEditor(parent)
+    , m_doubleEditor(new QDoubleSpinBox)
+{
+    setAutoFillBackground(true);
+    m_doubleEditor->setFocusPolicy(Qt::StrongFocus);
+    m_doubleEditor->setKeyboardTracking(false);
+
+    auto layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
+    layout->addWidget(m_doubleEditor);
+
+    connect(m_doubleEditor,
+            static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
+            [=] { this->onEditingFinished(); });
+
+    setLayout(layout);
+}
+
+void DoubleEditor::setLimits(const RealLimits& limits)
+{
+    m_doubleEditor->setMaximum(std::numeric_limits<double>::max());
+    m_doubleEditor->setMinimum(std::numeric_limits<double>::lowest());
+
+    if (limits.hasLowerLimit())
+        m_doubleEditor->setMinimum(limits.getLowerLimit());
+    if (limits.hasUpperLimit())
+        m_doubleEditor->setMaximum(static_cast<int>(limits.getUpperLimit()));
+}
+
+void DoubleEditor::setDecimals(int decimals)
+{
+    m_doubleEditor->setDecimals(decimals);
+    m_doubleEditor->setSingleStep(singleStep(decimals));
+}
+
+void DoubleEditor::onEditingFinished()
+{
+    double new_value = m_doubleEditor->value();
+
+    if(new_value != m_data.toDouble())
+        setDataIntern(QVariant::fromValue(new_value));
+}
+
+void DoubleEditor::initEditor()
+{
+    Q_ASSERT(m_data.type() == QVariant::Double);
+    m_doubleEditor->setValue(m_data.toDouble());
 }
 
 // --- BoolEditor ---

@@ -46,7 +46,7 @@ public:
     void addLayoutComputation(ParticleLayoutComputation* p_layout_comp);
     void setRoughnessComputation(RoughMultiLayerComputation* p_roughness_comp);
     void setSpecularBinComputation(GISASSpecularComputation* p_spec_comp);
-    void operator()(SimulationElement& elem) const;
+    void compute(SimulationElement& elem) const;
 
     //! Merges its region map into the given one (notice non-const reference parameter)
     void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;

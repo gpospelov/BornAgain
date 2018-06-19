@@ -45,7 +45,7 @@ void DWBASingleComputation::setSpecularBinComputation(GISASSpecularComputation* 
     mP_spec_comp.reset(p_spec_comp);
 }
 
-void DWBASingleComputation::operator()(SimulationElement& elem) const
+void DWBASingleComputation::compute(SimulationElement& elem) const
 {
     for (auto& layout_comp : m_layout_comps) {
         layout_comp->compute(elem);

@@ -71,7 +71,7 @@ void DWBAComputation::runProtected()
     if (!mp_progress->alive())
         return;
     for (auto it=m_begin_it; it != m_end_it; ++it) {
-        m_single_computation(*it);
+        m_single_computation.compute(*it);
     }
 }
 

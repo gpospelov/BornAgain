@@ -99,9 +99,6 @@ public:
     FitParameterContainerItem* fitParameterContainerItem();
     RealDataItem* realDataItem();
 
-    QString presentationType();
-    QString defaultPresentationType();
-
 private:
     void updateIntensityDataFileName();
     const SimulationOptionsItem* simulationOptionsItem() const;

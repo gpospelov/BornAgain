@@ -274,7 +274,8 @@ const ModelType AVERAGE_LAYER_MATERIAL = "Average Layer Material";
 const QString IntensityDataPresentation = "Color Map";
 const QString SpecularDataPresentation = "Reflectometry";
 const QString IntensityProjectionsPresentation = "Projections";
-const QString FitComparisonPresentation = "Fit Data";
+const QString FitComparisonPresentation2D = "Fit 2D Data";
+const QString FitComparisonPresentation1D = "Fit 1D Data";
 const QString MaskEditorPresentation = "Mask Editor";
 
 // --- Custom variants ----------------------------------------------------------

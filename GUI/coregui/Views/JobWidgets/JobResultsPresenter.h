@@ -16,6 +16,7 @@
 #define JOBRESULTSPRESENTER_H
 
 #include "ItemComboWidget.h"
+#include "JobViewFlags.h"
 
 //! Presents results of job (JobItem) using stack of different widgets and combo box in the
 //! right top corner of JobView, to switch between widgets.
@@ -25,10 +26,10 @@ class BA_CORE_API_ JobResultsPresenter : public ItemComboWidget
     Q_OBJECT
 
 public:
-    explicit JobResultsPresenter(QWidget* parent = 0);
+    explicit JobResultsPresenter(QWidget* parent = nullptr);
 
     void setPresentation(const QString& presentationType) override;
-    void setDefaultPresentation();
+    void setPresentation(JobViewFlags::EActivities activity);
 
 protected:
     QString itemPresentation() const override;

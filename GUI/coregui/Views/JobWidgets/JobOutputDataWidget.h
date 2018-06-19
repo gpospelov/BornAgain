@@ -16,7 +16,6 @@
 #define JOBOUTPUTDATAWIDGET_H
 
 #include "ItemStackPresenter.h"
-#include <QMap>
 
 class JobResultsPresenter;
 class JobModel;
@@ -28,17 +27,17 @@ class BA_CORE_API_ JobOutputDataWidget : public QWidget
 {
     Q_OBJECT
 public:
-    JobOutputDataWidget(JobModel *jobModel, QWidget *parent = 0);
+    JobOutputDataWidget(JobModel* jobModel, QWidget* parent = nullptr);
 
 public slots:
-    void setItem(JobItem *jobItem);
-    void onActivityChanged(int);
+    void setItem(JobItem* jobItem);
+    void onActivityChanged(int activity);
 
 protected:
-    virtual bool isValidJobItem(JobItem *item);
+    virtual bool isValidJobItem(JobItem* item);
 
 private:
-    ItemStackPresenter<JobResultsPresenter> *m_stackedWidget;
+    ItemStackPresenter<JobResultsPresenter>* m_stackedWidget;
 };
 
 #endif // JOBOUTPUTDATAWIDGET_H

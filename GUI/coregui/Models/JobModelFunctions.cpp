@@ -79,7 +79,6 @@ void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem 
         JobModelFunctions::cropRealData(jobItem);
 
     JobModelFunctions::createFitContainers(jobItem);
-    jobItem->setItemValue(JobItem::P_PRESENTATION_TYPE, Constants::FitComparisonPresentation);
 }
 
 

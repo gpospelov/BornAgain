@@ -306,6 +306,53 @@ void DoubleEditor::initEditor()
     m_doubleEditor->setValue(m_data.toDouble());
 }
 
+// --- IntEditor ---
+
+IntEditor::IntEditor(QWidget* parent)
+    : CustomEditor(parent)
+    , m_intEditor(new QSpinBox)
+{
+    setAutoFillBackground(true);
+    m_intEditor->setFocusPolicy(Qt::StrongFocus);
+    m_intEditor->setKeyboardTracking(false);
+
+    auto layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
+    layout->addWidget(m_intEditor);
+
+    connect(m_intEditor,
+            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+            [=] { this->onEditingFinished(); });
+
+    setLayout(layout);
+}
+
+void IntEditor::setLimits(const RealLimits& limits)
+{
+    m_intEditor->setMaximum(std::numeric_limits<int>::max());
+
+    if (limits.hasLowerLimit())
+        m_intEditor->setMinimum(static_cast<int>(limits.getLowerLimit()));
+    if (limits.hasUpperLimit())
+        m_intEditor->setMaximum(static_cast<int>(limits.getUpperLimit()));
+}
+
+void IntEditor::onEditingFinished()
+{
+    int new_value = m_intEditor->value();
+
+    if(new_value != m_data.toInt())
+        setDataIntern(QVariant::fromValue(new_value));
+}
+
+void IntEditor::initEditor()
+{
+    Q_ASSERT(m_data.type() == QVariant::Int);
+    m_intEditor->setValue(m_data.toInt());
+}
+
 // --- BoolEditor ---
 
 BoolEditor::BoolEditor(QWidget* parent)

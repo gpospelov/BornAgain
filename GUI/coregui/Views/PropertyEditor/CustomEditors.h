@@ -136,6 +136,26 @@ private:
     class QDoubleSpinBox* m_doubleEditor;
 };
 
+//! Editor for Int variant.
+
+class BA_CORE_API_ IntEditor : public CustomEditor
+{
+    Q_OBJECT
+public:
+    IntEditor(QWidget *parent = nullptr);
+
+    void setLimits(const RealLimits& limits);
+
+private slots:
+    void onEditingFinished();
+
+protected:
+    void initEditor();
+
+private:
+    class QSpinBox* m_intEditor;
+};
+
 //! Editor for boolean.
 
 class QCheckBox;

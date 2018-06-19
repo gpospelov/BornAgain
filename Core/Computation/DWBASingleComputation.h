@@ -21,7 +21,7 @@
 #include <vector>
 
 class DelayedProgressCounter;
-class GISASSpecularComputationTerm;
+class GISASSpecularComputation;
 class ParticleLayoutComputation;
 class ProgressHandler;
 class RoughMultiLayerComputation;
@@ -45,7 +45,7 @@ public:
 
     void addLayoutComputation(ParticleLayoutComputation* p_layout_comp);
     void setRoughnessComputation(RoughMultiLayerComputation* p_roughness_comp);
-    void setSpecularBinComputation(GISASSpecularComputationTerm* p_spec_comp);
+    void setSpecularBinComputation(GISASSpecularComputation* p_spec_comp);
     void operator()(SimulationElement& elem) const;
 
     //! Merges its region map into the given one (notice non-const reference parameter)
@@ -54,7 +54,7 @@ public:
 private:
     std::vector<std::unique_ptr<ParticleLayoutComputation>> m_layout_comps;
     std::unique_ptr<RoughMultiLayerComputation> mP_roughness_comp;
-    std::unique_ptr<GISASSpecularComputationTerm> mP_spec_comp;
+    std::unique_ptr<GISASSpecularComputation> mP_spec_comp;
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };

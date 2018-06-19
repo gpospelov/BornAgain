@@ -14,7 +14,7 @@
 
 #include "DWBASingleComputation.h"
 #include "DelayedProgressCounter.h"
-#include "GISASSpecularComputationTerm.h"
+#include "GISASSpecularComputation.h"
 #include "ParticleLayoutComputation.h"
 #include "RoughMultiLayerComputation.h"
 
@@ -40,7 +40,7 @@ void DWBASingleComputation::setRoughnessComputation(RoughMultiLayerComputation* 
     mP_roughness_comp.reset(p_roughness_comp);
 }
 
-void DWBASingleComputation::setSpecularBinComputation(GISASSpecularComputationTerm* p_spec_comp)
+void DWBASingleComputation::setSpecularBinComputation(GISASSpecularComputation* p_spec_comp)
 {
     mP_spec_comp.reset(p_spec_comp);
 }

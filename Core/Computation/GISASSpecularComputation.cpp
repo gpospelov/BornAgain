@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/NormalizingSpecularComputationTerm.cpp
-//! @brief     Implements class NormalizingSpecularComputationTerm.
+//! @file      Core/Computation/GISASSpecularComputation.cpp
+//! @brief     Implements class GISASSpecularComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,18 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "GISASSpecularComputationTerm.h"
+#include "GISASSpecularComputation.h"
 #include "IFresnelMap.h"
 #include "ILayerRTCoefficients.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
 
-GISASSpecularComputationTerm::GISASSpecularComputationTerm(const MultiLayer* p_multi_layer,
+GISASSpecularComputation::GISASSpecularComputation(const MultiLayer* p_multi_layer,
                                                            const IFresnelMap* p_fresnel_map)
     : m_multilayer_info(p_multi_layer, p_fresnel_map)
 {}
 
-void GISASSpecularComputationTerm::compute(SimulationElement& elem) const
+void GISASSpecularComputation::compute(SimulationElement& elem) const
 {
     auto p_multilayer = m_multilayer_info.mp_multilayer;
     if (p_multilayer->requiresMatrixRTCoefficients())

@@ -15,7 +15,7 @@
 #ifndef PARTICLELAYOUTCOMPUTATION_H
 #define PARTICLELAYOUTCOMPUTATION_H
 
-#include "IComputationTerm.h"
+#include "MultilayerInfo.h"
 #include "SlicedParticle.h"
 #include <map>
 #include <memory>
@@ -46,7 +46,7 @@ public:
     void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
 
 private:
-    IComputationTerm m_multilayer_info;
+    MultilayerInfo m_multilayer_info;
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;

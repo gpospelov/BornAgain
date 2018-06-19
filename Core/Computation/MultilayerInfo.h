@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/IComputationTerm.h
-//! @brief     Defines interface IComputationTerm.
+//! @file      Core/Computation/MultilayerInfo.h
+//! @brief     Defines struct MultilayerInfo.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,25 +12,25 @@
 //
 // ************************************************************************** //
 
-#ifndef ICOMPUTATIONTERM_H
-#define ICOMPUTATIONTERM_H
+#ifndef MULTILAYERINFO_H
+#define MULTILAYERINFO_H
 
 class IFresnelMap;
 class MultiLayer;
 
-//! Computes an independent term of the scattering intensity.
-//! Used by DWBAComputation, which adds up all contributions from subclasses
-//! of IComputationTerm
+//! Container struct for information regarding a multilayer: Fresnel coefficients and the
+//! multilayer itself.
+//! Used by the components of DWBASingleComputation, which adds up the contributions from
+//! particles, roughness and specular signal
 //! @ingroup algorithms_internal
 
-class IComputationTerm
+struct MultilayerInfo
 {
-public:
-    IComputationTerm(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map);
-    virtual ~IComputationTerm();
+    MultilayerInfo(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map)
+        : mp_multilayer(p_multilayer) , mp_fresnel_map(p_fresnel_map) {}
 
     const MultiLayer* mp_multilayer;
     const IFresnelMap* mp_fresnel_map;
 };
 
-#endif // ICOMPUTATIONTERM_H
+#endif // MULTILAYERINFO_H

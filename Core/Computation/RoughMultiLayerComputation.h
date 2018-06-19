@@ -16,7 +16,7 @@
 #define ROUGHMULTILAYERCOMPUTATION_H
 
 #include "Complex.h"
-#include "IComputationTerm.h"
+#include "MultilayerInfo.h"
 
 class SimulationElement;
 
@@ -32,7 +32,7 @@ public:
     void compute(SimulationElement& elem) const;
 
 private:
-    IComputationTerm m_multilayer_info;
+    MultilayerInfo m_multilayer_info;
     complex_t get_refractive_term(size_t ilayer, double wavelength) const;
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element) const;
 };

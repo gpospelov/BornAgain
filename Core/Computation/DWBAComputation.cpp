@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "DWBAComputation.h"
-#include "GISASSpecularComputationTerm.h"
+#include "GISASSpecularComputation.h"
 #include "IComputationUtils.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
@@ -54,7 +54,7 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
                     new RoughMultiLayerComputation(mP_multi_layer.get(), mP_fresnel_map.get()));
     if (m_sim_options.includeSpecular())
         m_single_computation.setSpecularBinComputation(
-                    new GISASSpecularComputationTerm(mP_multi_layer.get(), mP_fresnel_map.get()));
+                    new GISASSpecularComputation(mP_multi_layer.get(), mP_fresnel_map.get()));
     initFresnelMap();
 }
 

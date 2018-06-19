@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/GISASSpecularComputationTerm.h
-//! @brief     Defines class GISASSpecularComputationTerm.
+//! @file      Core/Computation/GISASSpecularComputation.h
+//! @brief     Defines class GISASSpecularComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,25 +12,25 @@
 //
 // ************************************************************************** //
 
-#ifndef GISASSPECULARCOMPUTATIONTERM_H_
-#define GISASSPECULARCOMPUTATIONTERM_H_
+#ifndef GISASSPECULARCOMPUTATION_H_
+#define GISASSPECULARCOMPUTATION_H_
 
-#include "IComputationTerm.h"
+#include "MultilayerInfo.h"
 #include <vector>
 
 class SimulationElement;
 
-//! Computes the specular scattering. Used by DWBAComputation.
+//! Computes the specular signal in the bin where q_parallel = 0. Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
-class GISASSpecularComputationTerm final
+class GISASSpecularComputation final
 {
 public:
-    GISASSpecularComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    GISASSpecularComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
     void compute(SimulationElement& elem) const;
 private:
-    IComputationTerm m_multilayer_info;
+    MultilayerInfo m_multilayer_info;
 };
 
-#endif // GISASSPECULARCOMPUTATIONTERM_H_
+#endif // GISASSPECULARCOMPUTATION_H_

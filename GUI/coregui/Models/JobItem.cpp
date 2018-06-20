@@ -66,7 +66,7 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
 
     addProperty(P_COMMENTS, QString())->setVisible(false);
     addProperty(P_PROGRESS, 0)->setVisible(false);
-    addProperty(P_PRESENTATION_TYPE, Constants::IntensityDataPresentation)->setVisible(false);
+    addProperty(P_PRESENTATION_TYPE, QVariant::Type::Invalid)->setVisible(false);
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
     registerTag(T_INSTRUMENT, 1, 1,

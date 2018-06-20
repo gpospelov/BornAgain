@@ -19,6 +19,8 @@
 #include <vector>
 #include <string>
 
+namespace Fit { class Parameters; }
+
 class IFitParameter;
 
 //! The set of fit parameters.
@@ -70,6 +72,8 @@ class BA_CORE_API_ FitParameterSet
 
     corr_matrix_t correlationMatrix() const { return m_corr_matrix; }
     void setCorrelationMatrix(const corr_matrix_t& matrix);
+
+    Fit::Parameters fitParametersNewKernel() const;
 
 private:
     bool isExistingName(const std::string& name) const;

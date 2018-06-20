@@ -15,6 +15,7 @@
 #include "FitParameterSet.h"
 #include "IFitParameter.h"
 #include "MinimizerUtils.h"
+#include "Parameters.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>
@@ -227,6 +228,18 @@ void FitParameterSet::setCorrelationMatrix(const FitParameterSet::corr_matrix_t&
         throw std::runtime_error("FitParameterSet::setCorrelationMatrix() -> Error. Wrong "
                                  "dimension of correlation matrix.");
     m_corr_matrix = matrix;
+}
+
+//! Refactoring temp: returns set of new fit parameters.
+
+Fit::Parameters FitParameterSet::fitParametersNewKernel() const
+{
+    Fit::Parameters result;
+
+    for (const auto par: m_parameters)
+        result.add(Fit::Parameter(par->name(), par->value(), par->limits(), par->step()));
+
+    return result;
 }
 
 //! Returns true if parameter with such name exists.

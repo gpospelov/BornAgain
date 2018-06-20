@@ -27,7 +27,6 @@ class PropertyRepeater;
 
 class BA_CORE_API_ FitComparisonController : public QObject
 {
-    Q_OBJECT
 public:
     explicit FitComparisonController(QObject* parent = nullptr);
 
@@ -36,8 +35,6 @@ public:
     void setItems(IntensityDataItem* realDataItem, IntensityDataItem* simDataItem);
 
     void clear();
-
-    void setActive(bool isActive);
 
 private:
     void createRelativeDifferenceItem();

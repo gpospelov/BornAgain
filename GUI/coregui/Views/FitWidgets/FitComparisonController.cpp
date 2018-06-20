@@ -67,14 +67,6 @@ void FitComparisonController::clear()
     m_zAxisRepeater->clear();
 }
 
-void FitComparisonController::setActive(bool isActive)
-{
-    m_appearanceRepeater->setActive(isActive);
-    m_xAxisRepeater->setActive(isActive);
-    m_yAxisRepeater->setActive(isActive);
-    m_zAxisRepeater->setActive(isActive);
-}
-
 void FitComparisonController::createRelativeDifferenceItem()
 {
     m_tempIntensityDataModel->clear();

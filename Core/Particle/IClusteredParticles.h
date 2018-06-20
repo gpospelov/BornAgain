@@ -16,7 +16,7 @@
 #define ICLUSTEREDPARTICLES_H
 
 #include "ISample.h"
-#include "SlicedParticle.h"
+#include "HomogeneousRegion.h"
 #include "Vectors3D.h"
 
 class IFormFactor;

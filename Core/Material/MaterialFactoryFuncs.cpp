@@ -15,7 +15,7 @@
 #include "MaterialFactoryFuncs.h"
 #include "MaterialBySLDImpl.h"
 #include "RefractiveMaterialImpl.h"
-#include "SlicedParticle.h"
+#include "HomogeneousRegion.h"
 #include "MaterialUtils.h"
 #include "Units.h"
 #include <functional>
@@ -62,7 +62,7 @@ Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag
     return Material(std::move(mat_impl));
 }
 
-Material createAveragedMaterial(const Material& layer_mat,
+Material CreateAveragedMaterial(const Material& layer_mat,
                                 const std::vector<HomogeneousRegion>& regions)
 {
     // determine the type of returned material

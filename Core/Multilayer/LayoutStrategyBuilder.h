@@ -17,7 +17,7 @@
 
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
-#include "SlicedParticle.h"
+#include "HomogeneousRegion.h"
 #include <map>
 #include <memory>
 

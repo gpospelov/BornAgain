@@ -14,7 +14,7 @@
 
 #include "ScalarFunctionAdapter.h"
 #include "KernelTypes.h"
-#include "RootMinimizerFunctions.h"
+#include "RootObjectiveFunction.h"
 
 using namespace Fit;
 

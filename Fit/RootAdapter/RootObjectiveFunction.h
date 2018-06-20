@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/RootMinimizerFunctions.h
-//! @brief     Defines classes RootObjectiveFunction and RootGradientFunction
+//! @file      Fit/RootAdapter/RootObjectiveFunction.h
+//! @brief     Defines classes RootObjectiveFunction
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ROOTMINIMIZERFUNCTIONS_H
-#define ROOTMINIMIZERFUNCTIONS_H
+#ifndef ROOTOBJECTIVEFUNCTION_H
+#define ROOTOBJECTIVEFUNCTION_H
 
 #include "KernelTypes.h"
 
@@ -32,8 +32,7 @@
 class RootObjectiveFunction : public ROOT::Math::Functor
 {
  public:
-    RootObjectiveFunction(root_objective_t fcn, int ndims )
-        : ROOT::Math::Functor(fcn, ndims) {}
+    RootObjectiveFunction(root_objective_t fcn, int ndims);
 };
 
-#endif // ROOTMINIMIZERFUNCTIONS_H
+#endif // ROOTOBJECTIVEFUNCTION_H

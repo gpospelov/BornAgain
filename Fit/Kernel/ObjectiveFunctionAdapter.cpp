@@ -14,7 +14,7 @@
 
 #include "ObjectiveFunctionAdapter.h"
 #include "ResidualFunctionAdapter.h"
-#include "RootMinimizerFunctions.h"
+#include "RootObjectiveFunction.h"
 #include "RootResidualFunction.h"
 #include "ScalarFunctionAdapter.h"
 

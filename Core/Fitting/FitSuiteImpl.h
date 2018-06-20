@@ -16,7 +16,6 @@
 #define FITSUITEIMPL_H
 
 #include "FitOptions.h"
-#include "FitSuiteFunctions.h"
 #include "FitSuiteObjects.h"
 #include "FitParameterSet.h"
 #include "FitSuiteStrategies.h"
@@ -120,8 +119,6 @@ private:
     FitOptions m_fit_options;
     FitSuiteObjects m_fit_objects;
     FitSuiteStrategies m_fit_strategies;
-    FitSuiteChiSquaredFunction m_function_chi2;
-    FitSuiteGradientFunction m_function_gradient;
     bool m_is_last_iteration;
 #ifndef SWIG
     std::atomic<bool> m_is_interrupted;

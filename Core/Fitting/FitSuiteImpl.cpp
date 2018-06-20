@@ -32,8 +32,6 @@ FitSuiteImpl::FitSuiteImpl(const std::function<void()>& notifyObservers)
     , m_iteration_count(0)
     , m_is_gradient_based(false)
 {
-    m_function_chi2.init(this);
-    m_function_gradient.init(this);
     m_fit_strategies.init(this);
 }
 

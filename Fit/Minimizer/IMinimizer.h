@@ -49,13 +49,6 @@ class BA_CORE_API_ IMinimizer
     //! clear resources (parameters) for consecutives minimizations
     virtual void clear() {}
 
-    //! Sets internal minimizer parameters using external parameter list
-    virtual void setParameters(const FitParameterSet& parameters) =0;
-
-    virtual void setObjectiveFunction(objective_function_t ) {}
-
-    virtual void setGradientFunction(gradient_function_t, int ) {}
-
     //! Returns minimum function value
     virtual double minValue() const;
 

@@ -18,7 +18,6 @@
 #include "Math/Minimizer.h"
 #include "MinimizerResultsHelper.h"
 #include "RootMinimizerFunctions.h"
-#include "RootObjectiveFuncAdapter.h"
 #include "StringUtils.h"
 #include "Parameter.h"
 #include "Parameters.h"
@@ -29,7 +28,6 @@ using namespace Fit;
 
 RootMinimizerAdapter::RootMinimizerAdapter(const MinimizerInfo &minimizerInfo)
     :  m_minimizerInfo(minimizerInfo)
-    , m_obj_func(new RootObjectiveFunctionAdapter)
     , m_adapter(new Fit::ObjectiveFunctionAdapter)
     , m_status(false)
 {}
@@ -92,45 +90,11 @@ std::string RootMinimizerAdapter::algorithmName() const
     return m_minimizerInfo.algorithmName();
 }
 
-void RootMinimizerAdapter::setParameters(const FitParameterSet &parameters)
-{
-    m_obj_func->setNumberOfParameters(static_cast<int>(parameters.size()));
-
-    // Genetic minimizer requires SetFunction before setParameters, others don't care
-    if( isGradientBasedAgorithm() ) {
-        rootMinimizer()->SetFunction(*m_obj_func->rootGradientFunction());
-    } else {
-        rootMinimizer()->SetFunction(*m_obj_func->rootChiSquaredFunction());
-    }
-
-    size_t index(0);
-    for (auto par: parameters)
-        setParameter(index++, par );
-
-    if( parameters.size() != fitDimension())  {
-        std::ostringstream ostr;
-        ostr << "BasicMinimizer::setParameters() -> Error! Unconsistency in fit parameter number: ";
-        ostr << "fitParameterCount = " << fitDimension() << ",";
-        ostr << "parameters.size = " << parameters.size();
-        throw std::runtime_error(ostr.str());
-    }
-}
-
 void RootMinimizerAdapter::setParameters(const Fit::Parameters& parameters)
 {
     unsigned int index(0);
     for (const auto& par : parameters)
         setParameter(index++, par );
-}
-
-void RootMinimizerAdapter::setObjectiveFunction(objective_function_t func)
-{
-    m_obj_func->setObjectiveCallback(func);
-}
-
-void RootMinimizerAdapter::setGradientFunction(gradient_function_t func, int ndatasize)
-{
-    m_obj_func->setGradientCallback(func, ndatasize);
 }
 
 double RootMinimizerAdapter::minValue() const

@@ -2324,38 +2324,6 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_clear(self)
 
 
-    def setParameters(self, parameters):
-        """
-        setParameters(IMinimizer self, FitParameterSet parameters)
-
-        virtual void IMinimizer::setParameters(const FitParameterSet &parameters)=0
-
-        Sets internal minimizer parameters using external parameter list. 
-
-        """
-        return _libBornAgainFit.IMinimizer_setParameters(self, parameters)
-
-
-    def setObjectiveFunction(self, arg2):
-        """
-        setObjectiveFunction(IMinimizer self, objective_function_t arg2)
-
-        virtual void IMinimizer::setObjectiveFunction(objective_function_t)
-
-        """
-        return _libBornAgainFit.IMinimizer_setObjectiveFunction(self, arg2)
-
-
-    def setGradientFunction(self, arg2, arg3):
-        """
-        setGradientFunction(IMinimizer self, gradient_function_t arg2, int arg3)
-
-        virtual void IMinimizer::setGradientFunction(gradient_function_t, int)
-
-        """
-        return _libBornAgainFit.IMinimizer_setGradientFunction(self, arg2, arg3)
-
-
     def minValue(self):
         """
         minValue(IMinimizer self) -> double

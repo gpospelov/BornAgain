@@ -21,7 +21,6 @@
 #include <string>
 #include <memory>
 
-class RootObjectiveFunctionAdapter;
 class IFitParameter;
 namespace Fit {
     class Parameters; class Parameter; class ObjectiveFunctionAdapter; class MinimizerResult;
@@ -48,12 +47,7 @@ public:
     //! Returns name of the minimization algorithm.
     std::string algorithmName() const override final;
 
-    void setParameters(const FitParameterSet& parameters) override final;
     void setParameters(const Fit::Parameters& parameters);
-
-    void setObjectiveFunction(objective_function_t func) override final;
-
-    void setGradientFunction(gradient_function_t func, int ndatasize) override final;
 
     double minValue() const override final;
 
@@ -105,7 +99,6 @@ protected:
 private:
     MinimizerOptions m_options;
     MinimizerInfo m_minimizerInfo;
-    std::unique_ptr<RootObjectiveFunctionAdapter> m_obj_func;
     std::unique_ptr<Fit::ObjectiveFunctionAdapter> m_adapter;
     bool m_status;
 };

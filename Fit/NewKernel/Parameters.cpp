@@ -113,6 +113,19 @@ const Parameter& Parameters::operator[](size_t index) const
     return m_parameters[check_index(index)];
 }
 
+Parameters::corr_matrix_t Parameters::correlationMatrix() const
+{
+    return m_corr_matrix;
+}
+
+void Parameters::setCorrelationMatrix(const Parameters::corr_matrix_t& matrix)
+{
+    if(matrix.size() != size())
+        throw std::runtime_error("Parameters::setCorrelationMatrix() -> Error. Wrong "
+                                 "dimension of correlation matrix.");
+    m_corr_matrix = matrix;
+}
+
 bool Parameters::exists(const std::string& name) const
 {
     for (const auto& par: m_parameters)

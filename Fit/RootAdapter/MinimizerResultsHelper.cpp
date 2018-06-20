@@ -100,6 +100,19 @@ std::string MinimizerResultsHelper::reportParameters(const Fit::Parameters& para
                   % par.error();
     }
 
+
+    Fit::Parameters::corr_matrix_t matrix = parameters.correlationMatrix();
+    if(matrix.size()) {
+        result << MinimizerUtils::sectionString("Correlations");
+        for(size_t i=0; i<matrix.size(); ++i) {
+            result << boost::format("#%-2d       ") %i;
+            for(size_t j=0; j<matrix[i].size(); ++j)
+                result << boost::format("%_7.4f    ") % matrix[i][j];
+            result << std::endl;
+        }
+
+    }
+
     return result.str();
 }
 

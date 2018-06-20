@@ -192,6 +192,18 @@ void RootMinimizerAdapter::propagateResults(Fit::Parameters& parameters)
 {
     parameters.setValues(parValuesAtMinimum());
     parameters.setErrors(parErrorsAtMinimum());
+    // sets correlation matrix
+    if(providesError()) {
+        Fit::Parameters::corr_matrix_t matrix;
+        matrix.resize(fitDimension());
+
+        for(unsigned i=0; i<(size_t)fitDimension(); ++i) {
+            matrix[i].resize(fitDimension(), 0.0);
+            for(unsigned j=0; j<(size_t)fitDimension(); ++j)
+                matrix[i][j] = rootMinimizer()->Correlation(i,j);
+        }
+        parameters.setCorrelationMatrix(matrix);
+    }
 }
 
 void RootMinimizerAdapter::setOptions(const std::string &optionString)

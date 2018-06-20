@@ -34,10 +34,8 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOpt
         this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2) )
 {}
 
-IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
-{} // needs class definitions => don't move to .h
+IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() =default;
 
-//! Initializes the object with form factors and interference functions
 void IInterferenceFunctionStrategy::init(
     const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff)
@@ -114,3 +112,6 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
     SimulationElement sim_element(*pars, par0, par1);
     return pars->getIntegrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
 }
+
+void IInterferenceFunctionStrategy::strategy_specific_post_init()
+{}

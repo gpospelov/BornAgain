@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/RootObjectiveFuncAdapter.h
-//! @brief     Declares class RootObjectiveFunctionAdapter.
+//! @file      Fit/RootAdapter/ObjectiveFunctionAdapter.h
+//! @brief     Declares class ObjectiveFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,7 @@
 #include "KernelTypes.h"
 #include <memory>
 
-class RootObjectiveFunction;
+class RootScalarFunction;
 class RootResidualFunction;
 
 namespace Fit {
@@ -35,7 +35,7 @@ public:
     ObjectiveFunctionAdapter();
     ~ObjectiveFunctionAdapter();
 
-    const RootObjectiveFunction* rootObjectiveFunction(fcn_scalar_t fcn,
+    const RootScalarFunction* rootObjectiveFunction(fcn_scalar_t fcn,
                                                        const Parameters& parameters);
 
     const RootResidualFunction* rootResidualFunction(fcn_residual_t fcn,

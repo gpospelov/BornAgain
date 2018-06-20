@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/RootObjectiveFuncAdapter.cpp
-//! @brief     Implements class RootObjectiveFunctionAdapter.
+//! @file      Fit/RootAdapter/ObjectiveFunctionAdapter.cpp
+//! @brief     Implements class ObjectiveFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,7 +14,7 @@
 
 #include "ObjectiveFunctionAdapter.h"
 #include "ResidualFunctionAdapter.h"
-#include "RootObjectiveFunction.h"
+#include "RootScalarFunction.h"
 #include "RootResidualFunction.h"
 #include "ScalarFunctionAdapter.h"
 
@@ -24,7 +24,7 @@ ObjectiveFunctionAdapter::ObjectiveFunctionAdapter() = default;
 
 ObjectiveFunctionAdapter::~ObjectiveFunctionAdapter() = default;
 
-const RootObjectiveFunction*
+const RootScalarFunction*
 ObjectiveFunctionAdapter::rootObjectiveFunction(fcn_scalar_t fcn, const Parameters& parameters)
 {
     std::unique_ptr<ScalarFunctionAdapter> temp_adapter(new ScalarFunctionAdapter(fcn, parameters));

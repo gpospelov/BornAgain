@@ -22,7 +22,7 @@
 #include <vector>
 #include <memory>
 
-class RootObjectiveFunction;
+class RootScalarFunction;
 
 namespace Fit {
 
@@ -36,12 +36,12 @@ class ScalarFunctionAdapter : public IFunctionAdapter {
 public:
     ScalarFunctionAdapter(fcn_scalar_t func, const Parameters& parameters);
 
-    const RootObjectiveFunction* rootObjectiveFunction();
+    const RootScalarFunction* rootObjectiveFunction();
 
 private:
     fcn_scalar_t m_fcn; // user function to minimize
     Parameters m_parameters;
-    std::unique_ptr<RootObjectiveFunction> m_root_objective;
+    std::unique_ptr<RootScalarFunction> m_root_objective;
 };
 
 } //  namespace Fit

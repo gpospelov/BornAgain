@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/RootObjectiveFunction.h
-//! @brief     Implements class RootObjectiveFunction
+//! @file      Fit/RootAdapter/RootScalarFunction.h
+//! @brief     Implements class RootScalarFunction
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "RootObjectiveFunction.h"
+#include "RootScalarFunction.h"
 
-RootObjectiveFunction::RootObjectiveFunction(root_objective_t fcn, int ndims)
+RootScalarFunction::RootScalarFunction(root_objective_t fcn, int ndims)
     : ROOT::Math::Functor(fcn, ndims) {}

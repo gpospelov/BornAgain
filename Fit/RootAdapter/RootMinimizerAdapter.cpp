@@ -15,7 +15,7 @@
 #include "RootMinimizerAdapter.h"
 #include "Math/Minimizer.h"
 #include "MinimizerResultsHelper.h"
-#include "RootObjectiveFunction.h"
+#include "RootScalarFunction.h"
 #include "StringUtils.h"
 #include "Parameter.h"
 #include "Parameters.h"

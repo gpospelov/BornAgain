@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/RootObjectiveFunction.h
-//! @brief     Defines classes RootObjectiveFunction
+//! @file      Fit/RootAdapter/RootScalarFunction.h
+//! @brief     Defines classes RootScalarFunction
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef ROOTOBJECTIVEFUNCTION_H
-#define ROOTOBJECTIVEFUNCTION_H
+#ifndef ROOTSCALARFUNCTION_H
+#define ROOTSCALARFUNCTION_H
 
 #include "KernelTypes.h"
 
@@ -29,10 +29,10 @@
 //! The chi2 function for use in minimizers.
 //! @ingroup fitting_internal
 
-class RootObjectiveFunction : public ROOT::Math::Functor
+class RootScalarFunction : public ROOT::Math::Functor
 {
  public:
-    RootObjectiveFunction(root_objective_t fcn, int ndims);
+    RootScalarFunction(root_objective_t fcn, int ndims);
 };
 
-#endif // ROOTOBJECTIVEFUNCTION_H
+#endif // ROOTSCALARFUNCTION_H

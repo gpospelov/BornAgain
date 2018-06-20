@@ -14,7 +14,7 @@
 
 #include "ScalarFunctionAdapter.h"
 #include "KernelTypes.h"
-#include "RootObjectiveFunction.h"
+#include "RootScalarFunction.h"
 
 using namespace Fit;
 
@@ -23,7 +23,7 @@ ScalarFunctionAdapter::ScalarFunctionAdapter(fcn_scalar_t func, const Parameters
 {
 }
 
-const RootObjectiveFunction* ScalarFunctionAdapter::rootObjectiveFunction()
+const RootScalarFunction* ScalarFunctionAdapter::rootObjectiveFunction()
 {
     root_objective_t rootfun = [&](const double* pars) {
         std::vector<double> vec;
@@ -35,6 +35,6 @@ const RootObjectiveFunction* ScalarFunctionAdapter::rootObjectiveFunction()
     };
 
     m_root_objective.reset(
-        new RootObjectiveFunction(rootfun, static_cast<int>(m_parameters.size())));
+        new RootScalarFunction(rootfun, static_cast<int>(m_parameters.size())));
     return m_root_objective.get();
 }

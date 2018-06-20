@@ -55,8 +55,6 @@ public:
     QString getXaxisTitle() const;
     QString getYaxisTitle() const;
 
-    void updateDataRange();
-    void computeDataRange();
     QPair<double, double> dataRange() const;
 
     const BasicAxisItem* xAxisItem() const;

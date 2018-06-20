@@ -99,6 +99,12 @@ void FitSuite::setMinimizer(IMinimizer* minimizer)
     m_impl->setMinimizer(minimizer);
 }
 
+std::string FitSuite::minimizerName() const
+{
+    // FIXME
+    return std::string("FIXME");
+}
+
 //const IMinimizer *FitSuite::minimizer() const
 //{
 //    return m_impl->kernel()->minimizer();

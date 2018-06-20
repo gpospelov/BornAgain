@@ -7015,6 +7015,11 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_setMinimizer(self, *args)
 
 
+    def minimizerName(self):
+        """minimizerName(FitSuite self) -> std::string"""
+        return _libBornAgainCore.FitSuite_minimizerName(self)
+
+
     def initPrint(self, print_every_nth):
         """
         initPrint(FitSuite self, int print_every_nth)

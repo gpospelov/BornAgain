@@ -101,6 +101,7 @@ public:
 
     //! Returns minimizer.
 //    const IMinimizer *minimizer() const;
+    std::string minimizerName() const;
 
     //! Initializes printing to standard output during the fitting.
     //! Prints also the summary when completed.

@@ -14,7 +14,6 @@
 
 #include "FitSuite.h"
 #include "FitSuiteImpl.h"
-#include "FitKernel.h"
 #include "FitSuitePrintObserver.h"
 #include "IHistogram.h"
 #include "MinimizerFactory.h"
@@ -100,10 +99,10 @@ void FitSuite::setMinimizer(IMinimizer* minimizer)
     m_impl->setMinimizer(minimizer);
 }
 
-const IMinimizer *FitSuite::minimizer() const
-{
-    return m_impl->kernel()->minimizer();
-}
+//const IMinimizer *FitSuite::minimizer() const
+//{
+//    return m_impl->kernel()->minimizer();
+//}
 
 void FitSuite::initPrint(int print_every_nth)
 {

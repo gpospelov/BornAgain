@@ -100,7 +100,7 @@ public:
     void setMinimizer(IMinimizer* minimizer);
 
     //! Returns minimizer.
-    const IMinimizer *minimizer() const;
+//    const IMinimizer *minimizer() const;
 
     //! Initializes printing to standard output during the fitting.
     //! Prints also the summary when completed.

@@ -31,7 +31,6 @@
 class AttLimits;
 class Simulation;
 class IMinimizer;
-class FitKernel;
 class FitParameter;
 
 namespace Fit { class Minimizer; }
@@ -73,8 +72,6 @@ class BA_CORE_API_ FitSuiteImpl
 
     //! Runs a single minimization round (called by FitSuiteStrategy)
     void minimize();
-    void minimize_old_kernel();
-    void minimize_new_kernel();
 
     //! Returns reference to the kit with data
     FitSuiteObjects* fitObjects() { return &m_fit_objects; }
@@ -110,8 +107,6 @@ class BA_CORE_API_ FitSuiteImpl
     void resetInterrupt() { m_is_interrupted = false; }
     bool isInterrupted() const { return m_is_interrupted; }
 
-    const FitKernel* kernel() const;
-
     //! Returns multiline string representing fit setup
     std::string setupToString();
 
@@ -132,7 +127,6 @@ private:
     std::atomic<bool> m_is_interrupted;
 #endif
     std::function<void()> m_notifyObservers;
-    std::unique_ptr<FitKernel> m_kernel;
     std::unique_ptr<Fit::Minimizer> m_new_kernel;
     size_t m_iteration_count;
     Fit::MinimizerResult m_minimizerResult;

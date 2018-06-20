@@ -6726,18 +6726,6 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_setMinimizer(self, *args)
 
 
-    def minimizer(self):
-        """
-        minimizer(FitSuite self) -> IMinimizer const *
-
-        const IMinimizer * FitSuite::minimizer() const
-
-        Returns minimizer. 
-
-        """
-        return _libBornAgainCore.FitSuite_minimizer(self)
-
-
     def initPrint(self, print_every_nth):
         """
         initPrint(FitSuite self, int print_every_nth)

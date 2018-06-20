@@ -18,22 +18,16 @@
 #include "MinimizerFactory.h"
 #include "ParameterPool.h"
 #include "IMinimizer.h"
-#include "FitKernel.h"
 #include "FitSuiteUtils.h"
 #include "Minimizer.h"
 #include "MinimizerConstants.h"
 #include <stdexcept>
-
-namespace {
-const bool use_new_kernel = true;
-}
 
 
 FitSuiteImpl::FitSuiteImpl(const std::function<void()>& notifyObservers)
     : m_is_last_iteration(false)
     , m_is_interrupted(false)
     , m_notifyObservers(notifyObservers)
-    , m_kernel(new FitKernel(&m_fit_parameters))
     , m_new_kernel(new Fit::Minimizer)
     , m_iteration_count(0)
     , m_is_gradient_based(false)
@@ -52,7 +46,6 @@ FitSuiteImpl::~FitSuiteImpl()
 void FitSuiteImpl::clear()
 {
     m_fit_objects.clear();
-    m_kernel->clear();
     m_fit_strategies.clear();
     m_is_last_iteration = false;
     m_is_interrupted = false;
@@ -73,7 +66,7 @@ FitParameter* FitSuiteImpl::addFitParameter(const std::string& pattern, double v
         step = value * getOptions().stepFactor();
 
     FitParameter* result = new FitParameter(pattern, value, limits, step);
-    m_kernel->fitParameters()->addFitParameter(result);
+    fitParameters()->addFitParameter(result);
     return result;
 }
 
@@ -83,7 +76,7 @@ FitParameter* FitSuiteImpl::addFitParameter(const FitParameter& fitPar)
     if(result->step() <= 0.0)
         result->setStep(result->value() * getOptions().stepFactor());
 
-    m_kernel->fitParameters()->addFitParameter(result);
+    fitParameters()->addFitParameter(result);
     return result;
 }
 
@@ -100,11 +93,7 @@ void FitSuiteImpl::setMinimizer(IMinimizer* minimizer)
     if (minimizer->minimizerName() == MinimizerNames::GSLLMA)
         m_is_gradient_based = true;
 
-    if (use_new_kernel) {
-        m_new_kernel->setMinimizer(minimizer);
-    } else {
-        m_kernel->setMinimizer(minimizer);
-    }
+    m_new_kernel->setMinimizer(minimizer);
 }
 
 void FitSuiteImpl::runFit()
@@ -127,39 +116,6 @@ void FitSuiteImpl::runFit()
 
 void FitSuiteImpl::minimize()
 {
-    if (use_new_kernel)
-        minimize_new_kernel();
-    else
-        minimize_old_kernel();
-}
-
-void FitSuiteImpl::minimize_old_kernel()
-{
-    objective_function_t fun_chi2 =
-        [&] (const std::vector<double>& pars) {return m_function_chi2.evaluate(pars);};
-    m_kernel->setObjectiveFunction( fun_chi2);
-
-    gradient_function_t fun_gradient =
-        [&] (const std::vector<double>& pars, int index, std::vector<double> &gradients)
-        {
-            return m_function_gradient.evaluate(pars, index, gradients);
-        };
-    m_kernel->setGradientFunction(
-        fun_gradient, static_cast<int>(m_fit_objects.getSizeOfDataSet()) );
-
-    m_fit_objects.setNfreeParameters((int)fitParameters()->freeFitParameterCount());
-
-    // minimize
-    try {
-//        m_minimizer->minimize();
-        m_kernel->minimize();
-    } catch (int) {}
-
-    m_fit_objects.runSimulations(); // we run simulation once again for best values found
-}
-
-void FitSuiteImpl::minimize_new_kernel()
-{
     fcn_scalar_t scalar_fcn =
         [&] (const Fit::Parameters& pars) {return scalar_func_new_kernel(pars);};
 
@@ -178,14 +134,15 @@ void FitSuiteImpl::minimize_new_kernel()
     m_fit_parameters.setValues(m_minimizerResult.parameters().values());
 }
 
+
 FitParameterSet* FitSuiteImpl::fitParameters() {
-    return m_kernel->fitParameters();
+    return &m_fit_parameters;
 }
 
 // get current number of minimization function calls
 size_t FitSuiteImpl::numberOfIterations() const
 {
-    return use_new_kernel ? m_iteration_count : static_cast<size_t>(m_kernel->functionCalls());
+    return m_iteration_count;
 }
 
 size_t FitSuiteImpl::currentStrategyIndex() const
@@ -195,12 +152,7 @@ size_t FitSuiteImpl::currentStrategyIndex() const
 
 std::string FitSuiteImpl::reportResults() const
 {
-    return use_new_kernel ? m_minimizerResult.toString() : m_kernel->reportResults();
-}
-
-const FitKernel* FitSuiteImpl::kernel() const
-{
-    return m_kernel.get();
+    return m_minimizerResult.toString();
 }
 
 // method is not const because we have to link fit parameters with the sample,
@@ -210,7 +162,7 @@ std::string FitSuiteImpl::setupToString()
     check_prerequisites();
     link_fit_parameters();
     std::stringstream result;
-    result << FitSuiteUtils::fitParameterSettingsToString(*m_kernel->fitParameters());
+    result << FitSuiteUtils::fitParameterSettingsToString(*fitParameters());
     return result.str();
 }
 
@@ -228,7 +180,7 @@ bool FitSuiteImpl::check_prerequisites() const
 void FitSuiteImpl::link_fit_parameters()
 {
     std::unique_ptr<ParameterPool> pool(m_fit_objects.createParameterTree());
-    auto parameters = FitSuiteUtils::linkedParameters(*m_kernel->fitParameters());
+    auto parameters = FitSuiteUtils::linkedParameters(*fitParameters());
 
     if(parameters.empty())
         throw Exceptions::RuntimeErrorException("No fit Parameters defined.");
@@ -236,12 +188,12 @@ void FitSuiteImpl::link_fit_parameters()
     for (auto par: parameters)
         par->addMatchedParameters(*pool);
 
-    if(FitSuiteUtils::hasConflicts(*m_kernel->fitParameters())) {
+    if(FitSuiteUtils::hasConflicts(*fitParameters())) {
         std::ostringstream message;
         message << "FitSuite::runFit() -> Error. Fit parameters are conflicting with each other, "
                 << "meaning that one sample parameter can be controlled by "
                 << "two different fit parameters.\n";
-        message << FitSuiteUtils::fitParameterSettingsToString(*m_kernel->fitParameters());
+        message << FitSuiteUtils::fitParameterSettingsToString(*fitParameters());
         throw Exceptions::RuntimeErrorException(message.str());
     }
 

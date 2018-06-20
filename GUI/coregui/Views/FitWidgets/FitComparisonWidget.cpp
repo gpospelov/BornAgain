@@ -50,7 +50,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_statusLabel(new PlotStatusLabel(0, this))
     , m_propertyWidget(new IntensityDataPropertyWidget)
     , m_resetViewAction(new QAction(this))
-    , m_comparisonController(new FitComparisonController(this))
+    , m_comparisonController(new FitComparisonController2D(this))
 {
     auto vlayout = new QVBoxLayout;
     vlayout->setMargin(0);

@@ -27,7 +27,7 @@ class PlotStatusLabel;
 class QAction;
 class IntensityDataPropertyWidget;
 class PropertyRepeater;
-class FitComparisonController;
+class FitComparisonController2D;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
@@ -66,7 +66,7 @@ private:
     IntensityDataPropertyWidget* m_propertyWidget;
 
     QAction* m_resetViewAction;
-    FitComparisonController* m_comparisonController;
+    FitComparisonController2D* m_comparisonController;
 };
 
 #endif // FITCOMPARISONWIDGET_H

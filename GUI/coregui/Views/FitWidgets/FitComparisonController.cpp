@@ -18,7 +18,7 @@
 #include "PropertyRepeater.h"
 #include "AxesItems.h"
 
-FitComparisonController::FitComparisonController(QObject* parent)
+FitComparisonController2D::FitComparisonController2D(QObject* parent)
     : QObject(parent)
     , m_appearanceRepeater(new PropertyRepeater(this))
     , m_xAxisRepeater(new PropertyRepeater(this))
@@ -30,12 +30,12 @@ FitComparisonController::FitComparisonController(QObject* parent)
     createRelativeDifferenceItem();
 }
 
-IntensityDataItem* FitComparisonController::diffItem()
+IntensityDataItem* FitComparisonController2D::diffItem()
 {
     return m_relativeDiffItem;
 }
 
-void FitComparisonController::setItems(IntensityDataItem* realDataItem,
+void FitComparisonController2D::setItems(IntensityDataItem* realDataItem,
                                        IntensityDataItem* simDataItem)
 {
     double zmin = realDataItem->getLowerZ();
@@ -58,7 +58,7 @@ void FitComparisonController::setItems(IntensityDataItem* realDataItem,
     m_zAxisRepeater->addItem(simDataItem->zAxisItem());
 }
 
-void FitComparisonController::clear()
+void FitComparisonController2D::clear()
 {
     m_appearanceRepeater->clear();
 
@@ -67,7 +67,7 @@ void FitComparisonController::clear()
     m_zAxisRepeater->clear();
 }
 
-void FitComparisonController::createRelativeDifferenceItem()
+void FitComparisonController2D::createRelativeDifferenceItem()
 {
     m_tempIntensityDataModel->clear();
 

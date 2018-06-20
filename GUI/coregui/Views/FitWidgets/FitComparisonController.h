@@ -25,10 +25,10 @@ class PropertyRepeater;
 //! Provides synchronization between certain properties of fit related IntensityDataItems.
 //! Part of FitComparisonWidget.
 
-class BA_CORE_API_ FitComparisonController : public QObject
+class BA_CORE_API_ FitComparisonController2D : public QObject
 {
 public:
-    explicit FitComparisonController(QObject* parent = nullptr);
+    explicit FitComparisonController2D(QObject* parent = nullptr);
 
     IntensityDataItem* diffItem();
 

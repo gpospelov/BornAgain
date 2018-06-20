@@ -20,7 +20,6 @@
 #include "SimulationOptions.h"
 
 class IFresnelMap;
-struct HomogeneousRegion;
 class MultiLayer;
 class SimulationElement;
 

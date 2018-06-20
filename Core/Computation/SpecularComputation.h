@@ -21,7 +21,6 @@
 
 class IFresnelMap;
 class MultiLayer;
-struct HomogeneousRegion;
 
 //! Performs a single-threaded specular computation with given sample.
 //!

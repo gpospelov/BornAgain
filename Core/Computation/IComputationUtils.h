@@ -15,11 +15,11 @@
 #ifndef ICOMPUTATIONUTILS_H
 #define ICOMPUTATIONUTILS_H
 
+#include "HomogeneousRegion.h"
 #include <map>
 #include <memory>
 #include <vector>
 
-class HomogeneousRegion;
 class IFresnelMap;
 class MultiLayer;
 class SimulationOptions;

@@ -16,7 +16,7 @@
 #define PARTICLELAYOUTCOMPUTATION_H
 
 #include "MultilayerInfo.h"
-#include "SlicedParticle.h"
+#include "HomogeneousRegion.h"
 #include <map>
 #include <memory>
 #include <vector>

@@ -16,7 +16,7 @@
 #define SLICEDFORMFACTORLIST_H
 
 #include "IFormFactor.h"
-#include "SlicedParticle.h"
+#include "HomogeneousRegion.h"
 #include <map>
 #include <memory>
 

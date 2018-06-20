@@ -15,7 +15,7 @@
 #ifndef DWBASINGLECOMPUTATION_H
 #define DWBASINGLECOMPUTATION_H
 
-#include "SlicedParticle.h"
+#include "HomogeneousRegion.h"
 #include <map>
 #include <memory>
 #include <vector>

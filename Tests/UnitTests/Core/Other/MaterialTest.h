@@ -4,7 +4,7 @@
 #include "MaterialFactoryFuncs.h"
 #include "RefractiveMaterialImpl.h"
 #include "Rotations.h"
-#include "SlicedParticle.h"
+#include "HomogeneousRegion.h"
 #include "Units.h"
 #include "WavevectorInfo.h"
 

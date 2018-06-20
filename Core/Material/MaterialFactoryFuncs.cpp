@@ -15,7 +15,7 @@
 #include "MaterialFactoryFuncs.h"
 #include "MaterialBySLDImpl.h"
 #include "RefractiveMaterialImpl.h"
-#include "SlicedParticle.h"
+#include "HomogeneousRegion.h"
 #include "MaterialUtils.h"
 #include "Units.h"
 #include <functional>

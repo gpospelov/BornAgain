@@ -137,6 +137,7 @@ private:
     size_t m_iteration_count;
     Fit::MinimizerResult m_minimizerResult;
     FitParameterSet m_fit_parameters;
+    bool m_is_gradient_based;
 
 };
 

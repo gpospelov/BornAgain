@@ -21,10 +21,11 @@
 #include "FitKernel.h"
 #include "FitSuiteUtils.h"
 #include "Minimizer.h"
+#include "MinimizerConstants.h"
 #include <stdexcept>
 
 namespace {
-const bool use_new_kernel = false;
+const bool use_new_kernel = true;
 }
 
 
@@ -35,6 +36,7 @@ FitSuiteImpl::FitSuiteImpl(const std::function<void()>& notifyObservers)
     , m_kernel(new FitKernel(&m_fit_parameters))
     , m_new_kernel(new Fit::Minimizer)
     , m_iteration_count(0)
+    , m_is_gradient_based(false)
 {
     m_function_chi2.init(this);
     m_function_gradient.init(this);
@@ -92,6 +94,12 @@ void FitSuiteImpl::addFitStrategy(const IFitStrategy& strategy)
 
 void FitSuiteImpl::setMinimizer(IMinimizer* minimizer)
 {
+    if (minimizer->algorithmName() == AlgorithmNames::Fumili)
+        m_is_gradient_based = true;
+
+    if (minimizer->minimizerName() == MinimizerNames::GSLLMA)
+        m_is_gradient_based = true;
+
     if (use_new_kernel) {
         m_new_kernel->setMinimizer(minimizer);
     } else {
@@ -158,8 +166,14 @@ void FitSuiteImpl::minimize_new_kernel()
     fcn_residual_t residual_fcn =
             [&] (const Fit::Parameters& pars) {return residual_func_new_kernel(pars);};
 
+    m_fit_objects.setNfreeParameters((int)fitParameters()->freeFitParameterCount());
+
     Fit::Parameters pars = fitParameters()->fitParametersNewKernel();
-    m_minimizerResult = m_new_kernel->minimize(residual_fcn, pars);
+
+    if (m_is_gradient_based)
+        m_minimizerResult = m_new_kernel->minimize(residual_fcn, pars);
+    else
+        m_minimizerResult = m_new_kernel->minimize(scalar_fcn, pars);
 
     m_fit_parameters.setValues(m_minimizerResult.parameters().values());
 }

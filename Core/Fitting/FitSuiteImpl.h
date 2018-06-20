@@ -120,6 +120,7 @@ private:
     void link_fit_parameters();
 
     double scalar_func_new_kernel(const Fit::Parameters& fit_pars);
+    std::vector<double> residual_func_new_kernel(const Fit::Parameters& fit_pars);
 
     FitOptions m_fit_options;
     FitSuiteObjects m_fit_objects;

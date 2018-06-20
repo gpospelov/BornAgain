@@ -155,8 +155,13 @@ void FitSuiteImpl::minimize_new_kernel()
     fcn_scalar_t scalar_fcn =
         [&] (const Fit::Parameters& pars) {return scalar_func_new_kernel(pars);};
 
+    fcn_residual_t residual_fcn =
+            [&] (const Fit::Parameters& pars) {return residual_func_new_kernel(pars);};
+
     Fit::Parameters pars = fitParameters()->fitParametersNewKernel();
-    m_minimizerResult = m_new_kernel->minimize(scalar_fcn, pars);
+    m_minimizerResult = m_new_kernel->minimize(residual_fcn, pars);
+
+    m_fit_parameters.setValues(m_minimizerResult.parameters().values());
 }
 
 FitParameterSet* FitSuiteImpl::fitParameters() {
@@ -241,4 +246,18 @@ double FitSuiteImpl::scalar_func_new_kernel(const Fit::Parameters& fit_pars)
     double chi_squared = fitObjects()->getChiSquaredValue();
     notifyObservers();
     return chi_squared;
+}
+
+std::vector<double> FitSuiteImpl::residual_func_new_kernel(const Fit::Parameters& fit_pars)
+{
+    if (isInterrupted())
+        throw std::runtime_error("Fitting was interrupted by the user.");
+
+    ++m_iteration_count;
+
+    fitParameters()->setValues(fit_pars.values());
+    fitObjects()->runSimulations();
+    notifyObservers();
+
+    return fitObjects()->residuals();
 }

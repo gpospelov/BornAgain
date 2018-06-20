@@ -109,6 +109,19 @@ double FitSuiteObjects::getResidualValue(size_t global_index)
     return m_fit_elements[global_index].getResidual();
 }
 
+std::vector<double> FitSuiteObjects::residuals() const
+{
+    std::vector<double> result;
+    result.resize(m_fit_elements.size());
+    size_t index(0);
+    for(const auto& element: m_fit_elements) {
+        result[index] = element.getResidual();
+        ++index;
+    }
+
+    return result;
+}
+
 void FitSuiteObjects::clear()
 {
     m_fit_objects.clear();

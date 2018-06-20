@@ -7200,6 +7200,11 @@ class FitSuiteObjects(INode):
         return _libBornAgainCore.FitSuiteObjects_getResidualValue(self, global_index)
 
 
+    def residuals(self):
+        """residuals(FitSuiteObjects self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitSuiteObjects_residuals(self)
+
+
     def setNfreeParameters(self, nfree_parameters):
         """
         setNfreeParameters(FitSuiteObjects self, int nfree_parameters)

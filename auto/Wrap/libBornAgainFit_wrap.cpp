@@ -20779,6 +20779,65 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Parameters_correlationMatrix(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Fit::Parameters::corr_matrix_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_correlationMatrix",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_correlationMatrix" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = ((Fit::Parameters const *)arg1)->correlationMatrix();
+  resultobj = swig::from(static_cast< std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_setCorrelationMatrix(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  Fit::Parameters::corr_matrix_t *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Parameters_setCorrelationMatrix",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_setCorrelationMatrix" "', argument " "1"" of type '" "Fit::Parameters *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  {
+    std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *ptr = (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *)0;
+    res2 = swig::asptr(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Parameters_setCorrelationMatrix" "', argument " "2"" of type '" "Fit::Parameters::corr_matrix_t const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Parameters_setCorrelationMatrix" "', argument " "2"" of type '" "Fit::Parameters::corr_matrix_t const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  (arg1)->setCorrelationMatrix((Fit::Parameters::corr_matrix_t const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Parameters___getitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
@@ -24585,6 +24644,36 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Minimizer *arg1 = (Fit::Minimizer *) 0 ;
+  IMinimizer *arg2 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Minimizer_setMinimizer",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Minimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_setMinimizer" "', argument " "1"" of type '" "Fit::Minimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Minimizer * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "IMinimizer *""'"); 
+  }
+  arg2 = reinterpret_cast< IMinimizer * >(argp2);
+  (arg1)->setMinimizer(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[5] = {
@@ -24596,6 +24685,20 @@ SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer(PyObject *self, PyObject *args
   argc = args ? PyObject_Length(args) : 0;
   for (ii = 0; (ii < 4) && (ii < argc); ii++) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Fit__Minimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IMinimizer, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_Minimizer_setMinimizer__SWIG_3(self, args);
+      }
+    }
   }
   if (argc == 2) {
     int _v;
@@ -24654,7 +24757,8 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    Fit::Minimizer::setMinimizer(std::string const &,std::string const &,std::string const &)\n"
     "    Fit::Minimizer::setMinimizer(std::string const &,std::string const &)\n"
-    "    Fit::Minimizer::setMinimizer(std::string const &)\n");
+    "    Fit::Minimizer::setMinimizer(std::string const &)\n"
+    "    Fit::Minimizer::setMinimizer(IMinimizer *)\n");
   return 0;
 }
 
@@ -25464,6 +25568,8 @@ static PyMethodDef SwigMethods[] = {
 		"void Parameters::setErrors(const std::vector< double > &errors)\n"
 		"\n"
 		""},
+	 { (char *)"Parameters_correlationMatrix", _wrap_Parameters_correlationMatrix, METH_VARARGS, (char *)"Parameters_correlationMatrix(Parameters self) -> vdouble2d_t"},
+	 { (char *)"Parameters_setCorrelationMatrix", _wrap_Parameters_setCorrelationMatrix, METH_VARARGS, (char *)"Parameters_setCorrelationMatrix(Parameters self, vdouble2d_t matrix)"},
 	 { (char *)"Parameters___getitem__", _wrap_Parameters___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> Parameter\n"
 		"Parameters___getitem__(Parameters self, size_t index) -> Parameter\n"
@@ -26064,7 +26170,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Minimizer_setMinimizer", _wrap_Minimizer_setMinimizer, METH_VARARGS, (char *)"\n"
 		"setMinimizer(std::string const & minimizerName, std::string const & algorithmName, std::string const & options)\n"
 		"setMinimizer(std::string const & minimizerName, std::string const & algorithmName)\n"
-		"Minimizer_setMinimizer(Minimizer self, std::string const & minimizerName)\n"
+		"setMinimizer(std::string const & minimizerName)\n"
+		"Minimizer_setMinimizer(Minimizer self, IMinimizer minimizer)\n"
 		"\n"
 		"void Minimizer::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &options=\"\")\n"
 		"\n"

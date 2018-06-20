@@ -2209,6 +2209,16 @@ class Parameters(_object):
         return _libBornAgainFit.Parameters_setErrors(self, errors)
 
 
+    def correlationMatrix(self):
+        """correlationMatrix(Parameters self) -> vdouble2d_t"""
+        return _libBornAgainFit.Parameters_correlationMatrix(self)
+
+
+    def setCorrelationMatrix(self, matrix):
+        """setCorrelationMatrix(Parameters self, vdouble2d_t matrix)"""
+        return _libBornAgainFit.Parameters_setCorrelationMatrix(self, matrix)
+
+
     def __getitem__(self, *args):
         """
         __getitem__(Parameters self, std::string name) -> Parameter
@@ -3333,6 +3343,7 @@ class Minimizer(_object):
         setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName, std::string const & options)
         setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName)
         setMinimizer(Minimizer self, std::string const & minimizerName)
+        setMinimizer(Minimizer self, IMinimizer minimizer)
 
         void Minimizer::setMinimizer(const std::string &minimizerName, const std::string &algorithmName="", const std::string &options="")
 

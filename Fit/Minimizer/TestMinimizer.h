@@ -16,7 +16,6 @@
 #define TESTMINIMIZER_H
 
 #include "IMinimizer.h"
-class FitParameterSet;
 
 //! A trivial minimizer that calls the objective function once. Used to test the whole chain.
 
@@ -28,13 +27,6 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
 
     std::string minimizerName() const final;
     std::string algorithmName() const final { return ""; }
-
-    void minimize() override;
-
-    std::string reportOutcome() const override;
-
-    using IMinimizer::propagateResults;
-    void propagateResults(FitParameterSet&) override;
 
     Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
 

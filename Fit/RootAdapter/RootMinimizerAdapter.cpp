@@ -34,12 +34,6 @@ RootMinimizerAdapter::RootMinimizerAdapter(const MinimizerInfo &minimizerInfo)
 
 RootMinimizerAdapter::~RootMinimizerAdapter() {}
 
-void RootMinimizerAdapter::minimize()
-{
-    propagateOptions();
-    m_status = rootMinimizer()->Minimize();
-}
-
 MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
                                     Parameters parameters)
 {
@@ -54,7 +48,7 @@ MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn,
     MinimizerResult result;
     result.setParameters(parameters);
     result.setMinValue(minValue());
-    result.setReport(reportOutcome());
+    result.setReport( MinimizerResultsHelper().reportOutcome(this));
     result.setNumberOfCalls(m_adapter->numberOfCalls());
 
     return result;
@@ -73,7 +67,7 @@ MinimizerResult RootMinimizerAdapter::minimize_residual(fcn_residual_t fcn, Para
     MinimizerResult result;
     result.setParameters(parameters);
     result.setMinValue(minValue());
-    result.setReport(reportOutcome());
+    result.setReport(MinimizerResultsHelper().reportOutcome(this));
     result.setNumberOfCalls(m_adapter->numberOfCalls());
     result.setNumberOfGradientCalls(m_adapter->numberOfGradientCalls());
 
@@ -102,11 +96,6 @@ double RootMinimizerAdapter::minValue() const
     return rootMinimizer()->MinValue();
 }
 
-std::string RootMinimizerAdapter::reportOutcome() const
-{
-    return MinimizerResultsHelper().reportOutcome(this);
-}
-
 std::string RootMinimizerAdapter::statusToString() const
 {
     return m_status ? std::string("Minimum found") : std::string("Error in solving");
@@ -132,25 +121,12 @@ std::map<std::string, std::string> RootMinimizerAdapter::statusMap() const
     return result;
 }
 
-void RootMinimizerAdapter::propagateResults(FitParameterSet &parameters)
+void RootMinimizerAdapter::setOptions(const std::string &optionString)
 {
-    // sets values and errors found
-    parameters.setValues(parValuesAtMinimum());
-    parameters.setErrors(parErrorsAtMinimum());
-
-    // sets correlation matrix
-    if(providesError()) {
-        FitParameterSet::corr_matrix_t matrix;
-        matrix.resize(fitDimension());
-
-        for(unsigned i=0; i<(size_t)fitDimension(); ++i) {
-            matrix[i].resize(fitDimension(), 0.0);
-            for(unsigned j=0; j<(size_t)fitDimension(); ++j)
-                matrix[i][j] = rootMinimizer()->Correlation(i,j);
-        }
-        parameters.setCorrelationMatrix(matrix);
-    }
+    options().setOptionString(optionString);
 }
+
+//! Propagates results of minimization to fit parameter set
 
 void RootMinimizerAdapter::propagateResults(Fit::Parameters& parameters)
 {
@@ -168,11 +144,6 @@ void RootMinimizerAdapter::propagateResults(Fit::Parameters& parameters)
         }
         parameters.setCorrelationMatrix(matrix);
     }
-}
-
-void RootMinimizerAdapter::setOptions(const std::string &optionString)
-{
-    options().setOptionString(optionString);
 }
 
 //! Propagate fit parameter down to ROOT minimizer.

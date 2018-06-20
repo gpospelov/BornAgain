@@ -37,7 +37,6 @@ public:
 
     virtual ~RootMinimizerAdapter();
 
-    void minimize() override;
     Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
     Fit::MinimizerResult minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override;
 
@@ -51,8 +50,6 @@ public:
 
     double minValue() const override final;
 
-    std::string reportOutcome() const override final;
-
     MinimizerOptions& options() { return m_options; }
     const MinimizerOptions& options() const { return m_options; }
 
@@ -65,15 +62,13 @@ public:
     //! Returns map of string representing different minimizer statuses
     virtual std::map<std::string, std::string> statusMap() const;
 
-    //! Propagates results of minimization to fit parameter set
-    void propagateResults(FitParameterSet& parameters) override;
-    void propagateResults(Fit::Parameters& parameters) override;
-
     //! Sets option string to the minimizer
     void setOptions(const std::string& optionString) override final;
 
 protected:
     RootMinimizerAdapter(const MinimizerInfo& minimizerInfo);
+
+    void propagateResults(Fit::Parameters& parameters);
 
     virtual bool isGradientBasedAgorithm() { return false;}
     virtual void setParameter(size_t index, const IFitParameter *par);

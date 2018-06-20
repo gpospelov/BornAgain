@@ -2280,18 +2280,6 @@ class IMinimizer(_object):
         return _libBornAgainFit.IMinimizer_algorithmName(self)
 
 
-    def minimize(self):
-        """
-        minimize(IMinimizer self)
-
-        virtual void IMinimizer::minimize()=0
-
-        run minimization 
-
-        """
-        return _libBornAgainFit.IMinimizer_minimize(self)
-
-
     def minimize_scalar(self, arg2, arg3):
         """
         minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Parameters arg3) -> MinimizerResult
@@ -2334,27 +2322,6 @@ class IMinimizer(_object):
 
         """
         return _libBornAgainFit.IMinimizer_minValue(self)
-
-
-    def reportOutcome(self):
-        """
-        reportOutcome(IMinimizer self) -> std::string
-
-        virtual std::string IMinimizer::reportOutcome() const =0
-
-        """
-        return _libBornAgainFit.IMinimizer_reportOutcome(self)
-
-
-    def propagateResults(self, *args):
-        """
-        propagateResults(IMinimizer self, FitParameterSet parameters)
-        propagateResults(IMinimizer self, Parameters parameters)
-
-        void IMinimizer::propagateResults(Fit::Parameters &parameters)
-
-        """
-        return _libBornAgainFit.IMinimizer_propagateResults(self, *args)
 
 
     def setOptions(self, options):

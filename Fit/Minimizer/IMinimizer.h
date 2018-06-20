@@ -20,7 +20,6 @@
 #include "MinimizerResult.h"
 #include <string>
 
-class FitParameterSet;
 namespace Fit {class Parameters;}
 
 //! Pure virtual interface for all kind minimizers.
@@ -42,7 +41,6 @@ class BA_CORE_API_ IMinimizer
     virtual std::string algorithmName() const =0;
 
     //! run minimization
-    virtual void minimize() =0;
     virtual Fit::MinimizerResult minimize_scalar(fcn_scalar_t, Fit::Parameters);
     virtual Fit::MinimizerResult minimize_residual(fcn_residual_t, Fit::Parameters);
 
@@ -51,12 +49,6 @@ class BA_CORE_API_ IMinimizer
 
     //! Returns minimum function value
     virtual double minValue() const;
-
-    virtual std::string reportOutcome() const =0;
-
-    //! Propagates results of minimization to fit parameter set
-    virtual void propagateResults(FitParameterSet& parameters);
-    virtual void propagateResults(Fit::Parameters& parameters);
 
     //! Sets option string to the minimizer
     virtual void setOptions(const std::string& options);

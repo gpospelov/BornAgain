@@ -40,6 +40,8 @@ public:
     void setMinimizer(const std::string& minimizerName, const std::string& algorithmName = "",
                       const std::string& options = "");
 
+    void setMinimizer(IMinimizer* minimizer);
+
     MinimizerResult minimize(fcn_scalar_t fcn, const Parameters& parameters);
     MinimizerResult minimize(fcn_residual_t fcn, const Parameters& parameters);
 

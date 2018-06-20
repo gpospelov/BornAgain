@@ -92,7 +92,11 @@ void FitSuiteImpl::addFitStrategy(const IFitStrategy& strategy)
 
 void FitSuiteImpl::setMinimizer(IMinimizer* minimizer)
 {
-    m_kernel->setMinimizer(minimizer);
+    if (use_new_kernel) {
+        m_new_kernel->setMinimizer(minimizer);
+    } else {
+        m_kernel->setMinimizer(minimizer);
+    }
 }
 
 void FitSuiteImpl::runFit()

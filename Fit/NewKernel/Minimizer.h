@@ -25,6 +25,7 @@
 #include <memory>
 
 class PyCallback;
+class IMinimizer;
 
 namespace Fit {
 
@@ -41,6 +42,8 @@ public:
 
     void setMinimizer(const std::string& minimizerName, const std::string& algorithmName = "",
                       const std::string& options = "");
+
+    void setMinimizer(IMinimizer* minimizer);
 
 #ifndef SWIG
     MinimizerResult minimize(fcn_scalar_t fcn, const Parameters& parameters);

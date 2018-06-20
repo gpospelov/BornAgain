@@ -36,6 +36,11 @@ void Kernel::setMinimizer(const std::string& minimizerName, const std::string& a
     m_minimizer.reset(MinimizerFactory::createMinimizer(minimizerName, algorithmName, options));
 }
 
+void Kernel::setMinimizer(IMinimizer* minimizer)
+{
+    m_minimizer.reset(minimizer);
+}
+
 MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters)
 {
     setParameters(parameters);

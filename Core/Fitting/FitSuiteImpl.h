@@ -20,6 +20,9 @@
 #include "FitSuiteObjects.h"
 #include "FitParameterSet.h"
 #include "FitSuiteStrategies.h"
+#include "KernelTypes.h"
+#include "Parameters.h"
+#include "MinimizerResult.h"
 #include <functional>
 #ifndef SWIG
 #include <atomic>
@@ -30,6 +33,8 @@ class Simulation;
 class IMinimizer;
 class FitKernel;
 class FitParameter;
+
+namespace Fit { class Minimizer; }
 
 //! Fitting kernel for FitSuite.
 //! @ingroup fitting_internal
@@ -68,6 +73,8 @@ class BA_CORE_API_ FitSuiteImpl
 
     //! Runs a single minimization round (called by FitSuiteStrategy)
     void minimize();
+    void minimize_old_kernel();
+    void minimize_new_kernel();
 
     //! Returns reference to the kit with data
     FitSuiteObjects* fitObjects() { return &m_fit_objects; }
@@ -112,6 +119,8 @@ private:
     bool check_prerequisites() const;
     void link_fit_parameters();
 
+    double scalar_func_new_kernel(const Fit::Parameters& fit_pars);
+
     FitOptions m_fit_options;
     FitSuiteObjects m_fit_objects;
     FitSuiteStrategies m_fit_strategies;
@@ -123,6 +132,9 @@ private:
 #endif
     std::function<void()> m_notifyObservers;
     std::unique_ptr<FitKernel> m_kernel;
+    std::unique_ptr<Fit::Minimizer> m_new_kernel;
+    size_t m_iteration_count;
+    Fit::MinimizerResult m_minimizerResult;
 };
 
 #endif // FITSUITEIMPL_H

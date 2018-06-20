@@ -20,13 +20,21 @@
 #include "IMinimizer.h"
 #include "FitKernel.h"
 #include "FitSuiteUtils.h"
+#include "Minimizer.h"
 #include <stdexcept>
+
+namespace {
+const bool use_new_kernel = true;
+}
+
 
 FitSuiteImpl::FitSuiteImpl(const std::function<void()>& notifyObservers)
     : m_is_last_iteration(false)
     , m_is_interrupted(false)
     , m_notifyObservers(notifyObservers)
     , m_kernel(new FitKernel)
+    , m_new_kernel(new Fit::Minimizer)
+    , m_iteration_count(0)
 {
     m_function_chi2.init(this);
     m_function_gradient.init(this);
@@ -107,6 +115,14 @@ void FitSuiteImpl::runFit()
 
 void FitSuiteImpl::minimize()
 {
+    if (use_new_kernel)
+        minimize_new_kernel();
+    else
+        minimize_old_kernel();
+}
+
+void FitSuiteImpl::minimize_old_kernel()
+{
     objective_function_t fun_chi2 =
         [&] (const std::vector<double>& pars) {return m_function_chi2.evaluate(pars);};
     m_kernel->setObjectiveFunction( fun_chi2);
@@ -130,6 +146,15 @@ void FitSuiteImpl::minimize()
     m_fit_objects.runSimulations(); // we run simulation once again for best values found
 }
 
+void FitSuiteImpl::minimize_new_kernel()
+{
+    fcn_scalar_t scalar_fcn =
+        [&] (const Fit::Parameters& pars) {return scalar_func_new_kernel(pars);};
+
+    Fit::Parameters pars = fitParameters()->fitParametersNewKernel();
+    m_minimizerResult = m_new_kernel->minimize(scalar_fcn, pars);
+}
+
 FitParameterSet* FitSuiteImpl::fitParameters() {
     return m_kernel->fitParameters();
 }
@@ -137,7 +162,7 @@ FitParameterSet* FitSuiteImpl::fitParameters() {
 // get current number of minimization function calls
 size_t FitSuiteImpl::numberOfIterations() const
 {
-    return m_kernel->functionCalls();
+    return use_new_kernel ? m_iteration_count : static_cast<size_t>(m_kernel->functionCalls());
 }
 
 size_t FitSuiteImpl::currentStrategyIndex() const
@@ -147,7 +172,7 @@ size_t FitSuiteImpl::currentStrategyIndex() const
 
 std::string FitSuiteImpl::reportResults() const
 {
-    return m_kernel->reportResults();
+    return use_new_kernel ? m_minimizerResult.toString() : m_kernel->reportResults();
 }
 
 const FitKernel* FitSuiteImpl::kernel() const
@@ -197,4 +222,19 @@ void FitSuiteImpl::link_fit_parameters()
         throw Exceptions::RuntimeErrorException(message.str());
     }
 
+}
+
+//! Refactoring temp: new minimizer's objective functions.
+
+double FitSuiteImpl::scalar_func_new_kernel(const Fit::Parameters& fit_pars)
+{
+    if (isInterrupted())
+        throw std::runtime_error("Fitting was interrupted by the user.");
+
+    ++m_iteration_count;
+    fitParameters()->setValues(fit_pars.values());
+    fitObjects()->runSimulations();
+    double chi_squared = fitObjects()->getChiSquaredValue();
+    notifyObservers();
+    return chi_squared;
 }

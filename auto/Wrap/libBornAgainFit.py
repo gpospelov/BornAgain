@@ -2871,6 +2871,11 @@ class FitParameterSet(_object):
         return _libBornAgainFit.FitParameterSet_setCorrelationMatrix(self, matrix)
 
 
+    def fitParametersNewKernel(self):
+        """fitParametersNewKernel(FitParameterSet self) -> Parameters"""
+        return _libBornAgainFit.FitParameterSet_fitParametersNewKernel(self)
+
+
     def __getitem__(self, *args):
         """
         __getitem__(FitParameterSet self, std::string name) -> IFitParameter

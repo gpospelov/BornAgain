@@ -23195,6 +23195,28 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_FitParameterSet_fitParametersNewKernel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitParameterSet *arg1 = (FitParameterSet *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Fit::Parameters result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:FitParameterSet_fitParametersNewKernel",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_FitParameterSet, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitParameterSet_fitParametersNewKernel" "', argument " "1"" of type '" "FitParameterSet const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitParameterSet * >(argp1);
+  result = ((FitParameterSet const *)arg1)->fitParametersNewKernel();
+  resultobj = SWIG_NewPointerObj((new Fit::Parameters(static_cast< const Fit::Parameters& >(result))), SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_FitParameterSet___getitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitParameterSet *arg1 = (FitParameterSet *) 0 ;
@@ -25835,6 +25857,7 @@ static PyMethodDef SwigMethods[] = {
 		"Sets resulting correlation matrix. \n"
 		"\n"
 		""},
+	 { (char *)"FitParameterSet_fitParametersNewKernel", _wrap_FitParameterSet_fitParametersNewKernel, METH_VARARGS, (char *)"FitParameterSet_fitParametersNewKernel(FitParameterSet self) -> Parameters"},
 	 { (char *)"FitParameterSet___getitem__", _wrap_FitParameterSet___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> IFitParameter\n"
 		"FitParameterSet___getitem__(FitParameterSet self, size_t index) -> IFitParameter\n"

@@ -244,6 +244,26 @@ class ParameterPoolIterator(object):
     def __next__(self):
         return self.next()
 
+
+class FitParameterSetIterator(object):
+
+    def __init__(self, fitParameters):
+        self.fitParameters = fitParameters
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index += 1
+        if self.index < self.fitParameters.size():
+            return self.fitParameters[self.index]
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        return self.next()
+
 class vdouble1d_t(_object):
     """Proxy of C++ std::vector<(double)> class."""
 
@@ -6718,6 +6738,18 @@ class FitParameterSet(_object):
     def fitParametersNewKernel(self):
         """fitParametersNewKernel(FitParameterSet self) -> Fit::Parameters"""
         return _libBornAgainCore.FitParameterSet_fitParametersNewKernel(self)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(FitParameterSet self, std::string name) -> IFitParameter
+        __getitem__(FitParameterSet self, size_t index) -> IFitParameter
+        """
+        return _libBornAgainCore.FitParameterSet___getitem__(self, *args)
+
+
+    def __iter__(self):
+        return FitParameterSetIterator(self)
 
 FitParameterSet_swigregister = _libBornAgainCore.FitParameterSet_swigregister
 FitParameterSet_swigregister(FitParameterSet)

@@ -642,21 +642,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -1196,13 +1196,13 @@ Counter for reporting progress (with delay interval) in a threaded computation.
 C++ includes: DelayedProgressCounter.h
 ";
 
-%feature("docstring")  DelayedProgressCounter::DelayedProgressCounter "DelayedProgressCounter::DelayedProgressCounter(size_t interval)
+%feature("docstring")  DelayedProgressCounter::DelayedProgressCounter "DelayedProgressCounter::DelayedProgressCounter(ProgressHandler *p_progress, size_t interval)
 ";
 
 %feature("docstring")  DelayedProgressCounter::~DelayedProgressCounter "DelayedProgressCounter::~DelayedProgressCounter()
 ";
 
-%feature("docstring")  DelayedProgressCounter::stepProgress "void DelayedProgressCounter::stepProgress(ProgressHandler *progress)
+%feature("docstring")  DelayedProgressCounter::stepProgress "void DelayedProgressCounter::stepProgress()
 
 Increments inner counter; at regular intervals updates progress handler. 
 ";
@@ -1221,7 +1221,7 @@ C++ includes: DepthProbeComputation.h
 %feature("docstring")  DepthProbeComputation::DepthProbeComputation "DepthProbeComputation::DepthProbeComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, DepthProbeElementIter begin_it, DepthProbeElementIter end_it)
 ";
 
-%feature("docstring")  DepthProbeComputation::~DepthProbeComputation "DepthProbeComputation::~DepthProbeComputation()
+%feature("docstring")  DepthProbeComputation::~DepthProbeComputation "DepthProbeComputation::~DepthProbeComputation() override
 ";
 
 
@@ -1231,7 +1231,13 @@ C++ includes: DepthProbeComputation.h
 %feature("docstring")  DepthProbeComputationTerm::DepthProbeComputationTerm "DepthProbeComputationTerm::DepthProbeComputationTerm(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
 ";
 
-%feature("docstring")  DepthProbeComputationTerm::eval "void DepthProbeComputationTerm::eval(ProgressHandler *progress, const DepthProbeElementIter &begin_it, const DepthProbeElementIter &end_it) const 
+%feature("docstring")  DepthProbeComputationTerm::~DepthProbeComputationTerm "DepthProbeComputationTerm::~DepthProbeComputationTerm()
+";
+
+%feature("docstring")  DepthProbeComputationTerm::setProgressHandler "void DepthProbeComputationTerm::setProgressHandler(ProgressHandler *p_progress)
+";
+
+%feature("docstring")  DepthProbeComputationTerm::compute "void DepthProbeComputationTerm::compute(DepthProbeElement &elem) const 
 ";
 
 
@@ -1904,7 +1910,47 @@ C++ includes: DWBAComputation.h
 %feature("docstring")  DWBAComputation::DWBAComputation "DWBAComputation::DWBAComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, std::vector< SimulationElement >::iterator begin_it, std::vector< SimulationElement >::iterator end_it)
 ";
 
-%feature("docstring")  DWBAComputation::~DWBAComputation "DWBAComputation::~DWBAComputation()
+%feature("docstring")  DWBAComputation::~DWBAComputation "DWBAComputation::~DWBAComputation() override
+";
+
+
+// File: classDWBASingleComputation.xml
+%feature("docstring") DWBASingleComputation "
+
+Class that handles all the computations involved in GISAS (particles, roughness,...) for a single detector bin.
+
+Called by DWBASimulation on each detector bin.
+
+C++ includes: DWBASingleComputation.h
+";
+
+%feature("docstring")  DWBASingleComputation::DWBASingleComputation "DWBASingleComputation::DWBASingleComputation()
+";
+
+%feature("docstring")  DWBASingleComputation::~DWBASingleComputation "DWBASingleComputation::~DWBASingleComputation()
+";
+
+%feature("docstring")  DWBASingleComputation::DWBASingleComputation "DWBASingleComputation::DWBASingleComputation(DWBASingleComputation &&other)
+";
+
+%feature("docstring")  DWBASingleComputation::setProgressHandler "void DWBASingleComputation::setProgressHandler(ProgressHandler *p_progress)
+";
+
+%feature("docstring")  DWBASingleComputation::addLayoutComputation "void DWBASingleComputation::addLayoutComputation(ParticleLayoutComputation *p_layout_comp)
+";
+
+%feature("docstring")  DWBASingleComputation::setRoughnessComputation "void DWBASingleComputation::setRoughnessComputation(RoughMultiLayerComputation *p_roughness_comp)
+";
+
+%feature("docstring")  DWBASingleComputation::setSpecularBinComputation "void DWBASingleComputation::setSpecularBinComputation(GISASSpecularComputation *p_spec_comp)
+";
+
+%feature("docstring")  DWBASingleComputation::compute "void DWBASingleComputation::compute(SimulationElement &elem) const 
+";
+
+%feature("docstring")  DWBASingleComputation::regionMap "const std::map< size_t, std::vector< HomogeneousRegion > > & DWBASingleComputation::regionMap() const
+
+Retrieves a map of regions for the calculation of averaged layers. 
 ";
 
 
@@ -5901,20 +5947,18 @@ Sets beam parameters from here (forwarded to  Instrument)
 ";
 
 
-// File: classGISASSpecularComputationTerm.xml
-%feature("docstring") GISASSpecularComputationTerm "
+// File: classGISASSpecularComputation.xml
+%feature("docstring") GISASSpecularComputation "
 
-Computes the specular scattering. Used by  DWBAComputation.
+Computes the specular signal in the bin where q_parallel = 0. Used by  DWBAComputation.
 
-C++ includes: GISASSpecularComputationTerm.h
+C++ includes: GISASSpecularComputation.h
 ";
 
-%feature("docstring")  GISASSpecularComputationTerm::GISASSpecularComputationTerm "GISASSpecularComputationTerm::GISASSpecularComputationTerm(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
+%feature("docstring")  GISASSpecularComputation::GISASSpecularComputation "GISASSpecularComputation::GISASSpecularComputation(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
 ";
 
-%feature("docstring")  GISASSpecularComputationTerm::eval "void GISASSpecularComputationTerm::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
-
-Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
+%feature("docstring")  GISASSpecularComputation::compute "void GISASSpecularComputation::compute(SimulationElement &elem) const 
 ";
 
 
@@ -6254,7 +6298,7 @@ C++ includes: HomogeneousMultilayerBuilder.h
 
 Struct that contains information on a single homogeneous region of a particle inside a single layer. This information is needed for calculating the average of a material, used in the Fresnel calculations.
 
-C++ includes: SlicedParticle.h
+C++ includes: HomogeneousRegion.h
 ";
 
 
@@ -6592,31 +6636,6 @@ C++ includes: IComputation.h
 ";
 
 %feature("docstring")  IComputation::errorMessage "std::string IComputation::errorMessage() const 
-";
-
-
-// File: classIComputationTerm.xml
-%feature("docstring") IComputationTerm "
-
-Computes an independent term of the scattering intensity. Used by  DWBAComputation, which adds up all contributions from subclasses of  IComputationTerm
-
-C++ includes: IComputationTerm.h
-";
-
-%feature("docstring")  IComputationTerm::IComputationTerm "IComputationTerm::IComputationTerm(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map)
-";
-
-%feature("docstring")  IComputationTerm::~IComputationTerm "IComputationTerm::~IComputationTerm()
-";
-
-%feature("docstring")  IComputationTerm::eval "virtual void IComputationTerm::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const =0
-
-Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
-";
-
-%feature("docstring")  IComputationTerm::mergeRegionMap "void IComputationTerm::mergeRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &region_map) const
-
-Merges its region map into the given one (notice non-const reference parameter) 
 ";
 
 
@@ -7860,7 +7879,7 @@ If defined by this interference function's parameters, returns the particle dens
 
 Base class of all interference function strategy classes. Provides an 'evaluate' function that computes the total scattering intensity from a decorated layer, taking into account a specific inter-particle interference function. This function uses the low-level functions scalarCalculation and polarizedCalculation that are to be overriden in the derived classes. Inheritance is used to support different approximation schemes ( DecouplingApproximationStrategy,  SSCApproximationStrategy).
 
-Instantiation of child classes takes place in LayoutStrategyBuilder::createStrategy, which is called from  ParticleLayoutComputation::eval.
+Instantiation of child classes takes place in LayoutStrategyBuilder::createStrategy, which is called from ParticleLayoutComputation::eval.
 
 C++ includes: IInterferenceFunctionStrategy.h
 ";
@@ -7873,7 +7892,7 @@ C++ includes: IInterferenceFunctionStrategy.h
 
 %feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff)
 
-Initializes the object with form factors and interference functions. 
+Initializes the object with form factors and an interference function. 
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::evaluate "double IInterferenceFunctionStrategy::evaluate(const SimulationElement &sim_element) const
@@ -11131,6 +11150,18 @@ Returns a vector of children (const).
 ";
 
 
+// File: structMultilayerInfo.xml
+%feature("docstring") MultilayerInfo "
+
+Container struct for information regarding a multilayer: Fresnel coefficients and the multilayer itself. Used by the components of  DWBASingleComputation, which adds up the contributions from particles, roughness and specular signal
+
+C++ includes: MultilayerInfo.h
+";
+
+%feature("docstring")  MultilayerInfo::MultilayerInfo "MultilayerInfo::MultilayerInfo(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map)
+";
+
+
 // File: classMultiLayerWithRoughnessBuilder.xml
 %feature("docstring") MultiLayerWithRoughnessBuilder "
 
@@ -12339,9 +12370,15 @@ C++ includes: ParticleLayoutComputation.h
 %feature("docstring")  ParticleLayoutComputation::ParticleLayoutComputation "ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map, const ILayout *p_layout, size_t layer_index, const SimulationOptions &options, bool polarized)
 ";
 
-%feature("docstring")  ParticleLayoutComputation::eval "void ParticleLayoutComputation::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
+%feature("docstring")  ParticleLayoutComputation::~ParticleLayoutComputation "ParticleLayoutComputation::~ParticleLayoutComputation()
+";
 
-Computes scattering intensity for given range of simulation elements. 
+%feature("docstring")  ParticleLayoutComputation::compute "void ParticleLayoutComputation::compute(SimulationElement &elem) const 
+";
+
+%feature("docstring")  ParticleLayoutComputation::mergeRegionMap "void ParticleLayoutComputation::mergeRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &region_map) const
+
+Merges its region map into the given one (notice non-const reference parameter) 
 ";
 
 
@@ -13400,12 +13437,7 @@ C++ includes: RoughMultiLayerComputation.h
 %feature("docstring")  RoughMultiLayerComputation::RoughMultiLayerComputation "RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
 ";
 
-%feature("docstring")  RoughMultiLayerComputation::~RoughMultiLayerComputation "RoughMultiLayerComputation::~RoughMultiLayerComputation()
-";
-
-%feature("docstring")  RoughMultiLayerComputation::eval "void RoughMultiLayerComputation::eval(ProgressHandler *progress, const std::vector< SimulationElement >::iterator &begin_it, const std::vector< SimulationElement >::iterator &end_it) const override
-
-Calculate scattering intensity for each  SimulationElement returns false if nothing needed to be calculated 
+%feature("docstring")  RoughMultiLayerComputation::compute "void RoughMultiLayerComputation::compute(SimulationElement &elem) const 
 ";
 
 
@@ -14489,7 +14521,7 @@ C++ includes: SpecularComputation.h
 %feature("docstring")  SpecularComputation::SpecularComputation "SpecularComputation::SpecularComputation(const MultiLayer &multilayer, const SimulationOptions &options, ProgressHandler &progress, SpecularElementIter begin_it, SpecularElementIter end_it)
 ";
 
-%feature("docstring")  SpecularComputation::~SpecularComputation "SpecularComputation::~SpecularComputation()
+%feature("docstring")  SpecularComputation::~SpecularComputation "SpecularComputation::~SpecularComputation() override
 ";
 
 
@@ -14501,10 +14533,16 @@ Computes the specular scattering. Used by  SpecularComputation.
 C++ includes: SpecularComputationTerm.h
 ";
 
-%feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
+%feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm(const IFresnelMap *p_fresnel_map)
 ";
 
-%feature("docstring")  SpecularComputationTerm::eval "void SpecularComputationTerm::eval(ProgressHandler *progress, const SpecularElementIter &begin_it, const SpecularElementIter &end_it) const 
+%feature("docstring")  SpecularComputationTerm::~SpecularComputationTerm "SpecularComputationTerm::~SpecularComputationTerm()
+";
+
+%feature("docstring")  SpecularComputationTerm::setProgressHandler "void SpecularComputationTerm::setProgressHandler(ProgressHandler *p_progress)
+";
+
+%feature("docstring")  SpecularComputationTerm::compute "void SpecularComputationTerm::compute(SpecularSimulationElement &elem) const 
 ";
 
 
@@ -14997,7 +15035,7 @@ C++ includes: SSCAHelper.h
 %feature("docstring")  SSCAHelper::getMeanFormfactorNorm "complex_t SSCAHelper::getMeanFormfactorNorm(double qp, const std::vector< complex_t > &precomputed_ff, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers) const 
 ";
 
-%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const IInterferenceFunctionStrategy::matrixFFVector_t &precomputed_ff, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers) const 
+%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const InterferenceFunctionUtils::matrixFFVector_t &precomputed_ff, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers) const 
 ";
 
 
@@ -15507,10 +15545,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -15540,13 +15578,13 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D103.xml
+// File: namespace_0D106.xml
 
 
-// File: namespace_0D112.xml
+// File: namespace_0D115.xml
 
 
-// File: namespace_0D180.xml
+// File: namespace_0D183.xml
 
 
 // File: namespace_0D20.xml
@@ -15555,82 +15593,85 @@ C++ includes: ZLimits.h
 // File: namespace_0D22.xml
 
 
-// File: namespace_0D221.xml
+// File: namespace_0D224.xml
 
 
 // File: namespace_0D28.xml
 
 
-// File: namespace_0D288.xml
+// File: namespace_0D291.xml
 
 
-// File: namespace_0D292.xml
+// File: namespace_0D295.xml
 
 
-// File: namespace_0D304.xml
+// File: namespace_0D307.xml
 
 
-// File: namespace_0D325.xml
+// File: namespace_0D328.xml
 
 
-// File: namespace_0D329.xml
+// File: namespace_0D332.xml
 
 
-// File: namespace_0D331.xml
+// File: namespace_0D334.xml
 
 
-// File: namespace_0D333.xml
+// File: namespace_0D336.xml
 
 
-// File: namespace_0D341.xml
+// File: namespace_0D344.xml
 
 
-// File: namespace_0D356.xml
+// File: namespace_0D361.xml
 
 
-// File: namespace_0D364.xml
-
-
-// File: namespace_0D370.xml
-
-
-// File: namespace_0D373.xml
+// File: namespace_0D369.xml
 
 
 // File: namespace_0D375.xml
 
 
-// File: namespace_0D396.xml
+// File: namespace_0D378.xml
 
 
-// File: namespace_0D405.xml
+// File: namespace_0D380.xml
 
 
-// File: namespace_0D438.xml
+// File: namespace_0D401.xml
 
 
-// File: namespace_0D445.xml
+// File: namespace_0D410.xml
 
 
-// File: namespace_0D483.xml
+// File: namespace_0D444.xml
 
 
-// File: namespace_0D491.xml
+// File: namespace_0D451.xml
 
 
-// File: namespace_0D493.xml
+// File: namespace_0D489.xml
 
 
-// File: namespace_0D495.xml
+// File: namespace_0D497.xml
 
 
-// File: namespace_0D573.xml
+// File: namespace_0D499.xml
 
 
-// File: namespace_0D595.xml
+// File: namespace_0D501.xml
 
 
-// File: namespace_0D88.xml
+// File: namespace_0D579.xml
+
+
+// File: namespace_0D601.xml
+
+
+// File: namespace_0D82.xml
+
+
+// File: namespace_0D91.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -15916,6 +15957,20 @@ Validates all fit parameters for conflicts (steering same sample parameters).
 ";
 
 
+// File: namespaceIComputationUtils.xml
+%feature("docstring")  IComputationUtils::CreateFresnelMap "std::unique_ptr< IFresnelMap > IComputationUtils::CreateFresnelMap(const MultiLayer &multilayer, const SimulationOptions &sim_options, bool allow_average_layers)
+";
+
+%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const std::map< size_t, std::vector< HomogeneousRegion >> &region_map)
+";
+
+%feature("docstring")  IComputationUtils::GetRegionMap "std::map< size_t, std::vector< HomogeneousRegion > > IComputationUtils::GetRegionMap(const MultiLayer &multilayer)
+";
+
+%feature("docstring")  IComputationUtils::MergeRegionMap "void IComputationUtils::MergeRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &dest, const std::map< size_t, std::vector< HomogeneousRegion >> &source)
+";
+
+
 // File: namespaceINodeUtils.xml
 %feature("docstring")  INodeUtils::ChildNodesOfType "std::vector<const T*> INodeUtils::ChildNodesOfType(const INode &node)
 ";
@@ -16013,6 +16068,14 @@ SimulationResult object.
 ";
 
 %feature("docstring")  IntensityDataFunctions::ConvertData "SimulationResult IntensityDataFunctions::ConvertData(const Simulation &simulation, const std::vector< std::vector< double >> &data, bool put_masked_areas_to_zero=true)
+";
+
+
+// File: namespaceInterferenceFunctionUtils.xml
+%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector< complex_t > InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers)
+";
+
+%feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
 
@@ -16789,10 +16852,16 @@ global helper function for comparison of axes
 // File: DWBAComputation_8h.xml
 
 
-// File: GISASSpecularComputationTerm_8cpp.xml
+// File: DWBASingleComputation_8cpp.xml
 
 
-// File: GISASSpecularComputationTerm_8h.xml
+// File: DWBASingleComputation_8h.xml
+
+
+// File: GISASSpecularComputation_8cpp.xml
+
+
+// File: GISASSpecularComputation_8h.xml
 
 
 // File: IBackground_8cpp.xml
@@ -16807,10 +16876,13 @@ global helper function for comparison of axes
 // File: IComputation_8h.xml
 
 
-// File: IComputationTerm_8cpp.xml
+// File: IComputationUtils_8cpp.xml
 
 
-// File: IComputationTerm_8h.xml
+// File: IComputationUtils_8h.xml
+
+
+// File: MultilayerInfo_8h.xml
 
 
 // File: ParticleLayoutComputation_8cpp.xml
@@ -17601,7 +17673,7 @@ magnetization:
 magnetization (in A/m) 
 ";
 
-%feature("docstring")  createAveragedMaterial "Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
+%feature("docstring")  CreateAveragedMaterial "Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
 
 Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
 ";
@@ -17642,7 +17714,7 @@ magnetization:
 magnetization (in A/m) 
 ";
 
-%feature("docstring")  createAveragedMaterial "BA_CORE_API_ Material createAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
+%feature("docstring")  CreateAveragedMaterial "BA_CORE_API_ Material CreateAveragedMaterial(const Material &layer_mat, const std::vector< HomogeneousRegion > &regions)
 
 Creates averaged material. Square refractive index of returned material is arithmetic mean over  regions and  layer_mat. Magnetization (if present) is averaged linearly. 
 ";
@@ -17711,6 +17783,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: IMultiLayerBuilder_8h.xml
+
+
+// File: InterferenceFunctionUtils_8cpp.xml
+
+
+// File: InterferenceFunctionUtils_8h.xml
 
 
 // File: Layer_8cpp.xml
@@ -17946,6 +18024,9 @@ Recursive bisection to determine the number of the deepest layer where RT comput
 
 
 // File: FormFactorWeighted_8h.xml
+
+
+// File: HomogeneousRegion_8h.xml
 
 
 // File: IAbstractParticle_8cpp.xml

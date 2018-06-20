@@ -47,7 +47,7 @@ complex_t SSCAHelper::getCharacteristicDistribution(
 {
     const InterferenceFunctionRadialParaCrystal *p_iff_radial
         = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(p_iff);
-    if (p_iff_radial == 0)
+    if (!p_iff_radial)
         throw Exceptions::ClassInitializationException("Wrong interference function for SSCA");
     return p_iff_radial->FTPDF(qp);
 }
@@ -74,7 +74,7 @@ complex_t SSCAHelper::getMeanFormfactorNorm(
 
 void SSCAHelper::getMeanFormfactors(
         double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
-        const IInterferenceFunctionStrategy::matrixFFVector_t& precomputed_ff,
+        const InterferenceFunctionUtils::matrixFFVector_t& precomputed_ff,
         const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const
 {
     ff_orig=Eigen::Matrix2cd::Zero();

@@ -20,6 +20,26 @@
 #include "PropertyRepeater.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
+#include "SpecularDataItem.h"
+
+namespace {
+const double default_y_min = 0.0;
+const double default_y_max = 2.0;
+
+template<class DataType>
+DataType* simulationData(JobItem* job_item)
+{
+    assert(dynamic_cast<DataType*>(job_item->dataItem()));
+    return dynamic_cast<DataType*>(job_item->dataItem());
+}
+
+template<class DataType>
+DataType* realData(JobItem* job_item)
+{
+    assert(dynamic_cast<DataType*>(job_item->realDataItem()->dataItem()));
+    return dynamic_cast<DataType*>(job_item->realDataItem()->dataItem());
+}
+}
 
 class DiffItemController : public QObject
 {
@@ -92,6 +112,64 @@ void FitComparisonController2D::createRelativeDifferenceItem()
 
     m_relativeDiffItem = dynamic_cast<IntensityDataItem*>(
         m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
+}
+
+FitComparisonController1D::FitComparisonController1D(QObject* parent)
+    : QObject(parent)
+    , m_diff_item_controller(new DiffItemController(Constants::SpecularDataType, this))
+    , m_appearanceRepeater(new PropertyRepeater(this))
+    , m_xAxisRepeater(new PropertyRepeater(this))
+{
+}
+
+SpecularDataItem* FitComparisonController1D::diffItem()
+{
+    assert(dynamic_cast<SpecularDataItem*>(m_diff_item_controller->diffItem()));
+    return dynamic_cast<SpecularDataItem*>(m_diff_item_controller->diffItem());
+}
+
+void FitComparisonController1D::setItem(JobItem* job_item)
+{
+    assert(job_item);
+
+    clear();
+    m_diff_item_controller->setItem(job_item);
+
+    auto sim_data_item = simulationData<SpecularDataItem>(job_item);
+    auto real_data_item = realData<SpecularDataItem>(job_item);
+
+    m_appearanceRepeater->addItem(real_data_item);
+    m_appearanceRepeater->addItem(sim_data_item);
+    m_appearanceRepeater->addItem(diffItem());
+
+    m_xAxisRepeater->addItem(real_data_item->xAxisItem());
+    m_xAxisRepeater->addItem(sim_data_item->xAxisItem());
+    m_xAxisRepeater->addItem(diffItem()->xAxisItem());
+
+    diffItem()->setXaxisTitle(sim_data_item->getXaxisTitle());
+    diffItem()->setYaxisTitle("Relative difference");
+    diffItem()->setLog(false);
+    diffItem()->setLowerY(default_y_min);
+    diffItem()->setUpperY(default_y_max);
+}
+
+void FitComparisonController1D::updateDiffData()
+{
+    m_diff_item_controller->updateDiffData();
+}
+
+void FitComparisonController1D::resetDiffItem()
+{
+    diffItem()->resetView();
+    diffItem()->setLowerY(default_y_min);
+    diffItem()->setUpperY(default_y_max);
+}
+
+void FitComparisonController1D::clear()
+{
+    m_diff_item_controller->unsubscribe();
+    m_appearanceRepeater->clear();
+    m_xAxisRepeater->clear();
 }
 
 DiffItemController::DiffItemController(const QString& data_type, QObject* parent)

@@ -31,7 +31,7 @@ class IMinimizer;
 class BA_CORE_API_ FitKernel
 {
 public:
-    FitKernel();
+    FitKernel(FitParameterSet* fit_parameter_set);
     ~FitKernel();
 
     void clear();

@@ -31,7 +31,7 @@ class IFitParameter;
 class BA_CORE_API_ FitKernelImpl
 {
 public:
-    FitKernelImpl();
+    FitKernelImpl(FitParameterSet* fit_parameter_set);
     ~FitKernelImpl();
 
     void clear();
@@ -52,6 +52,7 @@ public:
     std::string reportResults() const;
 
     FitParameterSet* fitParameters();
+    const FitParameterSet* fitParameters() const;
 
     IMinimizer* minimizer();
 
@@ -59,7 +60,7 @@ public:
     int functionCalls() const;
 
 private:
-    FitParameterSet m_fit_parameters;
+    FitParameterSet* m_fit_parameters;
     std::unique_ptr<IMinimizer> m_minimizer;
     ObjectiveFunction m_objective_function;
     TimeInterval m_time_interval;

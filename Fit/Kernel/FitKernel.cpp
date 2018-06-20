@@ -22,8 +22,8 @@ namespace {
     const std::string default_algorithm = "Migrad";
 }
 
-FitKernel::FitKernel()
-    : m_impl(new FitKernelImpl)
+FitKernel::FitKernel(FitParameterSet* fit_parameter_set)
+    : m_impl(new FitKernelImpl(fit_parameter_set))
 {
     setMinimizer(default_minimizer, default_algorithm);
 }
@@ -91,7 +91,7 @@ std::string FitKernel::reportResults() const
 
 FitParameterSet* FitKernel::fitParameters()
 {
-    return const_cast<FitParameterSet*>(static_cast<const FitKernel*>(this)->fitParameters());
+    return m_impl->fitParameters();
 }
 
 const FitParameterSet* FitKernel::fitParameters() const

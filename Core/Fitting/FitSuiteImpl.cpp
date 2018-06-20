@@ -24,7 +24,7 @@
 #include <stdexcept>
 
 namespace {
-const bool use_new_kernel = true;
+const bool use_new_kernel = false;
 }
 
 
@@ -32,7 +32,7 @@ FitSuiteImpl::FitSuiteImpl(const std::function<void()>& notifyObservers)
     : m_is_last_iteration(false)
     , m_is_interrupted(false)
     , m_notifyObservers(notifyObservers)
-    , m_kernel(new FitKernel)
+    , m_kernel(new FitKernel(&m_fit_parameters))
     , m_new_kernel(new Fit::Minimizer)
     , m_iteration_count(0)
 {

@@ -135,6 +135,8 @@ private:
     std::unique_ptr<Fit::Minimizer> m_new_kernel;
     size_t m_iteration_count;
     Fit::MinimizerResult m_minimizerResult;
+    FitParameterSet m_fit_parameters;
+
 };
 
 #endif // FITSUITEIMPL_H

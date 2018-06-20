@@ -18,13 +18,14 @@
 #include "MinimizerUtils.h"
 #include <sstream>
 
-FitKernelImpl::FitKernelImpl() {}
+FitKernelImpl::FitKernelImpl(FitParameterSet* fit_parameter_set)
+    : m_fit_parameters(fit_parameter_set){}
 
 FitKernelImpl::~FitKernelImpl() {}
 
 void FitKernelImpl::clear()
 {
-    m_fit_parameters.clear();
+    fitParameters()->clear();
     m_minimizer.reset();
 }
 
@@ -35,7 +36,7 @@ void FitKernelImpl::setMinimizer(IMinimizer* minimizer)
 
 void FitKernelImpl::addFitParameter(IFitParameter* par)
 {
-    m_fit_parameters.addFitParameter(par);
+    fitParameters()->addFitParameter(par);
 }
 
 void FitKernelImpl::setObjectiveFunction(objective_function_t func)
@@ -53,7 +54,7 @@ void FitKernelImpl::minimize()
     if(!m_minimizer)
         throw std::runtime_error("FitKernelImpl::minimize() -> Error. Minimizer is not defined.");
 
-    if(m_fit_parameters.size() == 0)
+    if(fitParameters()->size() == 0)
         return;
 
     m_time_interval.start();
@@ -69,12 +70,12 @@ void FitKernelImpl::minimize()
     };
     m_minimizer->setGradientFunction(gradient_func, m_objective_function.sizeOfData());
 
-    m_minimizer->setParameters(m_fit_parameters);
+    m_minimizer->setParameters(*fitParameters());
 
     m_minimizer->minimize();
 
     // set found values to the parameters
-    m_minimizer->propagateResults(m_fit_parameters);
+    m_minimizer->propagateResults(*fitParameters());
 
     m_time_interval.stop();
 }
@@ -87,13 +88,18 @@ std::string FitKernelImpl::reportResults() const
     result << "functionCalls: " << m_objective_function.functionCalls()
            << " (" << m_time_interval.runTime() << " sec total)" << "\n";
     result << m_minimizer->reportOutcome();
-    result << MinimizerResultsHelper().reportParameters(&m_fit_parameters);
+    result << MinimizerResultsHelper().reportParameters(fitParameters());
     return result.str();
 }
 
 FitParameterSet* FitKernelImpl::fitParameters()
 {
-    return &m_fit_parameters;
+    return m_fit_parameters;
+}
+
+const FitParameterSet*FitKernelImpl::fitParameters() const
+{
+    return m_fit_parameters;
 }
 
 IMinimizer* FitKernelImpl::minimizer()

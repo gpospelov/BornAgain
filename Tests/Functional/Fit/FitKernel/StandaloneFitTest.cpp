@@ -47,7 +47,9 @@ bool StandaloneFitTest::runPlan(std::shared_ptr<StandaloneFitPlan> plan)
 {
     bool success(true);
 
-    std::unique_ptr<FitKernel> fitKernel(new FitKernel);
+    std::unique_ptr<FitParameterSet> pars(new FitParameterSet);
+
+    std::unique_ptr<FitKernel> fitKernel(new FitKernel(pars.get()));
     fitKernel->setMinimizer(plan->minimizerName(), plan->algorithmName());
 
     // TODO refactor fitKernel to add IFitParameter directly, similar to FitSuite

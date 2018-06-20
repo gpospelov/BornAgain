@@ -15,9 +15,12 @@
 #ifndef SPECULARCOMPUTATIONTERM_H_
 #define SPECULARCOMPUTATIONTERM_H_
 
+#include <memory>
 #include <vector>
 
+class DelayedProgressCounter;
 class IFresnelMap;
+class ProgressHandler;
 class SpecularSimulationElement;
 
 //! Computes the specular scattering.
@@ -28,11 +31,15 @@ class SpecularComputationTerm
 {
 public:
     SpecularComputationTerm(const IFresnelMap* p_fresnel_map);
+    ~SpecularComputationTerm();
 
-    void operator()(SpecularSimulationElement& elem) const;
+    void setProgressHandler(ProgressHandler* p_progress);
+
+    void compute(SpecularSimulationElement& elem) const;
 
 private:
     const IFresnelMap* mp_fresnel_map;
+    std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
 };
 
 #endif /* SPECULARCOMPUTATIONTERM_H_ */

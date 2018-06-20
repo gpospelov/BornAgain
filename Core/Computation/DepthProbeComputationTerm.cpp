@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "DepthProbeComputationTerm.h"
+#include "DelayedProgressCounter.h"
 #include "DepthProbeElement.h"
 #include "IAxis.h"
 #include "IFresnelMap.h"
@@ -24,7 +25,14 @@ DepthProbeComputationTerm::DepthProbeComputationTerm(const MultiLayer* p_multi_l
     : mp_multilayer(p_multi_layer), mp_fresnel_map(p_fresnel_map)
 {}
 
-void DepthProbeComputationTerm::operator()(DepthProbeElement& elem) const
+DepthProbeComputationTerm::~DepthProbeComputationTerm() =default;
+
+void DepthProbeComputationTerm::setProgressHandler(ProgressHandler* p_progress)
+{
+    mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
+}
+
+void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const
 {
     if (elem.isCalculated()) {
         const IAxis& z_positions = *elem.getZPositions();
@@ -60,5 +68,8 @@ void DepthProbeComputationTerm::operator()(DepthProbeElement& elem) const
             start_z_ind = ip1_z;
         }
         elem.setIntensities(std::move(intensities));
+    }
+    if (mP_progress_counter) {
+        mP_progress_counter->stepProgress();
     }
 }

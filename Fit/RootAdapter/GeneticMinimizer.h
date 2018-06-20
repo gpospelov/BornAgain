@@ -58,7 +58,6 @@ protected:
     const root_minimizer_t* rootMinimizer() const override;
 
     using RootMinimizerAdapter::setParameter;
-    void setParameter(size_t index, const IFitParameter* par) override;
     void setParameter(unsigned int index, const Fit::Parameter& par) override;
 
 private:

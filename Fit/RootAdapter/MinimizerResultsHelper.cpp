@@ -14,8 +14,6 @@
 
 #include "MinimizerResultsHelper.h"
 #include "RootMinimizerAdapter.h"
-#include "FitParameterSet.h"
-#include "IFitParameter.h"
 #include "MinimizerUtils.h"
 #include "Parameters.h"
 #include <boost/format.hpp>
@@ -51,37 +49,6 @@ std::string MinimizerResultsHelper::reportOutcome(const RootMinimizerAdapter* mi
     return result.str();
 }
 
-std::string MinimizerResultsHelper::reportParameters(const FitParameterSet* parameters)
-{
-    std::ostringstream result;
-
-    result << MinimizerUtils::sectionString("FitParameters");
-
-    result << "Name       StartValue  Limits                FitValue  Error" << std::endl;
-
-    for(const IFitParameter* par : *parameters) {
-        result << boost::format("# %-8s %-7.4f     %-20s  %-6.4f    %5.4f \n")
-                  % par->name()
-                  % par->startValue()
-                  % par->limits().toString()
-                  % par->value()
-                  % par->error();
-    }
-
-    FitParameterSet::corr_matrix_t matrix = parameters->correlationMatrix();
-    if(matrix.size()) {
-        result << MinimizerUtils::sectionString("Correlations");
-        for(size_t i=0; i<matrix.size(); ++i) {
-            result << boost::format("#%-2d       ") %i;
-            for(size_t j=0; j<matrix[i].size(); ++j)
-                result << boost::format("%_7.4f    ") % matrix[i][j];
-            result << std::endl;
-        }
-
-    }
-
-    return result.str();
-}
 
 std::string MinimizerResultsHelper::reportParameters(const Fit::Parameters& parameters)
 {

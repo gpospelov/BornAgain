@@ -21,7 +21,6 @@
 #include <string>
 #include <memory>
 
-class IFitParameter;
 namespace Fit {
     class Parameters; class Parameter; class ObjectiveFunctionAdapter; class MinimizerResult;
 }
@@ -71,7 +70,6 @@ protected:
     void propagateResults(Fit::Parameters& parameters);
 
     virtual bool isGradientBasedAgorithm() { return false;}
-    virtual void setParameter(size_t index, const IFitParameter *par);
     virtual void setParameter(unsigned int index, const Fit::Parameter& par);
     size_t fitDimension() const;
     std::vector<double> parValuesAtMinimum() const;

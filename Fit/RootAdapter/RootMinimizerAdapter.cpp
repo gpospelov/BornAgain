@@ -13,8 +13,6 @@
 // ************************************************************************** //
 
 #include "RootMinimizerAdapter.h"
-#include "IFitParameter.h"
-#include "FitParameterSet.h"
 #include "Math/Minimizer.h"
 #include "MinimizerResultsHelper.h"
 #include "RootMinimizerFunctions.h"
@@ -143,53 +141,6 @@ void RootMinimizerAdapter::propagateResults(Fit::Parameters& parameters)
                 matrix[i][j] = rootMinimizer()->Correlation(i,j);
         }
         parameters.setCorrelationMatrix(matrix);
-    }
-}
-
-//! Propagate fit parameter down to ROOT minimizer.
-
-void RootMinimizerAdapter::setParameter(size_t index, const IFitParameter *par)
-{
-    bool success;
-    if (par->limits().isFixed()) {
-        success = rootMinimizer()->SetFixedVariable((int)index, par->name().c_str(),
-                                                    par->value());
-
-    }
-
-    else if (par->limits().isLimited()) {
-        success = rootMinimizer()->SetLimitedVariable((int)index, par->name().c_str(),
-                                                      par->value(), par->step(),
-                                                      par->limits().lowerLimit(),
-                                                      par->limits().upperLimit());
-    }
-
-    else if (par->limits().isLowerLimited()) {
-        success = rootMinimizer()->SetLowerLimitedVariable((int)index, par->name().c_str(),
-                                                           par->value(), par->step(),
-                                                           par->limits().lowerLimit());
-    }
-
-    else if (par->limits().isUpperLimited()) {
-        success = rootMinimizer()->SetUpperLimitedVariable((int)index, par->name().c_str(),
-                                                           par->value(), par->step(),
-                                                           par->limits().upperLimit());
-    }
-
-    else if (par->limits().isLimitless()) {
-        success = rootMinimizer()->SetVariable((int)index, par->name().c_str(), par->value(),
-                                               par->step());
-    }
-
-    else {
-        throw std::runtime_error("BasicMinimizer::setParameter() -> Error! Unexpected parameter.");
-    }
-
-    if( !success ) {
-        std::ostringstream ostr;
-        ostr << "BasicMinimizer::setParameter() -> Error! Can't set minimizer's fit parameter";
-        ostr << "Index:" << index << " name '" << par->name() << "'";
-        throw std::runtime_error(ostr.str());
     }
 }
 

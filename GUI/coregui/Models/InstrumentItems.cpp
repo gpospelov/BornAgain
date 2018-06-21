@@ -26,6 +26,8 @@
 
 namespace {
 const QString background_group_label = "Type";
+const QStringList instrument_names{Constants::GISASInstrumentType, Constants::OffSpecInstrumentType,
+                                   Constants::SpecularInstrumentType};
 void addAxisGroupProperty(SessionItem* parent, const QString& tag);
 }
 
@@ -36,16 +38,11 @@ const QString InstrumentItem::P_BACKGROUND = "Background";
 QStringList InstrumentItem::translateList(const QStringList& list) const
 {
     QStringList result;
-    // Add constant background directly to simulation
-    // TODO: this way of directly adding background is too sensitive
-    //       to the background name
     if (list.back().endsWith(P_BACKGROUND) && list.size()==2) {
         result << list[0] << list[1];
     } else {
-        // TODO Consider usage of ModelTypeTranslator in IntrusmentItem's constructor
-        // after the refactoring of SessionItem::translateList
         result = SessionItem::translateList(list);
-        if (result.back() == Constants::GISASInstrumentType) {
+        if (instrument_names.contains(result.back())) {
             result.removeLast();
             result << QStringLiteral("Instrument");
         }

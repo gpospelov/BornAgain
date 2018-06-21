@@ -15,9 +15,9 @@
 #ifndef ATTLIMITS_H
 #define ATTLIMITS_H
 
-#include "WinDllMacros.h"
-#include "RealLimits.h"
 #include "Attributes.h"
+#include "RealLimits.h"
+#include "WinDllMacros.h"
 #include <string>
 
 //! Attributes and limits of a fit parameter, and coupling between these properties.
@@ -48,12 +48,15 @@ public:
     void setFixed(bool isFixed);
 
     bool operator==(const AttLimits& other) const;
-    bool operator!=(const AttLimits& other) const { return !(*this == other); }
+    bool operator!=(const AttLimits& other) const;
 
     std::string toString() const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m)
-    { ostr << m.toString(); return ostr; }
+    {
+        ostr << m.toString();
+        return ostr;
+    }
 
 private:
     AttLimits(const RealLimits& limits, const Attributes& fixedAttr);

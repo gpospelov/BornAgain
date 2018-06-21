@@ -13,18 +13,14 @@
 // ************************************************************************** //
 
 #include "AttLimits.h"
-#include <sstream>
 #include <iomanip>
+#include <sstream>
 
 AttLimits::AttLimits()
-    : m_limits(RealLimits::limitless())
-    , m_att_fixed(Attributes::free())
-{}
+    : m_limits(RealLimits::limitless()), m_att_fixed(Attributes::free()) {}
 
-AttLimits::AttLimits(const RealLimits &limits, const Attributes &fixedAttr)
-    : m_limits(limits)
-    , m_att_fixed(fixedAttr)
-{}
+AttLimits::AttLimits(const RealLimits& limits, const Attributes& fixedAttr)
+    : m_limits(limits), m_att_fixed(fixedAttr) { }
 
 AttLimits AttLimits::limitless()
 {
@@ -61,10 +57,7 @@ AttLimits AttLimits::fixed()
     return AttLimits(RealLimits::limitless(), Attributes::fixed());
 }
 
-bool AttLimits::isFixed() const
-{
-    return m_att_fixed.isFixed();
-}
+bool AttLimits::isFixed() const { return m_att_fixed.isFixed(); }
 
 bool AttLimits::isLimited() const
 {
@@ -102,26 +95,28 @@ void AttLimits::setFixed(bool isFixed)
     m_att_fixed.setFixed(isFixed);
 }
 
-bool AttLimits::operator==(const AttLimits &other) const
+bool AttLimits::operator==(const AttLimits& other) const
 {
     return m_limits == other.m_limits && m_att_fixed == other.m_att_fixed;
 }
+
+bool AttLimits::operator!=(const AttLimits& other) const { return !(*this == other); }
 
 std::string AttLimits::toString() const
 {
     std::ostringstream result;
 
-    if(isFixed()) {
+    if (isFixed())
         result << "fixed";
-    }else if(isLimitless()) {
+    else if (isLimitless())
         result << "free";
-    } else if(isLowerLimited()) {
-        result << "lowerLimited("  << std::fixed <<std::setprecision(2) << lowerLimit() << ")";
-    }else if(isUpperLimited()) {
-        result << "upperLimited(" << std::fixed <<std::setprecision(2) << upperLimit() << ")";
-    }else if(isLimited()) {
-        result << "limited(" << std::fixed <<std::setprecision(2) << lowerLimit() << "," <<
-            std::fixed <<std::setprecision(2) << upperLimit() << ")";
-    }
+    else if (isLowerLimited())
+        result << "lowerLimited(" << std::fixed << std::setprecision(2) << lowerLimit() << ")";
+    else if (isUpperLimited())
+        result << "upperLimited(" << std::fixed << std::setprecision(2) << upperLimit() << ")";
+    else if (isLimited())
+        result << "limited(" << std::fixed << std::setprecision(2) << lowerLimit() << ","
+               << std::fixed << std::setprecision(2) << upperLimit() << ")";
+
     return result.str();
 }

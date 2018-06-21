@@ -22,8 +22,8 @@
 class BA_CORE_API_ TestMinimizer : public IMinimizer
 {
  public:
-    TestMinimizer() : m_min_value(0) {}
-    ~TestMinimizer(){}
+    TestMinimizer();
+    ~TestMinimizer();
 
     std::string minimizerName() const final;
     std::string algorithmName() const final { return ""; }

@@ -15,8 +15,8 @@
 #ifndef MINIMIZERCATALOGUE_H
 #define MINIMIZERCATALOGUE_H
 
-#include "WinDllMacros.h"
 #include "MinimizerInfo.h"
+#include "WinDllMacros.h"
 #include <map>
 
 //! Hard-coded information about all minimizers available.
@@ -34,7 +34,8 @@ Genetic        | Default
 Test           | Default
 */
 
-class BA_CORE_API_ MinimizerCatalogue {
+class BA_CORE_API_ MinimizerCatalogue
+{
 public:
     MinimizerCatalogue();
 
@@ -47,8 +48,8 @@ public:
     std::vector<std::string> algorithmDescriptions(const std::string& minimizerName) const;
 
     const MinimizerInfo& minimizerInfo(const std::string& minimizerName) const;
-private:
 
+private:
     void addMinimizerInfo(const MinimizerInfo& info);
     std::vector<MinimizerInfo> m_minimizers;
 };

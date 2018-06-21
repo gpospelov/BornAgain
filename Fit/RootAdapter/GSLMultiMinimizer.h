@@ -15,17 +15,18 @@
 #ifndef GSLMULTIMINIMIZER_H
 #define GSLMULTIMINIMIZER_H
 
-#include "RootMinimizerAdapter.h"
 #include "MinimizerConstants.h"
+#include "RootMinimizerAdapter.h"
 
 namespace ROOT { namespace Math { class GSLMinimizer; } }
 
 //! Wrapper for the CERN ROOT facade of the GSL multi minimizer family (gradient descent based).
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ GSLMultiMinimizer : public RootMinimizerAdapter {
+class BA_CORE_API_ GSLMultiMinimizer : public RootMinimizerAdapter
+{
 public:
-    explicit GSLMultiMinimizer(const std::string &algorithmName = AlgorithmNames::ConjugateFR);
+    explicit GSLMultiMinimizer(const std::string& algorithmName = AlgorithmNames::ConjugateFR);
     ~GSLMultiMinimizer();
 
     //! Sets minimizer internal print level.

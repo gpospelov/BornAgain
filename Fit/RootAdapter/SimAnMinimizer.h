@@ -22,7 +22,8 @@ namespace ROOT { namespace Math { class GSLSimAnMinimizer; } }
 //! Wrapper for the CERN ROOT facade of the GSL simmulated annealing minimizer.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ SimAnMinimizer : public RootMinimizerAdapter {
+class BA_CORE_API_ SimAnMinimizer : public RootMinimizerAdapter
+{
 public:
     SimAnMinimizer();
     ~SimAnMinimizer();
@@ -61,7 +62,7 @@ public:
     double boltzmannMinTemp() const;
 
     std::map<std::string, std::string> statusMap() const override;
-    virtual bool isGradientBasedAgorithm()  override;
+    virtual bool isGradientBasedAgorithm() override;
 
 protected:
     void propagateOptions() override;

@@ -17,10 +17,10 @@
 #include "MinimizerConstants.h"
 
 #ifdef _WIN32
-#pragma warning ( push )
-#pragma warning ( disable: 4267 )
+#pragma warning(push)
+#pragma warning(disable : 4267)
 #include "Math/GSLSimAnMinimizer.h"
-#pragma warning ( pop )
+#pragma warning(pop)
 #else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -29,8 +29,8 @@
 #endif
 
 SimAnMinimizer::SimAnMinimizer()
-    : RootMinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo())
-    , m_siman_minimizer(new ROOT::Math::GSLSimAnMinimizer())
+    : RootMinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo()),
+      m_siman_minimizer(new ROOT::Math::GSLSimAnMinimizer())
 {
     addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
     addOption(OptionNames::MaxIterations, 100, "Number of points to try for each step");
@@ -42,7 +42,7 @@ SimAnMinimizer::SimAnMinimizer()
     addOption(OptionNames::BoltzmannTmin, 0.1, "Boltzmann minimal temperature");
 }
 
-SimAnMinimizer::~SimAnMinimizer() {}
+SimAnMinimizer::~SimAnMinimizer() = default;
 
 void SimAnMinimizer::setPrintLevel(int value)
 {
@@ -131,7 +131,10 @@ std::map<std::string, std::string> SimAnMinimizer::statusMap() const
     return result;
 }
 
-bool SimAnMinimizer::isGradientBasedAgorithm() { return false; }
+bool SimAnMinimizer::isGradientBasedAgorithm()
+{
+    return false;
+}
 
 void SimAnMinimizer::propagateOptions()
 {

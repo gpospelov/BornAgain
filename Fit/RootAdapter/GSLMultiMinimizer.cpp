@@ -37,10 +37,7 @@ GSLMultiMinimizer::GSLMultiMinimizer(const std::string &algorithmName)
     addOption(OptionNames::MaxIterations, 0, "Maximum number of iterations");
 }
 
-GSLMultiMinimizer::~GSLMultiMinimizer()
-{
-
-}
+GSLMultiMinimizer::~GSLMultiMinimizer() = default;
 
 void GSLMultiMinimizer::setPrintLevel(int value)
 {
@@ -70,7 +67,7 @@ std::string GSLMultiMinimizer::statusToString() const
 void GSLMultiMinimizer::propagateOptions()
 {
     m_gsl_minimizer->SetPrintLevel(printLevel());
-    m_gsl_minimizer->SetMaxIterations(maxIterations());
+    m_gsl_minimizer->SetMaxIterations(static_cast<unsigned int>(maxIterations()));
 }
 
 const RootMinimizerAdapter::root_minimizer_t *GSLMultiMinimizer::rootMinimizer() const

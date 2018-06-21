@@ -15,4 +15,4 @@
 #include "RootScalarFunction.h"
 
 RootScalarFunction::RootScalarFunction(root_objective_t fcn, int ndims)
-    : ROOT::Math::Functor(fcn, ndims) {}
+    : ROOT::Math::Functor(fcn, static_cast<unsigned int>(ndims)) {}

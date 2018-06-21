@@ -200,11 +200,10 @@ TEST_F(TestMapperForItem, test_onParentChange)
     EXPECT_TRUE(m_mapped_item == layer);
     delete multilayer->takeRow(ParentRow(*layer));
 
-    EXPECT_EQ(w.m_onPropertyChangeCount, 0);
+    EXPECT_EQ(w.m_onPropertyChangeCount, 2); // Layer updates its property appearance, see LayerItem
     EXPECT_EQ(w.m_onChildPropertyChangeCount, 0);
     EXPECT_EQ(w.m_onParentChangeCount, 1);
     EXPECT_EQ(w.m_onChildrenChangeCount, 0);
-    EXPECT_TRUE(w.m_reported_names.isEmpty());
 }
 
 TEST_F(TestMapperForItem, test_onChildrenChange)

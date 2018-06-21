@@ -13,33 +13,19 @@
 // ************************************************************************** //
 
 #include "FitComparisonWidget.h"
-#include "AxesItems.h"
 #include "ColorMap.h"
 #include "ColorMapCanvas.h"
-#include "PlotStatusLabel.h"
-#include "FitFlowWidget.h"
-#include "IntensityDataFunctions.h"
-#include "IntensityDataItem.h"
-#include "JobItem.h"
-#include "RealDataItem.h"
-#include "SessionModel.h"
-#include "FitSuiteItem.h"
-#include "PropertyRepeater.h"
-#include "IntensityDataPropertyWidget.h"
-#include "AxesItems.h"
 #include "FitComparisonController.h"
-#include "JobItemUtils.h"
+#include "FitFlowWidget.h"
+#include "FitSuiteItem.h"
+#include "IntensityDataItem.h"
+#include "IntensityDataPropertyWidget.h"
+#include "JobItem.h"
+#include "PlotStatusLabel.h"
+#include "RealDataItem.h"
 #include <QAction>
 #include <QGridLayout>
-#include <QLabel>
 #include <QVBoxLayout>
-#include <QVBoxLayout>
-#include <QDebug>
-
-namespace {
-const double relative_diff_min = 1e-05;
-const double relative_diff_max = 1;
-}
 
 FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     : SessionItemWidget(parent)
@@ -47,7 +33,7 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     , m_simulatedDataPlot(new ColorMapCanvas)
     , m_relativeDiffPlot(new ColorMapCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
-    , m_statusLabel(new PlotStatusLabel(0, this))
+    , m_statusLabel(new PlotStatusLabel(nullptr, this))
     , m_propertyWidget(new IntensityDataPropertyWidget)
     , m_resetViewAction(new QAction(this))
     , m_comparisonController(new FitComparisonController2D(this))
@@ -80,15 +66,10 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     m_resetViewAction->setToolTip("Reset View");
     connect(m_resetViewAction, &QAction::triggered, this, &FitComparisonWidget::onResetViewAction);
 
-    m_relativeDiffPlot->setItem(m_comparisonController->diffItem());
     m_propertyWidget->setVisible(false);
 }
 
-FitComparisonWidget::~FitComparisonWidget()
-{
-    unsubscribeFromChildren();
-}
-
+FitComparisonWidget::~FitComparisonWidget() = default;
 
 QList<QAction*> FitComparisonWidget::actionList()
 {
@@ -109,13 +90,10 @@ void FitComparisonWidget::subscribeToItem()
         },
         this);
 
-    if (auto simItem = simulatedDataItem()) {
-        simItem->mapper()->setOnValueChange([this]() { calculateRelativeDifference(); }, this);
-    }
-    calculateRelativeDifference();
-
+    m_comparisonController->setItem(jobItem());
     m_realDataPlot->setItem(realDataItem());
     m_simulatedDataPlot->setItem(simulatedDataItem());
+    m_relativeDiffPlot->setItem(m_comparisonController->diffItem());
     m_fitFlowWidget->setItem(jobItem()->fitSuiteItem());
 
     m_statusLabel->reset();
@@ -123,26 +101,11 @@ void FitComparisonWidget::subscribeToItem()
     m_statusLabel->addPlot(m_simulatedDataPlot->colorMap());
     m_statusLabel->addPlot(m_relativeDiffPlot->colorMap());
 
-    m_comparisonController->setItems(realDataItem(), simulatedDataItem());
-
-    if (auto diff_item = diffItem())
-        diff_item->mapper()->setOnPropertyChange(
-            [this, diff_item](const QString& name) {
-                if (name == DataItem::P_AXES_UNITS)
-                    diff_item->updateAxesUnits(jobItem()->instrumentItem());
-            },
-            this);
-
     m_propertyWidget->setItem(simulatedDataItem());
 }
 
 void FitComparisonWidget::unsubscribeFromItem()
 {
-    if (!currentItem())
-        return;
-
-    unsubscribeFromChildren();
-
     m_comparisonController->clear();
 }
 
@@ -151,36 +114,7 @@ void FitComparisonWidget::onResetViewAction()
     if (auto item = realDataItem())
         item->resetView();
 
-    if (diffItem()) {
-        diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
-    }
-}
-
-void FitComparisonWidget::calculateRelativeDifference()
-{
-    if (!simulatedDataItem()->getOutputData()) // job failed
-        return;
-
-    Q_ASSERT(realDataItem());
-    Q_ASSERT(simulatedDataItem());
-    Q_ASSERT(diffItem());
-
-    diffItem()->setOutputData(IntensityDataFunctions::createRelativeDifferenceData(
-        *simulatedDataItem()->getOutputData(), *realDataItem()->getOutputData()).release());
-
-    diffItem()->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getXaxisTitle());
-    diffItem()->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, simulatedDataItem()->getYaxisTitle());
-    diffItem()->setLowerAndUpperZ(relative_diff_min, relative_diff_max);
-    diffItem()->setAxesRangeToData();
-}
-
-void FitComparisonWidget::unsubscribeFromChildren()
-{
-    if (jobItem() && simulatedDataItem())
-        simulatedDataItem()->mapper()->unsubscribe(this);
-
-    if (diffItem())
-        diffItem()->mapper()->unsubscribe(this);
+    m_comparisonController->resetDiffItem();
 }
 
 JobItem* FitComparisonWidget::jobItem()

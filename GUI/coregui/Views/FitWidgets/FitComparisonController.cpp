@@ -23,8 +23,12 @@
 #include "SpecularDataItem.h"
 
 namespace {
-const double default_y_min = 0.0;
-const double default_y_max = 2.0;
+// different limits on relative difference plot are required
+// to provide the best appearance
+const double relative_diff_min_2d = 1e-05;
+const double relative_diff_max_2d = 1.0;
+const double relative_diff_min_1d = 1e-05;
+const double relative_diff_max_1d = 4.0;
 
 template<class DataType>
 DataType* simulationData(JobItem* job_item)
@@ -59,59 +63,74 @@ private:
 
 FitComparisonController2D::FitComparisonController2D(QObject* parent)
     : QObject(parent)
+    , m_diff_item_controller(new DiffItemController(Constants::IntensityDataType, this))
     , m_appearanceRepeater(new PropertyRepeater(this))
     , m_xAxisRepeater(new PropertyRepeater(this))
     , m_yAxisRepeater(new PropertyRepeater(this))
     , m_zAxisRepeater(new PropertyRepeater(this))
-    , m_relativeDiffItem(nullptr)
-    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
 {
-    createRelativeDifferenceItem();
 }
 
 IntensityDataItem* FitComparisonController2D::diffItem()
 {
-    return m_relativeDiffItem;
+    assert(dynamic_cast<IntensityDataItem*>(m_diff_item_controller->diffItem()));
+    return dynamic_cast<IntensityDataItem*>(m_diff_item_controller->diffItem());
 }
 
-void FitComparisonController2D::setItems(IntensityDataItem* realDataItem,
-                                       IntensityDataItem* simDataItem)
+void FitComparisonController2D::setItem(JobItem* job_item)
 {
-    double zmin = realDataItem->getLowerZ();
-    double zmax = realDataItem->getUpperZ();
-    simDataItem->setLowerAndUpperZ(zmin, zmax);
+    assert(job_item);
 
-    m_appearanceRepeater->addItem(realDataItem);
-    m_appearanceRepeater->addItem(simDataItem);
+    clear();
+    m_diff_item_controller->setItem(job_item);
+
+    auto sim_data_item = simulationData<IntensityDataItem>(job_item);
+    auto real_data_item = realData<IntensityDataItem>(job_item);
+
+    double zmin = real_data_item->getLowerZ();
+    double zmax = real_data_item->getUpperZ();
+    sim_data_item->setLowerAndUpperZ(zmin, zmax);
+
+    diffItem()->xAxisItem()->setItemValue(BasicAxisItem::P_TITLE, sim_data_item->getXaxisTitle());
+    diffItem()->yAxisItem()->setItemValue(BasicAxisItem::P_TITLE, sim_data_item->getYaxisTitle());
+    diffItem()->setLowerAndUpperZ(relative_diff_min_2d, relative_diff_max_2d);
+    diffItem()->setAxesRangeToData();
+
+    m_appearanceRepeater->addItem(real_data_item);
+    m_appearanceRepeater->addItem(sim_data_item);
     m_appearanceRepeater->addItem(diffItem());
 
-    m_xAxisRepeater->addItem(realDataItem->xAxisItem());
-    m_xAxisRepeater->addItem(simDataItem->xAxisItem());
+    m_xAxisRepeater->addItem(real_data_item->xAxisItem());
+    m_xAxisRepeater->addItem(sim_data_item->xAxisItem());
     m_xAxisRepeater->addItem(diffItem()->xAxisItem());
 
-    m_yAxisRepeater->addItem(realDataItem->yAxisItem());
-    m_yAxisRepeater->addItem(simDataItem->yAxisItem());
+    m_yAxisRepeater->addItem(real_data_item->yAxisItem());
+    m_yAxisRepeater->addItem(sim_data_item->yAxisItem());
     m_yAxisRepeater->addItem(diffItem()->yAxisItem());
 
-    m_zAxisRepeater->addItem(realDataItem->zAxisItem());
-    m_zAxisRepeater->addItem(simDataItem->zAxisItem());
+    m_zAxisRepeater->addItem(real_data_item->zAxisItem());
+    m_zAxisRepeater->addItem(sim_data_item->zAxisItem());
+}
+
+void FitComparisonController2D::updateDiffData()
+{
+    m_diff_item_controller->updateDiffData();
+}
+
+void FitComparisonController2D::resetDiffItem()
+{
+    diffItem()->resetView();
+    diffItem()->setLowerAndUpperZ(relative_diff_min_2d, relative_diff_max_2d);
 }
 
 void FitComparisonController2D::clear()
 {
-    m_appearanceRepeater->clear();
+    m_diff_item_controller->unsubscribe();
 
+    m_appearanceRepeater->clear();
     m_xAxisRepeater->clear();
     m_yAxisRepeater->clear();
     m_zAxisRepeater->clear();
-}
-
-void FitComparisonController2D::createRelativeDifferenceItem()
-{
-    m_tempIntensityDataModel->clear();
-
-    m_relativeDiffItem = dynamic_cast<IntensityDataItem*>(
-        m_tempIntensityDataModel->insertNewItem(Constants::IntensityDataType));
 }
 
 FitComparisonController1D::FitComparisonController1D(QObject* parent)
@@ -149,8 +168,8 @@ void FitComparisonController1D::setItem(JobItem* job_item)
     diffItem()->setXaxisTitle(sim_data_item->getXaxisTitle());
     diffItem()->setYaxisTitle("Relative difference");
     diffItem()->setLog(false);
-    diffItem()->setLowerY(default_y_min);
-    diffItem()->setUpperY(default_y_max);
+    diffItem()->setLowerY(relative_diff_min_1d);
+    diffItem()->setUpperY(relative_diff_max_1d);
 }
 
 void FitComparisonController1D::updateDiffData()
@@ -161,8 +180,8 @@ void FitComparisonController1D::updateDiffData()
 void FitComparisonController1D::resetDiffItem()
 {
     diffItem()->resetView();
-    diffItem()->setLowerY(default_y_min);
-    diffItem()->setUpperY(default_y_max);
+    diffItem()->setLowerY(relative_diff_min_1d);
+    diffItem()->setUpperY(relative_diff_max_1d);
 }
 
 void FitComparisonController1D::clear()

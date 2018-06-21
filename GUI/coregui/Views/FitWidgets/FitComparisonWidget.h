@@ -37,22 +37,19 @@ class BA_CORE_API_ FitComparisonWidget : public SessionItemWidget
     Q_OBJECT
 
 public:
-    explicit FitComparisonWidget(QWidget* parent = 0);
-    ~FitComparisonWidget();
+    explicit FitComparisonWidget(QWidget* parent = nullptr);
+    ~FitComparisonWidget() override;
 
-    virtual QList<QAction*> actionList();
+    virtual QList<QAction*> actionList() override;
 
 private slots:
     void onResetViewAction();
 
 protected:
-    void subscribeToItem();
-    void unsubscribeFromItem();
+    void subscribeToItem() override;
+    void unsubscribeFromItem() override;
 
 private:
-    void calculateRelativeDifference();
-    void unsubscribeFromChildren();
-
     JobItem* jobItem();
     IntensityDataItem* realDataItem();
     IntensityDataItem* simulatedDataItem();

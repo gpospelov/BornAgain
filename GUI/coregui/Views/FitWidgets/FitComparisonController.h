@@ -36,19 +36,18 @@ public:
 
     IntensityDataItem* diffItem();
 
-    void setItems(IntensityDataItem* realDataItem, IntensityDataItem* simDataItem);
+    void setItem(JobItem* job_item);
+    void updateDiffData();
+    void resetDiffItem();
 
     void clear();
 
 private:
-    void createRelativeDifferenceItem();
-
+    DiffItemController* m_diff_item_controller;
     PropertyRepeater* m_appearanceRepeater;
     PropertyRepeater* m_xAxisRepeater;
     PropertyRepeater* m_yAxisRepeater;
     PropertyRepeater* m_zAxisRepeater;
-    IntensityDataItem* m_relativeDiffItem;
-    SessionModel* m_tempIntensityDataModel;
 };
 
 //! Provides synchronization between certain properties of fit related SpecularDataItems.

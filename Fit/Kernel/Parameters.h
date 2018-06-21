@@ -15,11 +15,12 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 
-#include "WinDllMacros.h"
 #include "Parameter.h"
+#include "WinDllMacros.h"
 #include <vector>
 
-namespace Fit {
+namespace Fit
+{
 
 //! A collection of fit parameters.
 //! @ingroup fitting
@@ -65,6 +66,6 @@ private:
     corr_matrix_t m_corr_matrix; //!< correlation matrix
 };
 
-}  // namespace Fit
+} // namespace Fit
 
-#endif  // PARAMETERS_H
+#endif // PARAMETERS_H

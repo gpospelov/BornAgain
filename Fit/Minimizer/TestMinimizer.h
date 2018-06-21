@@ -22,8 +22,8 @@
 class BA_CORE_API_ TestMinimizer : public IMinimizer
 {
  public:
-    TestMinimizer() : m_min_value(0) {}
-    ~TestMinimizer(){}
+    TestMinimizer();
+    ~TestMinimizer();
 
     std::string minimizerName() const final;
     std::string algorithmName() const final { return ""; }
@@ -33,7 +33,7 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
  private:
     double m_min_value;
     std::vector<double> m_parameter_values;
-    objective_function_t m_fcn;
+    scalar_function_t m_fcn;
 };
 
 #endif // TESTMINIMIZER_H

@@ -14,8 +14,8 @@
 
 #include "MinimizerCatalogue.h"
 #include "MinimizerUtils.h"
-#include <sstream>
 #include <boost/format.hpp>
+#include <sstream>
 
 MinimizerCatalogue::MinimizerCatalogue()
 {
@@ -38,11 +38,9 @@ std::string MinimizerCatalogue::toString() const
     result << boost::format("%-15s|%-65s\n") % "Minimizer" % " Algorithms";
     result << std::string(text_width, '-') << "\n";
 
-    for(const auto& info : m_minimizers) {
-        result << boost::format("%-15s| %-64s\n")
-                  % info.name()
-                  % MinimizerUtils::toString(info.algorithmNames(), std::string(" "));
-
+    for (const auto& info : m_minimizers) {
+        result << boost::format("%-15s| %-64s\n") % info.name()
+                      % MinimizerUtils::toString(info.algorithmNames(), std::string(" "));
     }
     return result.str();
 }
@@ -50,7 +48,7 @@ std::string MinimizerCatalogue::toString() const
 std::vector<std::string> MinimizerCatalogue::minimizerNames() const
 {
     std::vector<std::string> result;
-    for(const auto& info : m_minimizers)
+    for (const auto& info : m_minimizers)
         result.push_back(info.name());
 
     return result;
@@ -65,8 +63,8 @@ std::vector<std::string> MinimizerCatalogue::algorithmNames(const std::string& m
 
 //! Returns list of algorithm's descriptions for the minimizer with a given name    .
 
-std::vector<std::string> MinimizerCatalogue::algorithmDescriptions(
-    const std::string& minimizerName) const
+std::vector<std::string>
+MinimizerCatalogue::algorithmDescriptions(const std::string& minimizerName) const
 {
     return minimizerInfo(minimizerName).algorithmDescriptions();
 }
@@ -75,12 +73,13 @@ std::vector<std::string> MinimizerCatalogue::algorithmDescriptions(
 
 const MinimizerInfo& MinimizerCatalogue::minimizerInfo(const std::string& minimizerName) const
 {
-    for(const auto& info : m_minimizers)
-        if(info.name() == minimizerName)
+    for (const auto& info : m_minimizers)
+        if (info.name() == minimizerName)
             return info;
 
     throw std::runtime_error("MinimizerCatalogue::minimizerInfo -> Error. "
-                             "No minimizer with the name '"+minimizerName+"'");
+                             "No minimizer with the name '"
+                             + minimizerName + "'");
 }
 
 //! Adds minimizer info to the catalogue.

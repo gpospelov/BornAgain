@@ -88,7 +88,7 @@ bool FunctionTestPlan::valuesAsExpected(const std::vector<double>& values) const
 
 // ------------------------------------------------------------------------------------------------
 
-ScalarTestPlan::ScalarTestPlan(const std::string& name, objective_function_t func,
+ScalarTestPlan::ScalarTestPlan(const std::string& name, scalar_function_t func,
                                double expected_minimum, double tolerance)
     : FunctionTestPlan(name)
     , m_objective_function(func)

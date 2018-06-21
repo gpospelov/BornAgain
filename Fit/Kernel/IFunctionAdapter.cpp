@@ -17,11 +17,9 @@
 using namespace Fit;
 
 IFunctionAdapter::IFunctionAdapter()
-    : m_number_of_calls(0)
-    , m_number_of_gradient_calls(0)
-{
+    : m_number_of_calls(0), m_number_of_gradient_calls(0) {}
 
-}
+IFunctionAdapter::~IFunctionAdapter() = default;
 
 int IFunctionAdapter::numberOfCalls() const
 {
@@ -32,6 +30,3 @@ int IFunctionAdapter::numberOfGradientCalls() const
 {
     return m_number_of_gradient_calls;
 }
-
-IFunctionAdapter::~IFunctionAdapter() = default;
-

@@ -38,7 +38,7 @@ public:
     //! @param fun_gradient: user function to call
     //! @param npars: number of fit parameters
     //! @param ndatasize: number of residual elements in dataset
-    RootResidualFunction(objective_function_t objective_fun, gradient_function_t gradient_fun,
+    RootResidualFunction(scalar_function_t objective_fun, gradient_function_t gradient_fun,
                          size_t npars, size_t ndatasize);
 
     Type_t Type() const override;
@@ -53,8 +53,8 @@ private:
     //! evaluation of chi2
     double DoEval(const double* pars) const override;
 
-    objective_function_t m_objective_fun; //!< User function to get value to minimizer.
-    gradient_function_t m_gradient_fun; //!< User function to get residual and gradients.
+    scalar_function_t m_objective_fun; //!< User function to get value to minimizer.
+    gradient_function_t m_gradient_fun;   //!< User function to get residual and gradients.
     size_t m_npars;
     size_t m_datasize;
 };

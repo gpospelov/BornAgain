@@ -97,11 +97,11 @@ void FitParameterItem::initMinMaxValues(const RealLimits& limits)
         double min = value - dr;
         double max = value + dr;
 
-        if (limits.hasLowerLimit() && min < limits.getLowerLimit())
-            min = limits.getLowerLimit();
+        if (limits.hasLowerLimit() && min < limits.lowerLimit())
+            min = limits.lowerLimit();
 
-        if (limits.hasUpperLimit() && max > limits.getUpperLimit())
-            max = limits.getUpperLimit();
+        if (limits.hasUpperLimit() && max > limits.upperLimit())
+            max = limits.upperLimit();
 
         setItemValue(P_MIN, min);
         setItemValue(P_MAX, max);

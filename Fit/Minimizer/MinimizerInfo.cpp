@@ -17,6 +17,27 @@
 #include <sstream>
 #include <stdexcept>
 
+InfoItem::InfoItem() = default;
+
+InfoItem::InfoItem(const std::string& itemName, const std::string& itemDescription)
+    : m_itemName(itemName), m_itemDescription(itemDescription)
+{
+}
+
+std::string InfoItem::name() const
+{
+    return m_itemName;
+}
+
+std::string InfoItem::description() const
+{
+    return m_itemDescription;
+}
+
+// ----------------------------------------------------------------------------
+
+MinimizerInfo::MinimizerInfo() = default;
+
 MinimizerInfo::MinimizerInfo(const std::string& minimizerType,
                              const std::string& minimizerDescription)
     : InfoItem(minimizerType, minimizerDescription)
@@ -26,7 +47,7 @@ MinimizerInfo::MinimizerInfo(const std::string& minimizerType,
 void MinimizerInfo::setAlgorithmName(const std::string& algorithmName)
 {
     for (const AlgorithmInfo& algo : m_algorithms) {
-        if(algo.name() == algorithmName) {
+        if (algo.name() == algorithmName) {
             m_current_algorithm = algorithmName;
             return;
         }
@@ -34,17 +55,14 @@ void MinimizerInfo::setAlgorithmName(const std::string& algorithmName)
 
     std::ostringstream msg;
     msg << "MinimizerInfo::setAlgorithmName() -> Error. Algorithm name '" << algorithmName
-        <<"' is not in the list of defined algorithms (";
+        << "' is not in the list of defined algorithms (";
     for (const AlgorithmInfo& algo : m_algorithms)
         msg << algo.name() << " ";
     msg << ")";
     throw std::runtime_error(msg.str());
 }
 
-std::string MinimizerInfo::algorithmName() const
-{
-    return m_current_algorithm;
-}
+std::string MinimizerInfo::algorithmName() const { return m_current_algorithm; }
 
 //! Return list of defined algorithm names.
 
@@ -109,7 +127,7 @@ MinimizerInfo MinimizerInfo::buildGSLMultiMinInfo(const std::string& defaultAlgo
     result.addAlgorithm(AlgorithmNames::BFGS, "BFGS conjugate gradient");
     result.addAlgorithm(AlgorithmNames::BFGS2, "BFGS conjugate gradient (Version 2)");
 
-    if(defaultAlgo.empty())
+    if (defaultAlgo.empty())
         result.setAlgorithmName(AlgorithmNames::ConjugateFR);
     else
         result.setAlgorithmName(defaultAlgo);

@@ -15,34 +15,25 @@
 #include "Parameter.h"
 #include <cmath>
 
-namespace {
+namespace
+{
 const double default_step = 0.01;
 const double step_factor = 0.01;
 
 double step_for_value(double value)
 {
-    return value == 0.0 ? default_step : std::abs(value)*step_factor;
+    return value == 0.0 ? default_step : std::abs(value) * step_factor;
 }
 }
 
 using namespace Fit;
 
 Parameter::Parameter()
-    : m_start_value(0.0)
-    , m_value(0.0)
-    , m_step(0.0)
-    , m_error(0.0)
-{
+    : m_start_value(0.0), m_value(0.0), m_step(0.0), m_error(0.0) {}
 
-}
-
-Parameter::Parameter(const std::string &name, double value, const AttLimits &limits, double step)
-    : m_name(name)
-    , m_start_value(value)
-    , m_value(value)
-    , m_step(step)
-    , m_error(0.0)
-    , m_limits(limits)
+Parameter::Parameter(const std::string& name, double value, const AttLimits& limits, double step)
+    : m_name(name), m_start_value(value), m_value(value), m_step(step), m_error(0.0),
+      m_limits(limits)
 {
     if (step <= 0.0)
         m_step = step_for_value(value);

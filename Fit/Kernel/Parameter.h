@@ -15,11 +15,12 @@
 #ifndef PARAMETER_H
 #define PARAMETER_H
 
-#include "WinDllMacros.h"
 #include "AttLimits.h"
+#include "WinDllMacros.h"
 #include <string>
 
-namespace Fit {
+namespace Fit
+{
 
 //! A fittable parameter with value, error, step, and limits.
 //! @ingroup fitting
@@ -35,8 +36,8 @@ public:
     //! @param limits: fit parameter limits
     //! @param step: initial step of fit parameter during the minimization,
     //! will be calculated automatically, if zero.
-    Parameter(const std::string& name, double value, const AttLimits& limits=AttLimits::limitless(),
-              double step=0.0);
+    Parameter(const std::string& name, double value,
+              const AttLimits& limits = AttLimits::limitless(), double step = 0.0);
 
     std::string name() const;
 
@@ -53,14 +54,14 @@ public:
     void setError(double value);
 
 private:
-    std::string m_name; //!< unique fit parameter name
+    std::string m_name;   //!< unique fit parameter name
     double m_start_value; //!< starting value of fit parameters
-    double m_value; //!< current value of fit parameters
-    double m_step; //!< approximate initial step for the minimizer
-    double m_error; //!< error of fit parameter calculated by the minimizer
+    double m_value;       //!< current value of fit parameters
+    double m_step;        //!< approximate initial step for the minimizer
+    double m_error;       //!< error of fit parameter calculated by the minimizer
     AttLimits m_limits;
 };
 
-}  // namespace Fit
+} // namespace Fit
 
-#endif  // PARAMETER_H
+#endif // PARAMETER_H

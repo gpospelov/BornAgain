@@ -22,7 +22,8 @@ namespace ROOT { namespace Math { class GeneticMinimizer; } }
 //! Wrapper for the CERN ROOT Genetic minimizer.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ GeneticMinimizer : public RootMinimizerAdapter {
+class BA_CORE_API_ GeneticMinimizer : public RootMinimizerAdapter
+{
 public:
     GeneticMinimizer();
     ~GeneticMinimizer();

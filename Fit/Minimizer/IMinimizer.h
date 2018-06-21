@@ -15,30 +15,33 @@
 #ifndef IMINIMIZER_H
 #define IMINIMIZER_H
 
-#include "WinDllMacros.h"
 #include "KernelTypes.h"
 #include "MinimizerResult.h"
+#include "WinDllMacros.h"
 #include <string>
 
-namespace Fit {class Parameters;}
+namespace Fit
+{
+class Parameters;
+}
 
 //! Pure virtual interface for all kind minimizers.
 //! @ingroup fitting_internal
 
 class BA_CORE_API_ IMinimizer
 {
- public:
-    IMinimizer() {}
-    virtual ~IMinimizer() {}
+public:
+    IMinimizer();
+    virtual ~IMinimizer();
 
-    IMinimizer(const IMinimizer &other) =delete;
-    IMinimizer& operator=(const IMinimizer& other) =delete;
+    IMinimizer(const IMinimizer& other) = delete;
+    IMinimizer& operator=(const IMinimizer& other) = delete;
 
     //! return name of the minimizer
-    virtual std::string minimizerName() const =0;
+    virtual std::string minimizerName() const = 0;
 
     //! return name of the minimization algorithm
-    virtual std::string algorithmName() const =0;
+    virtual std::string algorithmName() const = 0;
 
     //! run minimization
     virtual Fit::MinimizerResult minimize_scalar(fcn_scalar_t, Fit::Parameters);

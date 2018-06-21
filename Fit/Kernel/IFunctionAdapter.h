@@ -17,15 +17,18 @@
 
 #include "WinDllMacros.h"
 
-namespace Fit {
+namespace Fit
+{
 
 //! Base class for objective function adapters, which converts user functions
 //! to minimize into the function which minimization machinery expects.
 
-class BA_CORE_API_ IFunctionAdapter {
+class BA_CORE_API_ IFunctionAdapter
+{
 public:
     IFunctionAdapter();
     virtual ~IFunctionAdapter();
+
     int numberOfCalls() const;
     int numberOfGradientCalls() const;
 
@@ -34,6 +37,6 @@ protected:
     int m_number_of_gradient_calls;
 };
 
-}  // namespace Fit
+} // namespace Fit
 
-#endif  //  IFUNCTIONADAPTER_H
+#endif //  IFUNCTIONADAPTER_H

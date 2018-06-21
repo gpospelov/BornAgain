@@ -15,8 +15,8 @@
 #ifndef PYCALLBACK_H
 #define PYCALLBACK_H
 
-#include "WinDllMacros.h"
 #include "Parameters.h"
+#include "WinDllMacros.h"
 #include <vector>
 
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file,
@@ -25,7 +25,7 @@
 class BA_CORE_API_ PyCallback
 {
 public:
-    enum CallbackType {SCALAR, RESIDUAL};
+    enum CallbackType { SCALAR, RESIDUAL };
 
     PyCallback(CallbackType callback_type = SCALAR);
     virtual ~PyCallback();
@@ -46,5 +46,4 @@ private:
     CallbackType m_callback_type;
 };
 
-#endif  // PYCALLBACK_H
-
+#endif // PYCALLBACK_H

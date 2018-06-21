@@ -1481,16 +1481,9 @@ class RealLimits(_object):
         return _libBornAgainFit.RealLimits_hasLowerLimit(self)
 
 
-    def getLowerLimit(self):
-        """
-        getLowerLimit(RealLimits self) -> double
-
-        double RealLimits::getLowerLimit() const
-
-        Returns lower limit. 
-
-        """
-        return _libBornAgainFit.RealLimits_getLowerLimit(self)
+    def lowerLimit(self):
+        """lowerLimit(RealLimits self) -> double"""
+        return _libBornAgainFit.RealLimits_lowerLimit(self)
 
 
     def setLowerLimit(self, value):
@@ -1529,16 +1522,9 @@ class RealLimits(_object):
         return _libBornAgainFit.RealLimits_hasUpperLimit(self)
 
 
-    def getUpperLimit(self):
-        """
-        getUpperLimit(RealLimits self) -> double
-
-        double RealLimits::getUpperLimit() const
-
-        Returns upper limit. 
-
-        """
-        return _libBornAgainFit.RealLimits_getUpperLimit(self)
+    def upperLimit(self):
+        """upperLimit(RealLimits self) -> double"""
+        return _libBornAgainFit.RealLimits_upperLimit(self)
 
 
     def setUpperLimit(self, value):

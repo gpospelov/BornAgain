@@ -13,18 +13,18 @@
 // ************************************************************************** //
 
 #include "MinimizerFactory.h"
-#include "TestMinimizer.h"
-#include "Minuit2Minimizer.h"
 #include "GSLLevenbergMarquardtMinimizer.h"
 #include "GSLMultiMinimizer.h"
-#include "SimAnMinimizer.h"
 #include "GeneticMinimizer.h"
 #include "MinimizerCatalogue.h"
-#include <sstream>
-#include <iostream>
+#include "Minuit2Minimizer.h"
+#include "SimAnMinimizer.h"
+#include "TestMinimizer.h"
 #include <boost/format.hpp>
-#include <memory>
 #include <iomanip>
+#include <iostream>
+#include <memory>
+#include <sstream>
 
 IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
                                               const std::string& algorithmType,
@@ -32,59 +32,53 @@ IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
 {
     IMinimizer* result(0);
 
-    if(minimizerName == MinimizerNames::Minuit2) {
+    if (minimizerName == MinimizerNames::Minuit2) {
         result = new Minuit2Minimizer(algorithmType);
     }
 
-    else if(minimizerName == MinimizerNames::GSLLMA) {
+    else if (minimizerName == MinimizerNames::GSLLMA) {
         result = new GSLLevenbergMarquardtMinimizer();
     }
 
-    else if(minimizerName == MinimizerNames::GSLSimAn) {
+    else if (minimizerName == MinimizerNames::GSLSimAn) {
         result = new SimAnMinimizer();
     }
 
-    else if(minimizerName == MinimizerNames::GSLMultiMin) {
+    else if (minimizerName == MinimizerNames::GSLMultiMin) {
         result = new GSLMultiMinimizer(algorithmType);
     }
 
-    else if(minimizerName == MinimizerNames::Genetic) {
+    else if (minimizerName == MinimizerNames::Genetic) {
         result = new GeneticMinimizer();
     }
 
-    else if(minimizerName == MinimizerNames::Test) {
+    else if (minimizerName == MinimizerNames::Test) {
         result = new TestMinimizer();
     }
 
-    if(!result) {
+    if (!result) {
         std::ostringstream ostr;
         ostr << "MinimizerFactory::MinimizerFactory() -> Error! Can't create minimizer for given "
-                "collection name '" << minimizerName
-        << "' or algorithm '" << algorithmType << "'" << std::endl;
+                "collection name '"
+             << minimizerName << "' or algorithm '" << algorithmType << "'" << std::endl;
         ostr << "Possible names are:" << std::endl;
 
         ostr << catalogue().toString();
         throw std::runtime_error(ostr.str());
     }
 
-    if(!optionString.empty())
+    if (!optionString.empty())
         result->setOptions(optionString);
 
     return result;
 }
 
-void MinimizerFactory::printCatalogue()
-{
-    std::cout << catalogueToString() << std::endl;
-}
+void MinimizerFactory::printCatalogue() { std::cout << catalogueToString() << std::endl; }
 
 //! Returns multi-line string representing catalogue content: minimizer names and list of their
 //! algorithms.
 
-std::string MinimizerFactory::catalogueToString()
-{
-    return catalogue().toString();
-}
+std::string MinimizerFactory::catalogueToString() { return catalogue().toString(); }
 
 //! Returns multi-line string representing detailed catalogue content:
 //! minimizer names, list of their algorithms and description, list of minimizer options.
@@ -106,16 +100,16 @@ std::string MinimizerFactory::catalogueDetailsToString()
         result << "\nAlgorithm names\n";
         auto algorithmNames = info.algorithmNames();
         auto algorithmDescription = info.algorithmDescriptions();
-        for (size_t i=0; i<algorithmNames.size(); ++i)
+        for (size_t i = 0; i < algorithmNames.size(); ++i)
             result << boost::format(fmt) % algorithmNames[i] % algorithmDescription[i];
-        if (algorithmNames.size()>1)
+        if (algorithmNames.size() > 1)
             result << boost::format(fmt) % "Default algorithm" % info.algorithmName();
 
         // list of minimizer options
         std::unique_ptr<IMinimizer> minimizer(createMinimizer(minimizerName));
         if (auto rootMinimizer = dynamic_cast<RootMinimizerAdapter*>(minimizer.get())) {
             result << "\nOptions\n";
-            for(auto option : rootMinimizer->options()) {
+            for (auto option : rootMinimizer->options()) {
                 std::ostringstream opt;
                 opt << std::setw(5) << std::left << option->value() << option->description();
                 result << boost::format(fmt) % option->name() % opt.str();

@@ -16,14 +16,15 @@
 #define ROOTMINIMIZERADAPTER_H
 
 #include "IMinimizer.h"
-#include "MinimizerOptions.h"
 #include "MinimizerInfo.h"
-#include <string>
+#include "MinimizerOptions.h"
 #include <memory>
+#include <string>
 
 namespace Fit {
     class Parameters; class Parameter; class ObjectiveFunctionAdapter; class MinimizerResult;
 }
+
 namespace ROOT { namespace Math { class Minimizer; } }
 
 //! Pure virtual interface that adapts the CERN ROOT minimizer to our IMinimizer.
@@ -67,9 +68,11 @@ public:
 protected:
     RootMinimizerAdapter(const MinimizerInfo& minimizerInfo);
 
+    Fit::MinimizerResult minimize(Fit::Parameters parameters);
+
     void propagateResults(Fit::Parameters& parameters);
 
-    virtual bool isGradientBasedAgorithm() { return false;}
+    virtual bool isGradientBasedAgorithm() { return false; }
     virtual void setParameter(unsigned int index, const Fit::Parameter& par);
     size_t fitDimension() const;
     std::vector<double> parValuesAtMinimum() const;
@@ -79,15 +82,13 @@ protected:
     virtual const root_minimizer_t* rootMinimizer() const = 0;
     root_minimizer_t* rootMinimizer();
 
-    template<class T>
-    OptionContainer::option_t addOption(
-        const std::string& optionName, T value, const std::string& description="");
+    template <class T>
+    OptionContainer::option_t addOption(const std::string& optionName, T value,
+                                        const std::string& description = "");
 
-    template<class T>
-    void setOptionValue(const std::string& optionName, T value);
+    template <class T> void setOptionValue(const std::string& optionName, T value);
 
-    template<class T>
-    T optionValue(const std::string& optionName) const;
+    template <class T> T optionValue(const std::string& optionName) const;
 
 private:
     MinimizerOptions m_options;
@@ -96,21 +97,19 @@ private:
     bool m_status;
 };
 
-template<class T>
-OptionContainer::option_t RootMinimizerAdapter::addOption(
-    const std::string& optionName, T value, const std::string& description)
+template <class T>
+OptionContainer::option_t RootMinimizerAdapter::addOption(const std::string& optionName, T value,
+                                                          const std::string& description)
 {
     return m_options.addOption(optionName, value, description);
 }
 
-template<class T>
-void RootMinimizerAdapter::setOptionValue(const std::string& optionName, T value)
+template <class T> void RootMinimizerAdapter::setOptionValue(const std::string& optionName, T value)
 {
     m_options.setOptionValue(optionName, value);
 }
 
-template<class T>
-T RootMinimizerAdapter::optionValue(const std::string& optionName) const
+template <class T> T RootMinimizerAdapter::optionValue(const std::string& optionName) const
 {
     return m_options.optionValue<T>(optionName);
 }

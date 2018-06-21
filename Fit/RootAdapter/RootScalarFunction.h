@@ -32,7 +32,7 @@
 class RootScalarFunction : public ROOT::Math::Functor
 {
  public:
-    RootScalarFunction(root_objective_t fcn, int ndims);
+    RootScalarFunction(root_scalar_t fcn, int ndims);
 };
 
 #endif // ROOTSCALARFUNCTION_H

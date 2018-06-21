@@ -19,6 +19,10 @@
 
 using namespace Fit;
 
+TestMinimizer::TestMinimizer() : m_min_value(0) {}
+
+TestMinimizer::~TestMinimizer() = default;
+
 std::string TestMinimizer::minimizerName() const
 {
     return std::string(MinimizerNames::Test);

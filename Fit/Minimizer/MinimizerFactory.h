@@ -15,8 +15,8 @@
 #ifndef MINIMIZERFACTORY_H
 #define MINIMIZERFACTORY_H
 
-#include "WinDllMacros.h"
 #include "MinimizerCatalogue.h"
+#include "WinDllMacros.h"
 #include <string>
 
 class IMinimizer;
@@ -26,10 +26,10 @@ class IMinimizer;
 
 class BA_CORE_API_ MinimizerFactory
 {
- public:
+public:
     static IMinimizer* createMinimizer(const std::string& minimizerName,
-                                       const std::string& algorithmType="",
-                                       const std::string& optionString="");
+                                       const std::string& algorithmType = "",
+                                       const std::string& optionString = "");
 
     static void printCatalogue();
 

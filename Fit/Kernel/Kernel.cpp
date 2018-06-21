@@ -13,14 +13,15 @@
 // ************************************************************************** //
 
 #include "Kernel.h"
-#include "MinimizerFactory.h"
 #include "IMinimizer.h"
+#include "MinimizerFactory.h"
 
 using namespace Fit;
 
-namespace {
-    const std::string default_minimizer = "Minuit2";
-    const std::string default_algorithm = "Migrad";
+namespace
+{
+const std::string default_minimizer = "Minuit2";
+const std::string default_algorithm = "Migrad";
 }
 
 Kernel::Kernel()

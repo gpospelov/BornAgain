@@ -41,7 +41,7 @@ const RootResidualFunction* ResidualFunctionAdapter::rootResidualFunction()
               return element_residual(pars, index, gradients);
           };
 
-    objective_function_t objective_fun
+    scalar_function_t objective_fun
         = [&](const std::vector<double>& pars) { return chi2(pars); };
 
     m_root_objective.reset(

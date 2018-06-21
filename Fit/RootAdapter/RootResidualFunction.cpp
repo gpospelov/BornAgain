@@ -14,7 +14,7 @@
 
 #include "RootResidualFunction.h"
 
-RootResidualFunction::RootResidualFunction(objective_function_t objective_fun,
+RootResidualFunction::RootResidualFunction(scalar_function_t objective_fun,
                                            gradient_function_t gradient_fun, size_t npars,
                                            size_t ndatasize)
     : ROOT::Math::FitMethodFunction(static_cast<int>(npars), static_cast<int>(ndatasize)),

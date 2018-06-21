@@ -20,7 +20,7 @@
 
 namespace Fit { class Parameters; }
 
-using objective_function_t = std::function<double(const std::vector<double>&)>;
+using scalar_function_t = std::function<double(const std::vector<double>&)>;
 
 using gradient_function_t
     = std::function<double(const std::vector<double>&, unsigned int, std::vector<double>&)>;

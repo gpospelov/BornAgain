@@ -60,10 +60,12 @@ void MultiLayerItem::updateLayers()
         else
             (*it)->getItem(LayerItem::P_ROUGHNESS)->setEnabled(true);
 
-        if(it == list.begin() || it == (list.end()-1))
+        if(it == list.begin() || it == (list.end()-1)) {
             (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(false);
-        else
+            (*it)->setItemValue(LayerItem::P_THICKNESS, 0.0);
+        } else {
             (*it)->getItem(LayerItem::P_THICKNESS)->setEnabled(true);
+        }
 
     }
 }

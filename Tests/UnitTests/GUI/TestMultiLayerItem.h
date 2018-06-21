@@ -13,6 +13,7 @@ public:
 TestMultiLayerItem::~TestMultiLayerItem() = default;
 
 //! Testing layer appearance (enabled, disabled) in a MultiLayer made of two default layers.
+//!
 //! In two layer system top and bottom layers should have disabled thickness and roughness.
 
 TEST_F(TestMultiLayerItem, test_twoLayerSystem)
@@ -43,6 +44,7 @@ TEST_F(TestMultiLayerItem, test_twoLayerSystem)
 }
 
 //! Testing layer appearance (enabled, disabled) in a MultiLayer made of three default layers.
+//!
 //! In three layer system middle layer's thickness/roughness should be enabled.
 
 TEST_F(TestMultiLayerItem, test_threeLayerSystem)
@@ -79,6 +81,7 @@ TEST_F(TestMultiLayerItem, test_threeLayerSystem)
 }
 
 //! Testing middle layer appearance when it is moved to the top.
+//!
 //! In three layer system, the moving of middle layer on top should lead to the disabling
 //! of roughness/thickness.
 
@@ -118,10 +121,34 @@ TEST_F(TestMultiLayerItem, test_movingMiddleLayerOnTop)
     // Thickness and roughness of middle layer should be disabled now
     EXPECT_FALSE(middle->getItem(LayerItem::P_THICKNESS)->isEnabled());
     EXPECT_FALSE(middle->getItem(LayerItem::P_ROUGHNESS)->isEnabled());
+    // And, thickness of middle should become 0 to stress the fact that it become top
+    EXPECT_EQ(middle->getItemValue(LayerItem::P_THICKNESS).toDouble(), 0.0);
 
-    // Thickness and roughness of former top layer should be enabled now
+    // Thickness and roughness of former top layer should be enabled now, since it is in the middle
     EXPECT_TRUE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
     EXPECT_TRUE(top->getItem(LayerItem::P_ROUGHNESS)->isEnabled());
+}
 
+//! Testing layer appearance when it is moved from a MultiLayer to canvas.
+//!
+//! If top layer was moved to canvas, its thickness and roughness should be reenabled.
+
+TEST_F(TestMultiLayerItem, test_movingLayerOnCanvas)
+{
+    SampleModel model;
+
+    auto multilayer = model.insertNewItem(Constants::MultiLayerType);
+    auto top = model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+    model.insertNewItem(Constants::LayerType, model.indexOfItem(multilayer));
+
+    // Moving top layer to canvas
+    model.moveItem(top, nullptr);
+
+    // checking that it was moved
+    EXPECT_EQ(top->parent(), model.rootItem());
+
+    // thickness should be reenabled
+//    EXPECT_TRUE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
+//    EXPECT_TRUE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
 }
 

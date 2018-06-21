@@ -68,6 +68,8 @@ public:
 protected:
     RootMinimizerAdapter(const MinimizerInfo& minimizerInfo);
 
+    Fit::MinimizerResult minimize(Fit::Parameters parameters);
+
     void propagateResults(Fit::Parameters& parameters);
 
     virtual bool isGradientBasedAgorithm() { return false; }

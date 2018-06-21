@@ -37,25 +37,18 @@ MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Paramete
 {
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootObjectiveFunction(fcn, parameters));
-    setParameters(parameters);
-    propagateOptions();
-
-    m_status = rootMinimizer()->Minimize();
-    propagateResults(parameters);
-
-    MinimizerResult result;
-    result.setParameters(parameters);
-    result.setMinValue(minValue());
-    result.setReport(MinimizerResultsHelper().reportOutcome(this));
-    result.setNumberOfCalls(m_adapter->numberOfCalls());
-
-    return result;
+    return minimize(parameters);
 }
 
 MinimizerResult RootMinimizerAdapter::minimize_residual(fcn_residual_t fcn, Parameters parameters)
 {
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootResidualFunction(fcn, parameters));
+    return minimize(parameters);
+}
+
+MinimizerResult RootMinimizerAdapter::minimize(Parameters parameters)
+{
     setParameters(parameters);
     propagateOptions();
 

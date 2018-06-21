@@ -17,6 +17,7 @@
 
 #include "Complex.h"
 #include "IInterferenceFunctionStrategy.h"
+#include "InterferenceFunctionUtils.h"
 #include "SafePointerVector.h"
 #include <Eigen/StdVector>
 
@@ -41,7 +42,7 @@ public:
     complex_t getMeanFormfactorNorm(double qp, const std::vector<complex_t>& precomputed_ff,
             const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const;
     void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
-                            const IInterferenceFunctionStrategy::matrixFFVector_t& precomputed_ff,
+                            const InterferenceFunctionUtils::matrixFFVector_t& precomputed_ff,
                             const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const;
 
 private:

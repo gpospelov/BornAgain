@@ -47,6 +47,7 @@
 #include "TestMessageService.h"
 #include "TestParticleLayoutItem.h"
 #include "TestAxesItems.h"
+#include "TestMultiLayerItem.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);

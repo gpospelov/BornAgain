@@ -83,10 +83,10 @@ void IDistribution1D::SignalBadInitialization(std::string distribution_name)
 void IDistribution1D::adjustMinMaxForLimits(
     double& xmin, double& xmax, const RealLimits& limits) const
 {
-    if(limits.hasLowerLimit() && xmin < limits.getLowerLimit())
-        xmin = limits.getLowerLimit();
-    if(limits.hasUpperLimit() && xmax > limits.getUpperLimit())
-        xmax = limits.getUpperLimit();
+    if(limits.hasLowerLimit() && xmin < limits.lowerLimit())
+        xmin = limits.lowerLimit();
+    if(limits.hasUpperLimit() && xmax > limits.upperLimit())
+        xmax = limits.upperLimit();
     if(xmin > xmax) {
         std::ostringstream ostr;
         ostr << "IDistribution1D::adjustMinMaxForLimits() -> Error. Can't' adjust ";

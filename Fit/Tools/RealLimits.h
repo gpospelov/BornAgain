@@ -31,7 +31,7 @@ public:
     bool hasLowerLimit() const;
 
     //! Returns lower limit
-    double getLowerLimit() const;
+    double lowerLimit() const;
 
     //! Sets lower limit
     void setLowerLimit(double value);
@@ -43,7 +43,7 @@ public:
     bool hasUpperLimit() const;
 
     //! Returns upper limit
-    double getUpperLimit() const;
+    double upperLimit() const;
 
     //! Sets upper limit
     void setUpperLimit(double value);

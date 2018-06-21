@@ -81,12 +81,12 @@ bool AttLimits::isLimitless() const
 
 double AttLimits::lowerLimit() const
 {
-    return m_limits.getLowerLimit();
+    return m_limits.lowerLimit();
 }
 
 double AttLimits::upperLimit() const
 {
-    return m_limits.getUpperLimit();
+    return m_limits.upperLimit();
 }
 
 void AttLimits::setFixed(bool isFixed)

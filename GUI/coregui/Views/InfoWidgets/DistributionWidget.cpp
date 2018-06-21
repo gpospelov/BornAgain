@@ -304,12 +304,12 @@ void DistributionWidget::plotVerticalLine(double xMin, double yMin, double xMax,
 void DistributionWidget::plotLimits(const RealLimits& limits)
 {
     if(limits.hasLowerLimit()) {
-        double value = limits.getLowerLimit();
+        double value = limits.lowerLimit();
         plotVerticalLine(value, default_yrange.first, value, default_yrange.second, Qt::red);
     }
 
     if(limits.hasUpperLimit()) {
-        double value = limits.getUpperLimit();
+        double value = limits.upperLimit();
         plotVerticalLine(value, default_yrange.first, value, default_yrange.second, Qt::red);
     }
 }

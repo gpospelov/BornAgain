@@ -239,8 +239,8 @@ ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
 
 void ScientificDoublePropertyEditor::setLimits(const RealLimits& limits)
 {
-    double minimum = limits.hasLowerLimit() ? std::max(limits.getLowerLimit(), -1e+200) : -1e+200;
-    double maximum = limits.hasUpperLimit() ? std::min(limits.getUpperLimit(), +1e+200) : +1e+200;
+    double minimum = limits.hasLowerLimit() ? std::max(limits.lowerLimit(), -1e+200) : -1e+200;
+    double maximum = limits.hasUpperLimit() ? std::min(limits.upperLimit(), +1e+200) : +1e+200;
     m_validator->setRange(minimum, maximum, 1000);
 }
 
@@ -290,9 +290,9 @@ void DoubleEditor::setLimits(const RealLimits& limits)
     m_doubleEditor->setMinimum(std::numeric_limits<double>::lowest());
 
     if (limits.hasLowerLimit())
-        m_doubleEditor->setMinimum(limits.getLowerLimit());
+        m_doubleEditor->setMinimum(limits.lowerLimit());
     if (limits.hasUpperLimit())
-        m_doubleEditor->setMaximum(static_cast<int>(limits.getUpperLimit()));
+        m_doubleEditor->setMaximum(static_cast<int>(limits.upperLimit()));
 }
 
 void DoubleEditor::setDecimals(int decimals)
@@ -345,9 +345,9 @@ void IntEditor::setLimits(const RealLimits& limits)
     m_intEditor->setMaximum(std::numeric_limits<int>::max());
 
     if (limits.hasLowerLimit())
-        m_intEditor->setMinimum(static_cast<int>(limits.getLowerLimit()));
+        m_intEditor->setMinimum(static_cast<int>(limits.lowerLimit()));
     if (limits.hasUpperLimit())
-        m_intEditor->setMaximum(static_cast<int>(limits.getUpperLimit()));
+        m_intEditor->setMaximum(static_cast<int>(limits.upperLimit()));
 }
 
 void IntEditor::onEditingFinished()

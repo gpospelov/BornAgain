@@ -18874,7 +18874,7 @@ SWIGINTERN PyObject *_wrap_RealLimits_getLowerLimit(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_getLowerLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
   }
   arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (double)((RealLimits const *)arg1)->getLowerLimit();
+  result = (double)((RealLimits const *)arg1)->lowerLimit();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -18969,7 +18969,7 @@ SWIGINTERN PyObject *_wrap_RealLimits_getUpperLimit(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_getUpperLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
   }
   arg1 = reinterpret_cast< RealLimits * >(argp1);
-  result = (double)((RealLimits const *)arg1)->getUpperLimit();
+  result = (double)((RealLimits const *)arg1)->upperLimit();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:

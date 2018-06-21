@@ -29,8 +29,8 @@ TEST_F(RealLimitsTest, LimitsSetLimit)
     EXPECT_TRUE(limits.hasUpperLimit());
     EXPECT_TRUE(limits.hasLowerAndUpperLimits());
 
-    EXPECT_EQ(-1.0, limits.getLowerLimit());
-    EXPECT_EQ(10.0, limits.getUpperLimit());
+    EXPECT_EQ(-1.0, limits.lowerLimit());
+    EXPECT_EQ(10.0, limits.upperLimit());
 
     EXPECT_FALSE(limits.isInRange(-2.0));
     EXPECT_TRUE(limits.isInRange(-1.0));
@@ -43,7 +43,7 @@ TEST_F(RealLimitsTest, LimitsSetLimit)
     limits.removeLowerLimit();
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
     EXPECT_FALSE(limits.hasLowerLimit());
-    EXPECT_EQ(0.0, limits.getLowerLimit());
+    EXPECT_EQ(0.0, limits.lowerLimit());
 
     EXPECT_TRUE(limits.isInRange(-std::numeric_limits<double>::infinity()));
     EXPECT_TRUE(limits.isInRange(-2.0));
@@ -54,7 +54,7 @@ TEST_F(RealLimitsTest, LimitsSetLimit)
     // [2.1, -10.0[
     limits.setLowerLimit(2.1);
     EXPECT_TRUE(limits.hasLowerLimit());
-    EXPECT_EQ(2.1, limits.getLowerLimit());
+    EXPECT_EQ(2.1, limits.lowerLimit());
 
     EXPECT_FALSE(limits.isInRange(-std::numeric_limits<double>::infinity()));
     EXPECT_FALSE(limits.isInRange(2.0));
@@ -64,7 +64,7 @@ TEST_F(RealLimitsTest, LimitsSetLimit)
     limits.removeUpperLimit();
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
     EXPECT_FALSE(limits.hasUpperLimit());
-    EXPECT_EQ(0.0, limits.getUpperLimit());
+    EXPECT_EQ(0.0, limits.upperLimit());
 
     EXPECT_FALSE(limits.isInRange(-std::numeric_limits<double>::infinity()));
     EXPECT_FALSE(limits.isInRange(2.0));
@@ -75,7 +75,7 @@ TEST_F(RealLimitsTest, LimitsSetLimit)
     // [2.1, 2.2[
     limits.setUpperLimit(2.2);
     EXPECT_TRUE(limits.hasUpperLimit());
-    EXPECT_EQ(2.2, limits.getUpperLimit());
+    EXPECT_EQ(2.2, limits.upperLimit());
     EXPECT_TRUE(limits.hasLowerAndUpperLimits());
     EXPECT_TRUE(limits.isInRange(2.15));
     EXPECT_FALSE(limits.isInRange(2.2));
@@ -97,8 +97,8 @@ TEST_F(RealLimitsTest, LimitsLowerLimited)
     EXPECT_FALSE(limits.hasUpperLimit());
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
 
-    EXPECT_EQ(5.0, limits.getLowerLimit());
-    EXPECT_EQ(0.0, limits.getUpperLimit());
+    EXPECT_EQ(5.0, limits.lowerLimit());
+    EXPECT_EQ(0.0, limits.upperLimit());
 }
 
 TEST_F(RealLimitsTest, LimitsUpperLimited)
@@ -108,8 +108,8 @@ TEST_F(RealLimitsTest, LimitsUpperLimited)
     EXPECT_TRUE(limits.hasUpperLimit());
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
 
-    EXPECT_EQ(0.0, limits.getLowerLimit());
-    EXPECT_EQ(5.0, limits.getUpperLimit());
+    EXPECT_EQ(0.0, limits.lowerLimit());
+    EXPECT_EQ(5.0, limits.upperLimit());
 }
 
 TEST_F(RealLimitsTest, LimitsLimited)
@@ -119,8 +119,8 @@ TEST_F(RealLimitsTest, LimitsLimited)
     EXPECT_TRUE(limits.hasUpperLimit());
     EXPECT_TRUE(limits.hasLowerAndUpperLimits());
 
-    EXPECT_EQ(-10.0, limits.getLowerLimit());
-    EXPECT_EQ(2.0, limits.getUpperLimit());
+    EXPECT_EQ(-10.0, limits.lowerLimit());
+    EXPECT_EQ(2.0, limits.upperLimit());
 }
 
 TEST_F(RealLimitsTest, LimitsLimitless)

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Parameters/Attributes.h
+//! @file      Fit/Tools/Attributes.h
 //! @brief     Defines and implements class Attributes.
 //!
 //! @homepage  http://www.bornagainproject.org

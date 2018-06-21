@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Parameters/RealLimits.cpp
+//! @file      Fit/Tools/RealLimits.cpp
 //! @brief     Implements class Limits.
 //!
 //! @homepage  http://www.bornagainproject.org

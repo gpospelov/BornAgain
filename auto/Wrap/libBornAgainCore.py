@@ -6460,8 +6460,6 @@ class FitOptions(_object):
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FitOptions
-    __del__ = lambda self: None
 
     def derivEpsilon(self):
         """derivEpsilon(FitOptions self) -> double"""
@@ -6482,6 +6480,8 @@ class FitOptions(_object):
         """setStepFactor(FitOptions self, double step_factor)"""
         return _libBornAgainCore.FitOptions_setStepFactor(self, step_factor)
 
+    __swig_destroy__ = _libBornAgainCore.delete_FitOptions
+    __del__ = lambda self: None
 FitOptions_swigregister = _libBornAgainCore.FitOptions_swigregister
 FitOptions_swigregister(FitOptions)
 

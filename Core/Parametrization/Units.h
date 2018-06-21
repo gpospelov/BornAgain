@@ -35,7 +35,7 @@ static const double barn = nanometer * nanometer * 1e-10;
 // Angle
 static const double radian      = 1.;
 static const double milliradian = 1.e-3*radian;
-static const double degree = (3.14159265358979323846264338327950288/180.0)*radian;
+static const double degree = (3.1415926535897932/180.0)*radian;
 static const double steradian = 1.;
 
 inline double rad2deg(double angle) {return angle/degree; }

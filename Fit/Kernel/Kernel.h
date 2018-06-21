@@ -15,18 +15,19 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
-#include "WinDllMacros.h"
-#include "Parameters.h"
 #include "KernelTypes.h"
 #include "MinimizerResult.h"
+#include "Parameters.h"
 #include "TimeInterval.h"
+#include "WinDllMacros.h"
 #include <functional>
-#include <vector>
 #include <memory>
+#include <vector>
 
 class IMinimizer;
 
-namespace Fit {
+namespace Fit
+{
 
 //! A main class to run fitting.
 //! @ingroup fitting
@@ -53,6 +54,6 @@ private:
     TimeInterval m_time_interval;
 };
 
-}  // namespace Fit
+} // namespace Fit
 
-#endif  // KERNEL_H
+#endif // KERNEL_H

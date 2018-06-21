@@ -19,10 +19,7 @@
 using namespace Fit;
 
 Minimizer::Minimizer()
-    : m_kernel(new Kernel)
-{
-
-}
+    : m_kernel(new Kernel) {}
 
 void Minimizer::setMinimizer(const std::string& minimizerName, const std::string& algorithmName,
                              const std::string& options)
@@ -50,15 +47,11 @@ MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters& parame
 MinimizerResult Minimizer::minimize(PyCallback& callback, const Parameters& parameters)
 {
     if (callback.callback_type() == PyCallback::SCALAR) {
-        fcn_scalar_t fcn = [&](const Parameters& pars) {
-            return callback.call_scalar(pars);
-        };
+        fcn_scalar_t fcn = [&](const Parameters& pars) { return callback.call_scalar(pars); };
         return minimize(fcn, parameters);
 
-    } else if(callback.callback_type() == PyCallback::RESIDUAL) {
-        fcn_residual_t fcn = [&](const Parameters& pars) {
-            return callback.call_residuals(pars);
-        };
+    } else if (callback.callback_type() == PyCallback::RESIDUAL) {
+        fcn_residual_t fcn = [&](const Parameters& pars) { return callback.call_residuals(pars); };
         return minimize(fcn, parameters);
     }
 

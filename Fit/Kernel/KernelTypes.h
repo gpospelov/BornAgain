@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Minimizer/KernelTypes.h
+//! @file      Fit/Kernel/KernelTypes.h
 //! @brief     Defines common types for fitting library.
 //!
 //! @homepage  http://www.bornagainproject.org

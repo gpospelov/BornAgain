@@ -20,12 +20,8 @@
 using namespace Fit;
 
 MinimizerResult::MinimizerResult()
-    : m_min_value(0.0)
-    , m_number_of_calls(0)
-    , m_number_of_gradient_calls(0)
-    , m_duration(0.0)
+    : m_min_value(0.0), m_number_of_calls(0), m_number_of_gradient_calls(0), m_duration(0.0)
 {
-
 }
 
 void MinimizerResult::setParameters(const Parameters& parameters)

@@ -15,19 +15,20 @@
 #ifndef MINIMIZER_H
 #define MINIMIZER_H
 
-#include "WinDllMacros.h"
-#include "Parameters.h"
 #include "KernelTypes.h"
 #include "MinimizerResult.h"
+#include "Parameters.h"
+#include "WinDllMacros.h"
 #include <functional>
-#include <vector>
-#include <string>
 #include <memory>
+#include <string>
+#include <vector>
 
 class PyCallback;
 class IMinimizer;
 
-namespace Fit {
+namespace Fit
+{
 
 class Kernel;
 
@@ -55,9 +56,9 @@ public:
     MinimizerResult minimize(PyCallback& callback, const Parameters& parameters);
 
 private:
-   std::unique_ptr<Kernel> m_kernel;
+    std::unique_ptr<Kernel> m_kernel;
 };
 
-}  // namespace Fit
+} // namespace Fit
 
-#endif  // MINIMIZER_H
+#endif // MINIMIZER_H

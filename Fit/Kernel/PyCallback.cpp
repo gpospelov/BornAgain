@@ -15,10 +15,7 @@
 #include "PyCallback.h"
 
 PyCallback::PyCallback(PyCallback::CallbackType callback_type)
-    : m_callback_type(callback_type)
-{
-
-}
+    : m_callback_type(callback_type) {}
 
 PyCallback::CallbackType PyCallback::callback_type() const
 {
@@ -26,7 +23,6 @@ PyCallback::CallbackType PyCallback::callback_type() const
 }
 
 PyCallback::~PyCallback() = default;
-
 
 double PyCallback::call_scalar(Fit::Parameters)
 {

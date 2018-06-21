@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Utils/TimeInterval.cpp
+//! @file      Fit/Tools/TimeInterval.cpp
 //! @brief     Implements TimeInterval class.
 //!
 //! @homepage  http://www.bornagainproject.org

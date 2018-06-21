@@ -66,8 +66,6 @@ import_array();
 #include "AttLimits.h"
 #include "Parameter.h"
 #include "Parameters.h"
-#include "IFitParameter.h"
-#include "FitParameterSet.h"
 #include "IMinimizer.h"
 #include "MinimizerCatalogue.h"
 #include "MinimizerFactory.h"
@@ -90,8 +88,6 @@ import_array();
 %include "Parameter.h"
 %include "Parameters.h"
 %include "IMinimizer.h"
-%include "IFitParameter.h"
-%include "FitParameterSet.h"
 %include "MinimizerCatalogue.h"
 %include "MinimizerFactory.h"
 

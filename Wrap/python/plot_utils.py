@@ -260,7 +260,7 @@ class PlotterGISAS(Plotter):
         plt.title('Parameters')
         plt.axis('off')
         plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
-                 format(fit_suite.numberOfIterations(), fit_suite.minimizer().minimizerName()))
+                 format(fit_suite.numberOfIterations(), fit_suite.minimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         for index, fitPar in enumerate(fit_suite.fitParameters()):
             plt.text(0.01, 0.55 - index * 0.1, '{:30.30s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
@@ -314,7 +314,7 @@ class PlotterSpecular(Plotter):
         trunc_length = 9  # max string field width in the table
         n_digits = 1  # number of decimal digits to print
         n_iterations = fit_suite.numberOfIterations()  # number of iterations
-        minimizer = fit_suite.minimizer().minimizerName()
+        minimizer = fit_suite.minimizerName()
         rel_dif = fit_suite.relativeDifference().array().max()  # maximum relative difference
         fitted_parameters = fit_suite.fitParameters()
 

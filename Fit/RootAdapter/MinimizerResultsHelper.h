@@ -19,7 +19,6 @@
 #include <string>
 
 class RootMinimizerAdapter;
-class FitParameterSet;
 namespace Fit { class Parameters; }
 
 //! Contains all logic to generate reports with the result of minimization.
@@ -33,7 +32,6 @@ public:
     static std::string reportOutcome(const RootMinimizerAdapter* minimizer);
 
     //! Reports fit parameters settings and final results
-    static std::string reportParameters(const FitParameterSet* parameters);
     static std::string reportParameters(const Fit::Parameters& parameters);
 
 private:

@@ -66,6 +66,8 @@ public:
     //! @param global_index index across all element in FitElement vector
     double getResidualValue(size_t global_index);
 
+    std::vector<double> residuals() const;
+
     void setNfreeParameters(int nfree_parameters) { m_nfree_parameters = nfree_parameters; }
 
     //! clear all data

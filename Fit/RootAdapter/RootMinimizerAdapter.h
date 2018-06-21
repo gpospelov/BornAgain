@@ -21,8 +21,6 @@
 #include <string>
 #include <memory>
 
-class RootObjectiveFunctionAdapter;
-class IFitParameter;
 namespace Fit {
     class Parameters; class Parameter; class ObjectiveFunctionAdapter; class MinimizerResult;
 }
@@ -38,7 +36,6 @@ public:
 
     virtual ~RootMinimizerAdapter();
 
-    void minimize() override;
     Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
     Fit::MinimizerResult minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override;
 
@@ -48,16 +45,9 @@ public:
     //! Returns name of the minimization algorithm.
     std::string algorithmName() const override final;
 
-    void setParameters(const FitParameterSet& parameters) override final;
     void setParameters(const Fit::Parameters& parameters);
 
-    void setObjectiveFunction(objective_function_t func) override final;
-
-    void setGradientFunction(gradient_function_t func, int ndatasize) override final;
-
     double minValue() const override final;
-
-    std::string reportOutcome() const override final;
 
     MinimizerOptions& options() { return m_options; }
     const MinimizerOptions& options() const { return m_options; }
@@ -71,18 +61,15 @@ public:
     //! Returns map of string representing different minimizer statuses
     virtual std::map<std::string, std::string> statusMap() const;
 
-    //! Propagates results of minimization to fit parameter set
-    void propagateResults(FitParameterSet& parameters) override;
-    void propagateResults(Fit::Parameters& parameters) override;
-
     //! Sets option string to the minimizer
     void setOptions(const std::string& optionString) override final;
 
 protected:
     RootMinimizerAdapter(const MinimizerInfo& minimizerInfo);
 
+    void propagateResults(Fit::Parameters& parameters);
+
     virtual bool isGradientBasedAgorithm() { return false;}
-    virtual void setParameter(size_t index, const IFitParameter *par);
     virtual void setParameter(unsigned int index, const Fit::Parameter& par);
     size_t fitDimension() const;
     std::vector<double> parValuesAtMinimum() const;
@@ -105,7 +92,6 @@ protected:
 private:
     MinimizerOptions m_options;
     MinimizerInfo m_minimizerInfo;
-    std::unique_ptr<RootObjectiveFunctionAdapter> m_obj_func;
     std::unique_ptr<Fit::ObjectiveFunctionAdapter> m_adapter;
     bool m_status;
 };

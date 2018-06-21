@@ -244,6 +244,26 @@ class ParameterPoolIterator(object):
     def __next__(self):
         return self.next()
 
+
+class FitParameterSetIterator(object):
+
+    def __init__(self, fitParameters):
+        self.fitParameters = fitParameters
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index += 1
+        if self.index < self.fitParameters.size():
+            return self.fitParameters[self.index]
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        return self.next()
+
 class vdouble1d_t(_object):
     """Proxy of C++ std::vector<(double)> class."""
 
@@ -6465,7 +6485,276 @@ class FitOptions(_object):
 FitOptions_swigregister = _libBornAgainCore.FitOptions_swigregister
 FitOptions_swigregister(FitOptions)
 
-class FitParameter(libBornAgainFit.IFitParameter):
+class IFitParameter(_object):
+    """Proxy of C++ IFitParameter class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IFitParameter, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IFitParameter, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(IFitParameter self) -> IFitParameter
+        __init__(IFitParameter self, std::string const & name, double value, AttLimits limits, double step=0.0) -> IFitParameter
+        __init__(IFitParameter self, std::string const & name, double value, AttLimits limits) -> IFitParameter
+        __init__(IFitParameter self, std::string const & name, double value) -> IFitParameter
+        """
+        this = _libBornAgainCore.new_IFitParameter(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IFitParameter
+    __del__ = lambda self: None
+
+    def clone(self):
+        """clone(IFitParameter self) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_clone(self)
+
+
+    def name(self):
+        """name(IFitParameter self) -> std::string"""
+        return _libBornAgainCore.IFitParameter_name(self)
+
+
+    def setName(self, name):
+        """setName(IFitParameter self, std::string const & name) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_setName(self, name)
+
+
+    def startValue(self):
+        """startValue(IFitParameter self) -> double"""
+        return _libBornAgainCore.IFitParameter_startValue(self)
+
+
+    def setStartValue(self, value):
+        """setStartValue(IFitParameter self, double value)"""
+        return _libBornAgainCore.IFitParameter_setStartValue(self, value)
+
+
+    def value(self):
+        """value(IFitParameter self) -> double"""
+        return _libBornAgainCore.IFitParameter_value(self)
+
+
+    def setValue(self, value):
+        """setValue(IFitParameter self, double value)"""
+        return _libBornAgainCore.IFitParameter_setValue(self, value)
+
+
+    def addPattern(self, pattern):
+        """addPattern(IFitParameter self, std::string const & pattern) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_addPattern(self, pattern)
+
+
+    def step(self):
+        """step(IFitParameter self) -> double"""
+        return _libBornAgainCore.IFitParameter_step(self)
+
+
+    def setStep(self, value):
+        """setStep(IFitParameter self, double value) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_setStep(self, value)
+
+
+    def error(self):
+        """error(IFitParameter self) -> double"""
+        return _libBornAgainCore.IFitParameter_error(self)
+
+
+    def setError(self, value):
+        """setError(IFitParameter self, double value)"""
+        return _libBornAgainCore.IFitParameter_setError(self, value)
+
+
+    def limits(self, *args):
+        """
+        limits(IFitParameter self) -> AttLimits
+        limits(IFitParameter self) -> AttLimits
+        """
+        return _libBornAgainCore.IFitParameter_limits(self, *args)
+
+
+    def setLimits(self, limits):
+        """setLimits(IFitParameter self, AttLimits limits) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_setLimits(self, limits)
+
+
+    def setLowerLimited(self, bound_value):
+        """setLowerLimited(IFitParameter self, double bound_value) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_setLowerLimited(self, bound_value)
+
+
+    def setPositive(self):
+        """setPositive(IFitParameter self) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_setPositive(self)
+
+
+    def setNonnegative(self):
+        """setNonnegative(IFitParameter self) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_setNonnegative(self)
+
+
+    def setUpperLimited(self, bound_value):
+        """setUpperLimited(IFitParameter self, double bound_value) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_setUpperLimited(self, bound_value)
+
+
+    def setLimited(self, left_bound_value, right_bound_value):
+        """setLimited(IFitParameter self, double left_bound_value, double right_bound_value) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_setLimited(self, left_bound_value, right_bound_value)
+
+
+    def setFixed(self):
+        """setFixed(IFitParameter self) -> IFitParameter"""
+        return _libBornAgainCore.IFitParameter_setFixed(self)
+
+
+    def toString(self):
+        """toString(IFitParameter self) -> std::string"""
+        return _libBornAgainCore.IFitParameter_toString(self)
+
+IFitParameter_swigregister = _libBornAgainCore.IFitParameter_swigregister
+IFitParameter_swigregister(IFitParameter)
+
+class FitParameterSet(_object):
+    """Proxy of C++ FitParameterSet class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameterSet, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, FitParameterSet, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(FitParameterSet self) -> FitParameterSet"""
+        this = _libBornAgainCore.new_FitParameterSet()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FitParameterSet
+    __del__ = lambda self: None
+
+    def clear(self):
+        """clear(FitParameterSet self)"""
+        return _libBornAgainCore.FitParameterSet_clear(self)
+
+
+    def size(self):
+        """size(FitParameterSet self) -> size_t"""
+        return _libBornAgainCore.FitParameterSet_size(self)
+
+
+    def begin(self, *args):
+        """
+        begin(FitParameterSet self) -> FitParameterSet::iterator
+        begin(FitParameterSet self) -> FitParameterSet::const_iterator
+        """
+        return _libBornAgainCore.FitParameterSet_begin(self, *args)
+
+
+    def end(self, *args):
+        """
+        end(FitParameterSet self) -> FitParameterSet::iterator
+        end(FitParameterSet self) -> FitParameterSet::const_iterator
+        """
+        return _libBornAgainCore.FitParameterSet_end(self, *args)
+
+
+    def addFitParameter(self, par):
+        """addFitParameter(FitParameterSet self, IFitParameter par)"""
+        return _libBornAgainCore.FitParameterSet_addFitParameter(self, par)
+
+
+    def fitParameter(self, *args):
+        """
+        fitParameter(FitParameterSet self, std::string const & name) -> IFitParameter
+        fitParameter(FitParameterSet self, std::string const & name) -> IFitParameter
+        """
+        return _libBornAgainCore.FitParameterSet_fitParameter(self, *args)
+
+
+    def values(self):
+        """values(FitParameterSet self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitParameterSet_values(self)
+
+
+    def setValues(self, pars_values):
+        """setValues(FitParameterSet self, vdouble1d_t pars_values)"""
+        return _libBornAgainCore.FitParameterSet_setValues(self, pars_values)
+
+
+    def valuesDifferFrom(self, par_values, tolerance=2.0):
+        """
+        valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values, double tolerance=2.0) -> bool
+        valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values) -> bool
+        """
+        return _libBornAgainCore.FitParameterSet_valuesDifferFrom(self, par_values, tolerance)
+
+
+    def errors(self):
+        """errors(FitParameterSet self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitParameterSet_errors(self)
+
+
+    def setErrors(self, pars_errors):
+        """setErrors(FitParameterSet self, vdouble1d_t pars_errors)"""
+        return _libBornAgainCore.FitParameterSet_setErrors(self, pars_errors)
+
+
+    def freeFitParameterCount(self):
+        """freeFitParameterCount(FitParameterSet self) -> size_t"""
+        return _libBornAgainCore.FitParameterSet_freeFitParameterCount(self)
+
+
+    def fixAll(self):
+        """fixAll(FitParameterSet self)"""
+        return _libBornAgainCore.FitParameterSet_fixAll(self)
+
+
+    def releaseAll(self):
+        """releaseAll(FitParameterSet self)"""
+        return _libBornAgainCore.FitParameterSet_releaseAll(self)
+
+
+    def setFixed(self, pars, is_fixed):
+        """setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)"""
+        return _libBornAgainCore.FitParameterSet_setFixed(self, pars, is_fixed)
+
+
+    def correlationMatrix(self):
+        """correlationMatrix(FitParameterSet self) -> vdouble2d_t"""
+        return _libBornAgainCore.FitParameterSet_correlationMatrix(self)
+
+
+    def setCorrelationMatrix(self, matrix):
+        """setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)"""
+        return _libBornAgainCore.FitParameterSet_setCorrelationMatrix(self, matrix)
+
+
+    def fitParametersNewKernel(self):
+        """fitParametersNewKernel(FitParameterSet self) -> Fit::Parameters"""
+        return _libBornAgainCore.FitParameterSet_fitParametersNewKernel(self)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(FitParameterSet self, std::string name) -> IFitParameter
+        __getitem__(FitParameterSet self, size_t index) -> IFitParameter
+        """
+        return _libBornAgainCore.FitParameterSet___getitem__(self, *args)
+
+
+    def __iter__(self):
+        return FitParameterSetIterator(self)
+
+FitParameterSet_swigregister = _libBornAgainCore.FitParameterSet_swigregister
+FitParameterSet_swigregister(FitParameterSet)
+
+class FitParameter(IFitParameter):
     """
 
 
@@ -6476,11 +6765,11 @@ class FitParameter(libBornAgainFit.IFitParameter):
     """
 
     __swig_setmethods__ = {}
-    for _s in [libBornAgainFit.IFitParameter]:
+    for _s in [IFitParameter]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
     __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameter, name, value)
     __swig_getmethods__ = {}
-    for _s in [libBornAgainFit.IFitParameter]:
+    for _s in [IFitParameter]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, FitParameter, name)
     __repr__ = _swig_repr
@@ -6726,16 +7015,9 @@ class FitSuite(IObservable):
         return _libBornAgainCore.FitSuite_setMinimizer(self, *args)
 
 
-    def minimizer(self):
-        """
-        minimizer(FitSuite self) -> IMinimizer const *
-
-        const IMinimizer * FitSuite::minimizer() const
-
-        Returns minimizer. 
-
-        """
-        return _libBornAgainCore.FitSuite_minimizer(self)
+    def minimizerName(self):
+        """minimizerName(FitSuite self) -> std::string"""
+        return _libBornAgainCore.FitSuite_minimizerName(self)
 
 
     def initPrint(self, print_every_nth):
@@ -6794,7 +7076,7 @@ class FitSuite(IObservable):
 
     def fitParameters(self):
         """
-        fitParameters(FitSuite self) -> FitParameterSet *
+        fitParameters(FitSuite self) -> FitParameterSet
 
         FitParameterSet * FitSuite::fitParameters()
 
@@ -7198,6 +7480,11 @@ class FitSuiteObjects(INode):
 
         """
         return _libBornAgainCore.FitSuiteObjects_getResidualValue(self, global_index)
+
+
+    def residuals(self):
+        """residuals(FitSuiteObjects self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitSuiteObjects_residuals(self)
 
 
     def setNfreeParameters(self, nfree_parameters):

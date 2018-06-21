@@ -18,6 +18,8 @@
 #include <functional>
 #include <vector>
 
+//! Objective function types.
+
 namespace Fit { class Parameters; }
 
 using scalar_function_t = std::function<double(const std::vector<double>&)>;
@@ -25,7 +27,7 @@ using scalar_function_t = std::function<double(const std::vector<double>&)>;
 using gradient_function_t
     = std::function<double(const std::vector<double>&, unsigned int, std::vector<double>&)>;
 
-using root_objective_t = std::function<double(const double*)>;
+using root_scalar_t = std::function<double(const double*)>;
 
 using root_gradient_t = std::function<double(const double*, unsigned int, double*)>;
 

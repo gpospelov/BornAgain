@@ -25,7 +25,7 @@ ScalarFunctionAdapter::ScalarFunctionAdapter(fcn_scalar_t func, const Parameters
 
 const RootScalarFunction* ScalarFunctionAdapter::rootObjectiveFunction()
 {
-    root_objective_t rootfun = [&](const double* pars) {
+    root_scalar_t rootfun = [&](const double* pars) {
         std::vector<double> vec;
         vec.resize(m_parameters.size(), 0.0);
         std::copy(pars, pars + m_parameters.size(), vec.begin());

@@ -14,7 +14,7 @@
 
 #include "RootMinimizerAdapter.h"
 #include "Math/Minimizer.h"
-#include "MinimizerResultsHelper.h"
+#include "MinimizerResultUtils.h"
 #include "ObjectiveFunctionAdapter.h"
 #include "Parameter.h"
 #include "Parameters.h"
@@ -58,7 +58,7 @@ MinimizerResult RootMinimizerAdapter::minimize(Parameters parameters)
     MinimizerResult result;
     result.setParameters(parameters);
     result.setMinValue(minValue());
-    result.setReport(MinimizerResultUtils::reportOutcome(this));
+    result.setReport(MinimizerResultUtils::reportToString(*this));
     result.setNumberOfCalls(m_adapter->numberOfCalls());
     result.setNumberOfGradientCalls(m_adapter->numberOfGradientCalls());
 

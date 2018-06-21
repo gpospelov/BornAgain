@@ -27,7 +27,7 @@ namespace MinimizerResultUtils
 {
 
 //! Reports results of minimization in the form of multi-line string
-BA_CORE_API_ std::string reportOutcome(const RootMinimizerAdapter* minimizer);
+BA_CORE_API_ std::string reportToString(const RootMinimizerAdapter& minimizer);
 
 //! Reports fit parameters settings and final results
 std::string reportParameters(const Fit::Parameters& parameters);

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "MinimizerResult.h"
-#include "MinimizerResultsHelper.h"
+#include "MinimizerResultUtils.h"
 #include "MinimizerUtils.h"
 #include <sstream>
 

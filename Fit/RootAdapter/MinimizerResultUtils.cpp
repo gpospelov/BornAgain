@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "MinimizerResultsHelper.h"
+#include "MinimizerResultUtils.h"
 #include "MinimizerUtils.h"
 #include "Parameters.h"
 #include "RootMinimizerAdapter.h"
@@ -34,13 +34,13 @@ template <typename T> std::string reportValue(const std::string& name, T value)
     return result.str();
 }
 
-std::string reportDescription(const RootMinimizerAdapter* minimizer);
-std::string reportOption(const RootMinimizerAdapter* minimizer);
-std::string reportStatus(const RootMinimizerAdapter* minimizer);
+std::string reportDescription(const RootMinimizerAdapter& minimizer);
+std::string reportOption(const RootMinimizerAdapter& minimizer);
+std::string reportStatus(const RootMinimizerAdapter& minimizer);
 
 } // namespace
 
-std::string MinimizerResultUtils::reportOutcome(const RootMinimizerAdapter* minimizer)
+std::string MinimizerResultUtils::reportToString(const RootMinimizerAdapter& minimizer)
 {
     std::ostringstream result;
 
@@ -81,38 +81,38 @@ std::string MinimizerResultUtils::reportParameters(const Fit::Parameters& parame
 
 namespace {
 
-std::string reportDescription(const RootMinimizerAdapter* minimizer)
+std::string reportDescription(const RootMinimizerAdapter& minimizer)
 {
     std::ostringstream result;
-    result << reportValue("MinimizerType", minimizer->minimizerName());
-    result << reportValue("AlgorithmName", minimizer->algorithmName());
+    result << reportValue("MinimizerType", minimizer.minimizerName());
+    result << reportValue("AlgorithmName", minimizer.algorithmName());
     return result.str();
 }
 
-std::string reportOption(const RootMinimizerAdapter* minimizer)
+std::string reportOption(const RootMinimizerAdapter& minimizer)
 {
-    if (minimizer->options().size() == 0)
+    if (minimizer.options().size() == 0)
         return "";
 
     std::ostringstream result;
     result << MinimizerUtils::sectionString("Options");
-    for (auto option : minimizer->options()) {
+    for (auto option : minimizer.options()) {
         std::ostringstream opt;
         opt << std::setw(5) << std::left << option->value() << option->description();
         result << reportValue(option->name(), opt.str());
     }
     result << MinimizerUtils::sectionString("OptionString");
-    result << minimizer->options().toOptionString() << std::endl;
+    result << minimizer.options().toOptionString() << std::endl;
 
     return result.str();
 }
 
-std::string reportStatus(const RootMinimizerAdapter* minimizer)
+std::string reportStatus(const RootMinimizerAdapter& minimizer)
 {
     std::ostringstream result;
     result << MinimizerUtils::sectionString("Status");
 
-    auto status = minimizer->statusMap();
+    auto status = minimizer.statusMap();
     for (auto it : status)
         result << reportValue(it.first, it.second);
 

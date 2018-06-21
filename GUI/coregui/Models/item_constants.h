@@ -26,6 +26,8 @@ using ModelType = QString;
 const ModelType Yes = "Yes";
 const ModelType No = "No";
 
+const ModelType RootItemType = "ROOT_ITEM";
+
 const ModelType LayerType = "Layer";
 const ModelType MesoCrystalType = "MesoCrystal";
 const ModelType MultiLayerType = "MultiLayer";

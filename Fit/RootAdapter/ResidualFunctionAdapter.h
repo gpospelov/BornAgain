@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/NewKernel/ResidualFunctionAdapter.h
+//! @file      Fit/RootAdapter/ResidualFunctionAdapter.h
 //! @brief     Defines class ResidualFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -19,17 +19,19 @@
 #include "KernelTypes.h"
 #include "Parameters.h"
 #include <functional>
-#include <vector>
 #include <memory>
+#include <vector>
 
 class RootResidualFunction;
 
-namespace Fit {
+namespace Fit
+{
 
 //! Provides RootResidualFunction which will be minimizer by ROOT.
 //! Converts ROOT calls to the call of fcn_residual_t.
 
-class ResidualFunctionAdapter : public IFunctionAdapter {
+class ResidualFunctionAdapter : public IFunctionAdapter
+{
 public:
     ResidualFunctionAdapter(fcn_residual_t func, const Parameters& parameters);
 
@@ -41,7 +43,7 @@ private:
 
     //! evaluate method for gradients and residuals called directly from the minimizer
     double element_residual(const std::vector<double>& pars, unsigned int index,
-                    std::vector<double>& gradients);
+                            std::vector<double>& gradients);
     //! Evaluate chi2
     double chi2(const std::vector<double>& pars);
 
@@ -54,6 +56,6 @@ private:
     std::unique_ptr<RootResidualFunction> m_root_objective;
 };
 
-}  //  namespace Fit
+} //  namespace Fit
 
-#endif  // RESIDUALFUNCTIONADAPTER_H
+#endif // RESIDUALFUNCTIONADAPTER_H

@@ -15,14 +15,15 @@
 #ifndef OBJECTIVEFUNCTIONADAPTER_H
 #define OBJECTIVEFUNCTIONADAPTER_H
 
-#include "WinDllMacros.h"
 #include "KernelTypes.h"
+#include "WinDllMacros.h"
 #include <memory>
 
 class RootScalarFunction;
 class RootResidualFunction;
 
-namespace Fit {
+namespace Fit
+{
 
 class IFunctionAdapter;
 class Parameters;
@@ -30,13 +31,13 @@ class Parameters;
 //! Converts user objective function to function ROOT expects.
 //! Handles time of life of function objects.
 
-class ObjectiveFunctionAdapter {
+class ObjectiveFunctionAdapter
+{
 public:
     ObjectiveFunctionAdapter();
     ~ObjectiveFunctionAdapter();
 
-    const RootScalarFunction* rootObjectiveFunction(fcn_scalar_t fcn,
-                                                       const Parameters& parameters);
+    const RootScalarFunction* rootObjectiveFunction(fcn_scalar_t fcn, const Parameters& parameters);
 
     const RootResidualFunction* rootResidualFunction(fcn_residual_t fcn,
                                                      const Parameters& parameters);
@@ -48,7 +49,6 @@ private:
     std::unique_ptr<IFunctionAdapter> m_adapter;
 };
 
-}  // namespace Fit
+} // namespace Fit
 
-
-#endif  //  OBJECTIVEFUNCTIONADAPTER_H
+#endif //  OBJECTIVEFUNCTIONADAPTER_H

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/NewKernel/ResidualFunctionAdapter.cpp
+//! @file      Fit/RootAdapter/ResidualFunctionAdapter.cpp
 //! @brief     Implements class ResidualFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -42,12 +42,10 @@ const RootResidualFunction* ResidualFunctionAdapter::rootResidualFunction()
           };
 
     objective_function_t objective_fun
-        = [&](const std::vector<double>& pars) {
-              return chi2(pars);
-          };
+        = [&](const std::vector<double>& pars) { return chi2(pars); };
 
-    m_root_objective.reset(new RootResidualFunction(objective_fun, gradient_fun,
-                                                    m_parameters.size(), m_datasize));
+    m_root_objective.reset(
+        new RootResidualFunction(objective_fun, gradient_fun, m_parameters.size(), m_datasize));
 
     return m_root_objective.get();
 }
@@ -127,8 +125,8 @@ double ResidualFunctionAdapter::chi2(const std::vector<double>& pars)
 
     auto residuals = get_residuals(pars);
     double result(0.0);
-    for(auto x : get_residuals(pars))
-        result += x*x;
+    for (auto x : get_residuals(pars))
+        result += x * x;
     // FIXME make correct normalization taking into account number of free parameters
-    return result/static_cast<double>(m_datasize);
+    return result / static_cast<double>(m_datasize);
 }

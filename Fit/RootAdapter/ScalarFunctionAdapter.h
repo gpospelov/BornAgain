@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/NewKernel/ScalarFunctionAdapter.h
+//! @file      Fit/RootAdapter/ScalarFunctionAdapter.h
 //! @brief     Defines class ScalarFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,15 +16,16 @@
 #define SCALARFUNCTIONADAPTER_H
 
 #include "IFunctionAdapter.h"
-#include "Parameters.h"
 #include "KernelTypes.h"
+#include "Parameters.h"
 #include <functional>
-#include <vector>
 #include <memory>
+#include <vector>
 
 class RootScalarFunction;
 
-namespace Fit {
+namespace Fit
+{
 
 //! Converts user objective function to chi2 like function which ROOT expects.
 
@@ -32,7 +33,8 @@ namespace Fit {
 //! the call of user function std::function<double(std::vector<double>)>, where
 //! function input parameters will be current values fit parameters.
 
-class ScalarFunctionAdapter : public IFunctionAdapter {
+class ScalarFunctionAdapter : public IFunctionAdapter
+{
 public:
     ScalarFunctionAdapter(fcn_scalar_t func, const Parameters& parameters);
 
@@ -46,4 +48,4 @@ private:
 
 } //  namespace Fit
 
-#endif  // SCALARFUNCTIONADAPTER_H
+#endif // SCALARFUNCTIONADAPTER_H

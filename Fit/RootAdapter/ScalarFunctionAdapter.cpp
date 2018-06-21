@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/NewKernel/ScalarFunctionAdapter.h
+//! @file      Fit/RootAdapter/ScalarFunctionAdapter.h
 //! @brief     Defines class ScalarFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -34,7 +34,6 @@ const RootScalarFunction* ScalarFunctionAdapter::rootObjectiveFunction()
         return m_fcn(m_parameters);
     };
 
-    m_root_objective.reset(
-        new RootScalarFunction(rootfun, static_cast<int>(m_parameters.size())));
+    m_root_objective.reset(new RootScalarFunction(rootfun, static_cast<int>(m_parameters.size())));
     return m_root_objective.get();
 }

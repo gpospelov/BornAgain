@@ -14,8 +14,8 @@
 
 #include "ObjectiveFunctionAdapter.h"
 #include "ResidualFunctionAdapter.h"
-#include "RootScalarFunction.h"
 #include "RootResidualFunction.h"
+#include "RootScalarFunction.h"
 #include "ScalarFunctionAdapter.h"
 
 using namespace Fit;

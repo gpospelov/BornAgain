@@ -56,7 +56,7 @@ std::string MinimizerResult::toString() const
     result << "Objective function calls : " << m_number_of_calls << "\n";
     result << "Gradient calls           : " << m_number_of_gradient_calls << "\n";
     result << m_minimizer_report;
-    result << MinimizerResultsHelper::reportParameters(m_parameters);
+    result << MinimizerResultUtils::reportParameters(m_parameters);
     return result.str();
 }
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/MinimizerResultsHelper.h
-//! @brief     Declares class MinimizerResultsHelper.
+//! @file      Fit/RootAdapter/MinimizerResultUtils.h
+//! @brief     Declares MinimizerResultUtils namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,23 +21,17 @@
 class RootMinimizerAdapter;
 namespace Fit { class Parameters; }
 
-//! Contains all logic to generate reports with the result of minimization.
-//! @ingroup fitting_internal
+//! Utility functions to generate reports
 
-class BA_CORE_API_ MinimizerResultsHelper {
-public:
-    MinimizerResultsHelper() {}
+namespace MinimizerResultUtils
+{
 
-    //! Reports results of minimization in the form of multi-line string
-    static std::string reportOutcome(const RootMinimizerAdapter* minimizer);
+//! Reports results of minimization in the form of multi-line string
+BA_CORE_API_ std::string reportOutcome(const RootMinimizerAdapter* minimizer);
 
-    //! Reports fit parameters settings and final results
-    static std::string reportParameters(const Fit::Parameters& parameters);
+//! Reports fit parameters settings and final results
+std::string reportParameters(const Fit::Parameters& parameters);
 
-private:
-    static std::string reportDescription(const RootMinimizerAdapter* minimizer);
-    static std::string reportOption(const RootMinimizerAdapter* minimizer);
-    static std::string reportStatus(const RootMinimizerAdapter* minimizer);
 };
 
 #endif // MINIMIZERRESULTSHELPER_H

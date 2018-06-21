@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/MinimizerResultsHelper.cpp
-//! @brief     Implements class MinimizerResultsHelper.
+//! @file      Fit/RootAdapter/MinimizerResultUtils.cpp
+//! @brief     Implements MinimizerResultUtils namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,31 +13,34 @@
 // ************************************************************************** //
 
 #include "MinimizerResultsHelper.h"
-#include "RootMinimizerAdapter.h"
 #include "MinimizerUtils.h"
 #include "Parameters.h"
+#include "RootMinimizerAdapter.h"
 #include <boost/format.hpp>
 #include <iomanip>
 #include <sstream>
 
 using namespace Fit;
 
-namespace {
+namespace
+{
 
-    const int column_width = 18;
+const int column_width = 18;
 
-    template<typename T>
-    std::string reportValue(const std::string& name, T value)
-    {
-        std::ostringstream result;
-        result << std::setw(column_width) << std::left << name  << ": " << value << std::endl;
-        return result.str();
-    }
+template <typename T> std::string reportValue(const std::string& name, T value)
+{
+    std::ostringstream result;
+    result << std::setw(column_width) << std::left << name << ": " << value << std::endl;
+    return result.str();
+}
+
+std::string reportDescription(const RootMinimizerAdapter* minimizer);
+std::string reportOption(const RootMinimizerAdapter* minimizer);
+std::string reportStatus(const RootMinimizerAdapter* minimizer);
 
 } // namespace
 
-
-std::string MinimizerResultsHelper::reportOutcome(const RootMinimizerAdapter* minimizer)
+std::string MinimizerResultUtils::reportOutcome(const RootMinimizerAdapter* minimizer)
 {
     std::ostringstream result;
 
@@ -49,8 +52,7 @@ std::string MinimizerResultsHelper::reportOutcome(const RootMinimizerAdapter* mi
     return result.str();
 }
 
-
-std::string MinimizerResultsHelper::reportParameters(const Fit::Parameters& parameters)
+std::string MinimizerResultUtils::reportParameters(const Fit::Parameters& parameters)
 {
     std::ostringstream result;
 
@@ -58,32 +60,28 @@ std::string MinimizerResultsHelper::reportParameters(const Fit::Parameters& para
 
     result << "Name       StartValue  Limits                FitValue  Error" << std::endl;
 
-    for(const auto& par : parameters) {
-        result << boost::format("# %-8s %-7.4f     %-20s  %-6.4f    %5.4f \n")
-                  % par.name()
-                  % par.startValue()
-                  % par.limits().toString()
-                  % par.value()
-                  % par.error();
+    for (const auto& par : parameters) {
+        result << boost::format("# %-8s %-7.4f     %-20s  %-6.4f    %5.4f \n") % par.name()
+                      % par.startValue() % par.limits().toString() % par.value() % par.error();
     }
 
-
     Fit::Parameters::corr_matrix_t matrix = parameters.correlationMatrix();
-    if(matrix.size()) {
+    if (matrix.size()) {
         result << MinimizerUtils::sectionString("Correlations");
-        for(size_t i=0; i<matrix.size(); ++i) {
-            result << boost::format("#%-2d       ") %i;
-            for(size_t j=0; j<matrix[i].size(); ++j)
+        for (size_t i = 0; i < matrix.size(); ++i) {
+            result << boost::format("#%-2d       ") % i;
+            for (size_t j = 0; j < matrix[i].size(); ++j)
                 result << boost::format("%_7.4f    ") % matrix[i][j];
             result << std::endl;
         }
-
     }
 
     return result.str();
 }
 
-std::string MinimizerResultsHelper::reportDescription(const RootMinimizerAdapter* minimizer)
+namespace {
+
+std::string reportDescription(const RootMinimizerAdapter* minimizer)
 {
     std::ostringstream result;
     result << reportValue("MinimizerType", minimizer->minimizerName());
@@ -91,14 +89,14 @@ std::string MinimizerResultsHelper::reportDescription(const RootMinimizerAdapter
     return result.str();
 }
 
-std::string MinimizerResultsHelper::reportOption(const RootMinimizerAdapter* minimizer)
+std::string reportOption(const RootMinimizerAdapter* minimizer)
 {
-    if(minimizer->options().size() == 0)
+    if (minimizer->options().size() == 0)
         return "";
 
     std::ostringstream result;
     result << MinimizerUtils::sectionString("Options");
-    for(auto option : minimizer->options()) {
+    for (auto option : minimizer->options()) {
         std::ostringstream opt;
         opt << std::setw(5) << std::left << option->value() << option->description();
         result << reportValue(option->name(), opt.str());
@@ -109,14 +107,16 @@ std::string MinimizerResultsHelper::reportOption(const RootMinimizerAdapter* min
     return result.str();
 }
 
-std::string MinimizerResultsHelper::reportStatus(const RootMinimizerAdapter* minimizer)
+std::string reportStatus(const RootMinimizerAdapter* minimizer)
 {
     std::ostringstream result;
     result << MinimizerUtils::sectionString("Status");
 
     auto status = minimizer->statusMap();
-    for(auto it : status)
+    for (auto it : status)
         result << reportValue(it.first, it.second);
 
     return result.str();
+}
+
 }

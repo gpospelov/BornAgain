@@ -18860,7 +18860,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_RealLimits_getLowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_RealLimits_lowerLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   RealLimits *arg1 = (RealLimits *) 0 ;
   void *argp1 = 0 ;
@@ -18868,10 +18868,10 @@ SWIGINTERN PyObject *_wrap_RealLimits_getLowerLimit(PyObject *SWIGUNUSEDPARM(sel
   PyObject * obj0 = 0 ;
   double result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_getLowerLimit",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_lowerLimit",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_getLowerLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_lowerLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
   }
   arg1 = reinterpret_cast< RealLimits * >(argp1);
   result = (double)((RealLimits const *)arg1)->lowerLimit();
@@ -18955,7 +18955,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_RealLimits_getUpperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_RealLimits_upperLimit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   RealLimits *arg1 = (RealLimits *) 0 ;
   void *argp1 = 0 ;
@@ -18963,10 +18963,10 @@ SWIGINTERN PyObject *_wrap_RealLimits_getUpperLimit(PyObject *SWIGUNUSEDPARM(sel
   PyObject * obj0 = 0 ;
   double result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_getUpperLimit",&obj0)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"O:RealLimits_upperLimit",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_RealLimits, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_getUpperLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RealLimits_upperLimit" "', argument " "1"" of type '" "RealLimits const *""'"); 
   }
   arg1 = reinterpret_cast< RealLimits * >(argp1);
   result = (double)((RealLimits const *)arg1)->upperLimit();
@@ -23057,14 +23057,7 @@ static PyMethodDef SwigMethods[] = {
 		"if has lower limit \n"
 		"\n"
 		""},
-	 { (char *)"RealLimits_getLowerLimit", _wrap_RealLimits_getLowerLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_getLowerLimit(RealLimits self) -> double\n"
-		"\n"
-		"double RealLimits::getLowerLimit() const\n"
-		"\n"
-		"Returns lower limit. \n"
-		"\n"
-		""},
+	 { (char *)"RealLimits_lowerLimit", _wrap_RealLimits_lowerLimit, METH_VARARGS, (char *)"RealLimits_lowerLimit(RealLimits self) -> double"},
 	 { (char *)"RealLimits_setLowerLimit", _wrap_RealLimits_setLowerLimit, METH_VARARGS, (char *)"\n"
 		"RealLimits_setLowerLimit(RealLimits self, double value)\n"
 		"\n"
@@ -23089,14 +23082,7 @@ static PyMethodDef SwigMethods[] = {
 		"if has upper limit \n"
 		"\n"
 		""},
-	 { (char *)"RealLimits_getUpperLimit", _wrap_RealLimits_getUpperLimit, METH_VARARGS, (char *)"\n"
-		"RealLimits_getUpperLimit(RealLimits self) -> double\n"
-		"\n"
-		"double RealLimits::getUpperLimit() const\n"
-		"\n"
-		"Returns upper limit. \n"
-		"\n"
-		""},
+	 { (char *)"RealLimits_upperLimit", _wrap_RealLimits_upperLimit, METH_VARARGS, (char *)"RealLimits_upperLimit(RealLimits self) -> double"},
 	 { (char *)"RealLimits_setUpperLimit", _wrap_RealLimits_setUpperLimit, METH_VARARGS, (char *)"\n"
 		"RealLimits_setUpperLimit(RealLimits self, double value)\n"
 		"\n"

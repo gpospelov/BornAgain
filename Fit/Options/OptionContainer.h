@@ -15,12 +15,12 @@
 #ifndef OPTIONCONTAINER_H
 #define OPTIONCONTAINER_H
 
-#include "WinDllMacros.h"
 #include "MultiOption.h"
+#include "WinDllMacros.h"
 #include <map>
-#include <vector>
 #include <memory>
 #include <stdexcept>
+#include <vector>
 
 //! Stores multi option (int,double,string) in a container.
 //! @ingroup fitting_internal
@@ -37,19 +37,17 @@ public:
     OptionContainer(const OptionContainer& other);
     OptionContainer& operator=(const OptionContainer& other);
 
-    template<class T>
+    template <class T>
     option_t addOption(const std::string& optionName, T value,
                        const std::string& description = std::string());
 
     option_t option(const std::string& optionName);
     const option_t option(const std::string& optionName) const;
 
-    template<class T>
-    T optionValue(const std::string& optionName) const;
+    template <class T> T optionValue(const std::string& optionName) const;
 
     //! Sets the value of option. Option should hold same value type already.
-    template<class T>
-    void setOptionValue(const std::string& optionName, T value);
+    template <class T> void setOptionValue(const std::string& optionName, T value);
 
     iterator begin() { return m_options.begin(); }
     const_iterator begin() const { return m_options.begin(); }
@@ -65,33 +63,32 @@ protected:
     container_t m_options;
 };
 
-template<class T>
-OptionContainer::option_t OptionContainer::addOption(
-    const std::string& optionName, T value, const std::string& description)
+template <class T>
+OptionContainer::option_t OptionContainer::addOption(const std::string& optionName, T value,
+                                                     const std::string& description)
 {
-    if(exists(optionName))
-        throw std::runtime_error(
-            "OptionContainer::addOption() -> Error. Option '" + optionName + "' exists.");
+    if (exists(optionName))
+        throw std::runtime_error("OptionContainer::addOption() -> Error. Option '" + optionName
+                                 + "' exists.");
 
     option_t result(new MultiOption(optionName, value, description));
     m_options.push_back(result);
     return result;
 }
 
-template<class T>
-T OptionContainer::optionValue(const std::string& optionName) const
+template <class T> T OptionContainer::optionValue(const std::string& optionName) const
 {
     return option(optionName)->get<T>();
 }
 
-template<class T>
-void OptionContainer::setOptionValue(const std::string& optionName, T value)
+template <class T> void OptionContainer::setOptionValue(const std::string& optionName, T value)
 {
     option(optionName)->value() = value;
-    if(option(optionName)->value().which() != option(optionName)->defaultValue().which())
+    if (option(optionName)->value().which() != option(optionName)->defaultValue().which())
         throw std::runtime_error(
             "OptionContainer::setOptionValue() -> Error. Attempt to set different"
-            "type to option '"+optionName+"'");
+            "type to option '"
+            + optionName + "'");
 }
 
 #endif // OPTIONCONTAINER_H

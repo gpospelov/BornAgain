@@ -20,7 +20,8 @@
 //! Collection of internal minimizer settings.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ MinimizerOptions : public OptionContainer {
+class BA_CORE_API_ MinimizerOptions : public OptionContainer
+{
 public:
     //! Returns string with all options (i.e. "Strategy=1;Tolerance=0.01;")
     std::string toOptionString() const;

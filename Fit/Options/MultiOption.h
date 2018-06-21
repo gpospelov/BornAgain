@@ -30,7 +30,7 @@ public:
 
     explicit MultiOption(const std::string& name = std::string());
 
-    template<typename T>
+    template <typename T>
     explicit MultiOption(const std::string& name, const T& t,
                          const std::string& descripion = std::string());
 
@@ -43,12 +43,10 @@ public:
     variant_t& defaultValue();
 
     //! Returns the option's value
-    template<typename T>
-    T get() const;
+    template <typename T> T get() const;
 
     //! Returns the option's default value (i.e. used during construction)
-    template<typename T>
-    T getDefault() const;
+    template <typename T> T getDefault() const;
 
     void setFromString(const std::string& value);
 
@@ -59,8 +57,7 @@ private:
     variant_t m_default_value;
 };
 
-
-template<typename T>
+template <typename T>
 MultiOption::MultiOption(const std::string& name, const T& t, const std::string& descripion)
 {
     m_name = name;
@@ -69,14 +66,12 @@ MultiOption::MultiOption(const std::string& name, const T& t, const std::string&
     m_default_value = t;
 }
 
-template<typename T>
-T MultiOption::get() const
+template <typename T> T MultiOption::get() const
 {
     return boost::get<T>(m_value);
 }
 
-template<typename T>
-T MultiOption::getDefault() const
+template <typename T> T MultiOption::getDefault() const
 {
     return boost::get<T>(m_default_value);
 }

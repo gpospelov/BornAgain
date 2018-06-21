@@ -13,15 +13,16 @@
 // ************************************************************************** //
 
 #include "MinimizerUtils.h"
-#include <sstream>
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <sstream>
 
 std::string MinimizerUtils::toString(const std::vector<std::string>& v, const std::string& delim)
 {
     std::stringstream s;
-    std::for_each(v.begin(), v.end(), [&s, &delim](const std::string& elem) {s << elem << delim; });
+    std::for_each(v.begin(), v.end(),
+                  [&s, &delim](const std::string& elem) { s << elem << delim; });
     return s.str();
 }
 
@@ -73,7 +74,7 @@ std::string MinimizerUtils::gslErrorDescription(int errorCode)
     static std::map<int, std::string> errorDescription = gslErrorDescriptionMap();
 
     auto it = errorDescription.find(errorCode);
-    if(it!=errorDescription.end())
+    if (it != errorDescription.end())
         return it->second;
 
     return std::string("Unknown error");
@@ -82,16 +83,16 @@ std::string MinimizerUtils::gslErrorDescription(int errorCode)
 bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
 {
     constexpr double eps = std::numeric_limits<double>::epsilon();
-    if (tol<1)
+    if (tol < 1)
         throw std::runtime_error("MinimizerUtils::numbersDiffer() -> Error.Not intended for tol<1");
-    return std::abs(a-b) > eps * std::max( tol*eps, std::abs(b) );
+    return std::abs(a - b) > eps * std::max(tol * eps, std::abs(b));
 }
 
 //! Returns horizontal line of 80 characters length with section name in it.
 
-std::string MinimizerUtils::sectionString(const std::string& sectionName, int report_width)
+std::string MinimizerUtils::sectionString(const std::string& sectionName, size_t report_width)
 {
-    if(sectionName.empty())
+    if (sectionName.empty())
         return std::string(report_width, '-') + "\n";
     // to make "--- SectionName ------------------------------"
     std::string prefix(3, '-');

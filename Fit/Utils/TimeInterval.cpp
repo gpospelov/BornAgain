@@ -21,19 +21,12 @@ public:
     boost::posix_time::ptime m_start_time;
     boost::posix_time::ptime m_end_time;
     bool m_is_running;
-    TimeIntervalImp() : m_is_running(false){}
+    TimeIntervalImp() : m_is_running(false) {}
 };
 
-TimeInterval::TimeInterval()
-    : m_imp(new TimeIntervalImp)
-{
+TimeInterval::TimeInterval() : m_imp(new TimeIntervalImp) {}
 
-}
-
-TimeInterval::~TimeInterval()
-{
-
-}
+TimeInterval::~TimeInterval() = default;
 
 void TimeInterval::start()
 {
@@ -49,11 +42,12 @@ void TimeInterval::stop()
 
 double TimeInterval::runTime() const
 {
-    boost::posix_time::time_duration diff ;
-    if(m_imp->m_is_running) {
+    boost::posix_time::time_duration diff;
+
+    if (m_imp->m_is_running)
         diff = boost::posix_time::microsec_clock::local_time() - m_imp->m_start_time;
-    } else {
+    else
         diff = m_imp->m_end_time - m_imp->m_start_time;
-    }
-    return diff.total_milliseconds()/1000.;
+
+    return diff.total_milliseconds() / 1000.;
 }

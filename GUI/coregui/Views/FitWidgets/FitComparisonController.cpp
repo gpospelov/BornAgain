@@ -167,7 +167,6 @@ void FitComparisonController1D::setItem(JobItem* job_item)
 
     diffItem()->setXaxisTitle(sim_data_item->getXaxisTitle());
     diffItem()->setYaxisTitle("Relative difference");
-    diffItem()->setLog(false);
     diffItem()->setLowerY(relative_diff_min_1d);
     diffItem()->setUpperY(relative_diff_max_1d);
 }

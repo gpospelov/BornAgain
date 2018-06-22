@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitComparisonWidget.cpp
-//! @brief     Implements class FitComparisonWidget
+//! @file      GUI/coregui/Views/FitWidgets/FitComparisonWidget1D.cpp
+//! @brief     Implements class FitComparisonWidget1D
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,31 +12,31 @@
 //
 // ************************************************************************** //
 
-#include "FitComparisonWidget.h"
-#include "ColorMap.h"
-#include "ColorMapCanvas.h"
+#include "FitComparisonWidget1D.h"
 #include "FitComparisonController.h"
 #include "FitFlowWidget.h"
 #include "FitSuiteItem.h"
-#include "IntensityDataItem.h"
 #include "IntensityDataPropertyWidget.h"
 #include "JobItem.h"
 #include "PlotStatusLabel.h"
 #include "RealDataItem.h"
+#include "SessionModel.h"
+#include "SpecularDataItem.h"
+#include "SpecularPlot.h"
+#include "SpecularPlotCanvas.h"
 #include <QAction>
 #include <QGridLayout>
 #include <QVBoxLayout>
 
-FitComparisonWidget::FitComparisonWidget(QWidget *parent)
+FitComparisonWidget1D::FitComparisonWidget1D(QWidget *parent)
     : SessionItemWidget(parent)
-    , m_realDataPlot(new ColorMapCanvas)
-    , m_simulatedDataPlot(new ColorMapCanvas)
-    , m_relativeDiffPlot(new ColorMapCanvas)
+    , m_data_plot(new SpecularPlotCanvas)
+    , m_diff_plot(new SpecularPlotCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new PlotStatusLabel(nullptr, this))
     , m_propertyWidget(new IntensityDataPropertyWidget)
     , m_resetViewAction(new QAction(this))
-    , m_comparisonController(new FitComparisonController2D(this))
+    , m_comparisonController(new FitComparisonController1D(this))
 {
     auto vlayout = new QVBoxLayout;
     vlayout->setMargin(0);
@@ -46,9 +46,8 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     gridLayout->setMargin(0);
     gridLayout->setSpacing(0);
 
-    gridLayout->addWidget(m_realDataPlot, 0, 0);
-    gridLayout->addWidget(m_simulatedDataPlot, 0, 1);
-    gridLayout->addWidget(m_relativeDiffPlot, 1, 0);
+    gridLayout->addWidget(m_data_plot, 0, 0, 1, -1);
+    gridLayout->addWidget(m_diff_plot, 1, 0);
     gridLayout->addWidget(m_fitFlowWidget, 1, 1);
 
     vlayout->addLayout(gridLayout);
@@ -64,19 +63,19 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     m_resetViewAction->setText("Reset View");
     m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_resetViewAction->setToolTip("Reset View");
-    connect(m_resetViewAction, &QAction::triggered, this, &FitComparisonWidget::onResetViewAction);
+    connect(m_resetViewAction, &QAction::triggered, this, &FitComparisonWidget1D::onResetViewAction);
 
     m_propertyWidget->setVisible(false);
 }
 
-FitComparisonWidget::~FitComparisonWidget() = default;
+FitComparisonWidget1D::~FitComparisonWidget1D() = default;
 
-QList<QAction*> FitComparisonWidget::actionList()
+QList<QAction*> FitComparisonWidget1D::actionList()
 {
     return QList<QAction*>() << m_resetViewAction << m_propertyWidget->actionList();
 }
 
-void FitComparisonWidget::subscribeToItem()
+void FitComparisonWidget1D::subscribeToItem()
 {
     if (!jobItem()->isValidForFitting())
         return;
@@ -91,49 +90,47 @@ void FitComparisonWidget::subscribeToItem()
         this);
 
     m_comparisonController->setItem(jobItem());
-    m_realDataPlot->setItem(realDataItem());
-    m_simulatedDataPlot->setItem(simulatedDataItem());
-    m_relativeDiffPlot->setItem(m_comparisonController->diffItem());
+
+    m_data_plot->setItem(simulatedDataItem());
+    m_diff_plot->setItem(m_comparisonController->diffItem());
     m_fitFlowWidget->setItem(jobItem()->fitSuiteItem());
 
     m_statusLabel->reset();
-    m_statusLabel->addPlot(m_realDataPlot->colorMap());
-    m_statusLabel->addPlot(m_simulatedDataPlot->colorMap());
-    m_statusLabel->addPlot(m_relativeDiffPlot->colorMap());
+    m_statusLabel->addPlot(m_data_plot->specularPlot());
+    m_statusLabel->addPlot(m_diff_plot->specularPlot());
 
     m_propertyWidget->setItem(simulatedDataItem());
 }
 
-void FitComparisonWidget::unsubscribeFromItem()
+void FitComparisonWidget1D::unsubscribeFromItem()
 {
+    if (!currentItem())
+        return;
+
     m_comparisonController->clear();
 }
 
-void FitComparisonWidget::onResetViewAction()
+void FitComparisonWidget1D::onResetViewAction()
 {
-    if (auto item = realDataItem())
-        item->resetView();
-
+    realDataItem()->resetView();
+    simulatedDataItem()->resetView();
     m_comparisonController->resetDiffItem();
 }
 
-JobItem* FitComparisonWidget::jobItem()
+JobItem* FitComparisonWidget1D::jobItem()
 {
     JobItem* jobItem = dynamic_cast<JobItem*>(currentItem());
     return jobItem;
 }
 
-IntensityDataItem* FitComparisonWidget::realDataItem()
+SpecularDataItem* FitComparisonWidget1D::realDataItem()
 {
-    return jobItem()->realDataItem()->intensityDataItem();
+    assert(dynamic_cast<SpecularDataItem*>(jobItem()->realDataItem()->dataItem()));
+    return dynamic_cast<SpecularDataItem*>(jobItem()->realDataItem()->dataItem());
 }
 
-IntensityDataItem* FitComparisonWidget::simulatedDataItem()
+SpecularDataItem* FitComparisonWidget1D::simulatedDataItem()
 {
-    return jobItem()->intensityDataItem();
-}
-
-IntensityDataItem* FitComparisonWidget::diffItem()
-{
-    return m_comparisonController->diffItem();
+    assert(dynamic_cast<SpecularDataItem*>(jobItem()->dataItem()));
+    return dynamic_cast<SpecularDataItem*>(jobItem()->dataItem());
 }

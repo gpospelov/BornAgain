@@ -107,7 +107,7 @@ void FitSessionController::onStopFittingRequest()
 
 void FitSessionController::onPlotsUpdate()
 {
-    m_jobItem->intensityDataItem()->setRawDataVector(m_observer->simulationData());
+    m_jobItem->dataItem()->setRawDataVector(m_observer->simulationData());
     m_observer->finishedPlotting();
 }
 

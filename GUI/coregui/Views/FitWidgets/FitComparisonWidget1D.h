@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitComparisonWidget.h
-//! @brief     Defines class FitComparisonWidget
+//! @file      GUI/coregui/Views/FitWidgets/FitComparisonWidget1D.h
+//! @brief     Defines class FitComparisonWidget1D
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,33 +12,29 @@
 //
 // ************************************************************************** //
 
-#ifndef FITCOMPARISONWIDGET_H
-#define FITCOMPARISONWIDGET_H
+#ifndef FITCOMPARISONWIDGET1D_H
+#define FITCOMPARISONWIDGET1D_H
 
 #include "SessionItemWidget.h"
-#include <QMap>
 
-class JobItem;
-class IntensityDataItem;
-class ColorMapCanvas;
-class SessionModel;
+class FitComparisonController1D;
 class FitFlowWidget;
+class IntensityDataPropertyWidget;
+class JobItem;
 class PlotStatusLabel;
 class QAction;
-class IntensityDataPropertyWidget;
-class PropertyRepeater;
-class FitComparisonController2D;
+class SpecularDataItem;
+class SpecularPlotCanvas;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
 
-class BA_CORE_API_ FitComparisonWidget : public SessionItemWidget
+class BA_CORE_API_ FitComparisonWidget1D : public SessionItemWidget
 {
     Q_OBJECT
-
 public:
-    explicit FitComparisonWidget(QWidget* parent = nullptr);
-    ~FitComparisonWidget() override;
+    explicit FitComparisonWidget1D(QWidget* parent = nullptr);
+    ~FitComparisonWidget1D() override;
 
     virtual QList<QAction*> actionList() override;
 
@@ -51,19 +47,17 @@ protected:
 
 private:
     JobItem* jobItem();
-    IntensityDataItem* realDataItem();
-    IntensityDataItem* simulatedDataItem();
-    IntensityDataItem* diffItem();
+    SpecularDataItem* realDataItem();
+    SpecularDataItem* simulatedDataItem();
 
-    ColorMapCanvas* m_realDataPlot;
-    ColorMapCanvas* m_simulatedDataPlot;
-    ColorMapCanvas* m_relativeDiffPlot;
+    SpecularPlotCanvas* m_data_plot;
+    SpecularPlotCanvas* m_diff_plot;
     FitFlowWidget* m_fitFlowWidget;
     PlotStatusLabel* m_statusLabel;
     IntensityDataPropertyWidget* m_propertyWidget;
 
     QAction* m_resetViewAction;
-    FitComparisonController2D* m_comparisonController;
+    FitComparisonController1D* m_comparisonController;
 };
 
-#endif // FITCOMPARISONWIDGET_H
+#endif // FITCOMPARISONWIDGET1D_H

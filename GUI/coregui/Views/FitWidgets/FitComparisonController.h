@@ -18,36 +18,58 @@
 #include "WinDllMacros.h"
 #include <QObject>
 
-class SessionModel;
+class DataItem;
+class DiffItemController;
 class IntensityDataItem;
+class JobItem;
 class PropertyRepeater;
+class SessionModel;
+class SpecularDataItem;
 
 //! Provides synchronization between certain properties of fit related IntensityDataItems.
-//! Part of FitComparisonWidget.
+//! Used solely in FitComparisonWidget.
 
-class BA_CORE_API_ FitComparisonController : public QObject
+class BA_CORE_API_ FitComparisonController2D : public QObject
 {
-    Q_OBJECT
 public:
-    explicit FitComparisonController(QObject* parent = nullptr);
+    explicit FitComparisonController2D(QObject* parent = nullptr);
 
     IntensityDataItem* diffItem();
 
-    void setItems(IntensityDataItem* realDataItem, IntensityDataItem* simDataItem);
+    void setItem(JobItem* job_item);
+    void updateDiffData();
+    void resetDiffItem();
 
     void clear();
 
-    void setActive(bool isActive);
-
 private:
-    void createRelativeDifferenceItem();
-
+    DiffItemController* m_diff_item_controller;
     PropertyRepeater* m_appearanceRepeater;
     PropertyRepeater* m_xAxisRepeater;
     PropertyRepeater* m_yAxisRepeater;
     PropertyRepeater* m_zAxisRepeater;
-    IntensityDataItem* m_relativeDiffItem;
-    SessionModel* m_tempIntensityDataModel;
+};
+
+//! Provides synchronization between certain properties of fit related SpecularDataItems.
+//! Used solely in FitComparisonWidget1D.
+
+class BA_CORE_API_ FitComparisonController1D : public QObject
+{
+public:
+    explicit FitComparisonController1D(QObject* parent = nullptr);
+
+    SpecularDataItem* diffItem();
+
+    void setItem(JobItem* job_item);
+    void updateDiffData();
+    void resetDiffItem();
+
+    void clear();
+
+private:
+    DiffItemController* m_diff_item_controller;
+    PropertyRepeater* m_appearanceRepeater;
+    PropertyRepeater* m_xAxisRepeater;
 };
 
 #endif  // FITCOMPARISONCONTROLLER_H

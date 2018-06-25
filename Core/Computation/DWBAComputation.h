@@ -40,8 +40,6 @@ public:
 
 private:
     void runProtected() override;
-    // sets the correct layer materials for the Fresnel map to use
-    void initFresnelMap();
 
     //! These iterators define the span of detector bins this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;

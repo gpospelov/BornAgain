@@ -36,9 +36,11 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
     : IComputation(options, progress, multilayer)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
-    , mP_fresnel_map(IComputationUtils::CreateFresnelMap(multilayer, options, false))
+    , mP_fresnel_map(IComputationUtils::CreateFresnelMap(multilayer, options))
     , m_computation_term(mP_fresnel_map.get())
-{}
+{
+    initFresnelMap();
+}
 
 SpecularComputation::~SpecularComputation() = default;
 
@@ -50,4 +52,14 @@ void SpecularComputation::runProtected()
     for (auto it=m_begin_it; it != m_end_it; ++it) {
         m_computation_term.compute(*it);
     }
+}
+
+void SpecularComputation::initFresnelMap()
+{
+    std::unique_ptr<MultiLayer> P_multilayer =
+            m_sim_options.useAvgMaterials()
+                 ? IComputationUtils::CreateAveragedMultilayer(*mP_multi_layer)
+                 : std::unique_ptr<MultiLayer>(mP_multi_layer->clone());
+    P_multilayer->initBFields();
+    mP_fresnel_map->setMultilayer(*P_multilayer);
 }

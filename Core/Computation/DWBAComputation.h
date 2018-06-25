@@ -43,8 +43,10 @@ private:
     // sets the correct layer materials for the Fresnel map to use
     void initFresnelMap();
 
-    std::vector<SimulationElement>::iterator m_begin_it, m_end_it; //!< these iterators define the span of detector bins this simulation will work on
-    std::unique_ptr<IFresnelMap> mP_fresnel_map; //!< Contains the information, necessary to calculate the Fresnel coefficients.
+    //! These iterators define the span of detector bins this simulation will work on
+    std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
+    //! Contains the information, necessary to calculate the Fresnel coefficients.
+    std::unique_ptr<IFresnelMap> mP_fresnel_map;
     DWBASingleComputation m_single_computation;
 };
 

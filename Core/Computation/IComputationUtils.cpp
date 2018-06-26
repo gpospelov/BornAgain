@@ -26,12 +26,14 @@
 namespace {
 void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor);
 bool CheckRegions(const std::vector<HomogeneousRegion>& regions);
+std::unique_ptr<MultiLayer> CreateAveragedMultilayerImpl(
+        const MultiLayer& multilayer,
+        const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
 }
 
 namespace IComputationUtils {
 std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& multilayer,
-                                              const SimulationOptions& sim_options,
-                                              bool allow_average_layers)
+                                              const SimulationOptions& sim_options)
 {
     std::unique_ptr<IFresnelMap> P_result;
     if (!multilayer.requiresMatrixRTCoefficients())
@@ -42,35 +44,25 @@ std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& multilayer,
     if (sim_options.isIntegrate())
         P_result->disableCaching();
 
-    if (!allow_average_layers && sim_options.useAvgMaterials())
-        throw std::runtime_error("Error in IComputationUtils::CreateFresnelMap: using averaged "
-                                 "materials is not allowed for this computation");
     P_result->setMultilayer(multilayer);
     return P_result;
 }
 
 std::unique_ptr<MultiLayer> CreateAveragedMultilayer(
-        const MultiLayer& multilayer,
+        const MultiLayer& multilayer, const SimulationOptions& sim_options,
         const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)
 {
-    auto local_region_map = region_map.size() == 0
-                            ? GetRegionMap(multilayer)
-                            : region_map;
-    std::unique_ptr<MultiLayer> P_result(multilayer.clone());
-    auto last_layer_index = P_result->numberOfLayers()-1;
-    for (auto& entry : local_region_map)
-    {
-        auto i_layer = entry.first;
-        if (i_layer==0 || i_layer==last_layer_index)
-            continue;  // skip semi-infinite layers
-        auto layer_mat = P_result->layerMaterial(i_layer);
-        if (!CheckRegions(entry.second))
-            throw std::runtime_error("IComputationUtils::CreateAveragedMultilayer: "
-                                     "total volumetric fraction of particles exceeds 1!");
-        auto new_mat = CreateAveragedMaterial(layer_mat, entry.second);
-        P_result->setLayerMaterial(i_layer, new_mat);
-    }
-    return P_result;
+    auto P_multilayer = sim_options.useAvgMaterials()
+                        ? CreateAveragedMultilayerImpl(multilayer, region_map)
+                        : std::unique_ptr<MultiLayer>(multilayer.clone());
+    P_multilayer->initBFields();
+    return P_multilayer;
+}
+
+std::unique_ptr<MultiLayer> CreateAveragedMultilayer(
+        const MultiLayer& multilayer, const SimulationOptions& sim_options)
+{
+    return CreateAveragedMultilayer(multilayer, sim_options, GetRegionMap(multilayer));
 }
 
 std::map<size_t, std::vector<HomogeneousRegion>> GetRegionMap(const MultiLayer& multilayer)
@@ -122,6 +114,26 @@ bool CheckRegions(const std::vector<HomogeneousRegion>& regions)
     for (auto& region : regions)
         total_fraction += region.m_volume;
     return (total_fraction >= 0 && total_fraction <= 1);
+}
+std::unique_ptr<MultiLayer> CreateAveragedMultilayerImpl(
+        const MultiLayer& multilayer,
+        const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)
+{
+    std::unique_ptr<MultiLayer> P_result(multilayer.clone());
+    auto last_layer_index = P_result->numberOfLayers()-1;
+    for (auto& entry : region_map)
+    {
+        auto i_layer = entry.first;
+        if (i_layer==0 || i_layer==last_layer_index)
+            continue;  // skip semi-infinite layers
+        auto layer_mat = P_result->layerMaterial(i_layer);
+        if (!CheckRegions(entry.second))
+            throw std::runtime_error("IComputationUtils::CreateAveragedMultilayer: "
+                                     "total volumetric fraction of particles exceeds 1!");
+        auto new_mat = CreateAveragedMaterial(layer_mat, entry.second);
+        P_result->setLayerMaterial(i_layer, new_mat);
+    }
+    return P_result;
 }
 }  // unnamed namespace
 

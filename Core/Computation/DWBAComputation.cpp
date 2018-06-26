@@ -55,7 +55,9 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
     if (m_sim_options.includeSpecular())
         m_single_computation.setSpecularBinComputation(
                     new GISASSpecularComputation(mP_multi_layer.get(), mP_fresnel_map.get()));
-    initFresnelMap();
+    mP_fresnel_map->setMultilayer(*IComputationUtils::CreateAveragedMultilayer(
+                                      *mP_multi_layer, m_sim_options,
+                                      m_single_computation.regionMap()));
 }
 
 DWBAComputation::~DWBAComputation() = default;
@@ -73,15 +75,4 @@ void DWBAComputation::runProtected()
     for (auto it=m_begin_it; it != m_end_it; ++it) {
         m_single_computation.compute(*it);
     }
-}
-
-void DWBAComputation::initFresnelMap()
-{
-    auto region_map = m_single_computation.regionMap();
-    std::unique_ptr<MultiLayer> P_multilayer =
-            m_sim_options.useAvgMaterials()
-                 ? IComputationUtils::CreateAveragedMultilayer(*mP_multi_layer, region_map)
-                 : std::unique_ptr<MultiLayer>(mP_multi_layer->clone());
-    P_multilayer->initBFields();
-    mP_fresnel_map->setMultilayer(*P_multilayer);
 }

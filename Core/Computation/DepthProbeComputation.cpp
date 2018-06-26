@@ -32,9 +32,12 @@ DepthProbeComputation::DepthProbeComputation(const MultiLayer& multilayer,
                                              DepthProbeElementIter end_it)
     : IComputation(options, progress, multilayer)
     , m_begin_it(begin_it), m_end_it(end_it)
-    , mP_fresnel_map(IComputationUtils::CreateFresnelMap(multilayer, options, false))
+    , mP_fresnel_map(IComputationUtils::CreateFresnelMap(multilayer, options))
     , m_computation_term(mP_multi_layer.get(), mP_fresnel_map.get())
-{}
+{
+    mP_fresnel_map->setMultilayer(*IComputationUtils::CreateAveragedMultilayer(
+                                      *mP_multi_layer, m_sim_options));
+}
 
 DepthProbeComputation::~DepthProbeComputation() = default;
 

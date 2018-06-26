@@ -26,12 +26,14 @@ class SimulationOptions;
 
 namespace IComputationUtils {
 std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& multilayer,
-                                              const SimulationOptions& sim_options,
-                                              bool allow_average_layers=true);
-// creates a multilayer that contains averaged materials, for use in Fresnel calculations
+                                              const SimulationOptions& sim_options);
+//! creates a multilayer that contains averaged materials, for use in Fresnel calculations
 std::unique_ptr<MultiLayer> CreateAveragedMultilayer(
-        const MultiLayer& multilayer,
-        const std::map<size_t, std::vector<HomogeneousRegion>>& region_map = {});
+        const MultiLayer& multilayer, const SimulationOptions& sim_options,
+        const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
+//! overload that calculates the region map itself
+std::unique_ptr<MultiLayer> CreateAveragedMultilayer(
+        const MultiLayer& multilayer, const SimulationOptions& sim_options);
 std::map<size_t, std::vector<HomogeneousRegion>> GetRegionMap(const MultiLayer& multilayer);
 void MergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& dest,
                     const std::map<size_t, std::vector<HomogeneousRegion>>& source);

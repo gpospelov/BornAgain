@@ -19439,18 +19439,6 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
 
 
-    def kappa(self):
-        """
-        kappa(IInterferenceFunction self) -> double
-
-        virtual double IInterferenceFunction::kappa() const
-
-        Retrieves the size-distance coupling constant (default 0.0) 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_kappa(self)
-
-
     def getParticleDensity(self):
         """
         getParticleDensity(IInterferenceFunction self) -> double

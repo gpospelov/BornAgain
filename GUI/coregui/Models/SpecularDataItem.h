@@ -81,7 +81,6 @@ public slots:
 
 private:
     void updateAxesZoomLevel();
-    void updateAxesLabels();
 };
 
 #endif // SPECULARDATAITEM_H

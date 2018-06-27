@@ -43,7 +43,7 @@ public:
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
-    virtual SafePointerVector<const IParticle> particles() const =0;
+    virtual SafePointerVector<IParticle> particles() const =0;
 
     /// Get total abundance of all particles
     virtual double getTotalAbundance() const =0;
@@ -65,8 +65,5 @@ private:
     ///< Approximation used for combining particles and interference functions
     EInterferenceApproximation me_approx;
 };
-
-
-
 
 #endif // ILAYOUT_H

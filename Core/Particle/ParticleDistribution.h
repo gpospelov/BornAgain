@@ -17,6 +17,7 @@
 
 #include "IAbstractParticle.h"
 #include "ParameterDistribution.h"
+#include "SafePointerVector.h"
 
 class IParticle;
 
@@ -37,7 +38,7 @@ public:
     void rotate(const IRotation& rotation) override final;
 
     //! Returns list of new particles generated according to a distribution.
-    std::vector<const IParticle*> generateParticles() const;
+    SafePointerVector<IParticle> generateParticles() const;
 
     //! Returns the prototype particle, used for generating multiple ones
     const IParticle& prototype() const { return *mP_particle.get(); }

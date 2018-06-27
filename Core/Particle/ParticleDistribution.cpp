@@ -55,7 +55,7 @@ void ParticleDistribution::rotate(const IRotation& rotation)
 
 //! Returns particle clones with parameter values drawn from distribution.
 
-std::vector<const IParticle*> ParticleDistribution::generateParticles() const
+SafePointerVector<IParticle> ParticleDistribution::generateParticles() const
 {
     std::unique_ptr<ParameterPool> P_pool {mP_particle->createParameterTree()};
     std::string main_par_name = m_par_distribution.getMainParameterName();
@@ -69,7 +69,7 @@ std::vector<const IParticle*> ParticleDistribution::generateParticles() const
 
     // Draw distribution samples; for each sample, create one particle clone:
     std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();
-    std::vector<const IParticle*> result;
+    SafePointerVector<IParticle> result;
     for (const ParameterSample& main_sample: main_par_samples ) {
         IParticle* p_particle_clone = mP_particle->clone();
         std::unique_ptr<ParameterPool> P_new_pool {p_particle_clone->createParameterTree()};

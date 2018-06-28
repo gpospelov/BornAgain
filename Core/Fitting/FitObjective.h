@@ -30,7 +30,6 @@ class PyBuilderCallback;
 class BA_CORE_API_ FitObjective
 {
 public:
-    using fitobjects_t =  SafePointerVector<SimDataPair>;
 
     FitObjective();
     virtual ~FitObjective();
@@ -69,7 +68,7 @@ private:
     std::vector<double> m_experimental_array;
     std::vector<double> m_simulation_array;
 
-    fitobjects_t m_fit_objects;
+    SafePointerVector<SimDataPair> m_fit_objects;
     double m_total_weight;
     std::unique_ptr<IChiSquaredModule> m_chi2_module;
 };

@@ -16,3 +16,38 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 
+
+InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice& lattice)
+    : m_lattice(lattice)
+{}
+
+InterferenceFunction3DLattice::~InterferenceFunction3DLattice() =default;
+
+
+InterferenceFunction3DLattice* InterferenceFunction3DLattice::clone() const
+{
+    return new InterferenceFunction3DLattice(m_lattice);
+}
+
+double InterferenceFunction3DLattice::evaluate(const kvector_t q) const
+{
+    return 1.0;
+}
+
+const Lattice&InterferenceFunction3DLattice::lattice() const
+{
+    return m_lattice;
+}
+
+double InterferenceFunction3DLattice::getParticleDensity() const
+{
+    return 0.0;
+}
+
+std::vector<const INode*> InterferenceFunction3DLattice::getChildren() const
+{
+    return {};
+}
+
+void InterferenceFunction3DLattice::onChange()
+{}

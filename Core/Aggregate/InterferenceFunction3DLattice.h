@@ -41,9 +41,8 @@ public:
     std::vector<const INode*> getChildren() const override;
 
     void onChange() override final;
-
 private:
-
+    Lattice m_lattice;
 };
 
 #endif // INTERFERENCEFUNCTION3DLATTICE_H

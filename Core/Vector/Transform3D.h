@@ -34,6 +34,11 @@ public:
     //! Copy constructor
     Transform3D(const Transform3D& other);
 
+#ifndef SWIG
+    //! Constructor from matrix (no checks if this is an element of SO(3)!)
+    Transform3D(const Eigen::Matrix3d& matrix);
+#endif
+
     //! Destructor
     ~Transform3D() {}
 
@@ -103,7 +108,6 @@ public:
     bool isZRotation() const;
 private:
 #ifndef SWIG
-    Transform3D(const Eigen::Matrix3d &matrix);
     Eigen::Matrix3d m_matrix;
     Eigen::Matrix3d m_inverse_matrix;
 #endif

@@ -46,6 +46,20 @@ std::vector<DataItem*> DataItemView::dataItems()
     return result;
 }
 
+DataItem* DataItemView::dataItem(size_t i) const
+{
+    auto link_item = dynamic_cast<DataItemLink*>(getItems()[static_cast<int>(i)]);
+    assert(link_item);
+    return link_item->dataItem();
+}
+
+const OutputData<double>* DataItemView::getOutputData(size_t i) const
+{
+    auto data_item = dataItem(i);
+    assert(data_item);
+    return data_item->getOutputData();
+}
+
 using DataItemLink = DataItemView::DataItemLink;
 
 const QString DataItemLink::P_LINK = "data link";

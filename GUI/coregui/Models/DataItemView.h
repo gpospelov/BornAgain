@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 
 class DataItem;
+template<class T> class OutputData;
 
 //! Base for DataItem1DView and DataItem2DView
 
@@ -43,6 +44,10 @@ public:
 
     bool addItem(DataItem* data_item);
     std::vector<DataItem*> dataItems();
+    DataItem* dataItem(size_t i) const;
+
+protected:
+    const OutputData<double>* getOutputData(size_t i) const;
 };
 
 #endif // DATAITEMVIEW_H

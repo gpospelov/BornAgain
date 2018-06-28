@@ -20,6 +20,7 @@
 #include "SafePointerVector.h"
 #include "SimDataPair.h"
 
+class IChiSquaredModule;
 
 //! Main class to hold pairs of simulation
 //! Holds vector of FitObject's (simulation and real data) to fit
@@ -58,12 +59,14 @@ public:
 
 private:
     void run_simulations(const Fit::Parameters& params);
+    double residual(double a, double b, double weight) const;
 
     std::vector<double> m_experimental_array;
     std::vector<double> m_simulation_array;
 
     fitobjects_t m_fit_objects;
     double m_total_weight;
+    std::unique_ptr<IChiSquaredModule> m_chi2_module;
 };
 
 #endif  // FITOBJECTIVE_H

@@ -13,22 +13,23 @@
 // ************************************************************************** //
 
 #include "JobModelFunctions.h"
-#include "JobModel.h"
-#include "JobItem.h"
-#include "RealDataItem.h"
-#include "IntensityDataItem.h"
-#include "FitSuiteItem.h"
-#include "InstrumentItems.h"
-#include "GUIHelpers.h"
-#include "MaskUnitsConverter.h"
-#include "DetectorItems.h"
-#include "MaskItems.h"
+#include "DataItem1DView.h"
 #include "DetectorFunctions.h"
+#include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
-#include "Instrument.h"
-#include "JobItemUtils.h"
+#include "FitSuiteItem.h"
+#include "GUIHelpers.h"
 #include "IDetector2D.h"
+#include "Instrument.h"
+#include "InstrumentItems.h"
+#include "IntensityDataItem.h"
+#include "JobItem.h"
 #include "JobItemFunctions.h"
+#include "JobItemUtils.h"
+#include "JobModel.h"
+#include "MaskItems.h"
+#include "MaskUnitsConverter.h"
+#include "RealDataItem.h"
 
 namespace JobModelFunctions {
 void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
@@ -36,6 +37,7 @@ void processInstrumentLink(JobItem *jobItem);
 void copyMasksToInstrument(JobItem *jobItem);
 void cropRealData(JobItem *jobItem);
 void createFitContainers(JobItem *jobItem);
+void initDataView(JobItem* jobItem);
 }
 
 
@@ -77,6 +79,8 @@ void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem 
     // TODO: remove if when other simulation types are ready for roi & masks
     if (jobItem->instrumentItem()->modelType() == Constants::GISASInstrumentType)
         JobModelFunctions::cropRealData(jobItem);
+    if (jobItem->instrumentItem()->modelType() == Constants::SpecularInstrumentType)
+        JobModelFunctions::initDataView(jobItem);
 
     JobModelFunctions::createFitContainers(jobItem);
 }
@@ -185,3 +189,17 @@ void JobModelFunctions::createFitContainers(JobItem *jobItem)
 
 }
 
+void JobModelFunctions::initDataView(JobItem* jobItem)
+{
+    assert(jobItem->isValidForFitting());
+    assert(jobItem->instrumentItem()->modelType() == Constants::SpecularInstrumentType);
+
+    SessionModel* model = jobItem->model();
+    auto view_item = dynamic_cast<DataItem1DView*>(model->insertNewItem(
+        Constants::DataItem1DViewType, jobItem->index(), -1, JobItem::T_DATAVIEW));
+
+    assert(view_item);
+
+    view_item->addItem(jobItem->realDataItem()->dataItem());
+    view_item->addItem(jobItem->dataItem());
+}

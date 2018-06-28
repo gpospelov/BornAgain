@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 
 class DataItem;
+class DataItem1DView;
 class FitParameterContainerItem;
 class FitSuiteItem;
 class InstrumentItem;
@@ -47,6 +48,7 @@ public:
     static const QString T_INSTRUMENT;
     static const QString T_OUTPUT;
     static const QString T_REALDATA;
+    static const QString T_DATAVIEW;
     static const QString T_PARAMETER_TREE;
     static const QString T_SIMULATION_OPTIONS;
     static const QString T_FIT_SUITE;
@@ -98,6 +100,8 @@ public:
 
     FitParameterContainerItem* fitParameterContainerItem();
     RealDataItem* realDataItem();
+
+    DataItem1DView* dataItemView();
 
 private:
     void updateIntensityDataFileName();

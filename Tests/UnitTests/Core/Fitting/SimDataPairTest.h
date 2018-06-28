@@ -1,62 +1,30 @@
 #include "google_test.h"
 #include "SimDataPair.h"
 #include "Parameters.h"
-#include "GISASSimulation.h"
-#include "Units.h"
-#include "MultiLayer.h"
-#include "Layer.h"
-#include "BornAgainNamespace.h"
-#include "MaterialFactoryFuncs.h"
+#include "FittingTestHelper.h"
+
 
 class SimDataPairTest : public ::testing::Test
 {
 public:
-    SimDataPairTest() : m_builder_calls(0) {}
     ~SimDataPairTest();
 
 protected:
-    const size_t m_nx = 5;
-    const size_t m_ny = 5;
-    const double m_xmin = -1.0*Units::deg;
-    const double m_xmax = 4.0*Units::deg;
-    const double m_ymin = 0.0*Units::deg;
-    const double m_ymax = 4.0*Units::deg;
-
-    size_t m_builder_calls;
-
-    std::unique_ptr<Simulation> createSimulation(const Fit::Parameters&) {
-        MultiLayer multilayer;
-        auto material = HomogeneousMaterial("Shell", 0.0, 0.0);
-        multilayer.addLayer(Layer(material));
-        multilayer.addLayer(Layer(material));
-
-        std::unique_ptr<GISASSimulation> result(new GISASSimulation(multilayer));
-        result->setDetectorParameters(m_nx, m_xmin, m_xmax, m_ny, m_ymin, m_ymax);
-
-        m_builder_calls++;
-        return result;
-    }
-
-    std::unique_ptr<OutputData<double>> createData(double value) {
-        std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-        result->addAxis(FixedBinAxis(BornAgain::PHI_AXIS_NAME, m_nx, m_xmin, m_xmax));
-        result->addAxis(FixedBinAxis(BornAgain::ALPHA_AXIS_NAME, m_ny, m_ymin, m_ymax));
-        result->setAllTo(value);
-        return result;
-    }
 };
 
 SimDataPairTest::~SimDataPairTest() = default;
 
 TEST_F(SimDataPairTest, standardPair)
 {
-    simulation_builder_t builder = [=](const Fit::Parameters &pars){
-        return this->createSimulation(pars);
+    FittingTestHelper helper;
+
+    simulation_builder_t builder = [&](const Fit::Parameters &pars){
+        return helper.createSimulation(pars);
     };
 
     const double exp_value(10.0);
     const double dataset_weight(0.5);
-    auto data = createData(exp_value);
+    auto data = helper.createData(exp_value);
 
     SimDataPair obj(builder, *data, dataset_weight);
 
@@ -70,12 +38,12 @@ TEST_F(SimDataPairTest, standardPair)
 
     // calling builder once
     Fit::Parameters params;
-    EXPECT_EQ(m_builder_calls, 0u);
+    EXPECT_EQ(helper.m_builder_calls, 0u);
     obj.runSimulation(params);
-    EXPECT_EQ(m_builder_calls, 1u);
+    EXPECT_EQ(helper.m_builder_calls, 1u);
 
     // checking simulated and experimental data
-    const size_t expected_size = m_nx*m_ny;
+    const size_t expected_size = helper.m_nx*helper.m_ny;
     EXPECT_EQ(obj.numberOfFitElements(), expected_size);
     EXPECT_EQ(obj.simulationResult().size(), expected_size);
     EXPECT_EQ(obj.experimentalData().size(), expected_size);
@@ -90,7 +58,7 @@ TEST_F(SimDataPairTest, standardPair)
 
     // calling builder second time
     obj.runSimulation(params);
-    EXPECT_EQ(m_builder_calls, 2u);
+    EXPECT_EQ(helper.m_builder_calls, 2u);
 
     // checking arrays
     array = obj.simulation_array();
@@ -104,23 +72,25 @@ TEST_F(SimDataPairTest, standardPair)
 
 TEST_F(SimDataPairTest, clone)
 {
-    simulation_builder_t builder = [=](const Fit::Parameters &pars){
-        return this->createSimulation(pars);
+    FittingTestHelper helper;
+
+    simulation_builder_t builder = [&](const Fit::Parameters &pars){
+        return helper.createSimulation(pars);
     };
 
     const double exp_value(10.0);
     const double dataset_weight(0.5);
-    auto data = createData(exp_value);
+    auto data = helper.createData(exp_value);
 
     SimDataPair obj(builder, *data, dataset_weight);
     // calling builder once
     Fit::Parameters params;
-    EXPECT_EQ(m_builder_calls, 0u);
+    EXPECT_EQ(helper.m_builder_calls, 0u);
     obj.runSimulation(params);
-    EXPECT_EQ(m_builder_calls, 1u);
+    EXPECT_EQ(helper.m_builder_calls, 1u);
 
     // checking simulated and experimental data
-    const size_t expected_size = m_nx*m_ny;
+    const size_t expected_size = helper.m_nx*helper.m_ny;
     EXPECT_EQ(obj.numberOfFitElements(), expected_size);
     EXPECT_EQ(obj.simulationResult().size(), expected_size);
     EXPECT_EQ(obj.experimentalData().size(), expected_size);
@@ -138,7 +108,7 @@ TEST_F(SimDataPairTest, clone)
 
     // calling clone's builder once
     clone->runSimulation(params);
-    EXPECT_EQ(m_builder_calls, 2u);
+    EXPECT_EQ(helper.m_builder_calls, 2u);
 
     // checking simulated and experimental data
     EXPECT_EQ(clone->numberOfFitElements(), expected_size);

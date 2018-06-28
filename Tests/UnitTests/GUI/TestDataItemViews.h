@@ -32,7 +32,7 @@ TEST_F(TestDataItemViews, testDataLinking)
     SessionModel model("TempModel");
     auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
     DataItem* item = insertNewDataItem(model, 0.0);
-    EXPECT_TRUE(view_item->addItem(item));
+    view_item->addItem(item);
 
     auto stored_items = view_item->dataItems();
     EXPECT_EQ(stored_items.size(), 1u);
@@ -46,9 +46,9 @@ TEST_F(TestDataItemViews, testLinkingSeveralItems)
     DataItem* item = insertNewDataItem(model, 0.0);
     DataItem* item2 = insertNewDataItem(model, 1.0);
     DataItem* item3 = insertNewDataItem(model, 2.0);
-    EXPECT_TRUE(view_item->addItem(item));
-    EXPECT_TRUE(view_item->addItem(item2));
-    EXPECT_TRUE(view_item->addItem(item3));
+    view_item->addItem(item);
+    view_item->addItem(item2);
+    view_item->addItem(item3);
 
     auto stored_items = view_item->dataItems();
     EXPECT_EQ(stored_items.size(), 3u);
@@ -62,14 +62,14 @@ TEST_F(TestDataItemViews, testBrokenLink)
     SessionModel model("TempModel");
     auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
     DataItem* item = insertNewDataItem(model, 0.0);
-    EXPECT_TRUE(view_item->addItem(item));
+    view_item->addItem(item);
 
     auto stored_items = view_item->dataItems();
     EXPECT_EQ(stored_items.size(), 1u);
     EXPECT_EQ(stored_items[0], item);
 
     DataItem* item2 = insertNewDataItem(model, 1.0);
-    EXPECT_TRUE(view_item->addItem(item2));
+    view_item->addItem(item2);
     EXPECT_THROW(view_item->dataItems(), GUIHelpers::Error);
 }
 
@@ -78,11 +78,11 @@ TEST_F(TestDataItemViews, testWrongHostingModel)
     SessionModel model("TempModel");
     DataItem* item = insertNewDataItem(model, 0.0);
     auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
-    EXPECT_TRUE(view_item->addItem(item));
+    view_item->addItem(item);
 
     SessionModel model2("TempModel2");
     DataItem* item2 = insertNewDataItem(model2, 1.0);
-    EXPECT_FALSE(view_item->addItem(item2));
+    EXPECT_THROW(view_item->addItem(item2), GUIHelpers::Error);
 
     auto stored_items = view_item->dataItems();
     EXPECT_EQ(stored_items.size(), 1u);

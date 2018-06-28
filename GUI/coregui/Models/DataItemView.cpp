@@ -21,13 +21,6 @@
 
 const QString DataItemView::T_CHILDREN = "data links";
 
-bool DataItemView::addItem(DataItem* data_item)
-{
-    if (this->model() != data_item->model())
-        return false;
-    return insertItem(-1, new DataItemLink(data_item));
-}
-
 std::vector<DataItem*> DataItemView::dataItems()
 {
     std::vector<DataItem*> result;
@@ -49,7 +42,7 @@ DataItem* DataItemView::dataItem(size_t i) const
 DataItemView::DataItemView(const QString& model_type)
     : SessionItem(model_type)
 {
-    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::DataLinkType);
+    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::DataItem1DPropertiesType);
     setDefaultTag(T_CHILDREN);
 }
 
@@ -60,21 +53,20 @@ const OutputData<double>* DataItemView::getOutputData(size_t i) const
     return data_item->getOutputData();
 }
 
-using DataItemLink = DataItemView::DataItemLink;
+/*----------------------------------------------*/
 
 const QString DataItemLink::P_LINK = "data link";
 
-DataItemLink::DataItemLink()
-    : SessionItem(Constants::DataLinkType)
+DataItemLink::DataItemLink(const QString& model_type)
+    : SessionItem(model_type)
 {
     addProperty(P_LINK, "");
 }
 
-DataItemLink::DataItemLink(DataItem* item)
-    : SessionItem(Constants::DataLinkType)
+void DataItemLink::setDataItem(DataItem* item)
 {
     const QString& path = ModelPath::getPathFromIndex(item->index());
-    addProperty(P_LINK, path);
+    setItemValue(P_LINK, path);
 }
 
 DataItem* DataItemLink::dataItem()

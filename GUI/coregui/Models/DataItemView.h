@@ -27,27 +27,28 @@ class BA_CORE_API_ DataItemView : public SessionItem
     static const QString T_CHILDREN;
 
 public:
-    //! Implements a link to DataItem. If path name
-    //! of a DataItem changes, the link becomes invalid.
-    class DataItemLink : public SessionItem {
-    public:
-       static const QString P_LINK;
-
-       DataItemLink();
-       DataItemLink(DataItem* item);
-
-       DataItem* dataItem();
-    };
-
     ~DataItemView() override = default;
 
-    bool addItem(DataItem* data_item);
+    virtual void addItem(DataItem* data_item) = 0;
     std::vector<DataItem*> dataItems();
     DataItem* dataItem(size_t i) const;
 
 protected:
     DataItemView(const QString& model_type);
     const OutputData<double>* getOutputData(size_t i) const;
+};
+
+//! Implements a link to DataItem. If path name
+//! of a DataItem changes, the link becomes invalid.
+class DataItemLink : public SessionItem {
+public:
+   static const QString P_LINK;
+
+   void setDataItem(DataItem* item);
+   DataItem* dataItem();
+
+protected:
+   DataItemLink(const QString& model_type);
 };
 
 #endif // DATAITEMVIEW_H

@@ -176,7 +176,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::IntensityDataType, create_new<IntensityDataItem>);
     add(Constants::SpecularDataType, create_new<SpecularDataItem>);
     add(Constants::DataItem1DViewType, create_new<DataItem1DView>);
-    add(Constants::DataLinkType, create_new<DataItemView::DataItemLink>);
+    add(Constants::DataItem1DPropertiesType, create_new<DataItem1DViewProperties>);
 
     add(Constants::BasicAxisType, create_new<BasicAxisItem>);
     add(Constants::AmplitudeAxisType, create_new<AmplitudeAxisItem>);

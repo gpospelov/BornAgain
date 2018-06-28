@@ -13,9 +13,11 @@
 // ************************************************************************** //
 
 #include "DataItem1DView.h"
-#include "DataItem.h"
 #include "AxesItems.h"
 #include "BornAgainNamespace.h"
+#include "ComboProperty.h"
+#include "DataItem.h"
+#include "GUIHelpers.h"
 
 namespace {
 const QString x_axis_default_name = "X [nbins]";
@@ -51,6 +53,17 @@ DataItem1DView::DataItem1DView()
     setUpperY(default_max);
     setXaxisTitle(x_axis_default_name);
     setYaxisTitle(y_axis_default_name);
+}
+
+void DataItem1DView::addItem(DataItem* data_item)
+{
+    if (this->model() != data_item->model())
+        throw GUIHelpers::Error("Error in DataItemLink::setDataItem: hosting models are different");
+
+    std::unique_ptr<DataItem1DViewProperties> property_item(new DataItem1DViewProperties());
+    insertItem(-1, property_item.get());
+    property_item->setDataItem(data_item);
+    property_item.release();
 }
 
 int DataItem1DView::getNbins() const
@@ -227,4 +240,32 @@ void DataItem1DView::updateAxesZoomLevel()
         return;
     const int nx = static_cast<int>(output_data->getAxis(BornAgain::X_AXIS_INDEX).size());
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
+}
+
+/*-------------------------------------------------------*/
+
+namespace
+{
+ComboProperty colorCombo();
+}
+
+const QString DataItem1DViewProperties::P_COLOR = "Color";
+
+DataItem1DViewProperties::DataItem1DViewProperties()
+    : DataItemLink(Constants::DataItem1DPropertiesType)
+{
+    addProperty(P_COLOR, colorCombo().variant());
+}
+
+namespace
+{
+ComboProperty colorCombo()
+{
+    ComboProperty result;
+    result << "black"
+           << "blue"
+           << "orangered";
+    result.setValue("black");
+    return result;
+}
 }

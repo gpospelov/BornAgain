@@ -35,6 +35,8 @@ public:
 
     DataItem1DView();
 
+    void addItem(DataItem* data_item) override;
+
     //! Number of bins in data
     int getNbins() const;
 
@@ -83,6 +85,14 @@ public slots:
 
 private:
     void updateAxesZoomLevel();
+};
+
+class DataItem1DViewProperties : public DataItemLink
+{
+public:
+    static const QString P_COLOR;
+
+    DataItem1DViewProperties();
 };
 
 #endif // DATAITEM1DVIEW_H

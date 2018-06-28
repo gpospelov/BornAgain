@@ -5163,6 +5163,11 @@ class IChiSquaredModule(ICloneable):
         """
         return _libBornAgainCore.IChiSquaredModule_processFitElements(self, arg2, arg3)
 
+
+    def residual(self, a, b, weight):
+        """residual(IChiSquaredModule self, double a, double b, double weight) -> double"""
+        return _libBornAgainCore.IChiSquaredModule_residual(self, a, b, weight)
+
 IChiSquaredModule_swigregister = _libBornAgainCore.IChiSquaredModule_swigregister
 IChiSquaredModule_swigregister(IChiSquaredModule)
 
@@ -6253,6 +6258,11 @@ class ChiSquaredModule(IChiSquaredModule):
 
         """
         return _libBornAgainCore.ChiSquaredModule_processFitElements(self, first, last)
+
+
+    def residual(self, a, b, weight):
+        """residual(ChiSquaredModule self, double a, double b, double weight) -> double"""
+        return _libBornAgainCore.ChiSquaredModule_residual(self, a, b, weight)
 
 ChiSquaredModule_swigregister = _libBornAgainCore.ChiSquaredModule_swigregister
 ChiSquaredModule_swigregister(ChiSquaredModule)
@@ -7552,6 +7562,94 @@ class FitSuiteObjects(INode):
 
 FitSuiteObjects_swigregister = _libBornAgainCore.FitSuiteObjects_swigregister
 FitSuiteObjects_swigregister(FitSuiteObjects)
+
+class PyBuilderCallback(_object):
+    """Proxy of C++ PyBuilderCallback class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PyBuilderCallback, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PyBuilderCallback, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(PyBuilderCallback self) -> PyBuilderCallback"""
+        if self.__class__ == PyBuilderCallback:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_PyBuilderCallback(_self, )
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_PyBuilderCallback
+    __del__ = lambda self: None
+
+    def build_simulation(self, arg0):
+        """build_simulation(PyBuilderCallback self, Fit::Parameters arg0) -> Simulation"""
+        return _libBornAgainCore.PyBuilderCallback_build_simulation(self, arg0)
+
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_PyBuilderCallback(self)
+        return weakref_proxy(self)
+PyBuilderCallback_swigregister = _libBornAgainCore.PyBuilderCallback_swigregister
+PyBuilderCallback_swigregister(PyBuilderCallback)
+
+class FitObjective(_object):
+    """Proxy of C++ FitObjective class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FitObjective, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, FitObjective, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(FitObjective self) -> FitObjective"""
+        this = _libBornAgainCore.new_FitObjective()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_FitObjective
+    __del__ = lambda self: None
+
+    def addSimulationAndData(self, callback, data, weight=1.0):
+        """
+        addSimulationAndData(FitObjective self, PyBuilderCallback callback, IntensityData data, double weight=1.0)
+        addSimulationAndData(FitObjective self, PyBuilderCallback callback, IntensityData data)
+        """
+        return _libBornAgainCore.FitObjective_addSimulationAndData(self, callback, data, weight)
+
+
+    def evaluate(self, params):
+        """evaluate(FitObjective self, Fit::Parameters const & params) -> double"""
+        return _libBornAgainCore.FitObjective_evaluate(self, params)
+
+
+    def evaluate_residuals(self, params):
+        """evaluate_residuals(FitObjective self, Fit::Parameters const & params) -> vdouble1d_t"""
+        return _libBornAgainCore.FitObjective_evaluate_residuals(self, params)
+
+
+    def numberOfFitElements(self):
+        """numberOfFitElements(FitObjective self) -> size_t"""
+        return _libBornAgainCore.FitObjective_numberOfFitElements(self)
+
+
+    def experimental_array(self):
+        """experimental_array(FitObjective self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitObjective_experimental_array(self)
+
+
+    def simulation_array(self):
+        """simulation_array(FitObjective self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitObjective_simulation_array(self)
+
+FitObjective_swigregister = _libBornAgainCore.FitObjective_swigregister
+FitObjective_swigregister(FitObjective)
 
 
 def StandardNormal(x):

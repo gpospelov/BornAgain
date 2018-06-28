@@ -21,6 +21,7 @@
 #include "SimDataPair.h"
 
 class IChiSquaredModule;
+class PyBuilderCallback;
 
 //! Main class to hold pairs of simulation
 //! Holds vector of FitObject's (simulation and real data) to fit
@@ -38,7 +39,11 @@ public:
     //! @param simulation: simulation builder capable of producing simulations
     //! @param data: experimental data
     //! @param weight: weight of dataset in chi2 calculations
+#ifndef SWIG
     void addSimulationAndData(simulation_builder_t builder, const OutputData<double>& data,
+                              double weight = 1.0);
+#endif
+    void addSimulationAndData(PyBuilderCallback& callback, const OutputData<double>& data,
                               double weight = 1.0);
 
     virtual double evaluate(const Fit::Parameters& params);

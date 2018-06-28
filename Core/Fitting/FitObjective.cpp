@@ -15,6 +15,8 @@
 #include "FitObjective.h"
 #include "ChiSquaredModule.h"
 #include "Parameters.h"
+#include "PyBuilderCallback.h"
+#include "Simulation.h"
 
 //static_assert(std::is_copy_constructible<FitObjective>::value == false,
 //              "FitObjective should not be copy constructable");
@@ -42,6 +44,17 @@ void FitObjective::addSimulationAndData(simulation_builder_t builder,
 {
     m_fit_objects.push_back(new SimDataPair(builder, data, weight));
     m_total_weight += weight;
+}
+
+void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
+                                        const OutputData<double>& data, double weight)
+{
+    simulation_builder_t builder = [&](const Fit::Parameters& params) {
+        std::unique_ptr<Simulation> result(callback.build_simulation(params));
+        return result;
+    };
+
+    addSimulationAndData(builder, data, weight);
 }
 
 double FitObjective::evaluate(const Fit::Parameters& params)

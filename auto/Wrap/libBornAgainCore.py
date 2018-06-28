@@ -22971,6 +22971,7 @@ class Lattice(INode):
 
     def __init__(self, *args):
         """
+        __init__(Lattice self) -> Lattice
         __init__(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3) -> Lattice
         __init__(Lattice self, Lattice lattice) -> Lattice
 
@@ -23055,6 +23056,11 @@ class Lattice(INode):
 
         """
         return _libBornAgainCore.Lattice_getBasisVectorC(self)
+
+
+    def resetBasis(self, a1, a2, a3):
+        """resetBasis(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3)"""
+        return _libBornAgainCore.Lattice_resetBasis(self, a1, a2, a3)
 
 
     def getMillerDirection(self, h, k, l):

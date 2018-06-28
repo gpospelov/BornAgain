@@ -31,26 +31,32 @@ void FillVectorInRow(Eigen::Matrix3d& matrix, kvector_t vec,
 ILatticeOrientation::~ILatticeOrientation() =default;
 
 
-MillerIndexOrientation::MillerIndexOrientation(const Lattice& primitive_lattice)
-    : m_prim_lattice(primitive_lattice)
-    , m_q1(QX), m_q2(QX)
-    , m_ind1 { 0, 0, 0 }
-    , m_ind2 { 0, 0, 0 }
-{}
+MillerIndexOrientation::MillerIndexOrientation(
+        MillerIndexOrientation::QComponent q1, MillerIndexOrientation::MillerIndex index1,
+        MillerIndexOrientation::QComponent q2, MillerIndexOrientation::MillerIndex index2)
+    : m_prim_lattice()
+    , m_q1(q1), m_q2(q2)
+    , m_ind1 { index1 }
+    , m_ind2 { index2 }
+{
+    if (!checkAlignment())
+        throw std::runtime_error("MillerIndexOrientation constructor: "
+                                 "invalid alignment parameters");
+}
+
+MillerIndexOrientation* MillerIndexOrientation::clone() const
+{
+    auto P_result = std::make_unique<MillerIndexOrientation>(m_q1, m_ind1, m_q2, m_ind2);
+    P_result->usePrimitiveLattice(m_prim_lattice);
+    return P_result.release();
+}
 
 MillerIndexOrientation::~MillerIndexOrientation() =default;
 
-void MillerIndexOrientation::alignQToMillerInidices(
-        MillerIndexOrientation::QComponent q1, MillerIndexOrientation::MillerIndex index1,
-        MillerIndexOrientation::QComponent q2, MillerIndexOrientation::MillerIndex index2)
+void MillerIndexOrientation::usePrimitiveLattice(const Lattice& lattice)
 {
-    m_q1 = q1;
-    m_q2 = q2;
-    m_ind1 = index1;
-    m_ind2 = index2;
-    if (!checkAlignment())
-        throw std::runtime_error("MillerIndexOrientation::alignQToMillerInidices: "
-                                 "invalid alignment parameters");
+    m_prim_lattice.resetBasis(lattice.getBasisVectorA(), lattice.getBasisVectorB(),
+                              lattice.getBasisVectorC());
 }
 
 Transform3D MillerIndexOrientation::transformationMatrix() const

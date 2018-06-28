@@ -20,12 +20,24 @@
 #include "Transform3D.h"
 #include <gsl/gsl_linalg.h>
 
+Lattice::Lattice()
+    : mp_selection_rule(nullptr)
+    , m_a( {1.0, 0.0, 0.0} )
+    , m_b( {0.0, 1.0, 0.0} )
+    , m_c( {0.0, 0.0, 1.0} )
+    , m_cache_ok(false)
+{
+    setName(BornAgain::LatticeType);
+    initialize();
+    registerBasisVectors();
+}
+
 Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-: mp_selection_rule(0)
-, m_a(a1)
-, m_b(a2)
-, m_c(a3)
-, m_cache_ok(false)
+    : mp_selection_rule(nullptr)
+    , m_a(a1)
+    , m_b(a2)
+    , m_c(a3)
+    , m_cache_ok(false)
 {
     setName(BornAgain::LatticeType);
     initialize();
@@ -33,11 +45,11 @@ Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 }
 
 Lattice::Lattice(const Lattice& lattice)
-: mp_selection_rule(0)
-, m_a(lattice.m_a)
-, m_b(lattice.m_b)
-, m_c(lattice.m_c)
-, m_cache_ok(false)
+    : mp_selection_rule(nullptr)
+    , m_a(lattice.m_a)
+    , m_b(lattice.m_b)
+    , m_c(lattice.m_c)
+    , m_cache_ok(false)
 {
     setName(BornAgain::LatticeType);
     initialize();
@@ -64,6 +76,14 @@ void Lattice::initialize() const
 {
     computeReciprocalVectors();
     m_cache_ok = true;
+}
+
+void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
+{
+    m_a = a1;
+    m_b = a2;
+    m_c = a3;
+    onChange();
 }
 
 kvector_t Lattice::getMillerDirection(int h, int k, int l) const

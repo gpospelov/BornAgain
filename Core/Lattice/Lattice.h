@@ -28,10 +28,10 @@ class Transform3D;
 class BA_CORE_API_ Lattice : public INode
 {
 public:
-    Lattice() =delete;
+    Lattice();
     Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3);
     Lattice(const Lattice& lattice);
-    ~Lattice();
+    ~Lattice() override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
@@ -49,6 +49,9 @@ public:
 
     //! Returns basis vector c
     kvector_t getBasisVectorC() const { return m_c; }
+
+    //! Resets the basis vectors
+    void resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3);
 
     //! Returns normalized direction corresponding to the given Miller indices
     kvector_t getMillerDirection(int h, int k, int l) const;

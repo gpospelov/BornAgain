@@ -23,6 +23,10 @@ class BA_CORE_API_ ILatticeOrientation
 public:
     virtual ~ILatticeOrientation();
 
+    virtual ILatticeOrientation* clone() const=0;
+
+    virtual void usePrimitiveLattice(const Lattice& lattice) =0;
+
     virtual Transform3D transformationMatrix() const=0;
 };
 
@@ -33,11 +37,13 @@ public:
     struct MillerIndex {
         int h, k, l;
     };
-    MillerIndexOrientation(const Lattice& primitive_lattice);
+    MillerIndexOrientation(QComponent q1, MillerIndex index1,
+                           QComponent q2, MillerIndex index2);
     ~MillerIndexOrientation() override;
 
-    void alignQToMillerInidices(QComponent q1, MillerIndex index1,
-                                QComponent q2, MillerIndex index2);
+    MillerIndexOrientation* clone() const override;
+
+    void usePrimitiveLattice(const Lattice& lattice) override;
 
     Transform3D transformationMatrix() const override;
 private:

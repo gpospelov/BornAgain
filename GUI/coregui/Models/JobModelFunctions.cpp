@@ -31,15 +31,15 @@
 #include "MaskUnitsConverter.h"
 #include "RealDataItem.h"
 
-namespace JobModelFunctions {
-void copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem);
-void processInstrumentLink(JobItem *jobItem);
-void copyMasksToInstrument(JobItem *jobItem);
-void cropRealData(JobItem *jobItem);
-void createFitContainers(JobItem *jobItem);
+namespace JobModelFunctions
+{
+void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem);
+void processInstrumentLink(JobItem* jobItem);
+void copyMasksToInstrument(JobItem* jobItem);
+void cropRealData(JobItem* jobItem);
+void createFitContainers(JobItem* jobItem);
 void initDataView(JobItem* jobItem);
 }
-
 
 //! Setup items intended for storing results of the job.
 
@@ -49,26 +49,25 @@ void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
 
     auto instrumentType = jobItem->instrumentItem()->modelType();
     if (instrumentType == Constants::SpecularInstrumentType) {
-        model->insertNewItem(Constants::SpecularDataType,
-                         model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+        model->insertNewItem(Constants::SpecularDataType, model->indexOfItem(jobItem), -1,
+                             JobItem::T_OUTPUT);
 
-    } else if(instrumentType == Constants::GISASInstrumentType ||
-              instrumentType == Constants::OffSpecInstrumentType) {
+    } else if (instrumentType == Constants::GISASInstrumentType
+               || instrumentType == Constants::OffSpecInstrumentType) {
+        model->insertNewItem(Constants::IntensityDataType, model->indexOfItem(jobItem), -1,
+                             JobItem::T_OUTPUT);
 
-        model->insertNewItem(Constants::IntensityDataType,
-                         model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
     } else {
         throw GUIHelpers::Error("JobModelFunctions::setupJobItemOutput() -> Error. "
                                 "Unsupported instrument type");
     }
-
 }
 
 //! Setups JobItem for fit.
 
-void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem *realDataItem)
+void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem* realDataItem)
 {
-    if(!jobItem->instrumentItem())
+    if (!jobItem->instrumentItem())
         throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. "
                                 "No instrument.");
 
@@ -85,26 +84,24 @@ void JobModelFunctions::setupJobItemForFit(JobItem *jobItem, const RealDataItem 
     JobModelFunctions::createFitContainers(jobItem);
 }
 
-
 //! Copy RealDataItem to jobItem intended for fitting.
 
-void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *realDataItem)
+void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
 {
-    if(!realDataItem)
+    if (!realDataItem)
         return;
 
-    SessionModel *model = jobItem->model();
+    SessionModel* model = jobItem->model();
 
-    RealDataItem *realDataItemCopy = dynamic_cast<RealDataItem *>(
-        model->copyItem(realDataItem, jobItem, JobItem::T_REALDATA));
+    RealDataItem* realDataItemCopy
+        = dynamic_cast<RealDataItem*>(model->copyItem(realDataItem, jobItem, JobItem::T_REALDATA));
     Q_ASSERT(realDataItemCopy);
 
-    realDataItemCopy->dataItem()->setOutputData(
-                realDataItem->dataItem()->getOutputData()->clone());
+    realDataItemCopy->dataItem()->setOutputData(realDataItem->dataItem()->getOutputData()->clone());
 
     // adapting the name to job name
     realDataItemCopy->dataItem()->setItemValue(DataItem::P_FILE_NAME,
-        JobItemFunctions::jobReferenceFileName(*jobItem));
+                                               JobItemFunctions::jobReferenceFileName(*jobItem));
 }
 
 //! Links RealDataItem to the JobItem's instrument.
@@ -113,10 +110,10 @@ void JobModelFunctions::copyRealDataItem(JobItem *jobItem, const RealDataItem *r
 //    insturment
 // 2) During relink all masks (if exists) will be converted to the default units of current detector
 
-void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
+void JobModelFunctions::processInstrumentLink(JobItem* jobItem)
 {
-    RealDataItem *realData = jobItem->realDataItem();
-    if(!realData)
+    RealDataItem* realData = jobItem->realDataItem();
+    if (!realData)
         throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. No data.");
 
     realData->linkToInstrument(jobItem->instrumentItem());
@@ -124,7 +121,7 @@ void JobModelFunctions::processInstrumentLink(JobItem *jobItem)
 
 //! Copies masks and ROI from RealDataItem on board of instrument.
 
-void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
+void JobModelFunctions::copyMasksToInstrument(JobItem* jobItem)
 {
     auto mask_container = jobItem->realDataItem()->maskContainerItem();
     jobItem->instrumentItem()->importMasks(mask_container);
@@ -132,11 +129,12 @@ void JobModelFunctions::copyMasksToInstrument(JobItem *jobItem)
 
 //! Crops RealDataItem to the region of interest.
 
-void JobModelFunctions::cropRealData(JobItem *jobItem) {
-    RealDataItem *realData = jobItem->realDataItem();
+void JobModelFunctions::cropRealData(JobItem* jobItem)
+{
+    RealDataItem* realData = jobItem->realDataItem();
 
     // adjusting real data to the size of region of interest
-    IntensityDataItem *intensityItem = realData->intensityDataItem();
+    IntensityDataItem* intensityItem = realData->intensityDataItem();
 
     std::unique_ptr<OutputData<double>> origData(intensityItem->getOutputData()->clone());
 
@@ -155,38 +153,38 @@ void JobModelFunctions::cropRealData(JobItem *jobItem) {
 
 //! Creates necessary fit containers for jobItem intended for fitting.
 
-void JobModelFunctions::createFitContainers(JobItem *jobItem)
+void JobModelFunctions::createFitContainers(JobItem* jobItem)
 {
-    SessionModel *model = jobItem->model();
+    SessionModel* model = jobItem->model();
 
-    SessionItem *fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
-    if(fitSuiteItem != nullptr) {
+    SessionItem* fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
+    if (fitSuiteItem != nullptr) {
         throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
                                 "a second FitSuiteItem.");
     }
 
-    fitSuiteItem = model->insertNewItem(Constants::FitSuiteType,
-                                 jobItem->index(), -1, JobItem::T_FIT_SUITE);
+    fitSuiteItem
+        = model->insertNewItem(Constants::FitSuiteType, jobItem->index(), -1, JobItem::T_FIT_SUITE);
 
-    SessionItem *parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
-    if(parsContainerItem != nullptr) {
+    SessionItem* parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
+    if (parsContainerItem != nullptr) {
         throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
                                 "a second FitParameterContainer.");
     }
 
-    parsContainerItem = model->insertNewItem(Constants::FitParameterContainerType,
-                                      fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS);
+    parsContainerItem
+        = model->insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+                               FitSuiteItem::T_FIT_PARAMETERS);
 
     // Minimizer settings
-    SessionItem *minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
-    if(minimizerContainerItem != nullptr) {
+    SessionItem* minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
+    if (minimizerContainerItem != nullptr) {
         throw GUIHelpers::Error("JobModel::createFitContainers() -> Error. Attempt to create "
                                 "a second MinimizerContainer.");
     }
 
-    minimizerContainerItem = model->insertNewItem(Constants::MinimizerContainerType,
-                                      fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
-
+    minimizerContainerItem = model->insertNewItem(
+        Constants::MinimizerContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
 }
 
 void JobModelFunctions::initDataView(JobItem* jobItem)

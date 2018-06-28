@@ -101,3 +101,48 @@ TEST_F(SimDataPairTest, standardPair)
     EXPECT_DOUBLE_EQ(std::accumulate(array.begin(), array.end(), 0), expected_size*exp_value);
 }
 
+
+TEST_F(SimDataPairTest, clone)
+{
+    simulation_builder_t builder = [=](const Fit::Parameters &pars){
+        return this->createSimulation(pars);
+    };
+
+    const double exp_value(10.0);
+    const double dataset_weight(0.5);
+    auto data = createData(exp_value);
+
+    SimDataPair obj(builder, *data, dataset_weight);
+    // calling builder once
+    Fit::Parameters params;
+    EXPECT_EQ(m_builder_calls, 0u);
+    obj.runSimulation(params);
+    EXPECT_EQ(m_builder_calls, 1u);
+
+    // checking simulated and experimental data
+    const size_t expected_size = m_nx*m_ny;
+    EXPECT_EQ(obj.numberOfFitElements(), expected_size);
+    EXPECT_EQ(obj.simulationResult().size(), expected_size);
+    EXPECT_EQ(obj.experimentalData().size(), expected_size);
+
+    // Making clone.
+    std::unique_ptr<SimDataPair> clone(obj.clone());
+
+    // Checking clone properties
+    EXPECT_EQ(clone->numberOfFitElements(), 0u);
+    EXPECT_EQ(clone->weight(), dataset_weight);
+    EXPECT_TRUE(clone->simulation_array().empty());
+    EXPECT_TRUE(clone->experimental_array().empty());
+    EXPECT_THROW(clone->simulationResult().size(), std::runtime_error);
+    EXPECT_THROW(clone->experimentalData().size(), std::runtime_error);
+
+    // calling clone's builder once
+    clone->runSimulation(params);
+    EXPECT_EQ(m_builder_calls, 2u);
+
+    // checking simulated and experimental data
+    EXPECT_EQ(clone->numberOfFitElements(), expected_size);
+    EXPECT_EQ(clone->simulationResult().size(), expected_size);
+    EXPECT_EQ(clone->experimentalData().size(), expected_size);
+}
+

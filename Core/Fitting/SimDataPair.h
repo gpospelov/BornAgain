@@ -15,18 +15,21 @@
 #ifndef SIMDATAPAIR_H
 #define SIMDATAPAIR_H
 
+#include "ICloneable.h"
 #include "FitTypes.h"
 #include "OutputData.h"
 #include "SimulationResult.h"
 
 //! Holds pair of simulation/experimental data to fit.
 
-class BA_CORE_API_ SimDataPair
+class BA_CORE_API_ SimDataPair : public ICloneable
 {
 public:
     SimDataPair(simulation_builder_t builder, const OutputData<double>& data, double weight = 1.0);
 
-    virtual ~SimDataPair();
+    virtual ~SimDataPair() override;
+
+    SimDataPair* clone() const override;
 
     size_t numberOfFitElements() const;
 

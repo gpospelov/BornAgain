@@ -16,10 +16,10 @@
 #include "Simulation.h"
 #include "IntensityDataFunctions.h"
 
-//static_assert(std::is_copy_constructible<SimDataPair>::value == false,
-//              "SimDataPair should not be copy constructable");
-//static_assert(std::is_copy_assignable<SimDataPair>::value == false,
-//              "SimDataPair should not be copy assignable");
+static_assert(std::is_copy_constructible<SimDataPair>::value == false,
+              "SimDataPair should not be copy constructable");
+static_assert(std::is_copy_assignable<SimDataPair>::value == false,
+              "SimDataPair should not be copy assignable");
 
 //! Constructs simulation/data pair for later fit.
 //! @param simulation: simulation builder capable of producing simulations
@@ -34,6 +34,11 @@ SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData<double>&
     , m_fit_elements_count(0)
 {
 
+}
+
+SimDataPair* SimDataPair::clone() const
+{
+    return new SimDataPair(m_simulation_builder, *m_data, m_weight);
 }
 
 //! Returns the size of the data. It is equal to the number of non-masked detector channels

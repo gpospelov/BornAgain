@@ -66,6 +66,16 @@ void Lattice::initialize() const
     m_cache_ok = true;
 }
 
+kvector_t Lattice::getMillerDirection(int h, int k, int l) const
+{
+    if (h*k*l == 0)
+        throw std::runtime_error("Lattice::getMillerDirection: not defined for (h,k,l) = (0,0,0)");
+    kvector_t b1, b2, b3;
+    getReciprocalLatticeBasis(b1, b2, b3);
+    kvector_t direction = h*b1 + k*b2 + l*b3;
+    return direction.unit();
+}
+
 double Lattice::volume() const
 {
     return std::abs(m_a.dot( m_b.cross(m_c)));

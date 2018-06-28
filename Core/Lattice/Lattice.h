@@ -50,11 +50,14 @@ public:
     //! Returns basis vector c
     kvector_t getBasisVectorC() const { return m_c; }
 
+    //! Returns normalized direction corresponding to the given Miller indices
+    kvector_t getMillerDirection(int h, int k, int l) const;
+
     //! Returns the volume of the unit cell
     double volume() const;
 
     //! Returns the reciprocal basis vectors
-    void getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const;
+    void getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2, kvector_t& b3) const;
 
     //! Returns the nearest lattice point from a given vector
     ivector_t getNearestLatticeVectorCoordinates(const kvector_t vector_in) const;
@@ -89,7 +92,7 @@ private:
     static void computeInverseVectors(
         const kvector_t v1, const kvector_t v2, const kvector_t v3,
         kvector_t o1, kvector_t o2, kvector_t o3);
-    ISelectionRule *mp_selection_rule;
+    ISelectionRule* mp_selection_rule;
     kvector_t m_a, m_b, m_c; //!< Basis vectors in real space
     mutable kvector_t m_ra, m_rb, m_rc; //!< Cache of basis vectors in reciprocal space
     //! Boolean indicating if the reciprocal vectors are already initialized in the cache

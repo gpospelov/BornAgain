@@ -8051,6 +8051,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
         visit(INodeVisitor self, InterferenceFunction1DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunction3DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DSuperLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionFinite2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DParaCrystal arg2)
@@ -21787,6 +21788,108 @@ def InterferenceFunction2DLattice_createHexagonal(lattice_length, xi=0.0):
     """
     return _libBornAgainCore.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
 
+class InterferenceFunction3DLattice(IInterferenceFunction):
+    """Proxy of C++ InterferenceFunction3DLattice class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunction3DLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction3DLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, lattice):
+        """__init__(InterferenceFunction3DLattice self, Lattice lattice) -> InterferenceFunction3DLattice"""
+        this = _libBornAgainCore.new_InterferenceFunction3DLattice(lattice)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction3DLattice
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
+
+        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunction3DLattice self, INodeVisitor visitor)
+
+        virtual void IInterferenceFunction::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_accept(self, visitor)
+
+
+    def evaluate(self, q):
+        """
+        evaluate(InterferenceFunction3DLattice self, kvector_t q) -> double
+
+        virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
+
+        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_evaluate(self, q)
+
+
+    def lattice(self):
+        """lattice(InterferenceFunction3DLattice self) -> Lattice"""
+        return _libBornAgainCore.InterferenceFunction3DLattice_lattice(self)
+
+
+    def getParticleDensity(self):
+        """
+        getParticleDensity(InterferenceFunction3DLattice self) -> double
+
+        virtual double IInterferenceFunction::getParticleDensity() const
+
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_getParticleDensity(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_getChildren(self)
+
+
+    def onChange(self):
+        """
+        onChange(InterferenceFunction3DLattice self)
+
+        virtual void IParameterized::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_onChange(self)
+
+InterferenceFunction3DLattice_swigregister = _libBornAgainCore.InterferenceFunction3DLattice_swigregister
+InterferenceFunction3DLattice_swigregister(InterferenceFunction3DLattice)
+
 class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
     """
 
@@ -22952,6 +23055,11 @@ class Lattice(INode):
 
         """
         return _libBornAgainCore.Lattice_getBasisVectorC(self)
+
+
+    def getMillerDirection(self, h, k, l):
+        """getMillerDirection(Lattice self, int h, int k, int l) -> kvector_t"""
+        return _libBornAgainCore.Lattice_getMillerDirection(self, h, k, l)
 
 
     def volume(self):

@@ -103,6 +103,7 @@ class IntensityNormalizer;
 class IntensityScaleAndShiftNormalizer;
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
+class InterferenceFunction3DLattice;
 class InterferenceFunction2DSuperLattice;
 class InterferenceFunctionFinite2DLattice;
 class InterferenceFunction2DParaCrystal;
@@ -232,6 +233,7 @@ public:
     virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
     virtual void visit(const InterferenceFunction1DLattice*) {}
     virtual void visit(const InterferenceFunction2DLattice*) {}
+    virtual void visit(const InterferenceFunction3DLattice*) {}
     virtual void visit(const InterferenceFunction2DSuperLattice*) {}
     virtual void visit(const InterferenceFunctionFinite2DLattice*) {}
     virtual void visit(const InterferenceFunction2DParaCrystal*) {}

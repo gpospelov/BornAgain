@@ -34,8 +34,9 @@
 
 %include "warnings.i"
 %include "deprecated.i"
-%include "extendCore.i"
 %include "ignores.i"
+%include "renameCore.i"
+%include "extendCore.i"
 %include "directors.i"
 
 %template(vdouble1d_t) std::vector<double>;

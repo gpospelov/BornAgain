@@ -7597,59 +7597,59 @@ class PyBuilderCallback(_object):
 PyBuilderCallback_swigregister = _libBornAgainCore.PyBuilderCallback_swigregister
 PyBuilderCallback_swigregister(PyBuilderCallback)
 
-class FitObjective(_object):
+class addSimulationAndData_cpp(_object):
     """Proxy of C++ FitObjective class."""
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FitObjective, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, addSimulationAndData_cpp, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, FitObjective, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, addSimulationAndData_cpp, name)
     __repr__ = _swig_repr
 
     def __init__(self):
-        """__init__(FitObjective self) -> FitObjective"""
-        this = _libBornAgainCore.new_FitObjective()
+        """__init__(FitObjective self) -> addSimulationAndData_cpp"""
+        this = _libBornAgainCore.new_addSimulationAndData_cpp()
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FitObjective
+    __swig_destroy__ = _libBornAgainCore.delete_addSimulationAndData_cpp
     __del__ = lambda self: None
 
     def addSimulationAndData(self, callback, data, weight=1.0):
         """
-        addSimulationAndData(FitObjective self, PyBuilderCallback callback, IntensityData data, double weight=1.0)
-        addSimulationAndData(FitObjective self, PyBuilderCallback callback, IntensityData data)
+        addSimulationAndData(addSimulationAndData_cpp self, PyBuilderCallback callback, IntensityData data, double weight=1.0)
+        addSimulationAndData(addSimulationAndData_cpp self, PyBuilderCallback callback, IntensityData data)
         """
-        return _libBornAgainCore.FitObjective_addSimulationAndData(self, callback, data, weight)
+        return _libBornAgainCore.addSimulationAndData_cpp_addSimulationAndData(self, callback, data, weight)
 
 
     def evaluate(self, params):
-        """evaluate(FitObjective self, Fit::Parameters const & params) -> double"""
-        return _libBornAgainCore.FitObjective_evaluate(self, params)
+        """evaluate(addSimulationAndData_cpp self, Fit::Parameters const & params) -> double"""
+        return _libBornAgainCore.addSimulationAndData_cpp_evaluate(self, params)
 
 
     def evaluate_residuals(self, params):
-        """evaluate_residuals(FitObjective self, Fit::Parameters const & params) -> vdouble1d_t"""
-        return _libBornAgainCore.FitObjective_evaluate_residuals(self, params)
+        """evaluate_residuals(addSimulationAndData_cpp self, Fit::Parameters const & params) -> vdouble1d_t"""
+        return _libBornAgainCore.addSimulationAndData_cpp_evaluate_residuals(self, params)
 
 
     def numberOfFitElements(self):
-        """numberOfFitElements(FitObjective self) -> size_t"""
-        return _libBornAgainCore.FitObjective_numberOfFitElements(self)
+        """numberOfFitElements(addSimulationAndData_cpp self) -> size_t"""
+        return _libBornAgainCore.addSimulationAndData_cpp_numberOfFitElements(self)
 
 
     def experimental_array(self):
-        """experimental_array(FitObjective self) -> vdouble1d_t"""
-        return _libBornAgainCore.FitObjective_experimental_array(self)
+        """experimental_array(addSimulationAndData_cpp self) -> vdouble1d_t"""
+        return _libBornAgainCore.addSimulationAndData_cpp_experimental_array(self)
 
 
     def simulation_array(self):
-        """simulation_array(FitObjective self) -> vdouble1d_t"""
-        return _libBornAgainCore.FitObjective_simulation_array(self)
+        """simulation_array(addSimulationAndData_cpp self) -> vdouble1d_t"""
+        return _libBornAgainCore.addSimulationAndData_cpp_simulation_array(self)
 
-FitObjective_swigregister = _libBornAgainCore.FitObjective_swigregister
-FitObjective_swigregister(FitObjective)
+addSimulationAndData_cpp_swigregister = _libBornAgainCore.addSimulationAndData_cpp_swigregister
+addSimulationAndData_cpp_swigregister(addSimulationAndData_cpp)
 
 
 def StandardNormal(x):
@@ -8009,12 +8009,6 @@ class IMultiLayerBuilder(IParameterized):
         """onChange(IMultiLayerBuilder self)"""
         return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
 
-
-    def isPythonBuilder():
-        """isPythonBuilder() -> bool"""
-        return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder()
-
-    isPythonBuilder = staticmethod(isPythonBuilder)
     __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
     __del__ = lambda self: None
     def __disown__(self):
@@ -8023,10 +8017,6 @@ class IMultiLayerBuilder(IParameterized):
         return weakref_proxy(self)
 IMultiLayerBuilder_swigregister = _libBornAgainCore.IMultiLayerBuilder_swigregister
 IMultiLayerBuilder_swigregister(IMultiLayerBuilder)
-
-def IMultiLayerBuilder_isPythonBuilder():
-    """IMultiLayerBuilder_isPythonBuilder() -> bool"""
-    return _libBornAgainCore.IMultiLayerBuilder_isPythonBuilder()
 
 class INodeVisitor(_object):
     """

@@ -54,7 +54,6 @@
 };
 
 // needed to prevent ownership problems with passed IMultiLayerBuilder
-%rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
 %extend Simulation {
     %pythoncode %{
          def setSampleBuilder(self, ptr):
@@ -63,7 +62,6 @@
     %}
  };
 
-%rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
 %extend SpecularSimulation {
     %pythoncode %{
          def setSampleBuilder(self, ptr):

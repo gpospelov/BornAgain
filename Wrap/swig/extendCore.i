@@ -70,11 +70,6 @@
     %}
  };
 
-// force swig to use move ctor instead of copy ctor
-%typemap(out) SlicedParticle %{
-    $result = SWIG_NewPointerObj(new $1_ltype(std::move($1)), $&1_descriptor, SWIG_POINTER_OWN);
-  %}
-
 // --- ParameterPool accessors -------------------------------------------------------------------
 
 %pythoncode %{
@@ -153,5 +148,22 @@ class FitParameterSetIterator(object):
 }
 };
 
+%pythoncode %{
+class SimulationBuilderWrapper(PyBuilderCallback):
+    def __init__(self, f):
+        super(SimulationBuilderWrapper, self).__init__()
+        self.f_ = f
+    def build_simulation(self, obj):
+        return self.f_(obj)
 
+
+%}
+
+%extend FitObjective {
+%pythoncode %{
+    def addSimulationAndData(self, callback, data, weight):
+        wrp = SimulationBuilderWrapper(callback)
+        return self.addSimulationAndData_cpp(wrp, data, weight)
+%}
+};
 

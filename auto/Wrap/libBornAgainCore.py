@@ -224,46 +224,6 @@ def deprecated(message):
       return deprecated_func
   return deprecated_decorator
 
-
-class ParameterPoolIterator(object):
-
-    def __init__(self, pool):
-        self.pool = pool
-        self.index = -1
-
-    def __iter__(self):
-        return self
-
-    def next(self):
-        self.index += 1
-        if self.index < self.pool.size():
-            return self.pool[self.index]
-        else:
-            raise StopIteration
-
-    def __next__(self):
-        return self.next()
-
-
-class FitParameterSetIterator(object):
-
-    def __init__(self, fitParameters):
-        self.fitParameters = fitParameters
-        self.index = -1
-
-    def __iter__(self):
-        return self
-
-    def next(self):
-        self.index += 1
-        if self.index < self.fitParameters.size():
-            return self.fitParameters[self.index]
-        else:
-            raise StopIteration
-
-    def __next__(self):
-        return self.next()
-
 class vdouble1d_t(_object):
     """Proxy of C++ std::vector<(double)> class."""
 
@@ -7648,6 +7608,11 @@ class addSimulationAndData_cpp(_object):
         """simulation_array(addSimulationAndData_cpp self) -> vdouble1d_t"""
         return _libBornAgainCore.addSimulationAndData_cpp_simulation_array(self)
 
+
+    def addSimulationAndData(self, callback, data, weight):
+        wrp = SimulationBuilderWrapper(callback)
+        return self.addSimulationAndData_cpp(wrp, data, weight)
+
 addSimulationAndData_cpp_swigregister = _libBornAgainCore.addSimulationAndData_cpp_swigregister
 addSimulationAndData_cpp_swigregister(addSimulationAndData_cpp)
 
@@ -7981,32 +7946,70 @@ class IMultiLayerBuilder(IParameterized):
 
 
     def registerParameter(self, name, parpointer):
-        """registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter"""
+        """
+        registerParameter(IMultiLayerBuilder self, std::string const & name, int64_t parpointer) -> RealParameter
+
+        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_registerParameter(self, name, parpointer)
 
 
     def setParameterValue(self, name, value):
-        """setParameterValue(IMultiLayerBuilder self, std::string const & name, double value)"""
+        """
+        setParameterValue(IMultiLayerBuilder self, std::string const & name, double value)
+
+        void IParameterized::setParameterValue(const std::string &name, double value)
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_setParameterValue(self, name, value)
 
 
     def parametersToString(self):
-        """parametersToString(IMultiLayerBuilder self) -> std::string"""
+        """
+        parametersToString(IMultiLayerBuilder self) -> std::string
+
+        std::string IParameterized::parametersToString() const
+
+        Returns multiline string representing available parameters. 
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_parametersToString(self)
 
 
     def createParameterTree(self):
-        """createParameterTree(IMultiLayerBuilder self) -> ParameterPool"""
+        """
+        createParameterTree(IMultiLayerBuilder self) -> ParameterPool
+
+        ParameterPool * IParameterized::createParameterTree() const
+
+        Creates new parameter pool, with all local parameters and those of its children. 
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_createParameterTree(self)
 
 
     def parameterPool(self):
-        """parameterPool(IMultiLayerBuilder self) -> ParameterPool"""
+        """
+        parameterPool(IMultiLayerBuilder self) -> ParameterPool
+
+        ParameterPool* IParameterized::parameterPool() const
+
+        Returns pointer to the parameter pool. 
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_parameterPool(self)
 
 
     def onChange(self):
-        """onChange(IMultiLayerBuilder self)"""
+        """
+        onChange(IMultiLayerBuilder self)
+
+        virtual void IParameterized::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
         return _libBornAgainCore.IMultiLayerBuilder_onChange(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_IMultiLayerBuilder
@@ -28421,6 +28424,56 @@ class IUnitConverter(ICloneable):
 
 IUnitConverter_swigregister = _libBornAgainCore.IUnitConverter_swigregister
 IUnitConverter_swigregister(IUnitConverter)
+
+
+class ParameterPoolIterator(object):
+
+    def __init__(self, pool):
+        self.pool = pool
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index += 1
+        if self.index < self.pool.size():
+            return self.pool[self.index]
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        return self.next()
+
+
+class FitParameterSetIterator(object):
+
+    def __init__(self, fitParameters):
+        self.fitParameters = fitParameters
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index += 1
+        if self.index < self.fitParameters.size():
+            return self.fitParameters[self.index]
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        return self.next()
+
+
+class SimulationBuilderWrapper(PyBuilderCallback):
+    def __init__(self, f):
+        super(SimulationBuilderWrapper, self).__init__()
+        self.f_ = f
+    def build_simulation(self, obj):
+        return self.f_(obj)
+
+
 
 # This file is compatible with both classic and new-style classes.
 

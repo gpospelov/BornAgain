@@ -21,5 +21,5 @@ PyBuilderCallback::~PyBuilderCallback() = default;
 
 Simulation* PyBuilderCallback::build_simulation(Fit::Parameters)
 {
-    throw std::runtime_error(("PyBuilderCallback::build_simulation() -> Error. Not implemented"));
+    throw std::runtime_error("PyBuilderCallback::build_simulation() -> Error. Not implemented");
 }

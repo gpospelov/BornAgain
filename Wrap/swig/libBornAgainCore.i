@@ -36,7 +36,6 @@
 %include "deprecated.i"
 %include "ignores.i"
 %include "renameCore.i"
-%include "extendCore.i"
 %include "directors.i"
 
 %template(vdouble1d_t) std::vector<double>;
@@ -442,3 +441,4 @@
 %include "SimulationFactory.h"
 %include "IUnitConverter.h"
 
+%include "extendCore.i"

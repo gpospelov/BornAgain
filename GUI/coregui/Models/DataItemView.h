@@ -39,7 +39,6 @@ public:
        DataItem* dataItem();
     };
 
-    DataItemView();
     ~DataItemView() override = default;
 
     bool addItem(DataItem* data_item);
@@ -47,6 +46,7 @@ public:
     DataItem* dataItem(size_t i) const;
 
 protected:
+    DataItemView(const QString& model_type);
     const OutputData<double>* getOutputData(size_t i) const;
 };
 

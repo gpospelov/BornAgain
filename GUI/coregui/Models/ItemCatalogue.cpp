@@ -18,7 +18,7 @@
 #include "BeamAngleItems.h"
 #include "BeamItems.h"
 #include "BeamWavelengthItem.h"
-#include "DataItemView.h"
+#include "DataItem1DView.h"
 #include "DetectorItems.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"
@@ -175,7 +175,7 @@ ItemCatalogue::ItemCatalogue()
 
     add(Constants::IntensityDataType, create_new<IntensityDataItem>);
     add(Constants::SpecularDataType, create_new<SpecularDataItem>);
-    add(Constants::DataItemViewType, create_new<DataItemView>);
+    add(Constants::DataItem1DViewType, create_new<DataItem1DView>);
     add(Constants::DataLinkType, create_new<DataItemView::DataItemLink>);
 
     add(Constants::BasicAxisType, create_new<BasicAxisItem>);

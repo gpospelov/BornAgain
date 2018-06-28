@@ -30,7 +30,7 @@ DataItem* TestDataItemViews::insertNewDataItem(SessionModel& model, double val)
 TEST_F(TestDataItemViews, testDataLinking)
 {
     SessionModel model("TempModel");
-    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItemViewType));
+    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
     DataItem* item = insertNewDataItem(model, 0.0);
     EXPECT_TRUE(view_item->addItem(item));
 
@@ -42,7 +42,7 @@ TEST_F(TestDataItemViews, testDataLinking)
 TEST_F(TestDataItemViews, testLinkingSeveralItems)
 {
     SessionModel model("TempModel");
-    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItemViewType));
+    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
     DataItem* item = insertNewDataItem(model, 0.0);
     DataItem* item2 = insertNewDataItem(model, 1.0);
     DataItem* item3 = insertNewDataItem(model, 2.0);
@@ -60,7 +60,7 @@ TEST_F(TestDataItemViews, testLinkingSeveralItems)
 TEST_F(TestDataItemViews, testBrokenLink)
 {
     SessionModel model("TempModel");
-    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItemViewType));
+    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
     DataItem* item = insertNewDataItem(model, 0.0);
     EXPECT_TRUE(view_item->addItem(item));
 
@@ -77,7 +77,7 @@ TEST_F(TestDataItemViews, testWrongHostingModel)
 {
     SessionModel model("TempModel");
     DataItem* item = insertNewDataItem(model, 0.0);
-    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItemViewType));
+    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
     EXPECT_TRUE(view_item->addItem(item));
 
     SessionModel model2("TempModel2");
@@ -102,7 +102,7 @@ TEST_F(TestDataItemViews, testSavingLinkedData)
         DataItem* item = insertNewDataItem(*real_data_model, 0.0);
         DataItem* item2 = insertNewDataItem(*real_data_model, 1.0);
         auto view_item = dynamic_cast<DataItemView*>(
-            real_data_model->insertNewItem(Constants::DataItemViewType));
+            real_data_model->insertNewItem(Constants::DataItem1DViewType));
         view_item->addItem(item);
         view_item->addItem(item2);
 

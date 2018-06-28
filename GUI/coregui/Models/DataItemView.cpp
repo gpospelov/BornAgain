@@ -21,13 +21,6 @@
 
 const QString DataItemView::T_CHILDREN = "data links";
 
-DataItemView::DataItemView()
-    : SessionItem(Constants::DataItemViewType)
-{
-    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::DataLinkType);
-    setDefaultTag(T_CHILDREN);
-}
-
 bool DataItemView::addItem(DataItem* data_item)
 {
     if (this->model() != data_item->model())
@@ -51,6 +44,13 @@ DataItem* DataItemView::dataItem(size_t i) const
     auto link_item = dynamic_cast<DataItemLink*>(getItems()[static_cast<int>(i)]);
     assert(link_item);
     return link_item->dataItem();
+}
+
+DataItemView::DataItemView(const QString& model_type)
+    : SessionItem(model_type)
+{
+    registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::DataLinkType);
+    setDefaultTag(T_CHILDREN);
 }
 
 const OutputData<double>* DataItemView::getOutputData(size_t i) const

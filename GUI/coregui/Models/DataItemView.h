@@ -45,18 +45,7 @@ protected:
     const OutputData<double>* getOutputData(size_t i) const;
 };
 
-//! Implements a link to DataItem. If path name
-//! of a DataItem changes, the link becomes invalid.
-//! Also serves as a base for Data1DPresentationProperties
-class DataPresentationProperties : public SessionItem {
-public:
-   static const QString P_LINK;
-
-   void setDataItem(DataItem* item);
-   DataItem* dataItem();
-
-protected:
-   DataPresentationProperties(const QString& model_type);
-};
+extern template std::vector<DataPresentationProperties*> DataItemView::propertyItems();
+extern template DataPresentationProperties* DataItemView::propertyItem(size_t) const;
 
 #endif // DATAITEMVIEW_H

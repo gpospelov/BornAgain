@@ -19,6 +19,7 @@
 #include "BeamItems.h"
 #include "BeamWavelengthItem.h"
 #include "DataItem1DView.h"
+#include "DataPresentationProperties.h"
 #include "DetectorItems.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"

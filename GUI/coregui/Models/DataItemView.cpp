@@ -14,10 +14,7 @@
 
 #include "DataItemView.h"
 #include "DataItem.h"
-#include "GUIHelpers.h"
-#include "ModelPath.h"
-#include "SessionModel.h"
-#include <iostream>
+#include "DataPresentationProperties.h"
 
 const QString DataItemView::T_CHILDREN = "data links";
 
@@ -75,35 +72,4 @@ const OutputData<double>* DataItemView::getOutputData(size_t i) const
     auto data_item = dataItem(i);
     assert(data_item);
     return data_item->getOutputData();
-}
-
-/*----------------------------------------------*/
-
-const QString DataPresentationProperties::P_LINK = "data link";
-
-DataPresentationProperties::DataPresentationProperties(const QString& model_type)
-    : SessionItem(model_type)
-{
-    addProperty(P_LINK, "");
-}
-
-void DataPresentationProperties::setDataItem(DataItem* item)
-{
-    const QString& path = ModelPath::getPathFromIndex(item->index());
-    setItemValue(P_LINK, path);
-}
-
-DataItem* DataPresentationProperties::dataItem()
-{
-    SessionModel* hosting_model = this->model();
-    const QString& path = getItemValue(P_LINK).toString();
-    auto item_index = ModelPath::getIndexFromPath(hosting_model, path);
-    if (!item_index.isValid()) {
-        std::stringstream os;
-        os << "Error in DataItem1DView::DataItemImage::dataItem: index produced by path";
-        os << path.toStdString() << " is invalid" << std::endl;
-        throw GUIHelpers::Error(QString::fromStdString(os.str()));
-    }
-    auto item = hosting_model->itemForIndex(item_index);
-    return dynamic_cast<DataItem*>(item);
 }

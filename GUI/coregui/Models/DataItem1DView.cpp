@@ -15,8 +15,8 @@
 #include "DataItem1DView.h"
 #include "AxesItems.h"
 #include "BornAgainNamespace.h"
-#include "ComboProperty.h"
 #include "DataItem.h"
+#include "DataPresentationProperties.h"
 #include "GUIHelpers.h"
 
 namespace {
@@ -240,32 +240,4 @@ void DataItem1DView::updateAxesZoomLevel()
         return;
     const int nx = static_cast<int>(output_data->getAxis(BornAgain::X_AXIS_INDEX).size());
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
-}
-
-/*-------------------------------------------------------*/
-
-namespace
-{
-ComboProperty colorCombo();
-}
-
-const QString Data1DPresentationProperties::P_COLOR = "Color";
-
-Data1DPresentationProperties::Data1DPresentationProperties()
-    : DataPresentationProperties(Constants::DataItem1DPropertiesType)
-{
-    addProperty(P_COLOR, colorCombo().variant());
-}
-
-namespace
-{
-ComboProperty colorCombo()
-{
-    ComboProperty result;
-    result << "black"
-           << "blue"
-           << "orangered";
-    result.setValue("black");
-    return result;
-}
 }

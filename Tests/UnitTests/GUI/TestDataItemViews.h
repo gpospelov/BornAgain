@@ -2,6 +2,7 @@
 #include "ApplicationModels.h"
 #include "DataItem.h"
 #include "DataItemView.h"
+#include "DataPresentationProperties.h"
 #include "GUIHelpers.h"
 #include "MessageService.h"
 #include "projectdocument.h"

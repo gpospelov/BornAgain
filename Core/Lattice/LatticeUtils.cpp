@@ -15,7 +15,6 @@
 #include "LatticeUtils.h"
 #include "ILatticeOrientation.h"
 
-
 Lattice LatticeUtils::CreateFCCLattice(double lattice_constant,
                                        const ILatticeOrientation& orientation)
 {

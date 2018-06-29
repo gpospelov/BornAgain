@@ -34,9 +34,9 @@ TEST_F(TestDataItemViews, testDataLinking)
     DataItem* item = insertNewDataItem(model, 0.0);
     view_item->addItem(item);
 
-    auto stored_items = view_item->dataItems();
+    auto stored_items = view_item->propertyItems();
     EXPECT_EQ(stored_items.size(), 1u);
-    EXPECT_EQ(stored_items[0], item);
+    EXPECT_EQ(stored_items[0]->dataItem(), item);
 }
 
 TEST_F(TestDataItemViews, testLinkingSeveralItems)
@@ -50,11 +50,11 @@ TEST_F(TestDataItemViews, testLinkingSeveralItems)
     view_item->addItem(item2);
     view_item->addItem(item3);
 
-    auto stored_items = view_item->dataItems();
+    auto stored_items = view_item->propertyItems();
     EXPECT_EQ(stored_items.size(), 3u);
-    EXPECT_EQ(stored_items[0], item);
-    EXPECT_EQ(stored_items[1], item2);
-    EXPECT_EQ(stored_items[2], item3);
+    EXPECT_EQ(stored_items[0]->dataItem(), item);
+    EXPECT_EQ(stored_items[1]->dataItem(), item2);
+    EXPECT_EQ(stored_items[2]->dataItem(), item3);
 }
 
 TEST_F(TestDataItemViews, testBrokenLink)
@@ -64,13 +64,13 @@ TEST_F(TestDataItemViews, testBrokenLink)
     DataItem* item = insertNewDataItem(model, 0.0);
     view_item->addItem(item);
 
-    auto stored_items = view_item->dataItems();
+    auto stored_items = view_item->propertyItems();
     EXPECT_EQ(stored_items.size(), 1u);
-    EXPECT_EQ(stored_items[0], item);
+    EXPECT_EQ(stored_items[0]->dataItem(), item);
 
     DataItem* item2 = insertNewDataItem(model, 1.0);
     view_item->addItem(item2);
-    EXPECT_THROW(view_item->dataItems(), GUIHelpers::Error);
+    EXPECT_THROW(view_item->propertyItem(0)->dataItem(), GUIHelpers::Error);
 }
 
 TEST_F(TestDataItemViews, testWrongHostingModel)
@@ -84,9 +84,9 @@ TEST_F(TestDataItemViews, testWrongHostingModel)
     DataItem* item2 = insertNewDataItem(model2, 1.0);
     EXPECT_THROW(view_item->addItem(item2), GUIHelpers::Error);
 
-    auto stored_items = view_item->dataItems();
+    auto stored_items = view_item->propertyItems();
     EXPECT_EQ(stored_items.size(), 1u);
-    EXPECT_EQ(stored_items[0], item);
+    EXPECT_EQ(stored_items[0]->dataItem(), item);
 }
 
 TEST_F(TestDataItemViews, testSavingLinkedData)
@@ -121,13 +121,14 @@ TEST_F(TestDataItemViews, testSavingLinkedData)
     auto view_item = real_data_model->topItem<DataItemView>();
     EXPECT_TRUE(view_item);
 
-    auto linked_items = view_item->dataItems();
+    auto linked_items = view_item->propertyItems();
     auto model_items = real_data_model->topItems<DataItem>();
     EXPECT_EQ(linked_items.size(), 2u);
     EXPECT_EQ(model_items.size(), 2);
     for (auto item : model_items) {
         auto data_item = dynamic_cast<DataItem*>(item);
         EXPECT_TRUE(data_item);
-        EXPECT_TRUE(data_item == linked_items[0] || data_item == linked_items[1]);
+        EXPECT_TRUE(data_item == linked_items[0]->dataItem()
+                    || data_item == linked_items[1]->dataItem());
     }
 }

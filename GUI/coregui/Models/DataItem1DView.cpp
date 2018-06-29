@@ -60,7 +60,7 @@ void DataItem1DView::addItem(DataItem* data_item)
     if (this->model() != data_item->model())
         throw GUIHelpers::Error("Error in DataItemLink::setDataItem: hosting models are different");
 
-    std::unique_ptr<DataItem1DViewProperties> property_item(new DataItem1DViewProperties());
+    std::unique_ptr<Data1DPresentationProperties> property_item(new Data1DPresentationProperties());
     insertItem(-1, property_item.get());
     property_item->setDataItem(data_item);
     property_item.release();
@@ -249,10 +249,10 @@ namespace
 ComboProperty colorCombo();
 }
 
-const QString DataItem1DViewProperties::P_COLOR = "Color";
+const QString Data1DPresentationProperties::P_COLOR = "Color";
 
-DataItem1DViewProperties::DataItem1DViewProperties()
-    : DataItemLink(Constants::DataItem1DPropertiesType)
+Data1DPresentationProperties::Data1DPresentationProperties()
+    : DataPresentationProperties(Constants::DataItem1DPropertiesType)
 {
     addProperty(P_COLOR, colorCombo().variant());
 }

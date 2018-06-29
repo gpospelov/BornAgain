@@ -87,12 +87,12 @@ private:
     void updateAxesZoomLevel();
 };
 
-class DataItem1DViewProperties : public DataItemLink
+class Data1DPresentationProperties : public DataPresentationProperties
 {
 public:
     static const QString P_COLOR;
 
-    DataItem1DViewProperties();
+    Data1DPresentationProperties();
 };
 
 #endif // DATAITEM1DVIEW_H

@@ -21,29 +21,53 @@
 
 const QString DataItemView::T_CHILDREN = "data links";
 
-std::vector<DataItem*> DataItemView::dataItems()
+template<class T>
+std::vector<T*> DataItemView::propertyItems()
 {
-    std::vector<DataItem*> result;
-    for (auto item : getItems()) {
-        auto link_item = dynamic_cast<DataItemLink*>(item);
-        assert(link_item);
-        result.push_back(link_item->dataItem());
-    }
+    std::vector<T*> result;
+    auto items = getItems();
+    std::transform(items.begin(), items.end(), std::back_inserter(result), [](SessionItem* item) {
+        auto property_item = dynamic_cast<T*>(item);
+        assert(property_item);
+        return property_item;
+    });
     return result;
 }
 
-DataItem* DataItemView::dataItem(size_t i) const
+template std::vector<DataPresentationProperties*> DataItemView::propertyItems();
+
+template<class T>
+T* DataItemView::propertyItem(size_t i) const
 {
-    auto link_item = dynamic_cast<DataItemLink*>(getItems()[static_cast<int>(i)]);
-    assert(link_item);
-    return link_item->dataItem();
+    auto property_item = dynamic_cast<DataPresentationProperties*>(getItems()[static_cast<int>(i)]);
+    assert(property_item);
+    return property_item;
 }
+
+template DataPresentationProperties* DataItemView::propertyItem(size_t) const;
 
 DataItemView::DataItemView(const QString& model_type)
     : SessionItem(model_type)
 {
     registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::DataItem1DPropertiesType);
     setDefaultTag(T_CHILDREN);
+}
+
+std::vector<DataItem*> DataItemView::dataItems()
+{
+    std::vector<DataItem*> result;
+    auto items = propertyItems();
+    std::transform(items.begin(), items.end(), std::back_inserter(result), [](DataPresentationProperties* item) {
+        auto data_item = item->dataItem();
+        assert(data_item);
+        return data_item;
+    });
+    return result;
+}
+
+DataItem* DataItemView::dataItem(size_t i) const
+{
+    return propertyItem(i)->dataItem();
 }
 
 const OutputData<double>* DataItemView::getOutputData(size_t i) const
@@ -55,21 +79,21 @@ const OutputData<double>* DataItemView::getOutputData(size_t i) const
 
 /*----------------------------------------------*/
 
-const QString DataItemLink::P_LINK = "data link";
+const QString DataPresentationProperties::P_LINK = "data link";
 
-DataItemLink::DataItemLink(const QString& model_type)
+DataPresentationProperties::DataPresentationProperties(const QString& model_type)
     : SessionItem(model_type)
 {
     addProperty(P_LINK, "");
 }
 
-void DataItemLink::setDataItem(DataItem* item)
+void DataPresentationProperties::setDataItem(DataItem* item)
 {
     const QString& path = ModelPath::getPathFromIndex(item->index());
     setItemValue(P_LINK, path);
 }
 
-DataItem* DataItemLink::dataItem()
+DataItem* DataPresentationProperties::dataItem()
 {
     SessionModel* hosting_model = this->model();
     const QString& path = getItemValue(P_LINK).toString();

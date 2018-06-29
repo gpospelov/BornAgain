@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 
 class DataItem;
+class DataPresentationProperties;
 template<class T> class OutputData;
 
 //! Base for DataItem1DView and DataItem2DView
@@ -30,17 +31,24 @@ public:
     ~DataItemView() override = default;
 
     virtual void addItem(DataItem* data_item) = 0;
-    std::vector<DataItem*> dataItems();
-    DataItem* dataItem(size_t i) const;
+
+    template<class T = DataPresentationProperties>
+    std::vector<T*> propertyItems();
+
+    template<class T = DataPresentationProperties>
+    T* propertyItem(size_t i) const;
 
 protected:
     DataItemView(const QString& model_type);
+    std::vector<DataItem*> dataItems();
+    DataItem* dataItem(size_t i) const;
     const OutputData<double>* getOutputData(size_t i) const;
 };
 
 //! Implements a link to DataItem. If path name
 //! of a DataItem changes, the link becomes invalid.
-class DataItemLink : public SessionItem {
+//! Also serves as a base for Data1DPresentationProperties
+class DataPresentationProperties : public SessionItem {
 public:
    static const QString P_LINK;
 
@@ -48,7 +56,7 @@ public:
    DataItem* dataItem();
 
 protected:
-   DataItemLink(const QString& model_type);
+   DataPresentationProperties(const QString& model_type);
 };
 
 #endif // DATAITEMVIEW_H

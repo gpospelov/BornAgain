@@ -32,6 +32,7 @@ public:
     static const QString P_TITLE;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
+    static const QString P_AXES_UNITS;
 
     DataItem1DView();
 

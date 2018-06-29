@@ -15,6 +15,7 @@
 #include "DataItem1DView.h"
 #include "AxesItems.h"
 #include "BornAgainNamespace.h"
+#include "ComboProperty.h"
 #include "DataItem.h"
 #include "DataPresentationProperties.h"
 #include "GUIHelpers.h"
@@ -30,6 +31,7 @@ const double default_max = 1.0;
 const QString DataItem1DView::P_TITLE = "Title";
 const QString DataItem1DView::P_XAXIS = "x-axis";
 const QString DataItem1DView::P_YAXIS = "y-axis";
+const QString DataItem1DView::P_AXES_UNITS = "Axes Units";
 
 DataItem1DView::DataItem1DView()
     : DataItemView(Constants::DataItem1DViewType)
@@ -46,6 +48,9 @@ DataItem1DView::DataItem1DView()
     item = item->getItem(AmplitudeAxisItem::P_IS_VISIBLE);
     item->setValue(true);
     item->setVisible(false);
+
+    ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
+    addProperty(P_AXES_UNITS, combo.variant());
 
     setLowerX(default_min);
     setUpperX(default_max);

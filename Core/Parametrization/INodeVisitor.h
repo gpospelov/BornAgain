@@ -110,6 +110,7 @@ class InterferenceFunction2DParaCrystal;
 class InterferenceFunctionNone;
 class InterferenceFunctionRadialParaCrystal;
 class IParticle;
+class IPeakShape;
 class IRotation;
 class ISample;
 class IsGISAXSDetector;
@@ -240,6 +241,7 @@ public:
     virtual void visit(const InterferenceFunctionNone*) {}
     virtual void visit(const InterferenceFunctionRadialParaCrystal*) {}
     virtual void visit(const IParticle*) {}
+    virtual void visit(const IPeakShape*) {}
     virtual void visit(const IRotation*) {}
     virtual void visit(const ISample*) {}
     virtual void visit(const IsGISAXSDetector*) {}

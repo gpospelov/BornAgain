@@ -8058,6 +8058,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, InterferenceFunctionNone arg2)
         visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
         visit(INodeVisitor self, IParticle arg2)
+        visit(INodeVisitor self, IPeakShape const * arg2)
         visit(INodeVisitor self, IRotation arg2)
         visit(INodeVisitor self, ISample arg2)
         visit(INodeVisitor self, IsGISAXSDetector arg2)

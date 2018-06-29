@@ -32,16 +32,18 @@ std::vector<T*> DataItemView::propertyItems()
 }
 
 template std::vector<DataPresentationProperties*> DataItemView::propertyItems();
+template std::vector<Data1DPresentationProperties*> DataItemView::propertyItems();
 
 template<class T>
 T* DataItemView::propertyItem(size_t i) const
 {
-    auto property_item = dynamic_cast<DataPresentationProperties*>(getItems()[static_cast<int>(i)]);
+    auto property_item = dynamic_cast<T*>(getItems()[static_cast<int>(i)]);
     assert(property_item);
     return property_item;
 }
 
 template DataPresentationProperties* DataItemView::propertyItem(size_t) const;
+template Data1DPresentationProperties* DataItemView::propertyItem(size_t) const;
 
 DataItemView::DataItemView(const QString& model_type)
     : SessionItem(model_type)

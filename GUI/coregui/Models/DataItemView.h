@@ -19,6 +19,7 @@
 
 class DataItem;
 class DataPresentationProperties;
+class Data1DPresentationProperties;
 template<class T> class OutputData;
 
 //! Base for DataItem1DView and DataItem2DView
@@ -46,6 +47,8 @@ protected:
 };
 
 extern template std::vector<DataPresentationProperties*> DataItemView::propertyItems();
+extern template std::vector<Data1DPresentationProperties*> DataItemView::propertyItems();
 extern template DataPresentationProperties* DataItemView::propertyItem(size_t) const;
+extern template Data1DPresentationProperties* DataItemView::propertyItem(size_t) const;
 
 #endif // DATAITEMVIEW_H

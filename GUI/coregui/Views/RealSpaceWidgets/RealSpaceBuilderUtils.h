@@ -31,6 +31,21 @@ class ParticleDistribution;
 class IInterferenceFunction;
 namespace RealSpace{ namespace Particles { class Particle; } }
 
+class Particle3DType
+{
+public:
+    Particle3DType() {m_cumulative_abundance = 0;}
+    ~Particle3DType() {} //{ clear(); }
+
+    Particle3DType(const Particle3DType& p3D);
+
+    void clear();
+
+    QVector<RealSpace::Particles::Particle*> m_3Dparticles;
+    double m_cumulative_abundance;
+    QString m_type;
+};
+
 namespace RealSpaceBuilderUtils
 {
 // compute cumulative abundances of particles
@@ -103,6 +118,43 @@ BA_CORE_API_ void populateParticleDistribution(RealSpaceModel *model,
 
 BA_CORE_API_ void populateSingleParticle(RealSpaceModel *model, const Particle* particle,
                                          const QVector3D &origin);
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+// No interference - random distribution of particles
+BA_CORE_API_ void populateRandomDistributionV3(RealSpaceModel* model,
+                                             const SessionItem& layoutItem,
+                                             const QVector<Particle3DType> &particle3DType_vector,
+                                             const SceneGeometry& sceneGeometry,
+                                             const RealSpaceBuilder *builder3D);
+
+// InterferenceFunction2DLatticeType
+BA_CORE_API_ void populateInterference2DLatticeTypeV3(const IInterferenceFunction* interference,
+                                                      RealSpaceModel* model,
+                                                      const QVector<Particle3DType> &particle3DType_vector,
+                                                      const SceneGeometry &sceneGeometry,
+                                                      const RealSpaceBuilder *builder3D);
+
+// InterferenceFunction1DLatticeType
+BA_CORE_API_ void populateInterference1DLatticeTypeV3(const IInterferenceFunction *interference,
+                                                      RealSpaceModel* model,
+                                                      const QVector<Particle3DType> &particle3DType_vector,
+                                                      const SceneGeometry &sceneGeometry,
+                                                      const RealSpaceBuilder *builder3D);
+
+BA_CORE_API_ void populateParticlesAtLatticePositionsV3(QVector<QVector<double>> lattice_positions,
+                                                        const QVector<Particle3DType> &particle3DType_vector,
+                                                        RealSpaceModel *model,
+                                                        const SceneGeometry& sceneGeometry,
+                                                        const RealSpaceBuilder *builder3D);
+
+
+BA_CORE_API_ QVector<Particle3DType> getParticle3DTypeVector(const SessionItem &layoutItem);
+
+BA_CORE_API_ Particle3DType getSingleParticle3DType(const SessionItem* particleItem,
+                                                    double total_abundance);
 
 } // namespace RealSpaceBuilderUtils
 

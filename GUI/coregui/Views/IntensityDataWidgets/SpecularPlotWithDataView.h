@@ -17,10 +17,11 @@
 
 #include "ScientificPlot.h"
 #include "qcustomplot.h"
-#include <memory>
 
 class BasicAxisItem;
-class SpecularDataItem;
+class DataItem;
+class DataItem1DView;
+class Data1DPresentationProperties;
 class SpecularPlotEvent;
 class UpdateTimer;
 
@@ -69,7 +70,7 @@ protected:
 
 private:
     //! creates and initializes the color map
-    void initPlot();
+    void initPlots();
 
     void setConnected(bool isConnected);
 
@@ -78,24 +79,24 @@ private:
 
     void setUpdateTimerConnected(bool isConnected);
 
-    //! Sets initial state of SpecularPlot to match given intensity item.
-    void setPlotFromItem(SpecularDataItem* intensityItem);
+    //! Refresh axes' labels, range and graph data.
+    void refreshPlotData();
 
     //! Sets (xmin,xmax) and (ymin,ymax) of SpecularPlot from specular item.
     //! Also sets logarithmic scale on y-axis if necessary.
-    void setAxesRangeFromItem(SpecularDataItem* item);
+    void setAxesRangeFromItem(DataItem1DView* item);
 
     //! Sets X,Y axes labels from item
-    void setAxesLabelsFromItem(SpecularDataItem* item);
+    void setAxesLabelsFromItem(DataItem1DView* item);
 
     //! Sets label to axis
     void setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label);
 
-    //! Sets the intensity values to SpecularPlot.
-    void setDataFromItem(SpecularDataItem* item);
+    //! Sets data item values to graphs.
+    void setDataFromItem(DataItem1DView* item);
 
-    SpecularDataItem* specularItem();
-    const SpecularDataItem* specularItem() const;
+    DataItem1DView* viewItem();
+    const DataItem1DView* viewItem() const;
 
     void modifyAxesProperties(const QString& axisName, const QString& propertyName);
 
@@ -104,6 +105,7 @@ private:
 
     QCustomPlot* m_custom_plot;
     UpdateTimer* m_update_timer;
+    std::map<Data1DPresentationProperties*, QCPGraph*> m_graph_map;
 
     bool m_block_update;
 };

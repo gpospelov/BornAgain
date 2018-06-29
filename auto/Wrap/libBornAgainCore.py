@@ -7578,8 +7578,8 @@ class FitObjective(_object):
 
     def addSimulationAndData_cpp(self, callback, data, weight=1.0):
         """
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, IntensityData data, double weight=1.0)
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, IntensityData data)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, double weight=1.0)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data)
         """
         return _libBornAgainCore.FitObjective_addSimulationAndData_cpp(self, callback, data, weight)
 
@@ -7610,8 +7610,8 @@ class FitObjective(_object):
 
 
     def addSimulationAndData(self, callback, data, weight):
-        wrp = SimulationBuilderWrapper(callback)
-        return self.addSimulationAndData_cpp(wrp, data, weight)
+        self.wrp = SimulationBuilderWrapper(callback)
+        return self.addSimulationAndData_cpp(self.wrp, data, weight)
 
 FitObjective_swigregister = _libBornAgainCore.FitObjective_swigregister
 FitObjective_swigregister(FitObjective)

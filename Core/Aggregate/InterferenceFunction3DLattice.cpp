@@ -16,6 +16,7 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "IPeakShape.h"
+#include <algorithm>
 
 namespace
 {

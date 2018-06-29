@@ -18,6 +18,8 @@
 #include "IInterferenceFunction.h"
 #include "Lattice.h"
 
+class IPeakShape;
+
 //! Interference function of 3D lattice.
 //! @ingroup interference
 
@@ -31,6 +33,10 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
+    void setPeakShape(const IPeakShape& peak_shape);
+
+    void setDebyeWallerFactor(double dw_length);
+
     double evaluate(const kvector_t q) const final;
 
     const Lattice& lattice() const;
@@ -42,7 +48,11 @@ public:
 
     void onChange() override final;
 private:
+    void initRecRadius();
     Lattice m_lattice;
+    std::unique_ptr<IPeakShape> mP_peak_shape;
+    double m_rec_radius;  //!< radius in reciprocal space defining the nearest q vectors to use
+    double m_dw_length;   //!< standard deviation of lattice position perturbations for Debye Waller
 };
 
 #endif // INTERFERENCEFUNCTION3DLATTICE_H

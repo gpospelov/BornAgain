@@ -21836,6 +21836,16 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction3DLattice_accept(self, visitor)
 
 
+    def setPeakShape(self, peak_shape):
+        """setPeakShape(InterferenceFunction3DLattice self, IPeakShape const & peak_shape)"""
+        return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
+
+
+    def setDebyeWallerFactor(self, dw_length):
+        """setDebyeWallerFactor(InterferenceFunction3DLattice self, double dw_length)"""
+        return _libBornAgainCore.InterferenceFunction3DLattice_setDebyeWallerFactor(self, dw_length)
+
+
     def evaluate(self, q):
         """
         evaluate(InterferenceFunction3DLattice self, kvector_t q) -> double

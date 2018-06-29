@@ -23,7 +23,7 @@ GaussPeakShape::GaussPeakShape(double domainsize)
 
 GaussPeakShape::~GaussPeakShape() =default;
 
-GaussPeakShape*GaussPeakShape::clone() const
+GaussPeakShape* GaussPeakShape::clone() const
 {
     return new GaussPeakShape(m_domainsize);
 }

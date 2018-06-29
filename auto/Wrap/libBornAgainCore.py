@@ -19644,7 +19644,7 @@ class ILayout(ISample):
 
     def particles(self):
         """
-        particles(ILayout self) -> SafePointerVector< IParticle const >
+        particles(ILayout self) -> SafePointerVector< IParticle >
 
         virtual SafePointerVector<const IParticle> ILayout::particles() const =0
 
@@ -26601,7 +26601,7 @@ class ParticleDistribution(IAbstractParticle):
 
     def generateParticles(self):
         """
-        generateParticles(ParticleDistribution self) -> std::vector< IParticle const *,std::allocator< IParticle const * > >
+        generateParticles(ParticleDistribution self) -> SafePointerVector< IParticle >
 
         std::vector< const IParticle * > ParticleDistribution::generateParticles() const
 
@@ -26756,7 +26756,7 @@ class ParticleLayout(ILayout):
 
     def particles(self):
         """
-        particles(ParticleLayout self) -> SafePointerVector< IParticle const >
+        particles(ParticleLayout self) -> SafePointerVector< IParticle >
 
         SafePointerVector< const IParticle > ParticleLayout::particles() const finaloverride
 

@@ -43,7 +43,7 @@ public:
                      const kvector_t position=kvector_t(),
                      const IRotation& rotation=IdentityRotation());
 
-    SafePointerVector<const IParticle> particles() const final override;
+    SafePointerVector<IParticle> particles() const final override;
 
     double getTotalAbundance() const final override;
 

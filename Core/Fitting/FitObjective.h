@@ -42,7 +42,8 @@ public:
     void addSimulationAndData(simulation_builder_t builder, const OutputData<double>& data,
                               double weight = 1.0);
 #endif
-    void addSimulationAndData(PyBuilderCallback& callback, const OutputData<double>& data,
+    void addSimulationAndData(PyBuilderCallback& callback,
+                              const std::vector<std::vector<double>>& data,
                               double weight = 1.0);
 
     virtual double evaluate(const Fit::Parameters& params);

@@ -17,12 +17,8 @@
 #include "Parameters.h"
 #include "PyBuilderCallback.h"
 #include "Simulation.h"
-
-//static_assert(std::is_copy_constructible<FitObjective>::value == false,
-//              "FitObjective should not be copy constructable");
-//static_assert(std::is_copy_assignable<FitObjective>::value == false,
-//              "FitObjective should not be copy assignable");
-
+#include "ArrayUtils.h"
+#include <stdexcept>
 
 namespace {
 void insert_to(std::vector<double>& to, const std::vector<double>& from)
@@ -47,14 +43,16 @@ void FitObjective::addSimulationAndData(simulation_builder_t builder,
 }
 
 void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
-                                        const OutputData<double>& data, double weight)
+                                        const std::vector<std::vector<double> >& data,
+                                        double weight)
 {
     simulation_builder_t builder = [&](const Fit::Parameters& params) {
-        std::unique_ptr<Simulation> result(callback.build_simulation(params));
+        std::unique_ptr<Simulation> result(callback.build_simulation(params)->clone());
         return result;
     };
 
-    addSimulationAndData(builder, data, weight);
+    auto output_data = ArrayUtils::createData2D(data);
+    addSimulationAndData(builder, *output_data, weight);
 }
 
 double FitObjective::evaluate(const Fit::Parameters& params)
@@ -68,8 +66,7 @@ double FitObjective::evaluate(const Fit::Parameters& params)
 
     int fnorm = static_cast<int>(numberOfFitElements()) - static_cast<int>(free_parameter_count);
     if (fnorm <= 0)
-        throw Exceptions::LogicErrorException(
-            "FitSuiteObjects::calculateChiSquaredValue() -> Error. Normalization is 0");
+        throw std::runtime_error("FitObjective::evaluate() -> Error. Normalization is 0");
 
     return chi2 / fnorm;
 }
@@ -110,6 +107,10 @@ std::vector<double> FitObjective::simulation_array() const
 
 void FitObjective::run_simulations(const Fit::Parameters& params)
 {
+    if (m_fit_objects.empty())
+        throw std::runtime_error("FitObjective::run_simulations() -> Error. "
+                                 "No simulation/data defined.");
+
     m_simulation_array.clear();
     m_experimental_array.clear();
 

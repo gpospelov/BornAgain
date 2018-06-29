@@ -162,8 +162,8 @@ class SimulationBuilderWrapper(PyBuilderCallback):
 %extend FitObjective {
 %pythoncode %{
     def addSimulationAndData(self, callback, data, weight):
-        wrp = SimulationBuilderWrapper(callback)
-        return self.addSimulationAndData_cpp(wrp, data, weight)
+        self.wrp = SimulationBuilderWrapper(callback)
+        return self.addSimulationAndData_cpp(self.wrp, data, weight)
 %}
 };
 

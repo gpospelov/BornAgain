@@ -27,9 +27,8 @@ template <class T> class OutputData;
 
 class BA_CORE_API_ RealDataItem : public SessionItem
 {
-    static const QString T_INTENSITY_DATA;
-
 public:
+    static const QString T_INTENSITY_DATA;
     static const QString P_INSTRUMENT_ID;
     static const QString P_INSTRUMENT_NAME;
     RealDataItem();

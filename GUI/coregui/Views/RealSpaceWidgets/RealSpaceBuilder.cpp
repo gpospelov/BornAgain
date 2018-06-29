@@ -118,11 +118,23 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model,
 
     Q_UNUSED(origin);
 
+    // If there is no particle to populate
+    if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
+        return;
+
+    auto particle3DType_vector = RealSpaceBuilderUtils::getParticle3DTypeVector(layoutItem); // DEL
+
     // If there is an interference function present
     if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))
-        populateInterference(model, layoutItem, sceneGeometry);
+//        populateInterference(model, layoutItem, sceneGeometry);
+        populateInterferenceV3(model, layoutItem, particle3DType_vector, sceneGeometry);
     else
-        RealSpaceBuilderUtils::populateRandomDistribution(model, layoutItem, sceneGeometry, this);
+    {
+//        RealSpaceBuilderUtils::populateRandomDistribution(model, layoutItem, sceneGeometry, this);
+
+        RealSpaceBuilderUtils::populateRandomDistributionV3(model, layoutItem, particle3DType_vector,
+                                                      sceneGeometry, this);
+    }
 }
 
 void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
@@ -188,5 +200,70 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
         auto pItem = dynamic_cast<const ParticleItem*>(&particleItem);
         auto particle = pItem->createParticle();
         RealSpaceBuilderUtils::populateSingleParticle(model, particle.get(), origin);
+    }
+}
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+void RealSpaceBuilder::populateInterferenceV3(RealSpaceModel* model,
+                                              const SessionItem& layoutItem,
+                                              QVector<Particle3DType> &particle3DType_vector,
+                                              const SceneGeometry& sceneGeometry)
+{
+    // If there is no particle to populate
+    if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
+        return;
+
+    auto interferenceLattice = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
+    auto interferenceItem = dynamic_cast<const InterferenceFunctionItem *>(interferenceLattice);
+    auto interference = interferenceItem->createInterferenceFunction();
+
+    // If interference type is 2D Lattice
+    if (interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType)
+        RealSpaceBuilderUtils::populateInterference2DLatticeTypeV3(
+                    interference.get(), model, particle3DType_vector, sceneGeometry, this);
+
+    // If interference type is 1D Lattice
+    else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType)
+        RealSpaceBuilderUtils::populateInterference1DLatticeTypeV3(
+                    interference.get(), model, particle3DType_vector, sceneGeometry, this);
+
+    /*
+    // If interference type is 2D ParaCrystal
+    else if (interferenceLattice->modelType() == Constants::InterferenceFunction2DParaCrystalType)
+    {
+    }
+
+    // If interference type is Radial ParaCrystal
+    else if (interferenceLattice->modelType() == Constants::InterferenceFunctionRadialParaCrystalType)
+    {
+    }
+
+    */
+}
+
+void RealSpaceBuilder::populateParticleV3(RealSpaceModel* model, Particle3DType &particle3DType,
+                                          const QVector3D& lattice_position) const
+{
+    if(particle3DType.m_type == Constants::ParticleCompositionType)
+    {
+    }
+    else if(particle3DType.m_type == Constants::ParticleCoreShellType)
+    {
+    }
+    else if(particle3DType.m_type == Constants::ParticleDistributionType)
+    {
+    }
+    else if(particle3DType.m_type == Constants::ParticleType)
+    {
+        if (particle3DType.m_3Dparticles.size())
+        {
+            auto particle3D = particle3DType.m_3Dparticles.at(0);
+            particle3D->addTranslation(lattice_position);
+            if(particle3D)
+                model->add(particle3D);
+        }
     }
 }

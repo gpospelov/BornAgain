@@ -64,10 +64,14 @@ def run_fitting():
     fit_objective.addSimulationAndData(get_simulation, real_data.array(), 1.0)
 
     params = ba.Parameters()
-    params.add(ba.Parameter("cylinder_height", 4.*nm, ba.AttLimits.lowerLimited(0.01)))
-    params.add(ba.Parameter("cylinder_radius", 6.*nm, ba.AttLimits.lowerLimited(0.01)))
-    params.add(ba.Parameter("prism_height", 4.*nm, ba.AttLimits.lowerLimited(0.01)))
-    params.add(ba.Parameter("prism_base_edge", 12.*nm, ba.AttLimits.lowerLimited(0.01)))
+    params.add(ba.Parameter("cylinder_height",
+                            4.*nm, ba.AttLimits.lowerLimited(0.01)))
+    params.add(ba.Parameter("cylinder_radius",
+                            6.*nm, ba.AttLimits.lowerLimited(0.01)))
+    params.add(ba.Parameter("prism_height",
+                            4.*nm, ba.AttLimits.lowerLimited(0.01)))
+    params.add(ba.Parameter("prism_base_edge",
+                            12.*nm, ba.AttLimits.lowerLimited(0.01)))
 
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)

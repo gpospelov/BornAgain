@@ -2,7 +2,8 @@
 #define FITTINGTESTHELPER_H
 
 #include <memory>
-#include <GISASSimulation.h>
+#include "OutputData.h"
+#include "GISASSimulation.h"
 #include "Parameters.h"
 #include "MultiLayer.h"
 #include "Units.h"

@@ -30,13 +30,16 @@ public:
     virtual Transform3D transformationMatrix() const=0;
 };
 
+struct BA_CORE_API_ MillerIndex {
+    MillerIndex(int h_, int k_, int l_);
+    int h, k, l;
+};
+
 class BA_CORE_API_ MillerIndexOrientation : public ILatticeOrientation
 {
 public:
     enum QComponent { QX, QY, QZ };
-    struct MillerIndex {
-        int h, k, l;
-    };
+
     MillerIndexOrientation(QComponent q1, MillerIndex index1,
                            QComponent q2, MillerIndex index2);
     ~MillerIndexOrientation() override;

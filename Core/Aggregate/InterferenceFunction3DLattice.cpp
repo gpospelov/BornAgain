@@ -27,20 +27,25 @@ InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice& latt
     , mP_peak_shape(nullptr)
     , m_rec_radius(0.0)
     , m_dw_length(0.0)
-{}
+{
+    initRecRadius();
+}
 
 InterferenceFunction3DLattice::~InterferenceFunction3DLattice() =default;
 
 
 InterferenceFunction3DLattice* InterferenceFunction3DLattice::clone() const
 {
-    return new InterferenceFunction3DLattice(m_lattice);
+    auto P_clone = std::make_unique<InterferenceFunction3DLattice>(m_lattice);
+    if (mP_peak_shape)
+        P_clone->setPeakShape(*mP_peak_shape);
+    P_clone->setDebyeWallerFactor(m_dw_length);
+    return P_clone.release();
 }
 
 void InterferenceFunction3DLattice::setPeakShape(const IPeakShape& peak_shape)
 {
     mP_peak_shape.reset(peak_shape.clone());
-    initRecRadius();
 }
 
 void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)

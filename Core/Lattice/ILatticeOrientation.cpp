@@ -16,9 +16,9 @@
 #include "EigenCore.h"
 
 namespace {
-bool ValidMillerIndex(MillerIndexOrientation::MillerIndex index);
-bool ParallelMillerIndices(MillerIndexOrientation::MillerIndex index1,
-                           MillerIndexOrientation::MillerIndex index2);
+bool ValidMillerIndex(MillerIndex index);
+bool ParallelMillerIndices(MillerIndex index1,
+                           MillerIndex index2);
 double SignForCrossProduct(MillerIndexOrientation::QComponent q1,
                            MillerIndexOrientation::QComponent q2);
 MillerIndexOrientation::QComponent ThirdQComponent(MillerIndexOrientation::QComponent q1,
@@ -30,10 +30,13 @@ void FillVectorInRow(Eigen::Matrix3d& matrix, kvector_t vec,
 
 ILatticeOrientation::~ILatticeOrientation() =default;
 
+MillerIndex::MillerIndex(int h_, int k_, int l_)
+    : h(h_), k(k_), l(l_)
+{}
 
 MillerIndexOrientation::MillerIndexOrientation(
-        MillerIndexOrientation::QComponent q1, MillerIndexOrientation::MillerIndex index1,
-        MillerIndexOrientation::QComponent q2, MillerIndexOrientation::MillerIndex index2)
+        MillerIndexOrientation::QComponent q1, MillerIndex index1,
+        MillerIndexOrientation::QComponent q2, MillerIndex index2)
     : m_prim_lattice()
     , m_q1(q1), m_q2(q2)
     , m_ind1 { index1 }
@@ -86,12 +89,12 @@ bool MillerIndexOrientation::checkAlignment() const
 }
 
 namespace {
-bool ValidMillerIndex(MillerIndexOrientation::MillerIndex index)
+bool ValidMillerIndex(MillerIndex index)
 {
     return (index.h != 0 || index.k != 0 || index.l != 0);
 }
-bool ParallelMillerIndices(MillerIndexOrientation::MillerIndex index1,
-                           MillerIndexOrientation::MillerIndex index2)
+bool ParallelMillerIndices(MillerIndex index1,
+                           MillerIndex index2)
 {
     int ratio = 0;
     if (index2.h != 0) {
@@ -131,3 +134,4 @@ void FillVectorInRow(Eigen::Matrix3d& mat, kvector_t vec,
         mat(i, j) = vec[j];
 }
 }  // unnamed namespace
+

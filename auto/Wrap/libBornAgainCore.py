@@ -8051,12 +8051,14 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
         visit(INodeVisitor self, InterferenceFunction1DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunction3DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DSuperLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionFinite2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DParaCrystal arg2)
         visit(INodeVisitor self, InterferenceFunctionNone arg2)
         visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
         visit(INodeVisitor self, IParticle arg2)
+        visit(INodeVisitor self, IPeakShape arg2)
         visit(INodeVisitor self, IRotation arg2)
         visit(INodeVisitor self, ISample arg2)
         visit(INodeVisitor self, IsGISAXSDetector arg2)
@@ -19439,18 +19441,6 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
 
 
-    def kappa(self):
-        """
-        kappa(IInterferenceFunction self) -> double
-
-        virtual double IInterferenceFunction::kappa() const
-
-        Retrieves the size-distance coupling constant (default 0.0) 
-
-        """
-        return _libBornAgainCore.IInterferenceFunction_kappa(self)
-
-
     def getParticleDensity(self):
         """
         getParticleDensity(IInterferenceFunction self) -> double
@@ -20060,6 +20050,97 @@ class IParticle(IAbstractParticle):
 
 IParticle_swigregister = _libBornAgainCore.IParticle_swigregister
 IParticle_swigregister(IParticle)
+
+class IPeakShape(ISample):
+    """Proxy of C++ IPeakShape class."""
+
+    __swig_setmethods__ = {}
+    for _s in [ISample]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IPeakShape, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ISample]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IPeakShape, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IPeakShape
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IPeakShape self) -> IPeakShape
+
+        ISample* ISample::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IPeakShape_clone(self)
+
+
+    def evaluate(self, q):
+        """evaluate(IPeakShape self, kvector_t q) -> double"""
+        return _libBornAgainCore.IPeakShape_evaluate(self, q)
+
+IPeakShape_swigregister = _libBornAgainCore.IPeakShape_swigregister
+IPeakShape_swigregister(IPeakShape)
+
+class GaussPeakShape(IPeakShape):
+    """Proxy of C++ GaussPeakShape class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, GaussPeakShape, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, GaussPeakShape, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, domainsize):
+        """__init__(GaussPeakShape self, double domainsize) -> GaussPeakShape"""
+        this = _libBornAgainCore.new_GaussPeakShape(domainsize)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_GaussPeakShape
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(GaussPeakShape self) -> GaussPeakShape
+
+        ISample* ISample::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.GaussPeakShape_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(GaussPeakShape self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.GaussPeakShape_accept(self, visitor)
+
+
+    def evaluate(self, q):
+        """evaluate(GaussPeakShape self, kvector_t q) -> double"""
+        return _libBornAgainCore.GaussPeakShape_evaluate(self, q)
+
+GaussPeakShape_swigregister = _libBornAgainCore.GaussPeakShape_swigregister
+GaussPeakShape_swigregister(GaussPeakShape)
 
 class IResolutionFunction2D(ICloneable, INode):
     """
@@ -21799,6 +21880,118 @@ def InterferenceFunction2DLattice_createHexagonal(lattice_length, xi=0.0):
     """
     return _libBornAgainCore.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
 
+class InterferenceFunction3DLattice(IInterferenceFunction):
+    """Proxy of C++ InterferenceFunction3DLattice class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunction3DLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction3DLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, lattice):
+        """__init__(InterferenceFunction3DLattice self, Lattice lattice) -> InterferenceFunction3DLattice"""
+        this = _libBornAgainCore.new_InterferenceFunction3DLattice(lattice)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction3DLattice
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
+
+        virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunction3DLattice self, INodeVisitor visitor)
+
+        virtual void IInterferenceFunction::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_accept(self, visitor)
+
+
+    def setPeakShape(self, peak_shape):
+        """setPeakShape(InterferenceFunction3DLattice self, IPeakShape peak_shape)"""
+        return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
+
+
+    def setDebyeWallerFactor(self, dw_length):
+        """setDebyeWallerFactor(InterferenceFunction3DLattice self, double dw_length)"""
+        return _libBornAgainCore.InterferenceFunction3DLattice_setDebyeWallerFactor(self, dw_length)
+
+
+    def evaluate(self, q):
+        """
+        evaluate(InterferenceFunction3DLattice self, kvector_t q) -> double
+
+        virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
+
+        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_evaluate(self, q)
+
+
+    def lattice(self):
+        """lattice(InterferenceFunction3DLattice self) -> Lattice"""
+        return _libBornAgainCore.InterferenceFunction3DLattice_lattice(self)
+
+
+    def getParticleDensity(self):
+        """
+        getParticleDensity(InterferenceFunction3DLattice self) -> double
+
+        virtual double IInterferenceFunction::getParticleDensity() const
+
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_getParticleDensity(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > INode::getChildren() const
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_getChildren(self)
+
+
+    def onChange(self):
+        """
+        onChange(InterferenceFunction3DLattice self)
+
+        virtual void IParameterized::onChange()
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_onChange(self)
+
+InterferenceFunction3DLattice_swigregister = _libBornAgainCore.InterferenceFunction3DLattice_swigregister
+InterferenceFunction3DLattice_swigregister(InterferenceFunction3DLattice)
+
 class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
     """
 
@@ -22858,6 +23051,113 @@ class IsGISAXSDetector(SphericalDetector):
 IsGISAXSDetector_swigregister = _libBornAgainCore.IsGISAXSDetector_swigregister
 IsGISAXSDetector_swigregister(IsGISAXSDetector)
 
+class ILatticeOrientation(_object):
+    """Proxy of C++ ILatticeOrientation class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ILatticeOrientation, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ILatticeOrientation, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ILatticeOrientation
+    __del__ = lambda self: None
+
+    def clone(self):
+        """clone(ILatticeOrientation self) -> ILatticeOrientation"""
+        return _libBornAgainCore.ILatticeOrientation_clone(self)
+
+
+    def usePrimitiveLattice(self, lattice):
+        """usePrimitiveLattice(ILatticeOrientation self, Lattice lattice)"""
+        return _libBornAgainCore.ILatticeOrientation_usePrimitiveLattice(self, lattice)
+
+
+    def transformationMatrix(self):
+        """transformationMatrix(ILatticeOrientation self) -> Transform3D"""
+        return _libBornAgainCore.ILatticeOrientation_transformationMatrix(self)
+
+ILatticeOrientation_swigregister = _libBornAgainCore.ILatticeOrientation_swigregister
+ILatticeOrientation_swigregister(ILatticeOrientation)
+
+class MillerIndex(_object):
+    """Proxy of C++ MillerIndex class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, MillerIndex, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, MillerIndex, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, h_, k_, l_):
+        """__init__(MillerIndex self, int h_, int k_, int l_) -> MillerIndex"""
+        this = _libBornAgainCore.new_MillerIndex(h_, k_, l_)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_setmethods__["h"] = _libBornAgainCore.MillerIndex_h_set
+    __swig_getmethods__["h"] = _libBornAgainCore.MillerIndex_h_get
+    if _newclass:
+        h = _swig_property(_libBornAgainCore.MillerIndex_h_get, _libBornAgainCore.MillerIndex_h_set)
+    __swig_setmethods__["k"] = _libBornAgainCore.MillerIndex_k_set
+    __swig_getmethods__["k"] = _libBornAgainCore.MillerIndex_k_get
+    if _newclass:
+        k = _swig_property(_libBornAgainCore.MillerIndex_k_get, _libBornAgainCore.MillerIndex_k_set)
+    __swig_setmethods__["l"] = _libBornAgainCore.MillerIndex_l_set
+    __swig_getmethods__["l"] = _libBornAgainCore.MillerIndex_l_get
+    if _newclass:
+        l = _swig_property(_libBornAgainCore.MillerIndex_l_get, _libBornAgainCore.MillerIndex_l_set)
+    __swig_destroy__ = _libBornAgainCore.delete_MillerIndex
+    __del__ = lambda self: None
+MillerIndex_swigregister = _libBornAgainCore.MillerIndex_swigregister
+MillerIndex_swigregister(MillerIndex)
+
+class MillerIndexOrientation(ILatticeOrientation):
+    """Proxy of C++ MillerIndexOrientation class."""
+
+    __swig_setmethods__ = {}
+    for _s in [ILatticeOrientation]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, MillerIndexOrientation, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ILatticeOrientation]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, MillerIndexOrientation, name)
+    __repr__ = _swig_repr
+    QX = _libBornAgainCore.MillerIndexOrientation_QX
+    QY = _libBornAgainCore.MillerIndexOrientation_QY
+    QZ = _libBornAgainCore.MillerIndexOrientation_QZ
+
+    def __init__(self, q1, index1, q2, index2):
+        """__init__(MillerIndexOrientation self, MillerIndexOrientation::QComponent q1, MillerIndex index1, MillerIndexOrientation::QComponent q2, MillerIndex index2) -> MillerIndexOrientation"""
+        this = _libBornAgainCore.new_MillerIndexOrientation(q1, index1, q2, index2)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_MillerIndexOrientation
+    __del__ = lambda self: None
+
+    def clone(self):
+        """clone(MillerIndexOrientation self) -> MillerIndexOrientation"""
+        return _libBornAgainCore.MillerIndexOrientation_clone(self)
+
+
+    def usePrimitiveLattice(self, lattice):
+        """usePrimitiveLattice(MillerIndexOrientation self, Lattice lattice)"""
+        return _libBornAgainCore.MillerIndexOrientation_usePrimitiveLattice(self, lattice)
+
+
+    def transformationMatrix(self):
+        """transformationMatrix(MillerIndexOrientation self) -> Transform3D"""
+        return _libBornAgainCore.MillerIndexOrientation_transformationMatrix(self)
+
+MillerIndexOrientation_swigregister = _libBornAgainCore.MillerIndexOrientation_swigregister
+MillerIndexOrientation_swigregister(MillerIndexOrientation)
+
 class Lattice(INode):
     """
 
@@ -22880,6 +23180,7 @@ class Lattice(INode):
 
     def __init__(self, *args):
         """
+        __init__(Lattice self) -> Lattice
         __init__(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3) -> Lattice
         __init__(Lattice self, Lattice lattice) -> Lattice
 
@@ -22964,6 +23265,16 @@ class Lattice(INode):
 
         """
         return _libBornAgainCore.Lattice_getBasisVectorC(self)
+
+
+    def resetBasis(self, a1, a2, a3):
+        """resetBasis(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3)"""
+        return _libBornAgainCore.Lattice_resetBasis(self, a1, a2, a3)
+
+
+    def getMillerDirection(self, h, k, l):
+        """getMillerDirection(Lattice self, int h, int k, int l) -> kvector_t"""
+        return _libBornAgainCore.Lattice_getMillerDirection(self, h, k, l)
 
 
     def volume(self):
@@ -23072,6 +23383,10 @@ def Lattice_createTrigonalLattice(a, c):
     """Lattice_createTrigonalLattice(double a, double c) -> Lattice"""
     return _libBornAgainCore.Lattice_createTrigonalLattice(a, c)
 
+
+def CreateFCCLattice(lattice_constant, orientation):
+    """CreateFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice"""
+    return _libBornAgainCore.CreateFCCLattice(lattice_constant, orientation)
 class Lattice1DParameters(_object):
     """
 

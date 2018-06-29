@@ -22,6 +22,7 @@
 #include "ILayout.h"
 #include "IParticle.h"
 #include "InterferenceFunctionNone.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "MultiLayer.h"
 #include "Layer.h"
 #include "SlicedFormFactorList.h"
@@ -78,11 +79,12 @@ void LayoutStrategyBuilder::createStrategy()
             throw Exceptions::ClassInitializationException(
                 "LayoutStrategyBuilder::createStrategy: "
                 "layout does not contain an interference function for SSCA");
-        double kappa = p_iff->kappa();
-        if (kappa<=0.0)
+        auto p_radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(p_iff);
+        if (!p_radial_para || p_radial_para->kappa()<=0.0)
             throw Exceptions::ClassInitializationException(
-                "SSCA requires a nontrivial interference function "
+                "SSCA requires a radial paracrystal interference function "
                 "with a strictly positive coupling coefficient kappa");
+        double kappa = p_radial_para->kappa();
         mP_strategy.reset( new SSCApproximationStrategy(m_sim_params, kappa, m_polarized) );
         break;
     }

@@ -32,7 +32,7 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void setKappa(double kappa);
-    double kappa() const final;
+    double kappa() const;
 
     void setDomainSize(double size);
     double domainSize() const { return m_domain_size; }

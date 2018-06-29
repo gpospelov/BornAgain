@@ -17,4 +17,5 @@
 #include "INodeTest.h"
 #include "Lattice2DTest.h"
 #include "LatticeTest.h"
+#include "LatticeUtilsTest.h"
 

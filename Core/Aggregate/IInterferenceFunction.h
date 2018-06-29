@@ -33,9 +33,6 @@ public:
     //! x and y components are relevant)
     virtual double evaluate(const kvector_t q) const=0;
 
-    //! Retrieves the size-distance coupling constant (default 0.0)
-    virtual double kappa() const { return 0.0; }
-
     //! If defined by this interference function's parameters, returns the particle density (per
     //!  area). Otherwise, returns zero or a user-defined value
     virtual double getParticleDensity() const { return 0.0; }

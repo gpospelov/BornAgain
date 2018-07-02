@@ -31,8 +31,8 @@ std::vector<T*> DataItemView::propertyItems()
     return result;
 }
 
-template std::vector<DataProperties*> DataItemView::propertyItems();
-template std::vector<Data1DProperties*> DataItemView::propertyItems();
+template BA_CORE_API_ std::vector<DataProperties*> DataItemView::propertyItems();
+template BA_CORE_API_ std::vector<Data1DProperties*> DataItemView::propertyItems();
 
 template<class T>
 T* DataItemView::propertyItem(size_t i) const
@@ -42,8 +42,8 @@ T* DataItemView::propertyItem(size_t i) const
     return property_item;
 }
 
-template DataProperties* DataItemView::propertyItem(size_t) const;
-template Data1DProperties* DataItemView::propertyItem(size_t) const;
+template BA_CORE_API_ DataProperties* DataItemView::propertyItem(size_t) const;
+template BA_CORE_API_ Data1DProperties* DataItemView::propertyItem(size_t) const;
 
 DataItemView::DataItemView(const QString& model_type)
     : SessionItem(model_type)

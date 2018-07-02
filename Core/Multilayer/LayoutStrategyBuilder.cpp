@@ -68,6 +68,7 @@ void LayoutStrategyBuilder::createStrategy()
         if ( (p_iff = dynamic_cast<const IInterferenceFunction*>(p_child)) )
             break;
     }
+    checkInterferenceFunction(p_iff);
 
     switch (mp_layout->getApproximation())
     {
@@ -153,6 +154,14 @@ void LayoutStrategyBuilder::mergeRegionMap(
         m_region_map[layer_index].insert(m_region_map[layer_index].begin(),
                                          regions.begin(), regions.end());
     }
+}
+
+void LayoutStrategyBuilder::checkInterferenceFunction(const IInterferenceFunction* p_iff)
+{
+    auto n_layers = mp_multilayer->numberOfLayers();
+    if (p_iff && n_layers>1 && !p_iff->supportsMultilayer())
+        throw std::runtime_error("LayoutStrategyBuilder::checkInterferenceFunction: "
+                                 "interference function does not support multiple layers");
 }
 
 void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor)

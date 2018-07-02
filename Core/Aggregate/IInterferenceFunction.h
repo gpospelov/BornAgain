@@ -36,6 +36,9 @@ public:
     //! If defined by this interference function's parameters, returns the particle density (per
     //!  area). Otherwise, returns zero or a user-defined value
     virtual double getParticleDensity() const { return 0.0; }
+
+    //! Indicates if this interference function can be used with a multilayer (DWBA mode)
+    virtual bool supportsMultilayer() const { return true; }
 };
 
 #endif // IINTERFERENCEFUNCTION_H

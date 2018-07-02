@@ -41,8 +41,9 @@ public:
 
     const Lattice& lattice() const;
 
-    //! Returns the particle density associated with this 2d lattice
     double getParticleDensity() const final;
+
+    bool supportsMultilayer() const override { return false; }
 
     std::vector<const INode*> getChildren() const override;
 

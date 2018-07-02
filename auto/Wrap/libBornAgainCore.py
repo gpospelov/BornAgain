@@ -19544,6 +19544,11 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_getParticleDensity(self)
 
 
+    def supportsMultilayer(self):
+        """supportsMultilayer(IInterferenceFunction self) -> bool"""
+        return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
+
+
     def __init__(self):
         """
         __init__(IInterferenceFunction self) -> IInterferenceFunction
@@ -22065,6 +22070,11 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction3DLattice_getParticleDensity(self)
+
+
+    def supportsMultilayer(self):
+        """supportsMultilayer(InterferenceFunction3DLattice self) -> bool"""
+        return _libBornAgainCore.InterferenceFunction3DLattice_supportsMultilayer(self)
 
 
     def getChildren(self):

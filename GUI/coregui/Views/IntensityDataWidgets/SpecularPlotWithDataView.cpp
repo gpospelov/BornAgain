@@ -17,7 +17,7 @@
 #include "ColorMapUtils.h"
 #include "DataItem.h"
 #include "DataItem1DView.h"
-#include "DataPresentationProperties.h"
+#include "DataProperties.h"
 #include "MathConstants.h"
 #include "PlotEventInfo.h"
 #include "UpdateTimer.h"
@@ -136,9 +136,9 @@ void SpecularPlotWithDataView::unsubscribeFromItem()
 
 void SpecularPlotWithDataView::initPlots()
 {
-    auto property_items = viewItem()->propertyItems<Data1DPresentationProperties>();
+    auto property_items = viewItem()->propertyItems<Data1DProperties>();
     std::for_each(
-        property_items.begin(), property_items.end(), [this](Data1DPresentationProperties* item) {
+        property_items.begin(), property_items.end(), [this](Data1DProperties* item) {
             auto graph = m_custom_plot->addGraph();
             graph->setLineStyle(QCPGraph::lsLine);
             graph->setPen(QPen(item->color()));
@@ -231,9 +231,9 @@ void SpecularPlotWithDataView::setLabel(const BasicAxisItem* item, QCPAxis* axis
 void SpecularPlotWithDataView::setDataFromItem(DataItem1DView* item)
 {
     assert(item);
-    auto property_items = item->propertyItems<Data1DPresentationProperties>();
+    auto property_items = item->propertyItems<Data1DProperties>();
     std::for_each(property_items.begin(), property_items.end(),
-                  [this](Data1DPresentationProperties* item) {
+                  [this](Data1DProperties* item) {
                       auto data = item->dataItem()->getOutputData();
                       if (!data)
                           return;

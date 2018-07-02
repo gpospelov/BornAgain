@@ -14,7 +14,7 @@
 
 #include "DataItemView.h"
 #include "DataItem.h"
-#include "DataPresentationProperties.h"
+#include "DataProperties.h"
 
 const QString DataItemView::T_CHILDREN = "data links";
 
@@ -31,8 +31,8 @@ std::vector<T*> DataItemView::propertyItems()
     return result;
 }
 
-template std::vector<DataPresentationProperties*> DataItemView::propertyItems();
-template std::vector<Data1DPresentationProperties*> DataItemView::propertyItems();
+template std::vector<DataProperties*> DataItemView::propertyItems();
+template std::vector<Data1DProperties*> DataItemView::propertyItems();
 
 template<class T>
 T* DataItemView::propertyItem(size_t i) const
@@ -42,8 +42,8 @@ T* DataItemView::propertyItem(size_t i) const
     return property_item;
 }
 
-template DataPresentationProperties* DataItemView::propertyItem(size_t) const;
-template Data1DPresentationProperties* DataItemView::propertyItem(size_t) const;
+template DataProperties* DataItemView::propertyItem(size_t) const;
+template Data1DProperties* DataItemView::propertyItem(size_t) const;
 
 DataItemView::DataItemView(const QString& model_type)
     : SessionItem(model_type)
@@ -56,7 +56,7 @@ std::vector<DataItem*> DataItemView::dataItems()
 {
     std::vector<DataItem*> result;
     auto items = propertyItems();
-    std::transform(items.begin(), items.end(), std::back_inserter(result), [](DataPresentationProperties* item) {
+    std::transform(items.begin(), items.end(), std::back_inserter(result), [](DataProperties* item) {
         auto data_item = item->dataItem();
         assert(data_item);
         return data_item;

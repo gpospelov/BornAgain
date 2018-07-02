@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/DataPresentationProperties.h
-//! @brief     Defines class DataPresentationProperties and its descendants
+//! @file      GUI/coregui/Models/DataProperties.h
+//! @brief     Defines class DataProperties and its descendants
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DATAPRESENTATIONPROPERTIES_H
-#define DATAPRESENTATIONPROPERTIES_H
+#ifndef DATAPROPERTIES_H
+#define DATAPROPERTIES_H
 
 #include "SessionItem.h"
 
@@ -21,8 +21,8 @@ class DataItem;
 
 //! Implements a link to DataItem. If path name
 //! of a DataItem changes, the link becomes invalid.
-//! Also serves as a base for Data1DPresentationProperties
-class BA_CORE_API_ DataPresentationProperties : public SessionItem
+//! Also serves as a base for Data1DProperties
+class BA_CORE_API_ DataProperties : public SessionItem
 {
 public:
    static const QString P_LINK;
@@ -31,16 +31,16 @@ public:
    DataItem* dataItem();
 
 protected:
-   DataPresentationProperties(const QString& model_type);
+   DataProperties(const QString& model_type);
 };
 
 //! Holds data required for 1D DataItem representation
-class BA_CORE_API_ Data1DPresentationProperties : public DataPresentationProperties
+class BA_CORE_API_ Data1DProperties : public DataProperties
 {
 public:
     static const QString P_COLOR;
 
-    Data1DPresentationProperties();
+    Data1DProperties();
 
     //! Creates and returns a color object from color name in Data1DPresentationProperties
     QColor color();
@@ -51,7 +51,7 @@ public:
     //! Returns the name of the color, which follows the color of passes property
     //! container. If the container is nullptr or has the last-in-queue color,
     //! returns default color.
-    static const QString& nextColorName(Data1DPresentationProperties* properties);
+    static const QString& nextColorName(Data1DProperties* properties);
 };
 
-#endif // DATAPRESENTATIONPROPERTIES_H
+#endif // DATAPROPERTIES_H

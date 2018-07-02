@@ -21,7 +21,7 @@
 class BasicAxisItem;
 class DataItem;
 class DataItem1DView;
-class Data1DPresentationProperties;
+class Data1DProperties;
 class SpecularPlotEvent;
 class UpdateTimer;
 
@@ -105,7 +105,7 @@ private:
 
     QCustomPlot* m_custom_plot;
     UpdateTimer* m_update_timer;
-    std::map<Data1DPresentationProperties*, QCPGraph*> m_graph_map;
+    std::map<Data1DProperties*, QCPGraph*> m_graph_map;
 
     bool m_block_update;
 };

@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "DataPresentationProperties.h"
+#include "DataProperties.h"
 #include "ComboProperty.h"
 #include "DataItem.h"
 #include "GUIHelpers.h"
@@ -40,21 +40,21 @@ struct ColorNameComparator {
 ComboProperty defaultColorCombo();
 }
 
-const QString DataPresentationProperties::P_LINK = "data link";
+const QString DataProperties::P_LINK = "data link";
 
-DataPresentationProperties::DataPresentationProperties(const QString& model_type)
+DataProperties::DataProperties(const QString& model_type)
     : SessionItem(model_type)
 {
     addProperty(P_LINK, "");
 }
 
-void DataPresentationProperties::setDataItem(DataItem* item)
+void DataProperties::setDataItem(DataItem* item)
 {
     const QString& path = ModelPath::getPathFromIndex(item->index());
     setItemValue(P_LINK, path);
 }
 
-DataItem* DataPresentationProperties::dataItem()
+DataItem* DataProperties::dataItem()
 {
     SessionModel* hosting_model = this->model();
     const QString& path = getItemValue(P_LINK).toString();
@@ -69,15 +69,15 @@ DataItem* DataPresentationProperties::dataItem()
     return dynamic_cast<DataItem*>(item);
 }
 
-const QString Data1DPresentationProperties::P_COLOR = "Color";
+const QString Data1DProperties::P_COLOR = "Color";
 
-Data1DPresentationProperties::Data1DPresentationProperties()
-    : DataPresentationProperties(Constants::DataItem1DPropertiesType)
+Data1DProperties::Data1DProperties()
+    : DataProperties(Constants::DataItem1DPropertiesType)
 {
     addProperty(P_COLOR, defaultColorCombo().variant());
 }
 
-QColor Data1DPresentationProperties::color()
+QColor Data1DProperties::color()
 {
     const QString& color_name = getItemValue(P_COLOR).value<ComboProperty>().getValue();
     auto iter = std::find_if(color_queue.begin(), color_queue.end(), ColorNameComparator(color_name));
@@ -86,7 +86,7 @@ QColor Data1DPresentationProperties::color()
     return QColor(iter->second);
 }
 
-const QString& Data1DPresentationProperties::nextColorName(Data1DPresentationProperties* properties)
+const QString& Data1DProperties::nextColorName(Data1DProperties* properties)
 {
     if (!properties)
         return color_queue.front().first;
@@ -97,7 +97,7 @@ const QString& Data1DPresentationProperties::nextColorName(Data1DPresentationPro
     return (++iter)->first;
 }
 
-void Data1DPresentationProperties::setColorProperty(const QString& color_name)
+void Data1DProperties::setColorProperty(const QString& color_name)
 {
     auto color_combo = defaultColorCombo();
     color_combo.setValue(color_name);

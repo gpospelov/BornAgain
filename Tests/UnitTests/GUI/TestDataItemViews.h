@@ -2,7 +2,7 @@
 #include "ApplicationModels.h"
 #include "DataItem.h"
 #include "DataItemView.h"
-#include "DataPresentationProperties.h"
+#include "DataProperties.h"
 #include "GUIHelpers.h"
 #include "MessageService.h"
 #include "projectdocument.h"
@@ -79,7 +79,7 @@ TEST_F(TestDataItemViews, testColors)
 
     auto stored_items = view_item->propertyItems();
     auto getColorName = [](SessionItem* item) {
-        QString P_COLOR = Data1DPresentationProperties::P_COLOR; // analogue of using
+        QString P_COLOR = Data1DProperties::P_COLOR; // analogue of using
         auto name = item->getItemValue(P_COLOR).value<ComboProperty>().getValue();
         return name;
     };

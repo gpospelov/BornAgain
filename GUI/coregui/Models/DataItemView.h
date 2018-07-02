@@ -18,8 +18,8 @@
 #include "SessionItem.h"
 
 class DataItem;
-class DataPresentationProperties;
-class Data1DPresentationProperties;
+class DataProperties;
+class Data1DProperties;
 template<class T> class OutputData;
 
 //! Base for DataItem1DView and DataItem2DView
@@ -33,10 +33,10 @@ public:
 
     virtual void addItem(DataItem* data_item) = 0;
 
-    template<class T = DataPresentationProperties>
+    template<class T = DataProperties>
     std::vector<T*> propertyItems();
 
-    template<class T = DataPresentationProperties>
+    template<class T = DataProperties>
     T* propertyItem(size_t i) const;
 
 protected:
@@ -46,9 +46,9 @@ protected:
     const OutputData<double>* getOutputData(size_t i) const;
 };
 
-extern template std::vector<DataPresentationProperties*> DataItemView::propertyItems();
-extern template std::vector<Data1DPresentationProperties*> DataItemView::propertyItems();
-extern template DataPresentationProperties* DataItemView::propertyItem(size_t) const;
-extern template Data1DPresentationProperties* DataItemView::propertyItem(size_t) const;
+extern template std::vector<DataProperties*> DataItemView::propertyItems();
+extern template std::vector<Data1DProperties*> DataItemView::propertyItems();
+extern template DataProperties* DataItemView::propertyItem(size_t) const;
+extern template Data1DProperties* DataItemView::propertyItem(size_t) const;
 
 #endif // DATAITEMVIEW_H

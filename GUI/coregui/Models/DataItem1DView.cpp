@@ -17,7 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "DataItem.h"
-#include "DataPresentationProperties.h"
+#include "DataProperties.h"
 #include "GUIHelpers.h"
 
 namespace {
@@ -65,13 +65,13 @@ void DataItem1DView::addItem(DataItem* data_item)
     if (this->model() != data_item->model())
         throw GUIHelpers::Error("Error in DataItem1DView::addItem: hosting models are different");
 
-    auto property_items = propertyItems<Data1DPresentationProperties>();
+    auto property_items = propertyItems<Data1DProperties>();
     auto previous_item = !property_items.empty() ? property_items.back() : nullptr;
 
-    auto property_item = new Data1DPresentationProperties();
+    auto property_item = new Data1DProperties();
     insertItem(-1, property_item);
     property_item->setDataItem(data_item);
-    property_item->setColorProperty(Data1DPresentationProperties::nextColorName(previous_item));
+    property_item->setColorProperty(Data1DProperties::nextColorName(previous_item));
 
     if (propertyItems().size() == 1u)
         setAxesRangeToData();

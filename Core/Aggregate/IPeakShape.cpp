@@ -34,3 +34,8 @@ double GaussPeakShape::evaluate(const kvector_t q) const
     double exponent = -q_norm*m_domainsize*m_domainsize/2.0;
     return m_domainsize * std::sqrt(M_TWOPI) * std::exp(exponent);
 }
+
+double GaussPeakShape::thickness_z() const
+{
+    return m_domainsize;
+}

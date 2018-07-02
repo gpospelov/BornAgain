@@ -75,7 +75,11 @@ const Lattice&InterferenceFunction3DLattice::lattice() const
 
 double InterferenceFunction3DLattice::getParticleDensity() const
 {
-    return 0.0;
+    double v = m_lattice.volume();
+    if (!mP_peak_shape || v<=0.0)
+        return 0.0;
+    double t = mP_peak_shape->thickness_z();
+    return t/v;
 }
 
 std::vector<const INode*> InterferenceFunction3DLattice::getChildren() const

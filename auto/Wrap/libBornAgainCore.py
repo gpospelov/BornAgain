@@ -20176,6 +20176,11 @@ class IPeakShape(ISample):
         """evaluate(IPeakShape self, kvector_t q) -> double"""
         return _libBornAgainCore.IPeakShape_evaluate(self, q)
 
+
+    def thickness_z(self):
+        """thickness_z(IPeakShape self) -> double"""
+        return _libBornAgainCore.IPeakShape_thickness_z(self)
+
 IPeakShape_swigregister = _libBornAgainCore.IPeakShape_swigregister
 IPeakShape_swigregister(IPeakShape)
 
@@ -20229,6 +20234,11 @@ class GaussPeakShape(IPeakShape):
     def evaluate(self, q):
         """evaluate(GaussPeakShape self, kvector_t q) -> double"""
         return _libBornAgainCore.GaussPeakShape_evaluate(self, q)
+
+
+    def thickness_z(self):
+        """thickness_z(GaussPeakShape self) -> double"""
+        return _libBornAgainCore.GaussPeakShape_thickness_z(self)
 
 GaussPeakShape_swigregister = _libBornAgainCore.GaussPeakShape_swigregister
 GaussPeakShape_swigregister(GaussPeakShape)

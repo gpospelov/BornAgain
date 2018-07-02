@@ -34,8 +34,7 @@ class SimulationBuilder:
         return simulation
 
     def create_data(self):
-        return np.full((self.m_nrow, self.m_ncol), 1, dtype=np.float64)
-
+        return np.ones(shape=(self.m_nrow, self.m_ncol), dtype=np.float64)
 
 
 class FitObjectiveAPITest(unittest.TestCase):
@@ -64,8 +63,11 @@ class FitObjectiveAPITest(unittest.TestCase):
         self.assertEqual(list(builder.m_pars.values()), [0.0, 1.0])
 
         # checking arrays of experimental and simulated data
-        expected_sim = np.full((builder.size()), 0, dtype=np.float64).tolist()
-        expected_data = np.full((builder.size()), 1, dtype=np.float64).tolist()
+        expected_sim = []
+        expected_data=[]
+        for i in range(0, builder.size()):
+            expected_sim.append(0.0)
+            expected_data.append(1.0)
         self.assertEqual(expected_sim, list(objective.simulation_array()))
         self.assertEqual(expected_data, list(objective.experimental_array()))
 

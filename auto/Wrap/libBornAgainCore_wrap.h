@@ -495,7 +495,6 @@ public:
     virtual void setParent(INode const *newParent);
     virtual Material const *material() const;
     virtual double evaluate(kvector_t const q) const;
-    virtual double kappa() const;
     virtual double getParticleDensity() const;
 
 /* Internal director utilities */
@@ -527,7 +526,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[12];
+    mutable swig::SwigVar_PyObject vtable[11];
 #endif
 
 };

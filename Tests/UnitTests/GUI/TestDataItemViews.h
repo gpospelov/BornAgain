@@ -58,6 +58,42 @@ TEST_F(TestDataItemViews, testLinkingSeveralItems)
     EXPECT_EQ(stored_items[2]->dataItem(), item3);
 }
 
+TEST_F(TestDataItemViews, testColors)
+{
+    SessionModel model("TempModel");
+    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
+    DataItem* item = insertNewDataItem(model, 0.0);
+    DataItem* item2 = insertNewDataItem(model, 1.0);
+    DataItem* item3 = insertNewDataItem(model, 2.0);
+    DataItem* item4 = insertNewDataItem(model, 3.0);
+    DataItem* item5 = insertNewDataItem(model, 4.0);
+    DataItem* item6 = insertNewDataItem(model, 5.0);
+    DataItem* item7 = insertNewDataItem(model, 6.0);
+    view_item->addItem(item);
+    view_item->addItem(item2);
+    view_item->addItem(item3);
+    view_item->addItem(item4);
+    view_item->addItem(item5);
+    view_item->addItem(item6);
+    view_item->addItem(item7);
+
+    auto stored_items = view_item->propertyItems();
+    auto getColorName = [](SessionItem* item) {
+        QString P_COLOR = Data1DPresentationProperties::P_COLOR; // analogue of using
+        auto name = item->getItemValue(P_COLOR).value<ComboProperty>().getValue();
+        return name;
+    };
+
+    EXPECT_EQ(stored_items.size(), 7u);
+    EXPECT_EQ(getColorName(stored_items[0]), "Black");
+    EXPECT_EQ(getColorName(stored_items[1]), "Blue");
+    EXPECT_EQ(getColorName(stored_items[2]), "Red");
+    EXPECT_EQ(getColorName(stored_items[3]), "Cyan");
+    EXPECT_EQ(getColorName(stored_items[4]), "Gray");
+    EXPECT_EQ(getColorName(stored_items[5]), "Magenta");
+    EXPECT_EQ(getColorName(stored_items[6]), "Black");
+}
+
 TEST_F(TestDataItemViews, testBrokenLink)
 {
     SessionModel model("TempModel");

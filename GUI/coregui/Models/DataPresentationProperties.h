@@ -41,6 +41,17 @@ public:
     static const QString P_COLOR;
 
     Data1DPresentationProperties();
+
+    //! Creates and returns a color object from color name in Data1DPresentationProperties
+    QColor color();
+
+    //! Returns set up color ComboProperty.
+    void setColorProperty(const QString& color_name);
+
+    //! Returns the name of the color, which follows the color of passes property
+    //! container. If the container is nullptr or has the last-in-queue color,
+    //! returns default color.
+    static const QString& nextColorName(Data1DPresentationProperties* properties);
 };
 
 #endif // DATAPRESENTATIONPROPERTIES_H

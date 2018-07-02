@@ -19,9 +19,25 @@
 #include "ModelPath.h"
 #include "SessionModel.h"
 
-namespace
-{
-ComboProperty colorCombo();
+namespace {
+// set of simple colors for representation of 1D graphs
+const std::vector<std::pair<QString, Qt::GlobalColor>> color_queue
+    = {{"Black", Qt::GlobalColor::black},   {"Blue", Qt::GlobalColor::blue},
+       {"Red", Qt::GlobalColor::darkRed},   {"Cyan", Qt::GlobalColor::darkCyan},
+       {"Gray", Qt::GlobalColor::darkGray}, {"Magenta", Qt::GlobalColor::darkMagenta}};
+
+struct ColorNameComparator {
+    ColorNameComparator(const QString& value_to_comp) : m_value_to_comp(value_to_comp)
+    {}
+    bool operator()(const std::pair<QString, Qt::GlobalColor>& value) const
+    {
+        return value.first == m_value_to_comp;
+    }
+
+    const QString m_value_to_comp;
+};
+
+ComboProperty defaultColorCombo();
 }
 
 const QString DataPresentationProperties::P_LINK = "data link";
@@ -58,18 +74,43 @@ const QString Data1DPresentationProperties::P_COLOR = "Color";
 Data1DPresentationProperties::Data1DPresentationProperties()
     : DataPresentationProperties(Constants::DataItem1DPropertiesType)
 {
-    addProperty(P_COLOR, colorCombo().variant());
+    addProperty(P_COLOR, defaultColorCombo().variant());
 }
 
-namespace
+QColor Data1DPresentationProperties::color()
 {
-ComboProperty colorCombo()
+    const QString& color_name = getItemValue(P_COLOR).value<ComboProperty>().getValue();
+    auto iter = std::find_if(color_queue.begin(), color_queue.end(), ColorNameComparator(color_name));
+    if (iter == color_queue.end())
+        throw GUIHelpers::Error("Error in Data1DPresentationProperties::color: unknown color name");
+    return QColor(iter->second);
+}
+
+const QString& Data1DPresentationProperties::nextColorName(Data1DPresentationProperties* properties)
+{
+    if (!properties)
+        return color_queue.front().first;
+    const auto& current_color = properties->getItemValue(P_COLOR).value<ComboProperty>().getValue();
+    auto iter = std::find_if(color_queue.begin(), color_queue.end(), ColorNameComparator(current_color));
+    if (iter == color_queue.end() || *iter == color_queue.back())
+        return color_queue.front().first;
+    return (++iter)->first;
+}
+
+void Data1DPresentationProperties::setColorProperty(const QString& color_name)
+{
+    auto color_combo = defaultColorCombo();
+    color_combo.setValue(color_name);
+    setItemValue(P_COLOR, color_combo.variant());
+}
+
+namespace {
+ComboProperty defaultColorCombo()
 {
     ComboProperty result;
-    result << "black"
-           << "blue"
-           << "orangered";
-    result.setValue("black");
+    for (auto& color : color_queue)
+        result << color.first;
+    result.setValue(color_queue.front().first);
     return result;
 }
 }

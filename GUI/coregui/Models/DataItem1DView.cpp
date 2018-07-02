@@ -65,10 +65,14 @@ void DataItem1DView::addItem(DataItem* data_item)
     if (this->model() != data_item->model())
         throw GUIHelpers::Error("Error in DataItem1DView::addItem: hosting models are different");
 
-    std::unique_ptr<Data1DPresentationProperties> property_item(new Data1DPresentationProperties());
-    insertItem(-1, property_item.get());
+    auto property_items = propertyItems<Data1DPresentationProperties>();
+    auto previous_item = !property_items.empty() ? property_items.back() : nullptr;
+
+    auto property_item = new Data1DPresentationProperties();
+    insertItem(-1, property_item);
     property_item->setDataItem(data_item);
-    property_item.release();
+    property_item->setColorProperty(Data1DPresentationProperties::nextColorName(previous_item));
+
     if (propertyItems().size() == 1u)
         setAxesRangeToData();
 }

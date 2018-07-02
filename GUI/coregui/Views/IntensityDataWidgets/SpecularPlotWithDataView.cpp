@@ -140,9 +140,8 @@ void SpecularPlotWithDataView::initPlots()
     std::for_each(
         property_items.begin(), property_items.end(), [this](Data1DPresentationProperties* item) {
             auto graph = m_custom_plot->addGraph();
-            QColor color(item->getItemValue(Data1DPresentationProperties::P_COLOR).toString());
             graph->setLineStyle(QCPGraph::lsLine);
-            graph->setPen(QPen(color));
+            graph->setPen(QPen(item->color()));
             m_graph_map[item] = graph;
         });
 }

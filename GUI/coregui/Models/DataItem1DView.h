@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/SpecularDataItem.h
-//! @brief     Defines class SpecularDataItem
+//! @file      GUI/coregui/Models/DataItem1DView.h
+//! @brief     Defines class DataItem1DView
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,25 +12,31 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARDATAITEM_H
-#define SPECULARDATAITEM_H
+#ifndef DATAITEM1DVIEW_H
+#define DATAITEM1DVIEW_H
 
-#include "DataItem.h"
+#include "DataItemView.h"
 
 class AmplitudeAxisItem;
 class BasicAxisItem;
+class InstrumentItem;
+template<class T> class OutputData;
 
-class BA_CORE_API_ SpecularDataItem : public DataItem
+//! View model for 1D DataItem. Can represent several items
+//! at once. In current implementation the first of carried
+//! items determines axes' limits.
+
+class BA_CORE_API_ DataItem1DView : public DataItemView
 {
 public:
     static const QString P_TITLE;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
+    static const QString P_AXES_UNITS;
 
-    SpecularDataItem();
+    DataItem1DView();
 
-    void setOutputData(OutputData<double>* data) override;
-    void setRawDataVector(const OutputData<double>* data) override;
+    void addItem(DataItem* data_item) override;
 
     //! Number of bins in data
     int getNbins() const;
@@ -63,14 +69,13 @@ public:
 
     void resetView();
 
-    void setXaxisTitle(QString xtitle) override;
-    void setYaxisTitle(QString ytitle) override;
-    void setAxesRangeToData() override;
-    void updateAxesUnits(const InstrumentItem* instrument) override;
-    std::vector<int> shape() const override;
+    void setXaxisTitle(QString xtitle);
+    void setYaxisTitle(QString ytitle);
+    void setAxesRangeToData();
+    void updateAxesUnits(const InstrumentItem* instrument);
 
-    //! Returns data to default state (no dimensional units, default axes' names)
-    void resetToDefault() override;
+    //! Returns data view to default state (no dimensional units, default axes' names)
+    void resetToDefault();
 
 public slots:
     void setLowerX(double xmin);
@@ -83,4 +88,4 @@ private:
     void updateAxesZoomLevel();
 };
 
-#endif // SPECULARDATAITEM_H
+#endif // DATAITEM1DVIEW_H

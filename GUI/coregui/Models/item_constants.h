@@ -140,6 +140,8 @@ const ModelType FitSuiteType = "FitSuite";
 const ModelType JobItemType = "JobItem";
 const ModelType IntensityDataType = "IntensityData";
 const ModelType SpecularDataType = "SpecularData";
+const ModelType DataItem1DViewType = "DataItem1DView";
+const ModelType DataItem1DPropertiesType = "DataItem1DProperties";
 
 const ModelType BasicAxisType = "BasicAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";

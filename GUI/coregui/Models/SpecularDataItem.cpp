@@ -55,7 +55,6 @@ void SpecularDataItem::setOutputData(OutputData<double>* data)
     DataItem::setOutputData(data);
 
     updateAxesZoomLevel();
-    updateAxesLabels();
 
     emitDataChanged();
 }
@@ -215,14 +214,6 @@ void SpecularDataItem::updateAxesZoomLevel()
 
     const int nx = static_cast<int>(m_data->getAxis(BornAgain::X_AXIS_INDEX).size());
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
-}
-
-//! Init axes labels, if it was not done already.
-
-void SpecularDataItem::updateAxesLabels()
-{
-    if (getXaxisTitle().isEmpty())
-        setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX).getName()));
 }
 
 //! Init ymin, ymax to match the intensity values range.

@@ -8,6 +8,7 @@
 #include "TestComponentProxyModel.h"
 #include "TestComponentUtils.h"
 #include "TestDataItems.h"
+#include "TestDataItemViews.h"
 #include "TestDetectorItems.h"
 #include "TestExternalProperty.h"
 #include "TestFitParameterModel.h"

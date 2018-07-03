@@ -14,6 +14,7 @@
 
 #include "TestView.h"
 #include "AccordionWidget.h"
+#include "DataItem1DView.h"
 #include "JobModel.h"
 #include "JobItem.h"
 #include "MaskEditor.h"
@@ -21,9 +22,10 @@
 #include "MinimizerItem.h"
 #include "MinimizerSettingsWidget.h"
 #include "ApplicationModels.h"
+#include "RealDataItem.h"
 #include "SampleModel.h"
 #include "SpecularDataItem.h"
-#include "SpecularDataWidget.h"
+#include "SpecularPlotWithDataView.h"
 #include "TestComponentView.h"
 #include "mainwindow.h"
 #include <QTreeView>
@@ -39,8 +41,8 @@ namespace {
 // These functions are required for testing purposes only
 // They must be removed after completion of
 // SpecularDataWidget
-double getTestValue(size_t bin);
-SpecularDataItem* fillTestItem(SessionItem* item);
+double getTestValue(size_t bin, double factor);
+SpecularDataItem* fillTestItem(SessionItem* item, double factor);
 }
 
 TestView::TestView(MainWindow *mainWindow)
@@ -53,7 +55,7 @@ TestView::TestView(MainWindow *mainWindow)
 //    test_AccordionWidget();
 //    test_RunFitWidget();
 //    test_ba3d();
-//    test_specular_data_widget();
+    test_specular_data_widget();
 }
 
 void TestView::test_ComponentProxyModel()
@@ -188,35 +190,53 @@ void TestView::test_ba3d()
 void TestView::test_specular_data_widget()
 {
     SessionModel* tempModel = new SessionModel("Test", this);
-    auto job_item = dynamic_cast<JobItem*>(tempModel->insertNewItem(Constants::JobItemType));
-    fillTestItem(tempModel->insertNewItem(Constants::SpecularDataType,
-                                          tempModel->indexOfItem(job_item), -1, JobItem::T_OUTPUT));
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    // creating job item
+    auto job_item = dynamic_cast<JobItem*>(tempModel->insertNewItem(Constants::JobItemType));
+
+    // creating "simulation" data
+    auto data_item = new SpecularDataItem();
+    job_item->insertItem(-1, data_item, JobItem::T_OUTPUT);
+    fillTestItem(data_item, 1.0);
+
+    // creating "real" data
+    auto real_data = new RealDataItem();
+    job_item->insertItem(-1, real_data, JobItem::T_REALDATA);
+    data_item = new SpecularDataItem();
+    real_data->insertItem(-1, data_item, RealDataItem::T_INTENSITY_DATA);
+    fillTestItem(data_item, 2.0);
+
+    // creating data view
+    auto data_view = new DataItem1DView();
+    job_item->insertItem(-1, data_view, JobItem::T_DATAVIEW);
+    data_view->addItem(job_item->realDataItem()->dataItem());
+    data_view->addItem(job_item->dataItem());
+
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
-    auto widget = new SpecularDataWidget(this);
-    widget->setItem(job_item);
+    auto widget = new SpecularPlotWithDataView(this);
+    widget->setItem(job_item->dataItemView());
     layout->addWidget(widget);
     setLayout(layout);
 }
 
 namespace {
-double getTestValue(size_t bin)
+double getTestValue(size_t bin, double factor)
 {
-    const double factor = M_PI / (180.0 * 100.0);
-    const double angle = bin * factor;
-    return (std::cos(angle * 1000.0) + 1.5) * std::exp(-(bin / 100.0));
+    const double angle_factor = M_PI / (180.0 * 100.0);
+    const double angle = bin * angle_factor;
+    return (std::cos(angle * 1000.0) + 1.5) * std::exp(-(bin * factor / 100.0));
 }
 
-SpecularDataItem* fillTestItem(SessionItem* item)
+SpecularDataItem* fillTestItem(SessionItem* item, double factor)
 {
     SpecularDataItem* result = dynamic_cast<SpecularDataItem*>(item);
     Q_ASSERT(result);
     auto outputData = std::make_unique<OutputData<double>>();
     outputData->addAxis(FixedBinAxis("Angle [deg]", 1000, 0.0, 10.0));
     for (size_t i = 0; i < 1000; ++i)
-        outputData->operator[](i) = getTestValue(i);
+        outputData->operator[](i) = getTestValue(i, factor);
 
     result->setOutputData(outputData.release());
     return result;

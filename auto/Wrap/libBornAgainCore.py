@@ -19544,6 +19544,11 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_getParticleDensity(self)
 
 
+    def supportsMultilayer(self):
+        """supportsMultilayer(IInterferenceFunction self) -> bool"""
+        return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
+
+
     def __init__(self):
         """
         __init__(IInterferenceFunction self) -> IInterferenceFunction
@@ -20176,6 +20181,11 @@ class IPeakShape(ISample):
         """evaluate(IPeakShape self, kvector_t q) -> double"""
         return _libBornAgainCore.IPeakShape_evaluate(self, q)
 
+
+    def thickness_z(self):
+        """thickness_z(IPeakShape self) -> double"""
+        return _libBornAgainCore.IPeakShape_thickness_z(self)
+
 IPeakShape_swigregister = _libBornAgainCore.IPeakShape_swigregister
 IPeakShape_swigregister(IPeakShape)
 
@@ -20229,6 +20239,11 @@ class GaussPeakShape(IPeakShape):
     def evaluate(self, q):
         """evaluate(GaussPeakShape self, kvector_t q) -> double"""
         return _libBornAgainCore.GaussPeakShape_evaluate(self, q)
+
+
+    def thickness_z(self):
+        """thickness_z(GaussPeakShape self) -> double"""
+        return _libBornAgainCore.GaussPeakShape_thickness_z(self)
 
 GaussPeakShape_swigregister = _libBornAgainCore.GaussPeakShape_swigregister
 GaussPeakShape_swigregister(GaussPeakShape)
@@ -22055,6 +22070,11 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction3DLattice_getParticleDensity(self)
+
+
+    def supportsMultilayer(self):
+        """supportsMultilayer(InterferenceFunction3DLattice self) -> bool"""
+        return _libBornAgainCore.InterferenceFunction3DLattice_supportsMultilayer(self)
 
 
     def getChildren(self):

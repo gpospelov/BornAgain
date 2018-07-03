@@ -31,6 +31,9 @@ public:
 
     //! Evaluates the peak shape at displacement q from the center at 0
     virtual double evaluate(const kvector_t q) const=0;
+
+    //! Returns the thickness in the z-direction
+    virtual double thickness_z() const=0;
 };
 
 
@@ -50,6 +53,7 @@ public:
 
     double evaluate(const kvector_t q) const override;
 
+    double thickness_z() const override;
 private:
     double m_domainsize;
 };

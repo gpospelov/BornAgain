@@ -39,20 +39,45 @@ class MinimizerAPITest(unittest.TestCase):
         pars = ba.Parameters()
         self.assertEqual(pars.size(), 0)
 
-        pars.add(ba.Parameter("par0", 1.0, ba.AttLimits.limitless()))
-        pars.add(ba.Parameter("par1", 2.0, ba.AttLimits.limitless()))
+        pars.add_cpp(ba.Parameter("par0", 1.0, ba.AttLimits.limitless()))
+        pars.add_cpp(ba.Parameter("par1", 2.0, ba.AttLimits.limitless()))
         expected_names = ["par0", "par1"]
         for index, p in enumerate(pars):
             self.assertEqual(p.name(), expected_names[index])
+
+    def test_ParametersAdd(self):
+        """
+        Testing Parameters::add method
+        """
+
+        params = ba.Parameters()
+        params.add("par0", 0.0)
+        params.add("par1", 1.0, min=1.0)
+        params.add("par2", 2.0, max=2.0)
+        params.add("par3", 3.0, min=1.0, max=2.0)
+        params.add("par4", 4.0, vary=False)
+
+        self.assertTrue(params["par0"].limits().isLimitless())
+        self.assertTrue(params["par1"].limits().isLowerLimited())
+        self.assertEqual(params["par1"].limits().lowerLimit(), 1.0)
+        self.assertTrue(params["par2"].limits().isUpperLimited())
+        self.assertEqual(params["par2"].limits().upperLimit(), 2.0)
+
+        self.assertTrue(params["par3"].limits().isLimited())
+        self.assertEqual(params["par3"].limits().lowerLimit(), 1.0)
+        self.assertEqual(params["par3"].limits().upperLimit(), 2.0)
+
+        self.assertTrue(params["par4"].limits().isFixed())
+
 
     def test_SimpleMinimizer(self):
         minimizer = ba.Minimizer()
         minimizer.setMinimizer("Test")
 
         pars = ba.Parameters()
-        pars.add(ba.Parameter("par0", 0.0))
-        pars.add(ba.Parameter("par1", 1.0))
-        pars.add(ba.Parameter("par2", 2.0))
+        pars.add_cpp(ba.Parameter("par0", 0.0))
+        pars.add_cpp(ba.Parameter("par1", 1.0))
+        pars.add_cpp(ba.Parameter("par2", 2.0))
 
         helper = TestMinimizerHelper()
         result = minimizer.minimize(helper.objective_function, pars)

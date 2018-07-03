@@ -2113,14 +2113,14 @@ class Parameters(_object):
         except __builtin__.Exception:
             self.this = this
 
-    def add(self, par):
+    def add_cpp(self, par):
         """
-        add(Parameters self, Parameter par)
+        add_cpp(Parameters self, Parameter par)
 
         void Parameters::add(const Parameter &par)
 
         """
-        return _libBornAgainFit.Parameters_add(self, par)
+        return _libBornAgainFit.Parameters_add_cpp(self, par)
 
 
     def begin(self, *args):
@@ -2220,6 +2220,21 @@ class Parameters(_object):
 
     def __iter__(self):
         return ParametersIterator(self)
+
+
+    def add(self, name, value=None, vary=True, min=-float('inf'), max=float('inf'), step=0.0):
+        limits = AttLimits.limitless()
+        if min != -float('inf') and max != float('inf'):
+            limits = AttLimits.limited(min, max)
+        elif min != -float('inf') and max==float('inf'):
+            limits = AttLimits.lowerLimited(min)
+        elif min == -float('inf') and max != float('inf'):
+            limits = AttLimits.upperLimited(max)
+        if not vary:
+           limits = AttLimits.fixed()
+
+        self.add_cpp(Parameter(name, value, limits, step))
+
 
     __swig_destroy__ = _libBornAgainFit.delete_Parameters
     __del__ = lambda self: None

@@ -89,8 +89,24 @@ namespace Fit {
             raise Exception("Wrong callable type")
 
 %}
-
 };
 
+%extend Parameters {
+%pythoncode %{
+    def add(self, name, value=None, vary=True, min=-float('inf'), max=float('inf'), step=0.0):
+        limits = AttLimits.limitless()
+        if min != -float('inf') and max != float('inf'):
+            limits = AttLimits.limited(min, max)
+        elif min != -float('inf') and max==float('inf'):
+            limits = AttLimits.lowerLimited(min)
+        elif min == -float('inf') and max != float('inf'):
+            limits = AttLimits.upperLimited(max)
+        if not vary:
+           limits = AttLimits.fixed()
+
+        self.add_cpp(Parameter(name, value, limits, step))
+
+%}
+};
 }
 

@@ -22,7 +22,7 @@
 #include "MaterialEditor.h"
 #include "MinimizerItem.h"
 #include "MinimizerSettingsWidget.h"
-#include "Plot1D.h"
+#include "Plot1DCanvas.h"
 #include "RealDataItem.h"
 #include "SampleModel.h"
 #include "SpecularDataItem.h"
@@ -215,7 +215,7 @@ void TestView::test_specular_data_widget()
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
-    auto widget = new Plot1D(this);
+    auto widget = new Plot1DCanvas(this);
     widget->setItem(job_item->dataItemView());
     layout->addWidget(widget);
     setLayout(layout);

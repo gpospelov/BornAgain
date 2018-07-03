@@ -20823,6 +20823,28 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Parameters_freeParameterCount(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  size_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_freeParameterCount",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_freeParameterCount" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = ((Fit::Parameters const *)arg1)->freeParameterCount();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Parameters___getitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
@@ -23388,6 +23410,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"Parameters_correlationMatrix", _wrap_Parameters_correlationMatrix, METH_VARARGS, (char *)"Parameters_correlationMatrix(Parameters self) -> vdouble2d_t"},
 	 { (char *)"Parameters_setCorrelationMatrix", _wrap_Parameters_setCorrelationMatrix, METH_VARARGS, (char *)"Parameters_setCorrelationMatrix(Parameters self, vdouble2d_t matrix)"},
+	 { (char *)"Parameters_freeParameterCount", _wrap_Parameters_freeParameterCount, METH_VARARGS, (char *)"Parameters_freeParameterCount(Parameters self) -> size_t"},
 	 { (char *)"Parameters___getitem__", _wrap_Parameters___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> Parameter\n"
 		"Parameters___getitem__(Parameters self, size_t index) -> Parameter\n"

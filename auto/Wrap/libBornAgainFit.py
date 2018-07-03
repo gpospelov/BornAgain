@@ -2205,6 +2205,11 @@ class Parameters(_object):
         return _libBornAgainFit.Parameters_setCorrelationMatrix(self, matrix)
 
 
+    def freeParameterCount(self):
+        """freeParameterCount(Parameters self) -> size_t"""
+        return _libBornAgainFit.Parameters_freeParameterCount(self)
+
+
     def __getitem__(self, *args):
         """
         __getitem__(Parameters self, std::string name) -> Parameter

@@ -62,9 +62,8 @@ double FitObjective::evaluate(const Fit::Parameters& params)
     for(auto res : evaluate_residuals(params))
         chi2 += res*res;
 
-    const size_t free_parameter_count = params.size(); // FIXME make correct free pars calculation
-
-    int fnorm = static_cast<int>(numberOfFitElements()) - static_cast<int>(free_parameter_count);
+    int fnorm = static_cast<int>(numberOfFitElements()) -
+            static_cast<int>(params.freeParameterCount());
     if (fnorm <= 0)
         throw std::runtime_error("FitObjective::evaluate() -> Error. Normalization is 0");
 

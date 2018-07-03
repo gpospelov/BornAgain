@@ -20,7 +20,7 @@
 class FontScalingEvent;
 class PlotStatusLabel;
 class QCustomPlot;
-class SpecularPlot;
+class Plot1D;
 
 //! The Plot1DCanvas class contains SpecularPlotWithDataView
 //! for specular data presentation, and provides
@@ -33,9 +33,9 @@ class BA_CORE_API_ Plot1DCanvas : public SessionItemWidget
 public:
     explicit Plot1DCanvas(QWidget* parent = nullptr);
 
-    void setItem(SessionItem* specularDataItem) override;
+    void setItem(SessionItem* dataItemView) override;
 
-    SpecularPlot* specularPlot();
+    Plot1D* plot1D();
     QCustomPlot* customPlot();
 
     void setStatusLabelEnabled(bool flag);
@@ -44,7 +44,7 @@ public slots:
     void onStatusString(const QString& name);
 
 private:
-    SpecularPlot* m_plot;
+    Plot1D* m_plot;
     FontScalingEvent* m_canvasEvent;
     PlotStatusLabel* m_statusLabel;
 };

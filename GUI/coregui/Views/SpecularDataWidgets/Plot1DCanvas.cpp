@@ -14,14 +14,13 @@
 
 #include "Plot1DCanvas.h"
 #include "FontScalingEvent.h"
+#include "Plot1D.h"
 #include "PlotStatusLabel.h"
-#include "SpecularPlot.h"
-#include "SpecularDataItem.h"
 #include <QVBoxLayout>
 
-Plot1DCanvas::Plot1DCanvas(QWidget *parent)
+Plot1DCanvas::Plot1DCanvas(QWidget* parent)
     : SessionItemWidget(parent)
-    , m_plot(new SpecularPlot)
+    , m_plot(new Plot1D)
     , m_canvasEvent(new FontScalingEvent(m_plot, this))
     , m_statusLabel(new PlotStatusLabel(m_plot, this))
 {
@@ -35,16 +34,16 @@ Plot1DCanvas::Plot1DCanvas(QWidget *parent)
 
     setLayout(layout);
 
-    setStatusLabelEnabled(false);
+    setStatusLabelEnabled(true);
 }
 
-void Plot1DCanvas::setItem(SessionItem* specularDataItem)
+void Plot1DCanvas::setItem(SessionItem* dataItemView)
 {
-    SessionItemWidget::setItem(specularDataItem);
-    m_plot->setItem(dynamic_cast<SpecularDataItem*>(specularDataItem));
+    SessionItemWidget::setItem(dataItemView);
+    m_plot->setItem(dataItemView);
 }
 
-SpecularPlot* Plot1DCanvas::specularPlot()
+Plot1D* Plot1DCanvas::plot1D()
 {
     return m_plot;
 }

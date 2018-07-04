@@ -112,6 +112,21 @@ size_t FitObjective::numberOfIterations() const
     return m_iteration_count;
 }
 
+SimulationResult FitObjective::simulationResult(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->simulationResult();
+}
+
+SimulationResult FitObjective::experimentalData(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->experimentalData();
+}
+
+SimulationResult FitObjective::relativeDifference(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->relativeDifference();
+}
+
 void FitObjective::run_simulations(const Fit::Parameters& params)
 {
     if (m_fit_objects.empty())
@@ -131,4 +146,11 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
 double FitObjective::residual(double a, double b, double weight) const
 {
     return m_chi2_module->residual(a, b, weight);
+}
+
+size_t FitObjective::check_index(size_t index) const
+{
+    if (index >= m_fit_objects.size())
+        throw std::runtime_error("FitObjective::check_index() -> Index outside of range");
+    return index;
 }

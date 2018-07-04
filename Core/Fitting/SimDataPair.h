@@ -39,6 +39,8 @@ public:
 
     SimulationResult experimentalData() const;
 
+    SimulationResult relativeDifference() const;
+
     void runSimulation(const Fit::Parameters& params);
 
     std::vector<double> experimental_array() const;

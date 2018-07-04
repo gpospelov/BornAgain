@@ -65,9 +65,22 @@ public:
     //! Returns current number of simulation runs.
     size_t numberOfIterations() const;
 
+    //! Returns simulation result.
+    //! @param i_item: the index of fit pair
+    SimulationResult simulationResult(size_t i_item = 0) const;
+
+    //! Returns experimental data.
+    //! @param i_item: the index of fit pair
+    SimulationResult experimentalData(size_t i_item = 0) const;
+
+    //! Returns relative difference between simulation and experimental data.
+    //! @param i_item: the index of fit pair
+    SimulationResult relativeDifference(size_t i_item = 0) const;
+
 private:
     void run_simulations(const Fit::Parameters& params);
     double residual(double a, double b, double weight) const;
+    size_t check_index(size_t index) const;
 
     std::vector<double> m_experimental_array;
     std::vector<double> m_simulation_array;

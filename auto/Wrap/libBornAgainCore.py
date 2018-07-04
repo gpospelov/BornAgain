@@ -7609,6 +7609,35 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_simulation_array(self)
 
 
+    def numberOfIterations(self):
+        """numberOfIterations(FitObjective self) -> size_t"""
+        return _libBornAgainCore.FitObjective_numberOfIterations(self)
+
+
+    def simulationResult(self, i_item=0):
+        """
+        simulationResult(FitObjective self, size_t i_item=0) -> SimulationResult
+        simulationResult(FitObjective self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitObjective_simulationResult(self, i_item)
+
+
+    def experimentalData(self, i_item=0):
+        """
+        experimentalData(FitObjective self, size_t i_item=0) -> SimulationResult
+        experimentalData(FitObjective self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitObjective_experimentalData(self, i_item)
+
+
+    def relativeDifference(self, i_item=0):
+        """
+        relativeDifference(FitObjective self, size_t i_item=0) -> SimulationResult
+        relativeDifference(FitObjective self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitObjective_relativeDifference(self, i_item)
+
+
     def addSimulationAndData(self, callback, data, weight):
         self.wrp = SimulationBuilderWrapper(callback)
         return self.addSimulationAndData_cpp(self.wrp, data, weight)

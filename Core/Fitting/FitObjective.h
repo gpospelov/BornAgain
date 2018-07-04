@@ -62,6 +62,9 @@ public:
     //! Data from different datasets merged together.
     std::vector<double> simulation_array() const;
 
+    //! Returns current number of simulation runs.
+    size_t numberOfIterations() const;
+
 private:
     void run_simulations(const Fit::Parameters& params);
     double residual(double a, double b, double weight) const;
@@ -72,6 +75,7 @@ private:
     SafePointerVector<SimDataPair> m_fit_objects;
     double m_total_weight;
     std::unique_ptr<IChiSquaredModule> m_chi2_module;
+    size_t m_iteration_count;
 };
 
 #endif  // FITOBJECTIVE_H

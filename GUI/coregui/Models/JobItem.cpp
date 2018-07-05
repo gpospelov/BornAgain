@@ -86,7 +86,8 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
-        if (item->parent() == this && name == DataItem::P_AXES_UNITS)
+        if (item->parent() == this && dynamic_cast<DataItem*>(item)
+            && name == DataItem::P_AXES_UNITS)
             dynamic_cast<DataItem*>(item)->updateAxesUnits(instrumentItem());
     });
 

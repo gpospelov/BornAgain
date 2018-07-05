@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "JobModelFunctions.h"
-#include "DataItem1DView.h"
+#include "DataViewUtils.h"
 #include "DetectorFunctions.h"
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
@@ -79,7 +79,7 @@ void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem*
     if (jobItem->instrumentItem()->modelType() == Constants::GISASInstrumentType)
         JobModelFunctions::cropRealData(jobItem);
     if (jobItem->instrumentItem()->modelType() == Constants::SpecularInstrumentType)
-        JobModelFunctions::initDataView(jobItem);
+        DataViewUtils::initDataView(jobItem);
 
     JobModelFunctions::createFitContainers(jobItem);
 }
@@ -185,19 +185,4 @@ void JobModelFunctions::createFitContainers(JobItem* jobItem)
 
     minimizerContainerItem = model->insertNewItem(
         Constants::MinimizerContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
-}
-
-void JobModelFunctions::initDataView(JobItem* jobItem)
-{
-    assert(jobItem->isValidForFitting());
-    assert(jobItem->instrumentItem()->modelType() == Constants::SpecularInstrumentType);
-
-    SessionModel* model = jobItem->model();
-    auto view_item = dynamic_cast<DataItem1DView*>(model->insertNewItem(
-        Constants::DataItem1DViewType, jobItem->index(), -1, JobItem::T_DATAVIEW));
-
-    assert(view_item);
-
-    view_item->addItem(jobItem->realDataItem()->dataItem());
-    view_item->addItem(jobItem->dataItem());
 }

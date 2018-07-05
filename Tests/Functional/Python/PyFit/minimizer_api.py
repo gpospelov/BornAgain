@@ -39,8 +39,8 @@ class MinimizerAPITest(unittest.TestCase):
         pars = ba.Parameters()
         self.assertEqual(pars.size(), 0)
 
-        pars.add_cpp(ba.Parameter("par0", 1.0, ba.AttLimits.limitless()))
-        pars.add_cpp(ba.Parameter("par1", 2.0, ba.AttLimits.limitless()))
+        pars.add(ba.Parameter("par0", 1.0, ba.AttLimits.limitless()))
+        pars.add(ba.Parameter("par1", 2.0, ba.AttLimits.limitless()))
         expected_names = ["par0", "par1"]
         for index, p in enumerate(pars):
             self.assertEqual(p.name(), expected_names[index])
@@ -75,9 +75,9 @@ class MinimizerAPITest(unittest.TestCase):
         minimizer.setMinimizer("Test")
 
         pars = ba.Parameters()
-        pars.add_cpp(ba.Parameter("par0", 0.0))
-        pars.add_cpp(ba.Parameter("par1", 1.0))
-        pars.add_cpp(ba.Parameter("par2", 2.0))
+        pars.add(ba.Parameter("par0", 0.0))
+        pars.add(ba.Parameter("par1", 1.0))
+        pars.add(ba.Parameter("par2", 2.0))
 
         helper = TestMinimizerHelper()
         result = minimizer.minimize(helper.objective_function, pars)

@@ -2223,17 +2223,22 @@ class Parameters(_object):
 
 
     def add(self, name, value=None, vary=True, min=-float('inf'), max=float('inf'), step=0.0):
-        limits = AttLimits.limitless()
-        if min != -float('inf') and max != float('inf'):
-            limits = AttLimits.limited(min, max)
-        elif min != -float('inf') and max==float('inf'):
-            limits = AttLimits.lowerLimited(min)
-        elif min == -float('inf') and max != float('inf'):
-            limits = AttLimits.upperLimited(max)
-        if not vary:
-           limits = AttLimits.fixed()
+        par = None
+        if isinstance(name, Parameter):
+            par = name
+        else:
+            limits = AttLimits.limitless()
+            if min != -float('inf') and max != float('inf'):
+                limits = AttLimits.limited(min, max)
+            elif min != -float('inf') and max==float('inf'):
+                limits = AttLimits.lowerLimited(min)
+            elif min == -float('inf') and max != float('inf'):
+                limits = AttLimits.upperLimited(max)
+            if not vary:
+                limits = AttLimits.fixed()
+            par = Parameter(name, value, limits, step)
 
-        self.add_cpp(Parameter(name, value, limits, step))
+        self.add_cpp(par)
 
 
     __swig_destroy__ = _libBornAgainFit.delete_Parameters

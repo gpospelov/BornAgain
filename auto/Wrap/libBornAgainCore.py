@@ -7652,10 +7652,8 @@ class FitObjective(_object):
             for p in params:
                 bapars.add(p, params[p].value)
             return bapars
-        elif type(params) is libBornAgainFit.Parameters:
-            return params
         else:
-            raise ValueError("Unexpected parameter type")
+            return params
 
     def evaluate_residuals(self, params):
         return self.evaluate_residuals_cpp(self.convert_params(params))

@@ -45,23 +45,13 @@ public:
     double getLowerX() const;
     double getUpperX() const;
 
-    //! returns min and max range of x-axis as given by IntensityData
-    double getXmin() const;
-    double getXmax() const;
-
     //! returns lower and upper zoom ranges of y-axis
     double getLowerY() const;
     double getUpperY() const;
 
-    //! returns min and max range of y-axis as given by IntensityData
-    double getYmin() const;
-    double getYmax() const;
-
     bool isLog() const;
     QString getXaxisTitle() const;
     QString getYaxisTitle() const;
-
-    QPair<double, double> dataRange() const;
 
     const BasicAxisItem* xAxisItem() const;
     BasicAxisItem* xAxisItem();
@@ -86,6 +76,8 @@ public slots:
 
 private:
     void updateAxesZoomLevel();
+    DataItem* basicDataItem();
+    QPair<double, double> dataRange(const OutputData<double> *data) const;
 };
 
 #endif // DATAITEM1DVIEW_H

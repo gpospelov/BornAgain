@@ -1,13 +1,16 @@
 #include "DataViewUtils.h"
 #include "ComboProperty.h"
+#include "DataItem.h"
 #include "DataItem1DView.h"
 #include "DomainObjectBuilder.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
 #include "IUnitConverter.h"
 #include "JobItem.h"
+#include "OutputData.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
+#include "UnitConverterUtils.h"
 
 namespace {
 const QMap<QString, AxesUnits> unit_from_names = {{Constants::UnitsNbins, AxesUnits::NBINS},
@@ -68,6 +71,8 @@ void DataViewUtils::initDataView(JobItem* jobItem)
 
     view_item->addItem(jobItem->realDataItem()->dataItem());
     view_item->addItem(jobItem->dataItem());
+
+    view_item->setAxesRangeToData();
 }
 
 void DataViewUtils::setUnitProperties(DataItem1DView* view_item)
@@ -79,4 +84,22 @@ void DataViewUtils::setUnitProperties(DataItem1DView* view_item)
     view_item->setItemValue(DataItem1DView::P_AXES_UNITS,
                             availableUnits(converter.get()).variant());
     updateAxesTitle(view_item, converter.get(), converter->defaultUnits());
+}
+
+std::unique_ptr<OutputData<double>> DataViewUtils::getTranslatedData(DataItem1DView* view_item,
+                                                                     DataItem* data_item)
+{
+    auto job_item = parentJobItem(view_item);
+    assert(job_item);
+
+    if (!job_item->instrumentItem() || !data_item->getOutputData())
+        return std::unique_ptr<OutputData<double>>();
+
+    auto converter = DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
+    auto current_unit_name = view_item->getItemValue(DataItem1DView::P_AXES_UNITS).value<ComboProperty>().getValue();
+    auto current_units = unit_from_names[current_unit_name];
+
+    auto result = UnitConverterUtils::createOutputData(*converter.get(), current_units);
+    result->setRawDataVector(data_item->getOutputData()->getRawDataVector());
+    return result;
 }

@@ -18,6 +18,7 @@
 #include "ComboProperty.h"
 #include "DataItem.h"
 #include "DataProperties.h"
+#include "DataViewUtils.h"
 #include "GUIHelpers.h"
 
 namespace {
@@ -72,9 +73,6 @@ void DataItem1DView::addItem(DataItem* data_item)
     insertItem(-1, property_item);
     property_item->setDataItem(data_item);
     property_item->setColorProperty(Data1DProperties::nextColorName(previous_item));
-
-    if (propertyItems().size() == 1u)
-        setAxesRangeToData();
 }
 
 int DataItem1DView::getNbins() const
@@ -92,18 +90,6 @@ double DataItem1DView::getUpperX() const
     return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
 }
 
-double DataItem1DView::getXmin() const
-{
-    auto output_data = getOutputData(0);
-    return !output_data ? default_min : output_data->getAxis(BornAgain::X_AXIS_INDEX).getMin();
-}
-
-double DataItem1DView::getXmax() const
-{
-    auto output_data = getOutputData(0);
-    return !output_data ? default_max : output_data->getAxis(BornAgain::X_AXIS_INDEX).getMax();
-}
-
 double DataItem1DView::getLowerY() const
 {
     return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
@@ -112,16 +98,6 @@ double DataItem1DView::getLowerY() const
 double DataItem1DView::getUpperY() const
 {
     return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
-}
-
-double DataItem1DView::getYmin() const
-{
-    return dataRange().first;
-}
-
-double DataItem1DView::getYmax() const
-{
-    return dataRange().second;
 }
 
 bool DataItem1DView::isLog() const
@@ -152,10 +128,16 @@ void DataItem1DView::setYaxisTitle(QString ytitle)
 //! set zoom range of x,y axes to axes of input data
 void DataItem1DView::setAxesRangeToData()
 {
-    setLowerX(getXmin());
-    setUpperX(getXmax());
-    setLowerY(getYmin());
-    setUpperY(getYmax());
+    const auto data = DataViewUtils::getTranslatedData(this, basicDataItem());
+
+    double xmin = data ? data->getAxis(BornAgain::X_AXIS_INDEX).getMin() : default_min;
+    double xmax = data ? data->getAxis(BornAgain::X_AXIS_INDEX).getMax() : default_max;
+    setLowerX(xmin);
+    setUpperX(xmax);
+
+    auto data_range = dataRange(data.get());
+    setLowerY(data_range.first);
+    setUpperY(data_range.second);
 }
 
 void DataItem1DView::updateAxesUnits(const InstrumentItem* instrument)
@@ -201,23 +183,6 @@ void DataItem1DView::setLog(bool log_flag)
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, log_flag);
 }
 
-//! Init ymin, ymax to match the intensity values range.
-QPair<double, double> DataItem1DView::dataRange() const
-{
-    auto output_data = getOutputData(0);
-    if (!output_data)
-        return QPair<double, double>(default_min, default_max);
-    double min(*std::min_element(output_data->begin(), output_data->end()));
-    double max(*std::max_element(output_data->begin(), output_data->end()));
-
-    min /= 2.0;
-    min = std::numeric_limits<double>::epsilon() < min ? min : default_min;
-    max *= 2.0;
-    max = max > min ? max : default_max;
-
-    return QPair<double, double>(min, max);
-}
-
 const BasicAxisItem* DataItem1DView::xAxisItem() const
 {
     return dynamic_cast<const BasicAxisItem*>(getItem(P_XAXIS));
@@ -251,4 +216,26 @@ void DataItem1DView::updateAxesZoomLevel()
         return;
     const int nx = static_cast<int>(output_data->getAxis(BornAgain::X_AXIS_INDEX).size());
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
+}
+
+DataItem* DataItem1DView::basicDataItem()
+{
+    return propertyItem(0)->dataItem();
+}
+
+//! Init ymin, ymax to match the intensity values range.
+QPair<double, double> DataItem1DView::dataRange(const OutputData<double>* data) const
+{
+    if (!data)
+        return QPair<double, double>(default_min, default_max);
+
+    double min(*std::min_element(data->begin(), data->end()));
+    double max(*std::max_element(data->begin(), data->end()));
+
+    min /= 2.0;
+    min = std::numeric_limits<double>::epsilon() < min ? min : default_min;
+    max *= 2.0;
+    max = max > min ? max : default_max;
+
+    return QPair<double, double>(min, max);
 }

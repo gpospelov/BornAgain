@@ -55,7 +55,7 @@ TestView::TestView(MainWindow *mainWindow)
 //    test_AccordionWidget();
 //    test_RunFitWidget();
 //    test_ba3d();
-    test_specular_data_widget();
+//    test_specular_data_widget();
 }
 
 void TestView::test_ComponentProxyModel()

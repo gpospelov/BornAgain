@@ -7,7 +7,6 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 import lmfit
 
-
 real_data = None
 
 def get_sample(params):
@@ -77,26 +76,6 @@ def create_real_data():
     return noisy
 
 
-def residual(params):
-    simulation = get_simulation(params)
-    simulation.runSimulation()
-    result = simulation.result().array().flatten()
-    exp = real_data.flatten()
-    res = result-exp
-    return res
-
-
-def evaluate(params, objective, real_data):
-    bapars = ba.Parameters()
-    print(type(params))
-    for p in params:
-        print(type(p), type(params[p]))
-        bapars.add(p, params[p].value)
-
-    return objective.evaluate_residuals(bapars)
-
-
-
 def run_fitting():
     """
     main function to run fitting
@@ -112,7 +91,7 @@ def run_fitting():
     params.add('radius', value=8*nm)
     params.add('length', value=8*nm)
 
-    result = lmfit.minimize(evaluate, params, args=(fit_objective, real_data))
+    result = lmfit.minimize(fit_objective.evaluate_residuals, params)
 
     result.params.pretty_print()
     print(lmfit.fit_report(result))

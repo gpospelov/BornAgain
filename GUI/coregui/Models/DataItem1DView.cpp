@@ -165,6 +165,16 @@ void DataItem1DView::resetToDefault()
     setAxesRangeToData();
 }
 
+QPair<QVector<double>, QVector<double>> DataItem1DView::graphData(Data1DProperties* property_item)
+{
+    const auto data = DataViewUtils::getTranslatedData(this, property_item->dataItem());
+    if (!data)
+        return {};
+    data->getRawDataVector();
+    return {QVector<double>::fromStdVector(data->getAxis(0).getBinCenters()),
+            QVector<double>::fromStdVector(data->getRawDataVector())};
+}
+
 void DataItem1DView::setLowerX(double xmin)
 {
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN, xmin);

@@ -67,6 +67,9 @@ public:
     //! Returns data view to default state (no dimensional units, default axes' names)
     void resetToDefault();
 
+    //! Returns point data for drawing
+    QPair<QVector<double>, QVector<double>> graphData(Data1DProperties* property_item);
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);

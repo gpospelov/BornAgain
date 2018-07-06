@@ -81,6 +81,7 @@ void Plot1D::onPropertyChanged(const QString& property_name)
 
     if (property_name == DataItem1DView::P_AXES_UNITS) {
         setAxesRangeFromItem(viewItem());
+        setDataFromItem(viewItem());
         replot();
     }
 }
@@ -191,7 +192,6 @@ void Plot1D::refreshPlotData()
 
     m_block_update = true;
 
-    std::for_each(m_graph_map.begin(), m_graph_map.end(), [](auto pair){pair.second->data()->clear();});
     setAxesRangeFromItem(view_item);
     setAxesLabelsFromItem(view_item);
     setDataFromItem(view_item);
@@ -228,22 +228,16 @@ void Plot1D::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label)
         axis->setLabel(QString());
 }
 
-void Plot1D::setDataFromItem(DataItem1DView* item)
+void Plot1D::setDataFromItem(DataItem1DView* view_item)
 {
-    assert(item);
-    auto property_items = item->propertyItems<Data1DProperties>();
+    assert(view_item);
+    auto property_items = view_item->propertyItems<Data1DProperties>();
     std::for_each(property_items.begin(), property_items.end(),
-                  [this](Data1DProperties* item) {
-                      auto data = item->dataItem()->getOutputData();
-                      if (!data)
-                          return;
+                  [this, view_item](Data1DProperties* item) {
+                      auto data_points = view_item->graphData(item);
 
                       auto graph = m_graph_map.at(item);
-                      for (size_t i = 0, size = data->getAllocatedSize(); i < size; ++i) {
-                          double x = data->getAxisValue(i, 0);
-                          double y = data->operator[](i);
-                          graph->addData(x, y);
-                      }
+                      graph->setData(data_points.first, data_points.second, /*sorted =*/ true);
                   });
 }
 

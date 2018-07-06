@@ -93,7 +93,7 @@ private:
     void setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label);
 
     //! Sets data item values to graphs.
-    void setDataFromItem(DataItem1DView* item);
+    void setDataFromItem(DataItem1DView* view_item);
 
     DataItem1DView* viewItem();
     const DataItem1DView* viewItem() const;

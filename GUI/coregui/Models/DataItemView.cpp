@@ -37,7 +37,10 @@ template BA_CORE_API_ std::vector<Data1DProperties*> DataItemView::propertyItems
 template<class T>
 T* DataItemView::propertyItem(size_t i) const
 {
-    auto property_item = dynamic_cast<T*>(getItems()[static_cast<int>(i)]);
+    auto children = getItems();
+    if (children.empty())
+        return nullptr;
+    auto property_item = dynamic_cast<T*>(children[static_cast<int>(i)]);
     assert(property_item);
     return property_item;
 }

@@ -53,6 +53,13 @@ DataItem1DView::DataItem1DView()
     ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
     addProperty(P_AXES_UNITS, combo.variant());
 
+    mapper()->setOnPropertyChange([this](const QString& name) {
+        if (name != P_AXES_UNITS)
+            return;
+        setAxesRangeToData();
+        DataViewUtils::updateAxesTitle(this);
+    });
+
     setLowerX(default_min);
     setUpperX(default_max);
     setLowerY(default_min);
@@ -220,7 +227,10 @@ void DataItem1DView::updateAxesZoomLevel()
 
 DataItem* DataItem1DView::basicDataItem()
 {
-    return propertyItem(0)->dataItem();
+    auto basic_property_item = propertyItem(0);
+    if (!basic_property_item)
+        return nullptr;
+    return basic_property_item->dataItem();
 }
 
 //! Init ymin, ymax to match the intensity values range.

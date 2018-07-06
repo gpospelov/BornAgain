@@ -27,9 +27,7 @@ namespace DataViewUtils
 //! Initializes DataItem1DView and assigns it to the passed JobItem
 void initDataView(JobItem* jobItem);
 
-//! Sets units and axis labels to DataItem1DView.
-//! The item should be attached to a valid JobItem.
-void setUnitProperties(DataItem1DView* view_item);
+void updateAxesTitle(DataItem1DView* view_item);
 
 std::unique_ptr<OutputData<double>> getTranslatedData(DataItem1DView* view_item,
                                                       DataItem* data_item);

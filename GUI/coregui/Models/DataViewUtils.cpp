@@ -13,17 +13,17 @@
 #include "UnitConverterUtils.h"
 
 namespace {
-const QMap<QString, AxesUnits> unit_from_names = {{Constants::UnitsNbins, AxesUnits::NBINS},
-                                                  {Constants::UnitsRadians, AxesUnits::RADIANS},
-                                                  {Constants::UnitsDegrees, AxesUnits::DEGREES},
-                                                  {Constants::UnitsMm, AxesUnits::MM},
-                                                  {Constants::UnitsQyQz, AxesUnits::QSPACE}};
+const QMap<QString, AxesUnits> units_from_names{{Constants::UnitsNbins, AxesUnits::NBINS},
+                                                {Constants::UnitsRadians, AxesUnits::RADIANS},
+                                                {Constants::UnitsDegrees, AxesUnits::DEGREES},
+                                                {Constants::UnitsMm, AxesUnits::MM},
+                                                {Constants::UnitsQyQz, AxesUnits::QSPACE}};
 
-const QMap<AxesUnits, QString> names_from_units = {{AxesUnits::NBINS, Constants::UnitsNbins},
-                                                   {AxesUnits::RADIANS, Constants::UnitsRadians},
-                                                   {AxesUnits::MM, Constants::UnitsMm},
-                                                   {AxesUnits::QSPACE, Constants::UnitsQyQz},
-                                                   {AxesUnits::DEGREES, Constants::UnitsDegrees}};
+const QMap<AxesUnits, QString> names_from_units{{AxesUnits::NBINS, Constants::UnitsNbins},
+                                                {AxesUnits::RADIANS, Constants::UnitsRadians},
+                                                {AxesUnits::MM, Constants::UnitsMm},
+                                                {AxesUnits::QSPACE, Constants::UnitsQyQz},
+                                                {AxesUnits::DEGREES, Constants::UnitsDegrees}};
 
 JobItem* parentJobItem(SessionItem* item)
 {
@@ -33,6 +33,22 @@ JobItem* parentJobItem(SessionItem* item)
             return dynamic_cast<JobItem*>(item);
     } while ((item = item->parent()));
     throw GUIHelpers::Error("Error in parentJobItem: passed item is not owned by any job item");
+}
+
+std::unique_ptr<IUnitConverter> getConverter(SessionItem* view_item)
+{
+    auto job_item = parentJobItem(view_item);
+    assert(job_item);
+    assert(job_item->instrumentItem());
+
+    return DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
+}
+
+AxesUnits selectedUnits(DataItem1DView* view_item)
+{
+    auto current_unit_name
+        = view_item->getItemValue(DataItem1DView::P_AXES_UNITS).value<ComboProperty>().getValue();
+    return units_from_names[current_unit_name];
 }
 
 ComboProperty availableUnits(const IUnitConverter* converter)
@@ -46,60 +62,51 @@ ComboProperty availableUnits(const IUnitConverter* converter)
     result.setValue(names_from_units[converter->defaultUnits()]);
     return result;
 }
-
-void updateAxesTitle(DataItem1DView* view_item, const IUnitConverter* converter,
-                     AxesUnits units)
-{
-    view_item->setXaxisTitle(QString::fromStdString(converter->axisName(0, units)));
-    if (converter->dimension() > 1)
-        view_item->setYaxisTitle(QString::fromStdString(converter->axisName(1, units)));
-}
 }
 
-void DataViewUtils::initDataView(JobItem* jobItem)
+void DataViewUtils::initDataView(JobItem* job_item)
 {
-    assert(jobItem->isValidForFitting());
-    assert(jobItem->instrumentItem()->modelType() == Constants::SpecularInstrumentType);
-    assert(!jobItem->getItem(JobItem::T_DATAVIEW));
+    assert(job_item && job_item->isValidForFitting());
+    assert(job_item->instrumentItem()
+           && job_item->instrumentItem()->modelType() == Constants::SpecularInstrumentType);
+    assert(!job_item->getItem(JobItem::T_DATAVIEW));
 
-    SessionModel* model = jobItem->model();
+    SessionModel* model = job_item->model();
     auto view_item = dynamic_cast<DataItem1DView*>(model->insertNewItem(
-        Constants::DataItem1DViewType, jobItem->index(), -1, JobItem::T_DATAVIEW));
+        Constants::DataItem1DViewType, job_item->index(), -1, JobItem::T_DATAVIEW));
 
     assert(view_item);
-    setUnitProperties(view_item);
+    view_item->addItem(job_item->realDataItem()->dataItem());
+    view_item->addItem(job_item->dataItem());
 
-    view_item->addItem(jobItem->realDataItem()->dataItem());
-    view_item->addItem(jobItem->dataItem());
-
-    view_item->setAxesRangeToData();
-}
-
-void DataViewUtils::setUnitProperties(DataItem1DView* view_item)
-{
-    auto job_item = parentJobItem(view_item);
-    assert(job_item);
-
+    // also triggers DataItem1DView::setAxesRangeToData and DataViewUtils::updateAxesTitle by
+    // setting new value of P_AXES_UNITS.
     auto converter = DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
     view_item->setItemValue(DataItem1DView::P_AXES_UNITS,
                             availableUnits(converter.get()).variant());
-    updateAxesTitle(view_item, converter.get(), converter->defaultUnits());
+}
+
+void DataViewUtils::updateAxesTitle(DataItem1DView* view_item)
+{
+    auto converter = getConverter(view_item);
+    auto current_units = selectedUnits(view_item);
+    view_item->setXaxisTitle(QString::fromStdString(converter->axisName(0, current_units)));
+    if (converter->dimension() > 1)
+        view_item->setYaxisTitle(QString::fromStdString(converter->axisName(1, current_units)));
 }
 
 std::unique_ptr<OutputData<double>> DataViewUtils::getTranslatedData(DataItem1DView* view_item,
                                                                      DataItem* data_item)
 {
-    auto job_item = parentJobItem(view_item);
-    assert(job_item);
+    std::unique_ptr<OutputData<double>> result;
+    if (!data_item || !data_item->getOutputData())
+        return result;
 
-    if (!job_item->instrumentItem() || !data_item->getOutputData())
-        return std::unique_ptr<OutputData<double>>();
+    auto converter = getConverter(view_item);
+    auto current_units = selectedUnits(view_item);
 
-    auto converter = DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
-    auto current_unit_name = view_item->getItemValue(DataItem1DView::P_AXES_UNITS).value<ComboProperty>().getValue();
-    auto current_units = unit_from_names[current_unit_name];
-
-    auto result = UnitConverterUtils::createOutputData(*converter.get(), current_units);
+    result = UnitConverterUtils::createOutputData(*converter, current_units);
     result->setRawDataVector(data_item->getOutputData()->getRawDataVector());
+
     return result;
 }

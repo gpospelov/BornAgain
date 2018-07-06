@@ -126,6 +126,17 @@ void Parameters::setCorrelationMatrix(const Parameters::corr_matrix_t& matrix)
     m_corr_matrix = matrix;
 }
 
+//! Returns number of free parameters.
+
+size_t Parameters::freeParameterCount() const
+{
+    size_t result(0);
+    for (const auto& par: m_parameters)
+        if (!par.limits().isFixed())
+            result++;
+    return result;
+}
+
 bool Parameters::exists(const std::string& name) const
 {
     for (const auto& par: m_parameters)

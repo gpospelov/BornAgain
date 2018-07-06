@@ -6706,7 +6706,7 @@ class FitParameterSet(_object):
 
 
     def fitParametersNewKernel(self):
-        """fitParametersNewKernel(FitParameterSet self) -> Fit::Parameters"""
+        """fitParametersNewKernel(FitParameterSet self) -> Parameters"""
         return _libBornAgainCore.FitParameterSet_fitParametersNewKernel(self)
 
 
@@ -7547,7 +7547,7 @@ class PyBuilderCallback(_object):
     __del__ = lambda self: None
 
     def build_simulation(self, arg0):
-        """build_simulation(PyBuilderCallback self, Fit::Parameters arg0) -> Simulation"""
+        """build_simulation(PyBuilderCallback self, Parameters arg0) -> Simulation"""
         return _libBornAgainCore.PyBuilderCallback_build_simulation(self, arg0)
 
     def __disown__(self):
@@ -7584,14 +7584,14 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_addSimulationAndData_cpp(self, callback, data, weight)
 
 
-    def evaluate(self, params):
-        """evaluate(FitObjective self, Fit::Parameters const & params) -> double"""
-        return _libBornAgainCore.FitObjective_evaluate(self, params)
+    def evaluate_cpp(self, params):
+        """evaluate_cpp(FitObjective self, Parameters params) -> double"""
+        return _libBornAgainCore.FitObjective_evaluate_cpp(self, params)
 
 
-    def evaluate_residuals(self, params):
-        """evaluate_residuals(FitObjective self, Fit::Parameters const & params) -> vdouble1d_t"""
-        return _libBornAgainCore.FitObjective_evaluate_residuals(self, params)
+    def evaluate_residuals_cpp(self, params):
+        """evaluate_residuals_cpp(FitObjective self, Parameters params) -> vdouble1d_t"""
+        return _libBornAgainCore.FitObjective_evaluate_residuals_cpp(self, params)
 
 
     def numberOfFitElements(self):
@@ -7609,9 +7609,59 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_simulation_array(self)
 
 
+    def numberOfIterations(self):
+        """numberOfIterations(FitObjective self) -> size_t"""
+        return _libBornAgainCore.FitObjective_numberOfIterations(self)
+
+
+    def simulationResult(self, i_item=0):
+        """
+        simulationResult(FitObjective self, size_t i_item=0) -> SimulationResult
+        simulationResult(FitObjective self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitObjective_simulationResult(self, i_item)
+
+
+    def experimentalData(self, i_item=0):
+        """
+        experimentalData(FitObjective self, size_t i_item=0) -> SimulationResult
+        experimentalData(FitObjective self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitObjective_experimentalData(self, i_item)
+
+
+    def relativeDifference(self, i_item=0):
+        """
+        relativeDifference(FitObjective self, size_t i_item=0) -> SimulationResult
+        relativeDifference(FitObjective self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitObjective_relativeDifference(self, i_item)
+
+
     def addSimulationAndData(self, callback, data, weight):
         self.wrp = SimulationBuilderWrapper(callback)
         return self.addSimulationAndData_cpp(self.wrp, data, weight)
+
+    def convert_params(self, params):
+        """
+        Converts parameters to what FitObjective::evaluate expects
+        """
+
+        if str(params.__module__) == "lmfit.parameter":
+            bapars = libBornAgainFit.Parameters()
+            for p in params:
+                bapars.add(p, params[p].value)
+            return bapars
+        else:
+            return params
+
+    def evaluate_residuals(self, params):
+        return self.evaluate_residuals_cpp(self.convert_params(params))
+
+    def evaluate(self, params):
+        return self.evaluate_cpp(self.convert_params(params))
+
+
 
 FitObjective_swigregister = _libBornAgainCore.FitObjective_swigregister
 FitObjective_swigregister(FitObjective)

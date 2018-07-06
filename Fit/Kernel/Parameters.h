@@ -57,6 +57,8 @@ public:
     corr_matrix_t correlationMatrix() const;
     void setCorrelationMatrix(const corr_matrix_t& matrix);
 
+    size_t freeParameterCount() const;
+
 private:
     bool exists(const std::string& parameter_name) const;
     void check_array_size(const std::vector<double>& values) const;

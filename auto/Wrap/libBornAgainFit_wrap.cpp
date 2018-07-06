@@ -20423,7 +20423,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Parameters_add(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Parameters_add_cpp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
   Fit::Parameter *arg2 = 0 ;
@@ -20434,18 +20434,18 @@ SWIGINTERN PyObject *_wrap_Parameters_add(PyObject *SWIGUNUSEDPARM(self), PyObje
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:Parameters_add",&obj0,&obj1)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OO:Parameters_add_cpp",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_add" "', argument " "1"" of type '" "Fit::Parameters *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_add_cpp" "', argument " "1"" of type '" "Fit::Parameters *""'"); 
   }
   arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
   res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Fit__Parameter,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Parameters_add" "', argument " "2"" of type '" "Fit::Parameter const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Parameters_add_cpp" "', argument " "2"" of type '" "Fit::Parameter const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Parameters_add" "', argument " "2"" of type '" "Fit::Parameter const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Parameters_add_cpp" "', argument " "2"" of type '" "Fit::Parameter const &""'"); 
   }
   arg2 = reinterpret_cast< Fit::Parameter * >(argp2);
   (arg1)->add((Fit::Parameter const &)*arg2);
@@ -20819,6 +20819,28 @@ SWIGINTERN PyObject *_wrap_Parameters_setCorrelationMatrix(PyObject *SWIGUNUSEDP
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Parameters_freeParameterCount(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Fit::Parameters *arg1 = (Fit::Parameters *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  size_t result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Parameters_freeParameterCount",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Fit__Parameters, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Parameters_freeParameterCount" "', argument " "1"" of type '" "Fit::Parameters const *""'"); 
+  }
+  arg1 = reinterpret_cast< Fit::Parameters * >(argp1);
+  result = ((Fit::Parameters const *)arg1)->freeParameterCount();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -23336,8 +23358,8 @@ static PyMethodDef SwigMethods[] = {
 		"Fit::Parameters::Parameters()=default\n"
 		"\n"
 		""},
-	 { (char *)"Parameters_add", _wrap_Parameters_add, METH_VARARGS, (char *)"\n"
-		"Parameters_add(Parameters self, Parameter par)\n"
+	 { (char *)"Parameters_add_cpp", _wrap_Parameters_add_cpp, METH_VARARGS, (char *)"\n"
+		"Parameters_add_cpp(Parameters self, Parameter par)\n"
 		"\n"
 		"void Parameters::add(const Parameter &par)\n"
 		"\n"
@@ -23388,6 +23410,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { (char *)"Parameters_correlationMatrix", _wrap_Parameters_correlationMatrix, METH_VARARGS, (char *)"Parameters_correlationMatrix(Parameters self) -> vdouble2d_t"},
 	 { (char *)"Parameters_setCorrelationMatrix", _wrap_Parameters_setCorrelationMatrix, METH_VARARGS, (char *)"Parameters_setCorrelationMatrix(Parameters self, vdouble2d_t matrix)"},
+	 { (char *)"Parameters_freeParameterCount", _wrap_Parameters_freeParameterCount, METH_VARARGS, (char *)"Parameters_freeParameterCount(Parameters self) -> size_t"},
 	 { (char *)"Parameters___getitem__", _wrap_Parameters___getitem__, METH_VARARGS, (char *)"\n"
 		"__getitem__(std::string name) -> Parameter\n"
 		"Parameters___getitem__(Parameters self, size_t index) -> Parameter\n"

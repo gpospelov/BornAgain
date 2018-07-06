@@ -15,6 +15,8 @@
 #include "SimDataPair.h"
 #include "Simulation.h"
 #include "IntensityDataFunctions.h"
+#include "UnitConverterUtils.h"
+#include "Numeric.h"
 
 static_assert(std::is_copy_constructible<SimDataPair>::value == false,
               "SimDataPair should not be copy constructable");
@@ -66,6 +68,23 @@ SimulationResult SimDataPair::simulationResult() const
 SimulationResult SimDataPair::experimentalData() const
 {
     return m_experimental_data;
+}
+
+//! Returns relative difference between simulation and experimental data.
+
+SimulationResult SimDataPair::relativeDifference() const
+{
+    auto converter = UnitConverterUtils::createConverter(*m_simulation);
+    auto roi_data = UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
+    auto detector = m_simulation->getInstrument().getDetector();
+
+    detector->iterate([&](IDetector::const_iterator it){
+        const size_t index = it.roiIndex();
+        (*roi_data)[index] = Numeric::get_relative_difference(
+                    m_simulation_result[index], m_experimental_data[index]);
+    });
+
+    return SimulationResult(*roi_data, *converter);
 }
 
 SimDataPair::~SimDataPair() = default;

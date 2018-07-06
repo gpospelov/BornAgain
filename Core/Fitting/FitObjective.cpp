@@ -31,6 +31,7 @@ void insert_to(std::vector<double>& to, const std::vector<double>& from)
 FitObjective::FitObjective()
     : m_total_weight(0.0)
     , m_chi2_module(new ChiSquaredModule())
+    , m_iteration_count(0.0)
 {}
 
 FitObjective::~FitObjective() = default;
@@ -62,9 +63,8 @@ double FitObjective::evaluate(const Fit::Parameters& params)
     for(auto res : evaluate_residuals(params))
         chi2 += res*res;
 
-    const size_t free_parameter_count = params.size(); // FIXME make correct free pars calculation
-
-    int fnorm = static_cast<int>(numberOfFitElements()) - static_cast<int>(free_parameter_count);
+    int fnorm = static_cast<int>(numberOfFitElements()) -
+            static_cast<int>(params.freeParameterCount());
     if (fnorm <= 0)
         throw std::runtime_error("FitObjective::evaluate() -> Error. Normalization is 0");
 
@@ -82,6 +82,8 @@ std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& para
 
     for(size_t i = 0; i<m_simulation_array.size(); ++i)
         result.push_back(residual(m_simulation_array[i], m_experimental_array[i], weights[i]));
+
+    m_iteration_count++;
 
     return result;
 }
@@ -105,6 +107,26 @@ std::vector<double> FitObjective::simulation_array() const
     return m_simulation_array;
 }
 
+size_t FitObjective::numberOfIterations() const
+{
+    return m_iteration_count;
+}
+
+SimulationResult FitObjective::simulationResult(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->simulationResult();
+}
+
+SimulationResult FitObjective::experimentalData(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->experimentalData();
+}
+
+SimulationResult FitObjective::relativeDifference(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->relativeDifference();
+}
+
 void FitObjective::run_simulations(const Fit::Parameters& params)
 {
     if (m_fit_objects.empty())
@@ -124,4 +146,11 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
 double FitObjective::residual(double a, double b, double weight) const
 {
     return m_chi2_module->residual(a, b, weight);
+}
+
+size_t FitObjective::check_index(size_t index) const
+{
+    if (index >= m_fit_objects.size())
+        throw std::runtime_error("FitObjective::check_index() -> Index outside of range");
+    return index;
 }

@@ -62,9 +62,25 @@ public:
     //! Data from different datasets merged together.
     std::vector<double> simulation_array() const;
 
+    //! Returns current number of simulation runs.
+    size_t numberOfIterations() const;
+
+    //! Returns simulation result.
+    //! @param i_item: the index of fit pair
+    SimulationResult simulationResult(size_t i_item = 0) const;
+
+    //! Returns experimental data.
+    //! @param i_item: the index of fit pair
+    SimulationResult experimentalData(size_t i_item = 0) const;
+
+    //! Returns relative difference between simulation and experimental data.
+    //! @param i_item: the index of fit pair
+    SimulationResult relativeDifference(size_t i_item = 0) const;
+
 private:
     void run_simulations(const Fit::Parameters& params);
     double residual(double a, double b, double weight) const;
+    size_t check_index(size_t index) const;
 
     std::vector<double> m_experimental_array;
     std::vector<double> m_simulation_array;
@@ -72,6 +88,7 @@ private:
     SafePointerVector<SimDataPair> m_fit_objects;
     double m_total_weight;
     std::unique_ptr<IChiSquaredModule> m_chi2_module;
+    size_t m_iteration_count;
 };
 
 #endif  // FITOBJECTIVE_H

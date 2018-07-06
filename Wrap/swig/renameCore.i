@@ -3,6 +3,8 @@
 %rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
 %rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
 %rename(addSimulationAndData_cpp) FitObjective::addSimulationAndData;
+%rename(evaluate_residuals_cpp) FitObjective::evaluate_residuals;
+%rename(evaluate_cpp) FitObjective::evaluate;
 
 // force swig to use move ctor instead of copy ctor
 %typemap(out) SlicedParticle %{

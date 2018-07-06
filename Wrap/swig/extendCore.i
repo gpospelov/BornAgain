@@ -164,6 +164,27 @@ class SimulationBuilderWrapper(PyBuilderCallback):
     def addSimulationAndData(self, callback, data, weight):
         self.wrp = SimulationBuilderWrapper(callback)
         return self.addSimulationAndData_cpp(self.wrp, data, weight)
+
+    def convert_params(self, params):
+        """
+        Converts parameters to what FitObjective::evaluate expects
+        """
+
+        if str(params.__module__) == "lmfit.parameter":
+            bapars = libBornAgainFit.Parameters()
+            for p in params:
+                bapars.add(p, params[p].value)
+            return bapars
+        else:
+            return params
+
+    def evaluate_residuals(self, params):
+        return self.evaluate_residuals_cpp(self.convert_params(params))
+
+    def evaluate(self, params):
+        return self.evaluate_cpp(self.convert_params(params))
+
+
 %}
 };
 

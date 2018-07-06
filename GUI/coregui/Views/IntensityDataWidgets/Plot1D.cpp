@@ -81,7 +81,7 @@ void Plot1D::onPropertyChanged(const QString& property_name)
 
     if (property_name == DataItem1DView::P_AXES_UNITS) {
         setAxesRangeFromItem(viewItem());
-        setDataFromItem(viewItem());
+        updateAllGraphs();
         replot();
     }
 }
@@ -117,13 +117,16 @@ void Plot1D::subscribeToItem()
 
     viewItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString name) {
-            if (item->modelType() == Constants::BasicAxisType
-                || item->modelType() == Constants::AmplitudeAxisType)
+            if (dynamic_cast<BasicAxisItem*>(item))
                 modifyAxesProperties(item->itemName(), name);
         },
         this);
 
-    viewItem()->mapper()->setOnValueChange([this]() { refreshPlotData(); }, this);
+    std::for_each(m_graph_map.begin(), m_graph_map.end(), [this](auto pair) {
+        auto property_item = pair.first;
+        property_item->dataItem()->mapper()->setOnValueChange(
+            [this, property_item]() { refreshPlotData(property_item); }, this);
+    });
 
     setConnected(true);
 }
@@ -131,6 +134,9 @@ void Plot1D::subscribeToItem()
 void Plot1D::unsubscribeFromItem()
 {
     m_custom_plot->clearGraphs();
+    std::for_each(m_graph_map.begin(), m_graph_map.end(), [this](auto pair) {
+        pair.first->dataItem()->mapper()->unsubscribe(this);
+    });
     m_graph_map.clear();
     setConnected(false);
 }
@@ -194,7 +200,23 @@ void Plot1D::refreshPlotData()
 
     setAxesRangeFromItem(view_item);
     setAxesLabelsFromItem(view_item);
-    setDataFromItem(view_item);
+    updateAllGraphs();
+
+    replot();
+
+    m_block_update = false;
+}
+
+void Plot1D::refreshPlotData(Data1DProperties* item)
+{
+    auto view_item = viewItem();
+    assert(view_item && item);
+
+    m_block_update = true;
+
+    setAxesRangeFromItem(view_item);
+    setAxesLabelsFromItem(view_item);
+    updateGraph(item);
 
     replot();
 
@@ -228,17 +250,19 @@ void Plot1D::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label)
         axis->setLabel(QString());
 }
 
-void Plot1D::setDataFromItem(DataItem1DView* view_item)
+void Plot1D::updateAllGraphs()
 {
-    assert(view_item);
-    auto property_items = view_item->propertyItems<Data1DProperties>();
+    auto property_items = viewItem()->propertyItems<Data1DProperties>();
     std::for_each(property_items.begin(), property_items.end(),
-                  [this, view_item](Data1DProperties* item) {
-                      auto data_points = view_item->graphData(item);
+                  [this](Data1DProperties* item) { updateGraph(item); });
+}
 
-                      auto graph = m_graph_map.at(item);
-                      graph->setData(data_points.first, data_points.second, /*sorted =*/ true);
-                  });
+void Plot1D::updateGraph(Data1DProperties* item)
+{
+    auto data_points = viewItem()->graphData(item);
+
+    auto graph = m_graph_map.at(item);
+    graph->setData(data_points.first, data_points.second, /*sorted =*/ true);
 }
 
 DataItem1DView* Plot1D::viewItem()

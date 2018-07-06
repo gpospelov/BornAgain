@@ -81,6 +81,7 @@ private:
 
     //! Refresh axes' labels, range and graph data.
     void refreshPlotData();
+    void refreshPlotData(Data1DProperties* item);
 
     //! Sets (xmin,xmax) and (ymin,ymax) of SpecularPlot from specular item.
     //! Also sets logarithmic scale on y-axis if necessary.
@@ -92,8 +93,11 @@ private:
     //! Sets label to axis
     void setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label);
 
-    //! Sets data item values to graphs.
-    void setDataFromItem(DataItem1DView* view_item);
+    //! Sets data to graphs.
+    void updateAllGraphs();
+
+    //! Sets data to the graph corresponding to the passed Data1DProperties.
+    void updateGraph(Data1DProperties* item);
 
     DataItem1DView* viewItem();
     const DataItem1DView* viewItem() const;

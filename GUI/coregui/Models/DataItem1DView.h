@@ -62,7 +62,6 @@ public:
     void setXaxisTitle(QString xtitle);
     void setYaxisTitle(QString ytitle);
     void setAxesRangeToData();
-    void updateAxesUnits(const InstrumentItem* instrument);
 
     //! Returns data view to default state (no dimensional units, default axes' names)
     void resetToDefault();

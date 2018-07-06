@@ -147,22 +147,10 @@ void DataItem1DView::setAxesRangeToData()
     setUpperY(data_range.second);
 }
 
-void DataItem1DView::updateAxesUnits(const InstrumentItem* instrument)
-{
-    auto items = dataItems();
-    std::for_each(items.begin(), items.end(),
-                  [instrument](DataItem* item) { item->updateAxesUnits(instrument); });
-}
-
 void DataItem1DView::resetToDefault()
 {
-    auto items = dataItems();
-    std::for_each(items.begin(), items.end(),
-                  [](DataItem* item) { item->resetToDefault(); });
-
-    setXaxisTitle(x_axis_default_name);
-    setYaxisTitle(y_axis_default_name);
-    setAxesRangeToData();
+    //TODO: implement when applying DataITem1DView in ImportView
+    throw GUIHelpers::Error("Error in DataItem1DView::resetToDefault: not implemented");
 }
 
 QPair<QVector<double>, QVector<double>> DataItem1DView::graphData(Data1DProperties* property_item)

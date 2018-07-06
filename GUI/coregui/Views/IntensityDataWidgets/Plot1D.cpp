@@ -122,10 +122,10 @@ void Plot1D::subscribeToItem()
         },
         this);
 
-    std::for_each(m_graph_map.begin(), m_graph_map.end(), [this](auto pair) {
+    std::for_each(m_graph_map.begin(), m_graph_map.end(), [caller=this](auto pair) {
         auto property_item = pair.first;
         property_item->dataItem()->mapper()->setOnValueChange(
-            [this, property_item]() { refreshPlotData(property_item); }, this);
+            [caller, property_item]() { caller->refreshPlotData(property_item); }, caller);
     });
 
     setConnected(true);
@@ -134,8 +134,8 @@ void Plot1D::subscribeToItem()
 void Plot1D::unsubscribeFromItem()
 {
     m_custom_plot->clearGraphs();
-    std::for_each(m_graph_map.begin(), m_graph_map.end(), [this](auto pair) {
-        pair.first->dataItem()->mapper()->unsubscribe(this);
+    std::for_each(m_graph_map.begin(), m_graph_map.end(), [caller=this](auto pair) {
+        pair.first->dataItem()->mapper()->unsubscribe(caller);
     });
     m_graph_map.clear();
     setConnected(false);

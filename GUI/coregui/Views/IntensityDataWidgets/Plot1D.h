@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/SpecularDataWidgets/SpecularPlotWithDataView.h
-//! @brief     Defines class SpecularPlotWithDataView
+//! @file      GUI/coregui/Views/SpecularDataWidgets/Plot1D.h
+//! @brief     Defines class Plot1D
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARPLOTWITHDATAVIEW_H
-#define SPECULARPLOTWITHDATAVIEW_H
+#ifndef PLOT1D_H
+#define PLOT1D_H
 
 #include "ScientificPlot.h"
 #include "qcustomplot.h"
@@ -29,12 +29,12 @@ class UpdateTimer;
 //! DataItem1DView. Provides minimal functionality for data plotting and axes interaction. Should be
 //! a component for more complicated plotting widgets.
 
-class SpecularPlotWithDataView : public ScientificPlot
+class Plot1D : public ScientificPlot
 {
     Q_OBJECT
 
 public:
-    explicit SpecularPlotWithDataView(QWidget* parent = nullptr);
+    explicit Plot1D(QWidget* parent = nullptr);
 
     QSize sizeHint() const override { return QSize(500, 400); }
     QSize minimumSizeHint() const override { return QSize(128, 128); }
@@ -81,6 +81,7 @@ private:
 
     //! Refresh axes' labels, range and graph data.
     void refreshPlotData();
+    void refreshPlotData(Data1DProperties* item);
 
     //! Sets (xmin,xmax) and (ymin,ymax) of SpecularPlot from specular item.
     //! Also sets logarithmic scale on y-axis if necessary.
@@ -92,8 +93,11 @@ private:
     //! Sets label to axis
     void setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label);
 
-    //! Sets data item values to graphs.
-    void setDataFromItem(DataItem1DView* item);
+    //! Sets data to graphs.
+    void updateAllGraphs();
+
+    //! Sets data to the graph corresponding to the passed Data1DProperties.
+    void updateGraph(Data1DProperties* item);
 
     DataItem1DView* viewItem();
     const DataItem1DView* viewItem() const;
@@ -110,4 +114,4 @@ private:
     bool m_block_update;
 };
 
-#endif // SPECULARPLOTWITHDATAVIEW_H
+#endif // PLOT1D_H

@@ -1,5 +1,6 @@
 #include "google_test.h"
 #include "ApplicationModels.h"
+#include "ComboProperty.h"
 #include "DataItem.h"
 #include "DataItemView.h"
 #include "DataProperties.h"

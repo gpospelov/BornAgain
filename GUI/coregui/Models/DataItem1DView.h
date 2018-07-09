@@ -45,23 +45,13 @@ public:
     double getLowerX() const;
     double getUpperX() const;
 
-    //! returns min and max range of x-axis as given by IntensityData
-    double getXmin() const;
-    double getXmax() const;
-
     //! returns lower and upper zoom ranges of y-axis
     double getLowerY() const;
     double getUpperY() const;
 
-    //! returns min and max range of y-axis as given by IntensityData
-    double getYmin() const;
-    double getYmax() const;
-
     bool isLog() const;
     QString getXaxisTitle() const;
     QString getYaxisTitle() const;
-
-    QPair<double, double> dataRange() const;
 
     const BasicAxisItem* xAxisItem() const;
     BasicAxisItem* xAxisItem();
@@ -72,10 +62,12 @@ public:
     void setXaxisTitle(QString xtitle);
     void setYaxisTitle(QString ytitle);
     void setAxesRangeToData();
-    void updateAxesUnits(const InstrumentItem* instrument);
 
     //! Returns data view to default state (no dimensional units, default axes' names)
     void resetToDefault();
+
+    //! Returns point data for drawing
+    QPair<QVector<double>, QVector<double>> graphData(Data1DProperties* property_item);
 
 public slots:
     void setLowerX(double xmin);
@@ -86,6 +78,8 @@ public slots:
 
 private:
     void updateAxesZoomLevel();
+    DataItem* basicDataItem();
+    QPair<double, double> dataRange(const OutputData<double> *data) const;
 };
 
 #endif // DATAITEM1DVIEW_H

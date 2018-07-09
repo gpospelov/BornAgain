@@ -14,6 +14,7 @@
 
 #include "TestView.h"
 #include "AccordionWidget.h"
+#include "ApplicationModels.h"
 #include "DataItem1DView.h"
 #include "JobModel.h"
 #include "JobItem.h"
@@ -21,11 +22,10 @@
 #include "MaterialEditor.h"
 #include "MinimizerItem.h"
 #include "MinimizerSettingsWidget.h"
-#include "ApplicationModels.h"
+#include "Plot1DCanvas.h"
 #include "RealDataItem.h"
 #include "SampleModel.h"
 #include "SpecularDataItem.h"
-#include "SpecularPlotWithDataView.h"
 #include "TestComponentView.h"
 #include "mainwindow.h"
 #include <QTreeView>
@@ -55,7 +55,7 @@ TestView::TestView(MainWindow *mainWindow)
 //    test_AccordionWidget();
 //    test_RunFitWidget();
 //    test_ba3d();
-    test_specular_data_widget();
+//    test_specular_data_widget();
 }
 
 void TestView::test_ComponentProxyModel()
@@ -215,7 +215,7 @@ void TestView::test_specular_data_widget()
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
-    auto widget = new SpecularPlotWithDataView(this);
+    auto widget = new Plot1DCanvas(this);
     widget->setItem(job_item->dataItemView());
     layout->addWidget(widget);
     setLayout(layout);

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/SpecularDataWidgets/SpecularPlotWithDataView.cpp
-//! @brief     Implements class SpecularPlotWithDataView
+//! @file      GUI/coregui/Views/SpecularDataWidgets/Plot1D.cpp
+//! @brief     Implements class Plot1D
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "SpecularPlotWithDataView.h"
+#include "Plot1D.h"
 #include "AxesItems.h"
 #include "ColorMapUtils.h"
 #include "DataItem.h"
@@ -30,7 +30,7 @@ const int replot_update_interval = 10;
 int getBin(double x, const QCPGraph* graph);
 }
 
-SpecularPlotWithDataView::SpecularPlotWithDataView(QWidget* parent)
+Plot1D::Plot1D(QWidget* parent)
     : ScientificPlot(parent, PLOT_TYPE::Plot1D), m_custom_plot(new QCustomPlot),
       m_update_timer(new UpdateTimer(replot_update_interval, this)), m_block_update(true)
 {
@@ -48,7 +48,7 @@ SpecularPlotWithDataView::SpecularPlotWithDataView(QWidget* parent)
     setMouseTrackingEnabled(true);
 }
 
-PlotEventInfo SpecularPlotWithDataView::eventInfo(double xpos, double ypos) const
+PlotEventInfo Plot1D::eventInfo(double xpos, double ypos) const
 {
     PlotEventInfo result(plotType());
     if (!viewItem())
@@ -63,29 +63,30 @@ PlotEventInfo SpecularPlotWithDataView::eventInfo(double xpos, double ypos) cons
     return result;
 }
 
-void SpecularPlotWithDataView::setLog(bool log)
+void Plot1D::setLog(bool log)
 {
     ColorMapUtils::setLogz(m_custom_plot->yAxis, log);
     ColorMapUtils::setLogz(m_custom_plot->yAxis2, log);
 }
 
-void SpecularPlotWithDataView::resetView()
+void Plot1D::resetView()
 {
     viewItem()->resetView();
 }
 
-void SpecularPlotWithDataView::onPropertyChanged(const QString& property_name)
+void Plot1D::onPropertyChanged(const QString& property_name)
 {
     if (m_block_update)
         return;
 
     if (property_name == DataItem1DView::P_AXES_UNITS) {
         setAxesRangeFromItem(viewItem());
+        updateAllGraphs();
         replot();
     }
 }
 
-void SpecularPlotWithDataView::onXaxisRangeChanged(QCPRange newRange)
+void Plot1D::onXaxisRangeChanged(QCPRange newRange)
 {
     m_block_update = true;
     viewItem()->setLowerX(newRange.lower);
@@ -93,7 +94,7 @@ void SpecularPlotWithDataView::onXaxisRangeChanged(QCPRange newRange)
     m_block_update = false;
 }
 
-void SpecularPlotWithDataView::onYaxisRangeChanged(QCPRange newRange)
+void Plot1D::onYaxisRangeChanged(QCPRange newRange)
 {
     m_block_update = true;
     viewItem()->setLowerY(newRange.lower);
@@ -101,12 +102,12 @@ void SpecularPlotWithDataView::onYaxisRangeChanged(QCPRange newRange)
     m_block_update = false;
 }
 
-void SpecularPlotWithDataView::onTimeToReplot()
+void Plot1D::onTimeToReplot()
 {
     m_custom_plot->replot();
 }
 
-void SpecularPlotWithDataView::subscribeToItem()
+void Plot1D::subscribeToItem()
 {
     initPlots();
     refreshPlotData();
@@ -116,25 +117,31 @@ void SpecularPlotWithDataView::subscribeToItem()
 
     viewItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString name) {
-            if (item->modelType() == Constants::BasicAxisType
-                || item->modelType() == Constants::AmplitudeAxisType)
+            if (dynamic_cast<BasicAxisItem*>(item))
                 modifyAxesProperties(item->itemName(), name);
         },
         this);
 
-    viewItem()->mapper()->setOnValueChange([this]() { refreshPlotData(); }, this);
+    std::for_each(m_graph_map.begin(), m_graph_map.end(), [caller=this](auto pair) {
+        auto property_item = pair.first;
+        property_item->dataItem()->mapper()->setOnValueChange(
+            [caller, property_item]() { caller->refreshPlotData(property_item); }, caller);
+    });
 
     setConnected(true);
 }
 
-void SpecularPlotWithDataView::unsubscribeFromItem()
+void Plot1D::unsubscribeFromItem()
 {
     m_custom_plot->clearGraphs();
+    std::for_each(m_graph_map.begin(), m_graph_map.end(), [caller=this](auto pair) {
+        pair.first->dataItem()->mapper()->unsubscribe(caller);
+    });
     m_graph_map.clear();
     setConnected(false);
 }
 
-void SpecularPlotWithDataView::initPlots()
+void Plot1D::initPlots()
 {
     auto property_items = viewItem()->propertyItems<Data1DProperties>();
     std::for_each(
@@ -146,62 +153,77 @@ void SpecularPlotWithDataView::initPlots()
         });
 }
 
-void SpecularPlotWithDataView::setConnected(bool isConnected)
+void Plot1D::setConnected(bool isConnected)
 {
     setAxesRangeConnected(isConnected);
     setUpdateTimerConnected(isConnected);
 }
 
-void SpecularPlotWithDataView::setAxesRangeConnected(bool isConnected)
+void Plot1D::setAxesRangeConnected(bool isConnected)
 {
     if (isConnected) {
         connect(m_custom_plot->xAxis,
                 static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
-                &SpecularPlotWithDataView::onXaxisRangeChanged, Qt::UniqueConnection);
+                &Plot1D::onXaxisRangeChanged, Qt::UniqueConnection);
 
         connect(m_custom_plot->yAxis,
                 static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
-                &SpecularPlotWithDataView::onYaxisRangeChanged, Qt::UniqueConnection);
+                &Plot1D::onYaxisRangeChanged, Qt::UniqueConnection);
 
     } else {
         disconnect(m_custom_plot->xAxis,
                    static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
-                   &SpecularPlotWithDataView::onXaxisRangeChanged);
+                   &Plot1D::onXaxisRangeChanged);
 
         disconnect(m_custom_plot->yAxis,
                    static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
-                   &SpecularPlotWithDataView::onYaxisRangeChanged);
+                   &Plot1D::onYaxisRangeChanged);
     }
 }
 
-void SpecularPlotWithDataView::setUpdateTimerConnected(bool isConnected)
+void Plot1D::setUpdateTimerConnected(bool isConnected)
 {
     if (isConnected)
         connect(m_update_timer, &UpdateTimer::timeToUpdate, this,
-                &SpecularPlotWithDataView::onTimeToReplot, Qt::UniqueConnection);
+                &Plot1D::onTimeToReplot, Qt::UniqueConnection);
     else
         disconnect(m_update_timer, &UpdateTimer::timeToUpdate, this,
-                   &SpecularPlotWithDataView::onTimeToReplot);
+                   &Plot1D::onTimeToReplot);
 }
 
-void SpecularPlotWithDataView::refreshPlotData()
+void Plot1D::refreshPlotData()
 {
     auto view_item = viewItem();
     assert(view_item);
 
     m_block_update = true;
 
-    std::for_each(m_graph_map.begin(), m_graph_map.end(), [](auto pair){pair.second->data()->clear();});
     setAxesRangeFromItem(view_item);
     setAxesLabelsFromItem(view_item);
-    setDataFromItem(view_item);
+    updateAllGraphs();
 
     replot();
 
     m_block_update = false;
 }
 
-void SpecularPlotWithDataView::setAxesRangeFromItem(DataItem1DView* item)
+void Plot1D::refreshPlotData(Data1DProperties* item)
+{
+    auto view_item = viewItem();
+    assert(view_item && item);
+
+    m_block_update = true;
+
+    setAxesRangeFromItem(view_item);
+    setAxesLabelsFromItem(view_item);
+    updateGraph(item);
+
+    replot();
+
+    m_block_update = false;
+}
+
+void Plot1D::setAxesRangeFromItem(DataItem1DView* item)
 {
     m_custom_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     m_custom_plot->axisRect()->setupFullAxesBox(true);
@@ -213,13 +235,13 @@ void SpecularPlotWithDataView::setAxesRangeFromItem(DataItem1DView* item)
     setAxesRangeConnected(true);
 }
 
-void SpecularPlotWithDataView::setAxesLabelsFromItem(DataItem1DView* item)
+void Plot1D::setAxesLabelsFromItem(DataItem1DView* item)
 {
     setLabel(item->xAxisItem(), m_custom_plot->xAxis, item->getXaxisTitle());
     setLabel(item->yAxisItem(), m_custom_plot->yAxis, item->getYaxisTitle());
 }
 
-void SpecularPlotWithDataView::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label)
+void Plot1D::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label)
 {
     assert(item && axis);
     if (item->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
@@ -228,39 +250,35 @@ void SpecularPlotWithDataView::setLabel(const BasicAxisItem* item, QCPAxis* axis
         axis->setLabel(QString());
 }
 
-void SpecularPlotWithDataView::setDataFromItem(DataItem1DView* item)
+void Plot1D::updateAllGraphs()
 {
-    assert(item);
-    auto property_items = item->propertyItems<Data1DProperties>();
+    auto property_items = viewItem()->propertyItems<Data1DProperties>();
     std::for_each(property_items.begin(), property_items.end(),
-                  [this](Data1DProperties* item) {
-                      auto data = item->dataItem()->getOutputData();
-                      if (!data)
-                          return;
-
-                      auto graph = m_graph_map.at(item);
-                      for (size_t i = 0, size = data->getAllocatedSize(); i < size; ++i) {
-                          double x = data->getAxisValue(i, 0);
-                          double y = data->operator[](i);
-                          graph->addData(x, y);
-                      }
-                  });
+                  [this](Data1DProperties* item) { updateGraph(item); });
 }
 
-DataItem1DView* SpecularPlotWithDataView::viewItem()
+void Plot1D::updateGraph(Data1DProperties* item)
+{
+    auto data_points = viewItem()->graphData(item);
+
+    auto graph = m_graph_map.at(item);
+    graph->setData(data_points.first, data_points.second, /*sorted =*/ true);
+}
+
+DataItem1DView* Plot1D::viewItem()
 {
     return const_cast<DataItem1DView*>(
-        static_cast<const SpecularPlotWithDataView*>(this)->viewItem());
+        static_cast<const Plot1D*>(this)->viewItem());
 }
 
-const DataItem1DView* SpecularPlotWithDataView::viewItem() const
+const DataItem1DView* Plot1D::viewItem() const
 {
     const auto result = dynamic_cast<const DataItem1DView*>(currentItem());
     Q_ASSERT(result);
     return result;
 }
 
-void SpecularPlotWithDataView::modifyAxesProperties(const QString& axisName,
+void Plot1D::modifyAxesProperties(const QString& axisName,
                                                     const QString& propertyName)
 {
     if (m_block_update)
@@ -292,7 +310,7 @@ void SpecularPlotWithDataView::modifyAxesProperties(const QString& axisName,
     }
 }
 
-void SpecularPlotWithDataView::replot()
+void Plot1D::replot()
 {
     m_update_timer->scheduleUpdate();
 }

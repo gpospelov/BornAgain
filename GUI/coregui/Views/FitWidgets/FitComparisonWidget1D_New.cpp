@@ -14,7 +14,7 @@
 
 #include "FitComparisonWidget1D_New.h"
 #include "DataItem1DView.h"
-#include "FitComparisonController.h"
+#include "FitComparisonViewController.h"
 #include "FitFlowWidget.h"
 #include "FitSuiteItem.h"
 #include "IntensityDataPropertyWidget.h"
@@ -24,9 +24,6 @@
 #include "PlotStatusLabel.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
-#include "SpecularDataItem.h"
-#include "SpecularPlot.h"
-#include "SpecularPlotCanvas.h"
 #include <QAction>
 #include <QGridLayout>
 #include <QVBoxLayout>
@@ -34,12 +31,12 @@
 FitComparisonWidget1D_New::FitComparisonWidget1D_New(QWidget* parent)
     : SessionItemWidget(parent)
     , m_data_plot(new Plot1DCanvas)
-    //, m_diff_plot(new SpecularPlotCanvas)
+    , m_diff_plot(new Plot1DCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new PlotStatusLabel(nullptr, this))
     , m_propertyWidget(new IntensityDataPropertyWidget)
     , m_resetViewAction(new QAction(this))
-    //, m_comparisonController(new FitComparisonController1D(this))
+    , m_comparisonController(new FitComparison1DViewController(this))
 {
     auto vlayout = new QVBoxLayout;
     vlayout->setMargin(0);
@@ -50,8 +47,8 @@ FitComparisonWidget1D_New::FitComparisonWidget1D_New(QWidget* parent)
     gridLayout->setSpacing(0);
 
     gridLayout->addWidget(m_data_plot, 0, 0, 1, -1);
-    // gridLayout->addWidget(m_diff_plot, 1, 0);
-    gridLayout->addWidget(m_fitFlowWidget, 1, 1);
+    gridLayout->addWidget(m_diff_plot, 1, 0, 1, 2);
+    gridLayout->addWidget(m_fitFlowWidget, 1, 2, 1, 1);
 
     vlayout->addLayout(gridLayout);
     vlayout->addWidget(m_statusLabel);
@@ -93,15 +90,15 @@ void FitComparisonWidget1D_New::subscribeToItem()
         },
         this);
 
-    //m_comparisonController->setItem(jobItem());
+    m_comparisonController->setItem(jobItem());
 
     m_data_plot->setItem(viewItem());
-    // m_diff_plot->setItem(m_comparisonController->diffItem());
+    m_diff_plot->setItem(m_comparisonController->diffItemView());
     m_fitFlowWidget->setItem(jobItem()->fitSuiteItem());
 
     m_statusLabel->reset();
     m_statusLabel->addPlot(m_data_plot->plot1D());
-    // m_statusLabel->addPlot(m_diff_plot->specularPlot());
+    m_statusLabel->addPlot(m_diff_plot->plot1D());
 
     m_propertyWidget->setItem(viewItem());
 }
@@ -111,13 +108,13 @@ void FitComparisonWidget1D_New::unsubscribeFromItem()
     if (!currentItem())
         return;
 
-    //m_comparisonController->clear();
+    m_comparisonController->clear();
 }
 
 void FitComparisonWidget1D_New::onResetViewAction()
 {
     viewItem()->resetView();
-    //m_comparisonController->resetDiffItem();
+    m_comparisonController->resetDiffView();
 }
 
 JobItem* FitComparisonWidget1D_New::jobItem()

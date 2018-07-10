@@ -18,15 +18,13 @@
 #include "SessionItemWidget.h"
 
 class DataItem1DView;
-class FitComparisonController1D;
+class FitComparison1DViewController;
 class FitFlowWidget;
 class IntensityDataPropertyWidget;
 class JobItem;
 class Plot1DCanvas;
 class PlotStatusLabel;
 class QAction;
-class SpecularDataItem;
-class SpecularPlotCanvas;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
@@ -52,13 +50,13 @@ private:
     DataItem1DView* viewItem();
 
     Plot1DCanvas* m_data_plot;
-    //SpecularPlotCanvas* m_diff_plot;
+    Plot1DCanvas* m_diff_plot;
     FitFlowWidget* m_fitFlowWidget;
     PlotStatusLabel* m_statusLabel;
     IntensityDataPropertyWidget* m_propertyWidget;
 
     QAction* m_resetViewAction;
-    //FitComparisonController1D* m_comparisonController;
+    FitComparison1DViewController* m_comparisonController;
 };
 
 #endif // FITCOMPARISONWIDGET1D_NEW_H

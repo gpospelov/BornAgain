@@ -176,7 +176,8 @@ JobItem* DataItem1DView::jobItem()
             return m_job_item;
         }
     } while ((item = item->parent()));
-    throw GUIHelpers::Error("Error in parentJobItem: passed item is not owned by any job item");
+    throw GUIHelpers::Error(
+        "Error in DataItem1DView::jobItem: passed item is not owned by any job item");
 }
 
 void DataItem1DView::setLowerX(double xmin)
@@ -226,17 +227,6 @@ const AmplitudeAxisItem* DataItem1DView::yAxisItem() const
 void DataItem1DView::resetView()
 {
     setAxesRangeToData();
-}
-
-//! Sets zoom range of X,Y axes, if it was not yet defined.
-
-void DataItem1DView::updateAxesZoomLevel()
-{
-    auto output_data = getOutputData(0);
-    if (!output_data)
-        return;
-    const int nx = static_cast<int>(output_data->getAxis(BornAgain::X_AXIS_INDEX).size());
-    xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
 }
 
 DataItem* DataItem1DView::basicDataItem()

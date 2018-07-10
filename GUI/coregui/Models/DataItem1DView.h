@@ -77,7 +77,6 @@ public:
     //! job item set with DataItem1DView::setJobItem.
     JobItem* jobItem();
 
-public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);
     void setLowerY(double ymin);
@@ -85,7 +84,6 @@ public slots:
     void setLog(bool log_flag);
 
 private:
-    void updateAxesZoomLevel();
     DataItem* basicDataItem();
     QPair<double, double> dataRange(const OutputData<double>* data) const;
 

@@ -43,7 +43,6 @@ protected:
     DataItemView(const QString& model_type);
     std::vector<DataItem*> dataItems();
     DataItem* dataItem(size_t i) const;
-    const OutputData<double>* getOutputData(size_t i) const;
 };
 
 extern template std::vector<DataProperties*> DataItemView::propertyItems();

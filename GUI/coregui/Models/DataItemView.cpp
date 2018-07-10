@@ -71,10 +71,3 @@ DataItem* DataItemView::dataItem(size_t i) const
 {
     return propertyItem(i)->dataItem();
 }
-
-const OutputData<double>* DataItemView::getOutputData(size_t i) const
-{
-    auto data_item = dataItem(i);
-    assert(data_item);
-    return data_item->getOutputData();
-}

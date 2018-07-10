@@ -33,7 +33,7 @@ class BA_CORE_API_ ILayout : public ISample
 public:
     enum EInterferenceApproximation { DA, SSCA };
 
-    ILayout() : me_approx(DA) {}
+    ILayout() : me_approx(DA), m_weight(1.0) {}
     virtual ~ILayout();
 
     virtual ILayout* clone() const =0;
@@ -54,6 +54,12 @@ public:
     //! Sets surface density of all particles
     virtual void setTotalParticleSurfaceDensity(double particle_density) =0;
 
+    //! Returns the relative weight of this layout
+    double weight() const { return m_weight; }
+
+    //! Sets the relative weight of this layout
+    void setWeight(double weight) { m_weight = weight; }
+
     //! Gets the used approximation for particles and interference functions
     EInterferenceApproximation getApproximation() const { return me_approx; }
 
@@ -62,8 +68,9 @@ public:
         me_approx = approximation; }
 
 private:
-    ///< Approximation used for combining particles and interference functions
+    //! Approximation used for combining particles and interference functions
     EInterferenceApproximation me_approx;
+    double m_weight;
 };
 
 #endif // ILAYOUT_H

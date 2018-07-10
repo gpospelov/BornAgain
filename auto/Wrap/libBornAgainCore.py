@@ -19735,6 +19735,16 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_setTotalParticleSurfaceDensity(self, particle_density)
 
 
+    def weight(self):
+        """weight(ILayout self) -> double"""
+        return _libBornAgainCore.ILayout_weight(self)
+
+
+    def setWeight(self, weight):
+        """setWeight(ILayout self, double weight)"""
+        return _libBornAgainCore.ILayout_setWeight(self, weight)
+
+
     def getApproximation(self):
         """
         getApproximation(ILayout self) -> ILayout::EInterferenceApproximation

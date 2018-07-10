@@ -19,7 +19,7 @@
 
 class AmplitudeAxisItem;
 class BasicAxisItem;
-class InstrumentItem;
+class JobItem;
 template<class T> class OutputData;
 
 //! View model for 1D DataItem. Can represent several items
@@ -69,6 +69,14 @@ public:
     //! Returns point data for drawing
     QPair<QVector<double>, QVector<double>> graphData(Data1DProperties* property_item);
 
+    //! Sets job item (for unit conversion) if DataItemView
+    //! is dynamically created outside of JobModel
+    void setJobItem(JobItem* job_item) {m_job_item = job_item;}
+
+    //! Returns either parenting JobItem or
+    //! job item set with DataItem1DView::setJobItem.
+    JobItem* jobItem();
+
 public slots:
     void setLowerX(double xmin);
     void setUpperX(double xmax);
@@ -79,7 +87,9 @@ public slots:
 private:
     void updateAxesZoomLevel();
     DataItem* basicDataItem();
-    QPair<double, double> dataRange(const OutputData<double> *data) const;
+    QPair<double, double> dataRange(const OutputData<double>* data) const;
+
+    JobItem* m_job_item;
 };
 
 #endif // DATAITEM1DVIEW_H

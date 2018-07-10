@@ -20,6 +20,7 @@
 #include "DataProperties.h"
 #include "DataViewUtils.h"
 #include "GUIHelpers.h"
+#include "JobItem.h"
 
 namespace {
 const QString x_axis_default_name = "X [nbins]";
@@ -36,6 +37,7 @@ const QString DataItem1DView::P_AXES_UNITS = "Axes Units";
 
 DataItem1DView::DataItem1DView()
     : DataItemView(Constants::DataItem1DViewType)
+    , m_job_item(nullptr)
 {
     addProperty(P_TITLE, QString())->setVisible(false);
 
@@ -158,9 +160,23 @@ QPair<QVector<double>, QVector<double>> DataItem1DView::graphData(Data1DProperti
     const auto data = DataViewUtils::getTranslatedData(this, property_item->dataItem());
     if (!data)
         return {};
-    data->getRawDataVector();
     return {QVector<double>::fromStdVector(data->getAxis(0).getBinCenters()),
-            QVector<double>::fromStdVector(data->getRawDataVector())};
+                QVector<double>::fromStdVector(data->getRawDataVector())};
+}
+
+JobItem* DataItem1DView::jobItem()
+{
+    if (m_job_item != nullptr)
+        return m_job_item; // returning preset job item
+
+    auto item = parent();
+    do {
+        if (item->modelType() == Constants::JobItemType) {
+            m_job_item = dynamic_cast<JobItem*>(item);
+            return m_job_item;
+        }
+    } while ((item = item->parent()));
+    throw GUIHelpers::Error("Error in parentJobItem: passed item is not owned by any job item");
 }
 
 void DataItem1DView::setLowerX(double xmin)

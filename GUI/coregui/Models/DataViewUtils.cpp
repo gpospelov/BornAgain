@@ -25,20 +25,9 @@ const QMap<AxesUnits, QString> names_from_units{{AxesUnits::NBINS, Constants::Un
                                                 {AxesUnits::QSPACE, Constants::UnitsQyQz},
                                                 {AxesUnits::DEGREES, Constants::UnitsDegrees}};
 
-JobItem* parentJobItem(SessionItem* item)
+std::unique_ptr<IUnitConverter> getConverter(DataItem1DView* view_item)
 {
-    assert(item);
-    do {
-        if (item->modelType() == Constants::JobItemType)
-            return dynamic_cast<JobItem*>(item);
-    } while ((item = item->parent()));
-    throw GUIHelpers::Error("Error in parentJobItem: passed item is not owned by any job item");
-}
-
-std::unique_ptr<IUnitConverter> getConverter(SessionItem* view_item)
-{
-    auto job_item = parentJobItem(view_item);
-    assert(job_item);
+    auto job_item = view_item->jobItem();
     assert(job_item->instrumentItem());
 
     return DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());

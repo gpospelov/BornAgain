@@ -38,11 +38,15 @@ bool isLattice2D(SessionItem* item) { return dynamic_cast<Lattice2DItem*>(item) 
 const QString density_tooltip
     = "Number of particles per square nanometer (particle surface density).\n "
       "Should be defined for disordered and 1d-ordered particle collections.";
+const QString weight_tooltip
+    = "Weight of this particle layout.\n"
+      "Should be used when multiple layouts define different domains in the sample.";
 }
 
 const QString ParticleLayoutItem::P_APPROX = "Approximation";
-const QString ParticleLayoutItem::P_TOTAL_DENSITY
-    = QString::fromStdString(BornAgain::TotalParticleDensity);
+const QString ParticleLayoutItem::P_TOTAL_DENSITY =
+    QString::fromStdString(BornAgain::TotalParticleDensity);
+const QString ParticleLayoutItem::P_WEIGHT = QString::fromStdString(BornAgain::Weight);
 const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
 const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 
@@ -55,6 +59,7 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
         ->setToolTip(QStringLiteral("Approximation used to distribute the particles"));
     addProperty(P_TOTAL_DENSITY, 1.0)->setToolTip(density_tooltip);
     getItem(P_TOTAL_DENSITY)->setDecimals(10);
+    addProperty(P_WEIGHT, 1.0)->setToolTip(weight_tooltip);
 
     registerTag(T_PARTICLES, 0, -1,
                 QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType

@@ -42,6 +42,7 @@ ParticleLayout::ParticleLayout()
 {
     setName(BornAgain::ParticleLayoutType);
     registerParticleDensity();
+    registerWeight();
 }
 
 ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
@@ -53,6 +54,7 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle, abundance);
     registerParticleDensity();
+    registerWeight();
 }
 
 ParticleLayout* ParticleLayout::clone() const
@@ -66,6 +68,7 @@ ParticleLayout* ParticleLayout::clone() const
         p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());
 
     p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
+    p_result->setWeight(weight());
     p_result->setApproximation(getApproximation());
 
     return p_result;
@@ -191,4 +194,9 @@ void ParticleLayout::registerParticleDensity(bool make_registered)
     } else {
         removeParameter(BornAgain::TotalParticleDensity);
     }
+}
+
+void ParticleLayout::registerWeight()
+{
+    registerParameter(BornAgain::Weight, &m_weight);
 }

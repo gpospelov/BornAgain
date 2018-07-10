@@ -15,7 +15,6 @@
 #include "JobResultsPresenter.h"
 #include "FitComparisonWidget.h"
 #include "FitComparisonWidget1D_New.h"
-#include "FitComparisonWidget1D.h"
 #include "GUIHelpers.h"
 #include "IntensityDataProjectionsWidget.h"
 #include "IntensityDataWidget.h"

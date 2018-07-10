@@ -59,8 +59,8 @@ std::unique_ptr<MultiLayer> CreateAveragedMultilayer(
     return P_multilayer;
 }
 
-std::unique_ptr<MultiLayer> CreateAveragedMultilayer(
-        const MultiLayer& multilayer, const SimulationOptions& sim_options)
+std::unique_ptr<MultiLayer> CreateAveragedMultilayer(const MultiLayer& multilayer,
+                                                     const SimulationOptions& sim_options)
 {
     return CreateAveragedMultilayer(multilayer, sim_options, GetRegionMap(multilayer));
 }
@@ -73,7 +73,8 @@ std::map<size_t, std::vector<HomogeneousRegion>> GetRegionMap(const MultiLayer& 
         const Layer* layer = multilayer.layer(i);
         for (auto p_layout : layer->layouts()) {
             double layout_abundance = p_layout->getTotalAbundance();
-            double scale_factor = p_layout->totalParticleSurfaceDensity()/layout_abundance;
+            double weight = p_layout->weight();
+            double scale_factor = weight*p_layout->totalParticleSurfaceDensity()/layout_abundance;
             for (const IParticle* particle: p_layout->particles()) {
                 auto sliced_ffs = SlicedFormFactorList::CreateSlicedFormFactors(
                                       *particle, multilayer, i);

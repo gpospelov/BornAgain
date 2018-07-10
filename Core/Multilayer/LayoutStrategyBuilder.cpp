@@ -100,12 +100,13 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
 {
     SafePointerVector<class FormFactorCoherentSum> result;
     double layout_abundance = mp_layout->getTotalAbundance();
-    for (const IParticle* particle: mp_layout->particles()) {
+    for (const IParticle* particle : mp_layout->particles()) {
         auto p_ff_coh = createFormFactorCoherentSum(particle);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
         result.push_back(p_ff_coh);
     }
-    double scale_factor = mp_layout->totalParticleSurfaceDensity()/layout_abundance;
+    double weight = mp_layout->weight();
+    double scale_factor = weight * mp_layout->totalParticleSurfaceDensity() / layout_abundance;
     ScaleRegionMap(m_region_map, scale_factor);
     return result;
 }

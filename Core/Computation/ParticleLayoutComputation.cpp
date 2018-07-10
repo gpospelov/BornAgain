@@ -23,16 +23,19 @@
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 
-ParticleLayoutComputation::ParticleLayoutComputation(
-        const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map, const ILayout* p_layout,
-        size_t layer_index, const SimulationOptions& options, bool polarized)
+ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
+                                                     const IFresnelMap* p_fresnel_map,
+                                                     const ILayout* p_layout, size_t layer_index,
+                                                     const SimulationOptions& options,
+                                                     bool polarized)
     : m_multilayer_info(p_multilayer, p_fresnel_map)
 {
-    LayoutStrategyBuilder builder(p_multilayer, p_layout, p_fresnel_map,
-                                  polarized, options, layer_index);
+    LayoutStrategyBuilder builder(p_multilayer, p_layout, p_fresnel_map, polarized, options,
+                                  layer_index);
     mP_strategy.reset(builder.releaseStrategy());
     m_region_map = builder.regionMap();
-    m_surface_density = p_layout->totalParticleSurfaceDensity();
+    double weight = p_layout->weight();
+    m_surface_density = weight * p_layout->totalParticleSurfaceDensity();
 }
 
 ParticleLayoutComputation::~ParticleLayoutComputation() =default;

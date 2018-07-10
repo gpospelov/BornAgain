@@ -79,7 +79,7 @@ SessionItem* GUIDomainSampleVisitor::populateSampleModel(SampleModel* sampleMode
 void GUIDomainSampleVisitor::visit(const ParticleLayout* p_sample)
 {
     SessionItem* p_parent = m_levelToParentItem[depth() - 1];
-    SessionItem* p_layout_item(0);
+    SessionItem* p_layout_item(nullptr);
     if (p_parent) {
         p_layout_item = m_sampleModel->insertNewItem(Constants::ParticleLayoutType,
                                                      m_sampleModel->indexOfItem(p_parent));
@@ -101,6 +101,7 @@ void GUIDomainSampleVisitor::visit(const ParticleLayout* p_sample)
     p_layout_item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.variant());
     p_layout_item->setItemValue(ParticleLayoutItem::P_TOTAL_DENSITY,
                                 p_sample->totalParticleSurfaceDensity());
+    p_layout_item->setItemValue(ParticleLayoutItem::P_WEIGHT, p_sample->weight());
     m_levelToParentItem[depth()] = p_layout_item;
 }
 

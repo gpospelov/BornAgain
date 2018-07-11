@@ -54,8 +54,7 @@ DataItem1DView::DataItem1DView()
     item->setValue(true);
     item->setVisible(false);
 
-    registerTag(T_DATA_PROPERTIES, 0, -1, QStringList() << Constants::DataPropertyContainerType);
-    insertItem(-1, new DataPropertyContainer, T_DATA_PROPERTIES);
+    registerTag(T_DATA_PROPERTIES, 1, 1, QStringList() << Constants::DataPropertyContainerType);
 
     ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
     addProperty(P_AXES_UNITS, combo.variant());
@@ -73,11 +72,6 @@ DataItem1DView::DataItem1DView()
     setUpperY(default_max);
     setXaxisTitle(x_axis_default_name);
     setYaxisTitle(y_axis_default_name);
-}
-
-void DataItem1DView::addItem(DataItem* item)
-{
-    propertyContainerItem()->addItem(item);
 }
 
 int DataItem1DView::getNbins() const
@@ -136,10 +130,14 @@ void DataItem1DView::setAxesRangeToData()
     const auto data
         = DataViewUtils::getTranslatedData(this, propertyContainerItem()->basicDataItem());
 
-    double xmin = data ? data->getAxis(BornAgain::X_AXIS_INDEX).getMin() : default_min;
-    double xmax = data ? data->getAxis(BornAgain::X_AXIS_INDEX).getMax() : default_max;
-    setLowerX(xmin);
-    setUpperX(xmax);
+    // For data loading from disk: items appear earlier than
+    // actual data.
+    if (!data)
+        return;
+
+    setLowerX(data->getAxis(BornAgain::X_AXIS_INDEX).getMin());
+    setUpperX(data->getAxis(BornAgain::X_AXIS_INDEX).getMax());
+
 
     auto data_range = dataRange(data.get());
     setLowerY(data_range.first);

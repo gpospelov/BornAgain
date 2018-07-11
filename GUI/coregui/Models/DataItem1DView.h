@@ -40,8 +40,6 @@ public:
 
     DataItem1DView();
 
-    void addItem(DataItem* item);
-
     //! Number of bins in data
     int getNbins() const;
 

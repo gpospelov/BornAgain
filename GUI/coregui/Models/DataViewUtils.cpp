@@ -8,6 +8,7 @@
 #include "IUnitConverter.h"
 #include "JobItem.h"
 #include "OutputData.h"
+#include "DataPropertyContainer.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
 #include "UnitConverterUtils.h"
@@ -63,10 +64,14 @@ void DataViewUtils::initDataView(JobItem* job_item)
     SessionModel* model = job_item->model();
     auto view_item = dynamic_cast<DataItem1DView*>(model->insertNewItem(
         Constants::DataItem1DViewType, job_item->index(), -1, JobItem::T_DATAVIEW));
-
     assert(view_item);
-    view_item->addItem(job_item->realDataItem()->dataItem());
-    view_item->addItem(job_item->dataItem());
+
+    auto property_container = dynamic_cast<DataPropertyContainer*>(model->insertNewItem(
+        Constants::DataPropertyContainerType, view_item->index(), -1, DataItem1DView::T_DATA_PROPERTIES));
+    assert(property_container);
+
+    property_container->addItem(job_item->realDataItem()->dataItem());
+    property_container->addItem(job_item->dataItem());
 
     // also triggers DataItem1DView::setAxesRangeToData and DataViewUtils::updateAxesTitle by
     // setting new value of P_AXES_UNITS.

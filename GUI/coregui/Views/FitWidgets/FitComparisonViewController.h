@@ -5,7 +5,7 @@
 #include <QObject>
 
 class DataItem;
-class DataItem1DView;
+class Data1DViewItem;
 class JobItem;
 class PropertyRepeater;
 class SessionModel;
@@ -33,7 +33,7 @@ class BA_CORE_API_ FitComparison1DViewController : public QObject
 public:
     explicit FitComparison1DViewController(QObject* parent);
 
-    DataItem1DView* diffItemView();
+    Data1DViewItem* diffItemView();
 
     void setItem(JobItem* job_item);
     void updateDiffData();
@@ -43,7 +43,7 @@ public:
 
 private:
     DiffItemController* m_diff_item_controller;
-    DataItem1DView* m_diff_view_item;
+    Data1DViewItem* m_diff_view_item;
     PropertyRepeater* m_appearanceRepeater;
     PropertyRepeater* m_xAxisRepeater;
 };

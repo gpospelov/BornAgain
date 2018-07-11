@@ -20,13 +20,13 @@
 
 class BasicAxisItem;
 class DataItem;
-class DataItem1DView;
+class Data1DViewItem;
 class Data1DProperties;
 class SpecularPlotEvent;
 class UpdateTimer;
 
-//! The SpecularPlotWithDataView class presents data of several 1D DataItems contained in a
-//! DataItem1DView. Provides minimal functionality for data plotting and axes interaction. Should be
+//! The Plot1D class presents data of several 1D DataItems contained in a
+//! Data1DViewItem. Provides minimal functionality for data plotting and axes interaction. Should be
 //! a component for more complicated plotting widgets.
 
 class Plot1D : public ScientificPlot
@@ -85,10 +85,10 @@ private:
 
     //! Sets (xmin,xmax) and (ymin,ymax) of SpecularPlot from specular item.
     //! Also sets logarithmic scale on y-axis if necessary.
-    void setAxesRangeFromItem(DataItem1DView* item);
+    void setAxesRangeFromItem(Data1DViewItem* item);
 
     //! Sets X,Y axes labels from item
-    void setAxesLabelsFromItem(DataItem1DView* item);
+    void setAxesLabelsFromItem(Data1DViewItem* item);
 
     //! Sets label to axis
     void setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label);
@@ -99,8 +99,8 @@ private:
     //! Sets data to the graph corresponding to the passed Data1DProperties.
     void updateGraph(Data1DProperties* item);
 
-    DataItem1DView* viewItem();
-    const DataItem1DView* viewItem() const;
+    Data1DViewItem* viewItem();
+    const Data1DViewItem* viewItem() const;
 
     void modifyAxesProperties(const QString& axisName, const QString& propertyName);
 

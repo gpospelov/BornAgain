@@ -18,7 +18,7 @@
 #include "BeamAngleItems.h"
 #include "BeamItems.h"
 #include "BeamWavelengthItem.h"
-#include "DataItem1DView.h"
+#include "Data1DViewItem.h"
 #include "DataPropertyContainer.h"
 #include "DataProperties.h"
 #include "DetectorItems.h"
@@ -177,7 +177,7 @@ ItemCatalogue::ItemCatalogue()
 
     add(Constants::IntensityDataType, create_new<IntensityDataItem>);
     add(Constants::SpecularDataType, create_new<SpecularDataItem>);
-    add(Constants::DataItem1DViewType, create_new<DataItem1DView>);
+    add(Constants::Data1DViewItemType, create_new<Data1DViewItem>);
     add(Constants::DataPropertyContainerType, create_new<DataPropertyContainer>);
     add(Constants::DataItem1DPropertiesType, create_new<Data1DProperties>);
 

@@ -15,7 +15,7 @@
 #include "TestView.h"
 #include "AccordionWidget.h"
 #include "ApplicationModels.h"
-#include "DataItem1DView.h"
+#include "Data1DViewItem.h"
 #include "DataPropertyContainer.h"
 #include "JobModel.h"
 #include "JobItem.h"
@@ -208,10 +208,10 @@ void TestView::test_specular_data_widget()
     fillTestItem(data_item, 2.0);
 
     // creating data view
-    auto data_view = new DataItem1DView();
+    auto data_view = new Data1DViewItem();
     job_item->insertItem(-1, data_view, JobItem::T_DATAVIEW);
-    data_view->insertItem(-1, new DataPropertyContainer, DataItem1DView::T_DATA_PROPERTIES);
-    auto& container = data_view->item<DataPropertyContainer>(DataItem1DView::T_DATA_PROPERTIES);
+    data_view->insertItem(-1, new DataPropertyContainer, Data1DViewItem::T_DATA_PROPERTIES);
+    auto& container = data_view->item<DataPropertyContainer>(Data1DViewItem::T_DATA_PROPERTIES);
     container.addItem(job_item->realDataItem()->dataItem());
     container.addItem(job_item->dataItem());
 

@@ -2,7 +2,7 @@
 #include "AxesItems.h"
 #include "DataItem.h"
 #include "DataPropertyContainer.h"
-#include "DataItem1DView.h"
+#include "Data1DViewItem.h"
 #include "IntensityDataFunctions.h"
 #include "JobItem.h"
 #include "PropertyRepeater.h"
@@ -18,17 +18,17 @@ const double relative_diff_max_1d = 4.0;
 FitComparison1DViewController::FitComparison1DViewController(QObject* parent)
     : QObject(parent),
       m_diff_item_controller(new DiffItemController(Constants::SpecularDataType, this)),
-      m_diff_view_item(dynamic_cast<DataItem1DView*>(
-          m_diff_item_controller->model()->insertNewItem(Constants::DataItem1DViewType))),
+      m_diff_view_item(dynamic_cast<Data1DViewItem*>(
+          m_diff_item_controller->model()->insertNewItem(Constants::Data1DViewItemType))),
       m_appearanceRepeater(new PropertyRepeater(this)), m_xAxisRepeater(new PropertyRepeater(this))
 {
     auto container = m_diff_view_item->model()->insertNewItem(Constants::DataPropertyContainerType,
                                                               m_diff_view_item->index(), -1,
-                                                              DataItem1DView::T_DATA_PROPERTIES);
+                                                              Data1DViewItem::T_DATA_PROPERTIES);
     dynamic_cast<DataPropertyContainer*>(container)->addItem(m_diff_item_controller->diffItem());
 }
 
-DataItem1DView* FitComparison1DViewController::diffItemView()
+Data1DViewItem* FitComparison1DViewController::diffItemView()
 {
     return m_diff_view_item;
 }
@@ -42,8 +42,8 @@ void FitComparison1DViewController::setItem(JobItem* job_item)
     diffItemView()->setJobItem(job_item);
 
     auto job_data_view = job_item->dataItemView();
-    auto units_value = job_data_view->getItemValue(DataItem1DView::P_AXES_UNITS);
-    diffItemView()->setItemValue(DataItem1DView::P_AXES_UNITS, units_value);
+    auto units_value = job_data_view->getItemValue(Data1DViewItem::P_AXES_UNITS);
+    diffItemView()->setItemValue(Data1DViewItem::P_AXES_UNITS, units_value);
 
     m_appearanceRepeater->addItem(job_data_view);
     m_appearanceRepeater->addItem(diffItemView());

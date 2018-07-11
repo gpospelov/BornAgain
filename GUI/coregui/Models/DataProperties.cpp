@@ -61,7 +61,7 @@ DataItem* DataProperties::dataItem()
     auto item_index = ModelPath::getIndexFromPath(hosting_model, path);
     if (!item_index.isValid()) {
         std::stringstream os;
-        os << "Error in DataItem1DView::DataItemImage::dataItem: index produced by path";
+        os << "Error in DataProperties::dataItem: index produced by path";
         os << path.toStdString() << " is invalid" << std::endl;
         throw GUIHelpers::Error(QString::fromStdString(os.str()));
     }

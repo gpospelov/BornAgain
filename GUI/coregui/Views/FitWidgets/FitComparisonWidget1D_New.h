@@ -17,7 +17,7 @@
 
 #include "SessionItemWidget.h"
 
-class DataItem1DView;
+class Data1DViewItem;
 class FitComparison1DViewController;
 class FitFlowWidget;
 class IntensityDataPropertyWidget;
@@ -47,7 +47,7 @@ protected:
 
 private:
     JobItem* jobItem();
-    DataItem1DView* viewItem();
+    Data1DViewItem* viewItem();
 
     Plot1DCanvas* m_data_plot;
     Plot1DCanvas* m_diff_plot;

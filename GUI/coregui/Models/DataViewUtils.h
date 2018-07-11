@@ -18,18 +18,18 @@
 #include <memory>
 
 class DataItem;
-class DataItem1DView;
+class Data1DViewItem;
 class JobItem;
 template<class T> class OutputData;
 
 namespace DataViewUtils
 {
-//! Initializes DataItem1DView and assigns it to the passed JobItem
+//! Initializes Data1DViewItem and assigns it to the passed JobItem
 void initDataView(JobItem* jobItem);
 
-void updateAxesTitle(DataItem1DView* view_item);
+void updateAxesTitle(Data1DViewItem* view_item);
 
-std::unique_ptr<OutputData<double>> getTranslatedData(DataItem1DView* view_item,
+std::unique_ptr<OutputData<double>> getTranslatedData(Data1DViewItem* view_item,
                                                       DataItem* data_item);
 };
 

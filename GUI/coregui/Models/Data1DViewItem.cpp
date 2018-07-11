@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/DataItem1DView.cpp
-//! @brief     Implements class DataItem1DView
+//! @file      GUI/coregui/Models/Data1DViewItem.cpp
+//! @brief     Implements class Data1DViewItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "DataItem1DView.h"
+#include "Data1DViewItem.h"
 #include "AxesItems.h"
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
@@ -31,14 +31,14 @@ const double default_min = 0.0;
 const double default_max = 1.0;
 }
 
-const QString DataItem1DView::P_TITLE = "Title";
-const QString DataItem1DView::P_XAXIS = "x-axis";
-const QString DataItem1DView::P_YAXIS = "y-axis";
-const QString DataItem1DView::P_AXES_UNITS = "Axes Units";
-const QString DataItem1DView::T_DATA_PROPERTIES = "Data property container";
+const QString Data1DViewItem::P_TITLE = "Title";
+const QString Data1DViewItem::P_XAXIS = "x-axis";
+const QString Data1DViewItem::P_YAXIS = "y-axis";
+const QString Data1DViewItem::P_AXES_UNITS = "Axes Units";
+const QString Data1DViewItem::T_DATA_PROPERTIES = "Data property container";
 
-DataItem1DView::DataItem1DView()
-    : SessionItem(Constants::DataItem1DViewType)
+Data1DViewItem::Data1DViewItem()
+    : SessionItem(Constants::Data1DViewItemType)
     , m_job_item(nullptr)
 {
     addProperty(P_TITLE, QString())->setVisible(false);
@@ -74,58 +74,58 @@ DataItem1DView::DataItem1DView()
     setYaxisTitle(y_axis_default_name);
 }
 
-int DataItem1DView::getNbins() const
+int Data1DViewItem::getNbins() const
 {
     return xAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();
 }
 
-double DataItem1DView::getLowerX() const
+double Data1DViewItem::getLowerX() const
 {
     return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
 }
 
-double DataItem1DView::getUpperX() const
+double Data1DViewItem::getUpperX() const
 {
     return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
 }
 
-double DataItem1DView::getLowerY() const
+double Data1DViewItem::getLowerY() const
 {
     return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN).toDouble();
 }
 
-double DataItem1DView::getUpperY() const
+double Data1DViewItem::getUpperY() const
 {
     return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX).toDouble();
 }
 
-bool DataItem1DView::isLog() const
+bool Data1DViewItem::isLog() const
 {
     return getItem(P_YAXIS)->getItemValue(AmplitudeAxisItem::P_IS_LOGSCALE).toBool();
 }
 
-QString DataItem1DView::getXaxisTitle() const
+QString Data1DViewItem::getXaxisTitle() const
 {
     return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
 }
 
-QString DataItem1DView::getYaxisTitle() const
+QString Data1DViewItem::getYaxisTitle() const
 {
     return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
 }
 
-void DataItem1DView::setXaxisTitle(QString xtitle)
+void Data1DViewItem::setXaxisTitle(QString xtitle)
 {
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
 }
 
-void DataItem1DView::setYaxisTitle(QString ytitle)
+void Data1DViewItem::setYaxisTitle(QString ytitle)
 {
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_TITLE, ytitle);
 }
 
 //! set zoom range of x,y axes to axes of input data
-void DataItem1DView::setAxesRangeToData()
+void Data1DViewItem::setAxesRangeToData()
 {
     const auto data
         = DataViewUtils::getTranslatedData(this, propertyContainerItem()->basicDataItem());
@@ -144,13 +144,13 @@ void DataItem1DView::setAxesRangeToData()
     setUpperY(data_range.second);
 }
 
-void DataItem1DView::resetToDefault()
+void Data1DViewItem::resetToDefault()
 {
     //TODO: implement when applying DataITem1DView in ImportView
     throw GUIHelpers::Error("Error in DataItem1DView::resetToDefault: not implemented");
 }
 
-QPair<QVector<double>, QVector<double>> DataItem1DView::graphData(Data1DProperties* property_item)
+QPair<QVector<double>, QVector<double>> Data1DViewItem::graphData(Data1DProperties* property_item)
 {
     const auto data = DataViewUtils::getTranslatedData(this, property_item->dataItem());
     if (!data)
@@ -159,7 +159,7 @@ QPair<QVector<double>, QVector<double>> DataItem1DView::graphData(Data1DProperti
                 QVector<double>::fromStdVector(data->getRawDataVector())};
 }
 
-JobItem* DataItem1DView::jobItem()
+JobItem* Data1DViewItem::jobItem()
 {
     if (m_job_item != nullptr)
         return m_job_item; // returning preset job item
@@ -175,47 +175,47 @@ JobItem* DataItem1DView::jobItem()
         "Error in DataItem1DView::jobItem: passed item is not owned by any job item");
 }
 
-void DataItem1DView::setLowerX(double xmin)
+void Data1DViewItem::setLowerX(double xmin)
 {
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN, xmin);
 }
 
-void DataItem1DView::setUpperX(double xmax)
+void Data1DViewItem::setUpperX(double xmax)
 {
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX, xmax);
 }
 
-void DataItem1DView::setLowerY(double ymin)
+void Data1DViewItem::setLowerY(double ymin)
 {
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MIN, ymin);
 }
 
-void DataItem1DView::setUpperY(double ymax)
+void Data1DViewItem::setUpperY(double ymax)
 {
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MAX, ymax);
 }
 
-void DataItem1DView::setLog(bool log_flag)
+void Data1DViewItem::setLog(bool log_flag)
 {
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, log_flag);
 }
 
-DataPropertyContainer *DataItem1DView::propertyContainerItem()
+DataPropertyContainer *Data1DViewItem::propertyContainerItem()
 {
     return dynamic_cast<DataPropertyContainer*>(getItem(T_DATA_PROPERTIES));
 }
 
-const BasicAxisItem* DataItem1DView::xAxisItem() const
+const BasicAxisItem* Data1DViewItem::xAxisItem() const
 {
     return dynamic_cast<const BasicAxisItem*>(getItem(P_XAXIS));
 }
 
-BasicAxisItem* DataItem1DView::xAxisItem()
+BasicAxisItem* Data1DViewItem::xAxisItem()
 {
-    return const_cast<BasicAxisItem*>(static_cast<const DataItem1DView*>(this)->xAxisItem());
+    return const_cast<BasicAxisItem*>(static_cast<const Data1DViewItem*>(this)->xAxisItem());
 }
 
-const AmplitudeAxisItem* DataItem1DView::yAxisItem() const
+const AmplitudeAxisItem* Data1DViewItem::yAxisItem() const
 {
     auto result = dynamic_cast<const AmplitudeAxisItem*>(getItem(P_YAXIS));
     Q_ASSERT(result);
@@ -224,13 +224,13 @@ const AmplitudeAxisItem* DataItem1DView::yAxisItem() const
 
 //! Set axes viewport to original data.
 
-void DataItem1DView::resetView()
+void Data1DViewItem::resetView()
 {
     setAxesRangeToData();
 }
 
 //! Init ymin, ymax to match the intensity values range.
-QPair<double, double> DataItem1DView::dataRange(const OutputData<double>* data) const
+QPair<double, double> Data1DViewItem::dataRange(const OutputData<double>* data) const
 {
     if (!data)
         return QPair<double, double>(default_min, default_max);

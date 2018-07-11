@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "FitComparisonWidget1D_New.h"
-#include "DataItem1DView.h"
+#include "Data1DViewItem.h"
 #include "FitComparisonViewController.h"
 #include "FitFlowWidget.h"
 #include "FitSuiteItem.h"
@@ -123,9 +123,9 @@ JobItem* FitComparisonWidget1D_New::jobItem()
     return jobItem;
 }
 
-DataItem1DView* FitComparisonWidget1D_New::viewItem()
+Data1DViewItem* FitComparisonWidget1D_New::viewItem()
 {
-    auto view_item = dynamic_cast<DataItem1DView*>(jobItem()->dataItemView());
+    auto view_item = dynamic_cast<Data1DViewItem*>(jobItem()->dataItemView());
     assert(view_item);
     return view_item;
 }

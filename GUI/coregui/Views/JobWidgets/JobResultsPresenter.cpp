@@ -14,7 +14,7 @@
 
 #include "JobResultsPresenter.h"
 #include "FitComparisonWidget.h"
-#include "FitComparisonWidget1D_New.h"
+#include "FitComparisonWidget1D.h"
 #include "GUIHelpers.h"
 #include "IntensityDataProjectionsWidget.h"
 #include "IntensityDataWidget.h"
@@ -65,7 +65,7 @@ JobResultsPresenter::JobResultsPresenter(QWidget* parent)
     registerWidget(Constants::IntensityProjectionsPresentation,
                    create_new<IntensityDataProjectionsWidget>);
 
-    registerWidget(Constants::FitComparisonPresentation1D, create_new<FitComparisonWidget1D_New>);
+    registerWidget(Constants::FitComparisonPresentation1D, create_new<FitComparisonWidget1D>);
     registerWidget(Constants::FitComparisonPresentation2D, create_new<FitComparisonWidget>);
 
     registerWidget(Constants::SpecularDataPresentation, create_new<SpecularDataWidget>);

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/FitWidgets/FitComparisonWidget1D_New.h
+//! @file      GUI/coregui/Views/FitWidgets/FitComparisonWidget1D.h
 //! @brief     Defines class FitComparisonWidget1D
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -29,12 +29,12 @@ class QAction;
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
 
-class BA_CORE_API_ FitComparisonWidget1D_New : public SessionItemWidget
+class BA_CORE_API_ FitComparisonWidget1D : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    explicit FitComparisonWidget1D_New(QWidget* parent = nullptr);
-    ~FitComparisonWidget1D_New() override;
+    explicit FitComparisonWidget1D(QWidget* parent = nullptr);
+    ~FitComparisonWidget1D() override;
 
     virtual QList<QAction*> actionList() override;
 

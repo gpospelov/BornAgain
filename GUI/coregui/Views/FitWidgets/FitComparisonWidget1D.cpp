@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "FitComparisonWidget1D_New.h"
+#include "FitComparisonWidget1D.h"
 #include "Data1DViewItem.h"
 #include "FitComparisonViewController.h"
 #include "FitFlowWidget.h"
@@ -28,7 +28,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 
-FitComparisonWidget1D_New::FitComparisonWidget1D_New(QWidget* parent)
+FitComparisonWidget1D::FitComparisonWidget1D(QWidget* parent)
     : SessionItemWidget(parent)
     , m_data_plot(new Plot1DCanvas)
     , m_diff_plot(new Plot1DCanvas)
@@ -64,19 +64,19 @@ FitComparisonWidget1D_New::FitComparisonWidget1D_New(QWidget* parent)
     m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_resetViewAction->setToolTip("Reset View");
     connect(m_resetViewAction, &QAction::triggered, this,
-            &FitComparisonWidget1D_New::onResetViewAction);
+            &FitComparisonWidget1D::onResetViewAction);
 
     m_propertyWidget->setVisible(false);
 }
 
-FitComparisonWidget1D_New::~FitComparisonWidget1D_New() = default;
+FitComparisonWidget1D::~FitComparisonWidget1D() = default;
 
-QList<QAction*> FitComparisonWidget1D_New::actionList()
+QList<QAction*> FitComparisonWidget1D::actionList()
 {
     return QList<QAction*>() << m_resetViewAction << m_propertyWidget->actionList();
 }
 
-void FitComparisonWidget1D_New::subscribeToItem()
+void FitComparisonWidget1D::subscribeToItem()
 {
     if (!jobItem()->isValidForFitting())
         return;
@@ -103,7 +103,7 @@ void FitComparisonWidget1D_New::subscribeToItem()
     m_propertyWidget->setItem(viewItem());
 }
 
-void FitComparisonWidget1D_New::unsubscribeFromItem()
+void FitComparisonWidget1D::unsubscribeFromItem()
 {
     if (!currentItem())
         return;
@@ -111,19 +111,19 @@ void FitComparisonWidget1D_New::unsubscribeFromItem()
     m_comparisonController->clear();
 }
 
-void FitComparisonWidget1D_New::onResetViewAction()
+void FitComparisonWidget1D::onResetViewAction()
 {
     viewItem()->resetView();
     m_comparisonController->resetDiffView();
 }
 
-JobItem* FitComparisonWidget1D_New::jobItem()
+JobItem* FitComparisonWidget1D::jobItem()
 {
     JobItem* jobItem = dynamic_cast<JobItem*>(currentItem());
     return jobItem;
 }
 
-Data1DViewItem* FitComparisonWidget1D_New::viewItem()
+Data1DViewItem* FitComparisonWidget1D::viewItem()
 {
     auto view_item = dynamic_cast<Data1DViewItem*>(jobItem()->dataItemView());
     assert(view_item);

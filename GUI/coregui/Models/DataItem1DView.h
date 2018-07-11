@@ -15,10 +15,13 @@
 #ifndef DATAITEM1DVIEW_H
 #define DATAITEM1DVIEW_H
 
-#include "DataItemView.h"
+#include "SessionItem.h"
 
 class AmplitudeAxisItem;
 class BasicAxisItem;
+class DataPropertyContainer;
+class Data1DProperties;
+class DataItem;
 class JobItem;
 template<class T> class OutputData;
 
@@ -26,17 +29,18 @@ template<class T> class OutputData;
 //! at once. In current implementation the first of carried
 //! items determines axes' limits.
 
-class BA_CORE_API_ DataItem1DView : public DataItemView
+class BA_CORE_API_ DataItem1DView : public SessionItem
 {
 public:
     static const QString P_TITLE;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_AXES_UNITS;
+    static const QString T_DATA_PROPERTIES;
 
     DataItem1DView();
 
-    void addItem(DataItem* data_item) override;
+    void addItem(DataItem* item);
 
     //! Number of bins in data
     int getNbins() const;
@@ -83,8 +87,9 @@ public:
     void setUpperY(double ymax);
     void setLog(bool log_flag);
 
+    DataPropertyContainer* propertyContainerItem();
+
 private:
-    DataItem* basicDataItem();
     QPair<double, double> dataRange(const OutputData<double>* data) const;
 
     JobItem* m_job_item;

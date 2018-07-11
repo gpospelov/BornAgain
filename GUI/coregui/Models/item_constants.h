@@ -141,6 +141,7 @@ const ModelType JobItemType = "JobItem";
 const ModelType IntensityDataType = "IntensityData";
 const ModelType SpecularDataType = "SpecularData";
 const ModelType DataItem1DViewType = "DataItem1DView";
+const ModelType DataPropertyContainerType = "DataPropertyContainer";
 const ModelType DataItem1DPropertiesType = "DataItem1DProperties";
 
 const ModelType BasicAxisType = "BasicAxis";

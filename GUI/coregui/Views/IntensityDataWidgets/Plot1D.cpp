@@ -16,6 +16,7 @@
 #include "AxesItems.h"
 #include "ColorMapUtils.h"
 #include "DataItem.h"
+#include "DataPropertyContainer.h"
 #include "DataItem1DView.h"
 #include "DataProperties.h"
 #include "MathConstants.h"
@@ -143,7 +144,7 @@ void Plot1D::unsubscribeFromItem()
 
 void Plot1D::initPlots()
 {
-    auto property_items = viewItem()->propertyItems<Data1DProperties>();
+    auto property_items = viewItem()->propertyContainerItem()->propertyItems();
     std::for_each(
         property_items.begin(), property_items.end(), [this](Data1DProperties* item) {
             auto graph = m_custom_plot->addGraph();
@@ -252,7 +253,7 @@ void Plot1D::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label)
 
 void Plot1D::updateAllGraphs()
 {
-    auto property_items = viewItem()->propertyItems<Data1DProperties>();
+    auto property_items = viewItem()->propertyContainerItem()->propertyItems();
     std::for_each(property_items.begin(), property_items.end(),
                   [this](Data1DProperties* item) { updateGraph(item); });
 }

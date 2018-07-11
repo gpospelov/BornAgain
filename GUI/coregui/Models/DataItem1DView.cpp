@@ -17,6 +17,7 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "DataItem.h"
+#include "DataPropertyContainer.h"
 #include "DataProperties.h"
 #include "DataViewUtils.h"
 #include "GUIHelpers.h"
@@ -34,9 +35,10 @@ const QString DataItem1DView::P_TITLE = "Title";
 const QString DataItem1DView::P_XAXIS = "x-axis";
 const QString DataItem1DView::P_YAXIS = "y-axis";
 const QString DataItem1DView::P_AXES_UNITS = "Axes Units";
+const QString DataItem1DView::T_DATA_PROPERTIES = "Data property container";
 
 DataItem1DView::DataItem1DView()
-    : DataItemView(Constants::DataItem1DViewType)
+    : SessionItem(Constants::DataItem1DViewType)
     , m_job_item(nullptr)
 {
     addProperty(P_TITLE, QString())->setVisible(false);
@@ -51,6 +53,9 @@ DataItem1DView::DataItem1DView()
     item = item->getItem(AmplitudeAxisItem::P_IS_VISIBLE);
     item->setValue(true);
     item->setVisible(false);
+
+    registerTag(T_DATA_PROPERTIES, 0, -1, QStringList() << Constants::DataPropertyContainerType);
+    insertItem(-1, new DataPropertyContainer, T_DATA_PROPERTIES);
 
     ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
     addProperty(P_AXES_UNITS, combo.variant());
@@ -70,18 +75,9 @@ DataItem1DView::DataItem1DView()
     setYaxisTitle(y_axis_default_name);
 }
 
-void DataItem1DView::addItem(DataItem* data_item)
+void DataItem1DView::addItem(DataItem* item)
 {
-    if (this->model() != data_item->model())
-        throw GUIHelpers::Error("Error in DataItem1DView::addItem: hosting models are different");
-
-    auto property_items = propertyItems<Data1DProperties>();
-    auto previous_item = !property_items.empty() ? property_items.back() : nullptr;
-
-    auto property_item = new Data1DProperties();
-    insertItem(-1, property_item);
-    property_item->setDataItem(data_item);
-    property_item->setColorProperty(Data1DProperties::nextColorName(previous_item));
+    propertyContainerItem()->addItem(item);
 }
 
 int DataItem1DView::getNbins() const
@@ -137,7 +133,8 @@ void DataItem1DView::setYaxisTitle(QString ytitle)
 //! set zoom range of x,y axes to axes of input data
 void DataItem1DView::setAxesRangeToData()
 {
-    const auto data = DataViewUtils::getTranslatedData(this, basicDataItem());
+    const auto data
+        = DataViewUtils::getTranslatedData(this, propertyContainerItem()->basicDataItem());
 
     double xmin = data ? data->getAxis(BornAgain::X_AXIS_INDEX).getMin() : default_min;
     double xmax = data ? data->getAxis(BornAgain::X_AXIS_INDEX).getMax() : default_max;
@@ -205,6 +202,11 @@ void DataItem1DView::setLog(bool log_flag)
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, log_flag);
 }
 
+DataPropertyContainer *DataItem1DView::propertyContainerItem()
+{
+    return dynamic_cast<DataPropertyContainer*>(getItem(T_DATA_PROPERTIES));
+}
+
 const BasicAxisItem* DataItem1DView::xAxisItem() const
 {
     return dynamic_cast<const BasicAxisItem*>(getItem(P_XAXIS));
@@ -227,14 +229,6 @@ const AmplitudeAxisItem* DataItem1DView::yAxisItem() const
 void DataItem1DView::resetView()
 {
     setAxesRangeToData();
-}
-
-DataItem* DataItem1DView::basicDataItem()
-{
-    auto basic_property_item = propertyItem(0);
-    if (!basic_property_item)
-        return nullptr;
-    return basic_property_item->dataItem();
 }
 
 //! Init ymin, ymax to match the intensity values range.

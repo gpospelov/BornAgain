@@ -27,25 +27,9 @@ namespace {
 // to provide the best appearance
 const double relative_diff_min_2d = 1e-05;
 const double relative_diff_max_2d = 1.0;
-const double relative_diff_min_1d = 1e-05;
-const double relative_diff_max_1d = 4.0;
-
-template<class DataType>
-DataType* simulationData(JobItem* job_item)
-{
-    assert(dynamic_cast<DataType*>(job_item->dataItem()));
-    return dynamic_cast<DataType*>(job_item->dataItem());
 }
 
-template<class DataType>
-DataType* realData(JobItem* job_item)
-{
-    assert(dynamic_cast<DataType*>(job_item->realDataItem()->dataItem()));
-    return dynamic_cast<DataType*>(job_item->realDataItem()->dataItem());
-}
-}
-
-class DiffItemController : public QObject
+class FitComparisonController2D::DiffItemController : public QObject
 {
 public:
     DiffItemController(const QString& data_type, QObject* parent);
@@ -60,6 +44,8 @@ private:
     SessionModel* m_tempIntensityDataModel;
     DataItem* m_diff_item;
 };
+
+using DiffItemController = FitComparisonController2D::DiffItemController;
 
 FitComparisonController2D::FitComparisonController2D(QObject* parent)
     : QObject(parent)
@@ -84,8 +70,8 @@ void FitComparisonController2D::setItem(JobItem* job_item)
     clear();
     m_diff_item_controller->setItem(job_item);
 
-    auto sim_data_item = simulationData<IntensityDataItem>(job_item);
-    auto real_data_item = realData<IntensityDataItem>(job_item);
+    auto sim_data_item = dynamic_cast<IntensityDataItem*>(job_item->dataItem());
+    auto real_data_item = dynamic_cast<IntensityDataItem*>(job_item->realDataItem()->dataItem());
 
     double zmin = real_data_item->getLowerZ();
     double zmax = real_data_item->getUpperZ();
@@ -131,63 +117,6 @@ void FitComparisonController2D::clear()
     m_xAxisRepeater->clear();
     m_yAxisRepeater->clear();
     m_zAxisRepeater->clear();
-}
-
-FitComparisonController1D::FitComparisonController1D(QObject* parent)
-    : QObject(parent)
-    , m_diff_item_controller(new DiffItemController(Constants::SpecularDataType, this))
-    , m_appearanceRepeater(new PropertyRepeater(this))
-    , m_xAxisRepeater(new PropertyRepeater(this))
-{
-}
-
-SpecularDataItem* FitComparisonController1D::diffItem()
-{
-    assert(dynamic_cast<SpecularDataItem*>(m_diff_item_controller->diffItem()));
-    return dynamic_cast<SpecularDataItem*>(m_diff_item_controller->diffItem());
-}
-
-void FitComparisonController1D::setItem(JobItem* job_item)
-{
-    assert(job_item);
-
-    clear();
-    m_diff_item_controller->setItem(job_item);
-
-    auto sim_data_item = simulationData<SpecularDataItem>(job_item);
-    auto real_data_item = realData<SpecularDataItem>(job_item);
-
-    m_appearanceRepeater->addItem(real_data_item);
-    m_appearanceRepeater->addItem(sim_data_item);
-    m_appearanceRepeater->addItem(diffItem());
-
-    m_xAxisRepeater->addItem(real_data_item->xAxisItem());
-    m_xAxisRepeater->addItem(sim_data_item->xAxisItem());
-    m_xAxisRepeater->addItem(diffItem()->xAxisItem());
-
-    diffItem()->setXaxisTitle(sim_data_item->getXaxisTitle());
-    diffItem()->setYaxisTitle("Relative difference");
-    diffItem()->setLowerY(relative_diff_min_1d);
-    diffItem()->setUpperY(relative_diff_max_1d);
-}
-
-void FitComparisonController1D::updateDiffData()
-{
-    m_diff_item_controller->updateDiffData();
-}
-
-void FitComparisonController1D::resetDiffItem()
-{
-    diffItem()->resetView();
-    diffItem()->setLowerY(relative_diff_min_1d);
-    diffItem()->setUpperY(relative_diff_max_1d);
-}
-
-void FitComparisonController1D::clear()
-{
-    m_diff_item_controller->unsubscribe();
-    m_appearanceRepeater->clear();
-    m_xAxisRepeater->clear();
 }
 
 DiffItemController::DiffItemController(const QString& data_type, QObject* parent)

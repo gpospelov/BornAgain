@@ -19,6 +19,7 @@
 #include "OutputData.h"
 #include "SafePointerVector.h"
 #include "SimDataPair.h"
+#include "FitStatus.h"
 
 class IChiSquaredModule;
 class PyBuilderCallback;
@@ -63,7 +64,7 @@ public:
     std::vector<double> simulation_array() const;
 
     //! Returns current number of simulation runs.
-    size_t numberOfIterations() const;
+    unsigned iterationCount() const;
 
     //! Returns simulation result.
     //! @param i_item: the index of fit pair
@@ -88,7 +89,7 @@ private:
     SafePointerVector<SimDataPair> m_fit_objects;
     double m_total_weight;
     std::unique_ptr<IChiSquaredModule> m_chi2_module;
-    size_t m_iteration_count;
+    FitStatus m_fit_status;
 };
 
 #endif  // FITOBJECTIVE_H

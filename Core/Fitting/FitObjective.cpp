@@ -31,7 +31,6 @@ void insert_to(std::vector<double>& to, const std::vector<double>& from)
 FitObjective::FitObjective()
     : m_total_weight(0.0)
     , m_chi2_module(new ChiSquaredModule())
-    , m_iteration_count(0.0)
 {}
 
 FitObjective::~FitObjective() = default;
@@ -83,7 +82,7 @@ std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& para
     for(size_t i = 0; i<m_simulation_array.size(); ++i)
         result.push_back(residual(m_simulation_array[i], m_experimental_array[i], weights[i]));
 
-    m_iteration_count++;
+    m_fit_status.update();
 
     return result;
 }
@@ -107,9 +106,10 @@ std::vector<double> FitObjective::simulation_array() const
     return m_simulation_array;
 }
 
-size_t FitObjective::numberOfIterations() const
+unsigned FitObjective::iterationCount() const
 {
-    return m_iteration_count;
+
+    return m_fit_status.iterationCount();
 }
 
 SimulationResult FitObjective::simulationResult(size_t i_item) const

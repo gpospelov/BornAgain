@@ -2,7 +2,7 @@
 #include "ApplicationModels.h"
 #include "ComboProperty.h"
 #include "DataItem.h"
-#include "DataItemView.h"
+#include "DataPropertyContainer.h"
 #include "DataProperties.h"
 #include "GUIHelpers.h"
 #include "MessageService.h"
@@ -32,19 +32,19 @@ DataItem* TestDataItemViews::insertNewDataItem(SessionModel& model, double val)
 TEST_F(TestDataItemViews, testDataLinking)
 {
     SessionModel model("TempModel");
-    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
+    auto view_item = dynamic_cast<DataPropertyContainer*>(model.insertNewItem(Constants::DataPropertyContainerType));
     DataItem* item = insertNewDataItem(model, 0.0);
     view_item->addItem(item);
 
     auto stored_items = view_item->propertyItems();
-    EXPECT_EQ(stored_items.size(), 1u);
+    EXPECT_EQ(stored_items.size(), 1);
     EXPECT_EQ(stored_items[0]->dataItem(), item);
 }
 
 TEST_F(TestDataItemViews, testLinkingSeveralItems)
 {
     SessionModel model("TempModel");
-    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
+    auto view_item = dynamic_cast<DataPropertyContainer*>(model.insertNewItem(Constants::DataPropertyContainerType));
     DataItem* item = insertNewDataItem(model, 0.0);
     DataItem* item2 = insertNewDataItem(model, 1.0);
     DataItem* item3 = insertNewDataItem(model, 2.0);
@@ -53,7 +53,7 @@ TEST_F(TestDataItemViews, testLinkingSeveralItems)
     view_item->addItem(item3);
 
     auto stored_items = view_item->propertyItems();
-    EXPECT_EQ(stored_items.size(), 3u);
+    EXPECT_EQ(stored_items.size(), 3);
     EXPECT_EQ(stored_items[0]->dataItem(), item);
     EXPECT_EQ(stored_items[1]->dataItem(), item2);
     EXPECT_EQ(stored_items[2]->dataItem(), item3);
@@ -62,7 +62,7 @@ TEST_F(TestDataItemViews, testLinkingSeveralItems)
 TEST_F(TestDataItemViews, testColors)
 {
     SessionModel model("TempModel");
-    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
+    auto view_item = dynamic_cast<DataPropertyContainer*>(model.insertNewItem(Constants::DataPropertyContainerType));
     DataItem* item = insertNewDataItem(model, 0.0);
     DataItem* item2 = insertNewDataItem(model, 1.0);
     DataItem* item3 = insertNewDataItem(model, 2.0);
@@ -85,7 +85,7 @@ TEST_F(TestDataItemViews, testColors)
         return name;
     };
 
-    EXPECT_EQ(stored_items.size(), 7u);
+    EXPECT_EQ(stored_items.size(), 7);
     EXPECT_EQ(getColorName(stored_items[0]), "Black");
     EXPECT_EQ(getColorName(stored_items[1]), "Blue");
     EXPECT_EQ(getColorName(stored_items[2]), "Red");
@@ -98,12 +98,12 @@ TEST_F(TestDataItemViews, testColors)
 TEST_F(TestDataItemViews, testBrokenLink)
 {
     SessionModel model("TempModel");
-    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
+    auto view_item = dynamic_cast<DataPropertyContainer*>(model.insertNewItem(Constants::DataPropertyContainerType));
     DataItem* item = insertNewDataItem(model, 0.0);
     view_item->addItem(item);
 
     auto stored_items = view_item->propertyItems();
-    EXPECT_EQ(stored_items.size(), 1u);
+    EXPECT_EQ(stored_items.size(), 1);
     EXPECT_EQ(stored_items[0]->dataItem(), item);
 
     DataItem* item2 = insertNewDataItem(model, 1.0);
@@ -115,7 +115,7 @@ TEST_F(TestDataItemViews, testWrongHostingModel)
 {
     SessionModel model("TempModel");
     DataItem* item = insertNewDataItem(model, 0.0);
-    auto view_item = dynamic_cast<DataItemView*>(model.insertNewItem(Constants::DataItem1DViewType));
+    auto view_item = dynamic_cast<DataPropertyContainer*>(model.insertNewItem(Constants::DataPropertyContainerType));
     view_item->addItem(item);
 
     SessionModel model2("TempModel2");
@@ -123,7 +123,7 @@ TEST_F(TestDataItemViews, testWrongHostingModel)
     EXPECT_THROW(view_item->addItem(item2), GUIHelpers::Error);
 
     auto stored_items = view_item->propertyItems();
-    EXPECT_EQ(stored_items.size(), 1u);
+    EXPECT_EQ(stored_items.size(), 1);
     EXPECT_EQ(stored_items[0]->dataItem(), item);
 }
 
@@ -139,8 +139,8 @@ TEST_F(TestDataItemViews, testSavingLinkedData)
         SessionModel* real_data_model = models.realDataModel();
         DataItem* item = insertNewDataItem(*real_data_model, 0.0);
         DataItem* item2 = insertNewDataItem(*real_data_model, 1.0);
-        auto view_item = dynamic_cast<DataItemView*>(
-            real_data_model->insertNewItem(Constants::DataItem1DViewType));
+        auto view_item = dynamic_cast<DataPropertyContainer*>(
+            real_data_model->insertNewItem(Constants::DataPropertyContainerType));
         view_item->addItem(item);
         view_item->addItem(item2);
 
@@ -156,12 +156,12 @@ TEST_F(TestDataItemViews, testSavingLinkedData)
     document.load(projectFileName);
 
     SessionModel* real_data_model = models.realDataModel();
-    auto view_item = real_data_model->topItem<DataItemView>();
+    auto view_item = real_data_model->topItem<DataPropertyContainer>();
     EXPECT_TRUE(view_item);
 
     auto linked_items = view_item->propertyItems();
     auto model_items = real_data_model->topItems<DataItem>();
-    EXPECT_EQ(linked_items.size(), 2u);
+    EXPECT_EQ(linked_items.size(), 2);
     EXPECT_EQ(model_items.size(), 2);
     for (auto item : model_items) {
         auto data_item = dynamic_cast<DataItem*>(item);

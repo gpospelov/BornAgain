@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/DataItem1DView.h
-//! @brief     Defines class DataItem1DView
+//! @file      GUI/coregui/Models/Data1DViewItem.h
+//! @brief     Defines class Data1DViewItem
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,28 +15,30 @@
 #ifndef DATAITEM1DVIEW_H
 #define DATAITEM1DVIEW_H
 
-#include "DataItemView.h"
+#include "SessionItem.h"
 
 class AmplitudeAxisItem;
 class BasicAxisItem;
-class InstrumentItem;
+class DataPropertyContainer;
+class Data1DProperties;
+class DataItem;
+class JobItem;
 template<class T> class OutputData;
 
 //! View model for 1D DataItem. Can represent several items
 //! at once. In current implementation the first of carried
 //! items determines axes' limits.
 
-class BA_CORE_API_ DataItem1DView : public DataItemView
+class BA_CORE_API_ Data1DViewItem : public SessionItem
 {
 public:
     static const QString P_TITLE;
     static const QString P_XAXIS;
     static const QString P_YAXIS;
     static const QString P_AXES_UNITS;
+    static const QString T_DATA_PROPERTIES;
 
-    DataItem1DView();
-
-    void addItem(DataItem* data_item) override;
+    Data1DViewItem();
 
     //! Number of bins in data
     int getNbins() const;
@@ -69,17 +71,26 @@ public:
     //! Returns point data for drawing
     QPair<QVector<double>, QVector<double>> graphData(Data1DProperties* property_item);
 
-public slots:
+    //! Sets job item (for unit conversion) if DataItemView
+    //! is dynamically created outside of JobModel
+    void setJobItem(JobItem* job_item) {m_job_item = job_item;}
+
+    //! Returns either parenting JobItem or
+    //! job item set with DataItem1DView::setJobItem.
+    JobItem* jobItem();
+
     void setLowerX(double xmin);
     void setUpperX(double xmax);
     void setLowerY(double ymin);
     void setUpperY(double ymax);
     void setLog(bool log_flag);
 
+    DataPropertyContainer* propertyContainerItem();
+
 private:
-    void updateAxesZoomLevel();
-    DataItem* basicDataItem();
-    QPair<double, double> dataRange(const OutputData<double> *data) const;
+    QPair<double, double> dataRange(const OutputData<double>* data) const;
+
+    JobItem* m_job_item;
 };
 
 #endif // DATAITEM1DVIEW_H

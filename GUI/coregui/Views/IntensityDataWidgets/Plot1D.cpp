@@ -16,7 +16,8 @@
 #include "AxesItems.h"
 #include "ColorMapUtils.h"
 #include "DataItem.h"
-#include "DataItem1DView.h"
+#include "DataPropertyContainer.h"
+#include "Data1DViewItem.h"
 #include "DataProperties.h"
 #include "MathConstants.h"
 #include "PlotEventInfo.h"
@@ -79,7 +80,7 @@ void Plot1D::onPropertyChanged(const QString& property_name)
     if (m_block_update)
         return;
 
-    if (property_name == DataItem1DView::P_AXES_UNITS) {
+    if (property_name == Data1DViewItem::P_AXES_UNITS) {
         setAxesRangeFromItem(viewItem());
         updateAllGraphs();
         replot();
@@ -143,7 +144,7 @@ void Plot1D::unsubscribeFromItem()
 
 void Plot1D::initPlots()
 {
-    auto property_items = viewItem()->propertyItems<Data1DProperties>();
+    auto property_items = viewItem()->propertyContainerItem()->propertyItems();
     std::for_each(
         property_items.begin(), property_items.end(), [this](Data1DProperties* item) {
             auto graph = m_custom_plot->addGraph();
@@ -223,7 +224,7 @@ void Plot1D::refreshPlotData(Data1DProperties* item)
     m_block_update = false;
 }
 
-void Plot1D::setAxesRangeFromItem(DataItem1DView* item)
+void Plot1D::setAxesRangeFromItem(Data1DViewItem* item)
 {
     m_custom_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     m_custom_plot->axisRect()->setupFullAxesBox(true);
@@ -235,7 +236,7 @@ void Plot1D::setAxesRangeFromItem(DataItem1DView* item)
     setAxesRangeConnected(true);
 }
 
-void Plot1D::setAxesLabelsFromItem(DataItem1DView* item)
+void Plot1D::setAxesLabelsFromItem(Data1DViewItem* item)
 {
     setLabel(item->xAxisItem(), m_custom_plot->xAxis, item->getXaxisTitle());
     setLabel(item->yAxisItem(), m_custom_plot->yAxis, item->getYaxisTitle());
@@ -252,7 +253,7 @@ void Plot1D::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label)
 
 void Plot1D::updateAllGraphs()
 {
-    auto property_items = viewItem()->propertyItems<Data1DProperties>();
+    auto property_items = viewItem()->propertyContainerItem()->propertyItems();
     std::for_each(property_items.begin(), property_items.end(),
                   [this](Data1DProperties* item) { updateGraph(item); });
 }
@@ -265,15 +266,15 @@ void Plot1D::updateGraph(Data1DProperties* item)
     graph->setData(data_points.first, data_points.second, /*sorted =*/ true);
 }
 
-DataItem1DView* Plot1D::viewItem()
+Data1DViewItem* Plot1D::viewItem()
 {
-    return const_cast<DataItem1DView*>(
+    return const_cast<Data1DViewItem*>(
         static_cast<const Plot1D*>(this)->viewItem());
 }
 
-const DataItem1DView* Plot1D::viewItem() const
+const Data1DViewItem* Plot1D::viewItem() const
 {
-    const auto result = dynamic_cast<const DataItem1DView*>(currentItem());
+    const auto result = dynamic_cast<const Data1DViewItem*>(currentItem());
     Q_ASSERT(result);
     return result;
 }
@@ -290,14 +291,14 @@ void Plot1D::modifyAxesProperties(const QString& axisName,
         replot();
     }
 
-    if (axisName == DataItem1DView::P_XAXIS) {
+    if (axisName == Data1DViewItem::P_XAXIS) {
         if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
             setAxesRangeConnected(false);
             m_custom_plot->xAxis->setRange(viewItem()->getLowerX(), viewItem()->getUpperX());
             setAxesRangeConnected(true);
             replot();
         }
-    } else if (axisName == DataItem1DView::P_YAXIS) {
+    } else if (axisName == Data1DViewItem::P_YAXIS) {
         if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
             setAxesRangeConnected(false);
             m_custom_plot->yAxis->setRange(viewItem()->getLowerY(), viewItem()->getUpperY());

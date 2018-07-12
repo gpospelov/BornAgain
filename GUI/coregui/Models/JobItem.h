@@ -18,7 +18,7 @@
 #include "SessionItem.h"
 
 class DataItem;
-class DataItem1DView;
+class Data1DViewItem;
 class FitParameterContainerItem;
 class FitSuiteItem;
 class InstrumentItem;
@@ -101,7 +101,7 @@ public:
     FitParameterContainerItem* fitParameterContainerItem();
     RealDataItem* realDataItem();
 
-    DataItem1DView* dataItemView();
+    Data1DViewItem* dataItemView();
 
 private:
     void updateIntensityDataFileName();

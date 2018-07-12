@@ -34,7 +34,7 @@ Plot1DCanvas::Plot1DCanvas(QWidget* parent)
 
     setLayout(layout);
 
-    setStatusLabelEnabled(true);
+    setStatusLabelEnabled(false);
 }
 
 void Plot1DCanvas::setItem(SessionItem* dataItemView)

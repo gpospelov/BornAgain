@@ -19,7 +19,6 @@
 #include <QObject>
 
 class DataItem;
-class DiffItemController;
 class IntensityDataItem;
 class JobItem;
 class PropertyRepeater;
@@ -32,6 +31,8 @@ class SpecularDataItem;
 class BA_CORE_API_ FitComparisonController2D : public QObject
 {
 public:
+    class DiffItemController;
+
     explicit FitComparisonController2D(QObject* parent = nullptr);
 
     IntensityDataItem* diffItem();
@@ -48,28 +49,6 @@ private:
     PropertyRepeater* m_xAxisRepeater;
     PropertyRepeater* m_yAxisRepeater;
     PropertyRepeater* m_zAxisRepeater;
-};
-
-//! Provides synchronization between certain properties of fit related SpecularDataItems.
-//! Used solely in FitComparisonWidget1D.
-
-class BA_CORE_API_ FitComparisonController1D : public QObject
-{
-public:
-    explicit FitComparisonController1D(QObject* parent = nullptr);
-
-    SpecularDataItem* diffItem();
-
-    void setItem(JobItem* job_item);
-    void updateDiffData();
-    void resetDiffItem();
-
-    void clear();
-
-private:
-    DiffItemController* m_diff_item_controller;
-    PropertyRepeater* m_appearanceRepeater;
-    PropertyRepeater* m_xAxisRepeater;
 };
 
 #endif  // FITCOMPARISONCONTROLLER_H

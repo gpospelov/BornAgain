@@ -13,30 +13,30 @@
 // ************************************************************************** //
 
 #include "FitComparisonWidget1D.h"
-#include "FitComparisonController.h"
+#include "Data1DViewItem.h"
+#include "FitComparisonViewController.h"
 #include "FitFlowWidget.h"
 #include "FitSuiteItem.h"
 #include "IntensityDataPropertyWidget.h"
 #include "JobItem.h"
+#include "Plot1D.h"
+#include "Plot1DCanvas.h"
 #include "PlotStatusLabel.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
-#include "SpecularDataItem.h"
-#include "SpecularPlot.h"
-#include "SpecularPlotCanvas.h"
 #include <QAction>
 #include <QGridLayout>
 #include <QVBoxLayout>
 
-FitComparisonWidget1D::FitComparisonWidget1D(QWidget *parent)
+FitComparisonWidget1D::FitComparisonWidget1D(QWidget* parent)
     : SessionItemWidget(parent)
-    , m_data_plot(new SpecularPlotCanvas)
-    , m_diff_plot(new SpecularPlotCanvas)
+    , m_data_plot(new Plot1DCanvas)
+    , m_diff_plot(new Plot1DCanvas)
     , m_fitFlowWidget(new FitFlowWidget)
     , m_statusLabel(new PlotStatusLabel(nullptr, this))
     , m_propertyWidget(new IntensityDataPropertyWidget)
     , m_resetViewAction(new QAction(this))
-    , m_comparisonController(new FitComparisonController1D(this))
+    , m_comparisonController(new FitComparison1DViewController(this))
 {
     auto vlayout = new QVBoxLayout;
     vlayout->setMargin(0);
@@ -47,8 +47,8 @@ FitComparisonWidget1D::FitComparisonWidget1D(QWidget *parent)
     gridLayout->setSpacing(0);
 
     gridLayout->addWidget(m_data_plot, 0, 0, 1, -1);
-    gridLayout->addWidget(m_diff_plot, 1, 0);
-    gridLayout->addWidget(m_fitFlowWidget, 1, 1);
+    gridLayout->addWidget(m_diff_plot, 1, 0, 1, 2);
+    gridLayout->addWidget(m_fitFlowWidget, 1, 2, 1, 1);
 
     vlayout->addLayout(gridLayout);
     vlayout->addWidget(m_statusLabel);
@@ -63,7 +63,8 @@ FitComparisonWidget1D::FitComparisonWidget1D(QWidget *parent)
     m_resetViewAction->setText("Reset View");
     m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
     m_resetViewAction->setToolTip("Reset View");
-    connect(m_resetViewAction, &QAction::triggered, this, &FitComparisonWidget1D::onResetViewAction);
+    connect(m_resetViewAction, &QAction::triggered, this,
+            &FitComparisonWidget1D::onResetViewAction);
 
     m_propertyWidget->setVisible(false);
 }
@@ -91,15 +92,15 @@ void FitComparisonWidget1D::subscribeToItem()
 
     m_comparisonController->setItem(jobItem());
 
-    m_data_plot->setItem(simulatedDataItem());
-    m_diff_plot->setItem(m_comparisonController->diffItem());
+    m_data_plot->setItem(viewItem());
+    m_diff_plot->setItem(m_comparisonController->diffItemView());
     m_fitFlowWidget->setItem(jobItem()->fitSuiteItem());
 
     m_statusLabel->reset();
-    m_statusLabel->addPlot(m_data_plot->specularPlot());
-    m_statusLabel->addPlot(m_diff_plot->specularPlot());
+    m_statusLabel->addPlot(m_data_plot->plot1D());
+    m_statusLabel->addPlot(m_diff_plot->plot1D());
 
-    m_propertyWidget->setItem(simulatedDataItem());
+    m_propertyWidget->setItem(viewItem());
 }
 
 void FitComparisonWidget1D::unsubscribeFromItem()
@@ -112,9 +113,8 @@ void FitComparisonWidget1D::unsubscribeFromItem()
 
 void FitComparisonWidget1D::onResetViewAction()
 {
-    realDataItem()->resetView();
-    simulatedDataItem()->resetView();
-    m_comparisonController->resetDiffItem();
+    viewItem()->resetView();
+    m_comparisonController->resetDiffView();
 }
 
 JobItem* FitComparisonWidget1D::jobItem()
@@ -123,14 +123,9 @@ JobItem* FitComparisonWidget1D::jobItem()
     return jobItem;
 }
 
-SpecularDataItem* FitComparisonWidget1D::realDataItem()
+Data1DViewItem* FitComparisonWidget1D::viewItem()
 {
-    assert(dynamic_cast<SpecularDataItem*>(jobItem()->realDataItem()->dataItem()));
-    return dynamic_cast<SpecularDataItem*>(jobItem()->realDataItem()->dataItem());
-}
-
-SpecularDataItem* FitComparisonWidget1D::simulatedDataItem()
-{
-    assert(dynamic_cast<SpecularDataItem*>(jobItem()->dataItem()));
-    return dynamic_cast<SpecularDataItem*>(jobItem()->dataItem());
+    auto view_item = dynamic_cast<Data1DViewItem*>(jobItem()->dataItemView());
+    Q_ASSERT(view_item);
+    return view_item;
 }

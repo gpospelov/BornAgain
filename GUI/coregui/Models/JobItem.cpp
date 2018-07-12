@@ -14,7 +14,7 @@
 
 #include "JobItem.h"
 #include "ComboProperty.h"
-#include "DataItem1DView.h"
+#include "Data1DViewItem.h"
 #include "FitSuiteItem.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
@@ -78,7 +78,7 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType
                 << Constants::SpecularDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
-    registerTag(T_DATAVIEW, 1, 1, QStringList() << Constants::DataItem1DViewType);
+    registerTag(T_DATAVIEW, 1, 1, QStringList() << Constants::Data1DViewItemType);
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
 
     registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << Constants::SimulationOptionsType);
@@ -258,9 +258,9 @@ RealDataItem* JobItem::realDataItem()
     return dynamic_cast<RealDataItem*>(getItem(JobItem::T_REALDATA));
 }
 
-DataItem1DView* JobItem::dataItemView()
+Data1DViewItem* JobItem::dataItemView()
 {
-    return dynamic_cast<DataItem1DView*>(getItem(JobItem::T_DATAVIEW));
+    return dynamic_cast<Data1DViewItem*>(getItem(JobItem::T_DATAVIEW));
 }
 
 //! Updates the name of file to store intensity data.

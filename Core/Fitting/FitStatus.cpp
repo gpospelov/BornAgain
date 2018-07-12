@@ -14,10 +14,10 @@
 
 #include "FitStatus.h"
 
-
-FitStatus::FitStatus()
+FitStatus::FitStatus(const FitObjective* fit_objective)
     : m_iteration_count(0)
     , m_fit_status(IDLE)
+    , m_fit_objective(fit_objective)
 {
 
 }
@@ -40,5 +40,17 @@ bool FitStatus::isInterrupted() const
 void FitStatus::update()
 {
     m_fit_status = RUNNING;
+    m_observers.notify(*m_fit_objective);
     m_iteration_count++;
+}
+
+void FitStatus::initPrint(int every_nth)
+{
+    (void)every_nth;
+
+}
+
+void FitStatus::addObserver(int every_nth, fit_observer_t observer)
+{
+    m_observers.addObserver(every_nth, observer);
 }

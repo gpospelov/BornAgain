@@ -7638,6 +7638,11 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_relativeDifference(self, i_item)
 
 
+    def initPrint(self, every_nth):
+        """initPrint(FitObjective self, int every_nth)"""
+        return _libBornAgainCore.FitObjective_initPrint(self, every_nth)
+
+
     def addSimulationAndData(self, callback, data, weight):
         self.wrp = SimulationBuilderWrapper(callback)
         return self.addSimulationAndData_cpp(self.wrp, data, weight)

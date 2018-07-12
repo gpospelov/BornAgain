@@ -16,6 +16,11 @@
 #define FITSTATUS_H
 
 #include "WinDllMacros.h"
+#include "FitObserver.h"
+#include <vector>
+#include <functional>
+
+class FitObjective;
 
 //! Contains status of the fitting (running, interupted etc) and all intermediate
 //! information which has to be collected during the fit.
@@ -24,9 +29,10 @@
 class BA_CORE_API_ FitStatus
 {
 public:
-    FitStatus();
+    using fit_observer_t = std::function<void(const FitObjective&)>;
 
-    //! Returns current number of simulation runs.
+    FitStatus(const FitObjective* fit_objective);
+
     unsigned iterationCount() const;
 
     void setInterrupted();
@@ -34,12 +40,16 @@ public:
 
     void update();
 
-    void interruptRequest();
+    void initPrint(int every_nth);
+
+    void addObserver(int every_nth, fit_observer_t);
 
 private:
     enum EFitStatus { IDLE, RUNNING, COMPLETED, FAILED, INTERRUPTED };
     unsigned m_iteration_count;
     EFitStatus m_fit_status;
+    FitObserver<FitObjective> m_observers;
+    const FitObjective* m_fit_objective;
 };
 
 #endif // FITSTATUS_H

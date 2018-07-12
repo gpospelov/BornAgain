@@ -19,10 +19,10 @@
 #include "OutputData.h"
 #include "SafePointerVector.h"
 #include "SimDataPair.h"
-#include "FitStatus.h"
 
 class IChiSquaredModule;
 class PyBuilderCallback;
+class FitStatus;
 
 //! Main class to hold pairs of simulation
 //! Holds vector of FitObject's (simulation and real data) to fit
@@ -78,6 +78,10 @@ public:
     //! @param i_item: the index of fit pair
     SimulationResult relativeDifference(size_t i_item = 0) const;
 
+    //! Initializes printing to standard output during the fitting.
+    //! @param every_nth Print every n'th iteration
+    void initPrint(int every_nth);
+
 private:
     void run_simulations(const Fit::Parameters& params);
     double residual(double a, double b, double weight) const;
@@ -89,7 +93,7 @@ private:
     SafePointerVector<SimDataPair> m_fit_objects;
     double m_total_weight;
     std::unique_ptr<IChiSquaredModule> m_chi2_module;
-    FitStatus m_fit_status;
+    std::unique_ptr<FitStatus> m_fit_status;
 };
 
 #endif  // FITOBJECTIVE_H

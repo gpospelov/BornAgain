@@ -28,12 +28,9 @@ const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
 
 RealDataItem::RealDataItem()
     : SessionItem(Constants::RealDataType)
-    , m_linkedInstrument(0)
+    , m_linkedInstrument(nullptr)
 {
     setItemName(QStringLiteral("undefined"));
-
-    addProperty(P_INSTRUMENT_ID, QString());
-    addProperty(P_INSTRUMENT_NAME, QString());
 
     // Registering this tag even without actual data item to avoid troubles in copying RealDataItem
     registerTag(T_INTENSITY_DATA, 1, 1,
@@ -42,6 +39,9 @@ RealDataItem::RealDataItem()
     // TODO: allows to access underlying data item, should be removed. But it is not clear,
     // what happens if default tag is not present.
     setDefaultTag(T_INTENSITY_DATA);
+
+    addProperty(P_INSTRUMENT_ID, QString());
+    addProperty(P_INSTRUMENT_NAME, QString());
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_NAME && getItem(T_INTENSITY_DATA))
@@ -151,8 +151,5 @@ void RealDataItem::updateIntensityDataFileName()
 void RealDataItem::updateToInstrument()
 {
     DataItem* item = dataItem();
-    assert(item->getOutputData()
-           && "RealDataItem::updateToInstrument assertion failed: underlying data item doesn't "
-              "contain data");
     JobItemUtils::setIntensityItemAxesUnits(item, m_linkedInstrument);
 }

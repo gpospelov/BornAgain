@@ -13,22 +13,20 @@
 // ************************************************************************** //
 
 #include "SysUtils.h"
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <chrono>
+#include <iomanip>
+#include <iostream>
+#include <sstream>
 #include <stdexcept>
-
-#ifdef DEBUG_FPE
-#ifdef Q_OS_MAC
-#endif
-#endif
 
 std::string SysUtils::getCurrentDateAndTime()
 {
-    using boost::posix_time::ptime;
-    using boost::posix_time::second_clock;
-    using boost::gregorian::day_clock;
+    using clock = std::chrono::system_clock;
 
-    ptime todayUtc(day_clock::universal_day(), second_clock::universal_time().time_of_day());
-    return to_simple_string(todayUtc);
+    std::stringstream output;
+    std::time_t current_time = clock::to_time_t(clock::now());
+    output << std::put_time(std::gmtime(&current_time), "%Y-%b-%d %T");
+    return output.str();
 }
 
 //! enables exception throw in the case of NaN, Inf

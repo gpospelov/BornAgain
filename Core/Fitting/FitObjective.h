@@ -82,6 +82,11 @@ public:
     //! @param every_nth Print every n'th iteration
     void initPrint(int every_nth);
 
+    bool isCompleted() const;
+
+    //! Should be explicitely called on last iteration to notify all observers.
+    void finalize();
+
 private:
     void run_simulations(const Fit::Parameters& params);
     double residual(double a, double b, double weight) const;

@@ -134,6 +134,16 @@ void FitObjective::initPrint(int every_nth)
     m_fit_status->initPrint(every_nth);
 }
 
+bool FitObjective::isCompleted() const
+{
+    return m_fit_status->isCompleted();
+}
+
+void FitObjective::finalize()
+{
+    m_fit_status->finalize();
+}
+
 void FitObjective::run_simulations(const Fit::Parameters& params)
 {
     if (m_fit_objects.empty())

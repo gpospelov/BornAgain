@@ -21,6 +21,7 @@
 #include <functional>
 
 class FitObjective;
+class FitPrintService;
 
 //! Contains status of the fitting (running, interupted etc) and all intermediate
 //! information which has to be collected during the fit.
@@ -32,11 +33,13 @@ public:
     using fit_observer_t = std::function<void(const FitObjective&)>;
 
     FitStatus(const FitObjective* fit_objective);
+    ~FitStatus();
 
     unsigned iterationCount() const;
 
     void setInterrupted();
     bool isInterrupted() const;
+    bool isCompleted() const;
 
     void update();
 
@@ -44,11 +47,15 @@ public:
 
     void addObserver(int every_nth, fit_observer_t);
 
+    //! Should be explicitely called on last iteration to notify all observers.
+    void finalize();
+
 private:
     enum EFitStatus { IDLE, RUNNING, COMPLETED, FAILED, INTERRUPTED };
     unsigned m_iteration_count;
     EFitStatus m_fit_status;
     FitObserver<FitObjective> m_observers;
+    std::unique_ptr<FitPrintService> m_print_service;
     const FitObjective* m_fit_objective;
 };
 

@@ -7643,6 +7643,16 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_initPrint(self, every_nth)
 
 
+    def isCompleted(self):
+        """isCompleted(FitObjective self) -> bool"""
+        return _libBornAgainCore.FitObjective_isCompleted(self)
+
+
+    def finalize(self):
+        """finalize(FitObjective self)"""
+        return _libBornAgainCore.FitObjective_finalize(self)
+
+
     def addSimulationAndData(self, callback, data, weight):
         self.wrp = SimulationBuilderWrapper(callback)
         return self.addSimulationAndData_cpp(self.wrp, data, weight)

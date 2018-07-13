@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "FitStatus.h"
+#include "FitPrintService.h"
 
 FitStatus::FitStatus(const FitObjective* fit_objective)
     : m_iteration_count(0)
@@ -21,6 +22,8 @@ FitStatus::FitStatus(const FitObjective* fit_objective)
 {
 
 }
+
+FitStatus::~FitStatus() = default;
 
 unsigned FitStatus::iterationCount() const
 {
@@ -37,6 +40,11 @@ bool FitStatus::isInterrupted() const
     return m_fit_status == INTERRUPTED;
 }
 
+bool FitStatus::isCompleted() const
+{
+    return m_fit_status == COMPLETED;
+}
+
 void FitStatus::update()
 {
     m_fit_status = RUNNING;
@@ -46,11 +54,22 @@ void FitStatus::update()
 
 void FitStatus::initPrint(int every_nth)
 {
-    (void)every_nth;
+    m_print_service.reset(new FitPrintService);
 
+    FitObserver<FitObjective>::observer_t callback = [&](const FitObjective& objective) {
+        m_print_service->print(objective);
+    };
+
+    addObserver(every_nth, callback);
 }
 
 void FitStatus::addObserver(int every_nth, fit_observer_t observer)
 {
     m_observers.addObserver(every_nth, observer);
+}
+
+void FitStatus::finalize()
+{
+    m_fit_status = COMPLETED;
+    m_observers.notify_all(*m_fit_objective);
 }

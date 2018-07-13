@@ -62,6 +62,7 @@ def run_fitting():
 
     fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(get_simulation, real_data.array(), 1.0)
+    fit_objective.initPrint(10)
 
     params = ba.Parameters()
     params.add("cylinder_height", 4.*nm, min=0.01)
@@ -72,6 +73,7 @@ def run_fitting():
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)
 
+    fit_objective.finalize()
     print(result.toString())
 
 

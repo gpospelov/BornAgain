@@ -16,6 +16,7 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 
 std::string SysUtils::getCurrentDateAndTime()

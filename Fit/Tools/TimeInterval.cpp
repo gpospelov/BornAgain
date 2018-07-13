@@ -13,13 +13,16 @@
 // ************************************************************************** //
 
 #include "TimeInterval.h"
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <chrono>
+
+using clock_used = std::chrono::high_resolution_clock;
+using duration_unit = std::chrono::milliseconds;
 
 class TimeIntervalImp
 {
 public:
-    boost::posix_time::ptime m_start_time;
-    boost::posix_time::ptime m_end_time;
+    std::chrono::time_point<clock_used> m_start_time;
+    std::chrono::time_point<clock_used> m_end_time;
     bool m_is_running;
     TimeIntervalImp() : m_is_running(false) {}
 };
@@ -31,23 +34,21 @@ TimeInterval::~TimeInterval() = default;
 void TimeInterval::start()
 {
     m_imp->m_is_running = true;
-    m_imp->m_start_time = boost::posix_time::microsec_clock::local_time();
+    m_imp->m_start_time = clock_used::now();
 }
 
 void TimeInterval::stop()
 {
     m_imp->m_is_running = false;
-    m_imp->m_end_time = boost::posix_time::microsec_clock::local_time();
+    m_imp->m_end_time = clock_used::now();
 }
 
 double TimeInterval::runTime() const
 {
-    boost::posix_time::time_duration diff;
+    duration_unit diff
+        = m_imp->m_is_running
+              ? std::chrono::duration_cast<duration_unit>(clock_used::now() - m_imp->m_start_time)
+              : std::chrono::duration_cast<duration_unit>(m_imp->m_end_time - m_imp->m_start_time);
 
-    if (m_imp->m_is_running)
-        diff = boost::posix_time::microsec_clock::local_time() - m_imp->m_start_time;
-    else
-        diff = m_imp->m_end_time - m_imp->m_start_time;
-
-    return diff.total_milliseconds() / 1000.;
+    return diff.count() / 1000.;
 }

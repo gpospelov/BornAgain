@@ -7658,9 +7658,9 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_minimizerResult(self)
 
 
-    def finalize(self, result):
-        """finalize(FitObjective self, Fit::MinimizerResult const & result)"""
-        return _libBornAgainCore.FitObjective_finalize(self, result)
+    def finalize_cpp(self, result):
+        """finalize_cpp(FitObjective self, Fit::MinimizerResult const & result)"""
+        return _libBornAgainCore.FitObjective_finalize_cpp(self, result)
 
 
     def addSimulationAndData(self, callback, data, weight):
@@ -7685,6 +7685,20 @@ class FitObjective(_object):
 
     def evaluate(self, params):
         return self.evaluate_cpp(self.convert_params(params))
+
+    def convert_result(self, minim_result):
+        """
+        Converts result reported by arbitrary minimizer to ba.MinimizerResult
+        """
+
+        if str(minim_result.__module__) == "lmfit.minimizer":
+            return libBornAgainFit.MinimizerResult()
+        else:
+            return minim_result
+
+
+    def finalize(self, minimizer_result):
+        return self.finalize_cpp(self.convert_result(minimizer_result))
 
 
 

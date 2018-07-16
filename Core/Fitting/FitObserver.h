@@ -64,7 +64,7 @@ FitObserver<T>::FitObserver() : m_notify_count(0)
 }
 
 template<class T>
-void FitObserver<T>::addObserver(int every_nth, FitObserver::observer_t observer)
+void FitObserver<T>::addObserver(int every_nth, typename FitObserver::observer_t observer)
 {
     m_observers.push_back(ObserverData(every_nth, observer));
 }

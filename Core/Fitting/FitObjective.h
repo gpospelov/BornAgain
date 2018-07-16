@@ -19,6 +19,7 @@
 #include "OutputData.h"
 #include "SafePointerVector.h"
 #include "SimDataPair.h"
+#include "IterationInfo.h"
 
 class IChiSquaredModule;
 class PyBuilderCallback;
@@ -87,9 +88,12 @@ public:
     //! Should be explicitely called on last iteration to notify all observers.
     void finalize();
 
+    IterationInfo iterationInfo() const;
+
 private:
     void run_simulations(const Fit::Parameters& params);
     double residual(double a, double b, double weight) const;
+    double evaluate_chi2(const std::vector<double>& residuals, const Fit::Parameters& params);
     size_t check_index(size_t index) const;
 
     std::vector<double> m_experimental_array;

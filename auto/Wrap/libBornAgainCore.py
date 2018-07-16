@@ -7653,6 +7653,11 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_finalize(self)
 
 
+    def iterationInfo(self):
+        """iterationInfo(FitObjective self) -> IterationInfo"""
+        return _libBornAgainCore.FitObjective_iterationInfo(self)
+
+
     def addSimulationAndData(self, callback, data, weight):
         self.wrp = SimulationBuilderWrapper(callback)
         return self.addSimulationAndData_cpp(self.wrp, data, weight)

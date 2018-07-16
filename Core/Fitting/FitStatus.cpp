@@ -45,9 +45,12 @@ bool FitStatus::isCompleted() const
     return m_fit_status == COMPLETED;
 }
 
-void FitStatus::update()
+void FitStatus::update(const Fit::Parameters& params, double chi2)
 {
     m_fit_status = RUNNING;
+
+    m_iterationInfo = IterationInfo(params, chi2);
+
     m_observers.notify(*m_fit_objective);
     m_iteration_count++;
 }
@@ -72,4 +75,9 @@ void FitStatus::finalize()
 {
     m_fit_status = COMPLETED;
     m_observers.notify_all(*m_fit_objective);
+}
+
+IterationInfo FitStatus::iterationInfo() const
+{
+    return m_iterationInfo;
 }

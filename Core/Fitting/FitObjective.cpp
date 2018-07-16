@@ -59,17 +59,7 @@ void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
 
 double FitObjective::evaluate(const Fit::Parameters& params)
 {
-    double chi2(0.0);
-
-    for(auto res : evaluate_residuals(params))
-        chi2 += res*res;
-
-    int fnorm = static_cast<int>(numberOfFitElements()) -
-            static_cast<int>(params.freeParameterCount());
-    if (fnorm <= 0)
-        throw std::runtime_error("FitObjective::evaluate() -> Error. Normalization is 0");
-
-    return chi2 / fnorm;
+    return evaluate_chi2(evaluate_residuals(params), params);
 }
 
 std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& params)
@@ -84,7 +74,9 @@ std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& para
     for(size_t i = 0; i<m_simulation_array.size(); ++i)
         result.push_back(residual(m_simulation_array[i], m_experimental_array[i], weights[i]));
 
-    m_fit_status->update();
+    double chi2 = evaluate_chi2(result, params);
+
+    m_fit_status->update(params, chi2);
 
     return result;
 }
@@ -144,6 +136,11 @@ void FitObjective::finalize()
     m_fit_status->finalize();
 }
 
+IterationInfo FitObjective::iterationInfo() const
+{
+    return m_fit_status->iterationInfo();
+}
+
 void FitObjective::run_simulations(const Fit::Parameters& params)
 {
     if (m_fit_objects.empty())
@@ -163,6 +160,22 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
 double FitObjective::residual(double a, double b, double weight) const
 {
     return m_chi2_module->residual(a, b, weight);
+}
+
+double FitObjective::evaluate_chi2(const std::vector<double>& residuals,
+                                   const Fit::Parameters& params)
+{
+    double chi2(0.0);
+
+    for(auto res : residuals)
+        chi2 += res*res;
+
+    int fnorm = static_cast<int>(numberOfFitElements()) -
+            static_cast<int>(params.freeParameterCount());
+    if (fnorm <= 0)
+        throw std::runtime_error("FitObjective::chi2() -> Error. Normalization is 0");
+
+    return chi2 / fnorm;
 }
 
 size_t FitObjective::check_index(size_t index) const

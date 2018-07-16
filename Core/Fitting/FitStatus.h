@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 #include "FitObserver.h"
+#include "IterationInfo.h"
 #include <vector>
 #include <functional>
 
@@ -41,7 +42,7 @@ public:
     bool isInterrupted() const;
     bool isCompleted() const;
 
-    void update();
+    void update(const Fit::Parameters& params, double chi2);
 
     void initPrint(int every_nth);
 
@@ -50,6 +51,8 @@ public:
     //! Should be explicitely called on last iteration to notify all observers.
     void finalize();
 
+    IterationInfo iterationInfo() const;
+
 private:
     enum EFitStatus { IDLE, RUNNING, COMPLETED, FAILED, INTERRUPTED };
     unsigned m_iteration_count;
@@ -57,6 +60,7 @@ private:
     FitObserver<FitObjective> m_observers;
     std::unique_ptr<FitPrintService> m_print_service;
     const FitObjective* m_fit_objective;
+    IterationInfo m_iterationInfo;
 };
 
 #endif // FITSTATUS_H

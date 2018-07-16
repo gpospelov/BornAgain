@@ -14,13 +14,11 @@
 
 #include "StringUtils.h"
 #include <boost/algorithm/string.hpp>
-#include <boost/regex.hpp>
+#include <regex>
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
 bool StringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern)
 {
-    bool caseSensitive(true);
-
     // escape all regex special characters, except '?' and '*'
     std::string mywildcardPattern = wildcardPattern;
     boost::replace_all(mywildcardPattern, "\\", "\\\\");
@@ -41,11 +39,10 @@ bool StringUtils::matchesPattern(const std::string& text, const std::string& wil
 
     // constructing regexp pattern
     mywildcardPattern = "^" + mywildcardPattern + "$";
-    boost::regex pattern(mywildcardPattern,
-                         caseSensitive ? boost::regex::normal : boost::regex::icase);
+    std::regex pattern(mywildcardPattern);
 
     // applaying match
-    return boost::regex_match(text, pattern);
+    return std::regex_match(text, pattern);
 }
 
 //! Returns string right-padded with blanks.

@@ -54,7 +54,8 @@ void addAxisGroupProperty(SessionItem* parent, const QString& tag)
 
     item->setItemValue(BasicAxisItem::P_TITLE, "alpha_i");
     item->setItemValue(BasicAxisItem::P_MIN, 0.0);
-    item->setItemValue(BasicAxisItem::P_MAX, 10.0);
+    item->setItemValue(BasicAxisItem::P_MAX, 3.0);
+    item->setItemValue(BasicAxisItem::P_NBINS, 500);
 }
 
 void setupDistributionMean(SessionItem* distribution)

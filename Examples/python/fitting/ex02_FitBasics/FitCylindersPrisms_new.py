@@ -11,8 +11,8 @@ def get_sample(params):
     """
     cylinder_height = params["cylinder_height"].value
     cylinder_radius = params["cylinder_radius"].value
-    prism_length = params["prism_height"].value
-    prism_height = params["prism_base_edge"].value
+    prism_height = params["prism_height"].value
+    prism_base_edge = params["prism_base_edge"].value
 
     # defining materials
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -22,7 +22,7 @@ def get_sample(params):
     # collection of particles
     cylinder_ff = ba.FormFactorCylinder(cylinder_radius, cylinder_height)
     cylinder = ba.Particle(m_particle, cylinder_ff)
-    prism_ff = ba.FormFactorPrism3(prism_length, prism_height)
+    prism_ff = ba.FormFactorPrism3(prism_base_edge, prism_height)
     prism = ba.Particle(m_particle, prism_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 0.5)

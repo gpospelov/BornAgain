@@ -30,7 +30,7 @@ public:
     static const QString P_AZIMUTHAL_ANGLE;
     static const QString P_POLARIZATION;
 
-    virtual ~BeamItem();
+    ~BeamItem() override;
 
     double getIntensity() const;
     void setIntensity(double value);
@@ -58,7 +58,7 @@ public:
     static const QString P_FOOPTPRINT;
 
     SpecularBeamItem();
-    virtual ~SpecularBeamItem();
+    ~SpecularBeamItem() override;
 
     double getInclinationAngle() const override;
     void setInclinationAngle(double value) override;
@@ -71,7 +71,7 @@ class BA_CORE_API_ GISASBeamItem : public BeamItem
 {
 public:
     GISASBeamItem();
-    virtual ~GISASBeamItem();
+    ~GISASBeamItem() override;
 
     double getInclinationAngle() const override;
 };

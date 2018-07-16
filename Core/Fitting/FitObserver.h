@@ -15,15 +15,15 @@
 #ifndef FITOBSERVER_H
 #define FITOBSERVER_H
 
-#include "WinDllMacros.h"
 #include "FitTypes.h"
+#include <functional>
 #include <vector>
 
 //! Contains collection of observers and call them at specified intervals.
 //! Each observer will be called at first iteration and every-nth iterations.
 
 template <class T>
-class BA_CORE_API_ FitObserver
+class FitObserver
 {
 public:
     using observer_t = std::function<void(const T&)>;

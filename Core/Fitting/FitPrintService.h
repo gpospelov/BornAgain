@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 #include "TimeInterval.h"
+#include <string>
 
 class FitObjective;
 

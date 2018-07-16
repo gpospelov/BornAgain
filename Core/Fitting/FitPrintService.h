@@ -30,7 +30,10 @@ public:
     void print(const FitObjective& objective);
 
 private:
-    void printFitResults();
+    std::string iterationHeaderString(const FitObjective& objective);
+    std::string wallTimeString();
+    std::string parameterString(const FitObjective& objective);
+    std::string fitResultString();
 
     TimeInterval m_run_time;
     TimeInterval m_last_call_time;

@@ -21,6 +21,7 @@
 #include <vector>
 #include <functional>
 
+namespace Fit { class MinimizerResult; }
 class FitObjective;
 class FitPrintService;
 
@@ -48,10 +49,12 @@ public:
 
     void addObserver(int every_nth, fit_observer_t);
 
-    //! Should be explicitely called on last iteration to notify all observers.
-    void finalize();
-
     IterationInfo iterationInfo() const;
+
+    Fit::MinimizerResult minimizerResult() const;
+
+    //! Should be explicitely called on last iteration to notify all observers.
+    void finalize(const Fit::MinimizerResult& result);
 
 private:
     enum EFitStatus { IDLE, RUNNING, COMPLETED, FAILED, INTERRUPTED };
@@ -61,6 +64,7 @@ private:
     std::unique_ptr<FitPrintService> m_print_service;
     const FitObjective* m_fit_objective;
     IterationInfo m_iterationInfo;
+    std::unique_ptr<Fit::MinimizerResult> m_minimizer_result;
 };
 
 #endif // FITSTATUS_H

@@ -19,6 +19,7 @@
 #include "Simulation.h"
 #include "ArrayUtils.h"
 #include "FitStatus.h"
+#include "MinimizerResult.h"
 #include <stdexcept>
 
 namespace {
@@ -131,14 +132,19 @@ bool FitObjective::isCompleted() const
     return m_fit_status->isCompleted();
 }
 
-void FitObjective::finalize()
-{
-    m_fit_status->finalize();
-}
-
 IterationInfo FitObjective::iterationInfo() const
 {
     return m_fit_status->iterationInfo();
+}
+
+Fit::MinimizerResult FitObjective::minimizerResult() const
+{
+    return m_fit_status->minimizerResult();
+}
+
+void FitObjective::finalize(const Fit::MinimizerResult& result)
+{
+    m_fit_status->finalize(result);
 }
 
 void FitObjective::run_simulations(const Fit::Parameters& params)

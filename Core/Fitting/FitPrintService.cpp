@@ -15,6 +15,7 @@
 #include "FitPrintService.h"
 #include "FitObjective.h"
 #include "StringUtils.h"
+#include "MinimizerResult.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -50,7 +51,7 @@ void FitPrintService::print(const FitObjective& objective)
     ostr << parameterString(objective);
 
     if (objective.isCompleted())
-        ostr << fitResultString();
+        ostr << fitResultString(objective);
 
     std::cout << ostr.str() << "\n";
 }
@@ -59,7 +60,7 @@ std::string FitPrintService::iterationHeaderString(const FitObjective& objective
 {
     std::ostringstream result;
 
-    result << "FitPrintObserver::update() -> Info."
+    result << "FitPrintService::update() -> Info."
            << " NCall:" << objective.iterationCount()
            << " Chi2:" << std::scientific << std::setprecision(8)
            << objective.iterationInfo().chi2() << "\n";
@@ -96,7 +97,7 @@ std::string FitPrintService::parameterString(const FitObjective& objective)
     return result.str();
 }
 
-std::string FitPrintService::fitResultString()
+std::string FitPrintService::fitResultString(const FitObjective& objective)
 {
     std::ostringstream result;
 
@@ -106,5 +107,6 @@ std::string FitPrintService::fitResultString()
     result << "Total time spend: " << std::fixed << std::setprecision(2)
            << m_run_time.runTime() << " sec." << "\n\n";
 
+    result << objective.minimizerResult().toString();
     return result.str();
 }

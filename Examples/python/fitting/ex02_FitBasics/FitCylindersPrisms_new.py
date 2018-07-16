@@ -73,8 +73,7 @@ def run_fitting():
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)
 
-    fit_objective.finalize()
-    print(result.toString())
+    fit_objective.finalize(result)
 
 
 if __name__ == '__main__':

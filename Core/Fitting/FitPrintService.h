@@ -33,7 +33,7 @@ private:
     std::string iterationHeaderString(const FitObjective& objective);
     std::string wallTimeString();
     std::string parameterString(const FitObjective& objective);
-    std::string fitResultString();
+    std::string fitResultString(const FitObjective& objective);
 
     TimeInterval m_run_time;
     TimeInterval m_last_call_time;

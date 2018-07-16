@@ -14,6 +14,8 @@
 
 #include "FitStatus.h"
 #include "FitPrintService.h"
+#include "MinimizerResult.h"
+#include <stdexcept>
 
 FitStatus::FitStatus(const FitObjective* fit_objective)
     : m_iteration_count(0)
@@ -71,13 +73,24 @@ void FitStatus::addObserver(int every_nth, fit_observer_t observer)
     m_observers.addObserver(every_nth, observer);
 }
 
-void FitStatus::finalize()
-{
-    m_fit_status = COMPLETED;
-    m_observers.notify_all(*m_fit_objective);
-}
-
 IterationInfo FitStatus::iterationInfo() const
 {
     return m_iterationInfo;
 }
+
+Fit::MinimizerResult FitStatus::minimizerResult() const
+{
+    if (!m_minimizer_result)
+        throw std::runtime_error("FitStatus::minimizerResult() -> Minimizer result wasn't set. "
+                                 "Make sure that FitObjective::finalize() was called.");
+
+    return Fit::MinimizerResult(*m_minimizer_result);
+}
+
+void FitStatus::finalize(const Fit::MinimizerResult& result)
+{
+    m_minimizer_result.reset(new Fit::MinimizerResult(result));
+    m_fit_status = COMPLETED;
+    m_observers.notify_all(*m_fit_objective);
+}
+

@@ -21,6 +21,7 @@
 #include "SimDataPair.h"
 #include "IterationInfo.h"
 
+namespace Fit { class MinimizerResult; }
 class IChiSquaredModule;
 class PyBuilderCallback;
 class FitStatus;
@@ -85,10 +86,12 @@ public:
 
     bool isCompleted() const;
 
-    //! Should be explicitely called on last iteration to notify all observers.
-    void finalize();
-
     IterationInfo iterationInfo() const;
+
+    Fit::MinimizerResult minimizerResult() const;
+
+    //! Should be explicitely called on last iteration to notify all observers.
+    void finalize(const Fit::MinimizerResult& result);
 
 private:
     void run_simulations(const Fit::Parameters& params);

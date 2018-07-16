@@ -7648,14 +7648,19 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_isCompleted(self)
 
 
-    def finalize(self):
-        """finalize(FitObjective self)"""
-        return _libBornAgainCore.FitObjective_finalize(self)
-
-
     def iterationInfo(self):
         """iterationInfo(FitObjective self) -> IterationInfo"""
         return _libBornAgainCore.FitObjective_iterationInfo(self)
+
+
+    def minimizerResult(self):
+        """minimizerResult(FitObjective self) -> Fit::MinimizerResult"""
+        return _libBornAgainCore.FitObjective_minimizerResult(self)
+
+
+    def finalize(self, result):
+        """finalize(FitObjective self, Fit::MinimizerResult const & result)"""
+        return _libBornAgainCore.FitObjective_finalize(self, result)
 
 
     def addSimulationAndData(self, callback, data, weight):

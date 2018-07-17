@@ -12,7 +12,7 @@ echo ${COMMAND}
 ${COMMAND}
 
 # creating links for python
-COMMAND="cp @CMAKE_INSTALL_PREFIX@/@destination_suffix@/bornagain @PYTHON_SITE_PACKAGES@/"
+COMMAND="cp -r @CMAKE_INSTALL_PREFIX@/@destination_suffix@/bornagain @PYTHON_SITE_PACKAGES@/"
 echo ${COMMAND}
 ${COMMAND}
 

@@ -5,6 +5,7 @@
 %rename(addSimulationAndData_cpp) FitObjective::addSimulationAndData;
 %rename(evaluate_residuals_cpp) FitObjective::evaluate_residuals;
 %rename(evaluate_cpp) FitObjective::evaluate;
+%rename(finalize_cpp) FitObjective::finalize;
 
 // force swig to use move ctor instead of copy ctor
 %typemap(out) SlicedParticle %{

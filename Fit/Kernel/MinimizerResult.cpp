@@ -51,12 +51,19 @@ double MinimizerResult::minValue() const
 std::string MinimizerResult::toString() const
 {
     std::ostringstream result;
-    result << MinimizerUtils::sectionString();
-    result << "Run time (sec)           : " << m_duration << "\n";
-    result << "Objective function calls : " << m_number_of_calls << "\n";
-    result << "Gradient calls           : " << m_number_of_gradient_calls << "\n";
-    result << m_minimizer_report;
-    result << MinimizerResultUtils::reportParameters(m_parameters);
+    if (m_minimizer_report.empty()) {
+        result << "Don't know anything about external minimizer. "
+               << "Use minimizer API to get result of minimization.\n";
+
+    } else {
+        result << MinimizerUtils::sectionString();
+        result << "Run time (sec)           : " << m_duration << "\n";
+        result << "Objective function calls : " << m_number_of_calls << "\n";
+        result << "Gradient calls           : " << m_number_of_gradient_calls << "\n";
+        result << m_minimizer_report;
+        result << MinimizerResultUtils::reportParameters(m_parameters);
+    }
+
     return result.str();
 }
 

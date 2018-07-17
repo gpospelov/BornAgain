@@ -16,7 +16,6 @@ def get_sample(params):
     """
     radius = params['radius'].value
     lattice_length = params['length'].value
-    print(radius, lattice_length)
 
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -82,10 +81,10 @@ def run_fitting():
     """
     global real_data
     real_data = create_real_data()
-    print(real_data, real_data.shape)
 
     fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
+    fit_objective.initPrint(10)
 
     params = lmfit.Parameters()
     params.add('radius', value=8*nm)
@@ -93,10 +92,8 @@ def run_fitting():
 
     result = lmfit.minimize(fit_objective.evaluate_residuals, params)
 
-    result.params.pretty_print()
+    fit_objective.finalize(result)
     print(lmfit.fit_report(result))
-    print("Done")
-
 
 if __name__ == '__main__':
     run_fitting()

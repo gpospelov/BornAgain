@@ -18,6 +18,8 @@
 #include "PyBuilderCallback.h"
 #include "Simulation.h"
 #include "ArrayUtils.h"
+#include "FitStatus.h"
+#include "MinimizerResult.h"
 #include <stdexcept>
 
 namespace {
@@ -31,7 +33,7 @@ void insert_to(std::vector<double>& to, const std::vector<double>& from)
 FitObjective::FitObjective()
     : m_total_weight(0.0)
     , m_chi2_module(new ChiSquaredModule())
-    , m_iteration_count(0.0)
+    , m_fit_status(new FitStatus(this))
 {}
 
 FitObjective::~FitObjective() = default;
@@ -58,17 +60,7 @@ void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
 
 double FitObjective::evaluate(const Fit::Parameters& params)
 {
-    double chi2(0.0);
-
-    for(auto res : evaluate_residuals(params))
-        chi2 += res*res;
-
-    int fnorm = static_cast<int>(numberOfFitElements()) -
-            static_cast<int>(params.freeParameterCount());
-    if (fnorm <= 0)
-        throw std::runtime_error("FitObjective::evaluate() -> Error. Normalization is 0");
-
-    return chi2 / fnorm;
+    return evaluate_chi2(evaluate_residuals(params), params);
 }
 
 std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& params)
@@ -83,7 +75,9 @@ std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& para
     for(size_t i = 0; i<m_simulation_array.size(); ++i)
         result.push_back(residual(m_simulation_array[i], m_experimental_array[i], weights[i]));
 
-    m_iteration_count++;
+    double chi2 = evaluate_chi2(result, params);
+
+    m_fit_status->update(params, chi2);
 
     return result;
 }
@@ -107,9 +101,10 @@ std::vector<double> FitObjective::simulation_array() const
     return m_simulation_array;
 }
 
-size_t FitObjective::numberOfIterations() const
+unsigned FitObjective::iterationCount() const
 {
-    return m_iteration_count;
+
+    return m_fit_status->iterationCount();
 }
 
 SimulationResult FitObjective::simulationResult(size_t i_item) const
@@ -125,6 +120,31 @@ SimulationResult FitObjective::experimentalData(size_t i_item) const
 SimulationResult FitObjective::relativeDifference(size_t i_item) const
 {
     return m_fit_objects[check_index(i_item)]->relativeDifference();
+}
+
+void FitObjective::initPrint(int every_nth)
+{
+    m_fit_status->initPrint(every_nth);
+}
+
+bool FitObjective::isCompleted() const
+{
+    return m_fit_status->isCompleted();
+}
+
+IterationInfo FitObjective::iterationInfo() const
+{
+    return m_fit_status->iterationInfo();
+}
+
+Fit::MinimizerResult FitObjective::minimizerResult() const
+{
+    return m_fit_status->minimizerResult();
+}
+
+void FitObjective::finalize(const Fit::MinimizerResult& result)
+{
+    m_fit_status->finalize(result);
 }
 
 void FitObjective::run_simulations(const Fit::Parameters& params)
@@ -146,6 +166,22 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
 double FitObjective::residual(double a, double b, double weight) const
 {
     return m_chi2_module->residual(a, b, weight);
+}
+
+double FitObjective::evaluate_chi2(const std::vector<double>& residuals,
+                                   const Fit::Parameters& params)
+{
+    double chi2(0.0);
+
+    for(auto res : residuals)
+        chi2 += res*res;
+
+    int fnorm = static_cast<int>(numberOfFitElements()) -
+            static_cast<int>(params.freeParameterCount());
+    if (fnorm <= 0)
+        throw std::runtime_error("FitObjective::chi2() -> Error. Normalization is 0");
+
+    return chi2 / fnorm;
 }
 
 size_t FitObjective::check_index(size_t index) const

@@ -184,6 +184,20 @@ class SimulationBuilderWrapper(PyBuilderCallback):
     def evaluate(self, params):
         return self.evaluate_cpp(self.convert_params(params))
 
+    def convert_result(self, minim_result):
+        """
+        Converts result reported by arbitrary minimizer to ba.MinimizerResult
+        """
+
+        if str(minim_result.__module__) == "lmfit.minimizer":
+            return libBornAgainFit.MinimizerResult()
+        else:
+            return minim_result
+
+
+    def finalize(self, minimizer_result):
+        return self.finalize_cpp(self.convert_result(minimizer_result))
+
 
 %}
 };

@@ -19,9 +19,12 @@
 #include "OutputData.h"
 #include "SafePointerVector.h"
 #include "SimDataPair.h"
+#include "IterationInfo.h"
 
+namespace Fit { class MinimizerResult; }
 class IChiSquaredModule;
 class PyBuilderCallback;
+class FitStatus;
 
 //! Main class to hold pairs of simulation
 //! Holds vector of FitObject's (simulation and real data) to fit
@@ -63,7 +66,7 @@ public:
     std::vector<double> simulation_array() const;
 
     //! Returns current number of simulation runs.
-    size_t numberOfIterations() const;
+    unsigned iterationCount() const;
 
     //! Returns simulation result.
     //! @param i_item: the index of fit pair
@@ -77,9 +80,23 @@ public:
     //! @param i_item: the index of fit pair
     SimulationResult relativeDifference(size_t i_item = 0) const;
 
+    //! Initializes printing to standard output during the fitting.
+    //! @param every_nth Print every n'th iteration
+    void initPrint(int every_nth);
+
+    bool isCompleted() const;
+
+    IterationInfo iterationInfo() const;
+
+    Fit::MinimizerResult minimizerResult() const;
+
+    //! Should be explicitely called on last iteration to notify all observers.
+    void finalize(const Fit::MinimizerResult& result);
+
 private:
     void run_simulations(const Fit::Parameters& params);
     double residual(double a, double b, double weight) const;
+    double evaluate_chi2(const std::vector<double>& residuals, const Fit::Parameters& params);
     size_t check_index(size_t index) const;
 
     std::vector<double> m_experimental_array;
@@ -88,7 +105,7 @@ private:
     SafePointerVector<SimDataPair> m_fit_objects;
     double m_total_weight;
     std::unique_ptr<IChiSquaredModule> m_chi2_module;
-    size_t m_iteration_count;
+    std::unique_ptr<FitStatus> m_fit_status;
 };
 
 #endif  // FITOBJECTIVE_H

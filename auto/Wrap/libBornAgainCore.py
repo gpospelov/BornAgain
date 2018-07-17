@@ -7557,6 +7557,32 @@ class PyBuilderCallback(_object):
 PyBuilderCallback_swigregister = _libBornAgainCore.PyBuilderCallback_swigregister
 PyBuilderCallback_swigregister(PyBuilderCallback)
 
+class PyObserverCallback(_object):
+    """Proxy of C++ PyObserverCallback class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PyObserverCallback, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PyObserverCallback, name)
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        """__init__(PyObserverCallback self) -> PyObserverCallback"""
+        this = _libBornAgainCore.new_PyObserverCallback()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_PyObserverCallback
+    __del__ = lambda self: None
+
+    def update(self, arg2):
+        """update(PyObserverCallback self, FitObjective arg2)"""
+        return _libBornAgainCore.PyObserverCallback_update(self, arg2)
+
+PyObserverCallback_swigregister = _libBornAgainCore.PyObserverCallback_swigregister
+PyObserverCallback_swigregister(PyObserverCallback)
+
 class FitObjective(_object):
     """Proxy of C++ FitObjective class."""
 
@@ -7641,6 +7667,11 @@ class FitObjective(_object):
     def initPrint(self, every_nth):
         """initPrint(FitObjective self, int every_nth)"""
         return _libBornAgainCore.FitObjective_initPrint(self, every_nth)
+
+
+    def initPlot(self, every_nth, callback):
+        """initPlot(FitObjective self, int every_nth, PyObserverCallback callback)"""
+        return _libBornAgainCore.FitObjective_initPlot(self, every_nth, callback)
 
 
     def isCompleted(self):

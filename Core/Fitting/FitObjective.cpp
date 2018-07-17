@@ -127,6 +127,14 @@ void FitObjective::initPrint(int every_nth)
     m_fit_status->initPrint(every_nth);
 }
 
+void FitObjective::initPlot(int every_nth, PyObserverCallback& callback)
+{
+    fit_observer_t observer = [&](const FitObjective& objective) {
+        callback.update(objective);
+    };
+    m_fit_status->addObserver(every_nth, observer);
+}
+
 bool FitObjective::isCompleted() const
 {
     return m_fit_status->isCompleted();

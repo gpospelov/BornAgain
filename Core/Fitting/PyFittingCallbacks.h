@@ -36,4 +36,20 @@ public:
 
 };
 
+class FitObjective;
+
+//! Observer for FitObjective based on Python callable.
+//! Base class to wrap Python callable and pass it to C++. Used in swig interface file,
+//! intended to be overloaded from Python.
+
+class BA_CORE_API_ PyObserverCallback
+{
+public:
+    PyObserverCallback();
+    virtual ~PyObserverCallback();
+
+    virtual void update(const FitObjective&);
+
+};
+
 #endif //  PYFITTINGCALLBACKS_H

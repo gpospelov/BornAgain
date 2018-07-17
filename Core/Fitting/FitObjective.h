@@ -24,6 +24,7 @@
 namespace Fit { class MinimizerResult; }
 class IChiSquaredModule;
 class PyBuilderCallback;
+class PyObserverCallback;
 class FitStatus;
 
 //! Main class to hold pairs of simulation
@@ -81,8 +82,12 @@ public:
     SimulationResult relativeDifference(size_t i_item = 0) const;
 
     //! Initializes printing to standard output during the fitting.
-    //! @param every_nth Print every n'th iteration
+    //! @param every_nth: Print every n'th iteration.
     void initPrint(int every_nth);
+
+    //! Initializes plotting during the fitting using Python callable.
+    //! @param every_nth: Called on every n'th iteration.
+    void initPlot(int every_nth, PyObserverCallback& callback);
 
     bool isCompleted() const;
 

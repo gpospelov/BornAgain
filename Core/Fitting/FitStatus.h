@@ -16,6 +16,7 @@
 #define FITSTATUS_H
 
 #include "WinDllMacros.h"
+#include "FitTypes.h"
 #include "FitObserver.h"
 #include "IterationInfo.h"
 #include <vector>
@@ -32,8 +33,6 @@ class FitPrintService;
 class BA_CORE_API_ FitStatus
 {
 public:
-    using fit_observer_t = std::function<void(const FitObjective&)>;
-
     FitStatus(const FitObjective* fit_objective);
     ~FitStatus();
 

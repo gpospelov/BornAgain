@@ -14,6 +14,8 @@
 
 #include "PyFittingCallbacks.h"
 
+// --- PyBuilderCallback ---
+
 PyBuilderCallback::PyBuilderCallback() = default;
 
 PyBuilderCallback::~PyBuilderCallback() = default;
@@ -21,4 +23,15 @@ PyBuilderCallback::~PyBuilderCallback() = default;
 Simulation* PyBuilderCallback::build_simulation(Fit::Parameters)
 {
     throw std::runtime_error("PyBuilderCallback::build_simulation() -> Error. Not implemented");
+}
+
+// --- PyObserverCallback ---
+
+PyObserverCallback::PyObserverCallback() = default;
+
+PyObserverCallback::~PyObserverCallback() = default;
+
+void PyObserverCallback::update(const FitObjective&)
+{
+    throw std::runtime_error("PyObserverCallback::update() -> Error. Not implemented");
 }

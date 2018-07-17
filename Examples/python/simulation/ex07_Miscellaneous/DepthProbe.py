@@ -49,18 +49,6 @@ z_min = -100 * nm
 z_max = 100 * nm
 n_z_bins = 500
 
-# refractive indices of sample materials
-ref_indices = {"Si": [3.3009e-05, 0.0],
-               "Ti": [-3.0637e-05, 1.5278e-08],
-               "TiO2": [4.1921e-05, 8.1293e-09],
-               "Pt": [1.0117e-04, 3.01822e-08],
-               "D2O": [1.0116e-04, 1.8090e-12]}
-
-
-def get_material(name):
-    return ba.HomogeneousMaterial(name, ref_indices[name][0],
-                                  ref_indices[name][1])
-
 
 def get_sample():
     """
@@ -68,18 +56,18 @@ def get_sample():
     """
 
     # define materials
-    m_Si = get_material("Si")
-    m_Ti = get_material("Ti")
-    m_TiO2 = get_material("TiO2")
-    m_Pt = get_material("Pt")
-    m_D2O = get_material("D2O")
+    m_Si = ba.HomogeneousMaterial("Si", 3.3009e-05, 0.0)
+    m_Ti = ba.HomogeneousMaterial("Ti", -3.0637e-05, 1.5278e-08)
+    m_TiO2 = ba.HomogeneousMaterial("TiO2", 4.1921e-05, 8.1293e-09)
+    m_Pt = ba.HomogeneousMaterial("Pt", 1.0117e-04, 3.01822e-08)
+    m_D2O = ba.HomogeneousMaterial("D2O", 1.0116e-04, 1.8090e-12)
 
     # create layers
     l_Si = ba.Layer(m_Si)
-    l_Ti = ba.Layer(m_Ti, t_Ti)
-    l_Pt = ba.Layer(m_Pt, t_Pt)
-    l_Ti_top = ba.Layer(m_Ti, t_Ti_top)
-    l_TiO2 = ba.Layer(m_TiO2, t_TiO2)
+    l_Ti = ba.Layer(m_Ti, 130.0 * angstrom)
+    l_Pt = ba.Layer(m_Pt, 320.0 * angstrom)
+    l_Ti_top = ba.Layer(m_Ti, 100.0 * angstrom)
+    l_TiO2 = ba.Layer(m_TiO2, 30.0 * angstrom)
     l_D2O = ba.Layer(m_D2O)
 
     # construct sample

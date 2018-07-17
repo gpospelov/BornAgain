@@ -76,10 +76,8 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 {
     auto result = createEditorFromIndex(index, parent);
 
-    auto filter = new TabFromFocusProxy(result);
-    Q_UNUSED(filter);
-
     if (result) {
+        new TabFromFocusProxy(result);
         if(auto customEditor = dynamic_cast<CustomEditor*>(result)) {
             customEditor->setData(index.data());
             connect(customEditor, &CustomEditor::dataChanged,

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/PyBuilderCallback.cpp
-//! @brief     Implements class PyBuilderCallback.
+//! @file      Core/Fitting/PyFittingCallbacks.cpp
+//! @brief     Implements family of PyFittingCallbacks classes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "PyBuilderCallback.h"
-#include <stdexcept>
+#include "PyFittingCallbacks.h"
 
 PyBuilderCallback::PyBuilderCallback() = default;
 

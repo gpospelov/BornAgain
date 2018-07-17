@@ -15,7 +15,7 @@
 #include "FitObjective.h"
 #include "ChiSquaredModule.h"
 #include "Parameters.h"
-#include "PyBuilderCallback.h"
+#include "PyFittingCallbacks.h"
 #include "Simulation.h"
 #include "ArrayUtils.h"
 #include "FitStatus.h"

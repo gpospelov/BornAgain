@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Fitting/PyBuilderCallback.h
-//! @brief     Defines class PyBuilderCallback.
+//! @file      Core/Fitting/PyFittingCallbacks.h
+//! @brief     Defines family of PyFittingCallbacks classes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,12 +12,13 @@
 //
 // ************************************************************************** //
 
-#ifndef PYBUILDERCALLBACK_H
-#define PYBUILDERCALLBACK_H
+#ifndef PYFITTINGCALLBACKS_H
+#define PYFITTINGCALLBACKS_H
 
-#include "Parameters.h"
+//! Collection of wrapper classes to call Python callable from C++.
+
 #include "WinDllMacros.h"
-#include <vector>
+#include "Parameters.h"
 
 class Simulation;
 
@@ -35,4 +36,4 @@ public:
 
 };
 
-#endif //  PYBUILDERCALLBACK_H
+#endif //  PYFITTINGCALLBACKS_H

@@ -27,7 +27,7 @@ size_t length_of_longest_name(const Fit::Parameters& params)
 {
     size_t result(0);
     for (const auto& par : params) {
-        if (par.name().size() + result)
+        if (par.name().size() > result)
             result = par.name().size();
     }
     return result;

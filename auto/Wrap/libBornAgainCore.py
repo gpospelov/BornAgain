@@ -7568,7 +7568,11 @@ class PyObserverCallback(_object):
 
     def __init__(self):
         """__init__(PyObserverCallback self) -> PyObserverCallback"""
-        this = _libBornAgainCore.new_PyObserverCallback()
+        if self.__class__ == PyObserverCallback:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_PyObserverCallback(_self, )
         try:
             self.this.append(this)
         except __builtin__.Exception:
@@ -7576,10 +7580,14 @@ class PyObserverCallback(_object):
     __swig_destroy__ = _libBornAgainCore.delete_PyObserverCallback
     __del__ = lambda self: None
 
-    def update(self, arg2):
-        """update(PyObserverCallback self, FitObjective arg2)"""
-        return _libBornAgainCore.PyObserverCallback_update(self, arg2)
+    def update(self, arg0):
+        """update(PyObserverCallback self, FitObjective arg0)"""
+        return _libBornAgainCore.PyObserverCallback_update(self, arg0)
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_PyObserverCallback(self)
+        return weakref_proxy(self)
 PyObserverCallback_swigregister = _libBornAgainCore.PyObserverCallback_swigregister
 PyObserverCallback_swigregister(PyObserverCallback)
 
@@ -7669,9 +7677,9 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_initPrint(self, every_nth)
 
 
-    def initPlot(self, every_nth, callback):
-        """initPlot(FitObjective self, int every_nth, PyObserverCallback callback)"""
-        return _libBornAgainCore.FitObjective_initPlot(self, every_nth, callback)
+    def initPlot_cpp(self, every_nth, callback):
+        """initPlot_cpp(FitObjective self, int every_nth, PyObserverCallback callback)"""
+        return _libBornAgainCore.FitObjective_initPlot_cpp(self, every_nth, callback)
 
 
     def isCompleted(self):
@@ -7727,10 +7735,12 @@ class FitObjective(_object):
         else:
             return minim_result
 
-
     def finalize(self, minimizer_result):
         return self.finalize_cpp(self.convert_result(minimizer_result))
 
+    def initPlot(self, every_nth, callback):
+        self.wrp_plot_observer = ObserverCallbackWrapper(callback)
+        return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
 
 
 FitObjective_swigregister = _libBornAgainCore.FitObjective_swigregister
@@ -28938,6 +28948,16 @@ class SimulationBuilderWrapper(PyBuilderCallback):
     def build_simulation(self, obj):
         return self.f_(obj)
 
+
+
+
+class ObserverCallbackWrapper(PyObserverCallback):
+    def __init__(self, callback):
+        super(ObserverCallbackWrapper, self).__init__()
+        self.callback_ = callback
+
+    def update(self, fit_objective):
+        return self.callback_(fit_objective)
 
 
 # This file is compatible with both classic and new-style classes.

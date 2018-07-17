@@ -159,6 +159,17 @@ class SimulationBuilderWrapper(PyBuilderCallback):
 
 %}
 
+%pythoncode %{
+class ObserverCallbackWrapper(PyObserverCallback):
+    def __init__(self, callback):
+        super(ObserverCallbackWrapper, self).__init__()
+        self.callback_ = callback
+
+    def update(self, fit_objective):
+        return self.callback_(fit_objective)
+
+%}
+
 %extend FitObjective {
 %pythoncode %{
     def addSimulationAndData(self, callback, data, weight):
@@ -194,10 +205,12 @@ class SimulationBuilderWrapper(PyBuilderCallback):
         else:
             return minim_result
 
-
     def finalize(self, minimizer_result):
         return self.finalize_cpp(self.convert_result(minimizer_result))
 
+    def initPlot(self, every_nth, callback):
+        self.wrp_plot_observer = ObserverCallbackWrapper(callback)
+        return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
 
 %}
 };

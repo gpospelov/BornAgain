@@ -37,6 +37,16 @@ class SimulationBuilder:
         return np.ones(shape=(self.m_nrow, self.m_ncol), dtype=np.float64)
 
 
+class FitObserver:
+    def __init__(self):
+        self.m_ncalls = 0
+        self.m_iterations = []
+
+    def update(self, fit_objective):
+        self.m_ncalls += 1
+        self.m_iterations.append(fit_objective.iterationCount())
+
+
 class FitObjectiveAPITest(unittest.TestCase):
 
     def test_SimulationBuilderCallback(self):
@@ -71,6 +81,30 @@ class FitObjectiveAPITest(unittest.TestCase):
         self.assertEqual(expected_sim, list(objective.simulation_array()))
         self.assertEqual(expected_data, list(objective.experimental_array()))
 
+    def test_FittingObserver(self):
+        """
+        Testing simulation construction using Python callback
+        """
+        pars = ba.Parameters()
+        pars.add(ba.Parameter("par0", 0.0))
+        pars.add(ba.Parameter("par1", 1.0))
+
+        # adding simulation callback and experimental data
+        builder = SimulationBuilder()
+        data = builder.create_data()
+        objective = ba.FitObjective()
+        objective.addSimulationAndData(builder.build_simulation, data, 1.0)
+
+        # adding observer
+        observer = FitObserver()
+        objective.initPlot(5, observer.update)
+
+        # running objective function 11 times
+        for i in range(0, 11):
+            objective.evaluate(pars)
+
+        self.assertEqual(observer.m_ncalls, 3)
+        self.assertEqual(observer.m_iterations, [0, 5, 10])
 
 
 if __name__ == '__main__':

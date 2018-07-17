@@ -13,6 +13,7 @@
 #include "Particle.h"
 #include "ApplicationModels.h"
 #include "TransformTo3D.h"
+#include "RealSpaceModel.h"
 
 class TestRealSpaceBuilderUtils : public ::testing::Test
 {
@@ -21,6 +22,21 @@ public:
 };
 
 TestRealSpaceBuilderUtils::~TestRealSpaceBuilderUtils() = default;
+
+TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle)
+{
+    RealSpaceModel realSpaceModel;
+
+    auto cylinder3D = new RealSpace::Particles::Cylinder(5, 10);
+    QVector3D lattice_position1(0,0,0);
+    cylinder3D->addTranslation(lattice_position1);
+    realSpaceModel.add(cylinder3D);
+
+// Causes a failure as one cannot add an already added particle to the model
+//    QVector3D lattice_position2(5,8,10);
+//    cylinder3D->addTranslation(lattice_position2);
+//    realSpaceModel.add(cylinder3D);
+}
 
 TEST_F(TestRealSpaceBuilderUtils, test_cumulativeAbundance)
 {

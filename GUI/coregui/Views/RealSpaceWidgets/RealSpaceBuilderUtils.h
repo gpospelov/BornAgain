@@ -35,9 +35,10 @@ class Particle3DType
 {
 public:
     Particle3DType() {m_cumulative_abundance = 0;}
-    ~Particle3DType() {} //{ clear(); }
-
     Particle3DType(const Particle3DType& p3D);
+    //Particle3DType& operator=(const Particle3DType&) =delete;
+    ~Particle3DType() { //clear();
+                      }
 
     void clear();
 

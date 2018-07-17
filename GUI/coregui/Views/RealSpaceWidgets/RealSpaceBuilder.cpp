@@ -122,7 +122,7 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model,
     if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
         return;
 
-    auto particle3DType_vector = RealSpaceBuilderUtils::getParticle3DTypeVector(layoutItem); // DEL
+    auto particle3DType_vector = RealSpaceBuilderUtils::getParticle3DTypeVector(layoutItem);
 
     // If there is an interference function present
     if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))
@@ -244,7 +244,7 @@ void RealSpaceBuilder::populateInterferenceV3(RealSpaceModel* model,
     */
 }
 
-void RealSpaceBuilder::populateParticleV3(RealSpaceModel* model, Particle3DType &particle3DType,
+void RealSpaceBuilder::populateParticleV3(RealSpaceModel* model, const Particle3DType &particle3DType,
                                           const QVector3D& lattice_position) const
 {
     if(particle3DType.m_type == Constants::ParticleCompositionType)

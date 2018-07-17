@@ -66,7 +66,7 @@ public:
                                 QVector<Particle3DType> &particle3DType_vector,
                                 const SceneGeometry& sceneGeometry);
 
-    void populateParticleV3(RealSpaceModel* model, Particle3DType &particle3DType,
+    void populateParticleV3(RealSpaceModel* model, const Particle3DType &particle3DType,
                             const QVector3D& lattice_position) const;
 
 };

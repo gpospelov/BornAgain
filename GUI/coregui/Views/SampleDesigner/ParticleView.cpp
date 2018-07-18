@@ -40,6 +40,8 @@ void ParticleView::paint(QPainter *painter,
                          QWidget *widget)
 {
     Q_UNUSED(widget);
+    painter->setRenderHint(QPainter::SmoothPixmapTransform);
+    painter->setRenderHint(QPainter::Antialiasing);
 
     painter->setPen(Qt::gray);
     if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {

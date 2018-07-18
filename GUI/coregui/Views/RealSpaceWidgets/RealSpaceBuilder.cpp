@@ -247,23 +247,23 @@ void RealSpaceBuilder::populateInterferenceV3(RealSpaceModel* model,
 void RealSpaceBuilder::populateParticleV3(RealSpaceModel* model, const Particle3DType &particle3DType,
                                           const QVector3D& lattice_position) const
 {
-    if(particle3DType.m_type == Constants::ParticleCompositionType)
+    if(particle3DType.getType() == Constants::ParticleCompositionType)
     {
     }
-    else if(particle3DType.m_type == Constants::ParticleCoreShellType)
+    else if(particle3DType.getType() == Constants::ParticleCoreShellType)
     {
     }
-    else if(particle3DType.m_type == Constants::ParticleDistributionType)
+    else if(particle3DType.getType() == Constants::ParticleDistributionType)
     {
     }
-    else if(particle3DType.m_type == Constants::ParticleType)
+    else if(particle3DType.getType() == Constants::ParticleType)
     {
-        if (particle3DType.m_3Dparticles.size())
+        if (particle3DType.get3Dparticles().size())
         {
-            auto particle3D = particle3DType.m_3Dparticles.at(0);
+            auto particle3D = particle3DType.createParticle(0);
             particle3D->addTranslation(lattice_position);
             if(particle3D)
-                model->add(particle3D);
+                model->add(particle3D.release());
         }
     }
 }

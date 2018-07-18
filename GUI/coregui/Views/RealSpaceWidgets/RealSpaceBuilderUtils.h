@@ -18,6 +18,7 @@
 #include "WinDllMacros.h"
 #include <QVector>
 #include <QVector3D>
+#include <memory>
 
 class RealSpaceModel;
 class SessionItem;
@@ -36,12 +37,22 @@ class Particle3DType
 public:
     Particle3DType() {m_cumulative_abundance = 0;}
     Particle3DType(const Particle3DType& p3D);
-    //Particle3DType& operator=(const Particle3DType&) =delete;
-    ~Particle3DType() { //clear();
-                      }
+    Particle3DType& operator=(const Particle3DType& right);
+    ~Particle3DType();
 
-    void clear();
+    void clear3Dparticles();
 
+    const QVector<RealSpace::Particles::Particle*> get3Dparticles() const {return m_3Dparticles; }
+    double getCumulativeAbundance() const {return m_cumulative_abundance; }
+    const QString getType() const {return m_type; }
+
+    void add3DParticle(RealSpace::Particles::Particle* particle3D);
+    void setCumulativeAbundance(double cumulative_abundance);
+    void setType(QString type);
+
+    std::unique_ptr<RealSpace::Particles::Particle> createParticle(const int &index) const;
+
+private:
     QVector<RealSpace::Particles::Particle*> m_3Dparticles;
     double m_cumulative_abundance;
     QString m_type;

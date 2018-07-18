@@ -32,7 +32,7 @@ class ParticleDistribution;
 class IInterferenceFunction;
 namespace RealSpace{ namespace Particles { class Particle; } }
 
-class Particle3DType
+class BA_CORE_API_ Particle3DType
 {
 public:
     Particle3DType() {m_cumulative_abundance = 0;}

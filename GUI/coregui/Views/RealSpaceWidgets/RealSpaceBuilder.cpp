@@ -66,16 +66,16 @@ void RealSpaceBuilder::populate(RealSpaceModel* model,
         populateLayout(model, item, sceneGeometry);
 
     else if (item.modelType() == Constants::ParticleType)
-        populateParticle(model, item);
+        populateParticleFromParticleItem(model, item);
 
     else if (item.modelType() == Constants::ParticleCompositionType)
-        populateParticle(model, item);
+        populateParticleFromParticleItem(model, item);
 
     else if (item.modelType() == Constants::ParticleCoreShellType)
-        populateParticle(model, item);
+        populateParticleFromParticleItem(model, item);
 
     else if (item.modelType() == Constants::ParticleDistributionType)
-        populateParticle(model, item);
+        populateParticleFromParticleItem(model, item);
 }
 
 void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model,
@@ -126,20 +126,18 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model,
 
     // If there is an interference function present
     if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))
-//        populateInterference(model, layoutItem, sceneGeometry);
-        populateInterferenceV3(model, layoutItem, particle3DType_vector, sceneGeometry);
+        populateInterference(model, layoutItem, particle3DType_vector, sceneGeometry);
     else
     {
-//        RealSpaceBuilderUtils::populateRandomDistribution(model, layoutItem, sceneGeometry, this);
-
-        RealSpaceBuilderUtils::populateRandomDistributionV3(model, layoutItem, particle3DType_vector,
+        RealSpaceBuilderUtils::populateRandomDistribution(model, layoutItem, particle3DType_vector,
                                                       sceneGeometry, this);
     }
 }
 
 void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
-                                            const SessionItem& layoutItem,
-                                            const SceneGeometry& sceneGeometry)
+                                              const SessionItem& layoutItem,
+                                              QVector<Particle3DType> &particle3DType_vector,
+                                              const SceneGeometry& sceneGeometry)
 {
     // If there is no particle to populate
     if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
@@ -151,13 +149,13 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
 
     // If interference type is 2D Lattice
     if (interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType)
-        RealSpaceBuilderUtils::populateInterference2DLatticeType(interference.get(), model,
-                                                                 layoutItem, sceneGeometry, this);
+        RealSpaceBuilderUtils::populateInterference2DLatticeType(
+                    interference.get(), model, particle3DType_vector, sceneGeometry, this);
 
     // If interference type is 1D Lattice
     else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType)
-        RealSpaceBuilderUtils::populateInterference1DLatticeType(interference.get(), model,
-                                                                 layoutItem, sceneGeometry, this);
+        RealSpaceBuilderUtils::populateInterference1DLatticeType(
+                    interference.get(), model, particle3DType_vector, sceneGeometry, this);
 
     /*
     // If interference type is 2D ParaCrystal
@@ -173,9 +171,9 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
     */
 }
 
-void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
-                                        const SessionItem& particleItem,
-                                        const QVector3D& origin) const
+void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
+                                                        const SessionItem& particleItem,
+                                                        const QVector3D& origin) const
 {
     if(particleItem.modelType() == Constants::ParticleCompositionType)
     {
@@ -203,49 +201,9 @@ void RealSpaceBuilder::populateParticle(RealSpaceModel* model,
     }
 }
 
-// ----------------------------------------------------------------------------
-// ----------------------------------------------------------------------------
-// ----------------------------------------------------------------------------
-
-void RealSpaceBuilder::populateInterferenceV3(RealSpaceModel* model,
-                                              const SessionItem& layoutItem,
-                                              QVector<Particle3DType> &particle3DType_vector,
-                                              const SceneGeometry& sceneGeometry)
-{
-    // If there is no particle to populate
-    if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
-        return;
-
-    auto interferenceLattice = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
-    auto interferenceItem = dynamic_cast<const InterferenceFunctionItem *>(interferenceLattice);
-    auto interference = interferenceItem->createInterferenceFunction();
-
-    // If interference type is 2D Lattice
-    if (interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType)
-        RealSpaceBuilderUtils::populateInterference2DLatticeTypeV3(
-                    interference.get(), model, particle3DType_vector, sceneGeometry, this);
-
-    // If interference type is 1D Lattice
-    else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType)
-        RealSpaceBuilderUtils::populateInterference1DLatticeTypeV3(
-                    interference.get(), model, particle3DType_vector, sceneGeometry, this);
-
-    /*
-    // If interference type is 2D ParaCrystal
-    else if (interferenceLattice->modelType() == Constants::InterferenceFunction2DParaCrystalType)
-    {
-    }
-
-    // If interference type is Radial ParaCrystal
-    else if (interferenceLattice->modelType() == Constants::InterferenceFunctionRadialParaCrystalType)
-    {
-    }
-
-    */
-}
-
-void RealSpaceBuilder::populateParticleV3(RealSpaceModel* model, const Particle3DType &particle3DType,
-                                          const QVector3D& lattice_position) const
+void RealSpaceBuilder::populateParticleFromParticle3DType(RealSpaceModel* model,
+                                                          const Particle3DType &particle3DType,
+                                                          const QVector3D& lattice_position) const
 {
     if(particle3DType.getType() == Constants::ParticleCompositionType)
     {

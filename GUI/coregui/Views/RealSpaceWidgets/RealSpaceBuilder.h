@@ -53,21 +53,15 @@ public:
                         const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D());
 
     void populateInterference(RealSpaceModel* model, const SessionItem& layoutItem,
-                              const SceneGeometry& sceneGeometry);
-
-    void populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
-                          const QVector3D& origin = QVector3D()) const;
-
-    // ----------------------------------------------------------------------------
-    // ----------------------------------------------------------------------------
-    // ----------------------------------------------------------------------------
-
-    void populateInterferenceV3(RealSpaceModel* model, const SessionItem& layoutItem,
                                 QVector<Particle3DType> &particle3DType_vector,
                                 const SceneGeometry& sceneGeometry);
 
-    void populateParticleV3(RealSpaceModel* model, const Particle3DType &particle3DType,
-                            const QVector3D& lattice_position) const;
+    void populateParticleFromParticleItem(RealSpaceModel* model, const SessionItem& particleItem,
+                                          const QVector3D& origin = QVector3D()) const;
+
+    void populateParticleFromParticle3DType(RealSpaceModel* model,
+                                            const Particle3DType &particle3DType,
+                                            const QVector3D& lattice_position) const;
 
 };
 

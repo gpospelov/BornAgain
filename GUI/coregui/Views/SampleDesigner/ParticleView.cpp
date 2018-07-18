@@ -61,12 +61,13 @@ void ParticleView::paint(QPainter *painter,
     QFont serifFont("Monospace", DesignerHelper::getLabelFontSize(),
                     QFont::Normal);
     painter->setFont(serifFont);
-    QRect textRect(getRectangle().x() + (getRectangle().width() - width) / 2.,
+    QRectF textRect(getRectangle().x() + (getRectangle().width() - width) / 2.,
                    getRectangle().y() + yoffset, width, height);
     painter->drawText(textRect, Qt::AlignCenter, m_label);
 
-    QRect target(getRectangle().width() / 2 - 16, 25, 32, 32);
-    painter->drawPixmap(target, m_pixmap);
+    QRectF target(getRectangle().width() / 2 - 16, 25, 32, 32);
+    painter->drawPixmap(target, m_pixmap, QRectF(0.0, 0.0, m_pixmap.width(), m_pixmap.height()));
+//    painter->drawImage(target, m_pixmap);
 }
 
 void ParticleView::onPropertyChange(const QString &propertyName)

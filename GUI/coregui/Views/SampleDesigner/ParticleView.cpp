@@ -103,7 +103,7 @@ void ParticleView::updatePixmap()
         return;
 
     QString ff_type = getItem()->item<GroupItem>(ParticleItem::P_FORM_FACTOR).currentType();
-    QString filename = QString(":/widgetbox/images/ff_%1_32.png").arg(ff_type);
+    QString filename = QString(":/widgetbox/images/ff_%1_64x64.png").arg(ff_type);
     m_pixmap = QPixmap(filename);
 }
 

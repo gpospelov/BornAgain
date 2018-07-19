@@ -24,7 +24,7 @@ class SessionItem;
 class RealSpaceModel;
 class Shape3D;
 class SceneGeometry;
-class Particle3DType;
+class Particle3DContainer;
 
 class BA_CORE_API_ RealSpaceBuilder : public QWidget
 {
@@ -53,15 +53,15 @@ public:
                         const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D());
 
     void populateInterference(RealSpaceModel* model, const SessionItem& layoutItem,
-                                QVector<Particle3DType> &particle3DType_vector,
+                                QVector<Particle3DContainer> &particle3DContainer_vector,
                                 const SceneGeometry& sceneGeometry);
 
     void populateParticleFromParticleItem(RealSpaceModel* model, const SessionItem& particleItem,
                                           const QVector3D& origin = QVector3D()) const;
 
-    void populateParticleFromParticle3DType(RealSpaceModel* model,
-                                            const Particle3DType &particle3DType,
-                                            const QVector3D& lattice_position) const;
+    void populateParticleFromParticle3DContainer(RealSpaceModel* model,
+                                                 const Particle3DContainer &particle3DContainer,
+                                                 const QVector3D& lattice_position) const;
 
 };
 

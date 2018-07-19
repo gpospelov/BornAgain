@@ -122,22 +122,22 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model,
     if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
         return;
 
-    auto particle3DType_vector = RealSpaceBuilderUtils::getParticle3DTypeVector(layoutItem);
+    auto particle3DContainer_vector = RealSpaceBuilderUtils::getParticle3DContainerVector(layoutItem);
 
     // If there is an interference function present
     if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))
-        populateInterference(model, layoutItem, particle3DType_vector, sceneGeometry);
+        populateInterference(model, layoutItem, particle3DContainer_vector, sceneGeometry);
     else
     {
-        RealSpaceBuilderUtils::populateRandomDistribution(model, layoutItem, particle3DType_vector,
-                                                      sceneGeometry, this);
+        RealSpaceBuilderUtils::populateRandomDistribution(
+                    model, layoutItem, particle3DContainer_vector, sceneGeometry, this);
     }
 }
 
 void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
-                                              const SessionItem& layoutItem,
-                                              QVector<Particle3DType> &particle3DType_vector,
-                                              const SceneGeometry& sceneGeometry)
+                                            const SessionItem& layoutItem,
+                                            QVector<Particle3DContainer> &particle3DContainer_vector,
+                                            const SceneGeometry& sceneGeometry)
 {
     // If there is no particle to populate
     if(!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
@@ -150,12 +150,12 @@ void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
     // If interference type is 2D Lattice
     if (interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType)
         RealSpaceBuilderUtils::populateInterference2DLatticeType(
-                    interference.get(), model, particle3DType_vector, sceneGeometry, this);
+                    interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
 
     // If interference type is 1D Lattice
     else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType)
         RealSpaceBuilderUtils::populateInterference1DLatticeType(
-                    interference.get(), model, particle3DType_vector, sceneGeometry, this);
+                    interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
 
     /*
     // If interference type is 2D ParaCrystal
@@ -201,24 +201,24 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
     }
 }
 
-void RealSpaceBuilder::populateParticleFromParticle3DType(RealSpaceModel* model,
-                                                          const Particle3DType &particle3DType,
-                                                          const QVector3D& lattice_position) const
+void RealSpaceBuilder::populateParticleFromParticle3DContainer(
+        RealSpaceModel* model, const Particle3DContainer &particle3DContainer,
+        const QVector3D& lattice_position) const
 {
-    if(particle3DType.getType() == Constants::ParticleCompositionType)
+    if(particle3DContainer.getType() == Constants::ParticleCompositionType)
     {
     }
-    else if(particle3DType.getType() == Constants::ParticleCoreShellType)
+    else if(particle3DContainer.getType() == Constants::ParticleCoreShellType)
     {
     }
-    else if(particle3DType.getType() == Constants::ParticleDistributionType)
+    else if(particle3DContainer.getType() == Constants::ParticleDistributionType)
     {
     }
-    else if(particle3DType.getType() == Constants::ParticleType)
+    else if(particle3DContainer.getType() == Constants::ParticleType)
     {
-        if (particle3DType.get3Dparticles().size())
+        if (particle3DContainer.get3Dparticles().size())
         {
-            auto particle3D = particle3DType.createParticle(0);
+            auto particle3D = particle3DContainer.createParticle(0);
             particle3D->addTranslation(lattice_position);
             if(particle3D)
                 model->add(particle3D.release());

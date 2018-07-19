@@ -22,6 +22,7 @@
 
 namespace {
 const char* geometry = "geometry";
+const char* highdpi  = "highdpi";
 
 //! Converts string "1600x1000" to QSize(1600, 1000)
 QSize windowSize(const QString& size_string) {
@@ -49,6 +50,7 @@ ApplicationOptions::ApplicationOptions(int argc, char** argv) : m_options_is_con
     m_options.add_options()("with-debug", "run application with debug printout");
     m_options.add_options()("no-splash",  "do not show splash screen");
     m_options.add_options()(geometry,  bpo::value<std::string>(), "Main window geometry, e.g. 1600x1000");
+    m_options.add_options()(highdpi, "Run with experimental high-dpi monitor support");
 
     parseCommandLine(argc, argv);
 
@@ -136,4 +138,9 @@ QSize ApplicationOptions::mainWindowSize() const
 {
     QString size_str = QString::fromStdString(m_variables_map[geometry].as<std::string>());
     return windowSize(size_str);
+}
+
+bool ApplicationOptions::enableHighDPISupport()
+{
+    return find(highdpi);
 }

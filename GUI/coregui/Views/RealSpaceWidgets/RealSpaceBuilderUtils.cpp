@@ -132,8 +132,10 @@ QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const Session
 }
 
 void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
-        QVector<QVector<double>> lattice_positions, const QVector<Particle3DType> &particle3DType_vector,
-        RealSpaceModel *model, const SceneGeometry& sceneGeometry, const RealSpaceBuilder *builder3D)
+        const QVector<QVector<double>> &lattice_positions,
+        const QVector<Particle3DType> &particle3DType_vector,
+        RealSpaceModel *model, const SceneGeometry& sceneGeometry,
+        const RealSpaceBuilder *builder3D)
 {
     double layer_size = sceneGeometry.layer_size();
     double layer_thickness = std::max(sceneGeometry.layer_top_thickness(),
@@ -145,7 +147,7 @@ void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
         double rand_num = (rand()/static_cast<double>(RAND_MAX)); // (between 0 and 1)
         int k = 0;
 
-        for (auto& particle3DType : particle3DType_vector)
+        for (const auto& particle3DType : particle3DType_vector)
         {
             if (rand_num <= particle3DType.getCumulativeAbundance())
             {

@@ -59,42 +59,42 @@ Particle3DContainer::Particle3DContainer(const Particle3DContainer &p3D) :
     m_cumulative_abundance(p3D.m_cumulative_abundance),
     m_type(p3D.m_type)
 {
-    m_3Dparticles.resize(p3D.m_3Dparticles.size());
-    for (int i = 0; i < m_3Dparticles.size(); ++i)
-        m_3Dparticles[i] = new RealSpace::Particles::Particle(*p3D.m_3Dparticles[i]);
+    m_Particle3DContainer.resize(p3D.m_Particle3DContainer.size());
+    for (int i = 0; i < m_Particle3DContainer.size(); ++i)
+        m_Particle3DContainer[i] = new RealSpace::Particles::Particle(*p3D.m_Particle3DContainer[i]);
 }
 
 Particle3DContainer &Particle3DContainer::operator=(const Particle3DContainer &right)
 {
     if (this == &right) return *this;
 
-    clear3Dparticles();
+    clearContainer();
 
     m_cumulative_abundance = right.m_cumulative_abundance;
     m_type = right.m_type;
 
-    m_3Dparticles.resize(right.m_3Dparticles.size());
-    for (int i = 0; i < m_3Dparticles.size(); ++i)
-        m_3Dparticles[i] = new RealSpace::Particles::Particle(*right.m_3Dparticles[i]);
+    m_Particle3DContainer.resize(right.m_Particle3DContainer.size());
+    for (int i = 0; i < m_Particle3DContainer.size(); ++i)
+        m_Particle3DContainer[i] = new RealSpace::Particles::Particle(*right.m_Particle3DContainer[i]);
     return *this;
 }
 
 Particle3DContainer::~Particle3DContainer()
 {
-    clear3Dparticles();
+    clearContainer();
 }
 
-void Particle3DContainer::clear3Dparticles()
+void Particle3DContainer::clearContainer()
 {
-    for (auto it = m_3Dparticles.begin(); it != m_3Dparticles.end(); ++it)
+    for (auto it = m_Particle3DContainer.begin(); it != m_Particle3DContainer.end(); ++it)
         delete(*it);
 
-    m_3Dparticles.clear();
+    m_Particle3DContainer.clear();
 }
 
 void Particle3DContainer::add3DParticle(RealSpace::Particles::Particle *particle3D)
 {
-    m_3Dparticles.append(particle3D);
+    m_Particle3DContainer.append(particle3D);
 }
 
 void Particle3DContainer::setCumulativeAbundance(double cumulative_abundance)
@@ -110,7 +110,7 @@ void Particle3DContainer::setType(QString type)
 std::unique_ptr<RealSpace::Particles::Particle> Particle3DContainer::createParticle(
         const int &index) const
 {
-    auto particle = new RealSpace::Particles::Particle(*m_3Dparticles.at(index));
+    auto particle = new RealSpace::Particles::Particle(*m_Particle3DContainer.at(index));
     return std::unique_ptr<RealSpace::Particles::Particle>(particle);
 }
 

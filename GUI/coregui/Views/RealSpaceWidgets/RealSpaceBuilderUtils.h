@@ -40,11 +40,11 @@ public:
     Particle3DContainer& operator=(const Particle3DContainer& right);
     ~Particle3DContainer();
 
-    void clear3Dparticles();
+    void clearContainer();
 
-    const QVector<RealSpace::Particles::Particle*> get3Dparticles() const {return m_3Dparticles; }
-    double getCumulativeAbundance() const {return m_cumulative_abundance; }
-    const QString getType() const {return m_type; }
+    int getContainerSize() const { return m_container.size(); }
+    double getCumulativeAbundance() const { return m_cumulative_abundance; }
+    const QString getType() const { return m_type; }
 
     void add3DParticle(RealSpace::Particles::Particle* particle3D);
     void setCumulativeAbundance(double cumulative_abundance);
@@ -53,9 +53,10 @@ public:
     std::unique_ptr<RealSpace::Particles::Particle> createParticle(const int &index) const;
 
 private:
-    QVector<RealSpace::Particles::Particle*> m_3Dparticles;
+    QVector<RealSpace::Particles::Particle*> m_container;
+    // Contains the constituents of the 3D Particle (e.g. core and shell of a ParticleCoreShell)
     double m_cumulative_abundance;
-    QString m_type;
+    QString m_type; // e.g. ParticleType, ParticleCompositionType etc.
 };
 
 namespace RealSpaceBuilderUtils

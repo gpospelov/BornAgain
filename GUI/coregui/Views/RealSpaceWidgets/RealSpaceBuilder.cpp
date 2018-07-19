@@ -216,7 +216,7 @@ void RealSpaceBuilder::populateParticleFromParticle3DContainer(
     }
     else if(particle3DContainer.getType() == Constants::ParticleType)
     {
-        if (particle3DContainer.get3Dparticles().size())
+        if (particle3DContainer.getContainerSize())
         {
             auto particle3D = particle3DContainer.createParticle(0);
             particle3D->addTranslation(lattice_position);

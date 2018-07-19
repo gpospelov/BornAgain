@@ -65,21 +65,21 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
 {
     Particle3DContainer p1;
 
-    EXPECT_EQ((p1.getContainerSize()), 0);
-    EXPECT_EQ(p1.getCumulativeAbundance(), 0);
-    EXPECT_EQ(p1.getType(), "");
+    EXPECT_EQ((p1.containerSize()), 0);
+    EXPECT_EQ(p1.cumulativeAbundance(), 0);
+    EXPECT_EQ(p1.particleType(), "");
 
     // Create 3D cylinder using corresponding constructor RealSpace::Particles::Cylinder()
     auto cylinder3D = std::make_unique<RealSpace::Particles::Cylinder>(5, 10);
 
     // Associate it to a Particle3DContainer object
-    p1.add3DParticle(cylinder3D.release());
+    p1.addParticle(cylinder3D.release());
     p1.setCumulativeAbundance(1);
-    p1.setType(Constants::ParticleType);
+    p1.setParticleType(Constants::ParticleType);
 
-    EXPECT_EQ(p1.getContainerSize(), 1);
-    EXPECT_EQ(p1.getCumulativeAbundance(), 1);
-    EXPECT_EQ(p1.getType(), Constants::ParticleType);
+    EXPECT_EQ(p1.containerSize(), 1);
+    EXPECT_EQ(p1.cumulativeAbundance(), 1);
+    EXPECT_EQ(p1.particleType(), Constants::ParticleType);
 
     RealSpaceModel realSpaceModel;
 
@@ -88,15 +88,15 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
     // the same as p1 and cannot be added to the RealSpaceModel once p1 is added
     Particle3DContainer p2(p1);
 
-    EXPECT_EQ(p2.getContainerSize(), 1);
-    EXPECT_EQ(p2.getCumulativeAbundance(), 1);
-    EXPECT_EQ(p2.getType(), Constants::ParticleType);
+    EXPECT_EQ(p2.containerSize(), 1);
+    EXPECT_EQ(p2.cumulativeAbundance(), 1);
+    EXPECT_EQ(p2.particleType(), Constants::ParticleType);
 
     Particle3DContainer p3 = Particle3DContainer(p1);
 
-    EXPECT_EQ(p3.getContainerSize(), 1);
-    EXPECT_EQ(p3.getCumulativeAbundance(), 1);
-    EXPECT_EQ(p3.getType(), Constants::ParticleType);
+    EXPECT_EQ(p3.containerSize(), 1);
+    EXPECT_EQ(p3.cumulativeAbundance(), 1);
+    EXPECT_EQ(p3.particleType(), Constants::ParticleType);
 
     // Test assignment operator
     // If assignment operator (DEEP) is not implemented then p4 is basically
@@ -104,9 +104,9 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
     Particle3DContainer p4;
     p4 = p1;
 
-    EXPECT_EQ(p4.getContainerSize(), 1);
-    EXPECT_EQ(p4.getCumulativeAbundance(), 1);
-    EXPECT_EQ(p4.getType(), Constants::ParticleType);
+    EXPECT_EQ(p4.containerSize(), 1);
+    EXPECT_EQ(p4.cumulativeAbundance(), 1);
+    EXPECT_EQ(p4.particleType(), Constants::ParticleType);
 
     // Add particle to RealSpaceModel by first creating a unique instance of it and then
     // releasing (transfer ownership) to the model which deletes the new particle instance later on
@@ -140,10 +140,10 @@ TEST_F(TestRealSpaceBuilderUtils, test_getSingleParticle3DContainer)
     // Create a 3D particle from particleItem and associate it to a Particle3DContainer object
     auto singleParticle3DContainer = RealSpaceBuilderUtils::getSingleParticle3DContainer(particle, 8);
 
-    EXPECT_EQ(singleParticle3DContainer.getContainerSize(), 1);
+    EXPECT_EQ(singleParticle3DContainer.containerSize(), 1);
     //EXPECT_TRUE(singleParticle3DContainer.m_3Dparticles.at(0) != nullptr);
-    EXPECT_EQ(singleParticle3DContainer.getCumulativeAbundance(), 1);
-    EXPECT_EQ(singleParticle3DContainer.getType(), Constants::ParticleType);
+    EXPECT_EQ(singleParticle3DContainer.cumulativeAbundance(), 1);
+    EXPECT_EQ(singleParticle3DContainer.particleType(), Constants::ParticleType);
 }
 
 TEST_F(TestRealSpaceBuilderUtils, test_getParticle3DContainerVector)
@@ -177,17 +177,17 @@ TEST_F(TestRealSpaceBuilderUtils, test_getParticle3DContainerVector)
 
     EXPECT_EQ(particle3DContainer_vector.size(), 3);
 
-    EXPECT_EQ(particle3DContainer_vector.at(0).getContainerSize(), 1);
-    EXPECT_EQ(particle3DContainer_vector.at(0).getCumulativeAbundance(), 0.5);
-    EXPECT_EQ(particle3DContainer_vector.at(0).getType(), Constants::ParticleType);
+    EXPECT_EQ(particle3DContainer_vector.at(0).containerSize(), 1);
+    EXPECT_EQ(particle3DContainer_vector.at(0).cumulativeAbundance(), 0.5);
+    EXPECT_EQ(particle3DContainer_vector.at(0).particleType(), Constants::ParticleType);
 
-    EXPECT_EQ(particle3DContainer_vector.at(1).getContainerSize(), 1);
-    EXPECT_EQ(particle3DContainer_vector.at(1).getCumulativeAbundance(), 0.8);
-    EXPECT_EQ(particle3DContainer_vector.at(1).getType(), Constants::ParticleType);
+    EXPECT_EQ(particle3DContainer_vector.at(1).containerSize(), 1);
+    EXPECT_EQ(particle3DContainer_vector.at(1).cumulativeAbundance(), 0.8);
+    EXPECT_EQ(particle3DContainer_vector.at(1).particleType(), Constants::ParticleType);
 
-    EXPECT_EQ(particle3DContainer_vector.at(2).getContainerSize(), 1);
-    EXPECT_EQ(particle3DContainer_vector.at(2).getCumulativeAbundance(), 1.0);
-    EXPECT_EQ(particle3DContainer_vector.at(2).getType(), Constants::ParticleType);
+    EXPECT_EQ(particle3DContainer_vector.at(2).containerSize(), 1);
+    EXPECT_EQ(particle3DContainer_vector.at(2).cumulativeAbundance(), 1.0);
+    EXPECT_EQ(particle3DContainer_vector.at(2).particleType(), Constants::ParticleType);
 }
 
 

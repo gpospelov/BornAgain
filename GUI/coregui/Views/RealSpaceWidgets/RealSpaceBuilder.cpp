@@ -205,18 +205,18 @@ void RealSpaceBuilder::populateParticleFromParticle3DContainer(
         RealSpaceModel* model, const Particle3DContainer &particle3DContainer,
         const QVector3D& lattice_position) const
 {
-    if(particle3DContainer.getType() == Constants::ParticleCompositionType)
+    if(particle3DContainer.particleType() == Constants::ParticleCompositionType)
     {
     }
-    else if(particle3DContainer.getType() == Constants::ParticleCoreShellType)
+    else if(particle3DContainer.particleType() == Constants::ParticleCoreShellType)
     {
     }
-    else if(particle3DContainer.getType() == Constants::ParticleDistributionType)
+    else if(particle3DContainer.particleType() == Constants::ParticleDistributionType)
     {
     }
-    else if(particle3DContainer.getType() == Constants::ParticleType)
+    else if(particle3DContainer.particleType() == Constants::ParticleType)
     {
-        if (particle3DContainer.getContainerSize())
+        if (particle3DContainer.containerSize())
         {
             auto particle3D = particle3DContainer.createParticle(0);
             particle3D->addTranslation(lattice_position);

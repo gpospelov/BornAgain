@@ -56,12 +56,12 @@ namespace
 }
 
 Particle3DContainer::Particle3DContainer(const Particle3DContainer &p3D) :
-    m_cumulative_abundance(p3D.m_cumulative_abundance),
-    m_type(p3D.m_type)
+    m_cumulativeAbundance(p3D.m_cumulativeAbundance),
+    m_particleType(p3D.m_particleType)
 {
-    m_Particle3DContainer.resize(p3D.m_Particle3DContainer.size());
-    for (int i = 0; i < m_Particle3DContainer.size(); ++i)
-        m_Particle3DContainer[i] = new RealSpace::Particles::Particle(*p3D.m_Particle3DContainer[i]);
+    m_container.resize(p3D.m_container.size());
+    for (int i = 0; i < m_container.size(); ++i)
+        m_container[i] = new RealSpace::Particles::Particle(*p3D.m_container[i]);
 }
 
 Particle3DContainer &Particle3DContainer::operator=(const Particle3DContainer &right)
@@ -70,12 +70,12 @@ Particle3DContainer &Particle3DContainer::operator=(const Particle3DContainer &r
 
     clearContainer();
 
-    m_cumulative_abundance = right.m_cumulative_abundance;
-    m_type = right.m_type;
+    m_cumulativeAbundance = right.m_cumulativeAbundance;
+    m_particleType = right.m_particleType;
 
-    m_Particle3DContainer.resize(right.m_Particle3DContainer.size());
-    for (int i = 0; i < m_Particle3DContainer.size(); ++i)
-        m_Particle3DContainer[i] = new RealSpace::Particles::Particle(*right.m_Particle3DContainer[i]);
+    m_container.resize(right.m_container.size());
+    for (int i = 0; i < m_container.size(); ++i)
+        m_container[i] = new RealSpace::Particles::Particle(*right.m_container[i]);
     return *this;
 }
 
@@ -86,31 +86,31 @@ Particle3DContainer::~Particle3DContainer()
 
 void Particle3DContainer::clearContainer()
 {
-    for (auto it = m_Particle3DContainer.begin(); it != m_Particle3DContainer.end(); ++it)
+    for (auto it = m_container.begin(); it != m_container.end(); ++it)
         delete(*it);
 
-    m_Particle3DContainer.clear();
+    m_container.clear();
 }
 
-void Particle3DContainer::add3DParticle(RealSpace::Particles::Particle *particle3D)
+void Particle3DContainer::addParticle(RealSpace::Particles::Particle *particle3D)
 {
-    m_Particle3DContainer.append(particle3D);
+    m_container.append(particle3D);
 }
 
-void Particle3DContainer::setCumulativeAbundance(double cumulative_abundance)
+void Particle3DContainer::setCumulativeAbundance(double cumulativeAbundance)
 {
-    m_cumulative_abundance = cumulative_abundance;
+    m_cumulativeAbundance = cumulativeAbundance;
 }
 
-void Particle3DContainer::setType(QString type)
+void Particle3DContainer::setParticleType(QString particleType)
 {
-    m_type = type;
+    m_particleType = particleType;
 }
 
 std::unique_ptr<RealSpace::Particles::Particle> Particle3DContainer::createParticle(
         const int &index) const
 {
-    auto particle = new RealSpace::Particles::Particle(*m_Particle3DContainer.at(index));
+    auto particle = new RealSpace::Particles::Particle(*m_container.at(index));
     return std::unique_ptr<RealSpace::Particles::Particle>(particle);
 }
 
@@ -150,7 +150,7 @@ void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
 
         for (const auto& particle3DContainer : particle3DContainer_vector)
         {
-            if (rand_num <= particle3DContainer.getCumulativeAbundance())
+            if (rand_num <= particle3DContainer.cumulativeAbundance())
             {
                 // lattice position + location (TO BE ADDED)
                 double pos_x = position[0];
@@ -537,7 +537,7 @@ QVector<Particle3DContainer> RealSpaceBuilderUtils::getParticle3DContainerVector
             auto singleParticle3DContainer =
                     getSingleParticle3DContainer(particleItem, total_abundance);
 
-            cumulative_abundance += singleParticle3DContainer.getCumulativeAbundance();
+            cumulative_abundance += singleParticle3DContainer.cumulativeAbundance();
 
             singleParticle3DContainer.setCumulativeAbundance(cumulative_abundance);
 
@@ -565,9 +565,9 @@ Particle3DContainer RealSpaceBuilderUtils::getSingleParticle3DContainer(
 
     Particle3DContainer singleParticle3DContainer;
 
-    singleParticle3DContainer.add3DParticle(particle3D.release());
+    singleParticle3DContainer.addParticle(particle3D.release());
     singleParticle3DContainer.setCumulativeAbundance(particle->abundance()/total_abundance);
-    singleParticle3DContainer.setType(Constants::ParticleType);
+    singleParticle3DContainer.setParticleType(Constants::ParticleType);
 
     return singleParticle3DContainer;
 }

@@ -14,11 +14,15 @@ from matplotlib import pyplot as plt
 from bornagain import deg, angstrom, nm
 
 
-def get_sample(cylinder_height=1.0*nm, cylinder_radius=1.0*nm,
-               prism_length=2.0*nm, prism_height=1.0*nm):
+def get_sample(params):
     """
     Returns a sample with uncorrelated cylinders and prisms on a substrate.
     """
+    cylinder_height = params["cylinder_height"].value
+    cylinder_radius = params["cylinder_radius"].value
+    prism_height = params["prism_height"].value
+    prism_base_edge = params["prism_base_edge"].value
+
     # defining materials
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -27,7 +31,7 @@ def get_sample(cylinder_height=1.0*nm, cylinder_radius=1.0*nm,
     # collection of particles
     cylinder_ff = ba.FormFactorCylinder(cylinder_radius, cylinder_height)
     cylinder = ba.Particle(m_particle, cylinder_ff)
-    prism_ff = ba.FormFactorPrism3(prism_length, prism_height)
+    prism_ff = ba.FormFactorPrism3(prism_base_edge, prism_height)
     prism = ba.Particle(m_particle, prism_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 0.5)
@@ -52,9 +56,17 @@ def create_real_data():
     located in same directory.
     """
     # creating sample with set of parameters we will later try to find during the fit
-    sample = get_sample(5.0*nm, 5.0*nm, 5.0*nm, 5.0*nm)
-    simulation = get_simulation()
-    simulation.setSample(sample)
+
+    # TODO modify real data creation after switch of objective function
+    # from ba.Parameters to Python dictionary
+
+    params = ba.Parameters()
+    params.add("cylinder_height", 5.0*nm)
+    params.add("cylinder_radius", 5.0*nm)
+    params.add("prism_height", 5.0*nm)
+    params.add("prism_base_edge", 5.0*nm)
+
+    simulation = get_simulation(params)
     simulation.runSimulation()
 
     # retrieving simulated data in the form of numpy array
@@ -68,7 +80,7 @@ def create_real_data():
     return noisy
 
 
-def get_simulation():
+def get_simulation(params):
     """
     Returns a GISAXS simulation with beam and detector defined
     """
@@ -77,6 +89,7 @@ def get_simulation():
                                      100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setBeamIntensity(1e+08)
+    simulation.setSample(get_sample(params))
     return simulation
 
 
@@ -85,37 +98,31 @@ def run_fitting():
     Setup simulation and fit
     """
 
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
-
     real_data = create_real_data()
 
-    fit_suite = ba.FitSuite()
-    fit_suite.addSimulationAndRealData(simulation, real_data)
+    fit_objective = ba.FitObjective()
+    fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
+    fit_objective.initPrint(10)
 
     # fit_suite.setMinimizer("Minuit2", "Migrad")  # ba.Default
     # fit_suite.setMinimizer("Minuit2", "Fumili")
     # fit_suite.setMinimizer("GSLLMA")
 
-    fit_suite.initPrint(10)
+    fit_objective.initPrint(10)
 
-    # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*Cylinder/Height", 4.*nm).setLowerLimited(0.01)
-    fit_suite.addFitParameter("*Cylinder/Radius", 6.*nm).setLowerLimited(0.01)
-    fit_suite.addFitParameter("*Prism3/Height", 4.*nm).setLowerLimited(0.01)
-    fit_suite.addFitParameter("*Prism3/BaseEdge", 12.*nm).setLowerLimited(0.01)
+    params = ba.Parameters()
+    params.add("cylinder_height", 4.*nm, min=0.01)
+    params.add("cylinder_radius", 6.*nm, min=0.01)
+    params.add("prism_height", 4.*nm, min=0.01)
+    params.add("prism_base_edge", 12.*nm, min=0.01)
 
-    draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
-    fit_suite.attachObserver(draw_observer)
+    # draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
+    # fit_suite.attachObserver(draw_observer)
 
-    fit_suite.runFit()
-    print("Fitting completed.")
-    print("chi2:", fit_suite.getChi2())
-    for fitPar in fit_suite.fitParameters():
-        print(fitPar.name(), fitPar.value(), fitPar.error())
+    minimizer = ba.Minimizer()
+    result = minimizer.minimize(fit_objective.evaluate, params)
 
-    return fit_suite
+    fit_objective.finalize(result)
 
 
 if __name__ == '__main__':

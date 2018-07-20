@@ -109,18 +109,13 @@ def run_fitting():
     # fit_suite.setMinimizer("GSLLMA")
 
     fit_objective.initPrint(10)
-
-    plotter = ba.PlotterGISASV2()
-    fit_objective.initPlot(10, plotter.plot)
+    fit_objective.initPlot(10)
 
     params = ba.Parameters()
     params.add("cylinder_height", 4.*nm, min=0.01)
     params.add("cylinder_radius", 6.*nm, min=0.01)
     params.add("prism_height", 4.*nm, min=0.01)
     params.add("prism_base_edge", 12.*nm, min=0.01)
-
-    # draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
-    # fit_suite.attachObserver(draw_observer)
 
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)

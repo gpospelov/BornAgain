@@ -44,7 +44,7 @@ class FitObserver:
 
     def update(self, fit_objective):
         self.m_ncalls += 1
-        self.m_iterations.append(fit_objective.iterationCount())
+        self.m_iterations.append(fit_objective.iterationInfo().iterationCount())
 
 
 class FitObjectiveAPITest(unittest.TestCase):
@@ -104,7 +104,7 @@ class FitObjectiveAPITest(unittest.TestCase):
             objective.evaluate(pars)
 
         self.assertEqual(observer.m_ncalls, 3)
-        self.assertEqual(observer.m_iterations, [0, 5, 10])
+        self.assertEqual(observer.m_iterations, [1, 6, 11])
 
     def test_IterationInfo(self):
         """
@@ -115,7 +115,8 @@ class FitObjectiveAPITest(unittest.TestCase):
         params.add("bbb", 1.0)
         params.add("aaa", 2.0)
 
-        info = ba.IterationInfo(params, 3.0)
+        info = ba.IterationInfo()
+        info.update(params, 3.0)
         par_map = info.parameterMap()
 
         expected_names = ["aaa", "bbb"]
@@ -128,6 +129,7 @@ class FitObjectiveAPITest(unittest.TestCase):
 
         self.assertEqual(names, expected_names)
         self.assertEqual(values, expected_values)
+        self.assertEqual(info.iterationCount(), 1)
 
 
 if __name__ == '__main__':

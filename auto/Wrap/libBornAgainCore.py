@@ -1708,6 +1708,200 @@ class vector_string_t(_object):
 vector_string_t_swigregister = _libBornAgainCore.vector_string_t_swigregister
 vector_string_t_swigregister(vector_string_t)
 
+class map_string_double_t(_object):
+    """Proxy of C++ std::map<(std::string,double)> class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, map_string_double_t, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, map_string_double_t, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        """iterator(map_string_double_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.map_string_double_t_iterator(self)
+
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        """__nonzero__(map_string_double_t self) -> bool"""
+        return _libBornAgainCore.map_string_double_t___nonzero__(self)
+
+
+    def __bool__(self):
+        """__bool__(map_string_double_t self) -> bool"""
+        return _libBornAgainCore.map_string_double_t___bool__(self)
+
+
+    def __len__(self):
+        """__len__(map_string_double_t self) -> std::map< std::string,double >::size_type"""
+        return _libBornAgainCore.map_string_double_t___len__(self)
+
+    def __iter__(self):
+        return self.key_iterator()
+    def iterkeys(self):
+        return self.key_iterator()
+    def itervalues(self):
+        return self.value_iterator()
+    def iteritems(self):
+        return self.iterator()
+
+    def __getitem__(self, key):
+        """__getitem__(map_string_double_t self, std::map< std::string,double >::key_type const & key) -> std::map< std::string,double >::mapped_type const &"""
+        return _libBornAgainCore.map_string_double_t___getitem__(self, key)
+
+
+    def __delitem__(self, key):
+        """__delitem__(map_string_double_t self, std::map< std::string,double >::key_type const & key)"""
+        return _libBornAgainCore.map_string_double_t___delitem__(self, key)
+
+
+    def has_key(self, key):
+        """has_key(map_string_double_t self, std::map< std::string,double >::key_type const & key) -> bool"""
+        return _libBornAgainCore.map_string_double_t_has_key(self, key)
+
+
+    def keys(self):
+        """keys(map_string_double_t self) -> PyObject *"""
+        return _libBornAgainCore.map_string_double_t_keys(self)
+
+
+    def values(self):
+        """values(map_string_double_t self) -> PyObject *"""
+        return _libBornAgainCore.map_string_double_t_values(self)
+
+
+    def items(self):
+        """items(map_string_double_t self) -> PyObject *"""
+        return _libBornAgainCore.map_string_double_t_items(self)
+
+
+    def __contains__(self, key):
+        """__contains__(map_string_double_t self, std::map< std::string,double >::key_type const & key) -> bool"""
+        return _libBornAgainCore.map_string_double_t___contains__(self, key)
+
+
+    def key_iterator(self):
+        """key_iterator(map_string_double_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.map_string_double_t_key_iterator(self)
+
+
+    def value_iterator(self):
+        """value_iterator(map_string_double_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.map_string_double_t_value_iterator(self)
+
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(map_string_double_t self, std::map< std::string,double >::key_type const & key)
+        __setitem__(map_string_double_t self, std::map< std::string,double >::key_type const & key, std::map< std::string,double >::mapped_type const & x)
+        """
+        return _libBornAgainCore.map_string_double_t___setitem__(self, *args)
+
+
+    def asdict(self):
+        """asdict(map_string_double_t self) -> PyObject *"""
+        return _libBornAgainCore.map_string_double_t_asdict(self)
+
+
+    def __init__(self, *args):
+        """
+        __init__(std::map<(std::string,double)> self, std::less< std::string > const & arg2) -> map_string_double_t
+        __init__(std::map<(std::string,double)> self) -> map_string_double_t
+        __init__(std::map<(std::string,double)> self, map_string_double_t arg2) -> map_string_double_t
+        """
+        this = _libBornAgainCore.new_map_string_double_t(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def empty(self):
+        """empty(map_string_double_t self) -> bool"""
+        return _libBornAgainCore.map_string_double_t_empty(self)
+
+
+    def size(self):
+        """size(map_string_double_t self) -> std::map< std::string,double >::size_type"""
+        return _libBornAgainCore.map_string_double_t_size(self)
+
+
+    def swap(self, v):
+        """
+        swap(map_string_double_t self, map_string_double_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.map_string_double_t_swap(self, v)
+
+
+    def begin(self):
+        """begin(map_string_double_t self) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainCore.map_string_double_t_begin(self)
+
+
+    def end(self):
+        """end(map_string_double_t self) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainCore.map_string_double_t_end(self)
+
+
+    def rbegin(self):
+        """rbegin(map_string_double_t self) -> std::map< std::string,double >::reverse_iterator"""
+        return _libBornAgainCore.map_string_double_t_rbegin(self)
+
+
+    def rend(self):
+        """rend(map_string_double_t self) -> std::map< std::string,double >::reverse_iterator"""
+        return _libBornAgainCore.map_string_double_t_rend(self)
+
+
+    def clear(self):
+        """clear(map_string_double_t self)"""
+        return _libBornAgainCore.map_string_double_t_clear(self)
+
+
+    def get_allocator(self):
+        """get_allocator(map_string_double_t self) -> std::map< std::string,double >::allocator_type"""
+        return _libBornAgainCore.map_string_double_t_get_allocator(self)
+
+
+    def count(self, x):
+        """count(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::size_type"""
+        return _libBornAgainCore.map_string_double_t_count(self, x)
+
+
+    def erase(self, *args):
+        """
+        erase(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::size_type
+        erase(map_string_double_t self, std::map< std::string,double >::iterator position)
+        erase(map_string_double_t self, std::map< std::string,double >::iterator first, std::map< std::string,double >::iterator last)
+        """
+        return _libBornAgainCore.map_string_double_t_erase(self, *args)
+
+
+    def find(self, x):
+        """find(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainCore.map_string_double_t_find(self, x)
+
+
+    def lower_bound(self, x):
+        """lower_bound(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainCore.map_string_double_t_lower_bound(self, x)
+
+
+    def upper_bound(self, x):
+        """upper_bound(map_string_double_t self, std::map< std::string,double >::key_type const & x) -> std::map< std::string,double >::iterator"""
+        return _libBornAgainCore.map_string_double_t_upper_bound(self, x)
+
+    __swig_destroy__ = _libBornAgainCore.delete_map_string_double_t
+    __del__ = lambda self: None
+map_string_double_t_swigregister = _libBornAgainCore.map_string_double_t_swigregister
+map_string_double_t_swigregister(map_string_double_t)
+
 import libBornAgainFit
 
 def GetMajorVersionNumber():
@@ -28899,6 +29093,45 @@ class IUnitConverter(ICloneable):
 
 IUnitConverter_swigregister = _libBornAgainCore.IUnitConverter_swigregister
 IUnitConverter_swigregister(IUnitConverter)
+
+class IterationInfo(_object):
+    """Proxy of C++ IterationInfo class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IterationInfo, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, IterationInfo, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(IterationInfo self) -> IterationInfo
+        __init__(IterationInfo self, Parameters params, double chi2) -> IterationInfo
+        """
+        this = _libBornAgainCore.new_IterationInfo(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def chi2(self):
+        """chi2(IterationInfo self) -> double"""
+        return _libBornAgainCore.IterationInfo_chi2(self)
+
+
+    def parameters(self):
+        """parameters(IterationInfo self) -> Parameters"""
+        return _libBornAgainCore.IterationInfo_parameters(self)
+
+
+    def parameterMap(self):
+        """parameterMap(IterationInfo self) -> map_string_double_t"""
+        return _libBornAgainCore.IterationInfo_parameterMap(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_IterationInfo
+    __del__ = lambda self: None
+IterationInfo_swigregister = _libBornAgainCore.IterationInfo_swigregister
+IterationInfo_swigregister(IterationInfo)
 
 
 class ParameterPoolIterator(object):

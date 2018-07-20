@@ -37,3 +37,13 @@ Fit::Parameters IterationInfo::parameters() const
 {
     return m_current_parameters;
 }
+
+std::map<std::string, double> IterationInfo::parameterMap() const
+{
+    std::map<std::string, double> result;
+
+    for(const auto& par : m_current_parameters)
+        result.insert(std::make_pair(par.name(), par.value()));
+
+    return result;
+}

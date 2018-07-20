@@ -106,6 +106,29 @@ class FitObjectiveAPITest(unittest.TestCase):
         self.assertEqual(observer.m_ncalls, 3)
         self.assertEqual(observer.m_iterations, [0, 5, 10])
 
+    def test_IterationInfo(self):
+        """
+        Testing map of parameters obtained from IterationInfo
+        """
+
+        params = ba.Parameters()
+        params.add("bbb", 1.0)
+        params.add("aaa", 2.0)
+
+        info = ba.IterationInfo(params, 3.0)
+        par_map = info.parameterMap()
+
+        expected_names = ["aaa", "bbb"]
+        expected_values = [2.0, 1.0]
+        names = []
+        values = []
+        for key in par_map:
+            names.append(key)
+            values.append(par_map[key])
+
+        self.assertEqual(names, expected_names)
+        self.assertEqual(values, expected_values)
+
 
 if __name__ == '__main__':
     unittest.main()

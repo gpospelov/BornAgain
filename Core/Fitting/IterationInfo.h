@@ -17,6 +17,8 @@
 
 #include "WinDllMacros.h"
 #include "Parameters.h"
+#include <map>
+#include <string>
 
 //! Stores fit iteration info to track fit flow from various observers.
 //! Used in context of FitObjective.
@@ -30,6 +32,9 @@ public:
     double chi2() const;
 
     Fit::Parameters parameters() const;
+
+    //! Returns map of fit parameter names and its current values.
+    std::map<std::string, double> parameterMap() const;
 
 private:
     double m_chi2;

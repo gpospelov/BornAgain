@@ -268,6 +268,58 @@ class PlotterGISAS(Plotter):
         Plotter.plot(self, fit_suite)
 
 
+class PlotterGISASV2(Plotter):
+    def __init__(self):
+        Plotter.__init__(self)
+
+    @staticmethod
+    def make_subplot(nplot):
+        plt.subplot(2, 2, nplot)
+        plt.subplots_adjust(wspace=0.2, hspace=0.2)
+
+    def plot(self, fit_objective):
+        Plotter.reset(self)
+
+        real_data = fit_objective.experimentalData()
+        sim_data = fit_objective.simulationResult()
+        diff = fit_objective.relativeDifference()
+
+        self.make_subplot(1)
+
+        # same limits for both plots
+        arr = real_data.array()
+        zmax = np.amax(arr)
+        zmin = zmax*1e-6
+
+        ba.plot_colormap(real_data, title="\"Experimental\" data", zmin=zmin, zmax=zmax,
+                      xlabel='', ylabel='', zlabel='')
+
+        self.make_subplot(2)
+        ba.plot_colormap(sim_data, title="Simulated data", zmin=zmin, zmax=zmax,
+                      xlabel='', ylabel='', zlabel='')
+
+        self.make_subplot(3)
+        ba.plot_colormap(diff, title="Relative difference", zmin=0.001, zmax=10.0,
+                       xlabel='', ylabel='', zlabel='')
+
+        self.make_subplot(4)
+        plt.title('Parameters')
+        plt.axis('off')
+
+        iteration_info = fit_objective.iterationInfo()
+
+        plt.text(0.01, 0.85, "Iterations  " + '{:d}'.
+                 format(iteration_info.iterationCount()))
+        plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(iteration_info.chi2()))
+        index = 0
+        params = iteration_info.parameterMap()
+        for key in params:
+            plt.text(0.01, 0.55 - index * 0.1, '{:30.30s}: {:6.3f}'.format(key, params[key]))
+            index = index + 1
+
+        Plotter.plot(self, fit_objective)
+
+
 class PlotterSpecular(Plotter):
     """
     Draws fit progress every nth iteration. This class has to be attached to

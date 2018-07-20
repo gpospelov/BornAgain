@@ -36,8 +36,6 @@ public:
     FitStatus(const FitObjective* fit_objective);
     ~FitStatus();
 
-    unsigned iterationCount() const;
-
     void setInterrupted();
     bool isInterrupted() const;
     bool isCompleted() const;
@@ -57,7 +55,6 @@ public:
 
 private:
     enum EFitStatus { IDLE, RUNNING, COMPLETED, FAILED, INTERRUPTED };
-    unsigned m_iteration_count;
     EFitStatus m_fit_status;
     FitObserver<FitObjective> m_observers;
     std::unique_ptr<FitPrintService> m_print_service;

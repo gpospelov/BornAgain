@@ -18,19 +18,13 @@
 #include <stdexcept>
 
 FitStatus::FitStatus(const FitObjective* fit_objective)
-    : m_iteration_count(0)
-    , m_fit_status(IDLE)
+    : m_fit_status(IDLE)
     , m_fit_objective(fit_objective)
 {
 
 }
 
 FitStatus::~FitStatus() = default;
-
-unsigned FitStatus::iterationCount() const
-{
-    return m_iteration_count;
-}
 
 void FitStatus::setInterrupted()
 {
@@ -54,7 +48,6 @@ void FitStatus::update(const Fit::Parameters& params, double chi2)
     m_iterationInfo.update(params, chi2);
 
     m_observers.notify(*m_fit_objective);
-    m_iteration_count++;
 }
 
 void FitStatus::initPrint(int every_nth)

@@ -101,12 +101,6 @@ std::vector<double> FitObjective::simulation_array() const
     return m_simulation_array;
 }
 
-unsigned FitObjective::iterationCount() const
-{
-
-    return m_fit_status->iterationCount();
-}
-
 SimulationResult FitObjective::simulationResult(size_t i_item) const
 {
     return m_fit_objects[check_index(i_item)]->simulationResult();

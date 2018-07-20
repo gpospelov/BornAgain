@@ -66,9 +66,6 @@ public:
     //! Data from different datasets merged together.
     std::vector<double> simulation_array() const;
 
-    //! Returns current number of simulation runs.
-    unsigned iterationCount() const;
-
     //! Returns simulation result.
     //! @param i_item: the index of fit pair
     SimulationResult simulationResult(size_t i_item = 0) const;

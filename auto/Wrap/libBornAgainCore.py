@@ -7837,11 +7837,6 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_simulation_array(self)
 
 
-    def iterationCount(self):
-        """iterationCount(FitObjective self) -> unsigned int"""
-        return _libBornAgainCore.FitObjective_iterationCount(self)
-
-
     def simulationResult(self, i_item=0):
         """
         simulationResult(FitObjective self, size_t i_item=0) -> SimulationResult

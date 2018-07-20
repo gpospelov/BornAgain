@@ -153,8 +153,18 @@ class SimulationBuilderWrapper(PyBuilderCallback):
     def __init__(self, f):
         super(SimulationBuilderWrapper, self).__init__()
         self.f_ = f
+
+    def create_par_dict(self, pars):
+        """
+        Convertion of ba.Parameters to Python dictionary
+        """
+        pars_dict = dict()
+        for index, p in enumerate(pars):
+            pars_dict[p.name()] = p.value
+        return pars_dict
+
     def build_simulation(self, obj):
-        return self.f_(obj)
+        return self.f_(self.create_par_dict(obj))
 
 
 %}

@@ -18,10 +18,10 @@ def get_sample(params):
     """
     Returns a sample with uncorrelated cylinders and prisms on a substrate.
     """
-    cylinder_height = params["cylinder_height"].value
-    cylinder_radius = params["cylinder_radius"].value
-    prism_height = params["prism_height"].value
-    prism_base_edge = params["prism_base_edge"].value
+    cylinder_height = params["cylinder_height"]
+    cylinder_radius = params["cylinder_radius"]
+    prism_height = params["prism_height"]
+    prism_base_edge = params["prism_base_edge"]
 
     # defining materials
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
@@ -57,14 +57,8 @@ def create_real_data():
     """
     # creating sample with set of parameters we will later try to find during the fit
 
-    # TODO modify real data creation after switch of objective function
-    # from ba.Parameters to Python dictionary
-
-    params = ba.Parameters()
-    params.add("cylinder_height", 5.0*nm)
-    params.add("cylinder_radius", 5.0*nm)
-    params.add("prism_height", 5.0*nm)
-    params.add("prism_base_edge", 5.0*nm)
+    params = {'cylinder_height': 5.0*nm, 'cylinder_radius': 5.0*nm,
+              'prism_height': 5.0*nm, 'prism_base_edge': 5.0*nm}
 
     simulation = get_simulation(params)
     simulation.runSimulation()

@@ -51,7 +51,7 @@ void FitStatus::update(const Fit::Parameters& params, double chi2)
 {
     m_fit_status = RUNNING;
 
-    m_iterationInfo = IterationInfo(params, chi2);
+    m_iterationInfo.update(params, chi2);
 
     m_observers.notify(*m_fit_objective);
     m_iteration_count++;

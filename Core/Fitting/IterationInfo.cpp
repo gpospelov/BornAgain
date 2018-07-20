@@ -17,16 +17,23 @@
 
 IterationInfo::IterationInfo()
     : m_chi2(0.0)
+    , m_iteration_count(0)
 {
 
 }
 
-IterationInfo::IterationInfo(const Fit::Parameters& params, double chi2)
-    : m_chi2(chi2)
-    , m_current_parameters(params)
+void IterationInfo::update(const Fit::Parameters& params, double chi2)
 {
-
+    m_current_parameters = params;
+    m_chi2 = chi2;
+    m_iteration_count++;
 }
+
+unsigned IterationInfo::iterationCount() const
+{
+    return m_iteration_count;
+}
+
 
 double IterationInfo::chi2() const
 {

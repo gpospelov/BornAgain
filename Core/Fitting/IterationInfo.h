@@ -27,7 +27,11 @@ class BA_CORE_API_ IterationInfo
 {
 public:
     IterationInfo();
-    IterationInfo(const Fit::Parameters& params, double chi2);
+
+    void update(const Fit::Parameters& params, double chi2);
+
+    //! Returns current number of minimizer iterations.
+    unsigned iterationCount() const;
 
     double chi2() const;
 
@@ -39,6 +43,7 @@ public:
 private:
     double m_chi2;
     Fit::Parameters m_current_parameters;
+    unsigned m_iteration_count;
 };
 
 

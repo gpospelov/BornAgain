@@ -29103,16 +29103,23 @@ class IterationInfo(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, IterationInfo, name)
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
-        """
-        __init__(IterationInfo self) -> IterationInfo
-        __init__(IterationInfo self, Parameters params, double chi2) -> IterationInfo
-        """
-        this = _libBornAgainCore.new_IterationInfo(*args)
+    def __init__(self):
+        """__init__(IterationInfo self) -> IterationInfo"""
+        this = _libBornAgainCore.new_IterationInfo()
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
+
+    def update(self, params, chi2):
+        """update(IterationInfo self, Parameters params, double chi2)"""
+        return _libBornAgainCore.IterationInfo_update(self, params, chi2)
+
+
+    def iterationCount(self):
+        """iterationCount(IterationInfo self) -> unsigned int"""
+        return _libBornAgainCore.IterationInfo_iterationCount(self)
+
 
     def chi2(self):
         """chi2(IterationInfo self) -> double"""

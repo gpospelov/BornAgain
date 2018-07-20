@@ -3,9 +3,9 @@
 # removes created symbolic links
 
 
-rm -rf @PYTHON_SITE_PACKAGES@/bornagain
-rm -rf @PYTHON_SITE_PACKAGES@/*BornAgain*
+rm -f @PYTHON_SITE_PACKAGES@/bornagain
+rm -f @PYTHON_SITE_PACKAGES@/*BornAgain*
 
-rm -rf @CMAKE_INSTALL_PREFIX@/bin/bornagain
+rm -f @CMAKE_INSTALL_PREFIX@/bin/bornagain
 
 rm -rf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@

@@ -22,7 +22,7 @@ class SimulationBuilder:
 
     def build_simulation(self, pars):
         self.m_ncalls += 1
-        self.m_pars = pars
+        self.m_pars = dict(pars)
 
         ml = ba.MultiLayer()
         material = ba.HomogeneousMaterial("Shell", 0.0, 0.0)
@@ -70,7 +70,8 @@ class FitObjectiveAPITest(unittest.TestCase):
         objective.evaluate(pars)
         self.assertEqual(builder.m_ncalls, 1)
         self.assertEqual(objective.numberOfFitElements(), builder.size())
-        self.assertEqual(list(builder.m_pars.values()), [0.0, 1.0])
+        self.assertEqual(builder.m_pars["par0"], 0.0)
+        self.assertEqual(builder.m_pars["par1"], 1.0)
 
         # checking arrays of experimental and simulated data
         expected_sim = []

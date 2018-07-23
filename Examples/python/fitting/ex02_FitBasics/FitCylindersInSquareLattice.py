@@ -104,8 +104,8 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # this fit parameter fits 4 sample parameter with one value
-    fit_suite.addFitParameter("*Lattice/LatticeLength*", 10.*nm).\
-        setLimited(4., 12.).addPattern("*Cylinder/Radius").\
+    fit_suite.addFitParameter("*Lattice/LatticeLength*", 9.*nm).\
+        setLimited(6., 10.).addPattern("*Cylinder/Radius").\
         addPattern("*Cylinder/Height").setName("custom_length")
 
     # alternatively, following syntax is possible

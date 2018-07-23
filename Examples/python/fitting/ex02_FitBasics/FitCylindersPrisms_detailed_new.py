@@ -96,7 +96,6 @@ def run_fitting():
 
     fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
-    fit_objective.initPrint(10)
 
     # fit_suite.setMinimizer("Minuit2", "Migrad")  # ba.Default
     # fit_suite.setMinimizer("Minuit2", "Fumili")

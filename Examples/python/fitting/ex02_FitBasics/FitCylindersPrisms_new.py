@@ -9,10 +9,10 @@ def get_sample(params):
     """
     Returns a sample with uncorrelated cylinders and prisms on a substrate.
     """
-    cylinder_height = params["cylinder_height"].value
-    cylinder_radius = params["cylinder_radius"].value
-    prism_height = params["prism_height"].value
-    prism_base_edge = params["prism_base_edge"].value
+    cylinder_height = params["cylinder_height"]
+    cylinder_radius = params["cylinder_radius"]
+    prism_height = params["prism_height"]
+    prism_base_edge = params["prism_base_edge"]
 
     # defining materials
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)

@@ -15,7 +15,7 @@
 #include "FitObjective.h"
 #include "ChiSquaredModule.h"
 #include "Parameters.h"
-#include "PyBuilderCallback.h"
+#include "PyFittingCallbacks.h"
 #include "Simulation.h"
 #include "ArrayUtils.h"
 #include "FitStatus.h"
@@ -101,12 +101,6 @@ std::vector<double> FitObjective::simulation_array() const
     return m_simulation_array;
 }
 
-unsigned FitObjective::iterationCount() const
-{
-
-    return m_fit_status->iterationCount();
-}
-
 SimulationResult FitObjective::simulationResult(size_t i_item) const
 {
     return m_fit_objects[check_index(i_item)]->simulationResult();
@@ -125,6 +119,14 @@ SimulationResult FitObjective::relativeDifference(size_t i_item) const
 void FitObjective::initPrint(int every_nth)
 {
     m_fit_status->initPrint(every_nth);
+}
+
+void FitObjective::initPlot(int every_nth, PyObserverCallback& callback)
+{
+    fit_observer_t observer = [&](const FitObjective& objective) {
+        callback.update(objective);
+    };
+    m_fit_status->addObserver(every_nth, observer);
 }
 
 bool FitObjective::isCompleted() const

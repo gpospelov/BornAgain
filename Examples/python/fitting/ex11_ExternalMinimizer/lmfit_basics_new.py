@@ -9,13 +9,14 @@ import lmfit
 
 real_data = None
 
+
 def get_sample(params):
     """
     Returns a sample with cylinders and pyramids on a substrate,
     forming a hexagonal lattice.
     """
-    radius = params['radius'].value
-    lattice_length = params['length'].value
+    radius = params['radius']
+    lattice_length = params['length']
 
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
@@ -58,9 +59,7 @@ def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    params = lmfit.Parameters()
-    params.add('radius', value=5*nm)
-    params.add('length', value=10*nm)
+    params = {'radius': 5*nm, 'length': 5*nm}
     simulation = get_simulation(params)
     simulation.runSimulation()
 

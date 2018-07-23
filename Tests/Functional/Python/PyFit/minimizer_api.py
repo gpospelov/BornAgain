@@ -92,5 +92,6 @@ class MinimizerAPITest(unittest.TestCase):
         # starting values of fit parameters were correctly send to objective func
         self.assertEqual(list(helper.m_pars.values()), [0.0, 1.0, 2.0])
 
+
 if __name__ == '__main__':
     unittest.main()

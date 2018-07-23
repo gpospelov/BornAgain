@@ -24,6 +24,7 @@
 %include "std_complex.i"
 %include "std_string.i"
 %include "std_vector.i"
+%include "std_map.i"
 %include "std_shared_ptr.i"
 
 // TODO CLARIFY WHY THIS IS INCLUDED
@@ -45,6 +46,7 @@
 %template(vector_longinteger_t) std::vector<unsigned long int>;
 %template(vector_complex_t) std::vector< std::complex<double>>;
 %template(vector_string_t) std::vector<std::string>;
+%template(map_string_double_t) std::map<std::string, double>;
 %nodefaultctor ParameterPool;
 
 #define SWIG_FILE_WITH_INIT
@@ -96,7 +98,7 @@
 #include "FitSuite.h"
 #include "FitSuiteImpl.h"
 #include "FitSuiteObjects.h"
-#include "PyBuilderCallback.h"
+#include "PyFittingCallbacks.h"
 #include "FitObjective.h"
 #include "FixedBinAxis.h"
 #include "FootprintFactorGaussian.h"
@@ -230,6 +232,7 @@
 #include "IIntensityNormalizer.h"
 #include "ISquaredFunction.h"
 #include "AdjustMinimizerStrategy.h"
+#include "IterationInfo.h"
 %}
 
 // ownership
@@ -307,7 +310,7 @@
 %include "FitParameter.h"
 %include "FitSuite.h"
 %include "FitSuiteObjects.h"
-%include "PyBuilderCallback.h"
+%include "PyFittingCallbacks.h"
 %include "FitObjective.h"
 %include "MathFunctions.h"
 %include "AdjustMinimizerStrategy.h"
@@ -452,5 +455,6 @@
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 %include "SimulationFactory.h"
 %include "IUnitConverter.h"
+%include "IterationInfo.h"
 
 %include "extendCore.i"

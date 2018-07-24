@@ -1,20 +1,20 @@
 #ifndef TESTREALSPACEBUILDERUTILS_H
 #define TESTREALSPACEBUILDERUTILS_H
 
-#include "google_test.h"
-#include <QObject>
-#include "RealSpaceBuilderUtils.h"
-#include "RealSpaceBuilder.h"
-#include "SampleModel.h"
-#include "ParticleLayoutItem.h"
-#include "ParticleItem.h"
+#include "ApplicationModels.h"
 #include "IFormFactor.h"
 #include "IFormFactorDecorator.h"
 #include "Particle.h"
-#include "ApplicationModels.h"
-#include "TransformTo3D.h"
-#include "RealSpaceModel.h"
 #include "Particle3DContainer.h"
+#include "ParticleItem.h"
+#include "ParticleLayoutItem.h"
+#include "RealSpaceBuilder.h"
+#include "RealSpaceBuilderUtils.h"
+#include "RealSpaceModel.h"
+#include "SampleModel.h"
+#include "TransformTo3D.h"
+#include "google_test.h"
+#include <QObject>
 
 class TestRealSpaceBuilderUtils : public ::testing::Test
 {
@@ -29,24 +29,25 @@ TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle)
     RealSpaceModel realSpaceModel;
 
     auto cylinder3D = std::make_unique<RealSpace::Particles::Cylinder>(5, 10);
-    QVector3D lattice_position1(0,0,0);
+    QVector3D lattice_position1(0, 0, 0);
     cylinder3D->addTranslation(lattice_position1);
     realSpaceModel.add(cylinder3D.release());
 
-// Causes a failure as one cannot add an already added particle to the model
-//    QVector3D lattice_position2(10,10,10);
-//    cylinder3D->addTranslation(lattice_position2);
-//    realSpaceModel.add(cylinder3D.release());
+    // Causes a failure as one cannot add an already added particle to the model
+    //    QVector3D lattice_position2(10,10,10);
+    //    cylinder3D->addTranslation(lattice_position2);
+    //    realSpaceModel.add(cylinder3D.release());
 }
 
 TEST_F(TestRealSpaceBuilderUtils, test_cumulativeAbundance)
 {
     SampleModel sampleModel;
-    auto layout
-        = dynamic_cast<ParticleLayoutItem*>(sampleModel.insertNewItem(Constants::ParticleLayoutType));
+    auto layout = dynamic_cast<ParticleLayoutItem*>(
+        sampleModel.insertNewItem(Constants::ParticleLayoutType));
 
-    auto particle1 = sampleModel.insertNewItem(Constants::ParticleType, sampleModel.indexOfItem(layout),
-                                         -1, ParticleLayoutItem::T_PARTICLES);
+    auto particle1
+        = sampleModel.insertNewItem(Constants::ParticleType, sampleModel.indexOfItem(layout), -1,
+                                    ParticleLayoutItem::T_PARTICLES);
     EXPECT_EQ(particle1->parent(), layout);
 
     SessionItem* particle2 = sampleModel.insertNewItem(Constants::ParticleType);
@@ -59,7 +60,6 @@ TEST_F(TestRealSpaceBuilderUtils, test_cumulativeAbundance)
     particle2->setItemValue(ParticleItem::P_ABUNDANCE, 2.0);
 
     EXPECT_EQ(RealSpaceBuilderUtils::computeCumulativeAbundances(*layout).last(), 10.0);
-
 }
 
 TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
@@ -83,7 +83,6 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
     EXPECT_EQ(p1.particleType(), Constants::ParticleType);
 
     RealSpaceModel realSpaceModel;
-
 
     // Test copy constructor
     // If copy constructor (DEEP copy) is not implemented then p2/p3 is basically
@@ -122,14 +121,13 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
     realSpaceModel.add(p3_unique.release());
     realSpaceModel.add(p4_unique.release());
 
-
     // Test move constructor
     Particle3DContainer p5(std::move(p4));
 
     // Test the contents of the Particle3DContainer being moved-from
     EXPECT_EQ(p4.containerSize(), static_cast<size_t>(0)); // move empties the std::vector container
-    EXPECT_EQ(p4.cumulativeAbundance(), 1); // move doesn't affect int data member
-    EXPECT_EQ(p4.particleType(), ""); // move empties the QString
+    EXPECT_EQ(p4.cumulativeAbundance(), 1);                // move doesn't affect int data member
+    EXPECT_EQ(p4.particleType(), "");                      // move empties the QString
 
     // Test the contents of the Particle3DContainer being moved-to
     EXPECT_EQ(p5.containerSize(), static_cast<size_t>(1));
@@ -152,7 +150,7 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
     auto p6_unique = p6.createParticle(0);
     realSpaceModel.add(p6_unique.release());
 
-    //Test move assignment operator
+    // Test move assignment operator
     Particle3DContainer p7;
     p7 = std::move(p6);
 
@@ -177,7 +175,8 @@ TEST_F(TestRealSpaceBuilderUtils, test_getSingleParticle3DContainer)
 
     auto particle = sampleModel->insertNewItem(Constants::ParticleType);
     EXPECT_EQ(particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
-    EXPECT_EQ(particle->getGroupItem(ParticleItem::P_FORM_FACTOR)->modelType(), Constants::CylinderType);
+    EXPECT_EQ(particle->getGroupItem(ParticleItem::P_FORM_FACTOR)->modelType(),
+              Constants::CylinderType);
 
     particle->setItemValue(ParticleItem::P_ABUNDANCE, 8.0);
     EXPECT_EQ(particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 8.0);
@@ -185,10 +184,10 @@ TEST_F(TestRealSpaceBuilderUtils, test_getSingleParticle3DContainer)
     EXPECT_EQ(particle->getGroupItem(ParticleItem::P_FORM_FACTOR)->modelType(), Constants::BoxType);
 
     // Create a 3D particle from particleItem and associate it to a Particle3DContainer object
-    auto singleParticle3DContainer = RealSpaceBuilderUtils::getSingleParticle3DContainer(particle, 8);
+    auto singleParticle3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(particle, 8);
 
     EXPECT_EQ(singleParticle3DContainer.containerSize(), static_cast<size_t>(1));
-    //EXPECT_TRUE(singleParticle3DContainer.m_3Dparticles.at(0) != nullptr);
+    // EXPECT_TRUE(singleParticle3DContainer.m_3Dparticles.at(0) != nullptr);
     EXPECT_EQ(singleParticle3DContainer.cumulativeAbundance(), 1);
     EXPECT_EQ(singleParticle3DContainer.particleType(), Constants::ParticleType);
 }
@@ -198,8 +197,8 @@ TEST_F(TestRealSpaceBuilderUtils, test_getParticle3DContainerVector)
     ApplicationModels models;
     SampleModel* sampleModel = models.sampleModel();
 
-    auto layout
-        = dynamic_cast<ParticleLayoutItem*>(sampleModel->insertNewItem(Constants::ParticleLayoutType));
+    auto layout = dynamic_cast<ParticleLayoutItem*>(
+        sampleModel->insertNewItem(Constants::ParticleLayoutType));
 
     auto particle1 = sampleModel->insertNewItem(Constants::ParticleType);
     auto particle2 = sampleModel->insertNewItem(Constants::ParticleType);
@@ -220,7 +219,7 @@ TEST_F(TestRealSpaceBuilderUtils, test_getParticle3DContainerVector)
     particle2->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::ConeType);
     particle3->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::PyramidType);
 
-    auto particle3DContainer_vector = RealSpaceBuilderUtils::getParticle3DContainerVector(*layout);
+    auto particle3DContainer_vector = RealSpaceBuilderUtils::particle3DContainerVector(*layout);
 
     EXPECT_EQ(particle3DContainer_vector.size(), static_cast<size_t>(3));
 
@@ -236,6 +235,5 @@ TEST_F(TestRealSpaceBuilderUtils, test_getParticle3DContainerVector)
     EXPECT_EQ(particle3DContainer_vector.at(2).cumulativeAbundance(), 1.0);
     EXPECT_EQ(particle3DContainer_vector.at(2).particleType(), Constants::ParticleType);
 }
-
 
 #endif // TESTREALSPACEBUILDERUTILS_H

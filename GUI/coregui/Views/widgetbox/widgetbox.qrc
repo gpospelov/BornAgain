@@ -14,7 +14,7 @@
         <file>images/ff_FullSpheroid_64x64.png</file>
         <file>images/ff_HemiEllipsoid_64x64.png</file>
         <file>images/ff_Icosahedron_64x64.png</file>
-        <file>images/ff_Mesocrystal_32.png</file>
+        <file>images/Mesocrystal_64x64.png</file>
         <file>images/ff_Prism3_64x64.png</file>
         <file>images/ff_Prism6_64x64.png</file>
         <file>images/ff_Pyramid_64x64.png</file>
@@ -29,11 +29,11 @@
         <file>images/ParaCrystal2D.png</file>
         <file>images/ParaCrystal1D.png</file>
         <file>images/ParticleLayout.png</file>
-        <file>images/ParticleCoreShell.png</file>
+        <file>images/ParticleCoreShell_64x64.png</file>
         <file>images/Lattice2D.png</file>
         <file>images/Transformation.png</file>
-        <file>images/ParticleComposition.png</file>
-        <file>images/SizeDistribution.png</file>
+        <file>images/ParticleComposition_64x64.png</file>
+        <file>images/ParticleDistribution_64x64.png</file>
         <file>images/Lattice1D.png</file>
         <file>images/sample_layers2.png</file>
         <file>images/Lattice2DFinite.png</file>

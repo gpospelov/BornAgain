@@ -15,13 +15,13 @@
 #ifndef IOBSOLETEMINIMIZERTEST_H
 #define IOBSOLETEMINIMIZERTEST_H
 
-#include "IFittingTest.h"
+#include "IObsoleteFittingTest.h"
 
 //! @class IMinimizerTest
 //! @ingroup standard_samples
 //! @brief Basic class for all minimizer functional tests
 
-class IObsoleteMinimizerTest : public IFittingTest
+class IObsoleteMinimizerTest : public IObsoleteFittingTest
 {
 public:
     IObsoleteMinimizerTest(const std::string &minimizer_name,

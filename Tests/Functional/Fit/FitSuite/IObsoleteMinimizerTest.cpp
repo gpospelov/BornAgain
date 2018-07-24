@@ -17,7 +17,7 @@
 
 IObsoleteMinimizerTest::IObsoleteMinimizerTest(const std::string& minimizer_name,
                                const std::string& minimizer_algorithm)
-    : IFittingTest(minimizer_name, minimizer_algorithm, "MiniGISAS", "CylindersInBABuilder")
+    : IObsoleteFittingTest(minimizer_name, minimizer_algorithm, "MiniGISAS", "CylindersInBABuilder")
 {
 }
 
@@ -34,5 +34,5 @@ void IObsoleteMinimizerTest::initParameterPlan() {
                                           5.0 * Units::nanometer,
                                           AttLimits::lowerLimited(0.01), 0.01));
 
-  IFittingTest::initParameterPlan();
+  IObsoleteFittingTest::initParameterPlan();
 }

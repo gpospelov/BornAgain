@@ -19,9 +19,9 @@
 #ifndef SPECULARFITTEST_H_
 #define SPECULARFITTEST_H_
 
-#include "IFittingTest.h"
+#include "IObsoleteFittingTest.h"
 
-class SpecularFitTest : public IFittingTest
+class SpecularFitTest : public IObsoleteFittingTest
 {
 public:
     SpecularFitTest();

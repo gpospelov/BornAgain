@@ -15,6 +15,7 @@
 #ifndef RESIDUALTESTPLAN_H
 #define RESIDUALTESTPLAN_H
 
+#include "KernelTypes.h"
 #include "FunctionTestPlan.h"
 
 class ResidualTestPlan : public FunctionTestPlan

@@ -15,9 +15,8 @@
 #ifndef FUNCTIONTESTPLAN_H
 #define FUNCTIONTESTPLAN_H
 
-#include "KernelTypes.h"
+#include "WinDllMacros.h"
 #include "ParameterPlan.h"
-#include <memory>
 #include <vector>
 
 namespace Fit { class Parameter; class Parameters; class Minimizer; }
@@ -25,7 +24,7 @@ namespace Fit { class Parameter; class Parameters; class Minimizer; }
 //! Defines objective function to fit, expected minimum, initial fit parameters and
 //! expected values of fit parameters at minimum.
 
-class FunctionTestPlan
+class BA_CORE_API_ FunctionTestPlan
 {
 public:
     FunctionTestPlan(const std::string& name);

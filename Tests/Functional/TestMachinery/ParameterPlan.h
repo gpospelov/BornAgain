@@ -15,12 +15,13 @@
 #ifndef PARAMETERPLAN_H
 #define PARAMETERPLAN_H
 
+#include "WinDllMacros.h"
 #include "Parameter.h"
 
 //! Defines initial settings of single fit parameter and the final value which has to be found
 //! in the course of the fit.
 
-class ParameterPlan
+class BA_CORE_API_ ParameterPlan
 {
 public:
     ParameterPlan(const Fit::Parameter& param, double expected_value, double tolerance = 0.01);

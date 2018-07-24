@@ -15,7 +15,8 @@
 #ifndef FUNCTIONTESTPLANCASES_H
 #define FUNCTIONTESTPLANCASES_H
 
-#include "FunctionTestPlan.h"
+#include "ScalarTestPlan.h"
+#include "ResidualTestPlan.h"
 
 //! Setting for standalone fit of Rosenbrock function.
 

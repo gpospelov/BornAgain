@@ -39,7 +39,7 @@ TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle)
     //    realSpaceModel.add(cylinder3D.release());
 }
 
-TEST_F(TestRealSpaceBuilderUtils, test_cumulativeAbundance)
+TEST_F(TestRealSpaceBuilderUtils, test_computeCumulativeAbundances)
 {
     SampleModel sampleModel;
     auto layout = dynamic_cast<ParticleLayoutItem*>(
@@ -168,7 +168,7 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
     // The normal raw instances p1, p2 etc. get deleted by the destructor of Particle3DContainer
 }
 
-TEST_F(TestRealSpaceBuilderUtils, test_getSingleParticle3DContainer)
+TEST_F(TestRealSpaceBuilderUtils, test_singleParticle3DContainer)
 {
     ApplicationModels models;
     SampleModel* sampleModel = models.sampleModel();
@@ -192,7 +192,7 @@ TEST_F(TestRealSpaceBuilderUtils, test_getSingleParticle3DContainer)
     EXPECT_EQ(singleParticle3DContainer.particleType(), Constants::ParticleType);
 }
 
-TEST_F(TestRealSpaceBuilderUtils, test_getParticle3DContainerVector)
+TEST_F(TestRealSpaceBuilderUtils, test_particle3DContainerVector)
 {
     ApplicationModels models;
     SampleModel* sampleModel = models.sampleModel();

@@ -14,6 +14,7 @@
 #include "ApplicationModels.h"
 #include "TransformTo3D.h"
 #include "RealSpaceModel.h"
+#include "Particle3DContainer.h"
 
 class TestRealSpaceBuilderUtils : public ::testing::Test
 {

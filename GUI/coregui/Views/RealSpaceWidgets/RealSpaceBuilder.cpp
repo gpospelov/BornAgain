@@ -17,6 +17,7 @@
 #include "RealSpaceCanvas.h"
 #include "SessionItem.h"
 #include "RealSpaceBuilderUtils.h"
+#include "Particle3DContainer.h"
 #include "LayerItem.h"
 #include "ExternalProperty.h"
 #include "MultiLayerItem.h"

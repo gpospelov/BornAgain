@@ -4,7 +4,7 @@ BornAgain is a software to simulate and fit neutron and x-ray scattering at graz
 (GISANS and GISAXS), using distorted-wave Born approximation (DWBA).
 
 #### Homepage
-http://bornagainproject.org
+https://www.bornagainproject.org
 
 #### Installation instructions
 * [Windows](https://www.bornagainproject.org/documentation/getting-started/installation/windows/)  

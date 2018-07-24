@@ -16,7 +16,7 @@
 #define RESIDUALTESTPLAN_H
 
 #include "KernelTypes.h"
-#include "FunctionTestPlan.h"
+#include "MinimizerTestPlan.h"
 
 class ResidualTestPlan : public MinimizerTestPlan
 {

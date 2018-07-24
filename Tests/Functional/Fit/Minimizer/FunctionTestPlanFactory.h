@@ -15,7 +15,7 @@
 #ifndef FUNCTIONTESTPLANFACTORY_H
 #define FUNCTIONTESTPLANFACTORY_H
 
-#include "FunctionTestPlan.h"
+#include "MinimizerTestPlan.h"
 #include "IFactory.h"
 
 //! Factory to generate plans for fitting objective functions.

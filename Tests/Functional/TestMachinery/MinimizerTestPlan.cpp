@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "FunctionTestPlan.h"
+#include "MinimizerTestPlan.h"
 #include "Parameters.h"
 #include <cmath>
 #include <iostream>

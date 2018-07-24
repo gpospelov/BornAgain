@@ -16,7 +16,7 @@
 #define SCALARTESTPLAN_H
 
 #include "KernelTypes.h"
-#include "FunctionTestPlan.h"
+#include "MinimizerTestPlan.h"
 
 //! Testing logic for Minimizer and scalar-type objective functions.
 

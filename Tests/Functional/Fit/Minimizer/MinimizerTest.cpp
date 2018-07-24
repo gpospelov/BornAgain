@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "MinimizerTest.h"
-#include "FunctionTestPlan.h"
+#include "MinimizerTestPlan.h"
 #include "FunctionTestPlanFactory.h"
 #include "KernelTypes.h"
 #include "Minimizer.h"

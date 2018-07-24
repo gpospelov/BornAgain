@@ -20,7 +20,7 @@
 
 //! Testing logic for Minimizer and scalar-type objective functions.
 
-class ScalarTestPlan : public FunctionTestPlan
+class ScalarTestPlan : public MinimizerTestPlan
 {
 public:
     ScalarTestPlan(const std::string& name, scalar_function_t func, double expected_minimum,

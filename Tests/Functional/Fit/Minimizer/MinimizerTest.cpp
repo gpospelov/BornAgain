@@ -53,7 +53,7 @@ void MinimizerTest::setMinimizerOptions(const std::string& options)
     m_option_string = options;
 }
 
-std::unique_ptr<FunctionTestPlan> MinimizerTest::createPlan() const
+std::unique_ptr<MinimizerTestPlan> MinimizerTest::createPlan() const
 {
     FunctionTestPlanFactory plan_factory;
     return plan_factory.create(m_fit_plan_name);

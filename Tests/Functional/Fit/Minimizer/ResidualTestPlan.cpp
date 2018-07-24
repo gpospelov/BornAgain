@@ -22,7 +22,7 @@
 using namespace Fit;
 
 ResidualTestPlan::ResidualTestPlan(const std::string& name, test_funct_t func)
-    : FunctionTestPlan(name)
+    : MinimizerTestPlan(name)
     , m_test_func(func)
 {
     FixedBinAxis axis("x", 100, 0.0, 10.0);

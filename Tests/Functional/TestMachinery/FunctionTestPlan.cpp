@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/FunctionTestPlan.h
-//! @brief     Implements class FunctionTestPlan
+//! @file      Tests/Functional/Fit/Minimizer/MinimizerTestPlan.h
+//! @brief     Implements class MinimizerTestPlan
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -28,20 +28,20 @@ double get_difference(double a, double b)
 
 using namespace Fit;
 
-FunctionTestPlan::FunctionTestPlan(const std::string& name) : m_name(name)
+MinimizerTestPlan::MinimizerTestPlan(const std::string& name) : m_name(name)
 {
 }
 
-FunctionTestPlan::~FunctionTestPlan() = default;
+MinimizerTestPlan::~MinimizerTestPlan() = default;
 
-void FunctionTestPlan::addParameter(const Parameter& param, double expected_value, double tolerance)
+void MinimizerTestPlan::addParameter(const Parameter& param, double expected_value, double tolerance)
 {
     m_parameter_plan.push_back(ParameterPlan(param, expected_value, tolerance));
 }
 
 //! Returns fit parameters which will be used as initial one for the minimization.
 
-Parameters FunctionTestPlan::parameters() const
+Parameters MinimizerTestPlan::parameters() const
 {
     Parameters result;
     for (const auto& plan : m_parameter_plan)
@@ -52,7 +52,7 @@ Parameters FunctionTestPlan::parameters() const
 
 //! Returns true if given values coincide with expected fit parameter values.
 
-bool FunctionTestPlan::valuesAsExpected(const std::vector<double>& values) const
+bool MinimizerTestPlan::valuesAsExpected(const std::vector<double>& values) const
 {
     bool success(true);
 

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/FunctionTestPlan.h
-//! @brief     Defines class FunctionTestPlan
+//! @file      Tests/Functional/Fit/Minimizer/MinimizerTestPlan.h
+//! @brief     Defines class MinimizerTestPlan
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FUNCTIONTESTPLAN_H
-#define FUNCTIONTESTPLAN_H
+#ifndef MINIMIZERTESTPLAN_H
+#define MINIMIZERTESTPLAN_H
 
 #include "WinDllMacros.h"
 #include "ParameterPlan.h"
@@ -24,12 +24,12 @@ namespace Fit { class Parameter; class Parameters; class Minimizer; }
 //! Defines objective function to fit, expected minimum, initial fit parameters and
 //! expected values of fit parameters at minimum.
 
-class BA_CORE_API_ FunctionTestPlan
+class BA_CORE_API_ MinimizerTestPlan
 {
 public:
-    FunctionTestPlan(const std::string& name);
+    MinimizerTestPlan(const std::string& name);
 
-    virtual ~FunctionTestPlan();
+    virtual ~MinimizerTestPlan();
 
     void addParameter(const Fit::Parameter& param, double expected_value, double tolerance = 0.01);
 
@@ -46,4 +46,4 @@ protected:
     std::vector<ParameterPlan> m_parameter_plan; //! initial/expected parameter values
 };
 
-#endif // OBJECTIVEFUNCTIONPLAN_H
+#endif // MINIMIZERTESTPLAN_H

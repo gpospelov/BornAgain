@@ -18,7 +18,7 @@
 #include "KernelTypes.h"
 #include "FunctionTestPlan.h"
 
-class ResidualTestPlan : public FunctionTestPlan
+class ResidualTestPlan : public MinimizerTestPlan
 {
 public:
     using test_funct_t = std::function<double(double, const std::vector<double>&)>;

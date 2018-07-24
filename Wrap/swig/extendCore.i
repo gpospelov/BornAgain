@@ -153,9 +153,30 @@ class SimulationBuilderWrapper(PyBuilderCallback):
     def __init__(self, f):
         super(SimulationBuilderWrapper, self).__init__()
         self.f_ = f
-    def build_simulation(self, obj):
-        return self.f_(obj)
 
+    def create_par_dict(self, pars):
+        """
+        Convertion of ba.Parameters to Python dictionary
+        """
+        pars_dict = dict()
+        for index, p in enumerate(pars):
+            pars_dict[p.name()] = p.value
+        return pars_dict
+
+    def build_simulation(self, obj):
+        return self.f_(self.create_par_dict(obj))
+
+
+%}
+
+%pythoncode %{
+class ObserverCallbackWrapper(PyObserverCallback):
+    def __init__(self, callback):
+        super(ObserverCallbackWrapper, self).__init__()
+        self.callback_ = callback
+
+    def update(self, fit_objective):
+        return self.callback_(fit_objective)
 
 %}
 
@@ -194,10 +215,20 @@ class SimulationBuilderWrapper(PyBuilderCallback):
         else:
             return minim_result
 
-
     def finalize(self, minimizer_result):
         return self.finalize_cpp(self.convert_result(minimizer_result))
 
+    def create_default_plotter(self):
+        import plot_utils
+        self.m_plotter = plot_utils.PlotterGISASV2()
+        return self.m_plotter.plot
+
+    def initPlot(self, every_nth, callback = None):
+        if not callback:
+            callback = self.create_default_plotter()
+
+        self.wrp_plot_observer = ObserverCallbackWrapper(callback)
+        return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
 
 %}
 };

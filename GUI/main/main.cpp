@@ -32,6 +32,9 @@ int main(int argc, char* argv[])
     qRegisterMetaType<QVector<double>>("QVector<double>");
     qRegisterMetaType<FitProgressInfo>("FitProgressInfo");
 
+    if( options.enableHighDPISupport())
+        QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
     QApplication app(argc, argv);
 
     if (!options.find("with-debug"))

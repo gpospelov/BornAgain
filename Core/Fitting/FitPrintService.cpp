@@ -27,7 +27,7 @@ size_t length_of_longest_name(const Fit::Parameters& params)
 {
     size_t result(0);
     for (const auto& par : params) {
-        if (par.name().size() + result)
+        if (par.name().size() > result)
             result = par.name().size();
     }
     return result;
@@ -41,7 +41,7 @@ void FitPrintService::print(const FitObjective& objective)
 {
     std::ostringstream ostr;
 
-    if (objective.iterationCount() == 0) {
+    if (objective.iterationInfo().iterationCount() == 0) {
         m_run_time.start();
         m_last_call_time.start();
     }
@@ -61,7 +61,7 @@ std::string FitPrintService::iterationHeaderString(const FitObjective& objective
     std::ostringstream result;
 
     result << "FitPrintService::update() -> Info."
-           << " NCall:" << objective.iterationCount()
+           << " NCall:" << objective.iterationInfo().iterationCount()
            << " Chi2:" << std::scientific << std::setprecision(8)
            << objective.iterationInfo().chi2() << "\n";
 

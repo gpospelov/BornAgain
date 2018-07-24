@@ -30,7 +30,7 @@ class BA_CORE_API_ ConnectableView : public IView
     Q_OBJECT
 public:
     enum { TYPE = DesignerHelper::ISAMPLE_RECT };
-    ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
+    ConnectableView(QGraphicsItem *parent = 0, QRectF rect = QRectF(0,0,50,50) );
     virtual ~ConnectableView(){}
     int type() const { return TYPE; }
 

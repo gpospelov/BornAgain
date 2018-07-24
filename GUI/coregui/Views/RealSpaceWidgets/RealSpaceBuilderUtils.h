@@ -36,13 +36,16 @@ class BA_CORE_API_ Particle3DContainer
 {
 public:
     Particle3DContainer() {m_cumulativeAbundance = 0;}
-    Particle3DContainer(const Particle3DContainer& p3D);
-    Particle3DContainer& operator=(const Particle3DContainer& right);
-    ~Particle3DContainer();
+    Particle3DContainer(const Particle3DContainer& other); // copy constructor
+    Particle3DContainer& operator=(const Particle3DContainer& rhs); // copy assignment
+    ~Particle3DContainer() noexcept;
+
+    Particle3DContainer(Particle3DContainer &&other) noexcept; // move constructor
+    Particle3DContainer& operator=(Particle3DContainer&& other) noexcept; // move assignment
 
     void clearContainer();
 
-    int containerSize() const { return m_container.size(); }
+    size_t containerSize() const { return m_container.size(); }
     double cumulativeAbundance() const { return m_cumulativeAbundance; }
     const QString particleType() const { return m_particleType; }
 
@@ -50,10 +53,10 @@ public:
     void setCumulativeAbundance(double cumulativeAbundance);
     void setParticleType(QString particleType);
 
-    std::unique_ptr<RealSpace::Particles::Particle> createParticle(const int &index) const;
+    std::unique_ptr<RealSpace::Particles::Particle> createParticle(const size_t &index) const;
 
 private:
-    QVector<RealSpace::Particles::Particle*> m_container;
+    std::vector<RealSpace::Particles::Particle*> m_container;
     // Contains the constituents of the 3D Particle (e.g. core and shell of a ParticleCoreShell)
     double m_cumulativeAbundance;
     QString m_particleType; // type of 3D Particle e.g. ParticleType, ParticleCompositionType etc.
@@ -65,33 +68,32 @@ namespace RealSpaceBuilderUtils
 BA_CORE_API_ QVector<double> computeCumulativeAbundances(const SessionItem& layoutItem);
 
 BA_CORE_API_ void populateParticlesAtLatticePositions(
-        const QVector<QVector<double> > &lattice_positions,
-        const QVector<Particle3DContainer> &particle3DContainer_vector,
+        const std::vector<std::vector<double> > &lattice_positions,
+        const std::vector<Particle3DContainer> &particle3DContainer_vector,
         RealSpaceModel *model, const SceneGeometry& sceneGeometry,
         const RealSpaceBuilder *builder3D);
 
 // No interference - random distribution of particles
-BA_CORE_API_ void populateRandomDistribution(
-        RealSpaceModel* model, const SessionItem& layoutItem,
-        const QVector<Particle3DContainer> &particle3DContainer_vector,
+BA_CORE_API_ void populateRandomDistribution(RealSpaceModel* model, const SessionItem& layoutItem,
+        const std::vector<Particle3DContainer> &particle3DContainer_vector,
         const SceneGeometry& sceneGeometry, const RealSpaceBuilder *builder3D);
 
-BA_CORE_API_ QVector<QVector<double>> computeRandomDistributionLatticePositions(
+BA_CORE_API_ std::vector<std::vector<double> > computeRandomDistributionLatticePositions(
         const SessionItem& layoutItem, const SceneGeometry &sceneGeometry);
 
 // InterferenceFunction2DLatticeType
 BA_CORE_API_ void populateInterference2DLatticeType(
         const IInterferenceFunction* interference, RealSpaceModel* model,
-        const QVector<Particle3DContainer> &particle3DContainer_vector,
+        const std::vector<Particle3DContainer> &particle3DContainer_vector,
         const SceneGeometry &sceneGeometry, const RealSpaceBuilder *builder3D);
 
-BA_CORE_API_ QVector<QVector<double>> computeInterference2DLatticePositions(
+BA_CORE_API_ std::vector<std::vector<double>> computeInterference2DLatticePositions(
         double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry);
 
 // InterferenceFunction1DLatticeType
 BA_CORE_API_ void populateInterference1DLatticeType(
         const IInterferenceFunction *interference, RealSpaceModel* model,
-        const QVector<Particle3DContainer> &particle3DContainer_vector,
+        const std::vector<Particle3DContainer> &particle3DContainer_vector,
         const SceneGeometry &sceneGeometry, const RealSpaceBuilder *builder3D);
 
 // Implement Rotation of a 3D particle using parameters from IRotation Object
@@ -127,7 +129,8 @@ BA_CORE_API_ void populateParticleDistribution(
 BA_CORE_API_ void populateSingleParticle(
         RealSpaceModel *model, const Particle* particle, const QVector3D &origin);
 
-BA_CORE_API_ QVector<Particle3DContainer> getParticle3DContainerVector(const SessionItem &layoutItem);
+BA_CORE_API_ std::vector<Particle3DContainer> getParticle3DContainerVector(
+        const SessionItem &layoutItem);
 
 BA_CORE_API_ Particle3DContainer getSingleParticle3DContainer(
         const SessionItem* particleItem, double total_abundance);

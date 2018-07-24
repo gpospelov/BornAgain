@@ -30,10 +30,10 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& la
 }
 
 //! Constructor of two-dimensional interference function.
-//! @param length_1: length of first lattice vector in nanometers
-//! @param length_2: length of second lattice vector  in nanometers
-//! @param alpha: angle between lattice vectors in radians
-//! @param xi: rotation of lattice with respect to x-axis (beam direction) in radians
+//! @param length_1: length of the first basis vector in nanometers
+//! @param length_2: length of the second basis vector  in nanometers
+//! @param alpha: angle between the basis vectors in radians
+//! @param xi: rotation of the lattice with respect to the x-axis (beam direction) in radians
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2,
                                                              double alpha, double xi)
     : m_integrate_xi(false)
@@ -54,8 +54,8 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
 }
 
 //! Creates square lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param xi: rotation of lattice with respect to x-axis in radians
+//! @param lattice_length: length of the first and second basis vectors in nanometers
+//! @param xi: rotation of the lattice with respect to the x-axis in radians
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(
 double lattice_length, double xi)
 {
@@ -63,8 +63,8 @@ double lattice_length, double xi)
 }
 
 //! Creates hexagonal lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param xi: rotation of lattice with respect to x-axis in radians
+//! @param lattice_length: length of the first and second basis vectors in nanometers
+//! @param xi: rotation of the lattice with respect to the x-axis in radians
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(
     double lattice_length, double xi)
 {

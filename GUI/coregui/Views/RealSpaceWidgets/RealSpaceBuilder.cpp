@@ -136,7 +136,7 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model,
 
 void RealSpaceBuilder::populateInterference(RealSpaceModel* model,
                                             const SessionItem& layoutItem,
-                                            QVector<Particle3DContainer> &particle3DContainer_vector,
+                                            std::vector <Particle3DContainer> &particle3DContainer_vector,
                                             const SceneGeometry& sceneGeometry)
 {
     // If there is no particle to populate

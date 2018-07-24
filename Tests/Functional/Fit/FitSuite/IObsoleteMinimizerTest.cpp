@@ -12,20 +12,20 @@
 //
 // ************************************************************************** //
 
-#include "IMinimizerTest.h"
+#include "IObsoleteMinimizerTest.h"
 #include "Units.h"
 
-IMinimizerTest::IMinimizerTest(const std::string& minimizer_name,
+IObsoleteMinimizerTest::IObsoleteMinimizerTest(const std::string& minimizer_name,
                                const std::string& minimizer_algorithm)
     : IFittingTest(minimizer_name, minimizer_algorithm, "MiniGISAS", "CylindersInBABuilder")
 {
 }
 
-IMinimizerTest::~IMinimizerTest() = default;
+IObsoleteMinimizerTest::~IObsoleteMinimizerTest() = default;
 
 //! Creates plan with initial/real values of fit parameters.
 
-void IMinimizerTest::initParameterPlan() {
+void IObsoleteMinimizerTest::initParameterPlan() {
   m_parplans.clear();
   m_parplans.push_back(std::make_unique<FitParameterPlan>("*Height", 4.5 * Units::nanometer,
                                           5.0 * Units::nanometer,

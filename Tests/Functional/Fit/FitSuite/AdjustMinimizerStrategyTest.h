@@ -15,13 +15,13 @@
 #ifndef ADJUSTMINIMIZERSTRATEGYTEST_H
 #define ADJUSTMINIMIZERSTRATEGYTEST_H
 
-#include "IMinimizerTest.h"
+#include "IObsoleteMinimizerTest.h"
 
 //! @class AdjustMinimizerStrategyTest
 //! @ingroup standard_samples
 //! @brief The AdjustMinimizerStrategyTest verifies fitting with the chain of minimizers.
 
-class AdjustMinimizerStrategyTest : public IMinimizerTest
+class AdjustMinimizerStrategyTest : public IObsoleteMinimizerTest
 {
 public:
     AdjustMinimizerStrategyTest();

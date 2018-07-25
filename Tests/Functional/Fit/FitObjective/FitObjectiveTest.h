@@ -15,16 +15,18 @@
 #ifndef FITOBJECTIVETEST_H
 #define FITOBJECTIVETEST_H
 
-#include "IFunctionalTest.h"
+#include "IMinimizerTest.h"
 
 //! Collection of standalone tests for fitting library.
 
-class FitObjectiveTest : public IFunctionalTest
+class FitObjectiveTest : public IMinimizerTest
 {
 public:
-    FitObjectiveTest();
+    FitObjectiveTest(const std::string& minimizer_name, const std::string& algorithm_name,
+                     const std::string& fit_plan_name);
 
-    bool runTest();
+protected:
+    std::unique_ptr<MinimizerTestPlan> createPlan() const;
 
 };
 

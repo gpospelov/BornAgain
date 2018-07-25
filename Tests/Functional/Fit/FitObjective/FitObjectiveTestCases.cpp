@@ -15,6 +15,4 @@
 #include "FitObjectiveTestCases.h"
 
 MigradCylindersInBA::MigradCylindersInBA()
-{
-
-}
+    : FitObjectiveTest("Minuit2", "Migrad", "CylindersInBAPlan") {}

@@ -29,7 +29,7 @@ class FitObjective;
 class FitPlan : public MinimizerTestPlan
 {
 public:
-    FitPlan(const std::string& name);
+    FitPlan(const std::string& name, bool residual_based = false);
     ~FitPlan();
 
     virtual bool checkMinimizer(Fit::Minimizer& minimizer);
@@ -45,6 +45,7 @@ private:
 
     std::string m_simulation_name;
     std::string m_sample_builder_name;
+    bool m_residual_based;
 };
 
 #endif // FITPLAN_H

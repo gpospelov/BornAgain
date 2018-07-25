@@ -23,5 +23,7 @@ FitObjectiveTestFactory::FitObjectiveTestFactory()
                  "BFGS + TwoCylindersInBA");
     registerItem("SteepestDescentCylindersInBA", create_new<SteepestDescentCylindersInBA>,
                  "SteepestDescent + TwoCylindersInBA");
+    registerItem("FumuliCylindersInBA", create_new<FumuliCylindersInBA>,
+                 "Fumili + TwoCylindersInBA (Residual)");
 }
 

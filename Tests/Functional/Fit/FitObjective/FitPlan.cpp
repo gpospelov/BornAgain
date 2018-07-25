@@ -21,8 +21,9 @@
 #include "KernelTypes.h"
 #include "Minimizer.h"
 
-FitPlan::FitPlan(const std::string& name)
+FitPlan::FitPlan(const std::string& name, bool residual_based)
     : MinimizerTestPlan(name)
+    , m_residual_based(residual_based)
 {
 
 }
@@ -33,16 +34,24 @@ bool FitPlan::checkMinimizer(Fit::Minimizer& minimizer)
 {
     auto fit_objective = createFitObjective();
 
-    fcn_scalar_t func = [&](const Fit::Parameters& params) {
+    fcn_scalar_t scalar_func = [&](const Fit::Parameters& params) {
         return fit_objective->evaluate(params);
     };
 
+    fcn_residual_t residual_func = [&](const Fit::Parameters& params) {
+        return fit_objective->evaluate_residuals(params);
+    };
+
     bool success(true);
-    auto result = minimizer.minimize(func, parameters());
+    Fit::MinimizerResult result;
+
+    if (m_residual_based)
+        result = minimizer.minimize(residual_func, parameters());
+    else
+        result = minimizer.minimize(scalar_func, parameters());
 
     fit_objective->finalize(result);
 
-    std::cout << result.toString() << std::endl;
     std::cout << "FitPlan::checkResult() -> " << name() << std::endl;
     success &= valuesAsExpected(result.parameters().values());
     std::cout << std::endl;

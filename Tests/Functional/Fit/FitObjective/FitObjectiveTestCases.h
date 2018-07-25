@@ -37,4 +37,10 @@ public:
     SteepestDescentCylindersInBA();
 };
 
+class FumuliCylindersInBA : public FitObjectiveTest
+{
+public:
+    FumuliCylindersInBA();
+};
+
 #endif //   MINIMIZERTESTCASES_H

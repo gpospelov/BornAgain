@@ -25,6 +25,15 @@ public:
     CylindersInBAPlan();
 };
 
+//! Two parameter fit: cylinders in BA with mini GISAS simulation.
+//! Residual like objective function is used
+
+class CylindersInBAResidualPlan : public FitPlan
+{
+public:
+    CylindersInBAResidualPlan();
+};
+
 #endif  //  FITPLANCASES_H
 
 

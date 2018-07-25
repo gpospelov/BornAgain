@@ -29,3 +29,12 @@ CylindersInBAPlan::CylindersInBAPlan()
     addParameter(Parameter("height", 4.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
     addParameter(Parameter("radius", 5.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
 }
+
+CylindersInBAResidualPlan::CylindersInBAResidualPlan()
+    : FitPlan("CylindersInBAResidualPlan", /*residual_based*/true)
+{
+    setBuilderName("CylindersInBABuilder");
+    setSimulationName("MiniGISAS");
+    addParameter(Parameter("height", 4.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
+    addParameter(Parameter("radius", 5.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
+}

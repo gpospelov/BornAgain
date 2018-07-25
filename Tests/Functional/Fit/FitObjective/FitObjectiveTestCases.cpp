@@ -23,3 +23,6 @@ BfgsCylindersInBA::BfgsCylindersInBA()
 SteepestDescentCylindersInBA::SteepestDescentCylindersInBA()
     : FitObjectiveTest("GSLMultiMin", "SteepestDescent", "CylindersInBAPlan") {}
 
+FumuliCylindersInBA::FumuliCylindersInBA()
+    : FitObjectiveTest("Minuit2", "Fumili", "CylindersInBAResidualPlan") {}
+

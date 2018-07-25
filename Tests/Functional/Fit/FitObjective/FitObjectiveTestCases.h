@@ -25,4 +25,16 @@ public:
     MigradCylindersInBA();
 };
 
+class BfgsCylindersInBA : public FitObjectiveTest
+{
+public:
+    BfgsCylindersInBA();
+};
+
+class SteepestDescentCylindersInBA : public FitObjectiveTest
+{
+public:
+    SteepestDescentCylindersInBA();
+};
+
 #endif //   MINIMIZERTESTCASES_H

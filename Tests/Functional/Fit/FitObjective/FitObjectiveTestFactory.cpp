@@ -19,4 +19,9 @@ FitObjectiveTestFactory::FitObjectiveTestFactory()
 {
     registerItem("MigradCylindersInBA", create_new<MigradCylindersInBA>,
                  "Minuit + TwoCylindersInBA");
+    registerItem("BfgsCylindersInBA", create_new<BfgsCylindersInBA>,
+                 "BFGS + TwoCylindersInBA");
+    registerItem("SteepestDescentCylindersInBA", create_new<SteepestDescentCylindersInBA>,
+                 "SteepestDescent + TwoCylindersInBA");
 }
+

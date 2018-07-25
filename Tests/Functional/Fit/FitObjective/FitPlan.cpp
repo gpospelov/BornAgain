@@ -69,7 +69,7 @@ std::unique_ptr<FitObjective> FitPlan::createFitObjective() const
     };
 
     result->addSimulationAndData(builder, *createOutputData(), 1.0);
-    result->initPrint(10);
+    result->initPrint(1);
 
     return result;
 }

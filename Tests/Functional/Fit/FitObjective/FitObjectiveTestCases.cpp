@@ -16,3 +16,10 @@
 
 MigradCylindersInBA::MigradCylindersInBA()
     : FitObjectiveTest("Minuit2", "Migrad", "CylindersInBAPlan") {}
+
+BfgsCylindersInBA::BfgsCylindersInBA()
+    : FitObjectiveTest("GSLMultiMin", "BFGS", "CylindersInBAPlan") {}
+
+SteepestDescentCylindersInBA::SteepestDescentCylindersInBA()
+    : FitObjectiveTest("GSLMultiMin", "SteepestDescent", "CylindersInBAPlan") {}
+

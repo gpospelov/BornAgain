@@ -50,6 +50,17 @@ Parameters MinimizerTestPlan::parameters() const
     return result;
 }
 
+//! Return vector of expected parameter values.
+
+std::vector<double> MinimizerTestPlan::expectedValues() const
+{
+    std::vector<double> result;
+    for (const auto& plan : m_parameter_plan)
+        result.push_back(plan.expectedValue());
+
+    return result;
+}
+
 //! Returns true if given values coincide with expected fit parameter values.
 
 bool MinimizerTestPlan::valuesAsExpected(const std::vector<double>& values) const

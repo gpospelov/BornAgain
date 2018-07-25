@@ -40,6 +40,7 @@ public:
 
 protected:
     Fit::Parameters parameters() const;
+    std::vector<double> expectedValues() const;
     bool valuesAsExpected(const std::vector<double>& values) const;
 
     std::string m_name;                          //!< plan name

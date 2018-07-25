@@ -20,7 +20,7 @@
 #include "RealParameter.h"
 
 //! Constructor of interference function of one-dimensional lattice.
-//! @param length: lattice length in nanometers
+//! @param length: lattice constant in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
     : InterferenceFunction1DLattice(Lattice1DParameters(length, xi))
@@ -34,9 +34,7 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(
     init_parameters();
 }
 
-InterferenceFunction1DLattice::~InterferenceFunction1DLattice()
-{
-}
+InterferenceFunction1DLattice::~InterferenceFunction1DLattice() {}
 
 InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 {
@@ -61,7 +59,7 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
 {
     if (!m_decay)
         throw Exceptions::NullPointerException("InterferenceFunction1DLattice::evaluate"
-                                   " -> Error! No decay function defined.");
+                                               " -> Error! No decay function defined.");
     double result = 0.0;
     double qxr = q.x();
     double qyr = q.y();
@@ -82,7 +80,7 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
         double qx = qx_frac + i * a_rec;
         result += m_decay->evaluate(qx);
     }
-    return result/a;
+    return result / a;
 }
 
 std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
@@ -92,7 +90,8 @@ std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
 
 void InterferenceFunction1DLattice::init_parameters()
 {
-    registerParameter(BornAgain::Length, &m_lattice_params.m_length).setUnit(BornAgain::UnitsNm)
+    registerParameter(BornAgain::Length, &m_lattice_params.m_length)
+        .setUnit(BornAgain::UnitsNm)
         .setNonnegative();
     registerParameter(BornAgain::Xi, &m_lattice_params.m_xi).setUnit(BornAgain::UnitsRad);
 }

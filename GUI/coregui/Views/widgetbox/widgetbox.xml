@@ -272,7 +272,7 @@
 
     <category name="Particle assemblies">
 
-        <categoryentry name="Core shell particle" icon="images/ParticleCoreShell.png">
+        <categoryentry name="Core shell particle" icon="images/ParticleCoreShell_64x64.png">
             <widget class="ParticleCoreShell">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -280,7 +280,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Particle Composition" icon="images/ParticleComposition.png">
+        <categoryentry name="Particle Composition" icon="images/ParticleComposition_64x64.png">
             <widget class="ParticleComposition">
                 <property name="objectName">
                     <string notr="true">somestring</string>
@@ -288,7 +288,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Meso Crystal" icon="images/ff_Mesocrystal_32.png">
+        <categoryentry name="Meso Crystal" icon="images/Mesocrystal_64x64.png">
             <widget class="MesoCrystal">
                 <property name="objectName">
                      <string notr="true">somestring</string>
@@ -296,7 +296,7 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Distributed particle" icon="images/SizeDistribution.png">
+        <categoryentry name="Distributed particle" icon="images/ParticleDistribution_64x64.png">
             <widget class="ParticleDistribution">
                 <property name="objectName">
                     <string notr="true">somestring</string>

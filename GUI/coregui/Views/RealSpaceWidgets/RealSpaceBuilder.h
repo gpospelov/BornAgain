@@ -15,15 +15,16 @@
 #ifndef REALSPACEBUILDER_H
 #define REALSPACEBUILDER_H
 
-#include "WinDllMacros.h"
-#include <QWidget>
-#include <QVector3D>
 #include "../../ba3d/ba3d/view/camera.h"
+#include "WinDllMacros.h"
+#include <QVector3D>
+#include <QWidget>
 
 class SessionItem;
 class RealSpaceModel;
 class Shape3D;
 class SceneGeometry;
+class Particle3DContainer;
 
 class BA_CORE_API_ RealSpaceBuilder : public QWidget
 {
@@ -36,10 +37,10 @@ public:
 
     void populate(RealSpaceModel* model, const SessionItem& item,
                   const SceneGeometry& sceneGeometry,
-                  const RealSpace::Camera::Position &cameraPosition =
-                            RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 90),  // eye
-                                                        RealSpace::Vector3D(0, 0, 0),      // center
-                                                        RealSpace::Vector3D::_z));         // up
+                  const RealSpace::Camera::Position& cameraPosition
+                  = RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 90), // eye
+                                                RealSpace::Vector3D(0, 0, 0),     // center
+                                                RealSpace::Vector3D::_z));        // up
 
     void populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
                             const SceneGeometry& sceneGeometry,
@@ -52,10 +53,15 @@ public:
                         const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D());
 
     void populateInterference(RealSpaceModel* model, const SessionItem& layoutItem,
+                              std::vector<Particle3DContainer>& particle3DContainer_vector,
                               const SceneGeometry& sceneGeometry);
 
-    void populateParticle(RealSpaceModel* model, const SessionItem& particleItem,
-                          const QVector3D& origin = QVector3D()) const;
+    void populateParticleFromParticleItem(RealSpaceModel* model, const SessionItem& particleItem,
+                                          const QVector3D& origin = QVector3D()) const;
+
+    void populateParticleFromParticle3DContainer(RealSpaceModel* model,
+                                                 const Particle3DContainer& particle3DContainer,
+                                                 const QVector3D& lattice_position) const;
 };
 
 #endif // REALSPACEBUILDER_H

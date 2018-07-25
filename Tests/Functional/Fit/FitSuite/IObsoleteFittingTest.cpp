@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/IFittingTest.cpp
-//! @brief     Implements class IFittingTest.
+//! @file      Tests/Functional/Fit/IObsoleteFittingTest.cpp
+//! @brief     Implements class IObsoleteFittingTest.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "IFittingTest.h"
+#include "IObsoleteFittingTest.h"
 #include "FitSuite.h"
 #include "Simulation.h"
 #include "MultiLayer.h"
@@ -26,7 +26,7 @@ namespace {
     const double default_parameter_tolerance = 0.01;
 }
 
-IFittingTest::IFittingTest(const std::string& minimizer_name,
+IObsoleteFittingTest::IObsoleteFittingTest(const std::string& minimizer_name,
                            const std::string& minimizer_algorithm,
                            const std::string& simulation_name,
                            const std::string& builder_name)
@@ -35,10 +35,10 @@ IFittingTest::IFittingTest(const std::string& minimizer_name,
 {
 }
 
-IFittingTest::~IFittingTest() = default;
+IObsoleteFittingTest::~IObsoleteFittingTest() = default;
 
 
-bool IFittingTest::runTest()
+bool IObsoleteFittingTest::runTest()
 {
     initParameterPlan();
 
@@ -63,12 +63,12 @@ bool IFittingTest::runTest()
     return success;
 }
 
-void IFittingTest::initParameterPlan() {
+void IObsoleteFittingTest::initParameterPlan() {
   for(auto& plan : m_parplans)
       plan->setTolerance(default_parameter_tolerance);
 }
 
-std::unique_ptr<FitSuite> IFittingTest::createFitSuite()
+std::unique_ptr<FitSuite> IObsoleteFittingTest::createFitSuite()
 {
     std::unique_ptr<FitSuite> result(new FitSuite());
     result->initPrint(10);
@@ -82,7 +82,7 @@ std::unique_ptr<FitSuite> IFittingTest::createFitSuite()
     return result;
 }
 
-std::unique_ptr<MultiLayer> IFittingTest::createSample()
+std::unique_ptr<MultiLayer> IObsoleteFittingTest::createSample()
 {
     SampleBuilderFactory builderFactory;
     std::unique_ptr<MultiLayer> result(builderFactory.createSample(m_sample_builder_name));
@@ -92,20 +92,20 @@ std::unique_ptr<MultiLayer> IFittingTest::createSample()
     return result;
 }
 
-std::unique_ptr<Simulation> IFittingTest::createSimulation()
+std::unique_ptr<Simulation> IObsoleteFittingTest::createSimulation()
 {
     SimulationFactory simRegistry;
     return simRegistry.create(m_simulation_name);
 }
 
-std::unique_ptr<OutputData<double> > IFittingTest::createOutputData(
+std::unique_ptr<OutputData<double> > IObsoleteFittingTest::createOutputData(
     const Simulation* simulation)
 {
     auto sim_result = simulation->result();
     return std::unique_ptr<OutputData<double>>(sim_result.data());
 }
 
-bool IFittingTest::analyzeResults(FitSuite& fit_suite) const
+bool IObsoleteFittingTest::analyzeResults(FitSuite& fit_suite) const
 {
     const std::vector<double>& actual = fit_suite.fitParameters()->values();
     std::vector<bool> result(actual.size(), true);

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/FunctionTestPlanFactory.h
-//! @brief     Defines class FunctionTestPlanFactory
+//! @file      Tests/Functional/Fit/FitObjective/FitObjectiveTestCases.h
+//! @brief     Defines classes from FitObjectiveTest family.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,18 +12,7 @@
 //
 // ************************************************************************** //
 
-#ifndef FUNCTIONTESTPLANFACTORY_H
-#define FUNCTIONTESTPLANFACTORY_H
+#include "FitObjectiveTestCases.h"
 
-#include "MinimizerTestPlan.h"
-#include "IFactory.h"
-
-//! Factory to generate plans for fitting objective functions.
-
-class FunctionTestPlanFactory : public IFactory<std::string, MinimizerTestPlan>
-{
-public:
-    FunctionTestPlanFactory();
-};
-
-#endif //   FUNCTIONTESTPLANFACTORY_H
+MigradCylindersInBA::MigradCylindersInBA()
+    : FitObjectiveTest("Minuit2", "Migrad", "CylindersInBAPlan") {}

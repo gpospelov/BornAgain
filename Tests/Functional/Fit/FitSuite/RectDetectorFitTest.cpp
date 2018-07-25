@@ -20,7 +20,7 @@
 #include "Units.h"
 
 RectDetectorFitTest::RectDetectorFitTest()
-    : IMinimizerTest("Minuit2", "Migrad")
+    : IObsoleteMinimizerTest("Minuit2", "Migrad")
 {
 }
 

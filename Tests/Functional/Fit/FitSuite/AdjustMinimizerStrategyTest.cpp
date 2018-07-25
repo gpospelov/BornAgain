@@ -21,7 +21,7 @@
 
 
 AdjustMinimizerStrategyTest::AdjustMinimizerStrategyTest()
-    : IMinimizerTest("undefined", "undefined")
+    : IObsoleteMinimizerTest("undefined", "undefined")
 {}
 
 void AdjustMinimizerStrategyTest::initParameterPlan()

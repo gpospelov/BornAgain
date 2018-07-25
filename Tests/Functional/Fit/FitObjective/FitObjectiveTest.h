@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/MinimizerTest.h
-//! @brief     Defines class MinimizerTest
+//! @file      Tests/Functional/Fit/FitObjective/FitObjectiveTest.h
+//! @brief     Defines class FitObjectiveTest
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,21 +12,22 @@
 //
 // ************************************************************************** //
 
-#ifndef MINIMIZERTEST_H
-#define MINIMIZERTEST_H
+#ifndef FITOBJECTIVETEST_H
+#define FITOBJECTIVETEST_H
 
 #include "IMinimizerTest.h"
 
 //! Collection of standalone tests for fitting library.
 
-class MinimizerTest : public IMinimizerTest
+class FitObjectiveTest : public IMinimizerTest
 {
 public:
-    MinimizerTest(const std::string& minimizer_name, const std::string& algorithm_name,
-                  const std::string& fit_plan_name);
+    FitObjectiveTest(const std::string& minimizer_name, const std::string& algorithm_name,
+                     const std::string& fit_plan_name);
 
 protected:
     std::unique_ptr<MinimizerTestPlan> createPlan() const;
+
 };
 
-#endif // MINIMIZERTEST_H
+#endif // FITOBJECTIVETEST_H

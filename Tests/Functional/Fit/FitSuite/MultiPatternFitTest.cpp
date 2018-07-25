@@ -28,7 +28,7 @@ namespace {
 }
 
 MultiPatternFitTest::MultiPatternFitTest()
-    : IMinimizerTest("GSLLMA")
+    : IObsoleteMinimizerTest("GSLLMA")
 {
 
 }

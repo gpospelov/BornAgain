@@ -19,30 +19,30 @@
 #include "GeneticMinimizer.h"
 
 Minuit2MigradTest::Minuit2MigradTest()
-    : IMinimizerTest("Minuit2", "Migrad")
+    : IObsoleteMinimizerTest("Minuit2", "Migrad")
 {}
 
 Minuit2FumiliTest::Minuit2FumiliTest()
-    : IMinimizerTest("Minuit2", "Fumili")
+    : IObsoleteMinimizerTest("Minuit2", "Fumili")
 {}
 
 GSLLevenbergMarquardtTest::GSLLevenbergMarquardtTest()
-    : IMinimizerTest("GSLLMA")
+    : IObsoleteMinimizerTest("GSLLMA")
 {}
 
 
 GSLMultiMinBFGSTest::GSLMultiMinBFGSTest()
-    : IMinimizerTest("GSLMultiMin", "BFGS")
+    : IObsoleteMinimizerTest("GSLMultiMin", "BFGS")
 {}
 
 
 GSLMultiMinSteepestDescentTest::GSLMultiMinSteepestDescentTest()
-    : IMinimizerTest("GSLMultiMin", "SteepestDescent")
+    : IObsoleteMinimizerTest("GSLMultiMin", "SteepestDescent")
 {}
 
 
 GSLSimulatedAnnealingTest::GSLSimulatedAnnealingTest()
-    : IMinimizerTest("GSLSimAn")
+    : IObsoleteMinimizerTest("GSLSimAn")
 {}
 
 std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
@@ -67,7 +67,7 @@ std::unique_ptr<FitSuite> GSLSimulatedAnnealingTest::createFitSuite()
 
 
 GeneticTest::GeneticTest()
-    : IMinimizerTest("Genetic")
+    : IObsoleteMinimizerTest("Genetic")
 {}
 
 std::unique_ptr<FitSuite> GeneticTest::createFitSuite()

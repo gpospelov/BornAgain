@@ -15,14 +15,14 @@
 #ifndef RECTDETECTORFITTEST_H
 #define RECTDETECTORFITTEST_H
 
-#include "IMinimizerTest.h"
+#include "IObsoleteMinimizerTest.h"
 
 
 //! @class RectDetectorFitTest
 //! @ingroup standard_samples
 //! @brief Fit of simulation with rectangular detector. The detector is cropped, masks are applied.
 
-class RectDetectorFitTest : public IMinimizerTest
+class RectDetectorFitTest : public IObsoleteMinimizerTest
 {
 public:
     RectDetectorFitTest();

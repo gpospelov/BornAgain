@@ -1,16 +1,7 @@
 """
-Fitting example: 4 parameters fit with simple output
-This is more detailed version of ba.FitCylindersPrisms.py.
-We show how to generate "real" data and how to draw fit progress.
-Please take a note, that performance here is determined
-by poor performance of matplotlib drawing routines.
+Fitting example: running same fit using various minimizer and their settings.
 """
-
-import math
-import random
 import bornagain as ba
-import numpy as np
-from matplotlib import pyplot as plt
 from bornagain import deg, angstrom, nm
 
 
@@ -49,31 +40,6 @@ def get_sample(params):
     return multi_layer
 
 
-def create_real_data():
-    """
-    Generating "real" data by adding noise to the simulated data.
-    This function has been used once to generate refdata_fitcylinderprisms.int
-    located in same directory.
-    """
-    # creating sample with set of parameters we will later try to find during the fit
-
-    params = {'cylinder_height': 5.0*nm, 'cylinder_radius': 5.0*nm,
-              'prism_height': 5.0*nm, 'prism_base_edge': 5.0*nm}
-
-    simulation = get_simulation(params)
-    simulation.runSimulation()
-
-    # retrieving simulated data in the form of numpy array
-    real_data = simulation.result().array()
-
-    # spoiling simulated data with noise to produce "real" data
-    np.random.seed(0)
-    noise_factor = 0.1
-    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
-    noisy[noisy < 0.1] = 0.1
-    return noisy
-
-
 def get_simulation(params):
     """
     Returns a GISAXS simulation with beam and detector defined
@@ -89,20 +55,21 @@ def get_simulation(params):
 
 def run_fitting():
     """
-    Setup simulation and fit
+    main function to run fitting
     """
 
-    real_data = create_real_data()
+    # prints info about available minimizers
+    print(ba.MinimizerFactory().catalogueToString())
+
+    # prints detailed info about available minimizers and their options
+    print(ba.MinimizerFactory().catalogueDetailsToString())
+
+    real_data = ba.IntensityDataIOFactory.readIntensityData(
+        'refdata_fitcylinderprisms.int.gz').array()
 
     fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
-
-    # fit_suite.setMinimizer("Minuit2", "Migrad")  # ba.Default
-    # fit_suite.setMinimizer("Minuit2", "Fumili")
-    # fit_suite.setMinimizer("GSLLMA")
-
     fit_objective.initPrint(10)
-    fit_objective.initPlot(10)
 
     params = ba.Parameters()
     params.add("cylinder_height", 4.*nm, min=0.01)
@@ -111,11 +78,40 @@ def run_fitting():
     params.add("prism_base_edge", 12.*nm, min=0.01)
 
     minimizer = ba.Minimizer()
-    result = minimizer.minimize(fit_objective.evaluate, params)
+
+    # Uncomment one of the line below to adjust minimizer settings
+
+    """
+    Setting Minuit2 minimizer with Migrad algorithm, limiting number of iterations.
+    Minimization will try to respect MaxFunctionCalls value.
+    """
+    # minimizer.setMinimizer("Minuit2", "Migrad", "MaxFunctionCalls=50")
+
+    """
+    Setting two options at once.
+    Strategy=2 promises more accurate fit.    
+    """
+    # minimizer.setMinimizer("Minuit2", "Migrad", "MaxFunctionCalls=500;Strategy=2")
+
+    """
+    Setting Minuit2 minimizer with Fumili algorithm.
+    """
+    # minimizer.setMinimizer("Minuit2", "Fumili")
+
+    """
+    Setting Levenberg-Marquardt algorithm.
+    """
+    # minimizer.setMinimizer("GSLLMA")
+
+    result = minimizer.minimize(fit_objective.evaluate_residuals, params)
 
     fit_objective.finalize(result)
+
+    print("Fitting completed.")
+    print("chi2:", result.minValue())
+    for fitPar in result.parameters():
+        print(fitPar.name(), fitPar.value, fitPar.error)
 
 
 if __name__ == '__main__':
     run_fitting()
-    plt.show()

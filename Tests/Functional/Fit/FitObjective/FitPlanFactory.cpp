@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/SpecularFitTest.h
-//! @brief     Defines class SpecularFitTest.
+//! @file      Tests/Functional/Fit/FitObjective/FitPlanFactory.cpp
+//! @brief     Implements class FitPlanFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,23 +12,10 @@
 //
 // ************************************************************************** //
 
-//! @class SpecularFitTest
-//! @ingroup standard_samples
-//! @brief Fit of specular data.
+#include "FitPlanFactory.h"
+#include "FitPlanCases.h"
 
-#ifndef SPECULARFITTEST_H_
-#define SPECULARFITTEST_H_
-
-#include "IObsoleteFittingTest.h"
-
-class SpecularFitTest : public IObsoleteFittingTest
+FitPlanFactory::FitPlanFactory()
 {
-public:
-    SpecularFitTest();
-    virtual ~SpecularFitTest();
-
-protected:
-    void initParameterPlan() override;
-};
-
-#endif /* SPECULARFITTEST_H_ */
+    registerItem("CylindersInBAPlan", create_new<CylindersInBAPlan>);
+}

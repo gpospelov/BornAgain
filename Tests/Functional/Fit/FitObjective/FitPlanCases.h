@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/SpecularFitTest.h
-//! @brief     Defines class SpecularFitTest.
+//! @file      Tests/Functional/Fit/FitObjective/FitPlanCases.h
+//! @brief     Defines collection of FitPlanCases classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,23 +12,19 @@
 //
 // ************************************************************************** //
 
-//! @class SpecularFitTest
-//! @ingroup standard_samples
-//! @brief Fit of specular data.
+#ifndef FITPLANCASES_H
+#define FITPLANCASES_H
 
-#ifndef SPECULARFITTEST_H_
-#define SPECULARFITTEST_H_
+#include "FitPlan.h"
 
-#include "IObsoleteFittingTest.h"
+//! Two parameter fit: cylinders in BA with mini GISAS simulation.
 
-class SpecularFitTest : public IObsoleteFittingTest
+class CylindersInBAPlan : public FitPlan
 {
 public:
-    SpecularFitTest();
-    virtual ~SpecularFitTest();
-
-protected:
-    void initParameterPlan() override;
+    CylindersInBAPlan();
 };
 
-#endif /* SPECULARFITTEST_H_ */
+#endif  //  FITPLANCASES_H
+
+

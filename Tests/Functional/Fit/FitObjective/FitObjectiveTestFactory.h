@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/SpecularFitTest.h
-//! @brief     Defines class SpecularFitTest.
+//! @file      Tests/Functional/Fit/FitObjective/FitObjectiveTestFactory.h
+//! @brief     Defines class FitObjectiveTestFactory
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,23 +12,17 @@
 //
 // ************************************************************************** //
 
-//! @class SpecularFitTest
-//! @ingroup standard_samples
-//! @brief Fit of specular data.
+#ifndef FITOBJECTIVETESTFACTORY_H
+#define FITOBJECTIVETESTFACTORY_H
 
-#ifndef SPECULARFITTEST_H_
-#define SPECULARFITTEST_H_
+#include "FunctionalTestFactory.h"
 
-#include "IObsoleteFittingTest.h"
+//! Factory to generate fitting tests. Tests will based on FitObjective approach.
 
-class SpecularFitTest : public IObsoleteFittingTest
+class FitObjectiveTestFactory : public FunctionalTestFactory
 {
 public:
-    SpecularFitTest();
-    virtual ~SpecularFitTest();
-
-protected:
-    void initParameterPlan() override;
+    FitObjectiveTestFactory();
 };
 
-#endif /* SPECULARFITTEST_H_ */
+#endif // FITOBJECTIVETESTFACTORY_H

@@ -123,7 +123,6 @@ double ResidualFunctionAdapter::chi2(const std::vector<double>& pars)
 {
     ++m_number_of_calls;
 
-    auto residuals = get_residuals(pars);
     double result(0.0);
     for (auto x : get_residuals(pars))
         result += x * x;

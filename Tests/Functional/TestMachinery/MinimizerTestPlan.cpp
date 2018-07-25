@@ -14,17 +14,10 @@
 
 #include "MinimizerTestPlan.h"
 #include "Parameters.h"
+#include "Numeric.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>
-
-namespace
-{
-double get_difference(double a, double b)
-{
-    return std::abs(a - b);
-}
-}
 
 using namespace Fit;
 
@@ -73,7 +66,7 @@ bool MinimizerTestPlan::valuesAsExpected(const std::vector<double>& values) cons
     size_t index(0);
     std::ostringstream text;
     for (const auto& plan : m_parameter_plan) {
-        double diff = get_difference(values[index], plan.expectedValue());
+        double diff = Numeric::get_relative_difference(values[index], plan.expectedValue());
         if (diff > plan.tolerance())
             success = false;
 

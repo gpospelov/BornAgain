@@ -6,7 +6,7 @@ set -e
 
 # creating link to BornAgain gui in bin directory
 echo "------------ POSTINSTALL OPERATIONS... ------------"
-COMMAND="ln -sf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@/exec/BornAgain /usr/bin/bornagain"
+COMMAND="ln -sf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@/exec/BornAgain @CMAKE_INSTALL_PREFIX@/bin/bornagain"
 echo ${COMMAND}
 ${COMMAND}
 

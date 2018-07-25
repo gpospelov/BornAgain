@@ -11,7 +11,10 @@ echo ${COMMAND}
 ${COMMAND}
 
 # creating links for python
-COMMAND="ln -sf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@/* @PYTHON_SITE_PACKAGES@/"
-#COMMAND="cp -r @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@/bornagain @PYTHON_SITE_PACKAGES@/"
-echo ${COMMAND}
-${COMMAND}
+
+for item_to_link in bornagain libBornAgainCore.py _libBornAgainCore.so libBornAgainFit.py _libBornAgainFit.so _libBornAgainGUI.so
+do
+ COMMAND="ln -sf @CMAKE_INSTALL_PREFIX@/lib/@destination_suffix@/${item_to_link} @PYTHON_SITE_PACKAGES@/"
+ echo ${COMMAND}
+ ${COMMAND}
+done

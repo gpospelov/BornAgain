@@ -63,7 +63,10 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
 CylindersInBABuilder::CylindersInBABuilder()
     : m_height(5*Units::nanometer)
     , m_radius(5*Units::nanometer)
-{}
+{
+    registerParameter("height", &m_height);
+    registerParameter("radius", &m_radius);
+}
 
 MultiLayer* CylindersInBABuilder::buildSample() const
 {

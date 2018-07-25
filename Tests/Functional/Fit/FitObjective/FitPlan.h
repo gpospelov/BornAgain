@@ -22,6 +22,7 @@ namespace Fit { class Parameters; }
 class Simulation;
 class MultiLayer;
 template<class T> class OutputData;
+class FitObjective;
 
 //! Contains all logic to construct FitObjective, setup Minimizer and check minimization results.
 
@@ -33,7 +34,11 @@ public:
 
     virtual bool checkMinimizer(Fit::Minimizer& minimizer);
 
+    void setBuilderName(const std::string& name);
+    void setSimulationName(const std::string& name);
+
 private:
+    virtual std::unique_ptr<FitObjective> createFitObjective() const;
     virtual std::unique_ptr<Simulation> createSimulation(const Fit::Parameters& params) const;
     virtual std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
     virtual std::unique_ptr<OutputData<double>> createOutputData() const;

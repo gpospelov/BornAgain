@@ -17,7 +17,7 @@
 
 #include "FitPlan.h"
 
-//! Setting for standalone fit of Rosenbrock function.
+//! Two parameter fit: cylinders in BA with mini GISAS simulation.
 
 class CylindersInBAPlan : public FitPlan
 {

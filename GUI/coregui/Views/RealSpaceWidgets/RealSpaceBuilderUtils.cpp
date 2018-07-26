@@ -454,7 +454,8 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
         } else if (particleItem->modelType() == Constants::ParticleCoreShellType) {
             auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(particleItem);
             auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-            auto particle3DContainer = particleCoreShell3DContainer(particleCoreShell.get(), total_abundance);
+            auto particle3DContainer
+                = particleCoreShell3DContainer(particleCoreShell.get(), total_abundance);
             cumulative_abundance += particle3DContainer.cumulativeAbundance();
             particle3DContainer.setCumulativeAbundance(cumulative_abundance);
             particle3DContainer_vector.emplace_back(std::move(particle3DContainer));
@@ -464,9 +465,8 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
     return particle3DContainer_vector;
 }
 
-Particle3DContainer
-RealSpaceBuilderUtils::singleParticle3DContainer(const Particle* particle,
-                                                 double total_abundance)
+Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Particle* particle,
+                                                                     double total_abundance)
 {
     std::unique_ptr<const IFormFactor> particleff(particle->createFormFactor());
     auto ff = getUnderlyingFormFactor(particleff.get());

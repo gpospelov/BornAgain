@@ -445,7 +445,9 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
 
     for (auto particleItem : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES)) {
         if (particleItem->modelType() == Constants::ParticleType) {
-            auto particle3DContainer = singleParticle3DContainer(particleItem, total_abundance);
+            auto pItem = dynamic_cast<const ParticleItem*>(particleItem);
+            auto particle = pItem->createParticle();
+            auto particle3DContainer = singleParticle3DContainer(particle.get(), total_abundance);
             cumulative_abundance += particle3DContainer.cumulativeAbundance();
             particle3DContainer.setCumulativeAbundance(cumulative_abundance);
             particle3DContainer_vector.emplace_back(std::move(particle3DContainer));
@@ -461,20 +463,16 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
 }
 
 Particle3DContainer
-RealSpaceBuilderUtils::singleParticle3DContainer(const SessionItem* particleItem,
+RealSpaceBuilderUtils::singleParticle3DContainer(const Particle* particle,
                                                  double total_abundance)
 {
-    auto pItem = dynamic_cast<const ParticleItem*>(particleItem);
-    auto particle = pItem->createParticle();
     std::unique_ptr<const IFormFactor> particleff(particle->createFormFactor());
     auto ff = getUnderlyingFormFactor(particleff.get());
 
     auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
 
-    const auto origin = QVector3D();
-
-    applyParticleTransformations(particle.get(), particle3D.get(), origin);
-    applyParticleColor(particle.get(), particle3D.get());
+    applyParticleTransformations(particle, particle3D.get());
+    applyParticleColor(particle, particle3D.get());
 
     Particle3DContainer singleParticle3DContainer;
 

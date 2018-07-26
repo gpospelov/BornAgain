@@ -117,9 +117,6 @@ public:
     //! get angle between first lattice vector and X-axis of distribution (both in direct space)
     double gamma() const { return m_gamma; }
 
-    //! get angle between X- and Y-axis of distribution (in direct space)
-    double delta() const { return m_delta; }
-
     //! get decay length in distribution's X-direction
     double decayLengthX() const { return m_decay_length_x; }
 
@@ -140,7 +137,6 @@ protected:
     double m_decay_length_x;
     double m_decay_length_y;
     double m_gamma;
-    double m_delta;
 };
 
 

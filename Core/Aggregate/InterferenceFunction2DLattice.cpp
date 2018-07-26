@@ -172,16 +172,16 @@ double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx
             " -> Error! No decay function defined.");
     double qp1, qp2;
     double gamma = m_decay->gamma();
-    double delta = m_decay->delta();
-    transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
+    transformToPrincipalAxes(qx, qy, gamma, qp1, qp2);
     return m_decay->evaluate(qp1, qp2);
 }
 
+// Rotate between orthonormal systems (q_x,q_y) -> (q_X,q_Y)
 void InterferenceFunction2DLattice::transformToPrincipalAxes(
-    double qx, double qy, double gamma, double delta, double &q_pa_1, double &q_pa_2) const
+    double qx, double qy, double gamma, double &q_pa_1, double &q_pa_2) const
 {
     q_pa_1 = qx * std::cos(gamma) + qy * std::sin(gamma);
-    q_pa_2 = qx * std::cos(gamma + delta) + qy * std::sin(gamma + delta);
+    q_pa_2 = -qx * std::sin(gamma) + qy * std::cos(gamma);
 }
 
 void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(

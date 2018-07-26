@@ -10340,18 +10340,6 @@ class IFTDecayFunction2D(ICloneable, INode):
         return _libBornAgainCore.IFTDecayFunction2D_gamma(self)
 
 
-    def delta(self):
-        """
-        delta(IFTDecayFunction2D self) -> double
-
-        double IFTDecayFunction2D::delta() const
-
-        get angle between X- and Y-axis of distribution (in direct space) 
-
-        """
-        return _libBornAgainCore.IFTDecayFunction2D_delta(self)
-
-
     def decayLengthX(self):
         """
         decayLengthX(IFTDecayFunction2D self) -> double

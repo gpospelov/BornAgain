@@ -66,7 +66,7 @@ private:
 
     //! Returns reciprocal coordinates in the principal axis system
     void transformToPrincipalAxes(double qx, double qy, double gamma,
-                                  double delta, double& q_pa_1, double& q_pa_2) const;
+                                  double& q_pa_1, double& q_pa_2) const;
 
     //! Returns qx,qy coordinates of q - qint, where qint is a reciprocal lattice vector
     //! bounding the reciprocal unit cell to which q belongs

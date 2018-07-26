@@ -35,4 +35,6 @@ FitObjectiveTestFactory::FitObjectiveTestFactory()
                  "Minuit + RectDet with ROI, CylindersInBA");
     registerItem("AdjustMinimizerFit", create_new<AdjustMinimizerFit>,
                  "Minuit + Genetic, CylindersInBA");
+    registerItem("MultiPatternFit", create_new<MultiPatternFit>,
+                 "Minuit, MultiPatternSample");
 }

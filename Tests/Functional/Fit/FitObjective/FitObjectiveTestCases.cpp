@@ -46,3 +46,6 @@ RectDetectorFit::RectDetectorFit()
 
 AdjustMinimizerFit::AdjustMinimizerFit()
     : FitObjectiveTest("Genetic", "", "AdjustMinimizerPlan") {}
+
+MultiPatternFit::MultiPatternFit()
+    : FitObjectiveTest("GSLLMA", "", "MultiPatternPlan") {}

@@ -25,7 +25,7 @@ namespace RealSpace{ namespace Particles { class Particle; } }
 class BA_CORE_API_ Particle3DContainer
 {
 public:
-    Particle3DContainer() {m_cumulativeAbundance = 0;}
+    Particle3DContainer() : m_cumulativeAbundance(0) {}
     Particle3DContainer(const Particle3DContainer& other); // copy constructor
     Particle3DContainer& operator=(const Particle3DContainer& rhs); // copy assignment
     ~Particle3DContainer() noexcept;
@@ -35,21 +35,24 @@ public:
 
     void clearContainer();
 
-    size_t containerSize() const { return m_container.size(); }
+    size_t containerSize() const { return m_containerParticles.size(); }
     double cumulativeAbundance() const { return m_cumulativeAbundance; }
-    const QString particleType() const { return m_particleType; }
+    const QString particleType() const { return m_containerType; }
+    bool particle3DBlend(const size_t &index) const { return m_containerParticlesBlend.at(index); }
 
     void addParticle(RealSpace::Particles::Particle* particle3D);
     void setCumulativeAbundance(double cumulativeAbundance);
     void setParticleType(QString particleType);
+    void fillContainerParticlesBlend(bool blend);
 
     std::unique_ptr<RealSpace::Particles::Particle> createParticle(const size_t &index) const;
 
 private:
-    std::vector<RealSpace::Particles::Particle*> m_container;
+    std::vector<RealSpace::Particles::Particle*> m_containerParticles;
     // Contains the constituents of the 3D Particle (e.g. core and shell of a ParticleCoreShell)
     double m_cumulativeAbundance;
-    QString m_particleType; // type of 3D Particle e.g. ParticleType, ParticleCompositionType etc.
+    QString m_containerType; // type of 3D Particle e.g. ParticleType, ParticleCompositionType etc.
+    std::vector<bool> m_containerParticlesBlend;
 };
 
 #endif // PARTICLE3DCONTAINER_H

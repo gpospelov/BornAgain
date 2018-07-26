@@ -17,11 +17,15 @@
 
 // copy constructor
 Particle3DContainer::Particle3DContainer(const Particle3DContainer& other)
-    : m_cumulativeAbundance(other.m_cumulativeAbundance), m_particleType(other.m_particleType)
+    : m_cumulativeAbundance(other.m_cumulativeAbundance), m_containerType(other.m_containerType)
 {
-    m_container.resize(other.m_container.size());
-    for (size_t i = 0; i < m_container.size(); ++i)
-        m_container[i] = new RealSpace::Particles::Particle(*other.m_container[i]);
+    m_containerParticles.resize(other.m_containerParticles.size());
+    for (size_t i = 0; i < m_containerParticles.size(); ++i)
+        m_containerParticles[i] = new RealSpace::Particles::Particle(*other.m_containerParticles[i]);
+
+    m_containerParticlesBlend.resize(other.m_containerParticlesBlend.size());
+    for (size_t i = 0; i < m_containerParticlesBlend.size(); ++i)
+        m_containerParticlesBlend[i] = other.m_containerParticles[i];
 }
 
 // copy assignment
@@ -29,12 +33,16 @@ Particle3DContainer& Particle3DContainer::operator=(const Particle3DContainer& r
 {
     if (this != &rhs) {
         clearContainer();
-        m_container.resize(rhs.containerSize());
-        for (size_t i = 0; i < m_container.size(); ++i)
-            m_container[i] = new RealSpace::Particles::Particle(*rhs.m_container[i]);
+        m_containerParticles.resize(rhs.containerSize());
+        for (size_t i = 0; i < m_containerParticles.size(); ++i)
+            m_containerParticles[i] = new RealSpace::Particles::Particle(*rhs.m_containerParticles[i]);
 
         m_cumulativeAbundance = rhs.m_cumulativeAbundance;
-        m_particleType = rhs.m_particleType;
+        m_containerType = rhs.m_containerType;
+
+        m_containerParticlesBlend.resize(rhs.m_containerParticlesBlend.size());
+        for (size_t i = 0; i < m_containerParticlesBlend.size(); ++i)
+            m_containerParticlesBlend[i] = rhs.m_containerParticles[i];
     }
     return *this;
 }
@@ -47,9 +55,10 @@ Particle3DContainer::~Particle3DContainer() noexcept
 
 // move constructor
 Particle3DContainer::Particle3DContainer(Particle3DContainer&& other) noexcept
-    : m_container(std::move(other.m_container)),
+    : m_containerParticles(std::move(other.m_containerParticles)),
       m_cumulativeAbundance(std::move(other.m_cumulativeAbundance)),
-      m_particleType(std::move(other.m_particleType))
+      m_containerType(std::move(other.m_containerType)),
+      m_containerParticlesBlend(std::move(other.m_containerParticlesBlend))
 {
 }
 
@@ -58,24 +67,26 @@ Particle3DContainer& Particle3DContainer::operator=(Particle3DContainer&& rhs) n
 {
     if (this != &rhs) {
         clearContainer();
-        m_container = std::move(rhs.m_container);
+        m_containerParticles = std::move(rhs.m_containerParticles);
         m_cumulativeAbundance = std::move(rhs.m_cumulativeAbundance);
-        m_particleType = std::move(rhs.m_particleType);
+        m_containerType = std::move(rhs.m_containerType);
+        m_containerParticlesBlend = std::move(rhs.m_containerParticlesBlend);
     }
     return *this;
 }
 
 void Particle3DContainer::clearContainer()
 {
-    for (auto it = m_container.begin(); it != m_container.end(); ++it)
+    for (auto it = m_containerParticles.begin(); it != m_containerParticles.end(); ++it)
         delete (*it);
 
-    m_container.clear();
+    m_containerParticles.clear();
+    m_containerParticlesBlend.clear();
 }
 
 void Particle3DContainer::addParticle(RealSpace::Particles::Particle* particle3D)
 {
-    m_container.emplace_back(particle3D);
+    m_containerParticles.emplace_back(particle3D);
 }
 
 void Particle3DContainer::setCumulativeAbundance(double cumulativeAbundance)
@@ -85,12 +96,17 @@ void Particle3DContainer::setCumulativeAbundance(double cumulativeAbundance)
 
 void Particle3DContainer::setParticleType(QString particleType)
 {
-    m_particleType = particleType;
+    m_containerType = particleType;
+}
+
+void Particle3DContainer::fillContainerParticlesBlend(bool blend)
+{
+    m_containerParticlesBlend.emplace_back(blend);
 }
 
 std::unique_ptr<RealSpace::Particles::Particle>
 Particle3DContainer::createParticle(const size_t& index) const
 {
-    auto particle = new RealSpace::Particles::Particle(*m_container.at(index));
+    auto particle = new RealSpace::Particles::Particle(*m_containerParticles.at(index));
     return std::unique_ptr<RealSpace::Particles::Particle>(particle);
 }

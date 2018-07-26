@@ -67,5 +67,10 @@ public:
     RectDetectorFit();
 };
 
+class AdjustMinimizerFit : public FitObjectiveTest
+{
+public:
+    AdjustMinimizerFit();
+};
 
 #endif //   MINIMIZERTESTCASES_H

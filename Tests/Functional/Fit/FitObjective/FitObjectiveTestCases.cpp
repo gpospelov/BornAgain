@@ -43,3 +43,6 @@ GeneticCylindersInBA::GeneticCylindersInBA()
 
 RectDetectorFit::RectDetectorFit()
     : FitObjectiveTest("Minuit2", "Migrad", "RectDetPlan") {}
+
+AdjustMinimizerFit::AdjustMinimizerFit()
+    : FitObjectiveTest("Genetic", "", "AdjustMinimizerPlan") {}

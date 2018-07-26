@@ -18,19 +18,21 @@
 FitObjectiveTestFactory::FitObjectiveTestFactory()
 {
     registerItem("MigradCylindersInBA", create_new<MigradCylindersInBA>,
-                 "Minuit + TwoCylindersInBA");
+                 "Minuit + CylindersInBA");
     registerItem("BfgsCylindersInBA", create_new<BfgsCylindersInBA>,
-                 "BFGS + TwoCylindersInBA");
+                 "BFGS + CylindersInBA");
     registerItem("SteepestDescentCylindersInBA", create_new<SteepestDescentCylindersInBA>,
-                 "SteepestDescent + TwoCylindersInBA");
+                 "SteepestDescent + CylindersInBA");
     registerItem("FumuliCylindersInBA", create_new<FumuliCylindersInBA>,
-                 "Fumili + TwoCylindersInBA (Residual)");
+                 "Fumili + CylindersInBA (Residual)");
     registerItem("LevenbergMarquardtCylindersInBA", create_new<LevenbergMarquardtCylindersInBA>,
-                 "Levenberg-Marquardt + TwoCylindersInBA (Residual)");
+                 "Levenberg-Marquardt + CylindersInBA (Residual)");
     registerItem("SimAnCylindersInBA", create_new<SimAnCylindersInBA>,
-                 "Simulated annealing + TwoCylindersInBA (Easy)");
+                 "Simulated annealing + CylindersInBA (Easy)");
     registerItem("GeneticCylindersInBA", create_new<GeneticCylindersInBA>,
-                 "Genetic + TwoCylindersInBA (Easy)");
+                 "Genetic + CylindersInBA (Easy)");
     registerItem("RectDetectorFit", create_new<RectDetectorFit>,
-                 "Minuit + RectDet with ROI");
+                 "Minuit + RectDet with ROI, CylindersInBA");
+    registerItem("AdjustMinimizerFit", create_new<AdjustMinimizerFit>,
+                 "Minuit + Genetic, CylindersInBA");
 }

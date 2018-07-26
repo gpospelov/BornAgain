@@ -14,6 +14,7 @@
 
 #include "FitPlanFactory.h"
 #include "FitPlanCases.h"
+#include "AdjustMinimizerPlan.h"
 
 FitPlanFactory::FitPlanFactory()
 {
@@ -21,4 +22,5 @@ FitPlanFactory::FitPlanFactory()
     registerItem("CylindersInBAEasyPlan", create_new<CylindersInBAEasyPlan>);
     registerItem("CylindersInBAResidualPlan", create_new<CylindersInBAResidualPlan>);
     registerItem("RectDetPlan", create_new<RectDetPlan>);
+    registerItem("AdjustMinimizerPlan", create_new<AdjustMinimizerPlan>);
 }

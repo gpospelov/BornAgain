@@ -27,4 +27,8 @@ FitObjectiveTestFactory::FitObjectiveTestFactory()
                  "Fumili + TwoCylindersInBA (Residual)");
     registerItem("LevenbergMarquardtCylindersInBA", create_new<LevenbergMarquardtCylindersInBA>,
                  "Levenberg-Marquardt + TwoCylindersInBA (Residual)");
+    registerItem("SimAnCylindersInBA", create_new<SimAnCylindersInBA>,
+                 "Simulated annealing + TwoCylindersInBA (Easy)");
+    registerItem("GeneticCylindersInBA", create_new<GeneticCylindersInBA>,
+                 "Genetic + TwoCylindersInBA (Easy)");
 }

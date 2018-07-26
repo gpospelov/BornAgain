@@ -26,6 +26,15 @@ public:
 };
 
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
+//! Large tolerance on expected parameter values to help stocastic minimizers to converge fatser.
+
+class CylindersInBAEasyPlan : public FitPlan
+{
+public:
+    CylindersInBAEasyPlan();
+};
+
+//! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Residual like objective function is used
 
 class CylindersInBAResidualPlan : public FitPlan

@@ -30,6 +30,18 @@ CylindersInBAPlan::CylindersInBAPlan()
     addParameter(Parameter("radius", 5.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
 }
 
+CylindersInBAEasyPlan::CylindersInBAEasyPlan()
+    : FitPlan("CylindersInBAPlan")
+{
+    setBuilderName("CylindersInBABuilder");
+    setSimulationName("MiniGISAS");
+    const double tolerance = 0.1;
+    addParameter(Parameter("height", 4.5*nm, AttLimits::limited(4.0, 6.0), 0.01),
+                 5.0*nm, tolerance);
+    addParameter(Parameter("radius", 5.5*nm, AttLimits::limited(4.0, 6.0), 0.01),
+                 5.0*nm, tolerance);
+}
+
 CylindersInBAResidualPlan::CylindersInBAResidualPlan()
     : FitPlan("CylindersInBAResidualPlan", /*residual_based*/true)
 {

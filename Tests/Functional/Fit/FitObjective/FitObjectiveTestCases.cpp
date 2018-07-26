@@ -29,3 +29,15 @@ FumuliCylindersInBA::FumuliCylindersInBA()
 LevenbergMarquardtCylindersInBA::LevenbergMarquardtCylindersInBA()
     : FitObjectiveTest("GSLLMA", "", "CylindersInBAResidualPlan") {}
 
+SimAnCylindersInBA::SimAnCylindersInBA()
+    : FitObjectiveTest("GSLSimAn", "", "CylindersInBAEasyPlan")
+{
+    setMinimizerOptions("IterationsAtTemp=5;MaxIterations=10;t_min=1.0");
+}
+
+GeneticCylindersInBA::GeneticCylindersInBA()
+    : FitObjectiveTest("Genetic", "", "CylindersInBAEasyPlan")
+{
+    setMinimizerOptions("MaxIterations=1;RandomSeed=1");
+}
+

@@ -49,4 +49,16 @@ public:
     LevenbergMarquardtCylindersInBA();
 };
 
+class SimAnCylindersInBA : public FitObjectiveTest
+{
+public:
+    SimAnCylindersInBA();
+};
+
+class GeneticCylindersInBA : public FitObjectiveTest
+{
+public:
+    GeneticCylindersInBA();
+};
+
 #endif //   MINIMIZERTESTCASES_H

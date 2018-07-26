@@ -452,7 +452,9 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
             particle3DContainer.setCumulativeAbundance(cumulative_abundance);
             particle3DContainer_vector.emplace_back(std::move(particle3DContainer));
         } else if (particleItem->modelType() == Constants::ParticleCoreShellType) {
-            auto particle3DContainer = particleCoreShell3DContainer(particleItem, total_abundance);
+            auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(particleItem);
+            auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
+            auto particle3DContainer = particleCoreShell3DContainer(particleCoreShell.get(), total_abundance);
             cumulative_abundance += particle3DContainer.cumulativeAbundance();
             particle3DContainer.setCumulativeAbundance(cumulative_abundance);
             particle3DContainer_vector.emplace_back(std::move(particle3DContainer));
@@ -484,12 +486,9 @@ RealSpaceBuilderUtils::singleParticle3DContainer(const Particle* particle,
 }
 
 Particle3DContainer
-RealSpaceBuilderUtils::particleCoreShell3DContainer(const SessionItem* particleItem,
+RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell* particleCoreShell,
                                                     double total_abundance)
 {
-    auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(particleItem);
-    auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-
     std::unique_ptr<const IFormFactor> coreParticleff(
         particleCoreShell->coreParticle()->createFormFactor());
     std::unique_ptr<const IFormFactor> shellParticleff(
@@ -503,12 +502,12 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const SessionItem* particleI
 
     // core
     applyParticleCoreShellTransformations(particleCoreShell->coreParticle(), coreParticle3D.get(),
-                                          particleCoreShell.get());
+                                          particleCoreShell);
     applyParticleColor(particleCoreShell->coreParticle(), coreParticle3D.get());
 
     // shell (set an alpha value of 0.5 for transparency)
     applyParticleCoreShellTransformations(particleCoreShell->shellParticle(), shellParticle3D.get(),
-                                          particleCoreShell.get());
+                                          particleCoreShell);
     applyParticleColor(particleCoreShell->shellParticle(), shellParticle3D.get(), 0.5);
 
     Particle3DContainer particleCoreShell3DContainer;

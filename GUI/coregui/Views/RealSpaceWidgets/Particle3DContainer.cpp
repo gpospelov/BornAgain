@@ -25,7 +25,7 @@ Particle3DContainer::Particle3DContainer(const Particle3DContainer& other)
 
     m_containerParticlesBlend.resize(other.m_containerParticlesBlend.size());
     for (size_t i = 0; i < m_containerParticlesBlend.size(); ++i)
-        m_containerParticlesBlend[i] = other.m_containerParticles[i];
+        m_containerParticlesBlend[i] = other.m_containerParticlesBlend[i];
 }
 
 // copy assignment
@@ -42,7 +42,7 @@ Particle3DContainer& Particle3DContainer::operator=(const Particle3DContainer& r
 
         m_containerParticlesBlend.resize(rhs.m_containerParticlesBlend.size());
         for (size_t i = 0; i < m_containerParticlesBlend.size(); ++i)
-            m_containerParticlesBlend[i] = rhs.m_containerParticles[i];
+            m_containerParticlesBlend[i] = rhs.m_containerParticlesBlend[i];
     }
     return *this;
 }

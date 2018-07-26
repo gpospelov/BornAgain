@@ -52,7 +52,7 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& d
     registerChild(m_decay.get());
     double decay_length = m_decay->decayLength();
     double qa_max = (m_lattice_params.m_length / M_TWOPI) * nmax / decay_length;
-    m_na = (int)(std::abs(qa_max) + 0.5);
+    m_na = static_cast<int>(std::lround(std::abs(qa_max) + 0.5));
 }
 
 double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
@@ -73,7 +73,7 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
     double qx_prime = qxr * std::cos(xi) + qyr * std::sin(xi);
 
     // calculate reciprocal vector fraction
-    int qa_int = (int)(qx_prime / a_rec);
+    int qa_int = static_cast<int>(qx_prime / a_rec);
     qx_frac = qx_prime - qa_int * a_rec;
 
     for (int i = -m_na - 1; i < m_na + 2; ++i) {

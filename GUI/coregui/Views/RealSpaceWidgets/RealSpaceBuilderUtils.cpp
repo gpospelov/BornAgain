@@ -515,7 +515,7 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const SessionItem* particleI
 
     Particle3DContainer particleCoreShell3DContainer;
 
-    particleCoreShell3DContainer.addParticle(coreParticle3D.release()); // index 0
+    particleCoreShell3DContainer.addParticle(coreParticle3D.release());  // index 0
     particleCoreShell3DContainer.addParticle(shellParticle3D.release()); // index 1
     particleCoreShell3DContainer.setCumulativeAbundance(particleCoreShell->abundance()
                                                         / total_abundance);

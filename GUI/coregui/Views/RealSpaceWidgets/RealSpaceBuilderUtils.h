@@ -113,7 +113,7 @@ BA_CORE_API_ std::vector<Particle3DContainer>
 particle3DContainerVector(const SessionItem& layoutItem);
 
 BA_CORE_API_ Particle3DContainer singleParticle3DContainer(const SessionItem* particleItem,
-                                                              double total_abundance = 1.0);
+                                                           double total_abundance = 1.0);
 
 BA_CORE_API_ Particle3DContainer particleCoreShell3DContainer(const SessionItem* particleItem,
                                                               double total_abundance = 1.0);

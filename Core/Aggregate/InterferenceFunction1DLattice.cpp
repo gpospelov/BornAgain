@@ -19,6 +19,13 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 
+namespace {
+// maximum value for qx*Lambdax and qy*lambday
+static const int nmax = 20;
+// minimum number of neighboring reciprocal lattice points to use
+static const int min_points = 4;
+}
+
 //! Constructor of interference function of one-dimensional lattice.
 //! @param length: lattice constant in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
@@ -53,6 +60,7 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& d
     double decay_length = m_decay->decayLength();
     double qa_max = (m_lattice_params.m_length / M_TWOPI) * nmax / decay_length;
     m_na = static_cast<int>(std::lround(std::abs(qa_max) + 0.5));
+    m_na = std::max(m_na, min_points);
 }
 
 double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
@@ -76,7 +84,7 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
     int qa_int = static_cast<int>(qx_prime / a_rec);
     qx_frac = qx_prime - qa_int * a_rec;
 
-    for (int i = -m_na - 1; i < m_na + 2; ++i) {
+    for (int i = -m_na; i < m_na + 1; ++i) {
         double qx = qx_frac + i * a_rec;
         result += m_decay->evaluate(qx);
     }

@@ -27,6 +27,13 @@ void insert_to(std::vector<double>& to, const std::vector<double>& from)
 {
     to.insert(to.end(), from.begin(), from.end());
 }
+
+simulation_builder_t simulationBuilder(PyBuilderCallback& callback)
+{
+    return [&callback](const Fit::Parameters& params) {
+        return std::unique_ptr<Simulation>(callback.build_simulation(params)->clone());
+    };
+}
 }
 
 
@@ -46,16 +53,19 @@ void FitObjective::addSimulationAndData(simulation_builder_t builder,
 }
 
 void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
-                                        const std::vector<std::vector<double> >& data,
+                                        const std::vector<double>& data,
                                         double weight)
 {
-    simulation_builder_t builder = [&](const Fit::Parameters& params) {
-        std::unique_ptr<Simulation> result(callback.build_simulation(params)->clone());
-        return result;
-    };
+    auto output_data = ArrayUtils::createData1D(data);
+    addSimulationAndData(simulationBuilder(callback), *output_data, weight);
+}
 
+void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
+                                        const std::vector<std::vector<double>>& data,
+                                        double weight)
+{
     auto output_data = ArrayUtils::createData2D(data);
-    addSimulationAndData(builder, *output_data, weight);
+    addSimulationAndData(simulationBuilder(callback), *output_data, weight);
 }
 
 double FitObjective::evaluate(const Fit::Parameters& params)

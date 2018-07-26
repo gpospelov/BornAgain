@@ -41,3 +41,5 @@ GeneticCylindersInBA::GeneticCylindersInBA()
     setMinimizerOptions("MaxIterations=1;RandomSeed=1");
 }
 
+RectDetectorFit::RectDetectorFit()
+    : FitObjectiveTest("Minuit2", "Migrad", "RectDetPlan") {}

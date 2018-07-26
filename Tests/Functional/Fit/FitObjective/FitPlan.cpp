@@ -74,7 +74,7 @@ std::unique_ptr<FitObjective> FitPlan::createFitObjective() const
     std::unique_ptr<FitObjective> result(new FitObjective);
 
     simulation_builder_t builder = [&](const Fit::Parameters& params) {
-        return createSimulation(params);
+        return buildSimulation(params);
     };
 
     result->addSimulationAndData(builder, *createOutputData(), 1.0);
@@ -83,14 +83,23 @@ std::unique_ptr<FitObjective> FitPlan::createFitObjective() const
     return result;
 }
 
-//! Creates simulation for given set of fit parameters.
+//! Build simulation (sample included) for given set of fit parameters.
+
+std::unique_ptr<Simulation> FitPlan::buildSimulation(const Fit::Parameters& params) const
+{
+    auto simulation = createSimulation(params);
+    auto sample = createMultiLayer(params);
+    simulation->setSample(*sample);
+    return simulation;
+}
+
+//! Creates simulation for given set of fit parameters. No sample yets.
 
 std::unique_ptr<Simulation> FitPlan::createSimulation(const Fit::Parameters& params) const
 {
+    (void)params;
     SimulationFactory factory;
     auto simulation = factory.create(m_simulation_name);
-    auto sample = createMultiLayer(params);
-    simulation->setSample(*sample);
     return simulation;
 }
 
@@ -115,7 +124,7 @@ std::unique_ptr<OutputData<double> > FitPlan::createOutputData() const
     // use expected values of fit parameters to construct simulation
     auto params = parameters();
     params.setValues(expectedValues());
-    auto simulation = createSimulation(params);
+    auto simulation = buildSimulation(params);
     simulation->runSimulation();
     return std::unique_ptr<OutputData<double>>(simulation->result().data());
 }

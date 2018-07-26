@@ -61,4 +61,11 @@ public:
     GeneticCylindersInBA();
 };
 
+class RectDetectorFit : public FitObjectiveTest
+{
+public:
+    RectDetectorFit();
+};
+
+
 #endif //   MINIMIZERTESTCASES_H

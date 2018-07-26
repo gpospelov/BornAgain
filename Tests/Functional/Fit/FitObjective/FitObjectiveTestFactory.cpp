@@ -31,4 +31,6 @@ FitObjectiveTestFactory::FitObjectiveTestFactory()
                  "Simulated annealing + TwoCylindersInBA (Easy)");
     registerItem("GeneticCylindersInBA", create_new<GeneticCylindersInBA>,
                  "Genetic + TwoCylindersInBA (Easy)");
+    registerItem("RectDetectorFit", create_new<RectDetectorFit>,
+                 "Minuit + RectDet with ROI");
 }

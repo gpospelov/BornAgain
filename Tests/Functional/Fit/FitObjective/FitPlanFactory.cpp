@@ -20,4 +20,5 @@ FitPlanFactory::FitPlanFactory()
     registerItem("CylindersInBAPlan", create_new<CylindersInBAPlan>);
     registerItem("CylindersInBAEasyPlan", create_new<CylindersInBAEasyPlan>);
     registerItem("CylindersInBAResidualPlan", create_new<CylindersInBAResidualPlan>);
+    registerItem("RectDetPlan", create_new<RectDetPlan>);
 }

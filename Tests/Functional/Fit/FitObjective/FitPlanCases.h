@@ -43,6 +43,19 @@ public:
     CylindersInBAResidualPlan();
 };
 
+//! Two parameter fit: cylinders in BA with mini GISAS simulation.
+//! Rectangular detector.
+
+class RectDetPlan : public FitPlan
+{
+public:
+    RectDetPlan();
+
+protected:
+    std::unique_ptr<Simulation> createSimulation(const Fit::Parameters&) const;
+};
+
+
 #endif  //  FITPLANCASES_H
 
 

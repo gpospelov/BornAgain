@@ -37,8 +37,9 @@ public:
     void setBuilderName(const std::string& name);
     void setSimulationName(const std::string& name);
 
-private:
+protected:
     virtual std::unique_ptr<FitObjective> createFitObjective() const;
+    virtual std::unique_ptr<Simulation> buildSimulation(const Fit::Parameters& params) const;
     virtual std::unique_ptr<Simulation> createSimulation(const Fit::Parameters& params) const;
     virtual std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
     virtual std::unique_ptr<OutputData<double>> createOutputData() const;

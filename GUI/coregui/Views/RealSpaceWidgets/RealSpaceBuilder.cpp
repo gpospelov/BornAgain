@@ -192,19 +192,16 @@ void RealSpaceBuilder::populateParticleFromParticle3DContainer(
     RealSpaceModel* model, const Particle3DContainer& particle3DContainer,
     const QVector3D& lattice_position) const
 {
-    if (particle3DContainer.containerSize())
-    {
-        for (size_t i = 0; i < particle3DContainer.containerSize(); ++i)
-        {
+    if (particle3DContainer.containerSize()) {
+        for (size_t i = 0; i < particle3DContainer.containerSize(); ++i) {
             auto particle3D = particle3DContainer.createParticle(i);
             particle3D->addTranslation(lattice_position);
-            if (particle3D)
-            {
-                if(!particle3DContainer.particle3DBlend(i))
+            if (particle3D) {
+                if (!particle3DContainer.particle3DBlend(i))
                     model->add(particle3D.release());
                 else
                     model->addBlend(particle3D.release()); // use addBlend() for transparent object
             }
-         }
-     }
+        }
+    }
 }

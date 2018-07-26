@@ -96,7 +96,6 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
     EXPECT_EQ(p2.particleType(), Constants::ParticleType);
     EXPECT_FALSE(p2.particle3DBlend(static_cast<size_t>(0)));
 
-
     Particle3DContainer p3 = Particle3DContainer(p1);
 
     EXPECT_EQ(p3.containerSize(), static_cast<size_t>(1));

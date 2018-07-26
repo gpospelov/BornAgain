@@ -21,7 +21,8 @@ Particle3DContainer::Particle3DContainer(const Particle3DContainer& other)
 {
     m_containerParticles.resize(other.m_containerParticles.size());
     for (size_t i = 0; i < m_containerParticles.size(); ++i)
-        m_containerParticles[i] = new RealSpace::Particles::Particle(*other.m_containerParticles[i]);
+        m_containerParticles[i]
+            = new RealSpace::Particles::Particle(*other.m_containerParticles[i]);
 
     m_containerParticlesBlend.resize(other.m_containerParticlesBlend.size());
     for (size_t i = 0; i < m_containerParticlesBlend.size(); ++i)
@@ -35,7 +36,8 @@ Particle3DContainer& Particle3DContainer::operator=(const Particle3DContainer& r
         clearContainer();
         m_containerParticles.resize(rhs.containerSize());
         for (size_t i = 0; i < m_containerParticles.size(); ++i)
-            m_containerParticles[i] = new RealSpace::Particles::Particle(*rhs.m_containerParticles[i]);
+            m_containerParticles[i]
+                = new RealSpace::Particles::Particle(*rhs.m_containerParticles[i]);
 
         m_cumulativeAbundance = rhs.m_cumulativeAbundance;
         m_containerType = rhs.m_containerType;

@@ -484,10 +484,9 @@ Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Parti
 
     Particle3DContainer singleParticle3DContainer;
 
-    singleParticle3DContainer.addParticle(particle3D.release());
+    singleParticle3DContainer.addParticle(particle3D.release(), false);
     singleParticle3DContainer.setCumulativeAbundance(particle->abundance() / total_abundance);
     singleParticle3DContainer.setParticleType(Constants::ParticleType);
-    singleParticle3DContainer.fillContainerParticlesBlend(false);
 
     return singleParticle3DContainer;
 }
@@ -519,10 +518,8 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell* par
 
     Particle3DContainer particleCoreShell3DContainer;
 
-    particleCoreShell3DContainer.addParticle(coreParticle3D.release()); // index 0
-    particleCoreShell3DContainer.fillContainerParticlesBlend(false);
-    particleCoreShell3DContainer.addParticle(shellParticle3D.release()); // index 1
-    particleCoreShell3DContainer.fillContainerParticlesBlend(true);
+    particleCoreShell3DContainer.addParticle(coreParticle3D.release(), false); // index 0
+    particleCoreShell3DContainer.addParticle(shellParticle3D.release(), true); // index 1
     particleCoreShell3DContainer.setCumulativeAbundance(particleCoreShell->abundance()
                                                         / total_abundance);
     particleCoreShell3DContainer.setParticleType(Constants::ParticleCoreShellType);
@@ -551,9 +548,8 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
 
         for (size_t i = 0; i < particle3DContainer.containerSize(); ++i) {
             particleComposition3DContainer.addParticle(
-                particle3DContainer.createParticle(i).release());
-            particleComposition3DContainer.fillContainerParticlesBlend(
-                particle3DContainer.particle3DBlend(i));
+                        particle3DContainer.createParticle(i).release(),
+                        particle3DContainer.particle3DBlend(i));
         }
     }
 

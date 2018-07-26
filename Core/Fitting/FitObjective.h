@@ -47,6 +47,10 @@ public:
                               double weight = 1.0);
 #endif
     void addSimulationAndData(PyBuilderCallback& callback,
+                              const std::vector<double>& data,
+                              double weight = 1.0);
+
+    void addSimulationAndData(PyBuilderCallback& callback,
                               const std::vector<std::vector<double>>& data,
                               double weight = 1.0);
 

@@ -192,26 +192,19 @@ void RealSpaceBuilder::populateParticleFromParticle3DContainer(
     RealSpaceModel* model, const Particle3DContainer& particle3DContainer,
     const QVector3D& lattice_position) const
 {
-    if (particle3DContainer.particleType() == Constants::ParticleCompositionType) {
-    } else if (particle3DContainer.particleType() == Constants::ParticleCoreShellType) {
-        if (particle3DContainer.containerSize()) {
-            auto coreParticle3D = particle3DContainer.createParticle(0);
-            auto shellParticle3D = particle3DContainer.createParticle(1);
-            coreParticle3D->addTranslation(lattice_position);
-            shellParticle3D->addTranslation(lattice_position);
-            if (coreParticle3D)
-                model->add(coreParticle3D.release());
-            if (shellParticle3D)
-                model->addBlend(shellParticle3D.release()); // use addBlend() for transparent object
-        }
-
-    } else if (particle3DContainer.particleType() == Constants::ParticleDistributionType) {
-    } else if (particle3DContainer.particleType() == Constants::ParticleType) {
-        if (particle3DContainer.containerSize()) {
-            auto particle3D = particle3DContainer.createParticle(0);
+    if (particle3DContainer.containerSize())
+    {
+        for (size_t i = 0; i < particle3DContainer.containerSize(); ++i)
+        {
+            auto particle3D = particle3DContainer.createParticle(i);
             particle3D->addTranslation(lattice_position);
             if (particle3D)
-                model->add(particle3D.release());
-        }
-    }
+            {
+                if(!particle3DContainer.particle3DBlend(i))
+                    model->add(particle3D.release());
+                else
+                    model->addBlend(particle3D.release()); // use addBlend() for transparent object
+            }
+         }
+     }
 }

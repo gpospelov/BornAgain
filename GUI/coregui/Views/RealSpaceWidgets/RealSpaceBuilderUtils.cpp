@@ -481,6 +481,7 @@ Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Parti
     singleParticle3DContainer.addParticle(particle3D.release());
     singleParticle3DContainer.setCumulativeAbundance(particle->abundance() / total_abundance);
     singleParticle3DContainer.setParticleType(Constants::ParticleType);
+    singleParticle3DContainer.fillContainerParticlesBlend(false);
 
     return singleParticle3DContainer;
 }
@@ -513,7 +514,9 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell* par
     Particle3DContainer particleCoreShell3DContainer;
 
     particleCoreShell3DContainer.addParticle(coreParticle3D.release());  // index 0
+    particleCoreShell3DContainer.fillContainerParticlesBlend(false);
     particleCoreShell3DContainer.addParticle(shellParticle3D.release()); // index 1
+    particleCoreShell3DContainer.fillContainerParticlesBlend(true);
     particleCoreShell3DContainer.setCumulativeAbundance(particleCoreShell->abundance()
                                                         / total_abundance);
     particleCoreShell3DContainer.setParticleType(Constants::ParticleCoreShellType);

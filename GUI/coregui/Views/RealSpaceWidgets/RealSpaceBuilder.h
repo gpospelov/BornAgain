@@ -61,7 +61,8 @@ public:
 
     void populateParticleFromParticle3DContainer(RealSpaceModel* model,
                                                  const Particle3DContainer& particle3DContainer,
-                                                 const QVector3D& lattice_position) const;
+                                                 const QVector3D& lattice_position
+                                                 = QVector3D()) const;
 };
 
 #endif // REALSPACEBUILDER_H

@@ -11,24 +11,27 @@ import bornagain as ba
 from matplotlib import pyplot as plt
 from os import path
 
-# beam wavelength
-wavelength = 1.54 * ba.angstrom
 
-# substrate (Si)
-si_sld_real = 2.0704e-06  # \AA^{-2}
-density_si = 0.0499 / ba.angstrom ** 3  # Si atomic number density
+def get_sample(params):
+    """
+    Creates a sample and returns it
+    :param params: a dictionary of optimization parameters
+    :return: the sample defined
+    """
 
-# layers' parameters
-n_repetitions = 10
-# Ni
-ni_sld_real = 9.4245e-06  # \AA^{-2}
-d_ni = 70 * ba.angstrom
-# Ti
-ti_sld_real = -1.9493e-06  # \AA^{-2}
-d_ti = 30 * ba.angstrom
+    # substrate (Si)
+    si_sld_real = 2.0704e-06  # \AA^{-2}
+    density_si = 0.0499 / ba.angstrom ** 3  # Si atomic number density
 
+    # layers' parameters
+    n_repetitions = 10
+    # Ni
+    ni_sld_real = 9.4245e-06  # \AA^{-2}
+    ni_thickness = 70 * ba.angstrom
+    # Ti
+    ti_sld_real = -1.9493e-06  # \AA^{-2}
+    ti_thickness = params["ti_thickness"]
 
-def get_sample():
     # defining materials
     m_air = ba.MaterialBySLD()
     m_ni = ba.MaterialBySLD("Ni", ni_sld_real, 0.0)
@@ -37,8 +40,8 @@ def get_sample():
 
     # air layer and substrate form multi layer
     air_layer = ba.Layer(m_air)
-    ni_layer = ba.Layer(m_ni, d_ni)
-    ti_layer = ba.Layer(m_ti, d_ti)
+    ni_layer = ba.Layer(m_ni, ni_thickness)
+    ti_layer = ba.Layer(m_ti, ti_thickness)
     substrate_layer = ba.Layer(m_substrate)
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -49,90 +52,91 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation(axis):
+def get_real_data():
+    """
+    Loading data from genx_interchanging_layers.dat
+    Returns a Nx2 array (N - the number of experimental data entries)
+    with first column being coordinates,
+    second one being values.
+    """
+    if not hasattr(get_real_data, "data"):
+        filename = "genx_interchanging_layers.dat.gz"
+        filepath = path.join(path.dirname(path.realpath(__file__)), filename)
+        real_data = np.loadtxt(filepath, usecols=(0, 1), skiprows=3)
+
+        # translating axis values from double incident angle (degrees)
+        # to incident angle (radians)
+        real_data[:, 0] *= np.pi / 360
+        get_real_data.data = real_data
+    return get_real_data.data.copy()
+
+
+def get_real_data_axis():
+    """
+    Get axis coordinates of the experimental data
+    :return: 1D array with axis coordinates
+    """
+    return get_real_data()[:, 0]
+
+
+def get_real_data_values():
+    """
+    Get experimental data values as a 1D array
+    :return: 1D array with experimental data values
+    """
+    return get_real_data()[:, 1]
+
+
+def get_inclination_axis():
+    """
+    Creates BornAgain axis, which corresponds to the given real_data axis.
+    :return: BornAgain.IAxis
+    """
+    real_data_axis = get_real_data_axis()
+    nbins = real_data_axis.size
+    min = real_data_axis[0] -\
+          (real_data_axis[1] - real_data_axis[0])\
+          / 2.0
+    max = real_data_axis[-1] +\
+          (real_data_axis[-1] - real_data_axis[-2])\
+          / 2.0
+    return ba.FixedBinAxis("alpha_i", nbins, min, max)
+
+
+def get_simulation(params):
     """
     Create and return specular simulation with its instrument defined
     """
+    wavelength = 1.54 * ba.angstrom  # beam wavelength
+
     simulation = ba.SpecularSimulation()
-    simulation.setBeamParameters(wavelength, axis)
+    simulation.setBeamParameters(wavelength, get_inclination_axis())
+    simulation.setSample(get_sample(params))
     return simulation
-
-
-def create_real_data():
-    """
-    Loading data from genx_interchanging_layers.dat
-    """
-    filepath = path.join(path.dirname(path.realpath(__file__)),
-                                      "genx_interchanging_layers.dat.gz")
-    ax_values, real_data = np.loadtxt(filepath,
-                                      usecols=(0, 1), skiprows=3, unpack=True)
-
-    # translating axis values from double incident angle (degrees)
-    # to incident angle (radians)
-    ax_values *= np.pi / 360
-
-    return ax_values, real_data
-
-
-def make_axis(ax_values):
-    """
-    Create BornAgain axis from given axis values
-    :param ax_values: ndarray, values on axis
-    :return: BornAgain.IAxis
-    """
-    name = "inc_angles"
-    nbins = ax_values.size
-    boundaries = np.array([(ax_values[i] + ax_values[i+1])/2
-                           for i in range(nbins-1)])
-    boundaries = np.insert(boundaries, 0, 2 * boundaries[0] - boundaries[1])
-    boundaries = np.insert(boundaries, nbins, 2 * boundaries[-1] - boundaries[-2])
-    return ba.VariableBinAxis(name, nbins, boundaries)
 
 
 def run_fitting():
     """
-    main function to run fitting
+    Setup simulation and fit
     """
-    ax_values, real_data = create_real_data()
-    axis = make_axis(ax_values)
 
-    simulation = get_simulation(axis)
-    sample = get_sample()
-    simulation.setSample(sample)
+    real_data = get_real_data_values()
 
-    print(simulation.treeToString())
-    print(simulation.parametersToString())
+    fit_objective = ba.FitObjective()
+    fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
 
-    fit_suite = ba.FitSuite()
-    fit_suite.addSimulationAndRealData(simulation, real_data)
-    fit_suite.initPrint(10)
+    plot_observer = ba.PlotterSpecular()
+    fit_objective.initPrint(10)
+    fit_objective.initPlot(10, plot_observer)
 
-    draw_observer = ba.DefaultFitObserver(draw_every_nth=10,
-                                          SimulationType='Specular')
-    fit_suite.attachObserver(draw_observer)
+    params = ba.Parameters()
+    params.add("ti_thickness", 50 * ba.angstrom,
+               min=10 * ba.angstrom, max=60 * ba.angstrom)
 
-    fitPar = ba.FitParameter(5. * ba.nm, ba.AttLimits.limited(1. * ba.nm,
-                                                              7. * ba.nm))
-    fitPar.setName("thickness")
-    for odd in [1, 3, 5, 7, 9]: # adding patterns for all odd layers' thicknesses
-        fitPar.addPattern("*" + str(odd) + "/Thickness*")
-    fit_suite.addFitParameter(fitPar)
+    minimizer = ba.Minimizer()
+    result = minimizer.minimize(fit_objective.evaluate, params)
 
-    strategy1 = ba.AdjustMinimizerStrategy("Minuit2", "Migrad",
-                                           "Strategy=2;Tolerance=1e-5")
-    fit_suite.addFitStrategy(strategy1)
-
-    # prints defined fit parameters and their relation to instrument parameters
-    print(fit_suite.setupToString())
-
-    # running fit
-    print("Starting the fitting")
-    fit_suite.runFit()
-
-    print("Fitting completed.")
-    print("chi2:", fit_suite.getChi2())
-    for fitPar in fit_suite.fitParameters():
-        print(fitPar.name(), fitPar.value(), fitPar.error())
+    fit_objective.finalize(result)
 
 
 if __name__ == '__main__':

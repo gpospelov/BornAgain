@@ -322,102 +322,6 @@ class PlotterGISASV2(Plotter):
 
 class PlotterSpecular(Plotter):
     """
-    Draws fit progress every nth iteration. This class has to be attached to
-    FitSuite via attachObserver method. Intended specifically for observing
-    specular data fit.
-    FitSuite kernel will call DrawObserver's update() method every n'th iteration.
-    """
-
-    def __init__(self, draw_every_nth=10):
-        Plotter.__init__(self)
-        self.gs = gridspec.GridSpec(1, 2, width_ratios=[2.5, 1], wspace=0)
-
-    @staticmethod
-    def as_si(val, ndp):
-        """
-        Fancy print of scientific-formatted values
-        :param val: numeric value
-        :param ndp: number of decimal digits to print
-        :return: a string corresponding to the _val_
-        """
-        s = '{x:0.{ndp:d}e}'.format(x=val, ndp=ndp)
-        m, e = s.split('e')
-        return r'{m:s}\times 10^{{{e:d}}}'.format(m=m, e=int(e))
-
-    @staticmethod
-    def trunc_str(token, length):
-        """
-        Truncates token if it is longer than length.
-
-        Example:
-            trunc_str("123456789", 8) returns "123456.."
-
-            trunc_str("123456789", 9) returns "123456789"
-
-        :param token: input string
-        :param length: max non-truncated length
-        :return:
-        """
-        return (token[:length - 2] + '..') if len(token) > length else token
-
-    def plot_table(self, fit_suite):
-
-        # definitions and values
-        trunc_length = 9  # max string field width in the table
-        n_digits = 1  # number of decimal digits to print
-        n_iterations = fit_suite.numberOfIterations()  # number of iterations
-        rel_dif = fit_suite.relativeDifference().array().max()  # maximum relative difference
-        fitted_parameters = fit_suite.fitParameters()
-
-        # creating table content
-        labels = ("Parameter", "Value")
-        table_data = [["Iteration", '${:d}$'.format(n_iterations)],
-                      ["$d_{r, max}$", '${:s}$'.format(self.as_si(rel_dif, n_digits))]]
-        for fitPar in fitted_parameters:
-            table_data.append(['{:s}'.format(self.trunc_str(fitPar.name(), trunc_length)),
-                               '${:s}$'.format(self.as_si(fitPar.value(), n_digits))])
-
-        # creating table
-        axs = plt.subplot(self.gs[1])
-        axs.axis('tight')
-        axs.axis('off')
-        table = plt.table(cellText=table_data, colLabels=labels, cellLoc='center',
-                          loc='bottom left', bbox=[0.0, 0.0, 1.0, 1.0])
-
-    def plot_graph(self, fit_suite):
-        # retrieving data from fit suite
-        real_data = fit_suite.experimentalData().histogram1d()
-        sim_data = fit_suite.simulationResult().histogram1d()
-
-        # normalizing axis coordinates
-        axis = sim_data.getXaxis().getBinCenters()
-        axis_values = [value for value in axis]
-
-        # default font properties dictionary to use
-        font = {'family': 'serif',
-                'weight': 'normal',
-                'size': label_fontsize}
-
-        plt.subplot(self.gs[0])
-        plt.semilogy(axis_values, sim_data.array(), 'b',
-                     axis_values, real_data.array(), 'k--')
-        plt.ylim((0.5 * real_data.getMinimum(), 5 * real_data.getMaximum()))
-        plt.legend(['BornAgain', 'Reference'], loc='upper right', prop=font)
-        plt.xlabel(sim_data.getXaxis().getName(), fontdict=font)
-        plt.ylabel("Intensity", fontdict=font)
-        plt.title("Specular data fitting", fontdict=font)
-
-    def plot(self, fit_suite):
-        Plotter.reset(self)
-
-        self.plot_graph(fit_suite)
-        self.plot_table(fit_suite)
-
-        Plotter.plot(self)
-
-
-class PlotterSpecularV2(Plotter):
-    """
     Draws fit progress. Intended specifically for observing
     specular data fit.
     """
@@ -540,8 +444,6 @@ class DefaultFitObserver(IFitObserver):
         IFitObserver.__init__(self, draw_every_nth)
         if SimulationType is 'GISAS':
             self._plotter = PlotterGISAS()
-        elif SimulationType is 'Specular':
-            self._plotter = PlotterSpecular()
         else:
             raise Exception("Unknown simulation type {:s}.".format(SimulationType))
 

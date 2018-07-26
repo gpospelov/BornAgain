@@ -26,3 +26,6 @@ SteepestDescentCylindersInBA::SteepestDescentCylindersInBA()
 FumuliCylindersInBA::FumuliCylindersInBA()
     : FitObjectiveTest("Minuit2", "Fumili", "CylindersInBAResidualPlan") {}
 
+LevenbergMarquardtCylindersInBA::LevenbergMarquardtCylindersInBA()
+    : FitObjectiveTest("GSLLMA", "", "CylindersInBAResidualPlan") {}
+

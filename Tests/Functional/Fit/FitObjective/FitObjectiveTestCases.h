@@ -43,4 +43,10 @@ public:
     FumuliCylindersInBA();
 };
 
+class LevenbergMarquardtCylindersInBA : public FitObjectiveTest
+{
+public:
+    LevenbergMarquardtCylindersInBA();
+};
+
 #endif //   MINIMIZERTESTCASES_H

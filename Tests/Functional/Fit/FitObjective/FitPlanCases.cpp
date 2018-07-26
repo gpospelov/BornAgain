@@ -88,7 +88,7 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
     result->setDetector(detector);
     result->setRegionOfInterest(6.0, 6.0, 14.0, 12.0);
     result->addMask(Rectangle(8.0, 8.0, 10.0, 10.0), true);
-    return result;
+    return std::unique_ptr<Simulation>(result.release());
 }
 
 // ----------------------------------------------------------------------------

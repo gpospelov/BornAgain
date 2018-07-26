@@ -86,9 +86,10 @@ void Particle3DContainer::clearContainer()
     m_containerParticlesBlend.clear();
 }
 
-void Particle3DContainer::addParticle(RealSpace::Particles::Particle* particle3D)
+void Particle3DContainer::addParticle(RealSpace::Particles::Particle* particle3D, bool blend)
 {
     m_containerParticles.emplace_back(particle3D);
+    m_containerParticlesBlend.emplace_back(blend);
 }
 
 void Particle3DContainer::setCumulativeAbundance(double cumulativeAbundance)
@@ -99,11 +100,6 @@ void Particle3DContainer::setCumulativeAbundance(double cumulativeAbundance)
 void Particle3DContainer::setParticleType(QString particleType)
 {
     m_containerType = particleType;
-}
-
-void Particle3DContainer::fillContainerParticlesBlend(bool blend)
-{
-    m_containerParticlesBlend.emplace_back(blend);
 }
 
 std::unique_ptr<RealSpace::Particles::Particle>

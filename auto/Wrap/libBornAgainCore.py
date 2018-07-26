@@ -7804,12 +7804,14 @@ class FitObjective(_object):
     __swig_destroy__ = _libBornAgainCore.delete_FitObjective
     __del__ = lambda self: None
 
-    def addSimulationAndData_cpp(self, callback, data, weight=1.0):
+    def addSimulationAndData_cpp(self, *args):
         """
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data, double weight=1.0)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data)
         addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, double weight=1.0)
         addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data)
         """
-        return _libBornAgainCore.FitObjective_addSimulationAndData_cpp(self, callback, data, weight)
+        return _libBornAgainCore.FitObjective_addSimulationAndData_cpp(self, *args)
 
 
     def evaluate_cpp(self, params):

@@ -50,6 +50,7 @@ class RectDetPlan : public FitPlan
 {
 public:
     RectDetPlan();
+    ~RectDetPlan();
 
 protected:
     std::unique_ptr<Simulation> createSimulation(const Fit::Parameters&) const;
@@ -62,6 +63,7 @@ class MultiPatternPlan : public FitPlan
 {
 public:
     MultiPatternPlan();
+    ~MultiPatternPlan();
 
 protected:
     std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;

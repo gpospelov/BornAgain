@@ -73,6 +73,8 @@ RectDetPlan::RectDetPlan()
     addParameter(Parameter("radius", 5.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
 }
 
+RectDetPlan::~RectDetPlan() = default;
+
 std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) const
 {
     std::unique_ptr<GISASSimulation> result(new GISASSimulation());
@@ -97,6 +99,8 @@ MultiPatternPlan::MultiPatternPlan()
     setSimulationName("MiniGISAS");
     addParameter(Parameter("length", 8.5*nm, AttLimits::limited(4.0, 12.0), 0.01), 8.0*nm);
 }
+
+MultiPatternPlan::~MultiPatternPlan() = default;
 
 std::unique_ptr<MultiLayer> MultiPatternPlan::createMultiLayer(const Parameters& params) const
 {

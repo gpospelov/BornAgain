@@ -15,13 +15,10 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-def get_sample(params):
+def get_sample(radius=5.0*nm, height=5.0*nm):
     """
     Returns a sample with uncorrelated cylinders and pyramids on a substrate.
     """
-    radius = params["radius"]
-    height = params["height"]
-
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
@@ -42,7 +39,7 @@ def get_sample(params):
     return multi_layer
 
 
-def get_simulation(params):
+def get_simulation():
     """
     Returns a GISAXS simulation with beam and detector defined.
     """
@@ -51,7 +48,6 @@ def get_simulation(params):
                                      100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setBeamIntensity(1e+08)
-    simulation.setSample(get_sample(params))
     return simulation
 
 
@@ -59,9 +55,9 @@ def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    params = {'radius': 5.0*nm, 'height': 5.0*nm}
-
-    simulation = get_simulation(params)
+    sample = get_sample(5.0*nm, 5.0*nm)
+    simulation = get_simulation()
+    simulation.setSample(sample)
     simulation.runSimulation()
 
     # retrieving simulated data in the form of numpy array
@@ -78,43 +74,47 @@ def run_fitting():
     """
     main function to run fitting
     """
+    simulation = get_simulation()
+    sample = get_sample()
+    simulation.setSample(sample)
+
     real_data = create_real_data()
 
-    fit_objective = ba.FitObjective()
-    fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
-    fit_objective.initPrint(10)
-    fit_objective.initPlot(10)
+    fit_suite = ba.FitSuite()
+    fit_suite.addSimulationAndRealData(simulation, real_data)
+    fit_suite.initPrint(10)
 
-    """
-    Setting fitting parameters with starting values.
-    Here we select starting values being quite far from true values
-    to puzzle our minimizer's as much as possible.
-    """
-    params = ba.Parameters()
-    params.add("height", 1.*nm, min=0.01, max=30.0, step=0.05*nm)
-    params.add("radius", 20.*nm, min=0.01, max=30.0, step=0.05*nm)
+    draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
+    fit_suite.attachObserver(draw_observer)
 
-    """
-    Now we run first minimization round using the Genetic minimizer.
-    The Genetic minimizer is able to explore large parameter space
-    without being trapped by some local minima.
-    """
-    minimizer = ba.Minimizer()
-    minimizer.setMinimizer("Genetic", "", "MaxIterations=2;RandomSeed=1")
-    result = minimizer.minimize(fit_objective.evaluate, params)
-    fit_objective.finalize(result)
+    # setting fitting parameters with starting values
+    # Here we select starting values being quite far from true values
+    # to puzzle our minimizer's as much as possible
+    fit_suite.addFitParameter("*Height", 1.*nm).setLimited(0.01, 30.)\
+        .setStep(0.05*nm)
+    fit_suite.addFitParameter("*Radius", 20.*nm).setLimited(0.01, 30.)\
+        .setStep(0.05*nm)
 
-    best_params_so_far = result.parameters()
+    # Now we create first fig strategy which will run first minimization round
+    # using the Genetic minimizer.
+    # The Genetic minimizer is able to explore large parameter space
+    # without being trapped by some local minima.
+    strategy1 = ba.AdjustMinimizerStrategy("Genetic", "", "MaxIterations=2;RandomSeed=1")
+    fit_suite.addFitStrategy(strategy1)
 
-    """
-    Second fit will use another minimizer.
-    It starts from best parameters found in previous minimization
-    and then continues until fit converges.
-    """
-    minimizer.setMinimizer("Minuit2", "Migrad")
-    result = minimizer.minimize(fit_objective.evaluate, best_params_so_far)
+    # Second fit strategy will use another minimizer.
+    # It starts from best parameters found in previous minimization
+    # and then continues until fit converges.
+    strategy2 = ba.AdjustMinimizerStrategy("Minuit2", "Migrad")
+    fit_suite.addFitStrategy(strategy2)
 
-    fit_objective.finalize(result)
+    # running fit
+    fit_suite.runFit()
+
+    print("Fitting completed.")
+    print("chi2:", fit_suite.getChi2())
+    for fitPar in fit_suite.fitParameters():
+        print(fitPar.name(), fitPar.value(), fitPar.error())
 
 
 if __name__ == '__main__':

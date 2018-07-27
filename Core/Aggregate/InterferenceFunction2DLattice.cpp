@@ -158,13 +158,12 @@ void InterferenceFunction2DLattice::init_parameters()
 double InterferenceFunction2DLattice::interferenceForXi(double xi) const
 {
     double result = 0.0;
-    double qx_frac, qy_frac;
-    calculateReciprocalVectorFraction(m_qx, m_qy, xi, qx_frac, qy_frac);
+    auto q_frac = calculateReciprocalVectorFraction(m_qx, m_qy, xi);
 
     for (int i = -m_na - 1; i < m_na + 2; ++i) {
         for (int j = -m_nb - 1; j < m_nb + 2; ++j) {
-            double qx = qx_frac + i * m_sbase.m_asx + j * m_sbase.m_bsx;
-            double qy = qy_frac + i * m_sbase.m_asy + j * m_sbase.m_bsy;
+            double qx = q_frac.first + i * m_sbase.m_asx + j * m_sbase.m_bsx;
+            double qy = q_frac.second + i * m_sbase.m_asy + j * m_sbase.m_bsy;
             result += interferenceAtOneRecLatticePoint(qx, qy);
         }
     }
@@ -177,22 +176,22 @@ double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx
         throw Exceptions::NullPointerException(
             "InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
             " -> Error! No decay function defined.");
-    double q_X, q_Y;
     double gamma = m_decay->gamma();
-    transformToPrincipalAxes(qx, qy, gamma, q_X, q_Y);
-    return m_decay->evaluate(q_X, q_Y);
+    auto qXY = transformToPrincipalAxes(qx, qy, gamma);
+    return m_decay->evaluate(qXY.first, qXY.second);
 }
 
 // Rotate between orthonormal systems (q_x,q_y) -> (q_X,q_Y)
-void InterferenceFunction2DLattice::transformToPrincipalAxes(
-    double qx, double qy, double gamma, double &q_X, double &q_Y) const
+std::pair<double, double>
+InterferenceFunction2DLattice::transformToPrincipalAxes(double qx, double qy, double gamma) const
 {
-    q_X = qx * std::cos(gamma) + qy * std::sin(gamma);
-    q_Y = -qx * std::sin(gamma) + qy * std::cos(gamma);
+    double q_X = qx * std::cos(gamma) + qy * std::sin(gamma);
+    double q_Y = -qx * std::sin(gamma) + qy * std::cos(gamma);
+    return {q_X, q_Y};
 }
 
-void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
-    double qx, double qy, double xi, double &qx_frac, double &qy_frac) const
+std::pair<double, double> InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
+    double qx, double qy, double xi) const
 {
     double a = m_lattice->length1();
     double b = m_lattice->length2();
@@ -203,8 +202,9 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(
     int qa_int = static_cast<int>(std::lround(a*qx_rot / M_TWOPI));
     int qb_int = static_cast<int>(
                      std::lround(b*(qx*std::cos(alpha) + qy*std::sin(alpha)) / M_TWOPI));
-    qx_frac = qx_rot - qa_int * m_sbase.m_asx - qb_int * m_sbase.m_bsx;
-    qy_frac = qy_rot - qa_int * m_sbase.m_asy - qb_int * m_sbase.m_bsy;
+    double qx_frac = qx_rot - qa_int * m_sbase.m_asx - qb_int * m_sbase.m_bsx;
+    double qy_frac = qy_rot - qa_int * m_sbase.m_asy - qb_int * m_sbase.m_bsy;
+    return {qx_frac, qy_frac};
 }
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()

@@ -65,13 +65,12 @@ private:
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
     //! Returns reciprocal coordinates in the coordinate system rotated by the angle gamma
-    void transformToPrincipalAxes(double qx, double qy, double gamma,
-                                  double& q_X, double& q_Y) const;
+    std::pair<double, double> transformToPrincipalAxes(double qx, double qy, double gamma) const;
 
     //! Returns qx,qy coordinates of q - qint, where qint is a reciprocal lattice vector
     //! bounding the reciprocal unit cell to which q belongs
-    void calculateReciprocalVectorFraction(double qx, double qy, double xi,
-                                           double& qx_frac, double& qy_frac) const;
+    std::pair<double, double> calculateReciprocalVectorFraction(
+            double qx, double qy, double xi) const;
 
     //! Initializes the x,y coordinates of the a*,b* reciprocal bases
     void initialize_rec_vectors();

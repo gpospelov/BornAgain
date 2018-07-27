@@ -177,8 +177,8 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
     } else if (particleItem.modelType() == Constants::ParticleCoreShellType) {
         auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(&particleItem);
         // If there is no CORE or SHELL to populate inside ParticleCoreShellItem
-        if (!particleCoreShellItem->getItem(ParticleCoreShellItem::T_CORE) ||
-                !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
+        if (!particleCoreShellItem->getItem(ParticleCoreShellItem::T_CORE)
+            || !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
             return;
         auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
         RealSpaceBuilderUtils::populateParticleCoreShell(model, particleCoreShell.get(), origin);

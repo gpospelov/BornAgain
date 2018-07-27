@@ -129,9 +129,9 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
     Particle3DContainer p5(std::move(p4));
 
     // Test the contents of the Particle3DContainer being moved-from
-    EXPECT_EQ(p4.containerSize(), 0u); // move empties the std::vector container
-    EXPECT_EQ(p4.cumulativeAbundance(), 1);                // move doesn't affect int data member
-    EXPECT_EQ(p4.particleType(), "");                      // move empties the QString
+    EXPECT_EQ(p4.containerSize(), 0u);      // move empties the std::vector container
+    EXPECT_EQ(p4.cumulativeAbundance(), 1); // move doesn't affect int data member
+    EXPECT_EQ(p4.particleType(), "");       // move empties the QString
 
     // Test the contents of the Particle3DContainer being moved-to
     EXPECT_EQ(p5.containerSize(), 1u);

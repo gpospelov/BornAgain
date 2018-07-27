@@ -501,12 +501,10 @@ Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Parti
     auto ff = getUnderlyingFormFactor(particleff.get());
 
     auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
-
     applyParticleTransformations(particle, particle3D.get());
     applyParticleColor(particle, particle3D.get());
 
     Particle3DContainer singleParticle3DContainer;
-
     singleParticle3DContainer.addParticle(particle3D.release(), false);
     singleParticle3DContainer.setCumulativeAbundance(particle->abundance() / total_abundance);
     singleParticle3DContainer.setParticleType(Constants::ParticleType);
@@ -560,22 +558,22 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
     for (const IParticle* pc_particle : pc_vector) {
 
         Particle3DContainer particle3DContainer;
-
+        // no abundances are associated with the individual components of ParticleComposition
         if (dynamic_cast<const ParticleCoreShell*>(pc_particle)) {
             auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pc_particle);
-            particle3DContainer = particleCoreShell3DContainer(particleCoreShell, total_abundance);
+            particle3DContainer = particleCoreShell3DContainer(particleCoreShell);
         } else {
             auto particle = dynamic_cast<const Particle*>(pc_particle);
-            particle3DContainer = singleParticle3DContainer(particle, total_abundance);
+            particle3DContainer = singleParticle3DContainer(particle);
         }
-
+        // add particles from 3Dcontainer of core-shell/particle into particleComposition3DContainer
         for (size_t i = 0; i < particle3DContainer.containerSize(); ++i) {
             particleComposition3DContainer.addParticle(
                 particle3DContainer.createParticle(i).release(),
                 particle3DContainer.particle3DBlend(i));
         }
     }
-
+    // set the correct abundance for the entire ParticleComposition
     particleComposition3DContainer.setCumulativeAbundance(particleComposition->abundance()
                                                           / total_abundance);
     particleComposition3DContainer.setParticleType(Constants::ParticleCompositionType);
@@ -604,6 +602,5 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
         }
         particleDistribution3DContainer_vector.emplace_back(std::move(particle3DContainer));
     }
-
     return particleDistribution3DContainer_vector;
 }

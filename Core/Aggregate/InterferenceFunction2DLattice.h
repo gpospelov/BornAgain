@@ -64,9 +64,9 @@ private:
     //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
-    //! Returns reciprocal coordinates in the principal axis system
+    //! Returns reciprocal coordinates in the coordinate system rotated by the angle gamma
     void transformToPrincipalAxes(double qx, double qy, double gamma,
-                                  double& q_pa_1, double& q_pa_2) const;
+                                  double& q_X, double& q_Y) const;
 
     //! Returns qx,qy coordinates of q - qint, where qint is a reciprocal lattice vector
     //! bounding the reciprocal unit cell to which q belongs

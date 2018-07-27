@@ -18,6 +18,7 @@
 #include "ICloneable.h"
 #include "INode.h"
 #include "MathConstants.h"
+#include <utility>
 
 //! Interface for a one-dimensional decay function,
 //!   with evaluate(q) returning the Fourier transform,
@@ -137,6 +138,12 @@ protected:
     double m_decay_length_x;
     double m_decay_length_y;
     double m_gamma;
+
+private:
+    //! transform reciprocal coordinate system of this decay function to the reciprocal
+    //! lattice system
+    std::pair<double, double> transformToRecLatticeCoordinates(double qX, double qY,
+                                                               double a, double b, double alpha);
 };
 
 

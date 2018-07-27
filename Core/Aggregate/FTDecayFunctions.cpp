@@ -175,6 +175,14 @@ void IFTDecayFunction2D::init_parameters()
     register_gamma();
 }
 
+std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(
+        double qX, double qY, double a, double b, double alpha)
+{
+    double qa = a*qX*std::cos(m_gamma) - a*qY*std::sin(m_gamma);
+    double qb = b*qX*std::cos(alpha-m_gamma) + b*qY*std::sin(alpha-m_gamma);
+    return { qa, qb };
+}
+
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y,
                                                  double gamma)
     : IFTDecayFunction2D(decay_length_x, decay_length_y, gamma)

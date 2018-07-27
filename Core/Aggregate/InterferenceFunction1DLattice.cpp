@@ -18,6 +18,7 @@
 #include "FTDecayFunctions.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include <algorithm>
 
 namespace {
 // maximum value for qx*Lambdax

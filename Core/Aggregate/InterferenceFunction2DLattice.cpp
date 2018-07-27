@@ -19,6 +19,7 @@
 #include "Macros.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include <algorithm>
 
 
 namespace {

@@ -18,6 +18,7 @@
 #include "ParameterPool.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
+#include <algorithm>
 
 //===============1D======================
 

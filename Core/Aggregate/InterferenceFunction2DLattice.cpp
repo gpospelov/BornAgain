@@ -206,15 +206,16 @@ InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx, doub
     double qy_rot = -qx * std::sin(xi) + qy * std::cos(xi);
 
     // find the reciprocal lattice coordinates of (qx_rot, qy_rot):
-    int qa_int = static_cast<int>(std::lround(a * qx_rot));
-    int qb_int =
-        static_cast<int>(std::lround(b * (qx_rot * std::cos(alpha) + qy_rot * std::sin(alpha))));
+    int qa_int = static_cast<int>(std::lround(a * qx_rot / M_TWOPI));
+    int qb_int = static_cast<int>(
+        std::lround(b * (qx_rot * std::cos(alpha) + qy_rot * std::sin(alpha)) / M_TWOPI));
     // take the fractional part only (in m_sbase coordinates)
     double qx_frac = qx_rot - qa_int * m_sbase.m_asx - qb_int * m_sbase.m_bsx;
     double qy_frac = qy_rot - qa_int * m_sbase.m_asy - qb_int * m_sbase.m_bsy;
     return {qx_frac, qy_frac};
 }
 
+// Do not store xi in the reciprocal lattice
 void InterferenceFunction2DLattice::initialize_rec_vectors()
 {
     if(!m_lattice)
@@ -236,7 +237,7 @@ void InterferenceFunction2DLattice::initialize_calc_factors()
     // number of reciprocal lattice points to use
     auto q_bounds = m_decay->boundingReciprocalLatticeCoordinates(
                 nmax / m_decay->decayLengthX(), nmax / m_decay->decayLengthY(),
-                m_lattice->latticeAngle(), m_lattice->length1(), m_lattice->length2());
+                m_lattice->length1(), m_lattice->length2(), m_lattice->latticeAngle());
     m_na = static_cast<int>(std::lround(q_bounds.first + 0.5));
     m_nb = static_cast<int>(std::lround(q_bounds.second + 0.5));
     m_na = std::max(m_na, min_points);

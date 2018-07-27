@@ -10376,9 +10376,9 @@ class IFTDecayFunction2D(ICloneable, INode):
         return _libBornAgainCore.IFTDecayFunction2D_evaluate(self, qx, qy)
 
 
-    def boundingReciprocalLatticeCoordinates(self, qX, qY, alpha, a, b):
-        """boundingReciprocalLatticeCoordinates(IFTDecayFunction2D self, double qX, double qY, double alpha, double a, double b) -> std::pair< double,double >"""
-        return _libBornAgainCore.IFTDecayFunction2D_boundingReciprocalLatticeCoordinates(self, qX, qY, alpha, a, b)
+    def boundingReciprocalLatticeCoordinates(self, qX, qY, a, b, alpha):
+        """boundingReciprocalLatticeCoordinates(IFTDecayFunction2D self, double qX, double qY, double a, double b, double alpha) -> std::pair< double,double >"""
+        return _libBornAgainCore.IFTDecayFunction2D_boundingReciprocalLatticeCoordinates(self, qX, qY, a, b, alpha)
 
     __swig_destroy__ = _libBornAgainCore.delete_IFTDecayFunction2D
     __del__ = lambda self: None

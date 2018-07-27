@@ -59,7 +59,7 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& d
     m_decay.reset(decay.clone());
     registerChild(m_decay.get());
     double decay_length = m_decay->decayLength();
-    double qa_max = m_lattice_params.m_length * nmax / decay_length;
+    double qa_max = m_lattice_params.m_length * nmax / decay_length / M_TWOPI;
     m_na = static_cast<int>(std::lround(std::abs(qa_max) + 0.5));
     m_na = std::max(m_na, min_points);
 }

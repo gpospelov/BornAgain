@@ -128,8 +128,8 @@ public:
     virtual double evaluate(double qx, double qy) const=0;
 
     //! transform back to a*, b* basis:
-    std::pair<double, double>  boundingReciprocalLatticeCoordinates(double qX, double qY,
-            double alpha, double a, double b) const;
+    std::pair<double, double>  boundingReciprocalLatticeCoordinates(
+            double qX, double qY, double a, double b, double alpha) const;
 
 protected:
     void register_decay_lengths();

@@ -151,8 +151,8 @@ IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_lengt
 //! Calculates bounding values of reciprocal lattice coordinates that contain the centered
 //! rectangle with a corner defined by qX and qY
 std::pair<double, double>
-IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, double alpha,
-                                                         double a, double b) const
+IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(
+        double qX, double qY, double a, double b, double alpha) const
 {
     auto q_bounds_1 = transformToRecLatticeCoordinates(qX, qY, a, b, alpha);
     auto q_bounds_2 = transformToRecLatticeCoordinates(qX, -qY, a, b, alpha);
@@ -184,8 +184,8 @@ void IFTDecayFunction2D::init_parameters()
 std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(
         double qX, double qY, double a, double b, double alpha) const
 {
-    double qa = a * qX * std::cos(m_gamma) - a * qY * std::sin(m_gamma);
-    double qb = b * qX * std::cos(alpha - m_gamma) + b * qY * std::sin(alpha - m_gamma);
+    double qa = (a * qX * std::cos(m_gamma) - a * qY * std::sin(m_gamma)) / M_TWOPI;
+    double qb = (b * qX * std::cos(alpha - m_gamma) + b * qY * std::sin(alpha - m_gamma)) / M_TWOPI;
     return {qa, qb};
 }
 

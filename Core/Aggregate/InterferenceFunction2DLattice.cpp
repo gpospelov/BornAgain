@@ -206,7 +206,8 @@ InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx, doub
 
     // find the reciprocal lattice coordinates of (qx_rot, qy_rot):
     int qa_int = static_cast<int>(std::lround(a * qx_rot));
-    int qb_int = static_cast<int>(std::lround(b * (qx * std::cos(alpha) + qy * std::sin(alpha))));
+    int qb_int =
+        static_cast<int>(std::lround(b * (qx_rot * std::cos(alpha) + qy_rot * std::sin(alpha))));
     // take the fractional part only (in m_sbase coordinates)
     double qx_frac = qx_rot - qa_int * m_sbase.m_asx - qb_int * m_sbase.m_bsx;
     double qy_frac = qy_rot - qa_int * m_sbase.m_asy - qb_int * m_sbase.m_bsy;

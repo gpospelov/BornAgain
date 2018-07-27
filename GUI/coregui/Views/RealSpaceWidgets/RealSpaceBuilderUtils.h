@@ -79,32 +79,34 @@ BA_CORE_API_ QVector3D implementParticleRotationfromIRotation(const IRotation*& 
 
 //! Apply transformations (translation, rotation) to a 3D Particle
 //! or to a particle belonging to a ParticleComposition
-BA_CORE_API_ void applyParticleTransformations(const Particle &particle,
-                                               RealSpace::Particles::Particle &particle3D,
+BA_CORE_API_ void applyParticleTransformations(const Particle& particle,
+                                               RealSpace::Particles::Particle& particle3D,
                                                const QVector3D& origin = QVector3D());
 
 //! Apply transformations (translation, rotation) to a particle (core/shell) in a ParticleCoreShell
-BA_CORE_API_ void applyParticleCoreShellTransformations(const Particle &particle,
+BA_CORE_API_ void applyParticleCoreShellTransformations(const Particle& particle,
                                                         RealSpace::Particles::Particle& particle3D,
-                                                        const ParticleCoreShell &particleCoreShell,
+                                                        const ParticleCoreShell& particleCoreShell,
                                                         const QVector3D& origin = QVector3D());
 
 // Apply color to a 3D particle
-BA_CORE_API_ void applyParticleColor(const Particle &particle,
-                                     RealSpace::Particles::Particle &particle3D, double alpha = 1);
+BA_CORE_API_ void applyParticleColor(const Particle& particle,
+                                     RealSpace::Particles::Particle& particle3D, double alpha = 1);
 
 BA_CORE_API_ std::vector<Particle3DContainer>
 particle3DContainerVector(const SessionItem& layoutItem);
 
-BA_CORE_API_ Particle3DContainer singleParticle3DContainer(const Particle &particle,
+BA_CORE_API_ Particle3DContainer singleParticle3DContainer(const Particle& particle,
                                                            double total_abundance = 1.0);
 
-BA_CORE_API_ Particle3DContainer particleCoreShell3DContainer(const ParticleCoreShell &particleCoreShell, double total_abundance = 1.0);
+BA_CORE_API_ Particle3DContainer particleCoreShell3DContainer(
+    const ParticleCoreShell& particleCoreShell, double total_abundance = 1.0);
 
-BA_CORE_API_ Particle3DContainer particleComposition3DContainer(const ParticleComposition &particleComposition3DContainer, double total_abundance = 1.0);
+BA_CORE_API_ Particle3DContainer particleComposition3DContainer(
+    const ParticleComposition& particleComposition3DContainer, double total_abundance = 1.0);
 
 BA_CORE_API_ std::vector<Particle3DContainer>
-particleDistribution3DContainer(const ParticleDistribution &particleDistribution,
+particleDistribution3DContainer(const ParticleDistribution& particleDistribution,
                                 double total_abundance = 1.0);
 
 } // namespace RealSpaceBuilderUtils

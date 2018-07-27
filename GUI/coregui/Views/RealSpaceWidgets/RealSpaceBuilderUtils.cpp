@@ -272,7 +272,6 @@ void RealSpaceBuilderUtils::applyParticleTransformations(const Particle& particl
     // particleComposition's decompose() method already does this
 
     particle3D.addTransform(particle_rotate, position);
-
 }
 
 void RealSpaceBuilderUtils::applyParticleCoreShellTransformations(
@@ -303,7 +302,6 @@ void RealSpaceBuilderUtils::applyParticleCoreShellTransformations(
                                  static_cast<float>(P_clone->position().z()) + origin.z());
 
     particle3D.transform(particle_rotate, position);
-
 }
 
 void RealSpaceBuilderUtils::applyParticleColor(const Particle& particle,
@@ -343,8 +341,7 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
                 || !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
                 continue;
             auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-            particle3DContainer
-                = particleCoreShell3DContainer(*particleCoreShell, total_abundance);
+            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance);
         } else if (particleItem->modelType() == Constants::ParticleCompositionType) {
             auto particleCompositionItem
                 = dynamic_cast<const ParticleCompositionItem*>(particleItem);

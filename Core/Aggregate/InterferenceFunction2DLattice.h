@@ -83,7 +83,6 @@ private:
     std::unique_ptr<IFTDecayFunction2D> m_decay;
     std::unique_ptr<Lattice2D> m_lattice;
     Lattice2D::ReciprocalBases m_sbase;
-    static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
     mutable double m_qx;
     mutable double m_qy;

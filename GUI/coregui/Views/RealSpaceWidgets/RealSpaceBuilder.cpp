@@ -168,16 +168,26 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
 {
     if (particleItem.modelType() == Constants::ParticleCompositionType) {
         auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
+        // If there is no particle to populate inside ParticleCompositionItem
+        if (!particleCompositionItem->getItem(ParticleCompositionItem::T_PARTICLES))
+            return;
         auto particleComposition = particleCompositionItem->createParticleComposition();
         RealSpaceBuilderUtils::populateParticleComposition(model, particleComposition.get(),
                                                            origin);
     } else if (particleItem.modelType() == Constants::ParticleCoreShellType) {
         auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(&particleItem);
+        // If there is no CORE or SHELL to populate inside ParticleCoreShellItem
+        if (!particleCoreShellItem->getItem(ParticleCoreShellItem::T_CORE) ||
+                !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
+            return;
         auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
         RealSpaceBuilderUtils::populateParticleCoreShell(model, particleCoreShell.get(), origin);
     } else if (particleItem.modelType() == Constants::ParticleDistributionType) {
         auto particleDistributionItem
             = dynamic_cast<const ParticleDistributionItem*>(&particleItem);
+        // If there is no particle to populate inside ParticleDistributionItem
+        if (!particleDistributionItem->getItem(ParticleDistributionItem::T_PARTICLES))
+            return;
         auto particleDistribution = particleDistributionItem->createParticleDistribution();
         RealSpaceBuilderUtils::populateParticleDistribution(model, particleDistribution.get(),
                                                             origin);

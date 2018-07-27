@@ -7894,8 +7894,11 @@ class FitObjective(_object):
 
 
     def addSimulationAndData(self, callback, data, weight):
-        self.wrp = SimulationBuilderWrapper(callback)
-        return self.addSimulationAndData_cpp(self.wrp, data, weight)
+        if not hasattr(self, 'callback_container'):
+            self.callback_container = []
+        wrp = SimulationBuilderWrapper(callback)
+        self.callback_container.append(wrp)
+        return self.addSimulationAndData_cpp(wrp, data, weight)
 
     def convert_params(self, params):
         """

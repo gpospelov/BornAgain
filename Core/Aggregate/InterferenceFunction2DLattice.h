@@ -65,7 +65,7 @@ private:
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
     //! Returns reciprocal coordinates in the coordinate system rotated by the angle gamma
-    std::pair<double, double> transformToPrincipalAxes(double qx, double qy, double gamma) const;
+    std::pair<double, double> rotateOrthonormal(double qx, double qy, double gamma) const;
 
     //! Returns qx,qy coordinates of q - qint, where qint is a reciprocal lattice vector
     //! bounding the reciprocal unit cell to which q belongs

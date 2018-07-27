@@ -60,10 +60,9 @@ public:
         return m_containerParticlesBlend.at(index);
     }
 
-    void addParticle(RealSpace::Particles::Particle* particle3D);
+    void addParticle(RealSpace::Particles::Particle* particle3D, bool blend);
     void setCumulativeAbundance(double cumulativeAbundance);
     void setParticleType(QString particleType);
-    void fillContainerParticlesBlend(bool blend);
 
     std::unique_ptr<RealSpace::Particles::Particle> createParticle(const size_t& index) const;
 

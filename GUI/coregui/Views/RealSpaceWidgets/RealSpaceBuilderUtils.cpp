@@ -28,6 +28,7 @@
 #include "ParticleCoreShell.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistribution.h"
+#include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
 #include "RealSpaceBuilder.h"
@@ -453,15 +454,37 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
             particle3DContainer = singleParticle3DContainer(particle.get(), total_abundance);
         } else if (particleItem->modelType() == Constants::ParticleCoreShellType) {
             auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(particleItem);
+            // If there is no CORE or SHELL to populate inside ParticleCoreShellItem
+            if (!particleCoreShellItem->getItem(ParticleCoreShellItem::T_CORE)
+                || !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
+                continue;
             auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
             particle3DContainer
                 = particleCoreShell3DContainer(particleCoreShell.get(), total_abundance);
         } else if (particleItem->modelType() == Constants::ParticleCompositionType) {
             auto particleCompositionItem
                 = dynamic_cast<const ParticleCompositionItem*>(particleItem);
+            // If there is no particle to populate inside ParticleCompositionItem
+            if (!particleCompositionItem->getItem(ParticleCompositionItem::T_PARTICLES))
+                continue;
             auto particleComposition = particleCompositionItem->createParticleComposition();
             particle3DContainer
                 = particleComposition3DContainer(particleComposition.get(), total_abundance);
+        } else if (particleItem->modelType() == Constants::ParticleDistributionType) {
+            auto particleDistributionItem
+                = dynamic_cast<const ParticleDistributionItem*>(particleItem);
+            // If there is no particle to populate inside ParticleDistributionItem
+            if (!particleDistributionItem->getItem(ParticleDistributionItem::T_PARTICLES))
+                continue;
+            auto particleDistribution = particleDistributionItem->createParticleDistribution();
+            std::vector<Particle3DContainer> pd_ContainerVector
+                = particleDistribution3DContainer(particleDistribution.get(), total_abundance);
+            for (size_t i = 0; i < pd_ContainerVector.size(); ++i) {
+                cumulative_abundance += pd_ContainerVector[i].cumulativeAbundance();
+                pd_ContainerVector[i].setCumulativeAbundance(cumulative_abundance);
+                particle3DContainer_vector.emplace_back(std::move(pd_ContainerVector[i]));
+            }
+            continue;
         }
         cumulative_abundance += particle3DContainer.cumulativeAbundance();
         particle3DContainer.setCumulativeAbundance(cumulative_abundance);
@@ -478,16 +501,13 @@ Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Parti
     auto ff = getUnderlyingFormFactor(particleff.get());
 
     auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
-
     applyParticleTransformations(particle, particle3D.get());
     applyParticleColor(particle, particle3D.get());
 
     Particle3DContainer singleParticle3DContainer;
-
-    singleParticle3DContainer.addParticle(particle3D.release());
+    singleParticle3DContainer.addParticle(particle3D.release(), false);
     singleParticle3DContainer.setCumulativeAbundance(particle->abundance() / total_abundance);
     singleParticle3DContainer.setParticleType(Constants::ParticleType);
-    singleParticle3DContainer.fillContainerParticlesBlend(false);
 
     return singleParticle3DContainer;
 }
@@ -519,10 +539,8 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell* par
 
     Particle3DContainer particleCoreShell3DContainer;
 
-    particleCoreShell3DContainer.addParticle(coreParticle3D.release()); // index 0
-    particleCoreShell3DContainer.fillContainerParticlesBlend(false);
-    particleCoreShell3DContainer.addParticle(shellParticle3D.release()); // index 1
-    particleCoreShell3DContainer.fillContainerParticlesBlend(true);
+    particleCoreShell3DContainer.addParticle(coreParticle3D.release(), false); // index 0
+    particleCoreShell3DContainer.addParticle(shellParticle3D.release(), true); // index 1
     particleCoreShell3DContainer.setCumulativeAbundance(particleCoreShell->abundance()
                                                         / total_abundance);
     particleCoreShell3DContainer.setParticleType(Constants::ParticleCoreShellType);
@@ -540,25 +558,49 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
     for (const IParticle* pc_particle : pc_vector) {
 
         Particle3DContainer particle3DContainer;
-
+        // no abundances are associated with the individual components of ParticleComposition
         if (dynamic_cast<const ParticleCoreShell*>(pc_particle)) {
             auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pc_particle);
-            particle3DContainer = particleCoreShell3DContainer(particleCoreShell, total_abundance);
+            particle3DContainer = particleCoreShell3DContainer(particleCoreShell);
         } else {
             auto particle = dynamic_cast<const Particle*>(pc_particle);
-            particle3DContainer = singleParticle3DContainer(particle, total_abundance);
+            particle3DContainer = singleParticle3DContainer(particle);
         }
-
+        // add particles from 3Dcontainer of core-shell/particle into particleComposition3DContainer
         for (size_t i = 0; i < particle3DContainer.containerSize(); ++i) {
             particleComposition3DContainer.addParticle(
-                particle3DContainer.createParticle(i).release());
-            particleComposition3DContainer.fillContainerParticlesBlend(
+                particle3DContainer.createParticle(i).release(),
                 particle3DContainer.particle3DBlend(i));
         }
     }
-
+    // set the correct abundance for the entire ParticleComposition
     particleComposition3DContainer.setCumulativeAbundance(particleComposition->abundance()
                                                           / total_abundance);
     particleComposition3DContainer.setParticleType(Constants::ParticleCompositionType);
     return particleComposition3DContainer;
+}
+
+std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DContainer(
+    const ParticleDistribution* particleDistribution, double total_abundance)
+{
+    auto pd_vector = particleDistribution->generateParticles();
+
+    std::vector<Particle3DContainer> particleDistribution3DContainer_vector;
+
+    for (auto pd_particle : pd_vector) {
+        Particle3DContainer particle3DContainer;
+        if (dynamic_cast<const ParticleComposition*>(pd_particle)) {
+            auto particleComposition = dynamic_cast<const ParticleComposition*>(pd_particle);
+            particle3DContainer
+                = particleComposition3DContainer(particleComposition, total_abundance);
+        } else if (dynamic_cast<const ParticleCoreShell*>(pd_particle)) {
+            auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pd_particle);
+            particle3DContainer = particleCoreShell3DContainer(particleCoreShell, total_abundance);
+        } else {
+            auto particle = dynamic_cast<const Particle*>(pd_particle);
+            particle3DContainer = singleParticle3DContainer(particle, total_abundance);
+        }
+        particleDistribution3DContainer_vector.emplace_back(std::move(particle3DContainer));
+    }
+    return particleDistribution3DContainer_vector;
 }

@@ -121,6 +121,10 @@ BA_CORE_API_ Particle3DContainer particleCoreShell3DContainer(
 BA_CORE_API_ Particle3DContainer particleComposition3DContainer(
     const ParticleComposition* particleComposition3DContainer, double total_abundance = 1.0);
 
+BA_CORE_API_ std::vector<Particle3DContainer>
+particleDistribution3DContainer(const ParticleDistribution* particleDistribution,
+                                double total_abundance = 1.0);
+
 } // namespace RealSpaceBuilderUtils
 
 #endif // REALSPACEBUILDERUTILS_H

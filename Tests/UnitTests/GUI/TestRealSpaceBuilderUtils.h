@@ -194,8 +194,7 @@ TEST_F(TestRealSpaceBuilderUtils, test_singleParticle3DContainer)
     // Create a 3D particle from particleItem and associate it to a Particle3DContainer object
     auto pItem = dynamic_cast<const ParticleItem*>(particleItem);
     auto particle = pItem->createParticle();
-    auto singleParticle3DContainer
-        = RealSpaceBuilderUtils::singleParticle3DContainer(particle.get(), 8);
+    auto singleParticle3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(*particle, 8);
 
     EXPECT_EQ(singleParticle3DContainer.containerSize(), 1u);
     EXPECT_EQ(singleParticle3DContainer.cumulativeAbundance(), 1);

@@ -163,17 +163,13 @@ void RealSpaceBuilder::populateInterference(
 }
 
 void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
-                                                        const SessionItem& particleItem,
-                                                        const QVector3D& origin) const
+                                                        const SessionItem& particleItem) const
 {
-    if (particleItem.modelType() == Constants::ParticleCompositionType) {
-        auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
-        // If there is no particle to populate inside ParticleCompositionItem
-        if (!particleCompositionItem->getItem(ParticleCompositionItem::T_PARTICLES))
-            return;
-        auto particleComposition = particleCompositionItem->createParticleComposition();
-        RealSpaceBuilderUtils::populateParticleComposition(model, particleComposition.get(),
-                                                           origin);
+    Particle3DContainer particle3DContainer;
+    if (particleItem.modelType() == Constants::ParticleType) {
+        auto pItem = dynamic_cast<const ParticleItem*>(&particleItem);
+        auto particle = pItem->createParticle();
+        particle3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(*particle);
     } else if (particleItem.modelType() == Constants::ParticleCoreShellType) {
         auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(&particleItem);
         // If there is no CORE or SHELL to populate inside ParticleCoreShellItem
@@ -181,21 +177,27 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
             || !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
             return;
         auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-        RealSpaceBuilderUtils::populateParticleCoreShell(model, particleCoreShell.get(), origin);
+        particle3DContainer
+            = RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell);
+    } else if (particleItem.modelType() == Constants::ParticleCompositionType) {
+        auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
+        // If there is no particle to populate inside ParticleCompositionItem
+        if (!particleCompositionItem->getItem(ParticleCompositionItem::T_PARTICLES))
+            return;
+        auto particleComposition = particleCompositionItem->createParticleComposition();
+        particle3DContainer
+            = RealSpaceBuilderUtils::particleComposition3DContainer(*particleComposition);
     } else if (particleItem.modelType() == Constants::ParticleDistributionType) {
         auto particleDistributionItem
             = dynamic_cast<const ParticleDistributionItem*>(&particleItem);
         // If there is no particle to populate inside ParticleDistributionItem
         if (!particleDistributionItem->getItem(ParticleDistributionItem::T_PARTICLES))
             return;
-        auto particleDistribution = particleDistributionItem->createParticleDistribution();
-        RealSpaceBuilderUtils::populateParticleDistribution(model, particleDistribution.get(),
-                                                            origin);
-    } else if (particleItem.modelType() == Constants::ParticleType) {
-        auto pItem = dynamic_cast<const ParticleItem*>(&particleItem);
-        auto particle = pItem->createParticle();
-        RealSpaceBuilderUtils::populateSingleParticle(model, particle.get(), origin);
+
+        // show nothing when ParticleDistributionItem is selected
     }
+
+    populateParticleFromParticle3DContainer(model, particle3DContainer);
 }
 
 void RealSpaceBuilder::populateParticleFromParticle3DContainer(

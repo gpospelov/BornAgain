@@ -56,7 +56,8 @@ public:
                               std::vector<Particle3DContainer>& particle3DContainer_vector,
                               const SceneGeometry& sceneGeometry);
 
-    void populateParticleFromParticleItem(RealSpaceModel* model, const SessionItem& particleItem) const;
+    void populateParticleFromParticleItem(RealSpaceModel* model,
+                                          const SessionItem& particleItem) const;
 
     void populateParticleFromParticle3DContainer(RealSpaceModel* model,
                                                  const Particle3DContainer& particle3DContainer,

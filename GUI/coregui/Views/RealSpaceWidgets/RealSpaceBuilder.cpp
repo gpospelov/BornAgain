@@ -177,10 +177,10 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
             || !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
             return;
         auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-        particle3DContainer = RealSpaceBuilderUtils::particleCoreShell3DContainer(particleCoreShell.get());
+        particle3DContainer
+            = RealSpaceBuilderUtils::particleCoreShell3DContainer(particleCoreShell.get());
     } else if (particleItem.modelType() == Constants::ParticleCompositionType) {
-        auto particleCompositionItem
-            = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
+        auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
         // If there is no particle to populate inside ParticleCompositionItem
         if (!particleCompositionItem->getItem(ParticleCompositionItem::T_PARTICLES))
             return;

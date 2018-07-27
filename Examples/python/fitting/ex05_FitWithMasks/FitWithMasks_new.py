@@ -8,11 +8,14 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius=5.0*nm, height=10.0*nm):
+def get_sample(params):
     """
     Build the sample representing cylinders on top of
     substrate without interference.
     """
+    radius = params["radius"]
+    height = params["height"]
+
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
@@ -33,7 +36,7 @@ def get_sample(radius=5.0*nm, height=10.0*nm):
     return multi_layer
 
 
-def get_simulation():
+def get_simulation(params, add_masks=True):
     """
     Create and return GISAXS simulation with beam and detector defined
     """
@@ -42,6 +45,11 @@ def get_simulation():
                                      100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setBeamIntensity(1e+08)
+    simulation.setSample(get_sample(params))
+
+    if add_masks:
+        add_mask_to_simulation(simulation)
+
     return simulation
 
 
@@ -49,9 +57,9 @@ def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    sample = get_sample(5.0*nm, 10.0*nm)
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    params = {'radius': 5.0*nm, 'height': 10.0*nm}
+
+    simulation = get_simulation(params, add_masks=False)
     simulation.runSimulation()
 
     # retrieving simulated data in the form of numpy array
@@ -116,34 +124,20 @@ def run_fitting():
     """
     main function to run fitting
     """
-    simulation = get_simulation()
-    sample = get_sample()
-    simulation.setSample(sample)
-
-    # the core method of this example which adds masks to the simulation
-    add_mask_to_simulation(simulation)
-
     real_data = create_real_data()
 
-    fit_suite = ba.FitSuite()
-    fit_suite.addSimulationAndRealData(simulation, real_data)
-    fit_suite.initPrint(10)
-    draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
-    fit_suite.attachObserver(draw_observer)
+    fit_objective = ba.FitObjective()
+    fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
+    fit_objective.initPrint(10)
+    fit_objective.initPlot(10)
 
-    # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/Cylinder/Radius", 6.*nm).setLimited(4., 8.)
-    fit_suite.addFitParameter("*/Cylinder/Height", 9.*nm).setLimited(8., 12.)
+    params = ba.Parameters()
+    params.add("radius", 6.*nm, min=4.0, max=8.0)
+    params.add("height", 9.*nm, min=8.0, max=12.0)
 
-    # running fit
-    fit_suite.runFit()
-
-    print("Fitting completed.")
-    fit_suite.printResults()
-    print("chi2:", fit_suite.getChi2())
-    print("chi2:", fit_suite.getChi2())
-    for fitPar in fit_suite.fitParameters():
-        print(fitPar.name(), fitPar.value(), fitPar.error())
+    minimizer = ba.Minimizer()
+    result = minimizer.minimize(fit_objective.evaluate, params)
+    fit_objective.finalize(result)
 
 
 if __name__ == '__main__':

@@ -5,7 +5,8 @@ import matplotlib
 from matplotlib import pyplot as plt
 import numpy
 import bornagain as ba
-from SampleBuilder import MySampleBuilder
+from bornagain import nm as nm
+from SampleBuilder_new import MySampleBuilder
 
 wavelength = 1.34*ba.angstrom
 alpha_i = 0.463*ba.deg
@@ -29,7 +30,7 @@ def create_detector():
     return detector
 
 
-def create_simulation():
+def create_simulation(params):
     """
     Creates and returns GISAS simulation with beam and detector defined
     """
@@ -47,6 +48,11 @@ def create_simulation():
     # beam divergence
     # alpha_distr = ba.DistributionGaussian(alpha_i, 0.02*ba.deg)
     # simulation.addParameterDistribution("*/Beam/Alpha", alpha_distr, 5)
+
+    sample_builder = MySampleBuilder()
+    sample = sample_builder.create_sample(params)
+    simulation.setSample(sample)
+
     return simulation
 
 
@@ -55,47 +61,27 @@ def load_real_data(filename="galaxi_data.tif.gz"):
     Fill histogram representing our detector with intensity data from tif file.
     Returns cropped version of it, which represent the area we are interested in.
     """
-    hist = ba.IHistogram.createFrom(filename)
+    hist = ba.IHistogram.createFrom(filename).array()
     return hist
 
 
 def run_fitting():
-    simulation = create_simulation()
-    sample_builder = MySampleBuilder()
-    simulation.setSampleBuilder(sample_builder)
-
     real_data = load_real_data()
 
-    fit_suite = ba.FitSuite()
-    draw_observer = ba.DefaultFitObserver(draw_every_nth=10)
-    fit_suite.attachObserver(draw_observer)
-    fit_suite.initPrint(10)
-    fit_suite.addSimulationAndRealData(simulation, real_data)
+    fit_objective = ba.FitObjective()
+    fit_objective.addSimulationAndData(create_simulation, real_data, 1.0)
+    fit_objective.initPrint(10)
+    fit_objective.initPlot(10)
 
-    # setting fitting parameters with starting values
-    fit_suite.addFitParameter(
-        "*radius", 5.0*ba.nm, ba.AttLimits.limited(4.0, 6.0),
-        0.1*ba.nm)
-    fit_suite.addFitParameter(
-        "*sigma", 0.55, ba.AttLimits.limited(0.2, 0.8), 0.01*ba.nm)
-    fit_suite.addFitParameter(
-        "*distance", 27.*ba.nm, ba.AttLimits.limited(20, 70),
-        0.1*ba.nm)
+    params = ba.Parameters()
+    params.add("radius", 5.*nm, min=4.0, max=6.0, step=0.1*nm)
+    params.add("sigma", 0.55, min=0.2, max=0.8, step=0.01)
+    params.add("distance", 27.*nm, min=20.0, max=70.0)
 
-    use_two_minimizers_strategy = False
-    if use_two_minimizers_strategy:
-        strategy1 = ba.AdjustMinimizerStrategy("Genetic")
-        fit_suite.addFitStrategy(strategy1)
+    minimizer = ba.Minimizer()
+    result = minimizer.minimize(fit_objective.evaluate, params)
+    fit_objective.finalize(result)
 
-        # Second fit strategy will use another algorithm.
-        # It will use best parameters found from previous minimization round.
-        strategy2 = ba.AdjustMinimizerStrategy("Minuit2", "Migrad")
-        fit_suite.addFitStrategy(strategy2)
-
-    # running fit
-    fit_suite.runFit()
-
-    plt.show()
 
 if __name__ == '__main__':
     run_fitting()

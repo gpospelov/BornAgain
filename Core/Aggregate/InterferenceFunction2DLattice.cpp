@@ -223,6 +223,6 @@ void InterferenceFunction2DLattice::initialize_calc_factors()
                 nmax / m_decay->decayLengthX(), nmax / m_decay->decayLengthY(),
                 m_lattice->latticeAngle(), m_lattice->length1(), m_lattice->length2());
 
-    m_na = static_cast<int>(std::lround(std::abs(q_bounds.first)));
-    m_nb = static_cast<int>(std::lround(std::abs(q_bounds.second)));
+    m_na = static_cast<int>(std::lround(q_bounds.first + 0.5));
+    m_nb = static_cast<int>(std::lround(q_bounds.second + 0.5));
 }

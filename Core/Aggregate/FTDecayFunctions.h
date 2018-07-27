@@ -142,8 +142,8 @@ protected:
 private:
     //! transform reciprocal coordinate system of this decay function to the reciprocal
     //! lattice system
-    std::pair<double, double> transformToRecLatticeCoordinates(double qX, double qY,
-                                                               double a, double b, double alpha);
+    std::pair<double, double> transformToRecLatticeCoordinates(
+            double qX, double qY, double a, double b, double alpha) const;
 };
 
 

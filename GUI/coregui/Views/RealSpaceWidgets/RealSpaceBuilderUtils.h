@@ -93,22 +93,6 @@ BA_CORE_API_ void applyParticleCoreShellTransformations(const Particle* particle
 BA_CORE_API_ void applyParticleColor(const Particle* particle,
                                      RealSpace::Particles::Particle* particle3D, double alpha = 1);
 
-// Methods to populate different Particle Types
-BA_CORE_API_ void populateParticleComposition(RealSpaceModel* model,
-                                              const ParticleComposition* particleComposition,
-                                              const QVector3D& origin = QVector3D());
-
-BA_CORE_API_ void populateParticleCoreShell(RealSpaceModel* model,
-                                            const ParticleCoreShell* particleCoreShell,
-                                            const QVector3D& origin = QVector3D());
-
-BA_CORE_API_ void populateParticleDistribution(RealSpaceModel* model,
-                                               const ParticleDistribution* particleDistribution,
-                                               const QVector3D& origin = QVector3D());
-
-BA_CORE_API_ void populateSingleParticle(RealSpaceModel* model, const Particle* particle,
-                                         const QVector3D& origin = QVector3D());
-
 BA_CORE_API_ std::vector<Particle3DContainer>
 particle3DContainerVector(const SessionItem& layoutItem);
 

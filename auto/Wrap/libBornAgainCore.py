@@ -7893,6 +7893,11 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_finalize_cpp(self, result)
 
 
+    def fitObjectCount(self):
+        """fitObjectCount(FitObjective self) -> unsigned int"""
+        return _libBornAgainCore.FitObjective_fitObjectCount(self)
+
+
     def addSimulationAndData(self, callback, data, weight):
         if not hasattr(self, 'callback_container'):
             self.callback_container = []

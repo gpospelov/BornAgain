@@ -159,6 +159,11 @@ void FitObjective::finalize(const Fit::MinimizerResult& result)
     m_fit_status->finalize(result);
 }
 
+unsigned FitObjective::fitObjectCount() const
+{
+    return static_cast<unsigned>(m_fit_objects.size());
+}
+
 void FitObjective::run_simulations(const Fit::Parameters& params)
 {
     if (m_fit_objects.empty())

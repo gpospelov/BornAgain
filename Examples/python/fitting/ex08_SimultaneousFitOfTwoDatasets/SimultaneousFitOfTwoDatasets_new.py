@@ -123,7 +123,8 @@ class PlotObserver():
         index = 0
         params = iteration_info.parameterMap()
         for key in params:
-            plt.text(0.01, 0.30 - index * 0.3, '{:30.30s}: {:6.3f}'.format(key, params[key]))
+            plt.text(0.01, 0.30 - index * 0.3,
+                     '{:30.30s}: {:6.3f}'.format(key, params[key]))
             index = index + 1
 
 

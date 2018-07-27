@@ -125,7 +125,8 @@ class PlotObserver():
         index = 0
         params = iteration_info.parameterMap()
         for key in params:
-            plt.text(0.01, 0.55 - index * 0.1, '{:30.30s}: {:6.3f}'.format(key, params[key]))
+            plt.text(0.01, 0.55 - index * 0.1,
+                     '{:30.30s}: {:6.3f}'.format(key, params[key]))
             index = index + 1
 
         plt.tight_layout()

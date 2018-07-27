@@ -9,10 +9,14 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-def get_sample(radius_a=4.0*nm, radius_b=4.0*nm, height=4.0*nm):
+def get_sample(params):
     """
     Returns a sample with uncorrelated cylinders and pyramids.
     """
+    radius_a = params["radius_a"]
+    radius_b = params["radius_b"]
+    height = params["height"]
+
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
@@ -33,26 +37,39 @@ def get_sample(radius_a=4.0*nm, radius_b=4.0*nm, height=4.0*nm):
     return multi_layer
 
 
-def get_simulation(incident_alpha=0.2):
+def get_simulation(params):
     """
     Returns a GISAXS simulation with beam and detector defined.
     """
+    incident_angle = params["incident_angle"]
+
     simulation = ba.GISASSimulation()
     simulation.setDetectorParameters(50, -1.5*deg, 1.5*deg,
                                      50, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, incident_alpha, 0.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, incident_angle, 0.0*deg)
     simulation.setBeamIntensity(1e+08)
+    simulation.setSample(get_sample(params))
     return simulation
+
+
+def simulation1(params):
+    params["incident_angle"] = 0.1*deg
+    return get_simulation(params)
+
+
+def simulation2(params):
+    params["incident_angle"] = 0.4*deg
+    return get_simulation(params)
 
 
 def create_real_data(incident_alpha):
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    sample = get_sample(
-        radius_a=5.0*nm, radius_b=6.0*nm, height=8.0*nm)
-    simulation = get_simulation(incident_alpha)
-    simulation.setSample(sample)
+    params = {'radius_a': 5.0*nm, 'radius_b': 6.0*nm,
+              'height': 8.0*nm, "incident_angle": incident_alpha}
+
+    simulation = get_simulation(params)
     simulation.runSimulation()
 
     # retrieving simulated data in the form of numpy array
@@ -65,26 +82,21 @@ def create_real_data(incident_alpha):
     return noisy
 
 
-class DrawObserver(ba.IFitObserver):
+class PlotObserver():
     """
     Draws fit progress every nth iteration. Real data, simulated data
     and chi2 map will be shown for both datasets.
     """
     def __init__(self, draw_every_nth=10):
-        import matplotlib
-        from matplotlib import pyplot as plt
-        global matplotlib, plt
-
-        ba.IFitObserver.__init__(self, draw_every_nth)
         self.fig = plt.figure(figsize=(12.8, 10.24))
         self.fig.canvas.draw()
         plt.ion()
 
-    def plot_datasets(self, fit_suite, canvas):
-        for i_dataset in range(0, fit_suite.numberOfFitObjects()):
-            real_data = fit_suite.experimentalData(i_dataset)
-            simul_data = fit_suite.simulationResult(i_dataset)
-            chi2_map = fit_suite.relativeDifference(i_dataset)
+    def plot_datasets(self, fit_objective, canvas):
+        for i_dataset in range(0, fit_objective.fitObjectCount()):
+            real_data = fit_objective.experimentalData(i_dataset)
+            simul_data = fit_objective.simulationResult(i_dataset)
+            chi2_map = fit_objective.relativeDifference(i_dataset)
 
             zmax = real_data.histogram2d().getMaximum()
 
@@ -98,16 +110,22 @@ class DrawObserver(ba.IFitObserver):
             ba.plot_colormap(chi2_map, title="Chi2 map - #"+str(i_dataset+1),
                                zmin=0.001, zmax=10.0, zlabel="")
 
-    def plot_fit_parameters(self, fit_suite, canvas):
+    def plot_fit_parameters(self, fit_objective, canvas):
         # fit parameters
         plt.subplot(canvas[6:])
         plt.axis('off')
-        plt.text(0.01, 0.95, "Iterations  " + '{:d}   '.
-                 format(fit_suite.numberOfIterations()))
-        plt.text(0.01, 0.70, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
-        for index, fitPar in enumerate(fit_suite.fitParameters()):
-            plt.text(0.01, 0.30 - index*0.3,
-                     '{:40.40s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
+
+        iteration_info = fit_objective.iterationInfo()
+
+        plt.text(0.01, 0.95, "Iterations  " + '{:d}'.
+                 format(iteration_info.iterationCount()))
+        plt.text(0.01, 0.70, "Chi2       " + '{:8.4f}'.format(iteration_info.chi2()))
+        index = 0
+        params = iteration_info.parameterMap()
+        for key in params:
+            plt.text(0.01, 0.30 - index * 0.3, '{:30.30s}: {:6.3f}'.format(key, params[key]))
+            index = index + 1
+
 
     def update(self, fit_suite):
         self.fig.clf()
@@ -124,8 +142,6 @@ class DrawObserver(ba.IFitObserver):
         plt.draw()
         plt.pause(0.01)
 
-        if fit_suite.isLastIteration():
-            plt.ioff()
 
 
 def run_fitting():
@@ -133,35 +149,27 @@ def run_fitting():
     main function to run fitting
     """
 
-    incident_alpha_angles = [0.1*deg, 0.4*deg]
-    fit_suite = ba.FitSuite()
-    sample = get_sample()
+    data1 = create_real_data(0.1 * deg)
+    data2 = create_real_data(0.4 * deg)
 
-    for alpha in incident_alpha_angles:
-        real_data = create_real_data(incident_alpha=alpha)
-        simulation = get_simulation(incident_alpha=alpha)
-        simulation.setSample(sample)
-        fit_suite.addSimulationAndRealData(simulation, real_data)
+    fit_objective = ba.FitObjective()
+    fit_objective.addSimulationAndData(simulation1, data1, 1.0)
+    fit_objective.addSimulationAndData(simulation2, data2, 1.0)
+    fit_objective.initPrint(10)
 
-    fit_suite.initPrint(10)
-    draw_observer = DrawObserver(draw_every_nth=10)
-    fit_suite.attachObserver(draw_observer)
+    # creating custom observer which will draw fit progress
+    plotter = PlotObserver()
+    fit_objective.initPlot(10, plotter.update)
 
-    # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusX", 4.*nm).setLimited(2., 10.)
-    fit_suite.addFitParameter("*/HemiEllipsoid/RadiusY", 6.*nm).setFixed()
-    fit_suite.addFitParameter("*/HemiEllipsoid/Height", 4.*nm).setLimited(2., 10.)
+    params = ba.Parameters()
+    params.add("radius_a", 4.*nm, min=2.0, max=10.0)
+    params.add("radius_b", 6.*nm, vary=False)
+    params.add("height", 4.*nm, min=2.0, max=10.0)
 
-    print(fit_suite.treeToString())
-    print(fit_suite.parametersToString())
-
-    # running fit
-    fit_suite.runFit()
-
-    print("Fitting completed.")
-    print("chi2:", fit_suite.getChi2())
-    for fitPar in fit_suite.fitParameters():
-        print(fitPar.name(), fitPar.value(), fitPar.error())
+    print("begin")
+    minimizer = ba.Minimizer()
+    result = minimizer.minimize(fit_objective.evaluate, params)
+    fit_objective.finalize(result)
 
 
 if __name__ == '__main__':

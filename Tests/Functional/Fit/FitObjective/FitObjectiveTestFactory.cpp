@@ -18,5 +18,23 @@
 FitObjectiveTestFactory::FitObjectiveTestFactory()
 {
     registerItem("MigradCylindersInBA", create_new<MigradCylindersInBA>,
-                 "Minuit + TwoCylindersInBA");
+                 "Minuit + CylindersInBA");
+    registerItem("BfgsCylindersInBA", create_new<BfgsCylindersInBA>,
+                 "BFGS + CylindersInBA");
+    registerItem("SteepestDescentCylindersInBA", create_new<SteepestDescentCylindersInBA>,
+                 "SteepestDescent + CylindersInBA");
+    registerItem("FumuliCylindersInBA", create_new<FumuliCylindersInBA>,
+                 "Fumili + CylindersInBA (Residual)");
+    registerItem("LevenbergMarquardtCylindersInBA", create_new<LevenbergMarquardtCylindersInBA>,
+                 "Levenberg-Marquardt + CylindersInBA (Residual)");
+    registerItem("SimAnCylindersInBA", create_new<SimAnCylindersInBA>,
+                 "Simulated annealing + CylindersInBA (Easy)");
+    registerItem("GeneticCylindersInBA", create_new<GeneticCylindersInBA>,
+                 "Genetic + CylindersInBA (Easy)");
+    registerItem("RectDetectorFit", create_new<RectDetectorFit>,
+                 "Minuit + RectDet with ROI, CylindersInBA");
+    registerItem("AdjustMinimizerFit", create_new<AdjustMinimizerFit>,
+                 "Minuit + Genetic, CylindersInBA");
+    registerItem("MultiPatternFit", create_new<MultiPatternFit>,
+                 "Minuit, MultiPatternSample");
 }

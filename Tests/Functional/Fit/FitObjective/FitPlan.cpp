@@ -21,8 +21,9 @@
 #include "KernelTypes.h"
 #include "Minimizer.h"
 
-FitPlan::FitPlan(const std::string& name)
+FitPlan::FitPlan(const std::string& name, bool residual_based)
     : MinimizerTestPlan(name)
+    , m_residual_based(residual_based)
 {
 
 }
@@ -33,16 +34,24 @@ bool FitPlan::checkMinimizer(Fit::Minimizer& minimizer)
 {
     auto fit_objective = createFitObjective();
 
-    fcn_scalar_t func = [&](const Fit::Parameters& params) {
+    fcn_scalar_t scalar_func = [&](const Fit::Parameters& params) {
         return fit_objective->evaluate(params);
     };
 
+    fcn_residual_t residual_func = [&](const Fit::Parameters& params) {
+        return fit_objective->evaluate_residuals(params);
+    };
+
     bool success(true);
-    auto result = minimizer.minimize(func, parameters());
+    Fit::MinimizerResult result;
+
+    if (m_residual_based)
+        result = minimizer.minimize(residual_func, parameters());
+    else
+        result = minimizer.minimize(scalar_func, parameters());
 
     fit_objective->finalize(result);
 
-    std::cout << result.toString() << std::endl;
     std::cout << "FitPlan::checkResult() -> " << name() << std::endl;
     success &= valuesAsExpected(result.parameters().values());
     std::cout << std::endl;
@@ -65,23 +74,32 @@ std::unique_ptr<FitObjective> FitPlan::createFitObjective() const
     std::unique_ptr<FitObjective> result(new FitObjective);
 
     simulation_builder_t builder = [&](const Fit::Parameters& params) {
-        return createSimulation(params);
+        return buildSimulation(params);
     };
 
     result->addSimulationAndData(builder, *createOutputData(), 1.0);
-    result->initPrint(10);
+    result->initPrint(1);
 
     return result;
 }
 
-//! Creates simulation for given set of fit parameters.
+//! Build simulation (sample included) for given set of fit parameters.
+
+std::unique_ptr<Simulation> FitPlan::buildSimulation(const Fit::Parameters& params) const
+{
+    auto simulation = createSimulation(params);
+    auto sample = createMultiLayer(params);
+    simulation->setSample(*sample);
+    return simulation;
+}
+
+//! Creates simulation for given set of fit parameters. No sample yets.
 
 std::unique_ptr<Simulation> FitPlan::createSimulation(const Fit::Parameters& params) const
 {
+    (void)params;
     SimulationFactory factory;
     auto simulation = factory.create(m_simulation_name);
-    auto sample = createMultiLayer(params);
-    simulation->setSample(*sample);
     return simulation;
 }
 
@@ -106,7 +124,7 @@ std::unique_ptr<OutputData<double> > FitPlan::createOutputData() const
     // use expected values of fit parameters to construct simulation
     auto params = parameters();
     params.setValues(expectedValues());
-    auto simulation = createSimulation(params);
+    auto simulation = buildSimulation(params);
     simulation->runSimulation();
     return std::unique_ptr<OutputData<double>>(simulation->result().data());
 }

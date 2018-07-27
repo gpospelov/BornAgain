@@ -25,6 +25,50 @@ public:
     CylindersInBAPlan();
 };
 
+//! Two parameter fit: cylinders in BA with mini GISAS simulation.
+//! Large tolerance on expected parameter values to help stocastic minimizers to converge fatser.
+
+class CylindersInBAEasyPlan : public FitPlan
+{
+public:
+    CylindersInBAEasyPlan();
+};
+
+//! Two parameter fit: cylinders in BA with mini GISAS simulation.
+//! Residual like objective function is used
+
+class CylindersInBAResidualPlan : public FitPlan
+{
+public:
+    CylindersInBAResidualPlan();
+};
+
+//! Two parameter fit: cylinders in BA with mini GISAS simulation.
+//! Rectangular detector.
+
+class RectDetPlan : public FitPlan
+{
+public:
+    RectDetPlan();
+    ~RectDetPlan();
+
+protected:
+    std::unique_ptr<Simulation> createSimulation(const Fit::Parameters&) const;
+};
+
+//! FIXME Reproduces conditions of FitSuite/MultiPatternFitTest. After cleanup of FitSuite, given
+//! test can be also removed, since it doesn't demonstrate/check any new fit machinery.
+
+class MultiPatternPlan : public FitPlan
+{
+public:
+    MultiPatternPlan();
+    ~MultiPatternPlan();
+
+protected:
+    std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
+};
+
 #endif  //  FITPLANCASES_H
 
 

@@ -37,7 +37,7 @@ void MultiPatternFitTest::initParameterPlan()
 {
     m_parplans.clear();
 
-    FitParameter par("*2DLattice/LatticeLength*", 8.5*Units::nanometer);
+    FitParameter par("*2DLattice/SquareLattice/LatticeLength*", 8.5*Units::nanometer);
     par.setLimited(4., 12.).addPattern("*Cylinder/Radius").addPattern("*Cylinder/Height");
 
     const double tolerance(0.01);

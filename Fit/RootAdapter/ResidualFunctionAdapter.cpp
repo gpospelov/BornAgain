@@ -123,10 +123,14 @@ double ResidualFunctionAdapter::chi2(const std::vector<double>& pars)
 {
     ++m_number_of_calls;
 
-    auto residuals = get_residuals(pars);
     double result(0.0);
     for (auto x : get_residuals(pars))
         result += x * x;
-    // FIXME make correct normalization taking into account number of free parameters
-    return result / static_cast<double>(m_datasize);
+
+    int fnorm = static_cast<int>(m_datasize) -
+            static_cast<int>(m_parameters.freeParameterCount());
+    if (fnorm <= 0)
+        throw std::runtime_error("ResidualFunctionAdapter::chi2() -> Error. Normalization is 0");
+
+    return result/fnorm;
 }

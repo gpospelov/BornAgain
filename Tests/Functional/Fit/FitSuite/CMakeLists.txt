@@ -12,6 +12,7 @@ set(test_cases
     AdjustMinimizerStrategy
     SpecularFit
     MultipleSpecFitTest
+    MultiPatternFit
 )
 
 include_directories(${RootMinimizers_INCLUDE_DIRS})

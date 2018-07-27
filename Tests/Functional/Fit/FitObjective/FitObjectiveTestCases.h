@@ -25,4 +25,62 @@ public:
     MigradCylindersInBA();
 };
 
+class BfgsCylindersInBA : public FitObjectiveTest
+{
+public:
+    BfgsCylindersInBA();
+};
+
+class SteepestDescentCylindersInBA : public FitObjectiveTest
+{
+public:
+    SteepestDescentCylindersInBA();
+};
+
+class FumuliCylindersInBA : public FitObjectiveTest
+{
+public:
+    FumuliCylindersInBA();
+};
+
+class LevenbergMarquardtCylindersInBA : public FitObjectiveTest
+{
+public:
+    LevenbergMarquardtCylindersInBA();
+};
+
+class SimAnCylindersInBA : public FitObjectiveTest
+{
+public:
+    SimAnCylindersInBA();
+};
+
+class GeneticCylindersInBA : public FitObjectiveTest
+{
+public:
+    GeneticCylindersInBA();
+};
+
+class RectDetectorFit : public FitObjectiveTest
+{
+public:
+    RectDetectorFit();
+};
+
+class AdjustMinimizerFit : public FitObjectiveTest
+{
+public:
+    AdjustMinimizerFit();
+};
+
+//! FIXME Reproduces conditions of FitSuite/MultiPatternFitTest. After cleanup of FitSuite, given
+//! test can be also removed, since it doesn't demonstrate/check any new fit machinery.
+class MultiPatternFit : public FitObjectiveTest
+{
+public:
+    MultiPatternFit();
+
+};
+
+
 #endif //   MINIMIZERTESTCASES_H

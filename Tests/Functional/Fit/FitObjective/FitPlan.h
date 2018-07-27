@@ -29,7 +29,7 @@ class FitObjective;
 class FitPlan : public MinimizerTestPlan
 {
 public:
-    FitPlan(const std::string& name);
+    FitPlan(const std::string& name, bool residual_based = false);
     ~FitPlan();
 
     virtual bool checkMinimizer(Fit::Minimizer& minimizer);
@@ -37,14 +37,16 @@ public:
     void setBuilderName(const std::string& name);
     void setSimulationName(const std::string& name);
 
-private:
+protected:
     virtual std::unique_ptr<FitObjective> createFitObjective() const;
+    virtual std::unique_ptr<Simulation> buildSimulation(const Fit::Parameters& params) const;
     virtual std::unique_ptr<Simulation> createSimulation(const Fit::Parameters& params) const;
     virtual std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
     virtual std::unique_ptr<OutputData<double>> createOutputData() const;
 
     std::string m_simulation_name;
     std::string m_sample_builder_name;
+    bool m_residual_based;
 };
 
 #endif // FITPLAN_H

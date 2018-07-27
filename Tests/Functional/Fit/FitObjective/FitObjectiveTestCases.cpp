@@ -16,3 +16,36 @@
 
 MigradCylindersInBA::MigradCylindersInBA()
     : FitObjectiveTest("Minuit2", "Migrad", "CylindersInBAPlan") {}
+
+BfgsCylindersInBA::BfgsCylindersInBA()
+    : FitObjectiveTest("GSLMultiMin", "BFGS", "CylindersInBAPlan") {}
+
+SteepestDescentCylindersInBA::SteepestDescentCylindersInBA()
+    : FitObjectiveTest("GSLMultiMin", "SteepestDescent", "CylindersInBAPlan") {}
+
+FumuliCylindersInBA::FumuliCylindersInBA()
+    : FitObjectiveTest("Minuit2", "Fumili", "CylindersInBAResidualPlan") {}
+
+LevenbergMarquardtCylindersInBA::LevenbergMarquardtCylindersInBA()
+    : FitObjectiveTest("GSLLMA", "", "CylindersInBAResidualPlan") {}
+
+SimAnCylindersInBA::SimAnCylindersInBA()
+    : FitObjectiveTest("GSLSimAn", "", "CylindersInBAEasyPlan")
+{
+    setMinimizerOptions("IterationsAtTemp=5;MaxIterations=10;t_min=1.0");
+}
+
+GeneticCylindersInBA::GeneticCylindersInBA()
+    : FitObjectiveTest("Genetic", "", "CylindersInBAEasyPlan")
+{
+    setMinimizerOptions("MaxIterations=1;RandomSeed=1");
+}
+
+RectDetectorFit::RectDetectorFit()
+    : FitObjectiveTest("Minuit2", "Migrad", "RectDetPlan") {}
+
+AdjustMinimizerFit::AdjustMinimizerFit()
+    : FitObjectiveTest("Genetic", "", "AdjustMinimizerPlan") {}
+
+MultiPatternFit::MultiPatternFit()
+    : FitObjectiveTest("GSLLMA", "", "MultiPatternPlan") {}

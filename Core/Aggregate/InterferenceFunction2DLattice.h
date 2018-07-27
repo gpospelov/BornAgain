@@ -81,7 +81,7 @@ private:
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<IFTDecayFunction2D> m_decay;
     std::unique_ptr<Lattice2D> m_lattice;
-    Lattice2D::ReciprocalBases m_sbase;
+    Lattice2D::ReciprocalBases m_sbase;  //!< reciprocal lattice is stored without xi
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
     mutable double m_qx;
     mutable double m_qy;

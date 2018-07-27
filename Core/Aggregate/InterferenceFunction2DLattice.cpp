@@ -219,12 +219,10 @@ void InterferenceFunction2DLattice::initialize_calc_factors()
             " -> Error! No decay function defined.");
 
     // number of reciprocal lattice points to use
-    double qa_max(0.0), qb_max(0.0);
+    auto q_bounds = m_decay->boundingReciprocalLatticeCoordinates(
+                nmax / m_decay->decayLengthX(), nmax / m_decay->decayLengthY(),
+                m_lattice->latticeAngle(), m_lattice->length1(), m_lattice->length2());
 
-    m_decay->transformToStarBasis(nmax / m_decay->decayLengthX(),
-                                  nmax / m_decay->decayLengthY(),
-                                  m_lattice->latticeAngle(), m_lattice->length1(),
-                                  m_lattice->length2(), qa_max, qb_max);
-    m_na = static_cast<int>(std::lround(std::abs(qa_max)));
-    m_nb = static_cast<int>(std::lround(std::abs(qb_max)));
+    m_na = static_cast<int>(std::lround(std::abs(q_bounds.first)));
+    m_nb = static_cast<int>(std::lround(std::abs(q_bounds.second)));
 }

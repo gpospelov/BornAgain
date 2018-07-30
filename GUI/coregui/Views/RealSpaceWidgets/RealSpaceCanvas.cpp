@@ -18,8 +18,8 @@
 #include "RealSpaceBuilder.h"
 #include "RealSpaceModel.h"
 #include <QVBoxLayout>
-
 #include <FilterPropertyProxy.h>
+#include <QApplication>
 
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent)
@@ -133,6 +133,8 @@ void RealSpaceCanvas::onChangeLayerSizeAction(double layerSizeChangeScale)
 
 void RealSpaceCanvas::updateScene()
 {
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+
     m_realSpaceModel.reset(new RealSpaceModel);
 
     SessionItem* item = m_sampleModel->itemForIndex(m_currentSelection);
@@ -153,6 +155,8 @@ void RealSpaceCanvas::updateScene()
         // ignore exceptions thrown
     }
     m_view->setModel(m_realSpaceModel.get());
+
+    QApplication::restoreOverrideCursor();
 }
 
 void RealSpaceCanvas::resetScene()

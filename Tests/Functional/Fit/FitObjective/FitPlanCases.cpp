@@ -13,19 +13,20 @@
 // ************************************************************************** //
 
 #include "FitPlanCases.h"
-#include "Units.h"
+#include "FitObjective.h"
+#include "FormFactorCylinder.h"
 #include "GISASSimulation.h"
-#include "RectangularDetector.h"
-#include "Rectangle.h"
-#include "MultiLayer.h"
+#include "InterferenceFunction2DLattice.h"
+#include "Layer.h"
 #include "MaterialFactoryFuncs.h"
+#include "MultiLayer.h"
+#include "Parameters.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "Parameters.h"
-#include "InterferenceFunction2DLattice.h"
+#include "Rectangle.h"
+#include "RectangularDetector.h"
 #include "FTDecayFunctions.h"
-#include "Layer.h"
-#include "FormFactorCylinder.h"
+#include "Units.h"
 
 using namespace Fit;
 
@@ -130,14 +131,18 @@ std::unique_ptr<MultiLayer> MultiPatternPlan::createMultiLayer(const Parameters&
 // ----------------------------------------------------------------------------
 
 SpecularPlan::SpecularPlan()
-    : FitPlan("SpecularPlan", /*residual_based = */ true)
+    : SpecularPlan("SpecularPlan")
+{}
+
+SpecularPlan::~SpecularPlan() = default;
+
+SpecularPlan::SpecularPlan(std::string name)
+    : FitPlan(name, /*residual_based = */ true)
 {
     setSimulationName("BasicSpecular");
     addParameter(Parameter("thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
                  3.0 * nm);
 }
-
-SpecularPlan::~SpecularPlan() = default;
 
 std::unique_ptr<MultiLayer> SpecularPlan::createMultiLayer(const Fit::Parameters& params) const
 {
@@ -163,4 +168,27 @@ std::unique_ptr<MultiLayer> SpecularPlan::createMultiLayer(const Fit::Parameters
     }
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
+}
+
+// ----------------------------------------------------------------------------
+
+MultipleSpecPlan::MultipleSpecPlan()
+    : SpecularPlan("MultipleSpecPlan")
+{}
+
+MultipleSpecPlan::~MultipleSpecPlan() = default;
+
+std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
+{
+    std::unique_ptr<FitObjective> result(new FitObjective);
+
+    simulation_builder_t builder = [&](const Fit::Parameters& params) {
+        return buildSimulation(params);
+    };
+
+    result->addSimulationAndData(builder, *createOutputData(), 0.5);
+    result->addSimulationAndData(builder, *createOutputData(), 0.5);
+    result->initPrint(1);
+
+    return result;
 }

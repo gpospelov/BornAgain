@@ -88,4 +88,10 @@ public:
     SpecularNewFitTest();
 };
 
+class MultipleSpecSimulationTest : public FitObjectiveTest
+{
+public:
+    MultipleSpecSimulationTest();
+};
+
 #endif //   MINIMIZERTESTCASES_H

@@ -52,3 +52,6 @@ MultiPatternFit::MultiPatternFit()
 
 SpecularNewFitTest::SpecularNewFitTest()
     : FitObjectiveTest("Minuit2", "Migrad", "SpecularPlan") {}
+
+MultipleSpecSimulationTest::MultipleSpecSimulationTest()
+    : FitObjectiveTest("Minuit2", "Migrad", "MultipleSpecPlan") {}

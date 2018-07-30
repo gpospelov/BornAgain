@@ -39,4 +39,6 @@ FitObjectiveTestFactory::FitObjectiveTestFactory()
                  "Minuit, MultiPatternSample");
     registerItem("SpecularNewFitTest", create_new<SpecularNewFitTest>,
                  "Minuit, Basic specular fitting");
+    registerItem("MultipleSpecSimulationTest", create_new<MultipleSpecSimulationTest>,
+                 "Minuit, fitting of several reflectometry curves");
 }

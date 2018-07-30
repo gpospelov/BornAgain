@@ -250,6 +250,21 @@
 
 %newobject PyBuilderCallback::build_simulation(const std::string& filename);
 
+%newobject InterferenceFunction2DLattice::createSquare(double lattice_length, double xi);
+%newobject InterferenceFunction2DLattice::createHexagonal(double lattice_length, double xi);
+%newobject InterferenceFunction2DParaCrystal::createSquare(
+        double lattice_length, double damping_length, double domain_size_1, double domain_size_2);
+%newobject InterferenceFunction2DParaCrystal::createHexagonal(
+        double lattice_length, double damping_length, double domain_size_1, double domain_size_2);
+%newobject InterferenceFunction2DSuperLattice::createSquare(
+        double lattice_length, double xi, unsigned size_1, unsigned size_2);
+%newobject InterferenceFunction2DSuperLattice::createHexagonal(
+        double lattice_length, double xi, unsigned size_1, unsigned size_2);
+%newobject InterferenceFunctionFinite2DLattice::createSquare(
+        double lattice_length, double xi, unsigned size_1, unsigned size_2);
+%newobject InterferenceFunctionFinite2DLattice::createHexagonal(
+        double lattice_length, double xi, unsigned size_1, unsigned size_2);
+
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 

@@ -21,7 +21,6 @@
 
 #include <QMouseEvent>
 #include <qmath.h>
-#include <QMessageBox>
 #include <math.h>
 
 namespace {
@@ -243,9 +242,6 @@ void Canvas::defaultView()
         camera->endTransform(true);
         update();
     }
-    else{
-        canvasHintMessageBox();
-    }
 }
 
 void Canvas::sideView()
@@ -258,9 +254,6 @@ void Canvas::sideView()
                                    RealSpace::Vector3D::_z));         // up
         camera->endTransform(true);
         update();
-    }
-    else{
-        canvasHintMessageBox();
     }
 }
 
@@ -276,22 +269,6 @@ void Canvas::topView()
         camera->endTransform(true);
         update();
     }
-    else{
-        canvasHintMessageBox();
-    }
-}
-
-// Display message when no Sample is selected and a ToolBar action is clicked
-void Canvas::canvasHintMessageBox()
-{
-    QMessageBox box;
-    box.setIcon(QMessageBox::Information);
-    box.setText("Sample not selected! Nothing to display!");
-    box.setDetailedText("Hint:"
-                        "\n1. Build the sample."
-                        "\n2. Select it from the panel on the right.");
-    box.setWindowFlags(box.windowFlags() & ~Qt::WindowCloseButtonHint); // Hide Close Button
-    box.exec();
 }
 
 void Canvas::horizontalCameraTurn(float angle)

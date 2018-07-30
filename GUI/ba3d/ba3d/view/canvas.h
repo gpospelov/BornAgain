@@ -47,8 +47,6 @@ public:
     void sideView();
     void topView();
 
-    void canvasHintMessageBox();
-
     // Flying Camera implementation (similar to Blender's camera system)
     void horizontalCameraTurn(float angle);
     void verticalCameraTurn(float angle);

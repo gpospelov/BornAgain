@@ -18,18 +18,25 @@
 #include "../def.h"
 #include <QHash>
 
-#include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
+#include <QOpenGLWidget>
 
-namespace RealSpace {
+namespace RealSpace
+{
 
-class Camera; class Program; class Model;
-class Geometry; class Buffer; class Object;
+class Camera;
+class Program;
+class Model;
+class Geometry;
+class Buffer;
+class Object;
 
-class Canvas: public QOpenGLWidget, protected QOpenGLFunctions {
+class Canvas : public QOpenGLWidget, protected QOpenGLFunctions
+{
     Q_OBJECT
     friend class Object;
+
 public:
     Canvas();
     ~Canvas();
@@ -63,17 +70,17 @@ private:
 
     QPoint e_last; // latest mouse event's (x,y) screen coordinates
     QMatrix4x4 matModel, matProj;
-    QVector3D  unproject(QPoint const&);
+    QVector3D unproject(QPoint const&);
 
-    enum {btnNONE, btnTURN, btnZOOM} mouseButton;
+    enum { btnNONE, btnTURN, btnZOOM } mouseButton;
     void mousePressEvent(QMouseEvent*);
     void mouseMoveEvent(QMouseEvent*);
     void mouseReleaseEvent(QMouseEvent*);
     void wheelEvent(QWheelEvent*);
 
-    Camera  *camera;
-    Program *program;
-    Model   *model;
+    Camera* camera;
+    Program* program;
+    Model* model;
 
     QMetaObject::Connection modelUpdated;
 
@@ -84,5 +91,5 @@ private:
     void draw(QColor const&, QMatrix4x4 const&, Geometry const&);
 };
 
-}  // namespace RealSpace
-#endif  // BA3D_CANVAS_H
+} // namespace RealSpace
+#endif // BA3D_CANVAS_H

@@ -16,8 +16,8 @@
 #define REALSPACECANVAS_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QModelIndex>
+#include <QWidget>
 #include <memory>
 
 #include <QItemSelectionModel>
@@ -30,23 +30,44 @@ class RealSpaceModel;
 class SceneGeometry
 {
 public:
-    SceneGeometry(double size = 50.0, double top_thickness = 25.0,
-                  double bottom_thickness = 25.0, double min_thickness = 2.0)
+    SceneGeometry(double size = 50.0, double top_thickness = 25.0, double bottom_thickness = 25.0,
+                  double min_thickness = 2.0)
     {
-        l_size = size;                              // layer size
-        l_top_thickness = top_thickness;            // top layer thickness
-        l_bottom_thickness = bottom_thickness;      // bottom layer thickness
-        l_min_thickness = min_thickness;            // minimum layer thickness
+        l_size = size;                         // layer size
+        l_top_thickness = top_thickness;       // top layer thickness
+        l_bottom_thickness = bottom_thickness; // bottom layer thickness
+        l_min_thickness = min_thickness;       // minimum layer thickness
     }
 
-    double layer_size() const {return l_size;}
-    double layer_top_thickness() const {return l_top_thickness;}
-    double layer_bottom_thickness() const {return l_top_thickness;}
-    double layer_min_thickness() const {return l_min_thickness;}
+    double layer_size() const
+    {
+        return l_size;
+    }
+    double layer_top_thickness() const
+    {
+        return l_top_thickness;
+    }
+    double layer_bottom_thickness() const
+    {
+        return l_top_thickness;
+    }
+    double layer_min_thickness() const
+    {
+        return l_min_thickness;
+    }
 
-    void set_layer_size(double size) {l_size = size;}
-    void set_layer_top_thickness(double top_thickness) {l_top_thickness = top_thickness;}
-    void set_layer_bottom_thickness(double bottom_thickness) {l_top_thickness = bottom_thickness;}
+    void set_layer_size(double size)
+    {
+        l_size = size;
+    }
+    void set_layer_top_thickness(double top_thickness)
+    {
+        l_top_thickness = top_thickness;
+    }
+    void set_layer_bottom_thickness(double bottom_thickness)
+    {
+        l_top_thickness = bottom_thickness;
+    }
 
 private:
     double l_size;
@@ -54,7 +75,6 @@ private:
     double l_bottom_thickness;
     double l_min_thickness;
 };
-
 
 //! Provides 3D object generation for RealSpaceWidget.
 class BA_CORE_API_ RealSpaceCanvas : public QWidget
@@ -69,11 +89,11 @@ public:
                   QItemSelectionModel* selectionModel = nullptr);
 
 signals:
-    void lockViewUnchecked(const QItemSelection &);
+    void lockViewUnchecked(const QItemSelection&);
 
 public slots:
-    void onSelectionChanged(const QItemSelection &selection, const QItemSelection &);
-    void updateToSelection(const QItemSelection &selection);
+    void onSelectionChanged(const QItemSelection& selection, const QItemSelection&);
+    void updateToSelection(const QItemSelection& selection);
 
     void onDefaultViewAction();
     void onSideViewAction();

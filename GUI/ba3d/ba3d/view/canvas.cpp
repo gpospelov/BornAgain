@@ -13,58 +13,64 @@
 // ************************************************************************** //
 
 #include "canvas.h"
+#include "../model/geometry.h"
+#include "../model/model.h"
 #include "buffer.h"
 #include "camera.h"
 #include "program.h"
-#include "../model/geometry.h"
-#include "../model/model.h"
 
 #include <QMouseEvent>
-#include <qmath.h>
-#include <QMessageBox>
 #include <math.h>
+#include <qmath.h>
 
-namespace {
-    const float zoom_in_scale = 1.25f;
-    const float zoom_out_scale = 0.8f;
+namespace
+{
+const float zoom_in_scale = 1.25f;
+const float zoom_out_scale = 0.8f;
 
-    const float rot_speed_h = 0.4f; // camera rotation speed in horizontal direction
-    const float rot_speed_v = 0.4f; // camera rotation speed in vertical direction
+const float rot_speed_h = 0.4f; // camera rotation speed in horizontal direction
+const float rot_speed_v = 0.4f; // camera rotation speed in vertical direction
 }
 
-namespace RealSpace {
+namespace RealSpace
+{
 
 Canvas::Canvas()
-    : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1)
-    , camera(nullptr), program(nullptr), model(nullptr) {
-    connect(&geometryStore(), &GeometryStore::deletingGeometry,
-            this, &Canvas::releaseBuffer);
+    : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1), camera(nullptr), program(nullptr),
+      model(nullptr)
+{
+    connect(&geometryStore(), &GeometryStore::deletingGeometry, this, &Canvas::releaseBuffer);
 }
 
-Canvas::~Canvas() {
+Canvas::~Canvas()
+{
     releaseBuffers();
 }
 
-void Canvas::setBgColor(QColor const& c) {
+void Canvas::setBgColor(QColor const& c)
+{
     colorBgR = float(c.redF());
     colorBgG = float(c.greenF());
     colorBgB = float(c.blueF());
     update();
 }
 
-void Canvas::setCamera(Camera* c) {
+void Canvas::setCamera(Camera* c)
+{
     camera = c;
     setCamera();
 }
 
-void Canvas::setProgram(Program* p) {
+void Canvas::setProgram(Program* p)
+{
     program = p;
     if (program)
         program->needsInit();
     update();
 }
 
-void Canvas::setModel(Model* m) {
+void Canvas::setModel(Model* m)
+{
     releaseBuffers();
 
     disconnect(modelUpdated);
@@ -79,11 +85,13 @@ void Canvas::setModel(Model* m) {
     setCamera();
 }
 
-Model* Canvas::getModel() {
+Model* Canvas::getModel()
+{
     return model;
 }
 
-void Canvas::setCamera(bool full) {
+void Canvas::setCamera(bool full)
+{
     if (camera) {
         camera->setAspectRatio(aspectRatio);
         if (full && model)
@@ -93,20 +101,23 @@ void Canvas::setCamera(bool full) {
     update();
 }
 
-void Canvas::initializeGL() {
+void Canvas::initializeGL()
+{
     initializeOpenGLFunctions();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 }
 
-void Canvas::resizeGL(int w, int h) {
+void Canvas::resizeGL(int w, int h)
+{
     int w1 = qMax(1, w), h1 = qMax(1, h);
     viewport.setRect(0, 0, w1, h1);
     aspectRatio = float(w1) / float(h1);
     setCamera(false);
 }
 
-void Canvas::paintGL() {
+void Canvas::paintGL()
+{
     glClearColor(colorBgR, colorBgG, colorBgB, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -119,22 +130,26 @@ void Canvas::paintGL() {
         model->draw(*this);
 
         // transparent objects
-        glEnable(GL_BLEND); glDepthMask(false);
-        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+        glDepthMask(false);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         model->drawBlend(*this);
-        glDisable(GL_BLEND); glDepthMask(true);
+        glDisable(GL_BLEND);
+        glDepthMask(true);
 
         program->release();
     }
 }
 
-QVector3D Canvas::unproject(QPoint const& p) {
+QVector3D Canvas::unproject(QPoint const& p)
+{
     float x = p.x(), y = viewport.height() - p.y();
     return QVector3D(x, y, 1).unproject(matModel, matProj, viewport);
 }
 
-void Canvas::mousePressEvent(QMouseEvent* e) {
-    switch (e->button())  {
+void Canvas::mousePressEvent(QMouseEvent* e)
+{
+    switch (e->button()) {
     case Qt::LeftButton:
         mouseButton = btnTURN;
         break;
@@ -148,30 +163,31 @@ void Canvas::mousePressEvent(QMouseEvent* e) {
 
     if (camera) {
         matModel = camera->matModel;
-        matProj  = camera->matProj;
+        matProj = camera->matProj;
         e_last = e->pos();
     }
 }
 
-void Canvas::mouseMoveEvent(QMouseEvent* e) {
+void Canvas::mouseMoveEvent(QMouseEvent* e)
+{
     if (camera) {
         float delta_x = e->pos().x() - e_last.x();
         float delta_y = e->pos().y() - e_last.y();
 
         switch (mouseButton) {
         case btnTURN: {
-            if(delta_x != 0)
-                horizontalCameraTurn(-delta_x*rot_speed_h); // -ve for consistency with Blender
+            if (delta_x != 0)
+                horizontalCameraTurn(-delta_x * rot_speed_h); // -ve for consistency with Blender
 
-            if(delta_y != 0)
-                verticalCameraTurn(-delta_y*rot_speed_v); // -ve for consistency with Blender
+            if (delta_y != 0)
+                verticalCameraTurn(-delta_y * rot_speed_v); // -ve for consistency with Blender
 
             e_last = e->pos();
             break;
         }
         case btnZOOM: {
             float d = (e->y() - e_last.y()) / float(viewport.height());
-            camera->zoomBy(1+d);
+            camera->zoomBy(1 + d);
             break;
         }
         default:
@@ -182,7 +198,8 @@ void Canvas::mouseMoveEvent(QMouseEvent* e) {
     }
 }
 
-void Canvas::mouseReleaseEvent(QMouseEvent*) {
+void Canvas::mouseReleaseEvent(QMouseEvent*)
+{
     if (camera) {
         camera->endTransform(true);
         update();
@@ -191,16 +208,12 @@ void Canvas::mouseReleaseEvent(QMouseEvent*) {
 
 void Canvas::wheelEvent(QWheelEvent* e)
 {
-    if (camera)
-    {
-        if(e->delta() < 0)
-        {
-            //Zoom in
+    if (camera) {
+        if (e->delta() < 0) {
+            // Zoom in
             camera->zoomBy(zoom_in_scale);
-        }
-        else
-        {
-            //Zoom out
+        } else {
+            // Zoom out
             camera->zoomBy(zoom_out_scale);
         }
         camera->endTransform(true);
@@ -209,21 +222,24 @@ void Canvas::wheelEvent(QWheelEvent* e)
     e->accept(); // disabling the event from propagating further to the parent widgets
 }
 
-void Canvas::releaseBuffer(Geometry const* g) {
+void Canvas::releaseBuffer(Geometry const* g)
+{
     delete buffers.take(g);
 }
 
-void Canvas::releaseBuffers() {
-    for (auto b: buffers.values())
+void Canvas::releaseBuffers()
+{
+    for (auto b : buffers.values())
         delete b;
     buffers.clear();
 }
 
-void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& geo) {
+void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& geo)
+{
     auto it = buffers.find(&geo);
     Buffer* buf;
     if (buffers.end() == it)
-        buffers.insert(&geo, buf = new Buffer(geo));  // created on demand
+        buffers.insert(&geo, buf = new Buffer(geo)); // created on demand
     else
         buf = *it;
 
@@ -235,70 +251,46 @@ void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& ge
 
 void Canvas::defaultView()
 {
-    if (model){
+    if (model) {
         // Default view
-        camera->lookAt(RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 90),  // eye
-                                                   RealSpace::Vector3D(0, 0, 0),      // center
-                                                   RealSpace::Vector3D::_z));         // up
+        camera->lookAt(RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 90), // eye
+                                                   RealSpace::Vector3D(0, 0, 0),     // center
+                                                   RealSpace::Vector3D::_z));        // up
         camera->endTransform(true);
         update();
-    }
-    else{
-        canvasHintMessageBox();
     }
 }
 
 void Canvas::sideView()
 {
-    if (model){
+    if (model) {
         // Edge view
-        camera->lookAt(RealSpace::Camera::Position(
-                                   RealSpace::Vector3D(0, -140, 0),   // eye
-                                   RealSpace::Vector3D(0, 0, 0),      // center
-                                   RealSpace::Vector3D::_z));         // up
+        camera->lookAt(RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 0), // eye
+                                                   RealSpace::Vector3D(0, 0, 0),    // center
+                                                   RealSpace::Vector3D::_z));       // up
         camera->endTransform(true);
         update();
-    }
-    else{
-        canvasHintMessageBox();
     }
 }
 
 void Canvas::topView()
 {
-    if (model){
+    if (model) {
         // Top view
         // Setting a tiny offset in x value of eye such that eye and up vectors are not parallel
-        camera->lookAt(RealSpace::Camera::Position(
-                                   RealSpace::Vector3D(0, -0.5, 140),   // eye
-                                   RealSpace::Vector3D(0, 0, 0),       // center
-                                   RealSpace::Vector3D::_z));          // up
+        camera->lookAt(RealSpace::Camera::Position(RealSpace::Vector3D(0, -0.5, 140), // eye
+                                                   RealSpace::Vector3D(0, 0, 0),      // center
+                                                   RealSpace::Vector3D::_z));         // up
         camera->endTransform(true);
         update();
     }
-    else{
-        canvasHintMessageBox();
-    }
-}
-
-// Display message when no Sample is selected and a ToolBar action is clicked
-void Canvas::canvasHintMessageBox()
-{
-    QMessageBox box;
-    box.setIcon(QMessageBox::Information);
-    box.setText("Sample not selected! Nothing to display!");
-    box.setDetailedText("Hint:"
-                        "\n1. Build the sample."
-                        "\n2. Select it from the panel on the right.");
-    box.setWindowFlags(box.windowFlags() & ~Qt::WindowCloseButtonHint); // Hide Close Button
-    box.exec();
 }
 
 void Canvas::horizontalCameraTurn(float angle)
 {
-    if (model){
+    if (model) {
 
-        float theta = angle*static_cast<float>(M_PI/180.0); // in radians
+        float theta = angle * static_cast<float>(M_PI / 180.0); // in radians
 
         Camera::Position initial_pos = camera->getPos();
 
@@ -309,8 +301,9 @@ void Canvas::horizontalCameraTurn(float angle)
         RealSpace::Vector3D v_axis = v_up.normalized(); // normalized rotation axis
 
         // Rotating camera's position (eye) about up vector
-        RealSpace::Vector3D v_rot_eye = v_up*(1-std::cos(theta))*dot(v_axis,v_eye) +
-                v_eye*std::cos(theta) + cross(v_axis,v_eye)*std::sin(theta);
+        RealSpace::Vector3D v_rot_eye = v_up * (1 - std::cos(theta)) * dot(v_axis, v_eye)
+                                        + v_eye * std::cos(theta)
+                                        + cross(v_axis, v_eye) * std::sin(theta);
 
         Camera::Position rotated_pos(v_rot_eye, v_ctr, v_up);
 
@@ -321,9 +314,9 @@ void Canvas::horizontalCameraTurn(float angle)
 
 void Canvas::verticalCameraTurn(float angle)
 {
-    if (model){
+    if (model) {
 
-        float theta = angle*static_cast<float>(M_PI/180.0); // in radians
+        float theta = angle * static_cast<float>(M_PI / 180.0); // in radians
 
         Camera::Position initial_pos = camera->getPos();
 
@@ -334,8 +327,9 @@ void Canvas::verticalCameraTurn(float angle)
         RealSpace::Vector3D v_axis = cross(v_up, v_eye).normalized(); // normalized rotation axis
 
         // Rotating camera's position (eye) about an axis perpendicular to up and eye vectors
-        RealSpace::Vector3D v_rot_eye = v_up*(1-std::cos(theta))*dot(v_axis,v_eye) +
-                v_eye*std::cos(theta) + cross(v_axis,v_eye)*std::sin(theta);
+        RealSpace::Vector3D v_rot_eye = v_up * (1 - std::cos(theta)) * dot(v_axis, v_eye)
+                                        + v_eye * std::cos(theta)
+                                        + cross(v_axis, v_eye) * std::sin(theta);
 
         Camera::Position rotated_pos(v_rot_eye, v_ctr, v_up);
 
@@ -344,4 +338,4 @@ void Canvas::verticalCameraTurn(float angle)
     }
 }
 
-}  // namespace RealSpace
+} // namespace RealSpace

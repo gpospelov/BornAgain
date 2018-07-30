@@ -10,8 +10,6 @@ set(test_cases
     Minuit2_Migrad
     RectDetectorFit
     AdjustMinimizerStrategy
-    SpecularFit
-    MultipleSpecFitTest
     MultiPatternFit
 )
 

@@ -82,6 +82,7 @@ public slots:
     void onChangeLayerSizeAction(double layer_size_scale);
 
 private slots:
+    void onDataChanged(const QModelIndex& index);
     void updateScene();
     void resetScene();
 

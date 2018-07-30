@@ -20,6 +20,7 @@
 #include <QVBoxLayout>
 #include <FilterPropertyProxy.h>
 #include <QApplication>
+#include "SessionGraphicsItem.h"
 
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent)
@@ -131,6 +132,16 @@ void RealSpaceCanvas::onChangeLayerSizeAction(double layerSizeChangeScale)
     updateScene();
 }
 
+void RealSpaceCanvas::onDataChanged(const QModelIndex &index)
+{
+    auto item = m_sampleModel->itemForIndex(index);
+
+    if(!(item->modelType() == Constants::PropertyType &&
+         (item->displayName() == SessionGraphicsItem::P_XPOS ||
+          item->displayName() == SessionGraphicsItem::P_YPOS)))
+        updateScene();
+}
+
 void RealSpaceCanvas::updateScene()
 {
     QApplication::setOverrideCursor(Qt::WaitCursor);
@@ -203,14 +214,14 @@ void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
         connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)),
                 this, SLOT(updateScene()), Qt::UniqueConnection);
         connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)),
-                this, SLOT(updateScene()), Qt::UniqueConnection);
+                this, SLOT(onDataChanged(QModelIndex)), Qt::UniqueConnection);
         connect(model, SIGNAL(modelReset()), this,
                 SLOT(resetScene()), Qt::UniqueConnection);
     } else {
         disconnect(model, SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(updateScene()));
         disconnect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this, SLOT(updateScene()));
         disconnect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), this,
-                   SLOT(updateScene()));
+                   SLOT(onDataChanged(QModelIndex)));
         disconnect(model, SIGNAL(modelReset()), this, SLOT(resetScene()));
     }
 }

@@ -82,5 +82,10 @@ public:
 
 };
 
+class SpecularNewFitTest : public FitObjectiveTest
+{
+public:
+    SpecularNewFitTest();
+};
 
 #endif //   MINIMIZERTESTCASES_H

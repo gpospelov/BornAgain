@@ -2,6 +2,7 @@ set(test TestFitObjective)
 
 set(test_cases
     MigradCylindersInBA
+    SpecularNewFitTest
 )
 
 include_directories(${RootMinimizers_INCLUDE_DIRS})

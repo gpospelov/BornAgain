@@ -69,6 +69,16 @@ protected:
     std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
 };
 
+class SpecularPlan : public FitPlan
+{
+public:
+    SpecularPlan();
+    ~SpecularPlan() override;
+
+protected:
+    std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const override;
+};
+
 #endif  //  FITPLANCASES_H
 
 

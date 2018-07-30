@@ -209,19 +209,18 @@ void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
         return;
 
     if (makeConnected) {
-        connect(model, SIGNAL(rowsInserted(QModelIndex, int, int)),
-                this, SLOT(updateScene()), Qt::UniqueConnection);
-        connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-                this, SLOT(updateScene()), Qt::UniqueConnection);
-        connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)),
-                this, SLOT(onDataChanged(QModelIndex)), Qt::UniqueConnection);
-        connect(model, SIGNAL(modelReset()), this,
-                SLOT(resetScene()), Qt::UniqueConnection);
+        connect(model, &SampleModel::rowsInserted,
+                this, &RealSpaceCanvas::updateScene, Qt::UniqueConnection);
+        connect(model, &SampleModel::rowsRemoved,
+                this, &RealSpaceCanvas::updateScene, Qt::UniqueConnection);
+        connect(model, &SampleModel::dataChanged,
+                this, &RealSpaceCanvas::onDataChanged, Qt::UniqueConnection);
+        connect(model, &SampleModel::modelReset,
+                this, &RealSpaceCanvas::resetScene, Qt::UniqueConnection);
     } else {
-        disconnect(model, SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(updateScene()));
-        disconnect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this, SLOT(updateScene()));
-        disconnect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), this,
-                   SLOT(onDataChanged(QModelIndex)));
-        disconnect(model, SIGNAL(modelReset()), this, SLOT(resetScene()));
+        disconnect(model, &SampleModel::rowsInserted, this, &RealSpaceCanvas::updateScene);
+        disconnect(model, &SampleModel::rowsRemoved, this, &RealSpaceCanvas::updateScene);
+        disconnect(model, &SampleModel::dataChanged, this, &RealSpaceCanvas::onDataChanged);
+        disconnect(model, &SampleModel::modelReset, this, &RealSpaceCanvas::resetScene);
     }
 }

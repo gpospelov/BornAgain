@@ -200,7 +200,7 @@ def plot_simulation_result(result, intensity_min=None, intensity_max=None, units
     :param postpone_show: postpone showing the plot for later tuning (False by default)
     """
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
-        plot_specular_simulation_result(result, intensity_min, intensity_max)
+        plot_specular_simulation_result(result, intensity_min, intensity_max, units)
     else:
         plot_colormap(result, intensity_min, intensity_max, units)
     plt.tight_layout()

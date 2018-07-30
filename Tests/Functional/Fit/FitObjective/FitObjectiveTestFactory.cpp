@@ -37,8 +37,8 @@ FitObjectiveTestFactory::FitObjectiveTestFactory()
                  "Minuit + Genetic, CylindersInBA");
     registerItem("MultiPatternFit", create_new<MultiPatternFit>,
                  "Minuit, MultiPatternSample");
-    registerItem("SpecularNewFitTest", create_new<SpecularNewFitTest>,
+    registerItem("SpecularFitTest", create_new<SpecularFitTest>,
                  "Minuit, Basic specular fitting");
-    registerItem("MultipleSpecSimulationTest", create_new<MultipleSpecSimulationTest>,
+    registerItem("MultipleSpecFittingTest", create_new<MultipleSpecFittingTest>,
                  "Minuit, fitting of several reflectometry curves");
 }

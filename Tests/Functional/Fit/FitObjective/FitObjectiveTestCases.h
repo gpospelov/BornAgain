@@ -82,16 +82,16 @@ public:
 
 };
 
-class SpecularNewFitTest : public FitObjectiveTest
+class SpecularFitTest : public FitObjectiveTest
 {
 public:
-    SpecularNewFitTest();
+    SpecularFitTest();
 };
 
-class MultipleSpecSimulationTest : public FitObjectiveTest
+class MultipleSpecFittingTest : public FitObjectiveTest
 {
 public:
-    MultipleSpecSimulationTest();
+    MultipleSpecFittingTest();
 };
 
 #endif //   MINIMIZERTESTCASES_H

@@ -109,7 +109,7 @@ class DrawObserver(ba.IFitObserver):
         plt.axis('off')
         plt.text(0.01, 0.85, "Iteration  " + '{:d}     {:s}'.
                  format(fit_suite.numberOfIterations(),
-                        fit_suite.minimizer().minimizerName()))
+                        fit_suite.minimizerName()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         for index, fitPar in enumerate(fit_suite.fitParameters()):
             plt.text(0.01, 0.55 - index*0.1,

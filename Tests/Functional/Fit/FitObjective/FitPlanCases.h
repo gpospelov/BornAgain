@@ -69,6 +69,31 @@ protected:
     std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
 };
 
+//! Plan for fitting reflectometry curve on Ti/Ni multilayer
+
+class SpecularPlan : public FitPlan
+{
+public:
+    SpecularPlan();
+    ~SpecularPlan() override;
+
+protected:
+    SpecularPlan(std::string name);
+    std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const override;
+};
+
+//! The same as SpecularPlan, but with two (identical) datasets
+
+class MultipleSpecPlan : public SpecularPlan
+{
+public:
+    MultipleSpecPlan();
+    ~MultipleSpecPlan() override;
+
+protected:
+    std::unique_ptr<FitObjective> createFitObjective() const override;
+};
+
 #endif  //  FITPLANCASES_H
 
 

@@ -13,19 +13,20 @@
 // ************************************************************************** //
 
 #include "FitPlanCases.h"
-#include "Units.h"
+#include "FitObjective.h"
+#include "FormFactorCylinder.h"
 #include "GISASSimulation.h"
-#include "RectangularDetector.h"
-#include "Rectangle.h"
-#include "MultiLayer.h"
+#include "InterferenceFunction2DLattice.h"
+#include "Layer.h"
 #include "MaterialFactoryFuncs.h"
+#include "MultiLayer.h"
+#include "Parameters.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
-#include "Parameters.h"
-#include "InterferenceFunction2DLattice.h"
+#include "Rectangle.h"
+#include "RectangularDetector.h"
 #include "FTDecayFunctions.h"
-#include "Layer.h"
-#include "FormFactorCylinder.h"
+#include "Units.h"
 
 using namespace Fit;
 
@@ -124,5 +125,70 @@ std::unique_ptr<MultiLayer> MultiPatternPlan::createMultiLayer(const Parameters&
 
     result->addLayer(air_layer);
     result->addLayer(substrate_layer);
+    return result;
+}
+
+// ----------------------------------------------------------------------------
+
+SpecularPlan::SpecularPlan()
+    : SpecularPlan("SpecularPlan")
+{}
+
+SpecularPlan::~SpecularPlan() = default;
+
+SpecularPlan::SpecularPlan(std::string name)
+    : FitPlan(name, /*residual_based = */ true)
+{
+    setSimulationName("BasicSpecular");
+    addParameter(Parameter("thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
+                 3.0 * nm);
+}
+
+std::unique_ptr<MultiLayer> SpecularPlan::createMultiLayer(const Fit::Parameters& params) const
+{
+    const size_t number_of_layers = 10;
+    double thick_ni = 7.0 * nm;
+    double thick_ti = params["thickness"].value();
+
+    Material vacuum_material = MaterialBySLD();
+    Material substrate_material = MaterialBySLD("Si_substrate", 2.0704e-06, 2.3726e-11);
+    Material ni_material = MaterialBySLD("Ni", -1.9493e-06, 9.6013e-10);
+    Material ti_material = MaterialBySLD("Ti", 9.4245e-06, 1.1423e-09);
+
+    Layer vacuum_layer(vacuum_material, 0);
+    Layer ni_layer(ni_material, thick_ni);
+    Layer ti_layer(ti_material, thick_ti);
+    Layer substrate_layer(substrate_material, 0);
+
+    std::unique_ptr<MultiLayer> multi_layer(new MultiLayer());
+    multi_layer->addLayer(vacuum_layer);
+    for (size_t i = 0; i < number_of_layers; ++i) {
+        multi_layer->addLayer(ti_layer);
+        multi_layer->addLayer(ni_layer);
+    }
+    multi_layer->addLayer(substrate_layer);
+    return multi_layer;
+}
+
+// ----------------------------------------------------------------------------
+
+MultipleSpecPlan::MultipleSpecPlan()
+    : SpecularPlan("MultipleSpecPlan")
+{}
+
+MultipleSpecPlan::~MultipleSpecPlan() = default;
+
+std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
+{
+    std::unique_ptr<FitObjective> result(new FitObjective);
+
+    simulation_builder_t builder = [&](const Fit::Parameters& params) {
+        return buildSimulation(params);
+    };
+
+    result->addSimulationAndData(builder, *createOutputData(), 0.5);
+    result->addSimulationAndData(builder, *createOutputData(), 0.5);
+    result->initPrint(1);
+
     return result;
 }

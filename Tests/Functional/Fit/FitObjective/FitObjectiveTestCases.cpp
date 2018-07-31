@@ -49,3 +49,9 @@ AdjustMinimizerFit::AdjustMinimizerFit()
 
 MultiPatternFit::MultiPatternFit()
     : FitObjectiveTest("GSLLMA", "", "MultiPatternPlan") {}
+
+SpecularFitTest::SpecularFitTest()
+    : FitObjectiveTest("Minuit2", "Migrad", "SpecularPlan") {}
+
+MultipleSpecFittingTest::MultipleSpecFittingTest()
+    : FitObjectiveTest("Minuit2", "Migrad", "MultipleSpecPlan") {}

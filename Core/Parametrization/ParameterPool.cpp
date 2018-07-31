@@ -132,8 +132,8 @@ void ParameterPool::setParameterValue(const std::string& name, double value)
     if(RealParameter* par = parameter(name)) {
         try {
             par->setValue(value);
-        } catch (std::runtime_error) {
-            report_set_value_error(name, value);
+        } catch (std::runtime_error e) {
+            report_set_value_error(name, value, e.what());
         }
     } else {
         std::ostringstream message;
@@ -152,8 +152,8 @@ int ParameterPool::setMatchedParametersValue(const std::string& pattern, double 
         try {
             par->setValue(value);
             npars++;
-        } catch (std::runtime_error) {
-            report_set_value_error(par->getName(), value);
+        } catch (std::runtime_error e) {
+            report_set_value_error(par->getName(), value, e.what());
         }
     }
     if (npars == 0)
@@ -218,12 +218,14 @@ void ParameterPool::report_find_matched_parameters_error(const std::string& patt
 }
 
 //! Reports error while setting parname to given value.
-void ParameterPool::report_set_value_error(const std::string& parname, double value) const
+void ParameterPool::report_set_value_error(const std::string& parname, double value,
+                                           std::string message) const
 {
     std::ostringstream ostr;
     ostr << "ParameterPool::set_value_error() -> Attempt to set value " << value;
-    ostr << " for parameter '" << parname << "' failed. Out of bounds?";
+    ostr << " for parameter '" << parname << "' failed.";
     ostr << " Parameter limits: '" << parameter(parname)->limits() << "'.\n";
+    ostr << "Original exception message: " << message << std::endl;
     throw Exceptions::RuntimeErrorException(ostr.str());
 }
 

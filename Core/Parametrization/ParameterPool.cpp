@@ -132,7 +132,7 @@ void ParameterPool::setParameterValue(const std::string& name, double value)
     if(RealParameter* par = parameter(name)) {
         try {
             par->setValue(value);
-        } catch (std::runtime_error e) {
+        } catch (const std::runtime_error& e) {
             report_set_value_error(name, value, e.what());
         }
     } else {
@@ -152,7 +152,7 @@ int ParameterPool::setMatchedParametersValue(const std::string& pattern, double 
         try {
             par->setValue(value);
             npars++;
-        } catch (std::runtime_error e) {
+        } catch (const std::runtime_error& e) {
             report_set_value_error(par->getName(), value, e.what());
         }
     }

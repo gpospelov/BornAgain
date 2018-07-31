@@ -14287,8 +14287,9 @@ class FormFactorFullSphere(IFormFactorBorn):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorFullSphere, name)
     __repr__ = _swig_repr
 
-    def __init__(self, radius):
+    def __init__(self, radius, position_at_center=False):
         """
+        __init__(FormFactorFullSphere self, double radius, bool position_at_center=False) -> FormFactorFullSphere
         __init__(FormFactorFullSphere self, double radius) -> FormFactorFullSphere
 
         FormFactorFullSphere::FormFactorFullSphere(double radius)
@@ -14302,7 +14303,7 @@ class FormFactorFullSphere(IFormFactorBorn):
         radius of the sphere in nanometers 
 
         """
-        this = _libBornAgainCore.new_FormFactorFullSphere(radius)
+        this = _libBornAgainCore.new_FormFactorFullSphere(radius, position_at_center)
         try:
             self.this.append(this)
         except __builtin__.Exception:

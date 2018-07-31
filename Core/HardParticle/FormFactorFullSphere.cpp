@@ -75,9 +75,11 @@ complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const
 IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotation& rot,
                                                    kvector_t translation) const
 {
-    kvector_t centre(0.0, 0.0, m_radius);
-    kvector_t new_translation = translation + rot.getTransform3D().transformed(centre)
-                                - kvector_t(0.0, 0.0, m_radius);
+    kvector_t center(0.0, 0.0, m_radius);
+    kvector_t rotation_offset = m_position_at_center ? kvector_t(0.0, 0.0, 0.0)
+                                                     : rot.getTransform3D().transformed(center)
+                                                       - center;
+    kvector_t new_translation = translation + rotation_offset;
     std::unique_ptr<IRotation> P_identity(IRotation::createIdentity());
     double height = 2.0*m_radius;
     auto effects = computeSlicingEffects(limits, new_translation, height);

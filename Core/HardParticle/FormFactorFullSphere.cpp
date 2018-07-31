@@ -23,8 +23,8 @@
 
 //! Constructor of a full sphere.
 //! @param radius: radius of the sphere in nanometers
-FormFactorFullSphere::FormFactorFullSphere(double radius)
-    : m_radius(radius)
+FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center)
+    : m_radius(radius), m_position_at_center(position_at_center)
 {
     setName(BornAgain::FFFullSphereType);
     registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
@@ -33,6 +33,8 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
 
 double FormFactorFullSphere::bottomZ(const IRotation& rotation) const
 {
+    if (m_position_at_center)
+        return -m_radius;
     kvector_t centre(0.0, 0.0, m_radius);
     kvector_t new_centre = rotation.getTransform3D().transformed(centre);
     return new_centre.z() - m_radius;
@@ -40,6 +42,8 @@ double FormFactorFullSphere::bottomZ(const IRotation& rotation) const
 
 double FormFactorFullSphere::topZ(const IRotation& rotation) const
 {
+    if (m_position_at_center)
+        return m_radius;
     kvector_t centre(0.0, 0.0, m_radius);
     kvector_t new_centre = rotation.getTransform3D().transformed(centre);
     return new_centre.z() + m_radius;
@@ -64,8 +68,8 @@ complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const
 #endif
         ret = 4*M_PI*pow(q1,-3)*(sin(qR) - qR*cos(qR));
     }
-
-    return exp_I(q.z()*R) * ret;
+    auto prefactor = m_position_at_center ? 1.0 : exp_I(q.z()*R);
+    return prefactor * ret;
 }
 
 IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotation& rot,

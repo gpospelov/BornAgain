@@ -85,7 +85,4 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
     return CreateTransformedFormFactor(slicedff, *P_identity, effects.position);
 }
 
-void FormFactorFullSphere::onChange()
-{
-    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_radius, 2.0*m_radius, 0.0));
-}
+void FormFactorFullSphere::onChange() {}

@@ -18,14 +18,9 @@ const double relative_diff_max_1d = 4.0;
 FitComparison1DViewController::FitComparison1DViewController(QObject* parent)
     : QObject(parent),
       m_diff_item_controller(new DiffItemController(Constants::SpecularDataType, this)),
-      m_diff_view_item(dynamic_cast<Data1DViewItem*>(
-          m_diff_item_controller->model()->insertNewItem(Constants::Data1DViewItemType))),
+      m_diff_view_item(nullptr),
       m_appearanceRepeater(new PropertyRepeater(this)), m_xAxisRepeater(new PropertyRepeater(this))
 {
-    auto container = m_diff_view_item->model()->insertNewItem(Constants::DataPropertyContainerType,
-                                                              m_diff_view_item->index(), -1,
-                                                              Data1DViewItem::T_DATA_PROPERTIES);
-    dynamic_cast<DataPropertyContainer*>(container)->addItem(m_diff_item_controller->diffItem());
 }
 
 Data1DViewItem* FitComparison1DViewController::diffItemView()
@@ -39,11 +34,9 @@ void FitComparison1DViewController::setItem(JobItem* job_item)
 
     clear();
     m_diff_item_controller->setJobItem(job_item);
-    diffItemView()->setJobItem(job_item);
+    createDiffViewItem(job_item);
 
     auto job_data_view = job_item->dataItemView();
-    auto units_value = job_data_view->getItemValue(Data1DViewItem::P_AXES_UNITS);
-    diffItemView()->setItemValue(Data1DViewItem::P_AXES_UNITS, units_value);
 
     m_appearanceRepeater->addItem(job_data_view);
     m_appearanceRepeater->addItem(diffItemView());
@@ -51,10 +44,10 @@ void FitComparison1DViewController::setItem(JobItem* job_item)
     m_xAxisRepeater->addItem(job_data_view->xAxisItem());
     m_xAxisRepeater->addItem(diffItemView()->xAxisItem());
 
-    diffItemView()->setXaxisTitle(job_data_view->getXaxisTitle());
-    diffItemView()->setYaxisTitle("Relative difference");
-    diffItemView()->setLowerY(relative_diff_min_1d);
-    diffItemView()->setUpperY(relative_diff_max_1d);
+    m_diff_view_item->setXaxisTitle(job_data_view->getXaxisTitle());
+    m_diff_view_item->setYaxisTitle("Relative difference");
+    m_diff_view_item->setLowerY(relative_diff_min_1d);
+    m_diff_view_item->setUpperY(relative_diff_max_1d);
 }
 
 void FitComparison1DViewController::updateDiffData()
@@ -64,9 +57,11 @@ void FitComparison1DViewController::updateDiffData()
 
 void FitComparison1DViewController::resetDiffView()
 {
-    diffItemView()->resetView();
-    diffItemView()->setLowerY(relative_diff_min_1d);
-    diffItemView()->setUpperY(relative_diff_max_1d);
+    if (!m_diff_view_item)
+        return;
+    m_diff_view_item->resetView();
+    m_diff_view_item->setLowerY(relative_diff_min_1d);
+    m_diff_view_item->setUpperY(relative_diff_max_1d);
 }
 
 void FitComparison1DViewController::clear()
@@ -74,6 +69,32 @@ void FitComparison1DViewController::clear()
     m_diff_item_controller->unsubscribe();
     m_appearanceRepeater->clear();
     m_xAxisRepeater->clear();
+    if (m_diff_view_item)
+        deleteDiffViewItem();
+}
+
+void FitComparison1DViewController::createDiffViewItem(JobItem* job_item)
+{
+    m_diff_view_item = dynamic_cast<Data1DViewItem*>(
+        m_diff_item_controller->model()->insertNewItem(Constants::Data1DViewItemType));
+    auto container = m_diff_view_item->model()->insertNewItem(Constants::DataPropertyContainerType,
+                                                              m_diff_view_item->index(), -1,
+                                                              Data1DViewItem::T_DATA_PROPERTIES);
+    dynamic_cast<DataPropertyContainer*>(container)->addItem(m_diff_item_controller->diffItem());
+
+    m_diff_view_item->setJobItem(job_item);
+    auto job_data_view = job_item->dataItemView();
+    auto units_value = job_data_view->getItemValue(Data1DViewItem::P_AXES_UNITS);
+    m_diff_view_item->setItemValue(Data1DViewItem::P_AXES_UNITS, units_value);
+}
+
+void FitComparison1DViewController::deleteDiffViewItem()
+{
+    auto parent = m_diff_view_item->parent();
+    auto old_view_item = parent->takeRow(parent->rowOfChild(m_diff_view_item));
+    assert(old_view_item == m_diff_view_item);
+    delete(old_view_item);
+    m_diff_view_item = nullptr;
 }
 
 DiffItemController::DiffItemController(const QString& data_type, QObject* parent)
@@ -128,9 +149,9 @@ void DiffItemController::subscribe()
 
 void DiffItemController::unsubscribe()
 {
+    m_diff_item->mapper()->unsubscribe(this);
     if (!m_current_item)
         return;
     m_current_item->dataItem()->mapper()->unsubscribe(this);
-    m_diff_item->mapper()->unsubscribe(this);
     m_current_item = nullptr;
 }

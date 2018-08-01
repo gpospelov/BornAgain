@@ -105,9 +105,6 @@ void FitComparisonWidget1D::subscribeToItem()
 
 void FitComparisonWidget1D::unsubscribeFromItem()
 {
-    if (!currentItem())
-        return;
-
     m_comparisonController->clear();
 }
 

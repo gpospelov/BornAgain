@@ -42,6 +42,9 @@ public:
     void clear();
 
 private:
+    void createDiffViewItem(JobItem* job_item);
+    void deleteDiffViewItem();
+
     DiffItemController* m_diff_item_controller;
     Data1DViewItem* m_diff_view_item;
     PropertyRepeater* m_appearanceRepeater;

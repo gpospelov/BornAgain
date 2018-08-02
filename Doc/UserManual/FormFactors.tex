@@ -1696,18 +1696,22 @@ Agrees with the \IsGISAXS\ form factor
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
 \begin{lstlisting}
-  FormFactorTruncatedSpheroid(double radius, double height, double height_flattening)
+  FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh)
 \end{lstlisting}
 with the parameters
 \begin{itemize}
 \item \texttt{radius}, $R$,
-\item \texttt{height}, $H$.
-\item \texttt{height\_flattening}, $f_p$.
+\item \texttt{height}, $H$,
+\item \texttt{height\_flattening}, $f_p$,
+\item \texttt{top removal}, $dh$.
 \end{itemize}
 They must fulfill
-\begin{displaymath}
+\begin{equation*}
   0< \dfrac{H}{R}\le 2f_p.
-\end{displaymath}
+\end{equation*}
+\begin{equation*}
+  dh < H.
+\end{equation*}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
@@ -1717,15 +1721,17 @@ Notation:
 \end{equation*}
 Results:
 \begin{equation*}
-F =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H}^{f_p R} \!\d z\,
+F =   2\pi \exp[iq_z(H-f_pR)] \int_{f_p R-H}^{f_p R-dh} \!\d z\,
      R_z^2\frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \exp(i q_z z)
 \end{equation*}
 \begin{equation*}
-  V = \dfrac{\pi R H^2}{f_p}  \Big(1-\dfrac{H}{3f_p R}\Big),
+  V=\frac{\pi}{3f_p^2} \left[ 3R f_p\left(H^2-dh^2\right) +dh^3 - H^3 \right],
 \end{equation*}
 \begin{equation*}
-  S = \left\{\begin{array}{ll} \pi R^2, & H \geq f_pR \\
-         \pi\left(\dfrac{2RH}{f_p}-\dfrac{H^2}{f_p^2}\right), & H < R \end{array}\right..
+  S = \left\{\begin{array}{ll} \pi\left(2Rf_pH-H^2\right)/f_p^2, & H < Rf_p \\
+                               \pi R^2, & H \geq Rf_p,\; dh < Rf_p \\
+                               \pi\left(2Rf_pdh-dh^2\right)/f_p^2, & H \geq Rf_p,\; dh \geq Rf_p
+                                 \end{array}\right..
 \end{equation*}
 
 \paragraph{Example}\strut

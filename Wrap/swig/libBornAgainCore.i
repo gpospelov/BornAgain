@@ -207,6 +207,7 @@
 #include "ParticleLayout.h"
 #include "PoissonNoiseBackground.h"
 #include "Polygon.h"
+#include "PyArrayImportUtils.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
 #include "RectangularDetector.h"
@@ -246,6 +247,7 @@
 
 %newobject DetectorMask::createHistogram() const;
 
+%newobject PyArrayImport::importArrayToOutputData;
 %newobject IHistogram::createFrom(const std::string& filename);
 %newobject IHistogram::createFrom(const std::vector<std::vector<double>>& data);
 
@@ -455,6 +457,7 @@
 %include "ParticleCoreShell.h"
 %include "ParticleDistribution.h"
 %include "ParticleLayout.h"
+%include "PyArrayImportUtils.h"
 %include "PoissonNoiseBackground.h"
 %include "Polygon.h"
 %include "RealParameter.h"

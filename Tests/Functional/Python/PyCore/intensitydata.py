@@ -16,6 +16,20 @@ class IntensityDataTest(unittest.TestCase):
         self.assertEqual(0, data.getRank())
         self.assertEqual(0, data.totalSum())
 
+    def test_create_1d_output_data_from_numpy(self):
+        input = numpy.array([0, 1, 2, 3, 4, 5, 6], dtype=float)
+        output_data = ba.importArrayToOutputData(input)
+        output = output_data.getArray()
+        self.assertEqual(input.size, output.size)
+        numpy.testing.assert_allclose(input, output)
+
+    def test_create_2d_output_data_from_numpy(self):
+        input = numpy.array([[0, 1], [2, 3]], dtype=float)
+        output_data = ba.importArrayToOutputData(input)
+        output = output_data.getArray()
+        self.assertEqual(input.size, output.size)
+        numpy.testing.assert_allclose(input, output)
+
     def test_create_1d_object(self):
         axis0 = ba.FixedBinAxis("angle", 20, 0.0, 20.)
         self.assertEqual(20, axis0.size())

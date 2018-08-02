@@ -13890,6 +13890,79 @@ class FormFactorCylinder(IFormFactorBorn):
 FormFactorCylinder_swigregister = _libBornAgainCore.FormFactorCylinder_swigregister
 FormFactorCylinder_swigregister(FormFactorCylinder)
 
+class FormFactorDebyeBueche(IFormFactorBorn):
+    """Proxy of C++ FormFactorDebyeBueche class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorDebyeBueche, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorDebyeBueche, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, I0, xi):
+        """__init__(FormFactorDebyeBueche self, double I0, double xi) -> FormFactorDebyeBueche"""
+        this = _libBornAgainCore.new_FormFactorDebyeBueche(I0, xi)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(FormFactorDebyeBueche self) -> FormFactorDebyeBueche
+
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorDebyeBueche_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FormFactorDebyeBueche self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorDebyeBueche_accept(self, visitor)
+
+
+    def radialExtension(self):
+        """
+        radialExtension(FormFactorDebyeBueche self) -> double
+
+        virtual double IFormFactor::radialExtension() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorDebyeBueche_radialExtension(self)
+
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorDebyeBueche self, cvector_t q) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+
+        """
+        return _libBornAgainCore.FormFactorDebyeBueche_evaluate_for_q(self, q)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorDebyeBueche
+    __del__ = lambda self: None
+FormFactorDebyeBueche_swigregister = _libBornAgainCore.FormFactorDebyeBueche_swigregister
+FormFactorDebyeBueche_swigregister(FormFactorDebyeBueche)
+
 class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
     """
 
@@ -15728,6 +15801,79 @@ class FormFactorLorentz(IFormFactorBorn):
     __del__ = lambda self: None
 FormFactorLorentz_swigregister = _libBornAgainCore.FormFactorLorentz_swigregister
 FormFactorLorentz_swigregister(FormFactorLorentz)
+
+class FormFactorOrnsteinZernike(IFormFactorBorn):
+    """Proxy of C++ FormFactorOrnsteinZernike class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorOrnsteinZernike, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorOrnsteinZernike, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, I0, xi_xy, xi_z):
+        """__init__(FormFactorOrnsteinZernike self, double I0, double xi_xy, double xi_z) -> FormFactorOrnsteinZernike"""
+        this = _libBornAgainCore.new_FormFactorOrnsteinZernike(I0, xi_xy, xi_z)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(FormFactorOrnsteinZernike self) -> FormFactorOrnsteinZernike
+
+        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorOrnsteinZernike_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FormFactorOrnsteinZernike self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorOrnsteinZernike_accept(self, visitor)
+
+
+    def radialExtension(self):
+        """
+        radialExtension(FormFactorOrnsteinZernike self) -> double
+
+        virtual double IFormFactor::radialExtension() const =0
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorOrnsteinZernike_radialExtension(self)
+
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorOrnsteinZernike self, cvector_t q) -> complex_t
+
+        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+
+        """
+        return _libBornAgainCore.FormFactorOrnsteinZernike_evaluate_for_q(self, q)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorOrnsteinZernike
+    __del__ = lambda self: None
+FormFactorOrnsteinZernike_swigregister = _libBornAgainCore.FormFactorOrnsteinZernike_swigregister
+FormFactorOrnsteinZernike_swigregister(FormFactorOrnsteinZernike)
 
 class FormFactorPrism3(FormFactorPolygonalPrism):
     """

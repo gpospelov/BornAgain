@@ -2,6 +2,7 @@
 
 #include "FormFactorBasicTest.h"
 #include "FormFactorCoherentSumTest.h"
+#include "FormFactorSoftParticleTest.h"
 #include "LayerTest.h"
 #include "MultiLayerTest.h"
 #include "RTTest.h"

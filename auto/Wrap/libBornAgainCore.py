@@ -27644,6 +27644,13 @@ class ParticleLayout(ILayout):
 ParticleLayout_swigregister = _libBornAgainCore.ParticleLayout_swigregister
 ParticleLayout_swigregister(ParticleLayout)
 
+
+def importArrayToOutputData(*args):
+    """
+    importArrayToOutputData(vdouble1d_t vec) -> IntensityData
+    importArrayToOutputData(vdouble2d_t vec) -> IntensityData
+    """
+    return _libBornAgainCore.importArrayToOutputData(*args)
 class PoissonNoiseBackground(IBackground):
     """
 

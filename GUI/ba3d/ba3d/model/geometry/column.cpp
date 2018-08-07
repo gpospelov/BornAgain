@@ -39,7 +39,8 @@ Geometry::Mesh Geometry::meshColumn(float ratio_Rt_Rb, float numSides) {
         Later when the particle is created based upon this shape and scaled to proper dimensions,
         the offset is kept at H/2 to bring the base of the object to 0 in z (see particles.cpp) */
 
-        Vector3D vb_(Rb*ct, Rb*st, -H/2), vt_(Rt*ct, Rt*st, +H/2);
+//        Vector3D vb_(Rb*ct, Rb*st, -H/2), vt_(Rt*ct, Rt*st, +H/2); (PREVIOUSLY)
+        Vector3D vb_(Rb*ct, Rb*st, 0), vt_(Rt*ct, Rt*st, H);
         vb[s] = vb_; vt[s] = vt_;
         if (smooth)
             nbt[s] = Vector3D(vb_.x, vb_.y, nz).normalized();
@@ -53,15 +54,17 @@ Geometry::Mesh Geometry::meshColumn(float ratio_Rt_Rb, float numSides) {
     for(int s=0; s < slices; ++s) {
         int s1 = s, s2 = (s+1) % slices;
 
-        vs.addTriangle(vb.at(s1), Vector3D(0,0,-H/2), vb.at(s2));          // bottom
+//        vs.addTriangle(vb.at(s1), Vector3D(0,0,-H/2), vb.at(s2));     // bottom (PREVIOUSLY)
+        vs.addTriangle(vb.at(s1), Vector3D(0,0,0), vb.at(s2));          // bottom
         if (smooth)
             ns.addVertex(-Vector3D::_z, 3);
 
-        vs.addTriangle(Vector3D(0,0,+H/2), vt.at(s1), vt.at(s2));          // top
+//        vs.addTriangle(Vector3D(0,0,+H/2), vt.at(s1), vt.at(s2));     // top (PREVIOUSLY)
+        vs.addTriangle(Vector3D(0,0,H), vt.at(s1), vt.at(s2));          // top
         if (smooth)
             ns.addVertex(+Vector3D::_z, 3);
 
-        vs.addQuad(vb.at(s1), vb.at(s2), vt.at(s2), vt.at(s1)); // side
+        vs.addQuad(vb.at(s1), vb.at(s2), vt.at(s2), vt.at(s1));         // side
         if (smooth) {
             auto &n1 = nbt.at(s1), &n2 = nbt.at(s2);
             ns.addQuad(n1, n2, n2, n1);

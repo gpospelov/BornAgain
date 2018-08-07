@@ -45,8 +45,10 @@ Geometry::Mesh Geometry::meshDodecahedron() {
     //face down
     auto q = QQuaternion::rotationTo(-Vector3D::_z,
                                      cross(vs_.at(8)-vs_.at(0), vs_.at(10)-vs_.at(0)));
-    for(int i=0; i<20; ++i)
+    for(int i=0; i<20; ++i) {
         vs_[i] = q.rotatedVector(vs_.at(i));
+        vs_[i].z += 0.5f*std::sqrt(G1); // shift the bottom of the dodecahedron to z=0 plane
+    }
 
     Vertices vs; vs.reserve(180);
 

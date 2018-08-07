@@ -19,8 +19,8 @@ namespace RealSpace {
 
 Geometry::Mesh Geometry::meshCuboctahedron(float rH, float beta) { // t/D
 
-    // beta is the angle between the absolute base of the shape (NOT the common square base)
-    // and a side face. In terms of alpha (angle with common square base), it is (PI-alpha) radians
+    // beta is the angle between the absolute bottom of the shape (NOT the common square interface)
+    // and a side face. In terms of alpha (angle with common square interface), beta = (PI-alpha)
 
     Q_ASSERT(beta >= float(M_PI_2));
     Q_ASSERT(rH >= 0);
@@ -29,7 +29,8 @@ Geometry::Mesh Geometry::meshCuboctahedron(float rH, float beta) { // t/D
     float const Db = D - t*H, Dt = D - t*(2*D - H);
 
     Vertices vs_; vs_.reserve(12);
-    float z[] = {-D, H-D, +D}, d[] = {Db, D, Dt};
+//    float z[] = {-D, H-D, +D}, d[] = {Db, D, Dt}; // (PREVIOUSLY)
+    float z[] = {0, H, +2*D}, d[] = {Db, D, Dt}; // keep bottom of the cuboctahedron in z=0 plane
     for(int i=0; i<3; ++i)
         for (int x : {-1, +1})
             for (int y : {-1, +1}) {

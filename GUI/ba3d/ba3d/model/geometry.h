@@ -79,7 +79,7 @@ private:
 
     static Mesh meshPlane();
     static Mesh meshBox();
-    static Mesh meshSphere(float cut);
+    static Mesh meshSphere(float cut, float baseShift = 0.0f);
     static Mesh meshColumn(float ratio_Rt_Rb, float numSides);
     static Mesh meshIcosahedron();
     static Mesh meshDodecahedron();

@@ -18,7 +18,7 @@
 namespace RealSpace {
 
 // cut: 0..1 - how much is cut off off the bottom
-Geometry::Mesh Geometry::meshSphere(float cut) {
+Geometry::Mesh Geometry::meshSphere(float cut, float baseShift) {
     if (1 <= cut)
         return Mesh();
     cut = qMax(0.f, cut);
@@ -57,6 +57,8 @@ Geometry::Mesh Geometry::meshSphere(float cut) {
         for(int s=0; s < slices; ++s) {
             float th = float(2*M_PI*s/slices);
             Vector3D v(R*cp*cosf(th), R*cp*sinf(th), R*sp);
+            v.z += baseShift; // baseShift is used for shifting the bottom of the spherical shape
+                              // to z=0 plane
             vs_[r][s] = v;
             ns_[r][s] = v.normalized();
         }
@@ -82,7 +84,8 @@ Geometry::Mesh Geometry::meshSphere(float cut) {
                     vp = Vector3D(0, 0, v0.z);
                     n0 = n1 = np;
                 } else {
-                    vp = Vector3D(0,0,-R);
+                    //vp = Vector3D(0,0,-R); // (PREVIOUSLY)
+                    vp = Vector3D(0,0,-R+baseShift);
                     n0 = nr.at(s0); n1 = nr.at(s1);
                 }
                 vs.addTriangle(v0, vp, v1);
@@ -90,7 +93,8 @@ Geometry::Mesh Geometry::meshSphere(float cut) {
             }
 
             if (r+1 == rings) {  // north pole
-                Vector3D vp(0, 0, +R), np(Vector3D::_z);
+//                Vector3D vp(0, 0, +R), np(Vector3D::_z); // (PREVIOUSLY)
+                Vector3D vp(0, 0, +R+baseShift), np(Vector3D::_z);
                 vs.addTriangle(v0, v1, vp);
                 ns.addTriangle(n0, n1, np);
             } else if (1 < rings) { // in between poles

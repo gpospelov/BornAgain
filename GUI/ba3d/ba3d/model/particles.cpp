@@ -123,7 +123,7 @@ Cone6::Cone6(float R, float H, float alpha)
 }
 
 Cuboctahedron::Cuboctahedron(float L, float H, float rH, float alpha)
-    : Particle(Key(BaseShape::Cuboctahedron, rH, (pi - alpha)))
+    : Particle(Key(BaseShape::Cuboctahedron, rH, alpha, H/L))
 {
     isNull = (L <= 0 || H <= 0 || rH <= 0 || alpha >= pi2f);
     scale  = Vector3D(L, L, L);

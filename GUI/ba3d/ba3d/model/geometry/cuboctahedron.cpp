@@ -17,20 +17,25 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshCuboctahedron(float rH, float beta) { // t/D
+Geometry::Mesh Geometry::meshCuboctahedron(float rH, float alpha, float H) { // t/D
 
-    // beta is the angle between the absolute bottom of the shape (NOT the common square interface)
-    // and a side face. In terms of alpha (angle with common square interface), beta = (PI-alpha)
+    // alpha is the angle between the common square interface and one of the side faces (alpha for
+    // both the two truncated pyramids is the same)
 
-    Q_ASSERT(beta >= float(M_PI_2));
+    // H here is the normalized height of the cuboctahedron i.e. H/L (see particles.cpp)
+
+    Q_ASSERT(alpha <= float(M_PI_2));
     Q_ASSERT(rH >= 0);
 
-    float const D = .5f, H = 2*D / (rH + 1), t = tanf(beta - float(M_PI_2));
-    float const Db = D - t*H, Dt = D - t*(2*D - H);
+//    float const D = .5f, H = 2*D / (rH + 1), t = tanf(float(M_PI_2)-alpha);
+//    float const Db = D - t*H, Dt = D - t*(2*D - H);
+
+    float const D = .5f, t = tanf(float(M_PI_2)-alpha);
+    float const Db = D - t*H, Dt = D - t*rH*H;
 
     Vertices vs_; vs_.reserve(12);
 //    float z[] = {-D, H-D, +D}, d[] = {Db, D, Dt}; // (PREVIOUSLY)
-    float z[] = {0, H, +2*D}, d[] = {Db, D, Dt}; // keep bottom of the cuboctahedron in z=0 plane
+    float z[] = {0, H, H*(rH+1)}, d[] = {Db, D, Dt}; // keep bottom of the cuboctahedron in z=0 plane
     for(int i=0; i<3; ++i)
         for (int x : {-1, +1})
             for (int y : {-1, +1}) {

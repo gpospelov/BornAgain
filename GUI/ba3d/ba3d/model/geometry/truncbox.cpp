@@ -37,20 +37,22 @@ Geometry::Mesh Geometry::meshTruncBox(float tD) { // t/D
         vs.addFan(vs_, {0,1,2,3,4,5,6,7,0});
     };
 
+    // +0.5f is required to shift the bottom of the Truncated Box to the z=0 plane
+
     auto corner = [&](int x, int y, int z) {
-        Vertices vs_({{D*x,D*y,t*z},{D*x,t*y,D*z},{t*x,D*y,D*z}});
+        Vertices vs_({{D*x,D*y,t*z+0.5f},{D*x,t*y,D*z+0.5f},{t*x,D*y,D*z+0.5f}});
         if (x*y*z > 0)
             vs.addTriangle(vs_.at(0), vs_.at(2), vs_.at(1));
         else
             vs.addTriangle(vs_.at(0), vs_.at(1), vs_.at(2));
     };
 
-    side(0,1,0, 0,0,1, Vector3D(+D,0,0), false);
-    side(0,1,0, 0,0,1, Vector3D(-D,0,0), true);
-    side(1,0,0, 0,0,1, Vector3D(0,+D,0), true);
-    side(1,0,0, 0,0,1, Vector3D(0,-D,0), false);
-    side(1,0,0, 0,1,0, Vector3D(0,0,+D), false);
-    side(1,0,0, 0,1,0, Vector3D(0,0,-D), true);
+    side(0,1,0, 0,0,1, Vector3D(+D,0,+0.5f), false);
+    side(0,1,0, 0,0,1, Vector3D(-D,0,+0.5f), true);
+    side(1,0,0, 0,0,1, Vector3D(0,+D,+0.5f), true);
+    side(1,0,0, 0,0,1, Vector3D(0,-D,+0.5f), false);
+    side(1,0,0, 0,1,0, Vector3D(0,0,+D+0.5f), false);
+    side(1,0,0, 0,1,0, Vector3D(0,0,-D+0.5f), true);
 
     for (int x : {-1, +1})
         for (int y : {-1, +1})

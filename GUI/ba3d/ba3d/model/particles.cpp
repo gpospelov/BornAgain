@@ -70,6 +70,15 @@ static float const sqrt2f = std::sqrt(2.f);
 static float const sqrt3f = std::sqrt(3.f);
 
 // see ~/BornAgain/GUI/ba3d/ba3d/model/geometry/ for BaseShape construction
+// e.g. column.cpp, sphere.cpp etc.
+
+/* PREVIOUSLY, the base shapes were constructed symmetric about the xy plane, centered at the
+origin. E.g. for column base shape (see column.cpp), the xy-plane went through the center of the
+shape (object extension: -H/2 to +H/2 in z). When a 3D particle was created (see the following code)
+using this column base shape and scaled to proper dimensions, the offset  was kept at z=H/2 to bring
+the bottom of the particle to z=0 plane. NOW, the base shapes are all created such that the bottom
+of the particle is already in the z=0 plane and there is no need for specifying the bottom offset -
+in other words, offset = Vector3D(0,0,0) */
 
 AnisoPyramid::AnisoPyramid(float L, float W, float H, float alpha)
     : Particle(Key(BaseShape::Column, (1.0f - H/(std::sqrt((L*L/4)+(W*W/4))*std::tan(alpha))), 4))
@@ -77,7 +86,8 @@ AnisoPyramid::AnisoPyramid(float L, float W, float H, float alpha)
     isNull = (L <= 0 || W <= 0  || H <= 0 || alpha <= 0);
     turn = Vector3D(0,0,45*pi/180.0f);
     scale  = Vector3D(L*sqrt2f, W*sqrt2f, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -87,7 +97,8 @@ Box::Box(float L, float W, float H)
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0,0,45*pi/180.0f);
     scale  = Vector3D(L*sqrt2f, W*sqrt2f, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -96,7 +107,8 @@ Cone::Cone(float R, float H, float alpha)
 {
     isNull = (R <= 0 || H <= 0 || alpha <= 0);
     scale  = Vector3D(R*2, R*2, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -105,7 +117,8 @@ Cone6::Cone6(float R, float H, float alpha)
 {
     isNull = (R <= 0 || H <= 0 || alpha <= 0);
     scale  = Vector3D(R*2, R*2, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -114,7 +127,8 @@ Cuboctahedron::Cuboctahedron(float L, float H, float rH, float alpha)
 {
     isNull = (L <= 0 || H <= 0 || rH <= 0 || alpha >= pi2f);
     scale  = Vector3D(L, L, L);
-    offset = Vector3D(0, 0, L/2);
+    //offset = Vector3D(0, 0, L/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -123,7 +137,8 @@ Cylinder::Cylinder(float R, float H)
 {
     isNull = (R <= 0 || H <= 0);
     scale  = Vector3D(R*2, R*2, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -133,7 +148,8 @@ Dodecahedron::Dodecahedron(float L)
     isNull = (L <= 0);
     float R = L / DodecahedronL2R;
     scale  = Vector3D(R*2, R*2, R*2);
-    offset = Vector3D(0, 0, R/std::sqrt(GoldenRatio));
+//    offset = Vector3D(0, 0, R/std::sqrt(GoldenRatio)); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -142,33 +158,37 @@ EllipsoidalCylinder::EllipsoidalCylinder(float Ra, float Rb, float H)
 {
     isNull = (Ra <= 0 || Rb <= 0 || H <= 0);
     scale  = Vector3D(Ra*2, Rb*2, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
 FullSphere::FullSphere(float R)
-    : Particle(Key(BaseShape::Sphere, 0))
+    : Particle(Key(BaseShape::Sphere, 0, 0.5f))
 {
     isNull = (R <= 0);
     scale  = Vector3D(R*2);
-    offset = Vector3D(0, 0, R);
+//    offset = Vector3D(0, 0, R); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
 FullSpheroid::FullSpheroid(float R, float H)
-    : Particle(Key(BaseShape::Sphere, 0))
+    : Particle(Key(BaseShape::Sphere, 0, 0.5f))
 {
     isNull = (R <= 0 || H <= 0);
     scale  = Vector3D(R*2, R*2, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
 HemiEllipsoid::HemiEllipsoid(float Ra, float Rb, float H)
-    : Particle(Key(BaseShape::Sphere, .5f))
+    : Particle(Key(BaseShape::Sphere, .5f, 0.0f))
 {
     isNull = (Ra <= 0 || Rb <= 0 || H <= 0);
     scale  = Vector3D(Ra*2, Rb*2, H*2);
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -178,7 +198,8 @@ Icosahedron::Icosahedron(float L)
     isNull = (L <= 0);
     float R = L / IcosahedronL2R;
     scale  = Vector3D(R/GoldenRatio, R/GoldenRatio, R/GoldenRatio);
-    offset = Vector3D(0, 0, R/(2*GoldenRatio));
+//    offset = Vector3D(0, 0, R/(2*GoldenRatio)); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -188,7 +209,8 @@ Prism3::Prism3(float L, float H)
     isNull = (L <= 0 || H <= 0);
     float D = L*2 / sqrt3f;
     scale = Vector3D(D*2, D*2, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -197,7 +219,8 @@ Prism6::Prism6(float R, float H)
 {
     isNull = (R <= 0 || H <= 0);
     scale  = Vector3D(R*2, R*2, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -208,7 +231,8 @@ Pyramid::Pyramid(float L, float H, float alpha)
     float L2 = L * sqrt2f;
     turn = Vector3D(0,0,45*pi/180.0f);
     scale  = Vector3D(L2, L2, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -218,7 +242,8 @@ Tetrahedron::Tetrahedron(float L, float H, float alpha)
     isNull = (L <= 0 || H <= 0 || alpha <= 0);
     float D = L / sqrt3f;
     scale = Vector3D(D*2, D*2, H);
-    offset = Vector3D(0, 0, H/2);
+//    offset = Vector3D(0, 0, H/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
@@ -227,25 +252,28 @@ TruncatedCube::TruncatedCube(float L, float t)
 {
     isNull = (L <= 0);
     scale  = Vector3D(L,L,L);
-    offset = Vector3D(0, 0, L/2);
+//    offset = Vector3D(0, 0, L/2); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
 TruncatedSphere::TruncatedSphere(float R, float H)
-    : Particle(Key(BaseShape::Sphere, 1 - H/R/2))
+    : Particle(Key(BaseShape::Sphere, 1 - H/R/2, (H-R)/R/2))
 {
     isNull = (R <= 0 || H <= 0);
     scale  = Vector3D(R*2);
-    offset = Vector3D(0, 0, H-R);
+//    offset = Vector3D(0, 0, H-R); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 
 TruncatedSpheroid::TruncatedSpheroid(float R, float H, float fp)
-    : Particle(Key(BaseShape::Sphere, 1 - H/fp/R/2))
+    : Particle(Key(BaseShape::Sphere, 1 - H/fp/R/2, (H-fp*R)/fp/R/2))
 {
     isNull = (R <= 0 || H <= 0 || fp <= 0);
     scale  = Vector3D(R*2, R*2, fp*R*2);
-    offset = Vector3D(0, 0, H-fp*R);
+//    offset = Vector3D(0, 0, H-fp*R); // (PREVIOUSLY)
+    offset = Vector3D(0, 0, 0);
     set();
 }
 

@@ -35,8 +35,10 @@ Geometry::Mesh Geometry::meshIcosahedron() {
 
     // scale to circumscribed sphere
     float const F = .5f / vs_.at(0).length();
-    for (auto& v : vs_)
+    for (auto& v : vs_) {
         v = v*F;
+        v.z += 0.5; // shift the bottom of the icosahedron to z=0 plane
+    }
 
     Vertices vs; vs.reserve(60);
 

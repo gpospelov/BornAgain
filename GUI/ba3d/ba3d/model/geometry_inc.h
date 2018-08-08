@@ -43,12 +43,12 @@ enum class BaseShape { Plane, Box, Sphere, Column,
 
 // Real shapes will be parameterized by BaseShape enum and possibly two floats
 struct Key {
-    Key(BaseShape, float=0.0f, float=0.0f);
+    Key(BaseShape, float=0.0f, float=0.0f, float=0.0f);
 
     bool operator==(Key const&) const;
 
     BaseShape id;
-    float p1, p2;
+    float p1, p2, p3;
 };
 
 // Hash functor for Key objects

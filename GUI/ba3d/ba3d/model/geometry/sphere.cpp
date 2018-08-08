@@ -84,7 +84,6 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift) {
                     vp = Vector3D(0, 0, v0.z);
                     n0 = n1 = np;
                 } else {
-                    //vp = Vector3D(0,0,-R); // (PREVIOUSLY)
                     vp = Vector3D(0,0,-R+baseShift);
                     n0 = nr.at(s0); n1 = nr.at(s1);
                 }
@@ -93,7 +92,6 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift) {
             }
 
             if (r+1 == rings) {  // north pole
-//                Vector3D vp(0, 0, +R), np(Vector3D::_z); // (PREVIOUSLY)
                 Vector3D vp(0, 0, +R+baseShift), np(Vector3D::_z);
                 vs.addTriangle(v0, v1, vp);
                 ns.addTriangle(n0, n1, np);

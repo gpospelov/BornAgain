@@ -13,17 +13,20 @@
 // ************************************************************************** //
 
 #include "../geometry.h"
-#include <qmath.h>
 #include <QQuaternion>
+#include <qmath.h>
 
-namespace RealSpace {
+namespace RealSpace
+{
 
-Geometry::Mesh Geometry::meshIcosahedron() {
+Geometry::Mesh Geometry::meshIcosahedron()
+{
     const float GR = GoldenRatio;
 
-    auto q = QQuaternion::rotationTo(-Vector3D::_z, Vector3D(0,1,-GR));
+    auto q = QQuaternion::rotationTo(-Vector3D::_z, Vector3D(0, 1, -GR));
 
-    Vertices vs_; vs_.reserve(12);
+    Vertices vs_;
+    vs_.reserve(12);
     for (float _1 : {-1, +1})
         for (float g : {-GR, +GR}) {
             vs_.append(q.rotatedVector(Vector3D(0, _1, g)));
@@ -35,10 +38,13 @@ Geometry::Mesh Geometry::meshIcosahedron() {
 
     // scale to circumscribed sphere
     float const F = .5f / vs_.at(0).length();
-    for (auto& v : vs_)
-        v = v*F;
+    for (auto& v : vs_) {
+        v = v * F;
+        v.z += 0.5; // shift the bottom of the icosahedron to z=0 plane
+    }
 
-    Vertices vs; vs.reserve(60);
+    Vertices vs;
+    vs.reserve(60);
 
     vs.addFan(vs_, {0, 1, 2, 6, 5, 7, 1});
     vs.addFan(vs_, {9, 3, 11, 10, 4, 8, 3});
@@ -49,4 +55,4 @@ Geometry::Mesh Geometry::meshIcosahedron() {
     return makeMesh(vs);
 }
 
-}  // namespace RealSpace
+} // namespace RealSpace

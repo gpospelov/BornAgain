@@ -17,14 +17,32 @@
 
 #include "object.h"
 
-namespace RealSpace { namespace Particles {
+namespace RealSpace
+{
+namespace Particles
+{
 
 enum class EShape {
     None,
-    FullSphere, FullSpheroid, Cylinder, TruncatedSphere, TruncatedSpheroid,
-    Cone, Icosahedron, Dodecahedron, TruncatedCube, Prism6, Cone6, Pyramid,
-    Cuboctahedron, Prism3, Tetrahedron, EllipsoidalCylinder, Box,
-    HemiEllipsoid, AnisoPyramid,
+    FullSphere,
+    FullSpheroid,
+    Cylinder,
+    TruncatedSphere,
+    TruncatedSpheroid,
+    Cone,
+    Icosahedron,
+    Dodecahedron,
+    TruncatedCube,
+    Prism6,
+    Cone6,
+    Pyramid,
+    Cuboctahedron,
+    Prism3,
+    Tetrahedron,
+    EllipsoidalCylinder,
+    Box,
+    HemiEllipsoid,
+    AnisoPyramid,
 };
 
 QString const& name(EShape);
@@ -35,10 +53,10 @@ class Particle : public Object
 {
 protected:
     Particle(GeometricID::Key);
-    Vector3D turn;   // turn before scale
-    Vector3D scale;  // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
-    Vector3D offset; // geometries centered around origin; particles stand on z=0 plane
-    Vector3D rotate, translate;  // remembered
+    Vector3D turn;              // turn before scale
+    Vector3D scale;             // geometries are of 1-size (box 1x1x1, sphere D=1), need scaling
+    Vector3D offset;            // geometries centered around origin; particles stand on z=0 plane
+    Vector3D rotate, translate; // remembered
 
     void set();
 
@@ -169,6 +187,6 @@ class AnisoPyramid : public Particle
 public:
     AnisoPyramid(float L, float W, float H, float alpha);
 };
-
-}}  // namespace RealSpace::Particles
-#endif  // BA3D_PARTICLES_H
+}
+} // namespace RealSpace::Particles
+#endif // BA3D_PARTICLES_H

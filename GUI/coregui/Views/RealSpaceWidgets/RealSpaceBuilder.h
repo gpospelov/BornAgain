@@ -47,7 +47,8 @@ public:
                             const QVector3D& origin = QVector3D());
 
     void populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
-                       const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D());
+                       const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D(),
+                       const bool isTopLayer = false);
 
     void populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
                         const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D());

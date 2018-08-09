@@ -80,7 +80,7 @@ void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionIt
 {
     double total_height(0.0);
     int index(0);
-    bool isTopLayer(true); // for not displaying colour of the top layer in Multilayer
+    bool isTopLayer(true); // for not displaying colour of the top layer in MultiLayer
     for (auto layer : item.getItems(MultiLayerItem::T_LAYERS)) {
 
         if (index != 0) {
@@ -97,7 +97,7 @@ void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionIt
 void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
                                      const SceneGeometry& sceneGeometry, const QVector3D& origin,
                                      const bool isTopLayer)
-{   
+{
     auto layer = TransformTo3D::createLayer(layerItem, sceneGeometry, origin);
     if (layer && !isTopLayer)
         model->addBlend(layer.release());

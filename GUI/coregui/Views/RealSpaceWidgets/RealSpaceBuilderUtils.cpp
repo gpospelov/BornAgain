@@ -95,8 +95,9 @@ void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
                 double pos_y = position[1];
                 double pos_z = 0;
 
-                if (std::abs(pos_x) <= layer_size - layerBorderWidth && std::abs(pos_y) <=
-                        layer_size - layerBorderWidth  && std::abs(pos_z) <= layer_thickness) {
+                if (std::abs(pos_x) <= layer_size - layerBorderWidth
+                    && std::abs(pos_y) <= layer_size - layerBorderWidth
+                    && std::abs(pos_z) <= layer_thickness) {
 
                     builder3D->populateParticleFromParticle3DContainer(
                         model, particle3DContainer,

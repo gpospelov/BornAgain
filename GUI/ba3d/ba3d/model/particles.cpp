@@ -89,15 +89,6 @@ static float const sqrt2f = std::sqrt(2.f);
 static float const sqrt3f = std::sqrt(3.f);
 
 // see ~/BornAgain/GUI/ba3d/ba3d/model/geometry/ for BaseShape construction
-// e.g. column.cpp, sphere.cpp etc.
-
-/* PREVIOUSLY, the base shapes were constructed symmetric about the xy plane, centered at the
-origin. E.g. for column base shape (see column.cpp), the xy-plane went through the center of the
-shape (object extension: -H/2 to +H/2 in z). When a 3D particle was created (see the following code)
-using this column base shape and scaled to proper dimensions, the offset  was kept at z=H/2 to bring
-the bottom of the particle to z=0 plane. NOW, the base shapes are all created such that the bottom
-of the particle is already in the z=0 plane and there is no need for specifying the bottom offset -
-in other words, offset = Vector3D(0,0,0) */
 
 AnisoPyramid::AnisoPyramid(float L, float W, float H, float alpha)
     : Particle(Key(BaseShape::Column,

@@ -45,6 +45,8 @@
 
 namespace
 {
+const double layerBorderWidth = 10.0;
+
 const IFormFactor* getUnderlyingFormFactor(const IFormFactor* ff)
 {
     // TRUE as long as ff is of IFormFactorDecorator (or its derived) type
@@ -93,8 +95,10 @@ void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
                 double pos_y = position[1];
                 double pos_z = 0;
 
-                if (std::abs(pos_x) <= layer_size && std::abs(pos_y) <= layer_size
+                if (std::abs(pos_x) <= layer_size - layerBorderWidth
+                    && std::abs(pos_y) <= layer_size - layerBorderWidth
                     && std::abs(pos_z) <= layer_thickness) {
+
                     builder3D->populateParticleFromParticle3DContainer(
                         model, particle3DContainer,
                         QVector3D(static_cast<float>(position[0]), static_cast<float>(position[1]),

@@ -47,18 +47,20 @@ void CSVRow::addCell(std::string str){
     m_data.push_back(str);
 }
 
+void CSVFile::Init()
+{
+    Read();
+    EqualizeRowLengths();
+}
+
 void CSVFile::Read()
 {
-    //try{
-        std::ifstream file(filepath);
-        if(!file.is_open()){throw std::ios_base::failure("Unable to open file \"" + filepath + "\"");}
-        for(CSVIterator loop(file, separator); loop != CSVIterator(); ++loop){
-            rows.push_back((*loop));
-            numberOfColumns = (*loop).size() > numberOfColumns ? (*loop).size() : numberOfColumns;
-        }
-   // }catch(const std::exception& e){
-   //     std::cout << e.what() << std::endl;
-    //}
+    std::ifstream file(filepath);
+    if(!file.is_open()){throw std::ios_base::failure("Unable to open file \"" + filepath + "\"");}
+    for(CSVIterator loop(file, separator); loop != CSVIterator(); ++loop){
+        rows.push_back((*loop));
+        numberOfColumns = (*loop).size() > numberOfColumns ? (*loop).size() : numberOfColumns;
+    }
 }
 
 void CSVFile::EqualizeRowLengths()

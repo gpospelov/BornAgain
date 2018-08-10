@@ -68,8 +68,8 @@ class CSVIterator
 class CSVFile
 {
     public:
-        CSVFile(std::string path_to_file): filepath(path_to_file), separator('-'), headersRow(0) {Init();}
-        CSVFile(std::string path_to_file, char sep): filepath(path_to_file), separator(sep), headersRow(0) {Init();}
+        CSVFile(std::string path_to_file): filepath(path_to_file) {Init();}
+        CSVFile(std::string path_to_file, char sep): filepath(path_to_file), separator(sep) {Init();}
         CSVFile(std::string path_to_file, char sep, uint headRow): filepath(path_to_file), separator(sep), headersRow(headRow) {Init();}
 
 

@@ -39,9 +39,9 @@ public:
     QString filepath() const;
     void setFilepath(QString fpath);
     char separator() const;
-    uint headersLine() const;
-    uint firstLine() const;
-    uint lastLine() const;
+    unsigned headersLine() const;
+    unsigned firstLine() const;
+    unsigned lastLine() const;
 
 
 public slots:

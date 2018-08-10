@@ -2,12 +2,12 @@
 #include <fstream>
 #include <iostream>
 
-std::string const& CSVRow::operator[](std::size_t index) const
+std::string const& CSVRow::operator[](unsigned index) const
 {
     return m_data[index];
 }
 
-std::size_t CSVRow::size() const
+unsigned long CSVRow::size() const
 {
     return m_data.size();
 }
@@ -65,7 +65,7 @@ void CSVFile::Read()
 
 void CSVFile::EqualizeRowLengths()
 {
-    for(uint i = 0; i < NumberOfRows(); i++){
+    for(unsigned i = 0; i < NumberOfRows(); i++){
         while(rows[i].size() < NumberOfColumns()) {
             rows[i].addCell("");
         }
@@ -74,17 +74,17 @@ void CSVFile::EqualizeRowLengths()
 }
 
 
-CSVRow const CSVFile::operator[](std::size_t index_i) const
+CSVRow const CSVFile::operator[](unsigned index_i) const
 {
     return rows[index_i];
 }
 
-std::size_t CSVFile::NumberOfRows() const
+unsigned long CSVFile::NumberOfRows() const
 {
     return rows.size();
 }
 
-std::size_t CSVFile::NumberOfColumns() const
+unsigned long CSVFile::NumberOfColumns() const
 {
     return this->numberOfColumns;
 }
@@ -109,10 +109,6 @@ CSVRow CSVFile::get_headers(){
     }
 }
 
-CSVRow CSVFile::get_row(int i){
+CSVRow CSVFile::get_row(unsigned i){
     return this->rows[i];
 }
-
-
-
-

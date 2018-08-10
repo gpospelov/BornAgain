@@ -29,7 +29,7 @@ const QSize default_dialog_size(600, 800);
 }
 
 CsvImportAssistant::CsvImportAssistant(QString dir, QString file, QWidget* parent)
-    : m_dirName(dir), m_fileName(file), QDialog(parent)
+    : QDialog(parent), m_dirName(dir), m_fileName(file)
 {
     setWindowTitle("Data Importer");
     setMinimumSize(128, 128);
@@ -81,10 +81,6 @@ QBoxLayout* CsvImportAssistant::createLayout()
     //
 
     result->addLayout(preresult);
-
-
-
-
 
     return result;
 }
@@ -179,9 +175,9 @@ QBoxLayout* CsvImportAssistant::createFileDetailsLayout(){
 void CsvImportAssistant::onBrowseButton()
 {
         const QString filter_string = "Intensity File (*.txt *.dat *.ascii *.int *.gz *.tif *.tiff *.csv);;All files (*.*)";
-        QString fileName = QFileDialog::getOpenFileName(0, QStringLiteral("Open Intensity File"),
+        QString fileName = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Open Intensity File"),
                                                         this->m_dirName, filter_string);
-        if(fileName != NULL){
+        if(fileName != nullptr){
             m_filePathField->setText(fileName);
             m_fileName = fileName;
             CsvImportAssistant::onReloadButton();
@@ -222,7 +218,7 @@ void CsvImportAssistant::onExportButton()
     for(int i = 0; i < nRows; i++){
         B.clear();
         for(int j = 0; j < nCols; j++){
-           B.push_back( m_tableWidget->item(i,j) != NULL ? m_tableWidget->item(i,j)->text().toStdString() : "");
+           B.push_back( m_tableWidget->item(i,j) != nullptr ? m_tableWidget->item(i,j)->text().toStdString() : "");
         }
         A.push_back(B);
     }
@@ -275,7 +271,7 @@ void CsvImportAssistant::set_table_headers(CSVFile* csvFile){
 
     CSVRow headers = csvFile->get_headers();
 
-    for(uint j = 0; j < headers.size(); j++){
+    for(unsigned j = 0; j < headers.size(); j++){
         std::string header = headers[j].empty() ? std::string("Column ") + std::to_string(j+1) : headers[j];
         titulos << QString::fromStdString(header);
     }
@@ -286,13 +282,13 @@ void CsvImportAssistant::set_table_headers(CSVFile* csvFile){
 
 void CsvImportAssistant::set_table_data(CSVFile* csvFile){
 
-    uint firstDataLine = firstLine() - 1;
-    uint lastDataLine = lastLine() == 0 ? csvFile->NumberOfRows() : lastLine();
+    unsigned firstDataLine = firstLine() - 1;
+    unsigned lastDataLine = lastLine() == 0 ? csvFile->NumberOfRows() : lastLine();
 
-    for(uint i = firstDataLine; i < lastDataLine; i++){
+    for(unsigned i = firstDataLine; i < lastDataLine; i++){
         m_tableWidget->insertRow(m_tableWidget->rowCount());
-        uint I = m_tableWidget->rowCount() - 1;
-        for(uint j = 0; j < csvFile->NumberOfColumns(); j++){
+        unsigned I = m_tableWidget->rowCount() - 1;
+        for(unsigned j = 0; j < csvFile->NumberOfColumns(); j++){
            std::string aasdf = csvFile->operator [](i)[j];
            m_tableWidget->setItem(I,j,new QTableWidgetItem(QString::fromStdString(aasdf)));
         }
@@ -325,7 +321,7 @@ void CsvImportAssistant::remove_blanks(){
     for(int i = 0; i < nRows; i++){
         B.clear();
         for(int j = 0; j < nCols; j++){
-           B.push_back( m_tableWidget->item(i,j) != NULL ? m_tableWidget->item(i,j)->text().toStdString() : "");
+           B.push_back( m_tableWidget->item(i,j) != nullptr ? m_tableWidget->item(i,j)->text().toStdString() : "");
         }
         A.push_back(B);
     }
@@ -350,10 +346,10 @@ void CsvImportAssistant::remove_blanks(){
 
 bool CsvImportAssistant::cell_is_blank(int iRow, int jCol){
 
-    if ( m_tableWidget->item(iRow,jCol) == NULL)
+    if ( m_tableWidget->item(iRow,jCol) == nullptr)
         return true;
 
-    if ( m_tableWidget->item(iRow,jCol)->text() == NULL)
+    if ( m_tableWidget->item(iRow,jCol)->text() == nullptr)
         return true;
 
     if( m_tableWidget->item(iRow,jCol)->text().trimmed() == "")
@@ -388,15 +384,14 @@ char CsvImportAssistant::separator() const{
         return separator;
 }
 
-uint CsvImportAssistant::headersLine() const{
+unsigned CsvImportAssistant::headersLine() const{
        return m_headersRowSpinBox->value();
 }
 
-uint CsvImportAssistant::firstLine() const{
+unsigned CsvImportAssistant::firstLine() const{
         return m_firstDataRowSpinBox->value();
 }
 
-uint CsvImportAssistant::lastLine() const{
+unsigned CsvImportAssistant::lastLine() const{
         return m_lastDataRowSpinBox->value();
 }
-

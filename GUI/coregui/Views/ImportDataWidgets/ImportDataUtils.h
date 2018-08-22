@@ -31,6 +31,7 @@ namespace ImportDataUtils
 {
 
 BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ bool UseImportAssistant(QString& dirname, QString& fileName);
 
 //! Creates OutputData with bin-valued axes.
 BA_CORE_API_ std::unique_ptr<OutputData<double>>

@@ -42,6 +42,8 @@ QString const& name(EShape k)
         "EllipsoidalCylinder",
         "Box",
         "HemiEllipsoid",
+        "Ripple1",
+        "Ripple2",
         "AnisoPyramid",
     };
     return names[uint(k)];
@@ -224,6 +226,27 @@ Pyramid::Pyramid(float L, float H, float alpha)
     offset = Vector3D(0, 0, 0);
     set();
 }
+
+Ripple1::Ripple1(float L, float W, float H)
+    : Particle(Key(BaseShape::Ripple, 0, 0))
+   {
+       isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
+       turn = Vector3D(0, 0, 90 * pi / 180.0f);
+       scale = Vector3D(L, W, H);
+       offset = Vector3D(0, 0, 0);
+       set();
+   }
+
+Ripple2::Ripple2(float L, float W, float H, float asymmetry)
+    : Particle(Key(BaseShape::Ripple, 3, asymmetry/W))
+   {
+       isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0) ||
+               (std::abs(asymmetry) > W/2.0f);
+       turn = Vector3D(0, 0, 90 * pi / 180.0f);
+       scale = Vector3D(L, W, H);
+       offset = Vector3D(0, 0, 0);
+       set();
+   }
 
 Tetrahedron::Tetrahedron(float L, float H, float alpha)
     : Particle(Key(BaseShape::Column, (1.0f - H / (L / sqrt3f * std::tan(alpha))), 3))

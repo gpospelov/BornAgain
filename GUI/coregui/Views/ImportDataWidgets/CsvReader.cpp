@@ -59,7 +59,7 @@ void CSVFile::Read()
     if(!file.is_open()){throw std::ios_base::failure("Unable to open file \"" + filepath + "\"");}
     for(CSVIterator loop(file, separator); loop != CSVIterator(); ++loop){
         rows.push_back((*loop));
-        numberOfColumns = (*loop).size() > numberOfColumns ? (*loop).size() : numberOfColumns;
+        numberOfColumns = (*loop).size() > numberOfColumns ? unsigned((*loop).size()) : numberOfColumns;
     }
 }
 

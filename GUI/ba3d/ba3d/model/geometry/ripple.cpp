@@ -27,7 +27,7 @@ Geometry::Mesh Geometry::meshRipple(float numSides, float ratio_asymmetry_W)
     // Values are chosen such that length, width and height are 1
     float const R = .5f;
     float const H = 2*R; // L = W = H = 2*R
-    float const asymmetry = ratio_asymmetry_W*2*R;
+    float const asymmetry = ratio_asymmetry_W*2*R; // for Ripple1 asymmetry is inherently 0
 
     Vertices vfront(slices), vback(slices);
 

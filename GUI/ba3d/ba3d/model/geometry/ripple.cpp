@@ -43,9 +43,9 @@ Geometry::Mesh Geometry::meshRipple(float numSides, float ratio_asymmetry_W)
     } else if (numSides == 0) {
         // Ripple1: cosine ripple
         for (int s = 0; s < slices; ++s) {
-            float th = float(M_PI * s / (slices + 1));
+            float th = static_cast<float>(M_PI * s / (slices + 1));
             float y = -R * cosf(th);
-            float z = R * (1.0f + cosf(2 * M_PI * y / (2 * R)));
+            float z = R * (1.0f + cosf(2 * static_cast<float>(M_PI) * y / (2 * R)));
             vfront[s] = Vector3D(-R, y, z);
             vback[s] = Vector3D(R, y, z);
         }

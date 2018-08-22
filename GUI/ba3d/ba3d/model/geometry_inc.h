@@ -46,7 +46,8 @@ enum class BaseShape {
     Icosahedron,
     Dodecahedron,
     TruncatedBox,
-    Cuboctahedron
+    Cuboctahedron,
+    Ripple
 };
 
 // Real shapes will be parameterized by BaseShape enum and possibly two floats

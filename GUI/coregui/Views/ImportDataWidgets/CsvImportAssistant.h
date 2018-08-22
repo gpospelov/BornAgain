@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/MaterialEditor/CsvImportAssistant.h
+//! @file      GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant.h
 //! @brief     Defines class CsvImportAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -26,9 +26,7 @@
 
 class QBoxLayout;
 
-//! Dialog to hold MaterialEditor.
-//! It's main function is to return MaterialModel to original state, if user decided to cancel
-//! changes.
+//! Dialog to hold ImportAssistant.
 
 class BA_CORE_API_ CsvImportAssistant : public QDialog
 {
@@ -45,22 +43,24 @@ public:
 
 
 public slots:
-    void onExportButton();
+    void onImportButton();
     void onReloadButton();
     void onRejectButton();
     void onBrowseButton();
+
 
 private:
     QBoxLayout* createLayout();
     QBoxLayout* createFileDetailsLayout();
 
+    char guessSeparator() const;
     void generate_table();
     void set_table_headers(CSVFile *csvFile);
     void set_table_data(CSVFile *csvFile);
     void convert_table();
     void remove_blanks();
+    void setRowNumbering();
     bool cell_is_blank(int iRow, int jCol);
-
 
 
     QString m_dirName;
@@ -69,9 +69,11 @@ private:
     QTableWidget* m_tableWidget;
     QLineEdit* m_filePathField;
     QLineEdit* m_separatorField;
-    QSpinBox* m_headersRowSpinBox;
+    //QSpinBox* m_headersRowSpinBox;
     QSpinBox* m_firstDataRowSpinBox;
     QSpinBox* m_lastDataRowSpinBox;
+
+
 
 
 };

@@ -94,6 +94,8 @@ Particles::Particle* Model::newParticle(Particles::EShape k, float R)
         return new Box(D, D, D);
     case EShape::HemiEllipsoid:
         return new HemiEllipsoid(R, R, D);
+    case EShape::Dot:
+        return new Dot();
     case EShape::Ripple1:
         return new Ripple1(D, D, D);
     case EShape::Ripple2:

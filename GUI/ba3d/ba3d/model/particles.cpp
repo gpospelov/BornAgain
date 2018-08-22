@@ -42,6 +42,7 @@ QString const& name(EShape k)
         "EllipsoidalCylinder",
         "Box",
         "HemiEllipsoid",
+        "Dot",
         "Ripple1",
         "Ripple2",
         "AnisoPyramid",
@@ -156,6 +157,14 @@ Dodecahedron::Dodecahedron(float L) : Particle(Key(BaseShape::Dodecahedron))
     set();
 }
 
+Dot::Dot() : Particle(Key(BaseShape::Sphere, 0, 0.5f))
+{
+    float R = 1.0f;
+    scale = Vector3D(R*2);
+    offset = Vector3D(0, 0, 0);
+    set();
+}
+
 EllipsoidalCylinder::EllipsoidalCylinder(float Ra, float Rb, float H)
     : Particle(Key(BaseShape::Column, 1.0f, 0))
 {
@@ -230,7 +239,8 @@ Pyramid::Pyramid(float L, float H, float alpha)
 Ripple1::Ripple1(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
-    turn = Vector3D(0, 0, 90 * pi / 180.0f);
+    turn = Vector3D(0, 0, 0);
+    //turn = Vector3D(0, 0, 90 * pi / 180.0f);
     scale = Vector3D(L, W, H);
     offset = Vector3D(0, 0, 0);
     set();
@@ -241,7 +251,7 @@ Ripple2::Ripple2(float L, float W, float H, float asymmetry)
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0)
              || (std::abs(asymmetry) > W / 2.0f);
-    turn = Vector3D(0, 0, 90 * pi / 180.0f);
+    turn = Vector3D(0, 0, 0);
     scale = Vector3D(L, W, H);
     offset = Vector3D(0, 0, 0);
     set();

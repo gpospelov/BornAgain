@@ -142,6 +142,8 @@ TransformTo3D::createParticlefromIFormFactor(const IFormFactor* ff)
     } else if (auto ff_Dodecahedron = dynamic_cast<const FormFactorDodecahedron*>(ff)) {
         double edge = ff_Dodecahedron->getEdge();
         result = std::make_unique<RealSpace::Particles::Dodecahedron>(edge);
+    } else if (auto ff_Dot = dynamic_cast<const FormFactorDot*>(ff)) {
+        result = std::make_unique<RealSpace::Particles::Dot>();
     } else if (auto ff_EllipsoidalCylinder
                = dynamic_cast<const FormFactorEllipsoidalCylinder*>(ff)) {
         double radius_x = ff_EllipsoidalCylinder->getRadiusX();

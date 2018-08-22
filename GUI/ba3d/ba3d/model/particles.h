@@ -42,6 +42,7 @@ enum class EShape {
     EllipsoidalCylinder,
     Box,
     HemiEllipsoid,
+    Dot,
     Ripple1,
     Ripple2,
     AnisoPyramid,
@@ -122,6 +123,12 @@ class Dodecahedron : public Particle
 {
 public:
     Dodecahedron(float L);
+};
+
+class Dot : public Particle
+{
+public:
+    Dot();
 };
 
 class TruncatedCube : public Particle

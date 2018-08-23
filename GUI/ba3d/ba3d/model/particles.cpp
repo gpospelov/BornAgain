@@ -202,8 +202,7 @@ HemiEllipsoid::HemiEllipsoid(float Ra, float Rb, float H)
 Icosahedron::Icosahedron(float L) : Particle(Key(BaseShape::Icosahedron))
 {
     isNull = (L <= 0);
-    float R = L / IcosahedronL2R;
-    scale = Vector3D(R / GoldenRatio, R / GoldenRatio, R / GoldenRatio);
+    scale = Vector3D(L, L, L);
     offset = Vector3D(0, 0, 0);
     set();
 }
@@ -240,7 +239,6 @@ Ripple1::Ripple1(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0,
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 0);
-    //turn = Vector3D(0, 0, 90 * pi / 180.0f);
     scale = Vector3D(L, W, H);
     offset = Vector3D(0, 0, 0);
     set();

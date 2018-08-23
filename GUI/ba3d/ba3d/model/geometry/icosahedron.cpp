@@ -21,34 +21,53 @@ namespace RealSpace
 
 Geometry::Mesh Geometry::meshIcosahedron()
 {
-    const float GR = GoldenRatio;
+    Vertices vs_(12); // 12 vertices of the icosahedron retrieved from Icosahedron.cpp
 
-    auto q = QQuaternion::rotationTo(-Vector3D::_z, Vector3D(0, 1, -GR));
+    const float E = 1.0; // edge
 
-    Vertices vs_;
-    vs_.reserve(12);
-    for (float _1 : {-1, +1})
-        for (float g : {-GR, +GR}) {
-            vs_.append(q.rotatedVector(Vector3D(0, _1, g)));
-            vs_.append(q.rotatedVector(Vector3D(_1, g, 0)));
-            vs_.append(q.rotatedVector(Vector3D(g, 0, _1)));
-        }
+    vs_[0] =  Vector3D(-0.57735026918962573f*E,                  0.0f*E, 0.0f);
+    vs_[1] =  Vector3D( 0.28867513459481281f*E,                  0.5f*E, 0.0f);
+    vs_[2] =  Vector3D( 0.28867513459481281f*E,                 -0.5f*E, 0.0f);
+    vs_[3] =  Vector3D( 0.93417235896271578f*E,                  0.0f*E, 0.57735026918962562f*E);
+    vs_[4] =  Vector3D(-0.46708617948135783f*E,  0.80901699437494756f*E, 0.57735026918962562f*E);
+    vs_[5] =  Vector3D(-0.46708617948135783f*E, -0.80901699437494756f*E, 0.57735026918962562f*E);
+    vs_[6] =  Vector3D(-0.93417235896271578f*E,                  0.0f*E, 0.93417235896271589f*E);
+    vs_[7] =  Vector3D( 0.46708617948135783f*E,  0.80901699437494756f*E, 0.93417235896271589f*E);
+    vs_[8] =  Vector3D( 0.46708617948135783f*E, -0.80901699437494756f*E, 0.93417235896271589f*E);
+    vs_[9] =  Vector3D( 0.57735026918962573f*E,                  0.0f*E, 1.5115226281523415f*E);
+    vs_[10] = Vector3D(-0.28867513459481281f*E,                  0.5f*E, 1.5115226281523415f*E);
+    vs_[11] = Vector3D(-0.28867513459481281f*E,                 -0.5f*E, 1.5115226281523415f*E);
 
     Q_ASSERT(12 == vs_.count());
-
-    // scale to circumscribed sphere
-    float const F = .5f / vs_.at(0).length();
-    for (auto& v : vs_) {
-        v = v * F;
-        v.z += 0.5; // shift the bottom of the icosahedron to z=0 plane
-    }
 
     Vertices vs;
     vs.reserve(60);
 
-    vs.addFan(vs_, {0, 1, 2, 6, 5, 7, 1});
-    vs.addFan(vs_, {9, 3, 11, 10, 4, 8, 3});
-    vs.addStrip(vs_, {1, 3, 7, 11, 5, 10, 6, 4, 2, 8, 1, 3});
+    // lower half of the icosahedron (clockwise ordering of vertices)
+    vs.addTriangle(vs_[0],vs_[1],vs_[2]);
+    vs.addTriangle(vs_[0],vs_[4],vs_[1]);
+    vs.addTriangle(vs_[1],vs_[3],vs_[2]);
+    vs.addTriangle(vs_[2],vs_[5],vs_[0]);
+
+    vs.addTriangle(vs_[0],vs_[6],vs_[4]);
+    vs.addTriangle(vs_[4],vs_[7],vs_[1]);
+    vs.addTriangle(vs_[1],vs_[7],vs_[3]);
+    vs.addTriangle(vs_[3],vs_[8],vs_[2]);
+    vs.addTriangle(vs_[8],vs_[5],vs_[2]);
+    vs.addTriangle(vs_[5],vs_[6],vs_[0]);
+
+    // upper half of the icosahedron (couter clockwise ordering of vertices)
+    vs.addTriangle(vs_[11],vs_[ 6],vs_[ 5]);
+    vs.addTriangle(vs_[ 8],vs_[ 11],vs_[5]);
+    vs.addTriangle(vs_[ 9],vs_[ 8],vs_[ 3]);
+    vs.addTriangle(vs_[ 9],vs_[ 3],vs_[ 7]);
+    vs.addTriangle(vs_[10],vs_[ 7],vs_[ 4]);
+    vs.addTriangle(vs_[ 6],vs_[10],vs_[ 4]);
+
+    vs.addTriangle(vs_[10],vs_[ 6],vs_[11]);
+    vs.addTriangle(vs_[ 9],vs_[11],vs_[ 8]);
+    vs.addTriangle(vs_[ 9],vs_[ 7],vs_[10]);
+    vs.addTriangle(vs_[ 9],vs_[10],vs_[11]);
 
     Q_ASSERT(60 == vs.count());
 

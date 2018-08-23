@@ -87,6 +87,7 @@ private:
     static Mesh meshDodecahedron();
     static Mesh meshTruncBox(float tD);
     static Mesh meshCuboctahedron(float rH, float alpha, float H);
+    static Mesh meshRipple(float numSides, float ratio_asymmetry_W);
 
     // mesh params for round shapes
     static int const RINGS = 12, SLICES = 24;

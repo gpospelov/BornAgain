@@ -98,6 +98,9 @@ Geometry::Geometry(GeometricID::Key key_) : m_key(key_)
     case BaseShape::Cuboctahedron:
         m_mesh = meshCuboctahedron(m_key.p1, m_key.p2, m_key.p3);
         break;
+    case BaseShape::Ripple:
+        m_mesh = meshRipple(m_key.p1, m_key.p2);
+        break;
     }
 }
 

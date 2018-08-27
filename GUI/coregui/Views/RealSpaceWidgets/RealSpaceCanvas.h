@@ -16,10 +16,10 @@
 #define REALSPACECANVAS_H
 
 #include "WinDllMacros.h"
+#include <QItemSelectionModel>
 #include <QModelIndex>
 #include <QWidget>
 #include <memory>
-#include <QItemSelectionModel>
 
 class SampleModel;
 class RealSpaceView;

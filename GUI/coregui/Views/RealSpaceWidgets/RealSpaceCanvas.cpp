@@ -18,10 +18,10 @@
 #include "RealSpaceView.h"
 #include "SampleModel.h"
 #include "SessionGraphicsItem.h"
+#include "WarningSign.h"
 #include <FilterPropertyProxy.h>
 #include <QApplication>
 #include <QVBoxLayout>
-#include "WarningSign.h"
 
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent), m_sampleModel(nullptr), m_view(new RealSpaceView), m_view_locked(false),
@@ -156,7 +156,7 @@ void RealSpaceCanvas::updateScene()
         // otherwise use default orientation of camera
         else
             builder3D.populate(m_realSpaceModel.get(), *item, *m_sceneGeometry);
-    } catch (const std::exception &ex) {
+    } catch (const std::exception& ex) {
         m_warningSign->setWarningMessage(ex.what());
     } catch (...) {
         // ignore other exceptions thrown

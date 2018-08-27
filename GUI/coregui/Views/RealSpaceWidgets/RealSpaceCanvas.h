@@ -19,12 +19,12 @@
 #include <QModelIndex>
 #include <QWidget>
 #include <memory>
-
 #include <QItemSelectionModel>
 
 class SampleModel;
 class RealSpaceView;
 class RealSpaceModel;
+class WarningSign;
 
 // Class for holding size and thickness information of layers
 class SceneGeometry
@@ -124,6 +124,7 @@ private:
     QItemSelectionModel* m_selectionModel;
     bool m_view_locked;
     std::unique_ptr<SceneGeometry> m_sceneGeometry;
+    WarningSign* m_warningSign;
 };
 
 #endif // REALSPACESCENE_H

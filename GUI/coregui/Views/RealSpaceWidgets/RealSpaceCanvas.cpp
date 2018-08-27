@@ -21,10 +21,11 @@
 #include <FilterPropertyProxy.h>
 #include <QApplication>
 #include <QVBoxLayout>
+#include "WarningSign.h"
 
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent), m_sampleModel(nullptr), m_view(new RealSpaceView), m_view_locked(false),
-      m_sceneGeometry(new SceneGeometry)
+      m_sceneGeometry(new SceneGeometry), m_warningSign(new WarningSign(this))
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -147,6 +148,7 @@ void RealSpaceCanvas::updateScene()
     RealSpaceBuilder builder3D;
 
     try {
+        m_warningSign->clear();
         // if the view is locked, keep the current orientation of the camera
         if (m_view_locked)
             builder3D.populate(m_realSpaceModel.get(), *item, *m_sceneGeometry,
@@ -154,8 +156,10 @@ void RealSpaceCanvas::updateScene()
         // otherwise use default orientation of camera
         else
             builder3D.populate(m_realSpaceModel.get(), *item, *m_sceneGeometry);
+    } catch (const std::exception &ex) {
+        m_warningSign->setWarningMessage(ex.what());
     } catch (...) {
-        // ignore exceptions thrown
+        // ignore other exceptions thrown
     }
     m_view->setModel(m_realSpaceModel.get());
 

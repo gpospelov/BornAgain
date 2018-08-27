@@ -82,7 +82,7 @@ class BA_CORE_API_ RealSpaceCanvas : public QWidget
     Q_OBJECT
 
 public:
-    RealSpaceCanvas(QWidget* parent = 0);
+    RealSpaceCanvas(QWidget* parent = nullptr);
     ~RealSpaceCanvas();
 
     void setModel(SampleModel* sampleModel = nullptr,

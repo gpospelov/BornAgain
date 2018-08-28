@@ -16,15 +16,15 @@
 #define REALSPACECANVAS_H
 
 #include "WinDllMacros.h"
+#include <QItemSelectionModel>
 #include <QModelIndex>
 #include <QWidget>
 #include <memory>
 
-#include <QItemSelectionModel>
-
 class SampleModel;
 class RealSpaceView;
 class RealSpaceModel;
+class WarningSign;
 
 // Class for holding size and thickness information of layers
 class SceneGeometry
@@ -82,7 +82,7 @@ class BA_CORE_API_ RealSpaceCanvas : public QWidget
     Q_OBJECT
 
 public:
-    RealSpaceCanvas(QWidget* parent = 0);
+    RealSpaceCanvas(QWidget* parent = nullptr);
     ~RealSpaceCanvas();
 
     void setModel(SampleModel* sampleModel = nullptr,
@@ -124,6 +124,7 @@ private:
     QItemSelectionModel* m_selectionModel;
     bool m_view_locked;
     std::unique_ptr<SceneGeometry> m_sceneGeometry;
+    WarningSign* m_warningSign;
 };
 
 #endif // REALSPACESCENE_H

@@ -18,7 +18,8 @@
 #include "FitProgressInfo.h"
 #include "IFitObserver.h"
 #include <QObject>
-#include <atomic>
+#include <condition_variable>
+#include <mutex>
 
 template <class T> class OutputData;
 class FitSuite;
@@ -58,7 +59,9 @@ private:
     bool canUpdateProgressInfo(FitSuite *fitSuite);
     QString reportToString(FitSuite *fitSuite);
 
-    std::atomic<bool> m_block_update_plots;
+    bool m_block_update_plots;
+    std::mutex m_update_plot_mutex;
+    std::condition_variable m_on_finish_notifier;
     int m_update_interval;
     std::unique_ptr<OutputData<double> > m_simData;
     //std::unique_ptr<OutputData<double> > m_chiData;

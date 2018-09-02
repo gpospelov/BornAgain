@@ -20,35 +20,35 @@
 #include "MinimizerUtils.h"
 #include <QDebug>
 
-GUIFitObserver::GUIFitObserver(QObject *parent)
+GUIFitObserver::GUIFitObserver(QObject* parent)
     : QObject(parent)
     , IFitObserver(1)
     , m_block_update_plots(false)
     , m_update_interval(1)
-{}
+{
+}
 
 GUIFitObserver::~GUIFitObserver()
 {
-
 }
 
-void GUIFitObserver::update(FitSuite *subject)
+void GUIFitObserver::update(FitSuite* subject)
 {
     // discard data after interruption
     if (subject->isInterrupted())
         return;
 
-    if(subject->numberOfIterations() % m_update_interval == 0) {
-        if(m_block_update_plots) {
+    if (subject->numberOfIterations() % m_update_interval == 0) {
+        if (m_block_update_plots) {
             qDebug() << "GUI is busy with plotting, skipping iteration "
                      << subject->numberOfIterations();
         }
     }
 
-    if(subject->numberOfIterations() == 0)
+    if (subject->numberOfIterations() == 0)
         emit logInfoUpdate(QString::fromStdString(subject->setupToString()));
 
-    if(!canUpdatePlots(subject))
+    if (!canUpdatePlots(subject))
         return;
 
     std::unique_lock<std::mutex> lock(m_update_plot_mutex);
@@ -68,7 +68,6 @@ void GUIFitObserver::update(FitSuite *subject)
 
     if (subject->isLastIteration())
         emit logInfoUpdate(reportToString(subject));
-
 }
 
 void GUIFitObserver::setInterval(int val)
@@ -78,7 +77,7 @@ void GUIFitObserver::setInterval(int val)
 
 //! Returns true if it is time to update plots.
 
-bool GUIFitObserver::canUpdatePlots(FitSuite *fitSuite)
+bool GUIFitObserver::canUpdatePlots(FitSuite* fitSuite)
 {
     return m_block_update_plots ? fitSuite->isLastIteration() ? true : false
                                 : fitSuite->numberOfIterations() % m_update_interval == 0;
@@ -103,7 +102,7 @@ void GUIFitObserver::finishedPlotting()
     m_on_finish_notifier.notify_one();
 }
 
-const OutputData<double> *GUIFitObserver::simulationData() const
+const OutputData<double>* GUIFitObserver::simulationData() const
 {
     return m_simData.get();
 }

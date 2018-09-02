@@ -15,7 +15,6 @@
 #ifndef GUIFITOBSERVER_H
 #define GUIFITOBSERVER_H
 
-#include "FitProgressInfo.h"
 #include "IFitObserver.h"
 #include <QObject>
 #include <condition_variable>
@@ -35,7 +34,7 @@ class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
 
 public:
 
-    GUIFitObserver(QObject *parent = 0);
+    GUIFitObserver(QObject *parent = nullptr);
     ~GUIFitObserver();
 
     void update(FitSuite *subject);
@@ -43,7 +42,6 @@ public:
     void finishedPlotting();
 
     const OutputData<double> *simulationData() const;
-    //const OutputData<double> *chiSquaredData() const;
 
 public slots:
     void setInterval(int val);
@@ -52,7 +50,6 @@ signals:
     void plotsUpdate();
     void logInfoUpdate(const QString &);
     void progressInfoUpdate(const FitProgressInfo &info);
-//    void chiSquareUpdate(int niter, double chi2);
 
 private:
     bool canUpdatePlots(FitSuite *fitSuite);
@@ -64,7 +61,6 @@ private:
     std::condition_variable m_on_finish_notifier;
     int m_update_interval;
     std::unique_ptr<OutputData<double> > m_simData;
-    //std::unique_ptr<OutputData<double> > m_chiData;
 };
 
 #endif // GUIFITOBSERVER_H

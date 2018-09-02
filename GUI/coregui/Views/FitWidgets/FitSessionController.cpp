@@ -18,6 +18,7 @@
 #include "JobItem.h"
 #include "FitSuiteItem.h"
 #include "DomainFittingBuilder.h"
+#include "FitProgressInfo.h"
 #include "FitSuite.h"
 #include "IntensityDataItem.h"
 #include "FitParameterItems.h"

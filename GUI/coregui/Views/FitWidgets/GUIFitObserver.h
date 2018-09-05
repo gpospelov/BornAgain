@@ -15,10 +15,10 @@
 #ifndef GUIFITOBSERVER_H
 #define GUIFITOBSERVER_H
 
-#include "FitProgressInfo.h"
 #include "IFitObserver.h"
 #include <QObject>
-#include <atomic>
+#include <condition_variable>
+#include <mutex>
 
 template <class T> class OutputData;
 class FitSuite;
@@ -33,35 +33,33 @@ class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
     Q_OBJECT
 
 public:
-
-    GUIFitObserver(QObject *parent = 0);
+    GUIFitObserver(QObject* parent = nullptr);
     ~GUIFitObserver();
 
-    void update(FitSuite *subject);
+    void update(FitSuite* subject);
 
     void finishedPlotting();
 
-    const OutputData<double> *simulationData() const;
-    //const OutputData<double> *chiSquaredData() const;
+    const OutputData<double>* simulationData() const;
 
 public slots:
     void setInterval(int val);
 
 signals:
     void plotsUpdate();
-    void logInfoUpdate(const QString &);
-    void progressInfoUpdate(const FitProgressInfo &info);
-//    void chiSquareUpdate(int niter, double chi2);
+    void logInfoUpdate(const QString&);
+    void progressInfoUpdate(const FitProgressInfo& info);
 
 private:
-    bool canUpdatePlots(FitSuite *fitSuite);
-    bool canUpdateProgressInfo(FitSuite *fitSuite);
-    QString reportToString(FitSuite *fitSuite);
+    bool canUpdatePlots(FitSuite* fitSuite);
+    bool canUpdateProgressInfo(FitSuite* fitSuite);
+    QString reportToString(FitSuite* fitSuite);
 
-    std::atomic<bool> m_block_update_plots;
+    bool m_block_update_plots;
+    std::mutex m_update_plot_mutex;
+    std::condition_variable m_on_finish_notifier;
     int m_update_interval;
-    std::unique_ptr<OutputData<double> > m_simData;
-    //std::unique_ptr<OutputData<double> > m_chiData;
+    std::unique_ptr<OutputData<double>> m_simData;
 };
 
 #endif // GUIFITOBSERVER_H

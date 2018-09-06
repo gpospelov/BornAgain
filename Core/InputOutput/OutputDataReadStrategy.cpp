@@ -75,6 +75,15 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
             (*result)[global_index] = data[row][col];
         }
     }
+
+
+    if((ncols < 2) || (nrows < 2)){
+            OutputData<double>* result1d = new OutputData<double>;
+            result1d->addAxis("intensity",nrows, 0.0, double(nrows));
+            result1d->setRawDataVector(result->getRawDataVector());
+            return result1d;
+    }
+
     return result;
 }
 

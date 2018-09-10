@@ -79,8 +79,9 @@ void GUIFitObserver::setInterval(int val)
 
 bool GUIFitObserver::canUpdatePlots(FitSuite* fitSuite)
 {
-    return m_block_update_plots ? fitSuite->isLastIteration() ? true : false
-                                : fitSuite->numberOfIterations() % m_update_interval == 0;
+    if (fitSuite->isLastIteration())
+        return true;
+    return !m_block_update_plots && fitSuite->numberOfIterations() % m_update_interval == 0;
 }
 
 //! Return string representing results of the minimization.

@@ -40,6 +40,7 @@ public:
     unsigned headersLine() const;
     unsigned firstLine() const;
     unsigned lastLine() const;
+    unsigned singleColumnImport() const;
 
 
 public slots:
@@ -55,10 +56,9 @@ private:
 
     char guessSeparator() const;
     void generate_table();
-    void set_table_headers(CSVFile *csvFile);
     void set_table_data(CSVFile *csvFile);
     void convert_table();
-    void remove_blanks();
+    void remove_unwanted();
     void setRowNumbering();
     bool cell_is_blank(int iRow, int jCol);
 
@@ -72,6 +72,7 @@ private:
     //QSpinBox* m_headersRowSpinBox;
     QSpinBox* m_firstDataRowSpinBox;
     QSpinBox* m_lastDataRowSpinBox;
+    QSpinBox* m_singleDataColSpinBox;
 
 
 

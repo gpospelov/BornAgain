@@ -155,6 +155,20 @@ QBoxLayout* CsvImportAssistant::createFileDetailsLayout(){
     lay5->addWidget(m_lastDataRowSpinBox);
     result->addLayout(lay5);
 
+    auto labelSingleColImport = new QLabel("Import Single Column (zero to import all): ");
+    m_singleDataColSpinBox = new QSpinBox();
+    m_singleDataColSpinBox->setMinimum(0);
+    m_singleDataColSpinBox->setMaximum(0);
+    m_singleDataColSpinBox->setValue(0);
+    auto laySingleDataCol = new QHBoxLayout;
+    //lay5->setMargin(10);
+    //lay5->setSpacing(5);
+    //lay5->addStretch(1);
+    laySingleDataCol->addWidget(labelSingleColImport);
+    laySingleDataCol->addWidget(m_singleDataColSpinBox);
+    result->addLayout(laySingleDataCol);
+
+
 
     auto lay6 = new QVBoxLayout;
     auto reloadButton = new QPushButton("Reload");
@@ -257,37 +271,20 @@ void CsvImportAssistant::generate_table()
     m_tableWidget->setRowCount(0);
     m_lastDataRowSpinBox->setMaximum(int(csvFile->NumberOfRows()));
     m_firstDataRowSpinBox->setMaximum(int(csvFile->NumberOfRows()));
+    m_singleDataColSpinBox->setMaximum(int(csvFile->NumberOfColumns()));
     //m_headersRowSpinBox->setMaximum(csvFile->NumberOfRows());
 
-    set_table_headers(csvFile);
     set_table_data(csvFile);
-    remove_blanks();
+    remove_unwanted();
     setRowNumbering();
 
     return;
 }
 
-void CsvImportAssistant::set_table_headers(CSVFile* csvFile){
-    QStringList titulos;
-
-    CSVRow headers = csvFile->get_headers();
-
-    for(unsigned j = 0; j < headers.size(); j++){
-        std::string header = headers[j].empty() ? std::string("Column ") + std::to_string(j+1) : headers[j];
-        titulos << QString::fromStdString(header);
-    }
-    m_tableWidget->setHorizontalHeaderLabels(titulos);
-
-    return;
-}
-
-
 void CsvImportAssistant::set_table_data(CSVFile* csvFile){
 
     unsigned firstDataLine = firstLine() - 1;
     unsigned lastDataLine = lastLine() == 0 ? unsigned(m_lastDataRowSpinBox->maximum()) : lastLine();
-
-
     for(unsigned i = firstDataLine; i < lastDataLine; i++){
         m_tableWidget->insertRow(m_tableWidget->rowCount());
         unsigned I = unsigned(m_tableWidget->rowCount()) - 1;
@@ -298,17 +295,25 @@ void CsvImportAssistant::set_table_data(CSVFile* csvFile){
     }
 }
 
-void CsvImportAssistant::remove_blanks(){
+void CsvImportAssistant::remove_unwanted(){
     using namespace std;
 
     int nRows = m_tableWidget->rowCount();
     int nCols = m_tableWidget->columnCount();
     vector<vector<string>> A;
     vector<string> B;
-    vector<int> blank_cols;
+    vector<int> to_be_removed;
 
     //save the inices of blank cols
     for(int j = 0; j < nCols; j++){
+
+        if(singleColumnImport() > 0){
+            if( unsigned(j+1) != singleColumnImport()){
+                to_be_removed.push_back(j);
+                continue;
+            }
+        }
+
         int i = 0;
         bool this_col_is_blank = cell_is_blank(i,j);
         while(this_col_is_blank && i < nRows  ){
@@ -316,7 +321,7 @@ void CsvImportAssistant::remove_blanks(){
             i++;
         }
         if(i == nRows){
-            blank_cols.push_back(j);
+            to_be_removed.push_back(j);
         }
     }
 
@@ -338,7 +343,7 @@ void CsvImportAssistant::remove_blanks(){
     //correct the size of the table
     m_tableWidget->clearContents();
     m_tableWidget->setRowCount(0);
-    m_tableWidget->setColumnCount(nCols-int(blank_cols.size()));
+    m_tableWidget->setColumnCount(nCols-int(to_be_removed.size()));
     nRows = int(A.size());
 
     //put values into a new table
@@ -346,13 +351,20 @@ void CsvImportAssistant::remove_blanks(){
         m_tableWidget->insertRow(m_tableWidget->rowCount());
         int J = 0;
         for(int j = 0; j < nCols; j++){
-            if( std::find(blank_cols.begin(), blank_cols.end(), j) == blank_cols.end()){
+            if( std::find(to_be_removed.begin(), to_be_removed.end(), j) == to_be_removed.end()){
                 std::string a = A[unsigned(i)][unsigned(j)];
                 m_tableWidget->setItem(i,J,new QTableWidgetItem(QString::fromStdString(a)));
                 J++;
             }
         }
     }
+
+    //set header labels:
+    QStringList headers;
+    for(int j = 0; j < nCols; j++)
+        if( std::find(to_be_removed.begin(), to_be_removed.end(), j) == to_be_removed.end())
+            headers.append(QString::fromStdString(std::string("Column ") + std::to_string(j+1)));
+    m_tableWidget->setHorizontalHeaderLabels(headers);
 }
 
 void CsvImportAssistant::setRowNumbering(){
@@ -468,4 +480,8 @@ unsigned CsvImportAssistant::firstLine() const{
 
 unsigned CsvImportAssistant::lastLine() const{
     return unsigned(m_lastDataRowSpinBox->value());
+}
+
+unsigned CsvImportAssistant::singleColumnImport() const{
+    return unsigned(m_singleDataColSpinBox->value());
 }

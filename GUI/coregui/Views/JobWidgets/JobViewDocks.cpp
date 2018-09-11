@@ -32,7 +32,7 @@ const JobViewFlags::Activity default_activity = JobViewFlags::JOB_VIEW_ACTIVITY;
 }
 
 JobViewDocks::JobViewDocks(JobView* parent)
-    : QObject(parent)
+    : DocksController(parent)
     , m_jobSelector(nullptr)
     , m_jobOutputDataWidget(nullptr)
     , m_jobRealTimeWidget(nullptr)

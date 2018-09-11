@@ -16,7 +16,7 @@
 #define JOBVIEWDOCKS_H
 
 #include "JobViewFlags.h"
-#include "WinDllMacros.h"
+#include "DocksController.h"
 #include <QObject>
 #include <QVector>
 
@@ -34,7 +34,7 @@ class JobMessagePanel;
 //! It's main method setActivity handles visibility logic for all of (JobSelectorWidget,
 //! JobOutputDataWidget, JobRealTimeWidget and FitPanelWidget).
 
-class BA_CORE_API_ JobViewDocks : public QObject
+class BA_CORE_API_ JobViewDocks : public DocksController
 {
     Q_OBJECT
 

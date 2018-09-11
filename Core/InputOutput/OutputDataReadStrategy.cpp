@@ -63,7 +63,10 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
             throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
                                      "Number of elements is different from row to row.");
     }
-    OutputData<double>* result = new OutputData<double>;
+
+    std::unique_ptr<OutputData<double>> result, result1d; //= new OutputData<double>;
+    result.reset(new OutputData<double>());
+    result1d.reset(new OutputData<double>());
     result->addAxis("x", ncols, 0.0, double(ncols));
     result->addAxis("y", nrows, 0.0, double(nrows));
     std::vector<unsigned> axes_indices(2);
@@ -75,7 +78,16 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
             (*result)[global_index] = data[row][col];
         }
     }
-    return result;
+
+
+    if((ncols < 2) || (nrows < 2)){
+            size_t nelem = std::max(ncols,nrows);
+            result1d->addAxis("intensity",nelem, 0.0, double(nelem));
+            result1d->setRawDataVector(result->getRawDataVector());
+            std::swap(result,result1d);
+    }
+
+    return result.release();
 }
 
 

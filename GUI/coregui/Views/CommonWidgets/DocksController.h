@@ -16,9 +16,11 @@
 #define DOCKSCONTROLLER_H
 
 #include "WinDllMacros.h"
+#include "DockWidgetInfo.h"
 #include <QObject>
+#include <map>
 
-class QMainWindow;
+namespace Manhattan { class FancyMainWindow; }
 
 //! Handles appearing of docked widget in the context of DocksView.
 
@@ -27,10 +29,15 @@ class BA_CORE_API_ DocksController : public QObject
     Q_OBJECT
 
 public:
-    DocksController(QMainWindow* mainWindow);
+    DocksController(Manhattan::FancyMainWindow* mainWindow);
+
+    void addWidget(int id, QWidget* widget, Qt::DockWidgetArea area);
+
+    void onResetLayout();
 
 private:
-    QMainWindow* m_mainWindow;
+    Manhattan::FancyMainWindow* m_mainWindow;
+    std::map<int, DockWidgetInfo> m_docks;
 };
 
 #endif //  DOCKSCONTROLLER_H

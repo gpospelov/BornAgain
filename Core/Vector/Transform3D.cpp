@@ -84,21 +84,20 @@ Transform3D Transform3D::createRotateEuler(
     Transform3D zrot = createRotateZ(alpha);
     Transform3D xrot = createRotateX(beta);
     Transform3D zrot2 = createRotateZ(gamma);
-    return zrot2*xrot*zrot;
+    return zrot*xrot*zrot2;
 }
 
 void Transform3D::calculateEulerAngles(
     double *p_alpha, double *p_beta, double *p_gamma) const
 {
+    *p_beta = std::acos(m_matrix(2,2));
     // First check if second angle is zero or pi
-    if (m_matrix(2,0)==0.0 && m_matrix(2,1)==0.0) {
-        *p_alpha = std::atan2(-m_matrix(0,1), m_matrix(0,0));
-        *p_beta = std::acos(m_matrix(2,2));
+    if (std::abs(m_matrix(2,2))==1.0) {
+        *p_alpha = std::atan2(m_matrix(1,0), m_matrix(0,0));
         *p_gamma = 0.0;
     } else {
-        *p_alpha = std::atan2(m_matrix(2,0), m_matrix(2,1));
-        *p_beta = std::acos(m_matrix(2,2));
-        *p_gamma = std::atan2(m_matrix(0,2), -m_matrix(1,2));
+        *p_alpha = std::atan2(m_matrix(0,2), -m_matrix(1,2));
+        *p_gamma = std::atan2(m_matrix(2,0), m_matrix(2,1));
     }
 }
 

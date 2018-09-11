@@ -18,20 +18,29 @@
 
 IRotation* IRotation::createRotation(const Transform3D& transform)
 {
-    double alpha, beta, gamma;
-    transform.calculateEulerAngles(&alpha, &beta, &gamma);
     auto rot_type = transform.getRotationType();
     switch (rot_type) {
     case Transform3D::XAXIS:
-        if (alpha>0.0) beta = -beta;
-        return new RotationX(beta);
+    {
+        double angle = transform.calculateRotateXAngle();
+        return new RotationX(angle);
+    }
     case Transform3D::YAXIS:
-        if (alpha>0.0 && alpha<3.14) beta = -beta;
-        return new RotationY(beta);
+    {
+        double angle = transform.calculateRotateYAngle();
+        return new RotationY(angle);
+    }
     case Transform3D::ZAXIS:
-        return new RotationZ(alpha);
+    {
+        double angle = transform.calculateRotateZAngle();
+        return new RotationZ(angle);
+    }
     case Transform3D::EULER:
+    {
+        double alpha, beta, gamma;
+        transform.calculateEulerAngles(&alpha, &beta, &gamma);
         return new RotationEuler(alpha, beta, gamma);
+    }
     }
     throw std::runtime_error("IRotation::createRotation error: unknown rotation type.");
 }

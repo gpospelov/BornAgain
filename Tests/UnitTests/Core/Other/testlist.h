@@ -19,4 +19,5 @@
 #include "BeamFootprintTest.h"
 #include "FileSystemUtilsTest.h"
 #include "SimulationResultTest.h"
+#include "RotationTest.h"
 

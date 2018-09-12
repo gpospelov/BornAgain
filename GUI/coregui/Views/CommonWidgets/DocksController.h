@@ -33,9 +33,15 @@ public:
 
     void addWidget(int id, QWidget* widget, Qt::DockWidgetArea area);
 
-    void onResetLayout();
+    virtual void onResetLayout();
+
+    QDockWidget* dock(int id);
+
+    QDockWidget* findDock(QWidget* widget);
 
 private:
+    DockWidgetInfo get_info(int id);
+
     Manhattan::FancyMainWindow* m_mainWindow;
     std::map<int, DockWidgetInfo> m_docks;
 };

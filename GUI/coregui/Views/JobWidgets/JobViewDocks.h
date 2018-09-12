@@ -53,7 +53,7 @@ public:
     void setItem(class JobItem* jobItem);
 
 public slots:
-    void onResetLayout();
+    void onResetLayout() override;
     void onToggleJobSelector();
     void setDockHeightForWidget(int height);
     void onWidgetCloseRequest();
@@ -68,12 +68,12 @@ private:
         QSize m_max_size;
     };
 
-    QWidget* jobWidget(JobViewFlags::Dock dockId);
-    QDockWidget* dock(JobViewFlags::Dock dockId);
+//    QWidget* jobWidget(JobViewFlags::Dock dockId);
+//    QDockWidget* dock(JobViewFlags::Dock dockId);
     QWidget* centralWidget();
     void initJobWidgets(class JobModel* jobModel);
-    void initDocks();
-    QDockWidget* findDock(QWidget* widget);
+//    void initDocks();
+//    QDockWidget* findDock(QWidget* widget);
 
     JobSelectorWidget* m_jobSelector;
     JobOutputDataWidget* m_jobOutputDataWidget;
@@ -81,8 +81,8 @@ private:
     FitActivityPanel* m_fitActivityPanel;
     JobMessagePanel* m_jobMessagePanel;
 
-    QVector<QWidget*> m_jobWidgets;
-    QVector<QDockWidget*> m_dockWidgets;
+//    QVector<QWidget*> m_jobWidgets;
+//    QVector<QDockWidget*> m_dockWidgets;
 
     JobView* m_jobView;
     DockSizeInfo m_dock_info;

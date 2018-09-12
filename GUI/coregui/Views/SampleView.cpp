@@ -36,7 +36,7 @@ SampleView::SampleView(MainWindow *mainWindow)
 {
     setObjectName("SampleView");
 
-    setCentralWidget(m_sampleDesigner->getCentralWidget());
+    setCentralWidget(sampleDesigner()->getCentralWidget());
 
     setDocumentMode(true);
     setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
@@ -44,7 +44,6 @@ SampleView::SampleView(MainWindow *mainWindow)
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
     initSubWindows();
-    initSelectionModel();
 
     for (int i = 0; i < NUMBER_OF_SUB_WINDOWS; i++) {
         QWidget *subWindow = m_subWindows[i];
@@ -70,7 +69,6 @@ SampleView::SampleView(MainWindow *mainWindow)
 
 SampleView::~SampleView()
 {
-    delete m_sampleDesigner;
 }
 
 void SampleView::initSubWindows()
@@ -79,15 +77,15 @@ void SampleView::initSubWindows()
           static_cast<QWidget*>(nullptr));
 
     m_subWindows[WIDGET_BOX] =
-            SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
+            SampleViewComponents::createWidgetBox(sampleDesigner(), this);
 
     m_tree_view = SampleViewComponents::createTreeView(m_models->sampleModel(), this);
-    m_subWindows[SAMPLE_TREE] = m_tree_view;
-    m_tree_view->expandAll();
-    connect(m_tree_view->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
-            m_tree_view, SLOT(expandAll()));
+    m_subWindows[SAMPLE_TREE] = getTreeView();
+    getTreeView()->expandAll();
+    connect(getTreeView()->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
+            getTreeView(), SLOT(expandAll()));
 
-    m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(m_tree_view->selectionModel(), this);
+    m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(getTreeView()->selectionModel(), this);
 
     InfoWidget *infoWidget = new InfoWidget(this);
     connect(infoWidget, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
@@ -96,13 +94,8 @@ void SampleView::initSubWindows()
     infoWidget->setInstrumentModel(m_models->instrumentModel());
     m_subWindows[INFO] = infoWidget;
 
-    m_sampleDesigner->setModels(m_models);
-    m_sampleDesigner->setSelectionModel(m_tree_view->selectionModel(), dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(m_tree_view->model())));
-}
-
-void SampleView::initSelectionModel()
-{
-    m_selection_model = m_tree_view->selectionModel();
+    sampleDesigner()->setModels(m_models);
+    sampleDesigner()->setSelectionModel(getTreeView()->selectionModel(), dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(getTreeView()->model())));
 }
 
 void SampleView::createActions()
@@ -147,7 +140,6 @@ void SampleView::addItem(const QString &item_name)
         QModelIndex new_index = getSampleModel()->indexOfItem(new_item);
         scrollToIndex(new_index);
     }
-    setDirty();
 }
 
 void SampleView::deleteItem()
@@ -159,7 +151,6 @@ void SampleView::deleteItem()
     int row = currentIndex.row();
     if (currentIndex.isValid()) {
         getSampleModel()->removeRows(row, 1, parent_index);
-        setDirty();
     }
 }
 
@@ -262,26 +253,26 @@ void SampleView::connectSignals()
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
 
     // toolBar should be initialized after MaterialBrowser
-    m_toolBar = new SampleToolBar(getSampleModel(), m_tree_view->selectionModel(), this);
+    m_toolBar = new SampleToolBar(getSampleModel(), getTreeView()->selectionModel(), this);
     connect(m_toolBar, SIGNAL(deleteItems()),
-            m_sampleDesigner->getView(), SLOT(deleteSelectedItems()));
-    connect(m_toolBar, SIGNAL(selectionMode(int)), m_sampleDesigner->getView(), SLOT(onSelectionMode(int)));
-    connect(m_sampleDesigner->getView(), SIGNAL(selectionModeChanged(int)),m_toolBar, SLOT(onViewSelectionMode(int)));
-    connect(m_toolBar, SIGNAL(centerView()), m_sampleDesigner->getView(), SLOT(onCenterView()));
-    connect(m_toolBar, SIGNAL(smartAlign()), m_sampleDesigner, SLOT(onSmartAlign()));
+            sampleDesigner()->getView(), SLOT(deleteSelectedItems()));
+    connect(m_toolBar, SIGNAL(selectionMode(int)), sampleDesigner()->getView(), SLOT(onSelectionMode(int)));
+    connect(sampleDesigner()->getView(), SIGNAL(selectionModeChanged(int)),m_toolBar, SLOT(onViewSelectionMode(int)));
+    connect(m_toolBar, SIGNAL(centerView()), sampleDesigner()->getView(), SLOT(onCenterView()));
+    connect(m_toolBar, SIGNAL(smartAlign()), sampleDesigner(), SLOT(onSmartAlign()));
     connect(m_toolBar, SIGNAL(changeScale(double)),
-            m_sampleDesigner->getView(), SLOT(onChangeScale(double)));
+            sampleDesigner()->getView(), SLOT(onChangeScale(double)));
 
     connect(m_toolBar, SIGNAL(zoomOut()),
-            m_sampleDesigner->getView(), SLOT(zoomOut()));
+            sampleDesigner()->getView(), SLOT(zoomOut()));
     connect(m_toolBar, SIGNAL(zoomIn()),
-            m_sampleDesigner->getView(), SLOT(zoomIn()));
+            sampleDesigner()->getView(), SLOT(zoomIn()));
 
-    connect(m_sampleDesigner->getScene(), SIGNAL(selectionModeChangeRequest(int)),
-            m_sampleDesigner->getView(), SLOT(onSelectionMode(int)));
+    connect(sampleDesigner()->getScene(), SIGNAL(selectionModeChangeRequest(int)),
+            sampleDesigner()->getView(), SLOT(onSelectionMode(int)));
 
     // connect context menu for tree view
-    connect(m_tree_view, SIGNAL(customContextMenuRequested(const QPoint &)),
+    connect(getTreeView(), SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(showContextMenu(const QPoint &)));
 
     addToolBar(m_toolBar);
@@ -299,7 +290,7 @@ void SampleView::connectSignals()
 void SampleView::scrollToIndex(const QModelIndex &index)
 {
     if (index.isValid()) {
-        m_tree_view->scrollTo(index);
+        getTreeView()->scrollTo(index);
     }
 }
 
@@ -318,6 +309,11 @@ SampleModel *SampleView::getSampleModel()
 QTreeView *SampleView::getTreeView()
 {
     return m_tree_view;
+}
+
+SampleDesigner* SampleView::sampleDesigner()
+{
+    return m_sampleDesigner;
 }
 
 

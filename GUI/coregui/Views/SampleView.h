@@ -53,7 +53,6 @@ public slots:
 
 protected slots:
     void showContextMenu(const QPoint &pnt);
-    void setDirty(bool dirty=true) { setWindowModified(dirty); }
     void dockToMinMaxSizes();
     void onDockVisibilityChangeV2(bool status);
 
@@ -79,8 +78,9 @@ private:
 
     SampleViewDocks* m_docks;
 
-   // MaterialBrowser *m_materialBrowser;  // material editor
     SampleDesigner *m_sampleDesigner;    // main sample view
+    SampleDesigner* sampleDesigner();
+
     SampleToolBar *m_toolBar;            // toolbar
     QWidget *m_subWindows[NUMBER_OF_SUB_WINDOWS];
     QDockWidget *m_dockWidgets[NUMBER_OF_SUB_WINDOWS];
@@ -93,8 +93,6 @@ private:
 
     ApplicationModels* m_models;
     QTreeView *m_tree_view;
-
-    QItemSelectionModel *m_selection_model;
 
     DockSizeInfo m_dock_info;
 };

@@ -20,12 +20,28 @@
 #include "SampleDesigner.h"
 #include "SamplePropertyWidget.h"
 #include "SampleToolBar.h"
-#include "SampleViewComponents.h"
 #include "mainwindow.h"
 #include "ApplicationModels.h"
+#include "SampleWidgetBox.h"
+#include "ItemTreeView.h"
 #include <QDockWidget>
 #include <QMenu>
 #include <QTimer>
+
+
+namespace {
+ItemTreeView *createTreeView(SampleModel *sampleModel, QWidget *parent)
+{
+    ItemTreeView *tree_view = new ItemTreeView(parent);
+    FilterPropertyProxy *proxy = new FilterPropertyProxy(1, parent);
+    proxy->setSourceModel(sampleModel);
+    tree_view->setModel(proxy);
+    tree_view->setAttribute(Qt::WA_MacShowFocusRect, false);
+    return tree_view;
+}
+
+}
+
 
 SampleView::SampleView(MainWindow *mainWindow)
     : Manhattan::FancyMainWindow(mainWindow)
@@ -76,10 +92,9 @@ void SampleView::initSubWindows()
     qFill(m_subWindows, m_subWindows + NUMBER_OF_SUB_WINDOWS,
           static_cast<QWidget*>(nullptr));
 
-    m_subWindows[WIDGET_BOX] =
-            SampleViewComponents::createWidgetBox(sampleDesigner(), this);
+    m_subWindows[WIDGET_BOX] = new SampleWidgetBox(sampleDesigner(), this);
 
-    m_tree_view = SampleViewComponents::createTreeView(m_models->sampleModel(), this);
+    m_tree_view = createTreeView(m_models->sampleModel(), this);
     m_subWindows[SAMPLE_TREE] = getTreeView();
     getTreeView()->expandAll();
     connect(getTreeView()->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),

@@ -17,6 +17,8 @@
 #include "fancymainwindow.h"
 #include <QAbstractItemView>
 #include <QDockWidget>
+#include <QTimer>
+#include <QAction>
 
 DocksController::DocksController(Manhattan::FancyMainWindow* mainWindow)
     : QObject(mainWindow), m_mainWindow(mainWindow)
@@ -59,7 +61,7 @@ void DocksController::onResetLayout()
     m_mainWindow->setTrackingEnabled(true);
 }
 
-QDockWidget* DocksController::dock(int id)
+QDockWidget* DocksController::findDock(int id)
 {
     return get_info(id).dock();
 }
@@ -71,6 +73,66 @@ QDockWidget* DocksController::findDock(QWidget* widget)
             return it.second.dock();
 
     throw GUIHelpers::Error("DocksController::findDock() -> Can't find dock for widget");
+}
+
+
+//! Show docks with id's from the list. Other docks will be hidden.
+
+void DocksController::show_docks(const std::vector<int>& docks_to_show)
+{
+    for (auto& it : m_docks) {
+        if(std::find(docks_to_show.begin(), docks_to_show.end(), it.first) != docks_to_show.end())
+            it.second.dock()->show();
+        else
+            it.second.dock()->hide();
+    }
+}
+
+//! A hack to request update of QDockWidget size if its child (e.g. InfoWidget) wants it.
+//! The problem bypassed here is that there is no direct method to QMainWindow to recalculate
+//! position of splitters surrounding given QDockWidget. So our child QWidget requests here
+//! the change of Min/Max size of QDockWidget, this will trigger recalculation of QDockWidget
+//! layout and will force QDockWidget to respect sizeHints provided by ChildWidget. Later (in one
+//! single timer shot) we return min/max sizes of QDockWidget back to re-enable splitters
+//! functionality.
+
+void DocksController::setDockHeightForWidget(int height)
+{
+    QWidget* widget = qobject_cast<QWidget*>(sender());
+    Q_ASSERT(widget);
+    QDockWidget* dock = findDock(widget);
+    Q_ASSERT(dock);
+
+    m_dock_info.m_dock = dock;
+    m_dock_info.m_min_size = dock->minimumSize();
+    m_dock_info.m_max_size = dock->maximumSize();
+
+    if (height > 0) {
+        if (dock->height() < height)
+            dock->setMinimumHeight(height);
+        else
+            dock->setMaximumHeight(height);
+    }
+
+    QTimer::singleShot(1, this, &DocksController::dockToMinMaxSizes);
+}
+
+void DocksController::dockToMinMaxSizes()
+{
+    Q_ASSERT(m_dock_info.m_dock);
+    m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
+    m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
+    m_dock_info.m_dock = nullptr;
+}
+
+void DocksController::onWidgetCloseRequest()
+{
+    QWidget* widget = qobject_cast<QWidget*>(sender());
+    Q_ASSERT(widget);
+    QDockWidget* dock = findDock(widget);
+    Q_ASSERT(dock);
+
+    dock->toggleViewAction()->trigger();
 }
 
 DockWidgetInfo DocksController::get_info(int id)

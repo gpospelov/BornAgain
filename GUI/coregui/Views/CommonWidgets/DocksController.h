@@ -18,11 +18,12 @@
 #include "WinDllMacros.h"
 #include "DockWidgetInfo.h"
 #include <QObject>
+#include <QSize>
 #include <map>
 
 namespace Manhattan { class FancyMainWindow; }
 
-//! Handles appearing of docked widget in the context of DocksView.
+//! Handles appearance of docked widgets in the context of FancyMainWindow.
 
 class BA_CORE_API_ DocksController : public QObject
 {
@@ -35,15 +36,30 @@ public:
 
     virtual void onResetLayout();
 
-    QDockWidget* dock(int id);
+    QDockWidget* findDock(int id);
 
     QDockWidget* findDock(QWidget* widget);
 
+    void show_docks(const std::vector<int>& docks_to_show);
+
+public slots:
+    void setDockHeightForWidget(int height);
+    void dockToMinMaxSizes();
+    void onWidgetCloseRequest();
+
 private:
+    struct DockSizeInfo {
+        DockSizeInfo() : m_dock(nullptr) {}
+        QDockWidget* m_dock;
+        QSize m_min_size;
+        QSize m_max_size;
+    };
+
     DockWidgetInfo get_info(int id);
 
     Manhattan::FancyMainWindow* m_mainWindow;
     std::map<int, DockWidgetInfo> m_docks;
+    DockSizeInfo m_dock_info;
 };
 
 #endif //  DOCKSCONTROLLER_H

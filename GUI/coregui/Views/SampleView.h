@@ -26,6 +26,7 @@ class SampleDesigner;
 class SampleToolBar;
 class ApplicationModels;
 class SampleModel;
+class SampleTreeWidget;
 
 class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
 {
@@ -59,14 +60,13 @@ protected slots:
 private:
     //! Stores sizes of dock widget
     struct DockSizeInfo {
-        DockSizeInfo():m_dock(0){}
+        DockSizeInfo():m_dock(nullptr){}
         QDockWidget *m_dock;
         QSize m_min_size;
         QSize m_max_size;
     };
 
     void initSubWindows();
-    void initSelectionModel();
     void createActions();
     void connectSignals();
     void clearSignalMapper();
@@ -75,6 +75,7 @@ private:
 
     SampleModel *getSampleModel();
     QTreeView *getTreeView();
+    QItemSelectionModel* selectionModel();
 
     SampleViewDocks* m_docks;
 
@@ -92,7 +93,7 @@ private:
     QAction *m_delete_item_action;
 
     ApplicationModels* m_models;
-    QTreeView *m_tree_view;
+    SampleTreeWidget *m_tree_view;
 
     DockSizeInfo m_dock_info;
 };

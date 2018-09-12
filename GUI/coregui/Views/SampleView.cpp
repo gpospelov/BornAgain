@@ -24,23 +24,10 @@
 #include "ApplicationModels.h"
 #include "SampleWidgetBox.h"
 #include "ItemTreeView.h"
+#include "SampleTreeWidget.h"
 #include <QDockWidget>
 #include <QMenu>
 #include <QTimer>
-
-
-namespace {
-ItemTreeView *createTreeView(SampleModel *sampleModel, QWidget *parent)
-{
-    ItemTreeView *tree_view = new ItemTreeView(parent);
-    FilterPropertyProxy *proxy = new FilterPropertyProxy(1, parent);
-    proxy->setSourceModel(sampleModel);
-    tree_view->setModel(proxy);
-    tree_view->setAttribute(Qt::WA_MacShowFocusRect, false);
-    return tree_view;
-}
-
-}
 
 
 SampleView::SampleView(MainWindow *mainWindow)
@@ -94,13 +81,13 @@ void SampleView::initSubWindows()
 
     m_subWindows[WIDGET_BOX] = new SampleWidgetBox(sampleDesigner(), this);
 
-    m_tree_view = createTreeView(m_models->sampleModel(), this);
+    m_tree_view = new SampleTreeWidget(this, m_models->sampleModel());
     m_subWindows[SAMPLE_TREE] = getTreeView();
     getTreeView()->expandAll();
     connect(getTreeView()->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
             getTreeView(), SLOT(expandAll()));
 
-    m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(getTreeView()->selectionModel(), this);
+    m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(selectionModel(), this);
 
     InfoWidget *infoWidget = new InfoWidget(this);
     connect(infoWidget, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
@@ -110,7 +97,7 @@ void SampleView::initSubWindows()
     m_subWindows[INFO] = infoWidget;
 
     sampleDesigner()->setModels(m_models);
-    sampleDesigner()->setSelectionModel(getTreeView()->selectionModel(), dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(getTreeView()->model())));
+    sampleDesigner()->setSelectionModel(selectionModel(), dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(getTreeView()->model())));
 }
 
 void SampleView::createActions()
@@ -268,7 +255,7 @@ void SampleView::connectSignals()
     connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
 
     // toolBar should be initialized after MaterialBrowser
-    m_toolBar = new SampleToolBar(getSampleModel(), getTreeView()->selectionModel(), this);
+    m_toolBar = new SampleToolBar(getSampleModel(), selectionModel(), this);
     connect(m_toolBar, SIGNAL(deleteItems()),
             sampleDesigner()->getView(), SLOT(deleteSelectedItems()));
     connect(m_toolBar, SIGNAL(selectionMode(int)), sampleDesigner()->getView(), SLOT(onSelectionMode(int)));
@@ -323,7 +310,12 @@ SampleModel *SampleView::getSampleModel()
 
 QTreeView *SampleView::getTreeView()
 {
-    return m_tree_view;
+    return m_tree_view->treeView();
+}
+
+QItemSelectionModel* SampleView::selectionModel()
+{
+    return getTreeView()->selectionModel();
 }
 
 SampleDesigner* SampleView::sampleDesigner()

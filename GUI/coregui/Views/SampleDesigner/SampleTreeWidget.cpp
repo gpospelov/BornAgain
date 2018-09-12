@@ -14,11 +14,13 @@
 
 #include "SampleTreeWidget.h"
 #include <QVBoxLayout>
-#include <QTreeView>
+#include "ItemTreeView.h"
+#include "FilterPropertyProxy.h"
+#include "SampleModel.h"
 
-SampleTreeWidget::SampleTreeWidget(QWidget* parent)
+SampleTreeWidget::SampleTreeWidget(QWidget* parent, SampleModel* model)
     : QWidget(parent)
-    , m_treeView(new QTreeView)
+    , m_treeView(new ItemTreeView)
 {
     auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
@@ -26,5 +28,15 @@ SampleTreeWidget::SampleTreeWidget(QWidget* parent)
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_treeView);
     setLayout(mainLayout);
+
+    FilterPropertyProxy *proxy = new FilterPropertyProxy(1, parent);
+    proxy->setSourceModel(model);
+    m_treeView->setModel(proxy);
+    m_treeView->setAttribute(Qt::WA_MacShowFocusRect, false);
+}
+
+QTreeView* SampleTreeWidget::treeView()
+{
+    return m_treeView;
 }
 

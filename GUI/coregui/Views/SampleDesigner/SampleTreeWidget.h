@@ -18,6 +18,8 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class ItemTreeView;
+class SampleModel;
 class QTreeView;
 
 //! Holds tree to select top level sample items. Part of SampleView.
@@ -26,10 +28,12 @@ class BA_CORE_API_ SampleTreeWidget : public QWidget
 {
     Q_OBJECT
 public:
-    SampleTreeWidget(QWidget* parent);
+    SampleTreeWidget(QWidget* parent, SampleModel* model);
+
+    QTreeView* treeView();
 
 private:
-    QTreeView* m_treeView;
+    ItemTreeView* m_treeView;
 };
 
 #endif // SAMPLETREEWIDGET_H

@@ -47,13 +47,10 @@ public:
 
 public slots:
     void resetToDefaultLayout();
-    void addItem(const QString &item_name);
-    void deleteItem();
     void setDockHeightForWidget(int height);
     void onWidgetCloseRequest();
 
 protected slots:
-    void showContextMenu(const QPoint &pnt);
     void dockToMinMaxSizes();
     void onDockVisibilityChangeV2(bool status);
 
@@ -67,7 +64,6 @@ private:
     };
 
     void initSubWindows();
-    void createActions();
     void connectSignals();
     void clearSignalMapper();
     void scrollToIndex(const QModelIndex &index);
@@ -88,9 +84,6 @@ private:
 
     QMap<QWidget *, QDockWidget *> m_widget_to_dock;
     QMap<QDockWidget *, QWidget *> m_dock_to_widget;
-
-    QMap<QString, QAction *> m_add_action_map;
-    QAction *m_delete_item_action;
 
     ApplicationModels* m_models;
     SampleTreeWidget *m_tree_view;

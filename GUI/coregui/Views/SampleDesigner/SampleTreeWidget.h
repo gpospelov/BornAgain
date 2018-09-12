@@ -17,10 +17,13 @@
 
 #include "WinDllMacros.h"
 #include <QWidget>
+#include <QMap>
 
 class ItemTreeView;
 class SampleModel;
 class QTreeView;
+class QPoint;
+class QAction;
 
 //! Holds tree to select top level sample items. Part of SampleView.
 
@@ -32,8 +35,20 @@ public:
 
     QTreeView* treeView();
 
+protected slots:
+    void showContextMenu(const QPoint &pnt);
+    void addItem(const QString &item_name);
+    void deleteItem();
+
 private:
+    void scrollToIndex(const QModelIndex &index);
+    QModelIndex getIndexAtColumnZero(const QModelIndex &index);
+
+    QMap<QString, QAction *> m_add_action_map;
+    QAction *m_delete_item_action;
+
     ItemTreeView* m_treeView;
+    SampleModel* m_sampleModel;
 };
 
 #endif // SAMPLETREEWIDGET_H

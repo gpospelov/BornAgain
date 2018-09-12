@@ -65,8 +65,6 @@ SampleView::SampleView(MainWindow *mainWindow)
     }
     resetToDefaultLayout();
 
-    createActions();
-
     connectSignals();
 }
 
@@ -100,14 +98,6 @@ void SampleView::initSubWindows()
     sampleDesigner()->setSelectionModel(selectionModel(), dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(getTreeView()->model())));
 }
 
-void SampleView::createActions()
-{
-    m_delete_item_action = new QAction("Delete", this);
-    m_delete_item_action->setStatusTip("Delete current object");
-    connect(m_delete_item_action, SIGNAL(triggered()),
-            this, SLOT(deleteItem()));
-}
-
 void SampleView::resetToDefaultLayout()
 {
     setTrackingEnabled(false);
@@ -129,31 +119,6 @@ void SampleView::resetToDefaultLayout()
         dockWidget->show();
 
     setTrackingEnabled(true);
-}
-
-void SampleView::addItem(const QString &item_name)
-{
-    QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(getTreeView()->currentIndex());
-
-    QModelIndex currentIndexAtColumnZero = getIndexAtColumnZero(currentIndex);
-    SessionItem *new_item
-        = getSampleModel()->insertNewItem(item_name, currentIndexAtColumnZero);
-    if (new_item) {
-        QModelIndex new_index = getSampleModel()->indexOfItem(new_item);
-        scrollToIndex(new_index);
-    }
-}
-
-void SampleView::deleteItem()
-{
-    QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(getTreeView()->currentIndex());
-
-    if (!currentIndex.isValid()) return;
-    QModelIndex parent_index = getSampleModel()->parent(currentIndex);
-    int row = currentIndex.row();
-    if (currentIndex.isValid()) {
-        getSampleModel()->removeRows(row, 1, parent_index);
-    }
 }
 
 //! A hack to request update of QDockWidget size if its child (e.g. InfoWidget) wants it.
@@ -193,41 +158,6 @@ void SampleView::onWidgetCloseRequest()
     Q_ASSERT(dock);
 
     dock->toggleViewAction()->trigger();
-}
-
-void SampleView::showContextMenu(const QPoint &pnt)
-{
-    QMenu menu;
-    QMenu add_menu(QString("Add"));
-    QVector<QString> addItemNames;
-    QModelIndex parent_index = FilterPropertyProxy::toSourceIndex(getTreeView()->indexAt(pnt));
-    getTreeView()->setCurrentIndex(parent_index);
-    if (!parent_index.isValid()) {
-        addItemNames = ItemFactory::ValidTopItemTypes().toVector();
-    } else {
-        addItemNames = getSampleModel()->acceptableDefaultItemTypes(parent_index);
-    }
-    if (addItemNames.size() > 0) {
-        for(QString item_name : addItemNames) {
-            QAction *add_action = nullptr;
-            if (m_add_action_map.contains(item_name)) {
-                add_action = m_add_action_map[item_name];
-            }
-            else {
-                add_action = new QAction(item_name, this);
-                m_add_action_map[item_name] = add_action;
-                connect(add_action, &QAction::triggered, [=] { addItem(item_name); });
-            }
-            add_menu.addAction(add_action);
-        }
-        menu.addMenu(&add_menu);
-    }
-    if (parent_index.isValid()) {
-        menu.addAction(m_delete_item_action);
-    }
-    if (!menu.isEmpty()) {
-        menu.exec(getTreeView()->mapToGlobal(pnt));
-    }
 }
 
 void SampleView::dockToMinMaxSizes()
@@ -273,10 +203,6 @@ void SampleView::connectSignals()
     connect(sampleDesigner()->getScene(), SIGNAL(selectionModeChangeRequest(int)),
             sampleDesigner()->getView(), SLOT(onSelectionMode(int)));
 
-    // connect context menu for tree view
-    connect(getTreeView(), SIGNAL(customContextMenuRequested(const QPoint &)),
-            this, SLOT(showContextMenu(const QPoint &)));
-
     addToolBar(m_toolBar);
 
     for (int i = 0; i < NUMBER_OF_SUB_WINDOWS; i++) {
@@ -287,20 +213,6 @@ void SampleView::connectSignals()
         }
     }
 
-}
-
-void SampleView::scrollToIndex(const QModelIndex &index)
-{
-    if (index.isValid()) {
-        getTreeView()->scrollTo(index);
-    }
-}
-
-QModelIndex SampleView::getIndexAtColumnZero(const QModelIndex &index)
-{
-    if (index==QModelIndex() || index.column()==0) return index;
-    QModelIndex parent_index = getSampleModel()->parent(index);
-    return getSampleModel()->index(index.row(), 0, parent_index);
 }
 
 SampleModel *SampleView::getSampleModel()

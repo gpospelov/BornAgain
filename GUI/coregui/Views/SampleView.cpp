@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "SampleView.h"
+#include "SampleViewDocks.h"
 #include "FilterPropertyProxy.h"
 #include "InfoWidget.h"
 #include "ItemFactory.h"
@@ -28,6 +29,7 @@
 
 SampleView::SampleView(MainWindow *mainWindow)
     : Manhattan::FancyMainWindow(mainWindow)
+    , m_docks(new SampleViewDocks(this))
     , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(nullptr)
     , m_models(mainWindow->models())

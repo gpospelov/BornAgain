@@ -21,6 +21,7 @@
 #include <QTreeView>
 
 class MainWindow;
+class SampleViewDocks;
 class SampleDesigner;
 class SampleToolBar;
 class ApplicationModels;
@@ -75,6 +76,8 @@ private:
 
     SampleModel *getSampleModel();
     QTreeView *getTreeView();
+
+    SampleViewDocks* m_docks;
 
    // MaterialBrowser *m_materialBrowser;  // material editor
     SampleDesigner *m_sampleDesigner;    // main sample view

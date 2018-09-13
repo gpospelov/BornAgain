@@ -70,7 +70,7 @@ BA_CORE_API_ IAxis *createVariableBinAxis(std::string line);
 
 BA_CORE_API_ void fillOutputData(OutputData<double>* data, std::istream& input_stream);
 
-std::vector<double> parse_doubles(const std::string& str);
+BA_CORE_API_ std::vector<double> parse_doubles(const std::string& str);
 
 void readLineOfDoubles(std::vector<double>& buffer, std::istringstream& iss);
 }

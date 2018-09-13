@@ -106,7 +106,8 @@ void JobItemUtils::loadIntensityData(DataItem *intensityItem, const QString &pro
 {
     QString filename = intensityItem->fileName(projectDir);
     auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
-    intensityItem->setOutputData(data);
+    if (data)
+        intensityItem->setOutputData(data);
 }
 
 

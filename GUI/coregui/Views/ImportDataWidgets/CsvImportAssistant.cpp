@@ -30,15 +30,15 @@ const QSize default_dialog_size(600, 800);
 }
 
 CsvImportAssistant::CsvImportAssistant(QString dir, QString file, QWidget* parent):
-QDialog(parent),
-m_dirName(dir),
-m_fileName(file),
-m_tableWidget(nullptr),
-m_filePathField(nullptr),
-m_separatorField(nullptr),
-m_firstDataRowSpinBox(nullptr),
-m_lastDataRowSpinBox(nullptr),
-m_singleDataColSpinBox(nullptr)
+    QDialog(parent),
+    m_dirName(dir),
+    m_fileName(file),
+    m_tableWidget(nullptr),
+    m_filePathField(nullptr),
+    m_separatorField(nullptr),
+    m_firstDataRowSpinBox(nullptr),
+    m_lastDataRowSpinBox(nullptr),
+    m_singleDataColSpinBox(nullptr)
 {
     setWindowTitle("Data Importer");
     setMinimumSize(128, 128);
@@ -266,36 +266,43 @@ std::unique_ptr<OutputData<double>> CsvImportAssistant::getData()
         nDataRows++;
     }
 
-    std::unique_ptr<OutputData<double>> result, result1d; //= new OutputData<double>;
+    std::unique_ptr<OutputData<double>> result;
     result.reset(new OutputData<double>());
-    result1d.reset(new OutputData<double>());
-    result->addAxis("x", nDataCols, 0.0, double(nDataCols));
-    result->addAxis("y", nDataRows, 0.0, double(nDataRows));
-    std::vector<unsigned> axes_indices(2);
-    for(unsigned row=0; row<nDataRows; row++) {
-        for(unsigned col=0; col<nDataCols; col++) {
-            axes_indices[0] = col;
-            axes_indices[1] = static_cast<unsigned>(nDataRows) - 1 - row;
-            size_t global_index = result->toGlobalIndex(axes_indices);
-            string string_to_parse;
-            vector<double> parsed_doubles;
-            string_to_parse = StringVectorVector[row][col];
-            parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
-            (*result)[global_index] = parsed_doubles[0];
-        }
-    }
-
 
     if( (nDataCols < 2) || (nDataRows < 2) ){
-        size_t nelem = std::max(nDataCols,nDataRows);
-        result1d->addAxis("intensity",nelem, 0.0, double(nelem));
-        std::vector<double> vector1d(result->getRawDataVector());
-
-        if(nDataRows > nDataCols)
-            std::reverse(vector1d.begin(),vector1d.end());
-
-        result1d->setRawDataVector(vector1d);
-        std::swap(result,result1d);
+        size_t nElem = std::max(nDataCols,nDataRows);
+        result->addAxis("intensity", nElem, 0.0, double(nElem));
+        std::vector<unsigned> axes_indices(1);
+        unsigned item = 0;
+        for(unsigned row=0; row<nDataRows; row++) {
+            for(unsigned col=0; col<nDataCols; col++) {
+                axes_indices[0] = item;
+                size_t global_index = result->toGlobalIndex(axes_indices);
+                string string_to_parse;
+                vector<double> parsed_doubles;
+                string_to_parse = StringVectorVector[row][col];
+                parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
+                (*result)[global_index] = parsed_doubles[0];
+                item++;
+            }
+        }
+    }
+    else{
+        result->addAxis("x", nDataCols, 0.0, double(nDataCols));
+        result->addAxis("y", nDataRows, 0.0, double(nDataRows));
+        std::vector<unsigned> axes_indices(2);
+        for(unsigned row=0; row<nDataRows; row++) {
+            for(unsigned col=0; col<nDataCols; col++) {
+                axes_indices[0] = col;
+                axes_indices[1] = static_cast<unsigned>(nDataRows) - 1 - row;
+                size_t global_index = result->toGlobalIndex(axes_indices);
+                string string_to_parse;
+                vector<double> parsed_doubles;
+                string_to_parse = StringVectorVector[row][col];
+                parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
+                (*result)[global_index] = parsed_doubles[0];
+            }
+        }
     }
     return result;
 }

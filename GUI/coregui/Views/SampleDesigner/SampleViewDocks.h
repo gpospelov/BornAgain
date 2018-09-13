@@ -18,6 +18,11 @@
 #include "DocksController.h"
 
 class SampleView;
+class SampleWidgetBox;
+class SampleTreeWidget;
+class SamplePropertyWidget;
+class SampleDesigner;
+class InfoWidget;
 
 //! Holds all docked widgets for SampleView.
 
@@ -27,6 +32,19 @@ class BA_CORE_API_ SampleViewDocks : public DocksController
 
 public:
     SampleViewDocks(SampleView* parent = nullptr);
+
+    SampleWidgetBox* widgetBox();
+    SampleTreeWidget* treeWidget();
+    SamplePropertyWidget* propertyWidget();
+    SampleDesigner* sampleDesigner();
+    InfoWidget* infoWidget();
+
+private:
+    SampleWidgetBox* m_widgetBox;
+    SampleTreeWidget* m_treeWidget;
+    SamplePropertyWidget* m_propertyWidget;
+    SampleDesigner *m_sampleDesigner;
+    InfoWidget* m_infoWidget;
 };
 
 #endif

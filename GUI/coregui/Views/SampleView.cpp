@@ -80,10 +80,7 @@ void SampleView::initSubWindows()
     m_subWindows[WIDGET_BOX] = new SampleWidgetBox(sampleDesigner(), this);
 
     m_tree_view = new SampleTreeWidget(this, m_models->sampleModel());
-    m_subWindows[SAMPLE_TREE] = getTreeView();
-    getTreeView()->expandAll();
-    connect(getTreeView()->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
-            getTreeView(), SLOT(expandAll()));
+    m_subWindows[SAMPLE_TREE] = m_tree_view;
 
     m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(selectionModel(), this);
 

@@ -47,6 +47,9 @@ SampleTreeWidget::SampleTreeWidget(QWidget* parent, SampleModel* model)
     connect(m_delete_item_action, SIGNAL(triggered()),
             this, SLOT(deleteItem()));
 
+    m_treeView->expandAll();
+    connect(m_treeView->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
+            m_treeView, SLOT(expandAll()));
 }
 
 QTreeView* SampleTreeWidget::treeView()

@@ -13,21 +13,48 @@
 // ************************************************************************** //
 
 #include "SampleViewDocks.h"
-#include "SampleView.h"
-#include "SampleDesigner.h"
-#include "SampleTreeWidget.h"
-#include "SamplePropertyWidget.h"
+#include "ApplicationModels.h"
+#include "FilterPropertyProxy.h"
 #include "InfoWidget.h"
+#include "SampleDesigner.h"
+#include "SamplePropertyWidget.h"
+#include "SampleTreeWidget.h"
+#include "SampleView.h"
+#include "SampleWidgetBox.h"
+#include <QDockWidget>
+#include <QTreeView>
 
 SampleViewDocks::SampleViewDocks(SampleView* parent)
-    : DocksController(parent)
-    , m_widgetBox(nullptr)
-    , m_treeWidget(new SampleTreeWidget(parent, parent->getSampleModel()))
-    , m_propertyWidget(new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent))
-    , m_sampleDesigner(new SampleDesigner(parent))
-    , m_infoWidget(new InfoWidget(parent))
+    : DocksController(parent), m_sampleDesigner(new SampleDesigner(parent)),
+      m_widgetBox(new SampleWidgetBox(sampleDesigner(), parent)),
+      m_treeWidget(new SampleTreeWidget(parent, parent->models()->sampleModel())),
+      m_propertyWidget(
+          new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent)),
+      m_infoWidget(new InfoWidget(parent))
 {
+    addWidget(WIDGET_BOX, m_widgetBox, Qt::LeftDockWidgetArea);
+    addWidget(SAMPLE_TREE, m_treeWidget, Qt::RightDockWidgetArea);
+    addWidget(PROPERTY_EDITOR, m_propertyWidget, Qt::RightDockWidgetArea);
+    addWidget(INFO, m_infoWidget, Qt::BottomDockWidgetArea);
 
+    connect(m_infoWidget, SIGNAL(widgetHeightRequest(int)), this,
+            SLOT(setDockHeightForWidget(int)));
+    connect(m_infoWidget, SIGNAL(widgetCloseRequest()), this, SLOT(onWidgetCloseRequest()));
+
+    connect(findDock(m_infoWidget), SIGNAL(visibilityChanged(bool)), this,
+            SLOT(onDockVisibilityChangeV2(bool)));
+
+    m_infoWidget->setSampleModel(parent->models()->sampleModel());
+    m_infoWidget->setInstrumentModel(parent->models()->instrumentModel());
+
+    m_sampleDesigner->setModels(parent->models());
+    m_sampleDesigner->setSelectionModel(
+        m_treeWidget->treeView()->selectionModel(),
+        dynamic_cast<FilterPropertyProxy*>(
+            const_cast<QAbstractItemModel*>(m_treeWidget->treeView()->model())));
+
+    parent->setCentralWidget(m_sampleDesigner->getCentralWidget());
+    onResetLayout();
 }
 
 SampleWidgetBox* SampleViewDocks::widgetBox()
@@ -53,4 +80,9 @@ SampleDesigner* SampleViewDocks::sampleDesigner()
 InfoWidget* SampleViewDocks::infoWidget()
 {
     return m_infoWidget;
+}
+
+void SampleViewDocks::onDockVisibilityChangeV2(bool status)
+{
+    m_infoWidget->onDockVisibilityChange(status);
 }

@@ -33,17 +33,22 @@ class BA_CORE_API_ SampleViewDocks : public DocksController
 public:
     SampleViewDocks(SampleView* parent = nullptr);
 
+    SampleDesigner* sampleDesigner();
     SampleWidgetBox* widgetBox();
     SampleTreeWidget* treeWidget();
     SamplePropertyWidget* propertyWidget();
-    SampleDesigner* sampleDesigner();
     InfoWidget* infoWidget();
 
+protected slots:
+    void onDockVisibilityChangeV2(bool status);
+
 private:
+    enum ESubWindows { WIDGET_BOX, SAMPLE_TREE, PROPERTY_EDITOR, INFO, NUMBER_OF_SUB_WINDOWS };
+
+    SampleDesigner* m_sampleDesigner;
     SampleWidgetBox* m_widgetBox;
     SampleTreeWidget* m_treeWidget;
     SamplePropertyWidget* m_propertyWidget;
-    SampleDesigner *m_sampleDesigner;
     InfoWidget* m_infoWidget;
 };
 

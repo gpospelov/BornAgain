@@ -37,6 +37,7 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QSettings>
+#include <QAction>
 
 MainWindow::MainWindow(QWidget* parent)
     : Manhattan::FancyMainWindow(parent), m_tabWidget(new Manhattan::FancyTabWidget(this)),

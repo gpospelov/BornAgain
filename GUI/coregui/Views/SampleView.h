@@ -17,61 +17,26 @@
 
 #include "WinDllMacros.h"
 #include "fancymainwindow.h"
-#include <QAction>
-#include <QTreeView>
 
 class MainWindow;
 class SampleViewDocks;
 class SampleDesigner;
 class SampleToolBar;
 class ApplicationModels;
-class SampleModel;
-class SampleTreeWidget;
+class QItemSelectionModel;
 
 class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
 
 public:
-    enum ESubWindows
-    {
-        WIDGET_BOX,         // drag & drop items
-        SAMPLE_TREE,             // a tree view
-        PROPERTY_EDITOR,    // property editor
-        INFO,              // status/info display
-        NUMBER_OF_SUB_WINDOWS
-    };
+    SampleView(MainWindow* mainWindow);
 
-    SampleView(MainWindow *mainWindow);
-    virtual ~SampleView();
-
-public slots:
-    void resetToDefaultLayout();
-    void setDockHeightForWidget(int height);
-    void onWidgetCloseRequest();
-
-    SampleModel *getSampleModel();
-
-protected slots:
-    void dockToMinMaxSizes();
-    void onDockVisibilityChangeV2(bool status);
-
+    ApplicationModels* models();
 
 private:
-    //! Stores sizes of dock widget
-    struct DockSizeInfo {
-        DockSizeInfo():m_dock(nullptr){}
-        QDockWidget *m_dock;
-        QSize m_min_size;
-        QSize m_max_size;
-    };
-
-    void initSubWindows();
     void connectSignals();
-    void scrollToIndex(const QModelIndex &index);
-    QModelIndex getIndexAtColumnZero(const QModelIndex &index);
 
-    QTreeView *getTreeView();
     QItemSelectionModel* selectionModel();
 
     ApplicationModels* m_models;
@@ -80,16 +45,7 @@ private:
 
     SampleDesigner* sampleDesigner();
 
-    SampleToolBar *m_toolBar;            // toolbar
-    QWidget *m_subWindows[NUMBER_OF_SUB_WINDOWS];
-    QDockWidget *m_dockWidgets[NUMBER_OF_SUB_WINDOWS];
-
-    QMap<QWidget *, QDockWidget *> m_widget_to_dock;
-    QMap<QDockWidget *, QWidget *> m_dock_to_widget;
-
-
-    DockSizeInfo m_dock_info;
+    SampleToolBar* m_toolBar;
 };
-
 
 #endif // SAMPLEVIEW_H

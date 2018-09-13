@@ -18,14 +18,22 @@
 #include "OutputDataWriteFactory.h"
 #include "SimulationResult.h"
 
+#include <fstream>
 #include <memory>
+
+namespace {
+bool FileExists(const std::string& filename);
+}
+
 
 OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name)
 {
-    auto* reader = OutputDataReadFactory::getReader(file_name);
-    auto* result = reader->getOutputData();
-    delete reader;
-    return result;
+    if (!FileExists(file_name))
+        return nullptr;
+    std::unique_ptr<OutputDataReader> P_reader(OutputDataReadFactory::getReader(file_name));
+    if (P_reader)
+        return P_reader->getOutputData();
+    return nullptr;
 }
 
 IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name)
@@ -54,4 +62,11 @@ void IntensityDataIOFactory::writeSimulationResult(const SimulationResult& resul
 {
     std::unique_ptr<OutputData<double>> P_data(result.data());
     writeOutputData(*P_data, file_name);
+}
+
+namespace {
+bool FileExists(const std::string& filename) {
+    std::ifstream fs(filename);
+    return fs.is_open();
+}
 }

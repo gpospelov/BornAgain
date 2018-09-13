@@ -32,10 +32,9 @@
 
 SampleView::SampleView(MainWindow *mainWindow)
     : Manhattan::FancyMainWindow(mainWindow)
-    , m_docks(new SampleViewDocks(this))
-    , m_sampleDesigner(new SampleDesigner(this))
-    , m_toolBar(nullptr)
     , m_models(mainWindow->models())
+    , m_docks(new SampleViewDocks(this))
+    , m_toolBar(nullptr)
 {
     setObjectName("SampleView");
 
@@ -79,12 +78,11 @@ void SampleView::initSubWindows()
 
     m_subWindows[WIDGET_BOX] = new SampleWidgetBox(sampleDesigner(), this);
 
-    m_tree_view = new SampleTreeWidget(this, m_models->sampleModel());
-    m_subWindows[SAMPLE_TREE] = m_tree_view;
+    m_subWindows[SAMPLE_TREE] = m_docks->treeWidget();
 
-    m_subWindows[PROPERTY_EDITOR] = new SamplePropertyWidget(selectionModel(), this);
+    m_subWindows[PROPERTY_EDITOR] = m_docks->propertyWidget();
 
-    InfoWidget *infoWidget = new InfoWidget(this);
+    InfoWidget *infoWidget = m_docks->infoWidget();
     connect(infoWidget, SIGNAL(widgetHeightRequest(int)), this, SLOT(setDockHeightForWidget(int)));
     connect(infoWidget, SIGNAL(widgetCloseRequest()), this, SLOT(onWidgetCloseRequest()));
     infoWidget->setSampleModel(m_models->sampleModel());
@@ -219,7 +217,7 @@ SampleModel *SampleView::getSampleModel()
 
 QTreeView *SampleView::getTreeView()
 {
-    return m_tree_view->treeView();
+    return m_docks->treeWidget()->treeView();
 }
 
 QItemSelectionModel* SampleView::selectionModel()
@@ -229,7 +227,7 @@ QItemSelectionModel* SampleView::selectionModel()
 
 SampleDesigner* SampleView::sampleDesigner()
 {
-    return m_sampleDesigner;
+    return m_docks->sampleDesigner();
 }
 
 

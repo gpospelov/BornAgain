@@ -14,14 +14,18 @@
 
 #include "SampleViewDocks.h"
 #include "SampleView.h"
+#include "SampleDesigner.h"
+#include "SampleTreeWidget.h"
+#include "SamplePropertyWidget.h"
+#include "InfoWidget.h"
 
 SampleViewDocks::SampleViewDocks(SampleView* parent)
     : DocksController(parent)
     , m_widgetBox(nullptr)
-    , m_treeWidget(nullptr)
-    , m_propertyWidget(nullptr)
-    , m_sampleDesigner(nullptr)
-    , m_infoWidget(nullptr)
+    , m_treeWidget(new SampleTreeWidget(parent, parent->getSampleModel()))
+    , m_propertyWidget(new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent))
+    , m_sampleDesigner(new SampleDesigner(parent))
+    , m_infoWidget(new InfoWidget(parent))
 {
 
 }

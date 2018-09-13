@@ -50,9 +50,12 @@ public slots:
     void setDockHeightForWidget(int height);
     void onWidgetCloseRequest();
 
+    SampleModel *getSampleModel();
+
 protected slots:
     void dockToMinMaxSizes();
     void onDockVisibilityChangeV2(bool status);
+
 
 private:
     //! Stores sizes of dock widget
@@ -65,17 +68,16 @@ private:
 
     void initSubWindows();
     void connectSignals();
-    void clearSignalMapper();
     void scrollToIndex(const QModelIndex &index);
     QModelIndex getIndexAtColumnZero(const QModelIndex &index);
 
-    SampleModel *getSampleModel();
     QTreeView *getTreeView();
     QItemSelectionModel* selectionModel();
 
+    ApplicationModels* m_models;
+
     SampleViewDocks* m_docks;
 
-    SampleDesigner *m_sampleDesigner;    // main sample view
     SampleDesigner* sampleDesigner();
 
     SampleToolBar *m_toolBar;            // toolbar
@@ -85,8 +87,6 @@ private:
     QMap<QWidget *, QDockWidget *> m_widget_to_dock;
     QMap<QDockWidget *, QWidget *> m_dock_to_widget;
 
-    ApplicationModels* m_models;
-    SampleTreeWidget *m_tree_view;
 
     DockSizeInfo m_dock_info;
 };

@@ -73,18 +73,27 @@ JobResultsPresenter::JobResultsPresenter(QWidget* parent)
 
 QString JobResultsPresenter::itemPresentation() const
 {
+    if (!currentItem())
+        return {};
+
     const auto& value = currentItem()->getItemValue(JobItem::P_PRESENTATION_TYPE);
     return use_job_last_presentation && value.isValid() ? value.toString() : selectedPresentation();
 }
 
 void JobResultsPresenter::setPresentation(const QString& presentationType)
 {
+    if (!currentItem())
+        return;
+
     ItemComboWidget::setPresentation(presentationType);
     currentItem()->setItemValue(JobItem::P_PRESENTATION_TYPE, presentationType);
 }
 
 void JobResultsPresenter::setPresentation(JobViewFlags::EActivities activity)
 {
+    if (!currentItem())
+        return;
+
     auto iter = activity_to_presentation.find(activity);
     if (iter == activity_to_presentation.cend())
         throw GUIHelpers::Error(

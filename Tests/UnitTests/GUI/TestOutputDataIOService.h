@@ -25,6 +25,7 @@ const int nysize = 10;
 class TestOutputDataIOService : public ::testing::Test
 {
 public:
+    TestOutputDataIOService();
     ~TestOutputDataIOService();
 
     //! Helper function to test if data are the same.
@@ -41,7 +42,18 @@ public:
             IntensityDataIOFactory::readOutputData(fileName.toStdString()));
         return isTheSame(*dataOnDisk, data);
     }
+protected:
+    OutputData<double> m_data;
 };
+
+TestOutputDataIOService::TestOutputDataIOService()
+{
+    FixedBinAxis axis0("x", 10, 0.0, 1.0);
+    FixedBinAxis axis1("y", 10, -1.0, 1.0);
+    m_data.addAxis(axis0);
+    m_data.addAxis(axis1);
+}
+
 
 TestOutputDataIOService::~TestOutputDataIOService() = default;
 
@@ -126,7 +138,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
     DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
     DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
-
+    item1->setOutputData(m_data.clone());
     item1->setLastModified(QDateTime::currentDateTime());
     item2->setLastModified(QDateTime::currentDateTime());
 
@@ -141,9 +153,9 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
     history.markAsSaved(item2);
 
     EXPECT_TRUE(history.contains(item1) == true);
-    EXPECT_TRUE(history.contains(item2) == true);
+    // Empty DataItems are not added to history:
+    EXPECT_TRUE(history.contains(item2) == false);
     EXPECT_TRUE(history.wasModifiedSinceLastSave(item1) == false);
-    EXPECT_TRUE(history.wasModifiedSinceLastSave(item2) == false);
 
     // Attempt to save same item second time
     EXPECT_THROW(history.markAsSaved(item1), GUIHelpers::Error);
@@ -153,7 +165,6 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
     item1->setLastModified(QDateTime::currentDateTime());
 
     EXPECT_TRUE(history.wasModifiedSinceLastSave(item1) == true);
-    EXPECT_TRUE(history.wasModifiedSinceLastSave(item2) == false);
 }
 
 //! Tests OutputDataIOHistory class (save info for several independent directories).
@@ -164,6 +175,8 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOHistory)
     DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
     DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    item1->setOutputData(m_data.clone());
+    item2->setOutputData(m_data.clone());
 
     item1->setLastModified(QDateTime::currentDateTime());
     item2->setLastModified(QDateTime::currentDateTime());

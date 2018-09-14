@@ -66,7 +66,6 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
     OutputDataDirHistory newHistory;
 
     for (auto item : dataItems()) {
-
         try {
             JobItemUtils::loadIntensityData(item, projectDir);
             newHistory.markAsSaved(item);
@@ -77,7 +76,6 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
                 throw ex;
         }
     }
-
     m_history.setHistory(projectDir, newHistory);
 }
 

@@ -101,7 +101,7 @@ bool ProjectUtils::removeFile(const QString &dirname, const QString &filename)
     QFile fin(name);
 
     if (!fin.exists())
-        throw GUIHelpers::Error("ProjectUtils::removeRecursively() -> Error. Non existing "
+        throw GUIHelpers::Error("ProjectUtils::removeFile() -> Error. Non existing "
                                 "file '"+name+"'.");
 
     return fin.remove();

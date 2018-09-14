@@ -17,6 +17,7 @@
 
 #include "IFactory.h"
 #include "WinDllMacros.h"
+#include "SessionItemWidget.h"
 #include <QMap>
 #include <QString>
 #include <QWidget>
@@ -32,7 +33,7 @@ class QStackedWidget;
 //! For example, in JobOutputDataWidget the results of the job can be presented with either
 //! IntensityDataWidget or FitDataWidget, depending from the JobView's activity type.
 
-class BA_CORE_API_ ItemComboWidget : public QWidget
+class BA_CORE_API_ ItemComboWidget : public SessionItemWidget
 {
     Q_OBJECT
 
@@ -40,8 +41,6 @@ public:
     using factory_function_t = std::function<SessionItemWidget*()>;
 
     explicit ItemComboWidget(QWidget* parent = 0);
-
-    virtual void setItem(SessionItem* item);
 
     void registerWidget(const QString& presentationType, factory_function_t);
 
@@ -53,8 +52,9 @@ protected:
     virtual QStringList presentationList(SessionItem* item);
     virtual QString itemPresentation() const;
     QString selectedPresentation() const;
-    SessionItem* currentItem();
-    const SessionItem* currentItem() const;
+//    SessionItem* currentItem();
+//    const SessionItem* currentItem() const;
+    void subscribeToItem();
 
 private slots:
     void onComboChanged(const QString& name);
@@ -64,7 +64,7 @@ private:
 
     ItemComboToolBar* m_toolBar;
     QStackedWidget* m_stackedWidget;
-    SessionItem* m_currentItem;
+//    SessionItem* m_currentItem;
     IFactory<QString, SessionItemWidget> m_widgetFactory;
     QMap<QString, SessionItemWidget*> m_presentationTypeToWidget;
 };

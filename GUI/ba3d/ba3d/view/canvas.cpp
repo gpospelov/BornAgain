@@ -20,13 +20,22 @@
 #include "program.h"
 
 #include <QMouseEvent>
+#include <QSysInfo>
 #include <math.h>
 #include <qmath.h>
 
 namespace
 {
-const float zoom_in_scale = 1.25f;
-const float zoom_out_scale = 0.8f;
+float ZoomInScale() {
+    if (QSysInfo::productType()=="osx")
+        return 1.02f;
+    return 1.25f;
+}
+float ZoomOutScale() {
+    if (QSysInfo::productType()=="osx")
+        return 0.98f;
+    return 0.8f;
+}
 
 const float rot_speed_h = 0.4f; // camera rotation speed in horizontal direction
 const float rot_speed_v = 0.4f; // camera rotation speed in vertical direction
@@ -211,10 +220,10 @@ void Canvas::wheelEvent(QWheelEvent* e)
     if (camera) {
         if (e->delta() < 0) {
             // Zoom in
-            camera->zoomBy(zoom_in_scale);
+            camera->zoomBy(ZoomInScale());
         } else {
             // Zoom out
-            camera->zoomBy(zoom_out_scale);
+            camera->zoomBy(ZoomOutScale());
         }
         camera->endTransform(true);
         update();

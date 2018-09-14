@@ -32,7 +32,7 @@ ApplicationModels* SampleView::models() { return m_models; }
 
 void SampleView::connectSignals()
 {
-    connect(this, SIGNAL(resetLayout()), this, SLOT(resetToDefaultLayout()));
+    connect(this, &SampleView::resetLayout, m_docks, &SampleViewDocks::onResetLayout);
 
     // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(models()->sampleModel(), selectionModel(), this);

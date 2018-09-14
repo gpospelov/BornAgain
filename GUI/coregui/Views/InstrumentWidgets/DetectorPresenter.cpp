@@ -33,6 +33,9 @@ DetectorPresenter::DetectorPresenter(QWidget* parent)
 
 QString DetectorPresenter::itemPresentation() const
 {
+    if(!currentItem())
+        return {};
+
     if (currentItem()->modelType() == Constants::SphericalDetectorType)
         return SphericalDetectorPresentation;
     else if (currentItem()->modelType() == Constants::RectangularDetectorType)

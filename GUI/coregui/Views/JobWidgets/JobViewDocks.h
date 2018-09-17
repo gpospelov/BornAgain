@@ -15,18 +15,15 @@
 #ifndef JOBVIEWDOCKS_H
 #define JOBVIEWDOCKS_H
 
-#include "JobViewFlags.h"
-#include "WinDllMacros.h"
-#include <QObject>
-#include <QVector>
+#include "DocksController.h"
 
-class QDockWidget;
 class JobView;
 class JobSelectorWidget;
 class JobOutputDataWidget;
 class JobRealTimeWidget;
 class FitActivityPanel;
 class JobMessagePanel;
+class JobModel;
 
 //! The JobViewDocks class assists JobView in holding all main job widgets and corresponding
 //! dock containers.
@@ -34,14 +31,14 @@ class JobMessagePanel;
 //! It's main method setActivity handles visibility logic for all of (JobSelectorWidget,
 //! JobOutputDataWidget, JobRealTimeWidget and FitPanelWidget).
 
-class BA_CORE_API_ JobViewDocks : public QObject
+class BA_CORE_API_ JobViewDocks : public DocksController
 {
     Q_OBJECT
 
 public:
-    JobViewDocks(JobView* parent = 0);
+    JobViewDocks(JobView* parent = nullptr);
 
-    void initViews(class JobModel* jobModel);
+    void initViews(JobModel* jobModel);
 
     JobRealTimeWidget* jobRealTimeWidget();
     FitActivityPanel* fitActivityPanel();
@@ -53,39 +50,16 @@ public:
     void setItem(class JobItem* jobItem);
 
 public slots:
-    void onResetLayout();
+    void onResetLayout() override;
     void onToggleJobSelector();
-    void setDockHeightForWidget(int height);
-    void onWidgetCloseRequest();
-    void dockToMinMaxSizes();
 
 private:
-    //! Stores sizes of dock widget
-    struct DockSizeInfo {
-        DockSizeInfo() : m_dock(0) {}
-        QDockWidget* m_dock;
-        QSize m_min_size;
-        QSize m_max_size;
-    };
-
-    QWidget* jobWidget(JobViewFlags::Dock dockId);
-    QDockWidget* dock(JobViewFlags::Dock dockId);
-    QWidget* centralWidget();
-    void initJobWidgets(class JobModel* jobModel);
-    void initDocks();
-    QDockWidget* findDock(QWidget* widget);
-
     JobSelectorWidget* m_jobSelector;
     JobOutputDataWidget* m_jobOutputDataWidget;
     JobRealTimeWidget* m_jobRealTimeWidget;
     FitActivityPanel* m_fitActivityPanel;
     JobMessagePanel* m_jobMessagePanel;
-
-    QVector<QWidget*> m_jobWidgets;
-    QVector<QDockWidget*> m_dockWidgets;
-
     JobView* m_jobView;
-    DockSizeInfo m_dock_info;
 };
 
 #endif // JOBVIEWDOCKS_H

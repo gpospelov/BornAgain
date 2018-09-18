@@ -15,12 +15,6 @@
 #include "IAxis.h"
 #include "Exceptions.h"
 
-IAxis* IAxis::createDoubleBinSize() const
-{
-    throw Exceptions::NotImplementedException(
-                "IAxis::createDoubleBinSize() -> Error. Not implemented.");
-}
-
 size_t IAxis::findIndex(double value) const
 {
     for (size_t index=0; index<size(); ++index) {

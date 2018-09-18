@@ -30,9 +30,6 @@ public:
     //! clone function
     virtual IAxis* clone() const=0;
 
-    //! Creates a new axis with half the number of bins
-    virtual IAxis* createDoubleBinSize() const;
-
     //! destructor
     virtual ~IAxis() {}
 

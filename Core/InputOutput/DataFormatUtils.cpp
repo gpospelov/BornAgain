@@ -16,6 +16,7 @@
 #include "ConstKBinAxis.h"
 #include "CustomBinAxis.h"
 #include "FileSystemUtils.h"
+#include "PointwiseAxis.h"
 #include "OutputData.h"
 #include "StringUtils.h"
 #include <iterator>
@@ -94,6 +95,10 @@ bool DataFormatUtils::isVariableBinAxisType(const std::string& line)
     return line.find(VariableBinAxisType) != std::string::npos;
 }
 
+bool DataFormatUtils::isPointwiseAxisType(const std::string& line)
+{
+    return line.find(PointwiseAxisType) != std::string::npos;
+}
 
 //! Creates axis of certain type from input stream
 IAxis *DataFormatUtils::createAxis(std::istream& input_stream)
@@ -105,6 +110,8 @@ IAxis *DataFormatUtils::createAxis(std::istream& input_stream)
         return createFixedBinAxis(line);
     } else if(isVariableBinAxisType(line)) {
         return createVariableBinAxis(line);
+    } else if (isPointwiseAxisType(line)) {
+        return createPointwiseAxis(line);
     } else {
         throw Exceptions::LogicErrorException("DataFormatUtils::createAxis() -> Error. "
                                               "Unknown axis '"+line+"'");
@@ -168,6 +175,24 @@ IAxis *DataFormatUtils::createVariableBinAxis(std::string line)
         throw Exceptions::FormatErrorException(
             "DataFormatUtils::createVariableBinAxis() -> Error. Can't parse the string at p2.");
     return new VariableBinAxis(name, nbins, boundaries);
+}
+
+//! Create VariableBinAxis from string representation
+//! VariableBinAxis("axis0", 4, [-1, -0.5, 0.5, 1, 2])
+IAxis *DataFormatUtils::createPointwiseAxis(std::string line)
+{
+    std::vector<std::string> to_replace = {",", "\"", "(", ")", "[", "]"};
+    StringUtils::replaceItemsFromString(line, to_replace, " ");
+
+    std::string type, name;
+
+    std::istringstream iss(line);
+    if (!(iss >> type >> name))
+        throw Exceptions::FormatErrorException(
+            "DataFormatUtils::createPointwiseAxis() -> Error. Can't parse the string.");
+    std::vector<double> coordinates;
+    readLineOfDoubles(coordinates, iss);
+    return new PointwiseAxis(name, coordinates);
 }
 
 //! Fills output data raw buffer from input stream

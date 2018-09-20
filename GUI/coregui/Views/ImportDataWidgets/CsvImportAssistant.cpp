@@ -23,6 +23,7 @@
 #include <QVBoxLayout>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QMenu>
 
 namespace
 {
@@ -91,6 +92,9 @@ QBoxLayout* CsvImportAssistant::createLayout()
 
     result->addLayout(preresult);
 
+    m_tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_tableWidget, &QTableWidget::cellClicked, this, &CsvImportAssistant::OnColumnClicked);
+    connect(m_tableWidget, &QTableWidget::customContextMenuRequested, this, &CsvImportAssistant::onColumnRightClick);
     return result;
 }
 
@@ -534,4 +538,54 @@ unsigned CsvImportAssistant::lastLine() const{
 
 unsigned CsvImportAssistant::singleColumnImport() const{
     return unsigned(m_singleDataColSpinBox->value());
+}
+
+void CsvImportAssistant::OnColumnClicked(int row, int column)
+{
+    //QMenu menu;
+    //
+    if(column <= 0) return;
+    m_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_tableWidget->setSelectionBehavior(QAbstractItemView::SelectColumns);
+    m_tableWidget->selectColumn(column);
+    m_tableWidget->setSelectionMode(QAbstractItemView::NoSelection);
+    //
+    //menu.exec();
+}
+
+void CsvImportAssistant::onColumnRightClick(const QPoint position)
+{
+    int row = m_tableWidget->itemAt(position)->row();
+    int col = m_tableWidget->itemAt(position)->column();
+    OnColumnClicked(row,col);
+    QMenu menu;
+
+
+    menu.addAction( "Set as " + relevantHeaders[_intensity_]);
+    menu.addAction( "Set as " + relevantHeaders[_theta_]);
+    menu.addAction( "Set as " + relevantHeaders[_2theta_]);
+    menu.addAction( "Set as " + relevantHeaders[_q_]);
+
+    connect(menu.actions()[_intensity_],&QAction::triggered,
+
+       [&](){
+        QString originalHeader = m_tableWidget->horizontalHeaderItem(col)->text();
+        int columnInFile = originalHeader.split(' ').takeLast().toInt();
+        m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_intensity_]) );
+        m_singleDataColSpinBox->setValue(columnInFile);
+        onReloadButton();
+    }
+    );
+    connect(menu.actions()[_theta_],&QAction::triggered,
+            [&](){m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_theta_]) );}
+    );
+    connect(menu.actions()[_2theta_],&QAction::triggered,
+            [&](){m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_2theta_]) );}
+    );
+    connect(menu.actions()[_q_],&QAction::triggered,
+            [&](){m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_q_]) );}
+    );
+
+            menu.exec(m_tableWidget->mapToGlobal(position));
 }

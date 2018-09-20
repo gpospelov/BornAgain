@@ -44,13 +44,16 @@ public:
     unsigned lastLine() const;
     unsigned singleColumnImport() const;
     unique_ptr<OutputData<double>> getData();
+    QStringList relevantHeaders = {"Intensity","theta","2theta","q"};
+    enum relevantColumns {_intensity_,_theta_,_2theta_,_q_};
 
 public slots:
     void onImportButton();
     void onReloadButton();
     void onRejectButton();
     void onBrowseButton();
-
+    void OnColumnClicked(int row, int column);
+    void onColumnRightClick(const QPoint position);
 
 private:
     QBoxLayout* createLayout();

@@ -308,9 +308,9 @@ unique_ptr<OutputData<double>> CsvImportAssistant::getData()
 
 void CsvImportAssistant::generate_table()
 {
-    CSVFile* csvFile;
+    unique_ptr<CSVFile> csvFile;
     try{
-        csvFile = new CSVFile(filepath().toStdString(), separator(), headersLine());
+        csvFile.reset(new CSVFile(filepath().toStdString(), separator(), headersLine()));
     }
     catch(...){
         QMessageBox msgBox;
@@ -329,23 +329,20 @@ void CsvImportAssistant::generate_table()
     m_singleDataColSpinBox->setMaximum(int(csvFile->NumberOfColumns()));
     //m_headersRowSpinBox->setMaximum(csvFile->NumberOfRows());
 
-    set_table_data(csvFile);
+    set_table_data(csvFile->asArray());
     remove_unwanted();
     setRowNumbering();
 
     return;
 }
 
-void CsvImportAssistant::set_table_data(CSVFile* csvFile){
+void CsvImportAssistant::set_table_data(vector<vector<string>> dataArray){
     unsigned firstDataLine = firstLine() - 1;
     unsigned lastDataLine = lastLine() == 0 ? unsigned(m_lastDataRowSpinBox->maximum()) : lastLine();
-
-    vector<vector<string>> dataArray = csvFile->asArray();
-
     for(unsigned i = firstDataLine; i < lastDataLine; i++){
         m_tableWidget->insertRow(m_tableWidget->rowCount());
         unsigned I = unsigned(m_tableWidget->rowCount()) - 1;
-        for(unsigned j = 0; j < csvFile->NumberOfColumns(); j++){
+        for(unsigned j = 0; j < dataArray[i].size(); j++){
             m_tableWidget->setItem(int(I),int(j),new QTableWidgetItem(QString::fromStdString(dataArray[i][j])));
         }
     }

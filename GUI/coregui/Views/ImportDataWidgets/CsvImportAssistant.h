@@ -58,7 +58,7 @@ private:
 
     char guessSeparator() const;
     void generate_table();
-    void set_table_data(CSVFile *csvFile);
+    void set_table_data(vector<vector<string>> dataArray);
     void convert_table();
     void remove_unwanted();
     void setRowNumbering();

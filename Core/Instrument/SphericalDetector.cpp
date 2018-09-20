@@ -81,11 +81,8 @@ size_t SphericalDetector::getIndexOfSpecular(const Beam& beam) const
     double phi = beam.getPhi();
     const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
     const IAxis& alpha_axis = getAxis(BornAgain::Y_AXIS_INDEX);
-    size_t phi_index = phi_axis.findIndex(phi);
-    size_t alpha_index = alpha_axis.findIndex(alpha);
-    if (phi_index < phi_axis.size() && alpha_index < alpha_axis.size()) {
-        return getGlobalIndex(phi_index, alpha_index);
-    }
+    if (phi_axis.contains(phi) && alpha_axis.contains(alpha))
+        return getGlobalIndex(phi_axis.findClosestIndex(phi), alpha_axis.findClosestIndex(alpha));
     return totalSize();
 }
 

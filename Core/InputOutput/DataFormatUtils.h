@@ -28,6 +28,7 @@ namespace DataFormatUtils {
 
 const std::string FixedBinAxisType = "FixedBinAxis";
 const std::string VariableBinAxisType = "VariableBinAxis";
+const std::string PointwiseAxisType = "PointwiseBinAxis";
 const std::string ConstKBinAxisType = "ConstKBinAxis";
 const std::string CustomBinAxisType = "CustomBinAxis";
 const std::string GzipExtension = ".gz";
@@ -63,10 +64,12 @@ BA_CORE_API_ bool isTiffFile(const std::string& file_name);
 
 BA_CORE_API_ bool isSimilarToFixedBinAxisType(const std::string& line);
 BA_CORE_API_ bool isVariableBinAxisType(const std::string& line);
+BA_CORE_API_ bool isPointwiseAxisType(const std::string& line);
 
 BA_CORE_API_ IAxis *createAxis(std::istream& input_stream);
 BA_CORE_API_ IAxis *createFixedBinAxis(std::string line);
 BA_CORE_API_ IAxis *createVariableBinAxis(std::string line);
+BA_CORE_API_ IAxis* createPointwiseAxis(std::string line);
 
 BA_CORE_API_ void fillOutputData(OutputData<double>* data, std::istream& input_stream);
 

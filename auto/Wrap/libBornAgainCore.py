@@ -4526,18 +4526,6 @@ class IAxis(_object):
         """
         return _libBornAgainCore.IAxis_clone(self)
 
-
-    def createDoubleBinSize(self):
-        """
-        createDoubleBinSize(IAxis self) -> IAxis
-
-        IAxis * IAxis::createDoubleBinSize() const
-
-        Creates a new axis with half the number of bins. 
-
-        """
-        return _libBornAgainCore.IAxis_createDoubleBinSize(self)
-
     __swig_destroy__ = _libBornAgainCore.delete_IAxis
     __del__ = lambda self: None
 
@@ -4633,18 +4621,6 @@ class IAxis(_object):
 
         """
         return _libBornAgainCore.IAxis_findClosestIndex(self, value)
-
-
-    def findIndex(self, value):
-        """
-        findIndex(IAxis self, double value) -> size_t
-
-        size_t IAxis::findIndex(double value) const
-
-        find index of bin that contains the given value returns  size() when value is not found 
-
-        """
-        return _libBornAgainCore.IAxis_findIndex(self, value)
 
 
     def __eq__(self, right):

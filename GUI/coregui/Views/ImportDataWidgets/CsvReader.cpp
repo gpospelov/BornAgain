@@ -70,13 +70,15 @@ void CSVFile::EqualizeRowLengths()
             rows[i].addCell("");
         }
     }
-
+    for(unsigned i = 0; i < NumberOfRows(); i++){
+        m_data.push_back(rows[i].dataVector());
+    }
 }
 
 
-CSVRow const CSVFile::operator[](unsigned index_i) const
+std::vector<std::string> const CSVFile::operator[](unsigned index_i) const
 {
-    return rows[index_i];
+    return m_data[index_i];
 }
 
 unsigned long CSVFile::NumberOfRows() const

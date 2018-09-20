@@ -26,6 +26,7 @@
 #include <memory>
 
 class QBoxLayout;
+using namespace std;
 
 //! Dialog to hold ImportAssistant.
 
@@ -42,7 +43,7 @@ public:
     unsigned firstLine() const;
     unsigned lastLine() const;
     unsigned singleColumnImport() const;
-    std::unique_ptr<OutputData<double>> getData();
+    unique_ptr<OutputData<double>> getData();
 
 public slots:
     void onImportButton();

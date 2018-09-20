@@ -7,29 +7,32 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+using namespace std;
 
 class CSVRow
 {
     public:
-        std::string const& operator[](unsigned index) const;
+        string const& operator[](unsigned index) const;
 
         unsigned long size() const;
 
-        void readNextRow(std::istream& str);
+        void readNextRow(istream& str);
 
 
         void setSeparator(char sep);
 
         char getSeparator();
 
-        void addCell(std::string str);
+        void addCell(string str);
+
+        vector<string> dataVector(){return m_data;}
 
     private:
-        std::vector<std::string>    m_data;
+        vector<string>    m_data;
         char separator = '-';
 };
 
-inline std::istream& operator>>(std::istream& str, CSVRow& data)
+inline istream& operator>>(istream& str, CSVRow& data)
 {
     data.readNextRow(str);
     return str;
@@ -38,13 +41,13 @@ inline std::istream& operator>>(std::istream& str, CSVRow& data)
 class CSVIterator
 {
     public:
-        typedef std::input_iterator_tag     iterator_category;
+        typedef input_iterator_tag     iterator_category;
         typedef CSVRow                      value_type;
         typedef unsigned long                difference_type;
         typedef CSVRow*                     pointer;
         typedef CSVRow&                     reference;
 
-        CSVIterator(std::istream& str, char sep)  :m_str( str.good() ? &str : nullptr ) {m_sep=sep; ++(*this); }
+        CSVIterator(istream& str, char sep)  :m_str( str.good() ? &str : nullptr ) {m_sep=sep; ++(*this); }
         CSVIterator()                   :m_str(nullptr) {}
 
         // Pre Increment
@@ -60,7 +63,7 @@ class CSVIterator
 
 
     private:
-        std::istream*       m_str;
+        istream*       m_str;
         CSVRow              m_row;
         char                m_sep;
 };
@@ -68,9 +71,9 @@ class CSVIterator
 class CSVFile
 {
     public:
-        CSVFile(std::string path_to_file): filepath(path_to_file) {Init();}
-        CSVFile(std::string path_to_file, char sep): filepath(path_to_file), separator(sep) {Init();}
-        CSVFile(std::string path_to_file, char sep, unsigned headRow): filepath(path_to_file), separator(sep), headersRow(headRow) {Init();}
+        CSVFile(string path_to_file): filepath(path_to_file) {Init();}
+        CSVFile(string path_to_file, char sep): filepath(path_to_file), separator(sep) {Init();}
+        CSVFile(string path_to_file, char sep, unsigned headRow): filepath(path_to_file), separator(sep), headersRow(headRow) {Init();}
 
 
         void Init();
@@ -81,7 +84,7 @@ class CSVFile
         void EqualizeRowLengths();
 
 
-        CSVRow const operator[](unsigned index_i) const;
+        vector<string> const operator[](unsigned index_i) const;
 
         unsigned long NumberOfRows() const;
 
@@ -95,12 +98,15 @@ class CSVFile
 
         CSVRow get_row(unsigned i);
 
+        vector<vector<string>> asArray(){return m_data;}
+
     private:
-        std::string filepath;
+        string filepath;
         char separator = '-';
         unsigned headersRow = 0;
         unsigned numberOfColumns = 0;
-        std::vector<CSVRow>    rows;
+        vector<CSVRow>    rows;
+        vector<vector<string>>    m_data;
 
 };
 

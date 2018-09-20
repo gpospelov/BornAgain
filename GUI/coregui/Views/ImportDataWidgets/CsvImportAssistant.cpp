@@ -210,12 +210,12 @@ void CsvImportAssistant::onBrowseButton()
 
 void CsvImportAssistant::onReloadButton()
 {
-    std::ifstream f(filepath().toStdString());
+    ifstream f(filepath().toStdString());
     if(f.good()){
         generate_table();
     }else{
         QMessageBox msgBox;
-        std::string message = "There was a problem opening the file \"" + filepath().toStdString() + "\"";
+        string message = "There was a problem opening the file \"" + filepath().toStdString() + "\"";
         message += "\n Check for any errors in the path and try again.";
         msgBox.setText(QString::fromStdString(message));
         msgBox.setIcon(msgBox.Critical);
@@ -233,25 +233,23 @@ void CsvImportAssistant::onImportButton()
     try {
         auto data = getData();
         accept();
-    } catch(std::exception& e){
+    } catch(exception& e){
         QString message = QString("Unable to import, check that the table contains only numerical values");
         QMessageBox::warning(nullptr, "Wrong data format", message);
     }
 }
 
 
-std::unique_ptr<OutputData<double>> CsvImportAssistant::getData()
+unique_ptr<OutputData<double>> CsvImportAssistant::getData()
 {
-    using namespace std;
-
     int nTableRows = m_tableWidget->rowCount();
     int nTableCols = m_tableWidget->columnCount();
     vector<vector<string>> StringVectorVector;
     vector<string> StringVector;
 
     //save the values of the array
-    std::size_t nDataCols = 0;
-    std::size_t nDataRows = 0;
+    size_t nDataCols = 0;
+    size_t nDataRows = 0;
     for(int i = 0; i < nTableRows; i++){
         StringVector.clear();
         nDataCols = 0;
@@ -266,13 +264,13 @@ std::unique_ptr<OutputData<double>> CsvImportAssistant::getData()
         nDataRows++;
     }
 
-    std::unique_ptr<OutputData<double>> result;
+    unique_ptr<OutputData<double>> result;
     result.reset(new OutputData<double>());
 
     if( (nDataCols < 2) || (nDataRows < 2) ){
-        size_t nElem = std::max(nDataCols,nDataRows);
+        size_t nElem = max(nDataCols,nDataRows);
         result->addAxis("intensity", nElem, 0.0, double(nElem));
-        std::vector<unsigned> axes_indices(1);
+        vector<unsigned> axes_indices(1);
         unsigned item = 0;
         for(unsigned row=0; row<nDataRows; row++) {
             for(unsigned col=0; col<nDataCols; col++) {
@@ -290,7 +288,7 @@ std::unique_ptr<OutputData<double>> CsvImportAssistant::getData()
     else{
         result->addAxis("x", nDataCols, 0.0, double(nDataCols));
         result->addAxis("y", nDataRows, 0.0, double(nDataRows));
-        std::vector<unsigned> axes_indices(2);
+        vector<unsigned> axes_indices(2);
         for(unsigned row=0; row<nDataRows; row++) {
             for(unsigned col=0; col<nDataCols; col++) {
                 axes_indices[0] = col;
@@ -316,7 +314,7 @@ void CsvImportAssistant::generate_table()
     }
     catch(...){
         QMessageBox msgBox;
-        std::string message = "There was a problem opening the file \"" + filepath().toStdString() + "\"";
+        string message = "There was a problem opening the file \"" + filepath().toStdString() + "\"";
         msgBox.setText(QString::fromStdString(message));
         msgBox.setIcon(msgBox.Critical);
         msgBox.exec();
@@ -339,22 +337,21 @@ void CsvImportAssistant::generate_table()
 }
 
 void CsvImportAssistant::set_table_data(CSVFile* csvFile){
-
     unsigned firstDataLine = firstLine() - 1;
     unsigned lastDataLine = lastLine() == 0 ? unsigned(m_lastDataRowSpinBox->maximum()) : lastLine();
+
+    vector<vector<string>> dataArray = csvFile->asArray();
+
     for(unsigned i = firstDataLine; i < lastDataLine; i++){
         m_tableWidget->insertRow(m_tableWidget->rowCount());
         unsigned I = unsigned(m_tableWidget->rowCount()) - 1;
         for(unsigned j = 0; j < csvFile->NumberOfColumns(); j++){
-            std::string aasdf = csvFile->operator [](i)[j];
-            m_tableWidget->setItem(int(I),int(j),new QTableWidgetItem(QString::fromStdString(aasdf)));
+            m_tableWidget->setItem(int(I),int(j),new QTableWidgetItem(QString::fromStdString(dataArray[i][j])));
         }
     }
 }
 
 void CsvImportAssistant::remove_unwanted(){
-    using namespace std;
-
     int nRows = m_tableWidget->rowCount();
     int nCols = m_tableWidget->columnCount();
     vector<vector<string>> StringVectorVector;
@@ -391,7 +388,7 @@ void CsvImportAssistant::remove_unwanted(){
         }
         //Skip last row if it is an empty line:
         if(i == nRows - 1)
-            if(QString::fromStdString(std::accumulate(StringVector.begin(), StringVector.end(), std::string(""))).trimmed() == "")
+            if(QString::fromStdString(accumulate(StringVector.begin(), StringVector.end(), string(""))).trimmed() == "")
                 continue;
 
         StringVectorVector.push_back(StringVector);
@@ -409,7 +406,7 @@ void CsvImportAssistant::remove_unwanted(){
         int J = 0;
         for(int j = 0; j < nCols; j++){
             if( std::find(to_be_removed.begin(), to_be_removed.end(), j) == to_be_removed.end()){
-                std::string retrievedString = StringVectorVector[unsigned(i)][unsigned(j)];
+                string retrievedString = StringVectorVector[unsigned(i)][unsigned(j)];
                 m_tableWidget->setItem(i,J,new QTableWidgetItem(QString::fromStdString(retrievedString)));
                 J++;
             }
@@ -420,7 +417,7 @@ void CsvImportAssistant::remove_unwanted(){
     QStringList headers;
     for(int j = 0; j < nCols; j++)
         if( std::find(to_be_removed.begin(), to_be_removed.end(), j) == to_be_removed.end())
-            headers.append(QString::fromStdString(std::string("Column ") + std::to_string(j+1)));
+            headers.append(QString::fromStdString(string("Column ") + to_string(j+1)));
     m_tableWidget->setHorizontalHeaderLabels(headers);
 }
 
@@ -479,7 +476,6 @@ char CsvImportAssistant::separator() const{
 }
 
 char CsvImportAssistant::guessSeparator() const{
-    using namespace std;
     int frequencies[127] = {0};
 
     //The actual characters that may be realistically
@@ -501,7 +497,7 @@ char CsvImportAssistant::guessSeparator() const{
 
     //count number of occurences of each char in the file:
     char c;
-    std::ifstream is(m_fileName.toStdString());
+    ifstream is(m_fileName.toStdString());
     while (is.get(c))
         frequencies[int(c)]++;
     is.close();

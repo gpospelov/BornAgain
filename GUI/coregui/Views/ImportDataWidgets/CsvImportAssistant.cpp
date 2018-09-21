@@ -128,7 +128,9 @@ QBoxLayout* CsvImportAssistant::createFileDetailsLayout(){
     lay4->addWidget(labelFirstDataRow);
     lay4->addWidget(m_firstDataRowSpinBox);
     result->addLayout(lay4);
-    connect(m_firstDataRowSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &CsvImportAssistant::onIntChanged);
+
+    connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+        [=](int i){ onIntChanged(i); });
 
     auto labelSingleColImport = new QLabel("Import Single Column (zero to import all): ");
     m_singleDataColSpinBox = new QSpinBox();
@@ -139,7 +141,8 @@ QBoxLayout* CsvImportAssistant::createFileDetailsLayout(){
     laySingleDataCol->addWidget(labelSingleColImport);
     laySingleDataCol->addWidget(m_singleDataColSpinBox);
     result->addLayout(laySingleDataCol);
-    connect(m_singleDataColSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &CsvImportAssistant::onIntChanged);
+    connect(m_singleDataColSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+        [=](int i){ onIntChanged(i); });
 
 
 
@@ -566,7 +569,7 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     menu.addSeparator();
 
     //Action "select from this row"
-    QAction selectFromThisRowOn("Ignore preceding rows");
+    QAction selectFromThisRowOn("Ignore preceding rows",nullptr);
     menu.addAction(&selectFromThisRowOn);
     connect(&selectFromThisRowOn,&QAction::triggered,
             [&](){m_firstDataRowSpinBox->setValue(m_tableWidget->verticalHeaderItem(row)->text().toInt());}
@@ -575,7 +578,7 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     menu.addSeparator();
 
     //Action "reset"
-    QAction reset("reset");
+    QAction reset("reset",nullptr);
     menu.addAction(&reset);
     connect(&reset,&QAction::triggered,
             [&](){

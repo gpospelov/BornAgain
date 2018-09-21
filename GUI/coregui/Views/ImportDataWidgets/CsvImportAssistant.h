@@ -43,6 +43,7 @@ public:
     unsigned firstLine() const;
     unsigned lastLine() const;
     unsigned singleColumnImport() const;
+    void Reload();
     unique_ptr<OutputData<double>> getData();
     QStringList relevantHeaders = {"Intensity","theta","2theta","q"};
     enum relevantColumns {_intensity_,_theta_,_2theta_,_q_};
@@ -52,6 +53,7 @@ public slots:
     void onReloadButton();
     void onRejectButton();
     void onBrowseButton();
+    void onIntChanged(int _ = 0);
     void OnColumnClicked(int row, int column);
     void onColumnRightClick(const QPoint position);
 
@@ -71,14 +73,13 @@ private:
 
     QString m_dirName;
     QString m_fileName;
+    unsigned m_lastDataRow;
 
     QTableWidget* m_tableWidget;
     QLineEdit* m_filePathField;
     QLineEdit* m_separatorField;
-    //QSpinBox* m_headersRowSpinBox;
     QSpinBox* m_firstDataRowSpinBox;
-    QSpinBox* m_lastDataRowSpinBox;
     QSpinBox* m_singleDataColSpinBox;
 };
 
-#endif // MATERIALEDITORDIALOG_H
+#endif // CSVIMPORTASSISTANT_H

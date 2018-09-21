@@ -34,11 +34,11 @@ CsvImportAssistant::CsvImportAssistant(QString dir, QString file, QWidget* paren
     QDialog(parent),
     m_dirName(dir),
     m_fileName(file),
+    m_lastDataRow(0),
     m_tableWidget(nullptr),
     m_filePathField(nullptr),
     m_separatorField(nullptr),
     m_firstDataRowSpinBox(nullptr),
-    m_lastDataRowSpinBox(nullptr),
     m_singleDataColSpinBox(nullptr)
 {
     setWindowTitle("Data Importer");
@@ -55,7 +55,7 @@ CsvImportAssistant::CsvImportAssistant(QString dir, QString file, QWidget* paren
     StyleUtils::setResizable(this);
 
     if(!m_fileName.isEmpty())
-        CsvImportAssistant::onReloadButton();
+        CsvImportAssistant::Reload();
 }
 
 
@@ -75,20 +75,16 @@ QBoxLayout* CsvImportAssistant::createLayout()
     m_tableWidget = new QTableWidget();
 
     preresult->setMargin(10);
-    //preresult->setSpacing(5);
-    //preresult->addStretch(1);
 
     preresult->addWidget(rejectButton);
     preresult->addWidget(importButton);
 
 
     result->setMargin(10);
-    //result->setSpacing(5);
-    //result->addStretch(1);
     result->addWidget(m_tableWidget);
-    //
+
     result->addLayout(CsvImportAssistant::createFileDetailsLayout());
-    //
+
 
     result->addLayout(preresult);
 
@@ -101,17 +97,12 @@ QBoxLayout* CsvImportAssistant::createLayout()
 QBoxLayout* CsvImportAssistant::createFileDetailsLayout(){
     auto result = new QVBoxLayout;
     result->setMargin(10);
-    //result->setSpacing(5);
-    //result->addStretch(1);
 
     auto labelFilepath = new QLabel("File to import: ");
     m_filePathField = new QLineEdit(m_fileName,this);
     auto browseButton = new QPushButton("browse");
     connect(browseButton, &QPushButton::clicked, this, &CsvImportAssistant::onBrowseButton);
     auto lay1 = new QHBoxLayout;
-    //lay1->setMargin(10);
-    //lay1->setSpacing(5);
-    //lay1->addStretch(1);
     lay1->addWidget(labelFilepath);
     lay1->addWidget(m_filePathField);
     lay1->addWidget(browseButton);
@@ -122,25 +113,11 @@ QBoxLayout* CsvImportAssistant::createFileDetailsLayout(){
     m_separatorField = new QLineEdit(QString(guessSeparator()));
     m_separatorField->setMaxLength(1);
     auto lay2 = new QHBoxLayout;
-    //lay2->setMargin(10);
-    //lay2->setSpacing(5);
-    //lay2->addStretch(1);
     lay2->addWidget(labelSeparator);
     lay2->addWidget(m_separatorField);
     result->addLayout(lay2);
+    connect(m_separatorField, &QLineEdit::editingFinished, this, &CsvImportAssistant::Reload);
 
-    //    auto labelHeaderRow = new QLabel("Headers row (zero for no headers): ");
-    //    m_headersRowSpinBox = new QSpinBox();
-    //    m_headersRowSpinBox->setMinimum(0);
-    //    m_headersRowSpinBox->setMaximum(0);
-    //    m_headersRowSpinBox->setValue(0);
-    //    auto lay3 = new QHBoxLayout;
-    //    //lay3->setMargin(10);
-    //    //lay3->setSpacing(5);
-    //    //lay3->addStretch(1);
-    //    lay3->addWidget(labelHeaderRow);
-    //    lay3->addWidget(m_headersRowSpinBox);
-    //    result->addLayout(lay3);
 
     auto labelFirstDataRow = new QLabel("First data row: ");
     m_firstDataRowSpinBox = new QSpinBox();
@@ -148,25 +125,10 @@ QBoxLayout* CsvImportAssistant::createFileDetailsLayout(){
     m_firstDataRowSpinBox->setMaximum(1);
     m_firstDataRowSpinBox->setValue(1);
     auto lay4 = new QHBoxLayout;
-    //lay4->setMargin(10);
-    //lay4->setSpacing(5);
-    //lay4->addStretch(1);
     lay4->addWidget(labelFirstDataRow);
     lay4->addWidget(m_firstDataRowSpinBox);
     result->addLayout(lay4);
-
-    auto labelLastDataRow = new QLabel("Last data row (zero to read until last row found): ");
-    m_lastDataRowSpinBox = new QSpinBox();
-    m_lastDataRowSpinBox->setMinimum(0);
-    m_lastDataRowSpinBox->setMaximum(0);
-    m_lastDataRowSpinBox->setValue(0);
-    auto lay5 = new QHBoxLayout;
-    //lay5->setMargin(10);
-    //lay5->setSpacing(5);
-    //lay5->addStretch(1);
-    lay5->addWidget(labelLastDataRow);
-    lay5->addWidget(m_lastDataRowSpinBox);
-    result->addLayout(lay5);
+    connect(m_firstDataRowSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &CsvImportAssistant::onIntChanged);
 
     auto labelSingleColImport = new QLabel("Import Single Column (zero to import all): ");
     m_singleDataColSpinBox = new QSpinBox();
@@ -174,26 +136,24 @@ QBoxLayout* CsvImportAssistant::createFileDetailsLayout(){
     m_singleDataColSpinBox->setMaximum(0);
     m_singleDataColSpinBox->setValue(0);
     auto laySingleDataCol = new QHBoxLayout;
-    //lay5->setMargin(10);
-    //lay5->setSpacing(5);
-    //lay5->addStretch(1);
     laySingleDataCol->addWidget(labelSingleColImport);
     laySingleDataCol->addWidget(m_singleDataColSpinBox);
     result->addLayout(laySingleDataCol);
+    connect(m_singleDataColSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &CsvImportAssistant::onIntChanged);
 
 
 
     auto lay6 = new QVBoxLayout;
     auto reloadButton = new QPushButton("Reload");
-    connect(reloadButton, &QPushButton::clicked, this, &CsvImportAssistant::onReloadButton);
-    //lay6->setMargin(10);
     lay6->addWidget(reloadButton);
+    reloadButton->setDefault(true);
+    connect(reloadButton, &QPushButton::clicked, this, &CsvImportAssistant::onReloadButton);
+
+
 
     result->addLayout(lay1);
     result->addLayout(lay2);
-    //result->addLayout(lay3);
     result->addLayout(lay4);
-    result->addLayout(lay5);
     result->addLayout(lay6);
 
     return result;
@@ -207,12 +167,12 @@ void CsvImportAssistant::onBrowseButton()
     if(fileName != nullptr){
         m_filePathField->setText(fileName);
         m_fileName = fileName;
-        CsvImportAssistant::onReloadButton();
+        CsvImportAssistant::Reload();
     }
 
 }
 
-void CsvImportAssistant::onReloadButton()
+void CsvImportAssistant::Reload()
 {
     ifstream f(filepath().toStdString());
     if(f.good()){
@@ -328,10 +288,9 @@ void CsvImportAssistant::generate_table()
     m_tableWidget->clearContents();
     m_tableWidget->setColumnCount(int(csvFile->NumberOfColumns()));
     m_tableWidget->setRowCount(0);
-    m_lastDataRowSpinBox->setMaximum(int(csvFile->NumberOfRows()));
+    m_lastDataRow = unsigned(csvFile->NumberOfRows());
     m_firstDataRowSpinBox->setMaximum(int(csvFile->NumberOfRows()));
     m_singleDataColSpinBox->setMaximum(int(csvFile->NumberOfColumns()));
-    //m_headersRowSpinBox->setMaximum(csvFile->NumberOfRows());
 
     set_table_data(csvFile->asArray());
     remove_unwanted();
@@ -342,7 +301,7 @@ void CsvImportAssistant::generate_table()
 
 void CsvImportAssistant::set_table_data(vector<vector<string>> dataArray){
     unsigned firstDataLine = firstLine() - 1;
-    unsigned lastDataLine = lastLine() == 0 ? unsigned(m_lastDataRowSpinBox->maximum()) : lastLine();
+    unsigned lastDataLine = lastLine();
     for(unsigned i = firstDataLine; i < lastDataLine; i++){
         m_tableWidget->insertRow(m_tableWidget->rowCount());
         unsigned I = unsigned(m_tableWidget->rowCount()) - 1;
@@ -425,7 +384,7 @@ void CsvImportAssistant::remove_unwanted(){
 void CsvImportAssistant::setRowNumbering(){
 
     unsigned firstDataLine = firstLine();
-    unsigned lastDataLine = lastLine() == 0 ? unsigned(m_lastDataRowSpinBox->maximum()) : lastLine();
+    unsigned lastDataLine = lastLine();
 
 
     QStringList displayRowNumbers;
@@ -533,7 +492,7 @@ unsigned CsvImportAssistant::firstLine() const{
 }
 
 unsigned CsvImportAssistant::lastLine() const{
-    return unsigned(m_lastDataRowSpinBox->value());
+    return m_lastDataRow;
 }
 
 unsigned CsvImportAssistant::singleColumnImport() const{
@@ -542,50 +501,96 @@ unsigned CsvImportAssistant::singleColumnImport() const{
 
 void CsvImportAssistant::OnColumnClicked(int row, int column)
 {
-    //QMenu menu;
-    //
-    if(column <= 0) return;
-    m_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    m_tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-    m_tableWidget->setSelectionBehavior(QAbstractItemView::SelectColumns);
-    m_tableWidget->selectColumn(column);
-    m_tableWidget->setSelectionMode(QAbstractItemView::NoSelection);
-    //
-    //menu.exec();
+    if(column < 0) return;
+    if(row < 0) return;
+
+
+    QModelIndex left = m_tableWidget->model()->index(row, 0);
+    QModelIndex right= m_tableWidget->model()->index(row, m_tableWidget->columnCount() - 1);
+    QModelIndex top = m_tableWidget->model()->index(0, column);
+    QModelIndex bottom = m_tableWidget->model()->index(m_tableWidget->rowCount() - 1, column);
+
+
+    QItemSelection selection(left, right);
+    selection.merge(QItemSelection(top, bottom), QItemSelectionModel::Select);
+    m_tableWidget->selectionModel()->select(selection, QItemSelectionModel::Select);
 }
 
 void CsvImportAssistant::onColumnRightClick(const QPoint position)
 {
-    int row = m_tableWidget->itemAt(position)->row();
-    int col = m_tableWidget->itemAt(position)->column();
+    auto item = m_tableWidget->itemAt(position);
+    if(!item) return;
+    auto row = item->row();
+    auto col = item->column();
+
+    if(row*col < 0) return;
+
     OnColumnClicked(row,col);
     QMenu menu;
 
 
+
+    //Set column as "Intensity"
     menu.addAction( "Set as " + relevantHeaders[_intensity_]);
-    menu.addAction( "Set as " + relevantHeaders[_theta_]);
-    menu.addAction( "Set as " + relevantHeaders[_2theta_]);
-    menu.addAction( "Set as " + relevantHeaders[_q_]);
-
     connect(menu.actions()[_intensity_],&QAction::triggered,
-
        [&](){
         QString originalHeader = m_tableWidget->horizontalHeaderItem(col)->text();
         int columnInFile = originalHeader.split(' ').takeLast().toInt();
         m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_intensity_]) );
         m_singleDataColSpinBox->setValue(columnInFile);
-        onReloadButton();
+        Reload();
     }
     );
+
+
+    //Set column as "Theta"
+    menu.addAction( "Set as " + relevantHeaders[_theta_]);
     connect(menu.actions()[_theta_],&QAction::triggered,
             [&](){m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_theta_]) );}
     );
+
+
+    //Set column as "2Theta"
+    menu.addAction( "Set as " + relevantHeaders[_2theta_]);
     connect(menu.actions()[_2theta_],&QAction::triggered,
             [&](){m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_2theta_]) );}
     );
+
+
+    //Set column as "qvector"
+    menu.addAction( "Set as " + relevantHeaders[_q_]);
     connect(menu.actions()[_q_],&QAction::triggered,
             [&](){m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_q_]) );}
     );
 
-            menu.exec(m_tableWidget->mapToGlobal(position));
+    menu.addSeparator();
+
+    //Action "select from this row"
+    QAction selectFromThisRowOn("Ignore preceding rows");
+    menu.addAction(&selectFromThisRowOn);
+    connect(&selectFromThisRowOn,&QAction::triggered,
+            [&](){m_firstDataRowSpinBox->setValue(m_tableWidget->verticalHeaderItem(row)->text().toInt());}
+    );
+
+    menu.addSeparator();
+
+    //Action "reset"
+    QAction reset("reset");
+    menu.addAction(&reset);
+    connect(&reset,&QAction::triggered,
+            [&](){
+                m_firstDataRowSpinBox->setValue(0);
+                m_singleDataColSpinBox->setValue(0);
+            }
+    );
+
+    menu.exec(m_tableWidget->mapToGlobal(position));
+}
+
+void CsvImportAssistant::onReloadButton(){
+    Reload();
+}
+
+void CsvImportAssistant::onIntChanged(int _){
+    Reload();
 }

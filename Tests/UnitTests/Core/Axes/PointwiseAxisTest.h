@@ -128,8 +128,9 @@ TEST_F(PointwiseAxisTest, IOStream)
 
     std::ostringstream oss;
     oss << axis;
+    std::istringstream iss(oss.str());
 
-    std::unique_ptr<IAxis> result(DataFormatUtils::createPointwiseAxis(oss.str()));
+    std::unique_ptr<IAxis> result(DataFormatUtils::createAxis(iss));
     EXPECT_TRUE(axis == *result);
 }
 

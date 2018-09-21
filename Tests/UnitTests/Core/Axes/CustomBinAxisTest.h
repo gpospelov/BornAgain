@@ -23,12 +23,10 @@ TEST_F(CusomBinAxisTest, CheckClone)
 
 TEST_F(CusomBinAxisTest, IOStream)
 {
-
     std::ostringstream oss;
     oss << m_axis;
+    std::istringstream iss(oss.str());
 
-    CustomBinAxis* result
-        = dynamic_cast<CustomBinAxis*>(DataFormatUtils::createFixedBinAxis(oss.str()));
+    std::unique_ptr<IAxis> result(DataFormatUtils::createAxis(iss));
     EXPECT_TRUE(m_axis == *result);
-    delete result;
 }

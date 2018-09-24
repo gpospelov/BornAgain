@@ -26,13 +26,15 @@
 
 namespace
 {
-float ZoomInScale() {
-    if (QSysInfo::productType()=="osx")
+float ZoomInScale()
+{
+    if (QSysInfo::productType() == "osx")
         return 1.02f;
     return 1.25f;
 }
-float ZoomOutScale() {
-    if (QSysInfo::productType()=="osx")
+float ZoomOutScale()
+{
+    if (QSysInfo::productType() == "osx")
         return 0.98f;
     return 0.8f;
 }
@@ -45,8 +47,8 @@ namespace RealSpace
 {
 
 Canvas::Canvas()
-    : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1), currentZoomLevel(0),
-      camera(nullptr), program(nullptr), model(nullptr)
+    : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1), currentZoomLevel(0), camera(nullptr),
+      program(nullptr), model(nullptr)
 {
     connect(&geometryStore(), &GeometryStore::deletingGeometry, this, &Canvas::releaseBuffer);
 }
@@ -285,9 +287,9 @@ void Canvas::sideView()
         else
             eye.y *= std::pow(ZoomOutScale(), std::abs(currentZoomLevel));
 
-        camera->lookAt(RealSpace::Camera::Position(eye,                               // eye
-                                                   RealSpace::Vector3D(0, 0, 0),      // center
-                                                   RealSpace::Vector3D::_z));         // up
+        camera->lookAt(RealSpace::Camera::Position(eye,                          // eye
+                                                   RealSpace::Vector3D(0, 0, 0), // center
+                                                   RealSpace::Vector3D::_z));    // up
 
         camera->endTransform(true);
         update();
@@ -306,9 +308,9 @@ void Canvas::topView()
         else
             eye.z *= std::pow(ZoomOutScale(), std::abs(currentZoomLevel));
 
-        camera->lookAt(RealSpace::Camera::Position(eye,                               // eye
-                                                   RealSpace::Vector3D(0, 0, 0),      // center
-                                                   RealSpace::Vector3D::_z));         // up
+        camera->lookAt(RealSpace::Camera::Position(eye,                          // eye
+                                                   RealSpace::Vector3D(0, 0, 0), // center
+                                                   RealSpace::Vector3D::_z));    // up
 
         camera->endTransform(true);
         update();

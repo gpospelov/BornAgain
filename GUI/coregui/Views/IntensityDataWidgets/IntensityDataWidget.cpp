@@ -75,6 +75,9 @@ void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
 
 void IntensityDataWidget::onFFTAction()
 {
+    if (!intensityDataItem() || !intensityDataItem()->getOutputData())
+        return;
+
     if(m_fftPresenter->inFFTMode()) {
         auto fftItem = m_fftPresenter->fftItem(intensityDataItem());
         m_intensityCanvas->setItem(fftItem);

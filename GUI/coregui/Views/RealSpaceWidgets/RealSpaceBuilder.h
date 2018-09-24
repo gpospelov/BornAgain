@@ -39,8 +39,8 @@ public:
                   const SceneGeometry& sceneGeometry,
                   const RealSpace::Camera::Position& cameraPosition
                   = RealSpace::Camera::Position(RealSpace::Vector3D(0, -200, 120), // eye
-                                                RealSpace::Vector3D(0, 0, 0),     // center
-                                                RealSpace::Vector3D::_z));        // up
+                                                RealSpace::Vector3D(0, 0, 0),      // center
+                                                RealSpace::Vector3D::_z));         // up
 
     void populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
                             const SceneGeometry& sceneGeometry,

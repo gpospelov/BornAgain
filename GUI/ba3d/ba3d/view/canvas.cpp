@@ -44,7 +44,7 @@ const float rot_speed_v = 0.4f; // camera rotation speed in vertical direction
 
 // Default camera position in accordance with RealSpaceBuilder.h
 const float cameraDefaultPosY = -200.0f; // default camera position on Y axis
-const float cameraDefaultPosZ = 120.0f; // default camera position on Z axis
+const float cameraDefaultPosZ = 120.0f;  // default camera position on Z axis
 }
 
 namespace RealSpace
@@ -271,9 +271,9 @@ void Canvas::defaultView()
     if (model) {
         // Default view
         camera->lookAt(RealSpace::Camera::Position(
-                           RealSpace::Vector3D(0, cameraDefaultPosY, cameraDefaultPosZ), // eye
-                           RealSpace::Vector3D(0, 0, 0),                                 // center
-                           RealSpace::Vector3D::_z));                                    // up
+            RealSpace::Vector3D(0, cameraDefaultPosY, cameraDefaultPosZ), // eye
+            RealSpace::Vector3D(0, 0, 0),                                 // center
+            RealSpace::Vector3D::_z));                                    // up
         camera->endTransform(true);
 
         currentZoomLevel = 0; // reset zoom level to default value

@@ -61,6 +61,7 @@ public:
 private:
     QRect viewport;
     float aspectRatio, colorBgR, colorBgG, colorBgB;
+    int currentZoomLevel; // current configuration of mousewheel w.r.t to default (0) configuration
 
     void setCamera(bool full = true);
 

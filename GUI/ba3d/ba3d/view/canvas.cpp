@@ -26,27 +26,33 @@
 
 namespace
 {
-float ZoomInScale() {
-    if (QSysInfo::productType()=="osx")
+float ZoomInScale()
+{
+    if (QSysInfo::productType() == "osx")
         return 1.02f;
     return 1.25f;
 }
-float ZoomOutScale() {
-    if (QSysInfo::productType()=="osx")
+float ZoomOutScale()
+{
+    if (QSysInfo::productType() == "osx")
         return 0.98f;
     return 0.8f;
 }
 
 const float rot_speed_h = 0.4f; // camera rotation speed in horizontal direction
 const float rot_speed_v = 0.4f; // camera rotation speed in vertical direction
+
+// Default camera position in accordance with RealSpaceBuilder.h
+const float cameraDefaultPosY = -200.0f; // default camera position on Y axis
+const float cameraDefaultPosZ = 120.0f;  // default camera position on Z axis
 }
 
 namespace RealSpace
 {
 
 Canvas::Canvas()
-    : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1), camera(nullptr), program(nullptr),
-      model(nullptr)
+    : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1), currentZoomLevel(0), camera(nullptr),
+      program(nullptr), model(nullptr)
 {
     connect(&geometryStore(), &GeometryStore::deletingGeometry, this, &Canvas::releaseBuffer);
 }
@@ -221,9 +227,11 @@ void Canvas::wheelEvent(QWheelEvent* e)
         if (e->delta() < 0) {
             // Zoom in
             camera->zoomBy(ZoomInScale());
+            currentZoomLevel += 1;
         } else {
             // Zoom out
             camera->zoomBy(ZoomOutScale());
+            currentZoomLevel -= 1;
         }
         camera->endTransform(true);
         update();
@@ -262,10 +270,13 @@ void Canvas::defaultView()
 {
     if (model) {
         // Default view
-        camera->lookAt(RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 90), // eye
-                                                   RealSpace::Vector3D(0, 0, 0),     // center
-                                                   RealSpace::Vector3D::_z));        // up
+        camera->lookAt(RealSpace::Camera::Position(
+            RealSpace::Vector3D(0, cameraDefaultPosY, cameraDefaultPosZ), // eye
+            RealSpace::Vector3D(0, 0, 0),                                 // center
+            RealSpace::Vector3D::_z));                                    // up
         camera->endTransform(true);
+
+        currentZoomLevel = 0; // reset zoom level to default value
         update();
     }
 }
@@ -273,10 +284,18 @@ void Canvas::defaultView()
 void Canvas::sideView()
 {
     if (model) {
-        // Edge view
-        camera->lookAt(RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 0), // eye
-                                                   RealSpace::Vector3D(0, 0, 0),    // center
-                                                   RealSpace::Vector3D::_z));       // up
+        // Side view at current zoom level
+        RealSpace::Vector3D eye(0, cameraDefaultPosY, 0);
+
+        if (currentZoomLevel >= 0)
+            eye.y *= std::pow(ZoomInScale(), std::abs(currentZoomLevel));
+        else
+            eye.y *= std::pow(ZoomOutScale(), std::abs(currentZoomLevel));
+
+        camera->lookAt(RealSpace::Camera::Position(eye,                          // eye
+                                                   RealSpace::Vector3D(0, 0, 0), // center
+                                                   RealSpace::Vector3D::_z));    // up
+
         camera->endTransform(true);
         update();
     }
@@ -285,11 +304,19 @@ void Canvas::sideView()
 void Canvas::topView()
 {
     if (model) {
-        // Top view
-        // Setting a tiny offset in x value of eye such that eye and up vectors are not parallel
-        camera->lookAt(RealSpace::Camera::Position(RealSpace::Vector3D(0, -0.5, 140), // eye
-                                                   RealSpace::Vector3D(0, 0, 0),      // center
-                                                   RealSpace::Vector3D::_z));         // up
+        // Top view at current zoom level
+        // Setting a tiny offset in y value of eye such that eye and up vectors are not parallel
+        RealSpace::Vector3D eye(0, -0.5, -cameraDefaultPosY);
+
+        if (currentZoomLevel >= 0)
+            eye.z *= std::pow(ZoomInScale(), std::abs(currentZoomLevel));
+        else
+            eye.z *= std::pow(ZoomOutScale(), std::abs(currentZoomLevel));
+
+        camera->lookAt(RealSpace::Camera::Position(eye,                          // eye
+                                                   RealSpace::Vector3D(0, 0, 0), // center
+                                                   RealSpace::Vector3D::_z));    // up
+
         camera->endTransform(true);
         update();
     }

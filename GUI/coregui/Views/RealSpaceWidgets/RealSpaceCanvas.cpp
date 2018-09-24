@@ -154,8 +154,10 @@ void RealSpaceCanvas::updateScene()
             builder3D.populate(m_realSpaceModel.get(), *item, *m_sceneGeometry,
                                m_view->getCamera().getPos());
         // otherwise use default orientation of camera
-        else
+        else {
             builder3D.populate(m_realSpaceModel.get(), *item, *m_sceneGeometry);
+            defaultView(); // Enforces default view and also sets the zoomLevel to default i.e. 0
+        }
     } catch (const std::exception& ex) {
         m_warningSign->setWarningMessage(ex.what());
     } catch (...) {

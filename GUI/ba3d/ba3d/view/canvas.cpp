@@ -41,6 +41,10 @@ float ZoomOutScale()
 
 const float rot_speed_h = 0.4f; // camera rotation speed in horizontal direction
 const float rot_speed_v = 0.4f; // camera rotation speed in vertical direction
+
+// Default camera position in accordance with RealSpaceBuilder.h
+const float cameraDefaultPosY = -200.0f; // default camera position on Y axis
+const float cameraDefaultPosZ = 120.0f; // default camera position on Z axis
 }
 
 namespace RealSpace
@@ -266,9 +270,10 @@ void Canvas::defaultView()
 {
     if (model) {
         // Default view
-        camera->lookAt(RealSpace::Camera::Position(RealSpace::Vector3D(0, -140, 90), // eye
-                                                   RealSpace::Vector3D(0, 0, 0),     // center
-                                                   RealSpace::Vector3D::_z));        // up
+        camera->lookAt(RealSpace::Camera::Position(
+                           RealSpace::Vector3D(0, cameraDefaultPosY, cameraDefaultPosZ), // eye
+                           RealSpace::Vector3D(0, 0, 0),                                 // center
+                           RealSpace::Vector3D::_z));                                    // up
         camera->endTransform(true);
 
         currentZoomLevel = 0; // reset zoom level to default value
@@ -280,7 +285,7 @@ void Canvas::sideView()
 {
     if (model) {
         // Side view at current zoom level
-        RealSpace::Vector3D eye(0, -140, 0);
+        RealSpace::Vector3D eye(0, cameraDefaultPosY, 0);
 
         if (currentZoomLevel >= 0)
             eye.y *= std::pow(ZoomInScale(), std::abs(currentZoomLevel));
@@ -301,7 +306,7 @@ void Canvas::topView()
     if (model) {
         // Top view at current zoom level
         // Setting a tiny offset in y value of eye such that eye and up vectors are not parallel
-        RealSpace::Vector3D eye(0, -0.5, 140);
+        RealSpace::Vector3D eye(0, -0.5, -cameraDefaultPosY);
 
         if (currentZoomLevel >= 0)
             eye.z *= std::pow(ZoomInScale(), std::abs(currentZoomLevel));

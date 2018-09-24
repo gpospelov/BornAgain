@@ -277,7 +277,7 @@ void Canvas::defaultView()
 void Canvas::sideView()
 {
     if (model) {
-        // Side view
+        // Side view at current zoom level
         RealSpace::Vector3D eye(0, -140, 0);
 
         if (currentZoomLevel >= 0)
@@ -297,7 +297,7 @@ void Canvas::sideView()
 void Canvas::topView()
 {
     if (model) {
-        // Top view
+        // Top view at current zoom level
         // Setting a tiny offset in y value of eye such that eye and up vectors are not parallel
         RealSpace::Vector3D eye(0, -0.5, 140);
 

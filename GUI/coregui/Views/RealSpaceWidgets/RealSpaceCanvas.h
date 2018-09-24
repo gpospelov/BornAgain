@@ -30,7 +30,7 @@ class WarningSign;
 class SceneGeometry
 {
 public:
-    SceneGeometry(double size = 50.0, double top_thickness = 25.0, double bottom_thickness = 25.0,
+    SceneGeometry(double size = 100.0, double top_thickness = 25.0, double bottom_thickness = 25.0,
                   double min_thickness = 2.0)
     {
         l_size = size;                         // layer size

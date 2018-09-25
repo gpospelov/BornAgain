@@ -157,14 +157,14 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     const std::unique_ptr<Histogram1D> reflectivity(sim_result.histogram1d(AxesUnits::RADIANS));
     EXPECT_EQ(10u, reflectivity->getTotalNumberOfBins());
     EXPECT_EQ(1u, reflectivity->getRank());
-    EXPECT_EQ(0.0, reflectivity->getXaxis().getMin());
-    EXPECT_EQ(2.0 * Units::degree, reflectivity->getXaxis().getMax());
+    EXPECT_NEAR(0.1 * Units::degree, reflectivity->getXaxis().getMin(), Units::degree * 1e-11);
+    EXPECT_NEAR(1.9 * Units::degree, reflectivity->getXaxis().getMax(), Units::degree * 1e-10);
 
     const std::unique_ptr<OutputData<double>> output(sim_result.data(AxesUnits::RADIANS));
     EXPECT_EQ(reflectivity->getTotalNumberOfBins(), output->getAllocatedSize());
     EXPECT_EQ(reflectivity->getRank(), output->getRank());
-    EXPECT_EQ(reflectivity->getXaxis().getMin(), output->getAxis(0).getMin());
-    EXPECT_EQ(reflectivity->getXaxis().getMax(), output->getAxis(0).getMax());
+    EXPECT_DOUBLE_EQ(reflectivity->getXaxis().getMin(), output->getAxis(0).getMin());
+    EXPECT_DOUBLE_EQ(reflectivity->getXaxis().getMax(), output->getAxis(0).getMax());
     EXPECT_DOUBLE_EQ(reflectivity->getBinValues()[5], (*output)[5]);
 
     checkBeamState(*sim);

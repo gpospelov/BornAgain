@@ -85,31 +85,15 @@ def get_weights(start, end):
     return get_real_data()[start:end, 2]
 
 
-def get_inclination_axis(real_data_positions):
-    """
-    Creates BornAgain axis, which corresponds to the given real_data axis.
-    :param real_data_positions: axis coordinates of experimental data
-    :return: BornAgain.IAxis
-    """
-    nbins = real_data_positions.size
-    min = real_data_positions[0] -\
-          (real_data_positions[1] - real_data_positions[0])\
-          / 2.0
-    max = real_data_positions[-1] +\
-          (real_data_positions[-1] - real_data_positions[-2])\
-          / 2.0
-    return ba.FixedBinAxis("alpha_i", nbins, min, max)
-
-
 def create_simulation(arg_dict, bin_start, bin_end):
     """
     Creates and returns specular simulation
     """
-    axis = get_inclination_axis(get_real_data_axis(bin_start, bin_end))
     simulation = ba.SpecularSimulation()
     alpha_distr = ba.DistributionGaussian(0.0, arg_dict["divergence"])
     footprint = ba.FootprintFactorGaussian(arg_dict["footprint_factor"])
-    simulation.setBeamParameters(1.54 * ba.angstrom, axis, footprint)
+    simulation.setBeamParameters(1.54 * ba.angstrom,
+                                 get_real_data_axis(bin_start, bin_end), footprint)
     simulation.setBeamIntensity(arg_dict["intensity"])
     simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
                                          30, 3)
@@ -226,7 +210,7 @@ def run_fitting():
     print("Start preliminary fitting of experimental data:\n")
 
     preliminary_result = differential_evolution(objective_primary, bounds,
-                                                maxiter=50, popsize=60,
+                                                maxiter=20, popsize=10,
                                                 mutation=(0.5, 1.5),
                                                 disp=True, tol=1e-5)
 
@@ -242,8 +226,8 @@ def run_fitting():
     print("\nStart fitting big incident angle part of experimental data:\n")
 
     fine_tuning_result = differential_evolution(objective_fine, bounds,
-                                                fixed_args, maxiter=50,
-                                                popsize=40, mutation=(0.5, 1.5),
+                                                fixed_args, maxiter=20,
+                                                popsize=10, mutation=(0.5, 1.5),
                                                 disp=True, tol=1e-5)
 
     result = create_par_dict(*fixed_args, *fine_tuning_result.x)

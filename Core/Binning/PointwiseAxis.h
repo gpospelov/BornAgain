@@ -18,14 +18,15 @@
 #include "IAxis.h"
 
 //! Axis containing arbitrary (non-equidistant) coordinate values.
-//! In the case when the values are equidistant, functionality
-//! coincides with the one of FixedBinAxis.
-//! Bin boundaries are computed as arithmetical mean of
+//! Lower boundary of the first bin and upper boundary of the
+//! last bin correspond to first and last passed coordinates.
+//! Other bin boundaries are computed as arithmetical mean of
 //! two adjacent coordinates.
 //! One should be aware, that bin centers reported
 //! by PointwiseAxis::getBinCenter do not coincide with the
-//! values produced by PointewiseAxis::getBin and
-//! Bin1D::getMidPoint.
+//! values produced by Bin1D::getMidPoint.
+//! On-axis values are bounded by minimum/maximum
+//! values passed to the constructor.
 //! @ingroup tools
 
 class BA_CORE_API_ PointwiseAxis : public IAxis

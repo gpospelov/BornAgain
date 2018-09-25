@@ -16,6 +16,7 @@
 #define DATAFORMATUTILS_H
 
 #include "WinDllMacros.h"
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -25,19 +26,6 @@ template <class T> class OutputData;
 //! Utility functions for data input and output.
 
 namespace DataFormatUtils {
-
-const std::string FixedBinAxisType = "FixedBinAxis";
-const std::string VariableBinAxisType = "VariableBinAxis";
-const std::string PointwiseAxisType = "PointwiseBinAxis";
-const std::string ConstKBinAxisType = "ConstKBinAxis";
-const std::string CustomBinAxisType = "CustomBinAxis";
-const std::string GzipExtension = ".gz";
-const std::string BzipExtension = ".bz2";
-const std::string IntExtension = ".int";
-const std::string TxtExtension = ".txt";
-const std::string TiffExtension = ".tif";
-const std::string TiffExtension2 = ".tiff";
-
 //! Returns true if name contains *.gz extension
 BA_CORE_API_ bool isCompressed(const std::string& name);
 
@@ -62,14 +50,7 @@ BA_CORE_API_ bool isTxtFile(const std::string& file_name);
 //! returns true if file name corresponds to tiff file (can be also compressed)
 BA_CORE_API_ bool isTiffFile(const std::string& file_name);
 
-BA_CORE_API_ bool isSimilarToFixedBinAxisType(const std::string& line);
-BA_CORE_API_ bool isVariableBinAxisType(const std::string& line);
-BA_CORE_API_ bool isPointwiseAxisType(const std::string& line);
-
-BA_CORE_API_ IAxis *createAxis(std::istream& input_stream);
-BA_CORE_API_ IAxis *createFixedBinAxis(std::string line);
-BA_CORE_API_ IAxis *createVariableBinAxis(std::string line);
-BA_CORE_API_ IAxis* createPointwiseAxis(std::string line);
+BA_CORE_API_ std::unique_ptr<IAxis> createAxis(std::istream& input_stream);
 
 BA_CORE_API_ void fillOutputData(OutputData<double>* data, std::istream& input_stream);
 

@@ -68,11 +68,10 @@ TEST_F(ConstKBinAxisTest, IOStream)
 {
     std::ostringstream oss;
     oss << m_axis;
+    std::istringstream iss(oss.str());
 
-    ConstKBinAxis* result
-        = dynamic_cast<ConstKBinAxis*>(DataFormatUtils::createFixedBinAxis(oss.str()));
+    std::unique_ptr<IAxis> result(DataFormatUtils::createAxis(iss));
     EXPECT_TRUE(m_axis == *result);
-    delete result;
 }
 
 //[-5.0, -3.99816897832528, -2.9975609824866662, -1.99786732193833, -0.9987818274427882, 0.0,

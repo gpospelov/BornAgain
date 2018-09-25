@@ -21,8 +21,8 @@
 
 #include <QMouseEvent>
 #include <QSysInfo>
-#include <math.h>
-#include <qmath.h>
+#include <cmath>
+#include <cstdlib>
 
 namespace
 {

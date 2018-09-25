@@ -35,6 +35,8 @@ CsvImportAssistant::CsvImportAssistant(QString dir, QString file, QWidget* paren
     m_dirName(dir),
     m_fileName(file),
     m_lastDataRow(0),
+    m_intensityCol(0),
+    m_coordinateCol(0),
     m_tableWidget(nullptr),
     m_filePathField(nullptr),
     m_separatorField(nullptr),
@@ -89,6 +91,7 @@ QBoxLayout* CsvImportAssistant::createLayout()
     result->addLayout(preresult);
 
     m_tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     connect(m_tableWidget, &QTableWidget::cellClicked, this, &CsvImportAssistant::OnColumnClicked);
     connect(m_tableWidget, &QTableWidget::customContextMenuRequested, this, &CsvImportAssistant::onColumnRightClick);
     return result;
@@ -287,25 +290,42 @@ void CsvImportAssistant::generate_table()
         msgBox.exec();
         return;
     }
-
-    m_tableWidget->clearContents();
-    m_tableWidget->setColumnCount(int(csvFile->NumberOfColumns()));
-    m_tableWidget->setRowCount(0);
-    m_lastDataRow = unsigned(csvFile->NumberOfRows());
     m_firstDataRowSpinBox->setMaximum(int(csvFile->NumberOfRows()));
     m_singleDataColSpinBox->setMaximum(int(csvFile->NumberOfColumns()));
+    m_lastDataRow = unsigned(int(csvFile->NumberOfRows()));
+    vector<vector<string>> csvArray = csvFile->asArray();
 
-    set_table_data(csvFile->asArray());
-    remove_unwanted();
+    //Remove empty lines at the end automatically:
+    while(QString::fromStdString(accumulate(csvArray[m_lastDataRow-1].begin(), csvArray[m_lastDataRow-1].end(), string(""))).trimmed() == ""){
+        m_lastDataRow--;
+        m_firstDataRowSpinBox->setMaximum(int(m_lastDataRow));
+    }
+
+    vector<vector<string>> dataArray( csvArray.begin() + firstLine()-1, csvArray.begin() + m_lastDataRow );
+    removeBlankColumns(dataArray);
+
+    set_table_data(dataArray);
+
     setRowNumbering();
 
     return;
 }
 
 void CsvImportAssistant::set_table_data(vector<vector<string>> dataArray){
-    unsigned firstDataLine = firstLine() - 1;
-    unsigned lastDataLine = lastLine();
-    for(unsigned i = firstDataLine; i < lastDataLine; i++){
+
+    if(dataArray.empty()){
+        m_tableWidget->clearContents();
+        m_tableWidget->setRowCount(0);
+        return;
+    }
+
+    size_t nRows = dataArray.size();
+    size_t nCols = dataArray[0].size();
+    m_tableWidget->clearContents();
+    m_tableWidget->setColumnCount(int(nCols));
+    m_tableWidget->setRowCount(0);
+
+    for(unsigned i = 0; i < nRows ; i++){
         m_tableWidget->insertRow(m_tableWidget->rowCount());
         unsigned I = unsigned(m_tableWidget->rowCount()) - 1;
         for(unsigned j = 0; j < dataArray[i].size(); j++){
@@ -314,74 +334,53 @@ void CsvImportAssistant::set_table_data(vector<vector<string>> dataArray){
     }
 }
 
-void CsvImportAssistant::remove_unwanted(){
-    int nRows = m_tableWidget->rowCount();
-    int nCols = m_tableWidget->columnCount();
-    vector<vector<string>> StringVectorVector;
-    vector<string> StringVector;
+
+void CsvImportAssistant::removeBlankColumns(vector<vector<string> > &dataArray){
+
+    if(dataArray.empty())
+        return;
+
+    vector<vector<string>> buffer2d;
+    vector<string> buffer1d;
     vector<int> to_be_removed;
 
-    //save the inices of blank cols
-    for(int j = 0; j < nCols; j++){
+    size_t nRows = dataArray.size();
+    size_t nCols = dataArray[0].size();
 
-        if(singleColumnImport() > 0){
-            if( unsigned(j+1) != singleColumnImport()){
-                to_be_removed.push_back(j);
-                continue;
-            }
-        }
-
-        int i = 0;
-        bool this_col_is_blank = cell_is_blank(i,j);
-        while(this_col_is_blank && i < nRows  ){
-            this_col_is_blank = cell_is_blank(i,j);
-            i++;
-        }
-        if(i == nRows){
-            to_be_removed.push_back(j);
-        }
+    if(!hasEqualLengthLines(dataArray)){
+        throw Exceptions::NotImplementedException("All inner vectors should have the same length already.");
     }
 
-    //save the values of the array
-    for(int i = 0; i < nRows; i++){
-        StringVector.clear();
-        for(int j = 0; j < nCols; j++){
-            string contents = m_tableWidget->item(i,j) != nullptr ? m_tableWidget->item(i,j)->text().toStdString() : "";
-            StringVector.push_back(contents);
+    //traverse the array columnwise -- this may be inneficient.
+    for(size_t j = 0; j < nCols; j++){
+        buffer1d.clear();
+        for(size_t i = 0; i < nRows; i++){
+            buffer1d.push_back(dataArray[i][j]);
         }
-        //Skip last row if it is an empty line:
-        if(i == nRows - 1)
-            if(QString::fromStdString(accumulate(StringVector.begin(), StringVector.end(), string(""))).trimmed() == "")
-                continue;
+        if(QString::fromStdString(accumulate(buffer1d.begin(), buffer1d.end(), string(""))).trimmed() == "")
+            continue;
 
-        StringVectorVector.push_back(StringVector);
+        buffer2d.push_back(buffer1d);
     }
 
-    //correct the size of the table
-    m_tableWidget->clearContents();
-    m_tableWidget->setRowCount(0);
-    m_tableWidget->setColumnCount(nCols-int(to_be_removed.size()));
-    nRows = int(StringVectorVector.size());
-
-    //put values into a new table
-    for(int i = 0; i < nRows; i++){
-        m_tableWidget->insertRow(m_tableWidget->rowCount());
-        int J = 0;
-        for(int j = 0; j < nCols; j++){
-            if( std::find(to_be_removed.begin(), to_be_removed.end(), j) == to_be_removed.end()){
-                string retrievedString = StringVectorVector[unsigned(i)][unsigned(j)];
-                m_tableWidget->setItem(i,J,new QTableWidgetItem(QString::fromStdString(retrievedString)));
-                J++;
-            }
-        }
+    if(buffer2d.empty()){
+        dataArray.clear();
+        return;
     }
 
-    //set header labels:
-    QStringList headers;
-    for(int j = 0; j < nCols; j++)
-        if( std::find(to_be_removed.begin(), to_be_removed.end(), j) == to_be_removed.end())
-            headers.append(QString::fromStdString(string("Column ") + to_string(j+1)));
-    m_tableWidget->setHorizontalHeaderLabels(headers);
+    //now buffer2d has the original array, without blank columns, transposed.
+    nCols = buffer2d.size();
+    nRows = buffer2d[0].size();
+
+    //Save the modified array --i.e. transpose buffer2d
+    dataArray.clear();
+    for(size_t i = 0; i < nRows; i++){
+        buffer1d.clear();
+        for(size_t j = 0; j < nCols; j++){
+            buffer1d.push_back(buffer2d[j][i]);
+        }
+        dataArray.push_back(buffer1d);
+    }
 }
 
 void CsvImportAssistant::setRowNumbering(){
@@ -461,8 +460,10 @@ char CsvImportAssistant::guessSeparator() const{
     //count number of occurences of each char in the file:
     char c;
     ifstream is(m_fileName.toStdString());
-    while (is.get(c))
-        frequencies[int(c)]++;
+    while (is.get(c)){
+        if(unsigned(c) < 127)
+            frequencies[unsigned(c)]++;
+    }
     is.close();
 
     //set the guessed separator as the most frequent among the
@@ -507,12 +508,11 @@ void CsvImportAssistant::OnColumnClicked(int row, int column)
     if(column < 0) return;
     if(row < 0) return;
 
-
-    QModelIndex left = m_tableWidget->model()->index(row, 0);
-    QModelIndex right= m_tableWidget->model()->index(row, m_tableWidget->columnCount() - 1);
-    QModelIndex top = m_tableWidget->model()->index(0, column);
+    m_tableWidget->clearSelection();
+    QModelIndex left   = m_tableWidget->model()->index(row, 0);
+    QModelIndex right  = m_tableWidget->model()->index(row, m_tableWidget->columnCount() - 1);
+    QModelIndex top    = m_tableWidget->model()->index(0, column);
     QModelIndex bottom = m_tableWidget->model()->index(m_tableWidget->rowCount() - 1, column);
-
 
     QItemSelection selection(left, right);
     selection.merge(QItemSelection(top, bottom), QItemSelectionModel::Select);
@@ -531,42 +531,64 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     OnColumnClicked(row,col);
     QMenu menu;
 
-
-
     //Set column as "Intensity"
-    menu.addAction( "Set as " + relevantHeaders[_intensity_]);
-    connect(menu.actions()[_intensity_],&QAction::triggered,
+    QAction setAsIntensity("Set as " + relevantHeaders[_intensity_],nullptr);
+    setAsIntensity.setDisabled(m_intensityCol>0);
+    menu.addAction(&setAsIntensity);
+    connect(&setAsIntensity,&QAction::triggered,
        [&](){
-        QString originalHeader = m_tableWidget->horizontalHeaderItem(col)->text();
-        int columnInFile = originalHeader.split(' ').takeLast().toInt();
         m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_intensity_]) );
-        m_singleDataColSpinBox->setValue(columnInFile);
-        Reload();
+        m_intensityCol = unsigned(col);
+        if(m_coordinateCol == m_intensityCol) m_coordinateCol=0;
     }
     );
 
 
+    QMenu *coordMenu = menu.addMenu("Set as coordinate");
+    coordMenu->setDisabled(m_coordinateCol>0);
     //Set column as "Theta"
-    menu.addAction( "Set as " + relevantHeaders[_theta_]);
-    connect(menu.actions()[_theta_],&QAction::triggered,
-            [&](){m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_theta_]) );}
+    QAction setAsTheta("Set as " + relevantHeaders[_theta_],nullptr);
+    coordMenu->addAction(&setAsTheta);
+    connect(&setAsTheta,&QAction::triggered,
+            [&](){
+            m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_theta_]) );
+            m_coordinateCol = unsigned(col);
+            if(m_coordinateCol == m_intensityCol) m_intensityCol=0;
+    }
     );
 
 
     //Set column as "2Theta"
-    menu.addAction( "Set as " + relevantHeaders[_2theta_]);
-    connect(menu.actions()[_2theta_],&QAction::triggered,
-            [&](){m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_2theta_]) );}
+    QAction setAs2Theta("Set as " + relevantHeaders[_2theta_],nullptr);
+    coordMenu->addAction(&setAs2Theta);
+    connect(&setAs2Theta,&QAction::triggered,
+            [&](){
+            m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_2theta_]) );
+            m_coordinateCol = unsigned(col);
+            if(m_coordinateCol == m_intensityCol) m_intensityCol=0;
+    }
     );
 
 
     //Set column as "qvector"
-    menu.addAction( "Set as " + relevantHeaders[_q_]);
-    connect(menu.actions()[_q_],&QAction::triggered,
-            [&](){m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_q_]) );}
+    QAction setAsQvector("Set as " + relevantHeaders[_q_],nullptr);
+    coordMenu->addAction(&setAsQvector);
+    connect(&setAsQvector,&QAction::triggered,
+            [&](){
+            m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_q_]) );
+            m_coordinateCol = unsigned(col);
+            if(m_coordinateCol == m_intensityCol) m_intensityCol=0;
+    }
     );
 
     menu.addSeparator();
+
+    //Use single column
+    QAction onlyThisColumn("Use only this column",nullptr);
+    menu.addAction(&onlyThisColumn);
+    connect(&onlyThisColumn,&QAction::triggered,
+            [&](){m_singleDataColSpinBox->setValue(col+1);}
+    );
 
     //Action "select from this row"
     QAction selectFromThisRowOn("Ignore preceding rows",nullptr);
@@ -584,6 +606,13 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
             [&](){
                 m_firstDataRowSpinBox->setValue(0);
                 m_singleDataColSpinBox->setValue(0);
+                m_intensityCol = 0;
+                m_coordinateCol = 0;
+                //Reset header labels:
+                QStringList headers;
+                for(int j = 0; j < m_tableWidget->columnCount(); j++)
+                    headers.append(QString::number(j+1));
+                m_tableWidget->setHorizontalHeaderLabels(headers);
             }
     );
 
@@ -596,4 +625,11 @@ void CsvImportAssistant::onReloadButton(){
 
 void CsvImportAssistant::onIntChanged(int _){
     Reload();
+}
+
+bool CsvImportAssistant::hasEqualLengthLines(vector<vector<string>> &dataArray){
+   auto tf =  all_of( begin(dataArray), end(dataArray), [dataArray](const vector<string>& x) {
+       return x.size() == dataArray.front().size();
+   });
+   return tf;
 }

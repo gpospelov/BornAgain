@@ -64,8 +64,9 @@ private:
     char guessSeparator() const;
     void generate_table();
     void set_table_data(vector<vector<string>> dataArray);
+    void removeBlankColumns(vector<vector<string>> &dataArray);
+    bool hasEqualLengthLines(vector<vector<string> > &dataArray);
     void convert_table();
-    void remove_unwanted();
     void setRowNumbering();
     bool cell_is_blank(int iRow, int jCol);
 
@@ -74,6 +75,8 @@ private:
     QString m_dirName;
     QString m_fileName;
     unsigned m_lastDataRow;
+    unsigned m_intensityCol;
+    unsigned m_coordinateCol;
 
     QTableWidget* m_tableWidget;
     QLineEdit* m_filePathField;

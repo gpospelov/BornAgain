@@ -92,7 +92,8 @@ def create_simulation(arg_dict, bin_start, bin_end):
     simulation = ba.SpecularSimulation()
     alpha_distr = ba.DistributionGaussian(0.0, arg_dict["divergence"])
     footprint = ba.FootprintFactorGaussian(arg_dict["footprint_factor"])
-    simulation.setBeamParameters(1.54 * ba.angstrom, get_real_data_axis(bin_start, bin_end), footprint)
+    simulation.setBeamParameters(1.54 * ba.angstrom,
+                                 get_real_data_axis(bin_start, bin_end), footprint)
     simulation.setBeamIntensity(arg_dict["intensity"])
     simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
                                          30, 3)

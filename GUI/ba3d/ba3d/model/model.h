@@ -46,6 +46,8 @@ public:
 
     void releaseGeometries(); // may be called any time
 
+    bool modelIsEmpty();
+
     virtual void cameraUpdated(Camera const&) {}
 
     Camera::Position defCamPos;    // default camera params

@@ -144,6 +144,14 @@ void Model::releaseGeometries()
         o->releaseGeometry();
 }
 
+bool Model::modelIsEmpty()
+{
+    if(objects.isEmpty() && objectsBlend.isEmpty())
+        return true;
+    else
+        return false;
+}
+
 void Model::draw(Canvas& canvas) const
 {
     for (auto o : objects)

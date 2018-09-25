@@ -65,7 +65,9 @@ void DataItem::saveData(const QString& projectDir)
         return;
 
     std::unique_lock<std::mutex> lock(m_update_data_mutex);
-    IntensityDataIOFactory::writeOutputData(*getOutputData(),
+    std::unique_ptr<OutputData<double>> clone(getOutputData()->clone());
+    lock.unlock();
+    IntensityDataIOFactory::writeOutputData(*clone,
                                             fileName(projectDir).toStdString());
 }
 

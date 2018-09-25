@@ -17,9 +17,9 @@
 #include "Beam.h"
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
+#include "PointwiseAxis.h"
 #include "UnitConverterUtils.h"
 #include "Units.h"
-#include "VariableBinAxis.h"
 
 namespace {
 double getQ(double wavelength, double angle)
@@ -55,7 +55,7 @@ double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
     if (units_type == AxesUnits::NBINS)
         return 0.0;
     auto translator = getTranslator(units_type);
-    return translator(m_axis->getMin());
+    return translator(m_axis->getBinCenter(0));
 }
 
 double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const
@@ -65,7 +65,7 @@ double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const
     if (units_type == AxesUnits::NBINS)
         return static_cast<double>(m_axis->size());
     auto translator = getTranslator(units_type);
-    return translator(m_axis->getMax());
+    return translator(m_axis->getBinCenter(m_axis->size() - 1));
 }
 
 size_t UnitConverter1D::axisSize(size_t i_axis) const
@@ -92,12 +92,12 @@ std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesU
         return std::make_unique<FixedBinAxis>(axisName(0, units), m_axis->size(),
                                               calculateMin(0, units), calculateMax(0, units));
 
-    auto boundaries = m_axis->getBinBoundaries();
+    auto coordinates = m_axis->getBinCenters();
     auto translator = getTranslator(units);
-    for (size_t i = 0, size = boundaries.size(); i < size; ++i)
-        boundaries[i] = translator(boundaries[i]);
+    for (size_t i = 0, size = coordinates.size(); i < size; ++i)
+        coordinates[i] = translator(coordinates[i]);
     const auto& name = axisName(0, units);
-    return std::make_unique<VariableBinAxis>(name, m_axis->size(), boundaries);
+    return std::make_unique<PointwiseAxis>(name, coordinates);
 }
 
 UnitConverter1D::UnitConverter1D(const UnitConverter1D& other)

@@ -700,6 +700,9 @@ clone method
 %feature("docstring")  ChiSquaredModule::processFitElements "void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)
 ";
 
+%feature("docstring")  ChiSquaredModule::residual "double ChiSquaredModule::residual(double a, double b, double weight)
+";
+
 
 // File: classExceptions_1_1ClassInitializationException.xml
 %feature("docstring") Exceptions::ClassInitializationException "";
@@ -2191,6 +2194,175 @@ Returns one dimensional array representing simulated intensities data. Masked ar
 ";
 
 
+// File: classFitObjective.xml
+%feature("docstring") FitObjective "
+
+Main class to hold pairs of simulation Holds vector of  FitObject's (simulation and real data) to fit
+
+C++ includes: FitObjective.h
+";
+
+%feature("docstring")  FitObjective::FitObjective "FitObjective::FitObjective()
+";
+
+%feature("docstring")  FitObjective::~FitObjective "FitObjective::~FitObjective()
+";
+
+%feature("docstring")  FitObjective::addSimulationAndData "void FitObjective::addSimulationAndData(simulation_builder_t builder, const OutputData< double > &data, double weight=1.0)
+
+Constructs simulation/data pair for later fit.
+
+Parameters:
+-----------
+
+simulation: 
+simulation builder capable of producing simulations
+
+data: 
+experimental data
+
+weight: 
+weight of dataset in chi2 calculations 
+";
+
+%feature("docstring")  FitObjective::addSimulationAndData "void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const std::vector< double > &data, double weight=1.0)
+";
+
+%feature("docstring")  FitObjective::addSimulationAndData "void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const std::vector< std::vector< double >> &data, double weight=1.0)
+";
+
+%feature("docstring")  FitObjective::evaluate "double FitObjective::evaluate(const Fit::Parameters &params)
+";
+
+%feature("docstring")  FitObjective::evaluate_residuals "std::vector< double > FitObjective::evaluate_residuals(const Fit::Parameters &params)
+";
+
+%feature("docstring")  FitObjective::numberOfFitElements "size_t FitObjective::numberOfFitElements() const 
+";
+
+%feature("docstring")  FitObjective::experimental_array "std::vector< double > FitObjective::experimental_array() const
+
+Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. Data from different datasets merged together. 
+";
+
+%feature("docstring")  FitObjective::simulation_array "std::vector< double > FitObjective::simulation_array() const
+
+Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. Data from different datasets merged together. 
+";
+
+%feature("docstring")  FitObjective::simulationResult "SimulationResult FitObjective::simulationResult(size_t i_item=0) const
+
+Returns simulation result.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
+";
+
+%feature("docstring")  FitObjective::experimentalData "SimulationResult FitObjective::experimentalData(size_t i_item=0) const
+
+Returns experimental data.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
+";
+
+%feature("docstring")  FitObjective::relativeDifference "SimulationResult FitObjective::relativeDifference(size_t i_item=0) const
+
+Returns relative difference between simulation and experimental data.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
+";
+
+%feature("docstring")  FitObjective::initPrint "void FitObjective::initPrint(int every_nth)
+
+Initializes printing to standard output during the fitting.
+
+Parameters:
+-----------
+
+every_nth: 
+Print every n'th iteration. 
+";
+
+%feature("docstring")  FitObjective::initPlot "void FitObjective::initPlot(int every_nth, PyObserverCallback &callback)
+
+Initializes plotting during the fitting using Python callable.
+
+Parameters:
+-----------
+
+every_nth: 
+Called on every n'th iteration. 
+";
+
+%feature("docstring")  FitObjective::isCompleted "bool FitObjective::isCompleted() const 
+";
+
+%feature("docstring")  FitObjective::iterationInfo "IterationInfo FitObjective::iterationInfo() const 
+";
+
+%feature("docstring")  FitObjective::minimizerResult "Fit::MinimizerResult FitObjective::minimizerResult() const 
+";
+
+%feature("docstring")  FitObjective::finalize "void FitObjective::finalize(const Fit::MinimizerResult &result)
+
+Should be explicitely called on last iteration to notify all observers. 
+";
+
+%feature("docstring")  FitObjective::fitObjectCount "unsigned FitObjective::fitObjectCount() const 
+";
+
+
+// File: classFitObserver.xml
+%feature("docstring") FitObserver "
+
+Contains collection of observers and call them at specified intervals. Each observer will be called at first iteration and every-nth iterations.
+
+C++ includes: FitObserver.h
+";
+
+%feature("docstring")  FitObserver::FitObserver "FitObserver< T >::FitObserver()
+";
+
+%feature("docstring")  FitObserver::addObserver "void FitObserver< T >::addObserver(int every_nth, observer_t observer)
+
+Adds observer to the list.
+
+Parameters:
+-----------
+
+every_nth: 
+An observer function will be called every_nth iterations.
+
+observer: 
+Observer function to be called. 
+";
+
+%feature("docstring")  FitObserver::notify "void FitObserver< T >::notify(const T &data)
+
+Notifies all observers at their personally specified intervals.
+
+Parameters:
+-----------
+
+data: 
+The data which will be passed to the observer. 
+";
+
+%feature("docstring")  FitObserver::notify_all "void FitObserver< T >::notify_all(const T &data)
+";
+
+
 // File: classFitParameter.xml
 %feature("docstring") FitParameter "
 
@@ -2250,6 +2422,175 @@ Returns vector containing patterns existing in both FitParametersLinked.
 %feature("docstring")  FitParameter::isConflicting "bool FitParameter::isConflicting(const FitParameter &other) const
 
 Returns true if two FitParameterLinked are intended to steer same  RealParameter. 
+";
+
+
+// File: classFitParameterSet.xml
+%feature("docstring") FitParameterSet "
+
+The set of fit parameters.
+
+C++ includes: FitParameterSet.h
+";
+
+%feature("docstring")  FitParameterSet::FitParameterSet "FitParameterSet::FitParameterSet()
+";
+
+%feature("docstring")  FitParameterSet::~FitParameterSet "FitParameterSet::~FitParameterSet()
+";
+
+%feature("docstring")  FitParameterSet::clear "void FitParameterSet::clear()
+
+Clears all defined parameters. 
+";
+
+%feature("docstring")  FitParameterSet::size "size_t FitParameterSet::size() const
+
+Returns number of parameters. 
+";
+
+%feature("docstring")  FitParameterSet::begin "FitParameterSet::iterator FitParameterSet::begin()
+
+Container iterators. 
+";
+
+%feature("docstring")  FitParameterSet::begin "FitParameterSet::const_iterator FitParameterSet::begin() const 
+";
+
+%feature("docstring")  FitParameterSet::end "FitParameterSet::iterator FitParameterSet::end()
+";
+
+%feature("docstring")  FitParameterSet::end "FitParameterSet::const_iterator FitParameterSet::end() const 
+";
+
+%feature("docstring")  FitParameterSet::addFitParameter "void FitParameterSet::addFitParameter(IFitParameter *par)
+
+Adds fit parameter. 
+";
+
+%feature("docstring")  FitParameterSet::fitParameter "const IFitParameter * FitParameterSet::fitParameter(const std::string &name) const
+
+Returns fit parameter by given name. 
+";
+
+%feature("docstring")  FitParameterSet::fitParameter "IFitParameter * FitParameterSet::fitParameter(const std::string &name)
+";
+
+%feature("docstring")  FitParameterSet::values "std::vector< double > FitParameterSet::values() const
+
+Returns values of all defined parameters. 
+";
+
+%feature("docstring")  FitParameterSet::setValues "void FitParameterSet::setValues(const std::vector< double > &pars_values)
+
+Sets values for all defined parameters. 
+";
+
+%feature("docstring")  FitParameterSet::valuesDifferFrom "bool FitParameterSet::valuesDifferFrom(const std::vector< double > &par_values, double tolerance=2.0) const
+
+Returns true if parameters already have the given values. 
+";
+
+%feature("docstring")  FitParameterSet::errors "std::vector< double > FitParameterSet::errors() const
+
+Returns errors of all defined parameters. 
+";
+
+%feature("docstring")  FitParameterSet::setErrors "void FitParameterSet::setErrors(const std::vector< double > &pars_errors)
+
+Sets errors to all parameters. 
+";
+
+%feature("docstring")  FitParameterSet::freeFitParameterCount "size_t FitParameterSet::freeFitParameterCount() const
+
+Returns number of free parameters. 
+";
+
+%feature("docstring")  FitParameterSet::fixAll "void FitParameterSet::fixAll()
+
+Fix all parameters. 
+";
+
+%feature("docstring")  FitParameterSet::releaseAll "void FitParameterSet::releaseAll()
+
+Release all parameters. 
+";
+
+%feature("docstring")  FitParameterSet::setFixed "void FitParameterSet::setFixed(const std::vector< std::string > &pars, bool is_fixed)
+
+Set fixed flag for parameters from the list. 
+";
+
+%feature("docstring")  FitParameterSet::correlationMatrix "corr_matrix_t FitParameterSet::correlationMatrix() const 
+";
+
+%feature("docstring")  FitParameterSet::setCorrelationMatrix "void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)
+
+Sets resulting correlation matrix. 
+";
+
+%feature("docstring")  FitParameterSet::fitParametersNewKernel "Fit::Parameters FitParameterSet::fitParametersNewKernel() const
+
+Refactoring temp: returns set of new fit parameters. 
+";
+
+
+// File: classFitPrintService.xml
+%feature("docstring") FitPrintService "
+
+Prints fit statistics to standard output during minimizer iterations.
+
+C++ includes: FitPrintService.h
+";
+
+%feature("docstring")  FitPrintService::FitPrintService "FitPrintService::FitPrintService()
+";
+
+%feature("docstring")  FitPrintService::print "void FitPrintService::print(const FitObjective &objective)
+";
+
+
+// File: classFitStatus.xml
+%feature("docstring") FitStatus "
+
+Contains status of the fitting (running, interupted etc) and all intermediate information which has to be collected during the fit. Owned by  FitObjective.
+
+C++ includes: FitStatus.h
+";
+
+%feature("docstring")  FitStatus::FitStatus "FitStatus::FitStatus(const FitObjective *fit_objective)
+";
+
+%feature("docstring")  FitStatus::~FitStatus "FitStatus::~FitStatus()
+";
+
+%feature("docstring")  FitStatus::setInterrupted "void FitStatus::setInterrupted()
+";
+
+%feature("docstring")  FitStatus::isInterrupted "bool FitStatus::isInterrupted() const 
+";
+
+%feature("docstring")  FitStatus::isCompleted "bool FitStatus::isCompleted() const 
+";
+
+%feature("docstring")  FitStatus::update "void FitStatus::update(const Fit::Parameters &params, double chi2)
+";
+
+%feature("docstring")  FitStatus::initPrint "void FitStatus::initPrint(int every_nth)
+";
+
+%feature("docstring")  FitStatus::addObserver "void FitStatus::addObserver(int every_nth, fit_observer_t)
+";
+
+%feature("docstring")  FitStatus::iterationInfo "IterationInfo FitStatus::iterationInfo() const 
+";
+
+%feature("docstring")  FitStatus::minimizerResult "Fit::MinimizerResult FitStatus::minimizerResult() const 
+";
+
+%feature("docstring")  FitStatus::finalize "void FitStatus::finalize(const Fit::MinimizerResult &result)
+
+Should be explicitely called on last iteration to notify all observers. 
 ";
 
 
@@ -2469,7 +2810,7 @@ Adds fit strategy.
 Sets minimizer. 
 ";
 
-%feature("docstring")  FitSuite::minimizer "const IMinimizer * FitSuite::minimizer() const
+%feature("docstring")  FitSuite::minimizerName "std::string FitSuite::minimizerName() const
 
 Returns minimizer. 
 ";
@@ -2598,56 +2939,6 @@ the index of fit pair
 ";
 
 
-// File: classFitSuiteChiSquaredFunction.xml
-%feature("docstring") FitSuiteChiSquaredFunction "
-
-Chi squared fitting function for minimizer.
-
-C++ includes: FitSuiteFunctions.h
-";
-
-%feature("docstring")  FitSuiteChiSquaredFunction::FitSuiteChiSquaredFunction "FitSuiteChiSquaredFunction::FitSuiteChiSquaredFunction()
-";
-
-%feature("docstring")  FitSuiteChiSquaredFunction::~FitSuiteChiSquaredFunction "virtual FitSuiteChiSquaredFunction::~FitSuiteChiSquaredFunction()
-";
-
-%feature("docstring")  FitSuiteChiSquaredFunction::evaluate "double FitSuiteChiSquaredFunction::evaluate(const std::vector< double > &pars)
-
-evaluate method for chi2 value called directly from the minimizer
-
-evaluate chi squared value 
-";
-
-
-// File: classFitSuiteGradientFunction.xml
-%feature("docstring") FitSuiteGradientFunction "
-
-Gradient fitting function for minimizer.
-
-C++ includes: FitSuiteFunctions.h
-";
-
-%feature("docstring")  FitSuiteGradientFunction::FitSuiteGradientFunction "FitSuiteGradientFunction::FitSuiteGradientFunction()
-";
-
-%feature("docstring")  FitSuiteGradientFunction::~FitSuiteGradientFunction "virtual FitSuiteGradientFunction::~FitSuiteGradientFunction()
-";
-
-%feature("docstring")  FitSuiteGradientFunction::evaluate "double FitSuiteGradientFunction::evaluate(const std::vector< double > &pars, unsigned int index, std::vector< double > &gradients)
-
-evaluate method for gradients and residuals called directly from the minimizer
-
-evaluate residual and derivative for given data element 
-";
-
-%feature("docstring")  FitSuiteGradientFunction::getNCallsTotal "virtual size_t FitSuiteGradientFunction::getNCallsTotal() const 
-";
-
-%feature("docstring")  FitSuiteGradientFunction::getNCallsGradient "virtual size_t FitSuiteGradientFunction::getNCallsGradient() const 
-";
-
-
 // File: classFitSuiteImpl.xml
 %feature("docstring") FitSuiteImpl "
 
@@ -2769,9 +3060,6 @@ Sets fit options.
 %feature("docstring")  FitSuiteImpl::isInterrupted "bool FitSuiteImpl::isInterrupted() const 
 ";
 
-%feature("docstring")  FitSuiteImpl::kernel "const FitKernel * FitSuiteImpl::kernel() const 
-";
-
 %feature("docstring")  FitSuiteImpl::setupToString "std::string FitSuiteImpl::setupToString()
 
 Returns multiline string representing fit setup. 
@@ -2868,6 +3156,9 @@ Parameters:
 
 global_index: 
 index across all element in  FitElement vector 
+";
+
+%feature("docstring")  FitSuiteObjects::residuals "std::vector< double > FitSuiteObjects::residuals() const 
 ";
 
 %feature("docstring")  FitSuiteObjects::setNfreeParameters "void FitSuiteObjects::setNfreeParameters(int nfree_parameters)
@@ -3589,6 +3880,38 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
+// File: classFormFactorDebyeBueche.xml
+%feature("docstring") FormFactorDebyeBueche "
+
+The formfactor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
+
+C++ includes: FormFactorDebyeBueche.h
+";
+
+%feature("docstring")  FormFactorDebyeBueche::FormFactorDebyeBueche "FormFactorDebyeBueche::FormFactorDebyeBueche(double I0, double xi)
+";
+
+%feature("docstring")  FormFactorDebyeBueche::clone "FormFactorDebyeBueche* FormFactorDebyeBueche::clone() const overridefinal
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorDebyeBueche::accept "void FormFactorDebyeBueche::accept(INodeVisitor *visitor) const overridefinal
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorDebyeBueche::radialExtension "double FormFactorDebyeBueche::radialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorDebyeBueche::evaluate_for_q "complex_t FormFactorDebyeBueche::evaluate_for_q(cvector_t q) const overridefinal
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+
 // File: classFormFactorDecoratorDebyeWaller.xml
 %feature("docstring") FormFactorDecoratorDebyeWaller "
 
@@ -4020,7 +4343,7 @@ A full sphere.
 C++ includes: FormFactorFullSphere.h
 ";
 
-%feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(double radius)
+%feature("docstring")  FormFactorFullSphere::FormFactorFullSphere "FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center=false)
 
 Constructor of a full sphere.
 
@@ -4622,6 +4945,38 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  FormFactorLorentz::evaluate_for_q "complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const overridefinal
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+
+// File: classFormFactorOrnsteinZernike.xml
+%feature("docstring") FormFactorOrnsteinZernike "
+
+The formfactor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
+
+C++ includes: FormFactorOrnsteinZernike.h
+";
+
+%feature("docstring")  FormFactorOrnsteinZernike::FormFactorOrnsteinZernike "FormFactorOrnsteinZernike::FormFactorOrnsteinZernike(double I0, double xi_xy, double xi_z)
+";
+
+%feature("docstring")  FormFactorOrnsteinZernike::clone "FormFactorOrnsteinZernike* FormFactorOrnsteinZernike::clone() const overridefinal
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorOrnsteinZernike::accept "void FormFactorOrnsteinZernike::accept(INodeVisitor *visitor) const overridefinal
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorOrnsteinZernike::radialExtension "double FormFactorOrnsteinZernike::radialExtension() const overridefinal
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorOrnsteinZernike::evaluate_for_q "complex_t FormFactorOrnsteinZernike::evaluate_for_q(cvector_t q) const overridefinal
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
@@ -5898,6 +6253,41 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 ";
 
 
+// File: classGaussPeakShape.xml
+%feature("docstring") GaussPeakShape "
+
+Class that implements a Gaussian peak shape of a Bragg peak.
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  GaussPeakShape::GaussPeakShape "GaussPeakShape::GaussPeakShape(double domainsize)
+";
+
+%feature("docstring")  GaussPeakShape::~GaussPeakShape "GaussPeakShape::~GaussPeakShape() override
+";
+
+%feature("docstring")  GaussPeakShape::clone "GaussPeakShape * GaussPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  GaussPeakShape::accept "void GaussPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  GaussPeakShape::evaluate "double GaussPeakShape::evaluate(const kvector_t q) const override
+
+Evaluates the peak shape at displacement q from the center at 0. 
+";
+
+%feature("docstring")  GaussPeakShape::thickness_z "double GaussPeakShape::thickness_z() const override
+
+Returns the thickness in the z-direction. 
+";
+
+
 // File: classGISASSimulation.xml
 %feature("docstring") GISASSimulation "
 
@@ -6405,11 +6795,6 @@ constructors
 clone function 
 ";
 
-%feature("docstring")  IAxis::createDoubleBinSize "IAxis * IAxis::createDoubleBinSize() const
-
-Creates a new axis with half the number of bins. 
-";
-
 %feature("docstring")  IAxis::~IAxis "virtual IAxis::~IAxis()
 
 destructor 
@@ -6451,11 +6836,6 @@ Returns value of last point of axis.
 %feature("docstring")  IAxis::findClosestIndex "virtual size_t IAxis::findClosestIndex(double value) const =0
 
 find bin index which is best match for given value 
-";
-
-%feature("docstring")  IAxis::findIndex "size_t IAxis::findIndex(double value) const
-
-find index of bin that contains the given value returns  size() when value is not found 
 ";
 
 %feature("docstring")  IAxis::getBinCenters "std::vector< double > IAxis::getBinCenters() const 
@@ -6553,6 +6933,9 @@ Sets data rescaler.
 ";
 
 %feature("docstring")  IChiSquaredModule::processFitElements "virtual void IChiSquaredModule::processFitElements(std::vector< FitElement >::iterator, std::vector< FitElement >::iterator)
+";
+
+%feature("docstring")  IChiSquaredModule::residual "virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
 ";
 
 
@@ -7033,6 +7416,90 @@ Here Onserver will do actuall job when he thinks that it is a right moment.
 ";
 
 
+// File: classIFitParameter.xml
+%feature("docstring") IFitParameter "
+
+A fittable parameter with value, error, step, and limits.
+
+C++ includes: IFitParameter.h
+";
+
+%feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter()
+";
+
+%feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
+";
+
+%feature("docstring")  IFitParameter::~IFitParameter "virtual IFitParameter::~IFitParameter()
+";
+
+%feature("docstring")  IFitParameter::clone "IFitParameter * IFitParameter::clone() const 
+";
+
+%feature("docstring")  IFitParameter::name "std::string IFitParameter::name() const 
+";
+
+%feature("docstring")  IFitParameter::setName "IFitParameter & IFitParameter::setName(const std::string &name)
+";
+
+%feature("docstring")  IFitParameter::startValue "double IFitParameter::startValue() const 
+";
+
+%feature("docstring")  IFitParameter::setStartValue "void IFitParameter::setStartValue(double value)
+";
+
+%feature("docstring")  IFitParameter::value "double IFitParameter::value() const 
+";
+
+%feature("docstring")  IFitParameter::setValue "void IFitParameter::setValue(double value)
+";
+
+%feature("docstring")  IFitParameter::addPattern "IFitParameter & IFitParameter::addPattern(const std::string &pattern)
+";
+
+%feature("docstring")  IFitParameter::step "double IFitParameter::step() const 
+";
+
+%feature("docstring")  IFitParameter::setStep "IFitParameter & IFitParameter::setStep(double value)
+";
+
+%feature("docstring")  IFitParameter::error "double IFitParameter::error() const 
+";
+
+%feature("docstring")  IFitParameter::setError "void IFitParameter::setError(double value)
+";
+
+%feature("docstring")  IFitParameter::limits "const AttLimits & IFitParameter::limits() const 
+";
+
+%feature("docstring")  IFitParameter::limits "AttLimits & IFitParameter::limits()
+";
+
+%feature("docstring")  IFitParameter::setLimits "IFitParameter & IFitParameter::setLimits(const AttLimits &limits)
+";
+
+%feature("docstring")  IFitParameter::setLowerLimited "IFitParameter & IFitParameter::setLowerLimited(double bound_value)
+";
+
+%feature("docstring")  IFitParameter::setPositive "IFitParameter & IFitParameter::setPositive()
+";
+
+%feature("docstring")  IFitParameter::setNonnegative "IFitParameter & IFitParameter::setNonnegative()
+";
+
+%feature("docstring")  IFitParameter::setUpperLimited "IFitParameter & IFitParameter::setUpperLimited(double bound_value)
+";
+
+%feature("docstring")  IFitParameter::setLimited "IFitParameter & IFitParameter::setLimited(double left_bound_value, double right_bound_value)
+";
+
+%feature("docstring")  IFitParameter::setFixed "IFitParameter & IFitParameter::setFixed()
+";
+
+%feature("docstring")  IFitParameter::toString "std::string IFitParameter::toString() const 
+";
+
+
 // File: classIFitStrategy.xml
 %feature("docstring") IFitStrategy "
 
@@ -7054,27 +7521,6 @@ C++ includes: IFitStrategy.h
 ";
 
 %feature("docstring")  IFitStrategy::execute "virtual void IFitStrategy::execute()=0
-";
-
-
-// File: classIFitSuiteFunction.xml
-%feature("docstring") IFitSuiteFunction "
-
-Fitting functions interface to be used by Minimizer.
-
-C++ includes: FitSuiteFunctions.h
-";
-
-%feature("docstring")  IFitSuiteFunction::IFitSuiteFunction "IFitSuiteFunction::IFitSuiteFunction()
-";
-
-%feature("docstring")  IFitSuiteFunction::~IFitSuiteFunction "virtual IFitSuiteFunction::~IFitSuiteFunction()
-";
-
-%feature("docstring")  IFitSuiteFunction::init "virtual void IFitSuiteFunction::init(FitSuiteImpl *fit_suite)
-";
-
-%feature("docstring")  IFitSuiteFunction::getNCalls "virtual size_t IFitSuiteFunction::getNCalls() const 
 ";
 
 
@@ -7388,11 +7834,6 @@ set angle between first lattice vector and X-axis of distribution (both in direc
 get angle between first lattice vector and X-axis of distribution (both in direct space) 
 ";
 
-%feature("docstring")  IFTDecayFunction2D::delta "double IFTDecayFunction2D::delta() const
-
-get angle between X- and Y-axis of distribution (in direct space) 
-";
-
 %feature("docstring")  IFTDecayFunction2D::decayLengthX "double IFTDecayFunction2D::decayLengthX() const
 
 get decay length in distribution's X-direction 
@@ -7408,9 +7849,11 @@ get decay length in distribution's Y-direction
 evaluate Fourier transformed decay function for q in X,Y coordinates 
 ";
 
-%feature("docstring")  IFTDecayFunction2D::transformToStarBasis "void IFTDecayFunction2D::transformToStarBasis(double qX, double qY, double alpha, double a, double b, double &qa, double &qb) const
+%feature("docstring")  IFTDecayFunction2D::boundingReciprocalLatticeCoordinates "std::pair< double, double > IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, double a, double b, double alpha) const
 
-transform back to a*, b* basis: 
+transform back to a*, b* basis:
+
+Calculates bounding values of reciprocal lattice coordinates that contain the centered rectangle with a corner defined by qX and qY 
 ";
 
 
@@ -7863,14 +8306,14 @@ Calls the  INodeVisitor's visit method.
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
-%feature("docstring")  IInterferenceFunction::kappa "virtual double IInterferenceFunction::kappa() const
-
-Retrieves the size-distance coupling constant (default 0.0) 
-";
-
 %feature("docstring")  IInterferenceFunction::getParticleDensity "virtual double IInterferenceFunction::getParticleDensity() const
 
 If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+";
+
+%feature("docstring")  IInterferenceFunction::supportsMultilayer "virtual bool IInterferenceFunction::supportsMultilayer() const
+
+Indicates if this interference function can be used with a multilayer (DWBA mode) 
 ";
 
 
@@ -7898,6 +8341,22 @@ Initializes the object with form factors and an interference function.
 %feature("docstring")  IInterferenceFunctionStrategy::evaluate "double IInterferenceFunctionStrategy::evaluate(const SimulationElement &sim_element) const
 
 Calculates the intensity for scalar particles/interactions. 
+";
+
+
+// File: classILatticeOrientation.xml
+%feature("docstring") ILatticeOrientation "";
+
+%feature("docstring")  ILatticeOrientation::~ILatticeOrientation "ILatticeOrientation::~ILatticeOrientation()
+";
+
+%feature("docstring")  ILatticeOrientation::clone "virtual ILatticeOrientation* ILatticeOrientation::clone() const =0
+";
+
+%feature("docstring")  ILatticeOrientation::usePrimitiveLattice "virtual void ILatticeOrientation::usePrimitiveLattice(const Lattice &lattice)=0
+";
+
+%feature("docstring")  ILatticeOrientation::transformationMatrix "virtual Transform3D ILatticeOrientation::transformationMatrix() const =0
 ";
 
 
@@ -7985,7 +8444,7 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  ILayout::particles "virtual SafePointerVector<const IParticle> ILayout::particles() const =0
+%feature("docstring")  ILayout::particles "virtual SafePointerVector<IParticle> ILayout::particles() const =0
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
@@ -8003,6 +8462,16 @@ Returns surface density of all particles.
 %feature("docstring")  ILayout::setTotalParticleSurfaceDensity "virtual void ILayout::setTotalParticleSurfaceDensity(double particle_density)=0
 
 Sets surface density of all particles. 
+";
+
+%feature("docstring")  ILayout::weight "double ILayout::weight() const
+
+Returns the relative weight of this layout. 
+";
+
+%feature("docstring")  ILayout::setWeight "void ILayout::setWeight(double weight)
+
+Sets the relative weight of this layout. 
 ";
 
 %feature("docstring")  ILayout::getApproximation "EInterferenceApproximation ILayout::getApproximation() const
@@ -8414,6 +8883,9 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DLattice *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction3DLattice *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DSuperLattice *)
 ";
 
@@ -8430,6 +8902,9 @@ C++ includes: INodeVisitor.h
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IParticle *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IPeakShape *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IRotation *)
@@ -8831,7 +9306,7 @@ Parameters:
 -----------
 
 length: 
-lattice length in nanometers
+lattice constant in nanometers
 
 xi: 
 rotation of lattice with respect to x-axis in radians 
@@ -8894,16 +9369,16 @@ Parameters:
 -----------
 
 length_1: 
-length of first lattice vector in nanometers
+length of the first basis vector in nanometers
 
 length_2: 
-length of second lattice vector in nanometers
+length of the second basis vector in nanometers
 
 alpha: 
-angle between lattice vectors in radians
+angle between the basis vectors in radians
 
 xi: 
-rotation of lattice with respect to x-axis (beam direction) in radians 
+rotation of the lattice with respect to the x-axis (beam direction) in radians 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::~InterferenceFunction2DLattice "InterferenceFunction2DLattice::~InterferenceFunction2DLattice() final
@@ -9167,6 +9642,65 @@ Returns a vector of children (const).
 ";
 
 
+// File: classInterferenceFunction3DLattice.xml
+%feature("docstring") InterferenceFunction3DLattice "
+
+Interference function of 3D lattice.
+
+C++ includes: InterferenceFunction3DLattice.h
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::InterferenceFunction3DLattice "InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::~InterferenceFunction3DLattice "InterferenceFunction3DLattice::~InterferenceFunction3DLattice() final
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::clone "InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::accept "void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::setPeakShape "void InterferenceFunction3DLattice::setPeakShape(const IPeakShape &peak_shape)
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::setDebyeWallerFactor "void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::evaluate "double InterferenceFunction3DLattice::evaluate(const kvector_t q) const final
+
+Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::lattice "const Lattice & InterferenceFunction3DLattice::lattice() const 
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::getParticleDensity "double InterferenceFunction3DLattice::getParticleDensity() const final
+
+If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::supportsMultilayer "bool InterferenceFunction3DLattice::supportsMultilayer() const override
+
+Indicates if this interference function can be used with a multilayer (DWBA mode) 
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::getChildren "std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override
+
+Returns a vector of children (const). 
+";
+
+%feature("docstring")  InterferenceFunction3DLattice::onChange "void InterferenceFunction3DLattice::onChange() overridefinal
+
+Action to be taken in inherited class when a parameter has changed. 
+";
+
+
 // File: classInterferenceFunctionFinite2DLattice.xml
 %feature("docstring") InterferenceFunctionFinite2DLattice "
 
@@ -9318,9 +9852,7 @@ size:
 spacing coupling parameter 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::kappa "double InterferenceFunctionRadialParaCrystal::kappa() const final
-
-Retrieves the size-distance coupling constant (default 0.0) 
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::kappa "double InterferenceFunctionRadialParaCrystal::kappa() const 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::setDomainSize "void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
@@ -9371,12 +9903,12 @@ Returns a vector of children (const).
 // File: classIObservable.xml
 %feature("docstring") IObservable "
 
-Observable interface from Observer pattern, for 1:n object dependencies.
+Observable interface from Observer pattern
 
 C++ includes: IObserver.h
 ";
 
-%feature("docstring")  IObservable::~IObservable "virtual IObservable::~IObservable()
+%feature("docstring")  IObservable::~IObservable "IObservable::~IObservable()
 ";
 
 %feature("docstring")  IObservable::attachObserver "void IObservable::attachObserver(observer_t obj)
@@ -9393,12 +9925,12 @@ notify observers about change in status
 // File: classIObserver.xml
 %feature("docstring") IObserver "
 
-Observer interface from Observer pattern, for 1:n object dependencies.
+Observer interface from Observer pattern.
 
 C++ includes: IObserver.h
 ";
 
-%feature("docstring")  IObserver::~IObserver "virtual IObserver::~IObserver()
+%feature("docstring")  IObserver::~IObserver "IObserver::~IObserver()
 ";
 
 %feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=0
@@ -9640,6 +10172,33 @@ Decompose in constituent  IParticle objects.
 %feature("docstring")  IParticle::bottomTopZ "ParticleLimits IParticle::bottomTopZ() const
 
 Top and bottom z-coordinate. 
+";
+
+
+// File: classIPeakShape.xml
+%feature("docstring") IPeakShape "
+
+Pure virtual interface class that defines the peak shape of a Bragg peak.
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  IPeakShape::~IPeakShape "IPeakShape::~IPeakShape()
+";
+
+%feature("docstring")  IPeakShape::clone "virtual IPeakShape* IPeakShape::clone() const =0
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  IPeakShape::evaluate "virtual double IPeakShape::evaluate(const kvector_t q) const =0
+
+Evaluates the peak shape at displacement q from the center at 0. 
+";
+
+%feature("docstring")  IPeakShape::thickness_z "virtual double IPeakShape::thickness_z() const =0
+
+Returns the thickness in the z-direction. 
 ";
 
 
@@ -9894,6 +10453,37 @@ C++ includes: ISquaredFunction.h
 ";
 
 
+// File: classIterationInfo.xml
+%feature("docstring") IterationInfo "
+
+Stores fit iteration info to track fit flow from various observers. Used in context of  FitObjective.
+
+C++ includes: IterationInfo.h
+";
+
+%feature("docstring")  IterationInfo::IterationInfo "IterationInfo::IterationInfo()
+";
+
+%feature("docstring")  IterationInfo::update "void IterationInfo::update(const Fit::Parameters &params, double chi2)
+";
+
+%feature("docstring")  IterationInfo::iterationCount "unsigned IterationInfo::iterationCount() const
+
+Returns current number of minimizer iterations. 
+";
+
+%feature("docstring")  IterationInfo::chi2 "double IterationInfo::chi2() const 
+";
+
+%feature("docstring")  IterationInfo::parameters "Fit::Parameters IterationInfo::parameters() const 
+";
+
+%feature("docstring")  IterationInfo::parameterMap "std::map< std::string, double > IterationInfo::parameterMap() const
+
+Returns map of fit parameter names and its current values. 
+";
+
+
 // File: classIterationStrategy.xml
 %feature("docstring") IterationStrategy "";
 
@@ -10045,7 +10635,7 @@ A lattice with three basis vectors.
 C++ includes: Lattice.h
 ";
 
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice()=delete
+%feature("docstring")  Lattice::Lattice "Lattice::Lattice()
 ";
 
 %feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
@@ -10054,7 +10644,7 @@ C++ includes: Lattice.h
 %feature("docstring")  Lattice::Lattice "Lattice::Lattice(const Lattice &lattice)
 ";
 
-%feature("docstring")  Lattice::~Lattice "Lattice::~Lattice()
+%feature("docstring")  Lattice::~Lattice "Lattice::~Lattice() override
 ";
 
 %feature("docstring")  Lattice::accept "void Lattice::accept(INodeVisitor *visitor) const override
@@ -10085,6 +10675,16 @@ Returns basis vector b.
 %feature("docstring")  Lattice::getBasisVectorC "kvector_t Lattice::getBasisVectorC() const
 
 Returns basis vector c. 
+";
+
+%feature("docstring")  Lattice::resetBasis "void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
+
+Resets the basis vectors. 
+";
+
+%feature("docstring")  Lattice::getMillerDirection "kvector_t Lattice::getMillerDirection(int h, int k, int l) const
+
+Returns normalized direction corresponding to the given Miller indices. 
 ";
 
 %feature("docstring")  Lattice::volume "double Lattice::volume() const
@@ -10968,6 +11568,32 @@ C++ includes: MesoCrystalBuilder.h
 ";
 
 
+// File: structMillerIndex.xml
+%feature("docstring") MillerIndex "";
+
+%feature("docstring")  MillerIndex::MillerIndex "MillerIndex::MillerIndex(int h_, int k_, int l_)
+";
+
+
+// File: classMillerIndexOrientation.xml
+%feature("docstring") MillerIndexOrientation "";
+
+%feature("docstring")  MillerIndexOrientation::MillerIndexOrientation "MillerIndexOrientation::MillerIndexOrientation(QComponent q1, MillerIndex index1, QComponent q2, MillerIndex index2)
+";
+
+%feature("docstring")  MillerIndexOrientation::~MillerIndexOrientation "MillerIndexOrientation::~MillerIndexOrientation() override
+";
+
+%feature("docstring")  MillerIndexOrientation::clone "MillerIndexOrientation * MillerIndexOrientation::clone() const override
+";
+
+%feature("docstring")  MillerIndexOrientation::usePrimitiveLattice "void MillerIndexOrientation::usePrimitiveLattice(const Lattice &lattice) override
+";
+
+%feature("docstring")  MillerIndexOrientation::transformationMatrix "Transform3D MillerIndexOrientation::transformationMatrix() const override
+";
+
+
 // File: classMPISimulation.xml
 %feature("docstring") MPISimulation "";
 
@@ -11236,6 +11862,9 @@ C++ includes: NodeIterator.h
 
 %feature("docstring")  Exceptions::NullPointerException::NullPointerException "Exceptions::NullPointerException::NullPointerException(const std::string &message)
 ";
+
+
+// File: classFitObserver_1_1ObserverData.xml
 
 
 // File: classOffSpecSimulation.xml
@@ -11770,18 +12399,6 @@ C++ includes: OutputDataReadStrategy.h
 ";
 
 
-// File: classOutputDataReadNumpyTXTStrategy.xml
-%feature("docstring") OutputDataReadNumpyTXTStrategy "
-
-Strategy to read  OutputData from simple ASCII file with the layout as in numpy.savetxt.
-
-C++ includes: OutputDataReadStrategy.h
-";
-
-%feature("docstring")  OutputDataReadNumpyTXTStrategy::readOutputData "OutputData< double > * OutputDataReadNumpyTXTStrategy::readOutputData(std::istream &input_stream)
-";
-
-
 // File: classOutputDataWriteFactory.xml
 %feature("docstring") OutputDataWriteFactory "
 
@@ -12225,7 +12842,7 @@ Translates the particle with the given vector.
 Applies the given rotation to the particle. 
 ";
 
-%feature("docstring")  ParticleDistribution::generateParticles "std::vector< const IParticle * > ParticleDistribution::generateParticles() const
+%feature("docstring")  ParticleDistribution::generateParticles "SafePointerVector< IParticle > ParticleDistribution::generateParticles() const
 
 Returns list of new particles generated according to a distribution.
 
@@ -12322,7 +12939,7 @@ rotation:
  Particle rotation 
 ";
 
-%feature("docstring")  ParticleLayout::particles "SafePointerVector< const IParticle > ParticleLayout::particles() const finaloverride
+%feature("docstring")  ParticleLayout::particles "SafePointerVector< IParticle > ParticleLayout::particles() const finaloverride
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
@@ -12398,6 +13015,67 @@ C++ includes: PlainMultiLayerBySLDBuilder.h
 ";
 
 %feature("docstring")  PlainMultiLayerBySLDBuilder::buildSample "MultiLayer * PlainMultiLayerBySLDBuilder::buildSample() const override
+";
+
+
+// File: classPointwiseAxis.xml
+%feature("docstring") PointwiseAxis "
+
+Axis containing arbitrary (non-equidistant) coordinate values. Lower boundary of the first bin and upper boundary of the last bin correspond to first and last passed coordinates. Other bin boundaries are computed as arithmetical mean of two adjacent coordinates. One should be aware, that bin centers reported by  PointwiseAxis::getBinCenter do not coincide with the values produced by Bin1D::getMidPoint. On-axis values are bounded by minimum/maximum values passed to the constructor.
+
+C++ includes: PointwiseAxis.h
+";
+
+%feature("docstring")  PointwiseAxis::PointwiseAxis "PointwiseAxis::PointwiseAxis(String &&name, Vector &&coordinate_values)
+";
+
+%feature("docstring")  PointwiseAxis::clone "PointwiseAxis * PointwiseAxis::clone() const override
+
+clone function 
+";
+
+%feature("docstring")  PointwiseAxis::~PointwiseAxis "PointwiseAxis::~PointwiseAxis() override=default
+";
+
+%feature("docstring")  PointwiseAxis::size "size_t PointwiseAxis::size() const override
+
+retrieve the number of bins 
+";
+
+%feature("docstring")  PointwiseAxis::getBin "Bin1D PointwiseAxis::getBin(size_t index) const override
+
+retrieve a 1d bin for the given index 
+";
+
+%feature("docstring")  PointwiseAxis::getMin "double PointwiseAxis::getMin() const override
+
+Returns value of first on-axis point. 
+";
+
+%feature("docstring")  PointwiseAxis::getMax "double PointwiseAxis::getMax() const override
+
+Returns value of last on-axis point. 
+";
+
+%feature("docstring")  PointwiseAxis::getBinCenter "double PointwiseAxis::getBinCenter(size_t index) const override
+
+Returns the coordinate corresponding to the given index. 
+";
+
+%feature("docstring")  PointwiseAxis::findClosestIndex "size_t PointwiseAxis::findClosestIndex(double value) const override
+
+find index of the coordinate closest to the given value 
+";
+
+%feature("docstring")  PointwiseAxis::getBinCenters "std::vector<double> PointwiseAxis::getBinCenters() const override
+";
+
+%feature("docstring")  PointwiseAxis::getBinBoundaries "std::vector< double > PointwiseAxis::getBinBoundaries() const override
+";
+
+%feature("docstring")  PointwiseAxis::createClippedAxis "PointwiseAxis * PointwiseAxis::createClippedAxis(double left, double right) const override
+
+Creates a new clipped axis. 
 ";
 
 
@@ -12704,6 +13382,42 @@ Increments number of completed computation steps (ticks). Performs callback (met
 ";
 
 %feature("docstring")  ProgressHandler::alive "bool ProgressHandler::alive()
+";
+
+
+// File: classPyBuilderCallback.xml
+%feature("docstring") PyBuilderCallback "
+
+Builds simulation object using a Python callable. Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
+
+C++ includes: PyFittingCallbacks.h
+";
+
+%feature("docstring")  PyBuilderCallback::PyBuilderCallback "PyBuilderCallback::PyBuilderCallback()
+";
+
+%feature("docstring")  PyBuilderCallback::~PyBuilderCallback "PyBuilderCallback::~PyBuilderCallback()
+";
+
+%feature("docstring")  PyBuilderCallback::build_simulation "Simulation * PyBuilderCallback::build_simulation(Fit::Parameters)
+";
+
+
+// File: classPyObserverCallback.xml
+%feature("docstring") PyObserverCallback "
+
+Observer for  FitObjective based on Python callable. Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
+
+C++ includes: PyFittingCallbacks.h
+";
+
+%feature("docstring")  PyObserverCallback::PyObserverCallback "PyObserverCallback::PyObserverCallback()
+";
+
+%feature("docstring")  PyObserverCallback::~PyObserverCallback "PyObserverCallback::~PyObserverCallback()
+";
+
+%feature("docstring")  PyObserverCallback::update "void PyObserverCallback::update(const FitObjective &)
 ";
 
 
@@ -13845,6 +14559,74 @@ Scalar value getters; these throw errors by default as they should only be used 
 ";
 
 
+// File: classSimDataPair.xml
+%feature("docstring") SimDataPair "
+
+Holds pair of simulation/experimental data to fit.
+
+C++ includes: SimDataPair.h
+";
+
+%feature("docstring")  SimDataPair::SimDataPair "SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData< double > &data, double weight=1.0)
+
+Constructs simulation/data pair for later fit.
+
+Parameters:
+-----------
+
+simulation: 
+simulation builder capable of producing simulations
+
+data: 
+experimental data
+
+weight: 
+weight of dataset in chi2 calculations 
+";
+
+%feature("docstring")  SimDataPair::~SimDataPair "SimDataPair::~SimDataPair() override
+";
+
+%feature("docstring")  SimDataPair::clone "SimDataPair * SimDataPair::clone() const override
+";
+
+%feature("docstring")  SimDataPair::numberOfFitElements "size_t SimDataPair::numberOfFitElements() const
+
+Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
+";
+
+%feature("docstring")  SimDataPair::weight "double SimDataPair::weight() const 
+";
+
+%feature("docstring")  SimDataPair::simulationResult "SimulationResult SimDataPair::simulationResult() const
+
+Returns simulation result. 
+";
+
+%feature("docstring")  SimDataPair::experimentalData "SimulationResult SimDataPair::experimentalData() const
+
+Returns experimental data. 
+";
+
+%feature("docstring")  SimDataPair::relativeDifference "SimulationResult SimDataPair::relativeDifference() const
+
+Returns relative difference between simulation and experimental data. 
+";
+
+%feature("docstring")  SimDataPair::runSimulation "void SimDataPair::runSimulation(const Fit::Parameters &params)
+";
+
+%feature("docstring")  SimDataPair::experimental_array "std::vector< double > SimDataPair::experimental_array() const
+
+Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. 
+";
+
+%feature("docstring")  SimDataPair::simulation_array "std::vector< double > SimDataPair::simulation_array() const
+
+Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. 
+";
+
+
 // File: classSimpleSelectionRule.xml
 %feature("docstring") SimpleSelectionRule "
 
@@ -14653,12 +15435,15 @@ Calls the  INodeVisitor's visit method.
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays. If simulation was not run, returns an array of proper size filled with zeros. 
 ";
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
-
-Sets beam parameters with alpha_i of the beam defined in the range. 
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
 ";
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, std::vector< double > incident_angle_values, const IFootprintFactor *beam_shape=nullptr)
+";
+
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
+
+Sets beam parameters for specular simulation.  lambda defines the wavelength of incoming beam (in nm),  alpha_axis defines the range of incident angles, while  beam_shape (optional parameter) is required to take footprint effects into account. Incident angle axis can be defined as a numpy array of values. This overload facilitates defining non-uniform incident angle axis. Another overload accepts the number of bins ( nbins), as well as minimal ( alpha_i_min) and maximal ( alpha_i_max) angle values. With using this overload a uniform angle axis in the given range is assigned to the beam. 
 ";
 
 %feature("docstring")  SpecularSimulation::getAlphaAxis "const IAxis * SpecularSimulation::getAlphaAxis() const
@@ -15123,6 +15908,11 @@ Constructs unit transformation.
 Copy constructor. 
 ";
 
+%feature("docstring")  Transform3D::Transform3D "Transform3D::Transform3D(const Eigen::Matrix3d &matrix)
+
+Constructor from matrix (no checks if this is an element of SO(3)!) 
+";
+
 %feature("docstring")  Transform3D::~Transform3D "Transform3D::~Transform3D()
 
 Destructor. 
@@ -15545,10 +16335,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -15578,100 +16368,124 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D106.xml
+// File: namespace_0D112.xml
 
 
-// File: namespace_0D115.xml
+// File: namespace_0D121.xml
 
 
-// File: namespace_0D183.xml
+// File: namespace_0D127.xml
+
+
+// File: namespace_0D134.xml
+
+
+// File: namespace_0D14.xml
+
+
+// File: namespace_0D16.xml
 
 
 // File: namespace_0D20.xml
 
 
+// File: namespace_0D205.xml
+
+
 // File: namespace_0D22.xml
 
 
-// File: namespace_0D224.xml
+// File: namespace_0D232.xml
 
 
-// File: namespace_0D28.xml
+// File: namespace_0D234.xml
 
 
-// File: namespace_0D291.xml
+// File: namespace_0D24.xml
 
 
-// File: namespace_0D295.xml
+// File: namespace_0D246.xml
 
 
-// File: namespace_0D307.xml
+// File: namespace_0D315.xml
 
 
-// File: namespace_0D328.xml
+// File: namespace_0D319.xml
 
 
-// File: namespace_0D332.xml
+// File: namespace_0D32.xml
 
 
-// File: namespace_0D334.xml
+// File: namespace_0D331.xml
 
 
-// File: namespace_0D336.xml
+// File: namespace_0D335.xml
 
 
-// File: namespace_0D344.xml
+// File: namespace_0D356.xml
 
 
-// File: namespace_0D361.xml
+// File: namespace_0D360.xml
 
 
-// File: namespace_0D369.xml
+// File: namespace_0D362.xml
 
 
-// File: namespace_0D375.xml
+// File: namespace_0D364.xml
 
 
-// File: namespace_0D378.xml
+// File: namespace_0D372.xml
 
 
-// File: namespace_0D380.xml
+// File: namespace_0D389.xml
 
 
-// File: namespace_0D401.xml
+// File: namespace_0D397.xml
 
 
-// File: namespace_0D410.xml
+// File: namespace_0D403.xml
 
 
-// File: namespace_0D444.xml
+// File: namespace_0D406.xml
 
 
-// File: namespace_0D451.xml
+// File: namespace_0D408.xml
 
 
-// File: namespace_0D489.xml
+// File: namespace_0D429.xml
 
 
-// File: namespace_0D497.xml
+// File: namespace_0D438.xml
 
 
-// File: namespace_0D499.xml
+// File: namespace_0D472.xml
 
 
-// File: namespace_0D501.xml
+// File: namespace_0D479.xml
 
 
-// File: namespace_0D579.xml
+// File: namespace_0D517.xml
 
 
-// File: namespace_0D601.xml
+// File: namespace_0D525.xml
 
 
-// File: namespace_0D82.xml
+// File: namespace_0D527.xml
 
 
-// File: namespace_0D91.xml
+// File: namespace_0D529.xml
+
+
+// File: namespace_0D611.xml
+
+
+// File: namespace_0D633.xml
+
+
+// File: namespace_0D88.xml
+
+
+// File: namespace_0D97.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -15813,27 +16627,9 @@ returns true if file name corresponds to simple numpy-style ASCII file
 returns true if file name corresponds to tiff file (can be also compressed) 
 ";
 
-%feature("docstring")  DataFormatUtils::isSimilarToFixedBinAxisType "bool DataFormatUtils::isSimilarToFixedBinAxisType(const std::string &line)
-
-Returns true if string representation of the axis contains one of  FixedBinAxis,  ConstKBinAxis or  CustomBinAxis to parse it later in similar way. 
-";
-
-%feature("docstring")  DataFormatUtils::isVariableBinAxisType "bool DataFormatUtils::isVariableBinAxisType(const std::string &line)
-";
-
-%feature("docstring")  DataFormatUtils::createAxis "IAxis * DataFormatUtils::createAxis(std::istream &input_stream)
+%feature("docstring")  DataFormatUtils::createAxis "std::unique_ptr< IAxis > DataFormatUtils::createAxis(std::istream &input_stream)
 
 Creates axis of certain type from input stream. 
-";
-
-%feature("docstring")  DataFormatUtils::createFixedBinAxis "IAxis * DataFormatUtils::createFixedBinAxis(std::string line)
-
-Create one of  FixedBinAxis from string representation  FixedBinAxis(\"axis0\", 10, -1, 1)  ConstKBinAxis(\"axis0\", 10, -1, 1)  CustomBinAxis(\"axis0\", 10, -1, 1) 
-";
-
-%feature("docstring")  DataFormatUtils::createVariableBinAxis "IAxis * DataFormatUtils::createVariableBinAxis(std::string line)
-
-Create  VariableBinAxis from string representation  VariableBinAxis(\"axis0\", 4, [-1, -0.5, 0.5, 1, 2]) 
 ";
 
 %feature("docstring")  DataFormatUtils::fillOutputData "void DataFormatUtils::fillOutputData(OutputData< double > *data, std::istream &input_stream)
@@ -15935,6 +16731,9 @@ Returns file names that agree with a regex glob pattern.
 ";
 
 
+// File: namespaceFit.xml
+
+
 // File: namespaceFitSuiteUtils.xml
 %feature("docstring")  FitSuiteUtils::linkedParameters "std::vector< FitParameter * > FitSuiteUtils::linkedParameters(const FitParameterSet &fitParameters)
 
@@ -15958,10 +16757,17 @@ Validates all fit parameters for conflicts (steering same sample parameters).
 
 
 // File: namespaceIComputationUtils.xml
-%feature("docstring")  IComputationUtils::CreateFresnelMap "std::unique_ptr< IFresnelMap > IComputationUtils::CreateFresnelMap(const MultiLayer &multilayer, const SimulationOptions &sim_options, bool allow_average_layers)
+%feature("docstring")  IComputationUtils::CreateFresnelMap "std::unique_ptr< IFresnelMap > IComputationUtils::CreateFresnelMap(const MultiLayer &multilayer, const SimulationOptions &sim_options)
 ";
 
-%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const std::map< size_t, std::vector< HomogeneousRegion >> &region_map)
+%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const SimulationOptions &sim_options, const std::map< size_t, std::vector< HomogeneousRegion >> &region_map)
+
+creates a multilayer that contains averaged materials, for use in Fresnel calculations 
+";
+
+%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const SimulationOptions &sim_options)
+
+overload that calculates the region map itself 
 ";
 
 %feature("docstring")  IComputationUtils::GetRegionMap "std::map< size_t, std::vector< HomogeneousRegion > > IComputationUtils::GetRegionMap(const MultiLayer &multilayer)
@@ -16076,6 +16882,11 @@ SimulationResult object.
 ";
 
 %feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers)
+";
+
+
+// File: namespaceLatticeUtils.xml
+%feature("docstring")  LatticeUtils::CreateFCCLattice "Lattice LatticeUtils::CreateFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
 ";
 
 
@@ -16269,6 +17080,16 @@ Returns units of main parameter.
 ";
 
 %feature("docstring")  Precomputed::GenerateReciprocalFactorialArray "constexpr std::array<double, N> Precomputed::GenerateReciprocalFactorialArray()
+";
+
+
+// File: namespacePyArrayImport.xml
+%feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< double > &vec)
+
+Provides functionality for importing 1D or 2D arrays of doubles from python into  OutputData. 
+";
+
+%feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
 ";
 
 
@@ -16675,6 +17496,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: InterferenceFunction2DSuperLattice_8h.xml
 
 
+// File: InterferenceFunction3DLattice_8cpp.xml
+
+
+// File: InterferenceFunction3DLattice_8h.xml
+
+
 // File: InterferenceFunctionFinite2DLattice_8cpp.xml
 
 
@@ -16691,6 +17518,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: InterferenceFunctionRadialParaCrystal_8h.xml
+
+
+// File: IPeakShape_8cpp.xml
+
+
+// File: IPeakShape_8h.xml
 
 
 // File: ParticleLayout_8cpp.xml
@@ -16811,6 +17644,12 @@ global helper function for comparison of axes
 
 
 // File: IPixel_8h.xml
+
+
+// File: PointwiseAxis_8cpp.xml
+
+
+// File: PointwiseAxis_8h.xml
 
 
 // File: VariableBinAxis_8cpp.xml
@@ -16993,10 +17832,37 @@ global helper function for comparison of axes
 // File: FitObject_8h.xml
 
 
+// File: FitObjective_8cpp.xml
+
+
+// File: FitObjective_8h.xml
+
+
+// File: FitObserver_8h.xml
+
+
 // File: FitParameter_8cpp.xml
 
 
 // File: FitParameter_8h.xml
+
+
+// File: FitParameterSet_8cpp.xml
+
+
+// File: FitParameterSet_8h.xml
+
+
+// File: FitPrintService_8cpp.xml
+
+
+// File: FitPrintService_8h.xml
+
+
+// File: FitStatus_8cpp.xml
+
+
+// File: FitStatus_8h.xml
 
 
 // File: FitStrategyAdjustParameters_8cpp.xml
@@ -17009,12 +17875,6 @@ global helper function for comparison of axes
 
 
 // File: FitSuite_8h.xml
-
-
-// File: FitSuiteFunctions_8cpp.xml
-
-
-// File: FitSuiteFunctions_8h.xml
 
 
 // File: FitSuiteImpl_8cpp.xml
@@ -17047,10 +17907,19 @@ global helper function for comparison of axes
 // File: FitSuiteUtils_8h.xml
 
 
+// File: FitTypes_8h.xml
+
+
 // File: IFitObserver_8cpp.xml
 
 
 // File: IFitObserver_8h.xml
+
+
+// File: IFitParameter_8cpp.xml
+
+
+// File: IFitParameter_8h.xml
 
 
 // File: IFitStrategy_8cpp.xml
@@ -17063,6 +17932,24 @@ global helper function for comparison of axes
 
 
 // File: IObserver_8h.xml
+
+
+// File: IterationInfo_8cpp.xml
+
+
+// File: IterationInfo_8h.xml
+
+
+// File: PyFittingCallbacks_8cpp.xml
+
+
+// File: PyFittingCallbacks_8h.xml
+
+
+// File: SimDataPair_8cpp.xml
+
+
+// File: SimDataPair_8h.xml
 
 
 // File: FormFactorAnisoPyramid_8cpp.xml
@@ -17491,6 +18378,12 @@ make Swappable
 ";
 
 
+// File: PyArrayImportUtils_8cpp.xml
+
+
+// File: PyArrayImportUtils_8h.xml
+
+
 // File: RectangularDetector_8cpp.xml
 
 
@@ -17569,6 +18462,12 @@ make Swappable
 // File: UnitConverterUtils_8h.xml
 
 
+// File: ILatticeOrientation_8cpp.xml
+
+
+// File: ILatticeOrientation_8h.xml
+
+
 // File: ISelectionRule_8h.xml
 
 
@@ -17585,6 +18484,12 @@ make Swappable
 
 
 // File: Lattice2D_8h.xml
+
+
+// File: LatticeUtils_8cpp.xml
+
+
+// File: LatticeUtils_8h.xml
 
 
 // File: Ellipse_8cpp.xml
@@ -18351,6 +19256,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: SpecularSimulationElement_8h.xml
 
 
+// File: FormFactorDebyeBueche_8cpp.xml
+
+
+// File: FormFactorDebyeBueche_8h.xml
+
+
 // File: FormFactorGauss_8cpp.xml
 
 
@@ -18361,6 +19272,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: FormFactorLorentz_8h.xml
+
+
+// File: FormFactorOrnsteinZernike_8cpp.xml
+
+
+// File: FormFactorOrnsteinZernike_8h.xml
 
 
 // File: FormFactorSphereGaussianRadius_8cpp.xml

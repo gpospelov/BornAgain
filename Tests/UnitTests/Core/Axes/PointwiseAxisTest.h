@@ -30,8 +30,8 @@ TEST_F(PointwiseAxisTest, BasicProperties)
     PointwiseAxis a1("length", coordinates);
     EXPECT_EQ(std::string("length"), a1.getName());
     EXPECT_EQ(4u, a1.size());
-    EXPECT_EQ(-0.5, a1.getMin());
-    EXPECT_EQ(10.0, a1.getMax());
+    EXPECT_EQ(0.0, a1.getMin());
+    EXPECT_EQ(8.0, a1.getMax());
     EXPECT_EQ(0.0, a1[0]);
     EXPECT_EQ(1.0, a1[1]);
     EXPECT_EQ(4.0, a1[2]);
@@ -76,12 +76,12 @@ TEST_F(PointwiseAxisTest, CheckBin)
     EXPECT_EQ(4u, boundaries.size());
 
     Bin1D bin0 = axis.getBin(0);
-    EXPECT_DOUBLE_EQ(0.0, bin0.getMidPoint());
-    EXPECT_DOUBLE_EQ(-1.0, bin0.m_lower);
+    EXPECT_DOUBLE_EQ(0.5, bin0.getMidPoint());
+    EXPECT_DOUBLE_EQ(0.0, bin0.m_lower);
     EXPECT_DOUBLE_EQ(bin0.m_lower, boundaries[0]);
     EXPECT_DOUBLE_EQ(1.0, bin0.m_upper);
     EXPECT_DOUBLE_EQ(bin0.m_upper, boundaries[1]);
-    EXPECT_DOUBLE_EQ(2.0, bin0.getBinSize());
+    EXPECT_DOUBLE_EQ(1.0, bin0.getBinSize());
 
     Bin1D bin1 = axis.getBin(1);
     EXPECT_DOUBLE_EQ(3.5, bin1.getMidPoint());
@@ -92,12 +92,12 @@ TEST_F(PointwiseAxisTest, CheckBin)
     EXPECT_DOUBLE_EQ(5.0, bin1.getBinSize());
 
     Bin1D bin2 = axis.getBin(2);
-    EXPECT_DOUBLE_EQ(10.0, bin2.getMidPoint());
+    EXPECT_DOUBLE_EQ(8.0, bin2.getMidPoint());
     EXPECT_DOUBLE_EQ(6.0, bin2.m_lower);
     EXPECT_DOUBLE_EQ(bin2.m_lower, boundaries[2]);
-    EXPECT_DOUBLE_EQ(14.0, bin2.m_upper);
+    EXPECT_DOUBLE_EQ(10.0, bin2.m_upper);
     EXPECT_DOUBLE_EQ(bin2.m_upper, boundaries[3]);
-    EXPECT_DOUBLE_EQ(8.0, bin2.getBinSize());
+    EXPECT_DOUBLE_EQ(4.0, bin2.getBinSize());
 
     EXPECT_THROW(axis.getBin(3), std::runtime_error);
 }
@@ -128,8 +128,9 @@ TEST_F(PointwiseAxisTest, IOStream)
 
     std::ostringstream oss;
     oss << axis;
+    std::istringstream iss(oss.str());
 
-    std::unique_ptr<IAxis> result(DataFormatUtils::createPointwiseAxis(oss.str()));
+    std::unique_ptr<IAxis> result(DataFormatUtils::createAxis(iss));
     EXPECT_TRUE(axis == *result);
 }
 
@@ -163,13 +164,6 @@ TEST_F(PointwiseAxisTest, FixedBinAxisComparison)
     EXPECT_DOUBLE_EQ(fixed_axis[1], pointwise_axis[1]);
     EXPECT_DOUBLE_EQ(fixed_axis[2], pointwise_axis[2]);
     EXPECT_DOUBLE_EQ(fixed_axis[3], pointwise_axis[3]);
-    EXPECT_DOUBLE_EQ(fixed_axis.getMin(), pointwise_axis.getMin());
-    EXPECT_DOUBLE_EQ(fixed_axis.getMax(), pointwise_axis.getMax());
-
-    Bin1D bin0 = fixed_axis.getBin(0);
-    Bin1D bin0_ = pointwise_axis.getBin(0);
-    EXPECT_DOUBLE_EQ(bin0.m_lower, bin0_.m_lower);
-    EXPECT_DOUBLE_EQ(bin0.m_upper, bin0_.m_upper);
 
     Bin1D bin1 = fixed_axis.getBin(1);
     Bin1D bin1_ = pointwise_axis.getBin(1);
@@ -185,12 +179,12 @@ TEST_F(PointwiseAxisTest, FixedBinAxisComparison)
     std::unique_ptr<FixedBinAxis> clipped_fixed(fixed_axis.createClippedAxis(0.5, 3.5));
     std::unique_ptr<PointwiseAxis> clipped_pointwise(pointwise_axis.createClippedAxis(0.5, 3.5));
     EXPECT_EQ(clipped_fixed->size(), clipped_pointwise->size());
-    EXPECT_DOUBLE_EQ(clipped_fixed->getMin(), clipped_pointwise->getMin());
-    EXPECT_DOUBLE_EQ(clipped_fixed->getMax(), clipped_pointwise->getMax());
+    EXPECT_DOUBLE_EQ(clipped_fixed->getBinCenter(0), clipped_pointwise->getBinCenter(0));
+    EXPECT_DOUBLE_EQ(clipped_fixed->getBinCenter(3), clipped_pointwise->getBinCenter(3));
 
     clipped_fixed.reset(fixed_axis.createClippedAxis(1.0, 3.0));
     clipped_pointwise.reset(pointwise_axis.createClippedAxis(1.0, 3.0));
     EXPECT_EQ(clipped_fixed->size(), clipped_pointwise->size());
-    EXPECT_DOUBLE_EQ(clipped_fixed->getMin(), clipped_pointwise->getMin());
-    EXPECT_DOUBLE_EQ(clipped_fixed->getMax(), clipped_pointwise->getMax());
+    EXPECT_DOUBLE_EQ(clipped_fixed->getBinCenter(0), clipped_pointwise->getBinCenter(0));
+    EXPECT_DOUBLE_EQ(clipped_fixed->getBinCenter(2), clipped_pointwise->getBinCenter(2));
 }

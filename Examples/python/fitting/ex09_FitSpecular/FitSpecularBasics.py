@@ -87,22 +87,6 @@ def get_real_data_values():
     return get_real_data()[:, 1]
 
 
-def get_inclination_axis():
-    """
-    Creates BornAgain axis, which corresponds to the given real_data axis.
-    :return: BornAgain.IAxis
-    """
-    real_data_axis = get_real_data_axis()
-    nbins = real_data_axis.size
-    min = real_data_axis[0] -\
-          (real_data_axis[1] - real_data_axis[0])\
-          / 2.0
-    max = real_data_axis[-1] +\
-          (real_data_axis[-1] - real_data_axis[-2])\
-          / 2.0
-    return ba.FixedBinAxis("alpha_i", nbins, min, max)
-
-
 def get_simulation(params):
     """
     Create and return specular simulation with its instrument defined
@@ -110,7 +94,7 @@ def get_simulation(params):
     wavelength = 1.54 * ba.angstrom  # beam wavelength
 
     simulation = ba.SpecularSimulation()
-    simulation.setBeamParameters(wavelength, get_inclination_axis())
+    simulation.setBeamParameters(wavelength, get_real_data_axis())
     simulation.setSample(get_sample(params))
     return simulation
 

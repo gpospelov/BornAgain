@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "CoreSpecialTestFactory.h"
+#include "AxisComparisonTest.h"
 #include "BatchSimulation.h"
 #include "DetectorTest.h"
 #include "PolDWBAMagCylinders.h"
@@ -45,4 +46,8 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("MesoPerformance",
                  create_new<MesoCrystalPerformanceTest>,
                  "Heavy mesocrystal simulation");
+
+    registerItem("AxisComparisonTest",
+                 create_new<AxisComparisonTest>,
+                 "Comparing simulation results for FixedBinAxis and PointwiseAxis");
 }

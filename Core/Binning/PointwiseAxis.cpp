@@ -104,14 +104,14 @@ bool PointwiseAxis::equals(const IAxis& other) const
 double PointwiseAxis::lowerBoundary(size_t index) const
 {
     if (index == 0)
-        return 1.5 * m_coordinates[index] - 0.5 * m_coordinates[index + 1];
+        return m_coordinates.front();
     return 0.5 * (m_coordinates[index] + m_coordinates[index - 1]);
 }
 
 double PointwiseAxis::upperBoundary(size_t index) const
 {
-    if (index == m_coordinates.size() - 1)
-        return 1.5 * m_coordinates[index] - 0.5 * m_coordinates[index - 1];
+    if (index + 1 == m_coordinates.size())
+        return m_coordinates.back();
     return 0.5 * (m_coordinates[index] + m_coordinates[index + 1]);
 }
 

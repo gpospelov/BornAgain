@@ -141,6 +141,17 @@ void Canvas::paintGL()
         program->bind();
         program->set(*camera);
 
+        if(!model->modelIsEmpty())
+        {
+            // Draw 3D coordinate axes
+            QMatrix4x4 matObject3DAxes;
+            matObject3DAxes.setToIdentity(); // 3D axes transformation matrix is Identity
+            program->set(matObject3DAxes);
+            program->set(QColor(0,0,0)); // set axes color to black
+            std::unique_ptr<Buffer3DAxes> buf3DAxes(new Buffer3DAxes());
+            buf3DAxes->draw3DAxes();
+        }
+
         // opaque objects
         model->draw(*this);
 

@@ -49,6 +49,7 @@
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
+#include "PointwiseAxisItem.h"
 #include "ProjectionItems.h"
 #include "PropertyItem.h"
 #include "RealDataItem.h"
@@ -182,6 +183,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::DataItem1DPropertiesType, create_new<Data1DProperties>);
 
     add(Constants::BasicAxisType, create_new<BasicAxisItem>);
+    add(Constants::PointwiseAxisType, create_new<PointwiseAxisItem>);
     add(Constants::AmplitudeAxisType, create_new<AmplitudeAxisItem>);
 
     add(Constants::BeamWavelengthType, create_new<BeamWavelengthItem>);

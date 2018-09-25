@@ -145,6 +145,7 @@ const ModelType DataPropertyContainerType = "DataPropertyContainer";
 const ModelType DataItem1DPropertiesType = "DataItem1DProperties";
 
 const ModelType BasicAxisType = "BasicAxis";
+const ModelType PointwiseAxisType = "PointwiseAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";
 
 const ModelType BeamDistributionType = "BeamDistribution";

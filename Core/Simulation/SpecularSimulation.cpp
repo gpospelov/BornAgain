@@ -255,7 +255,7 @@ void SpecularSimulation::moveDataFromCache()
 
 double SpecularSimulation::incidentAngle(size_t index) const
 {
-    return getAlphaAxis()->getBin(index).getMidPoint();
+    return getAlphaAxis()->getBinCenter(index);
 }
 
 std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() const

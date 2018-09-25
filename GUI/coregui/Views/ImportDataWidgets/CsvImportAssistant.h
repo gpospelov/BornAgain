@@ -39,7 +39,7 @@ public:
     QString filepath() const;
     void setFilepath(QString fpath);
     char separator() const;
-    unsigned headersLine() const;
+    void setHeaders();
     unsigned firstLine() const;
     unsigned lastLine() const;
     unsigned singleColumnImport() const;
@@ -65,6 +65,7 @@ private:
     void generate_table();
     void set_table_data(vector<vector<string>> dataArray);
     void removeBlankColumns(vector<vector<string>> &dataArray);
+    void extractDesiredColumns(vector<vector<string>> &dataArray);
     bool hasEqualLengthLines(vector<vector<string> > &dataArray);
     void convert_table();
     void setRowNumbering();
@@ -77,12 +78,15 @@ private:
     unsigned m_lastDataRow;
     unsigned m_intensityCol;
     unsigned m_coordinateCol;
+    QString  m_coordinateName;
+    unsigned m_singleCol;
 
     QTableWidget* m_tableWidget;
     QLineEdit* m_filePathField;
     QLineEdit* m_separatorField;
     QSpinBox* m_firstDataRowSpinBox;
     QSpinBox* m_singleDataColSpinBox;
+
 };
 
 #endif // CSVIMPORTASSISTANT_H

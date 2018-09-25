@@ -37,6 +37,8 @@ CsvImportAssistant::CsvImportAssistant(QString dir, QString file, QWidget* paren
     m_lastDataRow(0),
     m_intensityCol(0),
     m_coordinateCol(0),
+    m_coordinateName(""),
+    m_singleCol(0),
     m_tableWidget(nullptr),
     m_filePathField(nullptr),
     m_separatorField(nullptr),
@@ -145,7 +147,7 @@ QBoxLayout* CsvImportAssistant::createFileDetailsLayout(){
     laySingleDataCol->addWidget(m_singleDataColSpinBox);
     result->addLayout(laySingleDataCol);
     connect(m_singleDataColSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-        [=](int i){ onIntChanged(i); });
+        [=](int i){ m_singleCol = i; onIntChanged(i); });
 
 
 
@@ -280,7 +282,7 @@ void CsvImportAssistant::generate_table()
 {
     unique_ptr<CSVFile> csvFile;
     try{
-        csvFile.reset(new CSVFile(filepath().toStdString(), separator(), headersLine()));
+        csvFile.reset(new CSVFile(filepath().toStdString(), separator()));
     }
     catch(...){
         QMessageBox msgBox;
@@ -302,7 +304,10 @@ void CsvImportAssistant::generate_table()
     }
 
     vector<vector<string>> dataArray( csvArray.begin() + firstLine()-1, csvArray.begin() + m_lastDataRow );
+
     removeBlankColumns(dataArray);
+
+    extractDesiredColumns(dataArray);
 
     set_table_data(dataArray);
 
@@ -487,8 +492,14 @@ char CsvImportAssistant::guessSeparator() const{
     return guessedSep;
 }
 
-unsigned CsvImportAssistant::headersLine() const{
-    return 0;//m_headersRowSpinBox->value();
+void CsvImportAssistant::setHeaders(){
+   //Reset header labels
+   QStringList headers;
+
+   for(int j = 0; j < m_tableWidget->columnCount(); j++)
+       headers.append(QString::number(j + 1));
+
+   m_tableWidget->setHorizontalHeaderLabels(headers);
 }
 
 unsigned CsvImportAssistant::firstLine() const{
@@ -531,63 +542,20 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     OnColumnClicked(row,col);
     QMenu menu;
 
-    //Set column as "Intensity"
-    QAction setAsIntensity("Set as " + relevantHeaders[_intensity_],nullptr);
-    setAsIntensity.setDisabled(m_intensityCol>0);
-    menu.addAction(&setAsIntensity);
-    connect(&setAsIntensity,&QAction::triggered,
-       [&](){
-        m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_intensity_]) );
-        m_intensityCol = unsigned(col);
-        if(m_coordinateCol == m_intensityCol) m_coordinateCol=0;
-    }
-    );
-
-
-    QMenu *coordMenu = menu.addMenu("Set as coordinate");
-    coordMenu->setDisabled(m_coordinateCol>0);
-    //Set column as "Theta"
-    QAction setAsTheta("Set as " + relevantHeaders[_theta_],nullptr);
-    coordMenu->addAction(&setAsTheta);
-    connect(&setAsTheta,&QAction::triggered,
-            [&](){
-            m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_theta_]) );
-            m_coordinateCol = unsigned(col);
-            if(m_coordinateCol == m_intensityCol) m_intensityCol=0;
-    }
-    );
-
-
-    //Set column as "2Theta"
-    QAction setAs2Theta("Set as " + relevantHeaders[_2theta_],nullptr);
-    coordMenu->addAction(&setAs2Theta);
-    connect(&setAs2Theta,&QAction::triggered,
-            [&](){
-            m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_2theta_]) );
-            m_coordinateCol = unsigned(col);
-            if(m_coordinateCol == m_intensityCol) m_intensityCol=0;
-    }
-    );
-
-
-    //Set column as "qvector"
-    QAction setAsQvector("Set as " + relevantHeaders[_q_],nullptr);
-    coordMenu->addAction(&setAsQvector);
-    connect(&setAsQvector,&QAction::triggered,
-            [&](){
-            m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_q_]) );
-            m_coordinateCol = unsigned(col);
-            if(m_coordinateCol == m_intensityCol) m_intensityCol=0;
-    }
-    );
-
-    menu.addSeparator();
 
     //Use single column
-    QAction onlyThisColumn("Use only this column",nullptr);
+    QAction onlyThisColumn("Use single column as intensity bins",nullptr);
+    onlyThisColumn.setDisabled(m_coordinateCol+m_intensityCol > 0 || m_singleCol > 0);
     menu.addAction(&onlyThisColumn);
     connect(&onlyThisColumn,&QAction::triggered,
-            [&](){m_singleDataColSpinBox->setValue(col+1);}
+            [&](){
+            m_intensityCol = 0;
+            m_coordinateCol = 0;
+            m_coordinateName = "";
+            m_singleCol = unsigned(col+1);
+            m_singleDataColSpinBox->setValue(col+1);
+            m_tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem( relevantHeaders[_intensity_]) );
+        }
     );
 
     //Action "select from this row"
@@ -597,6 +565,96 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
             [&](){m_firstDataRowSpinBox->setValue(m_tableWidget->verticalHeaderItem(row)->text().toInt());}
     );
 
+
+    menu.addSeparator();
+
+
+    //Set column as "Intensity"
+    QAction setAsIntensity("Set as " + relevantHeaders[_intensity_] + " column", nullptr);
+    setAsIntensity.setDisabled(m_intensityCol>0 || m_singleCol > 0);
+    menu.addAction(&setAsIntensity);
+    connect(&setAsIntensity,&QAction::triggered,
+    [&]() {
+        m_tableWidget->setHorizontalHeaderItem(col, new QTableWidgetItem(relevantHeaders[_intensity_]));
+        m_intensityCol = unsigned(col+1);
+        if (m_coordinateCol == m_intensityCol) {
+            m_coordinateCol = 0;
+            return;
+        }
+        if (m_coordinateCol > 0){
+            Reload();
+            m_tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(m_coordinateName));
+            m_tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem(relevantHeaders[_intensity_]));
+        }
+    }
+    );
+
+    QMenu *coordMenu = menu.addMenu("Set as coordinate column");
+    coordMenu->setDisabled(m_coordinateCol>0 || m_singleCol > 0);
+    //Set column as "Theta"
+    QAction setAsTheta("Set as " + relevantHeaders[_theta_],nullptr);
+    coordMenu->addAction(&setAsTheta);
+    connect(&setAsTheta,&QAction::triggered,
+    [&](){
+        m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_theta_]) );
+        m_coordinateCol = unsigned(col+1);
+        m_coordinateName = m_tableWidget->horizontalHeaderItem(col)->text();
+        if(m_coordinateCol == m_intensityCol){
+            m_intensityCol=0;
+            return;
+        }
+        if(m_intensityCol > 0){
+            Reload();
+            m_tableWidget->setHorizontalHeaderItem( 0, new QTableWidgetItem( relevantHeaders[_theta_]) );
+            m_tableWidget->setHorizontalHeaderItem( 1, new QTableWidgetItem( relevantHeaders[_intensity_]) );
+        }
+    }
+    );
+
+
+    //Set column as "2Theta"
+    QAction setAs2Theta("Set as " + relevantHeaders[_2theta_] + " column",nullptr);
+    coordMenu->addAction(&setAs2Theta);
+    connect(&setAs2Theta,&QAction::triggered,
+    [&](){
+        m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_2theta_]) );
+        m_coordinateCol = unsigned(col+1);
+        m_coordinateName = m_tableWidget->horizontalHeaderItem(col)->text();
+        if(m_coordinateCol == m_intensityCol){
+            m_intensityCol=0;
+            return;
+        }
+        if(m_intensityCol > 0){
+            Reload();
+            m_tableWidget->setHorizontalHeaderItem( 0, new QTableWidgetItem( relevantHeaders[_2theta_]) );
+            m_tableWidget->setHorizontalHeaderItem( 1, new QTableWidgetItem( relevantHeaders[_intensity_]) );
+        }
+    }
+    );
+
+
+    //Set column as "qvector"
+    QAction setAsQvector("Set as " + relevantHeaders[_q_] + " column",nullptr);
+    coordMenu->addAction(&setAsQvector);
+    connect(&setAsQvector,&QAction::triggered,
+    [&](){
+        m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[_q_]) );
+        m_coordinateCol = unsigned(col+1);
+        m_coordinateName = m_tableWidget->horizontalHeaderItem(col)->text();
+        if(m_coordinateCol == m_intensityCol){
+            m_intensityCol=0;
+            return;
+        }
+        if(m_intensityCol > 0){
+            Reload();
+            m_tableWidget->setHorizontalHeaderItem( 0, new QTableWidgetItem( relevantHeaders[_q_]) );
+            m_tableWidget->setHorizontalHeaderItem( 1, new QTableWidgetItem( relevantHeaders[_intensity_]) );
+        }
+    }
+    );
+
+
+
     menu.addSeparator();
 
     //Action "reset"
@@ -604,15 +662,14 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     menu.addAction(&reset);
     connect(&reset,&QAction::triggered,
             [&](){
-                m_firstDataRowSpinBox->setValue(0);
-                m_singleDataColSpinBox->setValue(0);
                 m_intensityCol = 0;
                 m_coordinateCol = 0;
-                //Reset header labels:
-                QStringList headers;
-                for(int j = 0; j < m_tableWidget->columnCount(); j++)
-                    headers.append(QString::number(j+1));
-                m_tableWidget->setHorizontalHeaderLabels(headers);
+                m_coordinateName = "";
+                m_singleCol = 0;
+                m_firstDataRowSpinBox->setValue(0);
+                m_singleDataColSpinBox->setValue(0);
+                setHeaders();
+                Reload();
             }
     );
 
@@ -632,4 +689,51 @@ bool CsvImportAssistant::hasEqualLengthLines(vector<vector<string>> &dataArray){
        return x.size() == dataArray.front().size();
    });
    return tf;
+}
+
+void CsvImportAssistant::extractDesiredColumns(vector<vector<string>> &dataArray) {
+
+    if (dataArray.empty()) {
+        m_tableWidget->clearContents();
+        m_tableWidget->setRowCount(0);
+        return;
+    }
+
+    if ((m_coordinateCol * m_intensityCol < 1) && (m_singleCol < 1))
+        return;
+
+    vector<string> buffer1d;
+    vector<vector<string>> buffer2d;
+    auto nRows = dataArray.size();
+    auto nCols = dataArray[0].size();
+
+    if (m_singleCol > 0) {
+        for (unsigned i = 0; i < nRows; i++) {
+            buffer1d.clear();
+            for (unsigned j = 0; j < nCols; j++) {
+                if (j + 1 == m_singleCol)
+                    buffer1d.push_back(dataArray[i][j]);
+            }
+            buffer2d.push_back(buffer1d);
+        }
+    }
+     else {
+        for (unsigned i = 0; i < nRows; i++) {
+            buffer1d.clear();
+            //No matter what, we want coordinate column first
+            for (unsigned j = 0; j < nCols; j++) {
+                if (j + 1 == m_coordinateCol)
+                    buffer1d.push_back(dataArray[i][j]);
+            }
+            //Intensity columns comes next
+            for (unsigned j = 0; j < nCols; j++) {
+                if (j + 1 == m_intensityCol)
+                    buffer1d.push_back(dataArray[i][j]);
+            }
+            buffer2d.push_back(buffer1d);
+        }
+    }
+
+    dataArray.clear();
+    swap(buffer2d,dataArray);
 }

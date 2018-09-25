@@ -36,25 +36,25 @@ AxisComparisonTest::~AxisComparisonTest() = default;
 
 std::unique_ptr<Simulation> AxisComparisonTest::createSimulation(const IAxis& axis)
 {
-const double wavelength = 1.54 * Units::angstrom;
-const size_t n_integration_points = 5;
-const auto square_ff = std::make_unique<FootprintFactorSquare>(0.1);
-const DistributionGaussian alpha_distr(0.0, 0.1*Units::degree);
+    const double wavelength = 1.54 * Units::angstrom;
+    const size_t n_integration_points = 5;
+    const auto square_ff = std::make_unique<FootprintFactorSquare>(0.1);
+    const DistributionGaussian alpha_distr(0.0, 0.1 * Units::degree);
 
-std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-result->setBeamParameters(wavelength, axis, square_ff.get());
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setBeamParameters(wavelength, axis, square_ff.get());
 
-ParameterPattern pattern;
-pattern.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
-result->addParameterDistribution(pattern.toStdString(), alpha_distr, n_integration_points);
+    ParameterPattern pattern;
+    pattern.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
+    result->addParameterDistribution(pattern.toStdString(), alpha_distr, n_integration_points);
 
-std::unique_ptr<MultiLayer> sample(
-    SampleBuilderFactory().createSample("PlainMultiLayerBySLDBuilder"));
-result->setSample(*sample);
+    std::unique_ptr<MultiLayer> sample(
+        SampleBuilderFactory().createSample("PlainMultiLayerBySLDBuilder"));
+    result->setSample(*sample);
 
-result->runSimulation();
+    result->runSimulation();
 
-return result;
+    return std::move(result);
 }
 
 bool AxisComparisonTest::runTest()

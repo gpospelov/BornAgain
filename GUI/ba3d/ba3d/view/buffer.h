@@ -35,5 +35,18 @@ private:
     QOpenGLVertexArrayObject vao; QOpenGLBuffer glBuffer;
 };
 
+
+// Buffer for drawing 3D Coordinate Axes on canvas
+class Buffer3DAxes final : protected QOpenGLFunctions {
+public:
+    Buffer3DAxes();
+    void draw3DAxes();
+
+private:
+    int vertexCount3DAxes;
+    QOpenGLVertexArrayObject vao3DAxes;
+    QOpenGLBuffer glBuffer3DAxes;
+};
+
 }  // namespace RealSpace
 #endif  // BA3D_BUFFER_H

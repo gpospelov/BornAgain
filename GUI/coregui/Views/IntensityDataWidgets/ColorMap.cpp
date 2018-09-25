@@ -372,8 +372,10 @@ void ColorMap::setAxesLabelsFromItem(IntensityDataItem* item)
 void ColorMap::setDataFromItem(IntensityDataItem* item)
 {
     auto data = item->getOutputData();
-    if (!data)
+    if (!data) {
+        m_colorMap->data()->clear();
         return;
+    }
 
     int nx(item->getNbinsX()); // outside of the loop because of slow retrieval
     int ny(item->getNbinsY());

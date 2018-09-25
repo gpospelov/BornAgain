@@ -73,6 +73,8 @@ void DWBAComputation::runProtected()
         return;
     m_single_computation.setProgressHandler(mp_progress);
     for (auto it=m_begin_it; it != m_end_it; ++it) {
+        if (!mp_progress->alive())
+            break;
         m_single_computation.compute(*it);
     }
 }

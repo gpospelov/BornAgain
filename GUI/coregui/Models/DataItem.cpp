@@ -16,12 +16,14 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "IntensityDataIOFactory.h"
 
 const QString DataItem::P_FILE_NAME = "FileName";
 const QString DataItem::P_AXES_UNITS = "Axes Units";
 
 void DataItem::setOutputData(OutputData<double>* data)
 {
+    std::unique_lock<std::mutex> lock(m_update_data_mutex);
     m_data.reset(data);
 }
 
@@ -31,6 +33,7 @@ void DataItem::setRawDataVector(const OutputData<double>* data)
         throw GUIHelpers::Error("DataItem::setRawDataVector() -> Error. "
                                 "Different dimensions of data.");
     }
+    std::unique_lock<std::mutex> lock(m_update_data_mutex);
     m_data->setRawDataVector(data->getRawDataVector());
 }
 
@@ -54,6 +57,18 @@ QString DataItem::selectedAxesUnits() const
 {
     ComboProperty combo = getItemValue(DataItem::P_AXES_UNITS).value<ComboProperty>();
     return combo.getValue();
+}
+
+void DataItem::saveData(const QString& projectDir)
+{
+    if (!getOutputData())
+        return;
+
+    std::unique_lock<std::mutex> lock(m_update_data_mutex);
+    std::unique_ptr<OutputData<double>> clone(getOutputData()->clone());
+    lock.unlock();
+    IntensityDataIOFactory::writeOutputData(*clone,
+                                            fileName(projectDir).toStdString());
 }
 
 void DataItem::resetToDefault()

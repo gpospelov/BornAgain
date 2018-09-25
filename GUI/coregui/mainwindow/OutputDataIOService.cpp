@@ -18,6 +18,20 @@
 #include "JobItemUtils.h"
 #include "ProjectUtils.h"
 #include "MessageService.h"
+#include "JobItem.h"
+#include "ModelPath.h"
+#include "item_constants.h"
+
+namespace {
+
+BA_CORE_API_ JobItem* parentJobItem(DataItem* dataItem)
+{
+    auto jobItem = dynamic_cast<const JobItem*>(
+                ModelPath::ancestor(dataItem, Constants::JobItemType));
+    return const_cast<JobItem*>(jobItem);
+}
+
+}
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
     : QObject(parent), m_applicationModels(nullptr)
@@ -69,7 +83,20 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
         try {
             JobItemUtils::loadIntensityData(item, projectDir);
             newHistory.markAsSaved(item);
+            // handling crash of GUI during job run and non-existing file
+            if (auto jobItem = parentJobItem(item)) {
+                if (jobItem->isRunning()) {
+                    jobItem->setComments(QString("Possible GUI crash while job was running"));
+                    jobItem->setStatus(Constants::STATUS_FAILED);
+                }
+            }
+
         } catch (const std::exception& ex) {
+            if (auto jobItem = parentJobItem(item)) {
+                // Handling corrupted file on disk
+                jobItem->setComments(QString("Load of the data from disk failed with '%1'").arg(QString(ex.what())));
+                jobItem->setStatus(Constants::STATUS_FAILED);
+            }
             if (messageService)
                 messageService->send_warning(this, QString(ex.what()));
             else

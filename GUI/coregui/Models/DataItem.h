@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 #include "OutputData.h"
 #include <QDateTime>
+#include <mutex>
 
 class InstrumentItem;
 
@@ -50,11 +51,14 @@ public:
     //! Returns data to default state (no dimensional units, default axes' names)
     virtual void resetToDefault() = 0;
 
+    void saveData(const QString& projectDir);
+
 protected:
     DataItem(const QString& modelType);
 
     std::unique_ptr<OutputData<double>> m_data; //!< simulation results
     QDateTime m_last_modified;
+    std::mutex m_update_data_mutex;
 };
 
 #endif // DATAITEM_H

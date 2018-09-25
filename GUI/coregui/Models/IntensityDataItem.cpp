@@ -402,6 +402,9 @@ BasicAxisItem* IntensityDataItem::zAxisItem()
 
 void IntensityDataItem::resetView()
 {
+    if (!m_data)
+        return;
+
     setAxesRangeToData();
     if (!isZAxisLocked())
         computeDataRange();

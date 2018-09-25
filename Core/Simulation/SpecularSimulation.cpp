@@ -22,6 +22,7 @@
 #include "MultiLayer.h"
 #include "MaterialUtils.h"
 #include "ParameterPool.h"
+#include "PointwiseAxis.h"
 #include "RealParameter.h"
 #include "SpecularComputation.h"
 #include "SpecularDetector1D.h"
@@ -111,6 +112,13 @@ void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alph
                                            double alpha_i_max, const IFootprintFactor* beam_shape)
 {
     FixedBinAxis axis("alpha_i", static_cast<size_t>(nbins), alpha_i_min, alpha_i_max);
+    setBeamParameters(lambda, axis, beam_shape);
+}
+
+void SpecularSimulation::setBeamParameters(double lambda, std::vector<double> incident_angle_values,
+                                           const IFootprintFactor* beam_shape)
+{
+    PointwiseAxis axis("alpha_i", std::move(incident_angle_values));
     setBeamParameters(lambda, axis, beam_shape);
 }
 

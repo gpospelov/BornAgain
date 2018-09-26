@@ -15,6 +15,12 @@
 #include "buffer.h"
 #include "../model/geometry.h"
 
+namespace
+{
+    const float cx = 120; // multiplication scale for controlling how long the axes shall be in xy
+    const float cz = 100; // multiplication scale for controlling how long the axes shall be in z
+}
+
 namespace RealSpace {
 
 Buffer::Buffer(Geometry const& geometry) {
@@ -39,6 +45,66 @@ Buffer::Buffer(Geometry const& geometry) {
 void Buffer::draw() {
     QOpenGLVertexArrayObject::Binder __(&vao);
     glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+}
+
+Buffer3DAxes::Buffer3DAxes() {
+    initializeOpenGLFunctions();
+
+     QOpenGLVertexArrayObject::Binder __(&vao3DAxes);
+
+    // vertices (xyz) and colors (rgb) for drawing each line (also arrows) in the 3D axes
+    const GLfloat vertices3DAxes[] = {
+            0.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f, // x-axis
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*0.95f,  cz*0.05f,  cz*0.05f, 1.0f, 0.0f, 0.0f,
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*0.95f,  cz*0.05f, cz*-0.05f, 1.0f, 0.0f, 0.0f,
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*0.95f, cz*-0.05f,  cz*0.05f, 1.0f, 0.0f, 0.0f,
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*0.95f, cz*-0.05f, cz*-0.05f, 1.0f, 0.0f, 0.0f,
+
+            0.00f,     0.00f,     0.00f, 0.0f, 1.0f, 0.0f, // y-axis
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+         cz*0.05f,  cx*0.95f,  cz*0.05f, 0.0f, 1.0f, 0.0f,
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+         cz*0.05f,  cx*0.95f, cz*-0.05f, 0.0f, 1.0f, 0.0f,
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+        cz*-0.05f,  cx*0.95f,  cz*0.05f, 0.0f, 1.0f, 0.0f,
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+        cz*-0.05f,  cx*0.95f, cz*-0.05f, 0.0f, 1.0f, 0.0f,
+
+            0.00f,     0.00f,     0.00f, 0.0f, 0.0f, 1.0f, // z-axis
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+         cz*0.05f,  cz*0.05f,  cz*0.95f, 0.0f, 0.0f, 1.0f,
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+         cz*0.05f, cz*-0.05f,  cz*0.95f, 0.0f, 0.0f, 1.0f,
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+        cz*-0.05f,  cz*0.05f,  cz*0.95f, 0.0f, 0.0f, 1.0f,
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+        cz*-0.05f, cz*-0.05f,  cz*0.95f, 0.0f, 0.0f, 1.0f,
+    };
+
+    vertexCount3DAxes = 30;
+
+    glBuffer3DAxes.create();
+    glBuffer3DAxes.bind();
+    glBuffer3DAxes.allocate(vertices3DAxes, int(sizeof (vertices3DAxes)));
+
+    glEnableVertexAttribArray(0); // 3D axes vertices
+    glEnableVertexAttribArray(2); // 3D axes colors
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<void *>(3*sizeof(float)));
+}
+
+void Buffer3DAxes::draw3DAxes() {
+    QOpenGLVertexArrayObject::Binder __(&vao3DAxes);
+    glLineWidth(1.4f);
+    glDrawArrays(GL_LINES, 0, vertexCount3DAxes);
 }
 
 }  // namespace RealSpace

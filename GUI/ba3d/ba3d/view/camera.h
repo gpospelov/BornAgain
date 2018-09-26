@@ -44,9 +44,11 @@ public:
         Position interpolateTo(const Position&, float) const;
     };
 
-    void lookAt(const Position&);
+    void lookAt(const Position&); // camera position for 3D object
+    void lookAt3DAxes(const Position&); // camera position for 3D axes
 
     const Position& getPos() const { return pos; }
+    const Position& getPos3DAxes() const { return pos3DAxes; }
 
     void set();
 
@@ -63,6 +65,8 @@ private:
 
     // camera setup
     Position pos;
+    Position pos3DAxes;
+
     float zoom;
     float vertAngle, nearPlane, farPlane;
 
@@ -72,6 +76,7 @@ private:
     // transformation
     QQuaternion addRot;        // rotation, additional rotation
     QMatrix4x4  matModel, matProj;
+    QMatrix4x4  matModel3DAxes;
 };
 
 }  // namespace RealSpace

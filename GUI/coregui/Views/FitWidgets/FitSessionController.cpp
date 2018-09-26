@@ -165,7 +165,6 @@ void FitSessionController::onProgressInfoUpdate(const FitProgressInfo& info)
     m_block_progress_update = false;
 }
 
-#include <QDebug>
 void FitSessionController::updateIterationCount(const FitProgressInfo& info)
 {
     FitSuiteItem* fitSuiteItem = m_jobItem->fitSuiteItem();
@@ -173,7 +172,6 @@ void FitSessionController::updateIterationCount(const FitProgressInfo& info)
     // The order of two lines below is important
     fitSuiteItem->setItemValue(FitSuiteItem::P_CHI2, info.chi2());
     fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
-    qDebug() << info.iterationCount() << info.chi2();
 }
 
 void FitSessionController::updateFitParameterValues(const FitProgressInfo& info)

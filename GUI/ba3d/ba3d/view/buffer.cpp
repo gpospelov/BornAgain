@@ -17,7 +17,7 @@
 
 namespace
 {
-    const float cx = 180; // multiplication scale for controlling how long the axes shall be in xy
+    const float cx = 120; // multiplication scale for controlling how long the axes shall be in xy
     const float cz = 100; // multiplication scale for controlling how long the axes shall be in z
 }
 
@@ -57,35 +57,35 @@ Buffer3DAxes::Buffer3DAxes() {
             0.00f,     0.00f,     0.00f,
          cx*1.00f,     0.00f,     0.00f,
          cx*1.00f,     0.00f,     0.00f,
-         cx*0.97f,  cz*0.02f,  cz*0.02f,
+         cx*0.95f,  cz*0.05f,  cz*0.05f,
          cx*1.00f,     0.00f,     0.00f,
-         cx*0.97f,  cz*0.02f, cz*-0.02f,
+         cx*0.95f,  cz*0.05f, cz*-0.05f,
          cx*1.00f,     0.00f,     0.00f,
-         cx*0.97f, cz*-0.02f,  cz*0.02f,
+         cx*0.95f, cz*-0.05f,  cz*0.05f,
          cx*1.00f,     0.00f,     0.00f,
-         cx*0.97f, cz*-0.02f, cz*-0.02f,
+         cx*0.95f, cz*-0.05f, cz*-0.05f,
 
             0.00f,     0.00f,     0.00f,
             0.00f,  cx*1.00f,     0.00f,
             0.00f,  cx*1.00f,     0.00f,
-         cz*0.02f,  cx*0.97f,  cz*0.02f,
+         cz*0.05f,  cx*0.95f,  cz*0.05f,
             0.00f,  cx*1.00f,     0.00f,
-         cz*0.02f,  cx*0.97f, cz*-0.02f,
+         cz*0.05f,  cx*0.95f, cz*-0.05f,
             0.00f,  cx*1.00f,     0.00f,
-        cz*-0.02f,  cx*0.97f,  cz*0.02f,
+        cz*-0.05f,  cx*0.95f,  cz*0.05f,
             0.00f,  cx*1.00f,     0.00f,
-        cz*-0.02f,  cx*0.97f, cz*-0.02f,
+        cz*-0.05f,  cx*0.95f, cz*-0.05f,
 
             0.00f,     0.00f,     0.00f,
             0.00f,     0.00f,  cz*1.00f,
             0.00f,     0.00f,  cz*1.00f,
-         cz*0.02f,  cz*0.02f,  cz*0.97f,
+         cz*0.05f,  cz*0.05f,  cz*0.95f,
             0.00f,     0.00f,  cz*1.00f,
-         cz*0.02f, cz*-0.02f,  cz*0.97f,
+         cz*0.05f, cz*-0.05f,  cz*0.95f,
             0.00f,     0.00f,  cz*1.00f,
-        cz*-0.02f,  cz*0.02f,  cz*0.97f,
+        cz*-0.05f,  cz*0.05f,  cz*0.95f,
             0.00f,     0.00f,  cz*1.00f,
-        cz*-0.02f, cz*-0.02f,  cz*0.97f,
+        cz*-0.05f, cz*-0.05f,  cz*0.95f,
     };
 
     vertexCount3DAxes = 30;

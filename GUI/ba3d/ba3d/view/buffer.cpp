@@ -52,40 +52,40 @@ Buffer3DAxes::Buffer3DAxes() {
 
      QOpenGLVertexArrayObject::Binder __(&vao3DAxes);
 
-    // vertices for drawing each line (also arrows) in the right-handed 3D coordinate axes
+    // vertices (xyz) and colors (rgb) for drawing each line (also arrows) in the 3D axes
     const GLfloat vertices3DAxes[] = {
-            0.00f,     0.00f,     0.00f,
-         cx*1.00f,     0.00f,     0.00f,
-         cx*1.00f,     0.00f,     0.00f,
-         cx*0.95f,  cz*0.05f,  cz*0.05f,
-         cx*1.00f,     0.00f,     0.00f,
-         cx*0.95f,  cz*0.05f, cz*-0.05f,
-         cx*1.00f,     0.00f,     0.00f,
-         cx*0.95f, cz*-0.05f,  cz*0.05f,
-         cx*1.00f,     0.00f,     0.00f,
-         cx*0.95f, cz*-0.05f, cz*-0.05f,
+            0.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f, // x-axis
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*0.95f,  cz*0.05f,  cz*0.05f, 1.0f, 0.0f, 0.0f,
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*0.95f,  cz*0.05f, cz*-0.05f, 1.0f, 0.0f, 0.0f,
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*0.95f, cz*-0.05f,  cz*0.05f, 1.0f, 0.0f, 0.0f,
+         cx*1.00f,     0.00f,     0.00f, 1.0f, 0.0f, 0.0f,
+         cx*0.95f, cz*-0.05f, cz*-0.05f, 1.0f, 0.0f, 0.0f,
 
-            0.00f,     0.00f,     0.00f,
-            0.00f,  cx*1.00f,     0.00f,
-            0.00f,  cx*1.00f,     0.00f,
-         cz*0.05f,  cx*0.95f,  cz*0.05f,
-            0.00f,  cx*1.00f,     0.00f,
-         cz*0.05f,  cx*0.95f, cz*-0.05f,
-            0.00f,  cx*1.00f,     0.00f,
-        cz*-0.05f,  cx*0.95f,  cz*0.05f,
-            0.00f,  cx*1.00f,     0.00f,
-        cz*-0.05f,  cx*0.95f, cz*-0.05f,
+            0.00f,     0.00f,     0.00f, 0.0f, 1.0f, 0.0f, // y-axis
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+         cz*0.05f,  cx*0.95f,  cz*0.05f, 0.0f, 1.0f, 0.0f,
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+         cz*0.05f,  cx*0.95f, cz*-0.05f, 0.0f, 1.0f, 0.0f,
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+        cz*-0.05f,  cx*0.95f,  cz*0.05f, 0.0f, 1.0f, 0.0f,
+            0.00f,  cx*1.00f,     0.00f, 0.0f, 1.0f, 0.0f,
+        cz*-0.05f,  cx*0.95f, cz*-0.05f, 0.0f, 1.0f, 0.0f,
 
-            0.00f,     0.00f,     0.00f,
-            0.00f,     0.00f,  cz*1.00f,
-            0.00f,     0.00f,  cz*1.00f,
-         cz*0.05f,  cz*0.05f,  cz*0.95f,
-            0.00f,     0.00f,  cz*1.00f,
-         cz*0.05f, cz*-0.05f,  cz*0.95f,
-            0.00f,     0.00f,  cz*1.00f,
-        cz*-0.05f,  cz*0.05f,  cz*0.95f,
-            0.00f,     0.00f,  cz*1.00f,
-        cz*-0.05f, cz*-0.05f,  cz*0.95f,
+            0.00f,     0.00f,     0.00f, 0.0f, 0.0f, 1.0f, // z-axis
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+         cz*0.05f,  cz*0.05f,  cz*0.95f, 0.0f, 0.0f, 1.0f,
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+         cz*0.05f, cz*-0.05f,  cz*0.95f, 0.0f, 0.0f, 1.0f,
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+        cz*-0.05f,  cz*0.05f,  cz*0.95f, 0.0f, 0.0f, 1.0f,
+            0.00f,     0.00f,  cz*1.00f, 0.0f, 0.0f, 1.0f,
+        cz*-0.05f, cz*-0.05f,  cz*0.95f, 0.0f, 0.0f, 1.0f,
     };
 
     vertexCount3DAxes = 30;
@@ -94,12 +94,16 @@ Buffer3DAxes::Buffer3DAxes() {
     glBuffer3DAxes.bind();
     glBuffer3DAxes.allocate(vertices3DAxes, int(sizeof (vertices3DAxes)));
 
-    glEnableVertexAttribArray(0); // vertices
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+    glEnableVertexAttribArray(0); // 3D axes vertices
+    glEnableVertexAttribArray(2); // 3D axes colors
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<void *>(3*sizeof(float)));
 }
 
 void Buffer3DAxes::draw3DAxes() {
     QOpenGLVertexArrayObject::Binder __(&vao3DAxes);
+    glLineWidth(1.4f);
     glDrawArrays(GL_LINES, 0, vertexCount3DAxes);
 }
 

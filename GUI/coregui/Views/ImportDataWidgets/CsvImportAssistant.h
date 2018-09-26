@@ -37,12 +37,10 @@ class BA_CORE_API_ CsvImportAssistant : public QDialog
 public:
     CsvImportAssistant(QString dir = "./", QString file = "", QWidget* parent = nullptr);
     QString filepath() const;
-    void setFilepath(QString fpath);
     char separator() const;
     void setHeaders();
     unsigned firstLine() const;
     unsigned lastLine() const;
-    unsigned singleColumnImport() const;
     void Reload();
     unique_ptr<OutputData<double>> getData();
     QStringList relevantHeaders = {"Intensity","theta","2theta","q"};
@@ -52,7 +50,6 @@ public slots:
     void onImportButton();
     void onReloadButton();
     void onRejectButton();
-    void onBrowseButton();
     void onIntChanged(int _ = 0);
     void OnColumnClicked(int row, int column);
     void onColumnRightClick(const QPoint position);
@@ -67,9 +64,7 @@ private:
     void removeBlankColumns(vector<vector<string>> &dataArray);
     void extractDesiredColumns(vector<vector<string>> &dataArray);
     bool hasEqualLengthLines(vector<vector<string> > &dataArray);
-    void convert_table();
     void setRowNumbering();
-    bool cell_is_blank(int iRow, int jCol);
 
 
 
@@ -82,7 +77,6 @@ private:
     unsigned m_singleCol;
 
     QTableWidget* m_tableWidget;
-    QLineEdit* m_filePathField;
     QLineEdit* m_separatorField;
     QSpinBox* m_firstDataRowSpinBox;
     QSpinBox* m_singleDataColSpinBox;

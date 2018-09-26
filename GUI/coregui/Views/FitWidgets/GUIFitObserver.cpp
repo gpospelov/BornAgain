@@ -18,7 +18,6 @@
 #include "FitSuite.h"
 #include "GUIHelpers.h"
 #include "MinimizerUtils.h"
-#include <QDebug>
 
 GUIFitObserver::GUIFitObserver(QObject* parent)
     : QObject(parent)
@@ -44,6 +43,9 @@ void GUIFitObserver::update(FitSuite* subject)
     if (m_block_update_plots)
         m_on_finish_notifier.wait(lock, [this]() { return m_block_update_plots; });
 
+    if (subject->isFirstIteration())
+        emit logInfoUpdate(QString::fromStdString(subject->setupToString()));
+
     FitProgressInfo info;
     info.m_chi2 = subject->getChi2();
     info.m_iteration_count = (int)subject->numberOfIterations();
@@ -51,11 +53,12 @@ void GUIFitObserver::update(FitSuite* subject)
 
     emit progressInfoUpdate(info);
 
+    if (subject->isLastIteration())
+        emit logInfoUpdate(reportToString(subject));
+
     m_simData.reset(subject->simulationResult().data());
     emit plotsUpdate();
 
-    if (subject->isLastIteration())
-        emit logInfoUpdate(reportToString(subject));
 }
 
 //! Returns true if data could be plotted, when there are resources for it.
@@ -66,7 +69,9 @@ bool GUIFitObserver::is_suitable_iteration(FitSuite* fitSuite)
         return false;
 
     int n_iter = static_cast<int>(fitSuite->numberOfIterations());
-    return n_iter == 0 || n_iter % m_update_interval == 0 || n_iter == fitSuite->isLastIteration();
+    return n_iter == fitSuite->isFirstIteration() ||
+           n_iter % m_update_interval == 0 ||
+           fitSuite->isLastIteration();
 }
 
 //! Returns true if given iteration should be obligary plotted.

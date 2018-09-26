@@ -141,7 +141,7 @@ QBoxLayout* AboutApplicationDialog::createButtonLayout()
     result->addStretch(1);
     result->addWidget(closeButton);
 
-    static const char mydata[] = {0x62, 0x65, 0x65, 0x72};
+    static const char mydata[] = {0x64, 0x65, 0x76, 0x73};
     QByteArray b = QByteArray::fromRawData(mydata, sizeof(mydata));
     auto f = new ShortcodeFilter(b, this);
     connect(f, &ShortcodeFilter::found, this, [=]() { layout()->addWidget(createLogoLabel());});

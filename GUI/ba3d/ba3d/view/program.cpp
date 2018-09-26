@@ -54,6 +54,7 @@ void Program::init() {
 
     bindAttributeLocation("vertex", 0);
     bindAttributeLocation("normal", 1);
+    bindAttributeLocation("axiscolor", 2);
 
     link();
 
@@ -65,6 +66,7 @@ void Program::init() {
     locColor     = uniformLocation("color");
     ambient      = uniformLocation("ambient");
     eye          = uniformLocation("eye");
+    locAxis     = uniformLocation("axis");
     release();
 }
 
@@ -76,7 +78,7 @@ void Program::set(Camera const& camera) {
     setUniformValue(eye, camera.getPos().eye);
 }
 
-void Program::set(QColor const&color) {
+void Program::set(QColor const& color) {
     setUniformValue(locColor, color);
 }
 
@@ -86,6 +88,10 @@ void Program::set(QMatrix4x4 const& mat) {
 
 void Program::setMatModel(QMatrix4x4 const& mat) {
     setUniformValue(locMatModel, mat);
+}
+
+void Program::setAxis(bool const& axis_) {
+    setUniformValue(locAxis, axis_);
 }
 
 }  // namespace RealSpace

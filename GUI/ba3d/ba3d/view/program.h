@@ -37,10 +37,12 @@ private:
     void set(QColor const&);      // object color
     void set(QMatrix4x4 const&);  // set matObject
     void setMatModel(QMatrix4x4 const&); // set matModel
+    void setAxis(bool const&);
 
     bool doInit;
     int locMatProj, locMatModel, locMatObject;
     int locLightPos1, locColor, ambient, eye;
+    int locAxis;
 };
 
 }  // namespace RealSpace

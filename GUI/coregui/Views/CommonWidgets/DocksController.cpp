@@ -55,6 +55,11 @@ void DocksController::onResetLayout()
     for (auto& it : m_docks)
         m_mainWindow->addDockWidget(it.second.area(), it.second.dock());
 
+    // Fixes issue: https://bugreports.qt.io/browse/QTBUG-65592
+    dockWidgetList = m_mainWindow->dockWidgets();
+    if (dockWidgetList.size()>0)
+        m_mainWindow->resizeDocks({dockWidgetList.first()}, {10}, Qt::Horizontal);
+
     for (QDockWidget* dockWidget : dockWidgetList)
         dockWidget->show();
 

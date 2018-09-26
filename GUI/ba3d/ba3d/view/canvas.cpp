@@ -153,10 +153,9 @@ void Canvas::paintGL()
         glDisable(GL_BLEND);
         glDepthMask(true);
 
-        if(!model->modelIsEmpty())
-        {
+        if (!model->modelIsEmpty()) {
             // Draw 3D coordinate axes in lower left corner
-            glViewport(0,0,viewport.width()/9,viewport.height()/5);
+            glViewport(0, 0, viewport.width() / 9, viewport.height() / 5);
             QMatrix4x4 matObject3DAxes;
             matObject3DAxes.setToIdentity(); // 3D axes transformation matrix is Identity
             program->set(matObject3DAxes);
@@ -283,11 +282,11 @@ void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& ge
 void Canvas::defaultView()
 {
     // Default view
-    if (model) {       
-        RealSpace::Camera::Position
-                defPos(RealSpace::Vector3D(0, cameraDefaultPosY, cameraDefaultPosZ), // eye
-                       RealSpace::Vector3D(0, 0, 0),                                 // center
-                       RealSpace::Vector3D::_z);                                     // up
+    if (model) {
+        RealSpace::Camera::Position defPos(
+            RealSpace::Vector3D(0, cameraDefaultPosY, cameraDefaultPosZ), // eye
+            RealSpace::Vector3D(0, 0, 0),                                 // center
+            RealSpace::Vector3D::_z);                                     // up
 
         // Default position of camera for 3D axes and object are the same
         camera->lookAt3DAxes(defPos);
@@ -307,8 +306,8 @@ void Canvas::sideView()
 
         // Side view 3D axes is zoom scale independent
         camera->lookAt3DAxes(RealSpace::Camera::Position(eye,                          // eye
-                                                   RealSpace::Vector3D(0, 0, 0), // center
-                                                   RealSpace::Vector3D::_z));    // up
+                                                         RealSpace::Vector3D(0, 0, 0), // center
+                                                         RealSpace::Vector3D::_z));    // up
 
         // Side view 3D object is zoom scale dependent
         if (currentZoomLevel >= 0)
@@ -334,8 +333,8 @@ void Canvas::topView()
 
         // Top view 3D axes is zoom scale independent
         camera->lookAt3DAxes(RealSpace::Camera::Position(eye,                          // eye
-                                                   RealSpace::Vector3D(0, 0, 0), // center
-                                                   RealSpace::Vector3D::_z));    // up
+                                                         RealSpace::Vector3D(0, 0, 0), // center
+                                                         RealSpace::Vector3D::_z));    // up
 
         // Top view 3D object is zoom scale dependent
         if (currentZoomLevel >= 0)
@@ -368,14 +367,13 @@ void Canvas::horizontalCameraTurn(float angle)
         RealSpace::Vector3D v_axis3DAxes = v_up3DAxes.normalized(); // normalized rotation axis
 
         // Rotating camera's position (eye) about up vector
-        RealSpace::Vector3D v_rot_eye3DAxes =
-                v_up3DAxes * (1 - std::cos(theta)) * dot(v_axis3DAxes, v_eye3DAxes) +
-                v_eye3DAxes * std::cos(theta) + cross(v_axis3DAxes, v_eye3DAxes) * std::sin(theta);
+        RealSpace::Vector3D v_rot_eye3DAxes
+            = v_up3DAxes * (1 - std::cos(theta)) * dot(v_axis3DAxes, v_eye3DAxes)
+              + v_eye3DAxes * std::cos(theta) + cross(v_axis3DAxes, v_eye3DAxes) * std::sin(theta);
 
         Camera::Position rotated_pos3DAxes(v_rot_eye3DAxes, v_ctr3DAxes, v_up3DAxes);
 
         camera->lookAt3DAxes(rotated_pos3DAxes);
-
 
         // Horizontal camera turn for 3D object
         Camera::Position initial_pos = camera->getPos();
@@ -387,9 +385,9 @@ void Canvas::horizontalCameraTurn(float angle)
         RealSpace::Vector3D v_axis = v_up.normalized(); // normalized rotation axis
 
         // Rotating camera's position (eye) about up vector
-        RealSpace::Vector3D v_rot_eye =
-                v_up * (1 - std::cos(theta)) * dot(v_axis, v_eye) +
-                v_eye * std::cos(theta) + cross(v_axis, v_eye) * std::sin(theta);
+        RealSpace::Vector3D v_rot_eye = v_up * (1 - std::cos(theta)) * dot(v_axis, v_eye)
+                                        + v_eye * std::cos(theta)
+                                        + cross(v_axis, v_eye) * std::sin(theta);
 
         Camera::Position rotated_pos(v_rot_eye, v_ctr, v_up);
 
@@ -412,17 +410,17 @@ void Canvas::verticalCameraTurn(float angle)
         RealSpace::Vector3D v_ctr3DAxes = initial_pos3DAxes.ctr;
         RealSpace::Vector3D v_up3DAxes = initial_pos3DAxes.up;
 
-        RealSpace::Vector3D v_axis3DAxes = cross(v_up3DAxes, v_eye3DAxes).normalized(); // normalized rotation axis
+        RealSpace::Vector3D v_axis3DAxes
+            = cross(v_up3DAxes, v_eye3DAxes).normalized(); // normalized rotation axis
 
         // Rotating camera's position (eye) about an axis perpendicular to up and eye vectors
-        RealSpace::Vector3D v_rot_eye3DAxes =
-                v_up3DAxes * (1 - std::cos(theta)) * dot(v_axis3DAxes, v_eye3DAxes) +
-                v_eye3DAxes * std::cos(theta) + cross(v_axis3DAxes, v_eye3DAxes) * std::sin(theta);
+        RealSpace::Vector3D v_rot_eye3DAxes
+            = v_up3DAxes * (1 - std::cos(theta)) * dot(v_axis3DAxes, v_eye3DAxes)
+              + v_eye3DAxes * std::cos(theta) + cross(v_axis3DAxes, v_eye3DAxes) * std::sin(theta);
 
         Camera::Position rotated_pos3DAxes(v_rot_eye3DAxes, v_ctr3DAxes, v_up3DAxes);
 
         camera->lookAt3DAxes(rotated_pos3DAxes);
-
 
         // Vertical camera turn for 3D object
         Camera::Position initial_pos = camera->getPos();
@@ -434,9 +432,9 @@ void Canvas::verticalCameraTurn(float angle)
         RealSpace::Vector3D v_axis = cross(v_up, v_eye).normalized(); // normalized rotation axis
 
         // Rotating camera's position (eye) about an axis perpendicular to up and eye vectors
-        RealSpace::Vector3D v_rot_eye =
-                v_up * (1 - std::cos(theta)) * dot(v_axis, v_eye) +
-                v_eye * std::cos(theta) + cross(v_axis, v_eye) * std::sin(theta);
+        RealSpace::Vector3D v_rot_eye = v_up * (1 - std::cos(theta)) * dot(v_axis, v_eye)
+                                        + v_eye * std::cos(theta)
+                                        + cross(v_axis, v_eye) * std::sin(theta);
 
         Camera::Position rotated_pos(v_rot_eye, v_ctr, v_up);
 

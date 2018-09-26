@@ -146,7 +146,7 @@ void Model::releaseGeometries()
 
 bool Model::modelIsEmpty()
 {
-    if(objects.isEmpty() && objectsBlend.isEmpty())
+    if (objects.isEmpty() && objectsBlend.isEmpty())
         return true;
     else
         return false;

@@ -18,14 +18,16 @@
 #include "../def.h"
 #include <QOpenGLShaderProgram>
 
-namespace RealSpace {
+namespace RealSpace
+{
 
 class Camera;
 class Canvas;
 
-class Program: public QOpenGLShaderProgram
+class Program : public QOpenGLShaderProgram
 {
     friend class Canvas;
+
 public:
     Program();
 
@@ -34,8 +36,8 @@ private:
     void init();      // inits, if needed
 
     void set(Camera const&);
-    void set(QColor const&);      // object color
-    void set(QMatrix4x4 const&);  // set matObject
+    void set(QColor const&);             // object color
+    void set(QMatrix4x4 const&);         // set matObject
     void setMatModel(QMatrix4x4 const&); // set matModel
     void setAxis(bool const&);
 
@@ -45,5 +47,5 @@ private:
     int locAxis;
 };
 
-}  // namespace RealSpace
-#endif  // BA3D_PROGRAM_H
+} // namespace RealSpace
+#endif // BA3D_PROGRAM_H

@@ -84,4 +84,8 @@ void Program::set(QMatrix4x4 const& mat) {
     setUniformValue(locMatObject, mat);
 }
 
+void Program::setMatModel(QMatrix4x4 const& mat) {
+    setUniformValue(locMatModel, mat);
+}
+
 }  // namespace RealSpace

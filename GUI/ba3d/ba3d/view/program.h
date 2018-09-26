@@ -35,7 +35,8 @@ private:
 
     void set(Camera const&);
     void set(QColor const&);      // object color
-    void set(QMatrix4x4 const&);  // object transf
+    void set(QMatrix4x4 const&);  // set matObject
+    void setMatModel(QMatrix4x4 const&); // set matModel
 
     bool doInit;
     int locMatProj, locMatModel, locMatObject;

@@ -35,8 +35,7 @@ class BA_CORE_API_ CsvImportAssistant : public QDialog
     Q_OBJECT
 
 public:
-    CsvImportAssistant(QString dir = "./", QString file = "", QWidget* parent = nullptr);
-    QString filepath() const;
+    CsvImportAssistant(QString& dir, QString& file, QWidget* parent = nullptr);
     char separator() const;
     void setHeaders();
     unsigned firstLine() const;
@@ -48,11 +47,9 @@ public:
 
 public slots:
     void onImportButton();
-    void onReloadButton();
     void onRejectButton();
-    void onIntChanged(int _ = 0);
     void OnColumnClicked(int row, int column);
-    void onColumnRightClick(const QPoint position);
+    void onColumnRightClick(QPoint position);
 
 private:
     QBoxLayout* createLayout();
@@ -80,6 +77,7 @@ private:
     QLineEdit* m_separatorField;
     QSpinBox* m_firstDataRowSpinBox;
     QSpinBox* m_singleDataColSpinBox;
+    QPushButton* m_importButton;
 
 };
 

@@ -22,7 +22,6 @@ Lattice LatticeUtils::CreateFCCLattice(double lattice_constant,
     std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
     P_orientation->usePrimitiveLattice(prim_cubic);
     auto rotation = P_orientation->transformationMatrix();
-    double a = lattice_constant/2.0;
-    Lattice fcc( {a, a, 0.0}, {0.0, a, a}, {a, 0.0, a} );
+    Lattice fcc = Lattice::createFCCLattice(lattice_constant);
     return fcc.createTransformedLattice(rotation);
 }

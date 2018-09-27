@@ -20,9 +20,9 @@ TEST_F(LatticeUtilsTest, cubeAlignedFCCTest)
     auto a2 = lattice.getBasisVectorB();
     auto a3 = lattice.getBasisVectorC();
 
-    kvector_t v1 { 1.0, 1.0, 0.0 };
-    kvector_t v2 { 0.0, 1.0, 1.0 };
-    kvector_t v3 { 1.0, 0.0, 1.0 };
+    kvector_t v1 { 0.0, 1.0, 1.0 };
+    kvector_t v2 { 1.0, 0.0, 1.0 };
+    kvector_t v3 { 1.0, 1.0, 0.0 };
 
     EXPECT_EQ(a1, v1);
     EXPECT_EQ(a2, v2);
@@ -39,12 +39,8 @@ TEST_F(LatticeUtilsTest, diagonalAlignedFCCTest)
     auto a2 = lattice.getBasisVectorB();
     auto a3 = lattice.getBasisVectorC();
 
-    kvector_t v1 { 1.0, 1.0, 0.0 };
-    kvector_t v2 { 0.0, 1.0, 1.0 };
-    kvector_t v3 { 1.0, 0.0, 1.0 };
-
     EXPECT_EQ(a1.z(), a2.z());
     EXPECT_EQ(a2.z(), a3.z());
-    EXPECT_EQ(a2.x(), a3.x());
-    EXPECT_EQ(a2.y(), -a3.y());
+    EXPECT_EQ(a1.x(), a2.x());
+    EXPECT_EQ(a1.y(), -a2.y());
 }

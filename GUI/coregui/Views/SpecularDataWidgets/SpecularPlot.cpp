@@ -246,7 +246,6 @@ SpecularDataItem* SpecularPlot::specularItem()
 const SpecularDataItem* SpecularPlot::specularItem() const
 {
     const auto result = dynamic_cast<const SpecularDataItem*>(currentItem());
-    Q_ASSERT(result);
     return result;
 }
 

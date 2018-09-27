@@ -105,6 +105,7 @@ void FitComparisonWidget1D::subscribeToItem()
 
 void FitComparisonWidget1D::unsubscribeFromItem()
 {
+    m_diff_plot->setItem(nullptr);
     m_comparisonController->clear();
 }
 

@@ -24519,17 +24519,29 @@ class Lattice(INode):
         return _libBornAgainCore.Lattice_setSelectionRule(self, p_selection_rule)
 
 
+    def createCubicLattice(a):
+        """createCubicLattice(double a) -> Lattice"""
+        return _libBornAgainCore.Lattice_createCubicLattice(a)
+
+    createCubicLattice = staticmethod(createCubicLattice)
+
     def createFCCLattice(a):
         """createFCCLattice(double a) -> Lattice"""
         return _libBornAgainCore.Lattice_createFCCLattice(a)
 
     createFCCLattice = staticmethod(createFCCLattice)
 
-    def createTrigonalLattice(a, c):
-        """createTrigonalLattice(double a, double c) -> Lattice"""
-        return _libBornAgainCore.Lattice_createTrigonalLattice(a, c)
+    def createHexagonalLattice(a, c):
+        """createHexagonalLattice(double a, double c) -> Lattice"""
+        return _libBornAgainCore.Lattice_createHexagonalLattice(a, c)
 
-    createTrigonalLattice = staticmethod(createTrigonalLattice)
+    createHexagonalLattice = staticmethod(createHexagonalLattice)
+
+    def createHCPLattice(a, c):
+        """createHCPLattice(double a, double c) -> Lattice"""
+        return _libBornAgainCore.Lattice_createHCPLattice(a, c)
+
+    createHCPLattice = staticmethod(createHCPLattice)
 
     def onChange(self):
         """
@@ -24545,13 +24557,21 @@ class Lattice(INode):
 Lattice_swigregister = _libBornAgainCore.Lattice_swigregister
 Lattice_swigregister(Lattice)
 
+def Lattice_createCubicLattice(a):
+    """Lattice_createCubicLattice(double a) -> Lattice"""
+    return _libBornAgainCore.Lattice_createCubicLattice(a)
+
 def Lattice_createFCCLattice(a):
     """Lattice_createFCCLattice(double a) -> Lattice"""
     return _libBornAgainCore.Lattice_createFCCLattice(a)
 
-def Lattice_createTrigonalLattice(a, c):
-    """Lattice_createTrigonalLattice(double a, double c) -> Lattice"""
-    return _libBornAgainCore.Lattice_createTrigonalLattice(a, c)
+def Lattice_createHexagonalLattice(a, c):
+    """Lattice_createHexagonalLattice(double a, double c) -> Lattice"""
+    return _libBornAgainCore.Lattice_createHexagonalLattice(a, c)
+
+def Lattice_createHCPLattice(a, c):
+    """Lattice_createHCPLattice(double a, double c) -> Lattice"""
+    return _libBornAgainCore.Lattice_createHCPLattice(a, c)
 
 
 def CreateFCCLattice(lattice_constant, orientation):
@@ -24562,6 +24582,10 @@ def CreateFCCLattice(lattice_constant, orientation):
 
     """
     return _libBornAgainCore.CreateFCCLattice(lattice_constant, orientation)
+
+def CreateHCPLattice(a, c, orientation):
+    """CreateHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    return _libBornAgainCore.CreateHCPLattice(a, c, orientation)
 class Lattice1DParameters(_object):
     """
 

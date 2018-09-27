@@ -136,7 +136,7 @@ namespace
 
 Lattice createLattice(double a, double c)
 {
-    Lattice result = Lattice::createTrigonalLattice(a, c);
+    Lattice result = Lattice::createHexagonalLattice(a, c);
     result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return result;
 }

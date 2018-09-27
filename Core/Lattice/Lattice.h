@@ -83,6 +83,10 @@ public:
 
     static Lattice createHCPLattice(double a, double c);
 
+    static Lattice createTetragonalLattice(double a, double c);
+
+    static Lattice createBCTLattice(double a, double c);
+
     void onChange() override;
 
 private:

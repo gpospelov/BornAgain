@@ -26,7 +26,6 @@
 #include <memory>
 
 class QBoxLayout;
-using namespace std;
 
 //! Dialog to hold ImportAssistant.
 
@@ -41,7 +40,7 @@ public:
     unsigned firstLine() const;
     unsigned lastLine() const;
     void Reload();
-    unique_ptr<OutputData<double>> getData();
+    std::unique_ptr<OutputData<double>> getData();
     QStringList relevantHeaders = {"Intensity","theta","2theta","q"};
     enum relevantColumns {_intensity_,_theta_,_2theta_,_q_};
 
@@ -57,10 +56,10 @@ private:
 
     char guessSeparator() const;
     void generate_table();
-    void set_table_data(vector<vector<string>> dataArray);
-    void removeBlankColumns(vector<vector<string>> &dataArray);
-    void extractDesiredColumns(vector<vector<string>> &dataArray);
-    bool hasEqualLengthLines(vector<vector<string> > &dataArray);
+    void set_table_data(std::vector<std::vector<std::string>> dataArray);
+    void removeBlankColumns(std::vector<std::vector<std::string>> &dataArray);
+    void extractDesiredColumns(std::vector<std::vector<std::string>> &dataArray);
+    bool hasEqualLengthLines(std::vector<std::vector<std::string> > &dataArray);
     void setRowNumbering();
 
 

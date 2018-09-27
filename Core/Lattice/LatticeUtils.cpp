@@ -35,3 +35,13 @@ Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrienta
     Lattice hcp = Lattice::createHCPLattice(a, c);
     return hcp.createTransformedLattice(rotation);
 }
+
+Lattice LatticeUtils::CreateBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+{
+    Lattice prim_tetragonal = Lattice::createTetragonalLattice(1.0, c/a);
+    std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
+    P_orientation->usePrimitiveLattice(prim_tetragonal);
+    auto rotation = P_orientation->transformationMatrix();
+    Lattice hcp = Lattice::createBCTLattice(a, c);
+    return hcp.createTransformedLattice(rotation);
+}

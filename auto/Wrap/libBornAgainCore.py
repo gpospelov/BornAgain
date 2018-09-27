@@ -24543,6 +24543,18 @@ class Lattice(INode):
 
     createHCPLattice = staticmethod(createHCPLattice)
 
+    def createTetragonalLattice(a, c):
+        """createTetragonalLattice(double a, double c) -> Lattice"""
+        return _libBornAgainCore.Lattice_createTetragonalLattice(a, c)
+
+    createTetragonalLattice = staticmethod(createTetragonalLattice)
+
+    def createBCTLattice(a, c):
+        """createBCTLattice(double a, double c) -> Lattice"""
+        return _libBornAgainCore.Lattice_createBCTLattice(a, c)
+
+    createBCTLattice = staticmethod(createBCTLattice)
+
     def onChange(self):
         """
         onChange(Lattice self)
@@ -24573,6 +24585,14 @@ def Lattice_createHCPLattice(a, c):
     """Lattice_createHCPLattice(double a, double c) -> Lattice"""
     return _libBornAgainCore.Lattice_createHCPLattice(a, c)
 
+def Lattice_createTetragonalLattice(a, c):
+    """Lattice_createTetragonalLattice(double a, double c) -> Lattice"""
+    return _libBornAgainCore.Lattice_createTetragonalLattice(a, c)
+
+def Lattice_createBCTLattice(a, c):
+    """Lattice_createBCTLattice(double a, double c) -> Lattice"""
+    return _libBornAgainCore.Lattice_createBCTLattice(a, c)
+
 
 def CreateFCCLattice(lattice_constant, orientation):
     """
@@ -24586,6 +24606,10 @@ def CreateFCCLattice(lattice_constant, orientation):
 def CreateHCPLattice(a, c, orientation):
     """CreateHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
     return _libBornAgainCore.CreateHCPLattice(a, c, orientation)
+
+def CreateBCTLattice(a, c, orientation):
+    """CreateBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice"""
+    return _libBornAgainCore.CreateBCTLattice(a, c, orientation)
 class Lattice1DParameters(_object):
     """
 

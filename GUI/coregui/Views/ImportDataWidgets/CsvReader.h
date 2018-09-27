@@ -24,6 +24,8 @@ class CSVRow
 
         void addCell(std::string str);
 
+        std::vector<std::string> dataVector(){return m_data;}
+
     private:
         std::vector<std::string>    m_data;
         char separator = '-';
@@ -81,7 +83,7 @@ class CSVFile
         void EqualizeRowLengths();
 
 
-        CSVRow const operator[](unsigned index_i) const;
+        std::vector<std::string> const operator[](unsigned index_i) const;
 
         unsigned long NumberOfRows() const;
 
@@ -95,12 +97,15 @@ class CSVFile
 
         CSVRow get_row(unsigned i);
 
+        std::vector<std::vector<std::string>> asArray(){return m_data;}
+
     private:
         std::string filepath;
         char separator = '-';
         unsigned headersRow = 0;
         unsigned numberOfColumns = 0;
         std::vector<CSVRow>    rows;
+        std::vector<std::vector<std::string>>    m_data;
 
 };
 

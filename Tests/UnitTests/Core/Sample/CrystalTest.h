@@ -14,7 +14,7 @@ CrystalTest::~CrystalTest() = default;
 
 TEST_F(CrystalTest, getChildren)
 {
-    Lattice lattice = Lattice::createTrigonalLattice(1.0, 2.0);
+    Lattice lattice = Lattice::createHexagonalLattice(1.0, 2.0);
     ParticleComposition composition;
     Crystal crystal(composition, lattice);
 

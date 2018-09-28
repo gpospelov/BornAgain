@@ -43,22 +43,22 @@ void GUIFitObserver::update(FitSuite* subject)
     if (m_block_update_plots)
         m_on_finish_notifier.wait(lock, [this]() { return m_block_update_plots; });
 
-    if (subject->isFirstIteration())
-        emit logInfoUpdate(QString::fromStdString(subject->setupToString()));
-
     FitProgressInfo info;
     info.m_chi2 = subject->getChi2();
     info.m_iteration_count = (int)subject->numberOfIterations();
     info.m_values = GUIHelpers::fromStdVector(subject->fitParameters()->values());
 
-    emit progressInfoUpdate(info);
+    if (subject->isFirstIteration())
+        info.m_log_info = QString::fromStdString(subject->setupToString());
 
     if (subject->isLastIteration())
-        emit logInfoUpdate(reportToString(subject));
+        info.m_log_info = reportToString(subject);
 
-    m_simData.reset(subject->simulationResult().data());
-    emit plotsUpdate();
+    std::unique_ptr<OutputData<double>> data(subject->simulationResult().data());
+    info.m_sim_values = data->getRawDataVector();
 
+    m_iteration_info = info;
+    emit updateReady();
 }
 
 //! Returns true if data could be plotted, when there are resources for it.
@@ -106,11 +106,9 @@ void GUIFitObserver::finishedPlotting()
     m_on_finish_notifier.notify_one();
 }
 
-//! Returns data to the user and blocks possible data update.
-
-const OutputData<double>* GUIFitObserver::simulationData()
+FitProgressInfo GUIFitObserver::progressInfo()
 {
     std::unique_lock<std::mutex> lock(m_update_plot_mutex);
     m_block_update_plots = true;
-    return m_simData.get();
+    return m_iteration_info;
 }

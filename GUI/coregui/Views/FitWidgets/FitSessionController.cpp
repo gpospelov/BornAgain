@@ -33,17 +33,8 @@ FitSessionController::FitSessionController(QObject* parent)
     , m_fitlog(new FitLog)
     , m_block_progress_update(false)
 {
-    connect(m_observer.get(), &GUIFitObserver::plotsUpdate, this,
-            &FitSessionController::onPlotsUpdate);
-
-    connect(m_observer.get(), &GUIFitObserver::progressInfoUpdate, this,
-            &FitSessionController::onProgressInfoUpdate);
-
-    connect(
-        m_observer.get(), &GUIFitObserver::logInfoUpdate, this,
-        [this](const QString& text) {
-            m_fitlog->append(text.toStdString(), FitLogFlags::DEFAULT);
-        });
+    connect(m_observer.get(), &GUIFitObserver::updateReady, this,
+            &FitSessionController::onObserverUpdate);
 
     connect(m_runFitManager, &FitWorkerLauncher::fittingStarted, this,
             &FitSessionController::onFittingStarted);
@@ -106,9 +97,18 @@ void FitSessionController::onStopFittingRequest()
     m_runFitManager->interruptFitting();
 }
 
-void FitSessionController::onPlotsUpdate()
+void FitSessionController::onObserverUpdate()
 {
-    m_jobItem->dataItem()->setRawDataVector(m_observer->simulationData());
+    auto progressInfo = m_observer->progressInfo();
+    m_jobItem->dataItem()->getOutputData()->setRawDataVector(progressInfo.simValues());
+
+    if(!progressInfo.logInfo().isEmpty())
+        m_fitlog->append(progressInfo.logInfo().toStdString(), FitLogFlags::DEFAULT);
+
+    updateIterationCount(progressInfo);
+    updateFitParameterValues(progressInfo);
+    updateLog(progressInfo);
+
     m_observer->finishedPlotting();
 }
 
@@ -147,22 +147,6 @@ void FitSessionController::onFittingError(const QString& text)
     m_fitlog->append(message.toStdString(), FitLogFlags::ERROR);
 
     emit fittingError(message);
-}
-
-//! Propagates fit progress as reported by GUIFitObserver back to JobItem.
-
-void FitSessionController::onProgressInfoUpdate(const FitProgressInfo& info)
-{
-    if (m_block_progress_update)
-        return;
-
-    m_block_progress_update = true;
-
-    updateIterationCount(info);
-    updateFitParameterValues(info);
-    updateLog(info);
-
-    m_block_progress_update = false;
 }
 
 void FitSessionController::updateIterationCount(const FitProgressInfo& info)

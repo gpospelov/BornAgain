@@ -24,32 +24,13 @@
 
 namespace
 {
-JobItem* parentJobItem(DataItem* dataItem)
-{
-    auto jobItem =
-        dynamic_cast<const JobItem*>(ModelPath::ancestor(dataItem, Constants::JobItemType));
-    return const_cast<JobItem*>(jobItem);
-}
+JobItem* parentJobItem(DataItem* dataItem);
 
 //! loads intensity data from project directory
-
-void loadIntensityData(DataItem* intensityItem, const QString& projectDir)
-{
-    QString filename = intensityItem->fileName(projectDir);
-    auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
-    if (data)
-        intensityItem->setOutputData(data);
-}
+void loadIntensityData(DataItem* intensityItem, const QString& projectDir);
 
 //! Saves intensityData in project directory
-
-void saveIntensityData(DataItem* intensityItem, const QString& projectDir)
-{
-    if (!intensityItem)
-        return;
-
-    intensityItem->saveData(projectDir);
-}
+void saveIntensityData(DataItem* intensityItem, const QString& projectDir);
 } // namespace
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
@@ -150,3 +131,33 @@ void OutputDataIOService::cleanOldFiles(const QString& projectDir, const QString
     QStringList to_remove = ProjectUtils::substract(oldSaves, newSaves);
     ProjectUtils::removeFiles(projectDir, to_remove);
 }
+
+namespace
+{
+JobItem* parentJobItem(DataItem* dataItem)
+{
+    auto jobItem =
+        dynamic_cast<const JobItem*>(ModelPath::ancestor(dataItem, Constants::JobItemType));
+    return const_cast<JobItem*>(jobItem);
+}
+
+//! loads intensity data from project directory
+
+void loadIntensityData(DataItem* intensityItem, const QString& projectDir)
+{
+    QString filename = intensityItem->fileName(projectDir);
+    auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
+    if (data)
+        intensityItem->setOutputData(data);
+}
+
+//! Saves intensityData in project directory
+
+void saveIntensityData(DataItem* intensityItem, const QString& projectDir)
+{
+    if (!intensityItem)
+        return;
+
+    intensityItem->saveData(projectDir);
+}
+} // namespace

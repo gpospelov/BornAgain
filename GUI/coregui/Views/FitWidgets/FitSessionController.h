@@ -49,11 +49,10 @@ public slots:
     void onStopFittingRequest();
 
 private slots:
-    void onPlotsUpdate();
+    void onObserverUpdate();
     void onFittingStarted();
     void onFittingFinished();
     void onFittingError(const QString& text);
-    void onProgressInfoUpdate(const FitProgressInfo& info);
     void updateIterationCount(const FitProgressInfo& info);
     void updateFitParameterValues(const FitProgressInfo& info);
     void updateLog(const FitProgressInfo& info);

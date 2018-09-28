@@ -33,7 +33,7 @@ public:
     OutputData<double>* getOutputData() { return m_data.get(); }
     const OutputData<double>* getOutputData() const { return m_data.get(); }
     virtual void setOutputData(OutputData<double>* data) = 0;
-    virtual void setRawDataVector(const OutputData<double>* data) = 0;
+    void setRawDataVector(const OutputData<double>* data);
 
     QString fileName(const QString& projectDir = QString()) const;
 

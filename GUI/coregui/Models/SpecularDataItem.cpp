@@ -59,14 +59,6 @@ void SpecularDataItem::setOutputData(OutputData<double>* data)
     emitDataChanged();
 }
 
-//! Sets the raw data vector from external source
-
-void SpecularDataItem::setRawDataVector(const OutputData<double>* data)
-{
-    DataItem::setRawDataVector(data);
-    emitDataChanged();
-}
-
 int SpecularDataItem::getNbins() const
 {
     return xAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();

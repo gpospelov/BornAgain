@@ -30,7 +30,6 @@ public:
     SpecularDataItem();
 
     void setOutputData(OutputData<double>* data) override;
-    void setRawDataVector(const OutputData<double>* data) override;
 
     //! Number of bins in data
     int getNbins() const;

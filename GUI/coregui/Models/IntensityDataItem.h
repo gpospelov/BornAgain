@@ -37,7 +37,6 @@ public:
     IntensityDataItem();
 
     void setOutputData(OutputData<double>* data) override;
-    void setRawDataVector(const OutputData<double>* data) override;
 
     // TODO: consider using index-based functions for axes' handlers
 

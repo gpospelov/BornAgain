@@ -35,6 +35,7 @@ void DataItem::setRawDataVector(const OutputData<double>* data)
     }
     std::unique_lock<std::mutex> lock(m_update_data_mutex);
     m_data->setRawDataVector(data->getRawDataVector());
+    emitDataChanged();
 }
 
 QString DataItem::fileName(const QString& projectDir) const

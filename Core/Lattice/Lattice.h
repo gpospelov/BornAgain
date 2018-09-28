@@ -75,9 +75,17 @@ public:
     //! Sets a selection rule for the reciprocal vectors
     void setSelectionRule(const ISelectionRule& p_selection_rule);
 
+    static Lattice createCubicLattice(double a);
+
     static Lattice createFCCLattice(double a);
 
-    static Lattice createTrigonalLattice(double a, double c);
+    static Lattice createHexagonalLattice(double a, double c);
+
+    static Lattice createHCPLattice(double a, double c);
+
+    static Lattice createTetragonalLattice(double a, double c);
+
+    static Lattice createBCTLattice(double a, double c);
 
     void onChange() override;
 

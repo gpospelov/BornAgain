@@ -34,22 +34,21 @@ class BA_CORE_API_ CsvImportAssistant : public QDialog
     Q_OBJECT
 
 public:
-    CsvImportAssistant(QString dir = "./", QString file = "", QWidget* parent = nullptr);
-    QString filepath() const;
-    void setFilepath(QString fpath);
+    CsvImportAssistant(QString& dir, QString& file, QWidget* parent = nullptr);
     char separator() const;
-    unsigned headersLine() const;
+    void setHeaders();
     unsigned firstLine() const;
     unsigned lastLine() const;
-    unsigned singleColumnImport() const;
+    void Reload();
     std::unique_ptr<OutputData<double>> getData();
+    QStringList relevantHeaders = {"Intensity","theta","2theta","q"};
+    enum relevantColumns {_intensity_,_theta_,_2theta_,_q_};
 
 public slots:
     void onImportButton();
-    void onReloadButton();
     void onRejectButton();
-    void onBrowseButton();
-
+    void OnColumnClicked(int row, int column);
+    void onColumnRightClick(QPoint position);
 
 private:
     QBoxLayout* createLayout();
@@ -57,24 +56,28 @@ private:
 
     char guessSeparator() const;
     void generate_table();
-    void set_table_data(CSVFile *csvFile);
-    void convert_table();
-    void remove_unwanted();
+    void set_table_data(std::vector<std::vector<std::string>> dataArray);
+    void removeBlankColumns(std::vector<std::vector<std::string>> &dataArray);
+    void extractDesiredColumns(std::vector<std::vector<std::string>> &dataArray);
+    bool hasEqualLengthLines(std::vector<std::vector<std::string> > &dataArray);
     void setRowNumbering();
-    bool cell_is_blank(int iRow, int jCol);
 
 
 
     QString m_dirName;
     QString m_fileName;
+    unsigned m_lastDataRow;
+    unsigned m_intensityCol;
+    unsigned m_coordinateCol;
+    QString  m_coordinateName;
+    unsigned m_singleCol;
 
     QTableWidget* m_tableWidget;
-    QLineEdit* m_filePathField;
     QLineEdit* m_separatorField;
-    //QSpinBox* m_headersRowSpinBox;
     QSpinBox* m_firstDataRowSpinBox;
-    QSpinBox* m_lastDataRowSpinBox;
     QSpinBox* m_singleDataColSpinBox;
+    QPushButton* m_importButton;
+
 };
 
-#endif // MATERIALEDITORDIALOG_H
+#endif // CSVIMPORTASSISTANT_H

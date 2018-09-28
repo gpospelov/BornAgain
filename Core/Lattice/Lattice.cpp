@@ -143,6 +143,14 @@ std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(
         input_vector, nearest_coords, radius, m_ra, m_rb, m_rc, m_a, m_b, m_c);
 }
 
+Lattice Lattice::createCubicLattice(double a)
+{
+    kvector_t a1(a, 0.0, 0.0);
+    kvector_t a2(0.0, a, 0.0);
+    kvector_t a3(0.0, 0.0, a);
+    return Lattice(a1, a2, a3);
+}
+
 Lattice Lattice::createFCCLattice(double a)
 {
     double b = a/2.0;
@@ -152,11 +160,35 @@ Lattice Lattice::createFCCLattice(double a)
     return Lattice(a1, a2, a3);
 }
 
-Lattice Lattice::createTrigonalLattice(double a, double c)
+Lattice Lattice::createHexagonalLattice(double a, double c)
+{
+    kvector_t a1(a, 0.0, 0.0);
+    kvector_t a2(-a/2.0, std::sqrt(3.0)*a/2.0, 0.0);
+    kvector_t a3(0.0, 0.0, c);
+    return Lattice(a1, a2, a3);
+}
+
+Lattice Lattice::createHCPLattice(double a, double c)
 {
     kvector_t a1(a, 0.0, 0.0);
     kvector_t a2(-a/2.0, std::sqrt(3.0)*a/2.0, 0);
+    kvector_t a3(a/2.0, a/std::sqrt(3.0)/2.0, c/2.0);
+    return Lattice(a1, a2, a3);
+}
+
+Lattice Lattice::createTetragonalLattice(double a, double c)
+{
+    kvector_t a1(a, 0.0, 0.0);
+    kvector_t a2(0.0, a, 0.0);
     kvector_t a3(0.0, 0.0, c);
+    return Lattice(a1, a2, a3);
+}
+
+Lattice Lattice::createBCTLattice(double a, double c)
+{
+    kvector_t a1(a, 0.0, 0.0);
+    kvector_t a2(0.0, a, 0.0);
+    kvector_t a3(a/2.0, a/2.0, c/2.0);
     return Lattice(a1, a2, a3);
 }
 

@@ -16,7 +16,7 @@ MesoCrystalTest::~MesoCrystalTest() = default;
 
 TEST_F(MesoCrystalTest, getChildren)
 {
-    Lattice lattice = Lattice::createTrigonalLattice(1.0, 2.0);
+    Lattice lattice = Lattice::createHexagonalLattice(1.0, 2.0);
     ParticleComposition composition;
     Crystal crystal(composition, lattice);
     MesoCrystal meso(crystal, FormFactorFullSphere(1.0));

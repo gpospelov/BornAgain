@@ -163,10 +163,10 @@ TEST_F(LatticeTest, FCCLatticeTest)
     EXPECT_EQ(fcc3, l1.getBasisVectorC());
 }
 
-// tests trigonal lattice creation
-TEST_F(LatticeTest, TrigonalLatticeTest)
+// tests hexagonal lattice creation
+TEST_F(LatticeTest, HexagonalLatticeTest)
 {
-    Lattice l1 = Lattice::createTrigonalLattice(1, 4);
+    Lattice l1 = Lattice::createHexagonalLattice(1, 4);
 
     kvector_t tri1(1, 0.0, 0.0);
     kvector_t tri2(-1 / 2.0, std::sqrt(3.0) * 1 / 2.0, 0);

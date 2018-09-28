@@ -91,14 +91,6 @@ void IntensityDataItem::setOutputData(OutputData<double>* data)
     emitDataChanged();
 }
 
-//! Sets the raw data vector from external source
-
-void IntensityDataItem::setRawDataVector(const OutputData<double>* data)
-{
-    DataItem::setRawDataVector(data);
-    emitDataChanged();
-}
-
 int IntensityDataItem::getNbinsX() const
 {
     return xAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();

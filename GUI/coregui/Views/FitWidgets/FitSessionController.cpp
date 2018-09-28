@@ -100,14 +100,14 @@ void FitSessionController::onStopFittingRequest()
 void FitSessionController::onObserverUpdate()
 {
     auto progressInfo = m_observer->progressInfo();
-    m_jobItem->dataItem()->getOutputData()->setRawDataVector(progressInfo.simValues());
-
-    if(!progressInfo.logInfo().empty())
-        m_fitlog->append(progressInfo.logInfo(), FitLogFlags::DEFAULT);
+    m_jobItem->dataItem()->setRawDataVector(progressInfo.simValues());
 
     updateIterationCount(progressInfo);
     updateFitParameterValues(progressInfo);
     updateLog(progressInfo);
+
+    if(!progressInfo.logInfo().empty())
+        m_fitlog->append(progressInfo.logInfo(), FitLogFlags::DEFAULT);
 
     m_observer->finishedPlotting();
 }

@@ -27,14 +27,13 @@ void DataItem::setOutputData(OutputData<double>* data)
     m_data.reset(data);
 }
 
-void DataItem::setRawDataVector(const OutputData<double>* data)
+void DataItem::setRawDataVector(std::vector<double> data)
 {
-    if (!m_data->hasSameDimensions(*data)) {
+    if (m_data->getAllocatedSize() != data.size())
         throw GUIHelpers::Error("DataItem::setRawDataVector() -> Error. "
-                                "Different dimensions of data.");
-    }
+                                "Different data size.");
     std::unique_lock<std::mutex> lock(m_update_data_mutex);
-    m_data->setRawDataVector(data->getRawDataVector());
+    m_data->setRawDataVector(std::move(data));
     emitDataChanged();
 }
 

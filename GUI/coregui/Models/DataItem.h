@@ -33,7 +33,11 @@ public:
     OutputData<double>* getOutputData() { return m_data.get(); }
     const OutputData<double>* getOutputData() const { return m_data.get(); }
     virtual void setOutputData(OutputData<double>* data) = 0;
-    void setRawDataVector(const OutputData<double>* data);
+
+    //! Sets the raw data vector from external source
+    //! Checks only the equality of data size,
+    //! no dimension checks are applied.
+    void setRawDataVector(std::vector<double> data);
 
     QString fileName(const QString& projectDir = QString()) const;
 

@@ -21,7 +21,6 @@
 #include "IntensityDataIOFactory.h"
 #include "IntensityDataItem.h"
 #include "RealDataItem.h"
-#include "CsvImportAssistant.h"
 #include "projectmanager.h"
 #include <QFileDialog>
 #include <QFileInfo>
@@ -29,7 +28,7 @@
 
 namespace
 {
-const QString filter_string = "Intensity File (*.int *.gz *.tif *.tiff *.txt *.csv);;"
+const QString filter_string = "Intensity File (*.int *.gz *.tif *.tiff *.txt);;"
                               "Other (*)";
 
 int getRank(const RealDataItem& item)
@@ -45,14 +44,8 @@ int getRank(const InstrumentItem& item) {
 std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
-    QString fileName = QFileDialog::getOpenFileName(Q_NULLPTR, QStringLiteral("Open Intensity File"),
+    QString fileName = QFileDialog::getOpenFileName(0, QStringLiteral("Open Intensity File"),
                                                     dirname, filter_string);
-
-    std::unique_ptr<OutputData<double>> result;
-
-    QString newImportDir = GUIHelpers::fileDir(fileName);
-    if (newImportDir != dirname)
-        AppSvc::projectManager()->setImportDir(newImportDir);
 
     if (fileName.isEmpty())
         return nullptr;
@@ -60,42 +53,25 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNam
     QFileInfo info(fileName);
     baseNameOfLoadedFile = info.baseName();
 
-    //Try to use the canonical tools for importing data
+    QString newImportDir = GUIHelpers::fileDir(fileName);
+    if (newImportDir != dirname)
+        AppSvc::projectManager()->setImportDir(newImportDir);
+
+    std::unique_ptr<OutputData<double>> result;
+
     try {
         std::unique_ptr<OutputData<double>> data(
-                    IntensityDataIOFactory::readOutputData(fileName.toStdString()));
+            IntensityDataIOFactory::readOutputData(fileName.toStdString()));
         result = CreateSimplifiedOutputData(*data.get());
-
-    } catch(std::exception& e)
-            //Try to import data using the GUI importer
-    {
-        std::unique_ptr<OutputData<double>> data;
-        if(!UseImportAssistant(dirname, fileName, data))
-            return nullptr;
-
-        result = CreateSimplifiedOutputData(*data.get());
+    } catch (std::exception& ex) {
+        QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
+                              .arg(fileName)
+                              .arg(QString::fromStdString(std::string(ex.what())));
+        QMessageBox::warning(0, "IO Problem", message);
     }
+
     return result;
 }
-
-bool ImportDataUtils::UseImportAssistant(QString& dirname, QString& fileName, std::unique_ptr<OutputData<double>>& result){
-    try{
-        CsvImportAssistant assistant(dirname,fileName);
-        int res = assistant.exec();
-        if(res == assistant.Accepted){
-            result = assistant.getData();
-            return true;
-        }
-    }catch(std::exception& e){
-        QString message = QString("Unable to read file:\n\n'%1'\n\n%2\n\nCheck that the file exists and it is not being used by other program.\n\n")
-                .arg(fileName)
-                .arg(QString::fromStdString(std::string(e.what())));
-        QMessageBox::warning(nullptr, "IO Problem", message);
-        return false;
-    }
-    return false;
-}
-
 
 bool ImportDataUtils::Compatible(const InstrumentItem& instrumentItem,
                                  const RealDataItem& realDataItem)

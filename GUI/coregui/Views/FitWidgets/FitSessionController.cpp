@@ -102,8 +102,8 @@ void FitSessionController::onObserverUpdate()
     auto progressInfo = m_observer->progressInfo();
     m_jobItem->dataItem()->getOutputData()->setRawDataVector(progressInfo.simValues());
 
-    if(!progressInfo.logInfo().isEmpty())
-        m_fitlog->append(progressInfo.logInfo().toStdString(), FitLogFlags::DEFAULT);
+    if(!progressInfo.logInfo().empty())
+        m_fitlog->append(progressInfo.logInfo(), FitLogFlags::DEFAULT);
 
     updateIterationCount(progressInfo);
     updateFitParameterValues(progressInfo);
@@ -160,7 +160,7 @@ void FitSessionController::updateIterationCount(const FitProgressInfo& info)
 
 void FitSessionController::updateFitParameterValues(const FitProgressInfo& info)
 {
-    QVector<double> values = info.parValues();
+    QVector<double> values = GUIHelpers::fromStdVector(info.parValues());
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();
     fitParContainer->setValuesInParameterContainer(values, m_jobItem->parameterContainerItem());
 }
@@ -170,7 +170,7 @@ void FitSessionController::updateLog(const FitProgressInfo& info)
     QString message = QString("NCalls:%1 chi2:%2 \n").arg(info.iterationCount()).arg(info.chi2());
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();
     int index(0);
-    QVector<double> values = info.parValues();
+    QVector<double> values = GUIHelpers::fromStdVector(info.parValues());
     for(auto item : fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         if (item->getItems(FitParameterItem::T_LINK).size() == 0)
             continue;

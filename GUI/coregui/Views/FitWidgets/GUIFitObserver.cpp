@@ -45,11 +45,11 @@ void GUIFitObserver::update(FitSuite* subject)
 
     FitProgressInfo info;
     info.m_chi2 = subject->getChi2();
-    info.m_iteration_count = (int)subject->numberOfIterations();
-    info.m_values = GUIHelpers::fromStdVector(subject->fitParameters()->values());
+    info.m_iteration_count = static_cast<int>(subject->numberOfIterations());
+    info.m_values = subject->fitParameters()->values();
 
     if (subject->isFirstIteration())
-        info.m_log_info = QString::fromStdString(subject->setupToString());
+        info.m_log_info = subject->setupToString();
 
     if (subject->isLastIteration())
         info.m_log_info = reportToString(subject);
@@ -88,11 +88,11 @@ void GUIFitObserver::setInterval(int val)
 
 //! Return string representing results of the minimization.
 
-QString GUIFitObserver::reportToString(FitSuite* fitSuite)
+std::string GUIFitObserver::reportToString(FitSuite* fitSuite)
 {
-    QString result = QString::fromStdString(MinimizerUtils::sectionString("Fit parameter setup"));
-    result += QString::fromStdString(fitSuite->setupToString());
-    result += QString::fromStdString(fitSuite->reportResults());
+    std::string result = MinimizerUtils::sectionString("Fit parameter setup");
+    result += fitSuite->setupToString();
+    result += fitSuite->reportResults();
     return result;
 }
 

@@ -51,7 +51,7 @@ signals:
 private:
     bool is_suitable_iteration(FitSuite* fitSuite);
     bool is_obligatory_iteration(FitSuite* fitSuite);
-    QString reportToString(FitSuite* fitSuite);
+    std::string reportToString(FitSuite* fitSuite);
 
     bool m_block_update_plots;
     std::mutex m_update_plot_mutex;

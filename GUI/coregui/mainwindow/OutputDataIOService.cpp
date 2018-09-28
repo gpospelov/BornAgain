@@ -15,23 +15,42 @@
 #include "OutputDataIOService.h"
 #include "ApplicationModels.h"
 #include "DataItem.h"
-#include "JobItemUtils.h"
+#include "IntensityDataIOFactory.h"
 #include "ProjectUtils.h"
 #include "MessageService.h"
 #include "JobItem.h"
 #include "ModelPath.h"
 #include "item_constants.h"
 
-namespace {
-
-BA_CORE_API_ JobItem* parentJobItem(DataItem* dataItem)
+namespace
 {
-    auto jobItem = dynamic_cast<const JobItem*>(
-                ModelPath::ancestor(dataItem, Constants::JobItemType));
+JobItem* parentJobItem(DataItem* dataItem)
+{
+    auto jobItem =
+        dynamic_cast<const JobItem*>(ModelPath::ancestor(dataItem, Constants::JobItemType));
     return const_cast<JobItem*>(jobItem);
 }
 
+//! loads intensity data from project directory
+
+void loadIntensityData(DataItem* intensityItem, const QString& projectDir)
+{
+    QString filename = intensityItem->fileName(projectDir);
+    auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
+    if (data)
+        intensityItem->setOutputData(data);
 }
+
+//! Saves intensityData in project directory
+
+void saveIntensityData(DataItem* intensityItem, const QString& projectDir)
+{
+    if (!intensityItem)
+        return;
+
+    intensityItem->saveData(projectDir);
+}
+} // namespace
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
     : QObject(parent), m_applicationModels(nullptr)
@@ -61,7 +80,7 @@ void OutputDataIOService::save(const QString& projectDir)
     for (auto item : dataItems()) {
 
         if (m_history.wasModifiedSinceLastSave(projectDir, item))
-            JobItemUtils::saveIntensityData(item, projectDir);
+            saveIntensityData(item, projectDir);
 
         newHistory.markAsSaved(item);
     }
@@ -81,7 +100,7 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
 
     for (auto item : dataItems()) {
         try {
-            JobItemUtils::loadIntensityData(item, projectDir);
+            loadIntensityData(item, projectDir);
             newHistory.markAsSaved(item);
             // handling crash of GUI during job run and non-existing file
             if (auto jobItem = parentJobItem(item)) {

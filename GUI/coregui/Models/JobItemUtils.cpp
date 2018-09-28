@@ -17,7 +17,6 @@
 #include "DomainObjectBuilder.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
-#include "IntensityDataIOFactory.h"
 #include "DataItem.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
@@ -98,27 +97,6 @@ void JobItemUtils::updateDataAxes(DataItem* intensityItem,
     intensityItem->setOutputData(newData.release());
     intensityItem->setAxesRangeToData();
     updateAxesTitle(intensityItem, *converter, requested_units);
-}
-
-//! loads intensity data from project directory
-
-void JobItemUtils::loadIntensityData(DataItem *intensityItem, const QString &projectDir)
-{
-    QString filename = intensityItem->fileName(projectDir);
-    auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
-    if (data)
-        intensityItem->setOutputData(data);
-}
-
-
-//! Saves intensityData in project directory
-
-void JobItemUtils::saveIntensityData(DataItem* intensityItem, const QString& projectDir)
-{
-    if (!intensityItem)
-        return;
-
-    intensityItem->saveData(projectDir);
 }
 
 //! Correspondance of domain detector axes types to their gui counterpart.

@@ -37,15 +37,41 @@ void DataItem::setRawDataVector(std::vector<double> data)
     emitDataChanged();
 }
 
-QString DataItem::fileName(const QString& projectDir) const
+QString DataItem::fileName() const
 {
-    QString filename = getItemValue(DataItem::P_FILE_NAME).toString();
-    return projectDir.isEmpty() ? filename : projectDir + QStringLiteral("/") + filename;
+    return getItemValue(DataItem::P_FILE_NAME).toString();
 }
 
 QDateTime DataItem::lastModified() const
 {
     return m_last_modified;
+}
+
+bool DataItem::containsNonXMLData() const
+{
+    return static_cast<bool>(m_data);
+}
+
+bool DataItem::load(const QString &projectDir)
+{
+    QString filename = fileName(projectDir);
+    auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
+    if (!data)
+        return false;
+    setOutputData(data);
+    return true;
+}
+
+bool DataItem::save(const QString& projectDir)
+{
+    if (!containsNonXMLData())
+        return false;
+
+    std::unique_lock<std::mutex> lock(m_update_data_mutex);
+    std::unique_ptr<OutputData<double>> clone(getOutputData()->clone());
+    lock.unlock();
+    IntensityDataIOFactory::writeOutputData(*clone, fileName(projectDir).toStdString());
+    return true;
 }
 
 void DataItem::setLastModified(const QDateTime& dtime)

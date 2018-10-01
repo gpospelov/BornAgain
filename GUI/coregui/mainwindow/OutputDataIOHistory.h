@@ -16,22 +16,22 @@
 #define OUTPUTDATAIOHISTORY_H
 
 #include "WinDllMacros.h"
-#include "DataItem.h"
+#include <QMap>
 #include <QVector>
 #include <QDateTime>
 
-class IntensityDataItem;
+class SaveLoadInterface;
 
-//! Holds information about last save for IntensityDataItem.
+//! Holds information about last save for items with non-XML data.
 
 class BA_CORE_API_ OutputDataSaveInfo
 {
 public:
     OutputDataSaveInfo() : m_dataItem(nullptr) {}
 
-    static OutputDataSaveInfo createSaved(const DataItem* item);
+    static OutputDataSaveInfo createSaved(const SaveLoadInterface* item);
 
-    const DataItem* dataItem() const { return m_dataItem; }
+    const SaveLoadInterface* dataItem() const { return m_dataItem; }
 
     QString fileName() const { return m_file_name; }
 
@@ -42,25 +42,25 @@ private:
 
     QDateTime m_last_saved;
     QString m_file_name;
-    const DataItem* m_dataItem;
+    const SaveLoadInterface* m_dataItem;
 };
 
-//! Save history information for collection of IntensityDataItems.
+//! Save history information for collection of items with non-XML data.
 
 class BA_CORE_API_ OutputDataDirHistory {
 public:
     OutputDataDirHistory() {}
 
-    void markAsSaved(const DataItem* item);
+    void markAsSaved(const SaveLoadInterface* item);
 
-    bool wasModifiedSinceLastSave(const DataItem* item);
+    bool wasModifiedSinceLastSave(const SaveLoadInterface* item);
 
-    bool contains(const DataItem* item);
+    bool contains(const SaveLoadInterface* item);
 
     QStringList savedFileNames() const;
 
 private:
-    OutputDataSaveInfo itemInfo(const DataItem* item) const;
+    OutputDataSaveInfo itemInfo(const SaveLoadInterface* item) const;
 
     QVector<OutputDataSaveInfo> m_history;
 };
@@ -71,7 +71,7 @@ class BA_CORE_API_ OutputDataIOHistory {
 public:
     bool hasHistory(const QString& dirname) const;
 
-    bool wasModifiedSinceLastSave(const QString& dirname, const DataItem* item);
+    bool wasModifiedSinceLastSave(const QString& dirname, const SaveLoadInterface* item);
 
     void setHistory(const QString& dirname, const OutputDataDirHistory& history);
 

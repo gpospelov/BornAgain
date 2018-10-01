@@ -14,17 +14,17 @@
 
 #include "OutputDataIOService.h"
 #include "ApplicationModels.h"
-#include "DataItem.h"
 #include "IntensityDataIOFactory.h"
 #include "ProjectUtils.h"
 #include "MessageService.h"
 #include "JobItem.h"
 #include "ModelPath.h"
+#include "SaveLoadInterface.h"
 #include "item_constants.h"
 
 namespace
 {
-JobItem* parentJobItem(DataItem* dataItem);
+JobItem* parentJobItem(SaveLoadInterface* dataItem);
 } // namespace
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
@@ -53,10 +53,8 @@ void OutputDataIOService::save(const QString& projectDir)
     OutputDataDirHistory newHistory;
 
     for (auto item : dataItems()) {
-
         if (m_history.wasModifiedSinceLastSave(projectDir, item))
             item->save(projectDir);
-
         newHistory.markAsSaved(item);
     }
 
@@ -102,15 +100,15 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
 
 //! Returns all IntensityDataItems available for save/load.
 
-QVector<DataItem*> OutputDataIOService::dataItems() const
+QVector<SaveLoadInterface*> OutputDataIOService::dataItems() const
 {
-    QVector<DataItem*> result;
+    QVector<SaveLoadInterface*> result;
 
     if (!m_applicationModels)
         return result;
 
     for (auto item : m_applicationModels->nonXMLData())
-        if (auto data_item = dynamic_cast<DataItem*>(item))
+        if (auto data_item = dynamic_cast<SaveLoadInterface*>(item))
             result.push_back(data_item);
 
     return result;
@@ -128,10 +126,11 @@ void OutputDataIOService::cleanOldFiles(const QString& projectDir, const QString
 
 namespace
 {
-JobItem* parentJobItem(DataItem* dataItem)
+JobItem* parentJobItem(SaveLoadInterface* dataItem)
 {
+    auto session_item = dynamic_cast<SessionItem*>(dataItem); //sidecast
     auto jobItem =
-        dynamic_cast<const JobItem*>(ModelPath::ancestor(dataItem, Constants::JobItemType));
+        dynamic_cast<const JobItem*>(ModelPath::ancestor(session_item, Constants::JobItemType));
     return const_cast<JobItem*>(jobItem);
 }
 } // namespace

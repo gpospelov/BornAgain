@@ -25,12 +25,6 @@
 namespace
 {
 JobItem* parentJobItem(DataItem* dataItem);
-
-//! loads intensity data from project directory
-void loadIntensityData(DataItem* intensityItem, const QString& projectDir);
-
-//! Saves intensityData in project directory
-void saveIntensityData(DataItem* intensityItem, const QString& projectDir);
 } // namespace
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
@@ -61,7 +55,7 @@ void OutputDataIOService::save(const QString& projectDir)
     for (auto item : dataItems()) {
 
         if (m_history.wasModifiedSinceLastSave(projectDir, item))
-            saveIntensityData(item, projectDir);
+            item->save(projectDir);
 
         newHistory.markAsSaved(item);
     }
@@ -81,7 +75,7 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
 
     for (auto item : dataItems()) {
         try {
-            loadIntensityData(item, projectDir);
+            item->load(projectDir);
             newHistory.markAsSaved(item);
             // handling crash of GUI during job run and non-existing file
             if (auto jobItem = parentJobItem(item)) {
@@ -139,25 +133,5 @@ JobItem* parentJobItem(DataItem* dataItem)
     auto jobItem =
         dynamic_cast<const JobItem*>(ModelPath::ancestor(dataItem, Constants::JobItemType));
     return const_cast<JobItem*>(jobItem);
-}
-
-//! loads intensity data from project directory
-
-void loadIntensityData(DataItem* intensityItem, const QString& projectDir)
-{
-    QString filename = intensityItem->fileName(projectDir);
-    auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
-    if (data)
-        intensityItem->setOutputData(data);
-}
-
-//! Saves intensityData in project directory
-
-void saveIntensityData(DataItem* intensityItem, const QString& projectDir)
-{
-    if (!intensityItem)
-        return;
-
-    intensityItem->saveData(projectDir);
 }
 } // namespace

@@ -218,6 +218,7 @@ const ModelType RealLimitsGroup = "RealLimits group";
 const ModelType BackgroundGroup = "Background group";
 const ModelType MaterialDataGroup = "Material data group";
 const ModelType FootprintGroup = "Footprint group";
+const ModelType AxesGroup = "Axes group";
 
 // --- Units&Constants----------------------------------------------------------
 

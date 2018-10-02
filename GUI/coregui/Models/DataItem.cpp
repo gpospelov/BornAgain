@@ -85,18 +85,6 @@ QString DataItem::selectedAxesUnits() const
     return combo.getValue();
 }
 
-void DataItem::saveData(const QString& projectDir)
-{
-    if (!getOutputData())
-        return;
-
-    std::unique_lock<std::mutex> lock(m_update_data_mutex);
-    std::unique_ptr<OutputData<double>> clone(getOutputData()->clone());
-    lock.unlock();
-    IntensityDataIOFactory::writeOutputData(*clone,
-                                            fileName(projectDir).toStdString());
-}
-
 void DataItem::resetToDefault()
 {
     ComboProperty combo = ComboProperty() << Constants::UnitsNbins;

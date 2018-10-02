@@ -60,8 +60,6 @@ public:
     //! Returns data to default state (no dimensional units, default axes' names)
     virtual void resetToDefault() = 0;
 
-    void saveData(const QString& projectDir);
-
 protected:
     DataItem(const QString& modelType);
 

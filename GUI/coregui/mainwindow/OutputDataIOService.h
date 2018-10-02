@@ -41,7 +41,7 @@ public:
 
     void load(const QString& projectDir, MessageService* messageService = nullptr);
 
-    QVector<SaveLoadInterface* > dataItems() const;
+    QVector<SaveLoadInterface* > nonXMLItems() const;
 
 private:
     void cleanOldFiles(const QString& projectDir, const QStringList& oldSaves,

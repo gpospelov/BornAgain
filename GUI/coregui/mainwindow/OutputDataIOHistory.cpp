@@ -23,7 +23,7 @@ OutputDataSaveInfo OutputDataSaveInfo::createSaved(const SaveLoadInterface* item
     Q_ASSERT(item);
 
     OutputDataSaveInfo result;
-    result.m_dataItem = item;
+    result.m_data = item;
     result.m_file_name = item->fileName();
     result.m_last_saved = QDateTime::currentDateTime();
     return result;
@@ -31,7 +31,7 @@ OutputDataSaveInfo OutputDataSaveInfo::createSaved(const SaveLoadInterface* item
 
 bool OutputDataSaveInfo::wasModifiedSinceLastSave() const
 {
-    return wasSavedBefore(m_dataItem->lastModified());
+    return wasSavedBefore(m_data->lastModified());
 }
 
 //! Returns true if IntensityDataItem was saved before given time.
@@ -62,7 +62,7 @@ bool OutputDataDirHistory::wasModifiedSinceLastSave(const SaveLoadInterface* ite
 
 bool OutputDataDirHistory::contains(const SaveLoadInterface* item) {
     for(auto& info : m_history)
-        if(info.dataItem() == item)
+        if(info.item() == item)
             return true;
 
     return false;
@@ -83,7 +83,7 @@ QStringList OutputDataDirHistory::savedFileNames() const
 OutputDataSaveInfo OutputDataDirHistory::itemInfo(const SaveLoadInterface* item) const
 {
     for(auto& info : m_history) {
-        if (info.dataItem() == item)
+        if (info.item() == item)
             return info;
     }
 

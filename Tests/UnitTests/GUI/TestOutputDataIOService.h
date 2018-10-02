@@ -89,7 +89,7 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
 
     // checking data items of OutputDataIOService
     OutputDataIOService service(&models);
-    EXPECT_EQ(service.dataItems().size(), 3);
+    EXPECT_EQ(service.nonXMLItems().size(), 3);
 
     // checking data items of ApplicationModels
     dataItems = models.nonXMLData();

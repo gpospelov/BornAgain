@@ -27,11 +27,11 @@ class SaveLoadInterface;
 class BA_CORE_API_ OutputDataSaveInfo
 {
 public:
-    OutputDataSaveInfo() : m_dataItem(nullptr) {}
+    OutputDataSaveInfo() : m_data(nullptr) {}
 
     static OutputDataSaveInfo createSaved(const SaveLoadInterface* item);
 
-    const SaveLoadInterface* dataItem() const { return m_dataItem; }
+    const SaveLoadInterface* item() const { return m_data; }
 
     QString fileName() const { return m_file_name; }
 
@@ -42,7 +42,7 @@ private:
 
     QDateTime m_last_saved;
     QString m_file_name;
-    const SaveLoadInterface* m_dataItem;
+    const SaveLoadInterface* m_data;
 };
 
 //! Save history information for collection of items with non-XML data.

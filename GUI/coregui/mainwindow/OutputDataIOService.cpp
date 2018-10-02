@@ -24,7 +24,7 @@
 
 namespace
 {
-JobItem* parentJobItem(SaveLoadInterface* dataItem);
+JobItem* parentJobItem(SaveLoadInterface* item);
 } // namespace
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
@@ -52,7 +52,7 @@ void OutputDataIOService::save(const QString& projectDir)
 
     OutputDataDirHistory newHistory;
 
-    for (auto item : dataItems()) {
+    for (auto item : nonXMLItems()) {
         if (m_history.wasModifiedSinceLastSave(projectDir, item))
             item->save(projectDir);
         newHistory.markAsSaved(item);
@@ -63,7 +63,7 @@ void OutputDataIOService::save(const QString& projectDir)
     QStringList newFiles = newHistory.savedFileNames();
     cleanOldFiles(projectDir, oldFiles, newFiles);
 
-    // if oldHistory contained some deleted IntensityDataItems, that info will be dropped here
+    // if oldHistory contained some deleted items, that info will be dropped here
     m_history.setHistory(projectDir, newHistory);
 }
 
@@ -71,7 +71,7 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
 {
     OutputDataDirHistory newHistory;
 
-    for (auto item : dataItems()) {
+    for (auto item : nonXMLItems()) {
         try {
             item->load(projectDir);
             newHistory.markAsSaved(item);
@@ -98,9 +98,9 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
     m_history.setHistory(projectDir, newHistory);
 }
 
-//! Returns all IntensityDataItems available for save/load.
+//! Returns all non-XML items available for save/load.
 
-QVector<SaveLoadInterface*> OutputDataIOService::dataItems() const
+QVector<SaveLoadInterface*> OutputDataIOService::nonXMLItems() const
 {
     QVector<SaveLoadInterface*> result;
 
@@ -108,8 +108,8 @@ QVector<SaveLoadInterface*> OutputDataIOService::dataItems() const
         return result;
 
     for (auto item : m_applicationModels->nonXMLData())
-        if (auto data_item = dynamic_cast<SaveLoadInterface*>(item))
-            result.push_back(data_item);
+        if (auto non_xml_item = dynamic_cast<SaveLoadInterface*>(item))
+            result.push_back(non_xml_item);
 
     return result;
 }
@@ -126,9 +126,9 @@ void OutputDataIOService::cleanOldFiles(const QString& projectDir, const QString
 
 namespace
 {
-JobItem* parentJobItem(SaveLoadInterface* dataItem)
+JobItem* parentJobItem(SaveLoadInterface* item)
 {
-    auto session_item = dynamic_cast<SessionItem*>(dataItem); //sidecast
+    auto session_item = dynamic_cast<SessionItem*>(item); //sidecast
     auto jobItem =
         dynamic_cast<const JobItem*>(ModelPath::ancestor(session_item, Constants::JobItemType));
     return const_cast<JobItem*>(jobItem);

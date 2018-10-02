@@ -229,6 +229,42 @@ void RealSpaceBuilderUtils::populateInterference1DLatticeType(
                                         sceneGeometry, builder3D);
 }
 
+void RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
+    const IInterferenceFunction* interference, RealSpaceModel* model,
+    const std::vector<Particle3DContainer>& particle3DContainer_vector,
+    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
+{
+    auto interferenceRadialParacrystal = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference);
+    auto peakDistance = interferenceRadialParacrystal->peakDistance();
+
+    // Simply set the parameters l1 = peakDistance, l2 = 0, l_alpha = 0 and l_xi = 0 in
+    // computeInterference2DLatticePositions() to compute initial lattice positions for 1D Radial Lattice
+    std::vector<std::vector<double>> lattice_positions = computeInterference2DLatticePositions(
+        peakDistance, 0.0, 0.0, 0.0, sceneGeometry);
+
+    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
+                                        sceneGeometry, builder3D);
+}
+
+/*
+// TODO Modify after completion of Radial Paracrystal
+void RealSpaceBuilderUtils::populateInterference2DParacrystalType(
+        const IInterferenceFunction* interference, RealSpaceModel* model,
+        const std::vector<Particle3DContainer>& particle3DContainer_vector,
+        const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
+    {
+        auto interference2DParacrystal = dynamic_cast<const InterferenceFunction2DParaCrystal *>(interference);
+        const Lattice2D& lattice2DParacrystal = interference2DParacrystal->lattice();
+
+        std::vector<std::vector<double>> lattice_positions = computeInterference2DLatticePositions(
+            lattice2DParacrystal.length1(), lattice2DParacrystal.length2(), lattice2DParacrystal.latticeAngle(),
+            lattice2DParacrystal.rotationAngle(), sceneGeometry);
+
+        populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
+                                            sceneGeometry, builder3D);
+    }
+*/
+
 // Implement Rotation of a 3D particle using parameters from IRotation Object
 QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*& rotation)
 {

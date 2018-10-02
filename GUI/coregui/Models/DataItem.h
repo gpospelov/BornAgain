@@ -15,6 +15,7 @@
 #ifndef DATAITEM_H
 #define DATAITEM_H
 
+#include "SaveLoadInterface.h"
 #include "SessionItem.h"
 #include "OutputData.h"
 #include <QDateTime>
@@ -24,7 +25,7 @@ class InstrumentItem;
 
 //! Provides common functionality for IntensityDataItem and SpecularDataItem
 
-class BA_CORE_API_ DataItem : public SessionItem
+class BA_CORE_API_ DataItem : public SessionItem, public SaveLoadInterface
 {
 public:
     static const QString P_FILE_NAME;
@@ -39,9 +40,13 @@ public:
     //! no dimension checks are applied.
     void setRawDataVector(std::vector<double> data);
 
-    QString fileName(const QString& projectDir = QString()) const;
+    using SaveLoadInterface::fileName;
+    QString fileName() const override;
+    QDateTime lastModified() const override;
+    bool containsNonXMLData() const override;
+    bool load(const QString& projectDir) override;
+    bool save(const QString& projectDir) override;
 
-    QDateTime lastModified() const;
     void setLastModified(const QDateTime& dtime);
 
     QString selectedAxesUnits() const;
@@ -54,8 +59,6 @@ public:
 
     //! Returns data to default state (no dimensional units, default axes' names)
     virtual void resetToDefault() = 0;
-
-    void saveData(const QString& projectDir);
 
 protected:
     DataItem(const QString& modelType);

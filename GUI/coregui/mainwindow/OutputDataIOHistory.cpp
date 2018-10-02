@@ -14,15 +14,16 @@
 
 #include "OutputDataIOHistory.h"
 #include "GUIHelpers.h"
+#include "SaveLoadInterface.h"
 
-//! Static method to create info for just saved IntensityDataItem.
+//! Static method to create info for just saved item.
 
-OutputDataSaveInfo OutputDataSaveInfo::createSaved(const DataItem *item)
+OutputDataSaveInfo OutputDataSaveInfo::createSaved(const SaveLoadInterface* item)
 {
     Q_ASSERT(item);
 
     OutputDataSaveInfo result;
-    result.m_dataItem = item;
+    result.m_data = item;
     result.m_file_name = item->fileName();
     result.m_last_saved = QDateTime::currentDateTime();
     return result;
@@ -30,7 +31,7 @@ OutputDataSaveInfo OutputDataSaveInfo::createSaved(const DataItem *item)
 
 bool OutputDataSaveInfo::wasModifiedSinceLastSave() const
 {
-    return wasSavedBefore(m_dataItem->lastModified());
+    return wasSavedBefore(m_data->lastModified());
 }
 
 //! Returns true if IntensityDataItem was saved before given time.
@@ -43,31 +44,31 @@ bool OutputDataSaveInfo::wasSavedBefore(const QDateTime& dtime) const
 
 //-----------------------------------------------------------------------------
 
-void OutputDataDirHistory::markAsSaved(const DataItem *item)
+void OutputDataDirHistory::markAsSaved(const SaveLoadInterface *item)
 {
     if (contains(item))
         throw GUIHelpers::Error("OutputDataDirHistory::markAsSaved() -> Error. "
                                 "Already existing item.");
-    // Don't create any history info for empty DataItems
-    if (item->getOutputData())
+    // Don't create any history info for empty items
+    if (item->containsNonXMLData())
         m_history.push_back(OutputDataSaveInfo::createSaved(item));
 }
 
-bool OutputDataDirHistory::wasModifiedSinceLastSave(const DataItem *item)
+bool OutputDataDirHistory::wasModifiedSinceLastSave(const SaveLoadInterface* item)
 {
     // non existing item is treated as modified since last save
     return contains(item) ? itemInfo(item).wasModifiedSinceLastSave() : true;
 }
 
-bool OutputDataDirHistory::contains(const DataItem *item) {
+bool OutputDataDirHistory::contains(const SaveLoadInterface* item) {
     for(auto& info : m_history)
-        if(info.dataItem() == item)
+        if(info.item() == item)
             return true;
 
     return false;
 }
 
-//! Returns list of file names used to save all IntensityDataItem in a history.
+//! Returns list of file names used to save all items in a history.
 
 QStringList OutputDataDirHistory::savedFileNames() const
 {
@@ -79,10 +80,10 @@ QStringList OutputDataDirHistory::savedFileNames() const
     return result;
 }
 
-OutputDataSaveInfo OutputDataDirHistory::itemInfo(const DataItem* item) const
+OutputDataSaveInfo OutputDataDirHistory::itemInfo(const SaveLoadInterface* item) const
 {
     for(auto& info : m_history) {
-        if (info.dataItem() == item)
+        if (info.item() == item)
             return info;
     }
 
@@ -97,7 +98,7 @@ bool OutputDataIOHistory::hasHistory(const QString& dirname) const
 }
 
 bool OutputDataIOHistory::wasModifiedSinceLastSave(const QString& dirname,
-                                                   const DataItem *item)
+                                                   const SaveLoadInterface* item)
 {
     if (!hasHistory(dirname))
         throw GUIHelpers::Error("OutputDataIOHistory::wasModifiedSinceLastSave() -> Error. "

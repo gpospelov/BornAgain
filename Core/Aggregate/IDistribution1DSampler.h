@@ -1,0 +1,39 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/Aggregate/FTDistributions1D.h
+//! @brief     Defines interface class IFTDistribution1D, and children thereof
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
+#ifndef IDISTRIBUTION1DSAMPLER_H
+#define IDISTRIBUTION1DSAMPLER_H
+
+#include "WinDllMacros.h"
+
+class BA_CORE_API_ IDistribution1DSampler
+{
+public:
+    IDistribution1DSampler() {}
+    virtual ~IDistribution1DSampler();
+
+    virtual double randomSample() const=0;
+};
+
+class BA_CORE_API_ Distribution1DGaussSampler : public IDistribution1DSampler
+{
+public:
+    Distribution1DGaussSampler(double mean, double stddev) : m_mean(mean), m_stddev(stddev) {}
+    double randomSample() const final;
+
+private:
+    double m_mean, m_stddev;
+};
+
+#endif // IDISTRIBUTION1DSAMPLER_H

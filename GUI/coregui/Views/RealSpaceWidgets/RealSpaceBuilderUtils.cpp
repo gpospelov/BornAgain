@@ -43,6 +43,9 @@
 #include "VectorItem.h"
 #include <AppSvc.h>
 
+#include <iostream>
+#include <iomanip>
+
 namespace
 {
 const double layerBorderWidth = 10.0;
@@ -237,10 +240,68 @@ void RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
     auto interferenceRadialParacrystal = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference);
     auto peakDistance = interferenceRadialParacrystal->peakDistance();
 
-    // Simply set the parameters l1 = peakDistance, l2 = 0, l_alpha = 0 and l_xi = 0 in
-    // computeInterference2DLatticePositions() to compute initial lattice positions for 1D Radial Lattice
-    std::vector<std::vector<double>> lattice_positions = computeInterference2DLatticePositions(
-        peakDistance, 0.0, 0.0, 0.0, sceneGeometry);
+    std::map<int, int> hist{};
+    for(int n=0; n<10000; ++n) {
+        ++hist[std::round(interferenceRadialParacrystal->randomSample())];
+    }
+    for (auto p : hist) {
+        std::cout << std::fixed << std::setprecision(1) << std::setw(2)
+                  << p.first << ' ' << std::string(p.second/200, '*') << '\n';
+    }
+
+    double layer_size = sceneGeometry.layer_size();
+    std::vector<std::vector<double>> lattice_positions;
+
+    // Estimate the limit n of the integer multiple i of the peakDistance required
+    // for populating particles correctly within the 3D model's boundaries
+    int n = static_cast<int>(layer_size * 2) / static_cast<int>(peakDistance);
+
+    lattice_positions.resize(static_cast<size_t>(2*n+1));
+    for( auto &it : lattice_positions )
+    {
+        it.resize(2);
+    }
+
+    lattice_positions[0][0] = 0.0; // x coordinate of reference particle - at the origin
+    lattice_positions[0][1] = 0.0; // y coordinate of reference particle - at the origin
+
+    std::cout<< "------------------------------------" << std::endl;
+    std::cout<< lattice_positions[0][0] << " " <<
+                lattice_positions[0][0] << std::endl;
+
+    for (int i = 1; i <= 2*n; ++i)
+    {
+        // positions of particles located along +x (store every odd index of lattice_positions)
+        size_t k1 = 0;
+        if(i-2 > 0)
+            k1 = static_cast<size_t>(i-2);
+
+        double offset = interferenceRadialParacrystal->randomSample();
+        lattice_positions[static_cast<size_t>(i)][0] =
+                lattice_positions[k1][0] + peakDistance + offset; // x coordinate
+        lattice_positions[static_cast<size_t>(i)][1] = 0.0; // y coordinate
+
+        std::cout<< "Offset = " << offset << std::endl;
+        std::cout<< "+x : " << lattice_positions[i][0] << " " <<
+                    lattice_positions[i][1] << std::endl;
+
+
+        // positions of particles located along -x (store every even index of lattice_positions)
+        ++i;
+
+        size_t k2 = 0;
+        if(i-2 > 0)
+            k2 = static_cast<size_t>(i-2);
+
+        offset = interferenceRadialParacrystal->randomSample();
+        lattice_positions[static_cast<size_t>(i)][0] =
+                lattice_positions[k2][0] - peakDistance + offset; // x coordinate
+        lattice_positions[static_cast<size_t>(i)][1] = 0.0;  // y coordinate
+
+        std::cout<< "Offset = " << offset << std::endl;
+        std::cout<< "-x : " << lattice_positions[i][0] << " " <<
+                    lattice_positions[i][1] << std::endl;
+    }
 
     populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
                                         sceneGeometry, builder3D);

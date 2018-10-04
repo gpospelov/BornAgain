@@ -26,6 +26,16 @@ public:
     virtual double randomSample() const=0;
 };
 
+class BA_CORE_API_ Distribution1DCauchySampler : public IDistribution1DSampler
+{
+public:
+    Distribution1DCauchySampler(double lambda) : m_lambda(lambda) {}
+    double randomSample() const final;
+
+private:
+    double m_lambda;
+};
+
 class BA_CORE_API_ Distribution1DGaussSampler : public IDistribution1DSampler
 {
 public:
@@ -34,6 +44,16 @@ public:
 
 private:
     double m_mean, m_stddev;
+};
+
+class BA_CORE_API_ Distribution1DGateSampler : public IDistribution1DSampler
+{
+public:
+    Distribution1DGateSampler(double a, double b) : m_a(a), m_b(b) {}
+    double randomSample() const final;
+
+private:
+    double m_a, m_b;
 };
 
 #endif // IDISTRIBUTION1DSAMPLER_H

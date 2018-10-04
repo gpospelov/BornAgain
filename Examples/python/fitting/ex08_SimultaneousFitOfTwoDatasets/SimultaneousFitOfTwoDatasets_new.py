@@ -90,7 +90,6 @@ class PlotObserver():
     def __init__(self, draw_every_nth=10):
         self.fig = plt.figure(figsize=(12.8, 10.24))
         self.fig.canvas.draw()
-        plt.ion()
 
     def plot_datasets(self, fit_objective, canvas):
         for i_dataset in range(0, fit_objective.fitObjectCount()):

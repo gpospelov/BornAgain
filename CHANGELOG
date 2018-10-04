@@ -1,4 +1,4 @@
-BornAgain-1.13.0, released 2018.10.04
+BornAgain-1.13.0, released 2018.10.05
   > API changes
     1) Python: Switch from FitSuite to FitObjective (FitSuite is deprecated now)
     2) GUI: project compatibility with previous versions is broken.

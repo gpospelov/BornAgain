@@ -34,6 +34,12 @@ FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
     init_parameters();
 }
 
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DCauchy::createSampler() const
+{
+    // TODO Need to change from Gauss
+    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
+}
+
 FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const
 {
     return new FTDistribution1DCauchy(m_omega);
@@ -50,6 +56,11 @@ FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 {
     setName(BornAgain::FTDistribution1DGaussType);
     init_parameters();
+}
+
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DGauss::createSampler() const
+{
+    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
 }
 
 FTDistribution1DGauss* FTDistribution1DGauss::clone() const
@@ -70,6 +81,12 @@ FTDistribution1DGate::FTDistribution1DGate(double omega)
     init_parameters();
 }
 
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DGate::createSampler() const
+{
+    // TODO Need to change from Gauss
+    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
+}
+
 FTDistribution1DGate* FTDistribution1DGate::clone() const
 {
     return new FTDistribution1DGate(m_omega);
@@ -85,6 +102,12 @@ FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
 {
     setName(BornAgain::FTDistribution1DTriangleType);
     init_parameters();
+}
+
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler() const
+{
+    // TODO Need to change from Gauss
+    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
 }
 
 FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const
@@ -103,6 +126,12 @@ FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 {
     setName(BornAgain::FTDistribution1DCosineType);
     init_parameters();
+}
+
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() const
+{
+    // TODO Need to change from Gauss
+    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
 }
 
 FTDistribution1DCosine* FTDistribution1DCosine::clone() const
@@ -125,6 +154,12 @@ FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
     setName(BornAgain::FTDistribution1DVoigtType);
     init_parameters();
     registerParameter(BornAgain::Eta, &m_eta);
+}
+
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DVoigt::createSampler() const
+{
+    // TODO Need to change from Gauss
+    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
 }
 
 FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const

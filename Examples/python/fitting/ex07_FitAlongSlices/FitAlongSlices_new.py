@@ -86,7 +86,6 @@ class PlotObserver():
     def __init__(self):
         self.fig = plt.figure(figsize=(10.25, 7.69))
         self.fig.canvas.draw()
-        plt.ion()
 
     def plot_real_data(self, data, nplot):
         plt.subplot(2, 2, nplot)

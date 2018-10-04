@@ -21,7 +21,7 @@ double Distribution1DGaussSampler::randomSample() const
 {
     std::random_device rd; // random device class instance
     std::mt19937 gen(rd());
-    std::normal_distribution<double> d(m_mean, m_stddev);
+    std::normal_distribution<double> normalDist(m_mean, m_stddev);
 
-    return d(gen);
+    return normalDist(gen);
 }

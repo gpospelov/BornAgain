@@ -385,13 +385,14 @@ class PlotterSpecular_old(Plotter):
                           loc='bottom left', bbox=[0.0, 0.0, 1.0, 1.0])
 
     def plot_graph(self, fit_suite):
-        # retrieving data from fit suite
-        real_data = fit_suite.experimentalData().histogram1d()
-        sim_data = fit_suite.simulationResult().histogram1d()
 
-        # normalizing axis coordinates
-        axis = sim_data.getXaxis().getBinCenters()
-        axis_values = [value for value in axis]
+        # retrieving data from fit suite
+        real_data = fit_suite.experimentalData().data()
+        sim_data = fit_suite.simulationResult().data()
+
+        # data values
+        sim_values = sim_data.getArray()
+        real_values = real_data.getArray()
 
         # default font properties dictionary to use
         font = {'family': 'serif',
@@ -399,11 +400,13 @@ class PlotterSpecular_old(Plotter):
                 'size': label_fontsize}
 
         plt.subplot(self.gs[0])
-        plt.semilogy(axis_values, sim_data.array(), 'b',
-                     axis_values, real_data.array(), 'k--')
-        plt.ylim((0.5 * real_data.getMinimum(), 5 * real_data.getMaximum()))
+        plt.semilogy(sim_data.getAxis(0).getBinCenters(), sim_values, 'b',
+                     real_data.getAxis(0).getBinCenters(), real_values, 'k--')
+        plt.ylim((0.5 * np.min(real_values), 5 * np.max(real_values)))
+
+        xlabel = get_axes_labels(fit_suite.experimentalData(), ba.AxesUnits.DEFAULT)[0]
         plt.legend(['BornAgain', 'Reference'], loc='upper right', prop=font)
-        plt.xlabel(sim_data.getXaxis().getName(), fontdict=font)
+        plt.xlabel(xlabel, fontdict=font)
         plt.ylabel("Intensity", fontdict=font)
         plt.title("Specular data fitting", fontdict=font)
 

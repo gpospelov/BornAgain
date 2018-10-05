@@ -73,8 +73,6 @@ CsvImportAssistant::CsvImportAssistant(QString& file, QWidget* parent):
 
 QBoxLayout* CsvImportAssistant::createLayout()
 {
-
-
     //table Widget
     m_tableWidget = new QTableWidget();
     m_tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -103,8 +101,7 @@ QBoxLayout* CsvImportAssistant::createLayout()
     m_firstDataRowSpinBox->setMaximum(1);
     m_firstDataRowSpinBox->setValue(1);
     m_firstDataRowSpinBox->setMaximumWidth(50);
-    connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-            [this](){ Reload(); });
+    connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),[this](){ Reload(); });
 
     //Single Column spinBox
     m_singleDataColSpinBox = new QSpinBox();
@@ -112,8 +109,7 @@ QBoxLayout* CsvImportAssistant::createLayout()
     m_singleDataColSpinBox->setMaximum(0);
     m_singleDataColSpinBox->setValue(0);
     m_singleDataColSpinBox->setMaximumWidth(50);
-    connect(m_singleDataColSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-        [this](int i){ setColumnAsBinValues(i);});
+    connect(m_singleDataColSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), [this](int i){ setColumnAsBinValues(i);});
 
 
     //Column type selector
@@ -320,15 +316,16 @@ void CsvImportAssistant::generate_table() {
         }
     }
 
-    std::vector<std::vector<std::string>> dataArray( csvArray.begin() + firstLine()-1, csvArray.begin() + m_lastDataRow );
+    std::vector<std::vector<std::string>> dataArray( csvArray.begin() , csvArray.begin() + m_lastDataRow );
 
     removeBlankColumns(dataArray);
 
-    extractDesiredColumns(dataArray);
+    //extractDesiredColumns(dataArray);
 
     set_table_data(dataArray);
 
-    setRowNumbering();
+    greyOutCells();
+
 }
 
 void CsvImportAssistant::set_table_data(std::vector<std::vector<std::string>> dataArray){
@@ -354,6 +351,34 @@ void CsvImportAssistant::set_table_data(std::vector<std::vector<std::string>> da
     }
 }
 
+void CsvImportAssistant::greyOutCells(){
+    int nRows = m_tableWidget->rowCount();
+    int nCols = m_tableWidget->columnCount();
+    QFont italicFont;
+    italicFont.setItalic(true);
+    italicFont.setStrikeOut(true);
+
+    //grey out non useful first rows
+    for(int i = 0; i < int(firstLine()) - 1; i++)
+        for(int j = 0; j < nCols; j++){
+            m_tableWidget->item(i,j)->setBackground(Qt::gray);
+            m_tableWidget->item(i,j)->setFont(italicFont);
+        }
+
+    //Return if there are no columns to grey out
+    if( m_coordinateCol + m_intensityCol + m_singleCol < 1 )
+        return;
+
+    //Grey out columns
+    for(int i = 0; i < nRows; i++)
+        for(int j = 0; j < nCols; j++)
+            if(j+1 != int(m_coordinateCol) &&
+                            j+1 != int(m_intensityCol)  &&
+                            j+1 != int(m_singleCol) ){
+                m_tableWidget->item(i,j)->setBackground(Qt::gray);
+                m_tableWidget->item(i,j)->setFont(italicFont);
+            }
+}
 
 void CsvImportAssistant::removeBlankColumns(std::vector<std::vector<std::string> > &dataArray){
 
@@ -402,20 +427,6 @@ void CsvImportAssistant::removeBlankColumns(std::vector<std::vector<std::string>
         dataArray.push_back(buffer1d);
     }
 }
-
-void CsvImportAssistant::setRowNumbering(){
-
-    unsigned firstDataLine = firstLine();
-    unsigned lastDataLine = lastLine();
-
-
-    QStringList displayRowNumbers;
-    for(unsigned i = firstDataLine; i <= lastDataLine; i++)
-        displayRowNumbers << QString::number(i);
-
-    m_tableWidget->setVerticalHeaderLabels(displayRowNumbers);
-}
-
 
 char CsvImportAssistant::separator() const{
     char separator;
@@ -533,7 +544,7 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     connect(m_setAsIntensityBins,&QAction::triggered,this, [this](){ setColumnAsBinValues();});
 
     //Action "select from this row"
-    QAction selectFromThisRowOn("Ignore preceding rows",nullptr);
+    QAction selectFromThisRowOn("Set as first data row",nullptr);
     menu.addAction(&selectFromThisRowOn);
     connect(&selectFromThisRowOn,&QAction::triggered,this,[this](){setFirstRow();});
 
@@ -654,8 +665,6 @@ void CsvImportAssistant::setColumnAsCoordinate(int coord){
     }
     if(m_intensityCol > 0){
         Reload();
-        m_tableWidget->setHorizontalHeaderItem( 0, new QTableWidgetItem( relevantHeaders[coord]) );
-        m_tableWidget->setHorizontalHeaderItem( 1, new QTableWidgetItem( relevantHeaders[_intensity_]) );
     }
 }
 
@@ -676,8 +685,6 @@ void CsvImportAssistant::setColumnAsIntensity() {
     }
     if (m_coordinateCol > 0) {
         Reload();
-        m_tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(m_coordinateName));
-        m_tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem(relevantHeaders[_intensity_]));
     }
 }
 
@@ -691,6 +698,7 @@ void CsvImportAssistant::setColumnAsBinValues() {
 
     m_tableWidget->clearSelection();
     m_singleDataColSpinBox->setValue(col + 1);
+    setHeaders();
 }
 
 
@@ -704,7 +712,6 @@ void CsvImportAssistant::setColumnAsBinValues(int col) {
     m_coordinateName = "";
     m_singleCol = unsigned(col);
     Reload();
-    m_tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem(QString::number(col)));
 }
 
 
@@ -715,9 +722,7 @@ void CsvImportAssistant::setFirstRow(){
         return;
     auto front = selectedRanges.front();
     auto row = front.topRow();
-
-    m_tableWidget->clearSelection();
-    m_firstDataRowSpinBox->setValue(m_tableWidget->verticalHeaderItem(row)->text().toInt());
+    m_firstDataRowSpinBox->setValue(row+1);
 }
 
 void CsvImportAssistant::reset(){

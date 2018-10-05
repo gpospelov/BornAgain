@@ -95,7 +95,7 @@ QBoxLayout* CsvImportAssistant::createLayout()
     m_separatorField = new QLineEdit(QString(""));
     m_separatorField->setMaxLength(1);
     m_separatorField->setMaximumWidth(50);
-    connect(m_separatorField, &QLineEdit::editingFinished, this, &CsvImportAssistant::Reload);
+    connect(m_separatorField, &QLineEdit::editingFinished, this, &CsvImportAssistant::reloadCsvFile);
 
     //First Row SpinBox
     m_firstDataRowSpinBox = new QSpinBox();
@@ -133,7 +133,7 @@ QBoxLayout* CsvImportAssistant::createLayout()
     auto tableLayout = new QVBoxLayout;
     tableLayout->setMargin(10);
     tableLayout->addWidget(new QLabel("Right click on the table or use the controls below to modify what will be imported"));
-    tableLayout->addWidget(m_columnTypeSelector);
+    //tableLayout->addWidget(m_columnTypeSelector);
     tableLayout->addWidget(m_tableWidget);
 
     //place separator_field, single_column_spinbox and first_row:
@@ -177,6 +177,19 @@ void CsvImportAssistant::Reload()
     }
 }
 
+void CsvImportAssistant::reloadCsvFile(){
+    reset();
+    try {
+        if(!m_fileName.isEmpty())
+            m_csvFile = std::make_unique<CSVFile>(m_fileName.toStdString(), separator());
+    }
+    catch (...) {
+        showErrorMessage("There was a problem opening the file \"" + m_fileName.toStdString() + "\"");
+        return;
+    }
+    Reload();
+}
+
 void CsvImportAssistant::onRejectButton(){
     reject();
 }
@@ -188,7 +201,7 @@ void CsvImportAssistant::onImportButton()
         auto data = getData();
         accept();
     } catch(std::exception& e){
-        QString message = QString("Unable to import, check the following error message may help:\n") + QString::fromStdString(e.what());
+        QString message = QString("Unable to import, the following exception was thrown:\n") + QString::fromStdString(e.what());
         QMessageBox::warning(nullptr, "Wrong data format", message);
     }
 }

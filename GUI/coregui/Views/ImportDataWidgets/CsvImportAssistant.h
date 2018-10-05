@@ -57,6 +57,7 @@ private:
     QBoxLayout* createFileDetailsLayout();
 
     char guessSeparator() const;
+    void reloadCsvFile();
     void generate_table();
     void set_table_data(std::vector<std::vector<std::string>> dataArray);
     void removeBlankColumns(std::vector<std::vector<std::string>> &dataArray);

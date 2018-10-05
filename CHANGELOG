@@ -1,3 +1,83 @@
+BornAgain-1.13.0, released 2018.10.05
+  > API changes
+    1) Python: Switch from FitSuite to FitObjective (FitSuite is deprecated now)
+    2) GUI: project compatibility with previous versions is broken.
+  > Summary:
+    1) New fitting interface compatible with third-party python minimizers
+    2) Futher expansion of 3D View
+    3) Fitting reflectometry data in GUI
+    4) Averaged layer materials enabled for all computations
+    5) Numerous bugfixes.
+
+  * Bug #2068: Missing analyzer direction in GUI
+  * Bug #2069: Loading GUI first time takes 30 minutes
+  * Bug #2076: Beam distribution editors are not updating on parameter change
+  * Bug #2091: Memory leak in ColorMap
+  * Bug #2092: GUI: Top level thickness error
+  * Bug #2107: The project crashes on attempt to change limits of fit parameter in GUI
+  * Bug #2108: GUI: crash on attempt to load saved project with filled import data view
+  * Bug #2118: Fix CMake for the installation to user directory
+  * Bug #2122: GUI: after fitting completion non-optimal result is drawn
+  * Bug #2124: Successive call to SimulationResult.data() causes segmentation fault
+  * Bug #2125: Calculation of maximum reciprocal lattice points to consider for 2d lattice is wrong
+  * Bug #2128: Distributed parameter: "None" -- Gives wrong error message
+  * Bug #2129: Limits: Positive -- Throws error
+  * Bug #2131: Fix memory leak in factory methods when used from Python
+  * Bug #2135: Problem with Icosahedron formfactor position
+  * Bug #2139: Inconsistent impact of Euler rotation on simulation/3D view
+  * Bug #2143: Project file with failed simulation job complains during loading
+  * Bug #2146: GUI: back compatibility broken
+  * Bug #2148: GUI: Crash on autosave
+  * Bug #2149: GUI crash when switching activity
+  * Bug #2153: 3D view crashes on rotated 1D interference function
+  * Bug #2161: Cancel of runnig job doesn't work properly
+  * Bug #2162: Jobs which was autosaved during the run stays in running state after project restore.
+  * Bug #2168: Autosave leads to the GUI crash at certain conditions
+  * Bug #2169: Application crash on fitting job
+  * Bug #2170: Widget sizes are reset to default values during fit in GUI
+  * Bug #2171: Application crash on switch between fitting and simulation jobs for specular simulation
+  * Bug #2172: Fit flow widget doesn't update after fit re-launch
+  * Bug #2176: No plot updates during fitting anymore
+  * Bug #2187: Wrong parameter values displayed in real time widget
+  * Bug #2123: GUI: switching to another fit parameter causes plot reset to the initial value of previous fit parameter
+  * Bug #2188: Real space widget silently crashes with 1d interference function with xi=90 degrees
+  * Feature #2039: Switch all Python fitting examples from FitSuite to the new Minimizer
+  * Feature #2051: Provide loading and using from GUI 1D real data
+  * Feature #2070: 3D view: modify default particle density of GUI examples to look reasonable in 3D view
+  * Feature #2071: 3D view: profile 3D view for performance when number of particles is large
+  * Feature #2073: Define objectives for Sprint 38
+  * Feature #2079: Introduce SimulationBuilder and refactor FitSuite accordingly
+  * Feature #2082: 3D view: implement 1D interference function
+  * Feature #2083: 3D view: provide selective view update
+  * Feature #2095: Enable averaged layer materials for all IComputations
+  * Feature #2098: Provide weights for ParticleLayout
+  * Feature #2103: Add 3D interference function
+  * Feature #2104: Integrate 3d lattice interference function into core framework
+  * Feature #2106: GUI: Create and use DataItemView for 1D fitting
+  * Feature #2110: Boost: remove date_time dependency
+  * Feature #2111: Boost: remove chrono dependency
+  * Feature #2113: Boost: remove regex dependency
+  * Feature #2119: Write collection of functional tests for FitObjective
+  * Feature #2127: Convert functional tests for specular fits to the new FitObjective machinery
+  * Feature #2132: Provide possibility to have the reference point of full spheres at their center instead of at the bottom
+  * Feature #2134: Create translator from numpy arrays to OutputData
+  * Feature #2140: Rewrite lines_of_code script to not to rely on ROOT
+  * Feature #2150: Slow down zooming speed of Real Space Viewer on Mac
+  * Feature #2155: Create and deploy PointwiseAxis for SpecularSimulation
+  * Feature #2174: Implement HCP and BCT lattice factory funtions
+  * Documentation #1831: Add top cap removal parameterization to documentation of truncated sphere and spheroid form factor
+  * Documentation #2074: Website: switch bornagainproject.org to GitHub
+  * Documentation #2081: Update documentation related to reflectometry and depth probe
+  * Documentation #2166: Put BornAgain API on website
+  * Refactoring #2038: Refactor Minimizer interface
+  * Refactoring #2078: Switch FitSuite to the new minimizer kernel
+  * Refactoring #2080: Refactor computation machinery
+  * Refactoring #2089: Extract calculation of region maps out of IComputationTerm
+  * Refactoring #2096: Simplify interference function strategy implementation
+  * Refactoring #2097: 3D view: create PrototypeController to speed up 3D view when number of particles is large
+  * Refactoring #2101: ParticleDistribution::generateParticles(): remove possible memory leaks
+  * Refactoring #2105: Provide DataItemView for handling representation of 1D data
+
 BornAgain-1.12.1, released 2018.06.12
   > Hotfix
   * Bug #2068: Missing analyzer direction in GUI

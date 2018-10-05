@@ -35,9 +35,8 @@
 
 
 namespace {
-//const double maximum_doublespin_value(1e+20);
-const double maximum_doublespin_value(20000.0);
-//const double minimum_doublespin_value(0.0);
+const double maximum_doublespin_value = std::numeric_limits<double>::max();
+const double minimum_doublespin_value = std::numeric_limits<double>::lowest();
 }
 
 ParameterTuningDelegate::SliderData::SliderData()
@@ -165,7 +164,7 @@ QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
         if(limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.lowerLimit());
         } else {
-            m_valueBox->setMinimum(-maximum_doublespin_value);
+            m_valueBox->setMinimum(minimum_doublespin_value);
         }
 
         if(limits.hasUpperLimit()) {

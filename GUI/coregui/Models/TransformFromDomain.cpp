@@ -272,8 +272,7 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
     beam_item->setInclinationAngle(0.0); // inclination angle is hardcoded
     beam_item->setAzimuthalAngle(0.0); // azimuthal angle is hardcoded
 
-    auto axis_item = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
-                         ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
+    auto axis_item = beam_item->currentInclinationAxisItem();
     TransformFromDomain::setAxisItem(axis_item, *simulation.getAlphaAxis(), 1. / Units::deg);
 
     // distribution parameters

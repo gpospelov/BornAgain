@@ -63,7 +63,8 @@ public:
     double getInclinationAngle() const override;
     void setInclinationAngle(double value) override;
 
-    BasicAxisItem& getInclinationAngleAxis();
+    SessionItem* inclinationAxisGroup();
+    BasicAxisItem* currentInclinationAxisItem();
     FootprintItem* currentFootprintItem() const;
 };
 

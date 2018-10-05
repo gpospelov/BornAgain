@@ -181,11 +181,11 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::computeInterference2DLat
     // Estimate the limit n1 and n2 of the integer multiple i and j of the lattice vectors required
     // for populating particles correctly within the 3D model's boundaries
     int n1 = 0, n2 = 0;
-    n1 = static_cast<int>(layer_size * 2) / static_cast<int>(l1 * std::cos(l_xi));
+    n1 = l1 == 0.0 ? 2 : static_cast<int>(layer_size * 2 / l1);
 
     // This condition is required when this function is used to compute 1D Lattice positions
     if (l2 != 0) {
-        n2 = static_cast<int>(layer_size * 2) / static_cast<int>(l2 * std::sin(l_alpha + l_xi));
+        n2 = l2 == 0.0 ? 2 : static_cast<int>(layer_size * 2 / l2);
 
         n1 = std::max(n1, n2);
         n2 = std::max(n1, n2);

@@ -40,6 +40,7 @@ BornAgain-1.13.0, released 2018.10.05
   * Bug #2176: No plot updates during fitting anymore
   * Bug #2187: Wrong parameter values displayed in real time widget
   * Bug #2123: GUI: switching to another fit parameter causes plot reset to the initial value of previous fit parameter
+  * Bug #2188: Real space widget silently crashes with 1d interference function with xi=90 degrees
   * Feature #2039: Switch all Python fitting examples from FitSuite to the new Minimizer
   * Feature #2051: Provide loading and using from GUI 1D real data
   * Feature #2070: 3D view: modify default particle density of GUI examples to look reasonable in 3D view

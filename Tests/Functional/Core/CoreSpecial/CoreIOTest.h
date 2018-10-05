@@ -38,6 +38,7 @@ private:
         std::string m_file_format;
         bool m_data_type;
         double m_create_data_time;
+        double m_clone_data_time;
         double m_read_time;
         double m_write_time;
         double m_biggest_diff;

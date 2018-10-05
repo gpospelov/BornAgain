@@ -15,7 +15,7 @@
 #include "FileSystemUtils.h"
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
-#include <boost/regex.hpp>
+#include <regex>
 #include <cassert>
 #include <stdexcept>
 
@@ -77,7 +77,7 @@ std::vector<std::string> FileSystemUtils::glob(const std::string& dir, const std
 {
     std::vector<std::string> ret;
     for (const std::string& fname : filesInDirectory(dir))
-        if (boost::regex_match(fname, boost::regex(pattern)))
+        if (std::regex_match(fname, std::regex(pattern)))
             ret.push_back(fname);
     return ret;
 }

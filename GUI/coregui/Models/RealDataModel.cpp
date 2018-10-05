@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "RealDataModel.h"
+#include "DataItem.h"
 #include "RealDataItem.h"
 
 RealDataModel::RealDataModel(QObject *parent)
@@ -34,7 +35,7 @@ QVector<SessionItem *> RealDataModel::nonXMLData() const
     QVector<SessionItem *> result;
 
     for (auto realData : topItems<RealDataItem>()) {
-        if (auto intensityItem = realData->getItem(RealDataItem::T_INTENSITY_DATA))
+        if (auto intensityItem = realData->dataItem())
             result.push_back(intensityItem);
     }
 

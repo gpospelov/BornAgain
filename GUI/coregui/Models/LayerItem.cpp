@@ -48,4 +48,22 @@ LayerItem::LayerItem()
 
     registerTag(T_LAYOUTS, 0, -1, QStringList() << Constants::ParticleLayoutType);
     setDefaultTag(T_LAYOUTS);
+
+    mapper()->setOnParentChange(
+                [this](SessionItem* new_parent)
+    {
+        updateAppearance(new_parent);
+    });
+
+}
+
+void LayerItem::updateAppearance(SessionItem* new_parent)
+{
+    if (!new_parent) {
+        if (parent() && parent()->modelType() == Constants::MultiLayerType) {
+            // we are about to be removed from MultiLayer
+            getItem(LayerItem::P_ROUGHNESS)->setEnabled(true);
+            getItem(LayerItem::P_THICKNESS)->setEnabled(true);
+        }
+    }
 }

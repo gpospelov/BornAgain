@@ -19,7 +19,6 @@
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
 #include "Vectors3D.h"
-#include <Eigen/StdVector>
 #include <memory>
 #include <vector>
 
@@ -46,12 +45,10 @@ class SimulationElement;
 class BA_CORE_API_ IInterferenceFunctionStrategy
 {
 public:
-    typedef std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<Eigen::Matrix2cd>>
-        matrixFFVector_t;
-
     IInterferenceFunctionStrategy(const SimulationOptions& sim_params, bool polarized);
     virtual ~IInterferenceFunctionStrategy();
 
+    //! Initializes the object with form factors and an interference function
     void init(const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
               const IInterferenceFunction* p_iff);
 
@@ -59,17 +56,6 @@ public:
     double evaluate(const SimulationElement& sim_element) const;
 
 protected:
-    virtual void strategy_specific_post_init() {}
-    static std::vector<complex_t> precomputeScalar(const SimulationElement& sim_element,
-            const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
-    static matrixFFVector_t precomputePolarized(const SimulationElement& sim_element,
-            const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
-
-    //! Evaluates the intensity in the scalar case
-    virtual double scalarCalculation(const SimulationElement& sim_element) const =0;
-    //! Evaluates the intensity in the polarized case
-    virtual double polarizedCalculation(const SimulationElement& sim_element) const =0;
-
     SafePointerVector<FormFactorCoherentSum> m_formfactor_wrappers;
     std::unique_ptr<IInterferenceFunction> mP_iff;
     SimulationOptions m_options;
@@ -78,6 +64,12 @@ private:
     double evaluateSinglePoint(const SimulationElement& sim_element) const;
     double MCIntegratedEvaluate(const SimulationElement& sim_element) const;
     double evaluate_for_fixed_angles(double* fractions, size_t dim, void* params) const;
+    virtual void strategy_specific_post_init();
+    //! Evaluates the intensity in the scalar case
+    virtual double scalarCalculation(const SimulationElement& sim_element) const =0;
+    //! Evaluates the intensity in the polarized case
+    virtual double polarizedCalculation(const SimulationElement& sim_element) const =0;
+
     bool m_polarized;
 
 #ifndef SWIG

@@ -16,20 +16,8 @@
 #define SLICEDPARTICLE_H
 
 #include "IFormFactor.h"
+#include "HomogeneousRegion.h"
 #include <memory>
-
-//! Struct that contains information on a single homogeneous region of a particle inside
-//! a single layer.
-//! This information is needed for calculating the average of a material, used in the Fresnel
-//! calculations.
-//!
-//! @ingroup intern
-
-struct HomogeneousRegion
-{
-    double m_volume;
-    Material m_material;
-};
 
 //! Struct that contains information on a sliced particle.
 //! This information is needed for evaluating the sliced form factor and the average of a material,

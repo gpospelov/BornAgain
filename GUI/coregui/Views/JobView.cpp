@@ -20,6 +20,7 @@
 #include "JobProgressAssistant.h"
 #include "JobSelectorWidget.h"
 #include "JobViewDocks.h"
+#include "JobViewFlags.h"
 #include "mainwindow.h"
 #include <QMenu>
 

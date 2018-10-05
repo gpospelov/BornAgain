@@ -21,6 +21,10 @@ void IObservable::attachObserver(observer_t obj)
 
 void IObservable::notifyObservers()
 {
-    for(auto it: m_observers)
+    for (auto it : m_observers)
         it->notify(this);
 }
+
+IObserver::~IObserver() = default;
+
+IObservable::~IObservable() = default;

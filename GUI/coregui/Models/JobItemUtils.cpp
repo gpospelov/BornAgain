@@ -106,7 +106,8 @@ void JobItemUtils::loadIntensityData(DataItem *intensityItem, const QString &pro
 {
     QString filename = intensityItem->fileName(projectDir);
     auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
-    intensityItem->setOutputData(data);
+    if (data)
+        intensityItem->setOutputData(data);
 }
 
 
@@ -114,12 +115,10 @@ void JobItemUtils::loadIntensityData(DataItem *intensityItem, const QString &pro
 
 void JobItemUtils::saveIntensityData(DataItem* intensityItem, const QString& projectDir)
 {
-    if (!intensityItem || !intensityItem->getOutputData())
+    if (!intensityItem)
         return;
 
-    QString filename = intensityItem->fileName(projectDir);
-    IntensityDataIOFactory::writeOutputData(*intensityItem->getOutputData(),
-                                            filename.toStdString());
+    intensityItem->saveData(projectDir);
 }
 
 //! Correspondance of domain detector axes types to their gui counterpart.

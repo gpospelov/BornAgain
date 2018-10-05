@@ -66,3 +66,13 @@ TEST_F(ParametersTest, setters)
     EXPECT_THROW(pars.setValues(more_values), std::runtime_error);
 }
 
+TEST_F(ParametersTest, freeParameterCount)
+{
+    Fit::Parameters pars;
+    EXPECT_EQ(pars.freeParameterCount(), 0u);
+
+    pars.add(Fit::Parameter("par0", 2.0, AttLimits::fixed(), 0.2));
+    pars.add(Fit::Parameter("par1", 3.0, AttLimits::limitless(), 0.2));
+
+    EXPECT_EQ(pars.freeParameterCount(), 1u);
+}

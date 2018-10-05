@@ -18,10 +18,10 @@
 #include "StringUtils.h"
 
 #ifdef _WIN32
-#pragma warning ( push )
-#pragma warning ( disable: 4267 )
+#pragma warning(push)
+#pragma warning(disable : 4267)
 #include "Math/GSLNLSMinimizer.h"
-#pragma warning ( pop )
+#pragma warning(pop)
 #else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -29,29 +29,30 @@
 #pragma GCC diagnostic pop
 #endif
 
-namespace {
+namespace
+{
 
-    std::map<int, std::string> covmatrixStatusDescription()
-    {
-        std::map<int, std::string> result;
-        result[0] = "Covariance matrix was not computed";
-        result[1] = "Covariance matrix approximate because minimum is not valid";
-        result[3] = "Covariance matrix OK";
-        return result;
-    }
+std::map<int, std::string> covmatrixStatusDescription()
+{
+    std::map<int, std::string> result;
+    result[0] = "Covariance matrix was not computed";
+    result[1] = "Covariance matrix approximate because minimum is not valid";
+    result[3] = "Covariance matrix OK";
+    return result;
+}
 
 } // namespace
 
 GSLLevenbergMarquardtMinimizer::GSLLevenbergMarquardtMinimizer()
-    : RootMinimizerAdapter(MinimizerInfo::buildGSLLMAInfo())
-    , m_gsl_minimizer(new ROOT::Math::GSLNLSMinimizer(2))
+    : RootMinimizerAdapter(MinimizerInfo::buildGSLLMAInfo()),
+      m_gsl_minimizer(new ROOT::Math::GSLNLSMinimizer(2))
 {
     addOption(OptionNames::Tolerance, 0.01, "Tolerance on the function value at the minimum");
     addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
     addOption(OptionNames::MaxIterations, 0, "Maximum number of iterations");
 }
 
-GSLLevenbergMarquardtMinimizer::~GSLLevenbergMarquardtMinimizer() {}
+GSLLevenbergMarquardtMinimizer::~GSLLevenbergMarquardtMinimizer() = default;
 
 void GSLLevenbergMarquardtMinimizer::setTolerance(double value)
 {
@@ -103,7 +104,7 @@ void GSLLevenbergMarquardtMinimizer::propagateOptions()
 {
     m_gsl_minimizer->SetTolerance(tolerance());
     m_gsl_minimizer->SetPrintLevel(printLevel());
-    m_gsl_minimizer->SetMaxIterations(maxIterations());
+    m_gsl_minimizer->SetMaxIterations(static_cast<unsigned int>(maxIterations()));
 }
 
 const RootMinimizerAdapter::root_minimizer_t* GSLLevenbergMarquardtMinimizer::rootMinimizer() const

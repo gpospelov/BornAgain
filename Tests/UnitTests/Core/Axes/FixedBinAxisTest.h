@@ -124,11 +124,10 @@ TEST_F(FixedBinAxisTest, IOStream)
 
     std::ostringstream oss;
     oss << axis;
+    std::istringstream iss(oss.str());
 
-    FixedBinAxis* result
-        = dynamic_cast<FixedBinAxis*>(DataFormatUtils::createFixedBinAxis(oss.str()));
+    std::unique_ptr<IAxis> result(DataFormatUtils::createAxis(iss));
     EXPECT_TRUE(axis == *result);
-    delete result;
 }
 
 TEST_F(FixedBinAxisTest, BinCenters)

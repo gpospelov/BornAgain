@@ -25,9 +25,8 @@ OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& inpu
 
     while( std::getline(input_stream, line) ) {
         if (line.find("axis") != std::string::npos) {
-            IAxis* axis = DataFormatUtils::createAxis(input_stream);
+            std::unique_ptr<IAxis> axis = DataFormatUtils::createAxis(input_stream);
             result->addAxis(*axis);
-            delete axis;
         }
 
         if (line.find("data") != std::string::npos) {

@@ -21,5 +21,7 @@
 #include "FormFactorSphereGaussianRadius.h"
 #include "FormFactorSphereLogNormalRadius.h"
 #include "FormFactorSphereUniformRadius.h"
+#include "FormFactorOrnsteinZernike.h"
+#include "FormFactorDebyeBueche.h"
 
 #endif // SOFTPARTICLES_H

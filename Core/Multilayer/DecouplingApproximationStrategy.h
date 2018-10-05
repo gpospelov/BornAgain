@@ -28,7 +28,7 @@ class DecouplingApproximationStrategy final : public IInterferenceFunctionStrate
 public:
     DecouplingApproximationStrategy(SimulationOptions sim_params, bool polarized);
 
-protected:
+private:
     double scalarCalculation(const SimulationElement& sim_element) const override;
     double polarizedCalculation(const SimulationElement& sim_element) const override;
 };

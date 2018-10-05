@@ -15,32 +15,18 @@
 #ifndef MINIMIZERTEST_H
 #define MINIMIZERTEST_H
 
-#include "IFunctionalTest.h"
-#include <string>
-#include <memory>
-
-class FunctionTestPlan;
-namespace Fit {class MinimizerResult;}
+#include "IMinimizerTest.h"
 
 //! Collection of standalone tests for fitting library.
 
-class MinimizerTest : public IFunctionalTest
+class MinimizerTest : public IMinimizerTest
 {
 public:
     MinimizerTest(const std::string& minimizer_name, const std::string& algorithm_name,
                   const std::string& fit_plan_name);
 
-    bool runTest();
-
-    void setMinimizerOptions(const std::string& options);
-
 protected:
-    virtual std::unique_ptr<FunctionTestPlan> createPlan() const;
-
-    std::string m_minimizer_name;
-    std::string m_algorithm_name;
-    std::string m_option_string;
-    std::string m_fit_plan_name;
+    std::unique_ptr<MinimizerTestPlan> createPlan() const;
 };
 
 #endif // MINIMIZERTEST_H

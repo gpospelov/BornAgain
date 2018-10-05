@@ -26,6 +26,8 @@ using ModelType = QString;
 const ModelType Yes = "Yes";
 const ModelType No = "No";
 
+const ModelType RootItemType = "ROOT_ITEM";
+
 const ModelType LayerType = "Layer";
 const ModelType MesoCrystalType = "MesoCrystal";
 const ModelType MultiLayerType = "MultiLayer";
@@ -138,6 +140,9 @@ const ModelType FitSuiteType = "FitSuite";
 const ModelType JobItemType = "JobItem";
 const ModelType IntensityDataType = "IntensityData";
 const ModelType SpecularDataType = "SpecularData";
+const ModelType Data1DViewItemType = "Data1DViewItem";
+const ModelType DataPropertyContainerType = "DataPropertyContainer";
+const ModelType DataItem1DPropertiesType = "DataItem1DProperties";
 
 const ModelType BasicAxisType = "BasicAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";
@@ -274,7 +279,8 @@ const ModelType AVERAGE_LAYER_MATERIAL = "Average Layer Material";
 const QString IntensityDataPresentation = "Color Map";
 const QString SpecularDataPresentation = "Reflectometry";
 const QString IntensityProjectionsPresentation = "Projections";
-const QString FitComparisonPresentation = "Fit Data";
+const QString FitComparisonPresentation2D = "Fit 2D Data";
+const QString FitComparisonPresentation1D = "Fit 1D Data";
 const QString MaskEditorPresentation = "Mask Editor";
 
 // --- Custom variants ----------------------------------------------------------

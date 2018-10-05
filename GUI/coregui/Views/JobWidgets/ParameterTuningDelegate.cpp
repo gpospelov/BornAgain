@@ -35,9 +35,8 @@
 
 
 namespace {
-//const double maximum_doublespin_value(1e+20);
-const double maximum_doublespin_value(20000.0);
-//const double minimum_doublespin_value(0.0);
+const double maximum_doublespin_value = std::numeric_limits<double>::max();
+const double minimum_doublespin_value = std::numeric_limits<double>::lowest();
 }
 
 ParameterTuningDelegate::SliderData::SliderData()
@@ -71,11 +70,11 @@ int ParameterTuningDelegate::SliderData::value_to_slider(double value)
     m_rmin = value - dr;
     m_rmax = value + dr;
 
-    if(m_item_limits.hasLowerLimit() && m_rmin < m_item_limits.getLowerLimit())
-        m_rmin = m_item_limits.getLowerLimit();
+    if(m_item_limits.hasLowerLimit() && m_rmin < m_item_limits.lowerLimit())
+        m_rmin = m_item_limits.lowerLimit();
 
-    if(m_item_limits.hasUpperLimit() && m_rmax > m_item_limits.getUpperLimit())
-        m_rmax = m_item_limits.getUpperLimit();
+    if(m_item_limits.hasUpperLimit() && m_rmax > m_item_limits.upperLimit())
+        m_rmax = m_item_limits.upperLimit();
 
     return m_smin + (value - m_rmin)*(m_smax-m_smin)/(m_rmax-m_rmin);
 }
@@ -163,13 +162,13 @@ QWidget *ParameterTuningDelegate::createEditor(QWidget *parent,
         m_valueBox->setSingleStep(1./std::pow(10.,m_currentItem->linkedItem()->decimals()-1));
 
         if(limits.hasLowerLimit()) {
-            m_valueBox->setMinimum(limits.getLowerLimit());
+            m_valueBox->setMinimum(limits.lowerLimit());
         } else {
-            m_valueBox->setMinimum(-maximum_doublespin_value);
+            m_valueBox->setMinimum(minimum_doublespin_value);
         }
 
         if(limits.hasUpperLimit()) {
-           m_valueBox->setMaximum(limits.getUpperLimit());
+           m_valueBox->setMaximum(limits.upperLimit());
         } else {
             m_valueBox->setMaximum(maximum_doublespin_value);
         }

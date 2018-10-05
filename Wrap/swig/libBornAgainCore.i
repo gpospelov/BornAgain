@@ -24,6 +24,7 @@
 %include "std_complex.i"
 %include "std_string.i"
 %include "std_vector.i"
+%include "std_map.i"
 %include "std_shared_ptr.i"
 
 // TODO CLARIFY WHY THIS IS INCLUDED
@@ -34,8 +35,8 @@
 
 %include "warnings.i"
 %include "deprecated.i"
-%include "extendCore.i"
 %include "ignores.i"
+%include "renameCore.i"
 %include "directors.i"
 
 %template(vdouble1d_t) std::vector<double>;
@@ -45,6 +46,7 @@
 %template(vector_longinteger_t) std::vector<unsigned long int>;
 %template(vector_complex_t) std::vector< std::complex<double>>;
 %template(vector_string_t) std::vector<std::string>;
+%template(map_string_double_t) std::map<std::string, double>;
 %nodefaultctor ParameterPool;
 
 #define SWIG_FILE_WITH_INIT
@@ -90,11 +92,14 @@
 #include "FTDistributions2D.h"
 #include "FitObject.h"
 #include "FitOptions.h"
+#include "IFitParameter.h"
+#include "FitParameterSet.h"
 #include "FitParameter.h"
 #include "FitSuite.h"
 #include "FitSuiteImpl.h"
 #include "FitSuiteObjects.h"
-#include "FitParameterSet.h"
+#include "PyFittingCallbacks.h"
+#include "FitObjective.h"
 #include "FixedBinAxis.h"
 #include "FootprintFactorGaussian.h"
 #include "FootprintFactorSquare.h"
@@ -105,6 +110,7 @@
 #include "FormFactorCrystal.h"
 #include "FormFactorCuboctahedron.h"
 #include "FormFactorCylinder.h"
+#include "FormFactorDebyeBueche.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorDodecahedron.h"
 #include "FormFactorDot.h"
@@ -121,6 +127,7 @@
 #include "FormFactorLongRipple2Gauss.h"
 #include "FormFactorLongRipple2Lorentz.h"
 #include "FormFactorLorentz.h"
+#include "FormFactorOrnsteinZernike.h"
 #include "FormFactorPolyhedron.h"
 #include "FormFactorPolyhedron.h"
 #include "FormFactorPrism3.h"
@@ -157,6 +164,7 @@
 #include "IObserver.h"
 #include "IParameterized.h"
 #include "IParticle.h"
+#include "IPeakShape.h"
 #include "IResolutionFunction2D.h"
 #include "ISample.h"
 #include "IMultiLayerBuilder.h"
@@ -169,13 +177,16 @@
 #include "IntensityDataIOFactory.h"
 #include "InterferenceFunction1DLattice.h"
 #include "InterferenceFunction2DLattice.h"
+#include "InterferenceFunction3DLattice.h"
 #include "InterferenceFunctionFinite2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunction2DSuperLattice.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "IsGISAXSDetector.h"
+#include "ILatticeOrientation.h"
 #include "Lattice.h"
+#include "LatticeUtils.h"
 #include "Lattice1DParameters.h"
 #include "Lattice2D.h"
 #include "Layer.h"
@@ -198,6 +209,7 @@
 #include "ParticleLayout.h"
 #include "PoissonNoiseBackground.h"
 #include "Polygon.h"
+#include "PyArrayImportUtils.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
 #include "RectangularDetector.h"
@@ -223,11 +235,13 @@
 #include "IIntensityNormalizer.h"
 #include "ISquaredFunction.h"
 #include "AdjustMinimizerStrategy.h"
+#include "IterationInfo.h"
 %}
 
 // ownership
 
 %newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;
+%newobject SimulationResult::histogram1d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 %newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
@@ -235,8 +249,26 @@
 
 %newobject DetectorMask::createHistogram() const;
 
+%newobject PyArrayImport::importArrayToOutputData;
 %newobject IHistogram::createFrom(const std::string& filename);
 %newobject IHistogram::createFrom(const std::vector<std::vector<double>>& data);
+
+%newobject PyBuilderCallback::build_simulation(const std::string& filename);
+
+%newobject InterferenceFunction2DLattice::createSquare(double lattice_length, double xi);
+%newobject InterferenceFunction2DLattice::createHexagonal(double lattice_length, double xi);
+%newobject InterferenceFunction2DParaCrystal::createSquare(
+        double lattice_length, double damping_length, double domain_size_1, double domain_size_2);
+%newobject InterferenceFunction2DParaCrystal::createHexagonal(
+        double lattice_length, double damping_length, double domain_size_1, double domain_size_2);
+%newobject InterferenceFunction2DSuperLattice::createSquare(
+        double lattice_length, double xi, unsigned size_1, unsigned size_2);
+%newobject InterferenceFunction2DSuperLattice::createHexagonal(
+        double lattice_length, double xi, unsigned size_1, unsigned size_2);
+%newobject InterferenceFunctionFinite2DLattice::createSquare(
+        double lattice_length, double xi, unsigned size_1, unsigned size_2);
+%newobject InterferenceFunctionFinite2DLattice::createHexagonal(
+        double lattice_length, double xi, unsigned size_1, unsigned size_2);
 
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
@@ -244,7 +276,8 @@
 %import(module="libBornAgainFit") "AttLimits.h"
 %import(module="libBornAgainFit") "Attributes.h"
 %import(module="libBornAgainFit") "RealLimits.h"
-%import(module="libBornAgainFit") "IFitParameter.h"
+%import(module="libBornAgainFit") "Parameters.h"
+%import(module="libBornAgainFit") "Parameter.h"
 
 %include "BAVersion.h"
 %include "BasicVector3D.h"
@@ -292,9 +325,13 @@
 %include "ChiSquaredModule.h"
 %include "FitObject.h"
 %include "FitOptions.h"
+%include "IFitParameter.h"
+%include "FitParameterSet.h"
 %include "FitParameter.h"
 %include "FitSuite.h"
 %include "FitSuiteObjects.h"
+%include "PyFittingCallbacks.h"
+%include "FitObjective.h"
 %include "MathFunctions.h"
 %include "AdjustMinimizerStrategy.h"
 %include "IFactory.h"
@@ -322,6 +359,7 @@
 %include "FormFactorCrystal.h"
 %include "FormFactorCuboctahedron.h"
 %include "FormFactorCylinder.h"
+%include "FormFactorDebyeBueche.h"
 %include "FormFactorDecoratorDebyeWaller.h"
 %include "FormFactorDodecahedron.h"
 %include "FormFactorDot.h"
@@ -338,6 +376,7 @@
 %include "FormFactorLongRipple2Gauss.h"
 %include "FormFactorLongRipple2Lorentz.h"
 %include "FormFactorLorentz.h"
+%include "FormFactorOrnsteinZernike.h"
 %include "FormFactorPolyhedron.h"
 %include "FormFactorPrism3.h"
 %include "FormFactorPrism6.h"
@@ -378,6 +417,7 @@
 %include "IParameter.h" // needed?
 %template(IParameterReal) IParameter<double>; // needed to avoid warning 401?
 %include "IParticle.h"
+%include "IPeakShape.h"
 %include "IResolutionFunction2D.h"
 %include "Rotations.h"
 %include "ISelectionRule.h"
@@ -388,6 +428,7 @@
 %include "InterferenceFunction1DLattice.h"
 %include "InterferenceFunctionRadialParaCrystal.h"
 %include "InterferenceFunction2DLattice.h"
+%include "InterferenceFunction3DLattice.h"
 %include "InterferenceFunctionFinite2DLattice.h"
 %include "InterferenceFunction2DSuperLattice.h"
 %include "InterferenceFunction2DParaCrystal.h"
@@ -395,7 +436,9 @@
 %include "IPixel.h"
 %include "SphericalDetector.h"
 %include "IsGISAXSDetector.h"
+%include "ILatticeOrientation.h"
 %include "Lattice.h"
+%include "LatticeUtils.h"
 %include "Lattice1DParameters.h"
 %include "Lattice2D.h"
 %include "Layer.h"
@@ -418,6 +461,7 @@
 %include "ParticleCoreShell.h"
 %include "ParticleDistribution.h"
 %include "ParticleLayout.h"
+%include "PyArrayImportUtils.h"
 %include "PoissonNoiseBackground.h"
 %include "Polygon.h"
 %include "RealParameter.h"
@@ -434,4 +478,6 @@
 %template(SimulationFactoryTemp) IFactory<std::string, Simulation>;
 %include "SimulationFactory.h"
 %include "IUnitConverter.h"
+%include "IterationInfo.h"
 
+%include "extendCore.i"

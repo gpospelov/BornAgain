@@ -8,6 +8,7 @@
 #include "RealDataItem.h"
 #include "RealDataModel.h"
 #include "RectangularDetectorItem.h"
+#include "test_utils.h"
 #include <QSignalSpy>
 #include <QTest>
 
@@ -65,8 +66,7 @@ TEST_F(TestLinkInstrument, test_canLinkToInstrument)
     QString identifier = instrument->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
 
     // populating real data model, setting intensity data
-    RealDataItem* realData
-        = dynamic_cast<RealDataItem*>(realDataModel.insertNewItem(Constants::RealDataType));
+    RealDataItem* realData = TestUtils::createRealData("RealData", realDataModel);
     JobItemUtils::createDefaultDetectorMap(realData->dataItem(), instrument);
 
     QVERIFY(manager.canLinkDataToInstrument(realData, identifier));

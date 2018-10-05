@@ -109,8 +109,7 @@ TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
     }
 }
 
-std::unique_ptr<ParticleLayout>
-TransformToDomain::createParticleLayout(const SessionItem& item)
+std::unique_ptr<ParticleLayout> TransformToDomain::createParticleLayout(const SessionItem& item)
 {
     auto P_layout = std::make_unique<ParticleLayout>();
     auto prop = item.getItemValue(ParticleLayoutItem::P_APPROX).value<ComboProperty>();
@@ -120,9 +119,10 @@ TransformToDomain::createParticleLayout(const SessionItem& item)
     } else if (approximation == Constants::LAYOUT_SSCA) {
         P_layout->setApproximation(ILayout::SSCA);
     }
-    auto total_density
-        = item.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
+    auto total_density = item.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
+    auto layout_weight = item.getItemValue(ParticleLayoutItem::P_WEIGHT).value<double>();
     P_layout->setTotalParticleSurfaceDensity(total_density);
+    P_layout->setWeight(layout_weight);
     return P_layout;
 }
 

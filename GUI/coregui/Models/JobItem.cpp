@@ -14,6 +14,7 @@
 
 #include "JobItem.h"
 #include "ComboProperty.h"
+#include "Data1DViewItem.h"
 #include "FitSuiteItem.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
@@ -43,6 +44,7 @@ const QString JobItem::T_SAMPLE = "Sample Tag";
 const QString JobItem::T_INSTRUMENT = "Instrument Tag";
 const QString JobItem::T_OUTPUT = "Output Tag";
 const QString JobItem::T_REALDATA = "Real Data Tag";
+const QString JobItem::T_DATAVIEW = "Data View Tag";
 const QString JobItem::T_PARAMETER_TREE = "Parameter Tree";
 const QString JobItem::T_SIMULATION_OPTIONS = "Simulation Options";
 const QString JobItem::T_FIT_SUITE = "Fit Suite";
@@ -66,7 +68,7 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
 
     addProperty(P_COMMENTS, QString())->setVisible(false);
     addProperty(P_PROGRESS, 0)->setVisible(false);
-    addProperty(P_PRESENTATION_TYPE, Constants::IntensityDataPresentation)->setVisible(false);
+    addProperty(P_PRESENTATION_TYPE, QVariant::Type::Invalid)->setVisible(false);
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
     registerTag(T_INSTRUMENT, 1, 1,
@@ -76,6 +78,7 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType
                 << Constants::SpecularDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
+    registerTag(T_DATAVIEW, 1, 1, QStringList() << Constants::Data1DViewItemType);
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
 
     registerTag(T_SIMULATION_OPTIONS, 1, 1, QStringList() << Constants::SimulationOptionsType);
@@ -83,7 +86,8 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     registerTag(T_FIT_SUITE, 1, 1, QStringList() << Constants::FitSuiteType);
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
-        if (item->parent() == this && name == DataItem::P_AXES_UNITS)
+        if (item->parent() == this && dynamic_cast<DataItem*>(item)
+            && name == DataItem::P_AXES_UNITS)
             dynamic_cast<DataItem*>(item)->updateAxesUnits(instrumentItem());
     });
 
@@ -254,29 +258,9 @@ RealDataItem* JobItem::realDataItem()
     return dynamic_cast<RealDataItem*>(getItem(JobItem::T_REALDATA));
 }
 
-QString JobItem::presentationType()
+Data1DViewItem* JobItem::dataItemView()
 {
-    return getItemValue(P_PRESENTATION_TYPE).toString();
-}
-
-QString JobItem::defaultPresentationType()
-{
-    auto instrument = instrumentItem();
-    if (!instrument)
-        throw GUIHelpers::Error(
-            "Error in JobItem::defaultPresentationType: default presentation type "
-            "cannot be determined");
-
-    auto instrument_type = instrument->modelType();
-    if (instrument_type == Constants::SpecularInstrumentType)
-        return Constants::SpecularDataPresentation;
-    else if (instrument_type == Constants::GISASInstrumentType
-             || instrument_type == Constants::OffSpecInstrumentType)
-        return Constants::IntensityDataPresentation;
-    else
-        GUIHelpers::Error("Error in JobItem::defaultPresentationType: unknown type of instrument "
-                          "attached to the job item.");
-    return QString();
+    return dynamic_cast<Data1DViewItem*>(getItem(JobItem::T_DATAVIEW));
 }
 
 //! Updates the name of file to store intensity data.

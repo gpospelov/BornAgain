@@ -287,7 +287,8 @@ void InterferenceFunction2DLatticeItem::update_rotation_availability()
 const QString InterferenceFunctionFinite2DLatticeItem::P_XI_INTEGRATION = "Integration_over_xi";
 const QString InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_1 = "Domain_size_1";
 const QString InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_2 = "Domain_size_2";
-const QString InterferenceFunctionFinite2DLatticeItem::P_POSITION_VARIANCE = "Position_variance";
+const QString InterferenceFunctionFinite2DLatticeItem::P_POSITION_VARIANCE =
+        QString::fromStdString(BornAgain::PositionVariance);
 
 InterferenceFunctionFinite2DLatticeItem::InterferenceFunctionFinite2DLatticeItem()
     : InterferenceFunctionItem(Constants::InterferenceFunctionFinite2DLatticeType)

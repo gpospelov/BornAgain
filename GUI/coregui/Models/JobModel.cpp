@@ -91,8 +91,6 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
     jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
 
-    jobItem->setItemValue(JobItem::P_PRESENTATION_TYPE, jobItem->defaultPresentationType());
-
     ParameterTreeUtils::createParameterTree(jobItem);
 
     JobModelFunctions::setupJobItemOutput(jobItem);
@@ -136,9 +134,9 @@ QVector<SessionItem *> JobModel::nonXMLData() const
         if (auto intensityItem = jobItem->getItem(JobItem::T_OUTPUT))
             result.push_back(intensityItem);
 
-        if (auto realData = jobItem->getItem(JobItem::T_REALDATA)) {
-            if (auto intensityItem = realData->getItem(RealDataItem::T_INTENSITY_DATA))
-                result.push_back(intensityItem);
+        if (auto real_data = dynamic_cast<RealDataItem*>(jobItem->getItem(JobItem::T_REALDATA))) {
+            if (auto data_item = real_data->dataItem())
+                result.push_back(data_item);
         }
     }
 

@@ -23,10 +23,10 @@
 class BA_CORE_API_ FormFactorFullSphere : public IFormFactorBorn
 {
 public:
-    FormFactorFullSphere(double radius);
+    FormFactorFullSphere(double radius, bool position_at_center=false);
 
     FormFactorFullSphere* clone() const override final {
-        return new FormFactorFullSphere(m_radius); }
+        return new FormFactorFullSphere(m_radius, m_position_at_center); }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadius() const { return m_radius; }
@@ -49,6 +49,7 @@ protected:
 
 private:
     double m_radius;
+    bool m_position_at_center;
 };
 
 #endif // FORMFACTORFULLSPHERE_H

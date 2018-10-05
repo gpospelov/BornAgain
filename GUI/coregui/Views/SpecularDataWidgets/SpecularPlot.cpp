@@ -23,6 +23,8 @@
 
 namespace {
 const int replot_update_interval = 10;
+
+int getBin(double x, const QCPGraph* graph);
 }
 
 SpecularPlot::SpecularPlot(QWidget* parent)
@@ -52,7 +54,7 @@ PlotEventInfo SpecularPlot::eventInfo(double xpos, double ypos) const
     result.setValue(ypos);
 
     result.setInAxesRange(axesRangeContains(xpos, ypos));
-    result.setNx(m_custom_plot->graph()->findBegin(result.x()));
+    result.setNx(getBin(result.x(), m_custom_plot->graph()));
 
     return result;
 }
@@ -244,7 +246,6 @@ SpecularDataItem* SpecularPlot::specularItem()
 const SpecularDataItem* SpecularPlot::specularItem() const
 {
     const auto result = dynamic_cast<const SpecularDataItem*>(currentItem());
-    Q_ASSERT(result);
     return result;
 }
 
@@ -282,4 +283,15 @@ void SpecularPlot::modifyAxesProperties(const QString& axisName, const QString& 
 void SpecularPlot::replot()
 {
     m_update_timer->scheduleUpdate();
+}
+
+namespace {
+int getBin(double x, const QCPGraph* graph) {
+    const int key_start = graph->findBegin(x);
+    const int key_end = graph->findBegin(x, false); // false = do not expand range
+    if (key_end == key_start || key_end == graph->dataCount())
+        return key_start;
+    return (x - graph->dataSortKey(key_start)) <= (graph->dataSortKey(key_end) - x) ? key_start
+                                                                                    : key_end;
+}
 }

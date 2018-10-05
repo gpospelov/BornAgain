@@ -15,13 +15,13 @@
 #ifndef MULTIPATTERNFITTEST_H
 #define MULTIPATTERNFITTEST_H
 
-#include "IMinimizerTest.h"
+#include "IObsoleteMinimizerTest.h"
 
 //! @class MultiPatternFitTest
 //! @ingroup standard_samples
 //! @brief Fit with one fit parameter steering few sample parameters via multiple pattern mechanism.
 
-class MultiPatternFitTest : public IMinimizerTest
+class MultiPatternFitTest : public IObsoleteMinimizerTest
 {
 public:
     MultiPatternFitTest();

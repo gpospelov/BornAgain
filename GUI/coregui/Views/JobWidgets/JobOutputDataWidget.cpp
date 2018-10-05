@@ -57,15 +57,8 @@ void JobOutputDataWidget::setItem(JobItem* jobItem)
 
 void JobOutputDataWidget::onActivityChanged(int activity)
 {
-    if (auto widget = m_stackedWidget->currentWidget()) {
-        if (activity == JobViewFlags::FITTING_ACTIVITY) {
-            widget->setPresentation(Constants::FitComparisonPresentation);
-        } else if (activity == JobViewFlags::REAL_TIME_ACTIVITY) {
-            widget->setDefaultPresentation();
-        } else if (activity == JobViewFlags::JOB_VIEW_ACTIVITY) {
-            widget->setDefaultPresentation();
-        }
-    }
+    if (auto widget = m_stackedWidget->currentWidget())
+        widget->setPresentation(static_cast<JobViewFlags::EActivities>(activity));
 }
 
 bool JobOutputDataWidget::isValidJobItem(JobItem *item)

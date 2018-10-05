@@ -258,16 +258,16 @@ std::string printRealLimits(const RealLimits& limits, const std::string& units)
     }
 
     else if (limits.isLowerLimited()) {
-        result << "RealLimits.lowerLimited(" << printValue(limits.getLowerLimit(), units) << ")";
+        result << "RealLimits.lowerLimited(" << printValue(limits.lowerLimit(), units) << ")";
     }
 
     else if (limits.isUpperLimited()) {
-        result << "RealLimits.upperLimited(" << printValue(limits.getUpperLimit(), units) << ")";
+        result << "RealLimits.upperLimited(" << printValue(limits.upperLimit(), units) << ")";
     }
 
     else if (limits.isLimited()) {
-        result << "RealLimits.limited(" << printValue(limits.getLowerLimit(), units) << ", "
-               << printValue(limits.getUpperLimit(), units) << ")";
+        result << "RealLimits.limited(" << printValue(limits.lowerLimit(), units) << ", "
+               << printValue(limits.upperLimit(), units) << ")";
     }
 
     return result.str();

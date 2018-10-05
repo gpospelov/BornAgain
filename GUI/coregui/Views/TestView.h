@@ -24,7 +24,7 @@ class BA_CORE_API_ TestView : public QWidget
 {
     Q_OBJECT
 public:
-    TestView(MainWindow* mainWindow = 0);
+    TestView(MainWindow* mainWindow = nullptr);
 
 private:
     void test_ComponentProxyModel();

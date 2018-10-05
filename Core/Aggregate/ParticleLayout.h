@@ -43,7 +43,7 @@ public:
                      const kvector_t position=kvector_t(),
                      const IRotation& rotation=IdentityRotation());
 
-    SafePointerVector<const IParticle> particles() const final override;
+    SafePointerVector<IParticle> particles() const final override;
 
     double getTotalAbundance() const final override;
 
@@ -59,6 +59,7 @@ private:
     void setAndRegisterInterferenceFunction(IInterferenceFunction* child);
 
     void registerParticleDensity(bool make_registered = true);
+    void registerWeight();
 
     SafePointerVector<IAbstractParticle> m_particles; //!< Vector of particle types
     std::unique_ptr<IInterferenceFunction> mP_interference_function;

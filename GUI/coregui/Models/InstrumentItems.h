@@ -40,6 +40,8 @@ public:
     virtual std::unique_ptr<Instrument> createInstrument() const = 0;
     virtual std::vector<int> shape() const = 0;
     virtual void setShape(const std::vector<int>& shape) = 0;
+    virtual void clearMasks() {}
+    virtual void importMasks(const MaskContainerItem*) {}
 
 protected:
     explicit InstrumentItem(const QString& modelType);
@@ -51,7 +53,7 @@ class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem
 {
 public:
     SpecularInstrumentItem();
-    virtual ~SpecularInstrumentItem();
+    ~SpecularInstrumentItem() override;
 
     SpecularBeamItem* beamItem() const override;
 
@@ -65,16 +67,15 @@ class BA_CORE_API_ Instrument2DItem : public InstrumentItem
 public:
     static const QString P_DETECTOR;
 
-    virtual ~Instrument2DItem();
+    ~Instrument2DItem() override;
 
     DetectorItem* detectorItem() const;
     GroupItem* detectorGroup();
 
     void setDetectorGroup(const QString& modelType);
 
-    void clearMasks();
-
-    void importMasks(MaskContainerItem* maskContainer);
+    void clearMasks() override;
+    void importMasks(const MaskContainerItem* maskContainer) override;
 
     std::unique_ptr<Instrument> createInstrument() const override;
 

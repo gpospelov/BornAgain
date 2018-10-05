@@ -2,6 +2,7 @@
 
 #include "FormFactorBasicTest.h"
 #include "FormFactorCoherentSumTest.h"
+#include "FormFactorSoftParticleTest.h"
 #include "LayerTest.h"
 #include "MultiLayerTest.h"
 #include "RTTest.h"
@@ -17,4 +18,5 @@
 #include "INodeTest.h"
 #include "Lattice2DTest.h"
 #include "LatticeTest.h"
+#include "LatticeUtilsTest.h"
 

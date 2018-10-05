@@ -25,27 +25,8 @@ const int nysize = 10;
 class TestOutputDataIOService : public ::testing::Test
 {
 public:
+    TestOutputDataIOService();
     ~TestOutputDataIOService();
-
-    //! Helper function to create test OutputData.
-    std::unique_ptr<OutputData<double>> createData(double value = 0.0)
-    {
-        std::unique_ptr<OutputData<double>> result(new OutputData<double>());
-        result->addAxis("x", nxsize, -1.0, 1.0);
-        result->addAxis("y", nysize, 0.0, 2.0);
-        result->setAllTo(value);
-        return result;
-    }
-
-    //! Helper function to create test RealData
-    RealDataItem* createRealData(const QString& name, ApplicationModels& models, double value = 0.0)
-    {
-        RealDataItem* result = dynamic_cast<RealDataItem*>(
-            models.realDataModel()->insertNewItem(Constants::RealDataType));
-        result->dataItem()->setOutputData(createData(value).release());
-        result->setItemValue(SessionItem::P_NAME, name);
-        return result;
-    }
 
     //! Helper function to test if data are the same.
     bool isTheSame(const OutputData<double>& data1, const OutputData<double>& data2)
@@ -61,7 +42,18 @@ public:
             IntensityDataIOFactory::readOutputData(fileName.toStdString()));
         return isTheSame(*dataOnDisk, data);
     }
+protected:
+    OutputData<double> m_data;
 };
+
+TestOutputDataIOService::TestOutputDataIOService()
+{
+    FixedBinAxis axis0("x", 10, 0.0, 1.0);
+    FixedBinAxis axis1("y", 10, -1.0, 1.0);
+    m_data.addAxis(axis0);
+    m_data.addAxis(axis1);
+}
+
 
 TestOutputDataIOService::~TestOutputDataIOService() = default;
 
@@ -76,7 +68,10 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     EXPECT_EQ(dataItems.size(), 0);
 
     // adding RealDataItem
-    SessionItem* realData = models.realDataModel()->insertNewItem(Constants::RealDataType);
+    RealDataItem* realData = dynamic_cast<RealDataItem*>(
+        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    EXPECT_THROW(models.realDataModel()->nonXMLData().size(), GUIHelpers::Error);
+    realData->setOutputData(TestUtils::createData().release());
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
 
     // adding JobItem
@@ -86,20 +81,32 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // adding RealDataItem to jobItem
-    SessionItem* realData2 = models.jobModel()->insertNewItem(
-        Constants::RealDataType, jobItem->index(), -1, JobItem::T_REALDATA);
+    RealDataItem* realData2 = dynamic_cast<RealDataItem*>(models.jobModel()->insertNewItem(
+        Constants::RealDataType, jobItem->index(), -1, JobItem::T_REALDATA));
+    EXPECT_THROW(models.jobModel()->nonXMLData().size(), GUIHelpers::Error);
+    realData2->setOutputData(TestUtils::createData(0.0, TestUtils::DIM::D1).release());
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);
-
-    // checking data items of ApplicationModel
-    dataItems = models.nonXMLData();
-    EXPECT_EQ(dataItems.size(), 3);
-    EXPECT_EQ(dataItems.indexOf(realData->getItem(RealDataItem::T_INTENSITY_DATA)), 0);
-    EXPECT_EQ(dataItems.indexOf(dataItem), 1);
-    EXPECT_EQ(dataItems.indexOf(realData2->getItem(RealDataItem::T_INTENSITY_DATA)), 2);
 
     // checking data items of OutputDataIOService
     OutputDataIOService service(&models);
     EXPECT_EQ(service.dataItems().size(), 3);
+
+    // checking data items of ApplicationModels
+    dataItems = models.nonXMLData();
+    EXPECT_EQ(dataItems.size(), 3);
+    EXPECT_EQ(dataItems.indexOf(realData->dataItem()), 0);
+    EXPECT_EQ(dataItems.indexOf(dataItem), 1);
+    EXPECT_EQ(dataItems.indexOf(realData2->dataItem()), 2);
+
+    // Replacing the data inside RealDataItem with the data of the same dimensions
+    realData->setOutputData(TestUtils::createData(2.0).release());
+    EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
+
+    // Replacing the data inside RealDataItem with the data of different dimensions
+    auto data = TestUtils::createData(3.0, TestUtils::DIM::D1);
+    EXPECT_THROW(dynamic_cast<RealDataItem*>(realData)->setOutputData(data.get()),
+                 GUIHelpers::Error);
+    EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
 }
 
 //! Tests OutputDataSaveInfo class intended for storing info about the last save.
@@ -131,7 +138,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
     DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
     DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
-
+    item1->setOutputData(m_data.clone());
     item1->setLastModified(QDateTime::currentDateTime());
     item2->setLastModified(QDateTime::currentDateTime());
 
@@ -146,9 +153,9 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
     history.markAsSaved(item2);
 
     EXPECT_TRUE(history.contains(item1) == true);
-    EXPECT_TRUE(history.contains(item2) == true);
+    // Empty DataItems are not added to history:
+    EXPECT_TRUE(history.contains(item2) == false);
     EXPECT_TRUE(history.wasModifiedSinceLastSave(item1) == false);
-    EXPECT_TRUE(history.wasModifiedSinceLastSave(item2) == false);
 
     // Attempt to save same item second time
     EXPECT_THROW(history.markAsSaved(item1), GUIHelpers::Error);
@@ -158,7 +165,6 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
     item1->setLastModified(QDateTime::currentDateTime());
 
     EXPECT_TRUE(history.wasModifiedSinceLastSave(item1) == true);
-    EXPECT_TRUE(history.wasModifiedSinceLastSave(item2) == false);
 }
 
 //! Tests OutputDataIOHistory class (save info for several independent directories).
@@ -169,6 +175,8 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOHistory)
     DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
 
     DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem(Constants::IntensityDataType));
+    item1->setOutputData(m_data.clone());
+    item2->setOutputData(m_data.clone());
 
     item1->setLastModified(QDateTime::currentDateTime());
     item2->setLastModified(QDateTime::currentDateTime());
@@ -210,8 +218,8 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
     const double value1(1.0), value2(2.0), value3(3.0);
 
     ApplicationModels models;
-    RealDataItem* realData1 = createRealData("data1", models, value1);
-    RealDataItem* realData2 = createRealData("data2", models, value2);
+    RealDataItem* realData1 = TestUtils::createRealData("data1", *models.realDataModel(), value1);
+    RealDataItem* realData2 = TestUtils::createRealData("data2", *models.realDataModel(), value2);
 
     // Saving first time
     OutputDataIOService service(&models);
@@ -233,7 +241,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
     EXPECT_TRUE(isTheSame(*dataOnDisk2, *realData2->dataItem()->getOutputData()));
 
     // Modifying data and saving the project.
-    realData2->dataItem()->setOutputData(createData(value3).release());
+    realData2->setOutputData(TestUtils::createData(value3).release());
     service.save(projectDir);
     QTest::qSleep(10);
 

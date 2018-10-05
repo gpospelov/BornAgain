@@ -20,12 +20,24 @@
 #include "Transform3D.h"
 #include <gsl/gsl_linalg.h>
 
+Lattice::Lattice()
+    : mp_selection_rule(nullptr)
+    , m_a( {1.0, 0.0, 0.0} )
+    , m_b( {0.0, 1.0, 0.0} )
+    , m_c( {0.0, 0.0, 1.0} )
+    , m_cache_ok(false)
+{
+    setName(BornAgain::LatticeType);
+    initialize();
+    registerBasisVectors();
+}
+
 Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-: mp_selection_rule(0)
-, m_a(a1)
-, m_b(a2)
-, m_c(a3)
-, m_cache_ok(false)
+    : mp_selection_rule(nullptr)
+    , m_a(a1)
+    , m_b(a2)
+    , m_c(a3)
+    , m_cache_ok(false)
 {
     setName(BornAgain::LatticeType);
     initialize();
@@ -33,11 +45,11 @@ Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 }
 
 Lattice::Lattice(const Lattice& lattice)
-: mp_selection_rule(0)
-, m_a(lattice.m_a)
-, m_b(lattice.m_b)
-, m_c(lattice.m_c)
-, m_cache_ok(false)
+    : mp_selection_rule(nullptr)
+    , m_a(lattice.m_a)
+    , m_b(lattice.m_b)
+    , m_c(lattice.m_c)
+    , m_cache_ok(false)
 {
     setName(BornAgain::LatticeType);
     initialize();
@@ -64,6 +76,22 @@ void Lattice::initialize() const
 {
     computeReciprocalVectors();
     m_cache_ok = true;
+}
+
+void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
+{
+    m_a = a1;
+    m_b = a2;
+    m_c = a3;
+    onChange();
+}
+
+kvector_t Lattice::getMillerDirection(int h, int k, int l) const
+{
+    kvector_t b1, b2, b3;
+    getReciprocalLatticeBasis(b1, b2, b3);
+    kvector_t direction = h*b1 + k*b2 + l*b3;
+    return direction.unit();
 }
 
 double Lattice::volume() const
@@ -115,6 +143,14 @@ std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(
         input_vector, nearest_coords, radius, m_ra, m_rb, m_rc, m_a, m_b, m_c);
 }
 
+Lattice Lattice::createCubicLattice(double a)
+{
+    kvector_t a1(a, 0.0, 0.0);
+    kvector_t a2(0.0, a, 0.0);
+    kvector_t a3(0.0, 0.0, a);
+    return Lattice(a1, a2, a3);
+}
+
 Lattice Lattice::createFCCLattice(double a)
 {
     double b = a/2.0;
@@ -124,11 +160,35 @@ Lattice Lattice::createFCCLattice(double a)
     return Lattice(a1, a2, a3);
 }
 
-Lattice Lattice::createTrigonalLattice(double a, double c)
+Lattice Lattice::createHexagonalLattice(double a, double c)
+{
+    kvector_t a1(a, 0.0, 0.0);
+    kvector_t a2(-a/2.0, std::sqrt(3.0)*a/2.0, 0.0);
+    kvector_t a3(0.0, 0.0, c);
+    return Lattice(a1, a2, a3);
+}
+
+Lattice Lattice::createHCPLattice(double a, double c)
 {
     kvector_t a1(a, 0.0, 0.0);
     kvector_t a2(-a/2.0, std::sqrt(3.0)*a/2.0, 0);
+    kvector_t a3(a/2.0, a/std::sqrt(3.0)/2.0, c/2.0);
+    return Lattice(a1, a2, a3);
+}
+
+Lattice Lattice::createTetragonalLattice(double a, double c)
+{
+    kvector_t a1(a, 0.0, 0.0);
+    kvector_t a2(0.0, a, 0.0);
     kvector_t a3(0.0, 0.0, c);
+    return Lattice(a1, a2, a3);
+}
+
+Lattice Lattice::createBCTLattice(double a, double c)
+{
+    kvector_t a1(a, 0.0, 0.0);
+    kvector_t a2(0.0, a, 0.0);
+    kvector_t a3(a/2.0, a/2.0, c/2.0);
     return Lattice(a1, a2, a3);
 }
 

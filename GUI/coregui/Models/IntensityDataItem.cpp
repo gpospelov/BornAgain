@@ -78,20 +78,16 @@ IntensityDataItem::IntensityDataItem() : DataItem(Constants::IntensityDataType)
 
 void IntensityDataItem::setOutputData(OutputData<double>* data)
 {
+    assert(data && "Assertion failed in IntensityDataItem::setOutputData: nullptr data passed");
+    if (data->getRank() != 2)
+        throw GUIHelpers::Error(
+            "Error in IntensityDataItem::setOutputData: cannot handle non-2D data");
     DataItem::setOutputData(data);
 
     updateAxesZoomLevel();
     updateAxesLabels();
     updateDataRange();
 
-    emitDataChanged();
-}
-
-//! Sets the raw data vector from external source
-
-void IntensityDataItem::setRawDataVector(const OutputData<double>* data)
-{
-    DataItem::setRawDataVector(data);
     emitDataChanged();
 }
 
@@ -398,6 +394,9 @@ BasicAxisItem* IntensityDataItem::zAxisItem()
 
 void IntensityDataItem::resetView()
 {
+    if (!m_data)
+        return;
+
     setAxesRangeToData();
     if (!isZAxisLocked())
         computeDataRange();

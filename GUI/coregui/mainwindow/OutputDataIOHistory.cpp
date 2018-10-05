@@ -48,8 +48,9 @@ void OutputDataDirHistory::markAsSaved(const DataItem *item)
     if (contains(item))
         throw GUIHelpers::Error("OutputDataDirHistory::markAsSaved() -> Error. "
                                 "Already existing item.");
-
-    m_history.push_back(OutputDataSaveInfo::createSaved(item));
+    // Don't create any history info for empty DataItems
+    if (item->getOutputData())
+        m_history.push_back(OutputDataSaveInfo::createSaved(item));
 }
 
 bool OutputDataDirHistory::wasModifiedSinceLastSave(const DataItem *item)

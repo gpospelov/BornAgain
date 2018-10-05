@@ -27,7 +27,7 @@ class PlotStatusLabel;
 class QAction;
 class IntensityDataPropertyWidget;
 class PropertyRepeater;
-class FitComparisonController;
+class FitComparisonController2D;
 
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
@@ -37,22 +37,19 @@ class BA_CORE_API_ FitComparisonWidget : public SessionItemWidget
     Q_OBJECT
 
 public:
-    explicit FitComparisonWidget(QWidget* parent = 0);
-    ~FitComparisonWidget();
+    explicit FitComparisonWidget(QWidget* parent = nullptr);
+    ~FitComparisonWidget() override;
 
-    virtual QList<QAction*> actionList();
+    virtual QList<QAction*> actionList() override;
 
 private slots:
     void onResetViewAction();
 
 protected:
-    void subscribeToItem();
-    void unsubscribeFromItem();
+    void subscribeToItem() override;
+    void unsubscribeFromItem() override;
 
 private:
-    void calculateRelativeDifference();
-    void unsubscribeFromChildren();
-
     JobItem* jobItem();
     IntensityDataItem* realDataItem();
     IntensityDataItem* simulatedDataItem();
@@ -66,7 +63,7 @@ private:
     IntensityDataPropertyWidget* m_propertyWidget;
 
     QAction* m_resetViewAction;
-    FitComparisonController* m_comparisonController;
+    FitComparisonController2D* m_comparisonController;
 };
 
 #endif // FITCOMPARISONWIDGET_H

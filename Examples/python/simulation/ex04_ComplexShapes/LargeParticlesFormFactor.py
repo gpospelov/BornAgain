@@ -64,16 +64,16 @@ def run_simulation():
     # conditions to define cylinders scale factor and integration flag
     conditions = [
         {'title': "Small cylinders, analytical calculations",
-         'scale': 1,   'integration': False},
+         'scale': 1,   'integration': False, 'zmin': 1e-5, 'zmax': 1e2},
 
         {'title': "Small cylinders, Monte-Carlo integration",
-         'scale': 1,   'integration': True},
+         'scale': 1,   'integration': True, 'zmin': 1e-5, 'zmax': 1e2},
 
         {'title': "Large cylinders, analytical calculations",
-         'scale': 100, 'integration': False},
+         'scale': 100, 'integration': False, 'zmin': 1e-5, 'zmax': 1e10},
 
         {'title': "Large cylinders, Monte-Carlo integration",
-         'scale': 100, 'integration': True}
+         'scale': 100, 'integration': True, 'zmin': 1e-5, 'zmax': 1e10}
     ]
 
     # run simulation 4 times and plot results
@@ -92,7 +92,9 @@ def run_simulation():
         plt.subplot(2, 2, i_plot+1)
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
-        ba.plot_colormap(result, zmin=1e-2)
+        zmin = condition['zmin']
+        zmax = condition['zmax']
+        ba.plot_colormap(result, zmin=zmin, zmax=zmax)
 
         plt.text(0.0, 2.1, conditions[i_plot]['title'],
                  horizontalalignment='center', verticalalignment='center',

@@ -22,8 +22,7 @@
 #include <QVBoxLayout>
 
 ItemComboWidget::ItemComboWidget(QWidget* parent)
-    : QWidget(parent), m_toolBar(new ItemComboToolBar), m_stackedWidget(new QStackedWidget),
-      m_currentItem(nullptr)
+    : SessionItemWidget(parent), m_toolBar(new ItemComboToolBar), m_stackedWidget(new QStackedWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -39,18 +38,6 @@ ItemComboWidget::ItemComboWidget(QWidget* parent)
     connect(m_toolBar, SIGNAL(comboChanged(QString)), this, SLOT(onComboChanged(QString)));
 }
 
-void ItemComboWidget::setItem(SessionItem* item)
-{
-    if (!item)
-        return;
-
-    m_toolBar->setPresentationList(presentationList(item), activePresentationList(item));
-
-    m_currentItem = item;
-
-    setPresentation(itemPresentation());
-}
-
 void ItemComboWidget::registerWidget(const QString& presentationType, factory_function_t f)
 {
     m_widgetFactory.registerItem(presentationType, f);
@@ -60,12 +47,12 @@ void ItemComboWidget::registerWidget(const QString& presentationType, factory_fu
 
 void ItemComboWidget::setPresentation(const QString& presentationType)
 {
-    if (!activePresentationList(m_currentItem).contains(presentationType))
+    if (!activePresentationList(currentItem()).contains(presentationType))
         return;
 
     m_toolBar->setPresentation(presentationType);
 
-    Q_ASSERT(m_currentItem);
+    Q_ASSERT(currentItem());
 
     SessionItemWidget* widget = m_presentationTypeToWidget[presentationType];
 
@@ -75,7 +62,7 @@ void ItemComboWidget::setPresentation(const QString& presentationType)
         m_presentationTypeToWidget[presentationType] = widget;
     }
     Q_ASSERT(widget);
-    widget->setItem(m_currentItem);
+    widget->setItem(currentItem());
     m_toolBar->setActionList(widget->actionList());
     m_stackedWidget->setCurrentWidget(widget);
     if (widget->isHidden())
@@ -120,14 +107,11 @@ QString ItemComboWidget::selectedPresentation() const
     return m_toolBar->currentPresentation();
 }
 
-SessionItem* ItemComboWidget::currentItem()
+void ItemComboWidget::subscribeToItem()
 {
-    return const_cast<SessionItem*>(static_cast<const ItemComboWidget*>(this)->currentItem());
-}
-
-const SessionItem* ItemComboWidget::currentItem() const
-{
-    return m_currentItem;
+    m_toolBar->setPresentationList(presentationList(currentItem()),
+                                   activePresentationList(currentItem()));
+    setPresentation(itemPresentation());
 }
 
 void ItemComboWidget::onComboChanged(const QString&)

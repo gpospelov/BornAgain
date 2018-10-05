@@ -16,10 +16,35 @@
 #include "ConstKBinAxis.h"
 #include "CustomBinAxis.h"
 #include "FileSystemUtils.h"
+#include "PointwiseAxis.h"
 #include "OutputData.h"
 #include "StringUtils.h"
 #include <iterator>
 #include <iostream>
+
+namespace {
+std::istringstream getAxisStringRepresentation(std::istream& input_stream);
+
+template<class Axis>
+std::unique_ptr<IAxis> createFixedBinLikeAxis(std::istringstream iss);
+std::unique_ptr<IAxis> createVariableBinAxis(std::istringstream iss);
+std::unique_ptr<IAxis> createPointwiseAxis(std::istringstream iss);
+
+using createAxisFun = std::function<std::unique_ptr<IAxis>(std::istringstream iss)>;
+const std::vector<std::pair<std::string, createAxisFun>> type_map = {
+    {"ConstKBinAxis", createFixedBinLikeAxis<ConstKBinAxis>},
+    {"CustomBinAxis", createFixedBinLikeAxis<CustomBinAxis>},
+    {"FixedBinAxis", createFixedBinLikeAxis<FixedBinAxis>},
+    {"PointwiseAxis", createPointwiseAxis},
+    {"VariableBinAxis", createVariableBinAxis}};
+
+const std::string GzipExtension = ".gz";
+const std::string BzipExtension = ".bz2";
+const std::string IntExtension = ".int";
+const std::string TxtExtension = ".txt";
+const std::string TiffExtension = ".tif";
+const std::string TiffExtension2 = ".tiff";
+}
 
 bool DataFormatUtils::isCompressed(const std::string& name)
 {
@@ -79,95 +104,21 @@ bool DataFormatUtils::isTiffFile(const std::string& file_name)
             GetFileMainExtension(file_name) == TiffExtension2 );
 }
 
-//! Returns true if string representation of the axis contains one of
-//! FixedBinAxis, ConstKBinAxis or CustomBinAxis to parse it later in
-//! similar way.
-bool DataFormatUtils::isSimilarToFixedBinAxisType(const std::string& line)
-{
-    return line.find(FixedBinAxisType)  != std::string::npos ||
-           line.find(ConstKBinAxisType) != std::string::npos ||
-           line.find(CustomBinAxisType) != std::string::npos;
-}
-
-bool DataFormatUtils::isVariableBinAxisType(const std::string& line)
-{
-    return line.find(VariableBinAxisType) != std::string::npos;
-}
-
-
 //! Creates axis of certain type from input stream
-IAxis *DataFormatUtils::createAxis(std::istream& input_stream)
+std::unique_ptr<IAxis> DataFormatUtils::createAxis(std::istream& input_stream)
 {
-    std::string line;
-    std::getline(input_stream, line);
-
-    if(isSimilarToFixedBinAxisType(line)) {
-        return createFixedBinAxis(line);
-    } else if(isVariableBinAxisType(line)) {
-        return createVariableBinAxis(line);
-    } else {
-        throw Exceptions::LogicErrorException("DataFormatUtils::createAxis() -> Error. "
-                                              "Unknown axis '"+line+"'");
-    }
-}
-
-//! Create one of FixedBinAxis from string representation
-//! FixedBinAxis("axis0", 10, -1, 1)
-//! ConstKBinAxis("axis0", 10, -1, 1)
-//! CustomBinAxis("axis0", 10, -1, 1)
-IAxis *DataFormatUtils::createFixedBinAxis(std::string line)
-{
-    std::vector<std::string> to_replace = {",", "\"", "(", ")"};
-    StringUtils::replaceItemsFromString(line, to_replace, " ");
-
-    std::string type, name;
-    size_t nbins(0);
-
-    std::istringstream iss(line);
-    if( !(iss >> type >> name >> nbins) )
+    auto iss = getAxisStringRepresentation(input_stream);
+    std::string type;
+    if (!(iss >> type))
         throw Exceptions::FormatErrorException(
-            "DataFormatUtils::createFixedBinAxis() -> Error. Can't parse the string.");
+            "Error in DataFormatUtils::createAxis:: couldn't read axis type from input");
 
-    std::vector<double> boundaries;
-    readLineOfDoubles(boundaries, iss);
-
-    if(boundaries.size() != 2)
-        throw Exceptions::FormatErrorException(
-            "DataFormatUtils::createFixedBinAxis() -> Error. Can't parse the string at p2.");
-
-    if(type == FixedBinAxisType) {
-        return new FixedBinAxis(name, nbins, boundaries[0], boundaries[1]);
-    } else if(type == ConstKBinAxisType) {
-        return new ConstKBinAxis(name, nbins, boundaries[0], boundaries[1]);
-    } else if(type == CustomBinAxisType) {
-        return new CustomBinAxis(name, nbins, boundaries[0], boundaries[1]);
-    } else {
-        throw Exceptions::LogicErrorException(
-            "DataFormatUtils::createOneOfFixedBinAxis() -> Error. Unexpected place.");
-    }
-}
-
-
-//! Create VariableBinAxis from string representation
-//! VariableBinAxis("axis0", 4, [-1, -0.5, 0.5, 1, 2])
-IAxis *DataFormatUtils::createVariableBinAxis(std::string line)
-{
-    std::vector<std::string> to_replace = {",", "\"", "(", ")", "[", "]"};
-    StringUtils::replaceItemsFromString(line, to_replace, " ");
-
-    std::string type, name;
-    size_t nbins(0);
-
-    std::istringstream iss(line);
-    if( !(iss >> type >> name >> nbins) )
-        throw Exceptions::FormatErrorException(
-            "DataFormatUtils::createVariableBinAxis() -> Error. Can't parse the string.");
-    std::vector<double> boundaries;
-    readLineOfDoubles(boundaries, iss);
-    if(boundaries.size() != nbins+1)
-        throw Exceptions::FormatErrorException(
-            "DataFormatUtils::createVariableBinAxis() -> Error. Can't parse the string at p2.");
-    return new VariableBinAxis(name, nbins, boundaries);
+    for (auto iter = type_map.cbegin(); iter != type_map.end(); ++iter)
+        if (iter->first == type)
+            return iter->second(std::move(iss));
+    throw Exceptions::LogicErrorException("Error in DataFormatUtils::createAxis:"
+                                          "Unknown axis type '"
+                                          + type + "'");
 }
 
 //! Fills output data raw buffer from input stream
@@ -216,4 +167,73 @@ void DataFormatUtils::readLineOfDoubles(std::vector<double>& buffer, std::istrin
     iss.imbue(std::locale::classic());
     std::copy(std::istream_iterator<double>(iss),
               std::istream_iterator<double>(), back_inserter(buffer));
+}
+
+namespace {
+std::istringstream getAxisStringRepresentation(std::istream& input_stream)
+{
+    std::string line;
+    std::getline(input_stream, line);
+    const std::vector<std::string> to_replace = {",", "\"", "(", ")", "[", "]"};
+    StringUtils::replaceItemsFromString(line, to_replace, " ");
+    return std::istringstream(line);
+}
+
+//! Create one of FixedBinAxis from string representation
+//! FixedBinAxis("axis0", 10, -1, 1)
+//! ConstKBinAxis("axis0", 10, -1, 1)
+//! CustomBinAxis("axis0", 10, -1, 1)
+template<class Axis>
+std::unique_ptr<IAxis> createFixedBinLikeAxis(std::istringstream iss)
+{
+    std::string name;
+    size_t nbins(0);
+    if( !(iss >> name >> nbins) )
+        throw Exceptions::FormatErrorException(
+            "createFixedBinLikeAxis() -> Error. Can't parse the string.");
+
+    std::vector<double> boundaries;
+    DataFormatUtils::readLineOfDoubles(boundaries, iss);
+    if(boundaries.size() != 2)
+        throw Exceptions::FormatErrorException(
+            "Error in createFixedBinLikeAxis: Can't parse the string while "
+            "reading boundaries.");
+
+    return std::make_unique<Axis>(name, nbins, boundaries[0], boundaries[1]);
+}
+
+
+//! Create VariableBinAxis from string representation
+//! VariableBinAxis("axis0", 4, [-1, -0.5, 0.5, 1, 2])
+std::unique_ptr<IAxis> createVariableBinAxis(std::istringstream iss)
+{
+    std::string name;
+    size_t nbins(0);
+    if( !(iss >> name >> nbins) )
+        throw Exceptions::FormatErrorException(
+            "Error in createVariableBinAxis: Can't parse the string.");
+
+    std::vector<double> boundaries;
+    DataFormatUtils::readLineOfDoubles(boundaries, iss);
+    if(boundaries.size() != nbins+1)
+        throw Exceptions::FormatErrorException(
+            "Error in createVariableBinAxis: wrong number of boundaries read.");
+
+    return std::make_unique<VariableBinAxis>(name, nbins, boundaries);
+}
+
+//! Create createPointwiseAxis from string representation
+//! PointwiseAxis("axis0", [-0.5, 0.5, 1, 2])
+std::unique_ptr<IAxis> createPointwiseAxis(std::istringstream iss)
+{
+    std::string name;
+    if (!(iss >> name))
+        throw Exceptions::FormatErrorException(
+            "Error in createPointwiseAxis:Can't parse the string.");
+
+    std::vector<double> coordinates;
+    DataFormatUtils::readLineOfDoubles(coordinates, iss);
+
+    return std::make_unique<PointwiseAxis>(name, coordinates);
+}
 }

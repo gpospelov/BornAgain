@@ -26,6 +26,9 @@ public:
     static const QString P_NSLICES;
     static const QString T_LAYOUTS;
     LayerItem();
+
+private:
+    void updateAppearance(SessionItem* new_parent);
 };
 
 #endif // LAYERITEM_H

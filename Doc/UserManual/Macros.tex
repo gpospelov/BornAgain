@@ -17,19 +17,11 @@
 \let\ringaccent\r
 
 % Vectors
-\ifolducm
-  \def\v#1{\ensuremath{\mathbf{#1}}} % for unicode-math <= 0.7f
-\else
-  \def\v#1{\symbf{#1}}
-\fi
+\def\v#1{\ensuremath{\mathbf{#1}}}
 % unused \newcommand{\unitvec}[1]{\ensuremath{\widehat{\vect{#1}}}}
 
 % Tensors
-\ifolducm
-  \def\TENS#1{\ensuremath{\mathbfsf{#1}}} % for unicode-math <= 0.7f
-\else
-  \def\TENS#1{\symbfsf{#1}}
-\fi
+\def\TENS#1{\ensuremath{\mathsf{#1}}}
 \def\ONE{\TENS{1}}
 
 % Math operators
@@ -57,8 +49,8 @@
 
 \def\DS{\displaystyle}
 
-\def\d{\mathup d}
-\def\e{\mathup e}
+\def\d{\mathrm d}
+\def\e{\mathrm e}
 \def\eps{\epsilon}
 \def\E#1{\textsl{#1}}
 \def\etal{\E{et al.}}

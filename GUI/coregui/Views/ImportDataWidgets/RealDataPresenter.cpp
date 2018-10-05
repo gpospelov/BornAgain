@@ -13,18 +13,24 @@
 // ************************************************************************** //
 
 #include "RealDataPresenter.h"
-#include "RealDataMaskWidget.h"
+#include "GUIHelpers.h"
 #include "IntensityDataWidget.h"
 #include "IntensityDataProjectionsWidget.h"
 #include "item_constants.h"
+#include "RealDataItem.h"
+#include "RealDataMaskWidget.h"
+#include "SpecularDataWidget.h"
+#include <cassert>
 #include <QAction>
 
 RealDataPresenter::RealDataPresenter(QWidget* parent)
     : ItemComboWidget(parent)
 {
     registerWidget(Constants::IntensityDataPresentation, create_new<IntensityDataWidget>);
-    registerWidget(Constants::IntensityProjectionsPresentation, create_new<IntensityDataProjectionsWidget>);
+    registerWidget(Constants::IntensityProjectionsPresentation,
+                   create_new<IntensityDataProjectionsWidget>);
     registerWidget(Constants::MaskEditorPresentation, create_new<RealDataMaskWidget>);
+    registerWidget(Constants::SpecularDataPresentation, create_new<SpecularDataWidget>);
 }
 
 QList<QAction*> RealDataPresenter::actionList()
@@ -32,9 +38,20 @@ QList<QAction*> RealDataPresenter::actionList()
     return QList<QAction*>();
 }
 
-QStringList RealDataPresenter::activePresentationList(SessionItem*)
+QStringList RealDataPresenter::activePresentationList(SessionItem* item)
 {
-    return QStringList() << Constants::IntensityDataPresentation
-                         << Constants::IntensityProjectionsPresentation
-                         << Constants::MaskEditorPresentation;
+    assert(item && dynamic_cast<RealDataItem*>(item));
+    const auto& underlying_data_model = dynamic_cast<RealDataItem*>(item)->underlyingDataModel();
+
+    QStringList result;
+    if (underlying_data_model == Constants::IntensityDataType)
+        result << Constants::IntensityDataPresentation
+               << Constants::IntensityProjectionsPresentation
+               << Constants::MaskEditorPresentation;
+    else if (underlying_data_model == Constants::SpecularDataType)
+        result << Constants::SpecularDataPresentation;
+    else
+        throw GUIHelpers::Error(
+            "Error in RealDataPresenter::activePresentationList: unsupported data type");
+    return result;
 }

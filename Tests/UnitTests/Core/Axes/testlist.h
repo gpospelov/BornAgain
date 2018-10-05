@@ -10,3 +10,4 @@
 #include "FixedBinAxisTest.h"
 #include "CVectorTest.h"
 #include "UnitConverter1DTest.h"
+#include "PointwiseAxisTest.h"

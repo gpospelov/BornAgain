@@ -30,9 +30,6 @@ public:
     //! clone function
     virtual IAxis* clone() const=0;
 
-    //! Creates a new axis with half the number of bins
-    virtual IAxis* createDoubleBinSize() const;
-
     //! destructor
     virtual ~IAxis() {}
 
@@ -61,10 +58,6 @@ public:
 
     //! find bin index which is best match for given value
     virtual size_t findClosestIndex(double value) const=0;
-
-    //! find index of bin that contains the given value
-    //! returns size() when value is not found
-    size_t findIndex(double value) const;
 
     //! test for equality
     bool operator==(const IAxis& right) const { return equals(right); }

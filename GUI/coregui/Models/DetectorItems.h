@@ -54,7 +54,7 @@ public:
 
     void createMaskContainer();
 
-    void importMasks(MaskContainerItem* maskContainer);
+    void importMasks(const MaskContainerItem* maskContainer);
 
 protected:
     void register_resolution_function();

@@ -22,6 +22,7 @@
 #include "ILayout.h"
 #include "IParticle.h"
 #include "InterferenceFunctionNone.h"
+#include "InterferenceFunctionRadialParaCrystal.h"
 #include "MultiLayer.h"
 #include "Layer.h"
 #include "SlicedFormFactorList.h"
@@ -67,6 +68,7 @@ void LayoutStrategyBuilder::createStrategy()
         if ( (p_iff = dynamic_cast<const IInterferenceFunction*>(p_child)) )
             break;
     }
+    checkInterferenceFunction(p_iff);
 
     switch (mp_layout->getApproximation())
     {
@@ -78,11 +80,12 @@ void LayoutStrategyBuilder::createStrategy()
             throw Exceptions::ClassInitializationException(
                 "LayoutStrategyBuilder::createStrategy: "
                 "layout does not contain an interference function for SSCA");
-        double kappa = p_iff->kappa();
-        if (kappa<=0.0)
+        auto p_radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(p_iff);
+        if (!p_radial_para || p_radial_para->kappa()<=0.0)
             throw Exceptions::ClassInitializationException(
-                "SSCA requires a nontrivial interference function "
+                "SSCA requires a radial paracrystal interference function "
                 "with a strictly positive coupling coefficient kappa");
+        double kappa = p_radial_para->kappa();
         mP_strategy.reset( new SSCApproximationStrategy(m_sim_params, kappa, m_polarized) );
         break;
     }
@@ -97,12 +100,13 @@ SafePointerVector<class FormFactorCoherentSum> LayoutStrategyBuilder::collectFor
 {
     SafePointerVector<class FormFactorCoherentSum> result;
     double layout_abundance = mp_layout->getTotalAbundance();
-    for (const IParticle* particle: mp_layout->particles()) {
+    for (const IParticle* particle : mp_layout->particles()) {
         auto p_ff_coh = createFormFactorCoherentSum(particle);
         p_ff_coh->scaleRelativeAbundance(layout_abundance);
         result.push_back(p_ff_coh);
     }
-    double scale_factor = mp_layout->totalParticleSurfaceDensity()/layout_abundance;
+    double weight = mp_layout->weight();
+    double scale_factor = weight * mp_layout->totalParticleSurfaceDensity() / layout_abundance;
     ScaleRegionMap(m_region_map, scale_factor);
     return result;
 }
@@ -151,6 +155,14 @@ void LayoutStrategyBuilder::mergeRegionMap(
         m_region_map[layer_index].insert(m_region_map[layer_index].begin(),
                                          regions.begin(), regions.end());
     }
+}
+
+void LayoutStrategyBuilder::checkInterferenceFunction(const IInterferenceFunction* p_iff)
+{
+    auto n_layers = mp_multilayer->numberOfLayers();
+    if (p_iff && n_layers>1 && !p_iff->supportsMultilayer())
+        throw std::runtime_error("LayoutStrategyBuilder::checkInterferenceFunction: "
+                                 "interference function does not support multiple layers");
 }
 
 void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor)

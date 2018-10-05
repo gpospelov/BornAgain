@@ -1,46 +1,3 @@
-
-// FitParameterSet iterator
-
-%pythoncode %{
-class FitParameterSetIterator(object):
-
-    def __init__(self, fitParameters):
-        self.fitParameters = fitParameters
-        self.index = -1
-
-    def __iter__(self):
-        return self
-
-    def next(self):
-        self.index += 1
-        if self.index < self.fitParameters.size():
-            return self.fitParameters[self.index]
-        else:
-            raise StopIteration
-
-    def __next__(self):
-        return self.next()
-%}
-
-// FitParameterSet accessors
-
-%extend FitParameterSet {
-    const IFitParameter* __getitem__(std::string name) const
-    {
-        return (*($self))[name];
-    }
-    const IFitParameter* __getitem__(size_t index) const
-    {
-        return (*($self))[index];
-    }
-
-%pythoncode {
-    def __iter__(self):
-        return FitParameterSetIterator(self)
-}
-};
-
-
 %pythoncode %{
 class ParametersIterator(object):
 
@@ -90,7 +47,13 @@ namespace Fit {
 %pythoncode %{
 __swig_getmethods__["value"] = value
 __swig_setmethods__["value"] = setValue
-if _newclass: value = property(value, setValue)
+__swig_getmethods__["error"] = error
+__swig_setmethods__["error"] = setError
+if _newclass:
+    value = property(value, setValue)
+    error = property(error, setError)
+
+
 %}
 };
 
@@ -108,6 +71,7 @@ class CallableWrapper(PyCallback):
         return self.f_(obj)
     def call_residuals(self, obj):
         return self.f_(obj)
+
 %}
 
 namespace Fit {
@@ -133,5 +97,27 @@ namespace Fit {
 %}
 };
 
+%extend Parameters {
+%pythoncode %{
+    def add(self, name, value=None, vary=True, min=-float('inf'), max=float('inf'), step=0.0):
+        par = None
+        if isinstance(name, Parameter):
+            par = name
+        else:
+            limits = AttLimits.limitless()
+            if min != -float('inf') and max != float('inf'):
+                limits = AttLimits.limited(min, max)
+            elif min != -float('inf') and max==float('inf'):
+                limits = AttLimits.lowerLimited(min)
+            elif min == -float('inf') and max != float('inf'):
+                limits = AttLimits.upperLimited(max)
+            if not vary:
+                limits = AttLimits.fixed()
+            par = Parameter(name, value, limits, step)
+
+        self.add_cpp(par)
+
+%}
+};
 }
 

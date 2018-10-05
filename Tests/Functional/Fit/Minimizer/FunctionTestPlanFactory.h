@@ -15,12 +15,12 @@
 #ifndef FUNCTIONTESTPLANFACTORY_H
 #define FUNCTIONTESTPLANFACTORY_H
 
-#include "FunctionTestPlan.h"
+#include "MinimizerTestPlan.h"
 #include "IFactory.h"
 
 //! Factory to generate plans for fitting objective functions.
 
-class FunctionTestPlanFactory : public IFactory<std::string, FunctionTestPlan>
+class FunctionTestPlanFactory : public IFactory<std::string, MinimizerTestPlan>
 {
 public:
     FunctionTestPlanFactory();

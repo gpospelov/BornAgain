@@ -38,21 +38,23 @@ bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
 
 ParticleLayout::ParticleLayout()
     : mP_interference_function {nullptr}
-    , m_total_particle_density {1.0}
+    , m_total_particle_density {0.01}
 {
     setName(BornAgain::ParticleLayoutType);
     registerParticleDensity();
+    registerWeight();
 }
 
 ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
     : mP_interference_function {nullptr}
-    , m_total_particle_density {1.0}
+    , m_total_particle_density {0.01}
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle, abundance);
     registerParticleDensity();
+    registerWeight();
 }
 
 ParticleLayout* ParticleLayout::clone() const
@@ -66,6 +68,7 @@ ParticleLayout* ParticleLayout::clone() const
         p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());
 
     p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
+    p_result->setWeight(weight());
     p_result->setApproximation(getApproximation());
 
     return p_result;
@@ -111,15 +114,14 @@ void ParticleLayout::addParticle(const IAbstractParticle& particle, double abund
 
 //! Returns information on all particles (type and abundance)
 //! and generates new particles if an IAbstractParticle denotes a collection
-SafePointerVector<const IParticle> ParticleLayout::particles() const
+SafePointerVector<IParticle> ParticleLayout::particles() const
 {
-    SafePointerVector<const IParticle> particle_vector;
+    SafePointerVector<IParticle> particle_vector;
     for (auto particle: m_particles) {
         if (const auto* p_part_distr = dynamic_cast<const ParticleDistribution*>(particle)) {
-            std::vector<const IParticle*> generated_particles =
-                p_part_distr->generateParticles();
+            SafePointerVector<IParticle> generated_particles = p_part_distr->generateParticles();
             for (const IParticle* particle: generated_particles)
-                particle_vector.push_back(particle);
+                particle_vector.push_back(particle->clone());
         } else if (const auto* p_iparticle = dynamic_cast<const IParticle*>(particle)) {
             particle_vector.push_back(p_iparticle->clone());
         }
@@ -192,4 +194,9 @@ void ParticleLayout::registerParticleDensity(bool make_registered)
     } else {
         removeParameter(BornAgain::TotalParticleDensity);
     }
+}
+
+void ParticleLayout::registerWeight()
+{
+    registerParameter(BornAgain::Weight, &m_weight);
 }

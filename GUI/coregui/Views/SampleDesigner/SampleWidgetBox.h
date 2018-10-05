@@ -27,6 +27,8 @@ class BA_CORE_API_ SampleWidgetBox : public QWidget
 public:
     explicit SampleWidgetBox(SampleDesignerInterface *core, QWidget *parent);
 
+    QSize minimumSizeHint() const override { return QSize(300, 300); }
+
 private:
     SampleDesignerInterface *m_core;
     QDesignerWidgetBoxInterface *m_widgetBox;

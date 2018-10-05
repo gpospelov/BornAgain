@@ -48,20 +48,14 @@ SpecularDataItem::SpecularDataItem() : DataItem(Constants::SpecularDataType)
 
 void SpecularDataItem::setOutputData(OutputData<double>* data)
 {
+    assert(data && "Assertion failed in SpecularDataItem::setOutputData: nullptr data passed");
+    if (data->getRank() != 1)
+        throw GUIHelpers::Error(
+            "Error in SpecularDataItem::setOutputData: cannot handle non-1D data");
     DataItem::setOutputData(data);
 
     updateAxesZoomLevel();
-    updateAxesLabels();
-    computeDataRange();
 
-    emitDataChanged();
-}
-
-//! Sets the raw data vector from external source
-
-void SpecularDataItem::setRawDataVector(const OutputData<double>* data)
-{
-    DataItem::setRawDataVector(data);
     emitDataChanged();
 }
 
@@ -104,16 +98,12 @@ double SpecularDataItem::getUpperY() const
 
 double SpecularDataItem::getYmin() const
 {
-    const double defaultYmin(0.0);
-    auto limits = dataRange();
-    return m_data ? limits.first : defaultYmin;
+    return dataRange().first;
 }
 
 double SpecularDataItem::getYmax() const
 {
-    const double defaultYmax(1.0);
-    auto limits = dataRange();
-    return m_data ? limits.second : defaultYmax;
+    return dataRange().second;
 }
 
 bool SpecularDataItem::isLog() const
@@ -218,34 +208,21 @@ void SpecularDataItem::updateAxesZoomLevel()
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
 }
 
-//! Init axes labels, if it was not done already.
-
-void SpecularDataItem::updateAxesLabels()
-{
-    if (getXaxisTitle().isEmpty())
-        setXaxisTitle(QString::fromStdString(m_data->getAxis(BornAgain::X_AXIS_INDEX).getName()));
-}
-
-void SpecularDataItem::computeDataRange()
-{
-    QPair<double, double> minmax = dataRange();
-    setLowerY(minmax.first);
-    setUpperY(minmax.second);
-}
-
 //! Init ymin, ymax to match the intensity values range.
 QPair<double, double> SpecularDataItem::dataRange() const
 {
+    const double default_min = 0.0;
+    const double default_max = 1.0;
     const OutputData<double>* data = getOutputData();
+    if (!data)
+        return QPair<double, double>(default_min, default_max);
     double min(*std::min_element(data->begin(), data->end()));
     double max(*std::max_element(data->begin(), data->end()));
 
-    // log y-axis is assumed by default no dependence in axis limits on log/linear mode provides
-    // uniform and expected behaviour both in the case of zoomed plot and in the case of
-    // default plot layout
     min /= 2.0;
-    min = std::max(std::numeric_limits<double>::epsilon(), min);
+    min = std::numeric_limits<double>::epsilon() < min ? min : default_min;
     max *= 2.0;
+    max = max > min ? max : default_max;
 
     return QPair<double, double>(min, max);
 }
@@ -272,5 +249,4 @@ const AmplitudeAxisItem* SpecularDataItem::yAxisItem() const
 void SpecularDataItem::resetView()
 {
     setAxesRangeToData();
-    computeDataRange();
 }

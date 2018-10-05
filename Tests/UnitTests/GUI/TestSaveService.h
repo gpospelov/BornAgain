@@ -16,7 +16,7 @@
 
 class TestSaveService : public ::testing::Test
 {
-public:
+protected:
     ~TestSaveService();
 
     // helper method to modify something in a model
@@ -25,6 +25,7 @@ public:
         auto instrument = models->instrumentModel()->instrumentItem();
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
+    const int m_save_wait = 10000;
 };
 
 TestSaveService::~TestSaveService() = default;
@@ -60,7 +61,7 @@ TEST_F(TestSaveService, test_autoSaveController)
     // modify document once and check that autosave directory was created
     modify_models(&models);
     EXPECT_TRUE(document->isModified());
-    EXPECT_TRUE(spyAutosave.wait(autosave_time * 3));
+    EXPECT_TRUE(spyAutosave.wait(m_save_wait));
     EXPECT_EQ(spyAutosave.count(), 1);
     EXPECT_TRUE(ProjectUtils::exists(autosave.autosaveDir()));
 
@@ -73,7 +74,7 @@ TEST_F(TestSaveService, test_autoSaveController)
     for (size_t i = 0; i < 10; ++i)
         modify_models(&models);
 
-    EXPECT_TRUE(spyAutosave.wait(autosave_time * 3));
+    EXPECT_TRUE(spyAutosave.wait(m_save_wait));
     EXPECT_EQ(spyAutosave.count(), 2);
 
     // remove autosave dir
@@ -98,7 +99,7 @@ TEST_F(TestSaveService, test_autoSaveControllerNewDocument)
     QSignalSpy spyAutosave(&autosave, SIGNAL(autosaveRequest()));
 
     modify_models(&models);
-    EXPECT_FALSE(spyAutosave.wait(autosave_time * 3));
+    EXPECT_FALSE(spyAutosave.wait(autosave_time * 2));
     EXPECT_EQ(spyAutosave.count(), 0);
 }
 
@@ -143,8 +144,7 @@ TEST_F(TestSaveService, test_saveServiceWithData)
     const QString projectFileName(projectDir + "/document.pro");
 
     ApplicationModels models;
-    RealDataItem* realData = dynamic_cast<RealDataItem*>(
-        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    RealDataItem* realData = TestUtils::createRealData("RealData", *models.realDataModel());
     Q_ASSERT(realData);
     DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,
@@ -162,7 +162,7 @@ TEST_F(TestSaveService, test_saveServiceWithData)
     service.setDocument(document.get());
     service.save(projectFileName);
 
-    spySaveService.wait(100); // waiting saving in a thread is complete
+    spySaveService.wait(m_save_wait); // waiting saving in a thread is complete
 
     EXPECT_EQ(spySaveService.count(), 1);
     EXPECT_TRUE(ProjectUtils::exists(projectFileName));
@@ -179,8 +179,7 @@ TEST_F(TestSaveService, test_autosaveEnabled)
     const QString projectFileName(projectDir + "/document.pro");
 
     ApplicationModels models;
-    RealDataItem* realData = dynamic_cast<RealDataItem*>(
-        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    RealDataItem* realData = TestUtils::createRealData("RealData", *models.realDataModel());
     DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,
                                            models.instrumentModel()->instrumentItem());
@@ -200,7 +199,7 @@ TEST_F(TestSaveService, test_autosaveEnabled)
     QSignalSpy spySaveService(&service, SIGNAL(projectSaved()));
     service.save(projectFileName);
 
-    spySaveService.wait(autosave_time * 5); // waiting saving in a thread is complete
+    spySaveService.wait(m_save_wait); // waiting saving in a thread is complete
     EXPECT_EQ(spySaveService.count(), 1);
     EXPECT_FALSE(document->isModified());
     EXPECT_TRUE(ProjectUtils::exists(projectDir + "/document.pro"));
@@ -213,7 +212,7 @@ TEST_F(TestSaveService, test_autosaveEnabled)
 
     EXPECT_TRUE(document->isModified());
 
-    spySaveService.wait(autosave_time * 5); // waiting saving in a thread is complete
+    spySaveService.wait(m_save_wait); // waiting saving in a thread is complete
     EXPECT_EQ(spySaveService.count(), 1);
 
     EXPECT_TRUE(ProjectUtils::exists(projectDir + "/autosave/document.pro"));

@@ -103,12 +103,14 @@ class IntensityNormalizer;
 class IntensityScaleAndShiftNormalizer;
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
+class InterferenceFunction3DLattice;
 class InterferenceFunction2DSuperLattice;
 class InterferenceFunctionFinite2DLattice;
 class InterferenceFunction2DParaCrystal;
 class InterferenceFunctionNone;
 class InterferenceFunctionRadialParaCrystal;
 class IParticle;
+class IPeakShape;
 class IRotation;
 class ISample;
 class IsGISAXSDetector;
@@ -232,12 +234,14 @@ public:
     virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
     virtual void visit(const InterferenceFunction1DLattice*) {}
     virtual void visit(const InterferenceFunction2DLattice*) {}
+    virtual void visit(const InterferenceFunction3DLattice*) {}
     virtual void visit(const InterferenceFunction2DSuperLattice*) {}
     virtual void visit(const InterferenceFunctionFinite2DLattice*) {}
     virtual void visit(const InterferenceFunction2DParaCrystal*) {}
     virtual void visit(const InterferenceFunctionNone*) {}
     virtual void visit(const InterferenceFunctionRadialParaCrystal*) {}
     virtual void visit(const IParticle*) {}
+    virtual void visit(const IPeakShape*) {}
     virtual void visit(const IRotation*) {}
     virtual void visit(const ISample*) {}
     virtual void visit(const IsGISAXSDetector*) {}

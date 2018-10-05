@@ -14,7 +14,7 @@
 
 #include "SpecularDataWidget.h"
 #include "GUIHelpers.h"
-#include "IntensityDataItemUtils.h"
+#include "DataItemUtils.h"
 #include "IntensityDataPropertyWidget.h"
 #include "JobItem.h"
 #include "SpecularDataItem.h"
@@ -70,10 +70,5 @@ void SpecularDataWidget::onContextMenuRequest(const QPoint& point)
 
 SpecularDataItem* SpecularDataWidget::specularDataItem()
 {
-    auto parent = currentItem();
-    if (!parent || parent->modelType() != Constants::JobItemType)
-        throw GUIHelpers::Error(
-            "Error in SpecularDataWidget::specularDataItem: parent item is of unexpected type");
-
-    return &parent->item<SpecularDataItem>(JobItem::T_OUTPUT);
+    return DataItemUtils::specularDataItem(currentItem());
 }

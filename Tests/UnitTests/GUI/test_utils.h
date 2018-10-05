@@ -21,13 +21,23 @@
 #include "PropertyItem.h"
 #include <QXmlStreamWriter>
 
+template<class T> class OutputData;
+class RealDataItem;
+
 namespace TestUtils
 {
+enum class DIM {D1 = 1, D2 = 2};
 
 //! Creates directory in current working directory. If such directory already exists,
 //! it will be removed with all its content.
 void create_dir(const QString& dir_name);
 
+//! Creates output data array for testing purposes
+std::unique_ptr<OutputData<double>> createData(double value = 0.0, DIM n_dim = DIM::D2);
+
+//! Creates real data item initialized with OutputData for testing purposes
+RealDataItem* createRealData(const QString& name, SessionModel& model, double value = 0.0,
+                             DIM n_dim = DIM::D2);
 
 //! Converts property to XML string
 template <typename T>

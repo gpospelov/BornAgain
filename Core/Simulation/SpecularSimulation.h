@@ -53,10 +53,19 @@ public:
     //! zeros.
     SimulationResult result() const override;
 
-    //! Sets beam parameters with alpha_i of the beam defined in the range.
-    void setBeamParameters(double lambda, const IAxis& alpha_axis,
-                           const IFootprintFactor* beam_shape = nullptr);
     void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max,
+                           const IFootprintFactor* beam_shape = nullptr);
+    void setBeamParameters(double lambda, std::vector<double> incident_angle_values,
+                           const IFootprintFactor* beam_shape = nullptr);
+    //! Sets beam parameters for specular simulation. _lambda_ defines the wavelength of incoming
+    //! beam (in nm), _alpha_axis_ defines the range of incident angles, while _beam_shape_
+    //! (optional parameter) is required to take footprint effects into account.
+    //! Incident angle axis can be defined as a numpy array of values. This overload
+    //! facilitates defining non-uniform incident angle axis.
+    //! Another overload accepts the number of bins (_nbins_), as well as
+    //! minimal (_alpha_i_min_) and maximal (_alpha_i_max_) angle values.
+    //! With using this overload a uniform angle axis in the given range is assigned to the beam.
+    void setBeamParameters(double lambda, const IAxis& alpha_axis,
                            const IFootprintFactor* beam_shape = nullptr);
 
     //! Returns a pointer to incident angle axis.

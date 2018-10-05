@@ -106,8 +106,7 @@ TEST_F(TestProjectDocument, test_projectDocumentWithData)
     TestUtils::create_dir(projectDir);
 
     ApplicationModels models;
-    RealDataItem* realData = dynamic_cast<RealDataItem*>(
-        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    RealDataItem* realData = TestUtils::createRealData("RealData", *models.realDataModel());
     Q_ASSERT(realData);
     DataItem* intensityItem = realData->dataItem();
     JobItemUtils::createDefaultDetectorMap(intensityItem,

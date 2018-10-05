@@ -37,6 +37,9 @@ InstrumentPresenter::InstrumentPresenter(QWidget* parent)
 
 QString InstrumentPresenter::itemPresentation() const
 {
+    if(!currentItem())
+        return {};
+
     if (currentItem()->modelType() == Constants::GISASInstrumentType)
         return GISASPresentation;
     else if (currentItem()->modelType() == Constants::OffSpecInstrumentType)

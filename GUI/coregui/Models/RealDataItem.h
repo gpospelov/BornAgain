@@ -20,6 +20,7 @@
 class DataItem;
 class InstrumentItem;
 class IntensityDataItem;
+class MaskContainerItem;
 template <class T> class OutputData;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
@@ -27,9 +28,9 @@ template <class T> class OutputData;
 class BA_CORE_API_ RealDataItem : public SessionItem
 {
 public:
+    static const QString T_INTENSITY_DATA;
     static const QString P_INSTRUMENT_ID;
     static const QString P_INSTRUMENT_NAME;
-    static const QString T_INTENSITY_DATA;
     RealDataItem();
 
     IntensityDataItem* intensityDataItem();
@@ -44,6 +45,12 @@ public:
 
     //! Returns the shape of undelying data item
     std::vector<int> shape() const;
+
+    //! Returns the model type of the underlying data item
+    QString underlyingDataModel();
+
+    //! Returns mask container item
+    MaskContainerItem* maskContainerItem();
 
 private:
     void updateIntensityDataFileName();

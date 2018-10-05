@@ -22,30 +22,29 @@
 //! A name and a description.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ InfoItem {
+class BA_CORE_API_ InfoItem
+{
 public:
-    InfoItem(){}
-    InfoItem(const std::string& itemName, const std::string& itemDescription)
-        : m_itemName(itemName)
-        , m_itemDescription(itemDescription) {}
+    InfoItem();
+    InfoItem(const std::string& itemName, const std::string& itemDescription);
 
-    std::string name() const { return m_itemName; }
-    std::string description() const { return m_itemDescription; }
+    std::string name() const;
+    std::string description() const;
 
 private:
     std::string m_itemName;
     std::string m_itemDescription;
 };
 
-
 //! Info about a minimizer, including list of defined minimization algorithms.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ MinimizerInfo : public InfoItem {
+class BA_CORE_API_ MinimizerInfo : public InfoItem
+{
 public:
     using AlgorithmInfo = InfoItem;
 
-    MinimizerInfo() {}
+    MinimizerInfo();
     MinimizerInfo(const std::string& minimizerType, const std::string& minimizerDescription);
 
     //! Sets currently active algorithm

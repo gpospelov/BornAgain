@@ -17,12 +17,13 @@
 
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
-#include "SlicedParticle.h"
+#include "HomogeneousRegion.h"
 #include <map>
 #include <memory>
 
 class FormFactorCoherentSum;
 class IFormFactor;
+class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
 class ILayout;
 class IParticle;
@@ -51,6 +52,7 @@ private:
     SafePointerVector<class FormFactorCoherentSum> collectFormFactorList();
     FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle);
     void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
+    void checkInterferenceFunction(const IInterferenceFunction* p_iff);
 
     const MultiLayer* mp_multilayer;
     const ILayout* mp_layout;

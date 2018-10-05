@@ -15,7 +15,6 @@
 #include "ProjectionsEditorActions.h"
 #include "SessionModel.h"
 #include "SaveProjectionsAssistant.h"
-#include "IntensityDataItemUtils.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QModelIndexList>

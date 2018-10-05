@@ -16,55 +16,48 @@
 #include "Minuit2/Minuit2Minimizer.h"
 #include "StringUtils.h"
 
-namespace {
+namespace
+{
 
-    std::map<int, std::string> statusDescription()
-    {
-        std::map<int, std::string> result;
-        result[0] = "OK, valid minimum";
-        result[1] = "Didn't converge, covariance was made pos defined";
-        result[2] = "Didn't converge, Hessian is invalid";
-        result[3] = "Didn't converge, Edm is above max";
-        result[4] = "Didn't converge, reached call limit";
-        result[5] = "Didn't converge, unknown failure";
-        return result;
-    }
+std::map<int, std::string> statusDescription()
+{
+    std::map<int, std::string> result;
+    result[0] = "OK, valid minimum";
+    result[1] = "Didn't converge, covariance was made pos defined";
+    result[2] = "Didn't converge, Hessian is invalid";
+    result[3] = "Didn't converge, Edm is above max";
+    result[4] = "Didn't converge, reached call limit";
+    result[5] = "Didn't converge, unknown failure";
+    return result;
+}
 
-    std::map<int, std::string> covmatrixStatusDescription()
-    {
-        std::map<int, std::string> result;
-        result[-1] = "Not available (inversion failed or Hessian failed)";
-        result[ 0] = "Available but not positive defined";
-        result[ 1] = "Covariance only approximate";
-        result[ 2] = "Full matrix but forced pos def";
-        result[ 3] = "Full accurate";
-        return result;
-    }
+std::map<int, std::string> covmatrixStatusDescription()
+{
+    std::map<int, std::string> result;
+    result[-1] = "Not available (inversion failed or Hessian failed)";
+    result[0] = "Available but not positive defined";
+    result[1] = "Covariance only approximate";
+    result[2] = "Full matrix but forced pos def";
+    result[3] = "Full accurate";
+    return result;
+}
 
 } // namespace
 
-Minuit2Minimizer::Minuit2Minimizer(const std::string &algorithmName)
-    : RootMinimizerAdapter(MinimizerInfo::buildMinuit2Info(algorithmName))
-    , m_minuit2_minimizer(new ROOT::Minuit2::Minuit2Minimizer(algorithmName.c_str()))
+Minuit2Minimizer::Minuit2Minimizer(const std::string& algorithmName)
+    : RootMinimizerAdapter(MinimizerInfo::buildMinuit2Info(algorithmName)),
+      m_minuit2_minimizer(new ROOT::Minuit2::Minuit2Minimizer(algorithmName.c_str()))
 {
-    addOption(OptionNames::Strategy, 1,
-              "Minimization strategy (0-low, 1-medium, 2-high quality)");
+    addOption(OptionNames::Strategy, 1, "Minimization strategy (0-low, 1-medium, 2-high quality)");
     addOption(OptionNames::ErrorDef, 1.0,
               "Error definition factor for parameter error calculation");
-    addOption(OptionNames::Tolerance, 0.01,
-              "Tolerance on the function value at the minimum");
-    addOption(OptionNames::Precision, -1.0,
-              "Relative floating point arithmetic precision");
-    addOption(OptionNames::PrintLevel, 0,
-              "Minimizer internal print level");
-    addOption(OptionNames::MaxFunctionCalls, 0,
-              "Maximum number of function calls");
+    addOption(OptionNames::Tolerance, 0.01, "Tolerance on the function value at the minimum");
+    addOption(OptionNames::Precision, -1.0, "Relative floating point arithmetic precision");
+    addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
+    addOption(OptionNames::MaxFunctionCalls, 0, "Maximum number of function calls");
 }
 
-Minuit2Minimizer::~Minuit2Minimizer()
-{
-
-}
+Minuit2Minimizer::~Minuit2Minimizer() = default;
 
 void Minuit2Minimizer::setStrategy(int value)
 {
@@ -145,7 +138,7 @@ std::map<std::string, std::string> Minuit2Minimizer::statusMap() const
 // simplified approach: if not Fumili, then chi2 only. Think of refactoring TODO.
 bool Minuit2Minimizer::isGradientBasedAgorithm()
 {
-    if(algorithmName() == AlgorithmNames::Fumili)
+    if (algorithmName() == AlgorithmNames::Fumili)
         return true;
 
     return false;
@@ -160,10 +153,10 @@ void Minuit2Minimizer::propagateOptions()
     m_minuit2_minimizer->SetTolerance(tolerance());
     m_minuit2_minimizer->SetPrecision(precision());
     m_minuit2_minimizer->SetPrintLevel(printLevel());
-    m_minuit2_minimizer->SetMaxFunctionCalls(maxFunctionCalls());
+    m_minuit2_minimizer->SetMaxFunctionCalls(static_cast<unsigned int>(maxFunctionCalls()));
 }
 
-const RootMinimizerAdapter::root_minimizer_t *Minuit2Minimizer::rootMinimizer() const
+const RootMinimizerAdapter::root_minimizer_t* Minuit2Minimizer::rootMinimizer() const
 {
     return m_minuit2_minimizer.get();
 }

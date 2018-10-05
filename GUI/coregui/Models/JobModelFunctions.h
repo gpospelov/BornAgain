@@ -25,13 +25,10 @@ class RealDataItem;
 
 namespace JobModelFunctions
 {
+BA_CORE_API_ void setupJobItemOutput(JobItem* jobItem);
 
-BA_CORE_API_ void setupJobItemOutput(JobItem *jobItem);
-
-BA_CORE_API_ void setupJobItemForFit(JobItem *jobItem, const RealDataItem *realDataItem);
-
+BA_CORE_API_ void setupJobItemForFit(JobItem* jobItem, const RealDataItem* realDataItem);
 }
-
 
 #endif // JOBMODELFUNCTIONS_H
 

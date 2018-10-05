@@ -10,7 +10,7 @@ set(test_cases
     Minuit2_Migrad
     RectDetectorFit
     AdjustMinimizerStrategy
-    SpecularFit
+    MultiPatternFit
 )
 
 include_directories(${RootMinimizers_INCLUDE_DIRS})

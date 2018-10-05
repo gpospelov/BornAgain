@@ -70,8 +70,11 @@ public:
 
 private:
     virtual void print(std::ostream& ostr) const;
-    void report_find_matched_parameters_error(const std::string& pattern) const;
-    void report_set_value_error(const std::string& parname, double value) const;
+#ifndef SWIG
+    [[noreturn]] void report_find_matched_parameters_error(const std::string& pattern) const;
+    [[noreturn]] void report_set_value_error(const std::string& parname, double value,
+                                             std::string message={}) const;
+#endif
     size_t check_index(size_t index) const;
 
     std::vector<RealParameter*> m_params;

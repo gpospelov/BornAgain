@@ -20,40 +20,48 @@
 
 // include to use geometry basics, without details
 
-namespace RealSpace {
+namespace RealSpace
+{
 //------------------------------------------------------------------------------
 
 class Geometry;
 
 typedef std::shared_ptr<Geometry> GeometryHandle;
-typedef std::weak_ptr<Geometry>   GeometryRef;
+typedef std::weak_ptr<Geometry> GeometryRef;
 
 // some useful constants:
 extern const float GoldenRatio;
-extern const float IcosahedronL2R;  // L/R conversion
+extern const float IcosahedronL2R; // L/R conversion
 extern const float DodecahedronL2R;
 
-namespace GeometricID {
+namespace GeometricID
+{
 
 // Enum id for basic shapes
-enum class BaseShape { Plane, Box, Sphere, Column,
-                 Icosahedron, Dodecahedron, TruncatedBox,
-                 Cuboctahedron };
-
+enum class BaseShape {
+    Plane,
+    Box,
+    Sphere,
+    Column,
+    Icosahedron,
+    Dodecahedron,
+    TruncatedBox,
+    Cuboctahedron,
+    Ripple
+};
 
 // Real shapes will be parameterized by BaseShape enum and possibly two floats
 struct Key {
-    Key(BaseShape, float=0.0f, float=0.0f);
+    Key(BaseShape, float = 0.0f, float = 0.0f, float = 0.0f);
 
     bool operator==(Key const&) const;
 
     BaseShape id;
-    float p1, p2;
+    float p1, p2, p3;
 };
 
 // Hash functor for Key objects
-struct KeyHash
-{
+struct KeyHash {
     std::size_t operator()(const Key& key) const noexcept;
 };
 

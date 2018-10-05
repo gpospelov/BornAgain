@@ -14,6 +14,10 @@
 
 #include "IMinimizer.h"
 
+IMinimizer::IMinimizer() = default;
+
+IMinimizer::~IMinimizer() = default;
+
 Fit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, Fit::Parameters)
 {
     throw std::runtime_error("IMinimizer::minimize_scalar() -> Not implemented.");
@@ -27,16 +31,6 @@ Fit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, Fit::Paramete
 double IMinimizer::minValue() const
 {
     throw std::runtime_error("IMinimizer::minValue() -> Not implemented.");
-}
-
-void IMinimizer::propagateResults(FitParameterSet&)
-{
-    throw std::runtime_error("IMinimizer::propagateResults() -> Not implemented.");
-}
-
-void IMinimizer::propagateResults(Fit::Parameters&)
-{
-    throw std::runtime_error("IMinimizer::propagateResults() -> Not implemented.");
 }
 
 void IMinimizer::setOptions(const std::string&)

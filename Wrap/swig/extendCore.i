@@ -54,7 +54,6 @@
 };
 
 // needed to prevent ownership problems with passed IMultiLayerBuilder
-%rename(setSampleBuilderCpp) Simulation::setSampleBuilder;
 %extend Simulation {
     %pythoncode %{
          def setSampleBuilder(self, ptr):
@@ -63,7 +62,6 @@
     %}
  };
 
-%rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
 %extend SpecularSimulation {
     %pythoncode %{
          def setSampleBuilder(self, ptr):
@@ -71,11 +69,6 @@
              self.setSampleBuilderCpp(ptr)
     %}
  };
-
-// force swig to use move ctor instead of copy ctor
-%typemap(out) SlicedParticle %{
-    $result = SWIG_NewPointerObj(new $1_ltype(std::move($1)), $&1_descriptor, SWIG_POINTER_OWN);
-  %}
 
 // --- ParameterPool accessors -------------------------------------------------------------------
 
@@ -113,4 +106,133 @@ class ParameterPoolIterator(object):
 }
 };
 
+
+// FitParameterSet iterator
+
+%pythoncode %{
+class FitParameterSetIterator(object):
+
+    def __init__(self, fitParameters):
+        self.fitParameters = fitParameters
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index += 1
+        if self.index < self.fitParameters.size():
+            return self.fitParameters[self.index]
+        else:
+            raise StopIteration
+
+    def __next__(self):
+        return self.next()
+%}
+
+// FitParameterSet accessors
+
+%extend FitParameterSet {
+    const IFitParameter* __getitem__(std::string name) const
+    {
+        return (*($self))[name];
+    }
+    const IFitParameter* __getitem__(size_t index) const
+    {
+        return (*($self))[index];
+    }
+
+%pythoncode {
+    def __iter__(self):
+        return FitParameterSetIterator(self)
+}
+};
+
+%pythoncode %{
+class SimulationBuilderWrapper(PyBuilderCallback):
+    def __init__(self, f):
+        super(SimulationBuilderWrapper, self).__init__()
+        self.f_ = f
+
+    def create_par_dict(self, pars):
+        """
+        Convertion of ba.Parameters to Python dictionary
+        """
+        pars_dict = dict()
+        for index, p in enumerate(pars):
+            pars_dict[p.name()] = p.value
+        return pars_dict
+
+    def build_simulation(self, obj):
+        return self.f_(self.create_par_dict(obj))
+
+
+%}
+
+%pythoncode %{
+class ObserverCallbackWrapper(PyObserverCallback):
+    def __init__(self, callback):
+        super(ObserverCallbackWrapper, self).__init__()
+        self.callback_ = callback
+
+    def update(self, fit_objective):
+        return self.callback_(fit_objective)
+
+%}
+
+%extend FitObjective {
+%pythoncode %{
+    def addSimulationAndData(self, callback, data, weight):
+        if not hasattr(self, 'callback_container'):
+            self.callback_container = []
+        wrp = SimulationBuilderWrapper(callback)
+        self.callback_container.append(wrp)
+        return self.addSimulationAndData_cpp(wrp, data, weight)
+
+    def convert_params(self, params):
+        """
+        Converts parameters to what FitObjective::evaluate expects
+        """
+
+        if str(params.__module__) == "lmfit.parameter":
+            bapars = libBornAgainFit.Parameters()
+            for p in params:
+                bapars.add(p, params[p].value)
+            return bapars
+        else:
+            return params
+
+    def evaluate_residuals(self, params):
+        return self.evaluate_residuals_cpp(self.convert_params(params))
+
+    def evaluate(self, params):
+        return self.evaluate_cpp(self.convert_params(params))
+
+    def convert_result(self, minim_result):
+        """
+        Converts result reported by arbitrary minimizer to ba.MinimizerResult
+        """
+
+        if str(minim_result.__module__) == "lmfit.minimizer":
+            return libBornAgainFit.MinimizerResult()
+        else:
+            return minim_result
+
+    def finalize(self, minimizer_result):
+        return self.finalize_cpp(self.convert_result(minimizer_result))
+
+    def create_default_plotter(self):
+        import plot_utils
+        self.m_plotter = plot_utils.PlotterGISASV2()
+        return self.m_plotter.plot
+
+    def initPlot(self, every_nth, callback = None):
+        if not callback:
+            callback = self.create_default_plotter()
+
+        self.wrp_plot_observer = ObserverCallbackWrapper(callback)
+        return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
+
+%}
+};
 

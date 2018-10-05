@@ -17,24 +17,27 @@
 
 #include "../def.h"
 #include "geometry_inc.h"
-#include <QVector>
 #include <QObject>
+#include <QVector>
 #include <unordered_map>
 #include <vector>
 
-namespace RealSpace {
+namespace RealSpace
+{
 
 class Buffer;
 class GeometryStore;
 
-class Geometry {
+class Geometry
+{
     friend class Buffer;
     friend class GeometryStore;
+
 public:
     // vertex + normal pair
     struct Vert_Normal {
         Vector3D v, n;
-        Vert_Normal() =default;
+        Vert_Normal() = default;
         Vert_Normal(const Vector3D& v, const Vector3D& n);
     };
 
@@ -42,8 +45,7 @@ public:
     using Indices = std::vector<unsigned>;
 
     // vertices (for GL)
-    struct Vertices : private QVector<Vector3D>
-    {
+    struct Vertices : private QVector<Vector3D> {
         using QVector::QVector;
         using QVector::append;
         using QVector::reserve;
@@ -54,13 +56,13 @@ public:
         using QVector::begin;
         using QVector::end;
 
-        void addVertex(const Vector3D&, int n = 1);     // add a vertex, possibly multiple copies
-        void addTriangle(const Vector3D&, const Vector3D&, const Vector3D&);   // triangle
-        void addQuad(const Vector3D&, const Vector3D&,
-                     const Vector3D&, const Vector3D&); // quad as 2 triangles
+        void addVertex(const Vector3D&, int n = 1); // add a vertex, possibly multiple copies
+        void addTriangle(const Vector3D&, const Vector3D&, const Vector3D&); // triangle
+        void addQuad(const Vector3D&, const Vector3D&, const Vector3D&,
+                     const Vector3D&); // quad as 2 triangles
         void addQuad(const Vertices&, unsigned, unsigned, unsigned, unsigned); // quad by indices
-        void addStrip(const Vertices&, const Indices&); // triangle strip
-        void addFan(const Vertices&, const Indices&);   // triangle fan
+        void addStrip(const Vertices&, const Indices&);                        // triangle strip
+        void addFan(const Vertices&, const Indices&);                          // triangle fan
     };
 
     // vertex/normal mesh
@@ -79,12 +81,13 @@ private:
 
     static Mesh meshPlane();
     static Mesh meshBox();
-    static Mesh meshSphere(float cut);
+    static Mesh meshSphere(float cut, float baseShift = 0.0f);
     static Mesh meshColumn(float ratio_Rt_Rb, float numSides);
     static Mesh meshIcosahedron();
     static Mesh meshDodecahedron();
     static Mesh meshTruncBox(float tD);
-    static Mesh meshCuboctahedron(float rH, float beta);
+    static Mesh meshCuboctahedron(float rH, float alpha, float H);
+    static Mesh meshRipple(float numSides, float ratio_asymmetry_W);
 
     // mesh params for round shapes
     static int const RINGS = 12, SLICES = 24;
@@ -92,21 +95,23 @@ private:
 
 // a single store keeps existing geometries for sharing
 
-class GeometryStore : public QObject {
-  Q_OBJECT
-  friend class Geometry;
+class GeometryStore : public QObject
+{
+    Q_OBJECT
+    friend class Geometry;
+
 public:
-  GeometryHandle getGeometry(GeometricID::Key);
+    GeometryHandle getGeometry(GeometricID::Key);
 
 signals:
-  void deletingGeometry(Geometry const*); // signal to canvases
+    void deletingGeometry(Geometry const*); // signal to canvases
 
 private:
-  std::unordered_map<GeometricID::Key, GeometryRef, GeometricID::KeyHash> m_geometries;
-  void geometryDeleted(Geometry const&);  // ~Geometry() calls this
+    std::unordered_map<GeometricID::Key, GeometryRef, GeometricID::KeyHash> m_geometries;
+    void geometryDeleted(Geometry const&); // ~Geometry() calls this
 };
 
 GeometryStore& geometryStore(); // simpleton
 
-}  // namespace RealSpace
+} // namespace RealSpace
 #endif

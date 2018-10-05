@@ -13,11 +13,10 @@
 // ************************************************************************** //
 
 #include "StandardFitsFactory.h"
-#include "MinimizerTests.h"
-#include "RectDetectorFitTest.h"
 #include "AdjustMinimizerStrategyTest.h"
-#include "SpecularFitTest.h"
+#include "MinimizerTests.h"
 #include "MultiPatternFitTest.h"
+#include "RectDetectorFitTest.h"
 
 StandardFitsFactory::StandardFitsFactory()
 {
@@ -70,9 +69,4 @@ StandardFitsFactory::StandardFitsFactory()
         "MultiPatternFit",
         create_new<MultiPatternFitTest>,
         "Test of multipattern fit");
-
-    registerItem(
-        "SpecularFit",
-        create_new<SpecularFitTest>,
-                "Test of fitting specular data");
 }

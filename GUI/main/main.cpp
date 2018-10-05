@@ -30,7 +30,9 @@ int main(int argc, char* argv[])
 
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     qRegisterMetaType<QVector<double>>("QVector<double>");
-    qRegisterMetaType<FitProgressInfo>("FitProgressInfo");
+
+    if( options.enableHighDPISupport())
+        QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     QApplication app(argc, argv);
 

@@ -15,15 +15,15 @@
 #ifndef GUIFITOBSERVER_H
 #define GUIFITOBSERVER_H
 
-#include "FitProgressInfo.h"
 #include "IFitObserver.h"
+#include "FitProgressInfo.h"
 #include <QObject>
-#include <atomic>
+#include <condition_variable>
+#include <mutex>
 
 template <class T> class OutputData;
 class FitSuite;
 class IntensityDataItem;
-class FitProgressInfo;
 
 //! The GUIFitObserver class is a intermediate between FitSuite and the GUI.
 //! It is called at the end of each iterations and sends (messages, data) to the rest of the GUI.
@@ -33,35 +33,31 @@ class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
     Q_OBJECT
 
 public:
-
-    GUIFitObserver(QObject *parent = 0);
+    GUIFitObserver(QObject* parent = nullptr);
     ~GUIFitObserver();
 
-    void update(FitSuite *subject);
+    void update(FitSuite* subject);
 
     void finishedPlotting();
 
-    const OutputData<double> *simulationData() const;
-    //const OutputData<double> *chiSquaredData() const;
+    FitProgressInfo progressInfo();
 
 public slots:
     void setInterval(int val);
 
 signals:
-    void plotsUpdate();
-    void logInfoUpdate(const QString &);
-    void progressInfoUpdate(const FitProgressInfo &info);
-//    void chiSquareUpdate(int niter, double chi2);
+    void updateReady();
 
 private:
-    bool canUpdatePlots(FitSuite *fitSuite);
-    bool canUpdateProgressInfo(FitSuite *fitSuite);
-    QString reportToString(FitSuite *fitSuite);
+    bool is_suitable_iteration(FitSuite* fitSuite);
+    bool is_obligatory_iteration(FitSuite* fitSuite);
+    std::string reportToString(FitSuite* fitSuite);
 
-    std::atomic<bool> m_block_update_plots;
+    bool m_block_update_plots;
+    std::mutex m_update_plot_mutex;
+    std::condition_variable m_on_finish_notifier;
     int m_update_interval;
-    std::unique_ptr<OutputData<double> > m_simData;
-    //std::unique_ptr<OutputData<double> > m_chiData;
+    FitProgressInfo m_iteration_info;
 };
 
 #endif // GUIFITOBSERVER_H

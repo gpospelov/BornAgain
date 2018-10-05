@@ -2,12 +2,12 @@
 # Tests/Functional/Core/CMakeLists.txt
 ############################################################################
 
-# fitting via FitSuite
+# testing fitting via FitSuite
 add_subdirectory(FitSuite)
 
-# fitting via FitKernel
-add_subdirectory(FitKernel)
+# testing fitting via FitObjective
+add_subdirectory(FitObjective)
 
-# fitting via new Kernel machinery
+# testing standalone fitting of arbitrary objective functions
 add_subdirectory(Minimizer)
 

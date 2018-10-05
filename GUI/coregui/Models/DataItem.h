@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 #include "OutputData.h"
 #include <QDateTime>
+#include <mutex>
 
 class InstrumentItem;
 
@@ -32,7 +33,11 @@ public:
     OutputData<double>* getOutputData() { return m_data.get(); }
     const OutputData<double>* getOutputData() const { return m_data.get(); }
     virtual void setOutputData(OutputData<double>* data) = 0;
-    virtual void setRawDataVector(const OutputData<double>* data) = 0;
+
+    //! Sets the raw data vector from external source
+    //! Checks only the equality of data size,
+    //! no dimension checks are applied.
+    void setRawDataVector(std::vector<double> data);
 
     QString fileName(const QString& projectDir = QString()) const;
 
@@ -50,11 +55,14 @@ public:
     //! Returns data to default state (no dimensional units, default axes' names)
     virtual void resetToDefault() = 0;
 
+    void saveData(const QString& projectDir);
+
 protected:
     DataItem(const QString& modelType);
 
     std::unique_ptr<OutputData<double>> m_data; //!< simulation results
     QDateTime m_last_modified;
+    std::mutex m_update_data_mutex;
 };
 
 #endif // DATAITEM_H

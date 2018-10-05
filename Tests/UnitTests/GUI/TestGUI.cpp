@@ -8,6 +8,7 @@
 #include "TestComponentProxyModel.h"
 #include "TestComponentUtils.h"
 #include "TestDataItems.h"
+#include "TestDataItemViews.h"
 #include "TestDetectorItems.h"
 #include "TestExternalProperty.h"
 #include "TestFitParameterModel.h"
@@ -34,6 +35,7 @@
 #include "TestProjectUtils.h"
 #include "TestPropertyRepeater.h"
 #include "TestProxyModelStrategy.h"
+#include "TestRealSpaceBuilderUtils.h"
 #include "TestSaveService.h"
 #include "TestSessionItemController.h"
 #include "TestSessionItem.h"
@@ -47,6 +49,7 @@
 #include "TestMessageService.h"
 #include "TestParticleLayoutItem.h"
 #include "TestAxesItems.h"
+#include "TestMultiLayerItem.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);

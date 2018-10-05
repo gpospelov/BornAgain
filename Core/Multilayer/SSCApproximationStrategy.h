@@ -29,12 +29,10 @@ class SSCApproximationStrategy final : public IInterferenceFunctionStrategy
 public:
     SSCApproximationStrategy(SimulationOptions sim_params, double kappa, bool polarized);
 
-protected:
+private:
     void strategy_specific_post_init() override;
     double scalarCalculation(const SimulationElement& sim_element) const override;
     double polarizedCalculation(const SimulationElement& sim_element) const override;
-
-private:
     SSCAHelper m_helper;
 };
 

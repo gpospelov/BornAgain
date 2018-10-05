@@ -102,9 +102,8 @@ class DrawObserver(ba.IFitObserver):
         # fit parameters
         plt.subplot(canvas[6:])
         plt.axis('off')
-        plt.text(0.01, 0.95, "Iterations  " + '{:d}     {:s}'.
-                 format(fit_suite.numberOfIterations(),
-                        fit_suite.minimizer().minimizerName()))
+        plt.text(0.01, 0.95, "Iterations  " + '{:d}   '.
+                 format(fit_suite.numberOfIterations()))
         plt.text(0.01, 0.70, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
         for index, fitPar in enumerate(fit_suite.fitParameters()):
             plt.text(0.01, 0.30 - index*0.3,

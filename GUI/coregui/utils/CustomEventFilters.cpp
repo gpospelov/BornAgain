@@ -16,6 +16,7 @@
 #include <QComboBox>
 #include <QKeyEvent>
 #include <QString>
+#include <QApplication>
 
 SpaceKeyEater::SpaceKeyEater(QObject* parent) : QObject(parent) {}
 
@@ -150,3 +151,44 @@ bool RightMouseButtonEater::eventFilter(QObject* obj, QEvent* event)
         return QObject::eventFilter(obj, event);
     }
 }
+
+//! Passing focus-related events from child widget (e.g. QSpinBox) to parent (e.g. IntEditor)
+//! to trigger QTreeView delegate's mechanism to switch editors on "tab" press key.
+//! https://stackoverflow.com/questions/12145522/why-pressing-of-tab-key-emits-only-qeventshortcutoverride-event
+
+TabFromFocusProxy::TabFromFocusProxy(QWidget* parent)
+    : QObject(parent)
+    , m_parent(parent)
+{
+    if (parent->focusProxy())
+        parent->focusProxy()->installEventFilter(this);
+}
+
+bool TabFromFocusProxy::eventFilter(QObject* obj, QEvent* event)
+{
+    if(event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent *>(event);
+        if(keyEvent->key() == Qt::Key_Tab || keyEvent->key() == Qt::Key_Backtab)
+        {
+            // we are posting event as if m_parent had "tab" key
+            QApplication::postEvent(m_parent,
+                new QKeyEvent(keyEvent->type(), keyEvent->key(), keyEvent->modifiers()));
+
+            // but still let the origin (QSpinBox) to process it
+            return false; // process
+        }
+    }
+
+    else if(event->type() == QEvent::FocusOut)
+    {
+        QFocusEvent* focusEvent = static_cast<QFocusEvent *>(event);
+        QApplication::postEvent(this, new QFocusEvent(focusEvent->type(), focusEvent->reason()));
+
+        // Don't filter because focus can be changed internally in editor
+        return false;
+    }
+
+    return QObject::eventFilter(obj, event);
+}
+

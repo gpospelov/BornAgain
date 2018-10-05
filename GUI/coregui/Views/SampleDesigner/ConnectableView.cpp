@@ -23,7 +23,7 @@
 #include <QStyleOptionGraphicsItem>
 #include <iostream>
 
-ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
+ConnectableView::ConnectableView(QGraphicsItem *parent, QRectF rect)
     : IView(parent), m_name("Unnamed"), m_color(Qt::gray), m_rect(rect), m_roundpar(3),
       m_label_vspace(35)
 {
@@ -54,7 +54,7 @@ void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     double height = m_label_vspace - yoffset;
     QFont serifFont("Monospace", DesignerHelper::getLabelFontSize(), QFont::Normal);
     painter->setFont(serifFont);
-    QRect textRect(getRectangle().x() + (getRectangle().width() - width) / 2.,
+    QRectF textRect(getRectangle().x() + (getRectangle().width() - width) / 2.,
                    getRectangle().y() + yoffset, width, height);
     painter->drawText(textRect, Qt::AlignCenter, m_label);
 }
@@ -117,15 +117,15 @@ void ConnectableView::setPortCoordinates()
         return;
 
     // without main label ports can be placed over all rectangle vertical space
-    int hspace = getRectangle().height();
+    double hspace = getRectangle().height();
     if (!getLabel().isEmpty())
         hspace -= m_label_vspace;
 
-    int nintervals = getNumberOfPorts()
+    double nintervals = getNumberOfPorts()
                      + 2; // one spare interval for margin between input/output ports
 
-    int dy = hspace / double(nintervals);
-    int ypos = getRectangle().height() - hspace + dy;
+    double dy = hspace / double(nintervals);
+    double ypos = getRectangle().height() - hspace + dy;
 
     if (getNumberOfPorts() == 1) {
         // if total number of ports is 1, place it in the middle

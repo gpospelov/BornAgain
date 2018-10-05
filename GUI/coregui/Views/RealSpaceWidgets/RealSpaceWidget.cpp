@@ -23,7 +23,7 @@
 RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
                                  QItemSelectionModel* selectionModel, QWidget* parent)
     : QWidget(parent)
-    , m_actions(new RealSpaceActions)
+    , m_actions(new RealSpaceActions(this))
     , m_toolBar(new RealSpaceToolBar)
     , m_canvas(new RealSpaceCanvas)
     , m_sampleModel(sampleModel)

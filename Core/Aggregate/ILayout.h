@@ -33,40 +33,45 @@ class BA_CORE_API_ ILayout : public ISample
 public:
     enum EInterferenceApproximation { DA, SSCA };
 
-    ILayout() : me_approx(DA) {}
+    ILayout() : m_weight(1.0), me_approx(DA) {}
     virtual ~ILayout();
 
-    virtual ILayout* clone() const =0;
-    virtual ILayout* cloneWithOffset(double offset) const =0;
+    virtual ILayout* clone() const = 0;
+    virtual ILayout* cloneWithOffset(double offset) const = 0;
 
-    virtual void accept(INodeVisitor* visitor) const=0;
+    virtual void accept(INodeVisitor* visitor) const = 0;
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
-    virtual SafePointerVector<const IParticle> particles() const =0;
+    virtual SafePointerVector<IParticle> particles() const = 0;
 
     /// Get total abundance of all particles
-    virtual double getTotalAbundance() const =0;
+    virtual double getTotalAbundance() const = 0;
 
     //! Returns surface density of all particles
-    virtual double totalParticleSurfaceDensity() const =0;
+    virtual double totalParticleSurfaceDensity() const = 0;
 
     //! Sets surface density of all particles
-    virtual void setTotalParticleSurfaceDensity(double particle_density) =0;
+    virtual void setTotalParticleSurfaceDensity(double particle_density) = 0;
+
+    //! Returns the relative weight of this layout
+    double weight() const { return m_weight; }
+
+    //! Sets the relative weight of this layout
+    void setWeight(double weight) { m_weight = weight; }
 
     //! Gets the used approximation for particles and interference functions
     EInterferenceApproximation getApproximation() const { return me_approx; }
 
     //! Sets the used approximation for particles and interference functions
-    void setApproximation(EInterferenceApproximation approximation) {
-        me_approx = approximation; }
+    void setApproximation(EInterferenceApproximation approximation) { me_approx = approximation; }
+
+protected:
+    double m_weight;
 
 private:
-    ///< Approximation used for combining particles and interference functions
+    //! Approximation used for combining particles and interference functions
     EInterferenceApproximation me_approx;
 };
-
-
-
 
 #endif // ILAYOUT_H

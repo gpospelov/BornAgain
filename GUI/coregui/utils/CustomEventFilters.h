@@ -101,4 +101,18 @@ protected:
 };
 
 
+//! Propagate tab events from focusProxy to parent.
+
+class BA_CORE_API_ TabFromFocusProxy : public QObject
+{
+    Q_OBJECT
+public:
+    TabFromFocusProxy(QWidget* parent = 0);
+
+protected:
+    bool eventFilter(QObject* obj, QEvent* event);
+    QWidget* m_parent;
+};
+
+
 #endif // CUSTOMEVENTFILTERS_H

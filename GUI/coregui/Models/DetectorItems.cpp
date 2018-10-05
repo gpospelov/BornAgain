@@ -94,7 +94,7 @@ void DetectorItem::createMaskContainer()
         model()->insertNewItem(Constants::MaskContainerType, this->index());
 }
 
-void DetectorItem::importMasks(MaskContainerItem* maskContainer)
+void DetectorItem::importMasks(const MaskContainerItem* maskContainer)
 {
     clearMasks();
 

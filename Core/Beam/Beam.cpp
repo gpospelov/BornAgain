@@ -20,6 +20,9 @@
 #include "RealParameter.h"
 #include "MathConstants.h"
 
+// Allow for 90 degrees by adding a relatively small constant to pi/2
+static constexpr double INCLINATION_LIMIT = M_PI_2 + 1e-10;
+
 Beam::Beam()
     : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0)
     , m_intensity(1.0)
@@ -131,7 +134,7 @@ void Beam::init_parameters()
     registerParameter(BornAgain::Wavelength, &m_wavelength).setUnit(BornAgain::UnitsNm)
         .setNonnegative();
     registerParameter(BornAgain::Inclination, &m_alpha).setUnit(BornAgain::UnitsRad)
-        .setLimited(0, M_PI_2);
+        .setLimited(0, INCLINATION_LIMIT);
     registerParameter(BornAgain::Azimuth, &m_phi).setUnit(BornAgain::UnitsRad)
         .setLimited(-M_PI_2, M_PI_2);
     registerVector(BornAgain::BlochVector, &m_bloch_vector, BornAgain::UnitsNone);

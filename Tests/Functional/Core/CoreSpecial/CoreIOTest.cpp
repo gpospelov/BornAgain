@@ -68,6 +68,12 @@ bool CoreIOTest::test_io(int nx, int ny, bool random_data, const std::string& ex
     mb.stop(test_name);
     result.m_create_data_time = mb.runTime(test_name);
 
+    test_name = "clone_data";
+    mb.start(test_name);
+    auto cloned_data = std::unique_ptr<OutputData<double>>(ref_data->clone());
+    mb.stop(test_name);
+    result.m_clone_data_time = mb.runTime(test_name);
+
     test_name = "write";
     mb.start(test_name);
     IntensityDataIOFactory::writeOutputData(*ref_data, "xxx."+ext);
@@ -131,12 +137,13 @@ std::string CoreIOTest::report() const
     std::ostringstream result;
 
     result << "--- CoreIOTest::report() ---\n";
-    result << "Size      | format     | data  | create  read    write   | diff \n";
+    result << "Size      | format     | data  | create  clone   read    write   | diff \n";
     for(auto res : m_test_results) {
-        result << boost::format("%-4dx%-4d | %-10s |   %1d   | %-7.3f %-7.3f %-7.3f | %g \n")
+        result << boost::format("%-4dx%-4d | %-10s |   %1d   | %-7.3f %-7.3f %-7.3f %-7.3f | %g \n")
                   % res.m_nx % res.m_ny %res.m_file_format
                   % res.m_data_type
-                  % res.m_create_data_time % res.m_read_time % res.m_write_time
+                  % res.m_create_data_time % res.m_clone_data_time
+                  % res.m_read_time % res.m_write_time
                   % res.m_biggest_diff;
     }
 

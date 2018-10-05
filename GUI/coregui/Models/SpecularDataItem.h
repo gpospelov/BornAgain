@@ -30,7 +30,6 @@ public:
     SpecularDataItem();
 
     void setOutputData(OutputData<double>* data) override;
-    void setRawDataVector(const OutputData<double>* data) override;
 
     //! Number of bins in data
     int getNbins() const;
@@ -55,8 +54,6 @@ public:
     QString getXaxisTitle() const;
     QString getYaxisTitle() const;
 
-    void updateDataRange();
-    void computeDataRange();
     QPair<double, double> dataRange() const;
 
     const BasicAxisItem* xAxisItem() const;
@@ -83,7 +80,6 @@ public slots:
 
 private:
     void updateAxesZoomLevel();
-    void updateAxesLabels();
 };
 
 #endif // SPECULARDATAITEM_H

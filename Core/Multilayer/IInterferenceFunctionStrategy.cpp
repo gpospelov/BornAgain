@@ -34,10 +34,8 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOpt
         this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2) )
 {}
 
-IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
-{} // needs class definitions => don't move to .h
+IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() =default;
 
-//! Initializes the object with form factors and interference functions
 void IInterferenceFunctionStrategy::init(
     const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff)
@@ -59,29 +57,6 @@ double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_elem
     if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0))
         return MCIntegratedEvaluate(sim_element);
     return evaluateSinglePoint(sim_element);
-}
-
-std::vector<complex_t> IInterferenceFunctionStrategy::precomputeScalar(
-        const SimulationElement& sim_element,
-        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers)
-{
-    std::vector<complex_t> result;
-    for (auto ffw: ff_wrappers) {
-        result.push_back(ffw->evaluate(sim_element));
-    }
-    return result;
-}
-
-IInterferenceFunctionStrategy::matrixFFVector_t
-IInterferenceFunctionStrategy::precomputePolarized(
-        const SimulationElement& sim_element,
-        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers)
-{
-    matrixFFVector_t result;
-    for (auto ffw: ff_wrappers) {
-        result.push_back(ffw->evaluatePol(sim_element));
-    }
-    return result;
 }
 
 double IInterferenceFunctionStrategy::evaluateSinglePoint(
@@ -114,3 +89,6 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(
     SimulationElement sim_element(*pars, par0, par1);
     return pars->getIntegrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
 }
+
+void IInterferenceFunctionStrategy::strategy_specific_post_init()
+{}

@@ -17,7 +17,7 @@
 #include "IntensityDataPropertyWidget.h"
 #include "IntensityDataCanvas.h"
 #include "JobItem.h"
-#include "IntensityDataItemUtils.h"
+#include "DataItemUtils.h"
 #include "IntensityDataFFTPresenter.h"
 #include <QBoxLayout>
 #include <QMenu>
@@ -75,6 +75,9 @@ void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
 
 void IntensityDataWidget::onFFTAction()
 {
+    if (!intensityDataItem() || !intensityDataItem()->getOutputData())
+        return;
+
     if(m_fftPresenter->inFFTMode()) {
         auto fftItem = m_fftPresenter->fftItem(intensityDataItem());
         m_intensityCanvas->setItem(fftItem);
@@ -88,5 +91,5 @@ void IntensityDataWidget::onFFTAction()
 
 IntensityDataItem* IntensityDataWidget::intensityDataItem()
 {
-    return IntensityDataItemUtils::intensityDataItem(currentItem());
+    return DataItemUtils::intensityDataItem(currentItem());
 }

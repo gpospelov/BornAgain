@@ -14,7 +14,6 @@
 
 #include "FitSuite.h"
 #include "FitSuiteImpl.h"
-#include "FitKernel.h"
 #include "FitSuitePrintObserver.h"
 #include "IHistogram.h"
 #include "MinimizerFactory.h"
@@ -100,10 +99,16 @@ void FitSuite::setMinimizer(IMinimizer* minimizer)
     m_impl->setMinimizer(minimizer);
 }
 
-const IMinimizer *FitSuite::minimizer() const
+std::string FitSuite::minimizerName() const
 {
-    return m_impl->kernel()->minimizer();
+    // FIXME
+    return std::string("FIXME");
 }
+
+//const IMinimizer *FitSuite::minimizer() const
+//{
+//    return m_impl->kernel()->minimizer();
+//}
 
 void FitSuite::initPrint(int print_every_nth)
 {
@@ -149,6 +154,12 @@ FitParameterSet* FitSuite::fitParameters()
 FitSuiteStrategies* FitSuite::fitStrategies()
 {
     return m_impl->fitStrategies();
+}
+
+bool FitSuite::isFirstIteration() const
+{
+    // FIXME temporary method: before refactoring first iteration had index 0
+    return m_impl->numberOfIterations() == 1;
 }
 
 bool FitSuite::isLastIteration() const

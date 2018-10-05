@@ -32,7 +32,7 @@ public:
     QList<QAction*> actionList();
 
 protected:
-    QStringList activePresentationList(SessionItem*);
+    QStringList activePresentationList(SessionItem* item);
 
 };
 

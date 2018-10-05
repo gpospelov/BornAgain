@@ -61,8 +61,7 @@ void RealDataMaskWidget::unsubscribeFromItem()
 
 IntensityDataItem* RealDataMaskWidget::intensityDataItem()
 {
-    IntensityDataItem* result = dynamic_cast<IntensityDataItem*>(
-                currentItem()->getItem(RealDataItem::T_INTENSITY_DATA));
+    IntensityDataItem* result = dynamic_cast<RealDataItem*>(currentItem())->intensityDataItem();
     Q_ASSERT(result);
     return result;
 }

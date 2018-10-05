@@ -293,9 +293,10 @@ void FitParameterContainerItem::setValuesInParameterContainer(
             continue;
         for(auto linkItem : link_list) {
             QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-            SessionItem* itemInTuningTree = ModelPath::getItemFromPath(parPath, parameterContainer);
-            Q_ASSERT(itemInTuningTree);
-            itemInTuningTree->setValue(values[index]);
+            auto itemInTuningTree = dynamic_cast<ParameterItem*>(
+                        ModelPath::getItemFromPath(parPath, parameterContainer));
+            if (itemInTuningTree)
+                itemInTuningTree->propagateValueToLink(values[index]);
         }
         index++;
     }

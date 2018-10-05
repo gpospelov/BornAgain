@@ -42,20 +42,20 @@ int getRank(const InstrumentItem& item) {
 }
 }
 
-std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNameOfLoadedFile)
+std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
     QString fileName = QFileDialog::getOpenFileName(Q_NULLPTR, QStringLiteral("Open Intensity File"),
                                                     dirname, filter_string);
+
+    if (fileName.isEmpty())
+        return nullptr;
 
     std::unique_ptr<OutputData<double>> result;
 
     QString newImportDir = GUIHelpers::fileDir(fileName);
     if (newImportDir != dirname)
         AppSvc::projectManager()->setImportDir(newImportDir);
-
-    if (fileName.isEmpty())
-        return nullptr;
 
     QFileInfo info(fileName);
     baseNameOfLoadedFile = info.baseName();
@@ -66,15 +66,41 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportData(QString& baseNam
                     IntensityDataIOFactory::readOutputData(fileName.toStdString()));
         result = CreateSimplifiedOutputData(*data.get());
 
-    } catch(std::exception& e)
-            //Try to import data using the GUI importer
+    } catch(std::exception& ex)
     {
-        std::unique_ptr<OutputData<double>> data;
-        if(!UseImportAssistant(fileName, data))
-            return nullptr;
+        QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
+                .arg(fileName)
+                .arg(QString::fromStdString(std::string(ex.what())));
+        QMessageBox::warning(nullptr, "IO Problem", message);
 
-        result = CreateSimplifiedOutputData(*data.get());
     }
+    return result;
+}
+
+std::unique_ptr<OutputData<double>> ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
+{
+    QString dirname = AppSvc::projectManager()->userImportDir();
+    QString fileName = QFileDialog::getOpenFileName(Q_NULLPTR, QStringLiteral("Open Intensity File"),
+                                                    dirname, filter_string);
+
+    if (fileName.isEmpty())
+        return nullptr;
+
+    std::unique_ptr<OutputData<double>> result;
+
+    QString newImportDir = GUIHelpers::fileDir(fileName);
+    if (newImportDir != dirname)
+        AppSvc::projectManager()->setImportDir(newImportDir);
+
+    QFileInfo info(fileName);
+    baseNameOfLoadedFile = info.baseName();
+
+    std::unique_ptr<OutputData<double>> data;
+    if(!UseImportAssistant(fileName, data))
+        return nullptr;
+
+    result = CreateSimplifiedOutputData(*data.get());
+
     return result;
 }
 
@@ -91,7 +117,6 @@ bool ImportDataUtils::UseImportAssistant(QString& fileName, std::unique_ptr<Outp
                 .arg(fileName)
                 .arg(QString::fromStdString(std::string(e.what())));
         QMessageBox::warning(nullptr, "IO Problem", message);
-        return false;
     }
     return false;
 }

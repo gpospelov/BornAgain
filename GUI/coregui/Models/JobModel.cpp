@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "JobModel.h"
+#include "AxesItems.h"
 #include "FitSuiteItem.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
@@ -29,7 +30,7 @@
 
 JobModel::JobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)
-    , m_queue_data(0)
+    , m_queue_data(nullptr)
 {
     m_queue_data = new JobQueueData(this);
     connect(m_queue_data, SIGNAL(focusRequest(JobItem *)), this, SIGNAL(focusRequest(JobItem *)));
@@ -64,7 +65,7 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
         JobItem *jobItem = getJobItemForIndex(itemIndex);
         if(jobItem->getIdentifier() == identifier) return jobItem;
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -137,6 +138,14 @@ QVector<SessionItem *> JobModel::nonXMLData() const
         if (auto real_data = dynamic_cast<RealDataItem*>(jobItem->getItem(JobItem::T_REALDATA))) {
             if (auto data_item = real_data->dataItem())
                 result.push_back(data_item);
+        }
+
+        auto instrument =
+            dynamic_cast<SpecularInstrumentItem*>(jobItem->getItem(JobItem::T_INSTRUMENT));
+        if (instrument) {
+            auto axis_group = instrument->beamItem()->inclinationAxisGroup();
+            if (auto pointwise_axis = axis_group->getChildOfType(Constants::PointwiseAxisType))
+                result.push_back(pointwise_axis);
         }
     }
 

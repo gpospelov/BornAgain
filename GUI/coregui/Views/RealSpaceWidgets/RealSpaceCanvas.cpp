@@ -128,6 +128,8 @@ void RealSpaceCanvas::onChangeLayerSizeAction(double layerSizeChangeScale)
 void RealSpaceCanvas::onDataChanged(const QModelIndex& index)
 {
     auto item = m_sampleModel->itemForIndex(index);
+    if (!item)
+        return;
 
     if (!(item->modelType() == Constants::PropertyType
           && (item->displayName() == SessionGraphicsItem::P_XPOS
@@ -137,6 +139,9 @@ void RealSpaceCanvas::onDataChanged(const QModelIndex& index)
 
 void RealSpaceCanvas::updateScene()
 {
+    if (!m_currentSelection.isValid())
+        return;
+
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
     m_realSpaceModel.reset(new RealSpaceModel);
@@ -215,6 +220,9 @@ void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
                 Qt::UniqueConnection);
         connect(model, &SampleModel::modelReset, this, &RealSpaceCanvas::resetScene,
                 Qt::UniqueConnection);
+        connect(model, &SampleModel::modelAboutToBeReset, this, [&](){ m_currentSelection = QModelIndex();},
+                Qt::UniqueConnection);
+
     } else {
         disconnect(model, &SampleModel::rowsInserted, this, &RealSpaceCanvas::updateScene);
         disconnect(model, &SampleModel::rowsRemoved, this, &RealSpaceCanvas::updateScene);

@@ -18,6 +18,7 @@
 #include "WinDllMacros.h"
 #include <QString>
 
+class InstrumentItem;
 class JobItem;
 class RealDataItem;
 
@@ -31,6 +32,8 @@ BA_CORE_API_ QString jobResultsFileName(const JobItem& jobItem);
 BA_CORE_API_ QString jobReferenceFileName(const JobItem& jobItem);
 
 BA_CORE_API_ QString realDataFileName(const RealDataItem& realDataItem);
+
+BA_CORE_API_ QString instrumentDataFileName(const InstrumentItem& instrumentItem);
 
 BA_CORE_API_ QStringList nonXMLFileNameFilters();
 

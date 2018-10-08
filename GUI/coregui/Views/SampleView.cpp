@@ -19,12 +19,15 @@
 #include "SampleTreeWidget.h"
 #include "SampleViewDocks.h"
 #include "mainwindow.h"
+#include "SampleViewActions.h"
 #include "SampleViewStatusBar.h"
 #include <QMenu>
 
 SampleView::SampleView(MainWindow* mainWindow)
     : Manhattan::FancyMainWindow(mainWindow), m_models(mainWindow->models())
-    , m_docks(new SampleViewDocks(this)), m_toolBar(nullptr)
+    , m_docks(new SampleViewDocks(this))
+    , m_actions(new SampleViewActions(mainWindow->models()->sampleModel(), this))
+    , m_toolBar(nullptr)
     , m_statusBar(new SampleViewStatusBar(mainWindow))
 {
     setObjectName("SampleView");

@@ -27,6 +27,7 @@ class QItemSelectionModel;
 class SampleViewStatusBar;
 class QShowEvent;
 class QHideEvent;
+class SampleViewActions;
 
 class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
 {
@@ -54,6 +55,8 @@ private:
     SampleViewDocks* m_docks;
 
     SampleDesigner* sampleDesigner();
+
+    SampleViewActions* m_actions;
 
     SampleToolBar* m_toolBar;
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/JobWidgets/JobActivityStatusBar.cpp
+//! @file      GUI/coregui/Views/JobWidgets/JobViewStatusBar.cpp
 //! @brief     Implements class JobActivityStatusBar
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "JobActivityStatusBar.h"
+#include "JobViewStatusBar.h"
 #include "JobViewActivities.h"
 #include "mainwindow.h"
 #include <QComboBox>
@@ -20,7 +20,7 @@
 #include <QStatusBar>
 #include <QToolButton>
 
-JobActivityStatusBar::JobActivityStatusBar(MainWindow* mainWindow)
+JobViewStatusBar::JobViewStatusBar(MainWindow* mainWindow)
     : QWidget(mainWindow), m_toggleJobListButton(nullptr)
     , m_activityCombo(nullptr), m_dockMenuButton(nullptr)
     , m_mainWindow(mainWindow)
@@ -37,19 +37,19 @@ JobActivityStatusBar::JobActivityStatusBar(MainWindow* mainWindow)
     m_toggleJobListButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_toggleJobListButton->setToolTip("Toggle job list view");
     connect(m_toggleJobListButton, &QToolButton::clicked,
-            this, &JobActivityStatusBar::toggleJobSelectorRequest);
+            this, &JobViewStatusBar::toggleJobSelectorRequest);
 
     m_activityCombo = new QComboBox();
     m_activityCombo->setToolTip("Main Activity Selector");
     m_activityCombo->addItems(JobViewActivities::activityList());
     connect(m_activityCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this, &JobActivityStatusBar::changeActivityRequest);
+            this, &JobViewStatusBar::changeActivityRequest);
 
     m_dockMenuButton = new QToolButton;
     m_dockMenuButton->setIcon(QIcon(":/images/statusbar_dockmenu.svg"));
     m_dockMenuButton->setToolTip("Docks layout menu");
     connect(m_dockMenuButton, &QToolButton::clicked,
-            this, &JobActivityStatusBar::dockMenuRequest);
+            this, &JobViewStatusBar::dockMenuRequest);
 
     layout->addWidget(m_toggleJobListButton);
     layout->addStretch();
@@ -60,20 +60,20 @@ JobActivityStatusBar::JobActivityStatusBar(MainWindow* mainWindow)
     initAppearance();
 }
 
-void JobActivityStatusBar::onActivityChanged(int activity)
+void JobViewStatusBar::onActivityChanged(int activity)
 {
     disconnect(m_activityCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this, &JobActivityStatusBar::changeActivityRequest);
+            this, &JobViewStatusBar::changeActivityRequest);
 
     m_activityCombo->setCurrentIndex(activity);
 
     connect(m_activityCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this, &JobActivityStatusBar::changeActivityRequest);
+            this, &JobViewStatusBar::changeActivityRequest);
 }
 
 //! Init appearance of MainWindow's statusBar.
 
-void JobActivityStatusBar::initAppearance()
+void JobViewStatusBar::initAppearance()
 {
     Q_ASSERT(m_mainWindow);
     m_mainWindow->statusBar()->addWidget(this, 1);

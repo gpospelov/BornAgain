@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "JobView.h"
-#include "JobActivityStatusBar.h"
+#include "JobViewStatusBar.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobOutputDataWidget.h"
@@ -26,7 +26,7 @@
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
-    , m_jobActivityStatusBar(new JobActivityStatusBar(mainWindow))
+    , m_jobActivityStatusBar(new JobViewStatusBar(mainWindow))
     , m_progressAssistant(new JobProgressAssistant(mainWindow))
     , m_currentItem(nullptr)
     , m_mainWindow(mainWindow)
@@ -96,12 +96,12 @@ void JobView::connectSignals()
 void JobView::connectActivityRelated()
 {
     // Change activity requests: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, &JobActivityStatusBar::changeActivityRequest,
+    connect(m_jobActivityStatusBar, &JobViewStatusBar::changeActivityRequest,
             this, &JobView::setActivity);
 
     // Activity was changed: this -> JobActivityStatusBar
     connect(this, &JobView::activityChanged,
-            m_jobActivityStatusBar, &JobActivityStatusBar::onActivityChanged);
+            m_jobActivityStatusBar, &JobViewStatusBar::onActivityChanged);
 
     // Activity was changed: this -> JobOutputDataWidget
     connect(this, &JobView::activityChanged,
@@ -115,11 +115,11 @@ void JobView::connectLayoutRelated()
     connect(this, &JobView::resetLayout, m_docks, &JobViewDocks::onResetLayout);
 
     // Toggling of JobSelector request: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, &JobActivityStatusBar::toggleJobSelectorRequest,
+    connect(m_jobActivityStatusBar, &JobViewStatusBar::toggleJobSelectorRequest,
             m_docks, &JobViewDocks::onToggleJobSelector);
 
     // Dock menu request: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, &JobActivityStatusBar::dockMenuRequest,
+    connect(m_jobActivityStatusBar, &JobViewStatusBar::dockMenuRequest,
             this, &JobView::onDockMenuRequest);
 }
 

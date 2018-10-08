@@ -20,7 +20,7 @@
 
 class MainWindow;
 class JobViewDocks;
-class JobActivityStatusBar;
+class JobViewStatusBar;
 class JobProgressAssistant;
 class JobItem;
 
@@ -57,7 +57,7 @@ private:
     void setAppropriateActivityForJob(JobItem* jobItem);
 
     JobViewDocks* m_docks;
-    JobActivityStatusBar* m_jobActivityStatusBar;
+    JobViewStatusBar* m_jobActivityStatusBar;
     JobProgressAssistant* m_progressAssistant;
     JobItem* m_currentItem;
     MainWindow* m_mainWindow;

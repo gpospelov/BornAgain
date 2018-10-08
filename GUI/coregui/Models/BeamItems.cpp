@@ -169,6 +169,11 @@ FootprintItem* SpecularBeamItem::currentFootprintItem() const
     return &groupItem<FootprintItem>(P_FOOPTPRINT);
 }
 
+void SpecularBeamItem::updateFileName(const QString& filename)
+{
+    item<SpecularBeamInclinationItem>(BeamItem::P_INCLINATION_ANGLE).updateFileName(filename);
+}
+
 // GISAS beam item
 /* ------------------------------------------------------------------------- */
 

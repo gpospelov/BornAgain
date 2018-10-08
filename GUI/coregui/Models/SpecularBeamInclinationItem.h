@@ -32,6 +32,8 @@ public:
 
     double scaleFactor() const override;
 
+    void updateFileName(const QString& filename);
+
 private:
     void setupAxisGroup();
     static const bool m_show_mean = false;

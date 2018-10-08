@@ -21,6 +21,7 @@
 #include "GUIHelpers.h"
 #include "IDetector2D.h"
 #include "Instrument.h"
+#include "ItemFileNameUtils.h"
 #include "MaskItems.h"
 #include "SessionModel.h"
 
@@ -95,6 +96,7 @@ SpecularInstrumentItem::SpecularInstrumentItem()
     : InstrumentItem(Constants::SpecularInstrumentType)
 {
     initBeamGroup(Constants::SpecularBeamType);
+    item<SpecularBeamItem>(P_BEAM).updateFileName(ItemFileNameUtils::instrumentDataFileName(*this));
 }
 
 SpecularBeamItem* SpecularInstrumentItem::beamItem() const

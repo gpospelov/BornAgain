@@ -18,16 +18,23 @@
 
 RealDataSelectorToolBar::RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent)
     : StyledToolBar(parent)
-    , m_importDataButton(new QToolButton)
+    , m_import2dDataButton(new QToolButton)
+    , m_import1dDataButton(new QToolButton)
     , m_removeDataButton(new QToolButton)
 {
     setMinimumSize(minimumHeight(), minimumHeight());
 
-    m_importDataButton->setText(QStringLiteral("Import"));
-    m_importDataButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
-    m_importDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_importDataButton->setToolTip("Import data");
-    addWidget(m_importDataButton);
+    m_import2dDataButton->setText(QStringLiteral("Import 2D"));
+    m_import2dDataButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
+    m_import2dDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_import2dDataButton->setToolTip("Import 2D data");
+    addWidget(m_import2dDataButton);
+
+    m_import1dDataButton->setText(QStringLiteral("Import 1D"));
+    m_import1dDataButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
+    m_import1dDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_import1dDataButton->setToolTip("Import 1D data");
+    addWidget(m_import1dDataButton);
 
     m_removeDataButton->setText("Remove");
     m_removeDataButton->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
@@ -35,8 +42,10 @@ RealDataSelectorToolBar::RealDataSelectorToolBar(RealDataSelectorActions* action
     m_removeDataButton->setToolTip("Remove selected data.");
     addWidget(m_removeDataButton);
 
-    connect(m_importDataButton, &QToolButton::clicked, actions,
-            &RealDataSelectorActions::onImportDataAction);
+    connect(m_import2dDataButton, &QToolButton::clicked, actions,
+            &RealDataSelectorActions::onImport2dDataAction);
+    connect(m_import1dDataButton, &QToolButton::clicked, actions,
+            &RealDataSelectorActions::onImport1dDataAction);
     connect(m_removeDataButton, &QToolButton::clicked, actions,
             &RealDataSelectorActions::onRemoveDataAction);
 }

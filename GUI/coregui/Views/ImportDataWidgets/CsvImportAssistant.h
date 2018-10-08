@@ -63,7 +63,7 @@ private:
     void removeBlankColumns(std::vector<std::vector<std::string>> &dataArray);
     void extractDesiredColumns(std::vector<std::vector<std::string>> &dataArray);
     bool hasEqualLengthLines(std::vector<std::vector<std::string> > &dataArray);
-    void setRowNumbering();
+    void greyOutCells();
     void showErrorMessage(std::string message);
     void setColumnAsCoordinate(int coord);
     void setColumnAsIntensity();

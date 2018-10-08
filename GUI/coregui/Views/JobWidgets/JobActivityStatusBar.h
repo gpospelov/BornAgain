@@ -29,7 +29,7 @@ class BA_CORE_API_ JobActivityStatusBar : public QWidget
 {
     Q_OBJECT
 public:
-    JobActivityStatusBar(MainWindow *mainWindow = 0);
+    JobActivityStatusBar(MainWindow* mainWindow);
 
 signals:
     void toggleJobSelectorRequest();
@@ -42,10 +42,10 @@ public slots:
 private:
     void initAppearance();
 
-    QToolButton *m_toggleJobListButton;
-    QComboBox *m_activityCombo;
-    QToolButton *m_dockMenuButton;
-    MainWindow *m_mainWindow;
+    QToolButton* m_toggleJobListButton;
+    QComboBox* m_activityCombo;
+    QToolButton* m_dockMenuButton;
+    MainWindow* m_mainWindow;
 };
 
 #endif // JOBACTIVITYSTATUSBAR_H

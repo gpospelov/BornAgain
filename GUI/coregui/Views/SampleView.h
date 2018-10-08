@@ -24,6 +24,9 @@ class SampleDesigner;
 class SampleToolBar;
 class ApplicationModels;
 class QItemSelectionModel;
+class SampleViewStatusBar;
+class QShowEvent;
+class QHideEvent;
 
 class BA_CORE_API_ SampleView : public Manhattan::FancyMainWindow
 {
@@ -33,6 +36,13 @@ public:
     SampleView(MainWindow* mainWindow);
 
     ApplicationModels* models();
+
+public slots:
+    void onDockMenuRequest();
+
+protected:
+    virtual void showEvent(QShowEvent*);
+    virtual void hideEvent(QHideEvent*);
 
 private:
     void connectSignals();
@@ -46,6 +56,8 @@ private:
     SampleDesigner* sampleDesigner();
 
     SampleToolBar* m_toolBar;
+
+    SampleViewStatusBar* m_statusBar;
 };
 
 #endif // SAMPLEVIEW_H

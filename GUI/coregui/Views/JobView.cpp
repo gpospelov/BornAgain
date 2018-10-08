@@ -26,7 +26,7 @@
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
-    , m_jobActivityStatusBar(new JobViewStatusBar(mainWindow))
+    , m_statusBar(new JobViewStatusBar(mainWindow))
     , m_progressAssistant(new JobProgressAssistant(mainWindow))
     , m_currentItem(nullptr)
     , m_mainWindow(mainWindow)
@@ -75,13 +75,13 @@ void JobView::onSelectionChanged(JobItem* jobItem) {
 void JobView::showEvent(QShowEvent*)
 {
     if (isVisible())
-        m_jobActivityStatusBar->show();
+        m_statusBar->show();
 }
 
 void JobView::hideEvent(QHideEvent*)
 {
     if (isHidden())
-        m_jobActivityStatusBar->hide();
+        m_statusBar->hide();
 }
 
 void JobView::connectSignals()
@@ -95,13 +95,13 @@ void JobView::connectSignals()
 
 void JobView::connectActivityRelated()
 {
-    // Change activity requests: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, &JobViewStatusBar::changeActivityRequest,
+    // Change activity requests: JobViewStatusBar -> this
+    connect(m_statusBar, &JobViewStatusBar::changeActivityRequest,
             this, &JobView::setActivity);
 
-    // Activity was changed: this -> JobActivityStatusBar
+    // Activity was changed: this -> JobViewStatusBar
     connect(this, &JobView::activityChanged,
-            m_jobActivityStatusBar, &JobViewStatusBar::onActivityChanged);
+            m_statusBar, &JobViewStatusBar::onActivityChanged);
 
     // Activity was changed: this -> JobOutputDataWidget
     connect(this, &JobView::activityChanged,
@@ -114,12 +114,12 @@ void JobView::connectLayoutRelated()
 {
     connect(this, &JobView::resetLayout, m_docks, &JobViewDocks::onResetLayout);
 
-    // Toggling of JobSelector request: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, &JobViewStatusBar::toggleJobSelectorRequest,
+    // Toggling of JobSelector request: JobViewStatusBar -> this
+    connect(m_statusBar, &JobViewStatusBar::toggleJobSelectorRequest,
             m_docks, &JobViewDocks::onToggleJobSelector);
 
-    // Dock menu request: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, &JobViewStatusBar::dockMenuRequest,
+    // Dock menu request: JobViewStatusBar -> this
+    connect(m_statusBar, &JobViewStatusBar::dockMenuRequest,
             this, &JobView::onDockMenuRequest);
 }
 

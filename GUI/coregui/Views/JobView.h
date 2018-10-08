@@ -57,7 +57,7 @@ private:
     void setAppropriateActivityForJob(JobItem* jobItem);
 
     JobViewDocks* m_docks;
-    JobViewStatusBar* m_jobActivityStatusBar;
+    JobViewStatusBar* m_statusBar;
     JobProgressAssistant* m_progressAssistant;
     JobItem* m_currentItem;
     MainWindow* m_mainWindow;

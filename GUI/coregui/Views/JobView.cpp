@@ -72,16 +72,20 @@ void JobView::onSelectionChanged(JobItem* jobItem) {
     m_docks->setItem(jobItem);
 }
 
-void JobView::showEvent(QShowEvent*)
+void JobView::showEvent(QShowEvent* event)
 {
     if (isVisible())
         m_statusBar->show();
+
+    Manhattan::FancyMainWindow::showEvent(event);
 }
 
-void JobView::hideEvent(QHideEvent*)
+void JobView::hideEvent(QHideEvent* event)
 {
     if (isHidden())
         m_statusBar->hide();
+
+    Manhattan::FancyMainWindow::hideEvent(event);
 }
 
 void JobView::connectSignals()

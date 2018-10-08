@@ -42,16 +42,18 @@ void SampleView::onDockMenuRequest()
     menu->exec(QCursor::pos());
 }
 
-void SampleView::showEvent(QShowEvent*)
+void SampleView::showEvent(QShowEvent*event)
 {
     if (isVisible())
         m_statusBar->show();
+    Manhattan::FancyMainWindow::showEvent(event);
 }
 
-void SampleView::hideEvent(QHideEvent*)
+void SampleView::hideEvent(QHideEvent* event)
 {
     if (isHidden())
         m_statusBar->hide();
+    Manhattan::FancyMainWindow::hideEvent(event);
 }
 
 void SampleView::connectSignals()

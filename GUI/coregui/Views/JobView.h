@@ -45,8 +45,8 @@ public slots:
     void onSelectionChanged(JobItem* jobItem);
 
 protected:
-    virtual void showEvent(QShowEvent*);
-    virtual void hideEvent(QHideEvent*);
+    virtual void showEvent(QShowEvent* event);
+    virtual void hideEvent(QHideEvent* event);
 
 private:
     void connectSignals();

@@ -31,24 +31,24 @@ const QSize default_dialog_size(300, 400);
 }
 
 CsvImportAssistant::CsvImportAssistant(QString& file, QWidget* parent):
-    QDialog(parent),
-    m_fileName(file),
-    m_lastDataRow(0),
-    m_intensityCol(0),
-    m_coordinateCol(0),
-    m_singleCol(0),
-    m_tableWidget(nullptr),
-    m_separatorField(nullptr),
-    m_firstDataRowSpinBox(nullptr),
-    m_singleDataColSpinBox(nullptr),
-    m_importButton(nullptr),
-    m_csvFile(nullptr),
-    m_columnTypeSelector(nullptr),
-    m_setAsTheta(new QAction("Set as " + relevantHeaders[_theta_],nullptr)),
-    m_setAs2Theta(new QAction("Set as " + relevantHeaders[_2theta_],nullptr)),
-    m_setAsQ(new QAction("Set as " + relevantHeaders[_q_],nullptr)),
-    m_setAsIntensity(new QAction("Set as " + relevantHeaders[_intensity_],nullptr)),
-    m_setAsIntensityBins(new QAction("Use single column as intensity bins",nullptr))
+        QDialog(parent)
+      ,m_fileName(file)
+      ,m_lastDataRow(0)
+      ,m_intensityCol(0)
+      ,m_coordinateCol(0)
+      ,m_singleCol(0)
+      ,m_tableWidget(nullptr)
+      ,m_separatorField(nullptr)
+      ,m_firstDataRowSpinBox(nullptr)
+      ,m_singleDataColSpinBox(nullptr)
+      ,m_importButton(nullptr)
+      ,m_csvFile(nullptr)
+      ,m_columnTypeSelector(nullptr)
+      ,m_setAsTheta(new QAction("Set as " + relevantHeaders[_theta_],nullptr))
+      ,m_setAs2Theta(new QAction("Set as " + relevantHeaders[_2theta_],nullptr))
+      ,m_setAsQ(new QAction("Set as " + relevantHeaders[_q_],nullptr))
+      ,m_setAsIntensity(new QAction("Set as " + relevantHeaders[_intensity_],nullptr))
+      ,m_setAsIntensityBins(new QAction("Use single column as intensity bins",nullptr))
 {
     setWindowTitle("Data Importer");
     setMinimumSize(default_dialog_size);
@@ -159,7 +159,7 @@ QBoxLayout* CsvImportAssistant::createLayout()
 
 void CsvImportAssistant::Reload()
 {
-
+    m_importButton->setDisabled(true);
     std::ifstream f(m_fileName.toStdString());
     if(f.good()){
         generate_table();
@@ -171,6 +171,10 @@ void CsvImportAssistant::Reload()
         msgBox.setIcon(msgBox.Critical);
         msgBox.exec();
     }
+
+    //Enable import button only if the user has selected its columns for 1d import
+    if( m_coordinateCol * m_intensityCol > 0 || m_singleCol > 0 )
+        m_importButton->setDisabled(false);
 }
 
 void CsvImportAssistant::reloadCsvFile(){
@@ -205,64 +209,48 @@ void CsvImportAssistant::onImportButton()
 
 std::unique_ptr<OutputData<double>> CsvImportAssistant::getData()
 {
-    int nTableRows = m_tableWidget->rowCount();
-    int nTableCols = m_tableWidget->columnCount();
-    std::vector<std::vector<std::string>> StringVectorVector;
-    std::vector<std::string> StringVector;
-
-    //save the values of the array
-    size_t nDataCols = 0;
-    size_t nDataRows = 0;
-    for(int i = 0; i < nTableRows; i++){
-        StringVector.clear();
-        nDataCols = 0;
-        for(int j = 0; j < nTableCols; j++){
-            auto tableElement = m_tableWidget->item(i,j);
-            if(tableElement != nullptr){
-                StringVector.push_back(tableElement->text().toStdString());
-                nDataCols++;
-            }
-        }
-        StringVectorVector.push_back(StringVector);
-        nDataRows++;
-    }
-
     std::unique_ptr<OutputData<double>> result;
     result = std::make_unique<OutputData<double>>();
 
-    if( (nDataCols < 2) || (nDataRows < 2) ){
-        size_t nElem = std::max(nDataCols,nDataRows);
-        result->addAxis("intensity", nElem, 0.0, double(nElem));
+    auto nRows = m_tableWidget->rowCount();
+    auto firstRow = int(firstLine()-1);
+
+    //Single column selected
+    if( m_singleCol > 0){
+        int col = int(m_singleCol-1);
+        int nElem = nRows;
+        result->addAxis("AXIS", size_t(nElem), 0.0, double(nElem));
         std::vector<unsigned> axes_indices(1);
         unsigned item = 0;
-        for(unsigned row=0; row<nDataRows; row++) {
-            for(unsigned col=0; col<nDataCols; col++) {
-                axes_indices[0] = item;
-                size_t global_index = result->toGlobalIndex(axes_indices);
-                std::string string_to_parse;
-                std::vector<double> parsed_doubles;
-                string_to_parse = StringVectorVector[row][col];
-                parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
-                (*result)[global_index] = parsed_doubles[0];
-                item++;
-            }
+        for(auto row = firstRow; row< nRows; row++) {
+            axes_indices[0] = item;
+            size_t global_index = result->toGlobalIndex(axes_indices);
+            std::string string_to_parse;
+            std::vector<double> parsed_doubles;
+            string_to_parse = m_tableWidget->item(row,col)->text().toStdString();
+            parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
+            (*result)[global_index] = parsed_doubles[0];
+            item++;
         }
+        return result;
     }
-    else if(m_coordinateName != ""){
+
+    //Coordinate and Intensity columns selected
+    else if(m_coordinateCol * m_intensityCol > 0){
         //Fill intensity values and coordinate values:
-        size_t intensityCol = 1;
-        size_t coordinateCol = 0;
         std::vector<double> coordValues;
         std::vector<double> intensityValues;
-        for(unsigned row=0; row < nDataRows; row++) {
+        int intensityCol = int(m_intensityCol-1);
+        int coordinateCol = int(m_coordinateCol-1);
+        for(auto row = firstRow; row < nRows; row++) {
             std::string string_to_parse;
             std::vector<double> parsed_doubles;
 
-            string_to_parse = StringVectorVector[row][coordinateCol];
+            string_to_parse = m_tableWidget->item(row,coordinateCol)->text().toStdString();
             parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
             coordValues.push_back(parsed_doubles[0]);
 
-            string_to_parse = StringVectorVector[row][intensityCol];
+            string_to_parse = m_tableWidget->item(row,intensityCol)->text().toStdString();
             parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
             intensityValues.push_back(parsed_doubles[0]);
         }
@@ -272,25 +260,38 @@ std::unique_ptr<OutputData<double>> CsvImportAssistant::getData()
 
         for(unsigned i = 0; i < intensityValues.size(); i++)
             (*result)[i] = intensityValues[i];
+
+        return result;
     }
+
+    //We shouldn't be here
     else{
-        result->addAxis("x", nDataCols, 0.0, double(nDataCols));
-        result->addAxis("y", nDataRows, 0.0, double(nDataRows));
-        std::vector<unsigned> axes_indices(2);
-        for(unsigned row=0; row<nDataRows; row++) {
-            for(unsigned col=0; col<nDataCols; col++) {
-                axes_indices[0] = col;
-                axes_indices[1] = static_cast<unsigned>(nDataRows) - 1 - row;
-                size_t global_index = result->toGlobalIndex(axes_indices);
-                std::string string_to_parse;
-                std::vector<double> parsed_doubles;
-                string_to_parse = StringVectorVector[row][col];
-                parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
-                (*result)[global_index] = parsed_doubles[0];
-            }
+        showErrorMessage("Somethig went wrong during 1D data import.");
+        return nullptr;
+    }
+
+
+    //In case a 2d import is needed in the future
+    /*
+    else{
+    result->addAxis("x", size_t(nCols), 0.0, double(nCols));
+    result->addAxis("y", size_t(nRows), 0.0, double(nRows));
+    std::vector<unsigned> axes_indices(2);
+    for(unsigned row=0; row<nRows; row++) {
+        for(unsigned col=0; col<nCols; col++) {
+        axes_indices[0] = col;
+        axes_indices[1] = static_cast<unsigned>(nRows) - 1 - row;
+        size_t global_index = result->toGlobalIndex(axes_indices);
+        std::string string_to_parse;
+        std::vector<double> parsed_doubles;
+        string_to_parse = m_tableWidget->item(row,col)->text().toStdString();
+        parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
+        (*result)[global_index] = parsed_doubles[0];
         }
     }
+    }
     return result;
+    */
 }
 
 
@@ -492,13 +493,13 @@ char CsvImportAssistant::guessSeparator() const{
 }
 
 void CsvImportAssistant::setHeaders(){
-   //Reset header labels
-   QStringList headers;
+    //Reset header labels
+    QStringList headers;
 
-   for(int j = 0; j < m_tableWidget->columnCount(); j++)
-       headers.append(QString::number(j + 1));
+    for(int j = 0; j < m_tableWidget->columnCount(); j++)
+        headers.append(QString::number(j + 1));
 
-   m_tableWidget->setHorizontalHeaderLabels(headers);
+    m_tableWidget->setHorizontalHeaderLabels(headers);
 }
 
 unsigned CsvImportAssistant::firstLine() const{
@@ -516,14 +517,14 @@ void CsvImportAssistant::OnColumnClicked(int row, int column)
 
     //m_tableWidget->clearSelection();
     //m_tableWidget->selectionModel()->select
-//    QModelIndex left   = m_tableWidget->model()->index(row, 0);
- //   QModelIndex right  = m_tableWidget->model()->index(row, m_tableWidget->columnCount() - 1);
-  //  QModelIndex top    = m_tableWidget->model()->index(0, column);
-   // QModelIndex bottom = m_tableWidget->model()->index(m_tableWidget->rowCount() - 1, column);
+    //    QModelIndex left   = m_tableWidget->model()->index(row, 0);
+    //   QModelIndex right  = m_tableWidget->model()->index(row, m_tableWidget->columnCount() - 1);
+    //  QModelIndex top    = m_tableWidget->model()->index(0, column);
+    // QModelIndex bottom = m_tableWidget->model()->index(m_tableWidget->rowCount() - 1, column);
 
-//    QItemSelection selection(left, right);
-//    selection.merge(QItemSelection(top, bottom), QItemSelectionModel::Select);
-//    m_tableWidget->selectionModel()->select(selection, QItemSelectionModel::Select);
+    //    QItemSelection selection(left, right);
+    //    selection.merge(QItemSelection(top, bottom), QItemSelectionModel::Select);
+    //    m_tableWidget->selectionModel()->select(selection, QItemSelectionModel::Select);
 }
 
 void CsvImportAssistant::onColumnRightClick(const QPoint position)
@@ -589,10 +590,10 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
 
 
 bool CsvImportAssistant::hasEqualLengthLines(std::vector<std::vector<std::string>> &dataArray){
-   auto tf =  all_of( begin(dataArray), end(dataArray), [dataArray](const std::vector<std::string>& x) {
-       return x.size() == dataArray.front().size();
-   });
-   return tf;
+    auto tf =  all_of( begin(dataArray), end(dataArray), [dataArray](const std::vector<std::string>& x) {
+        return x.size() == dataArray.front().size();
+    });
+    return tf;
 }
 
 void CsvImportAssistant::extractDesiredColumns(std::vector<std::vector<std::string>> &dataArray) {

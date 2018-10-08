@@ -24,7 +24,7 @@
 #include "InstrumentItems.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
-#include "JobItemFunctions.h"
+#include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "JobModel.h"
 #include "MaskItems.h"
@@ -110,7 +110,7 @@ void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* r
 
     // adapting the name to job name
     realDataItemCopy->dataItem()->setItemValue(DataItem::P_FILE_NAME,
-                                               JobItemFunctions::jobReferenceFileName(*jobItem));
+                                               ItemFileNameUtils::jobReferenceFileName(*jobItem));
 }
 
 //! Links RealDataItem to the JobItem's instrument.

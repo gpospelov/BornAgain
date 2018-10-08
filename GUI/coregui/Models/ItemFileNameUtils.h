@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/JobItemFunctions.h
-//! @brief     Defines auxiliary functions in JobItemFunctions namespace.
+//! @file      GUI/coregui/Models/ItemFileNameUtils.h
+//! @brief     Defines auxiliary functions in ItemFileNameUtils namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -24,7 +24,7 @@ class RealDataItem;
 
 //! Contains set of convenience methods for JobItem and its children.
 
-namespace JobItemFunctions
+namespace ItemFileNameUtils
 {
 
 BA_CORE_API_ QString jobResultsFileName(const JobItem& jobItem);

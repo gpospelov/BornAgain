@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/JobItemFunctions.cpp
-//! @brief     Defines auxiliary functions in JobItemFunctions namespace.
+//! @file      GUI/coregui/Models/ItemFileNameUtils.cpp
+//! @brief     Defines auxiliary functions in ItemFileNameUtils namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "JobItemFunctions.h"
+#include "ItemFileNameUtils.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
 #include "JobItem.h"
@@ -32,26 +32,26 @@ QString intensityDataFileName(const QString& itemName, const QString& prefix);
 
 //! Constructs the name of the file with simulated intensities.
 
-QString JobItemFunctions::jobResultsFileName(const JobItem& jobItem)
+QString ItemFileNameUtils::jobResultsFileName(const JobItem& jobItem)
 {
     return intensityDataFileName(jobItem.itemName(), jobdata_file_prefix);
 }
 
 //! Constructs the name of the file with reference data.
 
-QString JobItemFunctions::jobReferenceFileName(const JobItem& jobItem)
+QString ItemFileNameUtils::jobReferenceFileName(const JobItem& jobItem)
 {
     return intensityDataFileName(jobItem.itemName(), refdata_file_prefix);
 }
 
 //! Constructs the name of the intensity file belonging to real data item.
 
-QString JobItemFunctions::realDataFileName(const RealDataItem& realDataItem)
+QString ItemFileNameUtils::realDataFileName(const RealDataItem& realDataItem)
 {
     return intensityDataFileName(realDataItem.itemName(), realdata_file_prefix);
 }
 
-QString JobItemFunctions::instrumentDataFileName(const InstrumentItem& instrumentItem)
+QString ItemFileNameUtils::instrumentDataFileName(const InstrumentItem& instrumentItem)
 {
     auto instrument_id = instrumentItem.getItemValue(InstrumentItem::P_IDENTIFIER).toString();
     return intensityDataFileName(instrument_id, instrument_file_prefix);
@@ -59,7 +59,7 @@ QString JobItemFunctions::instrumentDataFileName(const InstrumentItem& instrumen
 
 //! Returns list of fileName filters related to nonXML data stored by JobModel and RealDataModel.
 
-QStringList JobItemFunctions::nonXMLFileNameFilters()
+QStringList ItemFileNameUtils::nonXMLFileNameFilters()
 {
     QStringList result = QStringList()
         << QString(jobdata_file_prefix+"_*.int.gz")

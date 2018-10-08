@@ -41,6 +41,15 @@ void createFitContainers(JobItem* jobItem);
 void initDataView(JobItem* jobItem);
 }
 
+void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
+                                               const InstrumentItem* instrumentItem)
+{
+    auto model = jobItem->model();
+    SessionItem* instrument = model->copyItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
+    instrument->setItemName(instrumentItem->modelType());
+    jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
+}
+
 //! Setup items intended for storing results of the job.
 
 void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)

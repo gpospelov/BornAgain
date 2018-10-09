@@ -19,6 +19,9 @@
 namespace
 {
 const int minimum_size = 25;
+const QString icon_up = ":/images/dark-angle-up.svg";
+const QString icon_down = ":/images/dark-angle-down.svg";
+const QString icon_close = ":/images/dark-close.svg";
 }
 
 InfoPanelToolBar::InfoPanelToolBar(QWidget* parent)
@@ -27,13 +30,13 @@ InfoPanelToolBar::InfoPanelToolBar(QWidget* parent)
 {
     setMinimumSize(minimum_size, minimum_size);
 
-    m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
+    m_expandButton->setIcon(QIcon(icon_up));
     m_expandButton->setToolTip("Collapse/expand view");
-    connect(m_expandButton, SIGNAL(clicked()), this, SLOT(onExpandButtonClicked()));
+    connect(m_expandButton, &QToolButton::clicked, this, &InfoPanelToolBar::onExpandButtonClicked);
 
-    m_closeButton->setIcon(QIcon(":/images/darkclosebutton.png"));
+    m_closeButton->setIcon(QIcon(icon_close));
     m_closeButton->setToolTip("Close viewe");
-    connect(m_closeButton, SIGNAL(clicked()), this, SIGNAL(closeButtonClicked()));
+    connect(m_closeButton, &QToolButton::clicked, this, &InfoPanelToolBar::closeButtonClicked);
 
     addStyledExpand();
     addWidget(m_expandButton);
@@ -46,9 +49,9 @@ void InfoPanelToolBar::setExpandStatus(bool status)
 {
     m_expanded = status;
     if (m_expanded)
-        m_expandButton->setIcon(QIcon(":/images/darkarrowdown.png"));
+        m_expandButton->setIcon(QIcon(icon_down));
     else
-        m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
+        m_expandButton->setIcon(QIcon(icon_up));
 }
 
 void InfoPanelToolBar::onExpandButtonClicked()

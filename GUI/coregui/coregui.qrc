@@ -58,5 +58,8 @@
         <file>images/offspec_instrument_shaded.svg</file>
         <file>images/specular_instrument.svg</file>
         <file>images/specular_instrument_shaded.svg</file>
+        <file>images/dark-angle-up.svg</file>
+        <file>images/dark-angle-down.svg</file>
+        <file>images/dark-close.svg</file>
     </qresource>
 </RCC>

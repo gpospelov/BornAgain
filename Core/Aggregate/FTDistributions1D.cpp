@@ -20,6 +20,7 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
+#include "Exceptions.h"
 
 void IFTDistribution1D::init_parameters()
 {
@@ -154,8 +155,12 @@ FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DVoigt::createSampler() const
 {
-    // TODO Need to change from Gauss
-    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
+    // TODO Need to implement 1D Voigt
+
+    std::ostringstream ostr;
+    ostr << "FTDistribution1DVoigt::createSampler() -> Error in class initialization";
+    ostr << "\n\n Has not been implemented yet...stay tuned!";
+    throw Exceptions::ClassInitializationException(ostr.str());
 }
 
 FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const

@@ -17,16 +17,16 @@
 
 #include "StyledToolBar.h"
 
-class QToolButton;
+class QAction;
 
-//! The InfoPanelToolBar class represents a toolbar for InfoPanel
+//! Toolbar for InfoPanel with collapse/expand buttons.
 
-class BA_CORE_API_ InfoPanelToolBar : public StyledToolBar
+class BA_CORE_API_ InfoPanelToolBar : public QToolBar
 {
     Q_OBJECT
 
 public:
-    explicit InfoPanelToolBar(QWidget *parent = 0);
+    explicit InfoPanelToolBar(QWidget* parent = nullptr);
 
 signals:
     void expandButtonClicked();
@@ -39,10 +39,9 @@ protected slots:
     void onExpandButtonClicked();
 
 private:
-    QToolButton *m_expandButton;
-    QToolButton *m_closeButton;
+    QAction* m_expandAction;
+    QAction* m_closeAction;
     bool m_expanded;
 };
-
 
 #endif // INFOPANELTOOLBAR_H

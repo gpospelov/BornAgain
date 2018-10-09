@@ -19,6 +19,7 @@
 #include "SampleModel.h"
 #include "SessionGraphicsItem.h"
 #include "WarningSign.h"
+#include "SessionItemUtils.h"
 #include <FilterPropertyProxy.h>
 #include <QApplication>
 #include <QVBoxLayout>
@@ -131,9 +132,7 @@ void RealSpaceCanvas::onDataChanged(const QModelIndex& index)
     if (!item)
         return;
 
-    if (!(item->modelType() == Constants::PropertyType
-          && (item->displayName() == SessionGraphicsItem::P_XPOS
-              || item->displayName() == SessionGraphicsItem::P_YPOS)))
+    if (!SessionItemUtils::IsPositionRelated(*item))
         updateScene();
 }
 

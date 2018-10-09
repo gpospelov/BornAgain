@@ -22,9 +22,8 @@ class QStackedWidget;
 class InfoPanelToolBar;
 class QResizeEvent;
 
-//! The InfoPanel class serves as a widget container with tool bar on top, with
-//! collapse/expand button functionality. Intended for QDockWindow, to be able to quickly
-//! minimize/maximize its appearance.
+//! Frame for widgets with tool bar on top and collapse/expand button functionality.
+//! Intended for QDockWindow, to be able to quickly minimize/maximize its appearance.
 
 //! Used in JobMessagePanel.
 
@@ -32,7 +31,7 @@ class BA_CORE_API_ InfoPanel : public QFrame
 {
     Q_OBJECT
 public:
-    explicit InfoPanel(QWidget *parent);
+    explicit InfoPanel(QWidget* parent);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -48,10 +47,10 @@ protected slots:
 
 protected:
     bool isContentVisible();
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent* event);
 
-    InfoPanelToolBar *m_toolBar;
-    QStackedWidget *m_stackedWidget;
+    InfoPanelToolBar* m_toolBar;
+    QStackedWidget* m_stackedWidget;
     int m_cached_height;
 };
 

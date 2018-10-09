@@ -15,42 +15,50 @@
 #include "InfoPanelToolBar.h"
 #include <QHBoxLayout>
 #include <QToolButton>
+#include <QAction>
 
-namespace {
+namespace
+{
 const int minimum_size = 25;
+const QString icon_up = ":/images/dark-angle-up.svg";
+const QString icon_down = ":/images/dark-angle-down.svg";
+const QString icon_close = ":/images/dark-close.svg";
+const QString expand_text = "Collapse/expand view";
+const QString close_text = "Close view";
 }
 
-InfoPanelToolBar::InfoPanelToolBar(QWidget *parent)
-    : StyledToolBar(parent)
-    , m_expandButton(new QToolButton)
-    , m_closeButton(new QToolButton)
+InfoPanelToolBar::InfoPanelToolBar(QWidget* parent)
+    : QToolBar(parent)
+    , m_expandAction(new QAction(expand_text, this))
+    , m_closeAction(new QAction(close_text, this))
     , m_expanded(false)
 {
     setMinimumSize(minimum_size, minimum_size);
+    setProperty("_q_custom_style_disabled", QVariant(true));
 
-    m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
-    m_expandButton->setToolTip("Collapse/expand view");
-    connect(m_expandButton, SIGNAL(clicked()), this, SLOT(onExpandButtonClicked()));
+    m_expandAction->setIcon(QIcon(icon_up));
+    m_expandAction->setToolTip(expand_text);
+    connect(m_expandAction, &QAction::triggered, this, &InfoPanelToolBar::onExpandButtonClicked);
 
-    m_closeButton->setIcon(QIcon(":/images/darkclosebutton.png"));
-    m_closeButton->setToolTip("Close viewe");
-    connect(m_closeButton, SIGNAL(clicked()), this, SIGNAL(closeButtonClicked()));
+    m_closeAction->setIcon(QIcon(icon_close));
+    m_closeAction->setToolTip(close_text);
+    connect(m_closeAction, &QAction::triggered, this, &InfoPanelToolBar::closeButtonClicked);
 
-    addStyledExpand();
-    addWidget(m_expandButton);
-    addWidget(m_closeButton);
+    auto empty = new QWidget();
+    empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    addWidget(empty);
 
-    setStyleSheet("QToolBar {border-bottom: 1px solid gray}");
+    addAction(m_expandAction);
+    addAction(m_closeAction);
 }
 
 void InfoPanelToolBar::setExpandStatus(bool status)
 {
     m_expanded = status;
-    if(m_expanded) {
-        m_expandButton->setIcon(QIcon(":/images/darkarrowdown.png"));
-    } else {
-        m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
-    }
+    if (m_expanded)
+        m_expandAction->setIcon(QIcon(icon_down));
+    else
+        m_expandAction->setIcon(QIcon(icon_up));
 }
 
 void InfoPanelToolBar::onExpandButtonClicked()
@@ -59,4 +67,3 @@ void InfoPanelToolBar::onExpandButtonClicked()
     setExpandStatus(m_expanded);
     emit expandButtonClicked();
 }
-

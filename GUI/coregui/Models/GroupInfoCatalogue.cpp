@@ -179,6 +179,12 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::FootprintSquareType, "Square footprint");
     info.setDefaultType(Constants::FootprintNoneType);
     addInfo(info);
+
+    info = GroupInfo(Constants::AxesGroup);
+    info.add(Constants::BasicAxisType, "Uniform axis");
+    info.add(Constants::PointwiseAxisType, "Non-uniform axis");
+    info.setDefaultType(Constants::BasicAxisType);
+    addInfo(info);
 }
 
 GroupInfo GroupInfoCatalogue::groupInfo(const QString& groupType) const

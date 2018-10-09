@@ -140,12 +140,9 @@ DomainObjectBuilder::createUnitConverter(const InstrumentItem* instrumentItem)
     if (instrumentItem->modelType() == Constants::GISASInstrumentType)
         return UnitConverterUtils::createConverterForGISAS(*instrument);
 
-    if (instrumentItem->modelType() == Constants::SpecularInstrumentType)
+    if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
     {
-        auto axis_item = dynamic_cast<BasicAxisItem*>(
-            instrumentItem->beamItem()
-                ->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
-                ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
+        auto axis_item = specular_instrument->beamItem()->currentInclinationAxisItem();
         return std::make_unique<UnitConverter1D>(instrument->getBeam(),
                                                  *axis_item->createAxis(Units::degree));
     }

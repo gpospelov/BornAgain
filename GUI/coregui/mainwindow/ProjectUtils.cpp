@@ -15,7 +15,7 @@
 #include "ProjectUtils.h"
 #include "projectdocument.h"
 #include "GUIHelpers.h"
-#include "JobItemFunctions.h"
+#include "ItemFileNameUtils.h"
 #include "AppSvc.h"
 #include "projectmanager.h"
 #include <QFileInfo>
@@ -81,7 +81,7 @@ QStringList ProjectUtils::nonXMLDataInDir(const QString &dirname)
         throw GUIHelpers::Error("ProjectUtils::nonXMLDataInDir() -> Error. Non existing "
                                 "directory '"+dirname+"'.");
 
-    return dir.entryList(JobItemFunctions::nonXMLFileNameFilters());
+    return dir.entryList(ItemFileNameUtils::nonXMLFileNameFilters());
 }
 
 bool ProjectUtils::removeRecursively(const QString &dirname)

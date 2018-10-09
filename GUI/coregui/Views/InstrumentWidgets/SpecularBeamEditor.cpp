@@ -74,9 +74,9 @@ void SpecularBeamEditor::subscribeToItem()
 
     auto inclinationItem = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE);
     m_inclinationEditor->setItem(
-        inclinationItem->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
-    m_inclinationEditor->addItem(
         inclinationItem->getItem(SpecularBeamInclinationItem::P_DISTRIBUTION));
+    m_inclinationEditor->addItem(
+        inclinationItem->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
 
     m_footprint_editor->setItem(beam_item->getItem(SpecularBeamItem::P_FOOPTPRINT));
 }

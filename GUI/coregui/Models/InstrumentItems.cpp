@@ -21,6 +21,7 @@
 #include "GUIHelpers.h"
 #include "IDetector2D.h"
 #include "Instrument.h"
+#include "ItemFileNameUtils.h"
 #include "MaskItems.h"
 #include "SessionModel.h"
 
@@ -95,6 +96,7 @@ SpecularInstrumentItem::SpecularInstrumentItem()
     : InstrumentItem(Constants::SpecularInstrumentType)
 {
     initBeamGroup(Constants::SpecularBeamType);
+    item<SpecularBeamItem>(P_BEAM).updateFileName(ItemFileNameUtils::instrumentDataFileName(*this));
 }
 
 SpecularBeamItem* SpecularInstrumentItem::beamItem() const
@@ -111,8 +113,8 @@ std::unique_ptr<Instrument> SpecularInstrumentItem::createInstrument() const
 
 std::vector<int> SpecularInstrumentItem::shape() const
 {
-    const auto& axis_item = beamItem()->getInclinationAngleAxis();
-    return {axis_item.getItemValue(BasicAxisItem::P_NBINS).toInt()};
+    const auto axis_item = beamItem()->currentInclinationAxisItem();
+    return {axis_item->getItemValue(BasicAxisItem::P_NBINS).toInt()};
 }
 
 void SpecularInstrumentItem::setShape(const std::vector<int>& data_shape)
@@ -120,8 +122,8 @@ void SpecularInstrumentItem::setShape(const std::vector<int>& data_shape)
     if (shape().size() != data_shape.size())
         throw GUIHelpers::Error("Error in SpecularInstrumentItem::setShape: The type of "
                                 "instrument is incompatible with passed data shape.");
-    auto& axis_item = beamItem()->getInclinationAngleAxis();
-    axis_item.setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
+    auto axis_item = beamItem()->currentInclinationAxisItem();
+    axis_item->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
 }
 
 const QString Instrument2DItem::P_DETECTOR = "Detector";

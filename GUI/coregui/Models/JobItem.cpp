@@ -19,7 +19,7 @@
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
 #include "IntensityDataItem.h"
-#include "JobItemFunctions.h"
+#include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "MaskUnitsConverter.h"
 #include "MultiLayerItem.h"
@@ -269,12 +269,12 @@ void JobItem::updateIntensityDataFileName()
 {
     if (DataItem* item = dataItem())
         item->setItemValue(DataItem::P_FILE_NAME,
-                           JobItemFunctions::jobResultsFileName(*this));
+                           ItemFileNameUtils::jobResultsFileName(*this));
 
     if (RealDataItem* realItem = realDataItem())
         if (DataItem* item = realItem->dataItem())
             item->setItemValue(DataItem::P_FILE_NAME,
-                               JobItemFunctions::jobReferenceFileName(*this));
+                               ItemFileNameUtils::jobReferenceFileName(*this));
 }
 
 SimulationOptionsItem* JobItem::simulationOptionsItem()

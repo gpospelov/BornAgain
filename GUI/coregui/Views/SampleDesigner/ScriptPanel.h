@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InfoWidgets/InfoWidget.h
-//! @brief     Defines class InfoWidget
+//! @file      GUI/coregui/Views/SampleDesigner/ScriptPanel.h
+//! @brief     Defines class SampleDesigner
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef INFOWIDGET_H
-#define INFOWIDGET_H
+#ifndef SCRIPTPANEL_H
+#define SCRIPTPANEL_H
 
 #include "InfoPanel.h"
 
@@ -21,14 +21,14 @@ class SampleModel;
 class InstrumentModel;
 class PySampleWidget;
 
-//! The InfoWidget resides at the bottom of SampleView and displays a Python script.
+//! Resides at the bottom of SampleView and displays a Python script.
 
-class BA_CORE_API_ InfoWidget : public InfoPanel
+class BA_CORE_API_ ScriptPanel : public InfoPanel
 {
     Q_OBJECT
 
 public:
-    explicit InfoWidget(QWidget* parent = nullptr);
+    explicit ScriptPanel(QWidget* parent = nullptr);
 
     void setSampleModel(SampleModel* sampleModel);
     void setInstrumentModel(InstrumentModel* instrumentModel);
@@ -37,4 +37,4 @@ private:
     PySampleWidget* m_pySampleWidget;
 };
 
-#endif // INFOWIDGET_H
+#endif // SCRIPTPANEL_H

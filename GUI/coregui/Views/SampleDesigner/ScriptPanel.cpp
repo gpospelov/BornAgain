@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InfoWidgets/InfoWidget.cpp
-//! @brief     Implements class InfoWidget
+//! @file      GUI/coregui/Views/SampleDesigner/ScriptPanel.cpp
+//! @brief     Implements class ScriptPanel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "InfoWidget.h"
+#include "ScriptPanel.h"
 #include "PySampleWidget.h"
 #include <QResizeEvent>
 #include <QStackedWidget>
 
-InfoWidget::InfoWidget(QWidget *parent)
+ScriptPanel::ScriptPanel(QWidget *parent)
     : InfoPanel(parent)
     , m_pySampleWidget(new PySampleWidget(this))
 {
@@ -28,12 +28,12 @@ InfoWidget::InfoWidget(QWidget *parent)
     setContentVisible(false);
 }
 
-void InfoWidget::setSampleModel(SampleModel *sampleModel)
+void ScriptPanel::setSampleModel(SampleModel *sampleModel)
 {
     m_pySampleWidget->setSampleModel(sampleModel);
 }
 
-void InfoWidget::setInstrumentModel(InstrumentModel *instrumentModel)
+void ScriptPanel::setInstrumentModel(InstrumentModel *instrumentModel)
 {
     m_pySampleWidget->setInstrumentModel(instrumentModel);
 }

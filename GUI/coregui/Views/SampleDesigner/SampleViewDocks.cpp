@@ -15,7 +15,7 @@
 #include "SampleViewDocks.h"
 #include "ApplicationModels.h"
 #include "FilterPropertyProxy.h"
-#include "InfoWidget.h"
+#include "ScriptPanel.h"
 #include "SampleDesigner.h"
 #include "SamplePropertyWidget.h"
 #include "SampleTreeWidget.h"
@@ -30,20 +30,20 @@ SampleViewDocks::SampleViewDocks(SampleView* parent)
       m_treeWidget(new SampleTreeWidget(parent, parent->models()->sampleModel())),
       m_propertyWidget(
           new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent)),
-      m_infoWidget(new InfoWidget(parent))
+      m_scriptPanel(new ScriptPanel(parent))
 {
     addWidget(WIDGET_BOX, m_widgetBox, Qt::LeftDockWidgetArea);
     addWidget(SAMPLE_TREE, m_treeWidget, Qt::RightDockWidgetArea);
     addWidget(PROPERTY_EDITOR, m_propertyWidget, Qt::RightDockWidgetArea);
-    addWidget(INFO, m_infoWidget, Qt::BottomDockWidgetArea);
+    addWidget(INFO, m_scriptPanel, Qt::BottomDockWidgetArea);
 
-    connect(m_infoWidget, &InfoWidget::widgetHeightRequest, this,
+    connect(m_scriptPanel, &ScriptPanel::widgetHeightRequest, this,
             &DocksController::setDockHeightForWidget);
-    connect(m_infoWidget, &InfoWidget::widgetCloseRequest, this,
+    connect(m_scriptPanel, &ScriptPanel::widgetCloseRequest, this,
             &SampleViewDocks::onWidgetCloseRequest);
 
-    m_infoWidget->setSampleModel(parent->models()->sampleModel());
-    m_infoWidget->setInstrumentModel(parent->models()->instrumentModel());
+    m_scriptPanel->setSampleModel(parent->models()->sampleModel());
+    m_scriptPanel->setInstrumentModel(parent->models()->instrumentModel());
 
     m_sampleDesigner->setModels(parent->models());
     m_sampleDesigner->setSelectionModel(
@@ -73,9 +73,4 @@ SamplePropertyWidget* SampleViewDocks::propertyWidget()
 SampleDesigner* SampleViewDocks::sampleDesigner()
 {
     return m_sampleDesigner;
-}
-
-InfoWidget* SampleViewDocks::infoWidget()
-{
-    return m_infoWidget;
 }

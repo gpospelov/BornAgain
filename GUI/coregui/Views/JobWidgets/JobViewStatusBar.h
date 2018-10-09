@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/JobWidgets/JobActivityStatusBar.h
-//! @brief     Defines class JobActivityStatusBar
+//! @file      GUI/coregui/Views/JobWidgets/JobViewStatusBar.h
+//! @brief     Defines class JobViewStatusBar
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef JOBACTIVITYSTATUSBAR_H
-#define JOBACTIVITYSTATUSBAR_H
+#ifndef JOBVIEWSTATUSBAR_H
+#define JOBVIEWSTATUSBAR_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
@@ -22,14 +22,14 @@ class MainWindow;
 class QToolButton;
 class QComboBox;
 
-//! The JobActivityStatusBar class is a narrow status bar at very bottom of JobView to switch
-//! between activities. Added to the status bar of MainWindow when JobView is shown.
+//! Narrow status bar at very bottom of JobView to switch between activities.
+//! Added to the status bar of MainWindow when JobView is shown.
 
-class BA_CORE_API_ JobActivityStatusBar : public QWidget
+class BA_CORE_API_ JobViewStatusBar : public QWidget
 {
     Q_OBJECT
 public:
-    JobActivityStatusBar(MainWindow *mainWindow = 0);
+    JobViewStatusBar(MainWindow* mainWindow);
 
 signals:
     void toggleJobSelectorRequest();
@@ -42,10 +42,10 @@ public slots:
 private:
     void initAppearance();
 
-    QToolButton *m_toggleJobListButton;
-    QComboBox *m_activityCombo;
-    QToolButton *m_dockMenuButton;
-    MainWindow *m_mainWindow;
+    QToolButton* m_toggleJobListButton;
+    QComboBox* m_activityCombo;
+    QToolButton* m_dockMenuButton;
+    MainWindow* m_mainWindow;
 };
 
-#endif // JOBACTIVITYSTATUSBAR_H
+#endif // JOBVIEWSTATUSBAR_H

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "JobView.h"
-#include "JobActivityStatusBar.h"
+#include "JobViewStatusBar.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobOutputDataWidget.h"
@@ -26,7 +26,7 @@
 
 JobView::JobView(MainWindow *mainWindow)
     : m_docks(new JobViewDocks(this))
-    , m_jobActivityStatusBar(new JobActivityStatusBar(mainWindow))
+    , m_statusBar(new JobViewStatusBar(mainWindow))
     , m_progressAssistant(new JobProgressAssistant(mainWindow))
     , m_currentItem(nullptr)
     , m_mainWindow(mainWindow)
@@ -72,16 +72,20 @@ void JobView::onSelectionChanged(JobItem* jobItem) {
     m_docks->setItem(jobItem);
 }
 
-void JobView::showEvent(QShowEvent*)
+void JobView::showEvent(QShowEvent* event)
 {
     if (isVisible())
-        m_jobActivityStatusBar->show();
+        m_statusBar->show();
+
+    Manhattan::FancyMainWindow::showEvent(event);
 }
 
-void JobView::hideEvent(QHideEvent*)
+void JobView::hideEvent(QHideEvent* event)
 {
     if (isHidden())
-        m_jobActivityStatusBar->hide();
+        m_statusBar->hide();
+
+    Manhattan::FancyMainWindow::hideEvent(event);
 }
 
 void JobView::connectSignals()
@@ -95,13 +99,13 @@ void JobView::connectSignals()
 
 void JobView::connectActivityRelated()
 {
-    // Change activity requests: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, &JobActivityStatusBar::changeActivityRequest,
+    // Change activity requests: JobViewStatusBar -> this
+    connect(m_statusBar, &JobViewStatusBar::changeActivityRequest,
             this, &JobView::setActivity);
 
-    // Activity was changed: this -> JobActivityStatusBar
+    // Activity was changed: this -> JobViewStatusBar
     connect(this, &JobView::activityChanged,
-            m_jobActivityStatusBar, &JobActivityStatusBar::onActivityChanged);
+            m_statusBar, &JobViewStatusBar::onActivityChanged);
 
     // Activity was changed: this -> JobOutputDataWidget
     connect(this, &JobView::activityChanged,
@@ -114,12 +118,12 @@ void JobView::connectLayoutRelated()
 {
     connect(this, &JobView::resetLayout, m_docks, &JobViewDocks::onResetLayout);
 
-    // Toggling of JobSelector request: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, &JobActivityStatusBar::toggleJobSelectorRequest,
+    // Toggling of JobSelector request: JobViewStatusBar -> this
+    connect(m_statusBar, &JobViewStatusBar::toggleJobSelectorRequest,
             m_docks, &JobViewDocks::onToggleJobSelector);
 
-    // Dock menu request: JobActivityStatusBar -> this
-    connect(m_jobActivityStatusBar, &JobActivityStatusBar::dockMenuRequest,
+    // Dock menu request: JobViewStatusBar -> this
+    connect(m_statusBar, &JobViewStatusBar::dockMenuRequest,
             this, &JobView::onDockMenuRequest);
 }
 

@@ -19,10 +19,16 @@
 #include "SampleTreeWidget.h"
 #include "SampleViewDocks.h"
 #include "mainwindow.h"
+#include "SampleViewActions.h"
+#include "SampleViewStatusBar.h"
+#include <QMenu>
 
 SampleView::SampleView(MainWindow* mainWindow)
-    : Manhattan::FancyMainWindow(mainWindow), m_models(mainWindow->models()),
-      m_docks(new SampleViewDocks(this)), m_toolBar(nullptr)
+    : Manhattan::FancyMainWindow(mainWindow), m_models(mainWindow->models())
+    , m_docks(new SampleViewDocks(this))
+    , m_actions(new SampleViewActions(mainWindow->models()->sampleModel(), this))
+    , m_toolBar(nullptr)
+    , m_statusBar(new SampleViewStatusBar(mainWindow))
 {
     setObjectName("SampleView");
     connectSignals();
@@ -30,9 +36,31 @@ SampleView::SampleView(MainWindow* mainWindow)
 
 ApplicationModels* SampleView::models() { return m_models; }
 
+void SampleView::onDockMenuRequest()
+{
+    std::unique_ptr<QMenu> menu(createPopupMenu());
+    menu->exec(QCursor::pos());
+}
+
+void SampleView::showEvent(QShowEvent*event)
+{
+    if (isVisible())
+        m_statusBar->show();
+    Manhattan::FancyMainWindow::showEvent(event);
+}
+
+void SampleView::hideEvent(QHideEvent* event)
+{
+    if (isHidden())
+        m_statusBar->hide();
+    Manhattan::FancyMainWindow::hideEvent(event);
+}
+
 void SampleView::connectSignals()
 {
     connect(this, &SampleView::resetLayout, m_docks, &SampleViewDocks::onResetLayout);
+    connect(m_statusBar, &SampleViewStatusBar::dockMenuRequest,
+            this, &SampleView::onDockMenuRequest);
 
     // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(models()->sampleModel(), selectionModel(), this);

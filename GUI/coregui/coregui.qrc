@@ -1,9 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>images/mode_script.png</file>
-        <file>images/closebutton.png</file>
         <file>images/reset.png</file>
-        <file>images/darkclosebutton.png</file>
         <file>mainwindow/tooltips.xml</file>
         <file>images/treeview-branch-closed.png</file>
         <file>images/treeview-branch-end.png</file>
@@ -15,9 +13,6 @@
         <file>images/expand_arrow.png</file>
         <file>images/splashscreen.png</file>
         <file>images/about_icon.png</file>
-        <file>images/darkarrowdown.png</file>
-        <file>images/darkarrowup.png</file>
-        <file>images/darkclose.png</file>
         <file>images/warning@2x.png</file>
         <file>images/magnifier.png</file>
         <file>images/warning_64x64.png</file>
@@ -58,5 +53,8 @@
         <file>images/offspec_instrument_shaded.svg</file>
         <file>images/specular_instrument.svg</file>
         <file>images/specular_instrument_shaded.svg</file>
+        <file>images/dark-angle-up.svg</file>
+        <file>images/dark-angle-down.svg</file>
+        <file>images/dark-close.svg</file>
     </qresource>
 </RCC>

@@ -68,6 +68,9 @@ BA_CORE_API_ bool CompatibleVariantTypes(const QVariant& oldValue, const QVarian
 
 BA_CORE_API_ bool IsTheSame(const QVariant& var1, const QVariant& var2);
 
+//! Returns true if current item is related to the position on sample editor canvas.
+BA_CORE_API_ bool IsPositionRelated(const SessionItem& item);
+
 }  // namespace SessionItemUtils
 
 #endif // SESSIONITEMUTILS_H

@@ -53,7 +53,27 @@ public:
     double randomSample() const final;
 
 private:
-    double m_a, m_b;
+    double m_a, m_b; // the left and right limits of the Gate (Uniform) distribution
+};
+
+class BA_CORE_API_ Distribution1DTriangleSampler : public IDistribution1DSampler
+{
+public:
+    Distribution1DTriangleSampler(double omega) : m_omega(omega) {}
+    double randomSample() const final;
+
+private:
+    double m_omega; // half the base of the symmetrical Triangle distribution
+};
+
+class BA_CORE_API_ Distribution1DCosineSampler : public IDistribution1DSampler
+{
+public:
+    Distribution1DCosineSampler(double omega) : m_omega(omega) {}
+    double randomSample() const final;
+
+private:
+    double m_omega;
 };
 
 #endif // IDISTRIBUTION1DSAMPLER_H

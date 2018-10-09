@@ -22,7 +22,7 @@ double Distribution1DCauchySampler::randomSample() const
 {
     // BornAgain Cauchy Distribution = std library Exponential distribution
     std::random_device rd; // random device class instance
-    std::mt19937 gen(rd());
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
     std::exponential_distribution<double> expDist(m_lambda);
     double value = expDist(gen);
 
@@ -53,4 +53,53 @@ double Distribution1DGateSampler::randomSample() const
     std::uniform_real_distribution<double> uniformDist(m_a, m_b);
 
     return uniformDist(gen);
+}
+
+double Distribution1DTriangleSampler::randomSample() const
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // generate a cdf value between 0 and 1
+    std::uniform_real_distribution<> uniformDist(0.0, 1.0);
+    double cdf_value = uniformDist(gen);
+
+    // solve for x by inverting the cdf of Triangle Distribution
+    if(cdf_value <= 0.5)
+        return (-m_omega + m_omega*std::sqrt(2*cdf_value));
+    else
+        return (m_omega - m_omega*std::sqrt(2*(1-cdf_value)));
+}
+
+double Distribution1DCosineSampler::randomSample() const
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // generate a cdf value between 0 and 1
+    std::uniform_real_distribution<> uniformDist(0.0, 1.0);
+    double cdf_value = uniformDist(gen);
+
+    //solve for x from the cdf of Cosine Distribution using Newton-Raphson method
+    double func = 0.0, funcDeriv = 0.0, x = 0.0;
+
+    // initial guess for x
+    if(cdf_value <= 0.5)
+        x = -m_omega/2;
+    else
+        x = m_omega/2;
+
+    bool convergedSoln = false;
+    while(!convergedSoln)
+    {
+        func = x + m_omega/M_PI*std::sin(M_PI*x/m_omega) + m_omega*(1-2*cdf_value);
+        funcDeriv = 1 + std::cos(M_PI*x/m_omega);
+
+        x = x - func/funcDeriv;
+
+        if(std::abs(func/funcDeriv) < 0.001)
+            convergedSoln = true;
+    }
+
+    return x;
 }

@@ -36,7 +36,7 @@ FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DCauchy::createSampler() const
 {
-    return std::make_unique<Distribution1DCauchySampler>(1/(2*m_omega));
+    return std::make_unique<Distribution1DCauchySampler>(1/m_omega);
 }
 
 FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const
@@ -104,8 +104,7 @@ FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler() const
 {
-    // TODO Need to change from Gauss
-    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
+    return std::make_unique<Distribution1DTriangleSampler>(m_omega);
 }
 
 FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const
@@ -128,8 +127,7 @@ FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() const
 {
-    // TODO Need to change from Gauss
-    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
+    return std::make_unique<Distribution1DCosineSampler>(m_omega);
 }
 
 FTDistribution1DCosine* FTDistribution1DCosine::clone() const

@@ -28,14 +28,14 @@ class WarningSign;
 class QShowEvent;
 class QHideEvent;
 
-//! The PySampleWidget displays Python script representing a MultiLayer at the bottom of SampleView
-//! Belongs to InfoWidget
+//! Displays Python script representing a MultiLayer at the bottom of SampleView.
+
 class BA_CORE_API_ PySampleWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    PySampleWidget(QWidget* parent = 0);
+    PySampleWidget(QWidget* parent = nullptr);
 
     void setSampleModel(SampleModel* sampleModel);
     void setInstrumentModel(InstrumentModel* instrumentModel);
@@ -48,12 +48,11 @@ public slots:
     void setEditorConnected(bool isConnected);
 
 protected:
-    void showEvent(QShowEvent* event);
-    void hideEvent(QHideEvent* event);
+    void showEvent(QShowEvent*);
+    void hideEvent(QHideEvent*);
 
 private:
     QString generateCodeSnippet();
-    QString welcomeMessage();
 
     QTextEdit* m_textEdit;
     SampleModel* m_sampleModel;

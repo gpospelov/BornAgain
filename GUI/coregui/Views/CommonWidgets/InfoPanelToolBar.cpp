@@ -16,15 +16,14 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 
-namespace {
+namespace
+{
 const int minimum_size = 25;
 }
 
-InfoPanelToolBar::InfoPanelToolBar(QWidget *parent)
-    : StyledToolBar(parent)
-    , m_expandButton(new QToolButton)
-    , m_closeButton(new QToolButton)
-    , m_expanded(false)
+InfoPanelToolBar::InfoPanelToolBar(QWidget* parent)
+    : StyledToolBar(parent), m_expandButton(new QToolButton), m_closeButton(new QToolButton),
+      m_expanded(false)
 {
     setMinimumSize(minimum_size, minimum_size);
 
@@ -46,11 +45,10 @@ InfoPanelToolBar::InfoPanelToolBar(QWidget *parent)
 void InfoPanelToolBar::setExpandStatus(bool status)
 {
     m_expanded = status;
-    if(m_expanded) {
+    if (m_expanded)
         m_expandButton->setIcon(QIcon(":/images/darkarrowdown.png"));
-    } else {
+    else
         m_expandButton->setIcon(QIcon(":/images/darkarrowup.png"));
-    }
 }
 
 void InfoPanelToolBar::onExpandButtonClicked()
@@ -59,4 +57,3 @@ void InfoPanelToolBar::onExpandButtonClicked()
     setExpandStatus(m_expanded);
     emit expandButtonClicked();
 }
-

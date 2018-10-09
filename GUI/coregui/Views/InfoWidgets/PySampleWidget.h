@@ -25,6 +25,8 @@ class QModelIndex;
 class PythonSyntaxHighlighter;
 class UpdateTimer;
 class WarningSign;
+class QShowEvent;
+class QHideEvent;
 
 //! The PySampleWidget displays Python script representing a MultiLayer at the bottom of SampleView
 //! Belongs to InfoWidget
@@ -44,6 +46,10 @@ public slots:
 
     void updateEditor();
     void setEditorConnected(bool isConnected);
+
+protected:
+    void showEvent(QShowEvent* event);
+    void hideEvent(QHideEvent* event);
 
 private:
     QString generateCodeSnippet();

@@ -37,12 +37,10 @@ SampleViewDocks::SampleViewDocks(SampleView* parent)
     addWidget(PROPERTY_EDITOR, m_propertyWidget, Qt::RightDockWidgetArea);
     addWidget(INFO, m_infoWidget, Qt::BottomDockWidgetArea);
 
-    connect(m_infoWidget, SIGNAL(widgetHeightRequest(int)), this,
-            SLOT(setDockHeightForWidget(int)));
-    connect(m_infoWidget, SIGNAL(widgetCloseRequest()), this, SLOT(onWidgetCloseRequest()));
-
-    connect(findDock(m_infoWidget), SIGNAL(visibilityChanged(bool)), this,
-            SLOT(onDockVisibilityChangeV2(bool)));
+    connect(m_infoWidget, &InfoWidget::widgetHeightRequest, this,
+            &DocksController::setDockHeightForWidget);
+    connect(m_infoWidget, &InfoWidget::widgetCloseRequest, this,
+            &SampleViewDocks::onWidgetCloseRequest);
 
     m_infoWidget->setSampleModel(parent->models()->sampleModel());
     m_infoWidget->setInstrumentModel(parent->models()->instrumentModel());
@@ -80,9 +78,4 @@ SampleDesigner* SampleViewDocks::sampleDesigner()
 InfoWidget* SampleViewDocks::infoWidget()
 {
     return m_infoWidget;
-}
-
-void SampleViewDocks::onDockVisibilityChangeV2(bool status)
-{
-    m_infoWidget->onDockVisibilityChange(status);
 }

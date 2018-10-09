@@ -154,12 +154,28 @@ void PySampleWidget::setEditorConnected(bool isConnected)
     }
 }
 
+#include <QDebug>
+
+void PySampleWidget::showEvent(QShowEvent* event)
+{
+    qDebug() << "showEvent isVisible()" << isVisible();
+    setEditorConnected(isVisible());
+}
+
+void PySampleWidget::hideEvent(QHideEvent* event)
+{
+    qDebug() << "hideEvent isHidden()" << isHidden();
+    setEditorConnected(isVisible());
+}
+
 //! generates string representing code snippet for all multi layers in the model
 
 QString PySampleWidget::generateCodeSnippet()
 {
     m_warningSign->clear();
     QString result;
+
+    qDebug() << "aaaa";
 
     for(const MultiLayerItem* sampleItem : m_sampleModel->topItems<MultiLayerItem>()) {
         try {

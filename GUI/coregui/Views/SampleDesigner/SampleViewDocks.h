@@ -39,9 +39,6 @@ public:
     SamplePropertyWidget* propertyWidget();
     InfoWidget* infoWidget();
 
-protected slots:
-    void onDockVisibilityChangeV2(bool status);
-
 private:
     enum ESubWindows { WIDGET_BOX, SAMPLE_TREE, PROPERTY_EDITOR, INFO, NUMBER_OF_SUB_WINDOWS };
 

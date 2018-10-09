@@ -32,14 +32,26 @@
 #include "PointwiseAxisItem.h"
 #include "RealDataItem.h"
 
-namespace JobModelFunctions
+namespace
 {
+//! Copy RealDataItem to jobItem intended for fitting.
 void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem);
+
+//! Links RealDataItem to the JobItem's instrument.
+// (re-)Linking is necessary because of following reason
+// 1) Copying of RealDataItem from RealDataModel on board of JobItem requires relink to the copied
+//    insturment
+// 2) During relink all masks (if exists) will be converted to the default units of current detector
 void processInstrumentLink(JobItem* jobItem);
+
+//! Copies masks and ROI from RealDataItem on board of instrument.
 void copyMasksToInstrument(JobItem* jobItem);
+
+//! Crops RealDataItem to the region of interest.
 void cropRealData(JobItem* jobItem);
+
+//! Creates necessary fit containers for jobItem intended for fitting.
 void createFitContainers(JobItem* jobItem);
-void initDataView(JobItem* jobItem);
 
 PointwiseAxisItem* getPointwiseAxisItem(const InstrumentItem* instrument);
 } // namespace
@@ -92,22 +104,21 @@ void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem*
         throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. "
                                 "No instrument.");
 
-    JobModelFunctions::copyRealDataItem(jobItem, realDataItem);
-    JobModelFunctions::processInstrumentLink(jobItem);
-    JobModelFunctions::copyMasksToInstrument(jobItem);
+    copyRealDataItem(jobItem, realDataItem);
+    processInstrumentLink(jobItem);
+    copyMasksToInstrument(jobItem);
 
     // TODO: remove if when other simulation types are ready for roi & masks
     if (jobItem->instrumentItem()->modelType() == Constants::GISASInstrumentType)
-        JobModelFunctions::cropRealData(jobItem);
+        cropRealData(jobItem);
     if (jobItem->instrumentItem()->modelType() == Constants::SpecularInstrumentType)
         DataViewUtils::initDataView(jobItem);
 
-    JobModelFunctions::createFitContainers(jobItem);
+    createFitContainers(jobItem);
 }
 
-//! Copy RealDataItem to jobItem intended for fitting.
-
-void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
+namespace {
+void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
 {
     if (!realDataItem)
         return;
@@ -125,13 +136,7 @@ void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* r
                                                ItemFileNameUtils::jobReferenceFileName(*jobItem));
 }
 
-//! Links RealDataItem to the JobItem's instrument.
-// (re-)Linking is necessary because of following reason
-// 1) Copying of RealDataItem from RealDataModel on board of JobItem requires relink to the copied
-//    insturment
-// 2) During relink all masks (if exists) will be converted to the default units of current detector
-
-void JobModelFunctions::processInstrumentLink(JobItem* jobItem)
+void processInstrumentLink(JobItem* jobItem)
 {
     RealDataItem* realData = jobItem->realDataItem();
     if (!realData)
@@ -140,17 +145,13 @@ void JobModelFunctions::processInstrumentLink(JobItem* jobItem)
     realData->linkToInstrument(jobItem->instrumentItem());
 }
 
-//! Copies masks and ROI from RealDataItem on board of instrument.
-
-void JobModelFunctions::copyMasksToInstrument(JobItem* jobItem)
+void copyMasksToInstrument(JobItem* jobItem)
 {
     auto mask_container = jobItem->realDataItem()->maskContainerItem();
     jobItem->instrumentItem()->importMasks(mask_container);
 }
 
-//! Crops RealDataItem to the region of interest.
-
-void JobModelFunctions::cropRealData(JobItem* jobItem)
+void cropRealData(JobItem* jobItem)
 {
     RealDataItem* realData = jobItem->realDataItem();
 
@@ -172,9 +173,7 @@ void JobModelFunctions::cropRealData(JobItem* jobItem)
     intensityItem->updateDataRange();
 }
 
-//! Creates necessary fit containers for jobItem intended for fitting.
-
-void JobModelFunctions::createFitContainers(JobItem* jobItem)
+void createFitContainers(JobItem* jobItem)
 {
     SessionModel* model = jobItem->model();
 
@@ -208,7 +207,7 @@ void JobModelFunctions::createFitContainers(JobItem* jobItem)
         Constants::MinimizerContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
 }
 
-PointwiseAxisItem* JobModelFunctions::getPointwiseAxisItem(const InstrumentItem* instrument)
+PointwiseAxisItem* getPointwiseAxisItem(const InstrumentItem* instrument)
 {
     auto spec_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrument);
     if (!spec_instrument)
@@ -218,3 +217,4 @@ PointwiseAxisItem* JobModelFunctions::getPointwiseAxisItem(const InstrumentItem*
         spec_instrument->beamItem()->inclinationAxisGroup()->getChildOfType(
             Constants::PointwiseAxisType));
 }
+} // namespace

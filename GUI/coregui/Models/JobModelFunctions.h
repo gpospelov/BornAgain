@@ -19,12 +19,16 @@
 
 class JobItem;
 class RealDataItem;
+class InstrumentItem;
 
 //! Contains set of functions to extend JobModel functionality.
 //! Handles setup of JobItem in fitting context.
 
 namespace JobModelFunctions
 {
+//! Properly copies instrument into job item
+BA_CORE_API_ void setupJobItemInstrument(JobItem* jobItem, const InstrumentItem* instrumentItem);
+
 BA_CORE_API_ void setupJobItemOutput(JobItem* jobItem);
 
 BA_CORE_API_ void setupJobItemForFit(JobItem* jobItem, const RealDataItem* realDataItem);

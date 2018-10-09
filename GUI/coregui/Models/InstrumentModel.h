@@ -24,10 +24,11 @@ class BA_CORE_API_ InstrumentModel : public SessionModel
     Q_OBJECT
 
 public:
-    explicit InstrumentModel(QObject *parent = 0);
-    virtual ~InstrumentModel(){}
+    explicit InstrumentModel(QObject *parent = nullptr);
+    ~InstrumentModel() override;
 
-    virtual InstrumentModel *createCopy(SessionItem *parent=0);
+    InstrumentModel* createCopy(SessionItem* parent = nullptr) override;
+    QVector<SessionItem*> nonXMLData() const override;
 
     InstrumentItem *instrumentItem();
 };

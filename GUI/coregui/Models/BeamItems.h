@@ -63,8 +63,11 @@ public:
     double getInclinationAngle() const override;
     void setInclinationAngle(double value) override;
 
-    BasicAxisItem& getInclinationAngleAxis();
+    SessionItem* inclinationAxisGroup();
+    BasicAxisItem* currentInclinationAxisItem();
     FootprintItem* currentFootprintItem() const;
+
+    void updateFileName(const QString& filename);
 };
 
 class BA_CORE_API_ GISASBeamItem : public BeamItem

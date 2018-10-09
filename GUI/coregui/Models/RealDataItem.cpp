@@ -17,7 +17,7 @@
 #include "ImportDataUtils.h"
 #include "IntensityDataItem.h"
 #include "InstrumentItems.h"
-#include "JobItemFunctions.h"
+#include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "SessionModel.h"
 #include "SpecularDataItem.h"
@@ -145,7 +145,7 @@ MaskContainerItem* RealDataItem::maskContainerItem()
 void RealDataItem::updateIntensityDataFileName()
 {
     if (DataItem* item = dataItem())
-        item->setItemValue(DataItem::P_FILE_NAME, JobItemFunctions::realDataFileName(*this));
+        item->setItemValue(DataItem::P_FILE_NAME, ItemFileNameUtils::realDataFileName(*this));
 }
 
 void RealDataItem::updateToInstrument()

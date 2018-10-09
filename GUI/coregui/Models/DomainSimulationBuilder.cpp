@@ -141,9 +141,7 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
         = std::make_unique<SpecularSimulation>(*P_multilayer);
 
     auto beam_item = specular_instrument->beamItem();
-    const auto axis_item
-        = dynamic_cast<BasicAxisItem*>(beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
-                                           ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
+    const auto axis_item = beam_item->currentInclinationAxisItem();
     const auto footprint = beam_item->currentFootprintItem();
 
     specular_simulation->setBeamIntensity(beam_item->getIntensity());

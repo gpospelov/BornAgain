@@ -30,7 +30,7 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     , m_selectorWidget(new ItemSelectorWidget)
     , m_propertiesWidget(new RealDataPropertiesWidget)
 {
-    setMinimumSize(128, 600);
+    setMinimumSize(240, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     setWindowTitle("RealDataSelectorWidget");
 

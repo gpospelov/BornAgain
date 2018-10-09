@@ -153,15 +153,25 @@ void SpecularBeamItem::setInclinationAngle(double value)
     BeamItem::setInclinationAngle(value);
 }
 
-BasicAxisItem& SpecularBeamItem::getInclinationAngleAxis()
+SessionItem* SpecularBeamItem::inclinationAxisGroup()
 {
-    return getItem(BeamItem::P_INCLINATION_ANGLE)
-        ->item<BasicAxisItem>(SpecularBeamInclinationItem::P_ALPHA_AXIS);
+    return getItem(P_INCLINATION_ANGLE)->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
+}
+
+BasicAxisItem* SpecularBeamItem::currentInclinationAxisItem()
+{
+    return &getItem(BeamItem::P_INCLINATION_ANGLE)
+        ->groupItem<BasicAxisItem>(SpecularBeamInclinationItem::P_ALPHA_AXIS);
 }
 
 FootprintItem* SpecularBeamItem::currentFootprintItem() const
 {
     return &groupItem<FootprintItem>(P_FOOPTPRINT);
+}
+
+void SpecularBeamItem::updateFileName(const QString& filename)
+{
+    item<SpecularBeamInclinationItem>(BeamItem::P_INCLINATION_ANGLE).updateFileName(filename);
 }
 
 // GISAS beam item

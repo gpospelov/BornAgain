@@ -50,6 +50,7 @@
 #include "TestParticleLayoutItem.h"
 #include "TestAxesItems.h"
 #include "TestMultiLayerItem.h"
+#include "TestSavingSpecularData.h"
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);

@@ -67,6 +67,12 @@ T propertyFromXML(const QString& buffer) {
     return item->value().value<T>();
 }
 
+//! Helper function to test if data are the same.
+bool isTheSame(const OutputData<double>& data1, const OutputData<double>& data2);
+
+//! Helper function to check if file on disk represents same data.
+bool isTheSame(const QString& fileName, const OutputData<double>& data);
+
 }
 
 #endif // TEST_UTILS

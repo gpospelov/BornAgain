@@ -231,8 +231,9 @@ QList<SessionModel*> ApplicationModels::modelList()
 
 QVector<SessionItem*> ApplicationModels::nonXMLData() const
 {
-    Q_ASSERT(m_realDataModel && m_jobModel);
-    return QVector<SessionItem*>() << m_realDataModel->nonXMLData() << m_jobModel->nonXMLData();
+    Q_ASSERT(m_realDataModel && m_jobModel && m_instrumentModel);
+    return QVector<SessionItem*>() << m_realDataModel->nonXMLData() << m_jobModel->nonXMLData()
+                                   << m_instrumentModel->nonXMLData();
 }
 
 void ApplicationModels::disconnectModel(SessionModel* model)

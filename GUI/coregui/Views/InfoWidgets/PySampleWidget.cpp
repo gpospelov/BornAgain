@@ -70,8 +70,16 @@ void PySampleWidget::onModifiedRow(const QModelIndex&, int, int)
     m_updateTimer->scheduleUpdate();
 }
 
-void PySampleWidget::onDataChanged(const QModelIndex&, const QModelIndex&)
+void PySampleWidget::onDataChanged(const QModelIndex& index, const QModelIndex&)
 {
+    auto item = m_sampleModel->itemForIndex(index);
+    if (!item)
+        return;
+
+    if (!(item->modelType() == Constants::PropertyType
+          && (item->displayName() == SessionGraphicsItem::P_XPOS
+              || item->displayName() == SessionGraphicsItem::P_YPOS)))
+
     m_updateTimer->scheduleUpdate();
 }
 
@@ -139,11 +147,13 @@ void PySampleWidget::hideEvent(QHideEvent*)
 
 //! generates string representing code snippet for all multi layers in the model
 
+#include <QDebug>
 QString PySampleWidget::generateCodeSnippet()
 {
     m_warningSign->clear();
     QString result;
 
+    qDebug() << "aaa";
     for (const MultiLayerItem* sampleItem : m_sampleModel->topItems<MultiLayerItem>()) {
         try {
             auto multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);

@@ -17,11 +17,11 @@
 
 #include "StyledToolBar.h"
 
-class QToolButton;
+class QAction;
 
 //! Toolbar for InfoPanel with collapse/expand buttons.
 
-class BA_CORE_API_ InfoPanelToolBar : public StyledToolBar
+class BA_CORE_API_ InfoPanelToolBar : public QToolBar
 {
     Q_OBJECT
 
@@ -39,8 +39,8 @@ protected slots:
     void onExpandButtonClicked();
 
 private:
-    QToolButton* m_expandButton;
-    QToolButton* m_closeButton;
+    QAction* m_expandAction;
+    QAction* m_closeAction;
     bool m_expanded;
 };
 

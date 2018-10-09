@@ -43,9 +43,6 @@
 #include "VectorItem.h"
 #include <AppSvc.h>
 
-#include <iostream>
-#include <iomanip>
-
 namespace
 {
 const double layerBorderWidth = 10.0;
@@ -240,15 +237,6 @@ void RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
     auto interferenceRadialParacrystal = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference);
     auto peakDistance = interferenceRadialParacrystal->peakDistance();
 
-    std::map<int, int> hist{};
-    for(int n=0; n<10000; ++n) {
-        ++hist[std::round(interferenceRadialParacrystal->randomSample())];
-    }
-    for (auto p : hist) {
-        std::cout << std::fixed << std::setprecision(1) << std::setw(2)
-                  << p.first << ' ' << std::string(p.second/200, '*') << '\n';
-    }
-
     double layer_size = sceneGeometry.layer_size();
     std::vector<std::vector<double>> lattice_positions;
 
@@ -265,10 +253,6 @@ void RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
     lattice_positions[0][0] = 0.0; // x coordinate of reference particle - at the origin
     lattice_positions[0][1] = 0.0; // y coordinate of reference particle - at the origin
 
-    std::cout<< "------------------------------------" << std::endl;
-    std::cout<< lattice_positions[0][0] << " " <<
-                lattice_positions[0][0] << std::endl;
-
     for (int i = 1; i <= 2*n; ++i)
     {
         // positions of particles located along +x (store every odd index of lattice_positions)
@@ -280,11 +264,6 @@ void RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
         lattice_positions[static_cast<size_t>(i)][0] =
                 lattice_positions[k1][0] + peakDistance + offset; // x coordinate
         lattice_positions[static_cast<size_t>(i)][1] = 0.0; // y coordinate
-
-        std::cout<< "Offset = " << offset << std::endl;
-        std::cout<< "+x : " << lattice_positions[i][0] << " " <<
-                    lattice_positions[i][1] << std::endl;
-
 
         // positions of particles located along -x (store every even index of lattice_positions)
         ++i;
@@ -298,9 +277,6 @@ void RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
                 lattice_positions[k2][0] - peakDistance + offset; // x coordinate
         lattice_positions[static_cast<size_t>(i)][1] = 0.0;  // y coordinate
 
-        std::cout<< "Offset = " << offset << std::endl;
-        std::cout<< "-x : " << lattice_positions[i][0] << " " <<
-                    lattice_positions[i][1] << std::endl;
     }
 
     populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,

@@ -22,6 +22,7 @@
 #include "SampleModel.h"
 #include "UpdateTimer.h"
 #include "WarningSign.h"
+#include "SessionItemUtils.h"
 #include <QScrollBar>
 #include <QTextEdit>
 #include <QVBoxLayout>
@@ -76,11 +77,8 @@ void PySampleWidget::onDataChanged(const QModelIndex& index, const QModelIndex&)
     if (!item)
         return;
 
-    if (!(item->modelType() == Constants::PropertyType
-          && (item->displayName() == SessionGraphicsItem::P_XPOS
-              || item->displayName() == SessionGraphicsItem::P_YPOS)))
-
-    m_updateTimer->scheduleUpdate();
+    if (!SessionItemUtils::IsPositionRelated(*item))
+        m_updateTimer->scheduleUpdate();
 }
 
 //! Update the editor with the script content
@@ -147,13 +145,11 @@ void PySampleWidget::hideEvent(QHideEvent*)
 
 //! generates string representing code snippet for all multi layers in the model
 
-#include <QDebug>
 QString PySampleWidget::generateCodeSnippet()
 {
     m_warningSign->clear();
     QString result;
 
-    qDebug() << "aaa";
     for (const MultiLayerItem* sampleItem : m_sampleModel->topItems<MultiLayerItem>()) {
         try {
             auto multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);

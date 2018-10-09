@@ -29,6 +29,7 @@
 #include "JobModel.h"
 #include "MaskItems.h"
 #include "MaskUnitsConverter.h"
+#include "PointwiseAxisItem.h"
 #include "RealDataItem.h"
 
 namespace JobModelFunctions
@@ -39,7 +40,9 @@ void copyMasksToInstrument(JobItem* jobItem);
 void cropRealData(JobItem* jobItem);
 void createFitContainers(JobItem* jobItem);
 void initDataView(JobItem* jobItem);
-}
+
+PointwiseAxisItem* getPointwiseAxisItem(const InstrumentItem* instrument);
+} // namespace
 
 void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
                                                const InstrumentItem* instrumentItem)
@@ -48,6 +51,15 @@ void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
     SessionItem* instrument = model->copyItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
     instrument->setItemName(instrumentItem->modelType());
     jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
+    if (auto spec_instrument = dynamic_cast<SpecularInstrumentItem*>(instrument)) {
+        // updating filename
+        const auto filename = ItemFileNameUtils::instrumentDataFileName(*spec_instrument);
+        spec_instrument->beamItem()->updateFileName(filename);
+
+        // copying axis data
+        const auto instrument_axis = getPointwiseAxisItem(instrumentItem)->getAxis();
+        getPointwiseAxisItem(spec_instrument)->setAxis(instrument_axis);
+    }
 }
 
 //! Setup items intended for storing results of the job.
@@ -194,4 +206,15 @@ void JobModelFunctions::createFitContainers(JobItem* jobItem)
 
     minimizerContainerItem = model->insertNewItem(
         Constants::MinimizerContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
+}
+
+PointwiseAxisItem* JobModelFunctions::getPointwiseAxisItem(const InstrumentItem* instrument)
+{
+    auto spec_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrument);
+    if (!spec_instrument)
+        return nullptr;
+
+    return dynamic_cast<PointwiseAxisItem*>(
+        spec_instrument->beamItem()->inclinationAxisGroup()->getChildOfType(
+            Constants::PointwiseAxisType));
 }

@@ -74,6 +74,20 @@ BA_CORE_API_ void populateInterference1DLatticeType(
     const std::vector<Particle3DContainer>& particle3DContainer_vector,
     const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
 
+// InterferenceFunctionRadialParacrystalType
+BA_CORE_API_ void populateInterferenceRadialParacrystalType(
+    const IInterferenceFunction* interference, RealSpaceModel* model,
+    const std::vector<Particle3DContainer>& particle3DContainer_vector,
+    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
+
+/*
+// InterferenceFunction2DParacrystalType
+BA_CORE_API_ void populateInterference2DParacrystalType(
+    const IInterferenceFunction* interference, RealSpaceModel* model,
+    const std::vector<Particle3DContainer>& particle3DContainer_vector,
+    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
+*/
+
 // Implement Rotation of a 3D particle using parameters from IRotation Object
 BA_CORE_API_ QVector3D implementParticleRotationfromIRotation(const IRotation*& rotation);
 

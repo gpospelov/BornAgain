@@ -138,8 +138,9 @@ void RealSpaceCanvas::onDataChanged(const QModelIndex& index)
 
 void RealSpaceCanvas::updateScene()
 {
-    if (!m_currentSelection.isValid())
-        return;
+    // TODO: Fix m_currentSelection when model is about to die
+//    if (!m_currentSelection.isValid())
+//        return;
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
 

@@ -17,6 +17,7 @@
 
 #include "ICloneable.h"
 #include "INode.h"
+#include "IDistribution1DSampler.h"
 
 //! Interface for a one-dimensional distribution, with normalization adjusted so that
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
@@ -38,6 +39,8 @@ public:
     void setOmega(double omega) { m_omega = omega; }
     double omega() const { return m_omega; }
 
+    virtual std::unique_ptr<IDistribution1DSampler> createSampler() const=0;
+
 protected:
     void init_parameters();
     double m_omega;
@@ -56,6 +59,7 @@ public:
     FTDistribution1DCauchy* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 };
 
 
@@ -71,6 +75,7 @@ public:
     FTDistribution1DGauss* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 };
 
 
@@ -86,6 +91,7 @@ public:
     FTDistribution1DGate* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 };
 
 
@@ -101,6 +107,7 @@ public:
     FTDistribution1DTriangle* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 };
 
 
@@ -117,6 +124,7 @@ public:
     FTDistribution1DCosine* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 };
 
 
@@ -136,7 +144,9 @@ public:
     FTDistribution1DVoigt* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
-    double eta() const { return m_eta;}
+    double eta() const { return m_eta;}    
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+
 protected:
     double m_eta;
 };

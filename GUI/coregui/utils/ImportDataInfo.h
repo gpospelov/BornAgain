@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/ImportDataWidgets/ImportDataInfo.h
+//! @file      GUI/coregui/utils/ImportDataInfo.h
 //! @brief     Defines ImportDataInfo helper struct
 //!
 //! @homepage  http://www.bornagainproject.org

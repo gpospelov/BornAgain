@@ -15,25 +15,35 @@
 #ifndef IMPORTDATAINFO_H
 #define IMPORTDATAINFO_H
 
+#include "WinDllMacros.h"
+#include "IUnitConverter.h"
+#include <QString>
 #include <memory>
-#include <vector>
 
 template<class T> class OutputData;
 
 //! Carries information about loaded data.
 
-struct ImportDataInfo
+class BA_CORE_API_ ImportDataInfo
 {
-    enum class COORDINATE {bins, angle, double_angle, q};
-    enum class UNITS {bins, rads, degrees, inv_nm, inv_angstroms};
-
+public:
     ImportDataInfo();
+    ImportDataInfo(ImportDataInfo&& other);
+    ImportDataInfo(std::unique_ptr<OutputData<double>> data, AxesUnits units);
+    ImportDataInfo(std::unique_ptr<OutputData<double>> data, const QString& units);
     ~ImportDataInfo();
-    static std::vector<UNITS> compatibleUnits(COORDINATE coordinate_type);
 
+    operator bool() const;
+
+    std::unique_ptr<OutputData<double>> intensityData() const;
+    size_t dataRank() const;
+    QString unitsLabel() const;
+    QString axisLabel(size_t axis_index) const;
+
+private:
+    void checkValidity();
     std::unique_ptr<OutputData<double>> m_data;
-    COORDINATE m_coordinate_type;
-    UNITS m_units;
+    AxesUnits m_units;
 };
 
 #endif // IMPORTDATAINFO_H

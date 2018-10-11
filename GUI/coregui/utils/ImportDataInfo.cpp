@@ -13,31 +13,106 @@
 // ************************************************************************** //
 
 #include "ImportDataInfo.h"
+#include "AxisNames.h"
+#include "GUIHelpers.h"
+#include "ImportDataUtils.h"
+#include "JobItemUtils.h"
 #include "OutputData.h"
-#include <vector>
 
-using COORDINATE = ImportDataInfo::COORDINATE;
-using UNITS = ImportDataInfo::UNITS;
+namespace {
+std::vector<AxesUnits> specularUnits()
+{
+    std::vector<AxesUnits> result;
+    const auto units_map = AxisNames::InitSpecAxis();
+    for (auto& pair: units_map)
+        result.push_back(pair.first);
+    return result;
+}
 
-const std::vector<std::pair<COORDINATE, std::vector<UNITS>>> available_units = {
-    {COORDINATE::bins, {UNITS::bins}},
-    {COORDINATE::angle, {UNITS::rads, UNITS::degrees}},
-    {COORDINATE::double_angle, {UNITS::rads, UNITS::degrees}},
-    {COORDINATE::q, {UNITS::inv_angstroms, UNITS::inv_nm}}
-};
+// map: data rank --> available units
+std::map<size_t, std::vector<AxesUnits>> available_units = {{1u, specularUnits()},
+                                                            {2u, {AxesUnits::NBINS}}};
+}
 
 ImportDataInfo::ImportDataInfo()
-    : m_coordinate_type(COORDINATE::bins)
-    , m_units(UNITS::bins)
 {
+}
+
+ImportDataInfo::ImportDataInfo(ImportDataInfo&& other)
+    : m_data(std::move(other.m_data))
+    , m_units(other.m_units)
+{
+}
+
+ImportDataInfo::ImportDataInfo(std::unique_ptr<OutputData<double>> data, AxesUnits units)
+    : m_data(std::move(data))
+    , m_units(units)
+{
+    checkValidity();
+}
+
+ImportDataInfo::ImportDataInfo(std::unique_ptr<OutputData<double>> data, const QString& units_label)
+    : m_data(std::move(data))
+    , m_units(JobItemUtils::axesUnitsFromName(units_label))
+{
+    checkValidity();
 }
 
 ImportDataInfo::~ImportDataInfo() = default;
 
-std::vector<UNITS> ImportDataInfo::compatibleUnits(COORDINATE coordinate_type)
+ImportDataInfo::operator bool() const
 {
-    for (auto& pair: available_units)
-        if (coordinate_type == pair.first)
-            return pair.second;
-    return {};
+    return static_cast<bool>(m_data);
+}
+
+std::unique_ptr<OutputData<double> > ImportDataInfo::intensityData() const
+{
+    if (!m_data)
+        return nullptr;
+    return m_units == AxesUnits::NBINS ? ImportDataUtils::CreateSimplifiedOutputData(*m_data)
+                                       : std::unique_ptr<OutputData<double>>(m_data->clone());
+}
+
+size_t ImportDataInfo::dataRank() const
+{
+    if (!m_data)
+        return 0;
+    return m_data->getRank();
+}
+
+QString ImportDataInfo::unitsLabel() const
+{
+    return JobItemUtils::nameFromAxesUnits(m_units);
+}
+
+QString ImportDataInfo::axisLabel(size_t axis_index) const
+{
+    if (!m_data)
+        return "";
+
+    const size_t rank = m_data->getRank();
+    if (rank == 2)
+        return axis_index == 0 ? "X [nbins]" : "Y [nbins]";
+    else if (rank == 1) {
+        if (axis_index > 0)
+            return "Signal [a.u.]";
+
+        auto label_map = AxisNames::InitSpecAxis();
+        return QString::fromStdString(label_map[m_units]);
+    }
+    throw GUIHelpers::Error("Error in ImportDataInfo::axisLabel: unsupported data type");
+}
+
+void ImportDataInfo::checkValidity()
+{
+    if (!m_data)
+        return;
+    auto iter = available_units.find(m_data->getRank());
+    if (iter == available_units.end())
+        throw GUIHelpers::Error("Error in ImportDataInfo constructor: unsupported data type");
+    for (auto& value: iter->second)
+        if (m_units == value)
+            return;
+
+    throw GUIHelpers::Error("Error in ImportDataInfo constructor: inacceptable units passed.");
 }

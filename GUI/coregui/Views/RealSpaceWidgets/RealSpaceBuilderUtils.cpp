@@ -229,7 +229,7 @@ void RealSpaceBuilderUtils::populateInterference1DLatticeType(
                                         sceneGeometry, builder3D);
 }
 
-void RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
+void RealSpaceBuilderUtils::populateRadialParacrystalType(
     const IInterferenceFunction* interference, RealSpaceModel* model,
     const std::vector<Particle3DContainer>& particle3DContainer_vector,
     const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
@@ -281,23 +281,68 @@ void RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
                                         sceneGeometry, builder3D);
 }
 
-void RealSpaceBuilderUtils::populateInterference2DParacrystalType(
+void RealSpaceBuilderUtils::populate2DParacrystalType(
         const IInterferenceFunction* interference, RealSpaceModel* model,
         const std::vector<Particle3DContainer>& particle3DContainer_vector,
         const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-    {
-        auto interference2DParacrystal = dynamic_cast<const InterferenceFunction2DParaCrystal
-*>(interference);
-        const Lattice2D& lattice2DParacrystal = interference2DParacrystal->lattice();
+{
+    auto interference2DParacrystal =
+            dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference);
+    const Lattice2D& lattice2DParacrystal = interference2DParacrystal->lattice();
 
-        std::vector<std::vector<double>> lattice_positions = computeInterference2DLatticePositions(
-            lattice2DParacrystal.length1(), lattice2DParacrystal.length2(),
-lattice2DParacrystal.latticeAngle(),
-            lattice2DParacrystal.rotationAngle(), sceneGeometry);
+    std::vector<std::vector<double>> lattice_positions =
+            compute2DParacrystalLatticePositions(lattice2DParacrystal.length1(),
+                                                 lattice2DParacrystal.length2(),
+                                                 lattice2DParacrystal.latticeAngle(),
+                                                 lattice2DParacrystal.rotationAngle(),
+                                                 sceneGeometry);
 
-        populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                            sceneGeometry, builder3D);
+
+
+    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
+                                        sceneGeometry, builder3D);
+}
+
+std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatticePositions(
+    double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry)
+{
+    double layer_size = sceneGeometry.layer_size();
+    std::vector<std::vector<double>> lattice_positions;
+    std::vector<double> position;
+
+    // Estimate the limit n1 and n2 of the integer multiple i and j of the lattice vectors required
+    // for populating particles correctly within the 3D model's boundaries
+    int n1 = 0, n2 = 0;
+    n1 = l1 == 0.0 ? 2 : static_cast<int>(layer_size * 2 / l1);
+
+    // This condition is required when this function is used to compute 1D Lattice positions
+    if (l2 != 0) {
+        n2 = l2 == 0.0 ? 2 : static_cast<int>(layer_size * 2 / l2);
+
+        n1 = std::max(n1, n2);
+        n2 = std::max(n1, n2);
     }
+
+    for (int i = -n1; i <= n1; ++i) {
+        for (int j = -n2; j <= n2; ++j) {
+            // For calculating lattice position vector v, we use: v = i*l1 + j*l2
+            // where l1 and l2 are the lattice vectors,
+            // i and j are the integer multiples of l1 and l2 respectively
+
+            position.push_back(i * l1 * std::cos(l_xi)
+                               + j * l2 * std::cos(l_alpha + l_xi)); // x coordinate
+            position.push_back(i * l1 * std::sin(l_xi)
+                               + j * l2 * std::sin(l_alpha + l_xi)); // y coordinate
+
+            // no need for z coordinate as all lattice positions are calculated in the xy plane
+
+            lattice_positions.push_back(position);
+            position.clear();
+        }
+    }
+
+    return lattice_positions;
+}
 
 // Implement Rotation of a 3D particle using parameters from IRotation Object
 QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*& rotation)

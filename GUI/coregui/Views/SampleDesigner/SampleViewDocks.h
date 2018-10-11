@@ -23,6 +23,7 @@ class SampleTreeWidget;
 class SamplePropertyWidget;
 class SampleDesigner;
 class ScriptPanel;
+class Sample3DPanel;
 
 //! Holds all docked widgets for SampleView.
 
@@ -39,13 +40,15 @@ public:
     SamplePropertyWidget* propertyWidget();
 
 private:
-    enum ESubWindows { WIDGET_BOX, SAMPLE_TREE, PROPERTY_EDITOR, INFO, NUMBER_OF_SUB_WINDOWS };
+    enum ESubWindows { WIDGET_BOX, SAMPLE_TREE, PROPERTY_EDITOR, INFO, REALSPACEPANEL,
+                       NUMBER_OF_SUB_WINDOWS };
 
     SampleDesigner* m_sampleDesigner;
     SampleWidgetBox* m_widgetBox;
     SampleTreeWidget* m_treeWidget;
     SamplePropertyWidget* m_propertyWidget;
     ScriptPanel* m_scriptPanel;
+    Sample3DPanel* m_realSpacePanel;
 };
 
 #endif

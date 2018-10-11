@@ -21,6 +21,7 @@
 #include "SampleTreeWidget.h"
 #include "SampleView.h"
 #include "SampleWidgetBox.h"
+#include "Sample3DPanel.h"
 #include <QDockWidget>
 #include <QTreeView>
 
@@ -29,13 +30,15 @@ SampleViewDocks::SampleViewDocks(SampleView* parent)
       m_widgetBox(new SampleWidgetBox(sampleDesigner(), parent)),
       m_treeWidget(new SampleTreeWidget(parent, parent->models()->sampleModel())),
       m_propertyWidget(
-          new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent)),
-      m_scriptPanel(new ScriptPanel(parent))
+          new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent))
+    , m_scriptPanel(new ScriptPanel(parent))
+    , m_realSpacePanel(new Sample3DPanel(parent))
 {
     addWidget(WIDGET_BOX, m_widgetBox, Qt::LeftDockWidgetArea);
     addWidget(SAMPLE_TREE, m_treeWidget, Qt::RightDockWidgetArea);
     addWidget(PROPERTY_EDITOR, m_propertyWidget, Qt::RightDockWidgetArea);
     addWidget(INFO, m_scriptPanel, Qt::BottomDockWidgetArea);
+//    addWidget(REALSPACEPANEL, m_realSpacePanel, Qt::BottomDockWidgetArea);
 
     connect(m_scriptPanel, &ScriptPanel::widgetHeightRequest, this,
             &DocksController::setDockHeightForWidget);
@@ -53,6 +56,8 @@ SampleViewDocks::SampleViewDocks(SampleView* parent)
 
     parent->setCentralWidget(m_sampleDesigner->getCentralWidget());
     onResetLayout();
+
+//    findDock(m_realSpacePanel)->setFloating(true);
 }
 
 SampleWidgetBox* SampleViewDocks::widgetBox()

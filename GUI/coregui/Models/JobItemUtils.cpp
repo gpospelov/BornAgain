@@ -120,10 +120,6 @@ AxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
 void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
                                               const InstrumentItem* instrumentItem)
 {
-    if (!instrumentItem) {
-        intensityItem->resetToDefault();
-        return;
-    }
     const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
     setIntensityItemAxesUnits(intensityItem, *converter);
 }

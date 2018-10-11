@@ -281,8 +281,6 @@ void RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
                                         sceneGeometry, builder3D);
 }
 
-/*
-// TODO Modify after completion of Radial Paracrystal
 void RealSpaceBuilderUtils::populateInterference2DParacrystalType(
         const IInterferenceFunction* interference, RealSpaceModel* model,
         const std::vector<Particle3DContainer>& particle3DContainer_vector,
@@ -300,7 +298,6 @@ lattice2DParacrystal.latticeAngle(),
         populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
                                             sceneGeometry, builder3D);
     }
-*/
 
 // Implement Rotation of a 3D particle using parameters from IRotation Object
 QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*& rotation)

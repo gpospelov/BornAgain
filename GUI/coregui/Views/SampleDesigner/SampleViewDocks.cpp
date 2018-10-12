@@ -38,7 +38,7 @@ SampleViewDocks::SampleViewDocks(SampleView* parent)
     addWidget(SAMPLE_TREE, m_treeWidget, Qt::RightDockWidgetArea);
     addWidget(PROPERTY_EDITOR, m_propertyWidget, Qt::RightDockWidgetArea);
     addWidget(INFO, m_scriptPanel, Qt::BottomDockWidgetArea);
-//    addWidget(REALSPACEPANEL, m_realSpacePanel, Qt::BottomDockWidgetArea);
+    addWidget(REALSPACEPANEL, m_realSpacePanel, Qt::BottomDockWidgetArea);
 
     connect(m_scriptPanel, &ScriptPanel::widgetHeightRequest, this,
             &DocksController::setDockHeightForWidget);
@@ -56,8 +56,6 @@ SampleViewDocks::SampleViewDocks(SampleView* parent)
 
     parent->setCentralWidget(m_sampleDesigner->getCentralWidget());
     onResetLayout();
-
-//    findDock(m_realSpacePanel)->setFloating(true);
 }
 
 SampleWidgetBox* SampleViewDocks::widgetBox()
@@ -73,6 +71,12 @@ SampleTreeWidget* SampleViewDocks::treeWidget()
 SamplePropertyWidget* SampleViewDocks::propertyWidget()
 {
     return m_propertyWidget;
+}
+
+void SampleViewDocks::onResetLayout()
+{
+    DocksController::onResetLayout();
+    mainWindow()->tabifyDockWidget(findDock(REALSPACEPANEL), findDock(INFO));
 }
 
 SampleDesigner* SampleViewDocks::sampleDesigner()

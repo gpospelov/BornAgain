@@ -21,6 +21,6 @@ Sample3DPanel::Sample3DPanel(QWidget* parent)
 
 }
 
-QSize Sample3DPanel::minimumSizeHint() const { return QSize(300, 300); }
+//QSize Sample3DPanel::minimumSizeHint() const { return QSize(300, 300); }
 
-QSize Sample3DPanel::sizeHint() const { return QSize(100, 100); }
+//QSize Sample3DPanel::sizeHint() const { return QSize(100, 100); }

@@ -39,6 +39,8 @@ public:
     SampleTreeWidget* treeWidget();
     SamplePropertyWidget* propertyWidget();
 
+    void onResetLayout() override;
+
 private:
     enum ESubWindows { WIDGET_BOX, SAMPLE_TREE, PROPERTY_EDITOR, INFO, REALSPACEPANEL,
                        NUMBER_OF_SUB_WINDOWS };

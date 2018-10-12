@@ -26,9 +26,9 @@ Q_OBJECT
 public:
     Sample3DPanel(QWidget* parent = nullptr);
 
-    QSize minimumSizeHint() const override;
+//    QSize minimumSizeHint() const override;
 
-    QSize sizeHint() const override;
+//    QSize sizeHint() const override;
 
 };
 

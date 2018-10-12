@@ -26,7 +26,7 @@ SampleTreeWidget::SampleTreeWidget(QWidget* parent, SampleModel* model)
     , m_treeView(new ItemTreeView)
     , m_sampleModel(model)
 {
-    setWindowTitle(QString("Sample Tree View"));
+    setWindowTitle(QString("Sample Tree"));
     setObjectName(QLatin1String("SampleTreeWidget"));
 
     auto mainLayout = new QVBoxLayout;

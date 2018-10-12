@@ -18,18 +18,25 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
+class RealSpaceWidget;
+class SampleModel;
+class QItemSelectionModel;
+
 //! Place for RealSpaceWidget in the context of SampleView docks.
 
 class BA_CORE_API_ Sample3DPanel : public QWidget
 {
 Q_OBJECT
 public:
-    Sample3DPanel(QWidget* parent = nullptr);
+    Sample3DPanel(SampleModel* sampleModel,
+                  QItemSelectionModel* selectionModel, QWidget* parent);
 
 //    QSize minimumSizeHint() const override;
 
 //    QSize sizeHint() const override;
 
+private:
+    RealSpaceWidget* m_realSpaceWidget;
 };
 
 #endif

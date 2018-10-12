@@ -33,7 +33,8 @@ SampleViewDocks::SampleViewDocks(SampleView* parent)
       m_propertyWidget(
           new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent))
     , m_scriptPanel(new ScriptPanel(parent))
-    , m_realSpacePanel(new Sample3DPanel(parent))
+    , m_realSpacePanel(new Sample3DPanel(parent->models()->sampleModel(),
+                                         m_treeWidget->treeView()->selectionModel(), parent))
 {
     addWidget(WIDGET_BOX, m_widgetBox, Qt::LeftDockWidgetArea);
     addWidget(SAMPLE_TREE, m_treeWidget, Qt::RightDockWidgetArea);

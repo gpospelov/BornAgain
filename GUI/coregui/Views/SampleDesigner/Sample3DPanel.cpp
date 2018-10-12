@@ -13,12 +13,28 @@
 // ************************************************************************** //
 
 #include "Sample3DPanel.h"
+#include "RealSpaceWidget.h"
+#include <QHBoxLayout>
 
-Sample3DPanel::Sample3DPanel(QWidget* parent)
+Sample3DPanel::Sample3DPanel(SampleModel* sampleModel,
+                             QItemSelectionModel* selectionModel, QWidget* parent)
     : QWidget(parent)
+    , m_realSpaceWidget(nullptr)
 {
     setWindowTitle("Real Space");
     setObjectName("Sample3DPanel");
+
+#ifdef BORNAGAIN_OPENGL
+    QHBoxLayout* layout = new QHBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
+
+    m_realSpaceWidget = new RealSpaceWidget(sampleModel, selectionModel);
+    layout->addWidget(m_realSpaceWidget);
+
+    setLayout(layout);
+#endif
 
 }
 

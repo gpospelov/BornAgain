@@ -31,6 +31,10 @@ public:
 
     void setSelectionModel(QItemSelectionModel* selection_model);
 
+    SampleModel* sampleModel();
+
+    QItemSelectionModel* selectionModel();
+
 private:
     SampleModel* m_model;
     QItemSelectionModel* m_selection_model;

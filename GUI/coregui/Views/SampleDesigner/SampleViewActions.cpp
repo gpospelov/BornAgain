@@ -26,3 +26,13 @@ void SampleViewActions::setSelectionModel(QItemSelectionModel* selection_model)
 {
     m_selection_model = selection_model;
 }
+
+SampleModel* SampleViewActions::sampleModel()
+{
+    return m_model;
+}
+
+QItemSelectionModel* SampleViewActions::selectionModel()
+{
+    return m_selection_model;
+}

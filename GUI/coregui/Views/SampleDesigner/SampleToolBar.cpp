@@ -15,6 +15,7 @@
 #include "SampleToolBar.h"
 #include "DesignerView.h"
 #include "MaterialItemUtils.h"
+#include "SampleViewActions.h"
 #include <QAction>
 #include <QButtonGroup>
 #include <QComboBox>
@@ -27,10 +28,9 @@
 #include <RealSpaceDialog.h>
 
 //! main tool bar on top of SampleView window
-SampleToolBar::SampleToolBar(SampleModel* sampleModel, QItemSelectionModel* selectionModel,
-                             SampleViewActions* sampleActions,
+SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
                              QWidget* parent)
-    : StyledToolBar(parent), m_sampleModel(sampleModel), m_selectionModel(selectionModel),
+    : StyledToolBar(parent),
       m_dialog(nullptr), m_sampleViewActions(sampleActions), m_dialog_on(false)
 {
     // Select & Pan
@@ -175,10 +175,10 @@ void SampleToolBar::onRealSpaceViewerCall()
 
 SampleModel* SampleToolBar::sampleModel()
 {
-    return m_sampleModel;
+    return m_sampleViewActions->sampleModel();
 }
 
 QItemSelectionModel* SampleToolBar::selectionModel()
 {
-    return m_selectionModel;
+    return m_sampleViewActions->selectionModel();
 }

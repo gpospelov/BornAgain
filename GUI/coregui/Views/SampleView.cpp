@@ -66,7 +66,7 @@ void SampleView::connectSignals()
             this, &SampleView::onDockMenuRequest);
 
     // toolBar should be initialized after MaterialBrowser
-    m_toolBar = new SampleToolBar(models()->sampleModel(), selectionModel(), m_actions, this);
+    m_toolBar = new SampleToolBar(m_actions, this);
     connect(m_toolBar, SIGNAL(deleteItems()), sampleDesigner()->getView(),
             SLOT(deleteSelectedItems()));
     connect(m_toolBar, SIGNAL(selectionMode(int)), sampleDesigner()->getView(),

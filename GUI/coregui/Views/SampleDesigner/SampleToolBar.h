@@ -35,9 +35,7 @@ class BA_CORE_API_ SampleToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    explicit SampleToolBar(SampleModel* sampleModel = nullptr,
-                           QItemSelectionModel* selectionModel = nullptr,
-                           SampleViewActions* sampleActions = nullptr,
+    explicit SampleToolBar(SampleViewActions* sampleActions = nullptr,
                            QWidget* parent = nullptr);
 
 signals:
@@ -69,8 +67,6 @@ private:
     QAction* m_zoomOutAction;
 
     QToolButton* m_RealSpaceViewerButton;
-    SampleModel* m_sampleModel;
-    QItemSelectionModel* m_selectionModel;
     RealSpaceDialog* m_dialog;
 
     SampleViewActions* m_sampleViewActions;

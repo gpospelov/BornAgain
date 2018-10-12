@@ -39,6 +39,11 @@ SampleView::SampleView(MainWindow* mainWindow)
 
 ApplicationModels* SampleView::models() { return m_models; }
 
+SampleViewDocks* SampleView::docks()
+{
+    return m_docks;
+}
+
 void SampleView::onDockMenuRequest()
 {
     std::unique_ptr<QMenu> menu(createPopupMenu());

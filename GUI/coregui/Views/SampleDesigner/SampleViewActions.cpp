@@ -13,10 +13,15 @@
 // ************************************************************************** //
 
 #include "SampleViewActions.h"
+#include "SampleView.h"
+#include "SampleViewDocks.h"
+#include <QDockWidget>
+#include <QAction>
 
-SampleViewActions::SampleViewActions(SampleModel* model, QObject* parent)
+SampleViewActions::SampleViewActions(SampleModel* model, SampleView* parent)
     : QObject(parent)
     , m_model(model)
+    , m_sampleView(parent)
     , m_selection_model(nullptr)
 {
 
@@ -35,4 +40,9 @@ SampleModel* SampleViewActions::sampleModel()
 QItemSelectionModel* SampleViewActions::selectionModel()
 {
     return m_selection_model;
+}
+
+void SampleViewActions::onToggleRealSpaceView()
+{
+    m_sampleView->docks()->togleDock(SampleViewDocks::REALSPACEPANEL);
 }

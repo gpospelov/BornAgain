@@ -131,6 +131,17 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
     connect(m_RealSpaceViewerButton, &QToolButton::clicked, this, &SampleToolBar::onRealSpaceViewerCall);
     addWidget(m_RealSpaceViewerButton);
 
+
+    // RealSpace 3D Viewer, version 2
+    addWidget(new QLabel(" "));
+    m_RealSpaceViewerButton2 = new QToolButton;
+    m_RealSpaceViewerButton2->setText("3D Viewer");
+    m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");
+    connect(m_RealSpaceViewerButton2, &QToolButton::clicked,
+            m_sampleViewActions, &SampleViewActions::onToggleRealSpaceView);
+    addWidget(m_RealSpaceViewerButton2);
+
     // Additional actions
     m_zoomOutAction = new QAction(this);
     m_zoomOutAction->setShortcut(QKeySequence(Qt::Key_Minus));

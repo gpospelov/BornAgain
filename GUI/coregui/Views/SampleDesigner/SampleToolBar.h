@@ -67,6 +67,7 @@ private:
     QAction* m_zoomOutAction;
 
     QToolButton* m_RealSpaceViewerButton;
+    QToolButton* m_RealSpaceViewerButton2;
     RealSpaceDialog* m_dialog;
 
     SampleViewActions* m_sampleViewActions;

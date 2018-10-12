@@ -81,7 +81,6 @@ private:
 
     //! Refresh axes' labels, range and graph data.
     void refreshPlotData();
-    void refreshPlotData(Data1DProperties* item);
 
     //! Sets (xmin,xmax) and (ymin,ymax) of SpecularPlot from specular item.
     //! Also sets logarithmic scale on y-axis if necessary.

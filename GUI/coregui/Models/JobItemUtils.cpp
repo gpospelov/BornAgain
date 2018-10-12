@@ -49,24 +49,8 @@ QMap<AxesUnits, QString> init_description_to_units_map()
     return result;
 }
 
-//! Sets simulation results into the DataItem
-void setResultsToDataItem(DataItem* intensityItem, const Simulation* simulation);
-
 //! Updates axes' titles
 void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, AxesUnits units);
-}
-
-void JobItemUtils::setResults(JobItem* jobItem, const Simulation* simulation)
-{
-    auto dataItem = jobItem->dataItem();
-    Q_ASSERT(dataItem);
-
-    if (dataItem->modelType() == Constants::IntensityDataType
-        || dataItem->modelType() == Constants::SpecularDataType) {
-        setResultsToDataItem(dataItem, simulation);
-    } else {
-        throw GUIHelpers::Error("JobItemUtils::setResults() -> Error. Unsupported data item.");
-    }
 }
 
 //! Updates axes of OutputData in IntensityData item to correspond with ::P_AXES_UNITS selection.
@@ -148,9 +132,7 @@ void JobItemUtils::createDefaultDetectorMap(DataItem* intensityItem,
     updateAxesTitle(intensityItem, *converter, converter->defaultUnits());
 }
 
-namespace
-{
-void setResultsToDataItem(DataItem* intensityItem, const Simulation* simulation)
+void JobItemUtils::setResults(DataItem* intensityItem, const Simulation* simulation)
 {
     const auto sim_result = simulation->result();
     if (intensityItem->getOutputData() == nullptr) {
@@ -163,6 +145,8 @@ void setResultsToDataItem(DataItem* intensityItem, const Simulation* simulation)
     intensityItem->setOutputData(data.release());
 }
 
+namespace
+{
 void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter,
                      AxesUnits units)
 {

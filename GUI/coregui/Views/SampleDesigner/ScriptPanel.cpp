@@ -22,6 +22,7 @@ ScriptPanel::ScriptPanel(QWidget *parent)
     , m_pySampleWidget(new PySampleWidget(this))
 {
     setWindowTitle("Python Script Viewer");
+    setObjectName("ScriptPanel");
 
     m_stackedWidget->addWidget(m_pySampleWidget);
 

@@ -22,6 +22,7 @@
 #include "SampleViewActions.h"
 #include "SampleViewStatusBar.h"
 #include <QMenu>
+#include <memory>
 
 SampleView::SampleView(MainWindow* mainWindow)
     : Manhattan::FancyMainWindow(mainWindow), m_models(mainWindow->models())

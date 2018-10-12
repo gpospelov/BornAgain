@@ -24,6 +24,7 @@
 #include "Sample3DPanel.h"
 #include <QDockWidget>
 #include <QTreeView>
+#include <QAction>
 
 SampleViewDocks::SampleViewDocks(SampleView* parent)
     : DocksController(parent), m_sampleDesigner(new SampleDesigner(parent)),
@@ -77,6 +78,10 @@ void SampleViewDocks::onResetLayout()
 {
     DocksController::onResetLayout();
     mainWindow()->tabifyDockWidget(findDock(REALSPACEPANEL), findDock(INFO));
+    findDock(REALSPACEPANEL)->raise(); // makes first tab active
+
+    findDock(REALSPACEPANEL)->hide();
+    findDock(INFO)->hide();
 }
 
 SampleDesigner* SampleViewDocks::sampleDesigner()

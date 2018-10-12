@@ -17,7 +17,8 @@
 Sample3DPanel::Sample3DPanel(QWidget* parent)
     : QWidget(parent)
 {
-    setWindowTitle("Real Space View");
+    setWindowTitle("Real Space");
+    setObjectName("Sample3DPanel");
 
 }
 

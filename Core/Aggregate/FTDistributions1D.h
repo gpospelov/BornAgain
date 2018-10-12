@@ -39,7 +39,9 @@ public:
     void setOmega(double omega) { m_omega = omega; }
     double omega() const { return m_omega; }
 
+#ifndef SWIG
     virtual std::unique_ptr<IDistribution1DSampler> createSampler() const=0;
+#endif
 
 protected:
     void init_parameters();
@@ -59,7 +61,9 @@ public:
     FTDistribution1DCauchy* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+#ifndef SWIG
     std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+#endif
 };
 
 
@@ -75,7 +79,9 @@ public:
     FTDistribution1DGauss* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+#ifndef SWIG
     std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+#endif
 };
 
 
@@ -91,7 +97,9 @@ public:
     FTDistribution1DGate* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+#ifndef SWIG
     std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+#endif
 };
 
 
@@ -107,7 +115,9 @@ public:
     FTDistribution1DTriangle* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+#ifndef SWIG
     std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+#endif
 };
 
 
@@ -124,7 +134,9 @@ public:
     FTDistribution1DCosine* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
+#ifndef SWIG
     std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+#endif
 };
 
 
@@ -145,7 +157,9 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
     double eta() const { return m_eta;}    
+#ifndef SWIG
     std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+#endif
 
 protected:
     double m_eta;

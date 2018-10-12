@@ -25,9 +25,7 @@
 
 #include "fancymainwindow.h"
 
-#include "algorithm.h"
 #include "qtcassert.h"
-#include "stringutils.h"
 
 #include <QAbstractButton>
 #include <QApplication>
@@ -42,6 +40,7 @@
 #include <QStyleOption>
 #include <QTimer>
 #include <QToolButton>
+#include <algorithm>
 
 static const char AutoHideTitleBarsKey[] = "AutoHideTitleBars";
 static const char ShowCentralWidgetKey[] = "ShowCentralWidget";
@@ -50,7 +49,17 @@ static const char StateKey[] = "State";
 static const int settingsVersion = 2;
 static const char dockWidgetActiveState[] = "DockWidgetActiveState";
 
-namespace Utils {
+namespace {
+QString stripAccelerator(const QString &text)
+{
+    QString res = text;
+    for (int index = res.indexOf('&'); index != -1; index = res.indexOf('&', index + 1))
+        res.remove(index, 1);
+    return res;
+}
+}
+
+namespace Manhattan {
 
 class TitleBarWidget;
 
@@ -255,7 +264,7 @@ DockWidget::DockWidget(QWidget *inner, FancyMainWindow *parent, bool immutable)
 
     QString title = inner->windowTitle();
     toggleViewAction()->setProperty("original_title", title);
-    title = Utils::stripAccelerator(title);
+    title = stripAccelerator(title);
     setWindowTitle(title);
 
     QStyleOptionDockWidget opt;
@@ -536,7 +545,7 @@ void FancyMainWindow::addDockActionsToMenu(QMenu *menu)
             actions.append(action);
         }
     }
-    Utils::sort(actions, [](const QAction *action1, const QAction *action2) {
+    std::sort(actions.begin(), actions.end(), [](const QAction *action1, const QAction *action2) {
         QTC_ASSERT(action1, return true);
         QTC_ASSERT(action2, return false);
         return stripAccelerator(action1->text()).toLower() < stripAccelerator(action2->text()).toLower();

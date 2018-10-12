@@ -23,9 +23,10 @@
 **
 ****************************************************************************/
 
-#pragma once
+#ifndef FANCYMAINWINDOW_H
+#define FANCYMAINWINDOW_H
 
-#include "utils_global.h"
+#include "qt-manhattan-style_global.hpp"
 
 #include <QMainWindow>
 
@@ -33,11 +34,11 @@ QT_BEGIN_NAMESPACE
 class QSettings;
 QT_END_NAMESPACE
 
-namespace Utils {
+namespace Manhattan {
 
 struct FancyMainWindowPrivate;
 
-class QTCREATOR_UTILS_EXPORT FancyMainWindow : public QMainWindow
+class QTMANHATTANSTYLESHARED_EXPORT FancyMainWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -89,3 +90,5 @@ private:
 };
 
 } // namespace Utils
+
+#endif

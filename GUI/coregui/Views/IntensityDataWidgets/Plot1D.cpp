@@ -32,8 +32,10 @@ int getBin(double x, const QCPGraph* graph);
 }
 
 Plot1D::Plot1D(QWidget* parent)
-    : ScientificPlot(parent, PLOT_TYPE::Plot1D), m_custom_plot(new QCustomPlot),
-      m_update_timer(new UpdateTimer(replot_update_interval, this)), m_block_update(true)
+    : ScientificPlot(parent, PLOT_TYPE::Plot1D)
+    , m_custom_plot(new QCustomPlot)
+    , m_update_timer(new UpdateTimer(replot_update_interval, this))
+    , m_block_update(false)
 {
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(0, 0, 0, 0);
@@ -126,7 +128,7 @@ void Plot1D::subscribeToItem()
     std::for_each(m_graph_map.begin(), m_graph_map.end(), [caller=this](auto pair) {
         auto property_item = pair.first;
         property_item->dataItem()->mapper()->setOnValueChange(
-            [caller, property_item]() { caller->refreshPlotData(property_item); }, caller);
+            [caller]() { caller->refreshPlotData(); }, caller);
     });
 
     setConnected(true);
@@ -194,30 +196,17 @@ void Plot1D::setUpdateTimerConnected(bool isConnected)
 
 void Plot1D::refreshPlotData()
 {
-    auto view_item = viewItem();
-    assert(view_item);
+    if (m_block_update)
+        return;
 
     m_block_update = true;
+
+    auto view_item = viewItem();
+    assert(view_item);
 
     setAxesRangeFromItem(view_item);
     setAxesLabelsFromItem(view_item);
     updateAllGraphs();
-
-    replot();
-
-    m_block_update = false;
-}
-
-void Plot1D::refreshPlotData(Data1DProperties* item)
-{
-    auto view_item = viewItem();
-    assert(view_item && item);
-
-    m_block_update = true;
-
-    setAxesRangeFromItem(view_item);
-    setAxesLabelsFromItem(view_item);
-    updateGraph(item);
 
     replot();
 

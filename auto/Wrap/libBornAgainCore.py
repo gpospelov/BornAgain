@@ -22756,6 +22756,11 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getChildren(self)
 
+
+    def randomSample(self):
+        """randomSample(InterferenceFunctionRadialParaCrystal self) -> double"""
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_randomSample(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
     __del__ = lambda self: None
 InterferenceFunctionRadialParaCrystal_swigregister = _libBornAgainCore.InterferenceFunctionRadialParaCrystal_swigregister

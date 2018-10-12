@@ -32,6 +32,8 @@ SampleView::SampleView(MainWindow* mainWindow)
     , m_statusBar(new SampleViewStatusBar(mainWindow))
 {
     setObjectName("SampleView");
+    m_actions->setSelectionModel(selectionModel());
+
     connectSignals();
 }
 
@@ -64,7 +66,7 @@ void SampleView::connectSignals()
             this, &SampleView::onDockMenuRequest);
 
     // toolBar should be initialized after MaterialBrowser
-    m_toolBar = new SampleToolBar(models()->sampleModel(), selectionModel(), this);
+    m_toolBar = new SampleToolBar(models()->sampleModel(), selectionModel(), m_actions, this);
     connect(m_toolBar, SIGNAL(deleteItems()), sampleDesigner()->getView(),
             SLOT(deleteSelectedItems()));
     connect(m_toolBar, SIGNAL(selectionMode(int)), sampleDesigner()->getView(),

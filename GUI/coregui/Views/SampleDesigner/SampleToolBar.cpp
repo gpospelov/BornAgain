@@ -28,9 +28,10 @@
 
 //! main tool bar on top of SampleView window
 SampleToolBar::SampleToolBar(SampleModel* sampleModel, QItemSelectionModel* selectionModel,
+                             SampleViewActions* sampleActions,
                              QWidget* parent)
     : StyledToolBar(parent), m_sampleModel(sampleModel), m_selectionModel(selectionModel),
-      m_dialog(nullptr), m_dialog_on(false)
+      m_dialog(nullptr), m_sampleViewActions(sampleActions), m_dialog_on(false)
 {
     // Select & Pan
     auto selectionPointerButton = new QToolButton;
@@ -164,10 +165,20 @@ void SampleToolBar::onRealSpaceViewerCall()
     // keep only one instance of dialog alive using a boolean flag
     if (!m_dialog_on) {
         m_dialog_on = true;
-        m_dialog = new RealSpaceDialog(m_sampleModel, m_selectionModel, this);
+        m_dialog = new RealSpaceDialog(sampleModel(), selectionModel(), this);
         m_dialog->show();
 
         // undo the flag when the dialog is destroyed on close event
         connect(m_dialog, &QAction::destroyed, this, [&]() { m_dialog_on = false; });
     }
+}
+
+SampleModel* SampleToolBar::sampleModel()
+{
+    return m_sampleModel;
+}
+
+QItemSelectionModel* SampleToolBar::selectionModel()
+{
+    return m_selectionModel;
 }

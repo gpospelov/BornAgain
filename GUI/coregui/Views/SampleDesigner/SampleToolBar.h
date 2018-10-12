@@ -26,6 +26,7 @@ class QString;
 class QButtonGroup;
 class SampleModel;
 class RealSpaceDialog;
+class SampleViewActions;
 
 //! The SampleToolBar class represents a main toolbar on top of SampleView window
 
@@ -36,6 +37,7 @@ class BA_CORE_API_ SampleToolBar : public StyledToolBar
 public:
     explicit SampleToolBar(SampleModel* sampleModel = nullptr,
                            QItemSelectionModel* selectionModel = nullptr,
+                           SampleViewActions* sampleActions = nullptr,
                            QWidget* parent = nullptr);
 
 signals:
@@ -54,6 +56,9 @@ public slots:
     void onRealSpaceViewerCall();
 
 private:
+    SampleModel* sampleModel();
+    QItemSelectionModel* selectionModel();
+
     QButtonGroup* m_pointerModeGroup;
     QToolButton* m_removeButton;
     QToolButton* m_centerViewButton;
@@ -67,6 +72,8 @@ private:
     SampleModel* m_sampleModel;
     QItemSelectionModel* m_selectionModel;
     RealSpaceDialog* m_dialog;
+
+    SampleViewActions* m_sampleViewActions;
 
     bool m_dialog_on;
 };

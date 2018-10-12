@@ -68,6 +68,8 @@ public:
 
     bool autoHideTitleBars() const;
 
+    QMenu *createPopupMenu() override;
+
 signals:
     // Emitted by resetLayoutAction(). Connect to a slot
     // restoring the default layout.

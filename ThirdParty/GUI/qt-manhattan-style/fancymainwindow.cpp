@@ -532,6 +532,13 @@ bool FancyMainWindow::autoHideTitleBars() const
     return d->m_autoHideTitleBars.isChecked();
 }
 
+QMenu* FancyMainWindow::createPopupMenu()
+{
+    QMenu *menu = new QMenu(this);
+    addDockActionsToMenu(menu);
+    return menu;
+}
+
 void FancyMainWindow::addDockActionsToMenu(QMenu *menu)
 {
     QList<QAction *> actions;

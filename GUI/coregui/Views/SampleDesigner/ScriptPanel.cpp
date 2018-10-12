@@ -14,6 +14,7 @@
 
 #include "ScriptPanel.h"
 #include "PySampleWidget.h"
+#include "InfoPanelToolBar.h"
 #include <QResizeEvent>
 #include <QStackedWidget>
 
@@ -27,6 +28,7 @@ ScriptPanel::ScriptPanel(QWidget *parent)
     m_stackedWidget->addWidget(m_pySampleWidget);
 
     setContentVisible(false);
+    m_toolBar->hide();
 }
 
 void ScriptPanel::setSampleModel(SampleModel *sampleModel)

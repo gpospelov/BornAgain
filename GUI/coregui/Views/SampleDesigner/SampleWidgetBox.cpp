@@ -27,6 +27,8 @@ SampleWidgetBox::SampleWidgetBox(SampleDesignerInterface *core, QWidget *parent)
     , m_core(core)
     , m_widgetBox(0)
 {
+    setWindowTitle(QLatin1String("Widget Box"));
+    setObjectName(QLatin1String("WidgetBox"));
     //Manhattan::StyledBar *bar = new Manhattan::StyledBar(this);
 
     setWindowTitle("Items Toolbox");
@@ -34,9 +36,6 @@ SampleWidgetBox::SampleWidgetBox(SampleDesignerInterface *core, QWidget *parent)
     m_widgetBox = new qdesigner_internal::WidgetBox(m_core, this);
     m_widgetBox->setFileName(QStringLiteral(":/widgetbox/widgetbox.xml"));
     m_widgetBox->load();
-    m_widgetBox->setWindowTitle(QLatin1String("Widget Box"));
-    m_widgetBox->setObjectName(QLatin1String("WidgetBox"));
-
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);

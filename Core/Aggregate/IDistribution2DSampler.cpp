@@ -39,7 +39,12 @@ std::pair<double, double> Distribution2DCauchySampler::randomSample() const
         phi = phi - func / funcDeriv;
 
         if (std::abs(func / funcDeriv) < 0.001)
-            convergedSoln = true;
+        {
+            if (phi < 0)
+                phi = uniformDist(gen); // make another guess as only positive solution for phi is acceptable
+            else
+                convergedSoln = true;
+        }
     }
 
     double alpha = uniformDist(gen);
@@ -58,7 +63,6 @@ std::pair<double, double> Distribution2DGaussSampler::randomSample() const
 
     // solve for phi from the cdf of radial marginalzed distribution
     double phi = std::sqrt(-2*std::log(1-cdf_value_phi));
-
     double alpha = uniformDist(gen);
 
     return std::make_pair(m_omega_x*phi*std::cos(M_2_PI*alpha),
@@ -75,7 +79,6 @@ std::pair<double, double> Distribution2DGateSampler::randomSample() const
 
     // solve for phi from the cdf of radial marginalzed distribution
     double phi = std::sqrt(cdf_value_phi);
-
     double alpha = uniformDist(gen);
 
     return std::make_pair(m_omega_x*phi*std::cos(M_2_PI*alpha),

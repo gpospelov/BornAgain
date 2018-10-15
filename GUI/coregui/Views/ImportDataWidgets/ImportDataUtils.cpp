@@ -86,8 +86,6 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::Import1dData(QString& baseN
     if (fileName.isEmpty())
         return nullptr;
 
-    std::unique_ptr<OutputData<double>> result;
-
     QString newImportDir = GUIHelpers::fileDir(fileName);
     if (newImportDir != dirname)
         AppSvc::projectManager()->setImportDir(newImportDir);
@@ -99,9 +97,7 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::Import1dData(QString& baseN
     if(!UseImportAssistant(fileName, data))
         return nullptr;
 
-    result = CreateSimplifiedOutputData(*data.get());
-
-    return result;
+    return data;
 }
 
 bool ImportDataUtils::UseImportAssistant(QString& fileName, std::unique_ptr<OutputData<double>>& result){

@@ -119,12 +119,7 @@ double FTDistribution2DGate::evaluate(double qx, double qy) const
 
 std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() const
 {
-    // TODO Need to implement 2D Gate
-
-    std::ostringstream ostr;
-    ostr << "FTDistribution2DGate::createSampler() -> Error in class initialization";
-    ostr << "\n\n Has not been implemented yet...stay tuned!";
-    throw Exceptions::ClassInitializationException(ostr.str());
+    return std::make_unique<Distribution2DGateSampler>(m_omega_x, m_omega_y);
 }
 
 FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma)

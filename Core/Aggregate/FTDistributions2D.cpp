@@ -96,12 +96,7 @@ double FTDistribution2DGauss::evaluate(double qx, double qy) const
 
 std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() const
 {
-    // TODO Need to implement 2D Gauss
-
-    std::ostringstream ostr;
-    ostr << "FTDistribution2DGauss::createSampler() -> Error in class initialization";
-    ostr << "\n\n Has not been implemented yet...stay tuned!";
-    throw Exceptions::ClassInitializationException(ostr.str());
+    return std::make_unique<Distribution2DGaussSampler>(m_omega_x, m_omega_y);
 }
 
 FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma)

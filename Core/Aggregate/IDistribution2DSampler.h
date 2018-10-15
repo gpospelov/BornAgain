@@ -49,5 +49,15 @@ private:
     double m_omega_x, m_omega_y;
 };
 
+class BA_CORE_API_ Distribution2DGateSampler : public IDistribution2DSampler
+{
+public:
+    Distribution2DGateSampler(double omega_x, double omega_y) :
+        m_omega_x(omega_x), m_omega_y(omega_y) {}
+    std::pair<double, double> randomSample() const final;
+
+private:
+    double m_omega_x, m_omega_y;
+};
 
 #endif // IDISTRIBUTION2DSAMPLER_H

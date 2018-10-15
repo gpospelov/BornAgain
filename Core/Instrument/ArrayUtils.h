@@ -119,20 +119,20 @@ template<class T> decltype(auto) ArrayUtils::createVector2D(const T& data)
 {
     using value_type = typename T::value_type;
     std::vector<std::vector<value_type>> result;
+    std::vector<std::vector<value_type>> buffer2d;
+    std::vector<value_type> buffer1d;
 
     const size_t nrows = data.getAxis(1).size();
     const size_t ncols = data.getAxis(0).size();
 
-    result.resize(nrows);
-
-    for(size_t row=0; row<nrows; ++row) {
-        result[row].resize(ncols, 0.0);
-        for(size_t col=0; col<ncols; ++col) {
-            size_t globalbin = nrows - row - 1 + col*nrows;
-            result[row][col] = data[globalbin];
+    for(size_t i = 0 ; i < nrows; i++){
+        buffer1d.clear();
+        for(size_t j = 0 ; j < ncols; j++){
+            size_t globalbin = nrows * (j+1) - i - 1;
+            buffer1d.push_back(data[globalbin]);
         }
+        result.push_back(buffer1d);
     }
-
     return result;
 }
 

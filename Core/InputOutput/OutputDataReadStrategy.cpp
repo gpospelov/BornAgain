@@ -15,6 +15,7 @@
 #include "OutputDataReadStrategy.h"
 #include "OutputData.h"
 #include "DataFormatUtils.h"
+#include "ArrayUtils.h"
 #include "TiffHandler.h"
 #include <stdexcept> // need overlooked by g++ 5.4
 
@@ -55,33 +56,22 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
 
     if (ncols == 0)
         throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
-                                 "Can't parse file");
+                                     "Can't parse file");
 
     for(size_t row=0; row<nrows; row++) {
         if(data[row].size() != ncols)
             throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
-                                     "Number of elements is different from row to row.");
+                                         "Number of elements is different from row to row.");
     }
-    OutputData<double>* result = new OutputData<double>;
-    result->addAxis("x", ncols, 0.0, double(ncols));
-    result->addAxis("y", nrows, 0.0, double(nrows));
-    std::vector<unsigned> axes_indices(2);
-    for(unsigned row=0; row<nrows; row++) {
-        for(unsigned col=0; col<ncols; col++) {
-            axes_indices[0] = col;
-            axes_indices[1] = static_cast<unsigned>(nrows) - 1 - row;
-            size_t global_index = result->toGlobalIndex(axes_indices);
-            (*result)[global_index] = data[row][col];
-        }
-    }
-    return result;
+    std::unique_ptr<OutputData<double>> result = ArrayUtils::createData2D(data);
+    return result.release();
 }
 
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
 OutputDataReadTiffStrategy::OutputDataReadTiffStrategy()
-    : m_d(new TiffHandler)
+        : m_d(new TiffHandler)
 {}
 
 OutputDataReadTiffStrategy::~OutputDataReadTiffStrategy()

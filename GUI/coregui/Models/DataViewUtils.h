@@ -24,9 +24,6 @@ template<class T> class OutputData;
 
 namespace DataViewUtils
 {
-//! Initializes Data1DViewItem and assigns it to the passed JobItem
-void initDataView(JobItem* jobItem);
-
 void updateAxesTitle(Data1DViewItem* view_item);
 
 std::unique_ptr<OutputData<double>> getTranslatedData(Data1DViewItem* view_item,

@@ -15,6 +15,7 @@
 #ifndef JOBITEMUTILS_H
 #define JOBITEMUTILS_H
 
+#include "ComboProperty.h"
 #include "IDetector.h"
 #include <QMap>
 
@@ -49,6 +50,8 @@ BA_CORE_API_ void createDefaultDetectorMap(DataItem* intensityItem,
 
 //! Sets simulation results into the DataItem
 BA_CORE_API_ void setResults(DataItem* intensityItem, const Simulation* simulation);
+
+BA_CORE_API_ ComboProperty availableUnits(const IUnitConverter& converter);
 }
 
 #endif // JOBITEMUTILS_H

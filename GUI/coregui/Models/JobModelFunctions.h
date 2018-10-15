@@ -26,6 +26,9 @@ class InstrumentItem;
 
 namespace JobModelFunctions
 {
+//! Initializes Data1DViewItem and assigns it to the passed JobItem
+BA_CORE_API_ void initDataView(JobItem* jobItem);
+
 //! Properly copies instrument into job item
 BA_CORE_API_ void setupJobItemInstrument(JobItem* jobItem, const InstrumentItem* instrumentItem);
 

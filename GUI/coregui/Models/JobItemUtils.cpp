@@ -111,14 +111,7 @@ void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
 void JobItemUtils::setIntensityItemAxesUnits(DataItem *intensityItem,
                                              const IUnitConverter& converter)
 {
-    ComboProperty combo;
-
-    for (auto units : converter.availableUnits())
-        combo << nameFromAxesUnits(units);
-
-    AxesUnits preferrable_units = converter.defaultUnits();
-
-    combo.setValue(nameFromAxesUnits(preferrable_units));
+    ComboProperty combo = availableUnits(converter);
     intensityItem->setItemValue(DataItem::P_AXES_UNITS, combo.variant());
 }
 
@@ -143,6 +136,16 @@ void JobItemUtils::setResults(DataItem* intensityItem, const Simulation* simulat
     auto selected_units = JobItemUtils::axesUnitsFromName(intensityItem->selectedAxesUnits());
     std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
     intensityItem->setOutputData(data.release());
+}
+
+ComboProperty JobItemUtils::availableUnits(const IUnitConverter& converter)
+{
+    ComboProperty result;
+    for (auto units : converter.availableUnits())
+        result << nameFromAxesUnits(units);
+
+    result.setValue(nameFromAxesUnits(converter.defaultUnits()));
+    return result;
 }
 
 namespace

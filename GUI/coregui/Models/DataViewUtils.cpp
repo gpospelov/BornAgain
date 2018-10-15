@@ -40,44 +40,6 @@ AxesUnits selectedUnits(Data1DViewItem* view_item)
         = view_item->getItemValue(Data1DViewItem::P_AXES_UNITS).value<ComboProperty>().getValue();
     return units_from_names[current_unit_name];
 }
-
-ComboProperty availableUnits(const IUnitConverter* converter)
-{
-    assert(converter);
-
-    ComboProperty result;
-    for (auto units : converter->availableUnits())
-        result << names_from_units[units];
-
-    result.setValue(names_from_units[converter->defaultUnits()]);
-    return result;
-}
-}
-
-void DataViewUtils::initDataView(JobItem* job_item)
-{
-    assert(job_item && job_item->isValidForFitting());
-    assert(job_item->instrumentItem()
-           && job_item->instrumentItem()->modelType() == Constants::SpecularInstrumentType);
-    assert(!job_item->getItem(JobItem::T_DATAVIEW));
-
-    SessionModel* model = job_item->model();
-    auto view_item = dynamic_cast<Data1DViewItem*>(model->insertNewItem(
-        Constants::Data1DViewItemType, job_item->index(), -1, JobItem::T_DATAVIEW));
-    assert(view_item);
-
-    auto property_container = dynamic_cast<DataPropertyContainer*>(model->insertNewItem(
-        Constants::DataPropertyContainerType, view_item->index(), -1, Data1DViewItem::T_DATA_PROPERTIES));
-    assert(property_container);
-
-    property_container->addItem(job_item->realDataItem()->dataItem());
-    property_container->addItem(job_item->dataItem());
-
-    // also triggers Data1DViewItem::setAxesRangeToData and DataViewUtils::updateAxesTitle by
-    // setting new value of P_AXES_UNITS.
-    auto converter = DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
-    view_item->setItemValue(Data1DViewItem::P_AXES_UNITS,
-                            availableUnits(converter.get()).variant());
 }
 
 void DataViewUtils::updateAxesTitle(Data1DViewItem* view_item)

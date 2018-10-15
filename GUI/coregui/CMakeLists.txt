@@ -37,6 +37,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/MaskWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/AccordionWidget
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/ImportDataWidgets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Views/ImportDataWidgets/CsvImportAssistant
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/CommonWidgets
     ${CMAKE_CURRENT_SOURCE_DIR}/Views/SpecularDataWidgets
 )

@@ -34,7 +34,7 @@ std::pair<double, double> Distribution2DCauchySampler::randomSample() const
     bool convergedSoln = false;
     while (!convergedSoln) {
         func = (phi + 1)*std::exp(-phi) + cdf_value_phi - 1;
-        funcDeriv = std::exp(-phi) - (phi+1)*std::exp(-phi);
+        funcDeriv = -phi*std::exp(-phi);
 
         phi = phi - func / funcDeriv;
 

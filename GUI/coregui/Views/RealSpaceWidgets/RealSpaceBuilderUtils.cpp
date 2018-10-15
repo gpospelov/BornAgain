@@ -43,8 +43,6 @@
 #include "VectorItem.h"
 #include <AppSvc.h>
 
-#include <random>
-
 namespace
 {
 const double layerBorderWidth = 10.0;
@@ -293,7 +291,8 @@ void RealSpaceBuilderUtils::populate2DParacrystalType(
     const Lattice2D& lattice2DParacrystal = interference2DParacrystal->lattice();
 
     std::vector<std::vector<double>> lattice_positions =
-            compute2DParacrystalLatticePositions(lattice2DParacrystal.length1(),
+            compute2DParacrystalLatticePositions(interference2DParacrystal,
+                                                 lattice2DParacrystal.length1(),
                                                  lattice2DParacrystal.length2(),
                                                  lattice2DParacrystal.latticeAngle(),
                                                  lattice2DParacrystal.rotationAngle(),
@@ -304,6 +303,7 @@ void RealSpaceBuilderUtils::populate2DParacrystalType(
 }
 
 std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatticePositions(
+    const InterferenceFunction2DParaCrystal* interference2DParacrystal,
     double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry)
 {
     double layer_size = sceneGeometry.layer_size();
@@ -326,21 +326,19 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
     lattice_positions[0][0] = 0.0; // x coordinate of reference particle - at the origin
     lattice_positions[0][1] = 0.0; // y coordinate of reference particle - at the origin
 
+    // random x-y pair to be drawn from correspondonding pdf
+    std::pair<double, double> sampleXYpdf1, sampleXYpdf2;
+
     double offset_x_pdf1 = 0, offset_y_pdf1 = 0;
-    double gamma_pdf1 = M_PI_4;    // TODO : to be retrieved
+    double gamma_pdf1 = interference2DParacrystal->gammaPdf1();
 
     double offset_x_pdf2 = 0, offset_y_pdf2 = 0;
-    double gamma_pdf2 = M_PI_4;    // TODO : to be retrieved
+    double gamma_pdf2 = interference2DParacrystal->gammaPdf2();
 
     size_t index_pl1 = 0; // index for particles along +l1
     size_t index_ml1 = 0; // index for particles along -l1
     size_t index_pl2 = 0; // index for particles along +l2
     size_t index_ml2 = 0; // index for particles along -l2
-
-    // This is just for generating random numbers for testing purpose
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::normal_distribution<double> normalDist(0, 4);
 
     // positions of 2*n1+1 particles situated ONLY along the l1 lattice vector axis (both +/- axes)
     // wrt origin (reference particle) are stored in j = 1...2*n1 indices of lattice_positions
@@ -350,8 +348,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
         if (j - 2 > 0)
             index_pl1 = static_cast<size_t>(j - 2);
 
-        offset_x_pdf1 = normalDist(gen); // TODO : to be retrieved
-        offset_y_pdf1 = normalDist(gen); // TODO : to be retrieved
+        sampleXYpdf1 = interference2DParacrystal->randomSampleXYpdf1();
+        offset_x_pdf1 = sampleXYpdf1.first;
+        offset_y_pdf1 = sampleXYpdf1.second;
 
         lattice_positions[static_cast<size_t>(j)][0] =
                 lattice_positions[index_pl1][0] + l1 * std::cos(l_xi) +
@@ -369,8 +368,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
         if (j - 2 > 0)
             index_ml1 = static_cast<size_t>(j - 2);
 
-        offset_x_pdf1 = normalDist(gen); // TODO : to be retrieved
-        offset_y_pdf1 = normalDist(gen); // TODO : to be retrieved
+        sampleXYpdf1 = interference2DParacrystal->randomSampleXYpdf1();
+        offset_x_pdf1 = sampleXYpdf1.first;
+        offset_y_pdf1 = sampleXYpdf1.second;
 
         lattice_positions[static_cast<size_t>(j)][0] =
                 lattice_positions[index_ml1][0] - l1 * std::cos(l_xi) +
@@ -390,8 +390,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
         if (i - 2 > 0)
             index_pl2 = static_cast<size_t>(i*(2*n1+1) - 2*(2*n1+1));
 
-        offset_x_pdf2 = normalDist(gen); // TODO : to be retrieved
-        offset_y_pdf2 = normalDist(gen); // TODO : to be retrieved
+        sampleXYpdf2 = interference2DParacrystal->randomSampleXYpdf2();
+        offset_x_pdf2 = sampleXYpdf2.first;
+        offset_y_pdf2 = sampleXYpdf2.second;
 
         lattice_positions[static_cast<size_t>(i*(2*n1+1))][0] =
                 lattice_positions[index_pl2][0] + l2 * std::cos(l_alpha + l_xi) +
@@ -409,8 +410,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
         if (i - 2 > 0)
             index_ml2 = static_cast<size_t>(i*(2*n1+1) - 2*(2*n1+1));
 
-        offset_x_pdf2 = normalDist(gen); // TODO : to be retrieved
-        offset_y_pdf2 = normalDist(gen); // TODO : to be retrieved
+        sampleXYpdf2 = interference2DParacrystal->randomSampleXYpdf2();
+        offset_x_pdf2 = sampleXYpdf2.first;
+        offset_y_pdf2 = sampleXYpdf2.second;
 
         lattice_positions[static_cast<size_t>(i*(2*n1+1))][0] =
                 lattice_positions[index_ml2][0] - l2 * std::cos(l_alpha + l_xi) +
@@ -436,8 +438,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
                 if (j - 2 > 0)
                     index_pl1 = static_cast<size_t>(i*(2*n1+1) + j - 2);
 
-                offset_x_pdf1 = normalDist(gen); // TODO : to be retrieved
-                offset_y_pdf1 = normalDist(gen); // TODO : to be retrieved
+                sampleXYpdf1 = interference2DParacrystal->randomSampleXYpdf1();
+                offset_x_pdf1 = sampleXYpdf1.first;
+                offset_y_pdf1 = sampleXYpdf1.second;
 
                 x_pl1 = lattice_positions[index_pl1][0] + l1 * std::cos(l_xi) +
                         offset_x_pdf1*std::cos(gamma_pdf1) +
@@ -450,8 +453,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
                 if (i - 2 > 0)
                     index_pl2 = static_cast<size_t>(i*(2*n1+1) + j - 2*(2*n1+1));
 
-                offset_x_pdf2 = normalDist(gen); // TODO : to be retrieved
-                offset_y_pdf2 = normalDist(gen); // TODO : to be retrieved
+                sampleXYpdf2 = interference2DParacrystal->randomSampleXYpdf2();
+                offset_x_pdf2 = sampleXYpdf2.first;
+                offset_y_pdf2 = sampleXYpdf2.second;
 
                 x_pl2 = lattice_positions[index_pl2][0] + l2 * std::cos(l_alpha + l_xi) +
                         offset_x_pdf2*std::cos(gamma_pdf2) +
@@ -470,8 +474,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
                 if (j - 2 > 0)
                     index_ml1 = static_cast<size_t>(i*(2*n1+1) + j - 2);
 
-                offset_x_pdf1 = normalDist(gen); // TODO : to be retrieved
-                offset_y_pdf1 = normalDist(gen); // TODO : to be retrieved
+                sampleXYpdf1 = interference2DParacrystal->randomSampleXYpdf1();
+                offset_x_pdf1 = sampleXYpdf1.first;
+                offset_y_pdf1 = sampleXYpdf1.second;
 
                 x_ml1 = lattice_positions[index_ml1][0] - l1 * std::cos(l_xi) +
                         offset_x_pdf1*std::cos(gamma_pdf1) +
@@ -485,8 +490,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
                 if (i - 2 > 0)
                     index_pl2 = static_cast<size_t>(i*(2*n1+1) + j - 2*(2*n1+1));
 
-                offset_x_pdf2 = normalDist(gen); // TODO : to be retrieved
-                offset_y_pdf2 = normalDist(gen); // TODO : to be retrieved
+                sampleXYpdf2 = interference2DParacrystal->randomSampleXYpdf2();
+                offset_x_pdf2 = sampleXYpdf2.first;
+                offset_y_pdf2 = sampleXYpdf2.second;
 
                 x_pl2 = lattice_positions[index_pl2][0] + l2 * std::cos(l_alpha + l_xi) +
                         offset_x_pdf2*std::cos(gamma_pdf2) +
@@ -505,8 +511,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
                 if (j - 2 > 0)
                     index_pl1 = static_cast<size_t>(i*(2*n1+1) + j - 2);
 
-                offset_x_pdf1 = normalDist(gen); // TODO : to be retrieved
-                offset_y_pdf1 = normalDist(gen); // TODO : to be retrieved
+                sampleXYpdf1 = interference2DParacrystal->randomSampleXYpdf1();
+                offset_x_pdf1 = sampleXYpdf1.first;
+                offset_y_pdf1 = sampleXYpdf1.second;
 
                 x_pl1 = lattice_positions[index_pl1][0] + l1 * std::cos(l_xi) +
                         offset_x_pdf1*std::cos(gamma_pdf1) +
@@ -519,8 +526,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
                 if (i - 2 > 0)
                     index_ml2 = static_cast<size_t>(i*(2*n1+1) + j - 2*(2*n1+1));
 
-                offset_x_pdf2 = normalDist(gen); // TODO : to be retrieved
-                offset_y_pdf2 = normalDist(gen); // TODO : to be retrieved
+                sampleXYpdf2 = interference2DParacrystal->randomSampleXYpdf2();
+                offset_x_pdf2 = sampleXYpdf2.first;
+                offset_y_pdf2 = sampleXYpdf2.second;
 
                 x_ml2 = lattice_positions[index_ml2][0] - l2 * std::cos(l_alpha + l_xi) +
                         offset_x_pdf2*std::cos(gamma_pdf2) +
@@ -539,8 +547,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
                 if (j - 2 > 0)
                     index_ml1 = static_cast<size_t>(i*(2*n1+1) + j - 2);
 
-                offset_x_pdf1 = normalDist(gen); // TODO : to be retrieved
-                offset_y_pdf1 = normalDist(gen); // TODO : to be retrieved
+                sampleXYpdf1 = interference2DParacrystal->randomSampleXYpdf1();
+                offset_x_pdf1 = sampleXYpdf1.first;
+                offset_y_pdf1 = sampleXYpdf1.second;
 
                 x_ml1 = lattice_positions[index_ml1][0] - l1 * std::cos(l_xi) +
                         offset_x_pdf1*std::cos(gamma_pdf1) +
@@ -554,8 +563,9 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::compute2DParacrystalLatt
                 if (i - 2 > 0)
                     index_ml2 = static_cast<size_t>(i*(2*n1+1) + j - 2*(2*n1+1));
 
-                offset_x_pdf2 = normalDist(gen); // TODO : to be retrieved
-                offset_y_pdf2 = normalDist(gen); // TODO : to be retrieved
+                sampleXYpdf2 = interference2DParacrystal->randomSampleXYpdf2();
+                offset_x_pdf2 = sampleXYpdf2.first;
+                offset_y_pdf2 = sampleXYpdf2.second;
 
                 x_ml2 = lattice_positions[index_ml2][0] - l2 * std::cos(l_alpha + l_xi) +
                         offset_x_pdf2*std::cos(gamma_pdf2) +

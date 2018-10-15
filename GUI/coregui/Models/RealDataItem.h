@@ -31,6 +31,9 @@ public:
     static const QString T_INTENSITY_DATA;
     static const QString P_INSTRUMENT_ID;
     static const QString P_INSTRUMENT_NAME;
+    static const QString P_NATIVE_AXIS;
+    static const QString P_NATIVE_UNITS;
+
     RealDataItem();
 
     IntensityDataItem* intensityDataItem();

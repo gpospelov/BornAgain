@@ -25,6 +25,8 @@
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
 const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
+const QString RealDataItem::P_NATIVE_AXIS = "Native user data axis";
+const QString RealDataItem::P_NATIVE_UNITS = "Native user data units";
 
 RealDataItem::RealDataItem()
     : SessionItem(Constants::RealDataType)
@@ -35,13 +37,13 @@ RealDataItem::RealDataItem()
     // Registering this tag even without actual data item to avoid troubles in copying RealDataItem
     registerTag(T_INTENSITY_DATA, 1, 1,
                 QStringList() << Constants::IntensityDataType << Constants::SpecularDataType);
-
-    // TODO: allows to access underlying data item, should be removed. But it is not clear,
-    // what happens if default tag is not present.
     setDefaultTag(T_INTENSITY_DATA);
 
     addProperty(P_INSTRUMENT_ID, QString());
     addProperty(P_INSTRUMENT_NAME, QString());
+
+    addGroupProperty(P_NATIVE_AXIS, Constants::PointwiseAxisType);
+    addProperty(P_NATIVE_UNITS, Constants::UnitsNbins)->setVisible(false);
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_NAME && getItem(T_INTENSITY_DATA))

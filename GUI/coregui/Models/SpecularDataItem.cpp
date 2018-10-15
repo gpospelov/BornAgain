@@ -163,6 +163,16 @@ void SpecularDataItem::resetToDefault()
     setAxesRangeToData();
 }
 
+void SpecularDataItem::reset(const ImportDataInfo& data)
+{
+    DataItem::reset(data);
+
+    setXaxisTitle(data.axisLabel(0));
+    setYaxisTitle(data.axisLabel(1));
+    setOutputData(data.intensityData().release());
+    setAxesRangeToData();
+}
+
 void SpecularDataItem::setLowerX(double xmin)
 {
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN, xmin);

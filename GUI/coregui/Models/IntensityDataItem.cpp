@@ -241,6 +241,20 @@ void IntensityDataItem::resetToDefault()
     converter.convertFromNbins(this);
 }
 
+void IntensityDataItem::reset(const ImportDataInfo& data)
+{
+    assert(data.unitsLabel() == Constants::UnitsNbins);
+    DataItem::reset(data);
+
+    setXaxisTitle(data.axisLabel(0));
+    setYaxisTitle(data.axisLabel(1));
+    MaskUnitsConverter converter;
+    converter.convertToNbins(this);
+    setOutputData(data.intensityData().release());
+    setAxesRangeToData();
+    converter.convertFromNbins(this);
+}
+
 void IntensityDataItem::setLowerX(double xmin)
 {
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN, xmin);

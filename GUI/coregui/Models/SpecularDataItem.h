@@ -70,6 +70,7 @@ public:
 
     //! Returns data to default state (no dimensional units, default axes' names)
     void resetToDefault() override;
+    void reset(const ImportDataInfo& data) override;
 
 public slots:
     void setLowerX(double xmin);

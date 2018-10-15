@@ -16,6 +16,7 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "ImportDataInfo.h"
 #include "IntensityDataIOFactory.h"
 
 const QString DataItem::P_FILE_NAME = "FileName";
@@ -88,6 +89,13 @@ QString DataItem::selectedAxesUnits() const
 void DataItem::resetToDefault()
 {
     ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
+    setItemValue(DataItem::P_AXES_UNITS, combo.variant());
+    getItem(DataItem::P_AXES_UNITS)->setVisible(true);
+}
+
+void DataItem::reset(const ImportDataInfo& data)
+{
+    ComboProperty combo = ComboProperty() << data.unitsLabel();
     setItemValue(DataItem::P_AXES_UNITS, combo.variant());
     getItem(DataItem::P_AXES_UNITS)->setVisible(true);
 }

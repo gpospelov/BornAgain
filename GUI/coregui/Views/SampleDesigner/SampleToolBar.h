@@ -16,10 +16,7 @@
 #define SAMPLETOOLBAR_H
 
 #include "StyledToolBar.h"
-
-#include "SampleModel.h"
 #include <QTreeView>
-#include "RealSpaceDialog.h"
 
 class QAction;
 class QToolButton;
@@ -27,6 +24,9 @@ class QToolBar;
 class QComboBox;
 class QString;
 class QButtonGroup;
+class SampleModel;
+class RealSpaceDialog;
+class SampleViewActions;
 
 //! The SampleToolBar class represents a main toolbar on top of SampleView window
 
@@ -35,9 +35,8 @@ class BA_CORE_API_ SampleToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    explicit SampleToolBar(SampleModel* sampleModel = nullptr,
-                           QItemSelectionModel* selectionModel = nullptr,
-                           QWidget *parent = 0);
+    explicit SampleToolBar(SampleViewActions* sampleActions = nullptr,
+                           QWidget* parent = nullptr);
 
 signals:
     void deleteItems();
@@ -50,25 +49,28 @@ signals:
 
 public slots:
     void onViewSelectionMode(int);
-    void onScaleComboChanged(const QString &);
+    void onScaleComboChanged(const QString&);
     void onMaterialEditorCall();
-
     void onRealSpaceViewerCall();
 
 private:
-    QButtonGroup *m_pointerModeGroup;
-    QToolButton *m_removeButton;
-    QToolButton *m_centerViewButton;
-    QToolButton *m_alignItemsButton;
-    QComboBox *m_scaleCombo;
-    QToolButton *m_materialEditorButton;
-    QAction *m_zoomInAction;
-    QAction *m_zoomOutAction;
+    SampleModel* sampleModel();
+    QItemSelectionModel* selectionModel();
 
-    QToolButton *m_RealSpaceViewerButton;
-    SampleModel *m_sampleModel;
-    QItemSelectionModel *m_selectionModel;
-    RealSpaceDialog *m_dialog;
+    QButtonGroup* m_pointerModeGroup;
+    QToolButton* m_removeButton;
+    QToolButton* m_centerViewButton;
+    QToolButton* m_alignItemsButton;
+    QComboBox* m_scaleCombo;
+    QToolButton* m_materialEditorButton;
+    QAction* m_zoomInAction;
+    QAction* m_zoomOutAction;
+
+    QToolButton* m_RealSpaceViewerButton;
+    QToolButton* m_RealSpaceViewerButton2;
+    RealSpaceDialog* m_dialog;
+
+    SampleViewActions* m_sampleViewActions;
 
     bool m_dialog_on;
 };

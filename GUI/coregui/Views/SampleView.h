@@ -38,6 +38,8 @@ public:
 
     ApplicationModels* models();
 
+    SampleViewDocks* docks();
+
 public slots:
     void onDockMenuRequest();
 

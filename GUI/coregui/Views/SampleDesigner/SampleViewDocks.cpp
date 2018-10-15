@@ -21,21 +21,26 @@
 #include "SampleTreeWidget.h"
 #include "SampleView.h"
 #include "SampleWidgetBox.h"
+#include "Sample3DPanel.h"
 #include <QDockWidget>
 #include <QTreeView>
+#include <QAction>
 
 SampleViewDocks::SampleViewDocks(SampleView* parent)
     : DocksController(parent), m_sampleDesigner(new SampleDesigner(parent)),
       m_widgetBox(new SampleWidgetBox(sampleDesigner(), parent)),
       m_treeWidget(new SampleTreeWidget(parent, parent->models()->sampleModel())),
       m_propertyWidget(
-          new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent)),
-      m_scriptPanel(new ScriptPanel(parent))
+          new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent))
+    , m_scriptPanel(new ScriptPanel(parent))
+    , m_realSpacePanel(new Sample3DPanel(parent->models()->sampleModel(),
+                                         m_treeWidget->treeView()->selectionModel(), parent))
 {
     addWidget(WIDGET_BOX, m_widgetBox, Qt::LeftDockWidgetArea);
     addWidget(SAMPLE_TREE, m_treeWidget, Qt::RightDockWidgetArea);
     addWidget(PROPERTY_EDITOR, m_propertyWidget, Qt::RightDockWidgetArea);
     addWidget(INFO, m_scriptPanel, Qt::BottomDockWidgetArea);
+    addWidget(REALSPACEPANEL, m_realSpacePanel, Qt::BottomDockWidgetArea);
 
     connect(m_scriptPanel, &ScriptPanel::widgetHeightRequest, this,
             &DocksController::setDockHeightForWidget);
@@ -68,6 +73,22 @@ SampleTreeWidget* SampleViewDocks::treeWidget()
 SamplePropertyWidget* SampleViewDocks::propertyWidget()
 {
     return m_propertyWidget;
+}
+
+void SampleViewDocks::onResetLayout()
+{
+    DocksController::onResetLayout();
+    mainWindow()->tabifyDockWidget(findDock(REALSPACEPANEL), findDock(INFO));
+    findDock(REALSPACEPANEL)->raise(); // makes first tab active
+
+    findDock(REALSPACEPANEL)->hide();
+    findDock(INFO)->hide();
+}
+
+void SampleViewDocks::togleDock(int id)
+{
+    auto dock = findDock(id);
+    dock->setHidden(!dock->isHidden());
 }
 
 SampleDesigner* SampleViewDocks::sampleDesigner()

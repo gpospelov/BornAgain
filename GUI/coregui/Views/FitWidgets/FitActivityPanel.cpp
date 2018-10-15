@@ -36,6 +36,7 @@ FitActivityPanel::FitActivityPanel(JobModel *jobModel, QWidget *parent)
     , m_fitSessionManager(new FitSessionManager(this))
 {
     setWindowTitle(Constants::JobFitPanelName);
+    setObjectName("FitActivityPanel");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     auto mainLayout = new QVBoxLayout;

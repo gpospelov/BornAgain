@@ -47,6 +47,9 @@ public slots:
     void dockToMinMaxSizes();
     void onWidgetCloseRequest();
 
+protected:
+    Manhattan::FancyMainWindow* mainWindow();
+
 private:
     struct DockSizeInfo {
         DockSizeInfo() : m_dock(nullptr) {}

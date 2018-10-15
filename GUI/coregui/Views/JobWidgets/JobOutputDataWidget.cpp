@@ -29,6 +29,7 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     , m_stackedWidget(new ItemStackPresenter<JobResultsPresenter>(reuse_widget))
 {
     setWindowTitle(QLatin1String("Job OutputData"));
+    setObjectName("JobOutputDataWidget");
 
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

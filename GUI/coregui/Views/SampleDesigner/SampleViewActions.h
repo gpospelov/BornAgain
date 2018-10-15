@@ -20,6 +20,7 @@
 
 class SampleModel;
 class QItemSelectionModel;
+class SampleView;
 
 //! Holds all actions of SampleView.
 
@@ -27,12 +28,20 @@ class SampleViewActions : public QObject
 {
     Q_OBJECT
 public:
-    SampleViewActions(SampleModel* model, QObject* parent);
+    SampleViewActions(SampleModel* model, SampleView* parent);
 
     void setSelectionModel(QItemSelectionModel* selection_model);
 
+    SampleModel* sampleModel();
+
+    QItemSelectionModel* selectionModel();
+
+public slots:
+    void onToggleRealSpaceView();
+
 private:
     SampleModel* m_model;
+    SampleView* m_sampleView;
     QItemSelectionModel* m_selection_model;
 };
 

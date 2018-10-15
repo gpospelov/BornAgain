@@ -24,6 +24,7 @@ JobMessagePanel::JobMessagePanel(QWidget *parent)
     , m_plainLog(new QTextEdit)
 {
     setWindowTitle(Constants::JobMessagePanelName);
+    setObjectName("JobMessagePanel");
 
     m_plainLog->setReadOnly(true);
 //    m_plainLog->setMaximumBlockCount(100000);

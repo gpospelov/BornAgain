@@ -15,11 +15,27 @@
 #ifndef IDISTRIBUTION2DSAMPLER_H
 #define IDISTRIBUTION2DSAMPLER_H
 
+#include "WinDllMacros.h"
+#include <utility>
 
-class IDistribution2DSampler
+class BA_CORE_API_ IDistribution2DSampler
 {
 public:
-    IDistribution2DSampler();
+    IDistribution2DSampler() {}
+    virtual ~IDistribution2DSampler();
+
+    virtual std::pair<double, double> randomSample() const=0;
+};
+
+class BA_CORE_API_ Distribution2DCauchySampler : public IDistribution2DSampler
+{
+public:
+    Distribution2DCauchySampler(double omega_x, double omega_y) :
+        m_omega_x(omega_x), m_omega_y(omega_y) {}
+    std::pair<double, double> randomSample() const final;
+
+private:
+    double m_omega_x, m_omega_y;
 };
 
 #endif // IDISTRIBUTION2DSAMPLER_H

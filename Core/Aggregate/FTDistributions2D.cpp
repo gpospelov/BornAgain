@@ -20,6 +20,7 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
+#include "Exceptions.h"
 
 //! Constructor of two-dimensional probability distribution.
 //! @param omega_x: half-width of the distribution along its x-axis in nanometers
@@ -71,6 +72,11 @@ double FTDistribution2DCauchy::evaluate(double qx, double qy) const
     return std::pow(1.0 + sumsq(qx, qy), -1.5);
 }
 
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DCauchy::createSampler() const
+{
+    return std::make_unique<Distribution2DCauchySampler>(m_omega_x, m_omega_y);
+}
+
 FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma)
     : IFTDistribution2D(omega_x, omega_y, gamma)
 {
@@ -86,6 +92,16 @@ FTDistribution2DGauss* FTDistribution2DGauss::clone() const
 double FTDistribution2DGauss::evaluate(double qx, double qy) const
 {
     return std::exp(-sumsq(qx, qy) / 2);
+}
+
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() const
+{
+    // TODO Need to implement 2D Gauss
+
+    std::ostringstream ostr;
+    ostr << "FTDistribution2DGauss::createSampler() -> Error in class initialization";
+    ostr << "\n\n Has not been implemented yet...stay tuned!";
+    throw Exceptions::ClassInitializationException(ostr.str());
 }
 
 FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma)
@@ -104,6 +120,16 @@ double FTDistribution2DGate::evaluate(double qx, double qy) const
 {
     double scaled_q = std::sqrt(sumsq(qx, qy));
     return MathFunctions::Bessel_J1c(scaled_q) * 2.0;
+}
+
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() const
+{
+    // TODO Need to implement 2D Gate
+
+    std::ostringstream ostr;
+    ostr << "FTDistribution2DGate::createSampler() -> Error in class initialization";
+    ostr << "\n\n Has not been implemented yet...stay tuned!";
+    throw Exceptions::ClassInitializationException(ostr.str());
 }
 
 FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma)
@@ -126,6 +152,16 @@ double FTDistribution2DCone::evaluate(double qx, double qy) const
     auto integrator = make_integrator_real(this, &FTDistribution2DCone::coneIntegrand2);
     double integral = integrator->integrate(0.0, scaled_q);
     return 6.0 * (MathFunctions::Bessel_J1c(scaled_q) - integral / scaled_q / scaled_q / scaled_q);
+}
+
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() const
+{
+    // TODO Need to implement 2D Cone
+
+    std::ostringstream ostr;
+    ostr << "FTDistribution2DCone::createSampler() -> Error in class initialization";
+    ostr << "\n\n Has not been implemented yet...stay tuned!";
+    throw Exceptions::ClassInitializationException(ostr.str());
 }
 
 double FTDistribution2DCone::coneIntegrand2(double value) const
@@ -160,4 +196,14 @@ double FTDistribution2DVoigt::evaluate(double qx, double qy) const
 {
     double sum_sq = sumsq(qx, qy);
     return m_eta * std::exp(-sum_sq / 2) + (1.0 - m_eta) * std::pow(1.0 + sum_sq, -1.5);
+}
+
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DVoigt::createSampler() const
+{
+    // TODO Need to implement 2D Voigt
+
+    std::ostringstream ostr;
+    ostr << "FTDistribution2DVoigt::createSampler() -> Error in class initialization";
+    ostr << "\n\n Has not been implemented yet...stay tuned!";
+    throw Exceptions::ClassInitializationException(ostr.str());
 }

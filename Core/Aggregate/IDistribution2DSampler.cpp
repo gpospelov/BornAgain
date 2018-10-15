@@ -81,3 +81,39 @@ std::pair<double, double> Distribution2DGateSampler::randomSample() const
     return std::make_pair(m_omega_x*phi*std::cos(M_2_PI*alpha),
                           m_omega_y*phi*std::sin(M_2_PI*alpha));
 }
+
+std::pair<double, double> Distribution2DConeSampler::randomSample() const
+{
+    std::random_device rd;  // random device class instance
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+    std::uniform_real_distribution<double> uniformDist(0.0, 1.0);
+
+    double cdf_value_phi = uniformDist(gen);
+
+    // solve for phi from the cdf of radial marginalzed distribution using Newton-Raphson method
+    double func = 0.0, funcDeriv = 0.0, phi = 0.0;
+
+    // initial guess for phi
+    phi = 0.5;
+
+    bool convergedSoln = false;
+    while (!convergedSoln) {
+        func = 2*std::pow(phi,3) - 3*std::pow(phi,2) + cdf_value_phi;
+        funcDeriv = 6*std::pow(phi,2) - 6*phi;
+
+        phi = phi - func / funcDeriv;
+
+        if (std::abs(func / funcDeriv) < 0.001)
+        {
+            if (phi < 0 || phi > 1)
+                phi = uniformDist(gen); // only accept a solution for phi if it lies within [0,1]
+            else
+                convergedSoln = true;
+        }
+    }
+
+    double alpha = uniformDist(gen);
+
+    return std::make_pair(m_omega_x*phi*std::cos(M_2_PI*alpha),
+                          m_omega_y*phi*std::sin(M_2_PI*alpha));
+}

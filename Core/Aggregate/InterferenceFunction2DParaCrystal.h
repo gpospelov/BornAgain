@@ -73,6 +73,19 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
+    double gammaPdf1() const { return m_pdf1->gamma(); }
+    double gammaPdf2() const { return m_pdf2->gamma(); }
+
+    std::pair<double, double> randomSampleXYpdf1() const
+    {
+        return m_pdf1->createSampler()->randomSample();
+    }
+
+    std::pair<double, double> randomSampleXYpdf2() const
+    {
+        return m_pdf2->createSampler()->randomSample();
+    }
+
 private:
     InterferenceFunction2DParaCrystal(const InterferenceFunction2DParaCrystal& other);
     void setLattice(const Lattice2D& lattice);

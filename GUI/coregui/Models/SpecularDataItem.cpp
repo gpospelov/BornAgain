@@ -150,19 +150,6 @@ std::vector<int> SpecularDataItem::shape() const
     return {getNbins()};
 }
 
-void SpecularDataItem::resetToDefault()
-{
-    assert(getOutputData()
-           && "SpecularDataItem::resetToDefault assertion failed: associated output data should "
-              "not be empty");
-    DataItem::resetToDefault();
-
-    setXaxisTitle(x_axis_default_name);
-    setYaxisTitle(y_axis_default_name);
-    setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*getOutputData()).release());
-    setAxesRangeToData();
-}
-
 void SpecularDataItem::reset(const ImportDataInfo& data)
 {
     DataItem::reset(data);

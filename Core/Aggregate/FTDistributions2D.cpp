@@ -146,12 +146,7 @@ double FTDistribution2DCone::evaluate(double qx, double qy) const
 
 std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() const
 {
-    // TODO Need to implement 2D Cone
-
-    std::ostringstream ostr;
-    ostr << "FTDistribution2DCone::createSampler() -> Error in class initialization";
-    ostr << "\n\n Has not been implemented yet...stay tuned!";
-    throw Exceptions::ClassInitializationException(ostr.str());
+    return std::make_unique<Distribution2DConeSampler>(m_omega_x, m_omega_y);
 }
 
 double FTDistribution2DCone::coneIntegrand2(double value) const

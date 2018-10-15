@@ -15,6 +15,8 @@
 #ifndef DATAVIEWUTILS_H
 #define DATAVIEWUTILS_H
 
+#include "IUnitConverter.h"
+#include <QString>
 #include <memory>
 
 class DataItem;

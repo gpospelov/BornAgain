@@ -1,31 +1,13 @@
 #include "DataViewUtils.h"
-#include "ComboProperty.h"
 #include "DataItem.h"
 #include "Data1DViewItem.h"
 #include "DomainObjectBuilder.h"
-#include "GUIHelpers.h"
-#include "InstrumentItems.h"
-#include "IUnitConverter.h"
 #include "JobItem.h"
-#include "OutputData.h"
+#include "JobItemUtils.h"
 #include "DataPropertyContainer.h"
-#include "RealDataItem.h"
-#include "SessionModel.h"
 #include "UnitConverterUtils.h"
 
 namespace {
-const QMap<QString, AxesUnits> units_from_names{{Constants::UnitsNbins, AxesUnits::NBINS},
-                                                {Constants::UnitsRadians, AxesUnits::RADIANS},
-                                                {Constants::UnitsDegrees, AxesUnits::DEGREES},
-                                                {Constants::UnitsMm, AxesUnits::MM},
-                                                {Constants::UnitsQyQz, AxesUnits::QSPACE}};
-
-const QMap<AxesUnits, QString> names_from_units{{AxesUnits::NBINS, Constants::UnitsNbins},
-                                                {AxesUnits::RADIANS, Constants::UnitsRadians},
-                                                {AxesUnits::MM, Constants::UnitsMm},
-                                                {AxesUnits::QSPACE, Constants::UnitsQyQz},
-                                                {AxesUnits::DEGREES, Constants::UnitsDegrees}};
-
 std::unique_ptr<IUnitConverter> getConverter(Data1DViewItem* view_item)
 {
     auto job_item = view_item->jobItem();
@@ -38,7 +20,7 @@ AxesUnits selectedUnits(Data1DViewItem* view_item)
 {
     auto current_unit_name
         = view_item->getItemValue(Data1DViewItem::P_AXES_UNITS).value<ComboProperty>().getValue();
-    return units_from_names[current_unit_name];
+    return JobItemUtils::axesUnitsFromName(current_unit_name);
 }
 }
 

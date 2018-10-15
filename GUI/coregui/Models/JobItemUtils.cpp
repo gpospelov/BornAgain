@@ -27,27 +27,17 @@
 
 namespace
 {
-QMap<QString, AxesUnits> init_units_to_description_map()
-{
-    QMap<QString, AxesUnits> result;
-    result[Constants::UnitsNbins] = AxesUnits::NBINS;
-    result[Constants::UnitsRadians] = AxesUnits::RADIANS;
-    result[Constants::UnitsDegrees] = AxesUnits::DEGREES;
-    result[Constants::UnitsMm] = AxesUnits::MM;
-    result[Constants::UnitsQyQz] = AxesUnits::QSPACE;
-    return result;
-}
+const std::map<QString, AxesUnits> units_from_names{{Constants::UnitsNbins, AxesUnits::NBINS},
+                                                    {Constants::UnitsRadians, AxesUnits::RADIANS},
+                                                    {Constants::UnitsDegrees, AxesUnits::DEGREES},
+                                                    {Constants::UnitsMm, AxesUnits::MM},
+                                                    {Constants::UnitsQyQz, AxesUnits::QSPACE}};
 
-QMap<AxesUnits, QString> init_description_to_units_map()
-{
-    QMap<AxesUnits, QString> result;
-    result[AxesUnits::NBINS] = Constants::UnitsNbins;
-    result[AxesUnits::RADIANS] = Constants::UnitsRadians;
-    result[AxesUnits::DEGREES] = Constants::UnitsDegrees;
-    result[AxesUnits::MM] = Constants::UnitsMm;
-    result[AxesUnits::QSPACE] = Constants::UnitsQyQz;
-    return result;
-}
+const std::map<AxesUnits, QString> names_from_units{{AxesUnits::NBINS, Constants::UnitsNbins},
+                                                    {AxesUnits::RADIANS, Constants::UnitsRadians},
+                                                    {AxesUnits::MM, Constants::UnitsMm},
+                                                    {AxesUnits::QSPACE, Constants::UnitsQyQz},
+                                                    {AxesUnits::DEGREES, Constants::UnitsDegrees}};
 
 //! Updates axes' titles
 void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, AxesUnits units);
@@ -87,16 +77,14 @@ void JobItemUtils::updateDataAxes(DataItem* intensityItem,
 
 QString JobItemUtils::nameFromAxesUnits(AxesUnits units)
 {
-    static QMap<AxesUnits, QString> units_to_name = init_description_to_units_map();
-    return units_to_name[units];
+    return names_from_units.at(units);
 }
 
 //! Correspondance of GUI axes units names to their domain counterpart.
 
 AxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
 {
-    static QMap<QString, AxesUnits> name_to_units = init_units_to_description_map();
-    return name_to_units[name];
+    return units_from_names.at(name);
 }
 
 //! Sets axes units suitable for given instrument.

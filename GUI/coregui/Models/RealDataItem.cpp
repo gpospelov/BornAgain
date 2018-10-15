@@ -14,13 +14,21 @@
 
 #include "RealDataItem.h"
 #include "GUIHelpers.h"
-#include "ImportDataUtils.h"
 #include "IntensityDataItem.h"
 #include "InstrumentItems.h"
 #include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "SessionModel.h"
 #include "SpecularDataItem.h"
+#include "ImportDataInfo.h"
+#include "PointwiseAxisItem.h"
+#include "PointwiseAxis.h"
+
+namespace
+{
+ImportDataInfo composeDefaultData(std::unique_ptr<OutputData<double>> data, const IAxis* axis,
+                                  const QString& units_label);
+}
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
@@ -113,6 +121,34 @@ void RealDataItem::setOutputData(OutputData<double>* data)
     dataItem()->setOutputData(data);
 }
 
+void RealDataItem::initDataItem(size_t data_rank)
+{
+    assert(data_rank <=2 && data_rank > 0);
+    const QString& target_model_type =
+        data_rank == 2 ? Constants::IntensityDataType : Constants::SpecularDataType;
+    auto data_item = getItem(T_INTENSITY_DATA);
+    if (data_item && data_item->modelType() != target_model_type)
+        throw GUIHelpers::Error("Error in RealDataItem::setOutputData: trying to set data "
+                                "incompatible with underlying data item");
+    if (!data_item)
+        this->model()->insertNewItem(target_model_type, this->index(), 0, T_INTENSITY_DATA);
+}
+
+void RealDataItem::setImportData(ImportDataInfo data) {
+    if (!data)
+        return;
+
+    initDataItem(data.dataRank());
+    dataItem()->reset(data);
+
+    QString units_name = data.unitsLabel();
+    getItem(P_NATIVE_UNITS)->setValue(units_name);
+    if (units_name != Constants::UnitsNbins) {
+        auto custom_axis_item = dynamic_cast<PointwiseAxisItem*>(getItem(P_NATIVE_AXIS));
+        custom_axis_item->setAxis(&data.intensityData()->getAxis(0));
+    }
+}
+
 void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_update)
 {
     m_linkedInstrument = instrument;
@@ -152,10 +188,29 @@ void RealDataItem::updateIntensityDataFileName()
 
 void RealDataItem::updateToInstrument()
 {
-    if (DataItem* item = dataItem()) {
-        if (!m_linkedInstrument)
-            item->resetToDefault();
-        else
-            JobItemUtils::setIntensityItemAxesUnits(item, m_linkedInstrument);
+    if (DataItem* data_item = dataItem()) {
+        if (!m_linkedInstrument) {
+            auto default_data = composeDefaultData(
+                std::unique_ptr<OutputData<double>>(dataItem()->getOutputData()->clone()),
+                item<PointwiseAxisItem>(P_NATIVE_AXIS).getAxis(),
+                getItemValue(P_NATIVE_UNITS).toString());
+            data_item->reset(default_data);
+        } else
+            JobItemUtils::setIntensityItemAxesUnits(data_item, m_linkedInstrument);
     }
+}
+
+namespace
+{
+ImportDataInfo composeDefaultData(std::unique_ptr<OutputData<double>> data, const IAxis* axis,
+                                  const QString& units_label)
+{
+    if (units_label == Constants::UnitsNbins)
+        return ImportDataInfo(std::move(data), units_label);
+
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    result->addAxis(*axis);
+    result->setRawDataVector(data->getRawDataVector());
+    return ImportDataInfo(std::move(result), units_label);
+}
 }

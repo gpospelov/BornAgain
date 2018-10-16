@@ -16,6 +16,7 @@
 #define IMPORTDATAUTILS_H
 
 #include "WinDllMacros.h"
+#include "ImportDataInfo.h"
 #include <QString>
 #include <memory>
 #include <vector>
@@ -31,7 +32,7 @@ namespace ImportDataUtils
 {
 
 BA_CORE_API_ std::unique_ptr<OutputData<double>> Import2dData(QString& baseNameOfLoadedFile);
-BA_CORE_API_ std::unique_ptr<OutputData<double>> Import1dData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ ImportDataInfo Import1dData(QString& baseNameOfLoadedFile);
 BA_CORE_API_ bool UseImportAssistant(QString& fileName, std::unique_ptr<OutputData<double>>& result);
 
 

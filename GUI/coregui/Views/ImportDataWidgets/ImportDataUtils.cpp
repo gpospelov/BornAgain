@@ -77,16 +77,14 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseN
     return result;
 }
 
-std::unique_ptr<OutputData<double>> ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
+ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
-    QString fileName = QFileDialog::getOpenFileName(Q_NULLPTR, QStringLiteral("Open Intensity File"),
+    QString fileName = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Open Intensity File"),
                                                     dirname, filter_string);
 
     if (fileName.isEmpty())
-        return nullptr;
-
-    std::unique_ptr<OutputData<double>> result;
+        return ImportDataInfo();
 
     QString newImportDir = GUIHelpers::fileDir(fileName);
     if (newImportDir != dirname)
@@ -97,11 +95,9 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::Import1dData(QString& baseN
 
     std::unique_ptr<OutputData<double>> data;
     if(!UseImportAssistant(fileName, data))
-        return nullptr;
+        return ImportDataInfo();
 
-    result = CreateSimplifiedOutputData(*data.get());
-
-    return result;
+    return ImportDataInfo(std::move(data), AxesUnits::NBINS);
 }
 
 bool ImportDataUtils::UseImportAssistant(QString& fileName, std::unique_ptr<OutputData<double>>& result){

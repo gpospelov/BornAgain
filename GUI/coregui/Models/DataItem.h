@@ -21,6 +21,7 @@
 #include <QDateTime>
 #include <mutex>
 
+class ImportDataInfo;
 class InstrumentItem;
 
 //! Provides common functionality for IntensityDataItem and SpecularDataItem
@@ -57,8 +58,9 @@ public:
     virtual void updateAxesUnits(const InstrumentItem* instrument) = 0;
     virtual std::vector<int> shape() const = 0;
 
-    //! Returns data to default state (no dimensional units, default axes' names)
-    virtual void resetToDefault() = 0;
+    //! Returns data to the state defined by user (imported)
+    //! data.
+    virtual void reset(const ImportDataInfo& data) = 0;
 
 protected:
     DataItem(const QString& modelType);

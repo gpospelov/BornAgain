@@ -106,3 +106,28 @@ TEST_F(UnitConverter1DTest, UnitConverter1DClone)
     std::unique_ptr<UnitConverter1D> converter_clone(converter.clone());
     checkMainFunctionality(*converter_clone);
 }
+
+TEST_F(UnitConverter1DTest, NonDefaultUnitsInInput)
+{
+    PointwiseAxis axis("x", std::vector<double>{0.0, 0.5, 1.0});
+
+    EXPECT_THROW(UnitConverter1D(m_beam, axis, AxesUnits::NBINS),
+                 std::runtime_error);
+
+    UnitConverter1D converter(m_beam, axis, AxesUnits::DEGREES);
+    auto axis_deg_output = converter.createConvertedAxis(0, AxesUnits::DEGREES);
+    EXPECT_TRUE(axis.size() == axis_deg_output->size());
+    EXPECT_DOUBLE_EQ(axis[0], (*axis_deg_output)[0]);
+    EXPECT_DOUBLE_EQ(axis[1], (*axis_deg_output)[1]);
+    EXPECT_DOUBLE_EQ(axis[2], (*axis_deg_output)[2]);
+
+    auto values = axis.getBinCenters();
+    std::for_each(values.begin(), values.end(), [this](double& value){value = getQ(value);});
+    PointwiseAxis q_axis("q", values);
+    UnitConverter1D converter2(m_beam, q_axis, AxesUnits::QSPACE);
+    auto axis_rad_output = converter2.createConvertedAxis(0, AxesUnits::RADIANS);
+    EXPECT_TRUE(axis.size() == axis_rad_output->size());
+    EXPECT_DOUBLE_EQ(axis[0], (*axis_rad_output)[0]);
+    EXPECT_DOUBLE_EQ(axis[1], (*axis_rad_output)[1]);
+    EXPECT_DOUBLE_EQ(axis[2], (*axis_rad_output)[2]);
+}

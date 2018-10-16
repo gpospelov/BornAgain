@@ -225,7 +225,7 @@ InstrumentItem* JobItem::instrumentItem()
 
 void JobItem::setResults(const Simulation* simulation)
 {
-    JobItemUtils::setResults(this, simulation);
+    JobItemUtils::setResults(dataItem(), simulation);
     updateIntensityDataFileName();
 }
 

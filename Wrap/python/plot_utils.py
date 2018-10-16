@@ -245,7 +245,7 @@ class PlotterGISAS(Plotter):
         zmax = np.amax(arr)
         zmin = zmax*1e-6
 
-        plot_colormap(real_data, title="\"Experimental\" data", zmin=zmin, zmax=zmax,
+        plot_colormap(real_data, title="Experimental data", zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(2)
@@ -291,7 +291,7 @@ class PlotterGISASV2(Plotter):
         zmax = np.amax(arr)
         zmin = zmax*1e-6
 
-        ba.plot_colormap(real_data, title="\"Experimental\" data", zmin=zmin, zmax=zmax,
+        ba.plot_colormap(real_data, title="Experimental data", zmin=zmin, zmax=zmax,
                       xlabel='', ylabel='', zlabel='')
 
         self.make_subplot(2)

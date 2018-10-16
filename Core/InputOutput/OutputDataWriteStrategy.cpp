@@ -15,6 +15,7 @@
 #include "OutputDataWriteStrategy.h"
 #include "BornAgainNamespace.h"
 #include "OutputData.h" // needed by some compilers
+#include "ArrayUtils.h"
 #include "TiffHandler.h"
 #include <cmath>
 #include <iomanip>
@@ -29,9 +30,29 @@ namespace {
         return value;
     }
 
+    void WriteArrayDataDoubles(
+        const OutputData<double>& data, std::ostream& output_stream, size_t n_columns)
+    {
+
+       std::vector<std::vector<double>> dataArray = ArrayUtils::createVector2D(data);
+       output_stream.imbue(std::locale::classic());
+       output_stream << std::scientific << std::setprecision(precision);
+       auto nrows = dataArray.size();
+       auto ncols = dataArray[0].size();
+
+       for(size_t i = 0; i < nrows; i++){
+           for(size_t j = 0; j < ncols; j++){
+               double z_value = dataArray[i][j];
+               output_stream << IgnoreDenormalized(z_value) << "    ";
+           }
+           output_stream << std::endl;
+       }
+    }
+
     void WriteOutputDataDoubles(
         const OutputData<double>& data, std::ostream& output_stream, size_t n_columns)
     {
+
         OutputData<double>::const_iterator it = data.begin();
         output_stream.imbue(std::locale::classic());
         output_stream << std::scientific << std::setprecision(precision);
@@ -45,7 +66,9 @@ namespace {
                 ncol = 0;
             }
         }
+
     }
+
 
 } // namespace
 
@@ -94,7 +117,7 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(
     output_stream << "# [nrows=" << nrows
                   << ", ncols=" << ncols << "]" << std::endl;
 
-    WriteOutputDataDoubles(data,output_stream, ncols);
+    WriteArrayDataDoubles(data,output_stream, ncols);
 }
 
 // ----------------------------------------------------------------------------

@@ -22,6 +22,7 @@ class InstrumentItem;
 class IntensityDataItem;
 class MaskContainerItem;
 template <class T> class OutputData;
+class ImportDataInfo;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
 
@@ -31,6 +32,9 @@ public:
     static const QString T_INTENSITY_DATA;
     static const QString P_INSTRUMENT_ID;
     static const QString P_INSTRUMENT_NAME;
+    static const QString P_NATIVE_AXIS;
+    static const QString P_NATIVE_UNITS;
+
     RealDataItem();
 
     IntensityDataItem* intensityDataItem();
@@ -40,6 +44,7 @@ public:
     const DataItem* dataItem() const;
 
     void setOutputData(OutputData<double>* data);
+    void setImportData(ImportDataInfo data);
 
     void linkToInstrument(const InstrumentItem* instrument, bool make_update = true);
 
@@ -53,6 +58,7 @@ public:
     MaskContainerItem* maskContainerItem();
 
 private:
+    void initDataItem(size_t data_rank);
     void updateIntensityDataFileName();
     void updateToInstrument();
     const InstrumentItem* m_linkedInstrument;

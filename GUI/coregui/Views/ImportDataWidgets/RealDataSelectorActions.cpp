@@ -14,6 +14,7 @@
 
 #include "RealDataSelectorActions.h"
 #include "GUIHelpers.h"
+#include "ImportDataInfo.h"
 #include "ImportDataUtils.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataItem.h"
@@ -141,12 +142,12 @@ void RealDataSelectorActions::onImport1dDataAction()
     Q_ASSERT(m_selectionModel);
     QString baseNameOfImportedFile;
 
-    std::unique_ptr<OutputData<double>> data = ImportDataUtils::Import1dData(baseNameOfImportedFile);
+    auto data = ImportDataUtils::Import1dData(baseNameOfImportedFile);
     if (data) {
         RealDataItem* realDataItem
             = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
         realDataItem->setItemName(baseNameOfImportedFile);
-        realDataItem->setOutputData(data.release());
+        realDataItem->setImportData(std::move(data));
         m_selectionModel->clearSelection();
         m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
     }

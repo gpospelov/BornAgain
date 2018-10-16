@@ -225,18 +225,16 @@ std::vector<int> IntensityDataItem::shape() const
     return {getNbinsX(), getNbinsY()};
 }
 
-void IntensityDataItem::resetToDefault()
+void IntensityDataItem::reset(const ImportDataInfo& data)
 {
-    assert(getOutputData()
-           && "IntensityDataItem::resetToDefault assertion failed: associated output data should "
-              "not be empty");
-    DataItem::resetToDefault();
+    assert(data.unitsLabel() == Constants::UnitsNbins);
+    DataItem::reset(data);
 
-    setXaxisTitle(x_axis_default_name);
-    setYaxisTitle(y_axis_default_name);
+    setXaxisTitle(data.axisLabel(0));
+    setYaxisTitle(data.axisLabel(1));
     MaskUnitsConverter converter;
     converter.convertToNbins(this);
-    setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*getOutputData()).release());
+    setOutputData(data.intensityData().release());
     setAxesRangeToData();
     converter.convertFromNbins(this);
 }

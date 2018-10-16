@@ -13,7 +13,8 @@
 // ************************************************************************** //
 
 #include "JobModelFunctions.h"
-#include "DataViewUtils.h"
+#include "Data1DViewItem.h"
+#include "DataPropertyContainer.h"
 #include "DetectorFunctions.h"
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
@@ -55,6 +56,32 @@ void createFitContainers(JobItem* jobItem);
 
 PointwiseAxisItem* getPointwiseAxisItem(const InstrumentItem* instrument);
 } // namespace
+
+void JobModelFunctions::initDataView(JobItem* job_item)
+{
+    assert(job_item && job_item->isValidForFitting());
+    assert(job_item->instrumentItem()
+           && job_item->instrumentItem()->modelType() == Constants::SpecularInstrumentType);
+    assert(!job_item->getItem(JobItem::T_DATAVIEW));
+
+    SessionModel* model = job_item->model();
+    auto view_item = dynamic_cast<Data1DViewItem*>(model->insertNewItem(
+        Constants::Data1DViewItemType, job_item->index(), -1, JobItem::T_DATAVIEW));
+    assert(view_item);
+
+    auto property_container = dynamic_cast<DataPropertyContainer*>(model->insertNewItem(
+        Constants::DataPropertyContainerType, view_item->index(), -1, Data1DViewItem::T_DATA_PROPERTIES));
+    assert(property_container);
+
+    property_container->addItem(job_item->realDataItem()->dataItem());
+    property_container->addItem(job_item->dataItem());
+
+    // also triggers Data1DViewItem::setAxesRangeToData and DataViewUtils::updateAxesTitle by
+    // setting new value of P_AXES_UNITS.
+    auto converter = DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
+    view_item->setItemValue(Data1DViewItem::P_AXES_UNITS,
+                            JobItemUtils::availableUnits(*converter).variant());
+}
 
 void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
                                                const InstrumentItem* instrumentItem)
@@ -112,7 +139,7 @@ void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem*
     if (jobItem->instrumentItem()->modelType() == Constants::GISASInstrumentType)
         cropRealData(jobItem);
     if (jobItem->instrumentItem()->modelType() == Constants::SpecularInstrumentType)
-        DataViewUtils::initDataView(jobItem);
+        initDataView(jobItem);
 
     createFitContainers(jobItem);
 }

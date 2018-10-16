@@ -36,19 +36,17 @@ CsvImportAssistant::CsvImportAssistant(QString& file, QWidget* parent):
       ,m_lastDataRow(0)
       ,m_intensityCol(0)
       ,m_coordinateCol(0)
-      ,m_singleCol(0)
+      ,m_units(AxesUnits::DEFAULT)
       ,m_tableWidget(nullptr)
       ,m_separatorField(nullptr)
       ,m_firstDataRowSpinBox(nullptr)
-      ,m_singleDataColSpinBox(nullptr)
       ,m_importButton(nullptr)
       ,m_csvFile(nullptr)
-      ,m_columnTypeSelector(nullptr)
-      ,m_setAsTheta(new QAction("Set as " + relevantHeaders[_theta_],nullptr))
-      ,m_setAs2Theta(new QAction("Set as " + relevantHeaders[_2theta_],nullptr))
-      ,m_setAsQ(new QAction("Set as " + relevantHeaders[_q_],nullptr))
-      ,m_setAsIntensity(new QAction("Set as " + relevantHeaders[_intensity_],nullptr))
-      ,m_setAsIntensityBins(new QAction("Use single column as intensity bins",nullptr))
+      ,m_coordinateUnitsSelector(nullptr)
+      ,m_setAsTheta(new QAction("Set as " + HeaderLabels[_theta_],nullptr))
+      ,m_setAs2Theta(new QAction("Set as " + HeaderLabels[_2theta_],nullptr))
+      ,m_setAsQ(new QAction("Set as " + HeaderLabels[_q_],nullptr))
+      ,m_setAsIntensity(new QAction("Set as " + HeaderLabels[_intensity_],nullptr))
 {
     setWindowTitle("Data Importer");
     setMinimumSize(default_dialog_size);
@@ -65,7 +63,6 @@ CsvImportAssistant::CsvImportAssistant(QString& file, QWidget* parent):
         showErrorMessage("There was a problem opening the file \"" + m_fileName.toStdString() + "\"");
         return;
     }
-
 
     Reload();
 
@@ -101,25 +98,11 @@ QBoxLayout* CsvImportAssistant::createLayout()
     m_firstDataRowSpinBox->setMaximum(1);
     m_firstDataRowSpinBox->setValue(1);
     m_firstDataRowSpinBox->setMaximumWidth(50);
-    connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),[this](){ Reload(); });
-
-    //Single Column spinBox
-    m_singleDataColSpinBox = new QSpinBox();
-    m_singleDataColSpinBox->setMinimum(0);
-    m_singleDataColSpinBox->setMaximum(0);
-    m_singleDataColSpinBox->setValue(0);
-    m_singleDataColSpinBox->setMaximumWidth(50);
-    connect(m_singleDataColSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), [this](int i){ setColumnAsBinValues(i);});
-
+    connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [this](){ Reload(); });
 
     //Column type selector
-    m_columnTypeSelector = new QComboBox();
-    m_columnTypeSelector->addAction(m_setAsTheta);
-    m_columnTypeSelector->addAction(m_setAs2Theta);
-    m_columnTypeSelector->addAction(m_setAsQ);
-    m_columnTypeSelector->addAction(m_setAsIntensity);
-    m_columnTypeSelector->addAction(m_setAsIntensityBins);
-    ///m_columnTypeSelector->setDisabled(m_tableWidget->selectedRanges().front().leftColumn());
+    m_coordinateUnitsSelector = new QComboBox();
+    connect(m_coordinateUnitsSelector,static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),this, [this](){ setCoordinateUnits(); });
 
 
     auto layout = new QVBoxLayout;
@@ -129,13 +112,11 @@ QBoxLayout* CsvImportAssistant::createLayout()
     auto tableLayout = new QVBoxLayout;
     tableLayout->setMargin(10);
     tableLayout->addWidget(new QLabel("Right click on the table or use the controls below to modify what will be imported"));
-    //tableLayout->addWidget(m_columnTypeSelector);
     tableLayout->addWidget(m_tableWidget);
 
-    //place separator_field, single_column_spinbox and first_row:
+    //place separator_field and first_row:
     auto controlsLayout = new QFormLayout;
     controlsLayout->addRow(tr("&Separator:"), m_separatorField);
-    controlsLayout->addRow(tr("&Column:"), m_singleDataColSpinBox);
     controlsLayout->addRow(tr("&From row:"),m_firstDataRowSpinBox);
 
     //buttons layout
@@ -147,6 +128,7 @@ QBoxLayout* CsvImportAssistant::createLayout()
     auto controlsAndButtonsGrid = new QGridLayout;
     controlsAndButtonsGrid->setMargin(10);
     controlsAndButtonsGrid->addItem(new QSpacerItem(10000,1),1,1,2,1);
+    controlsAndButtonsGrid->addWidget(m_coordinateUnitsSelector,1,1,1,1,Qt::AlignLeft);
     controlsAndButtonsGrid->addLayout(controlsLayout, 1, 2, 1, 1, Qt::AlignRight);
     controlsAndButtonsGrid->addLayout(buttonsLayout, 2, 2, 1, 1, Qt::AlignLeft);
 
@@ -159,7 +141,8 @@ QBoxLayout* CsvImportAssistant::createLayout()
 
 void CsvImportAssistant::Reload()
 {
-    m_importButton->setDisabled(true);
+    m_importButton->setEnabled(false);
+    m_coordinateUnitsSelector->setEnabled(false);
     std::ifstream f(m_fileName.toStdString());
     if(f.good()){
         generate_table();
@@ -173,8 +156,12 @@ void CsvImportAssistant::Reload()
     }
 
     //Enable import button only if the user has selected its columns for 1d import
-    if( m_coordinateCol * m_intensityCol > 0 || m_singleCol > 0 )
-        m_importButton->setDisabled(false);
+    if( m_intensityCol > 0 )
+        m_importButton->setEnabled(true);
+
+    //Enable Coordinate Selector
+    if( m_coordinateCol > 0 )
+        m_coordinateUnitsSelector->setEnabled(true);
 }
 
 void CsvImportAssistant::reloadCsvFile(){
@@ -206,37 +193,17 @@ void CsvImportAssistant::onImportButton()
     }
 }
 
-
-std::unique_ptr<OutputData<double>> CsvImportAssistant::getData()
+std::unique_ptr<ImportDataInfo> CsvImportAssistant::getData()
 {
-    std::unique_ptr<OutputData<double>> result;
-    result = std::make_unique<OutputData<double>>();
+
+    std::unique_ptr<OutputData<double>> resultOutputData;
+    resultOutputData = std::make_unique<OutputData<double>>();
 
     auto nRows = m_tableWidget->rowCount();
     auto firstRow = int(firstLine()-1);
 
-    //Single column selected
-    if( m_singleCol > 0){
-        int col = int(m_singleCol-1);
-        int nElem = nRows;
-        result->addAxis("AXIS", size_t(nElem), 0.0, double(nElem));
-        std::vector<unsigned> axes_indices(1);
-        unsigned item = 0;
-        for(auto row = firstRow; row< nRows; row++) {
-            axes_indices[0] = item;
-            size_t global_index = result->toGlobalIndex(axes_indices);
-            std::string string_to_parse;
-            std::vector<double> parsed_doubles;
-            string_to_parse = m_tableWidget->item(row,col)->text().toStdString();
-            parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
-            (*result)[global_index] = parsed_doubles[0];
-            item++;
-        }
-        return result;
-    }
-
     //Coordinate and Intensity columns selected
-    else if(m_coordinateCol * m_intensityCol > 0){
+    if(m_coordinateCol * m_intensityCol > 0){
         //Fill intensity values and coordinate values:
         std::vector<double> coordValues;
         std::vector<double> intensityValues;
@@ -256,12 +223,29 @@ std::unique_ptr<OutputData<double>> CsvImportAssistant::getData()
         }
         auto axisName = m_coordinateName.toStdString();
         PointwiseAxis coordAxis(axisName, coordValues);
-        result->addAxis(coordAxis);
+        resultOutputData->addAxis(coordAxis);
 
         for(unsigned i = 0; i < intensityValues.size(); i++)
-            (*result)[i] = intensityValues[i];
+            (*resultOutputData)[i] = intensityValues[i];
+    }
 
-        return result;
+    //Single column selected
+    else if( m_intensityCol > 0){
+        //Fill intensity values
+        std::vector<double> intensityValues;
+        int intensityCol = int(m_intensityCol-1);
+        for(auto row = firstRow; row < nRows; row++) {
+            std::string string_to_parse;
+            std::vector<double> parsed_doubles;
+
+            string_to_parse = m_tableWidget->item(row,intensityCol)->text().toStdString();
+            parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
+            intensityValues.push_back(parsed_doubles[0]);
+        }
+        resultOutputData->addAxis("AXIS", size_t(nRows), 0.0, double(nRows));
+        for(unsigned i = 0; i < intensityValues.size(); i++)
+            (*resultOutputData)[i] = intensityValues[i];
+
     }
 
     //We shouldn't be here
@@ -270,34 +254,19 @@ std::unique_ptr<OutputData<double>> CsvImportAssistant::getData()
         return nullptr;
     }
 
-
-    //In case a 2d import is needed in the future
-    /*
-    else{
-    result->addAxis("x", size_t(nCols), 0.0, double(nCols));
-    result->addAxis("y", size_t(nRows), 0.0, double(nRows));
-    std::vector<unsigned> axes_indices(2);
-    for(unsigned row=0; row<nRows; row++) {
-        for(unsigned col=0; col<nCols; col++) {
-        axes_indices[0] = col;
-        axes_indices[1] = static_cast<unsigned>(nRows) - 1 - row;
-        size_t global_index = result->toGlobalIndex(axes_indices);
-        std::string string_to_parse;
-        std::vector<double> parsed_doubles;
-        string_to_parse = m_tableWidget->item(row,col)->text().toStdString();
-        parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
-        (*result)[global_index] = parsed_doubles[0];
-        }
-    }
-    }
+    std::unique_ptr<ImportDataInfo> result;
+    result = std::make_unique<ImportDataInfo>(std::move(resultOutputData),m_units);
     return result;
+
+    /*In case a 2d import is needed in the future
+     *Use ArrayUtils::Create2dData(vector<vector<double>>)
+     * ArrayUtils::Create2d
     */
 }
 
 
 void CsvImportAssistant::generate_table() {
     m_firstDataRowSpinBox->setMaximum(int(m_csvFile->NumberOfRows()));
-    m_singleDataColSpinBox->setMaximum(int(m_csvFile->NumberOfColumns()));
     m_lastDataRow = unsigned(int(m_csvFile->NumberOfRows()));
     std::vector<std::vector<std::string>> csvArray = m_csvFile->asArray();
 
@@ -320,8 +289,6 @@ void CsvImportAssistant::generate_table() {
     std::vector<std::vector<std::string>> dataArray( csvArray.begin() , csvArray.begin() + m_lastDataRow );
 
     removeBlankColumns(dataArray);
-
-    //extractDesiredColumns(dataArray);
 
     set_table_data(dataArray);
 
@@ -367,15 +334,14 @@ void CsvImportAssistant::greyOutCells(){
         }
 
     //Return if there are no columns to grey out
-    if( m_coordinateCol + m_intensityCol + m_singleCol < 1 )
+    if( m_intensityCol  < 1 )
         return;
 
     //Grey out columns
     for(int i = 0; i < nRows; i++)
         for(int j = 0; j < nCols; j++)
             if(j+1 != int(m_coordinateCol) &&
-                            j+1 != int(m_intensityCol)  &&
-                            j+1 != int(m_singleCol) ){
+                            j+1 != int(m_intensityCol) ){
                 m_tableWidget->item(i,j)->setBackground(Qt::gray);
                 m_tableWidget->item(i,j)->setFont(italicFont);
             }
@@ -539,10 +505,6 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     OnColumnClicked(row,col);
     QMenu menu;
 
-    //Use single column
-    m_setAsIntensityBins->setDisabled(m_singleCol>0);
-    menu.addAction(m_setAsIntensityBins);
-    connect(m_setAsIntensityBins,&QAction::triggered,this, [this](){ setColumnAsBinValues();});
 
     //Action "select from this row"
     QAction selectFromThisRowOn("Set as first data row",nullptr);
@@ -553,7 +515,7 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
 
 
     //Set column as "Intensity".
-    m_setAsIntensity->setDisabled(m_intensityCol>0 || m_singleCol > 0);
+    m_setAsIntensity->setDisabled(m_intensityCol>0);
     menu.addAction(m_setAsIntensity);
     connect(m_setAsIntensity,&QAction::triggered,this, [this](){setColumnAsIntensity();});
     //.connect(m_setAsIntensity,&QAction::triggered,this, m_setAsIntensityColumnAsIntensity());
@@ -561,7 +523,7 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
 
     //Coordinate menu disabled if a coordinate column is already set.
     QMenu *coordMenu = menu.addMenu("Set as coordinate column");
-    coordMenu->setDisabled(m_coordinateCol>0 || m_singleCol > 0);
+    coordMenu->setDisabled(m_coordinateCol>0);
 
 
     //Set column as "Theta".
@@ -583,7 +545,7 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     //Action "reset"
     QAction resetAction("reset",nullptr);
     menu.addAction(&resetAction);
-    connect(&resetAction,&QAction::triggered, [this](){reset();});
+    connect(&resetAction,&QAction::triggered, this, [this](){reset();});
 
     menu.exec(m_tableWidget->mapToGlobal(position));
 }
@@ -596,58 +558,38 @@ bool CsvImportAssistant::hasEqualLengthLines(std::vector<std::vector<std::string
     return tf;
 }
 
-void CsvImportAssistant::extractDesiredColumns(std::vector<std::vector<std::string>> &dataArray) {
-
-    if (dataArray.empty()) {
-        m_tableWidget->clearContents();
-        m_tableWidget->setRowCount(0);
-        return;
-    }
-
-    if ((m_coordinateCol * m_intensityCol < 1) && (m_singleCol < 1))
-        return;
-
-    std::vector<std::string> buffer1d;
-    std::vector<std::vector<std::string>> buffer2d;
-    auto nRows = dataArray.size();
-    auto nCols = dataArray[0].size();
-
-    if (m_singleCol > 0) {
-        for (unsigned i = 0; i < nRows; i++) {
-            buffer1d.clear();
-            for (unsigned j = 0; j < nCols; j++) {
-                if (j + 1 == m_singleCol)
-                    buffer1d.push_back(dataArray[i][j]);
-            }
-            buffer2d.push_back(buffer1d);
-        }
-    }
-    else {
-        for (unsigned i = 0; i < nRows; i++) {
-            buffer1d.clear();
-            //No matter what, we want coordinate column first
-            for (unsigned j = 0; j < nCols; j++) {
-                if (j + 1 == m_coordinateCol)
-                    buffer1d.push_back(dataArray[i][j]);
-            }
-            //Intensity columns comes next
-            for (unsigned j = 0; j < nCols; j++) {
-                if (j + 1 == m_intensityCol)
-                    buffer1d.push_back(dataArray[i][j]);
-            }
-            buffer2d.push_back(buffer1d);
-        }
-    }
-
-    dataArray.clear();
-    swap(buffer2d,dataArray);
-}
 
 void CsvImportAssistant::showErrorMessage(std::string message){
     QMessageBox msgBox;
     msgBox.setText(QString::fromStdString(message));
     msgBox.setIcon(msgBox.Critical);
     msgBox.exec();
+}
+
+void CsvImportAssistant::populateUnitsComboBox(int coord){
+    QString theta = QChar(0x98, 0x03);
+    QString alpha = QChar(0xb1, 0x03);
+
+    m_coordinateUnitsSelector->clear();
+    switch(coord){
+
+    case _theta_:
+        m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::DEGREES]);
+        m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::RADIANS]);
+        break;
+
+    case _2theta_:
+        m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::DEGREES]);
+        m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::RADIANS]);
+        break;
+
+    case _q_:
+        m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::QSPACE]);
+        break;
+
+    default:
+        break;
+    }
 }
 
 void CsvImportAssistant::setColumnAsCoordinate(int coord){
@@ -657,16 +599,14 @@ void CsvImportAssistant::setColumnAsCoordinate(int coord){
     auto front = selectedRanges.front();
     auto col = front.leftColumn();
 
-    m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( relevantHeaders[coord]) );
+    m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( HeaderLabels[coord]) );
     m_coordinateCol = unsigned(col+1);
     m_coordinateName = m_tableWidget->horizontalHeaderItem(col)->text();
+    populateUnitsComboBox(coord);
     if(m_coordinateCol == m_intensityCol){
         m_intensityCol=0;
-        return;
     }
-    if(m_intensityCol > 0){
-        Reload();
-    }
+    Reload();
 }
 
 void CsvImportAssistant::setColumnAsIntensity() {
@@ -678,42 +618,26 @@ void CsvImportAssistant::setColumnAsIntensity() {
     auto col = front.leftColumn();
 
     m_tableWidget->clearSelection();
-    m_tableWidget->setHorizontalHeaderItem(col, new QTableWidgetItem(relevantHeaders[_intensity_]));
+    m_tableWidget->setHorizontalHeaderItem(col, new QTableWidgetItem(HeaderLabels[_intensity_]));
     m_intensityCol = unsigned(col + 1);
     if (m_coordinateCol == m_intensityCol) {
         m_coordinateCol = 0;
-        return;
     }
-    if (m_coordinateCol > 0) {
-        Reload();
-    }
-}
-
-void CsvImportAssistant::setColumnAsBinValues() {
-    //get selected column
-    auto selectedRanges = m_tableWidget->selectedRanges();
-    if (selectedRanges.empty())
-        return;
-    auto front = selectedRanges.front();
-    auto col = front.leftColumn();
-
-    m_tableWidget->clearSelection();
-    m_singleDataColSpinBox->setValue(col + 1);
-    setHeaders();
-}
-
-
-void CsvImportAssistant::setColumnAsBinValues(int col) {
-    if(col < 1){
-        reset();
-        return;
-    }
-    m_intensityCol = 0;
-    m_coordinateCol = 0;
-    m_coordinateName = "";
-    m_singleCol = unsigned(col);
     Reload();
 }
+
+void CsvImportAssistant::setCoordinateUnits(){
+    m_units = AxesUnits::NBINS;
+    if(m_coordinateUnitsSelector->currentText() == UnitsLabels[AxesUnits::DEGREES])
+        m_units = AxesUnits::DEGREES;
+
+    if(m_coordinateUnitsSelector->currentText() == UnitsLabels[AxesUnits::RADIANS])
+        m_units = AxesUnits::RADIANS;
+
+    if(m_coordinateUnitsSelector->currentText() == UnitsLabels[AxesUnits::QSPACE])
+        m_units = AxesUnits::QSPACE;
+}
+
 
 
 void CsvImportAssistant::setFirstRow(){
@@ -730,9 +654,9 @@ void CsvImportAssistant::reset(){
     m_intensityCol = 0;
     m_coordinateCol = 0;
     m_coordinateName = "";
-    m_singleCol = 0;
     m_firstDataRowSpinBox->setValue(0);
-    m_singleDataColSpinBox->setValue(0);
     setHeaders();
+    m_units = AxesUnits::NBINS;
+    m_coordinateUnitsSelector->clear();
     Reload();
 }

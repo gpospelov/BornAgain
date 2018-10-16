@@ -93,14 +93,14 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
     QFileInfo info(fileName);
     baseNameOfLoadedFile = info.baseName();
 
-    std::unique_ptr<OutputData<double>> data;
+    std::unique_ptr<ImportDataInfo> data;
     if(!UseImportAssistant(fileName, data))
         return ImportDataInfo();
 
-    return ImportDataInfo(std::move(data), AxesUnits::NBINS);
+    return ImportDataInfo(data->intensityData(),data->unitsLabel());
 }
 
-bool ImportDataUtils::UseImportAssistant(QString& fileName, std::unique_ptr<OutputData<double>>& result){
+bool ImportDataUtils::UseImportAssistant(QString& fileName, std::unique_ptr<ImportDataInfo> &result){
     try{
         CsvImportAssistant assistant(fileName);
         int res = assistant.exec();

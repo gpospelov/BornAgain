@@ -49,8 +49,8 @@ std::pair<double, double> Distribution2DCauchySampler::randomSample() const
 
     double alpha = uniformDist(gen);
 
-    return std::make_pair(m_omega_x*phi*std::cos(M_2_PI*alpha),
-                          m_omega_y*phi*std::sin(M_2_PI*alpha));
+    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
+                          m_omega_y*phi*std::sin(2*M_PI*alpha));
 }
 
 std::pair<double, double> Distribution2DGaussSampler::randomSample() const
@@ -65,8 +65,8 @@ std::pair<double, double> Distribution2DGaussSampler::randomSample() const
     double phi = std::sqrt(-2*std::log(1-cdf_value_phi));
     double alpha = uniformDist(gen);
 
-    return std::make_pair(m_omega_x*phi*std::cos(M_2_PI*alpha),
-                          m_omega_y*phi*std::sin(M_2_PI*alpha));
+    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
+                          m_omega_y*phi*std::sin(2*M_PI*alpha));
 }
 
 std::pair<double, double> Distribution2DGateSampler::randomSample() const
@@ -81,8 +81,8 @@ std::pair<double, double> Distribution2DGateSampler::randomSample() const
     double phi = std::sqrt(cdf_value_phi);
     double alpha = uniformDist(gen);
 
-    return std::make_pair(m_omega_x*phi*std::cos(M_2_PI*alpha),
-                          m_omega_y*phi*std::sin(M_2_PI*alpha));
+    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
+                          m_omega_y*phi*std::sin(2*M_PI*alpha));
 }
 
 std::pair<double, double> Distribution2DConeSampler::randomSample() const
@@ -117,6 +117,6 @@ std::pair<double, double> Distribution2DConeSampler::randomSample() const
 
     double alpha = uniformDist(gen);
 
-    return std::make_pair(m_omega_x*phi*std::cos(M_2_PI*alpha),
-                          m_omega_y*phi*std::sin(M_2_PI*alpha));
+    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
+                          m_omega_y*phi*std::sin(2*M_PI*alpha));
 }

@@ -43,14 +43,17 @@ CsvImportAssistant::CsvImportAssistant(QString& file, QWidget* parent):
       ,m_importButton(nullptr)
       ,m_csvFile(nullptr)
       ,m_coordinateUnitsSelector(nullptr)
-      ,m_setAsTheta(new QAction("Set as " + HeaderLabels[_theta_],nullptr))
-      ,m_setAs2Theta(new QAction("Set as " + HeaderLabels[_2theta_],nullptr))
-      ,m_setAsQ(new QAction("Set as " + HeaderLabels[_q_],nullptr))
-      ,m_setAsIntensity(new QAction("Set as " + HeaderLabels[_intensity_],nullptr))
+      ,m_setAsTheta(new QAction(HeaderLabels[_theta_],nullptr))
+      ,m_setAs2Theta(new QAction(HeaderLabels[_2theta_],nullptr))
+      ,m_setAsQ(new QAction(HeaderLabels[_q_],nullptr))
+      ,m_setAsIntensity(new QAction("Set as " + HeaderLabels[_intensity_] + "column",nullptr))
 {
+    //We disable 2theta until the functionallity to handle it is implemented
+    m_setAs2Theta->setDisabled(true);
+    //
     setWindowTitle("Data Importer");
     setMinimumSize(default_dialog_size);
-    resize(400, 400);
+    resize(600, 600);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     StyleUtils::setResizable(this);
     setLayout(createLayout());
@@ -102,6 +105,8 @@ QBoxLayout* CsvImportAssistant::createLayout()
 
     //Column type selector
     m_coordinateUnitsSelector = new QComboBox();
+    m_coordinateUnitsSelector->setMaximumWidth(50);
+    m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::NBINS]);
     connect(m_coordinateUnitsSelector,static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),this, [this](){ setCoordinateUnits(); });
 
 
@@ -111,13 +116,14 @@ QBoxLayout* CsvImportAssistant::createLayout()
     //place table Widget
     auto tableLayout = new QVBoxLayout;
     tableLayout->setMargin(10);
-    tableLayout->addWidget(new QLabel("Right click on the table or use the controls below to modify what will be imported"));
+    tableLayout->addWidget(new QLabel("Right click on the table to select what will be imported"));
     tableLayout->addWidget(m_tableWidget);
 
     //place separator_field and first_row:
     auto controlsLayout = new QFormLayout;
-    controlsLayout->addRow(tr("&Separator:"), m_separatorField);
-    controlsLayout->addRow(tr("&From row:"),m_firstDataRowSpinBox);
+    controlsLayout->addRow(tr("&Corodinate Units: "), m_coordinateUnitsSelector);
+    controlsLayout->addRow(tr("&Separator: "), m_separatorField);
+    controlsLayout->addRow(tr("&From row: "), m_firstDataRowSpinBox);
 
     //buttons layout
     auto buttonsLayout = new QHBoxLayout;
@@ -128,7 +134,6 @@ QBoxLayout* CsvImportAssistant::createLayout()
     auto controlsAndButtonsGrid = new QGridLayout;
     controlsAndButtonsGrid->setMargin(10);
     controlsAndButtonsGrid->addItem(new QSpacerItem(10000,1),1,1,2,1);
-    controlsAndButtonsGrid->addWidget(m_coordinateUnitsSelector,1,1,1,1,Qt::AlignLeft);
     controlsAndButtonsGrid->addLayout(controlsLayout, 1, 2, 1, 1, Qt::AlignRight);
     controlsAndButtonsGrid->addLayout(buttonsLayout, 2, 2, 1, 1, Qt::AlignLeft);
 
@@ -521,7 +526,7 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
 
 
     //Coordinate menu disabled if a coordinate column is already set.
-    QMenu *coordMenu = menu.addMenu("Set as coordinate column");
+    QMenu *coordMenu = menu.addMenu("Set as coordinate column...");
     coordMenu->setDisabled(m_coordinateCol>0);
 
 
@@ -566,9 +571,6 @@ void CsvImportAssistant::showErrorMessage(std::string message){
 }
 
 void CsvImportAssistant::populateUnitsComboBox(int coord){
-    QString theta = QChar(0x98, 0x03);
-    QString alpha = QChar(0xb1, 0x03);
-
     m_coordinateUnitsSelector->clear();
     switch(coord){
 
@@ -587,6 +589,7 @@ void CsvImportAssistant::populateUnitsComboBox(int coord){
         break;
 
     default:
+        m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::NBINS]);
         break;
     }
 }
@@ -657,5 +660,6 @@ void CsvImportAssistant::reset(){
     setHeaders();
     m_units = AxesUnits::NBINS;
     m_coordinateUnitsSelector->clear();
+    m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::NBINS]);
     Reload();
 }

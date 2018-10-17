@@ -31,7 +31,7 @@ class QBoxLayout;
 
 enum  RelevantColumns {_intensity_,_theta_,_2theta_,_q_};
 const QStringList HeaderLabels{"Intensity","theta","2theta","q"};
-const QStringList UnitsLabels{"default", "nbins", "rad", "deg", "mm", "1/nm"};
+const QStringList UnitsLabels{"default", "bin", "rad", "deg", "mm", "1/nm"};
 
 //! Dialog to hold ImportAssistant.
 

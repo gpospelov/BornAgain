@@ -21,12 +21,10 @@ RealSpace2DParacrystalUtils::RealSpace2DParacrystalUtils()
     : m_interference2DParacrystal(nullptr)
     , m_sceneGeometry(nullptr)
 {
-
 }
 
 RealSpace2DParacrystalUtils::~RealSpace2DParacrystalUtils()
 {
-
 }
 
 RealSpace2DParacrystalUtils::RealSpace2DParacrystalUtils(
@@ -35,15 +33,14 @@ RealSpace2DParacrystalUtils::RealSpace2DParacrystalUtils(
 {
     m_interference2DParacrystal = interference2DParacrystal;
     m_sceneGeometry = sceneGeometry;
-
 }
 
-std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrystalLatticePositions()
+std::vector<std::vector<double>> RealSpace2DParacrystalUtils::compute2DParacrystalLatticePositions()
 {
-    double l1 = m_interference2DParacrystal->lattice().length1();
-    double l2 = m_interference2DParacrystal->lattice().length2();
-    double l_alpha = m_interference2DParacrystal->lattice().latticeAngle();
-    double l_xi =  m_interference2DParacrystal->lattice().rotationAngle();
+    double l1 = m_interference2DParacrystal->lattice().length1(); // 1st lattice vector length
+    double l2 = m_interference2DParacrystal->lattice().length2(); // 2nd lattice vector length
+    double l_alpha = m_interference2DParacrystal->lattice().latticeAngle(); // angle between l1, l2
+    double l_xi =  m_interference2DParacrystal->lattice().rotationAngle(); // angle between l1, x axis
     double layer_size = m_sceneGeometry->layer_size();
 
     // Estimate the limit n1 and n2 of the integer multiple j and i of the lattice vectors required
@@ -78,10 +75,10 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
     size_t index_pl2 = 0; // index for particles along +l2
     size_t index_ml2 = 0; // index for particles along -l2
 
-    // positions of 2*n1+1 particles situated ONLY along the l1 lattice vector axis (both +/- axes)
-    // wrt origin (reference particle) are stored in j = 1...2*n1 indices of lattice_positions
+    // positions of 2*n1+1 particles situated ONLY along the l1 axis (both +/- axes)
+    // wrt origin (reference particle) are stored in j = 1,2,3,...2*n1 indices of lattice_positions
     for (int j = 1; j <= 2*n1; ++j) {
-        // particles located along +l1 (store every odd i index of lattice_positions)
+        // store particles along +l1 every odd i (e.g. 1,3,5...) index of lattice_positions
         index_pl1 = 0;
         if (j - 2 > 0)
             index_pl1 = static_cast<size_t>(j - 2);
@@ -92,12 +89,12 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
 
         lattice_positions[static_cast<size_t>(j)][0] =
                 lattice_positions[index_pl1][0] + l1 * std::cos(l_xi) +
-                offset_x_pdf1*std::cos(gamma_pdf1) +
-                offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1); // x coordinate
+                offset_x_pdf1*std::cos(gamma_pdf1 + l_xi) +
+                offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1 + l_xi); // x coordinate
         lattice_positions[static_cast<size_t>(j)][1] =
                 lattice_positions[index_pl1][1] + l1 * std::sin(l_xi) +
-                offset_x_pdf1*std::sin(gamma_pdf1) +
-                offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1); // y coordinate
+                offset_x_pdf1*std::sin(gamma_pdf1 + l_xi) +
+                offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1 + l_xi); // y coordinate
 
         // particles located along -l1 (store every even i index of lattice_positions)
         ++j;
@@ -112,12 +109,12 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
 
         lattice_positions[static_cast<size_t>(j)][0] =
                 lattice_positions[index_ml1][0] - l1 * std::cos(l_xi) +
-                offset_x_pdf1*std::cos(gamma_pdf1) +
-                offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1); // x coordinate
+                offset_x_pdf1*std::cos(gamma_pdf1 + l_xi) +
+                offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1 + l_xi); // x coordinate
         lattice_positions[static_cast<size_t>(j)][1] =
                 lattice_positions[index_ml1][1] - l1 * std::sin(l_xi) +
-                offset_x_pdf1*std::sin(gamma_pdf1) +
-                offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1); // y coordinate
+                offset_x_pdf1*std::sin(gamma_pdf1 + l_xi) +
+                offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1 + l_xi); // y coordinate
     }
 
     // positions of 2*n2+1 particles situated ONLY along the l2 lattice vector axis (both +/- axes)
@@ -134,12 +131,12 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
 
         lattice_positions[static_cast<size_t>(i*(2*n1+1))][0] =
                 lattice_positions[index_pl2][0] + l2 * std::cos(l_alpha + l_xi) +
-                offset_x_pdf2*std::cos(gamma_pdf2) +
-                offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2); // x coordinate
+                offset_x_pdf2*std::cos(gamma_pdf2 + l_xi) +
+                offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2 + l_xi); // x coordinate
         lattice_positions[static_cast<size_t>(i*(2*n1+1))][1] =
                 lattice_positions[index_pl2][1] + l2 * std::sin(l_alpha + l_xi) +
-                offset_x_pdf2*std::sin(gamma_pdf2) +
-                offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2); // y coordinate
+                offset_x_pdf2*std::sin(gamma_pdf2 + l_xi) +
+                offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2 + l_xi); // y coordinate
 
         // particles located along -l2 (store every (even i)*(2*n1+1) index of lattice_positions)
         ++i;
@@ -154,12 +151,12 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
 
         lattice_positions[static_cast<size_t>(i*(2*n1+1))][0] =
                 lattice_positions[index_ml2][0] - l2 * std::cos(l_alpha + l_xi) +
-                offset_x_pdf2*std::cos(gamma_pdf2) +
-                offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2); // x coordinate
+                offset_x_pdf2*std::cos(gamma_pdf2 + l_xi) +
+                offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2 + l_xi); // x coordinate
         lattice_positions[static_cast<size_t>(i*(2*n1+1))][1] =
                 lattice_positions[index_ml2][1] - l2 * std::sin(l_alpha + l_xi) +
-                offset_x_pdf2*std::sin(gamma_pdf2) +
-                offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2); // y coordinate
+                offset_x_pdf2*std::sin(gamma_pdf2 + l_xi) +
+                offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2 + l_xi); // y coordinate
     }
 
 
@@ -181,11 +178,11 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
                 offset_y_pdf1 = sampleXYpdf1.second;
 
                 x_pl1 = lattice_positions[index_pl1][0] + l1 * std::cos(l_xi) +
-                        offset_x_pdf1*std::cos(gamma_pdf1) +
-                        offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1); // x coordinate
+                        offset_x_pdf1*std::cos(gamma_pdf1 + l_xi) +
+                        offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1 + l_xi); // x coordinate
                 y_pl1 = lattice_positions[index_pl1][1] + l1 * std::sin(l_xi) +
-                        offset_x_pdf1*std::sin(gamma_pdf1) +
-                        offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1); // y coordinate
+                        offset_x_pdf1*std::sin(gamma_pdf1 + l_xi) +
+                        offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1 + l_xi); // y coordinate
 
                 index_pl2 = static_cast<size_t>(j);
                 if (i - 2 > 0)
@@ -196,11 +193,11 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
                 offset_y_pdf2 = sampleXYpdf2.second;
 
                 x_pl2 = lattice_positions[index_pl2][0] + l2 * std::cos(l_alpha + l_xi) +
-                        offset_x_pdf2*std::cos(gamma_pdf2) +
-                        offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2); // x coordinate
+                        offset_x_pdf2*std::cos(gamma_pdf2 + l_xi) +
+                        offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2 + l_xi); // x coordinate
                 y_pl2 = lattice_positions[index_pl2][1] + l2 * std::sin(l_alpha + l_xi) +
-                        offset_x_pdf2*std::sin(gamma_pdf2) +
-                        offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2); // y coordinate
+                        offset_x_pdf2*std::sin(gamma_pdf2 + l_xi) +
+                        offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2 + l_xi); // y coordinate
 
                 lattice_positions[static_cast<size_t>(i*(2*n1+1)+j)][0] = (x_pl1 + x_pl2) / 2;
                 lattice_positions[static_cast<size_t>(i*(2*n1+1)+j)][1] = (y_pl1 + y_pl2) / 2;
@@ -217,11 +214,11 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
                 offset_y_pdf1 = sampleXYpdf1.second;
 
                 x_ml1 = lattice_positions[index_ml1][0] - l1 * std::cos(l_xi) +
-                        offset_x_pdf1*std::cos(gamma_pdf1) +
-                        offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1); // x coordinate
+                        offset_x_pdf1*std::cos(gamma_pdf1 + l_xi) +
+                        offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1 + l_xi); // x coordinate
                 y_ml1 = lattice_positions[index_ml1][1] - l1 * std::sin(l_xi) +
-                        offset_x_pdf1*std::sin(gamma_pdf1) +
-                        offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1); // y coordinate
+                        offset_x_pdf1*std::sin(gamma_pdf1 + l_xi) +
+                        offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1 + l_xi); // y coordinate
 
 
                 index_pl2 = static_cast<size_t>(j); // index for particles along +l2
@@ -233,11 +230,11 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
                 offset_y_pdf2 = sampleXYpdf2.second;
 
                 x_pl2 = lattice_positions[index_pl2][0] + l2 * std::cos(l_alpha + l_xi) +
-                        offset_x_pdf2*std::cos(gamma_pdf2) +
-                        offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2); // x coordinate
+                        offset_x_pdf2*std::cos(gamma_pdf2 + l_xi) +
+                        offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2 + l_xi); // x coordinate
                 y_pl2 = lattice_positions[index_pl2][1] + l2 * std::sin(l_alpha + l_xi) +
-                        offset_x_pdf2*std::sin(gamma_pdf2) +
-                        offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2); // y coordinate
+                        offset_x_pdf2*std::sin(gamma_pdf2 + l_xi) +
+                        offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2 + l_xi); // y coordinate
 
                 lattice_positions[static_cast<size_t>(i*(2*n1+1)+j)][0] = (x_ml1 + x_pl2) / 2;
                 lattice_positions[static_cast<size_t>(i*(2*n1+1)+j)][1] = (y_ml1 + y_pl2) / 2;
@@ -254,11 +251,11 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
                 offset_y_pdf1 = sampleXYpdf1.second;
 
                 x_pl1 = lattice_positions[index_pl1][0] + l1 * std::cos(l_xi) +
-                        offset_x_pdf1*std::cos(gamma_pdf1) +
-                        offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1); // x coordinate
+                        offset_x_pdf1*std::cos(gamma_pdf1 + l_xi) +
+                        offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1 + l_xi); // x coordinate
                 y_pl1 = lattice_positions[index_pl1][1] + l1 * std::sin(l_xi) +
-                        offset_x_pdf1*std::sin(gamma_pdf1) +
-                        offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1); // y coordinate
+                        offset_x_pdf1*std::sin(gamma_pdf1 + l_xi) +
+                        offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1 + l_xi); // y coordinate
 
                 index_ml2 = static_cast<size_t>(j);
                 if (i - 2 > 0)
@@ -269,11 +266,11 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
                 offset_y_pdf2 = sampleXYpdf2.second;
 
                 x_ml2 = lattice_positions[index_ml2][0] - l2 * std::cos(l_alpha + l_xi) +
-                        offset_x_pdf2*std::cos(gamma_pdf2) +
-                        offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2); // x coordinate
+                        offset_x_pdf2*std::cos(gamma_pdf2 + l_xi) +
+                        offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2 + l_xi); // x coordinate
                 y_ml2 = lattice_positions[index_ml2][1] - l2 * std::sin(l_alpha + l_xi) +
-                        offset_x_pdf2*std::sin(gamma_pdf2) +
-                        offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2); // y coordinate
+                        offset_x_pdf2*std::sin(gamma_pdf2 + l_xi) +
+                        offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2 + l_xi); // y coordinate
 
                 lattice_positions[static_cast<size_t>(i*(2*n1+1)+j)][0] = (x_pl1 + x_ml2) / 2;
                 lattice_positions[static_cast<size_t>(i*(2*n1+1)+j)][1] = (y_pl1 + y_ml2) / 2;
@@ -290,11 +287,11 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
                 offset_y_pdf1 = sampleXYpdf1.second;
 
                 x_ml1 = lattice_positions[index_ml1][0] - l1 * std::cos(l_xi) +
-                        offset_x_pdf1*std::cos(gamma_pdf1) +
-                        offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1); // x coordinate
+                        offset_x_pdf1*std::cos(gamma_pdf1 + l_xi) +
+                        offset_y_pdf1*std::cos(M_PI_2 + gamma_pdf1 + l_xi); // x coordinate
                 y_ml1 = lattice_positions[index_ml1][1] - l1 * std::sin(l_xi) +
-                        offset_x_pdf1*std::sin(gamma_pdf1) +
-                        offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1); // y coordinate
+                        offset_x_pdf1*std::sin(gamma_pdf1 + l_xi) +
+                        offset_y_pdf1*std::sin(M_PI_2 + gamma_pdf1 + l_xi); // y coordinate
 
 
                 index_ml2 = static_cast<size_t>(j); // index for particles along +l2
@@ -306,11 +303,11 @@ std::vector<std::vector<double> > RealSpace2DParacrystalUtils::compute2DParacrys
                 offset_y_pdf2 = sampleXYpdf2.second;
 
                 x_ml2 = lattice_positions[index_ml2][0] - l2 * std::cos(l_alpha + l_xi) +
-                        offset_x_pdf2*std::cos(gamma_pdf2) +
-                        offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2); // x coordinate
+                        offset_x_pdf2*std::cos(gamma_pdf2 + l_xi) +
+                        offset_y_pdf2*std::cos(M_PI_2 + gamma_pdf2 + l_xi); // x coordinate
                 y_ml2 = lattice_positions[index_ml2][1] - l2 * std::sin(l_alpha + l_xi) +
-                        offset_x_pdf2*std::sin(gamma_pdf2) +
-                        offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2); // y coordinate
+                        offset_x_pdf2*std::sin(gamma_pdf2 + l_xi) +
+                        offset_y_pdf2*std::sin(M_PI_2 + gamma_pdf2 + l_xi); // y coordinate
 
                 lattice_positions[static_cast<size_t>(i*(2*n1+1)+j)][0] = (x_ml1 + x_ml2) / 2;
                 lattice_positions[static_cast<size_t>(i*(2*n1+1)+j)][1] = (y_ml1 + y_ml2) / 2;

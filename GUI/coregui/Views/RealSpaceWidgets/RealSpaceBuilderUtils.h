@@ -87,10 +87,6 @@ BA_CORE_API_ void populate2DParacrystalType(
     const std::vector<Particle3DContainer>& particle3DContainer_vector,
     const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
 
-BA_CORE_API_ std::vector<std::vector<double>> compute2DParacrystalLatticePositions(
-        const InterferenceFunction2DParaCrystal* interference2DParacrystal,
-        double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry);
-
 // Implement Rotation of a 3D particle using parameters from IRotation Object
 BA_CORE_API_ QVector3D implementParticleRotationfromIRotation(const IRotation*& rotation);
 

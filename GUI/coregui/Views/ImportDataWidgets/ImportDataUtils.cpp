@@ -93,20 +93,15 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
     QFileInfo info(fileName);
     baseNameOfLoadedFile = info.baseName();
 
-    std::unique_ptr<OutputData<double>> data;
-    if(!UseImportAssistant(fileName, data))
-        return ImportDataInfo();
-
-    return ImportDataInfo(std::move(data), AxesUnits::NBINS);
+    return UseImportAssistant(fileName);
 }
 
-bool ImportDataUtils::UseImportAssistant(QString& fileName, std::unique_ptr<OutputData<double>>& result){
+ImportDataInfo ImportDataUtils::UseImportAssistant(QString& fileName){
     try{
         CsvImportAssistant assistant(fileName);
         int res = assistant.exec();
         if(res == assistant.Accepted){
-            result = assistant.getData();
-            return true;
+            return assistant.getData();
         }
     }catch(std::exception& e){
         QString message = QString("Unable to read file:\n\n'%1'\n\n%2\n\nCheck that the file exists and it is not being used by other program.\n\n")
@@ -114,7 +109,7 @@ bool ImportDataUtils::UseImportAssistant(QString& fileName, std::unique_ptr<Outp
                 .arg(QString::fromStdString(std::string(e.what())));
         QMessageBox::warning(nullptr, "IO Problem", message);
     }
-    return false;
+    return ImportDataInfo();
 }
 
 

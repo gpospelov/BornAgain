@@ -31,7 +31,7 @@ namespace {
     }
 
     void WriteArrayDataDoubles(
-        const OutputData<double>& data, std::ostream& output_stream, size_t n_columns)
+        const OutputData<double>& data, std::ostream& output_stream)
     {
 
        std::vector<std::vector<double>> dataArray = ArrayUtils::createVector2D(data);
@@ -117,7 +117,7 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(
     output_stream << "# [nrows=" << nrows
                   << ", ncols=" << ncols << "]" << std::endl;
 
-    WriteArrayDataDoubles(data,output_stream, ncols);
+    WriteArrayDataDoubles(data,output_stream);
 }
 
 // ----------------------------------------------------------------------------

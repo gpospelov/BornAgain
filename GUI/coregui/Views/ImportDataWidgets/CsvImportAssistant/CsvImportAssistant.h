@@ -17,7 +17,7 @@
 
 #include "WinDllMacros.h"
 #include "CsvReader.h"
-#include "OutputData.h"
+#include "ImportDataInfo.h"
 #include <QAction>
 #include <QDialog>
 #include <QTableWidget>
@@ -28,6 +28,10 @@
 #include <memory>
 
 class QBoxLayout;
+
+enum  RelevantColumns {_intensity_,_theta_,_2theta_,_q_};
+const QStringList HeaderLabels{"Intensity","theta","2theta","q"};
+const QStringList UnitsLabels{"default", "bin", "rad", "deg", "mm", "1/nm"};
 
 //! Dialog to hold ImportAssistant.
 
@@ -42,9 +46,7 @@ public:
     unsigned firstLine() const;
     unsigned lastLine() const;
     void Reload();
-    std::unique_ptr<OutputData<double>> getData();
-    QStringList relevantHeaders = {"Intensity","theta","2theta","q"};
-    enum relevantColumns {_intensity_,_theta_,_2theta_,_q_};
+    ImportDataInfo getData();
 
 public slots:
     void onImportButton();
@@ -63,12 +65,12 @@ private:
     void removeBlankColumns(std::vector<std::vector<std::string>> &dataArray);
     void extractDesiredColumns(std::vector<std::vector<std::string>> &dataArray);
     bool hasEqualLengthLines(std::vector<std::vector<std::string> > &dataArray);
+    void populateUnitsComboBox(int coordinate);
     void greyOutCells();
     void showErrorMessage(std::string message);
     void setColumnAsCoordinate(int coord);
     void setColumnAsIntensity();
-    void setColumnAsBinValues();
-    void setColumnAsBinValues(int col);
+    void setCoordinateUnits();
     void setFirstRow();
     void reset();
 
@@ -77,21 +79,22 @@ private:
     unsigned m_lastDataRow;
     unsigned m_intensityCol;
     unsigned m_coordinateCol;
+    AxesUnits m_units;
     QString  m_coordinateName;
-    unsigned m_singleCol;
 
     QTableWidget* m_tableWidget;
     QLineEdit* m_separatorField;
     QSpinBox* m_firstDataRowSpinBox;
-    QSpinBox* m_singleDataColSpinBox;
     QPushButton* m_importButton;
     std::unique_ptr<CSVFile> m_csvFile;
-    QComboBox* m_columnTypeSelector;
+    QComboBox* m_coordinateUnitsSelector;
     QAction* m_setAsTheta;
     QAction* m_setAs2Theta;
     QAction* m_setAsQ;
     QAction* m_setAsIntensity;
     QAction* m_setAsIntensityBins;
+    QAction* m_setCoordinateUnits;
+
 };
 
 #endif // CSVIMPORTASSISTANT_H

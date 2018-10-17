@@ -22,6 +22,7 @@
 #include "IDetector2D.h"
 #include "Instrument.h"
 #include "ItemFileNameUtils.h"
+#include "UnitConverter1D.h"
 #include "MaskItems.h"
 #include "SessionModel.h"
 
@@ -124,6 +125,14 @@ void SpecularInstrumentItem::setShape(const std::vector<int>& data_shape)
                                 "instrument is incompatible with passed data shape.");
     auto axis_item = beamItem()->currentInclinationAxisItem();
     axis_item->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
+}
+
+std::unique_ptr<IUnitConverter> SpecularInstrumentItem::createUnitConverter() const
+{
+    const auto instrument = createInstrument();
+    auto axis_item = beamItem()->currentInclinationAxisItem();
+    return std::make_unique<UnitConverter1D>(instrument->getBeam(),
+                                             *axis_item->createAxis(1.0), AxesUnits::DEGREES);
 }
 
 const QString Instrument2DItem::P_DETECTOR = "Detector";

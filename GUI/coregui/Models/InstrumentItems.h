@@ -22,6 +22,7 @@ class DataItem;
 class DetectorItem;
 class GroupItem;
 class Instrument;
+class IUnitConverter;
 class MaskContainerItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
@@ -60,6 +61,8 @@ public:
     std::unique_ptr<Instrument> createInstrument() const override;
     std::vector<int> shape() const override;
     void setShape(const std::vector<int>& shape) override;
+
+    std::unique_ptr<IUnitConverter> createUnitConverter() const;
 };
 
 class BA_CORE_API_ Instrument2DItem : public InstrumentItem

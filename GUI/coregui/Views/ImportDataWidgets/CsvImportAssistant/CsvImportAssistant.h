@@ -18,6 +18,7 @@
 #include "WinDllMacros.h"
 #include "CsvReader.h"
 #include "ImportDataInfo.h"
+#include "DataFormatUtils.h"
 #include <QAction>
 #include <QDialog>
 #include <QTableWidget>
@@ -33,8 +34,11 @@ enum  RelevantColumns {_intensity_,_theta_,_2theta_,_q_};
 const QStringList HeaderLabels{"Intensity","theta","2theta","q"};
 const QStringList UnitsLabels{"default", "bin", "rad", "deg", "mm", "1/nm"};
 
-//! Dialog to hold ImportAssistant.
+namespace{
+}
 
+
+//! Dialog to hold ImportAssistant.
 class BA_CORE_API_ CsvImportAssistant : public QDialog
 {
     Q_OBJECT
@@ -73,6 +77,8 @@ private:
     void setCoordinateUnits();
     void setFirstRow();
     void reset();
+    double helperDoubleParser(std::string string_to_parse);
+
 
 
     QString m_fileName;
@@ -96,5 +102,6 @@ private:
     QAction* m_setCoordinateUnits;
 
 };
+
 
 #endif // CSVIMPORTASSISTANT_H

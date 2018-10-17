@@ -215,16 +215,17 @@ ImportDataInfo CsvImportAssistant::getData()
         int intensityCol = int(m_intensityCol-1);
         int coordinateCol = int(m_coordinateCol-1);
         for(auto row = firstRow; row < nRows; row++) {
-            std::string string_to_parse;
-            std::vector<double> parsed_doubles;
+            coordValues.push_back(
+            helperDoubleParser(
+                            m_tableWidget->item(row,coordinateCol)->text().toStdString()
+                            )
+                        );
 
-            string_to_parse = m_tableWidget->item(row,coordinateCol)->text().toStdString();
-            parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
-            coordValues.push_back(parsed_doubles[0]);
-
-            string_to_parse = m_tableWidget->item(row,intensityCol)->text().toStdString();
-            parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
-            intensityValues.push_back(parsed_doubles[0]);
+            intensityValues.push_back(
+             helperDoubleParser(
+                           m_tableWidget->item(row,intensityCol)->text().toStdString()
+                            )
+                        );
         }
         auto axisName = m_coordinateName.toStdString();
         PointwiseAxis coordAxis(axisName, coordValues);
@@ -240,12 +241,12 @@ ImportDataInfo CsvImportAssistant::getData()
         std::vector<double> intensityValues;
         int intensityCol = int(m_intensityCol-1);
         for(auto row = firstRow; row < nRows; row++) {
-            std::string string_to_parse;
-            std::vector<double> parsed_doubles;
+            intensityValues.push_back(
+            helperDoubleParser(
+                           m_tableWidget->item(row,intensityCol)->text().toStdString()
+                            )
+                        );
 
-            string_to_parse = m_tableWidget->item(row,intensityCol)->text().toStdString();
-            parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
-            intensityValues.push_back(parsed_doubles[0]);
         }
         resultOutputData->addAxis("AXIS", size_t(nRows), 0.0, double(nRows-1));
         for(unsigned i = 0; i < intensityValues.size(); i++)
@@ -662,4 +663,10 @@ void CsvImportAssistant::reset(){
     m_coordinateUnitsSelector->clear();
     m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::NBINS]);
     Reload();
+}
+
+double CsvImportAssistant::helperDoubleParser(std::string string_to_parse){
+        std::vector<double> parsed_doubles;
+        parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
+        return parsed_doubles[0];
 }

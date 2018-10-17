@@ -36,7 +36,7 @@ CsvImportAssistant::CsvImportAssistant(QString& file, QWidget* parent):
       ,m_lastDataRow(0)
       ,m_intensityCol(0)
       ,m_coordinateCol(0)
-      ,m_units(AxesUnits::DEFAULT)
+      ,m_units(AxesUnits::NBINS)
       ,m_tableWidget(nullptr)
       ,m_separatorField(nullptr)
       ,m_firstDataRowSpinBox(nullptr)
@@ -46,7 +46,7 @@ CsvImportAssistant::CsvImportAssistant(QString& file, QWidget* parent):
       ,m_setAsTheta(new QAction(HeaderLabels[_theta_],nullptr))
       ,m_setAs2Theta(new QAction(HeaderLabels[_2theta_],nullptr))
       ,m_setAsQ(new QAction(HeaderLabels[_q_],nullptr))
-      ,m_setAsIntensity(new QAction("Set as " + HeaderLabels[_intensity_] + "column",nullptr))
+      ,m_setAsIntensity(new QAction("Set as " + HeaderLabels[_intensity_] + " column",nullptr))
 {
     //We disable 2theta until the functionallity to handle it is implemented
     m_setAs2Theta->setDisabled(true);
@@ -92,7 +92,7 @@ QBoxLayout* CsvImportAssistant::createLayout()
     //Separator field
     m_separatorField = new QLineEdit(QString(""));
     m_separatorField->setMaxLength(1);
-    m_separatorField->setMaximumWidth(50);
+    m_separatorField->setMaximumWidth(100);
     connect(m_separatorField, &QLineEdit::editingFinished, this, &CsvImportAssistant::reloadCsvFile);
 
     //First Row SpinBox
@@ -100,12 +100,12 @@ QBoxLayout* CsvImportAssistant::createLayout()
     m_firstDataRowSpinBox->setMinimum(1);
     m_firstDataRowSpinBox->setMaximum(1);
     m_firstDataRowSpinBox->setValue(1);
-    m_firstDataRowSpinBox->setMaximumWidth(50);
+    m_firstDataRowSpinBox->setMaximumWidth(100);
     connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [this](){ Reload(); });
 
     //Column type selector
     m_coordinateUnitsSelector = new QComboBox();
-    m_coordinateUnitsSelector->setMaximumWidth(50);
+    m_coordinateUnitsSelector->setMaximumWidth(100);
     m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::NBINS]);
     connect(m_coordinateUnitsSelector,static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),this, [this](){ setCoordinateUnits(); });
 
@@ -247,7 +247,7 @@ ImportDataInfo CsvImportAssistant::getData()
             parsed_doubles = DataFormatUtils::parse_doubles(string_to_parse);
             intensityValues.push_back(parsed_doubles[0]);
         }
-        resultOutputData->addAxis("AXIS", size_t(nRows), 0.0, double(nRows));
+        resultOutputData->addAxis("AXIS", size_t(nRows), 0.0, double(nRows-1));
         for(unsigned i = 0; i < intensityValues.size(); i++)
             (*resultOutputData)[i] = intensityValues[i];
 

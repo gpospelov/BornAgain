@@ -46,7 +46,7 @@ public:
     unsigned firstLine() const;
     unsigned lastLine() const;
     void Reload();
-    std::unique_ptr<ImportDataInfo> getData();
+    ImportDataInfo getData();
 
 public slots:
     void onImportButton();

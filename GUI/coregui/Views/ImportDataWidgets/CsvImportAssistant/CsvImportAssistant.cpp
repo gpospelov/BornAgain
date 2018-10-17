@@ -193,7 +193,7 @@ void CsvImportAssistant::onImportButton()
     }
 }
 
-std::unique_ptr<ImportDataInfo> CsvImportAssistant::getData()
+ImportDataInfo CsvImportAssistant::getData()
 {
 
     std::unique_ptr<OutputData<double>> resultOutputData;
@@ -251,11 +251,10 @@ std::unique_ptr<ImportDataInfo> CsvImportAssistant::getData()
     //We shouldn't be here
     else{
         showErrorMessage("Somethig went wrong during 1D data import.");
-        return nullptr;
+        return ImportDataInfo();
     }
 
-    std::unique_ptr<ImportDataInfo> result;
-    result = std::make_unique<ImportDataInfo>(std::move(resultOutputData),m_units);
+    ImportDataInfo result(std::move(resultOutputData),m_units);
     return result;
 
     /*In case a 2d import is needed in the future

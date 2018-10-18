@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpacePanel.h
+//! @file      GUI/coregui/Views/SampleDesigner/RealSpacePanel.h
 //! @brief     Defines class RealSpacePanel
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,11 +18,9 @@
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class QTreeView;
-class ComponentEditor;
 class SampleModel;
-class FilterPropertyProxy;
-class QItemSelection;
+class QItemSelectionModel;
+class RealSpaceWidget;
 
 //! Panel with item selector, property editor on the right side of RealSpaceWidget.
 
@@ -31,24 +29,12 @@ class BA_CORE_API_ RealSpacePanel : public QWidget
     Q_OBJECT
 
 public:
-    RealSpacePanel(QWidget* parent = nullptr);
+    RealSpacePanel(SampleModel* sampleModel, QItemSelectionModel* selectionModel, QWidget* parent);
 
-    void setModel(SampleModel* model);
-
-    QSize sizeHint() const;
-    QSize minimumSizeHint() const;
-
-signals:
-    void selectionChanged(const QModelIndex& index);
-
-public slots:
-    void onSelectionChanged(const QItemSelection& selected, const QItemSelection&);
+    QSize sizeHint() const override;
 
 private:
-    QTreeView* m_treeView;
-    ComponentEditor* m_componentEditor;
-    SampleModel* m_model;
-    FilterPropertyProxy* m_proxy;
+    RealSpaceWidget* m_realSpaceWidget;
 };
 
 #endif // REALSPACEPANEL_H

@@ -21,7 +21,7 @@
 #include "SampleTreeWidget.h"
 #include "SampleView.h"
 #include "SampleWidgetBox.h"
-#include "RealSpaceWidget.h"
+#include "RealSpacePanel.h"
 #include <QDockWidget>
 #include <QTreeView>
 #include <QAction>
@@ -33,14 +33,14 @@ SampleViewDocks::SampleViewDocks(SampleView* parent)
       m_propertyWidget(
           new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent))
     , m_scriptPanel(new ScriptPanel(parent))
-    , m_realSpaceWidget(new RealSpaceWidget(parent->models()->sampleModel(),
+    , m_realSpacePanel(new RealSpacePanel(parent->models()->sampleModel(),
                                          m_treeWidget->treeView()->selectionModel(), parent))
 {
     addWidget(WIDGET_BOX, m_widgetBox, Qt::LeftDockWidgetArea);
     addWidget(SAMPLE_TREE, m_treeWidget, Qt::RightDockWidgetArea);
     addWidget(PROPERTY_EDITOR, m_propertyWidget, Qt::RightDockWidgetArea);
     addWidget(INFO, m_scriptPanel, Qt::BottomDockWidgetArea);
-    addWidget(REALSPACEPANEL, m_realSpaceWidget, Qt::BottomDockWidgetArea);
+    addWidget(REALSPACEPANEL, m_realSpacePanel, Qt::BottomDockWidgetArea);
 
     connect(m_scriptPanel, &ScriptPanel::widgetHeightRequest, this,
             &DocksController::setDockHeightForWidget);

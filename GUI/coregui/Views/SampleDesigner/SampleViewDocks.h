@@ -23,7 +23,7 @@ class SampleTreeWidget;
 class SamplePropertyWidget;
 class SampleDesigner;
 class ScriptPanel;
-class RealSpaceWidget;
+class RealSpacePanel;
 class QAction;
 
 //! Holds all docked widgets for SampleView.
@@ -53,7 +53,7 @@ private:
     SampleTreeWidget* m_treeWidget;
     SamplePropertyWidget* m_propertyWidget;
     ScriptPanel* m_scriptPanel;
-    RealSpaceWidget* m_realSpaceWidget;
+    RealSpacePanel* m_realSpacePanel;
 };
 
 #endif

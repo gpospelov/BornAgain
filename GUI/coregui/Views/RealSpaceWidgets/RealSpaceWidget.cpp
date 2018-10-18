@@ -28,9 +28,6 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
     , m_sampleModel(sampleModel)
     , m_selectionModel(selectionModel)
 {
-    setWindowTitle("Real Space");
-    setObjectName("Sample3DPanel");
-
     auto hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
@@ -61,11 +58,6 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
     connect(m_toolBar, &RealSpaceToolBar::changeLayerSizeAction,
             m_canvas, &RealSpaceCanvas::onChangeLayerSizeAction);
 
-}
-
-QSize RealSpaceWidget::sizeHint() const
-{
-    return QSize(300, 300);
 }
 
 void RealSpaceWidget::showEvent(QShowEvent*)

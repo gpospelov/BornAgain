@@ -35,8 +35,6 @@ public:
     RealSpaceWidget(SampleModel* sampleModel = nullptr,
                     QItemSelectionModel* selectionModel = nullptr, QWidget* parent = nullptr);
 
-    QSize sizeHint() const override;
-
 protected:
     void showEvent(QShowEvent*) override;
     void hideEvent(QHideEvent*) override;

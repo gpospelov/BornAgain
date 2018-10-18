@@ -27,6 +27,7 @@ public:
 
 protected:
     SpecularInstrumentItem* createSpecularInstrument(ApplicationModels& models);
+    PointwiseAxisItem* createPointwiseAxisItem(SessionModel& model);
     GroupItem* getAxisGroup(SpecularInstrumentItem* instrument);
     bool isSame(const QString& filename, const IAxis* axis);
 
@@ -44,6 +45,14 @@ SpecularInstrumentItem* TestSavingSpecularData::createSpecularInstrument(Applica
 {
     return dynamic_cast<SpecularInstrumentItem*>(
         models.instrumentModel()->insertNewItem(Constants::SpecularInstrumentType));
+}
+
+PointwiseAxisItem* TestSavingSpecularData::createPointwiseAxisItem(SessionModel& model)
+{
+    auto instrument_item = dynamic_cast<SpecularInstrumentItem*>(
+        model.insertNewItem(Constants::SpecularInstrumentType));
+    return dynamic_cast<PointwiseAxisItem*>(
+        getAxisGroup(instrument_item)->getChildOfType(Constants::PointwiseAxisType));
 }
 
 GroupItem* TestSavingSpecularData::getAxisGroup(SpecularInstrumentItem* instrument)
@@ -135,7 +144,7 @@ TEST_F(TestSavingSpecularData, test_InstrumentInJobItem)
 TEST_F(TestSavingSpecularData, test_setLastModified)
 {
     SessionModel model("TempModel");
-    auto item = dynamic_cast<PointwiseAxisItem*>(model.insertNewItem(Constants::PointwiseAxisType));
+    auto item = createPointwiseAxisItem(model);
 
     const int nap_time(10);
     QTest::qSleep(nap_time);
@@ -144,7 +153,7 @@ TEST_F(TestSavingSpecularData, test_setLastModified)
     EXPECT_FALSE(info.wasModifiedSinceLastSave());
 
     QTest::qSleep(nap_time);
-    item->setAxis(m_axis.get());
+    item->init(*m_axis.get(), Constants::UnitsDegrees);
     EXPECT_TRUE(info.wasModifiedSinceLastSave());
 
     info = OutputDataSaveInfo::createSaved(item);
@@ -156,10 +165,10 @@ TEST_F(TestSavingSpecularData, test_setLastModified)
 TEST_F(TestSavingSpecularData, test_DirHistory)
 {
     SessionModel model("TempModel");
-    auto item1 = dynamic_cast<PointwiseAxisItem*>(model.insertNewItem(Constants::PointwiseAxisType));
+    auto item1 = createPointwiseAxisItem(model);
+    item1->init(*m_axis, Constants::UnitsDegrees);
 
-    auto item2 = dynamic_cast<PointwiseAxisItem*>(model.insertNewItem(Constants::PointwiseAxisType));
-    item1->setAxis(m_axis.get());
+    auto item2 = createPointwiseAxisItem(model);
 
     // empty history
     OutputDataDirHistory history;
@@ -181,7 +190,7 @@ TEST_F(TestSavingSpecularData, test_DirHistory)
 
     // Modifying item
     QTest::qSleep(10);
-    item1->setAxis(m_axis.get());
+    item1->init(*m_axis, Constants::UnitsDegrees);
 
     EXPECT_TRUE(history.wasModifiedSinceLastSave(item1));
 }
@@ -201,13 +210,13 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService)
     auto axis_group1 = getAxisGroup(instrument1);
     auto pointwise_axis_item1 =
         dynamic_cast<PointwiseAxisItem*>(axis_group1->getChildOfType(Constants::PointwiseAxisType));
-    pointwise_axis_item1->setAxis(m_axis.get());
+    pointwise_axis_item1->init(*m_axis, Constants::UnitsDegrees);
 
     auto axis_group2 = getAxisGroup(instrument2);
     auto pointwise_axis_item2 =
         dynamic_cast<PointwiseAxisItem*>(axis_group2->getChildOfType(Constants::PointwiseAxisType));
     PointwiseAxis tmp("y", std::vector<double>{1.0, 2.0, 3.0});
-    pointwise_axis_item2->setAxis(&tmp);
+    pointwise_axis_item2->init(tmp, Constants::UnitsRadians);
 
     // Saving first time
     OutputDataIOService service(&models);
@@ -226,7 +235,7 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService)
 
     // Modifying data and saving the project.
     PointwiseAxis tmp2("z", std::vector<double>{2.0, 3.0, 4.0});
-    pointwise_axis_item2->setAxis(&tmp2);
+    pointwise_axis_item2->init(tmp2, Constants::UnitsRadians);
     service.save(projectDir);
     QTest::qSleep(10);
 
@@ -258,7 +267,7 @@ TEST_F(TestSavingSpecularData, test_CopyInstrumentToJobItem)
     auto axis_group = getAxisGroup(instrument);
     auto pointwise_axis_item =
         dynamic_cast<PointwiseAxisItem*>(axis_group->getChildOfType(Constants::PointwiseAxisType));
-    pointwise_axis_item->setAxis(m_axis.get());
+    pointwise_axis_item->init(*m_axis, Constants::UnitsQyQz);
 
     // adding JobItem and copying instrument
     auto jobItem =

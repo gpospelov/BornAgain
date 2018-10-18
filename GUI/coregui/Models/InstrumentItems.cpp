@@ -22,6 +22,8 @@
 #include "IDetector2D.h"
 #include "Instrument.h"
 #include "ItemFileNameUtils.h"
+#include "JobItemUtils.h"
+#include "PointwiseAxisItem.h"
 #include "UnitConverter1D.h"
 #include "MaskItems.h"
 #include "SessionModel.h"
@@ -131,8 +133,13 @@ std::unique_ptr<IUnitConverter> SpecularInstrumentItem::createUnitConverter() co
 {
     const auto instrument = createInstrument();
     auto axis_item = beamItem()->currentInclinationAxisItem();
-    return std::make_unique<UnitConverter1D>(instrument->getBeam(),
-                                             *axis_item->createAxis(1.0), AxesUnits::DEGREES);
+    if (auto pointwise_axis = dynamic_cast<PointwiseAxisItem*>(axis_item)) {
+        AxesUnits native_units = JobItemUtils::axesUnitsFromName(pointwise_axis->getUnitsLabel());
+        return std::make_unique<UnitConverter1D>(instrument->getBeam(), *pointwise_axis->getAxis(),
+                                                 native_units);
+    } else
+        return std::make_unique<UnitConverter1D>(instrument->getBeam(), *axis_item->createAxis(1.0),
+                                                 AxesUnits::DEGREES);
 }
 
 const QString Instrument2DItem::P_DETECTOR = "Detector";

@@ -19,6 +19,7 @@
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
 #include "FitSuiteItem.h"
+#include "GroupItem.h"
 #include "GUIHelpers.h"
 #include "IDetector2D.h"
 #include "Instrument.h"
@@ -96,8 +97,10 @@ void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
         spec_instrument->beamItem()->updateFileName(filename);
 
         // copying axis data
-        const auto instrument_axis = getPointwiseAxisItem(instrumentItem)->getAxis();
-        getPointwiseAxisItem(spec_instrument)->setAxis(instrument_axis);
+        auto origin = getPointwiseAxisItem(instrumentItem);
+        if (origin->containsNonXMLData())
+            getPointwiseAxisItem(spec_instrument)
+                ->init(*origin->getAxis(), origin->getUnitsLabel());
     }
 }
 

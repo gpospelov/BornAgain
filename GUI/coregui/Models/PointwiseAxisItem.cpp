@@ -13,23 +13,29 @@
 // ************************************************************************** //
 
 #include "PointwiseAxisItem.h"
+#include "InstrumentItems.h"
 #include "IntensityDataIOFactory.h"
+#include "IUnitConverter.h"
 #include "OutputData.h"
 #include "PointwiseAxis.h"
 
 namespace {
-std::unique_ptr<OutputData<double>> makeOutputData(const PointwiseAxis& axis);
+std::unique_ptr<OutputData<double>> makeOutputData(const IAxis& axis);
 }
 
+const QString PointwiseAxisItem::P_NATIVE_UNITS = "NativeUnits";
 const QString PointwiseAxisItem::P_FILE_NAME = "FileName";
 
 PointwiseAxisItem::PointwiseAxisItem()
     : BasicAxisItem(Constants::PointwiseAxisType)
+    , m_instrument(nullptr)
 {
     getItem(P_MIN)->setEnabled(false);
     getItem(P_NBINS)->setEnabled(false);
     getItem(P_MAX)->setEnabled(false);
-    addProperty(P_FILE_NAME,QStringLiteral("undefined"))->setVisible(false);
+    addProperty(P_FILE_NAME, QStringLiteral("undefined"))->setVisible(false);
+    addProperty(P_NATIVE_UNITS, Constants::UnitsNbins)->setVisible(false);
+
     setLastModified(QDateTime::currentDateTime());
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_FILE_NAME)
@@ -39,32 +45,38 @@ PointwiseAxisItem::PointwiseAxisItem()
 
 PointwiseAxisItem::~PointwiseAxisItem() = default;
 
-void PointwiseAxisItem::setAxis(const IAxis* axis)
+void PointwiseAxisItem::init(const IAxis& axis, const QString& units_label)
 {
     setLastModified(QDateTime::currentDateTime());
-    if (!axis) {
-        m_axis.reset();
-        return;
-    }
-    m_axis = std::make_unique<PointwiseAxis>(axis->getName(), axis->getBinCenters());
-    getItem(P_MIN)->setValue(m_axis->getMin());
-    getItem(P_MIN)->setValue(m_axis->getMax());
-    getItem(P_NBINS)->setValue(static_cast<int>(m_axis->size()));
+    m_axis = std::unique_ptr<IAxis>(axis.clone());
+    setItemValue(P_NATIVE_UNITS, units_label);
+    findInstrument();
 }
 
-const IAxis* PointwiseAxisItem::getAxis()
+const IAxis* PointwiseAxisItem::getAxis() const
 {
     return m_axis.get();
 }
 
+const QString PointwiseAxisItem::getUnitsLabel() const
+{
+    return getItemValue(P_NATIVE_UNITS).toString();
+}
+
 std::unique_ptr<IAxis> PointwiseAxisItem::createAxis(double scale) const
 {
-    if (!m_axis)
+    if (!checkValidity())
         return nullptr;
+
+    const auto converter = m_instrument->createUnitConverter();
+    const auto converted_axis = converter->createConvertedAxis(0, AxesUnits::DEGREES);
+
+    //applying scaling
     std::vector<double> centers = m_axis->getBinCenters();
     std::for_each(centers.begin(), centers.end(),
                   [scale](double& value) { value = value * scale; });
-    return std::make_unique<PointwiseAxis>(m_axis->getName(), std::move(centers));
+
+    return std::make_unique<PointwiseAxis>(converted_axis->getName(), std::move(centers));
 }
 
 bool PointwiseAxisItem::load(const QString& projectDir)
@@ -74,7 +86,8 @@ bool PointwiseAxisItem::load(const QString& projectDir)
     if (!data)
         return false;
 
-    setAxis(&data->getAxis(0));
+    m_axis = std::unique_ptr<IAxis>(data->getAxis(0).clone());
+    setLastModified(QDateTime::currentDateTime());
     return true;
 }
 
@@ -108,8 +121,35 @@ void PointwiseAxisItem::setLastModified(const QDateTime& dtime)
     m_last_modified = dtime;
 }
 
+bool PointwiseAxisItem::checkValidity() const
+{
+    return m_axis && m_instrument && getUnitsLabel() != Constants::UnitsNbins;
+}
+
+void PointwiseAxisItem::findInstrument()
+{
+    SessionItem* parent_item = parent();
+    while (parent_item && parent_item->modelType() != Constants::SpecularInstrumentType)
+        parent_item = parent_item->parent();
+    m_instrument = static_cast<SpecularInstrumentItem*>(parent_item);
+    updateIndicators();
+}
+
+void PointwiseAxisItem::updateIndicators()
+{
+    if (!checkValidity())
+        return;
+
+    const auto converter = m_instrument->createUnitConverter();
+    getItem(P_MIN)->setValue(converter->calculateMin(0, AxesUnits::DEGREES));
+    getItem(P_MAX)->setValue(converter->calculateMax(0, AxesUnits::DEGREES));
+    getItem(P_NBINS)->setValue(static_cast<int>(m_axis->size()));
+
+    emitDataChanged();
+}
+
 namespace {
-std::unique_ptr<OutputData<double>> makeOutputData(const PointwiseAxis& axis)
+std::unique_ptr<OutputData<double>> makeOutputData(const IAxis& axis)
 {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis(axis);

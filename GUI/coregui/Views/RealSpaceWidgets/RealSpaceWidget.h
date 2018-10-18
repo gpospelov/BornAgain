@@ -35,7 +35,9 @@ public:
     RealSpaceWidget(SampleModel* sampleModel = nullptr,
                     QItemSelectionModel* selectionModel = nullptr, QWidget* parent = nullptr);
 
-    void setModel(SampleModel* model, QItemSelectionModel* selectionModel);
+protected:
+    void showEvent(QShowEvent*);
+    void hideEvent(QHideEvent*);
 
 private:
     RealSpaceActions* m_actions;

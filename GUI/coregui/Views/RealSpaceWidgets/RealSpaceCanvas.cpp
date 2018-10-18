@@ -28,15 +28,13 @@ RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent), m_sampleModel(nullptr), m_view(new RealSpaceView), m_view_locked(false),
       m_sceneGeometry(new SceneGeometry), m_warningSign(new WarningSign(this))
 {
+    qDebug() << "RealSpaceCanvas::RealSpaceCanvas";
+
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(m_view);
     setLayout(layout);
-
-    // listening whether Lock View box in RealSpaceToolBar has been unchecked or not
-    // in order to display the current selection as soon as the box is unchecked
-    connect(this, &RealSpaceCanvas::lockViewUnchecked, this, &RealSpaceCanvas::updateToSelection);
 }
 
 RealSpaceCanvas::~RealSpaceCanvas()
@@ -45,6 +43,8 @@ RealSpaceCanvas::~RealSpaceCanvas()
 
 void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* selectionModel)
 {
+    qDebug() << "RealSpaceCanvas::setModel";
+
     if (sampleModel != m_sampleModel) {
 
         if (m_sampleModel)
@@ -52,33 +52,39 @@ void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* se
 
         m_sampleModel = sampleModel;
 
+        if (m_sampleModel)
+            setConnected(m_sampleModel, true);
+    }
+
+    if (selectionModel != m_selectionModel) {
+        if (m_selectionModel)
+            disconnect(m_selectionModel, &QItemSelectionModel::selectionChanged,
+                       this, &RealSpaceCanvas::onSelectionChanged);
+
         m_selectionModel = selectionModel;
 
-        if (m_sampleModel && !isHidden()) {
-            setConnected(m_sampleModel, true);
-            if (selectionModel != nullptr) {
-                QModelIndexList indices = m_selectionModel->selection().indexes();
-                if (indices.size())
-                    m_currentSelection = FilterPropertyProxy::toSourceIndex(indices.back());
-            }
-
-            if (!m_view_locked)
-                updateScene();
-        }
+        if (m_selectionModel)
+            connect(m_selectionModel, &QItemSelectionModel::selectionChanged,
+                    this, &RealSpaceCanvas::onSelectionChanged);
     }
+
+    updateToSelection();
 }
 
-void RealSpaceCanvas::onSelectionChanged(const QItemSelection& selection /* selection */,
+void RealSpaceCanvas::onSelectionChanged(const QItemSelection&  /* selection */,
                                          const QItemSelection& /* deselection */)
 {
     // propagate selection from selectionChanged() signal to updateToSelection() method
-    updateToSelection(selection);
+    updateToSelection();
 }
 
-void RealSpaceCanvas::updateToSelection(const QItemSelection& selection)
+void RealSpaceCanvas::updateToSelection()
 {
+    if (!m_selectionModel)
+        return;
+
     if (!m_view_locked) {
-        QModelIndexList indices = selection.indexes();
+        QModelIndexList indices = m_selectionModel->selection().indexes();
 
         if (indices.size())
             m_currentSelection = FilterPropertyProxy::toSourceIndex(indices.back());
@@ -111,7 +117,7 @@ void RealSpaceCanvas::onLockViewAction(bool view_locked)
     // unchecked (false), then emit a signal to display the current selection on the canvas
     if (m_view_locked && !view_locked) {
         m_view_locked = view_locked;
-        emit lockViewUnchecked(m_selectionModel->selection());
+        updateToSelection();
     } else
         m_view_locked = view_locked;
 }
@@ -193,17 +199,6 @@ void RealSpaceCanvas::sideView()
 void RealSpaceCanvas::topView()
 {
     m_view->topView();
-}
-
-void RealSpaceCanvas::showEvent(QShowEvent*)
-{
-    setConnected(m_sampleModel, true);
-    updateScene();
-}
-
-void RealSpaceCanvas::hideEvent(QHideEvent*)
-{
-    setConnected(m_sampleModel, false);
 }
 
 void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)

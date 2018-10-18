@@ -29,13 +29,14 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
     , m_sampleModel(sampleModel)
     , m_selectionModel(selectionModel)
 {
-    QHBoxLayout* hlayout = new QHBoxLayout;
+    qDebug() << "RealSpaceWidget::RealSpaceWidget";
+    auto hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
     hlayout->setContentsMargins(0, 0, 0, 0);
     hlayout->addWidget(m_canvas);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(0,0,0,0);
@@ -43,9 +44,6 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
     mainLayout->addLayout(hlayout);
 
     setLayout(mainLayout);
-
-    connect(m_selectionModel, &QItemSelectionModel::selectionChanged,
-            m_canvas, &RealSpaceCanvas::onSelectionChanged);
 
     connect(m_toolBar, &RealSpaceToolBar::defaultViewAction,
             m_canvas, &RealSpaceCanvas::onDefaultViewAction);
@@ -62,12 +60,16 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
     connect(m_toolBar, &RealSpaceToolBar::changeLayerSizeAction,
             m_canvas, &RealSpaceCanvas::onChangeLayerSizeAction);
 
-    setModel(sampleModel, selectionModel);
 }
 
-void RealSpaceWidget::setModel(SampleModel* sampleModel, QItemSelectionModel *selectionModel)
+void RealSpaceWidget::showEvent(QShowEvent*)
 {
-    m_sampleModel = sampleModel;
-    m_selectionModel = selectionModel;
+    qDebug() << "RealSpaceWidget::showEvent";
     m_canvas->setModel(m_sampleModel, m_selectionModel);
+}
+
+void RealSpaceWidget::hideEvent(QHideEvent*)
+{
+    qDebug() << "RealSpaceWidget::hideEvent";
+    m_canvas->setModel(nullptr, nullptr);
 }

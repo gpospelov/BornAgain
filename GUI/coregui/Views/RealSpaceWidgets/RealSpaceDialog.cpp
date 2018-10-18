@@ -49,7 +49,6 @@ RealSpaceDialog::RealSpaceDialog(SampleModel *sampleModel,
 
     #ifdef BORNAGAIN_OPENGL
     RealSpaceWidget* widget = new RealSpaceWidget(m_sampleModel, m_selectionModel);
-    widget->setModel(m_sampleModel, m_selectionModel);
     layout->addWidget(widget);
     #endif
 

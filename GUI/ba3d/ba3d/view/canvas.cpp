@@ -86,7 +86,6 @@ void Canvas::setProgram(Program* p)
 
 void Canvas::setModel(Model* m)
 {
-    qDebug() << "Canvas::setModel()";
     releaseBuffers();
 
     disconnect(modelUpdated);
@@ -98,7 +97,6 @@ void Canvas::setModel(Model* m)
             update();
     });
 
-    Q_ASSERT(camera);
     setCamera();
     //connect(camera, &RealSpace::Camera::updated, model, &Model::cameraUpdated);
     camera->set();
@@ -122,9 +120,6 @@ void Canvas::setCamera(bool full)
 
 void Canvas::initializeGL()
 {
-    qDebug() << "Canvas::initializeGL()";
-    Q_ASSERT(m_isInitializedGL == false);
-
     setCamera((camera = new Camera));
     setProgram((program = new Program));
 
@@ -294,9 +289,6 @@ void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& ge
 
 void Canvas::cleanup()
 {
-    qDebug() << "Canvas::cleanup()";
-    Q_ASSERT(m_isInitializedGL == true);
-
     makeCurrent();
 
     releaseBuffers();

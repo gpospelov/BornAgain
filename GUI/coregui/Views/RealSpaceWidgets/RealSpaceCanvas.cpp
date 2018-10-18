@@ -17,34 +17,27 @@
 #include "RealSpaceModel.h"
 #include "RealSpaceView.h"
 #include "SampleModel.h"
-#include "SessionGraphicsItem.h"
-#include "WarningSign.h"
 #include "SessionItemUtils.h"
-#include <FilterPropertyProxy.h>
+#include "WarningSign.h"
+#include "FilterPropertyProxy.h"
 #include <QApplication>
 #include <QVBoxLayout>
 
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
-    : QWidget(parent), m_sampleModel(nullptr), m_view(new RealSpaceView), m_selectionModel(nullptr)
-    , m_view_locked(false), m_sceneGeometry(new SceneGeometry), m_warningSign(new WarningSign(this))
+    : QWidget(parent), m_sampleModel(nullptr), m_view(new RealSpaceView), m_selectionModel(nullptr),
+      m_view_locked(false), m_sceneGeometry(new SceneGeometry), m_warningSign(new WarningSign(this))
 {
-    qDebug() << "RealSpaceCanvas::RealSpaceCanvas";
-
-    QVBoxLayout* layout = new QVBoxLayout;
+    auto layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(m_view);
     setLayout(layout);
 }
 
-RealSpaceCanvas::~RealSpaceCanvas()
-{
-}
+RealSpaceCanvas::~RealSpaceCanvas() = default;
 
 void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* selectionModel)
 {
-    qDebug() << "RealSpaceCanvas::setModel";
-
     if (sampleModel != m_sampleModel) {
 
         if (m_sampleModel)
@@ -71,10 +64,8 @@ void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* se
     updateToSelection();
 }
 
-void RealSpaceCanvas::onSelectionChanged(const QItemSelection&  /* selection */,
-                                         const QItemSelection& /* deselection */)
+void RealSpaceCanvas::onSelectionChanged(const QItemSelection&, const QItemSelection&)
 {
-    // propagate selection from selectionChanged() signal to updateToSelection() method
     updateToSelection();
 }
 
@@ -113,13 +104,10 @@ void RealSpaceCanvas::onTopViewAction()
 
 void RealSpaceCanvas::onLockViewAction(bool view_locked)
 {
-    // if Lock View box is unchecked i.e. previously it was checked (true) and now it's
-    // unchecked (false), then emit a signal to display the current selection on the canvas
-    if (m_view_locked && !view_locked) {
+    if (m_view_locked != view_locked) {
         m_view_locked = view_locked;
         updateToSelection();
-    } else
-        m_view_locked = view_locked;
+    }
 }
 
 void RealSpaceCanvas::onChangeLayerSizeAction(double layerSizeChangeScale)
@@ -144,17 +132,12 @@ void RealSpaceCanvas::onDataChanged(const QModelIndex& index)
 
 void RealSpaceCanvas::updateScene()
 {
-    // TODO: Fix m_currentSelection when model is about to die
-//    if (!m_currentSelection.isValid())
-//        return;
-
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
     m_realSpaceModel.reset(new RealSpaceModel);
-
-    SessionItem* item = m_sampleModel->itemForIndex(m_currentSelection);
-
-    Q_ASSERT(item);
+    auto item = m_sampleModel->itemForIndex(m_currentSelection);
+    if (!item)
+        return;
 
     RealSpaceBuilder builder3D;
 
@@ -215,8 +198,8 @@ void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
                 Qt::UniqueConnection);
         connect(model, &SampleModel::modelReset, this, &RealSpaceCanvas::resetScene,
                 Qt::UniqueConnection);
-        connect(model, &SampleModel::modelAboutToBeReset, this, [&](){ m_currentSelection = QModelIndex();},
-                Qt::UniqueConnection);
+        connect(model, &SampleModel::modelAboutToBeReset, this,
+                [&]() { m_currentSelection = QModelIndex(); }, Qt::UniqueConnection);
 
     } else {
         disconnect(model, &SampleModel::rowsInserted, this, &RealSpaceCanvas::updateScene);

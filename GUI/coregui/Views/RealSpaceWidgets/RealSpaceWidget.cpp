@@ -18,7 +18,6 @@
 #include "RealSpaceActions.h"
 #include <QVBoxLayout>
 #include <QLabel>
-#include <QDebug>
 
 RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
                                  QItemSelectionModel* selectionModel, QWidget* parent)
@@ -29,7 +28,6 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
     , m_sampleModel(sampleModel)
     , m_selectionModel(selectionModel)
 {
-    qDebug() << "RealSpaceWidget::RealSpaceWidget";
     auto hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
@@ -64,12 +62,10 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
 
 void RealSpaceWidget::showEvent(QShowEvent*)
 {
-    qDebug() << "RealSpaceWidget::showEvent";
     m_canvas->setModel(m_sampleModel, m_selectionModel);
 }
 
 void RealSpaceWidget::hideEvent(QHideEvent*)
 {
-    qDebug() << "RealSpaceWidget::hideEvent";
     m_canvas->setModel(nullptr, nullptr);
 }

@@ -55,7 +55,6 @@ private:
     QButtonGroup* m_pointerModeGroup;
     QToolButton* m_removeButton;
     QToolButton* m_centerViewButton;
-    QToolButton* m_alignItemsButton;
     QComboBox* m_scaleCombo;
     QToolButton* m_materialEditorButton;
     QAction* m_zoomInAction;

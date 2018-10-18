@@ -79,7 +79,6 @@ void SampleView::connectSignals()
     connect(sampleDesigner()->getView(), SIGNAL(selectionModeChanged(int)), m_toolBar,
             SLOT(onViewSelectionMode(int)));
     connect(m_toolBar, SIGNAL(centerView()), sampleDesigner()->getView(), SLOT(onCenterView()));
-    connect(m_toolBar, SIGNAL(smartAlign()), sampleDesigner(), SLOT(onSmartAlign()));
     connect(m_toolBar, SIGNAL(changeScale(double)), sampleDesigner()->getView(),
             SLOT(onChangeScale(double)));
 

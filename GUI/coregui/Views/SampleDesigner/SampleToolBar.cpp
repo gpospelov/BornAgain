@@ -54,19 +54,6 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
 
     addStyledSeparator();
 
-    // unddo redo
-    auto unddoButton = new QToolButton;
-    unddoButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_unddo.png"));
-    unddoButton->setToolTip("Unddo last action (not implemented yet).");
-    addWidget(unddoButton);
-
-    auto redoButton = new QToolButton;
-    redoButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_redo.png"));
-    redoButton->setToolTip("Do again the last undone action (not implemented yet).");
-    addWidget(redoButton);
-
-    addStyledSeparator();
-
     // Remove item
     m_removeButton = new QToolButton;
     m_removeButton->setText("Remove item");
@@ -84,13 +71,6 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
     m_centerViewButton->setToolTip("Center view.");
     addWidget(m_centerViewButton);
     connect(m_centerViewButton, &QToolButton::clicked, this, &SampleToolBar::centerView);
-
-    // align sample
-    m_alignItemsButton = new QToolButton;
-    m_alignItemsButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_align.png"));
-    m_alignItemsButton->setToolTip("Try to align items.");
-    connect(m_alignItemsButton, &QToolButton::clicked, this, &SampleToolBar::smartAlign);
-    addWidget(m_alignItemsButton);
 
     // Zoom
     addWidget(new QLabel(" "));

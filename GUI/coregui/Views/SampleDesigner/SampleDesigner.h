@@ -59,9 +59,6 @@ public:
     void setModels(ApplicationModels* models);
     void setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy);
 
-public slots:
-    void onSmartAlign();
-
 private:
     DesignerScene *m_designerScene; //! scene which holds all objects
     DesignerView *m_designerView;   //! graphical representation of scene with object

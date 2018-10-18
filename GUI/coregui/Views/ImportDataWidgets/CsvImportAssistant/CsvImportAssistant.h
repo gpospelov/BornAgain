@@ -34,10 +34,6 @@ enum  RelevantColumns {_intensity_,_theta_,_2theta_,_q_};
 const QStringList HeaderLabels{"Intensity","theta","2theta","q"};
 const QStringList UnitsLabels{"default", "bin", "rad", "deg", "mm", "1/nm"};
 
-namespace{
-}
-
-
 //! Dialog to hold ImportAssistant.
 class BA_CORE_API_ CsvImportAssistant : public QDialog
 {
@@ -49,25 +45,25 @@ public:
     void setHeaders();
     unsigned firstLine() const;
     unsigned lastLine() const;
+    unsigned maxLines() const;
     void Reload();
     ImportDataInfo getData();
 
 public slots:
     void onImportButton();
     void onRejectButton();
-    void OnColumnClicked(int row, int column);
     void onColumnRightClick(QPoint position);
 
 private:
     QBoxLayout* createLayout();
     QBoxLayout* createFileDetailsLayout();
+    bool initialSetup();
 
     char guessSeparator() const;
     void reloadCsvFile();
     void generate_table();
-    void set_table_data(std::vector<std::vector<std::string>> dataArray);
-    void removeBlankColumns(std::vector<std::vector<std::string>> &dataArray);
-    void extractDesiredColumns(std::vector<std::vector<std::string>> &dataArray);
+    void set_table_data();
+    void removeBlankColumns();
     bool hasEqualLengthLines(std::vector<std::vector<std::string> > &dataArray);
     void populateUnitsComboBox(int coordinate);
     void greyOutCells();
@@ -76,13 +72,13 @@ private:
     void setColumnAsIntensity();
     void setCoordinateUnits();
     void setFirstRow();
+    void setLastRow();
     void reset();
     double helperDoubleParser(std::string string_to_parse);
 
 
 
     QString m_fileName;
-    unsigned m_lastDataRow;
     unsigned m_intensityCol;
     unsigned m_coordinateCol;
     AxesUnits m_units;
@@ -91,8 +87,10 @@ private:
     QTableWidget* m_tableWidget;
     QLineEdit* m_separatorField;
     QSpinBox* m_firstDataRowSpinBox;
+    QSpinBox* m_lastDataRowSpinBox;
     QPushButton* m_importButton;
     std::unique_ptr<CSVFile> m_csvFile;
+    std::vector<std::vector<std::string>> m_csvArray;
     QComboBox* m_coordinateUnitsSelector;
     QAction* m_setAsTheta;
     QAction* m_setAs2Theta;

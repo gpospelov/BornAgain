@@ -33,15 +33,16 @@ const QSize default_dialog_size(300, 400);
 CsvImportAssistant::CsvImportAssistant(QString& file, QWidget* parent):
         QDialog(parent)
       ,m_fileName(file)
-      ,m_lastDataRow(0)
       ,m_intensityCol(0)
       ,m_coordinateCol(0)
       ,m_units(AxesUnits::NBINS)
       ,m_tableWidget(nullptr)
       ,m_separatorField(nullptr)
       ,m_firstDataRowSpinBox(nullptr)
+      ,m_lastDataRowSpinBox(nullptr)
       ,m_importButton(nullptr)
       ,m_csvFile(nullptr)
+      ,m_csvArray()
       ,m_coordinateUnitsSelector(nullptr)
       ,m_setAsTheta(new QAction(HeaderLabels[_theta_],nullptr))
       ,m_setAs2Theta(new QAction(HeaderLabels[_2theta_],nullptr))
@@ -58,17 +59,12 @@ CsvImportAssistant::CsvImportAssistant(QString& file, QWidget* parent):
     StyleUtils::setResizable(this);
     setLayout(createLayout());
 
-    try {
-        if(!m_fileName.isEmpty())
-            m_csvFile = std::make_unique<CSVFile>(m_fileName.toStdString(), separator());
-    }
-    catch (...) {
-        showErrorMessage("There was a problem opening the file \"" + m_fileName.toStdString() + "\"");
+    if(!initialSetup()){
+        showErrorMessage("The file exist but it seems to be empty");
         return;
     }
 
     Reload();
-
 }
 
 QBoxLayout* CsvImportAssistant::createLayout()
@@ -77,7 +73,6 @@ QBoxLayout* CsvImportAssistant::createLayout()
     m_tableWidget = new QTableWidget();
     m_tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     m_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    connect(m_tableWidget, &QTableWidget::cellClicked, this, &CsvImportAssistant::OnColumnClicked);
     connect(m_tableWidget, &QTableWidget::customContextMenuRequested, this, &CsvImportAssistant::onColumnRightClick);
 
     //Import button
@@ -101,7 +96,27 @@ QBoxLayout* CsvImportAssistant::createLayout()
     m_firstDataRowSpinBox->setMaximum(1);
     m_firstDataRowSpinBox->setValue(1);
     m_firstDataRowSpinBox->setMaximumWidth(100);
-    connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [this](){ Reload(); });
+    connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this,
+            [this]()
+            {
+                m_lastDataRowSpinBox->setMinimum(m_firstDataRowSpinBox->value());
+                Reload();
+            }
+    );
+
+    //Last Row SpinBox
+    m_lastDataRowSpinBox = new QSpinBox();
+    m_lastDataRowSpinBox->setMinimum(1);
+    m_lastDataRowSpinBox->setMaximum(1);
+    m_lastDataRowSpinBox->setValue(1);
+    m_lastDataRowSpinBox->setMaximumWidth(100);
+    connect(m_lastDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this,
+            [this]()
+            {
+                m_firstDataRowSpinBox->setMaximum(m_lastDataRowSpinBox->value());
+                Reload();
+            }
+    );
 
     //Column type selector
     m_coordinateUnitsSelector = new QComboBox();
@@ -124,6 +139,7 @@ QBoxLayout* CsvImportAssistant::createLayout()
     controlsLayout->addRow(tr("&Corodinate Units: "), m_coordinateUnitsSelector);
     controlsLayout->addRow(tr("&Separator: "), m_separatorField);
     controlsLayout->addRow(tr("&From row: "), m_firstDataRowSpinBox);
+    controlsLayout->addRow(tr("&To row: "), m_lastDataRowSpinBox);
 
     //buttons layout
     auto buttonsLayout = new QHBoxLayout;
@@ -143,6 +159,44 @@ QBoxLayout* CsvImportAssistant::createLayout()
 
     return layout;
 }
+
+bool CsvImportAssistant::initialSetup(){
+    try {
+        m_csvFile = std::make_unique<CSVFile>(m_fileName.toStdString(), separator());
+    }
+    catch (...) {
+        showErrorMessage("There was a problem opening the file \"" + m_fileName.toStdString() + "\"");
+        return false;
+    }
+
+    size_t lastRow = m_csvFile->NumberOfRows();
+    auto csvArray = m_csvFile->asArray();
+
+
+    if (lastRow < 1) {
+        m_importButton->setDisabled(true);
+        return false;
+    }
+
+    //Automatically ignore empty lines at the end:
+    while(QString::fromStdString(accumulate(csvArray[lastRow-1].begin(), csvArray[lastRow-1].end(), std::string(""))).trimmed() == ""){
+        lastRow--;
+        if (lastRow < 1) {
+            m_importButton->setDisabled(true);
+            return false;
+        }
+    }
+
+    //Set maximum values for spinboxes
+    m_firstDataRowSpinBox->setMaximum(int(lastRow));
+    m_lastDataRowSpinBox->setMaximum(int(lastRow));
+    m_lastDataRowSpinBox->setValue(int(lastRow));
+
+    std::vector<std::vector<std::string>> tmp(csvArray.begin() , csvArray.begin() + maxLines());
+    m_csvArray.swap(tmp);
+    return true;
+}
+
 
 void CsvImportAssistant::Reload()
 {
@@ -171,14 +225,7 @@ void CsvImportAssistant::Reload()
 
 void CsvImportAssistant::reloadCsvFile(){
     reset();
-    try {
-        if(!m_fileName.isEmpty())
-            m_csvFile = std::make_unique<CSVFile>(m_fileName.toStdString(), separator());
-    }
-    catch (...) {
-        showErrorMessage("There was a problem opening the file \"" + m_fileName.toStdString() + "\"");
-        return;
-    }
+    initialSetup();
     Reload();
 }
 
@@ -206,6 +253,7 @@ ImportDataInfo CsvImportAssistant::getData()
 
     auto nRows = m_tableWidget->rowCount();
     auto firstRow = int(firstLine()-1);
+    auto lastRow = int(lastLine());
 
     //Coordinate and Intensity columns selected
     if(m_coordinateCol * m_intensityCol > 0){
@@ -214,7 +262,7 @@ ImportDataInfo CsvImportAssistant::getData()
         std::vector<double> intensityValues;
         int intensityCol = int(m_intensityCol-1);
         int coordinateCol = int(m_coordinateCol-1);
-        for(auto row = firstRow; row < nRows; row++) {
+        for(auto row = firstRow; row < lastRow; row++) {
             coordValues.push_back(
             helperDoubleParser(
                             m_tableWidget->item(row,coordinateCol)->text().toStdString()
@@ -240,7 +288,7 @@ ImportDataInfo CsvImportAssistant::getData()
         //Fill intensity values
         std::vector<double> intensityValues;
         int intensityCol = int(m_intensityCol-1);
-        for(auto row = firstRow; row < nRows; row++) {
+        for(auto row = firstRow; row < lastRow; row++) {
             intensityValues.push_back(
             helperDoubleParser(
                            m_tableWidget->item(row,intensityCol)->text().toStdString()
@@ -269,48 +317,24 @@ ImportDataInfo CsvImportAssistant::getData()
     */
 }
 
-
 void CsvImportAssistant::generate_table() {
-    m_firstDataRowSpinBox->setMaximum(int(m_csvFile->NumberOfRows()));
-    m_lastDataRow = unsigned(int(m_csvFile->NumberOfRows()));
-    std::vector<std::vector<std::string>> csvArray = m_csvFile->asArray();
+    removeBlankColumns();
 
-    if (m_lastDataRow < 1) {
-        m_importButton->setDisabled(true);
-        return;
-    }
-
-
-    //Remove empty lines at the end automatically:
-    while(QString::fromStdString(accumulate(csvArray[m_lastDataRow-1].begin(), csvArray[m_lastDataRow-1].end(), std::string(""))).trimmed() == ""){
-        m_lastDataRow--;
-        m_firstDataRowSpinBox->setMaximum(int(m_lastDataRow));
-        if (m_lastDataRow < 1) {
-            m_importButton->setDisabled(true);
-            return;
-        }
-    }
-
-    std::vector<std::vector<std::string>> dataArray( csvArray.begin() , csvArray.begin() + m_lastDataRow );
-
-    removeBlankColumns(dataArray);
-
-    set_table_data(dataArray);
+    set_table_data();
 
     greyOutCells();
-
 }
 
-void CsvImportAssistant::set_table_data(std::vector<std::vector<std::string>> dataArray){
+void CsvImportAssistant::set_table_data(){
 
-    if(dataArray.empty()){
+    if(m_csvArray.empty()){
         m_tableWidget->clearContents();
         m_tableWidget->setRowCount(0);
         return;
     }
 
-    size_t nRows = dataArray.size();
-    size_t nCols = dataArray[0].size();
+    size_t nRows = m_csvArray.size();
+    size_t nCols = m_csvArray[0].size();
     m_tableWidget->clearContents();
     m_tableWidget->setColumnCount(int(nCols));
     m_tableWidget->setRowCount(0);
@@ -318,8 +342,8 @@ void CsvImportAssistant::set_table_data(std::vector<std::vector<std::string>> da
     for(unsigned i = 0; i < nRows ; i++){
         m_tableWidget->insertRow(m_tableWidget->rowCount());
         unsigned I = unsigned(m_tableWidget->rowCount()) - 1;
-        for(unsigned j = 0; j < dataArray[i].size(); j++){
-            m_tableWidget->setItem(int(I),int(j),new QTableWidgetItem(QString::fromStdString(dataArray[i][j])));
+        for(unsigned j = 0; j < m_csvArray[i].size(); j++){
+            m_tableWidget->setItem(int(I),int(j),new QTableWidgetItem(QString::fromStdString(m_csvArray[i][j])));
         }
     }
 }
@@ -333,6 +357,13 @@ void CsvImportAssistant::greyOutCells(){
 
     //grey out non useful first rows
     for(int i = 0; i < int(firstLine()) - 1; i++)
+        for(int j = 0; j < nCols; j++){
+            m_tableWidget->item(i,j)->setBackground(Qt::gray);
+            m_tableWidget->item(i,j)->setFont(italicFont);
+        }
+
+    //grey out non useful last rows
+    for(int i = int(lastLine()); i < nRows; i++)
         for(int j = 0; j < nCols; j++){
             m_tableWidget->item(i,j)->setBackground(Qt::gray);
             m_tableWidget->item(i,j)->setFont(italicFont);
@@ -352,19 +383,19 @@ void CsvImportAssistant::greyOutCells(){
             }
 }
 
-void CsvImportAssistant::removeBlankColumns(std::vector<std::vector<std::string> > &dataArray){
+void CsvImportAssistant::removeBlankColumns(){
 
-    if(dataArray.empty())
+    if(m_csvArray.empty())
         return;
 
     std::vector<std::vector<std::string>> buffer2d;
     std::vector<std::string> buffer1d;
     std::vector<int> to_be_removed;
 
-    size_t nRows = dataArray.size();
-    size_t nCols = dataArray[0].size();
+    size_t nRows = m_csvArray.size();
+    size_t nCols = m_csvArray[0].size();
 
-    if(!hasEqualLengthLines(dataArray)){
+    if(!hasEqualLengthLines(m_csvArray)){
         throw Exceptions::NotImplementedException("All inner vectors should have the same length already.");
     }
 
@@ -372,7 +403,7 @@ void CsvImportAssistant::removeBlankColumns(std::vector<std::vector<std::string>
     for(size_t j = 0; j < nCols; j++){
         buffer1d.clear();
         for(size_t i = 0; i < nRows; i++){
-            buffer1d.push_back(dataArray[i][j]);
+            buffer1d.push_back(m_csvArray[i][j]);
         }
         if(QString::fromStdString(accumulate(buffer1d.begin(), buffer1d.end(), std::string(""))).trimmed() == "")
             continue;
@@ -381,7 +412,7 @@ void CsvImportAssistant::removeBlankColumns(std::vector<std::vector<std::string>
     }
 
     if(buffer2d.empty()){
-        dataArray.clear();
+        m_csvArray.clear();
         return;
     }
 
@@ -390,13 +421,13 @@ void CsvImportAssistant::removeBlankColumns(std::vector<std::vector<std::string>
     nRows = buffer2d[0].size();
 
     //Save the modified array --i.e. transpose buffer2d
-    dataArray.clear();
+    m_csvArray.clear();
     for(size_t i = 0; i < nRows; i++){
         buffer1d.clear();
         for(size_t j = 0; j < nCols; j++){
             buffer1d.push_back(buffer2d[j][i]);
         }
-        dataArray.push_back(buffer1d);
+        m_csvArray.push_back(buffer1d);
     }
 }
 
@@ -478,24 +509,11 @@ unsigned CsvImportAssistant::firstLine() const{
 }
 
 unsigned CsvImportAssistant::lastLine() const{
-    return m_lastDataRow;
+    return unsigned(m_lastDataRowSpinBox->value());
 }
 
-void CsvImportAssistant::OnColumnClicked(int row, int column)
-{
-    if(column < -1) return;
-    if(row < -1) return;
-
-    //m_tableWidget->clearSelection();
-    //m_tableWidget->selectionModel()->select
-    //    QModelIndex left   = m_tableWidget->model()->index(row, 0);
-    //   QModelIndex right  = m_tableWidget->model()->index(row, m_tableWidget->columnCount() - 1);
-    //  QModelIndex top    = m_tableWidget->model()->index(0, column);
-    // QModelIndex bottom = m_tableWidget->model()->index(m_tableWidget->rowCount() - 1, column);
-
-    //    QItemSelection selection(left, right);
-    //    selection.merge(QItemSelection(top, bottom), QItemSelectionModel::Select);
-    //    m_tableWidget->selectionModel()->select(selection, QItemSelectionModel::Select);
+unsigned CsvImportAssistant::maxLines() const{
+    return unsigned(m_lastDataRowSpinBox->maximum());
 }
 
 void CsvImportAssistant::onColumnRightClick(const QPoint position)
@@ -504,17 +522,19 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     if(!item) return;
     auto row = item->row();
     auto col = item->column();
-
     if(row*col < 0) return;
 
-    OnColumnClicked(row,col);
     QMenu menu;
-
 
     //Action "select from this row"
     QAction selectFromThisRowOn("Set as first data row",nullptr);
     menu.addAction(&selectFromThisRowOn);
     connect(&selectFromThisRowOn,&QAction::triggered,this,[this](){setFirstRow();});
+
+    //Action "select until this row"
+    QAction selectUntilThisRow("Set as last data row",nullptr);
+    menu.addAction(&selectUntilThisRow);
+    connect(&selectUntilThisRow,&QAction::triggered,this,[this](){setLastRow();});
 
     menu.addSeparator();
 
@@ -550,11 +570,10 @@ void CsvImportAssistant::onColumnRightClick(const QPoint position)
     //Action "reset"
     QAction resetAction("reset",nullptr);
     menu.addAction(&resetAction);
-    connect(&resetAction,&QAction::triggered, this, [this](){reset();});
+    connect(&resetAction,&QAction::triggered, this, [this](){reset(); Reload();});
 
     menu.exec(m_tableWidget->mapToGlobal(position));
 }
-
 
 bool CsvImportAssistant::hasEqualLengthLines(std::vector<std::vector<std::string>> &dataArray){
     auto tf =  all_of( begin(dataArray), end(dataArray), [dataArray](const std::vector<std::string>& x) {
@@ -562,7 +581,6 @@ bool CsvImportAssistant::hasEqualLengthLines(std::vector<std::vector<std::string
     });
     return tf;
 }
-
 
 void CsvImportAssistant::showErrorMessage(std::string message){
     QMessageBox msgBox;
@@ -641,8 +659,6 @@ void CsvImportAssistant::setCoordinateUnits(){
         m_units = AxesUnits::QSPACE;
 }
 
-
-
 void CsvImportAssistant::setFirstRow(){
     //get selected column
     auto selectedRanges = m_tableWidget->selectedRanges();
@@ -650,7 +666,25 @@ void CsvImportAssistant::setFirstRow(){
         return;
     auto front = selectedRanges.front();
     auto row = front.topRow();
-    m_firstDataRowSpinBox->setValue(row+1);
+    auto currentMax = m_firstDataRowSpinBox->maximum();
+    auto desiredVal = row+1;
+    auto newMax = std::max(currentMax,desiredVal);
+    m_firstDataRowSpinBox->setMaximum(newMax);
+    m_firstDataRowSpinBox->setValue(desiredVal);
+}
+
+void CsvImportAssistant::setLastRow(){
+    //get selected column
+    auto selectedRanges = m_tableWidget->selectedRanges();
+    if (selectedRanges.empty())
+        return;
+    auto front = selectedRanges.front();
+    auto row = front.topRow();
+    auto currentMin = m_firstDataRowSpinBox->minimum();
+    auto desiredVal = row+1;
+    auto newMin = std::min(currentMin,desiredVal);
+    m_lastDataRowSpinBox->setMinimum(newMin);
+    m_lastDataRowSpinBox->setValue(desiredVal);
 }
 
 void CsvImportAssistant::reset(){
@@ -658,11 +692,11 @@ void CsvImportAssistant::reset(){
     m_coordinateCol = 0;
     m_coordinateName = "";
     m_firstDataRowSpinBox->setValue(0);
+    m_lastDataRowSpinBox->setValue(int(maxLines()));
     setHeaders();
     m_units = AxesUnits::NBINS;
     m_coordinateUnitsSelector->clear();
     m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::NBINS]);
-    Reload();
 }
 
 double CsvImportAssistant::helperDoubleParser(std::string string_to_parse){

@@ -25,13 +25,11 @@
 #include <QPushButton>
 #include <QToolButton>
 
-#include <RealSpaceDialog.h>
-
 //! main tool bar on top of SampleView window
 SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
                              QWidget* parent)
-    : StyledToolBar(parent),
-      m_dialog(nullptr), m_sampleViewActions(sampleActions), m_dialog_on(false)
+    : StyledToolBar(parent)
+    , m_sampleViewActions(sampleActions)
 {
     // Select & Pan
     auto selectionPointerButton = new QToolButton;
@@ -123,24 +121,14 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
 
     // RealSpace 3D Viewer
     addWidget(new QLabel(" "));
-    m_RealSpaceViewerButton = new QToolButton;
-    m_RealSpaceViewerButton->setText("Real Space Viewer");
-    // m_RealSpaceViewerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_materialeditor.png"));
-    m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");
-    connect(m_RealSpaceViewerButton, &QToolButton::clicked, this, &SampleToolBar::onRealSpaceViewerCall);
-    addWidget(m_RealSpaceViewerButton);
-
-
-    // RealSpace 3D Viewer, version 2
     addWidget(new QLabel(" "));
-    m_RealSpaceViewerButton2 = new QToolButton;
-    m_RealSpaceViewerButton2->setText("3D Viewer");
+    m_RealSpaceViewerButton = new QToolButton;
+    m_RealSpaceViewerButton->setText("3D Viewer");
     m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");
-    connect(m_RealSpaceViewerButton2, &QToolButton::clicked,
+    connect(m_RealSpaceViewerButton, &QToolButton::clicked,
             m_sampleViewActions, &SampleViewActions::onToggleRealSpaceView);
-    addWidget(m_RealSpaceViewerButton2);
+    addWidget(m_RealSpaceViewerButton);
 
     // Additional actions
     m_zoomOutAction = new QAction(this);
@@ -169,27 +157,4 @@ void SampleToolBar::onScaleComboChanged(const QString& scale_string)
 void SampleToolBar::onMaterialEditorCall()
 {
     ExternalProperty mp = MaterialItemUtils::selectMaterialProperty();
-}
-
-void SampleToolBar::onRealSpaceViewerCall()
-{
-    // keep only one instance of dialog alive using a boolean flag
-    if (!m_dialog_on) {
-        m_dialog_on = true;
-        m_dialog = new RealSpaceDialog(sampleModel(), selectionModel(), this);
-        m_dialog->show();
-
-        // undo the flag when the dialog is destroyed on close event
-        connect(m_dialog, &QAction::destroyed, this, [&]() { m_dialog_on = false; });
-    }
-}
-
-SampleModel* SampleToolBar::sampleModel()
-{
-    return m_sampleViewActions->sampleModel();
-}
-
-QItemSelectionModel* SampleToolBar::selectionModel()
-{
-    return m_sampleViewActions->selectionModel();
 }

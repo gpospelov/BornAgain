@@ -27,7 +27,7 @@ class BA_CORE_API_ RealSpaceToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    RealSpaceToolBar(QWidget* parent = 0);
+    RealSpaceToolBar(QWidget* parent = nullptr);
 
 signals:
     void defaultViewAction();
@@ -37,13 +37,13 @@ signals:
     void changeLayerSizeAction(double);
 
 private:
-    QToolButton *m_defaultViewButton;
-    QToolButton *m_sideViewButton;
-    QToolButton *m_topViewButton;
-    QCheckBox *m_lockViewCheckBox;
+    QToolButton* m_defaultViewButton;
+    QToolButton* m_sideViewButton;
+    QToolButton* m_topViewButton;
+    QCheckBox* m_lockViewCheckBox;
 
-    QToolButton *m_increaseLayerSizeButton;
-    QToolButton *m_decreaseLayerSizeButton;
+    QToolButton* m_increaseLayerSizeButton;
+    QToolButton* m_decreaseLayerSizeButton;
 };
 
 #endif // REALSPACETOOLBAR_H

@@ -167,9 +167,11 @@ public:
 
         m_floatButton = new DockWidgetTitleButton(this);
         m_floatButton->setIcon(q->style()->standardIcon(QStyle::SP_TitleBarNormalButton, &opt, q));
+        m_floatButton->setToolTip("Undocks and re-attaches the dock widget");
 
         m_closeButton = new DockWidgetTitleButton(this);
         m_closeButton->setIcon(q->style()->standardIcon(QStyle::SP_TitleBarCloseButton, &opt, q));
+        m_closeButton->setToolTip("Closes the dock widget");
 
 #ifndef QT_NO_ACCESSIBILITY
         m_floatButton->setAccessibleName(QDockWidget::tr("Float"));

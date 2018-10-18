@@ -54,17 +54,11 @@ Canvas::Canvas()
     : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1), currentZoomLevel(0), camera(nullptr),
       program(nullptr), model(nullptr), m_isInitializedGL(false)
 {
-    setCamera((camera = new Camera));
-    setProgram((program = new Program));
-
     connect(&geometryStore(), &GeometryStore::deletingGeometry, this, &Canvas::releaseBuffer);
 }
 
 Canvas::~Canvas()
 {
-    releaseBuffers();
-    delete camera;
-    delete program;
     cleanup();
 }
 
@@ -130,6 +124,9 @@ void Canvas::initializeGL()
 {
     qDebug() << "Canvas::initializeGL()";
     Q_ASSERT(m_isInitializedGL == false);
+
+    setCamera((camera = new Camera));
+    setProgram((program = new Program));
 
     connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &Canvas::cleanup);
 
@@ -298,7 +295,19 @@ void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& ge
 void Canvas::cleanup()
 {
     qDebug() << "Canvas::cleanup()";
+    Q_ASSERT(m_isInitializedGL == true);
+
+    makeCurrent();
+
+    releaseBuffers();
+
+    delete camera;
+    camera = nullptr;
+    delete program;
+    program = nullptr;
+
     m_isInitializedGL = false;
+    doneCurrent();
 }
 
 bool Canvas::isInitialized() const

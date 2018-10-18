@@ -52,7 +52,7 @@ namespace RealSpace
 
 Canvas::Canvas()
     : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1), currentZoomLevel(0), camera(nullptr),
-      program(nullptr), model(nullptr)
+      program(nullptr), model(nullptr), m_isInitializedGL(false)
 {
     setCamera((camera = new Camera));
     setProgram((program = new Program));
@@ -65,6 +65,7 @@ Canvas::~Canvas()
     releaseBuffers();
     delete camera;
     delete program;
+    cleanup();
 }
 
 void Canvas::setBgColor(QColor const& c)
@@ -91,6 +92,7 @@ void Canvas::setProgram(Program* p)
 
 void Canvas::setModel(Model* m)
 {
+    qDebug() << "Canvas::setModel()";
     releaseBuffers();
 
     disconnect(modelUpdated);
@@ -102,8 +104,9 @@ void Canvas::setModel(Model* m)
             update();
     });
 
+    Q_ASSERT(camera);
     setCamera();
-
+    //connect(camera, &RealSpace::Camera::updated, model, &Model::cameraUpdated);
     camera->set();
 }
 
@@ -125,9 +128,15 @@ void Canvas::setCamera(bool full)
 
 void Canvas::initializeGL()
 {
+    qDebug() << "Canvas::initializeGL()";
+    Q_ASSERT(m_isInitializedGL == false);
+
+    connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &Canvas::cleanup);
+
     initializeOpenGLFunctions();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
+    m_isInitializedGL = true;
 }
 
 void Canvas::resizeGL(int w, int h)
@@ -286,10 +295,21 @@ void Canvas::draw(QColor const& color, QMatrix4x4 const& mat, Geometry const& ge
     buf->draw();
 }
 
+void Canvas::cleanup()
+{
+    qDebug() << "Canvas::cleanup()";
+    m_isInitializedGL = false;
+}
+
+bool Canvas::isInitialized() const
+{
+    return m_isInitializedGL && model != nullptr;
+}
+
 void Canvas::defaultView()
 {
     // Default view
-    if (model) {
+    if (isInitialized()) {
         RealSpace::Camera::Position defPos(
             RealSpace::Vector3D(0, cameraDefaultPosY, cameraDefaultPosZ), // eye
             RealSpace::Vector3D(0, 0, 0),                                 // center
@@ -308,7 +328,7 @@ void Canvas::defaultView()
 void Canvas::sideView()
 {
     // Side view at current zoom level
-    if (model) {
+    if (isInitialized()) {
         RealSpace::Vector3D eye(0, cameraDefaultPosY, 0);
 
         // Side view 3D axes is zoom scale independent
@@ -334,7 +354,7 @@ void Canvas::sideView()
 void Canvas::topView()
 {
     // Top view at current zoom level
-    if (model) {
+    if (isInitialized()) {
         // Setting a tiny offset in y value of eye such that eye and up vectors are not parallel
         RealSpace::Vector3D eye(0, -0.5, -cameraDefaultPosY);
 
@@ -360,7 +380,7 @@ void Canvas::topView()
 
 void Canvas::horizontalCameraTurn(float angle)
 {
-    if (model) {
+    if (isInitialized()) {
 
         float theta = angle * static_cast<float>(M_PI / 180.0); // in radians
 
@@ -406,7 +426,7 @@ void Canvas::horizontalCameraTurn(float angle)
 
 void Canvas::verticalCameraTurn(float angle)
 {
-    if (model) {
+    if (isInitialized()) {
 
         float theta = angle * static_cast<float>(M_PI / 180.0); // in radians
 

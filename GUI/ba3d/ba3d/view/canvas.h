@@ -92,6 +92,11 @@ private:
     void releaseBuffers();
 
     void draw(QColor const&, QMatrix4x4 const&, Geometry const&);
+
+    void cleanup();
+    bool isInitialized() const;
+
+    bool m_isInitializedGL;
 };
 
 } // namespace RealSpace

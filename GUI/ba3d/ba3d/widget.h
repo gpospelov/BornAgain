@@ -33,7 +33,7 @@ public:
   Widget3D();
  ~Widget3D();
 
-  Camera& cam() { return *camera; }
+  Camera& cam();
 
   void setBackground(QColor const&);
   void setModel(Model*); // model owned elsewhere, may be nullptr
@@ -46,8 +46,6 @@ public:
 
 private:
   Canvas  *canvas;
-  Camera  *camera;
-  Program *program;
 };
 
 //------------------------------------------------------------------------------

@@ -58,6 +58,8 @@ public:
     void horizontalCameraTurn(float angle);
     void verticalCameraTurn(float angle);
 
+    Camera* cam() { return camera; }
+
 private:
     QRect viewport;
     float aspectRatio, colorBgR, colorBgG, colorBgB;

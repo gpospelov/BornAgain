@@ -54,12 +54,17 @@ Canvas::Canvas()
     : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1), currentZoomLevel(0), camera(nullptr),
       program(nullptr), model(nullptr)
 {
+    setCamera((camera = new Camera));
+    setProgram((program = new Program));
+
     connect(&geometryStore(), &GeometryStore::deletingGeometry, this, &Canvas::releaseBuffer);
 }
 
 Canvas::~Canvas()
 {
     releaseBuffers();
+    delete camera;
+    delete program;
 }
 
 void Canvas::setBgColor(QColor const& c)
@@ -98,6 +103,8 @@ void Canvas::setModel(Model* m)
     });
 
     setCamera();
+
+    camera->set();
 }
 
 Model* Canvas::getModel()

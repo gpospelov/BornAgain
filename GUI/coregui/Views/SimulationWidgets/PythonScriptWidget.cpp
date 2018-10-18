@@ -112,9 +112,9 @@ void PythonScriptWidget::onExportToFileButton()
     if (dirname.isEmpty())
         dirname = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 
-    QString filters("Python scripts (*.py);;All files (*.*)");
+    QString filters("Python scripts (*.py)");
     QString defaultFilter("Python scripts (*.py)");
-    QString defaultName = dirname + QString("/untitled.py");
+    QString defaultName = dirname + QString("/untitled");
 
     QString fileName = QFileDialog::getSaveFileName(nullptr, "Save file", defaultName,
         filters, &defaultFilter);

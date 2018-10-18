@@ -135,5 +135,37 @@ class OutputDataIOTest(unittest.TestCase):
         newdata = ba.IntensityDataIOFactory.readOutputData("tmp.int.bz2")
         self.assertTrue(is_the_same_data(data, newdata))
 
+    def test_SaveToTXT(self):
+        data = ba.IntensityData()
+        data.addAxis(ba.FixedBinAxis("axis0", 10, 0.0, 10.0))
+        data.addAxis(ba.FixedBinAxis("axis1", 5, 0.0, 5.0))
+        fill_data(data)
+
+        ba.IntensityDataIOFactory.writeOutputData(data, "tmp.txt")
+        newdata = ba.IntensityDataIOFactory.readOutputData("tmp.txt")
+        self.assertTrue(is_the_same_data(data, newdata))
+
+    def test_SaveNumpyArray_ReadOutputData(self):
+        arr = numpy.array([
+            [0.0, 1.0, 2.0,  3.0],
+            [4.0, 5.0, 6.0,  7.0],
+            [8.0, 9.0, 10.0, 11.0]
+        ])
+        numpy.savetxt('tmp.txt', arr)
+        newdata = ba.IntensityDataIOFactory.readOutputData("tmp.txt")
+        self.assertTrue(numpy.array_equal(newdata.getArray(),arr))
+
+    def test_SaveOutputData_ReadNumpyArray(self):
+        data = ba.IntensityData()
+        data.addAxis(ba.FixedBinAxis("axis0", 10, 0.0, 10.0))
+        data.addAxis(ba.FixedBinAxis("axis1", 5, 0.0, 5.0))
+        fill_data(data)
+
+        ba.IntensityDataIOFactory.writeOutputData(data, "tmp.txt")
+        arr = numpy.loadtxt("tmp.txt")
+
+        self.assertTrue(numpy.array_equal(data.getArray(),arr))
+
+
 if __name__ == '__main__':
     unittest.main()

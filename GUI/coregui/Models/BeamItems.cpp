@@ -23,6 +23,7 @@
 #include "GroupItem.h"
 #include "GUIHelpers.h"
 #include "ParameterTranslators.h"
+#include "PointwiseAxisItem.h"
 #include "SessionItemUtils.h"
 #include "SpecularBeamInclinationItem.h"
 #include "Units.h"
@@ -140,6 +141,17 @@ SpecularBeamItem::SpecularBeamItem() : BeamItem(Constants::SpecularBeamType)
     auto item = addGroupProperty(P_FOOPTPRINT, Constants::FootprintGroup);
     item->setDisplayName(footprint_group_label);
     item->setToolTip("Footprint type");
+
+    getItem(P_WAVELENGTH)
+        ->mapper()
+        ->setOnChildPropertyChange(
+            [this](SessionItem*, QString property) {
+                if (property != SymmetricDistributionItem::P_MEAN)
+                    return;
+                if (auto axis_item = dynamic_cast<PointwiseAxisItem*>(currentInclinationAxisItem()))
+                    axis_item->updateIndicators();
+            },
+            this);
 }
 
 SpecularBeamItem::~SpecularBeamItem() = default;

@@ -45,9 +45,3 @@ void SampleDesigner::setSelectionModel(QItemSelectionModel *model, FilterPropert
 {
     if(model) m_designerScene->setSelectionModel(model, proxy);
 }
-
-
-void SampleDesigner::onSmartAlign()
-{
-    m_designerScene->onSmartAlign();
-}

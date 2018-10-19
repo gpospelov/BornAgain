@@ -88,12 +88,9 @@ public:
     void setModel(SampleModel* sampleModel = nullptr,
                   QItemSelectionModel* selectionModel = nullptr);
 
-signals:
-    void lockViewUnchecked(const QItemSelection&);
-
 public slots:
-    void onSelectionChanged(const QItemSelection& selection, const QItemSelection&);
-    void updateToSelection(const QItemSelection& selection);
+    void onSelectionChanged(const QItemSelection&, const QItemSelection&);
+    void updateToSelection();
 
     void onDefaultViewAction();
     void onSideViewAction();
@@ -109,10 +106,6 @@ private slots:
     void defaultView();
     void sideView();
     void topView();
-
-protected:
-    virtual void showEvent(QShowEvent*);
-    virtual void hideEvent(QHideEvent*);
 
 private:
     void setConnected(SampleModel* model, bool makeConnected);

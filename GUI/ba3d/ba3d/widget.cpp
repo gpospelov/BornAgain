@@ -23,20 +23,18 @@
 namespace RealSpace {
 //------------------------------------------------------------------------------
 
-Widget3D::Widget3D() : canvas(nullptr), camera(nullptr), program(nullptr) {
+Widget3D::Widget3D() : canvas(nullptr) {
   auto box = new QHBoxLayout;
   setLayout(box);
   box->setMargin(0);
   box->addWidget((canvas = new Canvas));
 
-  canvas->setCamera((camera = new Camera));
-  canvas->setProgram((program = new Program));
 }
 
 Widget3D::~Widget3D() {
-  delete program;
-  delete camera;
 }
+
+Camera& Widget3D::cam() { return *canvas->cam(); }
 
 void Widget3D::setBackground(QColor const& color) {
   canvas->setBgColor(color);
@@ -44,8 +42,6 @@ void Widget3D::setBackground(QColor const& color) {
 
 void Widget3D::setModel(Model* model) {
   canvas->setModel(model);
-  connect(camera, &RealSpace::Camera::updated, model, &Model::cameraUpdated);
-  camera->set();
 }
 
 void Widget3D::defaultView()

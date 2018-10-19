@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/SampleDesigner/Sample3DPanel.h
-//! @brief     Defines class Sample3DPanel
+//! @file      GUI/coregui/Views/SampleDesigner/RealSpacePanel.h
+//! @brief     Defines class RealSpacePanel
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,31 +12,29 @@
 //
 // ************************************************************************** //
 
-#ifndef SAMPLE3DPANEL_H
-#define SAMPLE3DPANEL_H
+#ifndef REALSPACEPANEL_H
+#define REALSPACEPANEL_H
 
 #include "WinDllMacros.h"
 #include <QWidget>
 
-class RealSpaceWidget;
 class SampleModel;
 class QItemSelectionModel;
+class RealSpaceWidget;
 
-//! Place for RealSpaceWidget in the context of SampleView docks.
+//! Panel with item selector, property editor on the right side of RealSpaceWidget.
 
-class BA_CORE_API_ Sample3DPanel : public QWidget
+class BA_CORE_API_ RealSpacePanel : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
+
 public:
-    Sample3DPanel(SampleModel* sampleModel,
-                  QItemSelectionModel* selectionModel, QWidget* parent);
+    RealSpacePanel(SampleModel* sampleModel, QItemSelectionModel* selectionModel, QWidget* parent);
 
-//    QSize minimumSizeHint() const override;
-
-//    QSize sizeHint() const override;
+    QSize sizeHint() const override;
 
 private:
     RealSpaceWidget* m_realSpaceWidget;
 };
 
-#endif
+#endif // REALSPACEPANEL_H

@@ -25,7 +25,6 @@ class QComboBox;
 class QString;
 class QButtonGroup;
 class SampleModel;
-class RealSpaceDialog;
 class SampleViewActions;
 
 //! The SampleToolBar class represents a main toolbar on top of SampleView window
@@ -51,28 +50,17 @@ public slots:
     void onViewSelectionMode(int);
     void onScaleComboChanged(const QString&);
     void onMaterialEditorCall();
-    void onRealSpaceViewerCall();
 
 private:
-    SampleModel* sampleModel();
-    QItemSelectionModel* selectionModel();
-
     QButtonGroup* m_pointerModeGroup;
     QToolButton* m_removeButton;
     QToolButton* m_centerViewButton;
-    QToolButton* m_alignItemsButton;
     QComboBox* m_scaleCombo;
     QToolButton* m_materialEditorButton;
     QAction* m_zoomInAction;
     QAction* m_zoomOutAction;
-
     QToolButton* m_RealSpaceViewerButton;
-    QToolButton* m_RealSpaceViewerButton2;
-    RealSpaceDialog* m_dialog;
-
     SampleViewActions* m_sampleViewActions;
-
-    bool m_dialog_on;
 };
 
 #endif // SAMPLETOOLBAR_H

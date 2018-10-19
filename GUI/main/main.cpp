@@ -34,13 +34,6 @@ int main(int argc, char* argv[])
     if( options.enableHighDPISupport())
         QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
-#ifdef BORNAGAIN_OPENGL
-    // Hack to take care of OpenGL window appearance in the context of QDockWidget
-    // See http://doc.qt.io/qt-5/qopenglwidget.html#resource-initialization-and-cleanup
-    // FIXME Make correct clenup as explained in the link
-    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
-#endif
-
     QApplication app(argc, argv);
 
     if (!options.find("with-debug"))

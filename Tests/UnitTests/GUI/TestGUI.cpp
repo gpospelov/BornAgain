@@ -35,7 +35,6 @@
 #include "TestProjectUtils.h"
 #include "TestPropertyRepeater.h"
 #include "TestProxyModelStrategy.h"
-#include "TestRealSpaceBuilderUtils.h"
 #include "TestSaveService.h"
 #include "TestSessionItemController.h"
 #include "TestSessionItem.h"
@@ -51,6 +50,9 @@
 #include "TestAxesItems.h"
 #include "TestMultiLayerItem.h"
 #include "TestSavingSpecularData.h"
+#ifdef BORNAGAIN_OPENGL
+#include "TestRealSpaceBuilderUtils.h"
+#endif
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);

@@ -139,15 +139,14 @@ void SpecularInstrumentItem::setShape(const std::vector<int>& data_shape)
 void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
 {
     if (item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString() == Constants::UnitsNbins) {
-        dynamic_cast<GroupItem*>(beamItem()->inclinationAxisGroup())
-            ->setCurrentType(Constants::BasicAxisType);
+        beamItem()->inclinationAxisGroup()->setCurrentType(Constants::BasicAxisType);
         setShape(item->shape());
     } else {
         QString units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
         const auto& data = dynamic_cast<DataItem*>(item->getItem(RealDataItem::T_NATIVE_DATA))
                                ->getOutputData()->getAxis(0);
 
-        auto axis_group = dynamic_cast<GroupItem*>(beamItem()->inclinationAxisGroup());
+        auto axis_group = beamItem()->inclinationAxisGroup();
         axis_group->setCurrentType(Constants::PointwiseAxisType);
         auto axis = dynamic_cast<PointwiseAxisItem*>(axis_group->currentItem());
         axis->init(data, units);

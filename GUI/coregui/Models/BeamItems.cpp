@@ -20,6 +20,7 @@
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
 #include "FootprintItems.h"
+#include "GroupItem.h"
 #include "GUIHelpers.h"
 #include "ParameterTranslators.h"
 #include "SessionItemUtils.h"
@@ -153,15 +154,15 @@ void SpecularBeamItem::setInclinationAngle(double value)
     BeamItem::setInclinationAngle(value);
 }
 
-SessionItem* SpecularBeamItem::inclinationAxisGroup()
+GroupItem* SpecularBeamItem::inclinationAxisGroup()
 {
-    return getItem(P_INCLINATION_ANGLE)->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
+    return dynamic_cast<GroupItem*>(
+        getItem(P_INCLINATION_ANGLE)->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
 }
 
 BasicAxisItem* SpecularBeamItem::currentInclinationAxisItem()
 {
-    return &getItem(BeamItem::P_INCLINATION_ANGLE)
-        ->groupItem<BasicAxisItem>(SpecularBeamInclinationItem::P_ALPHA_AXIS);
+    return dynamic_cast<BasicAxisItem*>(inclinationAxisGroup()->currentItem());
 }
 
 FootprintItem* SpecularBeamItem::currentFootprintItem() const

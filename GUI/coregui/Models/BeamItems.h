@@ -20,6 +20,7 @@
 class BasicAxisItem;
 class Beam;
 class FootprintItem;
+class GroupItem;
 
 class BA_CORE_API_ BeamItem : public SessionItem
 {
@@ -63,7 +64,7 @@ public:
     double getInclinationAngle() const override;
     void setInclinationAngle(double value) override;
 
-    SessionItem* inclinationAxisGroup();
+    GroupItem* inclinationAxisGroup();
     BasicAxisItem* currentInclinationAxisItem();
     FootprintItem* currentFootprintItem() const;
 

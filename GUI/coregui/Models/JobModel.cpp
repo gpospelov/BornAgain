@@ -15,6 +15,7 @@
 #include "JobModel.h"
 #include "AxesItems.h"
 #include "FitSuiteItem.h"
+#include "GroupItem.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
 #include "IntensityDataItem.h"
@@ -142,8 +143,7 @@ QVector<SessionItem *> JobModel::nonXMLData() const
             dynamic_cast<SpecularInstrumentItem*>(jobItem->getItem(JobItem::T_INSTRUMENT));
         if (instrument) {
             auto axis_group = instrument->beamItem()->inclinationAxisGroup();
-            if (auto pointwise_axis = axis_group->getChildOfType(Constants::PointwiseAxisType))
-                result.push_back(pointwise_axis);
+            result.push_back(axis_group->getChildOfType(Constants::PointwiseAxisType));
         }
     }
 

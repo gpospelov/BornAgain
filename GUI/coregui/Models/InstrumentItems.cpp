@@ -16,6 +16,7 @@
 #include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "BeamItems.h"
+#include "DataItem.h"
 #include "DetectorItems.h"
 #include "GroupItem.h"
 #include "GUIHelpers.h"
@@ -24,6 +25,7 @@
 #include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "PointwiseAxisItem.h"
+#include "RealDataItem.h"
 #include "UnitConverter1D.h"
 #include "MaskItems.h"
 #include "SessionModel.h"
@@ -67,6 +69,11 @@ BackgroundItem* InstrumentItem::backgroundItem() const
 GroupItem* InstrumentItem::backgroundGroup()
 {
     return &item<GroupItem>(P_BACKGROUND);
+}
+
+void InstrumentItem::updateToRealData(const RealDataItem *item)
+{
+    setShape(item->shape());
 }
 
 std::unique_ptr<Instrument> InstrumentItem::createInstrument() const
@@ -127,6 +134,24 @@ void SpecularInstrumentItem::setShape(const std::vector<int>& data_shape)
                                 "instrument is incompatible with passed data shape.");
     auto axis_item = beamItem()->currentInclinationAxisItem();
     axis_item->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
+}
+
+void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
+{
+    if (item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString() == Constants::UnitsNbins) {
+        dynamic_cast<GroupItem*>(beamItem()->inclinationAxisGroup())
+            ->setCurrentType(Constants::BasicAxisType);
+        setShape(item->shape());
+    } else {
+        QString units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
+        const auto& data = dynamic_cast<DataItem*>(item->getItem(RealDataItem::T_NATIVE_DATA))
+                               ->getOutputData()->getAxis(0);
+
+        auto axis_group = dynamic_cast<GroupItem*>(beamItem()->inclinationAxisGroup());
+        axis_group->setCurrentType(Constants::PointwiseAxisType);
+        auto axis = dynamic_cast<PointwiseAxisItem*>(axis_group->currentItem());
+        axis->init(data, units);
+    }
 }
 
 std::unique_ptr<IUnitConverter> SpecularInstrumentItem::createUnitConverter() const

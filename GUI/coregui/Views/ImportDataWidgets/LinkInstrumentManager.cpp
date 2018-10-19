@@ -120,7 +120,7 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     if (!QuestionOnInstrumentReshaping(message))
         return false;
 
-    instrumentItem->setShape(realDataItem->shape());
+    instrumentItem->updateToRealData(realDataItem);
     return true;
 }
 

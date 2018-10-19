@@ -88,11 +88,24 @@ void DistributionItem::register_limits()
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionNoneItem::P_MEAN = "Value";
+const QString SymmetricDistributionItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
 
-DistributionNoneItem::DistributionNoneItem() : DistributionItem(Constants::DistributionNoneType)
+SymmetricDistributionItem::SymmetricDistributionItem(const QString& name)
+    :DistributionItem(name)
 {
-    addProperty(P_MEAN, 0.1)->setLimits(RealLimits::limitless());
+}
+
+void SymmetricDistributionItem::showMean(bool flag)
+{
+    getItem(P_MEAN)->setVisible(flag);
+}
+
+// --------------------------------------------------------------------------------------------- //
+
+DistributionNoneItem::DistributionNoneItem()
+    : SymmetricDistributionItem(Constants::DistributionNoneType)
+{
+    addProperty(P_MEAN, 0.1)->setLimits(RealLimits::limitless()).setDisplayName("Value");
     getItem(P_MEAN)->setDecimals(4);
 }
 
@@ -105,11 +118,6 @@ std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution(double
 void DistributionNoneItem::init_distribution(double value)
 {
     setItemValue(DistributionNoneItem::P_MEAN, value);
-}
-
-void DistributionNoneItem::showMean(bool flag)
-{
-    getItem(P_MEAN)->setVisible(flag);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -144,11 +152,10 @@ void DistributionGateItem::init_distribution(double value)
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionLorentzItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
 const QString DistributionLorentzItem::P_HWHM = QString::fromStdString(BornAgain::HWHM);
 
 DistributionLorentzItem::DistributionLorentzItem()
-    : DistributionItem(Constants::DistributionLorentzType)
+    : SymmetricDistributionItem(Constants::DistributionLorentzType)
 {
     addProperty(P_MEAN, 1.0)->setLimits(RealLimits::limitless());
     addProperty(P_HWHM, 1.0);
@@ -175,18 +182,12 @@ void DistributionLorentzItem::init_distribution(double value)
     getItem(P_HWHM)->setLimits(RealLimits::lowerLimited(0.0));
 }
 
-void DistributionLorentzItem::showMean(bool flag)
-{
-    getItem(P_MEAN)->setVisible(flag);
-}
-
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionGaussianItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
 const QString DistributionGaussianItem::P_STD_DEV = QString::fromStdString(BornAgain::StdDeviation);
 
 DistributionGaussianItem::DistributionGaussianItem()
-    : DistributionItem(Constants::DistributionGaussianType)
+    : SymmetricDistributionItem(Constants::DistributionGaussianType)
 {
     addProperty(P_MEAN, 1.0)->setLimits(RealLimits::limitless());
     addProperty(P_STD_DEV, 1.0);
@@ -211,11 +212,6 @@ void DistributionGaussianItem::init_distribution(double value)
     setItemValue(P_MEAN, value);
     setItemValue(P_STD_DEV, sigma);
     getItem(P_STD_DEV)->setLimits(RealLimits::lowerLimited(0.0));
-}
-
-void DistributionGaussianItem::showMean(bool flag)
-{
-    getItem(P_MEAN)->setVisible(flag);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -259,11 +255,10 @@ void DistributionLogNormalItem::showMean(bool flag)
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionCosineItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
 const QString DistributionCosineItem::P_SIGMA = QString::fromStdString(BornAgain::Sigma);
 
 DistributionCosineItem::DistributionCosineItem()
-    : DistributionItem(Constants::DistributionCosineType)
+    : SymmetricDistributionItem(Constants::DistributionCosineType)
 {
     addProperty(P_MEAN, 1.0)->setLimits(RealLimits::limitless());
     addProperty(P_SIGMA, 1.0);
@@ -288,11 +283,6 @@ void DistributionCosineItem::init_distribution(double value)
     setItemValue(P_MEAN, value);
     setItemValue(P_SIGMA, sigma);
     getItem(P_SIGMA)->setLimits(RealLimits::lowerLimited(0.0));
-}
-
-void DistributionCosineItem::showMean(bool flag)
-{
-    getItem(P_MEAN)->setVisible(flag);
 }
 
 // --------------------------------------------------------------------------------------------- //

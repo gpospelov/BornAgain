@@ -44,7 +44,7 @@ class BA_CORE_API_ DistributionNoneItem : public DistributionItem
 {
 
 public:
-    static const QString P_VALUE;
+    static const QString P_MEAN;
     DistributionNoneItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;

@@ -88,12 +88,12 @@ void DistributionItem::register_limits()
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString DistributionNoneItem::P_VALUE = "Value";
+const QString DistributionNoneItem::P_MEAN = "Value";
 
 DistributionNoneItem::DistributionNoneItem() : DistributionItem(Constants::DistributionNoneType)
 {
-    addProperty(P_VALUE, 0.1)->setLimits(RealLimits::limitless());
-    getItem(P_VALUE)->setDecimals(4);
+    addProperty(P_MEAN, 0.1)->setLimits(RealLimits::limitless());
+    getItem(P_MEAN)->setDecimals(4);
 }
 
 std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution(double scale) const
@@ -104,12 +104,12 @@ std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution(double
 
 void DistributionNoneItem::init_distribution(double value)
 {
-    setItemValue(DistributionNoneItem::P_VALUE, value);
+    setItemValue(DistributionNoneItem::P_MEAN, value);
 }
 
 void DistributionNoneItem::showMean(bool flag)
 {
-    getItem(P_VALUE)->setVisible(flag);
+    getItem(P_MEAN)->setVisible(flag);
 }
 
 // --------------------------------------------------------------------------------------------- //

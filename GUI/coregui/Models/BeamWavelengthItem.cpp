@@ -19,7 +19,7 @@ BeamWavelengthItem::BeamWavelengthItem()
 {
     register_distribution_group(Constants::DistributionExtendedGroup);
 
-    SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_VALUE);
+    SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_MEAN);
     valueItem->setLimits(RealLimits::positive());
     valueItem->setDecimals(4);
     valueItem->setValue(0.1);

@@ -77,7 +77,7 @@ void setupDistributionMean(SessionItem* distribution)
 {
     Q_ASSERT(distribution);
 
-    SessionItem* valueItem = distribution->getItem(DistributionNoneItem::P_VALUE);
+    SessionItem* valueItem = distribution->getItem(DistributionNoneItem::P_MEAN);
     Q_ASSERT(valueItem);
 
     valueItem->setLimits(RealLimits::limited(-90.0, 90.0));

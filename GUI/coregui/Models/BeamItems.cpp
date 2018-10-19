@@ -47,7 +47,6 @@ BeamItem::BeamItem(const QString& beam_model) : SessionItem(beam_model)
         .setToolTip("Beam intensity in neutrons (or gammas) per sec.")
         .setEditorType(Constants::ScientificEditorType);
 
-    addGroupProperty(P_WAVELENGTH, Constants::BeamWavelengthType);
     addGroupProperty(P_AZIMUTHAL_ANGLE, Constants::BeamAzimuthalAngleType);
     addGroupProperty(P_POLARIZATION, Constants::VectorType)->setToolTip(polarization_tooltip);
 
@@ -121,6 +120,11 @@ void BeamItem::setInclinationProperty(const QString& inclination_type)
     addGroupProperty(P_INCLINATION_ANGLE, inclination_type);
 }
 
+void BeamItem::setWavelengthProperty(const QString& wavelength_type)
+{
+    addGroupProperty(P_WAVELENGTH, wavelength_type);
+}
+
 // Specular beam item
 /* ------------------------------------------------------------------------- */
 
@@ -131,6 +135,7 @@ const QString footprint_group_label("Type");
 SpecularBeamItem::SpecularBeamItem() : BeamItem(Constants::SpecularBeamType)
 {
     setInclinationProperty(Constants::SpecularBeamInclinationType);
+    setWavelengthProperty(Constants::SpecularBeamWavelengthType);
 
     auto item = addGroupProperty(P_FOOPTPRINT, Constants::FootprintGroup);
     item->setDisplayName(footprint_group_label);
@@ -181,6 +186,7 @@ void SpecularBeamItem::updateFileName(const QString& filename)
 GISASBeamItem::GISASBeamItem() : BeamItem(Constants::GISASBeamType)
 {
     setInclinationProperty(Constants::BeamInclinationAngleType);
+    setWavelengthProperty(Constants::BeamWavelengthType);
 }
 
 GISASBeamItem::~GISASBeamItem() = default;

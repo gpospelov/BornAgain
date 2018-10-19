@@ -51,6 +51,7 @@ protected:
     explicit BeamItem(const QString& beam_model);
 
     void setInclinationProperty(const QString& inclination_type);
+    void setWavelengthProperty(const QString& wavelength_type);
 };
 
 class BA_CORE_API_ SpecularBeamItem : public BeamItem

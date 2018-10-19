@@ -14,10 +14,10 @@
 
 #include "BeamWavelengthItem.h"
 
-BeamWavelengthItem::BeamWavelengthItem()
-    : BeamDistributionItem(Constants::BeamWavelengthType, m_show_mean)
+BeamWavelengthItem::BeamWavelengthItem(const QString& model_type,const QString& distribution_group)
+    : BeamDistributionItem(model_type, m_show_mean)
 {
-    register_distribution_group(Constants::DistributionExtendedGroup);
+    register_distribution_group(distribution_group);
 
     SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_MEAN);
     valueItem->setLimits(RealLimits::positive());
@@ -33,3 +33,8 @@ double BeamWavelengthItem::wavelength() const
 {
     return BeamDistributionItem::meanValue();
 }
+
+SpecularBeamWavelengthItem::SpecularBeamWavelengthItem()
+    : BeamWavelengthItem(Constants::SpecularBeamWavelengthType,
+                         Constants::SymmetricDistributionGroup)
+{}

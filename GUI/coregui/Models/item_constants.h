@@ -153,6 +153,7 @@ const ModelType BeamWavelengthType = "BeamWavelength";
 const ModelType BeamAzimuthalAngleType = "BeamAzimuthalAngle";
 const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 const ModelType SpecularBeamInclinationType = "SpecularBeamInclinationAxis";
+const ModelType SpecularBeamWavelengthType = "SpecularBeamWavelength";
 
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";

@@ -141,6 +141,11 @@ void RealDataItem::setImportData(ImportDataInfo data) {
     item<DataItem>(T_NATIVE_DATA).setOutputData(data.intensityData().release());
 }
 
+bool RealDataItem::holdsDimensionalData() const
+{
+    return getItemValue(P_NATIVE_UNITS).toString() != Constants::UnitsNbins;
+}
+
 void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_update)
 {
     m_linkedInstrument = instrument;

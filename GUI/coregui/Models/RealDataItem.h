@@ -45,6 +45,7 @@ public:
 
     void setOutputData(OutputData<double>* data);
     void setImportData(ImportDataInfo data);
+    bool holdsDimensionalData() const;
 
     void linkToInstrument(const InstrumentItem* instrument, bool make_update = true);
 

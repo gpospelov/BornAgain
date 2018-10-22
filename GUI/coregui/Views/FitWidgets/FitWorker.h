@@ -20,6 +20,7 @@
 #include <memory>
 
 class FitSuite;
+class FitObjectiveBuilder;
 
 class BA_CORE_API_ FitWorker : public QObject
 {
@@ -27,10 +28,12 @@ class BA_CORE_API_ FitWorker : public QObject
 
 public:
     FitWorker(std::shared_ptr<FitSuite> suite) { m_fitsuite = suite; }
+    FitWorker(std::shared_ptr<FitObjectiveBuilder> suite) { m_fit_objective = suite; }
 
 public slots:
 
     void startFit();
+    void startFit2();
 
     void interruptFitting();
 
@@ -45,6 +48,7 @@ signals:
 private:
     int durationSince(const class QDateTime& since);
     std::shared_ptr<FitSuite> m_fitsuite;
+    std::shared_ptr<FitObjectiveBuilder> m_fit_objective;
 };
 
 #endif // FITWORKER_H

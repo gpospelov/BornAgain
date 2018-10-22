@@ -23,6 +23,7 @@
 #include "IntensityDataItem.h"
 #include "FitParameterItems.h"
 #include "GUIHelpers.h"
+#include "FitObjectiveBuilder.h"
 #include "FitLog.h"
 
 FitSessionController::FitSessionController(QObject* parent)
@@ -74,6 +75,8 @@ void FitSessionController::onStartFittingRequest()
         return;
 
     try {
+        m_objectiveBuilder.reset(new FitObjectiveBuilder(m_jobItem));
+
         m_observer->setInterval(
             m_jobItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_jobItem));

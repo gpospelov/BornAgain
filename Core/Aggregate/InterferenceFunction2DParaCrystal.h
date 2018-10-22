@@ -73,17 +73,14 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
-    double gammaPdf1() const { return m_pdf1->gamma(); }
-    double gammaPdf2() const { return m_pdf2->gamma(); }
-
-    std::pair<double, double> randomSampleXYpdf1() const
+    const IFTDistribution2D* pdf1() const
     {
-        return m_pdf1->createSampler()->randomSample();
+        return m_pdf1.get();
     }
 
-    std::pair<double, double> randomSampleXYpdf2() const
+    const IFTDistribution2D* pdf2() const
     {
-        return m_pdf2->createSampler()->randomSample();
+        return m_pdf2.get();
     }
 
 private:

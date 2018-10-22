@@ -19,6 +19,8 @@
 #include "FitParameter.h"
 #include "ParameterTreeItems.h"
 #include "JobItem.h"
+#include "Parameters.h"
+#include "Parameter.h"
 #include <cmath>
 
 namespace
@@ -300,4 +302,21 @@ void FitParameterContainerItem::setValuesInParameterContainer(
         }
         index++;
     }
+}
+
+Fit::Parameters FitParameterContainerItem::createParameters() const
+{
+    Fit::Parameters result;
+
+    int index(0);
+    for(auto item : getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        auto fitPar = dynamic_cast<FitParameterItem*>(item);
+        double startValue = fitPar->getItemValue(FitParameterItem::P_START_VALUE).toDouble();
+        AttLimits limits = fitPar->attLimits();
+        QString name = QString("par%1").arg(index);
+        result.add(Fit::Parameter(name.toStdString(), startValue, limits));
+        ++index;
+    }
+
+    return result;
 }

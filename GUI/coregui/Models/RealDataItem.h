@@ -43,6 +43,9 @@ public:
     DataItem* dataItem();
     const DataItem* dataItem() const;
 
+    DataItem* nativeData();
+    const DataItem* nativeData() const;
+
     void setOutputData(OutputData<double>* data);
     void setImportData(ImportDataInfo data);
     bool holdsDimensionalData() const;

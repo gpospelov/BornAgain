@@ -85,11 +85,17 @@ DataItem* RealDataItem::dataItem()
 
 const DataItem* RealDataItem::dataItem() const
 {
-    const DataItem* result = dynamic_cast<const DataItem*>(getItem(T_INTENSITY_DATA));
-    if (!result)
-        throw GUIHelpers::Error(
-            "Error in RealDataItem::dataItem: underlying data item was not set.");
-    return result;
+    return dynamic_cast<const DataItem*>(getItem(T_INTENSITY_DATA));
+}
+
+DataItem* RealDataItem::nativeData()
+{
+    return const_cast<DataItem*>(static_cast<const RealDataItem*>(this)->nativeData());
+}
+
+const DataItem* RealDataItem::nativeData() const
+{
+    return dynamic_cast<const DataItem*>(getItem(T_NATIVE_DATA));
 }
 
 //! Sets OutputData to underlying item. Creates it, if not exists.
@@ -194,7 +200,7 @@ void RealDataItem::updateToInstrument()
         return;
     }
 
-    auto native_data_item = dynamic_cast<DataItem*>(getItem(T_NATIVE_DATA));
+    auto native_data_item = nativeData();
     auto data_source = native_data_item ? native_data_item : data_item;
 
     std::unique_ptr<OutputData<double>> native_data(data_source->getOutputData()->clone());

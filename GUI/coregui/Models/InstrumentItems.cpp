@@ -143,8 +143,7 @@ void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
         setShape(item->shape());
     } else {
         QString units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
-        const auto& data = dynamic_cast<DataItem*>(item->getItem(RealDataItem::T_NATIVE_DATA))
-                               ->getOutputData()->getAxis(0);
+        const auto& data = item->nativeData()->getOutputData()->getAxis(0);
 
         auto axis_group = beamItem()->inclinationAxisGroup();
         axis_group->setCurrentType(Constants::PointwiseAxisType);

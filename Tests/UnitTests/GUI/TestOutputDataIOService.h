@@ -55,7 +55,7 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     // adding RealDataItem
     RealDataItem* realData = dynamic_cast<RealDataItem*>(
         models.realDataModel()->insertNewItem(Constants::RealDataType));
-    EXPECT_THROW(models.realDataModel()->nonXMLData().size(), GUIHelpers::Error);
+    EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 0);
     realData->setOutputData(TestUtils::createData().release());
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
 
@@ -68,7 +68,7 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     // adding RealDataItem to jobItem
     RealDataItem* realData2 = dynamic_cast<RealDataItem*>(models.jobModel()->insertNewItem(
         Constants::RealDataType, jobItem->index(), -1, JobItem::T_REALDATA));
-    EXPECT_THROW(models.jobModel()->nonXMLData().size(), GUIHelpers::Error);
+    EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
     realData2->setOutputData(TestUtils::createData(0.0, TestUtils::DIM::D1).release());
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);
 

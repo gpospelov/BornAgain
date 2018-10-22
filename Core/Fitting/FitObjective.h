@@ -88,6 +88,9 @@ public:
 
     //! Initializes plotting during the fitting using Python callable.
     //! @param every_nth: Called on every n'th iteration.
+#ifndef SWIG
+    void initPlot(int every_nth, fit_observer_t observer);
+#endif
     void initPlot(int every_nth, PyObserverCallback& callback);
 
     bool isCompleted() const;

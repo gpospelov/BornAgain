@@ -35,6 +35,9 @@ BA_CORE_API_ void setupJobItemInstrument(JobItem* jobItem, const InstrumentItem*
 BA_CORE_API_ void setupJobItemOutput(JobItem* jobItem);
 
 BA_CORE_API_ void setupJobItemForFit(JobItem* jobItem, const RealDataItem* realDataItem);
+
+//! Copy RealDataItem to jobItem intended for fitting.
+BA_CORE_API_ void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem);
 }
 
 #endif // JOBMODELFUNCTIONS_H

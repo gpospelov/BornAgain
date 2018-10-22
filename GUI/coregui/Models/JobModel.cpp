@@ -137,6 +137,8 @@ QVector<SessionItem *> JobModel::nonXMLData() const
         if (auto real_data = dynamic_cast<RealDataItem*>(jobItem->getItem(JobItem::T_REALDATA))) {
             if (auto data_item = real_data->dataItem())
                 result.push_back(data_item);
+            if (auto native_data = real_data->nativeData())
+                result.push_back(native_data);
         }
 
         auto instrument =

@@ -37,6 +37,8 @@ QVector<SessionItem *> RealDataModel::nonXMLData() const
     for (auto realData : topItems<RealDataItem>()) {
         if (auto intensityItem = realData->dataItem())
             result.push_back(intensityItem);
+        if (auto native_data_item = realData->nativeData())
+            result.push_back(native_data_item);
     }
 
     return result;

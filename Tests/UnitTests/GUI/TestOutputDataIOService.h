@@ -2,8 +2,10 @@
 #include "ApplicationModels.h"
 #include "DataItem.h"
 #include "GUIHelpers.h"
+#include "ImportDataInfo.h"
 #include "IntensityDataIOFactory.h"
 #include "JobModel.h"
+#include "JobModelFunctions.h"
 #include "JobItem.h"
 #include "JobItemUtils.h"
 #include "OutputData.h"
@@ -247,4 +249,80 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
 
     // Check that file with old name was removed.
     EXPECT_TRUE(ProjectUtils::exists(fname2) == false);
+}
+
+TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
+{
+    ApplicationModels models;
+
+    // initial state
+    auto dataItems = models.nonXMLData();
+    EXPECT_EQ(dataItems.size(), 0);
+
+    // adding RealDataItem
+    RealDataItem* realData = dynamic_cast<RealDataItem*>(
+        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 0);
+
+    ImportDataInfo import_data(std::unique_ptr<OutputData<double>>(m_data.clone()),
+                               Constants::UnitsNbins);
+    realData->setImportData(std::move(import_data));
+
+    EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 2);
+    realData->setItemValue(RealDataItem::P_NAME, QString("RealData"));
+
+    // adding JobItem
+    JobItem* jobItem =
+        dynamic_cast<JobItem*>(models.jobModel()->insertNewItem(Constants::JobItemType));
+    jobItem->setIdentifier(GUIHelpers::createUuid());
+    models.jobModel()->insertNewItem(Constants::IntensityDataType, jobItem->index(), -1,
+                                     JobItem::T_OUTPUT);
+    EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
+
+    // copying RealDataItem to JobItem
+    JobModelFunctions::copyRealDataItem(jobItem, realData);
+    EXPECT_EQ(models.jobModel()->nonXMLData().size(), 3);
+
+    // checking data items of OutputDataIOService
+    OutputDataIOService service(&models);
+    EXPECT_EQ(service.nonXMLItems().size(), 5);
+
+    const QString projectDir("test_NativeData");
+    TestUtils::create_dir(projectDir);
+
+    // Saving
+    service.save(projectDir);
+    QTest::qSleep(10);
+
+    // Checking existance of data on disk
+    auto data1 = realData->dataItem();
+    auto data2 = realData->nativeData();
+    auto data3 = jobItem->realDataItem()->dataItem();
+    auto data4 = jobItem->realDataItem()->nativeData();
+
+    QString fname1 = "./" + projectDir + "/" + data1->fileName();
+    QString fname2 = "./" + projectDir + "/" + data2->fileName();
+    QString fname3 = "./" + projectDir + "/" + data3->fileName();
+    QString fname4 = "./" + projectDir + "/" + data4->fileName();
+
+    EXPECT_TRUE(ProjectUtils::exists(fname1));
+    EXPECT_TRUE(ProjectUtils::exists(fname2));
+    EXPECT_TRUE(ProjectUtils::exists(fname3));
+    EXPECT_TRUE(ProjectUtils::exists(fname4));
+
+    auto readData =
+        [](const QString& filename) {
+            return std::unique_ptr<OutputData<double>>(
+                IntensityDataIOFactory::readOutputData(filename.toStdString()));
+        };
+
+    // Reading data from disk, checking it is the same
+    auto dataOnDisk1 = readData(fname1);
+    auto dataOnDisk2 = readData(fname2);
+    auto dataOnDisk3 = readData(fname3);
+    auto dataOnDisk4 = readData(fname4);
+    EXPECT_TRUE(TestUtils::isTheSame(*dataOnDisk1, *data1->getOutputData()));
+    EXPECT_TRUE(TestUtils::isTheSame(*dataOnDisk2, *data2->getOutputData()));
+    EXPECT_TRUE(TestUtils::isTheSame(*dataOnDisk3, *data3->getOutputData()));
+    EXPECT_TRUE(TestUtils::isTheSame(*dataOnDisk4, *data4->getOutputData()));
 }

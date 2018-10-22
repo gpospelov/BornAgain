@@ -47,13 +47,13 @@ RealDataItem::RealDataItem()
     addProperty(P_NATIVE_UNITS, Constants::UnitsNbins)->setVisible(false);
 
     mapper()->setOnPropertyChange([this](const QString& name) {
-        if (name == P_NAME && getItem(T_INTENSITY_DATA))
-            updateIntensityDataFileName();
+        if (name == P_NAME)
+            updateNonXMLDataFileNames();
     });
 
     mapper()->setOnChildrenChange([this](SessionItem* item) {
         if (dynamic_cast<DataItem*>(item))
-            updateIntensityDataFileName();
+            updateNonXMLDataFileNames();
     });
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
@@ -183,10 +183,12 @@ MaskContainerItem* RealDataItem::maskContainerItem()
 
 //! Updates the name of file to store intensity data.
 
-void RealDataItem::updateIntensityDataFileName()
+void RealDataItem::updateNonXMLDataFileNames()
 {
     if (DataItem* item = dataItem())
         item->setItemValue(DataItem::P_FILE_NAME, ItemFileNameUtils::realDataFileName(*this));
+    if (DataItem* item = nativeData())
+        item->setItemValue(DataItem::P_FILE_NAME, ItemFileNameUtils::nativeDataFileName(*this));
 }
 
 void RealDataItem::updateToInstrument()

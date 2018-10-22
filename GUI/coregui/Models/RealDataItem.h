@@ -63,7 +63,7 @@ public:
 
 private:
     void initDataItem(size_t data_rank, const QString& tag);
-    void updateIntensityDataFileName();
+    void updateNonXMLDataFileNames();
     void updateToInstrument();
     const InstrumentItem* m_linkedInstrument;
 };

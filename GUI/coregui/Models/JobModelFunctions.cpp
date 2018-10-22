@@ -36,9 +36,6 @@
 
 namespace
 {
-//! Copy RealDataItem to jobItem intended for fitting.
-void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem);
-
 //! Links RealDataItem to the JobItem's instrument.
 // (re-)Linking is necessary because of following reason
 // 1) Copying of RealDataItem from RealDataModel on board of JobItem requires relink to the copied
@@ -147,8 +144,7 @@ void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem*
     createFitContainers(jobItem);
 }
 
-namespace {
-void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
+void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
 {
     if (!realDataItem)
         return;
@@ -164,8 +160,17 @@ void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
     // adapting the name to job name
     realDataItemCopy->dataItem()->setItemValue(DataItem::P_FILE_NAME,
                                                ItemFileNameUtils::jobReferenceFileName(*jobItem));
+
+    if (!realDataItem->nativeData())
+        return;
+
+    realDataItemCopy->nativeData()->setOutputData(
+        realDataItem->nativeData()->getOutputData()->clone());
+    realDataItemCopy->nativeData()->setItemValue(
+        DataItem::P_FILE_NAME, ItemFileNameUtils::jobNativeDataFileName(*jobItem));
 }
 
+namespace {
 void processInstrumentLink(JobItem* jobItem)
 {
     RealDataItem* realData = jobItem->realDataItem();

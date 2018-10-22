@@ -45,18 +45,17 @@ void findLatticePositionsIndex(size_t& index, size_t& index_prev,
 {
     index = static_cast<size_t>(i*(2*size+1)+j);
 
-    if(std::sin(l_alpha) == 0) // i.e. along l1
+    if(std::sin(l_alpha) == 0) // along l1
     {
-        // particles along +l1 in every odd iter (e.g. 1,3,5...) index of lattice_positions
-        // particles along -l1 in every even iter (e.g. 2,4,6...) index of lattice_positions
+        // particles along +l1 stored every odd iter (e.g. 1,3,5...) index of lattice_positions
+        // particles along -l1 stored every even iter (e.g. 2,4,6...) index of lattice_positions
         index_prev = static_cast<size_t>(i*(2*size+1));
         if (j - 2 > 0)
             index_prev = index - 2;
     }
-    else // i.e. along l2
+    else // along l2
     {
-        // particles along +l2 in every (odd iter)*(2*n1+1) index of lattice_positions
-        // particles along -l2 in every (even iter)*(2*n1+1) index of lattice_positions
+        // particles along +l2/-l2 stored every (odd/even iter)*(2*n1+1) index of lattice_positions
         index_prev = static_cast<size_t>(j);
         if (i - 2 > 0)
             index_prev =  index - static_cast<size_t>(2*(2*size+1));
@@ -109,19 +108,19 @@ std::pair<double, double> computeLatticePosition(
 {
     if (std::sin(l_alpha) == 0)
     {
-        if(!(j % 2 == 0)) // i.e. along +l1
+        if(!(j % 2 == 0)) // along +l1
             return computePositionAlongPositiveLatticeVector(
                         index_prev, lattice_positions, pdf, l, l_xi, 0);
-        else // i.e. along -l1
+        else // along -l1
             return computePositionAlongNegativeLatticeVector(
                         index_prev, lattice_positions, pdf, l, l_xi, 0);
     }
     else
     {
-        if(!(i % 2 == 0)) // i.e. along +l2
+        if(!(i % 2 == 0)) // along +l2
             return computePositionAlongPositiveLatticeVector(
                         index_prev, lattice_positions, pdf, l, l_xi, l_alpha);
-        else  // i.e. along -l2
+        else  // along -l2
             return computePositionAlongNegativeLatticeVector(
                         index_prev, lattice_positions, pdf, l, l_xi, l_alpha);
     }
@@ -155,26 +154,18 @@ void computePositionsAlongLatticeVectorAxes(std::vector<std::vector<double>>& la
             iterl2 = iter;
         }
 
-        // 2*n+1 particles situated ONLY along the l1 axis (both +/- axes)
+        // The 2*n+1 particles that are situated ONLY along the l1 axis (both +/- axes)
         // are stored in i = 1,2,3,...2*n1 indices of lattice_positions
 
-        // 2*n+1 particles situated ONLY along the l2 axis (both +/- axes)
+        // The 2*n+1 particles that are situated ONLY along the l2 axis (both +/- axes)
         // are stored every i*(2*n1+1) index of lattice_positions
 
-        // compute particle position along + (odd i) and - (even i) axis of the corresponding lattice vector
         findLatticePositionsIndex(index, index_prev, iterl2, iterl1, n, l_alpha);
         xy = computeLatticePosition(index_prev, iterl2, iterl1, lattice_positions, pdf, l, l_xi, l_alpha);
 
         lattice_positions[index][0] = xy.first;  // x coordinate
         lattice_positions[index][1] = xy.second; // y coordinate
     }
-}
-
-void findAveragePosition(const size_t index, std::vector<std::vector<double>>& lattice_positions,
-                         std::pair<double, double> xy_l1, std::pair<double, double> xy_l2)
-{
-    lattice_positions[index][0] = (xy_l1.first + xy_l2.first) / 2;
-    lattice_positions[index][1] = (xy_l1.second + xy_l2.second) / 2;
 }
 
 void computePositionsInsideLatticeQuadrants(std::vector<std::vector<double>>& lattice_positions,
@@ -201,7 +192,8 @@ void computePositionsInsideLatticeQuadrants(std::vector<std::vector<double>>& la
             xy_l2 = computeLatticePosition(index_prev, i, j, lattice_positions, pdf2,
                                            l2, l_xi, l_alpha);
 
-            findAveragePosition(index, lattice_positions, xy_l1, xy_l2);
+            lattice_positions[index][0] = (xy_l1.first + xy_l2.first) / 2;
+            lattice_positions[index][1] = (xy_l1.second + xy_l2.second) / 2;
         }
     }
 }

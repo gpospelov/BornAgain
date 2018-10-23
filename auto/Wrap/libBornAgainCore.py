@@ -8307,6 +8307,21 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_fitObjectCount(self)
 
 
+    def interruptFitting(self):
+        """interruptFitting(FitObjective self)"""
+        return _libBornAgainCore.FitObjective_interruptFitting(self)
+
+
+    def isInterrupted(self):
+        """isInterrupted(FitObjective self) -> bool"""
+        return _libBornAgainCore.FitObjective_isInterrupted(self)
+
+
+    def isFirstIteration(self):
+        """isFirstIteration(FitObjective self) -> bool"""
+        return _libBornAgainCore.FitObjective_isFirstIteration(self)
+
+
     def addSimulationAndData(self, callback, data, weight):
         if not hasattr(self, 'callback_container'):
             self.callback_container = []

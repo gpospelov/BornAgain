@@ -254,7 +254,7 @@ void LinkInstrumentManager::updateRealDataMap()
 void LinkInstrumentManager::onInstrumentBinningChange(InstrumentItem* changedInstrument)
 {
     for(auto realDataItem : linkedItems(changedInstrument))
-        if (changedInstrument->shape() != realDataItem->shape())
+        if (!changedInstrument->alignedWith(realDataItem))
             realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
 }
 

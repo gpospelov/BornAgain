@@ -76,6 +76,11 @@ void InstrumentItem::updateToRealData(const RealDataItem *item)
     setShape(item->shape());
 }
 
+bool InstrumentItem::alignedWith(const RealDataItem* item)
+{
+    return shape() == item->shape();
+}
+
 std::unique_ptr<Instrument> InstrumentItem::createInstrument() const
 {
     std::unique_ptr<Instrument> result(new Instrument);
@@ -150,6 +155,29 @@ void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
         auto axis = dynamic_cast<PointwiseAxisItem*>(axis_group->currentItem());
         axis->init(data, units);
     }
+}
+
+bool SpecularInstrumentItem::alignedWith(const RealDataItem* item)
+{
+    const QString native_units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
+    if (native_units == Constants::UnitsNbins) {
+        return beamItem()->currentInclinationAxisItem()->modelType() == Constants::BasicAxisType
+               && shape() == item->shape();
+    } else {
+        auto axis_item =
+            dynamic_cast<PointwiseAxisItem*>(beamItem()->currentInclinationAxisItem());
+        if (!axis_item)
+            return false;
+        if (axis_item->getUnitsLabel() != native_units)
+            return false;
+
+        auto instrument_axis = axis_item->getAxis();
+        if (!instrument_axis)
+            return false;
+
+        const auto& native_axis = item->nativeData()->getOutputData()->getAxis(0);
+        return *instrument_axis == native_axis;
+;    }
 }
 
 std::unique_ptr<IUnitConverter> SpecularInstrumentItem::createUnitConverter() const

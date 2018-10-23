@@ -104,6 +104,12 @@ public:
 
     unsigned fitObjectCount() const;
 
+    void interruptFitting();
+
+    bool isInterrupted() const;
+
+    bool isFirstIteration() const;
+
 private:
     void run_simulations(const Fit::Parameters& params);
     double residual(double a, double b, double weight) const;

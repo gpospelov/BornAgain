@@ -62,7 +62,7 @@ void FitWorkerLauncher::runFitting(std::shared_ptr<FitObjectiveBuilder> suite)
     fw->moveToThread(thread);
 
     // start fitting when thread starts
-    connect(thread, &QThread::started, fw, &FitWorker::startFit);
+    connect(thread, &QThread::started, fw, &FitWorker::startFit2);
     connect(fw, &FitWorker::started, this, &FitWorkerLauncher::intern_workerStarted);
 
     connect(this, &FitWorkerLauncher::intern_interruptFittingWorker,

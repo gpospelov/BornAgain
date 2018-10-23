@@ -29,6 +29,7 @@
 #include "MinimizerItem.h"
 #include "IMinimizer.h"
 #include "Minimizer.h"
+#include "GUIFitObserver.h"
 
 FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem)
     : m_jobItem(jobItem)
@@ -36,18 +37,27 @@ FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem)
     Q_ASSERT(m_jobItem->fitSuiteItem());
 }
 
+FitObjectiveBuilder::~FitObjectiveBuilder() = default;
+
 void FitObjectiveBuilder::runFit()
 {
-    auto objective = createFitObjective();
+    m_fit_objective = createFitObjective();
     fcn_scalar_t scalar_func = [&](const Fit::Parameters& params) {
-        return objective->evaluate(params);
+        return m_fit_objective->evaluate(params);
     };
+
+    if (m_observer) {
+        fit_observer_t plot_observer = [&](const FitObjective& obj) {
+            m_observer->update(&obj);
+        };
+        m_fit_objective->initPlot(1, plot_observer);
+    }
 
     Fit::Minimizer minimizer;
     minimizer.setMinimizer(createMinimizer().release());
 
     auto result = minimizer.minimize(scalar_func, createParameters());
-    objective->finalize(result);
+    m_fit_objective->finalize(result);
 }
 
 std::unique_ptr<FitObjective> FitObjectiveBuilder::createFitObjective() const
@@ -75,8 +85,21 @@ Fit::Parameters FitObjectiveBuilder::createParameters() const
     return fitSuiteItem->fitParameterContainerItem()->createParameters();
 }
 
+void FitObjectiveBuilder::attachObserver(std::shared_ptr<GUIFitObserver> observer)
+{
+    m_observer = observer;
+}
+
+void FitObjectiveBuilder::interruptFitting()
+{
+    m_fit_objective->interruptFitting();
+}
+
 std::unique_ptr<Simulation> FitObjectiveBuilder::buildSimulation(const Fit::Parameters& params) const
 {
+    static std::mutex build_simulation_mutex;
+    std::unique_lock<std::mutex> lock(build_simulation_mutex);
+
     update_fit_parameters(params);
     return DomainSimulationBuilder::createSimulation(m_jobItem->multiLayerItem(),
             m_jobItem->instrumentItem(), m_jobItem->simulationOptionsItem());

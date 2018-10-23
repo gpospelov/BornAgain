@@ -24,11 +24,13 @@ class Simulation;
 namespace Fit { class Parameters; }
 template<class T> class OutputData;
 class IMinimizer;
+class GUIFitObserver;
 
 class BA_CORE_API_ FitObjectiveBuilder
 {
 public:
     FitObjectiveBuilder(JobItem* jobItem);
+    ~FitObjectiveBuilder();
 
     void runFit();
 
@@ -37,6 +39,9 @@ public:
 
     Fit::Parameters createParameters() const;
 
+    void attachObserver(std::shared_ptr<GUIFitObserver> observer);
+
+    void interruptFitting();
 private:
     JobItem* m_jobItem;
 
@@ -44,6 +49,9 @@ private:
     std::unique_ptr<OutputData<double>> createOutputData() const;
 
     void update_fit_parameters(const Fit::Parameters& params) const;
+
+    std::shared_ptr<GUIFitObserver> m_observer;
+    std::unique_ptr<FitObjective> m_fit_objective;
 };
 
 #endif

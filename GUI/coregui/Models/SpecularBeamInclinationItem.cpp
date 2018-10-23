@@ -69,6 +69,12 @@ void SpecularBeamInclinationItem::setupAxisGroup()
     group_item->setToolTip("Axis type selected");
     group_item->setDisplayName("Axis type");
     group_item->setEnabled(false);
+    group_item->mapper()->setOnValueChange(
+        [group_item]() {
+            if (group_item->currentItem()->modelType() == Constants::PointwiseAxisType)
+                group_item->setEnabled(true);
+        },
+        this);
 }
 
 namespace

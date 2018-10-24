@@ -21,6 +21,7 @@
 #include <memory>
 
 class FitSuite;
+class FitObjectiveBuilder;
 
 class BA_CORE_API_ FitWorkerLauncher : public QObject
 {
@@ -30,6 +31,7 @@ public:
     FitWorkerLauncher(QObject* parent);
 
     void runFitting(std::shared_ptr<FitSuite> suite);
+    void runFitting(std::shared_ptr<FitObjectiveBuilder> suite);
 
     int getDuration();
 

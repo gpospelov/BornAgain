@@ -24,6 +24,7 @@
 template <class T> class OutputData;
 class FitSuite;
 class IntensityDataItem;
+class FitObjective;
 
 //! The GUIFitObserver class is a intermediate between FitSuite and the GUI.
 //! It is called at the end of each iterations and sends (messages, data) to the rest of the GUI.
@@ -38,6 +39,8 @@ public:
 
     void update(FitSuite* subject);
 
+    void update(const FitObjective* subject);
+
     void finishedPlotting();
 
     FitProgressInfo progressInfo();
@@ -49,8 +52,10 @@ signals:
     void updateReady();
 
 private:
+    bool is_suitable_iteration(const FitObjective* fitSuite) const;
     bool is_suitable_iteration(FitSuite* fitSuite);
     bool is_obligatory_iteration(FitSuite* fitSuite);
+    bool is_obligatory_iteration(const FitObjective* fitSuite) const;
     std::string reportToString(FitSuite* fitSuite);
 
     bool m_block_update_plots;

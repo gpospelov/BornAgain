@@ -23,7 +23,12 @@
 #include "IntensityDataItem.h"
 #include "FitParameterItems.h"
 #include "GUIHelpers.h"
+#include "FitObjectiveBuilder.h"
 #include "FitLog.h"
+
+namespace  {
+const bool use_fit_objective = true;
+}
 
 FitSessionController::FitSessionController(QObject* parent)
     : QObject(parent)
@@ -74,12 +79,19 @@ void FitSessionController::onStartFittingRequest()
         return;
 
     try {
+        m_objectiveBuilder.reset(new FitObjectiveBuilder(m_jobItem));
+
         m_observer->setInterval(
             m_jobItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
         std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_jobItem));
         fitSuite->attachObserver(m_observer);
+        m_objectiveBuilder->attachObserver(m_observer);
         m_observer->finishedPlotting();
-        m_runFitManager->runFitting(fitSuite);
+        if (use_fit_objective)
+            m_runFitManager->runFitting(m_objectiveBuilder);
+        else
+            m_runFitManager->runFitting(fitSuite);
+
     } catch (std::exception& e) {
         m_jobItem->setStatus(Constants::STATUS_FAILED);
         m_fitlog->append(e.what(), FitLogFlags::ERROR);
@@ -103,7 +115,10 @@ void FitSessionController::onObserverUpdate()
     m_jobItem->dataItem()->setRawDataVector(progressInfo.simValues());
 
     updateIterationCount(progressInfo);
-    updateFitParameterValues(progressInfo);
+
+    if (!use_fit_objective)
+        updateFitParameterValues(progressInfo);
+
     updateLog(progressInfo);
 
     if(!progressInfo.logInfo().empty())

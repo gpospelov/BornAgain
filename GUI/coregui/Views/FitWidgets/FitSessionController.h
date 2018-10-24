@@ -24,6 +24,7 @@ class FitWorkerLauncher;
 class GUIFitObserver;
 class FitProgressInfo;
 class FitLog;
+class FitObjectiveBuilder;
 
 //! Controls all activity related to the single fitting task for JobItem.
 //! Provides interaction between FitSessionWidget and fit observers.
@@ -62,6 +63,7 @@ private:
     FitWorkerLauncher* m_runFitManager;
     std::shared_ptr<GUIFitObserver> m_observer;
     std::unique_ptr<FitLog> m_fitlog;
+    std::shared_ptr<FitObjectiveBuilder> m_objectiveBuilder;
     bool m_block_progress_update;
 };
 

@@ -131,6 +131,11 @@ void FitObjective::initPrint(int every_nth)
     m_fit_status->initPrint(every_nth);
 }
 
+void FitObjective::initPlot(int every_nth, fit_observer_t observer)
+{
+    m_fit_status->addObserver(every_nth, observer);
+}
+
 void FitObjective::initPlot(int every_nth, PyObserverCallback& callback)
 {
     fit_observer_t observer = [&](const FitObjective& objective) {
@@ -164,8 +169,26 @@ unsigned FitObjective::fitObjectCount() const
     return static_cast<unsigned>(m_fit_objects.size());
 }
 
+void FitObjective::interruptFitting()
+{
+    m_fit_status->setInterrupted();
+}
+
+bool FitObjective::isInterrupted() const
+{
+    return m_fit_status->isInterrupted();
+}
+
+bool FitObjective::isFirstIteration() const
+{
+    return iterationInfo().iterationCount() == 1;
+}
+
 void FitObjective::run_simulations(const Fit::Parameters& params)
 {
+    if (m_fit_status->isInterrupted())
+        throw std::runtime_error("Fitting was interrupted by the user.");
+
     if (m_fit_objects.empty())
         throw std::runtime_error("FitObjective::run_simulations() -> Error. "
                                  "No simulation/data defined.");

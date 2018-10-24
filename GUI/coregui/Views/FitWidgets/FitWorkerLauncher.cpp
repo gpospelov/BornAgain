@@ -52,6 +52,33 @@ void FitWorkerLauncher::runFitting(std::shared_ptr<FitSuite> suite)
     thread->start();
 }
 
+void FitWorkerLauncher::runFitting(std::shared_ptr<FitObjectiveBuilder> suite)
+{
+    if (!suite || m_is_fit_running)
+        return;
+
+    auto thread = new QThread();
+    auto fw = new FitWorker(suite);
+    fw->moveToThread(thread);
+
+    // start fitting when thread starts
+    connect(thread, &QThread::started, fw, &FitWorker::startFit2);
+    connect(fw, &FitWorker::started, this, &FitWorkerLauncher::intern_workerStarted);
+
+    connect(this, &FitWorkerLauncher::intern_interruptFittingWorker,
+            fw, &FitWorker::interruptFitting, Qt::DirectConnection);
+
+    connect(fw, &FitWorker::error, this, &FitWorkerLauncher::intern_error);
+    connect(fw, &FitWorker::finished, this, &FitWorkerLauncher::intern_workerFinished);
+
+    // delete fitting worker and thread when done
+    connect(fw, SIGNAL(finished(int)), fw, SLOT(deleteLater()));
+    connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+
+    m_is_fit_running = true;
+    thread->start();
+}
+
 //! Returns duration of fit in msec.
 
 int FitWorkerLauncher::getDuration()

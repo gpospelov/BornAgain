@@ -16,7 +16,6 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
-#include "FitParameter.h"
 #include "ParameterTreeItems.h"
 #include "JobItem.h"
 #include "Parameters.h"
@@ -108,36 +107,6 @@ void FitParameterItem::initMinMaxValues(const RealLimits& limits)
         setItemValue(P_MIN, min);
         setItemValue(P_MAX, max);
     }
-}
-
-//! Creates domain's FitParameter.
-
-std::unique_ptr<FitParameter> FitParameterItem::createFitParameter() const
-{
-    if (getItems(FitParameterItem::T_LINK).empty())
-        return std::unique_ptr<FitParameter>();
-
-    std::unique_ptr<FitParameter> result(new FitParameter);
-    result->setStartValue(getItemValue(FitParameterItem::P_START_VALUE).toDouble());
-    result->setLimits(attLimits());
-
-    const JobItem* jobItem = dynamic_cast<const JobItem*>(ModelPath::ancestor(this, Constants::JobItemType));
-    Q_ASSERT(jobItem);
-
-    for(auto linkItem : getItems(FitParameterItem::T_LINK)) {
-        QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-
-        ParameterItem *parItem = dynamic_cast<ParameterItem*>(
-                    ModelPath::getItemFromPath(link, jobItem->parameterContainerItem()));
-        Q_ASSERT(parItem);
-
-        QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
-        parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
-
-        result->addPattern(translation.toStdString());
-    }
-
-    return result;
 }
 
 //! Constructs Limits correspodning to current GUI settings.

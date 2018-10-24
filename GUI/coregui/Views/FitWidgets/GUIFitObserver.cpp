@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "GUIFitObserver.h"
-#include "FitParameterSet.h"
 #include "FitProgressInfo.h"
 #include "GUIHelpers.h"
 #include "MinimizerUtils.h"

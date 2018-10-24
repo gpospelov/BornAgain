@@ -18,8 +18,6 @@
 #include "SessionItem.h"
 #include "AttLimits.h"
 
-class FitParameter;
-
 //! FitParameterItems is a collection of items to define fit parameters in GUI.
 
 //! The FitParameterLinkItem class holds a link to ParameterItem in tuning tree.
@@ -49,7 +47,6 @@ public:
 
     void initMinMaxValues(const RealLimits &limits);
 
-    std::unique_ptr<FitParameter> createFitParameter() const;
     AttLimits attLimits() const;
 
 private:

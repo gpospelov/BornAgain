@@ -185,6 +185,8 @@ std::unique_ptr<IUnitConverter> SpecularInstrumentItem::createUnitConverter() co
     const auto instrument = createInstrument();
     auto axis_item = beamItem()->currentInclinationAxisItem();
     if (auto pointwise_axis = dynamic_cast<PointwiseAxisItem*>(axis_item)) {
+        if (!pointwise_axis->containsNonXMLData()) // workaround for loading project
+            return nullptr;
         AxesUnits native_units = JobItemUtils::axesUnitsFromName(pointwise_axis->getUnitsLabel());
         return std::make_unique<UnitConverter1D>(instrument->getBeam(), *pointwise_axis->getAxis(),
                                                  native_units);

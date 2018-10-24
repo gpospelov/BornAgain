@@ -93,6 +93,8 @@ void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
                                               const InstrumentItem* instrumentItem)
 {
     const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    if (!converter)
+        return;
     setIntensityItemAxesUnits(intensityItem, *converter);
 }
 

@@ -51,6 +51,7 @@ void PointwiseAxisItem::init(const IAxis& axis, const QString& units_label)
     m_axis = std::unique_ptr<IAxis>(axis.clone());
     setItemValue(P_NATIVE_UNITS, units_label);
     findInstrument();
+    updateIndicators();
 }
 
 const IAxis* PointwiseAxisItem::getAxis() const
@@ -87,6 +88,7 @@ bool PointwiseAxisItem::load(const QString& projectDir)
         return false;
 
     m_axis = std::unique_ptr<IAxis>(data->getAxis(0).clone());
+    findInstrument();
     setLastModified(QDateTime::currentDateTime());
     return true;
 }
@@ -132,7 +134,6 @@ void PointwiseAxisItem::findInstrument()
     while (parent_item && parent_item->modelType() != Constants::SpecularInstrumentType)
         parent_item = parent_item->parent();
     m_instrument = static_cast<SpecularInstrumentItem*>(parent_item);
-    updateIndicators();
 }
 
 void PointwiseAxisItem::updateIndicators()

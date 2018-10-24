@@ -17,9 +17,7 @@
 #include "GUIFitObserver.h"
 #include "JobItem.h"
 #include "FitSuiteItem.h"
-#include "DomainFittingBuilder.h"
 #include "FitProgressInfo.h"
-#include "FitSuite.h"
 #include "IntensityDataItem.h"
 #include "FitParameterItems.h"
 #include "GUIHelpers.h"
@@ -80,17 +78,11 @@ void FitSessionController::onStartFittingRequest()
 
     try {
         m_objectiveBuilder.reset(new FitObjectiveBuilder(m_jobItem));
-
         m_observer->setInterval(
             m_jobItem->fitSuiteItem()->getItemValue(FitSuiteItem::P_UPDATE_INTERVAL).toInt());
-        std::shared_ptr<FitSuite> fitSuite(DomainFittingBuilder::createFitSuite(m_jobItem));
-        fitSuite->attachObserver(m_observer);
         m_objectiveBuilder->attachObserver(m_observer);
         m_observer->finishedPlotting();
-        if (use_fit_objective)
-            m_runFitManager->runFitting(m_objectiveBuilder);
-        else
-            m_runFitManager->runFitting(fitSuite);
+        m_runFitManager->runFitting(m_objectiveBuilder);
 
     } catch (std::exception& e) {
         m_jobItem->setStatus(Constants::STATUS_FAILED);

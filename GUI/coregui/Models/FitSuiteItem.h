@@ -33,7 +33,6 @@ public:
 
     FitParameterContainerItem *fitParameterContainerItem();
     MinimizerContainerItem *minimizerContainerItem();
-//    std::unique_ptr<FitSuite> createFitSuite();
 };
 
 #endif // FITSUITEITEM_H

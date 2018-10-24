@@ -13,29 +13,10 @@
 // ************************************************************************** //
 
 #include "FitWorker.h"
-#include "FitSuite.h"
 #include "FitObjectiveBuilder.h"
 #include <QDateTime>
 
 void FitWorker::startFit()
-{
-    int duration(0);
-    QDateTime beginTime = QDateTime::currentDateTime();
-
-    m_fitsuite->resetInterrupt();
-    emit started();
-    try {
-        m_fitsuite->runFit();
-        duration = durationSince(beginTime);
-
-    } catch (const std::exception& ex) {
-        duration = durationSince(beginTime);
-        emit error(QString::fromLatin1(ex.what()));
-    }
-    emit finished(duration);
-}
-
-void FitWorker::startFit2()
 {
     int duration(0);
     QDateTime beginTime = QDateTime::currentDateTime();
@@ -55,8 +36,6 @@ void FitWorker::startFit2()
 
 void FitWorker::interruptFitting()
 {
-    if (m_fitsuite)
-        m_fitsuite->interruptFitting();
     if (m_fit_objective)
         m_fit_objective->interruptFitting();
 }

@@ -35,14 +35,17 @@ class BA_CORE_API_ CsvImportAssistant: public QObject
     Q_OBJECT
 public:
     CsvImportAssistant(const QString& file, QWidget* parent = nullptr);
-    bool loadCsvFile();
     ImportDataInfo getData(){return m_dataAvailable ? fillData() : ImportDataInfo();}
-    ImportDataInfo fillData();
-    bool hasEqualLengthLines(csv::DataArray &dataArray);
     static void showErrorMessage(std::string message);
     static double stringToDouble(std::string string_to_parse);
 
 private:
+    bool loadCsvFile();
+    ImportDataInfo fillData();
+    bool hasEqualLengthLines(csv::DataArray &dataArray);
+
+
+
 
     char guessSeparator() const;
     void removeBlankColumns();

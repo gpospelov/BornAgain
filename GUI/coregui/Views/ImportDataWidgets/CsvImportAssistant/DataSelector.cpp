@@ -30,137 +30,6 @@ namespace
 const QSize default_dialog_size(300, 400);
 }
 
-QBoxLayout* DataSelector::createLayout()
-{
-    //table Widget
-    m_tableWidget = new QTableWidget();
-    m_tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    connect(m_tableWidget, &QTableWidget::customContextMenuRequested, this, &DataSelector::onColumnRightClick);
-
-    //Import button
-    m_importButton = new QPushButton("Import");
-    m_importButton->setDefault(true);
-    connect(m_importButton, &QPushButton::clicked, this, &DataSelector::onImportButton);
-
-    //Reject button
-    m_cancelButton = new QPushButton("Cancel");
-    connect(m_cancelButton, &QPushButton::clicked, this, [this](){reject();});
-
-    //Separator field -- This needs to communicate with importAssistant
-    // TODO
-    m_separatorField = new QLineEdit(QString(""));
-    m_separatorField->setMaxLength(1);
-    m_separatorField->setMaximumWidth(100);
-    connect(m_separatorField, &QLineEdit::editingFinished, this,
-            [this]()
-            {
-                emit separatorChanged(separator());
-            }
-    );
-
-    //First Row SpinBox
-    m_firstDataRowSpinBox = new QSpinBox();
-    m_firstDataRowSpinBox->setMinimum(1);
-    m_firstDataRowSpinBox->setMaximum(1);
-    m_firstDataRowSpinBox->setValue(1);
-    m_firstDataRowSpinBox->setMaximumWidth(100);
-    connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this,
-            [this]()
-            {
-                m_lastDataRowSpinBox->setMinimum(m_firstDataRowSpinBox->value());
-                updateSelection();
-            }
-    );
-
-    //Last Row SpinBox
-    m_lastDataRowSpinBox = new QSpinBox();
-    m_lastDataRowSpinBox->setMinimum(1);
-    m_lastDataRowSpinBox->setMaximum(1);
-    m_lastDataRowSpinBox->setValue(1);
-    m_lastDataRowSpinBox->setMaximumWidth(100);
-    connect(m_lastDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this,
-            [this]()
-            {
-                m_firstDataRowSpinBox->setMaximum(m_lastDataRowSpinBox->value());
-                updateSelection();
-            }
-    );
-
-    //Column type selector
-    m_coordinateUnitsSelector = new QComboBox();
-    m_coordinateUnitsSelector->setMaximumWidth(100);
-    m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::NBINS]);
-    //connect(m_coordinateUnitsSelector,static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),this, [this](){ setCoordinateUnits(); });
-
-
-    auto layout = new QVBoxLayout;
-    layout->setContentsMargins(0, 0, 0, 0);
-
-    //place table Widget
-    auto tableLayout = new QVBoxLayout;
-    tableLayout->setMargin(10);
-    tableLayout->addWidget(new QLabel("Right click on the table to select what will be imported"));
-    tableLayout->addWidget(m_tableWidget);
-
-    //place separator_field and first_row:
-    auto controlsLayout = new QFormLayout;
-    controlsLayout->addRow(tr("&Corodinate Units: "), m_coordinateUnitsSelector);
-    controlsLayout->addRow(tr("&Separator: "), m_separatorField);
-    controlsLayout->addRow(tr("&From row: "), m_firstDataRowSpinBox);
-    controlsLayout->addRow(tr("&To row: "), m_lastDataRowSpinBox);
-
-    //buttons layout
-    auto buttonsLayout = new QHBoxLayout;
-    buttonsLayout->addWidget(m_importButton);
-    buttonsLayout->addWidget(m_cancelButton);
-
-    //place controls and import/reject buttons
-    auto controlsAndButtonsGrid = new QGridLayout;
-    controlsAndButtonsGrid->setMargin(10);
-    controlsAndButtonsGrid->addItem(new QSpacerItem(10000,1),1,1,2,1);
-    controlsAndButtonsGrid->addLayout(controlsLayout, 1, 2, 1, 1, Qt::AlignRight);
-    controlsAndButtonsGrid->addLayout(buttonsLayout, 2, 2, 1, 1, Qt::AlignLeft);
-
-    //build all the layout
-    layout->addLayout(tableLayout);
-    layout->addLayout(controlsAndButtonsGrid);
-
-    return layout;
-}
-
-void DataSelector::onCancelButton()
-{
-    reject();
-}
-
-void DataSelector::onImportButton()
-{
-    if(dataLooksGood()){
-        accept();
-    }
-}
-
-bool DataSelector::dataLooksGood(){
-    try{
-        for(auto i = firstLine() - 1; i < lastLine(); i++){
-            CsvImportAssistant::stringToDouble(
-                                    m_tableWidget->item(i,m_intensityCol-1)->text().toStdString()
-                                    );
-            if(m_coordinateCol > 0)
-                CsvImportAssistant::stringToDouble(
-                                        m_tableWidget->item(i,m_intensityCol-1)->text().toStdString()
-                                        );
-        }
-
-    } catch(std::exception& e){
-        QString message = QString("Unable to import, the following exception was thrown:\n") + QString::fromStdString(e.what());
-        QMessageBox::warning(nullptr, "Wrong data format", message);
-        return false;
-    }
-    return true;
-}
-
 DataSelector::DataSelector(csv::DataArray csvArray, QWidget* parent):
         QDialog(parent)
       ,m_data(csvArray)
@@ -190,7 +59,6 @@ DataSelector::DataSelector(csv::DataArray csvArray, QWidget* parent):
 
     if(!updateData())
         return;
-
 }
 
 bool DataSelector::updateData(){
@@ -206,24 +74,8 @@ bool DataSelector::updateData(){
     m_lastDataRowSpinBox->setMaximum(int(lastRow));
     m_lastDataRowSpinBox->setValue(int(lastRow));
     setTableData();
-    updateSelection();
 
     return true;
-}
-
-void DataSelector::updateSelection()
-{
-    m_importButton->setEnabled(false);
-    m_coordinateUnitsSelector->setEnabled(false);
-    greyoutTableRegions();
-
-    //Enable import button only if the user has selected its columns for 1d import
-    if( m_intensityCol > 0 )
-        m_importButton->setEnabled(true);
-
-    //Enable Coordinate Selector
-    if( m_coordinateCol > 0 )
-        m_coordinateUnitsSelector->setEnabled(true);
 }
 
 void DataSelector::setTableData(){
@@ -247,6 +99,72 @@ void DataSelector::setTableData(){
             m_tableWidget->setItem(int(I),int(j),new QTableWidgetItem(QString::fromStdString(m_data[i][j])));
         }
     }
+}
+
+void DataSelector::onColumnRightClick(const QPoint position)
+{
+    auto item = m_tableWidget->itemAt(position);
+    if(!item) return;
+    auto row = item->row();
+    auto col = item->column();
+    if(row*col < 0) return;
+
+    QMenu menu;
+
+    //Action "select from this row"
+    QAction selectFromThisRowOn("Set as first data row",nullptr);
+    menu.addAction(&selectFromThisRowOn);
+    connect(&selectFromThisRowOn,&QAction::triggered,this,[this](){setFirstRow();});
+
+    //Action "select until this row"
+    QAction selectUntilThisRow("Set as last data row",nullptr);
+    menu.addAction(&selectUntilThisRow);
+    connect(&selectUntilThisRow,&QAction::triggered,this,[this](){setLastRow();});
+
+    menu.addSeparator();
+
+    //Set column as "Intensity".
+    menu.addAction(m_setAsIntensity);
+    connect(m_setAsIntensity,&QAction::triggered,this, [this](){setColumnAs(_intensity_);});
+
+    //Coordinate menu disabled if a coordinate column is already set.
+    QMenu *coordMenu = menu.addMenu("Set as coordinate column...");
+
+    //Set column as "Theta".
+    coordMenu->addAction(m_setAsTheta);
+    connect(m_setAsTheta,&QAction::triggered,this, [this](){setColumnAs(_theta_);});
+
+    //Set column as "2Theta".
+    coordMenu->addAction(m_setAs2Theta);
+    connect(m_setAs2Theta,&QAction::triggered,this, [this](){setColumnAs(_2theta_);});
+
+    //Set column as "q".
+    coordMenu->addAction(m_setAsQ);
+    connect(m_setAsQ,&QAction::triggered,this, [this](){setColumnAs(_q_);});
+
+    menu.addSeparator();
+
+    //Action "reset"
+    QAction resetAction("reset",nullptr);
+    menu.addAction(&resetAction);
+    connect(&resetAction,&QAction::triggered, this, [this](){resetSelection(); updateSelection();});
+
+    menu.exec(m_tableWidget->mapToGlobal(position));
+}
+
+void DataSelector::updateSelection()
+{
+    m_importButton->setEnabled(false);
+    m_coordinateUnitsSelector->setEnabled(false);
+    greyoutTableRegions();
+
+    //Enable import button only if the user has selected its columns for 1d import
+    if( m_intensityCol > 0 )
+        m_importButton->setEnabled(true);
+
+    //Enable Coordinate Selector
+    if( m_coordinateCol > 0 )
+        m_coordinateUnitsSelector->setEnabled(true);
 }
 
 void DataSelector::greyoutTableRegions(){
@@ -278,74 +196,39 @@ void DataSelector::greyoutCell(int i, int j, bool yes){
 
 bool DataSelector::needsGreyout(int iRow, int jCol){
 
-    if( m_intensityCol  < 1 )
-        return false;
-
     bool greyTop  = iRow < int(firstLine() - 1);
     bool greyBott = iRow > int(lastLine()  - 1);
     bool greyCol  =  jCol+1 != int(m_coordinateCol) &&
-                     jCol+1 != int(m_intensityCol);
+                     jCol+1 != int(m_intensityCol) &&
+                     m_intensityCol > 0;
 
     return greyTop || greyBott || greyCol;
 }
 
-void DataSelector::onColumnRightClick(const QPoint position)
-{
-    auto item = m_tableWidget->itemAt(position);
-    if(!item) return;
-    auto row = item->row();
-    auto col = item->column();
-    if(row*col < 0) return;
-
-    QMenu menu;
-
-    //Action "select from this row"
-    QAction selectFromThisRowOn("Set as first data row",nullptr);
-    menu.addAction(&selectFromThisRowOn);
-    connect(&selectFromThisRowOn,&QAction::triggered,this,[this](){setFirstRow();});
-
-    //Action "select until this row"
-    QAction selectUntilThisRow("Set as last data row",nullptr);
-    menu.addAction(&selectUntilThisRow);
-    connect(&selectUntilThisRow,&QAction::triggered,this,[this](){setLastRow();});
-
-    menu.addSeparator();
+void DataSelector::setColumnAs(DataColumn coordOrInt){
+    auto selectedRanges = m_tableWidget->selectedRanges();
+    if (selectedRanges.empty())
+        return;
+    auto front = selectedRanges.front();
+    auto col = front.leftColumn();
 
 
-    //Set column as "Intensity".
-    m_setAsIntensity->setDisabled(m_intensityCol>0);
-    menu.addAction(m_setAsIntensity);
-    connect(m_setAsIntensity,&QAction::triggered,this, [this](){setColumnAsIntensity();});
-    //.connect(m_setAsIntensity,&QAction::triggered,this, m_setAsIntensityColumnAsIntensity());
-
-
-    //Coordinate menu disabled if a coordinate column is already set.
-    QMenu *coordMenu = menu.addMenu("Set as coordinate column...");
-    coordMenu->setDisabled(m_coordinateCol>0);
-
-
-    //Set column as "Theta".
-    coordMenu->addAction(m_setAsTheta);
-    connect(m_setAsTheta,&QAction::triggered,this, [this](){setColumnAsCoordinate(_theta_);});
-
-
-    //Set column as "2Theta".
-    coordMenu->addAction(m_setAs2Theta);
-    connect(m_setAs2Theta,&QAction::triggered,this, [this](){setColumnAsCoordinate(_2theta_);});
-
-
-    //Set column as "q".
-    coordMenu->addAction(m_setAsQ);
-    connect(m_setAsQ,&QAction::triggered,this, [this](){setColumnAsCoordinate(_q_);});
-
-    menu.addSeparator();
-
-    //Action "reset"
-    QAction resetAction("reset",nullptr);
-    menu.addAction(&resetAction);
-    connect(&resetAction,&QAction::triggered, this, [this](){resetSelection(); updateSelection();});
-
-    menu.exec(m_tableWidget->mapToGlobal(position));
+    if(coordOrInt == _intensity_) {
+        m_intensityCol = unsigned(col + 1);
+        if (m_coordinateCol == m_intensityCol) {
+            m_coordinateCol = 0;
+        }
+    }
+    else{
+        m_coordinateCol = unsigned(col+1);
+        m_coordinateName = HeaderLabels[coordOrInt];
+        populateUnitsComboBox(coordOrInt);
+        if(m_coordinateCol == m_intensityCol){
+            m_intensityCol=0;
+        }
+    }
+    updateSelection();
+    setHeaders();
 }
 
 void DataSelector::populateUnitsComboBox(int coord){
@@ -372,39 +255,7 @@ void DataSelector::populateUnitsComboBox(int coord){
     }
 }
 
-void DataSelector::setColumnAsCoordinate(int coord){
-    auto selectedRanges = m_tableWidget->selectedRanges();
-    if (selectedRanges.empty())
-        return;
-    auto front = selectedRanges.front();
-    auto col = front.leftColumn();
 
-    m_tableWidget->setHorizontalHeaderItem( col, new QTableWidgetItem( HeaderLabels[coord]) );
-    m_coordinateCol = unsigned(col+1);
-    m_coordinateName = m_tableWidget->horizontalHeaderItem(col)->text();
-    populateUnitsComboBox(coord);
-    if(m_coordinateCol == m_intensityCol){
-        m_intensityCol=0;
-    }
-    updateSelection();
-}
-
-void DataSelector::setColumnAsIntensity() {
-    //get selected column
-    auto selectedRanges = m_tableWidget->selectedRanges();
-    if (selectedRanges.empty())
-        return;
-    auto front = selectedRanges.front();
-    auto col = front.leftColumn();
-
-    m_tableWidget->clearSelection();
-    m_tableWidget->setHorizontalHeaderItem(col, new QTableWidgetItem(HeaderLabels[_intensity_]));
-    m_intensityCol = unsigned(col + 1);
-    if (m_coordinateCol == m_intensityCol) {
-        m_coordinateCol = 0;
-    }
-    updateSelection();
-}
 
 void DataSelector::setFirstRow(){
     //get selected column
@@ -453,6 +304,15 @@ void DataSelector::setHeaders(){
         headers.append(QString::number(j + 1));
 
     m_tableWidget->setHorizontalHeaderLabels(headers);
+
+    if(m_intensityCol > 0){
+        int intCol = int(m_intensityCol) - 1;
+        m_tableWidget->setHorizontalHeaderItem(intCol , new QTableWidgetItem( HeaderLabels[_intensity_]) );
+    }
+    if(m_coordinateCol > 0){
+        int coordCol = int(m_coordinateCol) - 1;
+        m_tableWidget->setHorizontalHeaderItem(coordCol , new QTableWidgetItem( m_coordinateName ));
+    }
 }
 
 unsigned DataSelector::firstLine() const{
@@ -475,16 +335,146 @@ AxesUnits DataSelector::units() const{
     return defaultUnits;
 }
 
-// TODO
 char DataSelector::separator() const{
     char separator;
     QString tmpstr = m_separatorField->text();
     if(tmpstr.size() < 1){
         separator = '\0';
-        //m_separatorField->setText(QString(QChar::fromLatin1(separator)));
     }
     else{
         separator = tmpstr.at(0).toLatin1();
     }
     return separator;
 }
+
+void DataSelector::onCancelButton()
+{
+    reject();
+}
+
+void DataSelector::onImportButton()
+{
+    if(dataLooksGood()){
+        accept();
+    }
+}
+
+bool DataSelector::dataLooksGood(){
+    int iCol = int(m_intensityCol)-1;
+    int cCol = int(m_coordinateCol)-1;
+    try{
+        for(int i = int(firstLine()) - 1; i < int(lastLine()); i++){
+            CsvImportAssistant::stringToDouble(
+                                    m_tableWidget->item(i,iCol)->text().toStdString()
+                                    );
+            if(m_coordinateCol > 0)
+                CsvImportAssistant::stringToDouble(
+                                        m_tableWidget->item(i,cCol)->text().toStdString()
+                                        );
+        }
+
+    } catch(std::exception& e){
+        QString message = QString("Unable to import, the following exception was thrown:\n") + QString::fromStdString(e.what());
+        QMessageBox::warning(nullptr, "Wrong data format", message);
+        return false;
+    }
+    return true;
+}
+
+QBoxLayout* DataSelector::createLayout()
+{
+    //table Widget
+    m_tableWidget = new QTableWidget();
+    m_tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    connect(m_tableWidget, &QTableWidget::customContextMenuRequested, this, &DataSelector::onColumnRightClick);
+
+    //Import button
+    m_importButton = new QPushButton("Import");
+    m_importButton->setDefault(true);
+    connect(m_importButton, &QPushButton::clicked, this, &DataSelector::onImportButton);
+
+    //Reject button
+    m_cancelButton = new QPushButton("Cancel");
+    connect(m_cancelButton, &QPushButton::clicked, this, [this](){reject();});
+
+    //Separator field -- This needs to communicate with importAssistant
+    m_separatorField = new QLineEdit(QString(""));
+    m_separatorField->setMaxLength(1);
+    m_separatorField->setMaximumWidth(100);
+    connect(m_separatorField, &QLineEdit::editingFinished, this,
+            [this]()
+            {
+                emit separatorChanged(separator());
+            }
+    );
+
+    //First Row SpinBox
+    m_firstDataRowSpinBox = new QSpinBox();
+    m_firstDataRowSpinBox->setMinimum(1);
+    m_firstDataRowSpinBox->setMaximum(1);
+    m_firstDataRowSpinBox->setValue(1);
+    m_firstDataRowSpinBox->setMaximumWidth(100);
+    connect(m_firstDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this,
+            [this]()
+            {
+                m_lastDataRowSpinBox->setMinimum(m_firstDataRowSpinBox->value());
+                updateSelection();
+            }
+    );
+
+    //Last Row SpinBox
+    m_lastDataRowSpinBox = new QSpinBox();
+    m_lastDataRowSpinBox->setMinimum(1);
+    m_lastDataRowSpinBox->setMaximum(1);
+    m_lastDataRowSpinBox->setValue(1);
+    m_lastDataRowSpinBox->setMaximumWidth(100);
+    connect(m_lastDataRowSpinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this,
+            [this]()
+            {
+                m_firstDataRowSpinBox->setMaximum(m_lastDataRowSpinBox->value());
+                updateSelection();
+            }
+    );
+
+    //Column type selector
+    m_coordinateUnitsSelector = new QComboBox();
+    m_coordinateUnitsSelector->setMaximumWidth(100);
+    m_coordinateUnitsSelector->addItem(UnitsLabels[AxesUnits::NBINS]);
+
+
+    auto layout = new QVBoxLayout;
+    layout->setContentsMargins(0, 0, 0, 0);
+
+    //place table Widget
+    auto tableLayout = new QVBoxLayout;
+    tableLayout->setMargin(10);
+    tableLayout->addWidget(new QLabel("Right click on the table to select what will be imported"));
+    tableLayout->addWidget(m_tableWidget);
+
+    //place separator_field and first_row:
+    auto controlsLayout = new QFormLayout;
+    controlsLayout->addRow(tr("&Corodinate Units: "), m_coordinateUnitsSelector);
+    controlsLayout->addRow(tr("&Separator: "), m_separatorField);
+    controlsLayout->addRow(tr("&From row: "), m_firstDataRowSpinBox);
+    controlsLayout->addRow(tr("&To row: "), m_lastDataRowSpinBox);
+
+    //buttons layout
+    auto buttonsLayout = new QHBoxLayout;
+    buttonsLayout->addWidget(m_importButton);
+    buttonsLayout->addWidget(m_cancelButton);
+
+    //place controls and import/reject buttons
+    auto controlsAndButtonsGrid = new QGridLayout;
+    controlsAndButtonsGrid->setMargin(10);
+    controlsAndButtonsGrid->addItem(new QSpacerItem(10000,1),1,1,2,1);
+    controlsAndButtonsGrid->addLayout(controlsLayout, 1, 2, 1, 1, Qt::AlignRight);
+    controlsAndButtonsGrid->addLayout(buttonsLayout, 2, 2, 1, 1, Qt::AlignLeft);
+
+    //build all the layout
+    layout->addLayout(tableLayout);
+    layout->addLayout(controlsAndButtonsGrid);
+
+    return layout;
+}
+

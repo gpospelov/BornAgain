@@ -49,15 +49,19 @@ CsvImportAssistant::CsvImportAssistant(const QString& file, QWidget* parent):
 
 void CsvImportAssistant::runDataSelector(QWidget* parent){
     DataSelector selector(m_csvArray, parent);
-
+    m_separator = guessSeparator();
+    selector.setSeparator(guessSeparator());
     connect(
         &selector,
         &DataSelector::separatorChanged,
         this,
         [this, &selector](char newSep){
-            m_separator = newSep;
-            loadCsvFile();
-            selector.setDataArray(m_csvArray);
+            if(newSep!=m_separator){
+                m_separator = newSep;
+                loadCsvFile();
+                selector.setDataArray(m_csvArray);
+                selector.setSeparator(newSep);
+            }
         }
     );
 
@@ -83,7 +87,6 @@ bool CsvImportAssistant::loadCsvFile(){
     try {
         if(m_separator=='\0')
             m_separator = guessSeparator();
-
         m_csvFile = std::make_unique<CSVFile>(m_fileName.toStdString(), m_separator);
     }
     catch (...) {
@@ -110,6 +113,7 @@ bool CsvImportAssistant::loadCsvFile(){
 
     csv::DataArray tmp(csvArray.begin() , csvArray.begin() + int(lastRow));
     m_csvArray.swap(tmp);
+    removeBlankColumns();
     return true;
 }
 
@@ -143,13 +147,6 @@ ImportDataInfo CsvImportAssistant::fillData()
     PointwiseAxis coordAxis(axisName, coordinateValues);
     resultOutputData->addAxis(coordAxis);
     resultOutputData->setRawDataVector(intensityValues);
-
-    for(unsigned i = 0; i < intensityValues.size(); i++)
-        std::cout << (*resultOutputData)[i] << std::endl;
-
-
-    //for(unsigned i = 0; i < intensityValues.size(); i++)
-    //    (*resultOutputData)[i] = intensityValues[i];
 
     ImportDataInfo result(std::move(resultOutputData),m_units);
     return result;

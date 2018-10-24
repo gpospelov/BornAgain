@@ -234,7 +234,6 @@
 #include "IIntensityFunction.h"
 #include "IIntensityNormalizer.h"
 #include "ISquaredFunction.h"
-#include "AdjustMinimizerStrategy.h"
 #include "IterationInfo.h"
 %}
 
@@ -333,7 +332,6 @@
 %include "PyFittingCallbacks.h"
 %include "FitObjective.h"
 %include "MathFunctions.h"
-%include "AdjustMinimizerStrategy.h"
 %include "IFactory.h"
 %include "IMultiLayerBuilder.h"
 %include "INodeVisitor.h"

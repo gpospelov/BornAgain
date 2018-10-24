@@ -111,7 +111,7 @@ bool GUIFitObserver::is_suitable_iteration(const FitObjective* fitSuite) const
         return false;
 
     int n_iter = static_cast<int>(fitSuite->iterationInfo().iterationCount());
-    return n_iter == fitSuite->isFirstIteration() ||
+    return fitSuite->isFirstIteration() ||
            n_iter % m_update_interval == 0 ||
            fitSuite->isCompleted();
 }

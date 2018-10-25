@@ -27,7 +27,7 @@
 #include <QMenu>
 #include <QFormLayout>
 
-CsvImportAssistant::CsvImportAssistant(const QString& file, QWidget* parent):
+CsvImportAssistant::CsvImportAssistant(const QString& file, const bool useGUI, QWidget* parent):
       m_fileName(file)
       ,m_csvFile(nullptr)
       ,m_csvArray()
@@ -43,8 +43,17 @@ CsvImportAssistant::CsvImportAssistant(const QString& file, QWidget* parent):
         return;
     }
 
-    runDataSelector(parent);
-
+    if(useGUI){
+        runDataSelector(parent);
+    }
+    else{
+        m_intensityCol = 1;
+        m_coordinateCol = 0; //zero in this context means "unavailable"
+        m_units = AxesUnits::NBINS;
+        m_firstRow = 1;
+        m_lastRow = unsigned(m_csvFile->NumberOfRows());
+        m_dataAvailable = true;
+    }
 }
 
 void CsvImportAssistant::runDataSelector(QWidget* parent){

@@ -18,83 +18,53 @@
 #include "WinDllMacros.h"
 #include "CsvReader.h"
 #include "ImportDataInfo.h"
-#include <QAction>
-#include <QDialog>
-#include <QTableWidget>
-#include <QLineEdit>
-#include <QLabel>
-#include <QSpinBox>
-#include <QComboBox>
+#include "DataFormatUtils.h"
+#include <QStringList>
+#include <QWidget>
 #include <memory>
 
-class QBoxLayout;
+namespace csv{
+typedef std::vector<std::vector<std::string>> DataArray ;
+typedef std::vector<std::string> DataRow;
+}
 
-enum  RelevantColumns {_intensity_,_theta_,_2theta_,_q_};
-const QStringList HeaderLabels{"Intensity","theta","2theta","q"};
-const QStringList UnitsLabels{"default", "bin", "rad", "deg", "mm", "1/nm"};
+//! Logic for importing intensity data from csv files
 
-//! Dialog to hold ImportAssistant.
-
-class BA_CORE_API_ CsvImportAssistant : public QDialog
+class BA_CORE_API_ CsvImportAssistant: public QObject
 {
     Q_OBJECT
-
 public:
-    CsvImportAssistant(QString& file, QWidget* parent = nullptr);
-    char separator() const;
-    void setHeaders();
-    unsigned firstLine() const;
-    unsigned lastLine() const;
-    void Reload();
-    ImportDataInfo getData();
-
-public slots:
-    void onImportButton();
-    void onRejectButton();
-    void OnColumnClicked(int row, int column);
-    void onColumnRightClick(QPoint position);
+    CsvImportAssistant(const QString& file, QWidget* parent = nullptr);
+    ImportDataInfo getData(){return m_dataAvailable ? fillData() : ImportDataInfo();}
+    static void showErrorMessage(std::string message);
+    static double stringToDouble(std::string string_to_parse);
 
 private:
-    QBoxLayout* createLayout();
-    QBoxLayout* createFileDetailsLayout();
+    bool loadCsvFile();
+    ImportDataInfo fillData();
+    bool hasEqualLengthLines(csv::DataArray &dataArray);
+
+
+
 
     char guessSeparator() const;
-    void reloadCsvFile();
-    void generate_table();
-    void set_table_data(std::vector<std::vector<std::string>> dataArray);
-    void removeBlankColumns(std::vector<std::vector<std::string>> &dataArray);
-    void extractDesiredColumns(std::vector<std::vector<std::string>> &dataArray);
-    bool hasEqualLengthLines(std::vector<std::vector<std::string> > &dataArray);
-    void populateUnitsComboBox(int coordinate);
-    void greyOutCells();
-    void showErrorMessage(std::string message);
-    void setColumnAsCoordinate(int coord);
-    void setColumnAsIntensity();
-    void setCoordinateUnits();
-    void setFirstRow();
-    void reset();
+    void removeBlankColumns();
+    void runDataSelector(QWidget* parent);
+    std::vector<double> getValuesFromColumn(size_t jcol);
+    void resetSelection();
+    void resetAssistant();
 
+    //Helpers:
 
     QString m_fileName;
-    unsigned m_lastDataRow;
+    std::unique_ptr<CSVFile> m_csvFile;
+    csv::DataArray m_csvArray;
+    char m_separator;
     unsigned m_intensityCol;
     unsigned m_coordinateCol;
+    unsigned m_firstRow;
+    unsigned m_lastRow;
     AxesUnits m_units;
-    QString  m_coordinateName;
-
-    QTableWidget* m_tableWidget;
-    QLineEdit* m_separatorField;
-    QSpinBox* m_firstDataRowSpinBox;
-    QPushButton* m_importButton;
-    std::unique_ptr<CSVFile> m_csvFile;
-    QComboBox* m_coordinateUnitsSelector;
-    QAction* m_setAsTheta;
-    QAction* m_setAs2Theta;
-    QAction* m_setAsQ;
-    QAction* m_setAsIntensity;
-    QAction* m_setAsIntensityBins;
-    QAction* m_setCoordinateUnits;
-
+    bool m_dataAvailable;
 };
-
 #endif // CSVIMPORTASSISTANT_H

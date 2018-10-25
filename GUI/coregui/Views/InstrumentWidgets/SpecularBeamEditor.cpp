@@ -102,10 +102,7 @@ void SpecularBeamEditor::onDialogRequest(SessionItem* item, const QString& name)
         return;
 
     auto dialog = new DistributionDialog(this);
-    auto item_to_set = item->modelType() == Constants::SpecularBeamInclinationType
-                           ? item->getItem(SpecularBeamInclinationItem::P_DISTRIBUTION)
-                           : item;
-    dialog->setItem(item_to_set);
+    dialog->setItem(item);
     dialog->setNameOfEditor(name);
     dialog->show();
 }

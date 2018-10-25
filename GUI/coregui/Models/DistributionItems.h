@@ -31,7 +31,7 @@ public:
     virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const = 0;
     void init_parameters(double value, const RealLimits& limits=RealLimits::limitless());
     void init_limits_group(const RealLimits& limits, double factor = 1.0);
-    virtual void showMean(bool) {}
+    virtual void showMean(bool) = 0;
 
 protected:
     virtual void init_distribution(double){}
@@ -40,16 +40,23 @@ protected:
     void register_limits();
 };
 
-class BA_CORE_API_ DistributionNoneItem : public DistributionItem
+class BA_CORE_API_ SymmetricDistributionItem: public DistributionItem
+{
+public:
+    static const QString P_MEAN;
+
+    explicit SymmetricDistributionItem(const QString& name);
+    void showMean(bool flag) override;
+};
+
+class BA_CORE_API_ DistributionNoneItem : public SymmetricDistributionItem
 {
 
 public:
-    static const QString P_VALUE;
     DistributionNoneItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
     void init_distribution(double value) override;
-    void showMean(bool flag) override;
 };
 
 class BA_CORE_API_ DistributionGateItem : public DistributionItem
@@ -61,31 +68,28 @@ public:
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
     void init_distribution(double value) override;
+    void showMean(bool) override {}
 };
 
 
-class BA_CORE_API_ DistributionLorentzItem : public DistributionItem
+class BA_CORE_API_ DistributionLorentzItem : public SymmetricDistributionItem
 {
 public:
-    static const QString P_MEAN;
     static const QString P_HWHM;
     DistributionLorentzItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
     void init_distribution(double value) override;
-    void showMean(bool flag) override;
 };
 
-class BA_CORE_API_ DistributionGaussianItem : public DistributionItem
+class BA_CORE_API_ DistributionGaussianItem : public SymmetricDistributionItem
 {
 public:
-    static const QString P_MEAN;
     static const QString P_STD_DEV;
     DistributionGaussianItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
     void init_distribution(double value) override;
-    void showMean(bool flag) override;
 };
 
 class BA_CORE_API_ DistributionLogNormalItem : public DistributionItem
@@ -102,16 +106,14 @@ public:
 };
 
 
-class BA_CORE_API_ DistributionCosineItem : public DistributionItem
+class BA_CORE_API_ DistributionCosineItem : public SymmetricDistributionItem
 {
 public:
-    static const QString P_MEAN;
     static const QString P_SIGMA;
     DistributionCosineItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
     void init_distribution(double value) override;
-    void showMean(bool flag) override;
 };
 
 class BA_CORE_API_ DistributionTrapezoidItem : public DistributionItem

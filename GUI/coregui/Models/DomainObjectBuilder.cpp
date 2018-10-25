@@ -134,18 +134,14 @@ DomainObjectBuilder::buildInstrument(const InstrumentItem& instrumentItem)
 std::unique_ptr<IUnitConverter>
 DomainObjectBuilder::createUnitConverter(const InstrumentItem* instrumentItem)
 {
+    if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
+        return specular_instrument->createUnitConverter();
+
     const auto instrument = instrumentItem->createInstrument();
     instrument->initDetector();
 
     if (instrumentItem->modelType() == Constants::GISASInstrumentType)
         return UnitConverterUtils::createConverterForGISAS(*instrument);
-
-    if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
-    {
-        auto axis_item = specular_instrument->beamItem()->currentInclinationAxisItem();
-        return std::make_unique<UnitConverter1D>(instrument->getBeam(),
-                                                 *axis_item->createAxis(Units::degree));
-    }
 
     if (instrumentItem->modelType() == Constants::OffSpecInstrumentType) {
         auto axis_item = dynamic_cast<BasicAxisItem*>(

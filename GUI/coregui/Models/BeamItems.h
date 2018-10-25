@@ -20,6 +20,7 @@
 class BasicAxisItem;
 class Beam;
 class FootprintItem;
+class GroupItem;
 
 class BA_CORE_API_ BeamItem : public SessionItem
 {
@@ -50,6 +51,7 @@ protected:
     explicit BeamItem(const QString& beam_model);
 
     void setInclinationProperty(const QString& inclination_type);
+    void setWavelengthProperty(const QString& wavelength_type);
 };
 
 class BA_CORE_API_ SpecularBeamItem : public BeamItem
@@ -63,7 +65,7 @@ public:
     double getInclinationAngle() const override;
     void setInclinationAngle(double value) override;
 
-    SessionItem* inclinationAxisGroup();
+    GroupItem* inclinationAxisGroup();
     BasicAxisItem* currentInclinationAxisItem();
     FootprintItem* currentFootprintItem() const;
 

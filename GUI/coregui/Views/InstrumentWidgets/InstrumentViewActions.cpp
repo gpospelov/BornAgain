@@ -13,7 +13,9 @@
 // ************************************************************************** //
 
 #include "InstrumentViewActions.h"
+#include "GroupItem.h"
 #include "InstrumentItems.h"
+#include "PointwiseAxisItem.h"
 #include "SessionModel.h"
 #include "ModelUtils.h"
 #include <QAction>
@@ -125,6 +127,23 @@ void InstrumentViewActions::onCloneInstrument()
             m_model->copyItem(child, clone, tag);
         }
         clone->setItemName(nameOfClone);
+
+        // copying non-uniform axis data
+        if (auto instrument = dynamic_cast<SpecularInstrumentItem*>(item)) {
+            auto axis_group = instrument->beamItem()->inclinationAxisGroup();
+
+            auto donor_axis = dynamic_cast<PointwiseAxisItem*>(
+                axis_group->getItemOfType(Constants::PointwiseAxisType));
+            if (!donor_axis->containsNonXMLData())
+                return;
+
+            auto acceptor_axis =
+                dynamic_cast<PointwiseAxisItem*>(dynamic_cast<SpecularInstrumentItem*>(clone)
+                                                     ->beamItem()
+                                                     ->inclinationAxisGroup()
+                                                     ->getItemOfType(Constants::PointwiseAxisType));
+            acceptor_axis->init(*donor_axis->getAxis(), donor_axis->getUnitsLabel());
+        }
     }
 }
 

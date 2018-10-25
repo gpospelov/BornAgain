@@ -99,12 +99,9 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
 ImportDataInfo ImportDataUtils::UseImportAssistant(QString& fileName){
     try{
         CsvImportAssistant assistant(fileName);
-        int res = assistant.exec();
-        if(res == assistant.Accepted){
-            return assistant.getData();
-        }
+        return assistant.getData();
     }catch(std::exception& e){
-        QString message = QString("Unable to read file:\n\n'%1'\n\n%2\n\nCheck that the file exists and it is not being used by other program.\n\n")
+        QString message = QString("There was a problem while trying to import data from file:\n\n'%1'\n--\n%2\n--\n")
                 .arg(fileName)
                 .arg(QString::fromStdString(std::string(e.what())));
         QMessageBox::warning(nullptr, "IO Problem", message);

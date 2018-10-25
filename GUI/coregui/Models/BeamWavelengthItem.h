@@ -20,12 +20,19 @@
 class BA_CORE_API_ BeamWavelengthItem : public BeamDistributionItem
 {
 public:
-    BeamWavelengthItem();
+    BeamWavelengthItem(const QString& model_type = Constants::BeamWavelengthType,
+                       const QString& distribution_group = Constants::DistributionExtendedGroup);
 
     double wavelength() const;
 
 private:
     static const bool m_show_mean = true;
+};
+
+class BA_CORE_API_ SpecularBeamWavelengthItem : public BeamWavelengthItem
+{
+public:
+    SpecularBeamWavelengthItem();
 };
 
 #endif // BEAMWAVELENGTHITEM_H

@@ -29,7 +29,7 @@ const QString SpecularBeamInclinationItem::P_ALPHA_AXIS = "Alpha axis";
 SpecularBeamInclinationItem::SpecularBeamInclinationItem()
     : BeamDistributionItem(Constants::SpecularBeamInclinationType, m_show_mean)
 {
-    register_distribution_group(Constants::DistributionWithZeroAverageGroup);
+    register_distribution_group(Constants::SymmetricDistributionGroup);
     setupAxisGroup();
     setupDistributionMean(getGroupItem(P_DISTRIBUTION));
 
@@ -69,6 +69,12 @@ void SpecularBeamInclinationItem::setupAxisGroup()
     group_item->setToolTip("Axis type selected");
     group_item->setDisplayName("Axis type");
     group_item->setEnabled(false);
+    group_item->mapper()->setOnValueChange(
+        [group_item]() {
+            if (group_item->currentItem()->modelType() == Constants::PointwiseAxisType)
+                group_item->setEnabled(true);
+        },
+        this);
 }
 
 namespace
@@ -77,7 +83,7 @@ void setupDistributionMean(SessionItem* distribution)
 {
     Q_ASSERT(distribution);
 
-    SessionItem* valueItem = distribution->getItem(DistributionNoneItem::P_VALUE);
+    SessionItem* valueItem = distribution->getItem(DistributionNoneItem::P_MEAN);
     Q_ASSERT(valueItem);
 
     valueItem->setLimits(RealLimits::limited(-90.0, 90.0));

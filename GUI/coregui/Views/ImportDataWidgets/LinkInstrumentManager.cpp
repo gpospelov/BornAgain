@@ -107,20 +107,22 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
 
     if (!ImportDataUtils::Compatible(*instrumentItem, *realDataItem)) {
         QMessageBox::warning(nullptr, "Can't link to instrument",
-                             "Can't link, data is uncompatible with the instrument.");
+                             "Can't link, data is incompatible with the instrument.");
 
         return false;
     }
 
-    if (instrumentItem->shape() == realDataItem->shape())
+    if (!realDataItem->holdsDimensionalData() && instrumentItem->shape() == realDataItem->shape())
         return true;
 
-    QString message
-        = ImportDataUtils::printShapeMessage(instrumentItem->shape(), realDataItem->shape());
+    QString message =
+        realDataItem->holdsDimensionalData()
+            ? "Experimental data carries information on the range/points of measurement."
+            : ImportDataUtils::printShapeMessage(instrumentItem->shape(), realDataItem->shape());
     if (!QuestionOnInstrumentReshaping(message))
         return false;
 
-    instrumentItem->setShape(realDataItem->shape());
+    instrumentItem->updateToRealData(realDataItem);
     return true;
 }
 
@@ -252,7 +254,7 @@ void LinkInstrumentManager::updateRealDataMap()
 void LinkInstrumentManager::onInstrumentBinningChange(InstrumentItem* changedInstrument)
 {
     for(auto realDataItem : linkedItems(changedInstrument))
-        if (changedInstrument->shape() != realDataItem->shape())
+        if (!changedInstrument->alignedWith(realDataItem))
             realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
 }
 
@@ -328,12 +330,12 @@ namespace {
 bool QuestionOnInstrumentReshaping(const QString& message)
 {
     QMessageBox msgBox;
-    msgBox.setText("The shape of data and instrument differs.");
+    msgBox.setText("Instrument description conflicts with the experimental data.");
 
     QString informative;
     informative.append(message);
     informative.append(
-        "\n\nDo you want to modify instrument so it matches shape of real data?\n\n");
+        "\n\nDo you want to adjust the instrument to the experimental data?\n\n");
     msgBox.setInformativeText(informative);
 
     QPushButton* modifyInstrumentButton

@@ -32,7 +32,7 @@ public:
     static const QString T_INTENSITY_DATA;
     static const QString P_INSTRUMENT_ID;
     static const QString P_INSTRUMENT_NAME;
-    static const QString P_NATIVE_AXIS;
+    static const QString T_NATIVE_DATA;
     static const QString P_NATIVE_UNITS;
 
     RealDataItem();
@@ -43,8 +43,12 @@ public:
     DataItem* dataItem();
     const DataItem* dataItem() const;
 
+    DataItem* nativeData();
+    const DataItem* nativeData() const;
+
     void setOutputData(OutputData<double>* data);
     void setImportData(ImportDataInfo data);
+    bool holdsDimensionalData() const;
 
     void linkToInstrument(const InstrumentItem* instrument, bool make_update = true);
 
@@ -58,8 +62,8 @@ public:
     MaskContainerItem* maskContainerItem();
 
 private:
-    void initDataItem(size_t data_rank);
-    void updateIntensityDataFileName();
+    void initDataItem(size_t data_rank, const QString& tag);
+    void updateNonXMLDataFileNames();
     void updateToInstrument();
     const InstrumentItem* m_linkedInstrument;
 };

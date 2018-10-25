@@ -84,7 +84,7 @@ void BeamDistributionItem::initDistributionItem(bool show_mean)
 
     if (!distributionNone)
         return;
-    const RealLimits limits = distributionNone->getItem(DistributionNoneItem::P_VALUE)->limits();
+    const RealLimits limits = distributionNone->getItem(DistributionNoneItem::P_MEAN)->limits();
 
     for (auto item : groupItem->getItems(GroupItem::T_ITEMS)) {
         DistributionItem* distrItem = dynamic_cast<DistributionItem*>(item);
@@ -94,7 +94,7 @@ void BeamDistributionItem::initDistributionItem(bool show_mean)
             continue;
 
         distrItem->init_parameters(
-            distributionNone->getItemValue(DistributionNoneItem::P_VALUE).toDouble(), limits);
+            distributionNone->getItemValue(DistributionNoneItem::P_MEAN).toDouble(), limits);
 
         // hiding limits from the editor
         if (distrItem->isTag(DistributionItem::P_LIMITS))
@@ -110,7 +110,7 @@ double BeamDistributionItem::meanValue() const
     if (domainDistr)
         return domainDistr->getMean()/scaleFactor();
     else
-        return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
+        return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_MEAN).toDouble();
 }
 
 void BeamDistributionItem::resetToValue(double value)
@@ -118,7 +118,7 @@ void BeamDistributionItem::resetToValue(double value)
     SessionItem* distributionItem = setGroupProperty(
         BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
-    distributionItem->setItemValue(DistributionNoneItem::P_VALUE, value);
+    distributionItem->setItemValue(DistributionNoneItem::P_MEAN, value);
 }
 
 //! Scales the values provided by distribution (to perform deg->rad conversion in the case
@@ -132,7 +132,7 @@ double BeamDistributionItem::scaleFactor() const
 void BeamDistributionItem::register_distribution_group(const QString& group_type)
 {
     Q_ASSERT(group_type == Constants::DistributionExtendedGroup
-             || group_type == Constants::DistributionWithZeroAverageGroup);
+             || group_type == Constants::SymmetricDistributionGroup);
     addGroupProperty(P_DISTRIBUTION, group_type);
 }
 

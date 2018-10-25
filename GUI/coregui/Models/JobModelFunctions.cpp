@@ -19,6 +19,7 @@
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
 #include "FitSuiteItem.h"
+#include "GroupItem.h"
 #include "GUIHelpers.h"
 #include "IDetector2D.h"
 #include "Instrument.h"
@@ -35,9 +36,6 @@
 
 namespace
 {
-//! Copy RealDataItem to jobItem intended for fitting.
-void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem);
-
 //! Links RealDataItem to the JobItem's instrument.
 // (re-)Linking is necessary because of following reason
 // 1) Copying of RealDataItem from RealDataModel on board of JobItem requires relink to the copied
@@ -96,8 +94,10 @@ void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
         spec_instrument->beamItem()->updateFileName(filename);
 
         // copying axis data
-        const auto instrument_axis = getPointwiseAxisItem(instrumentItem)->getAxis();
-        getPointwiseAxisItem(spec_instrument)->setAxis(instrument_axis);
+        auto origin = getPointwiseAxisItem(instrumentItem);
+        if (origin->containsNonXMLData())
+            getPointwiseAxisItem(spec_instrument)
+                ->init(*origin->getAxis(), origin->getUnitsLabel());
     }
 }
 
@@ -144,8 +144,7 @@ void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem*
     createFitContainers(jobItem);
 }
 
-namespace {
-void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
+void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
 {
     if (!realDataItem)
         return;
@@ -161,8 +160,17 @@ void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
     // adapting the name to job name
     realDataItemCopy->dataItem()->setItemValue(DataItem::P_FILE_NAME,
                                                ItemFileNameUtils::jobReferenceFileName(*jobItem));
+
+    if (!realDataItem->nativeData())
+        return;
+
+    realDataItemCopy->nativeData()->setOutputData(
+        realDataItem->nativeData()->getOutputData()->clone());
+    realDataItemCopy->nativeData()->setItemValue(
+        DataItem::P_FILE_NAME, ItemFileNameUtils::jobNativeDataFileName(*jobItem));
 }
 
+namespace {
 void processInstrumentLink(JobItem* jobItem)
 {
     RealDataItem* realData = jobItem->realDataItem();

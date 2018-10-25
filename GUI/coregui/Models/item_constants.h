@@ -153,6 +153,7 @@ const ModelType BeamWavelengthType = "BeamWavelength";
 const ModelType BeamAzimuthalAngleType = "BeamAzimuthalAngle";
 const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 const ModelType SpecularBeamInclinationType = "SpecularBeamInclinationAxis";
+const ModelType SpecularBeamWavelengthType = "SpecularBeamWavelength";
 
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
@@ -205,7 +206,7 @@ const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType DistributionGroup = "Distribution group";
 const ModelType DistributionExtendedGroup = "Distribution extended group";
-const ModelType DistributionWithZeroAverageGroup = "Distribution with zero average group";
+const ModelType SymmetricDistributionGroup = "Symmetric distribution group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType FTDecayFunction1DGroup = "Decay function 1D";

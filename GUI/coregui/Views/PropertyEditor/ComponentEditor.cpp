@@ -79,7 +79,8 @@ void ComponentEditor::clearEditor()
 
 void ComponentEditor::addItem(SessionItem* item)
 {
-    m_item = item;
+    if (!m_item)
+        m_item = item;
     m_componentView->addItem(item);
 }
 

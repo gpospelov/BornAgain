@@ -22,7 +22,9 @@ class DataItem;
 class DetectorItem;
 class GroupItem;
 class Instrument;
+class IUnitConverter;
 class MaskContainerItem;
+class RealDataItem;
 
 class BA_CORE_API_ InstrumentItem : public SessionItem
 {
@@ -42,6 +44,8 @@ public:
     virtual void setShape(const std::vector<int>& shape) = 0;
     virtual void clearMasks() {}
     virtual void importMasks(const MaskContainerItem*) {}
+    virtual void updateToRealData(const RealDataItem* item);
+    virtual bool alignedWith(const RealDataItem* item);
 
 protected:
     explicit InstrumentItem(const QString& modelType);
@@ -60,6 +64,10 @@ public:
     std::unique_ptr<Instrument> createInstrument() const override;
     std::vector<int> shape() const override;
     void setShape(const std::vector<int>& shape) override;
+    void updateToRealData(const RealDataItem* item) override;
+    bool alignedWith(const RealDataItem* item) override;
+
+    std::unique_ptr<IUnitConverter> createUnitConverter() const;
 };
 
 class BA_CORE_API_ Instrument2DItem : public InstrumentItem

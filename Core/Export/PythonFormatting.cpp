@@ -319,4 +319,9 @@ std::string printAxis(const IAxis& axis, const std::string& units)
     return result.str();
 }
 
+std::string indent(size_t width)
+{
+    return std::string(width, ' ');
+}
+
 } // namespace PythonFormatting

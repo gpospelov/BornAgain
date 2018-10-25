@@ -67,6 +67,10 @@ BA_CORE_API_ std::string printParameterDistribution(const ParameterDistribution&
                                                     const std::string& units = "");
 
 BA_CORE_API_ std::string printAxis(const IAxis& axis, const std::string& units = "");
+
+//! Returns a string of blanks with given width. By default
+//! the width equals standard offset in python files.
+BA_CORE_API_ std::string indent(size_t width = 4u);
 }
 
 #endif // PYTHONFORMATTING_H

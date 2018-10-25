@@ -444,5 +444,3 @@ std::string SimulationToPython::defineMain(SimulationToPython::EMainType mainTyp
     }
     return result;
 }
-
-std::string SimulationToPython::indent() const { return "    "; }

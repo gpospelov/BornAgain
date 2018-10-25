@@ -23,6 +23,7 @@
 #include "Numeric.h"
 #include "ParameterPool.h"
 #include "ParameterDistribution.h"
+#include "PointwiseAxis.h"
 #include "Polygon.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
@@ -301,7 +302,7 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
     return result.str();
 }
 
-std::string printAxis(const IAxis& axis, const std::string& units)
+std::string printAxis(const IAxis& axis, const std::string& units, size_t offset)
 {
     std::ostringstream result;
 
@@ -311,7 +312,17 @@ std::string printAxis(const IAxis& axis, const std::string& units)
                << fixedAxis->size() << ", "
                << printValue(fixedAxis->getMin(), units) << ", "
                << printValue(fixedAxis->getMax(), units) << ")";
+    } else if (auto pointwise_axis = dynamic_cast<const PointwiseAxis*>(&axis)) {
+        const std::string py_def_call = "numpy.asarray([";
+        const size_t total_offset = offset + py_def_call.size();
+        result << py_def_call;
 
+        std::vector<double> points = pointwise_axis->getBinCenters();
+        for (auto iter = points.begin(); iter != points.end()-1; ++iter) {
+            result << printValue(*iter, units) << ",\n";
+            result << indent(total_offset);
+        }
+        result << printValue(points.back(), units) << "])";
     } else {
         throw std::runtime_error("PythonFormatting::printAxis() -> Error. Unsupported axis");
     }

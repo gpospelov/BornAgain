@@ -270,8 +270,11 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     std::ostringstream result;
     const Beam& beam = simulation.getInstrument().getBeam();
 
-    result << indent() << "alpha_i_axis = "
-           << PythonFormatting::printAxis(*simulation.beamAxis(), BornAgain::UnitsRad) << "\n";
+    const std::string axis_def = indent() + "alpha_i_axis = ";
+    result << axis_def
+           << PythonFormatting::printAxis(*simulation.beamAxis(), BornAgain::UnitsRad,
+                                          axis_def.size())
+           << "\n";
 
     result << indent() << "simulation.setBeamParameters(" << printNm(beam.getWavelength()) << ", "
            << "alpha_i_axis, " << printDegrees(beam.getPhi()) << ")\n";
@@ -290,8 +293,11 @@ std::string SimulationToPython::defineSpecularBeam(const SpecularSimulation& sim
     if (footprint)
         result << indent() << "footprint = " << defineFootprint(*footprint);
 
-    result << indent() << "alpha_i_axis = "
-           << PythonFormatting::printAxis(*simulation.getAlphaAxis(), BornAgain::UnitsRad) << "\n";
+    const std::string axis_def = indent() + "alpha_i_axis = ";
+    result << axis_def
+           << PythonFormatting::printAxis(*simulation.getAlphaAxis(), BornAgain::UnitsRad,
+                                          axis_def.size())
+           << "\n";
 
     result << indent() << "simulation.setBeamParameters(" << printNm(beam.getWavelength()) << ", "
            << "alpha_i_axis";

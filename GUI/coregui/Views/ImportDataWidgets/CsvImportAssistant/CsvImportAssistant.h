@@ -34,19 +34,21 @@ class BA_CORE_API_ CsvImportAssistant: public QObject
 {
     Q_OBJECT
 public:
-    CsvImportAssistant(const QString& file, QWidget* parent = nullptr);
+    CsvImportAssistant(const QString& file, const bool useGUI = false, QWidget* parent = nullptr);
     ImportDataInfo getData(){return m_dataAvailable ? fillData() : ImportDataInfo();}
     static void showErrorMessage(std::string message);
     static double stringToDouble(std::string string_to_parse);
+    void setIntensityColumn(unsigned iCol){m_intensityCol = iCol;}
+    void setCoordinateColumn(unsigned iCol, AxesUnits units){m_coordinateCol = iCol; m_units = units;}
+    void setFirstRow(unsigned iRow){m_firstRow = iRow;}
+    void setLastRow(unsigned iRow){m_lastRow = iRow;}
+    unsigned columnCount(){return unsigned(m_csvArray[0].size());}
+    char separator(){return m_separator;}
 
 private:
     bool loadCsvFile();
     ImportDataInfo fillData();
     bool hasEqualLengthLines(csv::DataArray &dataArray);
-
-
-
-
     char guessSeparator() const;
     void removeBlankColumns();
     void runDataSelector(QWidget* parent);
@@ -54,7 +56,6 @@ private:
     void resetSelection();
     void resetAssistant();
 
-    //Helpers:
 
     QString m_fileName;
     std::unique_ptr<CSVFile> m_csvFile;

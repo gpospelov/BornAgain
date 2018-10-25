@@ -20,6 +20,11 @@
 class AmplitudeAxisItem;
 class BasicAxisItem;
 
+namespace SpecularDataAxesNames{
+const QString x_axis_default_name = "X [nbins]";
+const QString y_axis_default_name = "Signal [a.u.]";
+}
+
 class BA_CORE_API_ SpecularDataItem : public DataItem
 {
 public:

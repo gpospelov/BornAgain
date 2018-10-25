@@ -190,6 +190,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::BeamAzimuthalAngleType, create_new<BeamAzimuthalAngleItem>);
     add(Constants::BeamInclinationAngleType, create_new<BeamInclinationAngleItem>);
     add(Constants::SpecularBeamInclinationType, create_new<SpecularBeamInclinationItem>);
+    add(Constants::SpecularBeamWavelengthType, create_new<SpecularBeamWavelengthItem>);
 
     add(Constants::ResolutionFunctionNoneType, create_new<ResolutionFunctionNoneItem>);
     add(Constants::ResolutionFunction2DGaussianType, create_new<ResolutionFunction2DGaussianItem>);

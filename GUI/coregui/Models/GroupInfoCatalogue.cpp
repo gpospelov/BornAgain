@@ -85,7 +85,7 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.setDefaultType(Constants::DistributionNoneType);
     addInfo(info);
 
-    info = GroupInfo(Constants::DistributionWithZeroAverageGroup);
+    info = GroupInfo(Constants::SymmetricDistributionGroup);
     info.add(Constants::DistributionNoneType, "None");
     info.add(Constants::DistributionLorentzType, "Lorentz");
     info.add(Constants::DistributionGaussianType, "Gaussian");

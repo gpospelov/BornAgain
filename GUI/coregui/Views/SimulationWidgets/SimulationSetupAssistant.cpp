@@ -77,13 +77,13 @@ void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem* instrum
 void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem* instrumentItem,
                                                  const RealDataItem* realData)
 {
-    if(!realData || instrumentItem->shape() == realData->shape())
+    if (!realData
+        || instrumentItem->getItemValue(InstrumentItem::P_IDENTIFIER).toString()
+               == realData->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString())
         return;
 
     m_isValid = false;
-    QString message
-        = ImportDataUtils::printShapeMessage(instrumentItem->shape(), realData->shape());
-    m_messages.append("The RealData doesn't match selected instrument: " + message);
+    m_messages.append("The RealData was not linked to the instrument");
 }
 
 //! Composes the error message for message box.

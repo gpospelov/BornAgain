@@ -27,6 +27,8 @@ AxesUnits selectedUnits(Data1DViewItem* view_item)
 void DataViewUtils::updateAxesTitle(Data1DViewItem* view_item)
 {
     auto converter = getConverter(view_item);
+    if (!converter)
+        return;
     auto current_units = selectedUnits(view_item);
     view_item->setXaxisTitle(QString::fromStdString(converter->axisName(0, current_units)));
     if (converter->dimension() > 1)

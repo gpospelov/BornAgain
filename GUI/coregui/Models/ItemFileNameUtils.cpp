@@ -25,6 +25,7 @@ const QString jobdata_file_prefix = "jobdata";
 const QString refdata_file_prefix = "refdata";
 const QString realdata_file_prefix = "realdata";
 const QString instrument_file_prefix = "instrdata";
+const QString nativedata_file_prefix = "nativedata";
 
 //! Constructs the name of the file for intensity data.
 QString intensityDataFileName(const QString& itemName, const QString& prefix);
@@ -44,11 +45,21 @@ QString ItemFileNameUtils::jobReferenceFileName(const JobItem& jobItem)
     return intensityDataFileName(jobItem.itemName(), refdata_file_prefix);
 }
 
+QString ItemFileNameUtils::jobNativeDataFileName(const JobItem& jobItem)
+{
+    return intensityDataFileName(jobItem.getIdentifier(), nativedata_file_prefix);
+}
+
 //! Constructs the name of the intensity file belonging to real data item.
 
 QString ItemFileNameUtils::realDataFileName(const RealDataItem& realDataItem)
 {
     return intensityDataFileName(realDataItem.itemName(), realdata_file_prefix);
+}
+
+QString ItemFileNameUtils::nativeDataFileName(const RealDataItem& realDataItem)
+{
+    return intensityDataFileName(realDataItem.itemName(), nativedata_file_prefix);
 }
 
 QString ItemFileNameUtils::instrumentDataFileName(const InstrumentItem& instrumentItem)
@@ -61,11 +72,11 @@ QString ItemFileNameUtils::instrumentDataFileName(const InstrumentItem& instrume
 
 QStringList ItemFileNameUtils::nonXMLFileNameFilters()
 {
-    QStringList result = QStringList()
-        << QString(jobdata_file_prefix+"_*.int.gz")
-        << QString(refdata_file_prefix+"_*.int.gz")
-        << QString(realdata_file_prefix+"_*.int.gz")
-        << QString(instrument_file_prefix+"_*.int.gz");
+    QStringList result = QStringList() << QString(jobdata_file_prefix + "_*.int.gz")
+                                       << QString(refdata_file_prefix + "_*.int.gz")
+                                       << QString(realdata_file_prefix + "_*.int.gz")
+                                       << QString(nativedata_file_prefix + "_*.int.gz")
+                                       << QString(instrument_file_prefix + "_*.int.gz");
 
     return result;
 }

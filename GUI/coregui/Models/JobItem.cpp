@@ -271,10 +271,15 @@ void JobItem::updateIntensityDataFileName()
         item->setItemValue(DataItem::P_FILE_NAME,
                            ItemFileNameUtils::jobResultsFileName(*this));
 
-    if (RealDataItem* realItem = realDataItem())
+    if (RealDataItem* realItem = realDataItem()) {
         if (DataItem* item = realItem->dataItem())
             item->setItemValue(DataItem::P_FILE_NAME,
                                ItemFileNameUtils::jobReferenceFileName(*this));
+
+        if (DataItem* item = realItem->nativeData())
+            item->setItemValue(DataItem::P_FILE_NAME,
+                               ItemFileNameUtils::jobNativeDataFileName(*this));
+    }
 }
 
 SimulationOptionsItem* JobItem::simulationOptionsItem()

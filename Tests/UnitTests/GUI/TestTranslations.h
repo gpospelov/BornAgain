@@ -62,14 +62,14 @@ TEST_F(TestTranslations, test_BeamDistributionNone)
 
     SessionItem* distr = wavelength->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
     EXPECT_EQ(distr->modelType(), Constants::DistributionNoneType);
-    SessionItem* value = distr->getItem(DistributionNoneItem::P_VALUE);
+    SessionItem* value = distr->getItem(DistributionNoneItem::P_MEAN);
 
     EXPECT_EQ(ModelPath::itemPathTranslation(*value, instrument->parent()),
               QString("Instrument/Beam/Wavelength"));
 
     SessionItem* inclinationAngle = beam->getItem(BeamItem::P_INCLINATION_ANGLE);
     distr = inclinationAngle->getGroupItem(BeamDistributionItem::P_DISTRIBUTION);
-    value = distr->getItem(DistributionNoneItem::P_VALUE);
+    value = distr->getItem(DistributionNoneItem::P_MEAN);
 
     EXPECT_EQ(ModelPath::itemPathTranslation(*value, instrument->parent()),
               QString("Instrument/Beam/InclinationAngle"));

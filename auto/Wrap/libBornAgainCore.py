@@ -7051,7 +7051,6 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, DistributionLogNormal arg2)
         visit(INodeVisitor self, DistributionLorentz arg2)
         visit(INodeVisitor self, DistributionTrapezoid arg2)
-        visit(INodeVisitor self, FitSuiteObjects const * arg2)
         visit(INodeVisitor self, FootprintFactorGaussian arg2)
         visit(INodeVisitor self, FootprintFactorSquare arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)

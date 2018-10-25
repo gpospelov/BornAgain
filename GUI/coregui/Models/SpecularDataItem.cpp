@@ -20,8 +20,6 @@
 #include "ImportDataUtils.h"
 #include "JobItemUtils.h"
 
-const QString x_axis_default_name = "X [nbins]";
-const QString y_axis_default_name = "Signal [a.u.]";
 
 const QString SpecularDataItem::P_TITLE = "Title";
 const QString SpecularDataItem::P_XAXIS = "x-axis";
@@ -42,8 +40,8 @@ SpecularDataItem::SpecularDataItem() : DataItem(Constants::SpecularDataType)
     item->setValue(true);
     item->setVisible(false);
 
-    setXaxisTitle(x_axis_default_name);
-    setYaxisTitle(y_axis_default_name);
+    setXaxisTitle(SpecularDataAxesNames::x_axis_default_name);
+    setYaxisTitle(SpecularDataAxesNames::y_axis_default_name);
 }
 
 void SpecularDataItem::setOutputData(OutputData<double>* data)

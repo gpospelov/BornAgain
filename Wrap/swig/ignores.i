@@ -41,11 +41,6 @@
 // ignored to avoid error (todo: check whether this is really necessary)
 %ignore Crystal::getTransformedLattice(const IRotation*) const;
 
-// taken from dev-tools/python-bindings/settings_fit.py
-%ignore FitSuite::setOptions(const FitOptions&);
-%ignore FitSuite::getOptions();
-
-
 // extra ignores for types and methods that shouldn't be visible in Python
 %ignore FormFactorDWBAPol;
 %ignore ISampleVisitor::visit(const FormFactorDWBAPol*);

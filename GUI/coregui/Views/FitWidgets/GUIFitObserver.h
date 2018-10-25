@@ -15,29 +15,25 @@
 #ifndef GUIFITOBSERVER_H
 #define GUIFITOBSERVER_H
 
-#include "IFitObserver.h"
 #include "FitProgressInfo.h"
 #include <QObject>
 #include <condition_variable>
 #include <mutex>
 
 template <class T> class OutputData;
-class FitSuite;
 class IntensityDataItem;
 class FitObjective;
 
-//! The GUIFitObserver class is a intermediate between FitSuite and the GUI.
-//! It is called at the end of each iterations and sends (messages, data) to the rest of the GUI.
+//! Serves as observer for FitObjective and saves fit iteration data for later display
+//! in GUI widgets.
 
-class BA_CORE_API_ GUIFitObserver : public QObject, public IFitObserver
+class BA_CORE_API_ GUIFitObserver : public QObject
 {
     Q_OBJECT
 
 public:
     GUIFitObserver(QObject* parent = nullptr);
     ~GUIFitObserver();
-
-    void update(FitSuite* subject);
 
     void update(const FitObjective* subject);
 
@@ -53,10 +49,7 @@ signals:
 
 private:
     bool is_suitable_iteration(const FitObjective* fitSuite) const;
-    bool is_suitable_iteration(FitSuite* fitSuite);
-    bool is_obligatory_iteration(FitSuite* fitSuite);
     bool is_obligatory_iteration(const FitObjective* fitSuite) const;
-    std::string reportToString(FitSuite* fitSuite);
 
     bool m_block_update_plots;
     std::mutex m_update_plot_mutex;

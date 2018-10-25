@@ -20,8 +20,8 @@
 #include "SafePointerVector.h"
 #include "SimDataPair.h"
 #include "IterationInfo.h"
+#include "MinimizerResult.h"
 
-namespace Fit { class MinimizerResult; }
 class IChiSquaredModule;
 class PyBuilderCallback;
 class PyObserverCallback;

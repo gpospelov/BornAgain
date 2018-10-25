@@ -8,8 +8,6 @@
 %feature("director") ISample;
 %feature("director") IFormFactor;
 %feature("director") IFormFactorBorn;
-%feature("director") IFitObserver;
-%feature("director") IObservable;
 %feature("director") IInterferenceFunction;
 %feature("director") PyCallback;
 %feature("director") PyBuilderCallback;

@@ -15,7 +15,6 @@
 from __future__ import print_function
 import bornagain as ba
 from bornagain import deg as deg
-from bornagain import IFitObserver as IFitObserver
 try:  # workaround for build servers
     import numpy as np
     from matplotlib import pyplot as plt
@@ -518,36 +517,3 @@ class PlotterSpecular(Plotter):
         self.plot_table(fit_objective)
 
         Plotter.plot(self)
-
-
-class DefaultFitObserver(IFitObserver):
-    """
-    Draws fit progress every nth iteration. This class has to be attached to
-    FitSuite via attachObserver method.
-    FitSuite kernel will call DrawObserver's update() method every n'th iteration.
-    It is up to the user what to do here.
-    """
-    import sys
-    import traceback
-
-    def __init__(self, draw_every_nth=10, SimulationType='GISAS'):
-        """
-        Initializes observer
-        :param draw_every_nth: specifies when to output data, defaults to each 10th iteration
-        :param SimulationType: simulation type underlying fitting:
-            'GISAS' - GISAS simulation, default
-
-            'Specular' - specular simulation
-
-        """
-        IFitObserver.__init__(self, draw_every_nth)
-        if SimulationType is 'GISAS':
-            self._plotter = PlotterGISAS()
-        elif SimulationType is 'Specular':
-            self._plotter = PlotterSpecular_old()
-        else:
-            raise Exception("Unknown simulation type {:s}.".format(SimulationType))
-
-    def update(self, fit_suite):
-        self._plotter.plot(fit_suite)
-

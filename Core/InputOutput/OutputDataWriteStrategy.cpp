@@ -13,88 +13,87 @@
 // ************************************************************************** //
 
 #include "OutputDataWriteStrategy.h"
+#include "ArrayUtils.h"
 #include "BornAgainNamespace.h"
 #include "OutputData.h" // needed by some compilers
-#include "ArrayUtils.h"
 #include "TiffHandler.h"
 #include <cmath>
 #include <iomanip>
 
-namespace {
-    const int precision { 12 };
+namespace
+{
+const int precision{12};
 
-    double IgnoreDenormalized(double value)
-    {
-        if (std::fpclassify(value)==FP_SUBNORMAL)
-            return 0.0;
-        return value;
-    }
+double IgnoreDenormalized(double value)
+{
+    if (std::fpclassify(value) == FP_SUBNORMAL)
+        return 0.0;
+    return value;
+}
 
-    void Write2DRepresentation(
-        const OutputData<double>& data, std::ostream& output_stream)
-    {
-        const size_t nrows = data.getAxis(BornAgain::Y_AXIS_INDEX).size();
-        const size_t ncols = data.getAxis(BornAgain::X_AXIS_INDEX).size();
+void Write2DRepresentation(const OutputData<double>& data, std::ostream& output_stream)
+{
+    const size_t nrows = data.getAxis(BornAgain::Y_AXIS_INDEX).size();
+    const size_t ncols = data.getAxis(BornAgain::X_AXIS_INDEX).size();
 
-        output_stream << "# [nrows=" << nrows << ", ncols=" << ncols << "]" << std::endl;
+    output_stream << "# [nrows=" << nrows << ", ncols=" << ncols << "]" << std::endl;
 
-       std::vector<std::vector<double>> dataArray = ArrayUtils::createVector2D(data);
-       output_stream.imbue(std::locale::classic());
-       output_stream << std::scientific << std::setprecision(precision);
+    std::vector<std::vector<double>> dataArray = ArrayUtils::createVector2D(data);
+    output_stream.imbue(std::locale::classic());
+    output_stream << std::scientific << std::setprecision(precision);
 
-       for(size_t i = 0; i < nrows; i++){
-           for(size_t j = 0; j < ncols; j++){
-               double z_value = dataArray[i][j];
-               output_stream << IgnoreDenormalized(z_value) << "    ";
-           }
-           output_stream << std::endl;
-       }
-    }
-
-    void WriteOutputDataDoubles(
-        const OutputData<double>& data, std::ostream& output_stream, size_t n_columns)
-    {
-
-        OutputData<double>::const_iterator it = data.begin();
-        output_stream.imbue(std::locale::classic());
-        output_stream << std::scientific << std::setprecision(precision);
-        size_t ncol(0);
-        while (it != data.end()) {
-            ncol++;
-            double z_value = *it++;
+    for (size_t i = 0; i < nrows; i++) {
+        for (size_t j = 0; j < ncols; j++) {
+            double z_value = dataArray[i][j];
             output_stream << IgnoreDenormalized(z_value) << "    ";
-            if(ncol == n_columns) {
-                output_stream << std::endl;
-                ncol = 0;
-            }
         }
-
+        output_stream << std::endl;
     }
+}
 
-    void Write1DRepresentation(const OutputData<double>& data, std::ostream& output_stream)
-    {
-        output_stream << "# coordinates         intensities"  << std::endl;
-        output_stream.imbue(std::locale::classic());
-        output_stream << std::scientific << std::setprecision(precision);
+void WriteOutputDataDoubles(const OutputData<double>& data, std::ostream& output_stream,
+                            size_t n_columns)
+{
 
-        const std::vector<double> axis_values = data.getAxis(BornAgain::X_AXIS_INDEX).getBinCenters();
-
-        // printing coordinate and associated intensity
-        for(size_t i = 0, nrows = axis_values.size(); i < nrows; ++i)
-            output_stream << axis_values[i] << "    " << IgnoreDenormalized(data[i]) << std::endl;
+    OutputData<double>::const_iterator it = data.begin();
+    output_stream.imbue(std::locale::classic());
+    output_stream << std::scientific << std::setprecision(precision);
+    size_t ncol(0);
+    while (it != data.end()) {
+        ncol++;
+        double z_value = *it++;
+        output_stream << IgnoreDenormalized(z_value) << "    ";
+        if (ncol == n_columns) {
+            output_stream << std::endl;
+            ncol = 0;
+        }
     }
+}
+
+void Write1DRepresentation(const OutputData<double>& data, std::ostream& output_stream)
+{
+    output_stream << "# coordinates         intensities" << std::endl;
+    output_stream.imbue(std::locale::classic());
+    output_stream << std::scientific << std::setprecision(precision);
+
+    const std::vector<double> axis_values = data.getAxis(BornAgain::X_AXIS_INDEX).getBinCenters();
+
+    // printing coordinate and associated intensity
+    for (size_t i = 0, nrows = axis_values.size(); i < nrows; ++i)
+        output_stream << axis_values[i] << "    " << IgnoreDenormalized(data[i]) << std::endl;
+}
 } // namespace
 
 // ----------------------------------------------------------------------------
 // class OutputDataWriteINTStrategy
 // ----------------------------------------------------------------------------
 
-void OutputDataWriteINTStrategy::writeOutputData(
-    const OutputData<double>& data, std::ostream& output_stream)
+void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
+                                                 std::ostream& output_stream)
 {
     output_stream << "# BornAgain Intensity Data\n\n";
 
-    for(size_t i=0; i<data.getRank(); ++i) {
+    for (size_t i = 0; i < data.getRank(); ++i) {
         std::string axis_name = std::string("axis") + std::to_string(i);
         std::unique_ptr<IAxis> P_axis(data.getAxis(i).clone());
         P_axis->setName(axis_name);
@@ -102,7 +101,7 @@ void OutputDataWriteINTStrategy::writeOutputData(
         output_stream << "# axis-" << i << "\n";
         output_stream << (*P_axis) << "\n";
     }
-    size_t n_columns = data.getAxis(data.getRank()-1).size();
+    size_t n_columns = data.getAxis(data.getRank() - 1).size();
 
     output_stream << "\n# data\n";
     WriteOutputDataDoubles(data, output_stream, n_columns);
@@ -113,8 +112,8 @@ void OutputDataWriteINTStrategy::writeOutputData(
 // class OutputDataWriteNumpyTXTStrategy
 // ----------------------------------------------------------------------------
 
-void OutputDataWriteNumpyTXTStrategy::writeOutputData(
-    const OutputData<double>& data, std::ostream& output_stream)
+void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& data,
+                                                      std::ostream& output_stream)
 {
     output_stream << "# BornAgain Intensity Data" << std::endl;
     output_stream << "# Simple array suitable for numpy, matlab etc." << std::endl;
@@ -139,17 +138,15 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-OutputDataWriteTiffStrategy::OutputDataWriteTiffStrategy()
-    : m_d(new TiffHandler)
-{}
+OutputDataWriteTiffStrategy::OutputDataWriteTiffStrategy() : m_d(new TiffHandler) {}
 
 OutputDataWriteTiffStrategy::~OutputDataWriteTiffStrategy()
 {
     delete m_d;
 }
 
-void OutputDataWriteTiffStrategy::writeOutputData(
-    const OutputData<double>& data, std::ostream& output_stream)
+void OutputDataWriteTiffStrategy::writeOutputData(const OutputData<double>& data,
+                                                  std::ostream& output_stream)
 {
     m_d->write(data, output_stream);
 }

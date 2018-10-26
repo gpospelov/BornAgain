@@ -8,9 +8,12 @@ class IOStrategyTest : public ::testing::Test
 {
 protected:
     IOStrategyTest();
+    ~IOStrategyTest() override;
 
     OutputData<double> m_model_data;
 };
+
+IOStrategyTest::~IOStrategyTest() = default;
 
 IOStrategyTest::IOStrategyTest()
 {
@@ -19,7 +22,7 @@ IOStrategyTest::IOStrategyTest()
     m_model_data.addAxis(axis1);
     m_model_data.addAxis(axis2);
     for(size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)
-        m_model_data[i] = i;
+        m_model_data[i] = static_cast<double>(i);
 }
 
 TEST_F(IOStrategyTest, TestINTStrategies)

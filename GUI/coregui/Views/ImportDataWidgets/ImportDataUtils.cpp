@@ -29,8 +29,10 @@
 
 namespace
 {
-const QString filter_string = "Intensity File (*.int *.gz *.tif *.tiff *.txt *.csv);;"
-                              "Other (*)";
+const QString filter_string_ba = "Intensity File (*.int *.gz *.tif *.tiff *.txt *.csv);;"
+                              "Other (*.*)";
+const QString filter_string_ascii = "Ascii columnwise data (*.txt *.csv *.dat *.ascii);;"
+                              "Other ascii file extensions (*.*)";
 
 int getRank(const RealDataItem& item)
 {
@@ -42,11 +44,11 @@ int getRank(const InstrumentItem& item) {
 }
 }
 
-std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseNameOfLoadedFile)
+std::unique_ptr<OutputData<double>> ImportDataUtils::ImportBornAgainData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
     QString fileName = QFileDialog::getOpenFileName(Q_NULLPTR, QStringLiteral("Open Intensity File"),
-                                                    dirname, filter_string);
+                                                    dirname, filter_string_ba);
 
     if (fileName.isEmpty())
         return nullptr;
@@ -65,7 +67,6 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseN
         std::unique_ptr<OutputData<double>> data(
                     IntensityDataIOFactory::readOutputData(fileName.toStdString()));
         result = CreateSimplifiedOutputData(*data.get());
-
     } catch(std::exception& ex)
     {
         QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
@@ -77,11 +78,11 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseN
     return result;
 }
 
-ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
+ImportDataInfo ImportDataUtils::ImportAsciiData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
     QString fileName = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Open Intensity File"),
-                                                    dirname, filter_string);
+                                                    dirname, filter_string_ascii);
 
     if (fileName.isEmpty())
         return ImportDataInfo();
@@ -93,17 +94,24 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
     QFileInfo info(fileName);
     baseNameOfLoadedFile = info.baseName();
 
-    return UseImportAssistant(fileName);
+    return getFromImportAssistant(fileName);
 }
 
-ImportDataInfo ImportDataUtils::UseImportAssistant(QString& fileName){
+ImportDataInfo ImportDataUtils::getFromImportAssistant(QString& fileName){
+    if(!csv::isAscii(fileName)){
+        QString message = QString("There was a problem while trying to import data from file:\n\n'%1'\n--\n%2\n--\n")
+                        .arg(fileName)
+                        .arg("The file seems to contain binary data");
+        QMessageBox::warning(nullptr, "Unable to read.", message);
+        return ImportDataInfo();
+    }
     try{
         CsvImportAssistant assistant(fileName,true);
         return assistant.getData();
     }catch(std::exception& e){
         QString message = QString("There was a problem while trying to import data from file:\n\n'%1'\n--\n%2\n--\n")
-                .arg(fileName)
-                .arg(QString::fromStdString(std::string(e.what())));
+                        .arg(fileName)
+                        .arg(QString::fromStdString(std::string(e.what())));
         QMessageBox::warning(nullptr, "IO Problem", message);
     }
     return ImportDataInfo();

@@ -27,6 +27,21 @@
 #include <QMenu>
 #include <QFormLayout>
 
+bool csv::isAscii(QString filename)
+{
+    char c;
+    std::ifstream is(filename.toStdString());
+    while (is.get(c)){
+        if(unsigned(c) > 126){
+            is.close();
+            return false;
+        }
+    }
+    is.close();
+    return true;
+
+}
+
 CsvImportAssistant::CsvImportAssistant(const QString& file, const bool useGUI, QWidget* parent):
       m_fileName(file)
       ,m_csvFile(nullptr)

@@ -89,9 +89,9 @@ RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
     connect(m_importBornAgainDataAction, &QAction::triggered,
             this, &RealDataSelectorActions::onImportBornAgainDataAction);
 
-    m_importAsciiDataAction = new QAction(QStringLiteral("Import 1D data"), parent);
+    m_importAsciiDataAction = new QAction(QStringLiteral("Import Ascii data"), parent);
     m_importAsciiDataAction->setIcon(QIcon(":/images/toolbar16dark_newitem.svg"));
-    m_importAsciiDataAction->setToolTip(QStringLiteral("Import 1D data"));
+    m_importAsciiDataAction->setToolTip(QStringLiteral("Import Bornagain data"));
     connect(m_importAsciiDataAction, &QAction::triggered,
             this, &RealDataSelectorActions::onImportAsciiDataAction);
 

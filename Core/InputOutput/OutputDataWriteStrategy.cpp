@@ -30,15 +30,17 @@ namespace {
         return value;
     }
 
-    void WriteArrayDataDoubles(
+    void Write2DRepresentation(
         const OutputData<double>& data, std::ostream& output_stream)
     {
+        const size_t nrows = data.getAxis(BornAgain::Y_AXIS_INDEX).size();
+        const size_t ncols = data.getAxis(BornAgain::X_AXIS_INDEX).size();
+
+        output_stream << "# [nrows=" << nrows << ", ncols=" << ncols << "]" << std::endl;
 
        std::vector<std::vector<double>> dataArray = ArrayUtils::createVector2D(data);
        output_stream.imbue(std::locale::classic());
        output_stream << std::scientific << std::setprecision(precision);
-       auto nrows = dataArray.size();
-       auto ncols = dataArray[0].size();
 
        for(size_t i = 0; i < nrows; i++){
            for(size_t j = 0; j < ncols; j++){
@@ -69,7 +71,18 @@ namespace {
 
     }
 
+    void Write1DRepresentation(const OutputData<double>& data, std::ostream& output_stream)
+    {
+        output_stream << "# coordinates         intensities"  << std::endl;
+        output_stream.imbue(std::locale::classic());
+        output_stream << std::scientific << std::setprecision(precision);
 
+        const std::vector<double> axis_values = data.getAxis(BornAgain::X_AXIS_INDEX).getBinCenters();
+
+        // printing coordinate and associated intensity
+        for(size_t i = 0, nrows = axis_values.size(); i < nrows; ++i)
+            output_stream << axis_values[i] << "    " << IgnoreDenormalized(data[i]) << std::endl;
+    }
 } // namespace
 
 // ----------------------------------------------------------------------------
@@ -103,21 +116,21 @@ void OutputDataWriteINTStrategy::writeOutputData(
 void OutputDataWriteNumpyTXTStrategy::writeOutputData(
     const OutputData<double>& data, std::ostream& output_stream)
 {
-    if(data.getRank() != 2)
-        throw Exceptions::LogicErrorException(
-            "OutputDataWriteNumpyTXTStrategy::writeOutputData -> Error. "
-            "Only 2-dim arrays supported");
-
     output_stream << "# BornAgain Intensity Data" << std::endl;
-    output_stream << "# Simple 2D array suitable for numpy, matlab etc." << std::endl;
+    output_stream << "# Simple array suitable for numpy, matlab etc." << std::endl;
 
-    size_t nrows = data.getAxis(BornAgain::Y_AXIS_INDEX).size();
-    size_t ncols = data.getAxis(BornAgain::X_AXIS_INDEX).size();
-
-    output_stream << "# [nrows=" << nrows
-                  << ", ncols=" << ncols << "]" << std::endl;
-
-    WriteArrayDataDoubles(data,output_stream);
+    const size_t dim = data.getRank();
+    switch (dim) {
+    case 1:
+        Write1DRepresentation(data, output_stream);
+        break;
+    case 2:
+        Write2DRepresentation(data, output_stream);
+        break;
+    default:
+        throw std::runtime_error("Error in OutputDataWriteNumpyTXTStrategy::writeOutputData: data "
+                                 "of unsupported dimensions");
+    }
 }
 
 // ----------------------------------------------------------------------------

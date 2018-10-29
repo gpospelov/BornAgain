@@ -124,43 +124,6 @@ double func_phi_Cone(double phi)
 
 IDistribution2DSampler::~IDistribution2DSampler() = default;
 
-/*
-std::pair<double, double> Distribution2DCauchySampler::randomSample() const
-{
-    std::random_device rd;  // random device class instance
-    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<double> uniformDist(0.0, 1.0);
-
-    double cdf_value_phi = uniformDist(gen);
-
-    // Use ITS and solve for phi from the cdf of radial (phi) distribution using Newton-Raphson
-    double func = 0.0, funcDeriv = 0.0, phi = 0.0;
-
-    // initial guess for phi
-    phi = 0.25;
-
-    bool convergedSoln = false;
-    while (!convergedSoln) {
-        func = (phi + 1)*std::exp(-phi) + cdf_value_phi - 1;
-        funcDeriv = -phi*std::exp(-phi);
-
-        phi = phi - func / funcDeriv;
-
-        if (std::abs(func / funcDeriv) < 0.001)
-        {
-            if (phi < 0)
-                phi = uniformDist(gen); // make another guess as only positive solution for phi is
-                                        // acceptable
-            else
-                convergedSoln = true;
-        }
-    }
-
-    double alpha = 2*M_PI*uniformDist(gen);
-    return std::make_pair(m_omega_x*phi*std::cos(alpha), m_omega_y*phi*std::sin(alpha));
-}
-*/
-
 std::pair<double, double> Distribution2DCauchySampler::randomSample() const
 {
     // Use Ziggurat sampling instead of Inverse Transform Sampling (ITS requires numerical solver)
@@ -200,42 +163,6 @@ std::pair<double, double> Distribution2DGateSampler::randomSample() const
     double alpha = 2 * M_PI * uniformDist(gen);
     return std::make_pair(m_omega_x * phi * std::cos(alpha), m_omega_y * phi * std::sin(alpha));
 }
-
-/*
-std::pair<double, double> Distribution2DConeSampler::randomSample() const
-{
-    std::random_device rd;  // random device class instance
-    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<double> uniformDist(0.0, 1.0);
-
-    double cdf_value_phi = uniformDist(gen);
-
-    // Use ITS and solve for phi from the cdf of radial (phi) distribution using Newton-Raphson
-    double func = 0.0, funcDeriv = 0.0, phi = 0.0;
-
-    // initial guess for phi
-    phi = 0.5;
-
-    bool convergedSoln = false;
-    while (!convergedSoln) {
-        func = 2*std::pow(phi,3) - 3*std::pow(phi,2) + cdf_value_phi;
-        funcDeriv = 6*std::pow(phi,2) - 6*phi;
-
-        phi = phi - func / funcDeriv;
-
-        if (std::abs(func / funcDeriv) < 0.001)
-        {
-            if (phi < 0 || phi > 1)
-                phi = uniformDist(gen); // only accept a solution for phi if it lies within [0,1]
-            else
-                convergedSoln = true;
-        }
-    }
-
-    double alpha = 2*M_PI*uniformDist(gen);
-    return std::make_pair(m_omega_x*phi*std::cos(alpha), m_omega_y*phi*std::sin(alpha));
-}
-*/
 
 std::pair<double, double> Distribution2DConeSampler::randomSample() const
 {

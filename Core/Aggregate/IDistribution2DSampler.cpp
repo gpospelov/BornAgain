@@ -15,8 +15,6 @@
 #include "IDistribution2DSampler.h"
 #include <random>
 
-#include <iostream>
-
 namespace
 {
     double sigma_scale = 3.0;
@@ -29,7 +27,7 @@ namespace
 
         double m_x_min; // left edge of the box
         double m_x_max; // right edge of the box
-        // m_y_min is inherently 0 for every box and hence hasn't been defined
+        // m_y_min is inherently 0 for every box and hence has not been defined
         double m_y_max; // height of box
         double m_y_lower; // minimum height of the box for which points below that height
                           // are located below the density function curve in the box
@@ -51,6 +49,7 @@ namespace
 
         double x_min = 0, x_max = 0, y_max = 0, y_lower = 0, cum_area_box = 0;
 
+        // Establising vectors of boxes and cumulative area (probability of each box) for Ziggurat sampling
         for( size_t i = 0; i < n_boxes; ++i)
         {
             if (i != 0)
@@ -82,15 +81,7 @@ namespace
 
         // Normalizing the cumulative area to 1
         for( size_t i = 0; i < n_boxes; ++i)
-        {
             cum_area_vector[i] = cum_area_vector[i]/cum_area_vector.back();
-            std::cout<<"---------------------------------------------"<<std::endl;
-            std::cout<<"Box # "<<i+1<<std::endl;
-            std::cout<<boxes[i].m_x_min<<" "<<boxes[i].m_x_max<<" "<<
-                       boxes[i].m_y_max<<" "<<boxes[i].m_y_lower<<std::endl;
-            std::cout<<cum_area_vector[i]<<std::endl;
-        }
-
 
         // Sampling a phi value
         double phi = 0;
@@ -99,14 +90,16 @@ namespace
         while(!solnFound)
         {
             double random_cum_area = uniformDist(gen);
-
             for( size_t i = 0; i < n_boxes; ++i)
             {
                 if (random_cum_area <= cum_area_vector[i])
                 {
                     double random_y = uniformDist(gen)*boxes[i].m_y_max;
-                    std::uniform_real_distribution<double> uniformDistAB(boxes[i].m_x_min, boxes[i].m_x_max);
+
+                    std::uniform_real_distribution<double>
+                            uniformDistAB(boxes[i].m_x_min, boxes[i].m_x_max);
                     double phi_attempt = uniformDistAB(gen);
+
                     if (random_y <= boxes[i].m_y_lower)
                     {
                         phi = phi_attempt;
@@ -125,7 +118,8 @@ namespace
             }
         }
 
-        double alpha = uniformDist(gen);
+        // Sampling an alpha value
+        double alpha = 2*M_PI*uniformDist(gen);
 
         return std::make_pair(phi, alpha);
     }
@@ -154,7 +148,7 @@ std::pair<double, double> Distribution2DCauchySampler::randomSample() const
 
     double cdf_value_phi = uniformDist(gen);
 
-    // solve for phi from the cdf of radial marginalzed distribution using Newton-Raphson method
+    // Use ITS and solve for phi from the cdf of radial (phi) distribution using Newton-Raphson
     double func = 0.0, funcDeriv = 0.0, phi = 0.0;
 
     // initial guess for phi
@@ -176,10 +170,21 @@ std::pair<double, double> Distribution2DCauchySampler::randomSample() const
         }
     }
 
-    double alpha = uniformDist(gen);
+    double alpha = 2*M_PI*uniformDist(gen);
+    return std::make_pair(m_omega_x*phi*std::cos(alpha), m_omega_y*phi*std::sin(alpha));
+}
+*/
 
-    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
-                          m_omega_y*phi*std::sin(2*M_PI*alpha));
+std::pair<double, double> Distribution2DCauchySampler::randomSample() const
+{
+    // Use Ziggurat sampling instead of Inverse Transform Sampling (ITS requires numerical solver)
+
+    double phi_max_Cauchy = 1.0;
+    // rightmost box's right-edge from phi_max_Cauchy for Ziggurat Sampling
+    double r = sigma_scale*std::sqrt(2); // standard dev of func_phi_Cauchy is sqrt(2)
+    std::pair<double, double> samples = samplingZiggurat(r, phi_max_Cauchy, func_phi_Cauchy);
+    return std::make_pair(m_omega_x*samples.first*std::cos(samples.second),
+                          m_omega_y*samples.first*std::sin(samples.second));
 }
 
 std::pair<double, double> Distribution2DGaussSampler::randomSample() const
@@ -190,12 +195,10 @@ std::pair<double, double> Distribution2DGaussSampler::randomSample() const
 
     double cdf_value_phi = uniformDist(gen);
 
-    // solve for phi from the cdf of radial marginalzed distribution
+    // Use ITS and solve for phi from the cdf of radial (phi) distribution
     double phi = std::sqrt(-2*std::log(1-cdf_value_phi));
-    double alpha = uniformDist(gen);
-
-    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
-                          m_omega_y*phi*std::sin(2*M_PI*alpha));
+    double alpha = 2*M_PI*uniformDist(gen);
+    return std::make_pair(m_omega_x*phi*std::cos(alpha), m_omega_y*phi*std::sin(alpha));
 }
 
 std::pair<double, double> Distribution2DGateSampler::randomSample() const
@@ -206,14 +209,13 @@ std::pair<double, double> Distribution2DGateSampler::randomSample() const
 
     double cdf_value_phi = uniformDist(gen);
 
-    // solve for phi from the cdf of radial marginalzed distribution
+    // Use ITS and solve for phi from the cdf of radial (phi) distribution
     double phi = std::sqrt(cdf_value_phi);
-    double alpha = uniformDist(gen);
-
-    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
-                          m_omega_y*phi*std::sin(2*M_PI*alpha));
+    double alpha = 2*M_PI*uniformDist(gen);
+    return std::make_pair(m_omega_x*phi*std::cos(alpha), m_omega_y*phi*std::sin(alpha));
 }
 
+/*
 std::pair<double, double> Distribution2DConeSampler::randomSample() const
 {
     std::random_device rd;  // random device class instance
@@ -222,7 +224,7 @@ std::pair<double, double> Distribution2DConeSampler::randomSample() const
 
     double cdf_value_phi = uniformDist(gen);
 
-    // solve for phi from the cdf of radial marginalzed distribution using Newton-Raphson method
+    // Use ITS and solve for phi from the cdf of radial (phi) distribution using Newton-Raphson
     double func = 0.0, funcDeriv = 0.0, phi = 0.0;
 
     // initial guess for phi
@@ -244,68 +246,19 @@ std::pair<double, double> Distribution2DConeSampler::randomSample() const
         }
     }
 
-    double alpha = uniformDist(gen);
-
-    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
-                          m_omega_y*phi*std::sin(2*M_PI*alpha));
+    double alpha = 2*M_PI*uniformDist(gen);
+    return std::make_pair(m_omega_x*phi*std::cos(alpha), m_omega_y*phi*std::sin(alpha));
 }
 */
 
-std::pair<double, double> Distribution2DCauchySampler::randomSample() const
-{
-    double phi_max_Cauchy = 1.0;
-
-    // rightmost box's right-edge from phi_max_Cauchy for Ziggurat Sampling
-    double r = sigma_scale*std::sqrt(2); // standard dev of func_phi_Cauchy is sqrt(2)
-
-    std::pair<double, double> samples =
-            samplingZiggurat(r, phi_max_Cauchy, func_phi_Cauchy);
-
-    return std::make_pair(m_omega_x*samples.first*std::cos(2*M_PI*samples.second),
-                          m_omega_y*samples.first*std::sin(2*M_PI*samples.second));
-}
-
-std::pair<double, double> Distribution2DGaussSampler::randomSample() const
-{
-    std::random_device rd;  // random device class instance
-    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<double> uniformDist(0.0, 1.0);
-
-    double cdf_value_phi = uniformDist(gen);
-
-    // solve for phi from the cdf of radial marginalzed distribution
-    double phi = std::sqrt(-2*std::log(1-cdf_value_phi));
-    double alpha = uniformDist(gen);
-
-    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
-                          m_omega_y*phi*std::sin(2*M_PI*alpha));
-}
-
-std::pair<double, double> Distribution2DGateSampler::randomSample() const
-{
-    std::random_device rd;  // random device class instance
-    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<double> uniformDist(0.0, 1.0);
-
-    double cdf_value_phi = uniformDist(gen);
-
-    // solve for phi from the cdf of radial marginalzed distribution
-    double phi = std::sqrt(cdf_value_phi);
-    double alpha = uniformDist(gen);
-
-    return std::make_pair(m_omega_x*phi*std::cos(2*M_PI*alpha),
-                          m_omega_y*phi*std::sin(2*M_PI*alpha));
-}
-
 std::pair<double, double> Distribution2DConeSampler::randomSample() const
 {
-    double phi_max_Cone = 0.5;
+    // Use Ziggurat sampling instead of Inverse Transform Sampling (ITS requires numerical solver)
 
+    double phi_max_Cone = 0.5;
     // rightmost box's right-edge from phi_max_Cone for Ziggurat Sampling
     double r = 0.5;
-
     std::pair<double, double> samples = samplingZiggurat(r, phi_max_Cone, func_phi_Cone);
-
-    return std::make_pair(m_omega_x*samples.first*std::cos(2*M_PI*samples.second),
-                          m_omega_y*samples.first*std::sin(2*M_PI*samples.second));
+    return std::make_pair(m_omega_x*samples.first*std::cos(samples.second),
+                          m_omega_y*samples.first*std::sin(samples.second));
 }

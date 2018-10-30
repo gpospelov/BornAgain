@@ -16,6 +16,10 @@ include_directories(
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGTEST_LINKED_AS_SHARED_LIBRARY=1")
 
+if(BORNAGAIN_TIFF_SUPPORT)
+    add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
+endif(BORNAGAIN_TIFF_SUPPORT)
+
 add_subdirectory(Core)
 add_subdirectory(Fit)
 

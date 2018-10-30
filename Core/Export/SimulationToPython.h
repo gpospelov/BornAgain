@@ -61,8 +61,6 @@ private:
     std::string defineSimulationOptions(const Simulation* simulation) const;
     std::string defineBackground(const Simulation* simulation) const;
     std::string defineMain(EMainType mainType = RUN_SIMULATION);
-
-    std::string indent() const;
 };
 
 #endif // SIMULATIONTOPYTHON_H

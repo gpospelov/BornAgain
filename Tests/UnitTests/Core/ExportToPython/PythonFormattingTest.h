@@ -2,6 +2,7 @@
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
 #include "ParameterDistribution.h"
+#include "PointwiseAxis.h"
 #include "PythonFormatting.h"
 #include "RealLimits.h"
 #include "Units.h"
@@ -111,9 +112,16 @@ TEST_F(PythonFormattingTest, printParameterDistribution)
 TEST_F(PythonFormattingTest, printAxis)
 {
     FixedBinAxis axis1("axis0", 10, -1.0, 2.0);
-    EXPECT_EQ(PythonFormatting::printAxis(axis1), "ba.FixedBinAxis(\"axis0\", 10, -1.0, 2.0)");
+    EXPECT_EQ(PythonFormatting::printAxis(axis1, "", 0), "ba.FixedBinAxis(\"axis0\", 10, -1.0, 2.0)");
 
     FixedBinAxis axis2("axis0", 10, -1.0*Units::deg, 2.0*Units::deg);
-    EXPECT_EQ(PythonFormatting::printAxis(axis2, BornAgain::UnitsRad),
+    EXPECT_EQ(PythonFormatting::printAxis(axis2, BornAgain::UnitsRad, 0),
               "ba.FixedBinAxis(\"axis0\", 10, -1.0*deg, 2.0*deg)");
+
+    PointwiseAxis axis3("axis3",
+                        std::vector<double>{1.0 * Units::deg, 2.0 * Units::deg, 3.0 * Units::deg});
+    EXPECT_EQ(PythonFormatting::printAxis(axis3, BornAgain::UnitsRad, 0),
+              "numpy.asarray([1.0*deg,\n"
+              "               2.0*deg,\n"
+              "               3.0*deg])");
 }

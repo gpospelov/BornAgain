@@ -35,7 +35,7 @@ public:
 //! Strategy to write OutputData to special BornAgain ASCII format
 //! @ingroup input_output_internal
 
-class OutputDataWriteINTStrategy : public IOutputDataWriteStrategy
+class BA_CORE_API_ OutputDataWriteINTStrategy : public IOutputDataWriteStrategy
 {
 public:
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
@@ -44,7 +44,7 @@ public:
 //! Strategy to write OutputData to simple ASCII file with the layout as in numpy.savetxt
 //! @ingroup input_output_internal
 
-class OutputDataWriteNumpyTXTStrategy : public IOutputDataWriteStrategy
+class BA_CORE_API_ OutputDataWriteNumpyTXTStrategy : public IOutputDataWriteStrategy
 {
 public:
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
@@ -57,7 +57,7 @@ class TiffHandler;
 //! Strategy to write OutputData to tiff files
 //! @ingroup input_output_internal
 
-class OutputDataWriteTiffStrategy : public IOutputDataWriteStrategy
+class BA_CORE_API_ OutputDataWriteTiffStrategy : public IOutputDataWriteStrategy
 {
 public:
     OutputDataWriteTiffStrategy();

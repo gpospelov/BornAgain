@@ -228,7 +228,9 @@ std::vector<int> IntensityDataItem::shape() const
 void IntensityDataItem::reset(const ImportDataInfo& data)
 {
     assert(data.unitsLabel() == Constants::UnitsNbins);
-    DataItem::reset(data);
+    ComboProperty combo = ComboProperty() << data.unitsLabel();
+    setItemValue(IntensityDataItem::P_AXES_UNITS, combo.variant());
+    getItem(IntensityDataItem::P_AXES_UNITS)->setVisible(true);
 
     setXaxisTitle(data.axisLabel(0));
     setYaxisTitle(data.axisLabel(1));

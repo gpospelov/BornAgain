@@ -86,13 +86,6 @@ QString DataItem::selectedAxesUnits() const
     return combo.getValue();
 }
 
-void DataItem::reset(const ImportDataInfo& data)
-{
-    ComboProperty combo = ComboProperty() << data.unitsLabel();
-    setItemValue(DataItem::P_AXES_UNITS, combo.variant());
-    getItem(DataItem::P_AXES_UNITS)->setVisible(true);
-}
-
 DataItem::DataItem(const QString& modelType) : SessionItem(modelType)
 {
     // name of the file used to serialize given IntensityDataItem

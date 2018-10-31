@@ -150,7 +150,9 @@ std::vector<int> SpecularDataItem::shape() const
 
 void SpecularDataItem::reset(const ImportDataInfo& data)
 {
-    DataItem::reset(data);
+    ComboProperty combo = ComboProperty() << data.unitsLabel();
+    setItemValue(SpecularDataItem::P_AXES_UNITS, combo.variant());
+    getItem(SpecularDataItem::P_AXES_UNITS)->setVisible(true);
 
     setXaxisTitle(data.axisLabel(0));
     setYaxisTitle(data.axisLabel(1));

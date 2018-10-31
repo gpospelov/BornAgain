@@ -97,7 +97,7 @@ public:
 
     //! Returns data to the state defined by user (imported)
     //! data.
-    void reset(const ImportDataInfo& data) override;
+    void reset(ImportDataInfo data) override;
 
 public slots:
     void setLowerX(double xmin);

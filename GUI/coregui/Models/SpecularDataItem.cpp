@@ -148,7 +148,7 @@ std::vector<int> SpecularDataItem::shape() const
     return {getNbins()};
 }
 
-void SpecularDataItem::reset(const ImportDataInfo& data)
+void SpecularDataItem::reset(ImportDataInfo data)
 {
     ComboProperty combo = ComboProperty() << data.unitsLabel();
     setItemValue(SpecularDataItem::P_AXES_UNITS, combo.variant());
@@ -156,7 +156,7 @@ void SpecularDataItem::reset(const ImportDataInfo& data)
 
     setXaxisTitle(data.axisLabel(0));
     setYaxisTitle(data.axisLabel(1));
-    setOutputData(data.intensityData().release());
+    setOutputData(std::move(data).intensityData().release());
     setAxesRangeToData();
 }
 

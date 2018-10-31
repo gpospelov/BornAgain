@@ -60,7 +60,7 @@ public:
 
     //! Returns data to the state defined by user (imported)
     //! data.
-    virtual void reset(const ImportDataInfo& data) = 0;
+    virtual void reset(ImportDataInfo data) = 0;
 
 protected:
     DataItem(const QString& modelType);

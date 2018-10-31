@@ -225,7 +225,7 @@ std::vector<int> IntensityDataItem::shape() const
     return {getNbinsX(), getNbinsY()};
 }
 
-void IntensityDataItem::reset(const ImportDataInfo& data)
+void IntensityDataItem::reset(ImportDataInfo data)
 {
     assert(data.unitsLabel() == Constants::UnitsNbins);
     ComboProperty combo = ComboProperty() << data.unitsLabel();
@@ -236,7 +236,7 @@ void IntensityDataItem::reset(const ImportDataInfo& data)
     setYaxisTitle(data.axisLabel(1));
     MaskUnitsConverter converter;
     converter.convertToNbins(this);
-    setOutputData(data.intensityData().release());
+    setOutputData(std::move(data).intensityData().release());
     setAxesRangeToData();
     converter.convertFromNbins(this);
 }

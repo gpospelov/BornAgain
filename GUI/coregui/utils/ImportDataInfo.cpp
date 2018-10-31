@@ -45,7 +45,9 @@ ImportDataInfo::ImportDataInfo(ImportDataInfo&& other)
 }
 
 ImportDataInfo::ImportDataInfo(std::unique_ptr<OutputData<double>> data, AxesUnits units)
-    : m_data(std::move(data))
+    : m_data(units == AxesUnits::NBINS && data
+                 ? ImportDataUtils::CreateSimplifiedOutputData(*data)
+                 : std::move(data))
     , m_units(units)
 {
     checkValidity();
@@ -65,12 +67,16 @@ ImportDataInfo::operator bool() const
     return static_cast<bool>(m_data);
 }
 
-std::unique_ptr<OutputData<double> > ImportDataInfo::intensityData() const
+std::unique_ptr<OutputData<double> > ImportDataInfo::intensityData() const &
 {
     if (!m_data)
         return nullptr;
-    return m_units == AxesUnits::NBINS ? ImportDataUtils::CreateSimplifiedOutputData(*m_data)
-                                       : std::unique_ptr<OutputData<double>>(m_data->clone());
+    return std::unique_ptr<OutputData<double>>(m_data->clone());
+}
+
+std::unique_ptr<OutputData<double> > ImportDataInfo::intensityData() &&
+{
+    return std::move(m_data);
 }
 
 size_t ImportDataInfo::dataRank() const

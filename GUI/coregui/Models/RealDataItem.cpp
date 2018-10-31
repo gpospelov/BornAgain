@@ -144,7 +144,7 @@ void RealDataItem::setImportData(ImportDataInfo data) {
 
     QString units_name = data.unitsLabel();
     getItem(P_NATIVE_UNITS)->setValue(units_name);
-    item<DataItem>(T_NATIVE_DATA).setOutputData(data.intensityData().release());
+    item<DataItem>(T_NATIVE_DATA).setOutputData(std::move(data).intensityData().release());
 }
 
 bool RealDataItem::holdsDimensionalData() const

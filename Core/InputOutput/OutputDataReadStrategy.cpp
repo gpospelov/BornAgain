@@ -63,8 +63,20 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
             throw std::runtime_error("OutputDataReadNumpyTXTStrategy::readOutputData() -> Error. "
                                          "Number of elements is different from row to row.");
     }
-    std::unique_ptr<OutputData<double>> result = ArrayUtils::createData2D(data);
-    return result.release();
+
+    if(nrows < 2){
+        return ArrayUtils::createData1D(data[0]).release();
+    }
+    else if(ncols < 2){
+        std::vector<double> vector1d;
+        for(size_t i = 0; i < data.size(); i++){
+            vector1d.push_back(data[i][0]);
+        }
+        return ArrayUtils::createData1D(vector1d).release();
+    }
+    else{
+        return ArrayUtils::createData2D(data).release();
+    }
 }
 
 

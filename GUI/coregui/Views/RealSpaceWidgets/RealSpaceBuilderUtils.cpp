@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "RealSpaceBuilderUtils.h"
+#include "FormFactorCrystal.h"
 #include "IFormFactorDecorator.h"
 #include "IParticle.h"
 #include "InterferenceFunctionItems.h"
@@ -21,6 +22,8 @@
 #include "LayerItem.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
+#include "MesoCrystal.h"
+#include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "Particle.h"
 #include "Particle3DContainer.h"
@@ -559,3 +562,37 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
     }
     return particleDistribution3DContainer_vector;
 }
+
+//Particle3DContainer RealSpaceBuilderUtils::mesoCrystal3DContainer(
+//        const MesoCrystal &mesoCrystal, double total_abundance)
+//{
+//    std::unique_ptr<const IFormFactor> mesoCrystalff(mesoCrystal.createFormFactor());
+//    auto ff = dynamic_cast<const FormFactorCrystal*>(getUnderlyingFormFactor(mesoCrystalff.get()));
+
+//    auto lattice = ff->mesoLattice();
+//    auto basisff = getUnderlyingFormFactor(ff->mesoBasisFormFactor());
+//    auto structureff = getUnderlyingFormFactor(ff->mesoStructureFormFactor());
+
+//    auto particleBasis3D = TransformTo3D::createParticlefromIFormFactor(basisff);
+//    auto particleStructure3D = TransformTo3D::createParticlefromIFormFactor(structureff);
+
+////    // core
+////    applyParticleCoreShellTransformations(*particleCoreShell.coreParticle(), *coreParticle3D,
+////                                          particleCoreShell);
+////    applyParticleColor(*particleCoreShell.coreParticle(), *coreParticle3D);
+
+////    // shell (set an alpha value of 0.5 for transparency)
+////    applyParticleCoreShellTransformations(*particleCoreShell.shellParticle(), *shellParticle3D,
+////                                          particleCoreShell);
+////    applyParticleColor(*particleCoreShell.shellParticle(), *shellParticle3D, 0.5);
+
+////    Particle3DContainer particleCoreShell3DContainer;
+
+////    particleCoreShell3DContainer.addParticle(coreParticle3D.release(), false); // index 0
+////    particleCoreShell3DContainer.addParticle(shellParticle3D.release(), true); // index 1
+////    particleCoreShell3DContainer.setCumulativeAbundance(particleCoreShell.abundance()
+////                                                        / total_abundance);
+////    particleCoreShell3DContainer.setParticleType(Constants::ParticleCoreShellType);
+
+////    return particleCoreShell3DContainer;
+//}

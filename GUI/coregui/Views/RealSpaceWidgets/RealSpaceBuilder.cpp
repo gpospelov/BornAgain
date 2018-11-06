@@ -18,6 +18,7 @@
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
 #include "LayerItem.h"
+#include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "Particle.h"
 #include "Particle3DContainer.h"
@@ -72,6 +73,9 @@ void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
         populateParticleFromParticleItem(model, item);
 
     else if (item.modelType() == Constants::ParticleDistributionType)
+        populateParticleFromParticleItem(model, item);
+
+    else if (item.modelType() == Constants::MesoCrystalType)
         populateParticleFromParticleItem(model, item);
 }
 
@@ -195,8 +199,10 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
         // If there is no particle to populate inside ParticleDistributionItem
         if (!particleDistributionItem->getItem(ParticleDistributionItem::T_PARTICLES))
             return;
-
         // show nothing when ParticleDistributionItem is selected
+    } else if (particleItem.modelType() == Constants::MesoCrystalType) {
+        //auto mesoCrystalItem = dynamic_cast<const MesoCrystalItem*>(&particleItem);
+        // show nothing when MesoCrystalItem is selected
     }
 
     populateParticleFromParticle3DContainer(model, particle3DContainer);

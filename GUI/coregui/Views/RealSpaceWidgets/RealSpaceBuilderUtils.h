@@ -24,6 +24,7 @@ class SessionItem;
 class SceneGeometry;
 class RealSpaceBuilder;
 class IRotation;
+class MesoCrystal;
 class Particle;
 class ParticleComposition;
 class ParticleCoreShell;
@@ -121,6 +122,9 @@ BA_CORE_API_ Particle3DContainer particleComposition3DContainer(
 BA_CORE_API_ std::vector<Particle3DContainer>
 particleDistribution3DContainer(const ParticleDistribution& particleDistribution,
                                 double total_abundance = 1.0);
+
+BA_CORE_API_ Particle3DContainer mesoCrystal3DContainer(
+    const MesoCrystal& mesoCrystal, double total_abundance = 1.0);
 
 } // namespace RealSpaceBuilderUtils
 

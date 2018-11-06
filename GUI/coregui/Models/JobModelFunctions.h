@@ -17,9 +17,10 @@
 
 #include "WinDllMacros.h"
 
-class JobItem;
-class RealDataItem;
 class InstrumentItem;
+class JobItem;
+class MultiLayerItem;
+class RealDataItem;
 
 //! Contains set of functions to extend JobModel functionality.
 //! Handles setup of JobItem in fitting context.
@@ -28,6 +29,9 @@ namespace JobModelFunctions
 {
 //! Initializes Data1DViewItem and assigns it to the passed JobItem
 BA_CORE_API_ void initDataView(JobItem* jobItem);
+
+//! Properly copies sample and materials into JobItem
+BA_CORE_API_ void setupJobItemSampleData(JobItem* jobItem, const MultiLayerItem* sampleItem);
 
 //! Properly copies instrument into job item
 BA_CORE_API_ void setupJobItemInstrument(JobItem* jobItem, const InstrumentItem* instrumentItem);

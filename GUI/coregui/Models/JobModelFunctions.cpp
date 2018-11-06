@@ -31,6 +31,7 @@
 #include "JobModel.h"
 #include "MaskItems.h"
 #include "MaskUnitsConverter.h"
+#include "MultiLayerItem.h"
 #include "PointwiseAxisItem.h"
 #include "RealDataItem.h"
 
@@ -79,6 +80,13 @@ void JobModelFunctions::initDataView(JobItem* job_item)
     auto converter = DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
     view_item->setItemValue(Data1DViewItem::P_AXES_UNITS,
                             JobItemUtils::availableUnits(*converter).variant());
+}
+
+void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLayerItem* sampleItem)
+{
+    auto model = jobItem->model();
+    SessionItem* multilayer = model->copyItem(sampleItem, jobItem, JobItem::T_SAMPLE);
+    multilayer->setItemName(Constants::MultiLayerType);
 }
 
 void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,

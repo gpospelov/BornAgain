@@ -45,6 +45,10 @@ public:
 
     double topZ(const IRotation& rotation) const override final;
 
+    const Lattice mesoLattice() const { return m_lattice; }
+    const IFormFactor* mesoBasisFormFactor() const { return mp_basis_form_factor; }
+    const IFormFactor* mesoStructureFormFactor() const { return mp_meso_form_factor; }
+
     complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
 #ifndef SWIG
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;

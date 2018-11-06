@@ -154,15 +154,14 @@ void RealSpaceBuilder::populateInterference(
     // If interference type is Radial ParaCrystal
     else if (interferenceLattice->modelType() ==
     Constants::InterferenceFunctionRadialParaCrystalType)
-        RealSpaceBuilderUtils::populateInterferenceRadialParacrystalType(
+        RealSpaceBuilderUtils::populateRadialParacrystalType(
             interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
 
-    /*
     // If interference type is 2D ParaCrystal
     else if (interferenceLattice->modelType() == Constants::InterferenceFunction2DParaCrystalType)
-        RealSpaceBuilderUtils::populateInterference2DParacrystalType(
+        RealSpaceBuilderUtils::populate2DParacrystalType(
             interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
-    */
+
 }
 
 void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,

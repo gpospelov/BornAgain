@@ -122,6 +122,7 @@ const ModelType SquareLatticeType = "SquareLattice";
 const ModelType HexagonalLatticeType = "HexagonalLattice";
 
 const ModelType MaterialType = "Material";
+const ModelType MaterialContainerType = "MaterialContainer";
 
 const ModelType MaterialRefractiveDataType = "MaterialRefractiveData";
 const ModelType MaterialSLDDataType = "MaterialSLDData";

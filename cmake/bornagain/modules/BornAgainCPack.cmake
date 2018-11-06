@@ -6,7 +6,7 @@ set(BORNAGAIN_VERSION "${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR}.${B
 
 set(CPACK_PACKAGE_NAME "BornAgain")
 set(CPACK_PACKAGE_DESCRIPTION "BornAgain: simulate and fit scattering at grazing incidence.")
-set(CPACK_PACKAGE_VENDOR "Forschungszentrum Juelich GmbH. Scientific Computing Group at MLZ Garching.")
+set(CPACK_PACKAGE_VENDOR "Forschungszentrum Juelich GmbH")
 set(CPACK_PACKAGE_VERSION ${BORNAGAIN_VERSION})
 set(CPACK_PACKAGE_VERSION_MAJOR ${BornAgain_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${BornAgain_VERSION_MINOR})
@@ -80,4 +80,3 @@ set(CPACK_SOURCE_IGNORE_FILES
 include(CPack)
 
 set(CPACK_COMPONENTS_ALL Libraries Headers Examples)
-

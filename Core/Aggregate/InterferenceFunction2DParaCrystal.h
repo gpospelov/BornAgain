@@ -73,6 +73,16 @@ public:
 
     std::vector<const INode*> getChildren() const;
 
+    const IFTDistribution2D* pdf1() const
+    {
+        return m_pdf1.get();
+    }
+
+    const IFTDistribution2D* pdf2() const
+    {
+        return m_pdf2.get();
+    }
+
 private:
     InterferenceFunction2DParaCrystal(const InterferenceFunction2DParaCrystal& other);
     void setLattice(const Lattice2D& lattice);

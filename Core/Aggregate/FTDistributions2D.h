@@ -18,6 +18,7 @@
 #include "ICloneable.h"
 #include "INode.h"
 #include "MathConstants.h"
+#include "IDistribution2DSampler.h"
 
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal
@@ -40,6 +41,10 @@ public:
     //! the original distribution (in real space) is assumed to be normalized:
     //! total integral is equal to 1
     virtual double evaluate(double qx, double qy) const=0;
+
+#ifndef SWIG
+    virtual std::unique_ptr<IDistribution2DSampler> createSampler() const=0;
+#endif
 
 protected:
     double sumsq( double qx, double qy) const;
@@ -70,6 +75,9 @@ public:
     FTDistribution2DCauchy* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
+#ifndef SWIG
+    std::unique_ptr<IDistribution2DSampler> createSampler() const final;
+#endif
 };
 
 //! Two-dimensional Gauss distribution in Fourier space;
@@ -85,6 +93,9 @@ public:
     FTDistribution2DGauss* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
+#ifndef SWIG
+    std::unique_ptr<IDistribution2DSampler> createSampler() const final;
+#endif
 };
 
 //! Two-dimensional gate distribution in Fourier space;
@@ -100,6 +111,9 @@ public:
     FTDistribution2DGate* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
+#ifndef SWIG
+    std::unique_ptr<IDistribution2DSampler> createSampler() const final;
+#endif
 };
 
 //! Two-dimensional cone distribution in Fourier space;
@@ -115,6 +129,9 @@ public:
     FTDistribution2DCone* clone() const final;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
+#ifndef SWIG
+    std::unique_ptr<IDistribution2DSampler> createSampler() const final;
+#endif
 
 private:
     //! second part of the integrand:
@@ -135,6 +152,9 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
     double eta() const { return m_eta; }
+#ifndef SWIG
+    std::unique_ptr<IDistribution2DSampler> createSampler() const final;
+#endif
 
 protected:
     double m_eta;

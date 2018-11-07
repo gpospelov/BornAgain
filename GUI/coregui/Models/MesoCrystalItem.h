@@ -38,7 +38,6 @@ public:
 
     QStringList translateList(const QStringList& list) const override;
 
-private:
     Lattice getLattice() const;
     std::unique_ptr<IParticle> getBasis() const;
     std::unique_ptr<IFormFactor> getOuterShape() const;

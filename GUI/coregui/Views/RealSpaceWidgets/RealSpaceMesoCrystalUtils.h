@@ -22,13 +22,6 @@ class Particle;
 class MesoCrystal;
 class MesoCrystalItem;
 class Particle3DContainer;
-namespace RealSpace
-{
-namespace Particles
-{
-class Particle;
-}
-}
 
 class RealSpaceMesoCrystal
 {

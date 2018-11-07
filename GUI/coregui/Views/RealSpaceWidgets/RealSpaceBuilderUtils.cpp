@@ -22,7 +22,6 @@
 #include "LayerItem.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
-#include "MesoCrystal.h"
 #include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "Particle.h"
@@ -37,6 +36,7 @@
 #include "RealSpace2DParacrystalUtils.h"
 #include "RealSpaceBuilder.h"
 #include "RealSpaceCanvas.h"
+#include "RealSpaceMesoCrystalUtils.h"
 #include "RealSpaceModel.h"
 #include "RotationItems.h"
 #include "Rotations.h"
@@ -443,7 +443,12 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
                 particle3DContainer_vector.emplace_back(std::move(pd_ContainerVector[i]));
             }
             continue;
+        } else if (particleItem->modelType() == Constants::MesoCrystalType) {
+            auto mesoCrystalItem = dynamic_cast<const MesoCrystalItem*>(particleItem);
+            particle3DContainer
+                = RealSpaceBuilderUtils::mesoCrystal3DContainer(*mesoCrystalItem, total_abundance);
         }
+
         cumulative_abundance += particle3DContainer.cumulativeAbundance();
         particle3DContainer.setCumulativeAbundance(cumulative_abundance);
         particle3DContainer_vector.emplace_back(std::move(particle3DContainer));
@@ -563,36 +568,12 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
     return particleDistribution3DContainer_vector;
 }
 
-//Particle3DContainer RealSpaceBuilderUtils::mesoCrystal3DContainer(
-//        const MesoCrystal &mesoCrystal, double total_abundance)
-//{
-//    std::unique_ptr<const IFormFactor> mesoCrystalff(mesoCrystal.createFormFactor());
-//    auto ff = dynamic_cast<const FormFactorCrystal*>(getUnderlyingFormFactor(mesoCrystalff.get()));
+Particle3DContainer RealSpaceBuilderUtils::mesoCrystal3DContainer(
+        const MesoCrystalItem &mesoCrystalItem, double total_abundance)
+{
+    RealSpaceMesoCrystal mesoCrystalUtils(&mesoCrystalItem, total_abundance);
 
-//    auto lattice = ff->mesoLattice();
-//    auto basisff = getUnderlyingFormFactor(ff->mesoBasisFormFactor());
-//    auto structureff = getUnderlyingFormFactor(ff->mesoStructureFormFactor());
+    Particle3DContainer mesoCrystal3DContainer = mesoCrystalUtils.populateMesoCrystal();
 
-//    auto particleBasis3D = TransformTo3D::createParticlefromIFormFactor(basisff);
-//    auto particleStructure3D = TransformTo3D::createParticlefromIFormFactor(structureff);
-
-////    // core
-////    applyParticleCoreShellTransformations(*particleCoreShell.coreParticle(), *coreParticle3D,
-////                                          particleCoreShell);
-////    applyParticleColor(*particleCoreShell.coreParticle(), *coreParticle3D);
-
-////    // shell (set an alpha value of 0.5 for transparency)
-////    applyParticleCoreShellTransformations(*particleCoreShell.shellParticle(), *shellParticle3D,
-////                                          particleCoreShell);
-////    applyParticleColor(*particleCoreShell.shellParticle(), *shellParticle3D, 0.5);
-
-////    Particle3DContainer particleCoreShell3DContainer;
-
-////    particleCoreShell3DContainer.addParticle(coreParticle3D.release(), false); // index 0
-////    particleCoreShell3DContainer.addParticle(shellParticle3D.release(), true); // index 1
-////    particleCoreShell3DContainer.setCumulativeAbundance(particleCoreShell.abundance()
-////                                                        / total_abundance);
-////    particleCoreShell3DContainer.setParticleType(Constants::ParticleCoreShellType);
-
-////    return particleCoreShell3DContainer;
-//}
+    return mesoCrystal3DContainer;
+}

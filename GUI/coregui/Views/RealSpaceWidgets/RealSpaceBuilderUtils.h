@@ -24,7 +24,7 @@ class SessionItem;
 class SceneGeometry;
 class RealSpaceBuilder;
 class IRotation;
-class MesoCrystal;
+class MesoCrystalItem;
 class Particle;
 class ParticleComposition;
 class ParticleCoreShell;
@@ -104,8 +104,9 @@ BA_CORE_API_ void applyParticleCoreShellTransformations(const Particle& particle
                                                         const QVector3D& origin = QVector3D());
 
 // Apply color to a 3D particle
-BA_CORE_API_ void applyParticleColor(const Particle& particle,
-                                     RealSpace::Particles::Particle& particle3D, double alpha = 1);
+BA_CORE_API_ void applyParticleColor(const Particle &particle,
+                                     RealSpace::Particles::Particle& particle3D,
+                                     double alpha = 1);
 
 BA_CORE_API_ std::vector<Particle3DContainer>
 particle3DContainerVector(const SessionItem& layoutItem);
@@ -124,7 +125,7 @@ particleDistribution3DContainer(const ParticleDistribution& particleDistribution
                                 double total_abundance = 1.0);
 
 BA_CORE_API_ Particle3DContainer mesoCrystal3DContainer(
-    const MesoCrystal& mesoCrystal, double total_abundance = 1.0);
+        const MesoCrystalItem &mesoCrystalItem, double total_abundance = 1.0);
 
 } // namespace RealSpaceBuilderUtils
 

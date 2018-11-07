@@ -23,6 +23,7 @@ class FitParameterContainerItem;
 class FitSuiteItem;
 class InstrumentItem;
 class IntensityDataItem;
+class MaterialItemContainer;
 class MultiLayerItem;
 class ParameterContainerItem;
 class RealDataItem;
@@ -45,6 +46,7 @@ public:
     static const QString P_PROGRESS;
     static const QString P_PRESENTATION_TYPE;
     static const QString T_SAMPLE;
+    static const QString T_MATERIAL_CONTAINER;
     static const QString T_INSTRUMENT;
     static const QString T_OUTPUT;
     static const QString T_REALDATA;
@@ -100,6 +102,8 @@ public:
 
     FitParameterContainerItem* fitParameterContainerItem();
     RealDataItem* realDataItem();
+
+    const MaterialItemContainer* materialContainerItem() const;
 
     Data1DViewItem* dataItemView();
 

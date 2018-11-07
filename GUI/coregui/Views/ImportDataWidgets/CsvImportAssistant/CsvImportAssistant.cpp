@@ -29,9 +29,12 @@
 
 bool csv::isAscii(QString filename)
 {
+    return true;
     // TODO
     // This function needs to be defined properly;
-    // For the moment it always evaluates to 'true'
+    // For the moment it always evaluates to 'true',
+    // as there was a problem with a file containing
+    // ° and Å characters
     char c;
     unsigned count = 0;
     unsigned count_bad = 0;
@@ -41,33 +44,32 @@ bool csv::isAscii(QString filename)
         if(unsigned(c) > 255)
             count_bad++;
     }
-    std::cout << count << "; " << count_bad << std::endl;
     is.close();
     double acceptance_threshold = 0.1f * double(count);
+    //std::cout << count << "; " << count_bad << std::endl;
+    //After trying with some binary files
+    //we get the following numbers:
+    //count;	count_bad
+    //1000; 	46
+    //1000; 	47
+    //1000; 	42
+    //143; 		17
+    //1000; 	46
+    //1000; 	44
+    //1000; 	45
+    //1000; 	42
+    //1000; 	104
+    //159; 		33
+    //1000; 	152
+    //1000; 	135
+    //1000; 	49
+    //1000; 	129
+    //305; 		64
+    //The solution is not straightforward.
+    //What about files with 100 cyrilic characters out of 1000?
     if(double(count_bad) > acceptance_threshold){
-        //After trying with some binary files
-        //we get the following numbers:
-        //count;	count_bad
-        //1000; 	46
-        //1000; 	47
-        //1000; 	42
-        //143; 		17
-        //1000; 	46
-        //1000; 	44
-        //1000; 	45
-        //1000; 	42
-        //1000; 	104
-        //159; 		33
-        //1000; 	152
-        //1000; 	135
-        //1000; 	49
-        //1000; 	129
-        //305; 		64
-        //The solution is not straightforward.
-        //What about files with 100 cyrilic characters out of 1000?
-        //
         //return false;
-        return true;
+        return false;
     }
     return true;
 }

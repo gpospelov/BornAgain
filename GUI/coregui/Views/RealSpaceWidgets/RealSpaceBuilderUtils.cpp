@@ -302,8 +302,32 @@ void RealSpaceBuilderUtils::populate2DParacrystalType(
                                         sceneGeometry, builder3D);
 }
 
+//// Implement Rotation of a 3D particle using parameters from IRotation Object
+//QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*& rotation)
+//{
+//    double alpha = 0.0;
+//    double beta = 0.0;
+//    double gamma = 0.0;
+
+//    if (auto rotX = dynamic_cast<const RotationX*>(rotation)) {
+//        beta = rotX->getAngle(); // about x-axis
+//    } else if (auto rotY = dynamic_cast<const RotationY*>(rotation)) {
+//        alpha = Units::deg2rad(90.0);
+//        beta = rotY->getAngle(); // about y-axis
+//        gamma = Units::deg2rad(-90.0);
+//    } else if (auto rotZ = dynamic_cast<const RotationZ*>(rotation)) {
+//        alpha = rotZ->getAngle(); // about z-axis
+//    } else if (auto rotEuler = dynamic_cast<const RotationEuler*>(rotation)) {
+//        alpha = rotEuler->getAlpha();
+//        beta = rotEuler->getBeta();
+//        gamma = rotEuler->getGamma();
+//    }
+//    return QVector3D(static_cast<float>(alpha), static_cast<float>(beta),
+//                     static_cast<float>(gamma));
+//}
+
 // Implement Rotation of a 3D particle using parameters from IRotation Object
-QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*& rotation)
+RealSpace::Vector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*& rotation)
 {
     double alpha = 0.0;
     double beta = 0.0;
@@ -322,14 +346,14 @@ QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IR
         beta = rotEuler->getBeta();
         gamma = rotEuler->getGamma();
     }
-    return QVector3D(static_cast<float>(alpha), static_cast<float>(beta),
-                     static_cast<float>(gamma));
+    return RealSpace::Vector3D(static_cast<float>(alpha), static_cast<float>(beta),
+                               static_cast<float>(gamma));
 }
 
-void RealSpaceBuilderUtils::applyParticleTransformations(const Particle& particle,
-                                                         RealSpace::Particles::Particle& particle3D,
-                                                         const QVector3D& origin)
-{
+void RealSpaceBuilderUtils::applyParticleTransformations(
+        const Particle& particle, RealSpace::Particles::Particle& particle3D,
+        const kvector_t &origin)
+{    
     // rotation
     RealSpace::Vector3D particle_rotate;
     const IRotation* rotation = particle.rotation();
@@ -341,7 +365,9 @@ void RealSpaceBuilderUtils::applyParticleTransformations(const Particle& particl
     float x = static_cast<float>(particle.position().x());
     float y = static_cast<float>(particle.position().y());
     float z = static_cast<float>(particle.position().z());
-    RealSpace::Vector3D position(x + origin.x(), y + origin.y(), z + origin.z());
+    RealSpace::Vector3D position(x + static_cast<float>(origin.x()),
+                                 y + static_cast<float>(origin.y()),
+                                 z + static_cast<float>(origin.z()));
 
     // If the particle belongs to a particle composition, along with the particle's
     // intrinsic transformations, position() and rotation() methods also account for the
@@ -352,8 +378,8 @@ void RealSpaceBuilderUtils::applyParticleTransformations(const Particle& particl
 }
 
 void RealSpaceBuilderUtils::applyParticleCoreShellTransformations(
-    const Particle& particle, RealSpace::Particles::Particle& particle3D,
-    const ParticleCoreShell& particleCoreShell, const QVector3D& origin)
+        const Particle& particle, RealSpace::Particles::Particle& particle3D,
+        const ParticleCoreShell& particleCoreShell, const kvector_t &origin)
 {
     std::unique_ptr<Particle> P_clone(particle.clone()); // clone of the current particle
 
@@ -374,9 +400,9 @@ void RealSpaceBuilderUtils::applyParticleCoreShellTransformations(
 
     P_clone->translate(positionCoreShell);
 
-    RealSpace::Vector3D position(static_cast<float>(P_clone->position().x()) + origin.x(),
-                                 static_cast<float>(P_clone->position().y()) + origin.y(),
-                                 static_cast<float>(P_clone->position().z()) + origin.z());
+    RealSpace::Vector3D position(static_cast<float>(P_clone->position().x() + origin.x()),
+                                 static_cast<float>(P_clone->position().y() + origin.y()),
+                                 static_cast<float>(P_clone->position().z() + origin.z()));
 
     particle3D.transform(particle_rotate, position);
 }
@@ -460,32 +486,43 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
     return particle3DContainer_vector;
 }
 
-Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Particle& particle,
-                                                                     double total_abundance)
+Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(
+        const Particle& particle, double total_abundance,
+        const IRotation* extra_rotation, kvector_t extra_translation)
 {
-    std::unique_ptr<const IFormFactor> particleff(particle.createFormFactor());
+    std::unique_ptr<Particle> P_clone(particle.clone()); // clone of the particleComposition
+    P_clone->rotate(*extra_rotation);
+    P_clone->translate(extra_translation);
+
+    std::unique_ptr<const IFormFactor> particleff(P_clone->createFormFactor());
     auto ff = getUnderlyingFormFactor(particleff.get());
 
     auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
-    applyParticleTransformations(particle, *particle3D);
-    applyParticleColor(particle, *particle3D);
+    applyParticleTransformations(*P_clone, *particle3D);
+    applyParticleColor(*P_clone, *particle3D);
 
     Particle3DContainer singleParticle3DContainer;
     singleParticle3DContainer.addParticle(particle3D.release(), false);
-    singleParticle3DContainer.setCumulativeAbundance(particle.abundance() / total_abundance);
+    singleParticle3DContainer.setCumulativeAbundance(P_clone->abundance() / total_abundance);
     singleParticle3DContainer.setParticleType(Constants::ParticleType);
 
     return singleParticle3DContainer;
 }
 
 Particle3DContainer
-RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell& particleCoreShell,
-                                                    double total_abundance)
+RealSpaceBuilderUtils::particleCoreShell3DContainer(
+        const ParticleCoreShell& particleCoreShell, double total_abundance,
+        const IRotation* extra_rotation, kvector_t extra_translation)
 {
+    std::unique_ptr<ParticleCoreShell> PCS_clone(particleCoreShell.clone());
+
+    PCS_clone->rotate(*extra_rotation);
+    PCS_clone->translate(extra_translation);
+
     std::unique_ptr<const IFormFactor> coreParticleff(
-        particleCoreShell.coreParticle()->createFormFactor());
+        PCS_clone->coreParticle()->createFormFactor());
     std::unique_ptr<const IFormFactor> shellParticleff(
-        particleCoreShell.shellParticle()->createFormFactor());
+        PCS_clone->shellParticle()->createFormFactor());
 
     auto coreff = getUnderlyingFormFactor(coreParticleff.get());
     auto shellff = getUnderlyingFormFactor(shellParticleff.get());
@@ -494,20 +531,20 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell& par
     auto shellParticle3D = TransformTo3D::createParticlefromIFormFactor(shellff);
 
     // core
-    applyParticleCoreShellTransformations(*particleCoreShell.coreParticle(), *coreParticle3D,
-                                          particleCoreShell);
-    applyParticleColor(*particleCoreShell.coreParticle(), *coreParticle3D);
+    applyParticleCoreShellTransformations(*PCS_clone->coreParticle(), *coreParticle3D,
+                                          *PCS_clone);
+    applyParticleColor(*PCS_clone->coreParticle(), *coreParticle3D);
 
     // shell (set an alpha value of 0.5 for transparency)
-    applyParticleCoreShellTransformations(*particleCoreShell.shellParticle(), *shellParticle3D,
-                                          particleCoreShell);
-    applyParticleColor(*particleCoreShell.shellParticle(), *shellParticle3D, 0.5);
+    applyParticleCoreShellTransformations(*PCS_clone->shellParticle(), *shellParticle3D,
+                                          *PCS_clone);
+    applyParticleColor(*PCS_clone->shellParticle(), *shellParticle3D, 0.5);
 
     Particle3DContainer particleCoreShell3DContainer;
 
     particleCoreShell3DContainer.addParticle(coreParticle3D.release(), false); // index 0
     particleCoreShell3DContainer.addParticle(shellParticle3D.release(), true); // index 1
-    particleCoreShell3DContainer.setCumulativeAbundance(particleCoreShell.abundance()
+    particleCoreShell3DContainer.setCumulativeAbundance(PCS_clone->abundance()
                                                         / total_abundance);
     particleCoreShell3DContainer.setParticleType(Constants::ParticleCoreShellType);
 
@@ -515,14 +552,18 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell& par
 }
 
 Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
-    const ParticleComposition& particleComposition, double total_abundance)
-{
-    SafePointerVector<IParticle> pc_vector = particleComposition.decompose();
+    const ParticleComposition& particleComposition, double total_abundance,
+    const IRotation* extra_rotation, kvector_t extra_translation)
+{    
+    std::unique_ptr<ParticleComposition> PC_clone(particleComposition.clone()); // clone of the particleComposition
+    PC_clone->rotate(*extra_rotation);
+    PC_clone->translate(extra_translation);
+
+    SafePointerVector<IParticle> pc_vector = PC_clone->decompose();
 
     Particle3DContainer particleComposition3DContainer;
 
     for (const IParticle* pc_particle : pc_vector) {
-
         Particle3DContainer particle3DContainer;
         // no abundances are associated with the individual components of ParticleComposition
         if (dynamic_cast<const ParticleCoreShell*>(pc_particle)) {
@@ -540,7 +581,7 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
         }
     }
     // set the correct abundance for the entire ParticleComposition
-    particleComposition3DContainer.setCumulativeAbundance(particleComposition.abundance()
+    particleComposition3DContainer.setCumulativeAbundance(PC_clone->abundance()
                                                           / total_abundance);
     particleComposition3DContainer.setParticleType(Constants::ParticleCompositionType);
     return particleComposition3DContainer;

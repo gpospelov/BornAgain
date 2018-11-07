@@ -201,8 +201,12 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
             return;
         // show nothing when ParticleDistributionItem is selected
     } else if (particleItem.modelType() == Constants::MesoCrystalType) {
-        //auto mesoCrystalItem = dynamic_cast<const MesoCrystalItem*>(&particleItem);
-        // show nothing when MesoCrystalItem is selected
+        auto mesoCrystalItem = dynamic_cast<const MesoCrystalItem*>(&particleItem);
+        // If there is no particle to populate inside MesoCrystalItem
+        if (!mesoCrystalItem->getItem(MesoCrystalItem::T_BASIS_PARTICLE))
+            return;
+        particle3DContainer
+            = RealSpaceBuilderUtils::mesoCrystal3DContainer(*mesoCrystalItem);
     }
 
     populateParticleFromParticle3DContainer(model, particle3DContainer);

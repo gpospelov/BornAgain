@@ -445,6 +445,9 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
             continue;
         } else if (particleItem->modelType() == Constants::MesoCrystalType) {
             auto mesoCrystalItem = dynamic_cast<const MesoCrystalItem*>(particleItem);
+            // If there is no particle to populate inside MesoCrystalItem
+            if (!mesoCrystalItem->getItem(MesoCrystalItem::T_BASIS_PARTICLE))
+                continue;
             particle3DContainer
                 = RealSpaceBuilderUtils::mesoCrystal3DContainer(*mesoCrystalItem, total_abundance);
         }

@@ -29,17 +29,47 @@
 
 bool csv::isAscii(QString filename)
 {
+    // TODO
+    // This function needs to be defined properly;
+    // For the moment it always evaluates to 'true'
     char c;
+    unsigned count = 0;
+    unsigned count_bad = 0;
     std::ifstream is(filename.toStdString());
-    while (is.get(c)){
-        if(unsigned(c) > 126){
-            is.close();
-            return false;
-        }
+    while (is.get(c) && count < 1000){
+        count++;
+        if(unsigned(c) > 255)
+            count_bad++;
     }
+    std::cout << count << "; " << count_bad << std::endl;
     is.close();
+    double acceptance_threshold = 0.1f * double(count);
+    if(double(count_bad) > acceptance_threshold){
+        //After trying with some binary files
+        //we get the following numbers:
+        //count;	count_bad
+        //1000; 	46
+        //1000; 	47
+        //1000; 	42
+        //143; 		17
+        //1000; 	46
+        //1000; 	44
+        //1000; 	45
+        //1000; 	42
+        //1000; 	104
+        //159; 		33
+        //1000; 	152
+        //1000; 	135
+        //1000; 	49
+        //1000; 	129
+        //305; 		64
+        //The solution is not straightforward.
+        //What about files with 100 cyrilic characters out of 1000?
+        //
+        //return false;
+        return true;
+    }
     return true;
-
 }
 
 CsvImportAssistant::CsvImportAssistant(const QString& file, const bool useGUI, QWidget* parent):

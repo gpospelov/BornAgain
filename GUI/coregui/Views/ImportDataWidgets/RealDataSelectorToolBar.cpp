@@ -18,23 +18,23 @@
 
 RealDataSelectorToolBar::RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent)
     : StyledToolBar(parent)
-    , m_importBornAgainDataButton(new QToolButton)
-    , m_importAsciiDataButton(new QToolButton)
+    , m_import2dDataButton(new QToolButton)
+    , m_import1dDataButton(new QToolButton)
     , m_removeDataButton(new QToolButton)
 {
     setMinimumSize(minimumHeight(), minimumHeight());
 
-    m_importBornAgainDataButton->setText(QStringLiteral("Import data"));
-    m_importBornAgainDataButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
-    m_importBornAgainDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_importBornAgainDataButton->setToolTip("Import Bornagain data formats.");
-    addWidget(m_importBornAgainDataButton);
+    m_import2dDataButton->setText(QStringLiteral("Import 2D"));
+    m_import2dDataButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
+    m_import2dDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_import2dDataButton->setToolTip("Automatic import of 2D data formats.");
+    addWidget(m_import2dDataButton);
 
-    m_importAsciiDataButton->setText(QStringLiteral("Import Assistant"));
-    m_importAsciiDataButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
-    m_importAsciiDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_importAsciiDataButton->setToolTip("Import column ascii files.");
-    addWidget(m_importAsciiDataButton);
+    m_import1dDataButton->setText(QStringLiteral("Import 1D"));
+    m_import1dDataButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
+    m_import1dDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_import1dDataButton->setToolTip("Import columnwise ascii files.");
+    addWidget(m_import1dDataButton);
 
     m_removeDataButton->setText("Remove");
     m_removeDataButton->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
@@ -42,10 +42,10 @@ RealDataSelectorToolBar::RealDataSelectorToolBar(RealDataSelectorActions* action
     m_removeDataButton->setToolTip("Remove selected data.");
     addWidget(m_removeDataButton);
 
-    connect(m_importBornAgainDataButton, &QToolButton::clicked, actions,
-            &RealDataSelectorActions::onImportBornAgainDataAction);
-    connect(m_importAsciiDataButton, &QToolButton::clicked, actions,
-            &RealDataSelectorActions::onImportAsciiDataAction);
+    connect(m_import2dDataButton, &QToolButton::clicked, actions,
+            &RealDataSelectorActions::onImport2dDataAction);
+    connect(m_import1dDataButton, &QToolButton::clicked, actions,
+            &RealDataSelectorActions::onImport1dDataAction);
     connect(m_removeDataButton, &QToolButton::clicked, actions,
             &RealDataSelectorActions::onRemoveDataAction);
 }

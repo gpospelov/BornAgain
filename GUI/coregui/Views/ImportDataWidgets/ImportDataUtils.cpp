@@ -44,25 +44,9 @@ int getRank(const InstrumentItem& item) {
 }
 }
 
-std::unique_ptr<OutputData<double>> ImportDataUtils::ImportBornAgainData(QString& baseNameOfLoadedFile)
-{
-    QString dirname = AppSvc::projectManager()->userImportDir();
-    QString fileName = QFileDialog::getOpenFileName(Q_NULLPTR, QStringLiteral("Open Intensity File"),
-                                                    dirname, filter_string_ba);
-
-    if (fileName.isEmpty())
-        return nullptr;
-
-    std::unique_ptr<OutputData<double>> result;
-
-    QString newImportDir = GUIHelpers::fileDir(fileName);
-    if (newImportDir != dirname)
-        AppSvc::projectManager()->setImportDir(newImportDir);
-
-    QFileInfo info(fileName);
-    baseNameOfLoadedFile = info.baseName();
-
+std::unique_ptr<OutputData<double>> ImportDataUtils::ImportKnownData(QString& fileName){
     //Try to use the canonical tools for importing data
+    std::unique_ptr<OutputData<double>> result;
     try {
         std::unique_ptr<OutputData<double>> data(
                     IntensityDataIOFactory::readOutputData(fileName.toStdString()));
@@ -73,12 +57,33 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportBornAgainData(QString
                 .arg(fileName)
                 .arg(QString::fromStdString(std::string(ex.what())));
         QMessageBox::warning(nullptr, "IO Problem", message);
-
     }
     return result;
+
 }
 
-ImportDataInfo ImportDataUtils::ImportAsciiData(QString& baseNameOfLoadedFile)
+std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseNameOfLoadedFile)
+{
+    QString dirname = AppSvc::projectManager()->userImportDir();
+    QString fileName = QFileDialog::getOpenFileName(Q_NULLPTR, QStringLiteral("Open Intensity File"),
+                                                    dirname, filter_string_ba);
+
+    if (fileName.isEmpty())
+        return nullptr;
+
+
+    QString newImportDir = GUIHelpers::fileDir(fileName);
+    if (newImportDir != dirname)
+        AppSvc::projectManager()->setImportDir(newImportDir);
+
+    QFileInfo info(fileName);
+    baseNameOfLoadedFile = info.baseName();
+
+    return ImportKnownData(fileName);
+
+}
+
+ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
     QString fileName = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Open Intensity File"),
@@ -94,8 +99,22 @@ ImportDataInfo ImportDataUtils::ImportAsciiData(QString& baseNameOfLoadedFile)
     QFileInfo info(fileName);
     baseNameOfLoadedFile = info.baseName();
 
+    if(DataFormatUtils::isCompressed(fileName.toStdString()) ||
+                    DataFormatUtils::isIntFile(fileName.toStdString()) ||
+                    DataFormatUtils::isTiffFile(fileName.toStdString())
+                    ){
+        try{
+            ImportDataInfo result(ImportKnownData(fileName),AxesUnits::NBINS);
+            return result;
+        }
+        catch(...){
+            return getFromImportAssistant(fileName);
+        }
+    }
     return getFromImportAssistant(fileName);
 }
+
+
 
 ImportDataInfo ImportDataUtils::getFromImportAssistant(QString& fileName){
     if(!csv::isAscii(fileName)){

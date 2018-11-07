@@ -30,9 +30,9 @@ class GISASInstrumentItem;
 
 namespace ImportDataUtils
 {
-
-BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportBornAgainData(QString& baseNameOfLoadedFile);
-BA_CORE_API_ ImportDataInfo ImportAsciiData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ std::unique_ptr<OutputData<double>> Import2dData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ ImportDataInfo Import1dData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportKnownData(QString& baseNameOfLoadedFile);
 BA_CORE_API_ ImportDataInfo getFromImportAssistant(QString& fileName);
 
 

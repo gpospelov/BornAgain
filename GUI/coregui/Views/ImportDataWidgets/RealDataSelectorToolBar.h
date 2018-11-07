@@ -30,8 +30,8 @@ public:
     RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent = nullptr);
 
 private:
-    QToolButton* m_importBornAgainDataButton;
-    QToolButton* m_importAsciiDataButton;
+    QToolButton* m_import2dDataButton;
+    QToolButton* m_import1dDataButton;
     QToolButton* m_removeDataButton;
 };
 

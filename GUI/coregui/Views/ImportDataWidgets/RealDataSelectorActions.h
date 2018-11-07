@@ -34,8 +34,8 @@ public:
     void setSelectionModel(QItemSelectionModel* selectionModel);
 
 public slots:
-    void onImportBornAgainDataAction();
-    void onImportAsciiDataAction();
+    void onImport1dDataAction();
+    void onImport2dDataAction();
     void onRemoveDataAction();
     void onRotateDataRequest();
     void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint);
@@ -44,8 +44,8 @@ private:
     void setAllActionsEnabled(bool value);
     void updateSelection();
 
-    QAction* m_importBornAgainDataAction;
-    QAction* m_importAsciiDataAction;
+    QAction* m_import2dDataAction;
+    QAction* m_import1dDataAction;
     QAction* m_removeDataAction;
     QAction* m_rotateDataAction;
     RealDataModel* m_realDataModel;

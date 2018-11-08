@@ -26,50 +26,10 @@
 namespace csv{
 typedef std::vector<std::vector<std::string>> DataArray ;
 typedef std::vector<std::string> DataRow;
-
-
-/*
-If a file contains only the decimal bytes 9–13, 32–126, it's probably a pure ASCII text file.
-Otherwise, it's not. However, it may still be text in another encoding.
-
-If, in addition to the above bytes, the file contains only the decimal bytes 128–255,
-it's probably a text file in an 8-bit or variable-length ASCII-based encoding such as ISO-8859-1,
-UTF-8 or ASCII+Big5. If not, for some purposes you may be able to stop here and consider the
-file to be binary. However, it may still be text in a 16- or 32-bit encoding.
-
-If a file doesn't meet the above constraints, examine the first 2–4 bytes of the file for a
-byte-order mark:
-
-    If the first two bytes are hex FE FF, the file is tentatively UTF-16 BE.
-    If the first two bytes are hex FF FE, and the following two bytes are not hex 00 00,
-    the file is tentatively UTF-16 LE.
-    If the first four bytes are hex 00 00 FE FF, the file is tentatively UTF-32 BE.
-    If the first four bytes are hex FF FE 00 00, the file is tentatively UTF-32 LE.
-
-If, through the above checks, you have determined a tentative encoding, then check only for the
-corresponding encoding below, to ensure that the file is not a binary file which happens to match
-a byte-order mark.
-
-If you have not determined a tentative encoding, the file might still be a text file in one of these
-encodings, since the byte-order mark is not mandatory, so check for all encodings in the following
-list:
-
-    If the file contains only big-endian two-byte words with the decimal values 9–13, 32–126, and 128 or above, the file is probably UTF-16 BE.
-    If the file contains only little-endian two-byte words with the decimal values 9–13, 32–126, and 128 or above, the file is probably UTF-16 LE.
-    If the file contains only big-endian four-byte words with the decimal values 9–13, 32–126, and 128 or above, the file is probably UTF-32 BE.
-    If the file contains only little-endian four-byte words with the decimal values 9–13, 32–126, and 128 or above, the file is probably UTF-32 LE.
-
-If, after all these checks, you still haven't determined an encoding, the file isn't a text file
-in any ASCII-based encoding I know about, so for most purposes you can probably consider it to be binary
-(it might still be a text file in a non-ASCII encoding such as EBCDIC,but I suspect that's
-well outside the scope of your concern).
-*/
 bool isAscii(QString filename);
-
 }
 
 //! Logic for importing intensity data from csv files
-
 class BA_CORE_API_ CsvImportAssistant: public QObject
 {
     Q_OBJECT

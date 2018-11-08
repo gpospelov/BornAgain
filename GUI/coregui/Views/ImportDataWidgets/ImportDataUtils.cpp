@@ -31,8 +31,8 @@ namespace
 {
 const QString filter_string_ba = "Intensity File (*.int *.gz *.tif *.tiff *.txt *.csv);;"
                               "Other (*.*)";
-const QString filter_string_ascii = "Ascii columnwise data (*.txt *.csv *.dat *.ascii);;"
-                              "Other ascii file extensions (*.*)";
+const QString filter_string_ascii = "Intensity File (*.int *.int.gz *.txt *.csv *.dat *.ascii);;"
+                              "Ascii column-wise data (*.*)";
 
 int getRank(const RealDataItem& item)
 {
@@ -50,7 +50,7 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportKnownData(QString& fi
     try {
         std::unique_ptr<OutputData<double>> data(
                     IntensityDataIOFactory::readOutputData(fileName.toStdString()));
-        result = CreateSimplifiedOutputData(*data.get());
+        result = CreateSimplifiedOutputData(*data);
     } catch(std::exception& ex)
     {
         QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
@@ -104,8 +104,7 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
                     DataFormatUtils::isTiffFile(fileName.toStdString())
                     ){
         try{
-            ImportDataInfo result(ImportKnownData(fileName),AxesUnits::NBINS);
-            return result;
+            return ImportDataInfo(ImportKnownData(fileName), AxesUnits::NBINS);
         }
         catch(...){
             return getFromImportAssistant(fileName);

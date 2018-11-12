@@ -4,6 +4,12 @@
 
 include(AddGTest)
 
+# Disabling RUNPATH build time manipulation on unit tests executables.
+# We will provide our own RPATH to not to depend on LD_LIBRARY_PATH, see AddGtest.cmake.
+if(UNIX AND NOT APPLE)
+    SET(CMAKE_SKIP_BUILD_RPATH TRUE)
+endif()
+
 include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities

@@ -22039,6 +22039,16 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getChildren(self)
 
+
+    def pdf1(self):
+        """pdf1(InterferenceFunction2DParaCrystal self) -> IFTDistribution2D"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_pdf1(self)
+
+
+    def pdf2(self):
+        """pdf2(InterferenceFunction2DParaCrystal self) -> IFTDistribution2D"""
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_pdf2(self)
+
 InterferenceFunction2DParaCrystal_swigregister = _libBornAgainCore.InterferenceFunction2DParaCrystal_swigregister
 InterferenceFunction2DParaCrystal_swigregister(InterferenceFunction2DParaCrystal)
 

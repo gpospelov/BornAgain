@@ -13,6 +13,8 @@
 // ************************************************************************** //
 
 #include "RealSpaceMesoCrystalUtils.h"
+#include "HardParticles.h"
+#include "IFormFactor.h"
 #include "IParticle.h"
 #include "Lattice2DItems.h"
 #include "MesoCrystal.h"
@@ -25,6 +27,27 @@
 #include "ParticleDistribution.h"
 #include "ParticleDistributionItem.h"
 #include "RealSpaceBuilderUtils.h"
+#include "TransformTo3D.h"
+#include <ba3d/model/particles.h>
+
+namespace
+{
+const int n = 10;
+
+bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positionInside)
+{
+    bool check(false);
+    if (auto ff_Cylinder = dynamic_cast<const FormFactorCylinder*>(outerShape)) {
+        double radius = ff_Cylinder->getRadius();
+        double height = ff_Cylinder->getHeight();
+        if (std::sqrt(std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2)) <= radius &&
+                (positionInside.z() >=0 && positionInside.z() <= height))
+            check = true;
+    }
+    return check;
+}
+
+}
 
 RealSpaceMesoCrystal::RealSpaceMesoCrystal()
     : m_mesoCrystalItem(nullptr)
@@ -43,38 +66,86 @@ RealSpaceMesoCrystal::RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalIte
     m_total_abundance = total_abundance;
 }
 
-Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
+Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal(
+        const IRotation* extra_rotation, kvector_t extra_translation)
 {
     auto mesoCrystal = m_mesoCrystalItem->createMesoCrystal();
+
+    std::unique_ptr<MesoCrystal> M_clone(mesoCrystal->clone()); // clone of the mesoCrystal
+    M_clone->rotate(*extra_rotation);
+    M_clone->translate(extra_translation);
+
+    // These methods DO NOT add rotation/tranlation of the mesoCrystal to its children
+    // and hence they need to be added manually
     auto lattice = m_mesoCrystalItem->getLattice();
     auto particleBasis = m_mesoCrystalItem->getBasis();
-    auto particleOuterShape = m_mesoCrystalItem->getOuterShape();
+    auto outerShapeff = m_mesoCrystalItem->getOuterShape();
 
-    auto extra_rotation = mesoCrystal->rotation();
-    auto extra_translation = mesoCrystal->position();
-    if(!extra_rotation)
-        extra_rotation = IRotation::createIdentity();
+    auto mesoCrystal_rotation = M_clone->rotation();
+    auto mesoCrystal_translation = M_clone->position();
+    if(!mesoCrystal_rotation)
+        mesoCrystal_rotation = IRotation::createIdentity();
 
-    Particle3DContainer mesoCrystal3DContainer;
+    Particle3DContainer mesoCrystalBasis3DContainer;
 
     if (dynamic_cast<const ParticleComposition*>(particleBasis.get())) {
         auto particleComposition = dynamic_cast<const ParticleComposition*>(particleBasis.get());
-        mesoCrystal3DContainer
+        mesoCrystalBasis3DContainer
             = RealSpaceBuilderUtils::particleComposition3DContainer(
-                    *particleComposition, 1.0,extra_rotation, extra_translation);
+                    *particleComposition, 1.0, mesoCrystal_rotation, mesoCrystal_translation);
     } else if (dynamic_cast<const ParticleCoreShell*>(particleBasis.get())) {
         auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(particleBasis.get());
-        mesoCrystal3DContainer = RealSpaceBuilderUtils::particleCoreShell3DContainer(
-                    *particleCoreShell, 1.0, extra_rotation, extra_translation);
+        mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::particleCoreShell3DContainer(
+                    *particleCoreShell, 1.0, mesoCrystal_rotation, mesoCrystal_translation);
     } else {
         auto particle = dynamic_cast<const Particle*>(particleBasis.get());
-        mesoCrystal3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(
-                    *particle, 1.0, extra_rotation, extra_translation);
+        mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(
+                    *particle, 1.0, mesoCrystal_rotation, mesoCrystal_translation);
     }
+
+    Particle3DContainer mesoCrystal3DContainer;
+
+    for (int k = -n; k <= n; k++) {
+        for (int j = -n; j <= n; j++) {
+            for (int i = -n; i <= n; i++) {
+                auto positionInside = i*lattice.getBasisVectorA() +
+                        j*lattice.getBasisVectorB() + k*lattice.getBasisVectorC();
+
+                if (isPositionInsideMesoCrystal(outerShapeff.get(), positionInside)) {
+                    for (size_t it = 0; it < mesoCrystalBasis3DContainer.containerSize(); ++it) {
+                        auto particle3D = mesoCrystalBasis3DContainer.createParticle(it);
+                        particle3D->addTranslation(
+                                    QVector3D(static_cast<float>(positionInside.x()),
+                                              static_cast<float>(positionInside.y()),
+                                              static_cast<float>(positionInside.z())));
+
+                        mesoCrystal3DContainer.addParticle(particle3D.release(),
+                            mesoCrystalBasis3DContainer.particle3DBlend(it));
+
+                    }
+                }
+            }
+        }
+    }
+
+    // Add outer shape for visualisation
+    auto outerShape3D = TransformTo3D::createParticlefromIFormFactor(outerShapeff.get());
+    outerShape3D->addTransform(
+                RealSpaceBuilderUtils::implementParticleRotationfromIRotation(mesoCrystal_rotation),
+                QVector3D(static_cast<float>(mesoCrystal_translation.x()),
+                          static_cast<float>(mesoCrystal_translation.y()),
+                          static_cast<float>(mesoCrystal_translation.z())));
+
+    // assign grey correct color to the outer shape
+    QColor color = QColor();
+    color.setAlphaF(0.3);
+    outerShape3D->color = color;
+    mesoCrystal3DContainer.addParticle(outerShape3D.release(), true);
+
 
     // set the correct abundance for the MesoCrystal
     mesoCrystal3DContainer.setCumulativeAbundance(
-                mesoCrystal->abundance() / m_total_abundance);
+                M_clone->abundance() / m_total_abundance);
     mesoCrystal3DContainer.setParticleType(Constants::MesoCrystalType);
 
     return mesoCrystal3DContainer;

@@ -490,7 +490,7 @@ Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(
         const Particle& particle, double total_abundance,
         const IRotation* extra_rotation, kvector_t extra_translation)
 {
-    std::unique_ptr<Particle> P_clone(particle.clone()); // clone of the particleComposition
+    std::unique_ptr<Particle> P_clone(particle.clone()); // clone of the particle
     P_clone->rotate(*extra_rotation);
     P_clone->translate(extra_translation);
 
@@ -514,6 +514,7 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(
         const ParticleCoreShell& particleCoreShell, double total_abundance,
         const IRotation* extra_rotation, kvector_t extra_translation)
 {
+    // clone of the particleCoreShell
     std::unique_ptr<ParticleCoreShell> PCS_clone(particleCoreShell.clone());
 
     PCS_clone->rotate(*extra_rotation);
@@ -555,7 +556,8 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
     const ParticleComposition& particleComposition, double total_abundance,
     const IRotation* extra_rotation, kvector_t extra_translation)
 {    
-    std::unique_ptr<ParticleComposition> PC_clone(particleComposition.clone()); // clone of the particleComposition
+    // clone of the particleComposition
+    std::unique_ptr<ParticleComposition> PC_clone(particleComposition.clone());
     PC_clone->rotate(*extra_rotation);
     PC_clone->translate(extra_translation);
 
@@ -613,11 +615,13 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
 }
 
 Particle3DContainer RealSpaceBuilderUtils::mesoCrystal3DContainer(
-        const MesoCrystalItem &mesoCrystalItem, double total_abundance)
+        const MesoCrystalItem &mesoCrystalItem, double total_abundance,
+        const IRotation* extra_rotation, kvector_t extra_translation)
 {
     RealSpaceMesoCrystal mesoCrystalUtils(&mesoCrystalItem, total_abundance);
 
-    Particle3DContainer mesoCrystal3DContainer = mesoCrystalUtils.populateMesoCrystal();
+    Particle3DContainer mesoCrystal3DContainer =
+            mesoCrystalUtils.populateMesoCrystal(extra_rotation, extra_translation);
 
     return mesoCrystal3DContainer;
 }

@@ -133,7 +133,9 @@ BA_CORE_API_ std::vector<Particle3DContainer> particleDistribution3DContainer(
         const ParticleDistribution& particleDistribution, double total_abundance = 1.0);
 
 BA_CORE_API_ Particle3DContainer mesoCrystal3DContainer(
-        const MesoCrystalItem &mesoCrystalItem, double total_abundance = 1.0);
+        const MesoCrystalItem &mesoCrystalItem, double total_abundance = 1.0,
+        const IRotation* extra_rotation = IRotation::createIdentity(),
+        kvector_t extra_translation = kvector_t(0, 0, 0));
 
 } // namespace RealSpaceBuilderUtils
 

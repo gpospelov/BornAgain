@@ -8,6 +8,7 @@ platform:
 
 # http://www.appveyor.com/docs/installed-software
 environment:
+  APPVEYOR_RDP_PASSWORD: 7bKajQWvq4uhfpvc!
   BOOSTDIR: C:\Libraries\boost_1_67_0
   PYTHONDIR: C:\Python36-x64
   QTDIR: "C:\\Qt\\5.9\\msvc2017_64"
@@ -19,6 +20,7 @@ build:
 init:  
 - echo "BornAgain init" %CD% 
 - echo %PATH%
+- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
 - git submodule -q update --init
@@ -39,8 +41,6 @@ before_build:
 build_script:
 - echo "BornAgain build_script" %CD% 
 - echo %PATH%
-- dir C:\projects\deps
-- dir C:\projects\deps\bornagaindeps\include
 - mkdir build
 - cd build
 - cmake --version
@@ -66,7 +66,7 @@ test_script:
 on_failure:
 - appveyor PushArtifact Testing/Temporary/LastTest.log
 - appveyor AddTest test
-  
+
 # Uncomment this to debug AppVeyor failures.    
 on_finish:
 - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

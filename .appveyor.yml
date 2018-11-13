@@ -20,7 +20,7 @@ build:
 init:  
 - echo "BornAgain init" %CD% 
 - echo %PATH%
-- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
 - git submodule -q update --init
@@ -64,7 +64,7 @@ test_script:
     }
 
 on_failure:
-#- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 #- appveyor PushArtifact Testing/Temporary/LastTest.log
 #- appveyor AddTest test
 

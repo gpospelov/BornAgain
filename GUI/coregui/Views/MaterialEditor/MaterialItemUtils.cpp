@@ -61,18 +61,22 @@ ExternalProperty MaterialItemUtils::defaultMaterialProperty()
 std::unique_ptr<Material>
 MaterialItemUtils::createDomainMaterial(const ExternalProperty &material_property)
 {
+    MaterialItem* materialItem = findMaterial(material_property);
+    return materialItem->createMaterial();
+}
+
+MaterialItem* MaterialItemUtils::findMaterial(const ExternalProperty& material_property)
+{
     if (!AppSvc::materialModel())
-        throw GUIHelpers::Error("MaterialItemUtils::createDomainMaterial() -> Error. "
+        throw GUIHelpers::Error("MaterialItemUtils::findMaterial() -> Error. "
                                 "Attempt to access non-existing material model");
 
-    MaterialItem *materialItem
-        = AppSvc::materialModel()->materialFromIdentifier(material_property.identifier());
+    auto material = AppSvc::materialModel()->materialFromIdentifier(material_property.identifier());
 
-    if(!materialItem)
-        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't create "
+    if(!material)
+        throw GUIHelpers::Error("MaterialUtils::findMaterial() -> Error. Can't find "
                                 "material with name '"+material_property.text()+"'.");
-
-    return materialItem->createMaterial();
+    return material;
 }
 
 //! Returns material tag for given item. Returns empty string, if item doesn't have materials.

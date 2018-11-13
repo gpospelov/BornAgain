@@ -28,8 +28,10 @@ namespace MaterialItemUtils
 
 BA_CORE_API_ QColor suggestMaterialColor(const QString &name);
 BA_CORE_API_ ExternalProperty defaultMaterialProperty();
-BA_CORE_API_ std::unique_ptr<Material> createDomainMaterial(
-        const ExternalProperty &material_property);
+
+BA_CORE_API_ std::unique_ptr<Material>
+createDomainMaterial(const ExternalProperty& material_property);
+BA_CORE_API_ MaterialItem* findMaterial(const ExternalProperty& material_property);
 
 BA_CORE_API_ QString materialTag(const SessionItem &item);
 BA_CORE_API_ QStringList materialRelatedModelTypes();

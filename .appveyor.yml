@@ -35,11 +35,12 @@ before_build:
 - 7z x %temp%\cmake.zip -oC:\projects\deps > nul
 - move C:\projects\deps\cmake-* C:\projects\deps\cmake # Move to a version-agnostic directory
 - set PATH=C:\projects\deps\bornagaindeps\lib;C:\projects\deps\cmake\bin;%PATH%
-- cmake --version
 
 build_script:
 - echo "BornAgain build_script" %CD% 
 - echo %PATH%
+- dir C:/project/deps
+- dir C:/project/deps/bornagaindeps/include
 - mkdir build
 - cd build
 - cmake --version

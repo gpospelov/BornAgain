@@ -48,6 +48,8 @@ BA_CORE_API_ ExternalProperty selectMaterialProperty(const ExternalProperty &pre
 //! Calls color selector dialog.
 BA_CORE_API_ ExternalProperty selectColorProperty(const ExternalProperty &previous=ExternalProperty());
 
+//! Gather material property items from a given item
+BA_CORE_API_ QVector<SessionItem*> materialPropertyItems(SessionItem* item);
 }
 
 

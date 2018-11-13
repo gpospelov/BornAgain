@@ -29,7 +29,6 @@
 #include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "JobModel.h"
-#include "LayerItem.h"
 #include "MaterialItemContainer.h"
 #include "MaterialItemUtils.h"
 #include "MaskItems.h"
@@ -89,7 +88,8 @@ void JobModelFunctions::initDataView(JobItem* job_item)
 void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLayerItem* sampleItem)
 {
     auto model = jobItem->model();
-    SessionItem* multilayer = model->copyItem(sampleItem, jobItem, JobItem::T_SAMPLE);
+    MultiLayerItem* multilayer =
+        static_cast<MultiLayerItem*>(model->copyItem(sampleItem, jobItem, JobItem::T_SAMPLE));
     multilayer->setItemName(Constants::MultiLayerType);
 
     // copying materials
@@ -97,9 +97,8 @@ void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLaye
         Constants::MaterialContainerType, jobItem->index(), -1, JobItem::T_MATERIAL_CONTAINER));
 
     std::map<MaterialItem*, QString> materials;
-    for (auto layer_item: multilayer->getChildrenOfType(Constants::LayerType)) {
-        auto material_property =
-            layer_item->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
+    for (auto property_item: multilayer->materialPropertyItems()) {
+        auto material_property = property_item->value().value<ExternalProperty>();
         auto material = MaterialItemUtils::findMaterial(material_property);
 
         auto iter = materials.find(material);

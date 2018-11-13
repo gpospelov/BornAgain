@@ -35,7 +35,6 @@ before_build:
 - 7z x %temp%\cmake.zip -oC:\projects\deps > nul
 - move C:\projects\deps\cmake-* C:\projects\deps\cmake # Move to a version-agnostic directory
 - set PATH=C:\projects\deps\cmake\bin;%PATH%
-- dir C:\projects\deps\cmake
 - cmake --version
 
 build_script:

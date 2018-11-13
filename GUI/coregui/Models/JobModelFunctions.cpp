@@ -29,11 +29,15 @@
 #include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "JobModel.h"
+#include "LayerItem.h"
+#include "MaterialItemContainer.h"
+#include "MaterialItemUtils.h"
 #include "MaskItems.h"
 #include "MaskUnitsConverter.h"
 #include "MultiLayerItem.h"
 #include "PointwiseAxisItem.h"
 #include "RealDataItem.h"
+#include <map>
 
 namespace
 {
@@ -87,6 +91,26 @@ void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLaye
     auto model = jobItem->model();
     SessionItem* multilayer = model->copyItem(sampleItem, jobItem, JobItem::T_SAMPLE);
     multilayer->setItemName(Constants::MultiLayerType);
+
+    // copying materials
+    auto container = static_cast<MaterialItemContainer*>(jobItem->model()->insertNewItem(
+        Constants::MaterialContainerType, jobItem->index(), -1, JobItem::T_MATERIAL_CONTAINER));
+
+    std::map<MaterialItem*, QString> materials;
+    for (auto layer_item: multilayer->getChildrenOfType(Constants::LayerType)) {
+        auto material_property =
+            layer_item->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
+        auto material = MaterialItemUtils::findMaterial(material_property);
+
+        auto iter = materials.find(material);
+        if (iter == materials.end()) {
+            auto material_copy = container->insertCopy(material);
+            materials.insert({material, material_copy->identifier()});
+            material_property.setIdentifier(material_copy->identifier());
+        } else
+            material_property.setIdentifier(iter->second);
+        property_item->setValue(material_property.variant());
+    }
 }
 
 void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,

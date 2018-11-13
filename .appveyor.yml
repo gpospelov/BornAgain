@@ -39,8 +39,8 @@ before_build:
 build_script:
 - echo "BornAgain build_script" %CD% 
 - echo %PATH%
-- dir C:/project/deps
-- dir C:/project/deps/bornagaindeps/include
+- dir C:\project\deps
+- dir C:\project\deps\bornagaindeps\include
 - mkdir build
 - cd build
 - cmake --version

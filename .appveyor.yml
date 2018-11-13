@@ -8,11 +8,11 @@ platform:
 
 # http://www.appveyor.com/docs/installed-software
 environment:
-  BOOST_ROOT: C:\Libraries\boost_1_67_0
+  BOOSTDIR: C:\Libraries\boost_1_67_0
+  PYTHONDIR: C:\Python36-x64
   QTDIR: "C:\\Qt\\5.9\\msvc2017_64"
-  MYCONDA: "C:\\Miniconda3-x64;C:\\Miniconda3-x64\\Scripts;C:\\Miniconda3-x64\\Library\\bin"
-  PATH: "%QTDIR%\\bin;%MYCONDA%;%PATH%"
-  PYTHONPATH: "C:\\Miniconda3-x64;C:\\Miniconda3-x64\\Lib;C:\\Miniconda3-x64\\Lib\\site-packages;C:\\Miniconda3-x64\\DLLs"
+  PATH: "%QTDIR%\\bin;%PYTHONDIR%;%PYTHONDIR%\\Scripts;%PATH%"
+  PYTHONPATH: "%PYTHONDIR%;%PYTHONDIR%\\Lib;%PYTHONDIR%\\Lib\\site-packages;%PYTHONDIR%\\DLLs"
 build:
   parallel: true
 
@@ -44,7 +44,7 @@ build_script:
 - mkdir build
 - cd build
 - cmake --version
-- cmake -G "Visual Studio 15 2017 Win64" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INCLUDE_PATH=C:/projects/deps/bornagaindeps/include ..
+- cmake -G "Visual Studio 15 2017 Win64" -DBOOST_ROOT=%BOOSTDIR% -DCMAKE_INCLUDE_PATH=C:/projects/deps/bornagaindeps/include ..
 - cmake --build . --config Release
 
 test_script:
@@ -62,3 +62,12 @@ test_script:
         throw "tests failed" 
 
     }
+
+on_failure:
+- appveyor PushArtifact Testing/Temporary/LastTest.log
+- appveyor AddTest test
+  
+# Uncomment this to debug AppVeyor failures.    
+on_finish:
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    

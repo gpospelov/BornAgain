@@ -8,6 +8,7 @@ platform:
 
 # http://www.appveyor.com/docs/installed-software
 environment:
+  BOOST_ROOT: C:\Libraries\boost_1_67_0
   QTDIR: "C:\\Qt\\5.9\\msvc2017_64"
   MYCONDA: "C:\\Miniconda3-x64;C:\\Miniconda3-x64\\Scripts;C:\\Miniconda3-x64\\Library\\bin"
   PATH: "%QTDIR%\\bin;C:\\opt\\local_x64\\lib;%MYCONDA%;%PATH%"
@@ -27,9 +28,9 @@ before_build:
 - echo %PATH%
 - python -m pip install --upgrade pip
 - python -m pip install numpy
-- C:\cygwin\bin\wget -q http://apps.jcns.fz-juelich.de/redmine/attachments/download/348/local_x64.zip -O %temp%\local_x64.zip
-- 7z x %temp%\local_x64.zip -oC:\opt > null
 - mkdir C:\projects\deps
+- C:\cygwin\bin\wget -q http://apps.jcns.fz-juelich.de/redmine/attachments/download/456/bornagaindeps_v1.zip -O %temp%\bornagaindeps.zip
+- 7z x %temp%\bornagaindeps.zip -oC::\projects\deps > null
 - set CMAKE_URL="https://cmake.org/files/v3.12/cmake-3.12.4-win64-x64.zip"
 - appveyor DownloadFile %CMAKE_URL% -FileName %temp%\cmake.zip
 - 7z x %temp%\cmake.zip -oC:\projects\deps > nul
@@ -42,7 +43,7 @@ build_script:
 - mkdir build
 - cd build
 - cmake --version
-- cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_INCLUDE_PATH=C:/opt/local_x64/include ..
+- cmake -G "Visual Studio 15 2017 Win64" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INCLUDE_PATH=C:/project/deps/bornagaindeps/include ..
 - cmake --build . --config Release
 
 test_script:

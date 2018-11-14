@@ -201,6 +201,13 @@ void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* r
         DataItem::P_FILE_NAME, ItemFileNameUtils::jobNativeDataFileName(*jobItem));
 }
 
+const JobItem* JobModelFunctions::findJobItem(const SessionItem* item)
+{
+    while (item && item->modelType() != Constants::JobItemType)
+        item = item->parent();
+    return static_cast<const JobItem*>(item);
+}
+
 namespace {
 void processInstrumentLink(JobItem* jobItem)
 {

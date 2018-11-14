@@ -84,6 +84,11 @@ void Particle::addTranslation(Vector3D translate_)
     Object::transform(turn, scale, rotate, offset + (translate = translate + translate_));
 }
 
+void Particle::addExtrinsicRotation(Vector3D rotateExtrinsic)
+{
+    Object::addExtrinsicRotation(turn, scale, rotate, rotateExtrinsic , (translate = offset + translate));
+}
+
 //------------------------------------------------------------------------------
 
 static float const pi = float(M_PI);

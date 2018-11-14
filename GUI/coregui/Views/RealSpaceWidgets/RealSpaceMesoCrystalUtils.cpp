@@ -92,16 +92,17 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal(
         auto particleComposition = dynamic_cast<const ParticleComposition*>(particleBasis.get());
         mesoCrystalBasis3DContainer
             = RealSpaceBuilderUtils::particleComposition3DContainer(
-                    *particleComposition, 1.0, mesoCrystal_rotation, mesoCrystal_translation);
+                    *particleComposition);
     } else if (dynamic_cast<const ParticleCoreShell*>(particleBasis.get())) {
         auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(particleBasis.get());
         mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::particleCoreShell3DContainer(
-                    *particleCoreShell, 1.0, mesoCrystal_rotation, mesoCrystal_translation);
+                    *particleCoreShell);
     } else {
         auto particle = dynamic_cast<const Particle*>(particleBasis.get());
         mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(
-                    *particle, 1.0, mesoCrystal_rotation, mesoCrystal_translation);
+                    *particle);
     }
+
 
     Particle3DContainer mesoCrystal3DContainer;
 
@@ -118,6 +119,15 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal(
                                     QVector3D(static_cast<float>(positionInside.x()),
                                               static_cast<float>(positionInside.y()),
                                               static_cast<float>(positionInside.z())));
+
+                        particle3D->addExtrinsicRotation(
+                                    RealSpaceBuilderUtils::implementParticleRotationfromIRotation(
+                                        mesoCrystal_rotation));
+
+                        particle3D->addTranslation(
+                                    QVector3D(static_cast<float>(mesoCrystal_translation.x()),
+                                              static_cast<float>(mesoCrystal_translation.y()),
+                                              static_cast<float>(mesoCrystal_translation.z())));
 
                         mesoCrystal3DContainer.addParticle(particle3D.release(),
                             mesoCrystalBasis3DContainer.particle3DBlend(it));
@@ -136,7 +146,7 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal(
                           static_cast<float>(mesoCrystal_translation.y()),
                           static_cast<float>(mesoCrystal_translation.z())));
 
-    // assign grey correct color to the outer shape
+    // assign grey (default) color to the outer shape
     QColor color = QColor();
     color.setAlphaF(0.3);
     outerShape3D->color = color;

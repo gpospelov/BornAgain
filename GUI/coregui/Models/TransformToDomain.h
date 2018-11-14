@@ -27,11 +27,12 @@
 #include "ParticleLayout.h"
 #include <memory>
 
-class GISASSimulation;
-class Simulation;
-class SessionItem;
 class DetectorItem;
+class GISASSimulation;
 class Material;
+class MaterialItemContainer;
+class SessionItem;
+class Simulation;
 
 namespace TransformToDomain
 {

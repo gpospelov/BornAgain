@@ -22,6 +22,7 @@
 #include "MaterialDataItems.h"
 #include "MaterialEditorDialog.h"
 #include "MaterialItem.h"
+#include "MaterialItemContainer.h"
 #include "MaterialModel.h"
 #include "MesoCrystalItem.h"
 #include "ParticleCompositionItem.h"
@@ -76,6 +77,18 @@ MaterialItemUtils::createDomainMaterial(const ExternalProperty &material_propert
 {
     MaterialItem* materialItem = findMaterial(material_property);
     return materialItem->createMaterial();
+}
+
+std::unique_ptr<Material>
+MaterialItemUtils::createDomainMaterial(const ExternalProperty& material_property,
+                                        const MaterialItemContainer& container)
+{
+    const MaterialItem* material_item = container.findMaterialById(material_property.identifier());
+    if (!material_item)
+        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't find "
+                                "material with name '"
+                                + material_property.text() + "'.");
+    return material_item->createMaterial();
 }
 
 MaterialItem* MaterialItemUtils::findMaterial(const ExternalProperty& material_property)

@@ -22,6 +22,7 @@
 #include <memory>
 
 class Material;
+class MaterialItemContainer;
 
 namespace MaterialItemUtils
 {
@@ -31,6 +32,9 @@ BA_CORE_API_ ExternalProperty defaultMaterialProperty();
 
 BA_CORE_API_ std::unique_ptr<Material>
 createDomainMaterial(const ExternalProperty& material_property);
+BA_CORE_API_ std::unique_ptr<Material>
+createDomainMaterial(const ExternalProperty& material_property,
+                     const MaterialItemContainer& container);
 BA_CORE_API_ MaterialItem* findMaterial(const ExternalProperty& material_property);
 
 BA_CORE_API_ QString materialTag(const SessionItem &item);

@@ -61,6 +61,8 @@ void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
     SessionItem* container = jobItem->model()->insertNewItem(Constants::ParameterContainerType,
         jobItem->index(), -1, JobItem::T_PARAMETER_TREE);
 
+    populateParameterContainer(container, jobItem->getItem(JobItem::T_MATERIAL_CONTAINER));
+
     populateParameterContainer(container, jobItem->getItem(JobItem::T_SAMPLE));
 
     populateParameterContainer(container, jobItem->getItem(JobItem::T_INSTRUMENT));

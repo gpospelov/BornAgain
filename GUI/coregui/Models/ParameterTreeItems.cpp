@@ -17,6 +17,7 @@
 #include "DistributionItems.h"
 #include "FitParameterHelper.h"
 #include "InstrumentItems.h"
+#include "MaterialItem.h"
 #include "ModelPath.h"
 #include "RectangularDetectorItem.h"
 #include "SessionModel.h"
@@ -92,7 +93,10 @@ bool ParameterItem::isFittable() const
                 QString()
             },
             {
-                Constants::DistributionSigmaFactor
+                Constants::DistributionSigmaFactor,
+                Constants::MaterialRefractiveDataType,
+                Constants::MaterialSLDDataType,
+                MaterialItem::P_MAGNETIZATION
             }
         },
         {// Instrument scope

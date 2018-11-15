@@ -8,11 +8,7 @@ include_directories(
     ${BornAgainCore_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIR}
-    ${gtest_SOURCE_DIR}
-    ${gtest_SOURCE_DIR}/include
     )
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGTEST_LINKED_AS_SHARED_LIBRARY=1")
 
 add_subdirectory(Core)
 add_subdirectory(Numeric)

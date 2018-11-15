@@ -18,6 +18,7 @@ file(GLOB include_files "*.h")
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Test REQUIRED)
 
+include_directories(${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities)
 include_directories(${ba3d_INCLUDE_DIRS} ${BornAgainGUI_INCLUDE_DIRS})
 
 set(CMAKE_AUTOMOC ON)

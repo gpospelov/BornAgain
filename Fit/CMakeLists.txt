@@ -108,19 +108,9 @@ set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---------
-include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
-include_directories(
-    ${Boost_INCLUDE_DIRS}
-    ${RootMinimizers_INCLUDE_DIRS}
-    ${GSL_INCLUDE_DIR}
-    )
-
-target_link_libraries(
-    ${library_name}
-    ${Boost_LIBRARIES}
-    ${RootMinimizers_LIBRARY}
-    ${GSL_LIBRARIES}
-    )
+target_include_directories(${library_name} PUBLIC ${RootMinimizers_INCLUDE_DIRS})
+target_include_directories(${library_name} PUBLIC ${include_dirs})
+target_link_libraries(${library_name} ${RootMinimizers_LIBRARY})
 
 if(BORNAGAIN_PYTHON)
     include_directories(${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR})

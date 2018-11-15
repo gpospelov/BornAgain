@@ -116,26 +116,8 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
 # --- dependencies ---------
-include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
-include_directories(
-    ${QtAddOn_INCLUDE_DIRS}
-    ${Boost_INCLUDE_DIRS}
-    ${GSL_INCLUDE_DIR}
-    ${BornAgainCore_INCLUDE_DIRS}
-    ${BornAgainFit_INCLUDE_DIRS}
-    ${PYTHON_INCLUDE_DIRS}
-    ${ba3d_INCLUDE_DIRS}
-)
-
-target_link_libraries(${library_name}
-    ${QtAddOn_LIBRARIES}
-    ${PYTHON_LIBRARIES}
-    ${Boost_LIBRARIES}
-    ${BornAgainFit_LIBRARY}
-    ${BornAgainCore_LIBRARY}
-    ${ba3d_LIBRARY}
-)
-
+include_directories(${QtAddOn_INCLUDE_DIRS} ${ba3d_INCLUDE_DIRS})
+target_link_libraries(${library_name} ${QtAddOn_LIBRARIES} ${BornAgainCore_LIBRARY} ${ba3d_LIBRARY})
 target_link_libraries(${library_name}
     Qt5::Widgets
     Qt5::Core
@@ -144,7 +126,6 @@ target_link_libraries(${library_name}
     Qt5::PrintSupport
     Qt5::Network
 )
-
 
 # --- Installation ---------
 install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)

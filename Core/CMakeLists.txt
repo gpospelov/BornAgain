@@ -155,9 +155,10 @@ if(BORNAGAIN_TIFF_SUPPORT)
     target_link_libraries(${library_name} ${TIFF_LIBRARIES})
 endif()
 
-include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
-include_directories(${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
-    ${GSL_INCLUDE_DIR} ${Faddeeva_INCLUDE_DIR})
+target_include_directories(${library_name} PUBLIC ${include_dirs})
+target_include_directories(${library_name} SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
+target_include_directories(${library_name} PUBLIC ${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
+    ${GSL_INCLUDE_DIR} PRIVATE ${Faddeeva_INCLUDE_DIR})
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW_LIBRARY} ${GSL_LIBRARIES}
     ${Faddeeva_LIBRARY})
 

@@ -21,6 +21,7 @@ if(BORNAGAIN_TIFF_SUPPORT)
 endif(BORNAGAIN_TIFF_SUPPORT)
 
 add_subdirectory(Core)
+add_subdirectory(Numeric)
 add_subdirectory(Fit)
 
 if(BORNAGAIN_GUI)

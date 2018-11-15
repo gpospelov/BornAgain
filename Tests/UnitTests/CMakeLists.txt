@@ -2,8 +2,6 @@
 # Unit tests
 ############################################################################
 
-include(AddGTest)
-
 include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities
@@ -21,6 +19,7 @@ if(BORNAGAIN_TIFF_SUPPORT)
 endif(BORNAGAIN_TIFF_SUPPORT)
 
 add_subdirectory(Core)
+add_subdirectory(Numeric)
 add_subdirectory(Fit)
 
 if(BORNAGAIN_GUI)

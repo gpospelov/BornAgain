@@ -3,6 +3,7 @@
 #include "FTDistributions1D.h"
 #include "FTDistributions2D.h"
 #include "MathConstants.h"
+#include "RealParameter.h"
 #include <memory>
 
 class FTDistributionsTest : public ::testing::Test

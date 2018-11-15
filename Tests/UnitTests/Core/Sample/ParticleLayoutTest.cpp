@@ -6,6 +6,8 @@
 #include "InterferenceFunctionNone.h"
 #include "ParticleLayout.h"
 #include "Particle.h"
+#include "Units.h"
+#include "MaterialFactoryFuncs.h"
 
 class ParticleLayoutTest : public ::testing::Test
 {

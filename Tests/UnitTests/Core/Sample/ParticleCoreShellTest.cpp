@@ -6,6 +6,7 @@
 #include "Particle.h"
 #include "ParticleCoreShell.h"
 #include "Rotations.h"
+#include "Units.h"
 
 class ParticleCoreShellTest : public ::testing::Test
 {

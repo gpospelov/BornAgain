@@ -24,13 +24,6 @@ MACRO(ADD_GTEST project subdir libs stage)
     set(EXE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TEST_NAME})
     file(GLOB include_files ${subdir}/*.h)
     add_executable(${TEST_NAME} ${subdir}/../../utilities/main_testlist.cpp ${include_files})
-
-    if(UNIX AND NOT APPLE)
-    # Unit tests will have RPATH set (instead of RUNPATH) to not to depend on LD_LIBRARY_PATH
-    set(link_flags "-Wl,--disable-new-dtags,-rpath,'${CMAKE_LIBRARY_OUTPUT_DIRECTORY}'")
-    set_target_properties(${TEST_NAME} PROPERTIES LINK_FLAGS ${link_flags})
-    endif()
-
     target_include_directories(${TEST_NAME} PUBLIC ${subdir})
     target_link_libraries(${TEST_NAME} gtest ${libs})
     if    (${stage} EQUAL 0)

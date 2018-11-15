@@ -2,8 +2,6 @@
 # Unit tests
 ############################################################################
 
-include(AddGTest)
-
 include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
 include_directories(
     ${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities

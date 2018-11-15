@@ -1,6 +1,8 @@
 ############################################################################
 # CMakeLists.txt file for building libBornAgainGUI library
 ############################################################################
+set(library_name BornAgainGUI)
+
 if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
 endif()
@@ -16,8 +18,6 @@ endif()
 if(POLICY CMP0071)
   cmake_policy(SET CMP0071 NEW)
 endif()
-
-set(library_name BornAgainGUI)
 
 # --- source and include files ---
 set(include_dirs
@@ -76,7 +76,6 @@ endif()
 list(APPEND include_files ${include_widgetbox})
 
 list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox)
-include_directories(${include_dirs})
 
 set(resource_files
     "coregui.qrc"
@@ -108,7 +107,7 @@ add_library(
     SHARED
     ${source_files} ${RC_SRCS} ${include_files}
 )
-set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+set_target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
@@ -116,7 +115,11 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
 # --- dependencies ---------
-include_directories(${QtAddOn_INCLUDE_DIRS} ${ba3d_INCLUDE_DIRS})
+if(BORNAGAIN_OPENGL)
+target_compile_definitions(${library_name} PUBLIC -DBORNAGAIN_OPENGL)
+endif()
+target_include_directories(${library_name} PUBLIC ${QtAddOn_INCLUDE_DIRS} ${ba3d_INCLUDE_DIRS})
+target_include_directories(${library_name} PUBLIC ${include_dirs})
 target_link_libraries(${library_name} ${QtAddOn_LIBRARIES} ${BornAgainCore_LIBRARY} ${ba3d_LIBRARY})
 target_link_libraries(${library_name}
     Qt5::Widgets

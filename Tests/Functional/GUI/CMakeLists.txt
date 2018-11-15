@@ -6,7 +6,6 @@ if(POLICY CMP0043)
 endif()
 
 find_package(Qt5Widgets REQUIRED)
-include_directories(${BornAgainGUI_INCLUDE_DIRS})
 
 add_subdirectory(GUIStandardTest)
 add_subdirectory(GUISpecial)

@@ -19,11 +19,10 @@ find_package(Qt5Core REQUIRED)
 find_package(Qt5Test REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities)
-include_directories(${ba3d_INCLUDE_DIRS} ${BornAgainGUI_INCLUDE_DIRS})
 
 set(CMAKE_AUTOMOC ON)
 add_executable(${test} ${source_files} ${include_files})
-target_link_libraries(${test} ${BornAgainGUI_LIBRARY} ${ba3d_LIBRARY} gtest)
+target_link_libraries(${test} ${BornAgainGUI_LIBRARY} gtest)
 target_link_libraries(${test} Qt5::Core Qt5::Test)
 
 # add execution of TestCore just after compilation

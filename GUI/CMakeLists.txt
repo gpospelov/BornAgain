@@ -12,7 +12,6 @@ message(STATUS "Configuring BornAgain GUI")
 
 if(BORNAGAIN_OPENGL)
     message(STATUS "Configuring BornAgain OpenGL")
-    add_definitions(-DBORNAGAIN_OPENGL)
     add_subdirectory(ba3d)
 endif()
 

@@ -3,22 +3,6 @@
 ############################################################################
 set(library_name BornAgainGUI)
 
-if(POLICY CMP0020)
-    cmake_policy(SET CMP0020 NEW)
-endif()
-if(POLICY CMP0043)
-    cmake_policy(SET CMP0043 NEW)
-endif()
-if(POLICY CMP0042)
-    cmake_policy(SET CMP0042 NEW)
-endif()
-if(POLICY CMP0028)
-    cmake_policy(SET CMP0028 NEW)
-endif()
-if(POLICY CMP0071)
-  cmake_policy(SET CMP0071 NEW)
-endif()
-
 # --- source and include files ---
 set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/mainwindow

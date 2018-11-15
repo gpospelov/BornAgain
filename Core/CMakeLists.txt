@@ -4,10 +4,6 @@
 
 set(library_name BornAgainCore)
 
-if(POLICY CMP0042)
-    cmake_policy(SET CMP0042 NEW)
-endif()
-
 if(BORNAGAIN_TIDY)
 #    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,readability-*,-readability-braces-around-statements")
     set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,readability-*,-readability-braces-around-statements,modernize-*")

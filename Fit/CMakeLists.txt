@@ -4,10 +4,6 @@
 
 set(library_name BornAgainFit)
 
-if(POLICY CMP0042)
-    cmake_policy(SET CMP0042 NEW)
-endif()
-
 # --- source and include files ------
 set(FIT_SOURCE_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}/Kernel

@@ -3,14 +3,6 @@
 ############################################################################
 set(test UnitTestNumeric)
 
-if(POLICY CMP0020)
-    cmake_policy(SET CMP0020 NEW)
-endif()
-
-if(POLICY CMP0043)
-    cmake_policy(SET CMP0043 NEW)
-endif()
-
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGTEST_LINKED_AS_SHARED_LIBRARY=1")
 endif()

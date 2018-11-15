@@ -83,12 +83,13 @@ def get_axes_labels(result, units):
 
 
 def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
-               title=None, axes_limits=None):
+               title=None, axes_limits=None, aspect=None):
     """
     Plots numpy array as a colormap in log scale.
     """
 
     zlabel = "Intensity" if zlabel is None else zlabel
+    aspect = 'auto' if aspect is None else aspect
 
     zmax = np.amax(array) if zmax is None else zmax
     zmin = 1e-6*zmax if zmin is None else zmin
@@ -98,7 +99,7 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
     else:
         norm = colors.LogNorm(zmin, zmax)
 
-    im = plt.imshow(array, norm=norm, extent=axes_limits, aspect='auto')
+    im = plt.imshow(array, norm=norm, extent=axes_limits, aspect=aspect)
     cb = plt.colorbar(im, pad=0.025)
 
     if xlabel:
@@ -115,12 +116,13 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
 
 
 def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
-                  title=None):
+                  title=None, aspect=None):
     """
     Plots intensity data as color map
     :param intensity: Histogram2D object obtained from GISASSimulation
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
+    :param aspect: 'auto' (default) or 'equal'
     """
 
     if not xlabel:
@@ -133,12 +135,12 @@ def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=
                    hist.getYmin(), hist.getYmax()]
 
     plot_array(hist.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
-               zlabel=zlabel, title=title, axes_limits=axes_limits)
+               zlabel=zlabel, title=title, axes_limits=axes_limits, aspect=aspect)
 
 
 def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
                   xlabel=None, ylabel=None, zlabel=None,
-                  title=None):
+                  title=None, aspect=None):
     """
     Plots intensity data as color map
     :param result: SimulationResult from GISAS/OffSpecSimulation
@@ -152,7 +154,7 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     ylabel = axes_labels[1] if ylabel is None else ylabel
 
     plot_array(result.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
-               zlabel=zlabel, title=title, axes_limits=axes_limits)
+               zlabel=zlabel, title=title, axes_limits=axes_limits, aspect=aspect)
 
 
 def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesUnits.DEFAULT,
@@ -189,7 +191,7 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesU
 
 
 def plot_simulation_result(result, intensity_min=None, intensity_max=None, units=ba.AxesUnits.DEFAULT,
-                           postpone_show=False):
+                           xlabel=None, ylabel=None, postpone_show=False, title=None, aspect=None):
     """
     Draws simulation result and (optionally) shows the plot.
     :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
@@ -197,21 +199,30 @@ def plot_simulation_result(result, intensity_min=None, intensity_max=None, units
     :param intensity_max: Max value on amplitude's axis or color bar
     :param units: units for plot axes
     :param postpone_show: postpone showing the plot for later tuning (False by default)
+    :param aspect: aspect ratio, 'auto' (default) or 'equal'
     """
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
         plot_specular_simulation_result(result, intensity_min, intensity_max, units)
     else:
-        plot_colormap(result, intensity_min, intensity_max, units)
+        plot_colormap(result, intensity_min, intensity_max, units, xlabel, ylabel,
+                      title=title, aspect=aspect)
     plt.tight_layout()
     if not postpone_show:
         plt.show()
 
 
 class Plotter:
-    def __init__(self):
+    def __init__(self, zmin=None, zmax=None, xlabel=None, ylabel=None,
+                 units=ba.AxesUnits.DEFAULT, aspect=None):
 
         self._fig = plt.figure(figsize=(10.25, 7.69))
         self._fig.canvas.draw()
+        self._zmin = zmin
+        self._zmax = zmax
+        self._xlabel = xlabel
+        self._ylabel = ylabel
+        self._units = units
+        self._aspect = aspect
 
     def reset(self):
         self._fig.clf()
@@ -222,54 +233,9 @@ class Plotter:
 
 
 class PlotterGISAS(Plotter):
-    def __init__(self):
-        Plotter.__init__(self)
-
-    @staticmethod
-    def make_subplot(nplot):
-        plt.subplot(2, 2, nplot)
-        plt.subplots_adjust(wspace=0.2, hspace=0.2)
-
-    def plot(self, fit_suite):
-        Plotter.reset(self)
-
-        real_data = fit_suite.experimentalData()
-        sim_data = fit_suite.simulationResult()
-        diff = fit_suite.relativeDifference()
-
-        self.make_subplot(1)
-
-        # same limits for both plots
-        arr = real_data.array()
-        zmax = np.amax(arr)
-        zmin = zmax*1e-6
-
-        plot_colormap(real_data, title="Experimental data", zmin=zmin, zmax=zmax,
-                      xlabel='', ylabel='', zlabel='')
-
-        self.make_subplot(2)
-        plot_colormap(sim_data, title="Simulated data", zmin=zmin, zmax=zmax,
-                      xlabel='', ylabel='', zlabel='')
-
-        self.make_subplot(3)
-        plot_colormap(diff, title="Relative difference", zmin=0.001, zmax=10.0,
-                       xlabel='', ylabel='', zlabel='')
-
-        self.make_subplot(4)
-        plt.title('Parameters')
-        plt.axis('off')
-        plt.text(0.01, 0.85, "Iterations  " + '{:d}     {:s}'.
-                 format(fit_suite.numberOfIterations(), fit_suite.minimizerName()))
-        plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(fit_suite.getChi2()))
-        for index, fitPar in enumerate(fit_suite.fitParameters()):
-            plt.text(0.01, 0.55 - index * 0.1, '{:30.30s}: {:6.3f}'.format(fitPar.name(), fitPar.value()))
-
-        Plotter.plot(self)
-
-
-class PlotterGISASV2(Plotter):
-    def __init__(self):
-        Plotter.__init__(self)
+    def __init__(self, zmin=None, zmax=None, xlabel=None, ylabel=None,
+                 units=ba.AxesUnits.DEFAULT, aspect=None):
+        Plotter.__init__(self, zmin, zmax, xlabel, ylabel, units, aspect)
 
     @staticmethod
     def make_subplot(nplot):
@@ -287,19 +253,22 @@ class PlotterGISASV2(Plotter):
 
         # same limits for both plots
         arr = real_data.array()
-        zmax = np.amax(arr)
-        zmin = zmax*1e-6
+        zmax = np.amax(arr) if self._zmax is None else self._zmax
+        zmin = zmax*1e-6 if self._zmin is None else self._zmin
 
         ba.plot_colormap(real_data, title="Experimental data", zmin=zmin, zmax=zmax,
-                      xlabel='', ylabel='', zlabel='')
+                         units=self._units, xlabel=self._xlabel, ylabel=self._ylabel,
+                         zlabel='', aspect=self._aspect)
 
         self.make_subplot(2)
         ba.plot_colormap(sim_data, title="Simulated data", zmin=zmin, zmax=zmax,
-                      xlabel='', ylabel='', zlabel='')
+                         units=self._units, xlabel=self._xlabel, ylabel=self._ylabel,
+                         zlabel='', aspect=self._aspect)
 
         self.make_subplot(3)
         ba.plot_colormap(diff, title="Relative difference", zmin=0.001, zmax=10.0,
-                       xlabel='', ylabel='', zlabel='')
+                         units=self._units, xlabel=self._xlabel, ylabel=self._ylabel,
+                         zlabel='', aspect=self._aspect)
 
         self.make_subplot(4)
         plt.title('Parameters')

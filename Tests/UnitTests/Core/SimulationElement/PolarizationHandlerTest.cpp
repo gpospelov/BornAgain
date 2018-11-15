@@ -95,14 +95,10 @@ TEST_F(PolarizationHandlerTest, CopyMoveAssign)
 
     EXPECT_EQ(test_matrix, handler4.getPolarization());
     EXPECT_EQ(test_matrix, handler4.getAnalyzerOperator());
-    EXPECT_NE(test_matrix, handler.getPolarization());
-    EXPECT_NE(test_matrix, handler.getAnalyzerOperator());
 
     PolarizationHandler handler5;
     handler5 = std::move(handler2);
 
     EXPECT_EQ(test_matrix, handler5.getPolarization());
     EXPECT_EQ(test_matrix, handler5.getAnalyzerOperator());
-    EXPECT_NE(test_matrix, handler2.getPolarization());
-    EXPECT_NE(test_matrix, handler2.getAnalyzerOperator());
 }

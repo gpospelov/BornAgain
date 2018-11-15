@@ -44,7 +44,7 @@ class MsgLogger : public std::ostringstream, public TObject
 
 public:
     MsgLogger(const std::string& source, EMsgType minType = kINFO)
-        : fStrSource(source), fminType(minType)
+        : fStrSource(source)
     {
     }
 
@@ -64,7 +64,6 @@ public:
 
 private:
     std::string fStrSource;
-    EMsgType fminType;
 };
 
 inline MsgLogger& MsgLogger::operator<<(MsgLogger& (*_f)(MsgLogger&)) { return (_f)(*this); }

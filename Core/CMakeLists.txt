@@ -150,8 +150,8 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 target_link_libraries(${library_name} ${BornAgainFit_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
 
 if(BORNAGAIN_TIFF_SUPPORT)
-    add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
-    include_directories(${TIFF_INCLUDE_DIR})
+    target_compile_definitions(${library_name} PUBLIC -DBORNAGAIN_TIFF_SUPPORT)
+    target_include_directories(${library_name} PUBLIC ${TIFF_INCLUDE_DIR})
     target_link_libraries(${library_name} ${TIFF_LIBRARIES})
 endif()
 

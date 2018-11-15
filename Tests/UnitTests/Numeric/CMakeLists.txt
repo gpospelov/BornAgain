@@ -11,6 +11,10 @@ if(POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
 endif()
 
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGTEST_LINKED_AS_SHARED_LIBRARY=1")
+endif()
+
 include_directories(${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities)
 
 file(GLOB source_files "*.cpp" "../utilities/TestAll.cpp")

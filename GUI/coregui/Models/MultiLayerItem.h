@@ -25,6 +25,8 @@ public:
     static const QString T_LAYERS;
     MultiLayerItem();
 
+    QVector<SessionItem*> materialPropertyItems();
+
 private:
     void updateLayers();
 };

@@ -140,11 +140,13 @@ void RealDataItem::setImportData(ImportDataInfo data) {
     const size_t data_rank = data.dataRank();
     initDataItem(data_rank, T_INTENSITY_DATA);
     initDataItem(data_rank, T_NATIVE_DATA);
-    dataItem()->reset(data);
 
     QString units_name = data.unitsLabel();
+    auto output_data = data.intensityData();
+
+    dataItem()->reset(std::move(data));
     getItem(P_NATIVE_UNITS)->setValue(units_name);
-    item<DataItem>(T_NATIVE_DATA).setOutputData(data.intensityData().release());
+    item<DataItem>(T_NATIVE_DATA).setOutputData(output_data.release());
 }
 
 bool RealDataItem::holdsDimensionalData() const

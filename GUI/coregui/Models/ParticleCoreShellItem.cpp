@@ -84,3 +84,15 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
     TransformToDomain::setTransformationInfo(P_coreshell.get(), *this);
     return P_coreshell;
 }
+
+QVector<SessionItem*> ParticleCoreShellItem::materialPropertyItems()
+{
+    QVector<SessionItem*> result;
+    if (auto core = static_cast<ParticleItem*>(getItem(T_CORE)))
+        result.append(core->materialPropertyItems());
+
+    if (auto shell = static_cast<ParticleItem*>(getItem(T_SHELL)))
+        result.append(shell->materialPropertyItems());
+
+    return result;
+}

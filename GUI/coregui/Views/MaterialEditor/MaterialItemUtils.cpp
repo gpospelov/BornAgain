@@ -13,19 +13,33 @@
 // ************************************************************************** //
 
 #include "MaterialItemUtils.h"
-#include "MaterialDataItems.h"
+#include "AppSvc.h"
 #include "ComboProperty.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
-#include "Material.h"
-#include "MaterialModel.h"
-#include "ParticleItem.h"
 #include "LayerItem.h"
+#include "Material.h"
+#include "MaterialDataItems.h"
 #include "MaterialEditorDialog.h"
-#include "AppSvc.h"
 #include "MaterialItem.h"
+#include "MaterialItemContainer.h"
+#include "MaterialModel.h"
+#include "MesoCrystalItem.h"
+#include "ParticleCompositionItem.h"
+#include "ParticleCoreShellItem.h"
+#include "ParticleDistributionItem.h"
+#include "ParticleItem.h"
+#include "ParticleLayoutItem.h"
 #include <QColorDialog>
 
+namespace
+{
+const std::map<QString, QString> tag_map = {
+    {Constants::ParticleCompositionType, ParticleCompositionItem::T_PARTICLES},
+    {Constants::ParticleDistributionType, ParticleDistributionItem::T_PARTICLES},
+    {Constants::ParticleLayoutType, ParticleLayoutItem::T_PARTICLES},
+    {Constants::MesoCrystalType, MesoCrystalItem::T_BASIS_PARTICLE}};
+}
 
 QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
 {
@@ -61,18 +75,34 @@ ExternalProperty MaterialItemUtils::defaultMaterialProperty()
 std::unique_ptr<Material>
 MaterialItemUtils::createDomainMaterial(const ExternalProperty &material_property)
 {
+    MaterialItem* materialItem = findMaterial(material_property);
+    return materialItem->createMaterial();
+}
+
+std::unique_ptr<Material>
+MaterialItemUtils::createDomainMaterial(const ExternalProperty& material_property,
+                                        const MaterialItemContainer& container)
+{
+    const MaterialItem* material_item = container.findMaterialById(material_property.identifier());
+    if (!material_item)
+        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't find "
+                                "material with name '"
+                                + material_property.text() + "'.");
+    return material_item->createMaterial();
+}
+
+MaterialItem* MaterialItemUtils::findMaterial(const ExternalProperty& material_property)
+{
     if (!AppSvc::materialModel())
-        throw GUIHelpers::Error("MaterialItemUtils::createDomainMaterial() -> Error. "
+        throw GUIHelpers::Error("MaterialItemUtils::findMaterial() -> Error. "
                                 "Attempt to access non-existing material model");
 
-    MaterialItem *materialItem
-        = AppSvc::materialModel()->materialFromIdentifier(material_property.identifier());
+    auto material = AppSvc::materialModel()->materialFromIdentifier(material_property.identifier());
 
-    if(!materialItem)
-        throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't create "
+    if(!material)
+        throw GUIHelpers::Error("MaterialUtils::findMaterial() -> Error. Can't find "
                                 "material with name '"+material_property.text()+"'.");
-
-    return materialItem->createMaterial();
+    return material;
 }
 
 //! Returns material tag for given item. Returns empty string, if item doesn't have materials.
@@ -141,4 +171,32 @@ ExternalProperty MaterialItemUtils::selectColorProperty(const ExternalProperty& 
         result = MaterialItemUtils::colorProperty(QColor::fromRgba(newRgba));
 
     return result;
+}
+
+QVector<SessionItem*> MaterialItemUtils::materialPropertyItems(SessionItem* item)
+{
+    QVector<SessionItem*> materials;
+    QList<SessionItem*> particle_holders{item};
+    while (!particle_holders.isEmpty()) {
+        auto item = particle_holders.takeFirst();
+        if (!item)
+            continue;
+
+        const QString model_type = item->modelType();
+        auto iter = tag_map.find(model_type);
+        if (iter != tag_map.end()) {
+            particle_holders.append(QList<SessionItem*>::fromVector(item->getItems(iter->second)));
+            continue;
+        }
+
+        if (model_type == Constants::ParticleType)
+            materials.append(static_cast<ParticleItem*>(item)->materialPropertyItems());
+        else if (model_type == Constants::ParticleCoreShellType)
+            materials.append(static_cast<ParticleCoreShellItem*>(item)->materialPropertyItems());
+        else
+            throw GUIHelpers::Error(
+                "Error in MaterialItemUtils::materialProperties: cannot handle passed model type '"
+                + model_type + "'");
+    }
+    return materials;
 }

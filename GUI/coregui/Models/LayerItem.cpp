@@ -57,6 +57,16 @@ LayerItem::LayerItem()
 
 }
 
+QVector<SessionItem*> LayerItem::materialPropertyItems()
+{
+    QVector<SessionItem*> result;
+    if (auto property = getItem(LayerItem::P_MATERIAL))
+        result.push_back(property);
+    for (auto layout : getItems(LayerItem::T_LAYOUTS))
+        result.append(MaterialItemUtils::materialPropertyItems(layout));
+    return result;
+}
+
 void LayerItem::updateAppearance(SessionItem* new_parent)
 {
     if (!new_parent) {

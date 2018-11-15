@@ -29,10 +29,14 @@
 #include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "JobModel.h"
+#include "MaterialItemContainer.h"
+#include "MaterialItemUtils.h"
 #include "MaskItems.h"
 #include "MaskUnitsConverter.h"
+#include "MultiLayerItem.h"
 #include "PointwiseAxisItem.h"
 #include "RealDataItem.h"
+#include <map>
 
 namespace
 {
@@ -79,6 +83,33 @@ void JobModelFunctions::initDataView(JobItem* job_item)
     auto converter = DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
     view_item->setItemValue(Data1DViewItem::P_AXES_UNITS,
                             JobItemUtils::availableUnits(*converter).variant());
+}
+
+void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLayerItem* sampleItem)
+{
+    auto model = jobItem->model();
+    MultiLayerItem* multilayer =
+        static_cast<MultiLayerItem*>(model->copyItem(sampleItem, jobItem, JobItem::T_SAMPLE));
+    multilayer->setItemName(Constants::MultiLayerType);
+
+    // copying materials
+    auto container = static_cast<MaterialItemContainer*>(jobItem->model()->insertNewItem(
+        Constants::MaterialContainerType, jobItem->index(), -1, JobItem::T_MATERIAL_CONTAINER));
+
+    std::map<MaterialItem*, QString> materials;
+    for (auto property_item: multilayer->materialPropertyItems()) {
+        auto material_property = property_item->value().value<ExternalProperty>();
+        auto material = MaterialItemUtils::findMaterial(material_property);
+
+        auto iter = materials.find(material);
+        if (iter == materials.end()) {
+            auto material_copy = container->insertCopy(material);
+            materials.insert({material, material_copy->identifier()});
+            material_property.setIdentifier(material_copy->identifier());
+        } else
+            material_property.setIdentifier(iter->second);
+        property_item->setValue(material_property.variant());
+    }
 }
 
 void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
@@ -168,6 +199,13 @@ void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* r
         realDataItem->nativeData()->getOutputData()->clone());
     realDataItemCopy->nativeData()->setItemValue(
         DataItem::P_FILE_NAME, ItemFileNameUtils::jobNativeDataFileName(*jobItem));
+}
+
+const JobItem* JobModelFunctions::findJobItem(const SessionItem* item)
+{
+    while (item && item->modelType() != Constants::JobItemType)
+        item = item->parent();
+    return static_cast<const JobItem*>(item);
 }
 
 namespace {

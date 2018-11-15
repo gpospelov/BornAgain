@@ -84,8 +84,7 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     jobItem->setItemName(generateJobName());
     jobItem->setIdentifier(GUIHelpers::createUuid());
 
-    SessionItem *multilayer = copyItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
-    multilayer->setItemName(Constants::MultiLayerType);
+    JobModelFunctions::setupJobItemSampleData(jobItem, multiLayerItem);
     JobModelFunctions::setupJobItemInstrument(jobItem, instrumentItem);
     copyItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 

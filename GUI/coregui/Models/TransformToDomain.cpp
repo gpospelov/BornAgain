@@ -31,6 +31,8 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionItems.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "JobItem.h"
+#include "JobModelFunctions.h"
 #include "Lattice2DItems.h"
 #include "LayerItem.h"
 #include "LayerRoughnessItems.h"
@@ -65,11 +67,16 @@ void setParameterDistributionToSimulation(const std::string& parameter_name,
                                           const SessionItem* item, Simulation& simulation);
 }
 
-std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
+std::unique_ptr<Material>
+TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
+    auto parent_job = JobModelFunctions::findJobItem(&item);
+    const MaterialItemContainer* container =
+        parent_job ? parent_job->materialContainerItem() : nullptr;
     QString tag = MaterialItemUtils::materialTag(item);
     ExternalProperty property = item.getItemValue(tag).value<ExternalProperty>();
-    return MaterialItemUtils::createDomainMaterial(property);
+    return container ? MaterialItemUtils::createDomainMaterial(property, *container)
+                     : MaterialItemUtils::createDomainMaterial(property);
 }
 
 std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem& item)

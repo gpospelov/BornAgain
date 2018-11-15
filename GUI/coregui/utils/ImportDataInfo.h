@@ -35,7 +35,8 @@ public:
 
     operator bool() const;
 
-    std::unique_ptr<OutputData<double>> intensityData() const;
+    std::unique_ptr<OutputData<double>> intensityData() const &;
+    std::unique_ptr<OutputData<double>> intensityData() &&;
     size_t dataRank() const;
     QString unitsLabel() const;
     QString axisLabel(size_t axis_index) const;

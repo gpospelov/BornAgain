@@ -21,6 +21,7 @@
 #include "IntensityDataItem.h"
 #include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
+#include "MaterialItemContainer.h"
 #include "MaskUnitsConverter.h"
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
@@ -41,6 +42,7 @@ const QString JobItem::P_COMMENTS = "Comments";
 const QString JobItem::P_PROGRESS = "Progress";
 const QString JobItem::P_PRESENTATION_TYPE = "Presentation Type";
 const QString JobItem::T_SAMPLE = "Sample Tag";
+const QString JobItem::T_MATERIAL_CONTAINER = "Material Container";
 const QString JobItem::T_INSTRUMENT = "Instrument Tag";
 const QString JobItem::T_OUTPUT = "Output Tag";
 const QString JobItem::T_REALDATA = "Real Data Tag";
@@ -71,6 +73,7 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     addProperty(P_PRESENTATION_TYPE, QVariant::Type::Invalid)->setVisible(false);
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
+    registerTag(T_MATERIAL_CONTAINER, 1, 1, QStringList{Constants::MaterialContainerType});
     registerTag(T_INSTRUMENT, 1, 1,
                 QStringList() << Constants::GISASInstrumentType
                               << Constants::OffSpecInstrumentType
@@ -256,6 +259,11 @@ FitParameterContainerItem* JobItem::fitParameterContainerItem()
 RealDataItem* JobItem::realDataItem()
 {
     return dynamic_cast<RealDataItem*>(getItem(JobItem::T_REALDATA));
+}
+
+const MaterialItemContainer* JobItem::materialContainerItem() const
+{
+    return static_cast<MaterialItemContainer*>(getItem(JobItem::T_MATERIAL_CONTAINER));
 }
 
 Data1DViewItem* JobItem::dataItemView()

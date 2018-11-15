@@ -43,7 +43,7 @@ class MsgLogger : public std::ostringstream, public TObject
 {
 
 public:
-    MsgLogger(const std::string& source, EMsgType minType = kINFO)
+    MsgLogger(const std::string& source)
         : fStrSource(source)
     {
     }

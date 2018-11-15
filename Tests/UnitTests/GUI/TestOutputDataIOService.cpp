@@ -18,11 +18,6 @@
 #include <QTest>
 #include <memory>
 
-namespace {
-const int nxsize = 5;
-const int nysize = 10;
-}
-
 class TestOutputDataIOService : public ::testing::Test
 {
 public:

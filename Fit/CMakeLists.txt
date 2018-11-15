@@ -110,7 +110,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 # --- dependencies ---------
 target_include_directories(${library_name} PUBLIC ${RootMinimizers_INCLUDE_DIRS})
 target_include_directories(${library_name} PUBLIC ${include_dirs})
-target_link_libraries(${library_name} ${RootMinimizers_LIBRARY})
+target_link_libraries(${library_name} ${RootMinimizers_LIBRARY}  ${Boost_LIBRARIES})
 
 if(BORNAGAIN_PYTHON)
     include_directories(${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR})

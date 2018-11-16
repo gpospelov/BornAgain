@@ -31,6 +31,9 @@ public:
 
     //! Evaluates the peak shape at displacement q from the center at 0
     virtual double evaluate(const kvector_t q) const=0;
+
+    //! Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
+    virtual double evaluate(const kvector_t q, const kvector_t q_lattice_point) const=0;
 };
 
 
@@ -49,6 +52,7 @@ public:
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     double evaluate(const kvector_t q) const override;
+    double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 private:
     double m_max_intensity;
     double m_domainsize;
@@ -69,6 +73,7 @@ public:
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     double evaluate(const kvector_t q) const override;
+    double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 private:
     double m_max_intensity;
     double m_domainsize;

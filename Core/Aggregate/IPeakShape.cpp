@@ -36,6 +36,11 @@ double GaussPeakShape::evaluate(const kvector_t q) const
     return m_max_intensity * std::exp(exponent);
 }
 
+double GaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
+    return evaluate(q - q_lattice_point);
+}
+
 LorentzPeakShape::LorentzPeakShape(double max_intensity, double domainsize)
     : m_max_intensity(max_intensity)
     , m_domainsize(domainsize)
@@ -53,4 +58,9 @@ double LorentzPeakShape::evaluate(const kvector_t q) const
     double q_norm = q.mag2();
     double lorentz = 1.0 / (1.0 + m_domainsize*m_domainsize*q_norm);
     return m_max_intensity * lorentz * lorentz;
+}
+
+double LorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
+    return evaluate(q - q_lattice_point);
 }

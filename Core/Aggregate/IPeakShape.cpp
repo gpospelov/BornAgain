@@ -15,6 +15,12 @@
 #include "IPeakShape.h"
 #include "MathConstants.h"
 
+#include <limits>
+
+namespace {
+double KentDistribution(double x, double kappa);
+}
+
 IPeakShape::~IPeakShape() =default;
 
 IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
@@ -86,13 +92,22 @@ double GaussKentPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice
     double radial_part = m_max_intensity * std::exp(-dq2*m_radial_size*m_radial_size/2.0);
     double angular_part = 1.0;
     if (q_r*q_lat_r > 0.0) {
-        if (m_kappa>0.0) {
-            double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
-            double prefactor = m_kappa/(4.0*M_PI*std::sinh(m_kappa));
-            angular_part = prefactor * std::exp(m_kappa*dot_norm);
-        } else {
-            angular_part = 1.0/(4.0*M_PI);
-        }
+        double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
+        angular_part = KentDistribution(dot_norm, m_kappa);
     }
     return radial_part*angular_part;
+}
+
+namespace {
+double KentDistribution(double x, double kappa) {
+    static double maxkappa = std::log(1.0/std::numeric_limits<double>::epsilon())/2.0;
+    if (kappa<=0.0) {
+        return 1.0/(4.0*M_PI);
+    }
+    double prefactor = kappa / (4.0*M_PI);
+    if (kappa>maxkappa) {
+        return 2.0*prefactor*std::exp(kappa*(x-1.0));
+    }
+    return prefactor*std::exp(kappa*x)/std::sinh(kappa);
+}
 }

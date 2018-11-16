@@ -19366,16 +19366,16 @@ class IPeakShape(ISample):
         return _libBornAgainCore.IPeakShape_clone(self)
 
 
-    def evaluate(self, q):
+    def evaluate(self, q, q_lattice_point):
         """
-        evaluate(IPeakShape self, kvector_t q) -> double
+        evaluate(IPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
 
         virtual double IPeakShape::evaluate(const kvector_t q) const =0
 
         Evaluates the peak shape at displacement q from the center at 0. 
 
         """
-        return _libBornAgainCore.IPeakShape_evaluate(self, q)
+        return _libBornAgainCore.IPeakShape_evaluate(self, q, q_lattice_point)
 
 IPeakShape_swigregister = _libBornAgainCore.IPeakShape_swigregister
 IPeakShape_swigregister(IPeakShape)
@@ -19439,16 +19439,16 @@ class GaussPeakShape(IPeakShape):
         return _libBornAgainCore.GaussPeakShape_accept(self, visitor)
 
 
-    def evaluate(self, q):
+    def evaluate(self, q, q_lattice_point):
         """
-        evaluate(GaussPeakShape self, kvector_t q) -> double
+        evaluate(GaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
 
         double GaussPeakShape::evaluate(const kvector_t q) const override
 
         Evaluates the peak shape at displacement q from the center at 0. 
 
         """
-        return _libBornAgainCore.GaussPeakShape_evaluate(self, q)
+        return _libBornAgainCore.GaussPeakShape_evaluate(self, q, q_lattice_point)
 
 GaussPeakShape_swigregister = _libBornAgainCore.GaussPeakShape_swigregister
 GaussPeakShape_swigregister(GaussPeakShape)
@@ -19500,16 +19500,16 @@ class LorentzPeakShape(IPeakShape):
         return _libBornAgainCore.LorentzPeakShape_accept(self, visitor)
 
 
-    def evaluate(self, q):
+    def evaluate(self, q, q_lattice_point):
         """
-        evaluate(LorentzPeakShape self, kvector_t q) -> double
+        evaluate(LorentzPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
 
         virtual double IPeakShape::evaluate(const kvector_t q) const =0
 
         Evaluates the peak shape at displacement q from the center at 0. 
 
         """
-        return _libBornAgainCore.LorentzPeakShape_evaluate(self, q)
+        return _libBornAgainCore.LorentzPeakShape_evaluate(self, q, q_lattice_point)
 
 LorentzPeakShape_swigregister = _libBornAgainCore.LorentzPeakShape_swigregister
 LorentzPeakShape_swigregister(LorentzPeakShape)

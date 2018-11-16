@@ -63,7 +63,7 @@ double InterferenceFunction3DLattice::evaluate(const kvector_t q) const
     auto rec_vectors = m_lattice.reciprocalLatticeVectorsWithinRadius(q, radius);
     double result = 0.0;
     for (const auto& q_rec : rec_vectors) {
-        result += mP_peak_shape->evaluate(q - q_rec)*DebyeWallerFactor(q_rec, m_dw_length);
+        result += mP_peak_shape->evaluate(q, q_rec)*DebyeWallerFactor(q_rec, m_dw_length);
     }
     return result;
 }

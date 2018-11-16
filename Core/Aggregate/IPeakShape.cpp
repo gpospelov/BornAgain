@@ -48,7 +48,7 @@ IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, doubl
 
 IsotropicLorentzPeakShape::~IsotropicLorentzPeakShape() =default;
 
-IsotropicLorentzPeakShape *IsotropicLorentzPeakShape::clone() const
+IsotropicLorentzPeakShape* IsotropicLorentzPeakShape::clone() const
 {
     return new IsotropicLorentzPeakShape(m_max_intensity, m_domainsize);
 }
@@ -63,4 +63,36 @@ double IsotropicLorentzPeakShape::evaluate(const kvector_t q) const
 double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
 {
     return evaluate(q - q_lattice_point);
+}
+
+GaussKentPeakShape::GaussKentPeakShape(double max_intensity, double radial_size, double kappa)
+    : m_max_intensity(max_intensity)
+    , m_radial_size(radial_size)
+    , m_kappa(kappa)
+{}
+
+GaussKentPeakShape::~GaussKentPeakShape() =default;
+
+GaussKentPeakShape* GaussKentPeakShape::clone() const
+{
+    return new GaussKentPeakShape(m_max_intensity, m_radial_size, m_kappa);
+}
+
+double GaussKentPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
+    double q_r = q.mag();
+    double q_lat_r = q_lattice_point.mag();
+    double dq2 = (q_r - q_lat_r)*(q_r - q_lat_r);
+    double radial_part = m_max_intensity * std::exp(-dq2*m_radial_size*m_radial_size/2.0);
+    double angular_part = 1.0;
+    if (q_r*q_lat_r > 0.0) {
+        if (m_kappa>0.0) {
+            double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
+            double prefactor = m_kappa/(4.0*M_PI*std::sinh(m_kappa));
+            angular_part = prefactor * std::exp(m_kappa*dot_norm);
+        } else {
+            angular_part = 1.0/(4.0*M_PI);
+        }
+    }
+    return radial_part*angular_part;
 }

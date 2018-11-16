@@ -9,6 +9,7 @@ int main(int argc, char** argv) {
 
     Comparators::registerComparators();
     qRegisterMetaType<QAbstractItemModel::LayoutChangeHint>("LayoutChangeHint");
+    qRegisterMetaType<QList<QPersistentModelIndex>>("QList<QPersistentModelIndex>");
 
     ::testing::InitGoogleTest(&argc, argv);
 

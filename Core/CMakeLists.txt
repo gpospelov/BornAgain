@@ -4,10 +4,6 @@
 
 set(library_name BornAgainCore)
 
-if(POLICY CMP0042)
-    cmake_policy(SET CMP0042 NEW)
-endif()
-
 if(BORNAGAIN_TIDY)
 #    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,readability-*,-readability-braces-around-statements")
     set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,clang-analyzer-*,readability-*,-readability-braces-around-statements,modernize-*")
@@ -150,14 +146,15 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 target_link_libraries(${library_name} ${BornAgainFit_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
 
 if(BORNAGAIN_TIFF_SUPPORT)
-    add_definitions(-DBORNAGAIN_TIFF_SUPPORT)
-    include_directories(${TIFF_INCLUDE_DIR})
+    target_compile_definitions(${library_name} PUBLIC -DBORNAGAIN_TIFF_SUPPORT)
+    target_include_directories(${library_name} PUBLIC ${TIFF_INCLUDE_DIR})
     target_link_libraries(${library_name} ${TIFF_LIBRARIES})
 endif()
 
-include_as_system_directory("${EIGEN3_INCLUDE_DIR}")
-include_directories(${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
-    ${GSL_INCLUDE_DIR} ${Faddeeva_INCLUDE_DIR})
+target_include_directories(${library_name} PUBLIC ${include_dirs})
+target_include_directories(${library_name} SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
+target_include_directories(${library_name} PUBLIC ${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
+    ${GSL_INCLUDE_DIR} PRIVATE ${Faddeeva_INCLUDE_DIR})
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW_LIBRARY} ${GSL_LIBRARIES}
     ${Faddeeva_LIBRARY})
 

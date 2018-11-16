@@ -19,7 +19,7 @@
 
 using namespace Fit;
 
-TestMinimizer::TestMinimizer() : m_min_value(0) {}
+TestMinimizer::TestMinimizer() {}
 
 TestMinimizer::~TestMinimizer() = default;
 

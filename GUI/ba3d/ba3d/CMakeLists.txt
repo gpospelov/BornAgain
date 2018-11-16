@@ -14,3 +14,4 @@ add_library (${lib} STATIC ${source_files} ${include_files} ${RC_SHADERS})
 target_link_libraries (${lib}
   Qt5::Core Qt5::Widgets Qt5::OpenGL
 )
+

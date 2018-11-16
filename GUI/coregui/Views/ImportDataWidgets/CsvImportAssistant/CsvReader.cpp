@@ -9,7 +9,7 @@ std::string const& CSVRow::operator[](unsigned index) const
 
 unsigned long CSVRow::size() const
 {
-    return m_data.size();
+    return static_cast<unsigned long>(m_data.size());
 }
 
 void CSVRow::readNextRow(std::istream& str)
@@ -83,7 +83,7 @@ std::vector<std::string> const CSVFile::operator[](unsigned index_i) const
 
 unsigned long CSVFile::NumberOfRows() const
 {
-    return rows.size();
+    return static_cast<unsigned long>(rows.size());
 }
 
 unsigned long CSVFile::NumberOfColumns() const

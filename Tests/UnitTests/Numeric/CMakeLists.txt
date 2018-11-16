@@ -3,13 +3,11 @@
 ############################################################################
 set(test UnitTestNumeric)
 
-if(POLICY CMP0020)
-    cmake_policy(SET CMP0020 NEW)
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGTEST_LINKED_AS_SHARED_LIBRARY=1")
 endif()
 
-if(POLICY CMP0043)
-    cmake_policy(SET CMP0043 NEW)
-endif()
+include_directories(${CMAKE_SOURCE_DIR}/Tests/UnitTests/utilities)
 
 file(GLOB source_files "*.cpp" "../utilities/TestAll.cpp")
 file(GLOB include_files "*.h")
@@ -18,5 +16,5 @@ add_executable(${test} ${source_files} ${include_files})
 target_link_libraries(${test} ${BornAgainCore_LIBRARY} gtest)
 
 # Registering in ctest section
-add_test(${test} ${test})
+add_test(${test} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test})
 set_tests_properties(${test} PROPERTIES LABELS "Fullcheck")

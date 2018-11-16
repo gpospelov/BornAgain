@@ -19380,139 +19380,127 @@ class IPeakShape(ISample):
 IPeakShape_swigregister = _libBornAgainCore.IPeakShape_swigregister
 IPeakShape_swigregister(IPeakShape)
 
-class GaussPeakShape(IPeakShape):
-    """
-
-
-    Class that implements a Gaussian peak shape of a Bragg peak.
-
-    C++ includes: IPeakShape.h
-
-    """
+class IsotropicGaussPeakShape(IPeakShape):
+    """Proxy of C++ IsotropicGaussPeakShape class."""
 
     __swig_setmethods__ = {}
     for _s in [IPeakShape]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, GaussPeakShape, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IsotropicGaussPeakShape, name, value)
     __swig_getmethods__ = {}
     for _s in [IPeakShape]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, GaussPeakShape, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, IsotropicGaussPeakShape, name)
     __repr__ = _swig_repr
 
     def __init__(self, max_intensity, domainsize):
-        """
-        __init__(GaussPeakShape self, double max_intensity, double domainsize) -> GaussPeakShape
-
-        GaussPeakShape::GaussPeakShape(double domainsize)
-
-        """
-        this = _libBornAgainCore.new_GaussPeakShape(max_intensity, domainsize)
+        """__init__(IsotropicGaussPeakShape self, double max_intensity, double domainsize) -> IsotropicGaussPeakShape"""
+        this = _libBornAgainCore.new_IsotropicGaussPeakShape(max_intensity, domainsize)
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_GaussPeakShape
+    __swig_destroy__ = _libBornAgainCore.delete_IsotropicGaussPeakShape
     __del__ = lambda self: None
 
     def clone(self):
         """
-        clone(GaussPeakShape self) -> GaussPeakShape
-
-        GaussPeakShape * GaussPeakShape::clone() const override
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.GaussPeakShape_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(GaussPeakShape self, INodeVisitor visitor)
-
-        void GaussPeakShape::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.GaussPeakShape_accept(self, visitor)
-
-
-    def evaluate(self, q, q_lattice_point):
-        """
-        evaluate(GaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
-
-        double GaussPeakShape::evaluate(const kvector_t q) const override
-
-        Evaluates the peak shape at displacement q from the center at 0. 
-
-        """
-        return _libBornAgainCore.GaussPeakShape_evaluate(self, q, q_lattice_point)
-
-GaussPeakShape_swigregister = _libBornAgainCore.GaussPeakShape_swigregister
-GaussPeakShape_swigregister(GaussPeakShape)
-
-class LorentzPeakShape(IPeakShape):
-    """Proxy of C++ LorentzPeakShape class."""
-
-    __swig_setmethods__ = {}
-    for _s in [IPeakShape]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, LorentzPeakShape, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IPeakShape]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, LorentzPeakShape, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, max_intensity, domainsize):
-        """__init__(LorentzPeakShape self, double max_intensity, double domainsize) -> LorentzPeakShape"""
-        this = _libBornAgainCore.new_LorentzPeakShape(max_intensity, domainsize)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_LorentzPeakShape
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(LorentzPeakShape self) -> LorentzPeakShape
+        clone(IsotropicGaussPeakShape self) -> IsotropicGaussPeakShape
 
         virtual IPeakShape* IPeakShape::clone() const =0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.LorentzPeakShape_clone(self)
+        return _libBornAgainCore.IsotropicGaussPeakShape_clone(self)
 
 
     def accept(self, visitor):
         """
-        accept(LorentzPeakShape self, INodeVisitor visitor)
+        accept(IsotropicGaussPeakShape self, INodeVisitor visitor)
 
         virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.LorentzPeakShape_accept(self, visitor)
+        return _libBornAgainCore.IsotropicGaussPeakShape_accept(self, visitor)
 
 
     def evaluate(self, q, q_lattice_point):
         """
-        evaluate(LorentzPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        evaluate(IsotropicGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
 
         virtual double IPeakShape::evaluate(const kvector_t q) const =0
 
         Evaluates the peak shape at displacement q from the center at 0. 
 
         """
-        return _libBornAgainCore.LorentzPeakShape_evaluate(self, q, q_lattice_point)
+        return _libBornAgainCore.IsotropicGaussPeakShape_evaluate(self, q, q_lattice_point)
 
-LorentzPeakShape_swigregister = _libBornAgainCore.LorentzPeakShape_swigregister
-LorentzPeakShape_swigregister(LorentzPeakShape)
+IsotropicGaussPeakShape_swigregister = _libBornAgainCore.IsotropicGaussPeakShape_swigregister
+IsotropicGaussPeakShape_swigregister(IsotropicGaussPeakShape)
+
+class IsotropicLorentzPeakShape(IPeakShape):
+    """Proxy of C++ IsotropicLorentzPeakShape class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IsotropicLorentzPeakShape, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IsotropicLorentzPeakShape, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, domainsize):
+        """__init__(IsotropicLorentzPeakShape self, double max_intensity, double domainsize) -> IsotropicLorentzPeakShape"""
+        this = _libBornAgainCore.new_IsotropicLorentzPeakShape(max_intensity, domainsize)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IsotropicLorentzPeakShape
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IsotropicLorentzPeakShape self) -> IsotropicLorentzPeakShape
+
+        virtual IPeakShape* IPeakShape::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IsotropicLorentzPeakShape_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(IsotropicLorentzPeakShape self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IsotropicLorentzPeakShape_accept(self, visitor)
+
+
+    def evaluate(self, q, q_lattice_point):
+        """
+        evaluate(IsotropicLorentzPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+
+        virtual double IPeakShape::evaluate(const kvector_t q) const =0
+
+        Evaluates the peak shape at displacement q from the center at 0. 
+
+        """
+        return _libBornAgainCore.IsotropicLorentzPeakShape_evaluate(self, q, q_lattice_point)
+
+IsotropicLorentzPeakShape_swigregister = _libBornAgainCore.IsotropicLorentzPeakShape_swigregister
+IsotropicLorentzPeakShape_swigregister(IsotropicLorentzPeakShape)
 
 class IResolutionFunction2D(ICloneable, INode):
     """

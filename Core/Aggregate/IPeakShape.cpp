@@ -17,50 +17,50 @@
 
 IPeakShape::~IPeakShape() =default;
 
-GaussPeakShape::GaussPeakShape(double max_intensity, double domainsize)
+IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
     : m_max_intensity(max_intensity)
     , m_domainsize(domainsize)
 {}
 
-GaussPeakShape::~GaussPeakShape() =default;
+IsotropicGaussPeakShape::~IsotropicGaussPeakShape() =default;
 
-GaussPeakShape* GaussPeakShape::clone() const
+IsotropicGaussPeakShape* IsotropicGaussPeakShape::clone() const
 {
-    return new GaussPeakShape(m_max_intensity, m_domainsize);
+    return new IsotropicGaussPeakShape(m_max_intensity, m_domainsize);
 }
 
-double GaussPeakShape::evaluate(const kvector_t q) const
+double IsotropicGaussPeakShape::evaluate(const kvector_t q) const
 {
     double q_norm = q.mag2();
     double exponent = -q_norm*m_domainsize*m_domainsize/2.0;
     return m_max_intensity * std::exp(exponent);
 }
 
-double GaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
 {
     return evaluate(q - q_lattice_point);
 }
 
-LorentzPeakShape::LorentzPeakShape(double max_intensity, double domainsize)
+IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, double domainsize)
     : m_max_intensity(max_intensity)
     , m_domainsize(domainsize)
 {}
 
-LorentzPeakShape::~LorentzPeakShape() =default;
+IsotropicLorentzPeakShape::~IsotropicLorentzPeakShape() =default;
 
-LorentzPeakShape *LorentzPeakShape::clone() const
+IsotropicLorentzPeakShape *IsotropicLorentzPeakShape::clone() const
 {
-    return new LorentzPeakShape(m_max_intensity, m_domainsize);
+    return new IsotropicLorentzPeakShape(m_max_intensity, m_domainsize);
 }
 
-double LorentzPeakShape::evaluate(const kvector_t q) const
+double IsotropicLorentzPeakShape::evaluate(const kvector_t q) const
 {
     double q_norm = q.mag2();
     double lorentz = 1.0 / (1.0 + m_domainsize*m_domainsize*q_norm);
     return m_max_intensity * lorentz * lorentz;
 }
 
-double LorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
 {
     return evaluate(q - q_lattice_point);
 }

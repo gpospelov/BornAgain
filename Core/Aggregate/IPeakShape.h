@@ -38,13 +38,13 @@ public:
 //!
 //! @ingroup samples_internal
 
-class BA_CORE_API_ GaussPeakShape : public IPeakShape
+class BA_CORE_API_ IsotropicGaussPeakShape : public IPeakShape
 {
 public:
-    GaussPeakShape(double max_intensity, double domainsize);
-    ~GaussPeakShape() override;
+    IsotropicGaussPeakShape(double max_intensity, double domainsize);
+    ~IsotropicGaussPeakShape() override;
 
-    GaussPeakShape* clone() const override;
+    IsotropicGaussPeakShape* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
@@ -59,13 +59,13 @@ private:
 //!
 //! @ingroup samples_internal
 
-class BA_CORE_API_ LorentzPeakShape : public IPeakShape
+class BA_CORE_API_ IsotropicLorentzPeakShape : public IPeakShape
 {
 public:
-    LorentzPeakShape(double max_intensity, double domainsize);
-    ~LorentzPeakShape() override;
+    IsotropicLorentzPeakShape(double max_intensity, double domainsize);
+    ~IsotropicLorentzPeakShape() override;
 
-    LorentzPeakShape* clone() const override;
+    IsotropicLorentzPeakShape* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 

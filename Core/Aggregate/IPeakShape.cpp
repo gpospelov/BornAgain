@@ -18,6 +18,7 @@
 #include <limits>
 
 namespace {
+const double maxkappa = std::log(1.0/std::numeric_limits<double>::epsilon())/2.0;
 double KentDistribution(double x, double kappa);
 }
 
@@ -98,9 +99,36 @@ double GaussKentPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice
     return radial_part*angular_part;
 }
 
+LorentzKentPeakShape::LorentzKentPeakShape(double max_intensity, double radial_size, double kappa)
+    : m_max_intensity(max_intensity)
+    , m_radial_size(radial_size)
+    , m_kappa(kappa)
+{}
+
+LorentzKentPeakShape::~LorentzKentPeakShape() =default;
+
+LorentzKentPeakShape* LorentzKentPeakShape::clone() const
+{
+    return new LorentzKentPeakShape(m_max_intensity, m_radial_size, m_kappa);
+}
+
+double LorentzKentPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
+    double q_r = q.mag();
+    double q_lat_r = q_lattice_point.mag();
+    double dq2 = (q_r - q_lat_r)*(q_r - q_lat_r);
+    double radial_part = m_max_intensity / (1.0 + dq2*m_radial_size*m_radial_size);
+    double angular_part = 1.0;
+    if (q_r*q_lat_r > 0.0) {
+        double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
+        angular_part = KentDistribution(dot_norm, m_kappa);
+    }
+    return radial_part*angular_part;
+}
+
 namespace {
-double KentDistribution(double x, double kappa) {
-    static double maxkappa = std::log(1.0/std::numeric_limits<double>::epsilon())/2.0;
+double KentDistribution(double x, double kappa)
+{
     if (kappa<=0.0) {
         return 1.0/(4.0*M_PI);
     }
@@ -111,3 +139,4 @@ double KentDistribution(double x, double kappa) {
     return prefactor*std::exp(kappa*x)/std::sinh(kappa);
 }
 }
+

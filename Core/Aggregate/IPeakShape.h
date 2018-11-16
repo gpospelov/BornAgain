@@ -104,4 +104,28 @@ private:
     double m_kappa;
 };
 
+//! Class that implements a peak shape that is Lorentzian in the radial direction and
+//! uses the Kent distribution in the angular direction.
+//!
+//! @ingroup samples_internal
+
+class BA_CORE_API_ LorentzKentPeakShape : public IPeakShape
+{
+public:
+    LorentzKentPeakShape(double max_intensity, double radial_size, double kappa);
+    ~LorentzKentPeakShape() override;
+
+    LorentzKentPeakShape* clone() const override;
+
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+
+    double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
+
+    bool angularDisorder() const override { return true; }
+private:
+    double m_max_intensity;
+    double m_radial_size;
+    double m_kappa;
+};
+
 #endif // IPEAKSHAPE_H

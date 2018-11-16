@@ -19573,6 +19573,72 @@ class GaussKentPeakShape(IPeakShape):
 GaussKentPeakShape_swigregister = _libBornAgainCore.GaussKentPeakShape_swigregister
 GaussKentPeakShape_swigregister(GaussKentPeakShape)
 
+class LorentzKentPeakShape(IPeakShape):
+    """Proxy of C++ LorentzKentPeakShape class."""
+
+    __swig_setmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, LorentzKentPeakShape, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, LorentzKentPeakShape, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, radial_size, kappa):
+        """__init__(LorentzKentPeakShape self, double max_intensity, double radial_size, double kappa) -> LorentzKentPeakShape"""
+        this = _libBornAgainCore.new_LorentzKentPeakShape(max_intensity, radial_size, kappa)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_LorentzKentPeakShape
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(LorentzKentPeakShape self) -> LorentzKentPeakShape
+
+        virtual IPeakShape* IPeakShape::clone() const =0
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.LorentzKentPeakShape_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(LorentzKentPeakShape self, INodeVisitor visitor)
+
+        virtual void INode::accept(INodeVisitor *visitor) const =0
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.LorentzKentPeakShape_accept(self, visitor)
+
+
+    def evaluate(self, q, q_lattice_point):
+        """
+        evaluate(LorentzKentPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+
+        virtual double IPeakShape::evaluate(const kvector_t q) const =0
+
+        Evaluates the peak shape at displacement q from the center at 0. 
+
+        """
+        return _libBornAgainCore.LorentzKentPeakShape_evaluate(self, q, q_lattice_point)
+
+
+    def angularDisorder(self):
+        """angularDisorder(LorentzKentPeakShape self) -> bool"""
+        return _libBornAgainCore.LorentzKentPeakShape_angularDisorder(self)
+
+LorentzKentPeakShape_swigregister = _libBornAgainCore.LorentzKentPeakShape_swigregister
+LorentzKentPeakShape_swigregister(LorentzKentPeakShape)
+
 class IResolutionFunction2D(ICloneable, INode):
     """
 

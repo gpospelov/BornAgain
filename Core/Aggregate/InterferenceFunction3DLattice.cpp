@@ -59,11 +59,19 @@ double InterferenceFunction3DLattice::evaluate(const kvector_t q) const
     if (!mP_peak_shape)
         throw std::runtime_error("InterferenceFunction3DLattice::evaluate: "
                                  "no peak shape defined");
+    kvector_t center = q;
     double radius = 2.1 * m_rec_radius;
-    auto rec_vectors = m_lattice.reciprocalLatticeVectorsWithinRadius(q, radius);
+    double inner_radius = 0.0;
+    if (mP_peak_shape->angularDisorder()) {
+        center = kvector_t(0.0, 0.0, 0.0);
+        inner_radius = std::max(0.0, q.mag()-radius);
+        radius += q.mag();
+    }
+    auto rec_vectors = m_lattice.reciprocalLatticeVectorsWithinRadius(center, radius);
     double result = 0.0;
     for (const auto& q_rec : rec_vectors) {
-        result += mP_peak_shape->evaluate(q - q_rec)*DebyeWallerFactor(q_rec, m_dw_length);
+        if (!(q_rec.mag()<inner_radius))
+           result += mP_peak_shape->evaluate(q, q_rec)*DebyeWallerFactor(q_rec, m_dw_length);
     }
     return result;
 }

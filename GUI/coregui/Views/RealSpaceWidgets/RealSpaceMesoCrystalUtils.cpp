@@ -47,6 +47,20 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
                 (positionInside.z() >= 0 && positionInside.z() <= H))
             check = true;
     }
+    else if (auto ff_Cone = dynamic_cast<const FormFactorCone*>(outerShape)) {
+        double R = ff_Cone->getRadius();
+        double H = ff_Cone->getHeight();
+        double alpha = ff_Cone->getAlpha();
+
+        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
+                positionInside.z() > H)
+            return check;
+
+        double R_z = R - positionInside.z()/std::tan(alpha);
+        if ((std::pow(positionInside.x()/R_z,2) + std::pow(positionInside.y()/R_z,2) <= 1) &&
+                positionInside.z() >= 0)
+            check = true;
+    }
     else if (auto ff_Cylinder = dynamic_cast<const FormFactorCylinder*>(outerShape)) {
         double R = ff_Cylinder->getRadius();
         double H = ff_Cylinder->getHeight();

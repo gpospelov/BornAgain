@@ -1,5 +1,5 @@
 """
-Fitting example: demonstrates how to fit two datasets simultaneously.
+Fitting example: simultaneous fit of two datasets
 """
 
 import numpy as np
@@ -21,16 +21,16 @@ def get_sample(params):
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    formFactor = ba.FormFactorHemiEllipsoid(radius_a, radius_b, height)
-    hemiEllipsoid = ba.Particle(m_particle, formFactor)
+    formfactor = ba.FormFactorHemiEllipsoid(radius_a, radius_b, height)
+    particle = ba.Particle(m_particle, formfactor)
 
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(hemiEllipsoid)
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle)
 
     air_layer = ba.Layer(m_air)
-    air_layer.addLayout(particle_layout)
+    air_layer.addLayout(layout)
 
-    substrate_layer = ba.Layer(m_substrate, 0)
+    substrate_layer = ba.Layer(m_substrate)
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
@@ -87,11 +87,15 @@ class PlotObserver():
     Draws fit progress every nth iteration. Real data, simulated data
     and chi2 map will be shown for both datasets.
     """
-    def __init__(self, draw_every_nth=10):
+    def __init__(self):
         self.fig = plt.figure(figsize=(12.8, 10.24))
         self.fig.canvas.draw()
 
-    def plot_datasets(self, fit_objective, canvas):
+    def __call__(self, fit_objective):
+        self.update(fit_objective)
+
+    @staticmethod
+    def plot_dataset(fit_objective, canvas):
         for i_dataset in range(0, fit_objective.fitObjectCount()):
             real_data = fit_objective.experimentalData(i_dataset)
             simul_data = fit_objective.simulationResult(i_dataset)
@@ -101,17 +105,36 @@ class PlotObserver():
 
             plt.subplot(canvas[i_dataset*3])
             ba.plot_colormap(real_data, title="\"Real\" data - #"+str(i_dataset+1),
-                               zmin=1.0, zmax=zmax, zlabel="")
+                             zmin=1.0, zmax=zmax, zlabel="")
             plt.subplot(canvas[1+i_dataset*3])
             ba.plot_colormap(simul_data, title="Simulated data - #"+str(i_dataset+1),
-                               zmin=1.0, zmax=zmax, zlabel="")
+                             zmin=1.0, zmax=zmax, zlabel="")
             plt.subplot(canvas[2+i_dataset*3])
             ba.plot_colormap(chi2_map, title="Chi2 map - #"+str(i_dataset+1),
-                               zmin=0.001, zmax=10.0, zlabel="")
+                             zmin=0.001, zmax=10.0, zlabel="")
 
-    def plot_fit_parameters(self, fit_objective, canvas):
-        # fit parameters
-        plt.subplot(canvas[6:])
+    @staticmethod
+    def display_fit_parameters(fit_objective):
+        """
+        Displays fit parameters, chi and iteration number.
+        """
+        plt.title('Parameters')
+        plt.axis('off')
+
+        iteration_info = fit_objective.iterationInfo()
+
+        plt.text(0.01, 0.85, "Iterations  " + '{:d}'.
+                 format(iteration_info.iterationCount()))
+        plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(iteration_info.chi2()))
+        for index, params in enumerate(iteration_info.parameters()):
+            plt.text(0.01, 0.55 - index * 0.1,
+                     '{:30.30s}: {:6.3f}'.format(params.name(), params.value))
+
+    @staticmethod
+    def plot_fit_parameters(fit_objective):
+        """
+        Displays fit parameters, chi and iteration number.
+        """
         plt.axis('off')
 
         iteration_info = fit_objective.iterationInfo()
@@ -119,15 +142,11 @@ class PlotObserver():
         plt.text(0.01, 0.95, "Iterations  " + '{:d}'.
                  format(iteration_info.iterationCount()))
         plt.text(0.01, 0.70, "Chi2       " + '{:8.4f}'.format(iteration_info.chi2()))
-        index = 0
-        params = iteration_info.parameterMap()
-        for key in params:
+        for index, params in enumerate(iteration_info.parameters()):
             plt.text(0.01, 0.30 - index * 0.3,
-                     '{:30.30s}: {:6.3f}'.format(key, params[key]))
-            index = index + 1
+                     '{:30.30s}: {:6.3f}'.format(params.name(), params.value))
 
-
-    def update(self, fit_suite):
+    def update(self, fit_objective):
         self.fig.clf()
 
         # we divide figure to have 3x3 subplots, with two first rows occupying
@@ -136,12 +155,12 @@ class PlotObserver():
             3, 3, width_ratios=[1, 1, 1], height_ratios=[4, 4, 1])
         canvas.update(left=0.05, right=0.95, hspace=0.5, wspace=0.2)
 
-        self.plot_datasets(fit_suite, canvas)
-        self.plot_fit_parameters(fit_suite, canvas)
+        self.plot_dataset(fit_objective, canvas)
+        plt.subplot(canvas[6:])
+        self.plot_fit_parameters(fit_objective)
 
         plt.draw()
         plt.pause(0.01)
-
 
 
 def run_fitting():
@@ -166,7 +185,6 @@ def run_fitting():
     params.add("radius_b", 6.*nm, vary=False)
     params.add("height", 4.*nm, min=2.0, max=10.0)
 
-    print("begin")
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)
     fit_objective.finalize(result)

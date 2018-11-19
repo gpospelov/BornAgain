@@ -23,11 +23,11 @@ def get_sample(params):
     cylinder_ff = ba.FormFactorCylinder(radius, height)
     cylinder = ba.Particle(m_particle, cylinder_ff)
 
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder)
+    layout = ba.ParticleLayout()
+    layout.addParticle(cylinder)
 
     air_layer = ba.Layer(m_air)
-    air_layer.addLayout(particle_layout)
+    air_layer.addLayout(layout)
 
     substrate_layer = ba.Layer(m_substrate, 0)
     multi_layer = ba.MultiLayer()
@@ -59,10 +59,9 @@ def create_real_data():
     """
     params = {'radius': 5.0*nm, 'height': 10.0*nm}
 
+    # retrieving simulated data in the form of numpy array
     simulation = get_simulation(params, add_masks=False)
     simulation.runSimulation()
-
-    # retrieving simulated data in the form of numpy array
     real_data = simulation.result().array()
 
     # spoiling simulated data with the noise to produce "real" data
@@ -81,7 +80,7 @@ def add_mask_to_simulation(simulation):
     with the mask value either "True" (detector bin is excluded from the simulation)
     or False (will be simulated).
 
-    Every subsequent mask override previously defined masks in this area.
+    Every subsequent mask overrides previously defined mask in this area.
 
     In the code below we put masks in such way that simulated image will look like
     a Pac-Man from ancient arcade game.

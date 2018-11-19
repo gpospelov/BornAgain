@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "RealSpaceMesoCrystalUtils.h"
+#include "Exceptions.h"
 #include "HardParticles.h"
 #include "IFormFactor.h"
 #include "IParticle.h"
@@ -43,6 +44,12 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         if (std::sqrt(std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2)) <= R &&
                 (positionInside.z() >=0 && positionInside.z() <= H))
             check = true;
+    }
+    else if (dynamic_cast<const FormFactorDot*>(outerShape)) {
+        std::ostringstream ostr;
+        ostr << "Cannot display particles inside the Mesocrystal!";
+        ostr << "\n\nOuter shape is a Dot!";
+        throw Exceptions::ClassInitializationException(ostr.str());
     }
     else if (auto ff_FullSphere = dynamic_cast<const FormFactorFullSphere*>(outerShape)) {
         double R = ff_FullSphere->getRadius();

@@ -67,8 +67,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
     }
     else if (auto ff_EllipsoidalCylinder
              = dynamic_cast<const FormFactorEllipsoidalCylinder*>(outerShape)) {
-        double a = ff_EllipsoidalCylinder->getRadiusX();
-        double b = ff_EllipsoidalCylinder->getRadiusY();
+        double a = ff_EllipsoidalCylinder->getRadiusX(); // semi-axis length along x
+        double b = ff_EllipsoidalCylinder->getRadiusY(); // semi-axis length along y
         double H = ff_EllipsoidalCylinder->getHeight();
 
         if (std::abs(positionInside.x()) > a || std::abs(positionInside.y()) > b ||
@@ -87,14 +87,28 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
             return check;
 
         if ((std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) +
-                std::pow((positionInside.z())/R, 2) <= 1) && positionInside.z() >= 0)
+                std::pow((positionInside.z()-R)/R, 2) <= 1) && positionInside.z() >= 0)
+            check = true;
+    }
+    else if (auto ff_FullSpheroid
+             = dynamic_cast<const FormFactorFullSpheroid*>(outerShape)) {
+        double a = ff_FullSpheroid->getRadius();  // semi-axis length along x and y
+        double H = ff_FullSpheroid->getHeight();
+        double c = H/2; // semi-axis length along z
+
+        if (std::abs(positionInside.x()) > a || std::abs(positionInside.y()) > a ||
+                positionInside.z() > H)
+            return check;
+
+        if ((std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/a, 2) +
+                std::pow((positionInside.z()-c)/c, 2) <= 1)  && positionInside.z() >= 0)
             check = true;
     }
     else if (auto ff_HemiEllipsoid
              = dynamic_cast<const FormFactorHemiEllipsoid*>(outerShape)) {
-        double a = ff_HemiEllipsoid->getRadiusX();
-        double b = ff_HemiEllipsoid->getRadiusY();
-        double c = ff_HemiEllipsoid->getHeight();
+        double a = ff_HemiEllipsoid->getRadiusX(); // semi-axis length along x
+        double b = ff_HemiEllipsoid->getRadiusY(); // semi-axis length along y
+        double c = ff_HemiEllipsoid->getHeight(); // semi-axis length along z
 
         if (std::abs(positionInside.x()) > a || std::abs(positionInside.y()) > b ||
                 positionInside.z() > c)

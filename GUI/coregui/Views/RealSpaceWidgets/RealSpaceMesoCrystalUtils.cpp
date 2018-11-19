@@ -55,8 +55,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
                 positionInside.z() > H)
             return check;
 
-        if (std::sqrt(std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2)) <= R &&
-                (positionInside.z() >=0 && positionInside.z() <= H))
+        if ((std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) <= 1)
+                && positionInside.z() >= 0)
             check = true;
     }
     else if (dynamic_cast<const FormFactorDot*>(outerShape)) {
@@ -75,8 +75,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
                 positionInside.z() > H)
             return check;
 
-        if ((std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/b, 2)) <= 1
-                && (positionInside.z() >= 0 && positionInside.z() <= H))
+        if ((std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/b, 2) <= 1)
+                && positionInside.z() >= 0)
             check = true;
     }
     else if (auto ff_FullSphere = dynamic_cast<const FormFactorFullSphere*>(outerShape)) {
@@ -86,9 +86,22 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
                 positionInside.z() > 2*R)
             return check;
 
-        double r_z = std::sqrt(std::pow(R,2)-std::pow(positionInside.z()-R,2));
-        if (std::sqrt(std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2)) <= r_z &&
-                (positionInside.z() >= 0 && positionInside.z() <= 2*R))
+        if ((std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) +
+                std::pow((positionInside.z())/R, 2) <= 1) && positionInside.z() >= 0)
+            check = true;
+    }
+    else if (auto ff_HemiEllipsoid
+             = dynamic_cast<const FormFactorHemiEllipsoid*>(outerShape)) {
+        double a = ff_HemiEllipsoid->getRadiusX();
+        double b = ff_HemiEllipsoid->getRadiusY();
+        double c = ff_HemiEllipsoid->getHeight();
+
+        if (std::abs(positionInside.x()) > a || std::abs(positionInside.y()) > b ||
+                positionInside.z() > c)
+            return check;
+
+        if ((std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/b, 2) +
+                std::pow(positionInside.z()/c, 2) <= 1)  && positionInside.z() >= 0)
             check = true;
     }
     return check;

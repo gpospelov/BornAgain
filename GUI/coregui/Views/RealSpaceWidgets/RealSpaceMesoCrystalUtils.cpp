@@ -42,6 +42,7 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double L = ff_Box->getLength();
         double W = ff_Box->getWidth();
         double H = ff_Box->getHeight();
+
         if (std::abs(positionInside.x()) <= L/2 && std::abs(positionInside.y()) <= W/2 &&
                 (positionInside.z() >= 0 && positionInside.z() <= H))
             check = true;
@@ -49,6 +50,11 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
     else if (auto ff_Cylinder = dynamic_cast<const FormFactorCylinder*>(outerShape)) {
         double R = ff_Cylinder->getRadius();
         double H = ff_Cylinder->getHeight();
+
+        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
+                positionInside.z() > H)
+            return check;
+
         if (std::sqrt(std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2)) <= R &&
                 (positionInside.z() >=0 && positionInside.z() <= H))
             check = true;
@@ -59,11 +65,30 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         ostr << "\n\nOuter shape is a Dot!";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
+    else if (auto ff_EllipsoidalCylinder
+             = dynamic_cast<const FormFactorEllipsoidalCylinder*>(outerShape)) {
+        double a = ff_EllipsoidalCylinder->getRadiusX();
+        double b = ff_EllipsoidalCylinder->getRadiusY();
+        double H = ff_EllipsoidalCylinder->getHeight();
+
+        if (std::abs(positionInside.x()) > a || std::abs(positionInside.y()) > b ||
+                positionInside.z() > H)
+            return check;
+
+        if ((std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/b, 2)) <= 1
+                && (positionInside.z() >= 0 && positionInside.z() <= H))
+            check = true;
+    }
     else if (auto ff_FullSphere = dynamic_cast<const FormFactorFullSphere*>(outerShape)) {
         double R = ff_FullSphere->getRadius();
+
+        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
+                positionInside.z() > 2*R)
+            return check;
+
         double r_z = std::sqrt(std::pow(R,2)-std::pow(positionInside.z()-R,2));
         if (std::sqrt(std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2)) <= r_z &&
-                (positionInside.z() >=0 && positionInside.z() <= 2*R))
+                (positionInside.z() >= 0 && positionInside.z() <= 2*R))
             check = true;
     }
     return check;

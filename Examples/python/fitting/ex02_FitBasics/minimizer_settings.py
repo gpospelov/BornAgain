@@ -24,15 +24,15 @@ def get_sample(params):
     cylinder = ba.Particle(m_particle, cylinder_ff)
     prism_ff = ba.FormFactorPrism3(prism_base_edge, prism_height)
     prism = ba.Particle(m_particle, prism_ff)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.5)
-    particle_layout.addParticle(prism, 0.5)
+    layout = ba.ParticleLayout()
+    layout.addParticle(cylinder, 0.5)
+    layout.addParticle(prism, 0.5)
     interference = ba.InterferenceFunctionNone()
-    particle_layout.setInterferenceFunction(interference)
+    layout.setInterferenceFunction(interference)
 
     # air layer with particles and substrate form multi layer
     air_layer = ba.Layer(m_air)
-    air_layer.addLayout(particle_layout)
+    air_layer.addLayout(layout)
     substrate_layer = ba.Layer(m_substrate, 0)
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -53,19 +53,35 @@ def get_simulation(params):
     return simulation
 
 
+def create_real_data():
+    """
+    Generating "real" data by adding noise to the simulated data.
+    This function has been used once to generate refdata_fitcylinderprisms.int
+    located in same directory.
+    """
+    # creating sample with set of parameters we will later try to find during the fit
+
+    params = {'cylinder_height': 5.0*nm, 'cylinder_radius': 5.0*nm,
+              'prism_height': 5.0*nm, 'prism_base_edge': 5.0*nm}
+
+    simulation = get_simulation(params)
+    simulation.runSimulation()
+
+    return simulation.result().array()
+
+
 def run_fitting():
     """
     main function to run fitting
     """
+
+    real_data = create_real_data()
 
     # prints info about available minimizers
     print(ba.MinimizerFactory().catalogueToString())
 
     # prints detailed info about available minimizers and their options
     print(ba.MinimizerFactory().catalogueDetailsToString())
-
-    real_data = ba.IntensityDataIOFactory.readIntensityData(
-        'refdata_fitcylinderprisms.int.gz').array()
 
     fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)

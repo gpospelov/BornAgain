@@ -1,12 +1,9 @@
 """
-Two parameter fit of cylinders.
-In this example we are trying to find cylinder's height and radius
-using chain of minimizers.
+Fitting example: running one fit after another using different minimizers.
 
-During the first fit round Genetic minimizer will be used.
-It will roughly look for possible local minimas.
-After it is done, the second Minuit2 minimizer will continue
-to find the precise location of best minima found on previous step.
+During the first fit Genetic minimizer will be used to scan large parameter
+space and roughly find local minimum. The second Minuit2 minimizer will continue
+after that to find precise minimum location.
 """
 
 import numpy as np
@@ -29,11 +26,11 @@ def get_sample(params):
     cylinder_ff = ba.FormFactorCylinder(radius, height)
     cylinder = ba.Particle(m_particle, cylinder_ff)
 
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder)
+    layout = ba.ParticleLayout()
+    layout.addParticle(cylinder)
 
     air_layer = ba.Layer(m_air)
-    air_layer.addLayout(particle_layout)
+    air_layer.addLayout(layout)
 
     substrate_layer = ba.Layer(m_substrate, 0)
     multi_layer = ba.MultiLayer()
@@ -97,7 +94,7 @@ def run_fitting():
     """
     Now we run first minimization round using the Genetic minimizer.
     The Genetic minimizer is able to explore large parameter space
-    without being trapped by some local minima.
+    without being trapped by some local minimum.
     """
     minimizer = ba.Minimizer()
     minimizer.setMinimizer("Genetic", "", "MaxIterations=2;RandomSeed=1")

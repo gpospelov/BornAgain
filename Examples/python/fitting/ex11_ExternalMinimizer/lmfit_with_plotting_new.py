@@ -8,11 +8,14 @@ from bornagain import deg, angstrom, nm
 import lmfit
 
 
-def get_sample(radius=5.0*nm, lattice_length=10.0*nm):
+def get_sample(params):
     """
     Returns a sample with cylinders and pyramids on a substrate,
     forming a hexagonal lattice.
     """
+    radius = params['radius']
+    lattice_length = params['length']
+
     m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
@@ -37,7 +40,7 @@ def get_sample(radius=5.0*nm, lattice_length=10.0*nm):
     return multi_layer
 
 
-def get_simulation():
+def get_simulation(params):
     """
     Create and return GISAXS simulation with beam and detector defined
     """
@@ -46,6 +49,7 @@ def get_simulation():
                                      100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setBeamIntensity(1e+08)
+    simulation.setSample(get_sample(params))
     return simulation
 
 
@@ -53,9 +57,8 @@ def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    sample = get_sample(5.0*nm, 10.0*nm)
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    params = {'radius': 6*nm, 'length': 12*nm}
+    simulation = get_simulation(params)
     simulation.runSimulation()
 
     # retrieving simulated data in the form of numpy array
@@ -69,38 +72,40 @@ def create_real_data():
     return noisy
 
 
-def residual(params, simulation, data):
-    radius = params['radius'].value
-    length = params['length'].value
-    print(radius, length)
-    sample = get_sample(radius=radius, lattice_length=length)
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    result = simulation.result().array().flatten()
-    exp = data.flatten()
-    res = result-exp
-    return res
+class Plotter:
+    """
+    Adapts standard plotter for lmfit minimizer.
+    """
+    def __init__(self, fit_objective, every_nth = 10):
+        self.fit_objective = fit_objective
+        self.plotter_gisas = ba.PlotterGISAS()
+        self.every_nth = every_nth
+
+    def __call__(self, params, iter, resid):
+        if iter%self.every_nth == 0:
+            self.plotter_gisas.plot(self.fit_objective)
 
 
 def run_fitting():
     """
     main function to run fitting
     """
-    simulation = get_simulation()
-    sample = get_sample()
-    simulation.setSample(sample)
-
     real_data = create_real_data()
 
-    params = lmfit.Parameters()
-    params.add('radius', value=8*nm)
-    params.add('length', value=8*nm)
+    fit_objective = ba.FitObjective()
+    fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
+    fit_objective.initPrint(10)
 
-    result = lmfit.minimize(residual, params, args=(simulation, real_data))
+    params = lmfit.Parameters()
+    params.add('radius', value=7*nm, min=5*nm, max=8*nm)
+    params.add('length', value=10*nm, min=8*nm, max=14*nm)
+
+    plotter = Plotter(fit_objective)
+    result = lmfit.minimize(fit_objective.evaluate_residuals, params, iter_cb=plotter)
+    fit_objective.finalize(result)
 
     result.params.pretty_print()
     print(lmfit.fit_report(result))
-
 
 if __name__ == '__main__':
     run_fitting()

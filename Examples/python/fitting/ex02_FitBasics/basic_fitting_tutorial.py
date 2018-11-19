@@ -1,13 +1,7 @@
 """
-Fitting example: 4 parameters fit with simple output
-This is more detailed version of ba.FitCylindersPrisms.py.
-We show how to generate "real" data and how to draw fit progress.
-Please take a note, that performance here is determined
-by poor performance of matplotlib drawing routines.
+Fitting example: 4 parameters fit for mixture of cylinders and prisms on top of substrate.
 """
 
-import math
-import random
 import bornagain as ba
 import numpy as np
 from matplotlib import pyplot as plt
@@ -51,19 +45,17 @@ def get_sample(params):
 
 def create_real_data():
     """
-    Generating "real" data by adding noise to the simulated data.
-    This function has been used once to generate refdata_fitcylinderprisms.int
-    located in same directory.
+    Generating "experimental" data by running simulation with certain parameters.
+    The data is saved on disk in the form of numpy array.
     """
-    # creating sample with set of parameters we will later try to find during the fit
 
+    # default sample parameters
     params = {'cylinder_height': 5.0*nm, 'cylinder_radius': 5.0*nm,
               'prism_height': 5.0*nm, 'prism_base_edge': 5.0*nm}
 
+    # retrieving simulated data in the form of numpy array
     simulation = get_simulation(params)
     simulation.runSimulation()
-
-    # retrieving simulated data in the form of numpy array
     real_data = simulation.result().array()
 
     # spoiling simulated data with noise to produce "real" data
@@ -71,7 +63,15 @@ def create_real_data():
     noise_factor = 0.1
     noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
     noisy[noisy < 0.1] = 0.1
-    return noisy
+
+    np.savetxt("basic_fitting_tutorial_data.txt.gz", real_data)
+
+
+def load_real_data():
+    """
+    Loads experimental data from file
+    """
+    return np.loadtxt("basic_fitting_tutorial_data.txt.gz", dtype=float)
 
 
 def get_simulation(params):
@@ -92,16 +92,15 @@ def run_fitting():
     Setup simulation and fit
     """
 
-    real_data = create_real_data()
+    real_data = load_real_data()
 
     fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
 
-    # fit_suite.setMinimizer("Minuit2", "Migrad")  # ba.Default
-    # fit_suite.setMinimizer("Minuit2", "Fumili")
-    # fit_suite.setMinimizer("GSLLMA")
-
+    # Print fit progress on every n-th iteration.
     fit_objective.initPrint(10)
+
+    # Plot fit progress on every n-th iteration. Will slow down fit.
     fit_objective.initPlot(10)
 
     params = ba.Parameters()
@@ -115,7 +114,18 @@ def run_fitting():
 
     fit_objective.finalize(result)
 
+    print("Fitting completed.")
+    print("chi2:", result.minValue())
+    for fitPar in result.parameters():
+        print(fitPar.name(), fitPar.value, fitPar.error)
+
+    # saving simulation image corresponding to the best fit parameters
+    # np.savetxt("data.txt", fit_objective.simulationResult().array())
+
 
 if __name__ == '__main__':
+    # uncomment line below to regenerate "experimental" data file
+    create_real_data()
+
     run_fitting()
     plt.show()

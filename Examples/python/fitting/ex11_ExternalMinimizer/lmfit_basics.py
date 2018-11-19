@@ -1,5 +1,5 @@
 """
-Example of using external minimizer to fit typical BornAgain simulation
+External minimize: using lmfit minimizers for BornAgain fits.
 """
 import numpy as np
 from matplotlib import pyplot as plt
@@ -91,8 +91,6 @@ def run_fitting():
 
     print(result.params.pretty_print())
     print(lmfit.fit_report(result))
-
-
 
 
 if __name__ == '__main__':

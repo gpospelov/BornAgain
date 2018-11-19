@@ -1,5 +1,6 @@
 """
-Example of using external minimizer to fit typical BornAgain simulation
+External minimize: using lmfit minimizers for BornAgain fits.
+Fit progress is plotted using lmfit iteration calbback function.
 """
 import numpy as np
 from matplotlib import pyplot as plt

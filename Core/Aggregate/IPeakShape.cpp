@@ -19,7 +19,7 @@
 
 namespace {
 const double maxkappa = std::log(1.0/std::numeric_limits<double>::epsilon())/2.0;
-double KentDistribution(double x, double kappa);
+double FisherDistribution(double x, double kappa);
 }
 
 IPeakShape::~IPeakShape() =default;
@@ -72,20 +72,20 @@ double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_
     return evaluate(q - q_lattice_point);
 }
 
-GaussKentPeakShape::GaussKentPeakShape(double max_intensity, double radial_size, double kappa)
+GaussFisherPeakShape::GaussFisherPeakShape(double max_intensity, double radial_size, double kappa)
     : m_max_intensity(max_intensity)
     , m_radial_size(radial_size)
     , m_kappa(kappa)
 {}
 
-GaussKentPeakShape::~GaussKentPeakShape() =default;
+GaussFisherPeakShape::~GaussFisherPeakShape() =default;
 
-GaussKentPeakShape* GaussKentPeakShape::clone() const
+GaussFisherPeakShape* GaussFisherPeakShape::clone() const
 {
-    return new GaussKentPeakShape(m_max_intensity, m_radial_size, m_kappa);
+    return new GaussFisherPeakShape(m_max_intensity, m_radial_size, m_kappa);
 }
 
-double GaussKentPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
 {
     double q_r = q.mag();
     double q_lat_r = q_lattice_point.mag();
@@ -94,25 +94,25 @@ double GaussKentPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice
     double angular_part = 1.0;
     if (q_r*q_lat_r > 0.0) {
         double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
-        angular_part = KentDistribution(dot_norm, m_kappa);
+        angular_part = FisherDistribution(dot_norm, m_kappa);
     }
     return radial_part*angular_part;
 }
 
-LorentzKentPeakShape::LorentzKentPeakShape(double max_intensity, double radial_size, double kappa)
+LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size, double kappa)
     : m_max_intensity(max_intensity)
     , m_radial_size(radial_size)
     , m_kappa(kappa)
 {}
 
-LorentzKentPeakShape::~LorentzKentPeakShape() =default;
+LorentzFisherPeakShape::~LorentzFisherPeakShape() =default;
 
-LorentzKentPeakShape* LorentzKentPeakShape::clone() const
+LorentzFisherPeakShape* LorentzFisherPeakShape::clone() const
 {
-    return new LorentzKentPeakShape(m_max_intensity, m_radial_size, m_kappa);
+    return new LorentzFisherPeakShape(m_max_intensity, m_radial_size, m_kappa);
 }
 
-double LorentzKentPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
 {
     double q_r = q.mag();
     double q_lat_r = q_lattice_point.mag();
@@ -121,13 +121,13 @@ double LorentzKentPeakShape::evaluate(const kvector_t q, const kvector_t q_latti
     double angular_part = 1.0;
     if (q_r*q_lat_r > 0.0) {
         double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
-        angular_part = KentDistribution(dot_norm, m_kappa);
+        angular_part = FisherDistribution(dot_norm, m_kappa);
     }
     return radial_part*angular_part;
 }
 
 namespace {
-double KentDistribution(double x, double kappa)
+double FisherDistribution(double x, double kappa)
 {
     if (kappa<=0.0) {
         return 1.0/(4.0*M_PI);

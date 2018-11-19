@@ -38,7 +38,15 @@ const int n = 10;
 bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positionInside)
 {
     bool check(false);
-    if (auto ff_Cylinder = dynamic_cast<const FormFactorCylinder*>(outerShape)) {
+    if (auto ff_Box = dynamic_cast<const FormFactorBox*>(outerShape)) {
+        double L = ff_Box->getLength();
+        double W = ff_Box->getWidth();
+        double H = ff_Box->getHeight();
+        if (std::abs(positionInside.x()) <= L/2 && std::abs(positionInside.y()) <= W/2 &&
+                (positionInside.z() >= 0 && positionInside.z() <= H))
+            check = true;
+    }
+    else if (auto ff_Cylinder = dynamic_cast<const FormFactorCylinder*>(outerShape)) {
         double R = ff_Cylinder->getRadius();
         double H = ff_Cylinder->getHeight();
         if (std::sqrt(std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2)) <= R &&
@@ -54,8 +62,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
     else if (auto ff_FullSphere = dynamic_cast<const FormFactorFullSphere*>(outerShape)) {
         double R = ff_FullSphere->getRadius();
         double r_z = std::sqrt(std::pow(R,2)-std::pow(positionInside.z()-R,2));
-        if (std::sqrt(std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2)) <= r_z
-            && (positionInside.z() >=0 && positionInside.z() <= 2*R))
+        if (std::sqrt(std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2)) <= r_z &&
+                (positionInside.z() >=0 && positionInside.z() <= 2*R))
             check = true;
     }
     return check;

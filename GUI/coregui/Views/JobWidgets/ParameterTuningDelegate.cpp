@@ -80,6 +80,11 @@ double ParameterTuningDelegate::TuningData::slider_to_value(int slider)
     return m_rmin + (slider - m_smin) * (m_rmax - m_rmin) / (m_smax - m_smin);
 }
 
+double ParameterTuningDelegate::TuningData::step() const
+{
+    return (m_rmax - m_rmin) / (m_smax - m_smin);
+}
+
 ParameterTuningDelegate::ParameterTuningDelegate(QObject* parent)
     : QItemDelegate(parent), m_valueColumn(1), m_slider(nullptr), m_valueBox(nullptr),
       m_contentWidget(nullptr), m_contentLayout(nullptr), m_currentItem(nullptr),
@@ -130,21 +135,22 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
         if (!data.isValid())
             return nullptr;
 
-        double value = data.toDouble();
-
         m_currentItem = static_cast<ParameterItem*>(
             ParameterTuningModel::toSourceIndex(index).internalPointer());
         if (!m_currentItem)
             return nullptr;
 
+        double value = data.toDouble();
         RealLimits limits = m_currentItem->linkedItem()->limits();
+        m_slider_data.setItemLimits(limits);
+        m_slider_data.value_to_slider(value);
 
         // initializing value box
         m_valueBox = new ScientificSpinBox();
         m_valueBox->setKeyboardTracking(false);
         m_valueBox->setFixedWidth(80);
         m_valueBox->setDecimals(m_currentItem->linkedItem()->decimals());
-        m_valueBox->setSingleStep(1. / std::pow(10., m_currentItem->linkedItem()->decimals() - 1));
+        m_valueBox->setSingleStep(m_slider_data.step());
 
         if (limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.lowerLimit());
@@ -167,7 +173,6 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
         m_slider->setTickPosition(QSlider::NoTicks);
         m_slider->setTickInterval(1);
         m_slider->setSingleStep(1);
-        m_slider_data.setItemLimits(limits);
         m_slider->setRange(m_slider_data.m_smin, m_slider_data.m_smax);
 
         updateSlider(value);

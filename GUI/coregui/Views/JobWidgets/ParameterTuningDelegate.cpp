@@ -39,22 +39,22 @@ const double maximum_doublespin_value = std::numeric_limits<double>::max();
 const double minimum_doublespin_value = std::numeric_limits<double>::lowest();
 } // namespace
 
-ParameterTuningDelegate::SliderData::SliderData()
+ParameterTuningDelegate::TuningData::TuningData()
     : m_smin(0), m_smax(100), m_rmin(0.0), m_rmax(0.0), m_range_factor(100.0)
 {
 }
 
-void ParameterTuningDelegate::SliderData::setRangeFactor(double range_factor)
+void ParameterTuningDelegate::TuningData::setRangeFactor(double range_factor)
 {
     m_range_factor = range_factor;
 }
 
-void ParameterTuningDelegate::SliderData::setItemLimits(const RealLimits& item_limits)
+void ParameterTuningDelegate::TuningData::setItemLimits(const RealLimits& item_limits)
 {
     m_item_limits = item_limits;
 }
 
-int ParameterTuningDelegate::SliderData::value_to_slider(double value)
+int ParameterTuningDelegate::TuningData::value_to_slider(double value)
 {
     double dr(0);
     if (value == 0.0) {
@@ -75,7 +75,7 @@ int ParameterTuningDelegate::SliderData::value_to_slider(double value)
     return static_cast<int>(result);
 }
 
-double ParameterTuningDelegate::SliderData::slider_to_value(int slider)
+double ParameterTuningDelegate::TuningData::slider_to_value(int slider)
 {
     return m_rmin + (slider - m_smin) * (m_rmax - m_rmin) / (m_smax - m_smin);
 }

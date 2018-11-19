@@ -1,16 +1,18 @@
 """
 3 layers system (substrate, teflon, air).
-Air layer is populated with spheres with some size distribution.
+Air layer is populated with spheres with size distribution.
 """
 import bornagain as ba
 
 
-class MySampleBuilder():
+class SampleBuilder:
     """
-
+    Builds complex sample from set of parameters.
     """
     def __init__(self):
-        # parameters describing the sample
+        """
+        Init SampleBuilder with default sample parameters.
+        """
         self.radius = 5.75*ba.nm
         self.sigma = 0.4
         self.distance = 53.6*ba.nm
@@ -20,13 +22,25 @@ class MySampleBuilder():
         self.hmdso_thickness = 18.5*ba.nm
 
     def create_sample(self, params):
+        """
+        Create sample from given set of parameters.
+
+        Args:
+            params: A dictionary containing parameter map.
+
+        Returns:
+            A multi layer.
+        """
         self.radius = params["radius"]
         self.sigma = params["sigma"]
         self.distance = params["distance"]
         return self.multilayer()
 
-    # constructs the sample for current values of parameters
     def multilayer(self):
+        """
+        Constructs the sample from current parameter values.
+        """
+
         # defining materials
         m_air = ba.HomogeneousMaterial("Air", 0.0, 0.0)
         m_Si = ba.HomogeneousMaterial("Si", 5.78164736e-6, 1.02294578e-7)
@@ -38,20 +52,14 @@ class MySampleBuilder():
         nparticles = 20
         nfwhm = 2.0
         sphere_ff = ba.FormFactorFullSphere(self.radius)
-        # sphere_ff = ba.FormFactorTruncatedSphere(
-        #    self.radius, self.radius*1.5)
 
         sphere = ba.Particle(m_Ag, sphere_ff)
-        position = ba.kvector_t(0*ba.nm, 0*ba.nm,
-                                -1.0*self.hmdso_thickness)
+        position = ba.kvector_t(0*ba.nm, 0*ba.nm,-1.0*self.hmdso_thickness)
         sphere.setPosition(position)
         ln_distr = ba.DistributionLogNormal(self.radius, self.sigma)
         par_distr = ba.ParameterDistribution(
             "/Particle/FullSphere/Radius", ln_distr, nparticles, nfwhm,
             ba.RealLimits.limited(0.0, self.hmdso_thickness/2.0))
-        # par_distr = ba.ParameterDistribution(
-        #    "/Particle/TruncatedSphere/Radius", ln_distr, nparticles, nfwhm)
-        # par_distr.linkParameter("/Particle/TruncatedSphere/Height")
         part_coll = ba.ParticleDistribution(sphere, par_distr)
 
         # interference function
@@ -63,11 +71,11 @@ class MySampleBuilder():
         interference.setProbabilityDistribution(pdf)
 
         # assembling particle layout
-        particle_layout = ba.ParticleLayout()
-        particle_layout.addParticle(part_coll, 1.0)
-        particle_layout.setInterferenceFunction(interference)
-        particle_layout.setApproximation(ba.ILayout.SSCA)
-        particle_layout.setTotalParticleSurfaceDensity(1)
+        layout = ba.ParticleLayout()
+        layout.addParticle(part_coll, 1.0)
+        layout.setInterferenceFunction(interference)
+        layout.setApproximation(ba.ILayout.SSCA)
+        layout.setTotalParticleSurfaceDensity(1)
 
         # roughness
         r_ptfe = ba.LayerRoughness(2.3*ba.nm, 0.3, 5.0*ba.nm)
@@ -76,7 +84,7 @@ class MySampleBuilder():
         # layers
         air_layer = ba.Layer(m_air)
         hmdso_layer = ba.Layer(m_HMDSO, self.hmdso_thickness)
-        hmdso_layer.addLayout(particle_layout)
+        hmdso_layer.addLayout(layout)
         ptfe_layer = ba.Layer(m_PTFE, self.ptfe_thickness)
         substrate_layer = ba.Layer(m_Si)
 

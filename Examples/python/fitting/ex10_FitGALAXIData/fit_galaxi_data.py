@@ -1,12 +1,10 @@
 """
-Real life example: experiment at GALAXY
+Fitting experimental data: spherical nanoparticles with size distribution
+in 3 layers system (experiment at GALAXI).
 """
-import matplotlib
-from matplotlib import pyplot as plt
-import numpy
 import bornagain as ba
 from bornagain import nm as nm
-from SampleBuilder_new import MySampleBuilder
+from sample_builder import SampleBuilder
 
 wavelength = 1.34*ba.angstrom
 alpha_i = 0.463*ba.deg
@@ -39,17 +37,9 @@ def create_simulation(params):
     simulation.setBeamParameters(wavelength, alpha_i, 0.0)
     simulation.setBeamIntensity(1.2e7)
     simulation.setRegionOfInterest(85.0, 70.0, 120.0, 92.)
-    # mask on reflected beam
-    simulation.addMask(ba.Rectangle(101.9, 82.1, 103.7, 85.2), True)
-    # detector resolution function
-    # simulation.setDetectorResolutionFunction(
-    #   ba.ResolutionFunction2DGaussian(0.5*pilatus_pixel_size,
-    #      0.5*pilatus_pixel_size))
-    # beam divergence
-    # alpha_distr = ba.DistributionGaussian(alpha_i, 0.02*ba.deg)
-    # simulation.addParameterDistribution("*/Beam/Alpha", alpha_distr, 5)
+    simulation.addMask(ba.Rectangle(101.9, 82.1, 103.7, 85.2), True)  # mask on reflected beam
 
-    sample_builder = MySampleBuilder()
+    sample_builder = SampleBuilder()
     sample = sample_builder.create_sample(params)
     simulation.setSample(sample)
 
@@ -58,11 +48,9 @@ def create_simulation(params):
 
 def load_real_data(filename="galaxi_data.tif.gz"):
     """
-    Fill histogram representing our detector with intensity data from tif file.
-    Returns cropped version of it, which represent the area we are interested in.
+    Loads experimental data and returns numpy array.
     """
-    hist = ba.IHistogram.createFrom(filename).array()
-    return hist
+    return ba.IntensityDataIOFactory.readIntensityData(filename).array()
 
 
 def run_fitting():

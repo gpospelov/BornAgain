@@ -20,6 +20,8 @@
 namespace {
 const double maxkappa = std::log(1.0/std::numeric_limits<double>::epsilon())/2.0;
 double FisherDistribution(double x, double kappa);
+double Gauss3D(double q2, double domainsize);
+double Cauchy3D(double q2, double domainsize);
 }
 
 IPeakShape::~IPeakShape() =default;
@@ -39,8 +41,7 @@ IsotropicGaussPeakShape* IsotropicGaussPeakShape::clone() const
 double IsotropicGaussPeakShape::evaluate(const kvector_t q) const
 {
     double q_norm = q.mag2();
-    double exponent = -q_norm*m_domainsize*m_domainsize/2.0;
-    return m_max_intensity * std::exp(exponent);
+    return m_max_intensity * Gauss3D(q_norm, m_domainsize);
 }
 
 double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
@@ -63,8 +64,7 @@ IsotropicLorentzPeakShape* IsotropicLorentzPeakShape::clone() const
 double IsotropicLorentzPeakShape::evaluate(const kvector_t q) const
 {
     double q_norm = q.mag2();
-    double lorentz = 1.0 / (1.0 + m_domainsize*m_domainsize*q_norm);
-    return m_max_intensity * lorentz * lorentz;
+    return m_max_intensity * Cauchy3D(q_norm, m_domainsize);
 }
 
 double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
@@ -90,13 +90,16 @@ double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_latti
     double q_r = q.mag();
     double q_lat_r = q_lattice_point.mag();
     double dq2 = (q_r - q_lat_r)*(q_r - q_lat_r);
-    double radial_part = m_max_intensity * std::exp(-dq2*m_radial_size*m_radial_size/2.0);
+    if (q_lat_r == 0.0)
+        return m_max_intensity * Gauss3D(dq2, m_radial_size);
+    double norm_factor = m_radial_size / std::sqrt(M_TWOPI);
+    double radial_part = norm_factor * std::exp(-dq2*m_radial_size*m_radial_size/2.0);
     double angular_part = 1.0;
     if (q_r*q_lat_r > 0.0) {
         double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
-        angular_part = FisherDistribution(dot_norm, m_kappa);
+        angular_part = FisherDistribution(dot_norm, m_kappa)/(q_r*q_r);
     }
-    return radial_part*angular_part;
+    return m_max_intensity * radial_part * angular_part;
 }
 
 LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size, double kappa)
@@ -117,13 +120,15 @@ double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lat
     double q_r = q.mag();
     double q_lat_r = q_lattice_point.mag();
     double dq2 = (q_r - q_lat_r)*(q_r - q_lat_r);
-    double radial_part = m_max_intensity / (1.0 + dq2*m_radial_size*m_radial_size);
+    if (q_lat_r == 0.0)
+        return m_max_intensity * Cauchy3D(dq2, m_radial_size);
+    double radial_part = m_radial_size / (1.0 + dq2*m_radial_size*m_radial_size) / M_PI;
     double angular_part = 1.0;
     if (q_r*q_lat_r > 0.0) {
         double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
-        angular_part = FisherDistribution(dot_norm, m_kappa);
+        angular_part = FisherDistribution(dot_norm, m_kappa)/(q_r*q_r);
     }
-    return radial_part*angular_part;
+    return m_max_intensity * radial_part * angular_part;
 }
 
 namespace {
@@ -137,6 +142,17 @@ double FisherDistribution(double x, double kappa)
         return 2.0*prefactor*std::exp(kappa*(x-1.0));
     }
     return prefactor*std::exp(kappa*x)/std::sinh(kappa);
+}
+double Gauss3D(double q2, double domainsize)
+{
+    double norm_factor = std::pow(domainsize / std::sqrt(M_TWOPI), 3.0);
+    double exponent = -q2*domainsize*domainsize/2.0;
+    return norm_factor * std::exp(exponent);
+}
+double Cauchy3D(double q2, double domainsize)
+{
+    double lorentz1 = domainsize / (1.0 + q2*domainsize*domainsize) / M_PI;
+    return domainsize * lorentz1 * lorentz1;
 }
 }
 

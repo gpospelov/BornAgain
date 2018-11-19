@@ -132,6 +132,24 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
                 std::pow(positionInside.z()/c, 2) <= 1)  && positionInside.z() >= 0)
             check = true;
     }
+    else if (auto ff_TruncatedSphere = dynamic_cast<const FormFactorTruncatedSphere*>(outerShape)) {
+        double R = ff_TruncatedSphere->getRadius();
+        double H = ff_TruncatedSphere->getHeight();
+
+        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
+                positionInside.z() > H)
+            return check;
+
+// TODO : Use the commented code instead when DeltaHeight has been implemented in 3D View
+//        double Delta_H = ff_TruncatedSphere->getRemovedTop();
+//        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
+//                positionInside.z() > (H-Delta_H))
+//            return check;
+
+        if ((std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) +
+                std::pow((positionInside.z()-(H-R))/R, 2) <= 1) && positionInside.z() >= 0)
+            check = true;
+    }
     return check;
 }
 

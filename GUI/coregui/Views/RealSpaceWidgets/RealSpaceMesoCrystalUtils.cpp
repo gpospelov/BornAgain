@@ -168,6 +168,29 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
                 std::pow(positionInside.z()/c, 2) <= 1)  && positionInside.z() >= 0)
             check = true;
     }
+    else if (auto ff_Prism3 = dynamic_cast<const FormFactorPrism3*>(outerShape)) {
+        double B = ff_Prism3->getBaseEdge();
+        double H = ff_Prism3->getHeight();
+
+        double l = B*std::sin(M_PI/3);
+        double x_shift = B/2*std::tan(M_PI/6);
+
+        if (positionInside.x() + x_shift < 0 || positionInside.x() + x_shift > l ||
+                std::abs(positionInside.y()) > B/2 || positionInside.z() > H)
+            return check;
+
+        double theta = 0; // angle between positionInside & x-axis in positionInside.z() plane
+        if (positionInside.x() + x_shift != 0 || positionInside.y() != 0)
+            theta = std::asin(std::abs(positionInside.y()) /
+                              std::sqrt(std::pow(positionInside.x() + x_shift,2) +
+                                        std::pow(positionInside.y(),2)));
+
+        double k = l/( std::sin(theta)/std::tan(M_PI/6) + std::cos(theta) );
+
+        if ((std::pow(positionInside.x() + x_shift,2) +
+             std::pow(positionInside.y(),2) <= std::pow(k,2)) && positionInside.z() >= 0)
+            check = true;
+    }
     else if (auto ff_Prism6 = dynamic_cast<const FormFactorPrism6*>(outerShape)) {
         double B = ff_Prism6->getBaseEdge();
         double H = ff_Prism6->getHeight();

@@ -148,7 +148,7 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
         // initializing value box
         m_valueBox = new ScientificSpinBox();
         m_valueBox->setKeyboardTracking(false);
-        m_valueBox->setFixedWidth(80);
+        m_valueBox->setFixedWidth(105);
         m_valueBox->setDecimals(m_currentItem->linkedItem()->decimals());
         m_valueBox->setSingleStep(m_tuning_info.step());
 

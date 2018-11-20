@@ -39,7 +39,19 @@ const int n = 10;
 bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positionInside)
 {
     bool check(false);
-    if (auto ff_Box = dynamic_cast<const FormFactorBox*>(outerShape)) {
+    if (auto ff_AnisoPyramid = dynamic_cast<const FormFactorAnisoPyramid*>(outerShape)) {
+        double L = ff_AnisoPyramid->getLength();
+        double W = ff_AnisoPyramid->getWidth();
+        double H = ff_AnisoPyramid->getHeight();
+        double alpha = ff_AnisoPyramid->getAlpha();
+
+        double l_z = L/2 - positionInside.z()/std::tan(alpha); // half-length of rectangle at a certain height
+        double w_z = W/2 - positionInside.z()/std::tan(alpha); // half-width of rectangle at a certain height
+        if (std::abs(positionInside.x()) <= l_z && std::abs(positionInside.y()) <= w_z &&
+                (positionInside.z() >= 0 && positionInside.z() <= H))
+            check = true;
+    }
+    else if (auto ff_Box = dynamic_cast<const FormFactorBox*>(outerShape)) {
         double L = ff_Box->getLength();
         double W = ff_Box->getWidth();
         double H = ff_Box->getHeight();
@@ -175,6 +187,16 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
 
         if ((std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2) <= std::pow(k_z,2)) &&
                 positionInside.z() >= 0)
+            check = true;
+    }
+    else if (auto ff_Pyramid = dynamic_cast<const FormFactorPyramid*>(outerShape)) {
+        double B = ff_Pyramid->getBaseEdge();
+        double H = ff_Pyramid->getHeight();
+        double alpha = ff_Pyramid->getAlpha();
+
+        double l_z = B/2 - positionInside.z()/std::tan(alpha); // half-length of square at a certain height
+        if (std::abs(positionInside.x()) <= l_z && std::abs(positionInside.y()) <= l_z &&
+                (positionInside.z() >= 0 && positionInside.z() <= H))
             check = true;
     }
     else if (auto ff_TruncatedSphere = dynamic_cast<const FormFactorTruncatedSphere*>(outerShape)) {

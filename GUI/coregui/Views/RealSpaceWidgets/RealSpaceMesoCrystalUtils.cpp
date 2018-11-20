@@ -72,7 +72,7 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
             return check;
 
         double l_z = B - positionInside.z()/std::tan(alpha); // edge of hexagon at a certain height
-        double theta_prime = 0; // angle between positionInside and x-axis in the plane z=positionInside.z()
+        double theta_prime = 0; // angle between positionInside & x-axis in positionInside.z() plane
         if (positionInside.x() != 0 || positionInside.y() != 0)
             theta_prime = Units::rad2deg(std::asin(std::abs(positionInside.y()) /
                                                    std::sqrt(std::pow(positionInside.x(),2) +
@@ -154,6 +154,27 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
 
         if ((std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/b, 2) +
                 std::pow(positionInside.z()/c, 2) <= 1)  && positionInside.z() >= 0)
+            check = true;
+    }
+    else if (auto ff_Prism6 = dynamic_cast<const FormFactorPrism6*>(outerShape)) {
+        double B = ff_Prism6->getBaseEdge();
+        double H = ff_Prism6->getHeight();
+
+        if (std::abs(positionInside.x()) > B || std::abs(positionInside.y()) > B ||
+                positionInside.z() > H)
+            return check;
+
+        double theta_prime = 0; // angle between positionInside & x-axis in positionInside.z() plane
+        if (positionInside.x() != 0 || positionInside.y() != 0)
+            theta_prime = Units::rad2deg(std::asin(std::abs(positionInside.y()) /
+                                                   std::sqrt(std::pow(positionInside.x(),2) +
+                                                             std::pow(positionInside.y(),2))));
+        int c = static_cast<int>(theta_prime/60); // multiplicative constant
+        double theta = Units::deg2rad(theta_prime - c*60);
+        double k_z = B/(std::cos(theta)+std::sin(theta)/std::tan(M_PI/3));
+
+        if ((std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2) <= std::pow(k_z,2)) &&
+                positionInside.z() >= 0)
             check = true;
     }
     else if (auto ff_TruncatedSphere = dynamic_cast<const FormFactorTruncatedSphere*>(outerShape)) {

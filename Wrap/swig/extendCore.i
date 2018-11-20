@@ -140,7 +140,7 @@ class ObserverCallbackWrapper(PyObserverCallback):
 
 %extend FitObjective {
 %pythoncode %{
-    def addSimulationAndData(self, callback, data, weight):
+    def addSimulationAndData(self, callback, data, weight = 1.0):
         if not hasattr(self, 'callback_container'):
             self.callback_container = []
         wrp = SimulationBuilderWrapper(callback)

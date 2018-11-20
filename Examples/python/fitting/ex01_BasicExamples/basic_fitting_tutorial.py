@@ -28,15 +28,13 @@ def get_sample(params):
     cylinder = ba.Particle(m_particle, cylinder_ff)
     prism_ff = ba.FormFactorPrism3(prism_base_edge, prism_height)
     prism = ba.Particle(m_particle, prism_ff)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.5)
-    particle_layout.addParticle(prism, 0.5)
-    interference = ba.InterferenceFunctionNone()
-    particle_layout.setInterferenceFunction(interference)
+    layout = ba.ParticleLayout()
+    layout.addParticle(cylinder, 0.5)
+    layout.addParticle(prism, 0.5)
 
     # air layer with particles and substrate form multi layer
     air_layer = ba.Layer(m_air)
-    air_layer.addLayout(particle_layout)
+    air_layer.addLayout(layout)
     substrate_layer = ba.Layer(m_substrate, 0)
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
@@ -126,7 +124,7 @@ def run_fitting():
 
 if __name__ == '__main__':
     # uncomment line below to regenerate "experimental" data file
-    create_real_data()
+    # create_real_data()
 
     run_fitting()
     plt.show()

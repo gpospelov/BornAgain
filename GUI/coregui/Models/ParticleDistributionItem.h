@@ -22,6 +22,7 @@ class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem
 {
 public:
     static const QString P_DISTRIBUTED_PARAMETER;
+    static const QString P_LINKED_PARAMETER;
     static const QString P_DISTRIBUTION;
     static const QString NO_SELECTION;
     static const QString T_PARTICLES;
@@ -33,6 +34,8 @@ public:
 
 private:
     void updateParameterList();
+    void updateMainParameterList();
+    void updateLinkedParameterList();
     void initDistributionItem();
     QStringList childParameterNames() const;
     QString translateParameterNameToGUI(const QString& domainName);

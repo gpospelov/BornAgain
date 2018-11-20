@@ -32,6 +32,7 @@ const QString abundance_tooltip =
 }
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
+const QString ParticleDistributionItem::P_LINKED_PARAMETER = "Linked parameter";
 const QString ParticleDistributionItem::P_DISTRIBUTION = "Distribution";
 const QString ParticleDistributionItem::NO_SELECTION = "None";
 const QString ParticleDistributionItem::T_PARTICLES = "Particle Tag";
@@ -58,13 +59,18 @@ ParticleDistributionItem::ParticleDistributionItem()
     addProperty(P_DISTRIBUTED_PARAMETER, par_prop.variant())->setToolTip(
         QStringLiteral("Parameter to distribute"));
 
+    addProperty(P_LINKED_PARAMETER, par_prop.variant())->setToolTip(
+        QStringLiteral("Linked parameter"));
+
     updateParameterList();
+
     mapper()->setOnAnyChildChange([this](SessionItem* item) {
         // prevent infinit loop when item changes its own properties
         if (item && item->modelType() == Constants::PropertyType && item->parent() == this)
             return;
         updateParameterList();
     });
+
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
@@ -111,6 +117,12 @@ void ParticleDistributionItem::setDomainCacheName(const QString& name)
 
 void ParticleDistributionItem::updateParameterList()
 {
+    updateMainParameterList();
+    updateLinkedParameterList();
+}
+
+void ParticleDistributionItem::updateMainParameterList()
+{
     if (!isTag(P_DISTRIBUTED_PARAMETER))
         return;
 
@@ -140,6 +152,25 @@ void ParticleDistributionItem::updateParameterList()
 
     if(make_cache_clear)
         m_domain_cache_name.clear();
+}
+
+#include <QDebug>
+void ParticleDistributionItem::updateLinkedParameterList()
+{
+    if (!isTag(P_LINKED_PARAMETER) || !isTag(P_DISTRIBUTED_PARAMETER))
+        return;
+
+    ComboProperty mainProp = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
+    ComboProperty linkedProp = getItemValue(P_LINKED_PARAMETER).value<ComboProperty>();
+
+    auto par_names = mainProp.getValues();
+    if (mainProp.getValue() != NO_SELECTION)
+        par_names.removeAll(mainProp.getValue());
+
+    qDebug() << "xxx" << par_names;
+
+    ComboProperty newProp = ComboProperty(par_names, NO_SELECTION);
+    setItemValue(P_LINKED_PARAMETER, newProp.variant());
 }
 
 QStringList ParticleDistributionItem::childParameterNames() const

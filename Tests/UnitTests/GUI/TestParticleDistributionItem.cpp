@@ -50,7 +50,7 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
     EXPECT_EQ(distItem->displayName(), distItem->itemName());
 
     // xpos, ypos, P_ABUNDANCE, P_DISTRIBUTION, P_DISTRIBUTED_PARAMETER
-    EXPECT_EQ(distItem->children().size(), 5);
+    EXPECT_EQ(distItem->children().size(), 6);
 
     EXPECT_EQ(distItem->defaultTag(), ParticleDistributionItem::T_PARTICLES);
 
@@ -59,7 +59,14 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
                                  << Constants::ParticleCompositionType
                                  << Constants::MesoCrystalType);
 
+    // main parameter
     ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                             .value<ComboProperty>();
+    EXPECT_EQ(prop.getValues(), QStringList() << ParticleDistributionItem::NO_SELECTION);
+    EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    // linked parameter
+    prop = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
                              .value<ComboProperty>();
     EXPECT_EQ(prop.getValues(), QStringList() << ParticleDistributionItem::NO_SELECTION);
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
@@ -76,6 +83,13 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     EXPECT_EQ(dist->getItems().size(), 1);
 
     ComboProperty prop = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                             .value<ComboProperty>();
+
+    EXPECT_EQ(prop.getValues(), expectedCylinderParams);
+    EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    // linked parameter
+    prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
                              .value<ComboProperty>();
 
     EXPECT_EQ(prop.getValues(), expectedCylinderParams);

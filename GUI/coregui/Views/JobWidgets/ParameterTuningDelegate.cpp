@@ -107,7 +107,7 @@ void ParameterTuningDelegate::paint(QPainter* painter, const QStyleOptionViewIte
             int type = SessionItemUtils::VariantType(prop_value);
             if (type == QVariant::Double) {
                 double value = prop_value.toDouble();
-                QString text(QString::number(value));
+                QString text = ScientificSpinBox::toString(value, 3);
 
                 QStyleOptionViewItem myOption = option;
                 myOption.displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;

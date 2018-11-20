@@ -87,8 +87,16 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
         = getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
     QString par_name = prop.getValue();
 
+    auto linkedProp
+        = getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
+    QString linked_name = linkedProp.getValue();
+
+
     std::string domain_par
         = ParameterTreeUtils::parameterNameToDomainName(par_name, childParticle()).toStdString();
+
+    std::string domain_linked
+        = ParameterTreeUtils::parameterNameToDomainName(linked_name, childParticle()).toStdString();
 
     double scale = ParameterUtils::isAngleRelated(domain_par) ? Units::degree : 1.0;
     auto P_distribution = distr_item.createDistribution(scale);
@@ -104,6 +112,8 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
                           distr_item.getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble() :
                           0.0;
     ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor, limits);
+    if (!domain_linked.empty())
+        par_distr.linkParameter(domain_linked);
     auto result = std::make_unique<ParticleDistribution>(*P_particle, par_distr);
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     result->setAbundance(abundance);
@@ -154,7 +164,6 @@ void ParticleDistributionItem::updateMainParameterList()
         m_domain_cache_name.clear();
 }
 
-#include <QDebug>
 void ParticleDistributionItem::updateLinkedParameterList()
 {
     if (!isTag(P_LINKED_PARAMETER) || !isTag(P_DISTRIBUTED_PARAMETER))
@@ -162,14 +171,16 @@ void ParticleDistributionItem::updateLinkedParameterList()
 
     ComboProperty mainProp = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
     ComboProperty linkedProp = getItemValue(P_LINKED_PARAMETER).value<ComboProperty>();
+    QString currentValue = linkedProp.getValue();
 
     auto par_names = mainProp.getValues();
     if (mainProp.getValue() != NO_SELECTION)
         par_names.removeAll(mainProp.getValue());
 
-    qDebug() << "xxx" << par_names;
-
     ComboProperty newProp = ComboProperty(par_names, NO_SELECTION);
+    if (newProp.getValues().contains(currentValue))
+        newProp.setValue(currentValue);
+
     setItemValue(P_LINKED_PARAMETER, newProp.variant());
 }
 

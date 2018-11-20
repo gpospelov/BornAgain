@@ -103,6 +103,13 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
 
     EXPECT_EQ(prop.getValues(), expectedBoxParams);
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    // cheking linked
+    prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+
+    EXPECT_EQ(prop.getValues(), expectedBoxParams);
+    EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 }
 
 TEST_F(TestParticleDistributionItem, test_FromDomain)

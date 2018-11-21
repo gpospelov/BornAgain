@@ -297,6 +297,7 @@ const ModelType DefaultEditorType = "Default";
 const ModelType ScientificEditorType = "SceintificDouble";
 const ModelType MaterialEditorExternalType = "ExtMaterialEditor";
 const ModelType ColorEditorExternalType = "ExtColorEditor";
+const ModelType MultiSelectionComboEditorType = "MultiSelectionComboEditor";
 }
 
 #endif // ITEM_CONSTANTS_H

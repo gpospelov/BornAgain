@@ -60,7 +60,7 @@ ParticleDistributionItem::ParticleDistributionItem()
         QStringLiteral("Parameter to distribute"));
 
     addProperty(P_LINKED_PARAMETER, par_prop.variant())->setToolTip(
-        QStringLiteral("Linked parameter"));
+        QStringLiteral("Linked parameter")).setEditorType(Constants::MultiSelectionComboEditorType);
 
     updateParameterList();
 

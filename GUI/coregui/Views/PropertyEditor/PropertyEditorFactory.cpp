@@ -20,6 +20,7 @@
 #include "CustomEditors.h"
 #include "ComboProperty.h"
 #include "CustomEventFilters.h"
+#include "MultiComboPropertyEditor.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 #include <QLineEdit>
@@ -127,9 +128,15 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
         result = editor;
     }
     else if(isComboProperty(item.value())) {
-        auto editor = new ComboPropertyEditor;
-        editor->setData(item.value());
-        result = editor;
+        if (item.editorType() == Constants::DefaultEditorType) {
+            auto editor = new ComboPropertyEditor;
+            editor->setData(item.value());
+            result = editor;
+        } else if (item.editorType() == Constants::MultiSelectionComboEditorType) {
+            auto editor = new MultiComboPropertyEditor;
+            editor->setData(item.value());
+            result = editor;
+        }
     }
     if (parent && result)
         result->setParent(parent);

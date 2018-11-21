@@ -4,9 +4,9 @@ of substrate.
 """
 
 import bornagain as ba
+from bornagain import deg, angstrom, nm
 import numpy as np
 from matplotlib import pyplot as plt
-from bornagain import deg, angstrom, nm
 
 
 def get_sample(params):
@@ -42,6 +42,19 @@ def get_sample(params):
     return multi_layer
 
 
+def get_simulation(params):
+    """
+    Returns a GISAXS simulation with beam and detector defined
+    """
+    simulation = ba.GISASSimulation()
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setBeamIntensity(1e+08)
+    simulation.setSample(get_sample(params))
+    return simulation
+
+
 def create_real_data():
     """
     Generating "experimental" data by running simulation with certain parameters.
@@ -73,19 +86,6 @@ def load_real_data():
     return np.loadtxt("basic_fitting_tutorial_data.txt.gz", dtype=float)
 
 
-def get_simulation(params):
-    """
-    Returns a GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
-                                     100, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e+08)
-    simulation.setSample(get_sample(params))
-    return simulation
-
-
 def run_fitting():
     """
     Setup simulation and fit
@@ -94,7 +94,7 @@ def run_fitting():
     real_data = load_real_data()
 
     fit_objective = ba.FitObjective()
-    fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
+    fit_objective.addSimulationAndData(get_simulation, real_data)
 
     # Print fit progress on every n-th iteration.
     fit_objective.initPrint(10)

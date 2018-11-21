@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "DistributionHandler.h"
+#include "Distributions.h"
 #include "Exceptions.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
@@ -66,6 +67,18 @@ double DistributionHandler::setParameterValues(ParameterPool* p_parameter_pool, 
         if (param_index==0) break;
     }
     return weight;
+}
+
+void DistributionHandler::setParameterToMeans(ParameterPool* p_parameter_pool) const
+{
+    for (auto& distribution : m_distributions) {
+        const std::string par_name = distribution.getMainParameterName();
+        const double mean_val = distribution.getDistribution()->getMean();
+        if (p_parameter_pool->setMatchedParametersValue(par_name, mean_val) != 1)
+            throw std::runtime_error("Error in DistributionHandler::setParameterToMeans: parameter "
+                                     "name matches nothing or more than "
+                                     "one parameter");
+    }
 }
 
 const DistributionHandler::Distributions_t& DistributionHandler::getDistributions() const

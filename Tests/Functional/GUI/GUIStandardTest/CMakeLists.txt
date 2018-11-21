@@ -22,6 +22,7 @@ set(test_cases
     CoreShellParticle
     CosineRipple
     CylindersAndPrisms
+    CylindersInSSCA
     CylindersWithSizeDistribution
     DetectorResolution
     FormFactors

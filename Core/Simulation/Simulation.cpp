@@ -145,6 +145,7 @@ void Simulation::runSimulation()
         double weight = m_distribution_handler.setParameterValues(P_param_pool.get(), index);
         runSingleSimulation(batch_start, batch_size, weight);
     }
+    m_distribution_handler.setParameterToMeans(P_param_pool.get());
     moveDataFromCache();
     transferResultsToIntensityMap();
 }

@@ -29,11 +29,11 @@ double DebyeWallerFactor(double variance, double q2);
 
 
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
-        const Lattice2D& lattice, unsigned size_1, unsigned size_2)
+        const Lattice2D& lattice, unsigned N_1, unsigned N_2)
     : m_sigma2(0.0)
     , m_integrate_xi(false)
-    , m_size_1(size_1)
-    , m_size_2(size_2)
+    , m_N_1(N_1)
+    , m_N_2(N_2)
 {
     setName(BornAgain::InterferenceFunctionFinite2DLatticeType);
     setLattice(lattice);
@@ -46,11 +46,11 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
 //! @param alpha: angle between lattice vectors in radians
 //! @param xi: rotation of lattice with respect to x-axis (beam direction) in radians
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
-        double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+        double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)
     : m_sigma2(0.0)
     , m_integrate_xi(false)
-    , m_size_1(size_1)
-    , m_size_2(size_2)
+    , m_N_1(N_1)
+    , m_N_2(N_2)
 {
     setName(BornAgain::InterferenceFunctionFinite2DLatticeType);
     setLattice(BasicLattice(length_1, length_2, alpha, xi));
@@ -68,20 +68,20 @@ InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::clone(
 //! @param lattice_length: length of first and second lattice vectors in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::createSquare(
-    double lattice_length, double xi, unsigned size_1, unsigned size_2)
+    double lattice_length, double xi, unsigned N_1, unsigned N_2)
 {
     return new InterferenceFunctionFinite2DLattice(SquareLattice(lattice_length, xi),
-                                                   size_1, size_2);
+                                                   N_1, N_2);
 }
 
 //! Creates hexagonal lattice.
 //! @param lattice_length: length of first and second lattice vectors in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::createHexagonal(
-    double lattice_length, double xi, unsigned size_1, unsigned size_2)
+    double lattice_length, double xi, unsigned N_1, unsigned N_2)
 {
     return new InterferenceFunctionFinite2DLattice(HexagonalLattice(lattice_length, xi),
-                                                   size_1, size_2);
+                                                   N_1, N_2);
 }
 
 double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const
@@ -121,8 +121,8 @@ std::vector<const INode*> InterferenceFunctionFinite2DLattice::getChildren() con
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
         const InterferenceFunctionFinite2DLattice& other)
     : m_sigma2(other.m_sigma2)
-    , m_size_1(other.m_size_1)
-    , m_size_2(other.m_size_2)
+    , m_N_1(other.m_N_1)
+    , m_N_2(other.m_N_2)
 {
     setName(other.getName());
     if(other.m_lattice)
@@ -152,8 +152,8 @@ double InterferenceFunctionFinite2DLattice::interferenceForXi(double xi) const
 
     double qadiv2 = (m_qx*a*std::cos(xi) + m_qy*a*std::sin(xi)) / 2.0;
     double qbdiv2 = (m_qx*b*std::cos(xialpha) + m_qy*b*std::sin(xialpha)) / 2.0;
-    double ampl = SinNx_Div_Sinx(qadiv2, m_size_1)*SinNx_Div_Sinx(qbdiv2, m_size_2);
-    double lattice_factor = ampl*ampl / (m_size_1*m_size_2);
+    double ampl = SinNx_Div_Sinx(qadiv2, m_N_1)*SinNx_Div_Sinx(qbdiv2, m_N_2);
+    double lattice_factor = ampl*ampl / (m_N_1*m_N_2);
     double DW_factor = DebyeWallerFactor(m_sigma2, m_qx*m_qx + m_qy*m_qy);
 
     return 1.0 + DW_factor*(lattice_factor - 1.0);

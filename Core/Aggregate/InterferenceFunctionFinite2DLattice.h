@@ -26,9 +26,9 @@ template <class T> class IntegratorReal;
 class BA_CORE_API_ InterferenceFunctionFinite2DLattice : public IInterferenceFunction
 {
 public:
-    InterferenceFunctionFinite2DLattice(const Lattice2D& lattice, unsigned size_1, unsigned size_2);
+    InterferenceFunctionFinite2DLattice(const Lattice2D& lattice, unsigned N_1, unsigned N_2);
     InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha,
-                                        double xi, unsigned size_1, unsigned size_2);
+                                        double xi, unsigned N_1, unsigned N_2);
     ~InterferenceFunctionFinite2DLattice() final;
 
     InterferenceFunctionFinite2DLattice* clone() const final;
@@ -36,14 +36,14 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     static InterferenceFunctionFinite2DLattice* createSquare(
-            double lattice_length, double xi, unsigned size_1, unsigned size_2);
+            double lattice_length, double xi, unsigned N_1, unsigned N_2);
     static InterferenceFunctionFinite2DLattice* createHexagonal(
-            double lattice_length, double xi, unsigned size_1, unsigned size_2);
+            double lattice_length, double xi, unsigned N_1, unsigned N_2);
 
     double evaluate(const kvector_t q) const final;
 
-    unsigned domainSize1() const { return m_size_1; }
-    unsigned domainSize2() const { return m_size_2; }
+    unsigned numberUnitCells1() const { return m_N_1; }
+    unsigned numberUnitCells2() const { return m_N_2; }
 
     void setPositionVariance(double sigma2) { m_sigma2 = sigma2; }
     double positionVariance() const { return m_sigma2; }
@@ -68,7 +68,7 @@ private:
     double m_sigma2;
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<Lattice2D> m_lattice;
-    unsigned m_size_1, m_size_2;  //!< Size of the finite lattice in lattice units
+    unsigned m_N_1, m_N_2;  //!< Size of the finite lattice in lattice units
     mutable double m_qx;
     mutable double m_qy;
 #ifndef SWIG

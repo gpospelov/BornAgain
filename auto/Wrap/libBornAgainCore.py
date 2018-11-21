@@ -21643,8 +21643,8 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
 
     def __init__(self, *args):
         """
-        __init__(InterferenceFunctionFinite2DLattice self, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice
-        __init__(InterferenceFunctionFinite2DLattice self, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice
+        __init__(InterferenceFunctionFinite2DLattice self, Lattice2D lattice, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
+        __init__(InterferenceFunctionFinite2DLattice self, double length_1, double length_2, double alpha, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
 
         InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
 
@@ -21698,15 +21698,15 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_accept(self, visitor)
 
 
-    def createSquare(lattice_length, xi, size_1, size_2):
-        """createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, size_1, size_2)
+    def createSquare(lattice_length, xi, N_1, N_2):
+        """createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
 
     createSquare = staticmethod(createSquare)
 
-    def createHexagonal(lattice_length, xi, size_1, size_2):
-        """createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, size_1, size_2)
+    def createHexagonal(lattice_length, xi, N_1, N_2):
+        """createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
 
     createHexagonal = staticmethod(createHexagonal)
 
@@ -21722,24 +21722,14 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_evaluate(self, q)
 
 
-    def domainSize1(self):
-        """
-        domainSize1(InterferenceFunctionFinite2DLattice self) -> unsigned int
-
-        unsigned InterferenceFunctionFinite2DLattice::domainSize1() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_domainSize1(self)
+    def numberUnitCells1(self):
+        """numberUnitCells1(InterferenceFunctionFinite2DLattice self) -> unsigned int"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells1(self)
 
 
-    def domainSize2(self):
-        """
-        domainSize2(InterferenceFunctionFinite2DLattice self) -> unsigned int
-
-        unsigned InterferenceFunctionFinite2DLattice::domainSize2() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_domainSize2(self)
+    def numberUnitCells2(self):
+        """numberUnitCells2(InterferenceFunctionFinite2DLattice self) -> unsigned int"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells2(self)
 
 
     def setPositionVariance(self, sigma2):
@@ -21818,13 +21808,13 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
 InterferenceFunctionFinite2DLattice_swigregister = _libBornAgainCore.InterferenceFunctionFinite2DLattice_swigregister
 InterferenceFunctionFinite2DLattice_swigregister(InterferenceFunctionFinite2DLattice)
 
-def InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, size_1, size_2):
-    """InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, size_1, size_2)
+def InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2):
+    """InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
 
-def InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, size_1, size_2):
-    """InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, size_1, size_2)
+def InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2):
+    """InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
 
 class InterferenceFunction2DSuperLattice(IInterferenceFunction):
     """

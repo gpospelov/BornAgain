@@ -30,7 +30,7 @@ public:
 
     std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
 
-    void setDomainCacheName(const QString& name);
+    void setDomainCacheNames(const QString& name, const QStringList& linked);
 
 private:
     void updateParameterList();
@@ -41,6 +41,7 @@ private:
     QString translateParameterNameToGUI(const QString& domainName);
     const SessionItem* childParticle() const;
     QString m_domain_cache_name;
+    QStringList m_linked_names;
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

@@ -111,7 +111,8 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     double sigma_factor = distr_item.isTag(DistributionItem::P_SIGMA_FACTOR) ?
                           distr_item.getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble() :
                           0.0;
-    ParameterDistribution par_distr(domain_par, *P_distribution, nbr_samples, sigma_factor, limits);
+    ParameterDistribution par_distr(domain_par, *P_distribution, static_cast<size_t>(nbr_samples),
+                                    sigma_factor, limits);
     if (!domain_linked.empty())
         par_distr.linkParameter(domain_linked);
     auto result = std::make_unique<ParticleDistribution>(*P_particle, par_distr);
@@ -120,9 +121,10 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
     return result;
 }
 
-void ParticleDistributionItem::setDomainCacheName(const QString& name)
+void ParticleDistributionItem::setDomainCacheNames(const QString& name, const QStringList& linked)
 {
     m_domain_cache_name = name;
+    m_linked_names = linked;
 }
 
 void ParticleDistributionItem::updateParameterList()
@@ -177,11 +179,25 @@ void ParticleDistributionItem::updateLinkedParameterList()
     if (mainProp.getValue() != NO_SELECTION)
         par_names.removeAll(mainProp.getValue());
 
+
+    bool make_cache_clear(false);
+    if (!m_linked_names.isEmpty()) {
+        QString guiName = translateParameterNameToGUI(m_linked_names.at(0));
+        if (!guiName.isEmpty()) { // might be empty because item was not fully constructed yet
+            currentValue = guiName;
+            make_cache_clear = true;
+        }
+    }
+
     ComboProperty newProp = ComboProperty(par_names, NO_SELECTION);
     if (newProp.getValues().contains(currentValue))
         newProp.setValue(currentValue);
 
-    setItemValue(P_LINKED_PARAMETER, newProp.variant());
+    if(linkedProp != newProp)
+        setItemValue(P_LINKED_PARAMETER, newProp.variant());
+
+    if(make_cache_clear)
+        m_linked_names.clear();
 }
 
 QStringList ParticleDistributionItem::childParameterNames() const

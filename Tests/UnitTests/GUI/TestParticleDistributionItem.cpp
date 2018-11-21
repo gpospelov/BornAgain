@@ -147,6 +147,52 @@ TEST_F(TestParticleDistributionItem, test_FromDomain)
     EXPECT_EQ(prop.getValue(), QString("Particle/Cylinder/Radius"));
 }
 
+//! Constructing from domain distribution with linked parameter defined
+
+TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
+{
+    const std::string pattern("/Particle/Cylinder/Radius");
+    const std::string linked("/Particle/Cylinder/Height");
+
+    // creating domain distribution
+    FormFactorCylinder cylinder(1.0, 2.0);
+    Particle particle(HomogeneousMaterial("Particle", 6e-4, 2e-8), cylinder);
+    DistributionGaussian gauss(1.0, 0.1);
+    ParameterDistribution par_distr(pattern, gauss, 100, 3.0);
+    par_distr.linkParameter(linked);
+
+    ParticleDistribution particle_collection(particle, par_distr);
+
+    // creating GUI distribution
+    SampleModel model;
+    SessionItem* distItem = model.insertNewItem(Constants::ParticleDistributionType);
+    SessionItem* particleItem = model.insertNewItem(Constants::ParticleType, distItem->index());
+
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::AnisoPyramidType);
+
+    // Sets it from domain
+    TransformFromDomain::setParticleDistributionItem(distItem, particle_collection);
+
+    ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                             .value<ComboProperty>();
+    EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    ComboProperty linkedProp = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+    EXPECT_EQ(linkedProp.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    // changing particle type and check that distribution picked up domain name
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
+
+    prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+               .value<ComboProperty>();
+    EXPECT_EQ(prop.getValue(), QString("Particle/Cylinder/Radius"));
+
+    linkedProp = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+               .value<ComboProperty>();
+    EXPECT_EQ(linkedProp.getValue(), QString("Particle/Cylinder/Height"));
+}
+
 TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
 {
     const std::string pattern("/Particle/Cylinder/Radius");

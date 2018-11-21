@@ -203,8 +203,9 @@ void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
 
     ParameterDistribution par_distr = sample.parameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
+    QStringList linked_pars = GUIHelpers::fromStdStrings(par_distr.getLinkedParameterNames());
 
-    distItem->setDomainCacheName(main_distr_par_name);
+    distItem->setDomainCacheNames(main_distr_par_name, linked_pars);
 
     double unit_factor(1.0);
     if (ParameterUtils::mainParUnits(sample) == BornAgain::UnitsRad)

@@ -95,21 +95,17 @@ AxesUnits CsvCoordinateColumn::units() const
 {
     return m_units;
 }
-QString CsvCoordinateColumn::name() const
-{
-    return m_name;
-}
 // Setters:
 void CsvCoordinateColumn::setUnits(AxesUnits const units)
 {
     m_units = units;
 }
-void CsvCoordinateColumn::setName(QString const name)
+void CsvCoordinateColumn::setName(csv::ColumnType const name)
 {
     m_name = name;
 }
 void CsvCoordinateColumn::resetColumn(int colNum, double multiplier, csv::DataColumn values,
-                                      AxesUnits units, QString name)
+                                      AxesUnits units, csv::ColumnType name)
 {
     CsvIntensityColumn::resetColumn(colNum, multiplier, values);
     m_units = units;

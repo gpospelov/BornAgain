@@ -37,9 +37,8 @@ const QSize default_dialog_size(300, 400);
 
 DataSelector::DataSelector(csv::DataArray csvArray, QWidget* parent)
     : QDialog(parent), m_data(csvArray), m_tableWidget(nullptr), m_separatorField(nullptr),
-      m_firstDataRowSpinBox(nullptr), m_lastDataRowSpinBox(nullptr), m_columnNumberSpinBox(nullptr),
-      m_columnTypeComboBox(nullptr), m_coordinateUnitsComboBox(nullptr), m_importButton(nullptr),
-      m_cancelButton(nullptr)
+      m_firstDataRowSpinBox(nullptr), m_lastDataRowSpinBox(nullptr),
+      m_coordinateUnitsComboBox(nullptr), m_importButton(nullptr), m_cancelButton(nullptr)
 {
     setWindowTitle("Data Importer");
     setMinimumSize(default_dialog_size);
@@ -66,7 +65,6 @@ bool DataSelector::updateData()
     m_firstDataRowSpinBox->setMaximum(int(lastRow));
     m_lastDataRowSpinBox->setMaximum(int(lastRow));
     m_lastDataRowSpinBox->setValue(int(lastRow));
-    m_columnNumberSpinBox->setMaximum(int(m_data[firstLine()].size()));
 
     return true;
 }
@@ -132,13 +130,13 @@ void DataSelector::updateSelection()
 void DataSelector::setColumnAs(int col, csv::ColumnType coordOrInt)
 {
     m_tableWidget->setColumnAs(col, coordOrInt);
-    m_columnNumberSpinBox->setValue(col + 1);
-    m_columnTypeComboBox->setCurrentIndex(coordOrInt);
+    populateUnitsComboBox();
     updateSelection();
 }
 
-void DataSelector::populateUnitsComboBox(csv::ColumnType coord)
+void DataSelector::populateUnitsComboBox()
 {
+    csv::ColumnType coord = m_tableWidget->coordinateName();
     m_coordinateUnitsComboBox->clear();
     switch (coord) {
 
@@ -227,15 +225,6 @@ AxesUnits DataSelector::units() const
     return defaultUnits;
 }
 
-csv::ColumnType DataSelector::currentColumnType() const
-{
-    csv::ColumnType defaultColumnType = csv::_intensity_;
-    for (int i = 0; i < csv::HeaderLabels.size(); i++)
-        if (m_columnTypeComboBox->currentText() == csv::HeaderLabels[i])
-            return csv::ColumnType(i);
-    return defaultColumnType;
-}
-
 char DataSelector::separator() const
 {
     char separator;
@@ -307,7 +296,8 @@ QBoxLayout* DataSelector::createLayout()
     // Separator field -- This needs to communicate with importAssistant
     m_separatorField = new QLineEdit(QString(""));
     m_separatorField->setMaxLength(1);
-    m_separatorField->setMaximumWidth(100);
+    m_separatorField->setMaximumWidth(70);
+    m_separatorField->setMinimumWidth(70);
     connect(m_separatorField, &QLineEdit::editingFinished, this,
             [this]() { emit separatorChanged(separator()); });
 
@@ -316,7 +306,8 @@ QBoxLayout* DataSelector::createLayout()
     m_firstDataRowSpinBox->setMinimum(1);
     m_firstDataRowSpinBox->setMaximum(1);
     m_firstDataRowSpinBox->setValue(1);
-    m_firstDataRowSpinBox->setMaximumWidth(100);
+    m_firstDataRowSpinBox->setMaximumWidth(70);
+    m_firstDataRowSpinBox->setMinimumWidth(70);
     connect(m_firstDataRowSpinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             this, [this]() {
                 m_lastDataRowSpinBox->setMinimum(m_firstDataRowSpinBox->value());
@@ -328,7 +319,8 @@ QBoxLayout* DataSelector::createLayout()
     m_lastDataRowSpinBox->setMinimum(1);
     m_lastDataRowSpinBox->setMaximum(1);
     m_lastDataRowSpinBox->setValue(1);
-    m_lastDataRowSpinBox->setMaximumWidth(100);
+    m_lastDataRowSpinBox->setMaximumWidth(70);
+    m_lastDataRowSpinBox->setMinimumWidth(70);
     connect(m_lastDataRowSpinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             this, [this]() {
                 m_firstDataRowSpinBox->setMaximum(m_lastDataRowSpinBox->value());
@@ -337,38 +329,9 @@ QBoxLayout* DataSelector::createLayout()
 
     // Coordinate units selector:
     m_coordinateUnitsComboBox = new QComboBox();
-    m_coordinateUnitsComboBox->setMaximumWidth(100);
+    m_coordinateUnitsComboBox->setMaximumWidth(70);
+    m_coordinateUnitsComboBox->setMinimumWidth(70);
     m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::NBINS]);
-
-    // Column number selector:
-    m_columnNumberSpinBox = new QSpinBox();
-    m_columnNumberSpinBox->setMinimum(0);
-    m_columnNumberSpinBox->setMaximum(0);
-    m_columnNumberSpinBox->setValue(0);
-    m_columnNumberSpinBox->setMaximumWidth(100);
-    connect(m_columnNumberSpinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-            this, [this]() {
-                auto col = m_columnNumberSpinBox->value() - 1;
-                if (int(m_tableWidget->intensityColumn()) != col)
-                    if (int(m_tableWidget->coordinateColumn()) != col)
-                        setColumnAs(col, currentColumnType());
-            });
-
-    // Column type (Intensity / Data / ...) selector:
-    m_columnTypeComboBox = new QComboBox();
-    m_columnTypeComboBox->setMaximumWidth(100);
-    m_columnTypeComboBox->addItems(csv::HeaderLabels);
-    connect(m_columnTypeComboBox,
-            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
-            [this](int columnType) {
-                if (columnType == csv::_intensity_) {
-                    m_columnNumberSpinBox->setValue(m_tableWidget->intensityColumn() + 1);
-                } else {
-                    m_columnNumberSpinBox->setValue(m_tableWidget->coordinateColumn() + 1);
-                    populateUnitsComboBox(currentColumnType());
-                    m_tableWidget->setCoordinateName(csv::HeaderLabels[columnType]);
-                }
-            });
 
     auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
@@ -389,17 +352,14 @@ QBoxLayout* DataSelector::createLayout()
     auto* rowControlsGroupBox = new QGroupBox;
     rowControlsLayout->addRow(tr("&From row: "), m_firstDataRowSpinBox);
     rowControlsLayout->addRow(tr("&To row: "), m_lastDataRowSpinBox);
+    rowControlsLayout->setMargin(10);
     rowControlsGroupBox->setTitle(tr("&Data rows:"));
     rowControlsGroupBox->setLayout(rowControlsLayout);
 
-    // Column handling controls:
-    auto* columnControlsGroupBox = new QGroupBox;
-    auto columnSelectionLayout = new QFormLayout;
-    columnSelectionLayout->addRow(tr("&Import "), m_columnTypeComboBox);
-    columnSelectionLayout->addRow(tr("&from column "), m_columnNumberSpinBox);
-    columnSelectionLayout->addRow(tr("&Coordinate units "), m_coordinateUnitsComboBox);
-    columnControlsGroupBox->setTitle(tr("&Data Columns:"));
-    columnControlsGroupBox->setLayout(columnSelectionLayout);
+    // Unit selector
+    auto unitSelectionLayout = new QFormLayout;
+    unitSelectionLayout->addRow(tr("&Coordinate units: "), m_coordinateUnitsComboBox);
+    unitSelectionLayout->setMargin(10);
 
     // buttons layout
     auto buttonsLayout = new QHBoxLayout;
@@ -411,7 +371,7 @@ QBoxLayout* DataSelector::createLayout()
     controlsAndButtonsGrid->setMargin(10);
     controlsAndButtonsGrid->addItem(new QSpacerItem(10000, 1), 1, 1, 2, 1);
     controlsAndButtonsGrid->addWidget(rowControlsGroupBox, 1, 2, 1, 1, Qt::AlignRight);
-    controlsAndButtonsGrid->addWidget(columnControlsGroupBox, 1, 1, 1, 1, Qt::AlignRight);
+    controlsAndButtonsGrid->addLayout(unitSelectionLayout, 2, 2, Qt::AlignRight);
     controlsAndButtonsGrid->addLayout(buttonsLayout, 3, 2, 1, 1, Qt::AlignRight);
 
     // build all the layout

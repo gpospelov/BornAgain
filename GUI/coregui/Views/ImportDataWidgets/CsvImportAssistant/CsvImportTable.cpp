@@ -58,8 +58,9 @@ void CsvImportTable::setHeaders()
                                       new QTableWidgetItem(csv::HeaderLabels[csv::_intensity_]));
     }
     if (m_coordinateCol->columnNumber() > -1) {
+        QString label = csv::HeaderLabels[m_coordinateCol->name()];
         int coordCol = int(m_coordinateCol->columnNumber());
-        this->setHorizontalHeaderItem(coordCol, new QTableWidgetItem(m_coordinateCol->name()));
+        this->setHorizontalHeaderItem(coordCol, new QTableWidgetItem(label));
     }
 }
 
@@ -242,7 +243,7 @@ void CsvImportTable::setColumnAs(int col, csv::ColumnType coordOrInt, double mul
         m_coordinateCol->setColNum(col);
         m_coordinateCol->setMultiplier(multiplier);
         m_coordinateCol->setValues(buffer);
-        m_coordinateCol->setName(csv::HeaderLabels[coordOrInt]);
+        m_coordinateCol->setName(coordOrInt);
         if (col == m_intensityCol->columnNumber())
             m_intensityCol->resetColumn();
     }

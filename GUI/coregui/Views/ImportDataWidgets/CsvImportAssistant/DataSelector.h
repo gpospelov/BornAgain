@@ -45,7 +45,6 @@ public:
     double intensityMultiplier() const { return m_tableWidget->intensityMultiplier(); }
     double coordinateMultiplier() const { return m_tableWidget->coordinateMultiplier(); }
     AxesUnits units() const;
-    csv::ColumnType currentColumnType() const;
     void setDataArray(csv::DataArray csvArray)
     {
         m_data = std::move(csvArray);
@@ -77,7 +76,7 @@ private:
     void updateSelection();
     bool updateData();
     QBoxLayout* createLayout();
-    void populateUnitsComboBox(csv::ColumnType coordinate);
+    void populateUnitsComboBox();
     bool isInsideTable(QPoint point);
     bool dataLooksGood();
 
@@ -86,11 +85,7 @@ private:
     QLineEdit* m_separatorField;
     QSpinBox* m_firstDataRowSpinBox;
     QSpinBox* m_lastDataRowSpinBox;
-
-    QSpinBox* m_columnNumberSpinBox;
-    QComboBox* m_columnTypeComboBox;
     QComboBox* m_coordinateUnitsComboBox;
-
     QPushButton* m_importButton;
     QPushButton* m_cancelButton;
 };

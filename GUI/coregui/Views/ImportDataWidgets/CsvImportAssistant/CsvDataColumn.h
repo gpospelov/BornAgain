@@ -54,18 +54,18 @@ public:
 
     // Getters:
     AxesUnits units() const;
-    QString name() const;
+    csv::ColumnType name() const {return m_name;}
 
     // Setters:
     void setUnits(AxesUnits const units);
-    void setName(QString const name);
+    void setName(csv::ColumnType const name);
     void resetColumn(int colNum = -1, double multiplier = 1., csv::DataColumn values = {},
-                     AxesUnits units = AxesUnits::NBINS, QString name = "");
+                     AxesUnits units = AxesUnits::NBINS, csv::ColumnType name = csv::_intensity_);
     CsvCoordinateColumn& operator=(const CsvCoordinateColumn colToRep);
 
 private:
     AxesUnits m_units;
-    QString m_name;
+    csv::ColumnType m_name;
 };
 
 #endif // CSVDATACOLUMN_H

@@ -6789,14 +6789,16 @@ def tanhc(z):
     """
     return _libBornAgainCore.tanhc(z)
 
-def Laue(z, N):
+def Laue(x, N):
     """
-    Laue(complex_t const z, size_t N) -> complex_t
+    Laue(double const x, size_t N) -> double
 
-    complex_t MathFunctions::Laue(const complex_t z, size_t N)
+    double MathFunctions::Laue(const double x, size_t N)
+
+    Real Laue function:  $Laue(x,N)\\equiv\\sin(Nx)/sin(x)$. 
 
     """
-    return _libBornAgainCore.Laue(z, N)
+    return _libBornAgainCore.Laue(x, N)
 
 def erf(arg):
     """

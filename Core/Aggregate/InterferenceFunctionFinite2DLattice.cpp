@@ -18,14 +18,12 @@
 #include "IntegratorReal.h"
 #include "Macros.h"
 #include "MathConstants.h"
+#include "MathFunctions.h"
 #include "RealParameter.h"
 
 #include <limits>
 
-namespace {
-double SinNx_Div_Sinx(double x, unsigned N);
-double DebyeWallerFactor(double variance, double q2);
-}
+using MathFunctions::Laue;
 
 
 //! Constructor of two-dimensional finite lattice interference function.
@@ -162,25 +160,9 @@ double InterferenceFunctionFinite2DLattice::interferenceForXi(double xi) const
 
     double qadiv2 = (m_qx*a*std::cos(xi) + m_qy*a*std::sin(xi)) / 2.0;
     double qbdiv2 = (m_qx*b*std::cos(xialpha) + m_qy*b*std::sin(xialpha)) / 2.0;
-    double ampl = SinNx_Div_Sinx(qadiv2, m_N_1)*SinNx_Div_Sinx(qbdiv2, m_N_2);
+    double ampl = Laue(qadiv2, m_N_1)*Laue(qbdiv2, m_N_2);
     double lattice_factor = ampl*ampl / (m_N_1*m_N_2);
-    double DW_factor = DebyeWallerFactor(m_sigma2, m_qx*m_qx + m_qy*m_qy);
+    double DW_factor = std::exp(-m_sigma2*(m_qx*m_qx + m_qy*m_qy)/2.0);
 
     return 1.0 + DW_factor*(lattice_factor - 1.0);
 }
-
-namespace {
-double SinNx_Div_Sinx(double x, unsigned N) {
-    static const double SQRT6DOUBLE_EPS = std::sqrt(6.0*std::numeric_limits<double>::epsilon());
-    auto nd = static_cast<double>(N);
-    if(std::abs(nd*x) < SQRT6DOUBLE_EPS)
-        return nd;
-    double num = std::sin(nd*x);
-    double den = std::sin(x);
-    return num/den;
-}
-double DebyeWallerFactor(double variance, double q2) {
-    return std::exp(-q2*variance/2.0);
-}
-}
-

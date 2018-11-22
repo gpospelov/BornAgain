@@ -17,14 +17,12 @@
 #include "Exceptions.h"
 #include "Macros.h"
 #include "MathConstants.h"
+#include "MathFunctions.h"
 #include "RealParameter.h"
 
 #include <limits>
 
-namespace
-{
-double SinNx_Div_Sinx(double x, unsigned N);
-}
+using MathFunctions::Laue;
 
 //! Constructor of three-dimensional finite lattice interference function.
 //! @param lattice: object specifying a 2d lattice structure
@@ -49,7 +47,7 @@ double InterferenceFunctionFinite3DLattice::evaluate(const kvector_t q) const
     double qadiv2 = q.dot(mP_lattice->getBasisVectorA())/2.0;
     double qbdiv2 = q.dot(mP_lattice->getBasisVectorB())/2.0;
     double qcdiv2 = q.dot(mP_lattice->getBasisVectorC())/2.0;
-    double ampl = SinNx_Div_Sinx(qadiv2, m_N_1)*SinNx_Div_Sinx(qbdiv2, m_N_2)*SinNx_Div_Sinx(qcdiv2, m_N_3);
+    double ampl = Laue(qadiv2, m_N_1)*Laue(qbdiv2, m_N_2)*Laue(qcdiv2, m_N_3);
     return ampl*ampl / (m_N_1*m_N_2*m_N_3);
 }
 
@@ -80,17 +78,3 @@ void InterferenceFunctionFinite3DLattice::setLattice(const Lattice& lattice)
     mP_lattice.reset(new Lattice(lattice));
     registerChild(mP_lattice.get());
 }
-
-namespace
-{
-double SinNx_Div_Sinx(double x, unsigned N)
-{
-    static const double SQRT6DOUBLE_EPS = std::sqrt(6.0 * std::numeric_limits<double>::epsilon());
-    auto nd = static_cast<double>(N);
-    if (std::abs(nd * x) < SQRT6DOUBLE_EPS)
-        return nd;
-    double num = std::sin(nd * x);
-    double den = std::sin(x);
-    return num / den;
-}
-} // namespace

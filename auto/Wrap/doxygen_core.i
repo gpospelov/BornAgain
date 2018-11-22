@@ -16323,7 +16323,9 @@ Complex sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$.
 Complex tanhc function:  $tanhc(x)\\\\equiv\\\\tanh(x)/x$. 
 ";
 
-%feature("docstring")  MathFunctions::Laue "complex_t MathFunctions::Laue(const complex_t z, size_t N)
+%feature("docstring")  MathFunctions::Laue "double MathFunctions::Laue(const double x, size_t N)
+
+Real Laue function:  $Laue(x,N)\\\\equiv\\\\sin(Nx)/sin(x)$. 
 ";
 
 %feature("docstring")  MathFunctions::erf "double MathFunctions::erf(double arg)

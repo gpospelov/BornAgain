@@ -13,15 +13,37 @@
 // ************************************************************************** //
 
 #include "MultiComboPropertyEditor.h"
-#include "CustomEventFilters.h"
 #include "ComboProperty.h"
-#include <QVBoxLayout>
+#include "CustomEventFilters.h"
 #include <QComboBox>
+#include <QDebug>
+#include <QStandardItem>
+#include <QStandardItemModel>
+#include <QVBoxLayout>
+
+
+QCheckListStyledItemDelegate::QCheckListStyledItemDelegate(QObject* parent)
+    : QStyledItemDelegate(parent)
+{
+}
+
+void QCheckListStyledItemDelegate::paint(QPainter* painter_, const QStyleOptionViewItem& option_,
+                                         const QModelIndex& index_) const
+{
+    QStyleOptionViewItem& refToNonConstOption = const_cast<QStyleOptionViewItem&>(option_);
+    refToNonConstOption.showDecorationSelected = false;
+    QStyledItemDelegate::paint(painter_, refToNonConstOption, index_);
+}
+
+// ----------------------------------------------------------------------------
+// https://stackoverflow.com/questions/8422760/combobox-of-checkboxes
+// https://stackoverflow.com/questions/21186779/catch-mouse-button-pressed-signal-from-qcombobox-popup-menu
+// https://gist.github.com/mistic100/c3b7f3eabc65309687153fe3e0a9a720
+// ----------------------------------------------------------------------------
 
 MultiComboPropertyEditor::MultiComboPropertyEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_box(new QComboBox)
-    , m_wheel_event_filter(new WheelEventEater(this))
+    : CustomEditor(parent), m_box(new QComboBox), m_wheel_event_filter(new WheelEventEater(this)),
+      m_model(new QStandardItemModel(this))
 {
     setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -32,6 +54,10 @@ MultiComboPropertyEditor::MultiComboPropertyEditor(QWidget* parent)
     layout->addWidget(m_box);
 
     m_box->installEventFilter(m_wheel_event_filter);
+
+    // transforms ordinary combo box into check list
+    m_box->setItemDelegate(new QCheckListStyledItemDelegate(this));
+    m_box->setModel(m_model);
 
     setLayout(layout);
     setConnected(true);
@@ -57,41 +83,70 @@ void MultiComboPropertyEditor::onIndexChanged(int index)
     }
 }
 
+void MultiComboPropertyEditor::onModelDataChanged(const QModelIndex& topLeft,
+                                                  const QModelIndex& bottomRight,
+                                                  const QVector<int>& roles)
+{
+    qDebug() << "onModelDataChnaged" << topLeft << roles;
+    ComboProperty comboProperty = m_data.value<ComboProperty>();
+
+    auto item = m_model->itemFromIndex(topLeft);
+    if (item->checkState() == Qt::Unchecked) {
+        comboProperty.setSelected(topLeft.row(), false);
+        qDebug() << "Unchecked!";
+    } else if (item->checkState() == Qt::Checked) {
+        qDebug() << "checked!";
+        comboProperty.setSelected(topLeft.row(), true);
+    }
+
+    setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
+}
+
+
 void MultiComboPropertyEditor::initEditor()
 {
-    setConnected(false);
+    qDebug() << "MultiComboPropertyEditor::initEditor()";
+    Q_ASSERT(m_data.canConvert<ComboProperty>());
+    ComboProperty property = m_data.value<ComboProperty>();
 
-    m_box->clear();
-    m_box->insertItems(0, internLabels());
-    m_box->setCurrentIndex(internIndex());
+    setConnected(false);
+    m_model->clear();
+
+    auto labels = property.getValues();
+    auto selectedIndices = property.selectedIndices();
+    auto currentIndex = property.currentIndex();
+
+    qDebug() << "xxx" << selectedIndices << currentIndex;
+
+    for (int i = 0; i < labels.size(); ++i) {
+        auto item = new QStandardItem(labels[i]);
+        item->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsEditable
+                       | Qt::ItemIsSelectable);
+
+        if(selectedIndices.contains(i))
+            item->setData(Qt::Checked, Qt::CheckStateRole);
+        else
+            item->setData(Qt::Unchecked, Qt::CheckStateRole);
+
+        m_model->invisibleRootItem()->appendRow(item);
+    }
+
+    m_box->setCurrentIndex(currentIndex);
 
     setConnected(true);
 }
 
-//! Returns list of labels for QComboBox
-
-QStringList MultiComboPropertyEditor::internLabels()
-{
-    Q_ASSERT(m_data.canConvert<ComboProperty>());
-    ComboProperty comboProperty = m_data.value<ComboProperty>();
-    return comboProperty.getValues();
-}
-
-//! Returns index for QComboBox.
-
-int MultiComboPropertyEditor::internIndex()
-{
-    Q_ASSERT(m_data.canConvert<ComboProperty>());
-    ComboProperty comboProperty = m_data.value<ComboProperty>();
-    return comboProperty.currentIndex();
-}
-
 void MultiComboPropertyEditor::setConnected(bool isConnected)
 {
-    if (isConnected)
-        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                this, &MultiComboPropertyEditor::onIndexChanged, Qt::UniqueConnection);
-    else
+    if (isConnected) {
+        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+                &MultiComboPropertyEditor::onIndexChanged, Qt::UniqueConnection);
+        connect(m_model, &QStandardItemModel::dataChanged, this,
+                &MultiComboPropertyEditor::onModelDataChanged);
+    } else {
         disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
                    this, &MultiComboPropertyEditor::onIndexChanged);
+        disconnect(m_model, &QStandardItemModel::dataChanged, this,
+                   &MultiComboPropertyEditor::onModelDataChanged);
+    }
 }

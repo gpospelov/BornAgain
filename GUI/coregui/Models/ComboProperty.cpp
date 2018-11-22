@@ -137,3 +137,23 @@ QVariant ComboProperty::variant() const
     result.setValue(*this);
     return result;
 }
+
+QVector<int> ComboProperty::selectedIndices() const
+{
+    return m_selected_indices;
+}
+
+void ComboProperty::setSelectedIndices(QVector<int> indices)
+{
+    m_selected_indices = std::move(indices);
+}
+
+void ComboProperty::setSelected(int index, bool value)
+{
+    if (value) {
+        if (!m_selected_indices.contains(index))
+            m_selected_indices.push_back(index);
+    } else {
+        m_selected_indices.removeAll(index);
+    }
+}

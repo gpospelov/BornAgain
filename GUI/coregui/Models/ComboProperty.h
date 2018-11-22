@@ -18,6 +18,7 @@
 #include "WinDllMacros.h"
 #include <QStringList>
 #include <QVariant>
+#include <QVector>
 
 //! The ComboProperty defines SessionItem's property with a value from predefined list.
 
@@ -50,10 +51,16 @@ public:
 
     QVariant variant() const;
 
+    QVector<int> selectedIndices() const;
+    void setSelectedIndices(QVector<int> indices);
+
+    void setSelected(int index, bool value = true);
+
 private:
     QStringList m_values;
     QStringList m_tooltips;
     int m_current_index;
+    QVector<int> m_selected_indices;
 };
 
 Q_DECLARE_METATYPE(ComboProperty)

@@ -28,6 +28,10 @@ double DebyeWallerFactor(double variance, double q2);
 }
 
 
+//! Constructor of two-dimensional interference function.
+//! @param lattice: object specifying a 2d lattice structure
+//! @param N_1: number of lattice cells in the first lattice direction
+//! @param N_2: number of lattice cells in the second lattice direction
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
         const Lattice2D& lattice, unsigned N_1, unsigned N_2)
     : m_sigma2(0.0)
@@ -45,6 +49,8 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
 //! @param length_2: length of second lattice vector  in nanometers
 //! @param alpha: angle between lattice vectors in radians
 //! @param xi: rotation of lattice with respect to x-axis (beam direction) in radians
+//! @param N_1: number of lattice cells in the first lattice direction
+//! @param N_2: number of lattice cells in the second lattice direction
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
         double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)
     : m_sigma2(0.0)
@@ -67,6 +73,8 @@ InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::clone(
 //! Creates square lattice.
 //! @param lattice_length: length of first and second lattice vectors in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
+//! @param N_1: number of lattice cells in the first lattice direction
+//! @param N_2: number of lattice cells in the second lattice direction
 InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::createSquare(
     double lattice_length, double xi, unsigned N_1, unsigned N_2)
 {
@@ -77,6 +85,8 @@ InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::create
 //! Creates hexagonal lattice.
 //! @param lattice_length: length of first and second lattice vectors in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
+//! @param N_1: number of lattice cells in the first lattice direction
+//! @param N_2: number of lattice cells in the second lattice direction
 InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::createHexagonal(
     double lattice_length, double xi, unsigned N_1, unsigned N_2)
 {

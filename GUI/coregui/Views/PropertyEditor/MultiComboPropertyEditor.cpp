@@ -20,6 +20,7 @@
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QVBoxLayout>
+#include <QListView>
 
 
 QCheckListStyledItemDelegate::QCheckListStyledItemDelegate(QObject* parent)
@@ -58,6 +59,7 @@ MultiComboPropertyEditor::MultiComboPropertyEditor(QWidget* parent)
     // transforms ordinary combo box into check list
     m_box->setItemDelegate(new QCheckListStyledItemDelegate(this));
     m_box->setModel(m_model);
+    connect(m_box->view(), &QListView::pressed, this, &MultiComboPropertyEditor::onPressedList);
 
     setLayout(layout);
     setConnected(true);
@@ -100,6 +102,15 @@ void MultiComboPropertyEditor::onModelDataChanged(const QModelIndex& topLeft,
     }
 
     setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
+}
+
+//! Processes press event in QComboBox's underlying list view.
+
+void MultiComboPropertyEditor::onPressedList(const QModelIndex& index)
+{
+    auto item = m_model->itemFromIndex(index);
+    auto state = item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked;
+    item->setCheckState(state);
 }
 
 

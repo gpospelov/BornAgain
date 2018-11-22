@@ -38,6 +38,7 @@ protected slots:
     virtual void onIndexChanged(int index);
     void onModelDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight,
                             const QVector<int>&);
+    void onPressedList(const QModelIndex& topLeft);
 
 protected:
     void initEditor();

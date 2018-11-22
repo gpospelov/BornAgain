@@ -1,30 +1,6 @@
 
 // File: index.xml
 
-// File: classAdjustMinimizerStrategy.xml
-%feature("docstring") AdjustMinimizerStrategy "
-
-Strategy modifies mimimizer settings before running minimization round.
-
-C++ includes: AdjustMinimizerStrategy.h
-";
-
-%feature("docstring")  AdjustMinimizerStrategy::AdjustMinimizerStrategy "AdjustMinimizerStrategy::AdjustMinimizerStrategy()
-";
-
-%feature("docstring")  AdjustMinimizerStrategy::AdjustMinimizerStrategy "AdjustMinimizerStrategy::AdjustMinimizerStrategy(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &optionString=\"\")
-";
-
-%feature("docstring")  AdjustMinimizerStrategy::clone "AdjustMinimizerStrategy * AdjustMinimizerStrategy::clone() const
-";
-
-%feature("docstring")  AdjustMinimizerStrategy::setMinimizer "void AdjustMinimizerStrategy::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &optionString=\"\")
-";
-
-%feature("docstring")  AdjustMinimizerStrategy::execute "void AdjustMinimizerStrategy::execute()
-";
-
-
 // File: classAnisoPyramid.xml
 %feature("docstring") AnisoPyramid "";
 
@@ -1509,6 +1485,96 @@ returns true if has masks
 ";
 
 
+// File: classDistribution1DCauchySampler.xml
+%feature("docstring") Distribution1DCauchySampler "";
+
+%feature("docstring")  Distribution1DCauchySampler::Distribution1DCauchySampler "Distribution1DCauchySampler::Distribution1DCauchySampler(double lambda)
+";
+
+%feature("docstring")  Distribution1DCauchySampler::randomSample "double Distribution1DCauchySampler::randomSample() const final
+";
+
+
+// File: classDistribution1DCosineSampler.xml
+%feature("docstring") Distribution1DCosineSampler "";
+
+%feature("docstring")  Distribution1DCosineSampler::Distribution1DCosineSampler "Distribution1DCosineSampler::Distribution1DCosineSampler(double omega)
+";
+
+%feature("docstring")  Distribution1DCosineSampler::randomSample "double Distribution1DCosineSampler::randomSample() const final
+";
+
+
+// File: classDistribution1DGateSampler.xml
+%feature("docstring") Distribution1DGateSampler "";
+
+%feature("docstring")  Distribution1DGateSampler::Distribution1DGateSampler "Distribution1DGateSampler::Distribution1DGateSampler(double a, double b)
+";
+
+%feature("docstring")  Distribution1DGateSampler::randomSample "double Distribution1DGateSampler::randomSample() const final
+";
+
+
+// File: classDistribution1DGaussSampler.xml
+%feature("docstring") Distribution1DGaussSampler "";
+
+%feature("docstring")  Distribution1DGaussSampler::Distribution1DGaussSampler "Distribution1DGaussSampler::Distribution1DGaussSampler(double mean, double stddev)
+";
+
+%feature("docstring")  Distribution1DGaussSampler::randomSample "double Distribution1DGaussSampler::randomSample() const final
+";
+
+
+// File: classDistribution1DTriangleSampler.xml
+%feature("docstring") Distribution1DTriangleSampler "";
+
+%feature("docstring")  Distribution1DTriangleSampler::Distribution1DTriangleSampler "Distribution1DTriangleSampler::Distribution1DTriangleSampler(double omega)
+";
+
+%feature("docstring")  Distribution1DTriangleSampler::randomSample "double Distribution1DTriangleSampler::randomSample() const final
+";
+
+
+// File: classDistribution2DCauchySampler.xml
+%feature("docstring") Distribution2DCauchySampler "";
+
+%feature("docstring")  Distribution2DCauchySampler::Distribution2DCauchySampler "Distribution2DCauchySampler::Distribution2DCauchySampler(double omega_x, double omega_y)
+";
+
+%feature("docstring")  Distribution2DCauchySampler::randomSample "std::pair< double, double > Distribution2DCauchySampler::randomSample() const final
+";
+
+
+// File: classDistribution2DConeSampler.xml
+%feature("docstring") Distribution2DConeSampler "";
+
+%feature("docstring")  Distribution2DConeSampler::Distribution2DConeSampler "Distribution2DConeSampler::Distribution2DConeSampler(double omega_x, double omega_y)
+";
+
+%feature("docstring")  Distribution2DConeSampler::randomSample "std::pair< double, double > Distribution2DConeSampler::randomSample() const final
+";
+
+
+// File: classDistribution2DGateSampler.xml
+%feature("docstring") Distribution2DGateSampler "";
+
+%feature("docstring")  Distribution2DGateSampler::Distribution2DGateSampler "Distribution2DGateSampler::Distribution2DGateSampler(double omega_x, double omega_y)
+";
+
+%feature("docstring")  Distribution2DGateSampler::randomSample "std::pair< double, double > Distribution2DGateSampler::randomSample() const final
+";
+
+
+// File: classDistribution2DGaussSampler.xml
+%feature("docstring") Distribution2DGaussSampler "";
+
+%feature("docstring")  Distribution2DGaussSampler::Distribution2DGaussSampler "Distribution2DGaussSampler::Distribution2DGaussSampler(double omega_x, double omega_y)
+";
+
+%feature("docstring")  Distribution2DGaussSampler::randomSample "std::pair< double, double > Distribution2DGaussSampler::randomSample() const final
+";
+
+
 // File: classDistributionCosine.xml
 %feature("docstring") DistributionCosine "
 
@@ -1689,6 +1755,11 @@ get the total number of parameter value combinations (product of the individual 
 %feature("docstring")  DistributionHandler::setParameterValues "double DistributionHandler::setParameterValues(ParameterPool *p_parameter_pool, size_t index)
 
 set the parameter values of the simulation object to a specific combination of values, determined by the index (which must be smaller than the total number of combinations) and returns the weight associated with this combination of parameter values 
+";
+
+%feature("docstring")  DistributionHandler::setParameterToMeans "void DistributionHandler::setParameterToMeans(ParameterPool *p_parameter_pool) const
+
+Sets mean distribution values to the parameter pool. 
 ";
 
 %feature("docstring")  DistributionHandler::getDistributions "const DistributionHandler::Distributions_t & DistributionHandler::getDistributions() const
@@ -2093,111 +2164,10 @@ C++ includes: FitElement.h
 ";
 
 
-// File: classFitObject.xml
-%feature("docstring") FitObject "
-
-Holds simulation description and real data to run the fit.
-
-C++ includes: FitObject.h
-";
-
-%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const Simulation &simulation, const OutputData< double > &data, double weight=1)
-
-Constructs simulation/data pair for later fit.
-
-Parameters:
------------
-
-simulation: 
-simulation to run
-
-data: 
-experimental data
-
-weight: 
-weight of dataset in chi2 calculations 
-";
-
-%feature("docstring")  FitObject::FitObject "FitObject::FitObject(const Simulation &simulation, const std::vector< std::vector< double >> &data, double weight=1)
-
-Constructs simulation/data pair for later fit.
-
-Parameters:
------------
-
-simulation: 
-simulation to run
-
-data: 
-experimental data
-
-weight: 
-weight of dataset in chi2 calculations 
-";
-
-%feature("docstring")  FitObject::~FitObject "FitObject::~FitObject()
-";
-
-%feature("docstring")  FitObject::accept "void FitObject::accept(INodeVisitor *visitor) const final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FitObject::weight "double FitObject::weight() const
-
-Returns weight of data set in chi2 calculations. 
-";
-
-%feature("docstring")  FitObject::numberOfFitElements "size_t FitObject::numberOfFitElements() const
-
-Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
-";
-
-%feature("docstring")  FitObject::prepareFitElements "void FitObject::prepareFitElements(std::vector< FitElement > &fit_elements, double weight, IIntensityNormalizer *=0)
-
-Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. 
-";
-
-%feature("docstring")  FitObject::getChildren "std::vector< const INode * > FitObject::getChildren() const
-
-Returns a vector of children (const). 
-";
-
-%feature("docstring")  FitObject::simulationResult "SimulationResult FitObject::simulationResult() const
-
-Returns simulation result. 
-";
-
-%feature("docstring")  FitObject::experimentalData "SimulationResult FitObject::experimentalData() const
-
-Returns experimental data. 
-";
-
-%feature("docstring")  FitObject::relativeDifference "SimulationResult FitObject::relativeDifference() const
-
-Returns relative difference between simulation and experimental data. 
-";
-
-%feature("docstring")  FitObject::runSimulation "void FitObject::runSimulation()
-
-Runs internal simulation object. 
-";
-
-%feature("docstring")  FitObject::experimental_array "std::vector< double > FitObject::experimental_array() const
-
-Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. 
-";
-
-%feature("docstring")  FitObject::simulation_array "std::vector< double > FitObject::simulation_array() const
-
-Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. 
-";
-
-
 // File: classFitObjective.xml
 %feature("docstring") FitObjective "
 
-Main class to hold pairs of simulation Holds vector of  FitObject's (simulation and real data) to fit
+Main class to hold pairs of simulation Holds vector of FitObject's (simulation and real data) to fit
 
 C++ includes: FitObjective.h
 ";
@@ -2283,6 +2253,17 @@ i_item:
 the index of fit pair 
 ";
 
+%feature("docstring")  FitObjective::absoluteDifference "SimulationResult FitObjective::absoluteDifference(size_t i_item=0) const
+
+Returns absolute value of difference between simulation and experimental data.
+
+Parameters:
+-----------
+
+i_item: 
+the index of fit pair 
+";
+
 %feature("docstring")  FitObjective::initPrint "void FitObjective::initPrint(int every_nth)
 
 Initializes printing to standard output during the fitting.
@@ -2294,7 +2275,7 @@ every_nth:
 Print every n'th iteration. 
 ";
 
-%feature("docstring")  FitObjective::initPlot "void FitObjective::initPlot(int every_nth, PyObserverCallback &callback)
+%feature("docstring")  FitObjective::initPlot "void FitObjective::initPlot(int every_nth, fit_observer_t observer)
 
 Initializes plotting during the fitting using Python callable.
 
@@ -2303,6 +2284,9 @@ Parameters:
 
 every_nth: 
 Called on every n'th iteration. 
+";
+
+%feature("docstring")  FitObjective::initPlot "void FitObjective::initPlot(int every_nth, PyObserverCallback &callback)
 ";
 
 %feature("docstring")  FitObjective::isCompleted "bool FitObjective::isCompleted() const
@@ -2320,6 +2304,18 @@ Should be explicitely called on last iteration to notify all observers.
 ";
 
 %feature("docstring")  FitObjective::fitObjectCount "unsigned FitObjective::fitObjectCount() const
+";
+
+%feature("docstring")  FitObjective::interruptFitting "void FitObjective::interruptFitting()
+";
+
+%feature("docstring")  FitObjective::isInterrupted "bool FitObjective::isInterrupted() const
+";
+
+%feature("docstring")  FitObjective::isFirstIteration "bool FitObjective::isFirstIteration() const
+";
+
+%feature("docstring")  FitObjective::run_simulations "void FitObjective::run_simulations(const Fit::Parameters &params)
 ";
 
 
@@ -2360,178 +2356,6 @@ The data which will be passed to the observer.
 ";
 
 %feature("docstring")  FitObserver::notify_all "void FitObserver< T >::notify_all(const T &data)
-";
-
-
-// File: classFitParameter.xml
-%feature("docstring") FitParameter "
-
-Fittable parameter, linked to other parameters from pools.
-
-C++ includes: FitParameter.h
-";
-
-%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter()
-";
-
-%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(const std::string &pattern, double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
-";
-
-%feature("docstring")  FitParameter::FitParameter "FitParameter::FitParameter(double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
-";
-
-%feature("docstring")  FitParameter::~FitParameter "FitParameter::~FitParameter() final
-";
-
-%feature("docstring")  FitParameter::clone "FitParameter * FitParameter::clone() const
-";
-
-%feature("docstring")  FitParameter::setValue "void FitParameter::setValue(double value) final
-
-Sets given value for all bound parameters. 
-";
-
-%feature("docstring")  FitParameter::addPattern "FitParameter & FitParameter::addPattern(const std::string &pattern)
-
-Adds pattern to the list for later usage in parameter pool matching. 
-";
-
-%feature("docstring")  FitParameter::addParameter "void FitParameter::addParameter(const RealParameter &par)
-
-Adds real parameter to the collection. 
-";
-
-%feature("docstring")  FitParameter::addMatchedParameters "void FitParameter::addMatchedParameters(const ParameterPool &pool)
-
-Adds parameters from pool which match given wildcard. 
-";
-
-%feature("docstring")  FitParameter::patterns "std::vector< std::string > FitParameter::patterns() const
-";
-
-%feature("docstring")  FitParameter::matchedParameterNames "std::vector< std::string > FitParameter::matchedParameterNames() const
-
-Returns vector of strings with names of all matched parameters. 
-";
-
-%feature("docstring")  FitParameter::patternIntersection "std::vector< std::string > FitParameter::patternIntersection(const FitParameter &other) const
-
-Returns vector containing patterns existing in both FitParametersLinked. 
-";
-
-%feature("docstring")  FitParameter::isConflicting "bool FitParameter::isConflicting(const FitParameter &other) const
-
-Returns true if two FitParameterLinked are intended to steer same  RealParameter. 
-";
-
-
-// File: classFitParameterSet.xml
-%feature("docstring") FitParameterSet "
-
-The set of fit parameters.
-
-C++ includes: FitParameterSet.h
-";
-
-%feature("docstring")  FitParameterSet::FitParameterSet "FitParameterSet::FitParameterSet()
-";
-
-%feature("docstring")  FitParameterSet::~FitParameterSet "FitParameterSet::~FitParameterSet()
-";
-
-%feature("docstring")  FitParameterSet::clear "void FitParameterSet::clear()
-
-Clears all defined parameters. 
-";
-
-%feature("docstring")  FitParameterSet::size "size_t FitParameterSet::size() const
-
-Returns number of parameters. 
-";
-
-%feature("docstring")  FitParameterSet::begin "FitParameterSet::iterator FitParameterSet::begin()
-
-Container iterators. 
-";
-
-%feature("docstring")  FitParameterSet::begin "FitParameterSet::const_iterator FitParameterSet::begin() const
-";
-
-%feature("docstring")  FitParameterSet::end "FitParameterSet::iterator FitParameterSet::end()
-";
-
-%feature("docstring")  FitParameterSet::end "FitParameterSet::const_iterator FitParameterSet::end() const
-";
-
-%feature("docstring")  FitParameterSet::addFitParameter "void FitParameterSet::addFitParameter(IFitParameter *par)
-
-Adds fit parameter. 
-";
-
-%feature("docstring")  FitParameterSet::fitParameter "const IFitParameter * FitParameterSet::fitParameter(const std::string &name) const
-
-Returns fit parameter by given name. 
-";
-
-%feature("docstring")  FitParameterSet::fitParameter "IFitParameter * FitParameterSet::fitParameter(const std::string &name)
-";
-
-%feature("docstring")  FitParameterSet::values "std::vector< double > FitParameterSet::values() const
-
-Returns values of all defined parameters. 
-";
-
-%feature("docstring")  FitParameterSet::setValues "void FitParameterSet::setValues(const std::vector< double > &pars_values)
-
-Sets values for all defined parameters. 
-";
-
-%feature("docstring")  FitParameterSet::valuesDifferFrom "bool FitParameterSet::valuesDifferFrom(const std::vector< double > &par_values, double tolerance=2.0) const
-
-Returns true if parameters already have the given values. 
-";
-
-%feature("docstring")  FitParameterSet::errors "std::vector< double > FitParameterSet::errors() const
-
-Returns errors of all defined parameters. 
-";
-
-%feature("docstring")  FitParameterSet::setErrors "void FitParameterSet::setErrors(const std::vector< double > &pars_errors)
-
-Sets errors to all parameters. 
-";
-
-%feature("docstring")  FitParameterSet::freeFitParameterCount "size_t FitParameterSet::freeFitParameterCount() const
-
-Returns number of free parameters. 
-";
-
-%feature("docstring")  FitParameterSet::fixAll "void FitParameterSet::fixAll()
-
-Fix all parameters. 
-";
-
-%feature("docstring")  FitParameterSet::releaseAll "void FitParameterSet::releaseAll()
-
-Release all parameters. 
-";
-
-%feature("docstring")  FitParameterSet::setFixed "void FitParameterSet::setFixed(const std::vector< std::string > &pars, bool is_fixed)
-
-Set fixed flag for parameters from the list. 
-";
-
-%feature("docstring")  FitParameterSet::correlationMatrix "corr_matrix_t FitParameterSet::correlationMatrix() const
-";
-
-%feature("docstring")  FitParameterSet::setCorrelationMatrix "void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)
-
-Sets resulting correlation matrix. 
-";
-
-%feature("docstring")  FitParameterSet::fitParametersNewKernel "Fit::Parameters FitParameterSet::fitParametersNewKernel() const
-
-Refactoring temp: returns set of new fit parameters. 
 ";
 
 
@@ -2591,660 +2415,6 @@ C++ includes: FitStatus.h
 %feature("docstring")  FitStatus::finalize "void FitStatus::finalize(const Fit::MinimizerResult &result)
 
 Should be explicitely called on last iteration to notify all observers. 
-";
-
-
-// File: classFitStrategyAdjustParameters.xml
-%feature("docstring") FitStrategyAdjustParameters "
-
-Strategy which fixes/releases fit parameters and call minimizer.
-
-C++ includes: FitStrategyAdjustParameters.h
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::FitStrategyAdjustParameters "FitStrategyAdjustParameters::FitStrategyAdjustParameters(const std::string &name)
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::FitStrategyAdjustParameters "FitStrategyAdjustParameters::FitStrategyAdjustParameters()
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::~FitStrategyAdjustParameters "virtual FitStrategyAdjustParameters::~FitStrategyAdjustParameters()
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::clone "virtual FitStrategyAdjustParameters* FitStrategyAdjustParameters::clone() const
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::execute "void FitStrategyAdjustParameters::execute()
-
-strategy which fixes/releases fit parameters and then call minimizer 
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::fix_all "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::fix_all()
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::release_all "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::release_all()
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::fix "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::fix(std::string parname)
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::release "virtual FitStrategyAdjustParameters& FitStrategyAdjustParameters::release(std::string parname)
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::setPreserveOriginalValues "virtual void FitStrategyAdjustParameters::setPreserveOriginalValues(bool preserve_values)
-";
-
-%feature("docstring")  FitStrategyAdjustParameters::clear "virtual void FitStrategyAdjustParameters::clear()
-";
-
-
-// File: classFitStrategyDefault.xml
-%feature("docstring") FitStrategyDefault "
-
-Default fit strategy just let  FitSuite to run it's minimization round.
-
-C++ includes: IFitStrategy.h
-";
-
-%feature("docstring")  FitStrategyDefault::FitStrategyDefault "FitStrategyDefault::FitStrategyDefault()
-";
-
-%feature("docstring")  FitStrategyDefault::clone "FitStrategyDefault * FitStrategyDefault::clone() const
-";
-
-%feature("docstring")  FitStrategyDefault::execute "void FitStrategyDefault::execute()
-";
-
-
-// File: classFitStrategyFixParameters.xml
-%feature("docstring") FitStrategyFixParameters "
-
-Strategy which fixes certain fit parameters leaving other released.
-
-C++ includes: FitStrategyAdjustParameters.h
-";
-
-%feature("docstring")  FitStrategyFixParameters::FitStrategyFixParameters "FitStrategyFixParameters::FitStrategyFixParameters()
-";
-
-%feature("docstring")  FitStrategyFixParameters::FitStrategyFixParameters "FitStrategyFixParameters::FitStrategyFixParameters(const std::vector< std::string > &pars)
-";
-
-%feature("docstring")  FitStrategyFixParameters::~FitStrategyFixParameters "virtual FitStrategyFixParameters::~FitStrategyFixParameters()
-";
-
-%feature("docstring")  FitStrategyFixParameters::clone "virtual FitStrategyFixParameters* FitStrategyFixParameters::clone() const
-";
-
-%feature("docstring")  FitStrategyFixParameters::clear "virtual void FitStrategyFixParameters::clear()
-";
-
-%feature("docstring")  FitStrategyFixParameters::setFixed "virtual void FitStrategyFixParameters::setFixed(const std::vector< std::string > &pars)
-";
-
-
-// File: classFitStrategyReleaseParameters.xml
-%feature("docstring") FitStrategyReleaseParameters "
-
-Strategy which releases certain fit parameters leaving other fixed.
-
-C++ includes: FitStrategyAdjustParameters.h
-";
-
-%feature("docstring")  FitStrategyReleaseParameters::FitStrategyReleaseParameters "FitStrategyReleaseParameters::FitStrategyReleaseParameters()
-";
-
-%feature("docstring")  FitStrategyReleaseParameters::FitStrategyReleaseParameters "FitStrategyReleaseParameters::FitStrategyReleaseParameters(const std::vector< std::string > &pars)
-";
-
-%feature("docstring")  FitStrategyReleaseParameters::~FitStrategyReleaseParameters "virtual FitStrategyReleaseParameters::~FitStrategyReleaseParameters()
-";
-
-%feature("docstring")  FitStrategyReleaseParameters::clone "virtual FitStrategyReleaseParameters* FitStrategyReleaseParameters::clone() const
-";
-
-%feature("docstring")  FitStrategyReleaseParameters::clear "virtual void FitStrategyReleaseParameters::clear()
-";
-
-%feature("docstring")  FitStrategyReleaseParameters::setReleased "virtual void FitStrategyReleaseParameters::setReleased(const std::vector< std::string > &pars)
-";
-
-
-// File: classFitSuite.xml
-%feature("docstring") FitSuite "
-
-User interface class that wraps all fit methods.
-
-C++ includes: FitSuite.h
-";
-
-%feature("docstring")  FitSuite::FitSuite "FitSuite::FitSuite()
-";
-
-%feature("docstring")  FitSuite::FitSuite "FitSuite::FitSuite(const FitSuite &)=delete
-";
-
-%feature("docstring")  FitSuite::~FitSuite "FitSuite::~FitSuite()
-";
-
-%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const Simulation &simulation, const OutputData< double > &real_data, double weight=1)
-
-Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
-";
-
-%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const Simulation &simulation, const IHistogram &real_data, double weight=1)
-
-Assigns pair of (simulation, real data) for fitting. More than one pair can be added. 
-";
-
-%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const Simulation &simulation, const std::vector< std::vector< double >> &real_data, double weight=1)
-
-Assigns pair of (simulation, real data) for fitting. A version for the  real_data represented as a two-dimensional numpy array.  Simulation output must agree in dimensions with  real_data. 
-";
-
-%feature("docstring")  FitSuite::addSimulationAndRealData "void FitSuite::addSimulationAndRealData(const Simulation &simulation, const std::vector< double > &real_data, double weight=1)
-
-Assigns pair of (simulation, real_data) for fitting. A version for the  real_data represented as a one-dimensional numpy array.  Simulation output must agree in dimensions with  real_data. 
-";
-
-%feature("docstring")  FitSuite::addFitParameter "FitParameter * FitSuite::addFitParameter(const std::string &pattern, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
-
-Adds fit parameter
-
-Parameters:
------------
-
-name: 
-The name of sample parameter(s) to fit (may contain wildcards).
-
-value: 
-Parameter's starting value
-
-limits: 
-Limits attribute
-
-step: 
-Initial parameter's step (some minimizers don't use it) 
-";
-
-%feature("docstring")  FitSuite::addFitParameter "FitParameter * FitSuite::addFitParameter(const FitParameter &fitPar)
-
-Adds fit parameter
-
-Parameters:
------------
-
-fitPar: 
-Fully constructed fit parameter. 
-";
-
-%feature("docstring")  FitSuite::setMinimizer "void FitSuite::setMinimizer(const std::string &minimizer_name, const std::string &algorithm_name=std::string(), const std::string &minimizer_options=std::string())
-
-Sets minimizer with given name and algorithm type
-
-Parameters:
------------
-
-minimizer_name: 
-The name of the minimizer
-
-algorithm_name: 
-Optional name of the minimizer's algorithm
-
-minimizer_options: 
-Optional string with additional minimizer settings 
-";
-
-%feature("docstring")  FitSuite::setChiSquaredModule "void FitSuite::setChiSquaredModule(const IChiSquaredModule &chi2_module)
-
-Replaces default  ChiSquaredModule with new one. 
-";
-
-%feature("docstring")  FitSuite::addFitStrategy "void FitSuite::addFitStrategy(const IFitStrategy &strategy)
-
-Adds fit strategy. 
-";
-
-%feature("docstring")  FitSuite::setMinimizer "void FitSuite::setMinimizer(IMinimizer *minimizer)
-
-Sets minimizer. 
-";
-
-%feature("docstring")  FitSuite::minimizerName "std::string FitSuite::minimizerName() const
-
-Returns minimizer. 
-";
-
-%feature("docstring")  FitSuite::initPrint "void FitSuite::initPrint(int print_every_nth)
-
-Initializes printing to standard output during the fitting. Prints also the summary when completed.
-
-Parameters:
------------
-
-print_every_nth: 
-Print every n'th iteration 
-";
-
-%feature("docstring")  FitSuite::runFit "void FitSuite::runFit()
-
-main method to run the fitting 
-";
-
-%feature("docstring")  FitSuite::numberOfFitObjects "size_t FitSuite::numberOfFitObjects() const
-
-Returns number of fit objects, where fit object stands for (real, simulated) pair. 
-";
-
-%feature("docstring")  FitSuite::fitObjects "FitSuiteObjects * FitSuite::fitObjects()
-
-returns  FitObject (pair of simulation/real data) 
-";
-
-%feature("docstring")  FitSuite::fitParameters "FitParameterSet * FitSuite::fitParameters()
-
-Returns reference to fit parameters. 
-";
-
-%feature("docstring")  FitSuite::fitStrategies "FitSuiteStrategies * FitSuite::fitStrategies()
-
-Returns reference to fit parameters. 
-";
-
-%feature("docstring")  FitSuite::isFirstIteration "bool FitSuite::isFirstIteration() const
-
-temporary method to check if it is first iteration 
-";
-
-%feature("docstring")  FitSuite::isLastIteration "bool FitSuite::isLastIteration() const
-
-if the last iteration is done (used by observers to print summary) 
-";
-
-%feature("docstring")  FitSuite::numberOfIterations "size_t FitSuite::numberOfIterations() const
-
-Returns current number of minimization function calls. 
-";
-
-%feature("docstring")  FitSuite::currentStrategyIndex "size_t FitSuite::currentStrategyIndex() const
-
-Returns the number of current strategy. 
-";
-
-%feature("docstring")  FitSuite::printResults "void FitSuite::printResults() const
-
-Prints results of the minimization to the standard output. 
-";
-
-%feature("docstring")  FitSuite::reportResults "std::string FitSuite::reportResults() const
-
-Reports results of minimization in the form of multi-line string. 
-";
-
-%feature("docstring")  FitSuite::getChi2 "double FitSuite::getChi2() const
-
-Returns minimum chi squared value found. 
-";
-
-%feature("docstring")  FitSuite::interruptFitting "void FitSuite::interruptFitting()
-";
-
-%feature("docstring")  FitSuite::resetInterrupt "void FitSuite::resetInterrupt()
-";
-
-%feature("docstring")  FitSuite::isInterrupted "bool FitSuite::isInterrupted()
-";
-
-%feature("docstring")  FitSuite::parametersToString "std::string FitSuite::parametersToString() const
-
-Returns multiline string representing possible fit parameters. 
-";
-
-%feature("docstring")  FitSuite::treeToString "std::string FitSuite::treeToString() const
-
-Returns multiline string representing tree structure of fit components. 
-";
-
-%feature("docstring")  FitSuite::setupToString "std::string FitSuite::setupToString()
-
-Returns multiline string representing fit setup. 
-";
-
-%feature("docstring")  FitSuite::simulationResult "SimulationResult FitSuite::simulationResult(size_t i_item=0) const
-
-Returns simulation result.
-
-Parameters:
------------
-
-i_item: 
-the index of fit pair 
-";
-
-%feature("docstring")  FitSuite::experimentalData "SimulationResult FitSuite::experimentalData(size_t i_item=0) const
-
-Returns experimental data.
-
-Parameters:
------------
-
-i_item: 
-the index of fit pair 
-";
-
-%feature("docstring")  FitSuite::relativeDifference "SimulationResult FitSuite::relativeDifference(size_t i_item=0) const
-
-Returns relative difference between simulation and experimental data.
-
-Parameters:
------------
-
-i_item: 
-the index of fit pair 
-";
-
-
-// File: classFitSuiteImpl.xml
-%feature("docstring") FitSuiteImpl "
-
-Fitting kernel for  FitSuite.
-
-C++ includes: FitSuiteImpl.h
-";
-
-%feature("docstring")  FitSuiteImpl::FitSuiteImpl "FitSuiteImpl::FitSuiteImpl(const std::function< void()> &notifyObservers)
-";
-
-%feature("docstring")  FitSuiteImpl::FitSuiteImpl "FitSuiteImpl::FitSuiteImpl(const FitSuiteImpl &)=delete
-";
-
-%feature("docstring")  FitSuiteImpl::~FitSuiteImpl "FitSuiteImpl::~FitSuiteImpl()
-";
-
-%feature("docstring")  FitSuiteImpl::clear "void FitSuiteImpl::clear()
-
-Resets most state variables, to get prepared for the next fit.
-
-Clears all data. 
-";
-
-%feature("docstring")  FitSuiteImpl::addSimulationAndRealData "FitObject * FitSuiteImpl::addSimulationAndRealData(const Simulation &simulation, const OutputData< double > &real_data, double weight)
-
-Adds pair of (simulation, real data) for consecutive simulation. 
-";
-
-%feature("docstring")  FitSuiteImpl::addFitParameter "FitParameter * FitSuiteImpl::addFitParameter(const std::string &pattern, double value, const AttLimits &limits, double step=0.0)
-
-Adds fit parameter.
-
-Adds fit parameter, step is calculated from initial parameter value. 
-";
-
-%feature("docstring")  FitSuiteImpl::addFitParameter "FitParameter * FitSuiteImpl::addFitParameter(const FitParameter &fitPar)
-
-Adds fit parameter. 
-";
-
-%feature("docstring")  FitSuiteImpl::addFitStrategy "void FitSuiteImpl::addFitStrategy(const IFitStrategy &strategy)
-
-Adds fit strategy. 
-";
-
-%feature("docstring")  FitSuiteImpl::setMinimizer "void FitSuiteImpl::setMinimizer(IMinimizer *minimizer)
-
-Sets minimizer. 
-";
-
-%feature("docstring")  FitSuiteImpl::runFit "void FitSuiteImpl::runFit()
-
-Runs a fit, which may consist of several minimization rounds. 
-";
-
-%feature("docstring")  FitSuiteImpl::minimize "void FitSuiteImpl::minimize()
-
-Runs a single minimization round (called by FitSuiteStrategy) 
-";
-
-%feature("docstring")  FitSuiteImpl::fitObjects "FitSuiteObjects* FitSuiteImpl::fitObjects()
-
-Returns reference to the kit with data. 
-";
-
-%feature("docstring")  FitSuiteImpl::fitObjects "const FitSuiteObjects* FitSuiteImpl::fitObjects() const
-";
-
-%feature("docstring")  FitSuiteImpl::fitParameters "FitParameterSet * FitSuiteImpl::fitParameters()
-
-Returns reference to fit parameters. 
-";
-
-%feature("docstring")  FitSuiteImpl::fitStrategies "FitSuiteStrategies* FitSuiteImpl::fitStrategies()
-
-Returns reference to fit parameters. 
-";
-
-%feature("docstring")  FitSuiteImpl::isLastIteration "bool FitSuiteImpl::isLastIteration() const
-
-Returns true if the last iteration is done (used by observers to print summary) 
-";
-
-%feature("docstring")  FitSuiteImpl::numberOfIterations "size_t FitSuiteImpl::numberOfIterations() const
-
-Returns current number of minimization function calls. 
-";
-
-%feature("docstring")  FitSuiteImpl::currentStrategyIndex "size_t FitSuiteImpl::currentStrategyIndex() const
-
-Returns the number of current strategy. 
-";
-
-%feature("docstring")  FitSuiteImpl::reportResults "std::string FitSuiteImpl::reportResults() const
-
-Reports results of minimization in the form of multi-line string. 
-";
-
-%feature("docstring")  FitSuiteImpl::getOptions "FitOptions& FitSuiteImpl::getOptions()
-
-Returns current fit options. 
-";
-
-%feature("docstring")  FitSuiteImpl::setOptions "void FitSuiteImpl::setOptions(const FitOptions &fit_options)
-
-Sets fit options. 
-";
-
-%feature("docstring")  FitSuiteImpl::notifyObservers "void FitSuiteImpl::notifyObservers()
-";
-
-%feature("docstring")  FitSuiteImpl::interruptFitting "void FitSuiteImpl::interruptFitting()
-";
-
-%feature("docstring")  FitSuiteImpl::resetInterrupt "void FitSuiteImpl::resetInterrupt()
-";
-
-%feature("docstring")  FitSuiteImpl::isInterrupted "bool FitSuiteImpl::isInterrupted() const
-";
-
-%feature("docstring")  FitSuiteImpl::setupToString "std::string FitSuiteImpl::setupToString()
-
-Returns multiline string representing fit setup. 
-";
-
-
-// File: classFitSuiteObjects.xml
-%feature("docstring") FitSuiteObjects "
-
-Holds vector of  FitObject's (simulation and real data) to fit
-
-C++ includes: FitSuiteObjects.h
-";
-
-%feature("docstring")  FitSuiteObjects::FitSuiteObjects "FitSuiteObjects::FitSuiteObjects()
-";
-
-%feature("docstring")  FitSuiteObjects::~FitSuiteObjects "FitSuiteObjects::~FitSuiteObjects()
-";
-
-%feature("docstring")  FitSuiteObjects::accept "void FitSuiteObjects::accept(INodeVisitor *visitor) const final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FitSuiteObjects::add "FitObject * FitSuiteObjects::add(const Simulation &simulation, const OutputData< double > &real_data, double weight=1.0)
-
-Adds to kit pair of (simulation, real data) for consecutive simulation. 
-";
-
-%feature("docstring")  FitSuiteObjects::getSizeOfDataSet "size_t FitSuiteObjects::getSizeOfDataSet() const
-
-Returns total number of data points (number of all non-masked channels in all fit objects)
-
-Returns total number of data points. 
-";
-
-%feature("docstring")  FitSuiteObjects::setChiSquaredModule "void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule &chi2_module)
-
-Replaces default  ChiSquaredModule with new one. 
-";
-
-%feature("docstring")  FitSuiteObjects::simulationResult "SimulationResult FitSuiteObjects::simulationResult(size_t i_item=0) const
-
-Returns simulation result.
-
-Parameters:
------------
-
-i_item: 
-the index of fit pair 
-";
-
-%feature("docstring")  FitSuiteObjects::experimentalData "SimulationResult FitSuiteObjects::experimentalData(size_t i_item=0) const
-
-Returns experimental data.
-
-Parameters:
------------
-
-i_item: 
-the index of fit pair 
-";
-
-%feature("docstring")  FitSuiteObjects::relativeDifference "SimulationResult FitSuiteObjects::relativeDifference(size_t i_item=0) const
-
-Returns relative difference between simulation and experimental data.
-
-Parameters:
------------
-
-i_item: 
-the index of fit pair 
-";
-
-%feature("docstring")  FitSuiteObjects::runSimulations "void FitSuiteObjects::runSimulations()
-
-run all simulation defined in fit pairs
-
-loop through all defined simulations and run them 
-";
-
-%feature("docstring")  FitSuiteObjects::getChiSquaredValue "double FitSuiteObjects::getChiSquaredValue() const
-
-Returns chi2 calculated over whole dataset. 
-";
-
-%feature("docstring")  FitSuiteObjects::getResidualValue "double FitSuiteObjects::getResidualValue(size_t global_index)
-
-Returns residuals for single data element
-
-Parameters:
------------
-
-global_index: 
-index across all element in  FitElement vector 
-";
-
-%feature("docstring")  FitSuiteObjects::residuals "std::vector< double > FitSuiteObjects::residuals() const
-";
-
-%feature("docstring")  FitSuiteObjects::setNfreeParameters "void FitSuiteObjects::setNfreeParameters(int nfree_parameters)
-";
-
-%feature("docstring")  FitSuiteObjects::clear "void FitSuiteObjects::clear()
-
-clear all data 
-";
-
-%feature("docstring")  FitSuiteObjects::size "size_t FitSuiteObjects::size() const
-";
-
-%feature("docstring")  FitSuiteObjects::begin "iterator FitSuiteObjects::begin()
-";
-
-%feature("docstring")  FitSuiteObjects::end "iterator FitSuiteObjects::end()
-";
-
-%feature("docstring")  FitSuiteObjects::getChildren "std::vector< const INode * > FitSuiteObjects::getChildren() const
-
-Returns a vector of children (const). 
-";
-
-
-// File: classFitSuitePrintObserver.xml
-%feature("docstring") FitSuitePrintObserver "
-
-Prints fit progress at the end of each  FitSuite's iteration.
-
-C++ includes: FitSuitePrintObserver.h
-";
-
-%feature("docstring")  FitSuitePrintObserver::FitSuitePrintObserver "FitSuitePrintObserver::FitSuitePrintObserver(int print_every_nth=1)
-";
-
-%feature("docstring")  FitSuitePrintObserver::~FitSuitePrintObserver "virtual FitSuitePrintObserver::~FitSuitePrintObserver()
-";
-
-%feature("docstring")  FitSuitePrintObserver::update "void FitSuitePrintObserver::update(FitSuite *fit_suite)
-
-Here Onserver will do actuall job when he thinks that it is a right moment. 
-";
-
-
-// File: classFitSuiteStrategies.xml
-%feature("docstring") FitSuiteStrategies "
-
-Collection of strategies to fit.
-
-C++ includes: FitSuiteStrategies.h
-";
-
-%feature("docstring")  FitSuiteStrategies::FitSuiteStrategies "FitSuiteStrategies::FitSuiteStrategies()
-";
-
-%feature("docstring")  FitSuiteStrategies::~FitSuiteStrategies "FitSuiteStrategies::~FitSuiteStrategies()
-";
-
-%feature("docstring")  FitSuiteStrategies::FitSuiteStrategies "FitSuiteStrategies::FitSuiteStrategies(const FitSuiteStrategies &other)=delete
-";
-
-%feature("docstring")  FitSuiteStrategies::init "void FitSuiteStrategies::init(FitSuiteImpl *fit_suite)
-";
-
-%feature("docstring")  FitSuiteStrategies::addStrategy "void FitSuiteStrategies::addStrategy(const IFitStrategy &strategy)
-";
-
-%feature("docstring")  FitSuiteStrategies::minimize "void FitSuiteStrategies::minimize()
-";
-
-%feature("docstring")  FitSuiteStrategies::currentStrategyIndex "size_t FitSuiteStrategies::currentStrategyIndex() const
-";
-
-%feature("docstring")  FitSuiteStrategies::size "size_t FitSuiteStrategies::size() const
-";
-
-%feature("docstring")  FitSuiteStrategies::clear "void FitSuiteStrategies::clear()
-";
-
-%feature("docstring")  FitSuiteStrategies::currentStrategy "IFitStrategy * FitSuiteStrategies::currentStrategy()
 ";
 
 
@@ -4571,6 +3741,61 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  FormFactorIcosahedron::getEdge "double FormFactorIcosahedron::getEdge() const
+";
+
+
+// File: classFormFactorLongBox.xml
+%feature("docstring") FormFactorLongBox "
+
+The formfactor for a long rectangular box. Approximates the rapidly oscillating sinc function by the square root of a Lorentzian
+
+C++ includes: FormFactorLongBox.h
+";
+
+%feature("docstring")  FormFactorLongBox::FormFactorLongBox "FormFactorLongBox::FormFactorLongBox(double length, double width, double height)
+
+Box constructor.
+
+Parameters:
+-----------
+
+length: 
+of  Box's base
+
+width: 
+of  Box's base
+
+height: 
+of  Box
+";
+
+%feature("docstring")  FormFactorLongBox::clone "FormFactorLongBox* FormFactorLongBox::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorLongBox::accept "void FormFactorLongBox::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorLongBox::getLength "double FormFactorLongBox::getLength() const
+";
+
+%feature("docstring")  FormFactorLongBox::getHeight "double FormFactorLongBox::getHeight() const
+";
+
+%feature("docstring")  FormFactorLongBox::getWidth "double FormFactorLongBox::getWidth() const
+";
+
+%feature("docstring")  FormFactorLongBox::radialExtension "double FormFactorLongBox::radialExtension() const override final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorLongBox::evaluate_for_q "complex_t FormFactorLongBox::evaluate_for_q(cvector_t q) const override final
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -5961,6 +5186,9 @@ Calls the  INodeVisitor's visit method.
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
+%feature("docstring")  FTDistribution1DCauchy::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCauchy::createSampler() const final
+";
+
 
 // File: classFTDistribution1DCosine.xml
 %feature("docstring") FTDistribution1DCosine "
@@ -5984,6 +5212,9 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FTDistribution1DCosine::evaluate "double FTDistribution1DCosine::evaluate(double q) const final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
+";
+
+%feature("docstring")  FTDistribution1DCosine::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCosine::createSampler() const final
 ";
 
 
@@ -6011,6 +5242,9 @@ Calls the  INodeVisitor's visit method.
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
+%feature("docstring")  FTDistribution1DGate::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGate::createSampler() const final
+";
+
 
 // File: classFTDistribution1DGauss.xml
 %feature("docstring") FTDistribution1DGauss "
@@ -6036,6 +5270,9 @@ Calls the  INodeVisitor's visit method.
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
+%feature("docstring")  FTDistribution1DGauss::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGauss::createSampler() const final
+";
+
 
 // File: classFTDistribution1DTriangle.xml
 %feature("docstring") FTDistribution1DTriangle "
@@ -6059,6 +5296,9 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FTDistribution1DTriangle::evaluate "double FTDistribution1DTriangle::evaluate(double q) const final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
+";
+
+%feature("docstring")  FTDistribution1DTriangle::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DTriangle::createSampler() const final
 ";
 
 
@@ -6100,6 +5340,9 @@ Returns Fourier transform of this distribution; is a decay function starting at 
 %feature("docstring")  FTDistribution1DVoigt::eta "double FTDistribution1DVoigt::eta() const
 ";
 
+%feature("docstring")  FTDistribution1DVoigt::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DVoigt::createSampler() const final
+";
+
 
 // File: classFTDistribution2DCauchy.xml
 %feature("docstring") FTDistribution2DCauchy "
@@ -6123,6 +5366,9 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FTDistribution2DCauchy::evaluate "double FTDistribution2DCauchy::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
+";
+
+%feature("docstring")  FTDistribution2DCauchy::createSampler "std::unique_ptr< IDistribution2DSampler > FTDistribution2DCauchy::createSampler() const final
 ";
 
 
@@ -6162,6 +5408,9 @@ Calls the  INodeVisitor's visit method.
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 ";
 
+%feature("docstring")  FTDistribution2DCone::createSampler "std::unique_ptr< IDistribution2DSampler > FTDistribution2DCone::createSampler() const final
+";
+
 
 // File: classFTDistribution2DGate.xml
 %feature("docstring") FTDistribution2DGate "
@@ -6187,6 +5436,9 @@ Calls the  INodeVisitor's visit method.
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
 ";
 
+%feature("docstring")  FTDistribution2DGate::createSampler "std::unique_ptr< IDistribution2DSampler > FTDistribution2DGate::createSampler() const final
+";
+
 
 // File: classFTDistribution2DGauss.xml
 %feature("docstring") FTDistribution2DGauss "
@@ -6210,6 +5462,9 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FTDistribution2DGauss::evaluate "double FTDistribution2DGauss::evaluate(double qx, double qy) const final
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
+";
+
+%feature("docstring")  FTDistribution2DGauss::createSampler "std::unique_ptr< IDistribution2DSampler > FTDistribution2DGauss::createSampler() const final
 ";
 
 
@@ -6257,39 +5512,42 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 %feature("docstring")  FTDistribution2DVoigt::eta "double FTDistribution2DVoigt::eta() const
 ";
 
+%feature("docstring")  FTDistribution2DVoigt::createSampler "std::unique_ptr< IDistribution2DSampler > FTDistribution2DVoigt::createSampler() const final
+";
 
-// File: classGaussPeakShape.xml
-%feature("docstring") GaussPeakShape "
 
-Class that implements a Gaussian peak shape of a Bragg peak.
+// File: classGaussFisherPeakShape.xml
+%feature("docstring") GaussFisherPeakShape "
+
+Class that implements a peak shape that is Gaussian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
 
 C++ includes: IPeakShape.h
 ";
 
-%feature("docstring")  GaussPeakShape::GaussPeakShape "GaussPeakShape::GaussPeakShape(double domainsize)
+%feature("docstring")  GaussFisherPeakShape::GaussFisherPeakShape "GaussFisherPeakShape::GaussFisherPeakShape(double max_intensity, double radial_size, double kappa)
 ";
 
-%feature("docstring")  GaussPeakShape::~GaussPeakShape "GaussPeakShape::~GaussPeakShape() override
+%feature("docstring")  GaussFisherPeakShape::~GaussFisherPeakShape "GaussFisherPeakShape::~GaussFisherPeakShape() override
 ";
 
-%feature("docstring")  GaussPeakShape::clone "GaussPeakShape * GaussPeakShape::clone() const override
+%feature("docstring")  GaussFisherPeakShape::clone "GaussFisherPeakShape * GaussFisherPeakShape::clone() const override
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  GaussPeakShape::accept "void GaussPeakShape::accept(INodeVisitor *visitor) const override
+%feature("docstring")  GaussFisherPeakShape::accept "void GaussFisherPeakShape::accept(INodeVisitor *visitor) const override
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  GaussPeakShape::evaluate "double GaussPeakShape::evaluate(const kvector_t q) const override
+%feature("docstring")  GaussFisherPeakShape::evaluate "double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
-Evaluates the peak shape at displacement q from the center at 0. 
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
 ";
 
-%feature("docstring")  GaussPeakShape::thickness_z "double GaussPeakShape::thickness_z() const override
+%feature("docstring")  GaussFisherPeakShape::angularDisorder "bool GaussFisherPeakShape::angularDisorder() const override
 
-Returns the thickness in the z-direction. 
+Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
 ";
 
 
@@ -7357,6 +6615,32 @@ Sets distribution units.
 ";
 
 
+// File: classIDistribution1DSampler.xml
+%feature("docstring") IDistribution1DSampler "";
+
+%feature("docstring")  IDistribution1DSampler::IDistribution1DSampler "IDistribution1DSampler::IDistribution1DSampler()
+";
+
+%feature("docstring")  IDistribution1DSampler::~IDistribution1DSampler "IDistribution1DSampler::~IDistribution1DSampler()
+";
+
+%feature("docstring")  IDistribution1DSampler::randomSample "virtual double IDistribution1DSampler::randomSample() const =0
+";
+
+
+// File: classIDistribution2DSampler.xml
+%feature("docstring") IDistribution2DSampler "";
+
+%feature("docstring")  IDistribution2DSampler::IDistribution2DSampler "IDistribution2DSampler::IDistribution2DSampler()
+";
+
+%feature("docstring")  IDistribution2DSampler::~IDistribution2DSampler "IDistribution2DSampler::~IDistribution2DSampler()
+";
+
+%feature("docstring")  IDistribution2DSampler::randomSample "virtual std::pair<double, double> IDistribution2DSampler::randomSample() const =0
+";
+
+
 // File: classIFactory.xml
 %feature("docstring") IFactory "
 
@@ -7396,136 +6680,6 @@ Returns number of registered objects.
 ";
 
 %feature("docstring")  IFactory::end "const_iterator IFactory< Key, AbstractProduct >::end() const
-";
-
-
-// File: classIFitObserver.xml
-%feature("docstring") IFitObserver "
-
-Base class for all fit observers. Calls update method in following cases: first iteration, every n-th iteration, last iteration and when fit strategy has changed.
-
-C++ includes: IFitObserver.h
-";
-
-%feature("docstring")  IFitObserver::IFitObserver "IFitObserver::IFitObserver(int update_every_nth)
-";
-
-%feature("docstring")  IFitObserver::notify "void IFitObserver::notify(IObservable *subject)
-
-The method used by Ovservable when he wants to be observed by this. 
-";
-
-%feature("docstring")  IFitObserver::update "void IFitObserver::update(FitSuite *fit_suite)
-
-Here Onserver will do actuall job when he thinks that it is a right moment. 
-";
-
-
-// File: classIFitParameter.xml
-%feature("docstring") IFitParameter "
-
-A fittable parameter with value, error, step, and limits.
-
-C++ includes: IFitParameter.h
-";
-
-%feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter()
-";
-
-%feature("docstring")  IFitParameter::IFitParameter "IFitParameter::IFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
-";
-
-%feature("docstring")  IFitParameter::~IFitParameter "virtual IFitParameter::~IFitParameter()
-";
-
-%feature("docstring")  IFitParameter::clone "IFitParameter * IFitParameter::clone() const
-";
-
-%feature("docstring")  IFitParameter::name "std::string IFitParameter::name() const
-";
-
-%feature("docstring")  IFitParameter::setName "IFitParameter & IFitParameter::setName(const std::string &name)
-";
-
-%feature("docstring")  IFitParameter::startValue "double IFitParameter::startValue() const
-";
-
-%feature("docstring")  IFitParameter::setStartValue "void IFitParameter::setStartValue(double value)
-";
-
-%feature("docstring")  IFitParameter::value "double IFitParameter::value() const
-";
-
-%feature("docstring")  IFitParameter::setValue "void IFitParameter::setValue(double value)
-";
-
-%feature("docstring")  IFitParameter::addPattern "IFitParameter & IFitParameter::addPattern(const std::string &pattern)
-";
-
-%feature("docstring")  IFitParameter::step "double IFitParameter::step() const
-";
-
-%feature("docstring")  IFitParameter::setStep "IFitParameter & IFitParameter::setStep(double value)
-";
-
-%feature("docstring")  IFitParameter::error "double IFitParameter::error() const
-";
-
-%feature("docstring")  IFitParameter::setError "void IFitParameter::setError(double value)
-";
-
-%feature("docstring")  IFitParameter::limits "const AttLimits & IFitParameter::limits() const
-";
-
-%feature("docstring")  IFitParameter::limits "AttLimits & IFitParameter::limits()
-";
-
-%feature("docstring")  IFitParameter::setLimits "IFitParameter & IFitParameter::setLimits(const AttLimits &limits)
-";
-
-%feature("docstring")  IFitParameter::setLowerLimited "IFitParameter & IFitParameter::setLowerLimited(double bound_value)
-";
-
-%feature("docstring")  IFitParameter::setPositive "IFitParameter & IFitParameter::setPositive()
-";
-
-%feature("docstring")  IFitParameter::setNonnegative "IFitParameter & IFitParameter::setNonnegative()
-";
-
-%feature("docstring")  IFitParameter::setUpperLimited "IFitParameter & IFitParameter::setUpperLimited(double bound_value)
-";
-
-%feature("docstring")  IFitParameter::setLimited "IFitParameter & IFitParameter::setLimited(double left_bound_value, double right_bound_value)
-";
-
-%feature("docstring")  IFitParameter::setFixed "IFitParameter & IFitParameter::setFixed()
-";
-
-%feature("docstring")  IFitParameter::toString "std::string IFitParameter::toString() const
-";
-
-
-// File: classIFitStrategy.xml
-%feature("docstring") IFitStrategy "
-
-Interface to concrete fit strategy. Concrete implementation should manipulate with fit parameters/data and then call minimizer.
-
-C++ includes: IFitStrategy.h
-";
-
-%feature("docstring")  IFitStrategy::IFitStrategy "IFitStrategy::IFitStrategy(const std::string &name)
-";
-
-%feature("docstring")  IFitStrategy::~IFitStrategy "virtual IFitStrategy::~IFitStrategy()
-";
-
-%feature("docstring")  IFitStrategy::clone "virtual IFitStrategy* IFitStrategy::clone() const =0
-";
-
-%feature("docstring")  IFitStrategy::init "void IFitStrategy::init(FitSuiteImpl *fit_suite)
-";
-
-%feature("docstring")  IFitStrategy::execute "virtual void IFitStrategy::execute()=0
 ";
 
 
@@ -7895,6 +7049,9 @@ Returns Fourier transform of this distribution; is a decay function starting at 
 %feature("docstring")  IFTDistribution1D::omega "double IFTDistribution1D::omega() const
 ";
 
+%feature("docstring")  IFTDistribution1D::createSampler "virtual std::unique_ptr<IDistribution1DSampler> IFTDistribution1D::createSampler() const =0
+";
+
 
 // File: classIFTDistribution2D.xml
 %feature("docstring") IFTDistribution2D "
@@ -7942,6 +7099,9 @@ angle in direct space between first lattice vector and x-axis of the distributio
 %feature("docstring")  IFTDistribution2D::evaluate "virtual double IFTDistribution2D::evaluate(double qx, double qy) const =0
 
 evaluate Fourier transformed distribution for q in X,Y coordinates the original distribution (in real space) is assumed to be normalized: total integral is equal to 1 
+";
+
+%feature("docstring")  IFTDistribution2D::createSampler "virtual std::unique_ptr<IDistribution2DSampler> IFTDistribution2D::createSampler() const =0
 ";
 
 
@@ -8663,12 +7823,6 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const DistributionTrapezoid *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FitObject *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FitSuiteObjects *)
-";
-
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FootprintFactorGaussian *)
 ";
 
@@ -8736,6 +7890,9 @@ C++ includes: INodeVisitor.h
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorIcosahedron *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorLongBox *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorLongBoxGauss *)
@@ -8888,22 +8045,25 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DLattice *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction3DLattice *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DParaCrystal *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DSuperLattice *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction3DLattice *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionFinite2DLattice *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunction2DParaCrystal *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionNone *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionFinite3DLattice *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionNone *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IParticle *)
@@ -9564,6 +8724,12 @@ If defined by this interference function's parameters, returns the particle dens
 Returns a vector of children (const). 
 ";
 
+%feature("docstring")  InterferenceFunction2DParaCrystal::pdf1 "const IFTDistribution2D* InterferenceFunction2DParaCrystal::pdf1() const
+";
+
+%feature("docstring")  InterferenceFunction2DParaCrystal::pdf2 "const IFTDistribution2D* InterferenceFunction2DParaCrystal::pdf2() const
+";
+
 
 // File: classInterferenceFunction2DSuperLattice.xml
 %feature("docstring") InterferenceFunction2DSuperLattice "
@@ -9685,11 +8851,6 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction3DLattice::lattice "const Lattice & InterferenceFunction3DLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::getParticleDensity "double InterferenceFunction3DLattice::getParticleDensity() const final
-
-If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
-";
-
 %feature("docstring")  InterferenceFunction3DLattice::supportsMultilayer "bool InterferenceFunction3DLattice::supportsMultilayer() const override
 
 Indicates if this interference function can be used with a multilayer (DWBA mode) 
@@ -9714,12 +8875,26 @@ Interference function of 2D lattice.
 C++ includes: InterferenceFunctionFinite2DLattice.h
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const Lattice2D &lattice, unsigned size_1, unsigned size_2)
+%feature("docstring")  InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const Lattice2D &lattice, unsigned N_1, unsigned N_2)
+
+Constructor of two-dimensional finite lattice interference function.
+
+Parameters:
+-----------
+
+lattice: 
+object specifying a 2d lattice structure
+
+N_1: 
+number of lattice cells in the first lattice direction
+
+N_2: 
+number of lattice cells in the second lattice direction 
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+%feature("docstring")  InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)
 
-Constructor of two-dimensional interference function.
+Constructor of two-dimensional finite lattice interference function.
 
 Parameters:
 -----------
@@ -9734,7 +8909,13 @@ alpha:
 angle between lattice vectors in radians
 
 xi: 
-rotation of lattice with respect to x-axis (beam direction) in radians 
+rotation of lattice with respect to x-axis (beam direction) in radians
+
+N_1: 
+number of lattice cells in the first lattice direction
+
+N_2: 
+number of lattice cells in the second lattice direction 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() final
@@ -9755,10 +8936,10 @@ Calls the  INodeVisitor's visit method.
 Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::domainSize1 "unsigned InterferenceFunctionFinite2DLattice::domainSize1() const
+%feature("docstring")  InterferenceFunctionFinite2DLattice::numberUnitCells1 "unsigned InterferenceFunctionFinite2DLattice::numberUnitCells1() const
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::domainSize2 "unsigned InterferenceFunctionFinite2DLattice::domainSize2() const
+%feature("docstring")  InterferenceFunctionFinite2DLattice::numberUnitCells2 "unsigned InterferenceFunctionFinite2DLattice::numberUnitCells2() const
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::setPositionVariance "void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
@@ -9782,6 +8963,67 @@ Returns the particle density associated with this 2d lattice.
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override
+
+Returns a vector of children (const). 
+";
+
+
+// File: classInterferenceFunctionFinite3DLattice.xml
+%feature("docstring") InterferenceFunctionFinite3DLattice "
+
+Interference function of 2D lattice.
+
+C++ includes: InterferenceFunctionFinite3DLattice.h
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
+
+Constructor of three-dimensional finite lattice interference function.
+
+Parameters:
+-----------
+
+lattice: 
+object specifying a 2d lattice structure
+
+N_1: 
+number of lattice cells in the first lattice direction
+
+N_2: 
+number of lattice cells in the second lattice direction 
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() final
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::clone "InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::accept "void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::evaluate "double InterferenceFunctionFinite3DLattice::evaluate(const kvector_t q) const final
+
+Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::numberUnitCells1 "unsigned InterferenceFunctionFinite3DLattice::numberUnitCells1() const
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::numberUnitCells2 "unsigned InterferenceFunctionFinite3DLattice::numberUnitCells2() const
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::numberUnitCells3 "unsigned InterferenceFunctionFinite3DLattice::numberUnitCells3() const
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::lattice "const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override
 
 Returns a vector of children (const). 
 ";
@@ -9902,6 +9144,9 @@ probability distribution (Fourier transform of probability density)
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::getChildren "std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
 
 Returns a vector of children (const). 
+";
+
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::randomSample "double InterferenceFunctionRadialParaCrystal::randomSample() const
 ";
 
 
@@ -10196,14 +9441,14 @@ C++ includes: IPeakShape.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IPeakShape::evaluate "virtual double IPeakShape::evaluate(const kvector_t q) const =0
+%feature("docstring")  IPeakShape::evaluate "virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
 
-Evaluates the peak shape at displacement q from the center at 0. 
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
 ";
 
-%feature("docstring")  IPeakShape::thickness_z "virtual double IPeakShape::thickness_z() const =0
+%feature("docstring")  IPeakShape::angularDisorder "virtual bool IPeakShape::angularDisorder() const
 
-Returns the thickness in the z-direction. 
+Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
 ";
 
 
@@ -10428,6 +9673,66 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 Base class for singletons.
 
 C++ includes: ISingleton.h
+";
+
+
+// File: classIsotropicGaussPeakShape.xml
+%feature("docstring") IsotropicGaussPeakShape "
+
+Class that implements an isotropic Gaussian peak shape of a Bragg peak.
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  IsotropicGaussPeakShape::IsotropicGaussPeakShape "IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
+";
+
+%feature("docstring")  IsotropicGaussPeakShape::~IsotropicGaussPeakShape "IsotropicGaussPeakShape::~IsotropicGaussPeakShape() override
+";
+
+%feature("docstring")  IsotropicGaussPeakShape::clone "IsotropicGaussPeakShape * IsotropicGaussPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  IsotropicGaussPeakShape::accept "void IsotropicGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  IsotropicGaussPeakShape::evaluate "double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+";
+
+
+// File: classIsotropicLorentzPeakShape.xml
+%feature("docstring") IsotropicLorentzPeakShape "
+
+Class that implements an isotropic Lorentzian peak shape of a Bragg peak.
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  IsotropicLorentzPeakShape::IsotropicLorentzPeakShape "IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, double domainsize)
+";
+
+%feature("docstring")  IsotropicLorentzPeakShape::~IsotropicLorentzPeakShape "IsotropicLorentzPeakShape::~IsotropicLorentzPeakShape() override
+";
+
+%feature("docstring")  IsotropicLorentzPeakShape::clone "IsotropicLorentzPeakShape * IsotropicLorentzPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  IsotropicLorentzPeakShape::accept "void IsotropicLorentzPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  IsotropicLorentzPeakShape::evaluate "double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
 ";
 
 
@@ -10687,7 +9992,7 @@ Returns basis vector c.
 Resets the basis vectors. 
 ";
 
-%feature("docstring")  Lattice::getMillerDirection "kvector_t Lattice::getMillerDirection(int h, int k, int l) const
+%feature("docstring")  Lattice::getMillerDirection "kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 
 Returns normalized direction corresponding to the given Miller indices. 
 ";
@@ -11186,6 +10491,41 @@ C++ includes: LLData.h
 ";
 
 
+// File: classLorentzFisherPeakShape.xml
+%feature("docstring") LorentzFisherPeakShape "
+
+Class that implements a peak shape that is Lorentzian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  LorentzFisherPeakShape::LorentzFisherPeakShape "LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size, double kappa)
+";
+
+%feature("docstring")  LorentzFisherPeakShape::~LorentzFisherPeakShape "LorentzFisherPeakShape::~LorentzFisherPeakShape() override
+";
+
+%feature("docstring")  LorentzFisherPeakShape::clone "LorentzFisherPeakShape * LorentzFisherPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  LorentzFisherPeakShape::accept "void LorentzFisherPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  LorentzFisherPeakShape::evaluate "double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+";
+
+%feature("docstring")  LorentzFisherPeakShape::angularDisorder "bool LorentzFisherPeakShape::angularDisorder() const override
+
+Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+";
+
+
 // File: classMagneticCylindersBuilder.xml
 %feature("docstring") MagneticCylindersBuilder "
 
@@ -11574,9 +10914,14 @@ C++ includes: MesoCrystalBuilder.h
 
 
 // File: structMillerIndex.xml
-%feature("docstring") MillerIndex "";
+%feature("docstring") MillerIndex "
 
-%feature("docstring")  MillerIndex::MillerIndex "MillerIndex::MillerIndex(int h_, int k_, int l_)
+MillerIndex represents arbitrary directions in reciprocal space by allowing floating point index values
+
+C++ includes: ILatticeOrientation.h
+";
+
+%feature("docstring")  MillerIndex::MillerIndex "MillerIndex::MillerIndex(double h_, double k_, double l_)
 ";
 
 
@@ -14630,6 +13975,9 @@ Returns experimental data.
 Returns relative difference between simulation and experimental data. 
 ";
 
+%feature("docstring")  SimDataPair::absoluteDifference "SimulationResult SimDataPair::absoluteDifference() const
+";
+
 %feature("docstring")  SimDataPair::runSimulation "void SimDataPair::runSimulation(const Fit::Parameters &params)
 ";
 
@@ -16126,7 +15474,7 @@ Conversion of axis units for the case of 1D simulation result (specular simulati
 C++ includes: UnitConverter1D.h
 ";
 
-%feature("docstring")  UnitConverter1D::UnitConverter1D "UnitConverter1D::UnitConverter1D(const Beam &beam, const IAxis &axis)
+%feature("docstring")  UnitConverter1D::UnitConverter1D "UnitConverter1D::UnitConverter1D(const Beam &beam, const IAxis &axis, AxesUnits axis_units=AxesUnits::RADIANS)
 
 Constructs the object for unit conversion. Input axis is in radians. 
 ";
@@ -16385,124 +15733,133 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D112.xml
+// File: namespace_0D103.xml
 
 
-// File: namespace_0D121.xml
+// File: namespace_0D118.xml
+
+
+// File: namespace_0D12.xml
 
 
 // File: namespace_0D127.xml
 
 
-// File: namespace_0D134.xml
+// File: namespace_0D129.xml
 
 
-// File: namespace_0D14.xml
+// File: namespace_0D132.xml
 
 
-// File: namespace_0D16.xml
+// File: namespace_0D18.xml
+
+
+// File: namespace_0D185.xml
 
 
 // File: namespace_0D20.xml
 
 
-// File: namespace_0D205.xml
+// File: namespace_0D212.xml
 
 
-// File: namespace_0D22.xml
+// File: namespace_0D214.xml
 
 
-// File: namespace_0D232.xml
-
-
-// File: namespace_0D234.xml
+// File: namespace_0D226.xml
 
 
 // File: namespace_0D24.xml
 
 
-// File: namespace_0D246.xml
+// File: namespace_0D26.xml
+
+
+// File: namespace_0D28.xml
+
+
+// File: namespace_0D295.xml
+
+
+// File: namespace_0D299.xml
+
+
+// File: namespace_0D30.xml
+
+
+// File: namespace_0D311.xml
 
 
 // File: namespace_0D315.xml
 
 
-// File: namespace_0D319.xml
+// File: namespace_0D336.xml
 
 
-// File: namespace_0D32.xml
+// File: namespace_0D340.xml
 
 
-// File: namespace_0D331.xml
+// File: namespace_0D342.xml
 
 
-// File: namespace_0D335.xml
+// File: namespace_0D344.xml
 
 
-// File: namespace_0D356.xml
+// File: namespace_0D352.xml
 
 
-// File: namespace_0D360.xml
+// File: namespace_0D36.xml
 
 
-// File: namespace_0D362.xml
+// File: namespace_0D369.xml
 
 
-// File: namespace_0D364.xml
+// File: namespace_0D377.xml
 
 
-// File: namespace_0D372.xml
+// File: namespace_0D38.xml
 
 
-// File: namespace_0D389.xml
+// File: namespace_0D383.xml
 
 
-// File: namespace_0D397.xml
+// File: namespace_0D386.xml
 
 
-// File: namespace_0D403.xml
+// File: namespace_0D388.xml
 
 
-// File: namespace_0D406.xml
+// File: namespace_0D409.xml
 
 
-// File: namespace_0D408.xml
+// File: namespace_0D418.xml
 
 
-// File: namespace_0D429.xml
+// File: namespace_0D452.xml
 
 
-// File: namespace_0D438.xml
+// File: namespace_0D459.xml
 
 
-// File: namespace_0D472.xml
+// File: namespace_0D497.xml
 
 
-// File: namespace_0D479.xml
+// File: namespace_0D505.xml
 
 
-// File: namespace_0D517.xml
+// File: namespace_0D507.xml
 
 
-// File: namespace_0D525.xml
+// File: namespace_0D509.xml
 
 
-// File: namespace_0D527.xml
+// File: namespace_0D591.xml
 
 
-// File: namespace_0D529.xml
+// File: namespace_0D613.xml
 
 
-// File: namespace_0D611.xml
-
-
-// File: namespace_0D633.xml
-
-
-// File: namespace_0D88.xml
-
-
-// File: namespace_0D97.xml
+// File: namespace_0D94.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -16568,28 +15925,28 @@ vector<vector<double>>
 
 
 // File: namespaceAxisNames.xml
-%feature("docstring")  AxisNames::InitSphericalAxis0 "std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis0()
+%feature("docstring")  AxisNames::InitSphericalAxis0 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitSphericalAxis1 "std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis1()
+%feature("docstring")  AxisNames::InitSphericalAxis1 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSphericalAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitRectangularAxis0 "std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis0()
+%feature("docstring")  AxisNames::InitRectangularAxis0 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitRectangularAxis1 "std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis1()
+%feature("docstring")  AxisNames::InitRectangularAxis1 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitRectangularAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis0 "std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis0()
+%feature("docstring")  AxisNames::InitOffSpecAxis0 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis1 "std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis1()
+%feature("docstring")  AxisNames::InitOffSpecAxis1 "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitOffSpecAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitSpecAxis "std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
+%feature("docstring")  AxisNames::InitSpecAxis "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
 ";
 
-%feature("docstring")  AxisNames::InitSampleDepthAxis "std::map< AxesUnits, std::string > AxisNames::InitSampleDepthAxis()
+%feature("docstring")  AxisNames::InitSampleDepthAxis "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSampleDepthAxis()
 ";
 
 
@@ -16749,28 +16106,6 @@ Returns file names that agree with a regex glob pattern.
 
 
 // File: namespaceFit.xml
-
-
-// File: namespaceFitSuiteUtils.xml
-%feature("docstring")  FitSuiteUtils::linkedParameters "std::vector< FitParameter * > FitSuiteUtils::linkedParameters(const FitParameterSet &fitParameters)
-
-Returns vector of linked parameters. 
-";
-
-%feature("docstring")  FitSuiteUtils::linkToString "std::string FitSuiteUtils::linkToString(const FitParameter &par)
-
-Returns multiline string representing linked sample parameters. 
-";
-
-%feature("docstring")  FitSuiteUtils::fitParameterSettingsToString "std::string FitSuiteUtils::fitParameterSettingsToString(const FitParameterSet &fitParameters)
-
-Returns multiline string representing fit parameter definition. 
-";
-
-%feature("docstring")  FitSuiteUtils::hasConflicts "bool FitSuiteUtils::hasConflicts(const FitParameterSet &fitParameters)
-
-Validates all fit parameters for conflicts (steering same sample parameters). 
-";
 
 
 // File: namespaceIComputationUtils.xml
@@ -17261,7 +16596,14 @@ Prints  ParameterDistribution. distVarName is a string representing  IDistributi
 ba.ParameterDistribution(\"/Particle/Height\", distr_1, 10, 0.0, ba.RealLimits.limited(1*nm,2*nm)) 
 ";
 
-%feature("docstring")  PythonFormatting::printAxis "BA_CORE_API_ std::string PythonFormatting::printAxis(const IAxis &axis, const std::string &units)
+%feature("docstring")  PythonFormatting::printAxis "BA_CORE_API_ std::string PythonFormatting::printAxis(const IAxis &axis, const std::string &units, size_t offset)
+
+Prints python-script definition for given axis. offset is used for alignment and indentation in multiple-line definitions 
+";
+
+%feature("docstring")  PythonFormatting::indent "BA_CORE_API_ std::string PythonFormatting::indent(size_t width)
+
+Returns a string of blanks with given width. By default the width equals standard offset in python files. 
 ";
 
 %feature("docstring")  PythonFormatting::printInt "BA_CORE_API_ std::string PythonFormatting::printInt(int value)
@@ -17483,6 +16825,18 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: FTDistributions2D_8h.xml
 
 
+// File: IDistribution1DSampler_8cpp.xml
+
+
+// File: IDistribution1DSampler_8h.xml
+
+
+// File: IDistribution2DSampler_8cpp.xml
+
+
+// File: IDistribution2DSampler_8h.xml
+
+
 // File: IInterferenceFunction_8cpp.xml
 
 
@@ -17529,6 +16883,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: InterferenceFunctionFinite2DLattice_8h.xml
+
+
+// File: InterferenceFunctionFinite3DLattice_8cpp.xml
+
+
+// File: InterferenceFunctionFinite3DLattice_8h.xml
 
 
 // File: InterferenceFunctionNone_8cpp.xml
@@ -17843,18 +17203,6 @@ global helper function for comparison of axes
 // File: SimulationToPython_8h.xml
 
 
-// File: AdjustMinimizerStrategy_8cpp.xml
-
-
-// File: AdjustMinimizerStrategy_8h.xml
-
-
-// File: FitObject_8cpp.xml
-
-
-// File: FitObject_8h.xml
-
-
 // File: FitObjective_8cpp.xml
 
 
@@ -17862,18 +17210,6 @@ global helper function for comparison of axes
 
 
 // File: FitObserver_8h.xml
-
-
-// File: FitParameter_8cpp.xml
-
-
-// File: FitParameter_8h.xml
-
-
-// File: FitParameterSet_8cpp.xml
-
-
-// File: FitParameterSet_8h.xml
 
 
 // File: FitPrintService_8cpp.xml
@@ -17888,67 +17224,7 @@ global helper function for comparison of axes
 // File: FitStatus_8h.xml
 
 
-// File: FitStrategyAdjustParameters_8cpp.xml
-
-
-// File: FitStrategyAdjustParameters_8h.xml
-
-
-// File: FitSuite_8cpp.xml
-
-
-// File: FitSuite_8h.xml
-
-
-// File: FitSuiteImpl_8cpp.xml
-
-
-// File: FitSuiteImpl_8h.xml
-
-
-// File: FitSuiteObjects_8cpp.xml
-
-
-// File: FitSuiteObjects_8h.xml
-
-
-// File: FitSuitePrintObserver_8cpp.xml
-
-
-// File: FitSuitePrintObserver_8h.xml
-
-
-// File: FitSuiteStrategies_8cpp.xml
-
-
-// File: FitSuiteStrategies_8h.xml
-
-
-// File: FitSuiteUtils_8cpp.xml
-
-
-// File: FitSuiteUtils_8h.xml
-
-
 // File: FitTypes_8h.xml
-
-
-// File: IFitObserver_8cpp.xml
-
-
-// File: IFitObserver_8h.xml
-
-
-// File: IFitParameter_8cpp.xml
-
-
-// File: IFitParameter_8h.xml
-
-
-// File: IFitStrategy_8cpp.xml
-
-
-// File: IFitStrategy_8h.xml
 
 
 // File: IObserver_8cpp.xml
@@ -18051,6 +17327,12 @@ global helper function for comparison of axes
 
 
 // File: FormFactorIcosahedron_8h.xml
+
+
+// File: FormFactorLongBox_8cpp.xml
+
+
+// File: FormFactorLongBox_8h.xml
 
 
 // File: FormFactorLongBoxGauss_8cpp.xml

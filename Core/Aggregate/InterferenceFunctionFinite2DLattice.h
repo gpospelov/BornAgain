@@ -67,7 +67,7 @@ private:
 
     double m_sigma2;
     bool m_integrate_xi; //!< Integrate over the orientation xi
-    std::unique_ptr<Lattice2D> m_lattice;
+    std::unique_ptr<Lattice2D> mP_lattice;
     unsigned m_N_1, m_N_2;  //!< Size of the finite lattice in lattice units
     mutable double m_qx;
     mutable double m_qy;

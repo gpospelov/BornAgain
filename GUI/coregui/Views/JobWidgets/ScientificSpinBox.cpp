@@ -28,17 +28,21 @@ bool useExponentialNotation(double val);
 
 ScientificSpinBox::ScientificSpinBox(QWidget* parent)
     : QAbstractSpinBox(parent)
+    , m_value(0.0)
     , m_min(-max_val)
     , m_max(max_val)
-    , m_decimal_points(3)
+    , m_step(1.0)
+    , m_decimals(3)
 {
-    lineEdit()->setValidator(nullptr); // disables validation on input
-
     QLocale locale;
     locale.setNumberOptions(QLocale::RejectGroupSeparator);
     m_validator.setLocale(locale);
     m_validator.setNotation(QDoubleValidator::ScientificNotation);
+
+    connect(this, &QAbstractSpinBox::editingFinished, this, &ScientificSpinBox::updateValue);
 }
+
+ScientificSpinBox::~ScientificSpinBox() = default;
 
 double ScientificSpinBox::value() const
 {
@@ -47,23 +51,17 @@ double ScientificSpinBox::value() const
 
 void ScientificSpinBox::setValue(double val)
 {
-    if(val != m_value) {
-        m_value = val;
-        updateLineEdit(val);
-        emit valueChanged(val);
-    }
+    double old_val = m_value;
+    m_value = round(val, m_decimals);
+    updateText();
+    if(std::abs(old_val - m_value) > min_val)
+        emit valueChanged(m_value);
 }
 
-ScientificSpinBox::~ScientificSpinBox() = default;
-
-double ScientificSpinBox::valueFromText(const QString& text) const
+void ScientificSpinBox::updateValue()
 {
-    return toDouble(text, m_validator, minimum(), maximum(), value());
-}
-
-QString ScientificSpinBox::textFromValue(double val) const
-{
-    return toString(val, m_decimal_points);
+    double new_val = toDouble(text(), m_validator, m_min, m_max, m_value);
+    setValue(new_val);
 }
 
 double ScientificSpinBox::singleStep() const
@@ -84,6 +82,8 @@ double ScientificSpinBox::minimum() const
 void ScientificSpinBox::setMinimum(double min)
 {
     m_min = min;
+    if (m_value < m_min)
+        setValue(m_min);
 }
 
 double ScientificSpinBox::maximum() const
@@ -94,17 +94,28 @@ double ScientificSpinBox::maximum() const
 void ScientificSpinBox::setMaximum(double max)
 {
     m_max = max;
+    if (m_value > m_max)
+        setValue(m_max);
 }
 
-void ScientificSpinBox::setDecimalPoints(int val)
+void ScientificSpinBox::setDecimals(int val)
 {
-    if (val > 0)
-        m_decimal_points = val;
+    if (val <= 0)
+        return;
+    m_decimals = val;
+    setValue(m_value);
 }
 
-int ScientificSpinBox::decimalPoints() const
+int ScientificSpinBox::decimals() const
 {
-    return m_decimal_points;
+    return m_decimals;
+}
+
+void ScientificSpinBox::stepBy(int steps)
+{
+    double new_val = round(m_value + m_step * steps, m_decimals);
+    if (inRange(new_val))
+        setValue(new_val);
 }
 
 QString ScientificSpinBox::toString(double val, int decimal_points)
@@ -128,9 +139,26 @@ double ScientificSpinBox::toDouble(QString text, const QDoubleValidator& validat
     return default_value;
 }
 
-void ScientificSpinBox::updateLineEdit(double val)
+double ScientificSpinBox::round(double val, int decimals)
 {
-    lineEdit()->setText(toString(val, m_decimal_points));
+    return QString::number(val, 'e', decimals).toDouble();
+}
+
+QAbstractSpinBox::StepEnabled ScientificSpinBox::stepEnabled() const
+{
+    return isReadOnly() ? StepNone : StepUpEnabled | StepDownEnabled;
+}
+
+void ScientificSpinBox::updateText()
+{
+    QString new_text = toString(m_value, m_decimals);
+    if (new_text != text())
+        lineEdit()->setText(new_text);
+}
+
+bool ScientificSpinBox::inRange(double val) const
+{
+    return val >= m_min && val <= m_max;
 }
 
 namespace

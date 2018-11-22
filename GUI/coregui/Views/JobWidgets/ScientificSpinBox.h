@@ -28,9 +28,6 @@ public:
     double value() const;
     void setValue(double val);
 
-    double valueFromText(const QString& text) const;
-    QString textFromValue(double val) const;
-
     double singleStep() const;
     void setSingleStep(double step);
 
@@ -40,23 +37,33 @@ public:
     double maximum() const;
     void setMaximum(double max);
 
-    void setDecimalPoints(int val);
-    int decimalPoints() const;
+    void setDecimals(int);
+    int decimals() const;
+
+    void stepBy(int steps) override;
+    QValidator::State validate(QString&, int&) const override {return QValidator::Acceptable;}
+    void fixup(QString&) const override {}
+
 
     static QString toString(double val, int decimal_points);
     static double toDouble(QString text, const QDoubleValidator& validator,
                            double min, double max, double default_value);
+    static double round(double val, int decimals);
+
 signals:
     void valueChanged(double value);
 
+protected:
+    QAbstractSpinBox::StepEnabled stepEnabled() const override;
+
 private:
-    void setDecimals(int);
-    int decimals() const;
-    void updateLineEdit(double val);
+    void updateValue();
+    void updateText();
+    bool inRange(double val) const;
 
     double m_value, m_min, m_max;
     double m_step;
-    int m_decimal_points;
+    int m_decimals;
     QDoubleValidator m_validator;
 };
 

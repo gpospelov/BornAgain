@@ -16,16 +16,29 @@
 #define SCIENTIFICSPINBOX_H
 
 #include "WinDllMacros.h"
-#include <QDoubleSpinBox>
+#include <QAbstractSpinBox>
 
-class BA_CORE_API_ ScientificSpinBox : public QDoubleSpinBox
+class BA_CORE_API_ ScientificSpinBox : public QAbstractSpinBox
 {
+    Q_OBJECT
 public:
     ScientificSpinBox(QWidget* parent = nullptr);
     ~ScientificSpinBox() override;
 
-    double valueFromText(const QString& text) const override;
-    QString textFromValue(double val) const override;
+    double value() const;
+    void setValue(double val);
+
+    double valueFromText(const QString& text) const;
+    QString textFromValue(double val) const;
+
+    double singleStep() const;
+    void setSingleStep(double step);
+
+    double minimum() const;
+    void setMinimum(double min);
+
+    double maximum() const;
+    void setMaximum(double max);
 
     void setDecimalPoints(int val);
     int decimalPoints() const;
@@ -33,11 +46,16 @@ public:
     static QString toString(double val, int decimal_points);
     static double toDouble(QString text, const QDoubleValidator& validator,
                            double min, double max, double default_value);
+signals:
+    void valueChanged(double value);
 
 private:
     void setDecimals(int);
     int decimals() const;
+    void updateLineEdit(double val);
 
+    double m_value, m_min, m_max;
+    double m_step;
     int m_decimal_points;
     QDoubleValidator m_validator;
 };

@@ -21,21 +21,37 @@ namespace
 const double upper_switch = 100;
 const double lower_switch = 0.1;
 const double min_val = std::numeric_limits<double>::min();
+const double max_val = std::numeric_limits<double>::max();
 
 bool useExponentialNotation(double val);
 } // namespace
 
 ScientificSpinBox::ScientificSpinBox(QWidget* parent)
-    : QDoubleSpinBox(parent)
+    : QAbstractSpinBox(parent)
+    , m_min(-max_val)
+    , m_max(max_val)
     , m_decimal_points(3)
 {
-    QDoubleSpinBox::setDecimals(300);
     lineEdit()->setValidator(nullptr); // disables validation on input
 
     QLocale locale;
     locale.setNumberOptions(QLocale::RejectGroupSeparator);
     m_validator.setLocale(locale);
     m_validator.setNotation(QDoubleValidator::ScientificNotation);
+}
+
+double ScientificSpinBox::value() const
+{
+    return m_value;
+}
+
+void ScientificSpinBox::setValue(double val)
+{
+    if(val != m_value) {
+        m_value = val;
+        updateLineEdit(val);
+        emit valueChanged(val);
+    }
 }
 
 ScientificSpinBox::~ScientificSpinBox() = default;
@@ -48,6 +64,36 @@ double ScientificSpinBox::valueFromText(const QString& text) const
 QString ScientificSpinBox::textFromValue(double val) const
 {
     return toString(val, m_decimal_points);
+}
+
+double ScientificSpinBox::singleStep() const
+{
+    return m_step;
+}
+
+void ScientificSpinBox::setSingleStep(double step)
+{
+    m_step = step;
+}
+
+double ScientificSpinBox::minimum() const
+{
+    return m_min;
+}
+
+void ScientificSpinBox::setMinimum(double min)
+{
+    m_min = min;
+}
+
+double ScientificSpinBox::maximum() const
+{
+    return m_max;
+}
+
+void ScientificSpinBox::setMaximum(double max)
+{
+    m_max = max;
 }
 
 void ScientificSpinBox::setDecimalPoints(int val)
@@ -80,6 +126,11 @@ double ScientificSpinBox::toDouble(QString text, const QDoubleValidator& validat
         return new_val >= min && new_val <= max ? new_val : default_value;
     }
     return default_value;
+}
+
+void ScientificSpinBox::updateLineEdit(double val)
+{
+    lineEdit()->setText(toString(val, m_decimal_points));
 }
 
 namespace

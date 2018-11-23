@@ -16,8 +16,8 @@
 #define MULTICOMBOPROPERTYEDITOR_H
 
 #include "CustomEditors.h"
-#include <memory>
 #include <QStyledItemDelegate>
+#include <memory>
 
 class QStandardItemModel;
 class QModelIndex;
@@ -36,13 +36,15 @@ public:
 
 protected slots:
     virtual void onIndexChanged(int index);
-    void onModelDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight,
-                            const QVector<int>&);
-    void onPressedList(const QModelIndex& topLeft);
+    void onModelDataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&);
+
+    void onClickedList(const QModelIndex& index);
 
 protected:
+    bool eventFilter(QObject* obj, QEvent* event);
     void initEditor();
     void setConnected(bool isConnected);
+    void updateBoxLabel();
 
     QComboBox* m_box;
     class WheelEventEater* m_wheel_event_filter;
@@ -56,8 +58,8 @@ class QCheckListStyledItemDelegate : public QStyledItemDelegate
 public:
     QCheckListStyledItemDelegate(QObject* parent = nullptr);
 
-    void paint(QPainter* painter_, const QStyleOptionViewItem& option_,
-               const QModelIndex& index_) const;
+    void paint(QPainter* painter, const QStyleOptionViewItem& option,
+               const QModelIndex& index) const;
 };
 
 #endif

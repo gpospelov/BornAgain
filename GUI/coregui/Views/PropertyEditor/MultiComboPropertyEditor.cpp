@@ -17,23 +17,25 @@
 #include "CustomEventFilters.h"
 #include <QComboBox>
 #include <QDebug>
+#include <QEvent>
+#include <QLineEdit>
+#include <QListView>
+#include <QMouseEvent>
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QVBoxLayout>
-#include <QListView>
-
 
 QCheckListStyledItemDelegate::QCheckListStyledItemDelegate(QObject* parent)
     : QStyledItemDelegate(parent)
 {
 }
 
-void QCheckListStyledItemDelegate::paint(QPainter* painter_, const QStyleOptionViewItem& option_,
-                                         const QModelIndex& index_) const
+void QCheckListStyledItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
+                                         const QModelIndex& index) const
 {
-    QStyleOptionViewItem& refToNonConstOption = const_cast<QStyleOptionViewItem&>(option_);
-    refToNonConstOption.showDecorationSelected = false;
-    QStyledItemDelegate::paint(painter_, refToNonConstOption, index_);
+    QStyleOptionViewItem& styleOption = const_cast<QStyleOptionViewItem&>(option);
+    styleOption.showDecorationSelected = false;
+    QStyledItemDelegate::paint(painter, styleOption, index);
 }
 
 // ----------------------------------------------------------------------------
@@ -49,18 +51,24 @@ MultiComboPropertyEditor::MultiComboPropertyEditor(QWidget* parent)
     setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
-    auto layout = new QVBoxLayout;
-    layout->setMargin(0);
-    layout->setSpacing(0);
-    layout->addWidget(m_box);
-
     m_box->installEventFilter(m_wheel_event_filter);
+    m_box->view()->viewport()->installEventFilter(this);
+
+    // Editable mode will be used to have None/Multiple labels on top
+    m_box->setEditable(true);
+    m_box->lineEdit()->setReadOnly(true);
+    m_box->lineEdit()->installEventFilter(this);
+    connect(m_box->lineEdit(), &QLineEdit::selectionChanged,
+            m_box->lineEdit(), &QLineEdit::deselect);
 
     // transforms ordinary combo box into check list
     m_box->setItemDelegate(new QCheckListStyledItemDelegate(this));
     m_box->setModel(m_model);
-    connect(m_box->view(), &QListView::pressed, this, &MultiComboPropertyEditor::onPressedList);
 
+    auto layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+    layout->addWidget(m_box);
     setLayout(layout);
     setConnected(true);
 }
@@ -77,6 +85,8 @@ QSize MultiComboPropertyEditor::minimumSizeHint() const
 
 void MultiComboPropertyEditor::onIndexChanged(int index)
 {
+    qDebug() << "   onIndexChanged" << index;
+
     ComboProperty comboProperty = m_data.value<ComboProperty>();
 
     if (comboProperty.currentIndex() != index) {
@@ -85,14 +95,22 @@ void MultiComboPropertyEditor::onIndexChanged(int index)
     }
 }
 
+//! Propagate check state from the model to ComboProperty.
+
 void MultiComboPropertyEditor::onModelDataChanged(const QModelIndex& topLeft,
-                                                  const QModelIndex& bottomRight,
+                                                  const QModelIndex& /*bottomRight*/,
                                                   const QVector<int>& roles)
 {
+    if (!roles.contains(Qt::CheckStateRole))
+        return;
+
+    auto item = m_model->itemFromIndex(topLeft);
+    if (!item)
+        return;
+
     qDebug() << "onModelDataChnaged" << topLeft << roles;
     ComboProperty comboProperty = m_data.value<ComboProperty>();
 
-    auto item = m_model->itemFromIndex(topLeft);
     if (item->checkState() == Qt::Unchecked) {
         comboProperty.setSelected(topLeft.row(), false);
         qDebug() << "Unchecked!";
@@ -101,22 +119,47 @@ void MultiComboPropertyEditor::onModelDataChanged(const QModelIndex& topLeft,
         comboProperty.setSelected(topLeft.row(), true);
     }
 
+    updateBoxLabel();
     setDataIntern(QVariant::fromValue<ComboProperty>(comboProperty));
 }
 
 //! Processes press event in QComboBox's underlying list view.
 
-void MultiComboPropertyEditor::onPressedList(const QModelIndex& index)
+void MultiComboPropertyEditor::onClickedList(const QModelIndex& index)
 {
-    auto item = m_model->itemFromIndex(index);
-    auto state = item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked;
-    item->setCheckState(state);
+    qDebug() << "   onPressedList" << index;
+    if (auto item = m_model->itemFromIndex(index)) {
+        auto state = item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked;
+        item->setCheckState(state);
+    }
 }
 
+//! Handles mouse clicks on QComboBox elements.
+
+bool MultiComboPropertyEditor::eventFilter(QObject* obj, QEvent* event)
+{
+    // Handles mouse clicks on QListView when it is expanded from QComboBox
+    // 1) Prevents list from closing while selecting items.
+    // 2) Correctly calculates underlying model index when mouse is over check box style element.
+    if (obj == m_box->view()->viewport() && event->type() == QEvent::MouseButtonRelease) {
+        const auto mouseEvent = static_cast<const QMouseEvent*>(event);
+        auto index = m_box->view()->indexAt(mouseEvent->pos());
+        onClickedList(index);
+        return true;
+
+        // Expands box when clicking on None/Multiple label
+    } else if (obj == m_box->lineEdit() && event->type() == QEvent::MouseButtonRelease) {
+        m_box->showPopup();
+        return true;
+
+    } else {
+        // Propagate to the parent class.
+        return QObject::eventFilter(obj, event);
+    }
+}
 
 void MultiComboPropertyEditor::initEditor()
 {
-    qDebug() << "MultiComboPropertyEditor::initEditor()";
     Q_ASSERT(m_data.canConvert<ComboProperty>());
     ComboProperty property = m_data.value<ComboProperty>();
 
@@ -127,14 +170,14 @@ void MultiComboPropertyEditor::initEditor()
     auto selectedIndices = property.selectedIndices();
     auto currentIndex = property.currentIndex();
 
+    qDebug() << "--------------------------------";
     qDebug() << "xxx" << selectedIndices << currentIndex;
 
     for (int i = 0; i < labels.size(); ++i) {
         auto item = new QStandardItem(labels[i]);
-        item->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsEditable
-                       | Qt::ItemIsSelectable);
+        item->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
-        if(selectedIndices.contains(i))
+        if (selectedIndices.contains(i))
             item->setData(Qt::Checked, Qt::CheckStateRole);
         else
             item->setData(Qt::Unchecked, Qt::CheckStateRole);
@@ -142,9 +185,8 @@ void MultiComboPropertyEditor::initEditor()
         m_model->invisibleRootItem()->appendRow(item);
     }
 
-    m_box->setCurrentIndex(currentIndex);
-
     setConnected(true);
+    updateBoxLabel();
 }
 
 void MultiComboPropertyEditor::setConnected(bool isConnected)
@@ -160,4 +202,25 @@ void MultiComboPropertyEditor::setConnected(bool isConnected)
         disconnect(m_model, &QStandardItemModel::dataChanged, this,
                    &MultiComboPropertyEditor::onModelDataChanged);
     }
+}
+
+//! Update text on QComboBox depending from amount of selected items.
+//! "None" if no items selected
+//! "Item text" if one item is selected
+//! "2 linked" if more than one item selected
+
+void MultiComboPropertyEditor::updateBoxLabel()
+{
+    QString text("None");
+    int nselected(0);
+    for (int row = 0; row < m_model->rowCount(); row++) {
+        if (m_model->item(row)->checkState() == Qt::Checked) {
+            nselected++;
+            if (nselected == 1)
+                text = m_model->item(row)->text();
+        }
+    }
+    if (nselected > 1)
+        text = QString("%1 linked").arg(nselected);
+    m_box->setCurrentText(text);
 }

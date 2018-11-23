@@ -102,12 +102,13 @@ class IntensityNormalizer;
 class IntensityScaleAndShiftNormalizer;
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
-class InterferenceFunction3DLattice;
-class InterferenceFunction2DSuperLattice;
-class InterferenceFunctionFinite2DLattice;
 class InterferenceFunction2DParaCrystal;
-class InterferenceFunctionNone;
+class InterferenceFunction2DSuperLattice;
+class InterferenceFunction3DLattice;
+class InterferenceFunctionFinite2DLattice;
+class InterferenceFunctionFinite3DLattice;
 class InterferenceFunctionRadialParaCrystal;
+class InterferenceFunctionNone;
 class IParticle;
 class IPeakShape;
 class IRotation;
@@ -232,12 +233,13 @@ public:
     virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
     virtual void visit(const InterferenceFunction1DLattice*) {}
     virtual void visit(const InterferenceFunction2DLattice*) {}
-    virtual void visit(const InterferenceFunction3DLattice*) {}
-    virtual void visit(const InterferenceFunction2DSuperLattice*) {}
-    virtual void visit(const InterferenceFunctionFinite2DLattice*) {}
     virtual void visit(const InterferenceFunction2DParaCrystal*) {}
-    virtual void visit(const InterferenceFunctionNone*) {}
+    virtual void visit(const InterferenceFunction2DSuperLattice*) {}
+    virtual void visit(const InterferenceFunction3DLattice*) {}
+    virtual void visit(const InterferenceFunctionFinite2DLattice*) {}
+    virtual void visit(const InterferenceFunctionFinite3DLattice*) {}
     virtual void visit(const InterferenceFunctionRadialParaCrystal*) {}
+    virtual void visit(const InterferenceFunctionNone*) {}
     virtual void visit(const IParticle*) {}
     virtual void visit(const IPeakShape*) {}
     virtual void visit(const IRotation*) {}

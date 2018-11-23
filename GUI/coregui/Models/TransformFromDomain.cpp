@@ -158,9 +158,9 @@ void TransformFromDomain::set2DLatticeItem(SessionItem* item,
     set2DLatticeParameters(item, sample.lattice());
 
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_1,
-                       sample.domainSize1());
+                       sample.numberUnitCells1());
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_2,
-                       sample.domainSize2());
+                       sample.numberUnitCells2());
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_POSITION_VARIANCE,
                        sample.positionVariance());
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_XI_INTEGRATION,

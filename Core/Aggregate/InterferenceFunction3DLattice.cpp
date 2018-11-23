@@ -18,11 +18,6 @@
 #include "IPeakShape.h"
 #include <algorithm>
 
-namespace
-{
-double DebyeWallerFactor(const kvector_t& q, double dw_length);
-}  // unnamed namespace
-
 InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice& lattice)
     : m_lattice(lattice)
     , mP_peak_shape(nullptr)
@@ -70,8 +65,10 @@ double InterferenceFunction3DLattice::evaluate(const kvector_t q) const
     auto rec_vectors = m_lattice.reciprocalLatticeVectorsWithinRadius(center, radius);
     double result = 0.0;
     for (const auto& q_rec : rec_vectors) {
-        if (!(q_rec.mag()<inner_radius))
-           result += mP_peak_shape->evaluate(q, q_rec)*DebyeWallerFactor(q_rec, m_dw_length);
+        if (!(q_rec.mag()<inner_radius)) {
+            double dw_factor = std::exp(-q_rec.mag2()*m_dw_length*m_dw_length/3.0);
+            result += mP_peak_shape->evaluate(q, q_rec)*dw_factor;
+        }
     }
     return result;
 }
@@ -100,13 +97,3 @@ void InterferenceFunction3DLattice::initRecRadius()
     m_rec_radius = std::max(M_PI / a1.mag(), M_PI / a2.mag());
     m_rec_radius = std::max(m_rec_radius, M_PI / a3.mag());
 }
-
-namespace
-{
-double DebyeWallerFactor(const kvector_t& q, double dw_length)
-{
-    double exponent = -q.mag2()*dw_length*dw_length/3.0;
-    return std::exp(exponent);
-}
-}  // unnamed namespace
-

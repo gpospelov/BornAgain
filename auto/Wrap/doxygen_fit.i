@@ -1225,7 +1225,7 @@ C++ includes: TestMinimizer.h
 %feature("docstring")  TestMinimizer::TestMinimizer "TestMinimizer::TestMinimizer()
 ";
 
-%feature("docstring")  TestMinimizer::~TestMinimizer "TestMinimizer::~TestMinimizer()
+%feature("docstring")  TestMinimizer::~TestMinimizer "TestMinimizer::~TestMinimizer() override
 ";
 
 %feature("docstring")  TestMinimizer::minimizerName "std::string TestMinimizer::minimizerName() const final

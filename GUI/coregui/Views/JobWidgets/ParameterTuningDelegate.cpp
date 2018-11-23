@@ -142,15 +142,15 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
 
         double value = data.toDouble();
         RealLimits limits = m_currentItem->linkedItem()->limits();
-        m_slider_data.setItemLimits(limits);
-        m_slider_data.value_to_slider(value);
+        m_tuning_info.setItemLimits(limits);
+        m_tuning_info.value_to_slider(value);
 
         // initializing value box
         m_valueBox = new ScientificSpinBox();
         m_valueBox->setKeyboardTracking(false);
         m_valueBox->setFixedWidth(80);
         m_valueBox->setDecimals(m_currentItem->linkedItem()->decimals());
-        m_valueBox->setSingleStep(m_slider_data.step());
+        m_valueBox->setSingleStep(m_tuning_info.step());
 
         if (limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.lowerLimit());
@@ -173,7 +173,7 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
         m_slider->setTickPosition(QSlider::NoTicks);
         m_slider->setTickInterval(1);
         m_slider->setSingleStep(1);
-        m_slider->setRange(m_slider_data.m_smin, m_slider_data.m_smax);
+        m_slider->setRange(m_tuning_info.m_smin, m_tuning_info.m_smax);
 
         updateSlider(value);
 
@@ -208,7 +208,7 @@ void ParameterTuningDelegate::updateSlider(double value) const
 {
     disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
 
-    m_slider->setValue(m_slider_data.value_to_slider(value));
+    m_slider->setValue(m_tuning_info.value_to_slider(value));
 
     connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
 }
@@ -217,7 +217,7 @@ void ParameterTuningDelegate::sliderValueChanged(int position)
 {
     disconnect(m_valueBox, SIGNAL(valueChanged(double)), this, SLOT(editorValueChanged(double)));
 
-    double value = m_slider_data.slider_to_value(position);
+    double value = m_tuning_info.slider_to_value(position);
     m_valueBox->setValue(value);
 
     connect(m_valueBox, SIGNAL(valueChanged(double)), this, SLOT(editorValueChanged(double)));
@@ -265,7 +265,7 @@ void ParameterTuningDelegate::emitSignals(double value)
 
 void ParameterTuningDelegate::setSliderRangeFactor(double value)
 {
-    m_slider_data.setRangeFactor(value);
+    m_tuning_info.setRangeFactor(value);
 }
 
 void ParameterTuningDelegate::setReadOnly(bool isReadOnly)

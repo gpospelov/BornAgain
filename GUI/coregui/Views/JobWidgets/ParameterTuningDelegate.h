@@ -86,7 +86,7 @@ private:
     mutable QWidget *m_contentWidget;
     mutable QHBoxLayout * m_contentLayout;
     mutable ParameterItem *m_currentItem;
-    mutable TuningData m_slider_data;
+    mutable TuningData m_tuning_info;
     bool m_isReadOnly;
 };
 

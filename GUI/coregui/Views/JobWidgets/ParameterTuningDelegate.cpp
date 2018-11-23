@@ -16,11 +16,11 @@
 #include "ModelPath.h"
 #include "ParameterTreeItems.h"
 #include "ParameterTuningModel.h"
+#include "ScientificSpinBox.h"
 #include "SessionItemUtils.h"
 #include "SessionModel.h"
 #include <QAbstractItemModel>
 #include <QApplication>
-#include <QDoubleSpinBox>
 #include <QHBoxLayout>
 #include <QItemSelectionModel>
 #include <QMouseEvent>
@@ -39,22 +39,22 @@ const double maximum_doublespin_value = std::numeric_limits<double>::max();
 const double minimum_doublespin_value = std::numeric_limits<double>::lowest();
 } // namespace
 
-ParameterTuningDelegate::SliderData::SliderData()
+ParameterTuningDelegate::TuningData::TuningData()
     : m_smin(0), m_smax(100), m_rmin(0.0), m_rmax(0.0), m_range_factor(100.0)
 {
 }
 
-void ParameterTuningDelegate::SliderData::setRangeFactor(double range_factor)
+void ParameterTuningDelegate::TuningData::setRangeFactor(double range_factor)
 {
     m_range_factor = range_factor;
 }
 
-void ParameterTuningDelegate::SliderData::setItemLimits(const RealLimits& item_limits)
+void ParameterTuningDelegate::TuningData::setItemLimits(const RealLimits& item_limits)
 {
     m_item_limits = item_limits;
 }
 
-int ParameterTuningDelegate::SliderData::value_to_slider(double value)
+int ParameterTuningDelegate::TuningData::value_to_slider(double value)
 {
     double dr(0);
     if (value == 0.0) {
@@ -75,9 +75,14 @@ int ParameterTuningDelegate::SliderData::value_to_slider(double value)
     return static_cast<int>(result);
 }
 
-double ParameterTuningDelegate::SliderData::slider_to_value(int slider)
+double ParameterTuningDelegate::TuningData::slider_to_value(int slider)
 {
     return m_rmin + (slider - m_smin) * (m_rmax - m_rmin) / (m_smax - m_smin);
+}
+
+double ParameterTuningDelegate::TuningData::step() const
+{
+    return (m_rmax - m_rmin) / (m_smax - m_smin);
 }
 
 ParameterTuningDelegate::ParameterTuningDelegate(QObject* parent)
@@ -102,7 +107,7 @@ void ParameterTuningDelegate::paint(QPainter* painter, const QStyleOptionViewIte
             int type = SessionItemUtils::VariantType(prop_value);
             if (type == QVariant::Double) {
                 double value = prop_value.toDouble();
-                QString text(QString::number(value));
+                QString text = ScientificSpinBox::toString(value, 3);
 
                 QStyleOptionViewItem myOption = option;
                 myOption.displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
@@ -130,21 +135,22 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
         if (!data.isValid())
             return nullptr;
 
-        double value = data.toDouble();
-
         m_currentItem = static_cast<ParameterItem*>(
             ParameterTuningModel::toSourceIndex(index).internalPointer());
         if (!m_currentItem)
             return nullptr;
 
+        double value = data.toDouble();
         RealLimits limits = m_currentItem->linkedItem()->limits();
+        m_tuning_info.setItemLimits(limits);
+        m_tuning_info.value_to_slider(value);
 
         // initializing value box
-        m_valueBox = new QDoubleSpinBox();
+        m_valueBox = new ScientificSpinBox();
         m_valueBox->setKeyboardTracking(false);
-        m_valueBox->setFixedWidth(80);
+        m_valueBox->setFixedWidth(105);
         m_valueBox->setDecimals(m_currentItem->linkedItem()->decimals());
-        m_valueBox->setSingleStep(1. / std::pow(10., m_currentItem->linkedItem()->decimals() - 1));
+        m_valueBox->setSingleStep(m_tuning_info.step());
 
         if (limits.hasLowerLimit()) {
             m_valueBox->setMinimum(limits.lowerLimit());
@@ -159,7 +165,8 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
         }
 
         m_valueBox->setValue(value);
-        connect(m_valueBox, SIGNAL(valueChanged(double)), this, SLOT(editorValueChanged(double)));
+        connect(m_valueBox, &ScientificSpinBox::valueChanged, this,
+                &ParameterTuningDelegate::editorValueChanged);
 
         // initializing slider
         m_slider = new QSlider(Qt::Horizontal);
@@ -167,8 +174,7 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
         m_slider->setTickPosition(QSlider::NoTicks);
         m_slider->setTickInterval(1);
         m_slider->setSingleStep(1);
-        m_slider_data.setItemLimits(limits);
-        m_slider->setRange(m_slider_data.m_smin, m_slider_data.m_smax);
+        m_slider->setRange(m_tuning_info.m_smin, m_tuning_info.m_smax);
 
         updateSlider(value);
 
@@ -201,31 +207,37 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
 
 void ParameterTuningDelegate::updateSlider(double value) const
 {
-    disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
+    disconnect(m_slider, &QSlider::valueChanged, this,
+               &ParameterTuningDelegate::sliderValueChanged);
 
-    m_slider->setValue(m_slider_data.value_to_slider(value));
+    m_slider->setValue(m_tuning_info.value_to_slider(value));
 
-    connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
+    connect(m_slider, &QSlider::valueChanged, this,
+            &ParameterTuningDelegate::sliderValueChanged);
 }
 
 void ParameterTuningDelegate::sliderValueChanged(int position)
 {
-    disconnect(m_valueBox, SIGNAL(valueChanged(double)), this, SLOT(editorValueChanged(double)));
+    disconnect(m_valueBox, &ScientificSpinBox::valueChanged, this,
+               &ParameterTuningDelegate::editorValueChanged);
 
-    double value = m_slider_data.slider_to_value(position);
+    double value = m_tuning_info.slider_to_value(position);
     m_valueBox->setValue(value);
 
-    connect(m_valueBox, SIGNAL(valueChanged(double)), this, SLOT(editorValueChanged(double)));
+    connect(m_valueBox, &ScientificSpinBox::valueChanged, this,
+            &ParameterTuningDelegate::editorValueChanged);
     emitSignals(value);
 }
 
 void ParameterTuningDelegate::editorValueChanged(double value)
 {
-    disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
+    disconnect(m_slider, &QSlider::valueChanged, this,
+               &ParameterTuningDelegate::sliderValueChanged);
 
     updateSlider(value);
 
-    connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
+    connect(m_slider, &QSlider::valueChanged, this,
+            &ParameterTuningDelegate::sliderValueChanged);
     emitSignals(value);
 }
 
@@ -260,7 +272,7 @@ void ParameterTuningDelegate::emitSignals(double value)
 
 void ParameterTuningDelegate::setSliderRangeFactor(double value)
 {
-    m_slider_data.setRangeFactor(value);
+    m_tuning_info.setRangeFactor(value);
 }
 
 void ParameterTuningDelegate::setReadOnly(bool isReadOnly)

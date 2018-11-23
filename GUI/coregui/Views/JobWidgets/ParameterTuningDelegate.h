@@ -22,6 +22,7 @@
 class QDoubleSpinBox;
 class QHBoxLayout;
 class ParameterItem;
+class ScientificSpinBox;
 class SessionItem;
 
 class BA_CORE_API_ ParameterTuningDelegate : public QItemDelegate
@@ -29,13 +30,14 @@ class BA_CORE_API_ ParameterTuningDelegate : public QItemDelegate
     Q_OBJECT
 
 public:
-    class SliderData {
+    class TuningData {
     public:
-        SliderData();
+        TuningData();
         void setRangeFactor(double range_factor);
         void setItemLimits(const RealLimits &item_limits);
         int value_to_slider(double value);
         double slider_to_value(int slider);
+        double step() const;
         int m_smin;
         int m_smax;
         double m_rmin;
@@ -80,11 +82,11 @@ private:
 
     int m_valueColumn;
     mutable QSlider *m_slider;
-    mutable QDoubleSpinBox *m_valueBox;
+    mutable ScientificSpinBox* m_valueBox;
     mutable QWidget *m_contentWidget;
     mutable QHBoxLayout * m_contentLayout;
     mutable ParameterItem *m_currentItem;
-    mutable SliderData m_slider_data;
+    mutable TuningData m_tuning_info;
     bool m_isReadOnly;
 };
 

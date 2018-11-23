@@ -165,7 +165,8 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
         }
 
         m_valueBox->setValue(value);
-        connect(m_valueBox, SIGNAL(valueChanged(double)), this, SLOT(editorValueChanged(double)));
+        connect(m_valueBox, &ScientificSpinBox::valueChanged, this,
+                &ParameterTuningDelegate::editorValueChanged);
 
         // initializing slider
         m_slider = new QSlider(Qt::Horizontal);
@@ -206,31 +207,37 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
 
 void ParameterTuningDelegate::updateSlider(double value) const
 {
-    disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
+    disconnect(m_slider, &QSlider::valueChanged, this,
+               &ParameterTuningDelegate::sliderValueChanged);
 
     m_slider->setValue(m_tuning_info.value_to_slider(value));
 
-    connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
+    connect(m_slider, &QSlider::valueChanged, this,
+            &ParameterTuningDelegate::sliderValueChanged);
 }
 
 void ParameterTuningDelegate::sliderValueChanged(int position)
 {
-    disconnect(m_valueBox, SIGNAL(valueChanged(double)), this, SLOT(editorValueChanged(double)));
+    disconnect(m_valueBox, &ScientificSpinBox::valueChanged, this,
+               &ParameterTuningDelegate::editorValueChanged);
 
     double value = m_tuning_info.slider_to_value(position);
     m_valueBox->setValue(value);
 
-    connect(m_valueBox, SIGNAL(valueChanged(double)), this, SLOT(editorValueChanged(double)));
+    connect(m_valueBox, &ScientificSpinBox::valueChanged, this,
+            &ParameterTuningDelegate::editorValueChanged);
     emitSignals(value);
 }
 
 void ParameterTuningDelegate::editorValueChanged(double value)
 {
-    disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
+    disconnect(m_slider, &QSlider::valueChanged, this,
+               &ParameterTuningDelegate::sliderValueChanged);
 
     updateSlider(value);
 
-    connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged(int)));
+    connect(m_slider, &QSlider::valueChanged, this,
+            &ParameterTuningDelegate::sliderValueChanged);
     emitSignals(value);
 }
 

@@ -19,6 +19,7 @@
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "RealParameter.h"
+#include <algorithm>
 #include <cmath>
 #include <limits>
 #include <sstream>

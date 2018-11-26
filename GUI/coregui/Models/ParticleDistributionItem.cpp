@@ -138,32 +138,23 @@ void ParticleDistributionItem::updateMainParameterList()
     if (!isTag(P_DISTRIBUTED_PARAMETER))
         return;
 
-    ComboProperty prop = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
-    QString currentValue = prop.getValue();
+    QString currentValue = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>().getValue();
 
-    QStringList par_names = QStringList() << NO_SELECTION << childParameterNames();
-    par_names.removeAll(ParticleItem::P_ABUNDANCE);
-    ComboProperty newProp = ComboProperty(par_names, NO_SELECTION);
-
-    bool make_cache_clear(false);
-    if (!m_domain_cache_name.isEmpty()) {
+    if (!m_domain_cache_name.isEmpty() && childParticle()) {
         QString guiName = translateParameterNameToGUI(m_domain_cache_name);
         if (!guiName.isEmpty()) { // might be empty because item was not fully constructed yet
             currentValue = guiName;
-            make_cache_clear = true;
+            m_domain_cache_name.clear();
         }
     }
+
+    QStringList par_names = QStringList() << NO_SELECTION << childParameterNames();
+    ComboProperty newProp = ComboProperty(par_names, NO_SELECTION);
 
     if (newProp.getValues().contains(currentValue))
         newProp.setValue(currentValue);
 
-    // we first set parameter, and then clear the cache name, to not to allow
-    // initDistributionItem to override limits obtained from the domain
-    if(prop != newProp)
-        setItemValue(P_DISTRIBUTED_PARAMETER, newProp.variant());
-
-    if(make_cache_clear)
-        m_domain_cache_name.clear();
+    setItemValue(P_DISTRIBUTED_PARAMETER, newProp.variant());
 }
 
 void ParticleDistributionItem::updateLinkedParameterList()
@@ -200,10 +191,22 @@ void ParticleDistributionItem::updateLinkedParameterList()
         m_linked_names.clear();
 }
 
+//QStringList ParticleDistributionItem::childParameterNames() const
+//{
+//    if(auto child = childParticle())
+//        return ParameterTreeUtils::parameterTreeNames(child);
+
+//    return {};
+//}
+
+
 QStringList ParticleDistributionItem::childParameterNames() const
 {
-    if(auto child = childParticle())
-        return ParameterTreeUtils::parameterTreeNames(child);
+    if(auto child = childParticle()) {
+        auto result = ParameterTreeUtils::parameterTreeNames(child);
+        result.removeAll(ParticleItem::P_ABUNDANCE);
+        return result;
+    }
 
     return {};
 }

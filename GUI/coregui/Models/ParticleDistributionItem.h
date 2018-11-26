@@ -36,7 +36,6 @@ private:
     void updateParameterList();
     void updateMainParameterList();
     void updateLinkedParameterList();
-    void initDistributionItem();
     QStringList childParameterNames() const;
     QString translateParameterNameToGUI(const QString& domainName);
     const SessionItem* childParticle() const;

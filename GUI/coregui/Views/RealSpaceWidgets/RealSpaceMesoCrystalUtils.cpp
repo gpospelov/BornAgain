@@ -34,7 +34,7 @@
 
 namespace
 {
-const int n = 10;
+const int n = 10; // TODO: Adjust this parameter based on the size of the mesocrystal
 
 bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positionInside)
 {
@@ -66,12 +66,11 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double alpha = ff_Cone->getAlpha();
 
         if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
-                positionInside.z() > H)
+                positionInside.z() < 0 || positionInside.z() > H)
             return check;
 
         double R_z = R - positionInside.z()/std::tan(alpha);
-        if ((std::pow(positionInside.x()/R_z,2) + std::pow(positionInside.y()/R_z,2) <= 1) &&
-                positionInside.z() >= 0)
+        if (std::pow(positionInside.x()/R_z,2) + std::pow(positionInside.y()/R_z,2) <= 1)
             check = true;
     }
     else if (auto ff_Cone6 = dynamic_cast<const FormFactorCone6*>(outerShape)) {
@@ -80,7 +79,7 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double alpha = ff_Cone6->getAlpha();
 
         if (std::abs(positionInside.x()) > B || std::abs(positionInside.y()) > B ||
-                positionInside.z() > H)
+                positionInside.z() < 0 || positionInside.z() > H)
             return check;
 
         double l_z = B - positionInside.z()/std::tan(alpha); // edge of hexagon at a given height
@@ -93,8 +92,7 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double theta = Units::deg2rad(theta_prime - c*60);
         double k_z = l_z/(std::cos(theta)+std::sin(theta)/std::tan(M_PI/3));
 
-        if ((std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2) <= std::pow(k_z,2)) &&
-                positionInside.z() >= 0)
+        if (std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2) <= std::pow(k_z,2))
             check = true;
     }
     else if (auto ff_Cuboctahedron = dynamic_cast<const FormFactorCuboctahedron*>(outerShape)) {
@@ -119,11 +117,10 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double H = ff_Cylinder->getHeight();
 
         if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
-                positionInside.z() > H)
+                positionInside.z() < 0 || positionInside.z() > H)
             return check;
 
-        if ((std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) <= 1)
-                && positionInside.z() >= 0)
+        if (std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) <= 1)
             check = true;
     }
     else if (dynamic_cast<const FormFactorDot*>(outerShape)) {
@@ -139,22 +136,21 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double H = ff_EllipsoidalCylinder->getHeight();
 
         if (std::abs(positionInside.x()) > a || std::abs(positionInside.y()) > b ||
-                positionInside.z() > H)
+                positionInside.z() < 0 || positionInside.z() > H)
             return check;
 
-        if ((std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/b, 2) <= 1)
-                && positionInside.z() >= 0)
+        if (std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/b, 2) <= 1)
             check = true;
     }
     else if (auto ff_FullSphere = dynamic_cast<const FormFactorFullSphere*>(outerShape)) {
         double R = ff_FullSphere->getRadius();
 
         if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
-                positionInside.z() > 2*R)
+                positionInside.z() < 0 || positionInside.z() > 2*R)
             return check;
 
-        if ((std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) +
-                std::pow((positionInside.z()-R)/R, 2) <= 1) && positionInside.z() >= 0)
+        if (std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) +
+                std::pow((positionInside.z()-R)/R, 2) <= 1)
             check = true;
     }
     else if (auto ff_FullSpheroid
@@ -164,11 +160,11 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double c = H/2; // semi-axis length along z
 
         if (std::abs(positionInside.x()) > a || std::abs(positionInside.y()) > a ||
-                positionInside.z() > H)
+                positionInside.z() < 0 || positionInside.z() > H)
             return check;
 
-        if ((std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/a, 2) +
-                std::pow((positionInside.z()-c)/c, 2) <= 1)  && positionInside.z() >= 0)
+        if (std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/a, 2) +
+                std::pow((positionInside.z()-c)/c, 2) <= 1)
             check = true;
     }
     else if (auto ff_HemiEllipsoid
@@ -178,11 +174,11 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double c = ff_HemiEllipsoid->getHeight(); // semi-axis length along z
 
         if (std::abs(positionInside.x()) > a || std::abs(positionInside.y()) > b ||
-                positionInside.z() > c)
+                positionInside.z() < 0 || positionInside.z() > c)
             return check;
 
-        if ((std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/b, 2) +
-                std::pow(positionInside.z()/c, 2) <= 1)  && positionInside.z() >= 0)
+        if (std::pow(positionInside.x()/a, 2) + std::pow(positionInside.y()/b, 2) +
+                std::pow(positionInside.z()/c, 2) <= 1)
             check = true;
     }
     else if (auto ff_Prism3 = dynamic_cast<const FormFactorPrism3*>(outerShape)) {
@@ -193,7 +189,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double x_shift = B/2*std::tan(M_PI/6);
 
         if (positionInside.x() + x_shift < 0 || positionInside.x() + x_shift > l ||
-                std::abs(positionInside.y()) > B/2 || positionInside.z() > H)
+                std::abs(positionInside.y()) > B/2 || positionInside.z() < 0 ||
+                positionInside.z() > H)
             return check;
 
         double theta = 0; // angle between positionInside & x-axis in positionInside.z() plane
@@ -204,8 +201,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
 
         double k = l/( std::sin(theta)/std::tan(M_PI/6) + std::cos(theta) );
 
-        if ((std::pow(positionInside.x() + x_shift,2) +
-             std::pow(positionInside.y(),2) <= std::pow(k,2)) && positionInside.z() >= 0)
+        if (std::pow(positionInside.x() + x_shift,2) +
+                std::pow(positionInside.y(),2) <= std::pow(k,2))
             check = true;
     }
     else if (auto ff_Prism6 = dynamic_cast<const FormFactorPrism6*>(outerShape)) {
@@ -213,7 +210,7 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double H = ff_Prism6->getHeight();
 
         if (std::abs(positionInside.x()) > B || std::abs(positionInside.y()) > B ||
-                positionInside.z() > H)
+                positionInside.z() < 0 || positionInside.z() > H)
             return check;
 
         double theta_prime = 0; // angle between positionInside & x-axis in positionInside.z() plane
@@ -225,8 +222,7 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double theta = Units::deg2rad(theta_prime - c*60);
         double k_z = B/(std::cos(theta)+std::sin(theta)/std::tan(M_PI/3));
 
-        if ((std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2) <= std::pow(k_z,2)) &&
-                positionInside.z() >= 0)
+        if (std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2) <= std::pow(k_z,2))
             check = true;
     }
     else if (auto ff_Pyramid = dynamic_cast<const FormFactorPyramid*>(outerShape)) {
@@ -250,7 +246,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double x_shift = B_z/2*std::tan(M_PI/6);
 
         if (positionInside.x() + x_shift < 0 || positionInside.x() + x_shift > l ||
-                std::abs(positionInside.y()) > B_z/2 || positionInside.z() > H)
+                std::abs(positionInside.y()) > B_z/2 || positionInside.z() < 0 ||
+                positionInside.z() > H)
             return check;
 
         double theta = 0; // angle between positionInside & x-axis in positionInside.z() plane
@@ -261,8 +258,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
 
         double k = l/( std::sin(theta)/std::tan(M_PI/6) + std::cos(theta) );
 
-        if ((std::pow(positionInside.x() + x_shift,2) +
-             std::pow(positionInside.y(),2) <= std::pow(k,2)) && positionInside.z() >= 0)
+        if (std::pow(positionInside.x() + x_shift,2) +
+             std::pow(positionInside.y(),2) <= std::pow(k,2))
             check = true;
     }
     else if (auto ff_TruncatedSphere = dynamic_cast<const FormFactorTruncatedSphere*>(outerShape)) {
@@ -270,7 +267,7 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double H = ff_TruncatedSphere->getHeight();
 
         if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
-                positionInside.z() > H)
+                positionInside.z() < 0 || positionInside.z() > H)
             return check;
 
 // TODO : Use the commented code instead when DeltaHeight has been implemented in 3D View
@@ -279,8 +276,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
 //                positionInside.z() > (H-Delta_H))
 //            return check;
 
-        if ((std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) +
-                std::pow((positionInside.z()-(H-R))/R, 2) <= 1) && positionInside.z() >= 0)
+        if (std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) +
+                std::pow((positionInside.z()-(H-R))/R, 2) <= 1)
             check = true;
     }
     return check;

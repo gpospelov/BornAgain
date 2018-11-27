@@ -123,6 +123,13 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         if (std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) <= 1)
             check = true;
     }
+    else if (dynamic_cast<const FormFactorDodecahedron*>(outerShape)) {
+        // TODO: Implement Dodecahedron
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Dodecahedron not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
     else if (dynamic_cast<const FormFactorDot*>(outerShape)) {
         std::ostringstream ostr;
         ostr << "Cannot display particles inside the Mesocrystal!";
@@ -181,6 +188,13 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
                 std::pow(positionInside.z()/c, 2) <= 1)
             check = true;
     }
+    else if (dynamic_cast<const FormFactorIcosahedron*>(outerShape)) {
+        // TODO: Implement Icosahedron
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Icosahedron not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
     else if (auto ff_Prism3 = dynamic_cast<const FormFactorPrism3*>(outerShape)) {
         double B = ff_Prism3->getBaseEdge();
         double H = ff_Prism3->getHeight();
@@ -235,6 +249,20 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
                 (positionInside.z() >= 0 && positionInside.z() <= H))
             check = true;
     }
+    else if (dynamic_cast<const FormFactorRipple1*>(outerShape)) {
+        // TODO: Implement Ripple1
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Ripple1 not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
+    else if (dynamic_cast<const FormFactorRipple2*>(outerShape)) {
+        // TODO: Implement Ripple2
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Ripple2 not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
     else if (auto ff_Tetrahedron = dynamic_cast<const FormFactorTetrahedron*>(outerShape)) {
         double B = ff_Tetrahedron->getBaseEdge();
         double H = ff_Tetrahedron->getHeight();
@@ -262,6 +290,13 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
              std::pow(positionInside.y(),2) <= std::pow(k,2))
             check = true;
     }
+    else if (dynamic_cast<const FormFactorTruncatedCube*>(outerShape)) {
+        // TODO: Implement Truncated cube
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Truncated cube not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    }
     else if (auto ff_TruncatedSphere = dynamic_cast<const FormFactorTruncatedSphere*>(outerShape)) {
         double R = ff_TruncatedSphere->getRadius();
         double H = ff_TruncatedSphere->getHeight();
@@ -279,6 +314,13 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         if (std::pow(positionInside.x()/R,2) + std::pow(positionInside.y()/R,2) +
                 std::pow((positionInside.z()-(H-R))/R, 2) <= 1)
             check = true;
+    }
+    else if (dynamic_cast<const FormFactorTruncatedSpheroid*>(outerShape)) {
+        // TODO: Implement Truncated spheroid
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Truncated spheroid not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
     }
     return check;
 }

@@ -15,22 +15,32 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 
-ComboProperty::ComboProperty()
-    : m_current_index(-1)
-{}
+namespace {
+const QString value_separator = ";";
+const QString selection_separator = ",";
+}
 
-ComboProperty::ComboProperty(const QStringList& values, const QString& current_value)
-    : m_values(values), m_current_index(-1)
+ComboProperty::ComboProperty() = default;
+
+ComboProperty::ComboProperty(QStringList values)
+    : m_values(std::move(values))
 {
-    if (!m_values.contains(current_value))
-        throw GUIHelpers::Error("ComboProperty::ComboProperty() -> Error. Attempt to construct "
-                                "property with initial values not from the list.");
-    m_current_index = m_values.indexOf((current_value));
+
+}
+
+ComboProperty ComboProperty::fromList(const QStringList& values, const QString& current_value)
+{
+    ComboProperty result(values);
+
+    if (!current_value.isEmpty())
+        result.setValue(current_value);
+
+    return result;
 }
 
 QString ComboProperty::getValue() const
 {
-    return m_current_index < 0 ? QString() : m_values.at(m_current_index);
+    return currentIndex() < 0 ? QString() : m_values.at(currentIndex());
 }
 
 void ComboProperty::setValue(const QString& name)
@@ -38,7 +48,7 @@ void ComboProperty::setValue(const QString& name)
     if (!m_values.contains(name))
         throw GUIHelpers::Error("ComboProperty::setValue() -> Error. Combo doesn't contain "
                                 "value " + name);
-    m_current_index = m_values.indexOf(name);
+    setCurrentIndex(m_values.indexOf(name));
 }
 
 QStringList ComboProperty::getValues() const
@@ -53,7 +63,7 @@ void ComboProperty::setValues(const QStringList& values)
     Q_ASSERT(values.size());
     QString current = getValue();
     m_values = values;
-    m_current_index = m_values.contains(current) ? m_values.indexOf(current) : 0;
+   setCurrentIndex(m_values.contains(current) ? m_values.indexOf(current) : 0);
 }
 
 //! returns list of tool tips for all values
@@ -69,36 +79,37 @@ void ComboProperty::setToolTips(const QStringList& tooltips)
 
 int ComboProperty::currentIndex() const
 {
-    return m_current_index;
+    return m_selected_indices.empty() ? -1 : m_selected_indices.at(0);
 }
 
 void ComboProperty::setCurrentIndex(int index)
 {
-    if(index <0 || index >= m_values.size())
+    if (index < 0 || index >= m_values.size())
         throw GUIHelpers::Error("ComboProperty::setCurrentIndex(int index) -> Error. "
                                 "Invalid index");
-    m_current_index = index;
+    m_selected_indices.clear();
+    m_selected_indices.push_back(index);
 }
 
-ComboProperty&ComboProperty::operator<<(const QString& str)
+ComboProperty& ComboProperty::operator<<(const QString& str)
 {
     m_values.append(str);
     if (m_values.size())
-        m_current_index = 0;
+        setCurrentIndex(0);
     return *this;
 }
 
-ComboProperty&ComboProperty::operator<<(const QStringList& str)
+ComboProperty& ComboProperty::operator<<(const QStringList& str)
 {
     m_values.append(str);
     if (m_values.size())
-        m_current_index = 0;
+        setCurrentIndex(0);
     return *this;
 }
 
 bool ComboProperty::operator==(const ComboProperty& other) const
 {
-    if (m_current_index != other.m_current_index)
+    if (m_selected_indices != other.m_selected_indices)
         return false;
     if (m_values != other.m_values)
         return false;
@@ -112,14 +123,14 @@ bool ComboProperty::operator!=(const ComboProperty& other) const
 
 bool ComboProperty::operator<(const ComboProperty& other) const
 {
-    return m_current_index < other.m_current_index && m_values.size() < other.m_values.size();
+    return m_selected_indices.size() < other.m_selected_indices.size() && m_values.size() < other.m_values.size();
 }
 
 //! Returns a single string containing values delimited with ';'.
 
 QString ComboProperty::stringOfValues() const
 {
-    return m_values.join(QStringLiteral(";"));
+    return m_values.join(value_separator);
 }
 
 //! Sets values from the string containing delimeter ';'.
@@ -127,9 +138,11 @@ QString ComboProperty::stringOfValues() const
 void ComboProperty::setStringOfValues(const QString& values)
 {
     QString current = getValue();
-    m_values = values.split(QStringLiteral(";"));
-    m_current_index = m_values.contains(current) ? m_values.indexOf(current) : 0;
+    m_values = values.split(value_separator);
+    setCurrentIndex(m_values.contains(current) ? m_values.indexOf(current) : 0);
 }
+
+//! Constructs variant enclosing given ComboProperty.
 
 QVariant ComboProperty::variant() const
 {
@@ -138,22 +151,68 @@ QVariant ComboProperty::variant() const
     return result;
 }
 
+//! Returns vector of selected indices.
+
 QVector<int> ComboProperty::selectedIndices() const
 {
     return m_selected_indices;
 }
 
-void ComboProperty::setSelectedIndices(QVector<int> indices)
+//! Returns list of string with selected values;
+
+QStringList ComboProperty::selectedValues() const
 {
-    m_selected_indices = std::move(indices);
+    QStringList result;
+    for (auto index : m_selected_indices)
+        result.append(m_values.at(index));
+    return result;
 }
+
+//! Sets given index selection flag.
+//! If false, index will be excluded from selection.
 
 void ComboProperty::setSelected(int index, bool value)
 {
+    if (index < 0 || index >= m_values.size())
+        return;
+
     if (value) {
         if (!m_selected_indices.contains(index))
             m_selected_indices.push_back(index);
     } else {
         m_selected_indices.removeAll(index);
     }
+    std::sort(m_selected_indices.begin(), m_selected_indices.end());
 }
+
+void ComboProperty::setSelected(const QString& name, bool value)
+{
+    setSelected(m_values.indexOf(name), value);
+}
+
+//! Return string with coma separated list of selected indices.
+
+QString ComboProperty::stringOfSelections() const
+{
+    QStringList text;
+    for (auto  index : m_selected_indices)
+        text.append(QString::number(index));
+    return text.join(selection_separator);
+}
+
+//! Sets selected indices from string.
+
+void ComboProperty::setStringOfSelections(const QString& values)
+{
+    m_selected_indices.clear();
+    if (values.isEmpty())
+        return;
+
+    for (auto str : values.split(selection_separator)) {
+        bool success(false);
+        int num = str.toInt(&success);
+        if (success)
+            setSelected(num, true);
+    }
+}
+

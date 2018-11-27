@@ -200,6 +200,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "ConesWithLimitsDistributionBuilder",
         2e-10);
 
+    add("LinkedBoxDistribution",
+        "Distribution of boxes with main parameter and two linked parameters.",
+        "MiniGISAS",
+        "LinkedBoxDistributionBuilder",
+        2e-10);
+
     // ---
 
     add("BeamDivergence",

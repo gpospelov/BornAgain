@@ -86,5 +86,15 @@ public:
     MultiLayer* buildSample() const;
 };
 
+//! Distribution of boxes with main parameter and two linked parameters.
+//! @ingroup standard_samples
+
+class LinkedBoxDistributionBuilder : public IMultiLayerBuilder
+{
+public:
+    LinkedBoxDistributionBuilder() = default;
+    MultiLayer* buildSample() const;
+};
+
 
 #endif // PARTICLEDISTRIBUTIONSBUILDER_H

@@ -29,6 +29,7 @@
 #include "FormFactorCone.h"
 #include "Units.h"
 #include "ParameterSample.h"
+#include "FormFactorBox.h"
 
 CylindersWithSizeDistributionBuilder::CylindersWithSizeDistributionBuilder()
     : m_height(5*Units::nanometer)
@@ -56,7 +57,8 @@ MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
     DistributionGaussian gauss(m_radius, sigma);
     ParameterPattern pattern;
     pattern.add(BornAgain::ParticleType).add(BornAgain::FFCylinderType).add(BornAgain::Radius);
-    ParameterDistribution par_distr(pattern.toStdString(), gauss, n_samples, n_sigma);
+    ParameterDistribution par_distr(pattern.toStdString(), gauss, static_cast<size_t>(n_samples),
+                                    n_sigma);
     ParticleDistribution particle_collection(nano_particle, par_distr);
     particle_layout.addParticle(particle_collection);
 
@@ -115,7 +117,8 @@ MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
     particle_layout.addParticle(particle_collection1, 0.95);
     ParameterPattern pattern2;
     pattern2.add(BornAgain::ParticleType).add(BornAgain::FFCylinderType).add(BornAgain::Radius);
-    ParameterDistribution par_distr2(pattern2.toStdString(), gauss2, nbins, n_sigma);
+    ParameterDistribution par_distr2(pattern2.toStdString(), gauss2, static_cast<size_t>(nbins),
+                                     n_sigma);
     ParticleDistribution particle_collection2(cylinder2, par_distr2);
     particle_layout.addParticle(particle_collection2, 0.05);
 
@@ -224,6 +227,41 @@ MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(collection);
+
+    // Multi layer
+    Layer air_layer(air_material);
+    Layer substrate_layer(substrate_material);
+
+    air_layer.addLayout(particle_layout);
+
+    MultiLayer* multi_layer = new MultiLayer();
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(substrate_layer);
+
+    return multi_layer;
+}
+
+MultiLayer* LinkedBoxDistributionBuilder::buildSample() const
+{
+    Material air_material = HomogeneousMaterial("Air", 0.0, 0.0);
+    Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
+    Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
+
+    // particle
+    FormFactorBox ff(40.0*Units::nm, 30.0*Units::nm, 10.0*Units::nm);
+    Particle box(particle_material, ff);
+
+    // particle collection
+    DistributionGate gate(10.0*Units::nm, 70.0*Units::nm);
+    ParameterDistribution parameter_distr("/Particle/Box/Length", gate, 3, 0.0,
+                                          RealLimits::limited(1.0*Units::nm, 200.0*Units::nm));
+    parameter_distr.linkParameter("/Particle/Box/Width").linkParameter("/Particle/Box/Height");
+
+    ParticleDistribution collection(box, parameter_distr);
+
+    ParticleLayout particle_layout;
+    particle_layout.addParticle(collection);
+    particle_layout.setTotalParticleSurfaceDensity(1e-3);
 
     // Multi layer
     Layer air_layer(air_material);

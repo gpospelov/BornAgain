@@ -65,6 +65,7 @@ set(test_cases
     RotatedPyramidsDistribution
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
+    LinkedBoxDistribution
     HomogeneousTiNiSample
     HomogeneousTiNiSampleWithAbsorption
     RoughnessInSpecular

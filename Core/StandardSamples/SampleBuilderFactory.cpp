@@ -309,6 +309,11 @@ SampleBuilderFactory::SampleBuilderFactory()
         "Cones with the distribution applied to the angle and RealLimits defined.");
 
     registerItem(
+        "LinkedBoxDistributionBuilder",
+        create_new<LinkedBoxDistributionBuilder>,
+        "Distribution of boxes with main parameter and two linked parameters.");
+
+    registerItem(
         "HomogeneousMultilayerBuilder",
         create_new<HomogeneousMultilayerBuilder>,
         "Alternating homogeneous layers of Ti and Ni on silicone substrate.");

@@ -17,6 +17,8 @@
 
 #include "SessionGraphicsItem.h"
 #include "ParticleDistribution.h"
+#include <string>
+#include <vector>
 
 class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem
 {
@@ -39,6 +41,10 @@ private:
     QStringList childParameterNames() const;
     QString translateParameterNameToGUI(const QString& domainName);
     const SessionItem* childParticle() const;
+
+    std::string domainMainParameter() const;
+    std::vector<std::string> domainLinkedParameters() const;
+
     QString m_domain_cache_name;
     QStringList m_linked_names;
 };

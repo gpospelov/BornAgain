@@ -17,18 +17,18 @@
 #include "DistributionItems.h"
 #include "Distributions.h"
 #include "GUIHelpers.h"
+#include "ParameterTreeUtils.h"
+#include "ParameterUtils.h"
 #include "ParticleItem.h"
+#include "RealLimitsItems.h"
 #include "TransformFromDomain.h"
 #include "TransformToDomain.h"
-#include "ParameterTreeUtils.h"
-#include "RealLimitsItems.h"
-#include "ParameterUtils.h"
 #include "Units.h"
 
-namespace {
-const QString abundance_tooltip =
-    "Proportion of this type of particles normalized to the \n"
-    "total number of particles in the layout";
+namespace
+{
+const QString abundance_tooltip = "Proportion of this type of particles normalized to the \n"
+                                  "total number of particles in the layout";
 }
 
 const QString ParticleDistributionItem::P_DISTRIBUTED_PARAMETER = "Distributed parameter";
@@ -43,24 +43,26 @@ ParticleDistributionItem::ParticleDistributionItem()
     setToolTip(QStringLiteral("Collection of particles obtained via parametric distribution "
                               "of particle prototype"));
 
-    addProperty(ParticleItem::P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0))
-        .setDecimals(3).setToolTip(abundance_tooltip);
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0)
+        ->setLimits(RealLimits::limited(0.0, 1.0))
+        .setDecimals(3)
+        .setToolTip(abundance_tooltip);
 
-    addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup)->setToolTip(
-        QStringLiteral("Distribution to apply to the specified parameter"));
+    addGroupProperty(P_DISTRIBUTION, Constants::DistributionGroup)
+        ->setToolTip(QStringLiteral("Distribution to apply to the specified parameter"));
 
-    registerTag(T_PARTICLES, 0, 1, QStringList() << Constants::ParticleType
-                                                 << Constants::ParticleCoreShellType
-                                                 << Constants::ParticleCompositionType
-                                                 << Constants::MesoCrystalType);
+    registerTag(T_PARTICLES, 0, 1,
+                QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
+                              << Constants::ParticleCompositionType << Constants::MesoCrystalType);
     setDefaultTag(T_PARTICLES);
 
     ComboProperty par_prop;
-    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.variant())->setToolTip(
-        QStringLiteral("Parameter to distribute"));
+    addProperty(P_DISTRIBUTED_PARAMETER, par_prop.variant())
+        ->setToolTip(QStringLiteral("Parameter to distribute"));
 
-    addProperty(P_LINKED_PARAMETER, par_prop.variant())->setToolTip(
-        QStringLiteral("Linked parameter")).setEditorType(Constants::MultiSelectionComboEditorType);
+    addProperty(P_LINKED_PARAMETER, par_prop.variant())
+        ->setToolTip(QStringLiteral("Linked parameter"))
+        .setEditorType(Constants::MultiSelectionComboEditorType);
 
     updateParameterList();
 
@@ -70,7 +72,6 @@ ParticleDistributionItem::ParticleDistributionItem()
             return;
         updateParameterList();
     });
-
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
@@ -83,38 +84,27 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
                                 " -> Error! No correct particle defined");
     auto& distr_item = groupItem<DistributionItem>(ParticleDistributionItem::P_DISTRIBUTION);
 
-    auto prop
-        = getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
-    QString par_name = prop.getValue();
-
-    auto linkedProp
-        = getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
-    QString linked_name = linkedProp.getValue();
-
-
-    std::string domain_par
-        = ParameterTreeUtils::parameterNameToDomainName(par_name, childParticle()).toStdString();
-
-    std::string domain_linked
-        = ParameterTreeUtils::parameterNameToDomainName(linked_name, childParticle()).toStdString();
+    std::string domain_par = domainMainParameter();
 
     double scale = ParameterUtils::isAngleRelated(domain_par) ? Units::degree : 1.0;
     auto P_distribution = distr_item.createDistribution(scale);
 
     RealLimits limits = RealLimits::limitless();
-    if(distr_item.isTag(DistributionItem::P_LIMITS)) {
+    if (distr_item.isTag(DistributionItem::P_LIMITS)) {
         auto& limitsItem = distr_item.groupItem<RealLimitsItem>(DistributionItem::P_LIMITS);
         limits = limitsItem.createRealLimits(scale);
     }
 
     int nbr_samples = distr_item.getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
-    double sigma_factor = distr_item.isTag(DistributionItem::P_SIGMA_FACTOR) ?
-                          distr_item.getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble() :
-                          0.0;
+    double sigma_factor = distr_item.isTag(DistributionItem::P_SIGMA_FACTOR)
+                              ? distr_item.getItemValue(DistributionItem::P_SIGMA_FACTOR).toDouble()
+                              : 0.0;
     ParameterDistribution par_distr(domain_par, *P_distribution, static_cast<size_t>(nbr_samples),
                                     sigma_factor, limits);
-    if (!domain_linked.empty())
-        par_distr.linkParameter(domain_linked);
+
+    for (auto name : domainLinkedParameters())
+        par_distr.linkParameter(name);
+
     auto result = std::make_unique<ParticleDistribution>(*P_particle, par_distr);
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     result->setAbundance(abundance);
@@ -192,7 +182,7 @@ void ParticleDistributionItem::updateLinkedParameterList()
 
 QStringList ParticleDistributionItem::childParameterNames() const
 {
-    if(auto child = childParticle()) {
+    if (auto child = childParticle()) {
         auto result = ParameterTreeUtils::parameterTreeNames(child);
         result.removeAll(ParticleItem::P_ABUNDANCE);
         return result;
@@ -203,7 +193,7 @@ QStringList ParticleDistributionItem::childParameterNames() const
 
 QString ParticleDistributionItem::translateParameterNameToGUI(const QString& domainName)
 {
-    if(auto child = childParticle())
+    if (auto child = childParticle())
         return ParameterTreeUtils::domainNameToParameterName(domainName, child);
     return {};
 }
@@ -215,4 +205,22 @@ const SessionItem* ParticleDistributionItem::childParticle() const
 
     Q_ASSERT(getItems(T_PARTICLES).size() == 1);
     return getItems(T_PARTICLES).front();
+}
+
+std::string ParticleDistributionItem::domainMainParameter() const
+{
+    auto par_name = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>().getValue();
+    return ParameterTreeUtils::parameterNameToDomainName(par_name, childParticle()).toStdString();
+}
+
+std::vector<std::string> ParticleDistributionItem::domainLinkedParameters() const
+{
+    std::vector<std::string> result;
+    auto linked_names = getItemValue(P_LINKED_PARAMETER).value<ComboProperty>().selectedValues();
+    for (auto name : linked_names) {
+        auto translated = ParameterTreeUtils::parameterNameToDomainName(name, childParticle());
+        if (!translated.isEmpty())
+            result.push_back(translated.toStdString());
+    }
+    return result;
 }

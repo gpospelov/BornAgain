@@ -149,7 +149,7 @@ void ParticleDistributionItem::updateMainParameterList()
     }
 
     QStringList par_names = QStringList() << NO_SELECTION << childParameterNames();
-    ComboProperty newProp = ComboProperty(par_names, NO_SELECTION);
+    ComboProperty newProp = ComboProperty::fromList(par_names, NO_SELECTION);
 
     if (newProp.getValues().contains(currentValue))
         newProp.setValue(currentValue);
@@ -162,43 +162,33 @@ void ParticleDistributionItem::updateLinkedParameterList()
     if (!isTag(P_LINKED_PARAMETER) || !isTag(P_DISTRIBUTED_PARAMETER))
         return;
 
-    ComboProperty mainProp = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>();
+    QString mainValue = getItemValue(P_DISTRIBUTED_PARAMETER).value<ComboProperty>().getValue();
+
+    QStringList par_names = childParameterNames();
+    par_names.removeAll(mainValue);
+
     ComboProperty linkedProp = getItemValue(P_LINKED_PARAMETER).value<ComboProperty>();
-    QString currentValue = linkedProp.getValue();
+    QStringList currentValues = linkedProp.selectedValues();
 
-    auto par_names = mainProp.getValues();
-    if (mainProp.getValue() != NO_SELECTION)
-        par_names.removeAll(mainProp.getValue());
-
-
-    bool make_cache_clear(false);
-    if (!m_linked_names.isEmpty()) {
-        QString guiName = translateParameterNameToGUI(m_linked_names.at(0));
-        if (!guiName.isEmpty()) { // might be empty because item was not fully constructed yet
-            currentValue = guiName;
-            make_cache_clear = true;
+    if (!m_linked_names.isEmpty() && childParticle()) {
+        QStringList domainValues;
+        for (auto par : m_linked_names) {
+            QString guiName = translateParameterNameToGUI(par);
+            if (!guiName.isEmpty())
+                domainValues.append(guiName);
+        }
+        if (!domainValues.isEmpty()) {
+            currentValues = domainValues;
+            m_linked_names.clear();
         }
     }
 
-    ComboProperty newProp = ComboProperty(par_names, NO_SELECTION);
-    if (newProp.getValues().contains(currentValue))
-        newProp.setValue(currentValue);
+    ComboProperty newProp = ComboProperty::fromList(par_names);
+    for (auto name : currentValues)
+        newProp.setSelected(name, true);
 
-    if(linkedProp != newProp)
-        setItemValue(P_LINKED_PARAMETER, newProp.variant());
-
-    if(make_cache_clear)
-        m_linked_names.clear();
+    setItemValue(P_LINKED_PARAMETER, newProp.variant());
 }
-
-//QStringList ParticleDistributionItem::childParameterNames() const
-//{
-//    if(auto child = childParticle())
-//        return ParameterTreeUtils::parameterTreeNames(child);
-
-//    return {};
-//}
-
 
 QStringList ParticleDistributionItem::childParameterNames() const
 {
@@ -215,7 +205,6 @@ QString ParticleDistributionItem::translateParameterNameToGUI(const QString& dom
 {
     if(auto child = childParticle())
         return ParameterTreeUtils::domainNameToParameterName(domainName, child);
-
     return {};
 }
 

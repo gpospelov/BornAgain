@@ -13,6 +13,7 @@
 #include "SampleModel.h"
 #include "TransformFromDomain.h"
 #include "FormFactors.h"
+#include <QDebug>
 #include <QXmlStreamWriter>
 
 namespace
@@ -68,8 +69,8 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
     // linked parameter
     prop = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
                              .value<ComboProperty>();
-    EXPECT_EQ(prop.getValues(), QStringList() << ParticleDistributionItem::NO_SELECTION);
-    EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+    EXPECT_EQ(prop.getValues(), QStringList());
+    EXPECT_EQ(prop.getValue(), "");
 }
 
 TEST_F(TestParticleDistributionItem, test_AddParticle)
@@ -92,8 +93,10 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
                              .value<ComboProperty>();
 
-    EXPECT_EQ(prop.getValues(), expectedCylinderParams);
-    EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+    QStringList expectedLinked = expectedCylinderParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    EXPECT_EQ(prop.getValues(), expectedLinked);
+    EXPECT_EQ(prop.getValue(), "");
 
     // changing formfactor of the particle
     particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::BoxType);
@@ -108,8 +111,10 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
                              .value<ComboProperty>();
 
-    EXPECT_EQ(prop.getValues(), expectedBoxParams);
-    EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+    expectedLinked = expectedBoxParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    EXPECT_EQ(prop.getValues(), expectedLinked);
+    EXPECT_EQ(prop.getValue(), "");
 }
 
 TEST_F(TestParticleDistributionItem, test_FromDomain)
@@ -179,7 +184,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
 
     ComboProperty linkedProp = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
                              .value<ComboProperty>();
-    EXPECT_EQ(linkedProp.getValue(), ParticleDistributionItem::NO_SELECTION);
+    EXPECT_EQ(linkedProp.getValue(), "");
 
     // changing particle type and check that distribution picked up domain name
     particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
@@ -190,7 +195,9 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
 
     linkedProp = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
                .value<ComboProperty>();
-    EXPECT_EQ(linkedProp.getValue(), QString("Particle/Cylinder/Height"));
+    QStringList expectedLinked = QStringList() << QString("Particle/Cylinder/Height");
+    EXPECT_EQ(linkedProp.selectedValues(), expectedLinked);
+    EXPECT_EQ(linkedProp.getValue(), expectedLinked.at(0));
 }
 
 TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
@@ -212,7 +219,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
     SessionItem* partDistItem = model.insertNewItem(Constants::ParticleDistributionType);
     model.insertNewItem(Constants::ParticleType, partDistItem->index());
 
-    //    // Sets it from domain
+    // Sets it from domain
     TransformFromDomain::setParticleDistributionItem(partDistItem, particle_collection);
 
     SessionItem* distItem = partDistItem->getGroupItem(ParticleDistributionItem::P_DISTRIBUTION);

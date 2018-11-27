@@ -35,16 +35,20 @@ public:
     QSize minimumSizeHint() const;
 
 protected slots:
-    virtual void onIndexChanged(int index);
     void onModelDataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&);
 
     void onClickedList(const QModelIndex& index);
 
 protected:
-    bool eventFilter(QObject* obj, QEvent* event);
     void initEditor();
+
+private:
+    bool eventFilter(QObject* obj, QEvent* event);
     void setConnected(bool isConnected);
     void updateBoxLabel();
+
+    bool isClickToSelect(QObject* obj, QEvent* event) const;
+    bool isClickToExpand(QObject* obj, QEvent* event) const;
 
     QComboBox* m_box;
     class WheelEventEater* m_wheel_event_filter;

@@ -63,6 +63,8 @@ public:
     QString stringOfSelections() const;
     void setStringOfSelections(const QString& values);
 
+    QString label() const;
+
 private:
     ComboProperty(QStringList values);
 

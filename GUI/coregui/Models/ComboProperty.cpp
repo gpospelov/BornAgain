@@ -216,3 +216,16 @@ void ComboProperty::setStringOfSelections(const QString& values)
     }
 }
 
+//! Returns the label to show
+
+QString ComboProperty::label() const
+{
+    if (m_selected_indices.size() >1) {
+        return QStringLiteral("Multiple");
+    } else if (m_selected_indices.size() == 1) {
+        return getValue();
+    } else {
+        return QStringLiteral("None");
+    }
+}
+

@@ -79,7 +79,7 @@ QString PropertyEditorFactory::ToString(const QVariant& variant)
     if (isExternalProperty(variant))
         return variant.value<ExternalProperty>().text();
     if (isComboProperty(variant))
-        return variant.value<ComboProperty>().getValue();
+        return variant.value<ComboProperty>().label();
     if (isBoolProperty(variant))
         return variant.toBool() ? "True" : "False";
 

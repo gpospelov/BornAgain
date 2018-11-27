@@ -84,6 +84,11 @@ void Particle::addTranslation(Vector3D translate_)
     Object::transform(turn, scale, rotate, offset + (translate = translate + translate_));
 }
 
+void Particle::addExtrinsicRotation(Vector3D rotateExtrinsic)
+{
+    Object::addExtrinsicRotation(turn, scale, rotate, rotateExtrinsic , (translate = offset + translate));
+}
+
 //------------------------------------------------------------------------------
 
 static float const pi = float(M_PI);
@@ -210,7 +215,7 @@ Icosahedron::Icosahedron(float L) : Particle(Key(BaseShape::Icosahedron))
 Prism3::Prism3(float L, float H) : Particle(Key(BaseShape::Column, 1.0f, 3))
 {
     isNull = (L <= 0 || H <= 0);
-    float D = L * 2 / sqrt3f;
+    float D = L / sqrt3f;
     scale = Vector3D(D * 2, D * 2, H);
     offset = Vector3D(0, 0, 0);
     set();

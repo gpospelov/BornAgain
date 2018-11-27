@@ -72,6 +72,7 @@ public:
 
     void addTransform(Vector3D rotate, Vector3D translate);
     void addTranslation(Vector3D translate_);
+    void addExtrinsicRotation(Vector3D rotateExtrinsic);
 };
 
 //------------------------------------------------------------------------------

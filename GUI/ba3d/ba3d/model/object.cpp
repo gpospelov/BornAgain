@@ -16,11 +16,12 @@
 #include "model.h"
 #include "geometry.h"
 #include "../view/canvas.h"
-
 #include <cmath>
 
 namespace {
 QQuaternion EulerToQuaternion(const RealSpace::Vector3D& euler);
+
+RealSpace::Vector3D QuaternionToEuler(const QQuaternion &q);
 }
 
 namespace RealSpace {
@@ -69,6 +70,27 @@ void Object::transform(Vector3D turn, Vector3D scale, Vector3D rotate, Vector3D 
     mat.rotate(EulerToQuaternion(turn));
 }
 
+// This method allows the addition of an extrinsic global rotation to an object i.e.
+// it rotates the object about the global origin of the coordinate system
+void Object::addExtrinsicRotation(Vector3D turn, Vector3D scale,
+                                  Vector3D &rotate, Vector3D rotateExtrinsic,
+                                  Vector3D &translate)
+{
+    mat.setToIdentity();
+    mat.rotate(EulerToQuaternion(rotateExtrinsic));
+    mat.translate(translate);
+    mat.rotate(EulerToQuaternion(rotate));
+    mat.scale(scale);
+    mat.rotate(EulerToQuaternion(turn));
+
+    // first apply the particle's intrinsic and then extrinsic rotations
+    QQuaternion q = EulerToQuaternion(rotateExtrinsic)*EulerToQuaternion(rotate);
+    rotate = QuaternionToEuler(q);
+
+    // translate the object to the extrinsically rotated translation vector
+    translate = EulerToQuaternion(rotateExtrinsic).rotatedVector(translate);
+}
+
 void Object::releaseGeometry()
 {
     geo.reset();
@@ -100,6 +122,30 @@ QQuaternion EulerToQuaternion(const RealSpace::Vector3D& euler)
     auto c = cphi2*sth2*spsi2 - sphi2*cpsi2*sth2;
     auto d = cphi2*cth2*spsi2 + cth2*cpsi2*sphi2;
     return QQuaternion{a, b, c, d};
+}
+
+RealSpace::Vector3D QuaternionToEuler(const QQuaternion& q)
+{
+    auto qvec = q.toVector4D();
+
+    float a = qvec.w(); // scalar part of quaternion
+    float b = qvec.x();
+    float c = qvec.y();
+    float d = qvec.z();
+
+    float term1 = std::atan(d/a);
+    float term2 = 0;
+
+    if (b == 0)
+       term2 = static_cast<float>(M_PI_2);
+    else
+       term2 = std::atan(c/b);
+
+    float x = term1 + term2;
+    float y = 2*std::atan(std::sqrt((b*b+c*c)/(a*a+d*d)));
+    float z = term1 - term2;
+
+    return RealSpace::Vector3D(x, y, z);
 }
 }
 

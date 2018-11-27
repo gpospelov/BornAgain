@@ -261,7 +261,7 @@ MultiLayer* LinkedBoxDistributionBuilder::buildSample() const
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(collection);
-    particle_layout.setTotalParticleSurfaceDensity(1e-3);
+    particle_layout.setTotalParticleSurfaceDensity(1e-4);
 
     // Multi layer
     Layer air_layer(air_material);

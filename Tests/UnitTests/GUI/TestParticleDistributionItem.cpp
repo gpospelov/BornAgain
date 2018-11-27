@@ -13,7 +13,6 @@
 #include "SampleModel.h"
 #include "TransformFromDomain.h"
 #include "FormFactors.h"
-#include <QDebug>
 #include <QXmlStreamWriter>
 
 namespace
@@ -115,6 +114,70 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
     EXPECT_EQ(prop.getValues(), expectedLinked);
     EXPECT_EQ(prop.getValue(), "");
+    EXPECT_EQ(prop.selectedValues(), QStringList());
+}
+
+//! Values available for linking should depend on main parameter.
+
+TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
+{
+    SampleModel model;
+    SessionItem* dist = model.insertNewItem(Constants::ParticleDistributionType);
+    model.insertNewItem(Constants::ParticleType, dist->index());
+
+    ComboProperty mainCombo = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                             .value<ComboProperty>();
+
+    EXPECT_EQ(mainCombo.getValues(), expectedCylinderParams);
+    EXPECT_EQ(mainCombo.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    // linked parameter
+    ComboProperty linkedCombo = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+
+    QStringList expectedLinked = expectedCylinderParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    EXPECT_EQ(linkedCombo.getValues(), expectedLinked);
+    EXPECT_EQ(linkedCombo.getValue(), "");
+    EXPECT_EQ(linkedCombo.selectedValues(), QStringList());
+
+    // selecting main parameter
+    QString mainPar("Particle/Cylinder/Radius");
+    mainCombo.setValue(mainPar);
+    dist->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER, mainCombo.variant());
+
+    // linked parameter shouldn't have main parameter in the list
+    expectedLinked = expectedCylinderParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    expectedLinked.removeAll(mainPar);
+
+    linkedCombo = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+    EXPECT_EQ(linkedCombo.getValues(), expectedLinked);
+    EXPECT_EQ(linkedCombo.getValue(), "");
+    EXPECT_EQ(linkedCombo.selectedValues(), QStringList());
+
+    // --- Scenario 2
+
+    // selecting linked parameter
+    linkedCombo.setSelected("Particle/Cylinder/Height");
+    dist->setItemValue(ParticleDistributionItem::P_LINKED_PARAMETER, linkedCombo.variant());
+
+    // selecting another main parameter
+    mainPar = "Particle/Position Offset/X";
+    mainCombo.setValue(mainPar);
+    dist->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER, mainCombo.variant());
+
+    // checking linked
+    linkedCombo = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+    expectedLinked = expectedCylinderParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    expectedLinked.removeAll(mainPar);
+
+    EXPECT_EQ(linkedCombo.getValues(), expectedLinked);
+    EXPECT_EQ(linkedCombo.getValue(), "Particle/Cylinder/Height");
+    EXPECT_EQ(linkedCombo.selectedValues(), QStringList("Particle/Cylinder/Height"));
 }
 
 TEST_F(TestParticleDistributionItem, test_FromDomain)

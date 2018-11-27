@@ -35,7 +35,6 @@ public:
     void setDomainCacheNames(const QString& name, const QStringList& linked);
 
 private:
-    void updateParameterList();
     void updateMainParameterList();
     void updateLinkedParameterList();
     QStringList childParameterNames() const;

@@ -64,14 +64,20 @@ ParticleDistributionItem::ParticleDistributionItem()
         ->setToolTip(QStringLiteral("Linked parameter"))
         .setEditorType(Constants::MultiSelectionComboEditorType);
 
-    updateParameterList();
+    updateMainParameterList();
 
     mapper()->setOnAnyChildChange([this](SessionItem* item) {
         // prevent infinit loop when item changes its own properties
         if (item && item->modelType() == Constants::PropertyType && item->parent() == this)
             return;
-        updateParameterList();
+        updateMainParameterList();
     });
+
+    mapper()->setOnPropertyChange([this](const QString& name) {
+        if (name == P_DISTRIBUTED_PARAMETER)
+            updateLinkedParameterList();
+    });
+
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const
@@ -115,12 +121,6 @@ void ParticleDistributionItem::setDomainCacheNames(const QString& name, const QS
 {
     m_domain_cache_name = name;
     m_linked_names = linked;
-}
-
-void ParticleDistributionItem::updateParameterList()
-{
-    updateMainParameterList();
-    updateLinkedParameterList();
 }
 
 void ParticleDistributionItem::updateMainParameterList()

@@ -89,12 +89,29 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
             theta_prime = Units::rad2deg(std::asin(std::abs(positionInside.y()) /
                                                    std::sqrt(std::pow(positionInside.x(),2) +
                                                              std::pow(positionInside.y(),2))));
-        int c = static_cast<int>(theta_prime/60); // multiplicative constant
+        int c = static_cast<int>(theta_prime/60); // multiplication constant
         double theta = Units::deg2rad(theta_prime - c*60);
         double k_z = l_z/(std::cos(theta)+std::sin(theta)/std::tan(M_PI/3));
 
         if ((std::pow(positionInside.x(),2) + std::pow(positionInside.y(),2) <= std::pow(k_z,2)) &&
                 positionInside.z() >= 0)
+            check = true;
+    }
+    else if (auto ff_Cuboctahedron = dynamic_cast<const FormFactorCuboctahedron*>(outerShape)) {
+        double L = ff_Cuboctahedron->getLength();
+        double H = ff_Cuboctahedron->getHeight();
+        double rH = ff_Cuboctahedron->getHeightRatio();
+        double alpha = ff_Cuboctahedron->getAlpha();
+
+        double total_Height = H + rH*H;
+
+        if (std::abs(positionInside.x()) > L/2 || std::abs(positionInside.y()) > L/2 ||
+                positionInside.z() < 0 || positionInside.z() > total_Height)
+            return check;
+
+        // half-length of square (i.e. horizontal cross-section of Cuboctahedron) at a given height
+        double l_z = L/2-std::abs(H-positionInside.z())/std::tan(alpha);
+        if (std::abs(positionInside.x()) <= l_z && std::abs(positionInside.y()) <= l_z)
             check = true;
     }
     else if (auto ff_Cylinder = dynamic_cast<const FormFactorCylinder*>(outerShape)) {

@@ -15,8 +15,8 @@
 #ifndef REALSPACEMESOCRYSTALUTILS_H
 #define REALSPACEMESOCRYSTALUTILS_H
 
-#include "WinDllMacros.h"
 #include "Rotations.h"
+#include "WinDllMacros.h"
 #include <QVector3D>
 
 class Particle;
@@ -32,9 +32,9 @@ public:
 
     RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalItem, double total_abundance);
 
-    Particle3DContainer populateMesoCrystal(
-            const IRotation* extra_rotation = IRotation::createIdentity(),
-            kvector_t extra_translation = kvector_t(0, 0, 0));
+    Particle3DContainer populateMesoCrystal(const IRotation* extra_rotation
+                                            = IRotation::createIdentity(),
+                                            kvector_t extra_translation = kvector_t(0, 0, 0));
 
 private:
     const MesoCrystalItem* m_mesoCrystalItem;

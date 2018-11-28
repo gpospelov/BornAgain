@@ -28,6 +28,8 @@
 #define NO_IMPORT_ARRAY
 #include <numpy/arrayobject.h>
 
+#include "swig_runtime.h"
+
 #endif // BORNAGAIN_PYTHON
 
 #endif // PYTHONCORE_H

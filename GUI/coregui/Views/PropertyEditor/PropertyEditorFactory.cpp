@@ -13,22 +13,23 @@
 // ************************************************************************** //
 
 #include "PropertyEditorFactory.h"
-#include "SessionItem.h"
-#include "RealLimits.h"
+#include "ComboProperty.h"
+#include "CustomEditors.h"
+#include "CustomEventFilters.h"
 #include "ExternalProperty.h"
 #include "GroupItemController.h"
-#include "CustomEditors.h"
-#include "ComboProperty.h"
-#include "CustomEventFilters.h"
 #include "MultiComboPropertyEditor.h"
-#include <QDoubleSpinBox>
-#include <QSpinBox>
-#include <QLineEdit>
+#include "RealLimits.h"
+#include "ScientificSpinBox.h"
+#include "SessionItem.h"
 #include <QLabel>
+#include <QLineEdit>
+#include <QSpinBox>
 #include <limits>
 
 namespace {
 QWidget* createCustomStringEditor(const SessionItem& item);
+double getStep(double val);
 
 bool isDoubleProperty(const QVariant& variant)
 {
@@ -97,6 +98,16 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             auto limits = item.limits();
             editor->setLimits(limits);
             result = editor;
+        } else if (item.editorType() == Constants::ScientificSpinBoxType) {
+            auto editor = new ScientificSpinBox;
+            auto limits = item.limits();
+            if (limits.hasLowerLimit())
+                editor->setMinimum(limits.lowerLimit());
+            if (limits.hasUpperLimit())
+                editor->setMaximum(limits.lowerLimit());
+            editor->setDecimals(item.decimals());
+            editor->setSingleStep(getStep(item.data(Qt::EditRole).toDouble()));
+            result = editor;
         } else {
             auto editor = new DoubleEditor;
             editor->setLimits(item.limits());
@@ -156,6 +167,11 @@ QWidget* createCustomStringEditor(const SessionItem& item)
     }
 
     return result;
+}
+
+double getStep(double val)
+{
+    return val == 0.0 ? 1.0 : val / 100.;
 }
 
 }

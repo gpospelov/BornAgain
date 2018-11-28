@@ -26,7 +26,6 @@ namespace {
 
 bool isDoubleProperty(const QModelIndex& index, Qt::ItemDataRole role = Qt::DisplayRole);
 QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent);
-double getStep(double val);
 }  // unnamed namespace
 
 SessionModelDelegate::SessionModelDelegate(QObject* parent)
@@ -54,17 +53,15 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 {
     auto result = createEditorFromIndex(index, parent);
 
-    if (result) {
-        new TabFromFocusProxy(result);
-        if(auto customEditor = dynamic_cast<CustomEditor*>(result)) {
-            connect(customEditor, &CustomEditor::dataChanged,
-                    this, &SessionModelDelegate::onCustomEditorDataChanged);
-        }
-    } else if (isDoubleProperty(index, Qt::EditRole)) {
-        //compatible with default QStyledItemDelegate machinery
-        result = new ScientificSpinBox(parent);
-    } else
+    if (auto customEditor = dynamic_cast<CustomEditor*>(result)) {
+        new TabFromFocusProxy(customEditor);
+        connect(customEditor, &CustomEditor::dataChanged, this,
+                &SessionModelDelegate::onCustomEditorDataChanged);
+    }
+
+    if (!result) //falling back to default behaviour
         result = QStyledItemDelegate::createEditor(parent, option, index);
+
     return result;
 }
 
@@ -90,8 +87,6 @@ void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& ind
         return;
     }
 
-    if (auto spin_box = dynamic_cast<ScientificSpinBox*>(editor))
-        spin_box->setSingleStep(getStep(index.data(Qt::EditRole).toDouble()));
     QStyledItemDelegate::setEditorData(editor, index);
 }
 
@@ -146,15 +141,11 @@ bool isDoubleProperty(const QModelIndex& index, Qt::ItemDataRole role)
 }
 
 QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent) {
-    if (index.column() == SessionFlags::ITEM_VALUE && index.internalPointer()) {
+    //if (index.column() == SessionFlags::ITEM_VALUE && index.internalPointer()) {
+    if (index.internalPointer()) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
         return PropertyEditorFactory::CreateEditor(*item, parent);
     }
     return nullptr;
-}
-
-double getStep(double val)
-{
-    return val == 0.0 ? 1.0 : val / 100.;
 }
 }  // unnamed namespace

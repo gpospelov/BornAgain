@@ -70,8 +70,7 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                         const QModelIndex& index) const
 {
-    auto customEditor = qobject_cast<CustomEditor*>(editor);
-    if (index.column() == SessionFlags::ITEM_VALUE && customEditor)
+    if (auto customEditor = dynamic_cast<CustomEditor*>(editor))
         model->setData(index, customEditor->editorData());
     else
         QStyledItemDelegate::setModelData(editor, model, index);
@@ -81,13 +80,10 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    auto customEditor = dynamic_cast<CustomEditor*>(editor);
-    if (index.column() == SessionFlags::ITEM_VALUE && customEditor) {
+    if (auto customEditor = dynamic_cast<CustomEditor*>(editor))
         customEditor->setData(index.data());
-        return;
-    }
-
-    QStyledItemDelegate::setEditorData(editor, index);
+    else
+        QStyledItemDelegate::setEditorData(editor, index);
 }
 
 //! Increases height of the row by 20% wrt the default.
@@ -141,7 +137,6 @@ bool isDoubleProperty(const QModelIndex& index, Qt::ItemDataRole role)
 }
 
 QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent) {
-    //if (index.column() == SessionFlags::ITEM_VALUE && index.internalPointer()) {
     if (index.internalPointer()) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
         return PropertyEditorFactory::CreateEditor(*item, parent);

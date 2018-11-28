@@ -27,7 +27,6 @@ class Particle3DContainer;
 class RealSpaceMesoCrystal
 {
 public:
-    RealSpaceMesoCrystal();
     ~RealSpaceMesoCrystal();
 
     RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalItem, double total_abundance);

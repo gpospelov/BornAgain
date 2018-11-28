@@ -315,10 +315,6 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
 }
 }
 
-RealSpaceMesoCrystal::RealSpaceMesoCrystal() : m_mesoCrystalItem(nullptr), m_total_abundance(0.0)
-{
-}
-
 RealSpaceMesoCrystal::~RealSpaceMesoCrystal()
 {
 }

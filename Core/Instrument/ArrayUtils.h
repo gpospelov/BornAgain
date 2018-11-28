@@ -17,7 +17,6 @@
 
 #include <vector>
 #include "WinDllMacros.h"
-#include "PythonCore.h"
 #include "OutputData.h"
 #include <stdexcept>
 #include <memory>

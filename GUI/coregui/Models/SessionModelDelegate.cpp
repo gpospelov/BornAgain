@@ -16,15 +16,10 @@
 #include "CustomEditors.h"
 #include "CustomEventFilters.h"
 #include "PropertyEditorFactory.h"
-#include "ScientificSpinBox.h"
-#include "SessionFlags.h"
 #include "SessionItem.h"
 #include <QApplication>
-#include <QLocale>
 
 namespace {
-
-bool isDoubleProperty(const QModelIndex& index, Qt::ItemDataRole role = Qt::DisplayRole);
 QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent);
 }  // unnamed namespace
 
@@ -36,16 +31,11 @@ SessionModelDelegate::SessionModelDelegate(QObject* parent)
 void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
                                  const QModelIndex& index) const
 {
-    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
-        QString text = PropertyEditorFactory::ToString(index.data());
+    if (PropertyEditorFactory::hasStringRepresentation(index)) {
+        QString text = PropertyEditorFactory::toString(index);
         paintCustomLabel(painter, option, index, text);
-    } else if (isDoubleProperty(index)) {
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        paintCustomLabel(painter, option, index,
-                         ScientificSpinBox::toString(item->value().toDouble(), item->decimals()));
-    } else {
+    } else
         QStyledItemDelegate::paint(painter, option, index);
-    }
 }
 
 QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option,
@@ -130,12 +120,6 @@ void SessionModelDelegate::paintCustomLabel(QPainter* painter, const QStyleOptio
 }
 
 namespace {
-
-bool isDoubleProperty(const QModelIndex& index, Qt::ItemDataRole role)
-{
-    return index.data(role).type() == QVariant::Double;
-}
-
 QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent) {
     if (index.internalPointer()) {
         auto item = static_cast<SessionItem*>(index.internalPointer());

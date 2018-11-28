@@ -63,26 +63,39 @@ bool isBoolProperty(const QVariant& variant)
 
 }
 
-bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
+bool PropertyEditorFactory::hasStringRepresentation(const QModelIndex& index)
 {
+    auto variant = index.data();
     if (isExternalProperty(variant))
         return true;
     if (isComboProperty(variant))
         return true;
     if (isBoolProperty(variant))
         return true;
+    if (isDoubleProperty(variant) && index.internalPointer())
+        return true;
 
     return false;
 }
 
-QString PropertyEditorFactory::ToString(const QVariant& variant)
+QString PropertyEditorFactory::toString(const QModelIndex& index)
 {
+    auto variant = index.data();
     if (isExternalProperty(variant))
         return variant.value<ExternalProperty>().text();
     if (isComboProperty(variant))
         return variant.value<ComboProperty>().label();
     if (isBoolProperty(variant))
         return variant.toBool() ? "True" : "False";
+
+    if (isDoubleProperty(variant) && index.internalPointer()) {
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        return item->editorType() == Constants::ScientificEditorType
+                  ? QString::number(item->value().toDouble(), 'g')
+                  : item->editorType() == Constants::ScientificSpinBoxType
+                  ? ScientificSpinBox::toString(item->value().toDouble(), item->decimals())
+                  : QString::number(item->value().toDouble(), 'f', item->decimals());
+    }
 
     return QString();
 }

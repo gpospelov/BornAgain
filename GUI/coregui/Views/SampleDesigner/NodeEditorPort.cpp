@@ -52,7 +52,8 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
 
 NodeEditorPort::~NodeEditorPort()
 {
-    for(auto conn : m_connections) {
+    while (m_connections.size()>0) {
+        auto conn = m_connections.last();
         conn->setSelected(false);
         delete conn;
     }
@@ -93,22 +94,16 @@ QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::EPortType port_type)
     switch (port_type) {
     case DEFAULT:
         return QColor(Qt::gray);
-        break;
     case INTERFERENCE:
         return QColor(Qt::yellow);
-        break;
     case PARTICLE_LAYOUT:
         return QColor(Qt::green);
-        break;
     case FORM_FACTOR:
         return QColor(Qt::blue);
-        break;
     case TRANSFORMATION:
         return QColor(Qt::magenta);
-        break;
     default:
         return QColor(Qt::red);
-        break;
     }
 }
 

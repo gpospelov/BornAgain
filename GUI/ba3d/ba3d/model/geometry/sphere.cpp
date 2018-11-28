@@ -18,8 +18,9 @@
 namespace RealSpace
 {
 
-// cut: 0..1 - how much is cut off off the bottom
-Geometry::Mesh Geometry::meshSphere(float cut, float baseShift)
+// cut: 0..1 - how much is cut off from the bottom
+// removedTop - how much fraction of the radius is removed from the top
+Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop)
 {
     if (1 <= cut)
         return Mesh();
@@ -28,20 +29,31 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift)
 
     // 'rings' is 1 less than actual rings (due to poles)
     int rings, slices = SLICES;
-    float minPh, phRge;
+    float minPh, maxPh, phRge;
 
-    if (cut > 0) {
+    int divisor = RINGS;
+
+    if (cut > 0) // South pole absent
+    {
         minPh = asinf(2 * cut - 1);
-        phRge = float(M_PI_2) - minPh;
-        rings = qMax(1, qCeil(qreal(RINGS * phRge) / M_PI));
-    } else {
-        rings = RINGS - 1;
-        minPh = float(M_PI) / rings - float(M_PI_2);
-        phRge = float(M_PI_2) - minPh;
+        if (removedTop > 0) // North pole absent
+            maxPh = asinf(1-2*removedTop);
+        else // North pole present
+            maxPh = float(M_PI_2) - float(M_PI) / divisor;
     }
+    else // South pole present
+    {
+        minPh =  - float(M_PI_2) + float(M_PI) / divisor;
+        if (removedTop > 0) // North pole absent
+            maxPh = asinf(1-removedTop);
+        else // North pole present
+            maxPh = float(M_PI_2) - float(M_PI) / divisor;
+    }
+    phRge = maxPh - minPh;
+    rings = qMax(2, qCeil(qreal(RINGS * phRge) / M_PI)); // Need at least 2 rings (including the lowest ring)
 
     Q_ASSERT(qAbs(minPh) < float(M_PI_2));
-    Q_ASSERT(1 <= rings && 2 <= slices);
+    Q_ASSERT(2 <= rings && 2 <= slices);
 
     // meshes of vertices and normals, without poles, _[ring][slice]
     QVector<Vertices> vs_(rings), ns_(rings);
@@ -53,7 +65,7 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift)
     float const R = .5f;
 
     for (int r = 0; r < rings; ++r) {
-        float ph = minPh + phRge * r / rings;
+        float ph = minPh + phRge * r / (rings-1);
         float cp = cosf(ph), sp = sinf(ph);
 
         for (int s = 0; s < slices; ++s) {
@@ -67,7 +79,7 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift)
     }
 
     // make into triangles
-    int const nv = 6 * (rings)*slices;
+    int const nv = 6*(rings)*slices;
     Vertices vs;
     vs.reserve(nv);
     Vertices ns;
@@ -82,12 +94,12 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift)
             auto &v0 = vr.at(s0), &v1 = vr.at(s1);
             auto &n0 = nr.at(s0), &n1 = nr.at(s1);
 
-            if (r == 0) { // south pole
+            if (r == 0) { // bottom most ring
                 Vector3D vp, n0, n1, np(-Vector3D::_z);
-                if (cut > 0) {
+                if (cut > 0) { // South pole absent
                     vp = Vector3D(0, 0, v0.z);
                     n0 = n1 = np;
-                } else {
+                } else { // South pole present
                     vp = Vector3D(0, 0, -R + baseShift);
                     n0 = nr.at(s0);
                     n1 = nr.at(s1);
@@ -96,11 +108,20 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift)
                 ns.addTriangle(n0, np, n1);
             }
 
-            if (r + 1 == rings) { // north pole
-                Vector3D vp(0, 0, +R + baseShift), np(Vector3D::_z);
+            if (r + 1 == rings) { // top most ring
+                Vector3D vp, n0, n1, np(Vector3D::_z);
+                if (removedTop > 0) { // North pole absent
+                    vp = Vector3D(0, 0, v0.z);
+                    n0 = n1 = np;
+                } else { // North pole present
+                    vp = Vector3D(0, 0, +R + baseShift);
+                    n0 = nr.at(s0);
+                    n1 = nr.at(s1);
+                }
                 vs.addTriangle(v0, v1, vp);
                 ns.addTriangle(n0, n1, np);
-            } else if (1 < rings) { // in between poles
+            }
+            else { // in between poles
                 auto &vr1 = vs_.at(r + 1), &nr1 = ns_.at(r + 1);
                 auto &n2 = nr1.at(s1), &n3 = nr1.at(s0);
                 vs.addQuad(v0, v1, vr1.at(s1), vr1.at(s0));

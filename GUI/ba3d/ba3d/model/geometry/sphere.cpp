@@ -27,11 +27,10 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop
     cut = qMax(0.f, cut);
     Q_ASSERT(0 <= cut && cut < 1);
 
-    // 'rings' is 1 less than actual rings (due to poles)
+    // 'rings' are the # of horizontal cross-sections ranging from bottom to top of the sphere
+    // 'slices' are the # of vertices in a given ring
     int rings, slices = SLICES;
     float minPh, maxPh, phRge;
-
-    int divisor = RINGS;
 
     if (cut > 0) // South pole absent
     {
@@ -39,18 +38,18 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop
         if (removedTop > 0) // North pole absent
             maxPh = asinf(1-2*removedTop);
         else // North pole present
-            maxPh = float(M_PI_2) - float(M_PI) / divisor;
+            maxPh = float(M_PI_2) - float(M_PI) / RINGS;
     }
     else // South pole present
     {
-        minPh =  - float(M_PI_2) + float(M_PI) / divisor;
+        minPh =  - float(M_PI_2) + float(M_PI) / RINGS;
         if (removedTop > 0) // North pole absent
             maxPh = asinf(1-removedTop);
         else // North pole present
-            maxPh = float(M_PI_2) - float(M_PI) / divisor;
+            maxPh = float(M_PI_2) - float(M_PI) / RINGS;
     }
     phRge = maxPh - minPh;
-    rings = qMax(2, qCeil(qreal(RINGS * phRge) / M_PI)); // Need at least 2 rings (including the lowest ring)
+    rings = qMax(2, qCeil(qreal(RINGS * phRge) / M_PI)); // At least 2 rings (incl. lowest ring)
 
     Q_ASSERT(qAbs(minPh) < float(M_PI_2));
     Q_ASSERT(2 <= rings && 2 <= slices);

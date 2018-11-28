@@ -104,11 +104,11 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
             writer->writeAttribute(SessionXML::ExternalPropertyIdentifierAtt, prop.identifier());
         }
         else if (type_name == Constants::ComboPropertyType) {
-            int currentIndex = variant.value<ComboProperty>().currentIndex();
+            ComboProperty combo = variant.value<ComboProperty>();
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   QString::number(currentIndex));
+                                   combo.stringOfSelections());
             writer->writeAttribute(SessionXML::ParameterExtAttribute,
-                                   variant.value<ComboProperty>().stringOfValues());
+                                   combo.stringOfValues());
 
         }
         else {
@@ -220,14 +220,14 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
         variant = property.variant();
     }
     else if (parameter_type == Constants::ComboPropertyType) {
-        int parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
-        QString parameterExt
+        QString selections
+            = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
+        QString values
             = reader->attributes().value(SessionXML::ParameterExtAttribute).toString();
 
         ComboProperty combo_property;
-        combo_property.setStringOfValues(parameterExt);
-        combo_property.setCurrentIndex(parameter_value);
+        combo_property.setStringOfValues(values);
+        combo_property.setStringOfSelections(selections);
 
         variant = combo_property.variant();
     }

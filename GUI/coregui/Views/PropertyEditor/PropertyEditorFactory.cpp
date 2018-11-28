@@ -20,6 +20,7 @@
 #include "CustomEditors.h"
 #include "ComboProperty.h"
 #include "CustomEventFilters.h"
+#include "MultiComboPropertyEditor.h"
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 #include <QLineEdit>
@@ -78,7 +79,7 @@ QString PropertyEditorFactory::ToString(const QVariant& variant)
     if (isExternalProperty(variant))
         return variant.value<ExternalProperty>().text();
     if (isComboProperty(variant))
-        return variant.value<ComboProperty>().getValue();
+        return variant.value<ComboProperty>().label();
     if (isBoolProperty(variant))
         return variant.toBool() ? "True" : "False";
 
@@ -95,25 +96,21 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             auto editor = new ScientificDoublePropertyEditor;
             auto limits = item.limits();
             editor->setLimits(limits);
-            editor->setData(item.value());
             result = editor;
         } else {
             auto editor = new DoubleEditor;
             editor->setLimits(item.limits());
             editor->setDecimals(item.decimals());
-            editor->setData(item.value());
             result = editor;
         }
     }
     else if(isIntProperty(item.value())) {
         auto editor = new IntEditor;
         editor->setLimits(item.limits());
-        editor->setData(item.value());
         result = editor;
     }
     else if(isBoolProperty(item.value())) {
         auto editor = new BoolEditor;
-        editor->setData(item.value());
         result = editor;
     }
     else if(isStringProperty(item.value())) {
@@ -121,15 +118,18 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
     }
     else if(isExternalProperty(item.value())) {
         auto editor = new ExternalPropertyEditor;
-        editor->setData(item.value());
         if (item.editorType() != Constants::DefaultEditorType)
             editor->setExternalDialogType(item.editorType());
         result = editor;
     }
     else if(isComboProperty(item.value())) {
-        auto editor = new ComboPropertyEditor;
-        editor->setData(item.value());
-        result = editor;
+        if (item.editorType() == Constants::DefaultEditorType) {
+            auto editor = new ComboPropertyEditor;
+            result = editor;
+        } else if (item.editorType() == Constants::MultiSelectionComboEditorType) {
+            auto editor = new MultiComboPropertyEditor;
+            result = editor;
+        }
     }
     if (parent && result)
         result->setParent(parent);

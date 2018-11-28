@@ -50,7 +50,7 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
     EXPECT_EQ(distItem->displayName(), distItem->itemName());
 
     // xpos, ypos, P_ABUNDANCE, P_DISTRIBUTION, P_DISTRIBUTED_PARAMETER
-    EXPECT_EQ(distItem->children().size(), 5);
+    EXPECT_EQ(distItem->children().size(), 6);
 
     EXPECT_EQ(distItem->defaultTag(), ParticleDistributionItem::T_PARTICLES);
 
@@ -59,10 +59,17 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
                                  << Constants::ParticleCompositionType
                                  << Constants::MesoCrystalType);
 
+    // main parameter
     ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                              .value<ComboProperty>();
     EXPECT_EQ(prop.getValues(), QStringList() << ParticleDistributionItem::NO_SELECTION);
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    // linked parameter
+    prop = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+    EXPECT_EQ(prop.getValues(), QStringList());
+    EXPECT_EQ(prop.getValue(), "");
 }
 
 TEST_F(TestParticleDistributionItem, test_AddParticle)
@@ -81,6 +88,15 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     EXPECT_EQ(prop.getValues(), expectedCylinderParams);
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
+    // linked parameter
+    prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+
+    QStringList expectedLinked = expectedCylinderParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    EXPECT_EQ(prop.getValues(), expectedLinked);
+    EXPECT_EQ(prop.getValue(), "");
+
     // changing formfactor of the particle
     particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::BoxType);
 
@@ -89,6 +105,79 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
 
     EXPECT_EQ(prop.getValues(), expectedBoxParams);
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    // cheking linked
+    prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+
+    expectedLinked = expectedBoxParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    EXPECT_EQ(prop.getValues(), expectedLinked);
+    EXPECT_EQ(prop.getValue(), "");
+    EXPECT_EQ(prop.selectedValues(), QStringList());
+}
+
+//! Values available for linking should depend on main parameter.
+
+TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
+{
+    SampleModel model;
+    SessionItem* dist = model.insertNewItem(Constants::ParticleDistributionType);
+    model.insertNewItem(Constants::ParticleType, dist->index());
+
+    ComboProperty mainCombo = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                             .value<ComboProperty>();
+
+    EXPECT_EQ(mainCombo.getValues(), expectedCylinderParams);
+    EXPECT_EQ(mainCombo.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    // linked parameter
+    ComboProperty linkedCombo = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+
+    QStringList expectedLinked = expectedCylinderParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    EXPECT_EQ(linkedCombo.getValues(), expectedLinked);
+    EXPECT_EQ(linkedCombo.getValue(), "");
+    EXPECT_EQ(linkedCombo.selectedValues(), QStringList());
+
+    // selecting main parameter
+    QString mainPar("Particle/Cylinder/Radius");
+    mainCombo.setValue(mainPar);
+    dist->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER, mainCombo.variant());
+
+    // linked parameter shouldn't have main parameter in the list
+    expectedLinked = expectedCylinderParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    expectedLinked.removeAll(mainPar);
+
+    linkedCombo = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+    EXPECT_EQ(linkedCombo.getValues(), expectedLinked);
+    EXPECT_EQ(linkedCombo.getValue(), "");
+    EXPECT_EQ(linkedCombo.selectedValues(), QStringList());
+
+    // --- Scenario 2
+
+    // selecting linked parameter
+    linkedCombo.setSelected("Particle/Cylinder/Height");
+    dist->setItemValue(ParticleDistributionItem::P_LINKED_PARAMETER, linkedCombo.variant());
+
+    // selecting another main parameter
+    mainPar = "Particle/Position Offset/X";
+    mainCombo.setValue(mainPar);
+    dist->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER, mainCombo.variant());
+
+    // checking linked
+    linkedCombo = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+    expectedLinked = expectedCylinderParams;
+    expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
+    expectedLinked.removeAll(mainPar);
+
+    EXPECT_EQ(linkedCombo.getValues(), expectedLinked);
+    EXPECT_EQ(linkedCombo.getValue(), "Particle/Cylinder/Height");
+    EXPECT_EQ(linkedCombo.selectedValues(), QStringList("Particle/Cylinder/Height"));
 }
 
 TEST_F(TestParticleDistributionItem, test_FromDomain)
@@ -126,6 +215,54 @@ TEST_F(TestParticleDistributionItem, test_FromDomain)
     EXPECT_EQ(prop.getValue(), QString("Particle/Cylinder/Radius"));
 }
 
+//! Constructing from domain distribution with linked parameter defined
+
+TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
+{
+    const std::string pattern("/Particle/Cylinder/Radius");
+    const std::string linked("/Particle/Cylinder/Height");
+
+    // creating domain distribution
+    FormFactorCylinder cylinder(1.0, 2.0);
+    Particle particle(HomogeneousMaterial("Particle", 6e-4, 2e-8), cylinder);
+    DistributionGaussian gauss(1.0, 0.1);
+    ParameterDistribution par_distr(pattern, gauss, 100, 3.0);
+    par_distr.linkParameter(linked);
+
+    ParticleDistribution particle_collection(particle, par_distr);
+
+    // creating GUI distribution
+    SampleModel model;
+    SessionItem* distItem = model.insertNewItem(Constants::ParticleDistributionType);
+    SessionItem* particleItem = model.insertNewItem(Constants::ParticleType, distItem->index());
+
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::AnisoPyramidType);
+
+    // Sets it from domain
+    TransformFromDomain::setParticleDistributionItem(distItem, particle_collection);
+
+    ComboProperty prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+                             .value<ComboProperty>();
+    EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
+
+    ComboProperty linkedProp = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+                             .value<ComboProperty>();
+    EXPECT_EQ(linkedProp.getValue(), "");
+
+    // changing particle type and check that distribution picked up domain name
+    particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::CylinderType);
+
+    prop = distItem->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
+               .value<ComboProperty>();
+    EXPECT_EQ(prop.getValue(), QString("Particle/Cylinder/Radius"));
+
+    linkedProp = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
+               .value<ComboProperty>();
+    QStringList expectedLinked = QStringList() << QString("Particle/Cylinder/Height");
+    EXPECT_EQ(linkedProp.selectedValues(), expectedLinked);
+    EXPECT_EQ(linkedProp.getValue(), expectedLinked.at(0));
+}
+
 TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
 {
     const std::string pattern("/Particle/Cylinder/Radius");
@@ -145,7 +282,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
     SessionItem* partDistItem = model.insertNewItem(Constants::ParticleDistributionType);
     model.insertNewItem(Constants::ParticleType, partDistItem->index());
 
-    //    // Sets it from domain
+    // Sets it from domain
     TransformFromDomain::setParticleDistributionItem(partDistItem, particle_collection);
 
     SessionItem* distItem = partDistItem->getGroupItem(ParticleDistributionItem::P_DISTRIBUTION);

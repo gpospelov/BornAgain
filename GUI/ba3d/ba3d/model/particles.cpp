@@ -278,8 +278,8 @@ TruncatedCube::TruncatedCube(float L, float t) : Particle(Key(BaseShape::Truncat
     set();
 }
 
-TruncatedSphere::TruncatedSphere(float R, float H)
-    : Particle(Key(BaseShape::Sphere, 1 - H / R / 2, (H - R) / R / 2))
+TruncatedSphere::TruncatedSphere(float R, float H, float deltaH)
+    : Particle(Key(BaseShape::Sphere, 1 - H / R / 2, (H - R) / R / 2, deltaH/ R / 2))
 {
     isNull = (R <= 0 || H <= 0);
     scale = Vector3D(R * 2);
@@ -287,8 +287,9 @@ TruncatedSphere::TruncatedSphere(float R, float H)
     set();
 }
 
-TruncatedSpheroid::TruncatedSpheroid(float R, float H, float fp)
-    : Particle(Key(BaseShape::Sphere, 1 - H / fp / R / 2, (H - fp * R) / fp / R / 2))
+TruncatedSpheroid::TruncatedSpheroid(float R, float H, float fp, float deltaH)
+    : Particle(Key(BaseShape::Sphere, 1 - H / fp / R / 2, (H - fp * R) / fp / R / 2,
+                   deltaH / fp / R / 2))
 {
     isNull = (R <= 0 || H <= 0 || fp <= 0);
     scale = Vector3D(R * 2, R * 2, fp * R * 2);

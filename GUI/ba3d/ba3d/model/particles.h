@@ -99,13 +99,13 @@ public:
 class TruncatedSphere : public Particle
 {
 public:
-    TruncatedSphere(float R, float H);
+    TruncatedSphere(float R, float H, float deltaH=0.0f);
 };
 
 class TruncatedSpheroid : public Particle
 {
 public:
-    TruncatedSpheroid(float R, float H, float fp);
+    TruncatedSpheroid(float R, float H, float fp, float deltaH=0.0f);
 };
 
 class Cone : public Particle

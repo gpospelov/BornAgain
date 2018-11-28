@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "TestCases.h"
+#include "PythonCore.h"
 #include "PyEmbeddedUtils.h"
 #include "PyImport.h"
 #include "BornAgainNamespace.h"

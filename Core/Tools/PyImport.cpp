@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "PyImport.h"
+#include "PythonCore.h"
 #include "PyEmbeddedUtils.h"
 #include "MultiLayer.h"
 

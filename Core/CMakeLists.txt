@@ -165,7 +165,7 @@ if(BORNAGAIN_MPI)
 endif()
 
 if(BORNAGAIN_PYTHON)
-    add_definitions(-DBORNAGAIN_PYTHON)
+    target_compile_definitions(${library_name} PUBLIC -DBORNAGAIN_PYTHON)
     include_directories(${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR})
     target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
 endif()

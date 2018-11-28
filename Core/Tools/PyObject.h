@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #ifndef PYOBJECT_H
+#define PYOBJECT_H
 
 #ifdef BORNAGAIN_PYTHON
 #ifndef PyObject_HEAD

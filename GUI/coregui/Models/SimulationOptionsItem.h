@@ -55,6 +55,7 @@ public:
 private:
     QString runPolicy() const;
     QStringList getCPUUsageOptions();
+    void updateThreadItem();
 	QMap<QString, int> m_text_to_nthreads;
 };
 

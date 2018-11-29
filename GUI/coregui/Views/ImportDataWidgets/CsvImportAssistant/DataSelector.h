@@ -44,6 +44,7 @@ public:
     int coordinateColumn() const { return m_tableWidget->coordinateColumn(); }
     double intensityMultiplier() const { return m_tableWidget->intensityMultiplier(); }
     double coordinateMultiplier() const { return m_tableWidget->coordinateMultiplier(); }
+    std::set<int> rowsToDiscard() const { return m_tableWidget->rowsToDiscard(); }
     AxesUnits units() const;
     void setDataArray(csv::DataArray csvArray)
     {
@@ -72,6 +73,7 @@ private:
     void setColumnAs(int col, csv::ColumnType coordOrInt);
     void setFirstRow();
     void setLastRow();
+    void discardRow();
     void resetSelection();
     void updateSelection();
     bool updateData();
@@ -88,5 +90,6 @@ private:
     QComboBox* m_coordinateUnitsComboBox;
     QPushButton* m_importButton;
     QPushButton* m_cancelButton;
+    QLabel* m_errorLabel;
 };
 #endif // DATASELECTOR_H

@@ -23,6 +23,7 @@
 #include <QStringList>
 #include <QWidget>
 #include <memory>
+#include <set>
 
 class csvSelectionState
 {
@@ -65,8 +66,10 @@ private:
     bool hasEqualLengthLines(csv::DataArray& dataArray);
     char guessSeparator() const;
     void removeBlankColumns();
+    void removeMultipleWhiteSpaces();
     void runDataSelector(QWidget* parent);
-    std::vector<double> getValuesFromColumn(int jcol, double multiplier = 1.0);
+    void getValuesFromColumns(std::vector<double>& intensityVals,
+                                            std::vector<double>& coordVals);
     void resetSelection();
     void resetAssistant();
 
@@ -80,6 +83,7 @@ private:
     double m_coordinateMultiplier;
     int m_firstRow;
     int m_lastRow;
+    std::set<int> m_rowsToDiscard;
     AxesUnits m_units;
     bool m_dataAvailable;
 };

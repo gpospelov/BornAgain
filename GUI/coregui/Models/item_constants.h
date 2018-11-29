@@ -45,6 +45,7 @@ const ModelType InterferenceFunctionFinite2DLatticeType = "InterferenceFinite2DL
 const ModelType GISASInstrumentType = "GISASInstrument";
 const ModelType OffSpecInstrumentType = "OffSpecInstrument";
 const ModelType SpecularInstrumentType = "SpecularInstrument";
+const ModelType DepthProbeInstrumentType = "DepthProbeInstrument";
 const ModelType GISASBeamType = "GISASBeam";
 const ModelType SpecularBeamType = "SpecularBeam";
 

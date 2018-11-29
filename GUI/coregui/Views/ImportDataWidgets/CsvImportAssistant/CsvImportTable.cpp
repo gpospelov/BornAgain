@@ -20,6 +20,7 @@ CsvImportTable::CsvImportTable(QWidget* parent) : QTableWidget(parent)
     m_intensityCol = std::make_unique<CsvCoordinateColumn>();
     m_firstRow = 0;
     m_lastRow = 0;
+    m_dataLooksGood = false;
 }
 
 int CsvImportTable::selectedRow() const
@@ -30,6 +31,25 @@ int CsvImportTable::selectedRow() const
     auto front = selectedRanges.front();
     auto row = front.topRow();
     return row - rowOffset();
+}
+
+std::set<int> CsvImportTable::selectedRows() const
+{
+    std::set<int> accumulator;
+
+    auto selection = selectedRanges();
+    if (selection.empty())
+        return {};
+
+    int size = selection.size();
+    for (int rangenumber = 0; rangenumber < size; ++rangenumber) {
+        int row0 = selectedRanges()[rangenumber].topRow() - rowOffset();
+        int rowN = selectedRanges()[rangenumber].bottomRow() - rowOffset();
+        for (int r = row0; r <= rowN; ++r) {
+            accumulator.insert(r);
+        }
+    }
+    return accumulator;
 }
 
 int CsvImportTable::selectedColumn() const
@@ -79,16 +99,14 @@ void CsvImportTable::setMultiplierFields()
             connect(currentField, &CsvMultiplierField::editingFinished, this,
                     [this, currentField]() {
                         m_intensityCol->setMultiplier(currentField->value());
-                        applyMultipliers();
-                        greyoutDataToDiscard();
+                        updateSelection();
                     });
         } else if (n == coordCol) {
             currentField = new CsvMultiplierField(coordMult, true);
             connect(currentField, &CsvMultiplierField::editingFinished, this,
                     [this, currentField]() {
                         m_coordinateCol->setMultiplier(currentField->value());
-                        applyMultipliers();
-                        greyoutDataToDiscard();
+                        updateSelection();
                     });
         } else {
             currentField = new CsvMultiplierField();
@@ -104,7 +122,6 @@ void CsvImportTable::setMultiplierFields()
         vhlabels << QString::number(i);
 
     this->setVerticalHeaderLabels(vhlabels);
-    applyMultipliers();
 }
 
 void CsvImportTable::setData(const csv::DataArray data)
@@ -136,28 +153,50 @@ void CsvImportTable::setData(const csv::DataArray data)
 
 void CsvImportTable::setFirstRow(size_t row)
 {
-    m_firstRow = row;
-    greyoutDataToDiscard();
+    if (row != m_firstRow) {
+        m_firstRow = row;
+        updateSelection();
+    }
 }
 
 void CsvImportTable::setLastRow(size_t row)
 {
-    m_lastRow = row;
-    greyoutDataToDiscard();
+    if (m_lastRow != row) {
+        m_lastRow = row;
+        updateSelection();
+    }
+}
+
+void CsvImportTable::discardRows(std::set<int> rows)
+{
+    if (rows.empty()) {
+        m_rowsToDiscard.clear();
+    } else {
+        for (auto row : rows) {
+            if (isRowDiscarded(row)) {
+                m_rowsToDiscard.erase(row);
+            } else {
+                m_rowsToDiscard.insert(row);
+            }
+        }
+    }
+    updateSelection();
 }
 
 void CsvImportTable::updateSelection()
 {
     setHeaders();
     setMultiplierFields();
+    applyMultipliers();
     greyoutDataToDiscard();
+    runSanityChecks();
 }
 
 void CsvImportTable::restoreColumnValues(int col, csv::DataColumn colvals)
 {
-    for (size_t i = size_t(rowOffset()); i < colvals.size(); i++) {
-        QString cellText = QString::fromStdString(colvals[i]);
-        this->setItem(int(i), int(col), new QTableWidgetItem(cellText));
+    for (size_t i = 0; i < colvals.size(); i++) {
+        QString originalText = QString::fromStdString(colvals[i]);
+        setItem(int(i) + rowOffset(), int(col), new QTableWidgetItem(originalText));
     }
 }
 
@@ -172,32 +211,111 @@ void CsvImportTable::greyoutDataToDiscard()
             greyoutCell(i, j, needsGreyout(i, j));
 }
 
-void CsvImportTable::greyoutCell(int i, int j, bool yes)
+void CsvImportTable::runSanityChecks()
+{
+    bool intensitiesLookGood = runIntensitySanityChecks();
+    bool coordinatesLookGood = runCoordinateSanityChecks();
+    bool dataLooksGood = intensitiesLookGood && coordinatesLookGood;
+    if (dataLooksGood != m_dataLooksGood) {
+        m_dataLooksGood = dataLooksGood;
+        emit dataSanityChanged();
+    }
+}
+
+bool CsvImportTable::runCoordinateSanityChecks()
+{
+    bool dataLooksGood = true;
+    int jCol = m_coordinateCol->columnNumber();
+    csv::DataRow values = m_coordinateCol->values();
+    size_t size = m_coordinateCol->values().size();
+    double greatestNumber = 0;
+
+    for (int i = 0; i < int(size) - 1; i++) {
+        bool userDiscard = isRowDiscarded(i);
+        if (i < firstRow() - rowOffset() || i > lastRow() || userDiscard)
+            continue;
+
+        size_t I = size_t(i);
+        auto cellText = QString::fromStdString(values[I]);
+        auto nextCellText = QString::fromStdString(values[I + 1]);
+        bool correctDoubleFormat;
+        double number = cellText.toDouble(&correctDoubleFormat);
+        greatestNumber = std::max(number, greatestNumber);
+
+        // if two consecutive values are non-increasing:
+        if (!correctDoubleFormat || (number - greatestNumber < 0)) {
+            bool alreadyDiscarded = needsGreyout(i + rowOffset(), jCol);
+            greyoutCell(i + rowOffset(), jCol, alreadyDiscarded, Qt::red);
+            if (!alreadyDiscarded)
+                dataLooksGood = false;
+        }
+
+        double nextNumber = nextCellText.toDouble(&correctDoubleFormat);
+        if (!correctDoubleFormat || (nextNumber - number < 1e-14)) {
+            bool alreadyDiscarded = needsGreyout(i + 1 + rowOffset(), jCol);
+            greyoutCell(i + 1 + rowOffset(), jCol, alreadyDiscarded, Qt::red);
+            if (!alreadyDiscarded)
+                dataLooksGood = false;
+        }
+    }
+    return dataLooksGood;
+}
+
+bool CsvImportTable::runIntensitySanityChecks()
+{
+    bool dataLooksGood = true;
+    int jCol = m_intensityCol->columnNumber();
+    csv::DataRow values = m_intensityCol->values();
+    size_t size = m_intensityCol->values().size();
+
+    for (int i = 0; i < int(size) - 1; i++) {
+        bool userDiscard = isRowDiscarded(i);
+        if (i < firstRow() - rowOffset() || i > lastRow() || userDiscard)
+            continue;
+
+        size_t I = size_t(i);
+        auto cellText = QString::fromStdString(values[I]);
+        bool correctDoubleFormat;
+        cellText.toDouble(&correctDoubleFormat);
+        // if two consecutive values are non-increasing:
+        if (!correctDoubleFormat) {
+            bool alreadyDiscarded = needsGreyout(i + rowOffset(), jCol);
+            greyoutCell(i + rowOffset(), jCol, alreadyDiscarded, Qt::red);
+            if (!alreadyDiscarded)
+                dataLooksGood = false;
+        }
+    }
+    return dataLooksGood;
+}
+
+void CsvImportTable::greyoutCell(int i, int j, bool yes, Qt::GlobalColor color)
 {
     if (yes) {
         QFont italicFont;
         italicFont.setItalic(true);
         italicFont.setStrikeOut(true);
-        this->item(i, j)->setBackground(Qt::gray);
-        this->item(i, j)->setFont(italicFont);
+        item(i, j)->setBackground(Qt::gray);
+        item(i, j)->setFont(italicFont);
     } else {
         QFont standardFont;
         standardFont.setItalic(false);
         standardFont.setStrikeOut(false);
-        this->item(i, j)->setBackground(Qt::white);
-        this->item(i, j)->setFont(standardFont);
+        item(i, j)->setBackground(color);
+        item(i, j)->setFont(standardFont);
     }
 }
 
 bool CsvImportTable::needsGreyout(const int iRow, const int jCol) const
 {
-    bool greyTop = iRow < int(m_firstRow) + rowOffset();
-    bool greyBott = iRow > int(m_lastRow) + rowOffset();
+    int vecRow = iRow - rowOffset();
+    bool userDiscard = isRowDiscarded(vecRow);
+    bool greyTop = vecRow < int(m_firstRow);
+    bool greyBott = vecRow > int(m_lastRow);
     bool greyCol = jCol != int(m_coordinateCol->columnNumber())
                    && jCol != int(m_intensityCol->columnNumber())
                    && int(m_intensityCol->columnNumber()) > 0;
 
-    return greyTop || greyBott || greyCol;
+    return greyTop || greyBott || greyCol || userDiscard;
 }
 
 void CsvImportTable::applyMultipliers()
@@ -217,14 +335,15 @@ void CsvImportTable::multiplyColumn(const CsvIntensityColumn& col)
     if (colNum < 0)
         return;
 
-    auto multiplier = col.multiplier();
-    auto values = col.values();
-    auto size = col.values().size();
+    double multiplier = col.multiplier();
+    csv::DataColumn values = col.values();
+    size_t size = col.values().size();
+    int idx0 = rowOffset();
     for (size_t i = 0; i < size; i++) {
         auto currentText = QString::fromStdString(values[i]);
         double number = multiplier * currentText.toDouble();
-        QString cellText = 0.0 == number ? currentText : QString::number(number);
-        this->setItem(int(i), colNum, new QTableWidgetItem(cellText));
+        QString textToWrite = 0.0 == number ? currentText : QString::number(number);
+        this->setItem(int(i) + idx0, colNum, new QTableWidgetItem(textToWrite));
     }
 }
 
@@ -260,12 +379,19 @@ csv::DataColumn CsvImportTable::valuesFromColumn(int col)
         return m_coordinateCol->values();
     } else {
         csv::DataColumn result;
-        size_t rowCount = size_t(this->rowCount());
+        size_t rowCount = size_t(this->rowCount() - rowOffset());
         result = csv::DataColumn(rowCount);
-        for (size_t i = size_t(rowOffset()); i < rowCount; ++i) {
-            auto currentText = this->item(int(i), int(col))->text();
+        int idx0 = rowOffset();
+        for (size_t i = 0; i < rowCount; ++i) {
+            int I = int(i) + idx0;
+            auto currentText = this->item(I, int(col))->text();
             result[i] = currentText.toStdString();
         }
         return result;
     }
+}
+
+bool CsvImportTable::isRowDiscarded(const int row) const
+{
+    return std::find(m_rowsToDiscard.begin(), m_rowsToDiscard.end(), row) != m_rowsToDiscard.end();
 }

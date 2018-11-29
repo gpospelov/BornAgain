@@ -19,9 +19,11 @@
 #include "CsvNamespace.h"
 #include "IUnitConverter.h"
 #include <QDoubleSpinBox>
+#include "ScientificSpinBox.h"
 #include <QMenu>
 #include <QStringList>
 #include <QTableWidget>
+#include <set>
 
 class CsvImportTable : public QTableWidget
 {
@@ -30,6 +32,7 @@ public:
     CsvImportTable(QWidget* parent = nullptr);
 
     int selectedRow() const;
+    std::set<int> selectedRows() const;
     int selectedColumn() const;
     int intensityColumn() const { return m_intensityCol->columnNumber(); }
     int coordinateColumn() const { return m_coordinateCol->columnNumber(); }
@@ -37,8 +40,10 @@ public:
     int lastRow() { return int(m_lastRow) + rowOffset(); }
     double intensityMultiplier() const { return m_intensityCol->multiplier(); }
     double coordinateMultiplier() const { return m_coordinateCol->multiplier(); }
+    std::set<int> rowsToDiscard() const { return m_rowsToDiscard; }
     csv::ColumnType coordinateName() const { return m_coordinateCol->name(); }
     AxesUnits coordinateUnits() const { return m_coordinateCol->units(); }
+    bool dataLooksGood() const { return m_dataLooksGood; }
 
     void setData(const csv::DataArray data);
     void updateSelection();
@@ -46,6 +51,7 @@ public:
     void setColumnAs(int col, csv::ColumnType CoordOrInt, double multiplier = 1.0);
     void setFirstRow(size_t row);
     void setLastRow(size_t row);
+    void discardRows(std::set<int> rows);
     void setCoordinateName(const csv::ColumnType coordName)
     {
         m_coordinateCol->setName(coordName);
@@ -53,9 +59,16 @@ public:
     }
     void setMultiplierFields();
 
+signals:
+    void dataSanityChanged();
+
 private:
+    bool isRowDiscarded(const int row) const ;
+    void runSanityChecks();
+    bool runIntensitySanityChecks();
+    bool runCoordinateSanityChecks();
     void greyoutDataToDiscard();
-    void greyoutCell(int i, int j, bool yes);
+    void greyoutCell(int i, int j, bool yes, Qt::GlobalColor color = Qt::white);
     bool needsGreyout(const int iRow, const int jCol) const;
     void multiplyColumn(const CsvIntensityColumn& col);
     void restoreColumnValues(int col, csv::DataColumn colvals);
@@ -67,20 +80,29 @@ private:
     std::unique_ptr<CsvCoordinateColumn> m_coordinateCol;
     size_t m_firstRow;
     size_t m_lastRow;
+    std::set<int> m_rowsToDiscard;
+    bool m_dataLooksGood;
 };
 
-class CsvMultiplierField : public QDoubleSpinBox
+class CsvMultiplierField : public ScientificSpinBox
 {
     Q_OBJECT
 public:
     CsvMultiplierField(double multiplier = 1.0, bool enabled = false, QWidget* parent = nullptr)
-        : QDoubleSpinBox(parent)
+        : ScientificSpinBox(parent)
     {
-        this->setValue(multiplier);
-        this->setDecimals(8);
-        this->setMaximum(1e10);
-        this->setMinimum(1e-8);
-        this->setEnabled(enabled);
+        if (enabled) {
+            setMaximum(1e10);
+            setMinimum(1e-10);
+            setDecimals(10);
+            setValue(multiplier);
+        } else {
+            setMaximum(1);
+            setMinimum(1);
+            setDecimals(1);
+            setValue(multiplier);
+        }
+        setEnabled(enabled);
     }
 };
 

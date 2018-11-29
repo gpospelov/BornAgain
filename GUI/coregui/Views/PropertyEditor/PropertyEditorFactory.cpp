@@ -13,22 +13,23 @@
 // ************************************************************************** //
 
 #include "PropertyEditorFactory.h"
-#include "SessionItem.h"
-#include "RealLimits.h"
+#include "ComboProperty.h"
+#include "CustomEditors.h"
+#include "CustomEventFilters.h"
 #include "ExternalProperty.h"
 #include "GroupItemController.h"
-#include "CustomEditors.h"
-#include "ComboProperty.h"
-#include "CustomEventFilters.h"
 #include "MultiComboPropertyEditor.h"
-#include <QDoubleSpinBox>
-#include <QSpinBox>
-#include <QLineEdit>
+#include "RealLimits.h"
+#include "ScientificSpinBox.h"
+#include "SessionItem.h"
 #include <QLabel>
+#include <QLineEdit>
+#include <QSpinBox>
 #include <limits>
 
 namespace {
 QWidget* createCustomStringEditor(const SessionItem& item);
+double getStep(double val);
 
 bool isDoubleProperty(const QVariant& variant)
 {
@@ -62,26 +63,39 @@ bool isBoolProperty(const QVariant& variant)
 
 }
 
-bool PropertyEditorFactory::IsCustomVariant(const QVariant& variant)
+bool PropertyEditorFactory::hasStringRepresentation(const QModelIndex& index)
 {
+    auto variant = index.data();
     if (isExternalProperty(variant))
         return true;
     if (isComboProperty(variant))
         return true;
     if (isBoolProperty(variant))
         return true;
+    if (isDoubleProperty(variant) && index.internalPointer())
+        return true;
 
     return false;
 }
 
-QString PropertyEditorFactory::ToString(const QVariant& variant)
+QString PropertyEditorFactory::toString(const QModelIndex& index)
 {
+    auto variant = index.data();
     if (isExternalProperty(variant))
         return variant.value<ExternalProperty>().text();
     if (isComboProperty(variant))
         return variant.value<ComboProperty>().label();
     if (isBoolProperty(variant))
         return variant.toBool() ? "True" : "False";
+
+    if (isDoubleProperty(variant) && index.internalPointer()) {
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        return item->editorType() == Constants::ScientificEditorType
+                  ? QString::number(item->value().toDouble(), 'g')
+                  : item->editorType() == Constants::ScientificSpinBoxType
+                  ? ScientificSpinBox::toString(item->value().toDouble(), item->decimals())
+                  : QString::number(item->value().toDouble(), 'f', item->decimals());
+    }
 
     return QString();
 }
@@ -96,6 +110,16 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             auto editor = new ScientificDoublePropertyEditor;
             auto limits = item.limits();
             editor->setLimits(limits);
+            result = editor;
+        } else if (item.editorType() == Constants::ScientificSpinBoxType) {
+            auto editor = new ScientificSpinBox;
+            auto limits = item.limits();
+            if (limits.hasLowerLimit())
+                editor->setMinimum(limits.lowerLimit());
+            if (limits.hasUpperLimit())
+                editor->setMaximum(limits.lowerLimit());
+            editor->setDecimals(item.decimals());
+            editor->setSingleStep(getStep(item.data(Qt::EditRole).toDouble()));
             result = editor;
         } else {
             auto editor = new DoubleEditor;
@@ -156,6 +180,11 @@ QWidget* createCustomStringEditor(const SessionItem& item)
     }
 
     return result;
+}
+
+double getStep(double val)
+{
+    return val == 0.0 ? 1.0 : val / 100.;
 }
 
 }

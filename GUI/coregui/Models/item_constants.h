@@ -295,6 +295,7 @@ const ModelType ComboPropertyType = "ComboProperty";
 // --- Custom editors for variant propertues ---
 const ModelType DefaultEditorType = "Default";
 const ModelType ScientificEditorType = "SceintificDouble";
+const ModelType ScientificSpinBoxType = "ScientificSpinBox";
 const ModelType MaterialEditorExternalType = "ExtMaterialEditor";
 const ModelType ColorEditorExternalType = "ExtColorEditor";
 const ModelType MultiSelectionComboEditorType = "MultiSelectionComboEditor";

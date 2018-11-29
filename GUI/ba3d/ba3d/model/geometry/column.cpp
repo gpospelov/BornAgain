@@ -29,7 +29,7 @@ Geometry::Mesh Geometry::meshColumn(float ratio_Rt_Rb, float numSides)
     float const R = .5f;
     float Rb = R, Rt = Rb * ratio_Rt_Rb, H = 2 * R;
 
-    // mesh of vertices (bottom and top) and normals (bottom to top)
+    // mesh of vertices (bottom and top) and normals
     Vertices vb(slices), vt(slices), nbt(slices);
     float const nz = (1 - Rt / Rb) * H;
 

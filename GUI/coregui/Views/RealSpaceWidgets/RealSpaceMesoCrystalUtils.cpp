@@ -289,20 +289,13 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
                = dynamic_cast<const FormFactorTruncatedSphere*>(outerShape)) {
         double R = ff_TruncatedSphere->getRadius();
         double H = ff_TruncatedSphere->getHeight();
-
-        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R
-            || positionInside.z() < 0 || positionInside.z() > H)
+        double deltaH = ff_TruncatedSphere->getRemovedTop();
+        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
+                positionInside.z() < 0 || positionInside.z() > (H-deltaH))
             return check;
 
-        // TODO : Use the commented code instead when DeltaHeight has been implemented in 3D View
-        //        double Delta_H = ff_TruncatedSphere->getRemovedTop();
-        //        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
-        //                positionInside.z() > (H-Delta_H))
-        //            return check;
-
         if (std::pow(positionInside.x() / R, 2) + std::pow(positionInside.y() / R, 2)
-                + std::pow((positionInside.z() - (H - R)) / R, 2)
-            <= 1)
+                + std::pow((positionInside.z() - (H - R)) / R, 2) <= 1)
             check = true;
     } else if (dynamic_cast<const FormFactorTruncatedSpheroid*>(outerShape)) {
         // TODO: Implement Truncated spheroid
@@ -313,10 +306,6 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
     }
     return check;
 }
-}
-
-RealSpaceMesoCrystal::RealSpaceMesoCrystal() : m_mesoCrystalItem(nullptr), m_total_abundance(0.0)
-{
 }
 
 RealSpaceMesoCrystal::~RealSpaceMesoCrystal()

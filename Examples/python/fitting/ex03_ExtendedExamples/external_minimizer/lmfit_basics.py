@@ -96,5 +96,3 @@ def run_fitting():
 if __name__ == '__main__':
     run_fitting()
     plt.show()
-
-

@@ -55,11 +55,8 @@ def get_simulation(params):
 
 def create_real_data():
     """
-    Generating "real" data by adding noise to the simulated data.
-    This function has been used once to generate refdata_fitcylinderprisms.int
-    located in same directory.
+    Generating "real" data from simulated image with default parameters.
     """
-    # creating sample with set of parameters we will later try to find during the fit
 
     params = {'cylinder_height': 5.0*nm, 'cylinder_radius': 5.0*nm,
               'prism_height': 5.0*nm, 'prism_base_edge': 5.0*nm}

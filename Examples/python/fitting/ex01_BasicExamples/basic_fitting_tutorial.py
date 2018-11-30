@@ -4,9 +4,9 @@ of substrate.
 """
 
 import bornagain as ba
+from bornagain import deg, angstrom, nm
 import numpy as np
 from matplotlib import pyplot as plt
-from bornagain import deg, angstrom, nm
 
 
 def get_sample(params):
@@ -28,20 +28,31 @@ def get_sample(params):
     cylinder = ba.Particle(m_particle, cylinder_ff)
     prism_ff = ba.FormFactorPrism3(prism_base_edge, prism_height)
     prism = ba.Particle(m_particle, prism_ff)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder, 0.5)
-    particle_layout.addParticle(prism, 0.5)
-    interference = ba.InterferenceFunctionNone()
-    particle_layout.setInterferenceFunction(interference)
+    layout = ba.ParticleLayout()
+    layout.addParticle(cylinder, 0.5)
+    layout.addParticle(prism, 0.5)
 
     # air layer with particles and substrate form multi layer
     air_layer = ba.Layer(m_air)
-    air_layer.addLayout(particle_layout)
+    air_layer.addLayout(layout)
     substrate_layer = ba.Layer(m_substrate, 0)
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(air_layer)
     multi_layer.addLayer(substrate_layer)
     return multi_layer
+
+
+def get_simulation(params):
+    """
+    Returns a GISAXS simulation with beam and detector defined
+    """
+    simulation = ba.GISASSimulation()
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
+                                     100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setBeamIntensity(1e+08)
+    simulation.setSample(get_sample(params))
+    return simulation
 
 
 def create_real_data():
@@ -75,19 +86,6 @@ def load_real_data():
     return np.loadtxt("basic_fitting_tutorial_data.txt.gz", dtype=float)
 
 
-def get_simulation(params):
-    """
-    Returns a GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
-                                     100, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e+08)
-    simulation.setSample(get_sample(params))
-    return simulation
-
-
 def run_fitting():
     """
     Setup simulation and fit
@@ -96,7 +94,7 @@ def run_fitting():
     real_data = load_real_data()
 
     fit_objective = ba.FitObjective()
-    fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
+    fit_objective.addSimulationAndData(get_simulation, real_data)
 
     # Print fit progress on every n-th iteration.
     fit_objective.initPrint(10)
@@ -126,7 +124,7 @@ def run_fitting():
 
 if __name__ == '__main__':
     # uncomment line below to regenerate "experimental" data file
-    create_real_data()
+    # create_real_data()
 
     run_fitting()
     plt.show()

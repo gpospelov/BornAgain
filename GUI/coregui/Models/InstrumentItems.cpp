@@ -76,7 +76,7 @@ void InstrumentItem::updateToRealData(const RealDataItem *item)
     setShape(item->shape());
 }
 
-bool InstrumentItem::alignedWith(const RealDataItem* item)
+bool InstrumentItem::alignedWith(const RealDataItem* item) const
 {
     return shape() == item->shape();
 }
@@ -161,7 +161,7 @@ void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
     }
 }
 
-bool SpecularInstrumentItem::alignedWith(const RealDataItem* item)
+bool SpecularInstrumentItem::alignedWith(const RealDataItem* item) const
 {
     const QString native_units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
     if (native_units == Constants::UnitsNbins) {

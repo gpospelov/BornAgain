@@ -38,7 +38,7 @@ bool SimulationSetupAssistant::isValidSimulationSetup(const MultiLayerItem *mult
     checkFittingSetup(instrumentItem, realData);
 
     if(!m_isValid)
-        QMessageBox::warning(0, QStringLiteral("Can't run the job"), composeMessage());
+        QMessageBox::warning(nullptr, QStringLiteral("Can't run the job"), composeMessage());
 
     return m_isValid;
 }
@@ -77,13 +77,12 @@ void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem* instrum
 void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem* instrumentItem,
                                                  const RealDataItem* realData)
 {
-    if (!realData
-        || instrumentItem->getItemValue(InstrumentItem::P_IDENTIFIER).toString()
-               == realData->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString())
+    if (!realData || instrumentItem->alignedWith(realData))
         return;
 
     m_isValid = false;
-    m_messages.append("The RealData was not linked to the instrument");
+    m_messages.append("The experimental data does not fit in the selected instrument. Try linking "
+                      "them in Import Tab.");
 }
 
 //! Composes the error message for message box.

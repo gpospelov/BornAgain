@@ -45,7 +45,7 @@ public:
     virtual void clearMasks() {}
     virtual void importMasks(const MaskContainerItem*) {}
     virtual void updateToRealData(const RealDataItem* item);
-    virtual bool alignedWith(const RealDataItem* item);
+    virtual bool alignedWith(const RealDataItem* item) const;
 
 protected:
     explicit InstrumentItem(const QString& modelType);
@@ -66,7 +66,7 @@ public:
     std::vector<int> shape() const override;
     void setShape(const std::vector<int>& shape) override;
     void updateToRealData(const RealDataItem* item) override;
-    bool alignedWith(const RealDataItem* item) override;
+    bool alignedWith(const RealDataItem* item) const override;
 
     std::unique_ptr<IUnitConverter> createUnitConverter() const;
 };

@@ -179,7 +179,7 @@ QStringList SimulationOptionsItem::getCPUUsageOptions()
 {
     m_text_to_nthreads.clear();
     QStringList result;
-    int nthreads = std::thread::hardware_concurrency();
+    int nthreads = static_cast<int>(std::thread::hardware_concurrency());
     for (int i = nthreads; i > 0; i--) {
         QString str;
         if (i == nthreads) {
@@ -200,12 +200,11 @@ void SimulationOptionsItem::updateThreadItem()
     ComboProperty combo = getItemValue(P_NTHREADS).value<ComboProperty>();
     if (combo.getValues().size() != m_text_to_nthreads.size()) {
         auto p_item = getItem(P_NTHREADS);
-        int index = combo.currentIndex();
-        if (index >= m_text_to_nthreads.size())
-            index = 0;
-        ComboProperty nthreads;
-        nthreads << getCPUUsageOptions();
-        nthreads.setCurrentIndex(index);
-        p_item->setValue(nthreads.variant());
+        auto selected_value = combo.getValue();
+        ComboProperty thread_combo;
+        thread_combo << getCPUUsageOptions();
+        if (thread_combo.getValues().contains(selected_value))
+            thread_combo.setValue(selected_value);
+        p_item->setValue(thread_combo.variant());
     }
 }

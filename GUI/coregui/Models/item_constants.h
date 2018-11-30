@@ -252,7 +252,6 @@ const ModelType GRADIENT_HUES = "Hues";
 
 const ModelType JOB_RUN_IMMEDIATELY = "Immediately";
 const ModelType JOB_RUN_IN_BACKGROUND = "In background";
-const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
 const ModelType JOB_BACKUP = "_backup";
 
 const ModelType SIMULATION_ANALYTICAL = "Analytical";

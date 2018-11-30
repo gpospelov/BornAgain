@@ -26,8 +26,6 @@ QStringList getRunPolicyTooltips()
         "Start simulation immediately, switch to Jobs view automatically when completed"));
     result.append(
         QStringLiteral("Start simulation immediately, do not switch to Jobs view when completed"));
-    result.append(QStringLiteral("Only submit simulation for consequent execution,"
-                                 " has to be started from Jobs view explicitely"));
     return result;
 }
 
@@ -55,8 +53,7 @@ SimulationOptionsItem::SimulationOptionsItem() : SessionItem(Constants::Simulati
 {
 
     ComboProperty policy;
-    policy << Constants::JOB_RUN_IMMEDIATELY << Constants::JOB_RUN_IN_BACKGROUND
-           << Constants::JOB_RUN_SUBMIT_ONLY;
+    policy << getRunPolicyNames();
     policy.setToolTips(getRunPolicyTooltips());
     addProperty(P_RUN_POLICY, policy.variant())->setToolTip(tooltip_runpolicy);
 
@@ -91,7 +88,9 @@ SimulationOptionsItem::SimulationOptionsItem() : SessionItem(Constants::Simulati
                 getItem(P_MC_POINTS)->setEnabled(true);
             }
         } else if (name == P_NTHREADS) {
-            updateThreadItem();
+            updateComboItem(P_NTHREADS, getCPUUsageOptions());
+        } else if (name == P_RUN_POLICY) {
+            updateComboItem(P_RUN_POLICY, getRunPolicyNames());
         }
     });
 }
@@ -195,16 +194,23 @@ QStringList SimulationOptionsItem::getCPUUsageOptions()
     return result;
 }
 
-void SimulationOptionsItem::updateThreadItem()
+QStringList SimulationOptionsItem::getRunPolicyNames()
 {
-    ComboProperty combo = getItemValue(P_NTHREADS).value<ComboProperty>();
-    if (combo.getValues().size() != m_text_to_nthreads.size()) {
-        auto p_item = getItem(P_NTHREADS);
+    QStringList result;
+    result << Constants::JOB_RUN_IMMEDIATELY << Constants::JOB_RUN_IN_BACKGROUND;
+    return result;
+}
+
+void SimulationOptionsItem::updateComboItem(QString name, QStringList option_names)
+{
+    ComboProperty combo = getItemValue(name).value<ComboProperty>();
+    if (combo.getValues().size() != option_names.size()) {
+        auto p_item = getItem(name);
         auto selected_value = combo.getValue();
-        ComboProperty thread_combo;
-        thread_combo << getCPUUsageOptions();
-        if (thread_combo.getValues().contains(selected_value))
-            thread_combo.setValue(selected_value);
-        p_item->setValue(thread_combo.variant());
+        ComboProperty new_combo;
+        new_combo << option_names;
+        if (new_combo.getValues().contains(selected_value))
+            new_combo.setValue(selected_value);
+        p_item->setValue(new_combo.variant());
     }
 }

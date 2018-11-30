@@ -117,7 +117,7 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             if (limits.hasLowerLimit())
                 editor->setMinimum(limits.lowerLimit());
             if (limits.hasUpperLimit())
-                editor->setMaximum(limits.lowerLimit());
+                editor->setMaximum(limits.upperLimit());
             editor->setDecimals(item.decimals());
             editor->setSingleStep(getStep(item.data(Qt::EditRole).toDouble()));
             result = editor;

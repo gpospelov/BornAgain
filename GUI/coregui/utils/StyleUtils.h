@@ -21,6 +21,7 @@
 
 class QTreeView;
 class QWidget;
+class QLayout;
 
 namespace StyleUtils
 {
@@ -42,6 +43,14 @@ BA_CORE_API_ QFont labelFont(bool bold = false);
 
 //! Make modal dialog resizable.
 BA_CORE_API_ void setResizable(QDialog* dialog);
+
+//! Creates details widget holding user content inside.
+BA_CORE_API_ QWidget* createDetailsWidget(QWidget* content, const QString& name,
+                                          bool expanded=true);
+
+//! Creates details widget holding user layout inside.
+BA_CORE_API_ QWidget* createDetailsWidget(QLayout* content, const QString& name,
+                                          bool expanded=true);
 
 }
 

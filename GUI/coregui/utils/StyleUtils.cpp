@@ -15,8 +15,14 @@
 #include "StyleUtils.h"
 #include "DesignerHelper.h"
 #include "hostosinfo.h"
+#include "detailswidget.h"
 #include <QDialog>
 #include <QTreeView>
+#include <QBoxLayout>
+
+namespace {
+Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expanded);
+}
 
 void StyleUtils::setPropertyStyle(QTreeView* tree)
 {
@@ -95,4 +101,33 @@ void StyleUtils::setResizable(QDialog* dialog)
                                | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint
                                | Qt::Window);
     }
+}
+
+QWidget* StyleUtils::createDetailsWidget(QWidget* content, const QString& name, bool expanded)
+{
+    auto result = createEmptyDetailsWidget(name, expanded);
+    result->setWidget(content);
+    return result;
+}
+
+QWidget* StyleUtils::createDetailsWidget(QLayout* layout, const QString& name, bool expanded)
+{
+    auto placeholder = new QWidget();
+    placeholder->setLayout(layout);
+    return createDetailsWidget(placeholder, name, expanded);
+}
+
+
+namespace {
+
+Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expanded)
+{
+    auto result = new Utils::DetailsWidget;
+    result->setSummaryText(name);
+    result->setSummaryFontBold(true);
+    if (expanded)
+        result->setState(Utils::DetailsWidget::Expanded);
+    return result;
+}
+
 }

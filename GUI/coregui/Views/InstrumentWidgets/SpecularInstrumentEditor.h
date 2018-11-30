@@ -35,8 +35,6 @@ protected:
     void subscribeToItem();
 
 private:
-    void addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name, bool expanded=true);
-
     SpecularInstrumentItem* instrumentItem();
     ColumnResizer* m_columnResizer;
     SpecularBeamEditor* m_beamEditor;

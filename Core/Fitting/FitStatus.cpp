@@ -43,7 +43,7 @@ bool FitStatus::isCompleted() const
 
 void FitStatus::update(const Fit::Parameters& params, double chi2)
 {
-    m_fit_status = RUNNING;
+    if (!isInterrupted()) m_fit_status = RUNNING;
 
     m_iterationInfo.update(params, chi2);
 

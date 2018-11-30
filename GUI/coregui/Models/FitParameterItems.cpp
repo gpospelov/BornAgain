@@ -98,19 +98,21 @@ void FitParameterItem::initMinMaxValues(const RealLimits& limits)
         dr = std::abs(value) * range_factor;
     }
 
-    if (isLimited()) {
-        double min = value - dr;
-        double max = value + dr;
+    double min = value - dr;
+    double max = value + dr;
 
-        if (limits.hasLowerLimit() && min < limits.lowerLimit())
-            min = limits.lowerLimit();
+    if (limits.hasLowerLimit() && min < limits.lowerLimit())
+        min = limits.lowerLimit();
 
-        if (limits.hasUpperLimit() && max > limits.upperLimit())
-            max = limits.upperLimit();
+    if (limits.hasUpperLimit() && max > limits.upperLimit())
+        max = limits.upperLimit();
 
-        setItemValue(P_MIN, min);
-        setItemValue(P_MAX, max);
-    }
+    setItemValue(P_MIN, min);
+    getItem(P_MIN)->setLimits(limits);
+    setItemValue(P_MAX, max);
+    getItem(P_MAX)->setLimits(limits);
+
+    getItem(P_START_VALUE)->setLimits(limits);
 }
 
 //! Constructs Limits correspodning to current GUI settings.

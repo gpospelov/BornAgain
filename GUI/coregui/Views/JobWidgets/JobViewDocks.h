@@ -24,6 +24,7 @@ class JobRealTimeWidget;
 class FitActivityPanel;
 class JobMessagePanel;
 class JobModel;
+class JobItem;
 
 //! The JobViewDocks class assists JobView in holding all main job widgets and corresponding
 //! dock containers.
@@ -47,7 +48,7 @@ public:
     JobMessagePanel* jobMessagePanel();
 
     void setActivity(int activity);
-    void setItem(class JobItem* jobItem);
+    void setItem(JobItem* jobItem);
 
 public slots:
     void onResetLayout() override;

@@ -17,6 +17,10 @@
 
 #include "SessionItemWidget.h"
 
+class ComponentEditor;
+class QGridLayout;
+class DepthProbeInstrumentItem;
+
 class BA_CORE_API_ DepthProbeInstrumentEditor : public SessionItemWidget
 {
     Q_OBJECT
@@ -26,7 +30,16 @@ public:
 
 protected:
     void subscribeToItem();
+    void unsubscribeFromItem();
 
+private:
+    DepthProbeInstrumentItem* instrumentItem();
+    void onDialogRequest(SessionItem* item, const QString& name);
+
+    ComponentEditor* m_wavelengthEditor;
+    ComponentEditor* m_inclinationEditor;
+    ComponentEditor* m_depthAxisEditor;
+    QGridLayout* m_gridLayout;
 };
 
 

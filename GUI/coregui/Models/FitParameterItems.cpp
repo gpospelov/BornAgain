@@ -73,6 +73,10 @@ FitParameterItem::FitParameterItem() : SessionItem(Constants::FitParameterType)
     registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
     setDefaultTag(T_LINK);
 
+    getItem(P_START_VALUE)->setLimits(RealLimits::limitless());
+    getItem(P_MIN)->setLimits(RealLimits::limitless());
+    getItem(P_MAX)->setLimits(RealLimits::limitless());
+
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_TYPE)
             onTypeChange();

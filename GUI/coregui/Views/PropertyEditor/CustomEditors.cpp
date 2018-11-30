@@ -362,7 +362,8 @@ void IntEditor::onEditingFinished()
 
 void IntEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Int);
+    if (!m_data.isValid() || m_data.type() != QVariant::Int)
+        return;
     m_intEditor->setValue(m_data.toInt());
 }
 

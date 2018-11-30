@@ -51,6 +51,7 @@ protected:
     explicit InstrumentItem(const QString& modelType);
 
     void initBeamGroup(const QString& beam_model);
+    void initBackgroundGroup();
 };
 
 class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem

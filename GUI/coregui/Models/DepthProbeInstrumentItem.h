@@ -15,11 +15,11 @@
 #ifndef DEPTHPROBEINSTRUMENTITEM_H
 #define DEPTHPROBEINSTRUMENTITEM_H
 
-#include "SessionItem.h"
+#include "InstrumentItems.h"
 
 //! Depth probe instrument.
 
-class BA_CORE_API_ DepthProbeInstrumentItem : public SessionItem
+class BA_CORE_API_ DepthProbeInstrumentItem : public InstrumentItem
 {
 public:
     static const QString P_BEAM;
@@ -27,8 +27,9 @@ public:
 
     DepthProbeInstrumentItem();
 
-private:
-
+    std::unique_ptr<Instrument> createInstrument() const override;
+    std::vector<int> shape() const override;
+    void setShape(const std::vector<int>&) override;
 };
 
 #endif

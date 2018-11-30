@@ -19,7 +19,7 @@ const QString DepthProbeInstrumentItem::P_BEAM = "Beam";
 const QString DepthProbeInstrumentItem::P_ZAXIS = "Z axis";
 
 DepthProbeInstrumentItem::DepthProbeInstrumentItem()
-    : SessionItem(Constants::DepthProbeInstrumentType)
+    : InstrumentItem(Constants::DepthProbeInstrumentType)
 {
     setItemName(Constants::DepthProbeInstrumentType);
 
@@ -32,4 +32,19 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem()
     axis->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan across sample bulk");
     axis->getItem(BasicAxisItem::P_MIN)->setToolTip("Starting value below sample horizont in nm");
     axis->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value above sample horizont in nm");
+}
+
+std::unique_ptr<Instrument> DepthProbeInstrumentItem::createInstrument() const
+{
+    throw std::runtime_error("DepthProbeInstrumentItem::createInstrument()");
+}
+
+std::vector<int> DepthProbeInstrumentItem::shape() const
+{
+    throw std::runtime_error("DepthProbeInstrumentItem::shape()");
+}
+
+void DepthProbeInstrumentItem::setShape(const std::vector<int>&)
+{
+    throw std::runtime_error("DepthProbeInstrumentItem::setShape()");
 }

@@ -144,6 +144,22 @@ AttLimits FitParameterItem::attLimits() const
     }
 }
 
+bool FitParameterItem::isValid() const
+{
+    if (isFixed() || isFree())
+        return true;
+
+    double value = getItemValue(P_START_VALUE).toDouble();
+    double min = getItemValue(P_MIN).toDouble();
+    double max = getItemValue(P_MAX).toDouble();
+
+    if (isLowerLimited())
+        return min <= value;
+    if (isUpperLimited())
+        return value <= max;
+    return min <= value && value <= max;
+}
+
 QString FitParameterItem::parameterType() const
 {
     ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
@@ -286,6 +302,14 @@ Fit::Parameters FitParameterContainerItem::createParameters() const
     int index(0);
     for(auto item : getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         auto fitPar = dynamic_cast<FitParameterItem*>(item);
+        if (!fitPar->isValid()) {
+            std::stringstream ss;
+            ss << "FitParameterContainerItem::createParameters(): invalid starting value "
+                  "or (min, max) range in fitting parameter par"
+               << index;
+            std::string message = ss.str();
+            throw GUIHelpers::Error(QString::fromStdString(ss.str()));
+        }
         double startValue = fitPar->getItemValue(FitParameterItem::P_START_VALUE).toDouble();
         AttLimits limits = fitPar->attLimits();
         QString name = QString("par%1").arg(index);

@@ -49,6 +49,8 @@ public:
 
     AttLimits attLimits() const;
 
+    bool isValid() const;
+
 private:
     QString parameterType() const;
     void onTypeChange();

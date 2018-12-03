@@ -60,6 +60,9 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                         const QModelIndex& index) const
 {
+    if (!index.isValid())
+        return;
+
     if (auto customEditor = dynamic_cast<CustomEditor*>(editor))
         model->setData(index, customEditor->editorData());
     else
@@ -70,6 +73,9 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
+    if (!index.isValid())
+        return;
+
     if (auto customEditor = dynamic_cast<CustomEditor*>(editor))
         customEditor->setData(index.data());
     else

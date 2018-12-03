@@ -66,8 +66,7 @@ SimulationResult DepthProbeSimulation::result() const
 {
     validityCheck();
     auto data = createIntensityData();
-    DepthProbeConverter converter(m_instrument.getBeam(), *m_alpha_axis, *m_z_axis);
-    return SimulationResult(*data, converter);
+    return SimulationResult(*data, *createUnitConverter().get());
 }
 
 void DepthProbeSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
@@ -99,6 +98,11 @@ const IAxis* DepthProbeSimulation::getZAxis() const
         throw std::runtime_error("Error in DepthProbeSimulation::getZAxis: position axis "
                                  "was not initialized.");
     return m_z_axis.get();
+}
+
+std::unique_ptr<IUnitConverter> DepthProbeSimulation::createUnitConverter() const
+{
+    return std::make_unique<DepthProbeConverter>(m_instrument.getBeam(), *m_alpha_axis, *m_z_axis);
 }
 
 DepthProbeSimulation::DepthProbeSimulation(const DepthProbeSimulation& other)

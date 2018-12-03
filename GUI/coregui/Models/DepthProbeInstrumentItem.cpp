@@ -14,8 +14,12 @@
 
 #include "DepthProbeInstrumentItem.h"
 #include "AxesItems.h"
+#include "BeamDistributionItem.h"
+#include "BeamWavelengthItem.h"
 #include "DepthProbeSimulation.h"
 #include "SimpleUnitConverters.h"
+#include "SpecularBeamInclinationItem.h"
+#include "TransformToDomain.h"
 #include "Units.h"
 
 const QString DepthProbeInstrumentItem::P_BEAM = "Beam";
@@ -28,16 +32,22 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem()
 
     addGroupProperty(P_BEAM, Constants::SpecularBeamType);
 
+    auto axisItem = beamItem()->currentInclinationAxisItem();
+    axisItem->setItemValue(BasicAxisItem::P_MIN, 0.0);
+    axisItem->setItemValue(BasicAxisItem::P_MAX, 1.0);
+    axisItem->setItemValue(BasicAxisItem::P_NBINS, 500);
+
     auto axis = addGroupProperty(P_ZAXIS, Constants::BasicAxisType);
     axis->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     axis->setItemValue(BasicAxisItem::P_MIN, -100.0);
     axis->setItemValue(BasicAxisItem::P_MAX, 100.0);
-    axis->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan across sample bulk");
+    axis->getItem(BasicAxisItem::P_NBINS)
+        ->setToolTip("Number of points in scan across sample bulk");
     axis->getItem(BasicAxisItem::P_MIN)->setToolTip("Starting value below sample horizont in nm");
     axis->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value above sample horizont in nm");
 }
 
-SpecularBeamItem*DepthProbeInstrumentItem::beamItem() const
+SpecularBeamItem* DepthProbeInstrumentItem::beamItem() const
 {
     return &item<SpecularBeamItem>(P_BEAM);
 }
@@ -71,6 +81,15 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation
     auto depthAxisItem = dynamic_cast<BasicAxisItem*>(getItem(P_ZAXIS));
     auto depthAxis = depthAxisItem->createAxis(1.0);
     simulation->setZSpan(depthAxis->size(), depthAxis->getMin(), depthAxis->getMax());
+
+    TransformToDomain::setBeamDistribution(
+        BornAgain::Wavelength, beamItem()->item<BeamWavelengthItem>(SpecularBeamItem::P_WAVELENGTH),
+        *simulation.get());
+
+    TransformToDomain::setBeamDistribution(
+        BornAgain::Inclination,
+        beamItem()->item<SpecularBeamInclinationItem>(SpecularBeamItem::P_INCLINATION_ANGLE),
+        *simulation.get());
 
     return simulation;
 }

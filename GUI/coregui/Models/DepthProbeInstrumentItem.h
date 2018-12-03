@@ -27,6 +27,8 @@ public:
 
     DepthProbeInstrumentItem();
 
+    SpecularBeamItem* beamItem() const override;
+
     std::unique_ptr<Instrument> createInstrument() const override;
     std::vector<int> shape() const override;
     void setShape(const std::vector<int>&) override;

@@ -34,6 +34,11 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem()
     axis->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value above sample horizont in nm");
 }
 
+SpecularBeamItem*DepthProbeInstrumentItem::beamItem() const
+{
+    return &item<SpecularBeamItem>(P_BEAM);
+}
+
 std::unique_ptr<Instrument> DepthProbeInstrumentItem::createInstrument() const
 {
     throw std::runtime_error("DepthProbeInstrumentItem::createInstrument()");

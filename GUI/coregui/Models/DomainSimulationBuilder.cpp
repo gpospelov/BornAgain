@@ -177,23 +177,8 @@ createDepthProbeSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                          const DepthProbeInstrumentItem* instrument,
                          const SimulationOptionsItem* options_item)
 {
-    std::unique_ptr<DepthProbeSimulation> simulation
-        = std::make_unique<DepthProbeSimulation>(*P_multilayer);
-
-    auto beam_item = instrument->beamItem();
-    const auto axis_item = beam_item->currentInclinationAxisItem();
-
-    auto axis = axis_item->createAxis(Units::degree);
-
-    simulation->setBeamParameters(beam_item->getWavelength(), static_cast<int>(axis->size()),
-                                  axis->getMin(), axis->getMax());
-
-    auto depthAxisItem = dynamic_cast<BasicAxisItem*>(
-        instrument->getItem(DepthProbeInstrumentItem::P_ZAXIS));
-
-    auto depthAxis = depthAxisItem->createAxis(1.0);
-
-    simulation->setZSpan(depthAxis->size(), depthAxis->getMin(), depthAxis->getMax());
+    std::unique_ptr<DepthProbeSimulation> simulation = instrument->createSimulation();
+    simulation->setSample(*P_multilayer.get());
 
     if (options_item)
         TransformToDomain::setSimulationOptions(simulation.get(), *options_item);

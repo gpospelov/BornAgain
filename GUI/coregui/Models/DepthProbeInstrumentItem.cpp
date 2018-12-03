@@ -14,6 +14,9 @@
 
 #include "DepthProbeInstrumentItem.h"
 #include "AxesItems.h"
+#include "DepthProbeSimulation.h"
+#include "SimpleUnitConverters.h"
+#include "Units.h"
 
 const QString DepthProbeInstrumentItem::P_BEAM = "Beam";
 const QString DepthProbeInstrumentItem::P_ZAXIS = "Z axis";
@@ -52,4 +55,27 @@ std::vector<int> DepthProbeInstrumentItem::shape() const
 void DepthProbeInstrumentItem::setShape(const std::vector<int>&)
 {
     throw std::runtime_error("DepthProbeInstrumentItem::setShape()");
+}
+
+std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation() const
+{
+    std::unique_ptr<DepthProbeSimulation> simulation = std::make_unique<DepthProbeSimulation>();
+
+    const auto axis_item = beamItem()->currentInclinationAxisItem();
+
+    auto axis = axis_item->createAxis(Units::degree);
+
+    simulation->setBeamParameters(beamItem()->getWavelength(), static_cast<int>(axis->size()),
+                                  axis->getMin(), axis->getMax());
+
+    auto depthAxisItem = dynamic_cast<BasicAxisItem*>(getItem(P_ZAXIS));
+    auto depthAxis = depthAxisItem->createAxis(1.0);
+    simulation->setZSpan(depthAxis->size(), depthAxis->getMin(), depthAxis->getMax());
+
+    return simulation;
+}
+
+std::unique_ptr<IUnitConverter> DepthProbeInstrumentItem::createUnitConverter() const
+{
+    return createSimulation()->createUnitConverter();
 }

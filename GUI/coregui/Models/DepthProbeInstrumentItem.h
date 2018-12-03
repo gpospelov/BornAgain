@@ -17,6 +17,8 @@
 
 #include "InstrumentItems.h"
 
+class DepthProbeSimulation;
+
 //! Depth probe instrument.
 
 class BA_CORE_API_ DepthProbeInstrumentItem : public InstrumentItem
@@ -32,6 +34,12 @@ public:
     std::unique_ptr<Instrument> createInstrument() const override;
     std::vector<int> shape() const override;
     void setShape(const std::vector<int>&) override;
+
+    // FIXME switch to base Simulation class after InstrumentItem refactoring and
+    // after Simulation gets createUnitConverter method
+    std::unique_ptr<DepthProbeSimulation> createSimulation() const;
+
+    std::unique_ptr<IUnitConverter> createUnitConverter() const;
 };
 
 #endif

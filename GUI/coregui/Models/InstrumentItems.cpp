@@ -71,11 +71,6 @@ GroupItem* InstrumentItem::backgroundGroup()
     return &item<GroupItem>(P_BACKGROUND);
 }
 
-void InstrumentItem::updateToRealData(const RealDataItem *item)
-{
-    setShape(item->shape());
-}
-
 bool InstrumentItem::alignedWith(const RealDataItem* item) const
 {
     return shape() == item->shape();
@@ -134,15 +129,6 @@ std::vector<int> SpecularInstrumentItem::shape() const
 {
     const auto axis_item = beamItem()->currentInclinationAxisItem();
     return {axis_item->getItemValue(BasicAxisItem::P_NBINS).toInt()};
-}
-
-void SpecularInstrumentItem::setShape(const std::vector<int>& data_shape)
-{
-    if (shape().size() != data_shape.size())
-        throw GUIHelpers::Error("Error in SpecularInstrumentItem::setShape: The type of "
-                                "instrument is incompatible with passed data shape.");
-    auto axis_item = beamItem()->currentInclinationAxisItem();
-    axis_item->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
 }
 
 void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
@@ -254,10 +240,14 @@ std::vector<int> GISASInstrumentItem::shape() const
     return {detector_item->xSize(), detector_item->ySize()};
 }
 
-void GISASInstrumentItem::setShape(const std::vector<int>& data_shape)
+void GISASInstrumentItem::updateToRealData(const RealDataItem* item)
 {
+    if (!item)
+        return;
+
+    const auto data_shape = item->shape();
     if (shape().size() != data_shape.size())
-        throw GUIHelpers::Error("Error in GISASInstrumentItem::setShape: The type of "
+        throw GUIHelpers::Error("Error in GISASInstrumentItem::updateToRealData: The type of "
                                 "instrument is incompatible with passed data shape.");
     detectorItem()->setXSize(data_shape[0]);
     detectorItem()->setYSize(data_shape[1]);
@@ -278,10 +268,14 @@ std::vector<int> OffSpecInstrumentItem::shape() const
     return {x_size, detector_item->ySize()};
 }
 
-void OffSpecInstrumentItem::setShape(const std::vector<int>& data_shape)
+void OffSpecInstrumentItem::updateToRealData(const RealDataItem* item)
 {
+    if (!item)
+        return;
+
+    const auto data_shape = item->shape();
     if (shape().size() != data_shape.size())
-        throw GUIHelpers::Error("Error in OffSpecInstrumentItem::setShape: The type of "
+        throw GUIHelpers::Error("Error in OffSpecInstrumentItem::updateToRealData: The type of "
                                 "instrument is incompatible with passed data shape.");
     getItem(OffSpecInstrumentItem::P_ALPHA_AXIS)
         ->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);

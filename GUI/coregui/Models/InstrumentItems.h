@@ -43,7 +43,7 @@ public:
     virtual std::vector<int> shape() const = 0;
     virtual void clearMasks() {}
     virtual void importMasks(const MaskContainerItem*) {}
-    virtual void updateToRealData(const RealDataItem* item);
+    virtual void updateToRealData(const RealDataItem* item) = 0;
     virtual bool alignedWith(const RealDataItem* item) const;
 
 protected:
@@ -51,8 +51,6 @@ protected:
 
     void initBeamGroup(const QString& beam_model);
     void initBackgroundGroup();
-
-    virtual void setShape(const std::vector<int>& shape) = 0;
 };
 
 class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem
@@ -69,9 +67,6 @@ public:
     bool alignedWith(const RealDataItem* item) const override;
 
     std::unique_ptr<IUnitConverter> createUnitConverter() const;
-
-protected:
-    void setShape(const std::vector<int>& shape) override;
 };
 
 class BA_CORE_API_ Instrument2DItem : public InstrumentItem
@@ -100,9 +95,7 @@ class BA_CORE_API_ GISASInstrumentItem : public Instrument2DItem
 public:
     GISASInstrumentItem();
     std::vector<int> shape() const override;
-
-protected:
-    void setShape(const std::vector<int>& data_shape) override;
+    void updateToRealData(const RealDataItem* item) override;
 };
 
 class BA_CORE_API_ OffSpecInstrumentItem : public Instrument2DItem
@@ -112,9 +105,7 @@ public:
 
     OffSpecInstrumentItem();
     std::vector<int> shape() const override;
-
-protected:
-    void setShape(const std::vector<int>& data_shape) override;
+    void updateToRealData(const RealDataItem* item) override;
 };
 
 #endif // INSTRUMENTITEMS_H

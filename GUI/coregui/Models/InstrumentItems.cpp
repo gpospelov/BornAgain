@@ -96,10 +96,6 @@ InstrumentItem::InstrumentItem(const QString& modelType)
 {
     setItemName(modelType);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
-
-    auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
-    item->setDisplayName(background_group_label);
-    item->setToolTip("Background type");
 }
 
 void InstrumentItem::initBeamGroup(const QString& beam_model)
@@ -107,10 +103,18 @@ void InstrumentItem::initBeamGroup(const QString& beam_model)
     addGroupProperty(P_BEAM, beam_model);
 }
 
+void InstrumentItem::initBackgroundGroup()
+{
+    auto item = addGroupProperty(P_BACKGROUND, Constants::BackgroundGroup);
+    item->setDisplayName(background_group_label);
+    item->setToolTip("Background type");
+}
+
 SpecularInstrumentItem::SpecularInstrumentItem()
     : InstrumentItem(Constants::SpecularInstrumentType)
 {
     initBeamGroup(Constants::SpecularBeamType);
+    initBackgroundGroup();
     item<SpecularBeamItem>(P_BEAM).updateFileName(ItemFileNameUtils::instrumentDataFileName(*this));
 }
 
@@ -202,6 +206,7 @@ Instrument2DItem::Instrument2DItem(const QString& modelType)
 {
     initBeamGroup(Constants::GISASBeamType);
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
+    initBackgroundGroup();
 
     setDefaultTag(P_DETECTOR);
 }

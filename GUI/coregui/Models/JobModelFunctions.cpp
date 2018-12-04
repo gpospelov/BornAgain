@@ -144,7 +144,8 @@ void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
                              JobItem::T_OUTPUT);
 
     } else if (instrumentType == Constants::GISASInstrumentType
-               || instrumentType == Constants::OffSpecInstrumentType) {
+               || instrumentType == Constants::OffSpecInstrumentType
+               || instrumentType == Constants::DepthProbeInstrumentType ) {
         model->insertNewItem(Constants::IntensityDataType, model->indexOfItem(jobItem), -1,
                              JobItem::T_OUTPUT);
 

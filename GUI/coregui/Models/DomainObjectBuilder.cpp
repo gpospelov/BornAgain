@@ -29,6 +29,7 @@
 #include "UnitConverter1D.h"
 #include "UnitConverterUtils.h"
 #include "Units.h"
+#include "DepthProbeInstrumentItem.h"
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionItem& multilayer_item)
 {
@@ -136,6 +137,8 @@ DomainObjectBuilder::createUnitConverter(const InstrumentItem* instrumentItem)
 {
     if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
         return specular_instrument->createUnitConverter();
+    else if(auto depth_instrument = dynamic_cast<const DepthProbeInstrumentItem*>(instrumentItem))
+        return depth_instrument->createUnitConverter();
 
     const auto instrument = instrumentItem->createInstrument();
     instrument->initDetector();

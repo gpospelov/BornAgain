@@ -77,7 +77,8 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     registerTag(T_INSTRUMENT, 1, 1,
                 QStringList() << Constants::GISASInstrumentType
                               << Constants::OffSpecInstrumentType
-                              << Constants::SpecularInstrumentType);
+                              << Constants::SpecularInstrumentType
+                              << Constants::DepthProbeInstrumentType);
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType
                 << Constants::SpecularDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);

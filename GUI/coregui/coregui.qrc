@@ -56,5 +56,7 @@
         <file>images/dark-angle-up.svg</file>
         <file>images/dark-angle-down.svg</file>
         <file>images/dark-close.svg</file>
+        <file>images/depth_instrument.svg</file>
+        <file>images/depth_instrument_shaded.svg</file>
     </qresource>
 </RCC>

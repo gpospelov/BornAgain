@@ -192,6 +192,21 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
         simulation);
 }
 
+// TODO Consider removal addDistributionParametersToSimulation and
+// template <class T> void setParameterDistributionToSimulation in the favor
+// of setBeamDistribution.
+
+void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
+                              const BeamDistributionItem& item, Simulation& simulation)
+{
+    ParameterPattern parameter_pattern;
+    parameter_pattern.beginsWith("*").add(BornAgain::BeamType).add(parameter_name);
+
+    auto P_par_distr = item.getParameterDistributionForName(parameter_pattern.toStdString());
+    if (P_par_distr)
+        simulation.addParameterDistribution(*P_par_distr);
+}
+
 void TransformToDomain::setSimulationOptions(Simulation* simulation,
                                              const SessionItem& item)
 {

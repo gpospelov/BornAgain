@@ -87,6 +87,9 @@ void InstrumentViewActions::onAddInstrument()
     } else if (instrumentType == Constants::SpecularInstrumentType) {
         auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("Specular"));
+    } else if (instrumentType == Constants::DepthProbeInstrumentType) {
+        auto instrument = m_model->insertNewItem(instrumentType);
+        instrument->setItemName(suggestInstrumentName("DepthProbe"));
     } else {
         qInfo() << "InstrumentViewActions::onAddInstrument() -> Not supported instrument type"
                 << instrumentType;
@@ -230,5 +233,10 @@ void InstrumentViewActions::initAddInstrumentMenu()
     action = m_addInstrumentMenu->addAction("Specular");
     action->setData(QVariant::fromValue(Constants::SpecularInstrumentType));
     action->setToolTip("Add Specular instrument with default settings");
+    connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
+
+    action = m_addInstrumentMenu->addAction("DepthProbe");
+    action->setData(QVariant::fromValue(Constants::DepthProbeInstrumentType));
+    action->setToolTip("Add DepthProbe instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 }

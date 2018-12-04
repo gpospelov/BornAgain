@@ -64,6 +64,7 @@
 #include "SphericalDetectorItem.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
+#include "DepthProbeInstrumentItem.h"
 
 ItemCatalogue::ItemCatalogue()
 {
@@ -239,6 +240,8 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::RealLimitsLimitedType, create_new<LimitedItem>);
 
     add(Constants::ProjectionContainerType, create_new<ProjectionContainerItem>);
+
+    add(Constants::DepthProbeInstrumentType, create_new<DepthProbeInstrumentItem>);
 }
 
 bool ItemCatalogue::contains(const QString& modelType) const { return m_data.contains(modelType); }

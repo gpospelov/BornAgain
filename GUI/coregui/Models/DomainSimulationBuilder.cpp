@@ -31,6 +31,8 @@
 #include "SpecularSimulation.h"
 #include "SpecularBeamInclinationItem.h"
 #include "TransformToDomain.h"
+#include "DepthProbeSimulation.h"
+#include "DepthProbeInstrumentItem.h"
 #include "Units.h"
 
 namespace {
@@ -49,6 +51,12 @@ std::unique_ptr<SpecularSimulation>
 createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                          const SpecularInstrumentItem* specular_instrument,
                          const SimulationOptionsItem* options_item);
+
+std::unique_ptr<DepthProbeSimulation>
+createDepthProbeSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                         const DepthProbeInstrumentItem* instrument,
+                         const SimulationOptionsItem* options_item);
+
 }
 
 std::unique_ptr<Simulation>
@@ -70,6 +78,8 @@ DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
         return createOffSpecSimulation(std::move(P_multilayer), offspecInstrument, optionsItem);
     else if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
         return createSpecularSimulation(std::move(P_multilayer), specular_instrument, optionsItem);
+    else if (auto penetrator = dynamic_cast<const DepthProbeInstrumentItem*>(instrumentItem))
+        return createDepthProbeSimulation(std::move(P_multilayer), penetrator, optionsItem);
 
     throw GUIHelpers::Error(
         "DomainSimulationBuilder::createSimulation() -> Error. Not yet implemented");
@@ -160,4 +170,20 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
 
     return specular_simulation;
 }
+
+
+std::unique_ptr<DepthProbeSimulation>
+createDepthProbeSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                         const DepthProbeInstrumentItem* instrument,
+                         const SimulationOptionsItem* options_item)
+{
+    std::unique_ptr<DepthProbeSimulation> simulation = instrument->createSimulation();
+    simulation->setSample(*P_multilayer.get());
+
+    if (options_item)
+        TransformToDomain::setSimulationOptions(simulation.get(), *options_item);
+
+    return simulation;
+}
+
 }

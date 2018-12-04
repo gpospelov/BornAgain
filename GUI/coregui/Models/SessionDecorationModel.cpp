@@ -26,6 +26,7 @@ struct IconCatalogue {
     QIcon gisasIcon;
     QIcon offspecIcon;
     QIcon specularIcon;
+    QIcon depthIcon;
 
     IconCatalogue()
     {
@@ -35,6 +36,8 @@ struct IconCatalogue {
         offspecIcon.addPixmap(QPixmap(":/images/offspec_instrument_shaded.svg"), QIcon::Normal);
         specularIcon.addPixmap(QPixmap(":/images/specular_instrument.svg"), QIcon::Selected);
         specularIcon.addPixmap(QPixmap(":/images/specular_instrument_shaded.svg"), QIcon::Normal);
+        depthIcon.addPixmap(QPixmap(":/images/depth_instrument.svg"), QIcon::Selected);
+        depthIcon.addPixmap(QPixmap(":/images/depth_instrument_shaded.svg"), QIcon::Normal);
     }
 };
 
@@ -69,6 +72,9 @@ QVariant itemIcon(const SessionItem* item)
 
     } else if (modelType == Constants::SpecularInstrumentType) {
         return QVariant(icons.specularIcon);
+
+    } else if (modelType == Constants::DepthProbeInstrumentType) {
+        return QVariant(icons.depthIcon);
 
     } else if (modelType == Constants::MaterialType) {
         auto materialItem = dynamic_cast<const MaterialItem*>(item);

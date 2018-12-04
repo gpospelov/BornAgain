@@ -17,17 +17,12 @@
 #include "CsvImportAssistant.h"
 #include "OutputDataReadFactory.h"
 #include "OutputDataWriteFactory.h"
-//#include <QDebug>
-#include <iostream>
 #include <ctime>
+#include <iostream>
 
-CsvImportAssistantPerformanceTest::CsvImportAssistantPerformanceTest()
-{
-}
+CsvImportAssistantPerformanceTest::CsvImportAssistantPerformanceTest() {}
 
-CsvImportAssistantPerformanceTest::~CsvImportAssistantPerformanceTest()
-{
-}
+CsvImportAssistantPerformanceTest::~CsvImportAssistantPerformanceTest() {}
 
 void CsvImportAssistantPerformanceTest::writeTestFile()
 {
@@ -63,8 +58,6 @@ bool CsvImportAssistantPerformanceTest::runTest()
     std::cout << "CsvImportAssistantPerformanceTest -> Running ..." << std::endl;
     size_t maxRows = 1000;
     size_t maxCols = 1000;
-    double_t millisec_tolerance = 2000.0;
-    bool isTimeShort = true;
 
     for (size_t nRows = 10; nRows <= maxRows; nRows *= 10) {
         for (size_t nCols = 10; nCols <= maxCols; nCols *= 10) {
@@ -90,18 +83,13 @@ bool CsvImportAssistantPerformanceTest::runTest()
             if (RawDataVec.size() != nRows)
                 return false;
 
-            // The test fails if the time was not short:
+            // Report on the test time:
             std::clock_t c_end = std::clock();
             double_t time_spent = 1000.0 * double_t(c_end - c_start) / double_t(CLOCKS_PER_SEC);
-            isTimeShort = millisec_tolerance - time_spent > 0;
             std::cout << "nRows: " << nRows << "; nCols: " << nCols << "; time: " << time_spent
                       << " ms\n"
                       << std::flush;
-            if (!isTimeShort)
-                break;
         }
-        if (!isTimeShort)
-            break;
     }
-    return isTimeShort;
+    return true;
 }

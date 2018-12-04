@@ -150,15 +150,13 @@ void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
     if (item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString() == Constants::UnitsNbins) {
         beamItem()->inclinationAxisGroup()->setCurrentType(Constants::BasicAxisType);
         setShape(item->shape());
-    } else {
-        QString units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
-        const auto& data = item->nativeData()->getOutputData()->getAxis(0);
-
-        auto axis_group = beamItem()->inclinationAxisGroup();
-        axis_group->setCurrentType(Constants::PointwiseAxisType);
-        auto axis = dynamic_cast<PointwiseAxisItem*>(axis_group->currentItem());
-        axis->init(data, units);
+        return;
     }
+
+    // the case of dimensional units in user data
+    QString units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
+    const auto& data = item->nativeData()->getOutputData()->getAxis(0);
+    beamItem()->updateToData(data, units);
 }
 
 bool SpecularInstrumentItem::alignedWith(const RealDataItem* item) const

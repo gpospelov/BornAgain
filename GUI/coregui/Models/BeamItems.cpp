@@ -192,6 +192,14 @@ void SpecularBeamItem::updateFileName(const QString& filename)
     item<SpecularBeamInclinationItem>(BeamItem::P_INCLINATION_ANGLE).updateFileName(filename);
 }
 
+void SpecularBeamItem::updateToData(const IAxis& axis, QString units)
+{
+    auto axis_group = inclinationAxisGroup();
+    axis_group->setCurrentType(Constants::PointwiseAxisType);
+    auto axis_item = static_cast<PointwiseAxisItem*>(axis_group->currentItem());
+    axis_item->init(axis, units);
+}
+
 // GISAS beam item
 /* ------------------------------------------------------------------------- */
 

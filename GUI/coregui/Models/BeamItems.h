@@ -21,6 +21,7 @@ class BasicAxisItem;
 class Beam;
 class FootprintItem;
 class GroupItem;
+class IAxis;
 
 class BA_CORE_API_ BeamItem : public SessionItem
 {
@@ -70,6 +71,7 @@ public:
     FootprintItem* currentFootprintItem() const;
 
     void updateFileName(const QString& filename);
+    void updateToData(const IAxis& axis, QString units);
 };
 
 class BA_CORE_API_ GISASBeamItem : public BeamItem

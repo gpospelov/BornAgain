@@ -1345,6 +1345,9 @@ Returns a pointer to incident angle axis.
 Returns a pointer to z-position axis. 
 ";
 
+%feature("docstring")  DepthProbeSimulation::createUnitConverter "std::unique_ptr< IUnitConverter > DepthProbeSimulation::createUnitConverter() const
+";
+
 
 // File: classDetectionProperties.xml
 %feature("docstring") DetectionProperties "
@@ -10439,6 +10442,21 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
+// File: classLinkedBoxDistributionBuilder.xml
+%feature("docstring") LinkedBoxDistributionBuilder "
+
+Distribution of boxes with main parameter and two linked parameters.
+
+C++ includes: ParticleDistributionsBuilder.h
+";
+
+%feature("docstring")  LinkedBoxDistributionBuilder::LinkedBoxDistributionBuilder "LinkedBoxDistributionBuilder::LinkedBoxDistributionBuilder()=default
+";
+
+%feature("docstring")  LinkedBoxDistributionBuilder::buildSample "MultiLayer * LinkedBoxDistributionBuilder::buildSample() const
+";
+
+
 // File: classLLData.xml
 %feature("docstring") LLData "
 
@@ -15700,10 +15718,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -15769,22 +15787,10 @@ C++ includes: ZLimits.h
 // File: namespace_0D226.xml
 
 
-// File: namespace_0D24.xml
-
-
-// File: namespace_0D26.xml
-
-
-// File: namespace_0D28.xml
-
-
 // File: namespace_0D295.xml
 
 
 // File: namespace_0D299.xml
-
-
-// File: namespace_0D30.xml
 
 
 // File: namespace_0D311.xml
@@ -15827,6 +15833,9 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0D388.xml
+
+
+// File: namespace_0D396.xml
 
 
 // File: namespace_0D409.xml

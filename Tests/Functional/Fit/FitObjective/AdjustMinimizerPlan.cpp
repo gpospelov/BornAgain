@@ -30,7 +30,7 @@ AdjustMinimizerPlan::AdjustMinimizerPlan()
     : FitPlan("AdjustMinimizerPlan")
 {
     setBuilderName("CylindersInBABuilder");
-    setSimulationName("MiniGISAS");
+    setSimulationName("MiniGISASFit");
     addParameter(Parameter("height", 2.0*nm, AttLimits::limited(0.01, 30.0), 0.05), 5.0*nm);
     addParameter(Parameter("radius", 10.0*nm, AttLimits::limited(0.01, 30.0), 0.05), 5.0*nm);
 }

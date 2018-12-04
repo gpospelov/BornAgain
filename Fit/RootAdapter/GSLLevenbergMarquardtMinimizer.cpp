@@ -16,6 +16,8 @@
 #include "GSLMultiMinimizer.h"
 #include "MinimizerUtils.h"
 #include "StringUtils.h"
+#include "AttLimits.h"
+#include <stdexcept>
 
 #ifdef _WIN32
 #pragma warning(push)
@@ -110,4 +112,13 @@ void GSLLevenbergMarquardtMinimizer::propagateOptions()
 const RootMinimizerAdapter::root_minimizer_t* GSLLevenbergMarquardtMinimizer::rootMinimizer() const
 {
     return m_gsl_minimizer.get();
+}
+
+void GSLLevenbergMarquardtMinimizer::setParameter(unsigned int index, const Fit::Parameter& par)
+{
+    auto limits = par.limits();
+    if (!limits.isLimitless() )
+        throw std::runtime_error("GSLLMA minimizer can't handle limited parameters."
+                                 "Please make them free");
+    RootMinimizerAdapter::setParameter(index, par);
 }

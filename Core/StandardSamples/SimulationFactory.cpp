@@ -158,4 +158,9 @@ SimulationFactory::SimulationFactory()
     registerItem("BasicDepthProbe",
                  StandardSimulations::BasicDepthProbe,
                  "Basic 20x20 depth probe simulation with [0, 1] deg angle and [-100, 100] z span");
+
+    registerItem("MiniGISASFit",
+                 StandardSimulations::MiniGISASFit,
+                 "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2]. "
+                 "Beam intensity is set");
 }

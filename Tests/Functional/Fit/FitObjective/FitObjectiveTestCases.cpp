@@ -17,6 +17,9 @@
 MigradCylindersInBA::MigradCylindersInBA()
     : FitObjectiveTest("Minuit2", "Migrad", "CylindersInBAPlan") {}
 
+MigradResidualCylindersInBA::MigradResidualCylindersInBA()
+    : FitObjectiveTest("Minuit2", "Migrad", "CylindersInBAResidualPlan") {}
+
 BfgsCylindersInBA::BfgsCylindersInBA()
     : FitObjectiveTest("GSLMultiMin", "BFGS2", "CylindersInBAEasyPlan") {}
 

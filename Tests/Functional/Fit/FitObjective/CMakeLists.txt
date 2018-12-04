@@ -2,6 +2,7 @@ set(test TestFitObjective)
 
 set(test_cases
     MigradCylindersInBA
+    MigradResidualCylindersInBA
     SpecularFitTest
     MultipleSpecFittingTest    
     FumuliCylindersInBA

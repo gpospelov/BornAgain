@@ -22,6 +22,7 @@
 #include "FootprintItems.h"
 #include "GroupItem.h"
 #include "GUIHelpers.h"
+#include "IAxis.h"
 #include "ParameterTranslators.h"
 #include "PointwiseAxisItem.h"
 #include "SessionItemUtils.h"
@@ -194,6 +195,13 @@ void SpecularBeamItem::updateFileName(const QString& filename)
 
 void SpecularBeamItem::updateToData(const IAxis& axis, QString units)
 {
+    if (units == Constants::UnitsNbins) {
+        inclinationAxisGroup()->setCurrentType(Constants::BasicAxisType);
+        auto axis_item = currentInclinationAxisItem();
+        axis_item->setItemValue(BasicAxisItem::P_NBINS, static_cast<int>(axis.size()));
+        return;
+    }
+
     auto axis_group = inclinationAxisGroup();
     axis_group->setCurrentType(Constants::PointwiseAxisType);
     auto axis_item = static_cast<PointwiseAxisItem*>(axis_group->currentItem());

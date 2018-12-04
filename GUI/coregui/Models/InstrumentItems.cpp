@@ -147,13 +147,10 @@ void SpecularInstrumentItem::setShape(const std::vector<int>& data_shape)
 
 void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
 {
-    if (item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString() == Constants::UnitsNbins) {
-        beamItem()->inclinationAxisGroup()->setCurrentType(Constants::BasicAxisType);
-        setShape(item->shape());
-        return;
-    }
+    if (shape().size() != item->shape().size())
+        throw GUIHelpers::Error("Error in SpecularInstrumentItem::updateToRealData: The type "
+                                "of instrument is incompatible with passed data shape.");
 
-    // the case of dimensional units in user data
     QString units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
     const auto& data = item->nativeData()->getOutputData()->getAxis(0);
     beamItem()->updateToData(data, units);

@@ -33,6 +33,7 @@ class BA_CORE_API_ SpecularBeamWavelengthItem : public BeamWavelengthItem
 {
 public:
     SpecularBeamWavelengthItem();
+    void setToRange(const RealLimits& limits);
 };
 
 #endif // BEAMWAVELENGTHITEM_H

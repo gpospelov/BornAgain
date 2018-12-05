@@ -43,3 +43,12 @@ SpecularBeamWavelengthItem::SpecularBeamWavelengthItem()
     : BeamWavelengthItem(Constants::SpecularBeamWavelengthType,
                          Constants::SymmetricDistributionGroup)
 {}
+
+void SpecularBeamWavelengthItem::setToRange(const RealLimits& limits)
+{
+    SessionItem* valueItem =
+        getGroupItem(P_DISTRIBUTION)->getItem(SymmetricDistributionItem::P_MEAN);
+    if (!limits.isInRange(wavelength()))
+        valueItem->setValue(limits.hasUpperLimit() ? limits.upperLimit() : limits.lowerLimit());
+    valueItem->setLimits(limits);
+}

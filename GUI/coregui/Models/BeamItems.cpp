@@ -28,12 +28,16 @@
 #include "SessionItemUtils.h"
 #include "SpecularBeamInclinationItem.h"
 #include "Units.h"
+#include <cmath>
 
 using SessionItemUtils::GetVectorItem;
 
 namespace
 {
 const QString polarization_tooltip = "Polarization of the beam, given as the Bloch vector";
+
+// defines wavelength limits according to given maximum q value
+RealLimits getLimits(double max_q);
 }
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
@@ -199,12 +203,18 @@ void SpecularBeamItem::updateToData(const IAxis& axis, QString units)
         inclinationAxisGroup()->setCurrentType(Constants::BasicAxisType);
         auto axis_item = currentInclinationAxisItem();
         axis_item->setItemValue(BasicAxisItem::P_NBINS, static_cast<int>(axis.size()));
+        auto wl_item = static_cast<SpecularBeamWavelengthItem*>(getItem(P_WAVELENGTH));
+        wl_item->setToRange(RealLimits::positive());
         return;
     }
 
     auto axis_group = inclinationAxisGroup();
     axis_group->setCurrentType(Constants::PointwiseAxisType);
     auto axis_item = static_cast<PointwiseAxisItem*>(axis_group->currentItem());
+    if (units == Constants::UnitsQyQz) {
+        auto wl_item = static_cast<SpecularBeamWavelengthItem*>(getItem(P_WAVELENGTH));
+        wl_item->setToRange(getLimits(axis.getMax()));
+    }
     axis_item->init(axis, units);
 }
 
@@ -225,4 +235,15 @@ double GISASBeamItem::getInclinationAngle() const
         = dynamic_cast<BeamInclinationAngleItem*>(getItem(P_INCLINATION_ANGLE));
     Q_ASSERT(inclination);
     return inclination->inclinationAngle();
+}
+
+namespace
+{
+RealLimits getLimits(double max_q)
+{
+    double upper_lim = std::nextafter(4.0 * M_PI / max_q, 0.0);
+    RealLimits result = RealLimits::positive();
+    result.setUpperLimit(upper_lim);
+    return result;
+}
 }

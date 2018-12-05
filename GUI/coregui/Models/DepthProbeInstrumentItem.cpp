@@ -62,9 +62,9 @@ std::vector<int> DepthProbeInstrumentItem::shape() const
     throw std::runtime_error("DepthProbeInstrumentItem::shape()");
 }
 
-void DepthProbeInstrumentItem::setShape(const std::vector<int>&)
+void DepthProbeInstrumentItem::updateToRealData(const RealDataItem*)
 {
-    throw std::runtime_error("DepthProbeInstrumentItem::setShape()");
+    throw std::runtime_error("DepthProbeInstrumentItem::updateToRealData()");
 }
 
 std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation() const

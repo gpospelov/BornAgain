@@ -33,7 +33,7 @@ public:
 
     std::unique_ptr<Instrument> createInstrument() const override;
     std::vector<int> shape() const override;
-    void setShape(const std::vector<int>&) override;
+    void updateToRealData(const RealDataItem* item) override;
 
     // FIXME switch to base Simulation class after InstrumentItem refactoring and
     // after Simulation gets createUnitConverter method

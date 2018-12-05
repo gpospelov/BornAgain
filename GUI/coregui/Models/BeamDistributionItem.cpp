@@ -84,7 +84,10 @@ void BeamDistributionItem::initDistributionItem(bool show_mean)
 
     if (!distributionNone)
         return;
+
     const RealLimits limits = distributionNone->getItem(DistributionNoneItem::P_MEAN)->limits();
+    const QString editor_type =
+        distributionNone->getItem(DistributionNoneItem::P_MEAN)->editorType();
 
     for (auto item : groupItem->getItems(GroupItem::T_ITEMS)) {
         DistributionItem* distrItem = dynamic_cast<DistributionItem*>(item);
@@ -95,6 +98,10 @@ void BeamDistributionItem::initDistributionItem(bool show_mean)
 
         distrItem->init_parameters(
             distributionNone->getItemValue(DistributionNoneItem::P_MEAN).toDouble(), limits);
+        if (auto symmetric_distr = dynamic_cast<SymmetricDistributionItem*>(distrItem))
+            symmetric_distr->getItem(SymmetricDistributionItem::P_MEAN)
+                ->setEditorType(editor_type)
+                .setLimits(limits);
 
         // hiding limits from the editor
         if (distrItem->isTag(DistributionItem::P_LIMITS))

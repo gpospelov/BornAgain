@@ -71,12 +71,7 @@ GroupItem* InstrumentItem::backgroundGroup()
     return &item<GroupItem>(P_BACKGROUND);
 }
 
-void InstrumentItem::updateToRealData(const RealDataItem *item)
-{
-    setShape(item->shape());
-}
-
-bool InstrumentItem::alignedWith(const RealDataItem* item)
+bool InstrumentItem::alignedWith(const RealDataItem* item) const
 {
     return shape() == item->shape();
 }
@@ -136,32 +131,18 @@ std::vector<int> SpecularInstrumentItem::shape() const
     return {axis_item->getItemValue(BasicAxisItem::P_NBINS).toInt()};
 }
 
-void SpecularInstrumentItem::setShape(const std::vector<int>& data_shape)
-{
-    if (shape().size() != data_shape.size())
-        throw GUIHelpers::Error("Error in SpecularInstrumentItem::setShape: The type of "
-                                "instrument is incompatible with passed data shape.");
-    auto axis_item = beamItem()->currentInclinationAxisItem();
-    axis_item->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
-}
-
 void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
 {
-    if (item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString() == Constants::UnitsNbins) {
-        beamItem()->inclinationAxisGroup()->setCurrentType(Constants::BasicAxisType);
-        setShape(item->shape());
-    } else {
-        QString units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
-        const auto& data = item->nativeData()->getOutputData()->getAxis(0);
+    if (shape().size() != item->shape().size())
+        throw GUIHelpers::Error("Error in SpecularInstrumentItem::updateToRealData: The type "
+                                "of instrument is incompatible with passed data shape.");
 
-        auto axis_group = beamItem()->inclinationAxisGroup();
-        axis_group->setCurrentType(Constants::PointwiseAxisType);
-        auto axis = dynamic_cast<PointwiseAxisItem*>(axis_group->currentItem());
-        axis->init(data, units);
-    }
+    QString units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
+    const auto& data = item->nativeData()->getOutputData()->getAxis(0);
+    beamItem()->updateToData(data, units);
 }
 
-bool SpecularInstrumentItem::alignedWith(const RealDataItem* item)
+bool SpecularInstrumentItem::alignedWith(const RealDataItem* item) const
 {
     const QString native_units = item->getItemValue(RealDataItem::P_NATIVE_UNITS).toString();
     if (native_units == Constants::UnitsNbins) {
@@ -259,10 +240,14 @@ std::vector<int> GISASInstrumentItem::shape() const
     return {detector_item->xSize(), detector_item->ySize()};
 }
 
-void GISASInstrumentItem::setShape(const std::vector<int>& data_shape)
+void GISASInstrumentItem::updateToRealData(const RealDataItem* item)
 {
+    if (!item)
+        return;
+
+    const auto data_shape = item->shape();
     if (shape().size() != data_shape.size())
-        throw GUIHelpers::Error("Error in GISASInstrumentItem::setShape: The type of "
+        throw GUIHelpers::Error("Error in GISASInstrumentItem::updateToRealData: The type of "
                                 "instrument is incompatible with passed data shape.");
     detectorItem()->setXSize(data_shape[0]);
     detectorItem()->setYSize(data_shape[1]);
@@ -283,10 +268,14 @@ std::vector<int> OffSpecInstrumentItem::shape() const
     return {x_size, detector_item->ySize()};
 }
 
-void OffSpecInstrumentItem::setShape(const std::vector<int>& data_shape)
+void OffSpecInstrumentItem::updateToRealData(const RealDataItem* item)
 {
+    if (!item)
+        return;
+
+    const auto data_shape = item->shape();
     if (shape().size() != data_shape.size())
-        throw GUIHelpers::Error("Error in OffSpecInstrumentItem::setShape: The type of "
+        throw GUIHelpers::Error("Error in OffSpecInstrumentItem::updateToRealData: The type of "
                                 "instrument is incompatible with passed data shape.");
     getItem(OffSpecInstrumentItem::P_ALPHA_AXIS)
         ->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);

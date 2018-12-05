@@ -15,35 +15,35 @@
 #include "UpdateNotifier.h"
 #include "GUIHelpers.h"
 #include "mainwindow_constants.h"
-#include <QMessageBox>
 #include <QtNetwork>
 
-UpdateNotifier::UpdateNotifier(QObject *parent)
+UpdateNotifier::UpdateNotifier(QObject* parent)
     : QObject(parent), m_networkAccessManager(new QNetworkAccessManager(parent))
 {
-    connect(m_networkAccessManager, SIGNAL(finished(QNetworkReply *)), this,
-            SLOT(replyFinished(QNetworkReply *)));
+    connect(m_networkAccessManager, &QNetworkAccessManager::finished,
+            this, &UpdateNotifier::replyFinished);
 }
 
 void UpdateNotifier::checkForUpdates()
 {
-    QSettings settings;
-    if (settings.childGroups().contains(Constants::S_UPDATES)) {
-        settings.beginGroup(Constants::S_UPDATES);
-        if (settings.value(Constants::S_CHECKFORUPDATES).toBool()) {
+    if (hasDefinedUpdatesFlag()) {
+        if (updatesFlag()) {
             QString address(Constants::S_VERSION_URL);
             QUrl url(address);
             QNetworkRequest networkRequest(url);
-            networkRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
-            QString text = QString("Mozilla/5.0 (BornAgainGUI-%1)").arg(GUIHelpers::getBornAgainVersionString());
+            networkRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute,
+                                        QNetworkRequest::AlwaysNetwork);
+            QString text = QString("Mozilla/5.0 (BornAgainGUI-%1)")
+                               .arg(GUIHelpers::getBornAgainVersionString());
             networkRequest.setRawHeader(QByteArray("User-Agent"), text.toLatin1());
             m_networkAccessManager->get(networkRequest);
-        } else
+        } else {
             emit onUpdateNotification(QString(""));
+        }
     }
 }
 
-void UpdateNotifier::replyFinished(QNetworkReply *reply)
+void UpdateNotifier::replyFinished(QNetworkReply* reply)
 {
     QString replyString;
     if (reply->error() == QNetworkReply::NoError) {
@@ -56,7 +56,7 @@ void UpdateNotifier::replyFinished(QNetworkReply *reply)
             QString myVersion = GUIHelpers::getBornAgainVersionString();
 
             // Testwise degrade version
-             myVersion = QString("1.1.0");
+            // myVersion = QString("1.1.0");
 
             if (GUIHelpers::versionCode(versionString) > GUIHelpers::versionCode(myVersion)) {
                 QString message("New version is available: <a href=\"");
@@ -79,11 +79,16 @@ void UpdateNotifier::setCheckUpdatesFlag(bool flag)
     settings.endGroup();
 }
 
-//! Returns true if settings contain a record requiring update
+//! Returns true if there is defined flag requiring check for updates.
 
 bool UpdateNotifier::updatesFlag() const
 {
-    return true;
+    QSettings settings;
+    if (settings.childGroups().contains(Constants::S_UPDATES)) {
+        settings.beginGroup(Constants::S_UPDATES);
+        return settings.value(Constants::S_CHECKFORUPDATES).toBool();
+    }
+    return false;
 }
 
 //! Returns true if settings contain record about user choice for updates.
@@ -93,7 +98,3 @@ bool UpdateNotifier::hasDefinedUpdatesFlag() const
     QSettings settings;
     return settings.childGroups().contains(Constants::S_UPDATES);
 }
-
-
-
-

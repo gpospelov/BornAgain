@@ -35,10 +35,12 @@ protected:
 
 private slots:
     void onUpdateNotification(const QString& text);
+    void onLinkActivated(const QString& text);
 
 private:
     UpdateNotifier* m_updateNotifier;
     QLabel* m_updateLabel;
+    bool m_check_for_updates;
 };
 
 

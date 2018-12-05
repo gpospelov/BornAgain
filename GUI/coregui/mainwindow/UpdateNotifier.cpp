@@ -56,7 +56,7 @@ void UpdateNotifier::replyFinished(QNetworkReply *reply)
             QString myVersion = GUIHelpers::getBornAgainVersionString();
 
             // Testwise degrade version
-            // QString myVersion = QString("1.3.0");
+             myVersion = QString("1.1.0");
 
             if (GUIHelpers::versionCode(versionString) > GUIHelpers::versionCode(myVersion)) {
                 QString message("New version is available: <a href=\"");
@@ -71,20 +71,29 @@ void UpdateNotifier::replyFinished(QNetworkReply *reply)
     reply->deleteLater();
 }
 
-void UpdateNotifier::askForUpdates()
+void UpdateNotifier::setCheckUpdatesFlag(bool flag)
 {
     QSettings settings;
-    if (!settings.childGroups().contains(Constants::S_UPDATES)) {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Updates");
-        msgBox.setText("Should BornAgain check for updates automatically?\n"
-                       "This setting can be changed later in the main window Settings menu.");
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        int ret = msgBox.exec();
-        settings.beginGroup(Constants::S_UPDATES);
-        settings.setValue(Constants::S_CHECKFORUPDATES, ret == QMessageBox::Yes);
-        settings.endGroup();
-    }
-    this->checkForUpdates();
+    settings.beginGroup(Constants::S_UPDATES);
+    settings.setValue(Constants::S_CHECKFORUPDATES, flag);
+    settings.endGroup();
 }
+
+//! Returns true if settings contain a record requiring update
+
+bool UpdateNotifier::updatesFlag() const
+{
+    return true;
+}
+
+//! Returns true if settings contain record about user choice for updates.
+
+bool UpdateNotifier::hasDefinedUpdatesFlag() const
+{
+    QSettings settings;
+    return settings.childGroups().contains(Constants::S_UPDATES);
+}
+
+
+
+

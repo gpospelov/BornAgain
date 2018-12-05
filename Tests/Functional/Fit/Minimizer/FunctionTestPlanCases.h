@@ -61,6 +61,14 @@ public:
     DecayingSinPlan();
 };
 
+//! Same as DecayingSinPlan with fewer fit parameters
+
+class DecayingSinPlanV2 : public ResidualTestPlan
+{
+public:
+    DecayingSinPlanV2();
+};
+
 //! Special plan to test TestMinimizer.
 
 class TestMinimizerPlan : public ScalarTestPlan

@@ -42,8 +42,9 @@ FitObjectiveBuilder::~FitObjectiveBuilder() = default;
 void FitObjectiveBuilder::runFit()
 {
     m_fit_objective = createFitObjective();
-    fcn_scalar_t scalar_func = [&](const Fit::Parameters& params) {
-        return m_fit_objective->evaluate(params);
+
+    fcn_residual_t residual_func = [&](const Fit::Parameters& params) {
+        return m_fit_objective->evaluate_residuals(params);
     };
 
     if (m_observer) {
@@ -56,7 +57,7 @@ void FitObjectiveBuilder::runFit()
     Fit::Minimizer minimizer;
     minimizer.setMinimizer(createMinimizer().release());
 
-    auto result = minimizer.minimize(scalar_func, createParameters());
+    auto result = minimizer.minimize(residual_func, createParameters());
     m_fit_objective->finalize(result);
 }
 

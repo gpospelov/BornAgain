@@ -77,6 +77,15 @@ DecayingSinPlan::DecayingSinPlan()
     addParameter(Parameter("decay", 0.1, AttLimits::nonnegative()), 0.05);
 }
 
+DecayingSinPlanV2::DecayingSinPlanV2()
+    : ResidualTestPlan("DecayingSinPlanV2", TestFunctions::DecayingSin)
+{
+    addParameter(Parameter("amp", 1.0, AttLimits::limitless()), 2.0);
+    addParameter(Parameter("frequency", 1.0, AttLimits::limitless()), 2.0);
+    addParameter(Parameter("phase", 1.0, AttLimits::fixed()), 1.0);
+    addParameter(Parameter("decay", 0.05, AttLimits::fixed()), 0.05);
+}
+
 TestMinimizerPlan::TestMinimizerPlan()
     : ScalarTestPlan("TestMinimizerPlan", TestFunctions::RosenBrock, 0.0)
 {

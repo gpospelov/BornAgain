@@ -25,6 +25,12 @@ public:
     MigradCylindersInBA();
 };
 
+class MigradResidualCylindersInBA : public FitObjectiveTest
+{
+public:
+    MigradResidualCylindersInBA();
+};
+
 class BfgsCylindersInBA : public FitObjectiveTest
 {
 public:

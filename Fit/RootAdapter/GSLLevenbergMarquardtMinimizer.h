@@ -51,6 +51,7 @@ protected:
     virtual bool isGradientBasedAgorithm() override;
     void propagateOptions() override;
     const root_minimizer_t* rootMinimizer() const override;
+    void setParameter(unsigned int index, const Fit::Parameter& par) override;
 
 private:
     std::unique_ptr<ROOT::Math::GSLNLSMinimizer> m_gsl_minimizer;

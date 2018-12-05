@@ -35,7 +35,7 @@ class BA_CORE_API_ RootMinimizerAdapter : public IMinimizer
 public:
     typedef ROOT::Math::Minimizer root_minimizer_t;
 
-    virtual ~RootMinimizerAdapter();
+    virtual ~RootMinimizerAdapter() override;
 
     Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
     Fit::MinimizerResult minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override;

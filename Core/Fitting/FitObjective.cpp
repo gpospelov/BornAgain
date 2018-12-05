@@ -79,11 +79,9 @@ std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& para
 
     std::vector<double> result;
 
-    std::vector<double> weights;
-    weights.resize(numberOfFitElements(), 1.0); // FIXME make correct weights
-
     for(size_t i = 0; i<m_simulation_array.size(); ++i)
-        result.push_back(residual(m_simulation_array[i], m_experimental_array[i], weights[i]));
+        result.push_back(residual(m_simulation_array[i], m_experimental_array[i],
+                                  m_weights_array[i]));
 
     double chi2 = evaluate_chi2(result, params);
 
@@ -109,6 +107,11 @@ std::vector<double> FitObjective::experimental_array() const
 std::vector<double> FitObjective::simulation_array() const
 {
     return m_simulation_array;
+}
+
+std::vector<double> FitObjective::weights_array() const
+{
+    return m_weights_array;
 }
 
 SimulationResult FitObjective::simulationResult(size_t i_item) const
@@ -200,11 +203,13 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
 
     m_simulation_array.clear();
     m_experimental_array.clear();
+    m_weights_array.clear();
 
     for (auto obj : m_fit_objects) {
         obj->runSimulation(params);
         insert_to(m_simulation_array, obj->simulation_array());
         insert_to(m_experimental_array, obj->experimental_array());
+        insert_to(m_weights_array, obj->weights_array());
     }
 }
 

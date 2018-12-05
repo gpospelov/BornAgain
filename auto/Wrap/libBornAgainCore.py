@@ -6461,6 +6461,11 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_simulation_array(self)
 
 
+    def weights_array(self):
+        """weights_array(FitObjective self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitObjective_weights_array(self)
+
+
     def simulationResult(self, i_item=0):
         """
         simulationResult(FitObjective self, size_t i_item=0) -> SimulationResult

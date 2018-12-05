@@ -134,6 +134,11 @@ std::vector<double> SimDataPair::simulation_array() const
     return m_simulation_array;
 }
 
+std::vector<double> SimDataPair::weights_array() const
+{
+    return m_weights_array;
+}
+
 //! Creates new simulation for given set of fit parameters.
 //! If it is first call, save number of fit elements (supposed to stay the same during the fit),
 //! and converts raw user data to SimulationResult.
@@ -149,9 +154,13 @@ void SimDataPair::create_simulation(const Fit::Parameters& params)
         m_experimental_array.clear();
         m_experimental_array.reserve(numberOfFitElements());
 
+        m_weights_array.clear();
+        m_weights_array.reserve(numberOfFitElements());
+
         auto detector = m_simulation->getInstrument().getDetector();
         detector->iterate([&](IDetector::const_iterator it){
             m_experimental_array.push_back(m_experimental_data[it.roiIndex()]);
+            m_weights_array.push_back(m_weight);
         });
     }
 }

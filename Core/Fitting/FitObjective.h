@@ -70,6 +70,9 @@ public:
     //! Data from different datasets merged together.
     std::vector<double> simulation_array() const;
 
+    //! Returns one dimensional array representing weights of bin intensity for residuals.
+    std::vector<double> weights_array() const;
+
     //! Returns simulation result.
     //! @param i_item: the index of fit pair
     SimulationResult simulationResult(size_t i_item = 0) const;
@@ -123,6 +126,7 @@ private:
 
     std::vector<double> m_experimental_array;
     std::vector<double> m_simulation_array;
+    std::vector<double> m_weights_array;
 
     SafePointerVector<SimDataPair> m_fit_objects;
     double m_total_weight;

@@ -14,6 +14,10 @@
 
 #include "BeamWavelengthItem.h"
 
+namespace {
+const double default_wl = 0.1;
+}
+
 BeamWavelengthItem::BeamWavelengthItem(const QString& model_type,const QString& distribution_group)
     : BeamDistributionItem(model_type, m_show_mean)
 {
@@ -22,7 +26,8 @@ BeamWavelengthItem::BeamWavelengthItem(const QString& model_type,const QString& 
     SessionItem *valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_MEAN);
     valueItem->setLimits(RealLimits::positive());
     valueItem->setDecimals(4);
-    valueItem->setValue(0.1);
+    valueItem->setValue(default_wl);
+    valueItem->setEditorType(Constants::ScientificSpinBoxType);
 
     initDistributionItem(m_show_mean);
 }

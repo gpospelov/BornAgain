@@ -18,12 +18,12 @@
 IVarianceFunction::IVarianceFunction() = default;
 IVarianceFunction::~IVarianceFunction() = default;
 
-VarianceDefaultFunction* VarianceDefaultFunction::clone() const
+VarianceConstantFunction* VarianceConstantFunction::clone() const
 {
-    return new VarianceDefaultFunction();
+    return new VarianceConstantFunction();
 }
 
-double VarianceDefaultFunction::variance(double, double) const
+double VarianceConstantFunction::variance(double, double) const
 {
     return 1.0;
 }

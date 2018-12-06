@@ -35,10 +35,10 @@ public:
 //! Returns 1.0 as variance value
 //! @ingroup fitting
 
-class BA_CORE_API_ VarianceDefaultFunction : public IVarianceFunction
+class BA_CORE_API_ VarianceConstantFunction : public IVarianceFunction
 {
 public:
-    VarianceDefaultFunction* clone() const override;
+    VarianceConstantFunction* clone() const override;
     double variance(double, double) const override;
 };
 

@@ -21,6 +21,8 @@
 
 class IVarianceFunction;
 
+//! Base class for variance in Minimizer's residual settings.
+
 class BA_CORE_API_ IVarianceFunctionItem : public SessionItem
 {
 public:
@@ -29,10 +31,10 @@ protected:
     IVarianceFunctionItem(const QString& model_type);
 };
 
-class BA_CORE_API_ VarianceDefaultFunctionItem : public IVarianceFunctionItem
+class BA_CORE_API_ VarianceConstantFunctionItem : public IVarianceFunctionItem
 {
 public:
-    VarianceDefaultFunctionItem();
+    VarianceConstantFunctionItem();
 
     std::unique_ptr<IVarianceFunction> createVarianceFunction() const;
 };

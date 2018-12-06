@@ -5774,40 +5774,40 @@ class IVarianceFunction(_object):
 IVarianceFunction_swigregister = _libBornAgainCore.IVarianceFunction_swigregister
 IVarianceFunction_swigregister(IVarianceFunction)
 
-class VarianceDefaultFunction(IVarianceFunction):
-    """Proxy of C++ VarianceDefaultFunction class."""
+class VarianceConstantFunction(IVarianceFunction):
+    """Proxy of C++ VarianceConstantFunction class."""
 
     __swig_setmethods__ = {}
     for _s in [IVarianceFunction]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, VarianceDefaultFunction, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VarianceConstantFunction, name, value)
     __swig_getmethods__ = {}
     for _s in [IVarianceFunction]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, VarianceDefaultFunction, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, VarianceConstantFunction, name)
     __repr__ = _swig_repr
 
     def clone(self):
-        """clone(VarianceDefaultFunction self) -> VarianceDefaultFunction"""
-        return _libBornAgainCore.VarianceDefaultFunction_clone(self)
+        """clone(VarianceConstantFunction self) -> VarianceConstantFunction"""
+        return _libBornAgainCore.VarianceConstantFunction_clone(self)
 
 
     def variance(self, arg2, arg3):
-        """variance(VarianceDefaultFunction self, double arg2, double arg3) -> double"""
-        return _libBornAgainCore.VarianceDefaultFunction_variance(self, arg2, arg3)
+        """variance(VarianceConstantFunction self, double arg2, double arg3) -> double"""
+        return _libBornAgainCore.VarianceConstantFunction_variance(self, arg2, arg3)
 
 
     def __init__(self):
-        """__init__(VarianceDefaultFunction self) -> VarianceDefaultFunction"""
-        this = _libBornAgainCore.new_VarianceDefaultFunction()
+        """__init__(VarianceConstantFunction self) -> VarianceConstantFunction"""
+        this = _libBornAgainCore.new_VarianceConstantFunction()
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_VarianceDefaultFunction
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceConstantFunction
     __del__ = lambda self: None
-VarianceDefaultFunction_swigregister = _libBornAgainCore.VarianceDefaultFunction_swigregister
-VarianceDefaultFunction_swigregister(VarianceDefaultFunction)
+VarianceConstantFunction_swigregister = _libBornAgainCore.VarianceConstantFunction_swigregister
+VarianceConstantFunction_swigregister(VarianceConstantFunction)
 
 class VarianceSimFunction(IVarianceFunction):
     """Proxy of C++ VarianceSimFunction class."""

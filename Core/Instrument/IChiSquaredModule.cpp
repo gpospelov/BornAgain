@@ -17,7 +17,7 @@
 #include <VarianceFunctions.h>
 
 IChiSquaredModule::IChiSquaredModule()
-    : m_variance_function(new VarianceDefaultFunction)
+    : m_variance_function(new VarianceSimFunction)
 {
 }
 

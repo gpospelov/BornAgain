@@ -22,16 +22,16 @@ IVarianceFunctionItem::IVarianceFunctionItem(const QString& model_type)
 
 }
 
-VarianceDefaultFunctionItem::VarianceDefaultFunctionItem()
-    : IVarianceFunctionItem(Constants::VarianceDefaultFunctionType)
+VarianceConstantFunctionItem::VarianceConstantFunctionItem()
+    : IVarianceFunctionItem(Constants::VarianceConstantFunctionType)
 {
-    setToolTip("Provides default residual normalization (i.e. leaves unnormalized)");
+    setToolTip("Leaves residual value unnormalized");
 
 }
 
-std::unique_ptr<IVarianceFunction> VarianceDefaultFunctionItem::createVarianceFunction() const
+std::unique_ptr<IVarianceFunction> VarianceConstantFunctionItem::createVarianceFunction() const
 {
-    return std::make_unique<VarianceDefaultFunction>();
+    return std::make_unique<VarianceConstantFunction>();
 }
 
 const QString VarianceSimFunctionItem::P_EPSILON = "epsilon";
@@ -40,9 +40,8 @@ VarianceSimFunctionItem::VarianceSimFunctionItem()
     : IVarianceFunctionItem(Constants::VarianceSimFunctionType)
 {
     setToolTip("Normalizes residual on max(sim, epsilon)");
-    addProperty(P_EPSILON, 1.0)
-        ->setToolTip(QStringLiteral("Defines threshold on simulated amplitude max(sim, epsilon)"));
-
+    addProperty(P_EPSILON, 1.0)->setToolTip(QStringLiteral(
+            "Defines threshold on simulated amplitude in max(sim, epsilon)"));
 }
 
 std::unique_ptr<IVarianceFunction> VarianceSimFunctionItem::createVarianceFunction() const

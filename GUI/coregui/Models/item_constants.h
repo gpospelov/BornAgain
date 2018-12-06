@@ -200,7 +200,7 @@ const ModelType FootprintNoneType = "NoFootprint";
 const ModelType FootprintGaussianType = "GaussianFootrpint";
 const ModelType FootprintSquareType = "SquareFootprint";
 
-const ModelType VarianceDefaultFunctionType = "VarianceDefaultFunction";
+const ModelType VarianceConstantFunctionType= "VarianceConstantFunction";
 const ModelType VarianceSimFunctionType = "VarianceSimFunction";
 
 // --- Groups ------------------------------------------------------------------

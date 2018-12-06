@@ -244,7 +244,7 @@ ItemCatalogue::ItemCatalogue()
 
     add(Constants::DepthProbeInstrumentType, create_new<DepthProbeInstrumentItem>);
 
-    add(Constants::VarianceDefaultFunctionType, create_new<VarianceDefaultFunctionItem>);
+    add(Constants::VarianceConstantFunctionType, create_new<VarianceConstantFunctionItem>);
     add(Constants::VarianceSimFunctionType, create_new<VarianceSimFunctionItem>);
 }
 

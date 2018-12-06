@@ -65,6 +65,8 @@ void UpdateNotifier::replyFinished(QNetworkReply* reply)
                 message.append(replyString);
                 message.append("</a>");
                 emit onUpdateNotification(message);
+            } else {
+                emit onUpdateNotification(QString(""));
             }
         }
     };

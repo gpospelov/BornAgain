@@ -157,15 +157,14 @@ SpecularBeamItem::SpecularBeamItem() : BeamItem(Constants::SpecularBeamType)
                     axis_item->updateIndicators();
             },
             this);
+
+    inclinationAxisGroup()->mapper()->setOnValueChange([this]() { updateWavelength(); }, this);
 }
 
 SpecularBeamItem::~SpecularBeamItem() = default;
 
 double SpecularBeamItem::getInclinationAngle() const
 {
-    Q_ASSERT(
-        dynamic_cast<BeamDistributionItem*>(getItem(P_INCLINATION_ANGLE))->meanValue()
-        == 0.0);
     return 0.0;
 }
 
@@ -203,19 +202,27 @@ void SpecularBeamItem::updateToData(const IAxis& axis, QString units)
         inclinationAxisGroup()->setCurrentType(Constants::BasicAxisType);
         auto axis_item = currentInclinationAxisItem();
         axis_item->setItemValue(BasicAxisItem::P_NBINS, static_cast<int>(axis.size()));
-        auto wl_item = static_cast<SpecularBeamWavelengthItem*>(getItem(P_WAVELENGTH));
-        wl_item->setToRange(RealLimits::positive());
         return;
     }
 
     auto axis_group = inclinationAxisGroup();
-    axis_group->setCurrentType(Constants::PointwiseAxisType);
-    auto axis_item = static_cast<PointwiseAxisItem*>(axis_group->currentItem());
-    if (units == Constants::UnitsQyQz) {
-        auto wl_item = static_cast<SpecularBeamWavelengthItem*>(getItem(P_WAVELENGTH));
-        wl_item->setToRange(getLimits(axis.getMax()));
-    }
+    auto axis_item =
+        static_cast<PointwiseAxisItem*>(axis_group->getChildOfType(Constants::PointwiseAxisType));
     axis_item->init(axis, units);
+    axis_group->setCurrentType(Constants::PointwiseAxisType); // calls updateWavelength()
+    axis_item->updateIndicators();
+}
+
+void SpecularBeamItem::updateWavelength()
+{
+    auto item = inclinationAxisGroup()->currentItem();
+    auto wl_item = static_cast<SpecularBeamWavelengthItem*>(getItem(P_WAVELENGTH));
+    if (auto axis_item = dynamic_cast<PointwiseAxisItem*>(item)) {
+        auto axis = axis_item->getAxis();
+        if (axis && axis_item->getUnitsLabel() == Constants::UnitsQyQz)
+            wl_item->setToRange(getLimits(axis->getMax()));
+    } else
+        wl_item->setToRange(RealLimits::positive());
 }
 
 // GISAS beam item

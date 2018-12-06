@@ -56,7 +56,7 @@ void cropRealData(JobItem* jobItem);
 //! Creates necessary fit containers for jobItem intended for fitting.
 void createFitContainers(JobItem* jobItem);
 
-PointwiseAxisItem* getPointwiseAxisItem(const InstrumentItem* instrument);
+PointwiseAxisItem* getPointwiseAxisItem(const SpecularInstrumentItem* instrument);
 } // namespace
 
 void JobModelFunctions::initDataView(JobItem* job_item)
@@ -113,23 +113,30 @@ void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLaye
 }
 
 void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
-                                               const InstrumentItem* instrumentItem)
+                                               const InstrumentItem* from)
 {
     auto model = jobItem->model();
-    SessionItem* instrument = model->copyItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
-    instrument->setItemName(instrumentItem->modelType());
-    jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
-    if (auto spec_instrument = dynamic_cast<SpecularInstrumentItem*>(instrument)) {
-        // updating filename
-        const auto filename = ItemFileNameUtils::instrumentDataFileName(*spec_instrument);
-        spec_instrument->beamItem()->updateFileName(filename);
+    SessionItem* to = model->copyItem(from, jobItem, JobItem::T_INSTRUMENT);
+    to->setItemName(from->modelType());
+    to->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
+    jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(from->itemName());
 
-        // copying axis data
-        auto origin = getPointwiseAxisItem(instrumentItem);
-        if (origin->containsNonXMLData())
-            getPointwiseAxisItem(spec_instrument)
-                ->init(*origin->getAxis(), origin->getUnitsLabel());
-    }
+    auto spec_to = dynamic_cast<SpecularInstrumentItem*>(to);
+    if (!spec_to)
+        return;
+
+    // updating filename
+    const auto filename = ItemFileNameUtils::instrumentDataFileName(*spec_to);
+    spec_to->beamItem()->updateFileName(filename);
+
+    // copying axis data
+    auto spec_from = static_cast<const SpecularInstrumentItem*>(from);
+    auto axis_origin = getPointwiseAxisItem(spec_from);
+    const QString current_axis_type= spec_from->beamItem()->inclinationAxisGroup()->currentType();
+    if (current_axis_type == Constants::PointwiseAxisType)
+        spec_to->beamItem()->updateToData(*axis_origin->getAxis(), axis_origin->getUnitsLabel());
+    else if(axis_origin->containsNonXMLData())
+        getPointwiseAxisItem(spec_to)->init(*axis_origin->getAxis(), axis_origin->getUnitsLabel());
 }
 
 //! Setup items intended for storing results of the job.
@@ -281,14 +288,10 @@ void createFitContainers(JobItem* jobItem)
         Constants::MinimizerContainerType, fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
 }
 
-PointwiseAxisItem* getPointwiseAxisItem(const InstrumentItem* instrument)
+PointwiseAxisItem* getPointwiseAxisItem(const SpecularInstrumentItem* instrument)
 {
-    auto spec_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrument);
-    if (!spec_instrument)
-        return nullptr;
-
     return dynamic_cast<PointwiseAxisItem*>(
-        spec_instrument->beamItem()->inclinationAxisGroup()->getChildOfType(
+        instrument->beamItem()->inclinationAxisGroup()->getChildOfType(
             Constants::PointwiseAxisType));
 }
 } // namespace

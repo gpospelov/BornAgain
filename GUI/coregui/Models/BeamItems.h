@@ -72,6 +72,9 @@ public:
 
     void updateFileName(const QString& filename);
     void updateToData(const IAxis& axis, QString units);
+
+private:
+    void updateWavelength();
 };
 
 class BA_CORE_API_ GISASBeamItem : public BeamItem

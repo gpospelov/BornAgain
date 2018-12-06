@@ -292,6 +292,7 @@ TEST_F(TestSavingSpecularData, test_CopyInstrumentToJobItem)
     // Checking existance of data on disk
     QString fname1 = "./" + projectDir + "/" + pointwise_axis_item->fileName();
     QString fname2 = "./" + projectDir + "/" + job_axis_item->fileName();
+    EXPECT_FALSE(fname1 == fname2);
     EXPECT_TRUE(ProjectUtils::exists(fname1));
     EXPECT_TRUE(ProjectUtils::exists(fname2));
 

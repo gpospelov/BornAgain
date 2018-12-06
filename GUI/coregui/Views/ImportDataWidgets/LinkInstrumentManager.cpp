@@ -108,11 +108,10 @@ bool LinkInstrumentManager::canLinkDataToInstrument(const RealDataItem* realData
     if (!ImportDataUtils::Compatible(*instrumentItem, *realDataItem)) {
         QMessageBox::warning(nullptr, "Can't link to instrument",
                              "Can't link, data is incompatible with the instrument.");
-
         return false;
     }
 
-    if (!realDataItem->holdsDimensionalData() && instrumentItem->shape() == realDataItem->shape())
+    if (instrumentItem->alignedWith(realDataItem))
         return true;
 
     QString message =
@@ -156,11 +155,7 @@ void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem* instrument,
     if (child == nullptr)
         return;
 
-    if (child->itemName() == BasicAxisItem::P_NBINS
-        || child->parent()->modelType() == Constants::GroupItemType)
-        onInstrumentBinningChange(instrument);
-    else
-        onInstrumentLayoutChange(instrument);
+    onInstrumentLayoutChange(instrument);
 }
 
 //! Updates map of instruments on insert/remove InstrumentItem event.
@@ -249,22 +244,16 @@ void LinkInstrumentManager::updateRealDataMap()
     }
 }
 
-//! Runs through all RealDataItem and break the link, if instrument binning doesn't match the data.
-
-void LinkInstrumentManager::onInstrumentBinningChange(InstrumentItem* changedInstrument)
-{
-    for(auto realDataItem : linkedItems(changedInstrument))
-        if (!changedInstrument->alignedWith(realDataItem))
-            realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
-}
-
 //! Runs through all RealDataItem and refresh linking to match possible change in detector
 //! axes definition.
 
 void LinkInstrumentManager::onInstrumentLayoutChange(InstrumentItem* changedInstrument)
 {
     for (auto realDataItem : linkedItems(changedInstrument))
-        realDataItem->linkToInstrument(changedInstrument);
+        if (!changedInstrument->alignedWith(realDataItem))
+            realDataItem->setItemValue(RealDataItem::P_INSTRUMENT_ID, QString());
+        else
+            realDataItem->linkToInstrument(changedInstrument);
 }
 
 //! Returns list of RealDataItem's linked to given instrument.

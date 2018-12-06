@@ -51,7 +51,6 @@ void PointwiseAxisItem::init(const IAxis& axis, const QString& units_label)
     m_axis = std::unique_ptr<IAxis>(axis.clone());
     setItemValue(P_NATIVE_UNITS, units_label);
     findInstrument();
-    updateIndicators();
 }
 
 const IAxis* PointwiseAxisItem::getAxis() const

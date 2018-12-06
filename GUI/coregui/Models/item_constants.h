@@ -200,6 +200,9 @@ const ModelType FootprintNoneType = "NoFootprint";
 const ModelType FootprintGaussianType = "GaussianFootrpint";
 const ModelType FootprintSquareType = "SquareFootprint";
 
+const ModelType VarianceDefaultFunctionType = "VarianceDefaultFunction";
+const ModelType VarianceSimFunctionType = "VarianceSimFunction";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -222,6 +225,7 @@ const ModelType BackgroundGroup = "Background group";
 const ModelType MaterialDataGroup = "Material data group";
 const ModelType FootprintGroup = "Footprint group";
 const ModelType AxesGroup = "Axes group";
+const ModelType VarianceFunctionGroup = "Variance group";
 
 // --- Units&Constants----------------------------------------------------------
 

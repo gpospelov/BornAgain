@@ -65,6 +65,7 @@
 #include "TransformationItem.h"
 #include "VectorItem.h"
 #include "DepthProbeInstrumentItem.h"
+#include "VarianceFunctionItems.h"
 
 ItemCatalogue::ItemCatalogue()
 {
@@ -242,6 +243,9 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::ProjectionContainerType, create_new<ProjectionContainerItem>);
 
     add(Constants::DepthProbeInstrumentType, create_new<DepthProbeInstrumentItem>);
+
+    add(Constants::VarianceDefaultFunctionType, create_new<VarianceDefaultFunctionItem>);
+    add(Constants::VarianceSimFunctionType, create_new<VarianceSimFunctionItem>);
 }
 
 bool ItemCatalogue::contains(const QString& modelType) const { return m_data.contains(modelType); }

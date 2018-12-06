@@ -22,6 +22,8 @@
 #include "SimAnMinimizer.h"
 #include "TestMinimizer.h"
 #include "IIntensityFunction.h"
+#include "VarianceFunctions.h"
+#include "VarianceFunctionItems.h"
 
 namespace  {
 const QString none_fun = "None";
@@ -39,6 +41,7 @@ MinimizerItem::MinimizerItem(const QString &model_type) : SessionItem(model_type
 
 const QString MinimizerContainerItem::P_MINIMIZERS = "Minimizer";
 const QString MinimizerContainerItem::P_INTENSITY_FUNCTION = "Intensity function";
+const QString MinimizerContainerItem::P_VARIANCE_FUNCTIONS = "Variance";
 
 MinimizerContainerItem::MinimizerContainerItem() : MinimizerItem(Constants::MinimizerContainerType)
 {
@@ -50,6 +53,8 @@ MinimizerContainerItem::MinimizerContainerItem() : MinimizerItem(Constants::Mini
                 "Function to apply for both simulated and experimental intensities \n"
                 "before calculating the value of residual.");
 
+    addGroupProperty(P_VARIANCE_FUNCTIONS, Constants::VarianceFunctionGroup)
+        ->setToolTip(QStringLiteral("Variance functions for residual normalization"));
 
 }
 
@@ -69,6 +74,12 @@ std::unique_ptr<IIntensityFunction> MinimizerContainerItem::createIntensityFunct
     } else {
         return std::unique_ptr<IIntensityFunction>();
     }
+}
+
+std::unique_ptr<IVarianceFunction> MinimizerContainerItem::createVarianceFunction() const
+{
+    auto& variance_item = groupItem<IVarianceFunctionItem>(P_VARIANCE_FUNCTIONS);
+    return variance_item.createVarianceFunction();
 }
 
 // ----------------------------------------------------------------------------

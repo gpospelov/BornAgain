@@ -185,6 +185,12 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::PointwiseAxisType, "Non-uniform axis");
     info.setDefaultType(Constants::BasicAxisType);
     addInfo(info);
+
+    info = GroupInfo(Constants::VarianceFunctionGroup);
+    info.add(Constants::VarianceDefaultFunctionType, "Default");
+    info.add(Constants::VarianceSimFunctionType, "Sim error");
+    info.setDefaultType(Constants::VarianceDefaultFunctionType);
+    addInfo(info);
 }
 
 GroupInfo GroupInfoCatalogue::groupInfo(const QString& groupType) const

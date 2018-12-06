@@ -25,6 +25,7 @@ namespace Fit { class Parameters; }
 template<class T> class OutputData;
 class IMinimizer;
 class GUIFitObserver;
+class IChiSquaredModule;
 
 class BA_CORE_API_ FitObjectiveBuilder
 {
@@ -36,6 +37,7 @@ public:
 
     std::unique_ptr<FitObjective> createFitObjective() const;
     std::unique_ptr<IMinimizer> createMinimizer() const;
+    std::unique_ptr<IChiSquaredModule> createChiSquaredModule() const;
 
     Fit::Parameters createParameters() const;
 

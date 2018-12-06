@@ -30,6 +30,7 @@
 #include "IMinimizer.h"
 #include "Minimizer.h"
 #include "GUIFitObserver.h"
+#include "ChiSquaredModule.h"
 
 FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem)
     : m_jobItem(jobItem)
@@ -42,6 +43,9 @@ FitObjectiveBuilder::~FitObjectiveBuilder() = default;
 void FitObjectiveBuilder::runFit()
 {
     m_fit_objective = createFitObjective();
+
+    auto module = createChiSquaredModule();
+    m_fit_objective->setChiSquaredModule(*module);
 
     fcn_residual_t residual_func = [&](const Fit::Parameters& params) {
         return m_fit_objective->evaluate_residuals(params);
@@ -78,6 +82,17 @@ std::unique_ptr<IMinimizer> FitObjectiveBuilder::createMinimizer() const
 {
     auto fitSuiteItem = m_jobItem->fitSuiteItem();
     return fitSuiteItem->minimizerContainerItem()->createMinimizer();
+}
+
+std::unique_ptr<IChiSquaredModule> FitObjectiveBuilder::createChiSquaredModule() const
+{
+    std::unique_ptr<IChiSquaredModule> result = std::make_unique<ChiSquaredModule>();
+
+    auto fitSuiteItem = m_jobItem->fitSuiteItem();
+    auto intensityFunction = fitSuiteItem->minimizerContainerItem()->createIntensityFunction();
+    if (intensityFunction)
+        result->setIntensityFunction(*intensityFunction);
+    return result;
 }
 
 Fit::Parameters FitObjectiveBuilder::createParameters() const

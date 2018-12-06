@@ -6662,6 +6662,11 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_run_simulations(self, params)
 
 
+    def setChiSquaredModule(self, module):
+        """setChiSquaredModule(FitObjective self, IChiSquaredModule module)"""
+        return _libBornAgainCore.FitObjective_setChiSquaredModule(self, module)
+
+
     def addSimulationAndData(self, callback, data, weight = 1.0):
         if not hasattr(self, 'callback_container'):
             self.callback_container = []

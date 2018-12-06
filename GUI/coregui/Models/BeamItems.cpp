@@ -165,9 +165,6 @@ SpecularBeamItem::~SpecularBeamItem() = default;
 
 double SpecularBeamItem::getInclinationAngle() const
 {
-    Q_ASSERT(
-        dynamic_cast<BeamDistributionItem*>(getItem(P_INCLINATION_ANGLE))->meanValue()
-        == 0.0);
     return 0.0;
 }
 

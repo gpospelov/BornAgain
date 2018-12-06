@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IVARIANCEFUNCTION_H
-#define IVARIANCEFUNCTION_H
+#ifndef VARIANCEFUNCTIONS_H
+#define VARIANCEFUNCTIONS_H
 
 #include "WinDllMacros.h"
 
@@ -56,4 +56,4 @@ private:
     double m_epsilon;
 };
 
-#endif // IVARIANCEFUNCTION_H
+#endif // VARIANCEFUNCTIONS_H

@@ -48,7 +48,11 @@ void SpecularBeamWavelengthItem::setToRange(const RealLimits& limits)
 {
     SessionItem* valueItem =
         getGroupItem(P_DISTRIBUTION)->getItem(SymmetricDistributionItem::P_MEAN);
-    if (!limits.isInRange(wavelength()))
-        valueItem->setValue(limits.hasUpperLimit() ? limits.upperLimit() : limits.lowerLimit());
+    if (!limits.isInRange(wavelength())) {
+        const double new_value = limits.isLimited()
+                ? (limits.upperLimit() - limits.lowerLimit()) / 2.
+                : default_wl;
+        valueItem->setValue(new_value);
+    }
     valueItem->setLimits(limits);
 }

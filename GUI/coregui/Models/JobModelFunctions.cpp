@@ -118,6 +118,7 @@ void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
     auto model = jobItem->model();
     SessionItem* to = model->copyItem(from, jobItem, JobItem::T_INSTRUMENT);
     to->setItemName(from->modelType());
+    to->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(from->itemName());
 
     auto spec_to = dynamic_cast<SpecularInstrumentItem*>(to);

@@ -1,7 +1,7 @@
 #include "google_test.h"
 #include "BornAgainNamespace.h"
 #include "ChiSquaredModule.h"
-#include "ISquaredFunction.h"
+#include "VarianceFunctions.h"
 
 // TODO revise test
 

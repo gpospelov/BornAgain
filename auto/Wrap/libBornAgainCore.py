@@ -5860,9 +5860,9 @@ class VarianceSimFunction(IVarianceFunction):
     __getattr__ = lambda self, name: _swig_getattr(self, VarianceSimFunction, name)
     __repr__ = _swig_repr
 
-    def __init__(self, epsilon=1):
+    def __init__(self, epsilon=1.0):
         """
-        __init__(VarianceSimFunction self, double epsilon=1) -> VarianceSimFunction
+        __init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction
         __init__(VarianceSimFunction self) -> VarianceSimFunction
         """
         this = _libBornAgainCore.new_VarianceSimFunction(epsilon)

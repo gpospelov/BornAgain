@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/ISquaredFunction.cpp
-//! @brief     Implements classes ISquaredFunction, SquaredFunctionDefault, ...
+//! @file      Core/Instrument/VarianceFunctions.cpp
+//! @brief     Implements IVarianceFunction classes
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "ISquaredFunction.h"
+#include "VarianceFunctions.h"
 #include <algorithm>
 
 IVarianceFunction::IVarianceFunction() = default;

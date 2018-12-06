@@ -21,6 +21,13 @@
 #include "GSLLevenbergMarquardtMinimizer.h"
 #include "SimAnMinimizer.h"
 #include "TestMinimizer.h"
+#include "IIntensityFunction.h"
+
+namespace  {
+const QString none_fun = "None";
+const QString sqrt_fun = "sqrt";
+const QString log10_fun = "log";
+}
 
 // ----------------------------------------------------------------------------
 
@@ -31,16 +38,37 @@ MinimizerItem::MinimizerItem(const QString &model_type) : SessionItem(model_type
 // ----------------------------------------------------------------------------
 
 const QString MinimizerContainerItem::P_MINIMIZERS = "Minimizer";
+const QString MinimizerContainerItem::P_INTENSITY_FUNCTION = "Intensity function";
 
 MinimizerContainerItem::MinimizerContainerItem() : MinimizerItem(Constants::MinimizerContainerType)
 {
     addGroupProperty(P_MINIMIZERS, Constants::MinimizerLibraryGroup)
         ->setToolTip(QStringLiteral("Minimizer library"));
+
+    ComboProperty combo = ComboProperty() << none_fun << sqrt_fun << log10_fun;
+    addProperty(P_INTENSITY_FUNCTION, combo.variant())->setToolTip(
+                "Function to apply for both simulated and experimental intensities \n"
+                "before calculating the value of residual.");
+
+
 }
 
 std::unique_ptr<IMinimizer> MinimizerContainerItem::createMinimizer() const
 {
     return groupItem<MinimizerItem>(P_MINIMIZERS).createMinimizer();
+}
+
+std::unique_ptr<IIntensityFunction> MinimizerContainerItem::createIntensityFunction() const
+{
+    QString value = getItemValue(P_INTENSITY_FUNCTION).value<ComboProperty>().getValue();
+
+    if (value == sqrt_fun) {
+        return std::make_unique<IntensityFunctionSqrt>();
+    } else if(value == log10_fun) {
+        return std::make_unique<IntensityFunctionLog>();
+    } else {
+        return std::unique_ptr<IIntensityFunction>();
+    }
 }
 
 // ----------------------------------------------------------------------------

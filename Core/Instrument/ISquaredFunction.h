@@ -27,8 +27,6 @@ public:
     ISquaredFunction() {}
     virtual ~ISquaredFunction() {}
     virtual ISquaredFunction* clone() const =0;
-    virtual double calculateSquaredDifference(
-                double real_value, double simulated_value) const =0;
     virtual double calculateSquaredError(
                 double real_value, double simulated_value = 0.0) const =0;
 
@@ -47,7 +45,6 @@ public:
     SquaredFunctionDefault() {}
     ~SquaredFunctionDefault() {}
     SquaredFunctionDefault* clone() const override;
-    double calculateSquaredDifference(double real_value, double simulated_value) const override;
     double calculateSquaredError(double real_value, double simulated_value = 0) const override;
 };
 
@@ -62,7 +59,6 @@ public:
     SquaredFunctionSimError() {}
     ~SquaredFunctionSimError() {}
     SquaredFunctionSimError *clone() const override;
-    double calculateSquaredDifference(double real_value, double simulated_value) const override;
     double calculateSquaredError(double real_value, double simulated_value) const override;
 };
 
@@ -78,7 +74,6 @@ public:
     SquaredFunctionMeanSquaredError() {}
     ~SquaredFunctionMeanSquaredError() {}
     SquaredFunctionMeanSquaredError* clone() const override;
-    double calculateSquaredDifference(double real_value, double simulated_value) const override;
     double calculateSquaredError(double real_value, double simulated_value) const override;
 };
 
@@ -93,7 +88,6 @@ public:
     SquaredFunctionSystematicError(double epsilon = 0.08) : m_epsilon(epsilon){}
     ~SquaredFunctionSystematicError() {}
     SquaredFunctionSystematicError *clone() const override;
-    double calculateSquaredDifference(double real_value, double simulated_value) const override;
     double calculateSquaredError(double real_value, double simulated_value) const override;
 private:
     double m_epsilon;
@@ -110,7 +104,6 @@ public:
     SquaredFunctionGaussianError(double sigma = 0.01) : m_sigma(sigma){}
     ~SquaredFunctionGaussianError() {}
     SquaredFunctionGaussianError *clone() const override;
-    double calculateSquaredDifference(double real_value, double simulated_value) const override;
     double calculateSquaredError(double real_value, double simulated_value) const override;
 private:
     double m_sigma;

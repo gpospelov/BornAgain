@@ -22,15 +22,6 @@ SquaredFunctionDefault* SquaredFunctionDefault::clone() const
     return new SquaredFunctionDefault();
 }
 
-double SquaredFunctionDefault::calculateSquaredDifference(
-        double real_value, double simulated_value) const
-{
-    if (Numeric::areAlmostEqual(real_value, simulated_value))
-        return 0.;
-    double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-    double normalization = calculateSquaredError(real_value);
-    return diff_squared/normalization;
-}
 
 double SquaredFunctionDefault::calculateSquaredError(
         double real_value, double simulated_value) const
@@ -46,15 +37,6 @@ SquaredFunctionSimError* SquaredFunctionSimError::clone() const
     return new SquaredFunctionSimError();
 }
 
-double SquaredFunctionSimError::calculateSquaredDifference(
-        double real_value, double simulated_value) const
-{
-    if (Numeric::areAlmostEqual(real_value, simulated_value))
-        return 0.0;
-    double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-    double normalization = calculateSquaredError(real_value, simulated_value);
-    return diff_squared/normalization;
-}
 
 double SquaredFunctionSimError::calculateSquaredError(double, double simulated_value) const
 {
@@ -68,14 +50,6 @@ SquaredFunctionMeanSquaredError* SquaredFunctionMeanSquaredError::clone() const
     return new SquaredFunctionMeanSquaredError();
 }
 
-double SquaredFunctionMeanSquaredError::calculateSquaredDifference(
-        double real_value, double simulated_value) const
-{
-    if (Numeric::areAlmostEqual(real_value, simulated_value)) return 0.0;
-    double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-    double normalization = calculateSquaredError(real_value, simulated_value);
-    return diff_squared/normalization;
-}
 
 double SquaredFunctionMeanSquaredError::calculateSquaredError(
         double real_value, double simulated_value) const
@@ -93,13 +67,6 @@ SquaredFunctionSystematicError* SquaredFunctionSystematicError::clone() const
     return new SquaredFunctionSystematicError(m_epsilon);
 }
 
-double SquaredFunctionSystematicError::calculateSquaredDifference(
-        double real_value, double simulated_value) const
-{
-    double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-    double normalization = calculateSquaredError(real_value, simulated_value);
-    return diff_squared/normalization;
-}
 
 double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double) const
 {
@@ -113,13 +80,6 @@ SquaredFunctionGaussianError*SquaredFunctionGaussianError::clone() const
     return new SquaredFunctionGaussianError(m_sigma);
 }
 
-double SquaredFunctionGaussianError::calculateSquaredDifference(
-        double real_value, double simulated_value) const
-{
-    double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-    double sigma_squared = m_sigma*m_sigma;
-    return diff_squared/sigma_squared;
-}
 
 double SquaredFunctionGaussianError::calculateSquaredError(double, double) const
 {

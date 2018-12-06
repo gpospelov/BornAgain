@@ -32,6 +32,7 @@
 #include "GUIFitObserver.h"
 #include "ChiSquaredModule.h"
 #include "IIntensityFunction.h"
+#include "VarianceFunctions.h"
 
 FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem)
     : m_jobItem(jobItem)
@@ -93,6 +94,8 @@ std::unique_ptr<IChiSquaredModule> FitObjectiveBuilder::createChiSquaredModule()
     auto intensityFunction = fitSuiteItem->minimizerContainerItem()->createIntensityFunction();
     if (intensityFunction)
         result->setIntensityFunction(*intensityFunction);
+    auto variaceFunction = fitSuiteItem->minimizerContainerItem()->createVarianceFunction();
+    result->setVarianceFunction(*variaceFunction);
     return result;
 }
 

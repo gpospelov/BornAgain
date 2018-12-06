@@ -20,7 +20,7 @@ ChiSquaredModuleTest::~ChiSquaredModuleTest() = default;
 
 TEST_F(ChiSquaredModuleTest, InitialState)
 {
-    EXPECT_TRUE(dynamic_cast<const SquaredFunctionDefault*>(m_chi_empty.getSquaredFunction()));
+    EXPECT_TRUE(dynamic_cast<const VarianceDefaultFunction*>(m_chi_empty.getSquaredFunction()));
     EXPECT_EQ(nullptr, m_chi_empty.getIntensityNormalizer());
     EXPECT_EQ(nullptr, m_chi_empty.getIntensityFunction());
 }
@@ -28,7 +28,7 @@ TEST_F(ChiSquaredModuleTest, InitialState)
 TEST_F(ChiSquaredModuleTest, CloneOfEmpty)
 {
     ChiSquaredModule* clone_of_empty = m_chi_empty.clone();
-    EXPECT_TRUE(dynamic_cast<const SquaredFunctionDefault*>(clone_of_empty->getSquaredFunction()));
+    EXPECT_TRUE(dynamic_cast<const VarianceDefaultFunction*>(clone_of_empty->getSquaredFunction()));
     EXPECT_EQ(nullptr, clone_of_empty->getIntensityNormalizer());
     EXPECT_EQ(nullptr, clone_of_empty->getIntensityFunction());
     delete clone_of_empty;

@@ -5214,7 +5214,7 @@ class IChiSquaredModule(ICloneable):
 
     def getSquaredFunction(self):
         """
-        getSquaredFunction(IChiSquaredModule self) -> ISquaredFunction
+        getSquaredFunction(IChiSquaredModule self) -> IVarianceFunction
 
         const ISquaredFunction* IChiSquaredModule::getSquaredFunction() const
 
@@ -5226,8 +5226,8 @@ class IChiSquaredModule(ICloneable):
 
     def setChiSquaredFunction(self, *args):
         """
-        setChiSquaredFunction(IChiSquaredModule self, ISquaredFunction squared_function)
-        setChiSquaredFunction(IChiSquaredModule self, ISquaredFunction squared_function)
+        setChiSquaredFunction(IChiSquaredModule self, IVarianceFunction squared_function)
+        setChiSquaredFunction(IChiSquaredModule self, IVarianceFunction squared_function)
 
         void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction &squared_function)
 
@@ -5282,16 +5282,6 @@ class IChiSquaredModule(ICloneable):
 
         """
         return _libBornAgainCore.IChiSquaredModule_setIntensityFunction(self, intensity_function)
-
-
-    def processFitElements(self, arg2, arg3):
-        """
-        processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg2, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3)
-
-        virtual void IChiSquaredModule::processFitElements(std::vector< FitElement >::iterator, std::vector< FitElement >::iterator)
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_processFitElements(self, arg2, arg3)
 
 
     def residual(self, a, b, weight):
@@ -5796,355 +5786,104 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
 IntensityScaleAndShiftNormalizer_swigregister = _libBornAgainCore.IntensityScaleAndShiftNormalizer_swigregister
 IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
 
-class ISquaredFunction(_object):
-    """
-
-
-    Interface providing measures for deviation between two values. Used By  ChiSquaredModule for chi2 calculations.
-
-    C++ includes: ISquaredFunction.h
-
-    """
+class IVarianceFunction(_object):
+    """Proxy of C++ IVarianceFunction class."""
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ISquaredFunction, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IVarianceFunction, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, ISquaredFunction, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, IVarianceFunction, name)
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ISquaredFunction
+    __swig_destroy__ = _libBornAgainCore.delete_IVarianceFunction
     __del__ = lambda self: None
 
     def clone(self):
-        """
-        clone(ISquaredFunction self) -> ISquaredFunction
-
-        virtual ISquaredFunction* ISquaredFunction::clone() const =0
-
-        """
-        return _libBornAgainCore.ISquaredFunction_clone(self)
+        """clone(IVarianceFunction self) -> IVarianceFunction"""
+        return _libBornAgainCore.IVarianceFunction_clone(self)
 
 
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(ISquaredFunction self, double real_value, double simulated_value) -> double
+    def variance(self, real_value, simulated_value):
+        """variance(IVarianceFunction self, double real_value, double simulated_value) -> double"""
+        return _libBornAgainCore.IVarianceFunction_variance(self, real_value, simulated_value)
 
-        virtual double ISquaredFunction::calculateSquaredDifference(double real_value, double simulated_value) const =0
+IVarianceFunction_swigregister = _libBornAgainCore.IVarianceFunction_swigregister
+IVarianceFunction_swigregister(IVarianceFunction)
 
-        """
-        return _libBornAgainCore.ISquaredFunction_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value=0.0):
-        """
-        calculateSquaredError(ISquaredFunction self, double real_value, double simulated_value=0.0) -> double
-        calculateSquaredError(ISquaredFunction self, double real_value) -> double
-
-        virtual double ISquaredFunction::calculateSquaredError(double real_value, double simulated_value=0.0) const =0
-
-        """
-        return _libBornAgainCore.ISquaredFunction_calculateSquaredError(self, real_value, simulated_value)
-
-ISquaredFunction_swigregister = _libBornAgainCore.ISquaredFunction_swigregister
-ISquaredFunction_swigregister(ISquaredFunction)
-
-class SquaredFunctionDefault(ISquaredFunction):
-    """
-
-
-    Squared difference between two values. value = (a-b)*(a-b)/norm, where norm = max(b, 1.0), a = simulated values, b = real_values.
-
-    C++ includes: ISquaredFunction.h
-
-    """
+class VarianceDefaultFunction(IVarianceFunction):
+    """Proxy of C++ VarianceDefaultFunction class."""
 
     __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
+    for _s in [IVarianceFunction]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionDefault, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VarianceDefaultFunction, name, value)
     __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
+    for _s in [IVarianceFunction]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionDefault, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, VarianceDefaultFunction, name)
     __repr__ = _swig_repr
 
+    def clone(self):
+        """clone(VarianceDefaultFunction self) -> VarianceDefaultFunction"""
+        return _libBornAgainCore.VarianceDefaultFunction_clone(self)
+
+
+    def variance(self, arg2, arg3):
+        """variance(VarianceDefaultFunction self, double arg2, double arg3) -> double"""
+        return _libBornAgainCore.VarianceDefaultFunction_variance(self, arg2, arg3)
+
+
     def __init__(self):
-        """
-        __init__(SquaredFunctionDefault self) -> SquaredFunctionDefault
-
-        SquaredFunctionDefault::SquaredFunctionDefault()
-
-        """
-        this = _libBornAgainCore.new_SquaredFunctionDefault()
+        """__init__(VarianceDefaultFunction self) -> VarianceDefaultFunction"""
+        this = _libBornAgainCore.new_VarianceDefaultFunction()
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionDefault
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceDefaultFunction
     __del__ = lambda self: None
+VarianceDefaultFunction_swigregister = _libBornAgainCore.VarianceDefaultFunction_swigregister
+VarianceDefaultFunction_swigregister(VarianceDefaultFunction)
 
-    def clone(self):
-        """
-        clone(SquaredFunctionDefault self) -> SquaredFunctionDefault
-
-        SquaredFunctionDefault * SquaredFunctionDefault::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionDefault_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value=0):
-        """
-        calculateSquaredError(SquaredFunctionDefault self, double real_value, double simulated_value=0) -> double
-        calculateSquaredError(SquaredFunctionDefault self, double real_value) -> double
-
-        double SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value=0) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredError(self, real_value, simulated_value)
-
-SquaredFunctionDefault_swigregister = _libBornAgainCore.SquaredFunctionDefault_swigregister
-SquaredFunctionDefault_swigregister(SquaredFunctionDefault)
-
-class SquaredFunctionSimError(ISquaredFunction):
-    """
-
-
-    Squared difference between two values. value = (a-b)*(a-b)/norm, where norm = max(a, 1.0), a = simulated values, b = real_values.
-
-    C++ includes: ISquaredFunction.h
-
-    """
+class VarianceSimFunction(IVarianceFunction):
+    """Proxy of C++ VarianceSimFunction class."""
 
     __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
+    for _s in [IVarianceFunction]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionSimError, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VarianceSimFunction, name, value)
     __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
+    for _s in [IVarianceFunction]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionSimError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
+    __getattr__ = lambda self, name: _swig_getattr(self, VarianceSimFunction, name)
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionSimError
-    __del__ = lambda self: None
+
+    def __init__(self, epsilon=1):
+        """
+        __init__(VarianceSimFunction self, double epsilon=1) -> VarianceSimFunction
+        __init__(VarianceSimFunction self) -> VarianceSimFunction
+        """
+        this = _libBornAgainCore.new_VarianceSimFunction(epsilon)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
 
     def clone(self):
-        """
-        clone(SquaredFunctionSimError self) -> SquaredFunctionSimError
-
-        SquaredFunctionSimError * SquaredFunctionSimError::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSimError_clone(self)
+        """clone(VarianceSimFunction self) -> VarianceSimFunction"""
+        return _libBornAgainCore.VarianceSimFunction_clone(self)
 
 
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double
+    def variance(self, exp, sim):
+        """variance(VarianceSimFunction self, double exp, double sim) -> double"""
+        return _libBornAgainCore.VarianceSimFunction_variance(self, exp, sim)
 
-        double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value):
-        """
-        calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionSimError::calculateSquaredError(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredError(self, real_value, simulated_value)
-
-SquaredFunctionSimError_swigregister = _libBornAgainCore.SquaredFunctionSimError_swigregister
-SquaredFunctionSimError_swigregister(SquaredFunctionSimError)
-
-class SquaredFunctionMeanSquaredError(ISquaredFunction):
-    """
-
-
-    Squared difference between two values normalized by mean squared error. value = (a-b)*(a-b)/norm, where norm = sqrt(sigma1*sigma1 + sigma2*sigma2), sigma1=max(a, 1.0), sigma2=max(b,1.0)
-
-    C++ includes: ISquaredFunction.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionMeanSquaredError, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionMeanSquaredError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionMeanSquaredError
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceSimFunction
     __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError
-
-        SquaredFunctionMeanSquaredError * SquaredFunctionMeanSquaredError::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionMeanSquaredError_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value):
-        """
-        calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredError(self, real_value, simulated_value)
-
-SquaredFunctionMeanSquaredError_swigregister = _libBornAgainCore.SquaredFunctionMeanSquaredError_swigregister
-SquaredFunctionMeanSquaredError_swigregister(SquaredFunctionMeanSquaredError)
-
-class SquaredFunctionSystematicError(ISquaredFunction):
-    """
-
-
-    Squared difference between two values normalized by systematic error. value = (a-b)*(a-b)/norm, where norm = max(error, 1.0), error = b + (epsilon*b)**2.
-
-    C++ includes: ISquaredFunction.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionSystematicError, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionSystematicError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionSystematicError
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError
-
-        SquaredFunctionSystematicError * SquaredFunctionSystematicError::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSystematicError_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value):
-        """
-        calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredError(self, real_value, simulated_value)
-
-SquaredFunctionSystematicError_swigregister = _libBornAgainCore.SquaredFunctionSystematicError_swigregister
-SquaredFunctionSystematicError_swigregister(SquaredFunctionSystematicError)
-
-class SquaredFunctionGaussianError(ISquaredFunction):
-    """
-
-
-    Squared difference between two values with gaussian error. value = (a-b)*(a-b)/norm, where norm = sigma*sigma; sigma is set by user.
-
-    C++ includes: ISquaredFunction.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionGaussianError, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionGaussianError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionGaussianError
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError
-
-        SquaredFunctionGaussianError * SquaredFunctionGaussianError::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionGaussianError_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value):
-        """
-        calculateSquaredError(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionGaussianError::calculateSquaredError(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredError(self, real_value, simulated_value)
-
-SquaredFunctionGaussianError_swigregister = _libBornAgainCore.SquaredFunctionGaussianError_swigregister
-SquaredFunctionGaussianError_swigregister(SquaredFunctionGaussianError)
+VarianceSimFunction_swigregister = _libBornAgainCore.VarianceSimFunction_swigregister
+VarianceSimFunction_swigregister(VarianceSimFunction)
 
 class ChiSquaredModule(IChiSquaredModule):
     """
@@ -6192,16 +5931,6 @@ class ChiSquaredModule(IChiSquaredModule):
 
         """
         return _libBornAgainCore.ChiSquaredModule_clone(self)
-
-
-    def processFitElements(self, first, last):
-        """
-        processFitElements(ChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator first, std::vector< FitElement,std::allocator< FitElement > >::iterator last)
-
-        void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)
-
-        """
-        return _libBornAgainCore.ChiSquaredModule_processFitElements(self, first, last)
 
 
     def residual(self, a, b, weight):

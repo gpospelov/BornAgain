@@ -14,6 +14,7 @@
 
 #include "ChiSquaredModule.h"
 #include <cassert>
+#include <limits>
 
 double ChiSquaredModule::residual(double a, double b, double weight)
 {
@@ -25,8 +26,8 @@ double ChiSquaredModule::residual(double a, double b, double weight)
         value_real = mp_intensity_function->evaluate(value_real);
     }
 
-    double squared_error = mp_squared_function->calculateSquaredError(value_real, value_simu);
+    double variance = mp_squared_function->variance(value_real, value_simu);
+    double normalize = variance <=0 ? std::numeric_limits<double>::min() : std::sqrt(variance);
 
-    double residual = std::sqrt(weight)*(value_simu - value_real)/std::sqrt(squared_error);
-    return residual;
+    return std::sqrt(weight)*(value_simu - value_real)/normalize;
 }

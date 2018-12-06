@@ -19,7 +19,7 @@ IChiSquaredModule::IChiSquaredModule()
     , mp_data_normalizer(0)
     , mp_intensity_function(0)
 {
-    mp_squared_function = new SquaredFunctionDefault();
+    mp_squared_function = new VarianceDefaultFunction();
 }
 
 IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other)
@@ -40,13 +40,13 @@ IChiSquaredModule::~IChiSquaredModule()
     delete mp_intensity_function;
 }
 
-void IChiSquaredModule::setChiSquaredFunction(ISquaredFunction *squared_function)
+void IChiSquaredModule::setChiSquaredFunction(IVarianceFunction *squared_function)
 {
     delete mp_squared_function;
     mp_squared_function = squared_function;
 }
 
-void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction& squared_function)
+void IChiSquaredModule::setChiSquaredFunction(const IVarianceFunction& squared_function)
 {
     setChiSquaredFunction(squared_function.clone());
 }

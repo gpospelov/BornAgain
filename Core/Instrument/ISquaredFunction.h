@@ -12,101 +12,48 @@
 //
 // ************************************************************************** //
 
-#ifndef ISQUAREDFUNCTION_H
-#define ISQUAREDFUNCTION_H
+#ifndef IVARIANCEFUNCTION_H
+#define IVARIANCEFUNCTION_H
 
 #include "WinDllMacros.h"
 
-//! Interface providing measures for deviation between two values.
-//! Used By ChiSquaredModule for chi2 calculations.
+//! Variance function interface.
 //! @ingroup fitting_internal
 
-class BA_CORE_API_ ISquaredFunction
+class BA_CORE_API_ IVarianceFunction
 {
 public:
-    ISquaredFunction() {}
-    virtual ~ISquaredFunction() {}
-    virtual ISquaredFunction* clone() const =0;
-    virtual double calculateSquaredError(
-                double real_value, double simulated_value = 0.0) const =0;
+    IVarianceFunction();
+    virtual ~IVarianceFunction();
+    virtual IVarianceFunction* clone() const = 0;
+    virtual double variance(double real_value, double simulated_value) const = 0;
 
-    ISquaredFunction(const ISquaredFunction& ) = delete;
-    ISquaredFunction& operator=(const ISquaredFunction& ) = delete;
+    IVarianceFunction(const IVarianceFunction&) = delete;
+    IVarianceFunction& operator=(const IVarianceFunction&) = delete;
 };
 
-
-//! Squared difference between two values.
-//! value = (a-b)*(a-b)/norm, where norm = max(b, 1.0), a = simulated values, b = real_values.
+//! Returns 1.0 as variance value
 //! @ingroup fitting
 
-class BA_CORE_API_ SquaredFunctionDefault : public ISquaredFunction
+class BA_CORE_API_ VarianceDefaultFunction : public IVarianceFunction
 {
 public:
-    SquaredFunctionDefault() {}
-    ~SquaredFunctionDefault() {}
-    SquaredFunctionDefault* clone() const override;
-    double calculateSquaredError(double real_value, double simulated_value = 0) const override;
+    VarianceDefaultFunction* clone() const override;
+    double variance(double, double) const override;
 };
 
-
-//! Squared difference between two values.
-//! value = (a-b)*(a-b)/norm, where norm = max(a, 1.0), a = simulated values, b = real_values.
+//! Returns max(sim, epsilon)
 //! @ingroup fitting
 
-class BA_CORE_API_ SquaredFunctionSimError : public ISquaredFunction
+class BA_CORE_API_ VarianceSimFunction : public IVarianceFunction
 {
 public:
-    SquaredFunctionSimError() {}
-    ~SquaredFunctionSimError() {}
-    SquaredFunctionSimError *clone() const override;
-    double calculateSquaredError(double real_value, double simulated_value) const override;
-};
+    explicit VarianceSimFunction(double epsilon = 1.0);
+    VarianceSimFunction* clone() const override;
+    double variance(double exp, double sim) const override;
 
-
-//! Squared difference between two values normalized by mean squared error.
-//! value = (a-b)*(a-b)/norm, where norm = sqrt(sigma1*sigma1 + sigma2*sigma2),
-//! sigma1=max(a, 1.0), sigma2=max(b,1.0)
-//! @ingroup fitting
-
-class BA_CORE_API_ SquaredFunctionMeanSquaredError : public ISquaredFunction
-{
-public:
-    SquaredFunctionMeanSquaredError() {}
-    ~SquaredFunctionMeanSquaredError() {}
-    SquaredFunctionMeanSquaredError* clone() const override;
-    double calculateSquaredError(double real_value, double simulated_value) const override;
-};
-
-
-//! Squared difference between two values normalized by systematic error.
-//! value = (a-b)*(a-b)/norm, where norm = max(error, 1.0), error = b + (epsilon*b)**2.
-//! @ingroup fitting
-
-class BA_CORE_API_ SquaredFunctionSystematicError : public ISquaredFunction
-{
-public:
-    SquaredFunctionSystematicError(double epsilon = 0.08) : m_epsilon(epsilon){}
-    ~SquaredFunctionSystematicError() {}
-    SquaredFunctionSystematicError *clone() const override;
-    double calculateSquaredError(double real_value, double simulated_value) const override;
 private:
     double m_epsilon;
 };
 
-
-//! Squared difference between two values with gaussian error.
-//! value = (a-b)*(a-b)/norm, where norm = sigma*sigma; sigma is set by user.
-//! @ingroup fitting
-
-class BA_CORE_API_ SquaredFunctionGaussianError : public ISquaredFunction
-{
-public:
-    SquaredFunctionGaussianError(double sigma = 0.01) : m_sigma(sigma){}
-    ~SquaredFunctionGaussianError() {}
-    SquaredFunctionGaussianError *clone() const override;
-    double calculateSquaredError(double real_value, double simulated_value) const override;
-private:
-    double m_sigma;
-};
-
-#endif // ISQUAREDFUNCTION_H
+#endif // IVARIANCEFUNCTION_H

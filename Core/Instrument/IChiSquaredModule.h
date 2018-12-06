@@ -34,11 +34,11 @@ public:
     virtual IChiSquaredModule* clone() const = 0;
 
     //! Returns squared function
-    const ISquaredFunction* getSquaredFunction() const { return mp_squared_function; }
+    const IVarianceFunction* getSquaredFunction() const { return mp_squared_function; }
 
     //! Sets squared function // TODO: merge these two functions (SWIG warning 509)
-    void setChiSquaredFunction(ISquaredFunction* squared_function);
-    void setChiSquaredFunction(const ISquaredFunction& squared_function);
+    void setChiSquaredFunction(IVarianceFunction* squared_function);
+    void setChiSquaredFunction(const IVarianceFunction& squared_function);
 
     //! Returns data normalizer.
     virtual const IIntensityNormalizer* getIntensityNormalizer() const {
@@ -61,7 +61,7 @@ public:
 protected:
     IChiSquaredModule(const IChiSquaredModule& other);
 
-    ISquaredFunction* mp_squared_function;
+    IVarianceFunction* mp_squared_function;
     IIntensityNormalizer* mp_data_normalizer;
     IIntensityFunction* mp_intensity_function;
 };

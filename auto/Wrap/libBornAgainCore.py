@@ -5212,52 +5212,14 @@ class IChiSquaredModule(ICloneable):
         return _libBornAgainCore.IChiSquaredModule_clone(self)
 
 
-    def getSquaredFunction(self):
-        """
-        getSquaredFunction(IChiSquaredModule self) -> IVarianceFunction
-
-        const ISquaredFunction* IChiSquaredModule::getSquaredFunction() const
-
-        Returns squared function. 
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_getSquaredFunction(self)
+    def varianceFunction(self):
+        """varianceFunction(IChiSquaredModule self) -> IVarianceFunction"""
+        return _libBornAgainCore.IChiSquaredModule_varianceFunction(self)
 
 
-    def setChiSquaredFunction(self, *args):
-        """
-        setChiSquaredFunction(IChiSquaredModule self, IVarianceFunction squared_function)
-        setChiSquaredFunction(IChiSquaredModule self, IVarianceFunction squared_function)
-
-        void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction &squared_function)
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_setChiSquaredFunction(self, *args)
-
-
-    def getIntensityNormalizer(self, *args):
-        """
-        getIntensityNormalizer(IChiSquaredModule self) -> IIntensityNormalizer
-        getIntensityNormalizer(IChiSquaredModule self) -> IIntensityNormalizer
-
-        virtual IIntensityNormalizer* IChiSquaredModule::getIntensityNormalizer()
-
-        Returns data normalizer, non-const version needed to set internals. 
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_getIntensityNormalizer(self, *args)
-
-
-    def setIntensityNormalizer(self, data_normalizer):
-        """
-        setIntensityNormalizer(IChiSquaredModule self, IIntensityNormalizer data_normalizer)
-
-        void IChiSquaredModule::setIntensityNormalizer(const IIntensityNormalizer &data_normalizer)
-
-        Sets data normalizer. 
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_setIntensityNormalizer(self, data_normalizer)
+    def setVarianceFunction(self, variance_function):
+        """setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)"""
+        return _libBornAgainCore.IChiSquaredModule_setVarianceFunction(self, variance_function)
 
 
     def getIntensityFunction(self):
@@ -5454,8 +5416,6 @@ class IntensityFunctionLog(IIntensityFunction):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionLog, name)
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -5493,6 +5453,8 @@ class IntensityFunctionLog(IIntensityFunction):
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
+    __del__ = lambda self: None
 IntensityFunctionLog_swigregister = _libBornAgainCore.IntensityFunctionLog_swigregister
 IntensityFunctionLog_swigregister(IntensityFunctionLog)
 
@@ -5515,8 +5477,6 @@ class IntensityFunctionSqrt(IIntensityFunction):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionSqrt, name)
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -5554,6 +5514,8 @@ class IntensityFunctionSqrt(IIntensityFunction):
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
+    __del__ = lambda self: None
 IntensityFunctionSqrt_swigregister = _libBornAgainCore.IntensityFunctionSqrt_swigregister
 IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
 

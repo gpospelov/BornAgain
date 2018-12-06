@@ -31,6 +31,7 @@
 #include "Minimizer.h"
 #include "GUIFitObserver.h"
 #include "ChiSquaredModule.h"
+#include "IIntensityFunction.h"
 
 FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem)
     : m_jobItem(jobItem)

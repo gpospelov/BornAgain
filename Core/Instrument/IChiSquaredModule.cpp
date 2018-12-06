@@ -13,52 +13,42 @@
 // ************************************************************************** //
 
 #include "IChiSquaredModule.h"
+#include "IIntensityFunction.h"
+#include <VarianceFunctions.h>
 
 IChiSquaredModule::IChiSquaredModule()
-    : mp_squared_function(0)
-    , mp_data_normalizer(0)
-    , mp_intensity_function(0)
+    : m_variance_function(new VarianceDefaultFunction)
 {
-    mp_squared_function = new VarianceDefaultFunction();
+}
+
+const IVarianceFunction* IChiSquaredModule::varianceFunction() const
+{
+    return m_variance_function.get();
 }
 
 IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other)
     : ICloneable()
-    , mp_squared_function(0)
-    , mp_data_normalizer(0)
-    , mp_intensity_function(0)
 {
-    if(other.mp_squared_function) mp_squared_function = other.mp_squared_function->clone();
-    if(other.mp_data_normalizer) mp_data_normalizer = other.mp_data_normalizer->clone();
-    if(other.mp_intensity_function) mp_intensity_function = other.mp_intensity_function->clone();
+    if(other.m_variance_function)
+        m_variance_function.reset(other.m_variance_function->clone());
+
+    if(other.mp_intensity_function)
+        mp_intensity_function.reset(other.mp_intensity_function->clone());
 }
 
-IChiSquaredModule::~IChiSquaredModule()
+IChiSquaredModule::~IChiSquaredModule() = default;
+
+void IChiSquaredModule::setVarianceFunction(const IVarianceFunction& variance_function)
 {
-    delete mp_squared_function;
-    delete mp_data_normalizer;
-    delete mp_intensity_function;
+    m_variance_function.reset(variance_function.clone());
 }
 
-void IChiSquaredModule::setChiSquaredFunction(IVarianceFunction *squared_function)
+const IIntensityFunction* IChiSquaredModule::getIntensityFunction() const
 {
-    delete mp_squared_function;
-    mp_squared_function = squared_function;
-}
-
-void IChiSquaredModule::setChiSquaredFunction(const IVarianceFunction& squared_function)
-{
-    setChiSquaredFunction(squared_function.clone());
-}
-
-void IChiSquaredModule::setIntensityNormalizer(const IIntensityNormalizer& data_normalizer)
-{
-    delete mp_data_normalizer;
-    mp_data_normalizer = data_normalizer.clone();
+    return mp_intensity_function.get();
 }
 
 void IChiSquaredModule::setIntensityFunction(const IIntensityFunction& intensity_function)
 {
-    delete mp_intensity_function;
-    mp_intensity_function = intensity_function.clone();
+    mp_intensity_function.reset(intensity_function.clone());
 }

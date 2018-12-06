@@ -22,6 +22,7 @@
 #include "qstringutils.h"
 #include "LayoutUtils.h"
 #include "StyleUtils.h"
+#include "UpdateNotifierWidget.h"
 #include <QCommandLinkButton>
 #include <QDesktopServices>
 #include <QUrl>
@@ -43,7 +44,7 @@ WelcomeView::WelcomeView(MainWindow* parent)
     , m_newUsertButton(nullptr)
     , m_currentProjectLabel(nullptr)
     , m_recentProjectLayout(nullptr)
-    , m_updateNotification(nullptr)
+    , m_notifierWidget(new UpdateNotifierWidget(parent->updateNotifier()))
 {
     QPalette palette;
     palette.setColor(QPalette::Background, QColor(240, 240, 240, 255));
@@ -53,7 +54,7 @@ WelcomeView::WelcomeView(MainWindow* parent)
     auto centralWidgetLayout = new QVBoxLayout;
     centralWidgetLayout->setMargin(0);
     centralWidgetLayout->addWidget(createProjectWidget());
-    centralWidgetLayout->addWidget(createNotificationLabel());
+    centralWidgetLayout->addWidget(m_notifierWidget);
     centralWidgetLayout->addStretch(1);
 
     auto centralWidget = new QWidget;
@@ -145,11 +146,6 @@ void WelcomeView::updateRecentProjectPanel()
     update();
 }
 
-void WelcomeView::setNotificationText(const QString& text)
-{
-    m_updateNotification->setText(text);
-}
-
 void WelcomeView::showEvent(QShowEvent*)
 {
     updateRecentProjectPanel();
@@ -233,17 +229,6 @@ QBoxLayout* WelcomeView::createProjectLayout()
     result->addSpacing(15);
     result->addLayout(createRecentProjectLayout());
     return result;
-}
-
-QLabel* WelcomeView::createNotificationLabel()
-{
-    m_updateNotification = new QLabel(this);
-    m_updateNotification->setText("");
-    m_updateNotification->setContentsMargins(40, 10, 0, 0);
-    m_updateNotification->setOpenExternalLinks(true);
-    m_updateNotification->setTextInteractionFlags(Qt::TextBrowserInteraction);
-    m_updateNotification->setTextFormat(Qt::RichText);
-    return m_updateNotification;
 }
 
 QFrame* WelcomeView::createSeparationFrame()

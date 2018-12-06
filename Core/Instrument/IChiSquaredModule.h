@@ -15,7 +15,6 @@
 #ifndef ICHISQUAREDMODULE_H
 #define ICHISQUAREDMODULE_H
 
-#include "FitElement.h"
 #include "IIntensityFunction.h"
 #include "IIntensityNormalizer.h"
 #include "ISquaredFunction.h"
@@ -56,9 +55,6 @@ public:
 
     //! Sets data rescaler.
     virtual void setIntensityFunction(const IIntensityFunction& intensity_function);
-
-    virtual void processFitElements(std::vector<FitElement>::iterator,
-                                    std::vector<FitElement>::iterator){}
 
     virtual double residual(double a, double b, double weight) = 0;
 

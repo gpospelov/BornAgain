@@ -59,7 +59,7 @@ std::unique_ptr<Instrument> DepthProbeInstrumentItem::createInstrument() const
 
 std::vector<int> DepthProbeInstrumentItem::shape() const
 {
-    throw std::runtime_error("DepthProbeInstrumentItem::shape()");
+    return std::vector<int>(); // no certain shape to avoid linking to real data
 }
 
 void DepthProbeInstrumentItem::updateToRealData(const RealDataItem*)

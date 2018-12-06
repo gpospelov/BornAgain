@@ -77,7 +77,7 @@ void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem* instrum
 void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem* instrumentItem,
                                                  const RealDataItem* realData)
 {
-    if (!realData || instrumentItem->alignedWith(realData))
+    if (!realData || !instrumentItem || instrumentItem->alignedWith(realData))
         return;
 
     m_isValid = false;

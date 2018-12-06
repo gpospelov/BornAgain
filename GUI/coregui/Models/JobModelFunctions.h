@@ -35,7 +35,7 @@ BA_CORE_API_ void initDataView(JobItem* jobItem);
 BA_CORE_API_ void setupJobItemSampleData(JobItem* jobItem, const MultiLayerItem* sampleItem);
 
 //! Properly copies instrument into job item
-BA_CORE_API_ void setupJobItemInstrument(JobItem* jobItem, const InstrumentItem* instrumentItem);
+BA_CORE_API_ void setupJobItemInstrument(JobItem* jobItem, const InstrumentItem* from);
 
 BA_CORE_API_ void setupJobItemOutput(JobItem* jobItem);
 

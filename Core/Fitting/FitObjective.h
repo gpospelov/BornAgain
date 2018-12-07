@@ -119,6 +119,8 @@ public:
 
     void run_simulations(const Fit::Parameters& params);
 
+    void setChiSquaredModule(const IChiSquaredModule& module);
+
 private:
     double residual(double a, double b, double weight) const;
     double evaluate_chi2(const std::vector<double>& residuals, const Fit::Parameters& params);

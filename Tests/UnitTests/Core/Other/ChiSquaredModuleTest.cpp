@@ -1,7 +1,8 @@
 #include "google_test.h"
 #include "BornAgainNamespace.h"
 #include "ChiSquaredModule.h"
-#include "ISquaredFunction.h"
+#include "VarianceFunctions.h"
+#include "OutputData.h"
 
 // TODO revise test
 
@@ -20,16 +21,14 @@ ChiSquaredModuleTest::~ChiSquaredModuleTest() = default;
 
 TEST_F(ChiSquaredModuleTest, InitialState)
 {
-    EXPECT_TRUE(dynamic_cast<const SquaredFunctionDefault*>(m_chi_empty.getSquaredFunction()));
-    EXPECT_EQ(nullptr, m_chi_empty.getIntensityNormalizer());
+    EXPECT_TRUE(dynamic_cast<const VarianceSimFunction*>(m_chi_empty.varianceFunction()));
     EXPECT_EQ(nullptr, m_chi_empty.getIntensityFunction());
 }
 
 TEST_F(ChiSquaredModuleTest, CloneOfEmpty)
 {
     ChiSquaredModule* clone_of_empty = m_chi_empty.clone();
-    EXPECT_TRUE(dynamic_cast<const SquaredFunctionDefault*>(clone_of_empty->getSquaredFunction()));
-    EXPECT_EQ(nullptr, clone_of_empty->getIntensityNormalizer());
+    EXPECT_TRUE(dynamic_cast<const VarianceSimFunction*>(clone_of_empty->varianceFunction()));
     EXPECT_EQ(nullptr, clone_of_empty->getIntensityFunction());
     delete clone_of_empty;
 }

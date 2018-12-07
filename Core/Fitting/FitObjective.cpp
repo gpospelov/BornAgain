@@ -213,6 +213,11 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
     }
 }
 
+void FitObjective::setChiSquaredModule(const IChiSquaredModule& module)
+{
+    m_chi2_module.reset(module.clone());
+}
+
 double FitObjective::residual(double a, double b, double weight) const
 {
     return m_chi2_module->residual(a, b, weight);

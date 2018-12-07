@@ -15,15 +15,15 @@
 #ifndef ICHISQUAREDMODULE_H
 #define ICHISQUAREDMODULE_H
 
-#include "FitElement.h"
-#include "IIntensityFunction.h"
-#include "IIntensityNormalizer.h"
-#include "ISquaredFunction.h"
 #include "ICloneable.h"
+#include <memory>
 
-//! Interface for ChiSquaredModule for chi2 calculations.
+class IVarianceFunction;
+class IIntensityNormalizer;
+class IIntensityFunction;
+
+//! Interface residual calculations.
 //! @ingroup fitting_internal
-//! Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
 
 class BA_CORE_API_ IChiSquaredModule : public ICloneable
 {
@@ -35,39 +35,24 @@ public:
     virtual IChiSquaredModule* clone() const = 0;
 
     //! Returns squared function
-    const ISquaredFunction* getSquaredFunction() const { return mp_squared_function; }
+    const IVarianceFunction* varianceFunction() const;
 
-    //! Sets squared function // TODO: merge these two functions (SWIG warning 509)
-    void setChiSquaredFunction(ISquaredFunction* squared_function);
-    void setChiSquaredFunction(const ISquaredFunction& squared_function);
-
-    //! Returns data normalizer.
-    virtual const IIntensityNormalizer* getIntensityNormalizer() const {
-        return mp_data_normalizer; }
-
-    //! Returns data normalizer, non-const version needed to set internals.
-    virtual IIntensityNormalizer* getIntensityNormalizer() {  return mp_data_normalizer; }
-
-    //! Sets data normalizer
-    virtual void setIntensityNormalizer(const IIntensityNormalizer& data_normalizer);
+    //! Sets squared function
+    void setVarianceFunction(const IVarianceFunction& variance_function);
 
     //! Returns data rescaler.
-    virtual const IIntensityFunction* getIntensityFunction() const { return mp_intensity_function; }
+    virtual const IIntensityFunction* getIntensityFunction() const;
 
     //! Sets data rescaler.
     virtual void setIntensityFunction(const IIntensityFunction& intensity_function);
-
-    virtual void processFitElements(std::vector<FitElement>::iterator,
-                                    std::vector<FitElement>::iterator){}
 
     virtual double residual(double a, double b, double weight) = 0;
 
 protected:
     IChiSquaredModule(const IChiSquaredModule& other);
 
-    ISquaredFunction* mp_squared_function;
-    IIntensityNormalizer* mp_data_normalizer;
-    IIntensityFunction* mp_intensity_function;
+    std::unique_ptr<IVarianceFunction> m_variance_function;
+    std::unique_ptr<IIntensityFunction> mp_intensity_function;
 };
 
 #endif // ICHISQUAREDMODULE_H

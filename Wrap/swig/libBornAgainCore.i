@@ -226,7 +226,7 @@
 #include "IChiSquaredModule.h"
 #include "IIntensityFunction.h"
 #include "IIntensityNormalizer.h"
-#include "ISquaredFunction.h"
+#include "VarianceFunctions.h"
 #include "IterationInfo.h"
 %}
 
@@ -311,7 +311,7 @@
 %include "IObserver.h"
 %include "IIntensityFunction.h"
 %include "IIntensityNormalizer.h"
-%include "ISquaredFunction.h"
+%include "VarianceFunctions.h"
 %include "ChiSquaredModule.h"
 %include "FitOptions.h"
 %include "PyFittingCallbacks.h"

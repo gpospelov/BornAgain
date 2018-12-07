@@ -183,6 +183,17 @@ void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem*
     createFitContainers(jobItem);
 }
 
+void JobModelFunctions::muteMagnetizationData(JobItem* jobItem)
+{
+    auto container =
+        static_cast<MaterialItemContainer*>(jobItem->getItem(JobItem::T_MATERIAL_CONTAINER));
+    for (auto item : container->getItems(MaterialItemContainer::T_MATERIALS))
+        item->getItem(MaterialItem::P_MAGNETIZATION)->setVisible(false);
+
+    auto sample = static_cast<MultiLayerItem*>(jobItem->getItem(JobItem::T_SAMPLE));
+    sample->getItem(MultiLayerItem::P_EXTERNAL_FIELD)->setVisible(false);
+}
+
 void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
 {
     if (!realDataItem)

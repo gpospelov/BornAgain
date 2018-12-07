@@ -20,7 +20,7 @@
 #include <QVBoxLayout>
 
 namespace {
-const bool reuse_widget = false;
+const bool reuse_widget = true;
 }
 
 JobRealTimeWidget::JobRealTimeWidget(JobModel* jobModel, QWidget* parent)

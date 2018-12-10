@@ -226,7 +226,6 @@ void SpecularPlot::setDataFromItem(SpecularDataItem* item)
 {
     Q_ASSERT(item);
     auto data = item->getOutputData();
-    Q_ASSERT(data);
     if (!data)
         return;
 

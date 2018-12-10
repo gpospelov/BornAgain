@@ -1,42 +1,43 @@
 #!/usr/bin/env bash
 
-
-#export QTDIR=/usr/local/opt/qt5
 export QTDIR=/Users/vagrant/Qt/5.10.1/clang_64
-export PATH=/usr/local/bin:$QTDIR/bin/:$PATH
+export PATH=/Users/vagrant/.pyenv:/usr/local/bin:$QTDIR/bin/:$PATH
 export WORKDIR=/Users/vagrant/build
 rm -r -f $WORKDIR; mkdir -p $WORKDIR; cd $WORKDIR;
 
-#git clone --recurse-submodules -b develop https://github.com/scgmlz/BornAgain.git
-git clone --recurse-submodules -b MacBuild https://github.com/gpospelov/BornAgain.git
+git clone --recurse-submodules -b release-1.14.0 https://github.com/develop/BornAgain.git
 
-# --------------------------------------------------------------------
-echo 'Building on Python2'
-# --------------------------------------------------------------------
 
-mkdir BornAgain-build-python2
-cd BornAgain-build-python2
-#export ANACONDA=/Users/vagrant/anaconda2
-#cmake -DCMAKE_C_COMPILER=/usr/local/opt/llvm/bin/clang -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++  -DPYTHON_LIBRARY=$ANACONDA/lib/libpython2.7.dylib -DPYTHON_EXECUTABLE=$ANACONDA/bin/python2.7 -DBORNAGAIN_APPLE_BUNDLE=ON -DCMAKE_PREFIX_PATH=/usr/local ../BornAgain
-cmake -DCMAKE_C_COMPILER=/usr/local/opt/llvm/bin/clang -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++ -DBORNAGAIN_USE_PYTHON3=OFF -DBORNAGAIN_APPLE_BUNDLE=ON -DCMAKE_PREFIX_PATH=/usr/local ../BornAgain
-make -j4
-cpack -V
+pyversions[1]=2.7.15
+pyversions[2]=3.6.7
+pyversions[3]=3.7.1
 
-echo 'Copying dmg installer back to build server'
-echo 'scp /Users/vagrant/build/BornAgain-build-python2/*.dmg scg@scgmini:./deployment/results/.'
-scp /Users/vagrant/build/BornAgain-build-python2/*.dmg scg@scgmini:./deployment/results/.
+pyadd[1]=2.7
+pyadd[2]=3.6
+pyadd[3]=3.7
 
-# --------------------------------------------------------------------
-echo 'Building on Python3'
-# --------------------------------------------------------------------
-cd $WORKDIR
+for i in {1..3}
+do
+    cd $WORKDIR;
+    export PYVER=${pyversions[$i]}
+    export PYSHORT=${pyadd[$i]}
+    echo "Building on" $PYVER $PYADD
+    export BUILDDIR=build-$PYVER
+    mkdir $BUILDDIR
+    cd $BUILDDIR
+    echo "PWD" $PWD "PYVER" $PYVER "PYSHORT" $PYSHORT
+    eval "$(pyenv init -)"
+    pyenv local $PYVER
 
-mkdir BornAgain-build-python3
-cd BornAgain-build-python3
-cmake -DCMAKE_C_COMPILER=/usr/local/opt/llvm/bin/clang -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++ -DBORNAGAIN_USE_PYTHON3=ON -DBORNAGAIN_APPLE_BUNDLE=ON -DCMAKE_PREFIX_PATH=/usr/local ../BornAgain
-make -j4
-cpack -V
+    export PYEXE=/Users/vagrant/.pyenv/versions/${PYVER}/bin/python
+    export PYLIB=/Users/vagrant/.pyenv/versions/${PYVER}/lib/libpython${PYSHORT}m.dylib
+    echo "PYEXE" $PYEXE
+    echo "PYLIB" $PYLIB
 
-echo 'Copying dmg installer back to build server'
-echo 'scp /Users/vagrant/build/BornAgain-build-python3/*.dmg scg@scgmini:./deployment/results/.'
-scp /Users/vagrant/build/BornAgain-build-python3/*.dmg scg@scgmini:./deployment/results/.
+    cmake -DCMAKE_C_COMPILER=/usr/local/opt/llvm/bin/clang -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++ -DPython_ADDITIONAL_VERSIONS=$PYSHORT -DBORNAGAIN_APPLE_BUNDLE=ON  -DPYTHON_LIBRARY=$PYLIB -DPYTHON_EXECUTABLE=$PYEXE -DCMAKE_PREFIX_PATH=/usr/local ../BornAgain
+    make -j4
+    cpack -V
+    echo 'Copying dmg installer back to build server'
+    echo 'scp /Users/vagrant/build/BornAgain-build-python2/*.dmg scg@scgmini:./deployment/results/.'
+    scp /Users/vagrant/build/$BUILDDIR/*.dmg scg@scgmini:./deployment/results/.
+done

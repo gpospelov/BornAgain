@@ -618,21 +618,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -671,9 +671,6 @@ C++ includes: ChiSquaredModule.h
 %feature("docstring")  ChiSquaredModule::clone "virtual ChiSquaredModule* ChiSquaredModule::clone() const
 
 clone method 
-";
-
-%feature("docstring")  ChiSquaredModule::processFitElements "void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)
 ";
 
 %feature("docstring")  ChiSquaredModule::residual "double ChiSquaredModule::residual(double a, double b, double weight)
@@ -2125,48 +2122,6 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 
-// File: classFitElement.xml
-%feature("docstring") FitElement "
-
-Measured (\"real\") and simulated scattering intensity value for one detector cell. Used for chi2/residual calculations.
-
-C++ includes: FitElement.h
-";
-
-%feature("docstring")  FitElement::FitElement "FitElement::FitElement()
-";
-
-%feature("docstring")  FitElement::FitElement "FitElement::FitElement(size_t index, double simul_value, double real_value, double weight=1.0)
-";
-
-%feature("docstring")  FitElement::FitElement "FitElement::FitElement(const FitElement &other)
-";
-
-%feature("docstring")  FitElement::getIndex "size_t FitElement::getIndex() const
-";
-
-%feature("docstring")  FitElement::getSimulValue "double FitElement::getSimulValue() const
-";
-
-%feature("docstring")  FitElement::getRealValue "double FitElement::getRealValue() const
-";
-
-%feature("docstring")  FitElement::getWeight "double FitElement::getWeight() const
-";
-
-%feature("docstring")  FitElement::getSquaredDifference "double FitElement::getSquaredDifference() const
-";
-
-%feature("docstring")  FitElement::setSquaredDifference "void FitElement::setSquaredDifference(double value)
-";
-
-%feature("docstring")  FitElement::getResidual "double FitElement::getResidual() const
-";
-
-%feature("docstring")  FitElement::setResidual "void FitElement::setResidual(double value)
-";
-
-
 // File: classFitObjective.xml
 %feature("docstring") FitObjective "
 
@@ -2221,6 +2176,11 @@ Returns one dimensional array representing experimental data. Masked areas and t
 %feature("docstring")  FitObjective::simulation_array "std::vector< double > FitObjective::simulation_array() const
 
 Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. Data from different datasets merged together. 
+";
+
+%feature("docstring")  FitObjective::weights_array "std::vector< double > FitObjective::weights_array() const
+
+Returns one dimensional array representing weights of bin intensity for residuals. 
 ";
 
 %feature("docstring")  FitObjective::simulationResult "SimulationResult FitObjective::simulationResult(size_t i_item=0) const
@@ -2319,6 +2279,9 @@ Should be explicitely called on last iteration to notify all observers.
 ";
 
 %feature("docstring")  FitObjective::run_simulations "void FitObjective::run_simulations(const Fit::Parameters &params)
+";
+
+%feature("docstring")  FitObjective::setChiSquaredModule "void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
 ";
 
 
@@ -6142,9 +6105,7 @@ C++ includes: IBackground.h
 // File: classIChiSquaredModule.xml
 %feature("docstring") IChiSquaredModule "
 
-Interface for  ChiSquaredModule for chi2 calculations.
-
-Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
+Interface residual calculations.
 
 C++ includes: IChiSquaredModule.h
 ";
@@ -6160,35 +6121,17 @@ C++ includes: IChiSquaredModule.h
 clone method 
 ";
 
-%feature("docstring")  IChiSquaredModule::getSquaredFunction "const ISquaredFunction* IChiSquaredModule::getSquaredFunction() const
+%feature("docstring")  IChiSquaredModule::varianceFunction "const IVarianceFunction * IChiSquaredModule::varianceFunction() const
 
 Returns squared function. 
 ";
 
-%feature("docstring")  IChiSquaredModule::setChiSquaredFunction "void IChiSquaredModule::setChiSquaredFunction(ISquaredFunction *squared_function)
+%feature("docstring")  IChiSquaredModule::setVarianceFunction "void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
 
-Sets squared function // TODO: merge these two functions (SWIG warning 509) 
+Sets squared function. 
 ";
 
-%feature("docstring")  IChiSquaredModule::setChiSquaredFunction "void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction &squared_function)
-";
-
-%feature("docstring")  IChiSquaredModule::getIntensityNormalizer "virtual const IIntensityNormalizer* IChiSquaredModule::getIntensityNormalizer() const
-
-Returns data normalizer. 
-";
-
-%feature("docstring")  IChiSquaredModule::getIntensityNormalizer "virtual IIntensityNormalizer* IChiSquaredModule::getIntensityNormalizer()
-
-Returns data normalizer, non-const version needed to set internals. 
-";
-
-%feature("docstring")  IChiSquaredModule::setIntensityNormalizer "void IChiSquaredModule::setIntensityNormalizer(const IIntensityNormalizer &data_normalizer)
-
-Sets data normalizer. 
-";
-
-%feature("docstring")  IChiSquaredModule::getIntensityFunction "virtual const IIntensityFunction* IChiSquaredModule::getIntensityFunction() const
+%feature("docstring")  IChiSquaredModule::getIntensityFunction "const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
 
 Returns data rescaler. 
 ";
@@ -6196,9 +6139,6 @@ Returns data rescaler.
 %feature("docstring")  IChiSquaredModule::setIntensityFunction "void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
 
 Sets data rescaler. 
-";
-
-%feature("docstring")  IChiSquaredModule::processFitElements "virtual void IChiSquaredModule::processFitElements(std::vector< FitElement >::iterator, std::vector< FitElement >::iterator)
 ";
 
 %feature("docstring")  IChiSquaredModule::residual "virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
@@ -7414,7 +7354,7 @@ Interface for applying arbitrary function to the measured intensity.
 C++ includes: IIntensityFunction.h
 ";
 
-%feature("docstring")  IIntensityFunction::~IIntensityFunction "virtual IIntensityFunction::~IIntensityFunction()
+%feature("docstring")  IIntensityFunction::~IIntensityFunction "IIntensityFunction::~IIntensityFunction()
 ";
 
 %feature("docstring")  IIntensityFunction::clone "virtual IIntensityFunction* IIntensityFunction::clone() const =0
@@ -8358,7 +8298,9 @@ perform the actual integration over the range [lmin, lmax]
 // File: classIntensityDataIOFactory.xml
 %feature("docstring") IntensityDataIOFactory "
 
-Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm. Usage:
+Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
+
+Usage:
 
 C++ includes: IntensityDataIOFactory.h
 ";
@@ -8372,10 +8314,7 @@ Algorithm for applying log function to the measured intensity.
 C++ includes: IIntensityFunction.h
 ";
 
-%feature("docstring")  IntensityFunctionLog::~IntensityFunctionLog "virtual IntensityFunctionLog::~IntensityFunctionLog()
-";
-
-%feature("docstring")  IntensityFunctionLog::clone "virtual IntensityFunctionLog* IntensityFunctionLog::clone() const
+%feature("docstring")  IntensityFunctionLog::clone "IntensityFunctionLog * IntensityFunctionLog::clone() const
 ";
 
 %feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const
@@ -8390,10 +8329,7 @@ Algorithm for applying sqrt function to the measured intensity.
 C++ includes: IIntensityFunction.h
 ";
 
-%feature("docstring")  IntensityFunctionSqrt::~IntensityFunctionSqrt "virtual IntensityFunctionSqrt::~IntensityFunctionSqrt()
-";
-
-%feature("docstring")  IntensityFunctionSqrt::clone "virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const
+%feature("docstring")  IntensityFunctionSqrt::clone "IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
 ";
 
 %feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const
@@ -9739,33 +9675,6 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 ";
 
 
-// File: classISquaredFunction.xml
-%feature("docstring") ISquaredFunction "
-
-Interface providing measures for deviation between two values. Used By  ChiSquaredModule for chi2 calculations.
-
-C++ includes: ISquaredFunction.h
-";
-
-%feature("docstring")  ISquaredFunction::ISquaredFunction "ISquaredFunction::ISquaredFunction()
-";
-
-%feature("docstring")  ISquaredFunction::~ISquaredFunction "virtual ISquaredFunction::~ISquaredFunction()
-";
-
-%feature("docstring")  ISquaredFunction::clone "virtual ISquaredFunction* ISquaredFunction::clone() const =0
-";
-
-%feature("docstring")  ISquaredFunction::calculateSquaredDifference "virtual double ISquaredFunction::calculateSquaredDifference(double real_value, double simulated_value) const =0
-";
-
-%feature("docstring")  ISquaredFunction::calculateSquaredError "virtual double ISquaredFunction::calculateSquaredError(double real_value, double simulated_value=0.0) const =0
-";
-
-%feature("docstring")  ISquaredFunction::ISquaredFunction "ISquaredFunction::ISquaredFunction(const ISquaredFunction &)=delete
-";
-
-
 // File: classIterationInfo.xml
 %feature("docstring") IterationInfo "
 
@@ -9918,6 +9827,30 @@ C++ includes: IUnitConverter.h
 ";
 
 %feature("docstring")  IUnitConverter::createConvertedAxis "virtual std::unique_ptr<IAxis> IUnitConverter::createConvertedAxis(size_t i_axis, AxesUnits units) const =0
+";
+
+
+// File: classIVarianceFunction.xml
+%feature("docstring") IVarianceFunction "
+
+Variance function interface.
+
+C++ includes: VarianceFunctions.h
+";
+
+%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction()
+";
+
+%feature("docstring")  IVarianceFunction::~IVarianceFunction "IVarianceFunction::~IVarianceFunction()
+";
+
+%feature("docstring")  IVarianceFunction::clone "virtual IVarianceFunction* IVarianceFunction::clone() const =0
+";
+
+%feature("docstring")  IVarianceFunction::variance "virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
+";
+
+%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction(const IVarianceFunction &)=delete
 ";
 
 
@@ -11957,7 +11890,7 @@ Returns number of parameters in the pool.
 
 Adds parameter to the pool, and returns reference to the input pointer.
 
-Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
+Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
 ";
 
 %feature("docstring")  ParameterPool::parameter "RealParameter * ParameterPool::parameter(const std::string &name)
@@ -12636,10 +12569,7 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list
-
-_sym_S2: 
-true if face has a perpedicular two-fold symmetry axis 
+oriented vertex list 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
@@ -14009,6 +13939,9 @@ Returns one dimensional array representing experimental data. Masked areas and t
 Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. 
 ";
 
+%feature("docstring")  SimDataPair::weights_array "std::vector< double > SimDataPair::weights_array() const
+";
+
 
 // File: classSimpleSelectionRule.xml
 %feature("docstring") SimpleSelectionRule "
@@ -15015,126 +14948,6 @@ return default axes units
 ";
 
 
-// File: classSquaredFunctionDefault.xml
-%feature("docstring") SquaredFunctionDefault "
-
-Squared difference between two values. value = (a-b)*(a-b)/norm, where norm = max(b, 1.0), a = simulated values, b = real_values.
-
-C++ includes: ISquaredFunction.h
-";
-
-%feature("docstring")  SquaredFunctionDefault::SquaredFunctionDefault "SquaredFunctionDefault::SquaredFunctionDefault()
-";
-
-%feature("docstring")  SquaredFunctionDefault::~SquaredFunctionDefault "SquaredFunctionDefault::~SquaredFunctionDefault()
-";
-
-%feature("docstring")  SquaredFunctionDefault::clone "SquaredFunctionDefault * SquaredFunctionDefault::clone() const override
-";
-
-%feature("docstring")  SquaredFunctionDefault::calculateSquaredDifference "double SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const override
-";
-
-%feature("docstring")  SquaredFunctionDefault::calculateSquaredError "double SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value=0) const override
-";
-
-
-// File: classSquaredFunctionGaussianError.xml
-%feature("docstring") SquaredFunctionGaussianError "
-
-Squared difference between two values with gaussian error. value = (a-b)*(a-b)/norm, where norm = sigma*sigma; sigma is set by user.
-
-C++ includes: ISquaredFunction.h
-";
-
-%feature("docstring")  SquaredFunctionGaussianError::SquaredFunctionGaussianError "SquaredFunctionGaussianError::SquaredFunctionGaussianError(double sigma=0.01)
-";
-
-%feature("docstring")  SquaredFunctionGaussianError::~SquaredFunctionGaussianError "SquaredFunctionGaussianError::~SquaredFunctionGaussianError()
-";
-
-%feature("docstring")  SquaredFunctionGaussianError::clone "SquaredFunctionGaussianError * SquaredFunctionGaussianError::clone() const override
-";
-
-%feature("docstring")  SquaredFunctionGaussianError::calculateSquaredDifference "double SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const override
-";
-
-%feature("docstring")  SquaredFunctionGaussianError::calculateSquaredError "double SquaredFunctionGaussianError::calculateSquaredError(double real_value, double simulated_value) const override
-";
-
-
-// File: classSquaredFunctionMeanSquaredError.xml
-%feature("docstring") SquaredFunctionMeanSquaredError "
-
-Squared difference between two values normalized by mean squared error. value = (a-b)*(a-b)/norm, where norm = sqrt(sigma1*sigma1 + sigma2*sigma2), sigma1=max(a, 1.0), sigma2=max(b,1.0)
-
-C++ includes: ISquaredFunction.h
-";
-
-%feature("docstring")  SquaredFunctionMeanSquaredError::SquaredFunctionMeanSquaredError "SquaredFunctionMeanSquaredError::SquaredFunctionMeanSquaredError()
-";
-
-%feature("docstring")  SquaredFunctionMeanSquaredError::~SquaredFunctionMeanSquaredError "SquaredFunctionMeanSquaredError::~SquaredFunctionMeanSquaredError()
-";
-
-%feature("docstring")  SquaredFunctionMeanSquaredError::clone "SquaredFunctionMeanSquaredError * SquaredFunctionMeanSquaredError::clone() const override
-";
-
-%feature("docstring")  SquaredFunctionMeanSquaredError::calculateSquaredDifference "double SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const override
-";
-
-%feature("docstring")  SquaredFunctionMeanSquaredError::calculateSquaredError "double SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const override
-";
-
-
-// File: classSquaredFunctionSimError.xml
-%feature("docstring") SquaredFunctionSimError "
-
-Squared difference between two values. value = (a-b)*(a-b)/norm, where norm = max(a, 1.0), a = simulated values, b = real_values.
-
-C++ includes: ISquaredFunction.h
-";
-
-%feature("docstring")  SquaredFunctionSimError::SquaredFunctionSimError "SquaredFunctionSimError::SquaredFunctionSimError()
-";
-
-%feature("docstring")  SquaredFunctionSimError::~SquaredFunctionSimError "SquaredFunctionSimError::~SquaredFunctionSimError()
-";
-
-%feature("docstring")  SquaredFunctionSimError::clone "SquaredFunctionSimError * SquaredFunctionSimError::clone() const override
-";
-
-%feature("docstring")  SquaredFunctionSimError::calculateSquaredDifference "double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const override
-";
-
-%feature("docstring")  SquaredFunctionSimError::calculateSquaredError "double SquaredFunctionSimError::calculateSquaredError(double real_value, double simulated_value) const override
-";
-
-
-// File: classSquaredFunctionSystematicError.xml
-%feature("docstring") SquaredFunctionSystematicError "
-
-Squared difference between two values normalized by systematic error. value = (a-b)*(a-b)/norm, where norm = max(error, 1.0), error = b + (epsilon*b)**2.
-
-C++ includes: ISquaredFunction.h
-";
-
-%feature("docstring")  SquaredFunctionSystematicError::SquaredFunctionSystematicError "SquaredFunctionSystematicError::SquaredFunctionSystematicError(double epsilon=0.08)
-";
-
-%feature("docstring")  SquaredFunctionSystematicError::~SquaredFunctionSystematicError "SquaredFunctionSystematicError::~SquaredFunctionSystematicError()
-";
-
-%feature("docstring")  SquaredFunctionSystematicError::clone "SquaredFunctionSystematicError * SquaredFunctionSystematicError::clone() const override
-";
-
-%feature("docstring")  SquaredFunctionSystematicError::calculateSquaredDifference "double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const override
-";
-
-%feature("docstring")  SquaredFunctionSystematicError::calculateSquaredError "double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double simulated_value) const override
-";
-
-
 // File: classSquareLattice.xml
 %feature("docstring") SquareLattice "";
 
@@ -15654,6 +15467,39 @@ Creates a new clipped axis.
 ";
 
 
+// File: classVarianceConstantFunction.xml
+%feature("docstring") VarianceConstantFunction "
+
+Returns 1.0 as variance value
+
+C++ includes: VarianceFunctions.h
+";
+
+%feature("docstring")  VarianceConstantFunction::clone "VarianceConstantFunction * VarianceConstantFunction::clone() const override
+";
+
+%feature("docstring")  VarianceConstantFunction::variance "double VarianceConstantFunction::variance(double, double) const override
+";
+
+
+// File: classVarianceSimFunction.xml
+%feature("docstring") VarianceSimFunction "
+
+Returns max(sim, epsilon)
+
+C++ includes: VarianceFunctions.h
+";
+
+%feature("docstring")  VarianceSimFunction::VarianceSimFunction "VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
+";
+
+%feature("docstring")  VarianceSimFunction::clone "VarianceSimFunction * VarianceSimFunction::clone() const override
+";
+
+%feature("docstring")  VarianceSimFunction::variance "double VarianceSimFunction::variance(double exp, double sim) const override
+";
+
+
 // File: classVerticalLine.xml
 %feature("docstring") VerticalLine "
 
@@ -15718,10 +15564,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -15787,19 +15633,22 @@ C++ includes: ZLimits.h
 // File: namespace_0D226.xml
 
 
+// File: namespace_0D291.xml
+
+
 // File: namespace_0D295.xml
 
 
-// File: namespace_0D299.xml
+// File: namespace_0D307.xml
 
 
-// File: namespace_0D311.xml
+// File: namespace_0D313.xml
 
 
-// File: namespace_0D315.xml
+// File: namespace_0D334.xml
 
 
-// File: namespace_0D336.xml
+// File: namespace_0D338.xml
 
 
 // File: namespace_0D340.xml
@@ -15808,49 +15657,49 @@ C++ includes: ZLimits.h
 // File: namespace_0D342.xml
 
 
-// File: namespace_0D344.xml
-
-
-// File: namespace_0D352.xml
+// File: namespace_0D350.xml
 
 
 // File: namespace_0D36.xml
 
 
-// File: namespace_0D369.xml
+// File: namespace_0D367.xml
 
 
-// File: namespace_0D377.xml
+// File: namespace_0D375.xml
 
 
 // File: namespace_0D38.xml
 
 
-// File: namespace_0D383.xml
+// File: namespace_0D381.xml
+
+
+// File: namespace_0D384.xml
 
 
 // File: namespace_0D386.xml
 
 
-// File: namespace_0D388.xml
+// File: namespace_0D394.xml
 
 
-// File: namespace_0D396.xml
+// File: namespace_0D407.xml
 
 
-// File: namespace_0D409.xml
+// File: namespace_0D416.xml
 
 
-// File: namespace_0D418.xml
+// File: namespace_0D450.xml
 
 
-// File: namespace_0D452.xml
+// File: namespace_0D457.xml
 
 
-// File: namespace_0D459.xml
+// File: namespace_0D495.xml
 
 
-// File: namespace_0D497.xml
+// File: namespace_0D503.xml
 
 
 // File: namespace_0D505.xml
@@ -15859,13 +15708,10 @@ C++ includes: ZLimits.h
 // File: namespace_0D507.xml
 
 
-// File: namespace_0D509.xml
+// File: namespace_0D589.xml
 
 
-// File: namespace_0D591.xml
-
-
-// File: namespace_0D613.xml
+// File: namespace_0D611.xml
 
 
 // File: namespace_0D94.xml
@@ -16739,6 +16585,11 @@ GISAS simulation with rectangular detector, region of interest and mask.
 %feature("docstring")  StandardSimulations::ConstantBackgroundGISAS "GISASSimulation * StandardSimulations::ConstantBackgroundGISAS()
 ";
 
+%feature("docstring")  StandardSimulations::MiniGISASFit "GISASSimulation * StandardSimulations::MiniGISASFit()
+
+Simulation with fitting.  Beam intensity set to provide reasonably large values in detector channels. 
+";
+
 %feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
 ";
 
@@ -17577,12 +17428,6 @@ global helper function for comparison of axes
 // File: DetectorMask_8h.xml
 
 
-// File: FitElement_8cpp.xml
-
-
-// File: FitElement_8h.xml
-
-
 // File: FourierTransform_8cpp.xml
 
 
@@ -17659,12 +17504,6 @@ global helper function for comparison of axes
 
 
 // File: IsGISAXSDetector_8h.xml
-
-
-// File: ISquaredFunction_8cpp.xml
-
-
-// File: ISquaredFunction_8h.xml
 
 
 // File: IUnitConverter_8cpp.xml
@@ -17776,6 +17615,12 @@ make Swappable
 
 
 // File: UnitConverterUtils_8h.xml
+
+
+// File: VarianceFunctions_8cpp.xml
+
+
+// File: VarianceFunctions_8h.xml
 
 
 // File: ILatticeOrientation_8cpp.xml

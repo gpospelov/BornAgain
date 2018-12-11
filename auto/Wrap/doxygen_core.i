@@ -8298,9 +8298,7 @@ perform the actual integration over the range [lmin, lmax]
 // File: classIntensityDataIOFactory.xml
 %feature("docstring") IntensityDataIOFactory "
 
-Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
-
-Usage:
+Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm. Usage:
 
 C++ includes: IntensityDataIOFactory.h
 ";
@@ -11890,7 +11888,7 @@ Returns number of parameters in the pool.
 
 Adds parameter to the pool, and returns reference to the input pointer.
 
-Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
+Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
 ";
 
 %feature("docstring")  ParameterPool::parameter "RealParameter * ParameterPool::parameter(const std::string &name)
@@ -12569,7 +12567,10 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list 
+oriented vertex list
+
+_sym_S2: 
+true if face has a perpedicular two-fold symmetry axis 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const

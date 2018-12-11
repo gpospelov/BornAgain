@@ -3,27 +3,14 @@
 ###############################################################################
 set(executable_name BornAgain)
 
-# -----------------------------------------------------------------------------
-# source files
-# -----------------------------------------------------------------------------
-include_directories(
-    ${CMAKE_SOURCE_DIR}/Wrap
-    ${Boost_INCLUDE_DIRS}
-    ${BornAgainGUI_INCLUDE_DIRS}
-    ${QtAddOn_INCLUDE_DIRS}
-    ${GSL_INCLUDE_DIR}
-    ${CMAKE_SOURCE_DIR}/Core/Basics
-)
 set(source_files main.cpp appoptions.cpp)
 set(include_files appoptions.h)
-
 
 # -----------------------------------------------------------------------------
 # Qt configuration
 # -----------------------------------------------------------------------------
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-
 
 # -----------------------------------------------------------------------------
 # executable icons

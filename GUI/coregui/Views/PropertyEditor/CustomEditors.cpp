@@ -188,7 +188,8 @@ void ComboPropertyEditor::initEditor()
 
 QStringList ComboPropertyEditor::internLabels()
 {
-    Q_ASSERT(m_data.canConvert<ComboProperty>());
+    if (!m_data.canConvert<ComboProperty>())
+        return {};
     ComboProperty comboProperty = m_data.value<ComboProperty>();
     return comboProperty.getValues();
 }
@@ -197,7 +198,8 @@ QStringList ComboPropertyEditor::internLabels()
 
 int ComboPropertyEditor::internIndex()
 {
-    Q_ASSERT(m_data.canConvert<ComboProperty>());
+    if (!m_data.canConvert<ComboProperty>())
+        return 0;
     ComboProperty comboProperty = m_data.value<ComboProperty>();
     return comboProperty.currentIndex();
 }
@@ -360,7 +362,8 @@ void IntEditor::onEditingFinished()
 
 void IntEditor::initEditor()
 {
-    Q_ASSERT(m_data.type() == QVariant::Int);
+    if (!m_data.isValid() || m_data.type() != QVariant::Int)
+        return;
     m_intEditor->setValue(m_data.toInt());
 }
 

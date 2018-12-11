@@ -142,6 +142,11 @@ void DocksController::onWidgetCloseRequest()
     dock->toggleViewAction()->trigger();
 }
 
+Manhattan::FancyMainWindow* DocksController::mainWindow()
+{
+    return m_mainWindow;
+}
+
 DockWidgetInfo DocksController::get_info(int id)
 {
     if (m_docks.find(id) == m_docks.end())

@@ -31,6 +31,7 @@ public:
     ParticleItem();
 
     std::unique_ptr<Particle> createParticle() const;
+    QVector<SessionItem*> materialPropertyItems();
 
 private:
     void updatePropertiesAppearance(SessionItem* newParent);

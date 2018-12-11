@@ -2,8 +2,19 @@ set(test TestFitObjective)
 
 set(test_cases
     MigradCylindersInBA
+    MigradResidualCylindersInBA
     SpecularFitTest
-    MultipleSpecFittingTest
+    MultipleSpecFittingTest    
+    FumuliCylindersInBA
+    LevenbergMarquardtCylindersInBA
+    MultiPatternFit
+    RectDetectorFit
+    # --- slow, but still converging ---
+    # SimAnCylindersInBA
+    # GeneticCylindersInBA
+    # SteepestDescentCylindersInBA
+    # AdjustMinimizerFit
+    # BfgsCylindersInBA
 )
 
 include_directories(${RootMinimizers_INCLUDE_DIRS})

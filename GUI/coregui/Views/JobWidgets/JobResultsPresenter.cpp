@@ -28,7 +28,8 @@ const bool use_job_last_presentation = true;
 const std::map<QString, QString> instrument_to_default_presentaion{
     {Constants::SpecularInstrumentType, Constants::SpecularDataPresentation},
     {Constants::GISASInstrumentType, Constants::IntensityDataPresentation},
-    {Constants::OffSpecInstrumentType, Constants::IntensityDataPresentation}};
+    {Constants::OffSpecInstrumentType, Constants::IntensityDataPresentation},
+    {Constants::DepthProbeInstrumentType, Constants::IntensityDataPresentation}};
 
 const std::map<QString, QString> instrument_to_fit_presentaion{
     {Constants::SpecularInstrumentType, Constants::FitComparisonPresentation1D},
@@ -42,17 +43,17 @@ const std::map<JobViewFlags::EActivities, std::map<QString, QString>> activity_t
 
 const std::map<QString, QStringList> default_active_presentation_list{
     {Constants::SpecularInstrumentType, {Constants::SpecularDataPresentation}},
-    {{Constants::GISASInstrumentType},
-     {Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}},
-    {{Constants::OffSpecInstrumentType},
-     {Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}}};
+    {{Constants::GISASInstrumentType}, {Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}},
+    {{Constants::OffSpecInstrumentType},{Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}},
+    {{Constants::DepthProbeInstrumentType},{Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}}
+};
 
 template<class QStringObj>
 QStringObj getPresentations(const SessionItem* job_item, const std::map<QString, QStringObj>& presentation_map) {
     const QString& instrument_type = job_item->getItem(JobItem::T_INSTRUMENT)->modelType();
     const auto list_iter = presentation_map.find(instrument_type);
     if (list_iter == presentation_map.cend())
-        throw GUIHelpers::Error("Error in JobResultsPresenter::getPresentations: unknown instrument");
+        return QStringObj();
     return list_iter->second;
 }
 }
@@ -119,7 +120,9 @@ QStringList JobResultsPresenter::activePresentationList(SessionItem* item)
 QStringList JobResultsPresenter::presentationList(SessionItem* item)
 {
     auto result = getPresentations(item, default_active_presentation_list);
-    result << getPresentations(item, instrument_to_fit_presentaion);
+    auto addon = getPresentations(item, instrument_to_fit_presentaion);
+    if (!addon.isEmpty())
+        result << addon;
 
     return result;
 }

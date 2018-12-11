@@ -63,7 +63,7 @@ MinimizerTestFactory::MinimizerTestFactory()
                  "Minuit + Fumili + DecayingSinPlan");
 
     registerItem("LevenbergMarquardtV3", create_new<LevenbergMarquardtV3>,
-                 "LevenbergMarquardt + DecayingSinPlan");
+                 "LevenbergMarquardt + DecayingSinPlanV2");
 
     registerItem("TestMinimizerV1", create_new<TestMinimizerV1>,
                  "Test minimizer");

@@ -45,6 +45,7 @@ const ModelType InterferenceFunctionFinite2DLatticeType = "InterferenceFinite2DL
 const ModelType GISASInstrumentType = "GISASInstrument";
 const ModelType OffSpecInstrumentType = "OffSpecInstrument";
 const ModelType SpecularInstrumentType = "SpecularInstrument";
+const ModelType DepthProbeInstrumentType = "DepthProbeInstrument";
 const ModelType GISASBeamType = "GISASBeam";
 const ModelType SpecularBeamType = "SpecularBeam";
 
@@ -122,6 +123,7 @@ const ModelType SquareLatticeType = "SquareLattice";
 const ModelType HexagonalLatticeType = "HexagonalLattice";
 
 const ModelType MaterialType = "Material";
+const ModelType MaterialContainerType = "MaterialContainer";
 
 const ModelType MaterialRefractiveDataType = "MaterialRefractiveData";
 const ModelType MaterialSLDDataType = "MaterialSLDData";
@@ -145,6 +147,7 @@ const ModelType DataPropertyContainerType = "DataPropertyContainer";
 const ModelType DataItem1DPropertiesType = "DataItem1DProperties";
 
 const ModelType BasicAxisType = "BasicAxis";
+const ModelType PointwiseAxisType = "PointwiseAxis";
 const ModelType AmplitudeAxisType = "AmplitudeAxis";
 
 const ModelType BeamDistributionType = "BeamDistribution";
@@ -152,6 +155,7 @@ const ModelType BeamWavelengthType = "BeamWavelength";
 const ModelType BeamAzimuthalAngleType = "BeamAzimuthalAngle";
 const ModelType BeamInclinationAngleType = "BeamInclinationAngle";
 const ModelType SpecularBeamInclinationType = "SpecularBeamInclinationAxis";
+const ModelType SpecularBeamWavelengthType = "SpecularBeamWavelength";
 
 const ModelType ResolutionFunctionNoneType = "ResolutionFunctionNone";
 const ModelType ResolutionFunction2DGaussianType = "ResolutionFunction2DGaussian";
@@ -196,6 +200,9 @@ const ModelType FootprintNoneType = "NoFootprint";
 const ModelType FootprintGaussianType = "GaussianFootrpint";
 const ModelType FootprintSquareType = "SquareFootprint";
 
+const ModelType VarianceConstantFunctionType= "VarianceConstantFunction";
+const ModelType VarianceSimFunctionType = "VarianceSimFunction";
+
 // --- Groups ------------------------------------------------------------------
 
 const ModelType FormFactorGroup = "Form Factor";
@@ -204,7 +211,7 @@ const ModelType LayerRoughnessGroup = "Roughness";
 const ModelType DetectorGroup = "Detector group";
 const ModelType DistributionGroup = "Distribution group";
 const ModelType DistributionExtendedGroup = "Distribution extended group";
-const ModelType DistributionWithZeroAverageGroup = "Distribution with zero average group";
+const ModelType SymmetricDistributionGroup = "Symmetric distribution group";
 const ModelType FTDistribution1DGroup = "PDF 1D";
 const ModelType FTDistribution2DGroup = "PDF 2D";
 const ModelType FTDecayFunction1DGroup = "Decay function 1D";
@@ -217,6 +224,8 @@ const ModelType RealLimitsGroup = "RealLimits group";
 const ModelType BackgroundGroup = "Background group";
 const ModelType MaterialDataGroup = "Material data group";
 const ModelType FootprintGroup = "Footprint group";
+const ModelType AxesGroup = "Axes group";
+const ModelType VarianceFunctionGroup = "Variance group";
 
 // --- Units&Constants----------------------------------------------------------
 
@@ -248,7 +257,6 @@ const ModelType GRADIENT_HUES = "Hues";
 
 const ModelType JOB_RUN_IMMEDIATELY = "Immediately";
 const ModelType JOB_RUN_IN_BACKGROUND = "In background";
-const ModelType JOB_RUN_SUBMIT_ONLY = "Submit only";
 const ModelType JOB_BACKUP = "_backup";
 
 const ModelType SIMULATION_ANALYTICAL = "Analytical";
@@ -291,8 +299,10 @@ const ModelType ComboPropertyType = "ComboProperty";
 // --- Custom editors for variant propertues ---
 const ModelType DefaultEditorType = "Default";
 const ModelType ScientificEditorType = "SceintificDouble";
+const ModelType ScientificSpinBoxType = "ScientificSpinBox";
 const ModelType MaterialEditorExternalType = "ExtMaterialEditor";
 const ModelType ColorEditorExternalType = "ExtColorEditor";
+const ModelType MultiSelectionComboEditorType = "MultiSelectionComboEditor";
 }
 
 #endif // ITEM_CONSTANTS_H

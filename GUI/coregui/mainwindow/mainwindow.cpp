@@ -154,11 +154,6 @@ void MainWindow::onSessionModelViewActive(bool isActive)
     }
 }
 
-void MainWindow::checkUpdates()
-{
-    m_updateNotifier->askForUpdates();
-}
-
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     if (jobModel()->hasUnfinishedJobs()) {
@@ -271,6 +266,4 @@ void MainWindow::writeSettings()
 void MainWindow::initConnections()
 {
     connect(m_jobView, &JobView::focusRequest, this, &MainWindow::onFocusRequest);
-    connect(m_updateNotifier, &UpdateNotifier::onUpdateNotification,
-            m_welcomeView, &WelcomeView::setNotificationText);
 }

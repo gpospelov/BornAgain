@@ -16,9 +16,10 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 #include "ModelPath.h"
-#include "FitParameter.h"
 #include "ParameterTreeItems.h"
 #include "JobItem.h"
+#include "Parameters.h"
+#include "Parameter.h"
 #include <cmath>
 
 namespace
@@ -66,11 +67,15 @@ const QString FitParameterItem::T_LINK = "Link tag";
 FitParameterItem::FitParameterItem() : SessionItem(Constants::FitParameterType)
 {
     addProperty(P_TYPE, fitParameterTypeCombo().variant());
-    addProperty(P_START_VALUE, 0.0);
-    addProperty(P_MIN, 0.0);
-    addProperty(P_MAX, 0.0)->setEnabled(false);
+    addProperty(P_START_VALUE, 0.0)->setEditorType(Constants::ScientificSpinBoxType);
+    addProperty(P_MIN, 0.0)->setEditorType(Constants::ScientificSpinBoxType);
+    addProperty(P_MAX, 0.0)->setEditorType(Constants::ScientificSpinBoxType).setEnabled(false);
     registerTag(T_LINK, 0, -1, QStringList() << Constants::FitParameterLinkType);
     setDefaultTag(T_LINK);
+
+    getItem(P_START_VALUE)->setLimits(RealLimits::limitless());
+    getItem(P_MIN)->setLimits(RealLimits::limitless());
+    getItem(P_MAX)->setLimits(RealLimits::limitless());
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_TYPE)
@@ -93,49 +98,21 @@ void FitParameterItem::initMinMaxValues(const RealLimits& limits)
         dr = std::abs(value) * range_factor;
     }
 
-    if (isLimited()) {
-        double min = value - dr;
-        double max = value + dr;
+    double min = value - dr;
+    double max = value + dr;
 
-        if (limits.hasLowerLimit() && min < limits.lowerLimit())
-            min = limits.lowerLimit();
+    if (limits.hasLowerLimit() && min < limits.lowerLimit())
+        min = limits.lowerLimit();
 
-        if (limits.hasUpperLimit() && max > limits.upperLimit())
-            max = limits.upperLimit();
+    if (limits.hasUpperLimit() && max > limits.upperLimit())
+        max = limits.upperLimit();
 
-        setItemValue(P_MIN, min);
-        setItemValue(P_MAX, max);
-    }
-}
+    setItemValue(P_MIN, min);
+    getItem(P_MIN)->setLimits(limits);
+    setItemValue(P_MAX, max);
+    getItem(P_MAX)->setLimits(limits);
 
-//! Creates domain's FitParameter.
-
-std::unique_ptr<FitParameter> FitParameterItem::createFitParameter() const
-{
-    if (getItems(FitParameterItem::T_LINK).empty())
-        return std::unique_ptr<FitParameter>();
-
-    std::unique_ptr<FitParameter> result(new FitParameter);
-    result->setStartValue(getItemValue(FitParameterItem::P_START_VALUE).toDouble());
-    result->setLimits(attLimits());
-
-    const JobItem* jobItem = dynamic_cast<const JobItem*>(ModelPath::ancestor(this, Constants::JobItemType));
-    Q_ASSERT(jobItem);
-
-    for(auto linkItem : getItems(FitParameterItem::T_LINK)) {
-        QString link = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
-
-        ParameterItem *parItem = dynamic_cast<ParameterItem*>(
-                    ModelPath::getItemFromPath(link, jobItem->parameterContainerItem()));
-        Q_ASSERT(parItem);
-
-        QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
-        parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
-
-        result->addPattern(translation.toStdString());
-    }
-
-    return result;
+    getItem(P_START_VALUE)->setLimits(limits);
 }
 
 //! Constructs Limits correspodning to current GUI settings.
@@ -165,6 +142,22 @@ AttLimits FitParameterItem::attLimits() const
     else {
         throw GUIHelpers::Error("FitParameterItem::attLimits() -> Error. Unknown limit type");
     }
+}
+
+bool FitParameterItem::isValid() const
+{
+    if (isFixed() || isFree())
+        return true;
+
+    double value = getItemValue(P_START_VALUE).toDouble();
+    double min = getItemValue(P_MIN).toDouble();
+    double max = getItemValue(P_MAX).toDouble();
+
+    if (isLowerLimited())
+        return min <= value;
+    if (isUpperLimited())
+        return value <= max;
+    return min <= value && value <= max;
 }
 
 QString FitParameterItem::parameterType() const
@@ -300,4 +293,29 @@ void FitParameterContainerItem::setValuesInParameterContainer(
         }
         index++;
     }
+}
+
+Fit::Parameters FitParameterContainerItem::createParameters() const
+{
+    Fit::Parameters result;
+
+    int index(0);
+    for(auto item : getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+        auto fitPar = dynamic_cast<FitParameterItem*>(item);
+        if (!fitPar->isValid()) {
+            std::stringstream ss;
+            ss << "FitParameterContainerItem::createParameters(): invalid starting value "
+                  "or (min, max) range in fitting parameter par"
+               << index;
+            std::string message = ss.str();
+            throw GUIHelpers::Error(QString::fromStdString(ss.str()));
+        }
+        double startValue = fitPar->getItemValue(FitParameterItem::P_START_VALUE).toDouble();
+        AttLimits limits = fitPar->attLimits();
+        QString name = QString("par%1").arg(index);
+        result.add(Fit::Parameter(name.toStdString(), startValue, limits));
+        ++index;
+    }
+
+    return result;
 }

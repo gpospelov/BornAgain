@@ -81,7 +81,7 @@ Geometry::Geometry(GeometricID::Key key_) : m_key(key_)
         m_mesh = meshBox();
         break;
     case BaseShape::Sphere:
-        m_mesh = meshSphere(m_key.p1, m_key.p2);
+        m_mesh = meshSphere(m_key.p1, m_key.p2, m_key.p3);
         break;
     case BaseShape::Column:
         m_mesh = meshColumn(m_key.p1, m_key.p2);

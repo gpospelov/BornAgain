@@ -427,7 +427,8 @@ std::string SampleToPython::defineInterferenceFunctions() const
                    << printNm(lattice.length1()) << ", " << printNm(lattice.length2()) << ", "
                    << printDegrees(lattice.latticeAngle()) << ", "
                    << printDegrees(lattice.rotationAngle()) << ", "
-                   << p_lattice_2d->domainSize1() << ", " << p_lattice_2d->domainSize2() << ")\n";
+                   << p_lattice_2d->numberUnitCells1() << ", "
+                   << p_lattice_2d->numberUnitCells2() << ")\n";
 
             if (p_lattice_2d->positionVariance()>0.0) {
                 result << indent() << it->second << ".setPositionVariance("

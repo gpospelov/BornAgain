@@ -24,14 +24,14 @@
 
 namespace AxisNames
 {
-std::map<AxesUnits, std::string> InitSphericalAxis0();
-std::map<AxesUnits, std::string> InitSphericalAxis1();
-std::map<AxesUnits, std::string> InitRectangularAxis0();
-std::map<AxesUnits, std::string> InitRectangularAxis1();
-std::map<AxesUnits, std::string> InitOffSpecAxis0();
-std::map<AxesUnits, std::string> InitOffSpecAxis1();
-std::map<AxesUnits, std::string> InitSpecAxis();
-std::map<AxesUnits, std::string> InitSampleDepthAxis();
+BA_CORE_API_ std::map<AxesUnits, std::string> InitSphericalAxis0();
+BA_CORE_API_ std::map<AxesUnits, std::string> InitSphericalAxis1();
+BA_CORE_API_ std::map<AxesUnits, std::string> InitRectangularAxis0();
+BA_CORE_API_ std::map<AxesUnits, std::string> InitRectangularAxis1();
+BA_CORE_API_ std::map<AxesUnits, std::string> InitOffSpecAxis0();
+BA_CORE_API_ std::map<AxesUnits, std::string> InitOffSpecAxis1();
+BA_CORE_API_ std::map<AxesUnits, std::string> InitSpecAxis();
+BA_CORE_API_ std::map<AxesUnits, std::string> InitSampleDepthAxis();
 }
 
 #endif // AXISNAMES_H

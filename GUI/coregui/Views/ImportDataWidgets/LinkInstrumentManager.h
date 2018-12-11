@@ -46,7 +46,7 @@ public:
         InstrumentItem* m_instrument;
     };
 
-    explicit LinkInstrumentManager(QObject* parent = 0);
+    explicit LinkInstrumentManager(QObject* parent = nullptr);
 
     void setModels(InstrumentModel* instrumentModel, RealDataModel* realDataModel);
 
@@ -71,7 +71,6 @@ private slots:
     void updateLinks();
     void updateInstrumentMap();
     void updateRealDataMap();
-    void onInstrumentBinningChange(InstrumentItem* changedInstrument);
     void onInstrumentLayoutChange(InstrumentItem* changedInstrument);
 
 private:

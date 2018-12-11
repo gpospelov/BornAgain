@@ -39,6 +39,7 @@
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
 #include "MaterialDataItems.h"
+#include "MaterialItemContainer.h"
 #include "MaterialItem.h"
 #include "MesoCrystalItem.h"
 #include "MinimizerItem.h"
@@ -49,6 +50,7 @@
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
+#include "PointwiseAxisItem.h"
 #include "ProjectionItems.h"
 #include "PropertyItem.h"
 #include "RealDataItem.h"
@@ -62,6 +64,8 @@
 #include "SphericalDetectorItem.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
+#include "DepthProbeInstrumentItem.h"
+#include "VarianceFunctionItems.h"
 
 ItemCatalogue::ItemCatalogue()
 {
@@ -169,6 +173,7 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::HexagonalLatticeType, create_new<HexagonalLatticeItem>);
 
     add(Constants::MaterialType, create_new<MaterialItem>);
+    add(Constants::MaterialContainerType, create_new<MaterialItemContainer>);
 
     add(Constants::MaterialRefractiveDataType, create_new<MaterialRefractiveDataItem>);
     add(Constants::MaterialSLDDataType, create_new<MaterialSLDDataItem>);
@@ -182,12 +187,14 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::DataItem1DPropertiesType, create_new<Data1DProperties>);
 
     add(Constants::BasicAxisType, create_new<BasicAxisItem>);
+    add(Constants::PointwiseAxisType, create_new<PointwiseAxisItem>);
     add(Constants::AmplitudeAxisType, create_new<AmplitudeAxisItem>);
 
     add(Constants::BeamWavelengthType, create_new<BeamWavelengthItem>);
     add(Constants::BeamAzimuthalAngleType, create_new<BeamAzimuthalAngleItem>);
     add(Constants::BeamInclinationAngleType, create_new<BeamInclinationAngleItem>);
     add(Constants::SpecularBeamInclinationType, create_new<SpecularBeamInclinationItem>);
+    add(Constants::SpecularBeamWavelengthType, create_new<SpecularBeamWavelengthItem>);
 
     add(Constants::ResolutionFunctionNoneType, create_new<ResolutionFunctionNoneItem>);
     add(Constants::ResolutionFunction2DGaussianType, create_new<ResolutionFunction2DGaussianItem>);
@@ -234,6 +241,11 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::RealLimitsLimitedType, create_new<LimitedItem>);
 
     add(Constants::ProjectionContainerType, create_new<ProjectionContainerItem>);
+
+    add(Constants::DepthProbeInstrumentType, create_new<DepthProbeInstrumentItem>);
+
+    add(Constants::VarianceConstantFunctionType, create_new<VarianceConstantFunctionItem>);
+    add(Constants::VarianceSimFunctionType, create_new<VarianceSimFunctionItem>);
 }
 
 bool ItemCatalogue::contains(const QString& modelType) const { return m_data.contains(modelType); }

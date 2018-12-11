@@ -27,6 +27,8 @@ public:
     static const QString T_LAYOUTS;
     LayerItem();
 
+    QVector<SessionItem*> materialPropertyItems();
+
 private:
     void updateAppearance(SessionItem* new_parent);
 };

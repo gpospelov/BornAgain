@@ -4,10 +4,6 @@
 
 set(library_name BornAgainTestMachinery)
 
-if(POLICY CMP0042)
-    cmake_policy(SET CMP0042 NEW)
-endif()
-
 file(GLOB source_files "*.cpp")
 file(GLOB include_files "*.h")
 
@@ -41,8 +37,3 @@ if(APPLE AND BORNAGAIN_APPLE_BUNDLE)
     set(link_flags "-Wl,-rpath,@loader_path/../../Frameworks")
     set_target_properties(${library_name} PROPERTIES LINK_FLAGS ${link_flags})
 endif()
-
-# --- installation ---------
-
-#install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Libraries)
-#install (FILES ${include_files} DESTINATION ${destination_include} COMPONENT Headers)

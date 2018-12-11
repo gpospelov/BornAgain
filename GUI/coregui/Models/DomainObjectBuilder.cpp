@@ -29,6 +29,7 @@
 #include "UnitConverter1D.h"
 #include "UnitConverterUtils.h"
 #include "Units.h"
+#include "DepthProbeInstrumentItem.h"
 
 std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionItem& multilayer_item)
 {
@@ -134,21 +135,16 @@ DomainObjectBuilder::buildInstrument(const InstrumentItem& instrumentItem)
 std::unique_ptr<IUnitConverter>
 DomainObjectBuilder::createUnitConverter(const InstrumentItem* instrumentItem)
 {
+    if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
+        return specular_instrument->createUnitConverter();
+    else if(auto depth_instrument = dynamic_cast<const DepthProbeInstrumentItem*>(instrumentItem))
+        return depth_instrument->createUnitConverter();
+
     const auto instrument = instrumentItem->createInstrument();
     instrument->initDetector();
 
     if (instrumentItem->modelType() == Constants::GISASInstrumentType)
         return UnitConverterUtils::createConverterForGISAS(*instrument);
-
-    if (instrumentItem->modelType() == Constants::SpecularInstrumentType)
-    {
-        auto axis_item = dynamic_cast<BasicAxisItem*>(
-            instrumentItem->beamItem()
-                ->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
-                ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
-        return std::make_unique<UnitConverter1D>(instrument->getBeam(),
-                                                 *axis_item->createAxis(Units::degree));
-    }
 
     if (instrumentItem->modelType() == Constants::OffSpecInstrumentType) {
         auto axis_item = dynamic_cast<BasicAxisItem*>(

@@ -78,7 +78,7 @@ FumiliTestV3::FumiliTestV3()
 }
 
 LevenbergMarquardtV3::LevenbergMarquardtV3()
-    : MinimizerTest("GSLLMA", "Default", "DecayingSinPlan") {}
+    : MinimizerTest("GSLLMA", "Default", "DecayingSinPlanV2") {}
 
 
 TestMinimizerV1::TestMinimizerV1()

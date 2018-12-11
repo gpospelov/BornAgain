@@ -19,6 +19,7 @@
 #include "ExternalProperty.h"
 #include "GroupInfoCatalogue.h"
 #include "GUIHelpers.h"
+#include "SessionGraphicsItem.h"
 #include <QColor>
 #include <QIcon>
 #include <QPixmap>
@@ -151,4 +152,14 @@ bool SessionItemUtils::IsTheSame(const QVariant& var1, const QVariant& var2)
 
     // standard variants (based on double, int, etc) are compared by value they are holding
     return var1 == var2;
+}
+
+bool SessionItemUtils::IsPositionRelated(const SessionItem& item)
+{
+    if (item.modelType() == Constants::PropertyType &&
+            (item.displayName() == SessionGraphicsItem::P_XPOS
+                          || item.displayName() == SessionGraphicsItem::P_YPOS))
+        return true;
+
+    return false;
 }

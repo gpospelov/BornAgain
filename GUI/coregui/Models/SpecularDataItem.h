@@ -20,6 +20,11 @@
 class AmplitudeAxisItem;
 class BasicAxisItem;
 
+namespace SpecularDataAxesNames{
+const QString x_axis_default_name = "X [nbins]";
+const QString y_axis_default_name = "Signal [a.u.]";
+}
+
 class BA_CORE_API_ SpecularDataItem : public DataItem
 {
 public:
@@ -68,8 +73,9 @@ public:
     void updateAxesUnits(const InstrumentItem* instrument) override;
     std::vector<int> shape() const override;
 
-    //! Returns data to default state (no dimensional units, default axes' names)
-    void resetToDefault() override;
+    //! Returns data to the state defined by user (imported)
+    //! data.
+    void reset(ImportDataInfo data) override;
 
 public slots:
     void setLowerX(double xmin);

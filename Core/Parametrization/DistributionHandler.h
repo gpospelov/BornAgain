@@ -46,7 +46,11 @@ public:
     //! associated with this combination of parameter values
     double setParameterValues(ParameterPool *p_parameter_pool, size_t index);
 
+    //! Sets mean distribution values to the parameter pool.
+    void setParameterToMeans(ParameterPool* p_parameter_pool) const;
+
     const Distributions_t& getDistributions() const;
+
 private:
     size_t m_nbr_combinations;
     Distributions_t m_distributions;

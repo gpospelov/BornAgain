@@ -20,7 +20,7 @@
 #include <QVBoxLayout>
 
 namespace {
-const bool reuse_widget = false;
+const bool reuse_widget = true;
 }
 
 JobRealTimeWidget::JobRealTimeWidget(JobModel* jobModel, QWidget* parent)
@@ -28,6 +28,7 @@ JobRealTimeWidget::JobRealTimeWidget(JobModel* jobModel, QWidget* parent)
     , m_stackedWidget(new ItemStackPresenter<ParameterTuningWidget>(reuse_widget))
 {
     setWindowTitle(Constants::JobRealTimeWidgetName);
+    setObjectName("JobRealTimeWidget");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     auto mainLayout = new QVBoxLayout;

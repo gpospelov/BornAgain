@@ -14,24 +14,18 @@
 
 #include "OutputDataIOService.h"
 #include "ApplicationModels.h"
-#include "DataItem.h"
-#include "JobItemUtils.h"
+#include "IntensityDataIOFactory.h"
 #include "ProjectUtils.h"
 #include "MessageService.h"
 #include "JobItem.h"
 #include "ModelPath.h"
+#include "SaveLoadInterface.h"
 #include "item_constants.h"
 
-namespace {
-
-BA_CORE_API_ JobItem* parentJobItem(DataItem* dataItem)
+namespace
 {
-    auto jobItem = dynamic_cast<const JobItem*>(
-                ModelPath::ancestor(dataItem, Constants::JobItemType));
-    return const_cast<JobItem*>(jobItem);
-}
-
-}
+JobItem* parentJobItem(SaveLoadInterface* item);
+} // namespace
 
 OutputDataIOService::OutputDataIOService(QObject* parent)
     : QObject(parent), m_applicationModels(nullptr)
@@ -58,11 +52,9 @@ void OutputDataIOService::save(const QString& projectDir)
 
     OutputDataDirHistory newHistory;
 
-    for (auto item : dataItems()) {
-
+    for (auto item : nonXMLItems()) {
         if (m_history.wasModifiedSinceLastSave(projectDir, item))
-            JobItemUtils::saveIntensityData(item, projectDir);
-
+            item->save(projectDir);
         newHistory.markAsSaved(item);
     }
 
@@ -71,7 +63,7 @@ void OutputDataIOService::save(const QString& projectDir)
     QStringList newFiles = newHistory.savedFileNames();
     cleanOldFiles(projectDir, oldFiles, newFiles);
 
-    // if oldHistory contained some deleted IntensityDataItems, that info will be dropped here
+    // if oldHistory contained some deleted items, that info will be dropped here
     m_history.setHistory(projectDir, newHistory);
 }
 
@@ -79,9 +71,9 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
 {
     OutputDataDirHistory newHistory;
 
-    for (auto item : dataItems()) {
+    for (auto item : nonXMLItems()) {
         try {
-            JobItemUtils::loadIntensityData(item, projectDir);
+            item->load(projectDir);
             newHistory.markAsSaved(item);
             // handling crash of GUI during job run and non-existing file
             if (auto jobItem = parentJobItem(item)) {
@@ -106,18 +98,18 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
     m_history.setHistory(projectDir, newHistory);
 }
 
-//! Returns all IntensityDataItems available for save/load.
+//! Returns all non-XML items available for save/load.
 
-QVector<DataItem*> OutputDataIOService::dataItems() const
+QVector<SaveLoadInterface*> OutputDataIOService::nonXMLItems() const
 {
-    QVector<DataItem*> result;
+    QVector<SaveLoadInterface*> result;
 
     if (!m_applicationModels)
         return result;
 
     for (auto item : m_applicationModels->nonXMLData())
-        if (auto data_item = dynamic_cast<DataItem*>(item))
-            result.push_back(data_item);
+        if (auto non_xml_item = dynamic_cast<SaveLoadInterface*>(item))
+            result.push_back(non_xml_item);
 
     return result;
 }
@@ -131,3 +123,14 @@ void OutputDataIOService::cleanOldFiles(const QString& projectDir, const QString
     QStringList to_remove = ProjectUtils::substract(oldSaves, newSaves);
     ProjectUtils::removeFiles(projectDir, to_remove);
 }
+
+namespace
+{
+JobItem* parentJobItem(SaveLoadInterface* item)
+{
+    auto session_item = dynamic_cast<SessionItem*>(item); //sidecast
+    auto jobItem =
+        dynamic_cast<const JobItem*>(ModelPath::ancestor(session_item, Constants::JobItemType));
+    return const_cast<JobItem*>(jobItem);
+}
+} // namespace

@@ -33,11 +33,13 @@ JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     , m_jobProperties(new JobPropertiesWidget)
     , m_jobModel(nullptr)
 {
-    setModel(jobModel);
+    setWindowTitle(Constants::JobSelectorWidgetName);
+    setObjectName("JobSelectorWidget");
 
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    setWindowTitle(Constants::JobSelectorWidgetName);
+
+    setModel(jobModel);
 
     m_splitter->setOrientation(Qt::Vertical);
     m_splitter->addWidget(m_jobListWidget);

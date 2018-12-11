@@ -22,7 +22,9 @@ class SampleWidgetBox;
 class SampleTreeWidget;
 class SamplePropertyWidget;
 class SampleDesigner;
-class InfoWidget;
+class ScriptPanel;
+class RealSpacePanel;
+class QAction;
 
 //! Holds all docked widgets for SampleView.
 
@@ -31,25 +33,27 @@ class BA_CORE_API_ SampleViewDocks : public DocksController
     Q_OBJECT
 
 public:
+    enum ESubWindows { WIDGET_BOX, SAMPLE_TREE, PROPERTY_EDITOR, INFO, REALSPACEPANEL,
+                       NUMBER_OF_SUB_WINDOWS };
+
     SampleViewDocks(SampleView* parent = nullptr);
 
     SampleDesigner* sampleDesigner();
     SampleWidgetBox* widgetBox();
     SampleTreeWidget* treeWidget();
     SamplePropertyWidget* propertyWidget();
-    InfoWidget* infoWidget();
 
-protected slots:
-    void onDockVisibilityChangeV2(bool status);
+    void onResetLayout() override;
+
+    void togleDock(int id);
 
 private:
-    enum ESubWindows { WIDGET_BOX, SAMPLE_TREE, PROPERTY_EDITOR, INFO, NUMBER_OF_SUB_WINDOWS };
-
     SampleDesigner* m_sampleDesigner;
     SampleWidgetBox* m_widgetBox;
     SampleTreeWidget* m_treeWidget;
     SamplePropertyWidget* m_propertyWidget;
-    InfoWidget* m_infoWidget;
+    ScriptPanel* m_scriptPanel;
+    RealSpacePanel* m_realSpacePanel;
 };
 
 #endif

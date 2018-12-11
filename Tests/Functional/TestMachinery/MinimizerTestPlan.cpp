@@ -67,12 +67,16 @@ bool MinimizerTestPlan::valuesAsExpected(const std::vector<double>& values) cons
     std::ostringstream text;
     for (const auto& plan : m_parameter_plan) {
         double diff = Numeric::get_relative_difference(values[index], plan.expectedValue());
+
+        bool diff_ok(true);
         if (diff > plan.tolerance())
-            success = false;
+            diff_ok = false;
 
         text << plan.fitParameter().name() << " found:" << values[index]
              << " expected:" << plan.expectedValue() << " diff:" << diff << " "
-             << (success ? "OK" : "FAILED") << "\n";
+             << (diff_ok ? "OK" : "FAILED") << "\n";
+
+        success &= diff_ok;
 
         ++index;
     }

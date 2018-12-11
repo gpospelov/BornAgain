@@ -85,7 +85,7 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.setDefaultType(Constants::DistributionNoneType);
     addInfo(info);
 
-    info = GroupInfo(Constants::DistributionWithZeroAverageGroup);
+    info = GroupInfo(Constants::SymmetricDistributionGroup);
     info.add(Constants::DistributionNoneType, "None");
     info.add(Constants::DistributionLorentzType, "Lorentz");
     info.add(Constants::DistributionGaussianType, "Gaussian");
@@ -178,6 +178,18 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::FootprintGaussianType, "Gaussian footprint");
     info.add(Constants::FootprintSquareType, "Square footprint");
     info.setDefaultType(Constants::FootprintNoneType);
+    addInfo(info);
+
+    info = GroupInfo(Constants::AxesGroup);
+    info.add(Constants::BasicAxisType, "Uniform axis");
+    info.add(Constants::PointwiseAxisType, "Non-uniform axis");
+    info.setDefaultType(Constants::BasicAxisType);
+    addInfo(info);
+
+    info = GroupInfo(Constants::VarianceFunctionGroup);
+    info.add(Constants::VarianceSimFunctionType, "Simulation value based");
+    info.add(Constants::VarianceConstantFunctionType, "Constant");
+    info.setDefaultType(Constants::VarianceSimFunctionType);
     addInfo(info);
 }
 

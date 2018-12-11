@@ -20,8 +20,8 @@
 #include "SafePointerVector.h"
 #include "SimDataPair.h"
 #include "IterationInfo.h"
+#include "MinimizerResult.h"
 
-namespace Fit { class MinimizerResult; }
 class IChiSquaredModule;
 class PyBuilderCallback;
 class PyObserverCallback;
@@ -70,6 +70,9 @@ public:
     //! Data from different datasets merged together.
     std::vector<double> simulation_array() const;
 
+    //! Returns one dimensional array representing weights of bin intensity for residuals.
+    std::vector<double> weights_array() const;
+
     //! Returns simulation result.
     //! @param i_item: the index of fit pair
     SimulationResult simulationResult(size_t i_item = 0) const;
@@ -82,12 +85,19 @@ public:
     //! @param i_item: the index of fit pair
     SimulationResult relativeDifference(size_t i_item = 0) const;
 
+    //! Returns absolute value of difference between simulation and experimental data.
+    //! @param i_item: the index of fit pair
+    SimulationResult absoluteDifference(size_t i_item = 0) const;
+
     //! Initializes printing to standard output during the fitting.
     //! @param every_nth: Print every n'th iteration.
     void initPrint(int every_nth);
 
     //! Initializes plotting during the fitting using Python callable.
     //! @param every_nth: Called on every n'th iteration.
+#ifndef SWIG
+    void initPlot(int every_nth, fit_observer_t observer);
+#endif
     void initPlot(int every_nth, PyObserverCallback& callback);
 
     bool isCompleted() const;
@@ -101,14 +111,24 @@ public:
 
     unsigned fitObjectCount() const;
 
-private:
+    void interruptFitting();
+
+    bool isInterrupted() const;
+
+    bool isFirstIteration() const;
+
     void run_simulations(const Fit::Parameters& params);
+
+    void setChiSquaredModule(const IChiSquaredModule& module);
+
+private:
     double residual(double a, double b, double weight) const;
     double evaluate_chi2(const std::vector<double>& residuals, const Fit::Parameters& params);
     size_t check_index(size_t index) const;
 
     std::vector<double> m_experimental_array;
     std::vector<double> m_simulation_array;
+    std::vector<double> m_weights_array;
 
     SafePointerVector<SimDataPair> m_fit_objects;
     double m_total_weight;

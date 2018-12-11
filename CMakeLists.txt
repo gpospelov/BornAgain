@@ -4,11 +4,6 @@
 
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
-if(APPLE)
-if(POLICY CMP0025)
-    cmake_policy(SET CMP0025 NEW)
-endif()
-endif()
 
 set(CMAKE_MODULE_PATH
     ${CMAKE_SOURCE_DIR}/cmake/generic/modules
@@ -56,7 +51,6 @@ endif()
 # include CMake macros and functions
 include(GetFilenameComponent) # overwrite CMake command
 include(SearchInstalledSoftware)
-include(ThirdPartyLibUtilities)
 include(CheckCompiler)
 if(ZERO_TOLERANCE)
     if(BORNAGAIN_USE_PYTHON3)
@@ -65,6 +59,7 @@ if(ZERO_TOLERANCE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wfatal-errors")
 endif()
 include(BornAgainConfiguration)
+include(BornAgainPolicy)
 include(GeneratePythonDocs)
 include(PyExamplesLineLength)
 include(CheckCode)
@@ -87,21 +82,29 @@ endif()
 if(BORNAGAIN_MANPAGE)
     add_subdirectory(Doc/man)
 endif()
+
 add_subdirectory(ThirdParty/common)
 add_subdirectory(ThirdParty/Fit)
 add_subdirectory(Fit)
+add_subdirectory(Tests/UnitTests/Fit)
+
 add_subdirectory(ThirdParty/Core)
 add_subdirectory(Core)
+add_subdirectory(Tests/UnitTests/Core)
+add_subdirectory(Tests/UnitTests/Numeric)
+
 if(BORNAGAIN_GUI)
     include(SearchQt)
     add_subdirectory(ThirdParty/GUI)
     add_subdirectory(GUI)
+    add_subdirectory(Tests/UnitTests/GUI)
 endif()
 
-add_subdirectory(Tests/UnitTests)
-add_subdirectory(Tests/Functional) # functional tests (ctest)
+# functional tests (ctest)
+add_subdirectory(Tests/Functional)
 
-add_subdirectory(cmake/bornagain) # trick to print an after-install message
+# after-install message
+add_subdirectory(cmake/bornagain)
 
 # make package targets
 include(BornAgainCPack)

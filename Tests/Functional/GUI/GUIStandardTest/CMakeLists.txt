@@ -22,6 +22,7 @@ set(test_cases
     CoreShellParticle
     CosineRipple
     CylindersAndPrisms
+    CylindersInSSCA
     CylindersWithSizeDistribution
     DetectorResolution
     FormFactors
@@ -57,6 +58,7 @@ set(test_cases
     RotatedPyramidsDistribution
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
+    LinkedBoxDistribution
     OffSpecularResonator
     SquareBeamFootprint
     GaussianBeamFootprint

@@ -17,11 +17,14 @@
 
 #include "SessionGraphicsItem.h"
 #include "ParticleDistribution.h"
+#include <string>
+#include <vector>
 
 class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem
 {
 public:
     static const QString P_DISTRIBUTED_PARAMETER;
+    static const QString P_LINKED_PARAMETER;
     static const QString P_DISTRIBUTION;
     static const QString NO_SELECTION;
     static const QString T_PARTICLES;
@@ -29,15 +32,20 @@ public:
 
     std::unique_ptr<ParticleDistribution> createParticleDistribution() const;
 
-    void setDomainCacheName(const QString& name);
+    void setDomainCacheNames(const QString& name, const QStringList& linked);
 
 private:
-    void updateParameterList();
-    void initDistributionItem();
+    void updateMainParameterList();
+    void updateLinkedParameterList();
     QStringList childParameterNames() const;
     QString translateParameterNameToGUI(const QString& domainName);
     const SessionItem* childParticle() const;
+
+    std::string domainMainParameter() const;
+    std::vector<std::string> domainLinkedParameters() const;
+
     QString m_domain_cache_name;
+    QStringList m_linked_names;
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H

@@ -16,7 +16,7 @@
 #define WELCOMEVIEW_H
 
 #include "WinDllMacros.h"
-#include <QLabel>
+#include <QWidget>
 
 class QPushButton;
 class MainWindow;
@@ -24,6 +24,9 @@ class ProjectManager;
 class QVBoxLayout;
 class FancyLabel;
 class QBoxLayout;
+class UpdateNotifierWidget;
+class QLabel;
+class QFrame;
 
 class BA_CORE_API_ WelcomeView : public QWidget
 {
@@ -35,7 +38,6 @@ public slots:
     void onWebLinkClicked(const QUrl& url);
     void onNewUser();
     void updateRecentProjectPanel();
-    void setNotificationText(const QString& text);
 
 protected:
     void showEvent(QShowEvent*);
@@ -60,7 +62,7 @@ private:
     QPushButton* m_newUsertButton;
     FancyLabel* m_currentProjectLabel;
     QVBoxLayout* m_recentProjectLayout;
-    QLabel* m_updateNotification;
+    UpdateNotifierWidget* m_notifierWidget;
 };
 
 #endif // WELCOMEVIEW_H

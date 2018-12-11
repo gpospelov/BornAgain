@@ -26,6 +26,7 @@ public:
     const static QString T_SHELL;
     ParticleCoreShellItem();
     std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
+    QVector<SessionItem*> materialPropertyItems();
 };
 
 #endif // PARTICLECORESHELLITEM_H

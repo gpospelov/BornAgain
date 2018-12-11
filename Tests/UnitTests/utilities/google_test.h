@@ -14,5 +14,7 @@
 #include <gtest/gtest.h>
 #endif
 
+#include <memory>
+
 #endif
 

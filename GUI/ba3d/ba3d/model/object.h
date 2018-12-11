@@ -38,6 +38,10 @@ public:
     void transform(Vector3D scale, QQuaternion, Vector3D translate);
     void transform(Vector3D turn, Vector3D scale, Vector3D rotate, Vector3D translate);
 
+    void addExtrinsicRotation(Vector3D turn, Vector3D scale,
+                              Vector3D &rotate, Vector3D rotateExtrinsic,
+                              Vector3D &translate);
+
 protected:
     bool isNull;
 

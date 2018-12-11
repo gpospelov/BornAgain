@@ -17,7 +17,10 @@ set(test_cases
     RoughnessTranslation
     TwoLayerRoughnessTranslation
     SaveLoadProject
-#    GUIPerformanceTest  # too heavy, call manually when necessary
+# Performance tests are not part of the functional test suite.
+# They need to be run manually when needed.
+#    CsvImportAssistantPerformanceTest
+#    GUIPerformanceTest
 )
 
 file(GLOB source_files "*.cpp")

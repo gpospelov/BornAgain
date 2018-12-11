@@ -51,6 +51,14 @@ MultiLayerItem::MultiLayerItem()
     });
 }
 
+QVector<SessionItem*> MultiLayerItem::materialPropertyItems()
+{
+    QVector<SessionItem*> result;
+    for (auto layer_item : getItems(T_LAYERS))
+        result.append(static_cast<LayerItem*>(layer_item)->materialPropertyItems());
+    return result;
+}
+
 void MultiLayerItem::updateLayers()
 {
     QVector<SessionItem*> list = getChildrenOfType(Constants::LayerType);

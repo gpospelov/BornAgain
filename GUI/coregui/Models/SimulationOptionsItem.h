@@ -55,7 +55,9 @@ public:
 private:
     QString runPolicy() const;
     QStringList getCPUUsageOptions();
-	QMap<QString, int> m_text_to_nthreads;
+    QStringList getRunPolicyNames();
+    void updateComboItem(QString name, QStringList option_names);
+    QMap<QString, int> m_text_to_nthreads;
 };
 
 #endif // SIMULATIONOPTIONSITEM_H

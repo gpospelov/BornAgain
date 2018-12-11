@@ -1,3 +1,71 @@
+BornAgain-1.14.0, released 2018.12.07
+  > No API changes
+  > Summary:
+    1) New instrument: depth probe
+    2) Futher expansion of 3D View
+    3) Import data assistant for 1D data
+    4) Update of fitting tutorials on our documentation website
+    5) Allow fitting of material properties
+    6) Enable linked parameters in GUI ParticleDistribution
+    7) Numerous bugfixes.
+
+  * Bug #2116: Provide valid editing for fit parameters in GUI
+  * Bug #2167: Application crash on attempt to load txt.gz file from GUI
+  * Bug #2173: Inconsistent behavior of dock widgets between sample view and job view
+  * Bug #2179: Saving and loading txt image in GUI causes rotation
+  * Bug #2181: Loading a project file in the GUI overwrites number of threads
+  * Bug #2183: Export to python doesn't add extension to file name
+  * Bug #2184: Tuning widget disappears from simulation when "submit only" option is chosen
+  * Bug #2189: Real time view shows alien tree on jobItem delete
+  * Bug #2198: BornAgain GUI on certain Win10 stays collapsed on taskbar
+  * Bug #2200: Trapezoid distribution generates edge values with zero probability
+  * Bug #2213: Unit tests crashing if user system contains own googletest library in LD_LIBRARY_PATH
+  * Bug #2214: GUI crash when deleting connection
+  * Bug #2217: GUI crash on instrument adjustment for 1D data
+  * Bug #2219: Appveyor build crash during unit text execution
+  * Bug #2228: GUI: 1D data loader does not threat 'fixed width' columns correctly
+  * Bug #2231: Reflectivity: strange behaviour at wavelength distribution
+  * Bug #2235: Restore automatic linking of user data to instrument in Simulation tab
+  * Bug #2236: GUI: Fitting failure on some minimization algorithms
+  * Bug #2237: GUI: stop button in fitting panel does not work
+  * Bug #2239: Crash on load of any saved project
+  * Bug #2243: Instrument id is not updated when it is copied to job item
+  * Bug #2245: Crash when running simulation with missing instrument
+  * Bug #2249: Crash on fitting SpecularInstrument/Beam/Polarization/X, Y, Z
+  * Feature #1019: Extend GUI ParticleDistribution with linked parameters
+  * Feature #2084: 3D view: implement mesocrystal
+  * Feature #2102: GUI: switch fitting in GUI from FitSuite to FitObjective
+  * Feature #2138: 3D view: side/top view switch should take in the account size of the sample
+  * Feature #2141: Allow for SLD fitting in GUI
+  * Feature #2142: Allow material tuning in real time view
+  * Feature #2147: Functionality improvements for the new fitting engine
+  * Feature #2154: Observations made during GISAS 2018 school at Bayreuth
+  * Feature #2156: Implement finite crystals
+  * Feature #2177: Employ PointwiseAxis in the GUI for SpecularSimulations
+  * Feature #2190: Provide download statistic for BornAgain web site
+  * Feature #2193: Import order and priority
+  * Feature #2194: Handle native coordinates and units from imported user data in RealDataItem and during instrument linking
+  * Feature #2195: Necessary amendments to ImportDataAssistant
+  * Feature #2196: Provide proper cleanup of OpenGL resources on parent widget change
+  * Feature #2199: Expand txt-file saving to 1D data
+  * Feature #2201: Remove quotation marks around 'Experimental' in the plotting of fits
+  * Feature #2207: Allow multiplying/dividing data columns by constant factor in CsvImportAssistant
+  * Feature #2208: Update all fitting examples to the new fitting mechanism.
+  * Feature #2218: Find an intelligent way to handle repeating values in the coordinate vector (reflectivity)
+  * Feature #2222: Allow scientific notation in tuning parameter tree
+  * Feature #2224: Investigate and implement azimuthal smearing of peak shapes
+  * Feature #2225: GUI: implement depth probe instrument
+  * Feature #2246: GUI: provide possibility to select intensity and residual function type in Minimizer settings
+  * Feature #2247: Update Yosemite vagrant box
+  * Documentation #2040: Website: update all fitting tutorials and Python examples to the new fitting mechanism.
+  * Documentation #2175: Website: provide date and navigation element for news page
+  * Documentation #2178: Website: add screenshot of 3D view to gallery
+  * Documentation #2186: Correct formula for exponential distribution in manual
+  * Documentation #2233: Update manual before release
+  * Refactoring #1486: GUI: refactor SampleView
+  * Refactoring #2137: Import data assistant minor changes
+  * Testing #2220: Change unit test run order
+
 BornAgain-1.13.0, released 2018.10.05
   > API changes
     1) Python: Switch from FitSuite to FitObjective (FitSuite is deprecated now)

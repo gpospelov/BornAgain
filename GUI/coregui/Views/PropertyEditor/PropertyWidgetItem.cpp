@@ -63,6 +63,10 @@ void PropertyWidgetItem::setItemEditor(const SessionItem* item, QWidget* editor)
     m_dataMapper->addMapping(m_editor, 1);
     m_dataMapper->setItemDelegate(m_delegate);
 
+    QModelIndex valueIndex = item->index().sibling(item->index().row(), 1);
+    if (valueIndex.isValid())
+        m_delegate->setEditorData(editor, valueIndex);
+
     connectEditor(editor);
 
     updateItemRoles();

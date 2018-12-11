@@ -17,7 +17,6 @@
 #include "DomainObjectBuilder.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
-#include "IntensityDataIOFactory.h"
 #include "DataItem.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
@@ -28,46 +27,20 @@
 
 namespace
 {
-QMap<QString, AxesUnits> init_units_to_description_map()
-{
-    QMap<QString, AxesUnits> result;
-    result[Constants::UnitsNbins] = AxesUnits::NBINS;
-    result[Constants::UnitsRadians] = AxesUnits::RADIANS;
-    result[Constants::UnitsDegrees] = AxesUnits::DEGREES;
-    result[Constants::UnitsMm] = AxesUnits::MM;
-    result[Constants::UnitsQyQz] = AxesUnits::QSPACE;
-    return result;
-}
+const std::map<QString, AxesUnits> units_from_names{{Constants::UnitsNbins, AxesUnits::NBINS},
+                                                    {Constants::UnitsRadians, AxesUnits::RADIANS},
+                                                    {Constants::UnitsDegrees, AxesUnits::DEGREES},
+                                                    {Constants::UnitsMm, AxesUnits::MM},
+                                                    {Constants::UnitsQyQz, AxesUnits::QSPACE}};
 
-QMap<AxesUnits, QString> init_description_to_units_map()
-{
-    QMap<AxesUnits, QString> result;
-    result[AxesUnits::NBINS] = Constants::UnitsNbins;
-    result[AxesUnits::RADIANS] = Constants::UnitsRadians;
-    result[AxesUnits::DEGREES] = Constants::UnitsDegrees;
-    result[AxesUnits::MM] = Constants::UnitsMm;
-    result[AxesUnits::QSPACE] = Constants::UnitsQyQz;
-    return result;
-}
-
-//! Sets simulation results into the DataItem
-void setResultsToDataItem(DataItem* intensityItem, const Simulation* simulation);
+const std::map<AxesUnits, QString> names_from_units{{AxesUnits::NBINS, Constants::UnitsNbins},
+                                                    {AxesUnits::RADIANS, Constants::UnitsRadians},
+                                                    {AxesUnits::MM, Constants::UnitsMm},
+                                                    {AxesUnits::QSPACE, Constants::UnitsQyQz},
+                                                    {AxesUnits::DEGREES, Constants::UnitsDegrees}};
 
 //! Updates axes' titles
 void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, AxesUnits units);
-}
-
-void JobItemUtils::setResults(JobItem* jobItem, const Simulation* simulation)
-{
-    auto dataItem = jobItem->dataItem();
-    Q_ASSERT(dataItem);
-
-    if (dataItem->modelType() == Constants::IntensityDataType
-        || dataItem->modelType() == Constants::SpecularDataType) {
-        setResultsToDataItem(dataItem, simulation);
-    } else {
-        throw GUIHelpers::Error("JobItemUtils::setResults() -> Error. Unsupported data item.");
-    }
 }
 
 //! Updates axes of OutputData in IntensityData item to correspond with ::P_AXES_UNITS selection.
@@ -100,41 +73,18 @@ void JobItemUtils::updateDataAxes(DataItem* intensityItem,
     updateAxesTitle(intensityItem, *converter, requested_units);
 }
 
-//! loads intensity data from project directory
-
-void JobItemUtils::loadIntensityData(DataItem *intensityItem, const QString &projectDir)
-{
-    QString filename = intensityItem->fileName(projectDir);
-    auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
-    if (data)
-        intensityItem->setOutputData(data);
-}
-
-
-//! Saves intensityData in project directory
-
-void JobItemUtils::saveIntensityData(DataItem* intensityItem, const QString& projectDir)
-{
-    if (!intensityItem)
-        return;
-
-    intensityItem->saveData(projectDir);
-}
-
 //! Correspondance of domain detector axes types to their gui counterpart.
 
 QString JobItemUtils::nameFromAxesUnits(AxesUnits units)
 {
-    static QMap<AxesUnits, QString> units_to_name = init_description_to_units_map();
-    return units_to_name[units];
+    return names_from_units.at(units);
 }
 
 //! Correspondance of GUI axes units names to their domain counterpart.
 
 AxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
 {
-    static QMap<QString, AxesUnits> name_to_units = init_units_to_description_map();
-    return name_to_units[name];
+    return units_from_names.at(name);
 }
 
 //! Sets axes units suitable for given instrument.
@@ -142,25 +92,16 @@ AxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
 void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
                                               const InstrumentItem* instrumentItem)
 {
-    if (!instrumentItem) {
-        intensityItem->resetToDefault();
-        return;
-    }
     const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
+    if (!converter)
+        return;
     setIntensityItemAxesUnits(intensityItem, *converter);
 }
 
 void JobItemUtils::setIntensityItemAxesUnits(DataItem *intensityItem,
                                              const IUnitConverter& converter)
 {
-    ComboProperty combo;
-
-    for (auto units : converter.availableUnits())
-        combo << nameFromAxesUnits(units);
-
-    AxesUnits preferrable_units = converter.defaultUnits();
-
-    combo.setValue(nameFromAxesUnits(preferrable_units));
+    ComboProperty combo = availableUnits(converter);
     intensityItem->setItemValue(DataItem::P_AXES_UNITS, combo.variant());
 }
 
@@ -174,9 +115,7 @@ void JobItemUtils::createDefaultDetectorMap(DataItem* intensityItem,
     updateAxesTitle(intensityItem, *converter, converter->defaultUnits());
 }
 
-namespace
-{
-void setResultsToDataItem(DataItem* intensityItem, const Simulation* simulation)
+void JobItemUtils::setResults(DataItem* intensityItem, const Simulation* simulation)
 {
     const auto sim_result = simulation->result();
     if (intensityItem->getOutputData() == nullptr) {
@@ -189,6 +128,18 @@ void setResultsToDataItem(DataItem* intensityItem, const Simulation* simulation)
     intensityItem->setOutputData(data.release());
 }
 
+ComboProperty JobItemUtils::availableUnits(const IUnitConverter& converter)
+{
+    ComboProperty result;
+    for (auto units : converter.availableUnits())
+        result << nameFromAxesUnits(units);
+
+    result.setValue(nameFromAxesUnits(converter.defaultUnits()));
+    return result;
+}
+
+namespace
+{
 void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter,
                      AxesUnits units)
 {

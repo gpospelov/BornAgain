@@ -5177,9 +5177,7 @@ class IChiSquaredModule(ICloneable):
     """
 
 
-    Interface for  ChiSquaredModule for chi2 calculations.
-
-    Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
+    Interface residual calculations.
 
     C++ includes: IChiSquaredModule.h
 
@@ -5212,59 +5210,35 @@ class IChiSquaredModule(ICloneable):
         return _libBornAgainCore.IChiSquaredModule_clone(self)
 
 
-    def getSquaredFunction(self):
+    def varianceFunction(self):
         """
-        getSquaredFunction(IChiSquaredModule self) -> ISquaredFunction
+        varianceFunction(IChiSquaredModule self) -> IVarianceFunction
 
-        const ISquaredFunction* IChiSquaredModule::getSquaredFunction() const
+        const IVarianceFunction * IChiSquaredModule::varianceFunction() const
 
         Returns squared function. 
 
         """
-        return _libBornAgainCore.IChiSquaredModule_getSquaredFunction(self)
+        return _libBornAgainCore.IChiSquaredModule_varianceFunction(self)
 
 
-    def setChiSquaredFunction(self, *args):
+    def setVarianceFunction(self, variance_function):
         """
-        setChiSquaredFunction(IChiSquaredModule self, ISquaredFunction squared_function)
-        setChiSquaredFunction(IChiSquaredModule self, ISquaredFunction squared_function)
+        setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)
 
-        void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction &squared_function)
+        void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
 
-        """
-        return _libBornAgainCore.IChiSquaredModule_setChiSquaredFunction(self, *args)
-
-
-    def getIntensityNormalizer(self, *args):
-        """
-        getIntensityNormalizer(IChiSquaredModule self) -> IIntensityNormalizer
-        getIntensityNormalizer(IChiSquaredModule self) -> IIntensityNormalizer
-
-        virtual IIntensityNormalizer* IChiSquaredModule::getIntensityNormalizer()
-
-        Returns data normalizer, non-const version needed to set internals. 
+        Sets squared function. 
 
         """
-        return _libBornAgainCore.IChiSquaredModule_getIntensityNormalizer(self, *args)
-
-
-    def setIntensityNormalizer(self, data_normalizer):
-        """
-        setIntensityNormalizer(IChiSquaredModule self, IIntensityNormalizer data_normalizer)
-
-        void IChiSquaredModule::setIntensityNormalizer(const IIntensityNormalizer &data_normalizer)
-
-        Sets data normalizer. 
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_setIntensityNormalizer(self, data_normalizer)
+        return _libBornAgainCore.IChiSquaredModule_setVarianceFunction(self, variance_function)
 
 
     def getIntensityFunction(self):
         """
         getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction
 
-        virtual const IIntensityFunction* IChiSquaredModule::getIntensityFunction() const
+        const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
 
         Returns data rescaler. 
 
@@ -5282,16 +5256,6 @@ class IChiSquaredModule(ICloneable):
 
         """
         return _libBornAgainCore.IChiSquaredModule_setIntensityFunction(self, intensity_function)
-
-
-    def processFitElements(self, arg2, arg3):
-        """
-        processFitElements(IChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator arg2, std::vector< FitElement,std::allocator< FitElement > >::iterator arg3)
-
-        virtual void IChiSquaredModule::processFitElements(std::vector< FitElement >::iterator, std::vector< FitElement >::iterator)
-
-        """
-        return _libBornAgainCore.IChiSquaredModule_processFitElements(self, arg2, arg3)
 
 
     def residual(self, a, b, weight):
@@ -5394,204 +5358,13 @@ class IObservable(_object):
         C++ includes: IObserver.h
 
         """
-        if self.__class__ == IObservable:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IObservable(_self, )
+        this = _libBornAgainCore.new_IObservable()
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IObservable(self)
-        return weakref_proxy(self)
 IObservable_swigregister = _libBornAgainCore.IObservable_swigregister
 IObservable_swigregister(IObservable)
-
-class IFitObserver(IObserver):
-    """
-
-
-    Base class for all fit observers. Calls update method in following cases: first iteration, every n-th iteration, last iteration and when fit strategy has changed.
-
-    C++ includes: IFitObserver.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IObserver]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IFitObserver, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IObserver]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IFitObserver, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, update_every_nth):
-        """
-        __init__(IFitObserver self, int update_every_nth) -> IFitObserver
-
-        IFitObserver::IFitObserver(int update_every_nth)
-
-        """
-        if self.__class__ == IFitObserver:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IFitObserver(_self, update_every_nth)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-
-    def notify(self, subject):
-        """
-        notify(IFitObserver self, IObservable subject)
-
-        void IFitObserver::notify(IObservable *subject)
-
-        The method used by Ovservable when he wants to be observed by this. 
-
-        """
-        return _libBornAgainCore.IFitObserver_notify(self, subject)
-
-
-    def update(self, fit_suite):
-        """
-        update(IFitObserver self, FitSuite fit_suite)
-
-        void IFitObserver::update(FitSuite *fit_suite)
-
-        Here Onserver will do actuall job when he thinks that it is a right moment. 
-
-        """
-        return _libBornAgainCore.IFitObserver_update(self, fit_suite)
-
-    __swig_destroy__ = _libBornAgainCore.delete_IFitObserver
-    __del__ = lambda self: None
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainCore.disown_IFitObserver(self)
-        return weakref_proxy(self)
-IFitObserver_swigregister = _libBornAgainCore.IFitObserver_swigregister
-IFitObserver_swigregister(IFitObserver)
-
-class IFitStrategy(INamed):
-    """
-
-
-    Interface to concrete fit strategy. Concrete implementation should manipulate with fit parameters/data and then call minimizer.
-
-    C++ includes: IFitStrategy.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [INamed]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IFitStrategy, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INamed]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, IFitStrategy, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IFitStrategy
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(IFitStrategy self) -> IFitStrategy
-
-        virtual IFitStrategy* IFitStrategy::clone() const =0
-
-        """
-        return _libBornAgainCore.IFitStrategy_clone(self)
-
-
-    def init(self, fit_suite):
-        """
-        init(IFitStrategy self, FitSuiteImpl * fit_suite)
-
-        void IFitStrategy::init(FitSuiteImpl *fit_suite)
-
-        """
-        return _libBornAgainCore.IFitStrategy_init(self, fit_suite)
-
-
-    def execute(self):
-        """
-        execute(IFitStrategy self)
-
-        virtual void IFitStrategy::execute()=0
-
-        """
-        return _libBornAgainCore.IFitStrategy_execute(self)
-
-IFitStrategy_swigregister = _libBornAgainCore.IFitStrategy_swigregister
-IFitStrategy_swigregister(IFitStrategy)
-
-class FitStrategyDefault(IFitStrategy):
-    """
-
-
-    Default fit strategy just let  FitSuite to run it's minimization round.
-
-    C++ includes: IFitStrategy.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IFitStrategy]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FitStrategyDefault, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IFitStrategy]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FitStrategyDefault, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(FitStrategyDefault self) -> FitStrategyDefault
-
-        FitStrategyDefault::FitStrategyDefault()
-
-        """
-        this = _libBornAgainCore.new_FitStrategyDefault()
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-
-    def clone(self):
-        """
-        clone(FitStrategyDefault self) -> FitStrategyDefault
-
-        FitStrategyDefault * FitStrategyDefault::clone() const
-
-        """
-        return _libBornAgainCore.FitStrategyDefault_clone(self)
-
-
-    def execute(self):
-        """
-        execute(FitStrategyDefault self)
-
-        void FitStrategyDefault::execute()
-
-        """
-        return _libBornAgainCore.FitStrategyDefault_execute(self)
-
-    __swig_destroy__ = _libBornAgainCore.delete_FitStrategyDefault
-    __del__ = lambda self: None
-FitStrategyDefault_swigregister = _libBornAgainCore.FitStrategyDefault_swigregister
-FitStrategyDefault_swigregister(FitStrategyDefault)
 
 class IIntensityFunction(_object):
     """
@@ -5655,14 +5428,12 @@ class IntensityFunctionLog(IIntensityFunction):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionLog, name)
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
-    __del__ = lambda self: None
 
     def clone(self):
         """
         clone(IntensityFunctionLog self) -> IntensityFunctionLog
 
-        virtual IntensityFunctionLog* IntensityFunctionLog::clone() const
+        IntensityFunctionLog * IntensityFunctionLog::clone() const
 
         """
         return _libBornAgainCore.IntensityFunctionLog_clone(self)
@@ -5694,6 +5465,8 @@ class IntensityFunctionLog(IIntensityFunction):
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
+    __del__ = lambda self: None
 IntensityFunctionLog_swigregister = _libBornAgainCore.IntensityFunctionLog_swigregister
 IntensityFunctionLog_swigregister(IntensityFunctionLog)
 
@@ -5716,14 +5489,12 @@ class IntensityFunctionSqrt(IIntensityFunction):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IntensityFunctionSqrt, name)
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
-    __del__ = lambda self: None
 
     def clone(self):
         """
         clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
 
-        virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const
+        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
 
         """
         return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
@@ -5755,6 +5526,8 @@ class IntensityFunctionSqrt(IIntensityFunction):
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
+    __del__ = lambda self: None
 IntensityFunctionSqrt_swigregister = _libBornAgainCore.IntensityFunctionSqrt_swigregister
 IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
 
@@ -5987,355 +5760,167 @@ class IntensityScaleAndShiftNormalizer(IntensityNormalizer):
 IntensityScaleAndShiftNormalizer_swigregister = _libBornAgainCore.IntensityScaleAndShiftNormalizer_swigregister
 IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
 
-class ISquaredFunction(_object):
+class IVarianceFunction(_object):
     """
 
 
-    Interface providing measures for deviation between two values. Used By  ChiSquaredModule for chi2 calculations.
+    Variance function interface.
 
-    C++ includes: ISquaredFunction.h
+    C++ includes: VarianceFunctions.h
 
     """
 
     __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, ISquaredFunction, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IVarianceFunction, name, value)
     __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, ISquaredFunction, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, IVarianceFunction, name)
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_ISquaredFunction
+    __swig_destroy__ = _libBornAgainCore.delete_IVarianceFunction
     __del__ = lambda self: None
 
     def clone(self):
         """
-        clone(ISquaredFunction self) -> ISquaredFunction
+        clone(IVarianceFunction self) -> IVarianceFunction
 
-        virtual ISquaredFunction* ISquaredFunction::clone() const =0
-
-        """
-        return _libBornAgainCore.ISquaredFunction_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(ISquaredFunction self, double real_value, double simulated_value) -> double
-
-        virtual double ISquaredFunction::calculateSquaredDifference(double real_value, double simulated_value) const =0
+        virtual IVarianceFunction* IVarianceFunction::clone() const =0
 
         """
-        return _libBornAgainCore.ISquaredFunction_calculateSquaredDifference(self, real_value, simulated_value)
+        return _libBornAgainCore.IVarianceFunction_clone(self)
 
 
-    def calculateSquaredError(self, real_value, simulated_value=0.0):
+    def variance(self, real_value, simulated_value):
         """
-        calculateSquaredError(ISquaredFunction self, double real_value, double simulated_value=0.0) -> double
-        calculateSquaredError(ISquaredFunction self, double real_value) -> double
+        variance(IVarianceFunction self, double real_value, double simulated_value) -> double
 
-        virtual double ISquaredFunction::calculateSquaredError(double real_value, double simulated_value=0.0) const =0
+        virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
 
         """
-        return _libBornAgainCore.ISquaredFunction_calculateSquaredError(self, real_value, simulated_value)
+        return _libBornAgainCore.IVarianceFunction_variance(self, real_value, simulated_value)
 
-ISquaredFunction_swigregister = _libBornAgainCore.ISquaredFunction_swigregister
-ISquaredFunction_swigregister(ISquaredFunction)
+IVarianceFunction_swigregister = _libBornAgainCore.IVarianceFunction_swigregister
+IVarianceFunction_swigregister(IVarianceFunction)
 
-class SquaredFunctionDefault(ISquaredFunction):
+class VarianceConstantFunction(IVarianceFunction):
     """
 
 
-    Squared difference between two values. value = (a-b)*(a-b)/norm, where norm = max(b, 1.0), a = simulated values, b = real_values.
+    Returns 1.0 as variance value
 
-    C++ includes: ISquaredFunction.h
+    C++ includes: VarianceFunctions.h
 
     """
 
     __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
+    for _s in [IVarianceFunction]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionDefault, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VarianceConstantFunction, name, value)
     __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
+    for _s in [IVarianceFunction]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionDefault, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, VarianceConstantFunction, name)
     __repr__ = _swig_repr
+
+    def clone(self):
+        """
+        clone(VarianceConstantFunction self) -> VarianceConstantFunction
+
+        VarianceConstantFunction * VarianceConstantFunction::clone() const override
+
+        """
+        return _libBornAgainCore.VarianceConstantFunction_clone(self)
+
+
+    def variance(self, arg2, arg3):
+        """
+        variance(VarianceConstantFunction self, double arg2, double arg3) -> double
+
+        double VarianceConstantFunction::variance(double, double) const override
+
+        """
+        return _libBornAgainCore.VarianceConstantFunction_variance(self, arg2, arg3)
+
 
     def __init__(self):
         """
-        __init__(SquaredFunctionDefault self) -> SquaredFunctionDefault
+        __init__(VarianceConstantFunction self) -> VarianceConstantFunction
 
-        SquaredFunctionDefault::SquaredFunctionDefault()
+
+
+        Returns 1.0 as variance value
+
+        C++ includes: VarianceFunctions.h
 
         """
-        this = _libBornAgainCore.new_SquaredFunctionDefault()
+        this = _libBornAgainCore.new_VarianceConstantFunction()
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionDefault
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceConstantFunction
     __del__ = lambda self: None
+VarianceConstantFunction_swigregister = _libBornAgainCore.VarianceConstantFunction_swigregister
+VarianceConstantFunction_swigregister(VarianceConstantFunction)
 
-    def clone(self):
-        """
-        clone(SquaredFunctionDefault self) -> SquaredFunctionDefault
-
-        SquaredFunctionDefault * SquaredFunctionDefault::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionDefault_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionDefault self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionDefault::calculateSquaredDifference(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value=0):
-        """
-        calculateSquaredError(SquaredFunctionDefault self, double real_value, double simulated_value=0) -> double
-        calculateSquaredError(SquaredFunctionDefault self, double real_value) -> double
-
-        double SquaredFunctionDefault::calculateSquaredError(double real_value, double simulated_value=0) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionDefault_calculateSquaredError(self, real_value, simulated_value)
-
-SquaredFunctionDefault_swigregister = _libBornAgainCore.SquaredFunctionDefault_swigregister
-SquaredFunctionDefault_swigregister(SquaredFunctionDefault)
-
-class SquaredFunctionSimError(ISquaredFunction):
+class VarianceSimFunction(IVarianceFunction):
     """
 
 
-    Squared difference between two values. value = (a-b)*(a-b)/norm, where norm = max(a, 1.0), a = simulated values, b = real_values.
+    Returns max(sim, epsilon)
 
-    C++ includes: ISquaredFunction.h
+    C++ includes: VarianceFunctions.h
 
     """
 
     __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
+    for _s in [IVarianceFunction]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionSimError, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VarianceSimFunction, name, value)
     __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
+    for _s in [IVarianceFunction]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionSimError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
+    __getattr__ = lambda self, name: _swig_getattr(self, VarianceSimFunction, name)
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionSimError
-    __del__ = lambda self: None
+
+    def __init__(self, epsilon=1.0):
+        """
+        __init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction
+        __init__(VarianceSimFunction self) -> VarianceSimFunction
+
+        VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
+
+        """
+        this = _libBornAgainCore.new_VarianceSimFunction(epsilon)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
 
     def clone(self):
         """
-        clone(SquaredFunctionSimError self) -> SquaredFunctionSimError
+        clone(VarianceSimFunction self) -> VarianceSimFunction
 
-        SquaredFunctionSimError * SquaredFunctionSimError::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSimError_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionSimError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionSimError::calculateSquaredDifference(double real_value, double simulated_value) const override
+        VarianceSimFunction * VarianceSimFunction::clone() const override
 
         """
-        return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredDifference(self, real_value, simulated_value)
+        return _libBornAgainCore.VarianceSimFunction_clone(self)
 
 
-    def calculateSquaredError(self, real_value, simulated_value):
+    def variance(self, exp, sim):
         """
-        calculateSquaredError(SquaredFunctionSimError self, double real_value, double simulated_value) -> double
+        variance(VarianceSimFunction self, double exp, double sim) -> double
 
-        double SquaredFunctionSimError::calculateSquaredError(double real_value, double simulated_value) const override
+        double VarianceSimFunction::variance(double exp, double sim) const override
 
         """
-        return _libBornAgainCore.SquaredFunctionSimError_calculateSquaredError(self, real_value, simulated_value)
+        return _libBornAgainCore.VarianceSimFunction_variance(self, exp, sim)
 
-SquaredFunctionSimError_swigregister = _libBornAgainCore.SquaredFunctionSimError_swigregister
-SquaredFunctionSimError_swigregister(SquaredFunctionSimError)
-
-class SquaredFunctionMeanSquaredError(ISquaredFunction):
-    """
-
-
-    Squared difference between two values normalized by mean squared error. value = (a-b)*(a-b)/norm, where norm = sqrt(sigma1*sigma1 + sigma2*sigma2), sigma1=max(a, 1.0), sigma2=max(b,1.0)
-
-    C++ includes: ISquaredFunction.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionMeanSquaredError, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionMeanSquaredError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionMeanSquaredError
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceSimFunction
     __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(SquaredFunctionMeanSquaredError self) -> SquaredFunctionMeanSquaredError
-
-        SquaredFunctionMeanSquaredError * SquaredFunctionMeanSquaredError::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionMeanSquaredError_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionMeanSquaredError::calculateSquaredDifference(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value):
-        """
-        calculateSquaredError(SquaredFunctionMeanSquaredError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionMeanSquaredError::calculateSquaredError(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionMeanSquaredError_calculateSquaredError(self, real_value, simulated_value)
-
-SquaredFunctionMeanSquaredError_swigregister = _libBornAgainCore.SquaredFunctionMeanSquaredError_swigregister
-SquaredFunctionMeanSquaredError_swigregister(SquaredFunctionMeanSquaredError)
-
-class SquaredFunctionSystematicError(ISquaredFunction):
-    """
-
-
-    Squared difference between two values normalized by systematic error. value = (a-b)*(a-b)/norm, where norm = max(error, 1.0), error = b + (epsilon*b)**2.
-
-    C++ includes: ISquaredFunction.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionSystematicError, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionSystematicError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionSystematicError
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(SquaredFunctionSystematicError self) -> SquaredFunctionSystematicError
-
-        SquaredFunctionSystematicError * SquaredFunctionSystematicError::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSystematicError_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionSystematicError::calculateSquaredDifference(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value):
-        """
-        calculateSquaredError(SquaredFunctionSystematicError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionSystematicError::calculateSquaredError(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionSystematicError_calculateSquaredError(self, real_value, simulated_value)
-
-SquaredFunctionSystematicError_swigregister = _libBornAgainCore.SquaredFunctionSystematicError_swigregister
-SquaredFunctionSystematicError_swigregister(SquaredFunctionSystematicError)
-
-class SquaredFunctionGaussianError(ISquaredFunction):
-    """
-
-
-    Squared difference between two values with gaussian error. value = (a-b)*(a-b)/norm, where norm = sigma*sigma; sigma is set by user.
-
-    C++ includes: ISquaredFunction.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SquaredFunctionGaussianError, name, value)
-    __swig_getmethods__ = {}
-    for _s in [ISquaredFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, SquaredFunctionGaussianError, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_SquaredFunctionGaussianError
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(SquaredFunctionGaussianError self) -> SquaredFunctionGaussianError
-
-        SquaredFunctionGaussianError * SquaredFunctionGaussianError::clone() const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionGaussianError_clone(self)
-
-
-    def calculateSquaredDifference(self, real_value, simulated_value):
-        """
-        calculateSquaredDifference(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionGaussianError::calculateSquaredDifference(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredDifference(self, real_value, simulated_value)
-
-
-    def calculateSquaredError(self, real_value, simulated_value):
-        """
-        calculateSquaredError(SquaredFunctionGaussianError self, double real_value, double simulated_value) -> double
-
-        double SquaredFunctionGaussianError::calculateSquaredError(double real_value, double simulated_value) const override
-
-        """
-        return _libBornAgainCore.SquaredFunctionGaussianError_calculateSquaredError(self, real_value, simulated_value)
-
-SquaredFunctionGaussianError_swigregister = _libBornAgainCore.SquaredFunctionGaussianError_swigregister
-SquaredFunctionGaussianError_swigregister(SquaredFunctionGaussianError)
+VarianceSimFunction_swigregister = _libBornAgainCore.VarianceSimFunction_swigregister
+VarianceSimFunction_swigregister(VarianceSimFunction)
 
 class ChiSquaredModule(IChiSquaredModule):
     """
@@ -6385,16 +5970,6 @@ class ChiSquaredModule(IChiSquaredModule):
         return _libBornAgainCore.ChiSquaredModule_clone(self)
 
 
-    def processFitElements(self, first, last):
-        """
-        processFitElements(ChiSquaredModule self, std::vector< FitElement,std::allocator< FitElement > >::iterator first, std::vector< FitElement,std::allocator< FitElement > >::iterator last)
-
-        void ChiSquaredModule::processFitElements(std::vector< FitElement >::iterator first, std::vector< FitElement >::iterator last)
-
-        """
-        return _libBornAgainCore.ChiSquaredModule_processFitElements(self, first, last)
-
-
     def residual(self, a, b, weight):
         """
         residual(ChiSquaredModule self, double a, double b, double weight) -> double
@@ -6406,193 +5981,6 @@ class ChiSquaredModule(IChiSquaredModule):
 
 ChiSquaredModule_swigregister = _libBornAgainCore.ChiSquaredModule_swigregister
 ChiSquaredModule_swigregister(ChiSquaredModule)
-
-class FitObject(INode):
-    """
-
-
-    Holds simulation description and real data to run the fit.
-
-    C++ includes: FitObject.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [INode]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FitObject, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INode]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FitObject, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(FitObject self, Simulation simulation, IntensityData data, double weight=1) -> FitObject
-        __init__(FitObject self, Simulation simulation, IntensityData data) -> FitObject
-        __init__(FitObject self, Simulation simulation, vdouble2d_t data, double weight=1) -> FitObject
-        __init__(FitObject self, Simulation simulation, vdouble2d_t data) -> FitObject
-
-        FitObject::FitObject(const Simulation &simulation, const std::vector< std::vector< double >> &data, double weight=1)
-
-        Constructs simulation/data pair for later fit.
-
-        Parameters:
-        -----------
-
-        simulation: 
-        simulation to run
-
-        data: 
-        experimental data
-
-        weight: 
-        weight of dataset in chi2 calculations 
-
-        """
-        this = _libBornAgainCore.new_FitObject(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FitObject
-    __del__ = lambda self: None
-
-    def accept(self, visitor):
-        """
-        accept(FitObject self, INodeVisitor visitor)
-
-        void FitObject::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FitObject_accept(self, visitor)
-
-
-    def weight(self):
-        """
-        weight(FitObject self) -> double
-
-        double FitObject::weight() const
-
-        Returns weight of data set in chi2 calculations. 
-
-        """
-        return _libBornAgainCore.FitObject_weight(self)
-
-
-    def numberOfFitElements(self):
-        """
-        numberOfFitElements(FitObject self) -> size_t
-
-        size_t FitObject::numberOfFitElements() const
-
-        Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
-
-        """
-        return _libBornAgainCore.FitObject_numberOfFitElements(self)
-
-
-    def prepareFitElements(self, fit_elements, weight, arg4=None):
-        """
-        prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight, IIntensityNormalizer arg4=None)
-        prepareFitElements(FitObject self, std::vector< FitElement,std::allocator< FitElement > > & fit_elements, double weight)
-
-        void FitObject::prepareFitElements(std::vector< FitElement > &fit_elements, double weight, IIntensityNormalizer *=0)
-
-        Runs simulation and put results (the real and simulated intensities) into external vector. Masked channels will be excluded from the vector. 
-
-        """
-        return _libBornAgainCore.FitObject_prepareFitElements(self, fit_elements, weight, arg4)
-
-
-    def getChildren(self):
-        """
-        getChildren(FitObject self) -> swig_dummy_type_const_inode_vector
-
-        std::vector< const INode * > FitObject::getChildren() const
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.FitObject_getChildren(self)
-
-
-    def simulationResult(self):
-        """
-        simulationResult(FitObject self) -> SimulationResult
-
-        SimulationResult FitObject::simulationResult() const
-
-        Returns simulation result. 
-
-        """
-        return _libBornAgainCore.FitObject_simulationResult(self)
-
-
-    def experimentalData(self):
-        """
-        experimentalData(FitObject self) -> SimulationResult
-
-        SimulationResult FitObject::experimentalData() const
-
-        Returns experimental data. 
-
-        """
-        return _libBornAgainCore.FitObject_experimentalData(self)
-
-
-    def relativeDifference(self):
-        """
-        relativeDifference(FitObject self) -> SimulationResult
-
-        SimulationResult FitObject::relativeDifference() const
-
-        Returns relative difference between simulation and experimental data. 
-
-        """
-        return _libBornAgainCore.FitObject_relativeDifference(self)
-
-
-    def runSimulation(self):
-        """
-        runSimulation(FitObject self)
-
-        void FitObject::runSimulation()
-
-        Runs internal simulation object. 
-
-        """
-        return _libBornAgainCore.FitObject_runSimulation(self)
-
-
-    def experimental_array(self):
-        """
-        experimental_array(FitObject self) -> vdouble1d_t
-
-        std::vector< double > FitObject::experimental_array() const
-
-        Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. 
-
-        """
-        return _libBornAgainCore.FitObject_experimental_array(self)
-
-
-    def simulation_array(self):
-        """
-        simulation_array(FitObject self) -> vdouble1d_t
-
-        std::vector< double > FitObject::simulation_array() const
-
-        Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. 
-
-        """
-        return _libBornAgainCore.FitObject_simulation_array(self)
-
-FitObject_swigregister = _libBornAgainCore.FitObject_swigregister
-FitObject_swigregister(FitObject)
 
 class FitOptions(_object):
     """Proxy of C++ FitOptions class."""
@@ -6634,1333 +6022,6 @@ class FitOptions(_object):
     __del__ = lambda self: None
 FitOptions_swigregister = _libBornAgainCore.FitOptions_swigregister
 FitOptions_swigregister(FitOptions)
-
-class IFitParameter(_object):
-    """
-
-
-    A fittable parameter with value, error, step, and limits.
-
-    C++ includes: IFitParameter.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, IFitParameter, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, IFitParameter, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(IFitParameter self) -> IFitParameter
-        __init__(IFitParameter self, std::string const & name, double value, AttLimits limits, double step=0.0) -> IFitParameter
-        __init__(IFitParameter self, std::string const & name, double value, AttLimits limits) -> IFitParameter
-        __init__(IFitParameter self, std::string const & name, double value) -> IFitParameter
-
-        IFitParameter::IFitParameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
-
-        """
-        this = _libBornAgainCore.new_IFitParameter(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_IFitParameter
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(IFitParameter self) -> IFitParameter
-
-        IFitParameter * IFitParameter::clone() const
-
-        """
-        return _libBornAgainCore.IFitParameter_clone(self)
-
-
-    def name(self):
-        """
-        name(IFitParameter self) -> std::string
-
-        std::string IFitParameter::name() const
-
-        """
-        return _libBornAgainCore.IFitParameter_name(self)
-
-
-    def setName(self, name):
-        """
-        setName(IFitParameter self, std::string const & name) -> IFitParameter
-
-        IFitParameter & IFitParameter::setName(const std::string &name)
-
-        """
-        return _libBornAgainCore.IFitParameter_setName(self, name)
-
-
-    def startValue(self):
-        """
-        startValue(IFitParameter self) -> double
-
-        double IFitParameter::startValue() const
-
-        """
-        return _libBornAgainCore.IFitParameter_startValue(self)
-
-
-    def setStartValue(self, value):
-        """
-        setStartValue(IFitParameter self, double value)
-
-        void IFitParameter::setStartValue(double value)
-
-        """
-        return _libBornAgainCore.IFitParameter_setStartValue(self, value)
-
-
-    def value(self):
-        """
-        value(IFitParameter self) -> double
-
-        double IFitParameter::value() const
-
-        """
-        return _libBornAgainCore.IFitParameter_value(self)
-
-
-    def setValue(self, value):
-        """
-        setValue(IFitParameter self, double value)
-
-        void IFitParameter::setValue(double value)
-
-        """
-        return _libBornAgainCore.IFitParameter_setValue(self, value)
-
-
-    def addPattern(self, pattern):
-        """
-        addPattern(IFitParameter self, std::string const & pattern) -> IFitParameter
-
-        IFitParameter & IFitParameter::addPattern(const std::string &pattern)
-
-        """
-        return _libBornAgainCore.IFitParameter_addPattern(self, pattern)
-
-
-    def step(self):
-        """
-        step(IFitParameter self) -> double
-
-        double IFitParameter::step() const
-
-        """
-        return _libBornAgainCore.IFitParameter_step(self)
-
-
-    def setStep(self, value):
-        """
-        setStep(IFitParameter self, double value) -> IFitParameter
-
-        IFitParameter & IFitParameter::setStep(double value)
-
-        """
-        return _libBornAgainCore.IFitParameter_setStep(self, value)
-
-
-    def error(self):
-        """
-        error(IFitParameter self) -> double
-
-        double IFitParameter::error() const
-
-        """
-        return _libBornAgainCore.IFitParameter_error(self)
-
-
-    def setError(self, value):
-        """
-        setError(IFitParameter self, double value)
-
-        void IFitParameter::setError(double value)
-
-        """
-        return _libBornAgainCore.IFitParameter_setError(self, value)
-
-
-    def limits(self, *args):
-        """
-        limits(IFitParameter self) -> AttLimits
-        limits(IFitParameter self) -> AttLimits
-
-        AttLimits & IFitParameter::limits()
-
-        """
-        return _libBornAgainCore.IFitParameter_limits(self, *args)
-
-
-    def setLimits(self, limits):
-        """
-        setLimits(IFitParameter self, AttLimits limits) -> IFitParameter
-
-        IFitParameter & IFitParameter::setLimits(const AttLimits &limits)
-
-        """
-        return _libBornAgainCore.IFitParameter_setLimits(self, limits)
-
-
-    def setLowerLimited(self, bound_value):
-        """
-        setLowerLimited(IFitParameter self, double bound_value) -> IFitParameter
-
-        IFitParameter & IFitParameter::setLowerLimited(double bound_value)
-
-        """
-        return _libBornAgainCore.IFitParameter_setLowerLimited(self, bound_value)
-
-
-    def setPositive(self):
-        """
-        setPositive(IFitParameter self) -> IFitParameter
-
-        IFitParameter & IFitParameter::setPositive()
-
-        """
-        return _libBornAgainCore.IFitParameter_setPositive(self)
-
-
-    def setNonnegative(self):
-        """
-        setNonnegative(IFitParameter self) -> IFitParameter
-
-        IFitParameter & IFitParameter::setNonnegative()
-
-        """
-        return _libBornAgainCore.IFitParameter_setNonnegative(self)
-
-
-    def setUpperLimited(self, bound_value):
-        """
-        setUpperLimited(IFitParameter self, double bound_value) -> IFitParameter
-
-        IFitParameter & IFitParameter::setUpperLimited(double bound_value)
-
-        """
-        return _libBornAgainCore.IFitParameter_setUpperLimited(self, bound_value)
-
-
-    def setLimited(self, left_bound_value, right_bound_value):
-        """
-        setLimited(IFitParameter self, double left_bound_value, double right_bound_value) -> IFitParameter
-
-        IFitParameter & IFitParameter::setLimited(double left_bound_value, double right_bound_value)
-
-        """
-        return _libBornAgainCore.IFitParameter_setLimited(self, left_bound_value, right_bound_value)
-
-
-    def setFixed(self):
-        """
-        setFixed(IFitParameter self) -> IFitParameter
-
-        IFitParameter & IFitParameter::setFixed()
-
-        """
-        return _libBornAgainCore.IFitParameter_setFixed(self)
-
-
-    def toString(self):
-        """
-        toString(IFitParameter self) -> std::string
-
-        std::string IFitParameter::toString() const
-
-        """
-        return _libBornAgainCore.IFitParameter_toString(self)
-
-IFitParameter_swigregister = _libBornAgainCore.IFitParameter_swigregister
-IFitParameter_swigregister(IFitParameter)
-
-class FitParameterSet(_object):
-    """
-
-
-    The set of fit parameters.
-
-    C++ includes: FitParameterSet.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameterSet, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, FitParameterSet, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(FitParameterSet self) -> FitParameterSet
-
-        FitParameterSet::FitParameterSet()
-
-        """
-        this = _libBornAgainCore.new_FitParameterSet()
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FitParameterSet
-    __del__ = lambda self: None
-
-    def clear(self):
-        """
-        clear(FitParameterSet self)
-
-        void FitParameterSet::clear()
-
-        Clears all defined parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_clear(self)
-
-
-    def size(self):
-        """
-        size(FitParameterSet self) -> size_t
-
-        size_t FitParameterSet::size() const
-
-        Returns number of parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_size(self)
-
-
-    def begin(self, *args):
-        """
-        begin(FitParameterSet self) -> FitParameterSet::iterator
-        begin(FitParameterSet self) -> FitParameterSet::const_iterator
-
-        FitParameterSet::const_iterator FitParameterSet::begin() const
-
-        """
-        return _libBornAgainCore.FitParameterSet_begin(self, *args)
-
-
-    def end(self, *args):
-        """
-        end(FitParameterSet self) -> FitParameterSet::iterator
-        end(FitParameterSet self) -> FitParameterSet::const_iterator
-
-        FitParameterSet::const_iterator FitParameterSet::end() const
-
-        """
-        return _libBornAgainCore.FitParameterSet_end(self, *args)
-
-
-    def addFitParameter(self, par):
-        """
-        addFitParameter(FitParameterSet self, IFitParameter par)
-
-        void FitParameterSet::addFitParameter(IFitParameter *par)
-
-        Adds fit parameter. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_addFitParameter(self, par)
-
-
-    def fitParameter(self, *args):
-        """
-        fitParameter(FitParameterSet self, std::string const & name) -> IFitParameter
-        fitParameter(FitParameterSet self, std::string const & name) -> IFitParameter
-
-        IFitParameter * FitParameterSet::fitParameter(const std::string &name)
-
-        """
-        return _libBornAgainCore.FitParameterSet_fitParameter(self, *args)
-
-
-    def values(self):
-        """
-        values(FitParameterSet self) -> vdouble1d_t
-
-        std::vector< double > FitParameterSet::values() const
-
-        Returns values of all defined parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_values(self)
-
-
-    def setValues(self, pars_values):
-        """
-        setValues(FitParameterSet self, vdouble1d_t pars_values)
-
-        void FitParameterSet::setValues(const std::vector< double > &pars_values)
-
-        Sets values for all defined parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_setValues(self, pars_values)
-
-
-    def valuesDifferFrom(self, par_values, tolerance=2.0):
-        """
-        valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values, double tolerance=2.0) -> bool
-        valuesDifferFrom(FitParameterSet self, vdouble1d_t par_values) -> bool
-
-        bool FitParameterSet::valuesDifferFrom(const std::vector< double > &par_values, double tolerance=2.0) const
-
-        Returns true if parameters already have the given values. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_valuesDifferFrom(self, par_values, tolerance)
-
-
-    def errors(self):
-        """
-        errors(FitParameterSet self) -> vdouble1d_t
-
-        std::vector< double > FitParameterSet::errors() const
-
-        Returns errors of all defined parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_errors(self)
-
-
-    def setErrors(self, pars_errors):
-        """
-        setErrors(FitParameterSet self, vdouble1d_t pars_errors)
-
-        void FitParameterSet::setErrors(const std::vector< double > &pars_errors)
-
-        Sets errors to all parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_setErrors(self, pars_errors)
-
-
-    def freeFitParameterCount(self):
-        """
-        freeFitParameterCount(FitParameterSet self) -> size_t
-
-        size_t FitParameterSet::freeFitParameterCount() const
-
-        Returns number of free parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_freeFitParameterCount(self)
-
-
-    def fixAll(self):
-        """
-        fixAll(FitParameterSet self)
-
-        void FitParameterSet::fixAll()
-
-        Fix all parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_fixAll(self)
-
-
-    def releaseAll(self):
-        """
-        releaseAll(FitParameterSet self)
-
-        void FitParameterSet::releaseAll()
-
-        Release all parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_releaseAll(self)
-
-
-    def setFixed(self, pars, is_fixed):
-        """
-        setFixed(FitParameterSet self, vector_string_t pars, bool is_fixed)
-
-        void FitParameterSet::setFixed(const std::vector< std::string > &pars, bool is_fixed)
-
-        Set fixed flag for parameters from the list. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_setFixed(self, pars, is_fixed)
-
-
-    def correlationMatrix(self):
-        """
-        correlationMatrix(FitParameterSet self) -> vdouble2d_t
-
-        corr_matrix_t FitParameterSet::correlationMatrix() const
-
-        """
-        return _libBornAgainCore.FitParameterSet_correlationMatrix(self)
-
-
-    def setCorrelationMatrix(self, matrix):
-        """
-        setCorrelationMatrix(FitParameterSet self, vdouble2d_t matrix)
-
-        void FitParameterSet::setCorrelationMatrix(const corr_matrix_t &matrix)
-
-        Sets resulting correlation matrix. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_setCorrelationMatrix(self, matrix)
-
-
-    def fitParametersNewKernel(self):
-        """
-        fitParametersNewKernel(FitParameterSet self) -> Parameters
-
-        Fit::Parameters FitParameterSet::fitParametersNewKernel() const
-
-        Refactoring temp: returns set of new fit parameters. 
-
-        """
-        return _libBornAgainCore.FitParameterSet_fitParametersNewKernel(self)
-
-
-    def __getitem__(self, *args):
-        """
-        __getitem__(FitParameterSet self, std::string name) -> IFitParameter
-        __getitem__(FitParameterSet self, size_t index) -> IFitParameter
-        """
-        return _libBornAgainCore.FitParameterSet___getitem__(self, *args)
-
-
-    def __iter__(self):
-        return FitParameterSetIterator(self)
-
-FitParameterSet_swigregister = _libBornAgainCore.FitParameterSet_swigregister
-FitParameterSet_swigregister(FitParameterSet)
-
-class FitParameter(IFitParameter):
-    """
-
-
-    Fittable parameter, linked to other parameters from pools.
-
-    C++ includes: FitParameter.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IFitParameter]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FitParameter, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IFitParameter]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FitParameter, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(FitParameter self) -> FitParameter
-        __init__(FitParameter self, std::string const & pattern, double value, AttLimits lim, double step=0.0) -> FitParameter
-        __init__(FitParameter self, std::string const & pattern, double value, AttLimits lim) -> FitParameter
-        __init__(FitParameter self, std::string const & pattern, double value) -> FitParameter
-        __init__(FitParameter self, double value, AttLimits lim, double step=0.0) -> FitParameter
-        __init__(FitParameter self, double value, AttLimits lim) -> FitParameter
-        __init__(FitParameter self, double value) -> FitParameter
-
-        FitParameter::FitParameter(double value, const AttLimits &lim=AttLimits::limitless(), double step=0.0)
-
-        """
-        this = _libBornAgainCore.new_FitParameter(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FitParameter
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(FitParameter self) -> FitParameter
-
-        FitParameter * FitParameter::clone() const
-
-        """
-        return _libBornAgainCore.FitParameter_clone(self)
-
-
-    def setValue(self, value):
-        """
-        setValue(FitParameter self, double value)
-
-        void FitParameter::setValue(double value) final
-
-        Sets given value for all bound parameters. 
-
-        """
-        return _libBornAgainCore.FitParameter_setValue(self, value)
-
-
-    def addPattern(self, pattern):
-        """
-        addPattern(FitParameter self, std::string const & pattern) -> FitParameter
-
-        FitParameter & FitParameter::addPattern(const std::string &pattern)
-
-        Adds pattern to the list for later usage in parameter pool matching. 
-
-        """
-        return _libBornAgainCore.FitParameter_addPattern(self, pattern)
-
-
-    def addParameter(self, par):
-        """
-        addParameter(FitParameter self, RealParameter par)
-
-        void FitParameter::addParameter(const RealParameter &par)
-
-        Adds real parameter to the collection. 
-
-        """
-        return _libBornAgainCore.FitParameter_addParameter(self, par)
-
-
-    def addMatchedParameters(self, pool):
-        """
-        addMatchedParameters(FitParameter self, ParameterPool pool)
-
-        void FitParameter::addMatchedParameters(const ParameterPool &pool)
-
-        Adds parameters from pool which match given wildcard. 
-
-        """
-        return _libBornAgainCore.FitParameter_addMatchedParameters(self, pool)
-
-
-    def patterns(self):
-        """
-        patterns(FitParameter self) -> vector_string_t
-
-        std::vector< std::string > FitParameter::patterns() const
-
-        """
-        return _libBornAgainCore.FitParameter_patterns(self)
-
-
-    def matchedParameterNames(self):
-        """
-        matchedParameterNames(FitParameter self) -> vector_string_t
-
-        std::vector< std::string > FitParameter::matchedParameterNames() const
-
-        Returns vector of strings with names of all matched parameters. 
-
-        """
-        return _libBornAgainCore.FitParameter_matchedParameterNames(self)
-
-
-    def patternIntersection(self, other):
-        """
-        patternIntersection(FitParameter self, FitParameter other) -> vector_string_t
-
-        std::vector< std::string > FitParameter::patternIntersection(const FitParameter &other) const
-
-        Returns vector containing patterns existing in both FitParametersLinked. 
-
-        """
-        return _libBornAgainCore.FitParameter_patternIntersection(self, other)
-
-
-    def isConflicting(self, other):
-        """
-        isConflicting(FitParameter self, FitParameter other) -> bool
-
-        bool FitParameter::isConflicting(const FitParameter &other) const
-
-        Returns true if two FitParameterLinked are intended to steer same  RealParameter. 
-
-        """
-        return _libBornAgainCore.FitParameter_isConflicting(self, other)
-
-FitParameter_swigregister = _libBornAgainCore.FitParameter_swigregister
-FitParameter_swigregister(FitParameter)
-
-class FitSuite(IObservable):
-    """
-
-
-    User interface class that wraps all fit methods.
-
-    C++ includes: FitSuite.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IObservable]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuite, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IObservable]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FitSuite, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(FitSuite self) -> FitSuite
-
-        FitSuite::FitSuite(const FitSuite &)=delete
-
-        """
-        this = _libBornAgainCore.new_FitSuite()
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FitSuite
-    __del__ = lambda self: None
-
-    def addSimulationAndRealData(self, *args):
-        """
-        addSimulationAndRealData(FitSuite self, Simulation simulation, IntensityData real_data, double weight=1)
-        addSimulationAndRealData(FitSuite self, Simulation simulation, IntensityData real_data)
-        addSimulationAndRealData(FitSuite self, Simulation simulation, IHistogram real_data, double weight=1)
-        addSimulationAndRealData(FitSuite self, Simulation simulation, IHistogram real_data)
-        addSimulationAndRealData(FitSuite self, Simulation simulation, vdouble2d_t real_data, double weight=1)
-        addSimulationAndRealData(FitSuite self, Simulation simulation, vdouble2d_t real_data)
-        addSimulationAndRealData(FitSuite self, Simulation simulation, vdouble1d_t real_data, double weight=1)
-        addSimulationAndRealData(FitSuite self, Simulation simulation, vdouble1d_t real_data)
-
-        void FitSuite::addSimulationAndRealData(const Simulation &simulation, const std::vector< double > &real_data, double weight=1)
-
-        Assigns pair of (simulation, real_data) for fitting. A version for the  real_data represented as a one-dimensional numpy array.  Simulation output must agree in dimensions with  real_data. 
-
-        """
-        return _libBornAgainCore.FitSuite_addSimulationAndRealData(self, *args)
-
-
-    def addFitParameter(self, *args):
-        """
-        addFitParameter(FitSuite self, std::string const & pattern, double value, AttLimits limits, double step=0.0) -> FitParameter
-        addFitParameter(FitSuite self, std::string const & pattern, double value, AttLimits limits) -> FitParameter
-        addFitParameter(FitSuite self, std::string const & pattern, double value) -> FitParameter
-        addFitParameter(FitSuite self, FitParameter fitPar) -> FitParameter
-
-        FitParameter * FitSuite::addFitParameter(const FitParameter &fitPar)
-
-        Adds fit parameter
-
-        Parameters:
-        -----------
-
-        fitPar: 
-        Fully constructed fit parameter. 
-
-        """
-        return _libBornAgainCore.FitSuite_addFitParameter(self, *args)
-
-
-    def setChiSquaredModule(self, chi2_module):
-        """
-        setChiSquaredModule(FitSuite self, IChiSquaredModule chi2_module)
-
-        void FitSuite::setChiSquaredModule(const IChiSquaredModule &chi2_module)
-
-        Replaces default  ChiSquaredModule with new one. 
-
-        """
-        return _libBornAgainCore.FitSuite_setChiSquaredModule(self, chi2_module)
-
-
-    def addFitStrategy(self, strategy):
-        """
-        addFitStrategy(FitSuite self, IFitStrategy strategy)
-
-        void FitSuite::addFitStrategy(const IFitStrategy &strategy)
-
-        Adds fit strategy. 
-
-        """
-        return _libBornAgainCore.FitSuite_addFitStrategy(self, strategy)
-
-
-    def setMinimizer(self, *args):
-        """
-        setMinimizer(FitSuite self, std::string const & minimizer_name, std::string const & algorithm_name, std::string const & minimizer_options)
-        setMinimizer(FitSuite self, std::string const & minimizer_name, std::string const & algorithm_name)
-        setMinimizer(FitSuite self, std::string const & minimizer_name)
-        setMinimizer(FitSuite self, IMinimizer * minimizer)
-
-        void FitSuite::setMinimizer(IMinimizer *minimizer)
-
-        Sets minimizer. 
-
-        """
-        return _libBornAgainCore.FitSuite_setMinimizer(self, *args)
-
-
-    def minimizerName(self):
-        """
-        minimizerName(FitSuite self) -> std::string
-
-        std::string FitSuite::minimizerName() const
-
-        Returns minimizer. 
-
-        """
-        return _libBornAgainCore.FitSuite_minimizerName(self)
-
-
-    def initPrint(self, print_every_nth):
-        """
-        initPrint(FitSuite self, int print_every_nth)
-
-        void FitSuite::initPrint(int print_every_nth)
-
-        Initializes printing to standard output during the fitting. Prints also the summary when completed.
-
-        Parameters:
-        -----------
-
-        print_every_nth: 
-        Print every n'th iteration 
-
-        """
-        return _libBornAgainCore.FitSuite_initPrint(self, print_every_nth)
-
-
-    def runFit(self):
-        """
-        runFit(FitSuite self)
-
-        void FitSuite::runFit()
-
-        main method to run the fitting 
-
-        """
-        return _libBornAgainCore.FitSuite_runFit(self)
-
-
-    def numberOfFitObjects(self):
-        """
-        numberOfFitObjects(FitSuite self) -> size_t
-
-        size_t FitSuite::numberOfFitObjects() const
-
-        Returns number of fit objects, where fit object stands for (real, simulated) pair. 
-
-        """
-        return _libBornAgainCore.FitSuite_numberOfFitObjects(self)
-
-
-    def fitObjects(self):
-        """
-        fitObjects(FitSuite self) -> FitSuiteObjects
-
-        FitSuiteObjects * FitSuite::fitObjects()
-
-        returns  FitObject (pair of simulation/real data) 
-
-        """
-        return _libBornAgainCore.FitSuite_fitObjects(self)
-
-
-    def fitParameters(self):
-        """
-        fitParameters(FitSuite self) -> FitParameterSet
-
-        FitParameterSet * FitSuite::fitParameters()
-
-        Returns reference to fit parameters. 
-
-        """
-        return _libBornAgainCore.FitSuite_fitParameters(self)
-
-
-    def fitStrategies(self):
-        """
-        fitStrategies(FitSuite self) -> FitSuiteStrategies *
-
-        FitSuiteStrategies * FitSuite::fitStrategies()
-
-        Returns reference to fit parameters. 
-
-        """
-        return _libBornAgainCore.FitSuite_fitStrategies(self)
-
-
-    def isFirstIteration(self):
-        """
-        isFirstIteration(FitSuite self) -> bool
-
-        bool FitSuite::isFirstIteration() const
-
-        temporary method to check if it is first iteration 
-
-        """
-        return _libBornAgainCore.FitSuite_isFirstIteration(self)
-
-
-    def isLastIteration(self):
-        """
-        isLastIteration(FitSuite self) -> bool
-
-        bool FitSuite::isLastIteration() const
-
-        if the last iteration is done (used by observers to print summary) 
-
-        """
-        return _libBornAgainCore.FitSuite_isLastIteration(self)
-
-
-    def numberOfIterations(self):
-        """
-        numberOfIterations(FitSuite self) -> size_t
-
-        size_t FitSuite::numberOfIterations() const
-
-        Returns current number of minimization function calls. 
-
-        """
-        return _libBornAgainCore.FitSuite_numberOfIterations(self)
-
-
-    def currentStrategyIndex(self):
-        """
-        currentStrategyIndex(FitSuite self) -> size_t
-
-        size_t FitSuite::currentStrategyIndex() const
-
-        Returns the number of current strategy. 
-
-        """
-        return _libBornAgainCore.FitSuite_currentStrategyIndex(self)
-
-
-    def printResults(self):
-        """
-        printResults(FitSuite self)
-
-        void FitSuite::printResults() const
-
-        Prints results of the minimization to the standard output. 
-
-        """
-        return _libBornAgainCore.FitSuite_printResults(self)
-
-
-    def reportResults(self):
-        """
-        reportResults(FitSuite self) -> std::string
-
-        std::string FitSuite::reportResults() const
-
-        Reports results of minimization in the form of multi-line string. 
-
-        """
-        return _libBornAgainCore.FitSuite_reportResults(self)
-
-
-    def getChi2(self):
-        """
-        getChi2(FitSuite self) -> double
-
-        double FitSuite::getChi2() const
-
-        Returns minimum chi squared value found. 
-
-        """
-        return _libBornAgainCore.FitSuite_getChi2(self)
-
-
-    def interruptFitting(self):
-        """
-        interruptFitting(FitSuite self)
-
-        void FitSuite::interruptFitting()
-
-        """
-        return _libBornAgainCore.FitSuite_interruptFitting(self)
-
-
-    def resetInterrupt(self):
-        """
-        resetInterrupt(FitSuite self)
-
-        void FitSuite::resetInterrupt()
-
-        """
-        return _libBornAgainCore.FitSuite_resetInterrupt(self)
-
-
-    def isInterrupted(self):
-        """
-        isInterrupted(FitSuite self) -> bool
-
-        bool FitSuite::isInterrupted()
-
-        """
-        return _libBornAgainCore.FitSuite_isInterrupted(self)
-
-
-    def parametersToString(self):
-        """
-        parametersToString(FitSuite self) -> std::string
-
-        std::string FitSuite::parametersToString() const
-
-        Returns multiline string representing possible fit parameters. 
-
-        """
-        return _libBornAgainCore.FitSuite_parametersToString(self)
-
-
-    def treeToString(self):
-        """
-        treeToString(FitSuite self) -> std::string
-
-        std::string FitSuite::treeToString() const
-
-        Returns multiline string representing tree structure of fit components. 
-
-        """
-        return _libBornAgainCore.FitSuite_treeToString(self)
-
-
-    def setupToString(self):
-        """
-        setupToString(FitSuite self) -> std::string
-
-        std::string FitSuite::setupToString()
-
-        Returns multiline string representing fit setup. 
-
-        """
-        return _libBornAgainCore.FitSuite_setupToString(self)
-
-
-    def simulationResult(self, i_item=0):
-        """
-        simulationResult(FitSuite self, size_t i_item=0) -> SimulationResult
-        simulationResult(FitSuite self) -> SimulationResult
-
-        SimulationResult FitSuite::simulationResult(size_t i_item=0) const
-
-        Returns simulation result.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
-        """
-        return _libBornAgainCore.FitSuite_simulationResult(self, i_item)
-
-
-    def experimentalData(self, i_item=0):
-        """
-        experimentalData(FitSuite self, size_t i_item=0) -> SimulationResult
-        experimentalData(FitSuite self) -> SimulationResult
-
-        SimulationResult FitSuite::experimentalData(size_t i_item=0) const
-
-        Returns experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
-        """
-        return _libBornAgainCore.FitSuite_experimentalData(self, i_item)
-
-
-    def relativeDifference(self, i_item=0):
-        """
-        relativeDifference(FitSuite self, size_t i_item=0) -> SimulationResult
-        relativeDifference(FitSuite self) -> SimulationResult
-
-        SimulationResult FitSuite::relativeDifference(size_t i_item=0) const
-
-        Returns relative difference between simulation and experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
-        """
-        return _libBornAgainCore.FitSuite_relativeDifference(self, i_item)
-
-FitSuite_swigregister = _libBornAgainCore.FitSuite_swigregister
-FitSuite_swigregister(FitSuite)
-
-class FitSuiteObjects(INode):
-    """
-
-
-    Holds vector of  FitObject's (simulation and real data) to fit
-
-    C++ includes: FitSuiteObjects.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [INode]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FitSuiteObjects, name, value)
-    __swig_getmethods__ = {}
-    for _s in [INode]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FitSuiteObjects, name)
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        """
-        __init__(FitSuiteObjects self) -> FitSuiteObjects
-
-        FitSuiteObjects::FitSuiteObjects()
-
-        """
-        this = _libBornAgainCore.new_FitSuiteObjects()
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_FitSuiteObjects
-    __del__ = lambda self: None
-
-    def accept(self, visitor):
-        """
-        accept(FitSuiteObjects self, INodeVisitor visitor)
-
-        void FitSuiteObjects::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_accept(self, visitor)
-
-
-    def add(self, simulation, real_data, weight=1.0):
-        """
-        add(FitSuiteObjects self, Simulation simulation, IntensityData real_data, double weight=1.0) -> FitObject
-        add(FitSuiteObjects self, Simulation simulation, IntensityData real_data) -> FitObject
-
-        FitObject * FitSuiteObjects::add(const Simulation &simulation, const OutputData< double > &real_data, double weight=1.0)
-
-        Adds to kit pair of (simulation, real data) for consecutive simulation. 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_add(self, simulation, real_data, weight)
-
-
-    def getSizeOfDataSet(self):
-        """
-        getSizeOfDataSet(FitSuiteObjects self) -> size_t
-
-        size_t FitSuiteObjects::getSizeOfDataSet() const
-
-        Returns total number of data points (number of all non-masked channels in all fit objects)
-
-        Returns total number of data points. 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_getSizeOfDataSet(self)
-
-
-    def setChiSquaredModule(self, chi2_module):
-        """
-        setChiSquaredModule(FitSuiteObjects self, IChiSquaredModule chi2_module)
-
-        void FitSuiteObjects::setChiSquaredModule(const IChiSquaredModule &chi2_module)
-
-        Replaces default  ChiSquaredModule with new one. 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_setChiSquaredModule(self, chi2_module)
-
-
-    def simulationResult(self, i_item=0):
-        """
-        simulationResult(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
-        simulationResult(FitSuiteObjects self) -> SimulationResult
-
-        SimulationResult FitSuiteObjects::simulationResult(size_t i_item=0) const
-
-        Returns simulation result.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_simulationResult(self, i_item)
-
-
-    def experimentalData(self, i_item=0):
-        """
-        experimentalData(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
-        experimentalData(FitSuiteObjects self) -> SimulationResult
-
-        SimulationResult FitSuiteObjects::experimentalData(size_t i_item=0) const
-
-        Returns experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_experimentalData(self, i_item)
-
-
-    def relativeDifference(self, i_item=0):
-        """
-        relativeDifference(FitSuiteObjects self, size_t i_item=0) -> SimulationResult
-        relativeDifference(FitSuiteObjects self) -> SimulationResult
-
-        SimulationResult FitSuiteObjects::relativeDifference(size_t i_item=0) const
-
-        Returns relative difference between simulation and experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_relativeDifference(self, i_item)
-
-
-    def runSimulations(self):
-        """
-        runSimulations(FitSuiteObjects self)
-
-        void FitSuiteObjects::runSimulations()
-
-        run all simulation defined in fit pairs
-
-        loop through all defined simulations and run them 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_runSimulations(self)
-
-
-    def getChiSquaredValue(self):
-        """
-        getChiSquaredValue(FitSuiteObjects self) -> double
-
-        double FitSuiteObjects::getChiSquaredValue() const
-
-        Returns chi2 calculated over whole dataset. 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_getChiSquaredValue(self)
-
-
-    def getResidualValue(self, global_index):
-        """
-        getResidualValue(FitSuiteObjects self, size_t global_index) -> double
-
-        double FitSuiteObjects::getResidualValue(size_t global_index)
-
-        Returns residuals for single data element
-
-        Parameters:
-        -----------
-
-        global_index: 
-        index across all element in  FitElement vector 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_getResidualValue(self, global_index)
-
-
-    def residuals(self):
-        """
-        residuals(FitSuiteObjects self) -> vdouble1d_t
-
-        std::vector< double > FitSuiteObjects::residuals() const
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_residuals(self)
-
-
-    def setNfreeParameters(self, nfree_parameters):
-        """
-        setNfreeParameters(FitSuiteObjects self, int nfree_parameters)
-
-        void FitSuiteObjects::setNfreeParameters(int nfree_parameters)
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_setNfreeParameters(self, nfree_parameters)
-
-
-    def clear(self):
-        """
-        clear(FitSuiteObjects self)
-
-        void FitSuiteObjects::clear()
-
-        clear all data 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_clear(self)
-
-
-    def size(self):
-        """
-        size(FitSuiteObjects self) -> size_t
-
-        size_t FitSuiteObjects::size() const
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_size(self)
-
-
-    def begin(self):
-        """
-        begin(FitSuiteObjects self) -> FitSuiteObjects::iterator
-
-        iterator FitSuiteObjects::begin()
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_begin(self)
-
-
-    def end(self):
-        """
-        end(FitSuiteObjects self) -> FitSuiteObjects::iterator
-
-        iterator FitSuiteObjects::end()
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_end(self)
-
-
-    def getChildren(self):
-        """
-        getChildren(FitSuiteObjects self) -> swig_dummy_type_const_inode_vector
-
-        std::vector< const INode * > FitSuiteObjects::getChildren() const
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.FitSuiteObjects_getChildren(self)
-
-FitSuiteObjects_swigregister = _libBornAgainCore.FitSuiteObjects_swigregister
-FitSuiteObjects_swigregister(FitSuiteObjects)
 
 class PyBuilderCallback(_object):
     """
@@ -8068,7 +6129,7 @@ class FitObjective(_object):
     """
 
 
-    Main class to hold pairs of simulation Holds vector of  FitObject's (simulation and real data) to fit
+    Main class to hold pairs of simulation Holds vector of FitObject's (simulation and real data) to fit
 
     C++ includes: FitObjective.h
 
@@ -8087,7 +6148,11 @@ class FitObjective(_object):
         FitObjective::FitObjective()
 
         """
-        this = _libBornAgainCore.new_FitObjective()
+        if self.__class__ == FitObjective:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_FitObjective(_self, )
         try:
             self.this.append(this)
         except __builtin__.Exception:
@@ -8162,6 +6227,18 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_simulation_array(self)
 
 
+    def weights_array(self):
+        """
+        weights_array(FitObjective self) -> vdouble1d_t
+
+        std::vector< double > FitObjective::weights_array() const
+
+        Returns one dimensional array representing weights of bin intensity for residuals. 
+
+        """
+        return _libBornAgainCore.FitObjective_weights_array(self)
+
+
     def simulationResult(self, i_item=0):
         """
         simulationResult(FitObjective self, size_t i_item=0) -> SimulationResult
@@ -8219,6 +6296,25 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_relativeDifference(self, i_item)
 
 
+    def absoluteDifference(self, i_item=0):
+        """
+        absoluteDifference(FitObjective self, size_t i_item=0) -> SimulationResult
+        absoluteDifference(FitObjective self) -> SimulationResult
+
+        SimulationResult FitObjective::absoluteDifference(size_t i_item=0) const
+
+        Returns absolute value of difference between simulation and experimental data.
+
+        Parameters:
+        -----------
+
+        i_item: 
+        the index of fit pair 
+
+        """
+        return _libBornAgainCore.FitObjective_absoluteDifference(self, i_item)
+
+
     def initPrint(self, every_nth):
         """
         initPrint(FitObjective self, int every_nth)
@@ -8242,14 +6338,6 @@ class FitObjective(_object):
         initPlot_cpp(FitObjective self, int every_nth, PyObserverCallback callback)
 
         void FitObjective::initPlot(int every_nth, PyObserverCallback &callback)
-
-        Initializes plotting during the fitting using Python callable.
-
-        Parameters:
-        -----------
-
-        every_nth: 
-        Called on every n'th iteration. 
 
         """
         return _libBornAgainCore.FitObjective_initPlot_cpp(self, every_nth, callback)
@@ -8307,7 +6395,57 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_fitObjectCount(self)
 
 
-    def addSimulationAndData(self, callback, data, weight):
+    def interruptFitting(self):
+        """
+        interruptFitting(FitObjective self)
+
+        void FitObjective::interruptFitting()
+
+        """
+        return _libBornAgainCore.FitObjective_interruptFitting(self)
+
+
+    def isInterrupted(self):
+        """
+        isInterrupted(FitObjective self) -> bool
+
+        bool FitObjective::isInterrupted() const
+
+        """
+        return _libBornAgainCore.FitObjective_isInterrupted(self)
+
+
+    def isFirstIteration(self):
+        """
+        isFirstIteration(FitObjective self) -> bool
+
+        bool FitObjective::isFirstIteration() const
+
+        """
+        return _libBornAgainCore.FitObjective_isFirstIteration(self)
+
+
+    def run_simulations(self, params):
+        """
+        run_simulations(FitObjective self, Parameters params)
+
+        void FitObjective::run_simulations(const Fit::Parameters &params)
+
+        """
+        return _libBornAgainCore.FitObjective_run_simulations(self, params)
+
+
+    def setChiSquaredModule(self, module):
+        """
+        setChiSquaredModule(FitObjective self, IChiSquaredModule module)
+
+        void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
+
+        """
+        return _libBornAgainCore.FitObjective_setChiSquaredModule(self, module)
+
+
+    def addSimulationAndData(self, callback, data, weight = 1.0):
         if not hasattr(self, 'callback_container'):
             self.callback_container = []
         wrp = SimulationBuilderWrapper(callback)
@@ -8348,7 +6486,7 @@ class FitObjective(_object):
 
     def create_default_plotter(self):
         import plot_utils
-        self.m_plotter = plot_utils.PlotterGISASV2()
+        self.m_plotter = plot_utils.PlotterGISAS()
         return self.m_plotter.plot
 
     def initPlot(self, every_nth, callback = None):
@@ -8359,6 +6497,10 @@ class FitObjective(_object):
         return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
 
 
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainCore.disown_FitObjective(self)
+        return weakref_proxy(self)
 FitObjective_swigregister = _libBornAgainCore.FitObjective_swigregister
 FitObjective_swigregister(FitObjective)
 
@@ -8435,14 +6577,16 @@ def tanhc(z):
     """
     return _libBornAgainCore.tanhc(z)
 
-def Laue(z, N):
+def Laue(x, N):
     """
-    Laue(complex_t const z, size_t N) -> complex_t
+    Laue(double const x, size_t N) -> double
 
-    complex_t MathFunctions::Laue(const complex_t z, size_t N)
+    double MathFunctions::Laue(const double x, size_t N)
+
+    Real Laue function:  $Laue(x,N)\\equiv\\sin(Nx)/sin(x)$. 
 
     """
-    return _libBornAgainCore.Laue(z, N)
+    return _libBornAgainCore.Laue(x, N)
 
 def erf(arg):
     """
@@ -8551,78 +6695,6 @@ def GeneratePoissonRandom(average):
 
     """
     return _libBornAgainCore.GeneratePoissonRandom(average)
-class AdjustMinimizerStrategy(IFitStrategy):
-    """
-
-
-    Strategy modifies mimimizer settings before running minimization round.
-
-    C++ includes: AdjustMinimizerStrategy.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IFitStrategy]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, AdjustMinimizerStrategy, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IFitStrategy]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, AdjustMinimizerStrategy, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(AdjustMinimizerStrategy self) -> AdjustMinimizerStrategy
-        __init__(AdjustMinimizerStrategy self, std::string const & minimizerName, std::string const & algorithmName, std::string const & optionString) -> AdjustMinimizerStrategy
-        __init__(AdjustMinimizerStrategy self, std::string const & minimizerName, std::string const & algorithmName) -> AdjustMinimizerStrategy
-        __init__(AdjustMinimizerStrategy self, std::string const & minimizerName) -> AdjustMinimizerStrategy
-
-        AdjustMinimizerStrategy::AdjustMinimizerStrategy(const std::string &minimizerName, const std::string &algorithmName="", const std::string &optionString="")
-
-        """
-        this = _libBornAgainCore.new_AdjustMinimizerStrategy(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-
-    def clone(self):
-        """
-        clone(AdjustMinimizerStrategy self) -> AdjustMinimizerStrategy
-
-        AdjustMinimizerStrategy * AdjustMinimizerStrategy::clone() const
-
-        """
-        return _libBornAgainCore.AdjustMinimizerStrategy_clone(self)
-
-
-    def setMinimizer(self, *args):
-        """
-        setMinimizer(AdjustMinimizerStrategy self, std::string const & minimizerName, std::string const & algorithmName, std::string const & optionString)
-        setMinimizer(AdjustMinimizerStrategy self, std::string const & minimizerName, std::string const & algorithmName)
-        setMinimizer(AdjustMinimizerStrategy self, std::string const & minimizerName)
-
-        void AdjustMinimizerStrategy::setMinimizer(const std::string &minimizerName, const std::string &algorithmName="", const std::string &optionString="")
-
-        """
-        return _libBornAgainCore.AdjustMinimizerStrategy_setMinimizer(self, *args)
-
-
-    def execute(self):
-        """
-        execute(AdjustMinimizerStrategy self)
-
-        void AdjustMinimizerStrategy::execute()
-
-        """
-        return _libBornAgainCore.AdjustMinimizerStrategy_execute(self)
-
-    __swig_destroy__ = _libBornAgainCore.delete_AdjustMinimizerStrategy
-    __del__ = lambda self: None
-AdjustMinimizerStrategy_swigregister = _libBornAgainCore.AdjustMinimizerStrategy_swigregister
-AdjustMinimizerStrategy_swigregister(AdjustMinimizerStrategy)
-
 class IMultiLayerBuilder(IParameterized):
     """
 
@@ -8813,8 +6885,6 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, DistributionLogNormal arg2)
         visit(INodeVisitor self, DistributionLorentz arg2)
         visit(INodeVisitor self, DistributionTrapezoid arg2)
-        visit(INodeVisitor self, FitObject arg2)
-        visit(INodeVisitor self, FitSuiteObjects arg2)
         visit(INodeVisitor self, FootprintFactorGaussian arg2)
         visit(INodeVisitor self, FootprintFactorSquare arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
@@ -8838,6 +6908,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FormFactorGauss arg2)
         visit(INodeVisitor self, FormFactorHemiEllipsoid arg2)
         visit(INodeVisitor self, FormFactorIcosahedron arg2)
+        visit(INodeVisitor self, FormFactorLongBox arg2)
         visit(INodeVisitor self, FormFactorLongBoxGauss arg2)
         visit(INodeVisitor self, FormFactorLongBoxLorentz arg2)
         visit(INodeVisitor self, FormFactorLorentz arg2)
@@ -8888,12 +6959,13 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, IntensityScaleAndShiftNormalizer arg2)
         visit(INodeVisitor self, InterferenceFunction1DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DLattice arg2)
-        visit(INodeVisitor self, InterferenceFunction3DLattice arg2)
-        visit(INodeVisitor self, InterferenceFunction2DSuperLattice arg2)
-        visit(INodeVisitor self, InterferenceFunctionFinite2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunction2DParaCrystal arg2)
-        visit(INodeVisitor self, InterferenceFunctionNone arg2)
+        visit(INodeVisitor self, InterferenceFunction2DSuperLattice arg2)
+        visit(INodeVisitor self, InterferenceFunction3DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunctionFinite2DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunctionFinite3DLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
+        visit(INodeVisitor self, InterferenceFunctionNone arg2)
         visit(INodeVisitor self, IParticle arg2)
         visit(INodeVisitor self, IPeakShape arg2)
         visit(INodeVisitor self, IRotation arg2)
@@ -13117,10 +11189,7 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list
-
-        _sym_S2: 
-        true if face has a perpedicular two-fold symmetry axis 
+        oriented vertex list 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -15327,6 +13396,135 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
     __del__ = lambda self: None
 FormFactorIcosahedron_swigregister = _libBornAgainCore.FormFactorIcosahedron_swigregister
 FormFactorIcosahedron_swigregister(FormFactorIcosahedron)
+
+class FormFactorLongBox(IFormFactorBorn):
+    """
+
+
+    The formfactor for a long rectangular box. Approximates the rapidly oscillating sinc function by the square root of a Lorentzian
+
+    C++ includes: FormFactorLongBox.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorLongBox, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IFormFactorBorn]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorLongBox, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, length, width, height):
+        """
+        __init__(FormFactorLongBox self, double length, double width, double height) -> FormFactorLongBox
+
+        FormFactorLongBox::FormFactorLongBox(double length, double width, double height)
+
+        Box constructor.
+
+        Parameters:
+        -----------
+
+        length: 
+        of  Box's base
+
+        width: 
+        of  Box's base
+
+        height: 
+        of  Box
+
+        """
+        this = _libBornAgainCore.new_FormFactorLongBox(length, width, height)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(FormFactorLongBox self) -> FormFactorLongBox
+
+        FormFactorLongBox* FormFactorLongBox::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.FormFactorLongBox_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(FormFactorLongBox self, INodeVisitor visitor)
+
+        void FormFactorLongBox::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.FormFactorLongBox_accept(self, visitor)
+
+
+    def getLength(self):
+        """
+        getLength(FormFactorLongBox self) -> double
+
+        double FormFactorLongBox::getLength() const
+
+        """
+        return _libBornAgainCore.FormFactorLongBox_getLength(self)
+
+
+    def getHeight(self):
+        """
+        getHeight(FormFactorLongBox self) -> double
+
+        double FormFactorLongBox::getHeight() const
+
+        """
+        return _libBornAgainCore.FormFactorLongBox_getHeight(self)
+
+
+    def getWidth(self):
+        """
+        getWidth(FormFactorLongBox self) -> double
+
+        double FormFactorLongBox::getWidth() const
+
+        """
+        return _libBornAgainCore.FormFactorLongBox_getWidth(self)
+
+
+    def radialExtension(self):
+        """
+        radialExtension(FormFactorLongBox self) -> double
+
+        double FormFactorLongBox::radialExtension() const override final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.FormFactorLongBox_radialExtension(self)
+
+
+    def evaluate_for_q(self, q):
+        """
+        evaluate_for_q(FormFactorLongBox self, cvector_t q) -> complex_t
+
+        complex_t FormFactorLongBox::evaluate_for_q(cvector_t q) const override final
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+
+        """
+        return _libBornAgainCore.FormFactorLongBox_evaluate_for_q(self, q)
+
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongBox
+    __del__ = lambda self: None
+FormFactorLongBox_swigregister = _libBornAgainCore.FormFactorLongBox_swigregister
+FormFactorLongBox_swigregister(FormFactorLongBox)
 
 class FormFactorLongBoxGauss(IFormFactorBorn):
     """
@@ -21122,37 +19320,37 @@ class IPeakShape(ISample):
         return _libBornAgainCore.IPeakShape_clone(self)
 
 
-    def evaluate(self, q):
+    def evaluate(self, q, q_lattice_point):
         """
-        evaluate(IPeakShape self, kvector_t q) -> double
+        evaluate(IPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
 
-        virtual double IPeakShape::evaluate(const kvector_t q) const =0
+        virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
 
-        Evaluates the peak shape at displacement q from the center at 0. 
-
-        """
-        return _libBornAgainCore.IPeakShape_evaluate(self, q)
-
-
-    def thickness_z(self):
-        """
-        thickness_z(IPeakShape self) -> double
-
-        virtual double IPeakShape::thickness_z() const =0
-
-        Returns the thickness in the z-direction. 
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
 
         """
-        return _libBornAgainCore.IPeakShape_thickness_z(self)
+        return _libBornAgainCore.IPeakShape_evaluate(self, q, q_lattice_point)
+
+
+    def angularDisorder(self):
+        """
+        angularDisorder(IPeakShape self) -> bool
+
+        virtual bool IPeakShape::angularDisorder() const
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.IPeakShape_angularDisorder(self)
 
 IPeakShape_swigregister = _libBornAgainCore.IPeakShape_swigregister
 IPeakShape_swigregister(IPeakShape)
 
-class GaussPeakShape(IPeakShape):
+class IsotropicGaussPeakShape(IPeakShape):
     """
 
 
-    Class that implements a Gaussian peak shape of a Bragg peak.
+    Class that implements an isotropic Gaussian peak shape of a Bragg peak.
 
     C++ includes: IPeakShape.h
 
@@ -21161,77 +19359,308 @@ class GaussPeakShape(IPeakShape):
     __swig_setmethods__ = {}
     for _s in [IPeakShape]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, GaussPeakShape, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IsotropicGaussPeakShape, name, value)
     __swig_getmethods__ = {}
     for _s in [IPeakShape]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, GaussPeakShape, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, IsotropicGaussPeakShape, name)
     __repr__ = _swig_repr
 
-    def __init__(self, domainsize):
+    def __init__(self, max_intensity, domainsize):
         """
-        __init__(GaussPeakShape self, double domainsize) -> GaussPeakShape
+        __init__(IsotropicGaussPeakShape self, double max_intensity, double domainsize) -> IsotropicGaussPeakShape
 
-        GaussPeakShape::GaussPeakShape(double domainsize)
+        IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
 
         """
-        this = _libBornAgainCore.new_GaussPeakShape(domainsize)
+        this = _libBornAgainCore.new_IsotropicGaussPeakShape(max_intensity, domainsize)
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_GaussPeakShape
+    __swig_destroy__ = _libBornAgainCore.delete_IsotropicGaussPeakShape
     __del__ = lambda self: None
 
     def clone(self):
         """
-        clone(GaussPeakShape self) -> GaussPeakShape
+        clone(IsotropicGaussPeakShape self) -> IsotropicGaussPeakShape
 
-        GaussPeakShape * GaussPeakShape::clone() const override
+        IsotropicGaussPeakShape * IsotropicGaussPeakShape::clone() const override
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.GaussPeakShape_clone(self)
+        return _libBornAgainCore.IsotropicGaussPeakShape_clone(self)
 
 
     def accept(self, visitor):
         """
-        accept(GaussPeakShape self, INodeVisitor visitor)
+        accept(IsotropicGaussPeakShape self, INodeVisitor visitor)
 
-        void GaussPeakShape::accept(INodeVisitor *visitor) const override
+        void IsotropicGaussPeakShape::accept(INodeVisitor *visitor) const override
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.GaussPeakShape_accept(self, visitor)
+        return _libBornAgainCore.IsotropicGaussPeakShape_accept(self, visitor)
 
 
-    def evaluate(self, q):
+    def evaluate(self, q, q_lattice_point):
         """
-        evaluate(GaussPeakShape self, kvector_t q) -> double
+        evaluate(IsotropicGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
 
-        double GaussPeakShape::evaluate(const kvector_t q) const override
+        double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
-        Evaluates the peak shape at displacement q from the center at 0. 
-
-        """
-        return _libBornAgainCore.GaussPeakShape_evaluate(self, q)
-
-
-    def thickness_z(self):
-        """
-        thickness_z(GaussPeakShape self) -> double
-
-        double GaussPeakShape::thickness_z() const override
-
-        Returns the thickness in the z-direction. 
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
 
         """
-        return _libBornAgainCore.GaussPeakShape_thickness_z(self)
+        return _libBornAgainCore.IsotropicGaussPeakShape_evaluate(self, q, q_lattice_point)
 
-GaussPeakShape_swigregister = _libBornAgainCore.GaussPeakShape_swigregister
-GaussPeakShape_swigregister(GaussPeakShape)
+IsotropicGaussPeakShape_swigregister = _libBornAgainCore.IsotropicGaussPeakShape_swigregister
+IsotropicGaussPeakShape_swigregister(IsotropicGaussPeakShape)
+
+class IsotropicLorentzPeakShape(IPeakShape):
+    """
+
+
+    Class that implements an isotropic Lorentzian peak shape of a Bragg peak.
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IsotropicLorentzPeakShape, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IsotropicLorentzPeakShape, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, domainsize):
+        """
+        __init__(IsotropicLorentzPeakShape self, double max_intensity, double domainsize) -> IsotropicLorentzPeakShape
+
+        IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, double domainsize)
+
+        """
+        this = _libBornAgainCore.new_IsotropicLorentzPeakShape(max_intensity, domainsize)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_IsotropicLorentzPeakShape
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(IsotropicLorentzPeakShape self) -> IsotropicLorentzPeakShape
+
+        IsotropicLorentzPeakShape * IsotropicLorentzPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.IsotropicLorentzPeakShape_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(IsotropicLorentzPeakShape self, INodeVisitor visitor)
+
+        void IsotropicLorentzPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.IsotropicLorentzPeakShape_accept(self, visitor)
+
+
+    def evaluate(self, q, q_lattice_point):
+        """
+        evaluate(IsotropicLorentzPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+
+        double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.IsotropicLorentzPeakShape_evaluate(self, q, q_lattice_point)
+
+IsotropicLorentzPeakShape_swigregister = _libBornAgainCore.IsotropicLorentzPeakShape_swigregister
+IsotropicLorentzPeakShape_swigregister(IsotropicLorentzPeakShape)
+
+class GaussFisherPeakShape(IPeakShape):
+    """
+
+
+    Class that implements a peak shape that is Gaussian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, GaussFisherPeakShape, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, GaussFisherPeakShape, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, radial_size, kappa):
+        """
+        __init__(GaussFisherPeakShape self, double max_intensity, double radial_size, double kappa) -> GaussFisherPeakShape
+
+        GaussFisherPeakShape::GaussFisherPeakShape(double max_intensity, double radial_size, double kappa)
+
+        """
+        this = _libBornAgainCore.new_GaussFisherPeakShape(max_intensity, radial_size, kappa)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_GaussFisherPeakShape
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(GaussFisherPeakShape self) -> GaussFisherPeakShape
+
+        GaussFisherPeakShape * GaussFisherPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.GaussFisherPeakShape_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(GaussFisherPeakShape self, INodeVisitor visitor)
+
+        void GaussFisherPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.GaussFisherPeakShape_accept(self, visitor)
+
+
+    def evaluate(self, q, q_lattice_point):
+        """
+        evaluate(GaussFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+
+        double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.GaussFisherPeakShape_evaluate(self, q, q_lattice_point)
+
+
+    def angularDisorder(self):
+        """
+        angularDisorder(GaussFisherPeakShape self) -> bool
+
+        bool GaussFisherPeakShape::angularDisorder() const override
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.GaussFisherPeakShape_angularDisorder(self)
+
+GaussFisherPeakShape_swigregister = _libBornAgainCore.GaussFisherPeakShape_swigregister
+GaussFisherPeakShape_swigregister(GaussFisherPeakShape)
+
+class LorentzFisherPeakShape(IPeakShape):
+    """
+
+
+    Class that implements a peak shape that is Lorentzian in the radial direction and uses the von Mises-Fisher distribution in the angular direction.
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, LorentzFisherPeakShape, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, LorentzFisherPeakShape, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, radial_size, kappa):
+        """
+        __init__(LorentzFisherPeakShape self, double max_intensity, double radial_size, double kappa) -> LorentzFisherPeakShape
+
+        LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size, double kappa)
+
+        """
+        this = _libBornAgainCore.new_LorentzFisherPeakShape(max_intensity, radial_size, kappa)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_LorentzFisherPeakShape
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(LorentzFisherPeakShape self) -> LorentzFisherPeakShape
+
+        LorentzFisherPeakShape * LorentzFisherPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.LorentzFisherPeakShape_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(LorentzFisherPeakShape self, INodeVisitor visitor)
+
+        void LorentzFisherPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.LorentzFisherPeakShape_accept(self, visitor)
+
+
+    def evaluate(self, q, q_lattice_point):
+        """
+        evaluate(LorentzFisherPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+
+        double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.LorentzFisherPeakShape_evaluate(self, q, q_lattice_point)
+
+
+    def angularDisorder(self):
+        """
+        angularDisorder(LorentzFisherPeakShape self) -> bool
+
+        bool LorentzFisherPeakShape::angularDisorder() const override
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.LorentzFisherPeakShape_angularDisorder(self)
+
+LorentzFisherPeakShape_swigregister = _libBornAgainCore.LorentzFisherPeakShape_swigregister
+LorentzFisherPeakShape_swigregister(LorentzFisherPeakShape)
 
 class IResolutionFunction2D(ICloneable, INode):
     """
@@ -22353,7 +20782,9 @@ class IntensityDataIOFactory(_object):
     """
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+    Usage:
 
     C++ includes: IntensityDataIOFactory.h
 
@@ -22401,7 +20832,9 @@ class IntensityDataIOFactory(_object):
 
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+        Usage:
 
         C++ includes: IntensityDataIOFactory.h
 
@@ -22559,207 +20992,6 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
 
 InterferenceFunction1DLattice_swigregister = _libBornAgainCore.InterferenceFunction1DLattice_swigregister
 InterferenceFunction1DLattice_swigregister(InterferenceFunction1DLattice)
-
-class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
-    """
-
-
-    Interference function of radial paracrystal.
-
-    C++ includes: InterferenceFunctionRadialParaCrystal.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IInterferenceFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunctionRadialParaCrystal, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IInterferenceFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunctionRadialParaCrystal, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, peak_distance, damping_length=0.0):
-        """
-        __init__(InterferenceFunctionRadialParaCrystal self, double peak_distance, double damping_length=0.0) -> InterferenceFunctionRadialParaCrystal
-        __init__(InterferenceFunctionRadialParaCrystal self, double peak_distance) -> InterferenceFunctionRadialParaCrystal
-
-        InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
-
-        Constructor of interference function of radial paracrystal.
-
-        Parameters:
-        -----------
-
-        peak_distance: 
-        average distance to the next neighbor in nanometers
-
-        damping_length: 
-        the damping (coherence) length of the paracrystal in nanometers 
-
-        """
-        this = _libBornAgainCore.new_InterferenceFunctionRadialParaCrystal(peak_distance, damping_length)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-
-    def clone(self):
-        """
-        clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
-
-        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor visitor)
-
-        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
-
-
-    def setKappa(self, kappa):
-        """
-        setKappa(InterferenceFunctionRadialParaCrystal self, double kappa)
-
-        void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
-
-        Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
-
-        Parameters:
-        -----------
-
-        size: 
-        spacing coupling parameter 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setKappa(self, kappa)
-
-
-    def kappa(self):
-        """
-        kappa(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::kappa() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_kappa(self)
-
-
-    def setDomainSize(self, size):
-        """
-        setDomainSize(InterferenceFunctionRadialParaCrystal self, double size)
-
-        void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
-
-        Sets domain size (finite size corrections).
-
-        Parameters:
-        -----------
-
-        size: 
-        size of coherence domain along the lattice main axis in nanometers 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
-
-
-    def domainSize(self):
-        """
-        domainSize(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::domainSize() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_domainSize(self)
-
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunctionRadialParaCrystal self, kvector_t q) -> double
-
-        double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_evaluate(self, q)
-
-
-    def FTPDF(self, qpar):
-        """
-        FTPDF(InterferenceFunctionRadialParaCrystal self, double qpar) -> complex_t
-
-        complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_FTPDF(self, qpar)
-
-
-    def setProbabilityDistribution(self, pdf):
-        """
-        setProbabilityDistribution(InterferenceFunctionRadialParaCrystal self, IFTDistribution1D pdf)
-
-        void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
-
-        Sets one-dimensional probability distribution.
-
-        Parameters:
-        -----------
-
-        pdf: 
-        probability distribution (Fourier transform of probability density) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
-
-
-    def peakDistance(self):
-        """
-        peakDistance(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::peakDistance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_peakDistance(self)
-
-
-    def dampingLength(self):
-        """
-        dampingLength(InterferenceFunctionRadialParaCrystal self) -> double
-
-        double InterferenceFunctionRadialParaCrystal::dampingLength() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_dampingLength(self)
-
-
-    def getChildren(self):
-        """
-        getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
-
-        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getChildren(self)
-
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
-    __del__ = lambda self: None
-InterferenceFunctionRadialParaCrystal_swigregister = _libBornAgainCore.InterferenceFunctionRadialParaCrystal_swigregister
-InterferenceFunctionRadialParaCrystal_swigregister(InterferenceFunctionRadialParaCrystal)
 
 class InterferenceFunction2DLattice(IInterferenceFunction):
     """
@@ -22968,575 +21200,6 @@ def InterferenceFunction2DLattice_createHexagonal(lattice_length, xi=0.0):
     InterferenceFunction2DLattice_createHexagonal(double lattice_length) -> InterferenceFunction2DLattice
     """
     return _libBornAgainCore.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
-
-class InterferenceFunction3DLattice(IInterferenceFunction):
-    """
-
-
-    Interference function of 3D lattice.
-
-    C++ includes: InterferenceFunction3DLattice.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IInterferenceFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunction3DLattice, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IInterferenceFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction3DLattice, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, lattice):
-        """
-        __init__(InterferenceFunction3DLattice self, Lattice lattice) -> InterferenceFunction3DLattice
-
-        InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)
-
-        """
-        this = _libBornAgainCore.new_InterferenceFunction3DLattice(lattice)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction3DLattice
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
-
-        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(InterferenceFunction3DLattice self, INodeVisitor visitor)
-
-        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_accept(self, visitor)
-
-
-    def setPeakShape(self, peak_shape):
-        """
-        setPeakShape(InterferenceFunction3DLattice self, IPeakShape peak_shape)
-
-        void InterferenceFunction3DLattice::setPeakShape(const IPeakShape &peak_shape)
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
-
-
-    def setDebyeWallerFactor(self, dw_length):
-        """
-        setDebyeWallerFactor(InterferenceFunction3DLattice self, double dw_length)
-
-        void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_setDebyeWallerFactor(self, dw_length)
-
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction3DLattice self, kvector_t q) -> double
-
-        double InterferenceFunction3DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_evaluate(self, q)
-
-
-    def lattice(self):
-        """
-        lattice(InterferenceFunction3DLattice self) -> Lattice
-
-        const Lattice & InterferenceFunction3DLattice::lattice() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_lattice(self)
-
-
-    def getParticleDensity(self):
-        """
-        getParticleDensity(InterferenceFunction3DLattice self) -> double
-
-        double InterferenceFunction3DLattice::getParticleDensity() const final
-
-        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_getParticleDensity(self)
-
-
-    def supportsMultilayer(self):
-        """
-        supportsMultilayer(InterferenceFunction3DLattice self) -> bool
-
-        bool InterferenceFunction3DLattice::supportsMultilayer() const override
-
-        Indicates if this interference function can be used with a multilayer (DWBA mode) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_supportsMultilayer(self)
-
-
-    def getChildren(self):
-        """
-        getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
-
-        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_getChildren(self)
-
-
-    def onChange(self):
-        """
-        onChange(InterferenceFunction3DLattice self)
-
-        void InterferenceFunction3DLattice::onChange() override final
-
-        Action to be taken in inherited class when a parameter has changed. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_onChange(self)
-
-InterferenceFunction3DLattice_swigregister = _libBornAgainCore.InterferenceFunction3DLattice_swigregister
-InterferenceFunction3DLattice_swigregister(InterferenceFunction3DLattice)
-
-class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
-    """
-
-
-    Interference function of 2D lattice.
-
-    C++ includes: InterferenceFunctionFinite2DLattice.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IInterferenceFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunctionFinite2DLattice, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IInterferenceFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunctionFinite2DLattice, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(InterferenceFunctionFinite2DLattice self, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice
-        __init__(InterferenceFunctionFinite2DLattice self, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice
-
-        InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
-
-        Constructor of two-dimensional interference function.
-
-        Parameters:
-        -----------
-
-        length_1: 
-        length of first lattice vector in nanometers
-
-        length_2: 
-        length of second lattice vector in nanometers
-
-        alpha: 
-        angle between lattice vectors in radians
-
-        xi: 
-        rotation of lattice with respect to x-axis (beam direction) in radians 
-
-        """
-        this = _libBornAgainCore.new_InterferenceFunctionFinite2DLattice(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionFinite2DLattice
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice
-
-        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(InterferenceFunctionFinite2DLattice self, INodeVisitor visitor)
-
-        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_accept(self, visitor)
-
-
-    def createSquare(lattice_length, xi, size_1, size_2):
-        """createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-    createSquare = staticmethod(createSquare)
-
-    def createHexagonal(lattice_length, xi, size_1, size_2):
-        """createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, size_1, size_2)
-
-    createHexagonal = staticmethod(createHexagonal)
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunctionFinite2DLattice self, kvector_t q) -> double
-
-        double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_evaluate(self, q)
-
-
-    def domainSize1(self):
-        """
-        domainSize1(InterferenceFunctionFinite2DLattice self) -> unsigned int
-
-        unsigned InterferenceFunctionFinite2DLattice::domainSize1() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_domainSize1(self)
-
-
-    def domainSize2(self):
-        """
-        domainSize2(InterferenceFunctionFinite2DLattice self) -> unsigned int
-
-        unsigned InterferenceFunctionFinite2DLattice::domainSize2() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_domainSize2(self)
-
-
-    def setPositionVariance(self, sigma2):
-        """
-        setPositionVariance(InterferenceFunctionFinite2DLattice self, double sigma2)
-
-        void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_setPositionVariance(self, sigma2)
-
-
-    def positionVariance(self):
-        """
-        positionVariance(InterferenceFunctionFinite2DLattice self) -> double
-
-        double InterferenceFunctionFinite2DLattice::positionVariance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_positionVariance(self)
-
-
-    def setIntegrationOverXi(self, integrate_xi):
-        """
-        setIntegrationOverXi(InterferenceFunctionFinite2DLattice self, bool integrate_xi)
-
-        void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_setIntegrationOverXi(self, integrate_xi)
-
-
-    def integrationOverXi(self):
-        """
-        integrationOverXi(InterferenceFunctionFinite2DLattice self) -> bool
-
-        bool InterferenceFunctionFinite2DLattice::integrationOverXi() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_integrationOverXi(self)
-
-
-    def lattice(self):
-        """
-        lattice(InterferenceFunctionFinite2DLattice self) -> Lattice2D
-
-        const Lattice2D & InterferenceFunctionFinite2DLattice::lattice() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_lattice(self)
-
-
-    def getParticleDensity(self):
-        """
-        getParticleDensity(InterferenceFunctionFinite2DLattice self) -> double
-
-        double InterferenceFunctionFinite2DLattice::getParticleDensity() const final
-
-        Returns the particle density associated with this 2d lattice. 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_getParticleDensity(self)
-
-
-    def getChildren(self):
-        """
-        getChildren(InterferenceFunctionFinite2DLattice self) -> swig_dummy_type_const_inode_vector
-
-        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_getChildren(self)
-
-InterferenceFunctionFinite2DLattice_swigregister = _libBornAgainCore.InterferenceFunctionFinite2DLattice_swigregister
-InterferenceFunctionFinite2DLattice_swigregister(InterferenceFunctionFinite2DLattice)
-
-def InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, size_1, size_2):
-    """InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-def InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, size_1, size_2):
-    """InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, size_1, size_2)
-
-class InterferenceFunction2DSuperLattice(IInterferenceFunction):
-    """
-
-
-    Interference function of 2D superlattice with a configurable interference function for each lattice site.
-
-    C++ includes: InterferenceFunction2DSuperLattice.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IInterferenceFunction]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunction2DSuperLattice, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IInterferenceFunction]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction2DSuperLattice, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(InterferenceFunction2DSuperLattice self, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
-        __init__(InterferenceFunction2DSuperLattice self, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
-
-        InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
-
-        Constructor of two-dimensional interference function.
-
-        Parameters:
-        -----------
-
-        length_1: 
-        length of first lattice vector in nanometers
-
-        length_2: 
-        length of second lattice vector in nanometers
-
-        alpha: 
-        angle between lattice vectors in radians
-
-        xi: 
-        rotation of lattice with respect to x-axis (beam direction) in radians 
-
-        """
-        this = _libBornAgainCore.new_InterferenceFunction2DSuperLattice(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction2DSuperLattice
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
-
-        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(InterferenceFunction2DSuperLattice self, INodeVisitor visitor)
-
-        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_accept(self, visitor)
-
-
-    def setSubstructureIFF(self, sub_iff):
-        """
-        setSubstructureIFF(InterferenceFunction2DSuperLattice self, IInterferenceFunction sub_iff)
-
-        void InterferenceFunction2DSuperLattice::setSubstructureIFF(const IInterferenceFunction &sub_iff)
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setSubstructureIFF(self, sub_iff)
-
-
-    def substructureIFF(self):
-        """
-        substructureIFF(InterferenceFunction2DSuperLattice self) -> IInterferenceFunction
-
-        const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_substructureIFF(self)
-
-
-    def createSquare(lattice_length, xi, size_1, size_2):
-        """createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-    createSquare = staticmethod(createSquare)
-
-    def createHexagonal(lattice_length, xi, size_1, size_2):
-        """createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
-
-    createHexagonal = staticmethod(createHexagonal)
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction2DSuperLattice self, kvector_t q) -> double
-
-        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q)
-
-
-    def domainSize1(self):
-        """
-        domainSize1(InterferenceFunction2DSuperLattice self) -> unsigned int
-
-        unsigned InterferenceFunction2DSuperLattice::domainSize1() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize1(self)
-
-
-    def domainSize2(self):
-        """
-        domainSize2(InterferenceFunction2DSuperLattice self) -> unsigned int
-
-        unsigned InterferenceFunction2DSuperLattice::domainSize2() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize2(self)
-
-
-    def setPositionVariance(self, sigma2):
-        """
-        setPositionVariance(InterferenceFunction2DSuperLattice self, double sigma2)
-
-        void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setPositionVariance(self, sigma2)
-
-
-    def positionVariance(self):
-        """
-        positionVariance(InterferenceFunction2DSuperLattice self) -> double
-
-        double InterferenceFunction2DSuperLattice::positionVariance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_positionVariance(self)
-
-
-    def setIntegrationOverXi(self, integrate_xi):
-        """
-        setIntegrationOverXi(InterferenceFunction2DSuperLattice self, bool integrate_xi)
-
-        void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setIntegrationOverXi(self, integrate_xi)
-
-
-    def integrationOverXi(self):
-        """
-        integrationOverXi(InterferenceFunction2DSuperLattice self) -> bool
-
-        bool InterferenceFunction2DSuperLattice::integrationOverXi() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_integrationOverXi(self)
-
-
-    def lattice(self):
-        """
-        lattice(InterferenceFunction2DSuperLattice self) -> Lattice2D
-
-        const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_lattice(self)
-
-
-    def getChildren(self):
-        """
-        getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector
-
-        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
-
-        Returns a vector of children (const). 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_getChildren(self)
-
-InterferenceFunction2DSuperLattice_swigregister = _libBornAgainCore.InterferenceFunction2DSuperLattice_swigregister
-InterferenceFunction2DSuperLattice_swigregister(InterferenceFunction2DSuperLattice)
-
-def InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2):
-    """InterferenceFunction2DSuperLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-def InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2):
-    """InterferenceFunction2DSuperLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
 
 class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     """
@@ -23798,6 +21461,26 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_getChildren(self)
 
+
+    def pdf1(self):
+        """
+        pdf1(InterferenceFunction2DParaCrystal self) -> IFTDistribution2D
+
+        const IFTDistribution2D* InterferenceFunction2DParaCrystal::pdf1() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_pdf1(self)
+
+
+    def pdf2(self):
+        """
+        pdf2(InterferenceFunction2DParaCrystal self) -> IFTDistribution2D
+
+        const IFTDistribution2D* InterferenceFunction2DParaCrystal::pdf2() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DParaCrystal_pdf2(self)
+
 InterferenceFunction2DParaCrystal_swigregister = _libBornAgainCore.InterferenceFunction2DParaCrystal_swigregister
 InterferenceFunction2DParaCrystal_swigregister(InterferenceFunction2DParaCrystal)
 
@@ -23818,6 +21501,708 @@ def InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_le
     InterferenceFunction2DParaCrystal_createHexagonal(double lattice_length) -> InterferenceFunction2DParaCrystal
     """
     return _libBornAgainCore.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
+
+class InterferenceFunction2DSuperLattice(IInterferenceFunction):
+    """
+
+
+    Interference function of 2D superlattice with a configurable interference function for each lattice site.
+
+    C++ includes: InterferenceFunction2DSuperLattice.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunction2DSuperLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction2DSuperLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(InterferenceFunction2DSuperLattice self, Lattice2D lattice, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
+        __init__(InterferenceFunction2DSuperLattice self, double length_1, double length_2, double alpha, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice
+
+        InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
+
+        Constructor of two-dimensional interference function.
+
+        Parameters:
+        -----------
+
+        length_1: 
+        length of first lattice vector in nanometers
+
+        length_2: 
+        length of second lattice vector in nanometers
+
+        alpha: 
+        angle between lattice vectors in radians
+
+        xi: 
+        rotation of lattice with respect to x-axis (beam direction) in radians 
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunction2DSuperLattice(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction2DSuperLattice
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
+
+        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunction2DSuperLattice self, INodeVisitor visitor)
+
+        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_accept(self, visitor)
+
+
+    def setSubstructureIFF(self, sub_iff):
+        """
+        setSubstructureIFF(InterferenceFunction2DSuperLattice self, IInterferenceFunction sub_iff)
+
+        void InterferenceFunction2DSuperLattice::setSubstructureIFF(const IInterferenceFunction &sub_iff)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setSubstructureIFF(self, sub_iff)
+
+
+    def substructureIFF(self):
+        """
+        substructureIFF(InterferenceFunction2DSuperLattice self) -> IInterferenceFunction
+
+        const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_substructureIFF(self)
+
+
+    def createSquare(lattice_length, xi, size_1, size_2):
+        """createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
+
+    createSquare = staticmethod(createSquare)
+
+    def createHexagonal(lattice_length, xi, size_1, size_2):
+        """createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
+
+    createHexagonal = staticmethod(createHexagonal)
+
+    def evaluate(self, q):
+        """
+        evaluate(InterferenceFunction2DSuperLattice self, kvector_t q) -> double
+
+        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
+
+        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q)
+
+
+    def domainSize1(self):
+        """
+        domainSize1(InterferenceFunction2DSuperLattice self) -> unsigned int
+
+        unsigned InterferenceFunction2DSuperLattice::domainSize1() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize1(self)
+
+
+    def domainSize2(self):
+        """
+        domainSize2(InterferenceFunction2DSuperLattice self) -> unsigned int
+
+        unsigned InterferenceFunction2DSuperLattice::domainSize2() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize2(self)
+
+
+    def setPositionVariance(self, sigma2):
+        """
+        setPositionVariance(InterferenceFunction2DSuperLattice self, double sigma2)
+
+        void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setPositionVariance(self, sigma2)
+
+
+    def positionVariance(self):
+        """
+        positionVariance(InterferenceFunction2DSuperLattice self) -> double
+
+        double InterferenceFunction2DSuperLattice::positionVariance() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_positionVariance(self)
+
+
+    def setIntegrationOverXi(self, integrate_xi):
+        """
+        setIntegrationOverXi(InterferenceFunction2DSuperLattice self, bool integrate_xi)
+
+        void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setIntegrationOverXi(self, integrate_xi)
+
+
+    def integrationOverXi(self):
+        """
+        integrationOverXi(InterferenceFunction2DSuperLattice self) -> bool
+
+        bool InterferenceFunction2DSuperLattice::integrationOverXi() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_integrationOverXi(self)
+
+
+    def lattice(self):
+        """
+        lattice(InterferenceFunction2DSuperLattice self) -> Lattice2D
+
+        const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_lattice(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_getChildren(self)
+
+InterferenceFunction2DSuperLattice_swigregister = _libBornAgainCore.InterferenceFunction2DSuperLattice_swigregister
+InterferenceFunction2DSuperLattice_swigregister(InterferenceFunction2DSuperLattice)
+
+def InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2):
+    """InterferenceFunction2DSuperLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
+
+def InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2):
+    """InterferenceFunction2DSuperLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
+    return _libBornAgainCore.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
+
+class InterferenceFunction3DLattice(IInterferenceFunction):
+    """
+
+
+    Interference function of 3D lattice.
+
+    C++ includes: InterferenceFunction3DLattice.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunction3DLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunction3DLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, lattice):
+        """
+        __init__(InterferenceFunction3DLattice self, Lattice lattice) -> InterferenceFunction3DLattice
+
+        InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunction3DLattice(lattice)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunction3DLattice
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
+
+        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunction3DLattice self, INodeVisitor visitor)
+
+        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_accept(self, visitor)
+
+
+    def setPeakShape(self, peak_shape):
+        """
+        setPeakShape(InterferenceFunction3DLattice self, IPeakShape peak_shape)
+
+        void InterferenceFunction3DLattice::setPeakShape(const IPeakShape &peak_shape)
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
+
+
+    def setDebyeWallerFactor(self, dw_length):
+        """
+        setDebyeWallerFactor(InterferenceFunction3DLattice self, double dw_length)
+
+        void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_setDebyeWallerFactor(self, dw_length)
+
+
+    def evaluate(self, q):
+        """
+        evaluate(InterferenceFunction3DLattice self, kvector_t q) -> double
+
+        double InterferenceFunction3DLattice::evaluate(const kvector_t q) const final
+
+        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_evaluate(self, q)
+
+
+    def lattice(self):
+        """
+        lattice(InterferenceFunction3DLattice self) -> Lattice
+
+        const Lattice & InterferenceFunction3DLattice::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_lattice(self)
+
+
+    def supportsMultilayer(self):
+        """
+        supportsMultilayer(InterferenceFunction3DLattice self) -> bool
+
+        bool InterferenceFunction3DLattice::supportsMultilayer() const override
+
+        Indicates if this interference function can be used with a multilayer (DWBA mode) 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_supportsMultilayer(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_getChildren(self)
+
+
+    def onChange(self):
+        """
+        onChange(InterferenceFunction3DLattice self)
+
+        void InterferenceFunction3DLattice::onChange() override final
+
+        Action to be taken in inherited class when a parameter has changed. 
+
+        """
+        return _libBornAgainCore.InterferenceFunction3DLattice_onChange(self)
+
+InterferenceFunction3DLattice_swigregister = _libBornAgainCore.InterferenceFunction3DLattice_swigregister
+InterferenceFunction3DLattice_swigregister(InterferenceFunction3DLattice)
+
+class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
+    """
+
+
+    Interference function of 2D lattice.
+
+    C++ includes: InterferenceFunctionFinite2DLattice.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunctionFinite2DLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunctionFinite2DLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(InterferenceFunctionFinite2DLattice self, Lattice2D lattice, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
+        __init__(InterferenceFunctionFinite2DLattice self, double length_1, double length_2, double alpha, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
+
+        InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)
+
+        Constructor of two-dimensional finite lattice interference function.
+
+        Parameters:
+        -----------
+
+        length_1: 
+        length of first lattice vector in nanometers
+
+        length_2: 
+        length of second lattice vector in nanometers
+
+        alpha: 
+        angle between lattice vectors in radians
+
+        xi: 
+        rotation of lattice with respect to x-axis (beam direction) in radians
+
+        N_1: 
+        number of lattice cells in the first lattice direction
+
+        N_2: 
+        number of lattice cells in the second lattice direction 
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunctionFinite2DLattice(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionFinite2DLattice
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice
+
+        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunctionFinite2DLattice self, INodeVisitor visitor)
+
+        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_accept(self, visitor)
+
+
+    def createSquare(lattice_length, xi, N_1, N_2):
+        """createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
+
+    createSquare = staticmethod(createSquare)
+
+    def createHexagonal(lattice_length, xi, N_1, N_2):
+        """createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
+
+    createHexagonal = staticmethod(createHexagonal)
+
+    def evaluate(self, q):
+        """
+        evaluate(InterferenceFunctionFinite2DLattice self, kvector_t q) -> double
+
+        double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const final
+
+        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_evaluate(self, q)
+
+
+    def numberUnitCells1(self):
+        """
+        numberUnitCells1(InterferenceFunctionFinite2DLattice self) -> unsigned int
+
+        unsigned InterferenceFunctionFinite2DLattice::numberUnitCells1() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells1(self)
+
+
+    def numberUnitCells2(self):
+        """
+        numberUnitCells2(InterferenceFunctionFinite2DLattice self) -> unsigned int
+
+        unsigned InterferenceFunctionFinite2DLattice::numberUnitCells2() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells2(self)
+
+
+    def setPositionVariance(self, sigma2):
+        """
+        setPositionVariance(InterferenceFunctionFinite2DLattice self, double sigma2)
+
+        void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_setPositionVariance(self, sigma2)
+
+
+    def positionVariance(self):
+        """
+        positionVariance(InterferenceFunctionFinite2DLattice self) -> double
+
+        double InterferenceFunctionFinite2DLattice::positionVariance() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_positionVariance(self)
+
+
+    def setIntegrationOverXi(self, integrate_xi):
+        """
+        setIntegrationOverXi(InterferenceFunctionFinite2DLattice self, bool integrate_xi)
+
+        void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_setIntegrationOverXi(self, integrate_xi)
+
+
+    def integrationOverXi(self):
+        """
+        integrationOverXi(InterferenceFunctionFinite2DLattice self) -> bool
+
+        bool InterferenceFunctionFinite2DLattice::integrationOverXi() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_integrationOverXi(self)
+
+
+    def lattice(self):
+        """
+        lattice(InterferenceFunctionFinite2DLattice self) -> Lattice2D
+
+        const Lattice2D & InterferenceFunctionFinite2DLattice::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_lattice(self)
+
+
+    def getParticleDensity(self):
+        """
+        getParticleDensity(InterferenceFunctionFinite2DLattice self) -> double
+
+        double InterferenceFunctionFinite2DLattice::getParticleDensity() const final
+
+        Returns the particle density associated with this 2d lattice. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_getParticleDensity(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunctionFinite2DLattice self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_getChildren(self)
+
+InterferenceFunctionFinite2DLattice_swigregister = _libBornAgainCore.InterferenceFunctionFinite2DLattice_swigregister
+InterferenceFunctionFinite2DLattice_swigregister(InterferenceFunctionFinite2DLattice)
+
+def InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2):
+    """InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
+
+def InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2):
+    """InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
+    return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
+
+class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
+    """
+
+
+    Interference function of 2D lattice.
+
+    C++ includes: InterferenceFunctionFinite3DLattice.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunctionFinite3DLattice, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunctionFinite3DLattice, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, lattice, N_1, N_2, N_3):
+        """
+        __init__(InterferenceFunctionFinite3DLattice self, Lattice lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice
+
+        InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
+
+        Constructor of three-dimensional finite lattice interference function.
+
+        Parameters:
+        -----------
+
+        lattice: 
+        object specifying a 2d lattice structure
+
+        N_1: 
+        number of lattice cells in the first lattice direction
+
+        N_2: 
+        number of lattice cells in the second lattice direction 
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunctionFinite3DLattice(lattice, N_1, N_2, N_3)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionFinite3DLattice
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(InterferenceFunctionFinite3DLattice self) -> InterferenceFunctionFinite3DLattice
+
+        InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunctionFinite3DLattice self, INodeVisitor visitor)
+
+        void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_accept(self, visitor)
+
+
+    def evaluate(self, q):
+        """
+        evaluate(InterferenceFunctionFinite3DLattice self, kvector_t q) -> double
+
+        double InterferenceFunctionFinite3DLattice::evaluate(const kvector_t q) const final
+
+        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_evaluate(self, q)
+
+
+    def numberUnitCells1(self):
+        """
+        numberUnitCells1(InterferenceFunctionFinite3DLattice self) -> unsigned int
+
+        unsigned InterferenceFunctionFinite3DLattice::numberUnitCells1() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_numberUnitCells1(self)
+
+
+    def numberUnitCells2(self):
+        """
+        numberUnitCells2(InterferenceFunctionFinite3DLattice self) -> unsigned int
+
+        unsigned InterferenceFunctionFinite3DLattice::numberUnitCells2() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_numberUnitCells2(self)
+
+
+    def numberUnitCells3(self):
+        """
+        numberUnitCells3(InterferenceFunctionFinite3DLattice self) -> unsigned int
+
+        unsigned InterferenceFunctionFinite3DLattice::numberUnitCells3() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_numberUnitCells3(self)
+
+
+    def lattice(self):
+        """
+        lattice(InterferenceFunctionFinite3DLattice self) -> Lattice
+
+        const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_lattice(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunctionFinite3DLattice self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_getChildren(self)
+
+InterferenceFunctionFinite3DLattice_swigregister = _libBornAgainCore.InterferenceFunctionFinite3DLattice_swigregister
+InterferenceFunctionFinite3DLattice_swigregister(InterferenceFunctionFinite3DLattice)
 
 class InterferenceFunctionNone(IInterferenceFunction):
     """
@@ -23891,6 +22276,217 @@ class InterferenceFunctionNone(IInterferenceFunction):
     __del__ = lambda self: None
 InterferenceFunctionNone_swigregister = _libBornAgainCore.InterferenceFunctionNone_swigregister
 InterferenceFunctionNone_swigregister(InterferenceFunctionNone)
+
+class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
+    """
+
+
+    Interference function of radial paracrystal.
+
+    C++ includes: InterferenceFunctionRadialParaCrystal.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunctionRadialParaCrystal, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunctionRadialParaCrystal, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, peak_distance, damping_length=0.0):
+        """
+        __init__(InterferenceFunctionRadialParaCrystal self, double peak_distance, double damping_length=0.0) -> InterferenceFunctionRadialParaCrystal
+        __init__(InterferenceFunctionRadialParaCrystal self, double peak_distance) -> InterferenceFunctionRadialParaCrystal
+
+        InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0)
+
+        Constructor of interference function of radial paracrystal.
+
+        Parameters:
+        -----------
+
+        peak_distance: 
+        average distance to the next neighbor in nanometers
+
+        damping_length: 
+        the damping (coherence) length of the paracrystal in nanometers 
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunctionRadialParaCrystal(peak_distance, damping_length)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
+
+        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor visitor)
+
+        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
+
+
+    def setKappa(self, kappa):
+        """
+        setKappa(InterferenceFunctionRadialParaCrystal self, double kappa)
+
+        void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
+
+        Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
+
+        Parameters:
+        -----------
+
+        size: 
+        spacing coupling parameter 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setKappa(self, kappa)
+
+
+    def kappa(self):
+        """
+        kappa(InterferenceFunctionRadialParaCrystal self) -> double
+
+        double InterferenceFunctionRadialParaCrystal::kappa() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_kappa(self)
+
+
+    def setDomainSize(self, size):
+        """
+        setDomainSize(InterferenceFunctionRadialParaCrystal self, double size)
+
+        void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
+
+        Sets domain size (finite size corrections).
+
+        Parameters:
+        -----------
+
+        size: 
+        size of coherence domain along the lattice main axis in nanometers 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setDomainSize(self, size)
+
+
+    def domainSize(self):
+        """
+        domainSize(InterferenceFunctionRadialParaCrystal self) -> double
+
+        double InterferenceFunctionRadialParaCrystal::domainSize() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_domainSize(self)
+
+
+    def evaluate(self, q):
+        """
+        evaluate(InterferenceFunctionRadialParaCrystal self, kvector_t q) -> double
+
+        double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
+
+        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_evaluate(self, q)
+
+
+    def FTPDF(self, qpar):
+        """
+        FTPDF(InterferenceFunctionRadialParaCrystal self, double qpar) -> complex_t
+
+        complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_FTPDF(self, qpar)
+
+
+    def setProbabilityDistribution(self, pdf):
+        """
+        setProbabilityDistribution(InterferenceFunctionRadialParaCrystal self, IFTDistribution1D pdf)
+
+        void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
+
+        Sets one-dimensional probability distribution.
+
+        Parameters:
+        -----------
+
+        pdf: 
+        probability distribution (Fourier transform of probability density) 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_setProbabilityDistribution(self, pdf)
+
+
+    def peakDistance(self):
+        """
+        peakDistance(InterferenceFunctionRadialParaCrystal self) -> double
+
+        double InterferenceFunctionRadialParaCrystal::peakDistance() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_peakDistance(self)
+
+
+    def dampingLength(self):
+        """
+        dampingLength(InterferenceFunctionRadialParaCrystal self) -> double
+
+        double InterferenceFunctionRadialParaCrystal::dampingLength() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_dampingLength(self)
+
+
+    def getChildren(self):
+        """
+        getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
+
+        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
+
+        Returns a vector of children (const). 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_getChildren(self)
+
+
+    def randomSample(self):
+        """
+        randomSample(InterferenceFunctionRadialParaCrystal self) -> double
+
+        double InterferenceFunctionRadialParaCrystal::randomSample() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_randomSample(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionRadialParaCrystal
+    __del__ = lambda self: None
+InterferenceFunctionRadialParaCrystal_swigregister = _libBornAgainCore.InterferenceFunctionRadialParaCrystal_swigregister
+InterferenceFunctionRadialParaCrystal_swigregister(InterferenceFunctionRadialParaCrystal)
 
 class IPixel(_object):
     """
@@ -24226,7 +22822,14 @@ ILatticeOrientation_swigregister = _libBornAgainCore.ILatticeOrientation_swigreg
 ILatticeOrientation_swigregister(ILatticeOrientation)
 
 class MillerIndex(_object):
-    """Proxy of C++ MillerIndex class."""
+    """
+
+
+    MillerIndex represents arbitrary directions in reciprocal space by allowing floating point index values
+
+    C++ includes: ILatticeOrientation.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, MillerIndex, name, value)
@@ -24236,9 +22839,9 @@ class MillerIndex(_object):
 
     def __init__(self, h_, k_, l_):
         """
-        __init__(MillerIndex self, int h_, int k_, int l_) -> MillerIndex
+        __init__(MillerIndex self, double h_, double k_, double l_) -> MillerIndex
 
-        MillerIndex::MillerIndex(int h_, int k_, int l_)
+        MillerIndex::MillerIndex(double h_, double k_, double l_)
 
         """
         this = _libBornAgainCore.new_MillerIndex(h_, k_, l_)
@@ -24449,9 +23052,9 @@ class Lattice(INode):
 
     def getMillerDirection(self, h, k, l):
         """
-        getMillerDirection(Lattice self, int h, int k, int l) -> kvector_t
+        getMillerDirection(Lattice self, double h, double k, double l) -> kvector_t
 
-        kvector_t Lattice::getMillerDirection(int h, int k, int l) const
+        kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 
         Returns normalized direction corresponding to the given Miller indices. 
 
@@ -27239,7 +25842,7 @@ class ParameterPool(ICloneable):
 
         Adds parameter to the pool, and returns reference to the input pointer.
 
-        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
+        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
 
         """
         return _libBornAgainCore.ParameterPool_addParameter(self, newPar)
@@ -30009,26 +28612,6 @@ class ParameterPoolIterator(object):
         self.index += 1
         if self.index < self.pool.size():
             return self.pool[self.index]
-        else:
-            raise StopIteration
-
-    def __next__(self):
-        return self.next()
-
-
-class FitParameterSetIterator(object):
-
-    def __init__(self, fitParameters):
-        self.fitParameters = fitParameters
-        self.index = -1
-
-    def __iter__(self):
-        return self
-
-    def next(self):
-        self.index += 1
-        if self.index < self.fitParameters.size():
-            return self.fitParameters[self.index]
         else:
             raise StopIteration
 

@@ -15,35 +15,35 @@
 #include "UpdateNotifier.h"
 #include "GUIHelpers.h"
 #include "mainwindow_constants.h"
-#include <QMessageBox>
 #include <QtNetwork>
 
-UpdateNotifier::UpdateNotifier(QObject *parent)
+UpdateNotifier::UpdateNotifier(QObject* parent)
     : QObject(parent), m_networkAccessManager(new QNetworkAccessManager(parent))
 {
-    connect(m_networkAccessManager, SIGNAL(finished(QNetworkReply *)), this,
-            SLOT(replyFinished(QNetworkReply *)));
+    connect(m_networkAccessManager, &QNetworkAccessManager::finished,
+            this, &UpdateNotifier::replyFinished);
 }
 
 void UpdateNotifier::checkForUpdates()
 {
-    QSettings settings;
-    if (settings.childGroups().contains(Constants::S_UPDATES)) {
-        settings.beginGroup(Constants::S_UPDATES);
-        if (settings.value(Constants::S_CHECKFORUPDATES).toBool()) {
+    if (hasDefinedUpdatesFlag()) {
+        if (updatesFlag()) {
             QString address(Constants::S_VERSION_URL);
             QUrl url(address);
             QNetworkRequest networkRequest(url);
-            networkRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
-            QString text = QString("Mozilla/5.0 (BornAgainGUI-%1)").arg(GUIHelpers::getBornAgainVersionString());
+            networkRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute,
+                                        QNetworkRequest::AlwaysNetwork);
+            QString text = QString("Mozilla/5.0 (BornAgainGUI-%1)")
+                               .arg(GUIHelpers::getBornAgainVersionString());
             networkRequest.setRawHeader(QByteArray("User-Agent"), text.toLatin1());
             m_networkAccessManager->get(networkRequest);
-        } else
+        } else {
             emit onUpdateNotification(QString(""));
+        }
     }
 }
 
-void UpdateNotifier::replyFinished(QNetworkReply *reply)
+void UpdateNotifier::replyFinished(QNetworkReply* reply)
 {
     QString replyString;
     if (reply->error() == QNetworkReply::NoError) {
@@ -56,7 +56,7 @@ void UpdateNotifier::replyFinished(QNetworkReply *reply)
             QString myVersion = GUIHelpers::getBornAgainVersionString();
 
             // Testwise degrade version
-            // QString myVersion = QString("1.3.0");
+            // myVersion = QString("1.1.0");
 
             if (GUIHelpers::versionCode(versionString) > GUIHelpers::versionCode(myVersion)) {
                 QString message("New version is available: <a href=\"");
@@ -65,26 +65,38 @@ void UpdateNotifier::replyFinished(QNetworkReply *reply)
                 message.append(replyString);
                 message.append("</a>");
                 emit onUpdateNotification(message);
+            } else {
+                emit onUpdateNotification(QString(""));
             }
         }
     };
     reply->deleteLater();
 }
 
-void UpdateNotifier::askForUpdates()
+void UpdateNotifier::setCheckUpdatesFlag(bool flag)
 {
     QSettings settings;
-    if (!settings.childGroups().contains(Constants::S_UPDATES)) {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Updates");
-        msgBox.setText("Should BornAgain check for updates automatically?\n"
-                       "This setting can be changed later in the main window Settings menu.");
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        int ret = msgBox.exec();
+    settings.beginGroup(Constants::S_UPDATES);
+    settings.setValue(Constants::S_CHECKFORUPDATES, flag);
+    settings.endGroup();
+}
+
+//! Returns true if there is defined flag requiring check for updates.
+
+bool UpdateNotifier::updatesFlag() const
+{
+    QSettings settings;
+    if (settings.childGroups().contains(Constants::S_UPDATES)) {
         settings.beginGroup(Constants::S_UPDATES);
-        settings.setValue(Constants::S_CHECKFORUPDATES, ret == QMessageBox::Yes);
-        settings.endGroup();
+        return settings.value(Constants::S_CHECKFORUPDATES).toBool();
     }
-    this->checkForUpdates();
+    return false;
+}
+
+//! Returns true if settings contain record about user choice for updates.
+
+bool UpdateNotifier::hasDefinedUpdatesFlag() const
+{
+    QSettings settings;
+    return settings.childGroups().contains(Constants::S_UPDATES);
 }

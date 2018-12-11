@@ -29,7 +29,7 @@ class BA_CORE_API_ UnitConverter1D : public IUnitConverter
 public:
     //! Constructs the object for unit conversion. Input axis
     //! is in radians.
-    UnitConverter1D(const Beam& beam, const IAxis& axis);
+    UnitConverter1D(const Beam& beam, const IAxis& axis, AxesUnits axis_units = AxesUnits::RADIANS);
     ~UnitConverter1D() override;
 
     UnitConverter1D* clone() const override;
@@ -58,13 +58,16 @@ public:
 private:
     UnitConverter1D(const UnitConverter1D& other);
 
+    //! Returns translating functional (input units --> rads)
+    std::function<double(double)> getTraslatorFrom(AxesUnits units_type) const;
+
     //! Returns translating functional (rads --> desired units)
-    std::function<double (double)> getTranslator(AxesUnits units_type) const;
+    std::function<double(double)> getTraslatorTo(AxesUnits units_type) const;
 
     //! Creates name map for axis in various units
     std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
 
-    double m_wavelength; //!< basic wavelength in nm (for translation to q-space).
+    double m_wavelength;           //!< basic wavelength in nm (for translation to q-space).
     std::unique_ptr<IAxis> m_axis; //!< basic inclination angles (in rads).
 };
 

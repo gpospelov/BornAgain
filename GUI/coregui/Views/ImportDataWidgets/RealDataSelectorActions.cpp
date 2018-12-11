@@ -14,6 +14,7 @@
 
 #include "RealDataSelectorActions.h"
 #include "GUIHelpers.h"
+#include "ImportDataInfo.h"
 #include "ImportDataUtils.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataItem.h"
@@ -75,17 +76,24 @@ void resetSetup(IntensityDataItem& intensityItem) {
 
 RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
     : QObject(parent)
-    , m_importDataAction(nullptr)
+    , m_import2dDataAction(nullptr)
+    , m_import1dDataAction(nullptr)
     , m_removeDataAction(nullptr)
     , m_rotateDataAction(new QAction(this))
     , m_realDataModel(nullptr)
     , m_selectionModel(nullptr)
 {
-    m_importDataAction = new QAction(QStringLiteral("Import data"), parent);
-    m_importDataAction->setIcon(QIcon(":/images/toolbar16dark_newitem.svg"));
-    m_importDataAction->setToolTip(QStringLiteral("Import data"));
-    connect(m_importDataAction, &QAction::triggered,
-            this, &RealDataSelectorActions::onImportDataAction);
+    m_import2dDataAction = new QAction(QStringLiteral("Import 2D data"), parent);
+    m_import2dDataAction->setIcon(QIcon(":/images/toolbar16dark_newitem.svg"));
+    m_import2dDataAction->setToolTip(QStringLiteral("Import 2D data"));
+    connect(m_import2dDataAction, &QAction::triggered,
+            this, &RealDataSelectorActions::onImport2dDataAction);
+
+    m_import1dDataAction = new QAction(QStringLiteral("Import 1D data"), parent);
+    m_import1dDataAction->setIcon(QIcon(":/images/toolbar16dark_newitem.svg"));
+    m_import1dDataAction->setToolTip(QStringLiteral("Import 1D data"));
+    connect(m_import1dDataAction, &QAction::triggered,
+            this, &RealDataSelectorActions::onImport1dDataAction);
 
     m_removeDataAction = new QAction(QStringLiteral("Remove this data"), parent);
     m_removeDataAction->setIcon(QIcon(":/images/toolbar16dark_recycle.svg"));
@@ -111,18 +119,35 @@ void RealDataSelectorActions::setSelectionModel(QItemSelectionModel* selectionMo
 
 }
 
-void RealDataSelectorActions::onImportDataAction()
+void RealDataSelectorActions::onImport2dDataAction()
 {
     Q_ASSERT(m_realDataModel);
     Q_ASSERT(m_selectionModel);
     QString baseNameOfImportedFile;
 
-    std::unique_ptr<OutputData<double>> data = ImportDataUtils::ImportData(baseNameOfImportedFile);
+    std::unique_ptr<OutputData<double>> data = ImportDataUtils::Import2dData(baseNameOfImportedFile);
     if (data) {
         RealDataItem* realDataItem
             = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
         realDataItem->setItemName(baseNameOfImportedFile);
         realDataItem->setOutputData(data.release());
+        m_selectionModel->clearSelection();
+        m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
+    }
+}
+
+void RealDataSelectorActions::onImport1dDataAction()
+{
+    Q_ASSERT(m_realDataModel);
+    Q_ASSERT(m_selectionModel);
+    QString baseNameOfImportedFile;
+
+    auto data = ImportDataUtils::Import1dData(baseNameOfImportedFile);
+    if (data) {
+        RealDataItem* realDataItem
+            = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
+        realDataItem->setItemName(baseNameOfImportedFile);
+        realDataItem->setImportData(std::move(data));
         m_selectionModel->clearSelection();
         m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
     }
@@ -174,18 +199,21 @@ void RealDataSelectorActions::onContextMenuRequest(const QPoint& point,
 
     setAllActionsEnabled(indexAtPoint.isValid());
 
-    m_importDataAction->setEnabled(true);
+    m_import2dDataAction->setEnabled(true);
+    m_import1dDataAction->setEnabled(true);
 
     menu.addAction(m_removeDataAction);
     menu.addAction(m_rotateDataAction);
     menu.addSeparator();
-    menu.addAction(m_importDataAction);
+    menu.addAction(m_import2dDataAction);
+    menu.addAction(m_import1dDataAction);
     menu.exec(point);
 }
 
 void RealDataSelectorActions::setAllActionsEnabled(bool value)
 {
-    m_importDataAction->setEnabled(value);
+    m_import2dDataAction->setEnabled(value);
+    m_import1dDataAction->setEnabled(value);
     m_rotateDataAction->setEnabled(value);
     m_removeDataAction->setEnabled(value);
 }

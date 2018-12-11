@@ -16,6 +16,7 @@
 #define IMPORTDATAUTILS_H
 
 #include "WinDllMacros.h"
+#include "ImportDataInfo.h"
 #include <QString>
 #include <memory>
 #include <vector>
@@ -29,8 +30,11 @@ class GISASInstrumentItem;
 
 namespace ImportDataUtils
 {
+BA_CORE_API_ std::unique_ptr<OutputData<double>> Import2dData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ ImportDataInfo Import1dData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportKnownData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ ImportDataInfo getFromImportAssistant(QString& fileName);
 
-BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportData(QString& baseNameOfLoadedFile);
 
 //! Creates OutputData with bin-valued axes.
 BA_CORE_API_ std::unique_ptr<OutputData<double>>

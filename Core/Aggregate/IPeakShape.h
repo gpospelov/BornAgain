@@ -29,33 +29,103 @@ public:
 
     virtual IPeakShape* clone() const=0;
 
-    //! Evaluates the peak shape at displacement q from the center at 0
-    virtual double evaluate(const kvector_t q) const=0;
+    //! Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
+    virtual double evaluate(const kvector_t q, const kvector_t q_lattice_point) const=0;
 
-    //! Returns the thickness in the z-direction
-    virtual double thickness_z() const=0;
+    //! Indicates if the peak shape encodes angular disorder, in which case all peaks in a
+    //! spherical shell are needed
+    virtual bool angularDisorder() const { return false; }
 };
 
 
-//! Class that implements a Gaussian peak shape of a Bragg peak.
+//! Class that implements an isotropic Gaussian peak shape of a Bragg peak.
 //!
 //! @ingroup samples_internal
 
-class BA_CORE_API_ GaussPeakShape : public IPeakShape
+class BA_CORE_API_ IsotropicGaussPeakShape : public IPeakShape
 {
 public:
-    GaussPeakShape(double domainsize);
-    ~GaussPeakShape() override;
+    IsotropicGaussPeakShape(double max_intensity, double domainsize);
+    ~IsotropicGaussPeakShape() override;
 
-    GaussPeakShape* clone() const override;
+    IsotropicGaussPeakShape* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    double evaluate(const kvector_t q) const override;
-
-    double thickness_z() const override;
+    double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 private:
+    double evaluate(const kvector_t q) const;
+    double m_max_intensity;
     double m_domainsize;
+};
+
+//! Class that implements an isotropic Lorentzian peak shape of a Bragg peak.
+//!
+//! @ingroup samples_internal
+
+class BA_CORE_API_ IsotropicLorentzPeakShape : public IPeakShape
+{
+public:
+    IsotropicLorentzPeakShape(double max_intensity, double domainsize);
+    ~IsotropicLorentzPeakShape() override;
+
+    IsotropicLorentzPeakShape* clone() const override;
+
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+
+    double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
+private:
+    double evaluate(const kvector_t q) const;
+    double m_max_intensity;
+    double m_domainsize;
+};
+
+//! Class that implements a peak shape that is Gaussian in the radial direction and
+//! uses the von Mises-Fisher distribution in the angular direction.
+//!
+//! @ingroup samples_internal
+
+class BA_CORE_API_ GaussFisherPeakShape : public IPeakShape
+{
+public:
+    GaussFisherPeakShape(double max_intensity, double radial_size, double kappa);
+    ~GaussFisherPeakShape() override;
+
+    GaussFisherPeakShape* clone() const override;
+
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+
+    double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
+
+    bool angularDisorder() const override { return true; }
+private:
+    double m_max_intensity;
+    double m_radial_size;
+    double m_kappa;
+};
+
+//! Class that implements a peak shape that is Lorentzian in the radial direction and
+//! uses the von Mises-Fisher distribution in the angular direction.
+//!
+//! @ingroup samples_internal
+
+class BA_CORE_API_ LorentzFisherPeakShape : public IPeakShape
+{
+public:
+    LorentzFisherPeakShape(double max_intensity, double radial_size, double kappa);
+    ~LorentzFisherPeakShape() override;
+
+    LorentzFisherPeakShape* clone() const override;
+
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+
+    double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
+
+    bool angularDisorder() const override { return true; }
+private:
+    double m_max_intensity;
+    double m_radial_size;
+    double m_kappa;
 };
 
 #endif // IPEAKSHAPE_H

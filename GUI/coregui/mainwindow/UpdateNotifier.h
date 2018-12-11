@@ -30,7 +30,12 @@ public:
 
 public slots:
     void replyFinished(QNetworkReply *reply);
-    void askForUpdates();
+
+    void setCheckUpdatesFlag(bool flag);
+
+    bool updatesFlag() const;
+
+    bool hasDefinedUpdatesFlag() const;
 
 signals:
     void onUpdateNotification(const QString &text);

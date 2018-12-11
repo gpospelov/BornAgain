@@ -70,7 +70,6 @@ public slots:
     void openRecentProject();
     void onRunSimulationShortcut();
     void onSessionModelViewActive(bool isActive);
-    void checkUpdates();
 
 protected:
     void closeEvent(QCloseEvent* event);

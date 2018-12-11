@@ -13,43 +13,14 @@
 // ************************************************************************** //
 
 #include "SessionModelDelegate.h"
-#include "SessionItem.h"
-#include "PropertyEditorFactory.h"
 #include "CustomEditors.h"
-#include "SessionFlags.h"
 #include "CustomEventFilters.h"
+#include "PropertyEditorFactory.h"
+#include "SessionItem.h"
 #include <QApplication>
-#include <QLocale>
 
 namespace {
-
-bool isDoubleProperty(const QModelIndex& index)
-{
-    return index.data().type() == QVariant::Double;
-}
-
-//! Returns text representation of double value depending on user defined editor type.
-QString doubleToString(const SessionItem& item)
-{
-    QString result;
-
-    Q_ASSERT(item.value().type() == QVariant::Double);
-    if (item.editorType() == Constants::ScientificEditorType) {
-        result = QString::number(item.value().toDouble(), 'g');
-    } else {
-        auto locale = QLocale::system();
-        result = locale.toString(item.value().toDouble(), 'f', item.decimals());
-    }
-    return result;
-}
-
-QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent) {
-    if (index.column() == SessionFlags::ITEM_VALUE && index.internalPointer()) {
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        return PropertyEditorFactory::CreateEditor(*item, parent);
-    }
-    return nullptr;
-}
+QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent);
 }  // unnamed namespace
 
 SessionModelDelegate::SessionModelDelegate(QObject* parent)
@@ -60,15 +31,11 @@ SessionModelDelegate::SessionModelDelegate(QObject* parent)
 void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
                                  const QModelIndex& index) const
 {
-    if (PropertyEditorFactory::IsCustomVariant(index.data())) {
-        QString text = PropertyEditorFactory::ToString(index.data());
+    if (PropertyEditorFactory::hasStringRepresentation(index)) {
+        QString text = PropertyEditorFactory::toString(index);
         paintCustomLabel(painter, option, index, text);
-    } else if (isDoubleProperty(index)) {
-        auto item = static_cast<SessionItem*>(index.internalPointer());
-        paintCustomLabel(painter, option, index, doubleToString(*item));
-    } else {
+    } else
         QStyledItemDelegate::paint(painter, option, index);
-    }
 }
 
 QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option,
@@ -76,16 +43,15 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 {
     auto result = createEditorFromIndex(index, parent);
 
-    if (result) {
-        new TabFromFocusProxy(result);
-        if(auto customEditor = dynamic_cast<CustomEditor*>(result)) {
-            customEditor->setData(index.data());
-            connect(customEditor, &CustomEditor::dataChanged,
-                    this, &SessionModelDelegate::onCustomEditorDataChanged);
-        }
-    } else {
-        result = QStyledItemDelegate::createEditor(parent, option, index);
+    if (auto customEditor = dynamic_cast<CustomEditor*>(result)) {
+        new TabFromFocusProxy(customEditor);
+        connect(customEditor, &CustomEditor::dataChanged, this,
+                &SessionModelDelegate::onCustomEditorDataChanged);
     }
+
+    if (!result) //falling back to default behaviour
+        result = QStyledItemDelegate::createEditor(parent, option, index);
+
     return result;
 }
 
@@ -94,8 +60,10 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                         const QModelIndex& index) const
 {
-    auto customEditor = qobject_cast<CustomEditor*>(editor);
-    if (index.column() == SessionFlags::ITEM_VALUE && customEditor)
+    if (!index.isValid())
+        return;
+
+    if (auto customEditor = dynamic_cast<CustomEditor*>(editor))
         model->setData(index, customEditor->editorData());
     else
         QStyledItemDelegate::setModelData(editor, model, index);
@@ -105,8 +73,10 @@ void SessionModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 
 void SessionModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    auto customEditor = dynamic_cast<CustomEditor*>(editor);
-    if (index.column() == SessionFlags::ITEM_VALUE && customEditor)
+    if (!index.isValid())
+        return;
+
+    if (auto customEditor = dynamic_cast<CustomEditor*>(editor))
         customEditor->setData(index.data());
     else
         QStyledItemDelegate::setEditorData(editor, index);
@@ -154,3 +124,13 @@ void SessionModelDelegate::paintCustomLabel(QPainter* painter, const QStyleOptio
     QStyle* style = widget ? widget->style() : QApplication::style();
     style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, widget);
 }
+
+namespace {
+QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent) {
+    if (index.internalPointer()) {
+        auto item = static_cast<SessionItem*>(index.internalPointer());
+        return PropertyEditorFactory::CreateEditor(*item, parent);
+    }
+    return nullptr;
+}
+}  // unnamed namespace

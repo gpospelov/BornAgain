@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "PyEmbeddedUtils.h"
+#include "PythonCore.h"
 #include "PythonFormatting.h"
 #include "MultiLayer.h"
 #include "SysUtils.h"

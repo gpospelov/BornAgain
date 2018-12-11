@@ -74,9 +74,9 @@ void SpecularBeamEditor::subscribeToItem()
 
     auto inclinationItem = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE);
     m_inclinationEditor->setItem(
-        inclinationItem->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
-    m_inclinationEditor->addItem(
         inclinationItem->getItem(SpecularBeamInclinationItem::P_DISTRIBUTION));
+    m_inclinationEditor->addItem(
+        inclinationItem->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS));
 
     m_footprint_editor->setItem(beam_item->getItem(SpecularBeamItem::P_FOOPTPRINT));
 }
@@ -102,10 +102,7 @@ void SpecularBeamEditor::onDialogRequest(SessionItem* item, const QString& name)
         return;
 
     auto dialog = new DistributionDialog(this);
-    auto item_to_set = item->modelType() == Constants::SpecularBeamInclinationType
-                           ? item->getItem(SpecularBeamInclinationItem::P_DISTRIBUTION)
-                           : item;
-    dialog->setItem(item_to_set);
+    dialog->setItem(item);
     dialog->setNameOfEditor(name);
     dialog->show();
 }

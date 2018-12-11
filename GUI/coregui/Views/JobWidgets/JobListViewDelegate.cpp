@@ -61,7 +61,7 @@ void JobListViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
         QStyleOptionButton button;
         button.rect = getButtonRect(option.rect);
         button.state = m_buttonState | QStyle::State_Enabled;
-        button.icon = QIcon(":/images/darkclosebutton.png");
+        button.icon = QIcon(":/images/dark-close.svg");
         button.iconSize = QSize(12,12);
 
         QApplication::style()->drawControl (QStyle::CE_PushButton, &button, painter);

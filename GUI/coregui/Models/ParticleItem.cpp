@@ -80,6 +80,14 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const
     return P_particle;
 }
 
+QVector<SessionItem*> ParticleItem::materialPropertyItems()
+{
+    auto item = getItem(P_MATERIAL);
+    if (!item)
+        return {};
+    return {item};
+}
+
 //! Updates enabled/disabled for particle position and particle abundance depending on context.
 
 void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)

@@ -20,8 +20,6 @@
 #include "ImportDataUtils.h"
 #include "JobItemUtils.h"
 
-const QString x_axis_default_name = "X [nbins]";
-const QString y_axis_default_name = "Signal [a.u.]";
 
 const QString SpecularDataItem::P_TITLE = "Title";
 const QString SpecularDataItem::P_XAXIS = "x-axis";
@@ -42,8 +40,8 @@ SpecularDataItem::SpecularDataItem() : DataItem(Constants::SpecularDataType)
     item->setValue(true);
     item->setVisible(false);
 
-    setXaxisTitle(x_axis_default_name);
-    setYaxisTitle(y_axis_default_name);
+    setXaxisTitle(SpecularDataAxesNames::x_axis_default_name);
+    setYaxisTitle(SpecularDataAxesNames::y_axis_default_name);
 }
 
 void SpecularDataItem::setOutputData(OutputData<double>* data)
@@ -150,16 +148,15 @@ std::vector<int> SpecularDataItem::shape() const
     return {getNbins()};
 }
 
-void SpecularDataItem::resetToDefault()
+void SpecularDataItem::reset(ImportDataInfo data)
 {
-    assert(getOutputData()
-           && "SpecularDataItem::resetToDefault assertion failed: associated output data should "
-              "not be empty");
-    DataItem::resetToDefault();
+    ComboProperty combo = ComboProperty() << data.unitsLabel();
+    setItemValue(SpecularDataItem::P_AXES_UNITS, combo.variant());
+    getItem(SpecularDataItem::P_AXES_UNITS)->setVisible(true);
 
-    setXaxisTitle(x_axis_default_name);
-    setYaxisTitle(y_axis_default_name);
-    setOutputData(ImportDataUtils::CreateSimplifiedOutputData(*getOutputData()).release());
+    setXaxisTitle(data.axisLabel(0));
+    setYaxisTitle(data.axisLabel(1));
+    setOutputData(std::move(data).intensityData().release());
     setAxesRangeToData();
 }
 

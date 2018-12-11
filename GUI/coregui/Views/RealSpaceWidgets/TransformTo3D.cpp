@@ -22,11 +22,9 @@
 #include "SessionItem.h"
 #include "Units.h"
 #include "VectorItem.h"
-
 #include "GUIDomainSampleVisitor.h"
 #include "ParticleComposition.h"
 #include "ParticleCompositionItem.h"
-
 #include "HardParticles.h"
 
 namespace
@@ -156,7 +154,6 @@ TransformTo3D::createParticlefromIFormFactor(const IFormFactor* ff)
         double radius = ff_FullSphere->getRadius();
         result = std::make_unique<RealSpace::Particles::FullSphere>(radius);
     }
-
     else if (auto ff_FullSpheroid = dynamic_cast<const FormFactorFullSpheroid*>(ff)) {
         double radius = ff_FullSpheroid->getRadius();
         double height = ff_FullSpheroid->getHeight();
@@ -170,7 +167,6 @@ TransformTo3D::createParticlefromIFormFactor(const IFormFactor* ff)
         double edge = ff_Icosahedron->getEdge();
         result = std::make_unique<RealSpace::Particles::Icosahedron>(edge);
     }
-
     else if (auto ff_Prism3 = dynamic_cast<const FormFactorPrism3*>(ff)) {
         double baseedge = ff_Prism3->getBaseEdge();
         double height = ff_Prism3->getHeight();
@@ -207,14 +203,14 @@ TransformTo3D::createParticlefromIFormFactor(const IFormFactor* ff)
     } else if (auto ff_TruncatedSphere = dynamic_cast<const FormFactorTruncatedSphere*>(ff)) {
         double radius = ff_TruncatedSphere->getRadius();
         double height = ff_TruncatedSphere->getHeight();
-        // double removed_top = ff_TruncatedSphere->getRemovedTop();
-        result = std::make_unique<RealSpace::Particles::TruncatedSphere>(radius, height);
+        double deltaH = ff_TruncatedSphere->getRemovedTop();
+        result = std::make_unique<RealSpace::Particles::TruncatedSphere>(radius, height, deltaH);
     } else if (auto ff_TruncatedSpheroid = dynamic_cast<const FormFactorTruncatedSpheroid*>(ff)) {
         double radius = ff_TruncatedSpheroid->getRadius();
         double height = ff_TruncatedSpheroid->getHeight();
         double hfc = ff_TruncatedSpheroid->getHeightFlattening();
-        // double removed_top = ff_TruncatedSpheroid->getRemovedTop();
-        result = std::make_unique<RealSpace::Particles::TruncatedSpheroid>(radius, height, hfc);
+        double deltaH = ff_TruncatedSpheroid->getRemovedTop();
+        result = std::make_unique<RealSpace::Particles::TruncatedSpheroid>(radius, height, hfc, deltaH);
     }
 
     return result;

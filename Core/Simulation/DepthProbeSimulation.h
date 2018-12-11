@@ -15,6 +15,7 @@ class ISample;
 class IMultiLayerBuilder;
 class MultiLayer;
 class Histogram1D;
+class IUnitConverter;
 
 class BA_CORE_API_ DepthProbeSimulation : public Simulation
 {
@@ -47,6 +48,10 @@ public:
 
     //! Returns a pointer to z-position axis.
     const IAxis* getZAxis() const;
+
+#ifndef SWIG
+    std::unique_ptr<IUnitConverter> createUnitConverter() const;
+#endif
 
 private:
     DepthProbeSimulation(const DepthProbeSimulation& other);

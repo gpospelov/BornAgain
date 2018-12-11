@@ -44,14 +44,14 @@ CylindersInBAPlan::CylindersInBAPlan()
 }
 
 CylindersInBAEasyPlan::CylindersInBAEasyPlan()
-    : FitPlan("CylindersInBAPlan")
+    : FitPlan("CylindersInBAEasyPlan")
 {
     setBuilderName("CylindersInBABuilder");
-    setSimulationName("MiniGISAS");
+    setSimulationName("MiniGISASFit");
     const double tolerance = 0.1;
-    addParameter(Parameter("height", 4.5*nm, AttLimits::limited(4.0, 6.0), 0.01),
+    addParameter(Parameter("height", 4.5*nm, AttLimits::limited(4.0, 6.0), 0.1),
                  5.0*nm, tolerance);
-    addParameter(Parameter("radius", 5.5*nm, AttLimits::limited(4.0, 6.0), 0.01),
+    addParameter(Parameter("radius", 5.5*nm, AttLimits::limited(4.0, 6.0), 0.1),
                  5.0*nm, tolerance);
 }
 
@@ -60,8 +60,8 @@ CylindersInBAResidualPlan::CylindersInBAResidualPlan()
 {
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISAS");
-    addParameter(Parameter("height", 4.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
-    addParameter(Parameter("radius", 5.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
+    addParameter(Parameter("height", 4.5*nm, AttLimits::limitless(), 0.01), 5.0*nm);
+    addParameter(Parameter("radius", 5.5*nm, AttLimits::limitless(), 0.01), 5.0*nm);
 }
 
 // ----------------------------------------------------------------------------
@@ -70,8 +70,8 @@ RectDetPlan::RectDetPlan()
     : FitPlan("RectDetPlan")
 {
     setBuilderName("CylindersInBABuilder");
-    addParameter(Parameter("height", 4.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
-    addParameter(Parameter("radius", 5.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
+    addParameter(Parameter("height", 4.5*nm, AttLimits::limited(4.0, 6.0), 0.01), 5.0*nm);
+    addParameter(Parameter("radius", 5.5*nm, AttLimits::limited(4.0, 6.0), 0.01), 5.0*nm);
 }
 
 RectDetPlan::~RectDetPlan() = default;
@@ -87,8 +87,8 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
 
     result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
     result->setDetector(detector);
-    result->setRegionOfInterest(6.0, 6.0, 14.0, 12.0);
-    result->addMask(Rectangle(8.0, 8.0, 10.0, 10.0), true);
+    result->setRegionOfInterest(5.0, 6.0, 15.0, 12.0);
+    result->addMask(Rectangle(0.0, 0.0, 2.0, 2.0), true);
     return std::unique_ptr<Simulation>(result.release());
 }
 

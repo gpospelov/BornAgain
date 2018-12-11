@@ -67,8 +67,10 @@ public:
     virtual void setUnits(const std::string& units);
 
 protected:
+#ifndef SWIG
     //! this function is called during bad initialization of a subclass
-    static void SignalBadInitialization(std::string distribution_name);
+    [[noreturn]] static void SignalBadInitialization(std::string distribution_name);
+#endif
 
     //! modifies xmin and xmax if they are outside of limits
     void adjustMinMaxForLimits(double& xmin, double& xmax, const RealLimits& limits) const;
@@ -303,6 +305,7 @@ protected:
 private:
     //! check initialization
     bool checkInitialization() const;
+    void adjustLimitsToNonZeroSamples(double& min, double& max, size_t nbr_samples) const;
     double m_center;
     double m_left;
     double m_middle;

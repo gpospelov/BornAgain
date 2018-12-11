@@ -49,6 +49,8 @@ public:
 
     std::vector<const INode*> getChildren() const override;
 
+    double randomSample() const { return mP_pdf->createSampler()->randomSample(); }
+
 private:
     void init_parameters();
 

@@ -15,6 +15,7 @@
 #ifndef JOBITEMUTILS_H
 #define JOBITEMUTILS_H
 
+#include "ComboProperty.h"
 #include "IDetector.h"
 #include <QMap>
 
@@ -28,19 +29,9 @@ class Simulation;
 
 namespace JobItemUtils
 {
-
-//! Sets simulation results to the JobItem.
-BA_CORE_API_ void setResults(JobItem* jobItem, const Simulation* simulation);
-
 //! updates axes of OutputData in IntensityData item
 BA_CORE_API_ void updateDataAxes(DataItem* intensityItem,
                                  const InstrumentItem* instrumentItem);
-
-//! loads intensity data from project directory
-BA_CORE_API_ void loadIntensityData(DataItem* intensityItem, const QString& projectDir);
-
-//! saves intensity data into project directory
-BA_CORE_API_ void saveIntensityData(DataItem* intensityItem, const QString& projectDir);
 
 //! returns axes units names from their domain counterpart
 BA_CORE_API_ QString nameFromAxesUnits(AxesUnits units);
@@ -56,6 +47,11 @@ BA_CORE_API_ void setIntensityItemAxesUnits(DataItem* intensityItem,
 
 BA_CORE_API_ void createDefaultDetectorMap(DataItem* intensityItem,
                                            const InstrumentItem* instrumentItem);
+
+//! Sets simulation results into the DataItem
+BA_CORE_API_ void setResults(DataItem* intensityItem, const Simulation* simulation);
+
+BA_CORE_API_ ComboProperty availableUnits(const IUnitConverter& converter);
 }
 
 #endif // JOBITEMUTILS_H

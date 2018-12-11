@@ -15,6 +15,8 @@
 
 #include "test_utils.h"
 #include "GUIHelpers.h"
+#include "IntensityDataIOFactory.h"
+#include "IntensityDataFunctions.h"
 #include "OutputData.h"
 #include "ProjectUtils.h"
 #include "RealDataItem.h"
@@ -51,4 +53,17 @@ RealDataItem* TestUtils::createRealData(const QString& name, SessionModel& model
     result->setOutputData(createData(value, n_dim).release());
     result->setItemValue(SessionItem::P_NAME, name);
     return result;
+}
+
+bool TestUtils::isTheSame(const OutputData<double>& data1, const OutputData<double>& data2)
+{
+    double diff = IntensityDataFunctions::getRelativeDifference(data1, data2);
+    return diff < 1e-10;
+}
+
+bool TestUtils::isTheSame(const QString& fileName, const OutputData<double>& data)
+{
+    std::unique_ptr<OutputData<double>> dataOnDisk(
+        IntensityDataIOFactory::readOutputData(fileName.toStdString()));
+    return isTheSame(*dataOnDisk, data);
 }

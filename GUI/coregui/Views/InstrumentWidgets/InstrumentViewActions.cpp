@@ -13,7 +13,9 @@
 // ************************************************************************** //
 
 #include "InstrumentViewActions.h"
+#include "GroupItem.h"
 #include "InstrumentItems.h"
+#include "PointwiseAxisItem.h"
 #include "SessionModel.h"
 #include "ModelUtils.h"
 #include <QAction>
@@ -85,6 +87,9 @@ void InstrumentViewActions::onAddInstrument()
     } else if (instrumentType == Constants::SpecularInstrumentType) {
         auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("Specular"));
+    } else if (instrumentType == Constants::DepthProbeInstrumentType) {
+        auto instrument = m_model->insertNewItem(instrumentType);
+        instrument->setItemName(suggestInstrumentName("DepthProbe"));
     } else {
         qInfo() << "InstrumentViewActions::onAddInstrument() -> Not supported instrument type"
                 << instrumentType;
@@ -125,6 +130,23 @@ void InstrumentViewActions::onCloneInstrument()
             m_model->copyItem(child, clone, tag);
         }
         clone->setItemName(nameOfClone);
+
+        // copying non-uniform axis data
+        if (auto instrument = dynamic_cast<SpecularInstrumentItem*>(item)) {
+            auto axis_group = instrument->beamItem()->inclinationAxisGroup();
+
+            auto donor_axis = dynamic_cast<PointwiseAxisItem*>(
+                axis_group->getItemOfType(Constants::PointwiseAxisType));
+            if (!donor_axis->containsNonXMLData())
+                return;
+
+            auto acceptor_axis =
+                dynamic_cast<PointwiseAxisItem*>(dynamic_cast<SpecularInstrumentItem*>(clone)
+                                                     ->beamItem()
+                                                     ->inclinationAxisGroup()
+                                                     ->getItemOfType(Constants::PointwiseAxisType));
+            acceptor_axis->init(*donor_axis->getAxis(), donor_axis->getUnitsLabel());
+        }
     }
 }
 
@@ -211,5 +233,10 @@ void InstrumentViewActions::initAddInstrumentMenu()
     action = m_addInstrumentMenu->addAction("Specular");
     action->setData(QVariant::fromValue(Constants::SpecularInstrumentType));
     action->setToolTip("Add Specular instrument with default settings");
+    connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
+
+    action = m_addInstrumentMenu->addAction("DepthProbe");
+    action->setData(QVariant::fromValue(Constants::DepthProbeInstrumentType));
+    action->setToolTip("Add DepthProbe instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 }

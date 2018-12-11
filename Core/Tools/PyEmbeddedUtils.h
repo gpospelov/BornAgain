@@ -15,9 +15,8 @@
 #ifndef PYEMBEDDEDUTILS_H
 #define PYEMBEDDEDUTILS_H
 
-#include "PythonCore.h"
-#include "swig_runtime.h"
 #include "WinDllMacros.h"
+#include "PyObject.h"
 #include <string>
 #include <vector>
 #include <memory>

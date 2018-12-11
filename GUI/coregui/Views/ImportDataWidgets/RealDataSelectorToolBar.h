@@ -27,10 +27,11 @@ class BA_CORE_API_ RealDataSelectorToolBar : public StyledToolBar
 {
     Q_OBJECT
 public:
-    RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent = 0);
+    RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent = nullptr);
 
 private:
-    QToolButton* m_importDataButton;
+    QToolButton* m_import2dDataButton;
+    QToolButton* m_import1dDataButton;
     QToolButton* m_removeDataButton;
 };
 

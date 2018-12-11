@@ -16,6 +16,7 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "ImportDataInfo.h"
 #include "IntensityDataIOFactory.h"
 
 const QString DataItem::P_FILE_NAME = "FileName";
@@ -37,15 +38,41 @@ void DataItem::setRawDataVector(std::vector<double> data)
     emitDataChanged();
 }
 
-QString DataItem::fileName(const QString& projectDir) const
+QString DataItem::fileName() const
 {
-    QString filename = getItemValue(DataItem::P_FILE_NAME).toString();
-    return projectDir.isEmpty() ? filename : projectDir + QStringLiteral("/") + filename;
+    return getItemValue(DataItem::P_FILE_NAME).toString();
 }
 
 QDateTime DataItem::lastModified() const
 {
     return m_last_modified;
+}
+
+bool DataItem::containsNonXMLData() const
+{
+    return static_cast<bool>(m_data);
+}
+
+bool DataItem::load(const QString &projectDir)
+{
+    QString filename = fileName(projectDir);
+    auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
+    if (!data)
+        return false;
+    setOutputData(data);
+    return true;
+}
+
+bool DataItem::save(const QString& projectDir)
+{
+    if (!containsNonXMLData())
+        return false;
+
+    std::unique_lock<std::mutex> lock(m_update_data_mutex);
+    std::unique_ptr<OutputData<double>> clone(getOutputData()->clone());
+    lock.unlock();
+    IntensityDataIOFactory::writeOutputData(*clone, fileName(projectDir).toStdString());
+    return true;
 }
 
 void DataItem::setLastModified(const QDateTime& dtime)
@@ -57,25 +84,6 @@ QString DataItem::selectedAxesUnits() const
 {
     ComboProperty combo = getItemValue(DataItem::P_AXES_UNITS).value<ComboProperty>();
     return combo.getValue();
-}
-
-void DataItem::saveData(const QString& projectDir)
-{
-    if (!getOutputData())
-        return;
-
-    std::unique_lock<std::mutex> lock(m_update_data_mutex);
-    std::unique_ptr<OutputData<double>> clone(getOutputData()->clone());
-    lock.unlock();
-    IntensityDataIOFactory::writeOutputData(*clone,
-                                            fileName(projectDir).toStdString());
-}
-
-void DataItem::resetToDefault()
-{
-    ComboProperty combo = ComboProperty() << Constants::UnitsNbins;
-    setItemValue(DataItem::P_AXES_UNITS, combo.variant());
-    getItem(DataItem::P_AXES_UNITS)->setVisible(true);
 }
 
 DataItem::DataItem(const QString& modelType) : SessionItem(modelType)

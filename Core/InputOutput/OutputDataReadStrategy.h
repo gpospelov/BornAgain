@@ -33,7 +33,7 @@ public:
 //! Strategy to read BornAgain native IntensityData from ASCII file.
 //! @ingroup input_output_internal
 
-class OutputDataReadINTStrategy : public IOutputDataReadStrategy
+class BA_CORE_API_ OutputDataReadINTStrategy : public IOutputDataReadStrategy
 {
 public:
     OutputData<double>* readOutputData(std::istream& input_stream);
@@ -42,7 +42,7 @@ public:
 //! Strategy to read OutputData from simple ASCII file with the layout as in numpy.savetxt.
 //! @ingroup input_output_internal
 
-class OutputDataReadNumpyTXTStrategy : public IOutputDataReadStrategy
+class BA_CORE_API_ OutputDataReadNumpyTXTStrategy : public IOutputDataReadStrategy
 {
 public:
     OutputData<double>* readOutputData(std::istream& input_stream);

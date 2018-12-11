@@ -34,7 +34,7 @@
 
 PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     : QDialog(parent)
-    , m_toolBar(0)
+    , m_toolBar(nullptr)
     , m_textEdit(new QTextEdit)
     , m_warningSign(new WarningSign(m_textEdit))
 {
@@ -104,19 +104,28 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
     }
 }
 
+
+
 void PythonScriptWidget::onExportToFileButton()
 {
     QString dirname(m_outputDir);
     if (dirname.isEmpty())
         dirname = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 
-    QString file_name = QFileDialog::getSaveFileName(
-        this, "Select file", dirname, "Python scipts (*.py)", 0, QFileDialog::DontResolveSymlinks);
+    QString filters("Python scripts (*.py)");
+    QString defaultFilter("Python scripts (*.py)");
+    QString defaultName = dirname + QString("/untitled");
 
-    if (file_name.isEmpty())
+    QString fileName = QFileDialog::getSaveFileName(nullptr, "Save file", defaultName,
+        filters, &defaultFilter);
+
+    if (fileName.isEmpty())
         return;
 
-    QFile file(file_name);
+    if(!fileName.endsWith(".py"))
+        fileName += ".py";
+
+    QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly)) {
         QMessageBox warning_dialog(this);
         warning_dialog.setIcon(QMessageBox::Warning);

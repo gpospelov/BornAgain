@@ -60,6 +60,7 @@ set(test_cases
     RotatedPyramidsDistribution
     SpheresWithLimitsDistribution
     ConesWithLimitsDistribution
+    LinkedBoxDistribution
     OffSpecularResonator
     GaussianBeamFootprint
     SpecularDivergentBeam

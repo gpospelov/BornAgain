@@ -79,13 +79,15 @@ complex_t MathFunctions::tanhc(const complex_t z)  // tanh(x)/x
     return std::tanh(z)/z;
 }
 
-complex_t MathFunctions::Laue(const complex_t z, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
+double MathFunctions::Laue(const double x, size_t N)
 {
-    if (N==0)
-        return 1.0;
-    if(std::abs(z)<std::numeric_limits<double>::epsilon())
-        return N+1.0;
-    return exp_I(N/2.0*z)*std::sin(z*(N+1.0)/2.0)/std::sin(z/2.0);
+    static const double SQRT6DOUBLE_EPS = std::sqrt(6.0*std::numeric_limits<double>::epsilon());
+    auto nd = static_cast<double>(N);
+    if(std::abs(nd*x) < SQRT6DOUBLE_EPS)
+        return nd;
+    double num = std::sin(nd*x);
+    double den = std::sin(x);
+    return num/den;
 }
 
 double MathFunctions::erf(double arg)
@@ -106,7 +108,7 @@ namespace MathFunctions
 //! Computes complex Bessel function J0(z), using power series and asymptotic expansion
     BA_CORE_API_ complex_t Bessel_J0_PowSer(const complex_t z);
 
-//! Computes complex Bessel function J0(z), using power series and asymptotic expansion
+    //! Computes complex Bessel function J0(z), using power series and asymptotic expansion
     BA_CORE_API_ complex_t Bessel_J1_PowSer(const complex_t z);
 }
 

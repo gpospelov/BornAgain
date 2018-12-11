@@ -20,28 +20,28 @@
 #include <QObject>
 
 class ApplicationModels;
-class DataItem;
 class MessageService;
+class SaveLoadInterface;
 
 //! Provide read/write of heavy data files in a separate thread.
 //!
-//! Listens all models and keep tracks of changes in IntensityDataItem. Provides logic to
+//! Listens all models and keep tracks of changes in items. Provides logic to
 //! not to re-save already saved data.
 
 class BA_CORE_API_ OutputDataIOService : public QObject
 {
     Q_OBJECT
 public:
-    explicit OutputDataIOService(QObject* parent = 0);
-    explicit OutputDataIOService(ApplicationModels* models, QObject* parent = 0);
+    explicit OutputDataIOService(QObject* parent = nullptr);
+    explicit OutputDataIOService(ApplicationModels* models, QObject* parent = nullptr);
 
     void setApplicationModels(ApplicationModels* models);
 
     void save(const QString& projectDir);
 
-    void load(const QString& projectDir, MessageService* messageService=nullptr);
+    void load(const QString& projectDir, MessageService* messageService = nullptr);
 
-    QVector<DataItem* > dataItems() const;
+    QVector<SaveLoadInterface* > nonXMLItems() const;
 
 private:
     void cleanOldFiles(const QString& projectDir, const QStringList& oldSaves,

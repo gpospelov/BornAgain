@@ -12,13 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "Exceptions.h"
-#include "ArrayUtils.h"
-
 #ifdef BORNAGAIN_PYTHON
-#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
-#define NO_IMPORT_ARRAY
-#include <numpy/arrayobject.h>
+
+#include "ArrayUtils.h"
+#include "Exceptions.h"
+#include "PythonCore.h"
 
 PyObject* ArrayUtils::createNumpyArray(const std::vector<double>& data)
 {

@@ -188,7 +188,7 @@ void DistributionWidget::plot_single_value()
 {
     Q_ASSERT(m_item->displayName() == Constants::DistributionNoneType);
 
-    double value = m_item->getItemValue(DistributionNoneItem::P_VALUE).toDouble();
+    double value = m_item->getItemValue(DistributionNoneItem::P_MEAN).toDouble();
 
     QVector<double> xPos = QVector<double>() << value;
     QVector<double> yPos = QVector<double>() << 1.0;

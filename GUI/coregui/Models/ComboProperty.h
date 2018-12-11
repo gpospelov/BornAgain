@@ -18,14 +18,18 @@
 #include "WinDllMacros.h"
 #include <QStringList>
 #include <QVariant>
+#include <QVector>
 
-//! The ComboProperty defines SessionItem's property with a value from predefined list.
+//! Custom property to define list of string values with multiple selections.
+//! Intended for QVariant.
 
 class BA_CORE_API_ ComboProperty
 {
 public:
     ComboProperty();
-    ComboProperty(const QStringList& values, const QString& current_value);
+
+    static ComboProperty fromList(const QStringList& values,
+                                  const QString& current_value = QString());
 
     QString getValue() const;
     void setValue(const QString& name);
@@ -50,10 +54,23 @@ public:
 
     QVariant variant() const;
 
+    QVector<int> selectedIndices() const;
+    QStringList selectedValues() const;
+
+    void setSelected(int index, bool value = true);
+    void setSelected(const QString& name, bool value = true);
+
+    QString stringOfSelections() const;
+    void setStringOfSelections(const QString& values);
+
+    QString label() const;
+
 private:
+    ComboProperty(QStringList values);
+
     QStringList m_values;
     QStringList m_tooltips;
-    int m_current_index;
+    QVector<int> m_selected_indices;
 };
 
 Q_DECLARE_METATYPE(ComboProperty)

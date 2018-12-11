@@ -41,11 +41,15 @@ public:
 
     SimulationResult relativeDifference() const;
 
+    SimulationResult absoluteDifference() const;
+
     void runSimulation(const Fit::Parameters& params);
 
     std::vector<double> experimental_array() const;
 
     std::vector<double> simulation_array() const;
+
+    std::vector<double> weights_array() const;
 
 private:
     void create_simulation(const Fit::Parameters& params);
@@ -61,6 +65,8 @@ private:
     std::vector<double> m_simulation_array;
     //!< Experimental data in the form of flat array (masked areas excluded, ROI only).
     std::vector<double> m_experimental_array;
+    //!< Weight of detector bin in residual calculations
+    std::vector<double> m_weights_array;
 
     //!< Simulation builder from the user to construct simulation for given set of parameters.
     simulation_builder_t m_simulation_builder;

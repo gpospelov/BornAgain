@@ -181,7 +181,6 @@ void TestView::test_ba3d()
     layout->setSpacing(0);
 #ifdef BORNAGAIN_OPENGL
     RealSpaceWidget* widget = new RealSpaceWidget(m_mainWindow->sampleModel());
-    widget->setModel(m_mainWindow->sampleModel(), nullptr);
     layout->addWidget(widget);
 #endif
     setLayout(layout);

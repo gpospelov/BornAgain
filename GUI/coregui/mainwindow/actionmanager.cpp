@@ -205,10 +205,7 @@ void ActionManager::aboutToShowSettings()
 
 void ActionManager::toggleCheckForUpdates(bool status)
 {
-    QSettings settings;
-    settings.beginGroup(Constants::S_UPDATES);
-    settings.setValue(Constants::S_CHECKFORUPDATES, status);
-    settings.endGroup();
+    m_mainWindow->updateNotifier()->setCheckUpdatesFlag(status);
     m_mainWindow->updateNotifier()->checkForUpdates();
 }
 

@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "FitWorkerLauncher.h"
-#include "FitSuite.h"
 #include "FitWorker.h"
 #include <QThread>
 
@@ -24,8 +23,7 @@ FitWorkerLauncher::FitWorkerLauncher(QObject* parent)
 {
 }
 
-// start fitting in separate thread
-void FitWorkerLauncher::runFitting(std::shared_ptr<FitSuite> suite)
+void FitWorkerLauncher::runFitting(std::shared_ptr<FitObjectiveBuilder> suite)
 {
     if (!suite || m_is_fit_running)
         return;

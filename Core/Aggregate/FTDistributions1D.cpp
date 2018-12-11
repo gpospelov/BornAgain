@@ -20,6 +20,7 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
+#include "Exceptions.h"
 
 void IFTDistribution1D::init_parameters()
 {
@@ -32,6 +33,11 @@ FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 {
     setName(BornAgain::FTDistribution1DCauchyType);
     init_parameters();
+}
+
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DCauchy::createSampler() const
+{
+    return std::make_unique<Distribution1DCauchySampler>(1/m_omega);
 }
 
 FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const
@@ -52,6 +58,11 @@ FTDistribution1DGauss::FTDistribution1DGauss(double omega)
     init_parameters();
 }
 
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DGauss::createSampler() const
+{
+    return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
+}
+
 FTDistribution1DGauss* FTDistribution1DGauss::clone() const
 {
     return new FTDistribution1DGauss(m_omega);
@@ -68,6 +79,11 @@ FTDistribution1DGate::FTDistribution1DGate(double omega)
 {
     setName(BornAgain::FTDistribution1DGateType);
     init_parameters();
+}
+
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DGate::createSampler() const
+{
+    return std::make_unique<Distribution1DGateSampler>(-m_omega, m_omega);
 }
 
 FTDistribution1DGate* FTDistribution1DGate::clone() const
@@ -87,6 +103,11 @@ FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
     init_parameters();
 }
 
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler() const
+{
+    return std::make_unique<Distribution1DTriangleSampler>(m_omega);
+}
+
 FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const
 {
     return new FTDistribution1DTriangle(m_omega);
@@ -103,6 +124,11 @@ FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 {
     setName(BornAgain::FTDistribution1DCosineType);
     init_parameters();
+}
+
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() const
+{
+    return std::make_unique<Distribution1DCosineSampler>(m_omega);
 }
 
 FTDistribution1DCosine* FTDistribution1DCosine::clone() const
@@ -125,6 +151,16 @@ FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
     setName(BornAgain::FTDistribution1DVoigtType);
     init_parameters();
     registerParameter(BornAgain::Eta, &m_eta);
+}
+
+std::unique_ptr<IDistribution1DSampler> FTDistribution1DVoigt::createSampler() const
+{
+    // TODO Need to implement 1D Voigt
+
+    std::ostringstream ostr;
+    ostr << "FTDistribution1DVoigt::createSampler() -> Error in class initialization";
+    ostr << "\n\n Has not been implemented yet...stay tuned!";
+    throw Exceptions::ClassInitializationException(ostr.str());
 }
 
 FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const

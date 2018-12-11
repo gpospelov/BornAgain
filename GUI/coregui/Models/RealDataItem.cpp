@@ -14,17 +14,19 @@
 
 #include "RealDataItem.h"
 #include "GUIHelpers.h"
-#include "ImportDataUtils.h"
 #include "IntensityDataItem.h"
 #include "InstrumentItems.h"
-#include "JobItemFunctions.h"
+#include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "SessionModel.h"
 #include "SpecularDataItem.h"
+#include "ImportDataInfo.h"
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
 const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
+const QString RealDataItem::T_NATIVE_DATA = "Native user data axis";
+const QString RealDataItem::P_NATIVE_UNITS = "Native user data units";
 
 RealDataItem::RealDataItem()
     : SessionItem(Constants::RealDataType)
@@ -35,22 +37,23 @@ RealDataItem::RealDataItem()
     // Registering this tag even without actual data item to avoid troubles in copying RealDataItem
     registerTag(T_INTENSITY_DATA, 1, 1,
                 QStringList() << Constants::IntensityDataType << Constants::SpecularDataType);
-
-    // TODO: allows to access underlying data item, should be removed. But it is not clear,
-    // what happens if default tag is not present.
     setDefaultTag(T_INTENSITY_DATA);
 
     addProperty(P_INSTRUMENT_ID, QString());
     addProperty(P_INSTRUMENT_NAME, QString());
 
+    registerTag(T_NATIVE_DATA, 1, 1,
+                QStringList() << Constants::IntensityDataType << Constants::SpecularDataType);
+    addProperty(P_NATIVE_UNITS, Constants::UnitsNbins)->setVisible(false);
+
     mapper()->setOnPropertyChange([this](const QString& name) {
-        if (name == P_NAME && getItem(T_INTENSITY_DATA))
-            updateIntensityDataFileName();
+        if (name == P_NAME)
+            updateNonXMLDataFileNames();
     });
 
     mapper()->setOnChildrenChange([this](SessionItem* item) {
         if (dynamic_cast<DataItem*>(item))
-            updateIntensityDataFileName();
+            updateNonXMLDataFileNames();
     });
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& name) {
@@ -82,11 +85,17 @@ DataItem* RealDataItem::dataItem()
 
 const DataItem* RealDataItem::dataItem() const
 {
-    const DataItem* result = dynamic_cast<const DataItem*>(getItem(T_INTENSITY_DATA));
-    if (!result)
-        throw GUIHelpers::Error(
-            "Error in RealDataItem::dataItem: underlying data item was not set.");
-    return result;
+    return dynamic_cast<const DataItem*>(getItem(T_INTENSITY_DATA));
+}
+
+DataItem* RealDataItem::nativeData()
+{
+    return const_cast<DataItem*>(static_cast<const RealDataItem*>(this)->nativeData());
+}
+
+const DataItem* RealDataItem::nativeData() const
+{
+    return dynamic_cast<const DataItem*>(getItem(T_NATIVE_DATA));
 }
 
 //! Sets OutputData to underlying item. Creates it, if not exists.
@@ -109,6 +118,40 @@ void RealDataItem::setOutputData(OutputData<double>* data)
                && "Assertion failed in RealDataItem::setOutputData: inserting data item failed.");
     }
     dataItem()->setOutputData(data);
+}
+
+void RealDataItem::initDataItem(size_t data_rank, const QString& tag)
+{
+    assert(data_rank <=2 && data_rank > 0);
+    const QString& target_model_type =
+        data_rank == 2 ? Constants::IntensityDataType : Constants::SpecularDataType;
+    auto data_item = getItem(tag);
+    if (data_item && data_item->modelType() != target_model_type)
+        throw GUIHelpers::Error("Error in RealDataItem::initDataItem: trying to set data "
+                                "incompatible with underlying data item");
+    if (!data_item)
+        this->model()->insertNewItem(target_model_type, this->index(), 0, tag);
+}
+
+void RealDataItem::setImportData(ImportDataInfo data) {
+    if (!data)
+        return;
+
+    const size_t data_rank = data.dataRank();
+    initDataItem(data_rank, T_INTENSITY_DATA);
+    initDataItem(data_rank, T_NATIVE_DATA);
+
+    QString units_name = data.unitsLabel();
+    auto output_data = data.intensityData();
+
+    dataItem()->reset(std::move(data));
+    getItem(P_NATIVE_UNITS)->setValue(units_name);
+    item<DataItem>(T_NATIVE_DATA).setOutputData(output_data.release());
+}
+
+bool RealDataItem::holdsDimensionalData() const
+{
+    return getItemValue(P_NATIVE_UNITS).toString() != Constants::UnitsNbins;
 }
 
 void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_update)
@@ -142,14 +185,29 @@ MaskContainerItem* RealDataItem::maskContainerItem()
 
 //! Updates the name of file to store intensity data.
 
-void RealDataItem::updateIntensityDataFileName()
+void RealDataItem::updateNonXMLDataFileNames()
 {
     if (DataItem* item = dataItem())
-        item->setItemValue(DataItem::P_FILE_NAME, JobItemFunctions::realDataFileName(*this));
+        item->setItemValue(DataItem::P_FILE_NAME, ItemFileNameUtils::realDataFileName(*this));
+    if (DataItem* item = nativeData())
+        item->setItemValue(DataItem::P_FILE_NAME, ItemFileNameUtils::nativeDataFileName(*this));
 }
 
 void RealDataItem::updateToInstrument()
 {
-    if (DataItem* item = dataItem())
-        JobItemUtils::setIntensityItemAxesUnits(item, m_linkedInstrument);
+    DataItem* data_item = dataItem();
+    if (!data_item)
+        return;
+
+    if (m_linkedInstrument) {
+        JobItemUtils::setIntensityItemAxesUnits(data_item, m_linkedInstrument);
+        return;
+    }
+
+    auto native_data_item = nativeData();
+    auto data_source = native_data_item ? native_data_item : data_item;
+
+    std::unique_ptr<OutputData<double>> native_data(data_source->getOutputData()->clone());
+    const QString units_label = getItemValue(P_NATIVE_UNITS).toString();
+    data_item->reset(ImportDataInfo(std::move(native_data), units_label));
 }

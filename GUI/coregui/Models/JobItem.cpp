@@ -19,8 +19,9 @@
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
 #include "IntensityDataItem.h"
-#include "JobItemFunctions.h"
+#include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
+#include "MaterialItemContainer.h"
 #include "MaskUnitsConverter.h"
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
@@ -41,6 +42,7 @@ const QString JobItem::P_COMMENTS = "Comments";
 const QString JobItem::P_PROGRESS = "Progress";
 const QString JobItem::P_PRESENTATION_TYPE = "Presentation Type";
 const QString JobItem::T_SAMPLE = "Sample Tag";
+const QString JobItem::T_MATERIAL_CONTAINER = "Material Container";
 const QString JobItem::T_INSTRUMENT = "Instrument Tag";
 const QString JobItem::T_OUTPUT = "Output Tag";
 const QString JobItem::T_REALDATA = "Real Data Tag";
@@ -71,10 +73,12 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     addProperty(P_PRESENTATION_TYPE, QVariant::Type::Invalid)->setVisible(false);
 
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
+    registerTag(T_MATERIAL_CONTAINER, 1, 1, QStringList{Constants::MaterialContainerType});
     registerTag(T_INSTRUMENT, 1, 1,
                 QStringList() << Constants::GISASInstrumentType
                               << Constants::OffSpecInstrumentType
-                              << Constants::SpecularInstrumentType);
+                              << Constants::SpecularInstrumentType
+                              << Constants::DepthProbeInstrumentType);
     registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType
                 << Constants::SpecularDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
@@ -225,7 +229,7 @@ InstrumentItem* JobItem::instrumentItem()
 
 void JobItem::setResults(const Simulation* simulation)
 {
-    JobItemUtils::setResults(this, simulation);
+    JobItemUtils::setResults(dataItem(), simulation);
     updateIntensityDataFileName();
 }
 
@@ -258,6 +262,11 @@ RealDataItem* JobItem::realDataItem()
     return dynamic_cast<RealDataItem*>(getItem(JobItem::T_REALDATA));
 }
 
+const MaterialItemContainer* JobItem::materialContainerItem() const
+{
+    return static_cast<MaterialItemContainer*>(getItem(JobItem::T_MATERIAL_CONTAINER));
+}
+
 Data1DViewItem* JobItem::dataItemView()
 {
     return dynamic_cast<Data1DViewItem*>(getItem(JobItem::T_DATAVIEW));
@@ -269,12 +278,17 @@ void JobItem::updateIntensityDataFileName()
 {
     if (DataItem* item = dataItem())
         item->setItemValue(DataItem::P_FILE_NAME,
-                           JobItemFunctions::jobResultsFileName(*this));
+                           ItemFileNameUtils::jobResultsFileName(*this));
 
-    if (RealDataItem* realItem = realDataItem())
+    if (RealDataItem* realItem = realDataItem()) {
         if (DataItem* item = realItem->dataItem())
             item->setItemValue(DataItem::P_FILE_NAME,
-                               JobItemFunctions::jobReferenceFileName(*this));
+                               ItemFileNameUtils::jobReferenceFileName(*this));
+
+        if (DataItem* item = realItem->nativeData())
+            item->setItemValue(DataItem::P_FILE_NAME,
+                               ItemFileNameUtils::jobNativeDataFileName(*this));
+    }
 }
 
 SimulationOptionsItem* JobItem::simulationOptionsItem()

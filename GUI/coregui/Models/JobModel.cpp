@@ -13,7 +13,9 @@
 // ************************************************************************** //
 
 #include "JobModel.h"
+#include "AxesItems.h"
 #include "FitSuiteItem.h"
+#include "GroupItem.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
 #include "IntensityDataItem.h"
@@ -29,7 +31,7 @@
 
 JobModel::JobModel(QObject *parent)
     : SessionModel(SessionXML::JobModelTag, parent)
-    , m_queue_data(0)
+    , m_queue_data(nullptr)
 {
     m_queue_data = new JobQueueData(this);
     connect(m_queue_data, SIGNAL(focusRequest(JobItem *)), this, SIGNAL(focusRequest(JobItem *)));
@@ -64,7 +66,7 @@ JobItem *JobModel::getJobItemForIdentifier(const QString &identifier)
         JobItem *jobItem = getJobItemForIndex(itemIndex);
         if(jobItem->getIdentifier() == identifier) return jobItem;
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -82,14 +84,15 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
     jobItem->setItemName(generateJobName());
     jobItem->setIdentifier(GUIHelpers::createUuid());
 
-    SessionItem *multilayer = copyItem(multiLayerItem, jobItem, JobItem::T_SAMPLE);
-    multilayer->setItemName(Constants::MultiLayerType);
-    SessionItem *instrument = copyItem(instrumentItem, jobItem, JobItem::T_INSTRUMENT);
-    instrument->setItemName(instrumentItem->modelType());
+    JobModelFunctions::setupJobItemSampleData(jobItem, multiLayerItem);
+    JobModelFunctions::setupJobItemInstrument(jobItem, instrumentItem);
+
+    // TODO: remove when specular instrument is ready for magnetization
+    if (instrumentItem->modelType() == Constants::SpecularInstrumentType)
+        JobModelFunctions::muteMagnetizationData(jobItem);
     copyItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());
-    jobItem->getItem(JobItem::P_INSTRUMENT_NAME)->setValue(instrumentItem->itemName());
 
     ParameterTreeUtils::createParameterTree(jobItem);
 
@@ -137,6 +140,15 @@ QVector<SessionItem *> JobModel::nonXMLData() const
         if (auto real_data = dynamic_cast<RealDataItem*>(jobItem->getItem(JobItem::T_REALDATA))) {
             if (auto data_item = real_data->dataItem())
                 result.push_back(data_item);
+            if (auto native_data = real_data->nativeData())
+                result.push_back(native_data);
+        }
+
+        auto instrument =
+            dynamic_cast<SpecularInstrumentItem*>(jobItem->getItem(JobItem::T_INSTRUMENT));
+        if (instrument) {
+            auto axis_group = instrument->beamItem()->inclinationAxisGroup();
+            result.push_back(axis_group->getChildOfType(Constants::PointwiseAxisType));
         }
     }
 

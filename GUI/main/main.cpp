@@ -54,7 +54,5 @@ int main(int argc, char* argv[])
     if (splash)
         splash->finish(&win);
 
-    win.checkUpdates();
-
     return app.exec();
 }

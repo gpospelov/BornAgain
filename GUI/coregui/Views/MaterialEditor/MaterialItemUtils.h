@@ -22,14 +22,20 @@
 #include <memory>
 
 class Material;
+class MaterialItemContainer;
 
 namespace MaterialItemUtils
 {
 
 BA_CORE_API_ QColor suggestMaterialColor(const QString &name);
 BA_CORE_API_ ExternalProperty defaultMaterialProperty();
-BA_CORE_API_ std::unique_ptr<Material> createDomainMaterial(
-        const ExternalProperty &material_property);
+
+BA_CORE_API_ std::unique_ptr<Material>
+createDomainMaterial(const ExternalProperty& material_property);
+BA_CORE_API_ std::unique_ptr<Material>
+createDomainMaterial(const ExternalProperty& material_property,
+                     const MaterialItemContainer& container);
+BA_CORE_API_ MaterialItem* findMaterial(const ExternalProperty& material_property);
 
 BA_CORE_API_ QString materialTag(const SessionItem &item);
 BA_CORE_API_ QStringList materialRelatedModelTypes();
@@ -46,6 +52,8 @@ BA_CORE_API_ ExternalProperty selectMaterialProperty(const ExternalProperty &pre
 //! Calls color selector dialog.
 BA_CORE_API_ ExternalProperty selectColorProperty(const ExternalProperty &previous=ExternalProperty());
 
+//! Gather material property items from a given item
+BA_CORE_API_ QVector<SessionItem*> materialPropertyItems(SessionItem* item);
 }
 
 

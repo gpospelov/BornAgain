@@ -18,6 +18,7 @@
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
 #include "LayerItem.h"
+#include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "Particle.h"
 #include "Particle3DContainer.h"
@@ -72,6 +73,9 @@ void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
         populateParticleFromParticleItem(model, item);
 
     else if (item.modelType() == Constants::ParticleDistributionType)
+        populateParticleFromParticleItem(model, item);
+
+    else if (item.modelType() == Constants::MesoCrystalType)
         populateParticleFromParticleItem(model, item);
 }
 
@@ -151,19 +155,16 @@ void RealSpaceBuilder::populateInterference(
         RealSpaceBuilderUtils::populateInterference1DLatticeType(
             interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
 
-    /*
+    // If interference type is Radial ParaCrystal
+    else if (interferenceLattice->modelType()
+             == Constants::InterferenceFunctionRadialParaCrystalType)
+        RealSpaceBuilderUtils::populateRadialParacrystalType(
+            interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
+
     // If interference type is 2D ParaCrystal
     else if (interferenceLattice->modelType() == Constants::InterferenceFunction2DParaCrystalType)
-    {
-    }
-
-    // If interference type is Radial ParaCrystal
-    else if (interferenceLattice->modelType() ==
-    Constants::InterferenceFunctionRadialParaCrystalType)
-    {
-    }
-
-    */
+        RealSpaceBuilderUtils::populate2DParacrystalType(
+            interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
 }
 
 void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
@@ -197,8 +198,13 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
         // If there is no particle to populate inside ParticleDistributionItem
         if (!particleDistributionItem->getItem(ParticleDistributionItem::T_PARTICLES))
             return;
-
         // show nothing when ParticleDistributionItem is selected
+    } else if (particleItem.modelType() == Constants::MesoCrystalType) {
+        auto mesoCrystalItem = dynamic_cast<const MesoCrystalItem*>(&particleItem);
+        // If there is no particle to populate inside MesoCrystalItem
+        if (!mesoCrystalItem->getItem(MesoCrystalItem::T_BASIS_PARTICLE))
+            return;
+        particle3DContainer = RealSpaceBuilderUtils::mesoCrystal3DContainer(*mesoCrystalItem);
     }
 
     populateParticleFromParticle3DContainer(model, particle3DContainer);

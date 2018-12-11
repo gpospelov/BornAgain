@@ -72,6 +72,7 @@ public:
 
     void addTransform(Vector3D rotate, Vector3D translate);
     void addTranslation(Vector3D translate_);
+    void addExtrinsicRotation(Vector3D rotateExtrinsic);
 };
 
 //------------------------------------------------------------------------------
@@ -98,13 +99,13 @@ public:
 class TruncatedSphere : public Particle
 {
 public:
-    TruncatedSphere(float R, float H);
+    TruncatedSphere(float R, float H, float deltaH=0.0f);
 };
 
 class TruncatedSpheroid : public Particle
 {
 public:
-    TruncatedSpheroid(float R, float H, float fp);
+    TruncatedSpheroid(float R, float H, float fp, float deltaH=0.0f);
 };
 
 class Cone : public Particle

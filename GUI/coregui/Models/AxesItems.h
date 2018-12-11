@@ -33,7 +33,7 @@ public:
     explicit BasicAxisItem(const QString& type = Constants::BasicAxisType);
     virtual ~BasicAxisItem();
 
-    std::unique_ptr<IAxis> createAxis(double scale = 1.0) const;
+    virtual std::unique_ptr<IAxis> createAxis(double scale) const;
 
 protected:
     void register_basic_properties();

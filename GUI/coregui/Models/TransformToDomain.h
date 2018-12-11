@@ -27,11 +27,13 @@
 #include "ParticleLayout.h"
 #include <memory>
 
-class GISASSimulation;
-class Simulation;
-class SessionItem;
 class DetectorItem;
+class GISASSimulation;
 class Material;
+class MaterialItemContainer;
+class SessionItem;
+class Simulation;
+class BeamDistributionItem;
 
 namespace TransformToDomain
 {
@@ -48,6 +50,10 @@ BA_CORE_API_ void addDistributionParametersToSimulation(
     const SessionItem& beam_item, GISASSimulation& simulation);
 BA_CORE_API_ void addDistributionParametersToSimulation(
     const SessionItem& beam_item, SpecularSimulation& simulation);
+
+BA_CORE_API_ void setBeamDistribution(const std::string& parameter_name,
+        const BeamDistributionItem& item, Simulation& simulation);
+
 BA_CORE_API_ void setSimulationOptions(Simulation* simulation, const SessionItem& item);
 BA_CORE_API_ void setTransformationInfo(IParticle* result, const SessionItem& item);
 BA_CORE_API_ void setPositionInfo(IParticle* result, const SessionItem& item);

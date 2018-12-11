@@ -79,11 +79,9 @@ std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& para
 
     std::vector<double> result;
 
-    std::vector<double> weights;
-    weights.resize(numberOfFitElements(), 1.0); // FIXME make correct weights
-
     for(size_t i = 0; i<m_simulation_array.size(); ++i)
-        result.push_back(residual(m_simulation_array[i], m_experimental_array[i], weights[i]));
+        result.push_back(residual(m_simulation_array[i], m_experimental_array[i],
+                                  m_weights_array[i]));
 
     double chi2 = evaluate_chi2(result, params);
 
@@ -111,6 +109,11 @@ std::vector<double> FitObjective::simulation_array() const
     return m_simulation_array;
 }
 
+std::vector<double> FitObjective::weights_array() const
+{
+    return m_weights_array;
+}
+
 SimulationResult FitObjective::simulationResult(size_t i_item) const
 {
     return m_fit_objects[check_index(i_item)]->simulationResult();
@@ -126,9 +129,19 @@ SimulationResult FitObjective::relativeDifference(size_t i_item) const
     return m_fit_objects[check_index(i_item)]->relativeDifference();
 }
 
+SimulationResult FitObjective::absoluteDifference(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)]->absoluteDifference();
+}
+
 void FitObjective::initPrint(int every_nth)
 {
     m_fit_status->initPrint(every_nth);
+}
+
+void FitObjective::initPlot(int every_nth, fit_observer_t observer)
+{
+    m_fit_status->addObserver(every_nth, observer);
 }
 
 void FitObjective::initPlot(int every_nth, PyObserverCallback& callback)
@@ -164,20 +177,45 @@ unsigned FitObjective::fitObjectCount() const
     return static_cast<unsigned>(m_fit_objects.size());
 }
 
+void FitObjective::interruptFitting()
+{
+    m_fit_status->setInterrupted();
+}
+
+bool FitObjective::isInterrupted() const
+{
+    return m_fit_status->isInterrupted();
+}
+
+bool FitObjective::isFirstIteration() const
+{
+    return iterationInfo().iterationCount() == 1;
+}
+
 void FitObjective::run_simulations(const Fit::Parameters& params)
 {
+    if (m_fit_status->isInterrupted())
+        throw std::runtime_error("Fitting was interrupted by the user.");
+
     if (m_fit_objects.empty())
         throw std::runtime_error("FitObjective::run_simulations() -> Error. "
                                  "No simulation/data defined.");
 
     m_simulation_array.clear();
     m_experimental_array.clear();
+    m_weights_array.clear();
 
     for (auto obj : m_fit_objects) {
         obj->runSimulation(params);
         insert_to(m_simulation_array, obj->simulation_array());
         insert_to(m_experimental_array, obj->experimental_array());
+        insert_to(m_weights_array, obj->weights_array());
     }
+}
+
+void FitObjective::setChiSquaredModule(const IChiSquaredModule& module)
+{
+    m_chi2_module.reset(module.clone());
 }
 
 double FitObjective::residual(double a, double b, double weight) const

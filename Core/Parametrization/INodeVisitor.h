@@ -28,8 +28,6 @@ class DistributionGaussian;
 class DistributionLogNormal;
 class DistributionLorentz;
 class DistributionTrapezoid;
-class FitObject;
-class FitSuiteObjects;
 class FootprintFactorGaussian;
 class FootprintFactorSquare;
 class FormFactorAnisoPyramid;
@@ -53,6 +51,7 @@ class FormFactorFullSpheroid;
 class FormFactorGauss;
 class FormFactorHemiEllipsoid;
 class FormFactorIcosahedron;
+class FormFactorLongBox;
 class FormFactorLongBoxGauss;
 class FormFactorLongBoxLorentz;
 class FormFactorLorentz;
@@ -103,12 +102,13 @@ class IntensityNormalizer;
 class IntensityScaleAndShiftNormalizer;
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
-class InterferenceFunction3DLattice;
-class InterferenceFunction2DSuperLattice;
-class InterferenceFunctionFinite2DLattice;
 class InterferenceFunction2DParaCrystal;
-class InterferenceFunctionNone;
+class InterferenceFunction2DSuperLattice;
+class InterferenceFunction3DLattice;
+class InterferenceFunctionFinite2DLattice;
+class InterferenceFunctionFinite3DLattice;
 class InterferenceFunctionRadialParaCrystal;
+class InterferenceFunctionNone;
 class IParticle;
 class IPeakShape;
 class IRotation;
@@ -159,8 +159,6 @@ public:
     virtual void visit(const DistributionLogNormal*) {}
     virtual void visit(const DistributionLorentz*) {}
     virtual void visit(const DistributionTrapezoid*) {}
-    virtual void visit(const FitObject*) {}
-    virtual void visit(const FitSuiteObjects*) {}
     virtual void visit(const FootprintFactorGaussian*) {}
     virtual void visit(const FootprintFactorSquare*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
@@ -184,6 +182,7 @@ public:
     virtual void visit(const FormFactorGauss*) {}
     virtual void visit(const FormFactorHemiEllipsoid*) {}
     virtual void visit(const FormFactorIcosahedron*) {}
+    virtual void visit(const FormFactorLongBox*) {}
     virtual void visit(const FormFactorLongBoxGauss*) {}
     virtual void visit(const FormFactorLongBoxLorentz*) {}
     virtual void visit(const FormFactorLorentz*) {}
@@ -234,12 +233,13 @@ public:
     virtual void visit(const IntensityScaleAndShiftNormalizer*) {}
     virtual void visit(const InterferenceFunction1DLattice*) {}
     virtual void visit(const InterferenceFunction2DLattice*) {}
-    virtual void visit(const InterferenceFunction3DLattice*) {}
-    virtual void visit(const InterferenceFunction2DSuperLattice*) {}
-    virtual void visit(const InterferenceFunctionFinite2DLattice*) {}
     virtual void visit(const InterferenceFunction2DParaCrystal*) {}
-    virtual void visit(const InterferenceFunctionNone*) {}
+    virtual void visit(const InterferenceFunction2DSuperLattice*) {}
+    virtual void visit(const InterferenceFunction3DLattice*) {}
+    virtual void visit(const InterferenceFunctionFinite2DLattice*) {}
+    virtual void visit(const InterferenceFunctionFinite3DLattice*) {}
     virtual void visit(const InterferenceFunctionRadialParaCrystal*) {}
+    virtual void visit(const InterferenceFunctionNone*) {}
     virtual void visit(const IParticle*) {}
     virtual void visit(const IPeakShape*) {}
     virtual void visit(const IRotation*) {}

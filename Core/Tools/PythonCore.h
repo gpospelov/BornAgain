@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #ifndef PYTHONCORE_H
+#define PYTHONCORE_H
 
 #ifdef BORNAGAIN_PYTHON
 
@@ -27,8 +28,10 @@
 #define NO_IMPORT_ARRAY
 #include <numpy/arrayobject.h>
 
+#include "swig_runtime.h"
+
 #endif // BORNAGAIN_PYTHON
 
+#endif // PYTHONCORE_H
 
-#endif
 

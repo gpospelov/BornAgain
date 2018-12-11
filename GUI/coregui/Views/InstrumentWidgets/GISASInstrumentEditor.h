@@ -23,7 +23,6 @@ class GISASDetectorEditor;
 class EnvironmentEditor;
 class PolarizationAnalysisEditor;
 class ColumnResizer;
-class QVBoxLayout;
 
 class BA_CORE_API_ GISASInstrumentEditor : public SessionItemWidget
 {
@@ -36,8 +35,6 @@ protected:
     void subscribeToItem();
 
 private:
-    void addEditor(QVBoxLayout* layout, QWidget* widget, const QString& name, bool expanded=true);
-
     GISASInstrumentItem* instrumentItem();
     ColumnResizer* m_columnResizer;
     GISASBeamEditor* m_beamEditor;

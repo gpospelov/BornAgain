@@ -13,35 +13,11 @@
 // ************************************************************************** //
 
 #include "ChiSquaredModule.h"
+#include "IIntensityFunction.h"
+#include "VarianceFunctions.h"
 #include <cassert>
-
-void ChiSquaredModule::processFitElements(std::vector<FitElement>::iterator first,
-                                          std::vector<FitElement>::iterator last)
-{
-    assert(mp_squared_function);
-
-    for (std::vector<FitElement>::iterator it = first; it != last; ++it) {
-        double value_simu = it->getSimulValue();
-        double value_real = it->getRealValue();
-        double weight = it->getWeight();
-
-        if(mp_intensity_function) {
-            value_simu = mp_intensity_function->evaluate(value_simu);
-            value_real = mp_intensity_function->evaluate(value_real);
-        }
-
-        double squared_difference =
-            mp_squared_function->calculateSquaredDifference(
-                value_real, value_simu)*weight;
-
-        it->setSquaredDifference(squared_difference);
-
-        double squared_error = mp_squared_function->calculateSquaredError(value_real, value_simu);
-        double residual = std::sqrt(weight)*(value_simu - value_real)/std::sqrt(squared_error);
-
-        it->setResidual(residual);
-    }
-}
+#include <limits>
+#include <cmath>
 
 double ChiSquaredModule::residual(double a, double b, double weight)
 {
@@ -53,8 +29,8 @@ double ChiSquaredModule::residual(double a, double b, double weight)
         value_real = mp_intensity_function->evaluate(value_real);
     }
 
-    double squared_error = mp_squared_function->calculateSquaredError(value_real, value_simu);
+    double variance = m_variance_function->variance(value_real, value_simu);
+    double normalize = variance <=0 ? std::numeric_limits<double>::min() : std::sqrt(variance);
 
-    double residual = std::sqrt(weight)*(value_simu - value_real)/std::sqrt(squared_error);
-    return residual;
+    return std::sqrt(weight)*(value_simu - value_real)/normalize;
 }

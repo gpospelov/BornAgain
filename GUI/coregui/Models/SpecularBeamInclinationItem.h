@@ -28,11 +28,14 @@ public:
     static const QString P_ALPHA_AXIS;
 
     SpecularBeamInclinationItem();
-    virtual ~SpecularBeamInclinationItem();
+    ~SpecularBeamInclinationItem() override;
 
     double scaleFactor() const override;
 
+    void updateFileName(const QString& filename);
+
 private:
+    void setupAxisGroup();
     static const bool m_show_mean = false;
 };
 

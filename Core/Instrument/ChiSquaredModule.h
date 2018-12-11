@@ -30,9 +30,6 @@ public:
 
     virtual ChiSquaredModule *clone() const { return new ChiSquaredModule(*this); }
 
-    virtual void processFitElements(std::vector<FitElement>::iterator first,
-                                    std::vector<FitElement>::iterator last);
-
     virtual double residual(double a, double b, double weight);
 };
 

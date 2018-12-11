@@ -158,9 +158,9 @@ void TransformFromDomain::set2DLatticeItem(SessionItem* item,
     set2DLatticeParameters(item, sample.lattice());
 
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_1,
-                       sample.domainSize1());
+                       sample.numberUnitCells1());
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_2,
-                       sample.domainSize2());
+                       sample.numberUnitCells2());
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_POSITION_VARIANCE,
                        sample.positionVariance());
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_XI_INTEGRATION,
@@ -203,8 +203,9 @@ void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
 
     ParameterDistribution par_distr = sample.parameterDistribution();
     QString main_distr_par_name = QString::fromStdString(par_distr.getMainParameterName());
+    QStringList linked_pars = GUIHelpers::fromStdStrings(par_distr.getLinkedParameterNames());
 
-    distItem->setDomainCacheName(main_distr_par_name);
+    distItem->setDomainCacheNames(main_distr_par_name, linked_pars);
 
     double unit_factor(1.0);
     if (ParameterUtils::mainParUnits(sample) == BornAgain::UnitsRad)
@@ -272,8 +273,7 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
     beam_item->setInclinationAngle(0.0); // inclination angle is hardcoded
     beam_item->setAzimuthalAngle(0.0); // azimuthal angle is hardcoded
 
-    auto axis_item = beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE)
-                         ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
+    auto axis_item = beam_item->currentInclinationAxisItem();
     TransformFromDomain::setAxisItem(axis_item, *simulation.getAlphaAxis(), 1. / Units::deg);
 
     // distribution parameters

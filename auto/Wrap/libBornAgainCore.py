@@ -5177,9 +5177,7 @@ class IChiSquaredModule(ICloneable):
     """
 
 
-    Interface for  ChiSquaredModule for chi2 calculations.
-
-    Until BornAgain-1.1, there was another child, ChiSquaredFrequency.
+    Interface residual calculations.
 
     C++ includes: IChiSquaredModule.h
 
@@ -5213,12 +5211,26 @@ class IChiSquaredModule(ICloneable):
 
 
     def varianceFunction(self):
-        """varianceFunction(IChiSquaredModule self) -> IVarianceFunction"""
+        """
+        varianceFunction(IChiSquaredModule self) -> IVarianceFunction
+
+        const IVarianceFunction * IChiSquaredModule::varianceFunction() const
+
+        Returns squared function. 
+
+        """
         return _libBornAgainCore.IChiSquaredModule_varianceFunction(self)
 
 
     def setVarianceFunction(self, variance_function):
-        """setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)"""
+        """
+        setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)
+
+        void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
+
+        Sets squared function. 
+
+        """
         return _libBornAgainCore.IChiSquaredModule_setVarianceFunction(self, variance_function)
 
 
@@ -5226,7 +5238,7 @@ class IChiSquaredModule(ICloneable):
         """
         getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction
 
-        virtual const IIntensityFunction* IChiSquaredModule::getIntensityFunction() const
+        const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
 
         Returns data rescaler. 
 
@@ -5421,7 +5433,7 @@ class IntensityFunctionLog(IIntensityFunction):
         """
         clone(IntensityFunctionLog self) -> IntensityFunctionLog
 
-        virtual IntensityFunctionLog* IntensityFunctionLog::clone() const
+        IntensityFunctionLog * IntensityFunctionLog::clone() const
 
         """
         return _libBornAgainCore.IntensityFunctionLog_clone(self)
@@ -5482,7 +5494,7 @@ class IntensityFunctionSqrt(IIntensityFunction):
         """
         clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
 
-        virtual IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const
+        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
 
         """
         return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
@@ -5749,7 +5761,14 @@ IntensityScaleAndShiftNormalizer_swigregister = _libBornAgainCore.IntensityScale
 IntensityScaleAndShiftNormalizer_swigregister(IntensityScaleAndShiftNormalizer)
 
 class IVarianceFunction(_object):
-    """Proxy of C++ IVarianceFunction class."""
+    """
+
+
+    Variance function interface.
+
+    C++ includes: VarianceFunctions.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, IVarianceFunction, name, value)
@@ -5763,19 +5782,36 @@ class IVarianceFunction(_object):
     __del__ = lambda self: None
 
     def clone(self):
-        """clone(IVarianceFunction self) -> IVarianceFunction"""
+        """
+        clone(IVarianceFunction self) -> IVarianceFunction
+
+        virtual IVarianceFunction* IVarianceFunction::clone() const =0
+
+        """
         return _libBornAgainCore.IVarianceFunction_clone(self)
 
 
     def variance(self, real_value, simulated_value):
-        """variance(IVarianceFunction self, double real_value, double simulated_value) -> double"""
+        """
+        variance(IVarianceFunction self, double real_value, double simulated_value) -> double
+
+        virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
+
+        """
         return _libBornAgainCore.IVarianceFunction_variance(self, real_value, simulated_value)
 
 IVarianceFunction_swigregister = _libBornAgainCore.IVarianceFunction_swigregister
 IVarianceFunction_swigregister(IVarianceFunction)
 
 class VarianceConstantFunction(IVarianceFunction):
-    """Proxy of C++ VarianceConstantFunction class."""
+    """
+
+
+    Returns 1.0 as variance value
+
+    C++ includes: VarianceFunctions.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IVarianceFunction]:
@@ -5788,17 +5824,36 @@ class VarianceConstantFunction(IVarianceFunction):
     __repr__ = _swig_repr
 
     def clone(self):
-        """clone(VarianceConstantFunction self) -> VarianceConstantFunction"""
+        """
+        clone(VarianceConstantFunction self) -> VarianceConstantFunction
+
+        VarianceConstantFunction * VarianceConstantFunction::clone() const override
+
+        """
         return _libBornAgainCore.VarianceConstantFunction_clone(self)
 
 
     def variance(self, arg2, arg3):
-        """variance(VarianceConstantFunction self, double arg2, double arg3) -> double"""
+        """
+        variance(VarianceConstantFunction self, double arg2, double arg3) -> double
+
+        double VarianceConstantFunction::variance(double, double) const override
+
+        """
         return _libBornAgainCore.VarianceConstantFunction_variance(self, arg2, arg3)
 
 
     def __init__(self):
-        """__init__(VarianceConstantFunction self) -> VarianceConstantFunction"""
+        """
+        __init__(VarianceConstantFunction self) -> VarianceConstantFunction
+
+
+
+        Returns 1.0 as variance value
+
+        C++ includes: VarianceFunctions.h
+
+        """
         this = _libBornAgainCore.new_VarianceConstantFunction()
         try:
             self.this.append(this)
@@ -5810,7 +5865,14 @@ VarianceConstantFunction_swigregister = _libBornAgainCore.VarianceConstantFuncti
 VarianceConstantFunction_swigregister(VarianceConstantFunction)
 
 class VarianceSimFunction(IVarianceFunction):
-    """Proxy of C++ VarianceSimFunction class."""
+    """
+
+
+    Returns max(sim, epsilon)
+
+    C++ includes: VarianceFunctions.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [IVarianceFunction]:
@@ -5826,6 +5888,9 @@ class VarianceSimFunction(IVarianceFunction):
         """
         __init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction
         __init__(VarianceSimFunction self) -> VarianceSimFunction
+
+        VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
+
         """
         this = _libBornAgainCore.new_VarianceSimFunction(epsilon)
         try:
@@ -5834,12 +5899,22 @@ class VarianceSimFunction(IVarianceFunction):
             self.this = this
 
     def clone(self):
-        """clone(VarianceSimFunction self) -> VarianceSimFunction"""
+        """
+        clone(VarianceSimFunction self) -> VarianceSimFunction
+
+        VarianceSimFunction * VarianceSimFunction::clone() const override
+
+        """
         return _libBornAgainCore.VarianceSimFunction_clone(self)
 
 
     def variance(self, exp, sim):
-        """variance(VarianceSimFunction self, double exp, double sim) -> double"""
+        """
+        variance(VarianceSimFunction self, double exp, double sim) -> double
+
+        double VarianceSimFunction::variance(double exp, double sim) const override
+
+        """
         return _libBornAgainCore.VarianceSimFunction_variance(self, exp, sim)
 
     __swig_destroy__ = _libBornAgainCore.delete_VarianceSimFunction
@@ -6153,7 +6228,14 @@ class FitObjective(_object):
 
 
     def weights_array(self):
-        """weights_array(FitObjective self) -> vdouble1d_t"""
+        """
+        weights_array(FitObjective self) -> vdouble1d_t
+
+        std::vector< double > FitObjective::weights_array() const
+
+        Returns one dimensional array representing weights of bin intensity for residuals. 
+
+        """
         return _libBornAgainCore.FitObjective_weights_array(self)
 
 
@@ -6354,7 +6436,12 @@ class FitObjective(_object):
 
 
     def setChiSquaredModule(self, module):
-        """setChiSquaredModule(FitObjective self, IChiSquaredModule module)"""
+        """
+        setChiSquaredModule(FitObjective self, IChiSquaredModule module)
+
+        void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
+
+        """
         return _libBornAgainCore.FitObjective_setChiSquaredModule(self, module)
 
 
@@ -11102,10 +11189,7 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list
-
-        _sym_S2: 
-        true if face has a perpedicular two-fold symmetry axis 
+        oriented vertex list 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -20698,7 +20782,9 @@ class IntensityDataIOFactory(_object):
     """
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+    Usage:
 
     C++ includes: IntensityDataIOFactory.h
 
@@ -20746,7 +20832,9 @@ class IntensityDataIOFactory(_object):
 
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+        Usage:
 
         C++ includes: IntensityDataIOFactory.h
 
@@ -25754,7 +25842,7 @@ class ParameterPool(ICloneable):
 
         Adds parameter to the pool, and returns reference to the input pointer.
 
-        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
+        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
 
         """
         return _libBornAgainCore.ParameterPool_addParameter(self, newPar)

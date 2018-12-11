@@ -14,6 +14,8 @@ environment:
   QTDIR: "C:\\Qt\\5.11\\msvc2017_64"
   PATH: "%QTDIR%\\bin;%PYTHONDIR%;%PYTHONDIR%\\Scripts;%BOOSTDIR%\\lib64-msvc-14.1;%PATH%"
   PYTHONPATH: "%PYTHONDIR%;%PYTHONDIR%\\Lib;%PYTHONDIR%\\Lib\\site-packages;%PYTHONDIR%\\DLLs"
+  PYEXE: "%PYTHONDIR%\\python.exe"
+  PYLIB: "%PYTHONDIR%\\libs\\python36.lib"
 build:
   parallel: true
 
@@ -40,10 +42,11 @@ before_build:
 build_script:
 - echo "BornAgain build_script" %CD% 
 - echo %PATH%
+- echo "PYEXE" %PYEXE% "PYLIB" %PYLIB%
 - mkdir build
 - cd build
 - cmake --version
-- cmake -G "Visual Studio 15 2017 Win64" -DBOOST_ROOT=%BOOSTDIR% -DCMAKE_INCLUDE_PATH=C:/projects/deps/bornagaindeps/include ..
+- cmake -G "Visual Studio 15 2017 Win64" -DBOOST_ROOT=%BOOSTDIR% -DPYTHON_LIBRARY=%PYLIB% -DPYTHON_EXECUTABLE=%PYEXE% -DCMAKE_INCLUDE_PATH=C:/projects/deps/bornagaindeps/include ..
 - cmake --build . --config Release
 
 test_script:

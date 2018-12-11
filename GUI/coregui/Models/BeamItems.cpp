@@ -143,6 +143,9 @@ SpecularBeamItem::SpecularBeamItem() : BeamItem(Constants::SpecularBeamType)
     setInclinationProperty(Constants::SpecularBeamInclinationType);
     setWavelengthProperty(Constants::SpecularBeamWavelengthType);
 
+    getItem(P_AZIMUTHAL_ANGLE)->setVisible(false);
+    getItem(P_POLARIZATION)->setVisible(false);
+
     auto item = addGroupProperty(P_FOOPTPRINT, Constants::FootprintGroup);
     item->setDisplayName(footprint_group_label);
     item->setToolTip("Footprint type");

@@ -65,6 +65,10 @@ void SpecularSimulation::prepareSimulation()
                                  "not properly configured.");
     getInstrument().initDetector();
     Simulation::prepareSimulation();
+    const MultiLayer* sample = m_sample_provider.sample();
+    if (sample->containsMagneticMaterial() || sample->externalField() != kvector_t{})
+        throw std::runtime_error("Error in SpecularSimulation::prepareSimulation: magnetized "
+                                 "samples are not currently handled.");
 }
 
 size_t SpecularSimulation::numberOfSimulationElements() const

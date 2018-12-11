@@ -86,6 +86,10 @@ JobItem *JobModel::addJob(const MultiLayerItem *multiLayerItem,
 
     JobModelFunctions::setupJobItemSampleData(jobItem, multiLayerItem);
     JobModelFunctions::setupJobItemInstrument(jobItem, instrumentItem);
+
+    // TODO: remove when specular instrument is ready for magnetization
+    if (instrumentItem->modelType() == Constants::SpecularInstrumentType)
+        JobModelFunctions::muteMagnetizationData(jobItem);
     copyItem(optionItem, jobItem, JobItem::T_SIMULATION_OPTIONS);
 
     jobItem->getItem(JobItem::P_SAMPLE_NAME)->setValue(multiLayerItem->itemName());

@@ -989,7 +989,7 @@ Pure virtual interface that adapts the CERN ROOT minimizer to our  IMinimizer.
 C++ includes: RootMinimizerAdapter.h
 ";
 
-%feature("docstring")  RootMinimizerAdapter::~RootMinimizerAdapter "RootMinimizerAdapter::~RootMinimizerAdapter()
+%feature("docstring")  RootMinimizerAdapter::~RootMinimizerAdapter "RootMinimizerAdapter::~RootMinimizerAdapter() override
 ";
 
 %feature("docstring")  RootMinimizerAdapter::minimize_scalar "MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override

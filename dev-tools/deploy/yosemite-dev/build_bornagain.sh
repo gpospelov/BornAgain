@@ -5,7 +5,7 @@ export PATH=/Users/vagrant/.pyenv:/usr/local/bin:$QTDIR/bin/:$PATH
 export WORKDIR=/Users/vagrant/build
 rm -r -f $WORKDIR; mkdir -p $WORKDIR; cd $WORKDIR;
 
-git clone --recurse-submodules -b release-1.14.0 https://github.com/develop/BornAgain.git
+git clone --recurse-submodules -b develop https://github.com/scgmlz/BornAgain.git
 
 
 pyversions[1]=2.7.15

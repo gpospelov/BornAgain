@@ -319,14 +319,11 @@ RealSpaceMesoCrystal::RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalIte
     m_total_abundance = total_abundance;
 }
 
-Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal(const IRotation* extra_rotation,
-                                                              kvector_t extra_translation)
+Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
 {
     auto mesoCrystal = m_mesoCrystalItem->createMesoCrystal();
 
     std::unique_ptr<MesoCrystal> M_clone(mesoCrystal->clone()); // clone of the mesoCrystal
-    M_clone->rotate(*extra_rotation);
-    M_clone->translate(extra_translation);
 
     // These methods DO NOT add rotation/tranlation of the mesoCrystal to its children
     // and hence they need to be added manually
@@ -336,8 +333,6 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal(const IRotation* e
 
     auto mesoCrystal_rotation = M_clone->rotation();
     auto mesoCrystal_translation = M_clone->position();
-    if (!mesoCrystal_rotation)
-        mesoCrystal_rotation = IRotation::createIdentity();
 
     Particle3DContainer mesoCrystalBasis3DContainer;
 

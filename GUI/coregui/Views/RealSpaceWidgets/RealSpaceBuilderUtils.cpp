@@ -302,31 +302,6 @@ void RealSpaceBuilderUtils::populate2DParacrystalType(
                                         sceneGeometry, builder3D);
 }
 
-//// Implement Rotation of a 3D particle using parameters from IRotation Object
-// QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*&
-// rotation)
-//{
-//    double alpha = 0.0;
-//    double beta = 0.0;
-//    double gamma = 0.0;
-
-//    if (auto rotX = dynamic_cast<const RotationX*>(rotation)) {
-//        beta = rotX->getAngle(); // about x-axis
-//    } else if (auto rotY = dynamic_cast<const RotationY*>(rotation)) {
-//        alpha = Units::deg2rad(90.0);
-//        beta = rotY->getAngle(); // about y-axis
-//        gamma = Units::deg2rad(-90.0);
-//    } else if (auto rotZ = dynamic_cast<const RotationZ*>(rotation)) {
-//        alpha = rotZ->getAngle(); // about z-axis
-//    } else if (auto rotEuler = dynamic_cast<const RotationEuler*>(rotation)) {
-//        alpha = rotEuler->getAlpha();
-//        beta = rotEuler->getBeta();
-//        gamma = rotEuler->getGamma();
-//    }
-//    return QVector3D(static_cast<float>(alpha), static_cast<float>(beta),
-//                     static_cast<float>(gamma));
-//}
-
 // Implement Rotation of a 3D particle using parameters from IRotation Object
 RealSpace::Vector3D
 RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*& rotation)
@@ -489,13 +464,9 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
 }
 
 Particle3DContainer
-RealSpaceBuilderUtils::singleParticle3DContainer(const Particle& particle, double total_abundance,
-                                                 const IRotation* extra_rotation,
-                                                 kvector_t extra_translation)
+RealSpaceBuilderUtils::singleParticle3DContainer(const Particle& particle, double total_abundance)
 {
     std::unique_ptr<Particle> P_clone(particle.clone()); // clone of the particle
-    P_clone->rotate(*extra_rotation);
-    P_clone->translate(extra_translation);
 
     std::unique_ptr<const IFormFactor> particleff(P_clone->createFormFactor());
     auto ff = getUnderlyingFormFactor(particleff.get());
@@ -513,14 +484,10 @@ RealSpaceBuilderUtils::singleParticle3DContainer(const Particle& particle, doubl
 }
 
 Particle3DContainer RealSpaceBuilderUtils::particleCoreShell3DContainer(
-    const ParticleCoreShell& particleCoreShell, double total_abundance,
-    const IRotation* extra_rotation, kvector_t extra_translation)
+    const ParticleCoreShell& particleCoreShell, double total_abundance)
 {
     // clone of the particleCoreShell
     std::unique_ptr<ParticleCoreShell> PCS_clone(particleCoreShell.clone());
-
-    PCS_clone->rotate(*extra_rotation);
-    PCS_clone->translate(extra_translation);
 
     std::unique_ptr<const IFormFactor> coreParticleff(
         PCS_clone->coreParticle()->createFormFactor());
@@ -553,13 +520,10 @@ Particle3DContainer RealSpaceBuilderUtils::particleCoreShell3DContainer(
 }
 
 Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
-    const ParticleComposition& particleComposition, double total_abundance,
-    const IRotation* extra_rotation, kvector_t extra_translation)
+    const ParticleComposition& particleComposition, double total_abundance)
 {
     // clone of the particleComposition
     std::unique_ptr<ParticleComposition> PC_clone(particleComposition.clone());
-    PC_clone->rotate(*extra_rotation);
-    PC_clone->translate(extra_translation);
 
     SafePointerVector<IParticle> pc_vector = PC_clone->decompose();
 
@@ -614,13 +578,11 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
 }
 
 Particle3DContainer RealSpaceBuilderUtils::mesoCrystal3DContainer(
-    const MesoCrystalItem& mesoCrystalItem, double total_abundance, const IRotation* extra_rotation,
-    kvector_t extra_translation)
+    const MesoCrystalItem& mesoCrystalItem, double total_abundance)
 {
     RealSpaceMesoCrystal mesoCrystalUtils(&mesoCrystalItem, total_abundance);
 
-    Particle3DContainer mesoCrystal3DContainer
-        = mesoCrystalUtils.populateMesoCrystal(extra_rotation, extra_translation);
+    Particle3DContainer mesoCrystal3DContainer = mesoCrystalUtils.populateMesoCrystal();
 
     return mesoCrystal3DContainer;
 }

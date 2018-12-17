@@ -325,7 +325,7 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
 
     std::unique_ptr<MesoCrystal> M_clone(mesoCrystal->clone()); // clone of the mesoCrystal
 
-    // These methods DO NOT add rotation/tranlation of the mesoCrystal to its children
+    // These methods DO NOT add rotation/translation of the mesoCrystal to its children
     // and hence they need to be added manually
     auto lattice = m_mesoCrystalItem->getLattice();
     auto particleBasis = m_mesoCrystalItem->getBasis();
@@ -344,6 +344,13 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
         auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(particleBasis.get());
         mesoCrystalBasis3DContainer
             = RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell);
+    } else if (dynamic_cast<const MesoCrystal*>(particleBasis.get())) {
+        // TODO: Implement method to populate MesoCrystal from core and NOT from MesoCrystalItem
+        // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
+        std::ostringstream ostr;
+        ostr << "Sorry, MesoCrystal inside MesoCrystal not yet implemented";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
     } else {
         auto particle = dynamic_cast<const Particle*>(particleBasis.get());
         mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(*particle);

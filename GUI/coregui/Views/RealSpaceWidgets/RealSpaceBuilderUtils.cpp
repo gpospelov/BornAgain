@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "RealSpaceBuilderUtils.h"
+#include "Exceptions.h"
 #include "FormFactorCrystal.h"
 #include "IFormFactorDecorator.h"
 #include "IParticle.h"
@@ -22,6 +23,7 @@
 #include "LayerItem.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
+#include "MesoCrystal.h"
 #include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "Particle.h"
@@ -535,6 +537,13 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
         if (dynamic_cast<const ParticleCoreShell*>(pc_particle)) {
             auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pc_particle);
             particle3DContainer = particleCoreShell3DContainer(*particleCoreShell);
+        } else if (dynamic_cast<const MesoCrystal*>(pc_particle)) {
+        // TODO: Implement method to populate MesoCrystal from core and NOT from MesoCrystalItem
+        // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
+        std::ostringstream ostr;
+        ostr << "Sorry, MesoCrystal inside ParticleComposition not yet implemented";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
         } else {
             auto particle = dynamic_cast<const Particle*>(pc_particle);
             particle3DContainer = singleParticle3DContainer(*particle);
@@ -568,6 +577,13 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
         } else if (dynamic_cast<const ParticleCoreShell*>(pd_particle)) {
             auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pd_particle);
             particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance);
+        } else if (dynamic_cast<const MesoCrystal*>(pd_particle)) {
+            // TODO: Implement method to populate MesoCrystal from core and NOT from MesoCrystalItem
+            // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
+            std::ostringstream ostr;
+            ostr << "Sorry, MesoCrystal inside ParticleDistribution not yet implemented";
+            ostr << "\n\nStay tuned!";
+            throw Exceptions::ClassInitializationException(ostr.str());
         } else {
             auto particle = dynamic_cast<const Particle*>(pd_particle);
             particle3DContainer = singleParticle3DContainer(*particle, total_abundance);

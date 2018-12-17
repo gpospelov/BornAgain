@@ -177,8 +177,31 @@ void RealSpaceBuilderUtils::populateInterference2DLatticeType(
                                         sceneGeometry, builder3D);
 }
 
+// InterferenceFunctionFinite2DLatticeType
+void RealSpaceBuilderUtils::populateInterferenceFinite2DLatticeType(
+    const IInterferenceFunction* interference, RealSpaceModel* model,
+    const std::vector<Particle3DContainer>& particle3DContainer_vector,
+    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
+{
+    auto interferenceFinite2D = dynamic_cast<const InterferenceFunctionFinite2DLattice*>(interference);
+    const Lattice2D& lattice2D = interferenceFinite2D->lattice();
+
+    int nc1 = static_cast<int>(interferenceFinite2D->numberUnitCells1());
+    int nc2 = static_cast<int>(interferenceFinite2D->numberUnitCells2());
+
+    double posVar = interferenceFinite2D->positionVariance();
+
+    std::vector<std::vector<double>> lattice_positions = computeInterference2DLatticePositions(
+        lattice2D.length1(), lattice2D.length2(), lattice2D.latticeAngle(),
+        lattice2D.rotationAngle(), sceneGeometry, false, true, std::make_pair(nc1, nc2), posVar);
+
+    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
+                                        sceneGeometry, builder3D);
+}
+
 std::vector<std::vector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePositions(
-    double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry)
+    double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry,
+    bool is1D, bool isFinite2D, std::pair<int, int> nCellsFinite2D, double posVarFinite2D)
 {
     double layer_size = sceneGeometry.layer_size();
     std::vector<std::vector<double>> lattice_positions;
@@ -186,16 +209,27 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::computeInterference2DLat
 
     // Estimate the limit n1 and n2 of the integer multiple i and j of the lattice vectors required
     // for populating particles correctly within the 3D model's boundaries
-    int n1 = 0, n2 = 0;
+    int n1 = 0, n2;
     n1 = l1 == 0.0 ? 2 : static_cast<int>(layer_size * 2 / l1);
 
-    // This condition is required when this function is used to compute 1D Lattice positions
-    if (l2 != 0) {
-        n2 = l2 == 0.0 ? 2 : static_cast<int>(layer_size * 2 / l2);
-
-        n1 = std::max(n1, n2);
-        n2 = std::max(n1, n2);
+    if (isFinite2D) { // For Finite 2D Lattice
+        n1 = nCellsFinite2D.first;
+        n2 = nCellsFinite2D.second;
+    } else if(is1D) { // For 1D Lattice
+        Q_ASSERT(l2 == 0);
+        n2 = 0;
+    } else { // For 2D Lattice
+        if (l2 != 0) {
+            n2 = l2 == 0.0 ? 2 : static_cast<int>(layer_size * 2 / l2);
+            n1 = std::max(n1, n2);
+            n2 = std::max(n1, n2);
+        } else {
+            n2 = 0;
+        }
     }
+
+    // used for finding position variance for if lattice is Finite 2D
+    Distribution1DGaussSampler normalDist(0, posVarFinite2D);
 
     for (int i = -n1; i <= n1; ++i) {
         for (int j = -n2; j <= n2; ++j) {
@@ -203,10 +237,21 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::computeInterference2DLat
             // where l1 and l2 are the lattice vectors,
             // i and j are the integer multiples of l1 and l2 respectively
 
+            double posVarX = 0;
+            double posVarY = 0;
+
+            if (isFinite2D) {
+                posVarX = normalDist.randomSample();
+                posVarY = normalDist.randomSample();
+                std::cout <<posVarX<<std::endl;
+                std::cout <<posVarY<<std::endl;
+                std::cout <<"---------------------------"<<std::endl;
+            }
+
             position.push_back(i * l1 * std::cos(l_xi)
-                               + j * l2 * std::cos(l_alpha + l_xi)); // x coordinate
+                               + j * l2 * std::cos(l_alpha + l_xi) + posVarX); // x coordinate
             position.push_back(i * l1 * std::sin(l_xi)
-                               + j * l2 * std::sin(l_alpha + l_xi)); // y coordinate
+                               + j * l2 * std::sin(l_alpha + l_xi) + posVarY); // y coordinate
 
             // no need for z coordinate as all lattice positions are calculated in the xy plane
 
@@ -228,8 +273,10 @@ void RealSpaceBuilderUtils::populateInterference1DLatticeType(
 
     // Simply set the parameters l1 = l, l2 = 0, l_alpha = 0 and l_xi = l_xi in
     // computeInterference2DLatticePositions() to compute lattice positions for 1D Lattice
-    std::vector<std::vector<double>> lattice_positions = computeInterference2DLatticePositions(
-        interference1DParameters.m_length, 0.0, 0.0, interference1DParameters.m_xi, sceneGeometry);
+    std::vector<std::vector<double>> lattice_positions =
+            computeInterference2DLatticePositions(interference1DParameters.m_length, 0.0, 0.0,
+                                                  interference1DParameters.m_xi, sceneGeometry,
+                                                  true);
 
     populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
                                         sceneGeometry, builder3D);

@@ -290,12 +290,13 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double R = ff_TruncatedSphere->getRadius();
         double H = ff_TruncatedSphere->getHeight();
         double deltaH = ff_TruncatedSphere->getRemovedTop();
-        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
-                positionInside.z() < 0 || positionInside.z() > (H-deltaH))
+        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R
+            || positionInside.z() < 0 || positionInside.z() > (H - deltaH))
             return check;
 
         if (std::pow(positionInside.x() / R, 2) + std::pow(positionInside.y() / R, 2)
-                + std::pow((positionInside.z() - (H - R)) / R, 2) <= 1)
+                + std::pow((positionInside.z() - (H - R)) / R, 2)
+            <= 1)
             check = true;
     } else if (dynamic_cast<const FormFactorTruncatedSpheroid*>(outerShape)) {
         // TODO: Implement Truncated spheroid
@@ -345,7 +346,7 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
         mesoCrystalBasis3DContainer
             = RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell);
     } else if (dynamic_cast<const MesoCrystal*>(particleBasis.get())) {
-        // TODO: Implement method to populate MesoCrystal from core and NOT from MesoCrystalItem
+        // TODO: Implement method to populate MesoCrystal from CORE and NOT from MesoCrystalItem
         // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
         std::ostringstream ostr;
         ostr << "Sorry, MesoCrystal inside MesoCrystal not yet implemented";

@@ -70,6 +70,16 @@ BA_CORE_API_ void populateInterference2DLatticeType(
     const std::vector<Particle3DContainer>& particle3DContainer_vector,
     const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
 
+BA_CORE_API_ std::vector<std::vector<double>>
+computeInterference2DLatticePositions(double l1, double l2, double l_alpha, double l_xi,
+                                      const SceneGeometry& sceneGeometry, bool is1D = false);
+
+// InterferenceFunction1DLatticeType
+BA_CORE_API_ void populateInterference1DLatticeType(
+    const IInterferenceFunction* interference, RealSpaceModel* model,
+    const std::vector<Particle3DContainer>& particle3DContainer_vector,
+    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
+
 // InterferenceFunctionFinite2DLatticeType
 BA_CORE_API_ void populateInterferenceFinite2DLatticeType(
     const IInterferenceFunction* interference, RealSpaceModel* model,
@@ -77,17 +87,8 @@ BA_CORE_API_ void populateInterferenceFinite2DLatticeType(
     const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
 
 BA_CORE_API_ std::vector<std::vector<double>>
-computeInterference2DLatticePositions(double l1, double l2, double l_alpha, double l_xi,
-                                      const SceneGeometry& sceneGeometry, bool is1D = false,
-                                      bool isFinite2D = false,
-                                      std::pair<int, int> nCellsFinite2D = std::make_pair<int>(0,0),
-                                      double posVarFinite2D = 0);
-
-// InterferenceFunction1DLatticeType
-BA_CORE_API_ void populateInterference1DLatticeType(
-    const IInterferenceFunction* interference, RealSpaceModel* model,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
+computeInterferenceFinite2DLatticePositions(double l1, double l2, double l_alpha, double l_xi,
+                                            int nc1, int nc2, double posVarFinite2D);
 
 // InterferenceFunctionRadialParacrystalType
 BA_CORE_API_ void

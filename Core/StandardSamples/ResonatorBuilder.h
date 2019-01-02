@@ -23,8 +23,11 @@
 class BA_CORE_API_ ResonatorBuilder : public IMultiLayerBuilder
 {
 public:
-    ResonatorBuilder() = default;
+    ResonatorBuilder();
     MultiLayer* buildSample() const;
+
+private:
+    double m_l_ti; // titanium layer thickness
 };
 
 #endif  // RESONATORBUILDER_H

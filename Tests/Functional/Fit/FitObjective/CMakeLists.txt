@@ -9,6 +9,7 @@ set(test_cases
     LevenbergMarquardtCylindersInBA
     MultiPatternFit
     RectDetectorFit
+    OffSpecFitTest
     # --- slow, but still converging ---
     # SimAnCylindersInBA
     # GeneticCylindersInBA

@@ -94,6 +94,15 @@ protected:
     std::unique_ptr<FitObjective> createFitObjective() const override;
 };
 
+//! Fit for off-specular experiment
+
+class OffSpecFitPlan : public FitPlan
+{
+public:
+    OffSpecFitPlan();
+    ~OffSpecFitPlan() override = default;
+};
+
 #endif  //  FITPLANCASES_H
 
 

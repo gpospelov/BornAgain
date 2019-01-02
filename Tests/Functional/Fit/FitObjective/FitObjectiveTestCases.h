@@ -88,6 +88,8 @@ public:
 
 };
 
+//--------------reflectometry-------------------
+
 class SpecularFitTest : public FitObjectiveTest
 {
 public:
@@ -98,6 +100,14 @@ class MultipleSpecFittingTest : public FitObjectiveTest
 {
 public:
     MultipleSpecFittingTest();
+};
+
+//--------------off-spec-------------------
+
+class OffSpecFitTest : public FitObjectiveTest
+{
+public:
+    OffSpecFitTest();
 };
 
 #endif //   MINIMIZERTESTCASES_H

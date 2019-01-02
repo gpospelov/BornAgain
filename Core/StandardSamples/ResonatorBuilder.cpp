@@ -20,6 +20,13 @@
 #include "Units.h"
 #include <memory>
 
+ResonatorBuilder::ResonatorBuilder()
+    : IMultiLayerBuilder()
+    , m_l_ti(13.0 * Units::nm)
+{
+    registerParameter("ti_thickness", &m_l_ti);
+}
+
 MultiLayer* ResonatorBuilder::buildSample() const
 {
     std::unique_ptr<MultiLayer> result(new MultiLayer);
@@ -32,7 +39,7 @@ MultiLayer* ResonatorBuilder::buildSample() const
 
     Layer l_TiO2(m_TiO2, 3.0 * Units::nm);
     Layer l_Ti_top(m_Ti, 10.0 * Units::nm);
-    Layer l_Ti(m_Ti, 13.0 * Units::nm);
+    Layer l_Ti(m_Ti, m_l_ti);
     Layer l_Si(m_Si);
     Layer l_Pt(m_Pt, 32.0 * Units::nm);
     Layer l_D2O(m_D2O);

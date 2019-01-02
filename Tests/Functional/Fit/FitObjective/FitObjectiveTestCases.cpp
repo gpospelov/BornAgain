@@ -61,3 +61,6 @@ SpecularFitTest::SpecularFitTest()
 
 MultipleSpecFittingTest::MultipleSpecFittingTest()
     : FitObjectiveTest("Minuit2", "Migrad", "MultipleSpecPlan") {}
+
+OffSpecFitTest::OffSpecFitTest()
+    : FitObjectiveTest("Minuit2", "Migrad", "OffSpecFitPlan") {}

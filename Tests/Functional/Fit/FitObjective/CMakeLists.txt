@@ -4,10 +4,9 @@ set(test_cases
     MigradCylindersInBA
     MigradResidualCylindersInBA
     SpecularFitTest
-    MultipleSpecFittingTest    
+    MultipleSpecFittingTest
     FumuliCylindersInBA
     LevenbergMarquardtCylindersInBA
-    MultiPatternFit
     RectDetectorFit
     OffSpecFitTest
     # --- slow, but still converging ---

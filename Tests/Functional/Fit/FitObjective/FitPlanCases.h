@@ -56,19 +56,6 @@ protected:
     std::unique_ptr<Simulation> createSimulation(const Fit::Parameters&) const;
 };
 
-//! FIXME Reproduces conditions of FitSuite/MultiPatternFitTest. After cleanup of FitSuite, given
-//! test can be also removed, since it doesn't demonstrate/check any new fit machinery.
-
-class MultiPatternPlan : public FitPlan
-{
-public:
-    MultiPatternPlan();
-    ~MultiPatternPlan();
-
-protected:
-    std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
-};
-
 //! Plan for fitting reflectometry curve on Ti/Ni multilayer
 
 class SpecularPlan : public FitPlan

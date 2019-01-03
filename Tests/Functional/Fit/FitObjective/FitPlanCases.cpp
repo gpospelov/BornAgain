@@ -94,42 +94,6 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
 
 // ----------------------------------------------------------------------------
 
-MultiPatternPlan::MultiPatternPlan()
-    : FitPlan("MultiPatternPlan", true)
-{
-    setSimulationName("MiniGISAS");
-    addParameter(Parameter("length", 8.5*nm, AttLimits::limited(4.0, 12.0), 0.01), 8.0*nm);
-}
-
-MultiPatternPlan::~MultiPatternPlan() = default;
-
-std::unique_ptr<MultiLayer> MultiPatternPlan::createMultiLayer(const Parameters& params) const
-{
-    double custom_length = params["length"].value();
-
-    std::unique_ptr<MultiLayer> result(new MultiLayer);
-
-    Particle cylinder(HomogeneousMaterial("Particle", 6e-4, 2e-8),
-                      FormFactorCylinder(custom_length, custom_length));
-    ParticleLayout layout(cylinder);
-
-    std::unique_ptr<InterferenceFunction2DLattice> interference(
-                InterferenceFunction2DLattice::createSquare(custom_length));
-    interference->setDecayFunction(FTDecayFunction2DCauchy(50.0*Units::nm, 50.0*Units::nm));
-
-    layout.setInterferenceFunction(*interference);
-
-    Layer air_layer(HomogeneousMaterial("Air", 0.0, 0.0));
-    air_layer.addLayout(layout);
-    Layer substrate_layer(HomogeneousMaterial("Substrate", 6e-6, 2e-8));
-
-    result->addLayer(air_layer);
-    result->addLayer(substrate_layer);
-    return result;
-}
-
-// ----------------------------------------------------------------------------
-
 SpecularPlan::SpecularPlan()
     : SpecularPlan("SpecularPlan")
 {}

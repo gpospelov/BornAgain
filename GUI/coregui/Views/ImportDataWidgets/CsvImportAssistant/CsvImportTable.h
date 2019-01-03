@@ -76,7 +76,7 @@ private:
     void setHeaders();
     int rowOffset() const { return 1; } // this comes from the multipliers in the first row
 
-    std::unique_ptr<CsvIntensityColumn> m_intensityCol;
+    std::unique_ptr<CsvCoordinateColumn> m_intensityCol;
     std::unique_ptr<CsvCoordinateColumn> m_coordinateCol;
     size_t m_firstRow;
     size_t m_lastRow;

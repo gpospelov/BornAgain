@@ -36,7 +36,6 @@ public:
     void setMultiplier(double const multiplier);
     void setValues(csv::DataColumn const values);
     void resetColumn(int colNum = -1, double multiplier = 1., csv::DataColumn values = {});
-    CsvIntensityColumn& operator=(const CsvIntensityColumn colToRep);
 
 private:
     int m_colNum;
@@ -61,7 +60,6 @@ public:
     void setName(csv::ColumnType const name);
     void resetColumn(int colNum = -1, double multiplier = 1., csv::DataColumn values = {},
                      AxesUnits units = AxesUnits::NBINS, csv::ColumnType name = csv::_intensity_);
-    CsvCoordinateColumn& operator=(const CsvCoordinateColumn colToRep);
 
 private:
     AxesUnits m_units;

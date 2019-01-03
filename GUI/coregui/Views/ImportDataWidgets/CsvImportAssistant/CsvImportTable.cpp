@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "CsvImportTable.h"
+#include "ScientificSpinBox.h"
 
 namespace {
 

@@ -17,11 +17,6 @@
 
 #include "CsvDataColumn.h"
 #include "CsvNamespace.h"
-#include "IUnitConverter.h"
-#include <QDoubleSpinBox>
-#include "ScientificSpinBox.h"
-#include <QMenu>
-#include <QStringList>
 #include <QTableWidget>
 #include <set>
 

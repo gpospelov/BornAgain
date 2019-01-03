@@ -150,6 +150,11 @@ void RealSpaceBuilder::populateInterference(
         RealSpaceBuilderUtils::populateInterference2DLatticeType(
             interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
 
+    // If interference type is Finite 2D Lattice
+    if (interferenceLattice->modelType() == Constants::InterferenceFunctionFinite2DLatticeType)
+        RealSpaceBuilderUtils::populateInterferenceFinite2DLatticeType(
+            interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
+
     // If interference type is 1D Lattice
     else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType)
         RealSpaceBuilderUtils::populateInterference1DLatticeType(

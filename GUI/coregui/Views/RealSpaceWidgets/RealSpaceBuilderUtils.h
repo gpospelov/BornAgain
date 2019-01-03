@@ -20,6 +20,7 @@
 #include <QVector3D>
 #include <Vectors3D.h>
 #include <memory>
+#include <utility>
 
 class RealSpaceModel;
 class SessionItem;
@@ -71,13 +72,23 @@ BA_CORE_API_ void populateInterference2DLatticeType(
 
 BA_CORE_API_ std::vector<std::vector<double>>
 computeInterference2DLatticePositions(double l1, double l2, double l_alpha, double l_xi,
-                                      const SceneGeometry& sceneGeometry);
+                                      const SceneGeometry& sceneGeometry, bool is1D = false);
 
 // InterferenceFunction1DLatticeType
 BA_CORE_API_ void populateInterference1DLatticeType(
     const IInterferenceFunction* interference, RealSpaceModel* model,
     const std::vector<Particle3DContainer>& particle3DContainer_vector,
     const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
+
+// InterferenceFunctionFinite2DLatticeType
+BA_CORE_API_ void populateInterferenceFinite2DLatticeType(
+    const IInterferenceFunction* interference, RealSpaceModel* model,
+    const std::vector<Particle3DContainer>& particle3DContainer_vector,
+    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
+
+BA_CORE_API_ std::vector<std::vector<double>>
+computeInterferenceFinite2DLatticePositions(double l1, double l2, double l_alpha, double l_xi,
+                                            int nc1, int nc2, double posVarFinite2D);
 
 // InterferenceFunctionRadialParacrystalType
 BA_CORE_API_ void
@@ -115,29 +126,21 @@ BA_CORE_API_ void applyParticleColor(const Particle& particle,
 BA_CORE_API_ std::vector<Particle3DContainer>
 particle3DContainerVector(const SessionItem& layoutItem);
 
-BA_CORE_API_ Particle3DContainer
-singleParticle3DContainer(const Particle& particle, double total_abundance = 1.0,
-                          const IRotation* extra_rotation = IRotation::createIdentity(),
-                          kvector_t extra_translation = kvector_t(0, 0, 0));
+BA_CORE_API_ Particle3DContainer singleParticle3DContainer(const Particle& particle,
+                                                           double total_abundance = 1.0);
 
 BA_CORE_API_ Particle3DContainer particleCoreShell3DContainer(
-    const ParticleCoreShell& particleCoreShell, double total_abundance = 1.0,
-    const IRotation* extra_rotation = IRotation::createIdentity(),
-    kvector_t extra_translation = kvector_t(0, 0, 0));
+    const ParticleCoreShell& particleCoreShell, double total_abundance = 1.0);
 
 BA_CORE_API_ Particle3DContainer particleComposition3DContainer(
-    const ParticleComposition& particleComposition3DContainer, double total_abundance = 1.0,
-    const IRotation* extra_rotation = IRotation::createIdentity(),
-    kvector_t extra_translation = kvector_t(0, 0, 0));
+    const ParticleComposition& particleComposition3DContainer, double total_abundance = 1.0);
 
 BA_CORE_API_ std::vector<Particle3DContainer>
 particleDistribution3DContainer(const ParticleDistribution& particleDistribution,
                                 double total_abundance = 1.0);
 
-BA_CORE_API_ Particle3DContainer
-mesoCrystal3DContainer(const MesoCrystalItem& mesoCrystalItem, double total_abundance = 1.0,
-                       const IRotation* extra_rotation = IRotation::createIdentity(),
-                       kvector_t extra_translation = kvector_t(0, 0, 0));
+BA_CORE_API_ Particle3DContainer mesoCrystal3DContainer(const MesoCrystalItem& mesoCrystalItem,
+                                                        double total_abundance = 1.0);
 
 } // namespace RealSpaceBuilderUtils
 

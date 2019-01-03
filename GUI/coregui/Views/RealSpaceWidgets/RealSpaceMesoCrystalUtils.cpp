@@ -290,12 +290,13 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double R = ff_TruncatedSphere->getRadius();
         double H = ff_TruncatedSphere->getHeight();
         double deltaH = ff_TruncatedSphere->getRemovedTop();
-        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R ||
-                positionInside.z() < 0 || positionInside.z() > (H-deltaH))
+        if (std::abs(positionInside.x()) > R || std::abs(positionInside.y()) > R
+            || positionInside.z() < 0 || positionInside.z() > (H - deltaH))
             return check;
 
         if (std::pow(positionInside.x() / R, 2) + std::pow(positionInside.y() / R, 2)
-                + std::pow((positionInside.z() - (H - R)) / R, 2) <= 1)
+                + std::pow((positionInside.z() - (H - R)) / R, 2)
+            <= 1)
             check = true;
     } else if (dynamic_cast<const FormFactorTruncatedSpheroid*>(outerShape)) {
         // TODO: Implement Truncated spheroid
@@ -319,16 +320,13 @@ RealSpaceMesoCrystal::RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalIte
     m_total_abundance = total_abundance;
 }
 
-Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal(const IRotation* extra_rotation,
-                                                              kvector_t extra_translation)
+Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
 {
     auto mesoCrystal = m_mesoCrystalItem->createMesoCrystal();
 
     std::unique_ptr<MesoCrystal> M_clone(mesoCrystal->clone()); // clone of the mesoCrystal
-    M_clone->rotate(*extra_rotation);
-    M_clone->translate(extra_translation);
 
-    // These methods DO NOT add rotation/tranlation of the mesoCrystal to its children
+    // These methods DO NOT add rotation/translation of the mesoCrystal to its children
     // and hence they need to be added manually
     auto lattice = m_mesoCrystalItem->getLattice();
     auto particleBasis = m_mesoCrystalItem->getBasis();
@@ -336,8 +334,6 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal(const IRotation* e
 
     auto mesoCrystal_rotation = M_clone->rotation();
     auto mesoCrystal_translation = M_clone->position();
-    if (!mesoCrystal_rotation)
-        mesoCrystal_rotation = IRotation::createIdentity();
 
     Particle3DContainer mesoCrystalBasis3DContainer;
 
@@ -349,6 +345,13 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal(const IRotation* e
         auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(particleBasis.get());
         mesoCrystalBasis3DContainer
             = RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell);
+    } else if (dynamic_cast<const MesoCrystal*>(particleBasis.get())) {
+        // TODO: Implement method to populate MesoCrystal from CORE and NOT from MesoCrystalItem
+        // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
+        std::ostringstream ostr;
+        ostr << "Sorry, MesoCrystal inside MesoCrystal not yet implemented";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
     } else {
         auto particle = dynamic_cast<const Particle*>(particleBasis.get());
         mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(*particle);

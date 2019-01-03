@@ -66,7 +66,6 @@ public:
 
 protected:
     SpecularPlan(std::string name);
-    std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const override;
 };
 
 //! The same as SpecularPlan, but with two (identical) datasets

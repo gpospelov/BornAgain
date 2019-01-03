@@ -104,34 +104,9 @@ SpecularPlan::SpecularPlan(std::string name)
     : FitPlan(name, /*residual_based = */ true)
 {
     setSimulationName("BasicSpecular");
-    addParameter(Parameter("thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
+    setBuilderName("PlainMultiLayerBySLDBuilder");
+    addParameter(Parameter("ti_thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
                  3.0 * nm);
-}
-
-std::unique_ptr<MultiLayer> SpecularPlan::createMultiLayer(const Fit::Parameters& params) const
-{
-    const size_t number_of_layers = 10;
-    double thick_ni = 7.0 * nm;
-    double thick_ti = params["thickness"].value();
-
-    Material vacuum_material = MaterialBySLD();
-    Material substrate_material = MaterialBySLD("Si_substrate", 2.0704e-06, 2.3726e-11);
-    Material ni_material = MaterialBySLD("Ni", -1.9493e-06, 9.6013e-10);
-    Material ti_material = MaterialBySLD("Ti", 9.4245e-06, 1.1423e-09);
-
-    Layer vacuum_layer(vacuum_material, 0);
-    Layer ni_layer(ni_material, thick_ni);
-    Layer ti_layer(ti_material, thick_ti);
-    Layer substrate_layer(substrate_material, 0);
-
-    std::unique_ptr<MultiLayer> multi_layer(new MultiLayer());
-    multi_layer->addLayer(vacuum_layer);
-    for (size_t i = 0; i < number_of_layers; ++i) {
-        multi_layer->addLayer(ti_layer);
-        multi_layer->addLayer(ni_layer);
-    }
-    multi_layer->addLayer(substrate_layer);
-    return multi_layer;
 }
 
 // ----------------------------------------------------------------------------

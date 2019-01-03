@@ -84,26 +84,4 @@ private:
     bool m_dataLooksGood;
 };
 
-class CsvMultiplierField : public ScientificSpinBox
-{
-    Q_OBJECT
-public:
-    CsvMultiplierField(double multiplier = 1.0, bool enabled = false, QWidget* parent = nullptr)
-        : ScientificSpinBox(parent)
-    {
-        if (enabled) {
-            setMaximum(1e10);
-            setMinimum(1e-10);
-            setDecimals(10);
-            setValue(multiplier);
-        } else {
-            setMaximum(1);
-            setMinimum(1);
-            setDecimals(1);
-            setValue(multiplier);
-        }
-        setEnabled(enabled);
-    }
-};
-
 #endif // CSVIMPORTTABLE_H

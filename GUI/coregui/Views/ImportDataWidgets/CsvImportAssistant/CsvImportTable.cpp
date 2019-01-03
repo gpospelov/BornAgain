@@ -14,6 +14,18 @@
 
 #include "CsvImportTable.h"
 
+namespace {
+
+ScientificSpinBox* createMultiplierBox(double value = 1.0, bool enabled = false,
+                                       QWidget* parent = nullptr)
+{
+    auto result = new ScientificSpinBox(parent);
+    result->setValue(value);
+    result->setEnabled(enabled);
+    return result;
+}
+}
+
 CsvImportTable::CsvImportTable(QWidget* parent) : QTableWidget(parent)
 {
     m_coordinateCol = std::make_unique<CsvCoordinateColumn>();
@@ -93,23 +105,23 @@ void CsvImportTable::setMultiplierFields()
     auto coordMult = m_coordinateCol->multiplier();
 
     for (int n = 0; n < ncols; ++n) {
-        CsvMultiplierField* currentField;
+        ScientificSpinBox* currentField;
         if (n == intCol) {
-            currentField = new CsvMultiplierField(intMult, true);
-            connect(currentField, &CsvMultiplierField::editingFinished, this,
+            currentField = createMultiplierBox(intMult, true);
+            connect(currentField, &ScientificSpinBox::editingFinished, this,
                     [this, currentField]() {
                         m_intensityCol->setMultiplier(currentField->value());
                         updateSelection();
                     });
         } else if (n == coordCol) {
-            currentField = new CsvMultiplierField(coordMult, true);
-            connect(currentField, &CsvMultiplierField::editingFinished, this,
+            currentField = createMultiplierBox(coordMult, true);
+            connect(currentField, &ScientificSpinBox::editingFinished, this,
                     [this, currentField]() {
                         m_coordinateCol->setMultiplier(currentField->value());
                         updateSelection();
                     });
         } else {
-            currentField = new CsvMultiplierField();
+            currentField = createMultiplierBox();
         }
         this->setCellWidget(0, n, currentField);
     }

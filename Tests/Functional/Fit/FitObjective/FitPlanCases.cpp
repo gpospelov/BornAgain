@@ -95,13 +95,7 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
 // ----------------------------------------------------------------------------
 
 SpecularPlan::SpecularPlan()
-    : SpecularPlan("SpecularPlan")
-{}
-
-SpecularPlan::~SpecularPlan() = default;
-
-SpecularPlan::SpecularPlan(std::string name)
-    : FitPlan(name, /*residual_based = */ true)
+    : FitPlan("SpecularPlan", /*residual_based = */ true)
 {
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -109,11 +103,18 @@ SpecularPlan::SpecularPlan(std::string name)
                  3.0 * nm);
 }
 
+SpecularPlan::~SpecularPlan() = default;
+
 // ----------------------------------------------------------------------------
 
 MultipleSpecPlan::MultipleSpecPlan()
-    : SpecularPlan("MultipleSpecPlan")
-{}
+    : FitPlan("MultipleSpecPlan", /*residual_based = */ true)
+{
+    setSimulationName("BasicSpecular");
+    setBuilderName("PlainMultiLayerBySLDBuilder");
+    addParameter(Parameter("ti_thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
+                 3.0 * nm);
+}
 
 MultipleSpecPlan::~MultipleSpecPlan() = default;
 

@@ -63,14 +63,11 @@ class SpecularPlan : public FitPlan
 public:
     SpecularPlan();
     ~SpecularPlan() override;
-
-protected:
-    SpecularPlan(std::string name);
 };
 
 //! The same as SpecularPlan, but with two (identical) datasets
 
-class MultipleSpecPlan : public SpecularPlan
+class MultipleSpecPlan : public FitPlan
 {
 public:
     MultipleSpecPlan();

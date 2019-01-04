@@ -27,7 +27,14 @@ public:
 
     CsvImportData(QObject* parent = nullptr);
 
+    void setData(csv::DataArray data);
+
+    // accessors
+    const csv::DataArray& data() const;
+    int column(DATA_TYPE type) const;
+
 private:
+    std::unique_ptr<const csv::DataArray> m_data;
     std::map<DATA_TYPE, CsvCoordinateColumn> m_selected_cols;
     std::vector<bool> m_discard_mask;
 };
@@ -36,6 +43,12 @@ class CsvImportTable_ : public QTableWidget
 {
 public:
     CsvImportTable_(QWidget* parent = nullptr);
+
+    void setData(csv::DataArray data);
+
+    // accessors
+    int intensityColumn() const { return m_import_data->column(CsvImportData::Intensity); }
+    int coordinateColumn() const { return m_import_data->column(CsvImportData::Coordinate); }
 
 private:
     CsvImportData* m_import_data;

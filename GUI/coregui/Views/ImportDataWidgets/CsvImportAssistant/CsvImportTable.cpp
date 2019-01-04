@@ -29,12 +29,59 @@ ScientificSpinBox* createMultiplierBox(double value = 1.0, bool enabled = false,
 
 CsvImportData::CsvImportData(QObject* parent)
     :QObject(parent)
+    , m_data(new csv::DataArray)
 {}
+
+void CsvImportData::setData(csv::DataArray data)
+{
+    m_data.reset(new csv::DataArray(std::move(data)));
+    m_selected_cols.clear();
+    m_discard_mask = std::vector<bool>(m_data->size(), false);
+}
+
+const csv::DataArray& CsvImportData::data() const
+{
+    return *m_data.get();
+}
+
+int CsvImportData::column(DATA_TYPE type) const
+{
+    auto iter = m_selected_cols.find(type);
+    return iter == m_selected_cols.end() ? -1 : iter->second.columnNumber();
+}
 
 CsvImportTable_::CsvImportTable_(QWidget* parent)
     : QTableWidget(parent)
     , m_import_data(new CsvImportData(this))
 {}
+
+void CsvImportTable_::setData(csv::DataArray data)
+{
+    if (data.empty()) {
+        clearContents();
+        setRowCount(0);
+        m_import_data->setData(std::move(data));
+        return;
+    }
+
+    size_t nRows = data.size();
+    size_t nCols = data[0].size();
+    this->clearContents();
+    this->setColumnCount(int(nCols));
+    this->setRowCount(0);
+
+    this->insertRow(this->rowCount());
+
+    for (size_t i = 0; i < nRows; i++) {
+        this->insertRow(this->rowCount());
+        size_t I = size_t(this->rowCount()) - 1;
+        for (size_t j = 0; j < data[i].size(); j++) {
+            this->setItem(int(I), int(j), new QTableWidgetItem(QString::fromStdString(data[i][j])));
+        }
+    }
+
+    m_import_data->setData(std::move(data));
+}
 
 CsvImportTable::CsvImportTable(QWidget* parent) : QTableWidget(parent)
 {

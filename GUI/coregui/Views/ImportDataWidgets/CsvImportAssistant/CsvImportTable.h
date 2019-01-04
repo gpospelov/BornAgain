@@ -23,15 +23,21 @@
 class BA_CORE_API_ CsvImportData : public QObject
 {
 public:
-    enum DATA_TYPE {Intensity, Coordinate};
+    enum DATA_TYPE { Intensity, Coordinate };
 
     CsvImportData(QObject* parent = nullptr);
 
     void setData(csv::DataArray data);
+    //! sets _type_ to a column _col_. Returns the
+    //! column number previously set to the type
+    int setColumnAs(int col, csv::ColumnType type);
 
     // accessors
     const csv::DataArray& data() const;
     int column(DATA_TYPE type) const;
+    csv::DataColumn valuesFromColumn(int col) const;
+    size_t nCols() const;
+    size_t nRows() const;
 
 private:
     std::unique_ptr<const csv::DataArray> m_data;
@@ -45,12 +51,16 @@ public:
     CsvImportTable_(QWidget* parent = nullptr);
 
     void setData(csv::DataArray data);
+    void setColumnAs(int col, csv::ColumnType type);
 
     // accessors
     int intensityColumn() const { return m_import_data->column(CsvImportData::Intensity); }
     int coordinateColumn() const { return m_import_data->column(CsvImportData::Coordinate); }
 
 private:
+    void resetColumn(int col);
+    int rowOffset() const { return 1; } // this comes from the multipliers in the first row
+
     CsvImportData* m_import_data;
 };
 

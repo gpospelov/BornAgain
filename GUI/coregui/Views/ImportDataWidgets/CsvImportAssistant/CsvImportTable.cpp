@@ -39,6 +39,28 @@ void CsvImportData::setData(csv::DataArray data)
     m_discard_mask = std::vector<bool>(m_data->size(), false);
 }
 
+int CsvImportData::setColumnAs(int col, csv::ColumnType type)
+{
+    DATA_TYPE role = type == csv::_intensity_ ? Intensity : Coordinate;
+
+    CsvCoordinateColumn& column = m_selected_cols[role];
+    const int prev_assigned = column.columnNumber();
+    if (prev_assigned == col)
+        return prev_assigned;
+
+    for (auto iter = m_selected_cols.begin(); iter != m_selected_cols.end();)
+        if (iter->second.columnNumber() == col)
+            iter = m_selected_cols.erase(iter);
+        else
+            ++iter;
+
+    column.setColNum(col);
+    column.setMultiplier(1.0); // resetting multiplier value
+    column.setValues(valuesFromColumn(col));
+    column.setName(type);
+    return prev_assigned;
+}
+
 const csv::DataArray& CsvImportData::data() const
 {
     return *m_data.get();
@@ -48,6 +70,30 @@ int CsvImportData::column(DATA_TYPE type) const
 {
     auto iter = m_selected_cols.find(type);
     return iter == m_selected_cols.end() ? -1 : iter->second.columnNumber();
+}
+
+csv::DataColumn CsvImportData::valuesFromColumn(int col) const
+{
+    if (col < 0 || col >= static_cast<int>(nCols()))
+        return {};
+
+    const size_t size = m_data->size();
+    csv::DataColumn result(size);
+    for (size_t i = 0; i < size; ++i)
+        result[i] = (*m_data)[i][static_cast<size_t>(col)];
+    return result;
+}
+
+size_t CsvImportData::nCols() const
+{
+    if (nRows() == 0)
+        return 0;
+    return (*m_data)[0].size();
+}
+
+size_t CsvImportData::nRows() const
+{
+    return (*m_data).size();
 }
 
 CsvImportTable_::CsvImportTable_(QWidget* parent)
@@ -81,6 +127,24 @@ void CsvImportTable_::setData(csv::DataArray data)
     }
 
     m_import_data->setData(std::move(data));
+}
+
+void CsvImportTable_::setColumnAs(int col, csv::ColumnType type)
+{
+    int prev_col = m_import_data->setColumnAs(col, type);
+    resetColumn(prev_col);
+}
+
+void CsvImportTable_::resetColumn(int col)
+{
+    if (columnCount() >= col || col < 0)
+        return;
+
+    const csv::DataColumn data = m_import_data->valuesFromColumn(col);
+    for (size_t i = 0; i < data.size(); i++) {
+        QString originalText = QString::fromStdString(data[i]);
+        setItem(static_cast<int>(i) + rowOffset(), int(col), new QTableWidgetItem(originalText));
+    }
 }
 
 CsvImportTable::CsvImportTable(QWidget* parent) : QTableWidget(parent)

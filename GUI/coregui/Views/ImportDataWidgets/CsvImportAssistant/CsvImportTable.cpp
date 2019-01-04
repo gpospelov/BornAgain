@@ -27,6 +27,15 @@ ScientificSpinBox* createMultiplierBox(double value = 1.0, bool enabled = false,
 }
 }
 
+CsvImportData::CsvImportData(QObject* parent)
+    :QObject(parent)
+{}
+
+CsvImportTable_::CsvImportTable_(QWidget* parent)
+    : QTableWidget(parent)
+    , m_import_data(new CsvImportData(this))
+{}
+
 CsvImportTable::CsvImportTable(QWidget* parent) : QTableWidget(parent)
 {
     m_coordinateCol = std::make_unique<CsvCoordinateColumn>();

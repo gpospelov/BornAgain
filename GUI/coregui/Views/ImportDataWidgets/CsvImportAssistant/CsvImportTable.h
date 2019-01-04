@@ -20,6 +20,27 @@
 #include <QTableWidget>
 #include <set>
 
+class BA_CORE_API_ CsvImportData : public QObject
+{
+public:
+    enum DATA_TYPE {Intensity, Coordinate};
+
+    CsvImportData(QObject* parent = nullptr);
+
+private:
+    std::map<DATA_TYPE, CsvCoordinateColumn> m_selected_cols;
+    std::vector<bool> m_discard_mask;
+};
+
+class CsvImportTable_ : public QTableWidget
+{
+public:
+    CsvImportTable_(QWidget* parent = nullptr);
+
+private:
+    CsvImportData* m_import_data;
+};
+
 class CsvImportTable : public QTableWidget
 {
     Q_OBJECT

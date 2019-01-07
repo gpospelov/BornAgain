@@ -64,12 +64,12 @@ TEST_F(TestCsvImportData, test_data_columns)
     EXPECT_EQ(model.column(CsvImportData::Intensity), 0);
     EXPECT_EQ(model.column(CsvImportData::Coordinate), 1);
 
-    EXPECT_EQ(model.valuesFromColumn(-1), csv::DataColumn());
-    EXPECT_EQ(model.valuesFromColumn(2), csv::DataColumn());
+    EXPECT_EQ(model.values(-1), csv::DataColumn());
+    EXPECT_EQ(model.values(2), csv::DataColumn());
     csv::DataColumn result0 {"1.0", "3.0", "5.0"};
-    EXPECT_EQ(model.valuesFromColumn(0), result0);
+    EXPECT_EQ(model.values(0), result0);
     csv::DataColumn result1 {"2.0", "4.0", "6.0"};
-    EXPECT_EQ(model.valuesFromColumn(1), result1);
+    EXPECT_EQ(model.values(1), result1);
 }
 
 TEST_F(TestCsvImportData, test_multpiliers)

@@ -56,7 +56,7 @@ int CsvImportData::setColumnAs(int col, csv::ColumnType type)
 
     column.setColNum(col);
     column.setMultiplier(1.0); // resetting multiplier value
-    column.setValues(valuesFromColumn(col));
+    column.setValues(values(col));
     column.setName(type);
     return prev_assigned;
 }
@@ -85,7 +85,7 @@ int CsvImportData::column(DATA_TYPE type) const
     return iter == m_selected_cols.end() ? -1 : iter->second.columnNumber();
 }
 
-csv::DataColumn CsvImportData::valuesFromColumn(int col) const
+csv::DataColumn CsvImportData::values(int col) const
 {
     if (col < 0 || col >= static_cast<int>(nCols()))
         return {};
@@ -105,12 +105,12 @@ csv::DataColumn CsvImportData::multipliedValues(DATA_TYPE type) const
         return result;
 
     double mult_value = multiplier(type);
-    csv::DataColumn values = valuesFromColumn(col);
-    result.resize(values.size());
+    csv::DataColumn col_values = values(col);
+    result.resize(col_values.size());
     // FIXME: seems that csv::DataColumn and related
     // classes can be based on QString
-    for (size_t i = 0; i < values.size(); i++) {
-        auto currentText = QString::fromStdString(values[i]);
+    for (size_t i = 0; i < col_values.size(); i++) {
+        auto currentText = QString::fromStdString(col_values[i]);
         double number = mult_value * currentText.toDouble();
         // FIXME: find more elegant way to distinguish non-numerics
         QString textToWrite = 0.0 == number ? currentText : QString::number(number);
@@ -237,7 +237,7 @@ void CsvImportTable_::resetColumn(int col)
     if (columnCount() >= col || col < 0)
         return;
 
-    const csv::DataColumn data = m_import_data->valuesFromColumn(col);
+    const csv::DataColumn data = m_import_data->values(col);
     for (size_t i = 0; i < data.size(); i++) {
         QString originalText = QString::fromStdString(data[i]);
         setItem(static_cast<int>(i) + rowOffset(), int(col), new QTableWidgetItem(originalText));

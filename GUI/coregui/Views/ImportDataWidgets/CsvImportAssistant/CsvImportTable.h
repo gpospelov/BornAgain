@@ -38,7 +38,7 @@ public:
     static std::vector<DATA_TYPE> availableTypes();
     const csv::DataArray& data() const;
     int column(DATA_TYPE type) const;
-    csv::DataColumn valuesFromColumn(int col) const;
+    csv::DataColumn values(int col) const;
     csv::DataColumn multipliedValues(DATA_TYPE type) const;
     double multiplier(DATA_TYPE type) const;
     size_t nCols() const;

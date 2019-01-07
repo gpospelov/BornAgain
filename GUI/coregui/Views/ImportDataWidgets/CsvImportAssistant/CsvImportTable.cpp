@@ -154,17 +154,17 @@ void CsvImportTable_::setData(csv::DataArray data)
 
     size_t nRows = data.size();
     size_t nCols = data[0].size();
-    this->clearContents();
-    this->setColumnCount(int(nCols));
-    this->setRowCount(0);
+    clearContents();
+    setColumnCount(int(nCols));
+    setRowCount(0);
 
-    this->insertRow(this->rowCount());
+    insertRow(rowCount());
 
     for (size_t i = 0; i < nRows; i++) {
-        this->insertRow(this->rowCount());
-        size_t I = size_t(this->rowCount()) - 1;
+        insertRow(rowCount());
+        size_t I = size_t(rowCount()) - 1;
         for (size_t j = 0; j < data[i].size(); j++) {
-            this->setItem(int(I), int(j), new QTableWidgetItem(QString::fromStdString(data[i][j])));
+            setItem(int(I), int(j), new QTableWidgetItem(QString::fromStdString(data[i][j])));
         }
     }
 

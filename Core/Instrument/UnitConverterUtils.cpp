@@ -60,6 +60,9 @@ std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const Simula
     } else if (auto probe = dynamic_cast<const DepthProbeSimulation*>(&simulation)) {
         return probe->createUnitConverter();
 
+    } else if (auto off_spec = dynamic_cast<const OffSpecSimulation*>(&simulation)) {
+        return off_spec->createUnitConverter();
+
     } else {
         throw std::runtime_error("UnitConverterUtils::createConverter -> "
                                  "Not implemented simulation.");

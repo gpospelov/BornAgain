@@ -94,87 +94,27 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
 
 // ----------------------------------------------------------------------------
 
-MultiPatternPlan::MultiPatternPlan()
-    : FitPlan("MultiPatternPlan", true)
-{
-    setSimulationName("MiniGISAS");
-    addParameter(Parameter("length", 8.5*nm, AttLimits::limited(4.0, 12.0), 0.01), 8.0*nm);
-}
-
-MultiPatternPlan::~MultiPatternPlan() = default;
-
-std::unique_ptr<MultiLayer> MultiPatternPlan::createMultiLayer(const Parameters& params) const
-{
-    double custom_length = params["length"].value();
-
-    std::unique_ptr<MultiLayer> result(new MultiLayer);
-
-    Particle cylinder(HomogeneousMaterial("Particle", 6e-4, 2e-8),
-                      FormFactorCylinder(custom_length, custom_length));
-    ParticleLayout layout(cylinder);
-
-    std::unique_ptr<InterferenceFunction2DLattice> interference(
-                InterferenceFunction2DLattice::createSquare(custom_length));
-    interference->setDecayFunction(FTDecayFunction2DCauchy(50.0*Units::nm, 50.0*Units::nm));
-
-    layout.setInterferenceFunction(*interference);
-
-    Layer air_layer(HomogeneousMaterial("Air", 0.0, 0.0));
-    air_layer.addLayout(layout);
-    Layer substrate_layer(HomogeneousMaterial("Substrate", 6e-6, 2e-8));
-
-    result->addLayer(air_layer);
-    result->addLayer(substrate_layer);
-    return result;
-}
-
-// ----------------------------------------------------------------------------
-
 SpecularPlan::SpecularPlan()
-    : SpecularPlan("SpecularPlan")
-{}
-
-SpecularPlan::~SpecularPlan() = default;
-
-SpecularPlan::SpecularPlan(std::string name)
-    : FitPlan(name, /*residual_based = */ true)
+    : FitPlan("SpecularPlan", /*residual_based = */ true)
 {
     setSimulationName("BasicSpecular");
-    addParameter(Parameter("thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
+    setBuilderName("PlainMultiLayerBySLDBuilder");
+    addParameter(Parameter("ti_thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
                  3.0 * nm);
 }
 
-std::unique_ptr<MultiLayer> SpecularPlan::createMultiLayer(const Fit::Parameters& params) const
-{
-    const size_t number_of_layers = 10;
-    double thick_ni = 7.0 * nm;
-    double thick_ti = params["thickness"].value();
-
-    Material vacuum_material = MaterialBySLD();
-    Material substrate_material = MaterialBySLD("Si_substrate", 2.0704e-06, 2.3726e-11);
-    Material ni_material = MaterialBySLD("Ni", -1.9493e-06, 9.6013e-10);
-    Material ti_material = MaterialBySLD("Ti", 9.4245e-06, 1.1423e-09);
-
-    Layer vacuum_layer(vacuum_material, 0);
-    Layer ni_layer(ni_material, thick_ni);
-    Layer ti_layer(ti_material, thick_ti);
-    Layer substrate_layer(substrate_material, 0);
-
-    std::unique_ptr<MultiLayer> multi_layer(new MultiLayer());
-    multi_layer->addLayer(vacuum_layer);
-    for (size_t i = 0; i < number_of_layers; ++i) {
-        multi_layer->addLayer(ti_layer);
-        multi_layer->addLayer(ni_layer);
-    }
-    multi_layer->addLayer(substrate_layer);
-    return multi_layer;
-}
+SpecularPlan::~SpecularPlan() = default;
 
 // ----------------------------------------------------------------------------
 
 MultipleSpecPlan::MultipleSpecPlan()
-    : SpecularPlan("MultipleSpecPlan")
-{}
+    : FitPlan("MultipleSpecPlan", /*residual_based = */ true)
+{
+    setSimulationName("BasicSpecular");
+    setBuilderName("PlainMultiLayerBySLDBuilder");
+    addParameter(Parameter("ti_thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
+                 3.0 * nm);
+}
 
 MultipleSpecPlan::~MultipleSpecPlan() = default;
 
@@ -191,4 +131,16 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
     result->initPrint(1);
 
     return result;
+}
+
+// ----------------------------------------------------------------------------
+
+OffSpecFitPlan::OffSpecFitPlan()
+    : FitPlan("OffSpecFitPlan", /*residual_based*/true)
+{
+    setBuilderName("ResonatorBuilder");
+    setSimulationName("OffSpecMini");
+    addParameter(
+        Parameter("ti_thickness", 12.0 * nm, AttLimits::limited(11.5 * nm, 14.0 * nm), 0.1 * nm),
+        13.0 * nm);
 }

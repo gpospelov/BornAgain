@@ -53,11 +53,11 @@ RectDetectorFit::RectDetectorFit()
 AdjustMinimizerFit::AdjustMinimizerFit()
     : FitObjectiveTest("Genetic", "", "AdjustMinimizerPlan") {}
 
-MultiPatternFit::MultiPatternFit()
-    : FitObjectiveTest("Minuit2", "Fumili", "MultiPatternPlan") {}
-
 SpecularFitTest::SpecularFitTest()
     : FitObjectiveTest("Minuit2", "Migrad", "SpecularPlan") {}
 
 MultipleSpecFittingTest::MultipleSpecFittingTest()
     : FitObjectiveTest("Minuit2", "Migrad", "MultipleSpecPlan") {}
+
+OffSpecFitTest::OffSpecFitTest()
+    : FitObjectiveTest("Minuit2", "Migrad", "OffSpecFitPlan") {}

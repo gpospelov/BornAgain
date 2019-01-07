@@ -71,3 +71,29 @@ TEST_F(TestCsvImportData, test_data_columns)
     csv::DataColumn result1 {"2.0", "4.0", "6.0"};
     EXPECT_EQ(model.valuesFromColumn(1), result1);
 }
+
+TEST_F(TestCsvImportData, test_multpiliers)
+{
+    CsvImportData model;
+    EXPECT_EQ(model.multiplier(CsvImportData::Intensity), 1.0);
+    EXPECT_EQ(model.multiplier(CsvImportData::Coordinate), 1.0);
+    EXPECT_EQ(model.multipliedValues(CsvImportData::Intensity), csv::DataColumn());
+    EXPECT_EQ(model.multipliedValues(CsvImportData::Coordinate), csv::DataColumn());
+
+    csv::DataArray test_data {{"1.0", "abc"}, {"3.0", "4.0_"}, {"5.0", "6.0"}};
+    model.setData(test_data);
+    model.setColumnAs(0, csv::_theta_);
+    model.setColumnAs(1, csv::_intensity_);
+    model.setMultiplier(CsvImportData::Intensity, 2.0);
+    model.setMultiplier(CsvImportData::Coordinate, 2.0);
+
+    auto result = model.multipliedValues(CsvImportData::Coordinate);
+    EXPECT_EQ(result[0], "2");
+    EXPECT_EQ(result[1], "6");
+    EXPECT_EQ(result[2], "10");
+
+    result = model.multipliedValues(CsvImportData::Intensity);
+    EXPECT_EQ(result[0], "abc");
+    EXPECT_EQ(result[1], "4.0_");
+    EXPECT_EQ(result[2], "12");
+}

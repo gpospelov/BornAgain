@@ -61,6 +61,19 @@ int CsvImportData::setColumnAs(int col, csv::ColumnType type)
     return prev_assigned;
 }
 
+void CsvImportData::setMultiplier(CsvImportData::DATA_TYPE type, double value)
+{
+    if (m_selected_cols.find(type) == m_selected_cols.end())
+        return;
+
+    m_selected_cols[type].setMultiplier(value);
+}
+
+std::vector<CsvImportData::DATA_TYPE> CsvImportData::availableTypes()
+{
+    return {Intensity, Coordinate};
+}
+
 const csv::DataArray& CsvImportData::data() const
 {
     return *m_data.get();
@@ -82,6 +95,35 @@ csv::DataColumn CsvImportData::valuesFromColumn(int col) const
     for (size_t i = 0; i < size; ++i)
         result[i] = (*m_data)[i][static_cast<size_t>(col)];
     return result;
+}
+
+csv::DataColumn CsvImportData::multipliedValues(DATA_TYPE type) const
+{
+    csv::DataColumn result;
+    const int col = column(type);
+    if (col < 0 || col >= static_cast<int>(nCols()))
+        return result;
+
+    double mult_value = multiplier(type);
+    csv::DataColumn values = valuesFromColumn(col);
+    result.resize(values.size());
+    // FIXME: seems that csv::DataColumn and related
+    // classes can be based on QString
+    for (size_t i = 0; i < values.size(); i++) {
+        auto currentText = QString::fromStdString(values[i]);
+        double number = mult_value * currentText.toDouble();
+        // FIXME: find more elegant way to distinguish non-numerics
+        QString textToWrite = 0.0 == number ? currentText : QString::number(number);
+        result[i] = textToWrite.toStdString();
+    }
+    return result;
+}
+
+double CsvImportData::multiplier(CsvImportData::DATA_TYPE type) const
+{
+    if (m_selected_cols.find(type) == m_selected_cols.end())
+        return 1.0;
+    return m_selected_cols.at(type).multiplier();
 }
 
 size_t CsvImportData::nCols() const
@@ -127,12 +169,67 @@ void CsvImportTable_::setData(csv::DataArray data)
     }
 
     m_import_data->setData(std::move(data));
+    setMultiplierFields();
 }
 
 void CsvImportTable_::setColumnAs(int col, csv::ColumnType type)
 {
     int prev_col = m_import_data->setColumnAs(col, type);
     resetColumn(prev_col);
+    updateSelection();
+}
+
+void CsvImportTable_::updateSelection()
+{
+    // FIXME: replace re-creation of all spin boxes with blocking/unlocking
+    setMultiplierFields();
+    updateSelectedCols();
+}
+
+void CsvImportTable_::updateSelectedCols()
+{
+    // FIXME: replace recreation of sell items with value assignment
+    for(auto type: CsvImportData::availableTypes()) {
+        csv::DataColumn values = m_import_data->multipliedValues(type);
+        if (values.empty())
+            continue;
+        int col = m_import_data->column(type);
+        for (size_t i = 0; i < values.size(); ++i)
+            setItem(static_cast<int>(i) + rowOffset(), col,
+                    new QTableWidgetItem(QString::fromStdString(values[i])));
+    }
+}
+
+void CsvImportTable_::setMultiplierFields()
+{
+    const int n_cols = static_cast<int>(m_import_data->nCols());
+
+    for (int n = 0; n < n_cols; ++n)
+        setCellWidget(0, n, createMultiplierBox());
+
+    auto types = CsvImportData::availableTypes();
+    for (auto type : types)
+        if (m_import_data->column(type) > 0) {
+            auto spin_box =
+                static_cast<ScientificSpinBox*>(cellWidget(0, m_import_data->column(type)));
+            spin_box->setEnabled(true);
+            spin_box->setValue(m_import_data->multiplier(type));
+            connect(spin_box, &ScientificSpinBox::editingFinished, this,
+                    [this, spin_box, type]() {
+                        m_import_data->setMultiplier(type, spin_box->value());
+                        updateSelection();
+                    });
+        }
+
+    // FIXME: move row headers initialization elsewhere
+    int nRows = this->rowCount();
+
+    QStringList vhlabels;
+    vhlabels << "Multiplier: ";
+    for (int i = rowOffset(); i < nRows; i++)
+        vhlabels << QString::number(i);
+
+    this->setVerticalHeaderLabels(vhlabels);
 }
 
 void CsvImportTable_::resetColumn(int col)

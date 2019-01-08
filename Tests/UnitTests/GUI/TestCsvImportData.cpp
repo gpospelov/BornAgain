@@ -64,6 +64,11 @@ TEST_F(TestCsvImportData, test_data_columns)
     EXPECT_EQ(model.column(CsvImportData::Intensity), 0);
     EXPECT_EQ(model.column(CsvImportData::Coordinate), 1);
 
+    previous = model.setColumnAs(0, csv::_intensity_);
+    EXPECT_EQ(previous, 0);
+    EXPECT_EQ(model.column(CsvImportData::Intensity), 0);
+    EXPECT_EQ(model.column(CsvImportData::Coordinate), 1);
+
     EXPECT_EQ(model.values(-1), csv::DataColumn());
     EXPECT_EQ(model.values(2), csv::DataColumn());
     csv::DataColumn result0 {"1.0", "3.0", "5.0"};
@@ -96,4 +101,30 @@ TEST_F(TestCsvImportData, test_multpiliers)
     EXPECT_EQ(result[0], "abc");
     EXPECT_EQ(result[1], "4.0_");
     EXPECT_EQ(result[2], "12");
+}
+
+TEST_F(TestCsvImportData, test_labels)
+{
+    CsvImportData model;
+    EXPECT_EQ(model.columnLabel(CsvImportData::Intensity), QString());
+    EXPECT_EQ(model.columnLabel(CsvImportData::Coordinate), QString());
+
+    csv::DataArray test_data {{"1.0", "abc"}, {"3.0", "4.0_"}, {"5.0", "6.0"}};
+    model.setData(test_data);
+    model.setColumnAs(0, csv::_theta_);
+    model.setColumnAs(1, csv::_intensity_);
+    EXPECT_EQ(model.columnLabel(CsvImportData::Intensity).toStdString(), std::string("Intensity"));
+    EXPECT_EQ(model.columnLabel(CsvImportData::Coordinate).toStdString(), std::string("theta"));
+
+    model.setColumnAs(0, csv::_q_);
+    EXPECT_EQ(model.columnLabel(CsvImportData::Intensity).toStdString(), std::string("Intensity"));
+    EXPECT_EQ(model.columnLabel(CsvImportData::Coordinate).toStdString(), std::string("q"));
+
+    model.setColumnAs(1, csv::_intensity_);
+    EXPECT_EQ(model.columnLabel(CsvImportData::Intensity).toStdString(), std::string("Intensity"));
+    EXPECT_EQ(model.columnLabel(CsvImportData::Coordinate).toStdString(), std::string("q"));
+
+    model.setColumnAs(0, csv::_intensity_);
+    EXPECT_EQ(model.columnLabel(CsvImportData::Intensity).toStdString(), std::string("Intensity"));
+    EXPECT_EQ(model.columnLabel(CsvImportData::Coordinate).toStdString(), std::string());
 }

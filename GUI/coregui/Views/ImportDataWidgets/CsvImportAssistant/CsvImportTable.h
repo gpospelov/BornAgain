@@ -41,6 +41,7 @@ public:
     csv::DataColumn values(int col) const;
     csv::DataColumn multipliedValues(DATA_TYPE type) const;
     double multiplier(DATA_TYPE type) const;
+    QString columnLabel(DATA_TYPE type) const;
     size_t nCols() const;
     size_t nRows() const;
 
@@ -72,6 +73,7 @@ public:
 
 private:
     void updateSelection();
+    void setHeaders();
     void updateSelectedCols(); // replacement for applyMultipliers
     void setMultiplierFields();
     void resetColumn(int col);

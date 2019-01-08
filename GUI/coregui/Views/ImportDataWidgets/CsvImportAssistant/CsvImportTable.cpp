@@ -126,6 +126,13 @@ double CsvImportData::multiplier(CsvImportData::DATA_TYPE type) const
     return m_selected_cols.at(type).multiplier();
 }
 
+QString CsvImportData::columnLabel(CsvImportData::DATA_TYPE type) const
+{
+    if (m_selected_cols.find(type) == m_selected_cols.end())
+        return QString();
+    return csv::HeaderLabels[m_selected_cols.at(type).name()];
+}
+
 size_t CsvImportData::nCols() const
 {
     if (nRows() == 0)
@@ -181,9 +188,28 @@ void CsvImportTable_::setColumnAs(int col, csv::ColumnType type)
 
 void CsvImportTable_::updateSelection()
 {
+    setHeaders();
     // FIXME: replace re-creation of all spin boxes with blocking/unlocking
     setMultiplierFields();
     updateSelectedCols();
+}
+
+// FIXME: put filling vertical headers here
+void CsvImportTable_::setHeaders()
+{
+    // Reset header labels
+    QStringList headers;
+
+    for (int j = 0; j < this->columnCount(); j++)
+        headers.append(QString::number(j + 1));
+    setHorizontalHeaderLabels(headers);
+
+    for (auto type: CsvImportData::availableTypes()) {
+        int col = m_import_data->column(type);
+        if (col < 0)
+            continue;
+        setHorizontalHeaderItem(col, new QTableWidgetItem(m_import_data->columnLabel(type)));
+    }
 }
 
 void CsvImportTable_::updateSelectedCols()

@@ -128,3 +128,39 @@ TEST_F(TestCsvImportData, test_labels)
     EXPECT_EQ(model.columnLabel(CsvImportData::Intensity).toStdString(), std::string("Intensity"));
     EXPECT_EQ(model.columnLabel(CsvImportData::Coordinate).toStdString(), std::string());
 }
+
+TEST_F(TestCsvImportData, test_format_check)
+{
+    CsvImportData model;
+    EXPECT_TRUE(model.checkData().empty());
+
+    csv::DataArray test_data{{"ad", "abc"},
+                             {"3.0", "4.0_"},
+                             {"2.0", "6.0"},
+                             {"3.0", "6.0"},
+                             {"4.0", "6.0"},
+                             {"5.0", "1.e-14"},
+                             {"6.0", "0.0"}};
+    model.setData(test_data);
+    EXPECT_TRUE(model.checkData().empty());
+
+    model.setColumnAs(0, csv::_intensity_);
+    std::set<std::pair<int, int>> expected {{0,0}};
+    EXPECT_EQ(model.checkData(), expected);
+
+    model.setColumnAs(0, csv::_theta_);
+    expected  = {{0,0}, {2,0}, {3,0}};
+    EXPECT_EQ(model.checkData(), expected);
+
+    model.setColumnAs(1, csv::_intensity_);
+    expected  = {{0,0}, {0,1}, {1,1}, {2,0}, {3,0}, {6,1}};
+    EXPECT_EQ(model.checkData(), expected);
+
+    model.setFirstRow(1);
+    expected  = {{1,1}, {2,0}, {3,0}, {6,1}};
+    EXPECT_EQ(model.checkData(), expected);
+
+    model.setFirstRow(2);
+    model.setLastRow(5);
+    EXPECT_TRUE(model.checkData().empty());
+}

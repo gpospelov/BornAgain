@@ -33,9 +33,13 @@ public:
     //! column number previously set to the type
     int setColumnAs(int col, csv::ColumnType type);
     void setMultiplier(DATA_TYPE type, double value);
+    void setFirstRow(int row);
+    void setLastRow(int row);
 
-    // accessors
+    // static methods
+    // FIXME: move to csv namespace or utilities
     static std::vector<DATA_TYPE> availableTypes();
+    // accessors
     const csv::DataArray& data() const;
     int column(DATA_TYPE type) const;
     csv::DataColumn values(int col) const;
@@ -45,14 +49,25 @@ public:
     size_t nCols() const;
     size_t nRows() const;
 
+    std::set<std::pair<int, int>> checkData();
+
 private:
+    //! Checks if selected data is suitable for import.
+    //! All values must be convertible to doubles, positive and
+    //! sorted in ascending order if _check_ordering_ is set to true.
+    //! Returns a set of rows where the check failed.
+    std::set<int> checkFormat(const csv::DataColumn& values, bool check_ordering);
+
     std::unique_ptr<const csv::DataArray> m_data;
     std::map<DATA_TYPE, CsvCoordinateColumn> m_selected_cols;
-    std::vector<bool> m_discard_mask;
+    size_t m_n_header; //!< number of header rows
+    size_t m_n_footer; //!< number of footer rows
+    std::set<int> m_discarded_rows;
 };
 
 class CsvImportTable_ : public QTableWidget
 {
+    Q_OBJECT
 public:
     CsvImportTable_(QWidget* parent = nullptr);
 
@@ -71,15 +86,22 @@ public:
         return m_import_data->multiplier(CsvImportData::Coordinate);
     }
 
+signals:
+    void dataSanityChanged();
+
 private:
     void updateSelection();
     void setHeaders();
     void updateSelectedCols(); // replacement for applyMultipliers
     void setMultiplierFields();
+    bool checkData();
     void resetColumn(int col);
     int rowOffset() const { return 1; } // this comes from the multipliers in the first row
 
+    void markCell(int i, int j, Qt::GlobalColor color);
+
     CsvImportData* m_import_data;
+    bool m_data_is_suitable;
 };
 
 class CsvImportTable : public QTableWidget

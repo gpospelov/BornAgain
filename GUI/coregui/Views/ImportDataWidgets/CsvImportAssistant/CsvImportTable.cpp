@@ -30,13 +30,17 @@ ScientificSpinBox* createMultiplierBox(double value = 1.0, bool enabled = false,
 CsvImportData::CsvImportData(QObject* parent)
     :QObject(parent)
     , m_data(new csv::DataArray)
+    , m_n_header(0)
+    , m_n_footer(0)
 {}
 
 void CsvImportData::setData(csv::DataArray data)
 {
     m_data.reset(new csv::DataArray(std::move(data)));
     m_selected_cols.clear();
-    m_discard_mask = std::vector<bool>(m_data->size(), false);
+    m_n_header = 0;
+    m_n_footer = 0;
+    m_discarded_rows.clear();
 }
 
 int CsvImportData::setColumnAs(int col, csv::ColumnType type)
@@ -67,6 +71,20 @@ void CsvImportData::setMultiplier(CsvImportData::DATA_TYPE type, double value)
         return;
 
     m_selected_cols[type].setMultiplier(value);
+}
+
+void CsvImportData::setFirstRow(int row)
+{
+    if (row < 0 || static_cast<size_t>(row) >= nRows())
+        return;
+    m_n_header = static_cast<size_t>(row);
+}
+
+void CsvImportData::setLastRow(int row)
+{
+    if (row < 0 || static_cast<size_t>(row) >= nRows())
+        return;
+    m_n_footer = nRows() - static_cast<size_t>(row) - 1;
 }
 
 std::vector<CsvImportData::DATA_TYPE> CsvImportData::availableTypes()
@@ -145,6 +163,51 @@ size_t CsvImportData::nRows() const
     return (*m_data).size();
 }
 
+std::set<std::pair<int, int>> CsvImportData::checkData()
+{
+    std::set<std::pair<int, int>> result;
+    for (auto type: availableTypes()) {
+        auto col_result = checkFormat(multipliedValues(type), type == Coordinate);
+        std::for_each(col_result.begin(), col_result.end(), [col=column(type), &result](int row){
+            result.insert({row, col});
+        });
+    }
+    return result;
+}
+
+std::set<int> CsvImportData::checkFormat(const csv::DataColumn& values, bool check_ordering)
+{
+    std::set<int> result;
+    if (values.empty())
+        return result;
+
+    bool has_prev_value = false;
+    double prev_value = 0.0;
+    for (size_t i = m_n_header; i + m_n_footer < nRows(); ++i) {
+        if (m_discarded_rows.find(static_cast<int>(i)) != m_discarded_rows.end())
+            continue;
+
+        auto cellText = QString::fromStdString(values[i]);
+        bool is_double;
+        double number = cellText.toDouble(&is_double);
+        if (!is_double || number <= 0.0) {
+            result.insert(static_cast<int>(i));
+            continue;
+        }
+
+        if (!check_ordering)
+            continue;
+
+        if (has_prev_value && prev_value >= number) {
+            result.insert(static_cast<int>(i));
+            continue;
+        }
+        prev_value = number;
+        has_prev_value = true;
+    }
+    return result;
+}
+
 CsvImportTable_::CsvImportTable_(QWidget* parent)
     : QTableWidget(parent)
     , m_import_data(new CsvImportData(this))
@@ -192,6 +255,10 @@ void CsvImportTable_::updateSelection()
     // FIXME: replace re-creation of all spin boxes with blocking/unlocking
     setMultiplierFields();
     updateSelectedCols();
+    if (checkData() != m_data_is_suitable) {
+        m_data_is_suitable = !m_data_is_suitable;
+        emit dataSanityChanged();
+    }
 }
 
 // FIXME: put filling vertical headers here
@@ -258,6 +325,14 @@ void CsvImportTable_::setMultiplierFields()
     this->setVerticalHeaderLabels(vhlabels);
 }
 
+bool CsvImportTable_::checkData()
+{
+    auto to_highlight = m_import_data->checkData();
+    for(auto index: to_highlight)
+        markCell(index.first + rowOffset(), index.second, Qt::red);
+    return to_highlight.empty();
+}
+
 void CsvImportTable_::resetColumn(int col)
 {
     if (columnCount() >= col || col < 0)
@@ -268,6 +343,11 @@ void CsvImportTable_::resetColumn(int col)
         QString originalText = QString::fromStdString(data[i]);
         setItem(static_cast<int>(i) + rowOffset(), int(col), new QTableWidgetItem(originalText));
     }
+}
+
+void CsvImportTable_::markCell(int i, int j, Qt::GlobalColor color)
+{
+    item(i, j)->setBackground(color);
 }
 
 CsvImportTable::CsvImportTable(QWidget* parent) : QTableWidget(parent)

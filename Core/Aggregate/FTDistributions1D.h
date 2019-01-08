@@ -39,6 +39,9 @@ public:
     void setOmega(double omega) { m_omega = omega; }
     double omega() const { return m_omega; }
 
+    //! Returns the negative of the second order derivative in q space around q=0
+    virtual double qSecondDerivative() const=0;
+
 #ifndef SWIG
     virtual std::unique_ptr<IDistribution1DSampler> createSampler() const=0;
 #endif
@@ -58,11 +61,13 @@ class BA_CORE_API_ FTDistribution1DCauchy : public IFTDistribution1D
 public:
     FTDistribution1DCauchy(double omega);
 
-    FTDistribution1DCauchy* clone() const final;
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
-    double evaluate(double q) const final;
+    FTDistribution1DCauchy* clone() const override final;
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    double evaluate(double q) const override final;
+
+    double qSecondDerivative() const override final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
 
@@ -76,11 +81,13 @@ class BA_CORE_API_ FTDistribution1DGauss : public IFTDistribution1D
 public:
     FTDistribution1DGauss(double omega);
 
-    FTDistribution1DGauss* clone() const final;
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
-    double evaluate(double q) const final;
+    FTDistribution1DGauss* clone() const override final;
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    double evaluate(double q) const override final;
+
+    double qSecondDerivative() const override final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
 
@@ -94,11 +101,13 @@ class BA_CORE_API_ FTDistribution1DGate : public IFTDistribution1D
 public:
     FTDistribution1DGate(double omega);
 
-    FTDistribution1DGate* clone() const final;
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
-    double evaluate(double q) const final;
+    FTDistribution1DGate* clone() const override final;
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    double evaluate(double q) const override final;
+
+    double qSecondDerivative() const override final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
 
@@ -112,11 +121,13 @@ class BA_CORE_API_ FTDistribution1DTriangle : public IFTDistribution1D
 public:
     FTDistribution1DTriangle(double omega);
 
-    FTDistribution1DTriangle* clone() const final;
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
-    double evaluate(double q) const final;
+    FTDistribution1DTriangle* clone() const override final;
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    double evaluate(double q) const override final;
+
+    double qSecondDerivative() const override final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
 
@@ -131,11 +142,13 @@ class BA_CORE_API_ FTDistribution1DCosine : public IFTDistribution1D
 public:
     FTDistribution1DCosine(double omega);
 
-    FTDistribution1DCosine* clone() const final;
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
-    double evaluate(double q) const final;
+    FTDistribution1DCosine* clone() const override final;
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    double evaluate(double q) const override final;
+
+    double qSecondDerivative() const override final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
 
@@ -153,12 +166,14 @@ public:
     //! @param eta: parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)
     FTDistribution1DVoigt(double omega, double eta);
 
-    FTDistribution1DVoigt* clone() const final;
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
-    double evaluate(double q) const final;
+    FTDistribution1DVoigt* clone() const override final;
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    double evaluate(double q) const override final;
     double eta() const { return m_eta;}    
+
+    double qSecondDerivative() const override final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 
 protected:

@@ -45,11 +45,11 @@ int CsvImportData::setColumnAs(int col, csv::ColumnType type)
 
     CsvCoordinateColumn& column = m_selected_cols[role];
     const int prev_assigned = column.columnNumber();
-    if (prev_assigned == col)
+    if (prev_assigned == col && type == column.name())
         return prev_assigned;
 
     for (auto iter = m_selected_cols.begin(); iter != m_selected_cols.end();)
-        if (iter->second.columnNumber() == col)
+        if (iter->second.columnNumber() == col && iter->first != role)
             iter = m_selected_cols.erase(iter);
         else
             ++iter;

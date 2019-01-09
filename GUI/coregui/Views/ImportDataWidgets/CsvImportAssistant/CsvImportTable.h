@@ -33,8 +33,9 @@ public:
     //! column number previously set to the type
     int setColumnAs(int col, csv::ColumnType type);
     void setMultiplier(DATA_TYPE type, double value);
-    void setFirstRow(int row);
-    void setLastRow(int row);
+    void setFirstRow(size_t row);
+    void setLastRow(size_t row);
+    void toggleDiscardRows(std::set<int> rows);
 
     // static methods
     // FIXME: move to csv namespace or utilities
@@ -46,10 +47,16 @@ public:
     csv::DataColumn multipliedValues(DATA_TYPE type) const;
     double multiplier(DATA_TYPE type) const;
     QString columnLabel(DATA_TYPE type) const;
+    QList<QString> availableCoordinateUnits() const;
+    std::set<int> rowsToDiscard() const {return m_discarded_rows;}
     size_t nCols() const;
     size_t nRows() const;
+    bool rowExcluded(int row);
+    size_t firstRow() { return m_n_header; }
+    size_t lastRow() { return m_n_footer + 1 >= nRows() ? 0 : nRows() - m_n_footer - 1; }
 
     std::set<std::pair<int, int>> checkData();
+    void resetSelection();
 
 private:
     //! Checks if selected data is suitable for import.

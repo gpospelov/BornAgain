@@ -73,18 +73,33 @@ void CsvImportData::setMultiplier(CsvImportData::DATA_TYPE type, double value)
     m_selected_cols[type].setMultiplier(value);
 }
 
-void CsvImportData::setFirstRow(int row)
+void CsvImportData::setFirstRow(size_t row)
 {
-    if (row < 0 || static_cast<size_t>(row) >= nRows())
+    if (row >= nRows())
         return;
-    m_n_header = static_cast<size_t>(row);
+    m_n_header = row;
 }
 
-void CsvImportData::setLastRow(int row)
+void CsvImportData::setLastRow(size_t row)
 {
-    if (row < 0 || static_cast<size_t>(row) >= nRows())
+    if (row + 1 >= nRows())
         return;
-    m_n_footer = nRows() - static_cast<size_t>(row) - 1;
+    m_n_footer = nRows() - row - 1;
+}
+
+void CsvImportData::toggleDiscardRows(std::set<int> rows)
+{
+    if (rows.empty()) {
+        m_discarded_rows.clear();
+        return;
+    }
+    for (auto row : rows) {
+        if (m_discarded_rows.find(row) != m_discarded_rows.end()) {
+            m_discarded_rows.erase(row);
+        } else {
+            m_discarded_rows.insert(row);
+        }
+    }
 }
 
 std::vector<CsvImportData::DATA_TYPE> CsvImportData::availableTypes()
@@ -151,6 +166,19 @@ QString CsvImportData::columnLabel(CsvImportData::DATA_TYPE type) const
     return csv::HeaderLabels[m_selected_cols.at(type).name()];
 }
 
+QList<QString> CsvImportData::availableCoordinateUnits() const
+{
+    if (column(Coordinate) < 0)
+        return {csv::UnitsLabels[AxesUnits::NBINS]};
+
+    auto coordinate_type = m_selected_cols.at(Coordinate).name();
+    if (coordinate_type == csv::_q_)
+        return {csv::UnitsLabels[AxesUnits::QSPACE]};
+    else if (coordinate_type == csv::_theta_)
+        return {{csv::UnitsLabels[AxesUnits::DEGREES]}, {csv::UnitsLabels[AxesUnits::RADIANS]}};
+    return {csv::UnitsLabels[AxesUnits::NBINS]};
+}
+
 size_t CsvImportData::nCols() const
 {
     if (nRows() == 0)
@@ -163,6 +191,15 @@ size_t CsvImportData::nRows() const
     return (*m_data).size();
 }
 
+bool CsvImportData::rowExcluded(int row)
+{
+    if (static_cast<size_t>(row) < m_n_header || static_cast<size_t>(row) + m_n_footer >= nRows())
+        return true;
+    if (m_discarded_rows.find(row) != m_discarded_rows.end())
+        return true;
+    return false;
+}
+
 std::set<std::pair<int, int>> CsvImportData::checkData()
 {
     std::set<std::pair<int, int>> result;
@@ -173,6 +210,14 @@ std::set<std::pair<int, int>> CsvImportData::checkData()
         });
     }
     return result;
+}
+
+void CsvImportData::resetSelection()
+{
+    m_n_header = 0;
+    m_n_footer = 0;
+    m_selected_cols.clear();
+    m_discarded_rows.clear();
 }
 
 std::set<int> CsvImportData::checkFormat(const csv::DataColumn& values, bool check_ordering)
@@ -211,6 +256,7 @@ std::set<int> CsvImportData::checkFormat(const csv::DataColumn& values, bool che
 CsvImportTable_::CsvImportTable_(QWidget* parent)
     : QTableWidget(parent)
     , m_import_data(new CsvImportData(this))
+    , m_data_is_suitable(true)
 {}
 
 void CsvImportTable_::setData(csv::DataArray data)
@@ -302,7 +348,7 @@ void CsvImportTable_::setMultiplierFields()
 
     auto types = CsvImportData::availableTypes();
     for (auto type : types)
-        if (m_import_data->column(type) > 0) {
+        if (m_import_data->column(type) >= 0) {
             auto spin_box =
                 static_cast<ScientificSpinBox*>(cellWidget(0, m_import_data->column(type)));
             spin_box->setEnabled(true);

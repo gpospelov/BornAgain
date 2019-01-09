@@ -153,23 +153,10 @@ void DataSelector::setColumnAs(int col, csv::ColumnType coordOrInt)
 
 void DataSelector::populateUnitsComboBox()
 {
-    csv::ColumnType coord = m_tableWidget->coordinateName();
+    QList<QString> available_units = m_tableWidget->availableCoordinateUnits();
     m_coordinateUnitsComboBox->clear();
-    switch (coord) {
-
-    case csv::_theta_:
-        m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::DEGREES]);
-        m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::RADIANS]);
-        break;
-
-    case csv::_q_:
-        m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::QSPACE]);
-        break;
-
-    default:
-        m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::NBINS]);
-        break;
-    }
+    for (auto units: available_units)
+        m_coordinateUnitsComboBox->addItem(units);
 }
 
 void DataSelector::setColumnAs(csv::ColumnType coordOrInt)
@@ -217,13 +204,9 @@ void DataSelector::discardRow()
 
 void DataSelector::resetSelection()
 {
-    setColumnAs(-1, csv::_theta_);
-    setColumnAs(-1, csv::_q_);
-    setColumnAs(-1, csv::_intensity_);
-
     m_firstDataRowSpinBox->setValue(0);
     m_lastDataRowSpinBox->setValue(int(maxLines()));
-    m_tableWidget->discardRows({});
+    m_tableWidget->resetSelection();
 }
 
 size_t DataSelector::firstLine() const

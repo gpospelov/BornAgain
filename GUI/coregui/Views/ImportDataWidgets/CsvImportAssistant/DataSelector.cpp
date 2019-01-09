@@ -157,23 +157,6 @@ void DataSelector::populateUnitsComboBox()
     m_coordinateUnitsComboBox->clear();
     for (auto units: available_units)
         m_coordinateUnitsComboBox->addItem(units);
-    /*csv::ColumnType coord = m_tableWidget->coordinateName();
-    m_coordinateUnitsComboBox->clear();
-    switch (coord) {
-
-    case csv::_theta_:
-        m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::DEGREES]);
-        m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::RADIANS]);
-        break;
-
-    case csv::_q_:
-        m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::QSPACE]);
-        break;
-
-    default:
-        m_coordinateUnitsComboBox->addItem(csv::UnitsLabels[AxesUnits::NBINS]);
-        break;
-    }*/
 }
 
 void DataSelector::setColumnAs(csv::ColumnType coordOrInt)

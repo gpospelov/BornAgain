@@ -47,8 +47,7 @@ void FourierTransform::Workspace::clear()
     if (p_forw_src != nullptr)
         fftw_destroy_plan(p_forw_src);
 
-    // this returns fftw3 into completely initial state but is dramatically slow
-    // fftw_cleanup();
+    fftw_cleanup();
 }
 
 /* ************************************************************************* */

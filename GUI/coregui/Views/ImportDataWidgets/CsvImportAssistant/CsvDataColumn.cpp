@@ -64,13 +64,6 @@ void CsvIntensityColumn::resetColumn(int colNum, double multiplier, csv::DataCol
     m_multiplier = multiplier;
     m_values = std::move(values);
 }
-CsvIntensityColumn& CsvIntensityColumn::operator=(const CsvIntensityColumn colToRep)
-{
-    m_colNum = colToRep.columnNumber();
-    m_multiplier = colToRep.multiplier();
-    m_values = colToRep.values();
-    return *this;
-}
 
 /*Csv Coordinate Column*/
 
@@ -110,10 +103,4 @@ void CsvCoordinateColumn::resetColumn(int colNum, double multiplier, csv::DataCo
     CsvIntensityColumn::resetColumn(colNum, multiplier, values);
     m_units = units;
     m_name = name;
-}
-CsvCoordinateColumn& CsvCoordinateColumn::operator=(const CsvCoordinateColumn colToRep)
-{
-    m_units = colToRep.units();
-    m_name = colToRep.name();
-    return *this;
 }

@@ -245,8 +245,6 @@
 %newobject IHistogram::createFrom(const std::string& filename);
 %newobject IHistogram::createFrom(const std::vector<std::vector<double>>& data);
 
-%newobject PyBuilderCallback::build_simulation(const std::string& filename);
-
 %newobject InterferenceFunction2DLattice::createSquare(double lattice_length, double xi);
 %newobject InterferenceFunction2DLattice::createHexagonal(double lattice_length, double xi);
 %newobject InterferenceFunction2DParaCrystal::createSquare(

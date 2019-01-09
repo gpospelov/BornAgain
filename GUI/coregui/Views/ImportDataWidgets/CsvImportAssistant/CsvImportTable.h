@@ -72,26 +72,31 @@ private:
     std::set<int> m_discarded_rows;
 };
 
-class CsvImportTable_ : public QTableWidget
+class CsvImportTable : public QTableWidget
 {
     Q_OBJECT
 public:
-    CsvImportTable_(QWidget* parent = nullptr);
+    CsvImportTable(QWidget* parent = nullptr);
+
+    int selectedRow() const;
+    std::set<int> selectedRows() const;
+    int selectedColumn() const;
 
     void setData(csv::DataArray data);
     void setColumnAs(int col, csv::ColumnType type);
+    void setFirstRow(size_t row);
+    void setLastRow(size_t row);
+    void discardRows(std::set<int> rows);
+    void resetSelection();
 
     // accessors
     int intensityColumn() const { return m_import_data->column(CsvImportData::Intensity); }
     int coordinateColumn() const { return m_import_data->column(CsvImportData::Coordinate); }
-    double intensityMultiplier() const
-    {
-        return m_import_data->multiplier(CsvImportData::Intensity);
-    }
-    double coordinateMultiplier() const
-    {
-        return m_import_data->multiplier(CsvImportData::Coordinate);
-    }
+    double intensityMultiplier() const;
+    double coordinateMultiplier() const;
+    QList<QString> availableCoordinateUnits() const;
+    std::set<int> rowsToDiscard() const { return m_import_data->rowsToDiscard(); }
+    bool dataLooksGood() const { return m_data_is_suitable; }
 
 signals:
     void dataSanityChanged();
@@ -101,6 +106,7 @@ private:
     void setHeaders();
     void updateSelectedCols(); // replacement for applyMultipliers
     void setMultiplierFields();
+    void greyoutDiscardedRows();
     bool checkData();
     void resetColumn(int col);
     int rowOffset() const { return 1; } // this comes from the multipliers in the first row
@@ -111,7 +117,7 @@ private:
     bool m_data_is_suitable;
 };
 
-class CsvImportTable : public QTableWidget
+/*class CsvImportTable : public QTableWidget
 {
     Q_OBJECT
 public:
@@ -168,6 +174,6 @@ private:
     size_t m_lastRow;
     std::set<int> m_rowsToDiscard;
     bool m_dataLooksGood;
-};
+};*/
 
 #endif // CSVIMPORTTABLE_H

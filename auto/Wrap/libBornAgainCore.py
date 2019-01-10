@@ -28633,7 +28633,9 @@ class SimulationBuilderWrapper(PyBuilderCallback):
         return pars_dict
 
     def build_simulation(self, obj):
-        return self.f_(self.create_par_dict(obj))
+        simulation = self.f_(self.create_par_dict(obj))
+        simulation.__disown__()
+        return simulation
 
 
 

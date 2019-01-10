@@ -71,8 +71,7 @@ void Convolve::Workspace::clear()
     if(p_forw_kernel != nullptr) fftw_destroy_plan(p_forw_kernel);
     if(p_back != nullptr)  fftw_destroy_plan(p_back);
 
-    // this returns fftw3 into completely initial state but is dramatically slow
-    //fftw_cleanup();
+    fftw_cleanup();
 }
 
 

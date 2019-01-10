@@ -9190,6 +9190,11 @@ class IFTDistribution1D(ICloneable, INode):
         """
         return _libBornAgainCore.IFTDistribution1D_omega(self)
 
+
+    def qSecondDerivative(self):
+        """qSecondDerivative(IFTDistribution1D self) -> double"""
+        return _libBornAgainCore.IFTDistribution1D_qSecondDerivative(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
     __del__ = lambda self: None
 IFTDistribution1D_swigregister = _libBornAgainCore.IFTDistribution1D_swigregister
@@ -9260,6 +9265,11 @@ class FTDistribution1DCauchy(IFTDistribution1D):
 
         """
         return _libBornAgainCore.FTDistribution1DCauchy_evaluate(self, q)
+
+
+    def qSecondDerivative(self):
+        """qSecondDerivative(FTDistribution1DCauchy self) -> double"""
+        return _libBornAgainCore.FTDistribution1DCauchy_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCauchy
     __del__ = lambda self: None
@@ -9332,6 +9342,11 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         return _libBornAgainCore.FTDistribution1DGauss_evaluate(self, q)
 
+
+    def qSecondDerivative(self):
+        """qSecondDerivative(FTDistribution1DGauss self) -> double"""
+        return _libBornAgainCore.FTDistribution1DGauss_qSecondDerivative(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGauss
     __del__ = lambda self: None
 FTDistribution1DGauss_swigregister = _libBornAgainCore.FTDistribution1DGauss_swigregister
@@ -9402,6 +9417,11 @@ class FTDistribution1DGate(IFTDistribution1D):
 
         """
         return _libBornAgainCore.FTDistribution1DGate_evaluate(self, q)
+
+
+    def qSecondDerivative(self):
+        """qSecondDerivative(FTDistribution1DGate self) -> double"""
+        return _libBornAgainCore.FTDistribution1DGate_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGate
     __del__ = lambda self: None
@@ -9474,6 +9494,11 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         return _libBornAgainCore.FTDistribution1DTriangle_evaluate(self, q)
 
+
+    def qSecondDerivative(self):
+        """qSecondDerivative(FTDistribution1DTriangle self) -> double"""
+        return _libBornAgainCore.FTDistribution1DTriangle_qSecondDerivative(self)
+
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DTriangle
     __del__ = lambda self: None
 FTDistribution1DTriangle_swigregister = _libBornAgainCore.FTDistribution1DTriangle_swigregister
@@ -9544,6 +9569,11 @@ class FTDistribution1DCosine(IFTDistribution1D):
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_evaluate(self, q)
+
+
+    def qSecondDerivative(self):
+        """qSecondDerivative(FTDistribution1DCosine self) -> double"""
+        return _libBornAgainCore.FTDistribution1DCosine_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCosine
     __del__ = lambda self: None
@@ -9636,6 +9666,11 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_eta(self)
+
+
+    def qSecondDerivative(self):
+        """qSecondDerivative(FTDistribution1DVoigt self) -> double"""
+        return _libBornAgainCore.FTDistribution1DVoigt_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DVoigt
     __del__ = lambda self: None

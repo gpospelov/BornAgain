@@ -18675,6 +18675,11 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
 
 
+    def DWfactor(self, arg2):
+        """DWfactor(IInterferenceFunction self, kvector_t arg2) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, arg2)
+
+
     def getParticleDensity(self):
         """
         getParticleDensity(IInterferenceFunction self) -> double

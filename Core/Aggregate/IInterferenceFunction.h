@@ -29,9 +29,11 @@ public:
     virtual IInterferenceFunction* clone() const=0;
     virtual void accept(INodeVisitor* visitor) const =0;
 
-    //! Evaluates the interference function for a given wavevector transfer (only the real
-    //! x and y components are relevant)
+    //! Evaluates the interference function for a given wavevector transfer
     virtual double evaluate(const kvector_t q) const=0;
+
+    //! Evaluates the Debye-Waller factor for a given wavevector transfer
+    double DWfactor(const kvector_t) const { return 1.0; }
 
     //! If defined by this interference function's parameters, returns the particle density (per
     //!  area). Otherwise, returns zero or a user-defined value

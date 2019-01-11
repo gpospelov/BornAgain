@@ -41,7 +41,7 @@ public:
     double positionVariance() const { return m_position_var; }
 
     //! Evaluates the Debye-Waller factor for a given wavevector transfer
-    double DWfactor(const kvector_t) const { return 1.0; }
+    double DWfactor(kvector_t q);
 
     //! If defined by this interference function's parameters, returns the particle density (per
     //!  area). Otherwise, returns zero or a user-defined value

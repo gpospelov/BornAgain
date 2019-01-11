@@ -13,6 +13,8 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunction.h"
+
+#include <algorithm>
 #include <stdexcept>
 
 IInterferenceFunction::IInterferenceFunction()
@@ -27,4 +29,11 @@ void IInterferenceFunction::setPositionVariance(double var)
         throw std::runtime_error("IInterferenceFunction::setPositionVariance: "
                                  "variance should be positive.");
     m_position_var = var;
+}
+
+double IInterferenceFunction::DWfactor(kvector_t q)
+{
+    // remove z component for two dimensional interference functions:
+    if (supportsMultilayer()) q.setZ(0.0);
+    return std::exp(-q.mag2()*m_position_var);
 }

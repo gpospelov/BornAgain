@@ -18706,9 +18706,9 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
 
 
-    def DWfactor(self, arg2):
-        """DWfactor(IInterferenceFunction self, kvector_t arg2) -> double"""
-        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, arg2)
+    def DWfactor(self, q):
+        """DWfactor(IInterferenceFunction self, kvector_t q) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
 
 
     def getParticleDensity(self):

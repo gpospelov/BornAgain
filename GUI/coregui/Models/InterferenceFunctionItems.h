@@ -21,9 +21,12 @@ class IInterferenceFunction;
 class BA_CORE_API_ InterferenceFunctionItem  : public SessionGraphicsItem
 {
 public:
+    static const QString P_POSITION_VARIANCE;
     explicit InterferenceFunctionItem(const QString& modelType);
     virtual ~InterferenceFunctionItem();
     virtual std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const=0;
+protected:
+    void setPositionVariance(IInterferenceFunction* p_iff) const;
 };
 
 class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public InterferenceFunctionItem

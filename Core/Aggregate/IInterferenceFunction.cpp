@@ -49,6 +49,6 @@ double IInterferenceFunction::DWfactor(kvector_t q)
 
 void IInterferenceFunction::init_parameters()
 {
-//    registerParameter(BornAgain::PositionVariance, &m_position_var).setUnit(BornAgain::UnitsNm2)
-//        .setNonnegative();
+    registerParameter(BornAgain::PositionVariance, &m_position_var).setUnit(BornAgain::UnitsNm2)
+        .setNonnegative();
 }

@@ -36,13 +36,22 @@ namespace {
 // Make InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION and
 // InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION rely on same constant
 
+const QString InterferenceFunctionItem::P_POSITION_VARIANCE =
+        QString::fromStdString(BornAgain::PositionVariance);
+
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
 {
-
+    addProperty(P_POSITION_VARIANCE, 0.0)
+            ->setToolTip(QStringLiteral("Variance of the position in each dimension (nm^2)"));
 }
 
 InterferenceFunctionItem::~InterferenceFunctionItem(){}
+
+void InterferenceFunctionItem::setPositionVariance(IInterferenceFunction *p_iff) const
+{
+    p_iff->setPositionVariance(getItemValue(P_POSITION_VARIANCE).toDouble());
+}
 
 // --------------------------------------------------------------------------------------------- //
 
@@ -85,6 +94,7 @@ InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
 
     auto& pdfItem = groupItem<FTDistribution1DItem>(P_PDF);
     result->setProbabilityDistribution(*pdfItem.createFTDistribution());
+    setPositionVariance(result.get());
     return std::move(result);
 }
 
@@ -161,6 +171,7 @@ InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
     result->setProbabilityDistributions(*pdf1Item.createFTDistribution(),
                                         *pdf2Item.createFTDistribution());
 
+    setPositionVariance(result.get());
     return std::move(result);
 }
 
@@ -227,6 +238,7 @@ InterferenceFunction1DLatticeItem::createInterferenceFunction() const
     auto pdfItem = dynamic_cast<FTDecayFunction1DItem*>(
         getGroupItem(InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION));
     result->setDecayFunction(*pdfItem->createFTDecayFunction());
+    setPositionVariance(result.get());
     return std::move(result);
 }
 
@@ -269,6 +281,7 @@ InterferenceFunction2DLatticeItem::createInterferenceFunction() const
     auto& pdfItem = groupItem<FTDecayFunction2DItem>(P_DECAY_FUNCTION);
     result->setDecayFunction(*pdfItem.createFTDecayFunction());
     result->setIntegrationOverXi(getItemValue(P_XI_INTEGRATION).toBool());
+    setPositionVariance(result.get());
 
     return std::move(result);
 }
@@ -331,6 +344,7 @@ InterferenceFunctionFinite2DLatticeItem::createInterferenceFunction() const
 
     result->setPositionVariance(getItemValue(P_POSITION_VARIANCE).toDouble());
     result->setIntegrationOverXi(getItemValue(P_XI_INTEGRATION).toBool());
+    setPositionVariance(result.get());
 
     return std::move(result);
 }

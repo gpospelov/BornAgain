@@ -13,5 +13,18 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunction.h"
+#include <stdexcept>
+
+IInterferenceFunction::IInterferenceFunction()
+    : m_position_var{0.0}
+{}
 
 IInterferenceFunction::~IInterferenceFunction() =default;
+
+void IInterferenceFunction::setPositionVariance(double var)
+{
+    if (var < 0.0)
+        throw std::runtime_error("IInterferenceFunction::setPositionVariance: "
+                                 "variance should be positive.");
+    m_position_var = var;
+}

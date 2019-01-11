@@ -18636,6 +18636,27 @@ class IInterferenceFunction(ISample):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IInterferenceFunction, name)
     __repr__ = _swig_repr
+
+    def __init__(self):
+        """
+        __init__(IInterferenceFunction self) -> IInterferenceFunction
+
+
+
+        Pure virtual base class of interference functions.
+
+        C++ includes: IInterferenceFunction.h
+
+        """
+        if self.__class__ == IInterferenceFunction:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_IInterferenceFunction(_self, )
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     __del__ = lambda self: None
 
@@ -18675,6 +18696,16 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
 
 
+    def setPositionVariance(self, var):
+        """setPositionVariance(IInterferenceFunction self, double var)"""
+        return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
+
+
+    def positionVariance(self):
+        """positionVariance(IInterferenceFunction self) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
+
+
     def DWfactor(self, arg2):
         """DWfactor(IInterferenceFunction self, kvector_t arg2) -> double"""
         return _libBornAgainCore.IInterferenceFunction_DWfactor(self, arg2)
@@ -18703,27 +18734,6 @@ class IInterferenceFunction(ISample):
         """
         return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
 
-
-    def __init__(self):
-        """
-        __init__(IInterferenceFunction self) -> IInterferenceFunction
-
-
-
-        Pure virtual base class of interference functions.
-
-        C++ includes: IInterferenceFunction.h
-
-        """
-        if self.__class__ == IInterferenceFunction:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IInterferenceFunction(_self, )
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IInterferenceFunction(self)

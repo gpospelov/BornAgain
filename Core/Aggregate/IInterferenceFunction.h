@@ -24,6 +24,7 @@
 class BA_CORE_API_ IInterferenceFunction : public ISample
 {
 public:
+    IInterferenceFunction();
     virtual ~IInterferenceFunction();
 
     virtual IInterferenceFunction* clone() const=0;
@@ -31,6 +32,13 @@ public:
 
     //! Evaluates the interference function for a given wavevector transfer
     virtual double evaluate(const kvector_t q) const=0;
+
+    //! Sets the variance of the position for the calculation of the DW factor
+    //! It is defined as the variance in each relevant dimension
+    void setPositionVariance(double var);
+
+    //! Returns the position variance
+    double positionVariance() const { return m_position_var; }
 
     //! Evaluates the Debye-Waller factor for a given wavevector transfer
     double DWfactor(const kvector_t) const { return 1.0; }
@@ -41,6 +49,9 @@ public:
 
     //! Indicates if this interference function can be used with a multilayer (DWBA mode)
     virtual bool supportsMultilayer() const { return true; }
+
+private:
+    double m_position_var;
 };
 
 #endif // IINTERFERENCEFUNCTION_H

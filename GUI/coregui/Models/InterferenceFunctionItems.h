@@ -90,7 +90,6 @@ public:
     static const QString P_XI_INTEGRATION;
     static const QString P_DOMAIN_SIZE_1;
     static const QString P_DOMAIN_SIZE_2;
-    static const QString P_POSITION_VARIANCE;
     InterferenceFunctionFinite2DLatticeItem();
     std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 private:

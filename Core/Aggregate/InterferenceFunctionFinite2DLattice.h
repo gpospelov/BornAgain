@@ -45,9 +45,6 @@ public:
     unsigned numberUnitCells1() const { return m_N_1; }
     unsigned numberUnitCells2() const { return m_N_2; }
 
-    void setPositionVariance(double sigma2) { m_sigma2 = sigma2; }
-    double positionVariance() const { return m_sigma2; }
-
     void setIntegrationOverXi(bool integrate_xi);
     bool integrationOverXi() const { return m_integrate_xi; }
 
@@ -65,7 +62,6 @@ private:
     void init_parameters();
     double interferenceForXi(double xi) const;
 
-    double m_sigma2;
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<Lattice2D> mP_lattice;
     unsigned m_N_1, m_N_2;  //!< Size of the finite lattice in lattice units

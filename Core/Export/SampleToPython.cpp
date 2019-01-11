@@ -430,10 +430,6 @@ std::string SampleToPython::defineInterferenceFunctions() const
                    << p_lattice_2d->numberUnitCells1() << ", "
                    << p_lattice_2d->numberUnitCells2() << ")\n";
 
-            if (p_lattice_2d->positionVariance()>0.0) {
-                result << indent() << it->second << ".setPositionVariance("
-                       << p_lattice_2d->positionVariance() << ")\n";
-            }
             if (p_lattice_2d->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
         } else if (auto p_para_2d
@@ -471,6 +467,10 @@ std::string SampleToPython::defineInterferenceFunctions() const
                 "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
                 "IInterferenceFunction "
                 + interference->getName());
+        if (interference->positionVariance()>0.0) {
+            result << indent() << it->second << ".setPositionVariance("
+                   << printNm2(interference->positionVariance()) << ")\n";
+        }
     }
     return result.str();
 }

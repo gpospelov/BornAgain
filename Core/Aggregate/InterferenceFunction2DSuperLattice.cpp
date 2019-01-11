@@ -28,8 +28,7 @@ using MathFunctions::Laue;
 
 InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(
         const Lattice2D& lattice, unsigned size_1, unsigned size_2)
-    : m_sigma2(0.0)
-    , m_integrate_xi(false)
+    : m_integrate_xi(false)
     , mP_substructure(nullptr)
     , m_size_1(size_1)
     , m_size_2(size_2)
@@ -47,8 +46,7 @@ InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(
 //! @param xi: rotation of lattice with respect to x-axis (beam direction) in radians
 InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(
         double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
-    : m_sigma2(0.0)
-    , m_integrate_xi(false)
+    : m_integrate_xi(false)
     , mP_substructure(nullptr)
     , m_size_1(size_1)
     , m_size_2(size_2)
@@ -128,7 +126,6 @@ std::vector<const INode*> InterferenceFunction2DSuperLattice::getChildren() cons
 InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(
         const InterferenceFunction2DSuperLattice& other)
     : IInterferenceFunction(other)
-    , m_sigma2(other.m_sigma2)
     , m_size_1(other.m_size_1)
     , m_size_2(other.m_size_2)
 {
@@ -148,7 +145,6 @@ void InterferenceFunction2DSuperLattice::setLattice(const Lattice2D& lattice)
 
 void InterferenceFunction2DSuperLattice::init_parameters()
 {
-    registerParameter(BornAgain::PositionVariance, &m_sigma2).setNonnegative();
     mP_integrator
         = make_integrator_real(this, &InterferenceFunction2DSuperLattice::interferenceForXi);
 }
@@ -163,11 +159,10 @@ double InterferenceFunction2DSuperLattice::interferenceForXi(double xi) const
     double qbdiv2 = (m_qx*b*std::cos(xialpha) + m_qy*b*std::sin(xialpha)) / 2.0;
     double ampl = Laue(qadiv2, m_size_1)*Laue(qbdiv2, m_size_2);
     double lattice_factor = ampl*ampl / (m_size_1*m_size_2);
-    double DW_factor = std::exp(-m_sigma2*(m_qx*m_qx + m_qy*m_qy)/2.0);
 
     double delta_xi = xi - mP_lattice->rotationAngle();
     kvector_t q = kvector_t(m_qx, m_qy, 0.0).rotatedZ(-delta_xi);
     double substructure_result = mP_substructure->evaluate(q);
 
-    return (1.0 + DW_factor*(lattice_factor - 1.0))*substructure_result;
+    return lattice_factor*substructure_result;
 }

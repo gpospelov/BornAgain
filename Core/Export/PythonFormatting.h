@@ -43,6 +43,7 @@ BA_CORE_API_ std::string printInt(int value);
 BA_CORE_API_ std::string printBool(double value);
 BA_CORE_API_ std::string printDouble(double input);
 BA_CORE_API_ std::string printNm(double input);
+BA_CORE_API_ std::string printNm2(double input);
 BA_CORE_API_ std::string printScientificDouble(double input);
 BA_CORE_API_ std::string printDegrees(double input);
 BA_CORE_API_ std::string printValue(double value, const std::string& units = "");

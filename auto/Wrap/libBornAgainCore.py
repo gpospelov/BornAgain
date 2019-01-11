@@ -4086,6 +4086,7 @@ micrometer = cvar.micrometer
 millimeter = cvar.millimeter
 meter = cvar.meter
 nm = cvar.nm
+nm2 = cvar.nm2
 barn = cvar.barn
 radian = cvar.radian
 milliradian = cvar.milliradian
@@ -21693,26 +21694,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize2(self)
 
 
-    def setPositionVariance(self, sigma2):
-        """
-        setPositionVariance(InterferenceFunction2DSuperLattice self, double sigma2)
-
-        void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setPositionVariance(self, sigma2)
-
-
-    def positionVariance(self):
-        """
-        positionVariance(InterferenceFunction2DSuperLattice self) -> double
-
-        double InterferenceFunction2DSuperLattice::positionVariance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_positionVariance(self)
-
-
     def setIntegrationOverXi(self, integrate_xi):
         """
         setIntegrationOverXi(InterferenceFunction2DSuperLattice self, bool integrate_xi)
@@ -22019,26 +22000,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells2(self)
-
-
-    def setPositionVariance(self, sigma2):
-        """
-        setPositionVariance(InterferenceFunctionFinite2DLattice self, double sigma2)
-
-        void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_setPositionVariance(self, sigma2)
-
-
-    def positionVariance(self):
-        """
-        positionVariance(InterferenceFunctionFinite2DLattice self) -> double
-
-        double InterferenceFunctionFinite2DLattice::positionVariance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_positionVariance(self)
 
 
     def setIntegrationOverXi(self, integrate_xi):

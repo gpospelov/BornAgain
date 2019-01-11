@@ -40,6 +40,8 @@ public:
 
     const Lattice& lattice() const;
 
+    bool supportsMultilayer() const override { return false; }
+
     std::vector<const INode*> getChildren() const override;
 private:
     InterferenceFunctionFinite3DLattice(const InterferenceFunctionFinite3DLattice& other);

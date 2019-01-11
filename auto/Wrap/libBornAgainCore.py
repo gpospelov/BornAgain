@@ -22224,6 +22224,18 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionFinite3DLattice_lattice(self)
 
 
+    def supportsMultilayer(self):
+        """
+        supportsMultilayer(InterferenceFunctionFinite3DLattice self) -> bool
+
+        virtual bool IInterferenceFunction::supportsMultilayer() const
+
+        Indicates if this interference function can be used with a multilayer (DWBA mode) 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_supportsMultilayer(self)
+
+
     def getChildren(self):
         """
         getChildren(InterferenceFunctionFinite3DLattice self) -> swig_dummy_type_const_inode_vector

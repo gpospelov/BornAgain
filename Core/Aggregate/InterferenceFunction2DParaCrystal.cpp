@@ -102,20 +102,16 @@ std::vector<const INode*> InterferenceFunction2DParaCrystal::getChildren() const
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     const InterferenceFunction2DParaCrystal& other)
+    : IInterferenceFunction(other)
 {
     setName(other.getName());
-
     m_damping_length = other.m_damping_length;
-
     if (other.m_lattice)
         setLattice(*other.m_lattice);
-
     if (other.m_pdf1 && other.m_pdf2)
         setProbabilityDistributions(*other.m_pdf1, *other.m_pdf2);
-
     setDomainSizes(other.m_domain_sizes[0], other.m_domain_sizes[1]);
     setIntegrationOverXi(other.m_integrate_xi);
-
     init_parameters();
 }
 

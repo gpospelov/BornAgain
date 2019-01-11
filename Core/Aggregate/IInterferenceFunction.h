@@ -25,6 +25,7 @@ class BA_CORE_API_ IInterferenceFunction : public ISample
 {
 public:
     IInterferenceFunction();
+    IInterferenceFunction(const IInterferenceFunction& other);
     virtual ~IInterferenceFunction();
 
     virtual IInterferenceFunction* clone() const=0;
@@ -51,6 +52,7 @@ public:
     virtual bool supportsMultilayer() const { return true; }
 
 private:
+    void init_parameters();
     double m_position_var;
 };
 

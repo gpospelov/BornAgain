@@ -18637,9 +18637,10 @@ class IInterferenceFunction(ISample):
     __getattr__ = lambda self, name: _swig_getattr(self, IInterferenceFunction, name)
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         """
         __init__(IInterferenceFunction self) -> IInterferenceFunction
+        __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
 
 
 
@@ -18652,7 +18653,7 @@ class IInterferenceFunction(ISample):
             _self = None
         else:
             _self = self
-        this = _libBornAgainCore.new_IInterferenceFunction(_self, )
+        this = _libBornAgainCore.new_IInterferenceFunction(_self, *args)
         try:
             self.this.append(this)
         except __builtin__.Exception:
@@ -21831,16 +21832,6 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
-
-
-    def setDebyeWallerFactor(self, dw_length):
-        """
-        setDebyeWallerFactor(InterferenceFunction3DLattice self, double dw_length)
-
-        void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_setDebyeWallerFactor(self, dw_length)
 
 
     def evaluate(self, q):

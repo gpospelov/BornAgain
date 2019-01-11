@@ -52,6 +52,7 @@ public:
     double randomSample() const { return mP_pdf->createSampler()->randomSample(); }
 
 private:
+    InterferenceFunctionRadialParaCrystal(const InterferenceFunctionRadialParaCrystal& other);
     void init_parameters();
 
     double m_peak_distance; //!< the distance to the first neighbor peak

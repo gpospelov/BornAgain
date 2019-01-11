@@ -133,6 +133,7 @@ void InterferenceFunction2DLattice::onChange()
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
         const InterferenceFunction2DLattice& other)
+    : IInterferenceFunction(other)
 {
     setName(other.getName());
     if(other.m_lattice)

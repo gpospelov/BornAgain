@@ -128,7 +128,8 @@ std::vector<const INode*> InterferenceFunctionFinite2DLattice::getChildren() con
 
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
         const InterferenceFunctionFinite2DLattice& other)
-    : m_sigma2(other.m_sigma2)
+    : IInterferenceFunction(other)
+    , m_sigma2(other.m_sigma2)
     , m_N_1(other.m_N_1)
     , m_N_2(other.m_N_2)
 {

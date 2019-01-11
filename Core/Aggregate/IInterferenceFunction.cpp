@@ -13,13 +13,22 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunction.h"
-
+#include "BornAgainNamespace.h"
+#include "RealParameter.h"
 #include <algorithm>
 #include <stdexcept>
 
 IInterferenceFunction::IInterferenceFunction()
     : m_position_var{0.0}
-{}
+{
+    init_parameters();
+}
+
+IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
+    : m_position_var(other.m_position_var)
+{
+    init_parameters();
+}
 
 IInterferenceFunction::~IInterferenceFunction() =default;
 
@@ -36,4 +45,10 @@ double IInterferenceFunction::DWfactor(kvector_t q)
     // remove z component for two dimensional interference functions:
     if (supportsMultilayer()) q.setZ(0.0);
     return std::exp(-q.mag2()*m_position_var);
+}
+
+void IInterferenceFunction::init_parameters()
+{
+//    registerParameter(BornAgain::PositionVariance, &m_position_var).setUnit(BornAgain::UnitsNm2)
+//        .setNonnegative();
 }

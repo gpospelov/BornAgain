@@ -22,8 +22,8 @@ InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice& latt
     : m_lattice(lattice)
     , mP_peak_shape(nullptr)
     , m_rec_radius(0.0)
-    , m_dw_length(0.0)
 {
+    setName(BornAgain::InterferenceFunction3DLatticeType);
     initRecRadius();
 }
 
@@ -32,21 +32,12 @@ InterferenceFunction3DLattice::~InterferenceFunction3DLattice() =default;
 
 InterferenceFunction3DLattice* InterferenceFunction3DLattice::clone() const
 {
-    auto P_clone = std::make_unique<InterferenceFunction3DLattice>(m_lattice);
-    if (mP_peak_shape)
-        P_clone->setPeakShape(*mP_peak_shape);
-    P_clone->setDebyeWallerFactor(m_dw_length);
-    return P_clone.release();
+    return new InterferenceFunction3DLattice(*this);
 }
 
 void InterferenceFunction3DLattice::setPeakShape(const IPeakShape& peak_shape)
 {
     mP_peak_shape.reset(peak_shape.clone());
-}
-
-void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)
-{
-    m_dw_length = dw_length;
 }
 
 double InterferenceFunction3DLattice::evaluate(const kvector_t q) const
@@ -66,14 +57,13 @@ double InterferenceFunction3DLattice::evaluate(const kvector_t q) const
     double result = 0.0;
     for (const auto& q_rec : rec_vectors) {
         if (!(q_rec.mag()<inner_radius)) {
-            double dw_factor = std::exp(-q_rec.mag2()*m_dw_length*m_dw_length/3.0);
-            result += mP_peak_shape->evaluate(q, q_rec)*dw_factor;
+            result += mP_peak_shape->evaluate(q, q_rec);
         }
     }
     return result;
 }
 
-const Lattice&InterferenceFunction3DLattice::lattice() const
+const Lattice& InterferenceFunction3DLattice::lattice() const
 {
     return m_lattice;
 }
@@ -86,6 +76,19 @@ std::vector<const INode*> InterferenceFunction3DLattice::getChildren() const
 void InterferenceFunction3DLattice::onChange()
 {
     initRecRadius();
+}
+
+InterferenceFunction3DLattice::InterferenceFunction3DLattice(
+        const InterferenceFunction3DLattice& other)
+    : IInterferenceFunction(other)
+    , m_lattice(other.m_lattice)
+    , mP_peak_shape(nullptr)
+    , m_rec_radius(0.0)
+{
+    setName(other.getName());
+    initRecRadius();
+    if (other.mP_peak_shape)
+        setPeakShape(*other.mP_peak_shape);
 }
 
 void InterferenceFunction3DLattice::initRecRadius()

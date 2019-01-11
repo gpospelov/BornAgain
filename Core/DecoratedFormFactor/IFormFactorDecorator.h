@@ -18,7 +18,7 @@
 #include "IFormFactor.h"
 
 //! Encapsulates another formfactor and adds extra functionality
-//! (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
+//! (a scalar factor, a position-dependent phase factor, ...).
 //!
 //! This class is designed according to the Decorator Pattern.
 //! It inherits from IFormFactor _and_ has a member of type IFormFactor*.

@@ -483,6 +483,7 @@ class SwigDirector_IInterferenceFunction : public IInterferenceFunction, public 
 
 public:
     SwigDirector_IInterferenceFunction(PyObject *self);
+    SwigDirector_IInterferenceFunction(PyObject *self, IInterferenceFunction const &other);
     virtual ~SwigDirector_IInterferenceFunction();
     virtual IInterferenceFunction *clone() const;
     virtual void transferToCPP();

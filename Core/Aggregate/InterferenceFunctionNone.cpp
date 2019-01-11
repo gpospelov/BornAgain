@@ -19,3 +19,14 @@ InterferenceFunctionNone::InterferenceFunctionNone()
 {
     setName(BornAgain::InterferenceFunctionNoneType);
 }
+
+InterferenceFunctionNone* InterferenceFunctionNone::clone() const
+{
+    return new InterferenceFunctionNone(*this);
+}
+
+InterferenceFunctionNone::InterferenceFunctionNone(const InterferenceFunctionNone& other)
+    : IInterferenceFunction(other)
+{
+    setName(other.getName());
+}

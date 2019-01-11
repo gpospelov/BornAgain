@@ -35,8 +35,6 @@ public:
 
     void setPeakShape(const IPeakShape& peak_shape);
 
-    void setDebyeWallerFactor(double dw_length);
-
     double evaluate(const kvector_t q) const final;
 
     const Lattice& lattice() const;
@@ -47,11 +45,11 @@ public:
 
     void onChange() override final;
 private:
+    InterferenceFunction3DLattice(const InterferenceFunction3DLattice& other);
     void initRecRadius();
     Lattice m_lattice;
     std::unique_ptr<IPeakShape> mP_peak_shape;
     double m_rec_radius;  //!< radius in reciprocal space defining the nearest q vectors to use
-    double m_dw_length;   //!< standard deviation of lattice position perturbations for Debye Waller
 };
 
 #endif // INTERFERENCEFUNCTION3DLATTICE_H

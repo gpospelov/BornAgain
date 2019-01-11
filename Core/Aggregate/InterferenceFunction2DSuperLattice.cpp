@@ -127,7 +127,8 @@ std::vector<const INode*> InterferenceFunction2DSuperLattice::getChildren() cons
 
 InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(
         const InterferenceFunction2DSuperLattice& other)
-    : m_sigma2(other.m_sigma2)
+    : IInterferenceFunction(other)
+    , m_sigma2(other.m_sigma2)
     , m_size_1(other.m_size_1)
     , m_size_2(other.m_size_2)
 {

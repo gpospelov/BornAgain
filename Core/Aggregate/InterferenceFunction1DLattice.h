@@ -42,11 +42,11 @@ public:
     std::vector<const INode*> getChildren() const override;
 
 private:
-    InterferenceFunction1DLattice(const Lattice1DParameters& lattice_params);
+    InterferenceFunction1DLattice(const InterferenceFunction1DLattice& other);
     void init_parameters();
 
     Lattice1DParameters m_lattice_params;
-    std::unique_ptr<IFTDecayFunction1D> m_decay;
+    std::unique_ptr<IFTDecayFunction1D> mP_decay;
     int m_na; //!< determines the number of reciprocal lattice points to use
 };
 

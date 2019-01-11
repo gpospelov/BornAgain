@@ -79,6 +79,7 @@ void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* pdf, QStrin
 void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QString group_name);
 
 void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice);
+void setPositionVariance(SessionItem* item, const IInterferenceFunction& iff);
 
 void setDistribution(SessionItem* item, ParameterDistribution par_distr, QString group_name,
                      double factor = 1.0);
@@ -102,6 +103,7 @@ void TransformFromDomain::setRadialParaCrystalItem(
     auto ipdf = OnlyChildOfType<IFTDistribution1D>(sample);
     QString group_name = InterferenceFunctionRadialParaCrystalItem::P_PDF;
     SetPDF1D(item, ipdf, group_name);
+    setPositionVariance(item, sample);
 }
 
 void TransformFromDomain::set2DParaCrystalItem(SessionItem* item,
@@ -124,6 +126,7 @@ void TransformFromDomain::set2DParaCrystalItem(SessionItem* item,
                 << InterferenceFunction2DParaCrystalItem::P_PDF2;
     for (unsigned i = 0; i < pdfs.size(); ++i)
         setPDF2D(item, pdfs[i], group_names[i]);
+    setPositionVariance(item, sample);
 }
 
 void TransformFromDomain::set1DLatticeItem(SessionItem* item,
@@ -137,6 +140,7 @@ void TransformFromDomain::set1DLatticeItem(SessionItem* item,
     auto pdf = OnlyChildOfType<IFTDecayFunction1D>(sample);
     QString group_name = InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION;
     SetDecayFunction1D(item, pdf, group_name);
+    setPositionVariance(item, sample);
 }
 
 void TransformFromDomain::set2DLatticeItem(SessionItem* item,
@@ -150,6 +154,7 @@ void TransformFromDomain::set2DLatticeItem(SessionItem* item,
     auto p_pdf = OnlyChildOfType<IFTDecayFunction2D>(sample);
     QString group_name = InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION;
     SetDecayFunction2D(item, p_pdf, group_name);
+    setPositionVariance(item, sample);
 }
 
 void TransformFromDomain::set2DLatticeItem(SessionItem* item,
@@ -165,6 +170,7 @@ void TransformFromDomain::set2DLatticeItem(SessionItem* item,
                        sample.positionVariance());
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_XI_INTEGRATION,
                        sample.integrationOverXi());
+    setPositionVariance(item, sample);
 }
 
 void TransformFromDomain::setLayerItem(SessionItem* layerItem, const Layer* layer,
@@ -779,6 +785,12 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
     }
     latticeItem->setItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE,
                               Units::rad2deg(lattice.rotationAngle()));
+}
+
+void setPositionVariance(SessionItem* item, const IInterferenceFunction& iff)
+{
+    double pos_var = iff.positionVariance();
+    item->setItemValue(InterferenceFunctionItem::P_POSITION_VARIANCE, pos_var);
 }
 
 void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_distr,

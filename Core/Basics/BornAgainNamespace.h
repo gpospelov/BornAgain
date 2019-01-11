@@ -73,7 +73,9 @@ const std::string InterferenceFunctionRadialParaCrystalType = "InterferenceRadia
 const std::string InterferenceFunction2DParaCrystalType = "Interference2DParaCrystal";
 const std::string InterferenceFunction1DLatticeType = "Interference1DLattice";
 const std::string InterferenceFunction2DLatticeType = "Interference2DLattice";
+const std::string InterferenceFunction3DLatticeType = "Interference3DLattice";
 const std::string InterferenceFunctionFinite2DLatticeType = "InterferenceFinite2DLattice";
+const std::string InterferenceFunctionFinite3DLatticeType = "InterferenceFinite3DLattice";
 const std::string InterferenceFunction2DSuperLattice = "Interference2DSuperLattice";
 
 const std::string CrystalType = "Crystal";

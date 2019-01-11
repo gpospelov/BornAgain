@@ -47,15 +47,9 @@ void InterferenceFunctionRadialParaCrystal::init_parameters()
         .setNonnegative();
 }
 
-InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const {
-    InterferenceFunctionRadialParaCrystal* result =
-        new InterferenceFunctionRadialParaCrystal(
-            m_peak_distance, m_damping_length);
-    result->setDomainSize(domainSize());
-    result->setKappa(m_kappa);
-    if (mP_pdf)
-        result->setProbabilityDistribution(*mP_pdf);
-    return result;
+InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const
+{
+    return new InterferenceFunctionRadialParaCrystal(*this);
 }
 
 //! Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
@@ -144,4 +138,19 @@ void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFT
 std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() const
 {
     return std::vector<const INode*>() << mP_pdf;
+}
+
+InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
+        const InterferenceFunctionRadialParaCrystal& other)
+    : IInterferenceFunction(other)
+    , m_peak_distance(other.m_peak_distance)
+    , m_damping_length(other.m_damping_length)
+    , m_use_damping_length(other.m_use_damping_length)
+    , m_kappa(other.m_kappa)
+    , m_domain_size(other.m_domain_size)
+{
+    setName(other.getName());
+    init_parameters();
+    if (other.mP_pdf)
+        setProbabilityDistribution(*other.mP_pdf);
 }

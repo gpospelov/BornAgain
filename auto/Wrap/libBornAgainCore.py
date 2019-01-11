@@ -4086,6 +4086,7 @@ micrometer = cvar.micrometer
 millimeter = cvar.millimeter
 meter = cvar.meter
 nm = cvar.nm
+nm2 = cvar.nm2
 barn = cvar.barn
 radian = cvar.radian
 milliradian = cvar.milliradian
@@ -18636,6 +18637,28 @@ class IInterferenceFunction(ISample):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IInterferenceFunction, name)
     __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(IInterferenceFunction self) -> IInterferenceFunction
+        __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
+
+
+
+        Pure virtual base class of interference functions.
+
+        C++ includes: IInterferenceFunction.h
+
+        """
+        if self.__class__ == IInterferenceFunction:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_IInterferenceFunction(_self, *args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     __del__ = lambda self: None
 
@@ -18675,6 +18698,21 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
 
 
+    def setPositionVariance(self, var):
+        """setPositionVariance(IInterferenceFunction self, double var)"""
+        return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
+
+
+    def positionVariance(self):
+        """positionVariance(IInterferenceFunction self) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
+
+
+    def DWfactor(self, q):
+        """DWfactor(IInterferenceFunction self, kvector_t q) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
+
+
     def getParticleDensity(self):
         """
         getParticleDensity(IInterferenceFunction self) -> double
@@ -18698,27 +18736,6 @@ class IInterferenceFunction(ISample):
         """
         return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
 
-
-    def __init__(self):
-        """
-        __init__(IInterferenceFunction self) -> IInterferenceFunction
-
-
-
-        Pure virtual base class of interference functions.
-
-        C++ includes: IInterferenceFunction.h
-
-        """
-        if self.__class__ == IInterferenceFunction:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IInterferenceFunction(_self, )
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IInterferenceFunction(self)
@@ -21677,26 +21694,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize2(self)
 
 
-    def setPositionVariance(self, sigma2):
-        """
-        setPositionVariance(InterferenceFunction2DSuperLattice self, double sigma2)
-
-        void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setPositionVariance(self, sigma2)
-
-
-    def positionVariance(self):
-        """
-        positionVariance(InterferenceFunction2DSuperLattice self) -> double
-
-        double InterferenceFunction2DSuperLattice::positionVariance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_positionVariance(self)
-
-
     def setIntegrationOverXi(self, integrate_xi):
         """
         setIntegrationOverXi(InterferenceFunction2DSuperLattice self, bool integrate_xi)
@@ -21816,16 +21813,6 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
-
-
-    def setDebyeWallerFactor(self, dw_length):
-        """
-        setDebyeWallerFactor(InterferenceFunction3DLattice self, double dw_length)
-
-        void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_setDebyeWallerFactor(self, dw_length)
 
 
     def evaluate(self, q):
@@ -22015,26 +22002,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells2(self)
 
 
-    def setPositionVariance(self, sigma2):
-        """
-        setPositionVariance(InterferenceFunctionFinite2DLattice self, double sigma2)
-
-        void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_setPositionVariance(self, sigma2)
-
-
-    def positionVariance(self):
-        """
-        positionVariance(InterferenceFunctionFinite2DLattice self) -> double
-
-        double InterferenceFunctionFinite2DLattice::positionVariance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_positionVariance(self)
-
-
     def setIntegrationOverXi(self, integrate_xi):
         """
         setIntegrationOverXi(InterferenceFunctionFinite2DLattice self, bool integrate_xi)
@@ -22222,6 +22189,18 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunctionFinite3DLattice_lattice(self)
+
+
+    def supportsMultilayer(self):
+        """
+        supportsMultilayer(InterferenceFunctionFinite3DLattice self) -> bool
+
+        virtual bool IInterferenceFunction::supportsMultilayer() const
+
+        Indicates if this interference function can be used with a multilayer (DWBA mode) 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_supportsMultilayer(self)
 
 
     def getChildren(self):

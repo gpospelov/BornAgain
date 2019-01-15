@@ -48,10 +48,10 @@ public:
     //! Indicates if this interference function can be used with a multilayer (DWBA mode)
     virtual bool supportsMultilayer() const { return true; }
 
-protected:
     //! Evaluates the Debye-Waller factor for a given wavevector transfer
     double DWfactor(kvector_t q) const;
 
+protected:
     //! Calculates the structure factor in the absence of extra inner structure
     double iff_no_inner(const kvector_t q, double outer_iff) const;
 

@@ -18713,6 +18713,11 @@ class IInterferenceFunction(ISample):
         """
         return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
 
+
+    def DWfactor(self, q):
+        """DWfactor(IInterferenceFunction self, kvector_t q) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
+
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IInterferenceFunction(self)

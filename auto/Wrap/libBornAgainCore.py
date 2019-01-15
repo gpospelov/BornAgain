@@ -3149,7 +3149,7 @@ class kvector_t(_object):
 
         double BasicVector3D< T >::mag2() const
 
-        Returns squared magnitude squared of the vector. 
+        Returns magnitude squared of the vector. 
 
         """
         return _libBornAgainCore.kvector_t_mag2(self)
@@ -3661,7 +3661,7 @@ class cvector_t(_object):
 
         double BasicVector3D< T >::mag2() const
 
-        Returns squared magnitude squared of the vector. 
+        Returns magnitude squared of the vector. 
 
         """
         return _libBornAgainCore.cvector_t_mag2(self)
@@ -9193,7 +9193,14 @@ class IFTDistribution1D(ICloneable, INode):
 
 
     def qSecondDerivative(self):
-        """qSecondDerivative(IFTDistribution1D self) -> double"""
+        """
+        qSecondDerivative(IFTDistribution1D self) -> double
+
+        virtual double IFTDistribution1D::qSecondDerivative() const =0
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
         return _libBornAgainCore.IFTDistribution1D_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
@@ -9238,7 +9245,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         clone(FTDistribution1DCauchy self) -> FTDistribution1DCauchy
 
-        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const final
+        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DCauchy_clone(self)
@@ -9248,7 +9255,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         accept(FTDistribution1DCauchy self, INodeVisitor visitor)
 
-        void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9260,7 +9267,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         evaluate(FTDistribution1DCauchy self, double q) -> double
 
-        double FTDistribution1DCauchy::evaluate(double q) const final
+        double FTDistribution1DCauchy::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -9269,7 +9276,14 @@ class FTDistribution1DCauchy(IFTDistribution1D):
 
 
     def qSecondDerivative(self):
-        """qSecondDerivative(FTDistribution1DCauchy self) -> double"""
+        """
+        qSecondDerivative(FTDistribution1DCauchy self) -> double
+
+        double FTDistribution1DCauchy::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
         return _libBornAgainCore.FTDistribution1DCauchy_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCauchy
@@ -9314,7 +9328,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         clone(FTDistribution1DGauss self) -> FTDistribution1DGauss
 
-        FTDistribution1DGauss * FTDistribution1DGauss::clone() const final
+        FTDistribution1DGauss * FTDistribution1DGauss::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DGauss_clone(self)
@@ -9324,7 +9338,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         accept(FTDistribution1DGauss self, INodeVisitor visitor)
 
-        void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DGauss::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9336,7 +9350,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         evaluate(FTDistribution1DGauss self, double q) -> double
 
-        double FTDistribution1DGauss::evaluate(double q) const final
+        double FTDistribution1DGauss::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -9345,7 +9359,14 @@ class FTDistribution1DGauss(IFTDistribution1D):
 
 
     def qSecondDerivative(self):
-        """qSecondDerivative(FTDistribution1DGauss self) -> double"""
+        """
+        qSecondDerivative(FTDistribution1DGauss self) -> double
+
+        double FTDistribution1DGauss::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
         return _libBornAgainCore.FTDistribution1DGauss_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGauss
@@ -9390,7 +9411,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         clone(FTDistribution1DGate self) -> FTDistribution1DGate
 
-        FTDistribution1DGate * FTDistribution1DGate::clone() const final
+        FTDistribution1DGate * FTDistribution1DGate::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DGate_clone(self)
@@ -9400,7 +9421,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         accept(FTDistribution1DGate self, INodeVisitor visitor)
 
-        void FTDistribution1DGate::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DGate::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9412,7 +9433,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         evaluate(FTDistribution1DGate self, double q) -> double
 
-        double FTDistribution1DGate::evaluate(double q) const final
+        double FTDistribution1DGate::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -9421,7 +9442,14 @@ class FTDistribution1DGate(IFTDistribution1D):
 
 
     def qSecondDerivative(self):
-        """qSecondDerivative(FTDistribution1DGate self) -> double"""
+        """
+        qSecondDerivative(FTDistribution1DGate self) -> double
+
+        double FTDistribution1DGate::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
         return _libBornAgainCore.FTDistribution1DGate_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGate
@@ -9466,7 +9494,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         clone(FTDistribution1DTriangle self) -> FTDistribution1DTriangle
 
-        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const final
+        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DTriangle_clone(self)
@@ -9476,7 +9504,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         accept(FTDistribution1DTriangle self, INodeVisitor visitor)
 
-        void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9488,7 +9516,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         evaluate(FTDistribution1DTriangle self, double q) -> double
 
-        double FTDistribution1DTriangle::evaluate(double q) const final
+        double FTDistribution1DTriangle::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -9497,7 +9525,14 @@ class FTDistribution1DTriangle(IFTDistribution1D):
 
 
     def qSecondDerivative(self):
-        """qSecondDerivative(FTDistribution1DTriangle self) -> double"""
+        """
+        qSecondDerivative(FTDistribution1DTriangle self) -> double
+
+        double FTDistribution1DTriangle::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
         return _libBornAgainCore.FTDistribution1DTriangle_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DTriangle
@@ -9542,7 +9577,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         clone(FTDistribution1DCosine self) -> FTDistribution1DCosine
 
-        FTDistribution1DCosine * FTDistribution1DCosine::clone() const final
+        FTDistribution1DCosine * FTDistribution1DCosine::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_clone(self)
@@ -9552,7 +9587,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         accept(FTDistribution1DCosine self, INodeVisitor visitor)
 
-        void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DCosine::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9564,7 +9599,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         evaluate(FTDistribution1DCosine self, double q) -> double
 
-        double FTDistribution1DCosine::evaluate(double q) const final
+        double FTDistribution1DCosine::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -9573,7 +9608,14 @@ class FTDistribution1DCosine(IFTDistribution1D):
 
 
     def qSecondDerivative(self):
-        """qSecondDerivative(FTDistribution1DCosine self) -> double"""
+        """
+        qSecondDerivative(FTDistribution1DCosine self) -> double
+
+        double FTDistribution1DCosine::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
         return _libBornAgainCore.FTDistribution1DCosine_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCosine
@@ -9629,7 +9671,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         clone(FTDistribution1DVoigt self) -> FTDistribution1DVoigt
 
-        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const final
+        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_clone(self)
@@ -9639,7 +9681,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         accept(FTDistribution1DVoigt self, INodeVisitor visitor)
 
-        void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9651,7 +9693,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         evaluate(FTDistribution1DVoigt self, double q) -> double
 
-        double FTDistribution1DVoigt::evaluate(double q) const final
+        double FTDistribution1DVoigt::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -9670,7 +9712,14 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 
 
     def qSecondDerivative(self):
-        """qSecondDerivative(FTDistribution1DVoigt self) -> double"""
+        """
+        qSecondDerivative(FTDistribution1DVoigt self) -> double
+
+        double FTDistribution1DVoigt::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
         return _libBornAgainCore.FTDistribution1DVoigt_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DVoigt
@@ -10895,7 +10944,7 @@ class IFormFactorDecorator(IFormFactor):
     """
 
 
-    Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
+    Encapsulates another formfactor and adds extra functionality (a scalar factor, a position-dependent phase factor, ...).
 
     This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
 
@@ -18672,21 +18721,35 @@ class IInterferenceFunction(ISample):
         evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
         evaluate(IInterferenceFunction self, kvector_t q) -> double
 
-        virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
+        double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
 
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+        Evaluates the interference function for a given wavevector transfer. 
 
         """
         return _libBornAgainCore.IInterferenceFunction_evaluate(self, q, outer_iff)
 
 
     def setPositionVariance(self, var):
-        """setPositionVariance(IInterferenceFunction self, double var)"""
+        """
+        setPositionVariance(IInterferenceFunction self, double var)
+
+        void IInterferenceFunction::setPositionVariance(double var)
+
+        Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
+
+        """
         return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
 
 
     def positionVariance(self):
-        """positionVariance(IInterferenceFunction self) -> double"""
+        """
+        positionVariance(IInterferenceFunction self) -> double
+
+        double IInterferenceFunction::positionVariance() const
+
+        Returns the position variance. 
+
+        """
         return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
 
 
@@ -18715,7 +18778,14 @@ class IInterferenceFunction(ISample):
 
 
     def DWfactor(self, q):
-        """DWfactor(IInterferenceFunction self, kvector_t q) -> double"""
+        """
+        DWfactor(IInterferenceFunction self, kvector_t q) -> double
+
+        double IInterferenceFunction::DWfactor(kvector_t q) const
+
+        Evaluates the Debye-Waller factor for a given wavevector transfer. 
+
+        """
         return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
 
     def __disown__(self):
@@ -20819,7 +20889,9 @@ class IntensityDataIOFactory(_object):
     """
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+    Usage:
 
     C++ includes: IntensityDataIOFactory.h
 
@@ -20867,7 +20939,9 @@ class IntensityDataIOFactory(_object):
 
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+        Usage:
 
         C++ includes: IntensityDataIOFactory.h
 
@@ -20952,7 +21026,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice
 
-        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const final
+        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -20964,7 +21038,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction1DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21004,7 +21078,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21072,7 +21146,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice
 
-        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const final
+        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21084,7 +21158,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction2DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21162,7 +21236,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunction2DLattice self) -> double
 
-        double InterferenceFunction2DLattice::getParticleDensity() const final
+        double InterferenceFunction2DLattice::getParticleDensity() const override final
 
         Returns the particle density associated with this 2d lattice. 
 
@@ -21174,7 +21248,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction2DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21275,7 +21349,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal
 
-        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const final
+        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21287,7 +21361,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         accept(InterferenceFunction2DParaCrystal self, INodeVisitor visitor)
 
-        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21439,7 +21513,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunction2DParaCrystal self) -> double
 
-        double InterferenceFunction2DParaCrystal::getParticleDensity() const final
+        double InterferenceFunction2DParaCrystal::getParticleDensity() const override final
 
         If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 
@@ -21451,7 +21525,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         getChildren(InterferenceFunction2DParaCrystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const
+        std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21556,7 +21630,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
 
-        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const final
+        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21568,7 +21642,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction2DSuperLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21613,9 +21687,9 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
         evaluate(InterferenceFunction2DSuperLattice self, kvector_t q) -> double
 
-        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
+        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final
 
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+        Evaluates the interference function for a given wavevector transfer. 
 
         """
         return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q, outer_iff)
@@ -21675,7 +21749,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21732,7 +21806,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
 
-        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const final
+        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21744,7 +21818,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction3DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21776,7 +21850,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         """
         supportsMultilayer(InterferenceFunction3DLattice self) -> bool
 
-        bool InterferenceFunction3DLattice::supportsMultilayer() const override
+        bool InterferenceFunction3DLattice::supportsMultilayer() const override final
 
         Indicates if this interference function can be used with a multilayer (DWBA mode) 
 
@@ -21788,7 +21862,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21873,7 +21947,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice
 
-        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const final
+        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21885,7 +21959,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunctionFinite2DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21959,7 +22033,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunctionFinite2DLattice self) -> double
 
-        double InterferenceFunctionFinite2DLattice::getParticleDensity() const final
+        double InterferenceFunctionFinite2DLattice::getParticleDensity() const override final
 
         Returns the particle density associated with this 2d lattice. 
 
@@ -21971,7 +22045,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunctionFinite2DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -22042,7 +22116,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunctionFinite3DLattice self) -> InterferenceFunctionFinite3DLattice
 
-        InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const final
+        InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -22054,7 +22128,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunctionFinite3DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22106,7 +22180,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         """
         supportsMultilayer(InterferenceFunctionFinite3DLattice self) -> bool
 
-        virtual bool IInterferenceFunction::supportsMultilayer() const
+        bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final
 
         Indicates if this interference function can be used with a multilayer (DWBA mode) 
 
@@ -22118,7 +22192,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunctionFinite3DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -22165,7 +22239,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         clone(InterferenceFunctionNone self) -> InterferenceFunctionNone
 
-        InterferenceFunctionNone* InterferenceFunctionNone::clone() const final
+        InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -22177,7 +22251,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         accept(InterferenceFunctionNone self, INodeVisitor visitor)
 
-        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const final
+        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22238,7 +22312,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
 
-        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
+        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -22250,7 +22324,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor visitor)
 
-        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final
+        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22366,7 +22440,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
+        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -25742,7 +25816,7 @@ class ParameterPool(ICloneable):
 
         Adds parameter to the pool, and returns reference to the input pointer.
 
-        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
+        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
 
         """
         return _libBornAgainCore.ParameterPool_addParameter(self, newPar)

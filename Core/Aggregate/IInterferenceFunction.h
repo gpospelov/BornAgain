@@ -41,9 +41,6 @@ public:
     //! Returns the position variance
     double positionVariance() const { return m_position_var; }
 
-    //! Evaluates the Debye-Waller factor for a given wavevector transfer
-    double DWfactor(kvector_t q) const;
-
     //! If defined by this interference function's parameters, returns the particle density (per
     //!  area). Otherwise, returns zero or a user-defined value
     virtual double getParticleDensity() const { return 0.0; }
@@ -51,10 +48,14 @@ public:
     //! Indicates if this interference function can be used with a multilayer (DWBA mode)
     virtual bool supportsMultilayer() const { return true; }
 
-private:
+protected:
+    //! Evaluates the Debye-Waller factor for a given wavevector transfer
+    double DWfactor(kvector_t q) const;
+
     //! Calculates the structure factor in the absence of extra inner structure
     double iff_no_inner(const kvector_t q, double outer_iff) const;
 
+private:
     //! Calculates the structure factor without Debye-Waller factor
     virtual double iff_without_dw(const kvector_t q) const=0;
 

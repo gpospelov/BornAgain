@@ -67,8 +67,10 @@ private:
     std::unique_ptr<Lattice2D> mP_lattice;
     std::unique_ptr<IInterferenceFunction> mP_substructure;  //!< IFF of substructure
     unsigned m_size_1, m_size_2;  //!< Size of the finite lattice in lattice units
+    mutable double m_outer_iff;
     mutable double m_qx;
     mutable double m_qy;
+    mutable double m_xi;
 #ifndef SWIG
     std::unique_ptr<IntegratorReal<InterferenceFunction2DSuperLattice>> mP_integrator;
 #endif

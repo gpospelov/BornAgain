@@ -97,6 +97,7 @@ InterferenceFunction2DSuperLattice* InterferenceFunction2DSuperLattice::createHe
 
 double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff) const
 {
+    m_outer_iff = outer_iff;
     m_qx = q.x();
     m_qy = q.y();
     if (!m_integrate_xi)
@@ -125,7 +126,14 @@ std::vector<const INode*> InterferenceFunction2DSuperLattice::getChildren() cons
 
 double InterferenceFunction2DSuperLattice::iff_without_dw(const kvector_t q) const
 {
-    return 0.0;
+    double a = mP_lattice->length1();
+    double b = mP_lattice->length2();
+    double xialpha = m_xi + mP_lattice->latticeAngle();
+
+    double qadiv2 = (q.x()*a*std::cos(m_xi) + q.y()*a*std::sin(m_xi)) / 2.0;
+    double qbdiv2 = (q.x()*b*std::cos(xialpha) + q.y()*b*std::sin(xialpha)) / 2.0;
+    double ampl = Laue(qadiv2, m_size_1)*Laue(qbdiv2, m_size_2);
+    return ampl*ampl / (m_size_1*m_size_2);
 }
 
 InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(
@@ -156,18 +164,11 @@ void InterferenceFunction2DSuperLattice::init_parameters()
 
 double InterferenceFunction2DSuperLattice::interferenceForXi(double xi) const
 {
-    double a = mP_lattice->length1();
-    double b = mP_lattice->length2();
-    double xialpha = xi + mP_lattice->latticeAngle();
-
-    double qadiv2 = (m_qx*a*std::cos(xi) + m_qy*a*std::sin(xi)) / 2.0;
-    double qbdiv2 = (m_qx*b*std::cos(xialpha) + m_qy*b*std::sin(xialpha)) / 2.0;
-    double ampl = Laue(qadiv2, m_size_1)*Laue(qbdiv2, m_size_2);
-    double lattice_factor = ampl*ampl / (m_size_1*m_size_2);
+    m_xi = xi;
+    kvector_t q = kvector_t(m_qx, m_qy, 0.0);
+    double outer_iff = iff_no_inner(q, m_outer_iff);
 
     double delta_xi = xi - mP_lattice->rotationAngle();
-    kvector_t q = kvector_t(m_qx, m_qy, 0.0).rotatedZ(-delta_xi);
-    double substructure_result = mP_substructure->evaluate(q);
-
-    return lattice_factor*substructure_result;
+    q = q.rotatedZ(-delta_xi);
+    return mP_substructure->evaluate(q, outer_iff);
 }

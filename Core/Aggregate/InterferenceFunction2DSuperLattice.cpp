@@ -92,10 +92,10 @@ InterferenceFunction2DSuperLattice* InterferenceFunction2DSuperLattice::createHe
     double lattice_length, double xi, unsigned size_1, unsigned size_2)
 {
     return new InterferenceFunction2DSuperLattice(HexagonalLattice(lattice_length, xi),
-                                                   size_1, size_2);
+                                                  size_1, size_2);
 }
 
-double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const
+double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff) const
 {
     m_qx = q.x();
     m_qy = q.y();
@@ -121,6 +121,11 @@ const Lattice2D& InterferenceFunction2DSuperLattice::lattice() const
 std::vector<const INode*> InterferenceFunction2DSuperLattice::getChildren() const
 {
     return std::vector<const INode*>() << mP_lattice << mP_substructure;
+}
+
+double InterferenceFunction2DSuperLattice::iff_without_dw(const kvector_t q) const
+{
+    return 0.0;
 }
 
 InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(

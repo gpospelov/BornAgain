@@ -494,7 +494,7 @@ public:
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual void setParent(INode const *newParent);
     virtual Material const *material() const;
-    virtual double evaluate(kvector_t const q) const;
+    virtual double evaluate(kvector_t const q, double outer_iff = 1.0) const;
     virtual double getParticleDensity() const;
     virtual bool supportsMultilayer() const;
 
@@ -527,7 +527,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[12];
+    mutable swig::SwigVar_PyObject vtable[13];
 #endif
 
 };

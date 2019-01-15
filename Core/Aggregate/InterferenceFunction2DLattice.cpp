@@ -88,18 +88,6 @@ void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D& d
     initialize_calc_factors();
 }
 
-double InterferenceFunction2DLattice::evaluate(const kvector_t q) const
-{
-    if (!m_decay)
-        throw Exceptions::NullPointerException("InterferenceFunction2DLattice::evaluate"
-                                               " -> Error! No decay function defined.");
-    m_qx = q.x();
-    m_qy = q.y();
-    if (!m_integrate_xi)
-        return interferenceForXi(m_lattice->rotationAngle());
-    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
-}
-
 void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
 {
     m_integrate_xi = integrate_xi;
@@ -129,6 +117,18 @@ void InterferenceFunction2DLattice::onChange()
 {
     initialize_rec_vectors();
     initialize_calc_factors();
+}
+
+double InterferenceFunction2DLattice::iff_without_dw(const kvector_t q) const
+{
+    if (!m_decay)
+        throw Exceptions::NullPointerException("InterferenceFunction2DLattice::evaluate"
+                                               " -> Error! No decay function defined.");
+    m_qx = q.x();
+    m_qy = q.y();
+    if (!m_integrate_xi)
+        return interferenceForXi(m_lattice->rotationAngle());
+    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
 }
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(

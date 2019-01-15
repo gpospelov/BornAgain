@@ -29,19 +29,18 @@ public:
     InterferenceFunction1DLattice(double length, double xi);
     ~InterferenceFunction1DLattice() final;
 
-    InterferenceFunction1DLattice* clone() const final;
+    InterferenceFunction1DLattice* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     void setDecayFunction(const IFTDecayFunction1D& decay);
 
     Lattice1DParameters getLatticeParameters() const { return m_lattice_params; }
 
-    double evaluate(const kvector_t q) const final;
-
-    std::vector<const INode*> getChildren() const override;
+    std::vector<const INode*> getChildren() const override final;
 
 private:
+    double iff_without_dw(const kvector_t q) const override final;
     InterferenceFunction1DLattice(const InterferenceFunction1DLattice& other);
     void init_parameters();
 

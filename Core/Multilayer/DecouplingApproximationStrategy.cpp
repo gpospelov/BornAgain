@@ -49,8 +49,7 @@ double DecouplingApproximationStrategy::scalarCalculation(
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
-    double dw_factor = mP_iff->DWfactor(sim_element.getMeanQ());
-    return intensity + amplitude_norm * dw_factor * (itf_function - 1.0);
+    return intensity + amplitude_norm * (itf_function - 1.0);
 }
 
 //! This is the polarized version
@@ -78,6 +77,5 @@ double DecouplingApproximationStrategy::polarizedCalculation(
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());
     double itf_function = mP_iff->evaluate(sim_element.getMeanQ());
-    double dw_factor = mP_iff->DWfactor(sim_element.getMeanQ());
-    return intensity_trace + amplitude_trace * dw_factor * (itf_function - 1.0);
+    return intensity_trace + amplitude_trace * (itf_function - 1.0);
 }

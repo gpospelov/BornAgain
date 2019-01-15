@@ -25,6 +25,11 @@ InterferenceFunctionNone* InterferenceFunctionNone::clone() const
     return new InterferenceFunctionNone(*this);
 }
 
+double InterferenceFunctionNone::iff_without_dw(const kvector_t) const
+{
+    return 1.0;
+}
+
 InterferenceFunctionNone::InterferenceFunctionNone(const InterferenceFunctionNone& other)
     : IInterferenceFunction(other)
 {

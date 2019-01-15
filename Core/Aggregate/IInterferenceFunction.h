@@ -32,7 +32,7 @@ public:
     virtual void accept(INodeVisitor* visitor) const =0;
 
     //! Evaluates the interference function for a given wavevector transfer
-    virtual double evaluate(const kvector_t q) const=0;
+    virtual double evaluate(const kvector_t q, double outer_iff=1.0) const;
 
     //! Sets the variance of the position for the calculation of the DW factor
     //! It is defined as the variance in each relevant dimension
@@ -42,7 +42,7 @@ public:
     double positionVariance() const { return m_position_var; }
 
     //! Evaluates the Debye-Waller factor for a given wavevector transfer
-    double DWfactor(kvector_t q);
+    double DWfactor(kvector_t q) const;
 
     //! If defined by this interference function's parameters, returns the particle density (per
     //!  area). Otherwise, returns zero or a user-defined value
@@ -52,6 +52,12 @@ public:
     virtual bool supportsMultilayer() const { return true; }
 
 private:
+    //! Calculates the structure factor in the absence of extra inner structure
+    double iff_no_inner(const kvector_t q, double outer_iff) const;
+
+    //! Calculates the structure factor without Debye-Waller factor
+    virtual double iff_without_dw(const kvector_t q) const=0;
+
     void init_parameters();
     double m_position_var;
 };

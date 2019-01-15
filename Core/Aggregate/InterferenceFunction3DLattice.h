@@ -29,22 +29,21 @@ public:
     InterferenceFunction3DLattice(const Lattice& lattice);
     ~InterferenceFunction3DLattice() final;
 
-    InterferenceFunction3DLattice* clone() const final;
+    InterferenceFunction3DLattice* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     void setPeakShape(const IPeakShape& peak_shape);
 
-    double evaluate(const kvector_t q) const final;
-
     const Lattice& lattice() const;
 
-    bool supportsMultilayer() const override { return false; }
+    bool supportsMultilayer() const override final { return false; }
 
-    std::vector<const INode*> getChildren() const override;
+    std::vector<const INode*> getChildren() const override final;
 
     void onChange() override final;
 private:
+    double iff_without_dw(const kvector_t q) const override final;
     InterferenceFunction3DLattice(const InterferenceFunction3DLattice& other);
     void initRecRadius();
     Lattice m_lattice;

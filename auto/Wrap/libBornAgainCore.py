@@ -18636,29 +18636,10 @@ class IInterferenceFunction(ISample):
     for _s in [ISample]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IInterferenceFunction, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(IInterferenceFunction self) -> IInterferenceFunction
-        __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
-
-
-
-        Pure virtual base class of interference functions.
-
-        C++ includes: IInterferenceFunction.h
-
-        """
-        if self.__class__ == IInterferenceFunction:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IInterferenceFunction(_self, *args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     __del__ = lambda self: None
 
@@ -18686,8 +18667,9 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_accept(self, visitor)
 
 
-    def evaluate(self, q):
+    def evaluate(self, q, outer_iff=1.0):
         """
+        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
         evaluate(IInterferenceFunction self, kvector_t q) -> double
 
         virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
@@ -18695,7 +18677,7 @@ class IInterferenceFunction(ISample):
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
         """
-        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
+        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q, outer_iff)
 
 
     def setPositionVariance(self, var):
@@ -21018,18 +21000,6 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction1DLattice_getLatticeParameters(self)
 
 
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction1DLattice self, kvector_t q) -> double
-
-        double InterferenceFunction1DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_evaluate(self, q)
-
-
     def getChildren(self):
         """
         getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
@@ -21156,18 +21126,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DLattice_setDecayFunction(self, decay)
-
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction2DLattice self, kvector_t q) -> double
-
-        double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_evaluate(self, q)
 
 
     def setIntegrationOverXi(self, integrate_xi):
@@ -21419,18 +21377,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDampingLength(self, damping_length)
 
 
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction2DParaCrystal self, kvector_t q) -> double
-
-        double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_evaluate(self, q)
-
-
     def domainSizes(self):
         """
         domainSizes(InterferenceFunction2DParaCrystal self) -> vdouble1d_t
@@ -21662,8 +21608,9 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
 
     createHexagonal = staticmethod(createHexagonal)
 
-    def evaluate(self, q):
+    def evaluate(self, q, outer_iff=1.0):
         """
+        evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
         evaluate(InterferenceFunction2DSuperLattice self, kvector_t q) -> double
 
         double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
@@ -21671,7 +21618,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 
         """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q)
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q, outer_iff)
 
 
     def domainSize1(self):
@@ -21813,18 +21760,6 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
-
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction3DLattice self, kvector_t q) -> double
-
-        double InterferenceFunction3DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_evaluate(self, q)
 
 
     def lattice(self):
@@ -21969,18 +21904,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
 
     createHexagonal = staticmethod(createHexagonal)
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunctionFinite2DLattice self, kvector_t q) -> double
-
-        double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_evaluate(self, q)
-
 
     def numberUnitCells1(self):
         """
@@ -22139,18 +22062,6 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionFinite3DLattice_accept(self, visitor)
 
 
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunctionFinite3DLattice self, kvector_t q) -> double
-
-        double InterferenceFunctionFinite3DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_evaluate(self, q)
-
-
     def numberUnitCells1(self):
         """
         numberUnitCells1(InterferenceFunctionFinite3DLattice self) -> unsigned int
@@ -22272,18 +22183,6 @@ class InterferenceFunctionNone(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
-
-
-    def evaluate(self, arg2):
-        """
-        evaluate(InterferenceFunctionNone self, kvector_t arg2) -> double
-
-        double InterferenceFunctionNone::evaluate(const kvector_t) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionNone_evaluate(self, arg2)
 
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionNone
     __del__ = lambda self: None
@@ -22413,18 +22312,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_domainSize(self)
-
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunctionRadialParaCrystal self, kvector_t q) -> double
-
-        double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_evaluate(self, q)
 
 
     def FTPDF(self, qpar):

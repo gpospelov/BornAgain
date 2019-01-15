@@ -50,8 +50,7 @@ double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_
     complex_t p2kappa = m_helper.getCharacteristicSizeCoupling(qp, m_formfactor_wrappers);
     complex_t omega = m_helper.getCharacteristicDistribution(qp, mP_iff.get());
     double interference_intensity = 2.0 * (mean_ff_norm * omega / (1.0 - p2kappa * omega)).real();
-    double dw_factor = mP_iff->DWfactor(sim_element.getMeanQ());
-    return diffuse_intensity + dw_factor * interference_intensity;
+    return diffuse_intensity + interference_intensity;
 }
 
 //! This is the polarized version
@@ -77,6 +76,5 @@ double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& s
     Eigen::Matrix2cd diffuse_matrix2 = polarization_handler.getAnalyzerOperator() * diffuse_matrix;
     double interference_trace = std::abs(interference_matrix.trace());
     double diffuse_trace = std::abs(diffuse_matrix2.trace());
-    double dw_factor = mP_iff->DWfactor(sim_element.getMeanQ());
-    return diffuse_trace + dw_factor * interference_trace;
+    return diffuse_trace + interference_trace;
 }

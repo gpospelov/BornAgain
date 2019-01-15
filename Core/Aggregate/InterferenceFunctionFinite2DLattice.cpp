@@ -90,15 +90,6 @@ InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::create
                                                    N_1, N_2);
 }
 
-double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const
-{
-    m_qx = q.x();
-    m_qy = q.y();
-    if (!m_integrate_xi)
-        return interferenceForXi(mP_lattice->rotationAngle());
-    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
-}
-
 void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
 {
     m_integrate_xi = integrate_xi;
@@ -122,6 +113,15 @@ double InterferenceFunctionFinite2DLattice::getParticleDensity() const
 std::vector<const INode*> InterferenceFunctionFinite2DLattice::getChildren() const
 {
     return std::vector<const INode*>() << mP_lattice;
+}
+
+double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) const
+{
+    m_qx = q.x();
+    m_qy = q.y();
+    if (!m_integrate_xi)
+        return interferenceForXi(mP_lattice->rotationAngle());
+    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
 }
 
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(

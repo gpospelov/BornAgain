@@ -25,12 +25,12 @@ class BA_CORE_API_ InterferenceFunctionNone : public IInterferenceFunction
 public:
     InterferenceFunctionNone();
 
-    InterferenceFunctionNone* clone() const final;
+    InterferenceFunctionNone* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double evaluate(const kvector_t) const final { return 1; }
 private:
+    double iff_without_dw(const kvector_t q) const override final;
     InterferenceFunctionNone(const InterferenceFunctionNone& other);
 };
 

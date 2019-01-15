@@ -80,15 +80,6 @@ void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
     m_damping_length = damping_length;
 }
 
-double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
-{
-    m_qx = q.x();
-    m_qy = q.y();
-    if (!m_integrate_xi)
-        return interferenceForXi(m_lattice->rotationAngle());
-    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
-}
-
 double InterferenceFunction2DParaCrystal::getParticleDensity() const
 {
     double area = m_lattice->unitCellArea();
@@ -98,6 +89,15 @@ double InterferenceFunction2DParaCrystal::getParticleDensity() const
 std::vector<const INode*> InterferenceFunction2DParaCrystal::getChildren() const
 {
     return std::vector<const INode*>() << m_pdf1 << m_pdf2 << m_lattice;
+}
+
+double InterferenceFunction2DParaCrystal::iff_without_dw(const kvector_t q) const
+{
+    m_qx = q.x();
+    m_qy = q.y();
+    if (!m_integrate_xi)
+        return interferenceForXi(m_lattice->rotationAngle());
+    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
 }
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(

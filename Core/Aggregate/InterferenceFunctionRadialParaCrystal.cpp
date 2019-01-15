@@ -72,7 +72,31 @@ void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
     m_domain_size = size;
 }
 
-double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
+complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
+{
+    complex_t phase = exp_I(qpar*m_peak_distance);
+    double amplitude = mP_pdf->evaluate(qpar);
+    complex_t result = phase*amplitude;
+    if (m_use_damping_length)
+        result *= std::exp(-m_peak_distance/m_damping_length);
+    return result;
+}
+
+//! Sets one-dimensional probability distribution.
+//! @param pdf: probability distribution (Fourier transform of probability density)
+
+void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
+{
+    mP_pdf.reset(pdf.clone());
+    registerChild(mP_pdf.get());
+}
+
+std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() const
+{
+    return std::vector<const INode*>() << mP_pdf;
+}
+
+double InterferenceFunctionRadialParaCrystal::iff_without_dw(const kvector_t q) const
 {
     if (!mP_pdf)
         throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
@@ -114,30 +138,6 @@ double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
         }
     }
     return result;
-}
-
-complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
-{
-    complex_t phase = exp_I(qpar*m_peak_distance);
-    double amplitude = mP_pdf->evaluate(qpar);
-    complex_t result = phase*amplitude;
-    if (m_use_damping_length)
-        result *= std::exp(-m_peak_distance/m_damping_length);
-    return result;
-}
-
-//! Sets one-dimensional probability distribution.
-//! @param pdf: probability distribution (Fourier transform of probability density)
-
-void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D &pdf)
-{
-    mP_pdf.reset(pdf.clone());
-    registerChild(mP_pdf.get());
-}
-
-std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() const
-{
-    return std::vector<const INode*>() << mP_pdf;
 }
 
 InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(

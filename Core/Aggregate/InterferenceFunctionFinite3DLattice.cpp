@@ -43,15 +43,6 @@ InterferenceFunctionFinite3DLattice* InterferenceFunctionFinite3DLattice::clone(
     return new InterferenceFunctionFinite3DLattice(*this);
 }
 
-double InterferenceFunctionFinite3DLattice::evaluate(const kvector_t q) const
-{
-    double qadiv2 = q.dot(mP_lattice->getBasisVectorA()) / 2.0;
-    double qbdiv2 = q.dot(mP_lattice->getBasisVectorB()) / 2.0;
-    double qcdiv2 = q.dot(mP_lattice->getBasisVectorC()) / 2.0;
-    double ampl = Laue(qadiv2, m_N_1) * Laue(qbdiv2, m_N_2) * Laue(qcdiv2, m_N_3);
-    return ampl * ampl / (m_N_1 * m_N_2 * m_N_3);
-}
-
 const Lattice& InterferenceFunctionFinite3DLattice::lattice() const
 {
     if (!mP_lattice)
@@ -63,6 +54,15 @@ const Lattice& InterferenceFunctionFinite3DLattice::lattice() const
 std::vector<const INode*> InterferenceFunctionFinite3DLattice::getChildren() const
 {
     return std::vector<const INode*>() << mP_lattice;
+}
+
+double InterferenceFunctionFinite3DLattice::iff_without_dw(const kvector_t q) const
+{
+    double qadiv2 = q.dot(mP_lattice->getBasisVectorA()) / 2.0;
+    double qbdiv2 = q.dot(mP_lattice->getBasisVectorB()) / 2.0;
+    double qcdiv2 = q.dot(mP_lattice->getBasisVectorC()) / 2.0;
+    double ampl = Laue(qadiv2, m_N_1) * Laue(qbdiv2, m_N_2) * Laue(qcdiv2, m_N_3);
+    return ampl * ampl / (m_N_1 * m_N_2 * m_N_3);
 }
 
 InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(

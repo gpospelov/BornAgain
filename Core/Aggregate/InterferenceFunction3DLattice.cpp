@@ -40,7 +40,22 @@ void InterferenceFunction3DLattice::setPeakShape(const IPeakShape& peak_shape)
     mP_peak_shape.reset(peak_shape.clone());
 }
 
-double InterferenceFunction3DLattice::evaluate(const kvector_t q) const
+const Lattice& InterferenceFunction3DLattice::lattice() const
+{
+    return m_lattice;
+}
+
+std::vector<const INode*> InterferenceFunction3DLattice::getChildren() const
+{
+    return {};
+}
+
+void InterferenceFunction3DLattice::onChange()
+{
+    initRecRadius();
+}
+
+double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const
 {
     if (!mP_peak_shape)
         throw std::runtime_error("InterferenceFunction3DLattice::evaluate: "
@@ -61,21 +76,6 @@ double InterferenceFunction3DLattice::evaluate(const kvector_t q) const
         }
     }
     return result;
-}
-
-const Lattice& InterferenceFunction3DLattice::lattice() const
-{
-    return m_lattice;
-}
-
-std::vector<const INode*> InterferenceFunction3DLattice::getChildren() const
-{
-    return {};
-}
-
-void InterferenceFunction3DLattice::onChange()
-{
-    initRecRadius();
 }
 
 InterferenceFunction3DLattice::InterferenceFunction3DLattice(

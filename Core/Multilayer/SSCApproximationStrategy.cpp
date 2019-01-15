@@ -49,9 +49,9 @@ double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_
                                                              m_formfactor_wrappers);
     complex_t p2kappa = m_helper.getCharacteristicSizeCoupling(qp, m_formfactor_wrappers);
     complex_t omega = m_helper.getCharacteristicDistribution(qp, mP_iff.get());
-    double interference_intensity = 2.0 * (mean_ff_norm * omega / (1.0 - p2kappa * omega)).real();
+    double iff = 2.0 * (mean_ff_norm * omega / (1.0 - p2kappa * omega)).real();
     double dw_factor = mP_iff->DWfactor(sim_element.getMeanQ());
-    return diffuse_intensity + dw_factor * interference_intensity;
+    return diffuse_intensity + dw_factor * iff;
 }
 
 //! This is the polarized version

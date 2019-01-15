@@ -39,9 +39,9 @@ public:
 
     ~InterferenceFunction2DParaCrystal() final;
 
-    InterferenceFunction2DParaCrystal* clone() const final;
+    InterferenceFunction2DParaCrystal* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     static InterferenceFunction2DParaCrystal* createSquare(double lattice_length,
                                                            double damping_length = 0.0,
@@ -59,8 +59,6 @@ public:
 
     void setDampingLength(double damping_length);
 
-    double evaluate(const kvector_t q) const final;
-
     std::vector<double> domainSizes() const;
 
     void setIntegrationOverXi(bool integrate_xi);
@@ -69,9 +67,9 @@ public:
 
     const Lattice2D& lattice() const;
 
-    double getParticleDensity() const final;
+    double getParticleDensity() const override final;
 
-    std::vector<const INode*> getChildren() const;
+    std::vector<const INode*> getChildren() const override final;
 
     const IFTDistribution2D* pdf1() const
     {
@@ -84,6 +82,7 @@ public:
     }
 
 private:
+    double iff_without_dw(const kvector_t q) const override final;
     InterferenceFunction2DParaCrystal(const InterferenceFunction2DParaCrystal& other);
     void setLattice(const Lattice2D& lattice);
 

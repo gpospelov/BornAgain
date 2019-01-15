@@ -233,7 +233,7 @@ Returns complex conjugate vector.
 
 %feature("docstring")  BasicVector3D::mag2 "double BasicVector3D< T >::mag2() const
 
-Returns squared magnitude squared of the vector. 
+Returns magnitude squared of the vector. 
 ";
 
 %feature("docstring")  BasicVector3D::mag "double BasicVector3D< T >::mag() const
@@ -5139,20 +5139,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DCauchy::FTDistribution1DCauchy "FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::clone "FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const final
+%feature("docstring")  FTDistribution1DCauchy::clone "FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::accept "void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DCauchy::accept "void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::evaluate "double FTDistribution1DCauchy::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DCauchy::evaluate "double FTDistribution1DCauchy::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCauchy::createSampler() const final
+%feature("docstring")  FTDistribution1DCauchy::qSecondDerivative "double FTDistribution1DCauchy::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DCauchy::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCauchy::createSampler() const override final
 ";
 
 
@@ -5167,20 +5172,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DCosine::FTDistribution1DCosine "FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DCosine::clone "FTDistribution1DCosine * FTDistribution1DCosine::clone() const final
+%feature("docstring")  FTDistribution1DCosine::clone "FTDistribution1DCosine * FTDistribution1DCosine::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DCosine::accept "void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DCosine::accept "void FTDistribution1DCosine::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DCosine::evaluate "double FTDistribution1DCosine::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DCosine::evaluate "double FTDistribution1DCosine::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DCosine::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCosine::createSampler() const final
+%feature("docstring")  FTDistribution1DCosine::qSecondDerivative "double FTDistribution1DCosine::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DCosine::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCosine::createSampler() const override final
 ";
 
 
@@ -5195,20 +5205,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DGate::FTDistribution1DGate "FTDistribution1DGate::FTDistribution1DGate(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DGate::clone "FTDistribution1DGate * FTDistribution1DGate::clone() const final
+%feature("docstring")  FTDistribution1DGate::clone "FTDistribution1DGate * FTDistribution1DGate::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DGate::accept "void FTDistribution1DGate::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DGate::accept "void FTDistribution1DGate::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DGate::evaluate "double FTDistribution1DGate::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DGate::evaluate "double FTDistribution1DGate::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DGate::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGate::createSampler() const final
+%feature("docstring")  FTDistribution1DGate::qSecondDerivative "double FTDistribution1DGate::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DGate::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGate::createSampler() const override final
 ";
 
 
@@ -5223,20 +5238,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DGauss::FTDistribution1DGauss "FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DGauss::clone "FTDistribution1DGauss * FTDistribution1DGauss::clone() const final
+%feature("docstring")  FTDistribution1DGauss::clone "FTDistribution1DGauss * FTDistribution1DGauss::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DGauss::accept "void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DGauss::accept "void FTDistribution1DGauss::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DGauss::evaluate "double FTDistribution1DGauss::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DGauss::evaluate "double FTDistribution1DGauss::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DGauss::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGauss::createSampler() const final
+%feature("docstring")  FTDistribution1DGauss::qSecondDerivative "double FTDistribution1DGauss::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DGauss::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGauss::createSampler() const override final
 ";
 
 
@@ -5251,20 +5271,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DTriangle::FTDistribution1DTriangle "FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::clone "FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const final
+%feature("docstring")  FTDistribution1DTriangle::clone "FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::accept "void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DTriangle::accept "void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::evaluate "double FTDistribution1DTriangle::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DTriangle::evaluate "double FTDistribution1DTriangle::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DTriangle::createSampler() const final
+%feature("docstring")  FTDistribution1DTriangle::qSecondDerivative "double FTDistribution1DTriangle::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DTriangle::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DTriangle::createSampler() const override final
 ";
 
 
@@ -5290,15 +5315,15 @@ eta:
 parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const final
+%feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::accept "void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DVoigt::accept "void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::evaluate "double FTDistribution1DVoigt::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DVoigt::evaluate "double FTDistribution1DVoigt::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
@@ -5306,7 +5331,12 @@ Returns Fourier transform of this distribution; is a decay function starting at 
 %feature("docstring")  FTDistribution1DVoigt::eta "double FTDistribution1DVoigt::eta() const
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DVoigt::createSampler() const final
+%feature("docstring")  FTDistribution1DVoigt::qSecondDerivative "double FTDistribution1DVoigt::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DVoigt::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DVoigt::createSampler() const override final
 ";
 
 
@@ -6782,7 +6812,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 // File: classIFormFactorDecorator.xml
 %feature("docstring") IFormFactorDecorator "
 
-Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
+Encapsulates another formfactor and adds extra functionality (a scalar factor, a position-dependent phase factor, ...).
 
 This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
 
@@ -6990,6 +7020,11 @@ Returns Fourier transform of this distribution; is a decay function starting at 
 ";
 
 %feature("docstring")  IFTDistribution1D::omega "double IFTDistribution1D::omega() const
+";
+
+%feature("docstring")  IFTDistribution1D::qSecondDerivative "virtual double IFTDistribution1D::qSecondDerivative() const =0
+
+Returns the negative of the second order derivative in q space around q=0. 
 ";
 
 %feature("docstring")  IFTDistribution1D::createSampler "virtual std::unique_ptr<IDistribution1DSampler> IFTDistribution1D::createSampler() const =0
@@ -7396,6 +7431,12 @@ Pure virtual base class of interference functions.
 C++ includes: IInterferenceFunction.h
 ";
 
+%feature("docstring")  IInterferenceFunction::IInterferenceFunction "IInterferenceFunction::IInterferenceFunction()
+";
+
+%feature("docstring")  IInterferenceFunction::IInterferenceFunction "IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
+";
+
 %feature("docstring")  IInterferenceFunction::~IInterferenceFunction "IInterferenceFunction::~IInterferenceFunction()
 ";
 
@@ -7409,9 +7450,19 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
+%feature("docstring")  IInterferenceFunction::evaluate "double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
 
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+Evaluates the interference function for a given wavevector transfer. 
+";
+
+%feature("docstring")  IInterferenceFunction::setPositionVariance "void IInterferenceFunction::setPositionVariance(double var)
+
+Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
+";
+
+%feature("docstring")  IInterferenceFunction::positionVariance "double IInterferenceFunction::positionVariance() const
+
+Returns the position variance. 
 ";
 
 %feature("docstring")  IInterferenceFunction::getParticleDensity "virtual double IInterferenceFunction::getParticleDensity() const
@@ -7422,6 +7473,11 @@ If defined by this interference function's parameters, returns the particle dens
 %feature("docstring")  IInterferenceFunction::supportsMultilayer "virtual bool IInterferenceFunction::supportsMultilayer() const
 
 Indicates if this interference function can be used with a multilayer (DWBA mode) 
+";
+
+%feature("docstring")  IInterferenceFunction::DWfactor "double IInterferenceFunction::DWfactor(kvector_t q) const
+
+Evaluates the Debye-Waller factor for a given wavevector transfer. 
 ";
 
 
@@ -8298,7 +8354,9 @@ perform the actual integration over the range [lmin, lmax]
 // File: classIntensityDataIOFactory.xml
 %feature("docstring") IntensityDataIOFactory "
 
-Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm. Usage:
+Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int -  BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
+
+Usage:
 
 C++ includes: IntensityDataIOFactory.h
 ";
@@ -8417,12 +8475,12 @@ rotation of lattice with respect to x-axis in radians
 %feature("docstring")  InterferenceFunction1DLattice::~InterferenceFunction1DLattice "InterferenceFunction1DLattice::~InterferenceFunction1DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::clone "InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const final
+%feature("docstring")  InterferenceFunction1DLattice::clone "InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8441,12 +8499,7 @@ one-dimensional decay function in reciprocal space
 %feature("docstring")  InterferenceFunction1DLattice::getLatticeParameters "Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::evaluate "double InterferenceFunction1DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
-%feature("docstring")  InterferenceFunction1DLattice::getChildren "std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunction1DLattice::getChildren "std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8486,12 +8539,12 @@ rotation of the lattice with respect to the x-axis (beam direction) in radians
 %feature("docstring")  InterferenceFunction2DLattice::~InterferenceFunction2DLattice "InterferenceFunction2DLattice::~InterferenceFunction2DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::clone "InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const final
+%feature("docstring")  InterferenceFunction2DLattice::clone "InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8507,11 +8560,6 @@ decay:
 two-dimensional decay function in reciprocal space 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::evaluate "double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
 %feature("docstring")  InterferenceFunction2DLattice::setIntegrationOverXi "void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
 ";
 
@@ -8521,12 +8569,12 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction2DLattice::lattice "const Lattice2D & InterferenceFunction2DLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::getParticleDensity "double InterferenceFunction2DLattice::getParticleDensity() const final
+%feature("docstring")  InterferenceFunction2DLattice::getParticleDensity "double InterferenceFunction2DLattice::getParticleDensity() const override final
 
 Returns the particle density associated with this 2d lattice. 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::getChildren "std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunction2DLattice::getChildren "std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8574,12 +8622,12 @@ the damping (coherence) length of the paracrystal in nanometers
 %feature("docstring")  InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal() final
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::clone "InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const final
+%feature("docstring")  InterferenceFunction2DParaCrystal::clone "InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8623,11 +8671,6 @@ damping_length:
 the damping (coherence) length of the paracrystal in nanometers 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::evaluate "double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
 %feature("docstring")  InterferenceFunction2DParaCrystal::domainSizes "std::vector< double > InterferenceFunction2DParaCrystal::domainSizes() const
 ";
 
@@ -8651,12 +8694,12 @@ integration flag
 %feature("docstring")  InterferenceFunction2DParaCrystal::lattice "const Lattice2D & InterferenceFunction2DParaCrystal::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::getParticleDensity "double InterferenceFunction2DParaCrystal::getParticleDensity() const final
+%feature("docstring")  InterferenceFunction2DParaCrystal::getParticleDensity "double InterferenceFunction2DParaCrystal::getParticleDensity() const override final
 
 If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::getChildren "std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const
+%feature("docstring")  InterferenceFunction2DParaCrystal::getChildren "std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8702,12 +8745,12 @@ rotation of lattice with respect to x-axis (beam direction) in radians
 %feature("docstring")  InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction2DSuperLattice::clone "InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const final
+%feature("docstring")  InterferenceFunction2DSuperLattice::clone "InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction2DSuperLattice::accept "void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction2DSuperLattice::accept "void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8718,21 +8761,15 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  InterferenceFunction2DSuperLattice::substructureIFF "const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const
 ";
 
-%feature("docstring")  InterferenceFunction2DSuperLattice::evaluate "double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
+%feature("docstring")  InterferenceFunction2DSuperLattice::evaluate "double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final
 
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+Evaluates the interference function for a given wavevector transfer. 
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::domainSize1 "unsigned InterferenceFunction2DSuperLattice::domainSize1() const
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::domainSize2 "unsigned InterferenceFunction2DSuperLattice::domainSize2() const
-";
-
-%feature("docstring")  InterferenceFunction2DSuperLattice::setPositionVariance "void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
-";
-
-%feature("docstring")  InterferenceFunction2DSuperLattice::positionVariance "double InterferenceFunction2DSuperLattice::positionVariance() const
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::setIntegrationOverXi "void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
@@ -8744,7 +8781,7 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction2DSuperLattice::lattice "const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunction2DSuperLattice::getChildren "std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
+%feature("docstring")  InterferenceFunction2DSuperLattice::getChildren "std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8764,12 +8801,12 @@ C++ includes: InterferenceFunction3DLattice.h
 %feature("docstring")  InterferenceFunction3DLattice::~InterferenceFunction3DLattice "InterferenceFunction3DLattice::~InterferenceFunction3DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::clone "InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const final
+%feature("docstring")  InterferenceFunction3DLattice::clone "InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::accept "void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction3DLattice::accept "void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8777,23 +8814,15 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  InterferenceFunction3DLattice::setPeakShape "void InterferenceFunction3DLattice::setPeakShape(const IPeakShape &peak_shape)
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::setDebyeWallerFactor "void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)
-";
-
-%feature("docstring")  InterferenceFunction3DLattice::evaluate "double InterferenceFunction3DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
 %feature("docstring")  InterferenceFunction3DLattice::lattice "const Lattice & InterferenceFunction3DLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::supportsMultilayer "bool InterferenceFunction3DLattice::supportsMultilayer() const override
+%feature("docstring")  InterferenceFunction3DLattice::supportsMultilayer "bool InterferenceFunction3DLattice::supportsMultilayer() const override final
 
 Indicates if this interference function can be used with a multilayer (DWBA mode) 
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::getChildren "std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunction3DLattice::getChildren "std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8858,31 +8887,20 @@ number of lattice cells in the second lattice direction
 %feature("docstring")  InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::clone "InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const final
+%feature("docstring")  InterferenceFunctionFinite2DLattice::clone "InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::accept "void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunctionFinite2DLattice::accept "void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  InterferenceFunctionFinite2DLattice::evaluate "double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::numberUnitCells1 "unsigned InterferenceFunctionFinite2DLattice::numberUnitCells1() const
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::numberUnitCells2 "unsigned InterferenceFunctionFinite2DLattice::numberUnitCells2() const
-";
-
-%feature("docstring")  InterferenceFunctionFinite2DLattice::setPositionVariance "void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
-";
-
-%feature("docstring")  InterferenceFunctionFinite2DLattice::positionVariance "double InterferenceFunctionFinite2DLattice::positionVariance() const
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::setIntegrationOverXi "void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
@@ -8894,12 +8912,12 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunctionFinite2DLattice::lattice "const Lattice2D & InterferenceFunctionFinite2DLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::getParticleDensity "double InterferenceFunctionFinite2DLattice::getParticleDensity() const final
+%feature("docstring")  InterferenceFunctionFinite2DLattice::getParticleDensity "double InterferenceFunctionFinite2DLattice::getParticleDensity() const override final
 
 Returns the particle density associated with this 2d lattice. 
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunctionFinite2DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8933,19 +8951,14 @@ number of lattice cells in the second lattice direction
 %feature("docstring")  InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::clone "InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const final
+%feature("docstring")  InterferenceFunctionFinite3DLattice::clone "InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::accept "void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunctionFinite3DLattice::accept "void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  InterferenceFunctionFinite3DLattice::evaluate "double InterferenceFunctionFinite3DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::numberUnitCells1 "unsigned InterferenceFunctionFinite3DLattice::numberUnitCells1() const
@@ -8960,7 +8973,12 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunctionFinite3DLattice::lattice "const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunctionFinite3DLattice::supportsMultilayer "bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final
+
+Indicates if this interference function can be used with a multilayer (DWBA mode) 
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8977,19 +8995,14 @@ C++ includes: InterferenceFunctionNone.h
 %feature("docstring")  InterferenceFunctionNone::InterferenceFunctionNone "InterferenceFunctionNone::InterferenceFunctionNone()
 ";
 
-%feature("docstring")  InterferenceFunctionNone::clone "InterferenceFunctionNone* InterferenceFunctionNone::clone() const final
+%feature("docstring")  InterferenceFunctionNone::clone "InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  InterferenceFunctionNone::evaluate "double InterferenceFunctionNone::evaluate(const kvector_t) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
 
@@ -9015,12 +9028,12 @@ damping_length:
 the damping (coherence) length of the paracrystal in nanometers 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::clone "InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::clone "InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -9053,11 +9066,6 @@ size of coherence domain along the lattice main axis in nanometers
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::domainSize "double InterferenceFunctionRadialParaCrystal::domainSize() const
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::evaluate "double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::FTPDF "complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
 ";
 
@@ -9078,7 +9086,7 @@ probability distribution (Fourier transform of probability density)
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::dampingLength "double InterferenceFunctionRadialParaCrystal::dampingLength() const
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getChildren "std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::getChildren "std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -9773,7 +9781,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -11219,6 +11227,9 @@ Sets beam parameters from here (forwarded to  Instrument)
 Returns axis of the beam. 
 ";
 
+%feature("docstring")  OffSpecSimulation::createUnitConverter "std::unique_ptr< IUnitConverter > OffSpecSimulation::createUnitConverter() const
+";
+
 
 // File: classOffSpecularConverter.xml
 %feature("docstring") OffSpecularConverter "
@@ -11888,7 +11899,7 @@ Returns number of parameters in the pool.
 
 Adds parameter to the pool, and returns reference to the input pointer.
 
-Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
+Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
 ";
 
 %feature("docstring")  ParameterPool::parameter "RealParameter * ParameterPool::parameter(const std::string &name)
@@ -13200,7 +13211,7 @@ Builds sample: multilayer with Ti/Pt layers sequence.
 C++ includes: ResonatorBuilder.h
 ";
 
-%feature("docstring")  ResonatorBuilder::ResonatorBuilder "ResonatorBuilder::ResonatorBuilder()=default
+%feature("docstring")  ResonatorBuilder::ResonatorBuilder "ResonatorBuilder::ResonatorBuilder()
 ";
 
 %feature("docstring")  ResonatorBuilder::buildSample "MultiLayer * ResonatorBuilder::buildSample() const
@@ -15712,6 +15723,9 @@ C++ includes: ZLimits.h
 // File: namespace_0D589.xml
 
 
+// File: namespace_0D6.xml
+
+
 // File: namespace_0D611.xml
 
 
@@ -16120,7 +16134,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -16396,6 +16410,9 @@ Returns fixed Python code snippet that defines the function \"runSimulation\".
 ";
 
 %feature("docstring")  PythonFormatting::printNm "BA_CORE_API_ std::string PythonFormatting::printNm(double input)
+";
+
+%feature("docstring")  PythonFormatting::printNm2 "BA_CORE_API_ std::string PythonFormatting::printNm2(double input)
 ";
 
 %feature("docstring")  PythonFormatting::printScientificDouble "BA_CORE_API_ std::string PythonFormatting::printScientificDouble(double input)

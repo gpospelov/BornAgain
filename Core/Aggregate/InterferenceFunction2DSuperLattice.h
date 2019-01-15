@@ -32,9 +32,9 @@ public:
                                         double xi, unsigned size_1, unsigned size_2);
     ~InterferenceFunction2DSuperLattice() final;
 
-    InterferenceFunction2DSuperLattice* clone() const final;
+    InterferenceFunction2DSuperLattice* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     void setSubstructureIFF(const IInterferenceFunction& sub_iff);
     const IInterferenceFunction& substructureIFF() const;
@@ -44,8 +44,7 @@ public:
     static InterferenceFunction2DSuperLattice* createHexagonal(
             double lattice_length, double xi, unsigned size_1, unsigned size_2);
 
-    double evaluate(const kvector_t q) const final;
-
+    double evaluate(const kvector_t q, double outer_iff=1.0) const override final;
     unsigned domainSize1() const { return m_size_1; }
     unsigned domainSize2() const { return m_size_2; }
 
@@ -54,9 +53,10 @@ public:
 
     const Lattice2D& lattice() const;
 
-    std::vector<const INode*> getChildren() const override;
+    std::vector<const INode*> getChildren() const override final;
 
 private:
+    double iff_without_dw(const kvector_t q) const override final;
     InterferenceFunction2DSuperLattice(const InterferenceFunction2DSuperLattice& other);
     void setLattice(const Lattice2D& lattice);
 
@@ -67,8 +67,10 @@ private:
     std::unique_ptr<Lattice2D> mP_lattice;
     std::unique_ptr<IInterferenceFunction> mP_substructure;  //!< IFF of substructure
     unsigned m_size_1, m_size_2;  //!< Size of the finite lattice in lattice units
+    mutable double m_outer_iff;
     mutable double m_qx;
     mutable double m_qy;
+    mutable double m_xi;
 #ifndef SWIG
     std::unique_ptr<IntegratorReal<InterferenceFunction2DSuperLattice>> mP_integrator;
 #endif

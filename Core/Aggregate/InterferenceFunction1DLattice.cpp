@@ -58,7 +58,12 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& d
     m_na = std::max(m_na, min_points);
 }
 
-double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
+std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
+{
+    return std::vector<const INode*>() << mP_decay;
+}
+
+double InterferenceFunction1DLattice::iff_without_dw(const kvector_t q) const
 {
     if (!mP_decay)
         throw Exceptions::NullPointerException("InterferenceFunction1DLattice::evaluate"
@@ -84,11 +89,6 @@ double InterferenceFunction1DLattice::evaluate(const kvector_t q) const
         result += mP_decay->evaluate(qx);
     }
     return result / a;
-}
-
-std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
-{
-    return std::vector<const INode*>() << mP_decay;
 }
 
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(

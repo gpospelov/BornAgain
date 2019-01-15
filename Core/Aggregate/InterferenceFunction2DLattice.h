@@ -31,16 +31,14 @@ public:
     InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi=0.0);
     ~InterferenceFunction2DLattice() final;
 
-    InterferenceFunction2DLattice* clone() const final;
+    InterferenceFunction2DLattice* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     static InterferenceFunction2DLattice* createSquare(double lattice_length, double xi = 0.0);
     static InterferenceFunction2DLattice* createHexagonal(double lattice_length, double xi = 0.0);
 
     void setDecayFunction(const IFTDecayFunction2D& decay);
-
-    double evaluate(const kvector_t q) const final;
 
     void setIntegrationOverXi(bool integrate_xi);
     bool integrationOverXi() const { return m_integrate_xi; }
@@ -48,13 +46,14 @@ public:
     const Lattice2D& lattice() const;
 
     //! Returns the particle density associated with this 2d lattice
-    double getParticleDensity() const final;
+    double getParticleDensity() const override final;
 
-    std::vector<const INode*> getChildren() const override;
+    std::vector<const INode*> getChildren() const override final;
 
     void onChange() override final;
 
 private:
+    double iff_without_dw(const kvector_t q) const override final;
     InterferenceFunction2DLattice(const InterferenceFunction2DLattice& other);
     void setLattice(const Lattice2D& lattice);
 

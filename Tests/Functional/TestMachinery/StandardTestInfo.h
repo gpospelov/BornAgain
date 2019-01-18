@@ -42,8 +42,8 @@ public:
 
     std::string m_test_name;
     std::string m_test_description;
-    std::vector<std::string> m_simulation_name;
-    std::vector<std::string> m_sample_builder_name;
+    std::vector<std::string> m_simulation_names;
+    std::vector<std::string> m_sample_builder_names;
     double m_threshold;
 };
 

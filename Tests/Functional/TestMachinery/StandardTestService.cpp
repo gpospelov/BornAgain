@@ -53,14 +53,14 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
                                  "test info should be exactly 1");
 
     std::unique_ptr<IMultiLayerBuilder> builder(
-                SampleBuilderFactory().createItem(info.m_sample_builder_name.front()));
+                SampleBuilderFactory().createItem(info.m_sample_builder_names.front()));
 
     size_t n_subtests = builder->size();
     int number_of_failed_tests = 0;
 
     for(size_t sample_index=0; sample_index<builder->size(); ++sample_index) {
         std::unique_ptr<Simulation> simulation(
-                    SimulationFactory().createItem(info.m_simulation_name.front()));
+                    SimulationFactory().createItem(info.m_simulation_names.front()));
 
         std::unique_ptr<MultiLayer> sample(builder->createSample(sample_index));
         simulation->setSample(*sample);

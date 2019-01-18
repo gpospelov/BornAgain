@@ -48,15 +48,19 @@ bool StandardTestServiceBase::execute(int argc, char** argv)
     if (info.m_test_name.empty())
         return false;
 
+    if (info.size() != 1)
+        throw std::runtime_error("Error in StandardTestServiceBase::execute: the size of provided "
+                                 "test info should be exactly 1");
+
     std::unique_ptr<IMultiLayerBuilder> builder(
-                SampleBuilderFactory().createItem(info.m_sample_builder_name) );
+                SampleBuilderFactory().createItem(info.m_sample_builder_name.front()));
 
     size_t n_subtests = builder->size();
     int number_of_failed_tests = 0;
 
     for(size_t sample_index=0; sample_index<builder->size(); ++sample_index) {
         std::unique_ptr<Simulation> simulation(
-                    SimulationFactory().createItem(info.m_simulation_name));
+                    SimulationFactory().createItem(info.m_simulation_name.front()));
 
         std::unique_ptr<MultiLayer> sample(builder->createSample(sample_index));
         simulation->setSample(*sample);

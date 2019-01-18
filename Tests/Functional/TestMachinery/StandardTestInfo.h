@@ -17,6 +17,7 @@
 
 #include "WinDllMacros.h"
 #include <string>
+#include <vector>
 
 //! @class StandardTestInfo
 //! @ingroup standard_samples
@@ -31,11 +32,18 @@ public:
                      const std::string& simulation_name,
                      const std::string& sample_builder_name,
                      double threshold);
+    StandardTestInfo(const std::string& test_name,
+                     const std::string& test_description,
+                     std::vector<std::string> simulation_names,
+                     std::vector<std::string> sample_builder_names,
+                     double threshold);
+
+    size_t size() const;
 
     std::string m_test_name;
     std::string m_test_description;
-    std::string m_simulation_name;
-    std::string m_sample_builder_name;
+    std::vector<std::string> m_simulation_name;
+    std::vector<std::string> m_sample_builder_name;
     double m_threshold;
 };
 

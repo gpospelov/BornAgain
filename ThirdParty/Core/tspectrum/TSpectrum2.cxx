@@ -40,29 +40,29 @@
 */
 
 #include "TSpectrum2.h"
-#include "TPolyMarker.h"
-#include "TList.h"
-#include "TH1.h"
-#include "TMath.h"
+#include <cmath>
+#include <stdexcept>
+
 #define PEAK_WINDOW 1024
+
+using namespace tspectrum;
 
 Int_t TSpectrum2::fgIterations    = 3;
 Int_t TSpectrum2::fgAverageWindow = 3;
 
-ClassImp(TSpectrum2);
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Constructor.
 
-TSpectrum2::TSpectrum2() :TNamed("Spectrum", "Miroslav Morhac peak finder")
+TSpectrum2::TSpectrum2()
 {
    Int_t n = 100;
    fMaxPeaks   = n;
-   fPosition   = new Double_t[n];
-   fPositionX  = new Double_t[n];
-   fPositionY  = new Double_t[n];
+   fPosition   = new Double_t[static_cast<size_t>(n)];
+   fPositionX  = new Double_t[static_cast<size_t>(n)];
+   fPositionY  = new Double_t[static_cast<size_t>(n)];
    fResolution = 1;
-   fHistogram  = 0;
+//   fHistogram  = 0;
    fNPeaks     = 0;
 }
 
@@ -74,14 +74,14 @@ TSpectrum2::TSpectrum2() :TNamed("Spectrum", "Miroslav Morhac peak finder")
 ///                   (smaller distance between peaks.
 ///                   May be set later through SetResolution.
 
-TSpectrum2::TSpectrum2(Int_t maxpositions, Double_t resolution) :TNamed("Spectrum", "Miroslav Morhac peak finder")
+TSpectrum2::TSpectrum2(Int_t maxpositions, Double_t resolution)
 {
    Int_t n = maxpositions;
    fMaxPeaks  = n;
-   fPosition  = new Double_t[n];
-   fPositionX = new Double_t[n];
-   fPositionY = new Double_t[n];
-   fHistogram = 0;
+   fPosition  = new Double_t[static_cast<size_t>(n)];
+   fPositionX = new Double_t[static_cast<size_t>(n)];
+   fPositionY = new Double_t[static_cast<size_t>(n)];
+//   fHistogram = 0;
    fNPeaks    = 0;
    SetResolution(resolution);
 }
@@ -94,7 +94,7 @@ TSpectrum2::~TSpectrum2()
    delete [] fPosition;
    delete [] fPositionX;
    delete [] fPositionY;
-   delete    fHistogram;
+//   delete    fHistogram;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -152,24 +152,24 @@ void TSpectrum2::SetDeconIterations(Int_t n)
 ///  as the input histogram h, but only bins from binmin to binmax will be filled
 ///  with the estimated background.
 
-TH1 *TSpectrum2::Background(const TH1 * h, Int_t number_of_iterations,
-                                   Option_t * option)
-{
-   Error("Background","function not yet implemented: h=%s, iter=%d, option=%sn"
-        , h->GetName(), number_of_iterations, option);
-   return 0;
-}
+//TH1 *TSpectrum2::Background(const TH1 * h, Int_t number_of_iterations,
+//                                   Option_t * option)
+//{
+//   Error("Background","function not yet implemented: h=%s, iter=%d, option=%sn"
+//        , h->GetName(), number_of_iterations, option);
+//   return 0;
+//}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Print the array of positions.
 
-void TSpectrum2::Print(Option_t *) const
-{
-   printf("\nNumber of positions = %d\n",fNPeaks);
-   for (Int_t i=0;i<fNPeaks;i++) {
-      printf(" x[%d] = %g, y[%d] = %g\n",i,fPositionX[i],i,fPositionY[i]);
-   }
-}
+//void TSpectrum2::Print(Option_t *) const
+//{
+//   printf("\nNumber of positions = %d\n",fNPeaks);
+//   for (Int_t i=0;i<fNPeaks;i++) {
+//      printf(" x[%d] = %g, y[%d] = %g\n",i,fPositionX[i],i,fPositionY[i]);
+//   }
+//}
 
 ////////////////////////////////////////////////////////////////////////////////
 ///   This function searches for peaks in source spectrum in hin
@@ -203,55 +203,33 @@ void TSpectrum2::Print(Option_t *) const
 ///   Specify the option "goff" to disable the storage and drawing of the
 ///   polymarker.
 
-Int_t TSpectrum2::Search(const TH1 * hin, Double_t sigma,
-                             Option_t * option, Double_t threshold)
+Int_t TSpectrum2::Search(const vec2d& hist, Double_t sigma,
+                             std::string option, Double_t threshold)
 {
-   if (hin == 0)
-      return 0;
-   Int_t dimension = hin->GetDimension();
-   if (dimension != 2) {
-      Error("Search", "Must be a 2-d histogram");
-      return 0;
-   }
+    Bool_t background = kTRUE;
+    if (option.find("nobackground") != std::string::npos)
+        background = kFALSE;
 
-   TString opt = option;
-   opt.ToLower();
-   Bool_t background = kTRUE;
-   if (opt.Contains("nobackground")) {
-      background = kFALSE;
-      opt.ReplaceAll("nobackground","");
-   }
-   Bool_t markov = kTRUE;
-   if (opt.Contains("nomarkov")) {
-      markov = kFALSE;
-      opt.ReplaceAll("nomarkov","");
-   }
+    Bool_t markov = kTRUE;
+    if (option.find("nomarkov") != std::string::npos)
+        markov = kFALSE;
 
-   Int_t sizex = hin->GetXaxis()->GetNbins();
-   Int_t sizey = hin->GetYaxis()->GetNbins();
-   Int_t i, j, binx,biny, npeaks;
-   Double_t ** source = new Double_t*[sizex];
-   Double_t ** dest   = new Double_t*[sizex];
+   Int_t sizey = static_cast<int>(hist.size());
+   Int_t sizex = static_cast<int>(hist[0].size());
+   Int_t i, j, npeaks;
+   Double_t ** source = new Double_t*[static_cast<size_t>(sizex)];
+   Double_t ** dest   = new Double_t*[static_cast<size_t>(sizex)];
    for (i = 0; i < sizex; i++) {
-      source[i] = new Double_t[sizey];
-      dest[i]   = new Double_t[sizey];
+      source[i] = new Double_t[static_cast<size_t>(sizey)];
+      dest[i]   = new Double_t[static_cast<size_t>(sizey)];
       for (j = 0; j < sizey; j++) {
-         source[i][j] = hin->GetBinContent(i + 1, j + 1);
+          source[i][j] = hist[static_cast<size_t>(i)][static_cast<size_t>(j)];
       }
    }
    //npeaks = SearchHighRes(source, dest, sizex, sizey, sigma, 100*threshold, kTRUE, 3, kTRUE, 10);
    //the smoothing option is used for 1-d but not for 2-d histograms
    npeaks = SearchHighRes(source, dest, sizex, sizey, sigma, 100*threshold,  background, fgIterations, markov, fgAverageWindow);
 
-   //The logic in the loop should be improved to use the fact
-   //that fPositionX,Y give a precise position inside a bin.
-   //The current algorithm takes the center of the bin only.
-   for (i = 0; i < npeaks; i++) {
-      binx = 1 + Int_t(fPositionX[i] + 0.5);
-      biny = 1 + Int_t(fPositionY[i] + 0.5);
-      fPositionX[i] = hin->GetXaxis()->GetBinCenter(binx);
-      fPositionY[i] = hin->GetYaxis()->GetBinCenter(biny);
-   }
    for (i = 0; i < sizex; i++) {
       delete [] source[i];
       delete [] dest[i];
@@ -259,20 +237,6 @@ Int_t TSpectrum2::Search(const TH1 * hin, Double_t sigma,
    delete [] source;
    delete [] dest;
 
-   if (opt.Contains("goff"))
-      return npeaks;
-   if (!npeaks) return 0;
-   TPolyMarker * pm = (TPolyMarker*)hin->GetListOfFunctions()->FindObject("TPolyMarker");
-   if (pm) {
-      hin->GetListOfFunctions()->Remove(pm);
-      delete pm;
-   }
-   pm = new TPolyMarker(npeaks, fPositionX, fPositionY);
-   hin->GetListOfFunctions()->Add(pm);
-   pm->SetMarkerStyle(23);
-   pm->SetMarkerColor(kRed);
-   pm->SetMarkerSize(1.3);
-   ((TH1*)hin)->Draw(option);
    return npeaks;
 }
 
@@ -500,12 +464,12 @@ const char *TSpectrum2::Background(Double_t **spectrum,
    for (i = 0; i < ssizex; i++)
       working_space[i] = new Double_t[ssizey];
    sampling =
-       (Int_t) TMath::Max(numberIterationsX, numberIterationsY);
+       (Int_t) std::max(numberIterationsX, numberIterationsY);
    if (direction == kBackIncreasingWindow) {
       if (filterType == kBackSuccessiveFiltering) {
          for (i = 1; i <= sampling; i++) {
-            r1 = (Int_t) TMath::Min(i, numberIterationsX), r2 =
-                (Int_t) TMath::Min(i, numberIterationsY);
+            r1 = (Int_t) std::min(i, numberIterationsX), r2 =
+                (Int_t) std::min(i, numberIterationsY);
             for (y = r2; y < ssizey - r2; y++) {
                for (x = r1; x < ssizex - r1; x++) {
                   a = spectrum[x][y];
@@ -551,8 +515,8 @@ const char *TSpectrum2::Background(Double_t **spectrum,
 
       else if (filterType == kBackOneStepFiltering) {
          for (i = 1; i <= sampling; i++) {
-            r1 = (Int_t) TMath::Min(i, numberIterationsX), r2 =
-                (Int_t) TMath::Min(i, numberIterationsY);
+            r1 = (Int_t) std::min(i, numberIterationsX), r2 =
+                (Int_t) std::min(i, numberIterationsY);
             for (y = r2; y < ssizey - r2; y++) {
                for (x = r1; x < ssizex - r1; x++) {
                   a = spectrum[x][y];
@@ -579,8 +543,8 @@ const char *TSpectrum2::Background(Double_t **spectrum,
    else if (direction == kBackDecreasingWindow) {
       if (filterType == kBackSuccessiveFiltering) {
          for (i = sampling; i >= 1; i--) {
-            r1 = (Int_t) TMath::Min(i, numberIterationsX), r2 =
-                (Int_t) TMath::Min(i, numberIterationsY);
+            r1 = (Int_t) std::min(i, numberIterationsX), r2 =
+                (Int_t) std::min(i, numberIterationsY);
             for (y = r2; y < ssizey - r2; y++) {
                for (x = r1; x < ssizex - r1; x++) {
                   a = spectrum[x][y];
@@ -626,8 +590,8 @@ const char *TSpectrum2::Background(Double_t **spectrum,
 
       else if (filterType == kBackOneStepFiltering) {
          for (i = sampling; i >= 1; i--) {
-            r1 = (Int_t) TMath::Min(i, numberIterationsX), r2 =
-                (Int_t) TMath::Min(i, numberIterationsY);
+            r1 = (Int_t) std::min(i, numberIterationsX), r2 =
+                (Int_t) std::min(i, numberIterationsY);
             for (y = r2; y < ssizey - r2; y++) {
                for (x = r1; x < ssizex - r1; x++) {
                   a = spectrum[x][y];
@@ -779,9 +743,9 @@ const char* TSpectrum2::SmoothMarkov(Double_t **source, Int_t ssizex, Int_t ssiz
             a = 1;
 
          else
-            a = TMath::Sqrt(a + nip);
+            a = std::sqrt(a + nip);
          b = b / a;
-         b = TMath::Exp(b);
+         b = std::exp(b);
          sp = sp + b;
          if(i - l + 1 < xmin)
             a = source[xmin][ymin] / maxch;
@@ -793,9 +757,9 @@ const char* TSpectrum2::SmoothMarkov(Double_t **source, Int_t ssizex, Int_t ssiz
             a = 1;
 
          else
-            a = TMath::Sqrt(a + nim);
+            a = std::sqrt(a + nim);
          b = b / a;
-         b = TMath::Exp(b);
+         b = std::exp(b);
          sm = sm + b;
       }
       a = sp / sm;
@@ -817,9 +781,9 @@ const char* TSpectrum2::SmoothMarkov(Double_t **source, Int_t ssizex, Int_t ssiz
             a = 1;
 
          else
-            a = TMath::Sqrt(a + nip);
+            a = std::sqrt(a + nip);
          b = b / a;
-         b = TMath::Exp(b);
+         b = std::exp(b);
          sp = sp + b;
          if(i - l + 1 < ymin)
             a = source[xmin][ymin] / maxch;
@@ -831,9 +795,9 @@ const char* TSpectrum2::SmoothMarkov(Double_t **source, Int_t ssizex, Int_t ssiz
             a = 1;
 
          else
-            a = TMath::Sqrt(a + nim);
+            a = std::sqrt(a + nim);
          b = b / a;
-         b = TMath::Exp(b);
+         b = std::exp(b);
          sm = sm + b;
       }
       a = sp / sm;
@@ -856,9 +820,9 @@ const char* TSpectrum2::SmoothMarkov(Double_t **source, Int_t ssizex, Int_t ssiz
                a = 1;
 
             else
-               a = TMath::Sqrt(a + nip);
+               a = std::sqrt(a + nip);
             b = b / a;
-            b = TMath::Exp(b);
+            b = std::exp(b);
             spx = spx + b;
             if(i - l + 1 < xmin)
                a = source[xmin][j] / maxch;
@@ -870,9 +834,9 @@ const char* TSpectrum2::SmoothMarkov(Double_t **source, Int_t ssizex, Int_t ssiz
                a = 1;
 
             else
-               a = TMath::Sqrt(a + nim);
+               a = std::sqrt(a + nim);
             b = b / a;
-            b = TMath::Exp(b);
+            b = std::exp(b);
             smx = smx + b;
          }
          spy = 0,smy = 0;
@@ -883,17 +847,17 @@ const char* TSpectrum2::SmoothMarkov(Double_t **source, Int_t ssizex, Int_t ssiz
             else              a = source[i][j + l] / maxch;
             b = a - nip;
             if (a + nip <= 0) a = 1;
-            else              a = TMath::Sqrt(a + nip);
+            else              a = std::sqrt(a + nip);
             b = b / a;
-            b = TMath::Exp(b);
+            b = std::exp(b);
             spy = spy + b;
             if (j - l + 1 < ymin) a = source[i][ymin] / maxch;
             else                  a = source[i][j - l + 1] / maxch;
             b = a - nim;
             if (a + nim <= 0) a = 1;
-            else              a = TMath::Sqrt(a + nim);
+            else              a = std::sqrt(a + nim);
             b = b / a;
-            b = TMath::Exp(b);
+            b = std::exp(b);
             smy = smy + b;
          }
          a = (spx * working_space[i][j + 1] + spy * working_space[i + 1][j]) / (smx +smy);
@@ -1237,7 +1201,7 @@ const char *TSpectrum2::Deconvolution(Double_t **source, Double_t **resp,
          for (i = 0; i < ssizex; i++) {
             for (j = 0; j < ssizey; j++) {
                working_space[i][j + 3 * ssizey] =
-                   TMath::Power(working_space[i][j + 3 * ssizey], boost);
+                   std::pow(working_space[i][j + 3 * ssizey], boost);
             }
          }
       }
@@ -1603,30 +1567,29 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
    Int_t x, y;
    Int_t lhx, lhy, i1, i2, j1, j2, k1, k2, i1min, i1max, i2min, i2max, j1min, j1max, j2min, j2max, positx, posity;
    if (sigma < 1) {
-      Error("SearchHighRes", "Invalid sigma, must be greater than or equal to 1");
-      return 0;
+      throw std::runtime_error("SearchHighRes Invalid sigma, must be greater than or equal to 1");
    }
 
    if(threshold<=0||threshold>=100){
-      Error("SearchHighRes", "Invalid threshold, must be positive and less than 100");
+      throw std::runtime_error("SearchHighRes Invalid threshold, must be positive and less than 100");
       return 0;
    }
 
    j = (Int_t) (5.0 * sigma + 0.5);
    if (j >= PEAK_WINDOW / 2) {
-      Error("SearchHighRes", "Too large sigma");
+      throw std::runtime_error("SearchHighRes Too large sigma");
       return 0;
    }
 
    if (markov == true) {
       if (averWindow <= 0) {
-         Error("SearchHighRes", "Averaging window must be positive");
+         throw std::runtime_error("SearchHighRes Averaging window must be positive");
          return 0;
       }
    }
    if(backgroundRemove == true){
       if(ssizex_ext < 2 * number_of_iterations + 1 || ssizey_ext < 2 * number_of_iterations + 1){
-         Error("SearchHighRes", "Too large clipping window");
+         throw std::runtime_error("SearchHighRes Too large clipping window");
          return 0;
       }
    }
@@ -1796,9 +1759,9 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
                a = 1;
 
             else
-               a=TMath::Sqrt(a + nip);
+               a=std::sqrt(a + nip);
             b = b / a;
-            b = TMath::Exp(b);
+            b = std::exp(b);
             sp = sp + b;
             if(i - l + 1 < xmin)
                a = working_space[xmin][ymin + 2 * ssizey_ext] / maxch;
@@ -1810,9 +1773,9 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
                a = 1;
 
             else
-               a=TMath::Sqrt(a + nim);
+               a=std::sqrt(a + nim);
             b = b / a;
-            b = TMath::Exp(b);
+            b = std::exp(b);
             sm = sm + b;
          }
          a = sp / sm;
@@ -1834,9 +1797,9 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
                a=1;
 
             else
-               a=TMath::Sqrt(a + nip);
+               a=std::sqrt(a + nip);
             b = b / a;
-            b = TMath::Exp(b);
+            b = std::exp(b);
             sp = sp + b;
             if(i - l + 1 < ymin)
                a = working_space[xmin][ymin + 2 * ssizey_ext] / maxch;
@@ -1848,9 +1811,9 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
                a = 1;
 
             else
-               a=TMath::Sqrt(a + nim);
+               a=std::sqrt(a + nim);
             b = b / a;
-            b = TMath::Exp(b);
+            b = std::exp(b);
             sm = sm + b;
          }
          a = sp / sm;
@@ -1873,9 +1836,9 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
                   a = 1;
 
                else
-                  a=TMath::Sqrt(a + nip);
+                  a=std::sqrt(a + nip);
                b = b / a;
-               b = TMath::Exp(b);
+               b = std::exp(b);
                spx = spx + b;
                if(i - l + 1 < xmin)
                   a = working_space[xmin][j + 2 * ssizey_ext] / maxch;
@@ -1887,9 +1850,9 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
                   a=1;
 
                else
-                  a=TMath::Sqrt(a + nim);
+                  a=std::sqrt(a + nim);
                b = b / a;
-               b = TMath::Exp(b);
+               b = std::exp(b);
                smx = smx + b;
             }
             spy = 0,smy = 0;
@@ -1906,9 +1869,9 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
                   a = 1;
 
                else
-                  a=TMath::Sqrt(a + nip);
+                  a=std::sqrt(a + nip);
                b = b / a;
-               b = TMath::Exp(b);
+               b = std::exp(b);
                spy = spy + b;
                if(j - l + 1 < ymin)
                   a = working_space[i][ymin + 2 * ssizey_ext] / maxch;
@@ -1919,9 +1882,9 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
                if(a + nim <= 0)
                   a = 1;
                else
-                  a=TMath::Sqrt(a + nim);
+                  a=std::sqrt(a + nim);
                b = b / a;
-               b = TMath::Exp(b);
+               b = std::exp(b);
                smy = smy + b;
             }
             a = (spx * working_space[i][j + 1] + spy * working_space[i + 1][j]) / (smx + smy);
@@ -1952,7 +1915,7 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
          lda = (Double_t)i - 3 * sigma;
          ldb = (Double_t)j - 3 * sigma;
          lda = (lda * lda + ldb * ldb) / (2 * sigma * sigma);
-         k=(Int_t)(1000 * TMath::Exp(-lda));
+         k=(Int_t)(1000 * std::exp(-lda));
          lda = k;
          if(lda != 0){
             if((i + 1) > lhx)
@@ -1972,7 +1935,7 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
    //read source matrix
    for(i = 0;i < ssizex_ext; i++){
       for(j = 0;j < ssizey_ext; j++){
-         working_space[i][j + 14 * ssizey_ext] = TMath::Abs(working_space[i][j + ssizey_ext]);
+         working_space[i][j + 14 * ssizey_ext] = std::abs(working_space[i][j + ssizey_ext]);
       }
    }
    //calculate matrix b=ht*h
@@ -2204,17 +2167,17 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
 ////////////////////////////////////////////////////////////////////////////////
 /// static function (called by TH1), interface to TSpectrum2::Search
 
-Int_t TSpectrum2::StaticSearch(const TH1 *hist, Double_t sigma, Option_t *option, Double_t threshold)
-{
-   TSpectrum2 s;
-   return s.Search(hist,sigma,option,threshold);
-}
+//Int_t TSpectrum2::StaticSearch(const TH1 *hist, Double_t sigma, Option_t *option, Double_t threshold)
+//{
+//   TSpectrum2 s;
+//   return s.Search(hist,sigma,option,threshold);
+//}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// static function (called by TH1), interface to TSpectrum2::Background
 
-TH1 *TSpectrum2::StaticBackground(const TH1 *hist,Int_t niter, Option_t *option)
-{
-   TSpectrum2 s;
-   return s.Background(hist,niter,option);
-}
+//TH1 *TSpectrum2::StaticBackground(const TH1 *hist,Int_t niter, Option_t *option)
+//{
+//   TSpectrum2 s;
+//   return s.Background(hist,niter,option);
+//}

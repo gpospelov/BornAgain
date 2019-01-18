@@ -11,11 +11,12 @@
 #ifndef ROOT_TSpectrum2
 #define ROOT_TSpectrum2
 
-#include "TNamed.h"
+#include "spectrum_types.h"
+#include <string>
 
-class TH1;
+namespace tspectrum {
 
-class TSpectrum2 : public TNamed {
+class TSpectrum2  {
 protected:
    Int_t         fMaxPeaks;         ///< Maximum number of peaks to be found
    Int_t         fNPeaks;           ///< number of peaks found
@@ -23,7 +24,7 @@ protected:
    Double_t      *fPositionX;       ///< [fNPeaks] X position of peaks
    Double_t      *fPositionY;       ///< [fNPeaks] Y position of peaks
    Double_t       fResolution;      ///< *NOT USED* resolution of the neighboring peaks
-   TH1           *fHistogram;       ///< resulting histogram
+//   TH1           *fHistogram;       ///< resulting histogram
 static Int_t      fgAverageWindow;  ///< Average window of searched peaks
 static Int_t      fgIterations;     ///< Maximum number of decon iterations (default=3)
 
@@ -38,13 +39,13 @@ public:
    TSpectrum2();
    TSpectrum2(Int_t maxpositions, Double_t resolution=1); // resolution is *NOT USED*
    virtual ~TSpectrum2();
-   virtual TH1  *Background(const TH1 *hist, Int_t niter=20, Option_t *option="");
-   TH1          *GetHistogram() const {return fHistogram;}
+//   virtual TH1  *Background(const TH1 *hist, Int_t niter=20, Option_t *option="");
+//   TH1          *GetHistogram() const {return fHistogram;}
    Int_t         GetNPeaks() const {return fNPeaks;}
    Double_t      *GetPositionX() const {return fPositionX;}
    Double_t      *GetPositionY() const {return fPositionY;}
-   virtual void  Print(Option_t *option="") const;
-   virtual Int_t Search(const TH1 *hist, Double_t sigma=2, Option_t *option="", Double_t threshold=0.05);
+//   virtual void  Print(Option_t *option="") const;
+   virtual Int_t Search(const vec2d& hist, Double_t sigma=2, std::string option="", Double_t threshold=0.05);
    static void   SetAverageWindow(Int_t w=3);   //set average window
    static void   SetDeconIterations(Int_t n=3); //set max number of decon iterations
    void          SetResolution(Double_t resolution=1); // *NOT USED*
@@ -55,11 +56,12 @@ public:
    const char   *Deconvolution(Double_t **source, Double_t **resp, Int_t ssizex, Int_t ssizey,Int_t numberIterations, Int_t numberRepetitions, Double_t boost);
    Int_t         SearchHighRes(Double_t **source,Double_t **dest, Int_t ssizex, Int_t ssizey, Double_t sigma, Double_t threshold, Bool_t backgroundRemove,Int_t deconIterations, Bool_t markov, Int_t averWindow);
 
-   static Int_t        StaticSearch(const TH1 *hist, Double_t sigma=2, Option_t *option="goff", Double_t threshold=0.05);
-   static TH1         *StaticBackground(const TH1 *hist,Int_t niter=20, Option_t *option="");
+//   static Int_t        StaticSearch(const TH1 *hist, Double_t sigma=2, Option_t *option="goff", Double_t threshold=0.05);
+//   static TH1         *StaticBackground(const TH1 *hist,Int_t niter=20, Option_t *option="");
 
-   ClassDef(TSpectrum2,1)  //Peak Finder, background estimator, Deconvolution for 2-D histograms
 };
+
+} // tspectrum
 
 #endif
 

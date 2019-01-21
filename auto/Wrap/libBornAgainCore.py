@@ -1902,6 +1902,218 @@ class map_string_double_t(_object):
 map_string_double_t_swigregister = _libBornAgainCore.map_string_double_t_swigregister
 map_string_double_t_swigregister(map_string_double_t)
 
+class vector_pair_double_t(_object):
+    """Proxy of C++ std::vector<(std::pair<(double,double)>)> class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, vector_pair_double_t, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, vector_pair_double_t, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        """iterator(vector_pair_double_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.vector_pair_double_t_iterator(self)
+
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        """__nonzero__(vector_pair_double_t self) -> bool"""
+        return _libBornAgainCore.vector_pair_double_t___nonzero__(self)
+
+
+    def __bool__(self):
+        """__bool__(vector_pair_double_t self) -> bool"""
+        return _libBornAgainCore.vector_pair_double_t___bool__(self)
+
+
+    def __len__(self):
+        """__len__(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainCore.vector_pair_double_t___len__(self)
+
+
+    def __getslice__(self, i, j):
+        """__getslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j) -> vector_pair_double_t"""
+        return _libBornAgainCore.vector_pair_double_t___getslice__(self, i, j)
+
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)
+        __setslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j, vector_pair_double_t v)
+        """
+        return _libBornAgainCore.vector_pair_double_t___setslice__(self, *args)
+
+
+    def __delslice__(self, i, j):
+        """__delslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)"""
+        return _libBornAgainCore.vector_pair_double_t___delslice__(self, i, j)
+
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i)
+        __delitem__(vector_pair_double_t self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.vector_pair_double_t___delitem__(self, *args)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(vector_pair_double_t self, PySliceObject * slice) -> vector_pair_double_t
+        __getitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i) -> std::vector< std::pair< double,double > >::value_type const &
+        """
+        return _libBornAgainCore.vector_pair_double_t___getitem__(self, *args)
+
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(vector_pair_double_t self, PySliceObject * slice, vector_pair_double_t v)
+        __setitem__(vector_pair_double_t self, PySliceObject * slice)
+        __setitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::value_type const & x)
+        """
+        return _libBornAgainCore.vector_pair_double_t___setitem__(self, *args)
+
+
+    def pop(self):
+        """pop(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::value_type"""
+        return _libBornAgainCore.vector_pair_double_t_pop(self)
+
+
+    def append(self, x):
+        """append(vector_pair_double_t self, std::vector< std::pair< double,double > >::value_type const & x)"""
+        return _libBornAgainCore.vector_pair_double_t_append(self, x)
+
+
+    def empty(self):
+        """empty(vector_pair_double_t self) -> bool"""
+        return _libBornAgainCore.vector_pair_double_t_empty(self)
+
+
+    def size(self):
+        """size(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainCore.vector_pair_double_t_size(self)
+
+
+    def swap(self, v):
+        """
+        swap(vector_pair_double_t self, vector_pair_double_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.vector_pair_double_t_swap(self, v)
+
+
+    def begin(self):
+        """begin(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
+        return _libBornAgainCore.vector_pair_double_t_begin(self)
+
+
+    def end(self):
+        """end(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
+        return _libBornAgainCore.vector_pair_double_t_end(self)
+
+
+    def rbegin(self):
+        """rbegin(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
+        return _libBornAgainCore.vector_pair_double_t_rbegin(self)
+
+
+    def rend(self):
+        """rend(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
+        return _libBornAgainCore.vector_pair_double_t_rend(self)
+
+
+    def clear(self):
+        """clear(vector_pair_double_t self)"""
+        return _libBornAgainCore.vector_pair_double_t_clear(self)
+
+
+    def get_allocator(self):
+        """get_allocator(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::allocator_type"""
+        return _libBornAgainCore.vector_pair_double_t_get_allocator(self)
+
+
+    def pop_back(self):
+        """pop_back(vector_pair_double_t self)"""
+        return _libBornAgainCore.vector_pair_double_t_pop_back(self)
+
+
+    def erase(self, *args):
+        """
+        erase(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos) -> std::vector< std::pair< double,double > >::iterator
+        erase(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator first, std::vector< std::pair< double,double > >::iterator last) -> std::vector< std::pair< double,double > >::iterator
+        """
+        return _libBornAgainCore.vector_pair_double_t_erase(self, *args)
+
+
+    def __init__(self, *args):
+        """
+        __init__(std::vector<(std::pair<(double,double)>)> self) -> vector_pair_double_t
+        __init__(std::vector<(std::pair<(double,double)>)> self, vector_pair_double_t arg2) -> vector_pair_double_t
+        __init__(std::vector<(std::pair<(double,double)>)> self, std::vector< std::pair< double,double > >::size_type size) -> vector_pair_double_t
+        __init__(std::vector<(std::pair<(double,double)>)> self, std::vector< std::pair< double,double > >::size_type size, std::vector< std::pair< double,double > >::value_type const & value) -> vector_pair_double_t
+        """
+        this = _libBornAgainCore.new_vector_pair_double_t(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def push_back(self, x):
+        """push_back(vector_pair_double_t self, std::vector< std::pair< double,double > >::value_type const & x)"""
+        return _libBornAgainCore.vector_pair_double_t_push_back(self, x)
+
+
+    def front(self):
+        """front(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::value_type const &"""
+        return _libBornAgainCore.vector_pair_double_t_front(self)
+
+
+    def back(self):
+        """back(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::value_type const &"""
+        return _libBornAgainCore.vector_pair_double_t_back(self)
+
+
+    def assign(self, n, x):
+        """assign(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type n, std::vector< std::pair< double,double > >::value_type const & x)"""
+        return _libBornAgainCore.vector_pair_double_t_assign(self, n, x)
+
+
+    def resize(self, *args):
+        """
+        resize(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type new_size)
+        resize(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type new_size, std::vector< std::pair< double,double > >::value_type const & x)
+        """
+        return _libBornAgainCore.vector_pair_double_t_resize(self, *args)
+
+
+    def insert(self, *args):
+        """
+        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::value_type const & x) -> std::vector< std::pair< double,double > >::iterator
+        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::size_type n, std::vector< std::pair< double,double > >::value_type const & x)
+        """
+        return _libBornAgainCore.vector_pair_double_t_insert(self, *args)
+
+
+    def reserve(self, n):
+        """reserve(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type n)"""
+        return _libBornAgainCore.vector_pair_double_t_reserve(self, n)
+
+
+    def capacity(self):
+        """capacity(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainCore.vector_pair_double_t_capacity(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_vector_pair_double_t
+    __del__ = lambda self: None
+vector_pair_double_t_swigregister = _libBornAgainCore.vector_pair_double_t_swigregister
+vector_pair_double_t_swigregister(vector_pair_double_t)
+
 import libBornAgainFit
 
 def GetMajorVersionNumber():
@@ -28572,6 +28784,15 @@ class IterationInfo(_object):
 IterationInfo_swigregister = _libBornAgainCore.IterationInfo_swigregister
 IterationInfo_swigregister(IterationInfo)
 
+
+def FindPeaks(*args):
+    """
+    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option, double threshold=0.05) -> vector_pair_double_t
+    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option) -> vector_pair_double_t
+    FindPeaks(Histogram2D hist, double sigma=2) -> vector_pair_double_t
+    FindPeaks(Histogram2D hist) -> vector_pair_double_t
+    """
+    return _libBornAgainCore.FindPeaks(*args)
 
 class ParameterPoolIterator(object):
 

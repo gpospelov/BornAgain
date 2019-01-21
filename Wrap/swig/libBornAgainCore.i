@@ -47,6 +47,7 @@
 %template(vector_complex_t) std::vector< std::complex<double>>;
 %template(vector_string_t) std::vector<std::string>;
 %template(map_string_double_t) std::map<std::string, double>;
+%template(vector_pair_double_t) std::vector<std::pair<double, double>>;
 %nodefaultctor ParameterPool;
 
 #define SWIG_FILE_WITH_INIT
@@ -228,6 +229,7 @@
 #include "IIntensityNormalizer.h"
 #include "VarianceFunctions.h"
 #include "IterationInfo.h"
+#include "SpectrumUtils.h"
 %}
 
 // ownership
@@ -462,5 +464,6 @@
 %include "SimulationFactory.h"
 %include "IUnitConverter.h"
 %include "IterationInfo.h"
+%include "SpectrumUtils.h"
 
 %include "extendCore.i"

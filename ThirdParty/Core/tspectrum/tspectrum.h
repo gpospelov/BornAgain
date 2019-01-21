@@ -15,10 +15,12 @@ public:
     ~Spectrum2D();
 
     //! Finds peaks in 2D array.
-    //! @params: data sigma of searched peaks
-    //! @params: "nobackground" to not remove the background before peak search,
+    //! @param: data sigma of searched peaks
+    //! @param: "nobackground" to not remove the background before peak search,
     //!          "nomarkov"
-    //! @params: threshold peaks with amplitude less than threshold*highest_peak are discarded.
+    //! @param: threshold peaks with amplitude less than threshold*highest_peak are discarded.
+    //! @returns: Coordinates of peaks as vector of pair(xrow, xcol), where xrow, xcol represent
+    //! precise position inside of bin
     std::vector<std::pair<double, double>> find_peaks(const std::vector<std::vector<double>>& data,
                                                       double sigma=2,
                                                       const std::string& option={},

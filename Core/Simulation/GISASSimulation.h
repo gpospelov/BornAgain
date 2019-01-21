@@ -20,8 +20,6 @@
 
 class MultiLayer;
 class IMultiLayerBuilder;
-class IHistogram;
-class Histogram2D;
 
 //! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation

@@ -214,8 +214,8 @@ Int_t TSpectrum2::Search(const vec2d& hist, Double_t sigma,
     if (option.find("nomarkov") != std::string::npos)
         markov = kFALSE;
 
-   Int_t sizey = static_cast<int>(hist.size());
-   Int_t sizex = static_cast<int>(hist[0].size());
+   Int_t sizex = static_cast<int>(hist.size());
+   Int_t sizey = static_cast<int>(hist[0].size());
    Int_t i, j, npeaks;
    Double_t ** source = new Double_t*[static_cast<size_t>(sizex)];
    Double_t ** dest   = new Double_t*[static_cast<size_t>(sizex)];
@@ -1572,25 +1572,21 @@ Int_t TSpectrum2::SearchHighRes(Double_t **source, Double_t **dest, Int_t ssizex
 
    if(threshold<=0||threshold>=100){
       throw std::runtime_error("SearchHighRes Invalid threshold, must be positive and less than 100");
-      return 0;
    }
 
    j = (Int_t) (5.0 * sigma + 0.5);
    if (j >= PEAK_WINDOW / 2) {
       throw std::runtime_error("SearchHighRes Too large sigma");
-      return 0;
    }
 
    if (markov == true) {
       if (averWindow <= 0) {
          throw std::runtime_error("SearchHighRes Averaging window must be positive");
-         return 0;
       }
    }
    if(backgroundRemove == true){
       if(ssizex_ext < 2 * number_of_iterations + 1 || ssizey_ext < 2 * number_of_iterations + 1){
          throw std::runtime_error("SearchHighRes Too large clipping window");
-         return 0;
       }
    }
    i = (Int_t)(4 * sigma + 0.5);

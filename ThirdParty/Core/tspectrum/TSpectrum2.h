@@ -45,7 +45,7 @@ public:
    Double_t      *GetPositionX() const {return fPositionX;}
    Double_t      *GetPositionY() const {return fPositionY;}
 //   virtual void  Print(Option_t *option="") const;
-   virtual Int_t Search(const vec2d& hist, Double_t sigma=2, std::string option="", Double_t threshold=0.05);
+   virtual Int_t Search(const vec2d& hist, Double_t sigma=2, const std::string& option="", Double_t threshold=0.05);
    static void   SetAverageWindow(Int_t w=3);   //set average window
    static void   SetDeconIterations(Int_t n=3); //set max number of decon iterations
    void          SetResolution(Double_t resolution=1); // *NOT USED*

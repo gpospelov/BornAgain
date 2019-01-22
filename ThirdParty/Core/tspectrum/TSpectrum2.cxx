@@ -42,6 +42,7 @@
 #include "TSpectrum2.h"
 #include <cmath>
 #include <stdexcept>
+#include <algorithm>
 
 #define PEAK_WINDOW 1024
 
@@ -50,6 +51,11 @@ using namespace tspectrum;
 Int_t TSpectrum2::fgIterations    = 3;
 Int_t TSpectrum2::fgAverageWindow = 3;
 
+
+namespace {
+const std::string s_nobackground = "nobackground";
+const std::string s_nomarkov = "nomarkov";
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Constructor.
@@ -204,15 +210,27 @@ void TSpectrum2::SetDeconIterations(Int_t n)
 ///   polymarker.
 
 Int_t TSpectrum2::Search(const vec2d& hist, Double_t sigma,
-                             std::string option, Double_t threshold)
+                             const std::string& option, Double_t threshold)
 {
+    std::string opt = option;
+    std::transform(opt.begin(), opt.end(), opt.begin(), ::tolower);
+
     Bool_t background = kTRUE;
-    if (option.find("nobackground") != std::string::npos)
+    size_t pos = opt.find(s_nobackground);
+    if (pos != std::string::npos) {
         background = kFALSE;
+        opt.erase(pos, s_nobackground.size());
+    }
 
     Bool_t markov = kTRUE;
-    if (option.find("nomarkov") != std::string::npos)
+    pos = opt.find(s_nomarkov);
+    if (pos != std::string::npos) {
         markov = kFALSE;
+        opt.erase(pos, s_nomarkov.size());
+    }
+
+    if (!opt.empty())
+        throw std::runtime_error("Cant's parse '" + option +"', remainder '" + opt+"'");
 
    Int_t sizex = static_cast<int>(hist.size());
    Int_t sizey = static_cast<int>(hist[0].size());

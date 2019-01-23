@@ -123,6 +123,7 @@ const std::string FormFactorSphereLogNormalRadiusType = "FormFactorSphereLogNorm
 const std::string FormFactorSphereUniformRadiusType = "FormFactorSphereUniformRadius";
 const std::string FormFactorDWBAType = "FormFactorDWBA";
 const std::string FormFactorPolarizedDWBAType = "FormFactorDWBAPol";
+const std::string FormFactorPolarizedBAType = "FormFactorBAPol";
 
 const std::string FormFactorCoreShellType = "FormFactorCoreShell";
 const std::string FormFactorDecoratorPositionFactorType = "FormFactorDecoratorPositionFactor";

@@ -18,6 +18,7 @@
 #include "FormFactorCoherentSum.h"
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
+#include "FormFactorBAPol.h"
 #include "IFresnelMap.h"
 #include "ILayout.h"
 #include "IParticle.h"
@@ -130,8 +131,12 @@ FormFactorCoherentSum* LayoutStrategyBuilder::createFormFactorCoherentSum(
                 P_ff_framework.reset(new FormFactorDWBAPol(*ff_pair.first));
             else
                 P_ff_framework.reset(new FormFactorDWBA(*ff_pair.first));
-        } else
-            P_ff_framework.reset(ff_pair.first->clone());
+        } else {
+            if (m_polarized)
+                P_ff_framework.reset(new FormFactorBAPol(*ff_pair.first));
+            else
+                P_ff_framework.reset(ff_pair.first->clone());
+        }
 
         size_t layer_index = ff_pair.second;
         const Material* p_layer_material = mp_multilayer->layer(layer_index)->material();

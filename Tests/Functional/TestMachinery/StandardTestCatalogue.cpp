@@ -433,6 +433,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "HomogeneousMultilayerBuilder",
         1e-10);
 
+    add("SpecularWithSlicing",
+        "Compares manual/automatic slicing in a sample with cylinders",
+        {"BasicSpecular", "BasicSpecular", "BasicSpecular"},
+        {"SlicedCylindersBuilder", "SLDSlicedCylindersBuilder", "AveragedSlicedCylindersBuilder"},
+        1e-10);
+
     // off-specular simulation
 
     add("OffSpecularResonator",

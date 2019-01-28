@@ -5,7 +5,9 @@
 set(test TestSelfConsistence)
 
 # CoreStandardTest cases:
-set(test_cases)
+set(test_cases
+    SpecularWithSlicing
+    )
 
 file(GLOB source_files "*.cpp")
 file(GLOB include_files "*.h")

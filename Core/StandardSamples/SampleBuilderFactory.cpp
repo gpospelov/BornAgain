@@ -40,6 +40,7 @@
 #include "TransformationsBuilder.h"
 #include "TwoDimLatticeBuilder.h"
 #include "TwoLayerRoughnessBuilder.h"
+#include "SlicedCylindersBuilder.h"
 #include "SlicedParticleBuilder.h"
 #include "ResonatorBuilder.h"
 
@@ -323,11 +324,21 @@ SampleBuilderFactory::SampleBuilderFactory()
                  "Alternating homogeneous layers of Ti and Ni on silicone substrate "
                  "(wavelength-independent).");
 
-    registerItem(
-        "ResonatorBuilder",
-        create_new<ResonatorBuilder>,
-        "Multilayer with bi-layer sequence for OffSpec testing.");
+    registerItem("ResonatorBuilder",
+                 create_new<ResonatorBuilder>,
+                 "Multilayer with bi-layer sequence for OffSpec testing.");
 
+    registerItem("SlicedCylindersBuilder",
+                 create_new<SlicedCylindersBuilder>,
+                 "Multilayer with cylinders on substrate (sliced)");
+
+    registerItem("SLDSlicedCylindersBuilder",
+                 create_new<SLDSlicedCylindersBuilder>,
+                 "Multilayer with cylinders on substrate (sliced, using sld-based materials)");
+
+    registerItem("AveragedSlicedCylindersBuilder",
+                 create_new<AveragedSlicedCylindersBuilder>,
+                 "Manually sliced multilayer with cylinders on substrate (sld-based materials)");
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

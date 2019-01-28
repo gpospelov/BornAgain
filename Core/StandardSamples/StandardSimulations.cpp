@@ -388,6 +388,7 @@ SpecularSimulation* StandardSimulations::BasicSpecular()
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
     result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle);
+    result->getOptions().setUseAvgMaterials(true);
     return result.release();
 }
 

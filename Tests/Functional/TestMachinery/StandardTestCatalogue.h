@@ -39,6 +39,10 @@ private:
              const std::string& simulation_name, const std::string& sample_builder_name,
              double threshold);
 
+    void add(const std::string& test_name, const std::string& test_description,
+             std::initializer_list<std::string> simulation_names,
+             std::initializer_list<std::string> sample_builder_name, double threshold);
+
     std::map<std::string, StandardTestInfo> m_catalogue;
 };
 

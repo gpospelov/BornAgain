@@ -464,6 +464,20 @@ void StandardTestCatalogue::add(const std::string& test_name, const std::string&
                                               sample_builder_name, threshold);
 }
 
+void StandardTestCatalogue::add(const std::string& test_name, const std::string& test_description,
+                                std::initializer_list<std::string> simulation_names,
+                                std::initializer_list<std::string> sample_builder_names,
+                                double threshold)
+{
+    if (contains(test_name))
+        throw std::runtime_error("StandardTestCatalogue::add() -> Error. "
+                                 "Existing item '"+test_name+"'");
+
+    m_catalogue[test_name] =
+        StandardTestInfo(test_name, test_description, std::move(simulation_names),
+                         std::move(sample_builder_names), threshold);
+}
+
 //! Returns test info for given test name.
 
 StandardTestInfo StandardTestCatalogue::testInfo(const std::string& test_name)

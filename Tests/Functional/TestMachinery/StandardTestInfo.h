@@ -34,8 +34,8 @@ public:
                      double threshold);
     StandardTestInfo(const std::string& test_name,
                      const std::string& test_description,
-                     std::vector<std::string> simulation_names,
-                     std::vector<std::string> sample_builder_names,
+                     std::initializer_list<std::string> simulation_names,
+                     std::initializer_list<std::string> sample_builder_names,
                      double threshold);
 
     size_t size() const;

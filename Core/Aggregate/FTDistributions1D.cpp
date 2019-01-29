@@ -26,6 +26,8 @@ namespace {
 const double CosineDistributionFactor = 1.0/3.0 - 2.0/M_PI/M_PI;
 }
 
+IFTDistribution1D::~IFTDistribution1D() =default;
+
 void IFTDistribution1D::init_parameters()
 {
     registerParameter(BornAgain::Omega, &m_omega);

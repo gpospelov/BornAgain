@@ -9361,6 +9361,8 @@ class IFTDistribution1D(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
+    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9415,8 +9417,6 @@ class IFTDistribution1D(ICloneable, INode):
         """
         return _libBornAgainCore.IFTDistribution1D_qSecondDerivative(self)
 
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
-    __del__ = lambda self: None
 IFTDistribution1D_swigregister = _libBornAgainCore.IFTDistribution1D_swigregister
 IFTDistribution1D_swigregister(IFTDistribution1D)
 
@@ -18897,10 +18897,25 @@ class IInterferenceFunction(ISample):
     for _s in [ISample]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IInterferenceFunction, name)
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(IInterferenceFunction self) -> IInterferenceFunction
+        __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
+
+        IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
+
+        """
+        if self.__class__ == IInterferenceFunction:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_IInterferenceFunction(_self, *args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     __del__ = lambda self: None
 
@@ -18999,6 +19014,11 @@ class IInterferenceFunction(ISample):
 
         """
         return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
+
+
+    def iff_without_dw(self, q):
+        """iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
 
     def __disown__(self):
         self.this.disown()

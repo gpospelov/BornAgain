@@ -55,10 +55,9 @@ protected:
     //! Calculates the structure factor in the absence of extra inner structure
     double iff_no_inner(const kvector_t q, double outer_iff) const;
 
-private:
     //! Calculates the structure factor without Debye-Waller factor
     virtual double iff_without_dw(const kvector_t q) const=0;
-
+private:
     void init_parameters();
     double m_position_var;
 };

@@ -497,6 +497,7 @@ public:
     virtual double evaluate(kvector_t const q, double outer_iff = 1.0) const;
     virtual double getParticleDensity() const;
     virtual bool supportsMultilayer() const;
+    virtual double iff_without_dw(kvector_t const q) const;
 
 /* Internal director utilities */
 public:
@@ -527,7 +528,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[13];
+    mutable swig::SwigVar_PyObject vtable[14];
 #endif
 
 };

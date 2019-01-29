@@ -29,6 +29,7 @@ public:
     //! Constructor of one-dimensional probability distribution.
     //! @param omega: half-width of the distribution in nanometers
     IFTDistribution1D(double omega) : m_omega(omega) {}
+    virtual ~IFTDistribution1D();
 
     virtual IFTDistribution1D* clone() const=0;
 

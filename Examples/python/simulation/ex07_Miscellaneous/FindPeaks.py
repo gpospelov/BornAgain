@@ -84,6 +84,7 @@ if __name__ == '__main__':
     xpeaks = [peak[0] for peak in peaks]
     ypeaks = [peak[1] for peak in peaks]
     print(peaks)
-    plt.plot(xpeaks, ypeaks, linestyle='None', marker='x', color='white', markersize=10)
+    plt.plot(xpeaks, ypeaks, linestyle='None', marker='x', color='white',
+             markersize=10)
     plt.show()
 

@@ -55,6 +55,7 @@ Int_t TSpectrum2::fgAverageWindow = 3;
 namespace {
 const std::string s_nobackground = "nobackground";
 const std::string s_nomarkov = "nomarkov";
+const std::string s_log = "log";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -229,6 +230,13 @@ Int_t TSpectrum2::Search(const vec2d& hist, Double_t sigma,
         opt.erase(pos, s_nomarkov.size());
     }
 
+    Bool_t apply_log = kFALSE;
+    pos = opt.find(s_log);
+    if (pos != std::string::npos) {
+        apply_log = kTRUE;
+        opt.erase(pos, s_log.size());
+    }
+
     if (!opt.empty())
         throw std::runtime_error("Cant's parse '" + option +"', remainder '" + opt+"'");
 
@@ -241,7 +249,8 @@ Int_t TSpectrum2::Search(const vec2d& hist, Double_t sigma,
       source[i] = new Double_t[static_cast<size_t>(sizey)];
       dest[i]   = new Double_t[static_cast<size_t>(sizey)];
       for (j = 0; j < sizey; j++) {
-          source[i][j] = hist[static_cast<size_t>(i)][static_cast<size_t>(j)];
+          double value = hist[static_cast<size_t>(i)][static_cast<size_t>(j)];
+          source[i][j] = apply_log ? std::log(value) : value;
       }
    }
    //npeaks = SearchHighRes(source, dest, sizex, sizey, sigma, 100*threshold, kTRUE, 3, kTRUE, 10);

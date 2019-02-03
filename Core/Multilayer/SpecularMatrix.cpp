@@ -36,28 +36,29 @@ const double pi2_15 = std::pow(M_PI_2, 1.5);
 void SpecularMatrix::execute(const MultiLayer& sample, kvector_t k,
                              std::vector<ScalarRTCoefficients>& coeff)
 {
-    size_t N = sample.numberOfLayers();
+    const size_t N = sample.numberOfLayers();
+    const double n_ref = sample.layer(0)->material()->refractiveIndex(2 * M_PI / k.mag()).real();
+    const double k_base_out = k.mag() * (k.z() > 0.0 ? -1 : 1);
+
     coeff.clear();
     coeff.resize(N);
-
-    double n_ref = sample.layer(0)->material()->refractiveIndex(2 * M_PI / k.mag()).real();
-
-    // Calculate refraction angle, expressed as lambda or k_z, for each layer.
-    double sign_kz_out = k.z() > 0.0 ? -1.0 : 1.0;
-    for (size_t i = 0; i < N; ++i) {
-        complex_t rad = sample.layer(i)->scalarReducedPotential(k, n_ref);
+    // Calculate refraction angle, expressed as k_z, for each layer.
+    complex_t rad = sample.layer(0)->scalarReducedPotential(k, n_ref);
+    coeff[0].kz = k_base_out * sqrt(rad);
+    for (size_t i = 1; i < N; ++i) {
+        rad = sample.layer(i)->scalarReducedPotential(k, n_ref);
         // use small absorptive component for layers with i>0 if radicand becomes very small:
-        if (i > 0 && std::norm(rad) < 1e-40)
+        if (std::norm(rad) < 1e-40)
             rad = imag_unit * 1e-40;
-        coeff[i].kz = sign_kz_out * k.mag() * sqrt(rad);
+        coeff[i].kz = k_base_out * sqrt(rad);
     }
 
-    coeff[0].t_r(0) = 1.0;
-    coeff[0].t_r(1) = 0.0;
-
-    if (N == 1) // If only one layer present, there's nothing left to calculate
+    if (N == 1) { // If only one layer present, there's nothing left to calculate
+        coeff[0].t_r(0) = 1.0;
+        coeff[0].t_r(1) = 0.0;
         return;
-    else if (coeff[0].kz == 0.0) { // If kz in layer 0 is zero, R0 = -T0 and all others equal to 0
+    } else if (coeff[0].kz == 0.0) { // If kz in layer 0 is zero, R0 = -T0 and all others equal to 0
+        coeff[0].t_r(0) = 1.0;
         coeff[0].t_r(1) = -1.0;
         setZeroBelow(coeff, 0);
         return;
@@ -94,26 +95,23 @@ void computeTR(std::vector<ScalarRTCoefficients>& coeff, const MultiLayer& sampl
     std::valarray<Eigen::Vector2cd> m_tr_l({0, 0}, coeff_size);
     std::valarray<Eigen::Vector2cd> m_tr_r({0, 0}, coeff_size);
     Eigen::Matrix2cd acc = Eigen::Matrix2cd::Identity();
-    m_tr_l[0] = {1, 0};
-    m_tr_r[0] = {0, 1};
 
     complex_t kz_previous = coeff[0].getScalarKz();
-    size_t i = 1;
-    for (; i < coeff_size; ++i) {
-        const size_t im1 = i - 1;
+    size_t im1 = 0;
+    for (size_t i = im1 + 1; i < coeff_size && !zeroTransmission(acc); ++i, ++im1) {
+        m_tr_l[im1] = acc.col(0);
+        m_tr_r[im1] = acc.col(1);
         double sigma = 0.0;
         if (const LayerRoughness* roughness = sample.layerInterface(im1)->getRoughness())
             sigma = roughness->getSigma();
         const complex_t kz = coeff[i].getScalarKz();
         acc = transitionMatrix(kz_previous, kz, sigma, sample.layer(im1)->thickness()) * acc;
-        if (zeroTransmission(acc))
-            break;
 
         kz_previous = kz;
-        m_tr_l[i] = acc.col(0);
-        m_tr_r[i] = acc.col(1);
     }
-    const complex_t r_0 = -m_tr_l[i - 1](1) / m_tr_r[i - 1](1);
+    m_tr_l[im1] = acc.col(0);
+    m_tr_r[im1] = acc.col(1);
+    const complex_t r_0 = -m_tr_l[im1](1) / m_tr_r[im1](1);
 
     for (size_t i = 0, size = coeff.size(); i < size; ++i)
         coeff[i].t_r = m_tr_l[i] + r_0 * m_tr_r[i];

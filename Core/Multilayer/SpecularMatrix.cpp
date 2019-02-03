@@ -49,8 +49,7 @@ void SpecularMatrix::execute(const MultiLayer& sample, kvector_t k,
         // use small absorptive component for layers with i>0 if radicand becomes very small:
         if (i > 0 && std::norm(rad) < 1e-40)
             rad = imag_unit * 1e-40;
-        coeff[i].lambda = sqrt(rad);
-        coeff[i].kz = sign_kz_out * k.mag() * coeff[i].lambda;
+        coeff[i].kz = sign_kz_out * k.mag() * sqrt(rad);
     }
 
     coeff[0].t_r(0) = 1.0;

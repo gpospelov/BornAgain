@@ -29,14 +29,8 @@ public:
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.
     //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-    static void execute(const class MultiLayer& sample, const kvector_t k,
+    static void execute(const class MultiLayer& sample, kvector_t k,
                         std::vector<ScalarRTCoefficients>& coeff);
-
-    //! Computes refraction angles and transmission/reflection coefficients
-    //! for given coherent wave propagation in a multilayer.
-    //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-    static void execute_(const class MultiLayer& sample, kvector_t k,
-                         std::vector<ScalarRTCoefficients>& coeff);
 };
 
 #endif // SPECULARMATRIX_H

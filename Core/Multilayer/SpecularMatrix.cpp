@@ -27,7 +27,6 @@ namespace {
 Eigen::Matrix2cd transitionMatrix(complex_t kzi, complex_t kzi1, double sigma, double thickness);
 void computeTR(std::vector<ScalarRTCoefficients>& coeff, const MultiLayer& sample);
 bool zeroTransmission(const Eigen::Matrix2cd& m);
-void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer);
 
 const complex_t imag_unit = complex_t(0.0, 1.0);
 const double pi2_15 = std::pow(M_PI_2, 1.5);
@@ -60,7 +59,8 @@ void SpecularMatrix::execute(const MultiLayer& sample, kvector_t k,
     } else if (coeff[0].kz == 0.0) { // If kz in layer 0 is zero, R0 = -T0 and all others equal to 0
         coeff[0].t_r(0) = 1.0;
         coeff[0].t_r(1) = -1.0;
-        setZeroBelow(coeff, 0);
+        for (size_t i = 1; i < N; ++i)
+            coeff[i].t_r.setZero();
         return;
     }
 
@@ -121,13 +121,5 @@ bool zeroTransmission(const Eigen::Matrix2cd& m)
 {
     const double norm = std::norm(m(1, 1));
     return std::norm(m.determinant()) < norm * norm * 1e-40;
-}
-
-void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer)
-{
-    size_t N = coeff.size();
-    for (size_t i = current_layer + 1; i < N; ++i) {
-        coeff[i].t_r.setZero();
-    }
 }
 }

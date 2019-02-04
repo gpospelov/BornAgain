@@ -23,10 +23,10 @@ protected:
     }
     void compareCoeffs(const ScalarRTCoefficients& coeff1, const ScalarRTCoefficients& coeff2)
     {
-        EXPECT_NEAR(abs(coeff1.t_r(0)), abs(coeff2.t_r(0)), 1e-14);
+        EXPECT_NEAR(abs(coeff1.t_r(0)), abs(coeff2.t_r(0)), 5e-14);
         EXPECT_NEAR(coeff1.t_r(0).real(), coeff2.t_r(0).real(), 1e-10);
         EXPECT_NEAR(coeff1.t_r(0).imag(), coeff2.t_r(0).imag(), 1e-10);
-        EXPECT_NEAR(abs(coeff1.t_r(1)), abs(coeff2.t_r(1)), 1e-14);
+        EXPECT_NEAR(abs(coeff1.t_r(1)), abs(coeff2.t_r(1)), 5e-14);
         EXPECT_NEAR(coeff1.t_r(1).real(), coeff2.t_r(1).real(), 1e-10);
         EXPECT_NEAR(coeff1.t_r(1).imag(), coeff2.t_r(1).imag(), 1e-10);
     }

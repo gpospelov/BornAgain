@@ -13,7 +13,6 @@ protected:
 
 ScalarRTCoefficientsTest::ScalarRTCoefficientsTest()
 {
-    scrtCustom.lambda = complex_t(1.0, 1.0);
     scrtCustom.kz = complex_t(1.0, 1.0);
     scrtCustom.t_r(0) = complex_t(0.0, 0.5);
     scrtCustom.t_r(1) = complex_t(1.0, 0.5);

@@ -50,14 +50,6 @@ public:
     virtual complex_t getScalarR() const;
     virtual complex_t getScalarKz() const { return kz; }
 
-    //! Relative unsigned vertical wavevector component +-k_z/K
-
-    //! In the manual called f_l.
-    //! Computed as sqrt(n^2 - (k_parallel/K)^2).
-    //! The real part is always positive, hence it is propagating upwards.
-
-    complex_t lambda;
-
     //! Signed vertical wavevector component k_z
     complex_t kz;
 
@@ -79,7 +71,7 @@ private:
 // ************************************************************************** //
 
 inline ScalarRTCoefficients::ScalarRTCoefficients()
-    : lambda(0), kz(0)
+    : kz(0)
 {
     m_plus(0) = 1.0;
     m_plus(1) = 0.0;

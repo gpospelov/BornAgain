@@ -18,6 +18,21 @@
 ";
 
 
+// File: classAveragedSlicedCylindersBuilder.xml
+%feature("docstring") AveragedSlicedCylindersBuilder "
+
+Provides exactly the same sample as  SLDSlicedCylindersBuilder, but with cylinders represented as homogeneous layers. SLD-based materials used. Assumed wavelength is 1.54 Angstrom.
+
+C++ includes: SlicedCylindersBuilder.h
+";
+
+%feature("docstring")  AveragedSlicedCylindersBuilder::AveragedSlicedCylindersBuilder "AveragedSlicedCylindersBuilder::AveragedSlicedCylindersBuilder()
+";
+
+%feature("docstring")  AveragedSlicedCylindersBuilder::buildSample "MultiLayer * AveragedSlicedCylindersBuilder::buildSample() const override
+";
+
+
 // File: structAxesUnitsWrap.xml
 %feature("docstring") AxesUnitsWrap "
 
@@ -618,21 +633,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -2565,6 +2580,66 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::getAlpha "double FormFactorAnisoPyramid::getAlpha() const
+";
+
+
+// File: classFormFactorBAPol.xml
+%feature("docstring") FormFactorBAPol "
+
+Evaluates the matrix BA term in a polarized  IFormFactor.
+
+C++ includes: FormFactorBAPol.h
+";
+
+%feature("docstring")  FormFactorBAPol::FormFactorBAPol "FormFactorBAPol::FormFactorBAPol(const IFormFactor &form_factor)
+";
+
+%feature("docstring")  FormFactorBAPol::~FormFactorBAPol "FormFactorBAPol::~FormFactorBAPol() override
+";
+
+%feature("docstring")  FormFactorBAPol::clone "FormFactorBAPol * FormFactorBAPol::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorBAPol::accept "void FormFactorBAPol::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorBAPol::setAmbientMaterial "void FormFactorBAPol::setAmbientMaterial(Material material) override
+
+Passes the material in which this particle is embedded. 
+";
+
+%feature("docstring")  FormFactorBAPol::evaluate "complex_t FormFactorBAPol::evaluate(const WavevectorInfo &wavevectors) const override
+
+Throws not-implemented exception. 
+";
+
+%feature("docstring")  FormFactorBAPol::evaluatePol "Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
+
+Calculates and returns a polarized form factor calculation in BA. 
+";
+
+%feature("docstring")  FormFactorBAPol::volume "double FormFactorBAPol::volume() const override
+
+Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  FormFactorBAPol::radialExtension "double FormFactorBAPol::radialExtension() const override
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorBAPol::bottomZ "double FormFactorBAPol::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorBAPol::topZ "double FormFactorBAPol::topZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 
@@ -7008,6 +7083,9 @@ omega:
 half-width of the distribution in nanometers 
 ";
 
+%feature("docstring")  IFTDistribution1D::~IFTDistribution1D "IFTDistribution1D::~IFTDistribution1D()
+";
+
 %feature("docstring")  IFTDistribution1D::clone "virtual IFTDistribution1D* IFTDistribution1D::clone() const =0
 ";
 
@@ -8981,6 +9059,36 @@ Indicates if this interference function can be used with a multilayer (DWBA mode
 %feature("docstring")  InterferenceFunctionFinite3DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
+";
+
+
+// File: classInterferenceFunctionHardDisk.xml
+%feature("docstring") InterferenceFunctionHardDisk "
+
+Percus-Yevick hard disk interference function.
+
+C++ includes: InterferenceFunctionHardDisk.h
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::InterferenceFunctionHardDisk "InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk "InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk() final
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::clone "InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::accept "void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::getParticleDensity "double InterferenceFunctionHardDisk::getParticleDensity() const override final
+
+If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 ";
 
 
@@ -14561,6 +14669,21 @@ C++ includes: SizeDistributionModelsBuilder.h
 ";
 
 
+// File: classSLDSlicedCylindersBuilder.xml
+%feature("docstring") SLDSlicedCylindersBuilder "
+
+Provides exactly the same sample as  SlicedCylindersBuilder, but with sld-based materials. Assumed wavelength is 1.54 Angstrom.
+
+C++ includes: SlicedCylindersBuilder.h
+";
+
+%feature("docstring")  SLDSlicedCylindersBuilder::SLDSlicedCylindersBuilder "SLDSlicedCylindersBuilder::SLDSlicedCylindersBuilder()
+";
+
+%feature("docstring")  SLDSlicedCylindersBuilder::buildSample "MultiLayer * SLDSlicedCylindersBuilder::buildSample() const override
+";
+
+
 // File: classSlicedCompositionBuilder.xml
 %feature("docstring") SlicedCompositionBuilder "
 
@@ -14573,6 +14696,21 @@ C++ includes: SlicedParticleBuilder.h
 ";
 
 %feature("docstring")  SlicedCompositionBuilder::buildSample "MultiLayer * SlicedCompositionBuilder::buildSample() const
+";
+
+
+// File: classSlicedCylindersBuilder.xml
+%feature("docstring") SlicedCylindersBuilder "
+
+Builds sample: cylinders on a silicon substrate
+
+C++ includes: SlicedCylindersBuilder.h
+";
+
+%feature("docstring")  SlicedCylindersBuilder::SlicedCylindersBuilder "SlicedCylindersBuilder::SlicedCylindersBuilder()
+";
+
+%feature("docstring")  SlicedCylindersBuilder::buildSample "MultiLayer * SlicedCylindersBuilder::buildSample() const override
 ";
 
 
@@ -15609,58 +15747,58 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D103.xml
-
-
-// File: namespace_0D118.xml
+// File: namespace_0D105.xml
 
 
 // File: namespace_0D12.xml
 
 
-// File: namespace_0D127.xml
+// File: namespace_0D120.xml
 
 
 // File: namespace_0D129.xml
 
 
-// File: namespace_0D132.xml
+// File: namespace_0D131.xml
+
+
+// File: namespace_0D134.xml
 
 
 // File: namespace_0D18.xml
 
 
-// File: namespace_0D185.xml
+// File: namespace_0D187.xml
 
 
 // File: namespace_0D20.xml
 
 
-// File: namespace_0D212.xml
-
-
 // File: namespace_0D214.xml
 
 
-// File: namespace_0D226.xml
+// File: namespace_0D216.xml
 
 
-// File: namespace_0D291.xml
+// File: namespace_0D228.xml
 
 
-// File: namespace_0D295.xml
+// File: namespace_0D293.xml
 
 
-// File: namespace_0D307.xml
+// File: namespace_0D297.xml
 
 
-// File: namespace_0D313.xml
+// File: namespace_0D309.xml
 
 
-// File: namespace_0D334.xml
+// File: namespace_0D315.xml
 
 
-// File: namespace_0D338.xml
+// File: namespace_0D32.xml
+
+
+// File: namespace_0D336.xml
 
 
 // File: namespace_0D340.xml
@@ -15669,67 +15807,73 @@ C++ includes: ZLimits.h
 // File: namespace_0D342.xml
 
 
-// File: namespace_0D350.xml
+// File: namespace_0D344.xml
 
 
-// File: namespace_0D36.xml
+// File: namespace_0D354.xml
 
 
-// File: namespace_0D367.xml
+// File: namespace_0D371.xml
 
 
-// File: namespace_0D375.xml
+// File: namespace_0D379.xml
 
 
 // File: namespace_0D38.xml
 
 
-// File: namespace_0D381.xml
+// File: namespace_0D385.xml
 
 
-// File: namespace_0D384.xml
+// File: namespace_0D388.xml
 
 
-// File: namespace_0D386.xml
+// File: namespace_0D390.xml
 
 
-// File: namespace_0D394.xml
+// File: namespace_0D398.xml
 
 
-// File: namespace_0D407.xml
+// File: namespace_0D40.xml
 
 
-// File: namespace_0D416.xml
+// File: namespace_0D411.xml
 
 
-// File: namespace_0D450.xml
+// File: namespace_0D420.xml
 
 
-// File: namespace_0D457.xml
+// File: namespace_0D454.xml
 
 
-// File: namespace_0D495.xml
+// File: namespace_0D461.xml
 
 
-// File: namespace_0D503.xml
-
-
-// File: namespace_0D505.xml
+// File: namespace_0D499.xml
 
 
 // File: namespace_0D507.xml
 
 
-// File: namespace_0D589.xml
+// File: namespace_0D509.xml
+
+
+// File: namespace_0D511.xml
+
+
+// File: namespace_0D591.xml
+
+
+// File: namespace_0D595.xml
 
 
 // File: namespace_0D6.xml
 
 
-// File: namespace_0D611.xml
+// File: namespace_0D617.xml
 
 
-// File: namespace_0D94.xml
+// File: namespace_0D96.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -16485,6 +16629,11 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 
+// File: namespaceSpectrumUtils.xml
+%feature("docstring")  SpectrumUtils::FindPeaks "std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+";
+
+
 // File: namespaceStandardSimulations.xml
 %feature("docstring")  StandardSimulations::PolarizedDWBAMagCylinders2 "GISASSimulation * StandardSimulations::PolarizedDWBAMagCylinders2()
 ";
@@ -16769,6 +16918,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: InterferenceFunctionFinite3DLattice_8h.xml
+
+
+// File: InterferenceFunctionHardDisk_8cpp.xml
+
+
+// File: InterferenceFunctionHardDisk_8h.xml
 
 
 // File: InterferenceFunctionNone_8cpp.xml
@@ -17824,6 +17979,12 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: DecouplingApproximationStrategy_8h.xml
 
 
+// File: FormFactorBAPol_8cpp.xml
+
+
+// File: FormFactorBAPol_8h.xml
+
+
 // File: FormFactorDWBA_8cpp.xml
 
 
@@ -17943,20 +18104,6 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: SpecularMatrix_8cpp.xml
-%feature("docstring")  setZeroBelow "void setZeroBelow(std::vector< ScalarRTCoefficients > &coeff, size_t current_layer)
-
-Sets coeff to zero for all layers below current_layer. 
-";
-
-%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(std::vector< ScalarRTCoefficients > &coeff, const MultiLayer &sample, const double kmag, size_t layer_index)
-
-Computes RT coefficients coeff, starting from layer number layer_index. Returns true if no overflow happens. 
-";
-
-%feature("docstring")  bisectRTcomputation "size_t bisectRTcomputation(std::vector< ScalarRTCoefficients > &coeff, const MultiLayer &sample, const double kmag, const size_t lgood, const size_t lbad, const size_t l)
-
-Recursive bisection to determine the number of the deepest layer where RT computation can be started without running into overflow. Computes coeff, and returns largest possible start layer index. 
-";
 
 
 // File: SpecularMatrix_8h.xml
@@ -18649,6 +18796,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: SizeDistributionModelsBuilder_8h.xml
 
 
+// File: SlicedCylindersBuilder_8cpp.xml
+
+
+// File: SlicedCylindersBuilder_8h.xml
+
+
 // File: SlicedParticleBuilder_8cpp.xml
 
 
@@ -18760,6 +18913,12 @@ Template function to create an integrator object.
 
 
 // File: SafePointerVector_8h.xml
+
+
+// File: SpectrumUtils_8cpp.xml
+
+
+// File: SpectrumUtils_8h.xml
 
 
 // File: SysUtils_8cpp.xml

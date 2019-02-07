@@ -25,8 +25,9 @@ class GISASSimulation;
 class IFootprintFactor;
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
-class InterferenceFunctionFinite2DLattice;
 class InterferenceFunction2DParaCrystal;
+class InterferenceFunctionFinite2DLattice;
+class InterferenceFunctionHardDisk;
 class InterferenceFunctionRadialParaCrystal;
 class Layer;
 class LayerInterface;
@@ -52,18 +53,21 @@ class IAxis;
 
 namespace TransformFromDomain
 {
-BA_CORE_API_ void setRadialParaCrystalItem(SessionItem* item,
-                                           const InterferenceFunctionRadialParaCrystal& sample);
-
-BA_CORE_API_ void set2DParaCrystalItem(SessionItem* item,
-                                       const InterferenceFunction2DParaCrystal& sample);
-
 BA_CORE_API_ void set1DLatticeItem(SessionItem* item, const InterferenceFunction1DLattice& sample);
 
 BA_CORE_API_ void set2DLatticeItem(SessionItem* item, const InterferenceFunction2DLattice& sample);
 
-BA_CORE_API_ void set2DLatticeItem(SessionItem* item,
-                                   const InterferenceFunctionFinite2DLattice& sample);
+BA_CORE_API_ void set2DParaCrystalItem(SessionItem* item,
+                                       const InterferenceFunction2DParaCrystal& sample);
+
+BA_CORE_API_ void setFinite2DLatticeItem(SessionItem* item,
+                                         const InterferenceFunctionFinite2DLattice& sample);
+
+BA_CORE_API_ void setHardDiskItem(SessionItem* item,
+                                  const InterferenceFunctionHardDisk& sample);
+
+BA_CORE_API_ void setRadialParaCrystalItem(SessionItem* item,
+                                           const InterferenceFunctionRadialParaCrystal& sample);
 
 BA_CORE_API_ void setLayerItem(SessionItem* layer_item, const Layer* layer,
                                const LayerInterface* top_interface);

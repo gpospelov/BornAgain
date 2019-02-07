@@ -7177,6 +7177,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, InterferenceFunction3DLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionFinite2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionFinite3DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunctionHardDisk arg2)
         visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
         visit(INodeVisitor self, InterferenceFunctionNone arg2)
         visit(INodeVisitor self, IParticle arg2)
@@ -22503,6 +22504,16 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunctionHardDisk_getParticleDensity(self)
+
+
+    def radius(self):
+        """radius(InterferenceFunctionHardDisk self) -> double"""
+        return _libBornAgainCore.InterferenceFunctionHardDisk_radius(self)
+
+
+    def density(self):
+        """density(InterferenceFunctionHardDisk self) -> double"""
+        return _libBornAgainCore.InterferenceFunctionHardDisk_density(self)
 
 InterferenceFunctionHardDisk_swigregister = _libBornAgainCore.InterferenceFunctionHardDisk_swigregister
 InterferenceFunctionHardDisk_swigregister(InterferenceFunctionHardDisk)

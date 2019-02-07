@@ -18,12 +18,11 @@
 #include "ParticleView.h"
 #include "SessionItem.h"
 
-ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
-    : ConnectableView(parent)
+ParticleLayoutView::ParticleLayoutView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::ParticleLayoutType);
     setColor(QColor(135, 206, 50));
-    setRectangle( DesignerHelper::getDefaultBoundingRect(Constants::ParticleLayoutType));
+    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleLayoutType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::PARTICLE_LAYOUT)
         ->setToolTip(QStringLiteral("Connect this port with the layer "
                                     "to populate it with particles"));
@@ -35,19 +34,18 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem *parent)
     m_roundpar = 3;
 }
 
-void ParticleLayoutView::addView(IView *childView, int /* row */)
+void ParticleLayoutView::addView(IView* childView, int /* row */)
 {
-    if(childView->type() == DesignerHelper::PARTICLE) {
-        connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
-    }
-    else if(childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_RADIAL_PARA
-         || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_2D_PARA
-         || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_1D_LATTICE
-         || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_2D_LATTICE
-         || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_FINITE_2D_LATTICE) {
-        connectInputPort(dynamic_cast<ConnectableView *>(childView), 1);
-    }
-    else {
+    if (childView->type() == DesignerHelper::PARTICLE) {
+        connectInputPort(dynamic_cast<ConnectableView*>(childView), 0);
+    } else if (childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_1D_LATTICE
+               || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_2D_LATTICE
+               || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_2D_PARA
+               || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_FINITE_2D_LATTICE
+               || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_HARD_DISK
+               || childView->type() == DesignerHelper::INTERFERENCE_FUNCTION_RADIAL_PARA) {
+        connectInputPort(dynamic_cast<ConnectableView*>(childView), 1);
+    } else {
         throw GUIHelpers::Error("ParticleLayoutView::addView() -> Error. Unknown view");
     }
 }

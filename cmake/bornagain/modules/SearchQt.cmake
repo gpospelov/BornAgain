@@ -7,10 +7,6 @@ find_package(Qt5PrintSupport REQUIRED)
 find_package(Qt5Network REQUIRED)
 find_package(Qt5Svg REQUIRED)
 
-if(NOT ${Qt5Widgets_FOUND})
-    message(FATAL_ERROR "Qt5's CMake files did not provide expected macro")
-endif()
-
 message(STATUS "Found Qt5 version ${Qt5Widgets_VERSION}")
 
 if(${Qt5Widgets_VERSION_MINOR} LESS 4)

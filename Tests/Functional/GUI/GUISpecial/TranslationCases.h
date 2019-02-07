@@ -33,6 +33,13 @@ public:
     ~RadialParaTranslationTest();
 };
 
+class HardDiskTranslationTest : public GUITranslationTest
+{
+public:
+    HardDiskTranslationTest();
+    ~HardDiskTranslationTest();
+};
+
 class HexParaTranslationTest : public GUITranslationTest
 {
 public:

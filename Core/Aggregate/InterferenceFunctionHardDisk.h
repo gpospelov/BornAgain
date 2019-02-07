@@ -20,6 +20,10 @@
 template <class T> class IntegratorReal;
 
 //! Percus-Yevick hard disk interference function.
+//!
+//! M.S. Ripoll & C.F. Tejero (1995) Approximate analytical expression for the direct correlation
+//! function of hard discs within the Percus-Yevick equation, Molecular Physics, 85:2, 423-428,
+//! DOI: 10.1080/00268979500101211
 //! @ingroup interference
 
 class BA_CORE_API_ InterferenceFunctionHardDisk : public IInterferenceFunction

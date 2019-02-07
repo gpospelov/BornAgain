@@ -35,6 +35,7 @@ public:
     double getParticleDensity() const override final;
 
 private:
+    InterferenceFunctionHardDisk(const InterferenceFunctionHardDisk& other);
     double iff_without_dw(const kvector_t q) const override final;
     void init_parameters();
     void validateParameters() const;

@@ -27,6 +27,7 @@ static const double p = 7.0/3.0 - 4.0*std::sqrt(3.0)/M_PI;
 InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
     : m_radius(radius), m_density(density)
 {
+    setName(BornAgain::InterferenceFunctionHardDiskType);
     validateParameters();
     init_parameters();
 }
@@ -35,7 +36,7 @@ InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk() =default;
 
 InterferenceFunctionHardDisk* InterferenceFunctionHardDisk::clone() const
 {
-    return new InterferenceFunctionHardDisk(m_radius, m_density);
+    return new InterferenceFunctionHardDisk(*this);
 }
 
 double InterferenceFunctionHardDisk::getParticleDensity() const
@@ -43,16 +44,26 @@ double InterferenceFunctionHardDisk::getParticleDensity() const
     return m_density;
 }
 
+InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(const InterferenceFunctionHardDisk &other)
+    : IInterferenceFunction(other)
+    , m_radius(other.m_radius)
+    , m_density(other.m_density)
+{
+    setName(BornAgain::InterferenceFunctionHardDiskType);
+    validateParameters();
+    init_parameters();
+}
+
 double InterferenceFunctionHardDisk::iff_without_dw(const kvector_t q) const
 {
     double qx = q.x();
     double qy = q.y();
     m_q = 2.0*std::sqrt(qx*qx+qy*qy)*m_radius;
-    double eta = packingRatio();
-    m_c_zero = c_zero(eta);
-    m_s2 = s2(eta);
+    m_packing = packingRatio();
+    m_c_zero = c_zero(m_packing);
+    m_s2 = s2(m_packing);
     double c_q = 2.0*M_PI*mP_integrator->integrate(0.0, 1.0);
-    double rho = 4.0*eta/M_PI;
+    double rho = 4.0*m_packing/M_PI;
     return 1.0/(1.0 - rho*c_q);
 }
 
@@ -101,5 +112,5 @@ double InterferenceFunctionHardDisk::w2(double x) const
 double InterferenceFunctionHardDisk::integrand(double x) const
 {
     double cx = m_c_zero*(1.0 + 4.0*m_packing*(w2(x/2.0) - 1.0) + m_s2*x);
-    return cx * MathFunctions::Bessel_J0(m_q*x);
+    return x * cx * MathFunctions::Bessel_J0(m_q*x);
 }

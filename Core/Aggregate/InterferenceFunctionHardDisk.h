@@ -38,6 +38,8 @@ public:
 
     double getParticleDensity() const override final;
 
+    double radius() const { return m_radius; }
+    double density() const { return m_density; }
 private:
     InterferenceFunctionHardDisk(const InterferenceFunctionHardDisk& other);
     double iff_without_dw(const kvector_t q) const override final;

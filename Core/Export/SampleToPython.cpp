@@ -17,8 +17,8 @@
 #include "IFormFactor.h"
 #include "INodeUtils.h"
 #include "InterferenceFunctions.h"
-#include "Layer.h"
 #include "Lattice.h"
+#include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "Material.h"
@@ -86,11 +86,12 @@ SampleToPython::~SampleToPython() = default;
 
 std::string SampleToPython::defineGetSample() const
 {
-    return "def "+getSampleFunctionName()+"():\n" + defineMaterials() + defineLayers() + defineFormFactors()
-           + defineParticles() + defineCoreShellParticles() + defineParticleCompositions()
-           + defineLattices() + defineCrystals() + defineMesoCrystals()
-           + defineParticleDistributions() + defineInterferenceFunctions() + defineParticleLayouts()
-           + defineRoughnesses() + addLayoutsToLayers() + defineMultiLayers() + "\n\n";
+    return "def " + getSampleFunctionName() + "():\n" + defineMaterials() + defineLayers()
+           + defineFormFactors() + defineParticles() + defineCoreShellParticles()
+           + defineParticleCompositions() + defineLattices() + defineCrystals()
+           + defineMesoCrystals() + defineParticleDistributions() + defineInterferenceFunctions()
+           + defineParticleLayouts() + defineRoughnesses() + addLayoutsToLayers()
+           + defineMultiLayers() + "\n\n";
 }
 
 const std::map<MATERIAL_TYPES, std::string> factory_names{
@@ -370,8 +371,8 @@ std::string SampleToPython::defineInterferenceFunctions() const
 
         if (dynamic_cast<const InterferenceFunctionNone*>(interference))
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
-        else if (auto p_lattice_1d
-                 = dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
+        else if (auto p_lattice_1d =
+                     dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
             const Lattice1DParameters latticeParameters = p_lattice_1d->getLatticeParameters();
             result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
                    << printNm(latticeParameters.m_length) << ", "
@@ -383,8 +384,8 @@ std::string SampleToPython::defineInterferenceFunctions() const
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
                        << argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
-        } else if (auto p_para_radial
-                   = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
+        } else if (auto p_para_radial =
+                       dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
                    << printNm(p_para_radial->peakDistance()) << ", "
                    << printNm(p_para_radial->dampingLength()) << ")\n";
@@ -404,8 +405,8 @@ std::string SampleToPython::defineInterferenceFunctions() const
                        << argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setProbabilityDistribution(" << it->second
                        << "_pdf)\n";
-        } else if (auto p_lattice_2d
-                   = dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
+        } else if (auto p_lattice_2d =
+                       dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
             const Lattice2D& lattice = p_lattice_2d->lattice();
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
                    << printNm(lattice.length1()) << ", " << printNm(lattice.length2()) << ", "
@@ -420,20 +421,20 @@ std::string SampleToPython::defineInterferenceFunctions() const
 
             if (p_lattice_2d->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-        } else if (auto p_lattice_2d
-                   = dynamic_cast<const InterferenceFunctionFinite2DLattice*>(interference)) {
+        } else if (auto p_lattice_2d =
+                       dynamic_cast<const InterferenceFunctionFinite2DLattice*>(interference)) {
             const Lattice2D& lattice = p_lattice_2d->lattice();
             result << indent() << it->second << " = ba.InterferenceFunctionFinite2DLattice("
                    << printNm(lattice.length1()) << ", " << printNm(lattice.length2()) << ", "
                    << printDegrees(lattice.latticeAngle()) << ", "
                    << printDegrees(lattice.rotationAngle()) << ", "
-                   << p_lattice_2d->numberUnitCells1() << ", "
-                   << p_lattice_2d->numberUnitCells2() << ")\n";
+                   << p_lattice_2d->numberUnitCells1() << ", " << p_lattice_2d->numberUnitCells2()
+                   << ")\n";
 
             if (p_lattice_2d->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-        } else if (auto p_para_2d
-                   = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
+        } else if (auto p_para_2d =
+                       dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
             std::vector<double> domainSize = p_para_2d->domainSizes();
             const Lattice2D& lattice = p_para_2d->lattice();
             result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
@@ -462,12 +463,17 @@ std::string SampleToPython::defineInterferenceFunctions() const
                    << argumentList(pdf) << ")\n";
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
                    << "_pdf_1, " << it->second << "_pdf_2)\n";
+        } else if (auto p_lattice_hd =
+                       dynamic_cast<const InterferenceFunctionHardDisk*>(interference)) {
+            result << indent() << it->second << " = ba.InterferenceFunctionHardDisk("
+                   << printNm(p_lattice_hd->radius()) << ", "
+                   << printDouble(p_lattice_hd->density()) << ")\n";
         } else
             throw Exceptions::NotImplementedException(
                 "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
                 "IInterferenceFunction "
                 + interference->getName());
-        if (interference->positionVariance()>0.0) {
+        if (interference->positionVariance() > 0.0) {
             result << indent() << it->second << ".setPositionVariance("
                    << printNm2(interference->positionVariance()) << ")\n";
         }
@@ -591,7 +597,10 @@ std::string SampleToPython::defineMultiLayers() const
     return result.str();
 }
 
-std::string SampleToPython::indent() const { return "    "; }
+std::string SampleToPython::indent() const
+{
+    return "    ";
+}
 
 void SampleToPython::setRotationInformation(const IParticle* p_particle, std::string name,
                                             std::ostringstream& result) const

@@ -88,9 +88,9 @@ ItemCatalogue::ItemCatalogue()
         create_new<InterferenceFunction2DParaCrystalItem>);
     add(Constants::InterferenceFunctionFinite2DLatticeType,
         create_new<InterferenceFunctionFinite2DLatticeItem>);
+    add(Constants::InterferenceFunctionHardDiskType, create_new<InterferenceFunctionHardDiskItem>);
     add(Constants::InterferenceFunctionRadialParaCrystalType,
         create_new<InterferenceFunctionRadialParaCrystalItem>);
-    add(Constants::InterferenceFunctionHardDiskType, create_new<InterferenceFunctionHardDiskItem>);
     add(Constants::GISASInstrumentType, create_new<GISASInstrumentItem>);
     add(Constants::OffSpecInstrumentType, create_new<OffSpecInstrumentItem>);
     add(Constants::SpecularInstrumentType, create_new<SpecularInstrumentItem>);

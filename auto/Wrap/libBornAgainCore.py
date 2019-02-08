@@ -7177,6 +7177,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, InterferenceFunction3DLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionFinite2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionFinite3DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunctionHardDisk arg2)
         visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
         visit(INodeVisitor self, InterferenceFunctionNone arg2)
         visit(INodeVisitor self, IParticle arg2)
@@ -22434,6 +22435,89 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
 InterferenceFunctionFinite3DLattice_swigregister = _libBornAgainCore.InterferenceFunctionFinite3DLattice_swigregister
 InterferenceFunctionFinite3DLattice_swigregister(InterferenceFunctionFinite3DLattice)
 
+class InterferenceFunctionHardDisk(IInterferenceFunction):
+    """
+
+
+    Percus-Yevick hard disk interference function.
+
+    C++ includes: InterferenceFunctionHardDisk.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunctionHardDisk, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunctionHardDisk, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, radius, density):
+        """
+        __init__(InterferenceFunctionHardDisk self, double radius, double density) -> InterferenceFunctionHardDisk
+
+        InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunctionHardDisk(radius, density)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionHardDisk
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(InterferenceFunctionHardDisk self) -> InterferenceFunctionHardDisk
+
+        InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunctionHardDisk self, INodeVisitor visitor)
+
+        void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_accept(self, visitor)
+
+
+    def getParticleDensity(self):
+        """
+        getParticleDensity(InterferenceFunctionHardDisk self) -> double
+
+        double InterferenceFunctionHardDisk::getParticleDensity() const override final
+
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_getParticleDensity(self)
+
+
+    def radius(self):
+        """radius(InterferenceFunctionHardDisk self) -> double"""
+        return _libBornAgainCore.InterferenceFunctionHardDisk_radius(self)
+
+
+    def density(self):
+        """density(InterferenceFunctionHardDisk self) -> double"""
+        return _libBornAgainCore.InterferenceFunctionHardDisk_density(self)
+
+InterferenceFunctionHardDisk_swigregister = _libBornAgainCore.InterferenceFunctionHardDisk_swigregister
+InterferenceFunctionHardDisk_swigregister(InterferenceFunctionHardDisk)
+
 class InterferenceFunctionNone(IInterferenceFunction):
     """
 
@@ -28811,6 +28895,9 @@ def FindPeaks(*args):
     FindPeaks(Histogram2D hist, double sigma=2, std::string const & option) -> vector_pair_double_t
     FindPeaks(Histogram2D hist, double sigma=2) -> vector_pair_double_t
     FindPeaks(Histogram2D hist) -> vector_pair_double_t
+
+    std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+
     """
     return _libBornAgainCore.FindPeaks(*args)
 

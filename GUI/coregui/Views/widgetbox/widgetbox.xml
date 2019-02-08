@@ -75,6 +75,14 @@
             </widget>
         </categoryentry>
 
+        <categoryentry  name="Hard disk Percus-Yevick" icon="images/Lattice2D.png">
+            <widget class="InterferenceHardDisk">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
     </category>
 
     <category name="Particles">

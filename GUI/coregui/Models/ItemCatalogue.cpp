@@ -19,8 +19,9 @@
 #include "BeamItems.h"
 #include "BeamWavelengthItem.h"
 #include "Data1DViewItem.h"
-#include "DataPropertyContainer.h"
 #include "DataProperties.h"
+#include "DataPropertyContainer.h"
+#include "DepthProbeInstrumentItem.h"
 #include "DetectorItems.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"
@@ -39,8 +40,8 @@
 #include "LayerRoughnessItems.h"
 #include "MaskItems.h"
 #include "MaterialDataItems.h"
-#include "MaterialItemContainer.h"
 #include "MaterialItem.h"
+#include "MaterialItemContainer.h"
 #include "MesoCrystalItem.h"
 #include "MinimizerItem.h"
 #include "MultiLayerItem.h"
@@ -59,13 +60,12 @@
 #include "ResolutionFunctionItems.h"
 #include "RotationItems.h"
 #include "SimulationOptionsItem.h"
-#include "SpecularDataItem.h"
 #include "SpecularBeamInclinationItem.h"
+#include "SpecularDataItem.h"
 #include "SphericalDetectorItem.h"
 #include "TransformationItem.h"
-#include "VectorItem.h"
-#include "DepthProbeInstrumentItem.h"
 #include "VarianceFunctionItems.h"
+#include "VectorItem.h"
 
 ItemCatalogue::ItemCatalogue()
 {
@@ -80,16 +80,17 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::ParticleCompositionType, create_new<ParticleCompositionItem>);
     add(Constants::ParticleDistributionType, create_new<ParticleDistributionItem>);
     add(Constants::MesoCrystalType, create_new<MesoCrystalItem>);
-    add(Constants::InterferenceFunctionRadialParaCrystalType,
-        create_new<InterferenceFunctionRadialParaCrystalItem>);
-    add(Constants::InterferenceFunction2DParaCrystalType,
-        create_new<InterferenceFunction2DParaCrystalItem>);
-    add(Constants::InterferenceFunction2DLatticeType,
-        create_new<InterferenceFunction2DLatticeItem>);
-    add(Constants::InterferenceFunctionFinite2DLatticeType,
-        create_new<InterferenceFunctionFinite2DLatticeItem>);
     add(Constants::InterferenceFunction1DLatticeType,
         create_new<InterferenceFunction1DLatticeItem>);
+    add(Constants::InterferenceFunction2DLatticeType,
+        create_new<InterferenceFunction2DLatticeItem>);
+    add(Constants::InterferenceFunction2DParaCrystalType,
+        create_new<InterferenceFunction2DParaCrystalItem>);
+    add(Constants::InterferenceFunctionFinite2DLatticeType,
+        create_new<InterferenceFunctionFinite2DLatticeItem>);
+    add(Constants::InterferenceFunctionHardDiskType, create_new<InterferenceFunctionHardDiskItem>);
+    add(Constants::InterferenceFunctionRadialParaCrystalType,
+        create_new<InterferenceFunctionRadialParaCrystalItem>);
     add(Constants::GISASInstrumentType, create_new<GISASInstrumentItem>);
     add(Constants::OffSpecInstrumentType, create_new<OffSpecInstrumentItem>);
     add(Constants::SpecularInstrumentType, create_new<SpecularInstrumentItem>);
@@ -248,7 +249,10 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::VarianceSimFunctionType, create_new<VarianceSimFunctionItem>);
 }
 
-bool ItemCatalogue::contains(const QString& modelType) const { return m_data.contains(modelType); }
+bool ItemCatalogue::contains(const QString& modelType) const
+{
+    return m_data.contains(modelType);
+}
 
 std::unique_ptr<SessionItem> ItemCatalogue::create(const QString& modelType) const
 {
@@ -257,7 +261,7 @@ std::unique_ptr<SessionItem> ItemCatalogue::create(const QString& modelType) con
 
 QStringList ItemCatalogue::validTopItemTypes() const
 {
-    return  m_valid_top_item_types;
+    return m_valid_top_item_types;
 }
 
 void ItemCatalogue::add(const QString& modelType, ItemCatalogue::factory_function_t f)
@@ -274,7 +278,10 @@ void ItemCatalogue::init_top_item_types()
                            << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
                            << Constants::MesoCrystalType << Constants::ParticleDistributionType
                            << Constants::RotationType
-                           << Constants::InterferenceFunctionRadialParaCrystalType
+                           << Constants::InterferenceFunction1DLatticeType
+                           << Constants::InterferenceFunction2DLatticeType
                            << Constants::InterferenceFunction2DParaCrystalType
-                           << Constants::InterferenceFunction2DLatticeType;
+                           << Constants::InterferenceFunctionFinite2DLatticeType
+                           << Constants::InterferenceFunctionHardDiskType
+                           << Constants::InterferenceFunctionRadialParaCrystalType;
 }

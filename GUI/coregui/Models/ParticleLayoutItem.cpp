@@ -26,22 +26,26 @@ namespace
 bool isInterference2D(const QString& name)
 {
     if (name == Constants::InterferenceFunction2DLatticeType
+        || name == Constants::InterferenceFunction2DParaCrystalType
         || name == Constants::InterferenceFunctionFinite2DLatticeType
-        || name == Constants::InterferenceFunction2DParaCrystalType)
+        || name == Constants::InterferenceFunctionHardDiskType)
         return true;
     return false;
 }
 
 //! Returns true if name is related to 2D interference functions.
-bool isLattice2D(SessionItem* item) { return dynamic_cast<Lattice2DItem*>(item) ? true : false; }
-
-const QString density_tooltip
-    = "Number of particles per square nanometer (particle surface density).\n "
-      "Should be defined for disordered and 1d-ordered particle collections.";
-const QString weight_tooltip
-    = "Weight of this particle layout.\n"
-      "Should be used when multiple layouts define different domains in the sample.";
+bool isLattice2D(SessionItem* item)
+{
+    return dynamic_cast<Lattice2DItem*>(item) ? true : false;
 }
+
+const QString density_tooltip =
+    "Number of particles per square nanometer (particle surface density).\n "
+    "Should be defined for disordered and 1d-ordered particle collections.";
+const QString weight_tooltip =
+    "Weight of this particle layout.\n"
+    "Should be used when multiple layouts define different domains in the sample.";
+} // namespace
 
 const QString ParticleLayoutItem::P_APPROX = "Approximation";
 const QString ParticleLayoutItem::P_TOTAL_DENSITY =
@@ -67,11 +71,12 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
                               << Constants::ParticleDistributionType);
     setDefaultTag(T_PARTICLES);
     registerTag(T_INTERFERENCE, 0, 1,
-                QStringList() << Constants::InterferenceFunctionRadialParaCrystalType
-                              << Constants::InterferenceFunction2DParaCrystalType
-                              << Constants::InterferenceFunction1DLatticeType
+                QStringList() << Constants::InterferenceFunction1DLatticeType
                               << Constants::InterferenceFunction2DLatticeType
-                              << Constants::InterferenceFunctionFinite2DLatticeType);
+                              << Constants::InterferenceFunction2DParaCrystalType
+                              << Constants::InterferenceFunctionFinite2DLatticeType
+                              << Constants::InterferenceFunctionHardDiskType
+                              << Constants::InterferenceFunctionRadialParaCrystalType);
 
     mapper()->setOnChildrenChange([this](SessionItem*) {
         updateDensityAppearance();
@@ -106,6 +111,11 @@ void ParticleLayoutItem::updateDensityValue()
                 InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
             double area = latticeItem.unitCellArea();
             setItemValue(P_TOTAL_DENSITY, area == 0.0 ? 0.0 : 1.0 / area);
+        } else if (interferenceItem->isTag(InterferenceFunctionHardDiskItem::P_DENSITY)) {
+            double density =
+                interferenceItem->getItemValue(InterferenceFunctionHardDiskItem::P_DENSITY)
+                    .toDouble();
+            setItemValue(P_TOTAL_DENSITY, density);
         }
     }
 }

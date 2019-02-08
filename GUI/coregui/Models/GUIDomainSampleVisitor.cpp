@@ -403,30 +403,6 @@ void GUIDomainSampleVisitor::visit(const FormFactorTruncatedSpheroid* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const InterferenceFunctionRadialParaCrystal* p_sample)
-{
-    SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
-    SessionItem* item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunctionRadialParaCrystalType, m_sampleModel->indexOfItem(parent),
-        -1, ParticleLayoutItem::T_INTERFERENCE);
-    Q_ASSERT(item);
-    TransformFromDomain::setRadialParaCrystalItem(item, *p_sample);
-    m_levelToParentItem[depth()] = item;
-}
-
-void GUIDomainSampleVisitor::visit(const InterferenceFunction2DParaCrystal* p_sample)
-{
-    SessionItem* parent = m_levelToParentItem[depth() - 1];
-    Q_ASSERT(parent);
-    SessionItem* item = m_sampleModel->insertNewItem(
-        Constants::InterferenceFunction2DParaCrystalType, m_sampleModel->indexOfItem(parent), -1,
-        ParticleLayoutItem::T_INTERFERENCE);
-    Q_ASSERT(item);
-    TransformFromDomain::set2DParaCrystalItem(item, *p_sample);
-    m_levelToParentItem[depth()] = item;
-}
-
 void GUIDomainSampleVisitor::visit(const InterferenceFunction1DLattice* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
@@ -451,6 +427,18 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction2DLattice* p_sample
     m_levelToParentItem[depth()] = item;
 }
 
+void GUIDomainSampleVisitor::visit(const InterferenceFunction2DParaCrystal* p_sample)
+{
+    SessionItem* parent = m_levelToParentItem[depth() - 1];
+    Q_ASSERT(parent);
+    SessionItem* item = m_sampleModel->insertNewItem(
+        Constants::InterferenceFunction2DParaCrystalType, m_sampleModel->indexOfItem(parent), -1,
+        ParticleLayoutItem::T_INTERFERENCE);
+    Q_ASSERT(item);
+    TransformFromDomain::set2DParaCrystalItem(item, *p_sample);
+    m_levelToParentItem[depth()] = item;
+}
+
 void GUIDomainSampleVisitor::visit(const InterferenceFunctionFinite2DLattice* p_sample)
 {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
@@ -460,7 +448,31 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionFinite2DLattice* p_
                             m_sampleModel->indexOfItem(parent), -1,
                             ParticleLayoutItem::T_INTERFERENCE);
     Q_ASSERT(item);
-    TransformFromDomain::set2DLatticeItem(item, *p_sample);
+    TransformFromDomain::setFinite2DLatticeItem(item, *p_sample);
+    m_levelToParentItem[depth()] = item;
+}
+
+void GUIDomainSampleVisitor::visit(const InterferenceFunctionHardDisk* p_sample)
+{
+    SessionItem* parent = m_levelToParentItem[depth() - 1];
+    Q_ASSERT(parent);
+    SessionItem* item = m_sampleModel->insertNewItem(
+        Constants::InterferenceFunctionHardDiskType, m_sampleModel->indexOfItem(parent),
+        -1, ParticleLayoutItem::T_INTERFERENCE);
+    Q_ASSERT(item);
+    TransformFromDomain::setHardDiskItem(item, *p_sample);
+    m_levelToParentItem[depth()] = item;
+}
+
+void GUIDomainSampleVisitor::visit(const InterferenceFunctionRadialParaCrystal* p_sample)
+{
+    SessionItem* parent = m_levelToParentItem[depth() - 1];
+    Q_ASSERT(parent);
+    SessionItem* item = m_sampleModel->insertNewItem(
+        Constants::InterferenceFunctionRadialParaCrystalType, m_sampleModel->indexOfItem(parent),
+        -1, ParticleLayoutItem::T_INTERFERENCE);
+    Q_ASSERT(item);
+    TransformFromDomain::setRadialParaCrystalItem(item, *p_sample);
     m_levelToParentItem[depth()] = item;
 }
 

@@ -48,6 +48,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "RadialParaCrystalBuilder",
         2e-10);
 
+    add("HardDisk",
+        "Interference function of hard disk Percus-Yevick",
+        "MiniGISAS",
+        "HardDiskBuilder",
+        2e-10);
+
     add("Basic2DParaCrystal",
         "Interference function of basic 2D paracrystal with variety of FT distributions",
         "MiniGISAS",

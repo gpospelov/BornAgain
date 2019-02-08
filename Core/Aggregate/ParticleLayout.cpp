@@ -30,7 +30,10 @@ namespace {
 bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
 {
     if(iff.getName() == BornAgain::InterferenceFunction2DLatticeType ||
-       iff.getName() == BornAgain::InterferenceFunction2DParaCrystalType)
+       iff.getName() == BornAgain::InterferenceFunction2DParaCrystalType ||
+       iff.getName() == BornAgain::InterferenceFunction2DSuperLattice ||
+       iff.getName() == BornAgain::InterferenceFunctionFinite2DLatticeType ||
+       iff.getName() == BornAgain::InterferenceFunctionHardDiskType)
         return true;
     return false;
 }

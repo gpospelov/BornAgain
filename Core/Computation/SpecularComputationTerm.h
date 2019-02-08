@@ -16,10 +16,9 @@
 #define SPECULARCOMPUTATIONTERM_H_
 
 #include <memory>
-#include <vector>
 
 class DelayedProgressCounter;
-class IFresnelMap;
+class MultiLayer;
 class ProgressHandler;
 class SpecularSimulationElement;
 
@@ -30,15 +29,13 @@ class SpecularSimulationElement;
 class SpecularComputationTerm
 {
 public:
-    SpecularComputationTerm(const IFresnelMap* p_fresnel_map);
+    SpecularComputationTerm();
     ~SpecularComputationTerm();
 
     void setProgressHandler(ProgressHandler* p_progress);
-
-    void compute(SpecularSimulationElement& elem) const;
+    void compute(SpecularSimulationElement& elem, const MultiLayer& sample) const;
 
 private:
-    const IFresnelMap* mp_fresnel_map;
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
 };
 

@@ -46,9 +46,6 @@ private:
     void init_parameters();
     void validateParameters() const;
     double packingRatio() const;
-    double c_zero(double packing) const;
-    double s2(double packing) const;
-    double w2(double x) const;
     double integrand(double x) const;
     double m_radius;
     double m_density;

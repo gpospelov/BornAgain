@@ -514,7 +514,8 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem,
                 || !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
                 continue;
             auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance);
+            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance,
+                                                               origin);
         } else if (particleItem->modelType() == Constants::ParticleCompositionType) {
             auto particleCompositionItem
                 = dynamic_cast<const ParticleCompositionItem*>(particleItem);
@@ -578,7 +579,7 @@ Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Parti
 
 Particle3DContainer
 RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell& particleCoreShell,
-                                                    double total_abundance)
+                                                    double total_abundance, const QVector3D& origin)
 {
     // clone of the particleCoreShell
     std::unique_ptr<ParticleCoreShell> PCS_clone(particleCoreShell.clone());
@@ -595,12 +596,13 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell& par
     auto shellParticle3D = TransformTo3D::createParticlefromIFormFactor(shellff);
 
     // core
-    applyParticleCoreShellTransformations(*PCS_clone->coreParticle(), *coreParticle3D, *PCS_clone);
+    applyParticleCoreShellTransformations(*PCS_clone->coreParticle(), *coreParticle3D, *PCS_clone,
+                                          to_kvector(origin));
     applyParticleColor(*PCS_clone->coreParticle(), *coreParticle3D);
 
     // shell (set an alpha value of 0.5 for transparency)
     applyParticleCoreShellTransformations(*PCS_clone->shellParticle(), *shellParticle3D,
-                                          *PCS_clone);
+                                          *PCS_clone, to_kvector(origin));
     applyParticleColor(*PCS_clone->shellParticle(), *shellParticle3D, 0.5);
 
     Particle3DContainer particleCoreShell3DContainer;

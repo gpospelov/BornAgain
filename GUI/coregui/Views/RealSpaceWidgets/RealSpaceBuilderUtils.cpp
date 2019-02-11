@@ -61,6 +61,13 @@ const IFormFactor* getUnderlyingFormFactor(const IFormFactor* ff)
 
     return ff;
 }
+
+kvector_t to_kvector(const QVector3D& origin)
+{
+    return kvector_t(static_cast<double>(origin.x()), static_cast<double>(origin.y()),
+                     static_cast<double>(origin.z()));
+}
+
 }
 
 // compute cumulative abundances of particles
@@ -483,7 +490,8 @@ void RealSpaceBuilderUtils::applyParticleColor(const Particle& particle,
 }
 
 std::vector<Particle3DContainer>
-RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
+RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem,
+                                                 const QVector3D& origin)
 {
     std::vector<Particle3DContainer> particle3DContainer_vector;
 
@@ -498,7 +506,7 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
         if (particleItem->modelType() == Constants::ParticleType) {
             auto pItem = dynamic_cast<const ParticleItem*>(particleItem);
             auto particle = pItem->createParticle();
-            particle3DContainer = singleParticle3DContainer(*particle, total_abundance);
+            particle3DContainer = singleParticle3DContainer(*particle, total_abundance, origin);
         } else if (particleItem->modelType() == Constants::ParticleCoreShellType) {
             auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(particleItem);
             // If there is no CORE or SHELL to populate inside ParticleCoreShellItem
@@ -549,7 +557,7 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
 }
 
 Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Particle& particle,
-                                                                     double total_abundance)
+                                                                     double total_abundance, const QVector3D& origin)
 {
     std::unique_ptr<Particle> P_clone(particle.clone()); // clone of the particle
 
@@ -557,7 +565,7 @@ Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Parti
     auto ff = getUnderlyingFormFactor(particleff.get());
 
     auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
-    applyParticleTransformations(*P_clone, *particle3D);
+    applyParticleTransformations(*P_clone, *particle3D, to_kvector(origin));
     applyParticleColor(*P_clone, *particle3D);
 
     Particle3DContainer singleParticle3DContainer;

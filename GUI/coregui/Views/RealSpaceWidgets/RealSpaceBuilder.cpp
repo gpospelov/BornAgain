@@ -115,13 +115,11 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
 {
     Q_ASSERT(layoutItem.modelType() == Constants::ParticleLayoutType);
 
-    Q_UNUSED(origin);
-
     // If there is no particle to populate
     if (!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
         return;
 
-    auto particle3DContainer_vector = RealSpaceBuilderUtils::particle3DContainerVector(layoutItem);
+    auto particle3DContainer_vector = RealSpaceBuilderUtils::particle3DContainerVector(layoutItem, origin);
 
     // If there is an interference function present
     if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))

@@ -124,10 +124,11 @@ BA_CORE_API_ void applyParticleColor(const Particle& particle,
                                      RealSpace::Particles::Particle& particle3D, double alpha = 1);
 
 BA_CORE_API_ std::vector<Particle3DContainer>
-particle3DContainerVector(const SessionItem& layoutItem);
+particle3DContainerVector(const SessionItem& layoutItem, const QVector3D& origin = {});
 
 BA_CORE_API_ Particle3DContainer singleParticle3DContainer(const Particle& particle,
-                                                           double total_abundance = 1.0);
+                                                           double total_abundance = 1.0,
+                                                           const QVector3D& origin = {});
 
 BA_CORE_API_ Particle3DContainer particleCoreShell3DContainer(
     const ParticleCoreShell& particleCoreShell, double total_abundance = 1.0);

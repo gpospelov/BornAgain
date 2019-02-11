@@ -314,10 +314,11 @@ RealSpaceMesoCrystal::~RealSpaceMesoCrystal()
 }
 
 RealSpaceMesoCrystal::RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalItem,
-                                           double total_abundance)
+                                           double total_abundance, const QVector3D& origin)
 {
     m_mesoCrystalItem = mesoCrystalItem;
     m_total_abundance = total_abundance;
+    m_origin = origin;
 }
 
 Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
@@ -340,11 +341,12 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
     if (dynamic_cast<const ParticleComposition*>(particleBasis.get())) {
         auto particleComposition = dynamic_cast<const ParticleComposition*>(particleBasis.get());
         mesoCrystalBasis3DContainer
-            = RealSpaceBuilderUtils::particleComposition3DContainer(*particleComposition);
+            = RealSpaceBuilderUtils::particleComposition3DContainer(*particleComposition, 1.0,
+                                                                    m_origin);
     } else if (dynamic_cast<const ParticleCoreShell*>(particleBasis.get())) {
         auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(particleBasis.get());
         mesoCrystalBasis3DContainer
-            = RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell);
+            = RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell, 1.0, m_origin);
     } else if (dynamic_cast<const MesoCrystal*>(particleBasis.get())) {
         // TODO: Implement method to populate MesoCrystal from CORE and NOT from MesoCrystalItem
         // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
@@ -354,7 +356,7 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
         throw Exceptions::ClassInitializationException(ostr.str());
     } else {
         auto particle = dynamic_cast<const Particle*>(particleBasis.get());
-        mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(*particle);
+        mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(*particle, 1.0, m_origin);
     }
 
     Particle3DContainer mesoCrystal3DContainer;

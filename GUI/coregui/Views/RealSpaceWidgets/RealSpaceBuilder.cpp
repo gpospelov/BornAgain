@@ -84,16 +84,15 @@ void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionIt
 {
     double total_height(0.0);
     int index(0);
-    bool isTopLayer(true); // for not displaying colour of the top layer in MultiLayer
     for (auto layer : item.getItems(MultiLayerItem::T_LAYERS)) {
 
-        if (index != 0) {
-            total_height += TransformTo3D::visualLayerThickness(*layer, sceneGeometry);
-            isTopLayer = false;
-        }
-
+        bool isTopLayer = index==0 ? true : false;
         populateLayer(model, *layer, sceneGeometry,
                       QVector3D(0, 0, static_cast<float>(-total_height)), isTopLayer);
+
+        if (index != 0)
+            total_height += TransformTo3D::visualLayerThickness(*layer, sceneGeometry);
+
         ++index;
     }
 }
@@ -115,13 +114,11 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
 {
     Q_ASSERT(layoutItem.modelType() == Constants::ParticleLayoutType);
 
-    Q_UNUSED(origin);
-
     // If there is no particle to populate
     if (!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
         return;
 
-    auto particle3DContainer_vector = RealSpaceBuilderUtils::particle3DContainerVector(layoutItem);
+    auto particle3DContainer_vector = RealSpaceBuilderUtils::particle3DContainerVector(layoutItem, origin);
 
     // If there is an interference function present
     if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))

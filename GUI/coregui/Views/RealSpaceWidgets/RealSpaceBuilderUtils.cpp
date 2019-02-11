@@ -533,7 +533,7 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem,
                 continue;
             auto particleDistribution = particleDistributionItem->createParticleDistribution();
             std::vector<Particle3DContainer> pd_ContainerVector
-                = particleDistribution3DContainer(*particleDistribution, total_abundance);
+                = particleDistribution3DContainer(*particleDistribution, total_abundance, origin);
             for (size_t i = 0; i < pd_ContainerVector.size(); ++i) {
                 cumulative_abundance += pd_ContainerVector[i].cumulativeAbundance();
                 pd_ContainerVector[i].setCumulativeAbundance(cumulative_abundance);
@@ -657,7 +657,8 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
 }
 
 std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DContainer(
-    const ParticleDistribution& particleDistribution, double total_abundance)
+        const ParticleDistribution& particleDistribution, double total_abundance,
+        const QVector3D& origin)
 {
     auto pd_vector = particleDistribution.generateParticles();
 
@@ -668,10 +669,11 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
         if (dynamic_cast<const ParticleComposition*>(pd_particle)) {
             auto particleComposition = dynamic_cast<const ParticleComposition*>(pd_particle);
             particle3DContainer
-                = particleComposition3DContainer(*particleComposition, total_abundance);
+                = particleComposition3DContainer(*particleComposition, total_abundance, origin);
         } else if (dynamic_cast<const ParticleCoreShell*>(pd_particle)) {
             auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pd_particle);
-            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance);
+            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance,
+                                                               origin);
         } else if (dynamic_cast<const MesoCrystal*>(pd_particle)) {
             // TODO: Implement method to populate MesoCrystal from CORE and NOT from MesoCrystalItem
             // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
@@ -681,7 +683,7 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
             throw Exceptions::ClassInitializationException(ostr.str());
         } else {
             auto particle = dynamic_cast<const Particle*>(pd_particle);
-            particle3DContainer = singleParticle3DContainer(*particle, total_abundance);
+            particle3DContainer = singleParticle3DContainer(*particle, total_abundance, origin);
         }
         particleDistribution3DContainer_vector.emplace_back(std::move(particle3DContainer));
     }

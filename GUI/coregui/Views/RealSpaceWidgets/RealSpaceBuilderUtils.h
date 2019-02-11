@@ -134,7 +134,8 @@ BA_CORE_API_ Particle3DContainer particleCoreShell3DContainer(
     const ParticleCoreShell& particleCoreShell, double total_abundance = 1.0, const QVector3D& origin = {});
 
 BA_CORE_API_ Particle3DContainer particleComposition3DContainer(
-    const ParticleComposition& particleComposition3DContainer, double total_abundance = 1.0);
+    const ParticleComposition& particleComposition3DContainer, double total_abundance = 1.0,
+        const QVector3D& origin = {});
 
 BA_CORE_API_ std::vector<Particle3DContainer>
 particleDistribution3DContainer(const ParticleDistribution& particleDistribution,

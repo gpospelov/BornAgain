@@ -524,7 +524,7 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem,
                 continue;
             auto particleComposition = particleCompositionItem->createParticleComposition();
             particle3DContainer
-                = particleComposition3DContainer(*particleComposition, total_abundance);
+                = particleComposition3DContainer(*particleComposition, total_abundance, origin);
         } else if (particleItem->modelType() == Constants::ParticleDistributionType) {
             auto particleDistributionItem
                 = dynamic_cast<const ParticleDistributionItem*>(particleItem);
@@ -616,7 +616,8 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell& par
 }
 
 Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
-    const ParticleComposition& particleComposition, double total_abundance)
+        const ParticleComposition& particleComposition, double total_abundance,
+        const QVector3D& origin)
 {
     // clone of the particleComposition
     std::unique_ptr<ParticleComposition> PC_clone(particleComposition.clone());
@@ -630,7 +631,7 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
         // no abundances are associated with the individual components of ParticleComposition
         if (dynamic_cast<const ParticleCoreShell*>(pc_particle)) {
             auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pc_particle);
-            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell);
+            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, 1.0, origin);
         } else if (dynamic_cast<const MesoCrystal*>(pc_particle)) {
             // TODO: Implement method to populate MesoCrystal from CORE and NOT from MesoCrystalItem
             // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
@@ -640,7 +641,7 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
             throw Exceptions::ClassInitializationException(ostr.str());
         } else {
             auto particle = dynamic_cast<const Particle*>(pc_particle);
-            particle3DContainer = singleParticle3DContainer(*particle);
+            particle3DContainer = singleParticle3DContainer(*particle, 1.0, origin);
         }
         // add particles from 3Dcontainer of core-shell/particle into particleComposition3DContainer
         for (size_t i = 0; i < particle3DContainer.containerSize(); ++i) {

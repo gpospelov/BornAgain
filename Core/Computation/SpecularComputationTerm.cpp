@@ -34,8 +34,7 @@ void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
     if (!elem.isCalculated())
         return;
 
-    std::vector<ScalarRTCoefficients> coeff;
-    SpecularMatrix::execute(sample, elem.getKi(), coeff);
+    std::vector<ScalarRTCoefficients> coeff = SpecularMatrix::execute(sample, elem.getKi());
     elem.setIntensity(std::norm(coeff[0].getScalarR()));
 
     if (mP_progress_counter)

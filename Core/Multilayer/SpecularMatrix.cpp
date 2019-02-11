@@ -32,15 +32,13 @@ const complex_t imag_unit = complex_t(0.0, 1.0);
 const double pi2_15 = std::pow(M_PI_2, 1.5);
 }
 
-void SpecularMatrix::execute(const MultiLayer& sample, kvector_t k,
-                             std::vector<ScalarRTCoefficients>& coeff)
+std::vector<ScalarRTCoefficients> SpecularMatrix::execute(const MultiLayer& sample, kvector_t k)
 {
     const size_t N = sample.numberOfLayers();
     const double n_ref = sample.layer(0)->material()->refractiveIndex(2 * M_PI / k.mag()).real();
     const double k_base_out = k.mag() * (k.z() > 0.0 ? -1 : 1);
 
-    coeff.clear();
-    coeff.resize(N);
+    std::vector<ScalarRTCoefficients> coeff(N);
     // Calculate refraction angle, expressed as k_z, for each layer.
     complex_t rad = sample.layer(0)->scalarReducedPotential(k, n_ref);
     coeff[0].kz = k_base_out * sqrt(rad);
@@ -55,17 +53,18 @@ void SpecularMatrix::execute(const MultiLayer& sample, kvector_t k,
     if (N == 1) { // If only one layer present, there's nothing left to calculate
         coeff[0].t_r(0) = 1.0;
         coeff[0].t_r(1) = 0.0;
-        return;
+        return coeff;
     } else if (coeff[0].kz == 0.0) { // If kz in layer 0 is zero, R0 = -T0 and all others equal to 0
         coeff[0].t_r(0) = 1.0;
         coeff[0].t_r(1) = -1.0;
         for (size_t i = 1; i < N; ++i)
             coeff[i].t_r.setZero();
-        return;
+        return coeff;
     }
 
     // Calculate transmission/refraction coefficients t_r for each layer, from top to bottom.
     computeTR(coeff, sample);
+    return coeff;
 }
 
 namespace  {

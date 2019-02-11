@@ -546,7 +546,8 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem,
             if (!mesoCrystalItem->getItem(MesoCrystalItem::T_BASIS_PARTICLE))
                 continue;
             particle3DContainer
-                = RealSpaceBuilderUtils::mesoCrystal3DContainer(*mesoCrystalItem, total_abundance);
+                = RealSpaceBuilderUtils::mesoCrystal3DContainer(*mesoCrystalItem, total_abundance,
+                                                                origin);
         }
 
         cumulative_abundance += particle3DContainer.cumulativeAbundance();
@@ -692,9 +693,9 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
 
 Particle3DContainer
 RealSpaceBuilderUtils::mesoCrystal3DContainer(const MesoCrystalItem& mesoCrystalItem,
-                                              double total_abundance)
+                                              double total_abundance, const QVector3D& origin)
 {
-    RealSpaceMesoCrystal mesoCrystalUtils(&mesoCrystalItem, total_abundance);
+    RealSpaceMesoCrystal mesoCrystalUtils(&mesoCrystalItem, total_abundance, origin);
 
     Particle3DContainer mesoCrystal3DContainer = mesoCrystalUtils.populateMesoCrystal();
 

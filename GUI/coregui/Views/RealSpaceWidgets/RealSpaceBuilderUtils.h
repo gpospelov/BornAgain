@@ -142,7 +142,8 @@ particleDistribution3DContainer(const ParticleDistribution& particleDistribution
                                 double total_abundance = 1.0, const QVector3D& origin = {});
 
 BA_CORE_API_ Particle3DContainer mesoCrystal3DContainer(const MesoCrystalItem& mesoCrystalItem,
-                                                        double total_abundance = 1.0);
+                                                        double total_abundance = 1.0,
+                                                        const QVector3D& origin = {});
 
 } // namespace RealSpaceBuilderUtils
 

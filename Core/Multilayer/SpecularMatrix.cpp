@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "SpecularMatrix.h"
+#include "IKzComputation.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -29,28 +30,12 @@ std::vector<ScalarRTCoefficients> computeTR(const MultiLayer& sample,
                                             const std::vector<complex_t>& kz);
 bool zeroTransmission(const Eigen::Matrix2cd& m);
 
-const complex_t imag_unit = complex_t(0.0, 1.0);
 const double pi2_15 = std::pow(M_PI_2, 1.5);
 }
 
 std::vector<ScalarRTCoefficients> SpecularMatrix::execute(const MultiLayer& sample, kvector_t k)
 {
-    const size_t N = sample.numberOfLayers();
-    const double n_ref = sample.layer(0)->material()->refractiveIndex(2 * M_PI / k.mag()).real();
-    const double k_base_out = k.mag() * (k.z() > 0.0 ? -1 : 1);
-
-    std::vector<complex_t> kz(N);
-    // Calculate refraction angle, expressed as k_z, for each layer.
-    complex_t rad = sample.layer(0)->scalarReducedPotential(k, n_ref);
-    kz[0] = k_base_out * sqrt(rad);
-    for (size_t i = 1; i < N; ++i) {
-        rad = sample.layer(i)->scalarReducedPotential(k, n_ref);
-        // use small absorptive component for layers with i>0 if radicand becomes very small:
-        if (std::norm(rad) < 1e-40)
-            rad = imag_unit * 1e-40;
-        kz[i] = k_base_out * sqrt(rad);
-    }
-
+    std::vector<complex_t> kz = ReducedKzComputation::compute(sample, k);
     return computeTR(sample, kz);
 }
 

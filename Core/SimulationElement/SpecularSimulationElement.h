@@ -12,8 +12,8 @@ class MultiLayer;
 class BA_CORE_API_ SpecularSimulationElement
 {
 public:
-    SpecularSimulationElement(double kz, double d_kz, double dl_l);
-    SpecularSimulationElement(double wavelength, double d_l, double alpha, double d_alpha);
+    SpecularSimulationElement(double kz);
+    SpecularSimulationElement(double wavelength, double alpha);
 
     SpecularSimulationElement(const SpecularSimulationElement& other);
     SpecularSimulationElement(SpecularSimulationElement&& other) noexcept;

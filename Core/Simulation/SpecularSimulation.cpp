@@ -161,7 +161,7 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
     result.reserve(axis_size);
     for (size_t i = 0; i < axis_size; ++i) {
         double result_angle = incidentAngle(i) + angle_shift;
-        result.emplace_back(wavelength, /*d_wl*/ 0.0, result_angle, /*d_angle*/ 0.0);
+        result.emplace_back(wavelength, result_angle);
         auto& sim_element = result.back();
         sim_element.setPolarizationHandler(handler);
         if (!alpha_limits.isInRange(result_angle))

@@ -3,7 +3,7 @@
 #include "Layer.h"
 #include "MultiLayer.h"
 
-SpecularSimulationElement::SpecularSimulationElement(double kz, double, double)
+SpecularSimulationElement::SpecularSimulationElement(double kz)
     : m_intensity(0.0)
     , m_calculation_flag(true)
     , m_kz_computation([kz](const MultiLayer& sample) {
@@ -11,8 +11,7 @@ SpecularSimulationElement::SpecularSimulationElement(double kz, double, double)
       })
 {}
 
-SpecularSimulationElement::SpecularSimulationElement(double wavelength, double, double alpha,
-                                                     double)
+SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha)
     : m_intensity(0.0)
     , m_calculation_flag(true)
     , m_kz_computation(

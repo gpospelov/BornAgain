@@ -20,7 +20,7 @@
 class DelayedProgressCounter;
 class MultiLayer;
 class ProgressHandler;
-class SpecularSimulationElement;
+class SpecularSimulationElement_;
 
 //! Computes the specular scattering.
 //! Used by SpecularComputation.
@@ -33,7 +33,7 @@ public:
     ~SpecularComputationTerm();
 
     void setProgressHandler(ProgressHandler* p_progress);
-    void compute(SpecularSimulationElement& elem, const MultiLayer& sample) const;
+    void compute(SpecularSimulationElement_& elem, const MultiLayer& sample) const;
 
 private:
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;

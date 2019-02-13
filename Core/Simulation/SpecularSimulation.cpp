@@ -26,6 +26,7 @@
 #include "RealParameter.h"
 #include "SpecularComputation.h"
 #include "SpecularDetector1D.h"
+#include "SpecularSimulationElement_.h"
 #include "UnitConverter1D.h"
 
 namespace
@@ -144,10 +145,10 @@ void SpecularSimulation::initSimulationElementVector()
     m_cache.resize(m_sim_elements.size(), 0);
 }
 
-std::vector<SpecularSimulationElement>
+std::vector<SpecularSimulationElement_>
 SpecularSimulation::generateSimulationElements(const Beam& beam)
 {
-    std::vector<SpecularSimulationElement> result;
+    std::vector<SpecularSimulationElement_> result;
 
     const double wavelength = beam.getWavelength();
     const double angle_shift = beam.getAlpha();
@@ -160,7 +161,7 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
     result.reserve(axis_size);
     for (size_t i = 0; i < axis_size; ++i) {
         double result_angle = incidentAngle(i) + angle_shift;
-        result.emplace_back(wavelength, -result_angle);
+        result.emplace_back(wavelength, /*d_wl*/ 0.0, result_angle, /*d_angle*/ 0.0);
         auto& sim_element = result.back();
         sim_element.setPolarizationHandler(handler);
         if (!alpha_limits.isInRange(result_angle))
@@ -224,7 +225,7 @@ void SpecularSimulation::initialize()
 void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
 {
     auto& element = m_sim_elements[index];
-    const double alpha_i = -element.getAlphaI();
+    const double alpha_i = incidentAngle(index);
     const auto footprint = m_instrument.getBeam().footprintFactor();
     if (footprint != nullptr)
         beam_intensity *= footprint->calculate(alpha_i);

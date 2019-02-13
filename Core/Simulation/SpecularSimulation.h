@@ -18,7 +18,6 @@
 #include "Simulation.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
-#include "SpecularSimulationElement.h"
 
 class IAxis;
 class IComputation;
@@ -27,6 +26,7 @@ class ISample;
 class IMultiLayerBuilder;
 class MultiLayer;
 class Histogram1D;
+class SpecularSimulationElement_;
 
 //! Main class to run a specular simulation.
 //! @ingroup simulation
@@ -78,7 +78,7 @@ private:
     void initSimulationElementVector() override;
 
     //! Generate simulation elements for given beam
-    std::vector<SpecularSimulationElement> generateSimulationElements(const Beam& beam);
+    std::vector<SpecularSimulationElement_> generateSimulationElements(const Beam& beam);
 
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
@@ -113,7 +113,7 @@ private:
     void setRawResults(const std::vector<double>& raw_data) override;
 
     std::unique_ptr<IAxis> m_coordinate_axis;
-    std::vector<SpecularSimulationElement> m_sim_elements;
+    std::vector<SpecularSimulationElement_> m_sim_elements;
     std::vector<double> m_cache;
 };
 

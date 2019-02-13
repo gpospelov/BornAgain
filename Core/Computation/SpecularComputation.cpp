@@ -16,7 +16,7 @@
 #include "IComputationUtils.h"
 #include "MultiLayer.h"
 #include "ProgressHandler.h"
-#include "SpecularSimulationElement.h"
+#include "SpecularSimulationElement_.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
               "SpecularComputation should not be copy constructible");

@@ -16,7 +16,7 @@
 #include "DelayedProgressCounter.h"
 #include "ScalarRTCoefficients.h"
 #include "SpecularMatrix.h"
-#include "SpecularSimulationElement.h"
+#include "SpecularSimulationElement_.h"
 
 SpecularComputationTerm::SpecularComputationTerm()
 {}
@@ -28,13 +28,13 @@ void SpecularComputationTerm::setProgressHandler(ProgressHandler* p_progress)
     mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
 }
 
-void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
+void SpecularComputationTerm::compute(SpecularSimulationElement_& elem,
                                       const MultiLayer& sample) const
 {
     if (!elem.isCalculated())
         return;
 
-    std::vector<ScalarRTCoefficients> coeff = SpecularMatrix::execute(sample, elem.getKi());
+    auto coeff = SpecularMatrix::execute(sample, elem.produceKz(sample));
     elem.setIntensity(std::norm(coeff[0].getScalarR()));
 
     if (mP_progress_counter)

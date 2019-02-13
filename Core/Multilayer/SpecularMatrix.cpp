@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "SpecularMatrix.h"
-#include "IKzComputation.h"
+#include "KzComputation.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"

@@ -1,5 +1,5 @@
 #include "google_test.h"
-#include "IKzComputation.h"
+#include "KzComputation.h"
 #include "Layer.h"
 #include "MultiLayer.h"
 #include "MaterialFactoryFuncs.h"

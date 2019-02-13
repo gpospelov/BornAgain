@@ -43,7 +43,7 @@ private:
     PolarizationHandler m_polarization;
     double m_intensity; //!< simulated intensity for detector cell
     bool m_calculation_flag;
-    std::unique_ptr<IKzComputation> m_kz_computation;
+    std::function<std::vector<complex_t> (const MultiLayer&)> m_kz_computation;
 };
 
 #endif // SPECULARSIMULATIONELEMENT_H

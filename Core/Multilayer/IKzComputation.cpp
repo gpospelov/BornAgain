@@ -11,9 +11,7 @@ complex_t normalizedSLD(const Material& material);
 complex_t checkForUnderflow(complex_t val);
 } // namespace
 
-IKzComputation::~IKzComputation() = default;
-
-std::vector<complex_t> ReducedKzComputation::compute(const MultiLayer& sample, kvector_t k)
+std::vector<complex_t> KzComputation::computeReducedKz(const MultiLayer& sample, kvector_t k)
 {
     const size_t N = sample.numberOfLayers();
     const double n_ref = sample.layer(0)->material()->refractiveIndex(2 * M_PI / k.mag()).real();
@@ -30,14 +28,12 @@ std::vector<complex_t> ReducedKzComputation::compute(const MultiLayer& sample, k
     return kz;
 }
 
-KzComputation::KzComputation(kvector_t k) : m_k(k) {}
-
-std::vector<complex_t> KzComputation::compute(const MultiLayer& sample) const
+std::vector<complex_t> KzComputation::computeKzFromRefIndeces(const MultiLayer& sample, kvector_t k)
 {
     const size_t N = sample.numberOfLayers();
-    const double kz_val = m_k.z();
+    const double kz_val = k.z();
     const double k_sign = kz_val > 0.0 ? -1 : 1;
-    const double k2 = m_k.mag2();
+    const double k2 = k.mag2();
     const double kz2 = kz_val * kz_val;
     const double wl = 2 * M_PI / std::sqrt(k2);
     const complex_t n2_ref = sample.layer(0)->material()->refractiveIndex2(wl);
@@ -51,32 +47,20 @@ std::vector<complex_t> KzComputation::compute(const MultiLayer& sample) const
     return kz;
 }
 
-KzComputation* KzComputation::clone() const
-{
-    return new KzComputation(m_k);
-}
-
-KzFromSLDComputation::KzFromSLDComputation(double kz) : m_kz(kz) {}
-
-std::vector<complex_t> KzFromSLDComputation::compute(const MultiLayer& sample) const
+std::vector<complex_t> KzComputation::computeKzFromSLDs(const MultiLayer& sample, double kz)
 {
     const size_t N = sample.numberOfLayers();
-    const double k_sign = m_kz > 0.0 ? -1 : 1;
-    std::vector<complex_t> kz(N);
+    const double k_sign = kz > 0.0 ? -1 : 1;
+    std::vector<complex_t> result(N);
 
-    complex_t kz2_base = m_kz * m_kz + normalizedSLD(*sample.layer(0)->material());
-    kz[0] = -m_kz;
+    complex_t kz2_base = kz * kz + normalizedSLD(*sample.layer(0)->material());
+    result[0] = -kz;
     // Calculate refraction angle, expressed as k_z, for each layer.
     for (size_t i = 1; i < N; ++i) {
         complex_t kz2 = checkForUnderflow(kz2_base - normalizedSLD(*sample.layer(i)->material()));
-        kz[i] = k_sign * std::sqrt(kz2);
+        result[i] = k_sign * std::sqrt(kz2);
     }
-    return kz;
-}
-
-KzFromSLDComputation *KzFromSLDComputation::clone() const
-{
-    return new KzFromSLDComputation(m_kz);
+    return result;
 }
 
 namespace

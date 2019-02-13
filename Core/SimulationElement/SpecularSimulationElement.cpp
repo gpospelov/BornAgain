@@ -6,15 +6,19 @@
 SpecularSimulationElement::SpecularSimulationElement(double kz, double, double)
     : m_intensity(0.0)
     , m_calculation_flag(true)
-    , m_kz_computation(std::make_unique<KzFromSLDComputation>(kz))
+    , m_kz_computation([kz](const MultiLayer& sample) {
+          return KzComputation::computeKzFromSLDs(sample, kz);
+      })
 {}
 
 SpecularSimulationElement::SpecularSimulationElement(double wavelength, double, double alpha,
-                                                       double)
+                                                     double)
     : m_intensity(0.0)
     , m_calculation_flag(true)
     , m_kz_computation(
-          std::make_unique<KzComputation>(vecOfLambdaAlphaPhi(wavelength, alpha, /*phi = */ 0.0)))
+          [k = vecOfLambdaAlphaPhi(wavelength, alpha, /*phi =*/0.0)](const MultiLayer& sample) {
+              return KzComputation::computeKzFromRefIndeces(sample, k);
+          })
 {
 }
 
@@ -22,7 +26,7 @@ SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationEle
     : m_polarization(other.m_polarization)
     , m_intensity(other.m_intensity)
     , m_calculation_flag(other.m_calculation_flag)
-    , m_kz_computation(other.m_kz_computation->clone())
+    , m_kz_computation(other.m_kz_computation)
 {
 }
 
@@ -48,7 +52,7 @@ operator=(const SpecularSimulationElement& other)
 
 std::vector<complex_t> SpecularSimulationElement::produceKz(const MultiLayer& sample)
 {
-    return m_kz_computation->compute(sample);
+    return m_kz_computation(sample);
 }
 
 void SpecularSimulationElement::swapContent(SpecularSimulationElement &other)

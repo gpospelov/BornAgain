@@ -1,15 +1,15 @@
-#include "SpecularSimulationElement_.h"
+#include "SpecularSimulationElement.h"
 #include "IKzComputation.h"
 #include "Layer.h"
 #include "MultiLayer.h"
 
-SpecularSimulationElement_::SpecularSimulationElement_(double kz, double, double)
+SpecularSimulationElement::SpecularSimulationElement(double kz, double, double)
     : m_intensity(0.0)
     , m_calculation_flag(true)
     , m_kz_computation(std::make_unique<KzFromSLDComputation>(kz))
 {}
 
-SpecularSimulationElement_::SpecularSimulationElement_(double wavelength, double, double alpha,
+SpecularSimulationElement::SpecularSimulationElement(double wavelength, double, double alpha,
                                                        double)
     : m_intensity(0.0)
     , m_calculation_flag(true)
@@ -18,7 +18,7 @@ SpecularSimulationElement_::SpecularSimulationElement_(double wavelength, double
 {
 }
 
-SpecularSimulationElement_::SpecularSimulationElement_(const SpecularSimulationElement_& other)
+SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement& other)
     : m_polarization(other.m_polarization)
     , m_intensity(other.m_intensity)
     , m_calculation_flag(other.m_calculation_flag)
@@ -26,7 +26,7 @@ SpecularSimulationElement_::SpecularSimulationElement_(const SpecularSimulationE
 {
 }
 
-SpecularSimulationElement_::SpecularSimulationElement_(SpecularSimulationElement_&& other) noexcept
+SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&& other) noexcept
     : m_polarization(std::move(other.m_polarization))
     , m_intensity(other.m_intensity)
     , m_calculation_flag(other.m_calculation_flag)
@@ -34,24 +34,24 @@ SpecularSimulationElement_::SpecularSimulationElement_(SpecularSimulationElement
 {
 }
 
-SpecularSimulationElement_::~SpecularSimulationElement_() = default;
+SpecularSimulationElement::~SpecularSimulationElement() = default;
 
-SpecularSimulationElement_& SpecularSimulationElement_::
-operator=(const SpecularSimulationElement_& other)
+SpecularSimulationElement& SpecularSimulationElement::
+operator=(const SpecularSimulationElement& other)
 {
     if (this != &other) {
-        SpecularSimulationElement_ tmp(other);
+        SpecularSimulationElement tmp(other);
         tmp.swapContent(*this);
     }
     return *this;
 }
 
-std::vector<complex_t> SpecularSimulationElement_::produceKz(const MultiLayer& sample)
+std::vector<complex_t> SpecularSimulationElement::produceKz(const MultiLayer& sample)
 {
     return m_kz_computation->compute(sample);
 }
 
-void SpecularSimulationElement_::swapContent(SpecularSimulationElement_ &other)
+void SpecularSimulationElement::swapContent(SpecularSimulationElement &other)
 {
     m_polarization.swapContent(other.m_polarization);
     std::swap(m_intensity, other.m_intensity);

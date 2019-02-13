@@ -1,5 +1,5 @@
-#ifndef SPECULARSIMULATIONELEMENT_H_
-#define SPECULARSIMULATIONELEMENT_H_
+#ifndef SPECULARSIMULATIONELEMENT_H
+#define SPECULARSIMULATIONELEMENT_H
 
 #include "Complex.h"
 #include "Vectors3D.h"
@@ -9,18 +9,18 @@
 class IKzComputation;
 class MultiLayer;
 
-class BA_CORE_API_ SpecularSimulationElement_
+class BA_CORE_API_ SpecularSimulationElement
 {
 public:
-    SpecularSimulationElement_(double kz, double d_kz, double dl_l);
-    SpecularSimulationElement_(double wavelength, double d_l, double alpha, double d_alpha);
+    SpecularSimulationElement(double kz, double d_kz, double dl_l);
+    SpecularSimulationElement(double wavelength, double d_l, double alpha, double d_alpha);
 
-    SpecularSimulationElement_(const SpecularSimulationElement_& other);
-    SpecularSimulationElement_(SpecularSimulationElement_&& other) noexcept;
+    SpecularSimulationElement(const SpecularSimulationElement& other);
+    SpecularSimulationElement(SpecularSimulationElement&& other) noexcept;
 
-    ~SpecularSimulationElement_();
+    ~SpecularSimulationElement();
 
-    SpecularSimulationElement_& operator=(const SpecularSimulationElement_& other);
+    SpecularSimulationElement& operator=(const SpecularSimulationElement& other);
 
     //! Assigns PolarizationHandler.
     void setPolarizationHandler(const PolarizationHandler& handler) { m_polarization = handler; }
@@ -38,7 +38,7 @@ public:
     std::vector<complex_t> produceKz(const MultiLayer& sample);
 
 private:
-    void swapContent(SpecularSimulationElement_& other);
+    void swapContent(SpecularSimulationElement& other);
 
     PolarizationHandler m_polarization;
     double m_intensity; //!< simulated intensity for detector cell
@@ -46,4 +46,4 @@ private:
     std::unique_ptr<IKzComputation> m_kz_computation;
 };
 
-#endif // SPECULARSIMULATIONELEMENT_H_
+#endif // SPECULARSIMULATIONELEMENT_H

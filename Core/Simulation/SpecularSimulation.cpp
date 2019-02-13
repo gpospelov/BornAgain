@@ -26,7 +26,7 @@
 #include "RealParameter.h"
 #include "SpecularComputation.h"
 #include "SpecularDetector1D.h"
-#include "SpecularSimulationElement_.h"
+#include "SpecularSimulationElement.h"
 #include "UnitConverter1D.h"
 
 namespace
@@ -145,10 +145,10 @@ void SpecularSimulation::initSimulationElementVector()
     m_cache.resize(m_sim_elements.size(), 0);
 }
 
-std::vector<SpecularSimulationElement_>
+std::vector<SpecularSimulationElement>
 SpecularSimulation::generateSimulationElements(const Beam& beam)
 {
-    std::vector<SpecularSimulationElement_> result;
+    std::vector<SpecularSimulationElement> result;
 
     const double wavelength = beam.getWavelength();
     const double angle_shift = beam.getAlpha();

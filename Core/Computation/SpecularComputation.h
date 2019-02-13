@@ -20,7 +20,7 @@
 #include "SpecularComputationTerm.h"
 
 class MultiLayer;
-class SpecularSimulationElement_;
+class SpecularSimulationElement;
 
 //! Performs a single-threaded specular computation with given sample.
 //!
@@ -30,7 +30,7 @@ class SpecularSimulationElement_;
 
 class SpecularComputation : public IComputation
 {
-    using SpecularElementIter = std::vector<SpecularSimulationElement_>::iterator;
+    using SpecularElementIter = std::vector<SpecularSimulationElement>::iterator;
 
 public:
     SpecularComputation(const MultiLayer& multilayer, const SimulationOptions& options,

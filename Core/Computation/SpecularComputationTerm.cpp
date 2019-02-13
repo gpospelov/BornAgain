@@ -16,7 +16,7 @@
 #include "DelayedProgressCounter.h"
 #include "ScalarRTCoefficients.h"
 #include "SpecularMatrix.h"
-#include "SpecularSimulationElement_.h"
+#include "SpecularSimulationElement.h"
 
 SpecularComputationTerm::SpecularComputationTerm()
 {}
@@ -28,7 +28,7 @@ void SpecularComputationTerm::setProgressHandler(ProgressHandler* p_progress)
     mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
 }
 
-void SpecularComputationTerm::compute(SpecularSimulationElement_& elem,
+void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
                                       const MultiLayer& sample) const
 {
     if (!elem.isCalculated())

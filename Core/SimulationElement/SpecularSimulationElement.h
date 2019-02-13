@@ -1,3 +1,17 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/SimulationElement/SpecularSimulationElement.h
+//! @brief     Declares the class SpecularSimulationElement.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
 #ifndef SPECULARSIMULATIONELEMENT_H
 #define SPECULARSIMULATIONELEMENT_H
 
@@ -8,6 +22,10 @@
 
 class IKzComputation;
 class MultiLayer;
+
+//! Data stucture containing both input and output of a single image pixel
+//! for specular simulation.
+//! @ingroup simulation
 
 class BA_CORE_API_ SpecularSimulationElement
 {
@@ -35,6 +53,7 @@ public:
     void setCalculationFlag(bool calculation_flag) { m_calculation_flag = calculation_flag; }
     bool isCalculated() const { return m_calculation_flag; }
 
+    //! Returns kz values for Abeles computation of reflection/transition coefficients
     std::vector<complex_t> produceKz(const MultiLayer& sample);
 
 private:

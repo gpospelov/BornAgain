@@ -1,3 +1,17 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/Multilayer/KzComputation.h
+//! @brief     Declares functions from KzComputation namespace.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
 #ifndef IKZCOMPUTATION_H
 #define IKZCOMPUTATION_H
 
@@ -7,6 +21,10 @@
 #include <vector>
 
 class MultiLayer;
+
+//! Namespace containing functions for computing kz values for given multilayer and k (or kz) value
+//! on the surface of the sample.
+//! @ingroup simulation
 
 namespace KzComputation
 {

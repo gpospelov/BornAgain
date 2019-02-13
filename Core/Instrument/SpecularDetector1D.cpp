@@ -12,14 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Beam.h"
-#include "DetectorElement.h"
-#include "IPixel.h"
-#include "OutputData.h"
-#include "SimulationArea.h"
 #include "SpecularDetector1D.h"
-#include "SpecularSimulationElement.h"
-#include "Units.h"
 
 SpecularDetector1D::SpecularDetector1D(const IAxis& axis)
 {
@@ -46,7 +39,6 @@ std::vector<DetectorElement> SpecularDetector1D::createDetectorElements(const Be
 {
     throw std::runtime_error(
         "Error in SpecularDetector1D::createDetectorElements: not implemented.");
-    return std::vector<DetectorElement>();
 }
 
 std::string SpecularDetector1D::axisName(size_t index) const

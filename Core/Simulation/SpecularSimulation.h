@@ -18,7 +18,6 @@
 #include "Simulation.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
-#include "SpecularSimulationElement.h"
 
 class IAxis;
 class IComputation;
@@ -27,6 +26,7 @@ class ISample;
 class IMultiLayerBuilder;
 class MultiLayer;
 class Histogram1D;
+class SpecularSimulationElement;
 
 //! Main class to run a specular simulation.
 //! @ingroup simulation

@@ -19,6 +19,8 @@
 #include "Vectors3D.h"
 #include <vector>
 
+class MultiLayer;
+
 //! Implements method 'execute' to compute refraction angles and transmission/reflection
 //! coefficients for coherent wave propagation in a multilayer.
 //! @ingroup algorithms_internal
@@ -29,8 +31,13 @@ public:
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.
     //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-    static void execute(const class MultiLayer& sample, kvector_t k,
-                        std::vector<ScalarRTCoefficients>& coeff);
+    static std::vector<ScalarRTCoefficients> execute(const MultiLayer& sample, kvector_t k);
+
+    //! Computes transmission/reflection coefficients
+    //! for given set of z-components of wave-vectors in a multilayer.
+    //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
+    static std::vector<ScalarRTCoefficients> execute(const MultiLayer& sample,
+                                                     const std::vector<complex_t>& kz);
 };
 
 #endif // SPECULARMATRIX_H

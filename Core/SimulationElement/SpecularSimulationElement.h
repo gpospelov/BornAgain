@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/SimulationElement/SpecularSimulationElement.h
-//! @brief     Defines class SpecularSimulationElement.
+//! @brief     Declares the class SpecularSimulationElement.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,13 +12,17 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARSIMULATIONELEMENT_H_
-#define SPECULARSIMULATIONELEMENT_H_
+#ifndef SPECULARSIMULATIONELEMENT_H
+#define SPECULARSIMULATIONELEMENT_H
 
 #include "Complex.h"
 #include "Vectors3D.h"
 #include "PolarizationHandler.h"
 #include <memory>
+#include <vector>
+
+class IKzComputation;
+class MultiLayer;
 
 //! Data stucture containing both input and output of a single image pixel
 //! for specular simulation.
@@ -27,7 +31,9 @@
 class BA_CORE_API_ SpecularSimulationElement
 {
 public:
-    SpecularSimulationElement(double wavelength, double alpha_i);
+    SpecularSimulationElement(double kz);
+    SpecularSimulationElement(double wavelength, double alpha);
+
     SpecularSimulationElement(const SpecularSimulationElement& other);
     SpecularSimulationElement(SpecularSimulationElement&& other) noexcept;
 
@@ -36,36 +42,28 @@ public:
     SpecularSimulationElement& operator=(const SpecularSimulationElement& other);
 
     //! Assigns PolarizationHandler.
-    void setPolarizationHandler(const PolarizationHandler& handler)
-    {
-        m_polarization = handler;
-    }
+    void setPolarizationHandler(const PolarizationHandler& handler) { m_polarization = handler; }
 
     //! Returns assigned PolarizationHandler.
-    const PolarizationHandler& polarizationHandler() const
-    {
-        return m_polarization;
-    }
+    const PolarizationHandler& polarizationHandler() const { return m_polarization; }
 
-    double getWavelength() const { return m_wavelength; }
-    double getAlphaI() const { return m_alpha_i; }
-    kvector_t getKi() const;
-    void setIntensity(double intensity) { m_intensity = intensity; }
-    void addIntensity(double intensity) { m_intensity += intensity; }
-    double getIntensity() const { return m_intensity; }
+    double getIntensity() const {return m_intensity;}
+    void setIntensity(double intensity) {m_intensity = intensity;}
 
     //! Set calculation flag (if it's false, zero intensity is assigned to the element)
-    void setCalculationFlag(bool calculation_flag) {m_calculation_flag = calculation_flag;}
-    bool isCalculated() const {return m_calculation_flag;}
+    void setCalculationFlag(bool calculation_flag) { m_calculation_flag = calculation_flag; }
+    bool isCalculated() const { return m_calculation_flag; }
+
+    //! Returns kz values for Abeles computation of reflection/transition coefficients
+    std::vector<complex_t> produceKz(const MultiLayer& sample);
 
 private:
     void swapContent(SpecularSimulationElement& other);
 
     PolarizationHandler m_polarization;
-    double m_wavelength, m_alpha_i;  //!< the wavelength and the incident angle of the beam
-    double m_intensity;                      //!< simulated intensity for detector cell
-
+    double m_intensity; //!< simulated intensity for detector cell
     bool m_calculation_flag;
+    std::function<std::vector<complex_t> (const MultiLayer&)> m_kz_computation;
 };
 
-#endif /* SPECULARSIMULATIONELEMENT_H_ */
+#endif // SPECULARSIMULATIONELEMENT_H

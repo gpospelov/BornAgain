@@ -4,7 +4,6 @@
 #include "OutputData.h"
 #include "SimulationArea.h"
 #include "SpecularDetector1D.h"
-#include "SpecularSimulationElement.h"
 #include "Units.h"
 #include "google_test.h"
 #include <memory>

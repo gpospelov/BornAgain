@@ -14,28 +14,29 @@
 
 #include "SpecularComputationTerm.h"
 #include "DelayedProgressCounter.h"
-#include "IFresnelMap.h"
-#include "ILayerRTCoefficients.h"
+#include "ScalarRTCoefficients.h"
+#include "SpecularMatrix.h"
 #include "SpecularSimulationElement.h"
 
-SpecularComputationTerm::SpecularComputationTerm(const IFresnelMap* p_fresnel_map)
-    : mp_fresnel_map(p_fresnel_map)
+SpecularComputationTerm::SpecularComputationTerm()
 {}
 
-SpecularComputationTerm::~SpecularComputationTerm() =default;
+SpecularComputationTerm::~SpecularComputationTerm() = default;
 
 void SpecularComputationTerm::setProgressHandler(ProgressHandler* p_progress)
 {
     mP_progress_counter.reset(new DelayedProgressCounter(p_progress, 100));
 }
 
-void SpecularComputationTerm::compute(SpecularSimulationElement& elem) const
+void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
+                                      const MultiLayer& sample) const
 {
-    if (elem.isCalculated()) {
-        double intensity = std::norm(mp_fresnel_map->getInCoefficients(elem, 0)->getScalarR());
-        elem.setIntensity(intensity);
-    }
-    if (mP_progress_counter) {
+    if (!elem.isCalculated())
+        return;
+
+    auto coeff = SpecularMatrix::execute(sample, elem.produceKz(sample));
+    elem.setIntensity(std::norm(coeff[0].getScalarR()));
+
+    if (mP_progress_counter)
         mP_progress_counter->stepProgress();
-    }
 }

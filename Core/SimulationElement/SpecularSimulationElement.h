@@ -19,6 +19,7 @@
 #include "Vectors3D.h"
 #include "PolarizationHandler.h"
 #include <memory>
+#include <vector>
 
 class IKzComputation;
 class MultiLayer;

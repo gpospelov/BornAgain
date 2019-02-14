@@ -69,8 +69,8 @@ public:
     void setBeamParameters(double lambda, const IAxis& alpha_axis,
                            const IFootprintFactor* beam_shape = nullptr);
 
-    //! Returns a pointer to incident angle axis.
-    const IAxis* getAlphaAxis() const;
+    //! Returns a pointer to coordinate axis.
+    const IAxis* coordinateAxis() const;
 
 private:
     SpecularSimulation(const SpecularSimulation& other);

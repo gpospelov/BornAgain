@@ -55,7 +55,7 @@ std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const Simula
 
     } else if (auto spec = dynamic_cast<const SpecularSimulation*>(&simulation)) {
         return std::make_unique<UnitConverter1D>(spec->getInstrument().getBeam(),
-                                                 *spec->getAlphaAxis());
+                                                 *spec->coordinateAxis());
 
     } else if (auto probe = dynamic_cast<const DepthProbeSimulation*>(&simulation)) {
         return probe->createUnitConverter();

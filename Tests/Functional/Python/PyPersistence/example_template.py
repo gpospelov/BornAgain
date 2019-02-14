@@ -28,7 +28,7 @@ def get_simulation_SpecularSimulation():
     simulation = example.get_simulation()
     beam = simulation.getInstrument().getBeam()
     wavelength = beam.getWavelength()
-    axis = simulation.getAlphaAxis()
+    axis = simulation.coordinateAxis()
     footprint = beam.footprintFactor()
     simulation.setBeamParameters(
         wavelength, 10, axis.getMin(), axis.getMax(), footprint)

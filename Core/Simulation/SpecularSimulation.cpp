@@ -75,13 +75,13 @@ void SpecularSimulation::prepareSimulation()
 
 size_t SpecularSimulation::numberOfSimulationElements() const
 {
-    return getAlphaAxis()->size();
+    return coordinateAxis()->size();
 }
 
 SimulationResult SpecularSimulation::result() const
 {
     auto data = createIntensityData();
-    UnitConverter1D converter(m_instrument.getBeam(), *getAlphaAxis());
+    UnitConverter1D converter(m_instrument.getBeam(), *coordinateAxis());
     return SimulationResult(*data, converter);
 }
 
@@ -129,9 +129,9 @@ void SpecularSimulation::setBeamParameters(double lambda, std::vector<double> in
     setBeamParameters(lambda, axis, beam_shape);
 }
 
-const IAxis* SpecularSimulation::getAlphaAxis() const
+const IAxis* SpecularSimulation::coordinateAxis() const
 {
-    if (!m_data_handler)
+    if (!m_data_handler || !m_data_handler->coordinateAxis())
         throw std::runtime_error(
             "Error in SpecularSimulation::getAlphaAxis: coordinate axis was not initialized.");
     return m_data_handler->coordinateAxis();
@@ -258,13 +258,13 @@ void SpecularSimulation::moveDataFromCache()
 
 double SpecularSimulation::incidentAngle(size_t index) const
 {
-    return getAlphaAxis()->getBinCenter(index);
+    return coordinateAxis()->getBinCenter(index);
 }
 
 std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() const
 {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    result->addAxis(*getAlphaAxis());
+    result->addAxis(*coordinateAxis());
 
     if (!m_sim_elements.empty()) {
         size_t i = 0;

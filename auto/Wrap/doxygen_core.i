@@ -5686,6 +5686,21 @@ C++ includes: GISASSpecularComputation.h
 ";
 
 
+// File: classHardDiskBuilder.xml
+%feature("docstring") HardDiskBuilder "
+
+Builds sample: cylinders with hard disk Percus-Yevick interference.
+
+C++ includes: PercusYevickBuilder.h
+";
+
+%feature("docstring")  HardDiskBuilder::HardDiskBuilder "HardDiskBuilder::HardDiskBuilder()
+";
+
+%feature("docstring")  HardDiskBuilder::buildSample "MultiLayer * HardDiskBuilder::buildSample() const
+";
+
+
 // File: classHash2Doubles.xml
 %feature("docstring") Hash2Doubles "";
 
@@ -8137,7 +8152,13 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionFinite3DLattice *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionHardDisk *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionTwin *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionNone *)
@@ -9067,6 +9088,8 @@ Returns a vector of children (const).
 
 Percus-Yevick hard disk interference function.
 
+M.S. Ripoll & C.F. Tejero (1995) Approximate analytical expression for the direct correlation function of hard discs within the Percus-Yevick equation, Molecular Physics, 85:2, 423-428, DOI: 10.1080/00268979500101211
+
 C++ includes: InterferenceFunctionHardDisk.h
 ";
 
@@ -9089,6 +9112,12 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  InterferenceFunctionHardDisk::getParticleDensity "double InterferenceFunctionHardDisk::getParticleDensity() const override final
 
 If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::radius "double InterferenceFunctionHardDisk::radius() const
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::density "double InterferenceFunctionHardDisk::density() const
 ";
 
 
@@ -9200,6 +9229,37 @@ Returns a vector of children (const).
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::randomSample "double InterferenceFunctionRadialParaCrystal::randomSample() const
+";
+
+
+// File: classInterferenceFunctionTwin.xml
+%feature("docstring") InterferenceFunctionTwin "
+
+Default interference function (i.e. absence of any interference).
+
+C++ includes: InterferenceFunctionTwin.h
+";
+
+%feature("docstring")  InterferenceFunctionTwin::InterferenceFunctionTwin "InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t &direction, double mean_distance, double std_dev)
+";
+
+%feature("docstring")  InterferenceFunctionTwin::clone "InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  InterferenceFunctionTwin::accept "void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunctionTwin::direction "kvector_t InterferenceFunctionTwin::direction() const
+";
+
+%feature("docstring")  InterferenceFunctionTwin::meanDistance "double InterferenceFunctionTwin::meanDistance() const
+";
+
+%feature("docstring")  InterferenceFunctionTwin::stdDev "double InterferenceFunctionTwin::stdDev() const
 ";
 
 
@@ -14781,7 +14841,7 @@ Computes the specular scattering. Used by  SpecularComputation.
 C++ includes: SpecularComputationTerm.h
 ";
 
-%feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm(const IFresnelMap *p_fresnel_map)
+%feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm()
 ";
 
 %feature("docstring")  SpecularComputationTerm::~SpecularComputationTerm "SpecularComputationTerm::~SpecularComputationTerm()
@@ -14790,7 +14850,7 @@ C++ includes: SpecularComputationTerm.h
 %feature("docstring")  SpecularComputationTerm::setProgressHandler "void SpecularComputationTerm::setProgressHandler(ProgressHandler *p_progress)
 ";
 
-%feature("docstring")  SpecularComputationTerm::compute "void SpecularComputationTerm::compute(SpecularSimulationElement &elem) const
+%feature("docstring")  SpecularComputationTerm::compute "void SpecularComputationTerm::compute(SpecularSimulationElement &elem, const MultiLayer &sample) const
 ";
 
 
@@ -14926,7 +14986,10 @@ Data stucture containing both input and output of a single image pixel for specu
 C++ includes: SpecularSimulationElement.h
 ";
 
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha_i)
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double kz)
+";
+
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha)
 ";
 
 %feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement &other)
@@ -14948,22 +15011,10 @@ Assigns  PolarizationHandler.
 Returns assigned  PolarizationHandler. 
 ";
 
-%feature("docstring")  SpecularSimulationElement::getWavelength "double SpecularSimulationElement::getWavelength() const
-";
-
-%feature("docstring")  SpecularSimulationElement::getAlphaI "double SpecularSimulationElement::getAlphaI() const
-";
-
-%feature("docstring")  SpecularSimulationElement::getKi "kvector_t SpecularSimulationElement::getKi() const
+%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
 ";
 
 %feature("docstring")  SpecularSimulationElement::setIntensity "void SpecularSimulationElement::setIntensity(double intensity)
-";
-
-%feature("docstring")  SpecularSimulationElement::addIntensity "void SpecularSimulationElement::addIntensity(double intensity)
-";
-
-%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
 ";
 
 %feature("docstring")  SpecularSimulationElement::setCalculationFlag "void SpecularSimulationElement::setCalculationFlag(bool calculation_flag)
@@ -14972,6 +15023,11 @@ Set calculation flag (if it's false, zero intensity is assigned to the element)
 ";
 
 %feature("docstring")  SpecularSimulationElement::isCalculated "bool SpecularSimulationElement::isCalculated() const
+";
+
+%feature("docstring")  SpecularSimulationElement::produceKz "std::vector< complex_t > SpecularSimulationElement::produceKz(const MultiLayer &sample)
+
+Returns kz values for Abeles computation of reflection/transition coefficients. 
 ";
 
 
@@ -15714,10 +15770,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -15747,61 +15803,58 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D105.xml
+// File: namespace_0D107.xml
 
 
 // File: namespace_0D12.xml
 
 
-// File: namespace_0D120.xml
-
-
-// File: namespace_0D129.xml
+// File: namespace_0D122.xml
 
 
 // File: namespace_0D131.xml
 
 
-// File: namespace_0D134.xml
+// File: namespace_0D133.xml
+
+
+// File: namespace_0D136.xml
 
 
 // File: namespace_0D18.xml
 
 
-// File: namespace_0D187.xml
+// File: namespace_0D189.xml
 
 
 // File: namespace_0D20.xml
 
 
-// File: namespace_0D214.xml
-
-
 // File: namespace_0D216.xml
 
 
-// File: namespace_0D228.xml
+// File: namespace_0D218.xml
 
 
-// File: namespace_0D293.xml
+// File: namespace_0D230.xml
 
 
-// File: namespace_0D297.xml
+// File: namespace_0D295.xml
 
 
-// File: namespace_0D309.xml
+// File: namespace_0D299.xml
 
 
-// File: namespace_0D315.xml
+// File: namespace_0D311.xml
+
+
+// File: namespace_0D317.xml
 
 
 // File: namespace_0D32.xml
 
 
-// File: namespace_0D336.xml
-
-
-// File: namespace_0D340.xml
+// File: namespace_0D338.xml
 
 
 // File: namespace_0D342.xml
@@ -15810,70 +15863,73 @@ C++ includes: ZLimits.h
 // File: namespace_0D344.xml
 
 
-// File: namespace_0D354.xml
+// File: namespace_0D346.xml
+
+
+// File: namespace_0D356.xml
 
 
 // File: namespace_0D371.xml
 
 
-// File: namespace_0D379.xml
+// File: namespace_0D375.xml
 
 
-// File: namespace_0D38.xml
+// File: namespace_0D383.xml
 
 
-// File: namespace_0D385.xml
+// File: namespace_0D392.xml
 
 
-// File: namespace_0D388.xml
-
-
-// File: namespace_0D390.xml
-
-
-// File: namespace_0D398.xml
+// File: namespace_0D394.xml
 
 
 // File: namespace_0D40.xml
 
 
-// File: namespace_0D411.xml
+// File: namespace_0D402.xml
 
 
-// File: namespace_0D420.xml
+// File: namespace_0D415.xml
 
 
-// File: namespace_0D454.xml
+// File: namespace_0D42.xml
 
 
-// File: namespace_0D461.xml
+// File: namespace_0D424.xml
 
 
-// File: namespace_0D499.xml
+// File: namespace_0D458.xml
 
 
-// File: namespace_0D507.xml
+// File: namespace_0D465.xml
 
 
-// File: namespace_0D509.xml
+// File: namespace_0D503.xml
 
 
 // File: namespace_0D511.xml
 
 
-// File: namespace_0D591.xml
+// File: namespace_0D513.xml
 
 
-// File: namespace_0D595.xml
+// File: namespace_0D515.xml
+
+
+// File: namespace_0D597.xml
 
 
 // File: namespace_0D6.xml
 
 
-// File: namespace_0D617.xml
+// File: namespace_0D601.xml
 
 
-// File: namespace_0D96.xml
+// File: namespace_0D623.xml
+
+
+// File: namespace_0D98.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -16248,6 +16304,17 @@ SimulationResult object.
 ";
 
 %feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers)
+";
+
+
+// File: namespaceKzComputation.xml
+%feature("docstring")  KzComputation::computeReducedKz "std::vector< complex_t > KzComputation::computeReducedKz(const MultiLayer &sample, kvector_t k)
+";
+
+%feature("docstring")  KzComputation::computeKzFromSLDs "std::vector< complex_t > KzComputation::computeKzFromSLDs(const MultiLayer &sample, double kz)
+";
+
+%feature("docstring")  KzComputation::computeKzFromRefIndeces "std::vector< complex_t > KzComputation::computeKzFromRefIndeces(const MultiLayer &sample, kvector_t k)
 ";
 
 
@@ -16936,6 +17003,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: InterferenceFunctionRadialParaCrystal_8h.xml
+
+
+// File: InterferenceFunctionTwin_8cpp.xml
+
+
+// File: InterferenceFunctionTwin_8h.xml
 
 
 // File: IPeakShape_8cpp.xml
@@ -18036,6 +18109,12 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: InterferenceFunctionUtils_8h.xml
 
 
+// File: KzComputation_8cpp.xml
+
+
+// File: KzComputation_8h.xml
+
+
 // File: Layer_8cpp.xml
 
 
@@ -18746,6 +18825,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: ParticleInTheAirBuilder_8h.xml
+
+
+// File: PercusYevickBuilder_8cpp.xml
+
+
+// File: PercusYevickBuilder_8h.xml
 
 
 // File: PlainMultiLayerBySLDBuilder_8cpp.xml

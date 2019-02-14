@@ -25,5 +25,6 @@
 #include "InterferenceFunctionHardDisk.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "InterferenceFunctionTwin.h"
 
 #endif // INTERFERENCEFUNCTIONS_H

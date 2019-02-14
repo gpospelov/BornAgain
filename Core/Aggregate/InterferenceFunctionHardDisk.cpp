@@ -47,6 +47,10 @@ double InterferenceFunctionHardDisk::getParticleDensity() const
     return m_density;
 }
 
+double InterferenceFunctionHardDisk::radius() const { return m_radius; }
+
+double InterferenceFunctionHardDisk::density() const { return m_density; }
+
 InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(const InterferenceFunctionHardDisk &other)
     : IInterferenceFunction(other)
     , m_radius(other.m_radius)

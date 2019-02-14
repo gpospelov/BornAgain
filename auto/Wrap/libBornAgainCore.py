@@ -7179,6 +7179,7 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, InterferenceFunctionFinite3DLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionHardDisk arg2)
         visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
+        visit(INodeVisitor self, InterferenceFunctionTwin arg2)
         visit(INodeVisitor self, InterferenceFunctionNone arg2)
         visit(INodeVisitor self, IParticle arg2)
         visit(INodeVisitor self, IPeakShape arg2)
@@ -22441,6 +22442,8 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
 
     Percus-Yevick hard disk interference function.
 
+    M.S. Ripoll & C.F. Tejero (1995) Approximate analytical expression for the direct correlation function of hard discs within the Percus-Yevick equation, Molecular Physics, 85:2, 423-428, DOI: 10.1080/00268979500101211
+
     C++ includes: InterferenceFunctionHardDisk.h
 
     """
@@ -22507,12 +22510,22 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
 
 
     def radius(self):
-        """radius(InterferenceFunctionHardDisk self) -> double"""
+        """
+        radius(InterferenceFunctionHardDisk self) -> double
+
+        double InterferenceFunctionHardDisk::radius() const
+
+        """
         return _libBornAgainCore.InterferenceFunctionHardDisk_radius(self)
 
 
     def density(self):
-        """density(InterferenceFunctionHardDisk self) -> double"""
+        """
+        density(InterferenceFunctionHardDisk self) -> double
+
+        double InterferenceFunctionHardDisk::density() const
+
+        """
         return _libBornAgainCore.InterferenceFunctionHardDisk_density(self)
 
 InterferenceFunctionHardDisk_swigregister = _libBornAgainCore.InterferenceFunctionHardDisk_swigregister
@@ -22777,6 +22790,97 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
     __del__ = lambda self: None
 InterferenceFunctionRadialParaCrystal_swigregister = _libBornAgainCore.InterferenceFunctionRadialParaCrystal_swigregister
 InterferenceFunctionRadialParaCrystal_swigregister(InterferenceFunctionRadialParaCrystal)
+
+class InterferenceFunctionTwin(IInterferenceFunction):
+    """
+
+
+    Default interference function (i.e. absence of any interference).
+
+    C++ includes: InterferenceFunctionTwin.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunctionTwin, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunctionTwin, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, direction, mean_distance, std_dev):
+        """
+        __init__(InterferenceFunctionTwin self, kvector_t direction, double mean_distance, double std_dev) -> InterferenceFunctionTwin
+
+        InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t &direction, double mean_distance, double std_dev)
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunctionTwin(direction, mean_distance, std_dev)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(InterferenceFunctionTwin self) -> InterferenceFunctionTwin
+
+        InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunctionTwin self, INodeVisitor visitor)
+
+        void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_accept(self, visitor)
+
+
+    def direction(self):
+        """
+        direction(InterferenceFunctionTwin self) -> kvector_t
+
+        kvector_t InterferenceFunctionTwin::direction() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_direction(self)
+
+
+    def meanDistance(self):
+        """
+        meanDistance(InterferenceFunctionTwin self) -> double
+
+        double InterferenceFunctionTwin::meanDistance() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_meanDistance(self)
+
+
+    def stdDev(self):
+        """
+        stdDev(InterferenceFunctionTwin self) -> double
+
+        double InterferenceFunctionTwin::stdDev() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_stdDev(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionTwin
+    __del__ = lambda self: None
+InterferenceFunctionTwin_swigregister = _libBornAgainCore.InterferenceFunctionTwin_swigregister
+InterferenceFunctionTwin_swigregister(InterferenceFunctionTwin)
 
 class IPixel(_object):
     """

@@ -22,8 +22,9 @@
 class IAxis;
 class IComputation;
 class IFootprintFactor;
-class ISample;
 class IMultiLayerBuilder;
+class ISample;
+class ISpecularDataHandler;
 class MultiLayer;
 class Histogram1D;
 class SpecularSimulationElement;
@@ -112,7 +113,7 @@ private:
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
 
-    std::unique_ptr<IAxis> m_coordinate_axis;
+    std::unique_ptr<ISpecularDataHandler> m_data_handler;
     std::vector<SpecularSimulationElement> m_sim_elements;
     std::vector<double> m_cache;
 };

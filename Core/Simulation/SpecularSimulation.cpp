@@ -25,6 +25,7 @@
 #include "PointwiseAxis.h"
 #include "RealParameter.h"
 #include "SpecularComputation.h"
+#include "SpecularDataHandler.h"
 #include "SpecularDetector1D.h"
 #include "SpecularSimulationElement.h"
 #include "UnitConverter1D.h"
@@ -102,7 +103,8 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
 
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);
-    m_coordinate_axis.reset(alpha_axis.clone());
+    m_data_handler = std::make_unique<SpecularDataHandlerAng>(
+        lambda, std::unique_ptr<IAxis>(alpha_axis.clone()));
 
     // beam is initialized with zero-valued angles
     // Zero-valued incident alpha is required for proper
@@ -129,10 +131,10 @@ void SpecularSimulation::setBeamParameters(double lambda, std::vector<double> in
 
 const IAxis* SpecularSimulation::getAlphaAxis() const
 {
-    if (!m_coordinate_axis)
+    if (!m_data_handler)
         throw std::runtime_error(
             "Error in SpecularSimulation::getAlphaAxis: coordinate axis was not initialized.");
-    return m_coordinate_axis.get();
+    return m_data_handler->coordinateAxis();
 }
 
 void SpecularSimulation::initSimulationElementVector()
@@ -148,27 +150,23 @@ void SpecularSimulation::initSimulationElementVector()
 std::vector<SpecularSimulationElement>
 SpecularSimulation::generateSimulationElements(const Beam& beam)
 {
-    std::vector<SpecularSimulationElement> result;
+    if (!m_data_handler)
+        throw std::runtime_error("Error in SpecularSimulation::generateSimulationElements: beam "
+                                 "parameters were not set.");
 
-    const double wavelength = beam.getWavelength();
-    const double angle_shift = beam.getAlpha();
-    PolarizationHandler handler;
-    handler.setPolarization(beam.getPolarization());
-    handler.setAnalyzerOperator(
-        m_instrument.getDetector()->detectionProperties().analyzerOperator());
-
-    const size_t axis_size = getAlphaAxis()->size();
-    result.reserve(axis_size);
-    for (size_t i = 0; i < axis_size; ++i) {
-        double result_angle = incidentAngle(i) + angle_shift;
-        result.emplace_back(wavelength, result_angle);
-        auto& sim_element = result.back();
-        sim_element.setPolarizationHandler(handler);
-        if (!alpha_limits.isInRange(result_angle))
-            sim_element.setCalculationFlag(false); // false = exclude from calculations
+    // TODO: remove when pointwise resolution is implemented
+    if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle) {
+        const double wl = beam.getWavelength();
+        const double angle_shift = beam.getAlpha();
+        std::vector<double> angles = m_data_handler->coordinateAxis()->getBinCenters();
+        for (auto& val: angles)
+            val += angle_shift;
+        SpecularDataHandlerAng data_handler(
+            wl, std::make_unique<PointwiseAxis>("alpha_i", std::move(angles)));
+        return data_handler.generateSimulationElements();
     }
 
-    return result;
+    return m_data_handler->generateSimulationElements();
 }
 
 std::unique_ptr<IComputation>
@@ -185,8 +183,8 @@ SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     , m_sim_elements(other.m_sim_elements)
     , m_cache(other.m_cache)
 {
-    if (other.m_coordinate_axis)
-        m_coordinate_axis.reset(other.m_coordinate_axis->clone());
+    if (other.m_data_handler)
+        m_data_handler.reset(other.m_data_handler->clone());
     initialize();
 }
 

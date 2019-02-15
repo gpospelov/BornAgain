@@ -11488,10 +11488,7 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list
-
-        _sym_S2: 
-        true if face has a perpedicular two-fold symmetry axis 
+        oriented vertex list 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -22795,7 +22792,7 @@ class InterferenceFunctionTwin(IInterferenceFunction):
     """
 
 
-    Default interference function (i.e. absence of any interference).
+    Interference function for two particles at a mean distance and given standard deviation from each other in a given direction.
 
     C++ includes: InterferenceFunctionTwin.h
 
@@ -28418,16 +28415,28 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_setBeamParameters(self, *args)
 
 
-    def getAlphaAxis(self):
+    def coordinateAxis(self):
         """
-        getAlphaAxis(SpecularSimulation self) -> IAxis
+        coordinateAxis(SpecularSimulation self) -> IAxis
 
-        const IAxis * SpecularSimulation::getAlphaAxis() const
+        const IAxis * SpecularSimulation::coordinateAxis() const
 
-        Returns a pointer to incident angle axis. 
+        Returns a pointer to coordinate axis. 
 
         """
-        return _libBornAgainCore.SpecularSimulation_getAlphaAxis(self)
+        return _libBornAgainCore.SpecularSimulation_coordinateAxis(self)
+
+
+    def footprintFactor(self):
+        """
+        footprintFactor(SpecularSimulation self) -> IFootprintFactor
+
+        const IFootprintFactor * SpecularSimulation::footprintFactor() const
+
+        Returns a pointer to internal data handler. 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_footprintFactor(self)
 
 
     def setSampleBuilder(self, ptr):

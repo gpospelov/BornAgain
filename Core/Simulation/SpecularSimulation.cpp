@@ -138,6 +138,11 @@ const IAxis* SpecularSimulation::coordinateAxis() const
     return m_data_handler->coordinateAxis();
 }
 
+const IFootprintFactor* SpecularSimulation::footprintFactor() const
+{
+    return m_data_handler->footprintFactor();
+}
+
 void SpecularSimulation::initSimulationElementVector()
 {
     const auto& beam = m_instrument.getBeam();

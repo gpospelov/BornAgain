@@ -289,7 +289,7 @@ std::string SimulationToPython::defineSpecularBeam(const SpecularSimulation& sim
     std::ostringstream result;
     const Beam& beam = simulation.getInstrument().getBeam();
 
-    const auto footprint = beam.footprintFactor();
+    const auto footprint = simulation.footprintFactor();
     if (footprint)
         result << indent() << "footprint = " << defineFootprint(*footprint);
 

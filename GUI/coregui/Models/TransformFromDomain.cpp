@@ -303,7 +303,7 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
                                   distributions[i], beam_item);
     }
 
-    setFootprintFactor(beam.footprintFactor(), beam_item);
+    setFootprintFactor(simulation.footprintFactor(), beam_item);
 }
 
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,

@@ -72,6 +72,9 @@ public:
     //! Returns a pointer to coordinate axis.
     const IAxis* coordinateAxis() const;
 
+    //! Returns a pointer to internal data handler
+    const IFootprintFactor* footprintFactor() const;
+
 private:
     SpecularSimulation(const SpecularSimulation& other);
 

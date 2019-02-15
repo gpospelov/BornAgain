@@ -217,17 +217,29 @@ void SpecularSimulation::initialize()
     inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
-void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
+void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
 {
-    auto& element = m_sim_elements[index];
-    // TODO: remove "if" condition when pointwise resolution is implemented
-    if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle) {
-        auto data_handler = mangledDataHandler(*m_data_handler, getInstrument().getBeam());
-        beam_intensity *= data_handler->footprint(index);
-    } else {
-        beam_intensity *= m_data_handler->footprint(index);
+    const double beam_intensity = getBeamIntensity();
+    if (beam_intensity == 0.0)
+        return; // no normalization when beam intensity is zero
+
+    if (!m_data_handler->footprintFactor()) {
+        for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+            auto& element = m_sim_elements[i];
+            element.setIntensity(element.getIntensity() * beam_intensity);
+        }
+        return;
     }
-    element.setIntensity(element.getIntensity() * beam_intensity);
+
+    // TODO: use just m_data_handler when pointwise resolution is implemented
+    std::unique_ptr<ISpecularDataHandler> data_handler(m_data_handler->clone());
+    if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle)
+        data_handler = mangledDataHandler(*m_data_handler, getInstrument().getBeam());
+
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+        auto& element = m_sim_elements[i];
+        element.setIntensity(element.getIntensity() * beam_intensity * data_handler->footprint(i));
+    }
 }
 
 void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)

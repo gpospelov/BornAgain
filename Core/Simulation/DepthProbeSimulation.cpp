@@ -233,14 +233,20 @@ void DepthProbeSimulation::initialize()
     inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
-void DepthProbeSimulation::normalizeIntensity(size_t index, double beam_intensity)
+void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements)
 {
-    auto& element = m_sim_elements[index];
-    const double alpha_i = -element.getAlphaI();
-    const auto footprint = m_instrument.getBeam().footprintFactor();
-    if (footprint != nullptr)
-        beam_intensity *= footprint->calculate(alpha_i);
-    element.setIntensities(element.getIntensities() * beam_intensity);
+    const double beam_intensity = getBeamIntensity();
+    if (beam_intensity == 0.0)
+        return; // no normalization when beam intensity is zero
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+        auto& element = m_sim_elements[i];
+        const double alpha_i = -element.getAlphaI();
+        const auto footprint = m_instrument.getBeam().footprintFactor();
+        double intensity_factor = beam_intensity;
+        if (footprint != nullptr)
+            intensity_factor = intensity_factor * footprint->calculate(alpha_i);
+        element.setIntensities(element.getIntensities() * intensity_factor);
+    }
 }
 
 void DepthProbeSimulation::addBackGroundIntensity(size_t, size_t)

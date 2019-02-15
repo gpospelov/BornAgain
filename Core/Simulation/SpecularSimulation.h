@@ -105,8 +105,6 @@ private:
 
     void moveDataFromCache() override;
 
-    double incidentAngle(size_t index) const;
-
     //! Creates intensity data from simulation elements
     std::unique_ptr<OutputData<double>> createIntensityData() const;
 

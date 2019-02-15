@@ -14,6 +14,7 @@
 
 #include "SpecularDataHandler.h"
 #include "IAxis.h"
+#include "IFootprintFactor.h"
 #include "RealLimits.h"
 #include "SpecularSimulationElement.h"
 
@@ -27,10 +28,12 @@ ISpecularDataHandler::ISpecularDataHandler(SPECULAR_DATA_TYPE data_type)
 
 ISpecularDataHandler::~ISpecularDataHandler() = default;
 
-SpecularDataHandlerAng::SpecularDataHandlerAng(double wl, std::unique_ptr<IAxis> inc_angle)
+SpecularDataHandlerAng::SpecularDataHandlerAng(double wl, std::unique_ptr<IAxis> inc_angle,
+                                               const IFootprintFactor* footprint)
     : ISpecularDataHandler(SPECULAR_DATA_TYPE::angle)
     , m_wl(wl)
     , m_inc_angle(std::move(inc_angle))
+    , m_footprint(footprint ? footprint->clone() : nullptr)
 {
     if (!m_inc_angle)
         throw std::runtime_error(
@@ -39,7 +42,8 @@ SpecularDataHandlerAng::SpecularDataHandlerAng(double wl, std::unique_ptr<IAxis>
 
 SpecularDataHandlerAng* SpecularDataHandlerAng::clone() const
 {
-    return new SpecularDataHandlerAng(m_wl, std::unique_ptr<IAxis>(m_inc_angle->clone()));
+    return new SpecularDataHandlerAng(m_wl, std::unique_ptr<IAxis>(m_inc_angle->clone()),
+                                      m_footprint.get());
 }
 
 SpecularDataHandlerAng::~SpecularDataHandlerAng() = default;
@@ -59,4 +63,12 @@ std::vector<SpecularSimulationElement> SpecularDataHandlerAng::generateSimulatio
     }
 
     return result;
+}
+
+double SpecularDataHandlerAng::footprint(size_t i) const
+{
+    if (!m_footprint)
+        return 1.0;
+
+    return m_footprint->calculate(m_inc_angle->getBinCenter(i));
 }

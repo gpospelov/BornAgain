@@ -21,6 +21,7 @@
 #include <vector>
 
 class IAxis;
+class IFootprintFactor;
 class SpecularSimulationElement;
 
 enum class SPECULAR_DATA_TYPE {angle, lambda, q};
@@ -38,6 +39,12 @@ public:
     //! Returns coordinate axis assigned to the data holder
     virtual const IAxis* coordinateAxis() const = 0;
 
+    //! Returns IFootprintFactor object pointer
+    virtual const IFootprintFactor* footprintFactor() const = 0;
+
+    //! Returns footprint correction factor for simulation element with index _i_
+    virtual double footprint(size_t i) const = 0;
+
     SPECULAR_DATA_TYPE dataType() const {return m_data_type;}
 
 private:
@@ -47,7 +54,8 @@ private:
 class SpecularDataHandlerAng : public ISpecularDataHandler
 {
 public:
-    SpecularDataHandlerAng(double wl, std::unique_ptr<IAxis> inc_angle);
+    SpecularDataHandlerAng(double wl, std::unique_ptr<IAxis> inc_angle,
+                           const IFootprintFactor* footprint = nullptr);
     ~SpecularDataHandlerAng() override;
     SpecularDataHandlerAng* clone() const override;
 
@@ -57,9 +65,16 @@ public:
     //! Returns coordinate axis assigned to the data holder
     virtual const IAxis* coordinateAxis() const override {return m_inc_angle.get();}
 
+    //! Returns IFootprintFactor object pointer
+    virtual const IFootprintFactor* footprintFactor() const override {return m_footprint.get();}
+
+    //! Returns footprint correction factor for simulation element with index _i_
+    double footprint(size_t i) const override;
+
 private:
     double m_wl;
     std::unique_ptr<IAxis> m_inc_angle;
+    std::unique_ptr<IFootprintFactor> m_footprint;
 };
 
 #endif // SPECULARDATAHANDLER_H

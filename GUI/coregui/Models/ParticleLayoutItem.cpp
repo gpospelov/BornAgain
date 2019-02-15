@@ -109,7 +109,12 @@ void ParticleLayoutItem::updateDensityValue()
         if (interferenceItem->isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
             auto& latticeItem = interferenceItem->groupItem<Lattice2DItem>(
                 InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
-            double area = latticeItem.unitCellArea();
+            double area = 0.0;
+            try {
+                area = latticeItem.unitCellArea();
+            } catch (const std::exception&) {
+                // nothing to do here; new exception will be caught during job execution
+            }
             setItemValue(P_TOTAL_DENSITY, area == 0.0 ? 0.0 : 1.0 / area);
         } else if (interferenceItem->isTag(InterferenceFunctionHardDiskItem::P_DENSITY)) {
             double density =

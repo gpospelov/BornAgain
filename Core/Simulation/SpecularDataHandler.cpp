@@ -72,3 +72,8 @@ double SpecularDataHandlerAng::footprint(size_t i) const
 
     return m_footprint->calculate(m_inc_angle->getBinCenter(i));
 }
+
+size_t SpecularDataHandlerAng::numberOfSimulationElements() const
+{
+    return m_inc_angle->size();
+}

@@ -79,7 +79,7 @@ void SpecularSimulation::prepareSimulation()
 
 size_t SpecularSimulation::numberOfSimulationElements() const
 {
-    return coordinateAxis()->size();
+    return m_data_handler->numberOfSimulationElements();
 }
 
 SimulationResult SpecularSimulation::result() const

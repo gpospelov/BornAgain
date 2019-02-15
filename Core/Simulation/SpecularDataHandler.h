@@ -45,6 +45,9 @@ public:
     //! Returns footprint correction factor for simulation element with index _i_
     virtual double footprint(size_t i) const = 0;
 
+    //! Returns the number of simulation elements
+    virtual size_t numberOfSimulationElements() const = 0;
+
     SPECULAR_DATA_TYPE dataType() const {return m_data_type;}
 
 private:
@@ -70,6 +73,9 @@ public:
 
     //! Returns footprint correction factor for simulation element with index _i_
     double footprint(size_t i) const override;
+
+    //! Returns the number of simulation elements
+    size_t numberOfSimulationElements() const override;
 
 private:
     double m_wl;

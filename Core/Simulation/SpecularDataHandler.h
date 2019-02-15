@@ -77,6 +77,8 @@ public:
     //! Returns the number of simulation elements
     size_t numberOfSimulationElements() const override;
 
+    double wavelength() const {return m_wl;}
+
 private:
     double m_wl;
     std::unique_ptr<IAxis> m_inc_angle;

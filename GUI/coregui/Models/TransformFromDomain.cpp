@@ -291,7 +291,7 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
     beam_item->setAzimuthalAngle(0.0);   // azimuthal angle is hardcoded
 
     auto axis_item = beam_item->currentInclinationAxisItem();
-    TransformFromDomain::setAxisItem(axis_item, *simulation.getAlphaAxis(), 1. / Units::deg);
+    TransformFromDomain::setAxisItem(axis_item, *simulation.coordinateAxis(), 1. / Units::deg);
 
     // distribution parameters
     const DistributionHandler::Distributions_t distributions =
@@ -303,7 +303,7 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
                                   distributions[i], beam_item);
     }
 
-    setFootprintFactor(beam.footprintFactor(), beam_item);
+    setFootprintFactor(simulation.footprintFactor(), beam_item);
 }
 
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,

@@ -240,15 +240,6 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, doub
     addDataToCache(weight);
 }
 
-void Simulation::normalize(size_t start_ind, size_t n_elements)
-{
-    const double beam_intensity = getBeamIntensity();
-    if (beam_intensity == 0.0)
-        return; // no normalization when beam intensity is zero
-    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i)
-        normalizeIntensity(i, beam_intensity);
-}
-
 void Simulation::initialize()
 {
     registerChild(&m_instrument);

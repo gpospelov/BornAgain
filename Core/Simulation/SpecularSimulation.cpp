@@ -25,12 +25,17 @@
 #include "PointwiseAxis.h"
 #include "RealParameter.h"
 #include "SpecularComputation.h"
+#include "SpecularDataHandler.h"
 #include "SpecularDetector1D.h"
 #include "SpecularSimulationElement.h"
 #include "UnitConverter1D.h"
 
 namespace
 {
+// TODO: remove when pointwise resolution is implemented
+std::unique_ptr<ISpecularDataHandler> mangledDataHandler(const ISpecularDataHandler& data_handler,
+                                                         const Beam& beam);
+
 const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
 const double zero_phi_i = 0.0;
 const double zero_alpha_i = 0.0;
@@ -74,13 +79,13 @@ void SpecularSimulation::prepareSimulation()
 
 size_t SpecularSimulation::numberOfSimulationElements() const
 {
-    return getAlphaAxis()->size();
+    return m_data_handler->numberOfSimulationElements();
 }
 
 SimulationResult SpecularSimulation::result() const
 {
     auto data = createIntensityData();
-    UnitConverter1D converter(m_instrument.getBeam(), *getAlphaAxis());
+    UnitConverter1D converter(m_instrument.getBeam(), *coordinateAxis());
     return SimulationResult(*data, converter);
 }
 
@@ -102,15 +107,13 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
 
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);
-    m_coordinate_axis.reset(alpha_axis.clone());
+    m_data_handler = std::make_unique<SpecularDataHandlerAng>(
+        lambda, std::unique_ptr<IAxis>(alpha_axis.clone()), beam_shape);
 
     // beam is initialized with zero-valued angles
     // Zero-valued incident alpha is required for proper
     // taking into account beam resolution effects
     m_instrument.setBeamParameters(lambda, zero_alpha_i, zero_phi_i);
-
-    if (beam_shape)
-        m_instrument.getBeam().setFootprintFactor(*beam_shape);
 }
 
 void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
@@ -127,12 +130,17 @@ void SpecularSimulation::setBeamParameters(double lambda, std::vector<double> in
     setBeamParameters(lambda, axis, beam_shape);
 }
 
-const IAxis* SpecularSimulation::getAlphaAxis() const
+const IAxis* SpecularSimulation::coordinateAxis() const
 {
-    if (!m_coordinate_axis)
+    if (!m_data_handler || !m_data_handler->coordinateAxis())
         throw std::runtime_error(
             "Error in SpecularSimulation::getAlphaAxis: coordinate axis was not initialized.");
-    return m_coordinate_axis.get();
+    return m_data_handler->coordinateAxis();
+}
+
+const IFootprintFactor* SpecularSimulation::footprintFactor() const
+{
+    return m_data_handler->footprintFactor();
 }
 
 void SpecularSimulation::initSimulationElementVector()
@@ -148,27 +156,15 @@ void SpecularSimulation::initSimulationElementVector()
 std::vector<SpecularSimulationElement>
 SpecularSimulation::generateSimulationElements(const Beam& beam)
 {
-    std::vector<SpecularSimulationElement> result;
+    if (!m_data_handler)
+        throw std::runtime_error("Error in SpecularSimulation::generateSimulationElements: beam "
+                                 "parameters were not set.");
 
-    const double wavelength = beam.getWavelength();
-    const double angle_shift = beam.getAlpha();
-    PolarizationHandler handler;
-    handler.setPolarization(beam.getPolarization());
-    handler.setAnalyzerOperator(
-        m_instrument.getDetector()->detectionProperties().analyzerOperator());
+    // TODO: remove when pointwise resolution is implemented
+    if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle)
+        return mangledDataHandler(*m_data_handler, beam)->generateSimulationElements();
 
-    const size_t axis_size = getAlphaAxis()->size();
-    result.reserve(axis_size);
-    for (size_t i = 0; i < axis_size; ++i) {
-        double result_angle = incidentAngle(i) + angle_shift;
-        result.emplace_back(wavelength, result_angle);
-        auto& sim_element = result.back();
-        sim_element.setPolarizationHandler(handler);
-        if (!alpha_limits.isInRange(result_angle))
-            sim_element.setCalculationFlag(false); // false = exclude from calculations
-    }
-
-    return result;
+    return m_data_handler->generateSimulationElements();
 }
 
 std::unique_ptr<IComputation>
@@ -182,11 +178,10 @@ SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_ele
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     : Simulation(other)
+    , m_data_handler(other.m_data_handler ? other.m_data_handler->clone() : nullptr)
     , m_sim_elements(other.m_sim_elements)
     , m_cache(other.m_cache)
 {
-    if (other.m_coordinate_axis)
-        m_coordinate_axis.reset(other.m_coordinate_axis->clone());
     initialize();
 }
 
@@ -222,14 +217,29 @@ void SpecularSimulation::initialize()
     inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
-void SpecularSimulation::normalizeIntensity(size_t index, double beam_intensity)
+void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
 {
-    auto& element = m_sim_elements[index];
-    const double alpha_i = incidentAngle(index);
-    const auto footprint = m_instrument.getBeam().footprintFactor();
-    if (footprint != nullptr)
-        beam_intensity *= footprint->calculate(alpha_i);
-    element.setIntensity(element.getIntensity() * beam_intensity);
+    const double beam_intensity = getBeamIntensity();
+    if (beam_intensity == 0.0)
+        return; // no normalization when beam intensity is zero
+
+    if (!m_data_handler->footprintFactor()) {
+        for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+            auto& element = m_sim_elements[i];
+            element.setIntensity(element.getIntensity() * beam_intensity);
+        }
+        return;
+    }
+
+    // TODO: use just m_data_handler when pointwise resolution is implemented
+    std::unique_ptr<ISpecularDataHandler> data_handler(m_data_handler->clone());
+    if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle)
+        data_handler = mangledDataHandler(*m_data_handler, getInstrument().getBeam());
+
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+        auto& element = m_sim_elements[i];
+        element.setIntensity(element.getIntensity() * beam_intensity * data_handler->footprint(i));
+    }
 }
 
 void SpecularSimulation::addBackGroundIntensity(size_t start_ind, size_t n_elements)
@@ -258,15 +268,10 @@ void SpecularSimulation::moveDataFromCache()
     m_cache.shrink_to_fit();
 }
 
-double SpecularSimulation::incidentAngle(size_t index) const
-{
-    return getAlphaAxis()->getBinCenter(index);
-}
-
 std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() const
 {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    result->addAxis(*getAlphaAxis());
+    result->addAxis(*coordinateAxis());
 
     if (!m_sim_elements.empty()) {
         size_t i = 0;
@@ -298,4 +303,24 @@ void SpecularSimulation::setRawResults(const std::vector<double>& raw_data)
         m_sim_elements[i].setIntensity(raw_data[i]);
     }
     transferResultsToIntensityMap();
+}
+
+namespace {
+// TODO: remove when pointwise resolution is implemented
+std::unique_ptr<ISpecularDataHandler> mangledDataHandler(const ISpecularDataHandler& data_handler,
+                                                         const Beam& beam)
+{
+    if (data_handler.dataType() != SPECULAR_DATA_TYPE::angle)
+        throw std::runtime_error("Error in mangledDataHandler: invalid usage");
+
+    const double wl = beam.getWavelength();
+    const double angle_shift = beam.getAlpha();
+    std::vector<double> angles = data_handler.coordinateAxis()->getBinCenters();
+    for (auto& val : angles)
+        val += angle_shift;
+    auto result = std::make_unique<SpecularDataHandlerAng>(
+        wl, std::make_unique<PointwiseAxis>("alpha_i", std::move(angles)),
+        data_handler.footprintFactor());
+    return std::move(result);
+}
 }

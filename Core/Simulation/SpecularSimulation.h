@@ -22,8 +22,9 @@
 class IAxis;
 class IComputation;
 class IFootprintFactor;
-class ISample;
 class IMultiLayerBuilder;
+class ISample;
+class ISpecularDataHandler;
 class MultiLayer;
 class Histogram1D;
 class SpecularSimulationElement;
@@ -68,8 +69,11 @@ public:
     void setBeamParameters(double lambda, const IAxis& alpha_axis,
                            const IFootprintFactor* beam_shape = nullptr);
 
-    //! Returns a pointer to incident angle axis.
-    const IAxis* getAlphaAxis() const;
+    //! Returns a pointer to coordinate axis.
+    const IAxis* coordinateAxis() const;
+
+    //! Returns a pointer to internal data handler
+    const IFootprintFactor* footprintFactor() const;
 
 private:
     SpecularSimulation(const SpecularSimulation& other);
@@ -94,9 +98,10 @@ private:
     //! Initializes simulation
     void initialize();
 
-    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
-    //! for single simulation element specified by _index_.
-    void normalizeIntensity(size_t index, double beam_intensity) override;
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
+    //! @param start_ind Index of the first element to operate on
+    //! @param n_elements Number of elements to process
+    void normalize(size_t start_ind, size_t n_elements) override;
 
     void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
 
@@ -104,15 +109,13 @@ private:
 
     void moveDataFromCache() override;
 
-    double incidentAngle(size_t index) const;
-
     //! Creates intensity data from simulation elements
     std::unique_ptr<OutputData<double>> createIntensityData() const;
 
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
 
-    std::unique_ptr<IAxis> m_coordinate_axis;
+    std::unique_ptr<ISpecularDataHandler> m_data_handler;
     std::vector<SpecularSimulationElement> m_sim_elements;
     std::vector<double> m_cache;
 };

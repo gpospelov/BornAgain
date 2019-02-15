@@ -9235,7 +9235,7 @@ Returns a vector of children (const).
 // File: classInterferenceFunctionTwin.xml
 %feature("docstring") InterferenceFunctionTwin "
 
-Default interference function (i.e. absence of any interference).
+Interference function for two particles at a mean distance and given standard deviation from each other in a given direction.
 
 C++ includes: InterferenceFunctionTwin.h
 ";
@@ -9849,6 +9849,47 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 ";
 
 
+// File: classISpecularDataHandler.xml
+%feature("docstring") ISpecularDataHandler "";
+
+%feature("docstring")  ISpecularDataHandler::ISpecularDataHandler "ISpecularDataHandler::ISpecularDataHandler(SPECULAR_DATA_TYPE data_type)
+";
+
+%feature("docstring")  ISpecularDataHandler::~ISpecularDataHandler "ISpecularDataHandler::~ISpecularDataHandler() override
+";
+
+%feature("docstring")  ISpecularDataHandler::clone "ISpecularDataHandler* ISpecularDataHandler::clone() const override=0
+";
+
+%feature("docstring")  ISpecularDataHandler::generateSimulationElements "virtual std::vector<SpecularSimulationElement> ISpecularDataHandler::generateSimulationElements() const =0
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  ISpecularDataHandler::coordinateAxis "virtual const IAxis* ISpecularDataHandler::coordinateAxis() const =0
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  ISpecularDataHandler::footprintFactor "virtual const IFootprintFactor* ISpecularDataHandler::footprintFactor() const =0
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  ISpecularDataHandler::footprint "virtual double ISpecularDataHandler::footprint(size_t i) const =0
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  ISpecularDataHandler::numberOfSimulationElements "virtual size_t ISpecularDataHandler::numberOfSimulationElements() const =0
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  ISpecularDataHandler::dataType "SPECULAR_DATA_TYPE ISpecularDataHandler::dataType() const
+";
+
+
 // File: classIterationInfo.xml
 %feature("docstring") IterationInfo "
 
@@ -9949,7 +9990,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -12746,10 +12787,7 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list
-
-_sym_S2: 
-true if face has a perpedicular two-fold symmetry axis 
+oriented vertex list 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
@@ -14854,6 +14892,44 @@ C++ includes: SpecularComputationTerm.h
 ";
 
 
+// File: classSpecularDataHandlerAng.xml
+%feature("docstring") SpecularDataHandlerAng "";
+
+%feature("docstring")  SpecularDataHandlerAng::SpecularDataHandlerAng "SpecularDataHandlerAng::SpecularDataHandlerAng(double wl, std::unique_ptr< IAxis > inc_angle, const IFootprintFactor *footprint=nullptr)
+";
+
+%feature("docstring")  SpecularDataHandlerAng::~SpecularDataHandlerAng "SpecularDataHandlerAng::~SpecularDataHandlerAng() override
+";
+
+%feature("docstring")  SpecularDataHandlerAng::clone "SpecularDataHandlerAng * SpecularDataHandlerAng::clone() const override
+";
+
+%feature("docstring")  SpecularDataHandlerAng::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerAng::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  SpecularDataHandlerAng::coordinateAxis "virtual const IAxis* SpecularDataHandlerAng::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  SpecularDataHandlerAng::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerAng::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  SpecularDataHandlerAng::footprint "double SpecularDataHandlerAng::footprint(size_t i) const override
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  SpecularDataHandlerAng::numberOfSimulationElements "size_t SpecularDataHandlerAng::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+
 // File: classSpecularDetector1D.xml
 %feature("docstring") SpecularDetector1D "
 
@@ -14972,9 +15048,14 @@ Returns the results of the simulation in a format that supports unit conversion 
 Sets beam parameters for specular simulation.  lambda defines the wavelength of incoming beam (in nm),  alpha_axis defines the range of incident angles, while  beam_shape (optional parameter) is required to take footprint effects into account. Incident angle axis can be defined as a numpy array of values. This overload facilitates defining non-uniform incident angle axis. Another overload accepts the number of bins ( nbins), as well as minimal ( alpha_i_min) and maximal ( alpha_i_max) angle values. With using this overload a uniform angle axis in the given range is assigned to the beam. 
 ";
 
-%feature("docstring")  SpecularSimulation::getAlphaAxis "const IAxis * SpecularSimulation::getAlphaAxis() const
+%feature("docstring")  SpecularSimulation::coordinateAxis "const IAxis * SpecularSimulation::coordinateAxis() const
 
-Returns a pointer to incident angle axis. 
+Returns a pointer to coordinate axis. 
+";
+
+%feature("docstring")  SpecularSimulation::footprintFactor "const IFootprintFactor * SpecularSimulation::footprintFactor() const
+
+Returns a pointer to internal data handler. 
 ";
 
 
@@ -15917,16 +15998,19 @@ C++ includes: ZLimits.h
 // File: namespace_0D515.xml
 
 
-// File: namespace_0D597.xml
+// File: namespace_0D517.xml
+
+
+// File: namespace_0D599.xml
 
 
 // File: namespace_0D6.xml
 
 
-// File: namespace_0D601.xml
+// File: namespace_0D603.xml
 
 
-// File: namespace_0D623.xml
+// File: namespace_0D625.xml
 
 
 // File: namespace_0D98.xml
@@ -16345,7 +16429,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -18629,6 +18713,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: Simulation2D_8h.xml
+
+
+// File: SpecularDataHandler_8cpp.xml
+
+
+// File: SpecularDataHandler_8h.xml
 
 
 // File: SpecularSimulation_8cpp.xml

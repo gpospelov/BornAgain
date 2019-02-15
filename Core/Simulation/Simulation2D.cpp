@@ -108,14 +108,19 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
     return result;
 }
 
-void Simulation2D::normalizeIntensity(size_t index, double beam_intensity)
+void Simulation2D::normalize(size_t start_ind, size_t n_elements)
 {
-    SimulationElement& element = m_sim_elements[index];
-    double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
-    if (sin_alpha_i == 0.0)
-        sin_alpha_i = 1.0;
-    const double solid_angle = element.getSolidAngle();
-    element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
+    const double beam_intensity = getBeamIntensity();
+    if (beam_intensity == 0.0)
+        return; // no normalization when beam intensity is zero
+    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+        SimulationElement& element = m_sim_elements[i];
+        double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
+        if (sin_alpha_i == 0.0)
+            sin_alpha_i = 1.0;
+        const double solid_angle = element.getSolidAngle();
+        element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
+    }
 }
 
 void Simulation2D::addBackGroundIntensity(size_t start_ind, size_t n_elements)

@@ -83,9 +83,10 @@ private:
     //! Initializes simulation
     void initialize();
 
-    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle
-    //! for single simulation element specified by _index_.
-    void normalizeIntensity(size_t index, double beam_intensity) override;
+    //! Normalize the detector counts to beam intensity, to solid angle, and to exposure angle.
+    //! @param start_ind Index of the first element to operate on
+    //! @param n_elements Number of elements to process
+    void normalize(size_t start_ind, size_t n_elements) override;
 
     void addBackGroundIntensity(size_t start_ind, size_t n_elements) override;
 

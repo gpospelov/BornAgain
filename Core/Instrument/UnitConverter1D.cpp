@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Instrument/UnitConverter1D.cpp
-//! @brief     Implements the class UnitConverter1D.
+//! @brief     Implements UnitConverter1D class and derived classes.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,6 +18,7 @@
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
 #include "PointwiseAxis.h"
+#include "SpecularDataHandler.h"
 #include "UnitConverterUtils.h"
 #include "Units.h"
 
@@ -31,19 +32,14 @@ std::unique_ptr<PointwiseAxis>
 createTranslatedAxis(const IAxis& axis, std::function<double(double)> translator, std::string name);
 } // namespace
 
-UnitConverter1D::UnitConverter1D(const Beam& beam, const IAxis& axis, AxesUnits axis_units)
-    : m_wavelength(beam.getWavelength())
+std::unique_ptr<UnitConverter1D>
+UnitConverter1D::createUnitConverter(const ISpecularDataHandler& handler)
 {
-    m_axis = createTranslatedAxis(axis, getTraslatorFrom(axis_units), axisName(0, axis_units));
-    if (m_axis->getMin() < 0 || m_axis->getMax() > M_PI_2)
-        throw std::runtime_error("Error in UnitConverter1D: input axis range is out of bounds");
-}
+    if (handler.dataType() == SPECULAR_DATA_TYPE::angle)
+        return std::make_unique<UnitConverterConvSpec>(
+            static_cast<const SpecularDataHandlerAng&>(handler));
 
-UnitConverter1D::~UnitConverter1D() = default;
-
-UnitConverter1D* UnitConverter1D::clone() const
-{
-    return new UnitConverter1D(*this);
+    throw std::runtime_error("No known unit conversions for passed type of specular data handler.");
 }
 
 size_t UnitConverter1D::dimension() const
@@ -58,33 +54,18 @@ double UnitConverter1D::calculateMin(size_t i_axis, AxesUnits units_type) const
     if (units_type == AxesUnits::NBINS)
         return 0.0;
     auto translator = getTraslatorTo(units_type);
-    return translator(m_axis->getBinCenter(0));
+    return translator(coordinateAxis()->getBinCenter(0));
 }
 
 double UnitConverter1D::calculateMax(size_t i_axis, AxesUnits units_type) const
 {
     checkIndex(i_axis);
     units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
+    auto coordinate_axis = coordinateAxis();
     if (units_type == AxesUnits::NBINS)
-        return static_cast<double>(m_axis->size());
+        return static_cast<double>(coordinate_axis->size());
     auto translator = getTraslatorTo(units_type);
-    return translator(m_axis->getBinCenter(m_axis->size() - 1));
-}
-
-size_t UnitConverter1D::axisSize(size_t i_axis) const
-{
-    checkIndex(i_axis);
-    return m_axis->size();
-}
-
-std::vector<AxesUnits> UnitConverter1D::availableUnits() const
-{
-    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE};
-}
-
-AxesUnits UnitConverter1D::defaultUnits() const
-{
-    return AxesUnits::DEGREES;
+    return translator(coordinate_axis->getBinCenter(coordinate_axis->size() - 1));
 }
 
 std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const
@@ -92,18 +73,63 @@ std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesU
     checkIndex(i_axis);
     units = UnitConverterUtils::substituteDefaultUnits(*this, units);
     if (units == AxesUnits::NBINS)
-        return std::make_unique<FixedBinAxis>(axisName(0, units), m_axis->size(),
+        return std::make_unique<FixedBinAxis>(axisName(0, units), coordinateAxis()->size(),
                                               calculateMin(0, units), calculateMax(0, units));
-    return createTranslatedAxis(*m_axis, getTraslatorTo(units), axisName(0, units));
+    return createTranslatedAxis(*coordinateAxis(), getTraslatorTo(units), axisName(0, units));
 }
 
-UnitConverter1D::UnitConverter1D(const UnitConverter1D& other)
+UnitConverterConvSpec::UnitConverterConvSpec(const Beam& beam, const IAxis& axis,
+                                             AxesUnits axis_units)
+    : m_wavelength(beam.getWavelength())
+{
+    m_axis = createTranslatedAxis(axis, getTraslatorFrom(axis_units), axisName(0, axis_units));
+    if (m_axis->getMin() < 0 || m_axis->getMax() > M_PI_2)
+        throw std::runtime_error("Error in UnitConverter1D: input axis range is out of bounds");
+}
+
+UnitConverterConvSpec::UnitConverterConvSpec(const SpecularDataHandlerAng& handler)
+    : m_wavelength(handler.wavelength())
+    , m_axis(handler.coordinateAxis()->clone())
+{}
+
+UnitConverterConvSpec::~UnitConverterConvSpec() = default;
+
+UnitConverterConvSpec* UnitConverterConvSpec::clone() const
+{
+    return new UnitConverterConvSpec(*this);
+}
+
+
+size_t UnitConverterConvSpec::axisSize(size_t i_axis) const
+{
+    checkIndex(i_axis);
+    return m_axis->size();
+}
+
+std::vector<AxesUnits> UnitConverterConvSpec::availableUnits() const
+{
+    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE};
+}
+
+AxesUnits UnitConverterConvSpec::defaultUnits() const
+{
+    return AxesUnits::DEGREES;
+}
+
+UnitConverterConvSpec::UnitConverterConvSpec(const UnitConverterConvSpec& other)
     : m_wavelength(other.m_wavelength)
     , m_axis(other.m_axis->clone())
 {
 }
 
-std::function<double(double)> UnitConverter1D::getTraslatorFrom(AxesUnits units_type) const
+std::vector<std::map<AxesUnits, std::string>> UnitConverterConvSpec::createNameMaps() const
+{
+    std::vector<std::map<AxesUnits, std::string>> result;
+    result.push_back(AxisNames::InitSpecAxis());
+    return result;
+}
+
+std::function<double(double)> UnitConverterConvSpec::getTraslatorFrom(AxesUnits units_type) const
 {
     switch (units_type) {
     case AxesUnits::RADIANS:
@@ -118,7 +144,7 @@ std::function<double(double)> UnitConverter1D::getTraslatorFrom(AxesUnits units_
     }
 }
 
-std::function<double(double)> UnitConverter1D::getTraslatorTo(AxesUnits units_type) const
+std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits units_type) const
 {
     switch (units_type) {
     case AxesUnits::RADIANS:
@@ -126,18 +152,11 @@ std::function<double(double)> UnitConverter1D::getTraslatorTo(AxesUnits units_ty
     case AxesUnits::DEGREES:
         return [](double value) { return Units::rad2deg(value); };
     case AxesUnits::QSPACE:
-        return [this](double value) { return getQ(m_wavelength, value); };
+        return [wl=m_wavelength](double value) { return getQ(wl, value); };
     default:
         throw std::runtime_error(
-            "Error in UnitConverter1D::getTranslatorTo: unexpected units type");
+            "Error in UnitConverterConvSpec::getTranslatorTo: unexpected units type");
     }
-}
-
-std::vector<std::map<AxesUnits, std::string>> UnitConverter1D::createNameMaps() const
-{
-    std::vector<std::map<AxesUnits, std::string>> result;
-    result.push_back(AxisNames::InitSpecAxis());
-    return result;
 }
 
 namespace

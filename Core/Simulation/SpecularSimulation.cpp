@@ -85,7 +85,7 @@ size_t SpecularSimulation::numberOfSimulationElements() const
 SimulationResult SpecularSimulation::result() const
 {
     auto data = createIntensityData();
-    UnitConverter1D converter(m_instrument.getBeam(), *coordinateAxis());
+    UnitConverterConvSpec converter(m_instrument.getBeam(), *coordinateAxis());
     return SimulationResult(*data, converter);
 }
 

@@ -75,6 +75,11 @@ public:
     //! Returns a pointer to internal data handler
     const IFootprintFactor* footprintFactor() const;
 
+#ifndef SWIG
+	//! Returns internal data handler
+	const ISpecularDataHandler* dataHandler() const { return m_data_handler.get(); }
+#endif //SWIG
+
 private:
     SpecularSimulation(const SpecularSimulation& other);
 

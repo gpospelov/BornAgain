@@ -36,7 +36,7 @@ public:
 
 #ifndef SWIG
     //! Create a vector of DetectorElement objects according to the detector
-    [[noreturn]] std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
+    std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
 #endif // SWIG
 
     //! Returns region of interest if exists.

@@ -85,4 +85,34 @@ private:
     std::unique_ptr<IFootprintFactor> m_footprint;
 };
 
+class SpecularDataHandlerTOF : public ISpecularDataHandler
+{
+public:
+    SpecularDataHandlerTOF(double inc_angle, std::unique_ptr<IAxis> qz,
+                           const IFootprintFactor* footprint = nullptr);
+    ~SpecularDataHandlerTOF() override;
+    SpecularDataHandlerTOF* clone() const override;
+
+    //! Generates simulation elements for specular simulations
+    std::vector<SpecularSimulationElement> generateSimulationElements() const override;
+
+    //! Returns coordinate axis assigned to the data holder
+    virtual const IAxis* coordinateAxis() const override {return m_qs.get();}
+
+    //! Returns IFootprintFactor object pointer
+    virtual const IFootprintFactor* footprintFactor() const override {return m_footprint.get();}
+
+    //! Returns footprint correction factor for simulation element with index _i_
+    double footprint(size_t i) const override;
+
+    //! Returns the number of simulation elements
+    size_t numberOfSimulationElements() const override;
+
+    double inclinationAngle() const {return m_inc_angle;}
+
+private:
+    double m_inc_angle;
+    std::unique_ptr<IAxis> m_qs;
+    std::unique_ptr<IFootprintFactor> m_footprint;
+};
 #endif // SPECULARDATAHANDLER_H

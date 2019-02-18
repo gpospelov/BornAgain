@@ -39,6 +39,14 @@ UnitConverter1D::createUnitConverter(const ISpecularDataHandler& handler)
         return std::make_unique<UnitConverterConvSpec>(
             static_cast<const SpecularDataHandlerAng&>(handler));
 
+    if (handler.dataType() == SPECULAR_DATA_TYPE::lambda)
+        return std::make_unique<UnitConverterQSpec>(
+            static_cast<const SpecularDataHandlerTOF&>(handler));
+
+    if (handler.dataType() == SPECULAR_DATA_TYPE::q)
+        return std::make_unique<UnitConverterQSpec>(
+            static_cast<const SpecularDataHandlerQ&>(handler));
+
     throw std::runtime_error("No known unit conversions for passed type of specular data handler.");
 }
 
@@ -156,6 +164,64 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits un
     default:
         throw std::runtime_error(
             "Error in UnitConverterConvSpec::getTranslatorTo: unexpected units type");
+    }
+}
+
+UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerQ& handler)
+    : m_axis(handler.coordinateAxis()->clone())
+{}
+
+UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerTOF& handler)
+    : m_axis(handler.coordinateAxis()->clone())
+{}
+
+UnitConverterQSpec::~UnitConverterQSpec() = default;
+
+UnitConverterQSpec* UnitConverterQSpec::clone() const
+{
+    return new UnitConverterQSpec(*this);
+}
+
+//! Returns the size of underlying axis.
+size_t UnitConverterQSpec::axisSize(size_t i_axis) const
+{
+    checkIndex(i_axis);
+    return m_axis->size();
+}
+
+//! Returns the list of all available units
+std::vector<AxesUnits> UnitConverterQSpec::availableUnits() const
+{
+    return {AxesUnits::NBINS, AxesUnits::QSPACE};
+}
+
+//! Returns default units to convert to.
+AxesUnits UnitConverterQSpec::defaultUnits() const
+{
+    return AxesUnits::QSPACE;
+}
+
+UnitConverterQSpec::UnitConverterQSpec(const UnitConverterQSpec& other)
+    : m_axis(std::unique_ptr<IAxis>(other.coordinateAxis()->clone()))
+{}
+
+//! Creates name map for axis in various units
+std::vector<std::map<AxesUnits, std::string>> UnitConverterQSpec::createNameMaps() const
+{
+    std::vector<std::map<AxesUnits, std::string>> result;
+    result.push_back(AxisNames::InitSpecAxisQ());
+    return result;
+}
+
+//! Returns translating functional (inv. nm --> desired units)
+std::function<double(double)> UnitConverterQSpec::getTraslatorTo(AxesUnits units_type) const
+{
+    switch (units_type) {
+    case AxesUnits::QSPACE:
+        return [](double value) { return value; };
+    default:
+        throw std::runtime_error(
+            "Error in UnitConverterTOFSpec::getTranslatorTo: unexpected units type");
     }
 }
 

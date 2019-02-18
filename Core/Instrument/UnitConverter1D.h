@@ -22,6 +22,8 @@
 class Beam;
 class ISpecularDataHandler;
 class SpecularDataHandlerAng;
+class SpecularDataHandlerQ;
+class SpecularDataHandlerTOF;
 
 //! Conversion of axis units for the case of 1D simulation result.
 
@@ -94,4 +96,36 @@ protected:
     std::unique_ptr<IAxis> m_axis; //!< basic inclination angles (in rads).
 };
 
+//! Conversion of axis units for the case of q-defined reflectometry.
+class BA_CORE_API_ UnitConverterQSpec : public UnitConverter1D
+{
+public:
+    UnitConverterQSpec(const SpecularDataHandlerQ& handler);
+    UnitConverterQSpec(const SpecularDataHandlerTOF& handler);
+    ~UnitConverterQSpec() override;
+
+    UnitConverterQSpec* clone() const override;
+
+    //! Returns the size of underlying axis.
+    size_t axisSize(size_t i_axis) const override;
+
+    //! Returns the list of all available units
+    std::vector<AxesUnits> availableUnits() const override;
+
+    //! Returns default units to convert to.
+    AxesUnits defaultUnits() const override;
+
+protected:
+    UnitConverterQSpec(const UnitConverterQSpec& other);
+
+    //! Creates name map for axis in various units
+    std::vector<std::map<AxesUnits, std::string>> createNameMaps() const override;
+
+    //! Returns translating functional (inv. nm --> desired units)
+    std::function<double(double)> getTraslatorTo(AxesUnits units_type) const override;
+
+    const IAxis* coordinateAxis() const override { return m_axis.get(); }
+
+    std::unique_ptr<IAxis> m_axis; //!< qz values (in inv. nm).
+};
 #endif // UNITCONVERTER1D_H

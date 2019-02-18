@@ -446,6 +446,13 @@ StandardTestCatalogue::StandardTestCatalogue()
          "SLDSlicedCylindersBuilder", "SLDSlicedCylindersBuilder"},
         1e-10);
 
+    add("InstrumentDefinitionComparison",
+        "Compares specular signal from q-defined, TOF and conventional instrument",
+        {"BasicSpecular", "BasicSpecularTOF", "BasicSpecularQ"},
+        {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder",
+         "PlainMultiLayerBySLDBuilder"},
+        1e-10);
+
     // off-specular simulation
 
     add("OffSpecularResonator",

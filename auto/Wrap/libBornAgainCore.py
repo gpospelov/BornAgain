@@ -28404,6 +28404,9 @@ class SpecularSimulation(Simulation):
         setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max)
         setBeamParameters(SpecularSimulation self, double arg2, vdouble1d_t incident_angle_values, IFootprintFactor beam_shape=None)
         setBeamParameters(SpecularSimulation self, double arg2, vdouble1d_t incident_angle_values)
+        setBeamParameters(SpecularSimulation self, vdouble1d_t wavelength_values, double incident_angle, IFootprintFactor beam_shape=None)
+        setBeamParameters(SpecularSimulation self, vdouble1d_t wavelength_values, double incident_angle)
+        setBeamParameters(SpecularSimulation self, vdouble1d_t qz_values)
         setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis, IFootprintFactor beam_shape=None)
         setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis)
 

@@ -441,8 +441,9 @@ StandardTestCatalogue::StandardTestCatalogue()
 
     add("SpecularWithSlicing",
         "Compares manual/automatic slicing in a sample with cylinders",
-        {"BasicSpecular", "BasicSpecular", "BasicSpecular"},
-        {"SlicedCylindersBuilder", "SLDSlicedCylindersBuilder", "AveragedSlicedCylindersBuilder"},
+        {"BasicSpecular", "BasicSpecular", "BasicSpecular", "BasicSpecularTOF", "BasicSpecularQ"},
+        {"SlicedCylindersBuilder", "SLDSlicedCylindersBuilder", "AveragedSlicedCylindersBuilder",
+         "SLDSlicedCylindersBuilder", "SLDSlicedCylindersBuilder"},
         1e-10);
 
     // off-specular simulation

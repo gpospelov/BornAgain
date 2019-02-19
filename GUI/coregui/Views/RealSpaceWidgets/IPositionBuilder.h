@@ -16,6 +16,7 @@
 #define IPOSITIONBUILDER_H
 
 #include <vector>
+#include <memory>
 
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
@@ -75,7 +76,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    const InterferenceFunction1DLattice* mp_iff;
+    std::unique_ptr<InterferenceFunction1DLattice> mP_iff;
 };
 
 class Lattice2DPositionBuilder : public IPositionBuilder
@@ -88,7 +89,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    const InterferenceFunction2DLattice* mp_iff;
+    std::unique_ptr<InterferenceFunction2DLattice> mP_iff;
 };
 
 class ParaCrystal2DPositionBuilder : public IPositionBuilder
@@ -101,7 +102,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    const InterferenceFunction2DParaCrystal* mp_iff;
+    std::unique_ptr<InterferenceFunction2DParaCrystal> mP_iff;
 };
 
 class Finite2DLatticePositionBuilder : public IPositionBuilder
@@ -114,7 +115,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    const InterferenceFunctionFinite2DLattice* mp_iff;
+    std::unique_ptr<InterferenceFunctionFinite2DLattice> mP_iff;
 };
 
 class RadialParacrystalPositionBuilder : public IPositionBuilder
@@ -127,7 +128,7 @@ private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
     double positionVariance() const override;
-    const InterferenceFunctionRadialParaCrystal* mp_iff;
+    std::unique_ptr<InterferenceFunctionRadialParaCrystal> mP_iff;
 };
 
 #endif // IPOSITIONBUILDER_H

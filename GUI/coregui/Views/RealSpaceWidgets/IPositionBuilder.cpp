@@ -31,6 +31,17 @@ std::vector<std::vector<double>> IPositionBuilder::generatePositions(double laye
                                                                      double density) const
 {
     std::vector<std::vector<double>> positions = generatePositionsImpl(layer_size, density);
+    double pos_var = positionVariance();
+    if (pos_var > 0.0) {
+        // random generator and distribution
+        std::random_device rd;  // Will be used to obtain a seed for the random number engine
+        std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+        std::normal_distribution<double> dis(0.0, std::sqrt(pos_var));
+        for (auto& position : positions) {
+            for (auto& coordinate : position)
+                coordinate += dis(gen);
+        }
+    }
     return positions;
 }
 
@@ -66,7 +77,7 @@ std::vector<std::vector<double>> RandomPositionBuilder::generatePositionsImpl(do
     // random generator and distribution
     std::random_device rd;  // Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-    std::uniform_real_distribution<> dis(0.0, 1.0);
+    std::uniform_real_distribution<double> dis(0.0, 1.0);
 
     for (int i = 1; i <= num_particles; ++i) {
         // generate random x and y coordinates
@@ -100,7 +111,8 @@ std::vector<std::vector<double>> Lattice1DPositionBuilder::generatePositionsImpl
 
     // Take the maximum possible integer multiple of the lattice vector required
     // for populating particles correctly within the 3D model's boundaries
-    unsigned n1 = length == 0.0 ? 2 : static_cast<unsigned>(layer_size * std::sqrt(2.0) / length);
+    unsigned n1 =
+        length == 0.0 ? 2 : static_cast<unsigned>(2.0 * layer_size * std::sqrt(2.0) / length);
 
     return Generate2DLatticePoints(length, 0.0, 0.0, xi, n1, 1u);
 }

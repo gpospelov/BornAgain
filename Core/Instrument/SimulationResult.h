@@ -70,9 +70,14 @@ public:
     PyObject* array() const;
 #endif
 
+    std::vector<double> axis(AxesUnits units = AxesUnits::DEFAULT) const;
+
+    //! Returns axis coordinates as a numpy array. With no parameters given
+    //! returns coordinates of x-axis in default units.
+    std::vector<double> axis(size_t i_axis, AxesUnits units = AxesUnits::DEFAULT) const;
+
 private:
     void checkDimensions() const;
-    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const;
     std::unique_ptr<OutputData<double>> mP_data;
     std::unique_ptr<IUnitConverter> mP_unit_converter;
 };

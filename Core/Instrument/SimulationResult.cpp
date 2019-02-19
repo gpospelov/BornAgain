@@ -64,7 +64,7 @@ OutputData<double>* SimulationResult::data(AxesUnits units) const
     const size_t dim = mP_data->getRank();
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < dim; ++i)
-        result->addAxis(*createConvertedAxis(i, units));
+        result->addAxis(*mP_unit_converter->createConvertedAxis(i, units));
     result->setRawDataVector(mP_data->getRawDataVector());
     return result.release();
 }
@@ -135,15 +135,24 @@ PyObject* SimulationResult::array() const
     return mP_data->getArray();
 }
 
+std::vector<double> SimulationResult::axis(AxesUnits units) const
+{
+    return axis(0, units);
+}
+
+std::vector<double> SimulationResult::axis(size_t i_axis, AxesUnits units) const
+{
+    if (i_axis >= mP_unit_converter->dimension())
+        throw std::runtime_error(
+            "Error in SimulationResult::axis: no axis corresponds to passed index.");
+    auto axis = mP_unit_converter->createConvertedAxis(i_axis, units);
+    return axis->getBinCenters();
+}
+
 void SimulationResult::checkDimensions() const
 {
     if (mP_data->getRank() != mP_unit_converter->dimension())
         throw std::runtime_error("Error in SimulationResults::checkDimensions(): "
                                  "dimensions of data and unit converter don't match");
     return;
-}
-
-std::unique_ptr<IAxis> SimulationResult::createConvertedAxis(size_t i_axis, AxesUnits units) const
-{
-    return mP_unit_converter->createConvertedAxis(i_axis, units);
 }

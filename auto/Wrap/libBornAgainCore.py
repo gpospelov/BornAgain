@@ -18251,6 +18251,16 @@ class SimulationResult(_object):
         """
         return _libBornAgainCore.SimulationResult_array(self)
 
+
+    def axis(self, *args):
+        """
+        axis(SimulationResult self, AxesUnits units) -> vdouble1d_t
+        axis(SimulationResult self) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis, AxesUnits units) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis) -> vdouble1d_t
+        """
+        return _libBornAgainCore.SimulationResult_axis(self, *args)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
     __del__ = lambda self: None
 SimulationResult_swigregister = _libBornAgainCore.SimulationResult_swigregister

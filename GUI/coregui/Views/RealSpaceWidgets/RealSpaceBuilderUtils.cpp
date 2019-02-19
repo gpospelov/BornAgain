@@ -35,7 +35,6 @@
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
-#include "RealSpace2DParacrystalUtils.h"
 #include "RealSpaceBuilder.h"
 #include "RealSpaceCanvas.h"
 #include "RealSpaceMesoCrystalUtils.h"
@@ -246,23 +245,6 @@ void RealSpaceBuilderUtils::populateRadialParacrystalType(
             = lattice_positions[k2][0] - peakDistance + offset; // x coordinate
         lattice_positions[static_cast<size_t>(i)][1] = 0.0;     // y coordinate
     }
-
-    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                        sceneGeometry, builder3D);
-}
-
-void RealSpaceBuilderUtils::populate2DParacrystalType(
-    const IInterferenceFunction* interference, RealSpaceModel* model,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-{
-    auto interference2DParacrystal
-        = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference);
-
-    RealSpace2DParacrystalUtils paracrystal2D(interference2DParacrystal, &sceneGeometry);
-
-    std::vector<std::vector<double>> lattice_positions
-        = paracrystal2D.compute2DParacrystalLatticePositions();
 
     populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
                                         sceneGeometry, builder3D);

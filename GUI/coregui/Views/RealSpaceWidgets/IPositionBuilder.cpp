@@ -15,6 +15,7 @@
 #include "IPositionBuilder.h"
 #include "InterferenceFunctions.h"
 #include "Lattice2D.h"
+#include "RealSpace2DParacrystalUtils.h"
 #include <cmath>
 #include <random>
 
@@ -137,4 +138,15 @@ std::vector<std::vector<double>> Lattice2DPositionBuilder::generatePositions(dou
         }
     }
     return lattice_positions;
+}
+
+ParaCrystal2DPositionBuilder::ParaCrystal2DPositionBuilder(const InterferenceFunction2DParaCrystal *p_iff)
+    : mp_iff(p_iff)
+{}
+
+ParaCrystal2DPositionBuilder::~ParaCrystal2DPositionBuilder() =default;
+
+std::vector<std::vector<double> > ParaCrystal2DPositionBuilder::generatePositions(double layer_size, double) const
+{
+    return RealSpace2DParacrystalUtils::Compute2DParacrystalLatticePositions(mp_iff, layer_size);
 }

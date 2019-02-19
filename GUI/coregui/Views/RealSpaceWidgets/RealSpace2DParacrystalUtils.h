@@ -19,22 +19,11 @@
 #include <vector>
 
 class InterferenceFunction2DParaCrystal;
-class SceneGeometry;
 
-class RealSpace2DParacrystalUtils
+namespace RealSpace2DParacrystalUtils
 {
-public:
-    RealSpace2DParacrystalUtils();
-    ~RealSpace2DParacrystalUtils();
-
-    RealSpace2DParacrystalUtils(const InterferenceFunction2DParaCrystal*,
-                                const SceneGeometry*);
-
-    std::vector<std::vector<double>> compute2DParacrystalLatticePositions();
-
-private:
-    const InterferenceFunction2DParaCrystal* m_interference2DParacrystal;
-    const SceneGeometry* m_sceneGeometry;
+std::vector<std::vector<double>>
+Compute2DParacrystalLatticePositions(const InterferenceFunction2DParaCrystal*, double layer_size);
 };
 
 #endif // REALSPACE2DPARACRYSTALUTILS_H

@@ -20,7 +20,54 @@
 
 namespace
 {
-void resizeLatticePositions(std::vector<std::vector<double>>& lattice_positions, double l1,
+void ResizeLatticePositions(std::vector<std::vector<double>>& lattice_positions, double l1,
+                            double l2, double layer_size);
+void FindLatticePositionsIndex(size_t& index, size_t& index_prev, int i, int j, int size,
+                               double l_alpha);
+std::pair<double, double> ComputePositionAlongPositiveLatticeVector(
+    const size_t index_prev, std::vector<std::vector<double>>& lattice_positions,
+    const IFTDistribution2D* pdf, double l, double l_xi, double l_alpha);
+std::pair<double, double> ComputePositionAlongNegativeLatticeVector(
+    const size_t index_prev, std::vector<std::vector<double>>& lattice_positions,
+    const IFTDistribution2D* pdf, double l, double l_xi, double l_alpha);
+std::pair<double, double>
+ComputeLatticePosition(const size_t index_prev, int i, int j,
+                       std::vector<std::vector<double>>& lattice_positions,
+                       const IFTDistribution2D* pdf, double l, double l_xi, double l_alpha);
+void ComputePositionsAlongLatticeVectorAxes(std::vector<std::vector<double>>& lattice_positions,
+                                            const IFTDistribution2D* pdf, double l, double l_xi,
+                                            double l_alpha);
+void ComputePositionsInsideLatticeQuadrants(std::vector<std::vector<double>>& lattice_positions,
+                                            const IFTDistribution2D* pdf1,
+                                            const IFTDistribution2D* pdf2, double l1, double l2,
+                                            double l_xi, double l_alpha);
+} // namespace
+
+std::vector<std::vector<double>> RealSpace2DParacrystalUtils::Compute2DParacrystalLatticePositions(
+    const InterferenceFunction2DParaCrystal* p_iff, double layer_size)
+{
+    auto& lattice = p_iff->lattice();
+    double l1 = lattice.length1();
+    double l2 = lattice.length2();
+    double alpha = lattice.latticeAngle();
+    double xi = lattice.rotationAngle();
+
+    std::vector<std::vector<double>> lattice_positions;
+    ResizeLatticePositions(lattice_positions, l1, l2, layer_size);
+
+    ComputePositionsAlongLatticeVectorAxes(lattice_positions, p_iff->pdf1(), l1, xi, 0);
+
+    ComputePositionsAlongLatticeVectorAxes(lattice_positions, p_iff->pdf2(), l2, xi, alpha);
+
+    ComputePositionsInsideLatticeQuadrants(lattice_positions, p_iff->pdf1(), p_iff->pdf2(), l1, l2,
+                                           xi, alpha);
+
+    return lattice_positions;
+}
+
+namespace
+{
+void ResizeLatticePositions(std::vector<std::vector<double>>& lattice_positions, double l1,
                             double l2, double layer_size)
 {
     // Estimate the limit n1 and n2 of the integer multiple j and i of the lattice vectors l1 and l2
@@ -40,7 +87,7 @@ void resizeLatticePositions(std::vector<std::vector<double>>& lattice_positions,
     lattice_positions[0][1] = 0.0; // y coordinate of reference particle - at the origin
 }
 
-void findLatticePositionsIndex(size_t& index, size_t& index_prev, int i, int j, int size,
+void FindLatticePositionsIndex(size_t& index, size_t& index_prev, int i, int j, int size,
                                double l_alpha)
 {
     index = static_cast<size_t>(i * (2 * size + 1) + j);
@@ -61,7 +108,7 @@ void findLatticePositionsIndex(size_t& index, size_t& index_prev, int i, int j, 
     }
 }
 
-std::pair<double, double> computePositionAlongPositiveLatticeVector(
+std::pair<double, double> ComputePositionAlongPositiveLatticeVector(
     const size_t index_prev, std::vector<std::vector<double>>& lattice_positions,
     const IFTDistribution2D* pdf, double l, double l_xi, double l_alpha)
 {
@@ -81,7 +128,7 @@ std::pair<double, double> computePositionAlongPositiveLatticeVector(
     return std::make_pair(x, y);
 }
 
-std::pair<double, double> computePositionAlongNegativeLatticeVector(
+std::pair<double, double> ComputePositionAlongNegativeLatticeVector(
     const size_t index_prev, std::vector<std::vector<double>>& lattice_positions,
     const IFTDistribution2D* pdf, double l, double l_xi, double l_alpha)
 {
@@ -102,28 +149,28 @@ std::pair<double, double> computePositionAlongNegativeLatticeVector(
 }
 
 std::pair<double, double>
-computeLatticePosition(const size_t index_prev, int i, int j,
+ComputeLatticePosition(const size_t index_prev, int i, int j,
                        std::vector<std::vector<double>>& lattice_positions,
                        const IFTDistribution2D* pdf, double l, double l_xi, double l_alpha)
 {
     if (std::sin(l_alpha) == 0) {
         if (!(j % 2 == 0)) // along +l1
-            return computePositionAlongPositiveLatticeVector(index_prev, lattice_positions, pdf, l,
+            return ComputePositionAlongPositiveLatticeVector(index_prev, lattice_positions, pdf, l,
                                                              l_xi, 0);
         else // along -l1
-            return computePositionAlongNegativeLatticeVector(index_prev, lattice_positions, pdf, l,
+            return ComputePositionAlongNegativeLatticeVector(index_prev, lattice_positions, pdf, l,
                                                              l_xi, 0);
     } else {
         if (!(i % 2 == 0)) // along +l2
-            return computePositionAlongPositiveLatticeVector(index_prev, lattice_positions, pdf, l,
+            return ComputePositionAlongPositiveLatticeVector(index_prev, lattice_positions, pdf, l,
                                                              l_xi, l_alpha);
         else // along -l2
-            return computePositionAlongNegativeLatticeVector(index_prev, lattice_positions, pdf, l,
+            return ComputePositionAlongNegativeLatticeVector(index_prev, lattice_positions, pdf, l,
                                                              l_xi, l_alpha);
     }
 }
 
-void computePositionsAlongLatticeVectorAxes(std::vector<std::vector<double>>& lattice_positions,
+void ComputePositionsAlongLatticeVectorAxes(std::vector<std::vector<double>>& lattice_positions,
                                             const IFTDistribution2D* pdf, double l, double l_xi,
                                             double l_alpha)
 {
@@ -152,8 +199,8 @@ void computePositionsAlongLatticeVectorAxes(std::vector<std::vector<double>>& la
         // The 2*n+1 particles that are situated ONLY along the l2 axis (both +/- axes)
         // are stored every i*(2*n1+1) index of lattice_positions
 
-        findLatticePositionsIndex(index, index_prev, iterl2, iterl1, n, l_alpha);
-        xy = computeLatticePosition(index_prev, iterl2, iterl1, lattice_positions, pdf, l, l_xi,
+        FindLatticePositionsIndex(index, index_prev, iterl2, iterl1, n, l_alpha);
+        xy = ComputeLatticePosition(index_prev, iterl2, iterl1, lattice_positions, pdf, l, l_xi,
                                     l_alpha);
 
         lattice_positions[index][0] = xy.first;  // x coordinate
@@ -161,7 +208,7 @@ void computePositionsAlongLatticeVectorAxes(std::vector<std::vector<double>>& la
     }
 }
 
-void computePositionsInsideLatticeQuadrants(std::vector<std::vector<double>>& lattice_positions,
+void ComputePositionsInsideLatticeQuadrants(std::vector<std::vector<double>>& lattice_positions,
                                             const IFTDistribution2D* pdf1,
                                             const IFTDistribution2D* pdf2, double l1, double l2,
                                             double l_xi, double l_alpha)
@@ -175,11 +222,11 @@ void computePositionsInsideLatticeQuadrants(std::vector<std::vector<double>>& la
 
     for (int i = 1; i <= 2 * n; ++i) {
         for (int j = 1; j <= 2 * n; ++j) {
-            findLatticePositionsIndex(index, index_prev, i, j, n, 0);
-            xy_l1 = computeLatticePosition(index_prev, i, j, lattice_positions, pdf1, l1, l_xi, 0);
+            FindLatticePositionsIndex(index, index_prev, i, j, n, 0);
+            xy_l1 = ComputeLatticePosition(index_prev, i, j, lattice_positions, pdf1, l1, l_xi, 0);
 
-            findLatticePositionsIndex(index, index_prev, i, j, n, l_alpha);
-            xy_l2 = computeLatticePosition(index_prev, i, j, lattice_positions, pdf2, l2, l_xi,
+            FindLatticePositionsIndex(index, index_prev, i, j, n, l_alpha);
+            xy_l2 = ComputeLatticePosition(index_prev, i, j, lattice_positions, pdf2, l2, l_xi,
                                            l_alpha);
 
             lattice_positions[index][0] = (xy_l1.first + xy_l2.first) / 2;
@@ -187,46 +234,4 @@ void computePositionsInsideLatticeQuadrants(std::vector<std::vector<double>>& la
         }
     }
 }
-}
-
-RealSpace2DParacrystalUtils::RealSpace2DParacrystalUtils()
-    : m_interference2DParacrystal(nullptr), m_sceneGeometry(nullptr)
-{
-}
-
-RealSpace2DParacrystalUtils::~RealSpace2DParacrystalUtils()
-{
-}
-
-RealSpace2DParacrystalUtils::RealSpace2DParacrystalUtils(
-    const InterferenceFunction2DParaCrystal* interference2DParacrystal,
-    const SceneGeometry* sceneGeometry)
-{
-    m_interference2DParacrystal = interference2DParacrystal;
-    m_sceneGeometry = sceneGeometry;
-}
-
-std::vector<std::vector<double>> RealSpace2DParacrystalUtils::compute2DParacrystalLatticePositions()
-{
-    double l1 = m_interference2DParacrystal->lattice().length1(); // 1st lattice vector length
-    double l2 = m_interference2DParacrystal->lattice().length2(); // 2nd lattice vector length
-    double l_alpha = m_interference2DParacrystal->lattice().latticeAngle(); // angle between l1, l2
-    double l_xi
-        = m_interference2DParacrystal->lattice().rotationAngle(); // angle between l1, x axis
-    double layer_size = m_sceneGeometry->layer_size();
-
-    std::vector<std::vector<double>> lattice_positions;
-    resizeLatticePositions(lattice_positions, l1, l2, layer_size);
-
-    computePositionsAlongLatticeVectorAxes(lattice_positions, m_interference2DParacrystal->pdf1(),
-                                           l1, l_xi, 0);
-
-    computePositionsAlongLatticeVectorAxes(lattice_positions, m_interference2DParacrystal->pdf2(),
-                                           l2, l_xi, l_alpha);
-
-    computePositionsInsideLatticeQuadrants(lattice_positions, m_interference2DParacrystal->pdf1(),
-                                           m_interference2DParacrystal->pdf2(), l1, l2, l_xi,
-                                           l_alpha);
-
-    return lattice_positions;
-}
+} // namespace

@@ -135,8 +135,15 @@ SimulationFactory::SimulationFactory()
 
     registerItem("BasicSpecular",
                  StandardSimulations::BasicSpecular,
-                 "Basic specular simulation with [0, 15] deg incident angle range and "
+                 "Basic specular simulation with [0, 5] deg incident angle range and "
                  "1.54 angstroms wavelength.");
+
+    registerItem("BasicSpecularTOF", StandardSimulations::BasicSpecularTOF,
+                 "Same as BasicSpecular, but the qz range is represented as a set of wavelengths "
+                 "and an incident angle");
+
+    registerItem("BasicSpecularQ", StandardSimulations::BasicSpecularQ,
+                 "Same as BasicSpecular, but the qz range is passed to the simulation directly");
 
     registerItem("SpecularWithGaussianBeam", StandardSimulations::SpecularWithGaussianBeam,
                  "The same as BasicSpecular, but implies beam size finiteness (beam is of the same "

@@ -58,6 +58,9 @@ public:
                            const IFootprintFactor* beam_shape = nullptr);
     void setBeamParameters(double lambda, std::vector<double> incident_angle_values,
                            const IFootprintFactor* beam_shape = nullptr);
+    void setBeamParameters(std::vector<double> wavelength_values, double incident_angle,
+                           const IFootprintFactor* beam_shape = nullptr);
+    void setBeamParameters(std::vector<double> qz_values);
     //! Sets beam parameters for specular simulation. _lambda_ defines the wavelength of incoming
     //! beam (in nm), _alpha_axis_ defines the range of incident angles, while _beam_shape_
     //! (optional parameter) is required to take footprint effects into account.
@@ -74,6 +77,11 @@ public:
 
     //! Returns a pointer to internal data handler
     const IFootprintFactor* footprintFactor() const;
+
+#ifndef SWIG
+	//! Returns internal data handler
+	const ISpecularDataHandler* dataHandler() const { return m_data_handler.get(); }
+#endif //SWIG
 
 private:
     SpecularSimulation(const SpecularSimulation& other);

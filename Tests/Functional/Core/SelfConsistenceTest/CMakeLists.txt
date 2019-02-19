@@ -7,6 +7,7 @@ set(test TestSelfConsistence)
 # CoreStandardTest cases:
 set(test_cases
     SpecularWithSlicing
+    InstrumentDefinitionComparison
     )
 
 file(GLOB source_files "*.cpp")

@@ -20,6 +20,7 @@
 
 namespace {
 const RealLimits inc_angle_limits = RealLimits::limited(0.0, M_PI_2);
+const RealLimits qz_limits = RealLimits::positive();
 }
 
 ISpecularDataHandler::ISpecularDataHandler(SPECULAR_DATA_TYPE data_type)
@@ -76,4 +77,89 @@ double SpecularDataHandlerAng::footprint(size_t i) const
 size_t SpecularDataHandlerAng::numberOfSimulationElements() const
 {
     return m_inc_angle->size();
+}
+
+SpecularDataHandlerTOF::SpecularDataHandlerTOF(double inc_angle, std::unique_ptr<IAxis> qz,
+                                               const IFootprintFactor* footprint)
+    : ISpecularDataHandler(SPECULAR_DATA_TYPE::lambda)
+    , m_inc_angle(inc_angle)
+    , m_qs(std::move(qz))
+    , m_footprint(footprint ? footprint->clone() : nullptr)
+{}
+
+SpecularDataHandlerTOF::~SpecularDataHandlerTOF() = default;
+
+SpecularDataHandlerTOF* SpecularDataHandlerTOF::clone() const
+{
+    return new SpecularDataHandlerTOF(m_inc_angle, std::unique_ptr<IAxis>(m_qs->clone()),
+                                      m_footprint.get());
+}
+
+//! Generates simulation elements for specular simulations
+std::vector<SpecularSimulationElement> SpecularDataHandlerTOF::generateSimulationElements() const
+{
+    std::vector<SpecularSimulationElement> result;
+
+    const size_t axis_size = m_qs->size();
+    std::vector<double> qzs = m_qs->getBinCenters();
+    result.reserve(axis_size);
+    for (size_t i = 0; i < axis_size; ++i) {
+        const double kz = qzs[i] / 2.0;
+        result.emplace_back(kz);
+        if (!qz_limits.isInRange(kz))
+            result.back().setCalculationFlag(false); // false = exclude from calculations
+    }
+
+    return result;
+}
+
+//! Returns footprint correction factor for simulation element with index _i_
+double SpecularDataHandlerTOF::footprint(size_t) const
+{
+    if (!m_footprint)
+        return 1.0;
+
+    return m_footprint->calculate(m_inc_angle);
+}
+
+//! Returns the number of simulation elements
+size_t SpecularDataHandlerTOF::numberOfSimulationElements() const
+{
+    return m_qs->size();
+}
+
+SpecularDataHandlerQ::SpecularDataHandlerQ(std::unique_ptr<IAxis> qs_nm)
+    : ISpecularDataHandler(SPECULAR_DATA_TYPE::q)
+    , m_qs(std::move(qs_nm))
+{}
+
+SpecularDataHandlerQ::~SpecularDataHandlerQ() = default;
+
+SpecularDataHandlerQ* SpecularDataHandlerQ::clone() const
+{
+    return new SpecularDataHandlerQ(std::unique_ptr<IAxis>(m_qs->clone()));
+}
+
+//! Generates simulation elements for specular simulations
+std::vector<SpecularSimulationElement> SpecularDataHandlerQ::generateSimulationElements() const
+{
+    std::vector<SpecularSimulationElement> result;
+
+    const size_t axis_size = m_qs->size();
+    std::vector<double> qs = m_qs->getBinCenters();
+    result.reserve(axis_size);
+    for (size_t i = 0; i < axis_size; ++i) {
+        const double kz = qs[i] / 2.0;
+        result.emplace_back(kz);
+        if (!qz_limits.isInRange(kz))
+            result.back().setCalculationFlag(false); // false = exclude from calculations
+    }
+
+    return result;
+}
+
+//! Returns the number of simulation elements
+size_t SpecularDataHandlerQ::numberOfSimulationElements() const
+{
+    return m_qs->size();
 }

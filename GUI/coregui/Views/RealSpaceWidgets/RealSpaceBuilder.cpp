@@ -14,7 +14,7 @@
 
 #include "RealSpaceBuilder.h"
 #include "ExternalProperty.h"
-#include "IInterferenceFunction.h"
+#include "InterferenceFunctions.h"
 #include "InterferenceFunctionItems.h"
 #include "Lattice2DItems.h"
 #include "LayerItem.h"
@@ -31,6 +31,7 @@
 #include "RealSpaceBuilderUtils.h"
 #include "RealSpaceCanvas.h"
 #include "RealSpaceModel.h"
+#include "RealSpacePositionBuilder.h"
 #include "SessionItem.h"
 #include "TransformTo3D.h"
 #include "Units.h"
@@ -118,14 +119,21 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
     if (!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
         return;
 
+    double layer_size = sceneGeometry.layer_size();
+    double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
+
     auto particle3DContainer_vector = RealSpaceBuilderUtils::particle3DContainerVector(layoutItem, origin);
 
     // If there is an interference function present
     if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))
         populateInterference(model, layoutItem, particle3DContainer_vector, sceneGeometry);
     else {
-        RealSpaceBuilderUtils::populateRandomDistribution(
-            model, layoutItem, particle3DContainer_vector, sceneGeometry, this);
+        RealSpacePositionBuilder pos_builder;
+        InterferenceFunctionNone iff;
+        iff.accept(&pos_builder);
+        std::vector<std::vector<double>> lattice_positions = pos_builder.generatePositions(layer_size, total_density);
+        RealSpaceBuilderUtils::populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
+                                            sceneGeometry, this);
     }
 }
 

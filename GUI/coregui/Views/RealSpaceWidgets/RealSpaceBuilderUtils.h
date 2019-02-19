@@ -54,16 +54,6 @@ BA_CORE_API_ void populateParticlesAtLatticePositions(
     const std::vector<Particle3DContainer>& particle3DContainer_vector, RealSpaceModel* model,
     const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
 
-// No interference - random distribution of particles
-BA_CORE_API_ void
-populateRandomDistribution(RealSpaceModel* model, const SessionItem& layoutItem,
-                           const std::vector<Particle3DContainer>& particle3DContainer_vector,
-                           const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
-
-BA_CORE_API_ std::vector<std::vector<double>>
-computeRandomDistributionLatticePositions(const SessionItem& layoutItem,
-                                          const SceneGeometry& sceneGeometry);
-
 // InterferenceFunction2DLatticeType
 BA_CORE_API_ void populateInterference2DLatticeType(
     const IInterferenceFunction* interference, RealSpaceModel* model,

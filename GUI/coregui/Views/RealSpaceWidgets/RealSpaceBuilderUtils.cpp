@@ -124,49 +124,6 @@ void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
     }
 }
 
-// No interference - random distribution of particles
-void RealSpaceBuilderUtils::populateRandomDistribution(
-    RealSpaceModel* model, const SessionItem& layoutItem,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-{
-    // get the lattice positions at which to populate the particles
-    std::vector<std::vector<double>> lattice_positions
-        = computeRandomDistributionLatticePositions(layoutItem, sceneGeometry);
-
-    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                        sceneGeometry, builder3D);
-}
-
-std::vector<std::vector<double>>
-RealSpaceBuilderUtils::computeRandomDistributionLatticePositions(const SessionItem& layoutItem,
-                                                                 const SceneGeometry& sceneGeometry)
-{
-    double layer_size = sceneGeometry.layer_size();
-    std::vector<std::vector<double>> lattice_positions;
-    std::vector<double> position;
-
-    // to compute total number of particles we use the total particle density
-    // and multiply by the area of the layer
-    double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
-    int num_particles = static_cast<int>(total_density * (2 * layer_size) * (2 * layer_size));
-
-    for (int i = 1; i <= num_particles; ++i) {
-        // For calculating lattice coordinates we use random x and y coordinates
-        position.push_back((rand() / static_cast<double>(RAND_MAX)) * 2 * layer_size
-                           - layer_size); // x
-        position.push_back((rand() / static_cast<double>(RAND_MAX)) * 2 * layer_size
-                           - layer_size); // y
-
-        // no need for z coordinate as all lattice positions are calculated in the xy plane
-
-        lattice_positions.push_back(position);
-        position.clear();
-    }
-
-    return lattice_positions;
-}
-
 // InterferenceFunction2DLatticeType
 void RealSpaceBuilderUtils::populateInterference2DLatticeType(
     const IInterferenceFunction* interference, RealSpaceModel* model,

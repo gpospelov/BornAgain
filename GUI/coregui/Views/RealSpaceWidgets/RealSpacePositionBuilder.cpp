@@ -19,7 +19,10 @@ RealSpacePositionBuilder::RealSpacePositionBuilder() : mP_pos_builder{nullptr} {
 
 RealSpacePositionBuilder::~RealSpacePositionBuilder() = default;
 
-void RealSpacePositionBuilder::visit(const InterferenceFunction1DLattice* p_iff) {}
+void RealSpacePositionBuilder::visit(const InterferenceFunction1DLattice* p_iff)
+{
+    mP_pos_builder.reset(new Lattice1DPositionBuilder(p_iff));
+}
 
 void RealSpacePositionBuilder::visit(const InterferenceFunction2DLattice* p_iff) {}
 

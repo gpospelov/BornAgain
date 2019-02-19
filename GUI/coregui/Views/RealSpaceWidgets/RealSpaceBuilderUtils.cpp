@@ -189,24 +189,6 @@ std::vector<std::vector<double>> RealSpaceBuilderUtils::computeInterference2DLat
     return lattice_positions;
 }
 
-void RealSpaceBuilderUtils::populateInterference1DLatticeType(
-    const IInterferenceFunction* interference, RealSpaceModel* model,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-{
-    auto interference1D = dynamic_cast<const InterferenceFunction1DLattice*>(interference);
-    auto interference1DParameters = interference1D->getLatticeParameters();
-
-    // Simply set the parameters l1 = l, l2 = 0, l_alpha = 0 and l_xi = l_xi in
-    // computeInterference2DLatticePositions() to compute lattice positions for 1D Lattice
-    std::vector<std::vector<double>> lattice_positions
-        = computeInterference2DLatticePositions(interference1DParameters.m_length, 0.0, 0.0,
-                                                interference1DParameters.m_xi, sceneGeometry, true);
-
-    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                        sceneGeometry, builder3D);
-}
-
 // InterferenceFunctionFinite2DLatticeType
 void RealSpaceBuilderUtils::populateInterferenceFinite2DLatticeType(
     const IInterferenceFunction* interference, RealSpaceModel* model,

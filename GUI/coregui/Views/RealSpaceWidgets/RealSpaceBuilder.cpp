@@ -14,8 +14,8 @@
 
 #include "RealSpaceBuilder.h"
 #include "ExternalProperty.h"
-#include "InterferenceFunctions.h"
 #include "InterferenceFunctionItems.h"
+#include "InterferenceFunctions.h"
 #include "Lattice2DItems.h"
 #include "LayerItem.h"
 #include "MesoCrystalItem.h"
@@ -39,13 +39,9 @@
 #include <QDebug>
 #include <ba3d/model/layer.h>
 
-RealSpaceBuilder::RealSpaceBuilder(QWidget* parent) : QWidget(parent)
-{
-}
+RealSpaceBuilder::RealSpaceBuilder(QWidget* parent) : QWidget(parent) {}
 
-RealSpaceBuilder::~RealSpaceBuilder()
-{
-}
+RealSpaceBuilder::~RealSpaceBuilder() {}
 
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
                                 const SceneGeometry& sceneGeometry,
@@ -87,7 +83,7 @@ void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionIt
     int index(0);
     for (auto layer : item.getItems(MultiLayerItem::T_LAYERS)) {
 
-        bool isTopLayer = index==0 ? true : false;
+        bool isTopLayer = index == 0 ? true : false;
         populateLayer(model, *layer, sceneGeometry,
                       QVector3D(0, 0, static_cast<float>(-total_height)), isTopLayer);
 
@@ -122,7 +118,8 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
     double layer_size = sceneGeometry.layer_size();
     double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
 
-    auto particle3DContainer_vector = RealSpaceBuilderUtils::particle3DContainerVector(layoutItem, origin);
+    auto particle3DContainer_vector =
+        RealSpaceBuilderUtils::particle3DContainerVector(layoutItem, origin);
 
     // If there is an interference function present
     if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))
@@ -131,9 +128,10 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
         RealSpacePositionBuilder pos_builder;
         InterferenceFunctionNone iff;
         iff.accept(&pos_builder);
-        std::vector<std::vector<double>> lattice_positions = pos_builder.generatePositions(layer_size, total_density);
-        RealSpaceBuilderUtils::populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                            sceneGeometry, this);
+        std::vector<std::vector<double>> lattice_positions =
+            pos_builder.generatePositions(layer_size, total_density);
+        RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
+            lattice_positions, particle3DContainer_vector, model, sceneGeometry, this);
     }
 }
 
@@ -150,6 +148,9 @@ void RealSpaceBuilder::populateInterference(
     auto interferenceItem = dynamic_cast<const InterferenceFunctionItem*>(interferenceLattice);
     auto interference = interferenceItem->createInterferenceFunction();
 
+    double layer_size = sceneGeometry.layer_size();
+    double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
+
     // If interference type is 2D Lattice
     if (interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType)
         RealSpaceBuilderUtils::populateInterference2DLatticeType(
@@ -161,10 +162,14 @@ void RealSpaceBuilder::populateInterference(
             interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
 
     // If interference type is 1D Lattice
-    else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType)
-        RealSpaceBuilderUtils::populateInterference1DLatticeType(
-            interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
-
+    else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType) {
+        RealSpacePositionBuilder pos_builder;
+        interference->accept(&pos_builder);
+        std::vector<std::vector<double>> lattice_positions =
+            pos_builder.generatePositions(layer_size, total_density);
+        RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
+            lattice_positions, particle3DContainer_vector, model, sceneGeometry, this);
+    }
     // If interference type is Radial ParaCrystal
     else if (interferenceLattice->modelType()
              == Constants::InterferenceFunctionRadialParaCrystalType)
@@ -192,19 +197,19 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
             || !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
             return;
         auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-        particle3DContainer
-            = RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell);
+        particle3DContainer =
+            RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell);
     } else if (particleItem.modelType() == Constants::ParticleCompositionType) {
         auto particleCompositionItem = dynamic_cast<const ParticleCompositionItem*>(&particleItem);
         // If there is no particle to populate inside ParticleCompositionItem
         if (!particleCompositionItem->getItem(ParticleCompositionItem::T_PARTICLES))
             return;
         auto particleComposition = particleCompositionItem->createParticleComposition();
-        particle3DContainer
-            = RealSpaceBuilderUtils::particleComposition3DContainer(*particleComposition);
+        particle3DContainer =
+            RealSpaceBuilderUtils::particleComposition3DContainer(*particleComposition);
     } else if (particleItem.modelType() == Constants::ParticleDistributionType) {
-        auto particleDistributionItem
-            = dynamic_cast<const ParticleDistributionItem*>(&particleItem);
+        auto particleDistributionItem =
+            dynamic_cast<const ParticleDistributionItem*>(&particleItem);
         // If there is no particle to populate inside ParticleDistributionItem
         if (!particleDistributionItem->getItem(ParticleDistributionItem::T_PARTICLES))
             return;

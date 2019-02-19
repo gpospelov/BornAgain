@@ -230,6 +230,6 @@ TEST_F(SpecularSimulationTest, OutOfRangeAngles)
     auto sim_result = sim->result();
 
     std::unique_ptr<OutputData<double>> data(sim_result.data());
-    EXPECT_EQ(0.0, data->getValue(0));
-    EXPECT_NE(0.0, data->getValue(1));
+    EXPECT_EQ(0.0, (*data)[0]);
+    EXPECT_NE(0.0, (*data)[1]);
 }

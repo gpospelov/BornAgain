@@ -150,22 +150,19 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     std::unique_ptr<OutputData<double>> data(sim_result.data());
     EXPECT_EQ(data->getAllocatedSize(), 10u);
     EXPECT_EQ(data->totalSum(), 0.0);
+    EXPECT_EQ(data->getRank(), 1u);
 
     sim->runSimulation();
     sim_result = sim->result();
 
-    const std::unique_ptr<Histogram1D> reflectivity(sim_result.histogram1d(AxesUnits::RADIANS));
-    EXPECT_EQ(10u, reflectivity->getTotalNumberOfBins());
-    EXPECT_EQ(1u, reflectivity->getRank());
-    EXPECT_NEAR(0.1 * Units::degree, reflectivity->getXaxis().getMin(), Units::degree * 1e-11);
-    EXPECT_NEAR(1.9 * Units::degree, reflectivity->getXaxis().getMax(), Units::degree * 1e-10);
+    data.reset(sim_result.data());
+    EXPECT_EQ(data->getAllocatedSize(), 10u);
+    EXPECT_EQ(data->getRank(), 1u);
 
-    const std::unique_ptr<OutputData<double>> output(sim_result.data(AxesUnits::RADIANS));
-    EXPECT_EQ(reflectivity->getTotalNumberOfBins(), output->getAllocatedSize());
-    EXPECT_EQ(reflectivity->getRank(), output->getRank());
-    EXPECT_DOUBLE_EQ(reflectivity->getXaxis().getMin(), output->getAxis(0).getMin());
-    EXPECT_DOUBLE_EQ(reflectivity->getXaxis().getMax(), output->getAxis(0).getMax());
-    EXPECT_DOUBLE_EQ(reflectivity->getBinValues()[5], (*output)[5]);
+    EXPECT_NEAR(0.1 * Units::degree, sim_result.axis(AxesUnits::RADIANS).front(),
+                Units::degree * 1e-11);
+    EXPECT_NEAR(1.9 * Units::degree, sim_result.axis(AxesUnits::RADIANS).back(),
+                Units::degree * 1e-10);
 
     checkBeamState(*sim);
 }
@@ -189,9 +186,6 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     std::unique_ptr<SpecularSimulation> clone2(sim->clone());
     clone_result = clone2->result();
-
-    std::unique_ptr<Histogram1D> output(clone_result.histogram1d());
-    EXPECT_EQ(10u, output->getTotalNumberOfBins());
 
     const std::unique_ptr<OutputData<double>> output_data(clone_result.data());
     EXPECT_EQ(10u, output_data->getAllocatedSize());
@@ -235,7 +229,7 @@ TEST_F(SpecularSimulationTest, OutOfRangeAngles)
     sim->runSimulation();
     auto sim_result = sim->result();
 
-    std::unique_ptr<Histogram1D> result(sim_result.histogram1d());
-    EXPECT_EQ(0.0, result->getBinContent(0));
-    EXPECT_NE(0.0, result->getBinContent(1));
+    std::unique_ptr<OutputData<double>> data(sim_result.data());
+    EXPECT_EQ(0.0, data->getValue(0));
+    EXPECT_NE(0.0, data->getValue(1));
 }

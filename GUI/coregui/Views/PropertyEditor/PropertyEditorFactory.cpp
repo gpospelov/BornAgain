@@ -112,12 +112,9 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             editor->setLimits(limits);
             result = editor;
         } else if (item.editorType() == Constants::ScientificSpinBoxType) {
-            auto editor = new ScientificSpinBox;
+            auto editor = new ScientificSpinBoxEditor;
             auto limits = item.limits();
-            if (limits.hasLowerLimit())
-                editor->setMinimum(limits.lowerLimit());
-            if (limits.hasUpperLimit())
-                editor->setMaximum(limits.upperLimit());
+            editor->setLimits(limits);
             editor->setDecimals(item.decimals());
             editor->setSingleStep(getStep(item.data(Qt::EditRole).toDouble()));
             result = editor;

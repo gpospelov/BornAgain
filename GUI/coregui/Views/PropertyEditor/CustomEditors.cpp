@@ -19,6 +19,7 @@
 #include "ComboProperty.h"
 #include "MaterialItemUtils.h"
 #include "GUIHelpers.h"
+#include "ScientificSpinBox.h"
 #include <QBoxLayout>
 #include <QLabel>
 #include <QToolButton>
@@ -316,6 +317,69 @@ void DoubleEditor::initEditor()
     Q_ASSERT(m_data.type() == QVariant::Double);
     m_doubleEditor->setValue(m_data.toDouble());
 }
+
+// --- DoubleEditor ---
+
+ScientificSpinBoxEditor::ScientificSpinBoxEditor(QWidget* parent)
+    : CustomEditor(parent)
+    , m_doubleEditor(new ScientificSpinBox)
+{
+    setAutoFillBackground(true);
+    setFocusPolicy(Qt::StrongFocus);
+    m_doubleEditor->setFocusPolicy(Qt::StrongFocus);
+    m_doubleEditor->setKeyboardTracking(false);
+
+    auto layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+
+    layout->addWidget(m_doubleEditor);
+
+    connect(m_doubleEditor,
+            &ScientificSpinBox::valueChanged,
+            [=] { this->onEditingFinished(); });
+
+    setLayout(layout);
+
+    setFocusProxy(m_doubleEditor);
+}
+
+void ScientificSpinBoxEditor::setLimits(const RealLimits& limits)
+{
+    m_doubleEditor->setMaximum(std::numeric_limits<double>::max());
+    m_doubleEditor->setMinimum(std::numeric_limits<double>::lowest());
+
+    if (limits.hasLowerLimit())
+        m_doubleEditor->setMinimum(limits.lowerLimit());
+    if (limits.hasUpperLimit())
+        m_doubleEditor->setMaximum(static_cast<int>(limits.upperLimit()));
+}
+
+void ScientificSpinBoxEditor::setDecimals(int decimals)
+{
+    m_doubleEditor->setDecimals(decimals);
+    m_doubleEditor->setSingleStep(singleStep(decimals));
+}
+
+void ScientificSpinBoxEditor::setSingleStep(double step)
+{
+    m_doubleEditor->setSingleStep(step);
+}
+
+void ScientificSpinBoxEditor::onEditingFinished()
+{
+    double new_value = m_doubleEditor->value();
+
+    if(new_value != m_data.toDouble())
+        setDataIntern(QVariant::fromValue(new_value));
+}
+
+void ScientificSpinBoxEditor::initEditor()
+{
+    Q_ASSERT(m_data.type() == QVariant::Double);
+    m_doubleEditor->setValue(m_data.toDouble());
+}
+
 
 // --- IntEditor ---
 

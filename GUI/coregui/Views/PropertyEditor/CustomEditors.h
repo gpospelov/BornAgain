@@ -136,6 +136,29 @@ private:
     class QDoubleSpinBox* m_doubleEditor;
 };
 
+
+//! Editor for Double variant using ScientificSpinBox.
+
+class BA_CORE_API_ ScientificSpinBoxEditor : public CustomEditor
+{
+    Q_OBJECT
+public:
+    ScientificSpinBoxEditor(QWidget *parent = nullptr);
+
+    void setLimits(const RealLimits& limits);
+    void setDecimals(int decimals);
+    void setSingleStep(double step);
+
+private slots:
+    void onEditingFinished();
+
+protected:
+    void initEditor();
+
+private:
+    class ScientificSpinBox* m_doubleEditor;
+};
+
 //! Editor for Int variant.
 
 class BA_CORE_API_ IntEditor : public CustomEditor

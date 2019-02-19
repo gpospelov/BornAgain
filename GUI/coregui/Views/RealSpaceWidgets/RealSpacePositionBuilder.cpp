@@ -24,7 +24,10 @@ void RealSpacePositionBuilder::visit(const InterferenceFunction1DLattice* p_iff)
     mP_pos_builder.reset(new Lattice1DPositionBuilder(p_iff));
 }
 
-void RealSpacePositionBuilder::visit(const InterferenceFunction2DLattice* p_iff) {}
+void RealSpacePositionBuilder::visit(const InterferenceFunction2DLattice* p_iff)
+{
+    mP_pos_builder.reset(new Lattice2DPositionBuilder(p_iff));
+}
 
 void RealSpacePositionBuilder::visit(const InterferenceFunction2DParaCrystal* p_iff) {}
 

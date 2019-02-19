@@ -18,6 +18,7 @@
 #include <vector>
 
 class InterferenceFunction1DLattice;
+class InterferenceFunction2DLattice;
 
 class IPositionBuilder
 {
@@ -49,4 +50,17 @@ public:
 private:
     const InterferenceFunction1DLattice* mp_iff;
 };
+
+class Lattice2DPositionBuilder : public IPositionBuilder
+{
+public:
+    Lattice2DPositionBuilder(const InterferenceFunction2DLattice* p_iff);
+    ~Lattice2DPositionBuilder() override;
+
+    std::vector<std::vector<double>> generatePositions(double layer_size,
+                                                       double density = 0.0) const override;
+private:
+    const InterferenceFunction2DLattice* mp_iff;
+};
+
 #endif // IPOSITIONBUILDER_H

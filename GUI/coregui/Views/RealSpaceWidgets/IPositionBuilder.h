@@ -29,6 +29,20 @@ public:
                                                                double density = 0.0) const = 0;
 };
 
+//! The default position builder is used when no specific implementation exist for generating
+//! the positions based on the interference function
+//!
+//! It always generates a single point at the origin
+class DefaultPositionBuilder : public IPositionBuilder
+{
+public:
+    DefaultPositionBuilder();
+    ~DefaultPositionBuilder() override;
+
+    std::vector<std::vector<double>> generatePositions(double layer_size,
+                                                       double density = 0.0) const override;
+};
+
 class RandomPositionBuilder : public IPositionBuilder
 {
 public:

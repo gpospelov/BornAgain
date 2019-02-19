@@ -20,6 +20,16 @@
 
 IPositionBuilder::~IPositionBuilder() = default;
 
+DefaultPositionBuilder::DefaultPositionBuilder() = default;
+
+DefaultPositionBuilder::~DefaultPositionBuilder() = default;
+
+std::vector<std::vector<double>> DefaultPositionBuilder::generatePositions(double, double) const
+{
+    std::vector<double> origin = {0.0, 0.0};
+    return {origin};
+}
+
 RandomPositionBuilder::RandomPositionBuilder() = default;
 
 RandomPositionBuilder::~RandomPositionBuilder() = default;

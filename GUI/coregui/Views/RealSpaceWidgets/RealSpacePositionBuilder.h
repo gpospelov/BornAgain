@@ -15,14 +15,13 @@
 #ifndef REALSPACEPOSITIONBUILDER_H
 #define REALSPACEPOSITIONBUILDER_H
 
-#include "WinDllMacros.h"
 #include "INodeVisitor.h"
 #include <vector>
 #include <memory>
 
 class IPositionBuilder;
 
-class BA_CORE_API_ RealSpacePositionBuilder : public INodeVisitor
+class RealSpacePositionBuilder : public INodeVisitor
 {
 public:
     RealSpacePositionBuilder();

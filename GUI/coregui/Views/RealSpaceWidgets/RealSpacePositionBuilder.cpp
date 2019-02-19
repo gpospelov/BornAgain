@@ -15,14 +15,10 @@
 #include "RealSpacePositionBuilder.h"
 #include "IPositionBuilder.h"
 
-RealSpacePositionBuilder::RealSpacePositionBuilder() : mP_pos_builder{nullptr} {}
+RealSpacePositionBuilder::RealSpacePositionBuilder()
+    : mP_pos_builder{new DefaultPositionBuilder()} {}
 
 RealSpacePositionBuilder::~RealSpacePositionBuilder() = default;
-
-void RealSpacePositionBuilder::visit(const IInterferenceFunction *)
-{
-    mP_pos_builder.reset(new DefaultPositionBuilder());
-}
 
 void RealSpacePositionBuilder::visit(const InterferenceFunction1DLattice* p_iff)
 {
@@ -44,7 +40,10 @@ void RealSpacePositionBuilder::visit(const InterferenceFunctionFinite2DLattice* 
     mP_pos_builder.reset(new Finite2DLatticePositionBuilder(p_iff));
 }
 
-void RealSpacePositionBuilder::visit(const InterferenceFunctionRadialParaCrystal* p_iff) {}
+void RealSpacePositionBuilder::visit(const InterferenceFunctionRadialParaCrystal* p_iff)
+{
+    mP_pos_builder.reset(new RadialParacrystalPositionBuilder(p_iff));
+}
 
 void RealSpacePositionBuilder::visit(const InterferenceFunctionNone*)
 {
@@ -54,8 +53,5 @@ void RealSpacePositionBuilder::visit(const InterferenceFunctionNone*)
 std::vector<std::vector<double>> RealSpacePositionBuilder::generatePositions(double layer_size,
                                                                              double density) const
 {
-    if (!mP_pos_builder) {
-        return {};
-    }
     return mP_pos_builder->generatePositions(layer_size, density);
 }

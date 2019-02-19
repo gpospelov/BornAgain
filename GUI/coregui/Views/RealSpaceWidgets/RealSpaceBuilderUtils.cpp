@@ -123,58 +123,6 @@ void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
     }
 }
 
-void RealSpaceBuilderUtils::populateRadialParacrystalType(
-    const IInterferenceFunction* interference, RealSpaceModel* model,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-{
-    auto interferenceRadialParacrystal
-        = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference);
-    auto peakDistance = interferenceRadialParacrystal->peakDistance();
-
-    double layer_size = sceneGeometry.layer_size();
-    std::vector<std::vector<double>> lattice_positions;
-
-    // Estimate the limit n of the integer multiple i of the peakDistance required
-    // for populating particles correctly within the 3D model's boundaries
-    int n = static_cast<int>(layer_size * 2) / static_cast<int>(peakDistance);
-
-    lattice_positions.resize(static_cast<size_t>(2 * n + 1));
-    for (auto& it : lattice_positions) {
-        it.resize(2);
-    }
-
-    lattice_positions[0][0] = 0.0; // x coordinate of reference particle - at the origin
-    lattice_positions[0][1] = 0.0; // y coordinate of reference particle - at the origin
-
-    for (int i = 1; i <= 2 * n; ++i) {
-        // positions of particles located along +x (store every odd index of lattice_positions)
-        size_t k1 = 0;
-        if (i - 2 > 0)
-            k1 = static_cast<size_t>(i - 2);
-
-        double offset = interferenceRadialParacrystal->randomSample();
-        lattice_positions[static_cast<size_t>(i)][0]
-            = lattice_positions[k1][0] + peakDistance + offset; // x coordinate
-        lattice_positions[static_cast<size_t>(i)][1] = 0.0;     // y coordinate
-
-        // positions of particles located along -x (store every even index of lattice_positions)
-        ++i;
-
-        size_t k2 = 0;
-        if (i - 2 > 0)
-            k2 = static_cast<size_t>(i - 2);
-
-        offset = interferenceRadialParacrystal->randomSample();
-        lattice_positions[static_cast<size_t>(i)][0]
-            = lattice_positions[k2][0] - peakDistance + offset; // x coordinate
-        lattice_positions[static_cast<size_t>(i)][1] = 0.0;     // y coordinate
-    }
-
-    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                        sceneGeometry, builder3D);
-}
-
 // Implement Rotation of a 3D particle using parameters from IRotation Object
 RealSpace::Vector3D
 RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*& rotation)

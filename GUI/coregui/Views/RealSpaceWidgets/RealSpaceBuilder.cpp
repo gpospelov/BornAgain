@@ -39,6 +39,10 @@
 #include <QDebug>
 #include <ba3d/model/layer.h>
 
+namespace {
+std::unique_ptr<IInterferenceFunction> GetInterferenceFunction(const SessionItem& layoutItem);
+}
+
 RealSpaceBuilder::RealSpaceBuilder(QWidget* parent) : QWidget(parent) {}
 
 RealSpaceBuilder::~RealSpaceBuilder() {}
@@ -121,53 +125,14 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
     auto particle3DContainer_vector =
         RealSpaceBuilderUtils::particle3DContainerVector(layoutItem, origin);
 
-    // If there is an interference function present
-    if (layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE))
-        populateInterference(model, layoutItem, particle3DContainer_vector, sceneGeometry);
-    else {
-        RealSpacePositionBuilder pos_builder;
-        InterferenceFunctionNone iff;
-        iff.accept(&pos_builder);
-        std::vector<std::vector<double>> lattice_positions =
-            pos_builder.generatePositions(layer_size, total_density);
-        RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
-            lattice_positions, particle3DContainer_vector, model, sceneGeometry, this);
-    }
-}
+    auto interference = GetInterferenceFunction(layoutItem);
 
-void RealSpaceBuilder::populateInterference(
-    RealSpaceModel* model, const SessionItem& layoutItem,
-    std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry)
-{
-    // If there is no particle to populate
-    if (!layoutItem.getItem(ParticleLayoutItem::T_PARTICLES))
-        return;
-
-    auto interferenceLattice = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
-    auto interferenceItem = dynamic_cast<const InterferenceFunctionItem*>(interferenceLattice);
-    auto interference = interferenceItem->createInterferenceFunction();
-
-    double layer_size = sceneGeometry.layer_size();
-    double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
-
-    // If interference type is 1D Lattice, 2D lattice, 2D paracrystal
-    if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType
-        || interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType
-        || interferenceLattice->modelType() == Constants::InterferenceFunction2DParaCrystalType
-        || interferenceLattice->modelType() == Constants::InterferenceFunctionFinite2DLatticeType) {
-        RealSpacePositionBuilder pos_builder;
-        interference->accept(&pos_builder);
-        std::vector<std::vector<double>> lattice_positions =
-            pos_builder.generatePositions(layer_size, total_density);
-        RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
-            lattice_positions, particle3DContainer_vector, model, sceneGeometry, this);
-    }
-    // If interference type is Radial ParaCrystal
-    else if (interferenceLattice->modelType()
-             == Constants::InterferenceFunctionRadialParaCrystalType)
-        RealSpaceBuilderUtils::populateRadialParacrystalType(
-            interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
+    RealSpacePositionBuilder pos_builder;
+    interference->accept(&pos_builder);
+    std::vector<std::vector<double>> lattice_positions =
+        pos_builder.generatePositions(layer_size, total_density);
+    RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
+        lattice_positions, particle3DContainer_vector, model, sceneGeometry, this);
 }
 
 void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
@@ -230,3 +195,18 @@ void RealSpaceBuilder::populateParticleFromParticle3DContainer(
         }
     }
 }
+
+namespace {
+std::unique_ptr<IInterferenceFunction> GetInterferenceFunction(const SessionItem& layoutItem)
+{
+    auto interferenceLattice = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
+    if (interferenceLattice) {
+        auto interferenceItem = static_cast<const InterferenceFunctionItem*>(interferenceLattice);
+        auto P_interference = interferenceItem->createInterferenceFunction();
+        if (P_interference)
+            return std::unique_ptr<IInterferenceFunction>(P_interference.release());
+    }
+    return std::make_unique<InterferenceFunctionNone>();
+}
+}
+

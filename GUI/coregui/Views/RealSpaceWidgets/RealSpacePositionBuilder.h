@@ -29,7 +29,6 @@ public:
     ~RealSpacePositionBuilder() override;
 
     using INodeVisitor::visit;
-    void visit(const IInterferenceFunction*) override;
     void visit(const InterferenceFunction1DLattice* p_iff) override;
     void visit(const InterferenceFunction2DLattice* p_iff) override;
     void visit(const InterferenceFunction2DParaCrystal* p_iff) override;

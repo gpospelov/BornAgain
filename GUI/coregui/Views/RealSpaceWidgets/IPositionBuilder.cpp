@@ -140,7 +140,7 @@ Finite2DLatticePositionBuilder::Finite2DLatticePositionBuilder(
 
 Finite2DLatticePositionBuilder::~Finite2DLatticePositionBuilder() = default;
 
-std::vector<std::vector<double>> Finite2DLatticePositionBuilder::generatePositions(double,
+std::vector<std::vector<double>> Finite2DLatticePositionBuilder::generatePositions(double layer_size,
                                                                                    double) const
 {
     auto& lattice = mp_iff->lattice();
@@ -149,10 +149,63 @@ std::vector<std::vector<double>> Finite2DLatticePositionBuilder::generatePositio
     double alpha = lattice.latticeAngle();
     double xi = lattice.rotationAngle();
 
-    unsigned n1 = mp_iff->numberUnitCells1();
-    unsigned n2 = mp_iff->numberUnitCells2();
+    unsigned n1, n2;
+    double sina = std::abs(std::sin(alpha));
+    if (sina <= 1e-4) {
+        n1 = l1 == 0.0 ? 2 : static_cast<unsigned>(2.0 * layer_size * std::sqrt(2.0) / l1);
+        n2 = l2 == 0.0 ? 2 : static_cast<unsigned>(2.0 * layer_size * std::sqrt(2.0) / l2);
+    } else {
+        n1 = l1 == 0.0 ? 2 : static_cast<unsigned>(2.0 * layer_size * std::sqrt(2.0) / l1 / sina);
+        n2 = l2 == 0.0 ? 2 : static_cast<unsigned>(2.0 * layer_size * std::sqrt(2.0) / l2 / sina);
+    }
+    n1 = std::min(n1, mp_iff->numberUnitCells1());
+    n2 = std::min(n2, mp_iff->numberUnitCells2());
 
     return Generate2DLatticePoints(l1, l2, alpha, xi, n1, n2);
+}
+
+RadialParacrystalPositionBuilder::RadialParacrystalPositionBuilder(const InterferenceFunctionRadialParaCrystal *p_iff)
+    : mp_iff(p_iff)
+{}
+
+RadialParacrystalPositionBuilder::~RadialParacrystalPositionBuilder() =default;
+
+std::vector<std::vector<double> > RadialParacrystalPositionBuilder::generatePositions(double layer_size, double) const
+{
+    std::vector<std::vector<double>> lattice_positions;
+
+    double distance = mp_iff->peakDistance();
+
+    // Estimate the limit n of the integer multiple i of the peakDistance required
+    // for populating particles correctly within the 3D model's boundaries
+    int n = distance <= 0.0 ? 1 : static_cast<int>(layer_size * std::sqrt(2.0) / distance);
+
+    lattice_positions.resize(static_cast<size_t>(2 * n + 1));
+    for (auto& it : lattice_positions) {
+        it.resize(2);
+    }
+
+    lattice_positions[0][0] = 0.0; // x coordinate of reference particle - at the origin
+    lattice_positions[0][1] = 0.0; // y coordinate of reference particle - at the origin
+
+    for (int i = 1; i <= n; ++i) {
+        // positions of particles located along +x (store at odd index)
+        unsigned i_left = static_cast<unsigned>(std::max(0, 2*i-3));
+
+        double offset = mp_iff->randomSample();
+        lattice_positions[static_cast<size_t>(2*i-1)][0]
+            = lattice_positions[i_left][0] + distance + offset;
+        lattice_positions[static_cast<size_t>(2*i-1)][1] = 0.0;
+
+        // positions of particles located along -x (store at even index)
+        unsigned i_right = static_cast<unsigned>(2*(i-1));
+
+        offset = mp_iff->randomSample();
+        lattice_positions[static_cast<size_t>(2*i)][0]
+            = lattice_positions[i_right][0] - distance + offset;
+        lattice_positions[static_cast<size_t>(2*i)][1] = 0.0;
+    }
+    return lattice_positions;
 }
 
 namespace

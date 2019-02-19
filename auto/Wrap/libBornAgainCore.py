@@ -18183,17 +18183,6 @@ class SimulationResult(_object):
         return _libBornAgainCore.SimulationResult_data(self, *args)
 
 
-    def histogram1d(self, *args):
-        """
-        histogram1d(SimulationResult self, AxesUnits units) -> Histogram1D
-        histogram1d(SimulationResult self) -> Histogram1D
-
-        Histogram1D * SimulationResult::histogram1d(AxesUnits units=AxesUnits::DEFAULT) const
-
-        """
-        return _libBornAgainCore.SimulationResult_histogram1d(self, *args)
-
-
     def histogram2d(self, *args):
         """
         histogram2d(SimulationResult self, AxesUnits units) -> Histogram2D
@@ -18250,6 +18239,16 @@ class SimulationResult(_object):
 
         """
         return _libBornAgainCore.SimulationResult_array(self)
+
+
+    def axis(self, *args):
+        """
+        axis(SimulationResult self, AxesUnits units) -> vdouble1d_t
+        axis(SimulationResult self) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis, AxesUnits units) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis) -> vdouble1d_t
+        """
+        return _libBornAgainCore.SimulationResult_axis(self, *args)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
     __del__ = lambda self: None

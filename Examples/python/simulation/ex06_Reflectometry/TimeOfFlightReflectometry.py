@@ -87,9 +87,7 @@ def plot(result_wl, result_qz):
 
     ba.plot_simulation_result(result_qz, postpone_show=True)
 
-    wl_sim_data = result_wl.data()
-    wl_axis = wl_sim_data.getAxis(0).getBinCenters()
-    plt.semilogy(wl_axis, result_wl.array(), 'ko', markevery=10)
+    plt.semilogy(result_wl.axis(), result_wl.array(), 'ko', markevery=10)
     plt.legend([r'$q_z$-defined beam',
                 r'$\lambda$-defined beam'],
                loc='upper right')

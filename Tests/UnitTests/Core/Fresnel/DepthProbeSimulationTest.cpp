@@ -154,7 +154,6 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
     sim->runSimulation();
     SimulationResult sim_result = sim->result();
 
-    EXPECT_THROW(sim_result.histogram1d(), std::runtime_error);
     EXPECT_THROW(sim_result.histogram2d(AxesUnits::MM), std::runtime_error);
 
     const std::unique_ptr<Histogram2D> depth_map(sim_result.histogram2d());

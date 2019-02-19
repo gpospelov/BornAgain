@@ -20,6 +20,7 @@
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;
 class InterferenceFunction2DParaCrystal;
+class InterferenceFunctionFinite2DLattice;
 
 class IPositionBuilder
 {
@@ -88,6 +89,18 @@ public:
                                                        double density = 0.0) const override;
 private:
     const InterferenceFunction2DParaCrystal* mp_iff;
+};
+
+class Finite2DLatticePositionBuilder : public IPositionBuilder
+{
+public:
+    Finite2DLatticePositionBuilder(const InterferenceFunctionFinite2DLattice* p_iff);
+    ~Finite2DLatticePositionBuilder() override;
+
+    std::vector<std::vector<double>> generatePositions(double layer_size,
+                                                       double density = 0.0) const override;
+private:
+    const InterferenceFunctionFinite2DLattice* mp_iff;
 };
 
 #endif // IPOSITIONBUILDER_H

@@ -19,6 +19,12 @@
 #include <cmath>
 #include <random>
 
+namespace
+{
+std::vector<std::vector<double>> Generate2DLatticePoints(double l1, double l2, double alpha,
+                                                         double xi, unsigned n1, unsigned n2);
+}
+
 IPositionBuilder::~IPositionBuilder() = default;
 
 DefaultPositionBuilder::DefaultPositionBuilder() = default;
@@ -71,27 +77,15 @@ Lattice1DPositionBuilder::~Lattice1DPositionBuilder() = default;
 std::vector<std::vector<double>> Lattice1DPositionBuilder::generatePositions(double layer_size,
                                                                              double) const
 {
-    std::vector<std::vector<double>> lattice_positions;
-    std::vector<double> position;
-
     auto lattice_pars = mp_iff->getLatticeParameters();
     double length = lattice_pars.m_length;
     double xi = lattice_pars.m_xi;
 
     // Take the maximum possible integer multiple of the lattice vector required
     // for populating particles correctly within the 3D model's boundaries
-    int n1 = length == 0.0 ? 2 : static_cast<int>(layer_size * std::sqrt(2.0) / length);
+    unsigned n1 = length == 0.0 ? 2 : static_cast<unsigned>(layer_size * std::sqrt(2.0) / length);
 
-    for (int i = -n1; i <= n1; ++i) {
-        // For calculating lattice position vector v, we use: v = i*l1
-        // where l1 is the lattice vector
-        position.push_back(i * length * std::cos(xi));
-        position.push_back(i * length * std::sin(xi));
-
-        lattice_positions.push_back(position);
-        position.clear();
-    }
-    return lattice_positions;
+    return Generate2DLatticePoints(length, 0.0, 0.0, xi, n1, 1u);
 }
 
 Lattice2DPositionBuilder::Lattice2DPositionBuilder(const InterferenceFunction2DLattice* p_iff)
@@ -104,9 +98,6 @@ Lattice2DPositionBuilder::~Lattice2DPositionBuilder() = default;
 std::vector<std::vector<double>> Lattice2DPositionBuilder::generatePositions(double layer_size,
                                                                              double) const
 {
-    std::vector<std::vector<double>> lattice_positions;
-    std::vector<double> position;
-
     auto& lattice = mp_iff->lattice();
     double l1 = lattice.length1();
     double l2 = lattice.length2();
@@ -115,17 +106,72 @@ std::vector<std::vector<double>> Lattice2DPositionBuilder::generatePositions(dou
 
     // Estimate the limits n1 and n2 of the maximum integer multiples of the lattice vectors
     // required for populating particles correctly within the 3D model's boundaries
-    int n1, n2;
-    double sina = std::sin(alpha);
+    unsigned n1, n2;
+    double sina = std::abs(std::sin(alpha));
     if (sina <= 1e-4) {
-        n1 = l1 == 0.0 ? 2 : static_cast<int>(layer_size * std::sqrt(2.0) / l1);
-        n2 = l2 == 0.0 ? 2 : static_cast<int>(layer_size * std::sqrt(2.0) / l2);
+        n1 = l1 == 0.0 ? 2 : static_cast<unsigned>(2.0 * layer_size * std::sqrt(2.0) / l1);
+        n2 = l2 == 0.0 ? 2 : static_cast<unsigned>(2.0 * layer_size * std::sqrt(2.0) / l2);
     } else {
-        n1 = l1 == 0.0 ? 2 : static_cast<int>(layer_size * std::sqrt(2.0) / l1 / sina);
-        n2 = l2 == 0.0 ? 2 : static_cast<int>(layer_size * std::sqrt(2.0) / l2 / sina);
+        n1 = l1 == 0.0 ? 2 : static_cast<unsigned>(2.0 * layer_size * std::sqrt(2.0) / l1 / sina);
+        n2 = l2 == 0.0 ? 2 : static_cast<unsigned>(2.0 * layer_size * std::sqrt(2.0) / l2 / sina);
     }
-    for (int i = -n1; i <= n1; ++i) {
-        for (int j = -n2; j <= n2; ++j) {
+    return Generate2DLatticePoints(l1, l2, alpha, xi, n1, n2);
+}
+
+ParaCrystal2DPositionBuilder::ParaCrystal2DPositionBuilder(
+    const InterferenceFunction2DParaCrystal* p_iff)
+    : mp_iff(p_iff)
+{
+}
+
+ParaCrystal2DPositionBuilder::~ParaCrystal2DPositionBuilder() = default;
+
+std::vector<std::vector<double>> ParaCrystal2DPositionBuilder::generatePositions(double layer_size,
+                                                                                 double) const
+{
+    return RealSpace2DParacrystalUtils::Compute2DParacrystalLatticePositions(mp_iff, layer_size);
+}
+
+Finite2DLatticePositionBuilder::Finite2DLatticePositionBuilder(
+    const InterferenceFunctionFinite2DLattice* p_iff)
+    : mp_iff(p_iff)
+{
+}
+
+Finite2DLatticePositionBuilder::~Finite2DLatticePositionBuilder() = default;
+
+std::vector<std::vector<double>> Finite2DLatticePositionBuilder::generatePositions(double,
+                                                                                   double) const
+{
+    auto& lattice = mp_iff->lattice();
+    double l1 = lattice.length1();
+    double l2 = lattice.length2();
+    double alpha = lattice.latticeAngle();
+    double xi = lattice.rotationAngle();
+
+    unsigned n1 = mp_iff->numberUnitCells1();
+    unsigned n2 = mp_iff->numberUnitCells2();
+
+    return Generate2DLatticePoints(l1, l2, alpha, xi, n1, n2);
+}
+
+namespace
+{
+std::vector<std::vector<double>> Generate2DLatticePoints(double l1, double l2, double alpha,
+                                                         double xi, unsigned n1, unsigned n2)
+{
+    std::vector<std::vector<double>> lattice_positions;
+    std::vector<double> position;
+
+    unsigned nn1 = std::max(1u, n1);
+    unsigned nn2 = std::max(1u, n2);
+    int n1m = - static_cast<int>((nn1 - 1) / 2);
+    int n1M = static_cast<int>(nn1 / 2);
+    int n2m = - static_cast<int>((nn2 - 1) / 2);
+    int n2M = static_cast<int>(nn2 / 2);
+
+    for (int i = n1m; i <= n1M; ++i) {
+        for (int j = n2m; j <= n2M; ++j) {
             // For calculating lattice position vector v, we use: v = i*l1 + j*l2
             // where l1 and l2 are the lattice vectors,
             position.push_back(i * l1 * std::cos(xi)
@@ -139,14 +185,4 @@ std::vector<std::vector<double>> Lattice2DPositionBuilder::generatePositions(dou
     }
     return lattice_positions;
 }
-
-ParaCrystal2DPositionBuilder::ParaCrystal2DPositionBuilder(const InterferenceFunction2DParaCrystal *p_iff)
-    : mp_iff(p_iff)
-{}
-
-ParaCrystal2DPositionBuilder::~ParaCrystal2DPositionBuilder() =default;
-
-std::vector<std::vector<double> > ParaCrystal2DPositionBuilder::generatePositions(double layer_size, double) const
-{
-    return RealSpace2DParacrystalUtils::Compute2DParacrystalLatticePositions(mp_iff, layer_size);
 }

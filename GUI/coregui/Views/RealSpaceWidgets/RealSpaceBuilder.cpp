@@ -151,15 +151,11 @@ void RealSpaceBuilder::populateInterference(
     double layer_size = sceneGeometry.layer_size();
     double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
 
-    // If interference type is Finite 2D Lattice
-    if (interferenceLattice->modelType() == Constants::InterferenceFunctionFinite2DLatticeType)
-        RealSpaceBuilderUtils::populateInterferenceFinite2DLatticeType(
-            interference.get(), model, particle3DContainer_vector, sceneGeometry, this);
-
     // If interference type is 1D Lattice, 2D lattice, 2D paracrystal
-    else if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType
-             || interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType
-             || interferenceLattice->modelType() == Constants::InterferenceFunction2DParaCrystalType) {
+    if (interferenceLattice->modelType() == Constants::InterferenceFunction1DLatticeType
+        || interferenceLattice->modelType() == Constants::InterferenceFunction2DLatticeType
+        || interferenceLattice->modelType() == Constants::InterferenceFunction2DParaCrystalType
+        || interferenceLattice->modelType() == Constants::InterferenceFunctionFinite2DLatticeType) {
         RealSpacePositionBuilder pos_builder;
         interference->accept(&pos_builder);
         std::vector<std::vector<double>> lattice_positions =

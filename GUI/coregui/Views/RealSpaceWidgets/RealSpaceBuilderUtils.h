@@ -54,16 +54,6 @@ BA_CORE_API_ void populateParticlesAtLatticePositions(
     const std::vector<Particle3DContainer>& particle3DContainer_vector, RealSpaceModel* model,
     const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
 
-// InterferenceFunctionFinite2DLatticeType
-BA_CORE_API_ void populateInterferenceFinite2DLatticeType(
-    const IInterferenceFunction* interference, RealSpaceModel* model,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D);
-
-BA_CORE_API_ std::vector<std::vector<double>>
-computeInterferenceFinite2DLatticePositions(double l1, double l2, double l_alpha, double l_xi,
-                                            int nc1, int nc2, double posVarFinite2D);
-
 // InterferenceFunctionRadialParacrystalType
 BA_CORE_API_ void
 populateRadialParacrystalType(const IInterferenceFunction* interference, RealSpaceModel* model,

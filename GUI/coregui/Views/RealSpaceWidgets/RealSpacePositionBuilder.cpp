@@ -39,7 +39,10 @@ void RealSpacePositionBuilder::visit(const InterferenceFunction2DParaCrystal* p_
     mP_pos_builder.reset(new ParaCrystal2DPositionBuilder(p_iff));
 }
 
-void RealSpacePositionBuilder::visit(const InterferenceFunctionFinite2DLattice* p_iff) {}
+void RealSpacePositionBuilder::visit(const InterferenceFunctionFinite2DLattice* p_iff)
+{
+    mP_pos_builder.reset(new Finite2DLatticePositionBuilder(p_iff));
+}
 
 void RealSpacePositionBuilder::visit(const InterferenceFunctionRadialParaCrystal* p_iff) {}
 

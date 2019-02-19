@@ -30,9 +30,11 @@ public:
 
     std::vector<std::vector<double>> generatePositions(double layer_size,
                                                        double density = 0.0) const;
+
 private:
     virtual std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                                    double density = 0.0) const = 0;
+    virtual double positionVariance() const = 0;
 };
 
 //! The default position builder is used when no specific implementation exist for generating
@@ -48,6 +50,7 @@ public:
 private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
+    double positionVariance() const override;
 };
 
 class RandomPositionBuilder : public IPositionBuilder
@@ -59,6 +62,7 @@ public:
 private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
+    double positionVariance() const override;
 };
 
 class Lattice1DPositionBuilder : public IPositionBuilder
@@ -70,6 +74,7 @@ public:
 private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
+    double positionVariance() const override;
     const InterferenceFunction1DLattice* mp_iff;
 };
 
@@ -82,6 +87,7 @@ public:
 private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
+    double positionVariance() const override;
     const InterferenceFunction2DLattice* mp_iff;
 };
 
@@ -94,6 +100,7 @@ public:
 private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
+    double positionVariance() const override;
     const InterferenceFunction2DParaCrystal* mp_iff;
 };
 
@@ -106,6 +113,7 @@ public:
 private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
+    double positionVariance() const override;
     const InterferenceFunctionFinite2DLattice* mp_iff;
 };
 
@@ -118,6 +126,7 @@ public:
 private:
     std::vector<std::vector<double>> generatePositionsImpl(double layer_size,
                                                            double density = 0.0) const override;
+    double positionVariance() const override;
     const InterferenceFunctionRadialParaCrystal* mp_iff;
 };
 

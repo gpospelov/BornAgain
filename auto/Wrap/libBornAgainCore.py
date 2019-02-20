@@ -11488,7 +11488,10 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list 
+        oriented vertex list
+
+        _sym_S2: 
+        true if face has a perpedicular two-fold symmetry axis 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -18235,7 +18238,7 @@ class SimulationResult(_object):
 
         PyObject * SimulationResult::array() const
 
-        returns data as Python numpy array 
+        returns intensity data as Python numpy array 
 
         """
         return _libBornAgainCore.SimulationResult_array(self)
@@ -18247,6 +18250,11 @@ class SimulationResult(_object):
         axis(SimulationResult self) -> vdouble1d_t
         axis(SimulationResult self, size_t i_axis, AxesUnits units) -> vdouble1d_t
         axis(SimulationResult self, size_t i_axis) -> vdouble1d_t
+
+        std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
+
+        Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
+
         """
         return _libBornAgainCore.SimulationResult_axis(self, *args)
 

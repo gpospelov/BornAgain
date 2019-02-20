@@ -9990,7 +9990,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -12787,7 +12787,10 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list 
+oriented vertex list
+
+_sym_S2: 
+true if face has a perpedicular two-fold symmetry axis 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
@@ -14666,9 +14669,6 @@ C++ includes: SimulationResult.h
 %feature("docstring")  SimulationResult::data "OutputData< double > * SimulationResult::data(AxesUnits units=AxesUnits::DEFAULT) const
 ";
 
-%feature("docstring")  SimulationResult::histogram1d "Histogram1D * SimulationResult::histogram1d(AxesUnits units=AxesUnits::DEFAULT) const
-";
-
 %feature("docstring")  SimulationResult::histogram2d "Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
 ";
 
@@ -14687,7 +14687,15 @@ Returns underlying unit converter.
 
 %feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array() const
 
-returns data as Python numpy array 
+returns intensity data as Python numpy array 
+";
+
+%feature("docstring")  SimulationResult::axis "std::vector< double > SimulationResult::axis(AxesUnits units=AxesUnits::DEFAULT) const
+";
+
+%feature("docstring")  SimulationResult::axis "std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
+
+Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
 ";
 
 
@@ -14929,6 +14937,90 @@ Returns footprint correction factor for simulation element with index  i
 Returns the number of simulation elements. 
 ";
 
+%feature("docstring")  SpecularDataHandlerAng::wavelength "double SpecularDataHandlerAng::wavelength() const
+";
+
+
+// File: classSpecularDataHandlerQ.xml
+%feature("docstring") SpecularDataHandlerQ "";
+
+%feature("docstring")  SpecularDataHandlerQ::SpecularDataHandlerQ "SpecularDataHandlerQ::SpecularDataHandlerQ(std::unique_ptr< IAxis > qs_nm)
+
+Accepts qz-value vector (in inverse nm) 
+";
+
+%feature("docstring")  SpecularDataHandlerQ::~SpecularDataHandlerQ "SpecularDataHandlerQ::~SpecularDataHandlerQ() override
+";
+
+%feature("docstring")  SpecularDataHandlerQ::clone "SpecularDataHandlerQ * SpecularDataHandlerQ::clone() const override
+";
+
+%feature("docstring")  SpecularDataHandlerQ::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerQ::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  SpecularDataHandlerQ::coordinateAxis "virtual const IAxis* SpecularDataHandlerQ::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  SpecularDataHandlerQ::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerQ::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  SpecularDataHandlerQ::footprint "double SpecularDataHandlerQ::footprint(size_t) const override
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  SpecularDataHandlerQ::numberOfSimulationElements "size_t SpecularDataHandlerQ::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+
+// File: classSpecularDataHandlerTOF.xml
+%feature("docstring") SpecularDataHandlerTOF "";
+
+%feature("docstring")  SpecularDataHandlerTOF::SpecularDataHandlerTOF "SpecularDataHandlerTOF::SpecularDataHandlerTOF(double inc_angle, std::unique_ptr< IAxis > qz, const IFootprintFactor *footprint=nullptr)
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::~SpecularDataHandlerTOF "SpecularDataHandlerTOF::~SpecularDataHandlerTOF() override
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::clone "SpecularDataHandlerTOF * SpecularDataHandlerTOF::clone() const override
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerTOF::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::coordinateAxis "virtual const IAxis* SpecularDataHandlerTOF::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerTOF::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::footprint "double SpecularDataHandlerTOF::footprint(size_t i) const override
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::numberOfSimulationElements "size_t SpecularDataHandlerTOF::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::inclinationAngle "double SpecularDataHandlerTOF::inclinationAngle() const
+";
+
 
 // File: classSpecularDetector1D.xml
 %feature("docstring") SpecularDetector1D "
@@ -15043,6 +15135,12 @@ Returns the results of the simulation in a format that supports unit conversion 
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, std::vector< double > incident_angle_values, const IFootprintFactor *beam_shape=nullptr)
 ";
 
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(std::vector< double > wavelength_values, double incident_angle, const IFootprintFactor *beam_shape=nullptr)
+";
+
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(std::vector< double > qz_values)
+";
+
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
 
 Sets beam parameters for specular simulation.  lambda defines the wavelength of incoming beam (in nm),  alpha_axis defines the range of incident angles, while  beam_shape (optional parameter) is required to take footprint effects into account. Incident angle axis can be defined as a numpy array of values. This overload facilitates defining non-uniform incident angle axis. Another overload accepts the number of bins ( nbins), as well as minimal ( alpha_i_min) and maximal ( alpha_i_max) angle values. With using this overload a uniform angle axis in the given range is assigned to the beam. 
@@ -15056,6 +15154,11 @@ Returns a pointer to coordinate axis.
 %feature("docstring")  SpecularSimulation::footprintFactor "const IFootprintFactor * SpecularSimulation::footprintFactor() const
 
 Returns a pointer to internal data handler. 
+";
+
+%feature("docstring")  SpecularSimulation::dataHandler "const ISpecularDataHandler* SpecularSimulation::dataHandler() const
+
+Returns internal data handler. 
 ";
 
 
@@ -15587,20 +15690,15 @@ C++ includes: Unit.h
 // File: classUnitConverter1D.xml
 %feature("docstring") UnitConverter1D "
 
-Conversion of axis units for the case of 1D simulation result (specular simulation in particular).
+Conversion of axis units for the case of 1D simulation result.
 
 C++ includes: UnitConverter1D.h
 ";
 
-%feature("docstring")  UnitConverter1D::UnitConverter1D "UnitConverter1D::UnitConverter1D(const Beam &beam, const IAxis &axis, AxesUnits axis_units=AxesUnits::RADIANS)
-
-Constructs the object for unit conversion. Input axis is in radians. 
+%feature("docstring")  UnitConverter1D::~UnitConverter1D "UnitConverter1D::~UnitConverter1D() override=default
 ";
 
-%feature("docstring")  UnitConverter1D::~UnitConverter1D "UnitConverter1D::~UnitConverter1D() override
-";
-
-%feature("docstring")  UnitConverter1D::clone "UnitConverter1D * UnitConverter1D::clone() const override
+%feature("docstring")  UnitConverter1D::clone "UnitConverter1D* UnitConverter1D::clone() const override=0
 ";
 
 %feature("docstring")  UnitConverter1D::dimension "size_t UnitConverter1D::dimension() const override
@@ -15618,24 +15716,83 @@ Calculates minimum on-axis value in given units.
 Calculates maximum on-axis value in given units. 
 ";
 
-%feature("docstring")  UnitConverter1D::axisSize "size_t UnitConverter1D::axisSize(size_t i_axis) const override
+%feature("docstring")  UnitConverter1D::createConvertedAxis "std::unique_ptr< IAxis > UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const override
+
+Creates axis in converted units. 
+";
+
+
+// File: classUnitConverterConvSpec.xml
+%feature("docstring") UnitConverterConvSpec "
+
+Conversion of axis units for the case of conventional (angle-based) reflectometry.
+
+C++ includes: UnitConverter1D.h
+";
+
+%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const Beam &beam, const IAxis &axis, AxesUnits axis_units=AxesUnits::RADIANS)
+
+Constructs the object for unit conversion. 
+";
+
+%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const SpecularDataHandlerAng &handler)
+";
+
+%feature("docstring")  UnitConverterConvSpec::~UnitConverterConvSpec "UnitConverterConvSpec::~UnitConverterConvSpec() override
+";
+
+%feature("docstring")  UnitConverterConvSpec::clone "UnitConverterConvSpec * UnitConverterConvSpec::clone() const override
+";
+
+%feature("docstring")  UnitConverterConvSpec::axisSize "size_t UnitConverterConvSpec::axisSize(size_t i_axis) const override
 
 Returns the size of underlying axis. 
 ";
 
-%feature("docstring")  UnitConverter1D::availableUnits "std::vector< AxesUnits > UnitConverter1D::availableUnits() const override
+%feature("docstring")  UnitConverterConvSpec::availableUnits "std::vector< AxesUnits > UnitConverterConvSpec::availableUnits() const override
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  UnitConverter1D::defaultUnits "AxesUnits UnitConverter1D::defaultUnits() const override
+%feature("docstring")  UnitConverterConvSpec::defaultUnits "AxesUnits UnitConverterConvSpec::defaultUnits() const override
 
 Returns default units to convert to. 
 ";
 
-%feature("docstring")  UnitConverter1D::createConvertedAxis "std::unique_ptr< IAxis > UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const override
 
-Creates axis in converted units. 
+// File: classUnitConverterQSpec.xml
+%feature("docstring") UnitConverterQSpec "
+
+Conversion of axis units for the case of q-defined reflectometry.
+
+C++ includes: UnitConverter1D.h
+";
+
+%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerQ &handler)
+";
+
+%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerTOF &handler)
+";
+
+%feature("docstring")  UnitConverterQSpec::~UnitConverterQSpec "UnitConverterQSpec::~UnitConverterQSpec() override
+";
+
+%feature("docstring")  UnitConverterQSpec::clone "UnitConverterQSpec * UnitConverterQSpec::clone() const override
+";
+
+%feature("docstring")  UnitConverterQSpec::axisSize "size_t UnitConverterQSpec::axisSize(size_t i_axis) const override
+
+Returns the size of underlying axis. 
+";
+
+%feature("docstring")  UnitConverterQSpec::availableUnits "std::vector< AxesUnits > UnitConverterQSpec::availableUnits() const override
+
+Returns the list of all available units. 
+";
+
+%feature("docstring")  UnitConverterQSpec::defaultUnits "AxesUnits UnitConverterQSpec::defaultUnits() const override
+
+Returns default units to convert to. 
 ";
 
 
@@ -16100,6 +16257,9 @@ vector<vector<double>>
 %feature("docstring")  AxisNames::InitSpecAxis "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
 ";
 
+%feature("docstring")  AxisNames::InitSpecAxisQ "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSpecAxisQ()
+";
+
 %feature("docstring")  AxisNames::InitSampleDepthAxis "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSampleDepthAxis()
 ";
 
@@ -16429,7 +16589,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -16909,6 +17069,12 @@ Simulation with fitting.  Beam intensity set to provide reasonably large values 
 ";
 
 %feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularTOF "SpecularSimulation * StandardSimulations::BasicSpecularTOF()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularQ "SpecularSimulation * StandardSimulations::BasicSpecularQ()
 ";
 
 %feature("docstring")  StandardSimulations::SpecularWithGaussianBeam "SpecularSimulation * StandardSimulations::SpecularWithGaussianBeam()

@@ -107,6 +107,19 @@ SpecularPlan::~SpecularPlan() = default;
 
 // ----------------------------------------------------------------------------
 
+SpecularPlanQ::SpecularPlanQ()
+    : FitPlan("SpecularPlanQ", /*residual_based = */ true)
+{
+    setSimulationName("BasicSpecularQ");
+    setBuilderName("PlainMultiLayerBySLDBuilder");
+    addParameter(Parameter("ti_thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
+                 3.0 * nm);
+}
+
+SpecularPlanQ::~SpecularPlanQ() = default;
+
+// ----------------------------------------------------------------------------
+
 MultipleSpecPlan::MultipleSpecPlan()
     : FitPlan("MultipleSpecPlan", /*residual_based = */ true)
 {

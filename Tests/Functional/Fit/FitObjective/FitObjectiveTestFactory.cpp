@@ -39,6 +39,8 @@ FitObjectiveTestFactory::FitObjectiveTestFactory()
                  "Minuit + Genetic, CylindersInBA");
     registerItem("SpecularFitTest", create_new<SpecularFitTest>,
                  "Minuit, Basic specular fitting");
+    registerItem("SpecularFitTestQ", create_new<SpecularFitTestQ>,
+                 "Minuit, Basic specular fitting (q-defined instrument)");
     registerItem("MultipleSpecFittingTest", create_new<MultipleSpecFittingTest>,
                  "Minuit, fitting of several reflectometry curves");
     registerItem("OffSpecFitTest", create_new<OffSpecFitTest>,

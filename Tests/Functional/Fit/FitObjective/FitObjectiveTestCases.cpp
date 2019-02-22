@@ -56,6 +56,9 @@ AdjustMinimizerFit::AdjustMinimizerFit()
 SpecularFitTest::SpecularFitTest()
     : FitObjectiveTest("Minuit2", "Migrad", "SpecularPlan") {}
 
+SpecularFitTestQ::SpecularFitTestQ()
+    : FitObjectiveTest("Minuit2", "Migrad", "SpecularPlanQ") {}
+
 MultipleSpecFittingTest::MultipleSpecFittingTest()
     : FitObjectiveTest("Minuit2", "Migrad", "MultipleSpecPlan") {}
 

@@ -16,7 +16,6 @@ BornAgain-1.15.0, released 2019.02.25
   * Bug #2286: Fix usage of Debye-Waller factors for superlattices
   * Bug #2304: Uncaught exception in GUI during real time tuning
   * Bug #2305: Premature deletion of OutputData<double> in python
-  * Bug #2307: Wrong units during fit with q-defined reflectometry
   * Feature #2259: Make off-spec simulation fittable
   * Feature #2260: Remove domain size and damping length in paracrystals in favour of a small q expansion
   * Feature #2267: Activate polarized sans

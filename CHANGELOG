@@ -25,7 +25,6 @@ BornAgain-1.15.0, released 2019.02.25
   * Feature #2292: Switch internal specular computations to q values
   * Feature #2297: Provide q-based input for specular simulations
   * Feature #2303: Implement twin particle interference function
-  * Documentation #2223: Update BornAgain installation documentation on the webpage.
   * Documentation #2273: Comparative overview of existing reflectometry packages
   * Testing #2289: Test slicing and averaging functionality for reflectometry in BornAgain
   * Support #2291: Provide hard disc Percus-Yevick interference function

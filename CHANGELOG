@@ -1,6 +1,7 @@
 BornAgain-1.15.0, released 2019.02.25
   > API changes:
-    1) Python: method getAlphaAxis renamed into coordinateAxis in SpecularSimulation
+     1) Python: method getAlphaAxis renamed into coordinateAxis in SpecularSimulation
+     2) Python: add axis() accessor in SimulationResult (to be used instead SimulationResult.data().getAxis()
   > Summary:
     1) Act on feedback from BornAgain school in December 2018: new features and corrections
     2) Support q-based specular simulations

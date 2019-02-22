@@ -24,6 +24,7 @@ FitPlanFactory::FitPlanFactory()
     registerItem("RectDetPlan", create_new<RectDetPlan>);
     registerItem("AdjustMinimizerPlan", create_new<AdjustMinimizerPlan>);
     registerItem("SpecularPlan", create_new<SpecularPlan>);
+    registerItem("SpecularPlanQ", create_new<SpecularPlanQ>);
     registerItem("MultipleSpecPlan", create_new<MultipleSpecPlan>);
     registerItem("OffSpecFitPlan", create_new<OffSpecFitPlan>);
 }

@@ -1,36 +1,60 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/SimulationElement/SpecularSimulationElement.cpp
+//! @brief     Implements the class SpecularSimulationElement.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
 #include "SpecularSimulationElement.h"
+#include "KzComputation.h"
+#include "Layer.h"
+#include "MultiLayer.h"
 
-const double phi_i_0 = 0.0;
-
-SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha_i)
-    : m_wavelength(wavelength)
-    , m_alpha_i(alpha_i)
-    , m_intensity(0.0)
+SpecularSimulationElement::SpecularSimulationElement(double kz)
+    : m_intensity(0.0)
     , m_calculation_flag(true)
+    , m_kz_computation([kz](const MultiLayer& sample) {
+          return KzComputation::computeKzFromSLDs(sample, kz);
+      })
+{}
+
+SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha)
+    : m_intensity(0.0)
+    , m_calculation_flag(true)
+    , m_kz_computation(
+          [k = vecOfLambdaAlphaPhi(wavelength, alpha, /*phi =*/0.0)](const MultiLayer& sample) {
+              return KzComputation::computeKzFromRefIndeces(sample, k);
+          })
 {
 }
 
 SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement& other)
     : m_polarization(other.m_polarization)
-    , m_wavelength(other.m_wavelength)
-    , m_alpha_i(other.m_alpha_i)
     , m_intensity(other.m_intensity)
     , m_calculation_flag(other.m_calculation_flag)
+    , m_kz_computation(other.m_kz_computation)
 {
 }
 
 SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&& other) noexcept
     : m_polarization(std::move(other.m_polarization))
-    , m_wavelength(other.m_wavelength)
-    , m_alpha_i(other.m_alpha_i)
     , m_intensity(other.m_intensity)
     , m_calculation_flag(other.m_calculation_flag)
+    , m_kz_computation(std::move(other.m_kz_computation))
 {
 }
 
 SpecularSimulationElement::~SpecularSimulationElement() = default;
 
-SpecularSimulationElement& SpecularSimulationElement::operator=(const SpecularSimulationElement &other)
+SpecularSimulationElement& SpecularSimulationElement::
+operator=(const SpecularSimulationElement& other)
 {
     if (this != &other) {
         SpecularSimulationElement tmp(other);
@@ -39,17 +63,15 @@ SpecularSimulationElement& SpecularSimulationElement::operator=(const SpecularSi
     return *this;
 }
 
-kvector_t SpecularSimulationElement::getKi() const
+std::vector<complex_t> SpecularSimulationElement::produceKz(const MultiLayer& sample)
 {
-    return vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, phi_i_0);
+    return m_kz_computation(sample);
 }
 
 void SpecularSimulationElement::swapContent(SpecularSimulationElement &other)
 {
     m_polarization.swapContent(other.m_polarization);
-    std::swap(m_wavelength, other.m_wavelength);
-    std::swap(m_alpha_i, other.m_alpha_i);
     std::swap(m_intensity, other.m_intensity);
     std::swap(m_calculation_flag, other.m_calculation_flag);
+    m_kz_computation.swap(other.m_kz_computation);
 }
-

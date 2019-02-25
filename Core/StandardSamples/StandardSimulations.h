@@ -58,6 +58,8 @@ BA_CORE_API_ GISASSimulation* MiniGISASFit();
 
 // Specular simulation tests:
 BA_CORE_API_ SpecularSimulation* BasicSpecular();
+BA_CORE_API_ SpecularSimulation* BasicSpecularTOF();
+BA_CORE_API_ SpecularSimulation* BasicSpecularQ();
 BA_CORE_API_ SpecularSimulation* SpecularWithGaussianBeam();
 BA_CORE_API_ SpecularSimulation* SpecularWithSquareBeam();
 BA_CORE_API_ SpecularSimulation* SpecularDivergentBeam();

@@ -167,9 +167,8 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesU
     :param units: units on the x-axis
     """
 
-    data = result.data(units)
-    intensity = data.getArray()
-    x_axis = data.getAxis(0).getBinCenters()
+    intensity = result.array()
+    x_axis = result.axis(units)
     ymax = np.amax(intensity) * 2.0 if ymax is None else ymax
     ymin = max(np.amin(intensity) * 0.5, 1e-18 * ymax) if ymin is None else ymin
 
@@ -288,105 +287,6 @@ class PlotterGISAS(Plotter):
         Plotter.plot(self)
 
 
-class PlotterSpecular_old(Plotter):
-    """
-    Draws fit progress every nth iteration. This class has to be attached to
-    FitSuite via attachObserver method. Intended specifically for observing
-    specular data fit.
-    FitSuite kernel will call DrawObserver's update() method every n'th iteration.
-    """
-
-    def __init__(self, draw_every_nth=10):
-        Plotter.__init__(self)
-        self.gs = gridspec.GridSpec(1, 2, width_ratios=[2.5, 1], wspace=0)
-
-    @staticmethod
-    def as_si(val, ndp):
-        """
-        Fancy print of scientific-formatted values
-        :param val: numeric value
-        :param ndp: number of decimal digits to print
-        :return: a string corresponding to the _val_
-        """
-        s = '{x:0.{ndp:d}e}'.format(x=val, ndp=ndp)
-        m, e = s.split('e')
-        return r'{m:s}\times 10^{{{e:d}}}'.format(m=m, e=int(e))
-
-    @staticmethod
-    def trunc_str(token, length):
-        """
-        Truncates token if it is longer than length.
-
-        Example:
-            trunc_str("123456789", 8) returns "123456.."
-
-            trunc_str("123456789", 9) returns "123456789"
-
-        :param token: input string
-        :param length: max non-truncated length
-        :return:
-        """
-        return (token[:length - 2] + '..') if len(token) > length else token
-
-    def plot_table(self, fit_suite):
-
-        # definitions and values
-        trunc_length = 9  # max string field width in the table
-        n_digits = 1  # number of decimal digits to print
-        n_iterations = fit_suite.numberOfIterations()  # number of iterations
-        rel_dif = fit_suite.relativeDifference().array().max()  # maximum relative difference
-        fitted_parameters = fit_suite.fitParameters()
-
-        # creating table content
-        labels = ("Parameter", "Value")
-        table_data = [["Iteration", '${:d}$'.format(n_iterations)],
-                      ["$d_{r, max}$", '${:s}$'.format(self.as_si(rel_dif, n_digits))]]
-        for fitPar in fitted_parameters:
-            table_data.append(['{:s}'.format(self.trunc_str(fitPar.name(), trunc_length)),
-                               '${:s}$'.format(self.as_si(fitPar.value(), n_digits))])
-
-        # creating table
-        axs = plt.subplot(self.gs[1])
-        axs.axis('tight')
-        axs.axis('off')
-        table = plt.table(cellText=table_data, colLabels=labels, cellLoc='center',
-                          loc='bottom left', bbox=[0.0, 0.0, 1.0, 1.0])
-
-    def plot_graph(self, fit_suite):
-
-        # retrieving data from fit suite
-        real_data = fit_suite.experimentalData().data()
-        sim_data = fit_suite.simulationResult().data()
-
-        # data values
-        sim_values = sim_data.getArray()
-        real_values = real_data.getArray()
-
-        # default font properties dictionary to use
-        font = {'family': 'serif',
-                'weight': 'normal',
-                'size': label_fontsize}
-
-        plt.subplot(self.gs[0])
-        plt.semilogy(sim_data.getAxis(0).getBinCenters(), sim_values, 'b',
-                     real_data.getAxis(0).getBinCenters(), real_values, 'k--')
-        plt.ylim((0.5 * np.min(real_values), 5 * np.max(real_values)))
-
-        xlabel = get_axes_labels(fit_suite.experimentalData(), ba.AxesUnits.DEFAULT)[0]
-        plt.legend(['BornAgain', 'Reference'], loc='upper right', prop=font)
-        plt.xlabel(xlabel, fontdict=font)
-        plt.ylabel("Intensity", fontdict=font)
-        plt.title("Specular data fitting", fontdict=font)
-
-    def plot(self, fit_suite):
-        Plotter.reset(self)
-
-        self.plot_graph(fit_suite)
-        self.plot_table(fit_suite)
-
-        Plotter.plot(self)
-
-
 class PlotterSpecular(Plotter):
     """
     Draws fit progress. Intended specifically for observing
@@ -456,12 +356,12 @@ class PlotterSpecular(Plotter):
 
     def plot_graph(self, fit_objective):
         # retrieving data from fit suite
-        real_data = fit_objective.experimentalData().data()
-        sim_data = fit_objective.simulationResult().data()
+        real_data = fit_objective.experimentalData()
+        sim_data = fit_objective.simulationResult()
 
         # data values
-        sim_values = sim_data.getArray()
-        real_values = real_data.getArray()
+        sim_values = sim_data.array()
+        real_values = real_data.array()
 
         # default font properties dictionary to use
         font = {'family': 'serif',
@@ -469,11 +369,11 @@ class PlotterSpecular(Plotter):
                 'size': label_fontsize}
 
         plt.subplot(self.gs[0])
-        plt.semilogy(sim_data.getAxis(0).getBinCenters(), sim_values, 'b',
-                     real_data.getAxis(0).getBinCenters(), real_values, 'k--')
+        plt.semilogy(sim_data.axis(), sim_values, 'b',
+                     real_data.axis(), real_values, 'k--')
         plt.ylim((0.5 * np.min(real_values), 5 * np.max(real_values)))
 
-        xlabel = get_axes_labels(fit_objective.experimentalData(), ba.AxesUnits.DEFAULT)[0]
+        xlabel = get_axes_labels(real_data, ba.AxesUnits.DEFAULT)[0]
         plt.legend(['BornAgain', 'Reference'], loc='upper right', prop=font)
         plt.xlabel(xlabel, fontdict=font)
         plt.ylabel("Intensity", fontdict=font)

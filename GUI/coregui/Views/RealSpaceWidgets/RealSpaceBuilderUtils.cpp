@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "RealSpaceBuilderUtils.h"
+#include "Exceptions.h"
 #include "FormFactorCrystal.h"
 #include "IFormFactorDecorator.h"
 #include "IParticle.h"
@@ -22,6 +23,7 @@
 #include "LayerItem.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
+#include "MesoCrystal.h"
 #include "MesoCrystalItem.h"
 #include "MultiLayerItem.h"
 #include "Particle.h"
@@ -33,7 +35,6 @@
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
-#include "RealSpace2DParacrystalUtils.h"
 #include "RealSpaceBuilder.h"
 #include "RealSpaceCanvas.h"
 #include "RealSpaceMesoCrystalUtils.h"
@@ -59,6 +60,13 @@ const IFormFactor* getUnderlyingFormFactor(const IFormFactor* ff)
 
     return ff;
 }
+
+kvector_t to_kvector(const QVector3D& origin)
+{
+    return kvector_t(static_cast<double>(origin.x()), static_cast<double>(origin.y()),
+                     static_cast<double>(origin.z()));
+}
+
 }
 
 // compute cumulative abundances of particles
@@ -114,218 +122,6 @@ void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
         }
     }
 }
-
-// No interference - random distribution of particles
-void RealSpaceBuilderUtils::populateRandomDistribution(
-    RealSpaceModel* model, const SessionItem& layoutItem,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-{
-    // get the lattice positions at which to populate the particles
-    std::vector<std::vector<double>> lattice_positions
-        = computeRandomDistributionLatticePositions(layoutItem, sceneGeometry);
-
-    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                        sceneGeometry, builder3D);
-}
-
-std::vector<std::vector<double>>
-RealSpaceBuilderUtils::computeRandomDistributionLatticePositions(const SessionItem& layoutItem,
-                                                                 const SceneGeometry& sceneGeometry)
-{
-    double layer_size = sceneGeometry.layer_size();
-    std::vector<std::vector<double>> lattice_positions;
-    std::vector<double> position;
-
-    // to compute total number of particles we use the total particle density
-    // and multiply by the area of the layer
-    double total_density = layoutItem.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble();
-    int num_particles = static_cast<int>(total_density * (2 * layer_size) * (2 * layer_size));
-
-    for (int i = 1; i <= num_particles; ++i) {
-        // For calculating lattice coordinates we use random x and y coordinates
-        position.push_back((rand() / static_cast<double>(RAND_MAX)) * 2 * layer_size
-                           - layer_size); // x
-        position.push_back((rand() / static_cast<double>(RAND_MAX)) * 2 * layer_size
-                           - layer_size); // y
-
-        // no need for z coordinate as all lattice positions are calculated in the xy plane
-
-        lattice_positions.push_back(position);
-        position.clear();
-    }
-
-    return lattice_positions;
-}
-
-// InterferenceFunction2DLatticeType
-void RealSpaceBuilderUtils::populateInterference2DLatticeType(
-    const IInterferenceFunction* interference, RealSpaceModel* model,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-{
-    auto interference2D = dynamic_cast<const InterferenceFunction2DLattice*>(interference);
-    const Lattice2D& lattice2D = interference2D->lattice();
-
-    std::vector<std::vector<double>> lattice_positions = computeInterference2DLatticePositions(
-        lattice2D.length1(), lattice2D.length2(), lattice2D.latticeAngle(),
-        lattice2D.rotationAngle(), sceneGeometry);
-
-    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                        sceneGeometry, builder3D);
-}
-
-std::vector<std::vector<double>> RealSpaceBuilderUtils::computeInterference2DLatticePositions(
-    double l1, double l2, double l_alpha, double l_xi, const SceneGeometry& sceneGeometry)
-{
-    double layer_size = sceneGeometry.layer_size();
-    std::vector<std::vector<double>> lattice_positions;
-    std::vector<double> position;
-
-    // Estimate the limit n1 and n2 of the integer multiple i and j of the lattice vectors required
-    // for populating particles correctly within the 3D model's boundaries
-    int n1 = 0, n2 = 0;
-    n1 = l1 == 0.0 ? 2 : static_cast<int>(layer_size * 2 / l1);
-
-    // This condition is required when this function is used to compute 1D Lattice positions
-    if (l2 != 0) {
-        n2 = l2 == 0.0 ? 2 : static_cast<int>(layer_size * 2 / l2);
-
-        n1 = std::max(n1, n2);
-        n2 = std::max(n1, n2);
-    }
-
-    for (int i = -n1; i <= n1; ++i) {
-        for (int j = -n2; j <= n2; ++j) {
-            // For calculating lattice position vector v, we use: v = i*l1 + j*l2
-            // where l1 and l2 are the lattice vectors,
-            // i and j are the integer multiples of l1 and l2 respectively
-
-            position.push_back(i * l1 * std::cos(l_xi)
-                               + j * l2 * std::cos(l_alpha + l_xi)); // x coordinate
-            position.push_back(i * l1 * std::sin(l_xi)
-                               + j * l2 * std::sin(l_alpha + l_xi)); // y coordinate
-
-            // no need for z coordinate as all lattice positions are calculated in the xy plane
-
-            lattice_positions.push_back(position);
-            position.clear();
-        }
-    }
-
-    return lattice_positions;
-}
-
-void RealSpaceBuilderUtils::populateInterference1DLatticeType(
-    const IInterferenceFunction* interference, RealSpaceModel* model,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-{
-    auto interference1D = dynamic_cast<const InterferenceFunction1DLattice*>(interference);
-    auto interference1DParameters = interference1D->getLatticeParameters();
-
-    // Simply set the parameters l1 = l, l2 = 0, l_alpha = 0 and l_xi = l_xi in
-    // computeInterference2DLatticePositions() to compute lattice positions for 1D Lattice
-    std::vector<std::vector<double>> lattice_positions = computeInterference2DLatticePositions(
-        interference1DParameters.m_length, 0.0, 0.0, interference1DParameters.m_xi, sceneGeometry);
-
-    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                        sceneGeometry, builder3D);
-}
-
-void RealSpaceBuilderUtils::populateRadialParacrystalType(
-    const IInterferenceFunction* interference, RealSpaceModel* model,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-{
-    auto interferenceRadialParacrystal
-        = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference);
-    auto peakDistance = interferenceRadialParacrystal->peakDistance();
-
-    double layer_size = sceneGeometry.layer_size();
-    std::vector<std::vector<double>> lattice_positions;
-
-    // Estimate the limit n of the integer multiple i of the peakDistance required
-    // for populating particles correctly within the 3D model's boundaries
-    int n = static_cast<int>(layer_size * 2) / static_cast<int>(peakDistance);
-
-    lattice_positions.resize(static_cast<size_t>(2 * n + 1));
-    for (auto& it : lattice_positions) {
-        it.resize(2);
-    }
-
-    lattice_positions[0][0] = 0.0; // x coordinate of reference particle - at the origin
-    lattice_positions[0][1] = 0.0; // y coordinate of reference particle - at the origin
-
-    for (int i = 1; i <= 2 * n; ++i) {
-        // positions of particles located along +x (store every odd index of lattice_positions)
-        size_t k1 = 0;
-        if (i - 2 > 0)
-            k1 = static_cast<size_t>(i - 2);
-
-        double offset = interferenceRadialParacrystal->randomSample();
-        lattice_positions[static_cast<size_t>(i)][0]
-            = lattice_positions[k1][0] + peakDistance + offset; // x coordinate
-        lattice_positions[static_cast<size_t>(i)][1] = 0.0;     // y coordinate
-
-        // positions of particles located along -x (store every even index of lattice_positions)
-        ++i;
-
-        size_t k2 = 0;
-        if (i - 2 > 0)
-            k2 = static_cast<size_t>(i - 2);
-
-        offset = interferenceRadialParacrystal->randomSample();
-        lattice_positions[static_cast<size_t>(i)][0]
-            = lattice_positions[k2][0] - peakDistance + offset; // x coordinate
-        lattice_positions[static_cast<size_t>(i)][1] = 0.0;     // y coordinate
-    }
-
-    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                        sceneGeometry, builder3D);
-}
-
-void RealSpaceBuilderUtils::populate2DParacrystalType(
-    const IInterferenceFunction* interference, RealSpaceModel* model,
-    const std::vector<Particle3DContainer>& particle3DContainer_vector,
-    const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
-{
-    auto interference2DParacrystal
-        = dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference);
-
-    RealSpace2DParacrystalUtils paracrystal2D(interference2DParacrystal, &sceneGeometry);
-
-    std::vector<std::vector<double>> lattice_positions
-        = paracrystal2D.compute2DParacrystalLatticePositions();
-
-    populateParticlesAtLatticePositions(lattice_positions, particle3DContainer_vector, model,
-                                        sceneGeometry, builder3D);
-}
-
-//// Implement Rotation of a 3D particle using parameters from IRotation Object
-// QVector3D RealSpaceBuilderUtils::implementParticleRotationfromIRotation(const IRotation*&
-// rotation)
-//{
-//    double alpha = 0.0;
-//    double beta = 0.0;
-//    double gamma = 0.0;
-
-//    if (auto rotX = dynamic_cast<const RotationX*>(rotation)) {
-//        beta = rotX->getAngle(); // about x-axis
-//    } else if (auto rotY = dynamic_cast<const RotationY*>(rotation)) {
-//        alpha = Units::deg2rad(90.0);
-//        beta = rotY->getAngle(); // about y-axis
-//        gamma = Units::deg2rad(-90.0);
-//    } else if (auto rotZ = dynamic_cast<const RotationZ*>(rotation)) {
-//        alpha = rotZ->getAngle(); // about z-axis
-//    } else if (auto rotEuler = dynamic_cast<const RotationEuler*>(rotation)) {
-//        alpha = rotEuler->getAlpha();
-//        beta = rotEuler->getBeta();
-//        gamma = rotEuler->getGamma();
-//    }
-//    return QVector3D(static_cast<float>(alpha), static_cast<float>(beta),
-//                     static_cast<float>(gamma));
-//}
 
 // Implement Rotation of a 3D particle using parameters from IRotation Object
 RealSpace::Vector3D
@@ -423,7 +219,8 @@ void RealSpaceBuilderUtils::applyParticleColor(const Particle& particle,
 }
 
 std::vector<Particle3DContainer>
-RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
+RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem,
+                                                 const QVector3D& origin)
 {
     std::vector<Particle3DContainer> particle3DContainer_vector;
 
@@ -438,7 +235,7 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
         if (particleItem->modelType() == Constants::ParticleType) {
             auto pItem = dynamic_cast<const ParticleItem*>(particleItem);
             auto particle = pItem->createParticle();
-            particle3DContainer = singleParticle3DContainer(*particle, total_abundance);
+            particle3DContainer = singleParticle3DContainer(*particle, total_abundance, origin);
         } else if (particleItem->modelType() == Constants::ParticleCoreShellType) {
             auto particleCoreShellItem = dynamic_cast<const ParticleCoreShellItem*>(particleItem);
             // If there is no CORE or SHELL to populate inside ParticleCoreShellItem
@@ -446,7 +243,8 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
                 || !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
                 continue;
             auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance);
+            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance,
+                                                               origin);
         } else if (particleItem->modelType() == Constants::ParticleCompositionType) {
             auto particleCompositionItem
                 = dynamic_cast<const ParticleCompositionItem*>(particleItem);
@@ -455,7 +253,7 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
                 continue;
             auto particleComposition = particleCompositionItem->createParticleComposition();
             particle3DContainer
-                = particleComposition3DContainer(*particleComposition, total_abundance);
+                = particleComposition3DContainer(*particleComposition, total_abundance, origin);
         } else if (particleItem->modelType() == Constants::ParticleDistributionType) {
             auto particleDistributionItem
                 = dynamic_cast<const ParticleDistributionItem*>(particleItem);
@@ -464,7 +262,7 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
                 continue;
             auto particleDistribution = particleDistributionItem->createParticleDistribution();
             std::vector<Particle3DContainer> pd_ContainerVector
-                = particleDistribution3DContainer(*particleDistribution, total_abundance);
+                = particleDistribution3DContainer(*particleDistribution, total_abundance, origin);
             for (size_t i = 0; i < pd_ContainerVector.size(); ++i) {
                 cumulative_abundance += pd_ContainerVector[i].cumulativeAbundance();
                 pd_ContainerVector[i].setCumulativeAbundance(cumulative_abundance);
@@ -477,7 +275,8 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
             if (!mesoCrystalItem->getItem(MesoCrystalItem::T_BASIS_PARTICLE))
                 continue;
             particle3DContainer
-                = RealSpaceBuilderUtils::mesoCrystal3DContainer(*mesoCrystalItem, total_abundance);
+                = RealSpaceBuilderUtils::mesoCrystal3DContainer(*mesoCrystalItem, total_abundance,
+                                                                origin);
         }
 
         cumulative_abundance += particle3DContainer.cumulativeAbundance();
@@ -488,20 +287,16 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem)
     return particle3DContainer_vector;
 }
 
-Particle3DContainer
-RealSpaceBuilderUtils::singleParticle3DContainer(const Particle& particle, double total_abundance,
-                                                 const IRotation* extra_rotation,
-                                                 kvector_t extra_translation)
+Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Particle& particle,
+                                                                     double total_abundance, const QVector3D& origin)
 {
     std::unique_ptr<Particle> P_clone(particle.clone()); // clone of the particle
-    P_clone->rotate(*extra_rotation);
-    P_clone->translate(extra_translation);
 
     std::unique_ptr<const IFormFactor> particleff(P_clone->createFormFactor());
     auto ff = getUnderlyingFormFactor(particleff.get());
 
     auto particle3D = TransformTo3D::createParticlefromIFormFactor(ff);
-    applyParticleTransformations(*P_clone, *particle3D);
+    applyParticleTransformations(*P_clone, *particle3D, to_kvector(origin));
     applyParticleColor(*P_clone, *particle3D);
 
     Particle3DContainer singleParticle3DContainer;
@@ -512,15 +307,12 @@ RealSpaceBuilderUtils::singleParticle3DContainer(const Particle& particle, doubl
     return singleParticle3DContainer;
 }
 
-Particle3DContainer RealSpaceBuilderUtils::particleCoreShell3DContainer(
-    const ParticleCoreShell& particleCoreShell, double total_abundance,
-    const IRotation* extra_rotation, kvector_t extra_translation)
+Particle3DContainer
+RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell& particleCoreShell,
+                                                    double total_abundance, const QVector3D& origin)
 {
     // clone of the particleCoreShell
     std::unique_ptr<ParticleCoreShell> PCS_clone(particleCoreShell.clone());
-
-    PCS_clone->rotate(*extra_rotation);
-    PCS_clone->translate(extra_translation);
 
     std::unique_ptr<const IFormFactor> coreParticleff(
         PCS_clone->coreParticle()->createFormFactor());
@@ -534,12 +326,13 @@ Particle3DContainer RealSpaceBuilderUtils::particleCoreShell3DContainer(
     auto shellParticle3D = TransformTo3D::createParticlefromIFormFactor(shellff);
 
     // core
-    applyParticleCoreShellTransformations(*PCS_clone->coreParticle(), *coreParticle3D, *PCS_clone);
+    applyParticleCoreShellTransformations(*PCS_clone->coreParticle(), *coreParticle3D, *PCS_clone,
+                                          to_kvector(origin));
     applyParticleColor(*PCS_clone->coreParticle(), *coreParticle3D);
 
     // shell (set an alpha value of 0.5 for transparency)
     applyParticleCoreShellTransformations(*PCS_clone->shellParticle(), *shellParticle3D,
-                                          *PCS_clone);
+                                          *PCS_clone, to_kvector(origin));
     applyParticleColor(*PCS_clone->shellParticle(), *shellParticle3D, 0.5);
 
     Particle3DContainer particleCoreShell3DContainer;
@@ -553,13 +346,11 @@ Particle3DContainer RealSpaceBuilderUtils::particleCoreShell3DContainer(
 }
 
 Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
-    const ParticleComposition& particleComposition, double total_abundance,
-    const IRotation* extra_rotation, kvector_t extra_translation)
+        const ParticleComposition& particleComposition, double total_abundance,
+        const QVector3D& origin)
 {
     // clone of the particleComposition
     std::unique_ptr<ParticleComposition> PC_clone(particleComposition.clone());
-    PC_clone->rotate(*extra_rotation);
-    PC_clone->translate(extra_translation);
 
     SafePointerVector<IParticle> pc_vector = PC_clone->decompose();
 
@@ -570,10 +361,17 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
         // no abundances are associated with the individual components of ParticleComposition
         if (dynamic_cast<const ParticleCoreShell*>(pc_particle)) {
             auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pc_particle);
-            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell);
+            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, 1.0, origin);
+        } else if (dynamic_cast<const MesoCrystal*>(pc_particle)) {
+            // TODO: Implement method to populate MesoCrystal from CORE and NOT from MesoCrystalItem
+            // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
+            std::ostringstream ostr;
+            ostr << "Sorry, MesoCrystal inside ParticleComposition not yet implemented";
+            ostr << "\n\nStay tuned!";
+            throw Exceptions::ClassInitializationException(ostr.str());
         } else {
             auto particle = dynamic_cast<const Particle*>(pc_particle);
-            particle3DContainer = singleParticle3DContainer(*particle);
+            particle3DContainer = singleParticle3DContainer(*particle, 1.0, origin);
         }
         // add particles from 3Dcontainer of core-shell/particle into particleComposition3DContainer
         for (size_t i = 0; i < particle3DContainer.containerSize(); ++i) {
@@ -589,7 +387,8 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
 }
 
 std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DContainer(
-    const ParticleDistribution& particleDistribution, double total_abundance)
+        const ParticleDistribution& particleDistribution, double total_abundance,
+        const QVector3D& origin)
 {
     auto pd_vector = particleDistribution.generateParticles();
 
@@ -600,27 +399,34 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
         if (dynamic_cast<const ParticleComposition*>(pd_particle)) {
             auto particleComposition = dynamic_cast<const ParticleComposition*>(pd_particle);
             particle3DContainer
-                = particleComposition3DContainer(*particleComposition, total_abundance);
+                = particleComposition3DContainer(*particleComposition, total_abundance, origin);
         } else if (dynamic_cast<const ParticleCoreShell*>(pd_particle)) {
             auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pd_particle);
-            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance);
+            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance,
+                                                               origin);
+        } else if (dynamic_cast<const MesoCrystal*>(pd_particle)) {
+            // TODO: Implement method to populate MesoCrystal from CORE and NOT from MesoCrystalItem
+            // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
+            std::ostringstream ostr;
+            ostr << "Sorry, MesoCrystal inside ParticleDistribution not yet implemented";
+            ostr << "\n\nStay tuned!";
+            throw Exceptions::ClassInitializationException(ostr.str());
         } else {
             auto particle = dynamic_cast<const Particle*>(pd_particle);
-            particle3DContainer = singleParticle3DContainer(*particle, total_abundance);
+            particle3DContainer = singleParticle3DContainer(*particle, total_abundance, origin);
         }
         particleDistribution3DContainer_vector.emplace_back(std::move(particle3DContainer));
     }
     return particleDistribution3DContainer_vector;
 }
 
-Particle3DContainer RealSpaceBuilderUtils::mesoCrystal3DContainer(
-    const MesoCrystalItem& mesoCrystalItem, double total_abundance, const IRotation* extra_rotation,
-    kvector_t extra_translation)
+Particle3DContainer
+RealSpaceBuilderUtils::mesoCrystal3DContainer(const MesoCrystalItem& mesoCrystalItem,
+                                              double total_abundance, const QVector3D& origin)
 {
-    RealSpaceMesoCrystal mesoCrystalUtils(&mesoCrystalItem, total_abundance);
+    RealSpaceMesoCrystal mesoCrystalUtils(&mesoCrystalItem, total_abundance, origin);
 
-    Particle3DContainer mesoCrystal3DContainer
-        = mesoCrystalUtils.populateMesoCrystal(extra_rotation, extra_translation);
+    Particle3DContainer mesoCrystal3DContainer = mesoCrystalUtils.populateMesoCrystal();
 
     return mesoCrystal3DContainer;
 }

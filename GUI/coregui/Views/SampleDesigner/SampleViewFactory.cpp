@@ -35,11 +35,12 @@ QStringList SampleViewFactory::m_valid_item_names  = QStringList()
         << Constants::ParticleCompositionType
         << Constants::MesoCrystalType
         << Constants::ParticleDistributionType
-        << Constants::InterferenceFunctionRadialParaCrystalType
-        << Constants::InterferenceFunction2DParaCrystalType
         << Constants::InterferenceFunction1DLatticeType
         << Constants::InterferenceFunction2DLatticeType
-        << Constants::InterferenceFunctionFinite2DLatticeType;
+        << Constants::InterferenceFunction2DParaCrystalType
+        << Constants::InterferenceFunctionFinite2DLatticeType
+        << Constants::InterferenceFunctionHardDiskType
+<< Constants::InterferenceFunctionRadialParaCrystalType;
 
 
 bool SampleViewFactory::isValidType(const QString &name)
@@ -81,20 +82,23 @@ IView *SampleViewFactory::createSampleView(const QString &name)
     else if (name==Constants::ParticleDistributionType) {
         return new ParticleDistributionView();
     }
-    else if (name==Constants::InterferenceFunctionRadialParaCrystalType) {
-        return new InterferenceFunctionRadialParaCrystalView();
-    }
-    else if (name==Constants::InterferenceFunction2DParaCrystalType) {
-        return new InterferenceFunction2DParaCrystalView();
-    }
     else if (name==Constants::InterferenceFunction1DLatticeType) {
         return new InterferenceFunction1DLatticeView();
     }
     else if (name==Constants::InterferenceFunction2DLatticeType) {
         return new InterferenceFunction2DLatticeView();
     }
+    else if (name==Constants::InterferenceFunction2DParaCrystalType) {
+        return new InterferenceFunction2DParaCrystalView();
+    }
     else if (name==Constants::InterferenceFunctionFinite2DLatticeType) {
         return new InterferenceFunctionFinite2DLatticeView();
+    }
+    else if (name==Constants::InterferenceFunctionHardDiskType) {
+        return new InterferenceFunctionHardDiskView();
+    }
+    else if (name==Constants::InterferenceFunctionRadialParaCrystalType) {
+        return new InterferenceFunctionRadialParaCrystalView();
     }
     return 0;
 }

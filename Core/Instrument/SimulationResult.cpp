@@ -64,25 +64,17 @@ OutputData<double>* SimulationResult::data(AxesUnits units) const
     const size_t dim = mP_data->getRank();
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < dim; ++i)
-        result->addAxis(*createConvertedAxis(i, units));
+        result->addAxis(*mP_unit_converter->createConvertedAxis(i, units));
     result->setRawDataVector(mP_data->getRawDataVector());
     return result.release();
-}
-
-Histogram1D* SimulationResult::histogram1d(AxesUnits units) const
-{
-    if (mP_data->getRank() != 1 || mP_unit_converter->dimension() != 1)
-        throw std::runtime_error("Error in SimulationResult::histogram1d: "
-                                 "dimension of data is not 1");
-    std::unique_ptr<OutputData<double>> P_data(data(units));
-    return new Histogram1D(*P_data);
 }
 
 Histogram2D* SimulationResult::histogram2d(AxesUnits units) const
 {
     if (mP_data->getRank() != 2 || mP_unit_converter->dimension() != 2)
         throw std::runtime_error("Error in SimulationResult::histogram2d: "
-                                 "dimension of data is not 2");
+                                 "dimension of data is not 2. Please use axis(), array() and "
+                                 "data() functions for 1D data.");
     std::unique_ptr<OutputData<double>> P_data(data(units));
     return new Histogram2D(*P_data);
 }
@@ -135,15 +127,24 @@ PyObject* SimulationResult::array() const
     return mP_data->getArray();
 }
 
+std::vector<double> SimulationResult::axis(AxesUnits units) const
+{
+    return axis(0, units);
+}
+
+std::vector<double> SimulationResult::axis(size_t i_axis, AxesUnits units) const
+{
+    if (i_axis >= mP_unit_converter->dimension())
+        throw std::runtime_error(
+            "Error in SimulationResult::axis: no axis corresponds to passed index.");
+    auto axis = mP_unit_converter->createConvertedAxis(i_axis, units);
+    return axis->getBinCenters();
+}
+
 void SimulationResult::checkDimensions() const
 {
     if (mP_data->getRank() != mP_unit_converter->dimension())
         throw std::runtime_error("Error in SimulationResults::checkDimensions(): "
                                  "dimensions of data and unit converter don't match");
     return;
-}
-
-std::unique_ptr<IAxis> SimulationResult::createConvertedAxis(size_t i_axis, AxesUnits units) const
-{
-    return mP_unit_converter->createConvertedAxis(i_axis, units);
 }

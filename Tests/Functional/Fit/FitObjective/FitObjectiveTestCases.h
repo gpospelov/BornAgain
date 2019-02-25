@@ -79,14 +79,7 @@ public:
     AdjustMinimizerFit();
 };
 
-//! FIXME Reproduces conditions of FitSuite/MultiPatternFitTest. After cleanup of FitSuite, given
-//! test can be also removed, since it doesn't demonstrate/check any new fit machinery.
-class MultiPatternFit : public FitObjectiveTest
-{
-public:
-    MultiPatternFit();
-
-};
+//--------------reflectometry-------------------
 
 class SpecularFitTest : public FitObjectiveTest
 {
@@ -98,6 +91,14 @@ class MultipleSpecFittingTest : public FitObjectiveTest
 {
 public:
     MultipleSpecFittingTest();
+};
+
+//--------------off-spec-------------------
+
+class OffSpecFitTest : public FitObjectiveTest
+{
+public:
+    OffSpecFitTest();
 };
 
 #endif //   MINIMIZERTESTCASES_H

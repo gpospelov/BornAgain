@@ -50,6 +50,12 @@
              </property>
         </category>
 
+        <category name="InterferenceHardDisk">
+             <property name="Title">
+                 <tooltip>Interference function for hard disk Percus-Yevick</tooltip>
+             </property>
+        </category>
+
         <category name="AnisoPyramid">
             <property name="Title">
                 <tooltip>Pyramid with a rectangular base</tooltip>

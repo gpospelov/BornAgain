@@ -56,19 +56,6 @@ protected:
     std::unique_ptr<Simulation> createSimulation(const Fit::Parameters&) const;
 };
 
-//! FIXME Reproduces conditions of FitSuite/MultiPatternFitTest. After cleanup of FitSuite, given
-//! test can be also removed, since it doesn't demonstrate/check any new fit machinery.
-
-class MultiPatternPlan : public FitPlan
-{
-public:
-    MultiPatternPlan();
-    ~MultiPatternPlan();
-
-protected:
-    std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
-};
-
 //! Plan for fitting reflectometry curve on Ti/Ni multilayer
 
 class SpecularPlan : public FitPlan
@@ -76,15 +63,11 @@ class SpecularPlan : public FitPlan
 public:
     SpecularPlan();
     ~SpecularPlan() override;
-
-protected:
-    SpecularPlan(std::string name);
-    std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const override;
 };
 
 //! The same as SpecularPlan, but with two (identical) datasets
 
-class MultipleSpecPlan : public SpecularPlan
+class MultipleSpecPlan : public FitPlan
 {
 public:
     MultipleSpecPlan();
@@ -92,6 +75,15 @@ public:
 
 protected:
     std::unique_ptr<FitObjective> createFitObjective() const override;
+};
+
+//! Fit for off-specular experiment
+
+class OffSpecFitPlan : public FitPlan
+{
+public:
+    OffSpecFitPlan();
+    ~OffSpecFitPlan() override = default;
 };
 
 #endif  //  FITPLANCASES_H

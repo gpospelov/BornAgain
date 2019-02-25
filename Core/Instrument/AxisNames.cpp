@@ -86,6 +86,14 @@ std::map<AxesUnits, std::string> InitSpecAxis()
     return result;
 }
 
+std::map<AxesUnits, std::string> InitSpecAxisQ()
+{
+    std::map<AxesUnits, std::string> result;
+    result[AxesUnits::NBINS] = "X [nbins]";
+    result[AxesUnits::QSPACE] = "Q [1/nm]";
+    return result;
+}
+
 // corner case: axis corresponding to the position
 // across sample is accepts only bins and nanometers,
 // but the units specified in dedicated unit

@@ -1,3 +1,34 @@
+BornAgain-1.15.0, released 2019.02.25
+  > API changes:
+     1) Python: method getAlphaAxis renamed into coordinateAxis in SpecularSimulation
+     2) Python: add axis() accessor in SimulationResult (to be used instead SimulationResult.data().getAxis()
+  > Summary:
+    1) Act on feedback from BornAgain school in December 2018: new features and corrections
+    2) Support q-based specular simulations
+    3) Implement features from specific user requests
+    4) Various bugfixes
+
+  * Bug #2262: Fix memory leakage in Python API
+  * Bug #2265: 3D view incorrectly represents particle positions for layouts connected to deeper layers
+  * Bug #2268: Sometimes parameter values are reset when they go out of focus
+  * Bug #2270: Repeating values after removing unsorted data
+  * Bug #2277: GUI: value of wavelength is not propagated on switch from InstrumentView
+  * Bug #2286: Fix usage of Debye-Waller factors for superlattices
+  * Bug #2304: Uncaught exception in GUI during real time tuning
+  * Bug #2305: Premature deletion of OutputData<double> in python
+  * Feature #2259: Make off-spec simulation fittable
+  * Feature #2260: Remove domain size and damping length in paracrystals in favour of a small q expansion
+  * Feature #2267: Activate polarized sans
+  * Feature #2278: Add Debye Waller factor for 1D and 2D lattice
+  * Feature #2282: Implement position variance in 3d view
+  * Feature #2290: Implement simplified 2D peak search for GISAS images
+  * Feature #2292: Switch internal specular computations to q values
+  * Feature #2297: Provide q-based input for specular simulations
+  * Feature #2303: Implement twin particle interference function
+  * Documentation #2273: Comparative overview of existing reflectometry packages
+  * Testing #2289: Test slicing and averaging functionality for reflectometry in BornAgain
+  * Support #2291: Provide hard disc Percus-Yevick interference function
+
 BornAgain-1.14.0, released 2018.12.07
   > No API changes
   > Summary:

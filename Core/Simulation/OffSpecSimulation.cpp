@@ -82,6 +82,17 @@ const IAxis* OffSpecSimulation::beamAxis() const
     return mP_alpha_i_axis.get();
 }
 
+std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const
+{
+    const IDetector* detector = getInstrument().getDetector();
+    const IAxis* axis = beamAxis();
+    if (!detector || !axis)
+        throw std::runtime_error("Error in OffSpecSimulation::createUnitConverter: missing detector"
+                                 "or inclination angle axis");
+    return std::make_unique<OffSpecularConverter>(static_cast<const IDetector2D&>(*detector),
+                                                  getInstrument().getBeam(), *axis);
+}
+
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     : Simulation2D(other)
 {

@@ -483,6 +483,7 @@ class SwigDirector_IInterferenceFunction : public IInterferenceFunction, public 
 
 public:
     SwigDirector_IInterferenceFunction(PyObject *self);
+    SwigDirector_IInterferenceFunction(PyObject *self, IInterferenceFunction const &other);
     virtual ~SwigDirector_IInterferenceFunction();
     virtual IInterferenceFunction *clone() const;
     virtual void transferToCPP();
@@ -493,9 +494,10 @@ public:
     virtual std::vector< INode const *,std::allocator< INode const * > > getChildren() const;
     virtual void setParent(INode const *newParent);
     virtual Material const *material() const;
-    virtual double evaluate(kvector_t const q) const;
+    virtual double evaluate(kvector_t const q, double outer_iff = 1.0) const;
     virtual double getParticleDensity() const;
     virtual bool supportsMultilayer() const;
+    virtual double iff_without_dw(kvector_t const q) const;
 
 /* Internal director utilities */
 public:
@@ -526,7 +528,7 @@ private:
       return method;
     }
 private:
-    mutable swig::SwigVar_PyObject vtable[12];
+    mutable swig::SwigVar_PyObject vtable[14];
 #endif
 
 };

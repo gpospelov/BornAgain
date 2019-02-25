@@ -52,6 +52,10 @@ public:
     //! Returns axis of the beam.
     const IAxis* beamAxis() const;
 
+#ifndef SWIG
+    std::unique_ptr<IUnitConverter> createUnitConverter() const;
+#endif
+
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
 

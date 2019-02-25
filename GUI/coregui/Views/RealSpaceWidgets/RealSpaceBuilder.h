@@ -53,10 +53,6 @@ public:
     void populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
                         const SceneGeometry& sceneGeometry, const QVector3D& origin = QVector3D());
 
-    void populateInterference(RealSpaceModel* model, const SessionItem& layoutItem,
-                              std::vector<Particle3DContainer>& particle3DContainer_vector,
-                              const SceneGeometry& sceneGeometry);
-
     void populateParticleFromParticleItem(RealSpaceModel* model,
                                           const SessionItem& particleItem) const;
 

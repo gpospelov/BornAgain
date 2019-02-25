@@ -31,6 +31,7 @@ BA_CORE_API_ std::map<AxesUnits, std::string> InitRectangularAxis1();
 BA_CORE_API_ std::map<AxesUnits, std::string> InitOffSpecAxis0();
 BA_CORE_API_ std::map<AxesUnits, std::string> InitOffSpecAxis1();
 BA_CORE_API_ std::map<AxesUnits, std::string> InitSpecAxis();
+BA_CORE_API_ std::map<AxesUnits, std::string> InitSpecAxisQ();
 BA_CORE_API_ std::map<AxesUnits, std::string> InitSampleDepthAxis();
 }
 

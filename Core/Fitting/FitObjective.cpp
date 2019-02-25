@@ -31,7 +31,10 @@ void insert_to(std::vector<double>& to, const std::vector<double>& from)
 simulation_builder_t simulationBuilder(PyBuilderCallback& callback)
 {
     return [&callback](const Fit::Parameters& params) {
-        return std::unique_ptr<Simulation>(callback.build_simulation(params)->clone());
+        auto simulation = callback.build_simulation(params);
+        std::unique_ptr<Simulation> clone(simulation->clone());
+        delete simulation; // deleting Python object
+        return clone;
     };
 }
 }

@@ -48,7 +48,7 @@ TEST_F(SpecularSimulationTest, InitialState)
 {
     SpecularSimulation sim;
     ASSERT_THROW(sim.runSimulation(), std::runtime_error);
-    ASSERT_THROW(sim.getAlphaAxis(), std::runtime_error);
+    ASSERT_THROW(sim.coordinateAxis(), std::runtime_error);
     EXPECT_EQ(nullptr, sim.sample());
     ASSERT_THROW(sim.result(), std::runtime_error);
 }
@@ -75,7 +75,7 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
 
     std::unique_ptr<SpecularSimulation> clone(sim.clone());
     ASSERT_THROW(clone->runSimulation(), std::runtime_error);
-    ASSERT_THROW(clone->getAlphaAxis(), std::runtime_error);
+    ASSERT_THROW(clone->coordinateAxis(), std::runtime_error);
     EXPECT_EQ(nullptr, clone->sample());
     ASSERT_THROW(clone->result(), std::runtime_error);
 
@@ -92,9 +92,9 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
 
     const auto& beam = sim.getInstrument().getBeam();
 
-    EXPECT_EQ(2u, sim.getAlphaAxis()->size());
-    EXPECT_EQ(1.0, sim.getAlphaAxis()->getMin());
-    EXPECT_EQ(3.0, sim.getAlphaAxis()->getMax());
+    EXPECT_EQ(2u, sim.coordinateAxis()->size());
+    EXPECT_EQ(1.0, sim.coordinateAxis()->getMin());
+    EXPECT_EQ(3.0, sim.coordinateAxis()->getMax());
     EXPECT_EQ(1.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -106,9 +106,9 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
     EXPECT_EQ(2.0, beam.getIntensity());
 
     sim.setBeamParameters(1.0, 10, 1.0 * Units::degree, 10.0 * Units::degree);
-    EXPECT_EQ(10u, sim.getAlphaAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->getMin());
-    EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->getMax());
+    EXPECT_EQ(10u, sim.coordinateAxis()->size());
+    EXPECT_EQ(1.0 * Units::degree, sim.coordinateAxis()->getMin());
+    EXPECT_EQ(10.0 * Units::degree, sim.coordinateAxis()->getMax());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -125,9 +125,9 @@ TEST_F(SpecularSimulationTest, SetBeamParameters)
     EXPECT_THROW(sim.setBeamParameters(-1.0, 1, 1.0, 2.0),
                  std::runtime_error);
 
-    EXPECT_EQ(10u, sim.getAlphaAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->getMin());
-    EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->getMax());
+    EXPECT_EQ(10u, sim.coordinateAxis()->size());
+    EXPECT_EQ(1.0 * Units::degree, sim.coordinateAxis()->getMin());
+    EXPECT_EQ(10.0 * Units::degree, sim.coordinateAxis()->getMax());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -150,22 +150,19 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     std::unique_ptr<OutputData<double>> data(sim_result.data());
     EXPECT_EQ(data->getAllocatedSize(), 10u);
     EXPECT_EQ(data->totalSum(), 0.0);
+    EXPECT_EQ(data->getRank(), 1u);
 
     sim->runSimulation();
     sim_result = sim->result();
 
-    const std::unique_ptr<Histogram1D> reflectivity(sim_result.histogram1d(AxesUnits::RADIANS));
-    EXPECT_EQ(10u, reflectivity->getTotalNumberOfBins());
-    EXPECT_EQ(1u, reflectivity->getRank());
-    EXPECT_NEAR(0.1 * Units::degree, reflectivity->getXaxis().getMin(), Units::degree * 1e-11);
-    EXPECT_NEAR(1.9 * Units::degree, reflectivity->getXaxis().getMax(), Units::degree * 1e-10);
+    data.reset(sim_result.data());
+    EXPECT_EQ(data->getAllocatedSize(), 10u);
+    EXPECT_EQ(data->getRank(), 1u);
 
-    const std::unique_ptr<OutputData<double>> output(sim_result.data(AxesUnits::RADIANS));
-    EXPECT_EQ(reflectivity->getTotalNumberOfBins(), output->getAllocatedSize());
-    EXPECT_EQ(reflectivity->getRank(), output->getRank());
-    EXPECT_DOUBLE_EQ(reflectivity->getXaxis().getMin(), output->getAxis(0).getMin());
-    EXPECT_DOUBLE_EQ(reflectivity->getXaxis().getMax(), output->getAxis(0).getMax());
-    EXPECT_DOUBLE_EQ(reflectivity->getBinValues()[5], (*output)[5]);
+    EXPECT_NEAR(0.1 * Units::degree, sim_result.axis(AxesUnits::RADIANS).front(),
+                Units::degree * 1e-11);
+    EXPECT_NEAR(1.9 * Units::degree, sim_result.axis(AxesUnits::RADIANS).back(),
+                Units::degree * 1e-10);
 
     checkBeamState(*sim);
 }
@@ -189,9 +186,6 @@ TEST_F(SpecularSimulationTest, SimulationClone)
 
     std::unique_ptr<SpecularSimulation> clone2(sim->clone());
     clone_result = clone2->result();
-
-    std::unique_ptr<Histogram1D> output(clone_result.histogram1d());
-    EXPECT_EQ(10u, output->getTotalNumberOfBins());
 
     const std::unique_ptr<OutputData<double>> output_data(clone_result.data());
     EXPECT_EQ(10u, output_data->getAllocatedSize());
@@ -235,7 +229,7 @@ TEST_F(SpecularSimulationTest, OutOfRangeAngles)
     sim->runSimulation();
     auto sim_result = sim->result();
 
-    std::unique_ptr<Histogram1D> result(sim_result.histogram1d());
-    EXPECT_EQ(0.0, result->getBinContent(0));
-    EXPECT_NE(0.0, result->getBinContent(1));
+    std::unique_ptr<OutputData<double>> data(sim_result.data());
+    EXPECT_EQ(0.0, (*data)[0]);
+    EXPECT_NE(0.0, (*data)[1]);
 }

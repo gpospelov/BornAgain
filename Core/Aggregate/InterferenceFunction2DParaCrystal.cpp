@@ -80,15 +80,6 @@ void InterferenceFunction2DParaCrystal::setDampingLength(double damping_length)
     m_damping_length = damping_length;
 }
 
-double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const
-{
-    m_qx = q.x();
-    m_qy = q.y();
-    if (!m_integrate_xi)
-        return interferenceForXi(m_lattice->rotationAngle());
-    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
-}
-
 double InterferenceFunction2DParaCrystal::getParticleDensity() const
 {
     double area = m_lattice->unitCellArea();
@@ -100,22 +91,27 @@ std::vector<const INode*> InterferenceFunction2DParaCrystal::getChildren() const
     return std::vector<const INode*>() << m_pdf1 << m_pdf2 << m_lattice;
 }
 
+double InterferenceFunction2DParaCrystal::iff_without_dw(const kvector_t q) const
+{
+    m_qx = q.x();
+    m_qy = q.y();
+    if (!m_integrate_xi)
+        return interferenceForXi(m_lattice->rotationAngle());
+    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
+}
+
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
     const InterferenceFunction2DParaCrystal& other)
+    : IInterferenceFunction(other)
 {
     setName(other.getName());
-
     m_damping_length = other.m_damping_length;
-
     if (other.m_lattice)
         setLattice(*other.m_lattice);
-
     if (other.m_pdf1 && other.m_pdf2)
         setProbabilityDistributions(*other.m_pdf1, *other.m_pdf2);
-
     setDomainSizes(other.m_domain_sizes[0], other.m_domain_sizes[1]);
     setIntegrationOverXi(other.m_integrate_xi);
-
     init_parameters();
 }
 

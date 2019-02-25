@@ -30,6 +30,7 @@ static const double meter       = 1.e+9*nanometer;
 static const double nm  = nanometer;
 
 // Area (cross-section)
+static const double nm2 = nanometer * nanometer;
 static const double barn = nanometer * nanometer * 1e-10;
 
 // Angle

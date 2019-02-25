@@ -154,9 +154,9 @@ endif()
 target_include_directories(${library_name} PUBLIC ${include_dirs})
 target_include_directories(${library_name} SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 target_include_directories(${library_name} PUBLIC ${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
-    ${GSL_INCLUDE_DIR} PRIVATE ${Faddeeva_INCLUDE_DIR})
+    ${GSL_INCLUDE_DIR} ${tspectrum_INCLUDE_DIR} PRIVATE ${Faddeeva_INCLUDE_DIR})
 target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW_LIBRARY} ${GSL_LIBRARIES}
-    ${Faddeeva_LIBRARY})
+    ${Faddeeva_LIBRARY} ${tspectrum_LIBRARY})
 
 if(BORNAGAIN_MPI)
     add_definitions(-DBORNAGAIN_MPI)

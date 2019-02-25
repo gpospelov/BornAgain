@@ -27,17 +27,15 @@ class BA_CORE_API_ InterferenceFunctionRadialParaCrystal : public IInterferenceF
 {
 public:
     InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0);
-    InterferenceFunctionRadialParaCrystal* clone() const final;
+    InterferenceFunctionRadialParaCrystal* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     void setKappa(double kappa);
     double kappa() const;
 
     void setDomainSize(double size);
     double domainSize() const { return m_domain_size; }
-
-    double evaluate(const kvector_t q) const final;
 
     complex_t FTPDF(double qpar) const;
 
@@ -47,11 +45,13 @@ public:
 
     double dampingLength() const { return m_damping_length; }
 
-    std::vector<const INode*> getChildren() const override;
+    std::vector<const INode*> getChildren() const override final;
 
     double randomSample() const { return mP_pdf->createSampler()->randomSample(); }
 
 private:
+    double iff_without_dw(const kvector_t q) const override final;
+    InterferenceFunctionRadialParaCrystal(const InterferenceFunctionRadialParaCrystal& other);
     void init_parameters();
 
     double m_peak_distance; //!< the distance to the first neighbor peak

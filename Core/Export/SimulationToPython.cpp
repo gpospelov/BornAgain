@@ -289,13 +289,13 @@ std::string SimulationToPython::defineSpecularBeam(const SpecularSimulation& sim
     std::ostringstream result;
     const Beam& beam = simulation.getInstrument().getBeam();
 
-    const auto footprint = beam.footprintFactor();
+    const auto footprint = simulation.footprintFactor();
     if (footprint)
         result << indent() << "footprint = " << defineFootprint(*footprint);
 
     const std::string axis_def = indent() + "alpha_i_axis = ";
     result << axis_def
-           << PythonFormatting::printAxis(*simulation.getAlphaAxis(), BornAgain::UnitsRad,
+           << PythonFormatting::printAxis(*simulation.coordinateAxis(), BornAgain::UnitsRad,
                                           axis_def.size())
            << "\n";
 

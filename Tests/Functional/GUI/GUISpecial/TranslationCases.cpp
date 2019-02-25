@@ -15,76 +15,113 @@
 #include "TranslationCases.h"
 
 BasicTranslationTest::BasicTranslationTest()
-    : GUITranslationTest("BasicGISAS", "CylindersAndPrismsBuilder"){}
+    : GUITranslationTest("BasicGISAS", "CylindersAndPrismsBuilder")
+{
+}
 
 BasicTranslationTest::~BasicTranslationTest() = default;
 
 RadialParaTranslationTest::RadialParaTranslationTest()
-    : GUITranslationTest("BasicGISAS", "RadialParaCrystalBuilder"){}
+    : GUITranslationTest("BasicGISAS", "RadialParaCrystalBuilder")
+{
+}
 
 RadialParaTranslationTest::~RadialParaTranslationTest() = default;
 
+HardDiskTranslationTest::HardDiskTranslationTest()
+    : GUITranslationTest("BasicGISAS", "HardDiskBuilder")
+{
+}
+
+HardDiskTranslationTest::~HardDiskTranslationTest() = default;
+
 HexParaTranslationTest::HexParaTranslationTest()
-    : GUITranslationTest("BasicGISAS", "HexParaCrystalBuilder"){}
+    : GUITranslationTest("BasicGISAS", "HexParaCrystalBuilder")
+{
+}
 
 HexParaTranslationTest::~HexParaTranslationTest() = default;
 
 CoreShellTranslationTest::CoreShellTranslationTest()
-    : GUITranslationTest("BasicGISAS", "CoreShellParticleBuilder"){}
+    : GUITranslationTest("BasicGISAS", "CoreShellParticleBuilder")
+{
+}
 
 CoreShellTranslationTest::~CoreShellTranslationTest() = default;
 
 RoughnessTranslationTest::RoughnessTranslationTest()
-    : GUITranslationTest("BasicGISAS", "MultiLayerWithRoughnessBuilder"){}
+    : GUITranslationTest("BasicGISAS", "MultiLayerWithRoughnessBuilder")
+{
+}
 
 RoughnessTranslationTest::~RoughnessTranslationTest() = default;
 
 SquareLatticeTranslationTest::SquareLatticeTranslationTest()
-    : GUITranslationTest("BasicGISAS", "SquareLatticeBuilder"){}
+    : GUITranslationTest("BasicGISAS", "SquareLatticeBuilder")
+{
+}
 
 SquareLatticeTranslationTest::~SquareLatticeTranslationTest() = default;
 
 RotationTranslationTest::RotationTranslationTest()
-    : GUITranslationTest("BasicGISAS", "RotatedPyramidsBuilder"){}
+    : GUITranslationTest("BasicGISAS", "RotatedPyramidsBuilder")
+{
+}
 
 RotationTranslationTest::~RotationTranslationTest() = default;
 
 SizeDistributionTranslationTest::SizeDistributionTranslationTest()
-    : GUITranslationTest("BasicGISAS", "CylindersWithSizeDistributionBuilder"){}
+    : GUITranslationTest("BasicGISAS", "CylindersWithSizeDistributionBuilder")
+{
+}
 
 SizeDistributionTranslationTest::~SizeDistributionTranslationTest() = default;
 
 CompositionTranslationTest::CompositionTranslationTest()
-    : GUITranslationTest("BasicGISAS", "ParticleCompositionBuilder"){}
+    : GUITranslationTest("BasicGISAS", "ParticleCompositionBuilder")
+{
+}
 
 CompositionTranslationTest::~CompositionTranslationTest() = default;
 
 Para2DTranslationTest::Para2DTranslationTest()
-    : GUITranslationTest("BasicGISAS", "Basic2DParaCrystalBuilder"){}
+    : GUITranslationTest("BasicGISAS", "Basic2DParaCrystalBuilder")
+{
+}
 
 Para2DTranslationTest::~Para2DTranslationTest() = default;
 
 Lattice1DTranslationTest::Lattice1DTranslationTest()
-    : GUITranslationTest("BasicGISAS", "Lattice1DBuilder"){}
+    : GUITranslationTest("BasicGISAS", "Lattice1DBuilder")
+{
+}
 
 Lattice1DTranslationTest::~Lattice1DTranslationTest() = default;
 
 Lattice2DTranslationTest::Lattice2DTranslationTest()
-    : GUITranslationTest("BasicGISAS", "Basic2DLatticeBuilder"){}
+    : GUITranslationTest("BasicGISAS", "Basic2DLatticeBuilder")
+{
+}
 
 Lattice2DTranslationTest::~Lattice2DTranslationTest() = default;
 
 TwoLayerRoughnessTranslationTest::TwoLayerRoughnessTranslationTest()
-    : GUITranslationTest("BasicGISAS", "TwoLayerRoughnessBuilder"){}
+    : GUITranslationTest("BasicGISAS", "TwoLayerRoughnessBuilder")
+{
+}
 
 TwoLayerRoughnessTranslationTest::~TwoLayerRoughnessTranslationTest() = default;
 
 MesoCrystalTranslationTest::MesoCrystalTranslationTest()
-    : GUITranslationTest("BasicGISAS", "MesoCrystalBuilder"){}
+    : GUITranslationTest("BasicGISAS", "MesoCrystalBuilder")
+{
+}
 
 MesoCrystalTranslationTest::~MesoCrystalTranslationTest() = default;
 
 MagneticSpheresTranslationTest::MagneticSpheresTranslationTest()
-    : GUITranslationTest ("BasicPolarizedGISAS", "MagneticSpheresBuilder"){}
+    : GUITranslationTest("BasicPolarizedGISAS", "MagneticSpheresBuilder")
+{
+}
 
 MagneticSpheresTranslationTest::~MagneticSpheresTranslationTest() = default;

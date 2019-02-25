@@ -21,27 +21,38 @@ class IInterferenceFunction;
 class BA_CORE_API_ InterferenceFunctionItem  : public SessionGraphicsItem
 {
 public:
+    static const QString P_POSITION_VARIANCE;
     explicit InterferenceFunctionItem(const QString& modelType);
     virtual ~InterferenceFunctionItem();
     virtual std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const=0;
+protected:
+    void setPositionVariance(IInterferenceFunction* p_iff) const;
 };
 
-class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public InterferenceFunctionItem
+class BA_CORE_API_ InterferenceFunction1DLatticeItem : public InterferenceFunctionItem
 {
-
 public:
-    static const QString P_PEAK_DISTANCE;
-    static const QString P_DAMPING_LENGTH;
-    static const QString P_DOMAIN_SIZE;
-    static const QString P_KAPPA;
-    static const QString P_PDF;
-    InterferenceFunctionRadialParaCrystalItem();
+    static const QString P_LENGTH;
+    static const QString P_ROTATION_ANGLE;
+    static const QString P_DECAY_FUNCTION;
+    InterferenceFunction1DLatticeItem();
     std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
+};
+
+class BA_CORE_API_ InterferenceFunction2DLatticeItem : public InterferenceFunctionItem
+{
+public:
+    static const QString P_LATTICE_TYPE;
+    static const QString P_DECAY_FUNCTION;
+    static const QString P_XI_INTEGRATION;
+    InterferenceFunction2DLatticeItem();
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
+private:
+    void update_rotation_availability();
 };
 
 class BA_CORE_API_ InterferenceFunction2DParaCrystalItem : public InterferenceFunctionItem
 {
-
 public:
     static const QString P_DAMPING_LENGTH;
     static const QString P_DOMAIN_SIZE1;
@@ -56,42 +67,37 @@ private:
     void update_distribution_displaynames();
 };
 
-class BA_CORE_API_ InterferenceFunction1DLatticeItem : public InterferenceFunctionItem
-{
-
-public:
-    static const QString P_LENGTH;
-    static const QString P_ROTATION_ANGLE;
-    static const QString P_DECAY_FUNCTION;
-    InterferenceFunction1DLatticeItem();
-    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
-};
-
-class BA_CORE_API_ InterferenceFunction2DLatticeItem : public InterferenceFunctionItem
-{
-
-public:
-    static const QString P_LATTICE_TYPE;
-    static const QString P_DECAY_FUNCTION;
-    static const QString P_XI_INTEGRATION;
-    InterferenceFunction2DLatticeItem();
-    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
-private:
-    void update_rotation_availability();
-};
-
 class BA_CORE_API_ InterferenceFunctionFinite2DLatticeItem : public InterferenceFunctionItem
 {
-
 public:
     static const QString P_XI_INTEGRATION;
     static const QString P_DOMAIN_SIZE_1;
     static const QString P_DOMAIN_SIZE_2;
-    static const QString P_POSITION_VARIANCE;
     InterferenceFunctionFinite2DLatticeItem();
     std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 private:
     void update_rotation_availability();
+};
+
+class BA_CORE_API_ InterferenceFunctionHardDiskItem : public InterferenceFunctionItem
+{
+public:
+    static const QString P_RADIUS;
+    static const QString P_DENSITY;
+    InterferenceFunctionHardDiskItem();
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
+};
+
+class BA_CORE_API_ InterferenceFunctionRadialParaCrystalItem : public InterferenceFunctionItem
+{
+public:
+    static const QString P_PEAK_DISTANCE;
+    static const QString P_DAMPING_LENGTH;
+    static const QString P_DOMAIN_SIZE;
+    static const QString P_KAPPA;
+    static const QString P_PDF;
+    InterferenceFunctionRadialParaCrystalItem();
+    std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
 };
 
 #endif // INTERFERENCEFUNCTIONITEMS_H

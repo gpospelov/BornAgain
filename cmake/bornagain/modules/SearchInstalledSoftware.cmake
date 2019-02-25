@@ -24,6 +24,10 @@ if(WIN32)
 endif()
 
 find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
+# In spite of the "REQUIRED" flag, FindBoost will not terminate if some components are missing.
+if(NOT Boost_FOUND)
+    message(FATAL_ERROR "Not all required Boost components were found")
+endif()
 message(STATUS "Found Boost includes at ${Boost_INCLUDE_DIRS}, libraries at ${Boost_LIBRARY_DIRS}")
 
 # === optional packages ===

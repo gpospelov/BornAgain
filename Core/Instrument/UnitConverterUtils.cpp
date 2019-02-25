@@ -54,11 +54,13 @@ std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const Simula
         return createConverterForGISAS(gisas->getInstrument());
 
     } else if (auto spec = dynamic_cast<const SpecularSimulation*>(&simulation)) {
-        return std::make_unique<UnitConverter1D>(spec->getInstrument().getBeam(),
-                                                 *spec->getAlphaAxis());
+        return UnitConverter1D::createUnitConverter(*spec->dataHandler());
 
     } else if (auto probe = dynamic_cast<const DepthProbeSimulation*>(&simulation)) {
         return probe->createUnitConverter();
+
+    } else if (auto off_spec = dynamic_cast<const OffSpecSimulation*>(&simulation)) {
+        return off_spec->createUnitConverter();
 
     } else {
         throw std::runtime_error("UnitConverterUtils::createConverter -> "

@@ -1902,6 +1902,218 @@ class map_string_double_t(_object):
 map_string_double_t_swigregister = _libBornAgainCore.map_string_double_t_swigregister
 map_string_double_t_swigregister(map_string_double_t)
 
+class vector_pair_double_t(_object):
+    """Proxy of C++ std::vector<(std::pair<(double,double)>)> class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, vector_pair_double_t, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, vector_pair_double_t, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        """iterator(vector_pair_double_t self) -> SwigPyIterator"""
+        return _libBornAgainCore.vector_pair_double_t_iterator(self)
+
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        """__nonzero__(vector_pair_double_t self) -> bool"""
+        return _libBornAgainCore.vector_pair_double_t___nonzero__(self)
+
+
+    def __bool__(self):
+        """__bool__(vector_pair_double_t self) -> bool"""
+        return _libBornAgainCore.vector_pair_double_t___bool__(self)
+
+
+    def __len__(self):
+        """__len__(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainCore.vector_pair_double_t___len__(self)
+
+
+    def __getslice__(self, i, j):
+        """__getslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j) -> vector_pair_double_t"""
+        return _libBornAgainCore.vector_pair_double_t___getslice__(self, i, j)
+
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)
+        __setslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j, vector_pair_double_t v)
+        """
+        return _libBornAgainCore.vector_pair_double_t___setslice__(self, *args)
+
+
+    def __delslice__(self, i, j):
+        """__delslice__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::difference_type j)"""
+        return _libBornAgainCore.vector_pair_double_t___delslice__(self, i, j)
+
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i)
+        __delitem__(vector_pair_double_t self, PySliceObject * slice)
+        """
+        return _libBornAgainCore.vector_pair_double_t___delitem__(self, *args)
+
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(vector_pair_double_t self, PySliceObject * slice) -> vector_pair_double_t
+        __getitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i) -> std::vector< std::pair< double,double > >::value_type const &
+        """
+        return _libBornAgainCore.vector_pair_double_t___getitem__(self, *args)
+
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(vector_pair_double_t self, PySliceObject * slice, vector_pair_double_t v)
+        __setitem__(vector_pair_double_t self, PySliceObject * slice)
+        __setitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::value_type const & x)
+        """
+        return _libBornAgainCore.vector_pair_double_t___setitem__(self, *args)
+
+
+    def pop(self):
+        """pop(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::value_type"""
+        return _libBornAgainCore.vector_pair_double_t_pop(self)
+
+
+    def append(self, x):
+        """append(vector_pair_double_t self, std::vector< std::pair< double,double > >::value_type const & x)"""
+        return _libBornAgainCore.vector_pair_double_t_append(self, x)
+
+
+    def empty(self):
+        """empty(vector_pair_double_t self) -> bool"""
+        return _libBornAgainCore.vector_pair_double_t_empty(self)
+
+
+    def size(self):
+        """size(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainCore.vector_pair_double_t_size(self)
+
+
+    def swap(self, v):
+        """
+        swap(vector_pair_double_t self, vector_pair_double_t v)
+
+        void swap(OutputDataIterator< TValue, TContainer > &left, OutputDataIterator< TValue, TContainer > &right)
+
+        make Swappable 
+
+        """
+        return _libBornAgainCore.vector_pair_double_t_swap(self, v)
+
+
+    def begin(self):
+        """begin(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
+        return _libBornAgainCore.vector_pair_double_t_begin(self)
+
+
+    def end(self):
+        """end(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::iterator"""
+        return _libBornAgainCore.vector_pair_double_t_end(self)
+
+
+    def rbegin(self):
+        """rbegin(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
+        return _libBornAgainCore.vector_pair_double_t_rbegin(self)
+
+
+    def rend(self):
+        """rend(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::reverse_iterator"""
+        return _libBornAgainCore.vector_pair_double_t_rend(self)
+
+
+    def clear(self):
+        """clear(vector_pair_double_t self)"""
+        return _libBornAgainCore.vector_pair_double_t_clear(self)
+
+
+    def get_allocator(self):
+        """get_allocator(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::allocator_type"""
+        return _libBornAgainCore.vector_pair_double_t_get_allocator(self)
+
+
+    def pop_back(self):
+        """pop_back(vector_pair_double_t self)"""
+        return _libBornAgainCore.vector_pair_double_t_pop_back(self)
+
+
+    def erase(self, *args):
+        """
+        erase(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos) -> std::vector< std::pair< double,double > >::iterator
+        erase(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator first, std::vector< std::pair< double,double > >::iterator last) -> std::vector< std::pair< double,double > >::iterator
+        """
+        return _libBornAgainCore.vector_pair_double_t_erase(self, *args)
+
+
+    def __init__(self, *args):
+        """
+        __init__(std::vector<(std::pair<(double,double)>)> self) -> vector_pair_double_t
+        __init__(std::vector<(std::pair<(double,double)>)> self, vector_pair_double_t arg2) -> vector_pair_double_t
+        __init__(std::vector<(std::pair<(double,double)>)> self, std::vector< std::pair< double,double > >::size_type size) -> vector_pair_double_t
+        __init__(std::vector<(std::pair<(double,double)>)> self, std::vector< std::pair< double,double > >::size_type size, std::vector< std::pair< double,double > >::value_type const & value) -> vector_pair_double_t
+        """
+        this = _libBornAgainCore.new_vector_pair_double_t(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def push_back(self, x):
+        """push_back(vector_pair_double_t self, std::vector< std::pair< double,double > >::value_type const & x)"""
+        return _libBornAgainCore.vector_pair_double_t_push_back(self, x)
+
+
+    def front(self):
+        """front(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::value_type const &"""
+        return _libBornAgainCore.vector_pair_double_t_front(self)
+
+
+    def back(self):
+        """back(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::value_type const &"""
+        return _libBornAgainCore.vector_pair_double_t_back(self)
+
+
+    def assign(self, n, x):
+        """assign(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type n, std::vector< std::pair< double,double > >::value_type const & x)"""
+        return _libBornAgainCore.vector_pair_double_t_assign(self, n, x)
+
+
+    def resize(self, *args):
+        """
+        resize(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type new_size)
+        resize(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type new_size, std::vector< std::pair< double,double > >::value_type const & x)
+        """
+        return _libBornAgainCore.vector_pair_double_t_resize(self, *args)
+
+
+    def insert(self, *args):
+        """
+        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::value_type const & x) -> std::vector< std::pair< double,double > >::iterator
+        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::size_type n, std::vector< std::pair< double,double > >::value_type const & x)
+        """
+        return _libBornAgainCore.vector_pair_double_t_insert(self, *args)
+
+
+    def reserve(self, n):
+        """reserve(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type n)"""
+        return _libBornAgainCore.vector_pair_double_t_reserve(self, n)
+
+
+    def capacity(self):
+        """capacity(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::size_type"""
+        return _libBornAgainCore.vector_pair_double_t_capacity(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_vector_pair_double_t
+    __del__ = lambda self: None
+vector_pair_double_t_swigregister = _libBornAgainCore.vector_pair_double_t_swigregister
+vector_pair_double_t_swigregister(vector_pair_double_t)
+
 import libBornAgainFit
 
 def GetMajorVersionNumber():
@@ -3149,7 +3361,7 @@ class kvector_t(_object):
 
         double BasicVector3D< T >::mag2() const
 
-        Returns squared magnitude squared of the vector. 
+        Returns magnitude squared of the vector. 
 
         """
         return _libBornAgainCore.kvector_t_mag2(self)
@@ -3661,7 +3873,7 @@ class cvector_t(_object):
 
         double BasicVector3D< T >::mag2() const
 
-        Returns squared magnitude squared of the vector. 
+        Returns magnitude squared of the vector. 
 
         """
         return _libBornAgainCore.cvector_t_mag2(self)
@@ -4086,6 +4298,7 @@ micrometer = cvar.micrometer
 millimeter = cvar.millimeter
 meter = cvar.meter
 nm = cvar.nm
+nm2 = cvar.nm2
 barn = cvar.barn
 radian = cvar.radian
 milliradian = cvar.milliradian
@@ -6964,7 +7177,9 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, InterferenceFunction3DLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionFinite2DLattice arg2)
         visit(INodeVisitor self, InterferenceFunctionFinite3DLattice arg2)
+        visit(INodeVisitor self, InterferenceFunctionHardDisk arg2)
         visit(INodeVisitor self, InterferenceFunctionRadialParaCrystal arg2)
+        visit(INodeVisitor self, InterferenceFunctionTwin arg2)
         visit(INodeVisitor self, InterferenceFunctionNone arg2)
         visit(INodeVisitor self, IParticle arg2)
         visit(INodeVisitor self, IPeakShape arg2)
@@ -9148,6 +9363,8 @@ class IFTDistribution1D(ICloneable, INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
+    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -9190,8 +9407,18 @@ class IFTDistribution1D(ICloneable, INode):
         """
         return _libBornAgainCore.IFTDistribution1D_omega(self)
 
-    __swig_destroy__ = _libBornAgainCore.delete_IFTDistribution1D
-    __del__ = lambda self: None
+
+    def qSecondDerivative(self):
+        """
+        qSecondDerivative(IFTDistribution1D self) -> double
+
+        virtual double IFTDistribution1D::qSecondDerivative() const =0
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
+        return _libBornAgainCore.IFTDistribution1D_qSecondDerivative(self)
+
 IFTDistribution1D_swigregister = _libBornAgainCore.IFTDistribution1D_swigregister
 IFTDistribution1D_swigregister(IFTDistribution1D)
 
@@ -9232,7 +9459,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         clone(FTDistribution1DCauchy self) -> FTDistribution1DCauchy
 
-        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const final
+        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DCauchy_clone(self)
@@ -9242,7 +9469,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         accept(FTDistribution1DCauchy self, INodeVisitor visitor)
 
-        void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9254,12 +9481,24 @@ class FTDistribution1DCauchy(IFTDistribution1D):
         """
         evaluate(FTDistribution1DCauchy self, double q) -> double
 
-        double FTDistribution1DCauchy::evaluate(double q) const final
+        double FTDistribution1DCauchy::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DCauchy_evaluate(self, q)
+
+
+    def qSecondDerivative(self):
+        """
+        qSecondDerivative(FTDistribution1DCauchy self) -> double
+
+        double FTDistribution1DCauchy::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
+        return _libBornAgainCore.FTDistribution1DCauchy_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCauchy
     __del__ = lambda self: None
@@ -9303,7 +9542,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         clone(FTDistribution1DGauss self) -> FTDistribution1DGauss
 
-        FTDistribution1DGauss * FTDistribution1DGauss::clone() const final
+        FTDistribution1DGauss * FTDistribution1DGauss::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DGauss_clone(self)
@@ -9313,7 +9552,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         accept(FTDistribution1DGauss self, INodeVisitor visitor)
 
-        void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DGauss::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9325,12 +9564,24 @@ class FTDistribution1DGauss(IFTDistribution1D):
         """
         evaluate(FTDistribution1DGauss self, double q) -> double
 
-        double FTDistribution1DGauss::evaluate(double q) const final
+        double FTDistribution1DGauss::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DGauss_evaluate(self, q)
+
+
+    def qSecondDerivative(self):
+        """
+        qSecondDerivative(FTDistribution1DGauss self) -> double
+
+        double FTDistribution1DGauss::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
+        return _libBornAgainCore.FTDistribution1DGauss_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGauss
     __del__ = lambda self: None
@@ -9374,7 +9625,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         clone(FTDistribution1DGate self) -> FTDistribution1DGate
 
-        FTDistribution1DGate * FTDistribution1DGate::clone() const final
+        FTDistribution1DGate * FTDistribution1DGate::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DGate_clone(self)
@@ -9384,7 +9635,7 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         accept(FTDistribution1DGate self, INodeVisitor visitor)
 
-        void FTDistribution1DGate::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DGate::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9396,12 +9647,24 @@ class FTDistribution1DGate(IFTDistribution1D):
         """
         evaluate(FTDistribution1DGate self, double q) -> double
 
-        double FTDistribution1DGate::evaluate(double q) const final
+        double FTDistribution1DGate::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DGate_evaluate(self, q)
+
+
+    def qSecondDerivative(self):
+        """
+        qSecondDerivative(FTDistribution1DGate self) -> double
+
+        double FTDistribution1DGate::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
+        return _libBornAgainCore.FTDistribution1DGate_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DGate
     __del__ = lambda self: None
@@ -9445,7 +9708,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         clone(FTDistribution1DTriangle self) -> FTDistribution1DTriangle
 
-        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const final
+        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DTriangle_clone(self)
@@ -9455,7 +9718,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         accept(FTDistribution1DTriangle self, INodeVisitor visitor)
 
-        void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9467,12 +9730,24 @@ class FTDistribution1DTriangle(IFTDistribution1D):
         """
         evaluate(FTDistribution1DTriangle self, double q) -> double
 
-        double FTDistribution1DTriangle::evaluate(double q) const final
+        double FTDistribution1DTriangle::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DTriangle_evaluate(self, q)
+
+
+    def qSecondDerivative(self):
+        """
+        qSecondDerivative(FTDistribution1DTriangle self) -> double
+
+        double FTDistribution1DTriangle::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
+        return _libBornAgainCore.FTDistribution1DTriangle_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DTriangle
     __del__ = lambda self: None
@@ -9516,7 +9791,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         clone(FTDistribution1DCosine self) -> FTDistribution1DCosine
 
-        FTDistribution1DCosine * FTDistribution1DCosine::clone() const final
+        FTDistribution1DCosine * FTDistribution1DCosine::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_clone(self)
@@ -9526,7 +9801,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         accept(FTDistribution1DCosine self, INodeVisitor visitor)
 
-        void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DCosine::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9538,12 +9813,24 @@ class FTDistribution1DCosine(IFTDistribution1D):
         """
         evaluate(FTDistribution1DCosine self, double q) -> double
 
-        double FTDistribution1DCosine::evaluate(double q) const final
+        double FTDistribution1DCosine::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
         """
         return _libBornAgainCore.FTDistribution1DCosine_evaluate(self, q)
+
+
+    def qSecondDerivative(self):
+        """
+        qSecondDerivative(FTDistribution1DCosine self) -> double
+
+        double FTDistribution1DCosine::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
+        return _libBornAgainCore.FTDistribution1DCosine_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DCosine
     __del__ = lambda self: None
@@ -9598,7 +9885,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         clone(FTDistribution1DVoigt self) -> FTDistribution1DVoigt
 
-        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const final
+        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const override final
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_clone(self)
@@ -9608,7 +9895,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         accept(FTDistribution1DVoigt self, INodeVisitor visitor)
 
-        void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final
+        void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -9620,7 +9907,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
         """
         evaluate(FTDistribution1DVoigt self, double q) -> double
 
-        double FTDistribution1DVoigt::evaluate(double q) const final
+        double FTDistribution1DVoigt::evaluate(double q) const override final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -9636,6 +9923,18 @@ class FTDistribution1DVoigt(IFTDistribution1D):
 
         """
         return _libBornAgainCore.FTDistribution1DVoigt_eta(self)
+
+
+    def qSecondDerivative(self):
+        """
+        qSecondDerivative(FTDistribution1DVoigt self) -> double
+
+        double FTDistribution1DVoigt::qSecondDerivative() const override final
+
+        Returns the negative of the second order derivative in q space around q=0. 
+
+        """
+        return _libBornAgainCore.FTDistribution1DVoigt_qSecondDerivative(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FTDistribution1DVoigt
     __del__ = lambda self: None
@@ -10859,7 +11158,7 @@ class IFormFactorDecorator(IFormFactor):
     """
 
 
-    Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
+    Encapsulates another formfactor and adds extra functionality (a scalar factor, a position-dependent phase factor, ...).
 
     This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
 
@@ -11189,7 +11488,10 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list 
+        oriented vertex list
+
+        _sym_S2: 
+        true if face has a perpedicular two-fold symmetry axis 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -17884,17 +18186,6 @@ class SimulationResult(_object):
         return _libBornAgainCore.SimulationResult_data(self, *args)
 
 
-    def histogram1d(self, *args):
-        """
-        histogram1d(SimulationResult self, AxesUnits units) -> Histogram1D
-        histogram1d(SimulationResult self) -> Histogram1D
-
-        Histogram1D * SimulationResult::histogram1d(AxesUnits units=AxesUnits::DEFAULT) const
-
-        """
-        return _libBornAgainCore.SimulationResult_histogram1d(self, *args)
-
-
     def histogram2d(self, *args):
         """
         histogram2d(SimulationResult self, AxesUnits units) -> Histogram2D
@@ -17947,10 +18238,25 @@ class SimulationResult(_object):
 
         PyObject * SimulationResult::array() const
 
-        returns data as Python numpy array 
+        returns intensity data as Python numpy array 
 
         """
         return _libBornAgainCore.SimulationResult_array(self)
+
+
+    def axis(self, *args):
+        """
+        axis(SimulationResult self, AxesUnits units) -> vdouble1d_t
+        axis(SimulationResult self) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis, AxesUnits units) -> vdouble1d_t
+        axis(SimulationResult self, size_t i_axis) -> vdouble1d_t
+
+        std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
+
+        Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
+
+        """
+        return _libBornAgainCore.SimulationResult_axis(self, *args)
 
     __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
     __del__ = lambda self: None
@@ -18598,6 +18904,24 @@ class IInterferenceFunction(ISample):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, IInterferenceFunction, name)
     __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(IInterferenceFunction self) -> IInterferenceFunction
+        __init__(IInterferenceFunction self, IInterferenceFunction other) -> IInterferenceFunction
+
+        IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
+
+        """
+        if self.__class__ == IInterferenceFunction:
+            _self = None
+        else:
+            _self = self
+        this = _libBornAgainCore.new_IInterferenceFunction(_self, *args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
     __swig_destroy__ = _libBornAgainCore.delete_IInterferenceFunction
     __del__ = lambda self: None
 
@@ -18625,16 +18949,41 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_accept(self, visitor)
 
 
-    def evaluate(self, q):
+    def evaluate(self, q, outer_iff=1.0):
         """
+        evaluate(IInterferenceFunction self, kvector_t q, double outer_iff=1.0) -> double
         evaluate(IInterferenceFunction self, kvector_t q) -> double
 
-        virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
+        double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
 
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+        Evaluates the interference function for a given wavevector transfer. 
 
         """
-        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q)
+        return _libBornAgainCore.IInterferenceFunction_evaluate(self, q, outer_iff)
+
+
+    def setPositionVariance(self, var):
+        """
+        setPositionVariance(IInterferenceFunction self, double var)
+
+        void IInterferenceFunction::setPositionVariance(double var)
+
+        Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_setPositionVariance(self, var)
+
+
+    def positionVariance(self):
+        """
+        positionVariance(IInterferenceFunction self) -> double
+
+        double IInterferenceFunction::positionVariance() const
+
+        Returns the position variance. 
+
+        """
+        return _libBornAgainCore.IInterferenceFunction_positionVariance(self)
 
 
     def getParticleDensity(self):
@@ -18661,26 +19010,22 @@ class IInterferenceFunction(ISample):
         return _libBornAgainCore.IInterferenceFunction_supportsMultilayer(self)
 
 
-    def __init__(self):
+    def DWfactor(self, q):
         """
-        __init__(IInterferenceFunction self) -> IInterferenceFunction
+        DWfactor(IInterferenceFunction self, kvector_t q) -> double
 
+        double IInterferenceFunction::DWfactor(kvector_t q) const
 
-
-        Pure virtual base class of interference functions.
-
-        C++ includes: IInterferenceFunction.h
+        Evaluates the Debye-Waller factor for a given wavevector transfer. 
 
         """
-        if self.__class__ == IInterferenceFunction:
-            _self = None
-        else:
-            _self = self
-        this = _libBornAgainCore.new_IInterferenceFunction(_self, )
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
+        return _libBornAgainCore.IInterferenceFunction_DWfactor(self, q)
+
+
+    def iff_without_dw(self, q):
+        """iff_without_dw(IInterferenceFunction self, kvector_t q) -> double"""
+        return _libBornAgainCore.IInterferenceFunction_iff_without_dw(self, q)
+
     def __disown__(self):
         self.this.disown()
         _libBornAgainCore.disown_IInterferenceFunction(self)
@@ -20919,7 +21264,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice
 
-        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const final
+        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -20931,7 +21276,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction1DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -20967,23 +21312,11 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction1DLattice_getLatticeParameters(self)
 
 
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction1DLattice self, kvector_t q) -> double
-
-        double InterferenceFunction1DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction1DLattice_evaluate(self, q)
-
-
     def getChildren(self):
         """
         getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21051,7 +21384,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice
 
-        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const final
+        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21063,7 +21396,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction2DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21107,18 +21440,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DLattice_setDecayFunction(self, decay)
 
 
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction2DLattice self, kvector_t q) -> double
-
-        double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DLattice_evaluate(self, q)
-
-
     def setIntegrationOverXi(self, integrate_xi):
         """
         setIntegrationOverXi(InterferenceFunction2DLattice self, bool integrate_xi)
@@ -21153,7 +21474,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunction2DLattice self) -> double
 
-        double InterferenceFunction2DLattice::getParticleDensity() const final
+        double InterferenceFunction2DLattice::getParticleDensity() const override final
 
         Returns the particle density associated with this 2d lattice. 
 
@@ -21165,7 +21486,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction2DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21266,7 +21587,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal
 
-        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const final
+        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21278,7 +21599,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         accept(InterferenceFunction2DParaCrystal self, INodeVisitor visitor)
 
-        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21368,18 +21689,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction2DParaCrystal_setDampingLength(self, damping_length)
 
 
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction2DParaCrystal self, kvector_t q) -> double
-
-        double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DParaCrystal_evaluate(self, q)
-
-
     def domainSizes(self):
         """
         domainSizes(InterferenceFunction2DParaCrystal self) -> vdouble1d_t
@@ -21442,7 +21751,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunction2DParaCrystal self) -> double
 
-        double InterferenceFunction2DParaCrystal::getParticleDensity() const final
+        double InterferenceFunction2DParaCrystal::getParticleDensity() const override final
 
         If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 
@@ -21454,7 +21763,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         getChildren(InterferenceFunction2DParaCrystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const
+        std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21559,7 +21868,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
 
-        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const final
+        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21571,7 +21880,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction2DSuperLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21611,16 +21920,17 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
 
     createHexagonal = staticmethod(createHexagonal)
 
-    def evaluate(self, q):
+    def evaluate(self, q, outer_iff=1.0):
         """
+        evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
         evaluate(InterferenceFunction2DSuperLattice self, kvector_t q) -> double
 
-        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
+        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final
 
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+        Evaluates the interference function for a given wavevector transfer. 
 
         """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q)
+        return _libBornAgainCore.InterferenceFunction2DSuperLattice_evaluate(self, q, outer_iff)
 
 
     def domainSize1(self):
@@ -21641,26 +21951,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunction2DSuperLattice_domainSize2(self)
-
-
-    def setPositionVariance(self, sigma2):
-        """
-        setPositionVariance(InterferenceFunction2DSuperLattice self, double sigma2)
-
-        void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_setPositionVariance(self, sigma2)
-
-
-    def positionVariance(self):
-        """
-        positionVariance(InterferenceFunction2DSuperLattice self) -> double
-
-        double InterferenceFunction2DSuperLattice::positionVariance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunction2DSuperLattice_positionVariance(self)
 
 
     def setIntegrationOverXi(self, integrate_xi):
@@ -21697,7 +21987,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21754,7 +22044,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
 
-        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const final
+        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21766,7 +22056,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunction3DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21784,28 +22074,6 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunction3DLattice_setPeakShape(self, peak_shape)
 
 
-    def setDebyeWallerFactor(self, dw_length):
-        """
-        setDebyeWallerFactor(InterferenceFunction3DLattice self, double dw_length)
-
-        void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_setDebyeWallerFactor(self, dw_length)
-
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunction3DLattice self, kvector_t q) -> double
-
-        double InterferenceFunction3DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunction3DLattice_evaluate(self, q)
-
-
     def lattice(self):
         """
         lattice(InterferenceFunction3DLattice self) -> Lattice
@@ -21820,7 +22088,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         """
         supportsMultilayer(InterferenceFunction3DLattice self) -> bool
 
-        bool InterferenceFunction3DLattice::supportsMultilayer() const override
+        bool InterferenceFunction3DLattice::supportsMultilayer() const override final
 
         Indicates if this interference function can be used with a multilayer (DWBA mode) 
 
@@ -21832,7 +22100,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -21917,7 +22185,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice
 
-        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const final
+        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -21929,7 +22197,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunctionFinite2DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -21949,18 +22217,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
 
     createHexagonal = staticmethod(createHexagonal)
 
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunctionFinite2DLattice self, kvector_t q) -> double
-
-        double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_evaluate(self, q)
-
-
     def numberUnitCells1(self):
         """
         numberUnitCells1(InterferenceFunctionFinite2DLattice self) -> unsigned int
@@ -21979,26 +22235,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
 
         """
         return _libBornAgainCore.InterferenceFunctionFinite2DLattice_numberUnitCells2(self)
-
-
-    def setPositionVariance(self, sigma2):
-        """
-        setPositionVariance(InterferenceFunctionFinite2DLattice self, double sigma2)
-
-        void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_setPositionVariance(self, sigma2)
-
-
-    def positionVariance(self):
-        """
-        positionVariance(InterferenceFunctionFinite2DLattice self) -> double
-
-        double InterferenceFunctionFinite2DLattice::positionVariance() const
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite2DLattice_positionVariance(self)
 
 
     def setIntegrationOverXi(self, integrate_xi):
@@ -22035,7 +22271,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         getParticleDensity(InterferenceFunctionFinite2DLattice self) -> double
 
-        double InterferenceFunctionFinite2DLattice::getParticleDensity() const final
+        double InterferenceFunctionFinite2DLattice::getParticleDensity() const override final
 
         Returns the particle density associated with this 2d lattice. 
 
@@ -22047,7 +22283,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         getChildren(InterferenceFunctionFinite2DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -22118,7 +22354,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         """
         clone(InterferenceFunctionFinite3DLattice self) -> InterferenceFunctionFinite3DLattice
 
-        InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const final
+        InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -22130,24 +22366,12 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         """
         accept(InterferenceFunctionFinite3DLattice self, INodeVisitor visitor)
 
-        void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const final
+        void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionFinite3DLattice_accept(self, visitor)
-
-
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunctionFinite3DLattice self, kvector_t q) -> double
-
-        double InterferenceFunctionFinite3DLattice::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_evaluate(self, q)
 
 
     def numberUnitCells1(self):
@@ -22190,11 +22414,23 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionFinite3DLattice_lattice(self)
 
 
+    def supportsMultilayer(self):
+        """
+        supportsMultilayer(InterferenceFunctionFinite3DLattice self) -> bool
+
+        bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final
+
+        Indicates if this interference function can be used with a multilayer (DWBA mode) 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionFinite3DLattice_supportsMultilayer(self)
+
+
     def getChildren(self):
         """
         getChildren(InterferenceFunctionFinite3DLattice self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override
+        std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -22203,6 +22439,101 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
 
 InterferenceFunctionFinite3DLattice_swigregister = _libBornAgainCore.InterferenceFunctionFinite3DLattice_swigregister
 InterferenceFunctionFinite3DLattice_swigregister(InterferenceFunctionFinite3DLattice)
+
+class InterferenceFunctionHardDisk(IInterferenceFunction):
+    """
+
+
+    Percus-Yevick hard disk interference function.
+
+    M.S. Ripoll & C.F. Tejero (1995) Approximate analytical expression for the direct correlation function of hard discs within the Percus-Yevick equation, Molecular Physics, 85:2, 423-428, DOI: 10.1080/00268979500101211
+
+    C++ includes: InterferenceFunctionHardDisk.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunctionHardDisk, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunctionHardDisk, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, radius, density):
+        """
+        __init__(InterferenceFunctionHardDisk self, double radius, double density) -> InterferenceFunctionHardDisk
+
+        InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunctionHardDisk(radius, density)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionHardDisk
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(InterferenceFunctionHardDisk self) -> InterferenceFunctionHardDisk
+
+        InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunctionHardDisk self, INodeVisitor visitor)
+
+        void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_accept(self, visitor)
+
+
+    def getParticleDensity(self):
+        """
+        getParticleDensity(InterferenceFunctionHardDisk self) -> double
+
+        double InterferenceFunctionHardDisk::getParticleDensity() const override final
+
+        If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_getParticleDensity(self)
+
+
+    def radius(self):
+        """
+        radius(InterferenceFunctionHardDisk self) -> double
+
+        double InterferenceFunctionHardDisk::radius() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_radius(self)
+
+
+    def density(self):
+        """
+        density(InterferenceFunctionHardDisk self) -> double
+
+        double InterferenceFunctionHardDisk::density() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionHardDisk_density(self)
+
+InterferenceFunctionHardDisk_swigregister = _libBornAgainCore.InterferenceFunctionHardDisk_swigregister
+InterferenceFunctionHardDisk_swigregister(InterferenceFunctionHardDisk)
 
 class InterferenceFunctionNone(IInterferenceFunction):
     """
@@ -22241,7 +22572,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         clone(InterferenceFunctionNone self) -> InterferenceFunctionNone
 
-        InterferenceFunctionNone* InterferenceFunctionNone::clone() const final
+        InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -22253,24 +22584,12 @@ class InterferenceFunctionNone(IInterferenceFunction):
         """
         accept(InterferenceFunctionNone self, INodeVisitor visitor)
 
-        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const final
+        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
         """
         return _libBornAgainCore.InterferenceFunctionNone_accept(self, visitor)
-
-
-    def evaluate(self, arg2):
-        """
-        evaluate(InterferenceFunctionNone self, kvector_t arg2) -> double
-
-        double InterferenceFunctionNone::evaluate(const kvector_t) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionNone_evaluate(self, arg2)
 
     __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionNone
     __del__ = lambda self: None
@@ -22326,7 +22645,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
 
-        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
+        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final
 
         Returns a clone of this  ISample object. 
 
@@ -22338,7 +22657,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor visitor)
 
-        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final
+        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
@@ -22402,18 +22721,6 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_domainSize(self)
 
 
-    def evaluate(self, q):
-        """
-        evaluate(InterferenceFunctionRadialParaCrystal self, kvector_t q) -> double
-
-        double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
-
-        Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-
-        """
-        return _libBornAgainCore.InterferenceFunctionRadialParaCrystal_evaluate(self, q)
-
-
     def FTPDF(self, qpar):
         """
         FTPDF(InterferenceFunctionRadialParaCrystal self, double qpar) -> complex_t
@@ -22466,7 +22773,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         """
         getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
 
-        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
+        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override final
 
         Returns a vector of children (const). 
 
@@ -22487,6 +22794,97 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
     __del__ = lambda self: None
 InterferenceFunctionRadialParaCrystal_swigregister = _libBornAgainCore.InterferenceFunctionRadialParaCrystal_swigregister
 InterferenceFunctionRadialParaCrystal_swigregister(InterferenceFunctionRadialParaCrystal)
+
+class InterferenceFunctionTwin(IInterferenceFunction):
+    """
+
+
+    Interference function for two particles at a mean distance and given standard deviation from each other in a given direction.
+
+    C++ includes: InterferenceFunctionTwin.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, InterferenceFunctionTwin, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IInterferenceFunction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, InterferenceFunctionTwin, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, direction, mean_distance, std_dev):
+        """
+        __init__(InterferenceFunctionTwin self, kvector_t direction, double mean_distance, double std_dev) -> InterferenceFunctionTwin
+
+        InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t &direction, double mean_distance, double std_dev)
+
+        """
+        this = _libBornAgainCore.new_InterferenceFunctionTwin(direction, mean_distance, std_dev)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def clone(self):
+        """
+        clone(InterferenceFunctionTwin self) -> InterferenceFunctionTwin
+
+        InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(InterferenceFunctionTwin self, INodeVisitor visitor)
+
+        void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_accept(self, visitor)
+
+
+    def direction(self):
+        """
+        direction(InterferenceFunctionTwin self) -> kvector_t
+
+        kvector_t InterferenceFunctionTwin::direction() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_direction(self)
+
+
+    def meanDistance(self):
+        """
+        meanDistance(InterferenceFunctionTwin self) -> double
+
+        double InterferenceFunctionTwin::meanDistance() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_meanDistance(self)
+
+
+    def stdDev(self):
+        """
+        stdDev(InterferenceFunctionTwin self) -> double
+
+        double InterferenceFunctionTwin::stdDev() const
+
+        """
+        return _libBornAgainCore.InterferenceFunctionTwin_stdDev(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_InterferenceFunctionTwin
+    __del__ = lambda self: None
+InterferenceFunctionTwin_swigregister = _libBornAgainCore.InterferenceFunctionTwin_swigregister
+InterferenceFunctionTwin_swigregister(InterferenceFunctionTwin)
 
 class IPixel(_object):
     """
@@ -28013,6 +28411,9 @@ class SpecularSimulation(Simulation):
         setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max)
         setBeamParameters(SpecularSimulation self, double arg2, vdouble1d_t incident_angle_values, IFootprintFactor beam_shape=None)
         setBeamParameters(SpecularSimulation self, double arg2, vdouble1d_t incident_angle_values)
+        setBeamParameters(SpecularSimulation self, vdouble1d_t wavelength_values, double incident_angle, IFootprintFactor beam_shape=None)
+        setBeamParameters(SpecularSimulation self, vdouble1d_t wavelength_values, double incident_angle)
+        setBeamParameters(SpecularSimulation self, vdouble1d_t qz_values)
         setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis, IFootprintFactor beam_shape=None)
         setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis)
 
@@ -28024,16 +28425,28 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_setBeamParameters(self, *args)
 
 
-    def getAlphaAxis(self):
+    def coordinateAxis(self):
         """
-        getAlphaAxis(SpecularSimulation self) -> IAxis
+        coordinateAxis(SpecularSimulation self) -> IAxis
 
-        const IAxis * SpecularSimulation::getAlphaAxis() const
+        const IAxis * SpecularSimulation::coordinateAxis() const
 
-        Returns a pointer to incident angle axis. 
+        Returns a pointer to coordinate axis. 
 
         """
-        return _libBornAgainCore.SpecularSimulation_getAlphaAxis(self)
+        return _libBornAgainCore.SpecularSimulation_coordinateAxis(self)
+
+
+    def footprintFactor(self):
+        """
+        footprintFactor(SpecularSimulation self) -> IFootprintFactor
+
+        const IFootprintFactor * SpecularSimulation::footprintFactor() const
+
+        Returns a pointer to internal data handler. 
+
+        """
+        return _libBornAgainCore.SpecularSimulation_footprintFactor(self)
 
 
     def setSampleBuilder(self, ptr):
@@ -28599,6 +29012,18 @@ IterationInfo_swigregister = _libBornAgainCore.IterationInfo_swigregister
 IterationInfo_swigregister(IterationInfo)
 
 
+def FindPeaks(*args):
+    """
+    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option, double threshold=0.05) -> vector_pair_double_t
+    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option) -> vector_pair_double_t
+    FindPeaks(Histogram2D hist, double sigma=2) -> vector_pair_double_t
+    FindPeaks(Histogram2D hist) -> vector_pair_double_t
+
+    std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+
+    """
+    return _libBornAgainCore.FindPeaks(*args)
+
 class ParameterPoolIterator(object):
 
     def __init__(self, pool):
@@ -28634,7 +29059,9 @@ class SimulationBuilderWrapper(PyBuilderCallback):
         return pars_dict
 
     def build_simulation(self, obj):
-        return self.f_(self.create_par_dict(obj))
+        simulation = self.f_(self.create_par_dict(obj))
+        simulation.__disown__()
+        return simulation
 
 
 

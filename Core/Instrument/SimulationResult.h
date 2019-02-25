@@ -51,7 +51,6 @@ public:
     SimulationResult& operator=(SimulationResult&& other);
 
     OutputData<double>* data(AxesUnits units = AxesUnits::DEFAULT) const;
-    Histogram1D* histogram1d(AxesUnits units = AxesUnits::DEFAULT) const;
     Histogram2D* histogram2d(AxesUnits units = AxesUnits::DEFAULT) const;
 
     //! Provide AxisInfo for each axis and the given units
@@ -65,14 +64,19 @@ public:
     const double& operator[](size_t i) const;
     size_t size() const;
 
-    //! returns data as Python numpy array
+    //! returns intensity data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
     PyObject* array() const;
 #endif
 
+    std::vector<double> axis(AxesUnits units = AxesUnits::DEFAULT) const;
+
+    //! Returns axis coordinates as a numpy array. With no parameters given
+    //! returns coordinates of x-axis in default units.
+    std::vector<double> axis(size_t i_axis, AxesUnits units = AxesUnits::DEFAULT) const;
+
 private:
     void checkDimensions() const;
-    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const;
     std::unique_ptr<OutputData<double>> mP_data;
     std::unique_ptr<IUnitConverter> mP_unit_converter;
 };

@@ -47,6 +47,7 @@
 %template(vector_complex_t) std::vector< std::complex<double>>;
 %template(vector_string_t) std::vector<std::string>;
 %template(map_string_double_t) std::map<std::string, double>;
+%template(vector_pair_double_t) std::vector<std::pair<double, double>>;
 %nodefaultctor ParameterPool;
 
 #define SWIG_FILE_WITH_INIT
@@ -174,8 +175,10 @@
 #include "InterferenceFunction3DLattice.h"
 #include "InterferenceFunctionFinite2DLattice.h"
 #include "InterferenceFunctionFinite3DLattice.h"
+#include "InterferenceFunctionHardDisk.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "InterferenceFunctionTwin.h"
 #include "IsGISAXSDetector.h"
 #include "ILatticeOrientation.h"
 #include "Lattice.h"
@@ -228,12 +231,12 @@
 #include "IIntensityNormalizer.h"
 #include "VarianceFunctions.h"
 #include "IterationInfo.h"
+#include "SpectrumUtils.h"
 %}
 
 // ownership
 
 %newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;
-%newobject SimulationResult::histogram1d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 %newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
@@ -244,8 +247,6 @@
 %newobject PyArrayImport::importArrayToOutputData;
 %newobject IHistogram::createFrom(const std::string& filename);
 %newobject IHistogram::createFrom(const std::vector<std::vector<double>>& data);
-
-%newobject PyBuilderCallback::build_simulation(const std::string& filename);
 
 %newobject InterferenceFunction2DLattice::createSquare(double lattice_length, double xi);
 %newobject InterferenceFunction2DLattice::createHexagonal(double lattice_length, double xi);
@@ -416,8 +417,10 @@
 %include "InterferenceFunction3DLattice.h"
 %include "InterferenceFunctionFinite2DLattice.h"
 %include "InterferenceFunctionFinite3DLattice.h"
+%include "InterferenceFunctionHardDisk.h"
 %include "InterferenceFunctionNone.h"
 %include "InterferenceFunctionRadialParaCrystal.h"
+%include "InterferenceFunctionTwin.h"
 %include "IPixel.h"
 %include "SphericalDetector.h"
 %include "IsGISAXSDetector.h"
@@ -464,5 +467,6 @@
 %include "SimulationFactory.h"
 %include "IUnitConverter.h"
 %include "IterationInfo.h"
+%include "SpectrumUtils.h"
 
 %include "extendCore.i"

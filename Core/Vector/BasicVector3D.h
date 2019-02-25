@@ -99,7 +99,7 @@ public:
     //! Returns complex conjugate vector
     BasicVector3D<T> conj() const;
 
-    //! Returns squared magnitude squared of the vector.
+    //! Returns magnitude squared of the vector.
     double mag2() const { return std::norm(v_[0]) + std::norm(v_[1]) + std::norm(v_[2]); }
 
     //! Returns magnitude of the vector.

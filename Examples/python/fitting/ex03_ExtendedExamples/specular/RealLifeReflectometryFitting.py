@@ -210,7 +210,7 @@ def run_fitting():
     print("Start preliminary fitting of experimental data:\n")
 
     preliminary_result = differential_evolution(objective_primary, bounds,
-                                                maxiter=20, popsize=10,
+                                                maxiter=20, popsize=60,
                                                 mutation=(0.5, 1.5),
                                                 disp=True, tol=1e-5)
 
@@ -227,7 +227,7 @@ def run_fitting():
 
     fine_tuning_result = differential_evolution(objective_fine, bounds,
                                                 fixed_args, maxiter=20,
-                                                popsize=10, mutation=(0.5, 1.5),
+                                                popsize=40, mutation=(0.5, 1.5),
                                                 disp=True, tol=1e-5)
 
     result = create_par_dict(*fixed_args, *fine_tuning_result.x)

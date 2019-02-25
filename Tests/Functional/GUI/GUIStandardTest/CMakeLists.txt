@@ -36,6 +36,7 @@ set(test_cases
     MultipleLayout
     ParticleComposition
     RadialParaCrystal
+    HardDisk
     RectDetectorGeneric
     RectDetectorPerpToDirectBeam
     RectDetectorPerpToReflectedBeam

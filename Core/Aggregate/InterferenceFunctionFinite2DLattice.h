@@ -31,22 +31,17 @@ public:
                                         double xi, unsigned N_1, unsigned N_2);
     ~InterferenceFunctionFinite2DLattice() final;
 
-    InterferenceFunctionFinite2DLattice* clone() const final;
+    InterferenceFunctionFinite2DLattice* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     static InterferenceFunctionFinite2DLattice* createSquare(
             double lattice_length, double xi, unsigned N_1, unsigned N_2);
     static InterferenceFunctionFinite2DLattice* createHexagonal(
             double lattice_length, double xi, unsigned N_1, unsigned N_2);
 
-    double evaluate(const kvector_t q) const final;
-
     unsigned numberUnitCells1() const { return m_N_1; }
     unsigned numberUnitCells2() const { return m_N_2; }
-
-    void setPositionVariance(double sigma2) { m_sigma2 = sigma2; }
-    double positionVariance() const { return m_sigma2; }
 
     void setIntegrationOverXi(bool integrate_xi);
     bool integrationOverXi() const { return m_integrate_xi; }
@@ -54,18 +49,18 @@ public:
     const Lattice2D& lattice() const;
 
     //! Returns the particle density associated with this 2d lattice
-    double getParticleDensity() const final;
+    double getParticleDensity() const override final;
 
-    std::vector<const INode*> getChildren() const override;
+    std::vector<const INode*> getChildren() const override final;
 
 private:
+    double iff_without_dw(const kvector_t q) const override final;
     InterferenceFunctionFinite2DLattice(const InterferenceFunctionFinite2DLattice& other);
     void setLattice(const Lattice2D& lattice);
 
     void init_parameters();
     double interferenceForXi(double xi) const;
 
-    double m_sigma2;
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<Lattice2D> mP_lattice;
     unsigned m_N_1, m_N_2;  //!< Size of the finite lattice in lattice units

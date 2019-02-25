@@ -13,6 +13,7 @@ set(test_cases
     SizeDistributionTranslation
     SquareLatticeTranslation
     RadialParaTranslation
+    HardDiskTranslation
     RotationTranslation
     RoughnessTranslation
     TwoLayerRoughnessTranslation

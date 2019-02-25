@@ -22,7 +22,9 @@
 #include "InterferenceFunction3DLattice.h"
 #include "InterferenceFunctionFinite2DLattice.h"
 #include "InterferenceFunctionFinite3DLattice.h"
+#include "InterferenceFunctionHardDisk.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
+#include "InterferenceFunctionTwin.h"
 
 #endif // INTERFERENCEFUNCTIONS_H

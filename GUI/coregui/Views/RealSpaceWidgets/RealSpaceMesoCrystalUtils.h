@@ -29,15 +29,15 @@ class RealSpaceMesoCrystal
 public:
     ~RealSpaceMesoCrystal();
 
-    RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalItem, double total_abundance);
+    RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalItem, double total_abundance,
+                         const QVector3D& origin);
 
-    Particle3DContainer populateMesoCrystal(const IRotation* extra_rotation
-                                            = IRotation::createIdentity(),
-                                            kvector_t extra_translation = kvector_t(0, 0, 0));
+    Particle3DContainer populateMesoCrystal();
 
 private:
     const MesoCrystalItem* m_mesoCrystalItem;
     double m_total_abundance;
+    QVector3D m_origin;
 };
 
 #endif // REALSPACEMESOCRYSTALUTILS_H

@@ -66,8 +66,8 @@ std::unique_ptr<RealSpace::Layer> TransformTo3D::createLayer(const SessionItem& 
     double thickness = TransformTo3D::visualLayerThickness(layerItem, sceneGeometry);
 
     double s2 = sceneGeometry.layer_size();
-    double ztop = static_cast<double>(origin.z()) + thickness;
-    double zbottom = static_cast<double>(origin.z());
+    double ztop = static_cast<double>(origin.z());
+    double zbottom = static_cast<double>(origin.z()) - thickness;
 
     std::unique_ptr<RealSpace::Layer> result
         = std::make_unique<RealSpace::Layer>(RealSpace::VectorRange(

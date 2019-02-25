@@ -47,15 +47,9 @@ void InterferenceFunctionRadialParaCrystal::init_parameters()
         .setNonnegative();
 }
 
-InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const {
-    InterferenceFunctionRadialParaCrystal* result =
-        new InterferenceFunctionRadialParaCrystal(
-            m_peak_distance, m_damping_length);
-    result->setDomainSize(domainSize());
-    result->setKappa(m_kappa);
-    if (mP_pdf)
-        result->setProbabilityDistribution(*mP_pdf);
-    return result;
+InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const
+{
+    return new InterferenceFunctionRadialParaCrystal(*this);
 }
 
 //! Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
@@ -76,46 +70,6 @@ double InterferenceFunctionRadialParaCrystal::kappa() const
 void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
 {
     m_domain_size = size;
-}
-
-double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const
-{
-    if (!mP_pdf)
-        throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
-                "evaluate() -> Error! Probability distribution for "
-                "interference function not properly initialized");
-    double result=0.0;
-    double qxr = q.x();
-    double qyr = q.y();
-    double qpar = std::sqrt(qxr*qxr + qyr*qyr);
-    int n = (int)std::abs(m_domain_size/m_peak_distance);
-    double nd = (double)n;
-    complex_t fp = FTPDF(qpar);
-    if (n<1) {
-        result = ((1.0 + fp)/(1.0 - fp)).real();
-    } else {
-        if (std::norm(1.0-fp) < std::numeric_limits<double>::epsilon() ) {
-            result = nd;
-        }
-        // for (1-fp)*nd small, take the series expansion to second order in nd*(1-fp)
-        else if (std::abs(1.0-fp)*nd < 2e-4) {
-            complex_t intermediate = (nd-1.0)/2.0 + (nd*nd-1.0)*(fp-1.0)/6.0
-                    + (nd*nd*nd-2.0*nd*nd-nd+2.0)*(fp-1.0)*(fp-1.0)/24.0;
-            result = 1.0 + 2.0*intermediate.real();
-        }
-        else {
-            complex_t tmp;
-            if (std::abs(fp)==0.0
-             || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min())) {
-                            tmp = 0.0;
-            } else {
-                tmp = std::pow(fp,n);
-            }
-            complex_t intermediate = fp/(1.0-fp) - fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp);
-            result = 1.0 + 2.0*intermediate.real();
-        }
-    }
-    return result;
 }
 
 complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
@@ -140,4 +94,63 @@ void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFT
 std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() const
 {
     return std::vector<const INode*>() << mP_pdf;
+}
+
+double InterferenceFunctionRadialParaCrystal::iff_without_dw(const kvector_t q) const
+{
+    if (!mP_pdf)
+        throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
+                "evaluate() -> Error! Probability distribution for "
+                "interference function not properly initialized");
+    double result=0.0;
+    double qxr = q.x();
+    double qyr = q.y();
+    double qpar = std::sqrt(qxr*qxr + qyr*qyr);
+    int n = static_cast<int>(std::abs(m_domain_size/m_peak_distance));
+    double nd = static_cast<double>(n);
+    complex_t fp = FTPDF(qpar);
+    if (n<1) {
+        if (std::abs(1.0 - fp) < 10.*std::numeric_limits<double>::epsilon()) {
+            result = mP_pdf->qSecondDerivative()/m_peak_distance/m_peak_distance;
+        } else {
+            result = ((1.0 + fp)/(1.0 - fp)).real();
+        }
+    } else {
+        if (std::norm(1.0-fp) < 10.*std::numeric_limits<double>::epsilon() ) {
+            result = nd;
+        }
+        // for (1-fp)*nd small, take the series expansion to second order in nd*(1-fp)
+        else if (std::abs(1.0-fp)*nd < 2e-4) {
+            complex_t intermediate = (nd-1.0)/2.0 + (nd*nd-1.0)*(fp-1.0)/6.0
+                    + (nd*nd*nd-2.0*nd*nd-nd+2.0)*(fp-1.0)*(fp-1.0)/24.0;
+            result = 1.0 + 2.0*intermediate.real();
+        }
+        else {
+            complex_t tmp;
+            if (std::abs(fp)==0.0
+             || std::log(std::abs(fp))*nd < std::log(std::numeric_limits<double>::min())) {
+                            tmp = 0.0;
+            } else {
+                tmp = std::pow(fp,n);
+            }
+            complex_t intermediate = fp/(1.0-fp) - fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp);
+            result = 1.0 + 2.0*intermediate.real();
+        }
+    }
+    return result;
+}
+
+InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(
+        const InterferenceFunctionRadialParaCrystal& other)
+    : IInterferenceFunction(other)
+    , m_peak_distance(other.m_peak_distance)
+    , m_damping_length(other.m_damping_length)
+    , m_use_damping_length(other.m_use_damping_length)
+    , m_kappa(other.m_kappa)
+    , m_domain_size(other.m_domain_size)
+{
+    setName(other.getName());
+    init_parameters();
+    if (other.mP_pdf)
+        setProbabilityDistribution(*other.mP_pdf);
 }

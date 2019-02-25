@@ -18,6 +18,21 @@
 ";
 
 
+// File: classAveragedSlicedCylindersBuilder.xml
+%feature("docstring") AveragedSlicedCylindersBuilder "
+
+Provides exactly the same sample as  SLDSlicedCylindersBuilder, but with cylinders represented as homogeneous layers. SLD-based materials used. Assumed wavelength is 1.54 Angstrom.
+
+C++ includes: SlicedCylindersBuilder.h
+";
+
+%feature("docstring")  AveragedSlicedCylindersBuilder::AveragedSlicedCylindersBuilder "AveragedSlicedCylindersBuilder::AveragedSlicedCylindersBuilder()
+";
+
+%feature("docstring")  AveragedSlicedCylindersBuilder::buildSample "MultiLayer * AveragedSlicedCylindersBuilder::buildSample() const override
+";
+
+
 // File: structAxesUnitsWrap.xml
 %feature("docstring") AxesUnitsWrap "
 
@@ -233,7 +248,7 @@ Returns complex conjugate vector.
 
 %feature("docstring")  BasicVector3D::mag2 "double BasicVector3D< T >::mag2() const
 
-Returns squared magnitude squared of the vector. 
+Returns magnitude squared of the vector. 
 ";
 
 %feature("docstring")  BasicVector3D::mag "double BasicVector3D< T >::mag() const
@@ -618,21 +633,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -2565,6 +2580,66 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::getAlpha "double FormFactorAnisoPyramid::getAlpha() const
+";
+
+
+// File: classFormFactorBAPol.xml
+%feature("docstring") FormFactorBAPol "
+
+Evaluates the matrix BA term in a polarized  IFormFactor.
+
+C++ includes: FormFactorBAPol.h
+";
+
+%feature("docstring")  FormFactorBAPol::FormFactorBAPol "FormFactorBAPol::FormFactorBAPol(const IFormFactor &form_factor)
+";
+
+%feature("docstring")  FormFactorBAPol::~FormFactorBAPol "FormFactorBAPol::~FormFactorBAPol() override
+";
+
+%feature("docstring")  FormFactorBAPol::clone "FormFactorBAPol * FormFactorBAPol::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorBAPol::accept "void FormFactorBAPol::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorBAPol::setAmbientMaterial "void FormFactorBAPol::setAmbientMaterial(Material material) override
+
+Passes the material in which this particle is embedded. 
+";
+
+%feature("docstring")  FormFactorBAPol::evaluate "complex_t FormFactorBAPol::evaluate(const WavevectorInfo &wavevectors) const override
+
+Throws not-implemented exception. 
+";
+
+%feature("docstring")  FormFactorBAPol::evaluatePol "Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
+
+Calculates and returns a polarized form factor calculation in BA. 
+";
+
+%feature("docstring")  FormFactorBAPol::volume "double FormFactorBAPol::volume() const override
+
+Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  FormFactorBAPol::radialExtension "double FormFactorBAPol::radialExtension() const override
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorBAPol::bottomZ "double FormFactorBAPol::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorBAPol::topZ "double FormFactorBAPol::topZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 
@@ -5139,20 +5214,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DCauchy::FTDistribution1DCauchy "FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::clone "FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const final
+%feature("docstring")  FTDistribution1DCauchy::clone "FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::accept "void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DCauchy::accept "void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::evaluate "double FTDistribution1DCauchy::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DCauchy::evaluate "double FTDistribution1DCauchy::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DCauchy::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCauchy::createSampler() const final
+%feature("docstring")  FTDistribution1DCauchy::qSecondDerivative "double FTDistribution1DCauchy::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DCauchy::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCauchy::createSampler() const override final
 ";
 
 
@@ -5167,20 +5247,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DCosine::FTDistribution1DCosine "FTDistribution1DCosine::FTDistribution1DCosine(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DCosine::clone "FTDistribution1DCosine * FTDistribution1DCosine::clone() const final
+%feature("docstring")  FTDistribution1DCosine::clone "FTDistribution1DCosine * FTDistribution1DCosine::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DCosine::accept "void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DCosine::accept "void FTDistribution1DCosine::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DCosine::evaluate "double FTDistribution1DCosine::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DCosine::evaluate "double FTDistribution1DCosine::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DCosine::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCosine::createSampler() const final
+%feature("docstring")  FTDistribution1DCosine::qSecondDerivative "double FTDistribution1DCosine::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DCosine::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DCosine::createSampler() const override final
 ";
 
 
@@ -5195,20 +5280,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DGate::FTDistribution1DGate "FTDistribution1DGate::FTDistribution1DGate(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DGate::clone "FTDistribution1DGate * FTDistribution1DGate::clone() const final
+%feature("docstring")  FTDistribution1DGate::clone "FTDistribution1DGate * FTDistribution1DGate::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DGate::accept "void FTDistribution1DGate::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DGate::accept "void FTDistribution1DGate::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DGate::evaluate "double FTDistribution1DGate::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DGate::evaluate "double FTDistribution1DGate::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DGate::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGate::createSampler() const final
+%feature("docstring")  FTDistribution1DGate::qSecondDerivative "double FTDistribution1DGate::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DGate::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGate::createSampler() const override final
 ";
 
 
@@ -5223,20 +5313,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DGauss::FTDistribution1DGauss "FTDistribution1DGauss::FTDistribution1DGauss(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DGauss::clone "FTDistribution1DGauss * FTDistribution1DGauss::clone() const final
+%feature("docstring")  FTDistribution1DGauss::clone "FTDistribution1DGauss * FTDistribution1DGauss::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DGauss::accept "void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DGauss::accept "void FTDistribution1DGauss::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DGauss::evaluate "double FTDistribution1DGauss::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DGauss::evaluate "double FTDistribution1DGauss::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DGauss::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGauss::createSampler() const final
+%feature("docstring")  FTDistribution1DGauss::qSecondDerivative "double FTDistribution1DGauss::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DGauss::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DGauss::createSampler() const override final
 ";
 
 
@@ -5251,20 +5346,25 @@ C++ includes: FTDistributions1D.h
 %feature("docstring")  FTDistribution1DTriangle::FTDistribution1DTriangle "FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::clone "FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const final
+%feature("docstring")  FTDistribution1DTriangle::clone "FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::accept "void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DTriangle::accept "void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::evaluate "double FTDistribution1DTriangle::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DTriangle::evaluate "double FTDistribution1DTriangle::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
 
-%feature("docstring")  FTDistribution1DTriangle::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DTriangle::createSampler() const final
+%feature("docstring")  FTDistribution1DTriangle::qSecondDerivative "double FTDistribution1DTriangle::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DTriangle::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DTriangle::createSampler() const override final
 ";
 
 
@@ -5290,15 +5390,15 @@ eta:
 parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0) 
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const final
+%feature("docstring")  FTDistribution1DVoigt::clone "FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const override final
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::accept "void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final
+%feature("docstring")  FTDistribution1DVoigt::accept "void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::evaluate "double FTDistribution1DVoigt::evaluate(double q) const final
+%feature("docstring")  FTDistribution1DVoigt::evaluate "double FTDistribution1DVoigt::evaluate(double q) const override final
 
 Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 ";
@@ -5306,7 +5406,12 @@ Returns Fourier transform of this distribution; is a decay function starting at 
 %feature("docstring")  FTDistribution1DVoigt::eta "double FTDistribution1DVoigt::eta() const
 ";
 
-%feature("docstring")  FTDistribution1DVoigt::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DVoigt::createSampler() const final
+%feature("docstring")  FTDistribution1DVoigt::qSecondDerivative "double FTDistribution1DVoigt::qSecondDerivative() const override final
+
+Returns the negative of the second order derivative in q space around q=0. 
+";
+
+%feature("docstring")  FTDistribution1DVoigt::createSampler "std::unique_ptr< IDistribution1DSampler > FTDistribution1DVoigt::createSampler() const override final
 ";
 
 
@@ -5578,6 +5683,21 @@ C++ includes: GISASSpecularComputation.h
 ";
 
 %feature("docstring")  GISASSpecularComputation::compute "void GISASSpecularComputation::compute(SimulationElement &elem) const
+";
+
+
+// File: classHardDiskBuilder.xml
+%feature("docstring") HardDiskBuilder "
+
+Builds sample: cylinders with hard disk Percus-Yevick interference.
+
+C++ includes: PercusYevickBuilder.h
+";
+
+%feature("docstring")  HardDiskBuilder::HardDiskBuilder "HardDiskBuilder::HardDiskBuilder()
+";
+
+%feature("docstring")  HardDiskBuilder::buildSample "MultiLayer * HardDiskBuilder::buildSample() const
 ";
 
 
@@ -6782,7 +6902,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 // File: classIFormFactorDecorator.xml
 %feature("docstring") IFormFactorDecorator "
 
-Encapsulates another formfactor and adds extra functionality (a scalar factor, a Debye-Waller factor, a position-dependent phase factor, ...).
+Encapsulates another formfactor and adds extra functionality (a scalar factor, a position-dependent phase factor, ...).
 
 This class is designed according to the Decorator Pattern. It inherits from  IFormFactor and has a member of type IFormFactor*.
 
@@ -6978,6 +7098,9 @@ omega:
 half-width of the distribution in nanometers 
 ";
 
+%feature("docstring")  IFTDistribution1D::~IFTDistribution1D "IFTDistribution1D::~IFTDistribution1D()
+";
+
 %feature("docstring")  IFTDistribution1D::clone "virtual IFTDistribution1D* IFTDistribution1D::clone() const =0
 ";
 
@@ -6990,6 +7113,11 @@ Returns Fourier transform of this distribution; is a decay function starting at 
 ";
 
 %feature("docstring")  IFTDistribution1D::omega "double IFTDistribution1D::omega() const
+";
+
+%feature("docstring")  IFTDistribution1D::qSecondDerivative "virtual double IFTDistribution1D::qSecondDerivative() const =0
+
+Returns the negative of the second order derivative in q space around q=0. 
 ";
 
 %feature("docstring")  IFTDistribution1D::createSampler "virtual std::unique_ptr<IDistribution1DSampler> IFTDistribution1D::createSampler() const =0
@@ -7396,6 +7524,12 @@ Pure virtual base class of interference functions.
 C++ includes: IInterferenceFunction.h
 ";
 
+%feature("docstring")  IInterferenceFunction::IInterferenceFunction "IInterferenceFunction::IInterferenceFunction()
+";
+
+%feature("docstring")  IInterferenceFunction::IInterferenceFunction "IInterferenceFunction::IInterferenceFunction(const IInterferenceFunction &other)
+";
+
 %feature("docstring")  IInterferenceFunction::~IInterferenceFunction "IInterferenceFunction::~IInterferenceFunction()
 ";
 
@@ -7409,9 +7543,19 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  IInterferenceFunction::evaluate "virtual double IInterferenceFunction::evaluate(const kvector_t q) const =0
+%feature("docstring")  IInterferenceFunction::evaluate "double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
 
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+Evaluates the interference function for a given wavevector transfer. 
+";
+
+%feature("docstring")  IInterferenceFunction::setPositionVariance "void IInterferenceFunction::setPositionVariance(double var)
+
+Sets the variance of the position for the calculation of the DW factor It is defined as the variance in each relevant dimension 
+";
+
+%feature("docstring")  IInterferenceFunction::positionVariance "double IInterferenceFunction::positionVariance() const
+
+Returns the position variance. 
 ";
 
 %feature("docstring")  IInterferenceFunction::getParticleDensity "virtual double IInterferenceFunction::getParticleDensity() const
@@ -7422,6 +7566,11 @@ If defined by this interference function's parameters, returns the particle dens
 %feature("docstring")  IInterferenceFunction::supportsMultilayer "virtual bool IInterferenceFunction::supportsMultilayer() const
 
 Indicates if this interference function can be used with a multilayer (DWBA mode) 
+";
+
+%feature("docstring")  IInterferenceFunction::DWfactor "double IInterferenceFunction::DWfactor(kvector_t q) const
+
+Evaluates the Debye-Waller factor for a given wavevector transfer. 
 ";
 
 
@@ -8003,7 +8152,13 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionFinite3DLattice *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionHardDisk *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionRadialParaCrystal *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionTwin *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const InterferenceFunctionNone *)
@@ -8419,12 +8574,12 @@ rotation of lattice with respect to x-axis in radians
 %feature("docstring")  InterferenceFunction1DLattice::~InterferenceFunction1DLattice "InterferenceFunction1DLattice::~InterferenceFunction1DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::clone "InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const final
+%feature("docstring")  InterferenceFunction1DLattice::clone "InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8443,12 +8598,7 @@ one-dimensional decay function in reciprocal space
 %feature("docstring")  InterferenceFunction1DLattice::getLatticeParameters "Lattice1DParameters InterferenceFunction1DLattice::getLatticeParameters() const
 ";
 
-%feature("docstring")  InterferenceFunction1DLattice::evaluate "double InterferenceFunction1DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
-%feature("docstring")  InterferenceFunction1DLattice::getChildren "std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunction1DLattice::getChildren "std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8488,12 +8638,12 @@ rotation of the lattice with respect to the x-axis (beam direction) in radians
 %feature("docstring")  InterferenceFunction2DLattice::~InterferenceFunction2DLattice "InterferenceFunction2DLattice::~InterferenceFunction2DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::clone "InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const final
+%feature("docstring")  InterferenceFunction2DLattice::clone "InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8509,11 +8659,6 @@ decay:
 two-dimensional decay function in reciprocal space 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::evaluate "double InterferenceFunction2DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
 %feature("docstring")  InterferenceFunction2DLattice::setIntegrationOverXi "void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
 ";
 
@@ -8523,12 +8668,12 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction2DLattice::lattice "const Lattice2D & InterferenceFunction2DLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::getParticleDensity "double InterferenceFunction2DLattice::getParticleDensity() const final
+%feature("docstring")  InterferenceFunction2DLattice::getParticleDensity "double InterferenceFunction2DLattice::getParticleDensity() const override final
 
 Returns the particle density associated with this 2d lattice. 
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::getChildren "std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunction2DLattice::getChildren "std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8576,12 +8721,12 @@ the damping (coherence) length of the paracrystal in nanometers
 %feature("docstring")  InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal() final
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::clone "InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const final
+%feature("docstring")  InterferenceFunction2DParaCrystal::clone "InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8625,11 +8770,6 @@ damping_length:
 the damping (coherence) length of the paracrystal in nanometers 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::evaluate "double InterferenceFunction2DParaCrystal::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
 %feature("docstring")  InterferenceFunction2DParaCrystal::domainSizes "std::vector< double > InterferenceFunction2DParaCrystal::domainSizes() const
 ";
 
@@ -8653,12 +8793,12 @@ integration flag
 %feature("docstring")  InterferenceFunction2DParaCrystal::lattice "const Lattice2D & InterferenceFunction2DParaCrystal::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::getParticleDensity "double InterferenceFunction2DParaCrystal::getParticleDensity() const final
+%feature("docstring")  InterferenceFunction2DParaCrystal::getParticleDensity "double InterferenceFunction2DParaCrystal::getParticleDensity() const override final
 
 If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::getChildren "std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const
+%feature("docstring")  InterferenceFunction2DParaCrystal::getChildren "std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8704,12 +8844,12 @@ rotation of lattice with respect to x-axis (beam direction) in radians
 %feature("docstring")  InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice "InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction2DSuperLattice::clone "InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const final
+%feature("docstring")  InterferenceFunction2DSuperLattice::clone "InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction2DSuperLattice::accept "void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction2DSuperLattice::accept "void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8720,21 +8860,15 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  InterferenceFunction2DSuperLattice::substructureIFF "const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const
 ";
 
-%feature("docstring")  InterferenceFunction2DSuperLattice::evaluate "double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q) const final
+%feature("docstring")  InterferenceFunction2DSuperLattice::evaluate "double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final
 
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
+Evaluates the interference function for a given wavevector transfer. 
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::domainSize1 "unsigned InterferenceFunction2DSuperLattice::domainSize1() const
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::domainSize2 "unsigned InterferenceFunction2DSuperLattice::domainSize2() const
-";
-
-%feature("docstring")  InterferenceFunction2DSuperLattice::setPositionVariance "void InterferenceFunction2DSuperLattice::setPositionVariance(double sigma2)
-";
-
-%feature("docstring")  InterferenceFunction2DSuperLattice::positionVariance "double InterferenceFunction2DSuperLattice::positionVariance() const
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::setIntegrationOverXi "void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
@@ -8746,7 +8880,7 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunction2DSuperLattice::lattice "const Lattice2D & InterferenceFunction2DSuperLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunction2DSuperLattice::getChildren "std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
+%feature("docstring")  InterferenceFunction2DSuperLattice::getChildren "std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8766,12 +8900,12 @@ C++ includes: InterferenceFunction3DLattice.h
 %feature("docstring")  InterferenceFunction3DLattice::~InterferenceFunction3DLattice "InterferenceFunction3DLattice::~InterferenceFunction3DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::clone "InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const final
+%feature("docstring")  InterferenceFunction3DLattice::clone "InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::accept "void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunction3DLattice::accept "void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8779,23 +8913,15 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  InterferenceFunction3DLattice::setPeakShape "void InterferenceFunction3DLattice::setPeakShape(const IPeakShape &peak_shape)
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::setDebyeWallerFactor "void InterferenceFunction3DLattice::setDebyeWallerFactor(double dw_length)
-";
-
-%feature("docstring")  InterferenceFunction3DLattice::evaluate "double InterferenceFunction3DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
 %feature("docstring")  InterferenceFunction3DLattice::lattice "const Lattice & InterferenceFunction3DLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::supportsMultilayer "bool InterferenceFunction3DLattice::supportsMultilayer() const override
+%feature("docstring")  InterferenceFunction3DLattice::supportsMultilayer "bool InterferenceFunction3DLattice::supportsMultilayer() const override final
 
 Indicates if this interference function can be used with a multilayer (DWBA mode) 
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::getChildren "std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunction3DLattice::getChildren "std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8860,31 +8986,20 @@ number of lattice cells in the second lattice direction
 %feature("docstring")  InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::clone "InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const final
+%feature("docstring")  InterferenceFunctionFinite2DLattice::clone "InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::accept "void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunctionFinite2DLattice::accept "void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  InterferenceFunctionFinite2DLattice::evaluate "double InterferenceFunctionFinite2DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::numberUnitCells1 "unsigned InterferenceFunctionFinite2DLattice::numberUnitCells1() const
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::numberUnitCells2 "unsigned InterferenceFunctionFinite2DLattice::numberUnitCells2() const
-";
-
-%feature("docstring")  InterferenceFunctionFinite2DLattice::setPositionVariance "void InterferenceFunctionFinite2DLattice::setPositionVariance(double sigma2)
-";
-
-%feature("docstring")  InterferenceFunctionFinite2DLattice::positionVariance "double InterferenceFunctionFinite2DLattice::positionVariance() const
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::setIntegrationOverXi "void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
@@ -8896,12 +9011,12 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunctionFinite2DLattice::lattice "const Lattice2D & InterferenceFunctionFinite2DLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::getParticleDensity "double InterferenceFunctionFinite2DLattice::getParticleDensity() const final
+%feature("docstring")  InterferenceFunctionFinite2DLattice::getParticleDensity "double InterferenceFunctionFinite2DLattice::getParticleDensity() const override final
 
 Returns the particle density associated with this 2d lattice. 
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunctionFinite2DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
@@ -8935,19 +9050,14 @@ number of lattice cells in the second lattice direction
 %feature("docstring")  InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() final
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::clone "InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const final
+%feature("docstring")  InterferenceFunctionFinite3DLattice::clone "InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::accept "void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunctionFinite3DLattice::accept "void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  InterferenceFunctionFinite3DLattice::evaluate "double InterferenceFunctionFinite3DLattice::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::numberUnitCells1 "unsigned InterferenceFunctionFinite3DLattice::numberUnitCells1() const
@@ -8962,9 +9072,52 @@ Evaluates the interference function for a given wavevector transfer (only the re
 %feature("docstring")  InterferenceFunctionFinite3DLattice::lattice "const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override
+%feature("docstring")  InterferenceFunctionFinite3DLattice::supportsMultilayer "bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final
+
+Indicates if this interference function can be used with a multilayer (DWBA mode) 
+";
+
+%feature("docstring")  InterferenceFunctionFinite3DLattice::getChildren "std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final
 
 Returns a vector of children (const). 
+";
+
+
+// File: classInterferenceFunctionHardDisk.xml
+%feature("docstring") InterferenceFunctionHardDisk "
+
+Percus-Yevick hard disk interference function.
+
+M.S. Ripoll & C.F. Tejero (1995) Approximate analytical expression for the direct correlation function of hard discs within the Percus-Yevick equation, Molecular Physics, 85:2, 423-428, DOI: 10.1080/00268979500101211
+
+C++ includes: InterferenceFunctionHardDisk.h
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::InterferenceFunctionHardDisk "InterferenceFunctionHardDisk::InterferenceFunctionHardDisk(double radius, double density)
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk "InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk() final
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::clone "InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::accept "void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::getParticleDensity "double InterferenceFunctionHardDisk::getParticleDensity() const override final
+
+If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::radius "double InterferenceFunctionHardDisk::radius() const
+";
+
+%feature("docstring")  InterferenceFunctionHardDisk::density "double InterferenceFunctionHardDisk::density() const
 ";
 
 
@@ -8979,19 +9132,14 @@ C++ includes: InterferenceFunctionNone.h
 %feature("docstring")  InterferenceFunctionNone::InterferenceFunctionNone "InterferenceFunctionNone::InterferenceFunctionNone()
 ";
 
-%feature("docstring")  InterferenceFunctionNone::clone "InterferenceFunctionNone* InterferenceFunctionNone::clone() const final
+%feature("docstring")  InterferenceFunctionNone::clone "InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  InterferenceFunctionNone::evaluate "double InterferenceFunctionNone::evaluate(const kvector_t) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
 ";
 
 
@@ -9017,12 +9165,12 @@ damping_length:
 the damping (coherence) length of the paracrystal in nanometers 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::clone "InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::clone "InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -9055,11 +9203,6 @@ size of coherence domain along the lattice main axis in nanometers
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::domainSize "double InterferenceFunctionRadialParaCrystal::domainSize() const
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::evaluate "double InterferenceFunctionRadialParaCrystal::evaluate(const kvector_t q) const final
-
-Evaluates the interference function for a given wavevector transfer (only the real x and y components are relevant) 
-";
-
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::FTPDF "complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
 ";
 
@@ -9080,12 +9223,43 @@ probability distribution (Fourier transform of probability density)
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::dampingLength "double InterferenceFunctionRadialParaCrystal::dampingLength() const
 ";
 
-%feature("docstring")  InterferenceFunctionRadialParaCrystal::getChildren "std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override
+%feature("docstring")  InterferenceFunctionRadialParaCrystal::getChildren "std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override final
 
 Returns a vector of children (const). 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::randomSample "double InterferenceFunctionRadialParaCrystal::randomSample() const
+";
+
+
+// File: classInterferenceFunctionTwin.xml
+%feature("docstring") InterferenceFunctionTwin "
+
+Interference function for two particles at a mean distance and given standard deviation from each other in a given direction.
+
+C++ includes: InterferenceFunctionTwin.h
+";
+
+%feature("docstring")  InterferenceFunctionTwin::InterferenceFunctionTwin "InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t &direction, double mean_distance, double std_dev)
+";
+
+%feature("docstring")  InterferenceFunctionTwin::clone "InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  InterferenceFunctionTwin::accept "void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  InterferenceFunctionTwin::direction "kvector_t InterferenceFunctionTwin::direction() const
+";
+
+%feature("docstring")  InterferenceFunctionTwin::meanDistance "double InterferenceFunctionTwin::meanDistance() const
+";
+
+%feature("docstring")  InterferenceFunctionTwin::stdDev "double InterferenceFunctionTwin::stdDev() const
 ";
 
 
@@ -9675,6 +9849,47 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 ";
 
 
+// File: classISpecularDataHandler.xml
+%feature("docstring") ISpecularDataHandler "";
+
+%feature("docstring")  ISpecularDataHandler::ISpecularDataHandler "ISpecularDataHandler::ISpecularDataHandler(SPECULAR_DATA_TYPE data_type)
+";
+
+%feature("docstring")  ISpecularDataHandler::~ISpecularDataHandler "ISpecularDataHandler::~ISpecularDataHandler() override
+";
+
+%feature("docstring")  ISpecularDataHandler::clone "ISpecularDataHandler* ISpecularDataHandler::clone() const override=0
+";
+
+%feature("docstring")  ISpecularDataHandler::generateSimulationElements "virtual std::vector<SpecularSimulationElement> ISpecularDataHandler::generateSimulationElements() const =0
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  ISpecularDataHandler::coordinateAxis "virtual const IAxis* ISpecularDataHandler::coordinateAxis() const =0
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  ISpecularDataHandler::footprintFactor "virtual const IFootprintFactor* ISpecularDataHandler::footprintFactor() const =0
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  ISpecularDataHandler::footprint "virtual double ISpecularDataHandler::footprint(size_t i) const =0
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  ISpecularDataHandler::numberOfSimulationElements "virtual size_t ISpecularDataHandler::numberOfSimulationElements() const =0
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  ISpecularDataHandler::dataType "SPECULAR_DATA_TYPE ISpecularDataHandler::dataType() const
+";
+
+
 // File: classIterationInfo.xml
 %feature("docstring") IterationInfo "
 
@@ -9775,7 +9990,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -11221,6 +11436,9 @@ Sets beam parameters from here (forwarded to  Instrument)
 Returns axis of the beam. 
 ";
 
+%feature("docstring")  OffSpecSimulation::createUnitConverter "std::unique_ptr< IUnitConverter > OffSpecSimulation::createUnitConverter() const
+";
+
 
 // File: classOffSpecularConverter.xml
 %feature("docstring") OffSpecularConverter "
@@ -12569,7 +12787,10 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list 
+oriented vertex list
+
+_sym_S2: 
+true if face has a perpedicular two-fold symmetry axis 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
@@ -13199,7 +13420,7 @@ Builds sample: multilayer with Ti/Pt layers sequence.
 C++ includes: ResonatorBuilder.h
 ";
 
-%feature("docstring")  ResonatorBuilder::ResonatorBuilder "ResonatorBuilder::ResonatorBuilder()=default
+%feature("docstring")  ResonatorBuilder::ResonatorBuilder "ResonatorBuilder::ResonatorBuilder()
 ";
 
 %feature("docstring")  ResonatorBuilder::buildSample "MultiLayer * ResonatorBuilder::buildSample() const
@@ -14448,9 +14669,6 @@ C++ includes: SimulationResult.h
 %feature("docstring")  SimulationResult::data "OutputData< double > * SimulationResult::data(AxesUnits units=AxesUnits::DEFAULT) const
 ";
 
-%feature("docstring")  SimulationResult::histogram1d "Histogram1D * SimulationResult::histogram1d(AxesUnits units=AxesUnits::DEFAULT) const
-";
-
 %feature("docstring")  SimulationResult::histogram2d "Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
 ";
 
@@ -14469,7 +14687,15 @@ Returns underlying unit converter.
 
 %feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array() const
 
-returns data as Python numpy array 
+returns intensity data as Python numpy array 
+";
+
+%feature("docstring")  SimulationResult::axis "std::vector< double > SimulationResult::axis(AxesUnits units=AxesUnits::DEFAULT) const
+";
+
+%feature("docstring")  SimulationResult::axis "std::vector< double > SimulationResult::axis(size_t i_axis, AxesUnits units=AxesUnits::DEFAULT) const
+
+Returns axis coordinates as a numpy array. With no parameters given returns coordinates of x-axis in default units. 
 ";
 
 
@@ -14549,6 +14775,21 @@ C++ includes: SizeDistributionModelsBuilder.h
 ";
 
 
+// File: classSLDSlicedCylindersBuilder.xml
+%feature("docstring") SLDSlicedCylindersBuilder "
+
+Provides exactly the same sample as  SlicedCylindersBuilder, but with sld-based materials. Assumed wavelength is 1.54 Angstrom.
+
+C++ includes: SlicedCylindersBuilder.h
+";
+
+%feature("docstring")  SLDSlicedCylindersBuilder::SLDSlicedCylindersBuilder "SLDSlicedCylindersBuilder::SLDSlicedCylindersBuilder()
+";
+
+%feature("docstring")  SLDSlicedCylindersBuilder::buildSample "MultiLayer * SLDSlicedCylindersBuilder::buildSample() const override
+";
+
+
 // File: classSlicedCompositionBuilder.xml
 %feature("docstring") SlicedCompositionBuilder "
 
@@ -14561,6 +14802,21 @@ C++ includes: SlicedParticleBuilder.h
 ";
 
 %feature("docstring")  SlicedCompositionBuilder::buildSample "MultiLayer * SlicedCompositionBuilder::buildSample() const
+";
+
+
+// File: classSlicedCylindersBuilder.xml
+%feature("docstring") SlicedCylindersBuilder "
+
+Builds sample: cylinders on a silicon substrate
+
+C++ includes: SlicedCylindersBuilder.h
+";
+
+%feature("docstring")  SlicedCylindersBuilder::SlicedCylindersBuilder "SlicedCylindersBuilder::SlicedCylindersBuilder()
+";
+
+%feature("docstring")  SlicedCylindersBuilder::buildSample "MultiLayer * SlicedCylindersBuilder::buildSample() const override
 ";
 
 
@@ -14631,7 +14887,7 @@ Computes the specular scattering. Used by  SpecularComputation.
 C++ includes: SpecularComputationTerm.h
 ";
 
-%feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm(const IFresnelMap *p_fresnel_map)
+%feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm()
 ";
 
 %feature("docstring")  SpecularComputationTerm::~SpecularComputationTerm "SpecularComputationTerm::~SpecularComputationTerm()
@@ -14640,7 +14896,129 @@ C++ includes: SpecularComputationTerm.h
 %feature("docstring")  SpecularComputationTerm::setProgressHandler "void SpecularComputationTerm::setProgressHandler(ProgressHandler *p_progress)
 ";
 
-%feature("docstring")  SpecularComputationTerm::compute "void SpecularComputationTerm::compute(SpecularSimulationElement &elem) const
+%feature("docstring")  SpecularComputationTerm::compute "void SpecularComputationTerm::compute(SpecularSimulationElement &elem, const MultiLayer &sample) const
+";
+
+
+// File: classSpecularDataHandlerAng.xml
+%feature("docstring") SpecularDataHandlerAng "";
+
+%feature("docstring")  SpecularDataHandlerAng::SpecularDataHandlerAng "SpecularDataHandlerAng::SpecularDataHandlerAng(double wl, std::unique_ptr< IAxis > inc_angle, const IFootprintFactor *footprint=nullptr)
+";
+
+%feature("docstring")  SpecularDataHandlerAng::~SpecularDataHandlerAng "SpecularDataHandlerAng::~SpecularDataHandlerAng() override
+";
+
+%feature("docstring")  SpecularDataHandlerAng::clone "SpecularDataHandlerAng * SpecularDataHandlerAng::clone() const override
+";
+
+%feature("docstring")  SpecularDataHandlerAng::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerAng::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  SpecularDataHandlerAng::coordinateAxis "virtual const IAxis* SpecularDataHandlerAng::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  SpecularDataHandlerAng::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerAng::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  SpecularDataHandlerAng::footprint "double SpecularDataHandlerAng::footprint(size_t i) const override
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  SpecularDataHandlerAng::numberOfSimulationElements "size_t SpecularDataHandlerAng::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  SpecularDataHandlerAng::wavelength "double SpecularDataHandlerAng::wavelength() const
+";
+
+
+// File: classSpecularDataHandlerQ.xml
+%feature("docstring") SpecularDataHandlerQ "";
+
+%feature("docstring")  SpecularDataHandlerQ::SpecularDataHandlerQ "SpecularDataHandlerQ::SpecularDataHandlerQ(std::unique_ptr< IAxis > qs_nm)
+
+Accepts qz-value vector (in inverse nm) 
+";
+
+%feature("docstring")  SpecularDataHandlerQ::~SpecularDataHandlerQ "SpecularDataHandlerQ::~SpecularDataHandlerQ() override
+";
+
+%feature("docstring")  SpecularDataHandlerQ::clone "SpecularDataHandlerQ * SpecularDataHandlerQ::clone() const override
+";
+
+%feature("docstring")  SpecularDataHandlerQ::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerQ::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  SpecularDataHandlerQ::coordinateAxis "virtual const IAxis* SpecularDataHandlerQ::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  SpecularDataHandlerQ::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerQ::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  SpecularDataHandlerQ::footprint "double SpecularDataHandlerQ::footprint(size_t) const override
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  SpecularDataHandlerQ::numberOfSimulationElements "size_t SpecularDataHandlerQ::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+
+// File: classSpecularDataHandlerTOF.xml
+%feature("docstring") SpecularDataHandlerTOF "";
+
+%feature("docstring")  SpecularDataHandlerTOF::SpecularDataHandlerTOF "SpecularDataHandlerTOF::SpecularDataHandlerTOF(double inc_angle, std::unique_ptr< IAxis > qz, const IFootprintFactor *footprint=nullptr)
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::~SpecularDataHandlerTOF "SpecularDataHandlerTOF::~SpecularDataHandlerTOF() override
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::clone "SpecularDataHandlerTOF * SpecularDataHandlerTOF::clone() const override
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerTOF::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::coordinateAxis "virtual const IAxis* SpecularDataHandlerTOF::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerTOF::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::footprint "double SpecularDataHandlerTOF::footprint(size_t i) const override
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::numberOfSimulationElements "size_t SpecularDataHandlerTOF::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  SpecularDataHandlerTOF::inclinationAngle "double SpecularDataHandlerTOF::inclinationAngle() const
 ";
 
 
@@ -14757,14 +15135,30 @@ Returns the results of the simulation in a format that supports unit conversion 
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, std::vector< double > incident_angle_values, const IFootprintFactor *beam_shape=nullptr)
 ";
 
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(std::vector< double > wavelength_values, double incident_angle, const IFootprintFactor *beam_shape=nullptr)
+";
+
+%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(std::vector< double > qz_values)
+";
+
 %feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
 
 Sets beam parameters for specular simulation.  lambda defines the wavelength of incoming beam (in nm),  alpha_axis defines the range of incident angles, while  beam_shape (optional parameter) is required to take footprint effects into account. Incident angle axis can be defined as a numpy array of values. This overload facilitates defining non-uniform incident angle axis. Another overload accepts the number of bins ( nbins), as well as minimal ( alpha_i_min) and maximal ( alpha_i_max) angle values. With using this overload a uniform angle axis in the given range is assigned to the beam. 
 ";
 
-%feature("docstring")  SpecularSimulation::getAlphaAxis "const IAxis * SpecularSimulation::getAlphaAxis() const
+%feature("docstring")  SpecularSimulation::coordinateAxis "const IAxis * SpecularSimulation::coordinateAxis() const
 
-Returns a pointer to incident angle axis. 
+Returns a pointer to coordinate axis. 
+";
+
+%feature("docstring")  SpecularSimulation::footprintFactor "const IFootprintFactor * SpecularSimulation::footprintFactor() const
+
+Returns a pointer to internal data handler. 
+";
+
+%feature("docstring")  SpecularSimulation::dataHandler "const ISpecularDataHandler* SpecularSimulation::dataHandler() const
+
+Returns internal data handler. 
 ";
 
 
@@ -14776,7 +15170,10 @@ Data stucture containing both input and output of a single image pixel for specu
 C++ includes: SpecularSimulationElement.h
 ";
 
-%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha_i)
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double kz)
+";
+
+%feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha)
 ";
 
 %feature("docstring")  SpecularSimulationElement::SpecularSimulationElement "SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement &other)
@@ -14798,22 +15195,10 @@ Assigns  PolarizationHandler.
 Returns assigned  PolarizationHandler. 
 ";
 
-%feature("docstring")  SpecularSimulationElement::getWavelength "double SpecularSimulationElement::getWavelength() const
-";
-
-%feature("docstring")  SpecularSimulationElement::getAlphaI "double SpecularSimulationElement::getAlphaI() const
-";
-
-%feature("docstring")  SpecularSimulationElement::getKi "kvector_t SpecularSimulationElement::getKi() const
+%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
 ";
 
 %feature("docstring")  SpecularSimulationElement::setIntensity "void SpecularSimulationElement::setIntensity(double intensity)
-";
-
-%feature("docstring")  SpecularSimulationElement::addIntensity "void SpecularSimulationElement::addIntensity(double intensity)
-";
-
-%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
 ";
 
 %feature("docstring")  SpecularSimulationElement::setCalculationFlag "void SpecularSimulationElement::setCalculationFlag(bool calculation_flag)
@@ -14822,6 +15207,11 @@ Set calculation flag (if it's false, zero intensity is assigned to the element)
 ";
 
 %feature("docstring")  SpecularSimulationElement::isCalculated "bool SpecularSimulationElement::isCalculated() const
+";
+
+%feature("docstring")  SpecularSimulationElement::produceKz "std::vector< complex_t > SpecularSimulationElement::produceKz(const MultiLayer &sample)
+
+Returns kz values for Abeles computation of reflection/transition coefficients. 
 ";
 
 
@@ -15300,20 +15690,15 @@ C++ includes: Unit.h
 // File: classUnitConverter1D.xml
 %feature("docstring") UnitConverter1D "
 
-Conversion of axis units for the case of 1D simulation result (specular simulation in particular).
+Conversion of axis units for the case of 1D simulation result.
 
 C++ includes: UnitConverter1D.h
 ";
 
-%feature("docstring")  UnitConverter1D::UnitConverter1D "UnitConverter1D::UnitConverter1D(const Beam &beam, const IAxis &axis, AxesUnits axis_units=AxesUnits::RADIANS)
-
-Constructs the object for unit conversion. Input axis is in radians. 
+%feature("docstring")  UnitConverter1D::~UnitConverter1D "UnitConverter1D::~UnitConverter1D() override=default
 ";
 
-%feature("docstring")  UnitConverter1D::~UnitConverter1D "UnitConverter1D::~UnitConverter1D() override
-";
-
-%feature("docstring")  UnitConverter1D::clone "UnitConverter1D * UnitConverter1D::clone() const override
+%feature("docstring")  UnitConverter1D::clone "UnitConverter1D* UnitConverter1D::clone() const override=0
 ";
 
 %feature("docstring")  UnitConverter1D::dimension "size_t UnitConverter1D::dimension() const override
@@ -15331,24 +15716,83 @@ Calculates minimum on-axis value in given units.
 Calculates maximum on-axis value in given units. 
 ";
 
-%feature("docstring")  UnitConverter1D::axisSize "size_t UnitConverter1D::axisSize(size_t i_axis) const override
+%feature("docstring")  UnitConverter1D::createConvertedAxis "std::unique_ptr< IAxis > UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const override
+
+Creates axis in converted units. 
+";
+
+
+// File: classUnitConverterConvSpec.xml
+%feature("docstring") UnitConverterConvSpec "
+
+Conversion of axis units for the case of conventional (angle-based) reflectometry.
+
+C++ includes: UnitConverter1D.h
+";
+
+%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const Beam &beam, const IAxis &axis, AxesUnits axis_units=AxesUnits::RADIANS)
+
+Constructs the object for unit conversion. 
+";
+
+%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const SpecularDataHandlerAng &handler)
+";
+
+%feature("docstring")  UnitConverterConvSpec::~UnitConverterConvSpec "UnitConverterConvSpec::~UnitConverterConvSpec() override
+";
+
+%feature("docstring")  UnitConverterConvSpec::clone "UnitConverterConvSpec * UnitConverterConvSpec::clone() const override
+";
+
+%feature("docstring")  UnitConverterConvSpec::axisSize "size_t UnitConverterConvSpec::axisSize(size_t i_axis) const override
 
 Returns the size of underlying axis. 
 ";
 
-%feature("docstring")  UnitConverter1D::availableUnits "std::vector< AxesUnits > UnitConverter1D::availableUnits() const override
+%feature("docstring")  UnitConverterConvSpec::availableUnits "std::vector< AxesUnits > UnitConverterConvSpec::availableUnits() const override
 
 Returns the list of all available units. 
 ";
 
-%feature("docstring")  UnitConverter1D::defaultUnits "AxesUnits UnitConverter1D::defaultUnits() const override
+%feature("docstring")  UnitConverterConvSpec::defaultUnits "AxesUnits UnitConverterConvSpec::defaultUnits() const override
 
 Returns default units to convert to. 
 ";
 
-%feature("docstring")  UnitConverter1D::createConvertedAxis "std::unique_ptr< IAxis > UnitConverter1D::createConvertedAxis(size_t i_axis, AxesUnits units) const override
 
-Creates axis in converted units. 
+// File: classUnitConverterQSpec.xml
+%feature("docstring") UnitConverterQSpec "
+
+Conversion of axis units for the case of q-defined reflectometry.
+
+C++ includes: UnitConverter1D.h
+";
+
+%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerQ &handler)
+";
+
+%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerTOF &handler)
+";
+
+%feature("docstring")  UnitConverterQSpec::~UnitConverterQSpec "UnitConverterQSpec::~UnitConverterQSpec() override
+";
+
+%feature("docstring")  UnitConverterQSpec::clone "UnitConverterQSpec * UnitConverterQSpec::clone() const override
+";
+
+%feature("docstring")  UnitConverterQSpec::axisSize "size_t UnitConverterQSpec::axisSize(size_t i_axis) const override
+
+Returns the size of underlying axis. 
+";
+
+%feature("docstring")  UnitConverterQSpec::availableUnits "std::vector< AxesUnits > UnitConverterQSpec::availableUnits() const override
+
+Returns the list of all available units. 
+";
+
+%feature("docstring")  UnitConverterQSpec::defaultUnits "AxesUnits UnitConverterQSpec::defaultUnits() const override
+
+Returns default units to convert to. 
 ";
 
 
@@ -15564,10 +16008,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -15597,124 +16041,136 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D103.xml
-
-
-// File: namespace_0D118.xml
+// File: namespace_0D107.xml
 
 
 // File: namespace_0D12.xml
 
 
-// File: namespace_0D127.xml
+// File: namespace_0D122.xml
 
 
-// File: namespace_0D129.xml
+// File: namespace_0D131.xml
 
 
-// File: namespace_0D132.xml
+// File: namespace_0D133.xml
+
+
+// File: namespace_0D136.xml
 
 
 // File: namespace_0D18.xml
 
 
-// File: namespace_0D185.xml
+// File: namespace_0D189.xml
 
 
 // File: namespace_0D20.xml
 
 
-// File: namespace_0D212.xml
+// File: namespace_0D216.xml
 
 
-// File: namespace_0D214.xml
+// File: namespace_0D218.xml
 
 
-// File: namespace_0D226.xml
-
-
-// File: namespace_0D291.xml
+// File: namespace_0D230.xml
 
 
 // File: namespace_0D295.xml
 
 
-// File: namespace_0D307.xml
+// File: namespace_0D299.xml
 
 
-// File: namespace_0D313.xml
+// File: namespace_0D311.xml
 
 
-// File: namespace_0D334.xml
+// File: namespace_0D317.xml
+
+
+// File: namespace_0D32.xml
 
 
 // File: namespace_0D338.xml
 
 
-// File: namespace_0D340.xml
-
-
 // File: namespace_0D342.xml
 
 
-// File: namespace_0D350.xml
+// File: namespace_0D344.xml
 
 
-// File: namespace_0D36.xml
+// File: namespace_0D346.xml
 
 
-// File: namespace_0D367.xml
+// File: namespace_0D356.xml
+
+
+// File: namespace_0D371.xml
 
 
 // File: namespace_0D375.xml
 
 
-// File: namespace_0D38.xml
+// File: namespace_0D383.xml
 
 
-// File: namespace_0D381.xml
-
-
-// File: namespace_0D384.xml
-
-
-// File: namespace_0D386.xml
+// File: namespace_0D392.xml
 
 
 // File: namespace_0D394.xml
 
 
-// File: namespace_0D407.xml
+// File: namespace_0D40.xml
 
 
-// File: namespace_0D416.xml
+// File: namespace_0D402.xml
 
 
-// File: namespace_0D450.xml
+// File: namespace_0D415.xml
 
 
-// File: namespace_0D457.xml
+// File: namespace_0D42.xml
 
 
-// File: namespace_0D495.xml
+// File: namespace_0D424.xml
+
+
+// File: namespace_0D458.xml
+
+
+// File: namespace_0D465.xml
 
 
 // File: namespace_0D503.xml
 
 
-// File: namespace_0D505.xml
+// File: namespace_0D511.xml
 
 
-// File: namespace_0D507.xml
+// File: namespace_0D513.xml
 
 
-// File: namespace_0D589.xml
+// File: namespace_0D515.xml
 
 
-// File: namespace_0D611.xml
+// File: namespace_0D517.xml
 
 
-// File: namespace_0D94.xml
+// File: namespace_0D599.xml
+
+
+// File: namespace_0D6.xml
+
+
+// File: namespace_0D603.xml
+
+
+// File: namespace_0D625.xml
+
+
+// File: namespace_0D98.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -15799,6 +16255,9 @@ vector<vector<double>>
 ";
 
 %feature("docstring")  AxisNames::InitSpecAxis "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSpecAxis()
+";
+
+%feature("docstring")  AxisNames::InitSpecAxisQ "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSpecAxisQ()
 ";
 
 %feature("docstring")  AxisNames::InitSampleDepthAxis "BA_CORE_API_ std::map< AxesUnits, std::string > AxisNames::InitSampleDepthAxis()
@@ -16092,6 +16551,17 @@ SimulationResult object.
 ";
 
 
+// File: namespaceKzComputation.xml
+%feature("docstring")  KzComputation::computeReducedKz "std::vector< complex_t > KzComputation::computeReducedKz(const MultiLayer &sample, kvector_t k)
+";
+
+%feature("docstring")  KzComputation::computeKzFromSLDs "std::vector< complex_t > KzComputation::computeKzFromSLDs(const MultiLayer &sample, double kz)
+";
+
+%feature("docstring")  KzComputation::computeKzFromRefIndeces "std::vector< complex_t > KzComputation::computeKzFromRefIndeces(const MultiLayer &sample, kvector_t k)
+";
+
+
 // File: namespaceLatticeUtils.xml
 %feature("docstring")  LatticeUtils::CreateFCCLattice "Lattice LatticeUtils::CreateFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
 ";
@@ -16119,7 +16589,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -16397,6 +16867,9 @@ Returns fixed Python code snippet that defines the function \"runSimulation\".
 %feature("docstring")  PythonFormatting::printNm "BA_CORE_API_ std::string PythonFormatting::printNm(double input)
 ";
 
+%feature("docstring")  PythonFormatting::printNm2 "BA_CORE_API_ std::string PythonFormatting::printNm2(double input)
+";
+
 %feature("docstring")  PythonFormatting::printScientificDouble "BA_CORE_API_ std::string PythonFormatting::printScientificDouble(double input)
 ";
 
@@ -16464,6 +16937,11 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 %feature("docstring")  PythonFormatting::printInt "BA_CORE_API_ std::string PythonFormatting::printInt(int value)
+";
+
+
+// File: namespaceSpectrumUtils.xml
+%feature("docstring")  SpectrumUtils::FindPeaks "std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
 ";
 
 
@@ -16591,6 +17069,12 @@ Simulation with fitting.  Beam intensity set to provide reasonably large values 
 ";
 
 %feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularTOF "SpecularSimulation * StandardSimulations::BasicSpecularTOF()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularQ "SpecularSimulation * StandardSimulations::BasicSpecularQ()
 ";
 
 %feature("docstring")  StandardSimulations::SpecularWithGaussianBeam "SpecularSimulation * StandardSimulations::SpecularWithGaussianBeam()
@@ -16753,6 +17237,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: InterferenceFunctionFinite3DLattice_8h.xml
 
 
+// File: InterferenceFunctionHardDisk_8cpp.xml
+
+
+// File: InterferenceFunctionHardDisk_8h.xml
+
+
 // File: InterferenceFunctionNone_8cpp.xml
 
 
@@ -16763,6 +17253,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: InterferenceFunctionRadialParaCrystal_8h.xml
+
+
+// File: InterferenceFunctionTwin_8cpp.xml
+
+
+// File: InterferenceFunctionTwin_8h.xml
 
 
 // File: IPeakShape_8cpp.xml
@@ -17806,6 +18302,12 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: DecouplingApproximationStrategy_8h.xml
 
 
+// File: FormFactorBAPol_8cpp.xml
+
+
+// File: FormFactorBAPol_8h.xml
+
+
 // File: FormFactorDWBA_8cpp.xml
 
 
@@ -17855,6 +18357,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: InterferenceFunctionUtils_8h.xml
+
+
+// File: KzComputation_8cpp.xml
+
+
+// File: KzComputation_8h.xml
 
 
 // File: Layer_8cpp.xml
@@ -17925,20 +18433,6 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: SpecularMatrix_8cpp.xml
-%feature("docstring")  setZeroBelow "void setZeroBelow(std::vector< ScalarRTCoefficients > &coeff, size_t current_layer)
-
-Sets coeff to zero for all layers below current_layer. 
-";
-
-%feature("docstring")  calculateUpFromLayer "bool calculateUpFromLayer(std::vector< ScalarRTCoefficients > &coeff, const MultiLayer &sample, const double kmag, size_t layer_index)
-
-Computes RT coefficients coeff, starting from layer number layer_index. Returns true if no overflow happens. 
-";
-
-%feature("docstring")  bisectRTcomputation "size_t bisectRTcomputation(std::vector< ScalarRTCoefficients > &coeff, const MultiLayer &sample, const double kmag, const size_t lgood, const size_t lbad, const size_t l)
-
-Recursive bisection to determine the number of the deepest layer where RT computation can be started without running into overflow. Computes coeff, and returns largest possible start layer index. 
-";
 
 
 // File: SpecularMatrix_8h.xml
@@ -18387,6 +18881,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: Simulation2D_8h.xml
 
 
+// File: SpecularDataHandler_8cpp.xml
+
+
+// File: SpecularDataHandler_8h.xml
+
+
 // File: SpecularSimulation_8cpp.xml
 
 
@@ -18583,6 +19083,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: ParticleInTheAirBuilder_8h.xml
 
 
+// File: PercusYevickBuilder_8cpp.xml
+
+
+// File: PercusYevickBuilder_8h.xml
+
+
 // File: PlainMultiLayerBySLDBuilder_8cpp.xml
 
 
@@ -18629,6 +19135,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SizeDistributionModelsBuilder_8h.xml
+
+
+// File: SlicedCylindersBuilder_8cpp.xml
+
+
+// File: SlicedCylindersBuilder_8h.xml
 
 
 // File: SlicedParticleBuilder_8cpp.xml
@@ -18742,6 +19254,12 @@ Template function to create an integrator object.
 
 
 // File: SafePointerVector_8h.xml
+
+
+// File: SpectrumUtils_8cpp.xml
+
+
+// File: SpectrumUtils_8h.xml
 
 
 // File: SysUtils_8cpp.xml

@@ -25,7 +25,9 @@ PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder()
     , m_ni { 9.4245e-06, 1.1423e-09}
     , m_thick_ti(3.0) // nm
     , m_thick_ni(7.0) //nm
-{}
+{
+    registerParameter("ti_thickness", &m_thick_ti);
+}
 
 MultiLayer* PlainMultiLayerBySLDBuilder::buildSample() const
 {
@@ -36,10 +38,10 @@ MultiLayer* PlainMultiLayerBySLDBuilder::buildSample() const
     Material ni_material = MaterialBySLD("Ni", m_ni.sld_real, m_ni.sld_imag);
     Material ti_material = MaterialBySLD("Ti", m_ti.sld_real, m_ti.sld_imag);
 
-    Layer vacuum_layer(vacuum_material, 0);
+    Layer vacuum_layer(vacuum_material);
     Layer ni_layer(ni_material, m_thick_ni);
     Layer ti_layer(ti_material, m_thick_ti);
-    Layer substrate_layer(substrate_material, 0);
+    Layer substrate_layer(substrate_material);
 
     multi_layer->addLayer(vacuum_layer);
     for (size_t i = 0; i < m_number_of_layers; ++i) {

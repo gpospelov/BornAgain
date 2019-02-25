@@ -28,6 +28,10 @@ GUISpecialTestFactory::GUISpecialTestFactory()
                  create_new<RadialParaTranslationTest>,
                  "RadialParaTranslation test");
 
+    registerItem("HardDiskTranslation",
+                 create_new<HardDiskTranslationTest>,
+                 "HardDiskTranslation test ");
+
     registerItem("HexParaTranslation",
                  create_new<HexParaTranslationTest>,
                  "HexParaTranslation test");

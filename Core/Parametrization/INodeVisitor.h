@@ -107,7 +107,9 @@ class InterferenceFunction2DSuperLattice;
 class InterferenceFunction3DLattice;
 class InterferenceFunctionFinite2DLattice;
 class InterferenceFunctionFinite3DLattice;
+class InterferenceFunctionHardDisk;
 class InterferenceFunctionRadialParaCrystal;
+class InterferenceFunctionTwin;
 class InterferenceFunctionNone;
 class IParticle;
 class IPeakShape;
@@ -238,7 +240,9 @@ public:
     virtual void visit(const InterferenceFunction3DLattice*) {}
     virtual void visit(const InterferenceFunctionFinite2DLattice*) {}
     virtual void visit(const InterferenceFunctionFinite3DLattice*) {}
+    virtual void visit(const InterferenceFunctionHardDisk*) {}
     virtual void visit(const InterferenceFunctionRadialParaCrystal*) {}
+    virtual void visit(const InterferenceFunctionTwin*) {}
     virtual void visit(const InterferenceFunctionNone*) {}
     virtual void visit(const IParticle*) {}
     virtual void visit(const IPeakShape*) {}

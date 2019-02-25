@@ -26,14 +26,12 @@ namespace Particles
 {
 class Particle;
 }
-}
+} // namespace RealSpace
 
 class BA_CORE_API_ Particle3DContainer
 {
 public:
-    Particle3DContainer() : m_cumulativeAbundance(0)
-    {
-    }
+    Particle3DContainer() : m_cumulativeAbundance(0) {}
     Particle3DContainer(const Particle3DContainer& other);          // copy constructor
     Particle3DContainer& operator=(const Particle3DContainer& rhs); // copy assignment
     ~Particle3DContainer() noexcept;
@@ -43,22 +41,10 @@ public:
 
     void clearContainer();
 
-    size_t containerSize() const
-    {
-        return m_containerParticles.size();
-    }
-    double cumulativeAbundance() const
-    {
-        return m_cumulativeAbundance;
-    }
-    const QString particleType() const
-    {
-        return m_containerType;
-    }
-    bool particle3DBlend(const size_t& index) const
-    {
-        return m_containerParticlesBlend.at(index);
-    }
+    size_t containerSize() const { return m_containerParticles.size(); }
+    double cumulativeAbundance() const { return m_cumulativeAbundance; }
+    const QString particleType() const { return m_containerType; }
+    bool particle3DBlend(const size_t& index) const { return m_containerParticlesBlend.at(index); }
 
     void addParticle(RealSpace::Particles::Particle* particle3D, bool blend);
     void setCumulativeAbundance(double cumulativeAbundance);

@@ -48,15 +48,9 @@ class StandardTestService : public StandardTestServiceBase
 {
 
 private:
-    virtual IFunctionalTest* createTest(const std::string& name, const std::string& description,
-                                        const Simulation&  simulation,
-                                        double threshold)
+    IFunctionalTest* createTest(const std::string& name, const std::string& description,
+                                const Simulation& simulation, double threshold) override
     {
-        return createStandardTest(name, description, simulation, threshold);
-    }
-
-    T* createStandardTest(const std::string& name, const std::string& description,
-                          const Simulation&  simulation, double threshold) {
         return new T(name, description, simulation, threshold);
     }
 };

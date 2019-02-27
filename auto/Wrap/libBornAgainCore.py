@@ -25424,6 +25424,11 @@ class MultiLayerSlicer(_object):
     __swig_destroy__ = _libBornAgainCore.delete_MultiLayerSlicer
     __del__ = lambda self: None
 
+    def slicedThicknesses(self):
+        """slicedThicknesses(MultiLayerSlicer self) -> vdouble1d_t"""
+        return _libBornAgainCore.MultiLayerSlicer_slicedThicknesses(self)
+
+
     def slicedRepresentation(self):
         """slicedRepresentation(MultiLayerSlicer self) -> std::string"""
         return _libBornAgainCore.MultiLayerSlicer_slicedRepresentation(self)

@@ -22,13 +22,22 @@ MultiLayerSlicer::MultiLayerSlicer(const MultiLayer& multilayer)
     : mP_multilayer{multilayer.clone()}
 {}
 
+std::vector<double> MultiLayerSlicer::slicedThicknesses() const
+{
+    std::vector<double> result;
+    auto P_sliced = mP_multilayer->cloneSliced(true);
+    for (unsigned i=0; i<P_sliced->numberOfLayers(); i++) {
+        result.push_back(P_sliced->layer(i)->thickness());
+    }
+    return result;
+}
+
 std::string MultiLayerSlicer::slicedRepresentation() const
 {
-    auto P_sliced = mP_multilayer->cloneSliced(true);
     std::ostringstream rep;
-    for (unsigned i=0; i<P_sliced->numberOfLayers(); i++) {
-        auto p_layer = P_sliced->layer(i);
-        rep << "Layer " << i << ", thickness: " << p_layer->thickness() << std::endl;
+    auto thicknesses = slicedThicknesses();
+    for (unsigned i =0; i<thicknesses.size(); i++) {
+        rep << "Layer " << i << ", thickness: " << thicknesses[i] << std::endl;
     }
     return rep.str();
 }

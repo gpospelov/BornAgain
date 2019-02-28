@@ -25405,6 +25405,37 @@ class MultiLayer(ISample):
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 
+class MultiLayerSlicer(_object):
+    """Proxy of C++ MultiLayerSlicer class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, MultiLayerSlicer, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, MultiLayerSlicer, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, multilayer):
+        """__init__(MultiLayerSlicer self, MultiLayer multilayer) -> MultiLayerSlicer"""
+        this = _libBornAgainCore.new_MultiLayerSlicer(multilayer)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_MultiLayerSlicer
+    __del__ = lambda self: None
+
+    def slicedThicknesses(self):
+        """slicedThicknesses(MultiLayerSlicer self) -> vdouble1d_t"""
+        return _libBornAgainCore.MultiLayerSlicer_slicedThicknesses(self)
+
+
+    def slicedRepresentation(self):
+        """slicedRepresentation(MultiLayerSlicer self) -> std::string"""
+        return _libBornAgainCore.MultiLayerSlicer_slicedRepresentation(self)
+
+MultiLayerSlicer_swigregister = _libBornAgainCore.MultiLayerSlicer_swigregister
+MultiLayerSlicer_swigregister(MultiLayerSlicer)
+
 class OffSpecSimulation(Simulation2D):
     """
 

@@ -194,12 +194,12 @@ std::string printString(const std::string& value)
 
 bool isSquare(double length1, double length2, double angle)
 {
-    return length1 == length2 && Numeric::areAlmostEqual(angle, M_PI_2);
+    return length1 == length2 && Numeric::AreAlmostEqual(angle, M_PI_2);
 }
 
 bool isHexagonal(double length1, double length2, double angle)
 {
-    return length1 == length2 && Numeric::areAlmostEqual(angle, M_TWOPI / 3.0);
+    return length1 == length2 && Numeric::AreAlmostEqual(angle, M_TWOPI / 3.0);
 }
 
 std::string printKvector(const kvector_t value)
@@ -213,9 +213,9 @@ std::string printKvector(const kvector_t value)
 //! returns true if it is (0, -1, 0) vector
 bool isDefaultDirection(const kvector_t direction)
 {
-    return Numeric::areAlmostEqual(direction.x(), 0.0)
-           && Numeric::areAlmostEqual(direction.y(), -1.0)
-           && Numeric::areAlmostEqual(direction.z(), 0.0);
+    return Numeric::AreAlmostEqual(direction.x(), 0.0)
+           && Numeric::AreAlmostEqual(direction.y(), -1.0)
+           && Numeric::AreAlmostEqual(direction.z(), 0.0);
 }
 
 //! Returns parameter value, followed by its unit multiplicator (like "* nm").

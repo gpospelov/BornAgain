@@ -22,9 +22,13 @@
 
 namespace Numeric {
 
-bool BA_CORE_API_ areAlmostEqual(double a, double b, double tolerance_factor=1.0);
+bool BA_CORE_API_ AreAlmostEqual(double a, double b, double tolerance_factor=1.0);
 
-double BA_CORE_API_ get_relative_difference(double a, double b);
+double BA_CORE_API_ GetAbsoluteDifference(double a, double b);
+
+double BA_CORE_API_ GetRelativeDifference(double a, double b);
+
+double BA_CORE_API_ GetLogDifference(double a, double b);
 
 } // Numeric namespace
 

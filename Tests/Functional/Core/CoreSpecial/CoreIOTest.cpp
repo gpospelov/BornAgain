@@ -126,7 +126,7 @@ double CoreIOTest::biggest_difference(const OutputData<double>& data, const Outp
     double max_diff = std::numeric_limits<double>::min();
 
     for (size_t i = 0; i < data.getAllocatedSize(); ++i) {
-        double diff = Numeric::get_relative_difference(data[i], ref[i]);
+        double diff = Numeric::GetRelativeDifference(data[i], ref[i]);
         max_diff = std::max(diff, max_diff);
     }
     return max_diff;

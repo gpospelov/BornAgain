@@ -39,7 +39,7 @@ double IntensityDataFunctions::RelativeDifference(const SimulationResult& dat,
         return 0.0;
     double sum_of_diff = 0.0;
     for (size_t i = 0; i < dat.size(); ++i) {
-        sum_of_diff += Numeric::get_relative_difference(dat[i], ref[i]);
+        sum_of_diff += Numeric::GetRelativeDifference(dat[i], ref[i]);
     }
     return sum_of_diff / dat.size();
 }
@@ -55,7 +55,7 @@ double IntensityDataFunctions::getRelativeDifference(const OutputData<double>& d
 
     double diff = 0.0;
     for (size_t i = 0; i < dat.getAllocatedSize(); ++i)
-        diff += Numeric::get_relative_difference(dat[i], ref[i]);
+        diff += Numeric::GetRelativeDifference(dat[i], ref[i]);
     diff /= dat.getAllocatedSize();
 
     if (std::isnan(diff))
@@ -79,7 +79,7 @@ IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& d
             "Error. Different dimensions of data and reference.");
     std::unique_ptr<OutputData<double>> result(reference.clone());
     for (size_t i = 0; i < result->getAllocatedSize(); ++i)
-        (*result)[i] = Numeric::get_relative_difference(data[i], reference[i]);
+        (*result)[i] = Numeric::GetRelativeDifference(data[i], reference[i]);
     return result;
 }
 

@@ -246,7 +246,7 @@ class PlotterGISAS(Plotter):
 
         real_data = fit_objective.experimentalData()
         sim_data = fit_objective.simulationResult()
-        diff = fit_objective.relativeDifference()
+        diff = fit_objective.absoluteDifference()
 
         self.make_subplot(1)
 
@@ -265,7 +265,7 @@ class PlotterGISAS(Plotter):
                          zlabel='', aspect=self._aspect)
 
         self.make_subplot(3)
-        ba.plot_colormap(diff, title="Relative difference", zmin=0.001, zmax=10.0,
+        ba.plot_colormap(diff, title="Difference", zmin=zmin, zmax=zmax,
                          units=self._units, xlabel=self._xlabel, ylabel=self._ylabel,
                          zlabel='', aspect=self._aspect)
 

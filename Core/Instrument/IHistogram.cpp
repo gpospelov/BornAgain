@@ -376,7 +376,7 @@ IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram& rhs)
     result->reset();
 
     for(size_t i=0; i<getTotalNumberOfBins(); ++i) {
-        double diff = Numeric::get_relative_difference(getBinContent(i), rhs.getBinContent(i));
+        double diff = Numeric::GetRelativeDifference(getBinContent(i), rhs.getBinContent(i));
         result->setBinContent(i, diff);
     }
     return result;

@@ -80,7 +80,7 @@ SimulationResult SimDataPair::relativeDifference() const
 
     detector->iterate([&](IDetector::const_iterator it){
         const size_t index = it.roiIndex();
-        (*roi_data)[index] = Numeric::get_relative_difference(
+        (*roi_data)[index] = Numeric::GetRelativeDifference(
                     m_simulation_result[index], m_experimental_data[index]);
     });
 
@@ -95,7 +95,8 @@ SimulationResult SimDataPair::absoluteDifference() const
 
     detector->iterate([&](IDetector::const_iterator it){
         const size_t index = it.roiIndex();
-        (*roi_data)[index] = std::abs(m_simulation_result[index] - m_experimental_data[index]);
+        (*roi_data)[index] = Numeric::GetAbsoluteDifference(
+                    m_simulation_result[index], m_experimental_data[index]);
     });
 
     return SimulationResult(*roi_data, *converter);

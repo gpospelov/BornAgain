@@ -16729,12 +16729,12 @@ Returns path composed of node's displayName, with respect to root node.
 
 
 // File: namespaceNumeric.xml
-%feature("docstring")  Numeric::areAlmostEqual "bool BA_CORE_API_ Numeric::areAlmostEqual(double a, double b, double tolerance)
+%feature("docstring")  Numeric::AreAlmostEqual "bool BA_CORE_API_ Numeric::AreAlmostEqual(double a, double b, double tolerance)
 
 Returns true if two doubles agree within epsilon*tolerance. 
 ";
 
-%feature("docstring")  Numeric::get_relative_difference "double BA_CORE_API_ Numeric::get_relative_difference(double a, double b)
+%feature("docstring")  Numeric::GetRelativeDifference "double BA_CORE_API_ Numeric::GetRelativeDifference(double a, double b)
 
 Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
 ";

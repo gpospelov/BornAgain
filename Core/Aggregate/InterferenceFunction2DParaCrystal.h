@@ -24,7 +24,7 @@
 template <class T> class IntegratorReal;
 class IFTDistribution2D;
 
-//! Interference function of 2D paracrystal.
+//! Interference function of a 2D paracrystal.
 //! @ingroup interference
 
 class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunction

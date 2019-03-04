@@ -20,7 +20,7 @@
 
 template <class T> class IntegratorReal;
 
-//! Interference function of 2D superlattice with a configurable interference function for
+//! Interference function of a 2D superlattice with a configurable interference function for
 //! each lattice site.
 //! @ingroup interference
 

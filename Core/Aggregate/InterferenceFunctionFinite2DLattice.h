@@ -20,7 +20,7 @@
 
 template <class T> class IntegratorReal;
 
-//! Interference function of 2D lattice.
+//! Interference function of a finite 2D lattice.
 //! @ingroup interference
 
 class BA_CORE_API_ InterferenceFunctionFinite2DLattice : public IInterferenceFunction

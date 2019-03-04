@@ -8552,7 +8552,7 @@ Calls the  INodeVisitor's visit method.
 // File: classInterferenceFunction1DLattice.xml
 %feature("docstring") InterferenceFunction1DLattice "
 
-Interference function of 1D lattice.
+Interference function of a 1D lattice.
 
 C++ includes: InterferenceFunction1DLattice.h
 ";
@@ -8607,7 +8607,7 @@ Returns a vector of children (const).
 // File: classInterferenceFunction2DLattice.xml
 %feature("docstring") InterferenceFunction2DLattice "
 
-Interference function of 2D lattice.
+Interference function of a 2D lattice.
 
 C++ includes: InterferenceFunction2DLattice.h
 ";
@@ -8687,7 +8687,7 @@ Action to be taken in inherited class when a parameter has changed.
 // File: classInterferenceFunction2DParaCrystal.xml
 %feature("docstring") InterferenceFunction2DParaCrystal "
 
-Interference function of 2D paracrystal.
+Interference function of a 2D paracrystal.
 
 C++ includes: InterferenceFunction2DParaCrystal.h
 ";
@@ -8813,7 +8813,7 @@ Returns a vector of children (const).
 // File: classInterferenceFunction2DSuperLattice.xml
 %feature("docstring") InterferenceFunction2DSuperLattice "
 
-Interference function of 2D superlattice with a configurable interference function for each lattice site.
+Interference function of a 2D superlattice with a configurable interference function for each lattice site.
 
 C++ includes: InterferenceFunction2DSuperLattice.h
 ";
@@ -8889,7 +8889,7 @@ Returns a vector of children (const).
 // File: classInterferenceFunction3DLattice.xml
 %feature("docstring") InterferenceFunction3DLattice "
 
-Interference function of 3D lattice.
+Interference function of a 3D lattice.
 
 C++ includes: InterferenceFunction3DLattice.h
 ";
@@ -8935,7 +8935,7 @@ Action to be taken in inherited class when a parameter has changed.
 // File: classInterferenceFunctionFinite2DLattice.xml
 %feature("docstring") InterferenceFunctionFinite2DLattice "
 
-Interference function of 2D lattice.
+Interference function of a finite 2D lattice.
 
 C++ includes: InterferenceFunctionFinite2DLattice.h
 ";
@@ -9025,7 +9025,7 @@ Returns a vector of children (const).
 // File: classInterferenceFunctionFinite3DLattice.xml
 %feature("docstring") InterferenceFunctionFinite3DLattice "
 
-Interference function of 2D lattice.
+Interference function of a finite 3D lattice.
 
 C++ includes: InterferenceFunctionFinite3DLattice.h
 ";
@@ -11301,6 +11301,31 @@ C++ includes: MultilayerInfo.h
 ";
 
 %feature("docstring")  MultilayerInfo::MultilayerInfo "MultilayerInfo::MultilayerInfo(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map)
+";
+
+
+// File: classMultiLayerSlicer.xml
+%feature("docstring") MultiLayerSlicer "
+
+Helper class to test slicing functionality of  MultiLayer.
+
+C++ includes: MultiLayerSlicer.h
+";
+
+%feature("docstring")  MultiLayerSlicer::MultiLayerSlicer "MultiLayerSlicer::MultiLayerSlicer(const MultiLayer &multilayer)
+";
+
+%feature("docstring")  MultiLayerSlicer::~MultiLayerSlicer "MultiLayerSlicer::~MultiLayerSlicer()
+";
+
+%feature("docstring")  MultiLayerSlicer::slicedThicknesses "std::vector< double > MultiLayerSlicer::slicedThicknesses() const
+
+Returns thicknesses of slices after slicing. 
+";
+
+%feature("docstring")  MultiLayerSlicer::slicedRepresentation "std::string MultiLayerSlicer::slicedRepresentation() const
+
+Returns a string representation of the sliced  MultiLayer. 
 ";
 
 
@@ -16008,10 +16033,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -16116,37 +16141,34 @@ C++ includes: ZLimits.h
 // File: namespace_0D383.xml
 
 
-// File: namespace_0D392.xml
-
-
 // File: namespace_0D394.xml
+
+
+// File: namespace_0D396.xml
 
 
 // File: namespace_0D40.xml
 
 
-// File: namespace_0D402.xml
+// File: namespace_0D404.xml
 
 
-// File: namespace_0D415.xml
+// File: namespace_0D417.xml
 
 
 // File: namespace_0D42.xml
 
 
-// File: namespace_0D424.xml
+// File: namespace_0D426.xml
 
 
-// File: namespace_0D458.xml
+// File: namespace_0D460.xml
 
 
-// File: namespace_0D465.xml
+// File: namespace_0D467.xml
 
 
-// File: namespace_0D503.xml
-
-
-// File: namespace_0D511.xml
+// File: namespace_0D505.xml
 
 
 // File: namespace_0D513.xml
@@ -16158,16 +16180,19 @@ C++ includes: ZLimits.h
 // File: namespace_0D517.xml
 
 
-// File: namespace_0D599.xml
+// File: namespace_0D519.xml
 
 
 // File: namespace_0D6.xml
 
 
-// File: namespace_0D603.xml
+// File: namespace_0D601.xml
 
 
-// File: namespace_0D625.xml
+// File: namespace_0D605.xml
+
+
+// File: namespace_0D627.xml
 
 
 // File: namespace_0D98.xml
@@ -16734,9 +16759,19 @@ Returns path composed of node's displayName, with respect to root node.
 Returns true if two doubles agree within epsilon*tolerance. 
 ";
 
+%feature("docstring")  Numeric::GetAbsoluteDifference "double BA_CORE_API_ Numeric::GetAbsoluteDifference(double a, double b)
+
+Returns the absolute value of the difference between a and b. 
+";
+
 %feature("docstring")  Numeric::GetRelativeDifference "double BA_CORE_API_ Numeric::GetRelativeDifference(double a, double b)
 
 Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
+";
+
+%feature("docstring")  Numeric::GetLogDifference "double BA_CORE_API_ Numeric::GetLogDifference(double a, double b)
+
+Returns the difference of the logarithm; input values are truncated at the minimum positive value. 
 ";
 
 
@@ -18415,6 +18450,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: MultiLayer_8h.xml
+
+
+// File: MultiLayerSlicer_8cpp.xml
+
+
+// File: MultiLayerSlicer_8h.xml
 
 
 // File: ScalarFresnelMap_8cpp.xml

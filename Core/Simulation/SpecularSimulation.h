@@ -26,7 +26,6 @@ class IMultiLayerBuilder;
 class ISample;
 class ISpecularDataHandler;
 class MultiLayer;
-class Histogram1D;
 class SpecularSimulationElement;
 
 //! Main class to run a specular simulation.
@@ -75,12 +74,12 @@ public:
     //! Returns a pointer to coordinate axis.
     const IAxis* coordinateAxis() const;
 
-    //! Returns a pointer to internal data handler
+    //! Returns a pointer to footprint factor holder
     const IFootprintFactor* footprintFactor() const;
 
 #ifndef SWIG
-	//! Returns internal data handler
-	const ISpecularDataHandler* dataHandler() const { return m_data_handler.get(); }
+    //! Returns internal data handler
+    const ISpecularDataHandler* dataHandler() const { return m_data_handler.get(); }
 #endif //SWIG
 
 private:

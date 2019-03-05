@@ -21218,7 +21218,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
     """
 
 
-    Interference function of 1D lattice.
+    Interference function of a 1D lattice.
 
     C++ includes: InterferenceFunction1DLattice.h
 
@@ -21330,7 +21330,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     """
 
 
-    Interference function of 2D lattice.
+    Interference function of a 2D lattice.
 
     C++ includes: InterferenceFunction2DLattice.h
 
@@ -21526,7 +21526,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     """
 
 
-    Interference function of 2D paracrystal.
+    Interference function of a 2D paracrystal.
 
     C++ includes: InterferenceFunction2DParaCrystal.h
 
@@ -21815,7 +21815,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
     """
 
 
-    Interference function of 2D superlattice with a configurable interference function for each lattice site.
+    Interference function of a 2D superlattice with a configurable interference function for each lattice site.
 
     C++ includes: InterferenceFunction2DSuperLattice.h
 
@@ -22009,7 +22009,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
     """
 
 
-    Interference function of 3D lattice.
+    Interference function of a 3D lattice.
 
     C++ includes: InterferenceFunction3DLattice.h
 
@@ -22126,7 +22126,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
     """
 
 
-    Interference function of 2D lattice.
+    Interference function of a finite 2D lattice.
 
     C++ includes: InterferenceFunctionFinite2DLattice.h
 
@@ -22305,7 +22305,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
     """
 
 
-    Interference function of 2D lattice.
+    Interference function of a finite 3D lattice.
 
     C++ includes: InterferenceFunctionFinite3DLattice.h
 
@@ -25406,7 +25406,14 @@ MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 
 class MultiLayerSlicer(_object):
-    """Proxy of C++ MultiLayerSlicer class."""
+    """
+
+
+    Helper class to test slicing functionality of  MultiLayer.
+
+    C++ includes: MultiLayerSlicer.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, MultiLayerSlicer, name, value)
@@ -25415,7 +25422,12 @@ class MultiLayerSlicer(_object):
     __repr__ = _swig_repr
 
     def __init__(self, multilayer):
-        """__init__(MultiLayerSlicer self, MultiLayer multilayer) -> MultiLayerSlicer"""
+        """
+        __init__(MultiLayerSlicer self, MultiLayer multilayer) -> MultiLayerSlicer
+
+        MultiLayerSlicer::MultiLayerSlicer(const MultiLayer &multilayer)
+
+        """
         this = _libBornAgainCore.new_MultiLayerSlicer(multilayer)
         try:
             self.this.append(this)
@@ -25425,12 +25437,26 @@ class MultiLayerSlicer(_object):
     __del__ = lambda self: None
 
     def slicedThicknesses(self):
-        """slicedThicknesses(MultiLayerSlicer self) -> vdouble1d_t"""
+        """
+        slicedThicknesses(MultiLayerSlicer self) -> vdouble1d_t
+
+        std::vector< double > MultiLayerSlicer::slicedThicknesses() const
+
+        Returns thicknesses of slices after slicing. 
+
+        """
         return _libBornAgainCore.MultiLayerSlicer_slicedThicknesses(self)
 
 
     def slicedRepresentation(self):
-        """slicedRepresentation(MultiLayerSlicer self) -> std::string"""
+        """
+        slicedRepresentation(MultiLayerSlicer self) -> std::string
+
+        std::string MultiLayerSlicer::slicedRepresentation() const
+
+        Returns a string representation of the sliced  MultiLayer. 
+
+        """
         return _libBornAgainCore.MultiLayerSlicer_slicedRepresentation(self)
 
 MultiLayerSlicer_swigregister = _libBornAgainCore.MultiLayerSlicer_swigregister

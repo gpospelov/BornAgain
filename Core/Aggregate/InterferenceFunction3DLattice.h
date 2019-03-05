@@ -20,7 +20,7 @@
 
 class IPeakShape;
 
-//! Interference function of 3D lattice.
+//! Interference function of a 3D lattice.
 //! @ingroup interference
 
 class BA_CORE_API_ InterferenceFunction3DLattice : public IInterferenceFunction

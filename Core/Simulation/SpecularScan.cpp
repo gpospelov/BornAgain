@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/SpecularDataHandler.cpp
-//! @brief     Implements SpecularDataHandler class tree.
+//! @file      Core/Simulation/SpecularScan.cpp
+//! @brief     Implements SpecularScan class tree.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "SpecularDataHandler.h"
+#include "SpecularScan.h"
 #include "FixedBinAxis.h"
 #include "IFootprintFactor.h"
 #include "PointwiseAxis.h"

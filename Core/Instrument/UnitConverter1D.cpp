@@ -18,7 +18,7 @@
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
 #include "PointwiseAxis.h"
-#include "SpecularDataHandler.h"
+#include "SpecularScan.h"
 #include "UnitConverterUtils.h"
 #include "Units.h"
 

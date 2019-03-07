@@ -395,31 +395,6 @@ SpecularSimulation* StandardSimulations::BasicSpecular()
     return result.release();
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecularTOF()
-{
-    std::vector<double> wls;
-    const double inc_angle = 2.0 * Units::deg;
-    {
-        const double wavelength_0 = 1.54 * Units::angstrom;
-        const int number_of_bins = 2000;
-        const double min_angle = 0 * Units::deg;
-        const double max_angle = 5 * Units::deg;
-        FixedBinAxis angle_axis("axis", number_of_bins, min_angle, max_angle);
-
-        const double sin_inc = std::sin(inc_angle);
-        auto angles = angle_axis.getBinCenters();
-
-        wls.resize(angle_axis.size(), 0.0);
-        for (size_t i = 0, size = wls.size(); i < size; ++i)
-            wls[i] = wavelength_0 * sin_inc / std::sin(angles[i]);
-    }
-
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wls, inc_angle);
-    result->getOptions().setUseAvgMaterials(true);
-    return result.release();
-}
-
 SpecularSimulation* StandardSimulations::BasicSpecularQ()
 {
     std::vector<double> qs;

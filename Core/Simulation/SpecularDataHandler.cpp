@@ -79,55 +79,6 @@ size_t AngularSpecScan::numberOfSimulationElements() const
     return m_inc_angle->size();
 }
 
-SpecularDataHandlerTOF::SpecularDataHandlerTOF(double inc_angle, std::unique_ptr<IAxis> qz,
-                                               const IFootprintFactor* footprint)
-    : ISpecularScan(SPECULAR_DATA_TYPE::lambda)
-    , m_inc_angle(inc_angle)
-    , m_qs(std::move(qz))
-    , m_footprint(footprint ? footprint->clone() : nullptr)
-{}
-
-SpecularDataHandlerTOF::~SpecularDataHandlerTOF() = default;
-
-SpecularDataHandlerTOF* SpecularDataHandlerTOF::clone() const
-{
-    return new SpecularDataHandlerTOF(m_inc_angle, std::unique_ptr<IAxis>(m_qs->clone()),
-                                      m_footprint.get());
-}
-
-//! Generates simulation elements for specular simulations
-std::vector<SpecularSimulationElement> SpecularDataHandlerTOF::generateSimulationElements() const
-{
-    std::vector<SpecularSimulationElement> result;
-
-    const size_t axis_size = m_qs->size();
-    std::vector<double> qzs = m_qs->getBinCenters();
-    result.reserve(axis_size);
-    for (size_t i = 0; i < axis_size; ++i) {
-        const double kz = qzs[i] / 2.0;
-        result.emplace_back(kz);
-        if (!qz_limits.isInRange(kz))
-            result.back().setCalculationFlag(false); // false = exclude from calculations
-    }
-
-    return result;
-}
-
-//! Returns footprint correction factor for simulation element with index _i_
-double SpecularDataHandlerTOF::footprint(size_t) const
-{
-    if (!m_footprint)
-        return 1.0;
-
-    return m_footprint->calculate(m_inc_angle);
-}
-
-//! Returns the number of simulation elements
-size_t SpecularDataHandlerTOF::numberOfSimulationElements() const
-{
-    return m_qs->size();
-}
-
 QSpecScan::QSpecScan(std::unique_ptr<IAxis> qs_nm)
     : ISpecularScan(SPECULAR_DATA_TYPE::q)
     , m_qs(std::move(qs_nm))

@@ -441,16 +441,15 @@ StandardTestCatalogue::StandardTestCatalogue()
 
     add("SpecularWithSlicing",
         "Compares manual/automatic slicing in a sample with cylinders",
-        {"BasicSpecular", "BasicSpecular", "BasicSpecular", "BasicSpecularTOF", "BasicSpecularQ"},
+        {"BasicSpecular", "BasicSpecular", "BasicSpecular", "BasicSpecularQ"},
         {"SlicedCylindersBuilder", "SLDSlicedCylindersBuilder", "AveragedSlicedCylindersBuilder",
-         "SLDSlicedCylindersBuilder", "SLDSlicedCylindersBuilder"},
+         "SLDSlicedCylindersBuilder"},
         1e-10);
 
     add("InstrumentDefinitionComparison",
         "Compares specular signal from q-defined, TOF and conventional instrument",
-        {"BasicSpecular", "BasicSpecularTOF", "BasicSpecularQ"},
-        {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder",
-         "PlainMultiLayerBySLDBuilder"},
+        {"BasicSpecular", "BasicSpecularQ"},
+        {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder"},
         1e-10);
 
     // off-specular simulation

@@ -14,12 +14,7 @@ import bornagain as ba
 from matplotlib import pyplot as plt
 from bornagain import deg, angstrom
 
-inc_angle = 2.0 * deg  # inclination angle
 qzs = np.linspace(0.01, 1.0, 500, dtype=float)  # qz-values
-
-# factor to convert qz values to wavelengths
-norm_factor = 4.0 * np.pi * np.sin(inc_angle)
-wls = np.asarray([norm_factor / qz for qz in qzs])  # wavelength values
 
 
 def get_sample():
@@ -50,23 +45,13 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation_q():
+def get_simulation():
     """
     Defines and returns specular simulation
     with a qz-defined beam
     """
     simulation = ba.SpecularSimulation()
     simulation.setBeamParameters(qzs)
-    return simulation
-
-
-def get_simulation_wl():
-    """
-    Defines and returns specular simulation
-    with a time-of-flight beam
-    """
-    simulation = ba.SpecularSimulation()
-    simulation.setBeamParameters(wls, inc_angle)
     return simulation
 
 
@@ -80,22 +65,6 @@ def run_simulation(simulation):
     return simulation.result()
 
 
-def plot(result_wl, result_qz):
-    """
-    Plots data for several selected layers
-    """
-
-    ba.plot_simulation_result(result_qz, postpone_show=True)
-
-    plt.semilogy(result_wl.axis(), result_wl.array(), 'ko', markevery=10)
-    plt.legend([r'$q_z$-defined beam',
-                r'$\lambda$-defined beam'],
-               loc='upper right')
-
-    plt.show()
-
-
 if __name__ == '__main__':
-    result_tof = run_simulation(get_simulation_wl())
-    result_q = run_simulation(get_simulation_q())
-    plot(result_tof, result_q)
+    result = run_simulation(get_simulation())
+    ba.plot_simulation_result(result)

@@ -39,10 +39,6 @@ UnitConverter1D::createUnitConverter(const ISpecularScan& handler)
         return std::make_unique<UnitConverterConvSpec>(
             static_cast<const AngularSpecScan&>(handler));
 
-    if (handler.dataType() == SPECULAR_DATA_TYPE::lambda)
-        return std::make_unique<UnitConverterQSpec>(
-            static_cast<const SpecularDataHandlerTOF&>(handler));
-
     if (handler.dataType() == SPECULAR_DATA_TYPE::q)
         return std::make_unique<UnitConverterQSpec>(
             static_cast<const QSpecScan&>(handler));
@@ -168,10 +164,6 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits un
 }
 
 UnitConverterQSpec::UnitConverterQSpec(const QSpecScan& handler)
-    : m_axis(handler.coordinateAxis()->clone())
-{}
-
-UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerTOF& handler)
     : m_axis(handler.coordinateAxis()->clone())
 {}
 

@@ -36,10 +36,6 @@ namespace
 std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
                                                          const Beam& beam);
 
-// compute qz values for given wavelengths and inclination angle. Sorts
-// wavelengths in descending order if it was not done before.
-std::vector<double> computeQzValues(std::vector<double> wls, double inc_angle);
-
 const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
 const double zero_phi_i = 0.0;
 const double zero_alpha_i = 0.0;
@@ -132,18 +128,6 @@ void SpecularSimulation::setBeamParameters(double lambda, std::vector<double> in
 {
     PointwiseAxis axis("alpha_i", std::move(incident_angle_values));
     setBeamParameters(lambda, axis, beam_shape);
-}
-
-void SpecularSimulation::setBeamParameters(std::vector<double> wavelength_values,
-                                           double incident_angle,
-                                           const IFootprintFactor* beam_shape)
-{
-    auto qzs = computeQzValues(wavelength_values, incident_angle);
-    auto q_axis = std::make_unique<PointwiseAxis>("qzs", std::move(qzs));
-    SpecularDetector1D detector(*q_axis);
-    m_instrument.setDetector(detector);
-    m_data_handler =
-        std::make_unique<SpecularDataHandlerTOF>(incident_angle, std::move(q_axis), beam_shape);
 }
 
 void SpecularSimulation::setBeamParameters(std::vector<double> qz_values)
@@ -346,24 +330,5 @@ std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_hand
         wl, std::make_unique<PointwiseAxis>("alpha_i", std::move(angles)),
         data_handler.footprintFactor());
     return std::move(result);
-}
-
-std::vector<double> computeQzValues(std::vector<double> wls, double inc_angle)
-{
-    std::vector<double> result;
-    result.reserve(wls.size());
-
-    const auto begin = wls.begin();
-    const auto end = wls.end();
-
-    if (!std::is_sorted(begin, end, std::greater<double>()))
-        std::sort(begin, end, std::greater<double>());
-    if (wls.back() <= 0.0)
-        throw std::runtime_error("Error in computeQzValues: passed vector of wavelengths contains "
-                                 "negative or zero values");
-    std::transform(
-        begin, end, std::back_inserter(result),
-        [sin_inc = std::sin(inc_angle)](double value) { return 4.0 * M_PI * sin_inc / value; });
-    return result;
 }
 }

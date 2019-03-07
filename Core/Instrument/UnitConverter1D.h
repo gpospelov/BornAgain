@@ -23,7 +23,6 @@ class Beam;
 class ISpecularScan;
 class AngularSpecScan;
 class QSpecScan;
-class SpecularDataHandlerTOF;
 
 //! Conversion of axis units for the case of 1D simulation result.
 
@@ -101,7 +100,6 @@ class BA_CORE_API_ UnitConverterQSpec : public UnitConverter1D
 {
 public:
     UnitConverterQSpec(const QSpecScan& handler);
-    UnitConverterQSpec(const SpecularDataHandlerTOF& handler);
     ~UnitConverterQSpec() override;
 
     UnitConverterQSpec* clone() const override;

@@ -107,8 +107,9 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
 
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);
-    m_data_handler = std::make_unique<AngularSpecScan>(
-        lambda, std::unique_ptr<IAxis>(alpha_axis.clone()), beam_shape);
+    auto scan = std::make_unique<AngularSpecScan>(lambda, alpha_axis);
+    scan->setFootprintFactor(beam_shape);
+    m_data_handler = std::move(scan);
 
     // beam is initialized with zero-valued angles
     // Zero-valued incident alpha is required for proper
@@ -135,7 +136,7 @@ void SpecularSimulation::setBeamParameters(std::vector<double> qz_values)
     auto q_axis = std::make_unique<PointwiseAxis>("qz", std::move(qz_values));
     SpecularDetector1D detector(*q_axis);
     m_instrument.setDetector(detector);
-    m_data_handler = std::make_unique<QSpecScan>(std::move(q_axis));
+    m_data_handler = std::make_unique<QSpecScan>(*q_axis);
 }
 
 const IAxis* SpecularSimulation::coordinateAxis() const
@@ -326,9 +327,9 @@ std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_hand
     std::vector<double> angles = data_handler.coordinateAxis()->getBinCenters();
     for (auto& val : angles)
         val += angle_shift;
-    auto result = std::make_unique<AngularSpecScan>(
-        wl, std::make_unique<PointwiseAxis>("alpha_i", std::move(angles)),
-        data_handler.footprintFactor());
+    auto result =
+        std::make_unique<AngularSpecScan>(wl, PointwiseAxis("alpha_i", std::move(angles)));
+    result->setFootprintFactor(data_handler.footprintFactor());
     return std::move(result);
 }
 }

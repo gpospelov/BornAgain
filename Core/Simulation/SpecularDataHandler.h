@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/SpecularDataHandler.h
-//! @brief     Declares SpecularDataHandler class tree.
+//! @brief     Declares SpecularScan class tree.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,6 +26,7 @@ class SpecularSimulationElement;
 
 enum class SPECULAR_DATA_TYPE {angle, lambda, q};
 
+//! Base abstract class for all types of specular scans.
 class ISpecularScan : public ICloneable
 {
 public:
@@ -54,11 +55,14 @@ private:
     SPECULAR_DATA_TYPE m_data_type;
 };
 
+//! Scan type with inclination angles as coordinate
+//! values. Features footprint correction.
 class AngularSpecScan : public ISpecularScan
 {
 public:
-    AngularSpecScan(double wl, std::unique_ptr<IAxis> inc_angle,
-                           const IFootprintFactor* footprint = nullptr);
+    AngularSpecScan(double wl, std::vector<double> inc_angle);
+    AngularSpecScan(double wl, const IAxis& inc_angle);
+    AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max);
     ~AngularSpecScan() override;
     AngularSpecScan* clone() const override;
 
@@ -67,6 +71,9 @@ public:
 
     //! Returns coordinate axis assigned to the data holder
     virtual const IAxis* coordinateAxis() const override {return m_inc_angle.get();}
+
+    //! Sets footprint correction factor
+    void setFootprintFactor(const IFootprintFactor* f_factor);
 
     //! Returns IFootprintFactor object pointer
     virtual const IFootprintFactor* footprintFactor() const override {return m_footprint.get();}
@@ -80,16 +87,24 @@ public:
     double wavelength() const {return m_wl;}
 
 private:
+    void checkInitialization();
+
     double m_wl;
     std::unique_ptr<IAxis> m_inc_angle;
     std::unique_ptr<IFootprintFactor> m_footprint;
 };
 
+//! Scan type with z-components of scattering vector
+//! as coordinate values. Wavelength and incident angles
+//! are not accessible separately.
 class QSpecScan : public ISpecularScan
 {
 public:
     //! Accepts qz-value vector (in inverse nm)
-    QSpecScan(std::unique_ptr<IAxis> qs_nm);
+    QSpecScan(std::vector<double> qs_nm);
+    QSpecScan(const IAxis& qs_nm);
+    QSpecScan(int nbins, double qz_min, double qz_max);
+
     ~QSpecScan() override;
     QSpecScan* clone() const override;
 
@@ -109,6 +124,7 @@ public:
     size_t numberOfSimulationElements() const override;
 
 private:
+    void checkInitialization();
     std::unique_ptr<IAxis> m_qs;
 };
 #endif // SPECULARDATAHANDLER_H

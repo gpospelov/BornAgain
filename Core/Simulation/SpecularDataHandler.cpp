@@ -13,8 +13,9 @@
 // ************************************************************************** //
 
 #include "SpecularDataHandler.h"
-#include "IAxis.h"
+#include "FixedBinAxis.h"
 #include "IFootprintFactor.h"
+#include "PointwiseAxis.h"
 #include "RealLimits.h"
 #include "SpecularSimulationElement.h"
 
@@ -29,22 +30,36 @@ ISpecularScan::ISpecularScan(SPECULAR_DATA_TYPE data_type)
 
 ISpecularScan::~ISpecularScan() = default;
 
-AngularSpecScan::AngularSpecScan(double wl, std::unique_ptr<IAxis> inc_angle,
-                                               const IFootprintFactor* footprint)
+AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
     : ISpecularScan(SPECULAR_DATA_TYPE::angle)
     , m_wl(wl)
-    , m_inc_angle(std::move(inc_angle))
-    , m_footprint(footprint ? footprint->clone() : nullptr)
+    , m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle)))
 {
-    if (!m_inc_angle)
-        throw std::runtime_error(
-                "Error in SpecularDataHolderAngle: empty inclination angle axis passed.");
+    checkInitialization();
 }
+
+AngularSpecScan::AngularSpecScan(double wl, const IAxis& inc_angle)
+    : ISpecularScan(SPECULAR_DATA_TYPE::angle)
+    , m_wl(wl)
+    , m_inc_angle(inc_angle.clone())
+{
+    checkInitialization();
+}
+
+AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+    : ISpecularScan(SPECULAR_DATA_TYPE::angle)
+    , m_wl(wl)
+    , m_inc_angle(std::make_unique<FixedBinAxis>("inc_angles", nbins, alpha_i_min, alpha_i_max))
+{
+    checkInitialization();
+}
+
 
 AngularSpecScan* AngularSpecScan::clone() const
 {
-    return new AngularSpecScan(m_wl, std::unique_ptr<IAxis>(m_inc_angle->clone()),
-                                      m_footprint.get());
+    auto result = std::make_unique<AngularSpecScan>(m_wl, *m_inc_angle);
+    result->setFootprintFactor(m_footprint.get());
+    return result.release();
 }
 
 AngularSpecScan::~AngularSpecScan() = default;
@@ -66,6 +81,11 @@ std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElemen
     return result;
 }
 
+void AngularSpecScan::setFootprintFactor(const IFootprintFactor* f_factor)
+{
+    m_footprint.reset(f_factor ? f_factor->clone() : nullptr);
+}
+
 double AngularSpecScan::footprint(size_t i) const
 {
     if (!m_footprint)
@@ -79,16 +99,39 @@ size_t AngularSpecScan::numberOfSimulationElements() const
     return m_inc_angle->size();
 }
 
-QSpecScan::QSpecScan(std::unique_ptr<IAxis> qs_nm)
+void AngularSpecScan::checkInitialization()
+{
+    if (m_wl <= 0.0)
+        throw std::runtime_error(
+            "Error in AngularSpecScan::checkInitialization: wavelength shell be positive");
+}
+
+QSpecScan::QSpecScan(std::vector<double> qs_nm)
     : ISpecularScan(SPECULAR_DATA_TYPE::q)
-    , m_qs(std::move(qs_nm))
-{}
+    , m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm)))
+{
+    checkInitialization();
+}
+
+QSpecScan::QSpecScan(const IAxis& qs_nm)
+    : ISpecularScan(SPECULAR_DATA_TYPE::q)
+    , m_qs(qs_nm.clone())
+{
+    checkInitialization();
+}
+
+QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
+    : ISpecularScan(SPECULAR_DATA_TYPE::q)
+    , m_qs(std::make_unique<FixedBinAxis>("qs", nbins, qz_min, qz_max))
+{
+    checkInitialization();
+}
 
 QSpecScan::~QSpecScan() = default;
 
 QSpecScan* QSpecScan::clone() const
 {
-    return new QSpecScan(std::unique_ptr<IAxis>(m_qs->clone()));
+    return new QSpecScan(*m_qs);
 }
 
 //! Generates simulation elements for specular simulations
@@ -113,4 +156,11 @@ std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() c
 size_t QSpecScan::numberOfSimulationElements() const
 {
     return m_qs->size();
+}
+
+void QSpecScan::checkInitialization()
+{
+    if (m_qs->getMin() < 0.0)
+        throw std::runtime_error(
+            "Error in QSpecScan::checkInitialization: q-vector values shall be positive.");
 }

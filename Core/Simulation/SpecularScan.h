@@ -34,6 +34,7 @@ public:
     ~ISpecularScan() override;
     ISpecularScan* clone() const override = 0;
 
+#ifndef SWIG
     //! Generates simulation elements for specular simulations
     virtual std::vector<SpecularSimulationElement> generateSimulationElements() const = 0;
 
@@ -48,6 +49,7 @@ public:
 
     //! Returns the number of simulation elements
     virtual size_t numberOfSimulationElements() const = 0;
+#endif //SWIG
 
     SPECULAR_DATA_TYPE dataType() const {return m_data_type;}
 
@@ -66,14 +68,12 @@ public:
     ~AngularSpecScan() override;
     AngularSpecScan* clone() const override;
 
+#ifndef SWIG
     //! Generates simulation elements for specular simulations
     std::vector<SpecularSimulationElement> generateSimulationElements() const override;
 
     //! Returns coordinate axis assigned to the data holder
     virtual const IAxis* coordinateAxis() const override {return m_inc_angle.get();}
-
-    //! Sets footprint correction factor
-    void setFootprintFactor(const IFootprintFactor* f_factor);
 
     //! Returns IFootprintFactor object pointer
     virtual const IFootprintFactor* footprintFactor() const override {return m_footprint.get();}
@@ -85,6 +85,10 @@ public:
     size_t numberOfSimulationElements() const override;
 
     double wavelength() const {return m_wl;}
+#endif //SWIG
+
+    //! Sets footprint correction factor
+    void setFootprintFactor(const IFootprintFactor* f_factor);
 
 private:
     void checkInitialization();
@@ -108,6 +112,7 @@ public:
     ~QSpecScan() override;
     QSpecScan* clone() const override;
 
+#ifndef SWIG
     //! Generates simulation elements for specular simulations
     std::vector<SpecularSimulationElement> generateSimulationElements() const override;
 
@@ -122,6 +127,7 @@ public:
 
     //! Returns the number of simulation elements
     size_t numberOfSimulationElements() const override;
+#endif //SWIG
 
 private:
     void checkInitialization();

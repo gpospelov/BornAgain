@@ -220,6 +220,7 @@
 #include "SimulationOptions.h"
 #include "SimulationResult.h"
 #include "SlicedParticle.h"
+#include "SpecularScan.h"
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "ThreadInfo.h"
@@ -461,6 +462,7 @@
 %include "Rotations.h"
 %include "ISelectionRule.h"
 %include "DepthProbeSimulation.h"
+%include "SpecularScan.h"
 %include "SpecularSimulation.h"
 %include "ThreadInfo.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;

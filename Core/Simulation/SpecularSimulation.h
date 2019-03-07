@@ -24,7 +24,7 @@ class IComputation;
 class IFootprintFactor;
 class IMultiLayerBuilder;
 class ISample;
-class ISpecularDataHandler;
+class ISpecularScan;
 class MultiLayer;
 class SpecularSimulationElement;
 
@@ -79,7 +79,7 @@ public:
 
 #ifndef SWIG
     //! Returns internal data handler
-    const ISpecularDataHandler* dataHandler() const { return m_data_handler.get(); }
+    const ISpecularScan* dataHandler() const { return m_data_handler.get(); }
 #endif //SWIG
 
 private:
@@ -122,7 +122,7 @@ private:
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
 
-    std::unique_ptr<ISpecularDataHandler> m_data_handler;
+    std::unique_ptr<ISpecularScan> m_data_handler;
     std::vector<SpecularSimulationElement> m_sim_elements;
     std::vector<double> m_cache;
 };

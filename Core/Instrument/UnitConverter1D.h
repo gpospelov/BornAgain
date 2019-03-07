@@ -20,9 +20,9 @@
 #include <functional>
 
 class Beam;
-class ISpecularDataHandler;
-class SpecularDataHandlerAng;
-class SpecularDataHandlerQ;
+class ISpecularScan;
+class AngularSpecScan;
+class QSpecScan;
 class SpecularDataHandlerTOF;
 
 //! Conversion of axis units for the case of 1D simulation result.
@@ -32,7 +32,7 @@ class BA_CORE_API_ UnitConverter1D : public IUnitConverter
 public:
     //! Factory function to create unit converter for particular type of specular data
     static std::unique_ptr<UnitConverter1D>
-    createUnitConverter(const ISpecularDataHandler& handler);
+    createUnitConverter(const ISpecularScan& handler);
 
     ~UnitConverter1D() override = default;
 
@@ -64,7 +64,7 @@ public:
     //! Constructs the object for unit conversion.
     UnitConverterConvSpec(const Beam& beam, const IAxis& axis,
                           AxesUnits axis_units = AxesUnits::RADIANS);
-    UnitConverterConvSpec(const SpecularDataHandlerAng& handler);
+    UnitConverterConvSpec(const AngularSpecScan& handler);
     ~UnitConverterConvSpec() override;
 
     UnitConverterConvSpec* clone() const override;
@@ -100,7 +100,7 @@ protected:
 class BA_CORE_API_ UnitConverterQSpec : public UnitConverter1D
 {
 public:
-    UnitConverterQSpec(const SpecularDataHandlerQ& handler);
+    UnitConverterQSpec(const QSpecScan& handler);
     UnitConverterQSpec(const SpecularDataHandlerTOF& handler);
     ~UnitConverterQSpec() override;
 

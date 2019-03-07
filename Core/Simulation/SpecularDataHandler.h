@@ -26,12 +26,12 @@ class SpecularSimulationElement;
 
 enum class SPECULAR_DATA_TYPE {angle, lambda, q};
 
-class ISpecularDataHandler : public ICloneable
+class ISpecularScan : public ICloneable
 {
 public:
-    ISpecularDataHandler(SPECULAR_DATA_TYPE data_type);
-    ~ISpecularDataHandler() override;
-    ISpecularDataHandler* clone() const override = 0;
+    ISpecularScan(SPECULAR_DATA_TYPE data_type);
+    ~ISpecularScan() override;
+    ISpecularScan* clone() const override = 0;
 
     //! Generates simulation elements for specular simulations
     virtual std::vector<SpecularSimulationElement> generateSimulationElements() const = 0;
@@ -54,13 +54,13 @@ private:
     SPECULAR_DATA_TYPE m_data_type;
 };
 
-class SpecularDataHandlerAng : public ISpecularDataHandler
+class AngularSpecScan : public ISpecularScan
 {
 public:
-    SpecularDataHandlerAng(double wl, std::unique_ptr<IAxis> inc_angle,
+    AngularSpecScan(double wl, std::unique_ptr<IAxis> inc_angle,
                            const IFootprintFactor* footprint = nullptr);
-    ~SpecularDataHandlerAng() override;
-    SpecularDataHandlerAng* clone() const override;
+    ~AngularSpecScan() override;
+    AngularSpecScan* clone() const override;
 
     //! Generates simulation elements for specular simulations
     std::vector<SpecularSimulationElement> generateSimulationElements() const override;
@@ -85,7 +85,7 @@ private:
     std::unique_ptr<IFootprintFactor> m_footprint;
 };
 
-class SpecularDataHandlerTOF : public ISpecularDataHandler
+class SpecularDataHandlerTOF : public ISpecularScan
 {
 public:
     SpecularDataHandlerTOF(double inc_angle, std::unique_ptr<IAxis> qz,
@@ -116,13 +116,13 @@ private:
     std::unique_ptr<IFootprintFactor> m_footprint;
 };
 
-class SpecularDataHandlerQ : public ISpecularDataHandler
+class QSpecScan : public ISpecularScan
 {
 public:
     //! Accepts qz-value vector (in inverse nm)
-    SpecularDataHandlerQ(std::unique_ptr<IAxis> qs_nm);
-    ~SpecularDataHandlerQ() override;
-    SpecularDataHandlerQ* clone() const override;
+    QSpecScan(std::unique_ptr<IAxis> qs_nm);
+    ~QSpecScan() override;
+    QSpecScan* clone() const override;
 
     //! Generates simulation elements for specular simulations
     std::vector<SpecularSimulationElement> generateSimulationElements() const override;

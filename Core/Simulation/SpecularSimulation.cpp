@@ -33,7 +33,7 @@
 namespace
 {
 // TODO: remove when pointwise resolution is implemented
-std::unique_ptr<ISpecularDataHandler> mangledDataHandler(const ISpecularDataHandler& data_handler,
+std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
                                                          const Beam& beam);
 
 // compute qz values for given wavelengths and inclination angle. Sorts
@@ -111,7 +111,7 @@ void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axi
 
     SpecularDetector1D detector(alpha_axis);
     m_instrument.setDetector(detector);
-    m_data_handler = std::make_unique<SpecularDataHandlerAng>(
+    m_data_handler = std::make_unique<AngularSpecScan>(
         lambda, std::unique_ptr<IAxis>(alpha_axis.clone()), beam_shape);
 
     // beam is initialized with zero-valued angles
@@ -151,7 +151,7 @@ void SpecularSimulation::setBeamParameters(std::vector<double> qz_values)
     auto q_axis = std::make_unique<PointwiseAxis>("qz", std::move(qz_values));
     SpecularDetector1D detector(*q_axis);
     m_instrument.setDetector(detector);
-    m_data_handler = std::make_unique<SpecularDataHandlerQ>(std::move(q_axis));
+    m_data_handler = std::make_unique<QSpecScan>(std::move(q_axis));
 }
 
 const IAxis* SpecularSimulation::coordinateAxis() const
@@ -256,7 +256,7 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     }
 
     // TODO: use just m_data_handler when pointwise resolution is implemented
-    std::unique_ptr<ISpecularDataHandler> data_handler(m_data_handler->clone());
+    std::unique_ptr<ISpecularScan> data_handler(m_data_handler->clone());
     if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle)
         data_handler = mangledDataHandler(*m_data_handler, getInstrument().getBeam());
 
@@ -331,7 +331,7 @@ void SpecularSimulation::setRawResults(const std::vector<double>& raw_data)
 
 namespace {
 // TODO: remove when pointwise resolution is implemented
-std::unique_ptr<ISpecularDataHandler> mangledDataHandler(const ISpecularDataHandler& data_handler,
+std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
                                                          const Beam& beam)
 {
     if (data_handler.dataType() != SPECULAR_DATA_TYPE::angle)
@@ -342,7 +342,7 @@ std::unique_ptr<ISpecularDataHandler> mangledDataHandler(const ISpecularDataHand
     std::vector<double> angles = data_handler.coordinateAxis()->getBinCenters();
     for (auto& val : angles)
         val += angle_shift;
-    auto result = std::make_unique<SpecularDataHandlerAng>(
+    auto result = std::make_unique<AngularSpecScan>(
         wl, std::make_unique<PointwiseAxis>("alpha_i", std::move(angles)),
         data_handler.footprintFactor());
     return std::move(result);

@@ -23,15 +23,15 @@ const RealLimits inc_angle_limits = RealLimits::limited(0.0, M_PI_2);
 const RealLimits qz_limits = RealLimits::positive();
 }
 
-ISpecularDataHandler::ISpecularDataHandler(SPECULAR_DATA_TYPE data_type)
+ISpecularScan::ISpecularScan(SPECULAR_DATA_TYPE data_type)
     : m_data_type(data_type)
 {}
 
-ISpecularDataHandler::~ISpecularDataHandler() = default;
+ISpecularScan::~ISpecularScan() = default;
 
-SpecularDataHandlerAng::SpecularDataHandlerAng(double wl, std::unique_ptr<IAxis> inc_angle,
+AngularSpecScan::AngularSpecScan(double wl, std::unique_ptr<IAxis> inc_angle,
                                                const IFootprintFactor* footprint)
-    : ISpecularDataHandler(SPECULAR_DATA_TYPE::angle)
+    : ISpecularScan(SPECULAR_DATA_TYPE::angle)
     , m_wl(wl)
     , m_inc_angle(std::move(inc_angle))
     , m_footprint(footprint ? footprint->clone() : nullptr)
@@ -41,15 +41,15 @@ SpecularDataHandlerAng::SpecularDataHandlerAng(double wl, std::unique_ptr<IAxis>
                 "Error in SpecularDataHolderAngle: empty inclination angle axis passed.");
 }
 
-SpecularDataHandlerAng* SpecularDataHandlerAng::clone() const
+AngularSpecScan* AngularSpecScan::clone() const
 {
-    return new SpecularDataHandlerAng(m_wl, std::unique_ptr<IAxis>(m_inc_angle->clone()),
+    return new AngularSpecScan(m_wl, std::unique_ptr<IAxis>(m_inc_angle->clone()),
                                       m_footprint.get());
 }
 
-SpecularDataHandlerAng::~SpecularDataHandlerAng() = default;
+AngularSpecScan::~AngularSpecScan() = default;
 
-std::vector<SpecularSimulationElement> SpecularDataHandlerAng::generateSimulationElements() const
+std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElements() const
 {
     std::vector<SpecularSimulationElement> result;
 
@@ -66,7 +66,7 @@ std::vector<SpecularSimulationElement> SpecularDataHandlerAng::generateSimulatio
     return result;
 }
 
-double SpecularDataHandlerAng::footprint(size_t i) const
+double AngularSpecScan::footprint(size_t i) const
 {
     if (!m_footprint)
         return 1.0;
@@ -74,14 +74,14 @@ double SpecularDataHandlerAng::footprint(size_t i) const
     return m_footprint->calculate(m_inc_angle->getBinCenter(i));
 }
 
-size_t SpecularDataHandlerAng::numberOfSimulationElements() const
+size_t AngularSpecScan::numberOfSimulationElements() const
 {
     return m_inc_angle->size();
 }
 
 SpecularDataHandlerTOF::SpecularDataHandlerTOF(double inc_angle, std::unique_ptr<IAxis> qz,
                                                const IFootprintFactor* footprint)
-    : ISpecularDataHandler(SPECULAR_DATA_TYPE::lambda)
+    : ISpecularScan(SPECULAR_DATA_TYPE::lambda)
     , m_inc_angle(inc_angle)
     , m_qs(std::move(qz))
     , m_footprint(footprint ? footprint->clone() : nullptr)
@@ -128,20 +128,20 @@ size_t SpecularDataHandlerTOF::numberOfSimulationElements() const
     return m_qs->size();
 }
 
-SpecularDataHandlerQ::SpecularDataHandlerQ(std::unique_ptr<IAxis> qs_nm)
-    : ISpecularDataHandler(SPECULAR_DATA_TYPE::q)
+QSpecScan::QSpecScan(std::unique_ptr<IAxis> qs_nm)
+    : ISpecularScan(SPECULAR_DATA_TYPE::q)
     , m_qs(std::move(qs_nm))
 {}
 
-SpecularDataHandlerQ::~SpecularDataHandlerQ() = default;
+QSpecScan::~QSpecScan() = default;
 
-SpecularDataHandlerQ* SpecularDataHandlerQ::clone() const
+QSpecScan* QSpecScan::clone() const
 {
-    return new SpecularDataHandlerQ(std::unique_ptr<IAxis>(m_qs->clone()));
+    return new QSpecScan(std::unique_ptr<IAxis>(m_qs->clone()));
 }
 
 //! Generates simulation elements for specular simulations
-std::vector<SpecularSimulationElement> SpecularDataHandlerQ::generateSimulationElements() const
+std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() const
 {
     std::vector<SpecularSimulationElement> result;
 
@@ -159,7 +159,7 @@ std::vector<SpecularSimulationElement> SpecularDataHandlerQ::generateSimulationE
 }
 
 //! Returns the number of simulation elements
-size_t SpecularDataHandlerQ::numberOfSimulationElements() const
+size_t QSpecScan::numberOfSimulationElements() const
 {
     return m_qs->size();
 }

@@ -18,6 +18,7 @@
 #include "DepthProbeSimulation.h"
 #include "Distributions.h"
 #include "Ellipse.h"
+#include "FixedBinAxis.h"
 #include "FootprintFactorGaussian.h"
 #include "FootprintFactorSquare.h"
 #include "GISASSimulation.h"
@@ -30,6 +31,7 @@
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleBuilderFactory.h"
+#include "SpecularScan.h"
 #include "SpecularSimulation.h"
 #include "OffSpecSimulation.h"
 #include "Units.h"
@@ -379,18 +381,16 @@ GISASSimulation* StandardSimulations::ConstantBackgroundGISAS()
     return result;
 }
 
-#include "FixedBinAxis.h"
 SpecularSimulation* StandardSimulations::BasicSpecular()
 {
     const double wavelength = 1.54 * Units::angstrom;
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-
-    FixedBinAxis angle_axis("axis", number_of_bins, min_angle, max_angle);
+    AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wavelength, angle_axis);
+    result->setScan(scan);
     result->getOptions().setUseAvgMaterials(true);
     return result.release();
 }
@@ -410,9 +410,10 @@ SpecularSimulation* StandardSimulations::BasicSpecularQ()
         for (size_t i = 0, size = qs.size(); i < size; ++i)
             qs[i] = 4.0 * M_PI * std::sin(angles[i]) / wavelength_0;
     }
+    QSpecScan q_scan(qs);
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(qs);
+    result->setScan(q_scan);
     result->getOptions().setUseAvgMaterials(true);
     return result.release();
 }
@@ -423,11 +424,12 @@ SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-
     auto gaussian_ff = std::make_unique<FootprintFactorGaussian>(1.0);
+    AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
+    scan.setFootprintFactor(gaussian_ff.get());
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle, gaussian_ff.get());
+    result->setScan(scan);
     return result.release();
 }
 
@@ -437,11 +439,12 @@ SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-
     auto square_ff = std::make_unique<FootprintFactorSquare>(1.0);
+    AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
+    scan.setFootprintFactor(square_ff.get());
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle, square_ff.get());
+    result->setScan(scan);
     return result.release();
 }
 
@@ -452,12 +455,13 @@ SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
     const size_t n_integration_points = 10;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
+    AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
 
     DistributionGaussian wavelength_distr(wavelength, 0.1*Units::angstrom);
     DistributionGaussian alpha_distr(0.0, 0.1*Units::degree);
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle);
+    result->setScan(scan);
 
     ParameterPattern pattern1;
     pattern1.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);

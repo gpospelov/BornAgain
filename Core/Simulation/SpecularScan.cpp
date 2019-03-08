@@ -21,7 +21,7 @@
 
 namespace {
 const RealLimits inc_angle_limits = RealLimits::limited(0.0, M_PI_2);
-const RealLimits qz_limits = RealLimits::positive();
+const RealLimits qz_limits = RealLimits::nonnegative();
 }
 
 ISpecularScan::ISpecularScan(SPECULAR_DATA_TYPE data_type)
@@ -88,10 +88,15 @@ void AngularSpecScan::setFootprintFactor(const IFootprintFactor* f_factor)
 
 double AngularSpecScan::footprint(size_t i) const
 {
-    if (!m_footprint)
+    if (i >= numberOfSimulationElements())
+        throw std::runtime_error("Error in AngularSpecScan::footprint: given index exceeds the "
+                                 "number of simulation elements");
+
+    const double angle_value = m_inc_angle->getBinCenter(i);
+    if (!m_footprint || !inc_angle_limits.isInRange(angle_value))
         return 1.0;
 
-    return m_footprint->calculate(m_inc_angle->getBinCenter(i));
+    return m_footprint->calculate(angle_value);
 }
 
 size_t AngularSpecScan::numberOfSimulationElements() const
@@ -104,6 +109,13 @@ void AngularSpecScan::checkInitialization()
     if (m_wl <= 0.0)
         throw std::runtime_error(
             "Error in AngularSpecScan::checkInitialization: wavelength shell be positive");
+
+    std::vector<double> axis_values = m_inc_angle->getBinCenters();
+    if (!std::is_sorted(axis_values.begin(), axis_values.end()))
+        throw std::runtime_error("Error in AngularSpecScan::checkInitialization: q-vector values "
+                                 "shall be sorted in ascending order.");
+
+    // TODO: check for inclination angle limits after switching to pointwise resolution.
 }
 
 QSpecScan::QSpecScan(std::vector<double> qs_nm)
@@ -152,6 +164,14 @@ std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() c
     return result;
 }
 
+double QSpecScan::footprint(size_t i) const
+{
+    if (i >= numberOfSimulationElements())
+        throw std::runtime_error("Error in QSpecScan::footprint: given index exceeds the "
+                                 "number of simulation elements");
+    return 1.0;
+}
+
 //! Returns the number of simulation elements
 size_t QSpecScan::numberOfSimulationElements() const
 {
@@ -160,7 +180,12 @@ size_t QSpecScan::numberOfSimulationElements() const
 
 void QSpecScan::checkInitialization()
 {
-    if (m_qs->getMin() < 0.0)
-        throw std::runtime_error(
-            "Error in QSpecScan::checkInitialization: q-vector values shall be positive.");
+    std::vector<double> axis_values = m_qs->getBinCenters();
+    if (!std::is_sorted(axis_values.begin(), axis_values.end()))
+        throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values shall "
+                                 "be sorted in ascending order.");
+
+    if (!qz_limits.isInRange(axis_values.front()))
+        throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values are out "
+                                 "of acceptable range.");
 }

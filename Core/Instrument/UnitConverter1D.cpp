@@ -35,11 +35,11 @@ createTranslatedAxis(const IAxis& axis, std::function<double(double)> translator
 std::unique_ptr<UnitConverter1D>
 UnitConverter1D::createUnitConverter(const ISpecularScan& handler)
 {
-    if (handler.dataType() == SPECULAR_DATA_TYPE::angle)
+    if (handler.dataType() == ISpecularScan::angle)
         return std::make_unique<UnitConverterConvSpec>(
             static_cast<const AngularSpecScan&>(handler));
 
-    if (handler.dataType() == SPECULAR_DATA_TYPE::q)
+    if (handler.dataType() == ISpecularScan::q)
         return std::make_unique<UnitConverterQSpec>(
             static_cast<const QSpecScan&>(handler));
 

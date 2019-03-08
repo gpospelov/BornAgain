@@ -170,7 +170,7 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
                                  "parameters were not set.");
 
     // TODO: remove when pointwise resolution is implemented
-    if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle)
+    if (m_data_handler->dataType() == ISpecularScan::angle)
         return mangledDataHandler(*m_data_handler, beam)->generateSimulationElements();
 
     return m_data_handler->generateSimulationElements();
@@ -242,7 +242,7 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
 
     // TODO: use just m_data_handler when pointwise resolution is implemented
     std::unique_ptr<ISpecularScan> data_handler(m_data_handler->clone());
-    if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle)
+    if (m_data_handler->dataType() == ISpecularScan::angle)
         data_handler = mangledDataHandler(*m_data_handler, getInstrument().getBeam());
 
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
@@ -319,7 +319,7 @@ namespace {
 std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
                                                          const Beam& beam)
 {
-    if (data_handler.dataType() != SPECULAR_DATA_TYPE::angle)
+    if (data_handler.dataType() != ISpecularScan::angle)
         throw std::runtime_error("Error in mangledDataHandler: invalid usage");
 
     const double wl = beam.getWavelength();

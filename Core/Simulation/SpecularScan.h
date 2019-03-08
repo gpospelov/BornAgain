@@ -24,12 +24,12 @@ class IAxis;
 class IFootprintFactor;
 class SpecularSimulationElement;
 
-enum class SPECULAR_DATA_TYPE {angle, lambda, q};
-
 //! Base abstract class for all types of specular scans.
 class ISpecularScan : public ICloneable
 {
 public:
+    enum SPECULAR_DATA_TYPE {angle, q};
+
     ISpecularScan(SPECULAR_DATA_TYPE data_type);
     ~ISpecularScan() override;
     ISpecularScan* clone() const override = 0;
@@ -123,7 +123,7 @@ public:
     virtual const IFootprintFactor* footprintFactor() const override { return nullptr; }
 
     //! Returns footprint correction factor for simulation element with index _i_
-    double footprint(size_t) const override { return 1.0; }
+    double footprint(size_t i) const override;
 
     //! Returns the number of simulation elements
     size_t numberOfSimulationElements() const override;

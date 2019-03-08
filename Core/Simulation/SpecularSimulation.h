@@ -53,6 +53,9 @@ public:
     //! zeros.
     SimulationResult result() const override;
 
+    //! Sets chosen specular scan to the simulation.
+    void setScan(const ISpecularScan& scan);
+
     void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max,
                            const IFootprintFactor* beam_shape = nullptr);
     void setBeamParameters(double lambda, std::vector<double> incident_angle_values,

@@ -89,6 +89,25 @@ SimulationResult SpecularSimulation::result() const
     return SimulationResult(*data, *converter);
 }
 
+void SpecularSimulation::setScan(const ISpecularScan& scan)
+{
+    // TODO: move inside AngularSpecScan when pointwise resolution is implemented
+    if (scan.coordinateAxis()->getMin() < 0.0)
+        throw std::runtime_error(
+            "Error in SpecularSimulation::setScan: minimum value on coordinate axis is negative.");
+
+    m_data_handler.reset(scan.clone());
+
+    SpecularDetector1D detector(*scan.coordinateAxis());
+    m_instrument.setDetector(detector);
+
+    // TODO: remove when pointwise resolution is implemented
+    if (scan.dataType() == ISpecularScan::angle) {
+        const auto& angular_scan = static_cast<const AngularSpecScan&>(scan);
+        m_instrument.setBeamParameters(angular_scan.wavelength(), zero_alpha_i, zero_phi_i);
+    }
+}
+
 void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
                                            const IFootprintFactor* beam_shape)
 {

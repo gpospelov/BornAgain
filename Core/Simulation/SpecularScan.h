@@ -49,6 +49,9 @@ public:
 
     //! Returns the number of simulation elements
     virtual size_t numberOfSimulationElements() const = 0;
+
+    //! Print scan definition in python format
+    virtual std::string print() const = 0;
 #endif //SWIG
 
     SPECULAR_DATA_TYPE dataType() const {return m_data_type;}
@@ -83,6 +86,9 @@ public:
 
     //! Returns the number of simulation elements
     size_t numberOfSimulationElements() const override;
+
+    //! Print scan definition in python format
+    std::string print() const override;
 
     double wavelength() const {return m_wl;}
 #endif //SWIG
@@ -127,10 +133,18 @@ public:
 
     //! Returns the number of simulation elements
     size_t numberOfSimulationElements() const override;
+
+    //! Print scan definition in python format
+    std::string print() const override;
 #endif //SWIG
 
 private:
     void checkInitialization();
     std::unique_ptr<IAxis> m_qs;
 };
+
+inline std::ostream& operator<<(std::ostream& os, const ISpecularScan& scan)
+{
+    return os << scan.print();
+}
 #endif // SPECULARDATAHANDLER_H

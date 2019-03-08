@@ -32,6 +32,9 @@ public:
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     double calculate(double alpha) const override;
 
+    //! Print python-formatted footprint definition
+    std::string print() const override;
+
 protected:
     FootprintFactorSquare(const FootprintFactorSquare& other);
 

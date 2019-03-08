@@ -1,5 +1,6 @@
 #include "FootprintFactorSquare.h"
 #include "MathConstants.h"
+#include "PythonFormatting.h"
 #include <algorithm>
 #include <stdexcept>
 
@@ -21,6 +22,15 @@ double FootprintFactorSquare::calculate(double alpha) const
         return 1.0;
     const double arg = std::sin(alpha) / widthRatio();
     return std::min(arg, 1.0);
+}
+
+std::string FootprintFactorSquare::print() const
+{
+    std::stringstream result;
+    result << PythonFormatting::indent() << "footprint = ";
+    result << "ba.FootprintFactorSquare";
+    result << "(" << PythonFormatting::printDouble(widthRatio()) << ")";
+    return result.str();
 }
 
 FootprintFactorSquare::FootprintFactorSquare(const FootprintFactorSquare& other)

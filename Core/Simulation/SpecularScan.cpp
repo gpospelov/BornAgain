@@ -16,6 +16,7 @@
 #include "FixedBinAxis.h"
 #include "IFootprintFactor.h"
 #include "PointwiseAxis.h"
+#include "PythonFormatting.h"
 #include "RealLimits.h"
 #include "SpecularSimulationElement.h"
 
@@ -104,6 +105,26 @@ size_t AngularSpecScan::numberOfSimulationElements() const
     return m_inc_angle->size();
 }
 
+std::string AngularSpecScan::print() const
+{
+    std::stringstream result;
+    const std::string axis_def = PythonFormatting::indent() + "axis = ";
+    result << axis_def
+           << PythonFormatting::printAxis(*coordinateAxis(), BornAgain::UnitsRad,
+                                          axis_def.size())
+           << "\n";
+
+    result << PythonFormatting::indent() << "scan = ";
+    result << "ba.AngularSpecScan(" << PythonFormatting::printDouble(m_wl) << ", axis)";
+
+    if (m_footprint) {
+        result << "\n";
+        result << *m_footprint << "\n";
+        result << PythonFormatting::indent() << "scan.setFootprintFactor(footprint)";
+    }
+    return result.str();
+}
+
 void AngularSpecScan::checkInitialization()
 {
     if (m_wl <= 0.0)
@@ -176,6 +197,19 @@ double QSpecScan::footprint(size_t i) const
 size_t QSpecScan::numberOfSimulationElements() const
 {
     return m_qs->size();
+}
+
+std::string QSpecScan::print() const
+{
+    std::stringstream result;
+    const std::string axis_def = PythonFormatting::indent() + "axis = ";
+    result << axis_def
+           << PythonFormatting::printAxis(*coordinateAxis(), BornAgain::UnitsNone,
+                                          axis_def.size())
+           << "\n";
+
+    result << PythonFormatting::indent() << "scan = ba.QSpecScan(axis)";
+    return result.str();
 }
 
 void QSpecScan::checkInitialization()

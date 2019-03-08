@@ -11,8 +11,7 @@ materials only.
 """
 import numpy as np
 import bornagain as ba
-from matplotlib import pyplot as plt
-from bornagain import deg, angstrom
+from bornagain import angstrom
 
 qzs = np.linspace(0.01, 1.0, 500, dtype=float)  # qz-values
 
@@ -50,8 +49,9 @@ def get_simulation():
     Defines and returns specular simulation
     with a qz-defined beam
     """
+    scan = ba.QSpecScan(qzs)
     simulation = ba.SpecularSimulation()
-    simulation.setBeamParameters(qzs)
+    simulation.setScan(scan)
     return simulation
 
 

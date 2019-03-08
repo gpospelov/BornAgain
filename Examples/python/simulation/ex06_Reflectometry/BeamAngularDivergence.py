@@ -74,11 +74,15 @@ def get_simulation():
     # First argument  of ba.DistributionGaussian is the mean value for distribution.
     # It should be zero in the case of incident angle distribution, otherwise an
     # exception is thrown.
-    alpha_distr = ba.DistributionGaussian(0.0, d_ang)
-    simulation = ba.SpecularSimulation()
     footprint = ba.FootprintFactorSquare(beam_sample_ratio)
-    simulation.setBeamParameters(
-        wavelength, n_bins, alpha_i_min, alpha_i_max, footprint)
+
+    scan = ba.AngularSpecScan(wavelength, n_bins, alpha_i_min, alpha_i_max)
+    scan.setFootprintFactor(footprint)
+
+    simulation = ba.SpecularSimulation()
+    simulation.setScan(scan)
+
+    alpha_distr = ba.DistributionGaussian(0.0, d_ang)
     simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
                                         n_points, n_sig)
     return simulation

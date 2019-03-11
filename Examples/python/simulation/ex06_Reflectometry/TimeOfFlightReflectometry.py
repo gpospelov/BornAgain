@@ -13,8 +13,6 @@ import numpy as np
 import bornagain as ba
 from bornagain import angstrom
 
-qzs = np.linspace(0.01, 1.0, 500, dtype=float)  # qz-values
-
 
 def get_sample():
     """
@@ -44,27 +42,29 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation():
+def get_simulation(scan_size=500):
     """
     Defines and returns specular simulation
     with a qz-defined beam
     """
+    qzs = np.linspace(0.01, 1.0, scan_size, dtype=float)  # qz-values
     scan = ba.QSpecScan(qzs)
     simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
     return simulation
 
 
-def run_simulation(simulation):
+def run_simulation():
     """
     Runs simulation and returns its result.
     """
     sample = get_sample()
+    simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
     return simulation.result()
 
 
 if __name__ == '__main__':
-    result = run_simulation(get_simulation())
+    result = run_simulation()
     ba.plot_simulation_result(result)

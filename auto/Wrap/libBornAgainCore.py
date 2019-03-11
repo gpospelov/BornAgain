@@ -16282,6 +16282,11 @@ class IFootprintFactor(ICloneable, INode):
         """
         return _libBornAgainCore.IFootprintFactor_calculate(self, alpha)
 
+
+    def _print(self):
+        """_print(IFootprintFactor self) -> std::string"""
+        return _libBornAgainCore.IFootprintFactor__print(self)
+
 IFootprintFactor_swigregister = _libBornAgainCore.IFootprintFactor_swigregister
 IFootprintFactor_swigregister(IFootprintFactor)
 
@@ -16350,6 +16355,11 @@ class FootprintFactorGaussian(IFootprintFactor):
 
         """
         return _libBornAgainCore.FootprintFactorGaussian_calculate(self, alpha)
+
+
+    def _print(self):
+        """_print(FootprintFactorGaussian self) -> std::string"""
+        return _libBornAgainCore.FootprintFactorGaussian__print(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FootprintFactorGaussian
     __del__ = lambda self: None
@@ -16421,6 +16431,11 @@ class FootprintFactorSquare(IFootprintFactor):
 
         """
         return _libBornAgainCore.FootprintFactorSquare_calculate(self, alpha)
+
+
+    def _print(self):
+        """_print(FootprintFactorSquare self) -> std::string"""
+        return _libBornAgainCore.FootprintFactorSquare__print(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FootprintFactorSquare
     __del__ = lambda self: None
@@ -28369,6 +28384,81 @@ class DepthProbeSimulation(Simulation):
 DepthProbeSimulation_swigregister = _libBornAgainCore.DepthProbeSimulation_swigregister
 DepthProbeSimulation_swigregister(DepthProbeSimulation)
 
+class AngularSpecScan(_object):
+    """Proxy of C++ AngularSpecScan class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AngularSpecScan, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, AngularSpecScan, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
+        """
+        this = _libBornAgainCore.new_AngularSpecScan(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_AngularSpecScan
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(AngularSpecScan self) -> AngularSpecScan
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.AngularSpecScan_clone(self)
+
+
+    def setFootprintFactor(self, f_factor):
+        """setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)"""
+        return _libBornAgainCore.AngularSpecScan_setFootprintFactor(self, f_factor)
+
+AngularSpecScan_swigregister = _libBornAgainCore.AngularSpecScan_swigregister
+AngularSpecScan_swigregister(AngularSpecScan)
+
+class QSpecScan(_object):
+    """Proxy of C++ QSpecScan class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, QSpecScan, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, QSpecScan, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
+        __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
+        __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
+        """
+        this = _libBornAgainCore.new_QSpecScan(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_QSpecScan
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(QSpecScan self) -> QSpecScan
+
+        virtual ICloneable* ICloneable::clone() const =0
+
+        """
+        return _libBornAgainCore.QSpecScan_clone(self)
+
+QSpecScan_swigregister = _libBornAgainCore.QSpecScan_swigregister
+QSpecScan_swigregister(QSpecScan)
+
 class SpecularSimulation(Simulation):
     """
 
@@ -28462,24 +28552,9 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_result(self)
 
 
-    def setBeamParameters(self, *args):
-        """
-        setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max, IFootprintFactor beam_shape=None)
-        setBeamParameters(SpecularSimulation self, double arg2, int nbins, double alpha_i_min, double alpha_i_max)
-        setBeamParameters(SpecularSimulation self, double arg2, vdouble1d_t incident_angle_values, IFootprintFactor beam_shape=None)
-        setBeamParameters(SpecularSimulation self, double arg2, vdouble1d_t incident_angle_values)
-        setBeamParameters(SpecularSimulation self, vdouble1d_t wavelength_values, double incident_angle, IFootprintFactor beam_shape=None)
-        setBeamParameters(SpecularSimulation self, vdouble1d_t wavelength_values, double incident_angle)
-        setBeamParameters(SpecularSimulation self, vdouble1d_t qz_values)
-        setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis, IFootprintFactor beam_shape=None)
-        setBeamParameters(SpecularSimulation self, double arg2, IAxis alpha_axis)
-
-        void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
-
-        Sets beam parameters for specular simulation.  lambda defines the wavelength of incoming beam (in nm),  alpha_axis defines the range of incident angles, while  beam_shape (optional parameter) is required to take footprint effects into account. Incident angle axis can be defined as a numpy array of values. This overload facilitates defining non-uniform incident angle axis. Another overload accepts the number of bins ( nbins), as well as minimal ( alpha_i_min) and maximal ( alpha_i_max) angle values. With using this overload a uniform angle axis in the given range is assigned to the beam. 
-
-        """
-        return _libBornAgainCore.SpecularSimulation_setBeamParameters(self, *args)
+    def setScan(self, scan):
+        """setScan(SpecularSimulation self, ISpecularScan const & scan)"""
+        return _libBornAgainCore.SpecularSimulation_setScan(self, scan)
 
 
     def coordinateAxis(self):

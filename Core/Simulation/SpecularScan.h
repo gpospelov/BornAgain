@@ -18,6 +18,7 @@
 #include "ICloneable.h"
 
 #include <memory>
+#include <string>
 #include <vector>
 
 class IAxis;
@@ -25,7 +26,7 @@ class IFootprintFactor;
 class SpecularSimulationElement;
 
 //! Base abstract class for all types of specular scans.
-class ISpecularScan : public ICloneable
+class BA_CORE_API_ ISpecularScan : public ICloneable
 {
 public:
     enum SPECULAR_DATA_TYPE {angle, q};
@@ -62,7 +63,7 @@ private:
 
 //! Scan type with inclination angles as coordinate
 //! values. Features footprint correction.
-class AngularSpecScan : public ISpecularScan
+class BA_CORE_API_ AngularSpecScan : public ISpecularScan
 {
 public:
     AngularSpecScan(double wl, std::vector<double> inc_angle);
@@ -112,7 +113,7 @@ private:
 //! Scan type with z-components of scattering vector
 //! as coordinate values. Wavelength and incident angles
 //! are not accessible separately.
-class QSpecScan : public ISpecularScan
+class BA_CORE_API_ QSpecScan : public ISpecularScan
 {
 public:
     //! Accepts qz-value vector (in inverse nm)

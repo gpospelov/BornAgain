@@ -108,56 +108,6 @@ void SpecularSimulation::setScan(const ISpecularScan& scan)
     }
 }
 
-void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
-                                           const IFootprintFactor* beam_shape)
-{
-    if (lambda <= 0.0)
-        throw std::runtime_error(
-            "Error in SpecularSimulation::setBeamParameters: wavelength must be positive.");
-    if (alpha_axis.getMin() < 0.0)
-        throw std::runtime_error("Error in SpecularSimulation::setBeamParameters: minimum value on "
-                                 "angle axis is negative.");
-    if (alpha_axis.getMin() >= alpha_axis.getMax())
-        throw std::runtime_error("Error in SpecularSimulation::setBeamParameters: maximal value on "
-                                 "angle axis is less or equal to the minimal one.");
-    if (alpha_axis.size() == 0)
-        throw std::runtime_error(
-            "Error in SpecularSimulation::setBeamParameters: angle axis is empty");
-
-    SpecularDetector1D detector(alpha_axis);
-    m_instrument.setDetector(detector);
-    auto scan = std::make_unique<AngularSpecScan>(lambda, alpha_axis);
-    scan->setFootprintFactor(beam_shape);
-    m_data_handler = std::move(scan);
-
-    // beam is initialized with zero-valued angles
-    // Zero-valued incident alpha is required for proper
-    // taking into account beam resolution effects
-    m_instrument.setBeamParameters(lambda, zero_alpha_i, zero_phi_i);
-}
-
-void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
-                                           double alpha_i_max, const IFootprintFactor* beam_shape)
-{
-    FixedBinAxis axis("alpha_i", static_cast<size_t>(nbins), alpha_i_min, alpha_i_max);
-    setBeamParameters(lambda, axis, beam_shape);
-}
-
-void SpecularSimulation::setBeamParameters(double lambda, std::vector<double> incident_angle_values,
-                                           const IFootprintFactor* beam_shape)
-{
-    PointwiseAxis axis("alpha_i", std::move(incident_angle_values));
-    setBeamParameters(lambda, axis, beam_shape);
-}
-
-void SpecularSimulation::setBeamParameters(std::vector<double> qz_values)
-{
-    auto q_axis = std::make_unique<PointwiseAxis>("qz", std::move(qz_values));
-    SpecularDetector1D detector(*q_axis);
-    m_instrument.setDetector(detector);
-    m_data_handler = std::make_unique<QSpecScan>(*q_axis);
-}
-
 const IAxis* SpecularSimulation::coordinateAxis() const
 {
     if (!m_data_handler || !m_data_handler->coordinateAxis())

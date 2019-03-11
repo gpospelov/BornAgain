@@ -67,6 +67,11 @@ class AngularSpecScan : public ISpecularScan
 public:
     AngularSpecScan(double wl, std::vector<double> inc_angle);
     AngularSpecScan(double wl, const IAxis& inc_angle);
+    //! Sets angle-defined specular scan. The first parameter is always a wavelength in nm.
+    //! Second parameter is either a numpy array of incident angles in radians or an IAxis object
+    //! with angle values. Alternatively an axis can be defined in-place, then
+    //! the second passed parameter is the number of bins, third - minimum on-axis angle value,
+    //! fourth - maximum on-axis  angle value.
     AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max);
     ~AngularSpecScan() override;
     AngularSpecScan* clone() const override;
@@ -113,6 +118,10 @@ public:
     //! Accepts qz-value vector (in inverse nm)
     QSpecScan(std::vector<double> qs_nm);
     QSpecScan(const IAxis& qs_nm);
+    //! Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending
+    //! order or an IAxis object with q-values. Alternatively an axis can be defined in-place, then
+    //! the first passed parameter is the number of bins, second - minimum on-axis q-value,
+    //! third - maximum on-axis q_value.
     QSpecScan(int nbins, double qz_min, double qz_max);
 
     ~QSpecScan() override;

@@ -47,7 +47,7 @@ def get_simulation(scan_size=500):
     Defines and returns specular simulation
     with a qz-defined beam
     """
-    qzs = np.linspace(0.01, 1.0, scan_size, dtype=float)  # qz-values
+    qzs = np.linspace(0.01, 1.0, scan_size)  # qz-values
     scan = ba.QSpecScan(qzs)
     simulation = ba.SpecularSimulation()
     simulation.setScan(scan)

@@ -34,13 +34,14 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation():
+def get_simulation(scan_size=500):
     """
     Defines and returns a specular simulation.
     """
     simulation = ba.SpecularSimulation()
-    simulation.setBeamParameters(
-        1.54 * angstrom, 500, 0.0 * deg, 2.0 * deg)
+    scan = ba.AngularSpecScan(1.54 * angstrom, scan_size,
+                              0.0 * deg, 2.0 * deg)
+    simulation.setScan(scan)
     return simulation
 
 

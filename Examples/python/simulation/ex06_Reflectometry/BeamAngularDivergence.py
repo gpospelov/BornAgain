@@ -13,7 +13,6 @@ wavelength = 1.54 * ba.angstrom
 alpha_i_min = 0.0 * ba.deg  # min incident angle, deg
 alpha_i_max = 2.0 * ba.deg  # max incident angle, rad
 beam_sample_ratio = 0.01  # beam-to-sample size ratio
-n_bins = 500  # number of bins in the reflectivity curve
 
 # convolution parameters
 d_ang = 0.01 * ba.deg  # spread width for incident angle
@@ -67,18 +66,22 @@ def create_real_data():
     return ax_values, real_data
 
 
-def get_simulation():
+def get_simulation(scan_size=500):
     """
     Returns a specular simulation with beam and detector defined.
     """
     # First argument  of ba.DistributionGaussian is the mean value for distribution.
     # It should be zero in the case of incident angle distribution, otherwise an
     # exception is thrown.
-    alpha_distr = ba.DistributionGaussian(0.0, d_ang)
-    simulation = ba.SpecularSimulation()
     footprint = ba.FootprintFactorSquare(beam_sample_ratio)
-    simulation.setBeamParameters(
-        wavelength, n_bins, alpha_i_min, alpha_i_max, footprint)
+
+    scan = ba.AngularSpecScan(wavelength, scan_size, alpha_i_min, alpha_i_max)
+    scan.setFootprintFactor(footprint)
+
+    simulation = ba.SpecularSimulation()
+    simulation.setScan(scan)
+
+    alpha_distr = ba.DistributionGaussian(0.0, d_ang)
     simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
                                         n_points, n_sig)
     return simulation

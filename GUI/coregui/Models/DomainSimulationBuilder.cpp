@@ -16,6 +16,8 @@
 #include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "BeamItems.h"
+#include "DepthProbeInstrumentItem.h"
+#include "DepthProbeSimulation.h"
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
 #include "FootprintItems.h"
@@ -28,11 +30,10 @@
 #include "MultiLayerItem.h"
 #include "OffSpecSimulation.h"
 #include "SimulationOptionsItem.h"
-#include "SpecularSimulation.h"
 #include "SpecularBeamInclinationItem.h"
+#include "SpecularScan.h"
+#include "SpecularSimulation.h"
 #include "TransformToDomain.h"
-#include "DepthProbeSimulation.h"
-#include "DepthProbeInstrumentItem.h"
 #include "Units.h"
 
 namespace {
@@ -154,10 +155,11 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     const auto axis_item = beam_item->currentInclinationAxisItem();
     const auto footprint = beam_item->currentFootprintItem();
 
+    AngularSpecScan scan(beam_item->getWavelength(), *axis_item->createAxis(Units::degree));
+    scan.setFootprintFactor(footprint->createFootprint().get());
+
     specular_simulation->setBeamIntensity(beam_item->getIntensity());
-    specular_simulation->setBeamParameters(beam_item->getWavelength(),
-                                           *axis_item->createAxis(Units::degree),
-                                           footprint->createFootprint().get());
+    specular_simulation->setScan(scan);
 
     TransformToDomain::addDistributionParametersToSimulation(*beam_item,
                                                              *specular_simulation.get());

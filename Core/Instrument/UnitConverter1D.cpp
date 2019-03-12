@@ -18,7 +18,7 @@
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
 #include "PointwiseAxis.h"
-#include "SpecularDataHandler.h"
+#include "SpecularScan.h"
 #include "UnitConverterUtils.h"
 #include "Units.h"
 
@@ -33,19 +33,15 @@ createTranslatedAxis(const IAxis& axis, std::function<double(double)> translator
 } // namespace
 
 std::unique_ptr<UnitConverter1D>
-UnitConverter1D::createUnitConverter(const ISpecularDataHandler& handler)
+UnitConverter1D::createUnitConverter(const ISpecularScan& handler)
 {
-    if (handler.dataType() == SPECULAR_DATA_TYPE::angle)
+    if (handler.dataType() == ISpecularScan::angle)
         return std::make_unique<UnitConverterConvSpec>(
-            static_cast<const SpecularDataHandlerAng&>(handler));
+            static_cast<const AngularSpecScan&>(handler));
 
-    if (handler.dataType() == SPECULAR_DATA_TYPE::lambda)
+    if (handler.dataType() == ISpecularScan::q)
         return std::make_unique<UnitConverterQSpec>(
-            static_cast<const SpecularDataHandlerTOF&>(handler));
-
-    if (handler.dataType() == SPECULAR_DATA_TYPE::q)
-        return std::make_unique<UnitConverterQSpec>(
-            static_cast<const SpecularDataHandlerQ&>(handler));
+            static_cast<const QSpecScan&>(handler));
 
     throw std::runtime_error("No known unit conversions for passed type of specular data handler.");
 }
@@ -95,7 +91,7 @@ UnitConverterConvSpec::UnitConverterConvSpec(const Beam& beam, const IAxis& axis
         throw std::runtime_error("Error in UnitConverter1D: input axis range is out of bounds");
 }
 
-UnitConverterConvSpec::UnitConverterConvSpec(const SpecularDataHandlerAng& handler)
+UnitConverterConvSpec::UnitConverterConvSpec(const AngularSpecScan& handler)
     : m_wavelength(handler.wavelength())
     , m_axis(handler.coordinateAxis()->clone())
 {}
@@ -167,11 +163,7 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits un
     }
 }
 
-UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerQ& handler)
-    : m_axis(handler.coordinateAxis()->clone())
-{}
-
-UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerTOF& handler)
+UnitConverterQSpec::UnitConverterQSpec(const QSpecScan& handler)
     : m_axis(handler.coordinateAxis()->clone())
 {}
 

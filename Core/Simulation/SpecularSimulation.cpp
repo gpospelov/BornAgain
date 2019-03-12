@@ -25,7 +25,7 @@
 #include "PointwiseAxis.h"
 #include "RealParameter.h"
 #include "SpecularComputation.h"
-#include "SpecularDataHandler.h"
+#include "SpecularScan.h"
 #include "SpecularDetector1D.h"
 #include "SpecularSimulationElement.h"
 #include "UnitConverter1D.h"
@@ -33,12 +33,8 @@
 namespace
 {
 // TODO: remove when pointwise resolution is implemented
-std::unique_ptr<ISpecularDataHandler> mangledDataHandler(const ISpecularDataHandler& data_handler,
+std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
                                                          const Beam& beam);
-
-// compute qz values for given wavelengths and inclination angle. Sorts
-// wavelengths in descending order if it was not done before.
-std::vector<double> computeQzValues(std::vector<double> wls, double inc_angle);
 
 const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
 const double zero_phi_i = 0.0;
@@ -93,65 +89,23 @@ SimulationResult SpecularSimulation::result() const
     return SimulationResult(*data, *converter);
 }
 
-void SpecularSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
-                                           const IFootprintFactor* beam_shape)
+void SpecularSimulation::setScan(const ISpecularScan& scan)
 {
-    if (lambda <= 0.0)
+    // TODO: move inside AngularSpecScan when pointwise resolution is implemented
+    if (scan.coordinateAxis()->getMin() < 0.0)
         throw std::runtime_error(
-            "Error in SpecularSimulation::setBeamParameters: wavelength must be positive.");
-    if (alpha_axis.getMin() < 0.0)
-        throw std::runtime_error("Error in SpecularSimulation::setBeamParameters: minimum value on "
-                                 "angle axis is negative.");
-    if (alpha_axis.getMin() >= alpha_axis.getMax())
-        throw std::runtime_error("Error in SpecularSimulation::setBeamParameters: maximal value on "
-                                 "angle axis is less or equal to the minimal one.");
-    if (alpha_axis.size() == 0)
-        throw std::runtime_error(
-            "Error in SpecularSimulation::setBeamParameters: angle axis is empty");
+            "Error in SpecularSimulation::setScan: minimum value on coordinate axis is negative.");
 
-    SpecularDetector1D detector(alpha_axis);
+    m_data_handler.reset(scan.clone());
+
+    SpecularDetector1D detector(*scan.coordinateAxis());
     m_instrument.setDetector(detector);
-    m_data_handler = std::make_unique<SpecularDataHandlerAng>(
-        lambda, std::unique_ptr<IAxis>(alpha_axis.clone()), beam_shape);
 
-    // beam is initialized with zero-valued angles
-    // Zero-valued incident alpha is required for proper
-    // taking into account beam resolution effects
-    m_instrument.setBeamParameters(lambda, zero_alpha_i, zero_phi_i);
-}
-
-void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
-                                           double alpha_i_max, const IFootprintFactor* beam_shape)
-{
-    FixedBinAxis axis("alpha_i", static_cast<size_t>(nbins), alpha_i_min, alpha_i_max);
-    setBeamParameters(lambda, axis, beam_shape);
-}
-
-void SpecularSimulation::setBeamParameters(double lambda, std::vector<double> incident_angle_values,
-                                           const IFootprintFactor* beam_shape)
-{
-    PointwiseAxis axis("alpha_i", std::move(incident_angle_values));
-    setBeamParameters(lambda, axis, beam_shape);
-}
-
-void SpecularSimulation::setBeamParameters(std::vector<double> wavelength_values,
-                                           double incident_angle,
-                                           const IFootprintFactor* beam_shape)
-{
-    auto qzs = computeQzValues(wavelength_values, incident_angle);
-    auto q_axis = std::make_unique<PointwiseAxis>("qzs", std::move(qzs));
-    SpecularDetector1D detector(*q_axis);
-    m_instrument.setDetector(detector);
-    m_data_handler =
-        std::make_unique<SpecularDataHandlerTOF>(incident_angle, std::move(q_axis), beam_shape);
-}
-
-void SpecularSimulation::setBeamParameters(std::vector<double> qz_values)
-{
-    auto q_axis = std::make_unique<PointwiseAxis>("qz", std::move(qz_values));
-    SpecularDetector1D detector(*q_axis);
-    m_instrument.setDetector(detector);
-    m_data_handler = std::make_unique<SpecularDataHandlerQ>(std::move(q_axis));
+    // TODO: remove when pointwise resolution is implemented
+    if (scan.dataType() == ISpecularScan::angle) {
+        const auto& angular_scan = static_cast<const AngularSpecScan&>(scan);
+        m_instrument.setBeamParameters(angular_scan.wavelength(), zero_alpha_i, zero_phi_i);
+    }
 }
 
 const IAxis* SpecularSimulation::coordinateAxis() const
@@ -185,7 +139,7 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
                                  "parameters were not set.");
 
     // TODO: remove when pointwise resolution is implemented
-    if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle)
+    if (m_data_handler->dataType() == ISpecularScan::angle)
         return mangledDataHandler(*m_data_handler, beam)->generateSimulationElements();
 
     return m_data_handler->generateSimulationElements();
@@ -256,8 +210,8 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     }
 
     // TODO: use just m_data_handler when pointwise resolution is implemented
-    std::unique_ptr<ISpecularDataHandler> data_handler(m_data_handler->clone());
-    if (m_data_handler->dataType() == SPECULAR_DATA_TYPE::angle)
+    std::unique_ptr<ISpecularScan> data_handler(m_data_handler->clone());
+    if (m_data_handler->dataType() == ISpecularScan::angle)
         data_handler = mangledDataHandler(*m_data_handler, getInstrument().getBeam());
 
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
@@ -331,10 +285,10 @@ void SpecularSimulation::setRawResults(const std::vector<double>& raw_data)
 
 namespace {
 // TODO: remove when pointwise resolution is implemented
-std::unique_ptr<ISpecularDataHandler> mangledDataHandler(const ISpecularDataHandler& data_handler,
+std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
                                                          const Beam& beam)
 {
-    if (data_handler.dataType() != SPECULAR_DATA_TYPE::angle)
+    if (data_handler.dataType() != ISpecularScan::angle)
         throw std::runtime_error("Error in mangledDataHandler: invalid usage");
 
     const double wl = beam.getWavelength();
@@ -342,28 +296,9 @@ std::unique_ptr<ISpecularDataHandler> mangledDataHandler(const ISpecularDataHand
     std::vector<double> angles = data_handler.coordinateAxis()->getBinCenters();
     for (auto& val : angles)
         val += angle_shift;
-    auto result = std::make_unique<SpecularDataHandlerAng>(
-        wl, std::make_unique<PointwiseAxis>("alpha_i", std::move(angles)),
-        data_handler.footprintFactor());
+    auto result =
+        std::make_unique<AngularSpecScan>(wl, PointwiseAxis("alpha_i", std::move(angles)));
+    result->setFootprintFactor(data_handler.footprintFactor());
     return std::move(result);
-}
-
-std::vector<double> computeQzValues(std::vector<double> wls, double inc_angle)
-{
-    std::vector<double> result;
-    result.reserve(wls.size());
-
-    const auto begin = wls.begin();
-    const auto end = wls.end();
-
-    if (!std::is_sorted(begin, end, std::greater<double>()))
-        std::sort(begin, end, std::greater<double>());
-    if (wls.back() <= 0.0)
-        throw std::runtime_error("Error in computeQzValues: passed vector of wavelengths contains "
-                                 "negative or zero values");
-    std::transform(
-        begin, end, std::back_inserter(result),
-        [sin_inc = std::sin(inc_angle)](double value) { return 4.0 * M_PI * sin_inc / value; });
-    return result;
 }
 }

@@ -25,13 +25,7 @@ def get_simulation_SpecularSimulation():
     """
     Returns custom simulation for SpecularSimulation.py.
     """
-    simulation = example.get_simulation()
-    beam = simulation.getInstrument().getBeam()
-    wavelength = beam.getWavelength()
-    axis = simulation.coordinateAxis()
-    footprint = simulation.footprintFactor()
-    simulation.setBeamParameters(
-        wavelength, 10, axis.getMin(), axis.getMax(), footprint)
+    simulation = example.get_simulation(scan_size=10)
     return simulation
 
 

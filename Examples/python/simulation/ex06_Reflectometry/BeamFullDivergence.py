@@ -9,7 +9,6 @@ import bornagain as ba
 wavelength = 1.54 * ba.angstrom
 alpha_i_min = 0.0 * ba.deg  # min incident angle, deg
 alpha_i_max = 2.0 * ba.deg  # max incident angle, rad
-n_bins = 500  # number of bins in the reflectivity curve
 
 # convolution parameters
 d_wl = 0.01 * wavelength  # spread width for wavelength
@@ -51,7 +50,7 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation():
+def get_simulation(scan_size=500):
     """
     Returns a specular simulation with beam and detector defined.
     """
@@ -62,8 +61,8 @@ def get_simulation():
     alpha_distr = ba.DistributionGaussian(0.0, d_ang)
     wavelength_distr = ba.DistributionGaussian(wavelength, d_wl)
     simulation = ba.SpecularSimulation()
-    simulation.setBeamParameters(
-        wavelength, n_bins, alpha_i_min, alpha_i_max)
+    scan = ba.AngularSpecScan(wavelength, scan_size, alpha_i_min, alpha_i_max)
+    simulation.setScan(scan)
     simulation.addParameterDistribution("*/Beam/InclinationAngle",
                                         alpha_distr, n_points, n_sig)
     simulation.addParameterDistribution("*/Beam/Wavelength",

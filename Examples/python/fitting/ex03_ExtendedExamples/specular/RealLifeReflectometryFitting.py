@@ -90,13 +90,15 @@ def create_simulation(arg_dict, bin_start, bin_end):
     Creates and returns specular simulation
     """
     simulation = ba.SpecularSimulation()
-    alpha_distr = ba.DistributionGaussian(0.0, arg_dict["divergence"])
+    scan = ba.AngularSpecScan(1.54 * ba.angstrom,
+                              get_real_data_axis(bin_start, bin_end))
     footprint = ba.FootprintFactorGaussian(arg_dict["footprint_factor"])
-    simulation.setBeamParameters(1.54 * ba.angstrom,
-                                 get_real_data_axis(bin_start, bin_end), footprint)
+    scan.setFootprintFactor(footprint)
+    simulation.setScan(scan)
     simulation.setBeamIntensity(arg_dict["intensity"])
+    alpha_distr = ba.DistributionGaussian(0.0, arg_dict["divergence"])
     simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
-                                         30, 3)
+                                        30, 3)
     return simulation
 
 

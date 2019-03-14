@@ -94,7 +94,8 @@ def get_simulation(params):
     wavelength = 1.54 * ba.angstrom  # beam wavelength
 
     simulation = ba.SpecularSimulation()
-    simulation.setBeamParameters(wavelength, get_real_data_axis())
+    scan = ba.AngularSpecScan(wavelength, get_real_data_axis())
+    simulation.setScan(scan)
     simulation.setSample(get_sample(params))
     return simulation
 

@@ -1,3 +1,6 @@
+> API changes:
+     1) Python: major changes in SpecularSimulation interface. Please consult web-documentation for details.
+
 BornAgain-1.15.0, released 2019.02.25
   > API changes:
      1) Python: method getAlphaAxis renamed into coordinateAxis in SpecularSimulation

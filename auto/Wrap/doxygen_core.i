@@ -1,6 +1,70 @@
 
 // File: index.xml
 
+// File: classAngularSpecScan.xml
+%feature("docstring") AngularSpecScan "
+
+Scan type with inclination angles as coordinate values. Features footprint correction.
+
+C++ includes: SpecularScan.h
+";
+
+%feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, std::vector< double > inc_angle)
+";
+
+%feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, const IAxis &inc_angle)
+";
+
+%feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+
+Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+";
+
+%feature("docstring")  AngularSpecScan::~AngularSpecScan "AngularSpecScan::~AngularSpecScan() override
+";
+
+%feature("docstring")  AngularSpecScan::clone "AngularSpecScan * AngularSpecScan::clone() const override
+";
+
+%feature("docstring")  AngularSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > AngularSpecScan::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  AngularSpecScan::coordinateAxis "virtual const IAxis* AngularSpecScan::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  AngularSpecScan::footprintFactor "virtual const IFootprintFactor* AngularSpecScan::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  AngularSpecScan::footprint "double AngularSpecScan::footprint(size_t i) const override
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  AngularSpecScan::numberOfSimulationElements "size_t AngularSpecScan::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  AngularSpecScan::print "std::string AngularSpecScan::print() const override
+
+Print scan definition in python format. 
+";
+
+%feature("docstring")  AngularSpecScan::wavelength "double AngularSpecScan::wavelength() const
+";
+
+%feature("docstring")  AngularSpecScan::setFootprintFactor "void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
+
+Sets footprint correction factor. 
+";
+
+
 // File: classAnisoPyramid.xml
 %feature("docstring") AnisoPyramid "";
 
@@ -2499,6 +2563,11 @@ Calls the  INodeVisitor's visit method.
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
+%feature("docstring")  FootprintFactorGaussian::print "std::string FootprintFactorGaussian::print() const override
+
+Print python-formatted footprint definition. 
+";
+
 
 // File: classFootprintFactorSquare.xml
 %feature("docstring") FootprintFactorSquare "
@@ -2522,6 +2591,11 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FootprintFactorSquare::calculate "double FootprintFactorSquare::calculate(double alpha) const override
 
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
+";
+
+%feature("docstring")  FootprintFactorSquare::print "std::string FootprintFactorSquare::print() const override
+
+Print python-formatted footprint definition. 
 ";
 
 
@@ -6777,6 +6851,11 @@ C++ includes: IFootprintFactor.h
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
+%feature("docstring")  IFootprintFactor::print "virtual std::string IFootprintFactor::print() const =0
+
+Print python-formatted footprint definition. 
+";
+
 
 // File: classIFormFactor.xml
 %feature("docstring") IFormFactor "
@@ -9849,44 +9928,54 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 ";
 
 
-// File: classISpecularDataHandler.xml
-%feature("docstring") ISpecularDataHandler "";
+// File: classISpecularScan.xml
+%feature("docstring") ISpecularScan "
 
-%feature("docstring")  ISpecularDataHandler::ISpecularDataHandler "ISpecularDataHandler::ISpecularDataHandler(SPECULAR_DATA_TYPE data_type)
+Base abstract class for all types of specular scans.
+
+C++ includes: SpecularScan.h
 ";
 
-%feature("docstring")  ISpecularDataHandler::~ISpecularDataHandler "ISpecularDataHandler::~ISpecularDataHandler() override
+%feature("docstring")  ISpecularScan::ISpecularScan "ISpecularScan::ISpecularScan(SPECULAR_DATA_TYPE data_type)
 ";
 
-%feature("docstring")  ISpecularDataHandler::clone "ISpecularDataHandler* ISpecularDataHandler::clone() const override=0
+%feature("docstring")  ISpecularScan::~ISpecularScan "ISpecularScan::~ISpecularScan() override
 ";
 
-%feature("docstring")  ISpecularDataHandler::generateSimulationElements "virtual std::vector<SpecularSimulationElement> ISpecularDataHandler::generateSimulationElements() const =0
+%feature("docstring")  ISpecularScan::clone "ISpecularScan* ISpecularScan::clone() const override=0
+";
+
+%feature("docstring")  ISpecularScan::generateSimulationElements "virtual std::vector<SpecularSimulationElement> ISpecularScan::generateSimulationElements() const =0
 
 Generates simulation elements for specular simulations. 
 ";
 
-%feature("docstring")  ISpecularDataHandler::coordinateAxis "virtual const IAxis* ISpecularDataHandler::coordinateAxis() const =0
+%feature("docstring")  ISpecularScan::coordinateAxis "virtual const IAxis* ISpecularScan::coordinateAxis() const =0
 
 Returns coordinate axis assigned to the data holder. 
 ";
 
-%feature("docstring")  ISpecularDataHandler::footprintFactor "virtual const IFootprintFactor* ISpecularDataHandler::footprintFactor() const =0
+%feature("docstring")  ISpecularScan::footprintFactor "virtual const IFootprintFactor* ISpecularScan::footprintFactor() const =0
 
 Returns  IFootprintFactor object pointer. 
 ";
 
-%feature("docstring")  ISpecularDataHandler::footprint "virtual double ISpecularDataHandler::footprint(size_t i) const =0
+%feature("docstring")  ISpecularScan::footprint "virtual double ISpecularScan::footprint(size_t i) const =0
 
 Returns footprint correction factor for simulation element with index  i
 ";
 
-%feature("docstring")  ISpecularDataHandler::numberOfSimulationElements "virtual size_t ISpecularDataHandler::numberOfSimulationElements() const =0
+%feature("docstring")  ISpecularScan::numberOfSimulationElements "virtual size_t ISpecularScan::numberOfSimulationElements() const =0
 
 Returns the number of simulation elements. 
 ";
 
-%feature("docstring")  ISpecularDataHandler::dataType "SPECULAR_DATA_TYPE ISpecularDataHandler::dataType() const
+%feature("docstring")  ISpecularScan::print "virtual std::string ISpecularScan::print() const =0
+
+Print scan definition in python format. 
+";
+
+%feature("docstring")  ISpecularScan::dataType "SPECULAR_DATA_TYPE ISpecularScan::dataType() const
 ";
 
 
@@ -12997,6 +13086,64 @@ C++ includes: PyFittingCallbacks.h
 ";
 
 
+// File: classQSpecScan.xml
+%feature("docstring") QSpecScan "
+
+Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
+
+C++ includes: SpecularScan.h
+";
+
+%feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(std::vector< double > qs_nm)
+
+Accepts qz-value vector (in inverse nm) 
+";
+
+%feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(const IAxis &qs_nm)
+";
+
+%feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
+
+Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+";
+
+%feature("docstring")  QSpecScan::~QSpecScan "QSpecScan::~QSpecScan() override
+";
+
+%feature("docstring")  QSpecScan::clone "QSpecScan * QSpecScan::clone() const override
+";
+
+%feature("docstring")  QSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > QSpecScan::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  QSpecScan::coordinateAxis "virtual const IAxis* QSpecScan::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  QSpecScan::footprintFactor "virtual const IFootprintFactor* QSpecScan::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  QSpecScan::footprint "double QSpecScan::footprint(size_t i) const override
+
+Returns footprint correction factor for simulation element with index  i
+";
+
+%feature("docstring")  QSpecScan::numberOfSimulationElements "size_t QSpecScan::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  QSpecScan::print "std::string QSpecScan::print() const override
+
+Print scan definition in python format. 
+";
+
+
 // File: classRadialParaCrystalBuilder.xml
 %feature("docstring") RadialParaCrystalBuilder "
 
@@ -14925,128 +15072,6 @@ C++ includes: SpecularComputationTerm.h
 ";
 
 
-// File: classSpecularDataHandlerAng.xml
-%feature("docstring") SpecularDataHandlerAng "";
-
-%feature("docstring")  SpecularDataHandlerAng::SpecularDataHandlerAng "SpecularDataHandlerAng::SpecularDataHandlerAng(double wl, std::unique_ptr< IAxis > inc_angle, const IFootprintFactor *footprint=nullptr)
-";
-
-%feature("docstring")  SpecularDataHandlerAng::~SpecularDataHandlerAng "SpecularDataHandlerAng::~SpecularDataHandlerAng() override
-";
-
-%feature("docstring")  SpecularDataHandlerAng::clone "SpecularDataHandlerAng * SpecularDataHandlerAng::clone() const override
-";
-
-%feature("docstring")  SpecularDataHandlerAng::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerAng::generateSimulationElements() const override
-
-Generates simulation elements for specular simulations. 
-";
-
-%feature("docstring")  SpecularDataHandlerAng::coordinateAxis "virtual const IAxis* SpecularDataHandlerAng::coordinateAxis() const override
-
-Returns coordinate axis assigned to the data holder. 
-";
-
-%feature("docstring")  SpecularDataHandlerAng::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerAng::footprintFactor() const override
-
-Returns  IFootprintFactor object pointer. 
-";
-
-%feature("docstring")  SpecularDataHandlerAng::footprint "double SpecularDataHandlerAng::footprint(size_t i) const override
-
-Returns footprint correction factor for simulation element with index  i
-";
-
-%feature("docstring")  SpecularDataHandlerAng::numberOfSimulationElements "size_t SpecularDataHandlerAng::numberOfSimulationElements() const override
-
-Returns the number of simulation elements. 
-";
-
-%feature("docstring")  SpecularDataHandlerAng::wavelength "double SpecularDataHandlerAng::wavelength() const
-";
-
-
-// File: classSpecularDataHandlerQ.xml
-%feature("docstring") SpecularDataHandlerQ "";
-
-%feature("docstring")  SpecularDataHandlerQ::SpecularDataHandlerQ "SpecularDataHandlerQ::SpecularDataHandlerQ(std::unique_ptr< IAxis > qs_nm)
-
-Accepts qz-value vector (in inverse nm) 
-";
-
-%feature("docstring")  SpecularDataHandlerQ::~SpecularDataHandlerQ "SpecularDataHandlerQ::~SpecularDataHandlerQ() override
-";
-
-%feature("docstring")  SpecularDataHandlerQ::clone "SpecularDataHandlerQ * SpecularDataHandlerQ::clone() const override
-";
-
-%feature("docstring")  SpecularDataHandlerQ::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerQ::generateSimulationElements() const override
-
-Generates simulation elements for specular simulations. 
-";
-
-%feature("docstring")  SpecularDataHandlerQ::coordinateAxis "virtual const IAxis* SpecularDataHandlerQ::coordinateAxis() const override
-
-Returns coordinate axis assigned to the data holder. 
-";
-
-%feature("docstring")  SpecularDataHandlerQ::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerQ::footprintFactor() const override
-
-Returns  IFootprintFactor object pointer. 
-";
-
-%feature("docstring")  SpecularDataHandlerQ::footprint "double SpecularDataHandlerQ::footprint(size_t) const override
-
-Returns footprint correction factor for simulation element with index  i
-";
-
-%feature("docstring")  SpecularDataHandlerQ::numberOfSimulationElements "size_t SpecularDataHandlerQ::numberOfSimulationElements() const override
-
-Returns the number of simulation elements. 
-";
-
-
-// File: classSpecularDataHandlerTOF.xml
-%feature("docstring") SpecularDataHandlerTOF "";
-
-%feature("docstring")  SpecularDataHandlerTOF::SpecularDataHandlerTOF "SpecularDataHandlerTOF::SpecularDataHandlerTOF(double inc_angle, std::unique_ptr< IAxis > qz, const IFootprintFactor *footprint=nullptr)
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::~SpecularDataHandlerTOF "SpecularDataHandlerTOF::~SpecularDataHandlerTOF() override
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::clone "SpecularDataHandlerTOF * SpecularDataHandlerTOF::clone() const override
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerTOF::generateSimulationElements() const override
-
-Generates simulation elements for specular simulations. 
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::coordinateAxis "virtual const IAxis* SpecularDataHandlerTOF::coordinateAxis() const override
-
-Returns coordinate axis assigned to the data holder. 
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerTOF::footprintFactor() const override
-
-Returns  IFootprintFactor object pointer. 
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::footprint "double SpecularDataHandlerTOF::footprint(size_t i) const override
-
-Returns footprint correction factor for simulation element with index  i
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::numberOfSimulationElements "size_t SpecularDataHandlerTOF::numberOfSimulationElements() const override
-
-Returns the number of simulation elements. 
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::inclinationAngle "double SpecularDataHandlerTOF::inclinationAngle() const
-";
-
-
 // File: classSpecularDetector1D.xml
 %feature("docstring") SpecularDetector1D "
 
@@ -15154,21 +15179,9 @@ Calls the  INodeVisitor's visit method.
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays. If simulation was not run, returns an array of proper size filled with zeros. 
 ";
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
-";
+%feature("docstring")  SpecularSimulation::setScan "void SpecularSimulation::setScan(const ISpecularScan &scan)
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, std::vector< double > incident_angle_values, const IFootprintFactor *beam_shape=nullptr)
-";
-
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(std::vector< double > wavelength_values, double incident_angle, const IFootprintFactor *beam_shape=nullptr)
-";
-
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(std::vector< double > qz_values)
-";
-
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
-
-Sets beam parameters for specular simulation.  lambda defines the wavelength of incoming beam (in nm),  alpha_axis defines the range of incident angles, while  beam_shape (optional parameter) is required to take footprint effects into account. Incident angle axis can be defined as a numpy array of values. This overload facilitates defining non-uniform incident angle axis. Another overload accepts the number of bins ( nbins), as well as minimal ( alpha_i_min) and maximal ( alpha_i_max) angle values. With using this overload a uniform angle axis in the given range is assigned to the beam. 
+Sets chosen specular scan to the simulation. 
 ";
 
 %feature("docstring")  SpecularSimulation::coordinateAxis "const IAxis * SpecularSimulation::coordinateAxis() const
@@ -15178,10 +15191,10 @@ Returns a pointer to coordinate axis.
 
 %feature("docstring")  SpecularSimulation::footprintFactor "const IFootprintFactor * SpecularSimulation::footprintFactor() const
 
-Returns a pointer to internal data handler. 
+Returns a pointer to footprint factor holder. 
 ";
 
-%feature("docstring")  SpecularSimulation::dataHandler "const ISpecularDataHandler* SpecularSimulation::dataHandler() const
+%feature("docstring")  SpecularSimulation::dataHandler "const ISpecularScan* SpecularSimulation::dataHandler() const
 
 Returns internal data handler. 
 ";
@@ -15760,7 +15773,7 @@ C++ includes: UnitConverter1D.h
 Constructs the object for unit conversion. 
 ";
 
-%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const SpecularDataHandlerAng &handler)
+%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const AngularSpecScan &handler)
 ";
 
 %feature("docstring")  UnitConverterConvSpec::~UnitConverterConvSpec "UnitConverterConvSpec::~UnitConverterConvSpec() override
@@ -15793,10 +15806,7 @@ Conversion of axis units for the case of q-defined reflectometry.
 C++ includes: UnitConverter1D.h
 ";
 
-%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerQ &handler)
-";
-
-%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerTOF &handler)
+%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const QSpecScan &handler)
 ";
 
 %feature("docstring")  UnitConverterQSpec::~UnitConverterQSpec "UnitConverterQSpec::~UnitConverterQSpec() override
@@ -16033,10 +16043,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17106,7 +17116,7 @@ Simulation with fitting.  Beam intensity set to provide reasonably large values 
 %feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
 ";
 
-%feature("docstring")  StandardSimulations::BasicSpecularTOF "SpecularSimulation * StandardSimulations::BasicSpecularTOF()
+%feature("docstring")  StandardSimulations::BasicSpecularTOF "BA_CORE_API_ SpecularSimulation* StandardSimulations::BasicSpecularTOF()
 ";
 
 %feature("docstring")  StandardSimulations::BasicSpecularQ "SpecularSimulation * StandardSimulations::BasicSpecularQ()
@@ -18922,10 +18932,10 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: Simulation2D_8h.xml
 
 
-// File: SpecularDataHandler_8cpp.xml
+// File: SpecularScan_8cpp.xml
 
 
-// File: SpecularDataHandler_8h.xml
+// File: SpecularScan_8h.xml
 
 
 // File: SpecularSimulation_8cpp.xml

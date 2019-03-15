@@ -16284,7 +16284,14 @@ class IFootprintFactor(ICloneable, INode):
 
 
     def _print(self):
-        """_print(IFootprintFactor self) -> std::string"""
+        """
+        _print(IFootprintFactor self) -> std::string
+
+        virtual std::string IFootprintFactor::print() const =0
+
+        Print python-formatted footprint definition. 
+
+        """
         return _libBornAgainCore.IFootprintFactor__print(self)
 
 IFootprintFactor_swigregister = _libBornAgainCore.IFootprintFactor_swigregister
@@ -16358,7 +16365,14 @@ class FootprintFactorGaussian(IFootprintFactor):
 
 
     def _print(self):
-        """_print(FootprintFactorGaussian self) -> std::string"""
+        """
+        _print(FootprintFactorGaussian self) -> std::string
+
+        std::string FootprintFactorGaussian::print() const override
+
+        Print python-formatted footprint definition. 
+
+        """
         return _libBornAgainCore.FootprintFactorGaussian__print(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FootprintFactorGaussian
@@ -16434,7 +16448,14 @@ class FootprintFactorSquare(IFootprintFactor):
 
 
     def _print(self):
-        """_print(FootprintFactorSquare self) -> std::string"""
+        """
+        _print(FootprintFactorSquare self) -> std::string
+
+        std::string FootprintFactorSquare::print() const override
+
+        Print python-formatted footprint definition. 
+
+        """
         return _libBornAgainCore.FootprintFactorSquare__print(self)
 
     __swig_destroy__ = _libBornAgainCore.delete_FootprintFactorSquare
@@ -28385,7 +28406,14 @@ DepthProbeSimulation_swigregister = _libBornAgainCore.DepthProbeSimulation_swigr
 DepthProbeSimulation_swigregister(DepthProbeSimulation)
 
 class AngularSpecScan(_object):
-    """Proxy of C++ AngularSpecScan class."""
+    """
+
+
+    Scan type with inclination angles as coordinate values. Features footprint correction.
+
+    C++ includes: SpecularScan.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, AngularSpecScan, name, value)
@@ -28398,6 +28426,11 @@ class AngularSpecScan(_object):
         __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
         __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
         __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
+
+        AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+
+        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+
         """
         this = _libBornAgainCore.new_AngularSpecScan(*args)
         try:
@@ -28411,21 +28444,35 @@ class AngularSpecScan(_object):
         """
         clone(AngularSpecScan self) -> AngularSpecScan
 
-        virtual ICloneable* ICloneable::clone() const =0
+        AngularSpecScan * AngularSpecScan::clone() const override
 
         """
         return _libBornAgainCore.AngularSpecScan_clone(self)
 
 
     def setFootprintFactor(self, f_factor):
-        """setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)"""
+        """
+        setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)
+
+        void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
+
+        Sets footprint correction factor. 
+
+        """
         return _libBornAgainCore.AngularSpecScan_setFootprintFactor(self, f_factor)
 
 AngularSpecScan_swigregister = _libBornAgainCore.AngularSpecScan_swigregister
 AngularSpecScan_swigregister(AngularSpecScan)
 
 class QSpecScan(_object):
-    """Proxy of C++ QSpecScan class."""
+    """
+
+
+    Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
+
+    C++ includes: SpecularScan.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, QSpecScan, name, value)
@@ -28438,6 +28485,11 @@ class QSpecScan(_object):
         __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
         __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
         __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
+
+        QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
+
+        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+
         """
         this = _libBornAgainCore.new_QSpecScan(*args)
         try:
@@ -28451,7 +28503,7 @@ class QSpecScan(_object):
         """
         clone(QSpecScan self) -> QSpecScan
 
-        virtual ICloneable* ICloneable::clone() const =0
+        QSpecScan * QSpecScan::clone() const override
 
         """
         return _libBornAgainCore.QSpecScan_clone(self)
@@ -28553,7 +28605,14 @@ class SpecularSimulation(Simulation):
 
 
     def setScan(self, scan):
-        """setScan(SpecularSimulation self, ISpecularScan const & scan)"""
+        """
+        setScan(SpecularSimulation self, ISpecularScan const & scan)
+
+        void SpecularSimulation::setScan(const ISpecularScan &scan)
+
+        Sets chosen specular scan to the simulation. 
+
+        """
         return _libBornAgainCore.SpecularSimulation_setScan(self, scan)
 
 
@@ -28575,7 +28634,7 @@ class SpecularSimulation(Simulation):
 
         const IFootprintFactor * SpecularSimulation::footprintFactor() const
 
-        Returns a pointer to internal data handler. 
+        Returns a pointer to footprint factor holder. 
 
         """
         return _libBornAgainCore.SpecularSimulation_footprintFactor(self)

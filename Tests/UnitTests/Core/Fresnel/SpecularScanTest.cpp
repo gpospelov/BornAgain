@@ -1,8 +1,9 @@
 #include "google_test.h"
+#include "AngularSpecScan.h"
 #include "FixedBinAxis.h"
 #include "FootprintFactorGaussian.h"
 #include "PointwiseAxis.h"
-#include "SpecularScan.h"
+#include "QSpecScan.h"
 #include "SpecularSimulationElement.h"
 
 class SpecularScanTest : public ::testing::Test

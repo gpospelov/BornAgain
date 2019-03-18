@@ -13,11 +13,13 @@
 // ************************************************************************** //
 
 #include "SpecularSimulation.h"
+#include "AngularSpecScan.h"
 #include "Distributions.h"
 #include "Histogram1D.h"
 #include "IBackground.h"
 #include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
+#include "ISpecularScan.h"
 #include "MathConstants.h"
 #include "MultiLayer.h"
 #include "MaterialUtils.h"
@@ -25,7 +27,6 @@
 #include "PointwiseAxis.h"
 #include "RealParameter.h"
 #include "SpecularComputation.h"
-#include "SpecularScan.h"
 #include "SpecularDetector1D.h"
 #include "SpecularSimulationElement.h"
 #include "UnitConverter1D.h"

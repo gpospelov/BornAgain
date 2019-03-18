@@ -72,6 +72,7 @@
 %import "WinDllMacros.h"
 
 %{
+#include "AngularSpecScan.h"
 #include "BAVersion.h"
 #include "BasicVector3D.h"
 #include "Beam.h"
@@ -207,6 +208,7 @@
 #include "PoissonNoiseBackground.h"
 #include "Polygon.h"
 #include "PyArrayImportUtils.h"
+#include "QSpecScan.h"
 #include "RangedDistributions.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
@@ -221,7 +223,6 @@
 #include "SimulationOptions.h"
 #include "SimulationResult.h"
 #include "SlicedParticle.h"
-#include "SpecularScan.h"
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "ThreadInfo.h"
@@ -464,7 +465,6 @@
 %include "Rotations.h"
 %include "ISelectionRule.h"
 %include "DepthProbeSimulation.h"
-%include "SpecularScan.h"
 %include "SpecularSimulation.h"
 %include "ThreadInfo.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;
@@ -474,5 +474,9 @@
 %include "IUnitConverter.h"
 %include "IterationInfo.h"
 %include "SpectrumUtils.h"
+
+%include "ISpecularScan.h"
+%include "AngularSpecScan.h"
+%include "QSpecScan.h"
 
 %include "extendCore.i"

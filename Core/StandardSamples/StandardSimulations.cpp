@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "StandardSimulations.h"
+#include "AngularSpecScan.h"
 #include "BornAgainNamespace.h"
 #include "ConstantBackground.h"
 #include "DepthProbeSimulation.h"
@@ -26,12 +27,12 @@
 #include "Line.h"
 #include "ParameterPattern.h"
 #include "Polygon.h"
+#include "QSpecScan.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleBuilderFactory.h"
-#include "SpecularScan.h"
 #include "SpecularSimulation.h"
 #include "OffSpecSimulation.h"
 #include "Units.h"

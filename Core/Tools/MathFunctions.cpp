@@ -127,6 +127,11 @@ double MathFunctions::Bessel_J1c(double x)
     return x==0 ? 0.5 : gsl_sf_bessel_J1(x)/x;
 }
 
+double MathFunctions::Bessel_I0(double x)
+{
+    return gsl_sf_bessel_I0(x);
+}
+
 complex_t MathFunctions::Bessel_J0(const complex_t z)
 {
     if (std::imag(z)==0)

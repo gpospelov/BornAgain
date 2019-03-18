@@ -128,4 +128,31 @@ private:
     double m_kappa;
 };
 
+//! Class that implements a peak shape that is Gaussian in the radial direction, von-Mises
+//! in the azimuth angle and (truncated) Gaussian in the polar angle.
+//!
+//! @ingroup samples_internal
+
+class BA_CORE_API_ VonMisesGaussGaussPeakShape : public IPeakShape
+{
+public:
+    VonMisesGaussGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,
+                                double kappa, double sigma_polar);
+    ~VonMisesGaussGaussPeakShape() override;
+
+    VonMisesGaussGaussPeakShape* clone() const override;
+
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+
+    double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
+
+    bool angularDisorder() const override { return true; }
+private:
+    double m_max_intensity;
+    double m_radial_size;
+    kvector_t m_zenith;
+    double m_kappa;
+    double m_sigma_polar;
+};
+
 #endif // IPEAKSHAPE_H

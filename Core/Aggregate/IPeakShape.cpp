@@ -17,21 +17,22 @@
 
 #include <limits>
 
-namespace {
-const double maxkappa = std::log(1.0/std::numeric_limits<double>::epsilon())/2.0;
+namespace
+{
+const double maxkappa = std::log(1.0 / std::numeric_limits<double>::epsilon()) / 2.0;
 double FisherDistribution(double x, double kappa);
 double Gauss3D(double q2, double domainsize);
 double Cauchy3D(double q2, double domainsize);
-}
+} // namespace
 
-IPeakShape::~IPeakShape() =default;
+IPeakShape::~IPeakShape() = default;
 
 IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
-    : m_max_intensity(max_intensity)
-    , m_domainsize(domainsize)
-{}
+    : m_max_intensity(max_intensity), m_domainsize(domainsize)
+{
+}
 
-IsotropicGaussPeakShape::~IsotropicGaussPeakShape() =default;
+IsotropicGaussPeakShape::~IsotropicGaussPeakShape() = default;
 
 IsotropicGaussPeakShape* IsotropicGaussPeakShape::clone() const
 {
@@ -50,11 +51,11 @@ double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_la
 }
 
 IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, double domainsize)
-    : m_max_intensity(max_intensity)
-    , m_domainsize(domainsize)
-{}
+    : m_max_intensity(max_intensity), m_domainsize(domainsize)
+{
+}
 
-IsotropicLorentzPeakShape::~IsotropicLorentzPeakShape() =default;
+IsotropicLorentzPeakShape::~IsotropicLorentzPeakShape() = default;
 
 IsotropicLorentzPeakShape* IsotropicLorentzPeakShape::clone() const
 {
@@ -73,12 +74,11 @@ double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_
 }
 
 GaussFisherPeakShape::GaussFisherPeakShape(double max_intensity, double radial_size, double kappa)
-    : m_max_intensity(max_intensity)
-    , m_radial_size(radial_size)
-    , m_kappa(kappa)
-{}
+    : m_max_intensity(max_intensity), m_radial_size(radial_size), m_kappa(kappa)
+{
+}
 
-GaussFisherPeakShape::~GaussFisherPeakShape() =default;
+GaussFisherPeakShape::~GaussFisherPeakShape() = default;
 
 GaussFisherPeakShape* GaussFisherPeakShape::clone() const
 {
@@ -89,26 +89,26 @@ double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_latti
 {
     double q_r = q.mag();
     double q_lat_r = q_lattice_point.mag();
-    double dq2 = (q_r - q_lat_r)*(q_r - q_lat_r);
+    double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
     if (q_lat_r == 0.0)
         return m_max_intensity * Gauss3D(dq2, m_radial_size);
     double norm_factor = m_radial_size / std::sqrt(M_TWOPI);
-    double radial_part = norm_factor * std::exp(-dq2*m_radial_size*m_radial_size/2.0);
+    double radial_part = norm_factor * std::exp(-dq2 * m_radial_size * m_radial_size / 2.0);
     double angular_part = 1.0;
-    if (q_r*q_lat_r > 0.0) {
-        double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
-        angular_part = FisherDistribution(dot_norm, m_kappa)/(q_r*q_r);
+    if (q_r * q_lat_r > 0.0) {
+        double dot_norm = q.dot(q_lattice_point) / q_r / q_lat_r;
+        angular_part = FisherDistribution(dot_norm, m_kappa) / (q_r * q_r);
     }
     return m_max_intensity * radial_part * angular_part;
 }
 
-LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size, double kappa)
-    : m_max_intensity(max_intensity)
-    , m_radial_size(radial_size)
-    , m_kappa(kappa)
-{}
+LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size,
+                                               double kappa)
+    : m_max_intensity(max_intensity), m_radial_size(radial_size), m_kappa(kappa)
+{
+}
 
-LorentzFisherPeakShape::~LorentzFisherPeakShape() =default;
+LorentzFisherPeakShape::~LorentzFisherPeakShape() = default;
 
 LorentzFisherPeakShape* LorentzFisherPeakShape::clone() const
 {
@@ -119,40 +119,62 @@ double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lat
 {
     double q_r = q.mag();
     double q_lat_r = q_lattice_point.mag();
-    double dq2 = (q_r - q_lat_r)*(q_r - q_lat_r);
+    double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
     if (q_lat_r == 0.0)
         return m_max_intensity * Cauchy3D(dq2, m_radial_size);
-    double radial_part = m_radial_size / (1.0 + dq2*m_radial_size*m_radial_size) / M_PI;
+    double radial_part = m_radial_size / (1.0 + dq2 * m_radial_size * m_radial_size) / M_PI;
     double angular_part = 1.0;
-    if (q_r*q_lat_r > 0.0) {
-        double dot_norm = q.dot(q_lattice_point)/q_r/q_lat_r;
-        angular_part = FisherDistribution(dot_norm, m_kappa)/(q_r*q_r);
+    if (q_r * q_lat_r > 0.0) {
+        double dot_norm = q.dot(q_lattice_point) / q_r / q_lat_r;
+        angular_part = FisherDistribution(dot_norm, m_kappa) / (q_r * q_r);
     }
     return m_max_intensity * radial_part * angular_part;
 }
 
-namespace {
+VonMisesGaussGaussPeakShape::VonMisesGaussGaussPeakShape(double max_intensity, double radial_size,
+                                                         kvector_t zenith, double kappa,
+                                                         double sigma_polar)
+    : m_max_intensity(max_intensity), m_radial_size(radial_size), m_zenith(zenith.unit()),
+      m_kappa(kappa), m_sigma_polar(sigma_polar)
+{
+}
+
+VonMisesGaussGaussPeakShape* VonMisesGaussGaussPeakShape::clone() const
+{
+    return new VonMisesGaussGaussPeakShape(m_max_intensity, m_radial_size, m_zenith, m_kappa,
+                                           m_sigma_polar);
+}
+
+VonMisesGaussGaussPeakShape::~VonMisesGaussGaussPeakShape() = default;
+
+double VonMisesGaussGaussPeakShape::evaluate(const kvector_t q,
+                                             const kvector_t q_lattice_point) const
+{
+    return 1.0;
+}
+
+namespace
+{
 double FisherDistribution(double x, double kappa)
 {
-    if (kappa<=0.0) {
-        return 1.0/(4.0*M_PI);
+    if (kappa <= 0.0) {
+        return 1.0 / (4.0 * M_PI);
     }
-    double prefactor = kappa / (4.0*M_PI);
-    if (kappa>maxkappa) {
-        return 2.0*prefactor*std::exp(kappa*(x-1.0));
+    double prefactor = kappa / (4.0 * M_PI);
+    if (kappa > maxkappa) {
+        return 2.0 * prefactor * std::exp(kappa * (x - 1.0));
     }
-    return prefactor*std::exp(kappa*x)/std::sinh(kappa);
+    return prefactor * std::exp(kappa * x) / std::sinh(kappa);
 }
 double Gauss3D(double q2, double domainsize)
 {
     double norm_factor = std::pow(domainsize / std::sqrt(M_TWOPI), 3.0);
-    double exponent = -q2*domainsize*domainsize/2.0;
+    double exponent = -q2 * domainsize * domainsize / 2.0;
     return norm_factor * std::exp(exponent);
 }
 double Cauchy3D(double q2, double domainsize)
 {
-    double lorentz1 = domainsize / (1.0 + q2*domainsize*domainsize) / M_PI;
+    double lorentz1 = domainsize / (1.0 + q2 * domainsize * domainsize) / M_PI;
     return domainsize * lorentz1 * lorentz1;
 }
-}
-
+} // namespace

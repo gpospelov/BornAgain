@@ -6812,6 +6812,17 @@ def erf(arg):
     """
     return _libBornAgainCore.erf(arg)
 
+def Bessel_I0(x):
+    """
+    Bessel_I0(double x) -> double
+
+    double MathFunctions::Bessel_I0(double x)
+
+    Modified Bessel function of the first kind and order 0. 
+
+    """
+    return _libBornAgainCore.Bessel_I0(x)
+
 def Bessel_J0(*args):
     """
     Bessel_J0(double x) -> double
@@ -11488,7 +11499,10 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list 
+        oriented vertex list
+
+        _sym_S2: 
+        true if face has a perpedicular two-fold symmetry axis 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -20039,6 +20053,91 @@ class LorentzFisherPeakShape(IPeakShape):
 
 LorentzFisherPeakShape_swigregister = _libBornAgainCore.LorentzFisherPeakShape_swigregister
 LorentzFisherPeakShape_swigregister(LorentzFisherPeakShape)
+
+class VonMisesGaussGaussPeakShape(IPeakShape):
+    """
+
+
+    Class that implements a peak shape that is Gaussian in the radial direction, von-Mises in the azimuth angle and (truncated) Gaussian in the polar angle.
+
+    C++ includes: IPeakShape.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VonMisesGaussGaussPeakShape, name, value)
+    __swig_getmethods__ = {}
+    for _s in [IPeakShape]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, VonMisesGaussGaussPeakShape, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, max_intensity, radial_size, zenith, kappa, sigma_polar):
+        """
+        __init__(VonMisesGaussGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa, double sigma_polar) -> VonMisesGaussGaussPeakShape
+
+        VonMisesGaussGaussPeakShape::VonMisesGaussGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa, double sigma_polar)
+
+        """
+        this = _libBornAgainCore.new_VonMisesGaussGaussPeakShape(max_intensity, radial_size, zenith, kappa, sigma_polar)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_VonMisesGaussGaussPeakShape
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(VonMisesGaussGaussPeakShape self) -> VonMisesGaussGaussPeakShape
+
+        VonMisesGaussGaussPeakShape* VonMisesGaussGaussPeakShape::clone() const override
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainCore.VonMisesGaussGaussPeakShape_clone(self)
+
+
+    def accept(self, visitor):
+        """
+        accept(VonMisesGaussGaussPeakShape self, INodeVisitor visitor)
+
+        void VonMisesGaussGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.VonMisesGaussGaussPeakShape_accept(self, visitor)
+
+
+    def evaluate(self, q, q_lattice_point):
+        """
+        evaluate(VonMisesGaussGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+
+        double VonMisesGaussGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+        Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+
+        """
+        return _libBornAgainCore.VonMisesGaussGaussPeakShape_evaluate(self, q, q_lattice_point)
+
+
+    def angularDisorder(self):
+        """
+        angularDisorder(VonMisesGaussGaussPeakShape self) -> bool
+
+        bool VonMisesGaussGaussPeakShape::angularDisorder() const override
+
+        Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+
+        """
+        return _libBornAgainCore.VonMisesGaussGaussPeakShape_angularDisorder(self)
+
+VonMisesGaussGaussPeakShape_swigregister = _libBornAgainCore.VonMisesGaussGaussPeakShape_swigregister
+VonMisesGaussGaussPeakShape_swigregister(VonMisesGaussGaussPeakShape)
 
 class IResolutionFunction2D(ICloneable, INode):
     """

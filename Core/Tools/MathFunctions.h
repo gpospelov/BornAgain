@@ -67,6 +67,9 @@ namespace MathFunctions
 //! Bessel function  Bessel_J1(x)/x
     BA_CORE_API_ double Bessel_J1c(double x);
 
+//! Modified Bessel function of the first kind and order 0
+    BA_CORE_API_ double Bessel_I0(double x);
+
 //! Complex Bessel function of the first kind and order 0
     BA_CORE_API_ complex_t Bessel_J0(const complex_t z);
 

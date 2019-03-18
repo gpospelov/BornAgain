@@ -697,21 +697,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -10079,7 +10079,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -12901,10 +12901,7 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list
-
-_sym_S2: 
-true if face has a perpedicular two-fold symmetry axis 
+oriented vertex list 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
@@ -13156,6 +13153,190 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 %feature("docstring")  RadialParaCrystalBuilder::buildSample "MultiLayer * RadialParaCrystalBuilder::buildSample() const
+";
+
+
+// File: classRangedDistribution.xml
+%feature("docstring") RangedDistribution "
+
+Interface for one-dimensional ranged distributions. All derived distributions allow for generating samples in-place for known mean and standard deviation (except for  RangedDistributionLorentz which uses median and hwhm).
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution()
+";
+
+%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistribution::clone "RangedDistribution* RangedDistribution::clone() const override=0
+";
+
+%feature("docstring")  RangedDistribution::~RangedDistribution "RangedDistribution::~RangedDistribution() override
+";
+
+%feature("docstring")  RangedDistribution::generateSamples "std::vector< ParameterSample > RangedDistribution::generateSamples(double mean, double variance) const
+";
+
+%feature("docstring")  RangedDistribution::generateSamples "std::vector< std::vector< ParameterSample > > RangedDistribution::generateSamples(std::vector< double > mean, std::vector< double > variance) const
+
+Generates list of sampled values with their weights from given means and variances. 
+";
+
+%feature("docstring")  RangedDistribution::distribution "std::unique_ptr< IDistribution1D > RangedDistribution::distribution(double mean, double stddev) const
+
+Public interface function to underlying  IDistribution1D object. 
+";
+
+%feature("docstring")  RangedDistribution::limits "RealLimits RangedDistribution::limits() const
+
+Returns current limits of the distribution. 
+";
+
+%feature("docstring")  RangedDistribution::sigmaFactor "double RangedDistribution::sigmaFactor() const
+
+Returns sigma factor to use during sampling. 
+";
+
+%feature("docstring")  RangedDistribution::nSamples "size_t RangedDistribution::nSamples() const
+
+Returns number of samples to generate. 
+";
+
+
+// File: classRangedDistributionCosine.xml
+%feature("docstring") RangedDistributionCosine "
+
+Cosine distribution.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionCosine::clone "RangedDistributionCosine * RangedDistributionCosine::clone() const override
+";
+
+%feature("docstring")  RangedDistributionCosine::~RangedDistributionCosine "RangedDistributionCosine::~RangedDistributionCosine() override=default
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistribution "RangedDistribution::RangedDistribution()
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+
+// File: classRangedDistributionGate.xml
+%feature("docstring") RangedDistributionGate "
+
+Uniform distribution function.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionGate::clone "RangedDistributionGate * RangedDistributionGate::clone() const override
+";
+
+%feature("docstring")  RangedDistributionGate::~RangedDistributionGate "RangedDistributionGate::~RangedDistributionGate() override=default
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistribution "RangedDistribution::RangedDistribution()
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+
+// File: classRangedDistributionGaussian.xml
+%feature("docstring") RangedDistributionGaussian "
+
+Gaussian distribution with standard deviation std_dev.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionGaussian::clone "RangedDistributionGaussian * RangedDistributionGaussian::clone() const override
+";
+
+%feature("docstring")  RangedDistributionGaussian::~RangedDistributionGaussian "RangedDistributionGaussian::~RangedDistributionGaussian() override=default
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistribution "RangedDistribution::RangedDistribution()
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+
+// File: classRangedDistributionLogNormal.xml
+%feature("docstring") RangedDistributionLogNormal "
+
+Log-normal distribution.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionLogNormal::clone "RangedDistributionLogNormal * RangedDistributionLogNormal::clone() const override
+";
+
+%feature("docstring")  RangedDistributionLogNormal::~RangedDistributionLogNormal "RangedDistributionLogNormal::~RangedDistributionLogNormal() override=default
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistribution "RangedDistribution::RangedDistribution()
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+
+// File: classRangedDistributionLorentz.xml
+%feature("docstring") RangedDistributionLorentz "
+
+Lorentz distribution with median and hwhm.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionLorentz::clone "RangedDistributionLorentz * RangedDistributionLorentz::clone() const override
+";
+
+%feature("docstring")  RangedDistributionLorentz::~RangedDistributionLorentz "RangedDistributionLorentz::~RangedDistributionLorentz() override=default
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistribution "RangedDistribution::RangedDistribution()
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
 ";
 
 
@@ -16172,16 +16353,16 @@ C++ includes: ZLimits.h
 // File: namespace_0D426.xml
 
 
-// File: namespace_0D460.xml
+// File: namespace_0D428.xml
 
 
-// File: namespace_0D467.xml
+// File: namespace_0D462.xml
 
 
-// File: namespace_0D505.xml
+// File: namespace_0D469.xml
 
 
-// File: namespace_0D513.xml
+// File: namespace_0D507.xml
 
 
 // File: namespace_0D515.xml
@@ -16193,16 +16374,19 @@ C++ includes: ZLimits.h
 // File: namespace_0D519.xml
 
 
+// File: namespace_0D521.xml
+
+
 // File: namespace_0D6.xml
 
 
-// File: namespace_0D601.xml
+// File: namespace_0D603.xml
 
 
-// File: namespace_0D605.xml
+// File: namespace_0D607.xml
 
 
-// File: namespace_0D627.xml
+// File: namespace_0D629.xml
 
 
 // File: namespace_0D98.xml
@@ -16624,7 +16808,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -18587,6 +18771,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: ParameterUtils_8h.xml
+
+
+// File: RangedDistributions_8cpp.xml
+
+
+// File: RangedDistributions_8h.xml
 
 
 // File: RealParameter_8cpp.xml

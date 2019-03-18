@@ -11488,10 +11488,7 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list
-
-        _sym_S2: 
-        true if face has a perpedicular two-fold symmetry axis 
+        oriented vertex list 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -27557,6 +27554,241 @@ class Polygon(IShape2D):
 
 Polygon_swigregister = _libBornAgainCore.Polygon_swigregister
 Polygon_swigregister(Polygon)
+
+class RangedDistributionGate(_object):
+    """
+
+
+    Uniform distribution function.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, RangedDistributionGate, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionGate, name)
+    __repr__ = _swig_repr
+
+    def clone(self):
+        """
+        clone(RangedDistributionGate self) -> RangedDistributionGate
+
+        RangedDistributionGate * RangedDistributionGate::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionGate_clone(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionGate
+    __del__ = lambda self: None
+
+    def __init__(self):
+        """
+        __init__(RangedDistributionGate self) -> RangedDistributionGate
+
+
+
+        Uniform distribution function.
+
+        C++ includes: RangedDistributions.h
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionGate()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+RangedDistributionGate_swigregister = _libBornAgainCore.RangedDistributionGate_swigregister
+RangedDistributionGate_swigregister(RangedDistributionGate)
+
+class RangedDistributionLorentz(_object):
+    """
+
+
+    Lorentz distribution with median and hwhm.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, RangedDistributionLorentz, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionLorentz, name)
+    __repr__ = _swig_repr
+
+    def clone(self):
+        """
+        clone(RangedDistributionLorentz self) -> RangedDistributionLorentz
+
+        RangedDistributionLorentz * RangedDistributionLorentz::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionLorentz_clone(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionLorentz
+    __del__ = lambda self: None
+
+    def __init__(self):
+        """
+        __init__(RangedDistributionLorentz self) -> RangedDistributionLorentz
+
+
+
+        Lorentz distribution with median and hwhm.
+
+        C++ includes: RangedDistributions.h
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionLorentz()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+RangedDistributionLorentz_swigregister = _libBornAgainCore.RangedDistributionLorentz_swigregister
+RangedDistributionLorentz_swigregister(RangedDistributionLorentz)
+
+class RangedDistributionGaussian(_object):
+    """
+
+
+    Gaussian distribution with standard deviation std_dev.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, RangedDistributionGaussian, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionGaussian, name)
+    __repr__ = _swig_repr
+
+    def clone(self):
+        """
+        clone(RangedDistributionGaussian self) -> RangedDistributionGaussian
+
+        RangedDistributionGaussian * RangedDistributionGaussian::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionGaussian_clone(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionGaussian
+    __del__ = lambda self: None
+
+    def __init__(self):
+        """
+        __init__(RangedDistributionGaussian self) -> RangedDistributionGaussian
+
+
+
+        Gaussian distribution with standard deviation std_dev.
+
+        C++ includes: RangedDistributions.h
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionGaussian()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+RangedDistributionGaussian_swigregister = _libBornAgainCore.RangedDistributionGaussian_swigregister
+RangedDistributionGaussian_swigregister(RangedDistributionGaussian)
+
+class RangedDistributionLogNormal(_object):
+    """
+
+
+    Log-normal distribution.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, RangedDistributionLogNormal, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionLogNormal, name)
+    __repr__ = _swig_repr
+
+    def clone(self):
+        """
+        clone(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
+
+        RangedDistributionLogNormal * RangedDistributionLogNormal::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionLogNormal_clone(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionLogNormal
+    __del__ = lambda self: None
+
+    def __init__(self):
+        """
+        __init__(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
+
+
+
+        Log-normal distribution.
+
+        C++ includes: RangedDistributions.h
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionLogNormal()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+RangedDistributionLogNormal_swigregister = _libBornAgainCore.RangedDistributionLogNormal_swigregister
+RangedDistributionLogNormal_swigregister(RangedDistributionLogNormal)
+
+class RangedDistributionCosine(_object):
+    """
+
+
+    Cosine distribution.
+
+    C++ includes: RangedDistributions.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, RangedDistributionCosine, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionCosine, name)
+    __repr__ = _swig_repr
+
+    def clone(self):
+        """
+        clone(RangedDistributionCosine self) -> RangedDistributionCosine
+
+        RangedDistributionCosine * RangedDistributionCosine::clone() const override
+
+        """
+        return _libBornAgainCore.RangedDistributionCosine_clone(self)
+
+    __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionCosine
+    __del__ = lambda self: None
+
+    def __init__(self):
+        """
+        __init__(RangedDistributionCosine self) -> RangedDistributionCosine
+
+
+
+        Cosine distribution.
+
+        C++ includes: RangedDistributions.h
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionCosine()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+RangedDistributionCosine_swigregister = _libBornAgainCore.RangedDistributionCosine_swigregister
+RangedDistributionCosine_swigregister(RangedDistributionCosine)
 
 class RealParameter(IParameterReal):
     """

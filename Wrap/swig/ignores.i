@@ -54,3 +54,4 @@
 %ignore Lattice2D::ReciprocalBases;
 %ignore Lattice2D::reciprocalBases();
 %ignore ISpecularScan;
+%ignore RangedDistribution;

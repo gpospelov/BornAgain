@@ -15,6 +15,7 @@
 #include "QSpecScan.h"
 #include "BornAgainNamespace.h"
 #include "FixedBinAxis.h"
+#include "ParameterSample.h"
 #include "PointwiseAxis.h"
 #include "PythonFormatting.h"
 #include "RangedDistributions.h"
@@ -63,14 +64,12 @@ QSpecScan* QSpecScan::clone() const
 std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() const
 {
     std::vector<SpecularSimulationElement> result;
+    std::vector<double> qz = generateQzVector();
 
-    const size_t axis_size = m_qs->size();
-    std::vector<double> qs = m_qs->getBinCenters();
-    result.reserve(axis_size);
-    for (size_t i = 0; i < axis_size; ++i) {
-        const double kz = qs[i] / 2.0;
-        result.emplace_back(kz);
-        if (!qz_limits.isInRange(kz))
+    result.reserve(qz.size());
+    for (size_t i = 0, size = qz.size(); i < size; ++i) {
+        result.emplace_back(qz[i] / 2.0);
+        if (!qz_limits.isInRange(qz[i]))
             result.back().setCalculationFlag(false); // false = exclude from calculations
     }
 
@@ -88,7 +87,7 @@ std::vector<double> QSpecScan::footprint(size_t i, size_t n_elements) const
 //! Returns the number of simulation elements
 size_t QSpecScan::numberOfSimulationElements() const
 {
-    return m_qs->size();
+    return m_qs->size() * m_resolution->nSamples();
 }
 
 std::string QSpecScan::print() const
@@ -132,4 +131,16 @@ void QSpecScan::checkInitialization()
     if (!qz_limits.isInRange(axis_values.front()))
         throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values are out "
                                  "of acceptable range.");
+}
+
+std::vector<double> QSpecScan::generateQzVector() const
+{
+    auto samples = m_resolution->generateSamples(m_qs->getBinCenters());
+
+    std::vector<double> result;
+    result.reserve(numberOfSimulationElements());
+    for (size_t i = 0, size_out = samples.size(); i < size_out; ++i)
+        for (size_t j = 0, size_in = samples[i].size(); j < size_in; ++j)
+            result.push_back(samples[i][j].value);
+    return result;
 }

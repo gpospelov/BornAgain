@@ -67,6 +67,7 @@ public:
 
 private:
     void checkInitialization();
+    std::vector<double> generateQzVector() const;
     std::unique_ptr<IAxis> m_qs;
     std::unique_ptr<ScanResolution> m_resolution;
 };

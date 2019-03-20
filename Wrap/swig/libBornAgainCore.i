@@ -217,6 +217,7 @@
 #include "Rotations.h"
 #include "Rotations.h"
 #include "SampleBuilderFactory.h"
+#include "ScanResolution.h"
 #include "Simulation.h"
 #include "Simulation2D.h"
 #include "SimulationFactory.h"
@@ -239,6 +240,9 @@
 %}
 
 // ownership
+
+%newobject ScanResolution::scanRelativeResolution;
+%newobject ScanResolution::scanAbsoluteResolution;
 
 %newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;
 %newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
@@ -474,6 +478,8 @@
 %include "IUnitConverter.h"
 %include "IterationInfo.h"
 %include "SpectrumUtils.h"
+
+%include "ScanResolution.h"
 
 %include "ISpecularScan.h"
 %include "AngularSpecScan.h"

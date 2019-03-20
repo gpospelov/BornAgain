@@ -18,6 +18,8 @@
 #include "ISpecularScan.h"
 #include <memory>
 
+class ScanResolution;
+
 //! Scan type with z-components of scattering vector
 //! as coordinate values. Wavelength and incident angles
 //! are not accessible separately.
@@ -57,9 +59,15 @@ public:
     std::string print() const override;
 #endif //SWIG
 
+    //! Sets q resolution values via ScanResolution object.
+    //! Limits of the scan resolution will be overriden to
+    //! allow for positive q values only.
+    void setQResolution(const ScanResolution& resolution);
+
 private:
     void checkInitialization();
     std::unique_ptr<IAxis> m_qs;
+    std::unique_ptr<ScanResolution> m_resolution;
 };
 
 #endif // QSPECSCAN_H

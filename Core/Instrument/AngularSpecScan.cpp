@@ -17,17 +17,22 @@
 #include "IFootprintFactor.h"
 #include "PointwiseAxis.h"
 #include "PythonFormatting.h"
+#include "RangedDistributions.h"
 #include "RealLimits.h"
+#include "ScanResolution.h"
 #include "SpecularSimulationElement.h"
 
 namespace {
-const RealLimits inc_angle_limits = RealLimits::limited(0.0, M_PI_2);
+const RealLimits wl_limits = RealLimits::nonnegative();
+const RealLimits inc_limits = RealLimits::limited(0.0, M_PI_2);
 }
 
 AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
     : ISpecularScan(SPECULAR_DATA_TYPE::angle)
     , m_wl(wl)
     , m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle)))
+    , m_wl_resolution(ScanResolution::scanEmptyResolution())
+    , m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
@@ -36,6 +41,8 @@ AngularSpecScan::AngularSpecScan(double wl, const IAxis& inc_angle)
     : ISpecularScan(SPECULAR_DATA_TYPE::angle)
     , m_wl(wl)
     , m_inc_angle(inc_angle.clone())
+    , m_wl_resolution(ScanResolution::scanEmptyResolution())
+    , m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
@@ -44,6 +51,8 @@ AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, doubl
     : ISpecularScan(SPECULAR_DATA_TYPE::angle)
     , m_wl(wl)
     , m_inc_angle(std::make_unique<FixedBinAxis>("inc_angles", nbins, alpha_i_min, alpha_i_max))
+    , m_wl_resolution(ScanResolution::scanEmptyResolution())
+    , m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
@@ -52,6 +61,8 @@ AngularSpecScan* AngularSpecScan::clone() const
 {
     auto result = std::make_unique<AngularSpecScan>(m_wl, *m_inc_angle);
     result->setFootprintFactor(m_footprint.get());
+    result->setWavelengthResolution(*m_wl_resolution);
+    result->setAngleResolution(*m_inc_resolution);
     return result.release();
 }
 
@@ -67,7 +78,7 @@ std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElemen
     for (size_t i = 0; i < axis_size; ++i) {
         const double result_angle = angles[i];
         result.emplace_back(m_wl, result_angle);
-        if (!inc_angle_limits.isInRange(result_angle))
+        if (!inc_limits.isInRange(result_angle))
             result.back().setCalculationFlag(false); // false = exclude from calculations
     }
 
@@ -79,6 +90,33 @@ void AngularSpecScan::setFootprintFactor(const IFootprintFactor* f_factor)
     m_footprint.reset(f_factor ? f_factor->clone() : nullptr);
 }
 
+void AngularSpecScan::setWavelengthResolution(const ScanResolution& resolution)
+{
+    m_wl_resolution.reset(resolution.clone());
+    if (m_wl_resolution->empty())
+        return;
+
+    RealLimits limits = m_wl_resolution->distribution()->limits();
+    if (!limits.hasLowerLimit() || limits.lowerLimit() < wl_limits.lowerLimit()) {
+        limits.setLowerLimit(wl_limits.lowerLimit());
+        m_wl_resolution->setDistributionLimits(limits);
+    }
+}
+
+void AngularSpecScan::setAngleResolution(const ScanResolution& resolution)
+{
+    m_inc_resolution.reset(resolution.clone());
+    if (m_inc_resolution->empty())
+        return;
+
+    RealLimits limits = m_inc_resolution->distribution()->limits();
+    if (!limits.hasLowerLimit() || limits.lowerLimit() < inc_limits.lowerLimit())
+        limits.setLowerLimit(inc_limits.lowerLimit());
+    if (!limits.hasUpperLimit() || limits.upperLimit() > inc_limits.upperLimit())
+        limits.setUpperLimit(inc_limits.upperLimit());
+    m_inc_resolution->setDistributionLimits(limits);
+}
+
 double AngularSpecScan::footprint(size_t i) const
 {
     if (i >= numberOfSimulationElements())
@@ -86,7 +124,7 @@ double AngularSpecScan::footprint(size_t i) const
                                  "number of simulation elements");
 
     const double angle_value = m_inc_angle->getBinCenter(i);
-    if (!m_footprint || !inc_angle_limits.isInRange(angle_value))
+    if (!m_footprint || !inc_limits.isInRange(angle_value))
         return 1.0;
 
     return m_footprint->calculate(angle_value);
@@ -113,6 +151,16 @@ std::string AngularSpecScan::print() const
         result << "\n";
         result << *m_footprint << "\n";
         result << PythonFormatting::indent() << "scan.setFootprintFactor(footprint)";
+    }
+    if (!m_inc_resolution->empty()) {
+        result << "\n";
+        result << *m_inc_resolution << "\n";
+        result << PythonFormatting::indent() << "scan.setAngleResolution(resolution)";
+    }
+    if (!m_wl_resolution->empty()) {
+        result << "\n";
+        result << *m_wl_resolution << "\n";
+        result << PythonFormatting::indent() << "scan.setWavelengthResolution(resolution)";
     }
     return result.str();
 }

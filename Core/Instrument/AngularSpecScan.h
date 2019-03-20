@@ -18,6 +18,8 @@
 #include "ISpecularScan.h"
 #include <memory>
 
+class ScanResolution;
+
 //! Scan type with inclination angles as coordinate
 //! values and a unique wavelength. Features footprint correction.
 class BA_CORE_API_ AngularSpecScan : public ISpecularScan
@@ -54,10 +56,24 @@ public:
     std::string print() const override;
 
     double wavelength() const { return m_wl; }
+
+    // TODO: remove these getters after transition to the new resolution machinery is finished
+    const ScanResolution* wavelengthResolution() const { return m_wl_resolution.get(); }
+    const ScanResolution* angleResolution() const { return m_inc_resolution.get(); }
 #endif // SWIG
 
     //! Sets footprint correction factor
     void setFootprintFactor(const IFootprintFactor* f_factor);
+
+    //! Sets wavelength resolution values via ScanResolution object.
+    //! Limits of the scan resolution will be overriden to
+    //! allow for positive wavelength values only.
+    void setWavelengthResolution(const ScanResolution& resolution);
+
+    //! Sets angle resolution values via ScanResolution object.
+    //! Limits of the scan resolution will be overriden to
+    //! allow for angular values in range [0; pi/2].
+    void setAngleResolution(const ScanResolution& resolution);
 
 private:
     void checkInitialization();
@@ -65,6 +81,8 @@ private:
     double m_wl;
     std::unique_ptr<IAxis> m_inc_angle;
     std::unique_ptr<IFootprintFactor> m_footprint;
+    std::unique_ptr<ScanResolution> m_wl_resolution;
+    std::unique_ptr<ScanResolution> m_inc_resolution;
 };
 
 #endif // ANGULARSPECSCAN_H

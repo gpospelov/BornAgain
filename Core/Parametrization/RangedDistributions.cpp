@@ -15,6 +15,7 @@
 #include "RangedDistributions.h"
 #include "Distributions.h"
 #include "ParameterSample.h"
+#include "PythonFormatting.h"
 #include <limits>
 
 namespace {
@@ -83,6 +84,17 @@ std::unique_ptr<IDistribution1D> RangedDistribution::distribution(double mean, d
     return distribution_impl(mean, stddev);
 }
 
+std::string RangedDistribution::print() const
+{
+    std::stringstream result;
+    result << PythonFormatting::indent() << "distribution = " << name();
+    result << "(" << m_n_samples << ", " << PythonFormatting::printDouble(m_sigma_factor);
+    if (!m_limits.isLimitless())
+        result << PythonFormatting::printRealLimitsArg(m_limits);
+    result << ")";
+    return result.str();
+}
+
 void RangedDistribution::checkInitialization()
 {
     if (m_n_samples < 1u)
@@ -106,6 +118,11 @@ RangedDistributionGate* RangedDistributionGate::clone() const
     return makeCopy(*this).release();
 }
 
+std::string RangedDistributionGate::name() const
+{
+    return "ba.RangedDistributionGate";
+}
+
 std::unique_ptr<IDistribution1D>
 RangedDistributionGate::distribution_impl(double mean, double stddev) const
 {
@@ -119,6 +136,11 @@ RangedDistributionLorentz* RangedDistributionLorentz::clone() const
     return makeCopy(*this).release();
 }
 
+std::string RangedDistributionLorentz::name() const
+{
+    return "ba.RangedDistributionLorentz";
+}
+
 std::unique_ptr<IDistribution1D>
 RangedDistributionLorentz::distribution_impl(double median, double hwhm) const
 {
@@ -130,6 +152,11 @@ RangedDistributionGaussian* RangedDistributionGaussian::clone() const
     return makeCopy(*this).release();
 }
 
+std::string RangedDistributionGaussian::name() const
+{
+    return "ba.RangedDistributionGaussian";
+}
+
 std::unique_ptr<IDistribution1D>
 RangedDistributionGaussian::distribution_impl(double mean, double stddev) const
 {
@@ -139,6 +166,11 @@ RangedDistributionGaussian::distribution_impl(double mean, double stddev) const
 RangedDistributionLogNormal* RangedDistributionLogNormal::clone() const
 {
     return makeCopy(*this).release();
+}
+
+std::string RangedDistributionLogNormal::name() const
+{
+    return "ba.RangedDistributionLogNormal";
 }
 
 std::unique_ptr<IDistribution1D>
@@ -157,6 +189,11 @@ RangedDistributionLogNormal::distribution_impl(double mean, double stddev) const
 RangedDistributionCosine* RangedDistributionCosine::clone() const
 {
     return makeCopy(*this).release();
+}
+
+std::string RangedDistributionCosine::name() const
+{
+    return "ba.RangedDistributionCosine";
 }
 
 std::unique_ptr<IDistribution1D>

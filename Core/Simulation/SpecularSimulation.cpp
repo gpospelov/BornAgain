@@ -202,22 +202,17 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     if (beam_intensity == 0.0)
         return; // no normalization when beam intensity is zero
 
-    if (!m_data_handler->footprintFactor()) {
-        for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
-            auto& element = m_sim_elements[i];
-            element.setIntensity(element.getIntensity() * beam_intensity);
-        }
-        return;
-    }
-
+    std::vector<double> footprints;
     // TODO: use just m_data_handler when pointwise resolution is implemented
-    std::unique_ptr<ISpecularScan> data_handler(m_data_handler->clone());
     if (m_data_handler->dataType() == ISpecularScan::angle)
-        data_handler = mangledDataHandler(*m_data_handler, getInstrument().getBeam());
+        footprints = mangledDataHandler(*m_data_handler, getInstrument().getBeam())
+                         ->footprint(start_ind, n_elements);
+    else
+        footprints = m_data_handler->footprint(start_ind, n_elements);
 
-    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+    for (size_t i = start_ind, k = 0; i < start_ind + n_elements; ++i, ++k) {
         auto& element = m_sim_elements[i];
-        element.setIntensity(element.getIntensity() * beam_intensity * data_handler->footprint(i));
+        element.setIntensity(element.getIntensity() * beam_intensity * footprints[k]);
     }
 }
 

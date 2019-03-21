@@ -44,8 +44,9 @@ public:
     //! Returns IFootprintFactor object pointer
     virtual const IFootprintFactor* footprintFactor() const = 0;
 
-    //! Returns footprint correction factor for simulation element with index _i_
-    virtual double footprint(size_t i) const = 0;
+    //! Returns footprint correction factor for a range of simulation elements of size _n_elements_
+    //! and starting from element with index _i_.
+    virtual std::vector<double> footprint(size_t i, size_t n_elements) const = 0;
 
     //! Returns the number of simulation elements
     virtual size_t numberOfSimulationElements() const = 0;

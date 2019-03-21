@@ -77,12 +77,12 @@ std::vector<SpecularSimulationElement> QSpecScan::generateSimulationElements() c
     return result;
 }
 
-double QSpecScan::footprint(size_t i) const
+std::vector<double> QSpecScan::footprint(size_t i, size_t n_elements) const
 {
-    if (i >= numberOfSimulationElements())
+    if (i + n_elements > numberOfSimulationElements())
         throw std::runtime_error("Error in QSpecScan::footprint: given index exceeds the "
                                  "number of simulation elements");
-    return 1.0;
+    return std::vector<double>(n_elements, 1.0);
 }
 
 //! Returns the number of simulation elements

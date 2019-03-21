@@ -22,8 +22,9 @@ TEST_F(SpecularScanTest, AngularScanInit)
         EXPECT_EQ(scan.numberOfSimulationElements(), axis.size());
         EXPECT_EQ(scan.dataType(), ISpecularScan::angle);
         EXPECT_EQ(scan.footprintFactor(), nullptr);
-        EXPECT_EQ(scan.footprint(0), 1.0);
-        EXPECT_THROW(scan.footprint(axis.size()), std::runtime_error);
+        EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{1.0});
+        EXPECT_THROW(scan.footprint(1, axis.size()), std::runtime_error);
+        EXPECT_NO_THROW(scan.footprint(0, axis.size()));
     };
 
     const PointwiseAxis pointwise_axis("inc_angles", std::vector<double>{0.1, 0.2, 0.3});
@@ -49,16 +50,16 @@ TEST_F(SpecularScanTest, AngularScanWithFootprint)
     const IFootprintFactor& f_factor = FootprintFactorGaussian(0.1);
     scan.setFootprintFactor(&f_factor);
 
-    EXPECT_EQ(scan.footprint(0), f_factor.calculate(0.1));
+    EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{f_factor.calculate(0.1)});
     EXPECT_NE(scan.footprintFactor(), &f_factor);
 
     scan.setFootprintFactor(nullptr);
     EXPECT_EQ(scan.footprintFactor(), nullptr);
-    EXPECT_EQ(scan.footprint(0), 1.0);
+    EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{1.0});
 
     AngularSpecScan scan2(0.1, std::vector<double>{-0.1, 0.2, 0.3});
     scan2.setFootprintFactor(&f_factor);
-    EXPECT_EQ(scan.footprint(0), 1.0);
+    EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{1.0});
 }
 
 TEST_F(SpecularScanTest, QScanInit)
@@ -68,8 +69,9 @@ TEST_F(SpecularScanTest, QScanInit)
         EXPECT_EQ(scan.numberOfSimulationElements(), axis.size());
         EXPECT_EQ(scan.dataType(), ISpecularScan::q);
         EXPECT_EQ(scan.footprintFactor(), nullptr);
-        EXPECT_EQ(scan.footprint(0), 1.0);
-        EXPECT_THROW(scan.footprint(axis.size()), std::runtime_error);
+        EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{1.0});
+        EXPECT_THROW(scan.footprint(1, axis.size()), std::runtime_error);
+        EXPECT_NO_THROW(scan.footprint(0, axis.size()));
     };
 
     const PointwiseAxis pointwise_axis("qs", std::vector<double>{0.1, 0.2, 0.3});

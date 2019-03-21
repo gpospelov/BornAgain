@@ -117,17 +117,21 @@ void AngularSpecScan::setAngleResolution(const ScanResolution& resolution)
     m_inc_resolution->setDistributionLimits(limits);
 }
 
-double AngularSpecScan::footprint(size_t i) const
+std::vector<double> AngularSpecScan::footprint(size_t i, size_t n_elements) const
 {
-    if (i >= numberOfSimulationElements())
+    if (i + n_elements > numberOfSimulationElements())
         throw std::runtime_error("Error in AngularSpecScan::footprint: given index exceeds the "
                                  "number of simulation elements");
 
-    const double angle_value = m_inc_angle->getBinCenter(i);
-    if (!m_footprint || !inc_limits.isInRange(angle_value))
-        return 1.0;
+    std::vector<double> result(n_elements, 1.0);
+    if (!m_footprint)
+        return result;
 
-    return m_footprint->calculate(angle_value);
+    const std::vector<double> angles = m_inc_angle->getBinCenters();
+    for (size_t j = i, k = 0; j < i + n_elements; ++j, ++k)
+        if (inc_limits.isInRange(angles[j]))
+            result[k] = m_footprint->calculate(angles[j]);
+    return result;
 }
 
 size_t AngularSpecScan::numberOfSimulationElements() const

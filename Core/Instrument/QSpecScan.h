@@ -49,8 +49,9 @@ public:
     //! Returns IFootprintFactor object pointer
     virtual const IFootprintFactor* footprintFactor() const override { return nullptr; }
 
-    //! Returns footprint correction factor for simulation element with index _i_
-    double footprint(size_t i) const override;
+    //! Returns footprint correction factor for a range of simulation elements of size _n_elements_
+    //! and starting from element with index _i_.
+    std::vector<double> footprint(size_t i, size_t n_elements) const override;
 
     //! Returns the number of simulation elements
     size_t numberOfSimulationElements() const override;

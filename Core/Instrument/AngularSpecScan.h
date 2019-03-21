@@ -18,6 +18,7 @@
 #include "ISpecularScan.h"
 #include <memory>
 
+class ParameterSample;
 class ScanResolution;
 
 //! Scan type with inclination angles as coordinate
@@ -77,13 +78,21 @@ public:
     void setAngleResolution(const ScanResolution& resolution);
 
 private:
+    using WlAnglePair = std::pair<double, double>;
+    using DistrOutput = std::vector<std::vector<ParameterSample>>;
+
     void checkInitialization();
+    std::vector<WlAnglePair> generateWlAnglePairs() const;
+    DistrOutput applyWlResolution() const;
+    DistrOutput applyIncResolution() const;
 
     double m_wl;
     std::unique_ptr<IAxis> m_inc_angle;
     std::unique_ptr<IFootprintFactor> m_footprint;
     std::unique_ptr<ScanResolution> m_wl_resolution;
+    mutable DistrOutput m_wl_res_cache;
     std::unique_ptr<ScanResolution> m_inc_resolution;
+    mutable DistrOutput m_inc_res_cache;
 };
 
 #endif // ANGULARSPECSCAN_H

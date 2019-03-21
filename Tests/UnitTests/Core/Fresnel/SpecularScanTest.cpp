@@ -3,7 +3,9 @@
 #include "FixedBinAxis.h"
 #include "FootprintFactorGaussian.h"
 #include "PointwiseAxis.h"
+#include "RangedDistributions.h"
 #include "QSpecScan.h"
+#include "ScanResolution.h"
 #include "SpecularSimulationElement.h"
 
 class SpecularScanTest : public ::testing::Test
@@ -60,6 +62,69 @@ TEST_F(SpecularScanTest, AngularScanWithFootprint)
     AngularSpecScan scan2(0.1, std::vector<double>{-0.1, 0.2, 0.3});
     scan2.setFootprintFactor(&f_factor);
     EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{1.0});
+}
+
+TEST_F(SpecularScanTest, FootprintAndWavelengthResolution)
+{
+    AngularSpecScan scan(0.1, std::vector<double>{0.1, 0.2, 0.3});
+    auto scan_res = std::unique_ptr<ScanResolution>(
+        ScanResolution::scanRelativeResolution(RangedDistributionGate(3, 2.0), 0.1));
+    scan.setWavelengthResolution(*scan_res);
+
+    const IFootprintFactor& f_factor = FootprintFactorGaussian(0.1);
+    scan.setFootprintFactor(&f_factor);
+
+    std::vector<double> expected{
+        f_factor.calculate(0.1), f_factor.calculate(0.1), f_factor.calculate(0.1),
+        f_factor.calculate(0.2), f_factor.calculate(0.2), f_factor.calculate(0.2),
+        f_factor.calculate(0.3), f_factor.calculate(0.3), f_factor.calculate(0.3)};
+    std::vector<double> actual = scan.footprint(0, 9);
+
+    EXPECT_EQ(expected.size(), actual.size());
+    for (size_t i = 0; i < expected.size(); ++i)
+        EXPECT_DOUBLE_EQ(expected[i], actual[i]);
+
+    auto expected_part = std::vector<double>(expected.begin() + 1, expected.begin() + 8);
+    actual = scan.footprint(1, 7);
+
+    EXPECT_EQ(expected_part.size(), actual.size());
+    for (size_t i = 0; i < expected_part.size(); ++i)
+        EXPECT_DOUBLE_EQ(expected_part[i], actual[i]);
+}
+
+TEST_F(SpecularScanTest, FootprintAndAllResolutions)
+{
+    AngularSpecScan scan(0.1, std::vector<double>{0.1, 0.2, 0.3});
+    auto wl_res = std::unique_ptr<ScanResolution>(
+        ScanResolution::scanRelativeResolution(RangedDistributionGate(2, 2.0), 0.1));
+    scan.setWavelengthResolution(*wl_res);
+    auto inc_res = std::unique_ptr<ScanResolution>(
+        ScanResolution::scanRelativeResolution(RangedDistributionGate(2, 2.0), 0.1));
+    scan.setAngleResolution(*inc_res);
+
+    const IFootprintFactor& f_factor = FootprintFactorGaussian(0.1);
+    scan.setFootprintFactor(&f_factor);
+
+    auto samples = inc_res->generateSamples(std::vector<double>{0.1, 0.2, 0.3});
+    std::vector<double> expected{
+        f_factor.calculate(samples[0][0].value), f_factor.calculate(samples[0][0].value),
+        f_factor.calculate(samples[0][1].value), f_factor.calculate(samples[0][1].value),
+        f_factor.calculate(samples[1][0].value), f_factor.calculate(samples[1][0].value),
+        f_factor.calculate(samples[1][1].value), f_factor.calculate(samples[1][1].value),
+        f_factor.calculate(samples[2][0].value), f_factor.calculate(samples[2][0].value),
+        f_factor.calculate(samples[2][1].value), f_factor.calculate(samples[2][1].value)};
+    std::vector<double> actual = scan.footprint(0, 12);
+
+    EXPECT_EQ(expected.size(), actual.size());
+    for (size_t i = 0; i < expected.size(); ++i)
+        EXPECT_DOUBLE_EQ(expected[i], actual[i]);
+
+    auto expected_part = std::vector<double>(expected.begin() + 1, expected.begin() + 8);
+    actual = scan.footprint(1, 7);
+
+    EXPECT_EQ(expected_part.size(), actual.size());
+    for (size_t i = 0; i < expected_part.size(); ++i)
+        EXPECT_DOUBLE_EQ(expected_part[i], actual[i]);
 }
 
 TEST_F(SpecularScanTest, QScanInit)

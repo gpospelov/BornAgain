@@ -48,10 +48,10 @@ public:
 
     ~RangedDistribution() override;
 
-    std::vector<ParameterSample> generateSamples(double mean, double variance) const;
-    //! Generates list of sampled values with their weights from given means and variances.
-    std::vector<std::vector<ParameterSample>> generateSamples(std::vector<double> mean,
-                                                              std::vector<double> variance) const;
+    std::vector<ParameterSample> generateSamples(double mean, double stddev) const;
+    //! Generates list of sampled values with their weights from given means and standard deviations.
+    std::vector<std::vector<ParameterSample>>
+    generateSamples(const std::vector<double>& mean, const std::vector<double>& stddev) const;
 
     //! Public interface function to underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution(double mean, double stddev) const;

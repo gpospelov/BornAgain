@@ -59,7 +59,8 @@ std::vector<ParameterSample> RangedDistribution::generateSamples(double mean, do
 }
 
 std::vector<std::vector<ParameterSample>>
-RangedDistribution::generateSamples(std::vector<double> mean, std::vector<double> stddev) const
+RangedDistribution::generateSamples(const std::vector<double>& mean,
+                                    const std::vector<double>& stddev) const
 {
     if (mean.size() != stddev.size())
         throw std::runtime_error("Error in RangedDistribution::generateSamples: mean and variance "

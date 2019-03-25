@@ -24,7 +24,6 @@ namespace
 const double maxkappa = std::log(1.0 / std::numeric_limits<double>::epsilon()) / 2.0;
 const double maxkappa2 = std::log(std::numeric_limits<double>::max());
 double FisherDistribution(double x, double kappa);
-double VonMisesDistribution(double phi, double kappa);
 double FisherPrefactor(double kappa);
 double VonMisesPrefactor(double kappa);
 double Gauss3D(double q2, double domainsize);

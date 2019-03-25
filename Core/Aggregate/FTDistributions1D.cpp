@@ -14,7 +14,6 @@
 
 #include "FTDistributions1D.h"
 #include "BornAgainNamespace.h"
-#include "IntegratorReal.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
 #include "MathConstants.h"

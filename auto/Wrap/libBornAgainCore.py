@@ -20054,90 +20054,78 @@ class LorentzFisherPeakShape(IPeakShape):
 LorentzFisherPeakShape_swigregister = _libBornAgainCore.LorentzFisherPeakShape_swigregister
 LorentzFisherPeakShape_swigregister(LorentzFisherPeakShape)
 
-class VonMisesGaussGaussPeakShape(IPeakShape):
-    """
-
-
-    Class that implements a peak shape that is Gaussian in the radial direction, von-Mises in the azimuth angle and (truncated) Gaussian in the polar angle.
-
-    C++ includes: IPeakShape.h
-
-    """
+class VonMisesFisherGaussPeakShape(IPeakShape):
+    """Proxy of C++ VonMisesFisherGaussPeakShape class."""
 
     __swig_setmethods__ = {}
     for _s in [IPeakShape]:
         __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, VonMisesGaussGaussPeakShape, name, value)
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VonMisesFisherGaussPeakShape, name, value)
     __swig_getmethods__ = {}
     for _s in [IPeakShape]:
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, VonMisesGaussGaussPeakShape, name)
+    __getattr__ = lambda self, name: _swig_getattr(self, VonMisesFisherGaussPeakShape, name)
     __repr__ = _swig_repr
 
-    def __init__(self, max_intensity, radial_size, zenith, kappa, sigma_polar):
-        """
-        __init__(VonMisesGaussGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa, double sigma_polar) -> VonMisesGaussGaussPeakShape
-
-        VonMisesGaussGaussPeakShape::VonMisesGaussGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa, double sigma_polar)
-
-        """
-        this = _libBornAgainCore.new_VonMisesGaussGaussPeakShape(max_intensity, radial_size, zenith, kappa, sigma_polar)
+    def __init__(self, max_intensity, radial_size, zenith, kappa_1, kappa_2):
+        """__init__(VonMisesFisherGaussPeakShape self, double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2) -> VonMisesFisherGaussPeakShape"""
+        this = _libBornAgainCore.new_VonMisesFisherGaussPeakShape(max_intensity, radial_size, zenith, kappa_1, kappa_2)
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_VonMisesGaussGaussPeakShape
+    __swig_destroy__ = _libBornAgainCore.delete_VonMisesFisherGaussPeakShape
     __del__ = lambda self: None
 
     def clone(self):
         """
-        clone(VonMisesGaussGaussPeakShape self) -> VonMisesGaussGaussPeakShape
+        clone(VonMisesFisherGaussPeakShape self) -> VonMisesFisherGaussPeakShape
 
-        VonMisesGaussGaussPeakShape* VonMisesGaussGaussPeakShape::clone() const override
+        virtual IPeakShape* IPeakShape::clone() const =0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.VonMisesGaussGaussPeakShape_clone(self)
+        return _libBornAgainCore.VonMisesFisherGaussPeakShape_clone(self)
 
 
     def accept(self, visitor):
         """
-        accept(VonMisesGaussGaussPeakShape self, INodeVisitor visitor)
+        accept(VonMisesFisherGaussPeakShape self, INodeVisitor visitor)
 
-        void VonMisesGaussGaussPeakShape::accept(INodeVisitor *visitor) const override
+        virtual void INode::accept(INodeVisitor *visitor) const =0
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.VonMisesGaussGaussPeakShape_accept(self, visitor)
+        return _libBornAgainCore.VonMisesFisherGaussPeakShape_accept(self, visitor)
 
 
     def evaluate(self, q, q_lattice_point):
         """
-        evaluate(VonMisesGaussGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
+        evaluate(VonMisesFisherGaussPeakShape self, kvector_t q, kvector_t q_lattice_point) -> double
 
-        double VonMisesGaussGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+        virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
 
         Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
 
         """
-        return _libBornAgainCore.VonMisesGaussGaussPeakShape_evaluate(self, q, q_lattice_point)
+        return _libBornAgainCore.VonMisesFisherGaussPeakShape_evaluate(self, q, q_lattice_point)
 
 
     def angularDisorder(self):
         """
-        angularDisorder(VonMisesGaussGaussPeakShape self) -> bool
+        angularDisorder(VonMisesFisherGaussPeakShape self) -> bool
 
-        bool VonMisesGaussGaussPeakShape::angularDisorder() const override
+        virtual bool IPeakShape::angularDisorder() const
 
         Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
 
         """
-        return _libBornAgainCore.VonMisesGaussGaussPeakShape_angularDisorder(self)
+        return _libBornAgainCore.VonMisesFisherGaussPeakShape_angularDisorder(self)
 
-VonMisesGaussGaussPeakShape_swigregister = _libBornAgainCore.VonMisesGaussGaussPeakShape_swigregister
-VonMisesGaussGaussPeakShape_swigregister(VonMisesGaussGaussPeakShape)
+VonMisesFisherGaussPeakShape_swigregister = _libBornAgainCore.VonMisesFisherGaussPeakShape_swigregister
+VonMisesFisherGaussPeakShape_swigregister(VonMisesFisherGaussPeakShape)
 
 class IResolutionFunction2D(ICloneable, INode):
     """

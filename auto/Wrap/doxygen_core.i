@@ -16197,36 +16197,36 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
-// File: classVonMisesGaussGaussPeakShape.xml
-%feature("docstring") VonMisesGaussGaussPeakShape "
+// File: classVonMisesFisherGaussPeakShape.xml
+%feature("docstring") VonMisesFisherGaussPeakShape "
 
-Class that implements a peak shape that is Gaussian in the radial direction, von-Mises in the azimuth angle and (truncated) Gaussian in the polar angle.
+Class that implements a peak shape that is Gaussian in the radial direction and a convolution of a von Mises-Fisher distribution with a von Mises distribution on the two-sphere
 
 C++ includes: IPeakShape.h
 ";
 
-%feature("docstring")  VonMisesGaussGaussPeakShape::VonMisesGaussGaussPeakShape "VonMisesGaussGaussPeakShape::VonMisesGaussGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa, double sigma_polar)
+%feature("docstring")  VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape "VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2)
 ";
 
-%feature("docstring")  VonMisesGaussGaussPeakShape::~VonMisesGaussGaussPeakShape "VonMisesGaussGaussPeakShape::~VonMisesGaussGaussPeakShape() override
+%feature("docstring")  VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape "VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape() override
 ";
 
-%feature("docstring")  VonMisesGaussGaussPeakShape::clone "VonMisesGaussGaussPeakShape* VonMisesGaussGaussPeakShape::clone() const override
+%feature("docstring")  VonMisesFisherGaussPeakShape::clone "VonMisesFisherGaussPeakShape * VonMisesFisherGaussPeakShape::clone() const override
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  VonMisesGaussGaussPeakShape::accept "void VonMisesGaussGaussPeakShape::accept(INodeVisitor *visitor) const override
+%feature("docstring")  VonMisesFisherGaussPeakShape::accept "void VonMisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  VonMisesGaussGaussPeakShape::evaluate "double VonMisesGaussGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+%feature("docstring")  VonMisesFisherGaussPeakShape::evaluate "double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
 
 Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
 ";
 
-%feature("docstring")  VonMisesGaussGaussPeakShape::angularDisorder "bool VonMisesGaussGaussPeakShape::angularDisorder() const override
+%feature("docstring")  VonMisesFisherGaussPeakShape::angularDisorder "bool VonMisesFisherGaussPeakShape::angularDisorder() const override
 
 Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
 ";

@@ -195,14 +195,6 @@ std::string ScanResolution::print() const
     return result.str();
 }
 
-void ScanResolution::setDistributionLimits(const RealLimits& limits)
-{
-    if (!m_distr)
-        throw std::runtime_error("Error in ScanResolution::setDistributionLimits: attempt to set "
-                                 "limits to an empty distribution");
-    m_distr->setLimits(limits);
-}
-
 ScanResolution::ScanResolution()
 {}
 

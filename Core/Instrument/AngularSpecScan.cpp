@@ -101,14 +101,6 @@ void AngularSpecScan::setWavelengthResolution(const ScanResolution& resolution)
     m_wl_resolution.reset(resolution.clone());
     m_wl_res_cache.clear();
     m_wl_res_cache.shrink_to_fit();
-    if (m_wl_resolution->empty())
-        return;
-
-    RealLimits limits = m_wl_resolution->distribution()->limits();
-    if (!limits.hasLowerLimit() || limits.lowerLimit() < wl_limits.lowerLimit()) {
-        limits.setLowerLimit(wl_limits.lowerLimit());
-        m_wl_resolution->setDistributionLimits(limits);
-    }
 }
 
 void AngularSpecScan::setAngleResolution(const ScanResolution& resolution)
@@ -116,15 +108,6 @@ void AngularSpecScan::setAngleResolution(const ScanResolution& resolution)
     m_inc_resolution.reset(resolution.clone());
     m_inc_res_cache.clear();
     m_inc_res_cache.shrink_to_fit();
-    if (m_inc_resolution->empty())
-        return;
-
-    RealLimits limits = m_inc_resolution->distribution()->limits();
-    if (!limits.hasLowerLimit() || limits.lowerLimit() < inc_limits.lowerLimit())
-        limits.setLowerLimit(inc_limits.lowerLimit());
-    if (!limits.hasUpperLimit() || limits.upperLimit() > inc_limits.upperLimit())
-        limits.setUpperLimit(inc_limits.upperLimit());
-    m_inc_resolution->setDistributionLimits(limits);
 }
 
 std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) const
@@ -151,7 +134,8 @@ std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) 
     for (size_t i = pos_out; left > 0; ++i)
         for (size_t k = pos_inc; k < n_inc_samples && left > 0; ++k) {
             pos_inc = 0;
-            const double footprint = m_footprint->calculate(sample_values[i][k]);
+            double angle = sample_values[i][k];
+            double footprint = inc_limits.isInRange(angle) ? m_footprint->calculate(angle) : 1.0;
             for (size_t j = pos_wl; j < n_wl_samples && left > 0; ++j) {
                 pos_wl = 0;
                 result[pos_res] = footprint;

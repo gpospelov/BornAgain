@@ -132,14 +132,6 @@ void QSpecScan::setQResolution(const ScanResolution& resolution)
     m_resolution.reset(resolution.clone());
     m_q_res_cache.clear();
     m_q_res_cache.shrink_to_fit();
-    if (m_resolution->empty())
-        return;
-
-    RealLimits limits = m_resolution->distribution()->limits();
-    if (!limits.hasLowerLimit() || limits.lowerLimit() < qz_limits.lowerLimit()) {
-        limits.setLowerLimit(qz_limits.lowerLimit());
-        m_resolution->setDistributionLimits(limits);
-    }
 }
 
 void QSpecScan::checkInitialization()

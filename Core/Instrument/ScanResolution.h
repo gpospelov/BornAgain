@@ -49,7 +49,6 @@ public:
 
     //! Prints object definition in python format.
     std::string print() const;
-    void setDistributionLimits(const RealLimits& limits);
 #endif //SWIG
 protected:
     ScanResolution();

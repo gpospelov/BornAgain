@@ -10079,7 +10079,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -12901,7 +12901,10 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list 
+oriented vertex list
+
+_sym_S2: 
+true if face has a perpedicular two-fold symmetry axis 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
@@ -16194,6 +16197,41 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
+// File: classVonMisesFisherGaussPeakShape.xml
+%feature("docstring") VonMisesFisherGaussPeakShape "
+
+Class that implements a peak shape that is Gaussian in the radial direction and a convolution of a von Mises-Fisher distribution with a von Mises distribution on the two-sphere
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape "VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2)
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape "VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape() override
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::clone "VonMisesFisherGaussPeakShape * VonMisesFisherGaussPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::accept "void VonMisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::evaluate "double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::angularDisorder "bool VonMisesFisherGaussPeakShape::angularDisorder() const override
+
+Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+";
+
+
 // File: classWavevectorInfo.xml
 %feature("docstring") WavevectorInfo "
 
@@ -16808,7 +16846,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -16890,6 +16928,11 @@ Bessel function of the first kind and order 1.
 %feature("docstring")  MathFunctions::Bessel_J1c "double MathFunctions::Bessel_J1c(double x)
 
 Bessel function Bessel_J1(x)/x. 
+";
+
+%feature("docstring")  MathFunctions::Bessel_I0 "double MathFunctions::Bessel_I0(double x)
+
+Modified Bessel function of the first kind and order 0. 
 ";
 
 %feature("docstring")  MathFunctions::Bessel_J0 "complex_t MathFunctions::Bessel_J0(const complex_t z)

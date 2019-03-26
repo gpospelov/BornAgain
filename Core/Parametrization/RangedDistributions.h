@@ -41,7 +41,7 @@ public:
                        const RealLimits& limits = RealLimits::limitless());
     //! Initializes Ranged distribution with given number of samples, sigma factor
     //! (range in standard deviations to take into account during sample generation)
-    //! and limits (either RealLimits object or just min and max values for such an object).
+    //! and limits (either RealLimits object or just min and max limits).
     //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
     RangedDistribution(size_t n_samples, double sigma_factor, double min, double max);
     RangedDistribution* clone() const override = 0;
@@ -97,7 +97,15 @@ private:
 class BA_CORE_API_ RangedDistributionGate : public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionGate();
+    RangedDistributionGate(size_t n_samples, double sigma_factor,
+                           const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max);
+
     RangedDistributionGate* clone() const override;
     ~RangedDistributionGate() override = default;
 
@@ -115,7 +123,15 @@ protected:
 class BA_CORE_API_ RangedDistributionLorentz : public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionLorentz();
+    RangedDistributionLorentz(size_t n_samples, double hwhm_factor,
+                              const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _hwhm_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max);
+
     RangedDistributionLorentz* clone() const override;
     ~RangedDistributionLorentz() override = default;
 
@@ -133,7 +149,15 @@ protected:
 class BA_CORE_API_ RangedDistributionGaussian: public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionGaussian();
+    RangedDistributionGaussian(size_t n_samples, double sigma_factor,
+                               const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max);
+
     RangedDistributionGaussian* clone() const override;
     ~RangedDistributionGaussian() override = default;
 
@@ -151,7 +175,15 @@ protected:
 class BA_CORE_API_ RangedDistributionLogNormal: public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionLogNormal();
+    RangedDistributionLogNormal(size_t n_samples, double sigma_factor,
+                                const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max);
+
     RangedDistributionLogNormal* clone() const override;
     ~RangedDistributionLogNormal() override = default;
 
@@ -169,7 +201,15 @@ protected:
 class BA_CORE_API_ RangedDistributionCosine: public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionCosine();
+    RangedDistributionCosine(size_t n_samples, double sigma_factor,
+                             const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max);
+
     RangedDistributionCosine* clone() const override;
     ~RangedDistributionCosine() override = default;
 

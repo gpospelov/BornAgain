@@ -114,6 +114,20 @@ void RangedDistribution::checkInitialization()
                                  "shall not exceed the upper one.");
 }
 
+RangedDistributionGate::RangedDistributionGate() : RangedDistribution() {}
+
+RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor,
+                                               const RealLimits& limits)
+    : RangedDistribution(n_samples, sigma_factor, limits)
+{
+}
+
+RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min,
+                                               double max)
+    : RangedDistribution(n_samples, sigma_factor, min, max)
+{
+}
+
 RangedDistributionGate* RangedDistributionGate::clone() const
 {
     return makeCopy(*this).release();
@@ -132,6 +146,20 @@ RangedDistributionGate::distribution_impl(double mean, double stddev) const
     return std::make_unique<DistributionGate>(x_min, x_max);
 }
 
+RangedDistributionLorentz::RangedDistributionLorentz() : RangedDistribution() {}
+
+RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor,
+                                                     const RealLimits& limits)
+    : RangedDistribution(n_samples, hwhm_factor, limits)
+{
+}
+
+RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor,
+                                                     double min, double max)
+    : RangedDistribution(n_samples, hwhm_factor, min, max)
+{
+}
+
 RangedDistributionLorentz* RangedDistributionLorentz::clone() const
 {
     return makeCopy(*this).release();
@@ -148,6 +176,20 @@ RangedDistributionLorentz::distribution_impl(double median, double hwhm) const
     return std::make_unique<DistributionLorentz>(median, hwhm);
 }
 
+RangedDistributionGaussian::RangedDistributionGaussian() : RangedDistribution() {}
+
+RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor,
+                                                       const RealLimits& limits)
+    : RangedDistribution(n_samples, sigma_factor, limits)
+{
+}
+
+RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor,
+                                                       double min, double max)
+    : RangedDistribution(n_samples, sigma_factor, min, max)
+{
+}
+
 RangedDistributionGaussian* RangedDistributionGaussian::clone() const
 {
     return makeCopy(*this).release();
@@ -162,6 +204,20 @@ std::unique_ptr<IDistribution1D>
 RangedDistributionGaussian::distribution_impl(double mean, double stddev) const
 {
     return std::make_unique<DistributionGaussian>(mean, stddev);
+}
+
+RangedDistributionLogNormal::RangedDistributionLogNormal() : RangedDistribution() {}
+
+RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor,
+                                                         const RealLimits& limits)
+    : RangedDistribution(n_samples, sigma_factor, limits)
+{
+}
+
+RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor,
+                                                         double min, double max)
+    : RangedDistribution(n_samples, sigma_factor, min, max)
+{
 }
 
 RangedDistributionLogNormal* RangedDistributionLogNormal::clone() const
@@ -185,6 +241,20 @@ RangedDistributionLogNormal::distribution_impl(double mean, double stddev) const
     const double scale = std::sqrt(std::log(stddev * stddev / mean_2 + 1.0));
     const double median = mean * std::exp(- scale * scale / 2.0);
     return std::make_unique<DistributionLogNormal>(median, scale);
+}
+
+RangedDistributionCosine::RangedDistributionCosine() : RangedDistribution() {}
+
+RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor,
+                                                   const RealLimits& limits)
+    : RangedDistribution(n_samples, sigma_factor, limits)
+{
+}
+
+RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor,
+                                                   double min, double max)
+    : RangedDistribution(n_samples, sigma_factor, min, max)
+{
 }
 
 RangedDistributionCosine* RangedDistributionCosine::clone() const

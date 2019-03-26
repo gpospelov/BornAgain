@@ -248,9 +248,8 @@ std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() co
     result->addAxis(*coordinateAxis());
 
     if (!m_sim_elements.empty()) {
-        size_t i = 0;
-        for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter, ++i)
-            result->operator[](i) = iter->getIntensity();
+        std::vector<double> data = m_data_handler->createIntensities(m_sim_elements);
+        result->setRawDataVector(data);
     } else
         result->setAllTo(0.0);
 

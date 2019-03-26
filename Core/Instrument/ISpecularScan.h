@@ -51,6 +51,10 @@ public:
     //! Returns the number of simulation elements
     virtual size_t numberOfSimulationElements() const = 0;
 
+    //! Returns intensity vector corresponding to convolution of given simulation elements
+    virtual std::vector<double>
+    createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const = 0;
+
     //! Print scan definition in python format
     virtual std::string print() const = 0;
 #endif //SWIG

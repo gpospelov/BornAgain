@@ -90,6 +90,25 @@ size_t QSpecScan::numberOfSimulationElements() const
     return m_qs->size() * m_resolution->nSamples();
 }
 
+std::vector<double>
+QSpecScan::createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const
+{
+    const size_t axis_size = m_qs->size();
+    std::vector<double> result(axis_size, 0.0);
+
+    auto samples = applyQResolution();
+
+    size_t elem_pos = 0;
+    for (size_t i = 0; i < axis_size; ++i) {
+        double& current = result[i];
+        for (size_t j = 0, size = samples[i].size(); j < size; ++j) {
+            current += sim_elements[elem_pos].getIntensity() * samples[i][j].weight;
+            ++elem_pos;
+        }
+    }
+    return result;
+}
+
 std::string QSpecScan::print() const
 {
     std::stringstream result;

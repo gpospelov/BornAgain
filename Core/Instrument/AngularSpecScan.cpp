@@ -167,6 +167,31 @@ size_t AngularSpecScan::numberOfSimulationElements() const
     return m_inc_angle->size() * m_wl_resolution->nSamples() * m_inc_resolution->nSamples();
 }
 
+std::vector<double>
+AngularSpecScan::createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const
+{
+    const size_t axis_size = m_inc_angle->size();
+    std::vector<double> result(axis_size, 0.0);
+
+    auto wl_weights = extractValues(applyWlResolution(),
+                                    [](const ParameterSample& sample) { return sample.weight; });
+    auto inc_weights = extractValues(applyIncResolution(),
+                                     [](const ParameterSample& sample) { return sample.weight; });
+
+    size_t elem_pos = 0;
+    for (size_t i = 0; i < axis_size; ++i) {
+        double& current = result[i];
+        for (size_t k = 0, size_incs = inc_weights[i].size(); k < size_incs; ++k) {
+            const double inc_weight = inc_weights[i][k];
+            for (size_t j = 0, size_wls = wl_weights[i].size(); j < size_wls; ++j) {
+                current += sim_elements[elem_pos].getIntensity() * inc_weight * wl_weights[i][j];
+                ++elem_pos;
+            }
+        }
+    }
+    return result;
+}
+
 std::string AngularSpecScan::print() const
 {
     std::stringstream result;

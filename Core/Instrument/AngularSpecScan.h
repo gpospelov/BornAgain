@@ -54,6 +54,10 @@ public:
     //! Returns the number of simulation elements
     size_t numberOfSimulationElements() const override;
 
+    //! Returns intensity vector corresponding to convolution of given simulation elements
+    std::vector<double>
+    createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const override;
+
     //! Print scan definition in python format
     std::string print() const override;
 
@@ -89,8 +93,10 @@ private:
     double m_wl;
     std::unique_ptr<IAxis> m_inc_angle;
     std::unique_ptr<IFootprintFactor> m_footprint;
+
     std::unique_ptr<ScanResolution> m_wl_resolution;
     mutable DistrOutput m_wl_res_cache;
+
     std::unique_ptr<ScanResolution> m_inc_resolution;
     mutable DistrOutput m_inc_res_cache;
 };

@@ -111,6 +111,8 @@ std::string QSpecScan::print() const
 void QSpecScan::setQResolution(const ScanResolution& resolution)
 {
     m_resolution.reset(resolution.clone());
+    m_q_res_cache.clear();
+    m_q_res_cache.shrink_to_fit();
     if (m_resolution->empty())
         return;
 
@@ -135,7 +137,7 @@ void QSpecScan::checkInitialization()
 
 std::vector<double> QSpecScan::generateQzVector() const
 {
-    auto samples = m_resolution->generateSamples(m_qs->getBinCenters());
+    auto samples = applyQResolution();
 
     std::vector<double> result;
     result.reserve(numberOfSimulationElements());
@@ -143,4 +145,11 @@ std::vector<double> QSpecScan::generateQzVector() const
         for (size_t j = 0, size_in = samples[i].size(); j < size_in; ++j)
             result.push_back(samples[i][j].value);
     return result;
+}
+
+std::vector<std::vector<ParameterSample> > QSpecScan::applyQResolution() const
+{
+    if (m_q_res_cache.empty())
+        m_q_res_cache = m_resolution->generateSamples(m_qs->getBinCenters());
+    return m_q_res_cache;
 }

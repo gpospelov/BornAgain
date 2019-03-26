@@ -18,6 +18,7 @@
 #include "ISpecularScan.h"
 #include <memory>
 
+class ParameterSample;
 class ScanResolution;
 
 //! Scan type with z-components of scattering vector
@@ -68,8 +69,11 @@ public:
 private:
     void checkInitialization();
     std::vector<double> generateQzVector() const;
+    std::vector<std::vector<ParameterSample>> applyQResolution() const;
+
     std::unique_ptr<IAxis> m_qs;
     std::unique_ptr<ScanResolution> m_resolution;
+    mutable std::vector<std::vector<ParameterSample>> m_q_res_cache;
 };
 
 #endif // QSPECSCAN_H

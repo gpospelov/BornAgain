@@ -153,6 +153,10 @@ SimulationFactory::SimulationFactory()
                  "Simulation implies beam divergence both in wavelength and "
                  "inclination angle.");
 
+    registerItem("SpecularDivergentBeamCopy", StandardSimulations::SpecularDivergentBeamCopy,
+                 "Simulation implies beam divergence both in wavelength and "
+                 "inclination angle.");
+
     registerItem("OffSpecMini", StandardSimulations::MiniOffSpec,
                  "Mini OffSpecular simulation for resonator experiment.");
 

@@ -439,6 +439,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "HomogeneousMultilayerBuilder",
         1e-10);
 
+    add("SpecularDivergentBeamCopy",
+        "Simulates beam divergence both in wavelength and inclination angle",
+        "SpecularDivergentBeamCopy",
+        "HomogeneousMultilayerBuilder",
+        1e-10);
+
     add("SpecularWithSlicing",
         "Compares manual/automatic slicing in a sample with cylinders",
         {"BasicSpecular", "BasicSpecular", "BasicSpecular", "BasicSpecularQ"},

@@ -2,6 +2,7 @@
 #include "ParameterSample.h"
 #include "RangedDistributions.h"
 #include "ScanResolution.h"
+#include <cmath>
 
 class ScanResolutionTest : public ::testing::Test
 {

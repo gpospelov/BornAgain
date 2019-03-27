@@ -114,19 +114,11 @@ def run_simulation():
     return example.run_simulation()
 
 
-def save(result, filename):
-
-    filename += ".ref.int.gz"
-    ba.IntensityDataIOFactory.writeSimulationResult(result, filename)
-
-    print("example_template.py -> Writing results in '{0}'".format(filename))
-
-
 def get_reffile_name(example_name):
     """
     Returns full name of reference file for given basename
     """
-    reffiles = glob.glob(os.path.join(REFERENCE_DIR, example_name+"*"))
+    reffiles = glob.glob(os.path.join(REFERENCE_DIR, example_name+".int.gz"))
     if len(reffiles) != 1:
         print("Can't find reference file in '{0}' for name '{1}'".format(REFERENCE_DIR, example_name))
         print("Possible candidates", reffiles)

@@ -103,11 +103,73 @@ void AngularSpecScan::setWavelengthResolution(const ScanResolution& resolution)
     m_wl_res_cache.shrink_to_fit();
 }
 
+void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution& distr,
+                                                      double rel_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanRelativeResolution(distr, rel_dev));
+    setWavelengthResolution(*resolution);
+}
+
+void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution& distr,
+                                                      const std::vector<double>& rel_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanRelativeResolution(distr, rel_dev));
+    setWavelengthResolution(*resolution);
+}
+
+void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution& distr,
+                                                      double std_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanAbsoluteResolution(distr, std_dev));
+    setWavelengthResolution(*resolution);
+}
+
+void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution& distr,
+                                                      const std::vector<double>& std_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanAbsoluteResolution(distr, std_dev));
+    setWavelengthResolution(*resolution);
+}
+
 void AngularSpecScan::setAngleResolution(const ScanResolution& resolution)
 {
     m_inc_resolution.reset(resolution.clone());
     m_inc_res_cache.clear();
     m_inc_res_cache.shrink_to_fit();
+}
+
+void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, double rel_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanRelativeResolution(distr, rel_dev));
+    setAngleResolution(*resolution);
+}
+
+void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution& distr,
+                                                   const std::vector<double>& rel_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanRelativeResolution(distr, rel_dev));
+    setAngleResolution(*resolution);
+}
+
+void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, double std_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanAbsoluteResolution(distr, std_dev));
+    setAngleResolution(*resolution);
+}
+
+void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution& distr,
+                                                   const std::vector<double>& std_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanAbsoluteResolution(distr, std_dev));
+    setAngleResolution(*resolution);
 }
 
 std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) const

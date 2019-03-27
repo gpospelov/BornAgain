@@ -19,6 +19,7 @@
 #include <memory>
 
 class ParameterSample;
+class RangedDistribution;
 class ScanResolution;
 
 //! Scan type with z-components of scattering vector
@@ -66,9 +67,22 @@ public:
 #endif //SWIG
 
     //! Sets q resolution values via ScanResolution object.
-    //! Limits of the scan resolution will be overriden to
-    //! allow for positive q values only.
     void setQResolution(const ScanResolution& resolution);
+
+    void setRelativeQResolution(const RangedDistribution& distr, double rel_dev);
+    //! Sets qz resolution values via RangedDistribution and values of relative deviations
+    //! (that is, _rel_dev_ equals standard deviation divided by the mean value).
+    //! _rel_dev_ can be either single-valued or a numpy array. In the latter case the length of the
+    //! array should coinside with the length of the qz-axis.
+    void setRelativeQResolution(const RangedDistribution& distr,
+                                const std::vector<double>& rel_dev);
+
+    void setAbsoluteQResolution(const RangedDistribution& distr, double std_dev);
+    //! Sets qz resolution values via RangedDistribution and values of standard deviations.
+    //! _std_dev_ can be either single-valued or a numpy array. In the latter case the length of the
+    //! array should coinside with the length of the qz-axis.
+    void setAbsoluteQResolution(const RangedDistribution& distr,
+                                const std::vector<double>& std_dev);
 
 private:
     void checkInitialization();

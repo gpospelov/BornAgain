@@ -19,6 +19,7 @@
 #include <memory>
 
 class ParameterSample;
+class RangedDistribution;
 class ScanResolution;
 
 //! Scan type with inclination angles as coordinate
@@ -72,14 +73,40 @@ public:
     void setFootprintFactor(const IFootprintFactor* f_factor);
 
     //! Sets wavelength resolution values via ScanResolution object.
-    //! Limits of the scan resolution will be overriden to
-    //! allow for positive wavelength values only.
     void setWavelengthResolution(const ScanResolution& resolution);
 
+    void setRelativeWavelengthResolution(const RangedDistribution& distr, double rel_dev);
+    //! Sets wavelength resolution values via RangedDistribution and values of relative deviations
+    //! (that is, _rel_dev_ equals standard deviation divided by the mean value).
+    //! _rel_dev_ can be either single-valued or a numpy array. In the latter case the length of the
+    //! array should coinside with the length of the inclination angle axis.
+    void setRelativeWavelengthResolution(const RangedDistribution& distr,
+                                         const std::vector<double>& rel_dev);
+
+    void setAbsoluteWavelengthResolution(const RangedDistribution& distr, double std_dev);
+    //! Sets wavelength resolution values via RangedDistribution and values of standard deviations.
+    //! _std_dev_ can be either single-valued or a numpy array. In the latter case the length of the
+    //! array should coinside with the length of the inclination angle axis.
+    void setAbsoluteWavelengthResolution(const RangedDistribution& distr,
+                                         const std::vector<double>& std_dev);
+
     //! Sets angle resolution values via ScanResolution object.
-    //! Limits of the scan resolution will be overriden to
-    //! allow for angular values in range [0; pi/2].
     void setAngleResolution(const ScanResolution& resolution);
+
+    void setRelativeAngularResolution(const RangedDistribution& distr, double rel_dev);
+    //! Sets angular resolution values via RangedDistribution and values of relative deviations
+    //! (that is, _rel_dev_ equals standard deviation divided by the mean value).
+    //! _rel_dev_ can be either single-valued or a numpy array. In the latter case the length of the
+    //! array should coinside with the length of the inclination angle axis.
+    void setRelativeAngularResolution(const RangedDistribution& distr,
+                                      const std::vector<double>& rel_dev);
+
+    void setAbsoluteAngularResolution(const RangedDistribution& distr, double std_dev);
+    //! Sets angular resolution values via RangedDistribution and values of standard deviations.
+    //! _std_dev_ can be either single-valued or a numpy array. In the latter case the length of the
+    //! array should coinside with the length of the inclination angle axis.
+    void setAbsoluteAngularResolution(const RangedDistribution& distr,
+                                         const std::vector<double>& std_dev);
 
 private:
     using WlAnglePair = std::pair<double, double>;

@@ -134,6 +134,36 @@ void QSpecScan::setQResolution(const ScanResolution& resolution)
     m_q_res_cache.shrink_to_fit();
 }
 
+void QSpecScan::setRelativeQResolution(const RangedDistribution& distr, double rel_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanRelativeResolution(distr, rel_dev));
+    setQResolution(*resolution);
+}
+
+void QSpecScan::setRelativeQResolution(const RangedDistribution& distr,
+                                       const std::vector<double>& rel_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanRelativeResolution(distr, rel_dev));
+    setQResolution(*resolution);
+}
+
+void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, double std_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanAbsoluteResolution(distr, std_dev));
+    setQResolution(*resolution);
+}
+
+void QSpecScan::setAbsoluteQResolution(const RangedDistribution& distr,
+                                       const std::vector<double>& std_dev)
+{
+    std::unique_ptr<ScanResolution> resolution(
+        ScanResolution::scanAbsoluteResolution(distr, std_dev));
+    setQResolution(*resolution);
+}
+
 void QSpecScan::checkInitialization()
 {
     std::vector<double> axis_values = m_qs->getBinCenters();

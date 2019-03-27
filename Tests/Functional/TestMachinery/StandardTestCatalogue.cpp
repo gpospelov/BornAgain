@@ -445,6 +445,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "HomogeneousMultilayerBuilder",
         1e-10);
 
+    add("RelativeResolutionTOF",
+        "Simulates q-defined reflectometry with a fixed relative q resolution",
+        "TOFRWithRelativeResolution",
+        "PlainMultiLayerBySLDBuilder",
+        1e-10);
+
     add("SpecularWithSlicing",
         "Compares manual/automatic slicing in a sample with cylinders",
         {"BasicSpecular", "BasicSpecular", "BasicSpecular", "BasicSpecularQ"},
@@ -455,6 +461,12 @@ StandardTestCatalogue::StandardTestCatalogue()
     add("InstrumentDefinitionComparison",
         "Compares specular signal from q-defined, TOF and conventional instrument",
         {"BasicSpecular", "BasicSpecularQ"},
+        {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder"},
+        1e-10);
+
+    add("TOFResolutionComparison",
+        "Compares specular signal from TOF instruments with pointwise and relative resolutions",
+        {"TOFRWithRelativeResolution", "TOFRWithPointwiseResolution"},
         {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder"},
         1e-10);
 

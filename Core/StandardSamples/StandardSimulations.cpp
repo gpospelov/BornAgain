@@ -505,6 +505,36 @@ SpecularSimulation* StandardSimulations::SpecularDivergentBeamCopy()
     return result.release();
 }
 
+SpecularSimulation *StandardSimulations::TOFRWithRelativeResolution()
+{
+    FixedBinAxis qs("axis", 500, 0.0, 1.0);
+    QSpecScan q_scan(qs);
+    q_scan.setRelativeQResolution(RangedDistributionGaussian(20, 2.0), 0.03);
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setScan(q_scan);
+    result->getOptions().setUseAvgMaterials(true);
+    return result.release();
+}
+
+SpecularSimulation *StandardSimulations::TOFRWithPointwiseResolution()
+{
+    FixedBinAxis qs("axis", 500, 0.0, 1.0);
+    QSpecScan q_scan(qs);
+
+    std::vector<double> resolutions;
+    resolutions.reserve(qs.size());
+    auto qs_vector = qs.getBinCenters();
+    std::for_each(qs_vector.begin(), qs_vector.end(),
+                  [&resolutions](double q_val) { resolutions.push_back(0.03 * q_val); });
+    q_scan.setAbsoluteQResolution(RangedDistributionGaussian(20, 2.0), resolutions);
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setScan(q_scan);
+    result->getOptions().setUseAvgMaterials(true);
+    return result.release();
+}
+
 // OffSpec simulation used in ResonatorOffSpecSetup.py
 OffSpecSimulation* StandardSimulations::MiniOffSpec()
 {

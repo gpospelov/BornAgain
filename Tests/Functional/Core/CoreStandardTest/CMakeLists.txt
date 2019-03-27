@@ -74,6 +74,7 @@ set(test_cases
     SquareBeamFootprint
     SpecularDivergentBeam
     SpecularDivergentBeamCopy
+    RelativeResolutionTOF
     OffSpecularResonator
     DepthProbeTest
     )

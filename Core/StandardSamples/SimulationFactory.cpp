@@ -157,6 +157,12 @@ SimulationFactory::SimulationFactory()
                  "Simulation implies beam divergence both in wavelength and "
                  "inclination angle.");
 
+    registerItem("TOFRWithRelativeResolution", StandardSimulations::TOFRWithRelativeResolution,
+                 "Q-defined reflectometric scan with relative resolution");
+
+    registerItem("TOFRWithPointwiseResolution", StandardSimulations::TOFRWithPointwiseResolution,
+                 "Q-defined reflectometric scan with pointwise resolution.");
+
     registerItem("OffSpecMini", StandardSimulations::MiniOffSpec,
                  "Mini OffSpecular simulation for resonator experiment.");
 

@@ -11499,10 +11499,7 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list
-
-        _sym_S2: 
-        true if face has a perpedicular two-fold symmetry axis 
+        oriented vertex list 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -27670,6 +27667,24 @@ class RangedDistributionGate(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionGate, name)
     __repr__ = _swig_repr
 
+    def __init__(self, *args):
+        """
+        __init__(RangedDistributionGate self) -> RangedDistributionGate
+        __init__(RangedDistributionGate self, size_t n_samples, double sigma_factor, RealLimits limits) -> RangedDistributionGate
+        __init__(RangedDistributionGate self, size_t n_samples, double sigma_factor) -> RangedDistributionGate
+        __init__(RangedDistributionGate self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGate
+
+        RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionGate(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
     def clone(self):
         """
         clone(RangedDistributionGate self) -> RangedDistributionGate
@@ -27681,23 +27696,6 @@ class RangedDistributionGate(_object):
 
     __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionGate
     __del__ = lambda self: None
-
-    def __init__(self):
-        """
-        __init__(RangedDistributionGate self) -> RangedDistributionGate
-
-
-
-        Uniform distribution function.
-
-        C++ includes: RangedDistributions.h
-
-        """
-        this = _libBornAgainCore.new_RangedDistributionGate()
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
 RangedDistributionGate_swigregister = _libBornAgainCore.RangedDistributionGate_swigregister
 RangedDistributionGate_swigregister(RangedDistributionGate)
 
@@ -27717,6 +27715,24 @@ class RangedDistributionLorentz(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionLorentz, name)
     __repr__ = _swig_repr
 
+    def __init__(self, *args):
+        """
+        __init__(RangedDistributionLorentz self) -> RangedDistributionLorentz
+        __init__(RangedDistributionLorentz self, size_t n_samples, double hwhm_factor, RealLimits limits) -> RangedDistributionLorentz
+        __init__(RangedDistributionLorentz self, size_t n_samples, double hwhm_factor) -> RangedDistributionLorentz
+        __init__(RangedDistributionLorentz self, size_t n_samples, double hwhm_factor, double min, double max) -> RangedDistributionLorentz
+
+        RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  hwhm_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionLorentz(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
     def clone(self):
         """
         clone(RangedDistributionLorentz self) -> RangedDistributionLorentz
@@ -27728,23 +27744,6 @@ class RangedDistributionLorentz(_object):
 
     __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionLorentz
     __del__ = lambda self: None
-
-    def __init__(self):
-        """
-        __init__(RangedDistributionLorentz self) -> RangedDistributionLorentz
-
-
-
-        Lorentz distribution with median and hwhm.
-
-        C++ includes: RangedDistributions.h
-
-        """
-        this = _libBornAgainCore.new_RangedDistributionLorentz()
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
 RangedDistributionLorentz_swigregister = _libBornAgainCore.RangedDistributionLorentz_swigregister
 RangedDistributionLorentz_swigregister(RangedDistributionLorentz)
 
@@ -27764,6 +27763,24 @@ class RangedDistributionGaussian(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionGaussian, name)
     __repr__ = _swig_repr
 
+    def __init__(self, *args):
+        """
+        __init__(RangedDistributionGaussian self) -> RangedDistributionGaussian
+        __init__(RangedDistributionGaussian self, size_t n_samples, double sigma_factor, RealLimits limits) -> RangedDistributionGaussian
+        __init__(RangedDistributionGaussian self, size_t n_samples, double sigma_factor) -> RangedDistributionGaussian
+        __init__(RangedDistributionGaussian self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionGaussian
+
+        RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionGaussian(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
     def clone(self):
         """
         clone(RangedDistributionGaussian self) -> RangedDistributionGaussian
@@ -27775,23 +27792,6 @@ class RangedDistributionGaussian(_object):
 
     __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionGaussian
     __del__ = lambda self: None
-
-    def __init__(self):
-        """
-        __init__(RangedDistributionGaussian self) -> RangedDistributionGaussian
-
-
-
-        Gaussian distribution with standard deviation std_dev.
-
-        C++ includes: RangedDistributions.h
-
-        """
-        this = _libBornAgainCore.new_RangedDistributionGaussian()
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
 RangedDistributionGaussian_swigregister = _libBornAgainCore.RangedDistributionGaussian_swigregister
 RangedDistributionGaussian_swigregister(RangedDistributionGaussian)
 
@@ -27811,6 +27811,24 @@ class RangedDistributionLogNormal(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionLogNormal, name)
     __repr__ = _swig_repr
 
+    def __init__(self, *args):
+        """
+        __init__(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
+        __init__(RangedDistributionLogNormal self, size_t n_samples, double sigma_factor, RealLimits limits) -> RangedDistributionLogNormal
+        __init__(RangedDistributionLogNormal self, size_t n_samples, double sigma_factor) -> RangedDistributionLogNormal
+        __init__(RangedDistributionLogNormal self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionLogNormal
+
+        RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionLogNormal(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
     def clone(self):
         """
         clone(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
@@ -27822,23 +27840,6 @@ class RangedDistributionLogNormal(_object):
 
     __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionLogNormal
     __del__ = lambda self: None
-
-    def __init__(self):
-        """
-        __init__(RangedDistributionLogNormal self) -> RangedDistributionLogNormal
-
-
-
-        Log-normal distribution.
-
-        C++ includes: RangedDistributions.h
-
-        """
-        this = _libBornAgainCore.new_RangedDistributionLogNormal()
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
 RangedDistributionLogNormal_swigregister = _libBornAgainCore.RangedDistributionLogNormal_swigregister
 RangedDistributionLogNormal_swigregister(RangedDistributionLogNormal)
 
@@ -27858,6 +27859,24 @@ class RangedDistributionCosine(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, RangedDistributionCosine, name)
     __repr__ = _swig_repr
 
+    def __init__(self, *args):
+        """
+        __init__(RangedDistributionCosine self) -> RangedDistributionCosine
+        __init__(RangedDistributionCosine self, size_t n_samples, double sigma_factor, RealLimits limits) -> RangedDistributionCosine
+        __init__(RangedDistributionCosine self, size_t n_samples, double sigma_factor) -> RangedDistributionCosine
+        __init__(RangedDistributionCosine self, size_t n_samples, double sigma_factor, double min, double max) -> RangedDistributionCosine
+
+        RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max)
+
+        Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+
+        """
+        this = _libBornAgainCore.new_RangedDistributionCosine(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
     def clone(self):
         """
         clone(RangedDistributionCosine self) -> RangedDistributionCosine
@@ -27869,23 +27888,6 @@ class RangedDistributionCosine(_object):
 
     __swig_destroy__ = _libBornAgainCore.delete_RangedDistributionCosine
     __del__ = lambda self: None
-
-    def __init__(self):
-        """
-        __init__(RangedDistributionCosine self) -> RangedDistributionCosine
-
-
-
-        Cosine distribution.
-
-        C++ includes: RangedDistributions.h
-
-        """
-        this = _libBornAgainCore.new_RangedDistributionCosine()
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
 RangedDistributionCosine_swigregister = _libBornAgainCore.RangedDistributionCosine_swigregister
 RangedDistributionCosine_swigregister(RangedDistributionCosine)
 
@@ -28736,112 +28738,6 @@ class DepthProbeSimulation(Simulation):
 DepthProbeSimulation_swigregister = _libBornAgainCore.DepthProbeSimulation_swigregister
 DepthProbeSimulation_swigregister(DepthProbeSimulation)
 
-class AngularSpecScan(_object):
-    """
-
-
-    Scan type with inclination angles as coordinate values. Features footprint correction.
-
-    C++ includes: SpecularScan.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, AngularSpecScan, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, AngularSpecScan, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
-        __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
-        __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
-
-        AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
-
-        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
-
-        """
-        this = _libBornAgainCore.new_AngularSpecScan(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_AngularSpecScan
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(AngularSpecScan self) -> AngularSpecScan
-
-        AngularSpecScan * AngularSpecScan::clone() const override
-
-        """
-        return _libBornAgainCore.AngularSpecScan_clone(self)
-
-
-    def setFootprintFactor(self, f_factor):
-        """
-        setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)
-
-        void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
-
-        Sets footprint correction factor. 
-
-        """
-        return _libBornAgainCore.AngularSpecScan_setFootprintFactor(self, f_factor)
-
-AngularSpecScan_swigregister = _libBornAgainCore.AngularSpecScan_swigregister
-AngularSpecScan_swigregister(AngularSpecScan)
-
-class QSpecScan(_object):
-    """
-
-
-    Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
-
-    C++ includes: SpecularScan.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, QSpecScan, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, QSpecScan, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
-        __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
-        __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
-
-        QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
-
-        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
-
-        """
-        this = _libBornAgainCore.new_QSpecScan(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_QSpecScan
-    __del__ = lambda self: None
-
-    def clone(self):
-        """
-        clone(QSpecScan self) -> QSpecScan
-
-        QSpecScan * QSpecScan::clone() const override
-
-        """
-        return _libBornAgainCore.QSpecScan_clone(self)
-
-QSpecScan_swigregister = _libBornAgainCore.QSpecScan_swigregister
-QSpecScan_swigregister(QSpecScan)
-
 class SpecularSimulation(Simulation):
     """
 
@@ -29545,6 +29441,311 @@ def FindPeaks(*args):
 
     """
     return _libBornAgainCore.FindPeaks(*args)
+class ScanResolution(ICloneable):
+    """
+
+
+    Container for reflectivity resolution data.
+
+    C++ includes: ScanResolution.h
+
+    """
+
+    __swig_setmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ScanResolution, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ICloneable]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, ScanResolution, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_ScanResolution
+    __del__ = lambda self: None
+
+    def scanRelativeResolution(*args):
+        """
+        scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+        scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        """
+        return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
+
+    scanRelativeResolution = staticmethod(scanRelativeResolution)
+
+    def scanAbsoluteResolution(*args):
+        """
+        scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+        scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        """
+        return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
+
+    scanAbsoluteResolution = staticmethod(scanAbsoluteResolution)
+ScanResolution_swigregister = _libBornAgainCore.ScanResolution_swigregister
+ScanResolution_swigregister(ScanResolution)
+
+def ScanResolution_scanRelativeResolution(*args):
+    """
+    scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    """
+    return _libBornAgainCore.ScanResolution_scanRelativeResolution(*args)
+
+def ScanResolution_scanAbsoluteResolution(*args):
+    """
+    scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    """
+    return _libBornAgainCore.ScanResolution_scanAbsoluteResolution(*args)
+
+class AngularSpecScan(_object):
+    """
+
+
+    Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
+
+    C++ includes: AngularSpecScan.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AngularSpecScan, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, AngularSpecScan, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(AngularSpecScan self, double wl, vdouble1d_t inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, IAxis inc_angle) -> AngularSpecScan
+        __init__(AngularSpecScan self, double wl, int nbins, double alpha_i_min, double alpha_i_max) -> AngularSpecScan
+
+        AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+
+        Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+
+        """
+        this = _libBornAgainCore.new_AngularSpecScan(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_AngularSpecScan
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(AngularSpecScan self) -> AngularSpecScan
+
+        AngularSpecScan * AngularSpecScan::clone() const override
+
+        """
+        return _libBornAgainCore.AngularSpecScan_clone(self)
+
+
+    def setFootprintFactor(self, f_factor):
+        """
+        setFootprintFactor(AngularSpecScan self, IFootprintFactor f_factor)
+
+        void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
+
+        Sets footprint correction factor. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setFootprintFactor(self, f_factor)
+
+
+    def setWavelengthResolution(self, resolution):
+        """
+        setWavelengthResolution(AngularSpecScan self, ScanResolution resolution)
+
+        void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
+
+        Sets wavelength resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setWavelengthResolution(self, resolution)
+
+
+    def setRelativeWavelengthResolution(self, *args):
+        """
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+
+        void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets wavelength resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setRelativeWavelengthResolution(self, *args)
+
+
+    def setAbsoluteWavelengthResolution(self, *args):
+        """
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+
+        void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets wavelength resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAbsoluteWavelengthResolution(self, *args)
+
+
+    def setAngleResolution(self, resolution):
+        """
+        setAngleResolution(AngularSpecScan self, ScanResolution resolution)
+
+        void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
+
+        Sets angle resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAngleResolution(self, resolution)
+
+
+    def setRelativeAngularResolution(self, *args):
+        """
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+
+        void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets angular resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setRelativeAngularResolution(self, *args)
+
+
+    def setAbsoluteAngularResolution(self, *args):
+        """
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+
+        void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets angular resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+
+        """
+        return _libBornAgainCore.AngularSpecScan_setAbsoluteAngularResolution(self, *args)
+
+AngularSpecScan_swigregister = _libBornAgainCore.AngularSpecScan_swigregister
+AngularSpecScan_swigregister(AngularSpecScan)
+
+class QSpecScan(_object):
+    """
+
+
+    Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
+
+    C++ includes: QSpecScan.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, QSpecScan, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, QSpecScan, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(QSpecScan self, vdouble1d_t qs_nm) -> QSpecScan
+        __init__(QSpecScan self, IAxis qs_nm) -> QSpecScan
+        __init__(QSpecScan self, int nbins, double qz_min, double qz_max) -> QSpecScan
+
+        QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
+
+        Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+
+        """
+        this = _libBornAgainCore.new_QSpecScan(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libBornAgainCore.delete_QSpecScan
+    __del__ = lambda self: None
+
+    def clone(self):
+        """
+        clone(QSpecScan self) -> QSpecScan
+
+        QSpecScan * QSpecScan::clone() const override
+
+        """
+        return _libBornAgainCore.QSpecScan_clone(self)
+
+
+    def setQResolution(self, resolution):
+        """
+        setQResolution(QSpecScan self, ScanResolution resolution)
+
+        void QSpecScan::setQResolution(const ScanResolution &resolution)
+
+        Sets q resolution values via  ScanResolution object. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setQResolution(self, resolution)
+
+
+    def setRelativeQResolution(self, *args):
+        """
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, double rel_dev)
+        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
+
+        void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+        Sets qz resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setRelativeQResolution(self, *args)
+
+
+    def setAbsoluteQResolution(self, *args):
+        """
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, double std_dev)
+        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
+
+        void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+        Sets qz resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+
+        """
+        return _libBornAgainCore.QSpecScan_setAbsoluteQResolution(self, *args)
+
+QSpecScan_swigregister = _libBornAgainCore.QSpecScan_swigregister
+QSpecScan_swigregister(QSpecScan)
+
+
+def ScanRelativeResolution(distribution, rel_dev):
+    """
+    Creates a scan resolution from the given distribution and
+    relative deviation values (that is, the ratios of standard
+    deviations and means).
+    :param distribution: bornagain.RangedDistribution object
+    :param rel_dev: either single-valued or a numpy array.
+                    In the latter case should coinside in
+                    size with later used mean values array.
+    :return: bornagain.ScanResolution object
+    """
+    return ScanResolution_scanRelativeResolution(distribution, rel_dev)
+
+def ScanAbsoluteResolution(distribution, std_dev):
+    """
+    Creates a scan resolution from the given distribution and
+    standard deviation values.
+    :param distribution: bornagain.RangedDistribution object
+    :param std_dev: either single-valued or a numpy array.
+                    In the latter case should coinside in
+                    size with later used mean values array.
+    :return: bornagain.ScanResolution object
+    """
+    return ScanResolution_scanAbsoluteResolution(distribution, std_dev)
+
 
 class ParameterPoolIterator(object):
 

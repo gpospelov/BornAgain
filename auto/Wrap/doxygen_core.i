@@ -4,9 +4,9 @@
 // File: classAngularSpecScan.xml
 %feature("docstring") AngularSpecScan "
 
-Scan type with inclination angles as coordinate values. Features footprint correction.
+Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
 
-C++ includes: SpecularScan.h
+C++ includes: AngularSpecScan.h
 ";
 
 %feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, std::vector< double > inc_angle)
@@ -41,14 +41,19 @@ Returns coordinate axis assigned to the data holder.
 Returns  IFootprintFactor object pointer. 
 ";
 
-%feature("docstring")  AngularSpecScan::footprint "double AngularSpecScan::footprint(size_t i) const override
+%feature("docstring")  AngularSpecScan::footprint "std::vector< double > AngularSpecScan::footprint(size_t i, size_t n_elements) const override
 
-Returns footprint correction factor for simulation element with index  i
+Returns footprint correction factor for a range of simulation elements of size  n_elements and starting from element with index  i. 
 ";
 
 %feature("docstring")  AngularSpecScan::numberOfSimulationElements "size_t AngularSpecScan::numberOfSimulationElements() const override
 
 Returns the number of simulation elements. 
+";
+
+%feature("docstring")  AngularSpecScan::createIntensities "std::vector< double > AngularSpecScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const override
+
+Returns intensity vector corresponding to convolution of given simulation elements. 
 ";
 
 %feature("docstring")  AngularSpecScan::print "std::string AngularSpecScan::print() const override
@@ -59,9 +64,57 @@ Print scan definition in python format.
 %feature("docstring")  AngularSpecScan::wavelength "double AngularSpecScan::wavelength() const
 ";
 
+%feature("docstring")  AngularSpecScan::wavelengthResolution "const ScanResolution* AngularSpecScan::wavelengthResolution() const
+";
+
+%feature("docstring")  AngularSpecScan::angleResolution "const ScanResolution* AngularSpecScan::angleResolution() const
+";
+
 %feature("docstring")  AngularSpecScan::setFootprintFactor "void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
 
 Sets footprint correction factor. 
+";
+
+%feature("docstring")  AngularSpecScan::setWavelengthResolution "void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
+
+Sets wavelength resolution values via  ScanResolution object. 
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, double rel_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+Sets wavelength resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, double std_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+Sets wavelength resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+%feature("docstring")  AngularSpecScan::setAngleResolution "void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
+
+Sets angle resolution values via  ScanResolution object. 
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, double rel_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+Sets angular resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, double std_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+Sets angular resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 ";
 
 
@@ -697,21 +750,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -9933,7 +9986,7 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 
 Base abstract class for all types of specular scans.
 
-C++ includes: SpecularScan.h
+C++ includes: ISpecularScan.h
 ";
 
 %feature("docstring")  ISpecularScan::ISpecularScan "ISpecularScan::ISpecularScan(SPECULAR_DATA_TYPE data_type)
@@ -9960,14 +10013,19 @@ Returns coordinate axis assigned to the data holder.
 Returns  IFootprintFactor object pointer. 
 ";
 
-%feature("docstring")  ISpecularScan::footprint "virtual double ISpecularScan::footprint(size_t i) const =0
+%feature("docstring")  ISpecularScan::footprint "virtual std::vector<double> ISpecularScan::footprint(size_t i, size_t n_elements) const =0
 
-Returns footprint correction factor for simulation element with index  i
+Returns footprint correction factor for a range of simulation elements of size  n_elements and starting from element with index  i. 
 ";
 
 %feature("docstring")  ISpecularScan::numberOfSimulationElements "virtual size_t ISpecularScan::numberOfSimulationElements() const =0
 
 Returns the number of simulation elements. 
+";
+
+%feature("docstring")  ISpecularScan::createIntensities "virtual std::vector<double> ISpecularScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const =0
+
+Returns intensity vector corresponding to convolution of given simulation elements. 
 ";
 
 %feature("docstring")  ISpecularScan::print "virtual std::string ISpecularScan::print() const =0
@@ -10079,7 +10137,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -12901,10 +12959,7 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list
-
-_sym_S2: 
-true if face has a perpedicular two-fold symmetry axis 
+oriented vertex list 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
@@ -13091,7 +13146,7 @@ C++ includes: PyFittingCallbacks.h
 
 Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
 
-C++ includes: SpecularScan.h
+C++ includes: QSpecScan.h
 ";
 
 %feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(std::vector< double > qs_nm)
@@ -13128,9 +13183,9 @@ Returns coordinate axis assigned to the data holder.
 Returns  IFootprintFactor object pointer. 
 ";
 
-%feature("docstring")  QSpecScan::footprint "double QSpecScan::footprint(size_t i) const override
+%feature("docstring")  QSpecScan::footprint "std::vector< double > QSpecScan::footprint(size_t i, size_t n_elements) const override
 
-Returns footprint correction factor for simulation element with index  i
+Returns footprint correction factor for a range of simulation elements of size  n_elements and starting from element with index  i. 
 ";
 
 %feature("docstring")  QSpecScan::numberOfSimulationElements "size_t QSpecScan::numberOfSimulationElements() const override
@@ -13138,9 +13193,35 @@ Returns footprint correction factor for simulation element with index  i
 Returns the number of simulation elements. 
 ";
 
+%feature("docstring")  QSpecScan::createIntensities "std::vector< double > QSpecScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const override
+
+Returns intensity vector corresponding to convolution of given simulation elements. 
+";
+
 %feature("docstring")  QSpecScan::print "std::string QSpecScan::print() const override
 
 Print scan definition in python format. 
+";
+
+%feature("docstring")  QSpecScan::setQResolution "void QSpecScan::setQResolution(const ScanResolution &resolution)
+
+Sets q resolution values via  ScanResolution object. 
+";
+
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, double rel_dev)
+";
+
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+Sets qz resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+";
+
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, double std_dev)
+";
+
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+Sets qz resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
 ";
 
 
@@ -13175,7 +13256,7 @@ C++ includes: RangedDistributions.h
 
 %feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
 
-Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
 ";
 
 %feature("docstring")  RangedDistribution::clone "RangedDistribution* RangedDistribution::clone() const override=0
@@ -13184,12 +13265,12 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 %feature("docstring")  RangedDistribution::~RangedDistribution "RangedDistribution::~RangedDistribution() override
 ";
 
-%feature("docstring")  RangedDistribution::generateSamples "std::vector< ParameterSample > RangedDistribution::generateSamples(double mean, double variance) const
+%feature("docstring")  RangedDistribution::generateSamples "std::vector< ParameterSample > RangedDistribution::generateSamples(double mean, double stddev) const
 ";
 
-%feature("docstring")  RangedDistribution::generateSamples "std::vector< std::vector< ParameterSample > > RangedDistribution::generateSamples(std::vector< double > mean, std::vector< double > variance) const
+%feature("docstring")  RangedDistribution::generateSamples "std::vector< std::vector< ParameterSample > > RangedDistribution::generateSamples(const std::vector< double > &mean, const std::vector< double > &stddev) const
 
-Generates list of sampled values with their weights from given means and variances. 
+Generates list of sampled values with their weights from given means and standard deviations. 
 ";
 
 %feature("docstring")  RangedDistribution::distribution "std::unique_ptr< IDistribution1D > RangedDistribution::distribution(double mean, double stddev) const
@@ -13212,6 +13293,14 @@ Returns sigma factor to use during sampling.
 Returns number of samples to generate. 
 ";
 
+%feature("docstring")  RangedDistribution::setLimits "void RangedDistribution::setLimits(const RealLimits &limits)
+";
+
+%feature("docstring")  RangedDistribution::print "std::string RangedDistribution::print() const
+
+Prints python-formatted definition of the distribution. 
+";
+
 
 // File: classRangedDistributionCosine.xml
 %feature("docstring") RangedDistributionCosine "
@@ -13221,21 +13310,21 @@ Cosine distribution.
 C++ includes: RangedDistributions.h
 ";
 
+%feature("docstring")  RangedDistributionCosine::RangedDistributionCosine "RangedDistributionCosine::RangedDistributionCosine()
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistributionCosine "RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistributionCosine "RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
 %feature("docstring")  RangedDistributionCosine::clone "RangedDistributionCosine * RangedDistributionCosine::clone() const override
 ";
 
 %feature("docstring")  RangedDistributionCosine::~RangedDistributionCosine "RangedDistributionCosine::~RangedDistributionCosine() override=default
-";
-
-%feature("docstring")  RangedDistributionCosine::RangedDistribution "RangedDistribution::RangedDistribution()
-";
-
-%feature("docstring")  RangedDistributionCosine::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
-";
-
-%feature("docstring")  RangedDistributionCosine::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
-
-Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
 ";
 
 
@@ -13247,21 +13336,21 @@ Uniform distribution function.
 C++ includes: RangedDistributions.h
 ";
 
+%feature("docstring")  RangedDistributionGate::RangedDistributionGate "RangedDistributionGate::RangedDistributionGate()
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistributionGate "RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistributionGate "RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
 %feature("docstring")  RangedDistributionGate::clone "RangedDistributionGate * RangedDistributionGate::clone() const override
 ";
 
 %feature("docstring")  RangedDistributionGate::~RangedDistributionGate "RangedDistributionGate::~RangedDistributionGate() override=default
-";
-
-%feature("docstring")  RangedDistributionGate::RangedDistribution "RangedDistribution::RangedDistribution()
-";
-
-%feature("docstring")  RangedDistributionGate::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
-";
-
-%feature("docstring")  RangedDistributionGate::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
-
-Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
 ";
 
 
@@ -13273,21 +13362,21 @@ Gaussian distribution with standard deviation std_dev.
 C++ includes: RangedDistributions.h
 ";
 
+%feature("docstring")  RangedDistributionGaussian::RangedDistributionGaussian "RangedDistributionGaussian::RangedDistributionGaussian()
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistributionGaussian "RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistributionGaussian "RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
 %feature("docstring")  RangedDistributionGaussian::clone "RangedDistributionGaussian * RangedDistributionGaussian::clone() const override
 ";
 
 %feature("docstring")  RangedDistributionGaussian::~RangedDistributionGaussian "RangedDistributionGaussian::~RangedDistributionGaussian() override=default
-";
-
-%feature("docstring")  RangedDistributionGaussian::RangedDistribution "RangedDistribution::RangedDistribution()
-";
-
-%feature("docstring")  RangedDistributionGaussian::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
-";
-
-%feature("docstring")  RangedDistributionGaussian::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
-
-Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
 ";
 
 
@@ -13299,21 +13388,21 @@ Log-normal distribution.
 C++ includes: RangedDistributions.h
 ";
 
+%feature("docstring")  RangedDistributionLogNormal::RangedDistributionLogNormal "RangedDistributionLogNormal::RangedDistributionLogNormal()
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistributionLogNormal "RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistributionLogNormal "RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
 %feature("docstring")  RangedDistributionLogNormal::clone "RangedDistributionLogNormal * RangedDistributionLogNormal::clone() const override
 ";
 
 %feature("docstring")  RangedDistributionLogNormal::~RangedDistributionLogNormal "RangedDistributionLogNormal::~RangedDistributionLogNormal() override=default
-";
-
-%feature("docstring")  RangedDistributionLogNormal::RangedDistribution "RangedDistribution::RangedDistribution()
-";
-
-%feature("docstring")  RangedDistributionLogNormal::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
-";
-
-%feature("docstring")  RangedDistributionLogNormal::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
-
-Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
 ";
 
 
@@ -13325,21 +13414,21 @@ Lorentz distribution with median and hwhm.
 C++ includes: RangedDistributions.h
 ";
 
+%feature("docstring")  RangedDistributionLorentz::RangedDistributionLorentz "RangedDistributionLorentz::RangedDistributionLorentz()
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistributionLorentz "RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistributionLorentz "RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  hwhm_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
 %feature("docstring")  RangedDistributionLorentz::clone "RangedDistributionLorentz * RangedDistributionLorentz::clone() const override
 ";
 
 %feature("docstring")  RangedDistributionLorentz::~RangedDistributionLorentz "RangedDistributionLorentz::~RangedDistributionLorentz() override=default
-";
-
-%feature("docstring")  RangedDistributionLorentz::RangedDistribution "RangedDistribution::RangedDistribution()
-";
-
-%feature("docstring")  RangedDistributionLorentz::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
-";
-
-%feature("docstring")  RangedDistributionLorentz::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
-
-Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max values for such an object). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
 ";
 
 
@@ -14436,6 +14525,41 @@ Scalar value getters; these throw errors by default as they should only be used 
 ";
 
 %feature("docstring")  ScalarRTCoefficients::getScalarKz "virtual complex_t ScalarRTCoefficients::getScalarKz() const
+";
+
+
+// File: classScanResolution.xml
+%feature("docstring") ScanResolution "
+
+Container for reflectivity resolution data.
+
+C++ includes: ScanResolution.h
+";
+
+%feature("docstring")  ScanResolution::~ScanResolution "ScanResolution::~ScanResolution() override
+";
+
+%feature("docstring")  ScanResolution::clone "ScanResolution* ScanResolution::clone() const override=0
+";
+
+%feature("docstring")  ScanResolution::distribution "const RangedDistribution* ScanResolution::distribution() const
+";
+
+%feature("docstring")  ScanResolution::nSamples "size_t ScanResolution::nSamples() const
+";
+
+%feature("docstring")  ScanResolution::generateSamples "virtual DistrOutput ScanResolution::generateSamples(double mean, size_t n_times) const =0
+";
+
+%feature("docstring")  ScanResolution::generateSamples "virtual DistrOutput ScanResolution::generateSamples(const std::vector< double > &mean) const =0
+";
+
+%feature("docstring")  ScanResolution::empty "bool ScanResolution::empty() const
+";
+
+%feature("docstring")  ScanResolution::print "std::string ScanResolution::print() const
+
+Prints object definition in python format. 
 ";
 
 
@@ -16262,10 +16386,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -16331,100 +16455,106 @@ C++ includes: ZLimits.h
 // File: namespace_0D230.xml
 
 
-// File: namespace_0D295.xml
+// File: namespace_0D234.xml
 
 
-// File: namespace_0D299.xml
+// File: namespace_0D293.xml
 
 
-// File: namespace_0D311.xml
+// File: namespace_0D301.xml
 
 
-// File: namespace_0D317.xml
+// File: namespace_0D305.xml
+
+
+// File: namespace_0D307.xml
+
+
+// File: namespace_0D319.xml
 
 
 // File: namespace_0D32.xml
 
 
-// File: namespace_0D338.xml
-
-
-// File: namespace_0D342.xml
-
-
-// File: namespace_0D344.xml
+// File: namespace_0D325.xml
 
 
 // File: namespace_0D346.xml
 
 
-// File: namespace_0D356.xml
+// File: namespace_0D350.xml
 
 
-// File: namespace_0D371.xml
+// File: namespace_0D352.xml
 
 
-// File: namespace_0D375.xml
+// File: namespace_0D354.xml
+
+
+// File: namespace_0D364.xml
+
+
+// File: namespace_0D379.xml
 
 
 // File: namespace_0D383.xml
 
 
-// File: namespace_0D394.xml
-
-
-// File: namespace_0D396.xml
+// File: namespace_0D391.xml
 
 
 // File: namespace_0D40.xml
 
 
+// File: namespace_0D402.xml
+
+
 // File: namespace_0D404.xml
 
 
-// File: namespace_0D417.xml
+// File: namespace_0D412.xml
 
 
 // File: namespace_0D42.xml
 
 
-// File: namespace_0D426.xml
+// File: namespace_0D425.xml
 
 
-// File: namespace_0D428.xml
+// File: namespace_0D434.xml
 
 
-// File: namespace_0D462.xml
+// File: namespace_0D436.xml
 
 
-// File: namespace_0D469.xml
+// File: namespace_0D470.xml
 
 
-// File: namespace_0D507.xml
+// File: namespace_0D477.xml
 
 
 // File: namespace_0D515.xml
 
 
-// File: namespace_0D517.xml
+// File: namespace_0D523.xml
 
 
-// File: namespace_0D519.xml
+// File: namespace_0D525.xml
 
 
-// File: namespace_0D521.xml
+// File: namespace_0D527.xml
 
 
 // File: namespace_0D6.xml
 
 
-// File: namespace_0D603.xml
+// File: namespace_0D609.xml
 
 
-// File: namespace_0D607.xml
+// File: namespace_0D613.xml
 
 
-// File: namespace_0D629.xml
+// File: namespace_0D635.xml
 
 
 // File: namespace_0D98.xml
@@ -16846,7 +16976,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -17356,6 +17486,15 @@ Simulation with fitting.  Beam intensity set to provide reasonably large values 
 ";
 
 %feature("docstring")  StandardSimulations::SpecularDivergentBeam "SpecularSimulation * StandardSimulations::SpecularDivergentBeam()
+";
+
+%feature("docstring")  StandardSimulations::SpecularDivergentBeamCopy "SpecularSimulation * StandardSimulations::SpecularDivergentBeamCopy()
+";
+
+%feature("docstring")  StandardSimulations::TOFRWithRelativeResolution "SpecularSimulation * StandardSimulations::TOFRWithRelativeResolution()
+";
+
+%feature("docstring")  StandardSimulations::TOFRWithPointwiseResolution "SpecularSimulation * StandardSimulations::TOFRWithPointwiseResolution()
 ";
 
 %feature("docstring")  StandardSimulations::MiniOffSpec "OffSpecSimulation * StandardSimulations::MiniOffSpec()
@@ -18136,6 +18275,12 @@ global helper function for comparison of axes
 // File: TiffHandler_8h.xml
 
 
+// File: AngularSpecScan_8cpp.xml
+
+
+// File: AngularSpecScan_8h.xml
+
+
 // File: ArrayUtils_8cpp.xml
 
 
@@ -18274,6 +18419,12 @@ global helper function for comparison of axes
 // File: IsGISAXSDetector_8h.xml
 
 
+// File: ISpecularScan_8cpp.xml
+
+
+// File: ISpecularScan_8h.xml
+
+
 // File: IUnitConverter_8cpp.xml
 
 
@@ -18307,6 +18458,12 @@ make Swappable
 // File: PyArrayImportUtils_8h.xml
 
 
+// File: QSpecScan_8cpp.xml
+
+
+// File: QSpecScan_8h.xml
+
+
 // File: RectangularDetector_8cpp.xml
 
 
@@ -18335,6 +18492,12 @@ make Swappable
 
 
 // File: SampleProvider_8h.xml
+
+
+// File: ScanResolution_8cpp.xml
+
+
+// File: ScanResolution_8h.xml
 
 
 // File: SimpleUnitConverters_8cpp.xml
@@ -19163,12 +19326,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: Simulation2D_8h.xml
-
-
-// File: SpecularScan_8cpp.xml
-
-
-// File: SpecularScan_8h.xml
 
 
 // File: SpecularSimulation_8cpp.xml

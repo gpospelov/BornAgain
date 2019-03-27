@@ -285,15 +285,18 @@ std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_hand
 {
     if (data_handler.dataType() != ISpecularScan::angle)
         throw std::runtime_error("Error in mangledDataHandler: invalid usage");
+    auto& scan = static_cast<const AngularSpecScan&>(data_handler);
 
     const double wl = beam.getWavelength();
     const double angle_shift = beam.getAlpha();
-    std::vector<double> angles = data_handler.coordinateAxis()->getBinCenters();
+    std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
     for (auto& val : angles)
         val += angle_shift;
     auto result =
         std::make_unique<AngularSpecScan>(wl, PointwiseAxis("alpha_i", std::move(angles)));
-    result->setFootprintFactor(data_handler.footprintFactor());
+    result->setFootprintFactor(scan.footprintFactor());
+    result->setWavelengthResolution(*scan.wavelengthResolution());
+    result->setAngleResolution(*scan.angleResolution());
     return std::move(result);
 }
 }

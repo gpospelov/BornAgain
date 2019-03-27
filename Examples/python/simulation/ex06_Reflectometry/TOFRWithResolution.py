@@ -4,6 +4,8 @@ for time of flight experiment. In this example
 we will use purely qz-defined beam,
 without explicitly specifying
 incident angle or a wavelength.
+Additionally we will set pointwise resolution
+to the scan.
 Note that these approaches work with SLD-based
 materials only.
 """
@@ -46,9 +48,18 @@ def get_simulation(scan_size=500):
     with a qz-defined beam
     """
     qzs = np.linspace(0.01, 1.0, scan_size)  # qz-values
+    dq = 0.03 * qzs
+    n_sig = 2.0
+    n_samples = 25
+
+    distr = ba.RangedDistributionGaussian(n_samples, n_sig)
+
     scan = ba.QSpecScan(qzs)
+    scan.setAbsoluteQResolution(distr, dq)
+
     simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
+
     return simulation
 
 

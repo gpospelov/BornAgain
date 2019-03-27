@@ -60,6 +60,7 @@ test_example("simulation/ex06_Reflectometry/BasicSpecularSimulation" 2e-10)
 test_example("simulation/ex06_Reflectometry/BeamAngularDivergence" 2e-10)
 test_example("simulation/ex06_Reflectometry/BeamAngularDivergence_copy" 2e-10)
 test_example("simulation/ex06_Reflectometry/BeamFullDivergence" 2e-10)
+test_example("simulation/ex06_Reflectometry/BeamFullDivergence_copy" 2e-10)
 test_example("simulation/ex06_Reflectometry/TimeOfFlightReflectometry" 2e-10)
 
 test_example("simulation/ex07_Miscellaneous/CylindersInAverageLayer" 2e-10)

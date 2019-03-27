@@ -70,6 +70,34 @@
     %}
  };
 
+// fancy names for ScanResolution static functions
+%pythoncode %{
+    def ScanRelativeResolution(distribution, rel_dev):
+        """
+        Creates a scan resolution from the given distribution and
+        relative deviation values (that is, the ratios of standard
+        deviations and means).
+        :param distribution: bornagain.RangedDistribution object
+        :param rel_dev: either single-valued or a numpy array.
+                        In the latter case should coinside in
+                        size with later used mean values array.
+        :return: bornagain.ScanResolution object
+        """
+        return ScanResolution_scanRelativeResolution(distribution, rel_dev)
+
+    def ScanAbsoluteResolution(distribution, std_dev):
+        """
+        Creates a scan resolution from the given distribution and
+        standard deviation values.
+        :param distribution: bornagain.RangedDistribution object
+        :param std_dev: either single-valued or a numpy array.
+                        In the latter case should coinside in
+                        size with later used mean values array.
+        :return: bornagain.ScanResolution object
+        """
+        return ScanResolution_scanAbsoluteResolution(distribution, std_dev)
+%}
+
 // --- ParameterPool accessors -------------------------------------------------------------------
 
 %pythoncode %{

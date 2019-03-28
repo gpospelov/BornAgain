@@ -13,11 +13,13 @@
 // ************************************************************************** //
 
 #include "SpecularSimulation.h"
+#include "AngularSpecScan.h"
 #include "Distributions.h"
 #include "Histogram1D.h"
 #include "IBackground.h"
 #include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
+#include "ISpecularScan.h"
 #include "MathConstants.h"
 #include "MultiLayer.h"
 #include "MaterialUtils.h"
@@ -25,7 +27,6 @@
 #include "PointwiseAxis.h"
 #include "RealParameter.h"
 #include "SpecularComputation.h"
-#include "SpecularScan.h"
 #include "SpecularDetector1D.h"
 #include "SpecularSimulationElement.h"
 #include "UnitConverter1D.h"
@@ -201,22 +202,17 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     if (beam_intensity == 0.0)
         return; // no normalization when beam intensity is zero
 
-    if (!m_data_handler->footprintFactor()) {
-        for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
-            auto& element = m_sim_elements[i];
-            element.setIntensity(element.getIntensity() * beam_intensity);
-        }
-        return;
-    }
-
+    std::vector<double> footprints;
     // TODO: use just m_data_handler when pointwise resolution is implemented
-    std::unique_ptr<ISpecularScan> data_handler(m_data_handler->clone());
     if (m_data_handler->dataType() == ISpecularScan::angle)
-        data_handler = mangledDataHandler(*m_data_handler, getInstrument().getBeam());
+        footprints = mangledDataHandler(*m_data_handler, getInstrument().getBeam())
+                         ->footprint(start_ind, n_elements);
+    else
+        footprints = m_data_handler->footprint(start_ind, n_elements);
 
-    for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
+    for (size_t i = start_ind, k = 0; i < start_ind + n_elements; ++i, ++k) {
         auto& element = m_sim_elements[i];
-        element.setIntensity(element.getIntensity() * beam_intensity * data_handler->footprint(i));
+        element.setIntensity(element.getIntensity() * beam_intensity * footprints[k]);
     }
 }
 
@@ -252,9 +248,8 @@ std::unique_ptr<OutputData<double>> SpecularSimulation::createIntensityData() co
     result->addAxis(*coordinateAxis());
 
     if (!m_sim_elements.empty()) {
-        size_t i = 0;
-        for (auto iter = m_sim_elements.begin(); iter != m_sim_elements.end(); ++iter, ++i)
-            result->operator[](i) = iter->getIntensity();
+        std::vector<double> data = m_data_handler->createIntensities(m_sim_elements);
+        result->setRawDataVector(data);
     } else
         result->setAllTo(0.0);
 
@@ -290,15 +285,18 @@ std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_hand
 {
     if (data_handler.dataType() != ISpecularScan::angle)
         throw std::runtime_error("Error in mangledDataHandler: invalid usage");
+    auto& scan = static_cast<const AngularSpecScan&>(data_handler);
 
     const double wl = beam.getWavelength();
     const double angle_shift = beam.getAlpha();
-    std::vector<double> angles = data_handler.coordinateAxis()->getBinCenters();
+    std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
     for (auto& val : angles)
         val += angle_shift;
     auto result =
         std::make_unique<AngularSpecScan>(wl, PointwiseAxis("alpha_i", std::move(angles)));
-    result->setFootprintFactor(data_handler.footprintFactor());
+    result->setFootprintFactor(scan.footprintFactor());
+    result->setWavelengthResolution(*scan.wavelengthResolution());
+    result->setAngleResolution(*scan.angleResolution());
     return std::move(result);
 }
 }

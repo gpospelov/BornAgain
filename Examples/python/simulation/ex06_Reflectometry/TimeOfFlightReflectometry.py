@@ -1,10 +1,8 @@
 """
 An example of defining reflectometry instrument
 for time of flight experiment. In this example
-two approaches are used: first, we define
-beam parameters through a range of wavelengths and
-an incident angle; second, we will use purely
-qz-defined beam, without explicitly specifying
+we will use purely qz-defined beam,
+without explicitly specifying
 incident angle or a wavelength.
 Note that these approaches work with SLD-based
 materials only.

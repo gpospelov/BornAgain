@@ -72,6 +72,7 @@
 %import "WinDllMacros.h"
 
 %{
+#include "AngularSpecScan.h"
 #include "BAVersion.h"
 #include "BasicVector3D.h"
 #include "Beam.h"
@@ -207,6 +208,7 @@
 #include "PoissonNoiseBackground.h"
 #include "Polygon.h"
 #include "PyArrayImportUtils.h"
+#include "QSpecScan.h"
 #include "RangedDistributions.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
@@ -215,13 +217,13 @@
 #include "Rotations.h"
 #include "Rotations.h"
 #include "SampleBuilderFactory.h"
+#include "ScanResolution.h"
 #include "Simulation.h"
 #include "Simulation2D.h"
 #include "SimulationFactory.h"
 #include "SimulationOptions.h"
 #include "SimulationResult.h"
 #include "SlicedParticle.h"
-#include "SpecularScan.h"
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "ThreadInfo.h"
@@ -238,6 +240,9 @@
 %}
 
 // ownership
+
+%newobject ScanResolution::scanRelativeResolution;
+%newobject ScanResolution::scanAbsoluteResolution;
 
 %newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;
 %newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
@@ -464,7 +469,6 @@
 %include "Rotations.h"
 %include "ISelectionRule.h"
 %include "DepthProbeSimulation.h"
-%include "SpecularScan.h"
 %include "SpecularSimulation.h"
 %include "ThreadInfo.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;
@@ -474,5 +478,11 @@
 %include "IUnitConverter.h"
 %include "IterationInfo.h"
 %include "SpectrumUtils.h"
+
+%include "ScanResolution.h"
+
+%include "ISpecularScan.h"
+%include "AngularSpecScan.h"
+%include "QSpecScan.h"
 
 %include "extendCore.i"

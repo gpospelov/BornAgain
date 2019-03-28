@@ -13,12 +13,13 @@
 // ************************************************************************** //
 
 #include "UnitConverter1D.h"
+#include "AngularSpecScan.h"
 #include "AxisNames.h"
 #include "Beam.h"
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
 #include "PointwiseAxis.h"
-#include "SpecularScan.h"
+#include "QSpecScan.h"
 #include "UnitConverterUtils.h"
 #include "Units.h"
 

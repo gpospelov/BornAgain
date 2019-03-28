@@ -8,6 +8,7 @@ set(test TestSelfConsistence)
 set(test_cases
     SpecularWithSlicing
     InstrumentDefinitionComparison
+    TOFResolutionComparison
     )
 
 file(GLOB source_files "*.cpp")

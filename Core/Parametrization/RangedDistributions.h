@@ -41,17 +41,17 @@ public:
                        const RealLimits& limits = RealLimits::limitless());
     //! Initializes Ranged distribution with given number of samples, sigma factor
     //! (range in standard deviations to take into account during sample generation)
-    //! and limits (either RealLimits object or just min and max values for such an object).
+    //! and limits (either RealLimits object or just min and max limits).
     //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
     RangedDistribution(size_t n_samples, double sigma_factor, double min, double max);
     RangedDistribution* clone() const override = 0;
 
     ~RangedDistribution() override;
 
-    std::vector<ParameterSample> generateSamples(double mean, double variance) const;
-    //! Generates list of sampled values with their weights from given means and variances.
-    std::vector<std::vector<ParameterSample>> generateSamples(std::vector<double> mean,
-                                                              std::vector<double> variance) const;
+    std::vector<ParameterSample> generateSamples(double mean, double stddev) const;
+    //! Generates list of sampled values with their weights from given means and standard deviations.
+    std::vector<std::vector<ParameterSample>>
+    generateSamples(const std::vector<double>& mean, const std::vector<double>& stddev) const;
 
     //! Public interface function to underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution(double mean, double stddev) const;
@@ -65,7 +65,16 @@ public:
     //! Returns number of samples to generate
     size_t nSamples() const { return m_n_samples; }
 
+    // setters
+
+    void setLimits(const RealLimits& limits) { m_limits = limits; }
+
+    //! Prints python-formatted definition of the distribution
+    std::string print() const;
+
 protected:
+    //! Returns distribution name for python-formatted text.
+    virtual std::string name() const = 0;
     //! Returns underlying IDistribution1D object
     virtual std::unique_ptr<IDistribution1D> distribution_impl(double mean,
                                                                double stddev) const = 0;
@@ -88,11 +97,21 @@ private:
 class BA_CORE_API_ RangedDistributionGate : public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionGate();
+    RangedDistributionGate(size_t n_samples, double sigma_factor,
+                           const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max);
+
     RangedDistributionGate* clone() const override;
     ~RangedDistributionGate() override = default;
 
 protected:
+    //! Returns distribution name for python-formatted text.
+    std::string name() const override;
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
@@ -104,11 +123,21 @@ protected:
 class BA_CORE_API_ RangedDistributionLorentz : public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionLorentz();
+    RangedDistributionLorentz(size_t n_samples, double hwhm_factor,
+                              const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _hwhm_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max);
+
     RangedDistributionLorentz* clone() const override;
     ~RangedDistributionLorentz() override = default;
 
 protected:
+    //! Returns distribution name for python-formatted text.
+    std::string name() const override;
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double median, double hwhm) const override;
 };
@@ -120,11 +149,21 @@ protected:
 class BA_CORE_API_ RangedDistributionGaussian: public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionGaussian();
+    RangedDistributionGaussian(size_t n_samples, double sigma_factor,
+                               const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max);
+
     RangedDistributionGaussian* clone() const override;
     ~RangedDistributionGaussian() override = default;
 
 protected:
+    //! Returns distribution name for python-formatted text.
+    std::string name() const override;
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
@@ -136,11 +175,21 @@ protected:
 class BA_CORE_API_ RangedDistributionLogNormal: public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionLogNormal();
+    RangedDistributionLogNormal(size_t n_samples, double sigma_factor,
+                                const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max);
+
     RangedDistributionLogNormal* clone() const override;
     ~RangedDistributionLogNormal() override = default;
 
 protected:
+    //! Returns distribution name for python-formatted text.
+    std::string name() const override;
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
@@ -152,13 +201,29 @@ protected:
 class BA_CORE_API_ RangedDistributionCosine: public RangedDistribution
 {
 public:
-    using RangedDistribution::RangedDistribution;
+    RangedDistributionCosine();
+    RangedDistributionCosine(size_t n_samples, double sigma_factor,
+                             const RealLimits& limits = RealLimits::limitless());
+    //! Initializes Ranged distribution with given number of samples, sigma factor
+    //! (range in standard deviations to take into account during sample generation)
+    //! and limits (either RealLimits object or just min and max limits).
+    //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
+    RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max);
+
     RangedDistributionCosine* clone() const override;
     ~RangedDistributionCosine() override = default;
 
 protected:
+    //! Returns distribution name for python-formatted text.
+    std::string name() const override;
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
+
+
+inline std::ostream& operator<<(std::ostream& os, const RangedDistribution& distribution)
+{
+    return os << distribution.print();
+}
 
 #endif // RANGEDDISTRIBUTIONS_H

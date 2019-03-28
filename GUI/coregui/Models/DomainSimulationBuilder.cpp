@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "DomainSimulationBuilder.h"
+#include "AngularSpecScan.h"
 #include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "BeamItems.h"
@@ -31,7 +32,6 @@
 #include "OffSpecSimulation.h"
 #include "SimulationOptionsItem.h"
 #include "SpecularBeamInclinationItem.h"
-#include "SpecularScan.h"
 #include "SpecularSimulation.h"
 #include "TransformToDomain.h"
 #include "Units.h"

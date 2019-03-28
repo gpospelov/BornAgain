@@ -63,6 +63,9 @@ BA_CORE_API_ SpecularSimulation* BasicSpecularQ();
 BA_CORE_API_ SpecularSimulation* SpecularWithGaussianBeam();
 BA_CORE_API_ SpecularSimulation* SpecularWithSquareBeam();
 BA_CORE_API_ SpecularSimulation* SpecularDivergentBeam();
+BA_CORE_API_ SpecularSimulation* SpecularDivergentBeamCopy();
+BA_CORE_API_ SpecularSimulation* TOFRWithRelativeResolution();
+BA_CORE_API_ SpecularSimulation* TOFRWithPointwiseResolution();
 
 // OffSpec simulations
 BA_CORE_API_ OffSpecSimulation* MiniOffSpec();

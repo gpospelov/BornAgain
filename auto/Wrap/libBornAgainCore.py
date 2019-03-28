@@ -11499,7 +11499,10 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list 
+        oriented vertex list
+
+        _sym_S2: 
+        true if face has a perpedicular two-fold symmetry axis 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)

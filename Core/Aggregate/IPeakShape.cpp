@@ -194,7 +194,7 @@ double VonMisesFisherGaussPeakShape::integrand(double phi) const
                   + std::sin(m_theta) * std::sin(phi) * m_uy
                   + std::cos(m_theta) * m_zenith;
     double fisher = std::exp(m_kappa_1*(u_q.dot(m_up) - 1.0));
-    double vonmises = std::exp(m_kappa_2*(std::cos(phi + m_phi) - 1.0));
+    double vonmises = std::exp(m_kappa_2*(std::cos(m_phi - phi) - 1.0));
     return fisher * vonmises;
 }
 

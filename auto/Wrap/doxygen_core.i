@@ -16359,6 +16359,41 @@ Indicates if the peak shape encodes angular disorder, in which case all peaks in
 ";
 
 
+// File: classVonMisesGaussPeakShape.xml
+%feature("docstring") VonMisesGaussPeakShape "
+
+Class that implements a peak shape that is a convolution of a von Mises-Fisher distribution with a 3d Gaussian
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::VonMisesGaussPeakShape "VonMisesGaussPeakShape::VonMisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa)
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::~VonMisesGaussPeakShape "VonMisesGaussPeakShape::~VonMisesGaussPeakShape() override
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::clone "VonMisesGaussPeakShape * VonMisesGaussPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::accept "void VonMisesGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::evaluate "double VonMisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::angularDisorder "bool VonMisesGaussPeakShape::angularDisorder() const override
+
+Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+";
+
+
 // File: classWavevectorInfo.xml
 %feature("docstring") WavevectorInfo "
 
@@ -16813,23 +16848,23 @@ Returns file names that agree with a regex glob pattern.
 
 
 // File: namespaceIComputationUtils.xml
-%feature("docstring")  IComputationUtils::CreateFresnelMap "std::unique_ptr< IFresnelMap > IComputationUtils::CreateFresnelMap(const MultiLayer &multilayer, const SimulationOptions &sim_options)
+%feature("docstring")  IComputationUtils::CreateFresnelMap "BA_CORE_API_ std::unique_ptr< IFresnelMap > IComputationUtils::CreateFresnelMap(const MultiLayer &multilayer, const SimulationOptions &sim_options)
 ";
 
-%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const SimulationOptions &sim_options, const std::map< size_t, std::vector< HomogeneousRegion >> &region_map)
+%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "BA_CORE_API_ std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const SimulationOptions &sim_options, const std::map< size_t, std::vector< HomogeneousRegion >> &region_map)
 
 creates a multilayer that contains averaged materials, for use in Fresnel calculations 
 ";
 
-%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const SimulationOptions &sim_options)
+%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "BA_CORE_API_ std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const SimulationOptions &sim_options)
 
 overload that calculates the region map itself 
 ";
 
-%feature("docstring")  IComputationUtils::GetRegionMap "std::map< size_t, std::vector< HomogeneousRegion > > IComputationUtils::GetRegionMap(const MultiLayer &multilayer)
+%feature("docstring")  IComputationUtils::GetRegionMap "BA_CORE_API_ std::map< size_t, std::vector< HomogeneousRegion > > IComputationUtils::GetRegionMap(const MultiLayer &multilayer)
 ";
 
-%feature("docstring")  IComputationUtils::MergeRegionMap "void IComputationUtils::MergeRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &dest, const std::map< size_t, std::vector< HomogeneousRegion >> &source)
+%feature("docstring")  IComputationUtils::MergeRegionMap "BA_CORE_API_ void IComputationUtils::MergeRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &dest, const std::map< size_t, std::vector< HomogeneousRegion >> &source)
 ";
 
 

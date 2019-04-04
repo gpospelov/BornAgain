@@ -83,7 +83,7 @@ std::vector<SpecularSimulationElement> AngularSpecScan::generateSimulationElemen
     for (size_t i = 0; i < res_size; ++i) {
         const double wl = paired_values[i].first;
         const double inc = paired_values[i].second;
-        result.emplace_back(wl, inc);
+        result.emplace_back(wl, -inc);
         if (!wl_limits.isInRange(wl) || !inc_limits.isInRange(inc))
             result.back().setCalculationFlag(false); // false = exclude from calculations
     }

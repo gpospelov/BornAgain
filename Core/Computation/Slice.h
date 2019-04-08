@@ -29,7 +29,12 @@ class Slice
 public:
     Slice(double thickness, Material material);
     Slice(double thickness, Material material, const LayerRoughness& top_roughness);
+    Slice(const Slice& other);
+    Slice(Slice&& other);
     ~Slice();
+
+    double thickness() const { return m_thickness; }
+    const LayerRoughness* topRoughness() const { return mP_top_roughness.get(); }
 
 private:
     double m_thickness;

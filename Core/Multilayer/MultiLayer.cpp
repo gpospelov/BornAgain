@@ -21,6 +21,7 @@
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "MaterialUtils.h"
+#include "MultiLayerUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
 #include <iomanip>
@@ -56,7 +57,7 @@ std::unique_ptr<MultiLayer> MultiLayer::cloneSliced(bool use_average_layers) con
 {
     if (!use_average_layers || numberOfLayers()==0)
         return std::unique_ptr<MultiLayer>(clone());
-    auto layer_limits = calculateLayerZLimits();
+    auto layer_limits = MultiLayerUtils::ParticleRegions(*this);
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
     P_result->setExternalField(externalField());
@@ -342,20 +343,4 @@ void MultiLayer::setCrossCorrLength(double crossCorrLength)
 void MultiLayer::setExternalField(kvector_t ext_field)
 {
     m_ext_field = ext_field;
-}
-
-std::vector<ZLimits> MultiLayer::calculateLayerZLimits() const
-{
-    LayerFillLimits layer_fill_limits(m_layers_bottomz);
-    for (size_t i=0; i<m_layers.size(); ++i)
-    {
-        auto p_layer = m_layers[i];
-        double offset = (i==0) ? 0 : m_layers_bottomz[i-1];
-        for (auto p_layout : p_layer->layouts())
-        {
-            for (auto p_particle : p_layout->particles())
-                layer_fill_limits.update(p_particle->bottomTopZ(), offset);
-        }
-    }
-    return layer_fill_limits.layerZLimits();
 }

@@ -164,12 +164,9 @@ private:
     //! Shared implementation for different clones
     MultiLayer* genericClone(const std::function<Layer*(const Layer*)>& layer_clone) const;
 
-    //! Calculates the z-region in each layer that holds particles
-    std::vector<ZLimits> calculateLayerZLimits() const;
-
     //! stack of layers [nlayers]
     SafePointerVector<Layer> m_layers;
-    //! coordinate of layer's bottoms [nlayers]
+    //! coordinate of layer's bottoms [nlayers-1]
     std::vector<double> m_layers_bottomz;
     //! stack of layer interfaces [nlayers-1]
     SafePointerVector<LayerInterface> m_interfaces;

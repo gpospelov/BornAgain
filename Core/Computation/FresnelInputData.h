@@ -23,6 +23,9 @@ class Slice;
 
 //! Data structure that contains all the necessary data for calculating the Fresnel coefficients.
 //!
+//! If the usage of average materials is requested, layers are sliced into multiple slices and
+//! the average material is calculated for each slice.
+//!
 //! @ingroup algorithms_internal
 
 class FresnelInputData

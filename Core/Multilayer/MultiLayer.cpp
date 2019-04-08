@@ -71,7 +71,7 @@ std::unique_ptr<MultiLayer> MultiLayer::cloneSliced(bool use_average_layers) con
         SafePointerVector<Layer> sliced_layers =
                 m_layers[i]->slice(layer_limits[i], layer_type);
         if (sliced_layers.size()==0)
-            throw std::runtime_error("MultiLayer::cloneSliced: slicing layer produced empty list,");
+            throw std::runtime_error("MultiLayer::cloneSliced: slicing layer produced empty list.");
         if (i>0 && p_interface->getRoughness())
             P_result->addLayerWithTopRoughness(*sliced_layers[0], *p_interface->getRoughness());
         else

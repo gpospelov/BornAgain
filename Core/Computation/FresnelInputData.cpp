@@ -13,11 +13,15 @@
 // ************************************************************************** //
 
 #include "FresnelInputData.h"
+#include "Slice.h"
 
 
 FresnelInputData::FresnelInputData(const MultiLayer &sample, const SimulationOptions &options)
-{
-
-}
+{}
 
 FresnelInputData::~FresnelInputData() =default;
+
+size_t FresnelInputData::numberOfSlices() const
+{
+    return m_slices.size();
+}

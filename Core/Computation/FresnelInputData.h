@@ -15,8 +15,11 @@
 #ifndef FRESNELINPUTDATA_H
 #define FRESNELINPUTDATA_H
 
+#include <vector>
+
 class MultiLayer;
 class SimulationOptions;
+class Slice;
 
 //! Data structure that contains all the necessary data for calculating the Fresnel coefficients.
 //!
@@ -28,7 +31,10 @@ public:
     FresnelInputData(const MultiLayer& sample, const SimulationOptions& options);
     ~FresnelInputData();
 
+    size_t numberOfSlices() const;
+
 private:
+    std::vector<Slice> m_slices;
 };
 
 #endif // FRESNELINPUTDATA_H

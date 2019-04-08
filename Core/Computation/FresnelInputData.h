@@ -18,10 +18,7 @@
 class MultiLayer;
 class SimulationOptions;
 
-//! Interface for a single-threaded computation with given range of SimulationElements
-//! and ProgressHandler.
-//!
-//! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+//! Data structure that contains all the necessary data for calculating the Fresnel coefficients.
 //!
 //! @ingroup algorithms_internal
 

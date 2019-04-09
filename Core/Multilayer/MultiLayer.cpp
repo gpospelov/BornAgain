@@ -57,7 +57,7 @@ std::unique_ptr<MultiLayer> MultiLayer::cloneSliced(bool use_average_layers) con
 {
     if (!use_average_layers || numberOfLayers()==0)
         return std::unique_ptr<MultiLayer>(clone());
-    auto layer_limits = MultiLayerUtils::ParticleRegions(*this);
+    auto layer_limits = MultiLayerUtils::ParticleRegions(*this, true);
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
     P_result->setExternalField(externalField());
@@ -82,6 +82,14 @@ std::unique_ptr<MultiLayer> MultiLayer::cloneSliced(bool use_average_layers) con
     }
     return P_result;
 }
+
+const LayerRoughness* MultiLayer::layerTopRoughness(size_t i_layer) const
+{
+    if (i_layer==0) return nullptr;
+    return m_interfaces[check_interface_index(i_layer-1)]->getRoughness();
+}
+
+
 
 //! Returns pointer to the top interface of the layer.
 //! nInterfaces = nLayers-1, first layer in multilayer doesn't have interface.

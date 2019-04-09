@@ -73,6 +73,9 @@ public:
     //! Returns thickness of layer
     double layerThickness(size_t i_layer) const;
 
+    //! Returns top roughness of layer
+    const LayerRoughness* layerTopRoughness(size_t i_layer) const;
+
     //! Returns top interface of layer
     const LayerInterface* layerTopInterface(size_t i_layer) const;
 

@@ -22,18 +22,21 @@ namespace {
 std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer);
 }
 
-std::vector<ZLimits> MultiLayerUtils::ParticleRegions(const MultiLayer &multilayer)
+std::vector<ZLimits> MultiLayerUtils::ParticleRegions(const MultiLayer &multilayer,
+                                                      bool use_slicing)
 {
     auto bottom_coords = BottomLayerCoordinates(multilayer);
     LayerFillLimits layer_fill_limits(bottom_coords);
-    for (size_t i=0; i<multilayer.numberOfLayers(); ++i)
-    {
-        auto p_layer = multilayer.layer(i);
-        double offset = (i==0) ? 0 : bottom_coords[i-1];
-        for (auto p_layout : p_layer->layouts())
+    if (use_slicing) {
+        for (size_t i=0; i<multilayer.numberOfLayers(); ++i)
         {
-            for (auto p_particle : p_layout->particles())
-                layer_fill_limits.update(p_particle->bottomTopZ(), offset);
+            auto p_layer = multilayer.layer(i);
+            double offset = (i==0) ? 0 : bottom_coords[i-1];
+            for (auto p_layout : p_layer->layouts())
+            {
+                for (auto p_particle : p_layout->particles())
+                    layer_fill_limits.update(p_particle->bottomTopZ(), offset);
+            }
         }
     }
     return layer_fill_limits.layerZLimits();

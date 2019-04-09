@@ -21,7 +21,7 @@ class MultiLayer;
 class ZLimits;
 
 namespace MultiLayerUtils {
-std::vector<ZLimits> ParticleRegions(const MultiLayer& multilayer);
+std::vector<ZLimits> ParticleRegions(const MultiLayer& multilayer, bool use_slicing);
 }
 
 #endif // MULTILAYERUTILS_H

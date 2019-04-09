@@ -27,18 +27,21 @@ class LayerRoughness;
 class Slice
 {
 public:
-    Slice(double thickness, Material material);
-    Slice(double thickness, Material material, const LayerRoughness& top_roughness);
+    Slice(double thickness);
+    Slice(double thickness, const LayerRoughness& top_roughness);
     Slice(const Slice& other);
     Slice(Slice&& other);
     ~Slice();
 
-    double thickness() const { return m_thickness; }
-    const LayerRoughness* topRoughness() const { return mP_top_roughness.get(); }
+    void setMaterial(const Material& material);
+    Material material() const;
+
+    double thickness() const;
+    const LayerRoughness* topRoughness() const;
 
 private:
     double m_thickness;
-    Material m_material;
+    std::unique_ptr<Material> mP_material;
     std::unique_ptr<LayerRoughness> mP_top_roughness;
 };
 

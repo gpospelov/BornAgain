@@ -18,6 +18,7 @@
 #include <vector>
 
 class MultiLayer;
+class LayerRoughness;
 class SimulationOptions;
 class Slice;
 
@@ -37,6 +38,9 @@ public:
     size_t numberOfSlices() const;
 
 private:
+    void initSlices(const MultiLayer& sample, const SimulationOptions& options);
+    void addSlice(double thickness, const LayerRoughness* p_roughness=nullptr);
+    void addNSlices(double thickness, size_t n, const LayerRoughness* p_roughness=nullptr);
     std::vector<Slice> m_slices;
 };
 

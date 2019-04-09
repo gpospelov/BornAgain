@@ -25417,6 +25417,11 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_layerThickness(self, i_layer)
 
 
+    def layerTopRoughness(self, i_layer):
+        """layerTopRoughness(MultiLayer self, size_t i_layer) -> LayerRoughness"""
+        return _libBornAgainCore.MultiLayer_layerTopRoughness(self, i_layer)
+
+
     def layerTopInterface(self, i_layer):
         """
         layerTopInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *

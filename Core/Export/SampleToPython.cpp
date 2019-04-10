@@ -512,8 +512,10 @@ std::string SampleToPython::defineParticleLayouts() const
                 result << indent() << it->second << ".setApproximation(ba.ILayout.SSCA)\n";
                 break;
             }
+            result << indent() << it->second << ".setWeight("
+                   << particleLayout->weight() << ")\n";
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
-                   << it->first->totalParticleSurfaceDensity() << ")\n";
+                   << particleLayout->totalParticleSurfaceDensity() << ")\n";
         }
     }
     return result.str();

@@ -22,6 +22,7 @@
 #include "IntensityDataItem.h"
 #include "RealDataItem.h"
 #include "CsvImportAssistant.h"
+#include "PointwiseAxis.h"
 #include "projectmanager.h"
 #include <QFileDialog>
 #include <QFileInfo>
@@ -62,6 +63,85 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportKnownData(QString& fi
 
 }
 
+std::unique_ptr<OutputData<double>> ImportDataUtils::ImportReflectometryData(QString& fileName){
+    std::unique_ptr<OutputData<double>> oData(new OutputData<double>);
+    try {
+        std::string line;
+        std::vector<std::vector<double>> vecVec;
+        std::map<double,double> QvsR;
+        std::map<double,double> QvsDR;
+        std::map<double,double> QvsDQ;
+
+        //Read numbers from file:
+        std::ifstream fin(fileName.toStdString().c_str(), std::ios::in);
+        while( std::getline(fin, line) ) {
+            try {
+                std::vector<double> rowVec = DataFormatUtils::parse_doubles(line);
+                vecVec.push_back(rowVec);
+            } catch (...) {
+                continue;
+            }
+        }
+        if(fin.is_open())
+            fin.close();
+
+        // validate - There is at least one row and at least two columns
+        size_t nrows = vecVec.size();
+        if (nrows < 1)
+            throw std::runtime_error("Import1dTextData: no numerical values found");
+        size_t ncols = vecVec[0].size();
+        if (ncols < 2)
+            throw std::runtime_error("Import1dTextData: Minimum 2 columns required");
+
+        // Assign Q vs R, dR, dQ:
+        for(size_t row=0; row<nrows; row++) {
+            if(vecVec[row].size() != ncols)
+                throw std::runtime_error("The number of columns varies among the rows");
+            double Q = vecVec[row][0];
+            switch(ncols){
+            case 1:
+                break;
+            case 2:
+                QvsR[Q]  = vecVec[row][1];
+                QvsDR[Q] = 0;
+                QvsDQ[Q] = 0;
+                break;
+            case 3:
+                QvsR[Q]  = vecVec[row][1];
+                QvsDR[Q] = vecVec[row][2];
+                QvsDQ[Q] = 0;
+                break;
+            default:
+                QvsR[Q]  = vecVec[row][1];
+                QvsDR[Q] = vecVec[row][2];
+                QvsDQ[Q] = vecVec[row][3];
+                break;
+            }
+        }
+
+
+        std::vector<double> qVec;
+        std::vector<double> rVec;
+        for(auto it = QvsR.begin(); it != QvsR.end(); ++it) {
+          qVec.push_back(it->first);
+          rVec.push_back(it->second);
+        }
+
+
+        oData->addAxis(PointwiseAxis("qVector",qVec));
+        oData->setRawDataVector(rVec);
+    } catch(std::exception& ex)
+    {
+        QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
+                        .arg(fileName)
+                        .arg(QString::fromStdString(std::string(ex.what())));
+        QMessageBox::warning(nullptr, "IO Problem", message);
+    }
+    return oData;
+
+}
+
+
 std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
@@ -83,22 +163,8 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseN
 
 }
 
-ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
+ImportDataInfo ImportDataUtils::Import1dData(QString& fileName)
 {
-    QString dirname = AppSvc::projectManager()->userImportDir();
-    QString fileName = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Open Intensity File"),
-                                                    dirname, filter_string_ascii);
-
-    if (fileName.isEmpty())
-        return ImportDataInfo();
-
-    QString newImportDir = GUIHelpers::fileDir(fileName);
-    if (newImportDir != dirname)
-        AppSvc::projectManager()->setImportDir(newImportDir);
-
-    QFileInfo info(fileName);
-    baseNameOfLoadedFile = info.baseName();
-
     if(DataFormatUtils::isCompressed(fileName.toStdString()) ||
                     DataFormatUtils::isIntFile(fileName.toStdString()) ||
                     DataFormatUtils::isTiffFile(fileName.toStdString())
@@ -110,7 +176,19 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
             return getFromImportAssistant(fileName);
         }
     }
-    return getFromImportAssistant(fileName);
+    else{
+        try{
+            return ImportDataInfo(ImportReflectometryData(fileName), AxesUnits::NBINS);
+        }
+        catch(...){
+            QString message = QString("There was a problem while trying to import data from file:\n\n'%1'\n--\n%2\n--\n")
+                            .arg(fileName)
+                            .arg("Please select manually the data to import");
+            QMessageBox::warning(nullptr, "Unable to read.", message);
+
+            return getFromImportAssistant(fileName);
+        }
+    }
 }
 
 

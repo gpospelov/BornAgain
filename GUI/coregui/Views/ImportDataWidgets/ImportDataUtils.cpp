@@ -123,8 +123,10 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportReflectometryData(QSt
         std::vector<double> qVec;
         std::vector<double> rVec;
         for(auto it = QvsR.begin(); it != QvsR.end(); ++it) {
-          qVec.push_back(it->first);
-          rVec.push_back(it->second);
+            if(it->second <= 0)
+                continue;
+            qVec.push_back(it->first);
+            rVec.push_back(it->second);
         }
 
 
@@ -138,9 +140,7 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportReflectometryData(QSt
         QMessageBox::warning(nullptr, "IO Problem", message);
     }
     return oData;
-
 }
-
 
 std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseNameOfLoadedFile)
 {

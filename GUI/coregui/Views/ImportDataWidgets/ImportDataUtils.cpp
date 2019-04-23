@@ -183,10 +183,10 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& fileName)
         catch(...){
             QString message = QString("There was a problem while trying to import data from file:\n\n'%1'\n--\n%2\n--\n")
                             .arg(fileName)
-                            .arg("Please select manually the data to import");
+                            .arg("Data format not supported. Please check your file in an external editor.");
             QMessageBox::warning(nullptr, "Unable to read.", message);
 
-            return getFromImportAssistant(fileName);
+            return ImportDataInfo();
         }
     }
 }

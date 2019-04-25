@@ -34,11 +34,16 @@
 
 namespace
 {
-const std::map<QString, QString> tag_map = {
-    {Constants::ParticleCompositionType, ParticleCompositionItem::T_PARTICLES},
-    {Constants::ParticleDistributionType, ParticleDistributionItem::T_PARTICLES},
-    {Constants::ParticleLayoutType, ParticleLayoutItem::T_PARTICLES},
-    {Constants::MesoCrystalType, MesoCrystalItem::T_BASIS_PARTICLE}};
+
+std::map<QString, QString> get_tag_map()
+{
+    std::map<QString, QString> result = {
+        {Constants::ParticleCompositionType, ParticleCompositionItem::T_PARTICLES},
+        {Constants::ParticleDistributionType, ParticleDistributionItem::T_PARTICLES},
+        {Constants::ParticleLayoutType, ParticleLayoutItem::T_PARTICLES},
+        {Constants::MesoCrystalType, MesoCrystalItem::T_BASIS_PARTICLE}};
+    return result;
+}
 }
 
 QColor MaterialItemUtils::suggestMaterialColor(const QString &name)
@@ -175,6 +180,7 @@ ExternalProperty MaterialItemUtils::selectColorProperty(const ExternalProperty& 
 
 QVector<SessionItem*> MaterialItemUtils::materialPropertyItems(SessionItem* item)
 {
+    static const std::map<QString, QString> tag_map = get_tag_map();
     QVector<SessionItem*> materials;
     QList<SessionItem*> particle_holders{item};
     while (!particle_holders.isEmpty()) {

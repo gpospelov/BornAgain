@@ -106,7 +106,7 @@ def run_fitting():
     params.add("cylinder_height", 4.*nm, min=0.01)
     params.add("cylinder_radius", 6.*nm, min=0.01)
     params.add("prism_height", 4.*nm, min=0.01)
-    params.add("prism_base_edge", 12.*nm, min=0.01)
+    params.add("prism_base_edge", 6.*nm, min=0.01)
 
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)

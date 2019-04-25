@@ -170,7 +170,7 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& fileName)
                     DataFormatUtils::isTiffFile(fileName.toStdString())
                     ){
         try{
-            return ImportDataInfo(ImportKnownData(fileName), AxesUnits::NBINS);
+            return ImportDataInfo(ImportKnownData(fileName), AxesUnits::QSPACE);
         }
         catch(...){
             return getFromImportAssistant(fileName);
@@ -178,7 +178,7 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& fileName)
     }
     else{
         try{
-            return ImportDataInfo(ImportReflectometryData(fileName), AxesUnits::NBINS);
+            return ImportDataInfo(ImportReflectometryData(fileName), AxesUnits::QSPACE);
         }
         catch(...){
             QString message = QString("There was a problem while trying to import data from file:\n\n'%1'\n--\n%2\n--\n")

@@ -82,7 +82,7 @@ std::map<AxesUnits, std::string> InitSpecAxis()
     result[AxesUnits::NBINS] = "X [nbins]";
     result[AxesUnits::RADIANS] = "alpha_i [rad]";
     result[AxesUnits::DEGREES] = "alpha_i [deg]";
-    result[AxesUnits::QSPACE] = "Q [1/nm]";
+    result[AxesUnits::QSPACE] = "Q [1/\u212B]";
     return result;
 }
 
@@ -90,7 +90,7 @@ std::map<AxesUnits, std::string> InitSpecAxisQ()
 {
     std::map<AxesUnits, std::string> result;
     result[AxesUnits::NBINS] = "X [nbins]";
-    result[AxesUnits::QSPACE] = "Q [1/nm]";
+    result[AxesUnits::QSPACE] = "Q [1/\u212B]";
     return result;
 }
 

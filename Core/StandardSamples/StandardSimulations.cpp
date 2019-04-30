@@ -384,6 +384,20 @@ GISASSimulation* StandardSimulations::ConstantBackgroundGISAS()
     return result;
 }
 
+//! GISAS simulation with an extra long wavelength
+
+GISASSimulation* StandardSimulations::ExtraLongWavelengthGISAS()
+{
+    std::unique_ptr<GISASSimulation> simulation(new GISASSimulation());
+    simulation->setDetectorParameters(100, -1.0 * Units::deg, 1.0 * Units::deg, 100, 0.0,
+                                      2.0 * Units::deg);
+
+    simulation->setBeamParameters(13.52 * Units::nm, 0.2 * Units::deg, 0.0 * Units::deg);
+    simulation->setBeamIntensity(1.0e+08);
+    simulation->getOptions().setIncludeSpecular(true);
+    return simulation.release();
+}
+
 SpecularSimulation* StandardSimulations::BasicSpecular()
 {
     const double wavelength = 1.54 * Units::angstrom;

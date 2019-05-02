@@ -15,6 +15,8 @@ protected:
     template <class T> void checkStandardSampling();
 
     template <class T> void checkPrinting(std::string expected_name);
+
+    template <class T> void checkZeroWidth();
 };
 
 RangedDistributionTest::~RangedDistributionTest() = default;
@@ -90,12 +92,38 @@ void RangedDistributionTest::checkPrinting(std::string expected_name)
     EXPECT_EQ(print_ref2.str(), actual);
 }
 
+template <class T>
+void RangedDistributionTest::checkZeroWidth()
+{
+    T distr(/*n_samples = */ 10, /*sigma_factor = */ 3.0);
+    const std::vector<ParameterSample>& samples = distr.generateSamples(1.0, 0.0);
+    EXPECT_EQ(distr.nSamples(), samples.size());
+
+    double sum_weights = 0.0;
+    for(size_t i = 0; i < samples.size(); ++i)
+        sum_weights += samples[i].weight;
+    EXPECT_DOUBLE_EQ(1.0, sum_weights);
+
+    const std::vector<std::vector<ParameterSample>>& samples2 =
+        distr.generateSamples({1.0, 1.0}, {1.0, 0.0});
+    for (size_t i = 0; i < samples2.size(); ++i) {
+        const std::vector<ParameterSample>& sample_row = samples2[i];
+        EXPECT_EQ(distr.nSamples(), sample_row.size());
+
+        double sum_weights = 0.0;
+        for(size_t j = 0; j < sample_row.size(); ++j)
+            sum_weights += sample_row[j].weight;
+        EXPECT_DOUBLE_EQ(1.0, sum_weights);
+    }
+}
+
 TEST_F(RangedDistributionTest, GateDistribution)
 {
     checkDefaults(RangedDistributionGate());
     checkThrows<RangedDistributionGate>();
     checkStandardSampling<RangedDistributionGate>();
     checkPrinting<RangedDistributionGate>("RangedDistributionGate");
+    checkZeroWidth<RangedDistributionGate>();
 }
 
 TEST_F(RangedDistributionTest, LorentzDistribution)
@@ -104,6 +132,7 @@ TEST_F(RangedDistributionTest, LorentzDistribution)
     checkThrows<RangedDistributionLorentz>();
     checkStandardSampling<RangedDistributionLorentz>();
     checkPrinting<RangedDistributionLorentz>("RangedDistributionLorentz");
+    checkZeroWidth<RangedDistributionLorentz>();
 }
 
 TEST_F(RangedDistributionTest, GaussianDistribution)
@@ -112,6 +141,7 @@ TEST_F(RangedDistributionTest, GaussianDistribution)
     checkThrows<RangedDistributionGaussian>();
     checkStandardSampling<RangedDistributionGaussian>();
     checkPrinting<RangedDistributionGaussian>("RangedDistributionGaussian");
+    checkZeroWidth<RangedDistributionGaussian>();
 }
 
 TEST_F(RangedDistributionTest, LogNormalDistribution)
@@ -120,6 +150,7 @@ TEST_F(RangedDistributionTest, LogNormalDistribution)
     checkThrows<RangedDistributionLogNormal>();
     checkStandardSampling<RangedDistributionLogNormal>();
     checkPrinting<RangedDistributionLogNormal>("RangedDistributionLogNormal");
+    checkZeroWidth<RangedDistributionLogNormal>();
 
     RangedDistributionLogNormal log_norm;
     EXPECT_THROW(log_norm.distribution(-1.0, 1.0), std::runtime_error);
@@ -131,4 +162,5 @@ TEST_F(RangedDistributionTest, CosineDistribution)
     checkThrows<RangedDistributionCosine>();
     checkStandardSampling<RangedDistributionCosine>();
     checkPrinting<RangedDistributionCosine>("RangedDistributionCosine");
+    checkZeroWidth<RangedDistributionCosine>();
 }

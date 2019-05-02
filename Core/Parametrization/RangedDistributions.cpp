@@ -55,7 +55,15 @@ RangedDistribution::~RangedDistribution() = default;
 
 std::vector<ParameterSample> RangedDistribution::generateSamples(double mean, double stddev) const
 {
-    return distribution(mean, stddev)->equidistantSamples(m_n_samples, m_sigma_factor, m_limits);
+    auto generator = distribution(mean, stddev);
+    if (!generator->isDelta())
+        return generator->equidistantSamples(m_n_samples, m_sigma_factor, m_limits);
+
+    // handling the case of delta distributions
+    auto samples = generator->equidistantSamples(m_n_samples, m_sigma_factor, m_limits);
+    ParameterSample& sample = samples[0]; // there is only one element in the vector
+    sample.weight = 1.0 / m_n_samples;
+    return std::vector<ParameterSample>(m_n_samples, sample);
 }
 
 std::vector<std::vector<ParameterSample>>
@@ -70,10 +78,8 @@ RangedDistribution::generateSamples(const std::vector<double>& mean,
 
     std::vector<std::vector<ParameterSample>> result;
     result.resize(size);
-    for (size_t i = 0; i < size; ++i) {
-        auto distr = distribution(mean[i], stddev[i]);
-        result[i] = distr->equidistantSamples(m_n_samples, m_sigma_factor, m_limits);
-    }
+    for (size_t i = 0; i < size; ++i)
+        result[i] = generateSamples(mean[i], stddev[i]);
     return result;
 }
 

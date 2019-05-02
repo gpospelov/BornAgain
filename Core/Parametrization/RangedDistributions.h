@@ -49,7 +49,8 @@ public:
     ~RangedDistribution() override;
 
     std::vector<ParameterSample> generateSamples(double mean, double stddev) const;
-    //! Generates list of sampled values with their weights from given means and standard deviations.
+    //! Generates list of sampled values with their weights from given means and standard
+    //! deviations.
     std::vector<std::vector<ParameterSample>>
     generateSamples(const std::vector<double>& mean, const std::vector<double>& stddev) const;
 

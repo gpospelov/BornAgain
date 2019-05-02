@@ -136,6 +136,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "RotatedPyramidsBuilder",
         2e-10);
 
+    add("ThickAbsorptiveSampleWithRoughness",
+        "GISAS picture on extra long wavelength from thick absorptive sample with roughness",
+        "ExtraLongWavelengthGISAS",
+        "ThickAbsorptiveSampleBuilder",
+        2e-10);
+
     // --- Compositions ---
 
     add("ParticleComposition",

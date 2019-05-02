@@ -110,6 +110,10 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::RectDetectorPerpToReflectedBeamDpos,
                  "Rectangular detector with generic alignment");
 
+    registerItem("ExtraLongWavelengthGISAS",
+                 StandardSimulations::ExtraLongWavelengthGISAS,
+                 "GISAS with rectangular detector and extra long wavelentgh");
+
     // Monte-Carlo
     registerItem("MiniGISASMonteCarlo",
                  StandardSimulations::MiniGISASMonteCarlo,

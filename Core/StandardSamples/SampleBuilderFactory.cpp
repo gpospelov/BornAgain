@@ -41,6 +41,7 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "SlicedCylindersBuilder.h"
 #include "SlicedParticleBuilder.h"
+#include "ThickAbsorptiveSampleBuilder.h"
 #include "TransformationsBuilder.h"
 #include "TwoDimLatticeBuilder.h"
 #include "TwoLayerRoughnessBuilder.h"
@@ -232,6 +233,9 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("AveragedSlicedCylindersBuilder", create_new<AveragedSlicedCylindersBuilder>,
                  "Manually sliced multilayer with cylinders on substrate (sld-based materials)");
+
+    registerItem("ThickAbsorptiveSampleBuilder", create_new<ThickAbsorptiveSampleBuilder>,
+                 "Thick highly-absorptive multilayer with a rough substrate");
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

@@ -77,6 +77,7 @@ set(test_cases
     RelativeResolutionTOF
     OffSpecularResonator
     DepthProbeTest
+    ThickAbsorptiveSampleWithRoughness
     )
 
 add_executable(${test} main.cpp CoreStandardTest.h CoreStandardTest.cpp)

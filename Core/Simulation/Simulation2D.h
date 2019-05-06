@@ -28,7 +28,7 @@ public:
     Simulation2D() =default;
     Simulation2D(const MultiLayer& p_sample);
     Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
-    virtual ~Simulation2D() =default;
+    ~Simulation2D() override = default;
 
     Simulation2D* clone() const override =0;
 
@@ -60,6 +60,9 @@ public:
 
     //! Sets rectangular region of interest with lower left and upper right corners defined.
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
+
+    //! Returns the total number of the intensity values in the simulation result
+    size_t intensityMapSize() const override { return numberOfSimulationElements(); }
 
 protected:
     Simulation2D(const Simulation2D& other);

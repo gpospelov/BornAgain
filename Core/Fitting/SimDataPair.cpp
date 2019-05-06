@@ -149,7 +149,7 @@ void SimDataPair::create_simulation(const Fit::Parameters& params)
     m_simulation = m_simulation_builder(params);
 
     if (m_fit_elements_count == 0) {
-        m_fit_elements_count = m_simulation->numberOfSimulationElements();
+        m_fit_elements_count = m_simulation->intensityMapSize();
         m_experimental_data = IntensityDataFunctions::ConvertData(*m_simulation, *m_data, false);
 
         m_experimental_array.clear();

@@ -122,6 +122,11 @@ const IFootprintFactor* SpecularSimulation::footprintFactor() const
     return m_data_handler->footprintFactor();
 }
 
+size_t SpecularSimulation::intensityMapSize() const
+{
+    return m_data_handler->coordinateAxis()->size();
+}
+
 void SpecularSimulation::initSimulationElementVector()
 {
     const auto& beam = m_instrument.getBeam();

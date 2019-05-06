@@ -64,82 +64,19 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportKnownData(QString& fi
 }
 
 std::unique_ptr<OutputData<double>> ImportDataUtils::ImportReflectometryData(QString& fileName){
-    std::unique_ptr<OutputData<double>> oData(new OutputData<double>);
+    std::unique_ptr<OutputData<double>> result;
     try {
-        std::string line;
-        std::vector<std::vector<double>> vecVec;
-        std::map<double,double> QvsR;
-        std::map<double,double> QvsDR;
-        std::map<double,double> QvsDQ;
-
-        //Read numbers from file:
-        std::ifstream fin(fileName.toStdString().c_str(), std::ios::in);
-        while( std::getline(fin, line) ) {
-            try {
-                std::vector<double> rowVec = DataFormatUtils::parse_doubles(line);
-                vecVec.push_back(rowVec);
-            } catch (...) {
-                continue;
-            }
-        }
-        if(fin.is_open())
-            fin.close();
-
-        // validate - There is at least one row and at least two columns
-        size_t nrows = vecVec.size();
-        if (nrows < 1)
-            throw std::runtime_error("Import1dTextData: no numerical values found");
-        size_t ncols = vecVec[0].size();
-        if (ncols < 2)
-            throw std::runtime_error("Import1dTextData: Minimum 2 columns required");
-
-        // Assign Q vs R, dR, dQ:
-        for(size_t row=0; row<nrows; row++) {
-            if(vecVec[row].size() != ncols)
-                throw std::runtime_error("The number of columns varies among the rows");
-            double Q = vecVec[row][0];
-            switch(ncols){
-            case 1:
-                break;
-            case 2:
-                QvsR[Q]  = vecVec[row][1];
-                QvsDR[Q] = 0;
-                QvsDQ[Q] = 0;
-                break;
-            case 3:
-                QvsR[Q]  = vecVec[row][1];
-                QvsDR[Q] = vecVec[row][2];
-                QvsDQ[Q] = 0;
-                break;
-            default:
-                QvsR[Q]  = vecVec[row][1];
-                QvsDR[Q] = vecVec[row][2];
-                QvsDQ[Q] = vecVec[row][3];
-                break;
-            }
-        }
-
-
-        std::vector<double> qVec;
-        std::vector<double> rVec;
-        for(auto it = QvsR.begin(); it != QvsR.end(); ++it) {
-            if(it->second <= 0)
-                continue;
-            qVec.push_back(it->first);
-            rVec.push_back(it->second);
-        }
-
-
-        oData->addAxis(PointwiseAxis("qVector",qVec));
-        oData->setRawDataVector(rVec);
+        std::unique_ptr<OutputData<double>> data(
+                    IntensityDataIOFactory::readReflectometryData(fileName.toStdString()));
+        result.swap(data);
     } catch(std::exception& ex)
     {
         QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
-                        .arg(fileName)
-                        .arg(QString::fromStdString(std::string(ex.what())));
+                .arg(fileName)
+                .arg(QString::fromStdString(std::string(ex.what())));
         QMessageBox::warning(nullptr, "IO Problem", message);
     }
-    return oData;
+    return result;
 }
 
 std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseNameOfLoadedFile)
@@ -166,8 +103,8 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseN
 ImportDataInfo ImportDataUtils::Import1dData(QString& fileName)
 {
     if(DataFormatUtils::isCompressed(fileName.toStdString()) ||
-                    DataFormatUtils::isIntFile(fileName.toStdString()) ||
-                    DataFormatUtils::isTiffFile(fileName.toStdString())
+       DataFormatUtils::isIntFile(fileName.toStdString()) ||
+       DataFormatUtils::isTiffFile(fileName.toStdString())
                     ){
         try{
             return ImportDataInfo(ImportKnownData(fileName), AxesUnits::QSPACE);

@@ -23,6 +23,14 @@ OutputDataReader* OutputDataReadFactory::getReader(const std::string& file_name)
     return result;
 }
 
+OutputDataReader* OutputDataReadFactory::getReflectometryReader(const std::string& file_name)
+{
+    OutputDataReader* result = new OutputDataReader(file_name);
+    result->setStrategy(new OutputDataReadReflectometryStrategy());
+    return result;
+}
+
+
 IOutputDataReadStrategy* OutputDataReadFactory::getReadStrategy(const std::string& file_name)
 {
     IOutputDataReadStrategy* result(nullptr);

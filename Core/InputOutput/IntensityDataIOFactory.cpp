@@ -36,6 +36,16 @@ OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& fi
     return nullptr;
 }
 
+OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::string& file_name)
+{
+    if (!FileExists(file_name))
+        return nullptr;
+    std::unique_ptr<OutputDataReader> P_reader(OutputDataReadFactory::getReflectometryReader(file_name));
+    if (P_reader)
+        return P_reader->getOutputData();
+    return nullptr;
+}
+
 IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name)
 {
     std::unique_ptr<OutputData<double>> P_data(readOutputData(file_name));

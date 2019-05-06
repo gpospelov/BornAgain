@@ -27,6 +27,10 @@
 #include <QApplication>
 #include <QItemSelectionModel>
 #include <QMenu>
+#include <QFileDialog>
+#include "AppSvc.h"
+#include "GUIHelpers.h"
+#include "projectmanager.h"
 
 namespace {
 bool openRotateWarningDialog(QWidget* parent) {
@@ -140,16 +144,32 @@ void RealDataSelectorActions::onImport1dDataAction()
 {
     Q_ASSERT(m_realDataModel);
     Q_ASSERT(m_selectionModel);
-    QString baseNameOfImportedFile;
+    //QString baseNameOfImportedFile;
 
-    auto data = ImportDataUtils::Import1dData(baseNameOfImportedFile);
-    if (data) {
-        RealDataItem* realDataItem
-            = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
-        realDataItem->setItemName(baseNameOfImportedFile);
-        realDataItem->setImportData(std::move(data));
-        m_selectionModel->clearSelection();
-        m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
+    QString dirname = AppSvc::projectManager()->projectDir();
+    QStringList fileNames = QFileDialog::getOpenFileNames(nullptr, QStringLiteral("Open Intensity File"),
+                                                          dirname);
+
+    if (fileNames.isEmpty()){
+        return;
+    }
+
+    QString newImportDir = GUIHelpers::fileDir(fileNames[0]);
+    if (newImportDir != dirname)
+        AppSvc::projectManager()->setImportDir(newImportDir);
+
+    for(auto fileName : fileNames) {
+        QFileInfo info(fileName);
+        auto baseNameOfLoadedFile = info.baseName();
+        auto data = ImportDataUtils::Import1dData(fileName);
+        if (data) {
+            RealDataItem* realDataItem
+                            = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
+            realDataItem->setItemName(baseNameOfLoadedFile);
+            realDataItem->setImportData(std::move(data));
+            m_selectionModel->clearSelection();
+            m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
+        }
     }
 }
 

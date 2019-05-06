@@ -22,6 +22,7 @@
 #include "IntensityDataItem.h"
 #include "RealDataItem.h"
 #include "CsvImportAssistant.h"
+#include "PointwiseAxis.h"
 #include "projectmanager.h"
 #include <QFileDialog>
 #include <QFileInfo>
@@ -62,6 +63,22 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportKnownData(QString& fi
 
 }
 
+std::unique_ptr<OutputData<double>> ImportDataUtils::ImportReflectometryData(QString& fileName){
+    std::unique_ptr<OutputData<double>> result;
+    try {
+        std::unique_ptr<OutputData<double>> data(
+                    IntensityDataIOFactory::readReflectometryData(fileName.toStdString()));
+        result.swap(data);
+    } catch(std::exception& ex)
+    {
+        QString message = QString("Error while trying to read file\n\n'%1'\n\n%2")
+                .arg(fileName)
+                .arg(QString::fromStdString(std::string(ex.what())));
+        QMessageBox::warning(nullptr, "IO Problem", message);
+    }
+    return result;
+}
+
 std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseNameOfLoadedFile)
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
@@ -83,34 +100,32 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseN
 
 }
 
-ImportDataInfo ImportDataUtils::Import1dData(QString& baseNameOfLoadedFile)
+ImportDataInfo ImportDataUtils::Import1dData(QString& fileName)
 {
-    QString dirname = AppSvc::projectManager()->userImportDir();
-    QString fileName = QFileDialog::getOpenFileName(nullptr, QStringLiteral("Open Intensity File"),
-                                                    dirname, filter_string_ascii);
-
-    if (fileName.isEmpty())
-        return ImportDataInfo();
-
-    QString newImportDir = GUIHelpers::fileDir(fileName);
-    if (newImportDir != dirname)
-        AppSvc::projectManager()->setImportDir(newImportDir);
-
-    QFileInfo info(fileName);
-    baseNameOfLoadedFile = info.baseName();
-
     if(DataFormatUtils::isCompressed(fileName.toStdString()) ||
-                    DataFormatUtils::isIntFile(fileName.toStdString()) ||
-                    DataFormatUtils::isTiffFile(fileName.toStdString())
+       DataFormatUtils::isIntFile(fileName.toStdString()) ||
+       DataFormatUtils::isTiffFile(fileName.toStdString())
                     ){
         try{
-            return ImportDataInfo(ImportKnownData(fileName), AxesUnits::NBINS);
+            return ImportDataInfo(ImportKnownData(fileName), AxesUnits::QSPACE);
         }
         catch(...){
             return getFromImportAssistant(fileName);
         }
     }
-    return getFromImportAssistant(fileName);
+    else{
+        try{
+            return ImportDataInfo(ImportReflectometryData(fileName), AxesUnits::QSPACE);
+        }
+        catch(...){
+            QString message = QString("There was a problem while trying to import data from file:\n\n'%1'\n--\n%2\n--\n")
+                            .arg(fileName)
+                            .arg("Data format not supported. Please check your file in an external editor.");
+            QMessageBox::warning(nullptr, "Unable to read.", message);
+
+            return ImportDataInfo();
+        }
+    }
 }
 
 

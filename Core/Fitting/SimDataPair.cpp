@@ -13,157 +13,205 @@
 // ************************************************************************** //
 
 #include "SimDataPair.h"
-#include "Simulation.h"
 #include "IntensityDataFunctions.h"
-#include "UnitConverterUtils.h"
 #include "Numeric.h"
+#include "OutputData.h"
+#include "Simulation.h"
+#include "UnitConverterUtils.h"
 
-static_assert(std::is_copy_constructible<SimDataPair>::value == false,
-              "SimDataPair should not be copy constructable");
-static_assert(std::is_copy_assignable<SimDataPair>::value == false,
-              "SimDataPair should not be copy assignable");
+namespace {
+[[noreturn]] void throwInitializationException(std::string method) {
+    std::stringstream ss;
+    ss << "Error in SimDataPair::" << method << ": Trying access non-initialized data\n";
+    throw std::runtime_error(ss.str());
+}
 
-//! Constructs simulation/data pair for later fit.
-//! @param simulation: simulation builder capable of producing simulations
-//! @param data: experimental data
-//! @param weight: weight of dataset in chi2 calculations
+std::unique_ptr<OutputData<double>> initUserWeights(const OutputData<double>& shape, double value)
+{
+    auto result = std::make_unique<OutputData<double>>();
+    result->copyShapeFrom(shape);
+    result->setAllTo(value);
+    return result;
+}
+}
 
 SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData<double>& data,
-                         double weight)
+                         std::unique_ptr<OutputData<double>> uncertainties, double user_weight)
     : m_simulation_builder(builder)
-    , m_data(data.clone())
-    , m_weight(weight)
-    , m_fit_elements_count(0)
+    , m_raw_data(data.clone())
+    , m_raw_uncertainties(std::move(uncertainties))
 {
-
+    m_raw_user_weights = initUserWeights(*m_raw_data, user_weight);
+    validate();
 }
 
-SimDataPair* SimDataPair::clone() const
+SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData<double>& data,
+                         std::unique_ptr<OutputData<double>> uncertainties,
+                         std::unique_ptr<OutputData<double>> user_weights)
+    : m_simulation_builder(builder)
+    , m_raw_data(data.clone())
+    , m_raw_uncertainties(std::move(uncertainties))
+    , m_raw_user_weights(std::move(user_weights))
 {
-    return new SimDataPair(m_simulation_builder, *m_data, m_weight);
+    if (!m_raw_user_weights)
+        m_raw_user_weights = initUserWeights(*m_raw_data, 1.0);
+    validate();
 }
 
-//! Returns the size of the data. It is equal to the number of non-masked detector channels
-//! which will participate in chi2 calculations.
-
-size_t SimDataPair::numberOfFitElements() const
+SimDataPair::SimDataPair(SimDataPair&& other)
+    : m_simulation_builder(std::move(other.m_simulation_builder))
+    , m_simulation(std::move(other.m_simulation))
+    , m_sim_data(std::move(other.m_sim_data))
+    , m_exp_data(std::move(other.m_exp_data))
+    , m_uncertainties(std::move(other.m_uncertainties))
+    , m_user_weights(std::move(other.m_user_weights))
+    , m_raw_data(std::move(other.m_raw_data))
+    , m_raw_uncertainties(std::move(other.m_raw_uncertainties))
+    , m_raw_user_weights(std::move(other.m_raw_user_weights))
 {
-    return m_fit_elements_count;
-}
-
-double SimDataPair::weight() const
-{
-    return m_weight;
-}
-
-//! Returns simulation result.
-
-SimulationResult SimDataPair::simulationResult() const
-{
-    return m_simulation_result;
-}
-
-//! Returns experimental data.
-
-SimulationResult SimDataPair::experimentalData() const
-{
-    return m_experimental_data;
-}
-
-//! Returns relative difference between simulation and experimental data.
-
-SimulationResult SimDataPair::relativeDifference() const
-{
-    auto converter = UnitConverterUtils::createConverter(*m_simulation);
-    auto roi_data = UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
-    auto detector = m_simulation->getInstrument().getDetector();
-
-    detector->iterate([&](IDetector::const_iterator it){
-        const size_t index = it.roiIndex();
-        (*roi_data)[index] = Numeric::GetRelativeDifference(
-                    m_simulation_result[index], m_experimental_data[index]);
-    });
-
-    return SimulationResult(*roi_data, *converter);
-}
-
-SimulationResult SimDataPair::absoluteDifference() const
-{
-    auto converter = UnitConverterUtils::createConverter(*m_simulation);
-    auto roi_data = UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
-    auto detector = m_simulation->getInstrument().getDetector();
-
-    detector->iterate([&](IDetector::const_iterator it){
-        const size_t index = it.roiIndex();
-        (*roi_data)[index] = Numeric::GetAbsoluteDifference(
-                    m_simulation_result[index], m_experimental_data[index]);
-    });
-
-    return SimulationResult(*roi_data, *converter);
+    validate();
 }
 
 SimDataPair::~SimDataPair() = default;
 
 void SimDataPair::runSimulation(const Fit::Parameters& params)
 {
-    create_simulation(params);
-
+    m_simulation = m_simulation_builder(params);
     m_simulation->runSimulation();
-    m_simulation_result = m_simulation->result();
+    m_sim_data = m_simulation->result();
 
-    m_simulation_array.clear();
-    m_simulation_array.reserve(numberOfFitElements());
-    auto detector = m_simulation->getInstrument().getDetector();
-    detector->iterate([&](IDetector::const_iterator it){
-        m_simulation_array.push_back(m_simulation_result[it.roiIndex()]);
-    });
+    initResultArrays();
 }
 
-//! Returns one dimensional array representing experimental data.
-//! Masked areas and the area outside of region of interest are not included.
+bool SimDataPair::containsUncertainties() const
+{
+    return static_cast<bool>(m_raw_uncertainties);
+}
+
+size_t SimDataPair::numberOfFitElements() const
+{
+    return m_simulation ? m_simulation->intensityMapSize() : 0;
+}
+
+SimulationResult SimDataPair::simulationResult() const
+{
+    if (m_sim_data.size() == 0)
+        throwInitializationException("simulationResult");
+    return m_sim_data;
+}
+
+SimulationResult SimDataPair::experimentalData() const
+{
+    if (m_exp_data.size() == 0)
+        throwInitializationException("experimentalData");
+    return m_exp_data;
+}
+
+SimulationResult SimDataPair::uncertainties() const
+{
+    if (m_uncertainties.size() == 0)
+        throwInitializationException("uncertainties");
+    return m_uncertainties;
+}
+
+//! Returns the user uncertainties cut to the ROI area.
+SimulationResult SimDataPair::userWeights() const
+{
+    if (m_user_weights.size() == 0)
+        throwInitializationException("userWeights");
+    return m_user_weights;
+}
+
+//! Returns relative difference between simulation and experimental data.
+
+SimulationResult SimDataPair::relativeDifference() const
+{
+    if (m_sim_data.size() == 0 || m_exp_data.size() == 0)
+        throwInitializationException("relativeDifference");
+
+    SimulationResult result = m_sim_data;
+    for (size_t i = 0, size = result.size(); i < size; ++i)
+        result[i] = Numeric::GetRelativeDifference(result[i], m_exp_data[i]);
+
+    return result;
+}
+
+SimulationResult SimDataPair::absoluteDifference() const
+{
+    if (m_sim_data.size() == 0 || m_exp_data.size() == 0)
+        throwInitializationException("absoluteDifference");
+
+    SimulationResult result = m_sim_data;
+    for (size_t i = 0, size = result.size(); i < size; ++i)
+        result[i] = Numeric::GetAbsoluteDifference(result[i], m_exp_data[i]);
+
+    return result;
+}
 
 std::vector<double> SimDataPair::experimental_array() const
 {
-    return m_experimental_array;
+    if (m_exp_data.size() == 0)
+        throwInitializationException("experimental_array");
+    return m_exp_data.data()->getRawDataVector();
 }
-
-//! Returns one dimensional array representing simulated intensities data.
-//! Masked areas and the area outside of region of interest are not included.
 
 std::vector<double> SimDataPair::simulation_array() const
 {
-    return m_simulation_array;
+    if (m_sim_data.size() == 0)
+        throwInitializationException("simulation_array");
+    return m_sim_data.data()->getRawDataVector();
 }
 
-std::vector<double> SimDataPair::weights_array() const
+std::vector<double> SimDataPair::uncertainties_array() const
 {
-    return m_weights_array;
+    if (m_uncertainties.size() == 0)
+        throwInitializationException("uncertainties_array");
+    return m_uncertainties.data()->getRawDataVector();
 }
 
-//! Creates new simulation for given set of fit parameters.
-//! If it is first call, save number of fit elements (supposed to stay the same during the fit),
-//! and converts raw user data to SimulationResult.
-
-void SimDataPair::create_simulation(const Fit::Parameters& params)
+std::vector<double> SimDataPair::user_weights_array() const
 {
-    m_simulation = m_simulation_builder(params);
+    if (m_user_weights.size() == 0)
+        throwInitializationException("user_weights_array");
+    return m_user_weights.data()->getRawDataVector();
+}
 
-    if (m_fit_elements_count == 0) {
-        m_fit_elements_count = m_simulation->intensityMapSize();
-        m_experimental_data = IntensityDataFunctions::ConvertData(*m_simulation, *m_data, false);
+void SimDataPair::initResultArrays()
+{
+    if (m_exp_data.size() != 0 && m_uncertainties.size() != 0 && m_user_weights.size() != 0)
+        return;
 
-        m_experimental_array.clear();
-        m_experimental_array.reserve(numberOfFitElements());
+    if (!m_simulation || m_sim_data.size() == 0)
+        throwInitializationException("initResultArrays");
 
-        m_weights_array.clear();
-        m_weights_array.reserve(numberOfFitElements());
+    m_exp_data = IntensityDataFunctions::ConvertData(*m_simulation, *m_raw_data, true);
 
-        auto detector = m_simulation->getInstrument().getDetector();
-        detector->iterate([&](IDetector::const_iterator it){
-            m_experimental_array.push_back(m_experimental_data[it.roiIndex()]);
-            m_weights_array.push_back(m_weight);
-        });
+    if (containsUncertainties()) {
+        m_uncertainties =
+            IntensityDataFunctions::ConvertData(*m_simulation, *m_raw_uncertainties, true);
+    } else {
+        const IUnitConverter& converter = m_sim_data.converter();
+        std::unique_ptr<OutputData<double>> dummy_array =
+            UnitConverterUtils::createOutputData(converter, converter.defaultUnits());
+        m_uncertainties = SimulationResult(*dummy_array, converter);
     }
+
+    m_user_weights = IntensityDataFunctions::ConvertData(*m_simulation, *m_raw_user_weights, true);
 }
 
+void SimDataPair::validate() const
+{
+    if (!m_simulation_builder)
+        throw std::runtime_error("Error in SimDataPair: simulation builder is empty");
 
+    if (!m_raw_data)
+        throw std::runtime_error("Error in SimDataPair: passed experimental data array is empty");
+
+    if (m_raw_uncertainties && !m_raw_uncertainties->hasSameShape(*m_raw_data))
+        throw std::runtime_error(
+            "Error in SimDataPair: experimental data and uncertainties have different shape.");
+
+    if (!m_raw_user_weights || !m_raw_user_weights->hasSameShape(*m_raw_data))
+        throw std::runtime_error(
+                "Error in SimDataPair: user weights are not initialized or have invalid shape");
+}

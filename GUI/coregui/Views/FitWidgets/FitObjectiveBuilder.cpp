@@ -75,7 +75,7 @@ std::unique_ptr<FitObjective> FitObjectiveBuilder::createFitObjective() const
         return buildSimulation(params);
     };
 
-    result->addSimulationAndData(builder, *createOutputData(), 1.0);
+    result->addSimulationAndData(builder, *createOutputData(), nullptr, 1.0);
 
     return result;
 }

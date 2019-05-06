@@ -49,9 +49,11 @@ FitObjective::FitObjective()
 FitObjective::~FitObjective() = default;
 
 void FitObjective::addSimulationAndData(simulation_builder_t builder,
-                                        const OutputData<double>& data, double weight)
+                                        const OutputData<double>& data,
+                                        std::unique_ptr<OutputData<double>> uncertainties,
+                                        double weight)
 {
-    m_fit_objects.push_back(new SimDataPair(builder, data, weight));
+    m_fit_objects.emplace_back(builder, data, std::move(uncertainties), weight);
     m_total_weight += weight;
 }
 
@@ -59,16 +61,16 @@ void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
                                         const std::vector<double>& data,
                                         double weight)
 {
-    auto output_data = ArrayUtils::createData1D(data);
-    addSimulationAndData(simulationBuilder(callback), *output_data, weight);
+    addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData1D(data), nullptr,
+                         weight);
 }
 
 void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
                                         const std::vector<std::vector<double>>& data,
                                         double weight)
 {
-    auto output_data = ArrayUtils::createData2D(data);
-    addSimulationAndData(simulationBuilder(callback), *output_data, weight);
+    addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData2D(data), nullptr,
+                         weight);
 }
 
 double FitObjective::evaluate(const Fit::Parameters& params)
@@ -96,8 +98,8 @@ std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& para
 size_t FitObjective::numberOfFitElements() const
 {
     size_t result(0);
-    for (auto obj : m_fit_objects)
-        result += obj->numberOfFitElements();
+    for (auto& obj : m_fit_objects)
+        result += obj.numberOfFitElements();
 
     return result;
 }
@@ -119,22 +121,22 @@ std::vector<double> FitObjective::weights_array() const
 
 SimulationResult FitObjective::simulationResult(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->simulationResult();
+    return m_fit_objects[check_index(i_item)].simulationResult();
 }
 
 SimulationResult FitObjective::experimentalData(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->experimentalData();
+    return m_fit_objects[check_index(i_item)].experimentalData();
 }
 
 SimulationResult FitObjective::relativeDifference(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->relativeDifference();
+    return m_fit_objects[check_index(i_item)].relativeDifference();
 }
 
 SimulationResult FitObjective::absoluteDifference(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)]->absoluteDifference();
+    return m_fit_objects[check_index(i_item)].absoluteDifference();
 }
 
 void FitObjective::initPrint(int every_nth)
@@ -208,11 +210,11 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
     m_experimental_array.clear();
     m_weights_array.clear();
 
-    for (auto obj : m_fit_objects) {
-        obj->runSimulation(params);
-        insert_to(m_simulation_array, obj->simulation_array());
-        insert_to(m_experimental_array, obj->experimental_array());
-        insert_to(m_weights_array, obj->weights_array());
+    for (auto& obj : m_fit_objects) {
+        obj.runSimulation(params);
+        insert_to(m_simulation_array, obj.simulation_array());
+        insert_to(m_experimental_array, obj.experimental_array());
+        insert_to(m_weights_array, obj.user_weights_array());
     }
 }
 

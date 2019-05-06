@@ -43,6 +43,7 @@ public:
     //! @param weight: weight of dataset in chi2 calculations
 #ifndef SWIG
     void addSimulationAndData(simulation_builder_t builder, const OutputData<double>& data,
+                              std::unique_ptr<OutputData<double>> uncertainties,
                               double weight = 1.0);
 #endif
     void addSimulationAndData(PyBuilderCallback& callback,
@@ -129,7 +130,7 @@ private:
     std::vector<double> m_simulation_array;
     std::vector<double> m_weights_array;
 
-    SafePointerVector<SimDataPair> m_fit_objects;
+    std::vector<SimDataPair> m_fit_objects;
     double m_total_weight;
     std::unique_ptr<IChiSquaredModule> m_chi2_module;
     std::unique_ptr<FitStatus> m_fit_status;

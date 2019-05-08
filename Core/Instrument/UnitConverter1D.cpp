@@ -113,7 +113,8 @@ size_t UnitConverterConvSpec::axisSize(size_t i_axis) const
 
 std::vector<AxesUnits> UnitConverterConvSpec::availableUnits() const
 {
-    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE};
+    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE,
+            AxesUnits::RQ4};
 }
 
 AxesUnits UnitConverterConvSpec::defaultUnits() const
@@ -158,6 +159,8 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits un
         return [](double value) { return Units::rad2deg(value); };
     case AxesUnits::QSPACE:
         return [wl=m_wavelength](double value) { return getQ(wl, value); };
+    case AxesUnits::RQ4:
+        return [wl=m_wavelength](double value) { return getQ(wl, value); };
     default:
         throw std::runtime_error(
             "Error in UnitConverterConvSpec::getTranslatorTo: unexpected units type");
@@ -185,7 +188,7 @@ size_t UnitConverterQSpec::axisSize(size_t i_axis) const
 //! Returns the list of all available units
 std::vector<AxesUnits> UnitConverterQSpec::availableUnits() const
 {
-    return {AxesUnits::NBINS, AxesUnits::QSPACE};
+    return {AxesUnits::NBINS, AxesUnits::QSPACE, AxesUnits::RQ4};
 }
 
 //! Returns default units to convert to.
@@ -211,6 +214,8 @@ std::function<double(double)> UnitConverterQSpec::getTraslatorTo(AxesUnits units
 {
     switch (units_type) {
     case AxesUnits::QSPACE:
+        return [](double value) { return value; };
+    case AxesUnits::RQ4:
         return [](double value) { return value; };
     default:
         throw std::runtime_error(

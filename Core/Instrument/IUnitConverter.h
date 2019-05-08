@@ -30,7 +30,7 @@ template<class T> class OutputData;
 
 // workaround for SWIG (instead of just writing enum class AxesUnits...)
 struct BA_CORE_API_ AxesUnitsWrap {
-    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE, QXQY };
+    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE, QXQY, RQ4 };
 };
 typedef AxesUnitsWrap::AxesUnits AxesUnits;
 

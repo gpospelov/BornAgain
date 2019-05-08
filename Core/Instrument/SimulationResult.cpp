@@ -117,9 +117,7 @@ const double& SimulationResult::operator[](size_t i) const
 
 size_t SimulationResult::size() const
 {
-    if (mP_data) return mP_data->getAllocatedSize();
-    throw std::runtime_error("Error in SimulationResult::size(): "
-                             "no data initialized");
+    return mP_data ? mP_data->getAllocatedSize() : 0;
 }
 
 PyObject* SimulationResult::array() const

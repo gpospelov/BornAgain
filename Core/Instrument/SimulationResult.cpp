@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "SimulationResult.h"
-#include "Histogram1D.h"
 #include "Histogram2D.h"
 #include "FixedBinAxis.h"
 #include "OutputData.h"
@@ -61,12 +60,10 @@ SimulationResult& SimulationResult::operator=(SimulationResult&& other)
 
 OutputData<double>* SimulationResult::data(AxesUnits units) const
 {
-    const size_t dim = mP_data->getRank();
-    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    for (size_t i = 0; i < dim; ++i)
-        result->addAxis(*mP_unit_converter->createConvertedAxis(i, units));
-    result->setRawDataVector(mP_data->getRawDataVector());
-    return result.release();
+    if (!mP_data)
+        throw std::runtime_error(
+            "Error in SimulationResult::data:Attempt to access non-initialized data");
+    return mP_unit_converter->createConvertedData(*mP_data, units).release();
 }
 
 Histogram2D* SimulationResult::histogram2d(AxesUnits units) const

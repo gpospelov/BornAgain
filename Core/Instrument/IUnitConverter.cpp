@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "IUnitConverter.h"
+#include "OutputData.h"
 #include "UnitConverterUtils.h"
 
 IUnitConverter::~IUnitConverter() =default;
@@ -31,6 +32,17 @@ std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type) const
         throw std::runtime_error("Error in IUnitConverter::axisName: "
                                  "unknown or unsupported unit type");
     return it->second;
+}
+
+std::unique_ptr<OutputData<double>>
+IUnitConverter::createConvertedData(const OutputData<double>& data, AxesUnits units) const
+{
+    const size_t dim = data.getRank();
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    for (size_t i = 0; i < dim; ++i)
+        result->addAxis(*createConvertedAxis(i, units));
+    result->setRawDataVector(data.getRawDataVector());
+    return result;
 }
 
 void IUnitConverter::checkIndex(size_t i_axis) const

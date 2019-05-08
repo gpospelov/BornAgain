@@ -22,6 +22,7 @@
 #include "ICloneable.h"
 
 class IAxis;
+template<class T> class OutputData;
 
 //! Wrapper for detector axes units, required for a better representation of
 //! detector axes units in python
@@ -56,6 +57,10 @@ public:
 
 #ifndef SWIG
     virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const = 0;
+
+    //! Creates OutputData array in converter units.
+    virtual std::unique_ptr<OutputData<double>> createConvertedData(const OutputData<double>& data,
+                                                                    AxesUnits units) const;
 #endif // SWIG
 
 protected:

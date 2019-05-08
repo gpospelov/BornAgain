@@ -17,8 +17,8 @@
 
 const QString BasicAxisItem::P_IS_VISIBLE = "Visibility";
 const QString BasicAxisItem::P_NBINS = "Nbins";
-const QString BasicAxisItem::P_MIN = "Min";
-const QString BasicAxisItem::P_MAX = "Max";
+const QString BasicAxisItem::P_MIN = "Min [deg]";
+const QString BasicAxisItem::P_MAX = "Max [deg]";
 const QString BasicAxisItem::P_TITLE = "title";
 const QString BasicAxisItem::P_TITLE_IS_VISIBLE = "Title Visibility";
 

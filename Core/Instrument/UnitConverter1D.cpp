@@ -18,6 +18,7 @@
 #include "Beam.h"
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
+#include "OutputData.h"
 #include "PointwiseAxis.h"
 #include "QSpecScan.h"
 #include "UnitConverterUtils.h"
@@ -81,6 +82,27 @@ std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesU
         return std::make_unique<FixedBinAxis>(axisName(0, units), coordinateAxis()->size(),
                                               calculateMin(0, units), calculateMax(0, units));
     return createTranslatedAxis(*coordinateAxis(), getTraslatorTo(units), axisName(0, units));
+}
+
+std::unique_ptr<OutputData<double>>
+UnitConverter1D::createConvertedData(const OutputData<double>& data, AxesUnits units) const
+{
+    if (data.getRank() != 1)
+        throw std::runtime_error("Error in UnitConverter1D::createConvertedData: unexpected "
+                                 "dimensions of the input data");
+
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    auto q_axis = createConvertedAxis(0, units);
+    result->addAxis(*q_axis);
+
+    if (units != AxesUnits::RQ4) {
+        result->setRawDataVector(data.getRawDataVector());
+        return result;
+    }
+
+    for (size_t i = 0, size = result->getAllocatedSize(); i < size; ++i)
+        (*result)[i] = data[i] * std::pow((*q_axis)[i], 4);
+    return result;
 }
 
 UnitConverterConvSpec::UnitConverterConvSpec(const Beam& beam, const IAxis& axis,

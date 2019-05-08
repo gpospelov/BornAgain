@@ -76,14 +76,14 @@ RectangularDetectorItem::RectangularDetectorItem()
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MAX, default_detector_width);
-    item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Width"));
+    item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Width [mm]"));
     item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Width of the detector in mm"));
 
     item = addGroupProperty(P_Y_AXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     item->getItem(BasicAxisItem::P_MIN)->setVisible(false);
     item->setItemValue(BasicAxisItem::P_MAX, default_detector_height);
-    item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Height"));
+    item->getItem(BasicAxisItem::P_MAX)->setDisplayName(QStringLiteral("Height [mm]"));
     item->getItem(BasicAxisItem::P_MAX)->setToolTip(QStringLiteral("Height of the detector in mm"));
 
     // alignment selector

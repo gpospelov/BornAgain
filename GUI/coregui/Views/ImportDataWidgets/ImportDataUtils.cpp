@@ -79,25 +79,9 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportReflectometryData(QSt
     return result;
 }
 
-std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& baseNameOfLoadedFile)
+std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& fileName)
 {
-    QString dirname = AppSvc::projectManager()->userImportDir();
-    QString fileName = QFileDialog::getOpenFileName(Q_NULLPTR, QStringLiteral("Open Intensity File"),
-                                                    dirname, filter_string_ba);
-
-    if (fileName.isEmpty())
-        return nullptr;
-
-
-    QString newImportDir = GUIHelpers::fileDir(fileName);
-    if (newImportDir != dirname)
-        AppSvc::projectManager()->setImportDir(newImportDir);
-
-    QFileInfo info(fileName);
-    baseNameOfLoadedFile = info.baseName();
-
     return ImportKnownData(fileName);
-
 }
 
 ImportDataInfo ImportDataUtils::Import1dData(QString& fileName)

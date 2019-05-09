@@ -43,6 +43,7 @@ public slots:
 private:
     void setAllActionsEnabled(bool value);
     void updateSelection();
+    void importDataLoop(int ndim);
 
     QAction* m_import2dDataAction;
     QAction* m_import1dDataAction;

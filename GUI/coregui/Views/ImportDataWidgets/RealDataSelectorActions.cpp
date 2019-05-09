@@ -123,36 +123,24 @@ void RealDataSelectorActions::setSelectionModel(QItemSelectionModel* selectionMo
 
 }
 
-void RealDataSelectorActions::onImport2dDataAction()
-{
+
+void RealDataSelectorActions::importDataLoop(int ndim){
     Q_ASSERT(m_realDataModel);
     Q_ASSERT(m_selectionModel);
-    QString baseNameOfImportedFile;
-
-    std::unique_ptr<OutputData<double>> data = ImportDataUtils::Import2dData(baseNameOfImportedFile);
-    if (data) {
-        RealDataItem* realDataItem
-            = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
-        realDataItem->setItemName(baseNameOfImportedFile);
-        realDataItem->setOutputData(data.release());
-        m_selectionModel->clearSelection();
-        m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
+    QString filter_string_ba;
+    if(ndim == 2){
+        filter_string_ba = "Intensity File (*.int *.gz *.tif *.tiff *.txt *.csv);;"
+                           "Other (*.*)";
     }
-}
+    else{
+        filter_string_ba = "";
+    }
+    QString dirname = AppSvc::projectManager()->userImportDir();
+    QStringList fileNames = QFileDialog::getOpenFileNames(Q_NULLPTR, QStringLiteral("Open Intensity Files"),
+                                                          dirname, filter_string_ba);
 
-void RealDataSelectorActions::onImport1dDataAction()
-{
-    Q_ASSERT(m_realDataModel);
-    Q_ASSERT(m_selectionModel);
-    //QString baseNameOfImportedFile;
-
-    QString dirname = AppSvc::projectManager()->projectDir();
-    QStringList fileNames = QFileDialog::getOpenFileNames(nullptr, QStringLiteral("Open Intensity File"),
-                                                          dirname);
-
-    if (fileNames.isEmpty()){
+    if (fileNames.isEmpty())
         return;
-    }
 
     QString newImportDir = GUIHelpers::fileDir(fileNames[0]);
     if (newImportDir != dirname)
@@ -161,16 +149,40 @@ void RealDataSelectorActions::onImport1dDataAction()
     for(auto fileName : fileNames) {
         QFileInfo info(fileName);
         auto baseNameOfLoadedFile = info.baseName();
-        auto data = ImportDataUtils::Import1dData(fileName);
-        if (data) {
-            RealDataItem* realDataItem
-                            = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
-            realDataItem->setItemName(baseNameOfLoadedFile);
-            realDataItem->setImportData(std::move(data));
-            m_selectionModel->clearSelection();
-            m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
+
+        if(ndim == 2){
+            std::unique_ptr<OutputData<double>> data = ImportDataUtils::Import2dData(fileName);
+            if (data) {
+                RealDataItem* realDataItem
+                                = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
+                realDataItem->setItemName(baseNameOfLoadedFile);
+                realDataItem->setOutputData(data.release());
+                m_selectionModel->clearSelection();
+                m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
+            }
+        }
+        else if(ndim == 1){
+            auto data = ImportDataUtils::Import1dData(fileName);
+            if (data) {
+                RealDataItem* realDataItem
+                                = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
+                realDataItem->setItemName(baseNameOfLoadedFile);
+                realDataItem->setImportData(std::move(data));
+                m_selectionModel->clearSelection();
+                m_selectionModel->select(realDataItem->index(), QItemSelectionModel::Select);
+            }
         }
     }
+}
+
+void RealDataSelectorActions::onImport2dDataAction()
+{
+    importDataLoop(2);
+}
+
+void RealDataSelectorActions::onImport1dDataAction()
+{
+    importDataLoop(1);
 }
 
 void RealDataSelectorActions::onRemoveDataAction()

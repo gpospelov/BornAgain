@@ -18,6 +18,7 @@
 #include "PointwiseAxis.h"
 #include "ArrayUtils.h"
 #include "TiffHandler.h"
+#include "Units.h"
 #include <stdexcept> // need overlooked by g++ 5.4
 #include <map>
 
@@ -102,8 +103,11 @@ OutputData<double>* OutputDataReadReflectometryStrategy::readOutputData(std::ist
         rVec.push_back(it->second);
     }
 
+    // translate q values from inv. angstroms into inv. nm
+    std::transform(qVec.begin(), qVec.end(), qVec.begin(),
+                   [](double val) { return val / Units::angstrom; });
 
-    oData->addAxis(PointwiseAxis("qVector",qVec));
+    oData->addAxis(PointwiseAxis("qVector", qVec));
     oData->setRawDataVector(rVec);
     return oData;
 }

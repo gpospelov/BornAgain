@@ -186,9 +186,7 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
                                  + std::to_string(static_cast<int>(i_axis)));
     }
     default:
-        throw std::runtime_error("Error in SphericalConverter::calculateValue: "
-                                 "target units not available: "
-                                 + std::to_string(static_cast<int>(units_type)));
+        throwUnitsError("SphericalConverter::calculateValue", availableUnits());
     }
 }
 
@@ -276,9 +274,7 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
                                  + std::to_string(static_cast<int>(i_axis)));
     }
     default:
-        throw std::runtime_error("Error in RectangularConverter::calculateValue: "
-                                 "target units not available: "
-                                 + std::to_string(static_cast<int>(units_type)));
+        throwUnitsError("RectangularConverter::calculateValue", availableUnits());
     }
 }
 
@@ -348,9 +344,7 @@ double OffSpecularConverter::calculateValue(size_t, AxesUnits units_type, double
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
     default:
-        throw std::runtime_error("Error in OffSpecularConverter::calculateValue: "
-                                 "target units not available: "
-                                 + std::to_string(static_cast<int>(units_type)));
+        throwUnitsError("OffSpecularConverter::calculateValue", availableUnits());
     }
 }
 
@@ -454,6 +448,5 @@ void DepthProbeConverter::checkUnits(AxesUnits units_type) const
     const auto& available_units = availableUnits();
     if (std::find(available_units.begin(), available_units.end(), units_type)
         == available_units.cend())
-        throw std::runtime_error("Error in IUnitConverter::checkUnits: passed unit type is not "
-                                 "supported by the converter");
+        throwUnitsError("DepthProbeConverter::checkUnits", available_units);
 }

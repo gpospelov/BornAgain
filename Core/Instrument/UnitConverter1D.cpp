@@ -167,8 +167,8 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorFrom(AxesUnits 
     case AxesUnits::QSPACE:
         return [this](double value) { return getInvQ(m_wavelength, value); };
     default:
-        throw std::runtime_error(
-            "Error in UnitConverter1D::getTranslatorFrom: unexpected units type");
+        throwUnitsError("UnitConverterConvSpec::getTraslatorFrom",
+                        {AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE});
     }
 }
 
@@ -184,8 +184,7 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits un
     case AxesUnits::RQ4:
         return [wl=m_wavelength](double value) { return getQ(wl, value); };
     default:
-        throw std::runtime_error(
-            "Error in UnitConverterConvSpec::getTranslatorTo: unexpected units type");
+        throwUnitsError("UnitConverterConvSpec::getTraslatorTo", availableUnits());
     }
 }
 
@@ -240,8 +239,7 @@ std::function<double(double)> UnitConverterQSpec::getTraslatorTo(AxesUnits units
     case AxesUnits::RQ4:
         return [](double value) { return value; };
     default:
-        throw std::runtime_error(
-            "Error in UnitConverterTOFSpec::getTranslatorTo: unexpected units type");
+        throwUnitsError("UnitConverterQSpec::getTraslatorTo", availableUnits());
     }
 }
 

@@ -29,7 +29,7 @@ class IAxis;
 
 // workaround for SWIG (instead of just writing enum class AxesUnits...)
 struct BA_CORE_API_ AxesUnitsWrap {
-    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE };
+    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE, QXQY };
 };
 typedef AxesUnitsWrap::AxesUnits AxesUnits;
 

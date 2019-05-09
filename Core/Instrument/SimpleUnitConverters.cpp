@@ -171,6 +171,20 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
                                  "incorrect axis index: "
                                  + std::to_string(static_cast<int>(i_axis)));
     }
+    case AxesUnits::QXQY:
+    {
+        auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+        if (i_axis == BornAgain::X_AXIS_INDEX) {
+            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
+            return (k_i - k_f).y();
+        } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, value, 0.0);
+            return (k_f - k_i).x();
+        }
+        throw std::runtime_error("Error in SphericalConverter::calculateValue: "
+                                 "incorrect axis index: "
+                                 + std::to_string(static_cast<int>(i_axis)));
+    }
     default:
         throw std::runtime_error("Error in SphericalConverter::calculateValue: "
                                  "target units not available: "
@@ -244,6 +258,18 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
             return (k_i - k_f).y();
         } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
             return (k_f - k_i).z();
+        }
+        throw std::runtime_error("Error in RectangularConverter::calculateValue: "
+                                 "incorrect axis index: "
+                                 + std::to_string(static_cast<int>(i_axis)));
+    }
+    case AxesUnits::QXQY:
+    {
+        auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+        if (i_axis == BornAgain::X_AXIS_INDEX) {
+            return (k_i - k_f).y();
+        } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+            return (k_f - k_i).x();
         }
         throw std::runtime_error("Error in RectangularConverter::calculateValue: "
                                  "incorrect axis index: "

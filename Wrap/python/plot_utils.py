@@ -53,6 +53,7 @@ def translate_axis_label(label):
                  'alpha_i [rad]' : r'$\alpha_i \; (rad)$',
                  'alpha_i [deg]' : r'$\alpha_i \; (deg)$',
                  'X [mm]'        : r'$X \; (mm)$',
+                 'Qx [1/nm]'     : r'$Q_x \; (nm^{-1})$',
                  'Qy [1/nm]'     : r'$Q_y \; (nm^{-1})$',
                  'Q [1/nm]'      : r'$Q \; (nm^{-1})$',
 

@@ -21364,6 +21364,12 @@ class IntensityDataIOFactory(_object):
 
     readOutputData = staticmethod(readOutputData)
 
+    def readReflectometryData(file_name):
+        """readReflectometryData(std::string const & file_name) -> IntensityData"""
+        return _libBornAgainCore.IntensityDataIOFactory_readReflectometryData(file_name)
+
+    readReflectometryData = staticmethod(readReflectometryData)
+
     def readIntensityData(file_name):
         """readIntensityData(std::string const & file_name) -> IHistogram"""
         return _libBornAgainCore.IntensityDataIOFactory_readIntensityData(file_name)
@@ -21414,6 +21420,10 @@ IntensityDataIOFactory_swigregister(IntensityDataIOFactory)
 def IntensityDataIOFactory_readOutputData(file_name):
     """IntensityDataIOFactory_readOutputData(std::string const & file_name) -> IntensityData"""
     return _libBornAgainCore.IntensityDataIOFactory_readOutputData(file_name)
+
+def IntensityDataIOFactory_readReflectometryData(file_name):
+    """IntensityDataIOFactory_readReflectometryData(std::string const & file_name) -> IntensityData"""
+    return _libBornAgainCore.IntensityDataIOFactory_readReflectometryData(file_name)
 
 def IntensityDataIOFactory_readIntensityData(file_name):
     """IntensityDataIOFactory_readIntensityData(std::string const & file_name) -> IHistogram"""
@@ -29317,6 +29327,7 @@ class AxesUnits(_object):
     DEGREES = _libBornAgainCore.AxesUnits_DEGREES
     MM = _libBornAgainCore.AxesUnits_MM
     QSPACE = _libBornAgainCore.AxesUnits_QSPACE
+    QXQY = _libBornAgainCore.AxesUnits_QXQY
     __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
     __del__ = lambda self: None
 AxesUnits_swigregister = _libBornAgainCore.AxesUnits_swigregister

@@ -25,6 +25,7 @@ std::map<AxesUnits, std::string> InitSphericalAxis0()
     result[AxesUnits::RADIANS] = "phi_f [rad]";
     result[AxesUnits::DEGREES] = "phi_f [deg]";
     result[AxesUnits::QSPACE] = "Qy [1/nm]";
+    result[AxesUnits::QXQY] = "Qx [1/nm]";
     return result;
 }
 std::map<AxesUnits, std::string> InitSphericalAxis1()
@@ -34,6 +35,7 @@ std::map<AxesUnits, std::string> InitSphericalAxis1()
     result[AxesUnits::RADIANS] = "alpha_f [rad]";
     result[AxesUnits::DEGREES] = "alpha_f [deg]";
     result[AxesUnits::QSPACE] = "Qz [1/nm]";
+    result[AxesUnits::QXQY] = "Qy [1/nm]";
     return result;
 }
 // For rectangular detectors in GISAS simulations
@@ -45,6 +47,7 @@ std::map<AxesUnits, std::string> InitRectangularAxis0()
     result[AxesUnits::DEGREES] = "phi_f [deg]";
     result[AxesUnits::MM] = "X [mm]";
     result[AxesUnits::QSPACE] = "Qy [1/nm]";
+    result[AxesUnits::QXQY] = "Qx [1/nm]";
     return result;
 }
 std::map<AxesUnits, std::string> InitRectangularAxis1()
@@ -55,6 +58,7 @@ std::map<AxesUnits, std::string> InitRectangularAxis1()
     result[AxesUnits::DEGREES] = "alpha_f [deg]";
     result[AxesUnits::MM] = "Y [mm]";
     result[AxesUnits::QSPACE] = "Qz [1/nm]";
+    result[AxesUnits::QXQY] = "Qy [1/nm]";
     return result;
 }
 // For off-specular simulations (both spherical and rectangular detectors)

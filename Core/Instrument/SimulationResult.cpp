@@ -117,9 +117,12 @@ size_t SimulationResult::size() const
     return mP_data ? mP_data->getAllocatedSize() : 0;
 }
 
-PyObject* SimulationResult::array() const
+PyObject* SimulationResult::array(AxesUnits units) const
 {
-    return mP_data->getArray();
+    if (!mP_data || !mP_unit_converter)
+        throw std::runtime_error(
+            "Error in SimulationResult::array: attempt to access non-initialized data");
+    return mP_unit_converter->createConvertedData(*mP_data, units)->getArray();
 }
 
 std::vector<double> SimulationResult::axis(AxesUnits units) const

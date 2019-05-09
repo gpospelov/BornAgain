@@ -66,7 +66,7 @@ public:
 
     //! returns intensity data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
-    PyObject* array() const;
+    PyObject* array(AxesUnits units = AxesUnits::DEFAULT) const;
 #endif
 
     std::vector<double> axis(AxesUnits units = AxesUnits::DEFAULT) const;

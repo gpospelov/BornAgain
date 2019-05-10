@@ -168,7 +168,7 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesU
     :param units: units on the x-axis
     """
 
-    intensity = result.array()
+    intensity = result.array(units)
     x_axis = result.axis(units)
     ymax = np.amax(intensity) * 2.0 if ymax is None else ymax
     ymin = max(np.amin(intensity) * 0.5, 1e-18 * ymax) if ymin is None else ymin

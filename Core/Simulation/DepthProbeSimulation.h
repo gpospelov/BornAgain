@@ -29,8 +29,6 @@ public:
 
     void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
-    size_t numberOfSimulationElements() const override;
-
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays
     SimulationResult result() const override;
@@ -49,6 +47,9 @@ public:
     //! Returns a pointer to z-position axis.
     const IAxis* getZAxis() const;
 
+    //! Returns the total number of the intensity values in the simulation result
+    size_t intensityMapSize() const override { return numberOfSimulationElements(); }
+
 #ifndef SWIG
     std::unique_ptr<IUnitConverter> createUnitConverter() const;
 #endif
@@ -62,6 +63,9 @@ private:
 
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() override;
+
+    //! Gets the number of elements this simulation needs to calculate
+    size_t numberOfSimulationElements() const override;
 
     //! Generate simulation elements for given beam
     std::vector<DepthProbeElement> generateSimulationElements(const Beam& beam);

@@ -46,8 +46,6 @@ public:
 
     void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
-    size_t numberOfSimulationElements() const override;
-
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays. If simulation was not run, returns an array of proper size filled with
     //! zeros.
@@ -61,6 +59,9 @@ public:
 
     //! Returns a pointer to footprint factor holder
     const IFootprintFactor* footprintFactor() const;
+
+    //! Returns the total number of the intensity values in the simulation result
+    size_t intensityMapSize() const override;
 
 #ifndef SWIG
     //! Returns internal data handler
@@ -100,6 +101,9 @@ private:
     void addDataToCache(double weight) override;
 
     void moveDataFromCache() override;
+
+    //! Gets the number of elements this simulation needs to calculate
+    size_t numberOfSimulationElements() const override;
 
     //! Creates intensity data from simulation elements
     std::unique_ptr<OutputData<double>> createIntensityData() const;

@@ -16684,14 +16684,9 @@ class Simulation(ICloneable, INode):
         return _libBornAgainCore.Simulation_background(self)
 
 
-    def numberOfSimulationElements(self):
-        """
-        numberOfSimulationElements(Simulation self) -> size_t
-
-        virtual size_t Simulation::numberOfSimulationElements() const =0
-
-        """
-        return _libBornAgainCore.Simulation_numberOfSimulationElements(self)
+    def intensityMapSize(self):
+        """intensityMapSize(Simulation self) -> size_t"""
+        return _libBornAgainCore.Simulation_intensityMapSize(self)
 
 
     def result(self):
@@ -16927,6 +16922,11 @@ class Simulation2D(Simulation):
 
         """
         return _libBornAgainCore.Simulation2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
+
+
+    def intensityMapSize(self):
+        """intensityMapSize(Simulation2D self) -> size_t"""
+        return _libBornAgainCore.Simulation2D_intensityMapSize(self)
 
 Simulation2D_swigregister = _libBornAgainCore.Simulation2D_swigregister
 Simulation2D_swigregister(Simulation2D)
@@ -17194,18 +17194,6 @@ class GISASSimulation(Simulation2D):
 
         """
         return _libBornAgainCore.GISASSimulation_prepareSimulation(self)
-
-
-    def numberOfSimulationElements(self):
-        """
-        numberOfSimulationElements(GISASSimulation self) -> size_t
-
-        size_t GISASSimulation::numberOfSimulationElements() const override
-
-        Gets the number of elements this simulation needs to calculate. 
-
-        """
-        return _libBornAgainCore.GISASSimulation_numberOfSimulationElements(self)
 
 
     def result(self):
@@ -18279,8 +18267,9 @@ class SimulationResult(_object):
         return _libBornAgainCore.SimulationResult_size(self)
 
 
-    def array(self):
+    def array(self, *args):
         """
+        array(SimulationResult self, AxesUnits units) -> PyObject
         array(SimulationResult self) -> PyObject *
 
         PyObject * SimulationResult::array() const
@@ -18288,7 +18277,7 @@ class SimulationResult(_object):
         returns intensity data as Python numpy array 
 
         """
-        return _libBornAgainCore.SimulationResult_array(self)
+        return _libBornAgainCore.SimulationResult_array(self, *args)
 
 
     def axis(self, *args):
@@ -25760,18 +25749,6 @@ class OffSpecSimulation(Simulation2D):
         return _libBornAgainCore.OffSpecSimulation_prepareSimulation(self)
 
 
-    def numberOfSimulationElements(self):
-        """
-        numberOfSimulationElements(OffSpecSimulation self) -> size_t
-
-        size_t OffSpecSimulation::numberOfSimulationElements() const final
-
-        Gets the number of elements this simulation needs to calculate. 
-
-        """
-        return _libBornAgainCore.OffSpecSimulation_numberOfSimulationElements(self)
-
-
     def result(self):
         """
         result(OffSpecSimulation self) -> SimulationResult
@@ -28763,16 +28740,6 @@ class DepthProbeSimulation(Simulation):
         return _libBornAgainCore.DepthProbeSimulation_accept(self, visitor)
 
 
-    def numberOfSimulationElements(self):
-        """
-        numberOfSimulationElements(DepthProbeSimulation self) -> size_t
-
-        size_t DepthProbeSimulation::numberOfSimulationElements() const override
-
-        """
-        return _libBornAgainCore.DepthProbeSimulation_numberOfSimulationElements(self)
-
-
     def result(self):
         """
         result(DepthProbeSimulation self) -> SimulationResult
@@ -28832,6 +28799,11 @@ class DepthProbeSimulation(Simulation):
 
         """
         return _libBornAgainCore.DepthProbeSimulation_getZAxis(self)
+
+
+    def intensityMapSize(self):
+        """intensityMapSize(DepthProbeSimulation self) -> size_t"""
+        return _libBornAgainCore.DepthProbeSimulation_intensityMapSize(self)
 
 DepthProbeSimulation_swigregister = _libBornAgainCore.DepthProbeSimulation_swigregister
 DepthProbeSimulation_swigregister(DepthProbeSimulation)
@@ -28907,16 +28879,6 @@ class SpecularSimulation(Simulation):
         return _libBornAgainCore.SpecularSimulation_accept(self, visitor)
 
 
-    def numberOfSimulationElements(self):
-        """
-        numberOfSimulationElements(SpecularSimulation self) -> size_t
-
-        size_t SpecularSimulation::numberOfSimulationElements() const override
-
-        """
-        return _libBornAgainCore.SpecularSimulation_numberOfSimulationElements(self)
-
-
     def result(self):
         """
         result(SpecularSimulation self) -> SimulationResult
@@ -28963,6 +28925,11 @@ class SpecularSimulation(Simulation):
 
         """
         return _libBornAgainCore.SpecularSimulation_footprintFactor(self)
+
+
+    def intensityMapSize(self):
+        """intensityMapSize(SpecularSimulation self) -> size_t"""
+        return _libBornAgainCore.SpecularSimulation_intensityMapSize(self)
 
 
     def setSampleBuilder(self, ptr):
@@ -29328,6 +29295,7 @@ class AxesUnits(_object):
     MM = _libBornAgainCore.AxesUnits_MM
     QSPACE = _libBornAgainCore.AxesUnits_QSPACE
     QXQY = _libBornAgainCore.AxesUnits_QXQY
+    RQ4 = _libBornAgainCore.AxesUnits_RQ4
     __swig_destroy__ = _libBornAgainCore.delete_AxesUnits
     __del__ = lambda self: None
 AxesUnits_swigregister = _libBornAgainCore.AxesUnits_swigregister

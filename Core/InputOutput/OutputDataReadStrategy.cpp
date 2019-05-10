@@ -119,13 +119,20 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
     std::string line;
     std::vector<std::vector<double>> data;
 
+    //Read numbers from input stream:
     while( std::getline(input_stream, line) ) {
-        if(line.empty() || line[0] == '#')
+        if(line.empty() || !isdigit(line[0]))
             continue;
-        std::vector<double> data_in_row = DataFormatUtils::parse_doubles(line);
-        data.push_back(data_in_row);
+
+        try {
+            std::vector<double> dataInRow = DataFormatUtils::parse_doubles(line);
+            data.push_back(dataInRow);
+        } catch (...) {
+            continue;
+        }
     }
-    // validating
+
+   // validating
     size_t nrows = data.size();
     size_t ncols(0);
     if(nrows) ncols = data[0].size();

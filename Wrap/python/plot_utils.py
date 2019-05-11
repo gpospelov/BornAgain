@@ -19,16 +19,15 @@ try:  # workaround for build servers
     import numpy as np
     from matplotlib import pyplot as plt
     from matplotlib import gridspec, colors
+    global_cmap = plt.get_cmap("gnuplot2")
 except Exception as e:
     print("In plot_utils.py: {:s}".format(str(e)))
 
-
 label_fontsize = 16
-global_cmap = plt.get_cmap("gnuplot2")
 
 def set_cmap(cmap):
     """
-    Sets the default color map.
+    Overwrites the color map to be used in 2D plots.
     Argument must be either the name of a matplotlib built-in color map,
     or it must be of type matplotlib.colors.Colormap.
     """

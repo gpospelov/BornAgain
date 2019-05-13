@@ -19,12 +19,25 @@ try:  # workaround for build servers
     import numpy as np
     from matplotlib import pyplot as plt
     from matplotlib import gridspec, colors
+    global_cmap = plt.get_cmap("gnuplot2")
 except Exception as e:
     print("In plot_utils.py: {:s}".format(str(e)))
 
-
 label_fontsize = 16
 
+def set_cmap(cmap):
+    """
+    Overwrites the color map to be used in 2D plots.
+    Argument must be either the name of a matplotlib built-in color map,
+    or it must be of type matplotlib.colors.Colormap.
+    """
+    global global_cmap
+    if isinstance(cmap, str):
+        global_cmap = plt.get_cmap(cmap)
+    elif isinstance(cmap, colors.Colormap):
+        global_cmap = cmap
+    else:
+        raise Exception("set_cmap called with invalid argument")
 
 def get_axes_limits(result, units):
     """
@@ -100,7 +113,7 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
     else:
         norm = colors.LogNorm(zmin, zmax)
 
-    im = plt.imshow(array, norm=norm, extent=axes_limits, aspect=aspect)
+    im = plt.imshow(array, norm=norm, extent=axes_limits, aspect=aspect, cmap=global_cmap)
     cb = plt.colorbar(im, pad=0.025)
 
     if xlabel:
@@ -190,8 +203,9 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesU
         plt.title(title)
 
 
-def plot_simulation_result(result, intensity_min=None, intensity_max=None, units=ba.AxesUnits.DEFAULT,
-                           xlabel=None, ylabel=None, postpone_show=False, title=None, aspect=None):
+def plot_simulation_result(
+        result, intensity_min=None, intensity_max=None, units=ba.AxesUnits.DEFAULT,
+        xlabel=None, ylabel=None, postpone_show=False, title=None, aspect=None):
     """
     Draws simulation result and (optionally) shows the plot.
     :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation

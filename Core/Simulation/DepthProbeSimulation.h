@@ -48,7 +48,7 @@ public:
     const IAxis* getZAxis() const;
 
     //! Returns the total number of the intensity values in the simulation result
-    size_t intensityMapSize() const override { return numberOfSimulationElements(); }
+    size_t intensityMapSize() const override;
 
 #ifndef SWIG
     std::unique_ptr<IUnitConverter> createUnitConverter() const;

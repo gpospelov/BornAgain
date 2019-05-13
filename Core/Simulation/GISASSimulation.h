@@ -47,6 +47,9 @@ public:
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
+    //! Returns the total number of the intensity values in the simulation result
+    size_t intensityMapSize() const override;
+
 private:
     GISASSimulation(const GISASSimulation& other);
 

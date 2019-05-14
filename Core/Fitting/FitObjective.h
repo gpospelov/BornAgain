@@ -27,8 +27,7 @@ class PyBuilderCallback;
 class PyObserverCallback;
 class FitStatus;
 
-//! Main class to hold pairs of simulation
-//! Holds vector of FitObject's (simulation and real data) to fit
+//! Holds vector of `SimDataPair`s (experimental data and simulation results) for use in fitting.
 //! @ingroup fitting_internal
 
 class BA_CORE_API_ FitObjective

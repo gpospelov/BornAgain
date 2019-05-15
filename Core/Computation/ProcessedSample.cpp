@@ -21,7 +21,7 @@
 #include "Slice.h"
 
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
-    : m_slices{}
+    : m_slices{}, m_crossCorrLength{sample.crossCorrLength()}, m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
 }
@@ -33,6 +33,7 @@ size_t ProcessedSample::numberOfSlices() const
     return m_slices.size();
 }
 
+// Creates a array of slices with the correct thickness, roughness and material
 void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptions& options)
 {
     if (sample.numberOfLayers() == 0)
@@ -44,6 +45,7 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
         auto n_slices = p_layer->numberOfSlices();
         const ZLimits& slice_limits = layer_limits[i];
         double tl = p_layer->thickness();
+        const Material* p_material = p_layer->material();
         auto p_roughness = sample.layerTopRoughness(i);
         if (p_roughness && p_roughness->getSigma() <= 0)
             p_roughness = nullptr;
@@ -51,7 +53,7 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
         if (!slice_limits.isFinite() || n_slices == 0) {
             if (i == sample.numberOfLayers() - 1)
                 tl = 0.0;
-            addSlice(tl, p_roughness);
+            addSlice(tl, *p_material, p_roughness);
             continue;
         }
         double top = slice_limits.upperLimit().m_value;
@@ -61,42 +63,42 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
             if (top <= 0)
                 throw std::runtime_error("ProcessedSample::ProcessedSample: "
                                          "top limit for top layer must be > 0.");
-            addSlice(0.0);
-            addNSlices(top - bottom, n_slices);
+            addSlice(0.0, *p_material);
+            addNSlices(n_slices, top - bottom, *p_material);
             if (bottom > 0) {
-                addSlice(bottom);
+                addSlice(bottom, *p_material);
             }
         }
         // middle or bottom layer
         else {
             if (top < 0) {
-                addSlice(-top, p_roughness);
-                addNSlices(top - bottom, n_slices);
+                addSlice(-top, *p_material, p_roughness);
+                addNSlices(n_slices, top - bottom, *p_material);
             } else {
-                addNSlices(top - bottom, n_slices, p_roughness);
+                addNSlices(n_slices, top - bottom, *p_material, p_roughness);
             }
             // middle layer
             if (i < sample.numberOfLayers() - 1 && bottom > -tl) {
-                addSlice(bottom + tl);
+                addSlice(bottom + tl, *p_material);
             }
             // bottom layer
             if (i == sample.numberOfLayers() - 1) {
-                addSlice(0);
+                addSlice(0.0, *p_material);
             }
         }
     }
 }
 
-void ProcessedSample::addSlice(double thickness, const LayerRoughness* p_roughness)
+void ProcessedSample::addSlice(double thickness, const Material& material, const LayerRoughness* p_roughness)
 {
     if (p_roughness) {
-        m_slices.emplace_back(thickness, *p_roughness);
+        m_slices.emplace_back(thickness, material, *p_roughness);
     } else {
-        m_slices.emplace_back(thickness);
+        m_slices.emplace_back(thickness, material);
     }
 }
 
-void ProcessedSample::addNSlices(double thickness, size_t n, const LayerRoughness* p_roughness)
+void ProcessedSample::addNSlices(size_t n, double thickness, const Material& material, const LayerRoughness* p_roughness)
 {
     if (thickness <= 0.0)
         return;
@@ -104,8 +106,8 @@ void ProcessedSample::addNSlices(double thickness, size_t n, const LayerRoughnes
         throw std::runtime_error("ProcessedSample::addNSlices: number of slices should be "
                                  "bigger than zero.");
     double slice_thickness = thickness / n;
-    addSlice(slice_thickness, p_roughness);
+    addSlice(slice_thickness, material, p_roughness);
     for (size_t i = 1; i < n; ++i) {
-        addSlice(slice_thickness);
+        addSlice(slice_thickness, material);
     }
 }

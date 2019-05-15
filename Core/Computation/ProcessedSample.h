@@ -15,6 +15,8 @@
 #ifndef PROCESSEDSAMPLE_H
 #define PROCESSEDSAMPLE_H
 
+#include "Material.h"
+#include "Vectors3D.h"
 #include <vector>
 
 class MultiLayer;
@@ -39,9 +41,11 @@ public:
 
 private:
     void initSlices(const MultiLayer& sample, const SimulationOptions& options);
-    void addSlice(double thickness, const LayerRoughness* p_roughness=nullptr);
-    void addNSlices(double thickness, size_t n, const LayerRoughness* p_roughness=nullptr);
+    void addSlice(double thickness, const Material& material, const LayerRoughness* p_roughness=nullptr);
+    void addNSlices(size_t n, double thickness, const Material& material, const LayerRoughness* p_roughness=nullptr);
     std::vector<Slice> m_slices;
+    double m_crossCorrLength;
+    kvector_t m_ext_field;
 };
 
 #endif // PROCESSEDSAMPLE_H

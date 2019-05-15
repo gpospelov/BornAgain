@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/FresnelInputData.h
-//! @brief     Defines class FresnelInputData.
+//! @file      Core/Computation/ProcessedSample.h
+//! @brief     Defines class ProcessedSample.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FRESNELINPUTDATA_H
-#define FRESNELINPUTDATA_H
+#ifndef PROCESSEDSAMPLE_H
+#define PROCESSEDSAMPLE_H
 
 #include <vector>
 
@@ -22,18 +22,18 @@ class LayerRoughness;
 class SimulationOptions;
 class Slice;
 
-//! Data structure that contains all the necessary data for calculating the Fresnel coefficients.
+//! Data structure that contains all the necessary data for scattering calculations.
 //!
-//! If the usage of average materials is requested, layers are sliced into multiple slices and
-//! the average material is calculated for each slice.
+//! If the usage of average materials is requested, layers and particles are sliced into multiple
+//! slices and the average material is calculated for each slice.
 //!
 //! @ingroup algorithms_internal
 
-class FresnelInputData
+class ProcessedSample
 {
 public:
-    FresnelInputData(const MultiLayer& sample, const SimulationOptions& options);
-    ~FresnelInputData();
+    ProcessedSample(const MultiLayer& sample, const SimulationOptions& options);
+    ~ProcessedSample();
 
     size_t numberOfSlices() const;
 
@@ -44,4 +44,4 @@ private:
     std::vector<Slice> m_slices;
 };
 
-#endif // FRESNELINPUTDATA_H
+#endif // PROCESSEDSAMPLE_H

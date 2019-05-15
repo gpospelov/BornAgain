@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/FresnelInputData.cpp
-//! @brief     Implements class FresnelInputData.
+//! @file      Core/Computation/ProcessedSample.cpp
+//! @brief     Implements class ProcessedSample.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "FresnelInputData.h"
+#include "ProcessedSample.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
 #include "MultiLayer.h"
@@ -20,20 +20,20 @@
 #include "SimulationOptions.h"
 #include "Slice.h"
 
-FresnelInputData::FresnelInputData(const MultiLayer& sample, const SimulationOptions& options)
+ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
     : m_slices{}
 {
     initSlices(sample, options);
 }
 
-FresnelInputData::~FresnelInputData() = default;
+ProcessedSample::~ProcessedSample() = default;
 
-size_t FresnelInputData::numberOfSlices() const
+size_t ProcessedSample::numberOfSlices() const
 {
     return m_slices.size();
 }
 
-void FresnelInputData::initSlices(const MultiLayer& sample, const SimulationOptions& options)
+void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptions& options)
 {
     if (sample.numberOfLayers() == 0)
         return;
@@ -59,7 +59,7 @@ void FresnelInputData::initSlices(const MultiLayer& sample, const SimulationOpti
         // top layer
         if (i == 0) {
             if (top <= 0)
-                throw std::runtime_error("FresnelInputData::FresnelInputData: "
+                throw std::runtime_error("ProcessedSample::ProcessedSample: "
                                          "top limit for top layer must be > 0.");
             addSlice(0.0);
             addNSlices(top - bottom, n_slices);
@@ -87,7 +87,7 @@ void FresnelInputData::initSlices(const MultiLayer& sample, const SimulationOpti
     }
 }
 
-void FresnelInputData::addSlice(double thickness, const LayerRoughness* p_roughness)
+void ProcessedSample::addSlice(double thickness, const LayerRoughness* p_roughness)
 {
     if (p_roughness) {
         m_slices.emplace_back(thickness, *p_roughness);
@@ -96,12 +96,12 @@ void FresnelInputData::addSlice(double thickness, const LayerRoughness* p_roughn
     }
 }
 
-void FresnelInputData::addNSlices(double thickness, size_t n, const LayerRoughness* p_roughness)
+void ProcessedSample::addNSlices(double thickness, size_t n, const LayerRoughness* p_roughness)
 {
     if (thickness <= 0.0)
         return;
     if (n == 0)
-        throw std::runtime_error("FresnelInputData::addNSlices: number of slices should be "
+        throw std::runtime_error("ProcessedSample::addNSlices: number of slices should be "
                                  "bigger than zero.");
     double slice_thickness = thickness / n;
     addSlice(slice_thickness, p_roughness);

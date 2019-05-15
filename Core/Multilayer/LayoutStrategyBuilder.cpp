@@ -64,11 +64,7 @@ void LayoutStrategyBuilder::createStrategy()
     SafePointerVector<class FormFactorCoherentSum> ff_wrappers = collectFormFactorList();
 
     // TODO: this needs to be updated (no dynamic_cast or unnecessary accessors)
-    const IInterferenceFunction* p_iff { nullptr };
-    for (auto p_child : mp_layout->getChildren()) {
-        if ( (p_iff = dynamic_cast<const IInterferenceFunction*>(p_child)) )
-            break;
-    }
+    const IInterferenceFunction* p_iff = mp_layout->interferenceFunction();
     checkInterferenceFunction(p_iff);
 
     switch (mp_layout->getApproximation())

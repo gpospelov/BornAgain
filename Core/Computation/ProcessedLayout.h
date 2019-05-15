@@ -20,6 +20,7 @@
 
 class FormFactorCoherentSum;
 class IInterferenceFunction;
+class ILayout;
 
 //! Data structure that contains preprocessed data for a single layout.
 //!
@@ -31,7 +32,7 @@ class IInterferenceFunction;
 class ProcessedLayout
 {
 public:
-
+    ProcessedLayout(const ILayout& layout);
 private:
     std::vector<FormFactorCoherentSum> m_formfactors;
     std::unique_ptr<IInterferenceFunction> mP_iff;

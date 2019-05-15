@@ -13,3 +13,11 @@
 // ************************************************************************** //
 
 #include "ProcessedLayout.h"
+#include "ILayout.h"
+#include "IInterferenceFunction.h"
+
+ProcessedLayout::ProcessedLayout(const ILayout& layout)
+{
+    if (auto p_iff = layout.interferenceFunction())
+        mP_iff.reset(p_iff->clone());
+}

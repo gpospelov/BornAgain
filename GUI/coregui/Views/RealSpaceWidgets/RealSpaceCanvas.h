@@ -97,6 +97,7 @@ public slots:
     void onTopViewAction();
     void onLockViewAction(bool view_locked);
     void onChangeLayerSizeAction(double layer_size_scale);
+    void onSavePictureAction();
 
 private slots:
     void onDataChanged(const QModelIndex& index);
@@ -118,6 +119,7 @@ private:
     bool m_view_locked;
     std::unique_ptr<SceneGeometry> m_sceneGeometry;
     WarningSign* m_warningSign;
+    void savePicture(const QPixmap &pixmap);
 };
 
 #endif // REALSPACESCENE_H

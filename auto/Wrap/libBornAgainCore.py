@@ -18294,6 +18294,16 @@ class SimulationResult(_object):
         """
         return _libBornAgainCore.SimulationResult_axis(self, *args)
 
+
+    def __getitem__(self, i):
+        """__getitem__(SimulationResult self, unsigned int i) -> double"""
+        return _libBornAgainCore.SimulationResult___getitem__(self, i)
+
+
+    def __setitem__(self, i, value):
+        """__setitem__(SimulationResult self, unsigned int i, double value) -> double"""
+        return _libBornAgainCore.SimulationResult___setitem__(self, i, value)
+
     __swig_destroy__ = _libBornAgainCore.delete_SimulationResult
     __del__ = lambda self: None
 SimulationResult_swigregister = _libBornAgainCore.SimulationResult_swigregister

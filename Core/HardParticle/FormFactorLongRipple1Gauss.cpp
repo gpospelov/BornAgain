@@ -54,34 +54,33 @@ double FormFactorLongRipple1Gauss::radialExtension() const
 }
 
 //! Integrand for complex formfactor.
-complex_t FormFactorLongRipple1Gauss::Integrand(double Z) const
+complex_t FormFactorLongRipple1Gauss::Integrand(double u) const
 {
-    complex_t aa = std::acos(2.0*Z/m_height - 1.0);
-    return exp_I(m_q.z()*Z)*aa*MathFunctions::sinc(aa*m_q.y()*m_width/(M_TWOPI));
+    return sin(u) * exp(m_az*std::cos(u)) * ( m_ay==0. ? u : sin(m_ay*u)/m_ay );
 }
 
 //! Complex formfactor.
 complex_t FormFactorLongRipple1Gauss::evaluate_for_q(cvector_t q) const
 {
-    m_q = q;
-//    complex_t factor = m_length*MathFunctions::sinc(m_q.x()*m_length*0.5)*m_width/M_PI;
     complex_t qxL2 = std::pow(m_length * q.x(), 2) / 2.0;
     complex_t factor = m_length*std::exp(-qxL2)*m_width/M_PI;
 
-    complex_t aaa = m_q.y()*m_width/(M_TWOPI);
-    complex_t aaa2 = aaa*aaa;
-
     // analytical expressions for some particular cases
-    if (0.0==m_q.y() && 0.0==m_q.z())
-        return factor*M_PI_2*m_height;
-    else if (0.0==m_q.z() && 1.0 == aaa2)
-        return factor*M_PI_4*m_height;
-    else if (0.0==m_q.z())
-        return factor*M_PI_2*m_height*MathFunctions::sinc(m_q.y()*m_width*0.5)/(1.0-aaa2);
+    if ( q.z()==0. ) {
+        if( q.y()==0. )
+            return factor*M_PI_2*m_height;
+        complex_t aaa = q.y()*m_width/(M_TWOPI);
+        complex_t aaa2 = aaa*aaa;
+        if ( aaa2==1. )
+            return factor*M_PI_4*m_height;
+        return factor*M_PI_2*m_height*MathFunctions::sinc(q.y()*m_width*0.5)/(1.0-aaa2);
+    }
 
     // numerical integration otherwise
-    complex_t integral = mP_integrator->integrate(0, m_height);
-    return factor * integral;
+    m_ay = q.y() * m_width / M_TWOPI;
+    m_az = complex_t(0,1) * q.z() * (m_height/2);
+    complex_t integral = mP_integrator->integrate(0, M_PI);
+    return factor * integral * exp(m_az) * (m_height/2);
 }
 
 void FormFactorLongRipple1Gauss::onChange()

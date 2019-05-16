@@ -18,6 +18,15 @@
     }
 };
 
+%extend SimulationResult {
+    double __getitem__(unsigned int i) { return (*($self))[i]; }
+    double __setitem__(unsigned int i, double value)
+    {
+        (*($self))[i] = value;
+        return (*($self))[i];
+    }
+};
+
 %extend FixedBinAxis {
     double __getitem__(unsigned int i) { return (*($self))[i]; }
 };

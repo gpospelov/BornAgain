@@ -19192,6 +19192,11 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_particles(self)
 
 
+    def interferenceFunction(self):
+        """interferenceFunction(ILayout self) -> IInterferenceFunction"""
+        return _libBornAgainCore.ILayout_interferenceFunction(self)
+
+
     def getTotalAbundance(self):
         """
         getTotalAbundance(ILayout self) -> double
@@ -27555,6 +27560,11 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_particles(self)
+
+
+    def interferenceFunction(self):
+        """interferenceFunction(ParticleLayout self) -> IInterferenceFunction"""
+        return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
 
 
     def getTotalAbundance(self):

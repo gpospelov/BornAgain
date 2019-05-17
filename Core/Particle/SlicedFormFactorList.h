@@ -21,6 +21,7 @@
 #include <memory>
 
 class MultiLayer;
+class Slice;
 
 //! Class that contains and owns a list of form factors and the index of their containing layer.
 //! This class also handles the slicing of form factors if they cross layer interfaces.
@@ -38,6 +39,8 @@ public:
     static SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
                                                  const MultiLayer& multilayer,
                                                  size_t ref_layer_index);
+    static SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
+                                                 const std::vector<Slice>& slices, double z_ref);
 
     size_t size() const;
 
@@ -47,6 +50,7 @@ public:
 private:
     void addParticle(IParticle& particle, const MultiLayer& multilayer,
                        size_t ref_layer_index);
+    void addParticle(IParticle& particle, const std::vector<Slice>& slices, double z_ref);
     std::vector<std::pair<std::unique_ptr<IFormFactor>, size_t>> m_ff_list;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };

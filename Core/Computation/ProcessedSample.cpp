@@ -13,10 +13,12 @@
 // ************************************************************************** //
 
 #include "ProcessedSample.h"
+#include "IFresnelMap.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
 #include "MultiLayer.h"
 #include "MultiLayerUtils.h"
+#include "ProcessedLayout.h"
 #include "SimulationOptions.h"
 #include "Slice.h"
 
@@ -24,6 +26,7 @@ ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptio
     : m_slices{}, m_crossCorrLength{sample.crossCorrLength()}, m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
+    initLayouts(sample);
 }
 
 ProcessedSample::~ProcessedSample() = default;
@@ -85,6 +88,19 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
             if (i == sample.numberOfLayers() - 1) {
                 addSlice(0.0, *p_material);
             }
+        }
+    }
+}
+
+void ProcessedSample::initLayouts(const MultiLayer &sample)
+{
+    double z_ref = 0.0;
+    for (size_t i=0; i<sample.numberOfLayers(); ++i) {
+        if (i>1)
+            z_ref += sample.layerThickness(i-1);
+        auto p_layer = sample.layer(i);
+        for (auto p_layout : p_layer->layouts()) {
+            m_layouts.emplace_back(*p_layout, m_slices, z_ref, mp_fresnel_map.get(), false);
         }
     }
 }

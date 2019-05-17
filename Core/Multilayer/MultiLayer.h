@@ -64,7 +64,7 @@ public:
     const LayerInterface* layerInterface(size_t i_interface) const {
         return m_interfaces[check_interface_index(i_interface)]; }
 
-    //! Returns z-coordinate of the layer's bottom
+    //! Returns z-coordinate of the layer's top
     double layerTopZ(size_t i_layer) const;
 
     //! Returns z-coordinate of the layer's bottom

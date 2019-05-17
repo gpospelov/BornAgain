@@ -53,6 +53,9 @@ public:
     std::unique_ptr<IUnitConverter> createUnitConverter() const;
 #endif
 
+    //! Returns the total number of the intensity values in the simulation result
+    size_t intensityMapSize() const override;
+
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
 

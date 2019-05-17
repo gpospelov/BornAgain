@@ -93,6 +93,12 @@ std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const
                                                   getInstrument().getBeam(), *axis);
 }
 
+size_t OffSpecSimulation::intensityMapSize() const
+{
+    checkInitialization();
+    return mP_alpha_i_axis->size() * m_instrument.getDetectorAxis(1).size();
+}
+
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     : Simulation2D(other)
 {

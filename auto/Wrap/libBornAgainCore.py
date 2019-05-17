@@ -16923,11 +16923,6 @@ class Simulation2D(Simulation):
         """
         return _libBornAgainCore.Simulation2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
 
-
-    def intensityMapSize(self):
-        """intensityMapSize(Simulation2D self) -> size_t"""
-        return _libBornAgainCore.Simulation2D_intensityMapSize(self)
-
 Simulation2D_swigregister = _libBornAgainCore.Simulation2D_swigregister
 Simulation2D_swigregister(Simulation2D)
 
@@ -17218,6 +17213,11 @@ class GISASSimulation(Simulation2D):
 
         """
         return _libBornAgainCore.GISASSimulation_setBeamParameters(self, wavelength, alpha_i, phi_i)
+
+
+    def intensityMapSize(self):
+        """intensityMapSize(GISASSimulation self) -> size_t"""
+        return _libBornAgainCore.GISASSimulation_intensityMapSize(self)
 
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
 GISASSimulation_swigregister(GISASSimulation)
@@ -25793,6 +25793,11 @@ class OffSpecSimulation(Simulation2D):
 
         """
         return _libBornAgainCore.OffSpecSimulation_beamAxis(self)
+
+
+    def intensityMapSize(self):
+        """intensityMapSize(OffSpecSimulation self) -> size_t"""
+        return _libBornAgainCore.OffSpecSimulation_intensityMapSize(self)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
 OffSpecSimulation_swigregister(OffSpecSimulation)

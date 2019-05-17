@@ -102,7 +102,7 @@ const IAxis* DepthProbeSimulation::getZAxis() const
 
 size_t DepthProbeSimulation::intensityMapSize() const
 {
-    if (!m_z_axis || m_alpha_axis)
+    if (!m_z_axis || !m_alpha_axis)
         throw std::runtime_error("Error in DepthProbeSimulation::intensityMapSize: attempt to "
                                  "access non-initialized data.");
     return m_z_axis->size() * m_alpha_axis->size();

@@ -21,6 +21,11 @@
 
 namespace
 {
+void CalculateEigenvalues(const class MultiLayer& sample, const kvector_t k,
+                          std::vector<MatrixRTCoefficients>& coeff);
+void CalculateTransferAndBoundary(const MultiLayer& sample, const kvector_t k,
+                                  std::vector<MatrixRTCoefficients>& coeff);
+void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff);
 complex_t GetImExponential(complex_t exponent);
 const complex_t I(0, 1);
 }
@@ -34,7 +39,8 @@ void SpecularMagnetic::Execute(const MultiLayer& sample, const kvector_t k,
     CalculateTransferAndBoundary(sample, k, coeff);
 }
 
-void SpecularMagnetic::CalculateEigenvalues(const MultiLayer& sample, const kvector_t k,
+namespace {
+void CalculateEigenvalues(const MultiLayer& sample, const kvector_t k,
                                             std::vector<MatrixRTCoefficients>& coeff)
 {
     double mag_k = k.mag();
@@ -63,7 +69,7 @@ void SpecularMagnetic::CalculateEigenvalues(const MultiLayer& sample, const kvec
 }
 
 // todo: avoid overflows (see SpecularMatrix.cpp)
-void SpecularMagnetic::CalculateTransferAndBoundary(const MultiLayer& sample, const kvector_t k,
+void CalculateTransferAndBoundary(const MultiLayer& sample, const kvector_t k,
                                                     std::vector<MatrixRTCoefficients>& coeff)
 {
     (void)k;
@@ -124,7 +130,7 @@ void SpecularMagnetic::CalculateTransferAndBoundary(const MultiLayer& sample, co
     }
 }
 
-void SpecularMagnetic::SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff)
+void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff)
 {
     size_t N = coeff.size();
     for (size_t i = 0; i < N; ++i) {
@@ -137,7 +143,6 @@ void SpecularMagnetic::SetForNoTransmission(std::vector<MatrixRTCoefficients>& c
     }
 }
 
-namespace {
 complex_t GetImExponential(complex_t exponent)
 {
     if (exponent.imag() > -std::log(std::numeric_limits<double>::min()))

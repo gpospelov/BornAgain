@@ -22,6 +22,10 @@
 #include "SimulationOptions.h"
 #include "Slice.h"
 
+namespace {
+bool ContainsMagneticSlice(const std::vector<Slice>& slices);
+}
+
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
     : m_slices{}, m_crossCorrLength{sample.crossCorrLength()}, m_ext_field{sample.externalField()}
 {
@@ -96,12 +100,13 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
 void ProcessedSample::initLayouts(const MultiLayer& sample)
 {
     double z_ref = 0.0;
+    bool polarized = ContainsMagneticSlice(m_slices);
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         if (i > 1)
             z_ref += sample.layerThickness(i - 1);
         auto p_layer = sample.layer(i);
         for (auto p_layout : p_layer->layouts()) {
-            m_layouts.emplace_back(*p_layout, m_slices, z_ref, mp_fresnel_map.get(), false);
+            m_layouts.emplace_back(*p_layout, m_slices, z_ref, mp_fresnel_map.get(), polarized);
         }
     }
 }
@@ -140,4 +145,15 @@ void ProcessedSample::initBFields()
     for (size_t i = 0; i < m_slices.size(); ++i) {
         m_slices[i].initBField(m_ext_field, b_z);
     }
+}
+
+namespace {
+bool ContainsMagneticSlice(const std::vector<Slice>& slices)
+{
+    for (size_t i=0; i<slices.size(); ++i) {
+        if (slices[i].material().isMagneticMaterial())
+            return true;
+    }
+    return false;
+}
 }

@@ -50,7 +50,7 @@ private:
     void addNSlices(size_t n, double thickness, const Material& material,
                     const LayerRoughness* p_roughness = nullptr);
     void initBFields();
-    std::unique_ptr<IFresnelMap> mp_fresnel_map;
+    std::unique_ptr<IFresnelMap> mP_fresnel_map;
     std::vector<Slice> m_slices;
     std::vector<ProcessedLayout> m_layouts;
     double m_crossCorrLength;

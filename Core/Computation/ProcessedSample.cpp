@@ -16,20 +16,27 @@
 #include "IMultiLayerFresnelMap.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
+#include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "MultiLayerUtils.h"
 #include "ProcessedLayout.h"
+#include "ScalarFresnelMap.h"
 #include "SimulationOptions.h"
 #include "Slice.h"
 
-namespace {
+namespace
+{
+std::unique_ptr<IFresnelMap> CreateFresnelMap(const std::vector<Slice>& slices,
+                                              const SimulationOptions& options);
 bool ContainsMagneticMaterial(const MultiLayer& sample);
-}
+bool ContainsMagneticSlice(const std::vector<Slice>& slices);
+} // namespace
 
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
     : m_slices{}, m_crossCorrLength{sample.crossCorrLength()}, m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
+    mP_fresnel_map = CreateFresnelMap(m_slices, options);
     initBFields();
     initLayouts(sample);
 }
@@ -106,7 +113,7 @@ void ProcessedSample::initLayouts(const MultiLayer& sample)
             z_ref += sample.layerThickness(i - 1);
         auto p_layer = sample.layer(i);
         for (auto p_layout : p_layer->layouts()) {
-            m_layouts.emplace_back(*p_layout, m_slices, z_ref, mp_fresnel_map.get(), polarized);
+            m_layouts.emplace_back(*p_layout, m_slices, z_ref, mP_fresnel_map.get(), polarized);
         }
     }
 }
@@ -147,12 +154,35 @@ void ProcessedSample::initBFields()
     }
 }
 
-namespace {
+namespace
+{
+std::unique_ptr<IFresnelMap> CreateFresnelMap(const std::vector<Slice>& slices,
+                                              const SimulationOptions& options)
+{
+    std::unique_ptr<IFresnelMap> P_result;
+    if (ContainsMagneticSlice(slices))
+        P_result.reset(new MatrixFresnelMap());
+    else
+        P_result.reset(new ScalarFresnelMap());
+    if (options.isIntegrate())
+        P_result->disableCaching();
+    return P_result;
+}
+
 bool ContainsMagneticMaterial(const MultiLayer& sample)
 {
-    for (const Material* mat: sample.containedMaterials())
+    for (const Material* mat : sample.containedMaterials())
         if (mat->isMagneticMaterial())
             return true;
     return false;
 }
+
+bool ContainsMagneticSlice(const std::vector<Slice>& slices)
+{
+    for (size_t i = 0; i < slices.size(); ++i) {
+        if (slices[i].material().isMagneticMaterial())
+            return true;
+    }
+    return false;
 }
+} // namespace

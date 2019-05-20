@@ -15,6 +15,7 @@
 #include "KzComputation.h"
 #include "Layer.h"
 #include "MultiLayer.h"
+#include "Slice.h"
 #include "Units.h"
 
 namespace
@@ -42,7 +43,7 @@ std::vector<complex_t> KzComputation::computeReducedKz(const MultiLayer& sample,
     return kz;
 }
 
-std::vector<complex_t> KzComputation::computeKzFromRefIndeces(const MultiLayer& sample, kvector_t k)
+std::vector<complex_t> KzComputation::computeKzFromRefIndices(const MultiLayer& sample, kvector_t k)
 {
     const size_t N = sample.numberOfLayers();
     const double kz_val = k.z();
@@ -75,6 +76,59 @@ std::vector<complex_t> KzComputation::computeKzFromSLDs(const MultiLayer& sample
         result[i] = k_sign * std::sqrt(kz2);
     }
     return result;
+}
+
+std::vector<complex_t> KzComputation::computeReducedKz(std::vector<Slice>& slices, kvector_t k)
+{
+    const size_t N = slices.size();
+    const double n_ref = slices[0].material().refractiveIndex(2 * M_PI / k.mag()).real();
+    const double k_base = k.mag() * (k.z() > 0.0 ? -1 : 1);
+
+    std::vector<complex_t> kz(N);
+    // Calculate refraction angle, expressed as k_z, for each layer.
+    complex_t rad = slices[0].scalarReducedPotential(k, n_ref);
+    kz[0] = k_base * std::sqrt(rad);
+    for (size_t i = 1; i < N; ++i) {
+        rad = checkForUnderflow(slices[i].scalarReducedPotential(k, n_ref));
+        kz[i] = k_base * std::sqrt(rad);
+    }
+    return kz;
+}
+
+std::vector<complex_t> KzComputation::computeKzFromSLDs(std::vector<Slice>& slices, double kz)
+{
+    const size_t N = slices.size();
+    const double k_sign = kz > 0.0 ? -1 : 1;
+    std::vector<complex_t> result(N);
+
+    complex_t kz2_base = kz * kz + normalizedSLD(slices[0].material());
+    result[0] = -kz;
+    // Calculate refraction angle, expressed as k_z, for each layer.
+    for (size_t i = 1; i < N; ++i) {
+        complex_t kz2 = checkForUnderflow(kz2_base - normalizedSLD(slices[i].material()));
+        result[i] = k_sign * std::sqrt(kz2);
+    }
+    return result;
+}
+
+std::vector<complex_t> KzComputation::computeKzFromRefIndices(std::vector<Slice>& slices,
+                                                              kvector_t k)
+{
+    const size_t N = slices.size();
+    const double kz_val = k.z();
+    const double k_sign = kz_val > 0.0 ? -1 : 1;
+    const double k2 = k.mag2();
+    const double kz2 = kz_val * kz_val;
+    const double wl = 2 * M_PI / std::sqrt(k2);
+    const complex_t n2_ref = slices[0].material().refractiveIndex2(wl);
+
+    std::vector<complex_t> kz(N);
+    kz[0] = -kz_val;
+    for (size_t i = 1; i < N; ++i) {
+        const complex_t n2_norm = slices[i].material().refractiveIndex2(wl) - n2_ref;
+        kz[i] = k_sign * std::sqrt(checkForUnderflow(k2 * n2_norm + kz2));
+    }
+    return kz;
 }
 
 namespace

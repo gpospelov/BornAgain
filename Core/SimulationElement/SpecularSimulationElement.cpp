@@ -30,7 +30,7 @@ SpecularSimulationElement::SpecularSimulationElement(double wavelength, double a
     , m_calculation_flag(true)
     , m_kz_computation(
           [k = vecOfLambdaAlphaPhi(wavelength, alpha, /*phi =*/0.0)](const MultiLayer& sample) {
-              return KzComputation::computeKzFromRefIndeces(sample, k);
+              return KzComputation::computeKzFromRefIndices(sample, k);
           })
 {
 }

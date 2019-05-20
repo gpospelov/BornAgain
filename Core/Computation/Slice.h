@@ -39,9 +39,22 @@ public:
     double thickness() const;
     const LayerRoughness* topRoughness() const;
 
+    //! Return the potential term that is used in the one-dimensional Fresnel calculations
+    complex_t scalarReducedPotential(kvector_t k, double n_ref) const;
+
+#ifndef SWIG
+    //! Return the potential term that is used in the one-dimensional Fresnel calculations
+    //! in the presence of magnetization
+    Eigen::Matrix2cd polarizedReducedPotential(kvector_t k, double n_ref) const;
+#endif
+
+    //! Initializes the magnetic B field from a given ambient field strength H
+    void initBField(kvector_t h_field, double b_z);
+
 private:
     double m_thickness;
     Material m_material;
+    kvector_t m_B_field;                  //!< cached value of magnetic induction
     std::unique_ptr<LayerRoughness> mP_top_roughness;
 };
 

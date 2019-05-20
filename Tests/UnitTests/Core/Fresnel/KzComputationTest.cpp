@@ -36,7 +36,7 @@ TEST_F(KzComputationTest, initial)
     kvector_t k = vecOfLambdaAlphaPhi(1.0, 1.0 * Units::deg, 0.0);
 
     auto res_ref = KzComputation::computeReducedKz(mLayer, k);
-    auto res_ri = KzComputation::computeKzFromRefIndeces(mLayer, k);
+    auto res_ri = KzComputation::computeKzFromRefIndices(mLayer, k);
     auto res_sld = KzComputation::computeKzFromSLDs(mLayer, k.z());
 
     EXPECT_EQ(res_ref.size(), res_sld.size());
@@ -73,7 +73,7 @@ TEST_F(KzComputationTest, negativeKz)
     kvector_t k = vecOfLambdaAlphaPhi(1.0, -1.0 * Units::deg, 0.0);
 
     auto res_ref = KzComputation::computeReducedKz(mLayer, k);
-    auto res_ri = KzComputation::computeKzFromRefIndeces(mLayer, k);
+    auto res_ri = KzComputation::computeKzFromRefIndices(mLayer, k);
     auto res_sld = KzComputation::computeKzFromSLDs(mLayer, k.z());
 
     EXPECT_EQ(res_ref.size(), res_sld.size());
@@ -109,7 +109,7 @@ TEST_F(KzComputationTest, absorptiveAmbience)
 
     kvector_t k = vecOfLambdaAlphaPhi(1.0, 1.0 * Units::deg, 0.0);
 
-    auto res_ri = KzComputation::computeKzFromRefIndeces(mLayer, k);
+    auto res_ri = KzComputation::computeKzFromRefIndices(mLayer, k);
     auto res_sld = KzComputation::computeKzFromSLDs(mLayer, k.z());
 
     EXPECT_EQ(res_ri.size(), res_sld.size());
@@ -126,7 +126,7 @@ TEST_F(KzComputationTest, TiNiSampleWithRoughness)
 
     kvector_t k = vecOfLambdaAlphaPhi(1.0, 0.0001 * Units::deg, 0.0);
 
-    auto res_ri = KzComputation::computeKzFromRefIndeces(*sample, k);
+    auto res_ri = KzComputation::computeKzFromRefIndices(*sample, k);
     auto res_sld = KzComputation::computeKzFromSLDs(*sample, k.z());
 
     EXPECT_EQ(res_ri.size(), res_sld.size());

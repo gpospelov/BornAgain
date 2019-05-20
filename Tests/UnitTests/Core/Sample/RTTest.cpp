@@ -56,8 +56,8 @@ TEST_F(RTTest, SplitLayer)
         sample2.addLayer(Layer(amat, 10));
     sample2.addLayer(substrate);
 
-    coeffs1 = SpecularMatrix::execute(sample1, k);
-    coeffs2 = SpecularMatrix::execute(sample2, k);
+    coeffs1 = SpecularMatrix::Execute(sample1, k);
+    coeffs2 = SpecularMatrix::Execute(sample2, k);
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );
@@ -89,8 +89,8 @@ TEST_F(RTTest, SplitBilayers)
     }
     sample2.addLayer(substrate);
 
-    coeffs1 = SpecularMatrix::execute(sample1, k);
-    coeffs2 = SpecularMatrix::execute(sample2, k);
+    coeffs1 = SpecularMatrix::Execute(sample1, k);
+    coeffs2 = SpecularMatrix::Execute(sample2, k);
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );

@@ -34,7 +34,7 @@ void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
     if (!elem.isCalculated())
         return;
 
-    auto coeff = SpecularMatrix::execute(sample, elem.produceKz(sample));
+    auto coeff = SpecularMatrix::Execute(sample, elem.produceKz(sample));
     elem.setIntensity(std::norm(coeff[0].getScalarR()));
 
     if (mP_progress_counter)

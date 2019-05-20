@@ -40,13 +40,13 @@ size_t bisectRTcomputation(
 const double pi2_15 = std::pow(M_PI_2, 1.5);
 }
 
-std::vector<ScalarRTCoefficients> SpecularMatrix::execute(const MultiLayer& sample, kvector_t k)
+std::vector<ScalarRTCoefficients> SpecularMatrix::Execute(const MultiLayer& sample, kvector_t k)
 {
     std::vector<complex_t> kz = KzComputation::computeReducedKz(sample, k);
     return computeTR(sample, kz);
 }
 
-std::vector<ScalarRTCoefficients> SpecularMatrix::execute(const MultiLayer& sample,
+std::vector<ScalarRTCoefficients> SpecularMatrix::Execute(const MultiLayer& sample,
                                                           const std::vector<complex_t>& kz)
 {
     assert(sample.numberOfLayers() == kz.size());

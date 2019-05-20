@@ -35,7 +35,7 @@ std::unique_ptr<const ILayerRTCoefficients>
 ScalarMLFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) const
 {
     if (!m_use_cache) {
-        auto coeffs = SpecularMatrix::execute(*mP_multilayer, kvec);
+        auto coeffs = SpecularMatrix::Execute(*mP_multilayer, kvec);
         return std::make_unique<const ScalarRTCoefficients>(coeffs[layer_index]);
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec);
@@ -48,6 +48,6 @@ ScalarMLFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
     auto it = m_hash_table.find(k2_theta);
     if (it == m_hash_table.end())
-        it = m_hash_table.insert({k2_theta, SpecularMatrix::execute(*mP_multilayer, kvec)}).first;
+        it = m_hash_table.insert({k2_theta, SpecularMatrix::Execute(*mP_multilayer, kvec)}).first;
     return it->second;
 }

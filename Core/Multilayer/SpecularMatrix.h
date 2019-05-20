@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/SpecularMatrix.h
-//! @brief     Defines class SpecularMatrix.
+//! @brief     Defines namespace SpecularMatrix.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,18 +25,17 @@ class MultiLayer;
 //! coefficients for coherent wave propagation in a multilayer.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ SpecularMatrix
+namespace  SpecularMatrix
 {
-public:
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.
     //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-    static std::vector<ScalarRTCoefficients> execute(const MultiLayer& sample, kvector_t k);
+BA_CORE_API_ std::vector<ScalarRTCoefficients> Execute(const MultiLayer& sample, kvector_t k);
 
     //! Computes transmission/reflection coefficients
     //! for given set of z-components of wave-vectors in a multilayer.
     //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-    static std::vector<ScalarRTCoefficients> execute(const MultiLayer& sample,
+BA_CORE_API_ std::vector<ScalarRTCoefficients> Execute(const MultiLayer& sample,
                                                      const std::vector<complex_t>& kz);
 };
 

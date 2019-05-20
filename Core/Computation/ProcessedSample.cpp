@@ -23,7 +23,7 @@
 #include "Slice.h"
 
 namespace {
-bool ContainsMagneticSlice(const std::vector<Slice>& slices);
+bool ContainsMagneticMaterial(const MultiLayer& sample);
 }
 
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
@@ -100,7 +100,7 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
 void ProcessedSample::initLayouts(const MultiLayer& sample)
 {
     double z_ref = 0.0;
-    bool polarized = ContainsMagneticSlice(m_slices);
+    bool polarized = ContainsMagneticMaterial(sample);
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         if (i > 1)
             z_ref += sample.layerThickness(i - 1);
@@ -148,12 +148,11 @@ void ProcessedSample::initBFields()
 }
 
 namespace {
-bool ContainsMagneticSlice(const std::vector<Slice>& slices)
+bool ContainsMagneticMaterial(const MultiLayer& sample)
 {
-    for (size_t i=0; i<slices.size(); ++i) {
-        if (slices[i].material().isMagneticMaterial())
+    for (const Material* mat: sample.containedMaterials())
+        if (mat->isMagneticMaterial())
             return true;
-    }
     return false;
 }
 }

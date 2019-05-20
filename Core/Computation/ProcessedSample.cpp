@@ -26,6 +26,7 @@ ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptio
     : m_slices{}, m_crossCorrLength{sample.crossCorrLength()}, m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
+    initBFields();
     initLayouts(sample);
 }
 
@@ -92,12 +93,12 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
     }
 }
 
-void ProcessedSample::initLayouts(const MultiLayer &sample)
+void ProcessedSample::initLayouts(const MultiLayer& sample)
 {
     double z_ref = 0.0;
-    for (size_t i=0; i<sample.numberOfLayers(); ++i) {
-        if (i>1)
-            z_ref += sample.layerThickness(i-1);
+    for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
+        if (i > 1)
+            z_ref += sample.layerThickness(i - 1);
         auto p_layer = sample.layer(i);
         for (auto p_layout : p_layer->layouts()) {
             m_layouts.emplace_back(*p_layout, m_slices, z_ref, mp_fresnel_map.get(), false);
@@ -105,7 +106,8 @@ void ProcessedSample::initLayouts(const MultiLayer &sample)
     }
 }
 
-void ProcessedSample::addSlice(double thickness, const Material& material, const LayerRoughness* p_roughness)
+void ProcessedSample::addSlice(double thickness, const Material& material,
+                               const LayerRoughness* p_roughness)
 {
     if (p_roughness) {
         m_slices.emplace_back(thickness, material, *p_roughness);
@@ -114,7 +116,8 @@ void ProcessedSample::addSlice(double thickness, const Material& material, const
     }
 }
 
-void ProcessedSample::addNSlices(size_t n, double thickness, const Material& material, const LayerRoughness* p_roughness)
+void ProcessedSample::addNSlices(size_t n, double thickness, const Material& material,
+                                 const LayerRoughness* p_roughness)
 {
     if (thickness <= 0.0)
         return;
@@ -125,5 +128,16 @@ void ProcessedSample::addNSlices(size_t n, double thickness, const Material& mat
     addSlice(slice_thickness, material, p_roughness);
     for (size_t i = 1; i < n; ++i) {
         addSlice(slice_thickness, material);
+    }
+}
+
+void ProcessedSample::initBFields()
+{
+    if (m_slices.size() == 0)
+        return;
+    double m_z0 = m_slices[0].material().magnetization().z();
+    double b_z = Slice::Magnetic_Permeability * (m_ext_field.z() + m_z0);
+    for (size_t i = 0; i < m_slices.size(); ++i) {
+        m_slices[i].initBField(m_ext_field, b_z);
     }
 }

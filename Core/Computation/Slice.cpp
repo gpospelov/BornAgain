@@ -16,18 +16,20 @@
 #include "LayerRoughness.h"
 #include "MaterialUtils.h"
 
-static constexpr double Magnetic_Permeability = 4e-7 * M_PI;
-
 Slice::Slice(double thickness, const Material& material)
-    : m_thickness{thickness}, m_material{material}, mP_top_roughness{nullptr} {}
+    : m_thickness{thickness}, m_material{material}, m_B_field{}, mP_top_roughness{nullptr}
+{
+}
 
 Slice::Slice(double thickness, const Material& material, const LayerRoughness& top_roughness)
-    : m_thickness{thickness}, m_material{material}, mP_top_roughness{top_roughness.clone()}
+    : m_thickness{thickness}, m_material{material}, m_B_field{}, mP_top_roughness{
+                                                                     top_roughness.clone()}
 {
 }
 
 Slice::Slice(const Slice& other)
-    : m_thickness{other.m_thickness}, m_material{other.m_material}, mP_top_roughness{}
+    : m_thickness{other.m_thickness}, m_material{other.m_material}, m_B_field{other.m_B_field},
+      mP_top_roughness{}
 {
     if (other.mP_top_roughness) {
         mP_top_roughness.reset(other.mP_top_roughness->clone());
@@ -36,7 +38,7 @@ Slice::Slice(const Slice& other)
 
 Slice::Slice(Slice&& other)
     : m_thickness{other.m_thickness}, m_material{std::move(other.m_material)},
-      mP_top_roughness{std::move(other.mP_top_roughness)}
+      m_B_field{other.m_B_field}, mP_top_roughness{std::move(other.mP_top_roughness)}
 {
 }
 
@@ -76,6 +78,6 @@ Eigen::Matrix2cd Slice::polarizedReducedPotential(kvector_t k, double n_ref) con
 
 void Slice::initBField(kvector_t h_field, double b_z)
 {
-    m_B_field = Magnetic_Permeability*(h_field + m_material.magnetization());
+    m_B_field = Magnetic_Permeability * (h_field + m_material.magnetization());
     m_B_field.setZ(b_z);
 }

@@ -45,8 +45,11 @@ public:
 private:
     void initSlices(const MultiLayer& sample, const SimulationOptions& options);
     void initLayouts(const MultiLayer& sample);
-    void addSlice(double thickness, const Material& material, const LayerRoughness* p_roughness=nullptr);
-    void addNSlices(size_t n, double thickness, const Material& material, const LayerRoughness* p_roughness=nullptr);
+    void addSlice(double thickness, const Material& material,
+                  const LayerRoughness* p_roughness = nullptr);
+    void addNSlices(size_t n, double thickness, const Material& material,
+                    const LayerRoughness* p_roughness = nullptr);
+    void initBFields();
     std::unique_ptr<IFresnelMap> mp_fresnel_map;
     std::vector<Slice> m_slices;
     std::vector<ProcessedLayout> m_layouts;

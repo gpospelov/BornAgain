@@ -78,7 +78,8 @@ std::vector<complex_t> KzComputation::computeKzFromSLDs(const MultiLayer& sample
     return result;
 }
 
-std::vector<complex_t> KzComputation::computeReducedKz(std::vector<Slice>& slices, kvector_t k)
+std::vector<complex_t> KzComputation::computeReducedKz(const std::vector<Slice>& slices,
+                                                       kvector_t k)
 {
     const size_t N = slices.size();
     const double n_ref = slices[0].material().refractiveIndex(2 * M_PI / k.mag()).real();
@@ -95,7 +96,7 @@ std::vector<complex_t> KzComputation::computeReducedKz(std::vector<Slice>& slice
     return kz;
 }
 
-std::vector<complex_t> KzComputation::computeKzFromSLDs(std::vector<Slice>& slices, double kz)
+std::vector<complex_t> KzComputation::computeKzFromSLDs(const std::vector<Slice>& slices, double kz)
 {
     const size_t N = slices.size();
     const double k_sign = kz > 0.0 ? -1 : 1;
@@ -111,7 +112,7 @@ std::vector<complex_t> KzComputation::computeKzFromSLDs(std::vector<Slice>& slic
     return result;
 }
 
-std::vector<complex_t> KzComputation::computeKzFromRefIndices(std::vector<Slice>& slices,
+std::vector<complex_t> KzComputation::computeKzFromRefIndices(const std::vector<Slice>& slices,
                                                               kvector_t k)
 {
     const size_t N = slices.size();

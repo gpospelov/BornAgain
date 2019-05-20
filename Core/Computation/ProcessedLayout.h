@@ -22,7 +22,7 @@
 
 class FormFactorCoherentSum;
 class HomogeneousRegion;
-class IMultiLayerFresnelMap;
+class IFresnelMap;
 class IInterferenceFunction;
 class ILayout;
 class IParticle;
@@ -39,7 +39,7 @@ class ProcessedLayout
 {
 public:
     ProcessedLayout(const ILayout& layout, const std::vector<Slice>& slices, double z_ref,
-                    const IMultiLayerFresnelMap* p_fresnel_map, bool polarized);
+                    const IFresnelMap* p_fresnel_map, bool polarized);
     ProcessedLayout(ProcessedLayout&& other);
     ~ProcessedLayout();
 
@@ -47,7 +47,7 @@ private:
     void collectFormFactors(const ILayout& layout, const std::vector<Slice>& slices, double z_ref);
     FormFactorCoherentSum* ProcessParticle(const IParticle& particle, const std::vector<Slice>& slices, double z_ref);
     void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
-    const IMultiLayerFresnelMap* mp_fresnel_map;
+    const IFresnelMap* mp_fresnel_map;
     bool m_polarized;
     SafePointerVector<FormFactorCoherentSum> m_formfactors;
     std::unique_ptr<IInterferenceFunction> mP_iff;

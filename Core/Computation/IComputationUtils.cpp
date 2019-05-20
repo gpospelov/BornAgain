@@ -17,7 +17,7 @@
 #include "IParticle.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
-#include "MatrixFresnelMap.h"
+#include "MatrixMLFresnelMap.h"
 #include "MultiLayer.h"
 #include "ScalarMLFresnelMap.h"
 #include "SimulationOptions.h"
@@ -39,7 +39,7 @@ std::unique_ptr<IMultiLayerFresnelMap> CreateFresnelMap(const MultiLayer& multil
     if (!multilayer.requiresMatrixRTCoefficients())
         P_result.reset(new ScalarMLFresnelMap());
     else
-        P_result.reset(new MatrixFresnelMap());
+        P_result.reset(new MatrixMLFresnelMap());
 
     if (sim_options.isIntegrate())
         P_result->disableCaching();

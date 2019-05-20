@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "FormFactorCoherentPart.h"
-#include "IMultiLayerFresnelMap.h"
+#include "IFresnelMap.h"
 #include "IFormFactor.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
@@ -56,7 +56,7 @@ Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& si
     return mP_ff->evaluatePol(wavevectors);
 }
 
-void FormFactorCoherentPart::setSpecularInfo(const IMultiLayerFresnelMap* p_fresnel_map, size_t layer_index)
+void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap* p_fresnel_map, size_t layer_index)
 {
     mp_fresnel_map = p_fresnel_map;
     m_layer_index = layer_index;

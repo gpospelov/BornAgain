@@ -17,7 +17,7 @@
 #include "IComputationUtils.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
-#include "MatrixFresnelMap.h"
+#include "MatrixMLFresnelMap.h"
 #include "MultiLayer.h"
 #include "ParticleLayoutComputation.h"
 #include "ProgressHandler.h"

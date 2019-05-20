@@ -20,7 +20,7 @@
 #include <memory>
 #include <vector>
 
-class IMultiLayerFresnelMap;
+class IFresnelMap;
 class LayerRoughness;
 class MultiLayer;
 class ProcessedLayout;
@@ -47,7 +47,7 @@ private:
     void initLayouts(const MultiLayer& sample);
     void addSlice(double thickness, const Material& material, const LayerRoughness* p_roughness=nullptr);
     void addNSlices(size_t n, double thickness, const Material& material, const LayerRoughness* p_roughness=nullptr);
-    std::unique_ptr<IMultiLayerFresnelMap> mp_fresnel_map;
+    std::unique_ptr<IFresnelMap> mp_fresnel_map;
     std::vector<Slice> m_slices;
     std::vector<ProcessedLayout> m_layouts;
     double m_crossCorrLength;

@@ -19,7 +19,7 @@
 #include "MaterialFactoryFuncs.h"
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
-#include "ScalarFresnelMap.h"
+#include "ScalarMLFresnelMap.h"
 #include "SimulationOptions.h"
 #include "SlicedFormFactorList.h"
 
@@ -37,7 +37,7 @@ std::unique_ptr<IMultiLayerFresnelMap> CreateFresnelMap(const MultiLayer& multil
 {
     std::unique_ptr<IMultiLayerFresnelMap> P_result;
     if (!multilayer.requiresMatrixRTCoefficients())
-        P_result.reset(new ScalarFresnelMap());
+        P_result.reset(new ScalarMLFresnelMap());
     else
         P_result.reset(new MatrixFresnelMap());
 

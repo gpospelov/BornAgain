@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/IMultiLayerFresnelMap.cpp
-//! @brief     Implements class IMultiLayerFresnelMap.
+//! @file      Core/Multilayer/IFresnelMap.cpp
+//! @brief     Implements class IFresnelMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,16 +12,16 @@
 //
 // ************************************************************************** //
 
-#include "IMultiLayerFresnelMap.h"
+#include "IFresnelMap.h"
 #include "MultiLayer.h"
 
-IMultiLayerFresnelMap::IMultiLayerFresnelMap()
-    : IFresnelMap{}
+IFresnelMap::IFresnelMap()
+    : m_use_cache(true)
 {}
 
-IMultiLayerFresnelMap::~IMultiLayerFresnelMap() = default;
+IFresnelMap::~IFresnelMap() = default;
 
-void IMultiLayerFresnelMap::setMultilayer(const MultiLayer& multilayer)
+void IFresnelMap::disableCaching()
 {
-    mP_multilayer.reset(multilayer.clone());
+    m_use_cache = false;
 }

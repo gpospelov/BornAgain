@@ -22,7 +22,7 @@
 #include "ParticleLayoutComputation.h"
 #include "ProgressHandler.h"
 #include "RoughMultiLayerComputation.h"
-#include "ScalarFresnelMap.h"
+#include "ScalarMLFresnelMap.h"
 #include "SimulationElement.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,

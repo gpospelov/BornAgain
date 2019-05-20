@@ -18,7 +18,7 @@
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "ProgressHandler.h"
-#include "ScalarFresnelMap.h"
+#include "ScalarMLFresnelMap.h"
 
 static_assert(std::is_copy_constructible<DepthProbeComputation>::value == false,
               "DepthProbeComputation should not be copy constructible");

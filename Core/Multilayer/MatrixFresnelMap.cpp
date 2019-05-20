@@ -62,7 +62,7 @@ std::vector<MatrixRTCoefficients> calculateCoefficients(const std::vector<Slice>
                                                         kvector_t kvec)
 {
     std::vector<MatrixRTCoefficients> coeffs;
-//    SpecularMagnetic::execute(multilayer, kvec, coeffs);
+    SpecularMagnetic::Execute(slices, kvec, coeffs);
     return coeffs;
 }
 

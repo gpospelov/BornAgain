@@ -20,7 +20,7 @@
 #include "WinDllMacros.h"
 #include <memory>
 
-class IFresnelMap;
+class IMultiLayerFresnelMap;
 class IFormFactor;
 class SimulationElement;
 
@@ -39,11 +39,11 @@ public:
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
 
-    void setSpecularInfo(const IFresnelMap* p_fresnel_map, size_t layer_index);
+    void setSpecularInfo(const IMultiLayerFresnelMap* p_fresnel_map, size_t layer_index);
     double radialExtension() const;
 private:
     std::unique_ptr<IFormFactor> mP_ff;
-    const IFresnelMap* mp_fresnel_map;
+    const IMultiLayerFresnelMap* mp_fresnel_map;
     size_t m_layer_index;
 };
 

@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "ProcessedSample.h"
-#include "IFresnelMap.h"
+#include "IMultiLayerFresnelMap.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
 #include "MultiLayer.h"

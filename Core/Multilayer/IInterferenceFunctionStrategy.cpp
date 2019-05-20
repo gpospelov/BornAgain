@@ -18,7 +18,7 @@
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
 #include "IntegratorMCMiser.h"
-#include "IFresnelMap.h"
+#include "IMultiLayerFresnelMap.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include "ScalarRTCoefficients.h"

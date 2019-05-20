@@ -12,25 +12,25 @@
 //
 // ************************************************************************** //
 
-#include "IFresnelMap.h"
+#include "IMultiLayerFresnelMap.h"
 #include "MultiLayer.h"
 
-static_assert(std::is_copy_constructible<IFresnelMap>::value == false,
+static_assert(std::is_copy_constructible<IMultiLayerFresnelMap>::value == false,
     "IFresnelMap should not be copy constructable");
-static_assert(std::is_copy_assignable<IFresnelMap>::value == false,
+static_assert(std::is_copy_assignable<IMultiLayerFresnelMap>::value == false,
     "IFresnelMap should not be copy assignable");
 
-IFresnelMap::IFresnelMap()
+IMultiLayerFresnelMap::IMultiLayerFresnelMap()
     : m_use_cache(true)
 {}
-IFresnelMap::~IFresnelMap() {}
+IMultiLayerFresnelMap::~IMultiLayerFresnelMap() {}
 
-void IFresnelMap::setMultilayer(const MultiLayer& multilayer)
+void IMultiLayerFresnelMap::setMultilayer(const MultiLayer& multilayer)
 {
     mP_multilayer.reset(multilayer.clone());
 }
 
-void IFresnelMap::disableCaching()
+void IMultiLayerFresnelMap::disableCaching()
 {
     m_use_cache = false;
 }

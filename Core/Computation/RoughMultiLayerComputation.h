@@ -27,7 +27,7 @@ class SimulationElement;
 class RoughMultiLayerComputation final
 {
 public:
-    RoughMultiLayerComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    RoughMultiLayerComputation(const MultiLayer* p_multi_layer, const IMultiLayerFresnelMap* p_fresnel_map);
 
     void compute(SimulationElement& elem) const;
 

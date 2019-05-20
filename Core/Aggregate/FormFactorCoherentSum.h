@@ -21,7 +21,7 @@
 #include "FormFactorCoherentPart.h"
 #include <vector>
 
-class IFresnelMap;
+class IMultiLayerFresnelMap;
 class IFormFactor;
 class SimulationElement;
 
@@ -42,7 +42,7 @@ public:
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
 
-    void setSpecularInfo(const IFresnelMap* p_fresnel_map, size_t layer_index);
+    void setSpecularInfo(const IMultiLayerFresnelMap* p_fresnel_map, size_t layer_index);
 
     double relativeAbundance() const { return m_abundance; }
     void scaleRelativeAbundance(double total_abundance);

@@ -20,12 +20,12 @@
 #include <memory>
 #include <vector>
 
-class IFresnelMap;
+class IMultiLayerFresnelMap;
 class MultiLayer;
 class SimulationOptions;
 
 namespace IComputationUtils {
-BA_CORE_API_ std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& multilayer,
+BA_CORE_API_ std::unique_ptr<IMultiLayerFresnelMap> CreateFresnelMap(const MultiLayer& multilayer,
                                                            const SimulationOptions& sim_options);
 
 //! creates a multilayer that contains averaged materials, for use in Fresnel calculations

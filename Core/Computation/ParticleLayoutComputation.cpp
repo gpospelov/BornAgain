@@ -16,7 +16,7 @@
 #include "DelayedProgressCounter.h"
 #include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
-#include "IFresnelMap.h"
+#include "IMultiLayerFresnelMap.h"
 #include "ILayout.h"
 #include "LayoutStrategyBuilder.h"
 #include "MultiLayer.h"
@@ -24,7 +24,7 @@
 #include "SimulationElement.h"
 
 ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
-                                                     const IFresnelMap* p_fresnel_map,
+                                                     const IMultiLayerFresnelMap* p_fresnel_map,
                                                      const ILayout* p_layout, size_t layer_index,
                                                      const SimulationOptions& options,
                                                      bool polarized)

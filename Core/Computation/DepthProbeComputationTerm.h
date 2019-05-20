@@ -19,7 +19,7 @@
 #include <vector>
 
 class DelayedProgressCounter;
-class IFresnelMap;
+class IMultiLayerFresnelMap;
 class MultiLayer;
 class ProgressHandler;
 class DepthProbeElement;
@@ -27,7 +27,7 @@ class DepthProbeElement;
 class DepthProbeComputationTerm
 {
 public:
-    DepthProbeComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    DepthProbeComputationTerm(const MultiLayer* p_multi_layer, const IMultiLayerFresnelMap* p_fresnel_map);
     ~DepthProbeComputationTerm();
 
     void setProgressHandler(ProgressHandler* p_progress);
@@ -36,7 +36,7 @@ public:
 
 private:
     const MultiLayer* mp_multilayer;
-    const IFresnelMap* mp_fresnel_map;
+    const IMultiLayerFresnelMap* mp_fresnel_map;
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
 };
 

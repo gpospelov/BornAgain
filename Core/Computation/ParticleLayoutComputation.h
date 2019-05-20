@@ -35,7 +35,7 @@ class SimulationOptions;
 class ParticleLayoutComputation final
 {
 public:
-    ParticleLayoutComputation(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map,
+    ParticleLayoutComputation(const MultiLayer* p_multilayer, const IMultiLayerFresnelMap* p_fresnel_map,
                               const ILayout* p_layout, size_t layer_index,
                               const SimulationOptions& options, bool polarized);
     ~ParticleLayoutComputation();

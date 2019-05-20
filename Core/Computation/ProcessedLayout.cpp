@@ -29,7 +29,7 @@ void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map
 }
 
 ProcessedLayout::ProcessedLayout(const ILayout& layout, const std::vector<Slice>& slices,
-                                 double z_ref, const IFresnelMap* p_fresnel_map, bool polarized)
+                                 double z_ref, const IMultiLayerFresnelMap* p_fresnel_map, bool polarized)
     : mp_fresnel_map(p_fresnel_map), m_polarized(polarized)
 {
     collectFormFactors(layout, slices, z_ref);

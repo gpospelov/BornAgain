@@ -16,7 +16,7 @@
 #define SCALARFRESNELMAP_H
 
 #include "Hash2Doubles.h"
-#include "IFresnelMap.h"
+#include "IMultiLayerFresnelMap.h"
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -29,7 +29,7 @@ class SimulationElement;
 //! Implementation of IFresnelMap for scalar valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ ScalarFresnelMap : public IFresnelMap
+class BA_CORE_API_ ScalarFresnelMap : public IMultiLayerFresnelMap
 {
 public:
     ScalarFresnelMap();

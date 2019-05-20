@@ -16,12 +16,12 @@
 #include "DelayedProgressCounter.h"
 #include "DepthProbeElement.h"
 #include "IAxis.h"
-#include "IFresnelMap.h"
+#include "IMultiLayerFresnelMap.h"
 #include "ILayerRTCoefficients.h"
 #include "MultiLayer.h"
 
 DepthProbeComputationTerm::DepthProbeComputationTerm(const MultiLayer* p_multi_layer,
-                                                     const IFresnelMap* p_fresnel_map)
+                                                     const IMultiLayerFresnelMap* p_fresnel_map)
     : mp_multilayer(p_multi_layer), mp_fresnel_map(p_fresnel_map)
 {}
 

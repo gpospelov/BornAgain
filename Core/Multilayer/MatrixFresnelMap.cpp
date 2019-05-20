@@ -59,7 +59,7 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
 
 void MatrixFresnelMap::setMultilayer(const MultiLayer& multilayer)
 {
-    IFresnelMap::setMultilayer(multilayer);
+    IMultiLayerFresnelMap::setMultilayer(multilayer);
     mP_inverted_multilayer.reset(multilayer.cloneInvertB());
 }
 

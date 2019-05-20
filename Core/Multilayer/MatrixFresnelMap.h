@@ -16,7 +16,7 @@
 #define MATRIXFRESNELMAP_H
 
 #include "HashKVector.h"
-#include "IFresnelMap.h"
+#include "IMultiLayerFresnelMap.h"
 #include <memory>
 #include <unordered_map>
 #include <vector>
@@ -29,7 +29,7 @@ class SimulationElement;
 //! Implementation of IFresnelMap for matrix valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
+class BA_CORE_API_ MatrixFresnelMap : public IMultiLayerFresnelMap
 {
 public:
     MatrixFresnelMap();

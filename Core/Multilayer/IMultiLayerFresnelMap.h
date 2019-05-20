@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef IFRESNELMAP_H
-#define IFRESNELMAP_H
+#ifndef IMULTILAYERFRESNELMAP_H
+#define IMULTILAYERFRESNELMAP_H
 
 #include "ILayerRTCoefficients.h"
 #include "WinDllMacros.h"
@@ -32,11 +32,11 @@ typedef BasicVector3D<double> kvector_t;
 //! (these amplitudes correspond to the specular part of the wavefunction).
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ IFresnelMap
+class BA_CORE_API_ IMultiLayerFresnelMap
 {
 public:
-    IFresnelMap();
-    virtual ~IFresnelMap();
+    IMultiLayerFresnelMap();
+    virtual ~IMultiLayerFresnelMap();
 
     //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
     virtual std::unique_ptr<const ILayerRTCoefficients>
@@ -64,4 +64,4 @@ protected:
     std::unique_ptr<MultiLayer> mP_multilayer;
 };
 
-#endif // IFRESNELMAP_H
+#endif // IMULTILAYERFRESNELMAP_H

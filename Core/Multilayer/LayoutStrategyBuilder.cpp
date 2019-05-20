@@ -19,7 +19,7 @@
 #include "FormFactorDWBA.h"
 #include "FormFactorDWBAPol.h"
 #include "FormFactorBAPol.h"
-#include "IFresnelMap.h"
+#include "IMultiLayerFresnelMap.h"
 #include "ILayout.h"
 #include "IParticle.h"
 #include "InterferenceFunctionNone.h"
@@ -32,7 +32,7 @@
 
 LayoutStrategyBuilder::LayoutStrategyBuilder(
     const MultiLayer* p_multilayer, const ILayout* p_layout,
-    const IFresnelMap* p_fresnel_map, bool polarized,
+    const IMultiLayerFresnelMap* p_fresnel_map, bool polarized,
     const SimulationOptions& sim_params, size_t layer_index)
     : mp_multilayer(p_multilayer)
     , mp_layout(p_layout)

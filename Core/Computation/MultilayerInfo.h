@@ -15,7 +15,7 @@
 #ifndef MULTILAYERINFO_H
 #define MULTILAYERINFO_H
 
-class IFresnelMap;
+class IMultiLayerFresnelMap;
 class MultiLayer;
 
 //! Container struct for information regarding a multilayer: Fresnel coefficients and the
@@ -26,11 +26,11 @@ class MultiLayer;
 
 struct MultilayerInfo
 {
-    MultilayerInfo(const MultiLayer* p_multilayer, const IFresnelMap* p_fresnel_map)
+    MultilayerInfo(const MultiLayer* p_multilayer, const IMultiLayerFresnelMap* p_fresnel_map)
         : mp_multilayer(p_multilayer) , mp_fresnel_map(p_fresnel_map) {}
 
     const MultiLayer* mp_multilayer;
-    const IFresnelMap* mp_fresnel_map;
+    const IMultiLayerFresnelMap* mp_fresnel_map;
 };
 
 #endif // MULTILAYERINFO_H

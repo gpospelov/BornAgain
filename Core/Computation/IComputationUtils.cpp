@@ -32,10 +32,10 @@ std::unique_ptr<MultiLayer> CreateAveragedMultilayerImpl(
 }
 
 namespace IComputationUtils {
-std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& multilayer,
+std::unique_ptr<IMultiLayerFresnelMap> CreateFresnelMap(const MultiLayer& multilayer,
                                               const SimulationOptions& sim_options)
 {
-    std::unique_ptr<IFresnelMap> P_result;
+    std::unique_ptr<IMultiLayerFresnelMap> P_result;
     if (!multilayer.requiresMatrixRTCoefficients())
         P_result.reset(new ScalarFresnelMap());
     else

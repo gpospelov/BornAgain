@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Multilayer/SpecularMagnetic.h
-//! @brief     Defines class SpecularMagnetic.
+//! @brief     Defines namespace SpecularMagnetic.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,25 +19,23 @@
 #include "Vectors3D.h"
 #include <vector>
 
+class MultiLayer;
+
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer with magnetization.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ SpecularMagnetic
+namespace SpecularMagnetic
 {
-public:
-    //! Computes refraction angle reflection/transmission coefficients
-    //! for given multilayer and wavevector k
-    static void execute(const class MultiLayer& sample, const kvector_t k,
-                        std::vector<MatrixRTCoefficients>& coeff);
-
-private:
-    static void calculateEigenvalues(const class MultiLayer& sample, const kvector_t k,
-                                     std::vector<MatrixRTCoefficients>& coeff);
-    static void calculateTransferAndBoundary(const MultiLayer& sample, const kvector_t k,
-                                             std::vector<MatrixRTCoefficients>& coeff);
-    static void setForNoTransmission(std::vector<MatrixRTCoefficients>& coeff);
-    static complex_t getImExponential(complex_t exponent);
-};
+//! Computes refraction angle reflection/transmission coefficients
+//! for given multilayer and wavevector k
+BA_CORE_API_ void Execute(const class MultiLayer& sample, const kvector_t k,
+                          std::vector<MatrixRTCoefficients>& coeff);
+void CalculateEigenvalues(const class MultiLayer& sample, const kvector_t k,
+                          std::vector<MatrixRTCoefficients>& coeff);
+void CalculateTransferAndBoundary(const MultiLayer& sample, const kvector_t k,
+                                  std::vector<MatrixRTCoefficients>& coeff);
+void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff);
+}; // namespace SpecularMagnetic
 
 #endif // SPECULARMAGNETIC_H

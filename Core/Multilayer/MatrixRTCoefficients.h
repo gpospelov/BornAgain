@@ -17,8 +17,6 @@
 
 #include "ILayerRTCoefficients.h"
 
-class SpecularMagnetic;
-
 //! Specular reflection and transmission coefficients in a layer in case
 //! of 2x2 matrix interactions between the layers and the scattered particle.
 //! @ingroup algorithms_internal
@@ -44,15 +42,11 @@ public:
     //! Returns z-part of the two wavevector eigenmodes
     virtual Eigen::Vector2cd getKz() const { return kz; }
 
-    friend SpecularMagnetic;
-
-private:
     void calculateTRMatrices();
     void calculateTRWithoutMagnetization();
     void initializeBottomLayerPhiPsi();
 
     // NOTE: exceptionally, this class has member variables without prefix m_
-
     Eigen::Vector2cd kz; //!< z-part of the two wavevector eigenmodes
     Eigen::Vector2cd lambda; //!< positive eigenvalues of transfer matrix
     Eigen::Vector4cd phi_psi_plus; //!< boundary values for up-polarization

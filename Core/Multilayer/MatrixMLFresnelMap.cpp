@@ -71,7 +71,7 @@ std::vector<MatrixRTCoefficients> calculateCoefficients(const MultiLayer& multil
                                                         kvector_t kvec)
 {
     std::vector<MatrixRTCoefficients> coeffs;
-    SpecularMagnetic::execute(multilayer, kvec, coeffs);
+    SpecularMagnetic::Execute(multilayer, kvec, coeffs);
     return coeffs;
 }
 

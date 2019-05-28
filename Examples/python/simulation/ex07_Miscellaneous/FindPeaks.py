@@ -78,7 +78,7 @@ def run_simulation():
 
 if __name__ == '__main__':
     result = run_simulation().histogram2d()
-    ba.plot_histogram(result)
+    ba.plot_histogram(result, cmap='jet', aspect='auto')
 
     peaks = ba.FindPeaks(result, 2, "nomarkov", 0.001)
     xpeaks = [peak[0] for peak in peaks]

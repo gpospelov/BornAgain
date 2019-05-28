@@ -7,6 +7,7 @@ import random
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 from matplotlib import pyplot as plt
+from matplotlib import rcParams
 
 
 def get_sample():
@@ -63,7 +64,8 @@ def get_noisy_image(hist):
 def plot_histogram(hist, zmin=None, zmax=None):
     ba.plot_histogram(hist, xlabel=r'$\varphi_f ^{\circ}$',
                       ylabel=r'$\alpha_f ^{\circ}$',
-                      zlabel="", zmin=zmin, zmax=zmax)
+                      zlabel="", zmin=zmin, zmax=zmax,
+                      cmap='jet', aspect='auto')
 
 
 def get_relative_difference(hist):
@@ -111,7 +113,6 @@ def plot(hist):
     Runs different plotting functions one by one
     to demonstrate trivial data presentation tasks.
     """
-
     plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)

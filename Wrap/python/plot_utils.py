@@ -84,13 +84,12 @@ def get_axes_labels(result, units):
 
 
 def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
-               title=None, axes_limits=None, aspect=None):
+               title=None, axes_limits=None, **kwargs):
     """
     Plots numpy array as a colormap in log scale.
     """
 
     zlabel = "Intensity" if zlabel is None else zlabel
-    aspect = 'auto' if aspect is None else aspect
 
     zmax = np.amax(array) if zmax is None else zmax
     zmin = 1e-6*zmax if zmin is None else zmin
@@ -100,7 +99,7 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
     else:
         norm = colors.LogNorm(zmin, zmax)
 
-    im = plt.imshow(array, norm=norm, extent=axes_limits, aspect=aspect)
+    im = plt.imshow(array, norm=norm, extent=axes_limits, **kwargs)
     cb = plt.colorbar(im, pad=0.025)
 
     if xlabel:
@@ -117,13 +116,12 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
 
 
 def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
-                  title=None, aspect=None):
+                  title=None, **kwargs):
     """
     Plots intensity data as color map
     :param intensity: Histogram2D object obtained from GISASSimulation
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
-    :param aspect: 'auto' (default) or 'equal'
     """
 
     if not xlabel:
@@ -136,12 +134,12 @@ def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=
                    hist.getYmin(), hist.getYmax()]
 
     plot_array(hist.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
-               zlabel=zlabel, title=title, axes_limits=axes_limits, aspect=aspect)
+               zlabel=zlabel, title=title, axes_limits=axes_limits, **kwargs)
 
 
 def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
                   xlabel=None, ylabel=None, zlabel=None,
-                  title=None, aspect=None):
+                  title=None, **kwargs):
     """
     Plots intensity data as color map
     :param result: SimulationResult from GISAS/OffSpecSimulation
@@ -155,11 +153,11 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     ylabel = axes_labels[1] if ylabel is None else ylabel
 
     plot_array(result.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
-               zlabel=zlabel, title=title, axes_limits=axes_limits, aspect=aspect)
+               zlabel=zlabel, title=title, axes_limits=axes_limits, **kwargs)
 
 
 def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesUnits.DEFAULT,
-              xlabel=None, ylabel=None, title=None):
+              xlabel=None, ylabel=None, title=None, **kwargs):
     """
     Plots intensity data for specular simulation result
     :param result: SimulationResult from SpecularSimulation
@@ -176,7 +174,7 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesU
     xlabel = get_axes_labels(result, units)[0] if xlabel is None else xlabel
     ylabel = "Intensity" if ylabel is None else ylabel
 
-    plt.semilogy(x_axis, intensity)
+    plt.semilogy(x_axis, intensity, **kwargs)
 
     plt.ylim([ymin, ymax])
 
@@ -191,7 +189,7 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesU
 
 
 def plot_simulation_result(result, intensity_min=None, intensity_max=None, units=ba.AxesUnits.DEFAULT,
-                           xlabel=None, ylabel=None, postpone_show=False, title=None, aspect=None):
+                           xlabel=None, ylabel=None, postpone_show=False, title=None, **kwargs):
     """
     Draws simulation result and (optionally) shows the plot.
     :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
@@ -199,13 +197,12 @@ def plot_simulation_result(result, intensity_min=None, intensity_max=None, units
     :param intensity_max: Max value on amplitude's axis or color bar
     :param units: units for plot axes
     :param postpone_show: postpone showing the plot for later tuning (False by default)
-    :param aspect: aspect ratio, 'auto' (default) or 'equal'
     """
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
-        plot_specular_simulation_result(result, intensity_min, intensity_max, units)
+        plot_specular_simulation_result(result, intensity_min, intensity_max, units, **kwargs)
     else:
         plot_colormap(result, intensity_min, intensity_max, units, xlabel, ylabel,
-                      title=title, aspect=aspect)
+                      title=title, **kwargs)
     plt.tight_layout()
     if not postpone_show:
         plt.show()

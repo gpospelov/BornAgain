@@ -58,4 +58,4 @@ def run_simulation():
 
 if __name__ == '__main__':
     results = run_simulation()
-    ba.plot_simulation_result(results)
+    ba.plot_simulation_result(results, c='k')

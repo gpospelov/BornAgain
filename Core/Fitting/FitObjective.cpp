@@ -13,21 +13,17 @@
 // ************************************************************************** //
 
 #include "FitObjective.h"
+#include "ArrayUtils.h"
 #include "ChiSquaredModule.h"
+#include "FitStatus.h"
+#include "MinimizerResult.h"
+#include "ObjectiveMetric.h"
 #include "Parameters.h"
 #include "PyFittingCallbacks.h"
 #include "Simulation.h"
-#include "ArrayUtils.h"
-#include "FitStatus.h"
-#include "MinimizerResult.h"
 #include <stdexcept>
 
 namespace {
-void insert_to(std::vector<double>& to, const std::vector<double>& from)
-{
-    to.insert(to.end(), from.begin(), from.end());
-}
-
 simulation_builder_t simulationBuilder(PyBuilderCallback& callback)
 {
     return [&callback](const Fit::Parameters& params) {
@@ -39,10 +35,26 @@ simulation_builder_t simulationBuilder(PyBuilderCallback& callback)
 }
 }
 
+class IMetricWrapper
+{
+public:
+    virtual ~IMetricWrapper();
+    virtual double compute(const std::vector<SimDataPair>& fit_objects, size_t n_pars) const = 0;
+};
+
+// Metric wrapper for back-compaptibility with old scripts
+class ChiModuleWrapper : public IMetricWrapper
+{
+public:
+    ChiModuleWrapper(std::unique_ptr<IChiSquaredModule> module);
+    double compute(const std::vector<SimDataPair>& fit_objects, size_t n_pars) const override;
+
+private:
+    std::unique_ptr<IChiSquaredModule> m_module;
+};
 
 FitObjective::FitObjective()
-    : m_total_weight(0.0)
-    , m_chi2_module(new ChiSquaredModule())
+    : m_metric_module(std::make_unique<ChiModuleWrapper>(std::make_unique<ChiSquaredModule>()))
     , m_fit_status(new FitStatus(this))
 {}
 
@@ -54,7 +66,6 @@ void FitObjective::addSimulationAndData(simulation_builder_t builder,
                                         double weight)
 {
     m_fit_objects.emplace_back(builder, data, std::move(uncertainties), weight);
-    m_total_weight += weight;
 }
 
 void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
@@ -75,48 +86,47 @@ void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
 
 double FitObjective::evaluate(const Fit::Parameters& params)
 {
-    return evaluate_chi2(evaluate_residuals(params), params);
+    run_simulations(params);
+    const double metric_value = m_metric_module->compute(m_fit_objects, params.size());
+    m_fit_status->update(params, metric_value);
+    return metric_value;
 }
 
 std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& params)
 {
-    run_simulations(params);
+    evaluate(params);
 
-    std::vector<double> result;
-
-    for(size_t i = 0; i<m_simulation_array.size(); ++i)
-        result.push_back(residual(m_simulation_array[i], m_experimental_array[i],
-                                  m_weights_array[i]));
-
-    double chi2 = evaluate_chi2(result, params);
-
-    m_fit_status->update(params, chi2);
-
+    std::vector<double> result = experimental_array(); // init result with experimental data values
+    const std::vector<double> sim_values = simulation_array();
+    std::transform(result.begin(), result.end(), sim_values.begin(), result.begin(),
+                   [](double lhs, double rhs) { return lhs - rhs; });
     return result;
 }
 
 size_t FitObjective::numberOfFitElements() const
 {
-    size_t result(0);
-    for (auto& obj : m_fit_objects)
-        result += obj.numberOfFitElements();
-
-    return result;
+    return std::accumulate(m_fit_objects.begin(), m_fit_objects.end(), 0u,
+                           [](size_t acc, auto& obj) { return acc + obj.numberOfFitElements(); });
 }
 
 std::vector<double> FitObjective::experimental_array() const
 {
-    return m_experimental_array;
+    return composeArray(&SimDataPair::experimental_array);
 }
 
 std::vector<double> FitObjective::simulation_array() const
 {
-    return m_simulation_array;
+    return composeArray(&SimDataPair::simulation_array);
+}
+
+std::vector<double> FitObjective::uncertainties() const
+{
+    return composeArray(&SimDataPair::uncertainties_array);
 }
 
 std::vector<double> FitObjective::weights_array() const
 {
-    return m_weights_array;
+    return composeArray(&SimDataPair::user_weights_array);
 }
 
 SimulationResult FitObjective::simulationResult(size_t i_item) const
@@ -127,6 +137,11 @@ SimulationResult FitObjective::simulationResult(size_t i_item) const
 SimulationResult FitObjective::experimentalData(size_t i_item) const
 {
     return m_fit_objects[check_index(i_item)].experimentalData();
+}
+
+SimulationResult FitObjective::uncertaintyData(size_t i_item) const
+{
+    return m_fit_objects[check_index(i_item)].uncertainties();
 }
 
 SimulationResult FitObjective::relativeDifference(size_t i_item) const
@@ -206,42 +221,31 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
         throw std::runtime_error("FitObjective::run_simulations() -> Error. "
                                  "No simulation/data defined.");
 
-    m_simulation_array.clear();
-    m_experimental_array.clear();
-    m_weights_array.clear();
-
-    for (auto& obj : m_fit_objects) {
+    for (auto& obj : m_fit_objects)
         obj.runSimulation(params);
-        insert_to(m_simulation_array, obj.simulation_array());
-        insert_to(m_experimental_array, obj.experimental_array());
-        insert_to(m_weights_array, obj.user_weights_array());
-    }
 }
 
 void FitObjective::setChiSquaredModule(const IChiSquaredModule& module)
 {
-    m_chi2_module.reset(module.clone());
+    std::unique_ptr<IChiSquaredModule> chi_module(module.clone());
+    m_metric_module = std::make_unique<ChiModuleWrapper>(std::move(chi_module));
 }
 
-double FitObjective::residual(double a, double b, double weight) const
+std::vector<double> FitObjective::composeArray(DataPairAccessor getter) const
 {
-    return m_chi2_module->residual(a, b, weight);
-}
+    const size_t n_objs = m_fit_objects.size();
+    if (n_objs == 0)
+        return {};
+    if (n_objs == 1)
+        return (m_fit_objects[0].*getter)();
 
-double FitObjective::evaluate_chi2(const std::vector<double>& residuals,
-                                   const Fit::Parameters& params)
-{
-    double chi2(0.0);
-
-    for(auto res : residuals)
-        chi2 += res*res;
-
-    int fnorm = static_cast<int>(numberOfFitElements()) -
-            static_cast<int>(params.freeParameterCount());
-    if (fnorm <= 0)
-        throw std::runtime_error("FitObjective::chi2() -> Error. Normalization is 0");
-
-    return chi2 / fnorm;
+    std::vector<double> result;
+    result.reserve(numberOfFitElements());
+    for (auto& pair: m_fit_objects) {
+        std::vector<double> array = (pair.*getter)();
+        std::move(array.begin(), array.end(), std::back_inserter(result));
+    }
+    return result;
 }
 
 size_t FitObjective::check_index(size_t index) const
@@ -249,4 +253,39 @@ size_t FitObjective::check_index(size_t index) const
     if (index >= m_fit_objects.size())
         throw std::runtime_error("FitObjective::check_index() -> Index outside of range");
     return index;
+}
+
+// ------------------ metric wrappers -----------------------------
+
+IMetricWrapper::~IMetricWrapper() = default;
+
+ChiModuleWrapper::ChiModuleWrapper(std::unique_ptr<IChiSquaredModule> module)
+    : IMetricWrapper()
+    , m_module(std::move(module))
+{
+    if (!m_module)
+        throw std::runtime_error("Error in ChiModuleWrapper: empty chi square module passed");
+}
+
+double ChiModuleWrapper::compute(const std::vector<SimDataPair>& fit_objects, size_t n_pars) const
+{
+    size_t n_points = 0;
+    double result = 0.0;
+    for (auto& obj: fit_objects) {
+        const auto sim_array = obj.simulation_array();
+        const auto exp_array = obj.experimental_array();
+        const auto weights = obj.user_weights_array();
+        const size_t n_elements = sim_array.size();
+        for(size_t i = 0; i < n_elements; ++i) {
+            double value = m_module->residual(sim_array[i], exp_array[i], weights[i]);
+            result += value * value;
+        }
+        n_points += n_elements;
+    }
+
+    int fnorm = static_cast<int>(n_points) - static_cast<int>(n_pars);
+    if (fnorm <= 0)
+        throw std::runtime_error("Error in ChiModuleWrapper: Normalization shall be positive");
+
+    return result / fnorm;
 }

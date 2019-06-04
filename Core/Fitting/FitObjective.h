@@ -17,7 +17,6 @@
 
 #include "FitTypes.h"
 #include "OutputData.h"
-#include "SafePointerVector.h"
 #include "SimDataPair.h"
 #include "IterationInfo.h"
 #include "MinimizerResult.h"
@@ -26,6 +25,7 @@ class IChiSquaredModule;
 class PyBuilderCallback;
 class PyObserverCallback;
 class FitStatus;
+class IMetricWrapper;
 
 //! Holds vector of `SimDataPair`s (experimental data and simulation results) for use in fitting.
 //! @ingroup fitting_internal
@@ -60,17 +60,20 @@ public:
 
     size_t numberOfFitElements() const;
 
-    //! Returns one dimensional array representing experimental data.
-    //! Masked areas and the area outside of region of interest are not included.
-    //! Data from different datasets merged together.
+    //! Returns one dimensional array representing merged experimental data.
+    //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> experimental_array() const;
 
-    //! Returns one dimensional array representing simulated intensities data.
-    //! Masked areas and the area outside of region of interest are not included.
-    //! Data from different datasets merged together.
+    //! Returns one dimensional array representing merged simulated intensities data.
+    //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> simulation_array() const;
 
-    //! Returns one dimensional array representing weights of bin intensity for residuals.
+    //! Returns one-dimensional array representing merged data uncertainties.
+    //! The area outside of the region of interest is not included, masked data is nullified.
+    std::vector<double> uncertainties() const;
+
+    //! Returns one-dimensional array representing merged user weights.
+    //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> weights_array() const;
 
     //! Returns simulation result.
@@ -80,6 +83,10 @@ public:
     //! Returns experimental data.
     //! @param i_item: the index of fit pair
     SimulationResult experimentalData(size_t i_item = 0) const;
+
+    //! Returns experimental data uncertainties.
+    //! @param i_item: the index of fit pair
+    SimulationResult uncertaintyData(size_t i_item = 0) const;
 
     //! Returns relative difference between simulation and experimental data.
     //! @param i_item: the index of fit pair
@@ -122,17 +129,13 @@ public:
     void setChiSquaredModule(const IChiSquaredModule& module);
 
 private:
-    double residual(double a, double b, double weight) const;
-    double evaluate_chi2(const std::vector<double>& residuals, const Fit::Parameters& params);
+    typedef std::vector<double> (SimDataPair::*DataPairAccessor)() const;
+
+    std::vector<double> composeArray(DataPairAccessor getter) const;
     size_t check_index(size_t index) const;
 
-    std::vector<double> m_experimental_array;
-    std::vector<double> m_simulation_array;
-    std::vector<double> m_weights_array;
-
     std::vector<SimDataPair> m_fit_objects;
-    double m_total_weight;
-    std::unique_ptr<IChiSquaredModule> m_chi2_module;
+    std::unique_ptr<IMetricWrapper> m_metric_module;
     std::unique_ptr<FitStatus> m_fit_status;
 };
 

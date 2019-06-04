@@ -139,8 +139,8 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
         return buildSimulation(params);
     };
 
-    result->addSimulationAndData(builder, *createOutputData(), 0.5);
-    result->addSimulationAndData(builder, *createOutputData(), 0.5);
+    result->addSimulationAndData(builder, *createOutputData(), nullptr, 0.5);
+    result->addSimulationAndData(builder, *createOutputData(), nullptr, 0.5);
     result->initPrint(1);
 
     return result;

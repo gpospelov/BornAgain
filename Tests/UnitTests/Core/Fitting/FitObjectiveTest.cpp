@@ -34,8 +34,8 @@ TEST_F(FitObjectiveTest, twoDatasets)
 
     // creating FitObjective with two simulation/data pairs.
     FitObjective objective;
-    objective.addSimulationAndData(builder1, *data1);
-    objective.addSimulationAndData(builder2, *data2);
+    objective.addSimulationAndData(builder1, *data1, nullptr);
+    objective.addSimulationAndData(builder2, *data2, nullptr);
 
     // running simulation once
     Fit::Parameters params;

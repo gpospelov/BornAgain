@@ -6440,6 +6440,11 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_simulation_array(self)
 
 
+    def uncertainties(self):
+        """uncertainties(FitObjective self) -> vdouble1d_t"""
+        return _libBornAgainCore.FitObjective_uncertainties(self)
+
+
     def weights_array(self):
         """
         weights_array(FitObjective self) -> vdouble1d_t
@@ -6488,6 +6493,14 @@ class FitObjective(_object):
 
         """
         return _libBornAgainCore.FitObjective_experimentalData(self, i_item)
+
+
+    def uncertaintyData(self, i_item=0):
+        """
+        uncertaintyData(FitObjective self, size_t i_item=0) -> SimulationResult
+        uncertaintyData(FitObjective self) -> SimulationResult
+        """
+        return _libBornAgainCore.FitObjective_uncertaintyData(self, i_item)
 
 
     def relativeDifference(self, i_item=0):

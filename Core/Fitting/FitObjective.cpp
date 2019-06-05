@@ -53,9 +53,20 @@ private:
     std::unique_ptr<IChiSquaredModule> m_module;
 };
 
+class ObjectiveMetricWrapper : public IMetricWrapper
+{
+public:
+    ObjectiveMetricWrapper(std::unique_ptr<ObjectiveMetric> module);
+    double compute(const std::vector<SimDataPair>& fit_objects, size_t n_pars) const override;
+
+private:
+    std::unique_ptr<ObjectiveMetric> m_module;
+};
+
 FitObjective::FitObjective()
-    : m_metric_module(std::make_unique<ChiModuleWrapper>(std::make_unique<ChiSquaredModule>()))
-    , m_fit_status(new FitStatus(this))
+    : m_metric_module(
+          std::make_unique<ObjectiveMetricWrapper>(std::make_unique<PoissonLikeMetric>()))
+    , m_fit_status(std::make_unique<FitStatus>(this))
 {}
 
 FitObjective::~FitObjective() = default;
@@ -288,4 +299,26 @@ double ChiModuleWrapper::compute(const std::vector<SimDataPair>& fit_objects, si
         throw std::runtime_error("Error in ChiModuleWrapper: Normalization shall be positive");
 
     return result / fnorm;
+}
+
+ObjectiveMetricWrapper::ObjectiveMetricWrapper(std::unique_ptr<ObjectiveMetric> module)
+    : IMetricWrapper()
+    , m_module(std::move(module))
+{
+    if (!m_module)
+        throw std::runtime_error("Error in ObjectiveMetricWrapper: empty objective metric passed");
+}
+
+double ObjectiveMetricWrapper::compute(const std::vector<SimDataPair>& fit_objects,
+                                       size_t) const
+{
+    // deciding whether to use uncertainties in metrics computation.
+    bool use_uncertainties = true;
+    for (auto& obj: fit_objects)
+        use_uncertainties = use_uncertainties && obj.containsUncertainties();
+
+    double result = 0.0;
+    for (auto& obj: fit_objects)
+        result += m_module->compute(obj, use_uncertainties);
+    return result;
 }

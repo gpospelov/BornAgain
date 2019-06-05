@@ -128,6 +128,37 @@ double Chi2Metric::computeFromArrays(std::vector<double> sim_data, std::vector<d
     return std::isfinite(result) ? result : double_max;
 }
 
+// ----------------------- Poisson-like metric ---------------------------
+
+PoissonLikeMetric::PoissonLikeMetric()
+    : Chi2Metric()
+{}
+
+PoissonLikeMetric* PoissonLikeMetric::clone() const
+{
+    return copyMetric<PoissonLikeMetric>(*this);
+}
+
+double PoissonLikeMetric::computeFromArrays(std::vector<double> sim_data,
+                                            std::vector<double> exp_data,
+                                            std::vector<double> weight_factors) const
+{
+    checkIntegrity(sim_data, exp_data, weight_factors);
+
+    double result = 0.0;
+    auto norm_fun = norm();
+    for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i)
+    {
+        if (weight_factors[i] <= 0.0 || exp_data[i] < 0.0)
+            continue;
+        const double variance = std::max(1.0, sim_data[i]);
+        const double value = (sim_data[i] - exp_data[i]) / std::sqrt(variance);
+        result += norm_fun(value) * weight_factors[i];
+    }
+
+    return std::isfinite(result) ? result : double_max;
+}
+
 // ----------------------- Log metric ---------------------------
 
 LogMetric::LogMetric()

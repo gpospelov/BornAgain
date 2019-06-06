@@ -165,9 +165,9 @@ public:
 
 //! Implementation of relative difference metric.
 //! With default L2 norm and weighting off corresponds to the formula
-//! \f[Result = \sum \frac{(I - D)^2}{I^2}\f]
-//! where \f$I\f$ is the simulated intensity. If weighting is on,
-//! coincides with the metric provided by Chi2Metric class.
+//! \f[Result = \sum \frac{(I - D)^2}{(I + D)^2}\f]
+//! where \f$I\f$ is the simulated intensity, \f$D\f$ - experimental data.
+//! If weighting is on, falls back to the standard \f$\chi^2\f$ metric.
 class BA_CORE_API_ RelativeDifferenceMetric : public Chi2Metric
 {
 public:

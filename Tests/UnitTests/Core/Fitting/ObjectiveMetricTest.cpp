@@ -212,19 +212,19 @@ TEST_F(ObjectiveMetricTest, RelativeDifferenceWellFormed)
     RelativeDifferenceMetric metric;
 
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, sim_data, weight_factors), 0.0);
-    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 2.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 5.0 / 9.0);
 
     std::vector<double> exp_data_1 = exp_data;
     exp_data_1[0] = -1.0;
-    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data_1, weight_factors), 1.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data_1, weight_factors), 4.0 / 9.0);
 
     std::vector<double> sim_data_1 = sim_data;
     sim_data_1[0] = 0.0;
     exp_data_1[0] = 0.0;
-    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data_1, exp_data_1, weight_factors), 1.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data_1, exp_data_1, weight_factors), 4.0 / 9.0);
 
     metric.setNorm(ObjectiveMetric::l1_norm);
-    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 3.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 5.0 / 3.0);
 
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, uncertainties, weight_factors),
                      6.0);

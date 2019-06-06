@@ -236,7 +236,7 @@ double RelativeDifferenceMetric::computeFromArrays(std::vector<double> sim_data,
             continue;
         const double sim_val = std::max(double_min, sim_data[i]);
         const double exp_val = std::max(double_min, exp_data[i]);
-        result += norm_fun((exp_val / sim_val - 1.0)) * weight_factors[i];
+        result += norm_fun((exp_val - sim_val) / (exp_val + sim_val)) * weight_factors[i];
     }
 
     return std::isfinite(result) ? result : double_max;

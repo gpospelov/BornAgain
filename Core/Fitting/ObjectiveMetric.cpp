@@ -24,7 +24,7 @@ const double double_min = std::numeric_limits<double>::min();
 const double ln10 = std::log(10.0);
 
 template<class T>
-T* copyMetric(const ObjectiveMetric& metric)
+T* copyMetric(const T& metric)
 {
     std::unique_ptr<T> result(new T());
     result->setNorm(metric.norm());
@@ -96,7 +96,7 @@ Chi2Metric::Chi2Metric()
 
 Chi2Metric* Chi2Metric::clone() const
 {
-    return copyMetric<Chi2Metric>(*this);
+    return copyMetric(*this);
 }
 
 double Chi2Metric::computeFromArrays(std::vector<double> sim_data, std::vector<double> exp_data,
@@ -123,7 +123,7 @@ double Chi2Metric::computeFromArrays(std::vector<double> sim_data, std::vector<d
     double result = 0.0;
     for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i)
         if (exp_data[i] >= 0.0 && weight_factors[i] > 0.0)
-            result += norm_fun((exp_data[i] - sim_data[i])) * weight_factors[i];
+            result += norm_fun(exp_data[i] - sim_data[i]) * weight_factors[i];
 
     return std::isfinite(result) ? result : double_max;
 }
@@ -136,7 +136,7 @@ PoissonLikeMetric::PoissonLikeMetric()
 
 PoissonLikeMetric* PoissonLikeMetric::clone() const
 {
-    return copyMetric<PoissonLikeMetric>(*this);
+    return copyMetric(*this);
 }
 
 double PoissonLikeMetric::computeFromArrays(std::vector<double> sim_data,
@@ -167,7 +167,7 @@ LogMetric::LogMetric()
 
 LogMetric* LogMetric::clone() const
 {
-    return copyMetric<LogMetric>(*this);
+    return copyMetric(*this);
 }
 
 double LogMetric::computeFromArrays(std::vector<double> sim_data, std::vector<double> exp_data,
@@ -219,7 +219,7 @@ RelativeDifferenceMetric::RelativeDifferenceMetric()
 
 RelativeDifferenceMetric* RelativeDifferenceMetric::clone() const
 {
-    return copyMetric<RelativeDifferenceMetric>(*this);
+    return copyMetric(*this);
 }
 
 double RelativeDifferenceMetric::computeFromArrays(std::vector<double> sim_data,
@@ -250,7 +250,7 @@ RQ4Metric::RQ4Metric()
 
 RQ4Metric* RQ4Metric::clone() const
 {
-    return copyMetric<RQ4Metric>(*this);
+    return copyMetric(*this);
 }
 
 double RQ4Metric::compute(const SimDataPair& data_pair, bool use_weights) const

@@ -76,25 +76,8 @@ public:
     //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> weights_array() const;
 
-    //! Returns simulation result.
-    //! @param i_item: the index of fit pair
-    SimulationResult simulationResult(size_t i_item = 0) const;
-
-    //! Returns experimental data.
-    //! @param i_item: the index of fit pair
-    SimulationResult experimentalData(size_t i_item = 0) const;
-
-    //! Returns experimental data uncertainties.
-    //! @param i_item: the index of fit pair
-    SimulationResult uncertaintyData(size_t i_item = 0) const;
-
-    //! Returns relative difference between simulation and experimental data.
-    //! @param i_item: the index of fit pair
-    SimulationResult relativeDifference(size_t i_item = 0) const;
-
-    //! Returns absolute value of difference between simulation and experimental data.
-    //! @param i_item: the index of fit pair
-    SimulationResult absoluteDifference(size_t i_item = 0) const;
+    //! Returns a reference to i-th SimDataPair.
+    const SimDataPair& dataPair(size_t i_item = 0) const;
 
     //! Initializes printing to standard output during the fitting.
     //! @param every_nth: Print every n'th iteration.

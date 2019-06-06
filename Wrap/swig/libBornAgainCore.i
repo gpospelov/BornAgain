@@ -218,6 +218,7 @@
 #include "Rotations.h"
 #include "SampleBuilderFactory.h"
 #include "ScanResolution.h"
+#include "SimDataPair.h"
 #include "Simulation.h"
 #include "Simulation2D.h"
 #include "SimulationFactory.h"
@@ -469,6 +470,7 @@
 %include "Rotations.h"
 %include "ISelectionRule.h"
 %include "DepthProbeSimulation.h"
+%include "SimDataPair.h"
 %include "SpecularSimulation.h"
 %include "ThreadInfo.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, IMultiLayerBuilder>;

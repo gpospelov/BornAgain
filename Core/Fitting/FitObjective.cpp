@@ -140,29 +140,9 @@ std::vector<double> FitObjective::weights_array() const
     return composeArray(&SimDataPair::user_weights_array);
 }
 
-SimulationResult FitObjective::simulationResult(size_t i_item) const
+const SimDataPair& FitObjective::dataPair(size_t i_item) const
 {
-    return m_fit_objects[check_index(i_item)].simulationResult();
-}
-
-SimulationResult FitObjective::experimentalData(size_t i_item) const
-{
-    return m_fit_objects[check_index(i_item)].experimentalData();
-}
-
-SimulationResult FitObjective::uncertaintyData(size_t i_item) const
-{
-    return m_fit_objects[check_index(i_item)].uncertainties();
-}
-
-SimulationResult FitObjective::relativeDifference(size_t i_item) const
-{
-    return m_fit_objects[check_index(i_item)].relativeDifference();
-}
-
-SimulationResult FitObjective::absoluteDifference(size_t i_item) const
-{
-    return m_fit_objects[check_index(i_item)].absoluteDifference();
+    return m_fit_objects[check_index(i_item)];
 }
 
 void FitObjective::initPrint(int every_nth)

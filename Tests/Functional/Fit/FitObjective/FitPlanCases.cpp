@@ -95,7 +95,7 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
 // ----------------------------------------------------------------------------
 
 SpecularPlan::SpecularPlan()
-    : FitPlan("SpecularPlan", /*residual_based = */ true)
+    : FitPlan("SpecularPlan")
 {
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -108,7 +108,7 @@ SpecularPlan::~SpecularPlan() = default;
 // ----------------------------------------------------------------------------
 
 SpecularPlanQ::SpecularPlanQ()
-    : FitPlan("SpecularPlanQ", /*residual_based = */ true)
+    : FitPlan("SpecularPlanQ")
 {
     setSimulationName("BasicSpecularQ");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -121,7 +121,7 @@ SpecularPlanQ::~SpecularPlanQ() = default;
 // ----------------------------------------------------------------------------
 
 MultipleSpecPlan::MultipleSpecPlan()
-    : FitPlan("MultipleSpecPlan", /*residual_based = */ true)
+    : FitPlan("MultipleSpecPlan")
 {
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -149,7 +149,7 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
 // ----------------------------------------------------------------------------
 
 OffSpecFitPlan::OffSpecFitPlan()
-    : FitPlan("OffSpecFitPlan", /*residual_based*/true)
+    : FitPlan("OffSpecFitPlan")
 {
     setBuilderName("ResonatorBuilder");
     setSimulationName("OffSpecMini");

@@ -16,10 +16,11 @@
 #define FITOBJECTIVE_H
 
 #include "FitTypes.h"
-#include "OutputData.h"
-#include "SimDataPair.h"
+#include "ArrayUtils.h"
 #include "IterationInfo.h"
 #include "MinimizerResult.h"
+#include "OutputData.h"
+#include "SimDataPair.h"
 
 class IChiSquaredModule;
 class PyBuilderCallback;
@@ -32,8 +33,9 @@ class IMetricWrapper;
 
 class BA_CORE_API_ FitObjective
 {
-public:
+    static simulation_builder_t simulationBuilder(PyBuilderCallback& callback);
 
+public:
     FitObjective();
     virtual ~FitObjective();
 
@@ -46,13 +48,12 @@ public:
                               std::unique_ptr<OutputData<double>> uncertainties,
                               double weight = 1.0);
 #endif
-    void addSimulationAndData(PyBuilderCallback& callback,
-                              const std::vector<double>& data,
-                              double weight = 1.0);
-
-    void addSimulationAndData(PyBuilderCallback& callback,
-                              const std::vector<std::vector<double>>& data,
-                              double weight = 1.0);
+    template <class T>
+    void addSimulationAndData(PyBuilderCallback& callback, const T& data, double weight = 1.0)
+    {
+        addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data), nullptr,
+                             weight);
+    }
 
     virtual double evaluate(const Fit::Parameters& params);
 

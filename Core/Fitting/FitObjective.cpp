@@ -23,18 +23,6 @@
 #include "Simulation.h"
 #include <stdexcept>
 
-namespace {
-simulation_builder_t simulationBuilder(PyBuilderCallback& callback)
-{
-    return [&callback](const Fit::Parameters& params) {
-        auto simulation = callback.build_simulation(params);
-        std::unique_ptr<Simulation> clone(simulation->clone());
-        delete simulation; // deleting Python object
-        return clone;
-    };
-}
-}
-
 class IMetricWrapper
 {
 public:
@@ -63,6 +51,16 @@ private:
     std::unique_ptr<ObjectiveMetric> m_module;
 };
 
+simulation_builder_t FitObjective::simulationBuilder(PyBuilderCallback& callback)
+{
+    return [&callback](const Fit::Parameters& params) {
+        auto simulation = callback.build_simulation(params);
+        std::unique_ptr<Simulation> clone(simulation->clone());
+        delete simulation; // deleting Python object
+        return clone;
+    };
+}
+
 FitObjective::FitObjective()
     : m_metric_module(
           std::make_unique<ObjectiveMetricWrapper>(std::make_unique<PoissonLikeMetric>()))
@@ -77,22 +75,6 @@ void FitObjective::addSimulationAndData(simulation_builder_t builder,
                                         double weight)
 {
     m_fit_objects.emplace_back(builder, data, std::move(uncertainties), weight);
-}
-
-void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
-                                        const std::vector<double>& data,
-                                        double weight)
-{
-    addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data), nullptr,
-                         weight);
-}
-
-void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
-                                        const std::vector<std::vector<double>>& data,
-                                        double weight)
-{
-    addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data), nullptr,
-                         weight);
 }
 
 double FitObjective::evaluate(const Fit::Parameters& params)

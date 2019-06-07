@@ -325,7 +325,11 @@
 %include "ChiSquaredModule.h"
 %include "FitOptions.h"
 %include "PyFittingCallbacks.h"
+
 %include "FitObjective.h"
+%template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<double>>;
+%template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
+
 %include "MathFunctions.h"
 %include "IFactory.h"
 %include "IMultiLayerBuilder.h"

@@ -17,6 +17,7 @@
 
 #include "ICloneable.h"
 #include <functional>
+#include <memory>
 #include <vector>
 
 class SimDataPair;
@@ -29,6 +30,9 @@ public:
     static const std::function<double(double)> l1_norm;
     //! L2 normalization function.
     static const std::function<double(double)> l2_norm;
+
+    static std::unique_ptr<ObjectiveMetric> createMetric(const std::string& metric,
+                                                         const std::string& norm);
 
     ObjectiveMetric(std::function<double(double)> norm);
 
@@ -70,8 +74,9 @@ private:
     std::function<double(double)> m_norm; //! normalization function.
 };
 
-//! Implementation of the standard \f$ \chi^2 \f$ metric. With default L2 norm corresponds to the
-//! formula
+//! Implementation of the standard \f$ \chi^2 \f$ metric
+//! derived from maximum likelihood with Gaussian uncertainties.
+//! With default L2 norm corresponds to the formula
 //! \f[\chi^2 = \sum \frac{(I - D)^2}{\delta_D^2}\f]
 class BA_CORE_API_ Chi2Metric : public ObjectiveMetric
 {
@@ -90,6 +95,32 @@ public:
     double computeFromArrays(std::vector<double> sim_data, std::vector<double> exp_data,
                              std::vector<double> uncertainties,
                              std::vector<double> weight_factors) const override;
+
+    //! Computes metric value from data arrays. Negative values in exp_data
+    //! are ignored as well as non-positive weight_factors.
+    //! All arrays involved in the computation must be of the same size.
+    //! @param sim_data: array with simulated intensities.
+    //! @param exp_data: array with intensity values obtained from an experiment.
+    //! @param weight_factors: user-defined weighting factors. Used linearly, no matter which norm
+    //! is chosen.
+    double computeFromArrays(std::vector<double> sim_data, std::vector<double> exp_data,
+                             std::vector<double> weight_factors) const override;
+};
+
+//! Implementation of \f$ \chi^2 \f$ metric
+//! with standard deviation\f$\sigma = max(\sqrt{I}, 1)\f$,
+//! where \f$I\f$ is the simulated intensity.
+//! With default L2 norm corresponds to the formula
+//! \f[\chi^2 = \sum \frac{(I - D)^2}{max(I, 1)}\f]
+//! for unweighted experimental data. Falls to standard
+//! Chi2Metric when data uncertainties are taken into account.
+class BA_CORE_API_ PoissonLikeMetric : public Chi2Metric
+{
+public:
+    PoissonLikeMetric();
+    PoissonLikeMetric* clone() const override;
+
+    using Chi2Metric::computeFromArrays;
 
     //! Computes metric value from data arrays. Negative values in exp_data
     //! are ignored as well as non-positive weight_factors.
@@ -138,9 +169,9 @@ public:
 
 //! Implementation of relative difference metric.
 //! With default L2 norm and weighting off corresponds to the formula
-//! \f[Result = \sum \frac{(I - D)^2}{I^2}\f]
-//! where \f$I\f$ is the simulated intensity. If weighting is on,
-//! coincides with the metric provided by Chi2Metric class.
+//! \f[Result = \sum \frac{(I - D)^2}{(I + D)^2}\f]
+//! where \f$I\f$ is the simulated intensity, \f$D\f$ - experimental data.
+//! If weighting is on, falls back to the standard \f$\chi^2\f$ metric.
 class BA_CORE_API_ RelativeDifferenceMetric : public Chi2Metric
 {
 public:

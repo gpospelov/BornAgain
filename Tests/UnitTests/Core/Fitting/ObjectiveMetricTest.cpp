@@ -81,6 +81,58 @@ TEST_F(ObjectiveMetricTest, Chi2IllFormed)
                      std::numeric_limits<double>::max());
 }
 
+TEST_F(ObjectiveMetricTest, PoissionLikeWellFormed)
+{
+    std::vector<double> sim_data{1.0, 2.0, 4.0, 4.0};
+    std::vector<double> exp_data{2.0, 1.0, 5.0, 3.0};
+    std::vector<double> weight_factors{1.0, 1.0, 1.0, 2.0};
+
+    PoissonLikeMetric metric;
+
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, sim_data, weight_factors), 0.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 2.25);
+
+    std::vector<double> exp_data_1 = exp_data;
+    exp_data_1[0] = -1.0;
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data_1, weight_factors), 1.25);
+
+    std::vector<double> sim_data_1 = sim_data;
+    sim_data_1[0] = 0.0;
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data_1, exp_data, weight_factors), 5.25);
+
+    metric.setNorm(ObjectiveMetric::l1_norm);
+
+    std::vector<double> sim_data_2 = sim_data;
+    sim_data_2[1] = 1.0;
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data_2, exp_data, weight_factors), 2.5);
+
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays({}, {}, {}, {}), 0.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays({}, {}, {}), 0.0);
+}
+
+TEST_F(ObjectiveMetricTest, PoissionLikeIllFormed)
+{
+    std::vector<double> sim_data {1.0, 2.0, 3.0, 4.0};
+    std::vector<double> exp_data {2.0, 1.0, 4.0, 3.0};
+    std::vector<double> weight_factors {1.0, 1.0, 1.0, 2.0};
+
+    PoissonLikeMetric metric;
+
+    EXPECT_THROW(metric.computeFromArrays({}, {}, {}, {1.0}), std::runtime_error);
+    EXPECT_THROW(metric.computeFromArrays({}, {}, {1.0}), std::runtime_error);
+    EXPECT_THROW(metric.computeFromArrays(sim_data, exp_data, {}, weight_factors),
+                 std::runtime_error);
+    EXPECT_THROW(metric.computeFromArrays({}, exp_data, weight_factors), std::runtime_error);
+
+    std::vector<double> sim_data_1 = sim_data;
+    sim_data_1[0] = -1.0;
+    EXPECT_THROW(metric.computeFromArrays(sim_data_1, exp_data, weight_factors),
+                 std::runtime_error);
+
+    std::vector<double> weight_factors_1(weight_factors.size(), 0.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors_1), 0.0);
+}
+
 TEST_F(ObjectiveMetricTest, LogWellFormed)
 {
     std::vector<double> sim_data {1.0, 10.0, 1.e+2, 1.e+4};
@@ -160,19 +212,19 @@ TEST_F(ObjectiveMetricTest, RelativeDifferenceWellFormed)
     RelativeDifferenceMetric metric;
 
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, sim_data, weight_factors), 0.0);
-    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 2.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 5.0 / 9.0);
 
     std::vector<double> exp_data_1 = exp_data;
     exp_data_1[0] = -1.0;
-    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data_1, weight_factors), 1.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data_1, weight_factors), 4.0 / 9.0);
 
     std::vector<double> sim_data_1 = sim_data;
     sim_data_1[0] = 0.0;
     exp_data_1[0] = 0.0;
-    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data_1, exp_data_1, weight_factors), 1.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data_1, exp_data_1, weight_factors), 4.0 / 9.0);
 
     metric.setNorm(ObjectiveMetric::l1_norm);
-    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 3.0);
+    EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 5.0 / 3.0);
 
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, uncertainties, weight_factors),
                      6.0);

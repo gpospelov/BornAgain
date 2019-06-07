@@ -22,11 +22,11 @@
 #include "OutputData.h"
 #include "SimDataPair.h"
 
+class FitStatus;
 class IChiSquaredModule;
+class IMetricWrapper;
 class PyBuilderCallback;
 class PyObserverCallback;
-class FitStatus;
-class IMetricWrapper;
 
 //! Holds vector of `SimDataPair`s (experimental data and simulation results) for use in fitting.
 //! @ingroup fitting_internal
@@ -129,6 +129,11 @@ public:
     void run_simulations(const Fit::Parameters& params);
 
     void setChiSquaredModule(const IChiSquaredModule& module);
+
+    //! Sets objective metric to the FitObjective.
+    //! @param metric: metric name
+    //! @param norm: metric norm name (defaults to "l2")
+    void setObjectiveMetric(const std::string& metric, const std::string& norm = "l2");
 
 private:
     typedef std::vector<double> (SimDataPair::*DataPairAccessor)() const;

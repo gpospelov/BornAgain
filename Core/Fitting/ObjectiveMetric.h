@@ -17,6 +17,7 @@
 
 #include "ICloneable.h"
 #include <functional>
+#include <memory>
 #include <vector>
 
 class SimDataPair;
@@ -29,6 +30,9 @@ public:
     static const std::function<double(double)> l1_norm;
     //! L2 normalization function.
     static const std::function<double(double)> l2_norm;
+
+    static std::unique_ptr<ObjectiveMetric> createMetric(const std::string& metric,
+                                                         const std::string& norm);
 
     ObjectiveMetric(std::function<double(double)> norm);
 

@@ -17,7 +17,7 @@ TEST_F(ArrayUtilsTest, OutputDataFromVector1D)
 {
     // double
     const std::vector<double> vec_double = {10.0, 20.0, 30.0, 40.0};
-    auto data1 = ArrayUtils::createData1D(vec_double);
+    auto data1 = ArrayUtils::createData(vec_double);
 
     EXPECT_EQ(data1->getAllocatedSize(), vec_double.size());
     EXPECT_EQ(data1->getRawDataVector(), vec_double);
@@ -26,7 +26,7 @@ TEST_F(ArrayUtilsTest, OutputDataFromVector1D)
 
     // int
     const std::vector<int> vec_int = {10, 20, 30};
-    auto data2 = ArrayUtils::createData1D(vec_int);
+    auto data2 = ArrayUtils::createData(vec_int);
 
     EXPECT_EQ(data2->getAllocatedSize(), vec_int.size());
     EXPECT_EQ(data2->getRawDataVector(), vec_int);
@@ -54,7 +54,7 @@ TEST_F(ArrayUtilsTest, OutputDataFromVector2D)
         {4.0, 5.0, 6.0,  7.0},
         {8.0, 9.0, 10.0, 11.0}
     };
-    auto data = ArrayUtils::createData2D(vec_double);
+    auto data = ArrayUtils::createData(vec_double);
 
     EXPECT_EQ(data->getRank(), 2u);
     EXPECT_EQ(data->getAllocatedSize(), 12u);

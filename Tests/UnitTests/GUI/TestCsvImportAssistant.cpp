@@ -24,7 +24,7 @@ protected:
     {
         remove(m_testFilename.c_str());
         OutputDataWriter* writer = OutputDataWriteFactory::getWriter(m_testFilename);
-        OutputData<double>* data = ArrayUtils::createData2D(m_testVector).release();
+        OutputData<double>* data = ArrayUtils::createData(m_testVector).release();
         writer->writeOutputData(*data);
     }
 

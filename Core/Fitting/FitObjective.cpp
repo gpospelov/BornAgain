@@ -83,7 +83,7 @@ void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
                                         const std::vector<double>& data,
                                         double weight)
 {
-    addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData1D(data), nullptr,
+    addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data), nullptr,
                          weight);
 }
 
@@ -91,7 +91,7 @@ void FitObjective::addSimulationAndData(PyBuilderCallback& callback,
                                         const std::vector<std::vector<double>>& data,
                                         double weight)
 {
-    addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData2D(data), nullptr,
+    addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data), nullptr,
                          weight);
 }
 

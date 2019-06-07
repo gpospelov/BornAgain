@@ -163,7 +163,7 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
     }
 
     if(nrows < 2){
-        return ArrayUtils::createData1D(std::move(data[0])).release();
+        return ArrayUtils::createData(std::move(data[0])).release();
     }
     else if(ncols < 2){
         const size_t size = data.size();
@@ -171,10 +171,10 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
         for(size_t i = 0; i < size; ++i){
             vector1d[i] = data[i][0];
         }
-        return ArrayUtils::createData1D(std::move(vector1d)).release();
+        return ArrayUtils::createData(std::move(vector1d)).release();
     }
     else{
-        return ArrayUtils::createData2D(data).release();
+        return ArrayUtils::createData(data).release();
     }
 }
 

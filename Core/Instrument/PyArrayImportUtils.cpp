@@ -3,10 +3,11 @@
 
 OutputData<double>* PyArrayImport::importArrayToOutputData(const std::vector<double>& vec)
 {
-    return ArrayUtils::createData1D(vec).release();
+    return ArrayUtils::createData(vec).release();
 }
 
-OutputData<double>* PyArrayImport::importArrayToOutputData(const std::vector<std::vector<double>>& vec)
+OutputData<double>*
+PyArrayImport::importArrayToOutputData(const std::vector<std::vector<double>>& vec)
 {
-    return ArrayUtils::createData2D(vec).release();
+    return ArrayUtils::createData(vec).release();
 }

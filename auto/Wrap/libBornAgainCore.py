@@ -6373,19 +6373,6 @@ class FitObjective(_object):
     __swig_destroy__ = _libBornAgainCore.delete_FitObjective
     __del__ = lambda self: None
 
-    def addSimulationAndData_cpp(self, *args):
-        """
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data, double weight=1.0)
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data)
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, double weight=1.0)
-        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data)
-
-        void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const std::vector< std::vector< double >> &data, double weight=1.0)
-
-        """
-        return _libBornAgainCore.FitObjective_addSimulationAndData_cpp(self, *args)
-
-
     def evaluate_cpp(self, params):
         """
         evaluate_cpp(FitObjective self, Parameters params) -> double
@@ -6457,88 +6444,12 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_weights_array(self)
 
 
-    def simulationResult(self, i_item=0):
+    def dataPair(self, i_item=0):
         """
-        simulationResult(FitObjective self, size_t i_item=0) -> SimulationResult
-        simulationResult(FitObjective self) -> SimulationResult
-
-        SimulationResult FitObjective::simulationResult(size_t i_item=0) const
-
-        Returns simulation result.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
+        dataPair(FitObjective self, size_t i_item=0) -> SimDataPair
+        dataPair(FitObjective self) -> SimDataPair
         """
-        return _libBornAgainCore.FitObjective_simulationResult(self, i_item)
-
-
-    def experimentalData(self, i_item=0):
-        """
-        experimentalData(FitObjective self, size_t i_item=0) -> SimulationResult
-        experimentalData(FitObjective self) -> SimulationResult
-
-        SimulationResult FitObjective::experimentalData(size_t i_item=0) const
-
-        Returns experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
-        """
-        return _libBornAgainCore.FitObjective_experimentalData(self, i_item)
-
-
-    def uncertaintyData(self, i_item=0):
-        """
-        uncertaintyData(FitObjective self, size_t i_item=0) -> SimulationResult
-        uncertaintyData(FitObjective self) -> SimulationResult
-        """
-        return _libBornAgainCore.FitObjective_uncertaintyData(self, i_item)
-
-
-    def relativeDifference(self, i_item=0):
-        """
-        relativeDifference(FitObjective self, size_t i_item=0) -> SimulationResult
-        relativeDifference(FitObjective self) -> SimulationResult
-
-        SimulationResult FitObjective::relativeDifference(size_t i_item=0) const
-
-        Returns relative difference between simulation and experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
-        """
-        return _libBornAgainCore.FitObjective_relativeDifference(self, i_item)
-
-
-    def absoluteDifference(self, i_item=0):
-        """
-        absoluteDifference(FitObjective self, size_t i_item=0) -> SimulationResult
-        absoluteDifference(FitObjective self) -> SimulationResult
-
-        SimulationResult FitObjective::absoluteDifference(size_t i_item=0) const
-
-        Returns absolute value of difference between simulation and experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
-
-        """
-        return _libBornAgainCore.FitObjective_absoluteDifference(self, i_item)
+        return _libBornAgainCore.FitObjective_dataPair(self, i_item)
 
 
     def initPrint(self, every_nth):
@@ -6671,12 +6582,54 @@ class FitObjective(_object):
         return _libBornAgainCore.FitObjective_setChiSquaredModule(self, module)
 
 
-    def addSimulationAndData(self, callback, data, weight = 1.0):
+    def setObjectiveMetric(self, *args):
+        """
+        setObjectiveMetric(FitObjective self, std::string const & metric, std::string const & norm)
+        setObjectiveMetric(FitObjective self, std::string const & metric)
+        """
+        return _libBornAgainCore.FitObjective_setObjectiveMetric(self, *args)
+
+
+    def addSimulationAndData_cpp(self, *args):
+        """
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data, double weight=1.0)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data, vdouble1d_t uncertainties, double weight=1.0)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble1d_t data, vdouble1d_t uncertainties)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, double weight=1.0)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, vdouble2d_t uncertainties, double weight=1.0)
+        addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, vdouble2d_t uncertainties)
+
+        void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const std::vector< std::vector< double >> &data, double weight=1.0)
+
+        """
+        return _libBornAgainCore.FitObjective_addSimulationAndData_cpp(self, *args)
+
+
+    def addSimulationAndData(self, callback, data, *args, **kwargs):
+        """
+        Sets simulation and experimental data to the fit objective.
+        Optionally accepts experimental data uncertainties and
+        user-defined dataset weight.
+
+        Arguments:
+
+        callback -- user-defined function returning fully-defined bornagain.Simulation object.
+        The function must use fit parameter dictionary as its input.
+
+        data -- numpy array with experimental data.
+
+        uncertainties -- numpy array with experimental data uncertainties.
+        Array shape must correspond to the shape of data. Optional argument.
+
+        weight -- user-defined weight of the dataset. If not specified, defaults to 1.0.
+        """
         if not hasattr(self, 'callback_container'):
             self.callback_container = []
         wrp = SimulationBuilderWrapper(callback)
         self.callback_container.append(wrp)
-        return self.addSimulationAndData_cpp(wrp, data, weight)
+        return self.addSimulationAndData_cpp(wrp, data, *args, **kwargs)
 
     def convert_params(self, params):
         """
@@ -6722,6 +6675,35 @@ class FitObjective(_object):
         self.wrp_plot_observer = ObserverCallbackWrapper(callback)
         return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
 
+    def simulationResult(self, i=0):
+        """
+        Returns simulated values for i-th simulation-data pair
+        """
+        return self.dataPair(i).simulationResult();
+
+    def experimentalData(self, i=0):
+        """
+        Returns experimental values for i-th simulation-data pair
+        """
+        return self.dataPair(i).experimentalData();
+
+    def uncertaintyData(self, i=0):
+        """
+        Returns uncertainties for i-th simulation-data pair
+        """
+        return self.dataPair(i).uncertainties();
+
+    def relativeDifference(self, i=0):
+        """
+        Returns relative difference for i-th simulation-data pair
+        """
+        return self.dataPair(i).relativeDifference();
+
+    def absoluteDifference(self, i=0):
+        """
+        Returns absolute difference for i-th simulation-data pair
+        """
+        return self.dataPair(i).absoluteDifference();
 
     def __disown__(self):
         self.this.disown()
@@ -28835,6 +28817,136 @@ class DepthProbeSimulation(Simulation):
 
 DepthProbeSimulation_swigregister = _libBornAgainCore.DepthProbeSimulation_swigregister
 DepthProbeSimulation_swigregister(DepthProbeSimulation)
+
+class SimDataPair(_object):
+    """
+
+
+    Holds pair of simulation/experimental data to fit.
+
+    C++ includes: SimDataPair.h
+
+    """
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SimDataPair, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SimDataPair, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_SimDataPair
+    __del__ = lambda self: None
+
+    def containsUncertainties(self):
+        """containsUncertainties(SimDataPair self) -> bool"""
+        return _libBornAgainCore.SimDataPair_containsUncertainties(self)
+
+
+    def numberOfFitElements(self):
+        """
+        numberOfFitElements(SimDataPair self) -> size_t
+
+        size_t SimDataPair::numberOfFitElements() const
+
+        Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
+
+        """
+        return _libBornAgainCore.SimDataPair_numberOfFitElements(self)
+
+
+    def simulationResult(self):
+        """
+        simulationResult(SimDataPair self) -> SimulationResult
+
+        SimulationResult SimDataPair::simulationResult() const
+
+        Returns simulation result. 
+
+        """
+        return _libBornAgainCore.SimDataPair_simulationResult(self)
+
+
+    def experimentalData(self):
+        """
+        experimentalData(SimDataPair self) -> SimulationResult
+
+        SimulationResult SimDataPair::experimentalData() const
+
+        Returns experimental data. 
+
+        """
+        return _libBornAgainCore.SimDataPair_experimentalData(self)
+
+
+    def uncertainties(self):
+        """uncertainties(SimDataPair self) -> SimulationResult"""
+        return _libBornAgainCore.SimDataPair_uncertainties(self)
+
+
+    def userWeights(self):
+        """userWeights(SimDataPair self) -> SimulationResult"""
+        return _libBornAgainCore.SimDataPair_userWeights(self)
+
+
+    def relativeDifference(self):
+        """
+        relativeDifference(SimDataPair self) -> SimulationResult
+
+        SimulationResult SimDataPair::relativeDifference() const
+
+        Returns relative difference between simulation and experimental data. 
+
+        """
+        return _libBornAgainCore.SimDataPair_relativeDifference(self)
+
+
+    def absoluteDifference(self):
+        """
+        absoluteDifference(SimDataPair self) -> SimulationResult
+
+        SimulationResult SimDataPair::absoluteDifference() const
+
+        """
+        return _libBornAgainCore.SimDataPair_absoluteDifference(self)
+
+
+    def simulation_array(self):
+        """
+        simulation_array(SimDataPair self) -> vdouble1d_t
+
+        std::vector< double > SimDataPair::simulation_array() const
+
+        Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. 
+
+        """
+        return _libBornAgainCore.SimDataPair_simulation_array(self)
+
+
+    def experimental_array(self):
+        """
+        experimental_array(SimDataPair self) -> vdouble1d_t
+
+        std::vector< double > SimDataPair::experimental_array() const
+
+        Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. 
+
+        """
+        return _libBornAgainCore.SimDataPair_experimental_array(self)
+
+
+    def uncertainties_array(self):
+        """uncertainties_array(SimDataPair self) -> vdouble1d_t"""
+        return _libBornAgainCore.SimDataPair_uncertainties_array(self)
+
+
+    def user_weights_array(self):
+        """user_weights_array(SimDataPair self) -> vdouble1d_t"""
+        return _libBornAgainCore.SimDataPair_user_weights_array(self)
+
+SimDataPair_swigregister = _libBornAgainCore.SimDataPair_swigregister
+SimDataPair_swigregister(SimDataPair)
 
 class SpecularSimulation(Simulation):
     """

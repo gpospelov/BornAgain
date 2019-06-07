@@ -39,20 +39,38 @@ public:
     FitObjective();
     virtual ~FitObjective();
 
-    //! Constructs simulation/data pair for later fit.
-    //! @param simulation: simulation builder capable of producing simulations
-    //! @param data: experimental data
-    //! @param weight: weight of dataset in chi2 calculations
 #ifndef SWIG
+    //! Constructs simulation/data pair for later fit.
+    //! @param builder: simulation builder capable of producing simulations
+    //! @param data: experimental data array
+    //! @param uncertainties: data uncertainties array
+    //! @param weight: weight of dataset in metric calculations
     void addSimulationAndData(simulation_builder_t builder, const OutputData<double>& data,
                               std::unique_ptr<OutputData<double>> uncertainties,
                               double weight = 1.0);
 #endif
+    //! Constructs simulation/data pair for later fit.
+    //! @param callback: simulation builder capable of producing simulations
+    //! @param data: experimental data array
+    //! @param weight: weight of dataset in metric calculations
     template <class T>
     void addSimulationAndData(PyBuilderCallback& callback, const T& data, double weight = 1.0)
     {
         addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data), nullptr,
                              weight);
+    }
+
+    //! Constructs simulation/data pair for later fit.
+    //! @param callback: simulation builder capable of producing simulations
+    //! @param data: experimental data array
+    //! @param uncertainties: data uncertainties array
+    //! @param weight: weight of dataset in metric calculations
+    template <class T>
+    void addSimulationAndData(PyBuilderCallback& callback, const T& data, const T& uncertainties,
+                              double weight = 1.0)
+    {
+        addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data),
+                             ArrayUtils::createData(uncertainties), weight);
     }
 
     virtual double evaluate(const Fit::Parameters& params);

@@ -179,12 +179,29 @@ class ObserverCallbackWrapper(PyObserverCallback):
 
 %extend FitObjective {
 %pythoncode %{
-    def addSimulationAndData(self, callback, data, weight = 1.0):
+    def addSimulationAndData(self, callback, data, *args, **kwargs):
+        """
+        Sets simulation and experimental data to the fit objective.
+        Optionally accepts experimental data uncertainties and
+        user-defined dataset weight.
+
+        Arguments:
+
+        callback -- user-defined function returning fully-defined bornagain.Simulation object.
+        The function must use fit parameter dictionary as its input.
+
+        data -- numpy array with experimental data.
+
+        uncertainties -- numpy array with experimental data uncertainties.
+        Array shape must correspond to the shape of data. Optional argument.
+
+        weight -- user-defined weight of the dataset. If not specified, defaults to 1.0.
+        """
         if not hasattr(self, 'callback_container'):
             self.callback_container = []
         wrp = SimulationBuilderWrapper(callback)
         self.callback_container.append(wrp)
-        return self.addSimulationAndData_cpp(wrp, data, weight)
+        return self.addSimulationAndData_cpp(wrp, data, *args, **kwargs)
 
     def convert_params(self, params):
         """

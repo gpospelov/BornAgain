@@ -200,6 +200,11 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
 
 void FitObjective::setChiSquaredModule(const IChiSquaredModule& module)
 {
+    std::cout << "Warning in FitObjective::setChiSquaredModule: setChiSquaredModule is deprecated "
+                 "and will be removed in future versions. Please use "
+                 "FitObjective::setObjectiveMetric instead."
+              << std::endl;
+
     std::unique_ptr<IChiSquaredModule> chi_module(module.clone());
     m_metric_module = std::make_unique<ChiModuleWrapper>(std::move(chi_module));
 }

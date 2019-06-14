@@ -1,5 +1,6 @@
 > API changes:
      1) Python: major changes in SpecularSimulation interface. Please consult web-documentation for details.
+     2) GUI: project compatibility with previous versions is broken.
 
 BornAgain-1.15.0, released 2019.02.25
   > API changes:

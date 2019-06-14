@@ -14,6 +14,7 @@
 
 #include "ObjectiveMetricUtils.h"
 #include "ObjectiveMetric.h"
+#include <algorithm>
 #include <cmath>
 #include <map>
 #include <sstream>
@@ -23,17 +24,17 @@ const std::function<double(double)> l1_norm = [](double term) { return std::abs(
 const std::function<double(double)> l2_norm = [](double term) { return term * term; };
 
 const std::map<std::string, std::function<std::unique_ptr<ObjectiveMetric>()>> metric_factory = {
-    {"Chi2", []() { return std::make_unique<Chi2Metric>(); }},
-    {"PoissonLike", []() { return std::make_unique<PoissonLikeMetric>(); }},
-    {"Log", []() { return std::make_unique<LogMetric>(); }},
-    {"RelativeDifference", []() { return std::make_unique<RelativeDifferenceMetric>(); }},
-    {"RQ4", []() { return std::make_unique<RQ4Metric>(); }}
+    {"chi2", []() { return std::make_unique<Chi2Metric>(); }},
+    {"poisson-like", []() { return std::make_unique<PoissonLikeMetric>(); }},
+    {"log", []() { return std::make_unique<LogMetric>(); }},
+    {"reldiff", []() { return std::make_unique<RelativeDifferenceMetric>(); }},
+    {"rq4", []() { return std::make_unique<RQ4Metric>(); }}
 };
-const std::string default_metric_name = "PoissonLike";
+const std::string default_metric_name = "poisson-like";
 
-const std::map<std::string, std::function<double(double)>> norm_factory = {{"L1", l1_norm},
-                                                                           {"L2", l2_norm}};
-const std::string default_norm_name = "L2";
+const std::map<std::string, std::function<double(double)>> norm_factory = {{"l1", l1_norm},
+                                                                           {"l2", l2_norm}};
+const std::string default_norm_name = "l2";
 
 template<class U>
 std::vector<std::string> keys(const std::map<std::string, U>& map)
@@ -61,9 +62,11 @@ std::unique_ptr<ObjectiveMetric> ObjectiveMetricUtils::createMetric(const std::s
     return createMetric(metric, defaultNormName());
 }
 
-std::unique_ptr<ObjectiveMetric> ObjectiveMetricUtils::createMetric(const std::string& metric,
-                                                                    const std::string& norm)
+std::unique_ptr<ObjectiveMetric> ObjectiveMetricUtils::createMetric(std::string metric,
+                                                                    std::string norm)
 {
+    std::transform(metric.begin(), metric.end(), metric.begin(), ::tolower);
+    std::transform(norm.begin(), norm.end(), norm.begin(), ::tolower);
     const auto metric_iter = metric_factory.find(metric);
     const auto norm_iter = norm_factory.find(norm);
     if (metric_iter == metric_factory.end() || norm_iter == norm_factory.end()) {

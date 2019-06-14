@@ -34,8 +34,7 @@ BA_CORE_API_ const std::function<double(double)> l2Norm();
 BA_CORE_API_ std::unique_ptr<ObjectiveMetric> createMetric(const std::string& metric);
 
 //! Creates the metric with the specified norm
-BA_CORE_API_ std::unique_ptr<ObjectiveMetric> createMetric(const std::string& metric,
-                                                           const std::string& norm);
+BA_CORE_API_ std::unique_ptr<ObjectiveMetric> createMetric(std::string metric, std::string norm);
 
 //! Prints available metric options
 BA_CORE_API_ std::string availableMetricOptions();

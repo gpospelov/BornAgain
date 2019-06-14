@@ -33,6 +33,7 @@
 #include "ChiSquaredModule.h"
 #include "IIntensityFunction.h"
 #include "VarianceFunctions.h"
+#include "ObjectiveMetric.h"
 
 FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem)
     : m_jobItem(jobItem)
@@ -46,12 +47,8 @@ void FitObjectiveBuilder::runFit()
 {
     m_fit_objective = createFitObjective();
 
-    auto module = createChiSquaredModule();
-    m_fit_objective->setChiSquaredModule(*module);
-
-    fcn_residual_t residual_func = [&](const Fit::Parameters& params) {
-        return m_fit_objective->evaluate_residuals(params);
-    };
+    auto module = m_jobItem->fitSuiteItem()->minimizerContainerItem()->createMetric();
+    m_fit_objective->setObjectiveMetric(std::move(module));
 
     if (m_observer) {
         fit_observer_t plot_observer = [&](const FitObjective& obj) {
@@ -60,10 +57,22 @@ void FitObjectiveBuilder::runFit()
         m_fit_objective->initPlot(1, plot_observer);
     }
 
-    Fit::Minimizer minimizer;
-    minimizer.setMinimizer(createMinimizer().release());
+    auto minimizer_impl = createMinimizer();
+    const bool requires_residuals = minimizer_impl->requiresResiduals();
 
-    auto result = minimizer.minimize(residual_func, createParameters());
+    Fit::Minimizer minimizer;
+    minimizer.setMinimizer(minimizer_impl.release());
+
+    auto result =
+        requires_residuals
+            ? minimizer.minimize(
+                  [&](const Fit::Parameters& params) {
+                      return m_fit_objective->evaluate_residuals(params);
+                  },
+                  createParameters())
+            : minimizer.minimize(
+                  [&](const Fit::Parameters& params) { return m_fit_objective->evaluate(params); },
+                  createParameters());
     m_fit_objective->finalize(result);
 }
 
@@ -84,19 +93,6 @@ std::unique_ptr<IMinimizer> FitObjectiveBuilder::createMinimizer() const
 {
     auto fitSuiteItem = m_jobItem->fitSuiteItem();
     return fitSuiteItem->minimizerContainerItem()->createMinimizer();
-}
-
-std::unique_ptr<IChiSquaredModule> FitObjectiveBuilder::createChiSquaredModule() const
-{
-    std::unique_ptr<IChiSquaredModule> result = std::make_unique<ChiSquaredModule>();
-
-    auto fitSuiteItem = m_jobItem->fitSuiteItem();
-    auto intensityFunction = fitSuiteItem->minimizerContainerItem()->createIntensityFunction();
-    if (intensityFunction)
-        result->setIntensityFunction(*intensityFunction);
-    auto variaceFunction = fitSuiteItem->minimizerContainerItem()->createVarianceFunction();
-    result->setVarianceFunction(*variaceFunction);
-    return result;
 }
 
 Fit::Parameters FitObjectiveBuilder::createParameters() const

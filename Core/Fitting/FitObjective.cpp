@@ -215,6 +215,12 @@ void FitObjective::setObjectiveMetric(std::unique_ptr<ObjectiveMetric> metric)
     m_metric_module = std::make_unique<ObjectiveMetricWrapper>(std::move(metric));
 }
 
+void FitObjective::setObjectiveMetric(const std::string& metric)
+{
+    m_metric_module = std::make_unique<ObjectiveMetricWrapper>(
+        ObjectiveMetricUtils::createMetric(metric, ObjectiveMetricUtils::defaultNormName()));
+}
+
 void FitObjective::setObjectiveMetric(const std::string& metric, const std::string& norm)
 {
     m_metric_module =

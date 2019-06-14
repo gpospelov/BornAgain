@@ -27,7 +27,7 @@ class ObjectiveMetric;
 class BA_CORE_API_ MinimizerItem : public SessionItem
 {
 public:
-    explicit MinimizerItem(const QString &model_type);
+    explicit MinimizerItem(const QString& model_type);
     virtual std::unique_ptr<IMinimizer> createMinimizer() const = 0;
 };
 

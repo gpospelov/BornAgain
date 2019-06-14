@@ -13,30 +13,29 @@
 // ************************************************************************** //
 
 #include "FitObjectiveBuilder.h"
-#include "JobItem.h"
-#include "Parameters.h"
-#include "KernelTypes.h"
-#include "FitObjective.h"
-#include "Simulation.h"
-#include "MultiLayer.h"
-#include "FitParameterItems.h"
-#include "RealDataItem.h"
-#include "GUIHelpers.h"
-#include "DataItem.h"
-#include "OutputData.h"
-#include "DomainSimulationBuilder.h"
-#include "FitSuiteItem.h"
-#include "MinimizerItem.h"
-#include "IMinimizer.h"
-#include "Minimizer.h"
-#include "GUIFitObserver.h"
 #include "ChiSquaredModule.h"
+#include "DataItem.h"
+#include "DomainSimulationBuilder.h"
+#include "FitObjective.h"
+#include "FitParameterItems.h"
+#include "FitSuiteItem.h"
+#include "GUIFitObserver.h"
+#include "GUIHelpers.h"
 #include "IIntensityFunction.h"
-#include "VarianceFunctions.h"
+#include "IMinimizer.h"
+#include "JobItem.h"
+#include "KernelTypes.h"
+#include "Minimizer.h"
+#include "MinimizerItem.h"
+#include "MultiLayer.h"
 #include "ObjectiveMetric.h"
+#include "OutputData.h"
+#include "Parameters.h"
+#include "RealDataItem.h"
+#include "Simulation.h"
+#include "VarianceFunctions.h"
 
-FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem)
-    : m_jobItem(jobItem)
+FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem) : m_jobItem(jobItem)
 {
     Q_ASSERT(m_jobItem->fitSuiteItem());
 }
@@ -51,9 +50,7 @@ void FitObjectiveBuilder::runFit()
     m_fit_objective->setObjectiveMetric(std::move(module));
 
     if (m_observer) {
-        fit_observer_t plot_observer = [&](const FitObjective& obj) {
-            m_observer->update(&obj);
-        };
+        fit_observer_t plot_observer = [&](const FitObjective& obj) { m_observer->update(&obj); };
         m_fit_objective->initPlot(1, plot_observer);
     }
 
@@ -111,20 +108,22 @@ void FitObjectiveBuilder::interruptFitting()
     m_fit_objective->interruptFitting();
 }
 
-std::unique_ptr<Simulation> FitObjectiveBuilder::buildSimulation(const Fit::Parameters& params) const
+std::unique_ptr<Simulation>
+FitObjectiveBuilder::buildSimulation(const Fit::Parameters& params) const
 {
     static std::mutex build_simulation_mutex;
     std::unique_lock<std::mutex> lock(build_simulation_mutex);
 
     update_fit_parameters(params);
     return DomainSimulationBuilder::createSimulation(m_jobItem->multiLayerItem(),
-            m_jobItem->instrumentItem(), m_jobItem->simulationOptionsItem());
+                                                     m_jobItem->instrumentItem(),
+                                                     m_jobItem->simulationOptionsItem());
 }
 
-std::unique_ptr<OutputData<double> > FitObjectiveBuilder::createOutputData() const
+std::unique_ptr<OutputData<double>> FitObjectiveBuilder::createOutputData() const
 {
     auto realDataItem = m_jobItem->realDataItem();
-    if(!realDataItem)
+    if (!realDataItem)
         throw GUIHelpers::Error("FitObjectiveBuilder::createOutputData() -> No Real Data defined.");
 
     const DataItem* intensity_item = realDataItem->dataItem();
@@ -133,7 +132,6 @@ std::unique_ptr<OutputData<double> > FitObjectiveBuilder::createOutputData() con
 
     return std::unique_ptr<OutputData<double>>(intensity_item->getOutputData()->clone());
 }
-
 
 void FitObjectiveBuilder::update_fit_parameters(const Fit::Parameters& params) const
 {

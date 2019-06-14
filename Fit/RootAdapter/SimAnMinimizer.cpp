@@ -131,11 +131,6 @@ std::map<std::string, std::string> SimAnMinimizer::statusMap() const
     return result;
 }
 
-bool SimAnMinimizer::isGradientBasedAgorithm()
-{
-    return false;
-}
-
 void SimAnMinimizer::propagateOptions()
 {
     ROOT::Math::GSLSimAnParams& pars = m_siman_minimizer->getSolver().Params();

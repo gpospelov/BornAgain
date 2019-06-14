@@ -26,7 +26,7 @@ class BA_CORE_API_ SimAnMinimizer : public RootMinimizerAdapter
 {
 public:
     SimAnMinimizer();
-    ~SimAnMinimizer();
+    ~SimAnMinimizer() override;
 
     //! Sets minimizer internal print level.
     //! Default value is 0 (silent).
@@ -62,7 +62,6 @@ public:
     double boltzmannMinTemp() const;
 
     std::map<std::string, std::string> statusMap() const override;
-    virtual bool isGradientBasedAgorithm() override;
 
 protected:
     void propagateOptions() override;

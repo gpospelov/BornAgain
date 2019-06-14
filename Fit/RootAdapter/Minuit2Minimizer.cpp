@@ -136,12 +136,9 @@ std::map<std::string, std::string> Minuit2Minimizer::statusMap() const
 // Fumili algorithm can work only with gradient based objective function, while others can
 // work with both, gradient based and chi2 based functions. Historically however, we use
 // simplified approach: if not Fumili, then chi2 only. Think of refactoring TODO.
-bool Minuit2Minimizer::isGradientBasedAgorithm()
+bool Minuit2Minimizer::requiresResiduals()
 {
-    if (algorithmName() == AlgorithmNames::Fumili)
-        return true;
-
-    return false;
+    return algorithmName() == AlgorithmNames::Fumili;
 }
 
 //! Propagate options down to ROOT's Minuit2Minimizer.

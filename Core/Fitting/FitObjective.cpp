@@ -18,6 +18,7 @@
 #include "FitStatus.h"
 #include "MinimizerResult.h"
 #include "ObjectiveMetric.h"
+#include "ObjectiveMetricUtils.h"
 #include "Parameters.h"
 #include "PyFittingCallbacks.h"
 #include "Simulation.h"
@@ -217,7 +218,7 @@ void FitObjective::setObjectiveMetric(std::unique_ptr<ObjectiveMetric> metric)
 void FitObjective::setObjectiveMetric(const std::string& metric, const std::string& norm)
 {
     m_metric_module =
-        std::make_unique<ObjectiveMetricWrapper>(ObjectiveMetric::createMetric(metric, norm));
+        std::make_unique<ObjectiveMetricWrapper>(ObjectiveMetricUtils::createMetric(metric, norm));
 }
 
 std::vector<double> FitObjective::composeArray(DataPairAccessor getter) const

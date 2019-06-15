@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "ObjectiveMetric.h"
+#include "ObjectiveMetricUtils.h"
 #include "OutputData.h"
 #include "SimDataPair.h"
 #include <cmath>
@@ -22,18 +23,6 @@ namespace {
 const double double_max = std::numeric_limits<double>::max();
 const double double_min = std::numeric_limits<double>::min();
 const double ln10 = std::log(10.0);
-
-const std::map<std::string, std::function<std::unique_ptr<ObjectiveMetric>()>> metric_factory = {
-    {"Chi2", []() { return std::make_unique<Chi2Metric>(); }},
-    {"PoissonLike", []() { return std::make_unique<PoissonLikeMetric>(); }},
-    {"Log", []() { return std::make_unique<LogMetric>(); }},
-    {"RelativeDifference", []() { return std::make_unique<RelativeDifferenceMetric>(); }},
-    {"RQ4", []() { return std::make_unique<RQ4Metric>(); }}
-};
-
-const std::map<std::string, std::function<double(double)>> norm_factory = {
-    {"l1", ObjectiveMetric::l1_norm}, {"l2", ObjectiveMetric::l2_norm}
-};
 
 template<class T>
 T* copyMetric(const T& metric)
@@ -69,37 +58,6 @@ void checkIntegrity(const std::vector<double>& sim_data, const std::vector<doubl
 }
 }
 
-const std::function<double(double)> ObjectiveMetric::l1_norm = [](double term) {
-    return std::abs(term);
-};
-
-const std::function<double(double)> ObjectiveMetric::l2_norm = [](double term) {
-    return term * term;
-};
-
-std::unique_ptr<ObjectiveMetric> ObjectiveMetric::createMetric(const std::string& metric,
-                                                               const std::string& norm)
-{
-    const auto metric_iter = metric_factory.find(metric);
-    const auto norm_iter = norm_factory.find(norm);
-    if (metric_iter == metric_factory.end() || norm_iter == norm_factory.end()) {
-        std::stringstream ss;
-        ss << "Error in ObjectiveMetric::createMetric: either metric (" << metric << ") or norm ("
-           << norm << ") name is unknown.\n";
-        ss << "Available metrics:\n";
-        for (auto& item: metric_factory)
-            ss << "\t" << item.first << "\n";
-        ss << "Available norms:\n";
-        for (auto& item: norm_factory)
-            ss << "\t" << item.first << "\n";
-        throw std::runtime_error(ss.str());
-    }
-
-    auto result = metric_iter->second();
-    result->setNorm(norm_iter->second);
-    return result;
-}
-
 ObjectiveMetric::ObjectiveMetric(std::function<double(double)> norm)
     : m_norm(std::move(norm))
 {}
@@ -126,7 +84,7 @@ void ObjectiveMetric::setNorm(std::function<double(double)> norm)
 // ----------------------- Chi2 metric ---------------------------
 
 Chi2Metric::Chi2Metric()
-    : ObjectiveMetric(l2_norm)
+    : ObjectiveMetric(ObjectiveMetricUtils::l2Norm())
 {}
 
 Chi2Metric* Chi2Metric::clone() const
@@ -197,7 +155,7 @@ double PoissonLikeMetric::computeFromArrays(std::vector<double> sim_data,
 // ----------------------- Log metric ---------------------------
 
 LogMetric::LogMetric()
-    : ObjectiveMetric(l2_norm)
+    : ObjectiveMetric(ObjectiveMetricUtils::l2Norm())
 {}
 
 LogMetric* LogMetric::clone() const

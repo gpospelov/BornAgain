@@ -69,8 +69,9 @@ public:
     std::string statusToString() const override;
     std::map<std::string, std::string> statusMap() const override;
 
+    bool requiresResiduals() override;
+
 protected:
-    bool isGradientBasedAgorithm() override;
     void propagateOptions() override;
     const root_minimizer_t* rootMinimizer() const override;
 

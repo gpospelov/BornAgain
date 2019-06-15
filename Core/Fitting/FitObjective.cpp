@@ -18,6 +18,7 @@
 #include "FitStatus.h"
 #include "MinimizerResult.h"
 #include "ObjectiveMetric.h"
+#include "ObjectiveMetricUtils.h"
 #include "Parameters.h"
 #include "PyFittingCallbacks.h"
 #include "Simulation.h"
@@ -200,14 +201,30 @@ void FitObjective::run_simulations(const Fit::Parameters& params)
 
 void FitObjective::setChiSquaredModule(const IChiSquaredModule& module)
 {
+    std::cout << "Warning in FitObjective::setChiSquaredModule: setChiSquaredModule is deprecated "
+                 "and will be removed in future versions. Please use "
+                 "FitObjective::setObjectiveMetric instead."
+              << std::endl;
+
     std::unique_ptr<IChiSquaredModule> chi_module(module.clone());
     m_metric_module = std::make_unique<ChiModuleWrapper>(std::move(chi_module));
+}
+
+void FitObjective::setObjectiveMetric(std::unique_ptr<ObjectiveMetric> metric)
+{
+    m_metric_module = std::make_unique<ObjectiveMetricWrapper>(std::move(metric));
+}
+
+void FitObjective::setObjectiveMetric(const std::string& metric)
+{
+    m_metric_module = std::make_unique<ObjectiveMetricWrapper>(
+        ObjectiveMetricUtils::createMetric(metric, ObjectiveMetricUtils::defaultNormName()));
 }
 
 void FitObjective::setObjectiveMetric(const std::string& metric, const std::string& norm)
 {
     m_metric_module =
-        std::make_unique<ObjectiveMetricWrapper>(ObjectiveMetric::createMetric(metric, norm));
+        std::make_unique<ObjectiveMetricWrapper>(ObjectiveMetricUtils::createMetric(metric, norm));
 }
 
 std::vector<double> FitObjective::composeArray(DataPairAccessor getter) const

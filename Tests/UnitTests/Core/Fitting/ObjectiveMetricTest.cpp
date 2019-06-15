@@ -1,5 +1,6 @@
 #include "google_test.h"
 #include "ObjectiveMetric.h"
+#include "ObjectiveMetricUtils.h"
 #include <cmath>
 
 class ObjectiveMetricTest : public ::testing::Test
@@ -39,7 +40,7 @@ TEST_F(ObjectiveMetricTest, Chi2WellFormed)
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, uncertainties_1, weight_factors),
                      204.0);
 
-    metric.setNorm(ObjectiveMetric::l1_norm);
+    metric.setNorm(ObjectiveMetricUtils::l1Norm());
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, uncertainties, weight_factors),
                      26.0);
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 5.0);
@@ -100,7 +101,7 @@ TEST_F(ObjectiveMetricTest, PoissionLikeWellFormed)
     sim_data_1[0] = 0.0;
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data_1, exp_data, weight_factors), 5.25);
 
-    metric.setNorm(ObjectiveMetric::l1_norm);
+    metric.setNorm(ObjectiveMetricUtils::l1Norm());
 
     std::vector<double> sim_data_2 = sim_data;
     sim_data_2[1] = 1.0;
@@ -163,7 +164,7 @@ TEST_F(ObjectiveMetricTest, LogWellFormed)
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, uncertainties_1, weight_factors),
                      4.0101e+6 * std::log(10.0) * std::log(10.0));
 
-    metric.setNorm(ObjectiveMetric::l1_norm);
+    metric.setNorm(ObjectiveMetricUtils::l1Norm());
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, uncertainties, weight_factors),
                      4.0211e+5 * std::log(10.0));
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 5.0);
@@ -223,7 +224,7 @@ TEST_F(ObjectiveMetricTest, RelativeDifferenceWellFormed)
     exp_data_1[0] = 0.0;
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data_1, exp_data_1, weight_factors), 4.0 / 9.0);
 
-    metric.setNorm(ObjectiveMetric::l1_norm);
+    metric.setNorm(ObjectiveMetricUtils::l1Norm());
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 5.0 / 3.0);
 
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, uncertainties, weight_factors),
@@ -280,7 +281,7 @@ TEST_F(ObjectiveMetricTest, RQ4WellFormed)
     exp_data_1[0] = 0.0;
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data_1, exp_data_1, weight_factors), 13.0);
 
-    metric.setNorm(ObjectiveMetric::l1_norm);
+    metric.setNorm(ObjectiveMetricUtils::l1Norm());
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors), 8.0);
 
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, uncertainties, weight_factors),
@@ -312,4 +313,52 @@ TEST_F(ObjectiveMetricTest, RQ4IllFormed)
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, uncertainties, weight_factors_1),
                      0.0);
     EXPECT_DOUBLE_EQ(metric.computeFromArrays(sim_data, exp_data, weight_factors_1), 0.0);
+}
+
+TEST_F(ObjectiveMetricTest, createMetric)
+{
+    auto result = ObjectiveMetricUtils::createMetric("Poisson-like");
+    EXPECT_TRUE(dynamic_cast<PoissonLikeMetric*>(result.get()));
+    // Since norm functions lack equality comparison, check the equality of applying them
+    EXPECT_DOUBLE_EQ(result->norm()(2.0), ObjectiveMetricUtils::l2Norm()(2.0));
+
+    result = ObjectiveMetricUtils::createMetric("Poisson-Like", "L1");
+    EXPECT_TRUE(dynamic_cast<PoissonLikeMetric*>(result.get()));
+    EXPECT_DOUBLE_EQ(result->norm()(2.0), ObjectiveMetricUtils::l1Norm()(2.0));
+
+    result = ObjectiveMetricUtils::createMetric("poisson-like", "l1");
+    EXPECT_TRUE(dynamic_cast<PoissonLikeMetric*>(result.get()));
+    EXPECT_DOUBLE_EQ(result->norm()(2.0), ObjectiveMetricUtils::l1Norm()(2.0));
+
+    result = ObjectiveMetricUtils::createMetric("poissoN-likE", "L2");
+    EXPECT_TRUE(dynamic_cast<PoissonLikeMetric*>(result.get()));
+    EXPECT_DOUBLE_EQ(result->norm()(2.0), ObjectiveMetricUtils::l2Norm()(2.0));
+
+    result = ObjectiveMetricUtils::createMetric("poisson-like");
+    EXPECT_TRUE(dynamic_cast<PoissonLikeMetric*>(result.get()));
+    EXPECT_DOUBLE_EQ(result->norm()(2.0), ObjectiveMetricUtils::l2Norm()(2.0));
+
+    result = ObjectiveMetricUtils::createMetric("chi2");
+    EXPECT_TRUE(dynamic_cast<Chi2Metric*>(result.get()));
+
+    result = ObjectiveMetricUtils::createMetric("Chi2");
+    EXPECT_TRUE(dynamic_cast<Chi2Metric*>(result.get()));
+
+    result = ObjectiveMetricUtils::createMetric("Log");
+    EXPECT_TRUE(dynamic_cast<LogMetric*>(result.get()));
+
+    result = ObjectiveMetricUtils::createMetric("log");
+    EXPECT_TRUE(dynamic_cast<LogMetric*>(result.get()));
+
+    result = ObjectiveMetricUtils::createMetric("reldiff");
+    EXPECT_TRUE(dynamic_cast<RelativeDifferenceMetric*>(result.get()));
+
+    result = ObjectiveMetricUtils::createMetric("RelDiff");
+    EXPECT_TRUE(dynamic_cast<RelativeDifferenceMetric*>(result.get()));
+
+    result = ObjectiveMetricUtils::createMetric("RQ4");
+    EXPECT_TRUE(dynamic_cast<RQ4Metric*>(result.get()));
+
+    result = ObjectiveMetricUtils::createMetric("rq4");
+    EXPECT_TRUE(dynamic_cast<RQ4Metric*>(result.get()));
 }

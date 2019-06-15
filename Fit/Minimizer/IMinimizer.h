@@ -55,6 +55,11 @@ public:
 
     //! Sets option string to the minimizer
     virtual void setOptions(const std::string& options);
+
+#ifndef SWIG
+    //! Returns true if minimizer computations are residual-based, false otherwise
+    virtual bool requiresResiduals() { return false; }
+#endif //SWIG
 };
 
 #endif // IMINIMIZER_H

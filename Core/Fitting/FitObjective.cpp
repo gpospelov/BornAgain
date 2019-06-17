@@ -103,6 +103,38 @@ size_t FitObjective::numberOfFitElements() const
                            [](size_t acc, auto& obj) { return acc + obj.numberOfFitElements(); });
 }
 
+//! Returns simulation result in the form of SimulationResult.
+SimulationResult FitObjective::simulationResult(size_t i_item) const
+{
+    return dataPair(i_item).simulationResult();
+}
+
+//! Returns experimental data in the form of SimulationResult.
+SimulationResult FitObjective::experimentalData(size_t i_item) const
+{
+    return dataPair(i_item).experimentalData();
+}
+
+//! Returns experimental data uncertainties in the form of SimulationResult.
+SimulationResult FitObjective::uncertaintyData(size_t i_item) const
+{
+    return dataPair(i_item).uncertainties();
+}
+
+//! Returns relative difference between simulation and experimental data
+//! in the form of SimulationResult.
+SimulationResult FitObjective::relativeDifference(size_t i_item) const
+{
+    return dataPair(i_item).relativeDifference();
+}
+
+//! Returns absolute value of difference between simulation and experimental data
+//! in the form of SimulationResult.
+SimulationResult FitObjective::absoluteDifference(size_t i_item) const
+{
+    return dataPair(i_item).absoluteDifference();
+}
+
 std::vector<double> FitObjective::experimental_array() const
 {
     return composeArray(&SimDataPair::experimental_array);

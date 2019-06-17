@@ -80,6 +80,12 @@ public:
 
     size_t numberOfFitElements() const;
 
+    SimulationResult simulationResult(size_t i_item = 0) const;
+    SimulationResult experimentalData(size_t i_item = 0) const;
+    SimulationResult uncertaintyData(size_t i_item = 0) const;
+    SimulationResult relativeDifference(size_t i_item = 0) const;
+    SimulationResult absoluteDifference(size_t i_item = 0) const;
+
     //! Returns one dimensional array representing merged experimental data.
     //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> experimental_array() const;
@@ -96,8 +102,10 @@ public:
     //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> weights_array() const;
 
+#ifndef SWIG
     //! Returns a reference to i-th SimDataPair.
     const SimDataPair& dataPair(size_t i_item = 0) const;
+#endif // SWIG
 
     //! Initializes printing to standard output during the fitting.
     //! @param every_nth: Print every n'th iteration.

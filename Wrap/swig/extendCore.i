@@ -247,35 +247,11 @@ class ObserverCallbackWrapper(PyObserverCallback):
         self.wrp_plot_observer = ObserverCallbackWrapper(callback)
         return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
 
-    def simulationResult(self, i=0):
-        """
-        Returns simulated values for i-th simulation-data pair
-        """
-        return self.dataPair(i).simulationResult();
-
-    def experimentalData(self, i=0):
-        """
-        Returns experimental values for i-th simulation-data pair
-        """
-        return self.dataPair(i).experimentalData();
-
     def uncertaintyData(self, i=0):
         """
         Returns uncertainties for i-th simulation-data pair
         """
-        return self.dataPair(i).uncertainties();
-
-    def relativeDifference(self, i=0):
-        """
-        Returns relative difference for i-th simulation-data pair
-        """
-        return self.dataPair(i).relativeDifference();
-
-    def absoluteDifference(self, i=0):
-        """
-        Returns absolute difference for i-th simulation-data pair
-        """
-        return self.dataPair(i).absoluteDifference();
+        return self.uncertaintyData_cpp(i);
 %}
 };
 

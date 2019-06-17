@@ -116,6 +116,8 @@ public:
     bool containsUncertainties(size_t i_item) const;
     bool allPairsHaveUncertainties() const;
 
+    static std::string availableMetricOptions();
+
 #ifndef SWIG
     //! Returns a reference to i-th SimDataPair.
     const SimDataPair& dataPair(size_t i_item = 0) const;

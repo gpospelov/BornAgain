@@ -287,6 +287,12 @@ bool FitObjective::allPairsHaveUncertainties() const
     return result;
 }
 
+//! Returns available metrics and norms
+std::string FitObjective::availableMetricOptions()
+{
+    return ObjectiveMetricUtils::availableMetricOptions();
+}
+
 std::vector<double> FitObjective::composeArray(DataPairAccessor getter) const
 {
     const size_t n_objs = m_fit_objects.size();

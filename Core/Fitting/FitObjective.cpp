@@ -272,6 +272,21 @@ void FitObjective::setObjectiveMetric(const std::string& metric, const std::stri
         std::make_unique<ObjectiveMetricWrapper>(ObjectiveMetricUtils::createMetric(metric, norm));
 }
 
+//! Returns true if the specified DataPair element contains uncertainties
+bool FitObjective::containsUncertainties(size_t i_item) const
+{
+    return dataPair(i_item).containsUncertainties();
+}
+
+//! Returns true if all the data pairs in FitObjective instance contain uncertainties
+bool FitObjective::allPairsHaveUncertainties() const
+{
+    bool result = true;
+    for (size_t i = 0, size = fitObjectCount(); i < size; ++i)
+        result = result && dataPair(i).containsUncertainties();
+    return result;
+}
+
 std::vector<double> FitObjective::composeArray(DataPairAccessor getter) const
 {
     const size_t n_objs = m_fit_objects.size();

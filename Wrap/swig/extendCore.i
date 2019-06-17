@@ -247,11 +247,24 @@ class ObserverCallbackWrapper(PyObserverCallback):
         self.wrp_plot_observer = ObserverCallbackWrapper(callback)
         return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
 
+    def uncertainties(self):
+        """
+        Returns one-dimensional array representing merged data uncertainties.
+        If any of the associated data pairs lack uncertainties, returns None.
+        """
+        if self.allPairsHaveUncertainties_cpp():
+            return self.uncertainties_cpp()
+        return None
+
     def uncertaintyData(self, i=0):
         """
-        Returns uncertainties for i-th simulation-data pair
+        Returns uncertainties for i-th simulation-data pair. If
+        no uncertainties are assigned to the data pair, returns
+        None.
         """
-        return self.uncertaintyData_cpp(i);
+        if self.containsUncertainties_cpp(i):
+            return self.uncertaintyData_cpp(i)
+        return None
 %}
 };
 

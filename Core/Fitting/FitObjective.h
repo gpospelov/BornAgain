@@ -113,6 +113,9 @@ public:
     //! @param norm: metric norm name (defaults to L2-norm)
     void setObjectiveMetric(const std::string& metric, const std::string& norm);
 
+    bool containsUncertainties(size_t i_item) const;
+    bool allPairsHaveUncertainties() const;
+
 #ifndef SWIG
     //! Returns a reference to i-th SimDataPair.
     const SimDataPair& dataPair(size_t i_item = 0) const;

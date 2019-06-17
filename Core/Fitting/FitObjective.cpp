@@ -70,6 +70,11 @@ FitObjective::FitObjective()
 
 FitObjective::~FitObjective() = default;
 
+//! Constructs simulation/data pair for later fit.
+//! @param builder: simulation builder capable of producing simulations
+//! @param data: experimental data array
+//! @param uncertainties: data uncertainties array
+//! @param weight: weight of dataset in metric calculations
 void FitObjective::addSimulationAndData(simulation_builder_t builder,
                                         const OutputData<double>& data,
                                         std::unique_ptr<OutputData<double>> uncertainties,
@@ -135,21 +140,29 @@ SimulationResult FitObjective::absoluteDifference(size_t i_item) const
     return dataPair(i_item).absoluteDifference();
 }
 
+//! Returns one dimensional array representing merged experimental data.
+//! The area outside of the region of interest is not included, masked data is nullified.
 std::vector<double> FitObjective::experimental_array() const
 {
     return composeArray(&SimDataPair::experimental_array);
 }
 
+//! Returns one dimensional array representing merged simulated intensities data.
+//! The area outside of the region of interest is not included, masked data is nullified.
 std::vector<double> FitObjective::simulation_array() const
 {
     return composeArray(&SimDataPair::simulation_array);
 }
 
+//! Returns one-dimensional array representing merged data uncertainties.
+//! The area outside of the region of interest is not included, masked data is nullified.
 std::vector<double> FitObjective::uncertainties() const
 {
     return composeArray(&SimDataPair::uncertainties_array);
 }
 
+//! Returns one-dimensional array representing merged user weights.
+//! The area outside of the region of interest is not included, masked data is nullified.
 std::vector<double> FitObjective::weights_array() const
 {
     return composeArray(&SimDataPair::user_weights_array);

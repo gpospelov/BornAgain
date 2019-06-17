@@ -41,11 +41,6 @@ public:
     virtual ~FitObjective();
 
 #ifndef SWIG
-    //! Constructs simulation/data pair for later fit.
-    //! @param builder: simulation builder capable of producing simulations
-    //! @param data: experimental data array
-    //! @param uncertainties: data uncertainties array
-    //! @param weight: weight of dataset in metric calculations
     void addSimulationAndData(simulation_builder_t builder, const OutputData<double>& data,
                               std::unique_ptr<OutputData<double>> uncertainties,
                               double weight = 1.0);
@@ -86,26 +81,10 @@ public:
     SimulationResult relativeDifference(size_t i_item = 0) const;
     SimulationResult absoluteDifference(size_t i_item = 0) const;
 
-    //! Returns one dimensional array representing merged experimental data.
-    //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> experimental_array() const;
-
-    //! Returns one dimensional array representing merged simulated intensities data.
-    //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> simulation_array() const;
-
-    //! Returns one-dimensional array representing merged data uncertainties.
-    //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> uncertainties() const;
-
-    //! Returns one-dimensional array representing merged user weights.
-    //! The area outside of the region of interest is not included, masked data is nullified.
     std::vector<double> weights_array() const;
-
-#ifndef SWIG
-    //! Returns a reference to i-th SimDataPair.
-    const SimDataPair& dataPair(size_t i_item = 0) const;
-#endif // SWIG
 
     //! Initializes printing to standard output during the fitting.
     //! @param every_nth: Print every n'th iteration.
@@ -113,12 +92,7 @@ public:
 
     //! Initializes plotting during the fitting using Python callable.
     //! @param every_nth: Called on every n'th iteration.
-#ifndef SWIG
-    void initPlot(int every_nth, fit_observer_t observer);
-#endif
     void initPlot(int every_nth, PyObserverCallback& callback);
-
-    bool isCompleted() const;
 
     IterationInfo iterationInfo() const;
 
@@ -129,25 +103,32 @@ public:
 
     unsigned fitObjectCount() const;
 
-    void interruptFitting();
-
-    bool isInterrupted() const;
-
-    bool isFirstIteration() const;
-
     void run_simulations(const Fit::Parameters& params);
 
     void setChiSquaredModule(const IChiSquaredModule& module);
-
-#ifndef SWIG
-    void setObjectiveMetric(std::unique_ptr<ObjectiveMetric> metric);
-#endif //SWIG
 
     void setObjectiveMetric(const std::string& metric);
     //! Sets objective metric to the FitObjective.
     //! @param metric: metric name
     //! @param norm: metric norm name (defaults to L2-norm)
     void setObjectiveMetric(const std::string& metric, const std::string& norm);
+
+#ifndef SWIG
+    //! Returns a reference to i-th SimDataPair.
+    const SimDataPair& dataPair(size_t i_item = 0) const;
+
+    void initPlot(int every_nth, fit_observer_t observer);
+
+    bool isCompleted() const;
+
+    void interruptFitting();
+
+    bool isInterrupted() const;
+
+    bool isFirstIteration() const;
+
+    void setObjectiveMetric(std::unique_ptr<ObjectiveMetric> metric);
+#endif // SWIG
 
 private:
     typedef std::vector<double> (SimDataPair::*DataPairAccessor)() const;

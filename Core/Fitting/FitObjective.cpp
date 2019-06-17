@@ -70,6 +70,11 @@ FitObjective::FitObjective()
 
 FitObjective::~FitObjective() = default;
 
+//! Constructs simulation/data pair for later fit.
+//! @param builder: simulation builder capable of producing simulations
+//! @param data: experimental data array
+//! @param uncertainties: data uncertainties array
+//! @param weight: weight of dataset in metric calculations
 void FitObjective::addSimulationAndData(simulation_builder_t builder,
                                         const OutputData<double>& data,
                                         std::unique_ptr<OutputData<double>> uncertainties,
@@ -103,21 +108,61 @@ size_t FitObjective::numberOfFitElements() const
                            [](size_t acc, auto& obj) { return acc + obj.numberOfFitElements(); });
 }
 
+//! Returns simulation result in the form of SimulationResult.
+SimulationResult FitObjective::simulationResult(size_t i_item) const
+{
+    return dataPair(i_item).simulationResult();
+}
+
+//! Returns experimental data in the form of SimulationResult.
+SimulationResult FitObjective::experimentalData(size_t i_item) const
+{
+    return dataPair(i_item).experimentalData();
+}
+
+//! Returns experimental data uncertainties in the form of SimulationResult.
+SimulationResult FitObjective::uncertaintyData(size_t i_item) const
+{
+    return dataPair(i_item).uncertainties();
+}
+
+//! Returns relative difference between simulation and experimental data
+//! in the form of SimulationResult.
+SimulationResult FitObjective::relativeDifference(size_t i_item) const
+{
+    return dataPair(i_item).relativeDifference();
+}
+
+//! Returns absolute value of difference between simulation and experimental data
+//! in the form of SimulationResult.
+SimulationResult FitObjective::absoluteDifference(size_t i_item) const
+{
+    return dataPair(i_item).absoluteDifference();
+}
+
+//! Returns one dimensional array representing merged experimental data.
+//! The area outside of the region of interest is not included, masked data is nullified.
 std::vector<double> FitObjective::experimental_array() const
 {
     return composeArray(&SimDataPair::experimental_array);
 }
 
+//! Returns one dimensional array representing merged simulated intensities data.
+//! The area outside of the region of interest is not included, masked data is nullified.
 std::vector<double> FitObjective::simulation_array() const
 {
     return composeArray(&SimDataPair::simulation_array);
 }
 
+//! Returns one-dimensional array representing merged data uncertainties.
+//! The area outside of the region of interest is not included, masked data is nullified.
 std::vector<double> FitObjective::uncertainties() const
 {
     return composeArray(&SimDataPair::uncertainties_array);
 }
 
+//! Returns one-dimensional array representing merged user weights.
+//! The area outside of the region of interest is not included, masked data is nullified.
 std::vector<double> FitObjective::weights_array() const
 {
     return composeArray(&SimDataPair::user_weights_array);
@@ -225,6 +270,27 @@ void FitObjective::setObjectiveMetric(const std::string& metric, const std::stri
 {
     m_metric_module =
         std::make_unique<ObjectiveMetricWrapper>(ObjectiveMetricUtils::createMetric(metric, norm));
+}
+
+//! Returns true if the specified DataPair element contains uncertainties
+bool FitObjective::containsUncertainties(size_t i_item) const
+{
+    return dataPair(i_item).containsUncertainties();
+}
+
+//! Returns true if all the data pairs in FitObjective instance contain uncertainties
+bool FitObjective::allPairsHaveUncertainties() const
+{
+    bool result = true;
+    for (size_t i = 0, size = fitObjectCount(); i < size; ++i)
+        result = result && dataPair(i).containsUncertainties();
+    return result;
+}
+
+//! Returns available metrics and norms
+std::string FitObjective::availableMetricOptions()
+{
+    return ObjectiveMetricUtils::availableMetricOptions();
 }
 
 std::vector<double> FitObjective::composeArray(DataPairAccessor getter) const

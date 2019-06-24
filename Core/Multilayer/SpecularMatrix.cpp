@@ -74,7 +74,7 @@ std::vector<ScalarRTCoefficients> SpecularMatrix::Execute(const MultiLayer& samp
 std::vector<ScalarRTCoefficients> SpecularMatrix::Execute(const std::vector<Slice>& slices,
                                                           const std::vector<complex_t>& kz)
 {
-    assert(sample.numberOfLayers() == kz.size());
+    assert(slices.size() == kz.size());
     return computeTR(slices, kz);
 }
 

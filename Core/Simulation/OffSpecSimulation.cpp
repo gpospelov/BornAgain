@@ -72,7 +72,7 @@ void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::prepareSimulation() "
                 "-> Error. Incoming alpha range size < 1.");
-    const double alpha_zero = 0.0;
+    const double alpha_zero = alpha_axis.getMin();
     m_instrument.setBeamParameters(wavelength, alpha_zero, phi_i);
     updateIntensityMap();
 }
@@ -114,12 +114,11 @@ void OffSpecSimulation::initSimulationElementVector()
     Beam beam = m_instrument.getBeam();
     const double wavelength = beam.getWavelength();
     const double phi_i = beam.getPhi();
-    const double alpha_shift = beam.getAlpha();
 
     for (size_t i = 0; i < mP_alpha_i_axis->size(); ++i) {
         // Incoming angle by convention defined as positive:
         double alpha_i = mP_alpha_i_axis->getBin(i).getMidPoint();
-        double total_alpha = alpha_i + alpha_shift;
+        double total_alpha = alpha_i;
         beam.setCentralK(wavelength, total_alpha, phi_i);
         auto sim_elements_i = generateSimulationElements(beam);
         m_sim_elements.insert(m_sim_elements.end(), std::make_move_iterator(sim_elements_i.begin()),

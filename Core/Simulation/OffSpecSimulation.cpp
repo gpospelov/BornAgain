@@ -192,14 +192,6 @@ void OffSpecSimulation::checkInitialization() const
     if (m_instrument.getDetectorDimension()!=2)
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::checkInitialization: detector is not two-dimensional");
-    const IAxis& phi_axis = m_instrument.getDetectorAxis(0);
-    if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME)
-        throw Exceptions::RuntimeErrorException(
-            "OffSpecSimulation::checkInitialization: phi-axis is not correct");
-    const IAxis& alpha_axis = m_instrument.getDetectorAxis(1);
-    if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME)
-        throw Exceptions::RuntimeErrorException(
-            "OffSpecSimulation::checkInitialization: alpha-axis is not correct");
 }
 
 void OffSpecSimulation::initialize()

@@ -259,6 +259,13 @@ OffSpecInstrumentItem::OffSpecInstrumentItem()
     : Instrument2DItem(Constants::OffSpecInstrumentType)
 {
     addAxisGroupProperty(this, P_ALPHA_AXIS);
+    auto inclination_item = getItem(P_ALPHA_AXIS)->getItem(BasicAxisItem::P_MIN);
+    auto beam_item = beamItem();
+    beam_item->setInclinationAngle(inclination_item->value().toDouble());
+    beam_item->getItem(BeamItem::P_INCLINATION_ANGLE)->setEnabled(false);
+    inclination_item->mapper()->setOnValueChange([beam_item, inclination_item]() {
+        beam_item->setInclinationAngle(inclination_item->value().toDouble());
+    });
 }
 
 std::vector<int> OffSpecInstrumentItem::shape() const

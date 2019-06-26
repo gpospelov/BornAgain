@@ -20,6 +20,7 @@
 #include "ILayout.h"
 #include "LayoutStrategyBuilder.h"
 #include "MultiLayer.h"
+#include "ProcessedSample.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 
@@ -29,8 +30,7 @@ ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multila
                                                      const ILayout* p_layout, size_t layer_index,
                                                      const SimulationOptions& options,
                                                      bool polarized)
-    : m_multilayer_info(p_multilayer, p_fresnel_map)
-    , mp_sample(p_sample)
+    : mp_sample(p_sample)
 {
     LayoutStrategyBuilder builder(p_multilayer, p_sample, p_layout, p_fresnel_map, polarized, options,
                                   layer_index);
@@ -44,9 +44,8 @@ ParticleLayoutComputation::~ParticleLayoutComputation() =default;
 
 void ParticleLayoutComputation::compute(SimulationElement& elem) const
 {
-    auto p_multilayer = m_multilayer_info.mp_multilayer;
     double alpha_f = elem.getAlphaMean();
-    size_t n_layers = p_multilayer->numberOfLayers();
+    size_t n_layers = mp_sample->numberOfSlices();
     if (n_layers > 1 && alpha_f < 0) {
         return; // zero for transmission with multilayers (n>1)
     } else {

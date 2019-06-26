@@ -48,7 +48,6 @@ public:
     void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
 
 private:
-    MultilayerInfo m_multilayer_info;
     const ProcessedSample* mp_sample;
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;

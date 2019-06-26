@@ -32,7 +32,7 @@ ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multila
     : m_multilayer_info(p_multilayer, p_fresnel_map)
     , mp_sample(p_sample)
 {
-    LayoutStrategyBuilder builder(p_multilayer, p_layout, p_fresnel_map, polarized, options,
+    LayoutStrategyBuilder builder(p_multilayer, p_sample, p_layout, p_fresnel_map, polarized, options,
                                   layer_index);
     mP_strategy.reset(builder.releaseStrategy());
     m_region_map = builder.regionMap();

@@ -29,6 +29,7 @@ class ILayout;
 class IParticle;
 class IMultiLayerFresnelMap;
 class MultiLayer;
+class ProcessedSample;
 
 //! Methods to generate a simulation strategy for a ParticleLayoutComputation.
 //! @ingroup algorithms_internal
@@ -37,7 +38,7 @@ class BA_CORE_API_ LayoutStrategyBuilder
 {
 public:
     LayoutStrategyBuilder(
-        const MultiLayer* p_multilayer, const ILayout* p_layout,
+        const MultiLayer* p_multilayer, const ProcessedSample* p_sample, const ILayout* p_layout,
         const IMultiLayerFresnelMap* p_fresnel_map, bool polarized,
         const SimulationOptions& sim_params, size_t layer_index);
 
@@ -55,6 +56,7 @@ private:
     void checkInterferenceFunction(const IInterferenceFunction* p_iff);
 
     const MultiLayer* mp_multilayer;
+    const ProcessedSample* mp_sample;
     const ILayout* mp_layout;
     //! R and T coefficients for DWBA
     const IMultiLayerFresnelMap* mp_fresnel_map;

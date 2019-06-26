@@ -31,10 +31,11 @@
 
 
 LayoutStrategyBuilder::LayoutStrategyBuilder(
-    const MultiLayer* p_multilayer, const ILayout* p_layout,
+    const MultiLayer* p_multilayer, const ProcessedSample* p_sample, const ILayout* p_layout,
     const IMultiLayerFresnelMap* p_fresnel_map, bool polarized,
     const SimulationOptions& sim_params, size_t layer_index)
     : mp_multilayer(p_multilayer)
+    , mp_sample(p_sample)
     , mp_layout(p_layout)
     , mp_fresnel_map(p_fresnel_map)
     , m_polarized {polarized}

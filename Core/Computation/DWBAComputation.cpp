@@ -48,6 +48,7 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
         for (auto p_layout : layer->layouts())
             m_single_computation.addLayoutComputation(
                         new ParticleLayoutComputation(mP_multi_layer.get(), mP_fresnel_map.get(),
+                                                      mP_processed_sample.get(),
                                                       p_layout, i, m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA

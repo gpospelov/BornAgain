@@ -25,10 +25,12 @@
 
 ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
                                                      const IMultiLayerFresnelMap* p_fresnel_map,
+                                                     const ProcessedSample* p_sample,
                                                      const ILayout* p_layout, size_t layer_index,
                                                      const SimulationOptions& options,
                                                      bool polarized)
     : m_multilayer_info(p_multilayer, p_fresnel_map)
+    , mp_sample(p_sample)
 {
     LayoutStrategyBuilder builder(p_multilayer, p_layout, p_fresnel_map, polarized, options,
                                   layer_index);

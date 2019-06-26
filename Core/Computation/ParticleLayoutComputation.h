@@ -25,6 +25,7 @@ using std::size_t;
 
 class ILayout;
 class IInterferenceFunctionStrategy;
+class ProcessedSample;
 class SimulationElement;
 class SimulationOptions;
 
@@ -36,6 +37,7 @@ class ParticleLayoutComputation final
 {
 public:
     ParticleLayoutComputation(const MultiLayer* p_multilayer, const IMultiLayerFresnelMap* p_fresnel_map,
+                              const ProcessedSample* p_sample,
                               const ILayout* p_layout, size_t layer_index,
                               const SimulationOptions& options, bool polarized);
     ~ParticleLayoutComputation();
@@ -47,6 +49,7 @@ public:
 
 private:
     MultilayerInfo m_multilayer_info;
+    const ProcessedSample* mp_sample;
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;

@@ -20,6 +20,7 @@
 #include "MatrixMLFresnelMap.h"
 #include "MultiLayer.h"
 #include "ParticleLayoutComputation.h"
+#include "ProcessedSample.h"
 #include "ProgressHandler.h"
 #include "RoughMultiLayerComputation.h"
 #include "ScalarMLFresnelMap.h"
@@ -37,6 +38,7 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
     : IComputation(options, progress, multilayer)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
+    , mP_processed_sample(std::make_unique<ProcessedSample>(multilayer, options))
 {
     mP_fresnel_map = IComputationUtils::CreateFresnelMap(multilayer, options);
     bool polarized = mP_multi_layer->containsMagneticMaterial();

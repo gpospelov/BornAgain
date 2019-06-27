@@ -55,9 +55,14 @@ size_t ProcessedSample::numberOfSlices() const
     return m_slices.size();
 }
 
-const std::vector<Slice> &ProcessedSample::slices() const
+const std::vector<Slice>& ProcessedSample::slices() const
 {
     return m_slices;
+}
+
+const std::vector<Slice>& ProcessedSample::averageSlices() const
+{
+    return mP_fresnel_map->slices();
 }
 
 const std::vector<ProcessedLayout>& ProcessedSample::layouts() const
@@ -75,34 +80,33 @@ double ProcessedSample::crossCorrelationLength() const
     return m_crossCorrLength;
 }
 
-const LayerRoughness *ProcessedSample::bottomRoughness(size_t i) const
+const LayerRoughness* ProcessedSample::bottomRoughness(size_t i) const
 {
-    if (i+2 > m_slices.size())
+    if (i + 2 > m_slices.size())
         throw std::runtime_error("ProcessedSample::bottomRoughness: "
                                  "index out of bounds.");
-    return m_slices[i+1].topRoughness();
+    return m_slices[i + 1].topRoughness();
 }
 
 double ProcessedSample::sliceTopZ(size_t i) const
 {
-    if (i==0)
+    if (i == 0)
         return m_top_z;
-    return sliceBottomZ(i-1);
+    return sliceBottomZ(i - 1);
 }
 
 double ProcessedSample::sliceBottomZ(size_t i) const
 {
-    if (numberOfSlices()<2)
+    if (numberOfSlices() < 2)
         return m_top_z;
     // Last slice has no bottom:
-    if (i+2 > numberOfSlices())
-        i = numberOfSlices()-2;
+    if (i + 2 > numberOfSlices())
+        i = numberOfSlices() - 2;
     auto z = m_top_z;
-    for (size_t j=1; j<=i; ++j)
+    for (size_t j = 1; j <= i; ++j)
         z -= m_slices[j].thickness();
     return z;
 }
-
 
 double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 {
@@ -118,9 +122,10 @@ double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, siz
     double sigma_k = rough_k->getSigma();
     if (sigma_j <= 0 || sigma_k <= 0)
         return 0.0;
-    double corr = 0.5*( (sigma_k/sigma_j)*rough_j->getSpectralFun(kvec) +
-                        (sigma_j/sigma_k)*rough_k->getSpectralFun(kvec) ) *
-        std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
+    double corr = 0.5
+                  * ((sigma_k / sigma_j) * rough_j->getSpectralFun(kvec)
+                     + (sigma_j / sigma_k) * rough_k->getSpectralFun(kvec))
+                  * std::exp(-1 * std::abs(z_j - z_k) / m_crossCorrLength);
     return corr;
 }
 

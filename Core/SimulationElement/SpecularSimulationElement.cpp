@@ -18,36 +18,33 @@
 #include "MultiLayer.h"
 
 SpecularSimulationElement::SpecularSimulationElement(double kz)
-    : m_intensity(0.0)
-    , m_calculation_flag(true)
-    , m_kz_computation([kz](const MultiLayer& sample) {
-          return KzComputation::computeKzFromSLDs(sample, kz);
+    : m_intensity(0.0), m_calculation_flag(true),
+      m_kz_computation([kz](const std::vector<Slice>& slices) {
+          return KzComputation::computeKzFromSLDs(slices, kz);
       })
-{}
+{
+}
 
 SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha)
-    : m_intensity(0.0)
-    , m_calculation_flag(true)
-    , m_kz_computation(
-          [k = vecOfLambdaAlphaPhi(wavelength, alpha, /*phi =*/0.0)](const MultiLayer& sample) {
-              return KzComputation::computeKzFromRefIndices(sample, k);
-          })
+    : m_intensity(0.0), m_calculation_flag(true),
+      m_kz_computation([k = vecOfLambdaAlphaPhi(wavelength, alpha, /*phi =*/0.0)](
+                             const std::vector<Slice>& slices) {
+          return KzComputation::computeKzFromRefIndices(slices, k);
+      })
 {
 }
 
 SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement& other)
-    : m_polarization(other.m_polarization)
-    , m_intensity(other.m_intensity)
-    , m_calculation_flag(other.m_calculation_flag)
-    , m_kz_computation(other.m_kz_computation)
+    : m_polarization(other.m_polarization), m_intensity(other.m_intensity),
+      m_calculation_flag(other.m_calculation_flag),
+      m_kz_computation(other.m_kz_computation)
 {
 }
 
 SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&& other) noexcept
-    : m_polarization(std::move(other.m_polarization))
-    , m_intensity(other.m_intensity)
-    , m_calculation_flag(other.m_calculation_flag)
-    , m_kz_computation(std::move(other.m_kz_computation))
+    : m_polarization(std::move(other.m_polarization)), m_intensity(other.m_intensity),
+      m_calculation_flag(other.m_calculation_flag),
+      m_kz_computation(std::move(other.m_kz_computation))
 {
 }
 
@@ -63,12 +60,12 @@ operator=(const SpecularSimulationElement& other)
     return *this;
 }
 
-std::vector<complex_t> SpecularSimulationElement::produceKz(const MultiLayer& sample)
+std::vector<complex_t> SpecularSimulationElement::produceKz(const std::vector<Slice>& slices)
 {
-    return m_kz_computation(sample);
+    return m_kz_computation(slices);
 }
 
-void SpecularSimulationElement::swapContent(SpecularSimulationElement &other)
+void SpecularSimulationElement::swapContent(SpecularSimulationElement& other)
 {
     m_polarization.swapContent(other.m_polarization);
     std::swap(m_intensity, other.m_intensity);

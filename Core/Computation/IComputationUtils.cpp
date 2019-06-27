@@ -17,9 +17,7 @@
 #include "IParticle.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
-#include "MatrixMLFresnelMap.h"
 #include "MultiLayer.h"
-#include "ScalarMLFresnelMap.h"
 #include "SimulationOptions.h"
 #include "SlicedFormFactorList.h"
 
@@ -32,22 +30,6 @@ std::unique_ptr<MultiLayer> CreateAveragedMultilayerImpl(
 }
 
 namespace IComputationUtils {
-std::unique_ptr<IMultiLayerFresnelMap> CreateFresnelMap(const MultiLayer& multilayer,
-                                              const SimulationOptions& sim_options)
-{
-    std::unique_ptr<IMultiLayerFresnelMap> P_result;
-    if (!multilayer.requiresMatrixRTCoefficients())
-        P_result.reset(new ScalarMLFresnelMap());
-    else
-        P_result.reset(new MatrixMLFresnelMap());
-
-    if (sim_options.isIntegrate())
-        P_result->disableCaching();
-
-    P_result->setMultilayer(multilayer);
-    return P_result;
-}
-
 std::unique_ptr<MultiLayer> CreateAveragedMultilayer(
         const MultiLayer& multilayer, const SimulationOptions& sim_options,
         const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)

@@ -15,13 +15,16 @@
 #include "IFresnelMap.h"
 #include "Slice.h"
 
-IFresnelMap::IFresnelMap()
-    : m_use_cache(true)
-{}
+IFresnelMap::IFresnelMap() : m_use_cache(true) {}
 
-void IFresnelMap::setSlices(const std::vector<Slice> &slices)
+void IFresnelMap::setSlices(const std::vector<Slice>& slices)
 {
     m_slices = slices;
+}
+
+const std::vector<Slice>& IFresnelMap::slices() const
+{
+    return m_slices;
 }
 
 IFresnelMap::~IFresnelMap() = default;

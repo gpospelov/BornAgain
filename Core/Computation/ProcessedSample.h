@@ -44,6 +44,7 @@ public:
 
     size_t numberOfSlices() const;
     const std::vector<Slice>& slices() const;
+    const std::vector<Slice>& averageSlices() const;
     const std::vector<ProcessedLayout>& layouts() const;
     const IFresnelMap* fresnelMap() const;
     double crossCorrelationLength() const;

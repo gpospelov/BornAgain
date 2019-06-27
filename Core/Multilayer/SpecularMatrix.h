@@ -19,7 +19,6 @@
 #include "Vectors3D.h"
 #include <vector>
 
-class MultiLayer;
 class Slice;
 
 //! Implements method 'execute' to compute refraction angles and transmission/reflection
@@ -31,15 +30,12 @@ namespace SpecularMatrix
 //! Computes refraction angles and transmission/reflection coefficients
 //! for given coherent wave propagation in a multilayer.
 //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-BA_CORE_API_ std::vector<ScalarRTCoefficients> Execute(const MultiLayer& sample, kvector_t k);
 BA_CORE_API_ std::vector<ScalarRTCoefficients> Execute(const std::vector<Slice>& slices,
                                                        kvector_t k);
 
 //! Computes transmission/reflection coefficients
 //! for given set of z-components of wave-vectors in a multilayer.
 //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-BA_CORE_API_ std::vector<ScalarRTCoefficients> Execute(const MultiLayer& sample,
-                                                       const std::vector<complex_t>& kz);
 BA_CORE_API_ std::vector<ScalarRTCoefficients> Execute(const std::vector<Slice>& slices,
                                                        const std::vector<complex_t>& kz);
 }; // namespace SpecularMatrix

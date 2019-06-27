@@ -19,7 +19,6 @@
 #include "Vectors3D.h"
 #include <vector>
 
-class MultiLayer;
 class Slice;
 
 //! Implements the matrix formalism for the calculation of wave amplitudes of
@@ -29,9 +28,7 @@ class Slice;
 namespace SpecularMagnetic
 {
 //! Computes refraction angle reflection/transmission coefficients
-//! for given multilayer and wavevector k
-BA_CORE_API_ void Execute(const MultiLayer& sample, const kvector_t k,
-                          std::vector<MatrixRTCoefficients>& coeff);
+//! for given sliced multilayer and wavevector k
 BA_CORE_API_ void Execute(const std::vector<Slice>& slices, const kvector_t k,
                           std::vector<MatrixRTCoefficients>& coeff);
 }; // namespace SpecularMagnetic

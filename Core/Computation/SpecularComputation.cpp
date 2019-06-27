@@ -15,6 +15,7 @@
 #include "SpecularComputation.h"
 #include "IComputationUtils.h"
 #include "MultiLayer.h"
+#include "ProcessedSample.h"
 #include "ProgressHandler.h"
 #include "SpecularSimulationElement.h"
 
@@ -35,12 +36,11 @@ SpecularComputation::~SpecularComputation() = default;
 
 void SpecularComputation::runProtected()
 {
-    if (!mp_progress->alive() || mP_multi_layer->requiresMatrixRTCoefficients())
+    if (!mp_progress->alive())
         return;
 
     m_computation_term.setProgressHandler(mp_progress);
-    const std::unique_ptr<MultiLayer> avr_sample =
-        IComputationUtils::CreateAveragedMultilayer(*mP_multi_layer, m_sim_options);
+    auto& slices = mP_processed_sample->averageSlices();
     for (auto it = m_begin_it; it != m_end_it; ++it)
-        m_computation_term.compute(*it, *avr_sample);
+        m_computation_term.compute(*it, slices);
 }

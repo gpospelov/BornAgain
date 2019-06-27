@@ -48,6 +48,7 @@ public:
     }
 
     virtual void setSlices(const std::vector<Slice>& slices);
+    const std::vector<Slice>& slices() const;
 
     //! Disables caching of previously computed Fresnel coefficients
     void disableCaching();

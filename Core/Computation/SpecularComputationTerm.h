@@ -16,9 +16,10 @@
 #define SPECULARCOMPUTATIONTERM_H_
 
 #include <memory>
+#include <vector>
 
 class DelayedProgressCounter;
-class MultiLayer;
+class Slice;
 class ProgressHandler;
 class SpecularSimulationElement;
 
@@ -33,7 +34,7 @@ public:
     ~SpecularComputationTerm();
 
     void setProgressHandler(ProgressHandler* p_progress);
-    void compute(SpecularSimulationElement& elem, const MultiLayer& sample) const;
+    void compute(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const;
 
 private:
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;

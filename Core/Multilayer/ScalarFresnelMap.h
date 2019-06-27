@@ -16,7 +16,7 @@
 #define SCALARFRESNELMAP_H
 
 #include "Hash2Doubles.h"
-#include "IMultiLayerFresnelMap.h"
+#include "IFresnelMap.h"
 #include <unordered_map>
 #include <utility>
 #include <vector>

@@ -32,6 +32,7 @@ ProcessedLayout::ProcessedLayout(const ILayout& layout, const std::vector<Slice>
                                  double z_ref, const IFresnelMap* p_fresnel_map, bool polarized)
     : mp_fresnel_map(p_fresnel_map), m_polarized(polarized)
 {
+    m_n_slices = slices.size();
     collectFormFactors(layout, slices, z_ref);
     if (auto p_iff = layout.interferenceFunction())
         mP_iff.reset(p_iff->clone());
@@ -39,7 +40,38 @@ ProcessedLayout::ProcessedLayout(const ILayout& layout, const std::vector<Slice>
 
 ProcessedLayout::ProcessedLayout(ProcessedLayout &&other)
 {
+    mp_fresnel_map = other.mp_fresnel_map;
+    m_polarized = other.m_polarized;
+    m_n_slices = other.m_n_slices;
+    m_surface_density = other.m_surface_density;
+    m_formfactors = std::move(other.m_formfactors);
+    mP_iff = std::move(other.mP_iff);
+    m_region_map = std::move(other.m_region_map);
+}
 
+size_t ProcessedLayout::numberOfSlices() const
+{
+    return m_n_slices;
+}
+
+double ProcessedLayout::surfaceDensity() const
+{
+    return m_surface_density;
+}
+
+const SafePointerVector<FormFactorCoherentSum> &ProcessedLayout::formFactorList() const
+{
+    return m_formfactors;
+}
+
+const IInterferenceFunction *ProcessedLayout::interferenceFunction() const
+{
+    return mP_iff.get();
+}
+
+std::map<size_t, std::vector<HomogeneousRegion> > ProcessedLayout::regionMap() const
+{
+    return m_region_map;
 }
 
 ProcessedLayout::~ProcessedLayout() = default;
@@ -55,7 +87,8 @@ void ProcessedLayout::collectFormFactors(const ILayout& layout, const std::vecto
         m_formfactors.push_back(p_ff_coh);
     }
     double weight = layout.weight();
-    double scale_factor = weight * layout.totalParticleSurfaceDensity() / layout_abundance;
+    m_surface_density = weight * layout.totalParticleSurfaceDensity();
+    double scale_factor = m_surface_density / layout_abundance;
     ScaleRegionMap(m_region_map, scale_factor);
 }
 

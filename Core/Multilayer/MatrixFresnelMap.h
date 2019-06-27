@@ -39,6 +39,8 @@ public:
     getOutCoefficients(const SimulationElement& sim_element,
                        size_t layer_index) const final override;
 
+    void setSlices(const std::vector<Slice>& slices) final override;
+
     typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>
         CoefficientHash;
 
@@ -49,7 +51,6 @@ private:
                                                                 size_t layer_index,
                                                                 const std::vector<Slice>& slices,
                                                                 CoefficientHash& hash_table) const;
-    std::vector<Slice> m_slices;
     std::vector<Slice> m_inverted_slices;
     mutable CoefficientHash m_hash_table_out;
     mutable CoefficientHash m_hash_table_in;

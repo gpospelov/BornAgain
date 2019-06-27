@@ -19,8 +19,10 @@
 #include "Vectors3D.h"
 #include "WinDllMacros.h"
 #include <memory>
+#include <vector>
 
 class SimulationElement;
+class Slice;
 
 //! Holds the necessary information to calculate the radiation wavefunction in every layer
 //! for different incoming (outgoing) angles of the beam in the top layer
@@ -45,6 +47,8 @@ public:
         return getCoefficients(sim_element.getKi(), layer_index);
     }
 
+    virtual void setSlices(const std::vector<Slice>& slices);
+
     //! Disables caching of previously computed Fresnel coefficients
     void disableCaching();
 
@@ -52,6 +56,7 @@ protected:
     virtual std::unique_ptr<const ILayerRTCoefficients>
     getCoefficients(const kvector_t& kvec, size_t layer_index) const = 0;
 
+    std::vector<Slice> m_slices;
     bool m_use_cache;
 };
 

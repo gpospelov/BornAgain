@@ -17,9 +17,11 @@
 
 #include "Material.h"
 #include "Vectors3D.h"
+#include <map>
 #include <memory>
 #include <vector>
 
+class HomogeneousRegion;
 class IFresnelMap;
 class LayerRoughness;
 class MultiLayer;
@@ -41,6 +43,8 @@ public:
     ~ProcessedSample();
 
     size_t numberOfSlices() const;
+    const std::vector<ProcessedLayout>& layouts() const;
+
 
 private:
     void initSlices(const MultiLayer& sample, const SimulationOptions& options);
@@ -50,11 +54,15 @@ private:
     void addNSlices(size_t n, double thickness, const Material& material,
                     const LayerRoughness* p_roughness = nullptr);
     void initBFields();
+    void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
+    void initFresnelMap(const SimulationOptions& sim_options);
     std::unique_ptr<IFresnelMap> mP_fresnel_map;
     std::vector<Slice> m_slices;
+    double m_top_z;
     std::vector<ProcessedLayout> m_layouts;
     double m_crossCorrLength;
     kvector_t m_ext_field;
+    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
 #endif // PROCESSEDSAMPLE_H

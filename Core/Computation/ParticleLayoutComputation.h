@@ -25,7 +25,7 @@ using std::size_t;
 
 class ILayout;
 class IInterferenceFunctionStrategy;
-class ProcessedSample;
+class ProcessedLayout;
 class SimulationElement;
 class SimulationOptions;
 
@@ -36,9 +36,7 @@ class SimulationOptions;
 class ParticleLayoutComputation final
 {
 public:
-    ParticleLayoutComputation(const MultiLayer* p_multilayer, const IMultiLayerFresnelMap* p_fresnel_map,
-                              const ProcessedSample* p_sample,
-                              const ILayout* p_layout, size_t layer_index,
+    ParticleLayoutComputation(const ProcessedLayout* p_layout,
                               const SimulationOptions& options, bool polarized);
     ~ParticleLayoutComputation();
 
@@ -48,7 +46,7 @@ public:
     void mergeRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const;
 
 private:
-    const ProcessedSample* mp_sample;
+    const ProcessedLayout* mp_layout;
     std::unique_ptr<const IInterferenceFunctionStrategy> mP_strategy;
     double m_surface_density;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;

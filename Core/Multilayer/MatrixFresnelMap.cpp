@@ -39,6 +39,16 @@ MatrixFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_
                            m_hash_table_out);
 }
 
+void MatrixFresnelMap::setSlices(const std::vector<Slice> &slices)
+{
+    IFresnelMap::setSlices(slices);
+    m_inverted_slices.clear();
+    for (auto slice : slices) {
+        slice.invertBField();
+        m_inverted_slices.push_back(slice);
+    }
+}
+
 std::unique_ptr<const ILayerRTCoefficients>
 MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) const
 {

@@ -20,24 +20,18 @@
 #include "ILayout.h"
 #include "LayoutStrategyBuilder.h"
 #include "MultiLayer.h"
-#include "ProcessedSample.h"
+#include "ProcessedLayout.h"
 #include "ProgressHandler.h"
 #include "SimulationElement.h"
 
-ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer* p_multilayer,
-                                                     const IMultiLayerFresnelMap* p_fresnel_map,
-                                                     const ProcessedSample* p_sample,
-                                                     const ILayout* p_layout, size_t layer_index,
-                                                     const SimulationOptions& options,
-                                                     bool polarized)
-    : mp_sample(p_sample)
+ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* p_layout,
+                                                     const SimulationOptions& options, bool polarized)
+    : mp_layout(p_layout)
 {
-    LayoutStrategyBuilder builder(p_multilayer, p_sample, p_layout, p_fresnel_map, polarized, options,
-                                  layer_index);
+    LayoutStrategyBuilder builder(p_layout, options, polarized);
     mP_strategy.reset(builder.releaseStrategy());
-    m_region_map = builder.regionMap();
-    double weight = p_layout->weight();
-    m_surface_density = weight * p_layout->totalParticleSurfaceDensity();
+    m_region_map = p_layout->regionMap();
+    m_surface_density = p_layout->surfaceDensity();
 }
 
 ParticleLayoutComputation::~ParticleLayoutComputation() =default;
@@ -45,7 +39,7 @@ ParticleLayoutComputation::~ParticleLayoutComputation() =default;
 void ParticleLayoutComputation::compute(SimulationElement& elem) const
 {
     double alpha_f = elem.getAlphaMean();
-    size_t n_layers = mp_sample->numberOfSlices();
+    size_t n_layers = mp_layout->numberOfSlices();
     if (n_layers > 1 && alpha_f < 0) {
         return; // zero for transmission with multilayers (n>1)
     } else {
@@ -54,7 +48,7 @@ void ParticleLayoutComputation::compute(SimulationElement& elem) const
 }
 
 void ParticleLayoutComputation::mergeRegionMap(
-        std::map<size_t, std::vector<HomogeneousRegion> >& region_map) const
+        std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const
 {
     for (auto& entry : m_region_map)
     {

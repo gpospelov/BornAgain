@@ -20,6 +20,7 @@
 #include "MatrixMLFresnelMap.h"
 #include "MultiLayer.h"
 #include "ParticleLayoutComputation.h"
+#include "ProcessedLayout.h"
 #include "ProcessedSample.h"
 #include "ProgressHandler.h"
 #include "RoughMultiLayerComputation.h"
@@ -42,14 +43,9 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
 {
     mP_fresnel_map = IComputationUtils::CreateFresnelMap(multilayer, options);
     bool polarized = mP_multi_layer->containsMagneticMaterial();
-    size_t nLayers = mP_multi_layer->numberOfLayers();
-    for (size_t i=0; i<nLayers; ++i) {
-        const Layer* layer = mP_multi_layer->layer(i);
-        for (auto p_layout : layer->layouts())
-            m_single_computation.addLayoutComputation(
-                        new ParticleLayoutComputation(mP_multi_layer.get(), mP_fresnel_map.get(),
-                                                      mP_processed_sample.get(),
-                                                      p_layout, i, m_sim_options, polarized));
+    for (const auto& layout : mP_processed_sample->layouts()) {
+        m_single_computation.addLayoutComputation(
+                    new ParticleLayoutComputation(&layout, m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())

@@ -13,9 +13,11 @@
 // ************************************************************************** //
 
 #include "ProcessedSample.h"
+#include "HomogeneousRegion.h"
 #include "IMultiLayerFresnelMap.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
+#include "MaterialFactoryFuncs.h"
 #include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "MultiLayerUtils.h"
@@ -30,15 +32,20 @@ std::unique_ptr<IFresnelMap> CreateFresnelMap(const std::vector<Slice>& slices,
                                               const SimulationOptions& options);
 bool ContainsMagneticMaterial(const MultiLayer& sample);
 bool ContainsMagneticSlice(const std::vector<Slice>& slices);
+bool CheckRegions(const std::vector<HomogeneousRegion>& regions);
+std::vector<Slice>
+CreateAverageMaterialSlices(const std::vector<Slice>& slices,
+                            const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
 } // namespace
 
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
-    : m_slices{}, m_crossCorrLength{sample.crossCorrLength()}, m_ext_field{sample.externalField()}
+    : m_slices{}, m_top_z{0.0}, m_crossCorrLength{sample.crossCorrLength()}, m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
     mP_fresnel_map = CreateFresnelMap(m_slices, options);
     initBFields();
     initLayouts(sample);
+    initFresnelMap(options);
 }
 
 ProcessedSample::~ProcessedSample() = default;
@@ -46,6 +53,11 @@ ProcessedSample::~ProcessedSample() = default;
 size_t ProcessedSample::numberOfSlices() const
 {
     return m_slices.size();
+}
+
+const std::vector<ProcessedLayout>& ProcessedSample::layouts() const
+{
+    return m_layouts;
 }
 
 // Creates a array of slices with the correct thickness, roughness and material
@@ -83,6 +95,7 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
             if (bottom > 0) {
                 addSlice(bottom, *p_material);
             }
+            m_top_z = top;
         }
         // middle or bottom layer
         else {
@@ -106,14 +119,15 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
 
 void ProcessedSample::initLayouts(const MultiLayer& sample)
 {
-    double z_ref = 0.0;
+    double z_ref = -m_top_z;
     bool polarized = ContainsMagneticMaterial(sample);
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         if (i > 1)
-            z_ref += sample.layerThickness(i - 1);
+            z_ref -= sample.layerThickness(i - 1);
         auto p_layer = sample.layer(i);
         for (auto p_layout : p_layer->layouts()) {
             m_layouts.emplace_back(*p_layout, m_slices, z_ref, mP_fresnel_map.get(), polarized);
+            mergeRegionMap(m_layouts.back().regionMap());
         }
     }
 }
@@ -154,6 +168,25 @@ void ProcessedSample::initBFields()
     }
 }
 
+void ProcessedSample::mergeRegionMap(
+    const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)
+{
+    for (auto& entry : region_map) {
+        size_t i = entry.first;
+        auto& regions = entry.second;
+        m_region_map[i].insert(m_region_map[i].begin(), regions.begin(), regions.end());
+    }
+}
+
+void ProcessedSample::initFresnelMap(const SimulationOptions& sim_options)
+{
+    if (sim_options.useAvgMaterials()) {
+        mP_fresnel_map->setSlices(CreateAverageMaterialSlices(m_slices, m_region_map));
+    } else {
+        mP_fresnel_map->setSlices(m_slices);
+    }
+}
+
 namespace
 {
 std::unique_ptr<IFresnelMap> CreateFresnelMap(const std::vector<Slice>& slices,
@@ -184,5 +217,33 @@ bool ContainsMagneticSlice(const std::vector<Slice>& slices)
             return true;
     }
     return false;
+}
+
+bool CheckRegions(const std::vector<HomogeneousRegion>& regions)
+{
+    double total_fraction = 0.0;
+    for (auto& region : regions)
+        total_fraction += region.m_volume;
+    return (total_fraction >= 0 && total_fraction <= 1);
+}
+
+std::vector<Slice>
+CreateAverageMaterialSlices(const std::vector<Slice>& slices,
+                            const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)
+{
+    std::vector<Slice> result = slices;
+    auto last_slice_index = slices.size() - 1;
+    for (auto& entry : region_map) {
+        auto i_slice = entry.first;
+        if (i_slice == 0 || i_slice == last_slice_index)
+            continue; // skip semi-infinite layers
+        auto slice_mat = slices[i_slice].material();
+        if (!CheckRegions(entry.second))
+            throw std::runtime_error("CreateAverageMaterialSlices: "
+                                     "total volumetric fraction of particles exceeds 1!");
+        auto new_material = CreateAveragedMaterial(slice_mat, entry.second);
+        result[i_slice].setMaterial(new_material);
+    }
+    return result;
 }
 } // namespace

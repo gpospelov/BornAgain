@@ -42,6 +42,16 @@ Slice::Slice(Slice&& other)
 {
 }
 
+Slice &Slice::operator=(const Slice &other)
+{
+    m_thickness = other.m_thickness;
+    m_material = other.m_material;
+    m_B_field = other.m_B_field;
+    if (other.mP_top_roughness) {
+        mP_top_roughness.reset(other.mP_top_roughness->clone());
+    }
+}
+
 Slice::~Slice() = default;
 
 void Slice::setMaterial(const Material& material)
@@ -80,4 +90,9 @@ void Slice::initBField(kvector_t h_field, double b_z)
 {
     m_B_field = Magnetic_Permeability * (h_field + m_material.magnetization());
     m_B_field.setZ(b_z);
+}
+
+void Slice::invertBField()
+{
+    m_B_field = - m_B_field;
 }

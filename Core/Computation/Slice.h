@@ -31,6 +31,7 @@ public:
     Slice(double thickness, const Material& material, const LayerRoughness& top_roughness);
     Slice(const Slice& other);
     Slice(Slice&& other);
+    Slice& operator=(const Slice& other);
     ~Slice();
 
     void setMaterial(const Material& material);
@@ -50,6 +51,8 @@ public:
 
     //! Initializes the magnetic B field from a given ambient field strength H
     void initBField(kvector_t h_field, double b_z);
+
+    void invertBField();
 
     static constexpr double Magnetic_Permeability = 4e-7 * M_PI;
 private:

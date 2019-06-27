@@ -42,7 +42,6 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
     const std::vector<ScalarRTCoefficients>& getCoefficientsFromCache(kvector_t kvec) const;
-    std::vector<Slice> m_slices;
     mutable std::unordered_map<std::pair<double, double>, std::vector<ScalarRTCoefficients>,
                                Hash2Doubles> m_cache;
 };

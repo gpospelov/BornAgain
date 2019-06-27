@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "SpecularComputation.h"
-#include "IComputationUtils.h"
 #include "MultiLayer.h"
 #include "ProcessedSample.h"
 #include "ProgressHandler.h"

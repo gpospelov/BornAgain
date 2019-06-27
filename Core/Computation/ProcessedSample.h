@@ -51,6 +51,8 @@ public:
     const LayerRoughness* bottomRoughness(size_t i) const;
     double sliceTopZ(size_t i) const;
     double sliceBottomZ(size_t i) const;
+    bool containsMagneticMaterial() const;
+    bool hasRoughness() const;
 
     //! Fourier transform of the correlation function of roughnesses between
     //! the interfaces
@@ -69,6 +71,7 @@ private:
     std::unique_ptr<IFresnelMap> mP_fresnel_map;
     std::vector<Slice> m_slices;
     double m_top_z;
+    bool m_polarized;
     std::vector<ProcessedLayout> m_layouts;
     double m_crossCorrLength;
     kvector_t m_ext_field;

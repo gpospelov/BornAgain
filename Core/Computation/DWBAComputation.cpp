@@ -35,13 +35,13 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
     : IComputation(multilayer, options, progress), m_begin_it(begin_it), m_end_it(end_it)
 {
     auto p_fresnel_map = mP_processed_sample->fresnelMap();
-    bool polarized = mP_multi_layer->containsMagneticMaterial();
+    bool polarized = mP_processed_sample->containsMagneticMaterial();
     for (const auto& layout : mP_processed_sample->layouts()) {
         m_single_computation.addLayoutComputation(
             new ParticleLayoutComputation(&layout, m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
-    if (mP_multi_layer->hasRoughness())
+    if (mP_processed_sample->hasRoughness())
         m_single_computation.setRoughnessComputation(
             new RoughMultiLayerComputation(mP_processed_sample.get()));
     if (m_sim_options.includeSpecular())

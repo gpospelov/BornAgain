@@ -20,13 +20,10 @@
 
 IComputation::IComputation(const MultiLayer& sample, const SimulationOptions& options,
                            ProgressHandler& progress)
-    : mP_multi_layer(sample.cloneSliced(options.useAvgMaterials())), m_sim_options(options),
+    : m_sim_options(options),
       mp_progress(&progress),
       mP_processed_sample(std::make_unique<ProcessedSample>(sample, options))
-{
-    if (!mP_multi_layer)
-        throw std::runtime_error("Error in IComputation: empty sample passed.");
-}
+{}
 
 IComputation::~IComputation() = default;
 

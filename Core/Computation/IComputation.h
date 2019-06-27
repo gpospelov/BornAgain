@@ -44,7 +44,6 @@ public:
     std::string errorMessage() const { return m_status.errorMessage(); }
 
 protected:
-    std::unique_ptr<MultiLayer> mP_multi_layer;
     SimulationOptions m_sim_options;
     ProgressHandler* mp_progress;
     ComputationStatus m_status;

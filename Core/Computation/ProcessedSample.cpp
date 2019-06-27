@@ -38,7 +38,7 @@ CreateAverageMaterialSlices(const std::vector<Slice>& slices,
 } // namespace
 
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
-    : m_slices{}, m_top_z{0.0}, m_crossCorrLength{sample.crossCorrLength()},
+    : m_slices{}, m_top_z{0.0}, m_polarized{false}, m_crossCorrLength{sample.crossCorrLength()},
       m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
@@ -106,6 +106,20 @@ double ProcessedSample::sliceBottomZ(size_t i) const
     for (size_t j = 1; j <= i; ++j)
         z -= m_slices[j].thickness();
     return z;
+}
+
+bool ProcessedSample::containsMagneticMaterial() const
+{
+    return m_polarized;
+}
+
+bool ProcessedSample::hasRoughness() const
+{
+    for (auto& slice : m_slices) {
+        if (auto p_roughness = slice.topRoughness())
+            return true;
+    }
+    return false;
 }
 
 double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
@@ -189,13 +203,13 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
 void ProcessedSample::initLayouts(const MultiLayer& sample)
 {
     double z_ref = -m_top_z;
-    bool polarized = ContainsMagneticMaterial(sample);
+    m_polarized = ContainsMagneticMaterial(sample);
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         if (i > 1)
             z_ref -= sample.layerThickness(i - 1);
         auto p_layer = sample.layer(i);
         for (auto p_layout : p_layer->layouts()) {
-            m_layouts.emplace_back(*p_layout, m_slices, z_ref, mP_fresnel_map.get(), polarized);
+            m_layouts.emplace_back(*p_layout, m_slices, z_ref, mP_fresnel_map.get(), m_polarized);
             mergeRegionMap(m_layouts.back().regionMap());
         }
     }

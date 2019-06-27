@@ -64,12 +64,6 @@ public:
     const LayerInterface* layerInterface(size_t i_interface) const {
         return m_interfaces[check_interface_index(i_interface)]; }
 
-    //! Returns z-coordinate of the layer's top
-    double layerTopZ(size_t i_layer) const;
-
-    //! Returns z-coordinate of the layer's bottom
-    double layerBottomZ(size_t i_layer) const;
-
     //! Returns thickness of layer
     double layerThickness(size_t i_layer) const;
 
@@ -82,24 +76,9 @@ public:
     //! Returns bottom interface of layer
     const LayerInterface* layerBottomInterface(size_t i_layer) const;
 
-    //! Returns layer material
-    Material layerMaterial(size_t i_layer) const;
-
-    //! Changes a layer's material
-    void setLayerMaterial(size_t i_layer, Material material);
-
     //! Returns a clone of multilayer with clones of all layers and recreated
     //! interfaces between layers
     MultiLayer* clone() const final override;
-
-    //! Returns a clone with inverted magnetic fields
-    MultiLayer* cloneInvertB() const;
-
-#ifndef SWIG
-    //! Returns a clone of multilayer where the original layers may be sliced into several sublayers
-    //! for usage with the graded layer approximation
-    std::unique_ptr<MultiLayer> cloneSliced(bool use_average_layers) const;
-#endif // SWIG
 
     //! Sets cross correlation length of roughnesses between interfaces
     void setCrossCorrLength(double crossCorrLength);
@@ -115,17 +94,6 @@ public:
 
     //! returns layer index
     size_t indexOfLayer(const Layer* p_layer) const;
-
-    //! returns true if contains magnetic materials and matrix calculations are required
-    bool requiresMatrixRTCoefficients() const;
-
-    //! returns layer index corresponding to given global z coordinate
-    //! The top interface position of a layer is considered to belong to the layer above
-    size_t bottomZToLayerIndex(double z_value) const;
-
-    //! returns layer index corresponding to given global z coordinate
-    //! The top interface position of a layer is considered to belong to the layer beneath
-    size_t topZToLayerIndex(double z_value) const;
 
     bool containsMagneticMaterial() const;
 
@@ -160,13 +128,8 @@ private:
     //! Checks index of interface w.r.t. vector length
     size_t check_interface_index(size_t i_interface) const;
 
-    //! Shared implementation for different clones
-    MultiLayer* genericClone(const std::function<Layer*(const Layer*)>& layer_clone) const;
-
     //! stack of layers [nlayers]
     SafePointerVector<Layer> m_layers;
-    //! coordinate of layer's bottoms [nlayers-1]
-    std::vector<double> m_layers_bottomz;
     //! stack of layer interfaces [nlayers-1]
     SafePointerVector<LayerInterface> m_interfaces;
     //! cross correlation length (in z direction) between different layers

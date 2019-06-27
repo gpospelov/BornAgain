@@ -15,8 +15,8 @@
 #ifndef SLICEDFORMFACTORLIST_H
 #define SLICEDFORMFACTORLIST_H
 
-#include "IFormFactor.h"
 #include "HomogeneousRegion.h"
+#include "IFormFactor.h"
 #include <map>
 #include <memory>
 
@@ -37,19 +37,16 @@ public:
     ~SlicedFormFactorList() = default;
 
     static SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
-                                                 const MultiLayer& multilayer,
-                                                 size_t ref_layer_index);
-    static SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
-                                                 const std::vector<Slice>& slices, double z_ref);
+                                                        const std::vector<Slice>& slices,
+                                                        double z_ref);
 
     size_t size() const;
 
     std::pair<const IFormFactor*, size_t> operator[](size_t index) const;
 
     std::map<size_t, std::vector<HomogeneousRegion>> regionMap() const;
+
 private:
-    void addParticle(IParticle& particle, const MultiLayer& multilayer,
-                       size_t ref_layer_index);
     void addParticle(IParticle& particle, const std::vector<Slice>& slices, double z_ref);
     std::vector<std::pair<std::unique_ptr<IFormFactor>, size_t>> m_ff_list;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;

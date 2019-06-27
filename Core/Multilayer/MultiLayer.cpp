@@ -45,19 +45,6 @@ void MultiLayer::init_parameters()
 
 MultiLayer* MultiLayer::clone() const
 {
-    return genericClone( [](const Layer* p_layer) { return p_layer->clone(); } );
-}
-
-MultiLayer* MultiLayer::cloneInvertB() const
-{
-    return genericClone( [](const Layer* p_layer) { return p_layer->cloneInvertB(); } );
-}
-
-std::unique_ptr<MultiLayer> MultiLayer::cloneSliced(bool use_average_layers) const
-{
-    if (!use_average_layers || numberOfLayers()==0)
-        return std::unique_ptr<MultiLayer>(clone());
-    auto layer_limits = MultiLayerUtils::ParticleRegions(*this, true);
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
     P_result->setExternalField(externalField());
@@ -65,22 +52,13 @@ std::unique_ptr<MultiLayer> MultiLayer::cloneSliced(bool use_average_layers) con
     {
         auto p_interface = i>0 ? m_interfaces[i-1]
                                : nullptr;
-        auto layer_type = (numberOfLayers()==1) ? Layer::ONLYLAYER
-                        : (i==0) ? Layer::TOPLAYER
-                        : (i==numberOfLayers()-1) ? Layer::BOTTOMLAYER
-                        : Layer::INTERMEDIATELAYER;
-        SafePointerVector<Layer> sliced_layers =
-                m_layers[i]->slice(layer_limits[i], layer_type);
-        if (sliced_layers.size()==0)
-            throw std::runtime_error("MultiLayer::cloneSliced: slicing layer produced empty list.");
+        std::unique_ptr<Layer> P_layer(m_layers[i]->clone());
         if (i>0 && p_interface->getRoughness())
-            P_result->addLayerWithTopRoughness(*sliced_layers[0], *p_interface->getRoughness());
+            P_result->addLayerWithTopRoughness(*P_layer, *p_interface->getRoughness());
         else
-            P_result->addLayer(*sliced_layers[0]);
-        for (size_t j=1; j<sliced_layers.size(); ++j)
-            P_result->addLayer(*sliced_layers[j]);
+            P_result->addLayer(*P_layer);
     }
-    return P_result;
+    return P_result.release();
 }
 
 const LayerRoughness* MultiLayer::layerTopRoughness(size_t i_layer) const
@@ -104,17 +82,6 @@ const LayerInterface* MultiLayer::layerBottomInterface(size_t i_layer) const
     return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : nullptr;
 }
 
-Material MultiLayer::layerMaterial(size_t i_layer) const
-{
-    return *layer(i_layer)->material();
-}
-
-void MultiLayer::setLayerMaterial(size_t i_layer, Material material)
-{
-    auto p_layer = m_layers[check_layer_index(i_layer)];
-    p_layer->setMaterial(std::move(material));
-}
-
 //! Adds layer with top roughness
 void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness)
 {
@@ -128,9 +95,6 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
         else
             interface = LayerInterface::createSmoothInterface(p_last_layer, p_new_layer);
         addAndRegisterInterface(interface);
-        double bottomz = (numberOfLayers()==1) ? 0.0
-                             : m_layers_bottomz.back() - p_last_layer->thickness();
-        m_layers_bottomz.push_back(bottomz);
     } else {
         // the top layer
         if (p_new_layer->thickness() != 0.0)
@@ -247,71 +211,6 @@ size_t MultiLayer::check_interface_index(size_t i_interface) const
     if (i_interface >= m_interfaces.size())
         throw Exceptions::OutOfBoundsException("Interface index is out of bounds");
     return i_interface;
-}
-
-MultiLayer* MultiLayer::genericClone(const std::function<Layer*(const Layer*)>& layer_clone) const
-{
-    std::unique_ptr<MultiLayer> P_result(new MultiLayer());
-    P_result->setCrossCorrLength(crossCorrLength());
-    P_result->setExternalField(externalField());
-    for (size_t i=0; i<numberOfLayers(); ++i)
-    {
-        auto p_interface = i>0 ? m_interfaces[i-1]
-                               : nullptr;
-        std::unique_ptr<Layer> P_layer(layer_clone(m_layers[i]));
-        if (i>0 && p_interface->getRoughness())
-            P_result->addLayerWithTopRoughness(*P_layer, *p_interface->getRoughness());
-        else
-            P_result->addLayer(*P_layer);
-    }
-    return P_result.release();
-}
-
-bool MultiLayer::requiresMatrixRTCoefficients() const
-{
-    for (auto p_layer: m_layers)
-        if (!(p_layer->material()->isScalarMaterial()))
-            return true;
-    return false;
-}
-
-size_t MultiLayer::bottomZToLayerIndex(double z_value) const
-{
-    size_t n_layers = numberOfLayers();
-    if (n_layers < 2)
-        return 0;
-    if (z_value < m_layers_bottomz[n_layers-2]) return numberOfLayers()-1;
-    auto top_limit = std::upper_bound(m_layers_bottomz.rbegin(), m_layers_bottomz.rend(), z_value);
-    size_t nbin = static_cast<size_t>(m_layers_bottomz.rend() - top_limit);
-    return nbin;
-}
-
-size_t MultiLayer::topZToLayerIndex(double z_value) const
-{
-    size_t n_layers = numberOfLayers();
-    if (n_layers < 2)
-        return 0;
-    if (z_value <= m_layers_bottomz[n_layers-2]) return numberOfLayers()-1;
-    auto bottom_limit = std::lower_bound(m_layers_bottomz.rbegin(), m_layers_bottomz.rend(), z_value);
-    size_t nbin = static_cast<size_t>(m_layers_bottomz.rend() - bottom_limit);
-    return nbin;
-}
-
-double MultiLayer::layerTopZ(size_t i_layer) const
-{
-    if (i_layer==0)
-        return 0.0;
-    return layerBottomZ(i_layer-1);
-}
-
-double MultiLayer::layerBottomZ(size_t i_layer) const
-{
-    if (numberOfLayers()<2)
-        return 0;
-    // Size of m_layers_z is numberOfLayers()-1:
-    if (i_layer>numberOfLayers()-2)
-        i_layer = numberOfLayers()-2;
-    return m_layers_bottomz[i_layer];
 }
 
 double MultiLayer::layerThickness(size_t i_layer) const

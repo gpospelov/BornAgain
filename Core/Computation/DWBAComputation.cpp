@@ -24,32 +24,29 @@
 #include "SimulationElement.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
-    "DWBAComputation should not be copy constructable");
+              "DWBAComputation should not be copy constructable");
 static_assert(std::is_copy_assignable<DWBAComputation>::value == false,
-    "DWBAComputation should not be copy assignable");
+              "DWBAComputation should not be copy assignable");
 
 DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationOptions& options,
                                  ProgressHandler& progress,
                                  std::vector<SimulationElement>::iterator begin_it,
                                  std::vector<SimulationElement>::iterator end_it)
-    : IComputation(options, progress, multilayer)
-    , m_begin_it(begin_it)
-    , m_end_it(end_it)
-    , mP_processed_sample(std::make_unique<ProcessedSample>(multilayer, options))
+    : IComputation(options, progress, multilayer), m_begin_it(begin_it), m_end_it(end_it),
+      mP_processed_sample(std::make_unique<ProcessedSample>(multilayer, options))
 {
     auto p_fresnel_map = mP_processed_sample->fresnelMap();
     bool polarized = mP_multi_layer->containsMagneticMaterial();
     for (const auto& layout : mP_processed_sample->layouts()) {
         m_single_computation.addLayoutComputation(
-                    new ParticleLayoutComputation(&layout, m_sim_options, polarized));
+            new ParticleLayoutComputation(&layout, m_sim_options, polarized));
     }
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
         m_single_computation.setRoughnessComputation(
-                    new RoughMultiLayerComputation(mP_multi_layer.get(), p_fresnel_map));
+            new RoughMultiLayerComputation(mP_processed_sample.get()));
     if (m_sim_options.includeSpecular())
-        m_single_computation.setSpecularBinComputation(
-                    new GISASSpecularComputation(p_fresnel_map));
+        m_single_computation.setSpecularBinComputation(new GISASSpecularComputation(p_fresnel_map));
 }
 
 DWBAComputation::~DWBAComputation() = default;
@@ -64,7 +61,7 @@ void DWBAComputation::runProtected()
     if (!mp_progress->alive())
         return;
     m_single_computation.setProgressHandler(mp_progress);
-    for (auto it=m_begin_it; it != m_end_it; ++it) {
+    for (auto it = m_begin_it; it != m_end_it; ++it) {
         if (!mp_progress->alive())
             break;
         m_single_computation.compute(*it);

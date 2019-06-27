@@ -16,9 +16,8 @@
 #define ROUGHMULTILAYERCOMPUTATION_H
 
 #include "Complex.h"
-#include "MultilayerInfo.h"
 
-class IFresnelMap;
+class ProcessedSample;
 class SimulationElement;
 
 //! Computes the diffuse reflection from the rough interfaces of a multilayer.
@@ -28,12 +27,12 @@ class SimulationElement;
 class RoughMultiLayerComputation final
 {
 public:
-    RoughMultiLayerComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    RoughMultiLayerComputation(const ProcessedSample* p_sample);
 
     void compute(SimulationElement& elem) const;
 
 private:
-    MultilayerInfo m_multilayer_info;
+    const ProcessedSample* mp_sample;
     complex_t get_refractive_term(size_t ilayer, double wavelength) const;
     complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element) const;
 };

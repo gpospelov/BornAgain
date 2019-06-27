@@ -55,6 +55,11 @@ size_t ProcessedSample::numberOfSlices() const
     return m_slices.size();
 }
 
+const std::vector<Slice> &ProcessedSample::slices() const
+{
+    return m_slices;
+}
+
 const std::vector<ProcessedLayout>& ProcessedSample::layouts() const
 {
     return m_layouts;
@@ -63,6 +68,39 @@ const std::vector<ProcessedLayout>& ProcessedSample::layouts() const
 const IFresnelMap* ProcessedSample::fresnelMap() const
 {
     return mP_fresnel_map.get();
+}
+
+double ProcessedSample::crossCorrelationLength() const
+{
+    return m_crossCorrLength;
+}
+
+const LayerRoughness *ProcessedSample::bottomRoughness(size_t i) const
+{
+    if (i+2 > m_slices.size())
+        throw std::runtime_error("ProcessedSample::bottomRoughness: "
+                                 "index out of bounds.");
+    return m_slices[i+1].topRoughness();
+}
+
+double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
+{
+    if (m_crossCorrLength <= 0.0)
+        return 0.0;
+    double z_j = sliceBottomZ(j);
+    double z_k = sliceBottomZ(k);
+    const LayerRoughness* rough_j = bottomRoughness(j);
+    const LayerRoughness* rough_k = bottomRoughness(k);
+    if (!rough_j || !rough_k)
+        return 0.0;
+    double sigma_j = rough_j->getSigma();
+    double sigma_k = rough_k->getSigma();
+    if (sigma_j <= 0 || sigma_k <= 0)
+        return 0.0;
+    double corr = 0.5*( (sigma_k/sigma_j)*rough_j->getSpectralFun(kvec) +
+                        (sigma_j/sigma_k)*rough_k->getSpectralFun(kvec) ) *
+        std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
+    return corr;
 }
 
 // Creates a array of slices with the correct thickness, roughness and material
@@ -190,6 +228,19 @@ void ProcessedSample::initFresnelMap(const SimulationOptions& sim_options)
     } else {
         mP_fresnel_map->setSlices(m_slices);
     }
+}
+
+double ProcessedSample::sliceBottomZ(size_t i) const
+{
+    if (numberOfSlices()<2)
+        return m_top_z;
+    // Last slice has no bottom:
+    if (i+2 > numberOfSlices())
+        i = numberOfSlices()-2;
+    auto z = m_top_z;
+    for (size_t j=1; j<=i; ++j)
+        z -= m_slices[j].thickness();
+    return z;
 }
 
 namespace

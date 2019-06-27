@@ -43,9 +43,15 @@ public:
     ~ProcessedSample();
 
     size_t numberOfSlices() const;
+    const std::vector<Slice>& slices() const;
     const std::vector<ProcessedLayout>& layouts() const;
     const IFresnelMap* fresnelMap() const;
+    double crossCorrelationLength() const;
+    const LayerRoughness* bottomRoughness(size_t i) const;
 
+    //! Fourier transform of the correlation function of roughnesses between
+    //! the interfaces
+    double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
 
 private:
     void initSlices(const MultiLayer& sample, const SimulationOptions& options);
@@ -57,6 +63,7 @@ private:
     void initBFields();
     void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
     void initFresnelMap(const SimulationOptions& sim_options);
+    double sliceBottomZ(size_t i) const;
     std::unique_ptr<IFresnelMap> mP_fresnel_map;
     std::vector<Slice> m_slices;
     double m_top_z;

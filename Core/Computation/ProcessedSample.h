@@ -48,6 +48,8 @@ public:
     const IFresnelMap* fresnelMap() const;
     double crossCorrelationLength() const;
     const LayerRoughness* bottomRoughness(size_t i) const;
+    double sliceTopZ(size_t i) const;
+    double sliceBottomZ(size_t i) const;
 
     //! Fourier transform of the correlation function of roughnesses between
     //! the interfaces
@@ -63,7 +65,6 @@ private:
     void initBFields();
     void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
     void initFresnelMap(const SimulationOptions& sim_options);
-    double sliceBottomZ(size_t i) const;
     std::unique_ptr<IFresnelMap> mP_fresnel_map;
     std::vector<Slice> m_slices;
     double m_top_z;

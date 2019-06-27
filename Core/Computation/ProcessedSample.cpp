@@ -83,6 +83,27 @@ const LayerRoughness *ProcessedSample::bottomRoughness(size_t i) const
     return m_slices[i+1].topRoughness();
 }
 
+double ProcessedSample::sliceTopZ(size_t i) const
+{
+    if (i==0)
+        return m_top_z;
+    return sliceBottomZ(i-1);
+}
+
+double ProcessedSample::sliceBottomZ(size_t i) const
+{
+    if (numberOfSlices()<2)
+        return m_top_z;
+    // Last slice has no bottom:
+    if (i+2 > numberOfSlices())
+        i = numberOfSlices()-2;
+    auto z = m_top_z;
+    for (size_t j=1; j<=i; ++j)
+        z -= m_slices[j].thickness();
+    return z;
+}
+
+
 double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
 {
     if (m_crossCorrLength <= 0.0)
@@ -228,19 +249,6 @@ void ProcessedSample::initFresnelMap(const SimulationOptions& sim_options)
     } else {
         mP_fresnel_map->setSlices(m_slices);
     }
-}
-
-double ProcessedSample::sliceBottomZ(size_t i) const
-{
-    if (numberOfSlices()<2)
-        return m_top_z;
-    // Last slice has no bottom:
-    if (i+2 > numberOfSlices())
-        i = numberOfSlices()-2;
-    auto z = m_top_z;
-    for (size_t j=1; j<=i; ++j)
-        z -= m_slices[j].thickness();
-    return z;
 }
 
 namespace

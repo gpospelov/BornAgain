@@ -21,8 +21,6 @@
 #include "FormFactorCoherentPart.h"
 #include <vector>
 
-class IMultiLayerFresnelMap;
-class IFormFactor;
 class SimulationElement;
 
 //! Information about particle form factor and abundance.
@@ -38,11 +36,10 @@ public:
     void addCoherentPart(const FormFactorCoherentPart& part);
 
     complex_t evaluate(const SimulationElement& sim_element) const;
+
 #ifndef SWIG
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
-
-    void setSpecularInfo(const IMultiLayerFresnelMap* p_fresnel_map, size_t layer_index);
 
     double relativeAbundance() const { return m_abundance; }
     void scaleRelativeAbundance(double total_abundance);

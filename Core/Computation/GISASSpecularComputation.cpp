@@ -13,15 +13,16 @@
 // ************************************************************************** //
 
 #include "GISASSpecularComputation.h"
-#include "IMultiLayerFresnelMap.h"
 #include "ILayerRTCoefficients.h"
+#include "IFresnelMap.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
 
 GISASSpecularComputation::GISASSpecularComputation(const MultiLayer* p_multi_layer,
-                                                           const IMultiLayerFresnelMap* p_fresnel_map)
+                                                   const IFresnelMap* p_fresnel_map)
     : m_multilayer_info(p_multi_layer, p_fresnel_map)
-{}
+{
+}
 
 void GISASSpecularComputation::compute(SimulationElement& elem) const
 {

@@ -44,6 +44,7 @@ public:
 
     size_t numberOfSlices() const;
     const std::vector<ProcessedLayout>& layouts() const;
+    const IFresnelMap* fresnelMap() const;
 
 
 private:

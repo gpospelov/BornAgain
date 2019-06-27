@@ -26,7 +26,7 @@ class SimulationElement;
 class GISASSpecularComputation final
 {
 public:
-    GISASSpecularComputation(const MultiLayer* p_multi_layer, const IMultiLayerFresnelMap* p_fresnel_map);
+    GISASSpecularComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
     void compute(SimulationElement& elem) const;
 private:

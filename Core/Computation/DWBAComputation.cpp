@@ -41,7 +41,7 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
     , m_end_it(end_it)
     , mP_processed_sample(std::make_unique<ProcessedSample>(multilayer, options))
 {
-    mP_fresnel_map = IComputationUtils::CreateFresnelMap(multilayer, options);
+    auto p_fresnel_map = mP_processed_sample->fresnelMap();
     bool polarized = mP_multi_layer->containsMagneticMaterial();
     for (const auto& layout : mP_processed_sample->layouts()) {
         m_single_computation.addLayoutComputation(
@@ -50,13 +50,10 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
     // scattering from rough surfaces in DWBA
     if (mP_multi_layer->hasRoughness())
         m_single_computation.setRoughnessComputation(
-                    new RoughMultiLayerComputation(mP_multi_layer.get(), mP_fresnel_map.get()));
+                    new RoughMultiLayerComputation(mP_multi_layer.get(), p_fresnel_map));
     if (m_sim_options.includeSpecular())
         m_single_computation.setSpecularBinComputation(
-                    new GISASSpecularComputation(mP_multi_layer.get(), mP_fresnel_map.get()));
-    mP_fresnel_map->setMultilayer(*IComputationUtils::CreateAveragedMultilayer(
-                                      *mP_multi_layer, m_sim_options,
-                                      m_single_computation.regionMap()));
+                    new GISASSpecularComputation(mP_multi_layer.get(), p_fresnel_map));
 }
 
 DWBAComputation::~DWBAComputation() = default;

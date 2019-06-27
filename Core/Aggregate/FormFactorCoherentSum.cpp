@@ -13,17 +13,10 @@
 // ************************************************************************** //
 
 #include "FormFactorCoherentSum.h"
-#include "IFormFactor.h"
-#include "SimulationElement.h"
-#include "WavevectorInfo.h"
-#include "IMultiLayerFresnelMap.h"
-#include "ILayerRTCoefficients.h"
 #include "Exceptions.h"
+#include "SimulationElement.h"
 
-FormFactorCoherentSum::FormFactorCoherentSum(double abundance)
-: m_abundance(abundance)
-{
-}
+FormFactorCoherentSum::FormFactorCoherentSum(double abundance) : m_abundance(abundance) {}
 
 FormFactorCoherentSum::~FormFactorCoherentSum() {}
 
@@ -39,7 +32,7 @@ void FormFactorCoherentSum::addCoherentPart(const FormFactorCoherentPart& part)
 
 complex_t FormFactorCoherentSum::evaluate(const SimulationElement& sim_element) const
 {
-    complex_t result {};
+    complex_t result{};
     for (auto& part : m_parts) {
         result += part.evaluate(sim_element);
     }
@@ -55,14 +48,9 @@ Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement& sim
     return result;
 }
 
-void FormFactorCoherentSum::setSpecularInfo(const IMultiLayerFresnelMap* p_fresnel_map, size_t layer_index)
-{
-    m_parts[0].setSpecularInfo(p_fresnel_map, layer_index);
-}
-
 void FormFactorCoherentSum::scaleRelativeAbundance(double total_abundance)
 {
-    if (total_abundance>0.0) {
+    if (total_abundance > 0.0) {
         m_abundance /= total_abundance;
         return;
     }
@@ -77,6 +65,6 @@ double FormFactorCoherentSum::radialExtension() const
 
 FormFactorCoherentSum::FormFactorCoherentSum(const std::vector<FormFactorCoherentPart>& parts,
                                              double abundance)
-: m_parts(parts), m_abundance(abundance)
+    : m_parts(parts), m_abundance(abundance)
 {
 }

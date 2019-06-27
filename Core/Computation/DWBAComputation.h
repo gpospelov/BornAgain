@@ -19,7 +19,6 @@
 #include "DWBASingleComputation.h"
 #include "SimulationOptions.h"
 
-class IMultiLayerFresnelMap;
 class MultiLayer;
 class ProcessedSample;
 class SimulationElement;
@@ -45,7 +44,6 @@ private:
     //! These iterators define the span of detector bins this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
     //! Contains the information, necessary to calculate the Fresnel coefficients.
-    std::unique_ptr<IMultiLayerFresnelMap> mP_fresnel_map;
     DWBASingleComputation m_single_computation;
     std::unique_ptr<ProcessedSample> mP_processed_sample;
 };

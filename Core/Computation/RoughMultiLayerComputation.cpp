@@ -14,7 +14,7 @@
 
 #include "RoughMultiLayerComputation.h"
 #include "ILayerRTCoefficients.h"
-#include "IMultiLayerFresnelMap.h"
+#include "IFresnelMap.h"
 #include "Faddeeva.hh"
 #include "Layer.h"
 #include "LayerInterface.h"
@@ -38,7 +38,7 @@ namespace {
 }
 
 RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer,
-                                                       const IMultiLayerFresnelMap* p_fresnel_map)
+                                                       const IFresnelMap* p_fresnel_map)
     : m_multilayer_info(p_multi_layer, p_fresnel_map)
 {}
 

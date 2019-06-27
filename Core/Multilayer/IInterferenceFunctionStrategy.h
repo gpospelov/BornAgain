@@ -18,15 +18,11 @@
 #include "Complex.h"
 #include "SafePointerVector.h"
 #include "SimulationOptions.h"
-#include "Vectors3D.h"
 #include <memory>
-#include <vector>
 
 template <class T> class IntegratorMCMiser;
-class Bin1DCVector;
 class FormFactorCoherentSum;
 class IInterferenceFunction;
-class IMultiLayerFresnelMap;
 class SimulationElement;
 
 //! Base class of all interference function strategy classes.

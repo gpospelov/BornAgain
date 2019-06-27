@@ -14,20 +14,10 @@
 
 #include "LayoutStrategyBuilder.h"
 #include "DecouplingApproximationStrategy.h"
+#include "SSCApproximationStrategy.h"
 #include "Exceptions.h"
-#include "FormFactorCoherentSum.h"
-#include "FormFactorDWBA.h"
-#include "FormFactorDWBAPol.h"
-#include "FormFactorBAPol.h"
-#include "IMultiLayerFresnelMap.h"
-#include "ILayout.h"
-#include "IParticle.h"
-#include "InterferenceFunctionNone.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "ProcessedLayout.h"
-#include "Layer.h"
-#include "SlicedFormFactorList.h"
-#include "SSCApproximationStrategy.h"
 
 
 LayoutStrategyBuilder::LayoutStrategyBuilder(

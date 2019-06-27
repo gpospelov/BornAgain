@@ -14,7 +14,6 @@
 
 #include "ProcessedSample.h"
 #include "HomogeneousRegion.h"
-#include "IMultiLayerFresnelMap.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
 #include "MaterialFactoryFuncs.h"
@@ -39,7 +38,8 @@ CreateAverageMaterialSlices(const std::vector<Slice>& slices,
 } // namespace
 
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
-    : m_slices{}, m_top_z{0.0}, m_crossCorrLength{sample.crossCorrLength()}, m_ext_field{sample.externalField()}
+    : m_slices{}, m_top_z{0.0}, m_crossCorrLength{sample.crossCorrLength()},
+      m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
     mP_fresnel_map = CreateFresnelMap(m_slices, options);
@@ -58,6 +58,11 @@ size_t ProcessedSample::numberOfSlices() const
 const std::vector<ProcessedLayout>& ProcessedSample::layouts() const
 {
     return m_layouts;
+}
+
+const IFresnelMap* ProcessedSample::fresnelMap() const
+{
+    return mP_fresnel_map.get();
 }
 
 // Creates a array of slices with the correct thickness, roughness and material

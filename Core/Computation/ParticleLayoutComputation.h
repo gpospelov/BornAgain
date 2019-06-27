@@ -15,15 +15,11 @@
 #ifndef PARTICLELAYOUTCOMPUTATION_H
 #define PARTICLELAYOUTCOMPUTATION_H
 
-#include "MultilayerInfo.h"
 #include "HomogeneousRegion.h"
 #include <map>
 #include <memory>
 #include <vector>
 
-using std::size_t;
-
-class ILayout;
 class IInterferenceFunctionStrategy;
 class ProcessedLayout;
 class SimulationElement;

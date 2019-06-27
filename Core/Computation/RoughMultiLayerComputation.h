@@ -18,6 +18,7 @@
 #include "Complex.h"
 #include "MultilayerInfo.h"
 
+class IFresnelMap;
 class SimulationElement;
 
 //! Computes the diffuse reflection from the rough interfaces of a multilayer.
@@ -27,7 +28,7 @@ class SimulationElement;
 class RoughMultiLayerComputation final
 {
 public:
-    RoughMultiLayerComputation(const MultiLayer* p_multi_layer, const IMultiLayerFresnelMap* p_fresnel_map);
+    RoughMultiLayerComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
 
     void compute(SimulationElement& elem) const;
 

@@ -15,20 +15,11 @@
 #ifndef LAYOUTSTRATEGYBUILDER_H
 #define LAYOUTSTRATEGYBUILDER_H
 
-#include "SafePointerVector.h"
 #include "SimulationOptions.h"
-#include "HomogeneousRegion.h"
-#include <map>
 #include <memory>
 
-class FormFactorCoherentSum;
-class IFormFactor;
 class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
-class ILayout;
-class IParticle;
-class IMultiLayerFresnelMap;
-class MultiLayer;
 class ProcessedLayout;
 
 //! Methods to generate a simulation strategy for a ParticleLayoutComputation.

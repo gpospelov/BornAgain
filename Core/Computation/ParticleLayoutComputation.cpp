@@ -13,15 +13,9 @@
 // ************************************************************************** //
 
 #include "ParticleLayoutComputation.h"
-#include "DelayedProgressCounter.h"
-#include "Exceptions.h"
 #include "IInterferenceFunctionStrategy.h"
-#include "IMultiLayerFresnelMap.h"
-#include "ILayout.h"
 #include "LayoutStrategyBuilder.h"
-#include "MultiLayer.h"
 #include "ProcessedLayout.h"
-#include "ProgressHandler.h"
 #include "SimulationElement.h"
 
 ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* p_layout,

@@ -14,17 +14,13 @@
 
 #include "DWBAComputation.h"
 #include "GISASSpecularComputation.h"
-#include "IComputationUtils.h"
-#include "Layer.h"
-#include "MaterialFactoryFuncs.h"
-#include "MatrixMLFresnelMap.h"
+#include "IFresnelMap.h"
 #include "MultiLayer.h"
 #include "ParticleLayoutComputation.h"
 #include "ProcessedLayout.h"
 #include "ProcessedSample.h"
 #include "ProgressHandler.h"
 #include "RoughMultiLayerComputation.h"
-#include "ScalarMLFresnelMap.h"
 #include "SimulationElement.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
@@ -53,7 +49,7 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
                     new RoughMultiLayerComputation(mP_multi_layer.get(), p_fresnel_map));
     if (m_sim_options.includeSpecular())
         m_single_computation.setSpecularBinComputation(
-                    new GISASSpecularComputation(mP_multi_layer.get(), p_fresnel_map));
+                    new GISASSpecularComputation(p_fresnel_map));
 }
 
 DWBAComputation::~DWBAComputation() = default;

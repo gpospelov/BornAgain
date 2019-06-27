@@ -20,7 +20,6 @@
 #include "SimulationOptions.h"
 
 class MultiLayer;
-class ProcessedSample;
 class SimulationElement;
 
 //! Performs a single-threaded DWBA computation with given sample and simulation parameters.
@@ -45,7 +44,6 @@ private:
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
     //! Contains the information, necessary to calculate the Fresnel coefficients.
     DWBASingleComputation m_single_computation;
-    std::unique_ptr<ProcessedSample> mP_processed_sample;
 };
 
 #endif // MAINCOMPUTATION_H

@@ -21,6 +21,7 @@
 #include <vector>
 
 class MultiLayer;
+class ProcessedSample;
 class ProgressHandler;
 
 //! Interface for a single-threaded computation with given range of SimulationElements
@@ -33,8 +34,8 @@ class ProgressHandler;
 class IComputation
 {
 public:
-    IComputation(const SimulationOptions& options, ProgressHandler& progress,
-                 const MultiLayer& sample);
+    IComputation(const MultiLayer& sample, const SimulationOptions& options,
+                 ProgressHandler& progress);
     virtual ~IComputation();
 
     void run();
@@ -43,10 +44,11 @@ public:
     std::string errorMessage() const { return m_status.errorMessage(); }
 
 protected:
+    std::unique_ptr<MultiLayer> mP_multi_layer;
     SimulationOptions m_sim_options;
     ProgressHandler* mp_progress;
     ComputationStatus m_status;
-    std::unique_ptr<MultiLayer> mP_multi_layer;
+    std::unique_ptr<ProcessedSample> mP_processed_sample;
 
 private:
     virtual void runProtected() = 0;

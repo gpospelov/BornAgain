@@ -27,7 +27,7 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
                                          const SimulationOptions& options,
                                          ProgressHandler& progress, SpecularElementIter begin_it,
                                          SpecularElementIter end_it)
-    : IComputation(options, progress, multilayer)
+    : IComputation(multilayer, options, progress)
     , m_begin_it(begin_it), m_end_it(end_it)
 {}
 

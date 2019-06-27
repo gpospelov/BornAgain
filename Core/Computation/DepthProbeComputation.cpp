@@ -30,7 +30,7 @@ DepthProbeComputation::DepthProbeComputation(const MultiLayer& multilayer,
                                              ProgressHandler& progress,
                                              DepthProbeElementIter begin_it,
                                              DepthProbeElementIter end_it)
-    : IComputation(options, progress, multilayer)
+    : IComputation(multilayer, options, progress)
     , m_begin_it(begin_it), m_end_it(end_it)
     , mP_fresnel_map(IComputationUtils::CreateFresnelMap(multilayer, options))
     , m_computation_term(mP_multi_layer.get(), mP_fresnel_map.get())

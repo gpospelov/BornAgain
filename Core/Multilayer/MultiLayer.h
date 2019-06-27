@@ -113,10 +113,6 @@ public:
     //! Returns the external field applied to the multilayer (units: A/m)
     kvector_t externalField() const { return m_ext_field; }
 
-    //! Fourier transform of the correlation function of roughnesses between
-    //! the interfaces
-    double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
-
     //! returns layer index
     size_t indexOfLayer(const Layer* p_layer) const;
 

@@ -25551,20 +25551,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_externalField(self)
 
 
-    def crossCorrSpectralFun(self, kvec, j, k):
-        """
-        crossCorrSpectralFun(MultiLayer self, kvector_t kvec, size_t j, size_t k) -> double
-
-        double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
-
-        Fourier transform of the correlation function of roughnesses between the interfaces
-
-        Fourier transform of the correlation function of roughnesses between the interfaces j,k - indexes of layers in multilayer whose bottom interfaces we are considering 
-
-        """
-        return _libBornAgainCore.MultiLayer_crossCorrSpectralFun(self, kvec, j, k)
-
-
     def indexOfLayer(self, p_layer):
         """
         indexOfLayer(MultiLayer self, Layer p_layer) -> size_t

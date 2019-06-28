@@ -15,6 +15,7 @@
 #ifndef MULTILAYERUTILS_H
 #define MULTILAYERUTILS_H
 
+#include <cstddef>
 #include <vector>
 
 class Layer;

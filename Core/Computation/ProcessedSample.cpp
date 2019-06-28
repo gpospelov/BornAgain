@@ -80,6 +80,11 @@ double ProcessedSample::crossCorrelationLength() const
     return m_crossCorrLength;
 }
 
+kvector_t ProcessedSample::externalField() const
+{
+    return m_ext_field;
+}
+
 const LayerRoughness* ProcessedSample::bottomRoughness(size_t i) const
 {
     if (i + 2 > m_slices.size())
@@ -116,7 +121,7 @@ bool ProcessedSample::containsMagneticMaterial() const
 bool ProcessedSample::hasRoughness() const
 {
     for (auto& slice : m_slices) {
-        if (auto p_roughness = slice.topRoughness())
+        if (slice.topRoughness())
             return true;
     }
     return false;
@@ -156,7 +161,7 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
         const ZLimits& slice_limits = layer_limits[i];
         double tl = p_layer->thickness();
         const Material* p_material = p_layer->material();
-        auto p_roughness = sample.layerTopRoughness(i);
+        auto p_roughness = MultiLayerUtils::LayerTopRoughness(sample, i);
         if (p_roughness && p_roughness->getSigma() <= 0)
             p_roughness = nullptr;
         // if no slicing is needed, create single slice for the layer
@@ -206,7 +211,7 @@ void ProcessedSample::initLayouts(const MultiLayer& sample)
     m_polarized = ContainsMagneticMaterial(sample);
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         if (i > 1)
-            z_ref -= sample.layerThickness(i - 1);
+            z_ref -= MultiLayerUtils::LayerThickness(sample, i-1);
         auto p_layer = sample.layer(i);
         for (auto p_layout : p_layer->layouts()) {
             m_layouts.emplace_back(*p_layout, m_slices, z_ref, mP_fresnel_map.get(), m_polarized);

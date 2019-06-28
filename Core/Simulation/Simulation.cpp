@@ -16,22 +16,24 @@
 #include "IBackground.h"
 #include "IComputation.h"
 #include "IMultiLayerBuilder.h"
-#include "MultiLayer.h"
 #include "MPISimulation.h"
+#include "MultiLayer.h"
+#include "MultiLayerUtils.h"
 #include "ParameterPool.h"
 #include "ParameterSample.h"
 #include "StringUtils.h"
-#include <thread>
 #include <gsl/gsl_errno.h>
 #include <iomanip>
 #include <iostream>
+#include <thread>
 
-namespace {
+namespace
+{
 size_t getIndexStep(size_t total_size, size_t n_handlers);
 size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements);
 size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements);
 void runComputations(std::vector<std::unique_ptr<IComputation>> computations);
-}
+} // namespace
 
 Simulation::Simulation()
 {
@@ -51,12 +53,9 @@ Simulation::Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builde
 }
 
 Simulation::Simulation(const Simulation& other)
-    : ICloneable()
-    , m_sample_provider(other.m_sample_provider)
-    , m_options(other.m_options)
-    , m_distribution_handler(other.m_distribution_handler)
-    , m_progress(other.m_progress)
-    , m_instrument(other.m_instrument)
+    : ICloneable(), m_sample_provider(other.m_sample_provider), m_options(other.m_options),
+      m_distribution_handler(other.m_distribution_handler), m_progress(other.m_progress),
+      m_instrument(other.m_instrument)
 {
     if (other.mP_background)
         setBackground(*other.mP_background);
@@ -68,14 +67,13 @@ Simulation::~Simulation() {}
 //! Initializes a progress monitor that prints to stdout.
 void Simulation::setTerminalProgressMonitor()
 {
-    m_progress.subscribe( [] (size_t percentage_done) -> bool {
-            if (percentage_done<100)
-                std::cout << std::setprecision(2)
-                          << "\r... " << percentage_done << "%" << std::flush;
-            else // wipe out
-                std::cout << "\r... 100%\n";
-            return true;
-    } );
+    m_progress.subscribe([](size_t percentage_done) -> bool {
+        if (percentage_done < 100)
+            std::cout << std::setprecision(2) << "\r... " << percentage_done << "%" << std::flush;
+        else // wipe out
+            std::cout << "\r... 100%\n";
+        return true;
+    });
 }
 
 void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function)
@@ -114,9 +112,10 @@ void Simulation::setBeamPolarization(const kvector_t bloch_vector)
 void Simulation::prepareSimulation()
 {
     updateSample();
-    if (!m_sample_provider.sample()->containsCompatibleMaterials())
-        throw std::runtime_error("Error in Simulation::prepareSimulation(): non-default materials of "
-                                 "several types are used in the sample provided");
+    if (!MultiLayerUtils::ContainsCompatibleMaterials(*m_sample_provider.sample()))
+        throw std::runtime_error(
+            "Error in Simulation::prepareSimulation(): non-default materials of"
+            " several different types are used in the sample provided");
     gsl_set_error_handler_off();
 }
 
@@ -128,7 +127,7 @@ void Simulation::runSimulation()
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
     m_progress.reset();
-    m_progress.setExpectedNTicks(param_combinations*numberOfSimulationElements());
+    m_progress.setExpectedNTicks(param_combinations * numberOfSimulationElements());
 
     // restrict calculation to current batch
     const size_t n_batches = m_options.getNumberOfBatches();
@@ -198,8 +197,7 @@ void Simulation::addParameterDistribution(const std::string& param_name,
                                           const IDistribution1D& distribution, size_t nbr_samples,
                                           double sigma_factor, const RealLimits& limits)
 {
-    ParameterDistribution par_distr(
-        param_name, distribution, nbr_samples, sigma_factor, limits);
+    ParameterDistribution par_distr(param_name, distribution, nbr_samples, sigma_factor, limits);
     addParameterDistribution(par_distr);
 }
 
@@ -226,7 +224,8 @@ void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, doub
 
     std::vector<std::unique_ptr<IComputation>> computations;
 
-    for (size_t i_thread = 0; i_thread < n_threads; ++i_thread) { // Distribute computations by threads
+    for (size_t i_thread = 0; i_thread < n_threads;
+         ++i_thread) { // Distribute computations by threads
         const size_t thread_start = batch_start + getStartIndex(n_threads, i_thread, batch_size);
         const size_t thread_size = getNumberOfElements(n_threads, i_thread, batch_size);
         if (thread_size == 0)
@@ -246,7 +245,8 @@ void Simulation::initialize()
     registerChild(&m_sample_provider);
 }
 
-namespace {
+namespace
+{
 size_t getIndexStep(size_t total_size, size_t n_handlers)
 {
     assert(total_size > 0);
@@ -285,7 +285,8 @@ void runComputations(std::vector<std::unique_ptr<IComputation>> computations)
         std::string message = computation->errorMessage();
         throw Exceptions::RuntimeErrorException("Error in runComputations: Simulation has "
                                                 "terminated unexpectedly with following error: "
-                                                "message.\n" + message);
+                                                "message.\n"
+                                                + message);
     }
 
     // Running computations in several threads.

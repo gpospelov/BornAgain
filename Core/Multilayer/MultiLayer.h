@@ -32,24 +32,27 @@ class LayerRoughness;
 
 //! Example of system of 4 layers (3 interfaces):
 //!
-//!  ambience    layer #0        z=getLayerBottomZ(0)=0.0
-//!  ---------   interface #0
-//!  Fe, 20A     layer #1        z=getLayerBottomZ(1)=-20.0
-//!  ---------   interface #1
-//!  Cr, 40A     layer #2        z=getLayerBottomZ(2)=-60.0
-//!  ---------   interface #2
-//!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
+//!  ambience    layer #0
+//!  ---------   interface #0    z=0.0
+//!  Fe, 20A     layer #1
+//!  ---------   interface #1    z=-20.0
+//!  Cr, 40A     layer #2
+//!  ---------   interface #2    z=-60.0
+//!  substrate   layer #3
 
 class BA_CORE_API_ MultiLayer : public ISample
 {
 public:
     MultiLayer();
-    virtual ~MultiLayer();
+    ~MultiLayer() override;
+
+    //! Returns a clone of multilayer with clones of all layers and
+    //! interfaces between layers
+    MultiLayer* clone() const final override;
 
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
     size_t numberOfLayers() const { return m_layers.size(); }
-    size_t numberOfInterfaces() const { return m_interfaces.size(); }
 
     //! Adds object to multilayer
     void addLayer(const Layer& layer);
@@ -58,27 +61,10 @@ public:
     void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
 
     //! Returns layer with given index
-    const Layer* layer(size_t i_layer) const { return m_layers[check_layer_index(i_layer)]; }
+    const Layer* layer(size_t i_layer) const;
 
-    //! Returns layer with given index
-    const LayerInterface* layerInterface(size_t i_interface) const {
-        return m_interfaces[check_interface_index(i_interface)]; }
-
-    //! Returns thickness of layer
-    double layerThickness(size_t i_layer) const;
-
-    //! Returns top roughness of layer
-    const LayerRoughness* layerTopRoughness(size_t i_layer) const;
-
-    //! Returns top interface of layer
-    const LayerInterface* layerTopInterface(size_t i_layer) const;
-
-    //! Returns bottom interface of layer
-    const LayerInterface* layerBottomInterface(size_t i_layer) const;
-
-    //! Returns a clone of multilayer with clones of all layers and recreated
-    //! interfaces between layers
-    MultiLayer* clone() const final override;
+    //! Returns interface with given index
+    const LayerInterface* layerInterface(size_t i_interface) const;
 
     //! Sets cross correlation length of roughnesses between interfaces
     void setCrossCorrLength(double crossCorrLength);
@@ -91,21 +77,6 @@ public:
 
     //! Returns the external field applied to the multilayer (units: A/m)
     kvector_t externalField() const { return m_ext_field; }
-
-    //! returns layer index
-    size_t indexOfLayer(const Layer* p_layer) const;
-
-    bool containsMagneticMaterial() const;
-
-    //! Returns true if the multilayer contains non-default materials of one type only
-    bool containsCompatibleMaterials() const;
-
-    //! precalculate the magnetic B fields in each layer
-    void initBFields();
-
-    bool hasRoughness() const;
-
-    size_t totalNofLayouts() const;
 
     std::vector<const INode*> getChildren() const final override;
 

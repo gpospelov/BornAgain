@@ -48,6 +48,7 @@ public:
     const std::vector<ProcessedLayout>& layouts() const;
     const IFresnelMap* fresnelMap() const;
     double crossCorrelationLength() const;
+    kvector_t externalField() const;
     const LayerRoughness* bottomRoughness(size_t i) const;
     double sliceTopZ(size_t i) const;
     double sliceBottomZ(size_t i) const;

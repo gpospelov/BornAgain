@@ -25304,6 +25304,18 @@ class MultiLayer(ISample):
     __swig_destroy__ = _libBornAgainCore.delete_MultiLayer
     __del__ = lambda self: None
 
+    def clone(self):
+        """
+        clone(MultiLayer self) -> MultiLayer
+
+        MultiLayer * MultiLayer::clone() const final override
+
+        Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
+
+        """
+        return _libBornAgainCore.MultiLayer_clone(self)
+
+
     def accept(self, visitor):
         """
         accept(MultiLayer self, INodeVisitor visitor)
@@ -25324,16 +25336,6 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_numberOfLayers(self)
-
-
-    def numberOfInterfaces(self):
-        """
-        numberOfInterfaces(MultiLayer self) -> size_t
-
-        size_t MultiLayer::numberOfInterfaces() const
-
-        """
-        return _libBornAgainCore.MultiLayer_numberOfInterfaces(self)
 
 
     def addLayer(self, layer):
@@ -25386,63 +25388,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_layerInterface(self, i_interface)
 
 
-    def layerThickness(self, i_layer):
-        """
-        layerThickness(MultiLayer self, size_t i_layer) -> double
-
-        double MultiLayer::layerThickness(size_t i_layer) const
-
-        Returns thickness of layer. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerThickness(self, i_layer)
-
-
-    def layerTopRoughness(self, i_layer):
-        """layerTopRoughness(MultiLayer self, size_t i_layer) -> LayerRoughness"""
-        return _libBornAgainCore.MultiLayer_layerTopRoughness(self, i_layer)
-
-
-    def layerTopInterface(self, i_layer):
-        """
-        layerTopInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
-
-        const LayerInterface * MultiLayer::layerTopInterface(size_t i_layer) const
-
-        Returns top interface of layer.
-
-        Returns pointer to the top interface of the layer. nInterfaces = nLayers-1, first layer in multilayer doesn't have interface. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerTopInterface(self, i_layer)
-
-
-    def layerBottomInterface(self, i_layer):
-        """
-        layerBottomInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
-
-        const LayerInterface * MultiLayer::layerBottomInterface(size_t i_layer) const
-
-        Returns bottom interface of layer.
-
-        Returns pointer to the bottom interface of the layer. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerBottomInterface(self, i_layer)
-
-
-    def clone(self):
-        """
-        clone(MultiLayer self) -> MultiLayer
-
-        MultiLayer * MultiLayer::clone() const final override
-
-        Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
-
-        """
-        return _libBornAgainCore.MultiLayer_clone(self)
-
-
     def setCrossCorrLength(self, crossCorrLength):
         """
         setCrossCorrLength(MultiLayer self, double crossCorrLength)
@@ -25489,72 +25434,6 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_externalField(self)
-
-
-    def indexOfLayer(self, p_layer):
-        """
-        indexOfLayer(MultiLayer self, Layer p_layer) -> size_t
-
-        size_t MultiLayer::indexOfLayer(const Layer *p_layer) const
-
-        returns layer index 
-
-        """
-        return _libBornAgainCore.MultiLayer_indexOfLayer(self, p_layer)
-
-
-    def containsMagneticMaterial(self):
-        """
-        containsMagneticMaterial(MultiLayer self) -> bool
-
-        bool MultiLayer::containsMagneticMaterial() const
-
-        """
-        return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)
-
-
-    def containsCompatibleMaterials(self):
-        """
-        containsCompatibleMaterials(MultiLayer self) -> bool
-
-        bool MultiLayer::containsCompatibleMaterials() const
-
-        Returns true if the multilayer contains non-default materials of one type only. 
-
-        """
-        return _libBornAgainCore.MultiLayer_containsCompatibleMaterials(self)
-
-
-    def initBFields(self):
-        """
-        initBFields(MultiLayer self)
-
-        void MultiLayer::initBFields()
-
-        precalculate the magnetic B fields in each layer 
-
-        """
-        return _libBornAgainCore.MultiLayer_initBFields(self)
-
-
-    def hasRoughness(self):
-        """
-        hasRoughness(MultiLayer self) -> bool
-
-        bool MultiLayer::hasRoughness() const
-
-        """
-        return _libBornAgainCore.MultiLayer_hasRoughness(self)
-
-
-    def totalNofLayouts(self):
-        """
-        totalNofLayouts(MultiLayer self) -> size_t
-
-        size_t MultiLayer::totalNofLayouts() const
-
-        """
-        return _libBornAgainCore.MultiLayer_totalNofLayouts(self)
 
 
     def getChildren(self):

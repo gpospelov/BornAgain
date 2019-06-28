@@ -16,6 +16,7 @@
 #define PROCESSEDSAMPLE_H
 
 #include "Material.h"
+#include "Slice.h"
 #include "Vectors3D.h"
 #include <map>
 #include <memory>
@@ -27,7 +28,6 @@ class LayerRoughness;
 class MultiLayer;
 class ProcessedLayout;
 class SimulationOptions;
-class Slice;
 
 //! Data structure that contains all the necessary data for scattering calculations.
 //!

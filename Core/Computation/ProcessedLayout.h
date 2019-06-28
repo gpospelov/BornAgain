@@ -21,7 +21,7 @@
 #include <vector>
 
 class FormFactorCoherentSum;
-class HomogeneousRegion;
+struct HomogeneousRegion;
 class IFresnelMap;
 class IInterferenceFunction;
 class ILayout;

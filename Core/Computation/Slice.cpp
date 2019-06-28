@@ -42,7 +42,7 @@ Slice::Slice(Slice&& other)
 {
 }
 
-Slice &Slice::operator=(const Slice &other)
+Slice& Slice::operator=(const Slice& other)
 {
     m_thickness = other.m_thickness;
     m_material = other.m_material;
@@ -50,6 +50,7 @@ Slice &Slice::operator=(const Slice &other)
     if (other.mP_top_roughness) {
         mP_top_roughness.reset(other.mP_top_roughness->clone());
     }
+    return *this;
 }
 
 Slice::~Slice() = default;
@@ -94,5 +95,5 @@ void Slice::initBField(kvector_t h_field, double b_z)
 
 void Slice::invertBField()
 {
-    m_B_field = - m_B_field;
+    m_B_field = -m_B_field;
 }

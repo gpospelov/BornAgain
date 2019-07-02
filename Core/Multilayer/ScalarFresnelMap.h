@@ -17,12 +17,12 @@
 
 #include "Hash2Doubles.h"
 #include "IFresnelMap.h"
+#include "ScalarRTCoefficients.h"
 #include <unordered_map>
 #include <utility>
 #include <vector>
 
 class ILayerRTCoefficients;
-class ScalarRTCoefficients;
 class SimulationElement;
 class Slice;
 

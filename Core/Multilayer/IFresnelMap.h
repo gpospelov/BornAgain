@@ -16,6 +16,7 @@
 #define IFRESNELMAP_H
 
 #include "ILayerRTCoefficients.h"
+#include "Slice.h"
 #include "Vectors3D.h"
 #include "WinDllMacros.h"
 #include <memory>

@@ -22,7 +22,7 @@
 #include <memory>
 #include <vector>
 
-class HomogeneousRegion;
+struct HomogeneousRegion;
 class IFresnelMap;
 class LayerRoughness;
 class MultiLayer;
@@ -36,7 +36,7 @@ class SimulationOptions;
 //!
 //! @ingroup algorithms_internal
 
-class ProcessedSample
+class BA_CORE_API_ ProcessedSample
 {
 public:
     ProcessedSample(const MultiLayer& sample, const SimulationOptions& options);

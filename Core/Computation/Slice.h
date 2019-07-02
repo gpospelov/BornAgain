@@ -24,7 +24,7 @@ class LayerRoughness;
 //!
 //! @ingroup algorithms_internal
 
-class Slice
+class BA_CORE_API_ Slice
 {
 public:
     Slice(double thickness, const Material& material);

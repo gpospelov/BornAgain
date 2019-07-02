@@ -36,7 +36,7 @@ void GISASSpecularComputation::compute(SimulationElement& elem) const
             const double intensity = std::norm(R) * sin_alpha_i / solid_angle;
             elem.setIntensity(intensity);
         }
-    } catch (Exceptions::NotImplementedException& e) {
+    } catch (Exceptions::NotImplementedException&) {
         throw Exceptions::NotImplementedException("GISASSpecularComputation::compute: "
                                                   "Specular calculation not yet implemented "
                                                   "for polarized experiments.");

@@ -17,12 +17,12 @@
 
 #include "HashKVector.h"
 #include "IFresnelMap.h"
+#include "MatrixRTCoefficients.h"
 #include <memory>
 #include <unordered_map>
 #include <vector>
 
 class ILayerRTCoefficients;
-class MatrixRTCoefficients;
 class Slice;
 class SimulationElement;
 

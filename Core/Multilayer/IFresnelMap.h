@@ -23,7 +23,6 @@
 #include <vector>
 
 class SimulationElement;
-class Slice;
 
 //! Holds the necessary information to calculate the radiation wavefunction in every layer
 //! for different incoming (outgoing) angles of the beam in the top layer

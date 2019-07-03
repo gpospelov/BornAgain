@@ -18,13 +18,6 @@
 
 FormFactorCoherentSum::FormFactorCoherentSum(double abundance) : m_abundance(abundance) {}
 
-FormFactorCoherentSum::~FormFactorCoherentSum() {}
-
-FormFactorCoherentSum* FormFactorCoherentSum::clone() const
-{
-    return new FormFactorCoherentSum(m_parts, m_abundance);
-}
-
 void FormFactorCoherentSum::addCoherentPart(const FormFactorCoherentPart& part)
 {
     m_parts.push_back(part);

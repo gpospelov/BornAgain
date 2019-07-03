@@ -31,7 +31,7 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOpt
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() =default;
 
 void IInterferenceFunctionStrategy::init(
-    const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
+    const std::vector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff)
 {
     if (weighted_formfactors.size()==0)

@@ -32,7 +32,10 @@ class BA_CORE_API_ FormFactorCoherentPart
 public:
     FormFactorCoherentPart(IFormFactor* p_ff);
     FormFactorCoherentPart(const FormFactorCoherentPart& other);
-    virtual ~FormFactorCoherentPart();
+    FormFactorCoherentPart(FormFactorCoherentPart&& other);
+    FormFactorCoherentPart& operator=(const FormFactorCoherentPart& other);
+    FormFactorCoherentPart& operator=(FormFactorCoherentPart&& other);
+    ~FormFactorCoherentPart();
 
     complex_t evaluate(const SimulationElement& sim_element) const;
 #ifndef SWIG

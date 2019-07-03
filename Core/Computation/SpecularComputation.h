@@ -41,8 +41,8 @@ public:
 private:
     void runProtected() override;
 
-    SpecularElementIter m_begin_it,
-        m_end_it; //!< these iterators define the span of detector bins this simulation will work on
+    //! these iterators define the span of detector bins this simulation will work on
+    SpecularElementIter m_begin_it, m_end_it;
     SpecularComputationTerm m_computation_term;
 };
 

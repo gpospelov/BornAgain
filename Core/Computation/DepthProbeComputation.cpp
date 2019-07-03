@@ -14,11 +14,8 @@
 
 #include "DepthProbeComputation.h"
 #include "DepthProbeElement.h"
-#include "IComputationUtils.h"
-#include "MatrixFresnelMap.h"
 #include "MultiLayer.h"
 #include "ProgressHandler.h"
-#include "ScalarFresnelMap.h"
 
 static_assert(std::is_copy_constructible<DepthProbeComputation>::value == false,
               "DepthProbeComputation should not be copy constructible");
@@ -30,20 +27,17 @@ DepthProbeComputation::DepthProbeComputation(const MultiLayer& multilayer,
                                              ProgressHandler& progress,
                                              DepthProbeElementIter begin_it,
                                              DepthProbeElementIter end_it)
-    : IComputation(options, progress, multilayer)
+    : IComputation(multilayer, options, progress)
     , m_begin_it(begin_it), m_end_it(end_it)
-    , mP_fresnel_map(IComputationUtils::CreateFresnelMap(multilayer, options))
-    , m_computation_term(mP_multi_layer.get(), mP_fresnel_map.get())
+    , m_computation_term(mP_processed_sample.get())
 {
-    mP_fresnel_map->setMultilayer(*IComputationUtils::CreateAveragedMultilayer(
-                                      *mP_multi_layer, m_sim_options));
 }
 
 DepthProbeComputation::~DepthProbeComputation() = default;
 
 void DepthProbeComputation::runProtected()
 {
-    if (!mp_progress->alive() || mP_multi_layer->requiresMatrixRTCoefficients())
+    if (!mp_progress->alive())
         return;
     m_computation_term.setProgressHandler(mp_progress);
     for (auto it=m_begin_it; it != m_end_it; ++it) {

@@ -13,17 +13,15 @@
 // ************************************************************************** //
 
 #include "ScalarFresnelMap.h"
-#include "MultiLayer.h"
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
+#include "Slice.h"
 #include "SpecularMatrix.h"
 #include "Vectors3D.h"
 
-ScalarFresnelMap::ScalarFresnelMap()
-{}
+ScalarFresnelMap::ScalarFresnelMap() {}
 
-ScalarFresnelMap::~ScalarFresnelMap()
-{}
+ScalarFresnelMap::~ScalarFresnelMap() = default;
 
 std::unique_ptr<const ILayerRTCoefficients>
 ScalarFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const
@@ -35,7 +33,7 @@ std::unique_ptr<const ILayerRTCoefficients>
 ScalarFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) const
 {
     if (!m_use_cache) {
-        auto coeffs = SpecularMatrix::execute(*mP_multilayer, kvec);
+        auto coeffs = SpecularMatrix::Execute(m_slices, kvec);
         return std::make_unique<const ScalarRTCoefficients>(coeffs[layer_index]);
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec);
@@ -46,8 +44,9 @@ const std::vector<ScalarRTCoefficients>&
 ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
 {
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
-    auto it = m_hash_table.find(k2_theta);
-    if (it == m_hash_table.end())
-        it = m_hash_table.insert({k2_theta, SpecularMatrix::execute(*mP_multilayer, kvec)}).first;
+    auto it = m_cache.find(k2_theta);
+    if (it == m_cache.end()) {
+        it = m_cache.insert({k2_theta, SpecularMatrix::Execute(m_slices, kvec)}).first;
+    }
     return it->second;
 }

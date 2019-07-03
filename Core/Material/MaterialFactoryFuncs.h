@@ -26,7 +26,7 @@ BA_CORE_API_ Material HomogeneousMaterial();
 //! @ingroup materials
 
 BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, double delta, double beta,
-                                              kvector_t magnetization = kvector_t());
+                                          kvector_t magnetization = kvector_t());
 
 //! @ingroup materials
 
@@ -37,7 +37,7 @@ BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, double delta,
 //! With no parameters given, constructs default (vacuum) material with \f$n = 1\f$ and zero
 //! magnetization.
 BA_CORE_API_ Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
-                                              kvector_t magnetization = kvector_t());
+                                          kvector_t magnetization = kvector_t());
 
 //! @ingroup materials
 
@@ -71,6 +71,6 @@ BA_CORE_API_ Material MaterialBySLD(const std::string& name, double sld_real, do
 BA_CORE_API_ Material CreateAveragedMaterial(const Material& layer_mat,
                                              const std::vector<HomogeneousRegion>& regions);
 
-#endif //SWIG
+#endif // SWIG
 
 #endif /* MATERIALFACTORYFUNCS_H_ */

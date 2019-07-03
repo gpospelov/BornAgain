@@ -13,17 +13,11 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
-#include "InterferenceFunctionNone.h"
+#include "Exceptions.h"
 #include "FormFactorCoherentSum.h"
-#include "IFormFactor.h"
-#include "IInterferenceFunction.h"
+#include "InterferenceFunctionNone.h"
 #include "IntegratorMCMiser.h"
-#include "IFresnelMap.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
-#include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
-#include "WavevectorInfo.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
                                                              bool polarized)

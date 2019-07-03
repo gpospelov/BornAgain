@@ -1,5 +1,4 @@
 #include "FormFactorCylinder.h"
-#include "IComputationUtils.h"
 #include "google_test.h"
 #include "InterferenceFunction2DLattice.h"
 #include "Layer.h"
@@ -8,7 +7,9 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
+#include "ProcessedSample.h"
 #include "SimulationOptions.h"
+#include "Slice.h"
 
 class MultilayerAveragingTest : public ::testing::Test
 {
@@ -47,7 +48,7 @@ TEST_F(MultilayerAveragingTest, AverageMultilayer)
     layout_2.setInterferenceFunction(interf_2);
     EXPECT_DOUBLE_EQ(layout_2.weight(), 1.0);
 
-    std::unique_ptr<MultiLayer> m_layer_1_avr;
+    std::unique_ptr<ProcessedSample> sample_1;
     {
         Layer layer_1(vacuum);
         Layer layer_2(stone);
@@ -61,8 +62,7 @@ TEST_F(MultilayerAveragingTest, AverageMultilayer)
         SimulationOptions opts;
         opts.setUseAvgMaterials(true);
 
-        m_layer_1_avr =
-            IComputationUtils::CreateAveragedMultilayer(*m_layer.cloneSliced(true), opts);
+        sample_1 = std::make_unique<ProcessedSample>(m_layer, opts);
     }
 
     layout_1.setWeight(0.5);
@@ -70,7 +70,7 @@ TEST_F(MultilayerAveragingTest, AverageMultilayer)
     layout_2.setWeight(0.5);
     EXPECT_DOUBLE_EQ(layout_2.weight(), 0.5);
 
-    std::unique_ptr<MultiLayer> m_layer_2_avr;
+    std::unique_ptr<ProcessedSample> sample_2;
     {
         Layer layer_1(vacuum);
         Layer layer_2(stone);
@@ -85,16 +85,15 @@ TEST_F(MultilayerAveragingTest, AverageMultilayer)
         SimulationOptions opts;
         opts.setUseAvgMaterials(true);
 
-        m_layer_2_avr =
-            IComputationUtils::CreateAveragedMultilayer(*m_layer.cloneSliced(true), opts);
+        sample_2 = std::make_unique<ProcessedSample>(m_layer, opts);
     }
 
-    EXPECT_EQ(m_layer_1_avr->numberOfLayers(), m_layer_2_avr->numberOfLayers());
+    EXPECT_EQ(sample_1->numberOfSlices(), sample_2->numberOfSlices());
 
-    for (size_t i = 0; i < m_layer_1_avr->numberOfLayers(); ++i)
+    for (size_t i = 0; i < sample_1->numberOfSlices(); ++i)
     {
-        auto mat_1 = m_layer_1_avr->layer(i)->material()->materialData();
-        auto mat_2 = m_layer_2_avr->layer(i)->material()->materialData();
+        auto mat_1 = sample_1->slices()[i].material().materialData();
+        auto mat_2 = sample_2->slices()[i].material().materialData();
         EXPECT_DOUBLE_EQ(mat_1.real(), mat_2.real());
         EXPECT_DOUBLE_EQ(mat_1.imag(), mat_2.imag());
     }

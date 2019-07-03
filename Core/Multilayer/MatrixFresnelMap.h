@@ -17,13 +17,13 @@
 
 #include "HashKVector.h"
 #include "IFresnelMap.h"
+#include "MatrixRTCoefficients.h"
 #include <memory>
 #include <unordered_map>
 #include <vector>
 
 class ILayerRTCoefficients;
-class MatrixRTCoefficients;
-class MultiLayer;
+class Slice;
 class SimulationElement;
 
 //! Implementation of IFresnelMap for matrix valued reflection/transmission coefficients.
@@ -39,7 +39,7 @@ public:
     getOutCoefficients(const SimulationElement& sim_element,
                        size_t layer_index) const final override;
 
-    void setMultilayer(const MultiLayer& multilayer) final override;
+    void setSlices(const std::vector<Slice>& slices) final override;
 
     typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>
         CoefficientHash;
@@ -49,10 +49,9 @@ private:
                                                                 size_t layer_index) const override;
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index,
-                                                                const MultiLayer& multilayer,
+                                                                const std::vector<Slice>& slices,
                                                                 CoefficientHash& hash_table) const;
-
-    std::unique_ptr<MultiLayer> mP_inverted_multilayer;
+    std::vector<Slice> m_inverted_slices;
     mutable CoefficientHash m_hash_table_out;
     mutable CoefficientHash m_hash_table_in;
 };

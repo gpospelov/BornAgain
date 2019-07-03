@@ -45,6 +45,9 @@ public:
     //! and generates new particles if an IAbstractParticle denotes a collection
     virtual SafePointerVector<IParticle> particles() const = 0;
 
+    //! Returns the interference function
+    virtual const IInterferenceFunction* interferenceFunction() const = 0;
+
     /// Get total abundance of all particles
     virtual double getTotalAbundance() const = 0;
 

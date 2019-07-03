@@ -15,12 +15,13 @@
 #ifndef SLICEDFORMFACTORLIST_H
 #define SLICEDFORMFACTORLIST_H
 
-#include "IFormFactor.h"
 #include "HomogeneousRegion.h"
+#include "IFormFactor.h"
 #include <map>
 #include <memory>
 
 class MultiLayer;
+class Slice;
 
 //! Class that contains and owns a list of form factors and the index of their containing layer.
 //! This class also handles the slicing of form factors if they cross layer interfaces.
@@ -36,17 +37,17 @@ public:
     ~SlicedFormFactorList() = default;
 
     static SlicedFormFactorList CreateSlicedFormFactors(const IParticle& particle,
-                                                 const MultiLayer& multilayer,
-                                                 size_t ref_layer_index);
+                                                        const std::vector<Slice>& slices,
+                                                        double z_ref);
 
     size_t size() const;
 
     std::pair<const IFormFactor*, size_t> operator[](size_t index) const;
 
     std::map<size_t, std::vector<HomogeneousRegion>> regionMap() const;
+
 private:
-    void addParticle(IParticle& particle, const MultiLayer& multilayer,
-                       size_t ref_layer_index);
+    void addParticle(IParticle& particle, const std::vector<Slice>& slices, double z_ref);
     std::vector<std::pair<std::unique_ptr<IFormFactor>, size_t>> m_ff_list;
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };

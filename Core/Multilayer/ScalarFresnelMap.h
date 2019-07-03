@@ -17,14 +17,14 @@
 
 #include "Hash2Doubles.h"
 #include "IFresnelMap.h"
+#include "ScalarRTCoefficients.h"
 #include <unordered_map>
 #include <utility>
 #include <vector>
 
 class ILayerRTCoefficients;
-class MultiLayer;
-class ScalarRTCoefficients;
 class SimulationElement;
+class Slice;
 
 //! Implementation of IFresnelMap for scalar valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
@@ -36,16 +36,14 @@ public:
     ~ScalarFresnelMap() final;
 
     std::unique_ptr<const ILayerRTCoefficients>
-    getOutCoefficients(const SimulationElement& sim_element,
-                       size_t layer_index) const override;
+    getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const override;
 
 private:
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
     const std::vector<ScalarRTCoefficients>& getCoefficientsFromCache(kvector_t kvec) const;
-
     mutable std::unordered_map<std::pair<double, double>, std::vector<ScalarRTCoefficients>,
-                               Hash2Doubles> m_hash_table;
+                               Hash2Doubles> m_cache;
 };
 
 #endif // SCALARFRESNELMAP_H

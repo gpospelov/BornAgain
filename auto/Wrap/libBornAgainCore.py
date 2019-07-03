@@ -19192,6 +19192,11 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_particles(self)
 
 
+    def interferenceFunction(self):
+        """interferenceFunction(ILayout self) -> IInterferenceFunction"""
+        return _libBornAgainCore.ILayout_interferenceFunction(self)
+
+
     def getTotalAbundance(self):
         """
         getTotalAbundance(ILayout self) -> double
@@ -25299,6 +25304,18 @@ class MultiLayer(ISample):
     __swig_destroy__ = _libBornAgainCore.delete_MultiLayer
     __del__ = lambda self: None
 
+    def clone(self):
+        """
+        clone(MultiLayer self) -> MultiLayer
+
+        MultiLayer * MultiLayer::clone() const final override
+
+        Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
+
+        """
+        return _libBornAgainCore.MultiLayer_clone(self)
+
+
     def accept(self, visitor):
         """
         accept(MultiLayer self, INodeVisitor visitor)
@@ -25319,16 +25336,6 @@ class MultiLayer(ISample):
 
         """
         return _libBornAgainCore.MultiLayer_numberOfLayers(self)
-
-
-    def numberOfInterfaces(self):
-        """
-        numberOfInterfaces(MultiLayer self) -> size_t
-
-        size_t MultiLayer::numberOfInterfaces() const
-
-        """
-        return _libBornAgainCore.MultiLayer_numberOfInterfaces(self)
 
 
     def addLayer(self, layer):
@@ -25381,118 +25388,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_layerInterface(self, i_interface)
 
 
-    def layerTopZ(self, i_layer):
-        """
-        layerTopZ(MultiLayer self, size_t i_layer) -> double
-
-        double MultiLayer::layerTopZ(size_t i_layer) const
-
-        Returns z-coordinate of the layer's bottom. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerTopZ(self, i_layer)
-
-
-    def layerBottomZ(self, i_layer):
-        """
-        layerBottomZ(MultiLayer self, size_t i_layer) -> double
-
-        double MultiLayer::layerBottomZ(size_t i_layer) const
-
-        Returns z-coordinate of the layer's bottom. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerBottomZ(self, i_layer)
-
-
-    def layerThickness(self, i_layer):
-        """
-        layerThickness(MultiLayer self, size_t i_layer) -> double
-
-        double MultiLayer::layerThickness(size_t i_layer) const
-
-        Returns thickness of layer. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerThickness(self, i_layer)
-
-
-    def layerTopInterface(self, i_layer):
-        """
-        layerTopInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
-
-        const LayerInterface * MultiLayer::layerTopInterface(size_t i_layer) const
-
-        Returns top interface of layer.
-
-        Returns pointer to the top interface of the layer. nInterfaces = nLayers-1, first layer in multilayer doesn't have interface. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerTopInterface(self, i_layer)
-
-
-    def layerBottomInterface(self, i_layer):
-        """
-        layerBottomInterface(MultiLayer self, size_t i_layer) -> LayerInterface const *
-
-        const LayerInterface * MultiLayer::layerBottomInterface(size_t i_layer) const
-
-        Returns bottom interface of layer.
-
-        Returns pointer to the bottom interface of the layer. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerBottomInterface(self, i_layer)
-
-
-    def layerMaterial(self, i_layer):
-        """
-        layerMaterial(MultiLayer self, size_t i_layer) -> Material
-
-        Material MultiLayer::layerMaterial(size_t i_layer) const
-
-        Returns layer material. 
-
-        """
-        return _libBornAgainCore.MultiLayer_layerMaterial(self, i_layer)
-
-
-    def setLayerMaterial(self, i_layer, material):
-        """
-        setLayerMaterial(MultiLayer self, size_t i_layer, Material material)
-
-        void MultiLayer::setLayerMaterial(size_t i_layer, Material material)
-
-        Changes a layer's material. 
-
-        """
-        return _libBornAgainCore.MultiLayer_setLayerMaterial(self, i_layer, material)
-
-
-    def clone(self):
-        """
-        clone(MultiLayer self) -> MultiLayer
-
-        MultiLayer * MultiLayer::clone() const final override
-
-        Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
-
-        """
-        return _libBornAgainCore.MultiLayer_clone(self)
-
-
-    def cloneInvertB(self):
-        """
-        cloneInvertB(MultiLayer self) -> MultiLayer
-
-        MultiLayer * MultiLayer::cloneInvertB() const
-
-        Returns a clone with inverted magnetic fields. 
-
-        """
-        return _libBornAgainCore.MultiLayer_cloneInvertB(self)
-
-
     def setCrossCorrLength(self, crossCorrLength):
         """
         setCrossCorrLength(MultiLayer self, double crossCorrLength)
@@ -25541,122 +25436,6 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_externalField(self)
 
 
-    def crossCorrSpectralFun(self, kvec, j, k):
-        """
-        crossCorrSpectralFun(MultiLayer self, kvector_t kvec, size_t j, size_t k) -> double
-
-        double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
-
-        Fourier transform of the correlation function of roughnesses between the interfaces
-
-        Fourier transform of the correlation function of roughnesses between the interfaces j,k - indexes of layers in multilayer whose bottom interfaces we are considering 
-
-        """
-        return _libBornAgainCore.MultiLayer_crossCorrSpectralFun(self, kvec, j, k)
-
-
-    def indexOfLayer(self, p_layer):
-        """
-        indexOfLayer(MultiLayer self, Layer p_layer) -> size_t
-
-        size_t MultiLayer::indexOfLayer(const Layer *p_layer) const
-
-        returns layer index 
-
-        """
-        return _libBornAgainCore.MultiLayer_indexOfLayer(self, p_layer)
-
-
-    def requiresMatrixRTCoefficients(self):
-        """
-        requiresMatrixRTCoefficients(MultiLayer self) -> bool
-
-        bool MultiLayer::requiresMatrixRTCoefficients() const
-
-        returns true if contains magnetic materials and matrix calculations are required 
-
-        """
-        return _libBornAgainCore.MultiLayer_requiresMatrixRTCoefficients(self)
-
-
-    def bottomZToLayerIndex(self, z_value):
-        """
-        bottomZToLayerIndex(MultiLayer self, double z_value) -> size_t
-
-        size_t MultiLayer::bottomZToLayerIndex(double z_value) const
-
-        returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer above 
-
-        """
-        return _libBornAgainCore.MultiLayer_bottomZToLayerIndex(self, z_value)
-
-
-    def topZToLayerIndex(self, z_value):
-        """
-        topZToLayerIndex(MultiLayer self, double z_value) -> size_t
-
-        size_t MultiLayer::topZToLayerIndex(double z_value) const
-
-        returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer beneath 
-
-        """
-        return _libBornAgainCore.MultiLayer_topZToLayerIndex(self, z_value)
-
-
-    def containsMagneticMaterial(self):
-        """
-        containsMagneticMaterial(MultiLayer self) -> bool
-
-        bool MultiLayer::containsMagneticMaterial() const
-
-        """
-        return _libBornAgainCore.MultiLayer_containsMagneticMaterial(self)
-
-
-    def containsCompatibleMaterials(self):
-        """
-        containsCompatibleMaterials(MultiLayer self) -> bool
-
-        bool MultiLayer::containsCompatibleMaterials() const
-
-        Returns true if the multilayer contains non-default materials of one type only. 
-
-        """
-        return _libBornAgainCore.MultiLayer_containsCompatibleMaterials(self)
-
-
-    def initBFields(self):
-        """
-        initBFields(MultiLayer self)
-
-        void MultiLayer::initBFields()
-
-        precalculate the magnetic B fields in each layer 
-
-        """
-        return _libBornAgainCore.MultiLayer_initBFields(self)
-
-
-    def hasRoughness(self):
-        """
-        hasRoughness(MultiLayer self) -> bool
-
-        bool MultiLayer::hasRoughness() const
-
-        """
-        return _libBornAgainCore.MultiLayer_hasRoughness(self)
-
-
-    def totalNofLayouts(self):
-        """
-        totalNofLayouts(MultiLayer self) -> size_t
-
-        size_t MultiLayer::totalNofLayouts() const
-
-        """
-        return _libBornAgainCore.MultiLayer_totalNofLayouts(self)
-
-
     def getChildren(self):
         """
         getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
@@ -25670,63 +25449,6 @@ class MultiLayer(ISample):
 
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
-
-class MultiLayerSlicer(_object):
-    """
-
-
-    Helper class to test slicing functionality of  MultiLayer.
-
-    C++ includes: MultiLayerSlicer.h
-
-    """
-
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, MultiLayerSlicer, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, MultiLayerSlicer, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, multilayer):
-        """
-        __init__(MultiLayerSlicer self, MultiLayer multilayer) -> MultiLayerSlicer
-
-        MultiLayerSlicer::MultiLayerSlicer(const MultiLayer &multilayer)
-
-        """
-        this = _libBornAgainCore.new_MultiLayerSlicer(multilayer)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_MultiLayerSlicer
-    __del__ = lambda self: None
-
-    def slicedThicknesses(self):
-        """
-        slicedThicknesses(MultiLayerSlicer self) -> vdouble1d_t
-
-        std::vector< double > MultiLayerSlicer::slicedThicknesses() const
-
-        Returns thicknesses of slices after slicing. 
-
-        """
-        return _libBornAgainCore.MultiLayerSlicer_slicedThicknesses(self)
-
-
-    def slicedRepresentation(self):
-        """
-        slicedRepresentation(MultiLayerSlicer self) -> std::string
-
-        std::string MultiLayerSlicer::slicedRepresentation() const
-
-        Returns a string representation of the sliced  MultiLayer. 
-
-        """
-        return _libBornAgainCore.MultiLayerSlicer_slicedRepresentation(self)
-
-MultiLayerSlicer_swigregister = _libBornAgainCore.MultiLayerSlicer_swigregister
-MultiLayerSlicer_swigregister(MultiLayerSlicer)
 
 class OffSpecSimulation(Simulation2D):
     """
@@ -27550,6 +27272,11 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_particles(self)
+
+
+    def interferenceFunction(self):
+        """interferenceFunction(ParticleLayout self) -> IInterferenceFunction"""
+        return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
 
 
     def getTotalAbundance(self):

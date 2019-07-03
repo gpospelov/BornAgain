@@ -79,7 +79,6 @@ ProcessedLayout::~ProcessedLayout() = default;
 void ProcessedLayout::collectFormFactors(const ILayout& layout, const std::vector<Slice>& slices,
                                          double z_ref)
 {
-    SafePointerVector<class FormFactorCoherentSum> result;
     double layout_abundance = layout.getTotalAbundance();
     for (auto p_particle : layout.particles()) {
         auto p_ff_coh = ProcessParticle(*p_particle, slices, z_ref);

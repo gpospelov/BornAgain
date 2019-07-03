@@ -41,7 +41,6 @@ IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
 //! Returns a new strategy object that is able to calculate the scattering for fixed k_f.
 void LayoutStrategyBuilder::createStrategy()
 {
-    // TODO: this needs to be updated (no dynamic_cast or unnecessary accessors)
     const IInterferenceFunction* p_iff = mp_layout->interferenceFunction();
     checkInterferenceFunction(p_iff);
 

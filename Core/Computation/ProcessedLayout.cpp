@@ -83,7 +83,7 @@ void ProcessedLayout::collectFormFactors(const ILayout& layout, const std::vecto
     for (auto p_particle : layout.particles()) {
         auto ff_coh = ProcessParticle(*p_particle, slices, z_ref);
         ff_coh.scaleRelativeAbundance(layout_abundance);
-        m_formfactors.push_back(ff_coh);
+        m_formfactors.push_back(std::move(ff_coh));
     }
     double weight = layout.weight();
     m_surface_density = weight * layout.totalParticleSurfaceDensity();

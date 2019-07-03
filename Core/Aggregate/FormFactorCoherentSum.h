@@ -15,7 +15,6 @@
 #ifndef FORMFACTORCOHERENTSUM_H
 #define FORMFACTORCOHERENTSUM_H
 
-#include "ICloneable.h"
 #include "Complex.h"
 #include "EigenCore.h"
 #include "FormFactorCoherentPart.h"
@@ -26,12 +25,10 @@ class SimulationElement;
 //! Information about particle form factor and abundance.
 //! @ingroup formfactors_internal
 
-class BA_CORE_API_ FormFactorCoherentSum : public ICloneable
+class BA_CORE_API_ FormFactorCoherentSum
 {
 public:
     FormFactorCoherentSum(double abundance);
-    virtual ~FormFactorCoherentSum();
-    virtual FormFactorCoherentSum* clone() const;
 
     void addCoherentPart(const FormFactorCoherentPart& part);
 

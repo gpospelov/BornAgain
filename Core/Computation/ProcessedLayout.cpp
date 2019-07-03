@@ -38,7 +38,7 @@ ProcessedLayout::ProcessedLayout(const ILayout& layout, const std::vector<Slice>
         mP_iff.reset(p_iff->clone());
 }
 
-ProcessedLayout::ProcessedLayout(ProcessedLayout &&other)
+ProcessedLayout::ProcessedLayout(ProcessedLayout&& other)
 {
     mp_fresnel_map = other.mp_fresnel_map;
     m_polarized = other.m_polarized;
@@ -59,17 +59,17 @@ double ProcessedLayout::surfaceDensity() const
     return m_surface_density;
 }
 
-const SafePointerVector<FormFactorCoherentSum> &ProcessedLayout::formFactorList() const
+const std::vector<FormFactorCoherentSum>& ProcessedLayout::formFactorList() const
 {
     return m_formfactors;
 }
 
-const IInterferenceFunction *ProcessedLayout::interferenceFunction() const
+const IInterferenceFunction* ProcessedLayout::interferenceFunction() const
 {
     return mP_iff.get();
 }
 
-std::map<size_t, std::vector<HomogeneousRegion> > ProcessedLayout::regionMap() const
+std::map<size_t, std::vector<HomogeneousRegion>> ProcessedLayout::regionMap() const
 {
     return m_region_map;
 }
@@ -79,12 +79,11 @@ ProcessedLayout::~ProcessedLayout() = default;
 void ProcessedLayout::collectFormFactors(const ILayout& layout, const std::vector<Slice>& slices,
                                          double z_ref)
 {
-    SafePointerVector<class FormFactorCoherentSum> result;
     double layout_abundance = layout.getTotalAbundance();
     for (auto p_particle : layout.particles()) {
-        auto p_ff_coh = ProcessParticle(*p_particle, slices, z_ref);
-        p_ff_coh->scaleRelativeAbundance(layout_abundance);
-        m_formfactors.push_back(p_ff_coh);
+        auto ff_coh = ProcessParticle(*p_particle, slices, z_ref);
+        ff_coh.scaleRelativeAbundance(layout_abundance);
+        m_formfactors.push_back(std::move(ff_coh));
     }
     double weight = layout.weight();
     m_surface_density = weight * layout.totalParticleSurfaceDensity();
@@ -92,16 +91,16 @@ void ProcessedLayout::collectFormFactors(const ILayout& layout, const std::vecto
     ScaleRegionMap(m_region_map, scale_factor);
 }
 
-FormFactorCoherentSum* ProcessedLayout::ProcessParticle(const IParticle& particle,
-                                                        const std::vector<Slice>& slices,
-                                                        double z_ref)
+FormFactorCoherentSum ProcessedLayout::ProcessParticle(const IParticle& particle,
+                                                       const std::vector<Slice>& slices,
+                                                       double z_ref)
 {
     double abundance = particle.abundance();
     auto sliced_ffs = SlicedFormFactorList::CreateSlicedFormFactors(particle, slices, z_ref);
     auto region_map = sliced_ffs.regionMap();
     ScaleRegionMap(region_map, abundance);
     mergeRegionMap(region_map);
-    std::unique_ptr<FormFactorCoherentSum> P_result(new FormFactorCoherentSum(abundance));
+    auto result = FormFactorCoherentSum(abundance);
     for (size_t i = 0; i < sliced_ffs.size(); ++i) {
         auto ff_pair = sliced_ffs[i];
         std::unique_ptr<IFormFactor> P_ff_framework;
@@ -124,9 +123,9 @@ FormFactorCoherentSum* ProcessedLayout::ProcessParticle(const IParticle& particl
         auto part = FormFactorCoherentPart(P_ff_framework.release());
         part.setSpecularInfo(mp_fresnel_map, slice_index);
 
-        P_result->addCoherentPart(part);
+        result.addCoherentPart(part);
     }
-    return P_result.release();
+    return result;
 }
 
 void ProcessedLayout::mergeRegionMap(

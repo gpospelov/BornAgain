@@ -16,7 +16,6 @@
 #define INTERFERENCEFUNCTIONUTILS_H
 
 #include "Complex.h"
-#include "SafePointerVector.h"
 #include <Eigen/StdVector>
 #include <vector>
 
@@ -29,10 +28,10 @@ using matrixFFVector_t = std::vector<Eigen::Matrix2cd, Eigen::aligned_allocator<
 
 std::vector<complex_t> PrecomputeScalarFormFactors(
         const SimulationElement& sim_element,
-        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
+        const std::vector<FormFactorCoherentSum>& ff_wrappers);
 matrixFFVector_t PrecomputePolarizedFormFactors(
         const SimulationElement& sim_element,
-        const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
+        const std::vector<FormFactorCoherentSum>& ff_wrappers);
 
 
 }  // namespace InterferenceFunctionUtils

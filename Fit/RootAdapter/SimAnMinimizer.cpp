@@ -139,7 +139,7 @@ void SimAnMinimizer::propagateOptions()
     pars.step_size = stepSize();
     pars.k = boltzmannK();
     pars.t_initial = boltzmannInitialTemp();
-    pars.mu = boltzmannMu();
+    pars.mu_t = boltzmannMu();
     pars.t_min = boltzmannMinTemp();
 }
 

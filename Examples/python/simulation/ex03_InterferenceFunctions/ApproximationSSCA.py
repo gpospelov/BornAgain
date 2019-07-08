@@ -37,7 +37,6 @@ def get_sample():
     particle_layout.addParticle(cylinder1, 0.8)
     particle_layout.addParticle(cylinder2, 0.2)
     particle_layout.setInterferenceFunction(interference)
-    particle_layout.setApproximation(ba.ILayout.SSCA)
 
     air_layer = ba.Layer(m_ambience)
     air_layer.addLayout(particle_layout)

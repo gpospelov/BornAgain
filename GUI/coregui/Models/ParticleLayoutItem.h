@@ -20,7 +20,6 @@
 class BA_CORE_API_ ParticleLayoutItem : public SessionGraphicsItem
 {
 public:
-    static const QString P_APPROX;
     static const QString P_TOTAL_DENSITY;
     static const QString P_WEIGHT;
     static const QString T_PARTICLES;

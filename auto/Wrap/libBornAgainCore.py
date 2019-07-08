@@ -19141,8 +19141,6 @@ class ILayout(ISample):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    DA = _libBornAgainCore.ILayout_DA
-    SSCA = _libBornAgainCore.ILayout_SSCA
     __swig_destroy__ = _libBornAgainCore.delete_ILayout
     __del__ = lambda self: None
 
@@ -19156,16 +19154,6 @@ class ILayout(ISample):
 
         """
         return _libBornAgainCore.ILayout_clone(self)
-
-
-    def cloneWithOffset(self, offset):
-        """
-        cloneWithOffset(ILayout self, double offset) -> ILayout
-
-        virtual ILayout* ILayout::cloneWithOffset(double offset) const =0
-
-        """
-        return _libBornAgainCore.ILayout_cloneWithOffset(self, offset)
 
 
     def accept(self, visitor):
@@ -19255,30 +19243,6 @@ class ILayout(ISample):
 
         """
         return _libBornAgainCore.ILayout_setWeight(self, weight)
-
-
-    def getApproximation(self):
-        """
-        getApproximation(ILayout self) -> ILayout::EInterferenceApproximation
-
-        EInterferenceApproximation ILayout::getApproximation() const
-
-        Gets the used approximation for particles and interference functions. 
-
-        """
-        return _libBornAgainCore.ILayout_getApproximation(self)
-
-
-    def setApproximation(self, approximation):
-        """
-        setApproximation(ILayout self, ILayout::EInterferenceApproximation approximation)
-
-        void ILayout::setApproximation(EInterferenceApproximation approximation)
-
-        Sets the used approximation for particles and interference functions. 
-
-        """
-        return _libBornAgainCore.ILayout_setApproximation(self, approximation)
 
 ILayout_swigregister = _libBornAgainCore.ILayout_swigregister
 ILayout_swigregister(ILayout)
@@ -24353,10 +24317,6 @@ class Layer(ISample):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Layer, name)
     __repr__ = _swig_repr
-    TOPLAYER = _libBornAgainCore.Layer_TOPLAYER
-    INTERMEDIATELAYER = _libBornAgainCore.Layer_INTERMEDIATELAYER
-    BOTTOMLAYER = _libBornAgainCore.Layer_BOTTOMLAYER
-    ONLYLAYER = _libBornAgainCore.Layer_ONLYLAYER
 
     def __init__(self, material, thickness=0):
         """
@@ -24395,16 +24355,6 @@ class Layer(ISample):
 
         """
         return _libBornAgainCore.Layer_clone(self)
-
-
-    def cloneInvertB(self):
-        """
-        cloneInvertB(Layer self) -> Layer
-
-        Layer * Layer::cloneInvertB() const
-
-        """
-        return _libBornAgainCore.Layer_cloneInvertB(self)
 
 
     def accept(self, visitor):
@@ -24535,41 +24485,6 @@ class Layer(ISample):
         """
         return _libBornAgainCore.Layer_numberOfSlices(self)
 
-
-    def slice(self, limits, layer_type):
-        """
-        slice(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >
-
-        SafePointerVector< Layer > Layer::slice(ZLimits limits, ELayerType layer_type) const
-
-        """
-        return _libBornAgainCore.Layer_slice(self, limits, layer_type)
-
-
-    def scalarReducedPotential(self, k, n_ref):
-        """
-        scalarReducedPotential(Layer self, kvector_t k, double n_ref) -> complex_t
-
-        complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
-
-        Return the potential term that is used in the one-dimensional Fresnel calculations. 
-
-        """
-        return _libBornAgainCore.Layer_scalarReducedPotential(self, k, n_ref)
-
-
-    def initBField(self, h_field, b_z):
-        """
-        initBField(Layer self, kvector_t h_field, double b_z)
-
-        void Layer::initBField(kvector_t h_field, double b_z)
-
-        Initializes the magnetic B field from a given ambient field strength H. 
-
-        """
-        return _libBornAgainCore.Layer_initBField(self, h_field, b_z)
-
-    Magnetic_Permeability = _libBornAgainCore.Layer_Magnetic_Permeability
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 
@@ -27208,16 +27123,6 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_clone(self)
-
-
-    def cloneWithOffset(self, offset):
-        """
-        cloneWithOffset(ParticleLayout self, double offset) -> ParticleLayout
-
-        ParticleLayout * ParticleLayout::cloneWithOffset(double offset) const final override
-
-        """
-        return _libBornAgainCore.ParticleLayout_cloneWithOffset(self, offset)
 
 
     def accept(self, visitor):

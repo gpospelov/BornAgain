@@ -14,4 +14,6 @@
 
 #include "ILayout.h"
 
-ILayout::~ILayout() =default;
+ILayout::ILayout() : m_weight(1.0) {}
+
+ILayout::~ILayout() = default;

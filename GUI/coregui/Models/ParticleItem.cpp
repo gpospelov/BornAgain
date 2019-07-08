@@ -37,7 +37,7 @@ const QString position_tooltip =
 
 QStringList parents_with_abundance() {
     return QStringList() << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
-                         << Constants::ParticleDistributionType;
+                         << Constants::ParticleDistributionType << Constants::MesoCrystalType;
 }
 }
 

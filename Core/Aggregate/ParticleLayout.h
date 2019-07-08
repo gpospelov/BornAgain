@@ -32,10 +32,9 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 public:
     ParticleLayout();
     ParticleLayout(const IAbstractParticle& particle, double abundance=-1.0);
-    ~ParticleLayout();
+    ~ParticleLayout() override;
 
     ParticleLayout* clone() const final override;
-    ParticleLayout* cloneWithOffset(double offset) const final override;
 
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 

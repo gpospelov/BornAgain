@@ -34,8 +34,6 @@ def RunSimulation():
     # set coupling between size and space
     interference.setKappa(2)
     particle_layout.setInterferenceFunction(interference)
-    # particle_layout.setApproximation(ILayout.SSCA)
-    particle_layout.setApproximation(ILayout.DA)
 
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAir)

@@ -47,7 +47,6 @@ const QString weight_tooltip =
     "Should be used when multiple layouts define different domains in the sample.";
 } // namespace
 
-const QString ParticleLayoutItem::P_APPROX = "Approximation";
 const QString ParticleLayoutItem::P_TOTAL_DENSITY =
     QString::fromStdString(BornAgain::TotalParticleDensity);
 const QString ParticleLayoutItem::P_WEIGHT = QString::fromStdString(BornAgain::Weight);
@@ -58,9 +57,6 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem(Constants::Partic
 {
     setToolTip(QStringLiteral("A layout of particles"));
 
-    ComboProperty approx = ComboProperty() << Constants::LAYOUT_DA << Constants::LAYOUT_SSCA;
-    addProperty(P_APPROX, approx.variant())
-        ->setToolTip(QStringLiteral("Approximation used to distribute the particles"));
     addProperty(P_TOTAL_DENSITY, 0.01)->setToolTip(density_tooltip);
     getItem(P_TOTAL_DENSITY)->setDecimals(10);
     addProperty(P_WEIGHT, 1.0)->setToolTip(weight_tooltip);

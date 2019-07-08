@@ -112,12 +112,6 @@ Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) con
     return MaterialUtils::PolarizedReducedPotential(n, b_field, k, n_ref);
 }
 
-void Layer::initBField(kvector_t h_field, double b_z)
-{
-    m_B_field = Magnetic_Permeability*(h_field + m_material.magnetization());
-    m_B_field.setZ(b_z);
-}
-
 Layer* Layer::shallowClone() const
 {
     Layer* p_result = new Layer(m_material, m_thickness);

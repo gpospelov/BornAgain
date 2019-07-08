@@ -24521,19 +24521,6 @@ class Layer(ISample):
         """
         return _libBornAgainCore.Layer_scalarReducedPotential(self, k, n_ref)
 
-
-    def initBField(self, h_field, b_z):
-        """
-        initBField(Layer self, kvector_t h_field, double b_z)
-
-        void Layer::initBField(kvector_t h_field, double b_z)
-
-        Initializes the magnetic B field from a given ambient field strength H. 
-
-        """
-        return _libBornAgainCore.Layer_initBField(self, h_field, b_z)
-
-    Magnetic_Permeability = _libBornAgainCore.Layer_Magnetic_Permeability
 Layer_swigregister = _libBornAgainCore.Layer_swigregister
 Layer_swigregister(Layer)
 

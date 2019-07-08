@@ -37,7 +37,6 @@ private:
     void updatePropertiesAppearance(SessionItem*);
     bool isShellParticle() const;
     bool parentIsParticleLayout() const;
-    bool parentHasOwnAbundance(SessionItem* parent) const;
 };
 
 #endif // PARTICLEITEM_H

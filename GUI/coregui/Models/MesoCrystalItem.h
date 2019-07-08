@@ -41,7 +41,6 @@ public:
     Lattice getLattice() const;
     std::unique_ptr<IParticle> getBasis() const;
     std::unique_ptr<IFormFactor> getOuterShape() const;
-    bool parentHasOwnAbundance(SessionItem* parent) const;
 };
 
 #endif // MESOCRYSTALITEM_H

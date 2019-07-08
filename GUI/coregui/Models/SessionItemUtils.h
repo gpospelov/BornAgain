@@ -71,6 +71,8 @@ BA_CORE_API_ bool IsTheSame(const QVariant& var1, const QVariant& var2);
 //! Returns true if current item is related to the position on sample editor canvas.
 BA_CORE_API_ bool IsPositionRelated(const SessionItem& item);
 
+BA_CORE_API_ bool HasOwnAbundance(const SessionItem* item);
+
 }  // namespace SessionItemUtils
 
 #endif // SESSIONITEMUTILS_H

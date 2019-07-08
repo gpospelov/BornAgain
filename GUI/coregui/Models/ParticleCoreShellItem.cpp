@@ -19,6 +19,7 @@
 #include "TransformToDomain.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
+#include "SessionItemUtils.h"
 
 namespace {
 const QString abundance_tooltip =
@@ -28,11 +29,6 @@ const QString abundance_tooltip =
 const QString position_tooltip =
     "Relative position of the particle's reference point \n"
     "in the coordinate system of the parent (nm)";
-
-QStringList parents_with_abundance() {
-    return QStringList() << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
-                         << Constants::ParticleDistributionType << Constants::MesoCrystalType;
-}
 
 }
 
@@ -62,7 +58,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     mapper()->setOnParentChange(
                 [this](SessionItem* parent)
     {
-        if (parentHasOwnAbundance(parent)) {
+        if (SessionItemUtils::HasOwnAbundance(parent)) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
@@ -103,8 +99,3 @@ QVector<SessionItem*> ParticleCoreShellItem::materialPropertyItems()
     return result;
 }
 
-bool ParticleCoreShellItem::parentHasOwnAbundance(SessionItem* parent) const
-{
-    static QStringList special_parent = parents_with_abundance();
-    return parent ? special_parent.contains(parent->modelType()) : false;
-}

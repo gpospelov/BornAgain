@@ -55,11 +55,6 @@ const QString density_tooltip =
 
 bool IsIParticleName(QString name);
 
-QStringList parents_with_abundance() {
-    return QStringList() << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
-                         << Constants::ParticleDistributionType << Constants::MesoCrystalType;
-}
-
 }
 
 const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
@@ -107,7 +102,7 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {
-        if (parentHasOwnAbundance(parent)) {
+        if (SessionItemUtils::HasOwnAbundance(parent)) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
@@ -186,12 +181,6 @@ std::unique_ptr<IFormFactor> MesoCrystalItem::getOuterShape() const
 {
     auto& ff_item = groupItem<FormFactorItem>(MesoCrystalItem::P_FORM_FACTOR);
     return ff_item.createFormFactor();
-}
-
-bool MesoCrystalItem::parentHasOwnAbundance(SessionItem* parent) const
-{
-    static QStringList special_parent = parents_with_abundance();
-    return parent ? special_parent.contains(parent->modelType()) : false;
 }
 
 namespace {

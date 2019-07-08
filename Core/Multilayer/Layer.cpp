@@ -18,9 +18,6 @@
 #include "ILayout.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
-#include "MaterialUtils.h"
-
-#include <set>
 
 //! Constructor of a layer with thickness and material
 //! @param material: material the layer is made of

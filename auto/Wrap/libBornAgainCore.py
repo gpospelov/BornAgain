@@ -24327,10 +24327,6 @@ class Layer(ISample):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, Layer, name)
     __repr__ = _swig_repr
-    TOPLAYER = _libBornAgainCore.Layer_TOPLAYER
-    INTERMEDIATELAYER = _libBornAgainCore.Layer_INTERMEDIATELAYER
-    BOTTOMLAYER = _libBornAgainCore.Layer_BOTTOMLAYER
-    ONLYLAYER = _libBornAgainCore.Layer_ONLYLAYER
 
     def __init__(self, material, thickness=0):
         """

@@ -16,10 +16,8 @@
 #define LAYER_H
 
 #include "ISample.h"
-#include "Complex.h"
 #include "Material.h"
 #include "SafePointerVector.h"
-#include "ZLimits.h"
 
 class ILayout;
 
@@ -29,12 +27,6 @@ class ILayout;
 class BA_CORE_API_ Layer : public ISample
 {
 public:
-    enum ELayerType {
-        TOPLAYER,
-        INTERMEDIATELAYER,
-        BOTTOMLAYER,
-        ONLYLAYER
-    };
     Layer(Material material, double thickness = 0);
 
     ~Layer() override;
@@ -61,9 +53,6 @@ public:
     unsigned int numberOfSlices() const { return m_n_slices; }
 
 private:
-    //! Return the magnetic B-field in this layer
-    kvector_t bField() const;
-
     Material m_material;                  //!< material
     kvector_t m_B_field;                  //!< cached value of magnetic induction
     double m_thickness;                   //!< layer thickness in nanometers

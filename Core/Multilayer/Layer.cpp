@@ -93,8 +93,3 @@ void Layer::registerThickness(bool make_registered)
         removeParameter(BornAgain::Thickness);
     }
 }
-
-kvector_t Layer::bField() const
-{
-    return m_B_field;
-}

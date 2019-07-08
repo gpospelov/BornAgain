@@ -22,6 +22,7 @@
 #include "SessionItemUtils.h"
 #include "TransformToDomain.h"
 #include "VectorItem.h"
+#include "SessionModel.h"
 
 using SessionItemUtils::SetVectorItem;
 
@@ -33,6 +34,11 @@ const QString abundance_tooltip =
 const QString position_tooltip =
     "Relative position of the particle's reference point \n"
     "in the coordinate system of the parent (nm)";
+
+QStringList parents_with_abundance() {
+    return QStringList() << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
+                         << Constants::ParticleDistributionType;
+}
 }
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
@@ -92,7 +98,7 @@ QVector<SessionItem*> ParticleItem::materialPropertyItems()
 
 void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
 {
-    if (newParent && !parentIsParticleLayout()) {
+    if (parentHasOwnAbundance(newParent)) {
         setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
@@ -126,4 +132,13 @@ bool ParticleItem::parentIsParticleLayout() const
         return false;
 
     return parent()->modelType() == Constants::ParticleLayoutType;
+}
+
+//! Returns true if parent has own abundance.
+//! For rootItem and for ParticleLayout will return false.
+
+bool ParticleItem::parentHasOwnAbundance(SessionItem* parent) const
+{
+    static QStringList special_parent = parents_with_abundance();
+    return parent ? special_parent.contains(parent->modelType()) : false;
 }

@@ -27,6 +27,7 @@ public:
     ParticleCoreShellItem();
     std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
     QVector<SessionItem*> materialPropertyItems();
+    bool parentHasOwnAbundance(SessionItem* parent) const;
 };
 
 #endif // PARTICLECORESHELLITEM_H

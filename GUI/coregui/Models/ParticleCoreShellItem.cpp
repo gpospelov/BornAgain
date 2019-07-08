@@ -28,6 +28,12 @@ const QString abundance_tooltip =
 const QString position_tooltip =
     "Relative position of the particle's reference point \n"
     "in the coordinate system of the parent (nm)";
+
+QStringList parents_with_abundance() {
+    return QStringList() << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
+                         << Constants::ParticleDistributionType;
+}
+
 }
 
 const QString ParticleCoreShellItem::T_CORE = "Core Tag";
@@ -56,7 +62,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     mapper()->setOnParentChange(
                 [this](SessionItem* parent)
     {
-        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
+        if (parentHasOwnAbundance(parent)) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
@@ -95,4 +101,10 @@ QVector<SessionItem*> ParticleCoreShellItem::materialPropertyItems()
         result.append(shell->materialPropertyItems());
 
     return result;
+}
+
+bool ParticleCoreShellItem::parentHasOwnAbundance(SessionItem* parent) const
+{
+    static QStringList special_parent = parents_with_abundance();
+    return parent ? special_parent.contains(parent->modelType()) : false;
 }

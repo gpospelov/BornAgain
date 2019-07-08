@@ -87,19 +87,6 @@ void GUIDomainSampleVisitor::visit(const ParticleLayout* p_sample)
     } else {
         p_layout_item = m_sampleModel->insertNewItem(Constants::ParticleLayoutType);
     }
-
-    ComboProperty approx_prop;
-    approx_prop << Constants::LAYOUT_DA << Constants::LAYOUT_SSCA;
-    ILayout::EInterferenceApproximation approx = p_sample->getApproximation();
-    switch (approx) {
-    case ILayout::DA:
-        approx_prop.setValue(Constants::LAYOUT_DA);
-        break;
-    case ILayout::SSCA:
-        approx_prop.setValue(Constants::LAYOUT_SSCA);
-        break;
-    }
-    p_layout_item->setItemValue(ParticleLayoutItem::P_APPROX, approx_prop.variant());
     p_layout_item->setItemValue(ParticleLayoutItem::P_TOTAL_DENSITY,
                                 p_sample->totalParticleSurfaceDensity());
     p_layout_item->setItemValue(ParticleLayoutItem::P_WEIGHT, p_sample->weight());

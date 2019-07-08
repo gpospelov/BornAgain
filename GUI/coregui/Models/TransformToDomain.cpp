@@ -115,13 +115,6 @@ TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
 std::unique_ptr<ParticleLayout> TransformToDomain::createParticleLayout(const SessionItem& item)
 {
     auto P_layout = std::make_unique<ParticleLayout>();
-    auto prop = item.getItemValue(ParticleLayoutItem::P_APPROX).value<ComboProperty>();
-    QString approximation = prop.getValue();
-    if (approximation == Constants::LAYOUT_DA) {
-        P_layout->setApproximation(ILayout::DA);
-    } else if (approximation == Constants::LAYOUT_SSCA) {
-        P_layout->setApproximation(ILayout::SSCA);
-    }
     auto total_density = item.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
     auto layout_weight = item.getItemValue(ParticleLayoutItem::P_WEIGHT).value<double>();
     P_layout->setTotalParticleSurfaceDensity(total_density);

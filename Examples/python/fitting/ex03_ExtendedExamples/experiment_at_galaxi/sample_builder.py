@@ -74,7 +74,6 @@ class SampleBuilder:
         layout = ba.ParticleLayout()
         layout.addParticle(part_coll, 1.0)
         layout.setInterferenceFunction(interference)
-        layout.setApproximation(ba.ILayout.SSCA)
         layout.setTotalParticleSurfaceDensity(1)
 
         # roughness

@@ -19141,8 +19141,6 @@ class ILayout(ISample):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    DA = _libBornAgainCore.ILayout_DA
-    SSCA = _libBornAgainCore.ILayout_SSCA
     __swig_destroy__ = _libBornAgainCore.delete_ILayout
     __del__ = lambda self: None
 
@@ -19255,30 +19253,6 @@ class ILayout(ISample):
 
         """
         return _libBornAgainCore.ILayout_setWeight(self, weight)
-
-
-    def getApproximation(self):
-        """
-        getApproximation(ILayout self) -> ILayout::EInterferenceApproximation
-
-        EInterferenceApproximation ILayout::getApproximation() const
-
-        Gets the used approximation for particles and interference functions. 
-
-        """
-        return _libBornAgainCore.ILayout_getApproximation(self)
-
-
-    def setApproximation(self, approximation):
-        """
-        setApproximation(ILayout self, ILayout::EInterferenceApproximation approximation)
-
-        void ILayout::setApproximation(EInterferenceApproximation approximation)
-
-        Sets the used approximation for particles and interference functions. 
-
-        """
-        return _libBornAgainCore.ILayout_setApproximation(self, approximation)
 
 ILayout_swigregister = _libBornAgainCore.ILayout_swigregister
 ILayout_swigregister(ILayout)

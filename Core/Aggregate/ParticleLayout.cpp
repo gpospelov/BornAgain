@@ -72,7 +72,6 @@ ParticleLayout* ParticleLayout::clone() const
 
     p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
     p_result->setWeight(weight());
-    p_result->setApproximation(getApproximation());
 
     return p_result;
 }
@@ -92,7 +91,6 @@ ParticleLayout* ParticleLayout::cloneWithOffset(double offset) const
         p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());
 
     p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
-    p_result->setApproximation(getApproximation());
     p_result->setWeight(weight());
 
     return p_result;

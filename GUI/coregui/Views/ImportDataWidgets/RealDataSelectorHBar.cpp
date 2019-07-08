@@ -15,7 +15,7 @@
 #include "RealDataSelectorHBar.h"
 
 namespace {
-const int toolbar_icon_size = 32;
+const int toolbar_icon_size = 24;
 }
 
 RealDataSelectorHBar::RealDataSelectorHBar(RealDataSelectorActions* actions, QWidget* parent)
@@ -25,13 +25,16 @@ RealDataSelectorHBar::RealDataSelectorHBar(RealDataSelectorActions* actions, QWi
     setIconSize(QSize(toolbar_icon_size, toolbar_icon_size));
     setProperty("_q_custom_style_disabled", QVariant(true));
 
+    auto empty = new QWidget();
+    empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    addWidget(empty);
+
     m_dropDownMenuAction = new QAction(QStringLiteral("Add new material"), parent);
-    m_dropDownMenuAction->setIcon(QIcon(":/images/toolbar32dark_newitem.svg"));
+    m_dropDownMenuAction->setIcon(QIcon(":/images/toolbar24dark_hambar.svg"));
     m_dropDownMenuAction->setToolTip(QStringLiteral("Drop down menu with additional actions to import/modify datasets"));
     connect(m_dropDownMenuAction, &QAction::triggered,
             this, &RealDataSelectorHBar::onDropDownMenuAction);
     addAction(m_dropDownMenuAction);
-
 }
 
 void RealDataSelectorHBar::onDropDownMenuAction()

@@ -58,5 +58,6 @@
         <file>images/dark-close.svg</file>
         <file>images/depth_instrument.svg</file>
         <file>images/depth_instrument_shaded.svg</file>
+        <file>images/toolbar24dark_hambar.svg</file>
     </qresource>
 </RCC>

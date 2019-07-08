@@ -80,7 +80,11 @@ void HistogramPlot::initGraph()
     m_customPlot->graph()->setBrush(QBrush(QColor(255 / 4, 160, 50, 150)));
 
     QFontMetrics fontMetric(font());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+    auto em = fontMetric.horizontalAdvance('M'), fontAscent = fontMetric.ascent();
+#else
     auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
+#endif
     auto* axisRectangle = m_customPlot->axisRect();
     axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
     axisRectangle->setMargins(QMargins(em*4, fontAscent*2, em*2, fontAscent*2));

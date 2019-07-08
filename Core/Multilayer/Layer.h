@@ -60,15 +60,6 @@ public:
     void setNumberOfSlices(unsigned int n_slices) { m_n_slices = n_slices; }
     unsigned int numberOfSlices() const { return m_n_slices; }
 
-    //! Return the potential term that is used in the one-dimensional Fresnel calculations
-    complex_t scalarReducedPotential(kvector_t k, double n_ref) const;
-
-#ifndef SWIG
-    //! Return the potential term that is used in the one-dimensional Fresnel calculations
-    //! in the presence of magnetization
-    Eigen::Matrix2cd polarizedReducedPotential(kvector_t k, double n_ref) const;
-#endif
-
 private:
     //! Return the magnetic B-field in this layer
     kvector_t bField() const;

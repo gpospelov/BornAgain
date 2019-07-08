@@ -94,19 +94,6 @@ void Layer::registerThickness(bool make_registered)
     }
 }
 
-complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
-{
-    complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
-    return MaterialUtils::ScalarReducedPotential(n, k, n_ref);
-}
-
-Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) const
-{
-    complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
-    kvector_t b_field = bField();
-    return MaterialUtils::PolarizedReducedPotential(n, b_field, k, n_ref);
-}
-
 kvector_t Layer::bField() const
 {
     return m_B_field;

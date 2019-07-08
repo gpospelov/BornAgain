@@ -21,7 +21,6 @@
 #include "ParticleDistribution.h"
 #include "RealParameter.h"
 #include "ParameterPool.h"
-#include <iomanip>
 
 namespace {
 
@@ -66,26 +65,6 @@ ParticleLayout* ParticleLayout::clone() const
 
     for (auto p_particle : m_particles)
         p_result->addAndRegisterAbstractParticle(p_particle->clone());
-
-    if (mP_interference_function)
-        p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());
-
-    p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
-    p_result->setWeight(weight());
-
-    return p_result;
-}
-
-ParticleLayout* ParticleLayout::cloneWithOffset(double offset) const
-{
-    ParticleLayout* p_result = new ParticleLayout();
-
-    for (auto p_particle : m_particles)
-    {
-        auto p_particle_clone = p_particle->clone();
-        p_particle_clone->translate(kvector_t(0.0, 0.0, offset));
-        p_result->addAndRegisterAbstractParticle(p_particle_clone);
-    }
 
     if (mP_interference_function)
         p_result->setAndRegisterInterferenceFunction(mP_interference_function->clone());

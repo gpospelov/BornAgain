@@ -35,8 +35,6 @@ public:
     virtual ~ILayout();
 
     virtual ILayout* clone() const = 0;
-    virtual ILayout* cloneWithOffset(double offset) const = 0;
-
     virtual void accept(INodeVisitor* visitor) const = 0;
 
     //! Returns information on all particles (type and abundance)

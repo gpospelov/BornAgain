@@ -19156,16 +19156,6 @@ class ILayout(ISample):
         return _libBornAgainCore.ILayout_clone(self)
 
 
-    def cloneWithOffset(self, offset):
-        """
-        cloneWithOffset(ILayout self, double offset) -> ILayout
-
-        virtual ILayout* ILayout::cloneWithOffset(double offset) const =0
-
-        """
-        return _libBornAgainCore.ILayout_cloneWithOffset(self, offset)
-
-
     def accept(self, visitor):
         """
         accept(ILayout self, INodeVisitor visitor)
@@ -27133,16 +27123,6 @@ class ParticleLayout(ILayout):
 
         """
         return _libBornAgainCore.ParticleLayout_clone(self)
-
-
-    def cloneWithOffset(self, offset):
-        """
-        cloneWithOffset(ParticleLayout self, double offset) -> ParticleLayout
-
-        ParticleLayout * ParticleLayout::cloneWithOffset(double offset) const final override
-
-        """
-        return _libBornAgainCore.ParticleLayout_cloneWithOffset(self, offset)
 
 
     def accept(self, visitor):

@@ -54,6 +54,7 @@ const QString density_tooltip =
     "Should be defined for disordered and 1d-ordered particle collections.";
 
 bool IsIParticleName(QString name);
+
 }
 
 const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
@@ -63,6 +64,7 @@ const QString MesoCrystalItem::P_VECTOR_A = "First " + MesoCrystalItem::LATTICE_
 const QString MesoCrystalItem::P_VECTOR_B = "Second " + MesoCrystalItem::LATTICE_VECTOR;
 const QString MesoCrystalItem::P_VECTOR_C = "Third " + MesoCrystalItem::LATTICE_VECTOR;
 
+// TODO make derived from ParticleItem
 
 MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalType)
 {
@@ -100,7 +102,7 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {
-        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
+        if (SessionItemUtils::HasOwnAbundance(parent)) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {

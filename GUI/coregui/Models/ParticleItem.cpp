@@ -22,6 +22,8 @@
 #include "SessionItemUtils.h"
 #include "TransformToDomain.h"
 #include "VectorItem.h"
+#include "SessionModel.h"
+#include "SessionItemUtils.h"
 
 using SessionItemUtils::SetVectorItem;
 
@@ -33,6 +35,7 @@ const QString abundance_tooltip =
 const QString position_tooltip =
     "Relative position of the particle's reference point \n"
     "in the coordinate system of the parent (nm)";
+
 }
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
@@ -92,7 +95,7 @@ QVector<SessionItem*> ParticleItem::materialPropertyItems()
 
 void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
 {
-    if (newParent && !parentIsParticleLayout()) {
+    if (SessionItemUtils::HasOwnAbundance(newParent)) {
         setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {

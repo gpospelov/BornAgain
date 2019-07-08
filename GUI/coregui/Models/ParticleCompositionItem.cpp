@@ -21,6 +21,7 @@
 #include "Particle.h"
 #include "TransformToDomain.h"
 #include "ParticleCoreShell.h"
+#include "SessionItemUtils.h"
 
 namespace {
 const QString abundance_tooltip =
@@ -59,7 +60,7 @@ ParticleCompositionItem::ParticleCompositionItem()
 
     mapper()->setOnParentChange(
                 [this](SessionItem *parent) {
-        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
+        if (SessionItemUtils::HasOwnAbundance(parent)) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {

@@ -30,6 +30,12 @@ const GroupInfoCatalogue& groupInfoCatalogue()
     static GroupInfoCatalogue s_catalogue = GroupInfoCatalogue();
     return s_catalogue;
 }
+
+QStringList parents_with_abundance() {
+    return QStringList() << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
+                         << Constants::ParticleDistributionType << Constants::MesoCrystalType;
+}
+
 }
 
 int SessionItemUtils::ParentRow(const SessionItem& item)
@@ -162,4 +168,10 @@ bool SessionItemUtils::IsPositionRelated(const SessionItem& item)
         return true;
 
     return false;
+}
+
+bool SessionItemUtils::HasOwnAbundance(const SessionItem* item)
+{
+    static QStringList special_parent = parents_with_abundance();
+    return item ? special_parent.contains(item->modelType()) : false;
 }

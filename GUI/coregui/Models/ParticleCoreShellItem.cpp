@@ -19,6 +19,7 @@
 #include "TransformToDomain.h"
 #include "Particle.h"
 #include "ParticleCoreShell.h"
+#include "SessionItemUtils.h"
 
 namespace {
 const QString abundance_tooltip =
@@ -28,6 +29,7 @@ const QString abundance_tooltip =
 const QString position_tooltip =
     "Relative position of the particle's reference point \n"
     "in the coordinate system of the parent (nm)";
+
 }
 
 const QString ParticleCoreShellItem::T_CORE = "Core Tag";
@@ -56,7 +58,7 @@ ParticleCoreShellItem::ParticleCoreShellItem()
     mapper()->setOnParentChange(
                 [this](SessionItem* parent)
     {
-        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
+        if (SessionItemUtils::HasOwnAbundance(parent)) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
@@ -96,3 +98,4 @@ QVector<SessionItem*> ParticleCoreShellItem::materialPropertyItems()
 
     return result;
 }
+

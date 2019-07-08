@@ -162,7 +162,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     int requested_row = candidate.row;
 
     // Simple move of single layer on the scene
-    if (requested_parent == 0 && parentItem() == 0) {
+    if (!requested_parent && !parentItem()) {
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
@@ -192,7 +192,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         this->getItem()->setItemValue(SessionGraphicsItem::P_XPOS, newPos.x());
         this->getItem()->setItemValue(SessionGraphicsItem::P_YPOS, newPos.y());
 
-        model->moveItem(this->getItem(), 0);
+        model->moveItem(this->getItem(), nullptr);
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
@@ -239,7 +239,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
                 // calculate row number to drop ILayerView and distance to the nearest droping area
                 int row = multilayer->getDropArea(multilayer->mapFromScene(layerRect.center()));
                 QRectF droparea = multilayer->mapRectToScene(multilayer->getDropAreaRectangle(row));
-                int distance = std::abs(droparea.center().y() - layerRect.center().y());
+                int distance = std::abs(static_cast<int>(droparea.center().y() - layerRect.center().y()));
 
                 candidate.multilayer = multilayer;
                 candidate.row = row;
@@ -250,7 +250,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
     }
     // sorting MultiLayerView candidates to find one whose drop area is closer
     if (candidates.size()) {
-        qSort(candidates.begin(), candidates.end());
+        std::sort(candidates.begin(), candidates.end());
         return candidates.back();
     }
     return MultiLayerCandidate();

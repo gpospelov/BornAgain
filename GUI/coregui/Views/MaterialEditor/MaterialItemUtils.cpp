@@ -169,11 +169,18 @@ ExternalProperty MaterialItemUtils::selectColorProperty(const ExternalProperty& 
 {
     ExternalProperty result;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+    auto oldColor = previous.color();
+    auto newColor = QColorDialog::getColor(oldColor);
+    if (oldColor != newColor)
+        result = MaterialItemUtils::colorProperty(newColor);
+#else
     bool ok = false;
     QRgb oldRgba = previous.color().rgba();
     QRgb newRgba = QColorDialog::getRgba(oldRgba, &ok, nullptr);
     if (ok && newRgba != oldRgba)
         result = MaterialItemUtils::colorProperty(QColor::fromRgba(newRgba));
+#endif
 
     return result;
 }

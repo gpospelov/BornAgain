@@ -80,9 +80,16 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
     QStringList scales = QStringList() << "25%" << "50%" << "75%" << "100%" << "125%" << "150%";
     m_scaleCombo->addItems(scales);
     m_scaleCombo->setCurrentIndex(3);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+    connect(m_scaleCombo,
+            static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentTextChanged),
+            this, &SampleToolBar::onScaleComboChanged);
+#else
     connect(m_scaleCombo,
             static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged),
             this, &SampleToolBar::onScaleComboChanged);
+#endif
+
     addWidget(m_scaleCombo);
 
     // MaterialEditor

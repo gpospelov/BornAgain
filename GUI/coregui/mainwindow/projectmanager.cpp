@@ -395,7 +395,11 @@ QString ProjectManager::untitledProjectName()
     if (projectDir.exists()) {
         for (size_t i = 1; i < 99; ++i) {
             result = QString("Untitled") + QString::number(i);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+            projectDir.setPath(workingDirectory() + "/" + result);
+#else
             projectDir = workingDirectory() + "/" + result;
+#endif
             if (!projectDir.exists())
                 break;
         }

@@ -24371,16 +24371,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_clone(self)
 
 
-    def cloneInvertB(self):
-        """
-        cloneInvertB(Layer self) -> Layer
-
-        Layer * Layer::cloneInvertB() const
-
-        """
-        return _libBornAgainCore.Layer_cloneInvertB(self)
-
-
     def accept(self, visitor):
         """
         accept(Layer self, INodeVisitor visitor)

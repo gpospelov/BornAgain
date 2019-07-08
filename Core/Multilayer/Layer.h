@@ -37,10 +37,9 @@ public:
     };
     Layer(Material material, double thickness = 0);
 
-    ~Layer();
+    ~Layer() override;
 
     Layer* clone() const override final;
-    Layer* cloneInvertB() const;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
@@ -71,9 +70,6 @@ public:
 #endif
 
 private:
-    //! Clone the layer without its layouts
-    Layer* shallowClone() const;
-
     //! Return the magnetic B-field in this layer
     kvector_t bField() const;
 

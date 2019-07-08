@@ -38,17 +38,12 @@ Layer::~Layer()
 
 Layer* Layer::clone() const
 {
-    Layer* p_result = shallowClone();
+    Layer* p_result = new Layer(m_material, m_thickness);
+    p_result->setName(getName());
+    p_result->m_B_field = m_B_field;
     p_result->m_n_slices = m_n_slices;
     for (auto p_layout : layouts())
         p_result->addLayout(*p_layout);
-    return p_result;
-}
-
-Layer* Layer::cloneInvertB() const
-{
-    Layer* p_result = shallowClone();
-    p_result->m_B_field = -m_B_field;
     return p_result;
 }
 
@@ -110,14 +105,6 @@ Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) con
     complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
     kvector_t b_field = bField();
     return MaterialUtils::PolarizedReducedPotential(n, b_field, k, n_ref);
-}
-
-Layer* Layer::shallowClone() const
-{
-    Layer* p_result = new Layer(m_material, m_thickness);
-    p_result->setName(getName());
-    p_result->m_B_field = m_B_field;
-    return p_result;
 }
 
 kvector_t Layer::bField() const

@@ -51,6 +51,12 @@ static const int SELECTION_IMAGE_WIDTH = 10;
 static const int SELECTION_IMAGE_HEIGHT = 20;
 static const int OVERFLOW_DROPDOWN_WIDTH = Utils::StyleHelper::navigationWidgetHeight();
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+#define WIDTH_METHOD horizontalAdvance
+#else
+#define WIDTH_METHOD width
+#endif
+
 static void drawFirstLevelSeparator(QPainter *painter, QPoint top, QPoint bottom)
 {
     QLinearGradient grad(top, bottom);
@@ -151,7 +157,7 @@ void DoubleTabWidget::updateNameIsUniqueRemove(const Tab &tab)
 {
     if (tab.nameIsUnique)
         return;
-    int index;
+    int index(0);
     int count = 0;
     for (int i=0; i < m_tabs.size(); ++i) {
         if (m_tabs.at(i).name == tab.name) {
@@ -226,13 +232,13 @@ QPair<DoubleTabWidget::HitArea, int> DoubleTabWidget::convertPosToTab(QPoint pos
         int eventX = pos.x();
         QFontMetrics fm(font());
         int x = m_title.isEmpty() ? 0 :
-                2 * MARGIN + qMax(fm.width(m_title), MIN_LEFT_MARGIN);
+                2 * MARGIN + qMax(fm.WIDTH_METHOD(m_title), MIN_LEFT_MARGIN);
 
         if (eventX <= x)
             return qMakePair(HITNOTHING, -1);
         int i;
         for (i = 0; i <= m_lastVisibleIndex; ++i) {
-            int otherX = x + 2 * MARGIN + fm.width(m_tabs.at(
+            int otherX = x + 2 * MARGIN + fm.WIDTH_METHOD(m_tabs.at(
                     m_currentTabIndices.at(i)).displayName());
             if (eventX > x && eventX < otherX) {
                 break;
@@ -264,7 +270,7 @@ QPair<DoubleTabWidget::HitArea, int> DoubleTabWidget::convertPosToTab(QPoint pos
         int x = MARGIN;
         int i;
         for (i = 0; i < subTabs.size(); ++i) {
-            int otherX = x + 2 * SELECTION_IMAGE_WIDTH + fm.width(subTabs.at(i));
+            int otherX = x + 2 * SELECTION_IMAGE_WIDTH + fm.WIDTH_METHOD(subTabs.at(i));
             if (eventX > x && eventX < otherX) {
                 break;
             }
@@ -367,7 +373,7 @@ void DoubleTabWidget::paintEvent(QPaintEvent *event)
 
     // top level tabs
     int x = m_title.isEmpty() ? 0 :
-            2 * MARGIN + qMax(fm.width(m_title), MIN_LEFT_MARGIN);
+            2 * MARGIN + qMax(fm.WIDTH_METHOD(m_title), MIN_LEFT_MARGIN);
 
     // calculate sizes
     QList<int> nameWidth;
@@ -376,7 +382,7 @@ void DoubleTabWidget::paintEvent(QPaintEvent *event)
     int indexSmallerThanWidth = -1;
     for (int i = 0; i < m_tabs.size(); ++i) {
         const Tab &tab = m_tabs.at(i);
-        int w = fm.width(tab.displayName());
+        int w = fm.WIDTH_METHOD(tab.displayName());
         nameWidth << w;
         width += 2 * MARGIN + w;
         if (width < r.width())
@@ -440,7 +446,7 @@ void DoubleTabWidget::paintEvent(QPaintEvent *event)
             painter.setPen(Utils::StyleHelper::borderColor());
             painter.drawLine(x - 1, 0, x - 1, r.height() - 1);
             painter.fillRect(QRect(x, 0,
-                                   2 * MARGIN + fm.width(tab.displayName()),
+                                   2 * MARGIN + fm.WIDTH_METHOD(tab.displayName()),
                                    r.height() + 1),
                              grad);
 
@@ -483,14 +489,14 @@ void DoubleTabWidget::paintEvent(QPaintEvent *event)
 
     // second level tabs
     if (m_currentIndex != -1) {
-        int y = r.height() + (OTHER_HEIGHT - m_left.height()) / 2.;
+        int y = static_cast<int>(r.height() + (OTHER_HEIGHT - m_left.height()) / 2.);
         int imageHeight = m_left.height();
         Tab currentTab = m_tabs.at(m_currentIndex);
         QStringList subTabs = currentTab.subTabs;
         x = 0;
         for (int i = 0; i < subTabs.size(); ++i) {
             x += MARGIN;
-            int textWidth = fm.width(subTabs.at(i));
+            int textWidth = fm.WIDTH_METHOD(subTabs.at(i));
             if (currentTab.currentSubTab == i) {
                 painter.setPen(Qt::white);
                 painter.drawPixmap(x, y, m_left);
@@ -502,7 +508,7 @@ void DoubleTabWidget::paintEvent(QPaintEvent *event)
                 painter.setPen(Qt::black);
             }
             x += SELECTION_IMAGE_WIDTH;
-            painter.drawText(x, y + (imageHeight + fm.ascent()) / 2. - 1,
+            painter.drawText(x, static_cast<int>(y + (imageHeight + fm.ascent()) / 2. - 1),
                              subTabs.at(i));
             x += textWidth + SELECTION_IMAGE_WIDTH + MARGIN;
             drawSecondLevelSeparator(&painter, QPoint(x, y), QPoint(x, y + imageHeight));

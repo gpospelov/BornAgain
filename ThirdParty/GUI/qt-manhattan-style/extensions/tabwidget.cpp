@@ -20,6 +20,14 @@ static const int CONTENT_HEIGHT_MARGIN = 10;
 //static const int SELECTION_IMAGE_HEIGHT = 20;
 static const int OVERFLOW_DROPDOWN_WIDTH = TAB_HEIGHT;
 
+#include <QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+#define WIDTH_METHOD horizontalAdvance
+#else
+#define WIDTH_METHOD width
+#endif
+
+
 static void drawFirstLevelSeparator(QPainter *painter, QPoint top, QPoint bottom)
 {
     painter->setPen(QPen(QColor(Qt::white).darker(110), 0));
@@ -32,7 +40,7 @@ TabWidget::TabWidget(QWidget *parent) :
     QWidget(parent),
     m_currentIndex(-1),
     m_lastVisibleIndex(-1),
-    m_stack(0),
+    m_stack(nullptr),
     m_drawFrame(false)
 {
     QVBoxLayout *layout = new QVBoxLayout;
@@ -146,13 +154,13 @@ QPair<TabWidget::HitArea, int> TabWidget::convertPosToTab(QPoint pos)
         int eventX = pos.x();
         QFontMetrics fm(font());
         int x = m_title.isEmpty() ? 0 :
-                2 * MARGIN + qMax(fm.width(m_title), MIN_LEFT_MARGIN);
+                2 * MARGIN + qMax(fm.WIDTH_METHOD(m_title), MIN_LEFT_MARGIN);
 
         if (eventX <= x)
             return qMakePair(HITNOTHING, -1);
         int i;
         for (i = 0; i <= m_lastVisibleIndex; ++i) {
-            int otherX = x + 2 * MARGIN + fm.width(m_tabs.at(
+            int otherX = x + 2 * MARGIN + fm.WIDTH_METHOD(m_tabs.at(
                     m_currentTabIndices.at(i)).name);
             if (eventX > x && eventX < otherX) {
                 break;
@@ -251,9 +259,7 @@ void TabWidget::paintEvent(QPaintEvent *event)
     }
 
     // top level tabs
-    int x = m_title.isEmpty() ? 0 :
-            2 * MARGIN + qMax(fm.width(m_title), MIN_LEFT_MARGIN);
-
+    int x = m_title.isEmpty() ? 0 : 2 * MARGIN + qMax(fm.WIDTH_METHOD(m_title), MIN_LEFT_MARGIN);
     // calculate sizes
     QList<int> nameWidth;
     int width = x;
@@ -261,7 +267,7 @@ void TabWidget::paintEvent(QPaintEvent *event)
     int indexSmallerThanWidth = -1;
     for (int i = 0; i < m_tabs.size(); ++i) {
         const Tab& tab = m_tabs.at(i);
-        int w = fm.width(tab.name);
+        int w = fm.WIDTH_METHOD(tab.name);
         nameWidth << w;
         width += 2 * MARGIN + w;
         if (width < r.width())
@@ -326,13 +332,13 @@ void TabWidget::paintEvent(QPaintEvent *event)
 
         // top
         if (m_drawFrame) {
-            painter.drawLine(x, 0, x + 2 * MARGIN + fm.width(tab.name), 0);
+            painter.drawLine(x, 0, x + 2 * MARGIN + fm.WIDTH_METHOD(tab.name), 0);
         }
 
         if (actualIndex == m_currentIndex) {            
             // tab background
             painter.fillRect(QRect(x, 1,
-                                   2 * MARGIN + fm.width(tab.name),
+                                   2 * MARGIN + fm.WIDTH_METHOD(tab.name),
                                    r.height() + 1),
                              baseColor);
 
@@ -361,7 +367,7 @@ void TabWidget::paintEvent(QPaintEvent *event)
         } else {
             // tab background
             painter.fillRect(QRect(x + 1, 1,
-                                   2 * MARGIN + fm.width(tab.name),
+                                   2 * MARGIN + fm.WIDTH_METHOD(tab.name),
                                    r.height()-1),
                              backgroundColor);
 

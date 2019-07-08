@@ -61,8 +61,6 @@ public:
     void setNumberOfSlices(unsigned int n_slices) { m_n_slices = n_slices; }
     unsigned int numberOfSlices() const { return m_n_slices; }
 
-    SafePointerVector<Layer> slice(ZLimits limits, ELayerType layer_type) const;
-
     //! Return the potential term that is used in the one-dimensional Fresnel calculations
     complex_t scalarReducedPotential(kvector_t k, double n_ref) const;
 

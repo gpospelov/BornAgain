@@ -24510,16 +24510,6 @@ class Layer(ISample):
         return _libBornAgainCore.Layer_numberOfSlices(self)
 
 
-    def slice(self, limits, layer_type):
-        """
-        slice(Layer self, ZLimits limits, Layer::ELayerType layer_type) -> SafePointerVector< Layer >
-
-        SafePointerVector< Layer > Layer::slice(ZLimits limits, ELayerType layer_type) const
-
-        """
-        return _libBornAgainCore.Layer_slice(self, limits, layer_type)
-
-
     def scalarReducedPotential(self, k, n_ref):
         """
         scalarReducedPotential(Layer self, kvector_t k, double n_ref) -> complex_t

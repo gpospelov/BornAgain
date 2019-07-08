@@ -19,6 +19,7 @@
 #include "minisplitter.h"
 #include "RealDataSelectorActions.h"
 #include "RealDataSelectorToolBar.h"
+#include "RealDataSelectorHBar.h"
 #include <QVBoxLayout>
 #include <QItemSelectionModel>
 
@@ -26,6 +27,7 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     : QWidget(parent)
     , m_selectorActions(new RealDataSelectorActions(this))
     , m_toolBar(new RealDataSelectorToolBar(m_selectorActions, this))
+    , m_hamBar(new RealDataSelectorHBar(m_selectorActions, this))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new ItemSelectorWidget)
     , m_propertiesWidget(new RealDataPropertiesWidget)
@@ -44,6 +46,7 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_toolBar);
+    mainLayout->addWidget(m_hamBar);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
 

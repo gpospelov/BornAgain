@@ -15,6 +15,7 @@
 #ifndef MULTILAYERUTILS_H
 #define MULTILAYERUTILS_H
 
+#include "Complex.h"
 #include "WinDllMacros.h"
 #include <cstddef>
 #include <vector>
@@ -25,7 +26,8 @@ class LayerRoughness;
 class MultiLayer;
 class ZLimits;
 
-namespace MultiLayerUtils {
+namespace MultiLayerUtils
+{
 //! Returns thickness of layer
 BA_CORE_API_ double LayerThickness(const MultiLayer& multilayer, size_t i);
 
@@ -46,6 +48,10 @@ BA_CORE_API_ bool ContainsCompatibleMaterials(const MultiLayer& multilayer);
 
 //! Calculate z-regions occupied by particles
 BA_CORE_API_ std::vector<ZLimits> ParticleRegions(const MultiLayer& multilayer, bool use_slicing);
-}
+
+//! Calculate average material profile for given multilayer
+BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_points,
+                                                    double z_min, double z_max);
+} // namespace MultiLayerUtils
 
 #endif // MULTILAYERUTILS_H

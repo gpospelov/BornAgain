@@ -19,11 +19,15 @@
 #include "LayerInterface.h"
 #include "MaterialUtils.h"
 #include "MultiLayer.h"
+#include "ProcessedSample.h"
+#include "ProfileHelper.h"
+#include "SimulationOptions.h"
 
 namespace
 {
 std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer);
-}
+std::vector<double> GenerateZValues(int n_points, double z_min, double z_max);
+} // namespace
 
 double MultiLayerUtils::LayerThickness(const MultiLayer& multilayer, size_t i)
 {
@@ -83,6 +87,17 @@ std::vector<ZLimits> MultiLayerUtils::ParticleRegions(const MultiLayer& multilay
     return layer_fill_limits.layerZLimits();
 }
 
+std::vector<complex_t> MultiLayerUtils::MaterialProfile(const MultiLayer& multilayer, int n_points,
+                                                        double z_min, double z_max)
+{
+    SimulationOptions options;
+    options.setUseAvgMaterials(true);
+    ProcessedSample sample(multilayer, options);
+    ProfileHelper helper(sample);
+    std::vector<double> z_values = GenerateZValues(n_points, z_min, z_max);
+    return helper.calculateProfile(z_values);
+}
+
 namespace
 {
 std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer)
@@ -94,6 +109,17 @@ std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer)
     result[0] = 0.0;
     for (size_t i = 1; i < n_layers - 1; ++i) {
         result[i] = result[i - 1] - MultiLayerUtils::LayerThickness(multilayer, i);
+    }
+    return result;
+}
+std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+{
+    std::vector<double> result;
+    if (n_points < 1)
+        return result;
+    double step = n_points > 1 ? (z_max - z_min) / (n_points - 1) : 0.0;
+    for (int i = 0; i < n_points; ++i) {
+        result.push_back(z_min + i * step);
     }
     return result;
 }

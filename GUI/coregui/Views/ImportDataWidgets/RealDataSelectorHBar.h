@@ -30,10 +30,11 @@ public:
     RealDataSelectorHBar(RealDataSelectorActions* actions, QWidget* parent = nullptr);
 
 private slots:
-    void onDropDownMenuAction();
+    void onDropDownMenuRequest();
 
 private:
-    QAction* m_dropDownMenuAction;
+    QToolButton* m_dropDownMenuButton;
+    RealDataSelectorActions* m_actions;
 };
 
 #endif // REALDATASELECTORHBAR_H

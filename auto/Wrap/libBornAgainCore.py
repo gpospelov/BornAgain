@@ -24946,6 +24946,11 @@ class Material(_object):
         return _libBornAgainCore.Material_refractiveIndex2(self, wavelength)
 
 
+    def sld(self, wavelength):
+        """sld(Material self, double wavelength) -> complex_t"""
+        return _libBornAgainCore.Material_sld(self, wavelength)
+
+
     def isScalarMaterial(self):
         """
         isScalarMaterial(Material self) -> bool

@@ -39,6 +39,9 @@ public:
     //! Returns squared refractive index
     complex_t refractiveIndex2(double wavelength) const override;
 
+    //! Returns the scattering length density
+    complex_t sld(double wavelength) const override;
+
     //! Returns underlying material data
     complex_t materialData() const override;
 

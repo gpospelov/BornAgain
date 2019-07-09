@@ -15,7 +15,9 @@
 #ifndef SLDPROFILE_H
 #define SLDPROFILE_H
 
-#include "Slice.h"
+#include "Complex.h"
+#include "Material.h"
+#include "WinDllMacros.h"
 #include <vector>
 
 //! Object that can generate the SLD profile of a sample as a function of depth.
@@ -25,14 +27,19 @@
 //!
 //! @ingroup algorithms_internal
 
+class ProcessedSample;
+
 class BA_CORE_API_ SLDProfile
 {
 public:
-    SLDProfile(const std::vector<Slice>& slices);
+    SLDProfile(const ProcessedSample& sample);
     ~SLDProfile();
 
 private:
-    std::vector<Slice> m_slices;
+    complex_t sld(double z, const std::vector<complex_t>& slds) const;
+    std::vector<Material> m_materials;
+    std::vector<double> m_zlimits;
+    std::vector<double> m_sigmas;
 };
 
 #endif // SLDPROFILE_H

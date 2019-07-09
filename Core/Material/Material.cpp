@@ -54,6 +54,11 @@ complex_t Material::refractiveIndex2(double wavelength) const
     return m_material_impl->refractiveIndex2(wavelength);
 }
 
+complex_t Material::sld(double wavelength) const
+{
+    return m_material_impl->sld(wavelength);
+}
+
 bool Material::isScalarMaterial() const
 {
     return m_material_impl->isScalarMaterial();

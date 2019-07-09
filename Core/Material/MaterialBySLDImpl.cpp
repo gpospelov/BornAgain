@@ -24,11 +24,6 @@ inline double getWlPrefactor(double wavelength)
 {
     return wavelength * wavelength / M_PI;
 }
-
-inline complex_t getSLD(double sld_real, double sld_imag)
-{
-    return complex_t(sld_real, -sld_imag);
-}
 }
 
 MaterialBySLDImpl::MaterialBySLDImpl(const std::string& name, double sld_real, double sld_imag,
@@ -50,7 +45,12 @@ complex_t MaterialBySLDImpl::refractiveIndex(double wavelength) const
 
 complex_t MaterialBySLDImpl::refractiveIndex2(double wavelength) const
 {
-    return 1.0 - getWlPrefactor(wavelength) * getSLD(m_sld_real, m_sld_imag);
+    return 1.0 - getWlPrefactor(wavelength) * sld(wavelength);
+}
+
+complex_t MaterialBySLDImpl::sld(double) const
+{
+    return complex_t(m_sld_real, -m_sld_imag);
 }
 
 complex_t MaterialBySLDImpl::materialData() const
@@ -61,7 +61,7 @@ complex_t MaterialBySLDImpl::materialData() const
 complex_t MaterialBySLDImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
 {
     double wavelength = wavevectors.getWavelength();
-    return 1.0 / getWlPrefactor(wavelength) - getSLD(m_sld_real, m_sld_imag);
+    return 1.0 / getWlPrefactor(wavelength) - sld(wavelength);
 }
 
 void MaterialBySLDImpl::print(std::ostream& ostr) const

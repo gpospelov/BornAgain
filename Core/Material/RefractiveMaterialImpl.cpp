@@ -24,15 +24,6 @@ complex_t RefractiveMaterialImpl::refractiveIndex2(double) const
     return result * result;
 }
 
-complex_t RefractiveMaterialImpl::sld(double wavelength) const
-{
-    if (wavelength <= 0.0)
-        throw std::runtime_error("RefractiveMaterialImpl::sld(wavelength): "
-                                 "wavelength should be strictly positive");
-    double prefactor = 2.0 * M_PI / wavelength / wavelength;
-    return complex_t(prefactor*m_delta, -prefactor*m_beta);
-}
-
 complex_t RefractiveMaterialImpl::materialData() const
 {
     return complex_t(m_delta, m_beta);

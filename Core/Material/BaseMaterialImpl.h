@@ -51,9 +51,6 @@ public:
     //! Returns squared refractive index.
     virtual complex_t refractiveIndex2(double wavelength) const = 0;
 
-    //! Returns the scattering length density
-    virtual complex_t sld(double wavelength) const = 0;
-
     //! Indicates whether the interaction with the material is scalar.
     //! This means that different polarization states will be diffracted equally
     virtual bool isScalarMaterial() const = 0;

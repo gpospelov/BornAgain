@@ -45,12 +45,7 @@ complex_t MaterialBySLDImpl::refractiveIndex(double wavelength) const
 
 complex_t MaterialBySLDImpl::refractiveIndex2(double wavelength) const
 {
-    return 1.0 - getWlPrefactor(wavelength) * sld(wavelength);
-}
-
-complex_t MaterialBySLDImpl::sld(double) const
-{
-    return complex_t(m_sld_real, -m_sld_imag);
+    return 1.0 - getWlPrefactor(wavelength) * sld();
 }
 
 complex_t MaterialBySLDImpl::materialData() const
@@ -61,7 +56,7 @@ complex_t MaterialBySLDImpl::materialData() const
 complex_t MaterialBySLDImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
 {
     double wavelength = wavevectors.getWavelength();
-    return 1.0 / getWlPrefactor(wavelength) - sld(wavelength);
+    return 1.0 / getWlPrefactor(wavelength) - sld();
 }
 
 void MaterialBySLDImpl::print(std::ostream& ostr) const
@@ -69,4 +64,9 @@ void MaterialBySLDImpl::print(std::ostream& ostr) const
     ostr << "MaterialBySLD:" << getName() << "<" << this << ">{ "
          << "sld_real=" << m_sld_real << ", sld_imag = " << m_sld_imag
          << ", B=" << magnetization() << "}";
+}
+
+complex_t MaterialBySLDImpl::sld() const
+{
+    return complex_t(m_sld_real, -m_sld_imag);
 }

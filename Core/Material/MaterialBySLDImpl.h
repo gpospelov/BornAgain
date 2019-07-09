@@ -39,9 +39,6 @@ public:
     //! Returns squared refractive index
     complex_t refractiveIndex2(double wavelength) const override;
 
-    //! Returns the scattering length density
-    complex_t sld(double wavelength) const override;
-
     //! Returns underlying material data
     complex_t materialData() const override;
 
@@ -62,6 +59,9 @@ private:
     //! scattering length density (SLD). SLD units are \f$ nm^{-2} \f$.
     MaterialBySLDImpl(const std::string& name, double sld_real, double sld_imag,
                       kvector_t magnetization);
+    //! Returns the scattering length density
+    complex_t sld() const;
+
 
     double m_sld_real; //!< complex-valued scattering length density
     double m_sld_imag; //!< imaginary part of scattering length density (negative by default)

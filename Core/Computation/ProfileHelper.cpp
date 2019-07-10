@@ -45,6 +45,9 @@ ProfileHelper::ProfileHelper(const ProcessedSample& sample)
     }
 }
 
+// Note: for refractive index materials, the material interpolation actually happens at the level
+// of n^2. To first order in delta and beta, this implies the same smooth interpolation of delta
+// and beta, as is done here.
 std::vector<complex_t> ProfileHelper::calculateProfile(const std::vector<double>& z_values) const
 {
     complex_t top_value = m_materialdata.size() ? m_materialdata[0] : 0.0;

@@ -25365,6 +25365,10 @@ class MultiLayer(ISample):
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 
+
+def MaterialProfile(multilayer, n_points, z_min, z_max):
+    """MaterialProfile(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t"""
+    return _libBornAgainCore.MaterialProfile(multilayer, n_points, z_min, z_max)
 class OffSpecSimulation(Simulation2D):
     """
 

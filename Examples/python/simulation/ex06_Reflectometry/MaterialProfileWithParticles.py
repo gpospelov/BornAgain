@@ -51,22 +51,10 @@ def get_sample():
     return multi_layer
 
 
-def generate_profile():
-    """
-    Runs simulation and returns its result.
-    """
-    sample = get_sample()
-    zmin, zmax = -220 * angstrom, 120 * angstrom
-    npoints = 400
-
-    zpoints = np.linspace(zmin, zmax, npoints)
-    slds = ba.MaterialProfile(sample, npoints, zmin, zmax)
-
-    return zpoints, slds
-
-
 if __name__ == '__main__':
-    zpoints, slds = generate_profile()
+    sample = get_sample()
+    zpoints, slds = ba.MaterialProfile(sample)
+
     plt.figure()
     plt.plot(zpoints, np.real(slds))
     plt.show()

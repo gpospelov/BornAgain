@@ -17,11 +17,6 @@
 #include "ProfileHelper.h"
 #include "SimulationOptions.h"
 
-namespace
-{
-std::vector<double> GenerateZValues(int n_points, double z_min, double z_max);
-} // namespace
-
 std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_points, double z_min,
                                        double z_max)
 {
@@ -42,9 +37,6 @@ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multila
     return helper.defaultLimits();
 }
 
-
-namespace
-{
 std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
 {
     std::vector<double> result;
@@ -56,4 +48,3 @@ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
     }
     return result;
 }
-} // unnamed namespace

@@ -17,6 +17,7 @@
 
 #include "Complex.h"
 #include "WinDllMacros.h"
+#include <utility>
 #include <vector>
 
 class MultiLayer;
@@ -27,5 +28,7 @@ class MultiLayer;
 BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_points,
                                                     double z_min, double z_max);
 
+//! Get default z limits for generating a material profile
+BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer& multilayer);
 
 #endif // MULTILAYERFUNCS_H_

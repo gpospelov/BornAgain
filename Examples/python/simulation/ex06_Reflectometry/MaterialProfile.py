@@ -48,7 +48,7 @@ def generate_profile():
     npoints = 400
 
     zpoints = np.linspace(zmin, zmax, npoints)
-    slds = ba.MaterialProfile(sample, npoints, zmin, zmax)
+    slds = ba.MaterialProfile(sample)
 
     return zpoints, slds
 

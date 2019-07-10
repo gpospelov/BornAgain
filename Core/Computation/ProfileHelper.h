@@ -18,6 +18,7 @@
 #include "Complex.h"
 #include "Material.h"
 #include "WinDllMacros.h"
+#include <utility>
 #include <vector>
 
 //! Object that can generate the material profile of a sample as a function of depth.
@@ -36,6 +37,7 @@ public:
     ~ProfileHelper();
 
     std::vector<complex_t> calculateProfile(const std::vector<double>& z_values) const;
+    std::pair<double, double> defaultLimits() const;
 private:
     std::vector<complex_t> m_materialdata;
     std::vector<double> m_zlimits;

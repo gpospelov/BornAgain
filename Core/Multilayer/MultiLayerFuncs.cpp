@@ -33,6 +33,16 @@ std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_point
     return helper.calculateProfile(z_values);
 }
 
+std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+{
+    SimulationOptions options;
+    options.setUseAvgMaterials(true);
+    ProcessedSample sample(multilayer, options);
+    ProfileHelper helper(sample);
+    return helper.defaultLimits();
+}
+
+
 namespace
 {
 std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)

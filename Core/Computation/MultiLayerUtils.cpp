@@ -23,7 +23,7 @@
 namespace
 {
 std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer);
-}
+} // namespace
 
 double MultiLayerUtils::LayerThickness(const MultiLayer& multilayer, size_t i)
 {

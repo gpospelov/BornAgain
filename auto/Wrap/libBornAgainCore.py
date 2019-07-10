@@ -1902,6 +1902,53 @@ class map_string_double_t(_object):
 map_string_double_t_swigregister = _libBornAgainCore.map_string_double_t_swigregister
 map_string_double_t_swigregister(map_string_double_t)
 
+class pair_double_t(_object):
+    """Proxy of C++ std::pair<(double,double)> class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, pair_double_t, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, pair_double_t, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(std::pair<(double,double)> self) -> pair_double_t
+        __init__(std::pair<(double,double)> self, double first, double second) -> pair_double_t
+        __init__(std::pair<(double,double)> self, pair_double_t p) -> pair_double_t
+        """
+        this = _libBornAgainCore.new_pair_double_t(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_setmethods__["first"] = _libBornAgainCore.pair_double_t_first_set
+    __swig_getmethods__["first"] = _libBornAgainCore.pair_double_t_first_get
+    if _newclass:
+        first = _swig_property(_libBornAgainCore.pair_double_t_first_get, _libBornAgainCore.pair_double_t_first_set)
+    __swig_setmethods__["second"] = _libBornAgainCore.pair_double_t_second_set
+    __swig_getmethods__["second"] = _libBornAgainCore.pair_double_t_second_get
+    if _newclass:
+        second = _swig_property(_libBornAgainCore.pair_double_t_second_get, _libBornAgainCore.pair_double_t_second_set)
+    def __len__(self):
+        return 2
+    def __repr__(self):
+        return str((self.first, self.second))
+    def __getitem__(self, index): 
+        if not (index % 2):
+            return self.first
+        else:
+            return self.second
+    def __setitem__(self, index, val):
+        if not (index % 2):
+            self.first = val
+        else:
+            self.second = val
+    __swig_destroy__ = _libBornAgainCore.delete_pair_double_t
+    __del__ = lambda self: None
+pair_double_t_swigregister = _libBornAgainCore.pair_double_t_swigregister
+pair_double_t_swigregister(pair_double_t)
+
 class vector_pair_double_t(_object):
     """Proxy of C++ std::vector<(std::pair<(double,double)>)> class."""
 
@@ -1962,7 +2009,7 @@ class vector_pair_double_t(_object):
     def __getitem__(self, *args):
         """
         __getitem__(vector_pair_double_t self, PySliceObject * slice) -> vector_pair_double_t
-        __getitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i) -> std::vector< std::pair< double,double > >::value_type const &
+        __getitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i) -> pair_double_t
         """
         return _libBornAgainCore.vector_pair_double_t___getitem__(self, *args)
 
@@ -1971,18 +2018,18 @@ class vector_pair_double_t(_object):
         """
         __setitem__(vector_pair_double_t self, PySliceObject * slice, vector_pair_double_t v)
         __setitem__(vector_pair_double_t self, PySliceObject * slice)
-        __setitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, std::vector< std::pair< double,double > >::value_type const & x)
+        __setitem__(vector_pair_double_t self, std::vector< std::pair< double,double > >::difference_type i, pair_double_t x)
         """
         return _libBornAgainCore.vector_pair_double_t___setitem__(self, *args)
 
 
     def pop(self):
-        """pop(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::value_type"""
+        """pop(vector_pair_double_t self) -> pair_double_t"""
         return _libBornAgainCore.vector_pair_double_t_pop(self)
 
 
     def append(self, x):
-        """append(vector_pair_double_t self, std::vector< std::pair< double,double > >::value_type const & x)"""
+        """append(vector_pair_double_t self, pair_double_t x)"""
         return _libBornAgainCore.vector_pair_double_t_append(self, x)
 
 
@@ -2056,7 +2103,7 @@ class vector_pair_double_t(_object):
         __init__(std::vector<(std::pair<(double,double)>)> self) -> vector_pair_double_t
         __init__(std::vector<(std::pair<(double,double)>)> self, vector_pair_double_t arg2) -> vector_pair_double_t
         __init__(std::vector<(std::pair<(double,double)>)> self, std::vector< std::pair< double,double > >::size_type size) -> vector_pair_double_t
-        __init__(std::vector<(std::pair<(double,double)>)> self, std::vector< std::pair< double,double > >::size_type size, std::vector< std::pair< double,double > >::value_type const & value) -> vector_pair_double_t
+        __init__(std::vector<(std::pair<(double,double)>)> self, std::vector< std::pair< double,double > >::size_type size, pair_double_t value) -> vector_pair_double_t
         """
         this = _libBornAgainCore.new_vector_pair_double_t(*args)
         try:
@@ -2065,37 +2112,37 @@ class vector_pair_double_t(_object):
             self.this = this
 
     def push_back(self, x):
-        """push_back(vector_pair_double_t self, std::vector< std::pair< double,double > >::value_type const & x)"""
+        """push_back(vector_pair_double_t self, pair_double_t x)"""
         return _libBornAgainCore.vector_pair_double_t_push_back(self, x)
 
 
     def front(self):
-        """front(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::value_type const &"""
+        """front(vector_pair_double_t self) -> pair_double_t"""
         return _libBornAgainCore.vector_pair_double_t_front(self)
 
 
     def back(self):
-        """back(vector_pair_double_t self) -> std::vector< std::pair< double,double > >::value_type const &"""
+        """back(vector_pair_double_t self) -> pair_double_t"""
         return _libBornAgainCore.vector_pair_double_t_back(self)
 
 
     def assign(self, n, x):
-        """assign(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type n, std::vector< std::pair< double,double > >::value_type const & x)"""
+        """assign(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type n, pair_double_t x)"""
         return _libBornAgainCore.vector_pair_double_t_assign(self, n, x)
 
 
     def resize(self, *args):
         """
         resize(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type new_size)
-        resize(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type new_size, std::vector< std::pair< double,double > >::value_type const & x)
+        resize(vector_pair_double_t self, std::vector< std::pair< double,double > >::size_type new_size, pair_double_t x)
         """
         return _libBornAgainCore.vector_pair_double_t_resize(self, *args)
 
 
     def insert(self, *args):
         """
-        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::value_type const & x) -> std::vector< std::pair< double,double > >::iterator
-        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::size_type n, std::vector< std::pair< double,double > >::value_type const & x)
+        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, pair_double_t x) -> std::vector< std::pair< double,double > >::iterator
+        insert(vector_pair_double_t self, std::vector< std::pair< double,double > >::iterator pos, std::vector< std::pair< double,double > >::size_type n, pair_double_t x)
         """
         return _libBornAgainCore.vector_pair_double_t_insert(self, *args)
 
@@ -9133,7 +9180,7 @@ class IFTDecayFunction2D(ICloneable, INode):
 
     def boundingReciprocalLatticeCoordinates(self, qX, qY, a, b, alpha):
         """
-        boundingReciprocalLatticeCoordinates(IFTDecayFunction2D self, double qX, double qY, double a, double b, double alpha) -> std::pair< double,double >
+        boundingReciprocalLatticeCoordinates(IFTDecayFunction2D self, double qX, double qY, double a, double b, double alpha) -> pair_double_t
 
         std::pair< double, double > IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, double a, double b, double alpha) const
 
@@ -25365,6 +25412,18 @@ class MultiLayer(ISample):
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
 MultiLayer_swigregister(MultiLayer)
 
+
+def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
+    """MaterialProfile_cpp(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t"""
+    return _libBornAgainCore.MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
+
+def DefaultMaterialProfileLimits(multilayer):
+    """DefaultMaterialProfileLimits(MultiLayer multilayer) -> pair_double_t"""
+    return _libBornAgainCore.DefaultMaterialProfileLimits(multilayer)
+
+def GenerateZValues(n_points, z_min, z_max):
+    """GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t"""
+    return _libBornAgainCore.GenerateZValues(n_points, z_min, z_max)
 class OffSpecSimulation(Simulation2D):
     """
 
@@ -29551,6 +29610,25 @@ class ObserverCallbackWrapper(PyObserverCallback):
     def update(self, fit_objective):
         return self.callback_(fit_objective)
 
+
+
+def MaterialProfile(multilayer, n_points=400, z_min=None, z_max=None):
+    """
+    Creates a material profile from the given multilayer. If no limits are given,
+    it will provide sensible default values, considering the included particles and
+    interface roughnesses.
+    :param multilayer: bornagain.MultiLayer object
+    :param n_points: number of points to generate
+    :param z_min: starting value for z
+    :param z_max: ending value for z
+    :return: numpy arrays containing z positions and the complex material values in those positions
+    """
+    def_z_min, def_z_max = DefaultMaterialProfileLimits(multilayer)
+    z_min = def_z_min if z_min is None else z_min
+    z_max = def_z_max if z_max is None else z_max
+    z_points = GenerateZValues(n_points, z_min, z_max)
+    material_values = MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
+    return (z_points, material_values)
 
 # This file is compatible with both classic and new-style classes.
 

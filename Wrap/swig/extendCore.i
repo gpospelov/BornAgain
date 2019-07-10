@@ -268,3 +268,25 @@ class ObserverCallbackWrapper(PyObserverCallback):
 %}
 };
 
+// --- MaterialProfile generation ----------------------------------------------------------------
+
+// Function with optional default limits and/or number of points
+%pythoncode %{
+    def MaterialProfile(multilayer, n_points=400, z_min=None, z_max=None):
+        """
+        Creates a material profile from the given multilayer. If no limits are given,
+        it will provide sensible default values, considering the included particles and
+        interface roughnesses.
+        :param multilayer: bornagain.MultiLayer object
+        :param n_points: number of points to generate
+        :param z_min: starting value for z
+        :param z_max: ending value for z
+        :return: numpy arrays containing z positions and the complex material values in those positions
+        """
+        def_z_min, def_z_max = DefaultMaterialProfileLimits(multilayer)
+        z_min = def_z_min if z_min is None else z_min
+        z_max = def_z_max if z_max is None else z_max
+        z_points = GenerateZValues(n_points, z_min, z_max)
+        material_values = MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
+        return (z_points, material_values)
+%}

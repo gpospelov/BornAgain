@@ -72,8 +72,6 @@ void SpecularSimulation::prepareSimulation()
                                  "not properly configured.");
     getInstrument().initDetector();
     Simulation::prepareSimulation();
-    const MultiLayer* sample = m_sample_provider.sample();
-
 }
 
 size_t SpecularSimulation::numberOfSimulationElements() const
@@ -300,6 +298,6 @@ std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_hand
     result->setFootprintFactor(scan.footprintFactor());
     result->setWavelengthResolution(*scan.wavelengthResolution());
     result->setAngleResolution(*scan.angleResolution());
-    return std::move(result);
+    return std::unique_ptr<ISpecularScan>(result.release());
 }
 }

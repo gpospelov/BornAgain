@@ -42,4 +42,3 @@ void RefractiveMaterialImpl::print(std::ostream& ostr) const
          << "delta=" << m_delta << ", beta=" << m_beta
          << ", B=" << magnetization() << "}";
 }
-

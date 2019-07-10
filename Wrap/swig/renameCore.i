@@ -11,6 +11,7 @@
 %rename(uncertaintyData_cpp) FitObjective::uncertaintyData;
 %rename(containsUncertainties_cpp) FitObjective::containsUncertainties;
 %rename(allPairsHaveUncertainties_cpp) FitObjective::allPairsHaveUncertainties;
+%rename(MaterialProfile_cpp) MaterialProfile;
 
 // force swig to use move ctor instead of copy ctor
 %typemap(out) SlicedParticle %{

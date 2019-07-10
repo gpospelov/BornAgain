@@ -25,7 +25,8 @@ class LayerRoughness;
 class MultiLayer;
 class ZLimits;
 
-namespace MultiLayerUtils {
+namespace MultiLayerUtils
+{
 //! Returns thickness of layer
 BA_CORE_API_ double LayerThickness(const MultiLayer& multilayer, size_t i);
 
@@ -46,6 +47,6 @@ BA_CORE_API_ bool ContainsCompatibleMaterials(const MultiLayer& multilayer);
 
 //! Calculate z-regions occupied by particles
 BA_CORE_API_ std::vector<ZLimits> ParticleRegions(const MultiLayer& multilayer, bool use_slicing);
-}
+} // namespace MultiLayerUtils
 
 #endif // MULTILAYERUTILS_H

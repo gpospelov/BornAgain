@@ -4,9 +4,10 @@ set(test_cases
     BatchSimulation
     PolDWBAMagCylinders
     FourierTransformation
-#    CoreIO
+#    CoreIOPerformance
 #    DetectorTest
 #    MesoPerformance
+#    CoreIOPath
 )
 
 # build executables for each test case

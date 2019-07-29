@@ -32,12 +32,12 @@ template<class T>
 void RangedDistributionTest::checkThrows()
 {
     EXPECT_THROW(T(0, 1.0, 0.0, 1.0), std::runtime_error);
-    EXPECT_THROW(T(1, 0.0, 0.0, 1.0), std::runtime_error);
     EXPECT_THROW(T(1, 1.0, 1.0, -1.0), std::runtime_error);
     EXPECT_THROW(T(1, 1.0, 1.0, -1.0), std::runtime_error);
     EXPECT_THROW(T(8, 5.0, RealLimits::limited(1.0, 0.2)), std::runtime_error);
     EXPECT_THROW(T(8, -5.0), std::runtime_error);
     EXPECT_NO_THROW(T(1, 0.1, 0.0, 0.1));
+    EXPECT_NO_THROW(T(1, 0.0, 0.0, 1.0));
     EXPECT_NO_THROW(T(1, 0.1));
     EXPECT_NO_THROW(T(2, 0.1));
 }

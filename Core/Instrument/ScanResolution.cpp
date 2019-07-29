@@ -38,6 +38,8 @@ public:
 
     DistrOutput generateSamples(double mean, size_t n_times) const override;
     DistrOutput generateSamples(const std::vector<double>& mean) const override;
+    std::vector<double> stdDevs(double mean, size_t n_times) const override;
+    std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
 protected:
     std::string name() const override { return relative_resolution; }
@@ -62,6 +64,8 @@ public:
 
     DistrOutput generateSamples(double mean, size_t n_times) const override;
     DistrOutput generateSamples(const std::vector<double>& mean) const override;
+    std::vector<double> stdDevs(double mean, size_t n_times) const override;
+    std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
 protected:
     std::string name() const override { return absolute_resolution; }
@@ -88,6 +92,8 @@ public:
 
     DistrOutput generateSamples(double mean, size_t n_times) const override;
     DistrOutput generateSamples(const std::vector<double>& mean) const override;
+    std::vector<double> stdDevs(double mean, size_t n_times) const override;
+    std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
 protected:
     std::string name() const override { return relative_resolution; }
@@ -114,6 +120,8 @@ public:
 
     DistrOutput generateSamples(double mean, size_t n_times) const override;
     DistrOutput generateSamples(const std::vector<double>& mean) const override;
+    std::vector<double> stdDevs(double mean, size_t n_times) const override;
+    std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
 protected:
     std::string name() const override { return absolute_resolution; }
@@ -138,6 +146,8 @@ public:
 
     DistrOutput generateSamples(double mean, size_t n_times) const override;
     DistrOutput generateSamples(const std::vector<double>& mean) const override;
+    std::vector<double> stdDevs(double mean, size_t n_times) const override;
+    std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
 protected:
     std::string name() const override;
@@ -221,6 +231,21 @@ ScanSingleRelativeResolution::generateSamples(const std::vector<double>& mean) c
     return result;
 }
 
+std::vector<double> ScanSingleRelativeResolution::stdDevs(double mean, size_t n_times) const
+{
+    return std::vector<double>(n_times, mean * m_reldev);
+}
+
+std::vector<double> ScanSingleRelativeResolution::stdDevs(const std::vector<double>& mean) const
+{
+    checkIfEmpty(mean);
+    std::vector<double> result;
+    result.reserve(mean.size());
+    for (size_t i = 0, size = mean.size(); i < size; ++i)
+        result.push_back(mean[i] * m_reldev);
+    return result;
+}
+
 ScanResolution::DistrOutput
 ScanVectorRelativeResolution::generateSamples(double mean, size_t n_times) const
 {
@@ -230,16 +255,28 @@ ScanVectorRelativeResolution::generateSamples(double mean, size_t n_times) const
 ScanResolution::DistrOutput
 ScanVectorRelativeResolution::generateSamples(const std::vector<double>& mean) const
 {
+    const std::vector<double> stddevs = stdDevs(mean);
+    return distribution()->generateSamples(mean, stddevs);
+}
+
+std::vector<double> ScanVectorRelativeResolution::stdDevs(double mean, size_t n_times) const
+{
+    return stdDevs(std::vector<double>(n_times, mean));
+}
+
+std::vector<double> ScanVectorRelativeResolution::stdDevs(const std::vector<double>& mean) const
+{
     const size_t result_size = mean.size();
     if (result_size != m_reldev.size())
         throw std::runtime_error(
-            "Error in ScanVectorRelativeResolution::generateSamples: passed mean values vector "
+            "Error in ScanVectorRelativeResolution::stdDevs: passed mean values vector "
             "size shall be of the same size with relative deviations vector");
 
+
     std::vector<double> stddevs(result_size);
-    for (size_t i = 0, size = mean.size(); i < size; ++i)
+    for (size_t i = 0; i < result_size; ++i)
         stddevs[i] = m_reldev[i] * mean[i];
-    return distribution()->generateSamples(mean, stddevs);
+    return stddevs;
 }
 
 ScanResolution::DistrOutput
@@ -259,6 +296,17 @@ ScanSingleAbsoluteResolution::generateSamples(const std::vector<double>& mean) c
     return result;
 }
 
+std::vector<double> ScanSingleAbsoluteResolution::stdDevs(double, size_t n_times) const
+{
+    return std::vector<double>(n_times, m_stddev);
+}
+
+std::vector<double> ScanSingleAbsoluteResolution::stdDevs(const std::vector<double>& mean) const
+{
+    checkIfEmpty(mean);
+    return std::vector<double>(mean.size(), m_stddev);
+}
+
 ScanResolution::DistrOutput
 ScanVectorAbsoluteResolution::generateSamples(double mean, size_t n_times) const
 {
@@ -276,6 +324,21 @@ ScanVectorAbsoluteResolution::generateSamples(const std::vector<double>& mean) c
     return distribution()->generateSamples(mean, m_stddev);
 }
 
+std::vector<double> ScanVectorAbsoluteResolution::stdDevs(double mean, size_t n_times) const
+{
+    return stdDevs(std::vector<double>(n_times, mean));
+}
+
+std::vector<double> ScanVectorAbsoluteResolution::stdDevs(const std::vector<double>& mean) const
+{
+    const size_t result_size = mean.size();
+    if (result_size != m_stddev.size())
+        throw std::runtime_error(
+            "Error in ScanVectorAbsoluteResolution::generateSamples: passed mean values vector "
+            "size shall be of the same size with standard deviations vector");
+    return m_stddev;
+}
+
 ScanEmptyResolution::DistrOutput
 ScanEmptyResolution::generateSamples(double mean, size_t n_times) const
 {
@@ -290,6 +353,16 @@ ScanEmptyResolution::generateSamples(const std::vector<double>& mean) const
     for (size_t i = 0, size = mean.size(); i < size; ++i)
         result.push_back({ParameterSample(mean[i], 1.0)});
     return result;
+}
+
+std::vector<double> ScanEmptyResolution::stdDevs(double, size_t n_times) const
+{
+    return std::vector<double>(n_times, 0.0);
+}
+
+std::vector<double> ScanEmptyResolution::stdDevs(const std::vector<double>& mean) const
+{
+    return std::vector<double>(mean.size(), 0.0);
 }
 
 std::string ScanEmptyResolution::name() const

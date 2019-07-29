@@ -45,6 +45,8 @@ public:
 
     virtual DistrOutput generateSamples(double mean, size_t n_times) const = 0;
     virtual DistrOutput generateSamples(const std::vector<double>& mean) const = 0;
+    virtual std::vector<double> stdDevs(double mean, size_t n_times) const = 0;
+    virtual std::vector<double> stdDevs(const std::vector<double>& mean) const = 0;
     bool empty() const { return !m_distr; }
 
     //! Prints object definition in python format.

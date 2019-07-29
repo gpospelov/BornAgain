@@ -128,6 +128,11 @@ DistributionNoneItem::createRangedDistribution(double) const
     return nullptr;
 }
 
+double DistributionNoneItem::deviation(double) const
+{
+    return 0.0;
+}
+
 void DistributionNoneItem::init_distribution(double value)
 {
     setItemValue(DistributionNoneItem::P_MEAN, value);
@@ -190,6 +195,11 @@ DistributionLorentzItem::createRangedDistribution(double scale) const
     return ::createRangedDistribution<RangedDistributionLorentz>(*this, scale);
 }
 
+double DistributionLorentzItem::deviation(double scale) const
+{
+    return getItemValue(P_HWHM).toDouble() * scale;
+}
+
 void DistributionLorentzItem::init_distribution(double value)
 {
     double sigma(0.1 * std::abs(value));
@@ -226,6 +236,11 @@ std::unique_ptr<RangedDistribution>
 DistributionGaussianItem::createRangedDistribution(double scale) const
 {
     return ::createRangedDistribution<RangedDistributionGaussian>(*this, scale);
+}
+
+double DistributionGaussianItem::deviation(double scale) const
+{
+    return getItemValue(P_STD_DEV).toDouble() * scale;
 }
 
 void DistributionGaussianItem::init_distribution(double value)
@@ -303,6 +318,11 @@ std::unique_ptr<RangedDistribution>
 DistributionCosineItem::createRangedDistribution(double scale) const
 {
     return ::createRangedDistribution<RangedDistributionCosine>(*this, scale);
+}
+
+double DistributionCosineItem::deviation(double scale) const
+{
+    return getItemValue(P_SIGMA).toDouble() * scale;
 }
 
 void DistributionCosineItem::init_distribution(double value)

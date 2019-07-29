@@ -50,6 +50,7 @@ public:
     void showMean(bool flag) override;
 
     virtual std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const = 0;
+    virtual double deviation(double scale) const = 0;
 };
 
 class BA_CORE_API_ DistributionNoneItem : public SymmetricDistributionItem
@@ -60,6 +61,7 @@ public:
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
     std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
+    double deviation(double scale) const override;
     void init_distribution(double value) override;
 };
 
@@ -84,6 +86,7 @@ public:
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
     std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
+    double deviation(double scale) const override;
     void init_distribution(double value) override;
 };
 
@@ -95,6 +98,7 @@ public:
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
     std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
+    double deviation(double scale) const override;
     void init_distribution(double value) override;
 };
 
@@ -120,6 +124,7 @@ public:
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
     std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
+    double deviation(double scale) const override;
     void init_distribution(double value) override;
 };
 

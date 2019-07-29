@@ -241,6 +241,7 @@ AngularSpecScan::createIntensities(const std::vector<SpecularSimulationElement>&
 std::string AngularSpecScan::print() const
 {
     std::stringstream result;
+    result << "\n" << PythonFormatting::indent() << "# Defining specular scan:\n";
     const std::string axis_def = PythonFormatting::indent() + "axis = ";
     result << axis_def
            << PythonFormatting::printAxis(*coordinateAxis(), BornAgain::UnitsRad,
@@ -248,22 +249,21 @@ std::string AngularSpecScan::print() const
            << "\n";
 
     result << PythonFormatting::indent() << "scan = ";
-    result << "ba.AngularSpecScan(" << PythonFormatting::printDouble(m_wl) << ", axis)";
+    result << "ba.AngularSpecScan(" << PythonFormatting::printDouble(m_wl) << ", axis)\n";
 
     if (m_footprint) {
-        result << "\n";
         result << *m_footprint << "\n";
-        result << PythonFormatting::indent() << "scan.setFootprintFactor(footprint)";
+        result << PythonFormatting::indent() << "scan.setFootprintFactor(footprint)\n";
     }
     if (!m_inc_resolution->empty()) {
-        result << "\n";
+        result << "\n" << PythonFormatting::indent() << "# Defining angular resolution\n";
         result << *m_inc_resolution << "\n";
-        result << PythonFormatting::indent() << "scan.setAngleResolution(resolution)";
+        result << PythonFormatting::indent() << "scan.setAngleResolution(resolution)\n";
     }
     if (!m_wl_resolution->empty()) {
-        result << "\n";
+        result << "\n" << PythonFormatting::indent() << "# Defining wavelength resolution\n";
         result << *m_wl_resolution << "\n";
-        result << PythonFormatting::indent() << "scan.setWavelengthResolution(resolution)";
+        result << PythonFormatting::indent() << "scan.setWavelengthResolution(resolution)\n";
     }
     return result.str();
 }

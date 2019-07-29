@@ -26,6 +26,7 @@ double FootprintFactorGaussian::calculate(double alpha) const
 std::string FootprintFactorGaussian::print() const
 {
     std::stringstream result;
+    result << "\n" << PythonFormatting::indent() << "# Defining footprint:\n";
     result << PythonFormatting::indent() << "footprint = ";
     result << "ba.FootprintFactorGaussian";
     result << "(" << PythonFormatting::printDouble(widthRatio()) << ")";

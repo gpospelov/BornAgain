@@ -18,10 +18,17 @@
 #include "Slice.h"
 #include "SpecularMatrix.h"
 #include "Vectors3D.h"
+#include <functional>
 
 ScalarFresnelMap::ScalarFresnelMap() {}
 
 ScalarFresnelMap::~ScalarFresnelMap() = default;
+
+//! Returns hash value of a pair of doubles, computed by exclusive-or of the component hash values.
+size_t ScalarFresnelMap::Hash2Doubles::operator()(std::pair<double, double> doubles) const noexcept
+{
+    return std::hash<double>{}(doubles.first) ^ std::hash<double>{}(doubles.second);
+}
 
 std::unique_ptr<const ILayerRTCoefficients>
 ScalarFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const

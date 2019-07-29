@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "TransformFromDomain.h"
+#include "AngularSpecScan.h"
 #include "AxesItems.h"
 #include "BackgroundItems.h"
 #include "Beam.h"
@@ -55,12 +56,14 @@
 #include "ParticleItem.h"
 #include "PoissonNoiseBackground.h"
 #include "Polygon.h"
+#include "RangedDistributions.h"
 #include "Rectangle.h"
 #include "RectangularDetector.h"
 #include "RectangularDetectorItem.h"
 #include "RegionOfInterest.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "ResolutionFunctionItems.h"
+#include "ScanResolution.h"
 #include "SessionItemUtils.h"
 #include "SpecularBeamInclinationItem.h"
 #include "SpecularSimulation.h"
@@ -87,6 +90,9 @@ void setDistribution(SessionItem* item, ParameterDistribution par_distr, QString
 void addDistributionToBeamItem(const std::string& parameter_name, const QString& item_name,
                                const ParameterDistribution& distribution,
                                const BeamItem* beam_item);
+
+void addRangedDistributionToItem(SessionItem *item, const RangedDistribution& ranged,
+                                 double mean, double std_dev);
 } // namespace
 
 void TransformFromDomain::set1DLatticeItem(SessionItem* item,
@@ -293,17 +299,26 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
     auto axis_item = beam_item->currentInclinationAxisItem();
     TransformFromDomain::setAxisItem(axis_item, *simulation.coordinateAxis(), 1. / Units::deg);
 
-    // distribution parameters
-    const DistributionHandler::Distributions_t distributions =
-        simulation.getDistributionHandler().getDistributions();
-    for (size_t i = 0; i < distributions.size(); ++i) {
-        addDistributionToBeamItem(BornAgain::Wavelength, BeamItem::P_WAVELENGTH, distributions[i],
-                                  beam_item);
-        addDistributionToBeamItem(BornAgain::Inclination, BeamItem::P_INCLINATION_ANGLE,
-                                  distributions[i], beam_item);
+    setFootprintFactor(simulation.footprintFactor(), beam_item);
+
+    const AngularSpecScan* scan = dynamic_cast<const AngularSpecScan*>(simulation.dataHandler());
+    if (!scan)
+        return;
+
+    auto resolution = scan->wavelengthResolution();
+    if (!resolution->empty()) {
+        double mean = scan->wavelength();
+        double std_dev = resolution->stdDevs(mean, 1).front();
+        addRangedDistributionToItem(beam_item->getItem(SpecularBeamItem::P_WAVELENGTH),
+                                    *resolution->distribution(), mean, std_dev);
     }
 
-    setFootprintFactor(simulation.footprintFactor(), beam_item);
+    resolution = scan->angleResolution();
+    if (resolution && !resolution->empty()) {
+        double std_dev = resolution->stdDevs(0.0, 1).front();
+        addRangedDistributionToItem(beam_item->getItem(SpecularBeamItem::P_INCLINATION_ANGLE),
+                                    *resolution->distribution(), 0.0, std_dev);
+    }
 }
 
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
@@ -870,5 +885,16 @@ void addDistributionToBeamItem(const std::string& parameter_name, const QString&
 
     const auto beam_parameter = dynamic_cast<BeamDistributionItem*>(beam_item->getItem(item_name));
     TransformFromDomain::setItemFromSample(beam_parameter, distribution);
+}
+
+void addRangedDistributionToItem(SessionItem* item, const RangedDistribution& ranged,
+                                 double mean, double std_dev)
+{
+    auto distr_item = dynamic_cast<BeamDistributionItem*>(item);
+    if (!distr_item)
+        return;
+    ParameterDistribution par_distr("", *ranged.distribution(mean, std_dev), ranged.nSamples(),
+                                    ranged.sigmaFactor(), ranged.limits());
+    TransformFromDomain::setItemFromSample(distr_item, par_distr);
 }
 } // unnamed namespace

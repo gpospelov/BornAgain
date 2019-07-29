@@ -18,6 +18,7 @@
 #include "SessionItem.h"
 
 class IDistribution1D;
+class RangedDistribution;
 
 class BA_CORE_API_ DistributionItem : public SessionItem
 {
@@ -47,6 +48,8 @@ public:
 
     explicit SymmetricDistributionItem(const QString& name);
     void showMean(bool flag) override;
+
+    virtual std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const = 0;
 };
 
 class BA_CORE_API_ DistributionNoneItem : public SymmetricDistributionItem
@@ -56,6 +59,7 @@ public:
     DistributionNoneItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
+    std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
     void init_distribution(double value) override;
 };
 
@@ -79,6 +83,7 @@ public:
     DistributionLorentzItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
+    std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
     void init_distribution(double value) override;
 };
 
@@ -89,6 +94,7 @@ public:
     DistributionGaussianItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
+    std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
     void init_distribution(double value) override;
 };
 
@@ -113,6 +119,7 @@ public:
     DistributionCosineItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
+    std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
     void init_distribution(double value) override;
 };
 

@@ -36,11 +36,17 @@ struct BA_CORE_API_ MillerIndex {
     double h, k, l;
 };
 
+//! Specifies a rotation of a lattice through the Miller indices of two coordinate axes.
+
 class BA_CORE_API_ MillerIndexOrientation : public ILatticeOrientation
 {
 public:
     enum QComponent { QX, QY, QZ };
 
+    //! This constructor is best explained by an example.
+    //! Arguments QX, (1,1,0), QY, (0,2,1) mean:
+    //! Rotate the lattice such that the axis [110] points into x direction,
+    //! and the axis [021], projected into the yz plane, points into z direction.
     MillerIndexOrientation(QComponent q1, MillerIndex index1,
                            QComponent q2, MillerIndex index2);
     ~MillerIndexOrientation() override;

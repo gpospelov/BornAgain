@@ -24,7 +24,7 @@ endif()
 find_library(FFTW_LIBRARY NAMES ${FFTW_NAMES} QUIET)
 set(CMAKE_FIND_LIBRARY_SUFFIXES ${ba_ORIG_CMAKE_FIND_LIBRARY_SUFFIXES})
 
-if (WIN31)
+if (WIN32)
     string( REPLACE ".lib" ".dll" FFTW_LIBRARY_DLL "${FFTW_LIBRARY}" )
     if (NOT EXISTS ${FFTW_LIBRARY_DLL})
         message(FATAL_ERROR "File ${FFTW_LIBRARY_DLL} does not exist")

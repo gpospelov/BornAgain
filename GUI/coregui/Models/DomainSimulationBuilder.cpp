@@ -158,11 +158,10 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     AngularSpecScan scan(beam_item->getWavelength(), *axis_item->createAxis(Units::degree));
     scan.setFootprintFactor(footprint->createFootprint().get());
 
+    TransformToDomain::addBeamDivergencesToScan(*beam_item, scan);
+
     specular_simulation->setBeamIntensity(beam_item->getIntensity());
     specular_simulation->setScan(scan);
-
-    TransformToDomain::addDistributionParametersToSimulation(*beam_item,
-                                                             *specular_simulation.get());
 
     // Simulation options
     if (options_item)

@@ -45,11 +45,13 @@
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
+#include "RangedDistributions.h"
 #include "RotationItems.h"
+#include "ScanResolution.h"
 #include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
+#include "AngularSpecScan.h"
 #include "SpecularBeamInclinationItem.h"
-#include "SpecularSimulation.h"
 #include "TransformationItem.h"
 #include "Units.h"
 #include "VectorItem.h"
@@ -61,6 +63,8 @@ namespace
 template <class T>
 void setParameterDistributionToSimulation(const std::string& parameter_name,
                                           const SessionItem* item, Simulation& simulation);
+
+std::unique_ptr<ScanResolution> createScanResolution(const SessionItem* item);
 }
 
 std::unique_ptr<Material>
@@ -166,24 +170,21 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
         BornAgain::Azimuth, beam_item.getItem(BeamItem::P_AZIMUTHAL_ANGLE), simulation);
 }
 
-void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
-                                                              SpecularSimulation& simulation)
+void TransformToDomain::addBeamDivergencesToScan(const SessionItem& beam_item,
+                                                 AngularSpecScan& scan)
 {
     if (beam_item.modelType() != Constants::SpecularBeamType) {
         Q_ASSERT(beam_item.modelType() == Constants::SpecularBeamType);
         return;
     }
 
-    setParameterDistributionToSimulation<BeamWavelengthItem>(
-        BornAgain::Wavelength, beam_item.getItem(SpecularBeamItem::P_WAVELENGTH), simulation);
-    setParameterDistributionToSimulation<SpecularBeamInclinationItem>(
-        BornAgain::Inclination, beam_item.getItem(SpecularBeamItem::P_INCLINATION_ANGLE),
-        simulation);
+    auto resolution = createScanResolution(beam_item.getItem(SpecularBeamItem::P_WAVELENGTH));
+    if (resolution)
+        scan.setWavelengthResolution(*resolution);
+    resolution = createScanResolution(beam_item.getItem(SpecularBeamItem::P_INCLINATION_ANGLE));
+    if (resolution)
+        scan.setAngleResolution(*resolution);
 }
-
-// TODO Consider removal addDistributionParametersToSimulation and
-// template <class T> void setParameterDistributionToSimulation in the favor
-// of setBeamDistribution.
 
 void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
                               const BeamDistributionItem& item, Simulation& simulation)
@@ -258,5 +259,26 @@ void setParameterDistributionToSimulation(const std::string& parameter_name,
         = parameter_item->getParameterDistributionForName(parameter_pattern.toStdString());
     if (P_par_distr)
         simulation.addParameterDistribution(*P_par_distr);
+}
+
+std::unique_ptr<ScanResolution> createScanResolution(const SessionItem* item)
+{
+    auto beam_item = dynamic_cast<const BeamDistributionItem*>(item);
+    if (!beam_item)
+        return nullptr;
+
+    auto distr_item = dynamic_cast<const SymmetricDistributionItem*>(
+        beam_item->getGroupItem(BeamDistributionItem::P_DISTRIBUTION));
+    if (!distr_item)
+        return nullptr;
+
+    const double scale = beam_item->scaleFactor();
+    auto ranged_distr = distr_item->createRangedDistribution(scale);
+    if (!ranged_distr)
+        return nullptr;
+
+    const double deviation = distr_item->deviation(scale);
+    return std::unique_ptr<ScanResolution>(
+        ScanResolution::scanAbsoluteResolution(*ranged_distr, deviation));
 }
 }

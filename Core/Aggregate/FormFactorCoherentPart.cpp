@@ -35,9 +35,9 @@ FormFactorCoherentPart& FormFactorCoherentPart::operator=(const FormFactorCohere
     return *this;
 }
 
-FormFactorCoherentPart& FormFactorCoherentPart::operator=(FormFactorCoherentPart&& other) = default;
+FormFactorCoherentPart& FormFactorCoherentPart::operator=(FormFactorCoherentPart&&) = default;
 
-FormFactorCoherentPart::FormFactorCoherentPart(FormFactorCoherentPart&& other) = default;
+FormFactorCoherentPart::FormFactorCoherentPart(FormFactorCoherentPart&&) = default;
 
 FormFactorCoherentPart::~FormFactorCoherentPart() = default;
 

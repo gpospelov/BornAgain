@@ -65,7 +65,6 @@ set(test_cases
     OffSpecularResonator
     GaussianBeamFootprint
     SpecularDivergentBeam
-    SpecularDivergentBeamCopy
     HomogeneousTiNiSampleWithAbsorption
     RelativeResolutionTOF
 )

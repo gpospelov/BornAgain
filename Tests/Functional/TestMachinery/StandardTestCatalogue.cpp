@@ -445,12 +445,6 @@ StandardTestCatalogue::StandardTestCatalogue()
         "HomogeneousMultilayerBuilder",
         1e-10);
 
-    add("SpecularDivergentBeamCopy",
-        "Simulates beam divergence both in wavelength and inclination angle",
-        "SpecularDivergentBeamCopy",
-        "HomogeneousMultilayerBuilder",
-        1e-10);
-
     add("RelativeResolutionTOF",
         "Simulates q-defined reflectometry with a fixed relative q resolution",
         "TOFRWithRelativeResolution",

@@ -70,20 +70,16 @@ def get_simulation(scan_size=500):
     """
     Returns a specular simulation with beam and detector defined.
     """
-    # First argument  of ba.DistributionGaussian is the mean value for distribution.
-    # It should be zero in the case of incident angle distribution, otherwise an
-    # exception is thrown.
     footprint = ba.FootprintFactorSquare(beam_sample_ratio)
+    alpha_distr = ba.RangedDistributionGaussian(n_points, n_sig)
 
     scan = ba.AngularSpecScan(wavelength, scan_size, alpha_i_min, alpha_i_max)
     scan.setFootprintFactor(footprint)
+    scan.setAbsoluteAngularResolution(alpha_distr, d_ang)
 
     simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
 
-    alpha_distr = ba.DistributionGaussian(0.0, d_ang)
-    simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
-                                        n_points, n_sig)
     return simulation
 
 
@@ -100,11 +96,13 @@ def run_simulation():
 
 def plot(results):
     """
-    Plots data for several selected layers
+
+    :param results:
+    :return:
     """
     from matplotlib import pyplot as plt
 
-    ba.plot_simulation_result(results, postpone_show=True, c='gray', linestyle="--")
+    ba.plot_simulation_result(results, postpone_show=True)
 
     genx_axis, genx_values = create_real_data()
 

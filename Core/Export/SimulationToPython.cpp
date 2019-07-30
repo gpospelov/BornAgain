@@ -292,11 +292,11 @@ std::string SimulationToPython::defineSpecularScan(const SpecularSimulation& sim
     if (!scan)
         throw std::runtime_error("Error SimulationToPython::defineSpecularScan: passed simulation "
                                  "does not contain any scan");
-
     result << *scan << "\n";
 
     result << indent() << "simulation.setScan(scan)\n";
     result << defineBeamIntensity(simulation.getInstrument().getBeam());
+    result << "\n";
     return result.str();
 }
 

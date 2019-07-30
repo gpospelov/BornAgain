@@ -108,9 +108,9 @@ void RangedDistribution::checkInitialization()
         throw std::runtime_error("Error in RangedDistribution::checkInitialization: number of "
                                  "samples shall be positive");
 
-    if (m_sigma_factor <= 0.0)
-        throw std::runtime_error(
-            "Error in RangedDistribution::checkInitialization: sigma factor shall be positive.");
+    if (m_sigma_factor < 0.0)
+        throw std::runtime_error("Error in RangedDistribution::checkInitialization: sigma factor "
+                                 "shall be non-negative.");
 
     if (!m_limits.hasLowerAndUpperLimits())
         return;

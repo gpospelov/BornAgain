@@ -27,6 +27,7 @@ double FootprintFactorSquare::calculate(double alpha) const
 std::string FootprintFactorSquare::print() const
 {
     std::stringstream result;
+    result << "\n" << PythonFormatting::indent() << "# Defining footprint:\n";
     result << PythonFormatting::indent() << "footprint = ";
     result << "ba.FootprintFactorSquare";
     result << "(" << PythonFormatting::printDouble(widthRatio()) << ")";

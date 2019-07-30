@@ -472,32 +472,6 @@ SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
     const size_t n_integration_points = 10;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-    AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
-
-    DistributionGaussian wavelength_distr(wavelength, 0.1*Units::angstrom);
-    DistributionGaussian alpha_distr(0.0, 0.1*Units::degree);
-
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setScan(scan);
-
-    ParameterPattern pattern1;
-    pattern1.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
-    result->addParameterDistribution(pattern1.toStdString(), wavelength_distr,
-                                     n_integration_points);
-    ParameterPattern pattern2;
-    pattern2.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
-    result->addParameterDistribution(pattern2.toStdString(), alpha_distr, n_integration_points);
-
-    return result.release();
-}
-
-SpecularSimulation* StandardSimulations::SpecularDivergentBeamCopy()
-{
-    const double wavelength = 1.54 * Units::angstrom;
-    const int number_of_bins = 20;
-    const size_t n_integration_points = 10;
-    const double min_angle = 0 * Units::deg;
-    const double max_angle = 5 * Units::deg;
     const double wl_stddev = 0.1 * Units::angstrom;
     const double ang_stddev = 0.1 * Units::degree;
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));

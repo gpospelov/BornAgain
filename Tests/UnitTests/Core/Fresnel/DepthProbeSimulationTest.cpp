@@ -166,7 +166,7 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
 
     EXPECT_THROW(sim_result.data(AxesUnits::MM), std::runtime_error);
 
-    const std::unique_ptr<OutputData<double>> output(sim_result.data());
+    const auto output = sim_result.data();
     EXPECT_EQ(depth_map->getTotalNumberOfBins(), output->getAllocatedSize());
     EXPECT_EQ(depth_map->getRank(), output->getRank());
     EXPECT_EQ(depth_map->getXaxis().getMin(), output->getAxis(0).getMin());
@@ -186,8 +186,8 @@ TEST_F(DepthProbeSimulationTest, SimulationClone)
 
     SimulationResult clone_result = clone->result();
 
-    std::unique_ptr<OutputData<double>> sim_output(sim_result.data());
-    std::unique_ptr<OutputData<double>> clone_output(clone_result.data());
+    auto sim_output = sim_result.data();
+    auto clone_output = clone_result.data();
 
     EXPECT_EQ(sim_output->getAllocatedSize(), clone_output->getAllocatedSize());
     for (size_t i = 0; i < sim_output->getAllocatedSize(); ++i) {

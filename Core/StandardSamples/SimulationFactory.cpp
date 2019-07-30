@@ -157,10 +157,6 @@ SimulationFactory::SimulationFactory()
                  "Simulation implies beam divergence both in wavelength and "
                  "inclination angle.");
 
-    registerItem("SpecularDivergentBeamCopy", StandardSimulations::SpecularDivergentBeamCopy,
-                 "Simulation implies beam divergence both in wavelength and "
-                 "inclination angle.");
-
     registerItem("TOFRWithRelativeResolution", StandardSimulations::TOFRWithRelativeResolution,
                  "Q-defined reflectometric scan with relative resolution");
 

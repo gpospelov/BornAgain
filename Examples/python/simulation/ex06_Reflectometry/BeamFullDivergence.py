@@ -54,19 +54,17 @@ def get_simulation(scan_size=500):
     """
     Returns a specular simulation with beam and detector defined.
     """
-    # First argument  of ba.DistributionGaussian is
-    # the mean value for distribution.
-    # It should be zero in the case of incident angle distribution,
-    # otherwise an exception is thrown.
-    alpha_distr = ba.DistributionGaussian(0.0, d_ang)
-    wavelength_distr = ba.DistributionGaussian(wavelength, d_wl)
-    simulation = ba.SpecularSimulation()
+
+    alpha_distr = ba.RangedDistributionGaussian(n_points, n_sig)
+    wavelength_distr = ba.RangedDistributionGaussian(n_points, n_sig)
+
     scan = ba.AngularSpecScan(wavelength, scan_size, alpha_i_min, alpha_i_max)
+    scan.setAbsoluteAngularResolution(alpha_distr, d_ang)
+    scan.setAbsoluteWavelengthResolution(wavelength_distr, d_wl)
+
+    simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
-    simulation.addParameterDistribution("*/Beam/InclinationAngle",
-                                        alpha_distr, n_points, n_sig)
-    simulation.addParameterDistribution("*/Beam/Wavelength",
-                                        wavelength_distr, n_points, n_sig)
+
     return simulation
 
 
@@ -83,4 +81,4 @@ def run_simulation():
 
 if __name__ == '__main__':
     results = run_simulation()
-    ba.plot_simulation_result(results, c='b')
+    ba.plot_simulation_result(results)

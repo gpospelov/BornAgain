@@ -58,12 +58,12 @@ SimulationResult& SimulationResult::operator=(SimulationResult&& other)
     return *this;
 }
 
-OutputData<double>* SimulationResult::data(AxesUnits units) const
+std::unique_ptr<OutputData<double> > SimulationResult::data(AxesUnits units) const
 {
     if (!mP_data)
         throw std::runtime_error(
             "Error in SimulationResult::data:Attempt to access non-initialized data");
-    return mP_unit_converter->createConvertedData(*mP_data, units).release();
+    return mP_unit_converter->createConvertedData(*mP_data, units);
 }
 
 Histogram2D* SimulationResult::histogram2d(AxesUnits units) const
@@ -72,7 +72,7 @@ Histogram2D* SimulationResult::histogram2d(AxesUnits units) const
         throw std::runtime_error("Error in SimulationResult::histogram2d: "
                                  "dimension of data is not 2. Please use axis(), array() and "
                                  "data() functions for 1D data.");
-    std::unique_ptr<OutputData<double>> P_data(data(units));
+    auto P_data = data(units);
     return new Histogram2D(*P_data);
 }
 

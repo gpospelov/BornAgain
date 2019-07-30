@@ -125,7 +125,7 @@ void JobItemUtils::setResults(DataItem* intensityItem, const Simulation* simulat
         updateAxesTitle(intensityItem, converter, converter.defaultUnits());
     }
     auto selected_units = JobItemUtils::axesUnitsFromName(intensityItem->selectedAxesUnits());
-    std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
+    auto data = sim_result.data(selected_units);
     intensityItem->setOutputData(data.release());
 }
 

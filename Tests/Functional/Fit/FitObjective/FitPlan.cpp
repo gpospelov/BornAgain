@@ -126,5 +126,5 @@ std::unique_ptr<OutputData<double> > FitPlan::createOutputData() const
     params.setValues(expectedValues());
     auto simulation = buildSimulation(params);
     simulation->runSimulation();
-    return std::unique_ptr<OutputData<double>>(simulation->result().data());
+    return simulation->result().data();
 }

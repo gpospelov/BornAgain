@@ -150,7 +150,7 @@ def check_result(result, example_name):
     print("Loading reference file '{}'".format(reffile))
     reference = ba.IntensityDataIOFactory.readOutputData(reffile)
 
-    diff = ba.getRelativeDifference(result.data(), reference)
+    diff = ba.getRelativeDifference(ba.importArrayToOutputData(result.array()), reference)
 
     if diff > TOLERANCE:
         print("Failure - Difference {0} is above tolerance level {1}".format(diff, TOLERANCE))

@@ -252,8 +252,8 @@ double RQ4Metric::compute(const SimDataPair& data_pair, bool use_weights) const
         return Chi2Metric::compute(data_pair, use_weights);
 
     // fetching data in RQ4 form
-    std::unique_ptr<OutputData<double>> sim_data(data_pair.simulationResult().data(AxesUnits::RQ4));
-    std::unique_ptr<OutputData<double>> exp_data(data_pair.experimentalData().data(AxesUnits::RQ4));
+    auto sim_data = data_pair.simulationResult().data(AxesUnits::RQ4);
+    auto exp_data = data_pair.experimentalData().data(AxesUnits::RQ4);
 
     return computeFromArrays(sim_data->getRawDataVector(), exp_data->getRawDataVector(),
                              data_pair.user_weights_array());

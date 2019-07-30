@@ -32,8 +32,8 @@ bool BatchSimulation::runTest()
     simulation->setSampleBuilder(builder);
     simulation->runSimulation();
     auto sim_result = simulation->result();
-    const std::unique_ptr<OutputData<double>> reference(sim_result.data());
-    const std::unique_ptr<OutputData<double>> result(reference->clone());
+    const auto reference = sim_result.data();
+    const auto result = reference->clone();
     result->setAllTo(0.0);
 
     const unsigned n_batches = 9;

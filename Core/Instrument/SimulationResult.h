@@ -50,7 +50,10 @@ public:
     SimulationResult& operator=(const SimulationResult& other);
     SimulationResult& operator=(SimulationResult&& other);
 
-    OutputData<double>* data(AxesUnits units = AxesUnits::DEFAULT) const;
+#ifndef SWIG
+    std::unique_ptr<OutputData<double>> data(AxesUnits units = AxesUnits::DEFAULT) const;
+#endif
+
     Histogram2D* histogram2d(AxesUnits units = AxesUnits::DEFAULT) const;
 
     //! Provide AxisInfo for each axis and the given units

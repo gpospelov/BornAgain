@@ -54,8 +54,8 @@ bool GUIStandardTest::runTest()
     domain_simulation->runSimulation();
     auto domain_result = domain_simulation->result();
 
-    const std::unique_ptr<OutputData<double> > domain_data(domain_result.data());
-    const std::unique_ptr<OutputData<double> > reference_data(ref_result.data());
+    const auto domain_data = domain_result.data();
+    const auto reference_data = ref_result.data();
 
     return TestUtils::isTheSame(*domain_data, *reference_data, m_threshold);
 }

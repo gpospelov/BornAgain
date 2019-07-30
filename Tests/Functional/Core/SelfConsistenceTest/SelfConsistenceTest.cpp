@@ -45,7 +45,7 @@ bool SelfConsistenceTest::runTest()
     {
         simulation->runSimulation();
         auto sim_result = simulation->result();
-        results.push_back(std::unique_ptr<OutputData<double>>(sim_result.data()));
+        results.push_back(sim_result.data());
     }
 
     // Compare with reference if available.

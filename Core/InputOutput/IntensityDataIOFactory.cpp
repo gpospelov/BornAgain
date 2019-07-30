@@ -65,6 +65,6 @@ void IntensityDataIOFactory::writeIntensityData(const IHistogram& histogram,
 void IntensityDataIOFactory::writeSimulationResult(const SimulationResult& result,
                                                    const std::string& file_name)
 {
-    std::unique_ptr<OutputData<double>> P_data(result.data());
-    writeOutputData(*P_data, file_name);
+    auto data = result.data();
+    writeOutputData(*data, file_name);
 }

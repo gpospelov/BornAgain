@@ -36,7 +36,7 @@ bool CoreStandardTest::runTest()
     assert(m_reference_simulation);
     m_reference_simulation->runSimulation();
     auto sim_result = m_reference_simulation->result();
-    const std::unique_ptr<OutputData<double>> result_data(sim_result.data());
+    const auto result_data = sim_result.data();
 
     // Compare with reference if available.
     bool success = false;

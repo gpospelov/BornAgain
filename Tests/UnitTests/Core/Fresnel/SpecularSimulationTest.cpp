@@ -174,7 +174,7 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     EXPECT_EQ(3u, sim->sample()->numberOfLayers());
 
     SimulationResult sim_result = sim->result();
-    std::unique_ptr<OutputData<double>> data(sim_result.data());
+    auto data = sim_result.data();
     EXPECT_EQ(data->getAllocatedSize(), 10u);
     EXPECT_EQ(data->totalSum(), 0.0);
     EXPECT_EQ(data->getRank(), 1u);
@@ -182,7 +182,7 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     sim->runSimulation();
     sim_result = sim->result();
 
-    data.reset(sim_result.data());
+    data = sim_result.data();
     EXPECT_EQ(data->getAllocatedSize(), 10u);
     EXPECT_EQ(data->getRank(), 1u);
 
@@ -203,7 +203,7 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     EXPECT_EQ(3u, clone->sample()->numberOfLayers());
 
     SimulationResult clone_result = clone->result();
-    std::unique_ptr<OutputData<double>> data(clone_result.data());
+    auto data = clone_result.data();
     EXPECT_EQ(data->getAllocatedSize(), 10u);
     EXPECT_EQ(data->totalSum(), 0.0);
 
@@ -214,7 +214,7 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     std::unique_ptr<SpecularSimulation> clone2(sim->clone());
     clone_result = clone2->result();
 
-    const std::unique_ptr<OutputData<double>> output_data(clone_result.data());
+    const auto output_data = clone_result.data();
     EXPECT_EQ(10u, output_data->getAllocatedSize());
 
     checkBeamState(*clone2);

@@ -97,11 +97,11 @@ C++ includes: GeneticMinimizer.h
 ";
 
 %feature("docstring")  GeneticMinimizer::~GeneticMinimizer "GeneticMinimizer::~GeneticMinimizer()
-
-Sets tolerance on the function value at the minimum. Minimization will stop when the estimated vertical distance to the minimum (EDM) is less than 0.001*tolerance*ErrorDef. Here ErrorDef=1.0 for chi squared fit and ErrorDef=0.5 for negative log likelihood fit. 
 ";
 
 %feature("docstring")  GeneticMinimizer::setTolerance "void GeneticMinimizer::setTolerance(double value)
+
+Sets tolerance on the function value at the minimum. Minimization will stop when the estimated vertical distance to the minimum (EDM) is less than 0.001*tolerance*ErrorDef. Here ErrorDef=1.0 for chi squared fit and ErrorDef=0.5 for negative log likelihood fit. 
 ";
 
 %feature("docstring")  GeneticMinimizer::tolerance "double GeneticMinimizer::tolerance() const
@@ -161,12 +161,12 @@ C++ includes: GSLLevenbergMarquardtMinimizer.h
 %feature("docstring")  GSLLevenbergMarquardtMinimizer::GSLLevenbergMarquardtMinimizer "GSLLevenbergMarquardtMinimizer::GSLLevenbergMarquardtMinimizer()
 ";
 
-%feature("docstring")  GSLLevenbergMarquardtMinimizer::~GSLLevenbergMarquardtMinimizer "GSLLevenbergMarquardtMinimizer::~GSLLevenbergMarquardtMinimizer()
-
-Sets tolerance on the function value at the minimum. 
+%feature("docstring")  GSLLevenbergMarquardtMinimizer::~GSLLevenbergMarquardtMinimizer "GSLLevenbergMarquardtMinimizer::~GSLLevenbergMarquardtMinimizer() override
 ";
 
 %feature("docstring")  GSLLevenbergMarquardtMinimizer::setTolerance "void GSLLevenbergMarquardtMinimizer::setTolerance(double value)
+
+Sets tolerance on the function value at the minimum. 
 ";
 
 %feature("docstring")  GSLLevenbergMarquardtMinimizer::tolerance "double GSLLevenbergMarquardtMinimizer::tolerance() const
@@ -196,6 +196,11 @@ Returns string representation of current minimizer status.
 %feature("docstring")  GSLLevenbergMarquardtMinimizer::statusMap "std::map< std::string, std::string > GSLLevenbergMarquardtMinimizer::statusMap() const override
 
 Returns map of string representing different minimizer statuses. 
+";
+
+%feature("docstring")  GSLLevenbergMarquardtMinimizer::requiresResiduals "bool GSLLevenbergMarquardtMinimizer::requiresResiduals() override
+
+Returns true if minimizer computations are residual-based, false otherwise. 
 ";
 
 
@@ -304,6 +309,11 @@ Returns minimum function value.
 %feature("docstring")  IMinimizer::setOptions "void IMinimizer::setOptions(const std::string &options)
 
 Sets option string to the minimizer. 
+";
+
+%feature("docstring")  IMinimizer::requiresResiduals "virtual bool IMinimizer::requiresResiduals()
+
+Returns true if minimizer computations are residual-based, false otherwise. 
 ";
 
 
@@ -554,19 +564,19 @@ Sets error definition factor for parameter error calculation. If objective funct
 ";
 
 %feature("docstring")  Minuit2Minimizer::errorDefinition "double Minuit2Minimizer::errorDefinition() const
+";
+
+%feature("docstring")  Minuit2Minimizer::setTolerance "void Minuit2Minimizer::setTolerance(double value)
 
 Sets tolerance on the function value at the minimum. Minimization will stop when the estimated vertical distance to the minimum (EDM) is less than 0.001*tolerance*ErrorDef. Here ErrorDef=1.0 for chi squared fit and ErrorDef=0.5 for negative log likelihood fit. 
 ";
 
-%feature("docstring")  Minuit2Minimizer::setTolerance "void Minuit2Minimizer::setTolerance(double value)
-";
-
 %feature("docstring")  Minuit2Minimizer::tolerance "double Minuit2Minimizer::tolerance() const
-
-Sets relative floating point arithmetic precision. Should be adjusted when the user knows that objectiove function value is not calculated to the nominal machine accuracy. Typical values are between 10^-5 and 10^-14. 
 ";
 
 %feature("docstring")  Minuit2Minimizer::setPrecision "void Minuit2Minimizer::setPrecision(double value)
+
+Sets relative floating point arithmetic precision. Should be adjusted when the user knows that objectiove function value is not calculated to the nominal machine accuracy. Typical values are between 10^-5 and 10^-14. 
 ";
 
 %feature("docstring")  Minuit2Minimizer::precision "double Minuit2Minimizer::precision() const
@@ -596,6 +606,11 @@ Returns string representation of current minimizer status.
 %feature("docstring")  Minuit2Minimizer::statusMap "std::map< std::string, std::string > Minuit2Minimizer::statusMap() const override
 
 Returns map of string representing different minimizer statuses. 
+";
+
+%feature("docstring")  Minuit2Minimizer::requiresResiduals "bool Minuit2Minimizer::requiresResiduals() override
+
+Returns true if minimizer computations are residual-based, false otherwise. 
 ";
 
 
@@ -1138,7 +1153,7 @@ C++ includes: SimAnMinimizer.h
 %feature("docstring")  SimAnMinimizer::SimAnMinimizer "SimAnMinimizer::SimAnMinimizer()
 ";
 
-%feature("docstring")  SimAnMinimizer::~SimAnMinimizer "SimAnMinimizer::~SimAnMinimizer()
+%feature("docstring")  SimAnMinimizer::~SimAnMinimizer "SimAnMinimizer::~SimAnMinimizer() override
 ";
 
 %feature("docstring")  SimAnMinimizer::setPrintLevel "void SimAnMinimizer::setPrintLevel(int value)
@@ -1208,9 +1223,6 @@ Sets Boltzmann distribution parameter: minimal temperature.
 %feature("docstring")  SimAnMinimizer::statusMap "std::map< std::string, std::string > SimAnMinimizer::statusMap() const override
 
 Returns map of string representing different minimizer statuses. 
-";
-
-%feature("docstring")  SimAnMinimizer::isGradientBasedAgorithm "bool SimAnMinimizer::isGradientBasedAgorithm() override
 ";
 
 

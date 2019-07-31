@@ -1,6 +1,54 @@
-> API changes:
-     1) Python: major changes in SpecularSimulation interface. Please consult web-documentation for details.
-     2) GUI: project compatibility with previous versions is broken.
+BornAgain-1.16.0, released 2019.07.31
+  > API changes:
+    1) Python: major changes in SpecularSimulation interface. Please consult web-documentation for details.
+    2) GUI: project compatibility with previous versions is broken.
+  > Summary:
+    1) Hadnling intensity uncertainties in experimental data
+    2) Support for arbitrary resolutions in reflectometry
+    3) SLD/refractive index profiles across sample layers
+    4) Importing reflectometry data as Qz-Intensity by default
+    5) Various bug fixes
+
+  * Bug #2306: Weird intensity results in DepthProbeSimulation
+  * Bug #2310: GUI: disappeared button to rotate dataset in RealDataView
+  * Bug #2312: GUI crash on attempt to save a project on Mac
+  * Bug #2321: Setting 'Min' or 'Max' for fitparameter Beam Intensity doesn't work
+  * Bug #2322: GUI: Ensure usage of identical colormap for real data and simulation in fitview
+  * Bug #2324: Save to TIFF is broken
+  * Bug #2328: Crashing during GISAS fitting
+  * Bug #2329: OffSpecSimulation does not work with rectangular detector
+  * Bug #2330: "Save" fails when there are Cyrillic characters on the path.
+  * Bug #2337: Layout weights are not exported to Python from GUI
+  * Bug #2338: Numerical instability in roughness calculations
+  * Bug #2342: Unit test failure on user system with Qt 5.6.2
+  * Bug #2344: GUI: impossible to set limits for intensity as a fit parameter
+  * Bug #2370: Crash on reflectometry simulation for nonsensible values of theta
+  * Bug #2371: Ctrl+S doesn't work for saving project on win
+  * Bug #2379: Layer of zero thickness affects SLD profile
+  * Bug #2382: Memory leakage during Python fitting
+  * Bug #2388: Footprint Correction example failing due to newly introduced accessor methods
+  * Feature #1861: Provide evaluation of SLD profile across the sample layers
+  * Feature #2047: Fix compilation failures if fftw3, libtiff or Python are static.
+  * Feature #2285: Name layers in GUI by their material name
+  * Feature #2311: Provide possibility to load 2D ASCII data for files with .dat extention
+  * Feature #2315: Provide support for pointwise resolution in reflectometry
+  * Feature #2316: Provide support for handling intensity uncertainties in experimental data
+  * Feature #2331: Unit labels
+  * Feature #2333: GUI: Switch resolutions/divergences in specular instrument to the new resolution machinery
+  * Feature #2346: Enable qspace visualisation for large inclinations
+  * Feature #2365: GUI: rename "Import" button to "Data"
+  * Feature #2373: Remove choice between decoupling approximation and SSCA in GUI layouts
+  * Feature #2374: Clean Functionality to Import Typical Reflectometry ASCII Formats
+  * Feature #2377: Implement layer editor prototype on the basis of the the new model-view framework
+  * Documentation #2223: Update BornAgain Windows installation documentation on the webpage.
+  * Documentation #2283: Fix starting value of prism_base_edge in fit example
+  * Documentation #2308: Fix Windows PyCharm tutorial
+  * Documentation #2325: Proofread Windows installation tutorials
+  * Documentation #2381: Examples present on the website and missing on the BA repo 
+  * Refactoring #2361: Use **kwargs in python plotting routines
+  * Testing #2210: Test 1d data import on known file formats
+  * Testing #2287: Reflectometry cross-validation
+  * Envelope task #2192: 1D data import functionality
 
 BornAgain-1.15.0, released 2019.02.25
   > API changes:

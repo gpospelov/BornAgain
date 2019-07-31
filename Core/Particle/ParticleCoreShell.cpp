@@ -53,8 +53,6 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     P_core->rotate(*P_rotation);
     P_core->translate(m_position);
     auto sliced_core = P_core->createSlicedParticle(limits);
-    if (!sliced_core.mP_slicedff || sliced_core.m_regions.size()!=1)
-        return {};
 
     // shell
     std::unique_ptr<Particle> P_shell(mp_shell->clone());
@@ -64,6 +62,14 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     if (!sliced_shell.mP_slicedff)
         return {};
 
+    SlicedParticle result;
+    // if core out of limits, return sliced shell
+    if (!sliced_core.mP_slicedff) {
+        result.mP_slicedff.reset(sliced_shell.mP_slicedff.release());
+        result.m_regions.push_back(sliced_shell.m_regions.back());
+        return result;
+    }
+
     // set core ambient material
     if (sliced_shell.m_regions.size()!=1)
         return {};
@@ -71,7 +77,6 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     sliced_core.mP_slicedff->setAmbientMaterial(shell_material);
 
     // construct sliced particle
-    SlicedParticle result;
     sliced_shell.m_regions.back().m_volume -= sliced_core.m_regions.back().m_volume;
     result.mP_slicedff.reset(new FormFactorCoreShell(sliced_core.mP_slicedff.release(),
                                                      sliced_shell.mP_slicedff.release()));

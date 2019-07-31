@@ -6389,7 +6389,7 @@ class FitObjective(_object):
     """
 
 
-    Main class to hold pairs of simulation Holds vector of FitObject's (simulation and real data) to fit
+    Holds vector of   SimDataPairs (experimental data and simulation results) for use in fitting.
 
     C++ includes: FitObjective.h
 
@@ -6457,13 +6457,7 @@ class FitObjective(_object):
 
         SimulationResult FitObjective::simulationResult(size_t i_item=0) const
 
-        Returns simulation result.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
+        Returns simulation result in the form of  SimulationResult. 
 
         """
         return _libBornAgainCore.FitObjective_simulationResult(self, i_item)
@@ -6476,13 +6470,7 @@ class FitObjective(_object):
 
         SimulationResult FitObjective::experimentalData(size_t i_item=0) const
 
-        Returns experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
+        Returns experimental data in the form of  SimulationResult. 
 
         """
         return _libBornAgainCore.FitObjective_experimentalData(self, i_item)
@@ -6492,6 +6480,11 @@ class FitObjective(_object):
         """
         uncertaintyData_cpp(FitObjective self, size_t i_item=0) -> SimulationResult
         uncertaintyData_cpp(FitObjective self) -> SimulationResult
+
+        SimulationResult FitObjective::uncertaintyData(size_t i_item=0) const
+
+        Returns experimental data uncertainties in the form of  SimulationResult. 
+
         """
         return _libBornAgainCore.FitObjective_uncertaintyData_cpp(self, i_item)
 
@@ -6503,13 +6496,7 @@ class FitObjective(_object):
 
         SimulationResult FitObjective::relativeDifference(size_t i_item=0) const
 
-        Returns relative difference between simulation and experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
+        Returns relative difference between simulation and experimental data in the form of  SimulationResult. 
 
         """
         return _libBornAgainCore.FitObjective_relativeDifference(self, i_item)
@@ -6522,13 +6509,7 @@ class FitObjective(_object):
 
         SimulationResult FitObjective::absoluteDifference(size_t i_item=0) const
 
-        Returns absolute value of difference between simulation and experimental data.
-
-        Parameters:
-        -----------
-
-        i_item: 
-        the index of fit pair 
+        Returns absolute value of difference between simulation and experimental data in the form of  SimulationResult. 
 
         """
         return _libBornAgainCore.FitObjective_absoluteDifference(self, i_item)
@@ -6540,7 +6521,7 @@ class FitObjective(_object):
 
         std::vector< double > FitObjective::experimental_array() const
 
-        Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. Data from different datasets merged together. 
+        Returns one dimensional array representing merged experimental data. The area outside of the region of interest is not included, masked data is nullified. 
 
         """
         return _libBornAgainCore.FitObjective_experimental_array(self)
@@ -6552,14 +6533,21 @@ class FitObjective(_object):
 
         std::vector< double > FitObjective::simulation_array() const
 
-        Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. Data from different datasets merged together. 
+        Returns one dimensional array representing merged simulated intensities data. The area outside of the region of interest is not included, masked data is nullified. 
 
         """
         return _libBornAgainCore.FitObjective_simulation_array(self)
 
 
     def uncertainties_cpp(self):
-        """uncertainties_cpp(FitObjective self) -> vdouble1d_t"""
+        """
+        uncertainties_cpp(FitObjective self) -> vdouble1d_t
+
+        std::vector< double > FitObjective::uncertainties() const
+
+        Returns one-dimensional array representing merged data uncertainties. The area outside of the region of interest is not included, masked data is nullified. 
+
+        """
         return _libBornAgainCore.FitObjective_uncertainties_cpp(self)
 
 
@@ -6569,7 +6557,7 @@ class FitObjective(_object):
 
         std::vector< double > FitObjective::weights_array() const
 
-        Returns one dimensional array representing weights of bin intensity for residuals. 
+        Returns one-dimensional array representing merged user weights. The area outside of the region of interest is not included, masked data is nullified. 
 
         """
         return _libBornAgainCore.FitObjective_weights_array(self)
@@ -6597,7 +6585,7 @@ class FitObjective(_object):
         """
         initPlot_cpp(FitObjective self, int every_nth, PyObserverCallback callback)
 
-        void FitObjective::initPlot(int every_nth, PyObserverCallback &callback)
+        void FitObjective::initPlot(int every_nth, fit_observer_t observer)
 
         """
         return _libBornAgainCore.FitObjective_initPlot_cpp(self, every_nth, callback)
@@ -6669,17 +6657,34 @@ class FitObjective(_object):
         """
         setObjectiveMetric(FitObjective self, std::string const & metric)
         setObjectiveMetric(FitObjective self, std::string const & metric, std::string const & norm)
+
+        void FitObjective::setObjectiveMetric(std::unique_ptr< ObjectiveMetric > metric)
+
         """
         return _libBornAgainCore.FitObjective_setObjectiveMetric(self, *args)
 
 
     def containsUncertainties_cpp(self, i_item):
-        """containsUncertainties_cpp(FitObjective self, size_t i_item) -> bool"""
+        """
+        containsUncertainties_cpp(FitObjective self, size_t i_item) -> bool
+
+        bool FitObjective::containsUncertainties(size_t i_item) const
+
+        Returns true if the specified DataPair element contains uncertainties. 
+
+        """
         return _libBornAgainCore.FitObjective_containsUncertainties_cpp(self, i_item)
 
 
     def allPairsHaveUncertainties_cpp(self):
-        """allPairsHaveUncertainties_cpp(FitObjective self) -> bool"""
+        """
+        allPairsHaveUncertainties_cpp(FitObjective self) -> bool
+
+        bool FitObjective::allPairsHaveUncertainties() const
+
+        Returns true if all the data pairs in  FitObjective instance contain uncertainties. 
+
+        """
         return _libBornAgainCore.FitObjective_allPairsHaveUncertainties_cpp(self)
 
 
@@ -6700,7 +6705,24 @@ class FitObjective(_object):
         addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, vdouble2d_t uncertainties, double weight=1.0)
         addSimulationAndData_cpp(FitObjective self, PyBuilderCallback callback, vdouble2d_t data, vdouble2d_t uncertainties)
 
-        void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const std::vector< std::vector< double >> &data, double weight=1.0)
+        void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const T &data, const T &uncertainties, double weight=1.0)
+
+        Constructs simulation/data pair for later fit.
+
+        Parameters:
+        -----------
+
+        callback: 
+        simulation builder capable of producing simulations
+
+        data: 
+        experimental data array
+
+        uncertainties: 
+        data uncertainties array
+
+        weight: 
+        weight of dataset in metric calculations 
 
         """
         return _libBornAgainCore.FitObjective_addSimulationAndData_cpp(self, *args)
@@ -11586,10 +11608,7 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list
-
-        _sym_S2: 
-        true if face has a perpedicular two-fold symmetry axis 
+        oriented vertex list 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -16318,7 +16337,7 @@ class IFootprintFactor(ICloneable, INode):
     """
 
 
-    Defines the base for classes to calculate beam footprint factor
+    Abstract base for classes that calculate the beam footprint factor
 
     C++ includes: IFootprintFactor.h
 
@@ -16772,7 +16791,14 @@ class Simulation(ICloneable, INode):
 
 
     def intensityMapSize(self):
-        """intensityMapSize(Simulation self) -> size_t"""
+        """
+        intensityMapSize(Simulation self) -> size_t
+
+        virtual size_t Simulation::intensityMapSize() const =0
+
+        Returns the total number of the intensity values in the simulation result. 
+
+        """
         return _libBornAgainCore.Simulation_intensityMapSize(self)
 
 
@@ -17303,7 +17329,14 @@ class GISASSimulation(Simulation2D):
 
 
     def intensityMapSize(self):
-        """intensityMapSize(GISASSimulation self) -> size_t"""
+        """
+        intensityMapSize(GISASSimulation self) -> size_t
+
+        size_t GISASSimulation::intensityMapSize() const override
+
+        Returns the total number of the intensity values in the simulation result. 
+
+        """
         return _libBornAgainCore.GISASSimulation_intensityMapSize(self)
 
 GISASSimulation_swigregister = _libBornAgainCore.GISASSimulation_swigregister
@@ -18348,7 +18381,7 @@ class SimulationResult(_object):
         array(SimulationResult self, AxesUnits units) -> PyObject
         array(SimulationResult self) -> PyObject *
 
-        PyObject * SimulationResult::array() const
+        PyObject * SimulationResult::array(AxesUnits units=AxesUnits::DEFAULT) const
 
         returns intensity data as Python numpy array 
 
@@ -19217,7 +19250,14 @@ class ILayout(ISample):
 
 
     def interferenceFunction(self):
-        """interferenceFunction(ILayout self) -> IInterferenceFunction"""
+        """
+        interferenceFunction(ILayout self) -> IInterferenceFunction
+
+        virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
+
+        Returns the interference function. 
+
+        """
         return _libBornAgainCore.ILayout_interferenceFunction(self)
 
 
@@ -19471,7 +19511,14 @@ IParameterReal_swigregister = _libBornAgainCore.IParameterReal_swigregister
 IParameterReal_swigregister(IParameterReal)
 
 class ParticleLimits(_object):
-    """Proxy of C++ ParticleLimits class."""
+    """
+
+
+    Vertical extension of a particle, specified by bottom and top z coordinate.
+
+    C++ includes: IParticle.h
+
+    """
 
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, ParticleLimits, name, value)
@@ -19488,7 +19535,16 @@ class ParticleLimits(_object):
         m_top = _swig_property(_libBornAgainCore.ParticleLimits_m_top_get, _libBornAgainCore.ParticleLimits_m_top_set)
 
     def __init__(self):
-        """__init__(ParticleLimits self) -> ParticleLimits"""
+        """
+        __init__(ParticleLimits self) -> ParticleLimits
+
+
+
+        Vertical extension of a particle, specified by bottom and top z coordinate.
+
+        C++ includes: IParticle.h
+
+        """
         this = _libBornAgainCore.new_ParticleLimits()
         try:
             self.this.append(this)
@@ -23494,7 +23550,7 @@ class MillerIndex(_object):
     """
 
 
-    MillerIndex represents arbitrary directions in reciprocal space by allowing floating point index values
+    A direction in reciprocal space, specified by double-valued indices hkl.
 
     C++ includes: ILatticeOrientation.h
 
@@ -23536,7 +23592,14 @@ MillerIndex_swigregister = _libBornAgainCore.MillerIndex_swigregister
 MillerIndex_swigregister(MillerIndex)
 
 class MillerIndexOrientation(ILatticeOrientation):
-    """Proxy of C++ MillerIndexOrientation class."""
+    """
+
+
+    Specifies a rotation of a lattice through the Miller indices of two coordinate axes.
+
+    C++ includes: ILatticeOrientation.h
+
+    """
 
     __swig_setmethods__ = {}
     for _s in [ILatticeOrientation]:
@@ -23556,6 +23619,8 @@ class MillerIndexOrientation(ILatticeOrientation):
         __init__(MillerIndexOrientation self, MillerIndexOrientation::QComponent q1, MillerIndex index1, MillerIndexOrientation::QComponent q2, MillerIndex index2) -> MillerIndexOrientation
 
         MillerIndexOrientation::MillerIndexOrientation(QComponent q1, MillerIndex index1, QComponent q2, MillerIndex index2)
+
+        This constructor is best explained by an example. Arguments QX, (1,1,0), QY, (0,2,1) mean: Rotate the lattice such that the axis [110] points into x direction, and the axis [021], projected into the yz plane, points into z direction. 
 
         """
         this = _libBornAgainCore.new_MillerIndexOrientation(q1, index1, q2, index2)
@@ -25224,7 +25289,7 @@ class MultiLayer(ISample):
 
     Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
 
-    ambience layer #0 z=getLayerBottomZ(0)=0.0 ------ interface #0 Fe, 20A layer #1 z=getLayerBottomZ(1)=-20.0 ------ interface #1 Cr, 40A layer #2 z=getLayerBottomZ(2)=-60.0 ------ interface #2 substrate layer #3 z=getLayerBottomZ(3)=-60.0
+    ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
 
     C++ includes: MultiLayer.h
 
@@ -25261,7 +25326,7 @@ class MultiLayer(ISample):
 
         MultiLayer * MultiLayer::clone() const final override
 
-        Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
+        Returns a clone of multilayer with clones of all layers and interfaces between layers 
 
         """
         return _libBornAgainCore.MultiLayer_clone(self)
@@ -25319,7 +25384,7 @@ class MultiLayer(ISample):
         """
         layer(MultiLayer self, size_t i_layer) -> Layer
 
-        const Layer* MultiLayer::layer(size_t i_layer) const
+        const Layer * MultiLayer::layer(size_t i_layer) const
 
         Returns layer with given index. 
 
@@ -25331,9 +25396,9 @@ class MultiLayer(ISample):
         """
         layerInterface(MultiLayer self, size_t i_interface) -> LayerInterface const *
 
-        const LayerInterface* MultiLayer::layerInterface(size_t i_interface) const
+        const LayerInterface * MultiLayer::layerInterface(size_t i_interface) const
 
-        Returns layer with given index. 
+        Returns interface with given index. 
 
         """
         return _libBornAgainCore.MultiLayer_layerInterface(self, i_interface)
@@ -25403,15 +25468,36 @@ MultiLayer_swigregister(MultiLayer)
 
 
 def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
-    """MaterialProfile_cpp(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t"""
+    """
+    MaterialProfile_cpp(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t
+
+    BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+    Calculate average material profile for given multilayer 
+
+    """
     return _libBornAgainCore.MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
 
 def DefaultMaterialProfileLimits(multilayer):
-    """DefaultMaterialProfileLimits(MultiLayer multilayer) -> pair_double_t"""
+    """
+    DefaultMaterialProfileLimits(MultiLayer multilayer) -> pair_double_t
+
+    BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+    Get default z limits for generating a material profile. 
+
+    """
     return _libBornAgainCore.DefaultMaterialProfileLimits(multilayer)
 
 def GenerateZValues(n_points, z_min, z_max):
-    """GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t"""
+    """
+    GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t
+
+    BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+    Generate z values (equidistant) for use in MaterialProfile. 
+
+    """
     return _libBornAgainCore.GenerateZValues(n_points, z_min, z_max)
 class OffSpecSimulation(Simulation2D):
     """
@@ -25521,7 +25607,14 @@ class OffSpecSimulation(Simulation2D):
 
 
     def intensityMapSize(self):
-        """intensityMapSize(OffSpecSimulation self) -> size_t"""
+        """
+        intensityMapSize(OffSpecSimulation self) -> size_t
+
+        size_t OffSpecSimulation::intensityMapSize() const override
+
+        Returns the total number of the intensity values in the simulation result. 
+
+        """
         return _libBornAgainCore.OffSpecSimulation_intensityMapSize(self)
 
 OffSpecSimulation_swigregister = _libBornAgainCore.OffSpecSimulation_swigregister
@@ -27228,7 +27321,14 @@ class ParticleLayout(ILayout):
 
 
     def interferenceFunction(self):
-        """interferenceFunction(ParticleLayout self) -> IInterferenceFunction"""
+        """
+        interferenceFunction(ParticleLayout self) -> IInterferenceFunction
+
+        const IInterferenceFunction * ParticleLayout::interferenceFunction() const final override
+
+        Returns the interference function. 
+
+        """
         return _libBornAgainCore.ParticleLayout_interferenceFunction(self)
 
 
@@ -27307,6 +27407,8 @@ def importArrayToOutputData(*args):
     importArrayToOutputData(vdouble2d_t vec) -> IntensityData
 
     OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
+
+    for importing 2D array of doubles from python into  OutputData
 
     """
     return _libBornAgainCore.importArrayToOutputData(*args)
@@ -28537,7 +28639,14 @@ class DepthProbeSimulation(Simulation):
 
 
     def intensityMapSize(self):
-        """intensityMapSize(DepthProbeSimulation self) -> size_t"""
+        """
+        intensityMapSize(DepthProbeSimulation self) -> size_t
+
+        size_t DepthProbeSimulation::intensityMapSize() const override
+
+        Returns the total number of the intensity values in the simulation result. 
+
+        """
         return _libBornAgainCore.DepthProbeSimulation_intensityMapSize(self)
 
 DepthProbeSimulation_swigregister = _libBornAgainCore.DepthProbeSimulation_swigregister
@@ -28663,7 +28772,14 @@ class SpecularSimulation(Simulation):
 
 
     def intensityMapSize(self):
-        """intensityMapSize(SpecularSimulation self) -> size_t"""
+        """
+        intensityMapSize(SpecularSimulation self) -> size_t
+
+        size_t SpecularSimulation::intensityMapSize() const override
+
+        Returns the total number of the intensity values in the simulation result. 
+
+        """
         return _libBornAgainCore.SpecularSimulation_intensityMapSize(self)
 
 

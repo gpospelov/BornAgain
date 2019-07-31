@@ -87,6 +87,12 @@ public:
     SpecularFitTest();
 };
 
+class SpecularFitTestQ : public FitObjectiveTest
+{
+public:
+    SpecularFitTestQ();
+};
+
 class MultipleSpecFittingTest : public FitObjectiveTest
 {
 public:

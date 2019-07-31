@@ -40,9 +40,6 @@ public:
     //! Put into a clean state for running a simulation
     void prepareSimulation() override;
 
-    //! Gets the number of elements this simulation needs to calculate
-    size_t numberOfSimulationElements() const override;
-
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays
     SimulationResult result() const override;
@@ -50,11 +47,17 @@ public:
     //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
+    //! Returns the total number of the intensity values in the simulation result
+    size_t intensityMapSize() const override;
+
 private:
     GISASSimulation(const GISASSimulation& other);
 
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() override;
+
+    //! Gets the number of elements this simulation needs to calculate
+    size_t numberOfSimulationElements() const override;
 
     void initialize();
 };

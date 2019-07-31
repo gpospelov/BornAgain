@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/export/PyStandardTest.cpp
+//! @file      Tests/Functional/Python/PyStandard/PyStandardTest.cpp
 //! @brief     Implements class PyExportTest
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -48,7 +48,7 @@ bool PyStandardTest::runTest()
     m_reference_simulation->runSimulation();
     auto ref_result = m_reference_simulation->result();
 
-    const std::unique_ptr<OutputData<double>> reference_data(ref_result.data());
+    const auto reference_data = ref_result.data();
 
     // Compare results
     const std::unique_ptr<OutputData<double>> domain_data(

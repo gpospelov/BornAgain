@@ -39,9 +39,6 @@ public:
     //! Put into a clean state for running a simulation
     void prepareSimulation() final;
 
-    //! Gets the number of elements this simulation needs to calculate
-    size_t numberOfSimulationElements() const final;
-
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays
     SimulationResult result() const override;
@@ -55,6 +52,9 @@ public:
 #ifndef SWIG
     std::unique_ptr<IUnitConverter> createUnitConverter() const;
 #endif
+
+    //! Returns the total number of the intensity values in the simulation result
+    size_t intensityMapSize() const override;
 
 private:
     OffSpecSimulation(const OffSpecSimulation& other);
@@ -71,6 +71,9 @@ private:
 
     //! Default implementation only adds the detector axes
     void updateIntensityMap() override;
+
+    //! Gets the number of elements this simulation needs to calculate
+    size_t numberOfSimulationElements() const final;
 
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = mp_alpha_i_axis->getBin(index)

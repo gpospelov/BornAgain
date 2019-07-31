@@ -136,6 +136,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "RotatedPyramidsBuilder",
         2e-10);
 
+    add("ThickAbsorptiveSampleWithRoughness",
+        "GISAS picture on extra long wavelength from thick absorptive sample with roughness",
+        "ExtraLongWavelengthGISAS",
+        "ThickAbsorptiveSampleBuilder",
+        2e-10);
+
     // --- Compositions ---
 
     add("ParticleComposition",
@@ -439,18 +445,29 @@ StandardTestCatalogue::StandardTestCatalogue()
         "HomogeneousMultilayerBuilder",
         1e-10);
 
+    add("RelativeResolutionTOF",
+        "Simulates q-defined reflectometry with a fixed relative q resolution",
+        "TOFRWithRelativeResolution",
+        "PlainMultiLayerBySLDBuilder",
+        1e-10);
+
     add("SpecularWithSlicing",
         "Compares manual/automatic slicing in a sample with cylinders",
-        {"BasicSpecular", "BasicSpecular", "BasicSpecular", "BasicSpecularTOF", "BasicSpecularQ"},
+        {"BasicSpecular", "BasicSpecular", "BasicSpecular", "BasicSpecularQ"},
         {"SlicedCylindersBuilder", "SLDSlicedCylindersBuilder", "AveragedSlicedCylindersBuilder",
-         "SLDSlicedCylindersBuilder", "SLDSlicedCylindersBuilder"},
+         "SLDSlicedCylindersBuilder"},
         1e-10);
 
     add("InstrumentDefinitionComparison",
         "Compares specular signal from q-defined, TOF and conventional instrument",
-        {"BasicSpecular", "BasicSpecularTOF", "BasicSpecularQ"},
-        {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder",
-         "PlainMultiLayerBySLDBuilder"},
+        {"BasicSpecular", "BasicSpecularQ"},
+        {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder"},
+        1e-10);
+
+    add("TOFResolutionComparison",
+        "Compares specular signal from TOF instruments with pointwise and relative resolutions",
+        {"TOFRWithRelativeResolution", "TOFRWithPointwiseResolution"},
+        {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder"},
         1e-10);
 
     // off-specular simulation

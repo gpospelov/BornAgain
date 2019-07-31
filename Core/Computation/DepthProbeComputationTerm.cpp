@@ -18,11 +18,10 @@
 #include "IAxis.h"
 #include "IFresnelMap.h"
 #include "ILayerRTCoefficients.h"
-#include "MultiLayer.h"
+#include "ProcessedSample.h"
 
-DepthProbeComputationTerm::DepthProbeComputationTerm(const MultiLayer* p_multi_layer,
-                                                     const IFresnelMap* p_fresnel_map)
-    : mp_multilayer(p_multi_layer), mp_fresnel_map(p_fresnel_map)
+DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample* p_sample)
+    : mp_sample{p_sample}
 {}
 
 DepthProbeComputationTerm::~DepthProbeComputationTerm() =default;
@@ -37,18 +36,18 @@ void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const
     if (elem.isCalculated()) {
         const IAxis& z_positions = *elem.getZPositions();
         const size_t n_z = z_positions.size();
-        const size_t n_layers = mp_multilayer->numberOfLayers();
+        const size_t n_layers = mp_sample->numberOfSlices();
         size_t start_z_ind = n_z;
         std::valarray<double> intensities(0.0, n_z);
 
         double z_layer_bottom(0.0);
         double z_layer_top(0.0);
         for (size_t i_layer = 0; i_layer < n_layers && start_z_ind != 0; ++i_layer) {
-            z_layer_bottom = mp_multilayer->layerBottomZ(i_layer);
-            z_layer_top = mp_multilayer->layerTopZ(i_layer);
+            z_layer_bottom = mp_sample->sliceBottomZ(i_layer);
+            z_layer_top = mp_sample->sliceTopZ(i_layer);
 
             // get R & T coefficients for current layer
-            const auto p_coefficients = mp_fresnel_map->getInCoefficients(elem, i_layer);
+            const auto p_coefficients = mp_sample->fresnelMap()->getInCoefficients(elem, i_layer);
             const complex_t R = p_coefficients->getScalarR();
             const complex_t T = p_coefficients->getScalarT();
             const complex_t kz_out = p_coefficients->getScalarKz();

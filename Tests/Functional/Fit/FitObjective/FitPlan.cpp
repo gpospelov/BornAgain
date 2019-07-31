@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/FitObjective/FitPlan.h
+//! @file      Tests/Functional/Fit/FitObjective/FitPlan.cpp
 //! @brief     Defines class FitPlan
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -77,7 +77,7 @@ std::unique_ptr<FitObjective> FitPlan::createFitObjective() const
         return buildSimulation(params);
     };
 
-    result->addSimulationAndData(builder, *createOutputData(), 1.0);
+    result->addSimulationAndData(builder, *createOutputData(), nullptr, 1.0);
     result->initPrint(1);
 
     return result;
@@ -126,5 +126,5 @@ std::unique_ptr<OutputData<double> > FitPlan::createOutputData() const
     params.setValues(expectedValues());
     auto simulation = buildSimulation(params);
     simulation->runSimulation();
-    return std::unique_ptr<OutputData<double>>(simulation->result().data());
+    return simulation->result().data();
 }

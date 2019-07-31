@@ -17,20 +17,25 @@
 #include "OutputDataReadFactory.h"
 #include "OutputDataWriteFactory.h"
 #include "SimulationResult.h"
-
+#include "FileSystemUtils.h"
 #include <fstream>
 #include <memory>
 
-namespace {
-bool FileExists(const std::string& filename);
-}
-
-
 OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name)
 {
-    if (!FileExists(file_name))
+    if (!FileSystemUtils::IsFileExists(file_name))
         return nullptr;
     std::unique_ptr<OutputDataReader> P_reader(OutputDataReadFactory::getReader(file_name));
+    if (P_reader)
+        return P_reader->getOutputData();
+    return nullptr;
+}
+
+OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::string& file_name)
+{
+    if (!FileSystemUtils::IsFileExists(file_name))
+        return nullptr;
+    std::unique_ptr<OutputDataReader> P_reader(OutputDataReadFactory::getReflectometryReader(file_name));
     if (P_reader)
         return P_reader->getOutputData();
     return nullptr;
@@ -60,13 +65,6 @@ void IntensityDataIOFactory::writeIntensityData(const IHistogram& histogram,
 void IntensityDataIOFactory::writeSimulationResult(const SimulationResult& result,
                                                    const std::string& file_name)
 {
-    std::unique_ptr<OutputData<double>> P_data(result.data());
-    writeOutputData(*P_data, file_name);
-}
-
-namespace {
-bool FileExists(const std::string& filename) {
-    std::ifstream fs(filename);
-    return fs.is_open();
-}
+    auto data = result.data();
+    writeOutputData(*data, file_name);
 }

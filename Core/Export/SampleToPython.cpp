@@ -504,16 +504,10 @@ std::string SampleToPython::defineParticleLayouts() const
             if (auto p_iff = INodeUtils::OnlyChildOfType<IInterferenceFunction>(*particleLayout))
                 result << indent() << it->second << ".setInterferenceFunction("
                        << m_label->labelInterferenceFunction(p_iff) << ")\n";
-
-            switch (particleLayout->getApproximation()) {
-            case ILayout::DA:
-                break;
-            case ILayout::SSCA:
-                result << indent() << it->second << ".setApproximation(ba.ILayout.SSCA)\n";
-                break;
-            }
+            result << indent() << it->second << ".setWeight("
+                   << particleLayout->weight() << ")\n";
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
-                   << it->first->totalParticleSurfaceDensity() << ")\n";
+                   << particleLayout->totalParticleSurfaceDensity() << ")\n";
         }
     }
     return result.str();

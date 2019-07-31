@@ -28,7 +28,7 @@ public:
     Simulation2D() =default;
     Simulation2D(const MultiLayer& p_sample);
     Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
-    virtual ~Simulation2D() =default;
+    ~Simulation2D() override = default;
 
     Simulation2D* clone() const override =0;
 

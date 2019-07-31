@@ -46,13 +46,14 @@ protected:
     void onChange() override final;
 
 private:
-    complex_t Integrand(double Z) const;
+    complex_t Integrand(double u) const;
     bool check_initialization() const;
 
     double m_length;
     double m_width;
     double m_height;
-    mutable cvector_t m_q;
+    mutable complex_t m_ay;
+    mutable complex_t m_az;
 
 #ifndef SWIG
     std::unique_ptr<IntegratorComplex<FormFactorLongRipple1Gauss>> mP_integrator;

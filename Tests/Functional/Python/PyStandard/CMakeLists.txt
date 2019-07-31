@@ -66,6 +66,7 @@ set(test_cases
     GaussianBeamFootprint
     SpecularDivergentBeam
     HomogeneousTiNiSampleWithAbsorption
+    RelativeResolutionTOF
 )
 
 add_executable(${test} main.cpp PyStandardTest.h PyStandardTest.cpp)

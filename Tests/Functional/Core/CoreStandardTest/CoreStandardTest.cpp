@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreStandardTest.cpp
+//! @file      Tests/Functional/Core/CoreStandardTest/CoreStandardTest.cpp
 //! @brief     Implements class CoreStandardTest.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -36,7 +36,7 @@ bool CoreStandardTest::runTest()
     assert(m_reference_simulation);
     m_reference_simulation->runSimulation();
     auto sim_result = m_reference_simulation->result();
-    const std::unique_ptr<OutputData<double>> result_data(sim_result.data());
+    const auto result_data = sim_result.data();
 
     // Compare with reference if available.
     bool success = false;

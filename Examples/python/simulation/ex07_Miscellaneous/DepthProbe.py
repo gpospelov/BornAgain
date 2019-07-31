@@ -111,4 +111,4 @@ def run_simulation():
 
 if __name__ == '__main__':
     result = run_simulation()
-    ba.plot_simulation_result(result)
+    ba.plot_simulation_result(result, cmap='jet', aspect='auto')

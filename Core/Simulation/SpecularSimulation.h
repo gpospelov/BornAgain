@@ -24,9 +24,8 @@ class IComputation;
 class IFootprintFactor;
 class IMultiLayerBuilder;
 class ISample;
-class ISpecularDataHandler;
+class ISpecularScan;
 class MultiLayer;
-class Histogram1D;
 class SpecularSimulationElement;
 
 //! Main class to run a specular simulation.
@@ -47,40 +46,26 @@ public:
 
     void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
 
-    size_t numberOfSimulationElements() const override;
-
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays. If simulation was not run, returns an array of proper size filled with
     //! zeros.
     SimulationResult result() const override;
 
-    void setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max,
-                           const IFootprintFactor* beam_shape = nullptr);
-    void setBeamParameters(double lambda, std::vector<double> incident_angle_values,
-                           const IFootprintFactor* beam_shape = nullptr);
-    void setBeamParameters(std::vector<double> wavelength_values, double incident_angle,
-                           const IFootprintFactor* beam_shape = nullptr);
-    void setBeamParameters(std::vector<double> qz_values);
-    //! Sets beam parameters for specular simulation. _lambda_ defines the wavelength of incoming
-    //! beam (in nm), _alpha_axis_ defines the range of incident angles, while _beam_shape_
-    //! (optional parameter) is required to take footprint effects into account.
-    //! Incident angle axis can be defined as a numpy array of values. This overload
-    //! facilitates defining non-uniform incident angle axis.
-    //! Another overload accepts the number of bins (_nbins_), as well as
-    //! minimal (_alpha_i_min_) and maximal (_alpha_i_max_) angle values.
-    //! With using this overload a uniform angle axis in the given range is assigned to the beam.
-    void setBeamParameters(double lambda, const IAxis& alpha_axis,
-                           const IFootprintFactor* beam_shape = nullptr);
+    //! Sets chosen specular scan to the simulation.
+    void setScan(const ISpecularScan& scan);
 
     //! Returns a pointer to coordinate axis.
     const IAxis* coordinateAxis() const;
 
-    //! Returns a pointer to internal data handler
+    //! Returns a pointer to footprint factor holder
     const IFootprintFactor* footprintFactor() const;
 
+    //! Returns the total number of the intensity values in the simulation result
+    size_t intensityMapSize() const override;
+
 #ifndef SWIG
-	//! Returns internal data handler
-	const ISpecularDataHandler* dataHandler() const { return m_data_handler.get(); }
+    //! Returns internal data handler
+    const ISpecularScan* dataHandler() const { return m_data_handler.get(); }
 #endif //SWIG
 
 private:
@@ -117,13 +102,16 @@ private:
 
     void moveDataFromCache() override;
 
+    //! Gets the number of elements this simulation needs to calculate
+    size_t numberOfSimulationElements() const override;
+
     //! Creates intensity data from simulation elements
     std::unique_ptr<OutputData<double>> createIntensityData() const;
 
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
 
-    std::unique_ptr<ISpecularDataHandler> m_data_handler;
+    std::unique_ptr<ISpecularScan> m_data_handler;
     std::vector<SpecularSimulationElement> m_sim_elements;
     std::vector<double> m_cache;
 };

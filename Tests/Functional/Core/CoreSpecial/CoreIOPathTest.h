@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreSpecial/AxisComparisonTest.h
-//! @brief     Defines class AxisComparisonTest
+//! @file      Tests/Functional/Core/CoreSpecial/CoreIOPathTest.h
+//! @brief     Defines CoreIOTest class
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,24 +12,19 @@
 //
 // ************************************************************************** //
 
-#ifndef AXISCOMPARISONTEST_H
-#define AXISCOMPARISONTEST_H
+#ifndef COREIOPATHTEST_H
+#define COREIOPATHTEST_H
 
 #include "IFunctionalTest.h"
-#include <memory>
 
-class IAxis;
-class Simulation;
+//! Functional test to validate read/write to files containing non-ascii characters in a path.
 
-class AxisComparisonTest : public IFunctionalTest
+class CoreIOPathTest : public IFunctionalTest
 {
 public:
-    AxisComparisonTest();
-    ~AxisComparisonTest() override;
-    static std::unique_ptr<Simulation> createSimulation(const IAxis& axis);
+    CoreIOPathTest();
 
-private:
-    bool runTest() override;
+    bool runTest();
 };
 
-#endif // AXISCOMPARISONTEST_H
+#endif // COREIOPATHTEST_H

@@ -21,7 +21,7 @@
 class MultiLayer;
 class Beam;
 
-//! Defines the base for classes to calculate beam footprint factor
+//! Abstract base for classes that calculate the beam footprint factor
 //! @ingroup simulation
 
 class BA_CORE_API_ IFootprintFactor : public ICloneable, public INode
@@ -39,6 +39,9 @@ public:
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     virtual double calculate(double alpha) const = 0;
 
+    //! Print python-formatted footprint definition
+    virtual std::string print() const = 0;
+
 protected:
     IFootprintFactor(const IFootprintFactor& other);
 
@@ -47,5 +50,10 @@ private:
 
     double m_width_ratio; //! Beam to sample width ratio
 };
+
+inline std::ostream& operator<<(std::ostream& os, const IFootprintFactor& f_factor)
+{
+    return os << f_factor.print();
+}
 
 #endif /* IFOOTPRINTFACTOR_H_ */

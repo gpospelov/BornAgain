@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/FitObjective/FitPlanCases.h
+//! @file      Tests/Functional/Fit/FitObjective/FitPlanCases.cpp
 //! @brief     Implements collection of FitPlanCases classes
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -95,7 +95,7 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
 // ----------------------------------------------------------------------------
 
 SpecularPlan::SpecularPlan()
-    : FitPlan("SpecularPlan", /*residual_based = */ true)
+    : FitPlan("SpecularPlan")
 {
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -107,8 +107,21 @@ SpecularPlan::~SpecularPlan() = default;
 
 // ----------------------------------------------------------------------------
 
+SpecularPlanQ::SpecularPlanQ()
+    : FitPlan("SpecularPlanQ")
+{
+    setSimulationName("BasicSpecularQ");
+    setBuilderName("PlainMultiLayerBySLDBuilder");
+    addParameter(Parameter("ti_thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
+                 3.0 * nm);
+}
+
+SpecularPlanQ::~SpecularPlanQ() = default;
+
+// ----------------------------------------------------------------------------
+
 MultipleSpecPlan::MultipleSpecPlan()
-    : FitPlan("MultipleSpecPlan", /*residual_based = */ true)
+    : FitPlan("MultipleSpecPlan")
 {
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -126,8 +139,8 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
         return buildSimulation(params);
     };
 
-    result->addSimulationAndData(builder, *createOutputData(), 0.5);
-    result->addSimulationAndData(builder, *createOutputData(), 0.5);
+    result->addSimulationAndData(builder, *createOutputData(), nullptr, 0.5);
+    result->addSimulationAndData(builder, *createOutputData(), nullptr, 0.5);
     result->initPrint(1);
 
     return result;
@@ -136,7 +149,7 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
 // ----------------------------------------------------------------------------
 
 OffSpecFitPlan::OffSpecFitPlan()
-    : FitPlan("OffSpecFitPlan", /*residual_based*/true)
+    : FitPlan("OffSpecFitPlan")
 {
     setBuilderName("ResonatorBuilder");
     setSimulationName("OffSpecMini");

@@ -22,6 +22,7 @@
 #include "ICloneable.h"
 
 class IAxis;
+template<class T> class OutputData;
 
 //! Wrapper for detector axes units, required for a better representation of
 //! detector axes units in python
@@ -29,7 +30,12 @@ class IAxis;
 
 // workaround for SWIG (instead of just writing enum class AxesUnits...)
 struct BA_CORE_API_ AxesUnitsWrap {
-    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE };
+    enum AxesUnits { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE, QXQY, RQ4 };
+#ifndef SWIG
+    // TODO: to automatize enum to string convertion, one can possibly use this solution 
+    // https://stackoverflow.com/questions/147267/easy-way-to-use-variables-of-enum-types-as-string-in-c#202511
+    static std::string unitName(AxesUnits unit);
+#endif
 };
 typedef AxesUnitsWrap::AxesUnits AxesUnits;
 
@@ -56,10 +62,17 @@ public:
 
 #ifndef SWIG
     virtual std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, AxesUnits units) const = 0;
+
+    //! Creates OutputData array in converter units.
+    virtual std::unique_ptr<OutputData<double>> createConvertedData(const OutputData<double>& data,
+                                                                    AxesUnits units) const;
 #endif // SWIG
 
 protected:
     void checkIndex(size_t i_axis) const;
+#ifndef SWIG
+    [[noreturn]] void throwUnitsError(std::string method, std::vector<AxesUnits> available) const;
+#endif // SWIG
 
 private:
     virtual std::vector<std::map<AxesUnits, std::string>> createNameMaps() const=0;

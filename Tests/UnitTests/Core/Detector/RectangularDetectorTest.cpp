@@ -18,9 +18,9 @@ protected:
     double alpha(kvector_t k) { return 90.0 - k.theta() / Units::degree; }
 
     bool isEqual(const kvector_t lhs, const kvector_t rhs) {
-        bool is_equal = Numeric::areAlmostEqual(lhs.x(), rhs.x())
-                        && Numeric::areAlmostEqual(lhs.y(), rhs.y())
-                        && Numeric::areAlmostEqual(lhs.z(), rhs.z());
+        bool is_equal = Numeric::AreAlmostEqual(lhs.x(), rhs.x())
+                        && Numeric::AreAlmostEqual(lhs.y(), rhs.y())
+                        && Numeric::AreAlmostEqual(lhs.z(), rhs.z());
         if (!is_equal) {
             std::cout << "lhs:" << lhs << " rhs:" << rhs << " diff:" << (lhs - rhs) << std::endl;
         }

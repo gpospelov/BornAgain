@@ -220,7 +220,11 @@ void WidgetBoxTreeWidget::handleMousePress(QTreeWidgetItem* item)
         return;
 
     if (item->parent() == nullptr) {
-        setItemExpanded(item, !isItemExpanded(item));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+    item->setExpanded(!item->isExpanded());
+#else
+    setItemExpanded(item, !isItemExpanded(item));
+#endif
         return;
     }
 }
@@ -643,7 +647,13 @@ void WidgetBoxTreeWidget::addCategory(const Category& cat)
             } else {
                 insertTopLevelItem(scratchPadIndex, cat_item);
             }
-            setItemExpanded(cat_item, true);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+             cat_item->setExpanded(true);
+#else
+             setItemExpanded(cat_item, true);
+#endif
+
+
             categoryView = addCategoryView(cat_item, m_iconMode);
         } else {
             categoryView = categoryViewAt(existingIndex);
@@ -863,7 +873,12 @@ void WidgetBoxTreeWidget::dropWidgets(const QList<QDesignerDnDItemInterface*>& i
 
         const Widget wgt = Widget(w->objectName(), xml);
         categoryView->addWidget(wgt, iconForWidget(wgt.iconName()), true);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+        scratch_item->setExpanded(true);
+#else
         setItemExpanded(scratch_item, true);
+#endif
+
         added = true;
     }
     if (added) {

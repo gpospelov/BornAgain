@@ -94,7 +94,7 @@ def run_simulation():
 
         zmin = condition['zmin']
         zmax = condition['zmax']
-        ba.plot_colormap(result, zmin=zmin, zmax=zmax)
+        ba.plot_colormap(result, zmin=zmin, zmax=zmax, cmap='jet', aspect='auto')
 
         plt.text(0.0, 2.1, conditions[i_plot]['title'],
                  horizontalalignment='center', verticalalignment='center',

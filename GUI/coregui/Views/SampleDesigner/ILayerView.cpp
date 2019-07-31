@@ -56,6 +56,7 @@ void ILayerView::onPropertyChange(const QString &propertyName)
         updateHeight();
     } else if (propertyName == LayerItem::P_MATERIAL) {
         updateColor();
+        updateLabel();
     }
 
     IView::onPropertyChange(propertyName);
@@ -85,6 +86,40 @@ void ILayerView::updateColor()
         }
     }
 }
+
+void ILayerView::updateLabel()
+{
+    if(getInputPorts().size() < 1)
+        return;
+
+    NodeEditorPort *port = getInputPorts()[0];
+
+    QString material = "" ;
+    if(m_item->isTag(LayerItem::P_MATERIAL)){
+        QVariant v = m_item->getItemValue(LayerItem::P_MATERIAL);
+        if (v.isValid()) {
+            ExternalProperty mp = v.value<ExternalProperty>();
+            material = mp.text();
+        }
+    }
+
+/* Thickness and roughness can be added, but the length of the string
+ * becomes prohibitive.
+    QString thickness = "" ;
+    if(m_item->isTag(LayerItem::P_THICKNESS))
+        thickness = m_item->getItemValue(LayerItem::P_THICKNESS).toString();
+
+    QString roughness = "" ;
+    if(m_item->isTag(LayerItem::P_ROUGHNESS)){
+        QVariant x = m_item->getItemValue(LayerItem::P_ROUGHNESS);
+        {...}
+    }
+*/
+    QString infoToDisplay = material;
+    port->setLabel(infoToDisplay);
+}
+
+
 
 //! Detects movement of the ILayerView and sends possible drop areas to GraphicsScene
 //! for visualization.
@@ -127,7 +162,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     int requested_row = candidate.row;
 
     // Simple move of single layer on the scene
-    if (requested_parent == 0 && parentItem() == 0) {
+    if (!requested_parent && !parentItem()) {
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
@@ -157,7 +192,7 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         this->getItem()->setItemValue(SessionGraphicsItem::P_XPOS, newPos.x());
         this->getItem()->setItemValue(SessionGraphicsItem::P_YPOS, newPos.y());
 
-        model->moveItem(this->getItem(), 0);
+        model->moveItem(this->getItem(), nullptr);
         QGraphicsItem::mouseReleaseEvent(event);
         return;
     }
@@ -179,6 +214,7 @@ void ILayerView::update_appearance()
 {
     updateHeight();
     updateColor();
+    updateLabel();
     ConnectableView::update_appearance();
 }
 
@@ -203,7 +239,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
                 // calculate row number to drop ILayerView and distance to the nearest droping area
                 int row = multilayer->getDropArea(multilayer->mapFromScene(layerRect.center()));
                 QRectF droparea = multilayer->mapRectToScene(multilayer->getDropAreaRectangle(row));
-                int distance = std::abs(droparea.center().y() - layerRect.center().y());
+                int distance = std::abs(static_cast<int>(droparea.center().y() - layerRect.center().y()));
 
                 candidate.multilayer = multilayer;
                 candidate.row = row;
@@ -214,7 +250,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
     }
     // sorting MultiLayerView candidates to find one whose drop area is closer
     if (candidates.size()) {
-        qSort(candidates.begin(), candidates.end());
+        std::sort(candidates.begin(), candidates.end());
         return candidates.back();
     }
     return MultiLayerCandidate();

@@ -13,17 +13,11 @@
 // ************************************************************************** //
 
 #include "IInterferenceFunctionStrategy.h"
-#include "InterferenceFunctionNone.h"
+#include "Exceptions.h"
 #include "FormFactorCoherentSum.h"
-#include "IFormFactor.h"
-#include "IInterferenceFunction.h"
+#include "InterferenceFunctionNone.h"
 #include "IntegratorMCMiser.h"
-#include "IFresnelMap.h"
-#include "MathConstants.h"
-#include "RealParameter.h"
-#include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
-#include "WavevectorInfo.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOptions& sim_params,
                                                              bool polarized)
@@ -37,7 +31,7 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const SimulationOpt
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() =default;
 
 void IInterferenceFunctionStrategy::init(
-    const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
+    const std::vector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff)
 {
     if (weighted_formfactors.size()==0)

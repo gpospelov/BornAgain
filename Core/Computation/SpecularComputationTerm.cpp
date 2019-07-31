@@ -18,8 +18,7 @@
 #include "SpecularMatrix.h"
 #include "SpecularSimulationElement.h"
 
-SpecularComputationTerm::SpecularComputationTerm()
-{}
+SpecularComputationTerm::SpecularComputationTerm() {}
 
 SpecularComputationTerm::~SpecularComputationTerm() = default;
 
@@ -29,12 +28,12 @@ void SpecularComputationTerm::setProgressHandler(ProgressHandler* p_progress)
 }
 
 void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
-                                      const MultiLayer& sample) const
+                                      const std::vector<Slice>& slices) const
 {
     if (!elem.isCalculated())
         return;
 
-    auto coeff = SpecularMatrix::execute(sample, elem.produceKz(sample));
+    auto coeff = SpecularMatrix::Execute(slices, elem.produceKz(slices));
     elem.setIntensity(std::norm(coeff[0].getScalarR()));
 
     if (mP_progress_counter)

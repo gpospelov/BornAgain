@@ -18,7 +18,7 @@
 #include "IInterferenceFunction.h"
 #include "Lattice.h"
 
-//! Interference function of 2D lattice.
+//! Interference function of a finite 3D lattice.
 //! @ingroup interference
 
 class BA_CORE_API_ InterferenceFunctionFinite3DLattice : public IInterferenceFunction

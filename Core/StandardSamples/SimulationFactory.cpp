@@ -110,6 +110,10 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::RectDetectorPerpToReflectedBeamDpos,
                  "Rectangular detector with generic alignment");
 
+    registerItem("ExtraLongWavelengthGISAS",
+                 StandardSimulations::ExtraLongWavelengthGISAS,
+                 "GISAS with rectangular detector and extra long wavelentgh");
+
     // Monte-Carlo
     registerItem("MiniGISASMonteCarlo",
                  StandardSimulations::MiniGISASMonteCarlo,
@@ -138,10 +142,6 @@ SimulationFactory::SimulationFactory()
                  "Basic specular simulation with [0, 5] deg incident angle range and "
                  "1.54 angstroms wavelength.");
 
-    registerItem("BasicSpecularTOF", StandardSimulations::BasicSpecularTOF,
-                 "Same as BasicSpecular, but the qz range is represented as a set of wavelengths "
-                 "and an incident angle");
-
     registerItem("BasicSpecularQ", StandardSimulations::BasicSpecularQ,
                  "Same as BasicSpecular, but the qz range is passed to the simulation directly");
 
@@ -156,6 +156,12 @@ SimulationFactory::SimulationFactory()
     registerItem("SpecularDivergentBeam", StandardSimulations::SpecularDivergentBeam,
                  "Simulation implies beam divergence both in wavelength and "
                  "inclination angle.");
+
+    registerItem("TOFRWithRelativeResolution", StandardSimulations::TOFRWithRelativeResolution,
+                 "Q-defined reflectometric scan with relative resolution");
+
+    registerItem("TOFRWithPointwiseResolution", StandardSimulations::TOFRWithPointwiseResolution,
+                 "Q-defined reflectometric scan with pointwise resolution.");
 
     registerItem("OffSpecMini", StandardSimulations::MiniOffSpec,
                  "Mini OffSpecular simulation for resonator experiment.");

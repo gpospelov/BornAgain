@@ -121,14 +121,14 @@ endif()
 
 
 if(WIN32)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
 
 
 # --- making library ---------
 add_library(${library_name} SHARED ${include_files} ${source_files})
 
-set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+set_target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 
 
@@ -194,7 +194,7 @@ install (FILES ${CMAKE_SOURCE_DIR}/Wrap/WinDllMacros.h DESTINATION ${destination
 if(WIN32)
     # python in windows required .pyd extention for the library name
     if(BORNAGAIN_PYTHON)
-        ADD_CUSTOM_COMMAND(
+        add_custom_command(
             TARGET ${library_name}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
@@ -202,7 +202,7 @@ if(WIN32)
             ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}".pyd"
             )
         install(FILES ${CMAKE_BINARY_DIR}/lib/${libprefix}${library_name}.pyd DESTINATION ${destination_lib} COMPONENT Libraries)
-        ADD_CUSTOM_COMMAND(
+        add_custom_command(
             TARGET ${library_name}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
@@ -212,13 +212,13 @@ if(WIN32)
     endif()
 
     # system libraries
-    FOREACH(Boost_lib ${Boost_LIBRARIES})
+    foreach(Boost_lib ${Boost_LIBRARIES})
         get_filename_component(UTF_BASE_NAME ${Boost_lib} NAME_WE)
         get_filename_component(UTF_PATH ${Boost_lib} PATH)
         message(STATUS "Boost dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
         install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
             DESTINATION ${destination_lib} COMPONENT Libraries)
-    ENDFOREACH()
+    endforeach()
 
     get_filename_component(UTF_BASE_NAME ${PYTHON_LIBRARIES} NAME_WE)
     get_filename_component(UTF_PATH ${PYTHON_EXECUTABLE} PATH)

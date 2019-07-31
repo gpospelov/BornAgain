@@ -183,10 +183,14 @@ void StyleHelper::verticalGradient(QPainter *painter, const QRect &spanRect, con
         QColor keyColor = baseColor(lightColored);
         key.sprintf("mh_vertical %d %d %d %d %d",
             spanRect.width(), spanRect.height(), clipRect.width(),
-            clipRect.height(), keyColor.rgb());;
+            clipRect.height(), keyColor.rgb());
 
         QPixmap pixmap;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+        if (!QPixmapCache::find(key, &pixmap)) {
+#else
         if (!QPixmapCache::find(key, pixmap)) {
+#endif
             pixmap = QPixmap(clipRect.size());
             QPainter p(&pixmap);
             QRect rect(0, 0, clipRect.width(), clipRect.height());
@@ -244,7 +248,11 @@ void StyleHelper::horizontalGradient(QPainter *painter, const QRect &spanRect, c
             clipRect.height(), keyColor.rgb(), spanRect.x());
 
         QPixmap pixmap;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+        if (!QPixmapCache::find(key, &pixmap)) {
+#else
         if (!QPixmapCache::find(key, pixmap)) {
+#endif
             pixmap = QPixmap(clipRect.size());
             QPainter p(&pixmap);
             QRect rect = QRect(0, 0, clipRect.width(), clipRect.height());
@@ -283,7 +291,11 @@ void StyleHelper::drawArrow(QStyle::PrimitiveElement element, QPainter *painter,
                        "$qt_ia",
                        uint(option->state), element,
                        size, option->palette.cacheKey());
-    if (!QPixmapCache::find(pixmapName, pixmap)) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+        if (!QPixmapCache::find(pixmapName, &pixmap)) {
+#else
+        if (!QPixmapCache::find(pixmapName, pixmap)) {
+#endif
         int border = size/5;
         int sqsize = 2*(size/2);
         QImage image(sqsize, sqsize, QImage::Format_ARGB32);
@@ -356,7 +368,11 @@ void StyleHelper::menuGradient(QPainter *painter, const QRect &spanRect, const Q
             clipRect.height(), StyleHelper::baseColor().rgb());
 
         QPixmap pixmap;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+        if (!QPixmapCache::find(key, &pixmap)) {
+#else
         if (!QPixmapCache::find(key, pixmap)) {
+#endif
             pixmap = QPixmap(clipRect.size());
             QPainter p(&pixmap);
             QRect rect = QRect(0, 0, clipRect.width(), clipRect.height());
@@ -378,7 +394,11 @@ void StyleHelper::drawIconWithShadow(const QIcon &icon, const QRect &rect,
     QPixmap cache;
     QString pixmapName = QString::fromLatin1("icon %0 %1 %2").arg(icon.cacheKey()).arg(iconMode).arg(rect.height());
 
-    if (!QPixmapCache::find(pixmapName, cache)) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+        if (!QPixmapCache::find(pixmapName, &cache)) {
+#else
+        if (!QPixmapCache::find(pixmapName, cache)) {
+#endif
         QPixmap px = icon.pixmap(rect.size());
         cache = QPixmap(px.size() + QSize(radius * 2, radius * 2));
         cache.fill(Qt::transparent);

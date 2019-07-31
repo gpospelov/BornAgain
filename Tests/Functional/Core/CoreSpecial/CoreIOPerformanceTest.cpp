@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreIO/CoreIOTest.cpp
+//! @file      Tests/Functional/Core/CoreSpecial/CoreIOPerformanceTest.cpp
 //! @brief     Implements CoreIOTest class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "CoreIOTest.h"
+#include "CoreIOPerformanceTest.h"
 #include "IntensityDataIOFactory.h"
 #include "Benchmark.h"
 #include "Numeric.h"
@@ -22,7 +22,7 @@
 #include <iomanip>
 #include <boost/format.hpp>
 
-bool CoreIOTest::runTest()
+bool CoreIOPerformanceTest::runTest()
 {
     std::cout << "CoreIOTest::runTest()" << std::endl;
 
@@ -48,7 +48,7 @@ bool CoreIOTest::runTest()
     return success;
 }
 
-bool CoreIOTest::test_io(int nx, int ny, bool random_data, const std::string& ext)
+bool CoreIOPerformanceTest::test_io(int nx, int ny, bool random_data, const std::string& ext)
 {
     std::cout << "Test " << nx << "x" << ny << ", "
               << (random_data ? "random data" : "zeros")
@@ -97,7 +97,7 @@ bool CoreIOTest::test_io(int nx, int ny, bool random_data, const std::string& ex
     return success;
 }
 
-std::unique_ptr<OutputData<double>> CoreIOTest::createData(int nx, int ny, bool fill)
+std::unique_ptr<OutputData<double>> CoreIOPerformanceTest::createData(int nx, int ny, bool fill)
 {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis("x", nx, 0.0, static_cast<double>(nx));
@@ -118,7 +118,7 @@ std::unique_ptr<OutputData<double>> CoreIOTest::createData(int nx, int ny, bool 
 
 //! Returns biggest element difference found.
 
-double CoreIOTest::biggest_difference(const OutputData<double>& data, const OutputData<double>& ref)
+double CoreIOPerformanceTest::biggest_difference(const OutputData<double>& data, const OutputData<double>& ref)
 {
     if (data.getAllocatedSize() != ref.getAllocatedSize())
         throw std::runtime_error("CoreIOTest::biggest_difference() -> Error. Size is different.");
@@ -126,13 +126,13 @@ double CoreIOTest::biggest_difference(const OutputData<double>& data, const Outp
     double max_diff = std::numeric_limits<double>::min();
 
     for (size_t i = 0; i < data.getAllocatedSize(); ++i) {
-        double diff = Numeric::get_relative_difference(data[i], ref[i]);
+        double diff = Numeric::GetRelativeDifference(data[i], ref[i]);
         max_diff = std::max(diff, max_diff);
     }
     return max_diff;
 }
 
-std::string CoreIOTest::report() const
+std::string CoreIOPerformanceTest::report() const
 {
     std::ostringstream result;
 

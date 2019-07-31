@@ -49,6 +49,7 @@ class BA_CORE_API_ IntensityDataIOFactory
 public:
     //! Reads file and returns newly created OutputData object
     static OutputData<double>* readOutputData(const std::string& file_name);
+    static OutputData<double> *readReflectometryData(const std::string &file_name);
 
     //! Reads file and returns newly created Histogram object
     static IHistogram* readIntensityData(const std::string& file_name);

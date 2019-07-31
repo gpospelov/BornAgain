@@ -100,6 +100,14 @@ const IAxis* DepthProbeSimulation::getZAxis() const
     return m_z_axis.get();
 }
 
+size_t DepthProbeSimulation::intensityMapSize() const
+{
+    if (!m_z_axis || !m_alpha_axis)
+        throw std::runtime_error("Error in DepthProbeSimulation::intensityMapSize: attempt to "
+                                 "access non-initialized data.");
+    return m_z_axis->size() * m_alpha_axis->size();
+}
+
 std::unique_ptr<IUnitConverter> DepthProbeSimulation::createUnitConverter() const
 {
     return std::make_unique<DepthProbeConverter>(m_instrument.getBeam(), *m_alpha_axis, *m_z_axis);

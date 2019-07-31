@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/FitObjective/FitObjectiveTestCases.h
+//! @file      Tests/Functional/Fit/FitObjective/FitObjectiveTestCases.cpp
 //! @brief     Defines classes from FitObjectiveTest family.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -55,6 +55,9 @@ AdjustMinimizerFit::AdjustMinimizerFit()
 
 SpecularFitTest::SpecularFitTest()
     : FitObjectiveTest("Minuit2", "Migrad", "SpecularPlan") {}
+
+SpecularFitTestQ::SpecularFitTestQ()
+    : FitObjectiveTest("Minuit2", "Migrad", "SpecularPlanQ") {}
 
 MultipleSpecFittingTest::MultipleSpecFittingTest()
     : FitObjectiveTest("Minuit2", "Migrad", "MultipleSpecPlan") {}

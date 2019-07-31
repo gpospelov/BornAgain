@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceScene.cpp
+//! @file      GUI/coregui/Views/RealSpaceWidgets/RealSpaceCanvas.cpp
 //! @brief     Implements class RealSpaceScene
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,6 +12,8 @@
 //
 // ************************************************************************** //
 
+#include "AppSvc.h"
+#include "projectmanager.h"
 #include "RealSpaceCanvas.h"
 #include "RealSpaceBuilder.h"
 #include "RealSpaceModel.h"
@@ -20,8 +22,10 @@
 #include "SessionItemUtils.h"
 #include "WarningSign.h"
 #include "FilterPropertyProxy.h"
+#include <QFileDialog>
 #include <QApplication>
 #include <QVBoxLayout>
+#include <QMessageBox>
 
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent), m_sampleModel(nullptr), m_view(new RealSpaceView), m_selectionModel(nullptr),
@@ -119,6 +123,36 @@ void RealSpaceCanvas::onChangeLayerSizeAction(double layerSizeChangeScale)
     m_sceneGeometry->set_layer_size(m_sceneGeometry->layer_size() * layerSizeChangeScale);
     updateScene();
 }
+
+void RealSpaceCanvas::onSavePictureAction()
+{
+    QPixmap pixmap(this->size());
+    render(&pixmap, QPoint(), childrenRegion());
+    savePicture(pixmap);
+}
+
+void RealSpaceCanvas::savePicture(const QPixmap &pixmap)
+{
+    QString dirname = AppSvc::projectManager()->userExportDir();
+    QString defaultExtension = ".png";
+    QString selectedFilter("*"+defaultExtension);
+    QString defaultName = dirname + QString("/untitled");
+    QString fileName =QFileDialog::getSaveFileName(nullptr, "Save 3D real space view", defaultName, selectedFilter);
+    QString nameToSave = fileName.endsWith(defaultExtension) ? fileName : fileName + defaultExtension;
+
+    if(!nameToSave.isEmpty()) {
+        try {
+            pixmap.save(nameToSave);
+        } catch(const std::exception &ex) {
+            QString message = "Attempt to save file with the name '";
+            message.append(nameToSave);
+            message.append("' has failed with following error message\n\n");
+            message.append(QString::fromStdString(ex.what()));
+            QMessageBox::warning(nullptr, "Houston, we have a problem.", message);
+        }
+    }
+}
+
 
 void RealSpaceCanvas::onDataChanged(const QModelIndex& index)
 {

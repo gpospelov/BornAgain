@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/GUI/GUIPerformanceTest/GUIPerformanceTest.cpp
+//! @file      Tests/Functional/GUI/GUISpecial/CsvImportAssistantPerformanceTest.cpp
 //! @brief     Implements GUI performance functional test.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -28,7 +28,7 @@ void CsvImportAssistantPerformanceTest::writeTestFile()
 {
     remove(m_testFilename.c_str());
     OutputDataWriter* writer = OutputDataWriteFactory::getWriter(m_testFilename);
-    OutputData<double>* data = ArrayUtils::createData2D(m_testVector).release();
+    OutputData<double>* data = ArrayUtils::createData(m_testVector).release();
     writer->writeOutputData(*data);
 }
 

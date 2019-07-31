@@ -131,11 +131,6 @@ std::map<std::string, std::string> SimAnMinimizer::statusMap() const
     return result;
 }
 
-bool SimAnMinimizer::isGradientBasedAgorithm()
-{
-    return false;
-}
-
 void SimAnMinimizer::propagateOptions()
 {
     ROOT::Math::GSLSimAnParams& pars = m_siman_minimizer->getSolver().Params();
@@ -144,7 +139,7 @@ void SimAnMinimizer::propagateOptions()
     pars.step_size = stepSize();
     pars.k = boltzmannK();
     pars.t_initial = boltzmannInitialTemp();
-    pars.mu = boltzmannMu();
+    pars.mu_t = boltzmannMu();
     pars.t_min = boltzmannMinTemp();
 }
 

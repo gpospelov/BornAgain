@@ -77,7 +77,8 @@ void JobItemUtils::updateDataAxes(DataItem* intensityItem,
 
 QString JobItemUtils::nameFromAxesUnits(AxesUnits units)
 {
-    return names_from_units.at(units);
+    return names_from_units.find(units) != names_from_units.end() ? names_from_units.at(units)
+                                                                  : QString();
 }
 
 //! Correspondance of GUI axes units names to their domain counterpart.
@@ -124,15 +125,18 @@ void JobItemUtils::setResults(DataItem* intensityItem, const Simulation* simulat
         updateAxesTitle(intensityItem, converter, converter.defaultUnits());
     }
     auto selected_units = JobItemUtils::axesUnitsFromName(intensityItem->selectedAxesUnits());
-    std::unique_ptr<OutputData<double>> data(sim_result.data(selected_units));
+    auto data = sim_result.data(selected_units);
     intensityItem->setOutputData(data.release());
 }
 
 ComboProperty JobItemUtils::availableUnits(const IUnitConverter& converter)
 {
     ComboProperty result;
-    for (auto units : converter.availableUnits())
-        result << nameFromAxesUnits(units);
+    for (auto units : converter.availableUnits()) {
+        auto unit_name = nameFromAxesUnits(units);
+        if (unit_name != QString())
+            result << unit_name;
+    }
 
     result.setValue(nameFromAxesUnits(converter.defaultUnits()));
     return result;

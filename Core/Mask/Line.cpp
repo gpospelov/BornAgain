@@ -73,7 +73,7 @@ VerticalLine::VerticalLine(double x)
 
 bool VerticalLine::contains(double x, double /*y*/) const
 {
-    return Numeric::areAlmostEqual(x, m_x);
+    return Numeric::AreAlmostEqual(x, m_x);
 }
 
 bool VerticalLine::contains(const Bin1D& binx, const Bin1D& /*biny*/) const
@@ -91,7 +91,7 @@ HorizontalLine::HorizontalLine(double y)
 
 bool HorizontalLine::contains(double /*x*/, double y) const
 {
-    return Numeric::areAlmostEqual(y, m_y);
+    return Numeric::AreAlmostEqual(y, m_y);
 }
 
 bool HorizontalLine::contains(const Bin1D& /*binx*/, const Bin1D& biny) const

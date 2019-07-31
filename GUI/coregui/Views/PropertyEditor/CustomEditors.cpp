@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/CustomEditors.h
+//! @file      GUI/coregui/Views/PropertyEditor/CustomEditors.cpp
 //! @brief     Implements CustomEditors classes
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -346,13 +346,10 @@ ScientificSpinBoxEditor::ScientificSpinBoxEditor(QWidget* parent)
 
 void ScientificSpinBoxEditor::setLimits(const RealLimits& limits)
 {
-    m_doubleEditor->setMaximum(std::numeric_limits<double>::max());
-    m_doubleEditor->setMinimum(std::numeric_limits<double>::lowest());
-
-    if (limits.hasLowerLimit())
-        m_doubleEditor->setMinimum(limits.lowerLimit());
-    if (limits.hasUpperLimit())
-        m_doubleEditor->setMaximum(static_cast<int>(limits.upperLimit()));
+    m_doubleEditor->setMinimum(limits.hasLowerLimit() ? limits.lowerLimit()
+                                                      : std::numeric_limits<double>::lowest());
+    m_doubleEditor->setMaximum(limits.hasUpperLimit() ? limits.upperLimit()
+                                                      : std::numeric_limits<double>::max());
 }
 
 void ScientificSpinBoxEditor::setDecimals(int decimals)

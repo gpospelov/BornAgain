@@ -47,6 +47,7 @@
 %template(vector_complex_t) std::vector< std::complex<double>>;
 %template(vector_string_t) std::vector<std::string>;
 %template(map_string_double_t) std::map<std::string, double>;
+%template(pair_double_t) std::pair<double, double>;
 %template(vector_pair_double_t) std::vector<std::pair<double, double>>;
 %nodefaultctor ParameterPool;
 
@@ -72,6 +73,7 @@
 %import "WinDllMacros.h"
 
 %{
+#include "AngularSpecScan.h"
 #include "BAVersion.h"
 #include "BasicVector3D.h"
 #include "Beam.h"
@@ -193,6 +195,7 @@
 #include "MathFunctions.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
+#include "MultiLayerFuncs.h"
 #include "OffSpecSimulation.h"
 #include "OutputData.h"
 #include "ParameterDistribution.h"
@@ -206,6 +209,8 @@
 #include "PoissonNoiseBackground.h"
 #include "Polygon.h"
 #include "PyArrayImportUtils.h"
+#include "QSpecScan.h"
+#include "RangedDistributions.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
 #include "RectangularDetector.h"
@@ -213,6 +218,7 @@
 #include "Rotations.h"
 #include "Rotations.h"
 #include "SampleBuilderFactory.h"
+#include "ScanResolution.h"
 #include "Simulation.h"
 #include "Simulation2D.h"
 #include "SimulationFactory.h"
@@ -236,7 +242,9 @@
 
 // ownership
 
-%newobject SimulationResult::data(AxesUnits units_type = AxesUnits::DEFAULT) const;
+%newobject ScanResolution::scanRelativeResolution;
+%newobject ScanResolution::scanAbsoluteResolution;
+
 %newobject SimulationResult::histogram2d(AxesUnits units_type = AxesUnits::DEFAULT) const;
 
 %newobject IntensityDataIOFactory::readOutputData(const std::string& file_name);
@@ -316,7 +324,11 @@
 %include "ChiSquaredModule.h"
 %include "FitOptions.h"
 %include "PyFittingCallbacks.h"
+
 %include "FitObjective.h"
+%template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<double>>;
+%template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
+
 %include "MathFunctions.h"
 %include "IFactory.h"
 %include "IMultiLayerBuilder.h"
@@ -436,6 +448,7 @@
 %include "MaterialFactoryFuncs.h"
 %include "MesoCrystal.h"
 %include "MultiLayer.h"
+%include "MultiLayerFuncs.h"
 %include "OffSpecSimulation.h"
 %include "IIntensityFunction.h"
 %include "OutputData.h"
@@ -452,6 +465,7 @@
 %include "PyArrayImportUtils.h"
 %include "PoissonNoiseBackground.h"
 %include "Polygon.h"
+%include "RangedDistributions.h"
 %include "RealParameter.h"
 %include "Rectangle.h"
 %include "RectangularDetector.h"
@@ -468,5 +482,11 @@
 %include "IUnitConverter.h"
 %include "IterationInfo.h"
 %include "SpectrumUtils.h"
+
+%include "ScanResolution.h"
+
+%include "ISpecularScan.h"
+%include "AngularSpecScan.h"
+%include "QSpecScan.h"
 
 %include "extendCore.i"

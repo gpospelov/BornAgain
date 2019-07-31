@@ -18,7 +18,6 @@
 #include "Complex.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "InterferenceFunctionUtils.h"
-#include "SafePointerVector.h"
 #include <Eigen/StdVector>
 
 class FormFactorCoherentSum;
@@ -33,17 +32,17 @@ class SSCAHelper
 public:
     SSCAHelper(double kappa);
 
-    void init(const SafePointerVector<FormFactorCoherentSum>& ff_wrappers);
+    void init(const std::vector<FormFactorCoherentSum>& ff_wrappers);
 
     complex_t getCharacteristicSizeCoupling(double qp,
-            const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const;
+            const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
     complex_t getCharacteristicDistribution(double qp, const IInterferenceFunction* p_iff) const;
     complex_t calculatePositionOffsetPhase(double qp, double radial_extension) const;
     complex_t getMeanFormfactorNorm(double qp, const std::vector<complex_t>& precomputed_ff,
-            const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const;
+            const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
     void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
                             const InterferenceFunctionUtils::matrixFFVector_t& precomputed_ff,
-                            const SafePointerVector<FormFactorCoherentSum>& ff_wrappers) const;
+                            const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
 
 private:
     double m_kappa;

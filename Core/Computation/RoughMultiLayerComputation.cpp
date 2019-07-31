@@ -21,7 +21,9 @@
 #include "LayerRoughness.h"
 #include "MultiLayer.h"
 #include "MathConstants.h"
+#include "ProcessedSample.h"
 #include "SimulationElement.h"
+#include "Slice.h"
 
 // Diffuse scattering from rough interfaces is modelled after
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
@@ -37,41 +39,39 @@ namespace {
     }
 }
 
-RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer,
-                                                       const IFresnelMap* p_fresnel_map)
-    : m_multilayer_info(p_multi_layer, p_fresnel_map)
+RoughMultiLayerComputation::RoughMultiLayerComputation(const ProcessedSample* p_sample)
+    : mp_sample{p_sample}
 {}
 
 void RoughMultiLayerComputation::compute(SimulationElement& elem) const
 {
     if (elem.getAlphaMean()<0.0)
         return;
-    auto p_multilayer = m_multilayer_info.mp_multilayer;
+    auto n_slices = mp_sample->numberOfSlices();
     kvector_t q = elem.getMeanQ();
     double wavelength = elem.getWavelength();
     double autocorr(0.0);
     complex_t crosscorr(0.0, 0.0);
 
-    std::vector<complex_t > rterm( p_multilayer->numberOfLayers()-1 );
-    std::vector<complex_t > sterm( p_multilayer->numberOfLayers()-1 );
+    std::vector<complex_t > rterm( n_slices-1 );
+    std::vector<complex_t > sterm( n_slices-1 );
 
-    for (size_t i=0; i<p_multilayer->numberOfLayers()-1; i++){
+    for (size_t i=0; i+1<n_slices; i++){
         rterm[i] = get_refractive_term(i, wavelength);
         sterm[i] = get_sum8terms(i, elem);
     }
-    for (size_t i=0; i<p_multilayer->numberOfLayers()-1; i++) {
-        const LayerRoughness *rough =
-            p_multilayer->layerBottomInterface(i)->getRoughness();
+    for (size_t i=0; i+1<n_slices; i++) {
+        const LayerRoughness *rough = mp_sample->bottomRoughness(i);
         if(rough)
             autocorr += std::norm( rterm[i] ) * std::norm( sterm[i] ) * rough->getSpectralFun(q);
     }
     // cross correlation between layers
-    if (p_multilayer->crossCorrLength() != 0.0) {
-        for(size_t j=0; j<p_multilayer->numberOfLayers()-1; j++){
-            for(size_t k=0; k<p_multilayer->numberOfLayers()-1; k++) {
+    if (mp_sample->crossCorrelationLength() != 0.0) {
+        for(size_t j=0; j<n_slices-1; j++){
+            for(size_t k=0; k<n_slices-1; k++) {
                 if(j==k) continue;
                 crosscorr += rterm[j]*sterm[j]*
-                    p_multilayer->crossCorrSpectralFun(q,j,k)*
+                    mp_sample->crossCorrSpectralFun(q,j,k)*
                     std::conj(rterm[k])*std::conj(sterm[k]);
             }
         }
@@ -82,16 +82,16 @@ void RoughMultiLayerComputation::compute(SimulationElement& elem) const
 
 complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer, double wavelength) const
 {
-    auto p_multilayer = m_multilayer_info.mp_multilayer;
-    return p_multilayer->layer(ilayer  )->material()->refractiveIndex2(wavelength) -
-           p_multilayer->layer(ilayer+1)->material()->refractiveIndex2(wavelength);
+    auto& slices = mp_sample->slices();
+    return slices[ilayer  ].material().refractiveIndex2(wavelength) -
+           slices[ilayer+1].material().refractiveIndex2(wavelength);
 }
 
 complex_t RoughMultiLayerComputation::get_sum8terms(
     size_t ilayer, const SimulationElement& sim_element) const
 {
-    auto p_multilayer = m_multilayer_info.mp_multilayer;
-    auto p_fresnel_map = m_multilayer_info.mp_fresnel_map;
+    auto& slices = mp_sample->slices();
+    auto p_fresnel_map = mp_sample->fresnelMap();
     const auto P_in_plus = p_fresnel_map->getInCoefficients(sim_element, ilayer);
     const auto P_out_plus = p_fresnel_map->getOutCoefficients(sim_element, ilayer);
 
@@ -104,7 +104,7 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
     complex_t qz2_plus = - kiz_plus + kfz_plus;
     complex_t qz3_plus = - qz2_plus;
     complex_t qz4_plus = - qz1_plus;
-    double thickness = p_multilayer->layerThickness(ilayer);
+    double thickness = slices[ilayer].thickness();
     complex_t T_in_plus  = P_in_plus ->getScalarT()*exp_I( kiz_plus*thickness);
     complex_t R_in_plus  = P_in_plus ->getScalarR()*exp_I(-kiz_plus*thickness);
     complex_t T_out_plus = P_out_plus->getScalarT()*exp_I( kfz_plus*thickness);
@@ -118,8 +118,7 @@ complex_t RoughMultiLayerComputation::get_sum8terms(
     complex_t qz4_minus = - qz1_minus;
 
     double sigma(0.0);
-    if (const LayerRoughness* roughness =
-        p_multilayer->layerBottomInterface(ilayer)->getRoughness())
+    if (const LayerRoughness* roughness = mp_sample->bottomRoughness(ilayer))
         sigma = roughness->getSigma();
     complex_t term1 = T_in_plus * T_out_plus * h_plus(qz1_plus*sigma);
     complex_t term2 = T_in_plus * R_out_plus * h_plus(qz2_plus*sigma);

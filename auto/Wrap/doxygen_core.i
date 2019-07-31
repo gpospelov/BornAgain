@@ -1,6 +1,123 @@
 
 // File: index.xml
 
+// File: classAngularSpecScan.xml
+%feature("docstring") AngularSpecScan "
+
+Scan type with inclination angles as coordinate values and a unique wavelength. Features footprint correction.
+
+C++ includes: AngularSpecScan.h
+";
+
+%feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, std::vector< double > inc_angle)
+";
+
+%feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, const IAxis &inc_angle)
+";
+
+%feature("docstring")  AngularSpecScan::AngularSpecScan "AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
+
+Sets angle-defined specular scan. The first parameter is always a wavelength in nm. Second parameter is either a numpy array of incident angles in radians or an  IAxis object with angle values. Alternatively an axis can be defined in-place, then the second passed parameter is the number of bins, third - minimum on-axis angle value, fourth - maximum on-axis angle value. 
+";
+
+%feature("docstring")  AngularSpecScan::~AngularSpecScan "AngularSpecScan::~AngularSpecScan() override
+";
+
+%feature("docstring")  AngularSpecScan::clone "AngularSpecScan * AngularSpecScan::clone() const override
+";
+
+%feature("docstring")  AngularSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > AngularSpecScan::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  AngularSpecScan::coordinateAxis "virtual const IAxis* AngularSpecScan::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  AngularSpecScan::footprintFactor "virtual const IFootprintFactor* AngularSpecScan::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  AngularSpecScan::footprint "std::vector< double > AngularSpecScan::footprint(size_t i, size_t n_elements) const override
+
+Returns footprint correction factor for a range of simulation elements of size  n_elements and starting from element with index  i. 
+";
+
+%feature("docstring")  AngularSpecScan::numberOfSimulationElements "size_t AngularSpecScan::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  AngularSpecScan::createIntensities "std::vector< double > AngularSpecScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const override
+
+Returns intensity vector corresponding to convolution of given simulation elements. 
+";
+
+%feature("docstring")  AngularSpecScan::print "std::string AngularSpecScan::print() const override
+
+Print scan definition in python format. 
+";
+
+%feature("docstring")  AngularSpecScan::wavelength "double AngularSpecScan::wavelength() const
+";
+
+%feature("docstring")  AngularSpecScan::wavelengthResolution "const ScanResolution* AngularSpecScan::wavelengthResolution() const
+";
+
+%feature("docstring")  AngularSpecScan::angleResolution "const ScanResolution* AngularSpecScan::angleResolution() const
+";
+
+%feature("docstring")  AngularSpecScan::setFootprintFactor "void AngularSpecScan::setFootprintFactor(const IFootprintFactor *f_factor)
+
+Sets footprint correction factor. 
+";
+
+%feature("docstring")  AngularSpecScan::setWavelengthResolution "void AngularSpecScan::setWavelengthResolution(const ScanResolution &resolution)
+
+Sets wavelength resolution values via  ScanResolution object. 
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, double rel_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+Sets wavelength resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, double std_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+Sets wavelength resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+%feature("docstring")  AngularSpecScan::setAngleResolution "void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
+
+Sets angle resolution values via  ScanResolution object. 
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, double rel_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+Sets angular resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, double std_dev)
+";
+
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+Sets angular resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+";
+
+
 // File: classAnisoPyramid.xml
 %feature("docstring") AnisoPyramid "";
 
@@ -52,6 +169,12 @@ Information about an axis in specific units. Can be used for plotting.
 
 C++ includes: SimulationResult.h
 ";
+
+
+// File: structArrayUtils_1_1CreateDataImpl_1_1baseClass.xml
+
+
+// File: structArrayUtils_1_1CreateDataImpl_1_1baseClass_3_01std_1_1vector_3_01T_00_01A_01_4_01_4.xml
 
 
 // File: classBaseMaterialImpl.xml
@@ -633,21 +756,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorMCMiser_1_1CallBackHolder.xml
-%feature("docstring") IntegratorMCMiser::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorMCMiser.h
-";
-
-
 // File: structIntegratorReal_1_1CallBackHolder.xml
 %feature("docstring") IntegratorReal::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorReal.h
+";
+
+
+// File: structIntegratorMCMiser_1_1CallBackHolder.xml
+%feature("docstring") IntegratorMCMiser::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorMCMiser.h
 ";
 
 
@@ -663,6 +786,71 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 %feature("docstring")  CenteredSquareLatticeBuilder::buildSample "MultiLayer * CenteredSquareLatticeBuilder::buildSample() const
+";
+
+
+// File: classChi2Metric.xml
+%feature("docstring") Chi2Metric "
+
+Implementation of the standard  $ \\\\chi^2 $ metric derived from maximum likelihood with Gaussian uncertainties. With default L2 norm corresponds to the formula  \\\\[\\\\chi^2 = \\\\sum \\\\frac{(I - D)^2}{\\\\delta_D^2}\\\\]
+
+C++ includes: ObjectiveMetric.h
+";
+
+%feature("docstring")  Chi2Metric::Chi2Metric "Chi2Metric::Chi2Metric()
+";
+
+%feature("docstring")  Chi2Metric::clone "Chi2Metric * Chi2Metric::clone() const override
+";
+
+%feature("docstring")  Chi2Metric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  Chi2Metric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+
+// File: classChiModuleWrapper.xml
+%feature("docstring") ChiModuleWrapper "
+
+Metric wrapper for back-compaptibility with old scripts. 
+";
+
+%feature("docstring")  ChiModuleWrapper::ChiModuleWrapper "ChiModuleWrapper::ChiModuleWrapper(std::unique_ptr< IChiSquaredModule > module)
+";
+
+%feature("docstring")  ChiModuleWrapper::compute "double ChiModuleWrapper::compute(const std::vector< SimDataPair > &fit_objects, size_t n_pars) const override
 ";
 
 
@@ -941,6 +1129,10 @@ C++ includes: RipplesBuilder.h
 ";
 
 
+// File: classArrayUtils_1_1CreateDataImpl.xml
+%feature("docstring") ArrayUtils::CreateDataImpl "";
+
+
 // File: classCrystal.xml
 %feature("docstring") Crystal "
 
@@ -1160,13 +1352,6 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classExceptions_1_1DeadReferenceException.xml
-%feature("docstring") Exceptions::DeadReferenceException "";
-
-%feature("docstring")  Exceptions::DeadReferenceException::DeadReferenceException "Exceptions::DeadReferenceException::DeadReferenceException(const std::string &message)
-";
-
-
 // File: classDecouplingApproximationStrategy.xml
 %feature("docstring") DecouplingApproximationStrategy "
 
@@ -1219,7 +1404,7 @@ C++ includes: DepthProbeComputation.h
 // File: classDepthProbeComputationTerm.xml
 %feature("docstring") DepthProbeComputationTerm "";
 
-%feature("docstring")  DepthProbeComputationTerm::DepthProbeComputationTerm "DepthProbeComputationTerm::DepthProbeComputationTerm(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
+%feature("docstring")  DepthProbeComputationTerm::DepthProbeComputationTerm "DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample *p_sample)
 ";
 
 %feature("docstring")  DepthProbeComputationTerm::~DepthProbeComputationTerm "DepthProbeComputationTerm::~DepthProbeComputationTerm()
@@ -1329,9 +1514,6 @@ Set calculation flag (if it's false, zero intensity is assigned to the element)
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  DepthProbeSimulation::numberOfSimulationElements "size_t DepthProbeSimulation::numberOfSimulationElements() const override
-";
-
 %feature("docstring")  DepthProbeSimulation::result "SimulationResult DepthProbeSimulation::result() const override
 
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
@@ -1355,6 +1537,11 @@ Returns a pointer to incident angle axis.
 %feature("docstring")  DepthProbeSimulation::getZAxis "const IAxis * DepthProbeSimulation::getZAxis() const
 
 Returns a pointer to z-position axis. 
+";
+
+%feature("docstring")  DepthProbeSimulation::intensityMapSize "size_t DepthProbeSimulation::intensityMapSize() const override
+
+Returns the total number of the intensity values in the simulation result. 
 ";
 
 %feature("docstring")  DepthProbeSimulation::createUnitConverter "std::unique_ptr< IUnitConverter > DepthProbeSimulation::createUnitConverter() const
@@ -2140,7 +2327,7 @@ C++ includes: TwoDimLatticeBuilder.h
 // File: classFitObjective.xml
 %feature("docstring") FitObjective "
 
-Main class to hold pairs of simulation Holds vector of FitObject's (simulation and real data) to fit
+Holds vector of   SimDataPairs (experimental data and simulation results) for use in fitting.
 
 C++ includes: FitObjective.h
 ";
@@ -2151,27 +2338,61 @@ C++ includes: FitObjective.h
 %feature("docstring")  FitObjective::~FitObjective "FitObjective::~FitObjective()
 ";
 
-%feature("docstring")  FitObjective::addSimulationAndData "void FitObjective::addSimulationAndData(simulation_builder_t builder, const OutputData< double > &data, double weight=1.0)
+%feature("docstring")  FitObjective::addSimulationAndData "void FitObjective::addSimulationAndData(simulation_builder_t builder, const OutputData< double > &data, std::unique_ptr< OutputData< double >> uncertainties, double weight=1.0)
 
 Constructs simulation/data pair for later fit.
 
 Parameters:
 -----------
 
-simulation: 
+builder: 
 simulation builder capable of producing simulations
 
 data: 
-experimental data
+experimental data array
+
+uncertainties: 
+data uncertainties array
 
 weight: 
-weight of dataset in chi2 calculations 
+weight of dataset in metric calculations 
 ";
 
-%feature("docstring")  FitObjective::addSimulationAndData "void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const std::vector< double > &data, double weight=1.0)
+%feature("docstring")  FitObjective::addSimulationAndData "void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const T &data, double weight=1.0)
+
+Constructs simulation/data pair for later fit.
+
+Parameters:
+-----------
+
+callback: 
+simulation builder capable of producing simulations
+
+data: 
+experimental data array
+
+weight: 
+weight of dataset in metric calculations 
 ";
 
-%feature("docstring")  FitObjective::addSimulationAndData "void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const std::vector< std::vector< double >> &data, double weight=1.0)
+%feature("docstring")  FitObjective::addSimulationAndData "void FitObjective::addSimulationAndData(PyBuilderCallback &callback, const T &data, const T &uncertainties, double weight=1.0)
+
+Constructs simulation/data pair for later fit.
+
+Parameters:
+-----------
+
+callback: 
+simulation builder capable of producing simulations
+
+data: 
+experimental data array
+
+uncertainties: 
+data uncertainties array
+
+weight: 
+weight of dataset in metric calculations 
 ";
 
 %feature("docstring")  FitObjective::evaluate "double FitObjective::evaluate(const Fit::Parameters &params)
@@ -2183,63 +2404,49 @@ weight of dataset in chi2 calculations
 %feature("docstring")  FitObjective::numberOfFitElements "size_t FitObjective::numberOfFitElements() const
 ";
 
-%feature("docstring")  FitObjective::experimental_array "std::vector< double > FitObjective::experimental_array() const
-
-Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. Data from different datasets merged together. 
-";
-
-%feature("docstring")  FitObjective::simulation_array "std::vector< double > FitObjective::simulation_array() const
-
-Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. Data from different datasets merged together. 
-";
-
-%feature("docstring")  FitObjective::weights_array "std::vector< double > FitObjective::weights_array() const
-
-Returns one dimensional array representing weights of bin intensity for residuals. 
-";
-
 %feature("docstring")  FitObjective::simulationResult "SimulationResult FitObjective::simulationResult(size_t i_item=0) const
 
-Returns simulation result.
-
-Parameters:
------------
-
-i_item: 
-the index of fit pair 
+Returns simulation result in the form of  SimulationResult. 
 ";
 
 %feature("docstring")  FitObjective::experimentalData "SimulationResult FitObjective::experimentalData(size_t i_item=0) const
 
-Returns experimental data.
+Returns experimental data in the form of  SimulationResult. 
+";
 
-Parameters:
------------
+%feature("docstring")  FitObjective::uncertaintyData "SimulationResult FitObjective::uncertaintyData(size_t i_item=0) const
 
-i_item: 
-the index of fit pair 
+Returns experimental data uncertainties in the form of  SimulationResult. 
 ";
 
 %feature("docstring")  FitObjective::relativeDifference "SimulationResult FitObjective::relativeDifference(size_t i_item=0) const
 
-Returns relative difference between simulation and experimental data.
-
-Parameters:
------------
-
-i_item: 
-the index of fit pair 
+Returns relative difference between simulation and experimental data in the form of  SimulationResult. 
 ";
 
 %feature("docstring")  FitObjective::absoluteDifference "SimulationResult FitObjective::absoluteDifference(size_t i_item=0) const
 
-Returns absolute value of difference between simulation and experimental data.
+Returns absolute value of difference between simulation and experimental data in the form of  SimulationResult. 
+";
 
-Parameters:
------------
+%feature("docstring")  FitObjective::experimental_array "std::vector< double > FitObjective::experimental_array() const
 
-i_item: 
-the index of fit pair 
+Returns one dimensional array representing merged experimental data. The area outside of the region of interest is not included, masked data is nullified. 
+";
+
+%feature("docstring")  FitObjective::simulation_array "std::vector< double > FitObjective::simulation_array() const
+
+Returns one dimensional array representing merged simulated intensities data. The area outside of the region of interest is not included, masked data is nullified. 
+";
+
+%feature("docstring")  FitObjective::uncertainties "std::vector< double > FitObjective::uncertainties() const
+
+Returns one-dimensional array representing merged data uncertainties. The area outside of the region of interest is not included, masked data is nullified. 
+";
+
+%feature("docstring")  FitObjective::weights_array "std::vector< double > FitObjective::weights_array() const
+
+Returns one-dimensional array representing merged user weights. The area outside of the region of interest is not included, masked data is nullified. 
 ";
 
 %feature("docstring")  FitObjective::initPrint "void FitObjective::initPrint(int every_nth)
@@ -2253,7 +2460,7 @@ every_nth:
 Print every n'th iteration. 
 ";
 
-%feature("docstring")  FitObjective::initPlot "void FitObjective::initPlot(int every_nth, fit_observer_t observer)
+%feature("docstring")  FitObjective::initPlot "void FitObjective::initPlot(int every_nth, PyObserverCallback &callback)
 
 Initializes plotting during the fitting using Python callable.
 
@@ -2262,12 +2469,6 @@ Parameters:
 
 every_nth: 
 Called on every n'th iteration. 
-";
-
-%feature("docstring")  FitObjective::initPlot "void FitObjective::initPlot(int every_nth, PyObserverCallback &callback)
-";
-
-%feature("docstring")  FitObjective::isCompleted "bool FitObjective::isCompleted() const
 ";
 
 %feature("docstring")  FitObjective::iterationInfo "IterationInfo FitObjective::iterationInfo() const
@@ -2284,6 +2485,50 @@ Should be explicitely called on last iteration to notify all observers.
 %feature("docstring")  FitObjective::fitObjectCount "unsigned FitObjective::fitObjectCount() const
 ";
 
+%feature("docstring")  FitObjective::run_simulations "void FitObjective::run_simulations(const Fit::Parameters &params)
+";
+
+%feature("docstring")  FitObjective::setChiSquaredModule "void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
+";
+
+%feature("docstring")  FitObjective::setObjectiveMetric "void FitObjective::setObjectiveMetric(const std::string &metric)
+";
+
+%feature("docstring")  FitObjective::setObjectiveMetric "void FitObjective::setObjectiveMetric(const std::string &metric, const std::string &norm)
+
+Sets objective metric to the  FitObjective.
+
+Parameters:
+-----------
+
+metric: 
+metric name
+
+norm: 
+metric norm name (defaults to L2-norm) 
+";
+
+%feature("docstring")  FitObjective::containsUncertainties "bool FitObjective::containsUncertainties(size_t i_item) const
+
+Returns true if the specified DataPair element contains uncertainties. 
+";
+
+%feature("docstring")  FitObjective::allPairsHaveUncertainties "bool FitObjective::allPairsHaveUncertainties() const
+
+Returns true if all the data pairs in  FitObjective instance contain uncertainties. 
+";
+
+%feature("docstring")  FitObjective::dataPair "const SimDataPair & FitObjective::dataPair(size_t i_item=0) const
+
+Returns a reference to i-th  SimDataPair. 
+";
+
+%feature("docstring")  FitObjective::initPlot "void FitObjective::initPlot(int every_nth, fit_observer_t observer)
+";
+
+%feature("docstring")  FitObjective::isCompleted "bool FitObjective::isCompleted() const
+";
+
 %feature("docstring")  FitObjective::interruptFitting "void FitObjective::interruptFitting()
 ";
 
@@ -2293,10 +2538,7 @@ Should be explicitely called on last iteration to notify all observers.
 %feature("docstring")  FitObjective::isFirstIteration "bool FitObjective::isFirstIteration() const
 ";
 
-%feature("docstring")  FitObjective::run_simulations "void FitObjective::run_simulations(const Fit::Parameters &params)
-";
-
-%feature("docstring")  FitObjective::setChiSquaredModule "void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
+%feature("docstring")  FitObjective::setObjectiveMetric "void FitObjective::setObjectiveMetric(std::unique_ptr< ObjectiveMetric > metric)
 ";
 
 
@@ -2499,6 +2741,11 @@ Calls the  INodeVisitor's visit method.
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
+%feature("docstring")  FootprintFactorGaussian::print "std::string FootprintFactorGaussian::print() const override
+
+Print python-formatted footprint definition. 
+";
+
 
 // File: classFootprintFactorSquare.xml
 %feature("docstring") FootprintFactorSquare "
@@ -2522,6 +2769,11 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FootprintFactorSquare::calculate "double FootprintFactorSquare::calculate(double alpha) const override
 
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
+";
+
+%feature("docstring")  FootprintFactorSquare::print "std::string FootprintFactorSquare::print() const override
+
+Print python-formatted footprint definition. 
 ";
 
 
@@ -2712,6 +2964,9 @@ C++ includes: FormFactorCoherentPart.h
 %feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart &other)
 ";
 
+%feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(FormFactorCoherentPart &&other)
+";
+
 %feature("docstring")  FormFactorCoherentPart::~FormFactorCoherentPart "FormFactorCoherentPart::~FormFactorCoherentPart()
 ";
 
@@ -2739,12 +2994,6 @@ C++ includes: FormFactorCoherentSum.h
 %feature("docstring")  FormFactorCoherentSum::FormFactorCoherentSum "FormFactorCoherentSum::FormFactorCoherentSum(double abundance)
 ";
 
-%feature("docstring")  FormFactorCoherentSum::~FormFactorCoherentSum "FormFactorCoherentSum::~FormFactorCoherentSum()
-";
-
-%feature("docstring")  FormFactorCoherentSum::clone "FormFactorCoherentSum * FormFactorCoherentSum::clone() const
-";
-
 %feature("docstring")  FormFactorCoherentSum::addCoherentPart "void FormFactorCoherentSum::addCoherentPart(const FormFactorCoherentPart &part)
 ";
 
@@ -2752,9 +3001,6 @@ C++ includes: FormFactorCoherentSum.h
 ";
 
 %feature("docstring")  FormFactorCoherentSum::evaluatePol "Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement &sim_element) const
-";
-
-%feature("docstring")  FormFactorCoherentSum::setSpecularInfo "void FormFactorCoherentSum::setSpecularInfo(const IFresnelMap *p_fresnel_map, size_t layer_index)
 ";
 
 %feature("docstring")  FormFactorCoherentSum::relativeAbundance "double FormFactorCoherentSum::relativeAbundance() const
@@ -5655,11 +5901,6 @@ Calls the  INodeVisitor's visit method.
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  GISASSimulation::numberOfSimulationElements "size_t GISASSimulation::numberOfSimulationElements() const override
-
-Gets the number of elements this simulation needs to calculate. 
-";
-
 %feature("docstring")  GISASSimulation::result "SimulationResult GISASSimulation::result() const override
 
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
@@ -5668,6 +5909,11 @@ Returns the results of the simulation in a format that supports unit conversion 
 %feature("docstring")  GISASSimulation::setBeamParameters "void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 
 Sets beam parameters from here (forwarded to  Instrument) 
+";
+
+%feature("docstring")  GISASSimulation::intensityMapSize "size_t GISASSimulation::intensityMapSize() const override
+
+Returns the total number of the intensity values in the simulation result. 
 ";
 
 
@@ -5679,7 +5925,7 @@ Computes the specular signal in the bin where q_parallel = 0. Used by  DWBACompu
 C++ includes: GISASSpecularComputation.h
 ";
 
-%feature("docstring")  GISASSpecularComputation::GISASSpecularComputation "GISASSpecularComputation::GISASSpecularComputation(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
+%feature("docstring")  GISASSpecularComputation::GISASSpecularComputation "GISASSpecularComputation::GISASSpecularComputation(const IFresnelMap *p_fresnel_map)
 ";
 
 %feature("docstring")  GISASSpecularComputation::compute "void GISASSpecularComputation::compute(SimulationElement &elem) const
@@ -5702,7 +5948,12 @@ C++ includes: PercusYevickBuilder.h
 
 
 // File: classHash2Doubles.xml
-%feature("docstring") Hash2Doubles "";
+%feature("docstring") Hash2Doubles "
+
+Provides a hash function for a pair of doubles, for use in  ScalarFresnelMap.
+
+C++ includes: Hash2Doubles.h
+";
 
 %feature("docstring")  Hash2Doubles::Hash2Doubles "Hash2Doubles::Hash2Doubles()
 ";
@@ -6332,7 +6583,7 @@ Controlled by the multi-threading machinery in Simulation::runSingleSimulation()
 C++ includes: IComputation.h
 ";
 
-%feature("docstring")  IComputation::IComputation "IComputation::IComputation(const SimulationOptions &options, ProgressHandler &progress, const MultiLayer &sample)
+%feature("docstring")  IComputation::IComputation "IComputation::IComputation(const MultiLayer &sample, const SimulationOptions &options, ProgressHandler &progress)
 ";
 
 %feature("docstring")  IComputation::~IComputation "IComputation::~IComputation()
@@ -6749,7 +7000,7 @@ Returns number of registered objects.
 // File: classIFootprintFactor.xml
 %feature("docstring") IFootprintFactor "
 
-Defines the base for classes to calculate beam footprint factor
+Abstract base for classes that calculate the beam footprint factor
 
 C++ includes: IFootprintFactor.h
 ";
@@ -6775,6 +7026,11 @@ C++ includes: IFootprintFactor.h
 %feature("docstring")  IFootprintFactor::calculate "virtual double IFootprintFactor::calculate(double alpha) const =0
 
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
+";
+
+%feature("docstring")  IFootprintFactor::print "virtual std::string IFootprintFactor::print() const =0
+
+Print python-formatted footprint definition. 
 ";
 
 
@@ -6978,9 +7234,10 @@ Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
 Retrieves the amplitude coefficients for an incoming wavevector. 
 ";
 
-%feature("docstring")  IFresnelMap::setMultilayer "void IFresnelMap::setMultilayer(const MultiLayer &multilayer)
+%feature("docstring")  IFresnelMap::setSlices "void IFresnelMap::setSlices(const std::vector< Slice > &slices)
+";
 
-Sets the multilayer to be used for the Fresnel calculations. 
+%feature("docstring")  IFresnelMap::slices "const std::vector< Slice > & IFresnelMap::slices() const
 ";
 
 %feature("docstring")  IFresnelMap::disableCaching "void IFresnelMap::disableCaching()
@@ -7590,7 +7847,7 @@ C++ includes: IInterferenceFunctionStrategy.h
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const SafePointerVector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff)
+%feature("docstring")  IInterferenceFunctionStrategy::init "void IInterferenceFunctionStrategy::init(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff)
 
 Initializes the object with form factors and an interference function. 
 ";
@@ -7693,9 +7950,6 @@ C++ includes: ILayout.h
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ILayout::cloneWithOffset "virtual ILayout* ILayout::cloneWithOffset(double offset) const =0
-";
-
 %feature("docstring")  ILayout::accept "virtual void ILayout::accept(INodeVisitor *visitor) const =0
 
 Calls the  INodeVisitor's visit method. 
@@ -7704,6 +7958,11 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  ILayout::particles "virtual SafePointerVector<IParticle> ILayout::particles() const =0
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
+";
+
+%feature("docstring")  ILayout::interferenceFunction "virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
+
+Returns the interference function. 
 ";
 
 %feature("docstring")  ILayout::getTotalAbundance "virtual double ILayout::getTotalAbundance() const =0
@@ -7731,14 +7990,14 @@ Returns the relative weight of this layout.
 Sets the relative weight of this layout. 
 ";
 
-%feature("docstring")  ILayout::getApproximation "EInterferenceApproximation ILayout::getApproximation() const
 
-Gets the used approximation for particles and interference functions. 
+// File: classIMetricWrapper.xml
+%feature("docstring") IMetricWrapper "";
+
+%feature("docstring")  IMetricWrapper::~IMetricWrapper "IMetricWrapper::~IMetricWrapper()
 ";
 
-%feature("docstring")  ILayout::setApproximation "void ILayout::setApproximation(EInterferenceApproximation approximation)
-
-Sets the used approximation for particles and interference functions. 
+%feature("docstring")  IMetricWrapper::compute "virtual double IMetricWrapper::compute(const std::vector< SimDataPair > &fit_objects, size_t n_pars) const =0
 ";
 
 
@@ -8552,7 +8811,7 @@ Calls the  INodeVisitor's visit method.
 // File: classInterferenceFunction1DLattice.xml
 %feature("docstring") InterferenceFunction1DLattice "
 
-Interference function of 1D lattice.
+Interference function of a 1D lattice.
 
 C++ includes: InterferenceFunction1DLattice.h
 ";
@@ -8607,7 +8866,7 @@ Returns a vector of children (const).
 // File: classInterferenceFunction2DLattice.xml
 %feature("docstring") InterferenceFunction2DLattice "
 
-Interference function of 2D lattice.
+Interference function of a 2D lattice.
 
 C++ includes: InterferenceFunction2DLattice.h
 ";
@@ -8687,7 +8946,7 @@ Action to be taken in inherited class when a parameter has changed.
 // File: classInterferenceFunction2DParaCrystal.xml
 %feature("docstring") InterferenceFunction2DParaCrystal "
 
-Interference function of 2D paracrystal.
+Interference function of a 2D paracrystal.
 
 C++ includes: InterferenceFunction2DParaCrystal.h
 ";
@@ -8813,7 +9072,7 @@ Returns a vector of children (const).
 // File: classInterferenceFunction2DSuperLattice.xml
 %feature("docstring") InterferenceFunction2DSuperLattice "
 
-Interference function of 2D superlattice with a configurable interference function for each lattice site.
+Interference function of a 2D superlattice with a configurable interference function for each lattice site.
 
 C++ includes: InterferenceFunction2DSuperLattice.h
 ";
@@ -8889,7 +9148,7 @@ Returns a vector of children (const).
 // File: classInterferenceFunction3DLattice.xml
 %feature("docstring") InterferenceFunction3DLattice "
 
-Interference function of 3D lattice.
+Interference function of a 3D lattice.
 
 C++ includes: InterferenceFunction3DLattice.h
 ";
@@ -8935,7 +9194,7 @@ Action to be taken in inherited class when a parameter has changed.
 // File: classInterferenceFunctionFinite2DLattice.xml
 %feature("docstring") InterferenceFunctionFinite2DLattice "
 
-Interference function of 2D lattice.
+Interference function of a finite 2D lattice.
 
 C++ includes: InterferenceFunctionFinite2DLattice.h
 ";
@@ -9025,7 +9284,7 @@ Returns a vector of children (const).
 // File: classInterferenceFunctionFinite3DLattice.xml
 %feature("docstring") InterferenceFunctionFinite3DLattice "
 
-Interference function of 2D lattice.
+Interference function of a finite 3D lattice.
 
 C++ includes: InterferenceFunctionFinite3DLattice.h
 ";
@@ -9849,44 +10108,59 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 ";
 
 
-// File: classISpecularDataHandler.xml
-%feature("docstring") ISpecularDataHandler "";
+// File: classISpecularScan.xml
+%feature("docstring") ISpecularScan "
 
-%feature("docstring")  ISpecularDataHandler::ISpecularDataHandler "ISpecularDataHandler::ISpecularDataHandler(SPECULAR_DATA_TYPE data_type)
+Base abstract class for all types of specular scans.
+
+C++ includes: ISpecularScan.h
 ";
 
-%feature("docstring")  ISpecularDataHandler::~ISpecularDataHandler "ISpecularDataHandler::~ISpecularDataHandler() override
+%feature("docstring")  ISpecularScan::ISpecularScan "ISpecularScan::ISpecularScan(SPECULAR_DATA_TYPE data_type)
 ";
 
-%feature("docstring")  ISpecularDataHandler::clone "ISpecularDataHandler* ISpecularDataHandler::clone() const override=0
+%feature("docstring")  ISpecularScan::~ISpecularScan "ISpecularScan::~ISpecularScan() override
 ";
 
-%feature("docstring")  ISpecularDataHandler::generateSimulationElements "virtual std::vector<SpecularSimulationElement> ISpecularDataHandler::generateSimulationElements() const =0
+%feature("docstring")  ISpecularScan::clone "ISpecularScan* ISpecularScan::clone() const override=0
+";
+
+%feature("docstring")  ISpecularScan::generateSimulationElements "virtual std::vector<SpecularSimulationElement> ISpecularScan::generateSimulationElements() const =0
 
 Generates simulation elements for specular simulations. 
 ";
 
-%feature("docstring")  ISpecularDataHandler::coordinateAxis "virtual const IAxis* ISpecularDataHandler::coordinateAxis() const =0
+%feature("docstring")  ISpecularScan::coordinateAxis "virtual const IAxis* ISpecularScan::coordinateAxis() const =0
 
 Returns coordinate axis assigned to the data holder. 
 ";
 
-%feature("docstring")  ISpecularDataHandler::footprintFactor "virtual const IFootprintFactor* ISpecularDataHandler::footprintFactor() const =0
+%feature("docstring")  ISpecularScan::footprintFactor "virtual const IFootprintFactor* ISpecularScan::footprintFactor() const =0
 
 Returns  IFootprintFactor object pointer. 
 ";
 
-%feature("docstring")  ISpecularDataHandler::footprint "virtual double ISpecularDataHandler::footprint(size_t i) const =0
+%feature("docstring")  ISpecularScan::footprint "virtual std::vector<double> ISpecularScan::footprint(size_t i, size_t n_elements) const =0
 
-Returns footprint correction factor for simulation element with index  i
+Returns footprint correction factor for a range of simulation elements of size  n_elements and starting from element with index  i. 
 ";
 
-%feature("docstring")  ISpecularDataHandler::numberOfSimulationElements "virtual size_t ISpecularDataHandler::numberOfSimulationElements() const =0
+%feature("docstring")  ISpecularScan::numberOfSimulationElements "virtual size_t ISpecularScan::numberOfSimulationElements() const =0
 
 Returns the number of simulation elements. 
 ";
 
-%feature("docstring")  ISpecularDataHandler::dataType "SPECULAR_DATA_TYPE ISpecularDataHandler::dataType() const
+%feature("docstring")  ISpecularScan::createIntensities "virtual std::vector<double> ISpecularScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const =0
+
+Returns intensity vector corresponding to convolution of given simulation elements. 
+";
+
+%feature("docstring")  ISpecularScan::print "virtual std::string ISpecularScan::print() const =0
+
+Print scan definition in python format. 
+";
+
+%feature("docstring")  ISpecularScan::dataType "SPECULAR_DATA_TYPE ISpecularScan::dataType() const
 ";
 
 
@@ -9922,7 +10196,12 @@ Returns map of fit parameter names and its current values.
 
 
 // File: classIterationStrategy.xml
-%feature("docstring") IterationStrategy "";
+%feature("docstring") IterationStrategy "
+
+Abstract base class of  PreorderStrategy and  PostorderStrategy, for use in  INodeVisitor.
+
+C++ includes: IterationStrategy.h
+";
 
 %feature("docstring")  IterationStrategy::~IterationStrategy "virtual IterationStrategy::~IterationStrategy()
 ";
@@ -9990,7 +10269,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -10042,6 +10321,11 @@ C++ includes: IUnitConverter.h
 ";
 
 %feature("docstring")  IUnitConverter::createConvertedAxis "virtual std::unique_ptr<IAxis> IUnitConverter::createConvertedAxis(size_t i_axis, AxesUnits units) const =0
+";
+
+%feature("docstring")  IUnitConverter::createConvertedData "std::unique_ptr< OutputData< double > > IUnitConverter::createConvertedData(const OutputData< double > &data, AxesUnits units) const
+
+Creates  OutputData array in converter units. 
 ";
 
 
@@ -10276,15 +10560,12 @@ thickness:
 thickness of a layer in nanometers 
 ";
 
-%feature("docstring")  Layer::~Layer "Layer::~Layer()
+%feature("docstring")  Layer::~Layer "Layer::~Layer() override
 ";
 
 %feature("docstring")  Layer::clone "Layer * Layer::clone() const override final
 
 Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  Layer::cloneInvertB "Layer * Layer::cloneInvertB() const
 ";
 
 %feature("docstring")  Layer::accept "void Layer::accept(INodeVisitor *visitor) const override final
@@ -10329,24 +10610,6 @@ Returns a vector of children (const).
 ";
 
 %feature("docstring")  Layer::numberOfSlices "unsigned int Layer::numberOfSlices() const
-";
-
-%feature("docstring")  Layer::slice "SafePointerVector< Layer > Layer::slice(ZLimits limits, ELayerType layer_type) const
-";
-
-%feature("docstring")  Layer::scalarReducedPotential "complex_t Layer::scalarReducedPotential(kvector_t k, double n_ref) const
-
-Return the potential term that is used in the one-dimensional Fresnel calculations. 
-";
-
-%feature("docstring")  Layer::polarizedReducedPotential "Eigen::Matrix2cd Layer::polarizedReducedPotential(kvector_t k, double n_ref) const
-
-Return the potential term that is used in the one-dimensional Fresnel calculations in the presence of magnetization 
-";
-
-%feature("docstring")  Layer::initBField "void Layer::initBField(kvector_t h_field, double b_z)
-
-Initializes the magnetic B field from a given ambient field strength H. 
 ";
 
 
@@ -10552,16 +10815,13 @@ Methods to generate a simulation strategy for a  ParticleLayoutComputation.
 C++ includes: LayoutStrategyBuilder.h
 ";
 
-%feature("docstring")  LayoutStrategyBuilder::LayoutStrategyBuilder "LayoutStrategyBuilder::LayoutStrategyBuilder(const MultiLayer *p_multilayer, const ILayout *p_layout, const IFresnelMap *p_fresnel_map, bool polarized, const SimulationOptions &sim_params, size_t layer_index)
+%feature("docstring")  LayoutStrategyBuilder::LayoutStrategyBuilder "LayoutStrategyBuilder::LayoutStrategyBuilder(const ProcessedLayout *p_layout, const SimulationOptions &sim_params, bool polarized)
 ";
 
 %feature("docstring")  LayoutStrategyBuilder::~LayoutStrategyBuilder "LayoutStrategyBuilder::~LayoutStrategyBuilder()
 ";
 
 %feature("docstring")  LayoutStrategyBuilder::releaseStrategy "IInterferenceFunctionStrategy * LayoutStrategyBuilder::releaseStrategy()
-";
-
-%feature("docstring")  LayoutStrategyBuilder::regionMap "std::map< size_t, std::vector< HomogeneousRegion > > LayoutStrategyBuilder::regionMap() const
 ";
 
 
@@ -10654,6 +10914,58 @@ C++ includes: LLData.h
 %feature("docstring") Exceptions::LogicErrorException "";
 
 %feature("docstring")  Exceptions::LogicErrorException::LogicErrorException "Exceptions::LogicErrorException::LogicErrorException(const std::string &message)
+";
+
+
+// File: classLogMetric.xml
+%feature("docstring") LogMetric "
+
+Implementation of the standard  $ \\\\chi^2 $ metric with intensity  $I$ and experimental data  $D$ being replaced by  $ \\\\log_{10} I $ and  $\\\\log_{10} D$ accordingly. With default L2 norm corresponds to the formula  \\\\[\\\\chi^2 = \\\\sum \\\\frac{(\\\\log_{10} I - log_{10} D)^2 D^2 \\\\ln^2{10}}{\\\\delta_D^2}\\\\]
+
+C++ includes: ObjectiveMetric.h
+";
+
+%feature("docstring")  LogMetric::LogMetric "LogMetric::LogMetric()
+";
+
+%feature("docstring")  LogMetric::clone "LogMetric * LogMetric::clone() const override
+";
+
+%feature("docstring")  LogMetric::computeFromArrays "double LogMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  LogMetric::computeFromArrays "double LogMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
 ";
 
 
@@ -10974,9 +11286,7 @@ C++ includes: MatrixFresnelMap.h
 Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector. 
 ";
 
-%feature("docstring")  MatrixFresnelMap::setMultilayer "void MatrixFresnelMap::setMultilayer(const MultiLayer &multilayer) final override
-
-Sets the multilayer to be used for the Fresnel calculations. 
+%feature("docstring")  MatrixFresnelMap::setSlices "void MatrixFresnelMap::setSlices(const std::vector< Slice > &slices) final override
 ";
 
 
@@ -11026,6 +11336,15 @@ The following functions return the transmitted and reflected amplitudes for diff
 %feature("docstring")  MatrixRTCoefficients::getKz "virtual Eigen::Vector2cd MatrixRTCoefficients::getKz() const
 
 Returns z-part of the two wavevector eigenmodes. 
+";
+
+%feature("docstring")  MatrixRTCoefficients::calculateTRMatrices "void MatrixRTCoefficients::calculateTRMatrices()
+";
+
+%feature("docstring")  MatrixRTCoefficients::calculateTRWithoutMagnetization "void MatrixRTCoefficients::calculateTRWithoutMagnetization()
+";
+
+%feature("docstring")  MatrixRTCoefficients::initializeBottomLayerPhiPsi "void MatrixRTCoefficients::initializeBottomLayerPhiPsi()
 ";
 
 
@@ -11082,7 +11401,7 @@ C++ includes: MesoCrystalBuilder.h
 // File: structMillerIndex.xml
 %feature("docstring") MillerIndex "
 
-MillerIndex represents arbitrary directions in reciprocal space by allowing floating point index values
+A direction in reciprocal space, specified by double-valued indices hkl.
 
 C++ includes: ILatticeOrientation.h
 ";
@@ -11092,9 +11411,16 @@ C++ includes: ILatticeOrientation.h
 
 
 // File: classMillerIndexOrientation.xml
-%feature("docstring") MillerIndexOrientation "";
+%feature("docstring") MillerIndexOrientation "
+
+Specifies a rotation of a lattice through the Miller indices of two coordinate axes.
+
+C++ includes: ILatticeOrientation.h
+";
 
 %feature("docstring")  MillerIndexOrientation::MillerIndexOrientation "MillerIndexOrientation::MillerIndexOrientation(QComponent q1, MillerIndex index1, QComponent q2, MillerIndex index2)
+
+This constructor is best explained by an example. Arguments QX, (1,1,0), QY, (0,2,1) mean: Rotate the lattice such that the axis [110] points into x direction, and the axis [021], projected into the yz plane, points into z direction. 
 ";
 
 %feature("docstring")  MillerIndexOrientation::~MillerIndexOrientation "MillerIndexOrientation::~MillerIndexOrientation() override
@@ -11122,7 +11448,7 @@ C++ includes: ILatticeOrientation.h
 
 Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
 
-ambience layer #0 z=getLayerBottomZ(0)=0.0 ------ interface #0 Fe, 20A layer #1 z=getLayerBottomZ(1)=-20.0 ------ interface #1 Cr, 40A layer #2 z=getLayerBottomZ(2)=-60.0 ------ interface #2 substrate layer #3 z=getLayerBottomZ(3)=-60.0
+ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
 
 C++ includes: MultiLayer.h
 ";
@@ -11130,7 +11456,12 @@ C++ includes: MultiLayer.h
 %feature("docstring")  MultiLayer::MultiLayer "MultiLayer::MultiLayer()
 ";
 
-%feature("docstring")  MultiLayer::~MultiLayer "MultiLayer::~MultiLayer()
+%feature("docstring")  MultiLayer::~MultiLayer "MultiLayer::~MultiLayer() override
+";
+
+%feature("docstring")  MultiLayer::clone "MultiLayer * MultiLayer::clone() const final override
+
+Returns a clone of multilayer with clones of all layers and interfaces between layers 
 ";
 
 %feature("docstring")  MultiLayer::accept "void MultiLayer::accept(INodeVisitor *visitor) const final override
@@ -11139,9 +11470,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 %feature("docstring")  MultiLayer::numberOfLayers "size_t MultiLayer::numberOfLayers() const
-";
-
-%feature("docstring")  MultiLayer::numberOfInterfaces "size_t MultiLayer::numberOfInterfaces() const
 ";
 
 %feature("docstring")  MultiLayer::addLayer "void MultiLayer::addLayer(const Layer &layer)
@@ -11156,68 +11484,14 @@ Adds layer with default (zero) roughness.
 Adds layer with top roughness. 
 ";
 
-%feature("docstring")  MultiLayer::layer "const Layer* MultiLayer::layer(size_t i_layer) const
+%feature("docstring")  MultiLayer::layer "const Layer * MultiLayer::layer(size_t i_layer) const
 
 Returns layer with given index. 
 ";
 
-%feature("docstring")  MultiLayer::layerInterface "const LayerInterface* MultiLayer::layerInterface(size_t i_interface) const
+%feature("docstring")  MultiLayer::layerInterface "const LayerInterface * MultiLayer::layerInterface(size_t i_interface) const
 
-Returns layer with given index. 
-";
-
-%feature("docstring")  MultiLayer::layerTopZ "double MultiLayer::layerTopZ(size_t i_layer) const
-
-Returns z-coordinate of the layer's bottom. 
-";
-
-%feature("docstring")  MultiLayer::layerBottomZ "double MultiLayer::layerBottomZ(size_t i_layer) const
-
-Returns z-coordinate of the layer's bottom. 
-";
-
-%feature("docstring")  MultiLayer::layerThickness "double MultiLayer::layerThickness(size_t i_layer) const
-
-Returns thickness of layer. 
-";
-
-%feature("docstring")  MultiLayer::layerTopInterface "const LayerInterface * MultiLayer::layerTopInterface(size_t i_layer) const
-
-Returns top interface of layer.
-
-Returns pointer to the top interface of the layer. nInterfaces = nLayers-1, first layer in multilayer doesn't have interface. 
-";
-
-%feature("docstring")  MultiLayer::layerBottomInterface "const LayerInterface * MultiLayer::layerBottomInterface(size_t i_layer) const
-
-Returns bottom interface of layer.
-
-Returns pointer to the bottom interface of the layer. 
-";
-
-%feature("docstring")  MultiLayer::layerMaterial "Material MultiLayer::layerMaterial(size_t i_layer) const
-
-Returns layer material. 
-";
-
-%feature("docstring")  MultiLayer::setLayerMaterial "void MultiLayer::setLayerMaterial(size_t i_layer, Material material)
-
-Changes a layer's material. 
-";
-
-%feature("docstring")  MultiLayer::clone "MultiLayer * MultiLayer::clone() const final override
-
-Returns a clone of multilayer with clones of all layers and recreated interfaces between layers 
-";
-
-%feature("docstring")  MultiLayer::cloneInvertB "MultiLayer * MultiLayer::cloneInvertB() const
-
-Returns a clone with inverted magnetic fields. 
-";
-
-%feature("docstring")  MultiLayer::cloneSliced "std::unique_ptr< MultiLayer > MultiLayer::cloneSliced(bool use_average_layers) const
-
-Returns a clone of multilayer where the original layers may be sliced into several sublayers for usage with the graded layer approximation 
+Returns interface with given index. 
 ";
 
 %feature("docstring")  MultiLayer::setCrossCorrLength "void MultiLayer::setCrossCorrLength(double crossCorrLength)
@@ -11240,67 +11514,9 @@ Sets the external field applied to the multilayer (units: A/m)
 Returns the external field applied to the multilayer (units: A/m) 
 ";
 
-%feature("docstring")  MultiLayer::crossCorrSpectralFun "double MultiLayer::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
-
-Fourier transform of the correlation function of roughnesses between the interfaces
-
-Fourier transform of the correlation function of roughnesses between the interfaces j,k - indexes of layers in multilayer whose bottom interfaces we are considering 
-";
-
-%feature("docstring")  MultiLayer::indexOfLayer "size_t MultiLayer::indexOfLayer(const Layer *p_layer) const
-
-returns layer index 
-";
-
-%feature("docstring")  MultiLayer::requiresMatrixRTCoefficients "bool MultiLayer::requiresMatrixRTCoefficients() const
-
-returns true if contains magnetic materials and matrix calculations are required 
-";
-
-%feature("docstring")  MultiLayer::bottomZToLayerIndex "size_t MultiLayer::bottomZToLayerIndex(double z_value) const
-
-returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer above 
-";
-
-%feature("docstring")  MultiLayer::topZToLayerIndex "size_t MultiLayer::topZToLayerIndex(double z_value) const
-
-returns layer index corresponding to given global z coordinate The top interface position of a layer is considered to belong to the layer beneath 
-";
-
-%feature("docstring")  MultiLayer::containsMagneticMaterial "bool MultiLayer::containsMagneticMaterial() const
-";
-
-%feature("docstring")  MultiLayer::containsCompatibleMaterials "bool MultiLayer::containsCompatibleMaterials() const
-
-Returns true if the multilayer contains non-default materials of one type only. 
-";
-
-%feature("docstring")  MultiLayer::initBFields "void MultiLayer::initBFields()
-
-precalculate the magnetic B fields in each layer 
-";
-
-%feature("docstring")  MultiLayer::hasRoughness "bool MultiLayer::hasRoughness() const
-";
-
-%feature("docstring")  MultiLayer::totalNofLayouts "size_t MultiLayer::totalNofLayouts() const
-";
-
 %feature("docstring")  MultiLayer::getChildren "std::vector< const INode * > MultiLayer::getChildren() const final override
 
 Returns a vector of children (const). 
-";
-
-
-// File: structMultilayerInfo.xml
-%feature("docstring") MultilayerInfo "
-
-Container struct for information regarding a multilayer: Fresnel coefficients and the multilayer itself. Used by the components of  DWBASingleComputation, which adds up the contributions from particles, roughness and specular signal
-
-C++ includes: MultilayerInfo.h
-";
-
-%feature("docstring")  MultilayerInfo::MultilayerInfo "MultilayerInfo::MultilayerInfo(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map)
 ";
 
 
@@ -11332,6 +11548,12 @@ C++ includes: MultipleLayoutBuilder.h
 
 %feature("docstring")  MultipleLayoutBuilder::buildSample "MultiLayer * MultipleLayoutBuilder::buildSample() const
 ";
+
+
+// File: structArrayUtils_1_1CreateDataImpl_1_1nDim.xml
+
+
+// File: structArrayUtils_1_1CreateDataImpl_1_1nDim_3_01std_1_1vector_3_01T_00_01A_01_4_01_4.xml
 
 
 // File: classNodeIterator.xml
@@ -11380,6 +11602,90 @@ C++ includes: NodeIterator.h
 ";
 
 
+// File: classObjectiveMetric.xml
+%feature("docstring") ObjectiveMetric "
+
+Base class for metric implementations.
+
+C++ includes: ObjectiveMetric.h
+";
+
+%feature("docstring")  ObjectiveMetric::ObjectiveMetric "ObjectiveMetric::ObjectiveMetric(std::function< double(double)> norm)
+";
+
+%feature("docstring")  ObjectiveMetric::clone "ObjectiveMetric* ObjectiveMetric::clone() const override=0
+";
+
+%feature("docstring")  ObjectiveMetric::compute "double ObjectiveMetric::compute(const SimDataPair &data_pair, bool use_weights) const
+
+Computes metric value from  SimDataPair object. Calls computeFromArrays internally.
+
+Parameters:
+-----------
+
+data_pair: 
+ SimDataPair object. Can optionally contain data uncertainties
+
+use_weights: 
+boolean, defines if data uncertainties should be taken into account 
+";
+
+%feature("docstring")  ObjectiveMetric::computeFromArrays "virtual double ObjectiveMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const =0
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  ObjectiveMetric::computeFromArrays "virtual double ObjectiveMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const =0
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  ObjectiveMetric::setNorm "void ObjectiveMetric::setNorm(std::function< double(double)> norm)
+";
+
+%feature("docstring")  ObjectiveMetric::norm "auto ObjectiveMetric::norm() const
+
+Returns a copy of the normalization function used. 
+";
+
+
+// File: classObjectiveMetricWrapper.xml
+%feature("docstring") ObjectiveMetricWrapper "";
+
+%feature("docstring")  ObjectiveMetricWrapper::ObjectiveMetricWrapper "ObjectiveMetricWrapper::ObjectiveMetricWrapper(std::unique_ptr< ObjectiveMetric > module)
+";
+
+%feature("docstring")  ObjectiveMetricWrapper::compute "double ObjectiveMetricWrapper::compute(const std::vector< SimDataPair > &fit_objects, size_t n_pars) const override
+";
+
+
 // File: classFitObserver_1_1ObserverData.xml
 
 
@@ -11416,11 +11722,6 @@ Calls the  INodeVisitor's visit method.
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  OffSpecSimulation::numberOfSimulationElements "size_t OffSpecSimulation::numberOfSimulationElements() const final
-
-Gets the number of elements this simulation needs to calculate. 
-";
-
 %feature("docstring")  OffSpecSimulation::result "SimulationResult OffSpecSimulation::result() const override
 
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
@@ -11437,6 +11738,11 @@ Returns axis of the beam.
 ";
 
 %feature("docstring")  OffSpecSimulation::createUnitConverter "std::unique_ptr< IUnitConverter > OffSpecSimulation::createUnitConverter() const
+";
+
+%feature("docstring")  OffSpecSimulation::intensityMapSize "size_t OffSpecSimulation::intensityMapSize() const override
+
+Returns the total number of the intensity values in the simulation result. 
 ";
 
 
@@ -11927,6 +12233,18 @@ C++ includes: OutputDataReadStrategy.h
 ";
 
 %feature("docstring")  OutputDataReadNumpyTXTStrategy::readOutputData "OutputData< double > * OutputDataReadNumpyTXTStrategy::readOutputData(std::istream &input_stream)
+";
+
+
+// File: classOutputDataReadReflectometryStrategy.xml
+%feature("docstring") OutputDataReadReflectometryStrategy "
+
+Strategy to read Reflectometry data from ASCII file.
+
+C++ includes: OutputDataReadStrategy.h
+";
+
+%feature("docstring")  OutputDataReadReflectometryStrategy::readOutputData "OutputData< double > * OutputDataReadReflectometryStrategy::readOutputData(std::istream &input_stream)
 ";
 
 
@@ -12434,15 +12752,12 @@ C++ includes: ParticleLayout.h
 %feature("docstring")  ParticleLayout::ParticleLayout "ParticleLayout::ParticleLayout(const IAbstractParticle &particle, double abundance=-1.0)
 ";
 
-%feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout()
+%feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout() override
 ";
 
 %feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const final override
 
 Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ParticleLayout::cloneWithOffset "ParticleLayout * ParticleLayout::cloneWithOffset(double offset) const final override
 ";
 
 %feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const final override
@@ -12473,6 +12788,11 @@ rotation:
 %feature("docstring")  ParticleLayout::particles "SafePointerVector< IParticle > ParticleLayout::particles() const final override
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
+";
+
+%feature("docstring")  ParticleLayout::interferenceFunction "const IInterferenceFunction * ParticleLayout::interferenceFunction() const final override
+
+Returns the interference function. 
 ";
 
 %feature("docstring")  ParticleLayout::getTotalAbundance "double ParticleLayout::getTotalAbundance() const final override
@@ -12515,7 +12835,7 @@ Computes the scattering contribution from one particle layout. Used by  DWBAComp
 C++ includes: ParticleLayoutComputation.h
 ";
 
-%feature("docstring")  ParticleLayoutComputation::ParticleLayoutComputation "ParticleLayoutComputation::ParticleLayoutComputation(const MultiLayer *p_multilayer, const IFresnelMap *p_fresnel_map, const ILayout *p_layout, size_t layer_index, const SimulationOptions &options, bool polarized)
+%feature("docstring")  ParticleLayoutComputation::ParticleLayoutComputation "ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout *p_layout, const SimulationOptions &options, bool polarized)
 ";
 
 %feature("docstring")  ParticleLayoutComputation::~ParticleLayoutComputation "ParticleLayoutComputation::~ParticleLayoutComputation()
@@ -12531,7 +12851,12 @@ Merges its region map into the given one (notice non-const reference parameter)
 
 
 // File: structParticleLimits.xml
-%feature("docstring") ParticleLimits "";
+%feature("docstring") ParticleLimits "
+
+Vertical extension of a particle, specified by bottom and top z coordinate.
+
+C++ includes: IParticle.h
+";
 
 
 // File: classPlainMultiLayerBySLDBuilder.xml
@@ -12607,6 +12932,75 @@ find index of the coordinate closest to the given value
 %feature("docstring")  PointwiseAxis::createClippedAxis "PointwiseAxis * PointwiseAxis::createClippedAxis(double left, double right) const override
 
 Creates a new clipped axis. 
+";
+
+
+// File: classPoissonLikeMetric.xml
+%feature("docstring") PoissonLikeMetric "
+
+Implementation of  $ \\\\chi^2 $ metric with standard deviation  $\\\\sigma = max(\\\\sqrt{I}, 1)$, where  $I$ is the simulated intensity. With default L2 norm corresponds to the formula  \\\\[\\\\chi^2 = \\\\sum \\\\frac{(I - D)^2}{max(I, 1)}\\\\] for unweighted experimental data. Falls to standard  Chi2Metric when data uncertainties are taken into account.
+
+C++ includes: ObjectiveMetric.h
+";
+
+%feature("docstring")  PoissonLikeMetric::PoissonLikeMetric "PoissonLikeMetric::PoissonLikeMetric()
+";
+
+%feature("docstring")  PoissonLikeMetric::clone "PoissonLikeMetric * PoissonLikeMetric::clone() const override
+";
+
+%feature("docstring")  PoissonLikeMetric::computeFromArrays "double PoissonLikeMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
 ";
 
 
@@ -12787,10 +13181,7 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list
-
-_sym_S2: 
-true if face has a perpedicular two-fold symmetry axis 
+oriented vertex list 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
@@ -12884,6 +13275,115 @@ C++ includes: FormFactorPolyhedron.h
 ";
 
 
+// File: classProcessedLayout.xml
+%feature("docstring") ProcessedLayout "
+
+Data structure that contains preprocessed data for a single layout.
+
+If particles in the layout crossed the limits of the layer slices, these particles will be sliced themselves.
+
+C++ includes: ProcessedLayout.h
+";
+
+%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(const ILayout &layout, const std::vector< Slice > &slices, double z_ref, const IFresnelMap *p_fresnel_map, bool polarized)
+";
+
+%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(ProcessedLayout &&other)
+";
+
+%feature("docstring")  ProcessedLayout::~ProcessedLayout "ProcessedLayout::~ProcessedLayout()
+";
+
+%feature("docstring")  ProcessedLayout::numberOfSlices "size_t ProcessedLayout::numberOfSlices() const
+";
+
+%feature("docstring")  ProcessedLayout::surfaceDensity "double ProcessedLayout::surfaceDensity() const
+";
+
+%feature("docstring")  ProcessedLayout::formFactorList "const std::vector< FormFactorCoherentSum > & ProcessedLayout::formFactorList() const
+";
+
+%feature("docstring")  ProcessedLayout::interferenceFunction "const IInterferenceFunction * ProcessedLayout::interferenceFunction() const
+";
+
+%feature("docstring")  ProcessedLayout::regionMap "std::map< size_t, std::vector< HomogeneousRegion > > ProcessedLayout::regionMap() const
+";
+
+
+// File: classProcessedSample.xml
+%feature("docstring") ProcessedSample "
+
+Data structure that contains all the necessary data for scattering calculations.
+
+If the usage of average materials is requested, layers and particles are sliced into multiple slices and the average material is calculated for each slice.
+
+C++ includes: ProcessedSample.h
+";
+
+%feature("docstring")  ProcessedSample::ProcessedSample "ProcessedSample::ProcessedSample(const MultiLayer &sample, const SimulationOptions &options)
+";
+
+%feature("docstring")  ProcessedSample::~ProcessedSample "ProcessedSample::~ProcessedSample()
+";
+
+%feature("docstring")  ProcessedSample::numberOfSlices "size_t ProcessedSample::numberOfSlices() const
+";
+
+%feature("docstring")  ProcessedSample::slices "const std::vector< Slice > & ProcessedSample::slices() const
+";
+
+%feature("docstring")  ProcessedSample::averageSlices "const std::vector< Slice > & ProcessedSample::averageSlices() const
+";
+
+%feature("docstring")  ProcessedSample::layouts "const std::vector< ProcessedLayout > & ProcessedSample::layouts() const
+";
+
+%feature("docstring")  ProcessedSample::fresnelMap "const IFresnelMap * ProcessedSample::fresnelMap() const
+";
+
+%feature("docstring")  ProcessedSample::crossCorrelationLength "double ProcessedSample::crossCorrelationLength() const
+";
+
+%feature("docstring")  ProcessedSample::externalField "kvector_t ProcessedSample::externalField() const
+";
+
+%feature("docstring")  ProcessedSample::bottomRoughness "const LayerRoughness * ProcessedSample::bottomRoughness(size_t i) const
+";
+
+%feature("docstring")  ProcessedSample::sliceTopZ "double ProcessedSample::sliceTopZ(size_t i) const
+";
+
+%feature("docstring")  ProcessedSample::sliceBottomZ "double ProcessedSample::sliceBottomZ(size_t i) const
+";
+
+%feature("docstring")  ProcessedSample::containsMagneticMaterial "bool ProcessedSample::containsMagneticMaterial() const
+";
+
+%feature("docstring")  ProcessedSample::hasRoughness "bool ProcessedSample::hasRoughness() const
+";
+
+%feature("docstring")  ProcessedSample::crossCorrSpectralFun "double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
+
+Fourier transform of the correlation function of roughnesses between the interfaces 
+";
+
+
+// File: classProfileHelper.xml
+%feature("docstring") ProfileHelper "";
+
+%feature("docstring")  ProfileHelper::ProfileHelper "ProfileHelper::ProfileHelper(const ProcessedSample &sample)
+";
+
+%feature("docstring")  ProfileHelper::~ProfileHelper "ProfileHelper::~ProfileHelper()
+";
+
+%feature("docstring")  ProfileHelper::calculateProfile "std::vector< complex_t > ProfileHelper::calculateProfile(const std::vector< double > &z_values) const
+";
+
+%feature("docstring")  ProfileHelper::defaultLimits "std::pair< double, double > ProfileHelper::defaultLimits() const
+";
+
+
 // File: classProgressHandler.xml
 %feature("docstring") ProgressHandler "
 
@@ -12972,6 +13472,90 @@ C++ includes: PyFittingCallbacks.h
 ";
 
 
+// File: classQSpecScan.xml
+%feature("docstring") QSpecScan "
+
+Scan type with z-components of scattering vector as coordinate values. Wavelength and incident angles are not accessible separately.
+
+C++ includes: QSpecScan.h
+";
+
+%feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(std::vector< double > qs_nm)
+
+Accepts qz-value vector (in inverse nm) 
+";
+
+%feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(const IAxis &qs_nm)
+";
+
+%feature("docstring")  QSpecScan::QSpecScan "QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
+
+Sets q-defined specular scan. Accepts either numpy array of q-values sorted in ascending order or an  IAxis object with q-values. Alternatively an axis can be defined in-place, then the first passed parameter is the number of bins, second - minimum on-axis q-value, third - maximum on-axis q_value. 
+";
+
+%feature("docstring")  QSpecScan::~QSpecScan "QSpecScan::~QSpecScan() override
+";
+
+%feature("docstring")  QSpecScan::clone "QSpecScan * QSpecScan::clone() const override
+";
+
+%feature("docstring")  QSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > QSpecScan::generateSimulationElements() const override
+
+Generates simulation elements for specular simulations. 
+";
+
+%feature("docstring")  QSpecScan::coordinateAxis "virtual const IAxis* QSpecScan::coordinateAxis() const override
+
+Returns coordinate axis assigned to the data holder. 
+";
+
+%feature("docstring")  QSpecScan::footprintFactor "virtual const IFootprintFactor* QSpecScan::footprintFactor() const override
+
+Returns  IFootprintFactor object pointer. 
+";
+
+%feature("docstring")  QSpecScan::footprint "std::vector< double > QSpecScan::footprint(size_t i, size_t n_elements) const override
+
+Returns footprint correction factor for a range of simulation elements of size  n_elements and starting from element with index  i. 
+";
+
+%feature("docstring")  QSpecScan::numberOfSimulationElements "size_t QSpecScan::numberOfSimulationElements() const override
+
+Returns the number of simulation elements. 
+";
+
+%feature("docstring")  QSpecScan::createIntensities "std::vector< double > QSpecScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const override
+
+Returns intensity vector corresponding to convolution of given simulation elements. 
+";
+
+%feature("docstring")  QSpecScan::print "std::string QSpecScan::print() const override
+
+Print scan definition in python format. 
+";
+
+%feature("docstring")  QSpecScan::setQResolution "void QSpecScan::setQResolution(const ScanResolution &resolution)
+
+Sets q resolution values via  ScanResolution object. 
+";
+
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, double rel_dev)
+";
+
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+
+Sets qz resolution values via  RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+";
+
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, double std_dev)
+";
+
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+
+Sets qz resolution values via  RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+";
+
+
 // File: classRadialParaCrystalBuilder.xml
 %feature("docstring") RadialParaCrystalBuilder "
 
@@ -12984,6 +13568,198 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 %feature("docstring")  RadialParaCrystalBuilder::buildSample "MultiLayer * RadialParaCrystalBuilder::buildSample() const
+";
+
+
+// File: classRangedDistribution.xml
+%feature("docstring") RangedDistribution "
+
+Interface for one-dimensional ranged distributions. All derived distributions allow for generating samples in-place for known mean and standard deviation (except for  RangedDistributionLorentz which uses median and hwhm).
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution()
+";
+
+%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistribution::clone "RangedDistribution* RangedDistribution::clone() const override=0
+";
+
+%feature("docstring")  RangedDistribution::~RangedDistribution "RangedDistribution::~RangedDistribution() override
+";
+
+%feature("docstring")  RangedDistribution::generateSamples "std::vector< ParameterSample > RangedDistribution::generateSamples(double mean, double stddev) const
+";
+
+%feature("docstring")  RangedDistribution::generateSamples "std::vector< std::vector< ParameterSample > > RangedDistribution::generateSamples(const std::vector< double > &mean, const std::vector< double > &stddev) const
+
+Generates list of sampled values with their weights from given means and standard deviations. 
+";
+
+%feature("docstring")  RangedDistribution::distribution "std::unique_ptr< IDistribution1D > RangedDistribution::distribution(double mean, double stddev) const
+
+Public interface function to underlying  IDistribution1D object. 
+";
+
+%feature("docstring")  RangedDistribution::limits "RealLimits RangedDistribution::limits() const
+
+Returns current limits of the distribution. 
+";
+
+%feature("docstring")  RangedDistribution::sigmaFactor "double RangedDistribution::sigmaFactor() const
+
+Returns sigma factor to use during sampling. 
+";
+
+%feature("docstring")  RangedDistribution::nSamples "size_t RangedDistribution::nSamples() const
+
+Returns number of samples to generate. 
+";
+
+%feature("docstring")  RangedDistribution::setLimits "void RangedDistribution::setLimits(const RealLimits &limits)
+";
+
+%feature("docstring")  RangedDistribution::print "std::string RangedDistribution::print() const
+
+Prints python-formatted definition of the distribution. 
+";
+
+
+// File: classRangedDistributionCosine.xml
+%feature("docstring") RangedDistributionCosine "
+
+Cosine distribution.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistributionCosine "RangedDistributionCosine::RangedDistributionCosine()
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistributionCosine "RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionCosine::RangedDistributionCosine "RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionCosine::clone "RangedDistributionCosine * RangedDistributionCosine::clone() const override
+";
+
+%feature("docstring")  RangedDistributionCosine::~RangedDistributionCosine "RangedDistributionCosine::~RangedDistributionCosine() override=default
+";
+
+
+// File: classRangedDistributionGate.xml
+%feature("docstring") RangedDistributionGate "
+
+Uniform distribution function.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistributionGate "RangedDistributionGate::RangedDistributionGate()
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistributionGate "RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionGate::RangedDistributionGate "RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionGate::clone "RangedDistributionGate * RangedDistributionGate::clone() const override
+";
+
+%feature("docstring")  RangedDistributionGate::~RangedDistributionGate "RangedDistributionGate::~RangedDistributionGate() override=default
+";
+
+
+// File: classRangedDistributionGaussian.xml
+%feature("docstring") RangedDistributionGaussian "
+
+Gaussian distribution with standard deviation std_dev.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistributionGaussian "RangedDistributionGaussian::RangedDistributionGaussian()
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistributionGaussian "RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionGaussian::RangedDistributionGaussian "RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionGaussian::clone "RangedDistributionGaussian * RangedDistributionGaussian::clone() const override
+";
+
+%feature("docstring")  RangedDistributionGaussian::~RangedDistributionGaussian "RangedDistributionGaussian::~RangedDistributionGaussian() override=default
+";
+
+
+// File: classRangedDistributionLogNormal.xml
+%feature("docstring") RangedDistributionLogNormal "
+
+Log-normal distribution.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistributionLogNormal "RangedDistributionLogNormal::RangedDistributionLogNormal()
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistributionLogNormal "RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionLogNormal::RangedDistributionLogNormal "RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionLogNormal::clone "RangedDistributionLogNormal * RangedDistributionLogNormal::clone() const override
+";
+
+%feature("docstring")  RangedDistributionLogNormal::~RangedDistributionLogNormal "RangedDistributionLogNormal::~RangedDistributionLogNormal() override=default
+";
+
+
+// File: classRangedDistributionLorentz.xml
+%feature("docstring") RangedDistributionLorentz "
+
+Lorentz distribution with median and hwhm.
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistributionLorentz "RangedDistributionLorentz::RangedDistributionLorentz()
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistributionLorentz "RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  RangedDistributionLorentz::RangedDistributionLorentz "RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  hwhm_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  RangedDistributionLorentz::clone "RangedDistributionLorentz * RangedDistributionLorentz::clone() const override
+";
+
+%feature("docstring")  RangedDistributionLorentz::~RangedDistributionLorentz "RangedDistributionLorentz::~RangedDistributionLorentz() override=default
 ";
 
 
@@ -13383,6 +14159,75 @@ Number of detector bins.
 ";
 
 
+// File: classRelativeDifferenceMetric.xml
+%feature("docstring") RelativeDifferenceMetric "
+
+Implementation of relative difference metric. With default L2 norm and weighting off corresponds to the formula  \\\\[Result = \\\\sum \\\\frac{(I - D)^2}{(I + D)^2}\\\\] where  $I$ is the simulated intensity,  $D$ - experimental data. If weighting is on, falls back to the standard  $\\\\chi^2$ metric.
+
+C++ includes: ObjectiveMetric.h
+";
+
+%feature("docstring")  RelativeDifferenceMetric::RelativeDifferenceMetric "RelativeDifferenceMetric::RelativeDifferenceMetric()
+";
+
+%feature("docstring")  RelativeDifferenceMetric::clone "RelativeDifferenceMetric * RelativeDifferenceMetric::clone() const override
+";
+
+%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double RelativeDifferenceMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+
 // File: classResolutionFunction2DGaussian.xml
 %feature("docstring") ResolutionFunction2DGaussian "
 
@@ -13679,10 +14524,39 @@ Computes the diffuse reflection from the rough interfaces of a multilayer. Used 
 C++ includes: RoughMultiLayerComputation.h
 ";
 
-%feature("docstring")  RoughMultiLayerComputation::RoughMultiLayerComputation "RoughMultiLayerComputation::RoughMultiLayerComputation(const MultiLayer *p_multi_layer, const IFresnelMap *p_fresnel_map)
+%feature("docstring")  RoughMultiLayerComputation::RoughMultiLayerComputation "RoughMultiLayerComputation::RoughMultiLayerComputation(const ProcessedSample *p_sample)
 ";
 
 %feature("docstring")  RoughMultiLayerComputation::compute "void RoughMultiLayerComputation::compute(SimulationElement &elem) const
+";
+
+
+// File: classRQ4Metric.xml
+%feature("docstring") RQ4Metric "
+
+Implementation of relative difference metric. With default L2 norm and weighting off corresponds to the formula  \\\\[Result = \\\\sum (I \\\\cdot Q^4 - D \\\\cdot Q^4)^2\\\\] where  $Q$ is the scattering vector magnitude. If weighting is on, coincides with the metric provided by  Chi2Metric class.
+
+C++ includes: ObjectiveMetric.h
+";
+
+%feature("docstring")  RQ4Metric::RQ4Metric "RQ4Metric::RQ4Metric()
+";
+
+%feature("docstring")  RQ4Metric::clone "RQ4Metric * RQ4Metric::clone() const override
+";
+
+%feature("docstring")  RQ4Metric::compute "double RQ4Metric::compute(const SimDataPair &data_pair, bool use_weights) const override
+
+Computes metric value from  SimDataPair object. Calls computeFromArrays internally.
+
+Parameters:
+-----------
+
+data_pair: 
+ SimDataPair object. Can optionally contain data uncertainties
+
+use_weights: 
+boolean, defines if data uncertainties should be taken into account 
 ";
 
 
@@ -13707,6 +14581,9 @@ C++ includes: SafePointerVector.h
 ";
 
 %feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector(const SafePointerVector &other)
+";
+
+%feature("docstring")  SafePointerVector::SafePointerVector "SafePointerVector< T >::SafePointerVector(SafePointerVector &&other)
 ";
 
 %feature("docstring")  SafePointerVector::~SafePointerVector "SafePointerVector< T >::~SafePointerVector()
@@ -14083,10 +14960,44 @@ Scalar value getters; these throw errors by default as they should only be used 
 ";
 
 
-// File: classExceptions_1_1SelfReferenceException.xml
-%feature("docstring") Exceptions::SelfReferenceException "";
+// File: classScanResolution.xml
+%feature("docstring") ScanResolution "
 
-%feature("docstring")  Exceptions::SelfReferenceException::SelfReferenceException "Exceptions::SelfReferenceException::SelfReferenceException(const std::string &message)
+Container for reflectivity resolution data.
+
+C++ includes: ScanResolution.h
+";
+
+%feature("docstring")  ScanResolution::~ScanResolution "ScanResolution::~ScanResolution() override
+";
+
+%feature("docstring")  ScanResolution::clone "ScanResolution* ScanResolution::clone() const override=0
+";
+
+%feature("docstring")  ScanResolution::distribution "const RangedDistribution* ScanResolution::distribution() const
+";
+
+%feature("docstring")  ScanResolution::nSamples "size_t ScanResolution::nSamples() const
+";
+
+%feature("docstring")  ScanResolution::generateSamples "virtual DistrOutput ScanResolution::generateSamples(double mean, size_t n_times) const =0
+";
+
+%feature("docstring")  ScanResolution::generateSamples "virtual DistrOutput ScanResolution::generateSamples(const std::vector< double > &mean) const =0
+";
+
+%feature("docstring")  ScanResolution::stdDevs "virtual std::vector<double> ScanResolution::stdDevs(double mean, size_t n_times) const =0
+";
+
+%feature("docstring")  ScanResolution::stdDevs "virtual std::vector<double> ScanResolution::stdDevs(const std::vector< double > &mean) const =0
+";
+
+%feature("docstring")  ScanResolution::empty "bool ScanResolution::empty() const
+";
+
+%feature("docstring")  ScanResolution::print "std::string ScanResolution::print() const
+
+Prints object definition in python format. 
 ";
 
 
@@ -14098,7 +15009,7 @@ Holds pair of simulation/experimental data to fit.
 C++ includes: SimDataPair.h
 ";
 
-%feature("docstring")  SimDataPair::SimDataPair "SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData< double > &data, double weight=1.0)
+%feature("docstring")  SimDataPair::SimDataPair "SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData< double > &data, std::unique_ptr< OutputData< double >> uncertainties, double user_weight=1.0)
 
 Constructs simulation/data pair for later fit.
 
@@ -14111,56 +15022,100 @@ simulation builder capable of producing simulations
 data: 
 experimental data
 
-weight: 
-weight of dataset in chi2 calculations 
+uncertainties: 
+uncertainties associated with experimental data
+
+user_weight: 
+weight of dataset in objective metric computations 
 ";
 
-%feature("docstring")  SimDataPair::~SimDataPair "SimDataPair::~SimDataPair() override
+%feature("docstring")  SimDataPair::SimDataPair "SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData< double > &data, std::unique_ptr< OutputData< double >> uncertainties, std::unique_ptr< OutputData< double >> user_weights)
+
+Constructs simulation/data pair for later fit.
+
+Parameters:
+-----------
+
+simulation: 
+simulation builder capable of producing simulations
+
+data: 
+experimental data
+
+uncertainties: 
+uncertainties associated with experimental data
+
+user_weights: 
+user weights associated with experimental data 
 ";
 
-%feature("docstring")  SimDataPair::clone "SimDataPair * SimDataPair::clone() const override
+%feature("docstring")  SimDataPair::SimDataPair "SimDataPair::SimDataPair(SimDataPair &&other)
 ";
 
-%feature("docstring")  SimDataPair::numberOfFitElements "size_t SimDataPair::numberOfFitElements() const
-
-Returns the size of the data. It is equal to the number of non-masked detector channels which will participate in chi2 calculations. 
-";
-
-%feature("docstring")  SimDataPair::weight "double SimDataPair::weight() const
-";
-
-%feature("docstring")  SimDataPair::simulationResult "SimulationResult SimDataPair::simulationResult() const
-
-Returns simulation result. 
-";
-
-%feature("docstring")  SimDataPair::experimentalData "SimulationResult SimDataPair::experimentalData() const
-
-Returns experimental data. 
-";
-
-%feature("docstring")  SimDataPair::relativeDifference "SimulationResult SimDataPair::relativeDifference() const
-
-Returns relative difference between simulation and experimental data. 
-";
-
-%feature("docstring")  SimDataPair::absoluteDifference "SimulationResult SimDataPair::absoluteDifference() const
+%feature("docstring")  SimDataPair::~SimDataPair "SimDataPair::~SimDataPair()
 ";
 
 %feature("docstring")  SimDataPair::runSimulation "void SimDataPair::runSimulation(const Fit::Parameters &params)
 ";
 
-%feature("docstring")  SimDataPair::experimental_array "std::vector< double > SimDataPair::experimental_array() const
+%feature("docstring")  SimDataPair::containsUncertainties "bool SimDataPair::containsUncertainties() const
+";
 
-Returns one dimensional array representing experimental data. Masked areas and the area outside of region of interest are not included. 
+%feature("docstring")  SimDataPair::numberOfFitElements "size_t SimDataPair::numberOfFitElements() const
+
+Returns the number of elements in the fit area. 
+";
+
+%feature("docstring")  SimDataPair::simulationResult "SimulationResult SimDataPair::simulationResult() const
+
+Returns the result of last computed simulation. 
+";
+
+%feature("docstring")  SimDataPair::experimentalData "SimulationResult SimDataPair::experimentalData() const
+
+Returns the experimental data cut to the ROI area. 
+";
+
+%feature("docstring")  SimDataPair::uncertainties "SimulationResult SimDataPair::uncertainties() const
+
+Returns the data uncertainties cut to the ROI area If no uncertainties present, returns zero-filled  SimulationResult. 
+";
+
+%feature("docstring")  SimDataPair::userWeights "SimulationResult SimDataPair::userWeights() const
+
+Returns the user uncertainties cut to the ROI area. 
+";
+
+%feature("docstring")  SimDataPair::relativeDifference "SimulationResult SimDataPair::relativeDifference() const
+
+Returns relative difference between simulation and experimental data.
+
+Returns the relative difference between simulated and expeimental data cut to the ROI area 
+";
+
+%feature("docstring")  SimDataPair::absoluteDifference "SimulationResult SimDataPair::absoluteDifference() const
+
+Returns the absolute difference between simulated and expeimental data cut to the ROI area 
 ";
 
 %feature("docstring")  SimDataPair::simulation_array "std::vector< double > SimDataPair::simulation_array() const
 
-Returns one dimensional array representing simulated intensities data. Masked areas and the area outside of region of interest are not included. 
+Returns the flattened simulated intensities cut to the ROI area 
 ";
 
-%feature("docstring")  SimDataPair::weights_array "std::vector< double > SimDataPair::weights_array() const
+%feature("docstring")  SimDataPair::experimental_array "std::vector< double > SimDataPair::experimental_array() const
+
+Returns the flattened experimental data cut to the ROI area 
+";
+
+%feature("docstring")  SimDataPair::uncertainties_array "std::vector< double > SimDataPair::uncertainties_array() const
+
+Returns the flattened experimental uncertainties cut to the ROI area. If no uncertainties are available, returns a zero-filled array sized to the ROI area. 
+";
+
+%feature("docstring")  SimDataPair::user_weights_array "std::vector< double > SimDataPair::user_weights_array() const
+
+Returns a flat array of user weights cut to the ROI area. 
 ";
 
 
@@ -14273,7 +15228,9 @@ The  MultiLayer object will not be owned by the  Simulation object.
 %feature("docstring")  Simulation::background "const IBackground* Simulation::background() const
 ";
 
-%feature("docstring")  Simulation::numberOfSimulationElements "virtual size_t Simulation::numberOfSimulationElements() const =0
+%feature("docstring")  Simulation::intensityMapSize "virtual size_t Simulation::intensityMapSize() const =0
+
+Returns the total number of the intensity values in the simulation result. 
 ";
 
 %feature("docstring")  Simulation::result "virtual SimulationResult Simulation::result() const =0
@@ -14330,7 +15287,7 @@ C++ includes: Simulation2D.h
 %feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D(const std::shared_ptr< IMultiLayerBuilder > p_sample_builder)
 ";
 
-%feature("docstring")  Simulation2D::~Simulation2D "virtual Simulation2D::~Simulation2D()=default
+%feature("docstring")  Simulation2D::~Simulation2D "Simulation2D::~Simulation2D() override=default
 ";
 
 %feature("docstring")  Simulation2D::clone "Simulation2D* Simulation2D::clone() const override=0
@@ -14666,7 +15623,7 @@ C++ includes: SimulationResult.h
 %feature("docstring")  SimulationResult::SimulationResult "SimulationResult::SimulationResult(SimulationResult &&other)
 ";
 
-%feature("docstring")  SimulationResult::data "OutputData< double > * SimulationResult::data(AxesUnits units=AxesUnits::DEFAULT) const
+%feature("docstring")  SimulationResult::data "std::unique_ptr< OutputData< double > > SimulationResult::data(AxesUnits units=AxesUnits::DEFAULT) const
 ";
 
 %feature("docstring")  SimulationResult::histogram2d "Histogram2D * SimulationResult::histogram2d(AxesUnits units=AxesUnits::DEFAULT) const
@@ -14685,7 +15642,7 @@ Returns underlying unit converter.
 %feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const
 ";
 
-%feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array() const
+%feature("docstring")  SimulationResult::array "PyObject * SimulationResult::array(AxesUnits units=AxesUnits::DEFAULT) const
 
 returns intensity data as Python numpy array 
 ";
@@ -14787,6 +15744,60 @@ C++ includes: SlicedCylindersBuilder.h
 ";
 
 %feature("docstring")  SLDSlicedCylindersBuilder::buildSample "MultiLayer * SLDSlicedCylindersBuilder::buildSample() const override
+";
+
+
+// File: classSlice.xml
+%feature("docstring") Slice "
+
+Data structure containing the data of a single slice, for calculating the Fresnel coefficients.
+
+C++ includes: Slice.h
+";
+
+%feature("docstring")  Slice::Slice "Slice::Slice(double thickness, const Material &material)
+";
+
+%feature("docstring")  Slice::Slice "Slice::Slice(double thickness, const Material &material, const LayerRoughness &top_roughness)
+";
+
+%feature("docstring")  Slice::Slice "Slice::Slice(const Slice &other)
+";
+
+%feature("docstring")  Slice::Slice "Slice::Slice(Slice &&other)
+";
+
+%feature("docstring")  Slice::~Slice "Slice::~Slice()
+";
+
+%feature("docstring")  Slice::setMaterial "void Slice::setMaterial(const Material &material)
+";
+
+%feature("docstring")  Slice::material "Material Slice::material() const
+";
+
+%feature("docstring")  Slice::thickness "double Slice::thickness() const
+";
+
+%feature("docstring")  Slice::topRoughness "const LayerRoughness * Slice::topRoughness() const
+";
+
+%feature("docstring")  Slice::scalarReducedPotential "complex_t Slice::scalarReducedPotential(kvector_t k, double n_ref) const
+
+Return the potential term that is used in the one-dimensional Fresnel calculations. 
+";
+
+%feature("docstring")  Slice::polarizedReducedPotential "Eigen::Matrix2cd Slice::polarizedReducedPotential(kvector_t k, double n_ref) const
+
+Return the potential term that is used in the one-dimensional Fresnel calculations in the presence of magnetization 
+";
+
+%feature("docstring")  Slice::initBField "void Slice::initBField(kvector_t h_field, double b_z)
+
+Initializes the magnetic B field from a given ambient field strength H. 
+";
+
+%feature("docstring")  Slice::invertBField "void Slice::invertBField()
 ";
 
 
@@ -14896,129 +15907,7 @@ C++ includes: SpecularComputationTerm.h
 %feature("docstring")  SpecularComputationTerm::setProgressHandler "void SpecularComputationTerm::setProgressHandler(ProgressHandler *p_progress)
 ";
 
-%feature("docstring")  SpecularComputationTerm::compute "void SpecularComputationTerm::compute(SpecularSimulationElement &elem, const MultiLayer &sample) const
-";
-
-
-// File: classSpecularDataHandlerAng.xml
-%feature("docstring") SpecularDataHandlerAng "";
-
-%feature("docstring")  SpecularDataHandlerAng::SpecularDataHandlerAng "SpecularDataHandlerAng::SpecularDataHandlerAng(double wl, std::unique_ptr< IAxis > inc_angle, const IFootprintFactor *footprint=nullptr)
-";
-
-%feature("docstring")  SpecularDataHandlerAng::~SpecularDataHandlerAng "SpecularDataHandlerAng::~SpecularDataHandlerAng() override
-";
-
-%feature("docstring")  SpecularDataHandlerAng::clone "SpecularDataHandlerAng * SpecularDataHandlerAng::clone() const override
-";
-
-%feature("docstring")  SpecularDataHandlerAng::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerAng::generateSimulationElements() const override
-
-Generates simulation elements for specular simulations. 
-";
-
-%feature("docstring")  SpecularDataHandlerAng::coordinateAxis "virtual const IAxis* SpecularDataHandlerAng::coordinateAxis() const override
-
-Returns coordinate axis assigned to the data holder. 
-";
-
-%feature("docstring")  SpecularDataHandlerAng::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerAng::footprintFactor() const override
-
-Returns  IFootprintFactor object pointer. 
-";
-
-%feature("docstring")  SpecularDataHandlerAng::footprint "double SpecularDataHandlerAng::footprint(size_t i) const override
-
-Returns footprint correction factor for simulation element with index  i
-";
-
-%feature("docstring")  SpecularDataHandlerAng::numberOfSimulationElements "size_t SpecularDataHandlerAng::numberOfSimulationElements() const override
-
-Returns the number of simulation elements. 
-";
-
-%feature("docstring")  SpecularDataHandlerAng::wavelength "double SpecularDataHandlerAng::wavelength() const
-";
-
-
-// File: classSpecularDataHandlerQ.xml
-%feature("docstring") SpecularDataHandlerQ "";
-
-%feature("docstring")  SpecularDataHandlerQ::SpecularDataHandlerQ "SpecularDataHandlerQ::SpecularDataHandlerQ(std::unique_ptr< IAxis > qs_nm)
-
-Accepts qz-value vector (in inverse nm) 
-";
-
-%feature("docstring")  SpecularDataHandlerQ::~SpecularDataHandlerQ "SpecularDataHandlerQ::~SpecularDataHandlerQ() override
-";
-
-%feature("docstring")  SpecularDataHandlerQ::clone "SpecularDataHandlerQ * SpecularDataHandlerQ::clone() const override
-";
-
-%feature("docstring")  SpecularDataHandlerQ::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerQ::generateSimulationElements() const override
-
-Generates simulation elements for specular simulations. 
-";
-
-%feature("docstring")  SpecularDataHandlerQ::coordinateAxis "virtual const IAxis* SpecularDataHandlerQ::coordinateAxis() const override
-
-Returns coordinate axis assigned to the data holder. 
-";
-
-%feature("docstring")  SpecularDataHandlerQ::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerQ::footprintFactor() const override
-
-Returns  IFootprintFactor object pointer. 
-";
-
-%feature("docstring")  SpecularDataHandlerQ::footprint "double SpecularDataHandlerQ::footprint(size_t) const override
-
-Returns footprint correction factor for simulation element with index  i
-";
-
-%feature("docstring")  SpecularDataHandlerQ::numberOfSimulationElements "size_t SpecularDataHandlerQ::numberOfSimulationElements() const override
-
-Returns the number of simulation elements. 
-";
-
-
-// File: classSpecularDataHandlerTOF.xml
-%feature("docstring") SpecularDataHandlerTOF "";
-
-%feature("docstring")  SpecularDataHandlerTOF::SpecularDataHandlerTOF "SpecularDataHandlerTOF::SpecularDataHandlerTOF(double inc_angle, std::unique_ptr< IAxis > qz, const IFootprintFactor *footprint=nullptr)
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::~SpecularDataHandlerTOF "SpecularDataHandlerTOF::~SpecularDataHandlerTOF() override
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::clone "SpecularDataHandlerTOF * SpecularDataHandlerTOF::clone() const override
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::generateSimulationElements "std::vector< SpecularSimulationElement > SpecularDataHandlerTOF::generateSimulationElements() const override
-
-Generates simulation elements for specular simulations. 
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::coordinateAxis "virtual const IAxis* SpecularDataHandlerTOF::coordinateAxis() const override
-
-Returns coordinate axis assigned to the data holder. 
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::footprintFactor "virtual const IFootprintFactor* SpecularDataHandlerTOF::footprintFactor() const override
-
-Returns  IFootprintFactor object pointer. 
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::footprint "double SpecularDataHandlerTOF::footprint(size_t i) const override
-
-Returns footprint correction factor for simulation element with index  i
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::numberOfSimulationElements "size_t SpecularDataHandlerTOF::numberOfSimulationElements() const override
-
-Returns the number of simulation elements. 
-";
-
-%feature("docstring")  SpecularDataHandlerTOF::inclinationAngle "double SpecularDataHandlerTOF::inclinationAngle() const
+%feature("docstring")  SpecularComputationTerm::compute "void SpecularComputationTerm::compute(SpecularSimulationElement &elem, const std::vector< Slice > &slices) const
 ";
 
 
@@ -15070,24 +15959,6 @@ Return default axes units.
 ";
 
 
-// File: classSpecularMagnetic.xml
-%feature("docstring") SpecularMagnetic "
-
-Implements the matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization.
-
-C++ includes: SpecularMagnetic.h
-";
-
-
-// File: classSpecularMatrix.xml
-%feature("docstring") SpecularMatrix "
-
-Implements method 'execute' to compute refraction angles and transmission/reflection coefficients for coherent wave propagation in a multilayer.
-
-C++ includes: SpecularMatrix.h
-";
-
-
 // File: classSpecularSimulation.xml
 %feature("docstring") SpecularSimulation "
 
@@ -15121,29 +15992,14 @@ Put into a clean state for running a simulation.
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  SpecularSimulation::numberOfSimulationElements "size_t SpecularSimulation::numberOfSimulationElements() const override
-";
-
 %feature("docstring")  SpecularSimulation::result "SimulationResult SpecularSimulation::result() const override
 
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays. If simulation was not run, returns an array of proper size filled with zeros. 
 ";
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min, double alpha_i_max, const IFootprintFactor *beam_shape=nullptr)
-";
+%feature("docstring")  SpecularSimulation::setScan "void SpecularSimulation::setScan(const ISpecularScan &scan)
 
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, std::vector< double > incident_angle_values, const IFootprintFactor *beam_shape=nullptr)
-";
-
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(std::vector< double > wavelength_values, double incident_angle, const IFootprintFactor *beam_shape=nullptr)
-";
-
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(std::vector< double > qz_values)
-";
-
-%feature("docstring")  SpecularSimulation::setBeamParameters "void SpecularSimulation::setBeamParameters(double lambda, const IAxis &alpha_axis, const IFootprintFactor *beam_shape=nullptr)
-
-Sets beam parameters for specular simulation.  lambda defines the wavelength of incoming beam (in nm),  alpha_axis defines the range of incident angles, while  beam_shape (optional parameter) is required to take footprint effects into account. Incident angle axis can be defined as a numpy array of values. This overload facilitates defining non-uniform incident angle axis. Another overload accepts the number of bins ( nbins), as well as minimal ( alpha_i_min) and maximal ( alpha_i_max) angle values. With using this overload a uniform angle axis in the given range is assigned to the beam. 
+Sets chosen specular scan to the simulation. 
 ";
 
 %feature("docstring")  SpecularSimulation::coordinateAxis "const IAxis * SpecularSimulation::coordinateAxis() const
@@ -15153,10 +16009,15 @@ Returns a pointer to coordinate axis.
 
 %feature("docstring")  SpecularSimulation::footprintFactor "const IFootprintFactor * SpecularSimulation::footprintFactor() const
 
-Returns a pointer to internal data handler. 
+Returns a pointer to footprint factor holder. 
 ";
 
-%feature("docstring")  SpecularSimulation::dataHandler "const ISpecularDataHandler* SpecularSimulation::dataHandler() const
+%feature("docstring")  SpecularSimulation::intensityMapSize "size_t SpecularSimulation::intensityMapSize() const override
+
+Returns the total number of the intensity values in the simulation result. 
+";
+
+%feature("docstring")  SpecularSimulation::dataHandler "const ISpecularScan* SpecularSimulation::dataHandler() const
 
 Returns internal data handler. 
 ";
@@ -15209,7 +16070,7 @@ Set calculation flag (if it's false, zero intensity is assigned to the element)
 %feature("docstring")  SpecularSimulationElement::isCalculated "bool SpecularSimulationElement::isCalculated() const
 ";
 
-%feature("docstring")  SpecularSimulationElement::produceKz "std::vector< complex_t > SpecularSimulationElement::produceKz(const MultiLayer &sample)
+%feature("docstring")  SpecularSimulationElement::produceKz "std::vector< complex_t > SpecularSimulationElement::produceKz(const std::vector< Slice > &slices)
 
 Returns kz values for Abeles computation of reflection/transition coefficients. 
 ";
@@ -15391,10 +16252,10 @@ C++ includes: SSCAHelper.h
 %feature("docstring")  SSCAHelper::SSCAHelper "SSCAHelper::SSCAHelper(double kappa)
 ";
 
-%feature("docstring")  SSCAHelper::init "void SSCAHelper::init(const SafePointerVector< FormFactorCoherentSum > &ff_wrappers)
+%feature("docstring")  SSCAHelper::init "void SSCAHelper::init(const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
-%feature("docstring")  SSCAHelper::getCharacteristicSizeCoupling "complex_t SSCAHelper::getCharacteristicSizeCoupling(double qp, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers) const
+%feature("docstring")  SSCAHelper::getCharacteristicSizeCoupling "complex_t SSCAHelper::getCharacteristicSizeCoupling(double qp, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
 ";
 
 %feature("docstring")  SSCAHelper::getCharacteristicDistribution "complex_t SSCAHelper::getCharacteristicDistribution(double qp, const IInterferenceFunction *p_iff) const
@@ -15403,10 +16264,10 @@ C++ includes: SSCAHelper.h
 %feature("docstring")  SSCAHelper::calculatePositionOffsetPhase "complex_t SSCAHelper::calculatePositionOffsetPhase(double qp, double radial_extension) const
 ";
 
-%feature("docstring")  SSCAHelper::getMeanFormfactorNorm "complex_t SSCAHelper::getMeanFormfactorNorm(double qp, const std::vector< complex_t > &precomputed_ff, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers) const
+%feature("docstring")  SSCAHelper::getMeanFormfactorNorm "complex_t SSCAHelper::getMeanFormfactorNorm(double qp, const std::vector< complex_t > &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
 ";
 
-%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const InterferenceFunctionUtils::matrixFFVector_t &precomputed_ff, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers) const
+%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const InterferenceFunctionUtils::matrixFFVector_t &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
 ";
 
 
@@ -15434,6 +16295,16 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 %feature("docstring")  SuperLatticeBuilder::buildSample "MultiLayer * SuperLatticeBuilder::buildSample() const
+";
+
+
+// File: classThickAbsorptiveSampleBuilder.xml
+%feature("docstring") ThickAbsorptiveSampleBuilder "";
+
+%feature("docstring")  ThickAbsorptiveSampleBuilder::ThickAbsorptiveSampleBuilder "ThickAbsorptiveSampleBuilder::ThickAbsorptiveSampleBuilder()
+";
+
+%feature("docstring")  ThickAbsorptiveSampleBuilder::buildSample "MultiLayer * ThickAbsorptiveSampleBuilder::buildSample() const override
 ";
 
 
@@ -15721,6 +16592,11 @@ Calculates maximum on-axis value in given units.
 Creates axis in converted units. 
 ";
 
+%feature("docstring")  UnitConverter1D::createConvertedData "std::unique_ptr< OutputData< double > > UnitConverter1D::createConvertedData(const OutputData< double > &data, AxesUnits units) const override
+
+Creates  OutputData array in converter units. 
+";
+
 
 // File: classUnitConverterConvSpec.xml
 %feature("docstring") UnitConverterConvSpec "
@@ -15735,7 +16611,7 @@ C++ includes: UnitConverter1D.h
 Constructs the object for unit conversion. 
 ";
 
-%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const SpecularDataHandlerAng &handler)
+%feature("docstring")  UnitConverterConvSpec::UnitConverterConvSpec "UnitConverterConvSpec::UnitConverterConvSpec(const AngularSpecScan &handler)
 ";
 
 %feature("docstring")  UnitConverterConvSpec::~UnitConverterConvSpec "UnitConverterConvSpec::~UnitConverterConvSpec() override
@@ -15768,10 +16644,7 @@ Conversion of axis units for the case of q-defined reflectometry.
 C++ includes: UnitConverter1D.h
 ";
 
-%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerQ &handler)
-";
-
-%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerTOF &handler)
+%feature("docstring")  UnitConverterQSpec::UnitConverterQSpec "UnitConverterQSpec::UnitConverterQSpec(const QSpecScan &handler)
 ";
 
 %feature("docstring")  UnitConverterQSpec::~UnitConverterQSpec "UnitConverterQSpec::~UnitConverterQSpec() override
@@ -15978,6 +16851,76 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
+// File: classVonMisesFisherGaussPeakShape.xml
+%feature("docstring") VonMisesFisherGaussPeakShape "
+
+Class that implements a peak shape that is Gaussian in the radial direction and a convolution of a von Mises-Fisher distribution with a von Mises distribution on the two-sphere
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape "VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa_1, double kappa_2)
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape "VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape() override
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::clone "VonMisesFisherGaussPeakShape * VonMisesFisherGaussPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::accept "void VonMisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::evaluate "double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+";
+
+%feature("docstring")  VonMisesFisherGaussPeakShape::angularDisorder "bool VonMisesFisherGaussPeakShape::angularDisorder() const override
+
+Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+";
+
+
+// File: classVonMisesGaussPeakShape.xml
+%feature("docstring") VonMisesGaussPeakShape "
+
+Class that implements a peak shape that is a convolution of a von Mises-Fisher distribution with a 3d Gaussian
+
+C++ includes: IPeakShape.h
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::VonMisesGaussPeakShape "VonMisesGaussPeakShape::VonMisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa)
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::~VonMisesGaussPeakShape "VonMisesGaussPeakShape::~VonMisesGaussPeakShape() override
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::clone "VonMisesGaussPeakShape * VonMisesGaussPeakShape::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::accept "void VonMisesGaussPeakShape::accept(INodeVisitor *visitor) const override
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::evaluate "double VonMisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const override
+
+Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point. 
+";
+
+%feature("docstring")  VonMisesGaussPeakShape::angularDisorder "bool VonMisesGaussPeakShape::angularDisorder() const override
+
+Indicates if the peak shape encodes angular disorder, in which case all peaks in a spherical shell are needed 
+";
+
+
 // File: classWavevectorInfo.xml
 %feature("docstring") WavevectorInfo "
 
@@ -16041,82 +16984,100 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D107.xml
+// File: namespace_0D104.xml
+
+
+// File: namespace_0D106.xml
+
+
+// File: namespace_0D108.xml
+
+
+// File: namespace_0D112.xml
 
 
 // File: namespace_0D12.xml
 
 
-// File: namespace_0D122.xml
+// File: namespace_0D129.xml
 
 
-// File: namespace_0D131.xml
+// File: namespace_0D138.xml
 
 
-// File: namespace_0D133.xml
+// File: namespace_0D143.xml
 
 
-// File: namespace_0D136.xml
+// File: namespace_0D152.xml
+
+
+// File: namespace_0D154.xml
+
+
+// File: namespace_0D158.xml
 
 
 // File: namespace_0D18.xml
 
 
-// File: namespace_0D189.xml
-
-
 // File: namespace_0D20.xml
 
 
-// File: namespace_0D216.xml
+// File: namespace_0D200.xml
 
 
-// File: namespace_0D218.xml
+// File: namespace_0D227.xml
 
 
-// File: namespace_0D230.xml
+// File: namespace_0D235.xml
+
+
+// File: namespace_0D241.xml
+
+
+// File: namespace_0D245.xml
 
 
 // File: namespace_0D295.xml
 
 
-// File: namespace_0D299.xml
+// File: namespace_0D304.xml
 
 
-// File: namespace_0D311.xml
+// File: namespace_0D312.xml
 
 
-// File: namespace_0D317.xml
+// File: namespace_0D316.xml
+
+
+// File: namespace_0D318.xml
 
 
 // File: namespace_0D32.xml
 
 
-// File: namespace_0D338.xml
+// File: namespace_0D330.xml
 
 
-// File: namespace_0D342.xml
+// File: namespace_0D336.xml
 
 
-// File: namespace_0D344.xml
+// File: namespace_0D357.xml
 
 
-// File: namespace_0D346.xml
+// File: namespace_0D361.xml
 
 
-// File: namespace_0D356.xml
+// File: namespace_0D363.xml
 
 
-// File: namespace_0D371.xml
+// File: namespace_0D365.xml
 
 
 // File: namespace_0D375.xml
 
 
-// File: namespace_0D383.xml
-
-
-// File: namespace_0D392.xml
+// File: namespace_0D390.xml
 
 
 // File: namespace_0D394.xml
@@ -16128,46 +17089,55 @@ C++ includes: ZLimits.h
 // File: namespace_0D402.xml
 
 
+// File: namespace_0D413.xml
+
+
 // File: namespace_0D415.xml
 
 
 // File: namespace_0D42.xml
 
 
-// File: namespace_0D424.xml
+// File: namespace_0D423.xml
 
 
-// File: namespace_0D458.xml
+// File: namespace_0D436.xml
 
 
-// File: namespace_0D465.xml
+// File: namespace_0D445.xml
 
 
-// File: namespace_0D503.xml
+// File: namespace_0D447.xml
 
 
-// File: namespace_0D511.xml
+// File: namespace_0D481.xml
 
 
-// File: namespace_0D513.xml
+// File: namespace_0D488.xml
 
 
-// File: namespace_0D515.xml
+// File: namespace_0D526.xml
 
 
-// File: namespace_0D517.xml
+// File: namespace_0D534.xml
 
 
-// File: namespace_0D599.xml
+// File: namespace_0D536.xml
+
+
+// File: namespace_0D538.xml
 
 
 // File: namespace_0D6.xml
 
 
-// File: namespace_0D603.xml
+// File: namespace_0D620.xml
 
 
-// File: namespace_0D625.xml
+// File: namespace_0D624.xml
+
+
+// File: namespace_0D648.xml
 
 
 // File: namespace_0D98.xml
@@ -16179,20 +17149,18 @@ C++ includes: ZLimits.h
 Returns shape nrows, ncols of 2D array. 
 ";
 
-%feature("docstring")  ArrayUtils::createNumpyArray "PyObject * ArrayUtils::createNumpyArray(const std::vector< double > &data)
-";
+%feature("docstring")  ArrayUtils::createData "CreateDataImpl::ReturnType<T> ArrayUtils::createData(const T &vec)
 
-%feature("docstring")  ArrayUtils::createData1D "decltype(auto) ArrayUtils::createData1D(const T &vec)
-
-Creates  OutputData from 1D vector.
+Creates  OutputData array from input vector.
 
 Parameters:
 -----------
 
 vec: 
-std::vector<double>
+input vector 
+";
 
-std::unique_ptr< OutputData<double>> 
+%feature("docstring")  ArrayUtils::createNumpyArray "PyObject * ArrayUtils::createNumpyArray(const std::vector< double > &data)
 ";
 
 %feature("docstring")  ArrayUtils::createVector1D "decltype(auto) ArrayUtils::createVector1D(const T &data)
@@ -16206,19 +17174,6 @@ vec:
  OutputData<double>
 
 vector<double> 
-";
-
-%feature("docstring")  ArrayUtils::createData2D "decltype(auto) ArrayUtils::createData2D(const T &vec)
-
-Creates  OutputData from 2D vector.
-
-Parameters:
------------
-
-vec: 
-std::vector<std::vector<double>>
-
-std::unique_ptr< OutputData<double>> 
 ";
 
 %feature("docstring")  ArrayUtils::createVector2D "decltype(auto) ArrayUtils::createVector2D(const T &data)
@@ -16295,19 +17250,9 @@ Returns file extension after stripping '.gz' if any.
 Returns file main extension (without .gz). 
 ";
 
-%feature("docstring")  DataFormatUtils::isBinaryFile "bool DataFormatUtils::isBinaryFile(const std::string &file_name)
-
-returns true if file name corresponds to a binary file 
-";
-
 %feature("docstring")  DataFormatUtils::isIntFile "bool DataFormatUtils::isIntFile(const std::string &file_name)
 
 returns true if file name corresponds to  BornAgain native format (compressed or not) 
-";
-
-%feature("docstring")  DataFormatUtils::isTxtFile "bool DataFormatUtils::isTxtFile(const std::string &file_name)
-
-returns true if file name corresponds to simple numpy-style ASCII file 
 ";
 
 %feature("docstring")  DataFormatUtils::isTiffFile "bool DataFormatUtils::isTiffFile(const std::string &file_name)
@@ -16418,29 +17363,18 @@ Returns filename without extension(s). \"/home/user/filename.int\" -> \"filename
 Returns file names that agree with a regex glob pattern. 
 ";
 
+%feature("docstring")  FileSystemUtils::convert_utf8_to_utf16 "std::wstring FileSystemUtils::convert_utf8_to_utf16(const std::string &str)
+
+Converts utf8 string represented by std::string to utf16 string represented by std::wstring. 
+";
+
+%feature("docstring")  FileSystemUtils::IsFileExists "bool FileSystemUtils::IsFileExists(const std::string &str)
+
+Returns true if file with given name exists on disk. 
+";
+
 
 // File: namespaceFit.xml
-
-
-// File: namespaceIComputationUtils.xml
-%feature("docstring")  IComputationUtils::CreateFresnelMap "std::unique_ptr< IFresnelMap > IComputationUtils::CreateFresnelMap(const MultiLayer &multilayer, const SimulationOptions &sim_options)
-";
-
-%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const SimulationOptions &sim_options, const std::map< size_t, std::vector< HomogeneousRegion >> &region_map)
-
-creates a multilayer that contains averaged materials, for use in Fresnel calculations 
-";
-
-%feature("docstring")  IComputationUtils::CreateAveragedMultilayer "std::unique_ptr< MultiLayer > IComputationUtils::CreateAveragedMultilayer(const MultiLayer &multilayer, const SimulationOptions &sim_options)
-
-overload that calculates the region map itself 
-";
-
-%feature("docstring")  IComputationUtils::GetRegionMap "std::map< size_t, std::vector< HomogeneousRegion > > IComputationUtils::GetRegionMap(const MultiLayer &multilayer)
-";
-
-%feature("docstring")  IComputationUtils::MergeRegionMap "void IComputationUtils::MergeRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &dest, const std::map< size_t, std::vector< HomogeneousRegion >> &source)
-";
 
 
 // File: namespaceINodeUtils.xml
@@ -16544,21 +17478,21 @@ SimulationResult object.
 
 
 // File: namespaceInterferenceFunctionUtils.xml
-%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector< complex_t > InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers)
+%feature("docstring")  InterferenceFunctionUtils::PrecomputeScalarFormFactors "std::vector< complex_t > InterferenceFunctionUtils::PrecomputeScalarFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
-%feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const SafePointerVector< FormFactorCoherentSum > &ff_wrappers)
+%feature("docstring")  InterferenceFunctionUtils::PrecomputePolarizedFormFactors "matrixFFVector_t InterferenceFunctionUtils::PrecomputePolarizedFormFactors(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
 ";
 
 
 // File: namespaceKzComputation.xml
-%feature("docstring")  KzComputation::computeReducedKz "std::vector< complex_t > KzComputation::computeReducedKz(const MultiLayer &sample, kvector_t k)
+%feature("docstring")  KzComputation::computeReducedKz "std::vector< complex_t > KzComputation::computeReducedKz(const std::vector< Slice > &slices, kvector_t k)
 ";
 
-%feature("docstring")  KzComputation::computeKzFromSLDs "std::vector< complex_t > KzComputation::computeKzFromSLDs(const MultiLayer &sample, double kz)
+%feature("docstring")  KzComputation::computeKzFromSLDs "std::vector< complex_t > KzComputation::computeKzFromSLDs(const std::vector< Slice > &slices, double kz)
 ";
 
-%feature("docstring")  KzComputation::computeKzFromRefIndeces "std::vector< complex_t > KzComputation::computeKzFromRefIndeces(const MultiLayer &sample, kvector_t k)
+%feature("docstring")  KzComputation::computeKzFromRefIndices "std::vector< complex_t > KzComputation::computeKzFromRefIndices(const std::vector< Slice > &slices, kvector_t k)
 ";
 
 
@@ -16589,7 +17523,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -16673,6 +17607,11 @@ Bessel function of the first kind and order 1.
 Bessel function Bessel_J1(x)/x. 
 ";
 
+%feature("docstring")  MathFunctions::Bessel_I0 "double MathFunctions::Bessel_I0(double x)
+
+Modified Bessel function of the first kind and order 0. 
+";
+
 %feature("docstring")  MathFunctions::Bessel_J0 "complex_t MathFunctions::Bessel_J0(const complex_t z)
 
 Complex Bessel function of the first kind and order 0. 
@@ -16716,6 +17655,43 @@ convolution of two real vectors of equal size
 ";
 
 
+// File: namespaceMultiLayerUtils.xml
+%feature("docstring")  MultiLayerUtils::LayerThickness "double MultiLayerUtils::LayerThickness(const MultiLayer &multilayer, size_t i)
+
+Returns thickness of layer. 
+";
+
+%feature("docstring")  MultiLayerUtils::LayerTopInterface "const LayerInterface * MultiLayerUtils::LayerTopInterface(const MultiLayer &multilayer, size_t i)
+
+Returns top interface of layer. 
+";
+
+%feature("docstring")  MultiLayerUtils::LayerBottomInterface "const LayerInterface * MultiLayerUtils::LayerBottomInterface(const MultiLayer &multilayer, size_t i)
+
+Returns bottom interface of layer. 
+";
+
+%feature("docstring")  MultiLayerUtils::LayerTopRoughness "const LayerRoughness * MultiLayerUtils::LayerTopRoughness(const MultiLayer &multilayer, size_t i)
+
+Returns top roughness of layer. 
+";
+
+%feature("docstring")  MultiLayerUtils::IndexOfLayer "size_t MultiLayerUtils::IndexOfLayer(const MultiLayer &multilayer, const Layer *p_layer)
+
+Returns the index of the given layer. 
+";
+
+%feature("docstring")  MultiLayerUtils::ContainsCompatibleMaterials "bool MultiLayerUtils::ContainsCompatibleMaterials(const MultiLayer &multilayer)
+
+Returns true if the multilayer contains non-default materials of one type only. 
+";
+
+%feature("docstring")  MultiLayerUtils::ParticleRegions "std::vector< ZLimits > MultiLayerUtils::ParticleRegions(const MultiLayer &multilayer, bool use_slicing)
+
+Calculate z-regions occupied by particles. 
+";
+
+
 // File: namespaceNodeUtils.xml
 %feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode &node)
 
@@ -16729,14 +17705,71 @@ Returns path composed of node's displayName, with respect to root node.
 
 
 // File: namespaceNumeric.xml
-%feature("docstring")  Numeric::areAlmostEqual "bool BA_CORE_API_ Numeric::areAlmostEqual(double a, double b, double tolerance)
+%feature("docstring")  Numeric::AreAlmostEqual "bool BA_CORE_API_ Numeric::AreAlmostEqual(double a, double b, double tolerance)
 
 Returns true if two doubles agree within epsilon*tolerance. 
 ";
 
-%feature("docstring")  Numeric::get_relative_difference "double BA_CORE_API_ Numeric::get_relative_difference(double a, double b)
+%feature("docstring")  Numeric::GetAbsoluteDifference "double BA_CORE_API_ Numeric::GetAbsoluteDifference(double a, double b)
+
+Returns the absolute value of the difference between a and b. 
+";
+
+%feature("docstring")  Numeric::GetRelativeDifference "double BA_CORE_API_ Numeric::GetRelativeDifference(double a, double b)
 
 Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
+";
+
+%feature("docstring")  Numeric::GetLogDifference "double BA_CORE_API_ Numeric::GetLogDifference(double a, double b)
+
+Returns the difference of the logarithm; input values are truncated at the minimum positive value. 
+";
+
+
+// File: namespaceObjectiveMetricUtils.xml
+%feature("docstring")  ObjectiveMetricUtils::l1Norm "const std::function< double(double)> ObjectiveMetricUtils::l1Norm()
+
+Returns L1 normalization function. 
+";
+
+%feature("docstring")  ObjectiveMetricUtils::l2Norm "const std::function< double(double)> ObjectiveMetricUtils::l2Norm()
+
+Returns L2 normalization function. 
+";
+
+%feature("docstring")  ObjectiveMetricUtils::createMetric "std::unique_ptr< ObjectiveMetric > ObjectiveMetricUtils::createMetric(const std::string &metric)
+
+Creates the specified metric with the default norm. 
+";
+
+%feature("docstring")  ObjectiveMetricUtils::createMetric "std::unique_ptr< ObjectiveMetric > ObjectiveMetricUtils::createMetric(std::string metric, std::string norm)
+
+Creates the metric with the specified norm. 
+";
+
+%feature("docstring")  ObjectiveMetricUtils::availableMetricOptions "std::string ObjectiveMetricUtils::availableMetricOptions()
+
+Prints available metric options. 
+";
+
+%feature("docstring")  ObjectiveMetricUtils::normNames "std::vector< std::string > ObjectiveMetricUtils::normNames()
+
+Returns the names of the norms used by  ObjectiveMetric. 
+";
+
+%feature("docstring")  ObjectiveMetricUtils::metricNames "std::vector< std::string > ObjectiveMetricUtils::metricNames()
+
+Returns the names of the objective metrics used. 
+";
+
+%feature("docstring")  ObjectiveMetricUtils::defaultNormName "std::string ObjectiveMetricUtils::defaultNormName()
+
+Returns default norm name. 
+";
+
+%feature("docstring")  ObjectiveMetricUtils::defaultMetricName "std::string ObjectiveMetricUtils::defaultMetricName()
+
+Returns default metric name. 
 ";
 
 
@@ -16771,10 +17804,12 @@ Returns units of main parameter.
 // File: namespacePyArrayImport.xml
 %feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< double > &vec)
 
-Provides functionality for importing 1D or 2D arrays of doubles from python into  OutputData. 
+for importing 1D array of doubles from python into  OutputData
 ";
 
 %feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
+
+for importing 2D array of doubles from python into  OutputData
 ";
 
 
@@ -16945,6 +17980,25 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 
+// File: namespaceSpecularMagnetic.xml
+%feature("docstring")  SpecularMagnetic::Execute "void SpecularMagnetic::Execute(const std::vector< Slice > &slices, const kvector_t k, std::vector< MatrixRTCoefficients > &coeff)
+
+Computes refraction angle reflection/transmission coefficients for given sliced multilayer and wavevector k 
+";
+
+
+// File: namespaceSpecularMatrix.xml
+%feature("docstring")  SpecularMatrix::Execute "std::vector< ScalarRTCoefficients > SpecularMatrix::Execute(const std::vector< Slice > &slices, kvector_t k)
+
+Computes refraction angles and transmission/reflection coefficients for given coherent wave propagation in a multilayer. Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)]. 
+";
+
+%feature("docstring")  SpecularMatrix::Execute "std::vector< ScalarRTCoefficients > SpecularMatrix::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz)
+
+Computes transmission/reflection coefficients for given set of z-components of wave-vectors in a multilayer. Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)]. 
+";
+
+
 // File: namespaceStandardSimulations.xml
 %feature("docstring")  StandardSimulations::PolarizedDWBAMagCylinders2 "GISASSimulation * StandardSimulations::PolarizedDWBAMagCylinders2()
 ";
@@ -17068,10 +18122,15 @@ GISAS simulation with rectangular detector, region of interest and mask.
 Simulation with fitting.  Beam intensity set to provide reasonably large values in detector channels. 
 ";
 
+%feature("docstring")  StandardSimulations::ExtraLongWavelengthGISAS "GISASSimulation * StandardSimulations::ExtraLongWavelengthGISAS()
+
+GISAS simulation with an extra long wavelength. 
+";
+
 %feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
 ";
 
-%feature("docstring")  StandardSimulations::BasicSpecularTOF "SpecularSimulation * StandardSimulations::BasicSpecularTOF()
+%feature("docstring")  StandardSimulations::BasicSpecularTOF "BA_CORE_API_ SpecularSimulation* StandardSimulations::BasicSpecularTOF()
 ";
 
 %feature("docstring")  StandardSimulations::BasicSpecularQ "SpecularSimulation * StandardSimulations::BasicSpecularQ()
@@ -17084,6 +18143,12 @@ Simulation with fitting.  Beam intensity set to provide reasonably large values 
 ";
 
 %feature("docstring")  StandardSimulations::SpecularDivergentBeam "SpecularSimulation * StandardSimulations::SpecularDivergentBeam()
+";
+
+%feature("docstring")  StandardSimulations::TOFRWithRelativeResolution "SpecularSimulation * StandardSimulations::TOFRWithRelativeResolution()
+";
+
+%feature("docstring")  StandardSimulations::TOFRWithPointwiseResolution "SpecularSimulation * StandardSimulations::TOFRWithPointwiseResolution()
 ";
 
 %feature("docstring")  StandardSimulations::MiniOffSpec "OffSpecSimulation * StandardSimulations::MiniOffSpec()
@@ -17456,13 +18521,10 @@ global helper function for comparison of axes
 // File: IComputation_8h.xml
 
 
-// File: IComputationUtils_8cpp.xml
+// File: MultiLayerUtils_8cpp.xml
 
 
-// File: IComputationUtils_8h.xml
-
-
-// File: MultilayerInfo_8h.xml
+// File: MultiLayerUtils_8h.xml
 
 
 // File: ParticleLayoutComputation_8cpp.xml
@@ -17477,6 +18539,24 @@ global helper function for comparison of axes
 // File: PoissonNoiseBackground_8h.xml
 
 
+// File: ProcessedLayout_8cpp.xml
+
+
+// File: ProcessedLayout_8h.xml
+
+
+// File: ProcessedSample_8cpp.xml
+
+
+// File: ProcessedSample_8h.xml
+
+
+// File: ProfileHelper_8cpp.xml
+
+
+// File: ProfileHelper_8h.xml
+
+
 // File: ProgressHandler_8cpp.xml
 
 
@@ -17487,6 +18567,12 @@ global helper function for comparison of axes
 
 
 // File: RoughMultiLayerComputation_8h.xml
+
+
+// File: Slice_8cpp.xml
+
+
+// File: Slice_8h.xml
 
 
 // File: SpecularComputation_8cpp.xml
@@ -17595,6 +18681,18 @@ global helper function for comparison of axes
 
 
 // File: IterationInfo_8h.xml
+
+
+// File: ObjectiveMetric_8cpp.xml
+
+
+// File: ObjectiveMetric_8h.xml
+
+
+// File: ObjectiveMetricUtils_8cpp.xml
+
+
+// File: ObjectiveMetricUtils_8h.xml
 
 
 // File: PyFittingCallbacks_8cpp.xml
@@ -17864,6 +18962,12 @@ global helper function for comparison of axes
 // File: TiffHandler_8h.xml
 
 
+// File: AngularSpecScan_8cpp.xml
+
+
+// File: AngularSpecScan_8h.xml
+
+
 // File: ArrayUtils_8cpp.xml
 
 
@@ -18002,6 +19106,12 @@ global helper function for comparison of axes
 // File: IsGISAXSDetector_8h.xml
 
 
+// File: ISpecularScan_8cpp.xml
+
+
+// File: ISpecularScan_8h.xml
+
+
 // File: IUnitConverter_8cpp.xml
 
 
@@ -18035,6 +19145,12 @@ make Swappable
 // File: PyArrayImportUtils_8h.xml
 
 
+// File: QSpecScan_8cpp.xml
+
+
+// File: QSpecScan_8h.xml
+
+
 // File: RectangularDetector_8cpp.xml
 
 
@@ -18063,6 +19179,12 @@ make Swappable
 
 
 // File: SampleProvider_8h.xml
+
+
+// File: ScanResolution_8cpp.xml
+
+
+// File: ScanResolution_8h.xml
 
 
 // File: SimpleUnitConverters_8cpp.xml
@@ -18390,13 +19512,9 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: LayoutStrategyBuilder_8cpp.xml
-%feature("docstring")  ScaleRegionMap "void ScaleRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &region_map, double factor)
-";
 
 
 // File: LayoutStrategyBuilder_8h.xml
-%feature("docstring")  ScaleRegionMap "void ScaleRegionMap(std::map< size_t, std::vector< HomogeneousRegion >> &region_map, double factor)
-";
 
 
 // File: MatrixFresnelMap_8cpp.xml
@@ -18415,6 +19533,40 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: MultiLayer_8h.xml
+
+
+// File: MultiLayerFuncs_8cpp.xml
+%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+Calculate average material profile for given multilayer 
+";
+
+%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+Get default z limits for generating a material profile. 
+";
+
+%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+Generate z values (equidistant) for use in MaterialProfile. 
+";
+
+
+// File: MultiLayerFuncs_8h.xml
+%feature("docstring")  MaterialProfile "BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+Calculate average material profile for given multilayer 
+";
+
+%feature("docstring")  DefaultMaterialProfileLimits "BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+Get default z limits for generating a material profile. 
+";
+
+%feature("docstring")  GenerateZValues "BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+Generate z values (equidistant) for use in MaterialProfile. 
+";
 
 
 // File: ScalarFresnelMap_8cpp.xml
@@ -18536,6 +19688,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: ParameterUtils_8h.xml
+
+
+// File: RangedDistributions_8cpp.xml
+
+
+// File: RangedDistributions_8h.xml
 
 
 // File: RealParameter_8cpp.xml
@@ -18881,12 +20039,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: Simulation2D_8h.xml
 
 
-// File: SpecularDataHandler_8cpp.xml
-
-
-// File: SpecularDataHandler_8h.xml
-
-
 // File: SpecularSimulation_8cpp.xml
 
 
@@ -19153,6 +20305,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: StandardSimulations_8h.xml
+
+
+// File: ThickAbsorptiveSampleBuilder_8cpp.xml
+
+
+// File: ThickAbsorptiveSampleBuilder_8h.xml
 
 
 // File: TransformationsBuilder_8cpp.xml

@@ -39,6 +39,16 @@ public:
     OutputData<double>* readOutputData(std::istream& input_stream);
 };
 
+//! Strategy to read Reflectometry data from ASCII file.
+//! @ingroup input_output_internal
+
+class BA_CORE_API_ OutputDataReadReflectometryStrategy : public IOutputDataReadStrategy
+{
+public:
+    OutputData<double>* readOutputData(std::istream& input_stream);
+};
+
+
 //! Strategy to read OutputData from simple ASCII file with the layout as in numpy.savetxt.
 //! @ingroup input_output_internal
 

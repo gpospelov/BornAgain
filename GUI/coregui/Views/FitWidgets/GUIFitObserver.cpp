@@ -51,7 +51,7 @@ void GUIFitObserver::update(const FitObjective* subject)
     if (subject->isCompleted())
         info.m_log_info = subject->minimizerResult().toString();
 
-    std::unique_ptr<OutputData<double>> data(subject->simulationResult().data());
+    auto data = subject->dataPair().simulationResult().data();
     info.m_sim_values = data->getRawDataVector();
 
     m_iteration_info = info;

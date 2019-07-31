@@ -16,16 +16,13 @@
 #define IFRESNELMAP_H
 
 #include "ILayerRTCoefficients.h"
+#include "Slice.h"
+#include "Vectors3D.h"
 #include "WinDllMacros.h"
-#include <cstddef>
 #include <memory>
+#include <vector>
 
-template<class T> class BasicVector3D;
-class MultiLayer;
 class SimulationElement;
-class SpecularSimulationElement;
-
-typedef BasicVector3D<double> kvector_t;
 
 //! Holds the necessary information to calculate the radiation wavefunction in every layer
 //! for different incoming (outgoing) angles of the beam in the top layer
@@ -50,8 +47,8 @@ public:
         return getCoefficients(sim_element.getKi(), layer_index);
     }
 
-    //! Sets the multilayer to be used for the Fresnel calculations.
-    virtual void setMultilayer(const MultiLayer& multilayer);
+    virtual void setSlices(const std::vector<Slice>& slices);
+    const std::vector<Slice>& slices() const;
 
     //! Disables caching of previously computed Fresnel coefficients
     void disableCaching();
@@ -60,8 +57,8 @@ protected:
     virtual std::unique_ptr<const ILayerRTCoefficients>
     getCoefficients(const kvector_t& kvec, size_t layer_index) const = 0;
 
+    std::vector<Slice> m_slices;
     bool m_use_cache;
-    std::unique_ptr<MultiLayer> mP_multilayer;
 };
 
 #endif // IFRESNELMAP_H

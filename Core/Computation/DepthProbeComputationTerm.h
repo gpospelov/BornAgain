@@ -16,18 +16,16 @@
 #define DEPTHPROBECOMPUTATIONTERM_H
 
 #include <memory>
-#include <vector>
 
 class DelayedProgressCounter;
-class IFresnelMap;
-class MultiLayer;
+class ProcessedSample;
 class ProgressHandler;
 class DepthProbeElement;
 
 class DepthProbeComputationTerm
 {
 public:
-    DepthProbeComputationTerm(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    DepthProbeComputationTerm(const ProcessedSample* p_sample);
     ~DepthProbeComputationTerm();
 
     void setProgressHandler(ProgressHandler* p_progress);
@@ -35,8 +33,7 @@ public:
     void compute(DepthProbeElement& elem) const;
 
 private:
-    const MultiLayer* mp_multilayer;
-    const IFresnelMap* mp_fresnel_map;
+    const ProcessedSample* mp_sample;
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
 };
 

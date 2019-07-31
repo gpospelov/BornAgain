@@ -72,7 +72,7 @@ void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_
         throw Exceptions::ClassInitializationException(
                 "OffSpecSimulation::prepareSimulation() "
                 "-> Error. Incoming alpha range size < 1.");
-    const double alpha_zero = 0.0;
+    const double alpha_zero = alpha_axis.getMin();
     m_instrument.setBeamParameters(wavelength, alpha_zero, phi_i);
     updateIntensityMap();
 }
@@ -93,6 +93,12 @@ std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const
                                                   getInstrument().getBeam(), *axis);
 }
 
+size_t OffSpecSimulation::intensityMapSize() const
+{
+    checkInitialization();
+    return mP_alpha_i_axis->size() * m_instrument.getDetectorAxis(1).size();
+}
+
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other)
     : Simulation2D(other)
 {
@@ -108,12 +114,11 @@ void OffSpecSimulation::initSimulationElementVector()
     Beam beam = m_instrument.getBeam();
     const double wavelength = beam.getWavelength();
     const double phi_i = beam.getPhi();
-    const double alpha_shift = beam.getAlpha();
 
     for (size_t i = 0; i < mP_alpha_i_axis->size(); ++i) {
         // Incoming angle by convention defined as positive:
         double alpha_i = mP_alpha_i_axis->getBin(i).getMidPoint();
-        double total_alpha = alpha_i + alpha_shift;
+        double total_alpha = alpha_i;
         beam.setCentralK(wavelength, total_alpha, phi_i);
         auto sim_elements_i = generateSimulationElements(beam);
         m_sim_elements.insert(m_sim_elements.end(), std::make_move_iterator(sim_elements_i.begin()),
@@ -186,14 +191,6 @@ void OffSpecSimulation::checkInitialization() const
     if (m_instrument.getDetectorDimension()!=2)
         throw Exceptions::RuntimeErrorException(
             "OffSpecSimulation::checkInitialization: detector is not two-dimensional");
-    const IAxis& phi_axis = m_instrument.getDetectorAxis(0);
-    if (phi_axis.getName()!=BornAgain::PHI_AXIS_NAME)
-        throw Exceptions::RuntimeErrorException(
-            "OffSpecSimulation::checkInitialization: phi-axis is not correct");
-    const IAxis& alpha_axis = m_instrument.getDetectorAxis(1);
-    if (alpha_axis.getName()!=BornAgain::ALPHA_AXIS_NAME)
-        throw Exceptions::RuntimeErrorException(
-            "OffSpecSimulation::checkInitialization: alpha-axis is not correct");
 }
 
 void OffSpecSimulation::initialize()

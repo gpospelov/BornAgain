@@ -155,7 +155,6 @@ MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
     particle_layout.addParticle(cylinder1, 0.8);
     particle_layout.addParticle(cylinder2, 0.2);
     particle_layout.setInterferenceFunction(interference);
-    particle_layout.setApproximation(ILayout::SSCA);
 
     Layer air_layer(m_ambience);
     air_layer.addLayout(particle_layout);
@@ -201,7 +200,6 @@ MultiLayer* CylindersInSSCABuilder::buildSample() const
     particle_layout.addParticle(particle_collection);
 
     particle_layout.setInterferenceFunction(interference_function);
-    particle_layout.setApproximation(ILayout::SSCA);
 
     air_layer.addLayout(particle_layout);
 

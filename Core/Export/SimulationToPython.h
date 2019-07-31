@@ -50,11 +50,10 @@ private:
 
     std::string defineGISASBeam(const GISASSimulation& simulation) const;
     std::string defineOffSpecBeam(const OffSpecSimulation& simulation) const;
-    std::string defineSpecularBeam(const SpecularSimulation& simulation) const;
+    std::string defineSpecularScan(const SpecularSimulation& simulation) const;
 
     std::string defineBeamPolarization(const Beam& beam) const;
     std::string defineBeamIntensity(const Beam& beam) const;
-    std::string defineFootprint(const IFootprintFactor& beam) const;
 
     std::string defineParameterDistributions(const Simulation* simulation) const;
     std::string defineMasks(const Simulation* simulation) const;

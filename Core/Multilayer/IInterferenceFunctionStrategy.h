@@ -16,17 +16,13 @@
 #define IINTERFERENCEFUNCTIONSTRATEGY_H
 
 #include "Complex.h"
-#include "SafePointerVector.h"
 #include "SimulationOptions.h"
-#include "Vectors3D.h"
 #include <memory>
 #include <vector>
 
 template <class T> class IntegratorMCMiser;
-class Bin1DCVector;
 class FormFactorCoherentSum;
 class IInterferenceFunction;
-class IFresnelMap;
 class SimulationElement;
 
 //! Base class of all interference function strategy classes.
@@ -49,14 +45,14 @@ public:
     virtual ~IInterferenceFunctionStrategy();
 
     //! Initializes the object with form factors and an interference function
-    void init(const SafePointerVector<FormFactorCoherentSum>& weighted_formfactors,
+    void init(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
               const IInterferenceFunction* p_iff);
 
     //! Calculates the intensity for scalar particles/interactions
     double evaluate(const SimulationElement& sim_element) const;
 
 protected:
-    SafePointerVector<FormFactorCoherentSum> m_formfactor_wrappers;
+    std::vector<FormFactorCoherentSum> m_formfactor_wrappers;
     std::unique_ptr<IInterferenceFunction> mP_iff;
     SimulationOptions m_options;
 

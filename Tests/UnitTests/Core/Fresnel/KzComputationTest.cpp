@@ -4,6 +4,8 @@
 #include "MultiLayer.h"
 #include "MaterialFactoryFuncs.h"
 #include "PlainMultiLayerBySLDBuilder.h"
+#include "ProcessedSample.h"
+#include "SimulationOptions.h"
 #include "Units.h"
 
 class KzComputationTest : public ::testing::Test
@@ -35,9 +37,12 @@ TEST_F(KzComputationTest, initial)
 
     kvector_t k = vecOfLambdaAlphaPhi(1.0, 1.0 * Units::deg, 0.0);
 
-    auto res_ref = KzComputation::computeReducedKz(mLayer, k);
-    auto res_ri = KzComputation::computeKzFromRefIndeces(mLayer, k);
-    auto res_sld = KzComputation::computeKzFromSLDs(mLayer, k.z());
+    SimulationOptions options;
+    ProcessedSample sample(mLayer, options);
+
+    auto res_ref = KzComputation::computeReducedKz(sample.slices(), k);
+    auto res_ri = KzComputation::computeKzFromRefIndices(sample.slices(), k);
+    auto res_sld = KzComputation::computeKzFromSLDs(sample.slices(), k.z());
 
     EXPECT_EQ(res_ref.size(), res_sld.size());
     EXPECT_EQ(res_ref.size(), res_ri.size());
@@ -72,9 +77,12 @@ TEST_F(KzComputationTest, negativeKz)
 
     kvector_t k = vecOfLambdaAlphaPhi(1.0, -1.0 * Units::deg, 0.0);
 
-    auto res_ref = KzComputation::computeReducedKz(mLayer, k);
-    auto res_ri = KzComputation::computeKzFromRefIndeces(mLayer, k);
-    auto res_sld = KzComputation::computeKzFromSLDs(mLayer, k.z());
+    SimulationOptions options;
+    ProcessedSample sample(mLayer, options);
+
+    auto res_ref = KzComputation::computeReducedKz(sample.slices(), k);
+    auto res_ri = KzComputation::computeKzFromRefIndices(sample.slices(), k);
+    auto res_sld = KzComputation::computeKzFromSLDs(sample.slices(), k.z());
 
     EXPECT_EQ(res_ref.size(), res_sld.size());
     EXPECT_EQ(res_ref.size(), res_ri.size());
@@ -109,8 +117,11 @@ TEST_F(KzComputationTest, absorptiveAmbience)
 
     kvector_t k = vecOfLambdaAlphaPhi(1.0, 1.0 * Units::deg, 0.0);
 
-    auto res_ri = KzComputation::computeKzFromRefIndeces(mLayer, k);
-    auto res_sld = KzComputation::computeKzFromSLDs(mLayer, k.z());
+    SimulationOptions options;
+    ProcessedSample sample(mLayer, options);
+
+    auto res_ri = KzComputation::computeKzFromRefIndices(sample.slices(), k);
+    auto res_sld = KzComputation::computeKzFromSLDs(sample.slices(), k.z());
 
     EXPECT_EQ(res_ri.size(), res_sld.size());
     for (size_t i = 0; i < res_ri.size(); ++i) {
@@ -126,8 +137,11 @@ TEST_F(KzComputationTest, TiNiSampleWithRoughness)
 
     kvector_t k = vecOfLambdaAlphaPhi(1.0, 0.0001 * Units::deg, 0.0);
 
-    auto res_ri = KzComputation::computeKzFromRefIndeces(*sample, k);
-    auto res_sld = KzComputation::computeKzFromSLDs(*sample, k.z());
+    SimulationOptions options;
+    ProcessedSample proc_sample(*sample, options);
+
+    auto res_ri = KzComputation::computeKzFromRefIndices(proc_sample.slices(), k);
+    auto res_sld = KzComputation::computeKzFromSLDs(proc_sample.slices(), k.z());
 
     EXPECT_EQ(res_ri.size(), res_sld.size());
     for (size_t i = 0; i < res_ri.size(); ++i) {

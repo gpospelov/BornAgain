@@ -19,6 +19,7 @@
 #include "FootprintFactorSquare.h"
 #include "GISASSimulation.h"
 #include "INodeUtils.h"
+#include "ISpecularScan.h"
 #include "ParameterUtils.h"
 #include "PoissonNoiseBackground.h"
 #include "PythonFormatting.h"
@@ -124,7 +125,7 @@ std::string SimulationToPython::defineSpecularSimulation(const SpecularSimulatio
     std::ostringstream result;
     result << indent() << "simulation = ba.SpecularSimulation()\n";
     result << defineDetectorPolarizationAnalysis(simulation);
-    result << defineSpecularBeam(*simulation);
+    result << defineSpecularScan(*simulation);
     result << defineParameterDistributions(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
@@ -284,29 +285,18 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     return result.str();
 }
 
-std::string SimulationToPython::defineSpecularBeam(const SpecularSimulation& simulation) const
+std::string SimulationToPython::defineSpecularScan(const SpecularSimulation& simulation) const
 {
     std::ostringstream result;
-    const Beam& beam = simulation.getInstrument().getBeam();
+    const ISpecularScan* scan = simulation.dataHandler();
+    if (!scan)
+        throw std::runtime_error("Error SimulationToPython::defineSpecularScan: passed simulation "
+                                 "does not contain any scan");
+    result << *scan << "\n";
 
-    const auto footprint = simulation.footprintFactor();
-    if (footprint)
-        result << indent() << "footprint = " << defineFootprint(*footprint);
-
-    const std::string axis_def = indent() + "alpha_i_axis = ";
-    result << axis_def
-           << PythonFormatting::printAxis(*simulation.coordinateAxis(), BornAgain::UnitsRad,
-                                          axis_def.size())
-           << "\n";
-
-    result << indent() << "simulation.setBeamParameters(" << printNm(beam.getWavelength()) << ", "
-           << "alpha_i_axis";
-    if (footprint)
-        result << ", " << "footprint";
-    result << ")\n";
-
-    result << defineBeamPolarization(beam);
-    result << defineBeamIntensity(beam);
+    result << indent() << "simulation.setScan(scan)\n";
+    result << defineBeamIntensity(simulation.getInstrument().getBeam());
+    result << "\n";
     return result.str();
 }
 
@@ -331,21 +321,6 @@ std::string SimulationToPython::defineBeamIntensity(const Beam& beam) const
     if (beam_intensity > 0.0)
         result << indent() << "simulation.setBeamIntensity("
                << printScientificDouble(beam_intensity) << ")\n";
-    return result.str();
-}
-
-std::string SimulationToPython::defineFootprint(const IFootprintFactor& footprint) const
-{
-    std::ostringstream result;
-
-    if (dynamic_cast<const FootprintFactorGaussian*>(&footprint))
-        result << "ba.FootprintFactorGaussian";
-    else if (dynamic_cast<const FootprintFactorSquare*>(&footprint))
-        result << "ba.FootprintFactorSquare";
-    else
-        throw std::runtime_error(
-            "Error in SimulationToPython::defineFootprint: unknown footprint type");
-    result << "(" << printDouble(footprint.widthRatio()) << ")\n";
     return result.str();
 }
 

@@ -13,10 +13,17 @@
 // ************************************************************************** //
 
 #include "DistributionItems.h"
-#include "Distributions.h"
 #include "BornAgainNamespace.h"
+#include "Distributions.h"
+#include "RangedDistributions.h"
 #include "RealLimitsItems.h"
 #include <cmath>
+
+namespace {
+template <class DistrType>
+std::unique_ptr<RangedDistribution>
+createRangedDistribution(const SymmetricDistributionItem& distr_item, double scale);
+}
 
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
 const QString DistributionItem::P_SIGMA_FACTOR = Constants::DistributionSigmaFactor;
@@ -115,6 +122,17 @@ std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution(double
     return nullptr;
 }
 
+std::unique_ptr<RangedDistribution>
+DistributionNoneItem::createRangedDistribution(double) const
+{
+    return nullptr;
+}
+
+double DistributionNoneItem::deviation(double) const
+{
+    return 0.0;
+}
+
 void DistributionNoneItem::init_distribution(double value)
 {
     setItemValue(DistributionNoneItem::P_MEAN, value);
@@ -171,6 +189,17 @@ std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution(dou
     return std::make_unique<DistributionLorentz>(scale*mean, scale*hwhm);
 }
 
+std::unique_ptr<RangedDistribution>
+DistributionLorentzItem::createRangedDistribution(double scale) const
+{
+    return ::createRangedDistribution<RangedDistributionLorentz>(*this, scale);
+}
+
+double DistributionLorentzItem::deviation(double scale) const
+{
+    return getItemValue(P_HWHM).toDouble() * scale;
+}
+
 void DistributionLorentzItem::init_distribution(double value)
 {
     double sigma(0.1 * std::abs(value));
@@ -201,6 +230,17 @@ std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution(do
     double mean = getItemValue(P_MEAN).toDouble();
     double std_dev = getItemValue(P_STD_DEV).toDouble();
     return std::make_unique<DistributionGaussian>(scale*mean, scale*std_dev);
+}
+
+std::unique_ptr<RangedDistribution>
+DistributionGaussianItem::createRangedDistribution(double scale) const
+{
+    return ::createRangedDistribution<RangedDistributionGaussian>(*this, scale);
+}
+
+double DistributionGaussianItem::deviation(double scale) const
+{
+    return getItemValue(P_STD_DEV).toDouble() * scale;
 }
 
 void DistributionGaussianItem::init_distribution(double value)
@@ -274,6 +314,17 @@ std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution(doub
     return std::make_unique<DistributionCosine>(scale*mean, scale*sigma);
 }
 
+std::unique_ptr<RangedDistribution>
+DistributionCosineItem::createRangedDistribution(double scale) const
+{
+    return ::createRangedDistribution<RangedDistributionCosine>(*this, scale);
+}
+
+double DistributionCosineItem::deviation(double scale) const
+{
+    return getItemValue(P_SIGMA).toDouble() * scale;
+}
+
 void DistributionCosineItem::init_distribution(double value)
 {
     double sigma(0.1 * std::abs(value));
@@ -329,4 +380,21 @@ void DistributionTrapezoidItem::init_distribution(double value)
 void DistributionTrapezoidItem::showMean(bool flag)
 {
     getItem(P_CENTER)->setVisible(flag);
+}
+
+namespace {
+template <class DistrType>
+std::unique_ptr<RangedDistribution>
+createRangedDistribution(const SymmetricDistributionItem& distr_item, double scale)
+{
+    int n_samples = distr_item.getItemValue(SymmetricDistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+    double n_sig = distr_item.getItemValue(SymmetricDistributionItem::P_SIGMA_FACTOR).toDouble();
+
+    auto limits_item = distr_item.getGroupItem(SymmetricDistributionItem::P_LIMITS);
+    const RealLimits limits = limits_item
+            ? dynamic_cast<RealLimitsItem*>(limits_item)->createRealLimits(scale)
+            : RealLimits::limitless();
+
+    return std::make_unique<DistrType>(n_samples, n_sig, limits);
+}
 }

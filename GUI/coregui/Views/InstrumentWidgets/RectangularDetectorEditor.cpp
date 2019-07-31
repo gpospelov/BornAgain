@@ -87,7 +87,7 @@ void RectangularDetectorEditor::create_editors()
     m_gridLayout->addWidget(m_alignmentEditor, 2, 0);
 
     // editors for various positions
-    m_positionsEditor = new ComponentEditor(ComponentEditor::GroupWidget, "Positions");
+    m_positionsEditor = new ComponentEditor(ComponentEditor::GroupWidget, "Positions [mm]");
     m_gridLayout->addWidget(m_positionsEditor, 3, 0);
 
     m_normalEditor = new ComponentEditor(ComponentEditor::GroupWidget, "Normal vector");

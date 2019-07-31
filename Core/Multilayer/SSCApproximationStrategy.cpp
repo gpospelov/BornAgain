@@ -42,7 +42,7 @@ double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_
     auto precomputed_ff = PrecomputeScalarFormFactors(sim_element, m_formfactor_wrappers);
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         complex_t ff = precomputed_ff[i];
-        double fraction = m_formfactor_wrappers[i]->relativeAbundance();
+        double fraction = m_formfactor_wrappers[i].relativeAbundance();
         diffuse_intensity += fraction * std::norm(ff);
     }
     complex_t mean_ff_norm  = m_helper.getMeanFormfactorNorm(qp, precomputed_ff,
@@ -63,7 +63,7 @@ double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& s
     const auto& polarization_handler = sim_element.polarizationHandler();
     for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
         Eigen::Matrix2cd ff = precomputed_ff[i];
-        double fraction = m_formfactor_wrappers[i]->relativeAbundance();
+        double fraction = m_formfactor_wrappers[i].relativeAbundance();
         diffuse_matrix += fraction * (ff * polarization_handler.getPolarization() * ff.adjoint());
     }
     Eigen::Matrix2cd mff_orig, mff_conj; // original and conjugated mean formfactor

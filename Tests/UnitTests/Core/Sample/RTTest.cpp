@@ -8,6 +8,8 @@
 #include "MathConstants.h"
 #include "MultiLayer.h"
 #include "ParticleLayout.h"
+#include "ProcessedSample.h"
+#include "SimulationOptions.h"
 #include "SpecularMatrix.h"
 
 class RTTest : public ::testing::Test
@@ -56,8 +58,12 @@ TEST_F(RTTest, SplitLayer)
         sample2.addLayer(Layer(amat, 10));
     sample2.addLayer(substrate);
 
-    coeffs1 = SpecularMatrix::execute(sample1, k);
-    coeffs2 = SpecularMatrix::execute(sample2, k);
+    SimulationOptions options;
+    ProcessedSample sample_1(sample1, options);
+    ProcessedSample sample_2(sample2, options);
+
+    coeffs1 = SpecularMatrix::Execute(sample_1.slices(), k);
+    coeffs2 = SpecularMatrix::Execute(sample_2.slices(), k);
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );
@@ -89,8 +95,12 @@ TEST_F(RTTest, SplitBilayers)
     }
     sample2.addLayer(substrate);
 
-    coeffs1 = SpecularMatrix::execute(sample1, k);
-    coeffs2 = SpecularMatrix::execute(sample2, k);
+    SimulationOptions options;
+    ProcessedSample sample_1(sample1, options);
+    ProcessedSample sample_2(sample2, options);
+
+    coeffs1 = SpecularMatrix::Execute(sample_1.slices(), k);
+    coeffs2 = SpecularMatrix::Execute(sample_2.slices(), k);
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );

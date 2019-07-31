@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/MinimizerTestPlan.h
+//! @file      Tests/Functional/TestMachinery/MinimizerTestPlan.cpp
 //! @brief     Implements class MinimizerTestPlan
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -66,7 +66,7 @@ bool MinimizerTestPlan::valuesAsExpected(const std::vector<double>& values) cons
     size_t index(0);
     std::ostringstream text;
     for (const auto& plan : m_parameter_plan) {
-        double diff = Numeric::get_relative_difference(values[index], plan.expectedValue());
+        double diff = Numeric::GetRelativeDifference(values[index], plan.expectedValue());
 
         bool diff_ok(true);
         if (diff > plan.tolerance())

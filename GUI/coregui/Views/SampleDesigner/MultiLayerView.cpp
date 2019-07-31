@@ -70,7 +70,11 @@ void MultiLayerView::addView(IView* childView, int row)
     } else {
         int previous_row = m_layers.indexOf(layer);
         if(previous_row != row) {
-            m_layers.swap(previous_row, row);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+        m_layers.swapItemsAt(previous_row, row);
+#else
+        m_layers.swap(previous_row, row);
+#endif
         }
     }
     updateGeometry();

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/SampleDesigner/SampleViewDocks.h
+//! @file      GUI/coregui/Views/SampleDesigner/SampleViewDocks.cpp
 //! @brief     Defines class SampleViewDocks
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -85,7 +85,7 @@ void SampleViewDocks::onResetLayout()
     findDock(INFO)->hide();
 }
 
-void SampleViewDocks::togleDock(int id)
+void SampleViewDocks::toggleDock(int id)
 {
     auto dock = findDock(id);
     dock->setHidden(!dock->isHidden());

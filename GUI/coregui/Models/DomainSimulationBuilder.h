@@ -32,7 +32,7 @@ namespace DomainSimulationBuilder
 
 BA_CORE_API_ std::unique_ptr<Simulation> createSimulation(const MultiLayerItem* sampleItem,
                                             const InstrumentItem* instrumentItem,
-                                            const SimulationOptionsItem* optionsItem = 0);
+                                            const SimulationOptionsItem* optionsItem = nullptr);
 };
 
 #endif // DOMAINSIMULATIONBUILDER_H

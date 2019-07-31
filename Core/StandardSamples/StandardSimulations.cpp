@@ -13,11 +13,13 @@
 // ************************************************************************** //
 
 #include "StandardSimulations.h"
+#include "AngularSpecScan.h"
 #include "BornAgainNamespace.h"
 #include "ConstantBackground.h"
 #include "DepthProbeSimulation.h"
 #include "Distributions.h"
 #include "Ellipse.h"
+#include "FixedBinAxis.h"
 #include "FootprintFactorGaussian.h"
 #include "FootprintFactorSquare.h"
 #include "GISASSimulation.h"
@@ -25,11 +27,14 @@
 #include "Line.h"
 #include "ParameterPattern.h"
 #include "Polygon.h"
+#include "QSpecScan.h"
+#include "RangedDistributions.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
 #include "RectangularDetector.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "SampleBuilderFactory.h"
+#include "ScanResolution.h"
 #include "SpecularSimulation.h"
 #include "OffSpecSimulation.h"
 #include "Units.h"
@@ -379,43 +384,30 @@ GISASSimulation* StandardSimulations::ConstantBackgroundGISAS()
     return result;
 }
 
-#include "FixedBinAxis.h"
+//! GISAS simulation with an extra long wavelength
+
+GISASSimulation* StandardSimulations::ExtraLongWavelengthGISAS()
+{
+    std::unique_ptr<GISASSimulation> simulation(new GISASSimulation());
+    simulation->setDetectorParameters(100, -1.0 * Units::deg, 1.0 * Units::deg, 100, 0.0,
+                                      2.0 * Units::deg);
+
+    simulation->setBeamParameters(13.52 * Units::nm, 0.2 * Units::deg, 0.0 * Units::deg);
+    simulation->setBeamIntensity(1.0e+08);
+    simulation->getOptions().setIncludeSpecular(true);
+    return simulation.release();
+}
+
 SpecularSimulation* StandardSimulations::BasicSpecular()
 {
     const double wavelength = 1.54 * Units::angstrom;
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-
-    FixedBinAxis angle_axis("axis", number_of_bins, min_angle, max_angle);
-
-    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wavelength, angle_axis);
-    result->getOptions().setUseAvgMaterials(true);
-    return result.release();
-}
-
-SpecularSimulation* StandardSimulations::BasicSpecularTOF()
-{
-    std::vector<double> wls;
-    const double inc_angle = 2.0 * Units::deg;
-    {
-        const double wavelength_0 = 1.54 * Units::angstrom;
-        const int number_of_bins = 2000;
-        const double min_angle = 0 * Units::deg;
-        const double max_angle = 5 * Units::deg;
-        FixedBinAxis angle_axis("axis", number_of_bins, min_angle, max_angle);
-
-        const double sin_inc = std::sin(inc_angle);
-        auto angles = angle_axis.getBinCenters();
-
-        wls.resize(angle_axis.size(), 0.0);
-        for (size_t i = 0, size = wls.size(); i < size; ++i)
-            wls[i] = wavelength_0 * sin_inc / std::sin(angles[i]);
-    }
+    AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wls, inc_angle);
+    result->setScan(scan);
     result->getOptions().setUseAvgMaterials(true);
     return result.release();
 }
@@ -435,9 +427,10 @@ SpecularSimulation* StandardSimulations::BasicSpecularQ()
         for (size_t i = 0, size = qs.size(); i < size; ++i)
             qs[i] = 4.0 * M_PI * std::sin(angles[i]) / wavelength_0;
     }
+    QSpecScan q_scan(qs);
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(qs);
+    result->setScan(q_scan);
     result->getOptions().setUseAvgMaterials(true);
     return result.release();
 }
@@ -448,11 +441,12 @@ SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-
     auto gaussian_ff = std::make_unique<FootprintFactorGaussian>(1.0);
+    AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
+    scan.setFootprintFactor(gaussian_ff.get());
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle, gaussian_ff.get());
+    result->setScan(scan);
     return result.release();
 }
 
@@ -462,11 +456,12 @@ SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
-
     auto square_ff = std::make_unique<FootprintFactorSquare>(1.0);
+    AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
+    scan.setFootprintFactor(square_ff.get());
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle, square_ff.get());
+    result->setScan(scan);
     return result.release();
 }
 
@@ -477,21 +472,54 @@ SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
     const size_t n_integration_points = 10;
     const double min_angle = 0 * Units::deg;
     const double max_angle = 5 * Units::deg;
+    const double wl_stddev = 0.1 * Units::angstrom;
+    const double ang_stddev = 0.1 * Units::degree;
+    AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
 
-    DistributionGaussian wavelength_distr(wavelength, 0.1*Units::angstrom);
-    DistributionGaussian alpha_distr(0.0, 0.1*Units::degree);
+    RangedDistributionGaussian wl_distr(n_integration_points, /*sigma_factor = */ 2.0);
+    std::unique_ptr<ScanResolution> wl_res(
+        ScanResolution::scanAbsoluteResolution(wl_distr, wl_stddev));
+
+    RangedDistributionGaussian alpha_distr(n_integration_points, /*sigma_factor = */ 2.0);
+    std::unique_ptr<ScanResolution> ang_res(
+        ScanResolution::scanAbsoluteResolution(alpha_distr, ang_stddev));
+
+    scan.setWavelengthResolution(*wl_res);
+    scan.setAngleResolution(*ang_res);
 
     std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
-    result->setBeamParameters(wavelength, number_of_bins, min_angle, max_angle);
+    result->setScan(scan);
 
-    ParameterPattern pattern1;
-    pattern1.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Wavelength);
-    result->addParameterDistribution(pattern1.toStdString(), wavelength_distr,
-                                     n_integration_points);
-    ParameterPattern pattern2;
-    pattern2.beginsWith("*").add(BornAgain::BeamType).add(BornAgain::Inclination);
-    result->addParameterDistribution(pattern2.toStdString(), alpha_distr, n_integration_points);
+    return result.release();
+}
 
+SpecularSimulation *StandardSimulations::TOFRWithRelativeResolution()
+{
+    FixedBinAxis qs("axis", 500, 0.0, 1.0);
+    QSpecScan q_scan(qs);
+    q_scan.setRelativeQResolution(RangedDistributionGaussian(20, 2.0), 0.03);
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setScan(q_scan);
+    result->getOptions().setUseAvgMaterials(true);
+    return result.release();
+}
+
+SpecularSimulation *StandardSimulations::TOFRWithPointwiseResolution()
+{
+    FixedBinAxis qs("axis", 500, 0.0, 1.0);
+    QSpecScan q_scan(qs);
+
+    std::vector<double> resolutions;
+    resolutions.reserve(qs.size());
+    auto qs_vector = qs.getBinCenters();
+    std::for_each(qs_vector.begin(), qs_vector.end(),
+                  [&resolutions](double q_val) { resolutions.push_back(0.03 * q_val); });
+    q_scan.setAbsoluteQResolution(RangedDistributionGaussian(20, 2.0), resolutions);
+
+    std::unique_ptr<SpecularSimulation> result(new SpecularSimulation());
+    result->setScan(q_scan);
+    result->getOptions().setUseAvgMaterials(true);
     return result.release();
 }
 

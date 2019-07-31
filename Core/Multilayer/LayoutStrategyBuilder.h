@@ -15,20 +15,12 @@
 #ifndef LAYOUTSTRATEGYBUILDER_H
 #define LAYOUTSTRATEGYBUILDER_H
 
-#include "SafePointerVector.h"
 #include "SimulationOptions.h"
-#include "HomogeneousRegion.h"
-#include <map>
 #include <memory>
 
-class FormFactorCoherentSum;
-class IFormFactor;
 class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
-class ILayout;
-class IParticle;
-class IFresnelMap;
-class MultiLayer;
+class ProcessedLayout;
 
 //! Methods to generate a simulation strategy for a ParticleLayoutComputation.
 //! @ingroup algorithms_internal
@@ -37,34 +29,20 @@ class BA_CORE_API_ LayoutStrategyBuilder
 {
 public:
     LayoutStrategyBuilder(
-        const MultiLayer* p_multilayer, const ILayout* p_layout,
-        const IFresnelMap* p_fresnel_map, bool polarized,
-        const SimulationOptions& sim_params, size_t layer_index);
+        const ProcessedLayout* p_layout, const SimulationOptions& sim_params, bool polarized);
 
     ~LayoutStrategyBuilder();
 
     IInterferenceFunctionStrategy* releaseStrategy();
 
-    std::map<size_t, std::vector<HomogeneousRegion>> regionMap() const;
-
 private:
     void createStrategy();
-    SafePointerVector<class FormFactorCoherentSum> collectFormFactorList();
-    FormFactorCoherentSum* createFormFactorCoherentSum(const IParticle* particle);
-    void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
     void checkInterferenceFunction(const IInterferenceFunction* p_iff);
 
-    const MultiLayer* mp_multilayer;
-    const ILayout* mp_layout;
-    //! R and T coefficients for DWBA
-    const IFresnelMap* mp_fresnel_map;
-    bool m_polarized;  //!< polarized computation required?
+    const ProcessedLayout* mp_layout;
     SimulationOptions m_sim_params;
-    size_t m_layer_index;
+    bool m_polarized;  //!< polarized computation required?
     std::unique_ptr<IInterferenceFunctionStrategy> mP_strategy;
-    std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
-
-void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor);
 
 #endif // LAYOUTSTRATEGYBUILDER_H

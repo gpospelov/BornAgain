@@ -13,12 +13,14 @@
 // ************************************************************************** //
 
 #include "UnitConverter1D.h"
+#include "AngularSpecScan.h"
 #include "AxisNames.h"
 #include "Beam.h"
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
+#include "OutputData.h"
 #include "PointwiseAxis.h"
-#include "SpecularDataHandler.h"
+#include "QSpecScan.h"
 #include "UnitConverterUtils.h"
 #include "Units.h"
 
@@ -33,19 +35,15 @@ createTranslatedAxis(const IAxis& axis, std::function<double(double)> translator
 } // namespace
 
 std::unique_ptr<UnitConverter1D>
-UnitConverter1D::createUnitConverter(const ISpecularDataHandler& handler)
+UnitConverter1D::createUnitConverter(const ISpecularScan& handler)
 {
-    if (handler.dataType() == SPECULAR_DATA_TYPE::angle)
+    if (handler.dataType() == ISpecularScan::angle)
         return std::make_unique<UnitConverterConvSpec>(
-            static_cast<const SpecularDataHandlerAng&>(handler));
+            static_cast<const AngularSpecScan&>(handler));
 
-    if (handler.dataType() == SPECULAR_DATA_TYPE::lambda)
+    if (handler.dataType() == ISpecularScan::q)
         return std::make_unique<UnitConverterQSpec>(
-            static_cast<const SpecularDataHandlerTOF&>(handler));
-
-    if (handler.dataType() == SPECULAR_DATA_TYPE::q)
-        return std::make_unique<UnitConverterQSpec>(
-            static_cast<const SpecularDataHandlerQ&>(handler));
+            static_cast<const QSpecScan&>(handler));
 
     throw std::runtime_error("No known unit conversions for passed type of specular data handler.");
 }
@@ -86,6 +84,27 @@ std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, AxesU
     return createTranslatedAxis(*coordinateAxis(), getTraslatorTo(units), axisName(0, units));
 }
 
+std::unique_ptr<OutputData<double>>
+UnitConverter1D::createConvertedData(const OutputData<double>& data, AxesUnits units) const
+{
+    if (data.getRank() != 1)
+        throw std::runtime_error("Error in UnitConverter1D::createConvertedData: unexpected "
+                                 "dimensions of the input data");
+
+    std::unique_ptr<OutputData<double>> result(new OutputData<double>);
+    auto q_axis = createConvertedAxis(0, units);
+    result->addAxis(*q_axis);
+
+    if (units != AxesUnits::RQ4) {
+        result->setRawDataVector(data.getRawDataVector());
+        return result;
+    }
+
+    for (size_t i = 0, size = result->getAllocatedSize(); i < size; ++i)
+        (*result)[i] = data[i] * std::pow((*q_axis)[i], 4);
+    return result;
+}
+
 UnitConverterConvSpec::UnitConverterConvSpec(const Beam& beam, const IAxis& axis,
                                              AxesUnits axis_units)
     : m_wavelength(beam.getWavelength())
@@ -95,7 +114,7 @@ UnitConverterConvSpec::UnitConverterConvSpec(const Beam& beam, const IAxis& axis
         throw std::runtime_error("Error in UnitConverter1D: input axis range is out of bounds");
 }
 
-UnitConverterConvSpec::UnitConverterConvSpec(const SpecularDataHandlerAng& handler)
+UnitConverterConvSpec::UnitConverterConvSpec(const AngularSpecScan& handler)
     : m_wavelength(handler.wavelength())
     , m_axis(handler.coordinateAxis()->clone())
 {}
@@ -116,7 +135,8 @@ size_t UnitConverterConvSpec::axisSize(size_t i_axis) const
 
 std::vector<AxesUnits> UnitConverterConvSpec::availableUnits() const
 {
-    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE};
+    return {AxesUnits::NBINS, AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE,
+            AxesUnits::RQ4};
 }
 
 AxesUnits UnitConverterConvSpec::defaultUnits() const
@@ -147,8 +167,8 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorFrom(AxesUnits 
     case AxesUnits::QSPACE:
         return [this](double value) { return getInvQ(m_wavelength, value); };
     default:
-        throw std::runtime_error(
-            "Error in UnitConverter1D::getTranslatorFrom: unexpected units type");
+        throwUnitsError("UnitConverterConvSpec::getTraslatorFrom",
+                        {AxesUnits::RADIANS, AxesUnits::DEGREES, AxesUnits::QSPACE});
     }
 }
 
@@ -161,17 +181,14 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits un
         return [](double value) { return Units::rad2deg(value); };
     case AxesUnits::QSPACE:
         return [wl=m_wavelength](double value) { return getQ(wl, value); };
+    case AxesUnits::RQ4:
+        return [wl=m_wavelength](double value) { return getQ(wl, value); };
     default:
-        throw std::runtime_error(
-            "Error in UnitConverterConvSpec::getTranslatorTo: unexpected units type");
+        throwUnitsError("UnitConverterConvSpec::getTraslatorTo", availableUnits());
     }
 }
 
-UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerQ& handler)
-    : m_axis(handler.coordinateAxis()->clone())
-{}
-
-UnitConverterQSpec::UnitConverterQSpec(const SpecularDataHandlerTOF& handler)
+UnitConverterQSpec::UnitConverterQSpec(const QSpecScan& handler)
     : m_axis(handler.coordinateAxis()->clone())
 {}
 
@@ -192,7 +209,7 @@ size_t UnitConverterQSpec::axisSize(size_t i_axis) const
 //! Returns the list of all available units
 std::vector<AxesUnits> UnitConverterQSpec::availableUnits() const
 {
-    return {AxesUnits::NBINS, AxesUnits::QSPACE};
+    return {AxesUnits::NBINS, AxesUnits::QSPACE, AxesUnits::RQ4};
 }
 
 //! Returns default units to convert to.
@@ -219,9 +236,10 @@ std::function<double(double)> UnitConverterQSpec::getTraslatorTo(AxesUnits units
     switch (units_type) {
     case AxesUnits::QSPACE:
         return [](double value) { return value; };
+    case AxesUnits::RQ4:
+        return [](double value) { return value; };
     default:
-        throw std::runtime_error(
-            "Error in UnitConverterTOFSpec::getTranslatorTo: unexpected units type");
+        throwUnitsError("UnitConverterQSpec::getTraslatorTo", availableUnits());
     }
 }
 

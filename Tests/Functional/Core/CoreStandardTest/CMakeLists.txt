@@ -73,8 +73,10 @@ set(test_cases
     GaussianBeamFootprint
     SquareBeamFootprint
     SpecularDivergentBeam
+    RelativeResolutionTOF
     OffSpecularResonator
     DepthProbeTest
+    ThickAbsorptiveSampleWithRoughness
     )
 
 add_executable(${test} main.cpp CoreStandardTest.h CoreStandardTest.cpp)

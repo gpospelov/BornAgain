@@ -84,8 +84,8 @@ bool CustomBinAxis::equals(const IAxis &other) const
     if (!IAxis::equals(other)) return false;
     if (const CustomBinAxis *otherAxis = dynamic_cast<const CustomBinAxis *>(&other)) {
         if (size() != otherAxis->size()) return false;
-        if ( !Numeric::areAlmostEqual(m_start, otherAxis->m_start)) return false;
-        if ( !Numeric::areAlmostEqual(m_end, otherAxis->m_end)) return false;
+        if ( !Numeric::AreAlmostEqual(m_start, otherAxis->m_start)) return false;
+        if ( !Numeric::AreAlmostEqual(m_end, otherAxis->m_end)) return false;
         return true;
     }
     return false;

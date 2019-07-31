@@ -55,6 +55,7 @@ BA_CORE_API_ GISASSimulation* SphericalDetWithRoi();
 BA_CORE_API_ GISASSimulation* RectDetWithRoi();
 BA_CORE_API_ GISASSimulation* ConstantBackgroundGISAS();
 BA_CORE_API_ GISASSimulation* MiniGISASFit();
+BA_CORE_API_ GISASSimulation* ExtraLongWavelengthGISAS();
 
 // Specular simulation tests:
 BA_CORE_API_ SpecularSimulation* BasicSpecular();
@@ -63,6 +64,8 @@ BA_CORE_API_ SpecularSimulation* BasicSpecularQ();
 BA_CORE_API_ SpecularSimulation* SpecularWithGaussianBeam();
 BA_CORE_API_ SpecularSimulation* SpecularWithSquareBeam();
 BA_CORE_API_ SpecularSimulation* SpecularDivergentBeam();
+BA_CORE_API_ SpecularSimulation* TOFRWithRelativeResolution();
+BA_CORE_API_ SpecularSimulation* TOFRWithPointwiseResolution();
 
 // OffSpec simulations
 BA_CORE_API_ OffSpecSimulation* MiniOffSpec();

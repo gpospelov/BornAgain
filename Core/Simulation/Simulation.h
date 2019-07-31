@@ -77,7 +77,8 @@ public:
     void setBackground(const IBackground& bg);
     const IBackground* background() const { return mP_background.get(); }
 
-    virtual size_t numberOfSimulationElements() const=0;
+    //! Returns the total number of the intensity values in the simulation result
+    virtual size_t intensityMapSize() const = 0;
 
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays
@@ -110,6 +111,9 @@ protected:
     virtual void initSimulationElementVector() = 0;
 
     virtual void updateIntensityMap() {}
+
+    //! Gets the number of elements this simulation needs to calculate
+    virtual size_t numberOfSimulationElements() const = 0;
 
     SampleProvider m_sample_provider;
     SimulationOptions m_options;

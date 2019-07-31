@@ -26,6 +26,7 @@ BornAgain-1.16.0, released 2019.07.31
   * Bug #2371: Ctrl+S doesn't work for saving project on win
   * Bug #2379: Layer of zero thickness affects SLD profile
   * Bug #2382: Memory leakage during Python fitting
+  * Bug #2388: Footprint Correction example failing due to newly introduced accessor methods
   * Feature #1861: Provide evaluation of SLD profile across the sample layers
   * Feature #2047: Fix compilation failures if fftw3, libtiff or Python are static.
   * Feature #2285: Name layers in GUI by their material name
@@ -43,6 +44,7 @@ BornAgain-1.16.0, released 2019.07.31
   * Documentation #2283: Fix starting value of prism_base_edge in fit example
   * Documentation #2308: Fix Windows PyCharm tutorial
   * Documentation #2325: Proofread Windows installation tutorials
+  * Documentation #2381: Examples present on the website and missing on the BA repo 
   * Refactoring #2361: Use **kwargs in python plotting routines
   * Testing #2210: Test 1d data import on known file formats
   * Testing #2287: Reflectometry cross-validation

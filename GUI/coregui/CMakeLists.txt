@@ -144,6 +144,11 @@ if(WIN32)
     ${QTDIR}/plugins/imageformats/qsvg.dll
     DESTINATION bin/imageformats COMPONENT Libraries)
 
+    install(FILES
+    ${QTDIR}/bin/libEGL.dll
+    ${QTDIR}/bin/libGLESv2.dll
+    DESTINATION ${destination_lib} COMPONENT Libraries)
+
     set(QT_VISTA_STYLE "${QTDIR}/plugins/styles/qwindowsvistastyle.dll")
     if(EXISTS "${QT_VISTA_STYLE}")
         install(FILES

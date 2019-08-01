@@ -25,6 +25,8 @@
 namespace {
 bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
                               const IRotation& rot, kvector_t translation);
+bool ShapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits,
+                        const IRotation& rot, kvector_t translation);
 }
 
 IFormFactor::~IFormFactor() {}
@@ -34,6 +36,8 @@ IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation
 {
     if (ShapeIsContainedInLimits(*this, limits, rot, translation))
         return CreateTransformedFormFactor(*this, rot, translation);
+    if (ShapeOutsideLimits(*this, limits, rot, translation))
+        return nullptr;
     if (canSliceAnalytically(rot))
         return sliceFormFactor(limits, rot, translation);
     throw std::runtime_error(getName() + "::createSlicedFormFactor error: not supported for "
@@ -95,5 +99,18 @@ bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
     if (!lower_limit.m_limitless && zbottom < lower_limit.m_value)
         return false;
     return true;
+}
+bool ShapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits,
+                        const IRotation& rot, kvector_t translation)
+{
+    double zbottom = formfactor.bottomZ(rot) + translation.z();
+    double ztop = formfactor.topZ(rot) + translation.z();
+    OneSidedLimit lower_limit = limits.lowerLimit();
+    OneSidedLimit upper_limit = limits.upperLimit();
+    if (!upper_limit.m_limitless && zbottom >= upper_limit.m_value)
+        return true;
+    if (!lower_limit.m_limitless && ztop <= lower_limit.m_value)
+        return true;
+    return false;
 }
 }

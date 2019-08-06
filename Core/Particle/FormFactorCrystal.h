@@ -25,11 +25,12 @@ class BA_CORE_API_ FormFactorCrystal : public IFormFactor
 {
 public:
     FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
-                      const IFormFactor& meso_form_factor);
+                      const IFormFactor& meso_form_factor, double position_variance=0.0);
     ~FormFactorCrystal() override final;
 
     FormFactorCrystal* clone() const override final {
-        return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor); }
+        return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor,
+                                     m_position_variance); }
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
@@ -52,10 +53,12 @@ public:
 
 private:
     void calculateLargestReciprocalDistance();
+    complex_t debyeWallerFactor(const kvector_t& q_i) const;
 
     Lattice m_lattice;
     IFormFactor* mp_basis_form_factor;
     IFormFactor* mp_meso_form_factor; //!< The outer shape of this mesocrystal
+    double m_position_variance;
     double m_max_rec_length;
 };
 

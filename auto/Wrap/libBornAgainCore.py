@@ -12449,14 +12449,15 @@ class FormFactorCrystal(IFormFactor):
     __getattr__ = lambda self, name: _swig_getattr(self, FormFactorCrystal, name)
     __repr__ = _swig_repr
 
-    def __init__(self, lattice, basis_form_factor, meso_form_factor):
+    def __init__(self, lattice, basis_form_factor, meso_form_factor, position_variance=0.0):
         """
+        __init__(FormFactorCrystal self, Lattice lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0) -> FormFactorCrystal
         __init__(FormFactorCrystal self, Lattice lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor) -> FormFactorCrystal
 
         FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor)
 
         """
-        this = _libBornAgainCore.new_FormFactorCrystal(lattice, basis_form_factor, meso_form_factor)
+        this = _libBornAgainCore.new_FormFactorCrystal(lattice, basis_form_factor, meso_form_factor, position_variance)
         try:
             self.this.append(this)
         except __builtin__.Exception:

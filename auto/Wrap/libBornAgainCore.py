@@ -7228,7 +7228,6 @@ class INodeVisitor(_object):
         visit(INodeVisitor self, FormFactorCrystal arg2)
         visit(INodeVisitor self, FormFactorCuboctahedron arg2)
         visit(INodeVisitor self, FormFactorCylinder arg2)
-        visit(INodeVisitor self, FormFactorDecoratorDebyeWaller arg2)
         visit(INodeVisitor self, FormFactorDecoratorMaterial const * arg2)
         visit(INodeVisitor self, FormFactorDecoratorPositionFactor const * arg2)
         visit(INodeVisitor self, FormFactorDecoratorRotation const * arg2)
@@ -7549,18 +7548,13 @@ class Crystal(IClusteredParticles):
 
 
     def setPositionVariance(self, position_variance):
-        """setPositionVariance(Crystal self, double position_variance)"""
+        """
+        setPositionVariance(Crystal self, double position_variance)
+
+        void Crystal::setPositionVariance(double position_variance)
+
+        """
         return _libBornAgainCore.Crystal_setPositionVariance(self, position_variance)
-
-
-    def setDWFactor(self, dw_factor):
-        """
-        setDWFactor(Crystal self, double dw_factor)
-
-        void Crystal::setDWFactor(double dw_factor)
-
-        """
-        return _libBornAgainCore.Crystal_setDWFactor(self, dw_factor)
 
 
     def getChildren(self):
@@ -11613,7 +11607,10 @@ class PolyhedralFace(_object):
         -----------
 
         V: 
-        oriented vertex list 
+        oriented vertex list
+
+        _sym_S2: 
+        true if face has a perpedicular two-fold symmetry axis 
 
         """
         this = _libBornAgainCore.new_PolyhedralFace(*args)
@@ -12459,7 +12456,7 @@ class FormFactorCrystal(IFormFactor):
         __init__(FormFactorCrystal self, Lattice lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0) -> FormFactorCrystal
         __init__(FormFactorCrystal self, Lattice lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor) -> FormFactorCrystal
 
-        FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor)
+        FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
 
         """
         this = _libBornAgainCore.new_FormFactorCrystal(lattice, basis_form_factor, meso_form_factor, position_variance)
@@ -12886,82 +12883,6 @@ class FormFactorDebyeBueche(IFormFactorBorn):
     __del__ = lambda self: None
 FormFactorDebyeBueche_swigregister = _libBornAgainCore.FormFactorDebyeBueche_swigregister
 FormFactorDebyeBueche_swigregister(FormFactorDebyeBueche)
-
-class FormFactorDecoratorDebyeWaller(IFormFactorDecorator):
-    """
-
-
-    Debye-Waller factors in radial and z directions.
-
-    C++ includes: FormFactorDecoratorDebyeWaller.h
-
-    """
-
-    __swig_setmethods__ = {}
-    for _s in [IFormFactorDecorator]:
-        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
-    __setattr__ = lambda self, name, value: _swig_setattr(self, FormFactorDecoratorDebyeWaller, name, value)
-    __swig_getmethods__ = {}
-    for _s in [IFormFactorDecorator]:
-        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
-    __getattr__ = lambda self, name: _swig_getattr(self, FormFactorDecoratorDebyeWaller, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        """
-        __init__(FormFactorDecoratorDebyeWaller self, IFormFactor form_factor, double dw_h_factor, double dw_r_factor) -> FormFactorDecoratorDebyeWaller
-        __init__(FormFactorDecoratorDebyeWaller self, IFormFactor form_factor, double dw_factor) -> FormFactorDecoratorDebyeWaller
-
-        FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_factor)
-
-        Isotropic Debye-Waller factor. 
-
-        """
-        this = _libBornAgainCore.new_FormFactorDecoratorDebyeWaller(*args)
-        try:
-            self.this.append(this)
-        except __builtin__.Exception:
-            self.this = this
-
-    def clone(self):
-        """
-        clone(FormFactorDecoratorDebyeWaller self) -> FormFactorDecoratorDebyeWaller
-
-        FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorDecoratorDebyeWaller_clone(self)
-
-
-    def accept(self, visitor):
-        """
-        accept(FormFactorDecoratorDebyeWaller self, INodeVisitor visitor)
-
-        void FormFactorDecoratorDebyeWaller::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorDecoratorDebyeWaller_accept(self, visitor)
-
-
-    def evaluate(self, wavevectors):
-        """
-        evaluate(FormFactorDecoratorDebyeWaller self, WavevectorInfo wavevectors) -> complex_t
-
-        complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const override final
-
-        Returns scattering amplitude for complex wavevectors ki, kf. 
-
-        """
-        return _libBornAgainCore.FormFactorDecoratorDebyeWaller_evaluate(self, wavevectors)
-
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorDecoratorDebyeWaller
-    __del__ = lambda self: None
-FormFactorDecoratorDebyeWaller_swigregister = _libBornAgainCore.FormFactorDecoratorDebyeWaller_swigregister
-FormFactorDecoratorDebyeWaller_swigregister(FormFactorDecoratorDebyeWaller)
 
 class FormFactorDodecahedron(FormFactorPolyhedron):
     """

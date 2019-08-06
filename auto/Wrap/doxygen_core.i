@@ -1170,7 +1170,7 @@ Creates region information with volumetric densities instead of absolute volume 
 %feature("docstring")  Crystal::transformedLattice "Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
 ";
 
-%feature("docstring")  Crystal::setDWFactor "void Crystal::setDWFactor(double dw_factor)
+%feature("docstring")  Crystal::setPositionVariance "void Crystal::setPositionVariance(double position_variance)
 ";
 
 %feature("docstring")  Crystal::getChildren "std::vector< const INode * > Crystal::getChildren() const override final
@@ -3190,7 +3190,7 @@ The formfactor of a  MesoCrystal.
 C++ includes: FormFactorCrystal.h
 ";
 
-%feature("docstring")  FormFactorCrystal::FormFactorCrystal "FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor)
+%feature("docstring")  FormFactorCrystal::FormFactorCrystal "FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
 ";
 
 %feature("docstring")  FormFactorCrystal::~FormFactorCrystal "FormFactorCrystal::~FormFactorCrystal() override final
@@ -3371,45 +3371,6 @@ Returns the (approximate in some cases) radial size of the particle of this form
 %feature("docstring")  FormFactorDebyeBueche::evaluate_for_q "complex_t FormFactorDebyeBueche::evaluate_for_q(cvector_t q) const override final
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorDecoratorDebyeWaller.xml
-%feature("docstring") FormFactorDecoratorDebyeWaller "
-
-Debye-Waller factors in radial and z directions.
-
-C++ includes: FormFactorDecoratorDebyeWaller.h
-";
-
-%feature("docstring")  FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller "FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_h_factor, double dw_r_factor)
-
-Anisotropic Debye-Waller factor. 
-";
-
-%feature("docstring")  FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller "FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(const IFormFactor &form_factor, double dw_factor)
-
-Isotropic Debye-Waller factor. 
-";
-
-%feature("docstring")  FormFactorDecoratorDebyeWaller::clone "FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDecoratorDebyeWaller::accept "void FormFactorDecoratorDebyeWaller::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorDecoratorDebyeWaller::evaluate "complex_t FormFactorDecoratorDebyeWaller::evaluate(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  FormFactorDecoratorDebyeWaller::evaluatePol "Eigen::Matrix2cd FormFactorDecoratorDebyeWaller::evaluatePol(const WavevectorInfo &wavevectors) const override final
-
-Returns scattering amplitude for matrix interactions. 
 ";
 
 
@@ -8204,9 +8165,6 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCylinder *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorDebyeWaller *)
-";
-
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorMaterial *)
 ";
 
@@ -10198,7 +10156,9 @@ Returns map of fit parameter names and its current values.
 // File: classIterationStrategy.xml
 %feature("docstring") IterationStrategy "
 
-Abstract base class of  PreorderStrategy and  PostorderStrategy, for use in  INodeVisitor.
+Abstract base class for tree traversal strategies, for use in  INodeVisitor.
+
+For definition of different strategies see https://en.wikipedia.org/wiki/Tree_traversal.
 
 C++ includes: IterationStrategy.h
 ";
@@ -10269,7 +10229,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -13181,7 +13141,10 @@ Parameters:
 -----------
 
 V: 
-oriented vertex list 
+oriented vertex list
+
+_sym_S2: 
+true if face has a perpedicular two-fold symmetry axis 
 ";
 
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
@@ -13232,7 +13195,12 @@ C++ includes: FormFactorPolyhedron.h
 
 
 // File: classPostorderStrategy.xml
-%feature("docstring") PostorderStrategy "";
+%feature("docstring") PostorderStrategy "
+
+Traverse tree; visit children before their parents.
+
+C++ includes: IterationStrategy.h
+";
 
 %feature("docstring")  PostorderStrategy::PostorderStrategy "PostorderStrategy::PostorderStrategy()
 ";
@@ -13254,7 +13222,12 @@ C++ includes: FormFactorPolyhedron.h
 
 
 // File: classPreorderStrategy.xml
-%feature("docstring") PreorderStrategy "";
+%feature("docstring") PreorderStrategy "
+
+Traverse tree; visit parents before their children.
+
+C++ includes: IterationStrategy.h
+";
 
 %feature("docstring")  PreorderStrategy::PreorderStrategy "PreorderStrategy::PreorderStrategy()
 ";
@@ -16951,10 +16924,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -16999,70 +16972,73 @@ C++ includes: ZLimits.h
 // File: namespace_0D12.xml
 
 
-// File: namespace_0D129.xml
+// File: namespace_0D127.xml
 
 
-// File: namespace_0D138.xml
+// File: namespace_0D136.xml
 
 
-// File: namespace_0D143.xml
+// File: namespace_0D141.xml
+
+
+// File: namespace_0D150.xml
 
 
 // File: namespace_0D152.xml
 
 
-// File: namespace_0D154.xml
-
-
-// File: namespace_0D158.xml
+// File: namespace_0D156.xml
 
 
 // File: namespace_0D18.xml
 
 
+// File: namespace_0D198.xml
+
+
 // File: namespace_0D20.xml
 
 
-// File: namespace_0D200.xml
+// File: namespace_0D225.xml
 
 
-// File: namespace_0D227.xml
+// File: namespace_0D233.xml
 
 
-// File: namespace_0D235.xml
+// File: namespace_0D239.xml
 
 
-// File: namespace_0D241.xml
+// File: namespace_0D243.xml
 
 
-// File: namespace_0D245.xml
+// File: namespace_0D293.xml
 
 
-// File: namespace_0D295.xml
+// File: namespace_0D302.xml
 
 
-// File: namespace_0D304.xml
+// File: namespace_0D310.xml
 
 
-// File: namespace_0D312.xml
+// File: namespace_0D314.xml
 
 
 // File: namespace_0D316.xml
 
 
-// File: namespace_0D318.xml
-
-
 // File: namespace_0D32.xml
 
 
-// File: namespace_0D330.xml
+// File: namespace_0D328.xml
 
 
-// File: namespace_0D336.xml
+// File: namespace_0D334.xml
 
 
-// File: namespace_0D357.xml
+// File: namespace_0D355.xml
+
+
+// File: namespace_0D359.xml
 
 
 // File: namespace_0D361.xml
@@ -17071,52 +17047,52 @@ C++ includes: ZLimits.h
 // File: namespace_0D363.xml
 
 
-// File: namespace_0D365.xml
+// File: namespace_0D373.xml
 
 
-// File: namespace_0D375.xml
+// File: namespace_0D388.xml
 
 
-// File: namespace_0D390.xml
-
-
-// File: namespace_0D394.xml
+// File: namespace_0D392.xml
 
 
 // File: namespace_0D40.xml
 
 
-// File: namespace_0D402.xml
+// File: namespace_0D400.xml
+
+
+// File: namespace_0D411.xml
 
 
 // File: namespace_0D413.xml
 
 
-// File: namespace_0D415.xml
-
-
 // File: namespace_0D42.xml
 
 
-// File: namespace_0D423.xml
+// File: namespace_0D421.xml
 
 
-// File: namespace_0D436.xml
+// File: namespace_0D434.xml
+
+
+// File: namespace_0D443.xml
 
 
 // File: namespace_0D445.xml
 
 
-// File: namespace_0D447.xml
+// File: namespace_0D479.xml
 
 
-// File: namespace_0D481.xml
+// File: namespace_0D486.xml
 
 
-// File: namespace_0D488.xml
+// File: namespace_0D524.xml
 
 
-// File: namespace_0D526.xml
+// File: namespace_0D532.xml
 
 
 // File: namespace_0D534.xml
@@ -17125,19 +17101,16 @@ C++ includes: ZLimits.h
 // File: namespace_0D536.xml
 
 
-// File: namespace_0D538.xml
-
-
 // File: namespace_0D6.xml
 
 
-// File: namespace_0D620.xml
+// File: namespace_0D618.xml
 
 
-// File: namespace_0D624.xml
+// File: namespace_0D622.xml
 
 
-// File: namespace_0D648.xml
+// File: namespace_0D646.xml
 
 
 // File: namespace_0D98.xml
@@ -17523,7 +17496,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 Utility to compute magnetization correction for reduced potential and scattering length density. 
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";
@@ -18585,12 +18558,6 @@ global helper function for comparison of axes
 
 
 // File: SpecularComputationTerm_8h.xml
-
-
-// File: FormFactorDecoratorDebyeWaller_8cpp.xml
-
-
-// File: FormFactorDecoratorDebyeWaller_8h.xml
 
 
 // File: FormFactorDecoratorMaterial_8cpp.xml

@@ -43,16 +43,12 @@ public:
 
     void setPositionVariance(double position_variance) { m_position_variance = position_variance; }
 
-    void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
-
     std::vector<const INode*> getChildren() const override final;
-
 private:
     Crystal(IParticle* p_lattice_basis, const Lattice& lattice);
 
     Lattice m_lattice;
     std::unique_ptr<IParticle> mp_lattice_basis;
-    double m_dw_factor;
     double m_position_variance;
 };
 

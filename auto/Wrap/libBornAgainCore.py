@@ -7548,6 +7548,11 @@ class Crystal(IClusteredParticles):
         return _libBornAgainCore.Crystal_transformedLattice(self, p_rotation)
 
 
+    def setPositionVariance(self, position_variance):
+        """setPositionVariance(Crystal self, double position_variance)"""
+        return _libBornAgainCore.Crystal_setPositionVariance(self, position_variance)
+
+
     def setDWFactor(self, dw_factor):
         """
         setDWFactor(Crystal self, double dw_factor)

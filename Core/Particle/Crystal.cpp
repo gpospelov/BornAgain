@@ -20,7 +20,7 @@
 #include "ParticleComposition.h"
 
 Crystal::Crystal(const IParticle& lattice_basis, const Lattice& lattice)
-    : m_lattice(lattice), m_dw_factor(0.0)
+    : m_lattice(lattice), m_dw_factor(0.0), m_position_variance(0.0)
 {
     setName(BornAgain::CrystalType);
     mp_lattice_basis.reset(lattice_basis.clone());
@@ -29,14 +29,13 @@ Crystal::Crystal(const IParticle& lattice_basis, const Lattice& lattice)
     registerChild(&m_lattice);
 }
 
-Crystal::~Crystal()
-{
-}
+Crystal::~Crystal() {}
 
 Crystal* Crystal::clone() const
 {
     Crystal* p_new = new Crystal(*mp_lattice_basis, m_lattice);
     p_new->setDWFactor(m_dw_factor);
+    p_new->setPositionVariance(m_position_variance);
     return p_new;
 }
 
@@ -45,13 +44,13 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
                                             const kvector_t& translation) const
 {
     Lattice transformed_lattice = transformedLattice(p_rotation);
-    std::unique_ptr<IParticle> P_basis_clone { mp_lattice_basis->clone() };
+    std::unique_ptr<IParticle> P_basis_clone{mp_lattice_basis->clone()};
     if (p_rotation)
         P_basis_clone->rotate(*p_rotation);
     P_basis_clone->translate(translation);
     const std::unique_ptr<IFormFactor> P_basis_ff(P_basis_clone->createFormFactor());
-    std::unique_ptr<FormFactorCrystal> P_ff_crystal(
-        new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor));
+    std::unique_ptr<FormFactorCrystal> P_ff_crystal(new FormFactorCrystal(
+        transformed_lattice, *P_basis_ff, meso_crystal_form_factor, m_position_variance));
     if (m_dw_factor > 0.0)
         return new FormFactorDecoratorDebyeWaller(*P_ff_crystal, m_dw_factor);
     return P_ff_crystal.release();
@@ -65,8 +64,7 @@ std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const
         return {};
     auto particles = mp_lattice_basis->decompose();
     ZLimits limits;
-    for (auto p_particle : particles)
-    {
+    for (auto p_particle : particles) {
         auto sliced_particle = p_particle->createSlicedParticle(limits);
         result.insert(result.end(), sliced_particle.m_regions.begin(),
                       sliced_particle.m_regions.end());

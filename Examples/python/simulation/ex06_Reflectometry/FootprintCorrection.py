@@ -58,10 +58,7 @@ def run_simulation(simulation):
 
 
 def get_plot_data(sim_result):
-    data = sim_result.data()
-    intensity = data.getArray()
-    x_axis = data.getAxis(0).getBinCenters()
-    return x_axis, intensity
+    return sim_result.axis(), sim_result.array()
 
 
 def plot(sim_result_1, sim_result_2):

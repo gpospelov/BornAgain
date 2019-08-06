@@ -15,7 +15,6 @@
 #include "MesoCrystalPerformanceBuilder.h"
 #include "Crystal.h"
 #include "FormFactorCylinder.h"
-#include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorSphereLogNormalRadius.h"
 #include "ISelectionRule.h"
 #include "Lattice.h"
@@ -40,9 +39,9 @@ Lattice createLattice(double a, double c);
 MesoCrystalPerformanceBuilder::MesoCrystalPerformanceBuilder()
     : m_lattice_length_a(12.45 * nm), m_lattice_length_c(31.0 * nm),
       m_nanoparticle_radius(5.0 * nm), m_sigma_nanoparticle_radius(0.3 * nm),
-      m_meso_height(200 * nm), m_meso_radius(800 * nm), m_sigma_meso_height(20.0 * nm),
-      m_sigma_meso_radius(20.0 * nm), m_sigma_lattice_length_a(0.5 * nm), m_roughness(6.0 * nm),
-      m_surface_filling_ratio(0.25), m_phi_start(0.0 * deg), m_phi_stop(360.0 * deg),
+      m_meso_height(200 * nm), m_meso_radius(800 * nm), m_sigma_lattice_length_a(0.5 * nm),
+      m_roughness(6.0 * nm), m_surface_filling_ratio(0.25),
+      m_phi_start(0.0 * deg), m_phi_stop(360.0 * deg),
       m_phi_rotation_steps(5), m_tilt_start(0.0 * deg), m_tilt_stop(1.0 * deg), m_tilt_steps(1)
 {
 }
@@ -59,9 +58,7 @@ MultiLayer* MesoCrystalPerformanceBuilder::buildSample() const
     auto n_particle_adapted = std::sqrt(n_avg * n_avg + n_particle * n_particle - 1.0);
     auto particle_material = HomogeneousMaterial("nanoparticle", n_particle_adapted);
 
-    FormFactorCylinder ff_cyl(m_meso_radius, m_meso_height);
-    FormFactorDecoratorDebyeWaller ff_meso(ff_cyl, m_sigma_meso_height * m_sigma_meso_height / 2.0,
-                                           m_sigma_meso_radius * m_sigma_meso_radius / 2.0);
+    FormFactorCylinder ff_meso(m_meso_radius, m_meso_height);
 
     auto multi_layer = new MultiLayer;
 
@@ -125,8 +122,8 @@ MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& 
     ParticleComposition basis;
     basis.addParticles(particle, pos_vector);
     Crystal npc(basis, lattice);
-    double dw_factor = m_sigma_lattice_length_a * m_sigma_lattice_length_a / 6.0;
-    npc.setDWFactor(dw_factor);
+    double position_variance = m_sigma_lattice_length_a * m_sigma_lattice_length_a / 3.0;
+    npc.setPositionVariance(position_variance);
 
     return std::make_unique<MesoCrystal>(npc, form_factor);
 }

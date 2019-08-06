@@ -21,8 +21,6 @@ class MySampleBuilder(IMultiLayerBuilder):
         self.sigma_nanoparticle_radius = ctypes.c_double(3.6720e-01*nm)
         self.meso_height = ctypes.c_double(1.1221e+02*nm)
         self.meso_radius = ctypes.c_double(9.4567e+02*nm)
-        self.sigma_meso_height = ctypes.c_double(1.3310e+00*nm)
-        self.sigma_meso_radius = ctypes.c_double(1.3863e+00*nm)
         self.sigma_lattice_length_a = ctypes.c_double(1.1601e+00*nm)
         self.surface_filling_ratio = ctypes.c_double(1.7286e-01)
         self.roughness = ctypes.c_double(2.8746e+01*nm)
@@ -33,8 +31,6 @@ class MySampleBuilder(IMultiLayerBuilder):
         self.registerParameter("sigma_nanoparticle_radius", ctypes.addressof(self.sigma_nanoparticle_radius)).setUnit("nm").setNonnegative()
         self.registerParameter("meso_height", ctypes.addressof(self.meso_height)).setUnit("nm").setNonnegative()
         self.registerParameter("meso_radius",  ctypes.addressof(self.meso_radius)).setUnit("nm").setNonnegative()
-        self.registerParameter("sigma_meso_height", ctypes.addressof(self.sigma_meso_height)).setUnit("nm").setNonnegative()
-        self.registerParameter("sigma_meso_radius", ctypes.addressof(self.sigma_meso_radius)).setUnit("nm").setNonnegative()
         self.registerParameter("sigma_lattice_length_a", ctypes.addressof(self.sigma_lattice_length_a)).setUnit("nm").setNonnegative()
         self.registerParameter("surface_filling_ratio", ctypes.addressof(self.surface_filling_ratio) ).setNonnegative()
         self.registerParameter("roughness", ctypes.addressof(self.roughness)).setUnit("nm").setNonnegative()
@@ -48,8 +44,7 @@ class MySampleBuilder(IMultiLayerBuilder):
         avg_n_squared_meso = complex(0.7886*n_particle*n_particle + 0.2114)
         n_avg = complex(numpy.sqrt(self.surface_filling_ratio.value*avg_n_squared_meso + 1.0 - self.surface_filling_ratio.value))
         n_particle_adapted = complex(numpy.sqrt(n_avg*n_avg + n_particle*n_particle - 1.0))
-        ff_cyl = FormFactorCylinder(self.meso_radius.value, self.meso_height.value)
-        ff_meso = FormFactorDecoratorDebyeWaller(ff_cyl, self.sigma_meso_height.value*self.sigma_meso_height.value/2.0, self.sigma_meso_radius.value*self.sigma_meso_radius.value/2.0)
+        ff_meso = FormFactorCylinder(self.meso_radius.value, self.meso_height.value)
 
         # Create multilayer
         p_multi_layer = MultiLayer()
@@ -114,8 +109,8 @@ class MySampleBuilder(IMultiLayerBuilder):
         basis.addParticles(particle, positions)
 
         npc = Crystal(basis, p_lat)
-        dw_factor = self.sigma_lattice_length_a.value*self.sigma_lattice_length_a.value/6.0
-        npc.setDWFactor(dw_factor)
+        position_variance = self.sigma_lattice_length_a.value*self.sigma_lattice_length_a.value/3.0
+        npc.setPositionVariance(position_variance)
         meso = MesoCrystal(npc, p_meso_form_factor)
         return meso
 

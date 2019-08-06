@@ -17,7 +17,6 @@
 #include "BornAgainNamespace.h"
 #include "Crystal.h"
 #include "FormFactorCylinder.h"
-#include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorSphereGaussianRadius.h"
 #include "ISelectionRule.h"
 #include "Layer.h"

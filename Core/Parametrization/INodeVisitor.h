@@ -38,7 +38,6 @@ class FormFactorCoreShell;
 class FormFactorCrystal;
 class FormFactorCuboctahedron;
 class FormFactorCylinder;
-class FormFactorDecoratorDebyeWaller;
 class FormFactorDecoratorMaterial;
 class FormFactorDecoratorPositionFactor;
 class FormFactorDecoratorRotation;
@@ -171,7 +170,6 @@ public:
     virtual void visit(const FormFactorCrystal*) {}
     virtual void visit(const FormFactorCuboctahedron*) {}
     virtual void visit(const FormFactorCylinder*) {}
-    virtual void visit(const FormFactorDecoratorDebyeWaller*) {}
     virtual void visit(const FormFactorDecoratorMaterial*) {}
     virtual void visit(const FormFactorDecoratorPositionFactor*) {}
     virtual void visit(const FormFactorDecoratorRotation*) {}

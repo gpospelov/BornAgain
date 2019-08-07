@@ -18,19 +18,25 @@
 #include "SimulationElement.h"
 #include "Slice.h"
 #include "SpecularMagnetic.h"
+#include <functional>
 
 namespace {
 std::vector<MatrixRTCoefficients> calculateCoefficients(const std::vector<Slice>& slices,
                                                         kvector_t kvec);
 
-const std::vector<MatrixRTCoefficients>&
-getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
-                         MatrixFresnelMap::CoefficientHash& hash_table);
 }
 
 MatrixFresnelMap::MatrixFresnelMap() = default;
 
 MatrixFresnelMap::~MatrixFresnelMap() = default;
+
+//! Returns hash value of a 3-vector, computed by exclusive-or of the component hash values.
+size_t MatrixFresnelMap::HashKVector::operator()(const kvector_t& kvec) const noexcept
+{
+    return std::hash<double>{}(kvec.x())
+         ^ std::hash<double>{}(kvec.y())
+         ^ std::hash<double>{}(kvec.z());
+}
 
 std::unique_ptr<const ILayerRTCoefficients>
 MatrixFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const
@@ -67,7 +73,18 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
     return std::make_unique<MatrixRTCoefficients>(coef_vector[layer_index]);
 }
 
+const std::vector<MatrixRTCoefficients>&
+MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
+                         MatrixFresnelMap::CoefficientHash& hash_table)
+{
+    auto it = hash_table.find(kvec);
+    if (it == hash_table.end())
+        it = hash_table.insert({kvec, calculateCoefficients(slices, kvec)}).first;
+    return it->second;
+}
+
 namespace {
+
 std::vector<MatrixRTCoefficients> calculateCoefficients(const std::vector<Slice>& slices,
                                                         kvector_t kvec)
 {
@@ -76,14 +93,4 @@ std::vector<MatrixRTCoefficients> calculateCoefficients(const std::vector<Slice>
     return coeffs;
 }
 
-const std::vector<MatrixRTCoefficients>&
-getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
-                         MatrixFresnelMap::CoefficientHash& hash_table)
-{
-    auto it = hash_table.find(kvec);
-    if (it == hash_table.end())
-        it = hash_table.insert({kvec, calculateCoefficients(slices, kvec)}).first;
-    return it->second;
-}
-}
-
+} // namespace

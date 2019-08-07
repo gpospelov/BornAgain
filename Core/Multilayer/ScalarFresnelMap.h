@@ -15,9 +15,9 @@
 #ifndef SCALARFRESNELMAP_H
 #define SCALARFRESNELMAP_H
 
-#include "Hash2Doubles.h"
 #include "IFresnelMap.h"
 #include "ScalarRTCoefficients.h"
+#include <cstddef>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -39,6 +39,13 @@ public:
     getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const override;
 
 private:
+    //! Provides a hash function for a pair of doubles.
+    class Hash2Doubles
+    {
+    public:
+        size_t operator()(std::pair<double, double> doubles) const noexcept;
+    };
+
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
     const std::vector<ScalarRTCoefficients>& getCoefficientsFromCache(kvector_t kvec) const;

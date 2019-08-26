@@ -29,8 +29,8 @@ namespace SpecularMagnetic
 {
 //! Computes refraction angle reflection/transmission coefficients
 //! for given sliced multilayer and wavevector k
-BA_CORE_API_ void Execute(const std::vector<Slice>& slices, const kvector_t k,
-                          std::vector<MatrixRTCoefficients>& coeff);
+BA_CORE_API_ std::vector<MatrixRTCoefficients> Execute(const std::vector<Slice>& slices,
+                                                       const kvector_t k);
 }; // namespace SpecularMagnetic
 
 #endif // SPECULARMAGNETIC_H

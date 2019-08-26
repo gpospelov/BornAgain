@@ -31,12 +31,13 @@ complex_t GetImExponential(complex_t exponent);
 const complex_t I(0, 1);
 }
 
-void SpecularMagnetic::Execute(const std::vector<Slice> &slices, const kvector_t k, std::vector<MatrixRTCoefficients> &coeff)
+std::vector<MatrixRTCoefficients> SpecularMagnetic::Execute(const std::vector<Slice>& slices,
+                                                            const kvector_t k)
 {
-    coeff.clear();
-    coeff.resize(slices.size());
-    CalculateEigenvalues(slices, k, coeff);
-    CalculateTransferAndBoundary(slices, k, coeff);
+    std::vector<MatrixRTCoefficients> result(slices.size());
+    CalculateEigenvalues(slices, k, result);
+    CalculateTransferAndBoundary(slices, k, result);
+    return result;
 }
 
 namespace {

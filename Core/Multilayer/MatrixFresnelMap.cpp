@@ -20,12 +20,6 @@
 #include "SpecularMagnetic.h"
 #include <functional>
 
-namespace {
-std::vector<MatrixRTCoefficients> calculateCoefficients(const std::vector<Slice>& slices,
-                                                        kvector_t kvec);
-
-}
-
 MatrixFresnelMap::MatrixFresnelMap() = default;
 
 MatrixFresnelMap::~MatrixFresnelMap() = default;
@@ -66,7 +60,7 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
                                   const std::vector<Slice>& slices, CoefficientHash& hash_table) const
 {
     if (!m_use_cache) {
-        auto coeffs = calculateCoefficients(slices, kvec);
+        auto coeffs = SpecularMagnetic::Execute(slices, kvec);
         return std::make_unique<MatrixRTCoefficients>(coeffs[layer_index]);
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
@@ -79,18 +73,6 @@ MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Sli
 {
     auto it = hash_table.find(kvec);
     if (it == hash_table.end())
-        it = hash_table.insert({kvec, calculateCoefficients(slices, kvec)}).first;
+        it = hash_table.insert({kvec, SpecularMagnetic::Execute(slices, kvec)}).first;
     return it->second;
 }
-
-namespace {
-
-std::vector<MatrixRTCoefficients> calculateCoefficients(const std::vector<Slice>& slices,
-                                                        kvector_t kvec)
-{
-    std::vector<MatrixRTCoefficients> coeffs;
-    SpecularMagnetic::Execute(slices, kvec, coeffs);
-    return coeffs;
-}
-
-} // namespace

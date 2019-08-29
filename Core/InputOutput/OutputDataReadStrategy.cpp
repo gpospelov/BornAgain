@@ -35,6 +35,10 @@ inline std::string trim(const std::string& str,
 
     return str.substr(strBegin, strRange);
 }
+inline bool isDoubleStartChar(char c)
+{
+    return isdigit(c) || c == '-' || c == '+';
+}
 }
 
 
@@ -136,7 +140,7 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
     //Read numbers from input stream:
     while( std::getline(input_stream, line) ) {
         line = trim(line);
-        if(line.empty() || !isdigit(line[0]))
+        if(line.empty() || !isDoubleStartChar(line[0]))
             continue;
 
         try {

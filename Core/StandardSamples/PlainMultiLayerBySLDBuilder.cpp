@@ -18,8 +18,8 @@
 #include "MultiLayer.h"
 #include "Units.h"
 
-PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder()
-    : m_number_of_layers(10)
+PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder(int n_layers)
+    : m_number_of_layers(n_layers)
     , m_si { 2.0704e-06, 2.3726e-11}
     , m_ti {-1.9493e-06, 9.6013e-10}
     , m_ni { 9.4245e-06, 1.1423e-09}
@@ -44,7 +44,7 @@ MultiLayer* PlainMultiLayerBySLDBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     multi_layer->addLayer(vacuum_layer);
-    for (size_t i = 0; i < m_number_of_layers; ++i) {
+    for (int i = 0; i < m_number_of_layers; ++i) {
         multi_layer->addLayer(ti_layer);
         multi_layer->addLayer(ni_layer);
     }

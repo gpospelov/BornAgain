@@ -14,12 +14,13 @@
 
 #include "CoreSpecialTestFactory.h"
 #include "BatchSimulation.h"
-#include "DetectorTest.h"
-#include "PolDWBAMagCylinders.h"
-#include "CoreIOPerformanceTest.h"
 #include "CoreIOPathTest.h"
+#include "CoreIOPerformanceTest.h"
+#include "DetectorTest.h"
 #include "FourierTransformationTest.h"
 #include "MesoCrystalPerformanceTest.h"
+#include "MultilayerPerformanceTest.h"
+#include "PolDWBAMagCylinders.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
@@ -50,4 +51,8 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("MesoPerformance",
                  create_new<MesoCrystalPerformanceTest>,
                  "Heavy mesocrystal simulation");
+
+    registerItem("MultilayerPerformance",
+                 create_new<MultilayerPerformanceTest>,
+                 "Reflectometry performance on samples with a large number of layers");
 }

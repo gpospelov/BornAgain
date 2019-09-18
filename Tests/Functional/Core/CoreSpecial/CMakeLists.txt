@@ -4,6 +4,7 @@ set(test_cases
     BatchSimulation
     PolDWBAMagCylinders
     FourierTransformation
+    MultilayerPerformance
 #    CoreIOPerformance
 #    DetectorTest
 #    MesoPerformance

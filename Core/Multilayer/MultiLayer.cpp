@@ -105,11 +105,13 @@ void MultiLayer::setExternalField(kvector_t ext_field)
 std::vector<const INode*> MultiLayer::getChildren() const
 {
     std::vector<const INode*> result;
-    for (auto p_layer : m_layers) {
-        result.push_back(p_layer);
-        auto i_layer = MultiLayerUtils::IndexOfLayer(*this, p_layer);
-        if (const LayerInterface* p_interface =
-                MultiLayerUtils::LayerBottomInterface(*this, i_layer))
+    const size_t layer_size = m_layers.size();
+    result.reserve(layer_size + m_interfaces.size());
+
+    for (size_t i = 0; i < layer_size; ++i) {
+        result.push_back(m_layers[i]);
+        const LayerInterface* p_interface = MultiLayerUtils::LayerBottomInterface(*this, i);
+        if (p_interface)
             result.push_back(p_interface);
     }
     return result;

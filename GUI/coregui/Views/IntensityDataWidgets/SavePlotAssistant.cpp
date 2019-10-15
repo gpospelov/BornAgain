@@ -28,9 +28,9 @@ const QString txt_extension = ".txt";
 
 QVector<SavePlotAssistant::Format> initializeFormats() {
     QVector<SavePlotAssistant::Format> result;
-    result.push_back(SavePlotAssistant::Format(png_extension, "*.png"));
-    result.push_back(SavePlotAssistant::Format(jpg_extension, "*.jpg"));
-    result.push_back(SavePlotAssistant::Format(pdf_extension, "*.pdf"));
+    result.push_back(SavePlotAssistant::Format(png_extension, "png Image (*.png)"));
+    result.push_back(SavePlotAssistant::Format(jpg_extension, "jpg Image (*.jpg)"));
+    result.push_back(SavePlotAssistant::Format(pdf_extension, "pdf File (*.pdf)"));
     result.push_back(SavePlotAssistant::Format(int_extension, "BornAgain ASCII format (*.int)"));
     result.push_back(SavePlotAssistant::Format(txt_extension, "Simple ASCII table (*.txt)"));
 #ifdef BORNAGAIN_TIFF_SUPPORT

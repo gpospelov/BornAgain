@@ -81,6 +81,8 @@ set(test_cases
     OffSpecularResonator
     DepthProbeTest
     ThickAbsorptiveSampleWithRoughness
+    MagneticSpheresInMagLayerPP
+    MagneticSpheresInMagLayerMP
     )
 
 add_executable(${test} main.cpp CoreStandardTest.h CoreStandardTest.cpp)

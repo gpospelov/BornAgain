@@ -348,6 +348,18 @@ StandardTestCatalogue::StandardTestCatalogue()
         "MagneticCylindersBuilder",
         2e-10);
 
+    add("MagneticSpheresInMagLayerPP",
+        "Magnetic spheres in a magnetized layer, ++ channel",
+        "MiniGISASPolarizationPP",
+        "MagnetizedLayerWithSpheresBuilder",
+        2e-10);
+
+    add("MagneticSpheresInMagLayerMP",
+        "Magnetic spheres in a magnetized layer, ++ channel",
+        "MiniGISASPolarizationMP",
+        "MagnetizedLayerWithSpheresBuilder",
+        2e-10);
+
     // Masking
 
     add("SimulationWithMasks",

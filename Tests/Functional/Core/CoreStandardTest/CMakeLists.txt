@@ -37,6 +37,10 @@ set(test_cases
     MagneticSpheres
     MagneticSubstrateZeroField
     MagneticRotation
+    MagneticCylindersPP
+    MagneticCylindersPM
+    MagneticCylindersMP
+    MagneticCylindersMM
     MesoCrystal
     MultiLayerWithRoughness
     MultipleLayout

@@ -292,6 +292,14 @@ StandardTestCatalogue::StandardTestCatalogue()
         "CustomMorphologyBuilder",
         2e-10);
 
+    add("TransformBox",
+        "Rotated/translated box in 3 layers system",
+        "MiniGISAS",
+        "TransformBoxBuilder",
+        1e-10);
+
+    // polarized GISAS
+
     add("MagneticParticleZeroField",
         "Magnetic cylinders with zero field",
         "MiniGISAS",
@@ -316,11 +324,29 @@ StandardTestCatalogue::StandardTestCatalogue()
         "MagneticSpheresBuilder",
         2e-10);
 
-    add("TransformBox",
-        "Rotated/translated box in 3 layers system",
-        "MiniGISAS",
-        "TransformBoxBuilder",
-        1e-10);
+    add("MagneticCylindersPP",
+        "Magnetic cylinders on a substrate: ++ channel",
+        "MiniGISASPolarizationPP",
+        "MagneticCylindersBuilder",
+        2e-10);
+
+    add("MagneticCylindersPM",
+        "Magnetic cylinders on a substrate: +- channel",
+        "MiniGISASPolarizationPM",
+        "MagneticCylindersBuilder",
+        2e-10);
+
+    add("MagneticCylindersMP",
+        "Magnetic cylinders on a substrate: -+ channel",
+        "MiniGISASPolarizationMP",
+        "MagneticCylindersBuilder",
+        2e-10);
+
+    add("MagneticCylindersMM",
+        "Magnetic cylinders on a substrate: -- channel",
+        "MiniGISASPolarizationMM",
+        "MagneticCylindersBuilder",
+        2e-10);
 
     // Masking
 

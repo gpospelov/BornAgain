@@ -24,7 +24,7 @@ namespace
 {
 void CalculateEigenvalues(const std::vector<Slice> &slices, const kvector_t k,
                           std::vector<MatrixRTCoefficients>& coeff);
-void CalculateTransferAndBoundary(const std::vector<Slice> &slices, const kvector_t k,
+void CalculateTransferAndBoundary(const std::vector<Slice>& slices,
                                   std::vector<MatrixRTCoefficients>& coeff);
 void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff);
 complex_t GetImExponential(complex_t exponent);
@@ -36,7 +36,7 @@ std::vector<MatrixRTCoefficients> SpecularMagnetic::Execute(const std::vector<Sl
 {
     std::vector<MatrixRTCoefficients> result(slices.size());
     CalculateEigenvalues(slices, k, result);
-    CalculateTransferAndBoundary(slices, k, result);
+    CalculateTransferAndBoundary(slices, result);
     return result;
 }
 
@@ -70,10 +70,9 @@ void CalculateEigenvalues(const std::vector<Slice> &slices, const kvector_t k,
 }
 
 // todo: avoid overflows (see SpecularMatrix.cpp)
-void CalculateTransferAndBoundary(const std::vector<Slice> &slices, const kvector_t k,
+void CalculateTransferAndBoundary(const std::vector<Slice> &slices,
                                   std::vector<MatrixRTCoefficients>& coeff)
 {
-    (void)k;
     size_t N = coeff.size();
     if (coeff[0].lambda == Eigen::Vector2cd::Zero() && N > 1) {
         SetForNoTransmission(coeff);

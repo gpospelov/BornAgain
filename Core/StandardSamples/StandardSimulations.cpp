@@ -185,7 +185,6 @@ GISASSimulation* StandardSimulations::MiniGISASDetectorResolution()
 GISASSimulation*StandardSimulations::MiniGISASPolarizationPP()
 {
     GISASSimulation* result = MiniGISAS();
-    result->getOptions().setNumberOfThreads(1);
 
     kvector_t analyzer_dir(0.0, 0.0, 1.0);
     kvector_t beampol(0.0, 0.0, 1.0);
@@ -195,10 +194,9 @@ GISASSimulation*StandardSimulations::MiniGISASPolarizationPP()
     return result;
 }
 
-GISASSimulation*StandardSimulations::MiniGISASSpinFlipZ()
+GISASSimulation*StandardSimulations::MiniGISASPolarizationPM()
 {
     GISASSimulation* result = MiniGISAS();
-    result->getOptions().setNumberOfThreads(1);
 
     kvector_t analyzer_dir(0.0, 0.0, -1.0);
     kvector_t beampol(0.0, 0.0, 1.0);

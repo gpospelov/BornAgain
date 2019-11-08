@@ -37,8 +37,6 @@ BA_CORE_API_ GISASSimulation* MiniGISAS();
 BA_CORE_API_ GISASSimulation* MiniGISAS_v2();
 BA_CORE_API_ GISASSimulation* MiniGISASBeamDivergence();
 BA_CORE_API_ GISASSimulation* MiniGISASDetectorResolution();
-BA_CORE_API_ GISASSimulation* MiniGISASPolarizationPP();
-BA_CORE_API_ GISASSimulation* MiniGISASSpinFlipZ();
 BA_CORE_API_ GISASSimulation* MiniGISASSpecularPeak();
 BA_CORE_API_ GISASSimulation* GISASWithMasks();
 BA_CORE_API_ GISASSimulation* MaxiGISAS();
@@ -56,6 +54,10 @@ BA_CORE_API_ GISASSimulation* RectDetWithRoi();
 BA_CORE_API_ GISASSimulation* ConstantBackgroundGISAS();
 BA_CORE_API_ GISASSimulation* MiniGISASFit();
 BA_CORE_API_ GISASSimulation* ExtraLongWavelengthGISAS();
+
+// polarized GISAS:
+BA_CORE_API_ GISASSimulation* MiniGISASPolarizationPP();
+BA_CORE_API_ GISASSimulation* MiniGISASPolarizationPM();
 
 // Specular simulation tests:
 BA_CORE_API_ SpecularSimulation* BasicSpecular();

@@ -306,13 +306,13 @@ StandardTestCatalogue::StandardTestCatalogue()
 
     add("MagneticRotation",
         "Rotated magnetic particle in magnetic substrate",
-        "MiniGISASSpinFlipZ",
+        "MiniGISASPolarizationPM",
         "MagneticRotationBuilder",
         2e-10);
 
     add("MagneticSpheres",
         "Magnetic spheres inside substrate",
-        "MiniGISASSpinFlipZ",
+        "MiniGISASPolarizationPM",
         "MagneticSpheresBuilder",
         2e-10);
 

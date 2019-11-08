@@ -76,10 +76,6 @@ SimulationFactory::SimulationFactory()
 
     // polarization
 
-    registerItem(
-        "polmagcylinders2", StandardSimulations::PolarizedDWBAMagCylinders2,
-        "Polarized DWBA with non-zero magnetic field");
-
     registerItem("MiniGISASPolarizationPP",
                  StandardSimulations::MiniGISASPolarizationPP,
                  "GISAS simulation measuring plus-plus polarization");

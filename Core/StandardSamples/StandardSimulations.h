@@ -26,9 +26,6 @@ class OffSpecSimulation;
 
 namespace StandardSimulations {
 
-// Special tests:
-BA_CORE_API_ GISASSimulation* PolarizedDWBAMagCylinders2();
-
 // CoreSuite tests:
 BA_CORE_API_ GISASSimulation* BasicGISAS();
 BA_CORE_API_ GISASSimulation* BasicGISAS00();

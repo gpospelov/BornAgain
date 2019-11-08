@@ -50,14 +50,6 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::MiniGISASDetectorResolution,
                  "GISAS simulation with small detector and detector resolution");
 
-    registerItem("MiniGISASPolarizationPP",
-                 StandardSimulations::MiniGISASPolarizationPP,
-                 "GISAS simulation measuring plus-plus polarization");
-
-    registerItem("MiniGISASPolarizationPM",
-                 StandardSimulations::MiniGISASPolarizationPM,
-                 "GISAS simulation measuring spin flip (+-) channel");
-
     registerItem("MiniGISASSpecular",
                  StandardSimulations::MiniGISASSpecularPeak,
                  "GISAS simulation including specular peak");
@@ -87,6 +79,22 @@ SimulationFactory::SimulationFactory()
     registerItem(
         "polmagcylinders2", StandardSimulations::PolarizedDWBAMagCylinders2,
         "Polarized DWBA with non-zero magnetic field");
+
+    registerItem("MiniGISASPolarizationPP",
+                 StandardSimulations::MiniGISASPolarizationPP,
+                 "GISAS simulation measuring plus-plus polarization");
+
+    registerItem("MiniGISASPolarizationPM",
+                 StandardSimulations::MiniGISASPolarizationPM,
+                 "GISAS simulation measuring spin flip (+-) channel");
+
+    registerItem("MiniGISASPolarizationMP",
+                 StandardSimulations::MiniGISASPolarizationMP,
+                 "GISAS simulation measuring spin flip (-+) channel");
+
+    registerItem("MiniGISASPolarizationMM",
+                 StandardSimulations::MiniGISASPolarizationMM,
+                 "GISAS simulation measuring minus-minus polarization");
 
     // rectangular detectors
 

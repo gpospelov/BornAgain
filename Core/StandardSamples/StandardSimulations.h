@@ -58,6 +58,8 @@ BA_CORE_API_ GISASSimulation* ExtraLongWavelengthGISAS();
 // polarized GISAS:
 BA_CORE_API_ GISASSimulation* MiniGISASPolarizationPP();
 BA_CORE_API_ GISASSimulation* MiniGISASPolarizationPM();
+BA_CORE_API_ GISASSimulation* MiniGISASPolarizationMP();
+BA_CORE_API_ GISASSimulation* MiniGISASPolarizationMM();
 
 // Specular simulation tests:
 BA_CORE_API_ SpecularSimulation* BasicSpecular();

@@ -206,6 +206,30 @@ GISASSimulation*StandardSimulations::MiniGISASPolarizationPM()
     return result;
 }
 
+GISASSimulation*StandardSimulations::MiniGISASPolarizationMP()
+{
+    GISASSimulation* result = MiniGISAS();
+
+    kvector_t analyzer_dir(0.0, 0.0, 1.0);
+    kvector_t beampol(0.0, 0.0, -1.0);
+
+    result->setBeamPolarization(beampol);
+    result->setAnalyzerProperties(analyzer_dir, 1.0, 0.5);
+    return result;
+}
+
+GISASSimulation*StandardSimulations::MiniGISASPolarizationMM()
+{
+    GISASSimulation* result = MiniGISAS();
+
+    kvector_t analyzer_dir(0.0, 0.0, -1.0);
+    kvector_t beampol(0.0, 0.0, -1.0);
+
+    result->setBeamPolarization(beampol);
+    result->setAnalyzerProperties(analyzer_dir, 1.0, 0.5);
+    return result;
+}
+
 //! GISAS simulation with small detector and including specular peak.
 
 GISASSimulation* StandardSimulations::MiniGISASSpecularPeak()

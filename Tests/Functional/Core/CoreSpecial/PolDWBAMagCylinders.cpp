@@ -47,7 +47,7 @@ bool PolDWBAMagCylinders::runTest()
     const auto P_data00 = sim_result.data();
 
     simulation->setBeamPolarization(zplus);
-    simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
+    simulation->setAnalyzerProperties(zmin, 1.0, 0.5);
     simulation->runSimulation();
     sim_result = simulation->result();
     const auto P_data01 = sim_result.data();
@@ -59,7 +59,7 @@ bool PolDWBAMagCylinders::runTest()
     const auto P_data10 = sim_result.data();
 
     simulation->setBeamPolarization(zmin);
-    simulation->setAnalyzerProperties(zplus, -1.0, 0.5);
+    simulation->setAnalyzerProperties(zmin, 1.0, 0.5);
     simulation->runSimulation();
     sim_result = simulation->result();
     const std::unique_ptr<OutputData<double> > P_data11(sim_result.data());

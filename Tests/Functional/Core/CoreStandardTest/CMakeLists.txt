@@ -37,6 +37,10 @@ set(test_cases
     MagneticSpheres
     MagneticSubstrateZeroField
     MagneticRotation
+    MagneticCylindersPP
+    MagneticCylindersPM
+    MagneticCylindersMP
+    MagneticCylindersMM
     MesoCrystal
     MultiLayerWithRoughness
     MultipleLayout
@@ -77,6 +81,8 @@ set(test_cases
     OffSpecularResonator
     DepthProbeTest
     ThickAbsorptiveSampleWithRoughness
+    MagneticSpheresInMagLayerPP
+    MagneticSpheresInMagLayerMP
     )
 
 add_executable(${test} main.cpp CoreStandardTest.h CoreStandardTest.cpp)

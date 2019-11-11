@@ -20,7 +20,6 @@ TEST_F(SpecularMagneticTest, initial)
 {
     MultiLayer mLayer;
     kvector_t v;
-    std::vector<MatrixRTCoefficients> coeff;
 
     // @Error: Throws exception (Layer index is out of bounds)
     // matrix.execute(mLayer, v, coeff);
@@ -30,7 +29,7 @@ TEST_F(SpecularMagneticTest, initial)
     mLayer.addLayer(layer0);
     SimulationOptions options;
     ProcessedSample sample(mLayer, options);
-    SpecularMagnetic::Execute(sample.slices(), v, coeff);
+    SpecularMagnetic::Execute(sample.slices(), v);
 }
 
 TEST_F(SpecularMagneticTest, zerofield)
@@ -55,7 +54,6 @@ TEST_F(SpecularMagneticTest, zerofield)
     Layer substr_layer_zerofield(substr_material_zerofield);
     multi_layer_zerofield.addLayer(air_layer);
     multi_layer_zerofield.addLayer(substr_layer_zerofield);
-    std::vector<MatrixRTCoefficients> coeffs_zerofield;
 
     SimulationOptions options;
     ProcessedSample sample_scalar(multi_layer_scalar, options);
@@ -69,7 +67,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     Eigen::Vector2cd TMS = RTScalar.T1min() + RTScalar.T2min();
     Eigen::Vector2cd RMS = RTScalar.R1min() + RTScalar.R2min();
 
-    SpecularMagnetic::Execute(sample_zerofield.slices(), k1, coeffs_zerofield);
+    auto coeffs_zerofield = SpecularMagnetic::Execute(sample_zerofield.slices(), k1);
     MatrixRTCoefficients RTMatrix = coeffs_zerofield[1];
     Eigen::Vector2cd TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
     Eigen::Vector2cd RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
@@ -93,7 +91,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     TMS = RTScalar.T1min() + RTScalar.T2min();
     RMS = RTScalar.R1min() + RTScalar.R2min();
 
-    SpecularMagnetic::Execute(sample_zerofield.slices(), k2, coeffs_zerofield);
+    coeffs_zerofield = SpecularMagnetic::Execute(sample_zerofield.slices(), k2);
     RTMatrix = coeffs_zerofield[1];
     TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
     RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
@@ -117,7 +115,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     TMS = RTScalar.T1min() + RTScalar.T2min();
     RMS = RTScalar.R1min() + RTScalar.R2min();
 
-    SpecularMagnetic::Execute(sample_zerofield.slices(), k3, coeffs_zerofield);
+    coeffs_zerofield = SpecularMagnetic::Execute(sample_zerofield.slices(), k3);
     RTMatrix = coeffs_zerofield[1];
     TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
     RPM = RTMatrix.R1plus() + RTMatrix.R2plus();

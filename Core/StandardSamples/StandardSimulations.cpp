@@ -45,22 +45,6 @@ namespace {
     const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
 }
 
-GISASSimulation* StandardSimulations::PolarizedDWBAMagCylinders2()
-{
-    SampleBuilderFactory factory;
-    std::shared_ptr<IMultiLayerBuilder> builder(
-                factory.create("MagneticCylindersBuilder").release());
-
-    GISASSimulation* result = new GISASSimulation();
-
-    result->setDetectorParameters(100, -1.0*Units::degree, 1.0*Units::degree,
-                                  100, 0.0*Units::degree, 2.0*Units::degree);
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
-    result->setBeamIntensity(1e9);
-    result->setSampleBuilder( builder );
-    return result;
-}
-
 //! Basic GISAS simulation with the detector phi[0,2], theta[0,2].
 
 GISASSimulation* StandardSimulations::BasicGISAS()
@@ -185,7 +169,6 @@ GISASSimulation* StandardSimulations::MiniGISASDetectorResolution()
 GISASSimulation*StandardSimulations::MiniGISASPolarizationPP()
 {
     GISASSimulation* result = MiniGISAS();
-    result->getOptions().setNumberOfThreads(1);
 
     kvector_t analyzer_dir(0.0, 0.0, 1.0);
     kvector_t beampol(0.0, 0.0, 1.0);
@@ -195,13 +178,36 @@ GISASSimulation*StandardSimulations::MiniGISASPolarizationPP()
     return result;
 }
 
-GISASSimulation*StandardSimulations::MiniGISASSpinFlipZ()
+GISASSimulation*StandardSimulations::MiniGISASPolarizationPM()
 {
     GISASSimulation* result = MiniGISAS();
-    result->getOptions().setNumberOfThreads(1);
 
     kvector_t analyzer_dir(0.0, 0.0, -1.0);
     kvector_t beampol(0.0, 0.0, 1.0);
+
+    result->setBeamPolarization(beampol);
+    result->setAnalyzerProperties(analyzer_dir, 1.0, 0.5);
+    return result;
+}
+
+GISASSimulation*StandardSimulations::MiniGISASPolarizationMP()
+{
+    GISASSimulation* result = MiniGISAS();
+
+    kvector_t analyzer_dir(0.0, 0.0, 1.0);
+    kvector_t beampol(0.0, 0.0, -1.0);
+
+    result->setBeamPolarization(beampol);
+    result->setAnalyzerProperties(analyzer_dir, 1.0, 0.5);
+    return result;
+}
+
+GISASSimulation*StandardSimulations::MiniGISASPolarizationMM()
+{
+    GISASSimulation* result = MiniGISAS();
+
+    kvector_t analyzer_dir(0.0, 0.0, -1.0);
+    kvector_t beampol(0.0, 0.0, -1.0);
 
     result->setBeamPolarization(beampol);
     result->setAnalyzerProperties(analyzer_dir, 1.0, 0.5);

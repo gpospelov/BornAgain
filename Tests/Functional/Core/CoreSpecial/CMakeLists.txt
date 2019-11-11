@@ -2,7 +2,6 @@ set(test TestCoreSpecial)
 
 set(test_cases
     BatchSimulation
-    PolDWBAMagCylinders
     FourierTransformation
     MultilayerPerformance
 #    CoreIOPerformance

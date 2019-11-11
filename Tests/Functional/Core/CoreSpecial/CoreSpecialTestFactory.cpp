@@ -20,17 +20,12 @@
 #include "FourierTransformationTest.h"
 #include "MesoCrystalPerformanceTest.h"
 #include "MultilayerPerformanceTest.h"
-#include "PolDWBAMagCylinders.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
     registerItem("BatchSimulation",
                  create_new<BatchSimulation>,
                  "Running GISASSimulation in batch mode");
-
-    registerItem("PolDWBAMagCylinders",
-                 create_new<PolDWBAMagCylinders>,
-                 "Special test for polarized materials");
 
     registerItem("CoreIOPerformance",
                  create_new<CoreIOPerformanceTest>,

@@ -292,6 +292,14 @@ StandardTestCatalogue::StandardTestCatalogue()
         "CustomMorphologyBuilder",
         2e-10);
 
+    add("TransformBox",
+        "Rotated/translated box in 3 layers system",
+        "MiniGISAS",
+        "TransformBoxBuilder",
+        1e-10);
+
+    // polarized GISAS
+
     add("MagneticParticleZeroField",
         "Magnetic cylinders with zero field",
         "MiniGISAS",
@@ -306,21 +314,51 @@ StandardTestCatalogue::StandardTestCatalogue()
 
     add("MagneticRotation",
         "Rotated magnetic particle in magnetic substrate",
-        "MiniGISASSpinFlipZ",
+        "MiniGISASPolarizationPM",
         "MagneticRotationBuilder",
         2e-10);
 
     add("MagneticSpheres",
         "Magnetic spheres inside substrate",
-        "MiniGISASSpinFlipZ",
+        "MiniGISASPolarizationPM",
         "MagneticSpheresBuilder",
         2e-10);
 
-    add("TransformBox",
-        "Rotated/translated box in 3 layers system",
-        "MiniGISAS",
-        "TransformBoxBuilder",
-        1e-10);
+    add("MagneticCylindersPP",
+        "Magnetic cylinders on a substrate: ++ channel",
+        "MiniGISASPolarizationPP",
+        "MagneticCylindersBuilder",
+        2e-10);
+
+    add("MagneticCylindersPM",
+        "Magnetic cylinders on a substrate: +- channel",
+        "MiniGISASPolarizationPM",
+        "MagneticCylindersBuilder",
+        2e-10);
+
+    add("MagneticCylindersMP",
+        "Magnetic cylinders on a substrate: -+ channel",
+        "MiniGISASPolarizationMP",
+        "MagneticCylindersBuilder",
+        2e-10);
+
+    add("MagneticCylindersMM",
+        "Magnetic cylinders on a substrate: -- channel",
+        "MiniGISASPolarizationMM",
+        "MagneticCylindersBuilder",
+        2e-10);
+
+    add("MagneticSpheresInMagLayerPP",
+        "Magnetic spheres in a magnetized layer, ++ channel",
+        "MiniGISASPolarizationPP",
+        "MagnetizedLayerWithSpheresBuilder",
+        2e-10);
+
+    add("MagneticSpheresInMagLayerMP",
+        "Magnetic spheres in a magnetized layer, ++ channel",
+        "MiniGISASPolarizationMP",
+        "MagnetizedLayerWithSpheresBuilder",
+        2e-10);
 
     // Masking
 

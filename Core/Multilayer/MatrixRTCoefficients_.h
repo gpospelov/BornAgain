@@ -26,6 +26,8 @@
 class BA_CORE_API_ MatrixRTCoefficients_ : public ILayerRTCoefficients
 {
 public:
+    friend class SpecularMagnetic_;
+
     MatrixRTCoefficients_(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b);
     MatrixRTCoefficients_(const MatrixRTCoefficients_& other);
     ~MatrixRTCoefficients_() override;

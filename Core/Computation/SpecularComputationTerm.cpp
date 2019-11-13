@@ -18,7 +18,7 @@
 #include "SpecularMatrix.h"
 #include "SpecularSimulationElement.h"
 
-SpecularComputationTerm::SpecularComputationTerm() {}
+SpecularComputationTerm::SpecularComputationTerm() = default;
 
 SpecularComputationTerm::~SpecularComputationTerm() = default;
 
@@ -33,9 +33,17 @@ void SpecularComputationTerm::compute(SpecularSimulationElement& elem,
     if (!elem.isCalculated())
         return;
 
-    auto coeff = SpecularMatrix::Execute(slices, elem.produceKz(slices));
-    elem.setIntensity(std::norm(coeff[0].getScalarR()));
+    eval(elem, slices);
 
     if (mP_progress_counter)
         mP_progress_counter->stepProgress();
+}
+
+SpecularScalarTerm::~SpecularScalarTerm() = default;
+
+void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
+                              const std::vector<Slice>& slices) const
+{
+    auto coeff = SpecularMatrix::Execute(slices, elem.produceKz(slices));
+    elem.setIntensity(std::norm(coeff[0].getScalarR()));
 }

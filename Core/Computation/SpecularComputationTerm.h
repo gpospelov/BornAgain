@@ -31,13 +31,23 @@ class SpecularComputationTerm
 {
 public:
     SpecularComputationTerm();
-    ~SpecularComputationTerm();
+    virtual ~SpecularComputationTerm();
 
     void setProgressHandler(ProgressHandler* p_progress);
     void compute(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const;
 
+protected:
+    virtual void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const = 0;
+
 private:
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
+};
+
+class SpecularScalarTerm : public SpecularComputationTerm
+{
+    ~SpecularScalarTerm() override;
+protected:
+    void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
 };
 
 #endif /* SPECULARCOMPUTATIONTERM_H_ */

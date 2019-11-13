@@ -34,7 +34,7 @@ class SimulationElement;
 class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
-    using RTCoefficients = MatrixRTCoefficients;
+    using RTCoefficients = MatrixRTCoefficients_;
 
     MatrixFresnelMap();
     ~MatrixFresnelMap() override;

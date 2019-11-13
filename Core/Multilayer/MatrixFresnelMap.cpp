@@ -13,12 +13,32 @@
 // ************************************************************************** //
 
 #include "MatrixFresnelMap.h"
-#include "ILayerRTCoefficients.h"
-#include "MatrixRTCoefficients.h"
 #include "SimulationElement.h"
 #include "Slice.h"
 #include "SpecularMagnetic.h"
+#include "SpecularMagnetic_.h"
 #include <functional>
+
+namespace {
+template <class T> auto computeRT(const std::vector<Slice>&, const kvector_t&)
+{
+    constexpr bool value = std::is_same<T, MatrixRTCoefficients>::value
+                           || std::is_same<T, MatrixRTCoefficients_>::value;
+    static_assert(value, "Error in MatrixFresnelMap:computeRT: unknown coefficient type");
+};
+
+template <>
+auto computeRT<MatrixRTCoefficients>(const std::vector<Slice>& slices, const kvector_t& k)
+{
+    return SpecularMagnetic::Execute(slices, k);
+}
+
+template <>
+auto computeRT<MatrixRTCoefficients_>(const std::vector<Slice>& slices, const kvector_t& k)
+{
+    return SpecularMagnetic_::execute(slices, k);
+}
+}
 
 MatrixFresnelMap::MatrixFresnelMap() = default;
 
@@ -60,19 +80,19 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
                                   const std::vector<Slice>& slices, CoefficientHash& hash_table) const
 {
     if (!m_use_cache) {
-        auto coeffs = SpecularMagnetic::Execute(slices, kvec);
-        return std::make_unique<MatrixRTCoefficients>(coeffs[layer_index]);
+        auto coeffs = computeRT<RTCoefficients>(slices, kvec);
+        return std::make_unique<RTCoefficients>(coeffs[layer_index]);
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
-    return std::make_unique<MatrixRTCoefficients>(coef_vector[layer_index]);
+    return std::make_unique<RTCoefficients>(coef_vector[layer_index]);
 }
 
-const std::vector<MatrixRTCoefficients>&
+const std::vector<MatrixFresnelMap::RTCoefficients>&
 MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
-                         MatrixFresnelMap::CoefficientHash& hash_table)
+                                           MatrixFresnelMap::CoefficientHash& hash_table)
 {
     auto it = hash_table.find(kvec);
     if (it == hash_table.end())
-        it = hash_table.insert({kvec, SpecularMagnetic::Execute(slices, kvec)}).first;
+        it = hash_table.insert({kvec, computeRT<RTCoefficients>(slices, kvec)}).first;
     return it->second;
 }

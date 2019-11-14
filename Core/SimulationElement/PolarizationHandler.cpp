@@ -14,11 +14,11 @@
 
 #include "PolarizationHandler.h"
 
+// corresponds to completely unpolarized beam and the absence of spin selection in the analyzer
 PolarizationHandler::PolarizationHandler()
-{
-    m_polarization = Eigen::Matrix2cd::Identity();
-    m_analyzer_operator = Eigen::Matrix2cd::Identity();
-}
+    : m_polarization(Eigen::Matrix2cd::Identity() / 2.0)
+    , m_analyzer_operator(Eigen::Matrix2cd::Identity())
+{}
 
 void PolarizationHandler::swapContent(PolarizationHandler& other)
 {

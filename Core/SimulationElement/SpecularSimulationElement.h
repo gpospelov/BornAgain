@@ -43,7 +43,7 @@ public:
     SpecularSimulationElement& operator=(const SpecularSimulationElement& other);
 
     //! Assigns PolarizationHandler.
-    void setPolarizationHandler(const PolarizationHandler& handler) { m_polarization = handler; }
+    void setPolarizationHandler(PolarizationHandler handler);
 
     //! Returns assigned PolarizationHandler.
     const PolarizationHandler& polarizationHandler() const { return m_polarization; }

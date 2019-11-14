@@ -60,6 +60,11 @@ operator=(const SpecularSimulationElement& other)
     return *this;
 }
 
+void SpecularSimulationElement::setPolarizationHandler(PolarizationHandler handler)
+{
+    m_polarization = std::move(handler);
+}
+
 std::vector<complex_t> SpecularSimulationElement::produceKz(const std::vector<Slice>& slices)
 {
     return m_kz_computation(slices);

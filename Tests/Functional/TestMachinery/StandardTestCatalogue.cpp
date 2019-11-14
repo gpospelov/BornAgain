@@ -508,6 +508,32 @@ StandardTestCatalogue::StandardTestCatalogue()
         {"PlainMultiLayerBySLDBuilder", "PlainMultiLayerBySLDBuilder"},
         1e-10);
 
+    // polarized specular
+
+    add("BasicSpecularPP",
+        "Basic specular simulation on polarized sample, ++ channel",
+        "BasicSpecularPP",
+        "MagneticLayerBuilder",
+        1e-10);
+
+    add("BasicSpecularMM",
+        "Basic specular simulation on polarized sample, -- channel",
+        "BasicSpecularMM",
+        "MagneticLayerBuilder",
+        1e-10);
+
+    add("PolarizedQAngleReflectivityPP",
+        "Compares specular signal from ++ channel for angular- and q-defined reflectivity",
+        {"BasicSpecularPP", "BasicQSpecularPP"},
+        {"MagneticLayerBuilder", "MagneticLayerBuilder"},
+        1e-10);
+
+    add("PolarizedQAngleReflectivityMM",
+        "Compares specular signal from -- channel for angular- and q-defined reflectivity",
+        {"BasicSpecularMM", "BasicQSpecularMM"},
+        {"MagneticLayerBuilder", "MagneticLayerBuilder"},
+        1e-10);
+
     // off-specular simulation
 
     add("OffSpecularResonator",

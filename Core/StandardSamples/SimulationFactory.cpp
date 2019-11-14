@@ -170,6 +170,20 @@ SimulationFactory::SimulationFactory()
     registerItem("OffSpecMini", StandardSimulations::MiniOffSpec,
                  "Mini OffSpecular simulation for resonator experiment.");
 
+    // polarized specular
+
+    registerItem("BasicSpecularPP", StandardSimulations::BasicSpecularPP,
+                 "Basic specular simulation for magnetized samples, ++ channel");
+
+    registerItem("BasicSpecularMM", StandardSimulations::BasicSpecularMM,
+                 "Basic specular simulation for magnetized samples, -- channel");
+
+    registerItem("BasicQSpecularPP", StandardSimulations::BasicSpecularQPP,
+                 "Basic q-defined specular simulation for magnetized samples, ++ channel");
+
+    registerItem("BasicQSpecularMM", StandardSimulations::BasicSpecularQMM,
+                 "Basic q-defined specular simulation for magnetized samples, -- channel");
+
     // depth probe simulations
 
     registerItem("BasicDepthProbe",

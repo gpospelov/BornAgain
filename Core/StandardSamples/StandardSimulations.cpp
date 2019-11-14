@@ -529,6 +529,41 @@ SpecularSimulation *StandardSimulations::TOFRWithPointwiseResolution()
     return result.release();
 }
 
+// ------------ polarized specular ----------------
+SpecularSimulation* StandardSimulations::BasicSpecularPP()
+{
+    std::unique_ptr<SpecularSimulation> simulation(BasicSpecular());
+    simulation->setBeamPolarization({0.0, 1.0, 0.0});
+    simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
+    return simulation.release();
+}
+
+SpecularSimulation* StandardSimulations::BasicSpecularMM()
+{
+    std::unique_ptr<SpecularSimulation> simulation(BasicSpecular());
+    simulation->setBeamPolarization({0.0, -1.0, 0.0});
+    simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
+    return simulation.release();
+}
+
+SpecularSimulation* StandardSimulations::BasicSpecularQPP()
+{
+    std::unique_ptr<SpecularSimulation> simulation(BasicSpecularQ());
+    simulation->setBeamPolarization({0.0, 1.0, 0.0});
+    simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
+    return simulation.release();
+}
+
+SpecularSimulation* StandardSimulations::BasicSpecularQMM()
+{
+    std::unique_ptr<SpecularSimulation> simulation(BasicSpecularQ());
+    simulation->setBeamPolarization({0.0, -1.0, 0.0});
+    simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
+    return simulation.release();
+}
+
+// ----------------------- off-spec simulations ------------------
+
 // OffSpec simulation used in ResonatorOffSpecSetup.py
 OffSpecSimulation* StandardSimulations::MiniOffSpec()
 {

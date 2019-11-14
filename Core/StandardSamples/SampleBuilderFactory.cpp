@@ -137,6 +137,9 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem("MagneticSubstrateZeroFieldBuilder", create_new<MagneticSubstrateZeroFieldBuilder>,
                  "Polarized DWBA with zero field substrate");
 
+    registerItem("MagneticLayerBuilder", create_new<SimpleMagneticLayerBuilder>,
+                 "Sample with one magnetic 10nm-thick layer");
+
     registerItem("MagnetizedLayerWithSpheresBuilder", create_new<MagneticLayerBuilder>,
                  "Magnetized particles in a magnetized layer");
 

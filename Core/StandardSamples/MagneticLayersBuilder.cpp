@@ -53,6 +53,27 @@ MultiLayer*MagneticSubstrateZeroFieldBuilder::buildSample() const
     return multi_layer;
 }
 
+SimpleMagneticLayerBuilder::SimpleMagneticLayerBuilder() = default;
+
+MultiLayer* SimpleMagneticLayerBuilder::buildSample() const
+{
+    MultiLayer* multi_layer = new MultiLayer();
+
+    kvector_t layer_field = kvector_t(0.0, 1e8, 0.0);
+    Material air_material = MaterialBySLD("Air", 0.0, 0.0);
+    Material layer_material = MaterialBySLD("MagLayer", 1e-4, 1e-8, layer_field);
+    Material substrate_material = MaterialBySLD("Substrate", 7e-5, 2e-6);
+
+    Layer air_layer(air_material);
+    Layer intermediate_layer(layer_material, 10.0); // 10 nm layer thickness
+    Layer substrate_layer(substrate_material);
+
+    multi_layer->addLayer(air_layer);
+    multi_layer->addLayer(intermediate_layer);
+    multi_layer->addLayer(substrate_layer);
+    return multi_layer;
+}
+
 MagneticLayerBuilder::MagneticLayerBuilder()
     : m_sphere_radius(5*Units::nanometer)
 {}

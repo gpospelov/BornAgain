@@ -60,13 +60,18 @@ BA_CORE_API_ GISASSimulation* MiniGISASPolarizationMM();
 
 // Specular simulation tests:
 BA_CORE_API_ SpecularSimulation* BasicSpecular();
-BA_CORE_API_ SpecularSimulation* BasicSpecularTOF();
 BA_CORE_API_ SpecularSimulation* BasicSpecularQ();
 BA_CORE_API_ SpecularSimulation* SpecularWithGaussianBeam();
 BA_CORE_API_ SpecularSimulation* SpecularWithSquareBeam();
 BA_CORE_API_ SpecularSimulation* SpecularDivergentBeam();
 BA_CORE_API_ SpecularSimulation* TOFRWithRelativeResolution();
 BA_CORE_API_ SpecularSimulation* TOFRWithPointwiseResolution();
+
+// polarized specular:
+BA_CORE_API_ SpecularSimulation* BasicSpecularPP();
+BA_CORE_API_ SpecularSimulation* BasicSpecularMM();
+BA_CORE_API_ SpecularSimulation* BasicSpecularQPP();
+BA_CORE_API_ SpecularSimulation* BasicSpecularQMM();
 
 // OffSpec simulations
 BA_CORE_API_ OffSpecSimulation* MiniOffSpec();

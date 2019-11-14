@@ -140,11 +140,22 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
         throw std::runtime_error("Error in SpecularSimulation::generateSimulationElements: beam "
                                  "parameters were not set.");
 
-    // TODO: remove when pointwise resolution is implemented
-    if (m_data_handler->dataType() == ISpecularScan::angle)
-        return mangledDataHandler(*m_data_handler, beam)->generateSimulationElements();
+    std::vector<SpecularSimulationElement> elements;
 
-    return m_data_handler->generateSimulationElements();
+    // TODO: remove if-else statement when pointwise resolution is implemented
+    if (m_data_handler->dataType() == ISpecularScan::angle)
+        elements = mangledDataHandler(*m_data_handler, beam)->generateSimulationElements();
+    else
+        elements = m_data_handler->generateSimulationElements();
+
+    // add polarization and analyzer operators
+    const auto& polarization = beam.getPolarization();
+    const auto& analyzer = m_instrument.getDetector()->detectionProperties().analyzerOperator();
+
+    for (auto& elem: elements)
+        elem.setPolarizationHandler({polarization, analyzer});
+
+    return elements;
 }
 
 std::unique_ptr<IComputation>

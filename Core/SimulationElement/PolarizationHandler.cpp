@@ -20,6 +20,12 @@ PolarizationHandler::PolarizationHandler()
     , m_analyzer_operator(Eigen::Matrix2cd::Identity())
 {}
 
+PolarizationHandler::PolarizationHandler(const Eigen::Matrix2cd& polarization,
+                                         const Eigen::Matrix2cd& analyzer)
+    : m_polarization(polarization)
+    , m_analyzer_operator(analyzer)
+{}
+
 void PolarizationHandler::swapContent(PolarizationHandler& other)
 {
     std::swap(m_polarization, other.m_polarization);

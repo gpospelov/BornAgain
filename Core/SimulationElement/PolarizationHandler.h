@@ -24,6 +24,7 @@
 class BA_CORE_API_ PolarizationHandler {
 public:
     PolarizationHandler();
+    PolarizationHandler(const Eigen::Matrix2cd& polarization, const Eigen::Matrix2cd& analyzer);
 
     //! Sets the polarization density matrix (in spin basis along z-axis)
     void setPolarization(const Eigen::Matrix2cd& polarization) { m_polarization = polarization; }
@@ -32,8 +33,7 @@ public:
     Eigen::Matrix2cd getPolarization() const { return m_polarization; }
 
     //! Sets the polarization analyzer operator (in spin basis along z-axis)
-    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator) {
-        m_analyzer_operator = polarization_operator; }
+    void setAnalyzerOperator(const Eigen::Matrix2cd& analyzer) { m_analyzer_operator = analyzer; }
 
     //! Gets the polarization analyzer operator (in spin basis along z-axis)
     Eigen::Matrix2cd getAnalyzerOperator() const { return m_analyzer_operator; }

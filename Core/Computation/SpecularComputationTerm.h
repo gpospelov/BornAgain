@@ -19,9 +19,10 @@
 #include <vector>
 
 class DelayedProgressCounter;
-class Slice;
+class MatrixRTCoefficients_;
 class ProgressHandler;
 class SpecularSimulationElement;
+class Slice;
 
 //! Computes the specular scattering.
 //! Used by SpecularComputation.
@@ -48,6 +49,15 @@ class SpecularScalarTerm : public SpecularComputationTerm
     ~SpecularScalarTerm() override;
 protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
+};
+
+class SpecularMatrixTerm : public SpecularComputationTerm
+{
+    ~SpecularMatrixTerm() override;
+protected:
+    void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
+    double intensity(const SpecularSimulationElement& elem,
+                     const MatrixRTCoefficients_& coeff) const;
 };
 
 #endif /* SPECULARCOMPUTATIONTERM_H_ */

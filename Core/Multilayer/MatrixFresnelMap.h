@@ -17,6 +17,7 @@
 
 #include "IFresnelMap.h"
 #include "MatrixRTCoefficients.h"
+#include "MatrixRTCoefficients_.h"
 #include <cstddef>
 #include <memory>
 #include <unordered_map>
@@ -33,6 +34,8 @@ class SimulationElement;
 class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
+    using RTCoefficients = MatrixRTCoefficients_;
+
     MatrixFresnelMap();
     ~MatrixFresnelMap() override;
 
@@ -50,8 +53,7 @@ private:
         size_t operator()(const kvector_t& kvec) const noexcept;
     };
 
-    typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>
-        CoefficientHash;
+    using CoefficientHash = std::unordered_map<kvector_t, std::vector<RTCoefficients>, HashKVector>;
 
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
@@ -63,9 +65,9 @@ private:
     mutable CoefficientHash m_hash_table_out;
     mutable CoefficientHash m_hash_table_in;
 
-    static const std::vector<MatrixRTCoefficients>&
-        getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
-                                 CoefficientHash& hash_table);
+    static const std::vector<RTCoefficients>&
+    getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
+                             CoefficientHash& hash_table);
 };
 
 #endif // MATRIXFRESNELMAP_H

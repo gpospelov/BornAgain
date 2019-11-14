@@ -51,6 +51,7 @@ public:
 
     //! Initializes the magnetic B field from a given ambient field strength H
     void initBField(kvector_t h_field, double b_z);
+    kvector_t bField() const { return m_B_field; }
 
     void invertBField();
 

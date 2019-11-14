@@ -30,12 +30,12 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
     : IComputation(multilayer, options, progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
-    , m_computation_term(new SpecularScalarTerm)
 {
     if (mP_processed_sample->containsMagneticMaterial()
         || mP_processed_sample->externalField() != kvector_t{})
-        throw std::runtime_error("Error in SpecularComputation::SpecularComputation: magnetized "
-                                 "samples are not currently handled.");
+        m_computation_term.reset(new SpecularMatrixTerm);
+    else
+        m_computation_term.reset(new SpecularScalarTerm);
 }
 
 SpecularComputation::~SpecularComputation() = default;

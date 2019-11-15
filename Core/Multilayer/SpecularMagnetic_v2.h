@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SpecularMagnetic_.h
-//! @brief     Defines class SpecularMagnetic_.
+//! @file      Core/Multilayer/SpecularMagnetic_v2.h
+//! @brief     Defines class SpecularMagnetic_v2.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARMAGNETIC__H
-#define SPECULARMAGNETIC__H
+#ifndef SPECULARMAGNETIC_V2_H
+#define SPECULARMAGNETIC_V2_H
 
 #include "MatrixRTCoefficients_v2.h"
 #include "Vectors3D.h"
@@ -24,7 +24,7 @@ class Slice;
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer with magnetization.
 //! @ingroup algorithms_internal
-class BA_CORE_API_ SpecularMagnetic_
+class BA_CORE_API_ SpecularMagnetic_v2
 {
 public:
     //! Computes refraction angle reflection/transmission coefficients
@@ -62,4 +62,4 @@ public:
                                   const Eigen::Matrix2cd& weights);
 };
 
-#endif // SPECULARMAGNETIC__H
+#endif // SPECULARMAGNETIC_V2_H

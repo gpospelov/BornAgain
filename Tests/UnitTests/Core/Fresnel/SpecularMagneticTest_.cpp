@@ -4,7 +4,7 @@
 #include "MultiLayer.h"
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
-#include "SpecularMagnetic_.h"
+#include "SpecularMagnetic_v2.h"
 #include "SpecularMatrix.h"
 #include "Units.h"
 
@@ -28,7 +28,7 @@ void SpecularMagneticTest_::testZeroField(const kvector_t& k, const ProcessedSam
                                           const ProcessedSample& sample_zerofield)
 {
     auto coeffs_scalar = SpecularMatrix::Execute(sample_scalar.slices(), k);
-    auto coeffs_zerofield = SpecularMagnetic_::execute(sample_zerofield.slices(), k);
+    auto coeffs_zerofield = SpecularMagnetic_v2::execute(sample_zerofield.slices(), k);
 
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());
 
@@ -74,7 +74,7 @@ TEST_F(SpecularMagneticTest_, degenerate)
     Eigen::Vector2cd Tm_ref {0.0, 0.5};
     Eigen::Vector2cd Rm_ref {0.0, -0.5};
 
-    auto result = SpecularMagnetic_::execute(sample.slices(), v);
+    auto result = SpecularMagnetic_v2::execute(sample.slices(), v);
     for (auto& coeff: result) {
         ifEqual(coeff.T1plus(), Tp_ref);
         ifEqual(coeff.T2plus(), Tp_ref);

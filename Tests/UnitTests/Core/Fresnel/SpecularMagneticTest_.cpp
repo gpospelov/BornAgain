@@ -39,7 +39,7 @@ void SpecularMagneticTest_::testZeroField(const kvector_t& k, const ProcessedSam
         Eigen::Vector2cd TMS = RTScalar.T1min() + RTScalar.T2min();
         Eigen::Vector2cd RMS = RTScalar.R1min() + RTScalar.R2min();
 
-        const MatrixRTCoefficients_& RTMatrix = coeffs_zerofield[i];
+        const MatrixRTCoefficients_v2& RTMatrix = coeffs_zerofield[i];
         Eigen::Vector2cd TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
         Eigen::Vector2cd RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
         Eigen::Vector2cd TMM = RTMatrix.T1min() + RTMatrix.T2min();

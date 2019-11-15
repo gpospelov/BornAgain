@@ -23,7 +23,7 @@ namespace {
 template <class T> auto computeRT(const std::vector<Slice>&, const kvector_t&)
 {
     constexpr bool value = std::is_same<T, MatrixRTCoefficients>::value
-                           || std::is_same<T, MatrixRTCoefficients_>::value;
+                           || std::is_same<T, MatrixRTCoefficients_v2>::value;
     static_assert(value, "Error in MatrixFresnelMap:computeRT: unknown coefficient type");
 };
 
@@ -34,7 +34,7 @@ auto computeRT<MatrixRTCoefficients>(const std::vector<Slice>& slices, const kve
 }
 
 template <>
-auto computeRT<MatrixRTCoefficients_>(const std::vector<Slice>& slices, const kvector_t& k)
+auto computeRT<MatrixRTCoefficients_v2>(const std::vector<Slice>& slices, const kvector_t& k)
 {
     return SpecularMagnetic_::execute(slices, k);
 }

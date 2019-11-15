@@ -83,6 +83,8 @@ set(test_cases
     ThickAbsorptiveSampleWithRoughness
     MagneticSpheresInMagLayerPP
     MagneticSpheresInMagLayerMP
+    BasicSpecularPP
+    BasicSpecularMM
     )
 
 add_executable(${test} main.cpp CoreStandardTest.h CoreStandardTest.cpp)

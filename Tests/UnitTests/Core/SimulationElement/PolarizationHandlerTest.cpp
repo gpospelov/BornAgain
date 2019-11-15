@@ -33,7 +33,7 @@ Eigen::Matrix2cd PolarizationHandlerTest::testMatrix()
 TEST_F(PolarizationHandlerTest, InitialState)
 {
     PolarizationHandler handler;
-    EXPECT_EQ(identity, handler.getPolarization());
+    EXPECT_EQ(identity / 2.0, handler.getPolarization());
     EXPECT_EQ(identity, handler.getAnalyzerOperator());
 }
 
@@ -55,7 +55,7 @@ TEST_F(PolarizationHandlerTest, Swap)
     handler2.swapContent(handler);
 
     EXPECT_EQ(test_matrix, handler2.getPolarization());
-    EXPECT_EQ(identity, handler.getPolarization());
+    EXPECT_EQ(identity / 2.0, handler.getPolarization());
 
     handler.setAnalyzerOperator(test_matrix);
     handler2.swapContent(handler);

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file     Core/Multilayer/MatrixRTCoefficients_.cpp
-//! @brief    Implements class MatrixRTCoefficients_.
+//! @file     Core/Multilayer/MatrixRTCoefficients_v2.cpp
+//! @brief    Implements class MatrixRTCoefficients_v2.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "MatrixRTCoefficients_.h"
+#include "MatrixRTCoefficients_v2.h"
 
 namespace {
 Eigen::Vector2cd waveVector(const Eigen::Matrix4cd& frob_matrix,
@@ -21,7 +21,7 @@ Eigen::Vector2cd waveVector(const Eigen::Matrix4cd& frob_matrix,
 constexpr complex_t I = complex_t(0.0, 1.0);
 }
 
-MatrixRTCoefficients_::MatrixRTCoefficients_(double kz_sign, Eigen::Vector2cd eigenvalues,
+MatrixRTCoefficients_v2::MatrixRTCoefficients_v2(double kz_sign, Eigen::Vector2cd eigenvalues,
                                              kvector_t b)
     : m_kz_sign(kz_sign)
     , m_lambda(std::move(eigenvalues))
@@ -29,16 +29,16 @@ MatrixRTCoefficients_::MatrixRTCoefficients_(double kz_sign, Eigen::Vector2cd ei
 {
 }
 
-MatrixRTCoefficients_::MatrixRTCoefficients_(const MatrixRTCoefficients_& other) = default;
+MatrixRTCoefficients_v2::MatrixRTCoefficients_v2(const MatrixRTCoefficients_v2& other) = default;
 
-MatrixRTCoefficients_::~MatrixRTCoefficients_() = default;
+MatrixRTCoefficients_v2::~MatrixRTCoefficients_v2() = default;
 
-MatrixRTCoefficients_* MatrixRTCoefficients_::clone() const
+MatrixRTCoefficients_v2* MatrixRTCoefficients_v2::clone() const
 {
-    return new MatrixRTCoefficients_(*this);
+    return new MatrixRTCoefficients_v2(*this);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_::T1plus() const
+Eigen::Vector2cd MatrixRTCoefficients_v2::T1plus() const
 {
     const Eigen::Vector2cd result = waveVector(T1, m_w_plus);
     if (m_lambda(0) == 0.0 && result == Eigen::Vector2cd::Zero())
@@ -46,14 +46,14 @@ Eigen::Vector2cd MatrixRTCoefficients_::T1plus() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_::R1plus() const
+Eigen::Vector2cd MatrixRTCoefficients_v2::R1plus() const
 {
     if (m_lambda(0) == 0.0 && waveVector(T1, m_w_plus) == Eigen::Vector2cd::Zero())
         return {-0.5, 0.0};
     return waveVector(R1, m_w_plus);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_::T2plus() const
+Eigen::Vector2cd MatrixRTCoefficients_v2::T2plus() const
 {
     const Eigen::Vector2cd result = waveVector(T2, m_w_plus);
     if (m_lambda(1) == 0.0 && result == Eigen::Vector2cd::Zero())
@@ -61,14 +61,14 @@ Eigen::Vector2cd MatrixRTCoefficients_::T2plus() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_::R2plus() const
+Eigen::Vector2cd MatrixRTCoefficients_v2::R2plus() const
 {
     if (m_lambda(1) == 0.0 && waveVector(T2, m_w_plus) == Eigen::Vector2cd::Zero())
         return {-0.5, 0.0};
     return waveVector(R2, m_w_plus);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_::T1min() const
+Eigen::Vector2cd MatrixRTCoefficients_v2::T1min() const
 {
     const Eigen::Vector2cd result = waveVector(T1, m_w_min);
     if (m_lambda(0) == 0.0 && result == Eigen::Vector2cd::Zero())
@@ -76,14 +76,14 @@ Eigen::Vector2cd MatrixRTCoefficients_::T1min() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_::R1min() const
+Eigen::Vector2cd MatrixRTCoefficients_v2::R1min() const
 {
     if (m_lambda(0) == 0.0 && waveVector(T1, m_w_min) == Eigen::Vector2cd::Zero())
         return {0.0, -0.5};
     return waveVector(R1, m_w_min);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_::T2min() const
+Eigen::Vector2cd MatrixRTCoefficients_v2::T2min() const
 {
     const Eigen::Vector2cd result = waveVector(T2, m_w_min);
     if (m_lambda(1) == 0.0 && result == Eigen::Vector2cd::Zero())
@@ -91,14 +91,14 @@ Eigen::Vector2cd MatrixRTCoefficients_::T2min() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_::R2min() const
+Eigen::Vector2cd MatrixRTCoefficients_v2::R2min() const
 {
     if (m_lambda(1) == 0.0 && waveVector(T2, m_w_min) == Eigen::Vector2cd::Zero())
         return {0.0, -0.5};
     return waveVector(R2, m_w_min);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_::getKz() const
+Eigen::Vector2cd MatrixRTCoefficients_v2::getKz() const
 {
     return -I * m_kz_sign * m_lambda;
 }

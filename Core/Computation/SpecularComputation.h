@@ -43,7 +43,7 @@ private:
 
     //! these iterators define the span of detector bins this simulation will work on
     SpecularElementIter m_begin_it, m_end_it;
-    SpecularComputationTerm m_computation_term;
+    std::unique_ptr<SpecularComputationTerm> m_computation_term;
 };
 
 #endif /* SPECULARCOMPUTATION_H_ */

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SpecularMagnetic_.cpp
-//! @brief     Implements class SpecularMagnetic_.
+//! @file      Core/Multilayer/SpecularMagnetic_v2.cpp
+//! @brief     Implements class SpecularMagnetic_v2.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "SpecularMagnetic_.h"
+#include "SpecularMagnetic_v2.h"
 #include "KzComputation.h"
 #include "PhysicalConstants.h"
 #include "Slice.h"
@@ -29,13 +29,13 @@ constexpr double magnetic_prefactor = PhysConsts::m_n * PhysConsts::g_factor_n *
 constexpr complex_t I(0.0, 1.0);
 }
 
-std::vector<MatrixRTCoefficients_> SpecularMagnetic_::execute(const std::vector<Slice>& slices,
+std::vector<MatrixRTCoefficients_v2> SpecularMagnetic_v2::execute(const std::vector<Slice>& slices,
                                                               const kvector_t& k)
 {
     return execute(slices, KzComputation::computeReducedKz(slices, k));
 }
 
-std::vector<MatrixRTCoefficients_> SpecularMagnetic_::execute(const std::vector<Slice>& slices,
+std::vector<MatrixRTCoefficients_v2> SpecularMagnetic_v2::execute(const std::vector<Slice>& slices,
                                                               const std::vector<complex_t>& kzs)
 {
     if (slices.size() != kzs.size())
@@ -44,7 +44,7 @@ std::vector<MatrixRTCoefficients_> SpecularMagnetic_::execute(const std::vector<
     if (slices.empty())
         return {};
 
-    std::vector<MatrixRTCoefficients_> result;
+    std::vector<MatrixRTCoefficients_v2> result;
     result.reserve(slices.size());
 
     const double kz_sign = kzs.front().real() > 0.0 ? 1.0 : -1.0; // save sign to restore it later
@@ -68,7 +68,7 @@ std::vector<MatrixRTCoefficients_> SpecularMagnetic_::execute(const std::vector<
     return result;
 }
 
-void SpecularMagnetic_::calculateTR(MatrixRTCoefficients_& coeff)
+void SpecularMagnetic_v2::calculateTR(MatrixRTCoefficients_v2& coeff)
 {
     const double b = coeff.m_b.mag();
     if (b == 0.0) {
@@ -110,7 +110,7 @@ void SpecularMagnetic_::calculateTR(MatrixRTCoefficients_& coeff)
           -T2(3, 0), -T2(3, 1), T2(3, 2), T2(3, 3);
 }
 
-void SpecularMagnetic_::calculateZeroFieldTR(MatrixRTCoefficients_& coeff)
+void SpecularMagnetic_v2::calculateZeroFieldTR(MatrixRTCoefficients_v2& coeff)
 {
     coeff.T1 = Eigen::Matrix4cd::Zero();
     coeff.R1 = Eigen::Matrix4cd::Zero();
@@ -136,7 +136,7 @@ void SpecularMagnetic_::calculateZeroFieldTR(MatrixRTCoefficients_& coeff)
     coeff.R2.block<3, 3>(0, 0) = Rblock;
 }
 
-void SpecularMagnetic_::setNoTransmission(MatrixRTCoefficients_& coeff)
+void SpecularMagnetic_v2::setNoTransmission(MatrixRTCoefficients_v2& coeff)
 {
     coeff.m_w_plus = Eigen::Vector4cd::Zero();
     coeff.m_w_min = Eigen::Vector4cd::Zero();
@@ -146,7 +146,7 @@ void SpecularMagnetic_::setNoTransmission(MatrixRTCoefficients_& coeff)
     coeff.R2 = coeff.T1;
 }
 
-void SpecularMagnetic_::nullifyBottomReflection(MatrixRTCoefficients_& coeff)
+void SpecularMagnetic_v2::nullifyBottomReflection(MatrixRTCoefficients_v2& coeff)
 {
     const complex_t l_1 = coeff.m_lambda(0);
     const complex_t l_2 = coeff.m_lambda(1);
@@ -173,7 +173,7 @@ void SpecularMagnetic_::nullifyBottomReflection(MatrixRTCoefficients_& coeff)
     coeff.m_w_plus(3) = 0.0;
 }
 
-void SpecularMagnetic_::propagateBackwards(std::vector<MatrixRTCoefficients_>& coeff,
+void SpecularMagnetic_v2::propagateBackwards(std::vector<MatrixRTCoefficients_v2>& coeff,
                                            const std::vector<Slice>& slices)
 {
     const int size = static_cast<int>(coeff.size());
@@ -191,7 +191,7 @@ void SpecularMagnetic_::propagateBackwards(std::vector<MatrixRTCoefficients_>& c
 }
 
 Eigen::Matrix2cd
-SpecularMagnetic_::findNormalizationCoefficients(const MatrixRTCoefficients_& coeff)
+SpecularMagnetic_v2::findNormalizationCoefficients(const MatrixRTCoefficients_v2& coeff)
 {
     const Eigen::Vector2cd Ta = coeff.T1plus() + coeff.T2plus();
     const Eigen::Vector2cd Tb = coeff.T1min() + coeff.T2min();
@@ -206,7 +206,7 @@ SpecularMagnetic_::findNormalizationCoefficients(const MatrixRTCoefficients_& co
     return result;
 }
 
-void SpecularMagnetic_::propagateForwards(std::vector<MatrixRTCoefficients_>& coeff,
+void SpecularMagnetic_v2::propagateForwards(std::vector<MatrixRTCoefficients_v2>& coeff,
                                           const Eigen::Matrix2cd& weights)
 {
     const complex_t a_plus = weights(0, 0);

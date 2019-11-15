@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file     Core/Multilayer/MatrixRTCoefficients_.h
-//! @brief    Defines class MatrixRTCoefficients_.
+//! @file     Core/Multilayer/MatrixRTCoefficients_v2.h
+//! @brief    Defines class MatrixRTCoefficients_v2.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MATRIXRTCOEFFICIENTS__H
-#define MATRIXRTCOEFFICIENTS__H
+#ifndef MATRIXRTCOEFFICIENTS_V2_H
+#define MATRIXRTCOEFFICIENTS_V2_H
 
 #include "ILayerRTCoefficients.h"
 #include "Vectors3D.h"
@@ -23,16 +23,16 @@
 //! of magnetic interactions between the scattered particle and the layer.
 //! @ingroup algorithms_internal
 
-class BA_CORE_API_ MatrixRTCoefficients_ : public ILayerRTCoefficients
+class BA_CORE_API_ MatrixRTCoefficients_v2 : public ILayerRTCoefficients
 {
 public:
-    friend class SpecularMagnetic_;
+    friend class SpecularMagnetic_v2;
 
-    MatrixRTCoefficients_(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b);
-    MatrixRTCoefficients_(const MatrixRTCoefficients_& other);
-    ~MatrixRTCoefficients_() override;
+    MatrixRTCoefficients_v2(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b);
+    MatrixRTCoefficients_v2(const MatrixRTCoefficients_v2& other);
+    ~MatrixRTCoefficients_v2() override;
 
-    MatrixRTCoefficients_* clone() const override;
+    MatrixRTCoefficients_v2* clone() const override;
 
     //! The following functions return the transmitted and reflected amplitudes
     //! for different incoming beam polarizations and eigenmodes
@@ -65,4 +65,4 @@ private:
                          //!< the second eigenmode
 };
 
-#endif // MATRIXRTCOEFFICIENTS__H
+#endif // MATRIXRTCOEFFICIENTS_V2_H

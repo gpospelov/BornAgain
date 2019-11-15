@@ -17,7 +17,7 @@
 
 #include "IFresnelMap.h"
 #include "MatrixRTCoefficients.h"
-#include "MatrixRTCoefficients_.h"
+#include "MatrixRTCoefficients_v2.h"
 #include <cstddef>
 #include <memory>
 #include <unordered_map>
@@ -34,7 +34,7 @@ class SimulationElement;
 class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
-    using RTCoefficients = MatrixRTCoefficients_;
+    using RTCoefficients = MatrixRTCoefficients_v2;
 
     MatrixFresnelMap();
     ~MatrixFresnelMap() override;

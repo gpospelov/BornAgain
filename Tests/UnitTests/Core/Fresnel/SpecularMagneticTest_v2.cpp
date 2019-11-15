@@ -4,16 +4,16 @@
 #include "MultiLayer.h"
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
-#include "SpecularMagnetic_.h"
+#include "SpecularMagnetic_v2.h"
 #include "SpecularMatrix.h"
 #include "Units.h"
 
 constexpr double eps = 1e-10;
 
-class SpecularMagneticTest_ : public ::testing::Test
+class SpecularMagneticTest_v2 : public ::testing::Test
 {
 protected:
-    ~SpecularMagneticTest_();
+    ~SpecularMagneticTest_v2();
 
     //! Compares results with scalar case
     void testZeroField(const kvector_t& k, const ProcessedSample& m_layer_scalar,
@@ -22,13 +22,13 @@ protected:
     void ifEqual(const Eigen::Vector2cd& lhs, const Eigen::Vector2cd& rhs);
 };
 
-SpecularMagneticTest_::~SpecularMagneticTest_() = default;
+SpecularMagneticTest_v2::~SpecularMagneticTest_v2() = default;
 
-void SpecularMagneticTest_::testZeroField(const kvector_t& k, const ProcessedSample& sample_scalar,
+void SpecularMagneticTest_v2::testZeroField(const kvector_t& k, const ProcessedSample& sample_scalar,
                                           const ProcessedSample& sample_zerofield)
 {
     auto coeffs_scalar = SpecularMatrix::Execute(sample_scalar.slices(), k);
-    auto coeffs_zerofield = SpecularMagnetic_::execute(sample_zerofield.slices(), k);
+    auto coeffs_zerofield = SpecularMagnetic_v2::execute(sample_zerofield.slices(), k);
 
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());
 
@@ -39,7 +39,7 @@ void SpecularMagneticTest_::testZeroField(const kvector_t& k, const ProcessedSam
         Eigen::Vector2cd TMS = RTScalar.T1min() + RTScalar.T2min();
         Eigen::Vector2cd RMS = RTScalar.R1min() + RTScalar.R2min();
 
-        const MatrixRTCoefficients_& RTMatrix = coeffs_zerofield[i];
+        const MatrixRTCoefficients_v2& RTMatrix = coeffs_zerofield[i];
         Eigen::Vector2cd TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
         Eigen::Vector2cd RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
         Eigen::Vector2cd TMM = RTMatrix.T1min() + RTMatrix.T2min();
@@ -54,13 +54,13 @@ void SpecularMagneticTest_::testZeroField(const kvector_t& k, const ProcessedSam
     }
 }
 
-void SpecularMagneticTest_::ifEqual(const Eigen::Vector2cd& lhs, const Eigen::Vector2cd& rhs)
+void SpecularMagneticTest_v2::ifEqual(const Eigen::Vector2cd& lhs, const Eigen::Vector2cd& rhs)
 {
     EXPECT_NEAR(0.0, std::abs(lhs(0) - rhs(0)), eps);
     EXPECT_NEAR(0.0, std::abs(lhs(1) - rhs(1)), eps);
 }
 
-TEST_F(SpecularMagneticTest_, degenerate)
+TEST_F(SpecularMagneticTest_v2, degenerate)
 {
     MultiLayer mLayer;
     kvector_t v;
@@ -74,7 +74,7 @@ TEST_F(SpecularMagneticTest_, degenerate)
     Eigen::Vector2cd Tm_ref {0.0, 0.5};
     Eigen::Vector2cd Rm_ref {0.0, -0.5};
 
-    auto result = SpecularMagnetic_::execute(sample.slices(), v);
+    auto result = SpecularMagnetic_v2::execute(sample.slices(), v);
     for (auto& coeff: result) {
         ifEqual(coeff.T1plus(), Tp_ref);
         ifEqual(coeff.T2plus(), Tp_ref);
@@ -87,7 +87,7 @@ TEST_F(SpecularMagneticTest_, degenerate)
     }
 }
 
-TEST_F(SpecularMagneticTest_, zerofield)
+TEST_F(SpecularMagneticTest_v2, zerofield)
 {
     kvector_t substr_field(0.0, 0.0, 0.0);
     kvector_t k1 = vecOfLambdaAlphaPhi(1.0, -0.1 * Units::deg, 0.0);

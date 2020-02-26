@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%   BornAgain User Manual
+%%   BornAgain Physics Manual
 %%
 %%   homepage:   http://www.bornagainproject.org
 %%
@@ -14,12 +14,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % To compile this report, run
-%   xelatex BornAgainManual
-%   bibtex  BornAgainManual
-%   xelatex BornAgainManual
-%   makeindex BornAgainManual
-%   makeindex -s nomencl.ist BornAgainManual.nlo -o BornAgainManual.nls
-%   xelatex BornAgainManual
+%   export T=PhysicsManual
+%   xelatex $T
+%   bibtex  $T
+%   xelatex $T
+%   makeindex $T
+%   makeindex -s nomencl.ist $T.nlo -o $T.nls
+%   xelatex $T
 
 %\includeonly{Assemblies}
 %\includeonly{ScatteringTheory}
@@ -30,9 +31,8 @@
 %\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[final]{graphicx}
 %\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[draft]{graphicx}
 
-\def\authors{Jan Burle, Céline Durniak, Jonathan M.\ Fisher, Marina Ganeva, Gennady Pospelov,
-Walter Van Herck, Joachim Wuttke}
-\def\version{1.7.2}
+\def\authors{Gennady Pospelov, Walter Van Herck, Joachim Wuttke}
+\def\version{1.16}
 
 \input{Setup}
 

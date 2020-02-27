@@ -22,11 +22,6 @@
 %   makeindex -s nomencl.ist $T.nlo -o $T.nls
 %   xelatex $T
 
-%\includeonly{Assemblies}
-%\includeonly{ScatteringTheory}
-%\includeonly{Introduction,Conventions,OnlineDocs,ScatteringTheory,PolarizedScattering,Multilayers,Assemblies,Domains,Roughness,Experiment}
-%\includeonly{FormFactors}
-
 \documentclass[a4paper,11pt,fleqn]{report}\usepackage[final]{graphicx}
 %\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[final]{graphicx}
 %\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[draft]{graphicx}
@@ -48,19 +43,12 @@
 \include{Preface}
 \pagemode{\thechapter}
 
-%%%%  Part I: Physics
 \include{Scattering}
 \include{Multilayers}
 \include{Assemblies}
-\include{Roughness}
-\include{PolarizedScattering}
+%\include{Roughness}
+%\include{PolarizedScattering}
 \include{Instrument}
-
-%%%% Part II: Reference
-\include{ThreeAPIs}
-\include{BasicRef}
-\include{Sample}
-\include{Particles}
 
 %\appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 %\include{..}

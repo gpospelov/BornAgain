@@ -58,6 +58,8 @@ In this section, we review the wave equations that describe the propagation
 of neutrons (\cref{SnScalar,SnSpinor}) and X-rays (\cref{SXwave}) in matter,
 and combine them into a unified wave equation (\cref{SuniWave})
 that is the base for the all following analysis.
+This provides justification and background
+for Eqns.~1--3 in the BornAgain reference paper~\cite{PoVB20}.
 
 %===============================================================================
 \subsection{Neutrons}\label{SnScalar}
@@ -218,14 +220,16 @@ and must therefore be described by a density matrix,
 \end{equation}
 where $p_j$ is the probability of pure state~$\psi_j$.
 \nomenclature[2p022 2j000]{$p_j$}{Probability of state~$j$}%
-With the operator
+Let us define the wave vector operator $\v{\hat k}$
+\nomenclature[2k040]{$\k$}{Wave vector}%
+and the flux operator
 \begin{equation}\label{EdefJop}
-  \v{\hat J} \coloneqq  \ket{\r}\bra{\r}\v{\hat p} + \v{\hat p}^\dagger\ket{\r}\bra{\r}
+  \v{\hat J} \coloneqq  \ket{\r}\bra{\r}\v{\hat k} + \v{\hat k}^\dagger\ket{\r}\bra{\r}.
 \end{equation}
-the current density, or \E{flux},
+The current density, or \E{flux},
 \index{Flux!neutron}%
 \index{Current density|see{Flux}}%
-is given by
+is then given by
 \begin{equation}\label{EdefJ}
   \v{J}(\r)
   \coloneqq \Tr\{\hat\rho \hat{\v{J}}\}
@@ -273,15 +277,19 @@ the propagation of free neutrons becomes spin dependent.
 Therefore the scalar wavefunction of \cref{SnScalar}
 must be replaced by spinor $\v\Psi$.
 \index{Spinor}%
-The magnetic moment of the neutron couples to the magnetizing field~$\v{H}$ \cite{Mez86}.
-\nomenclature[2h150 2r040 2t020]{$\v{H}(\r,t)$}{Magnetizing field}%
+The magnetic moment~$\mu$ of the neutron
+\nomenclature[1μ024 2n000]{$\mu_\text{n}$}{Magnetic moment of the neutron}
+\index{Neutron!magnetic moment}%
+\index{Magnetic moment!neutron}%
+couples to the magnetic induction~$\v{B}$ \cite{Mez86,MaOB06}.
+\nomenclature[2h150 2r040 2t020]{$\v{B}(\r,t)$}{Magnetic induction}%
 \index{Magnetizing field!coupling to neutron moment}%
 With the coupling term, the Schrödinger equation~\cref{ESchrodi1}
 \index{Schrodinger@Schrödinger equation!macroscopic}%
 becomes
 \begin{equation}\label{EHSchrodi}
   \left\{-\frac{\hbar^2}{2m}\Nabla^2+V(\r)
-         +\mu_0\mu_\text{n}\v{H}(\r)\v{\sigma}-\hbar\omega\right\}
+         +\mu\v{B}(\r)\bm{\hat\sigma}-\hbar\omega\right\}
       \v\Psi(\r) = 0,
 \end{equation}
 \nomenclature[1ψ150 2r040]{$\v\Psi(\r)$}{Stationary coherent spinor wavefunction}%
@@ -289,49 +297,33 @@ where $\mu_0$ is the vacuum permeability,
 \nomenclature[1μ024 00]{$\mu_0$}{Vacuum permeability, $4\pi\cdot10^{-7}$ Vs/Am}%
 \index{Permeability}%
 \index{Magnetic permeability}%
-$\mu_\text{n}$ is the magnetic moment of the neutron,
-\nomenclature[1μ024 2n000]{$\mu_\text{n}$}{Magnetic moment of the neutron}
-\index{Neutron!magnetic moment}%
-\index{Magnetic moment!neutron}%
-and ${\v\sigma}$ is the Pauli vector, composed of the three Pauli matrices.
-\nomenclature[1σ04]{$\v\sigma$}{Pauli
-    vector, composed of the three Pauli matrices: $\v\sigma=(\sigma_x,\sigma_y,\sigma_z)$}%
+and ${\bm{\hat\sigma}}$ is the Pauli vector, composed of the three Pauli matrices.
+\nomenclature[1σ04]{$\bm\sigma$}{Pauli
+    vector, composed of the three Pauli matrices: $\bm\sigma=(\sigma_x,\sigma_y,\sigma_z)$}%
 \index{Pauli vector}%
 \index{Pauli matrix}%
-The magnetic coupling is responsible for Larmor precession of the neutron spin,
-\index{Neutron!Larmor precession}%
-\index{Larmor precession}%
-\index{Spin!Larmor precession}%
-well known from uses in spin-echo techniques.
-\index{Spin!echo}%
-If the field is inhomogeneous,
-it can split a beam
-as in the Stern-Gerlach experiment \cite{ShSB54}.
-\index{Neutron!Stern-Gerlach splitting}%
-\index{Stern-Gerlach splitting}%
 We introduce the reduced field
 \begin{equation}
-  \v{h} \coloneqq \frac{m\mu_0\mu_\text{n}}{2\pi\hbar^2}\v{H},
+  \v{b} \coloneqq \frac{m\mu_0\mu_\text{n}}{2\pi\hbar^2}\v{B},
 \end{equation}
-\nomenclature[2h050 2r040]{$\v{h}(\r)$}{Rescaled
-   field $\v{h}=(m\mu_0\mu_\text{n}/2\pi\hbar^2)\v{H}$}%
+\nomenclature[2h050 2r040]{$\v{b}(\r)$}{Rescaled
+   field $\v{b}=(m\mu/2\pi\hbar^2)\v{B}$}%
 \index{Magnetizing field!reduced}%
 to rewrite the Schrödinger equation in analogy to~\cref{ESchrodi2} as
 \index{Schrodinger@Schrödinger equation!macroscopic}%
 \Emph{
 \begin{equation}\label{ESchrodi2H}
-  \left\{\Nabla^2+K^2-4\pi v(\r)-4\pi\v{h}(\r)\v{\sigma}\right\} \v\Psi(\r) = 0.
+  \left\{\Nabla^2+K^2-4\pi v(\r)-4\pi\v{b}(\r)\bm{\hat\sigma}\right\} \v\Psi(\r) = 0.
 \end{equation}
 \vspace*{-5pt}}
-
 The density matrix~\cref{EdefRho} becomes
 \begin{equation}\label{EdefRhoSpinor}
   \hat\rho \coloneqq \sum_i p_i \ket{\v\Psi_i}\bra{\v\Psi_i}.
 \end{equation}
 The total flux is still given by \cref{EdefJ,EdefJop}.
-This formalism also covers experiments with a polarization analyzer,
-\index{Polarization!analysis}%
-which must be described as modifying the density matrix.
+Beam polarization
+\index{Polarization}%
+is described by an appropriate density matrix.
 \index{Neutron!spin|)}%
 \index{Spin|)}%
 \index{Magnetic field!neutron propagation|)}%
@@ -494,7 +486,8 @@ counted in a detector is proportional to the squared electric field amplitude.
 \subsection{Unified wave equation}\label{SuniWave}
 %===============================================================================
 
-We combine all the above in a unified wave equation
+As in Eqns.~1--3 of Ref.~\cite{PoVB20},
+we combine all the above in a unified wave equation
 \index{Wave equation!generic}%
 \Emph{
 \begin{equation}\label{EWAVE}
@@ -517,7 +510,7 @@ and the potential
 \begin{equation}\label{ETV}
   \TV(\r) \coloneqq \left\{ \begin{array}{ll}
       v(\r)                         &\text{~~~for neutrons (scalar),}\\
-      v(\r)+\v{h}(\r)\v\sigma       &\text{~~~for neutrons (spinorial),}\\
+      v(\r)+\v{b}(\r)\bm\sigma       &\text{~~~for neutrons (spinorial),}\\
       K^2(\epsilon(\r)-1)/(4\pi) &\text{~~~for X-rays.}
   \end{array}\right.
 \end{equation}

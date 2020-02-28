@@ -1,21 +1,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%   BornAgain User Manual
+%%   BornAgain Physics Manual
 %%
 %%   homepage:   http://www.bornagainproject.org
 %%
-%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%   copyright:  Forschungszentrum Jülich GmbH 2015-2020
 %%
 %%   license:    Creative Commons CC-BY-SA
 %%
 %%   authors:    Scientific Computing Group at MLZ Garching
-%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\chapter{Particle Assemblies}  \label{sec:Assemblies}
-
+\chapter{Particle Assemblies}\label{sec:Assemblies}%
 \index{Particle!assemblies|(}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -210,14 +208,9 @@ introducing the standard form factor
   F(\q,\v{U}) \coloneqq F(\q,1,0,\v{0},\v{U}).
 \end{equation}
 
-BornAgain comes with a comprehensive library of form factors.
-Hard-particle form factors are Fourier shape transforms.
-They are available for various spheroids, cylinders, cones, prisms, and polyhedra,
-as listed in~\Cref{SHPFF}.
-Ripples, used to model gratings, are described in~\Cref{SRipple}.
-Soft-particle form factors % TODO
-are not yet documented in this Manual.
-
+BornAgain comes with a comprehensive library of form factors,
+described in a dedicated
+\href{http://apps.jcns.fz-juelich.de/src/BornAgain/FFCatalog.pdf}{Form Factor Catalog}.
 \index{Form factor|)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -239,7 +232,7 @@ or from electron microscopy images.
 \addtocounter{footnote}{1}
 % see http://tex.stackexchange.com/questions/35298 how to repair hyperref
 \Note{\indent Import of \E{morphology data},
-pioneered by \IsGISAXS\ \cite[Sec.~3.3]{Laz08},
+pioneered by \IsGISAXS\ \cite[Sec.~3.3]{Laz06},
 \index{IsGISAXS@\string\IsGISAXS!morphology data}%
 \index{Morphology!as input data}%
   is not yet implemented in \BornAgain,
@@ -375,7 +368,7 @@ Together, the T-T and R-T decoupling
 make up the \E{decoupling approximation}
 \index{IsGISAXS@\IsGISAXS!decoupling approximation}
 of \IsGISAXS.\footnote
-{In the \IsGISAXS\ manual \cite[Sec.~2.2]{Laz08},
+{In the \IsGISAXS\ manual \cite[Sec.~2.2]{Laz06},
 the \E{decoupling approximation} (DA)
 \index{Decoupling approximation}%
 \index{DA|see {Decoupling approximation}}%
@@ -742,7 +735,7 @@ indices $j$ and $k$. All other dependencies should be integrated out. In \cite{L
 used to calculate the effects of different types of correlations between sizes and/or positions on
 the diffuse scattering intensity. In \BornAgain\ only a specific case is implemented, namely
 the one also appearing in the IsGisaxs software package as the \emph{size-spacing correlation
-approximation} \cite{Laz08}.
+approximation} \cite{Laz06}.
 
 In this case, the distribution of the inter-neighbor distance between two particles depends only on the
 sizes of these two particles. Furthermore, the dependence is fixed to be a linear relationship of

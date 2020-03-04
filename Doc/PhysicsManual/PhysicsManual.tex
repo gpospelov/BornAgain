@@ -1,38 +1,32 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%   BornAgain User Manual
+%%   BornAgain Physics Manual
 %%
 %%   homepage:   http://www.bornagainproject.org
 %%
-%%   copyright:  Forschungszentrum Jülich GmbH 2015
+%%   copyright:  Forschungszentrum Jülich GmbH 2015-2020
 %%
 %%   license:    Creative Commons CC-BY-SA
 %%
 %%   authors:    Scientific Computing Group at MLZ Garching
-%%               C. Durniak, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % To compile this report, run
-%   xelatex BornAgainManual
-%   bibtex  BornAgainManual
-%   xelatex BornAgainManual
-%   makeindex BornAgainManual
-%   makeindex -s nomencl.ist BornAgainManual.nlo -o BornAgainManual.nls
-%   xelatex BornAgainManual
-
-%\includeonly{Assemblies}
-%\includeonly{ScatteringTheory}
-%\includeonly{Introduction,Conventions,OnlineDocs,ScatteringTheory,PolarizedScattering,Multilayers,Assemblies,Domains,Roughness,Experiment}
-%\includeonly{FormFactors}
+%   export T=PhysicsManual
+%   xelatex $T
+%   bibtex  $T
+%   xelatex $T
+%   makeindex $T
+%   makeindex -s nomencl.ist $T.nlo -o $T.nls
+%   xelatex $T
 
 \documentclass[a4paper,11pt,fleqn]{report}\usepackage[final]{graphicx}
 %\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[final]{graphicx}
 %\documentclass[a4paper,11pt,fleqn,draft]{report}\usepackage[draft]{graphicx}
 
-\def\authors{Jan Burle, Céline Durniak, Jonathan M.\ Fisher, Marina Ganeva, Gennady Pospelov,
-Walter Van Herck, Joachim Wuttke}
-\def\version{1.7.2}
+\def\authors{Gennady Pospelov, Walter Van Herck, Joachim Wuttke}
+\def\version{1.16}
 
 \input{Setup}
 
@@ -45,22 +39,15 @@ Walter Van Herck, Joachim Wuttke}
 
 \tableofcontents\cleardoublepage
 
-\include{Introduction}
+\include{Preface}
 \pagemode{\thechapter}
 
-%%%%  Part I: Physics
 \include{Scattering}
 \include{Multilayers}
 \include{Assemblies}
-\include{Roughness}
-\include{PolarizedScattering}
+%\include{Roughness}
+%\include{PolarizedScattering}
 \include{Instrument}
-
-%%%% Part II: Reference
-\include{ThreeAPIs}
-\include{BasicRef}
-\include{Sample}
-\include{Particles}
 
 %\appendix %\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 %\include{..}

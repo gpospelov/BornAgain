@@ -216,7 +216,6 @@ void Simulation::updateSample()
 //! If desired, the simulation is run in several threads.
 void Simulation::runSingleSimulation(size_t batch_start, size_t batch_size, double weight)
 {
-    prepareSimulation();
     initSimulationElementVector();
 
     const size_t n_threads = m_options.getNumberOfThreads();

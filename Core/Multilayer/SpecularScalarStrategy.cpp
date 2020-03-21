@@ -43,14 +43,14 @@ const double pi2_15 = std::pow(M_PI_2, 1.5);
 } // namespace
 
 SpecularScalarStrategy::coeffs_t
-SpecularScalarStrategy::Execute(const std::vector<Slice>& slices, kvector_t k)
+SpecularScalarStrategy::Execute(const std::vector<Slice>& slices, const kvector_t& k) const
 {
     std::vector<complex_t> kz = KzComputation::computeReducedKz(slices, k);
     return Execute(slices, kz);
 }
 
 SpecularScalarStrategy::coeffs_t
-SpecularScalarStrategy::Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz)
+SpecularScalarStrategy::Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const
 {
     if(slices.size() != kz.size())
         throw std::runtime_error("Number of slices does not match the size of the kz-vector");

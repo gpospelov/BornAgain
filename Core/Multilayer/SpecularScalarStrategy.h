@@ -30,7 +30,7 @@ class SpecularScalarStrategy
 {
 public:
 
-    typedef std::unique_ptr<const ScalarRTCoefficients> single_coeff_t;
+    typedef std::unique_ptr<const ILayerRTCoefficients> single_coeff_t;
     typedef std::vector<single_coeff_t> coeffs_t;
 
     //! Computes refraction angles and transmission/reflection coefficients

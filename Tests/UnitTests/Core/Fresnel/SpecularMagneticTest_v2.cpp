@@ -28,7 +28,7 @@ void SpecularMagneticTest_v2::testZeroField(const kvector_t& k, const ProcessedS
                                           const ProcessedSample& sample_zerofield)
 {
     auto coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k);
-    auto coeffs_zerofield = SpecularMagneticStrategy::execute(sample_zerofield.slices(), k);
+    auto coeffs_zerofield = std::make_unique<SpecularMagneticStrategy>()->Execute(sample_zerofield.slices(), k);
 
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());
 
@@ -74,7 +74,7 @@ TEST_F(SpecularMagneticTest_v2, degenerate)
     Eigen::Vector2cd Tm_ref {0.0, 0.5};
     Eigen::Vector2cd Rm_ref {0.0, -0.5};
 
-    auto result = SpecularMagneticStrategy::execute(sample.slices(), v);
+    auto result = std::make_unique<SpecularMagneticStrategy>()->Execute(sample.slices(), v);
     for (auto& coeff: result) {
         ifEqual(coeff.T1plus(), Tp_ref);
         ifEqual(coeff.T2plus(), Tp_ref);

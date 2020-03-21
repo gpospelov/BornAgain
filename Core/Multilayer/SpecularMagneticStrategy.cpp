@@ -29,16 +29,15 @@ constexpr double magnetic_prefactor = PhysConsts::m_n * PhysConsts::g_factor_n *
 constexpr complex_t I(0.0, 1.0);
 }
 
-std::vector<MatrixRTCoefficients_v2> SpecularMagneticStrategy::execute(const std::vector<Slice>& slices,
-                                                              const kvector_t& k)
+std::vector<MatrixRTCoefficients_v2> SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
+                                                              const kvector_t& k) const
 {
-    return execute(slices, KzComputation::computeReducedKz(slices, k));
+    return Execute(slices, KzComputation::computeReducedKz(slices, k));
 }
 
-std::vector<MatrixRTCoefficients_v2> SpecularMagneticStrategy::execute(const std::vector<Slice>& slices,
-                                                              const std::vector<complex_t>& kzs)
+std::vector<MatrixRTCoefficients_v2> SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
+                                                              const std::vector<complex_t>& kzs) const
 {
-
     return computeTR(slices, kzs);
 }
 

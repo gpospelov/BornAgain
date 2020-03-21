@@ -54,7 +54,7 @@ SpecularMatrixTerm::~SpecularMatrixTerm() = default;
 void SpecularMatrixTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = SpecularMagneticStrategy::execute(slices, elem.produceKz(slices));
+    auto coeff = std::make_unique<SpecularMagneticStrategy>()->Execute(slices, elem.produceKz(slices));
     elem.setIntensity(intensity(elem, coeff.front()));
 }
 

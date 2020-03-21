@@ -60,7 +60,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     ProcessedSample sample_zerofield(multi_layer_zerofield, options);
 
     // k1
-    coeffs_scalar = SpecularMatrix::Execute(sample_scalar.slices(), k1);
+    coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k1);
     ScalarRTCoefficients RTScalar = coeffs_scalar[1];
     Eigen::Vector2cd TPS = RTScalar.T1plus() + RTScalar.T2plus();
     Eigen::Vector2cd RPS = RTScalar.R1plus() + RTScalar.R2plus();
@@ -84,7 +84,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     EXPECT_NEAR(0.0, std::abs(RMS(1) - RMM(1)), eps);
 
     // k2
-    coeffs_scalar = SpecularMatrix::Execute(sample_scalar.slices(), k2);
+    coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k2);
     RTScalar = coeffs_scalar[1];
     TPS = RTScalar.T1plus() + RTScalar.T2plus();
     RPS = RTScalar.R1plus() + RTScalar.R2plus();
@@ -108,7 +108,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     EXPECT_NEAR(0.0, std::abs(RMS(1) - RMM(1)), eps);
 
     // k3
-    coeffs_scalar = SpecularMatrix::Execute(sample_scalar.slices(), k3);
+    coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k3);
     RTScalar = coeffs_scalar[1];
     TPS = RTScalar.T1plus() + RTScalar.T2plus();
     RPS = RTScalar.R1plus() + RTScalar.R2plus();

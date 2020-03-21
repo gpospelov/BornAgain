@@ -62,8 +62,8 @@ TEST_F(RTTest, SplitLayer)
     ProcessedSample sample_1(sample1, options);
     ProcessedSample sample_2(sample2, options);
 
-    coeffs1 = SpecularMatrix::Execute(sample_1.slices(), k);
-    coeffs2 = SpecularMatrix::Execute(sample_2.slices(), k);
+    coeffs1 = std::make_unique<SpecularScalarStrategy>()->Execute(sample_1.slices(), k);
+    coeffs2 = std::make_unique<SpecularScalarStrategy>()->Execute(sample_2.slices(), k);
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );
@@ -99,8 +99,8 @@ TEST_F(RTTest, SplitBilayers)
     ProcessedSample sample_1(sample1, options);
     ProcessedSample sample_2(sample2, options);
 
-    coeffs1 = SpecularMatrix::Execute(sample_1.slices(), k);
-    coeffs2 = SpecularMatrix::Execute(sample_2.slices(), k);
+    coeffs1 = std::make_unique<SpecularScalarStrategy>()->Execute(sample_1.slices(), k);
+    coeffs2 = std::make_unique<SpecularScalarStrategy>()->Execute(sample_2.slices(), k);
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );

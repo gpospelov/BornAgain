@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARMATRIX_H
-#define SPECULARMATRIX_H
+#ifndef SPECULARSCALARSTRATEGY_H
+#define SPECULARSCALARSTRATEGY_H
 
 #include "ScalarRTCoefficients.h"
 #include "Vectors3D.h"
@@ -25,8 +25,9 @@ class Slice;
 //! coefficients for coherent wave propagation in a multilayer.
 //! @ingroup algorithms_internal
 
-namespace SpecularMatrix
+class SpecularScalarStrategy
 {
+public:
 //! Computes refraction angles and transmission/reflection coefficients
 //! for given coherent wave propagation in a multilayer.
 //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
@@ -40,4 +41,4 @@ BA_CORE_API_ std::vector<ScalarRTCoefficients> Execute(const std::vector<Slice>&
                                                        const std::vector<complex_t>& kz);
 }; // namespace SpecularMatrix
 
-#endif // SPECULARMATRIX_H
+#endif // SPECULARSCALARSTRATEGY_H

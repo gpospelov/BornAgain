@@ -5,7 +5,7 @@
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
 #include "SpecularMagnetic_v2.h"
-#include "SpecularMatrix.h"
+#include "SpecularScalarStrategy.h"
 #include "Units.h"
 
 constexpr double eps = 1e-10;

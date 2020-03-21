@@ -10,7 +10,7 @@
 #include "ParticleLayout.h"
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
-#include "SpecularMatrix.h"
+#include "SpecularScalarStrategy.h"
 
 class RTTest : public ::testing::Test
 {

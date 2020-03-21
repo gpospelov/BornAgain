@@ -15,7 +15,7 @@
 #include "SpecularComputationTerm.h"
 #include "DelayedProgressCounter.h"
 #include "ScalarRTCoefficients.h"
-#include "SpecularMatrix.h"
+#include "SpecularScalarStrategy.h"
 #include "SpecularMagnetic_v2.h"
 #include "SpecularSimulationElement.h"
 

@@ -5,7 +5,7 @@
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
 #include "SpecularMagnetic.h"
-#include "SpecularMatrix.h"
+#include "SpecularScalarStrategy.h"
 #include "Units.h"
 
 class SpecularMagneticTest : public ::testing::Test

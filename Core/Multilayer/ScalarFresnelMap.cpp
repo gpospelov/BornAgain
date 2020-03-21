@@ -16,7 +16,7 @@
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
 #include "Slice.h"
-#include "SpecularMatrix.h"
+#include "SpecularScalarStrategy.h"
 #include "Vectors3D.h"
 #include <functional>
 

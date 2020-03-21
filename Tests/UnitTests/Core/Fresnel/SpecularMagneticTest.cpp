@@ -47,7 +47,6 @@ TEST_F(SpecularMagneticTest, zerofield)
     Layer substr_layer_scalar(substr_material_scalar);
     multi_layer_scalar.addLayer(air_layer);
     multi_layer_scalar.addLayer(substr_layer_scalar);
-    std::vector<ScalarRTCoefficients> coeffs_scalar;
 
     MultiLayer multi_layer_zerofield;
     Material substr_material_zerofield = HomogeneousMaterial("Substrate", 7e-6, 2e-8, substr_field);
@@ -60,8 +59,8 @@ TEST_F(SpecularMagneticTest, zerofield)
     ProcessedSample sample_zerofield(multi_layer_zerofield, options);
 
     // k1
-    coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k1);
-    ScalarRTCoefficients RTScalar = coeffs_scalar[1];
+    auto coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k1);
+    ScalarRTCoefficients RTScalar = *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[1].get());
     Eigen::Vector2cd TPS = RTScalar.T1plus() + RTScalar.T2plus();
     Eigen::Vector2cd RPS = RTScalar.R1plus() + RTScalar.R2plus();
     Eigen::Vector2cd TMS = RTScalar.T1min() + RTScalar.T2min();
@@ -85,7 +84,7 @@ TEST_F(SpecularMagneticTest, zerofield)
 
     // k2
     coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k2);
-    RTScalar = coeffs_scalar[1];
+    RTScalar = *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[1].get());
     TPS = RTScalar.T1plus() + RTScalar.T2plus();
     RPS = RTScalar.R1plus() + RTScalar.R2plus();
     TMS = RTScalar.T1min() + RTScalar.T2min();
@@ -109,7 +108,7 @@ TEST_F(SpecularMagneticTest, zerofield)
 
     // k3
     coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k3);
-    RTScalar = coeffs_scalar[1];
+    RTScalar = *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[1].get());
     TPS = RTScalar.T1plus() + RTScalar.T2plus();
     RPS = RTScalar.R1plus() + RTScalar.R2plus();
     TMS = RTScalar.T1min() + RTScalar.T2min();

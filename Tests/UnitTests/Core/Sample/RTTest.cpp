@@ -32,6 +32,14 @@ protected:
         EXPECT_NEAR(coeff1.t_r(1).real(), coeff2.t_r(1).real(), 1e-10);
         EXPECT_NEAR(coeff1.t_r(1).imag(), coeff2.t_r(1).imag(), 1e-10);
     }
+    std::vector<ScalarRTCoefficients> getCoeffs(std::vector<std::unique_ptr<ScalarRTCoefficients>>&& inputCoeffs)
+    {
+        std::vector<ScalarRTCoefficients> result;
+        for(auto& coeff : inputCoeffs)
+            result.push_back( *dynamic_cast<const ScalarRTCoefficients*>(coeff.get()) );
+
+        return result;
+    }
     const Material air = HomogeneousMaterial("air", 1e-8, 1e-8);
     const Material amat = HomogeneousMaterial("material A", 2e-6, 8e-7);
     const Material bmat = HomogeneousMaterial("material B (high absorption)", 3e-5, 2e-4);
@@ -62,8 +70,8 @@ TEST_F(RTTest, SplitLayer)
     ProcessedSample sample_1(sample1, options);
     ProcessedSample sample_2(sample2, options);
 
-    coeffs1 = std::make_unique<SpecularScalarStrategy>()->Execute(sample_1.slices(), k);
-    coeffs2 = std::make_unique<SpecularScalarStrategy>()->Execute(sample_2.slices(), k);
+    coeffs1 = getCoeffs( std::make_unique<SpecularScalarStrategy>()->Execute(sample_1.slices(), k) );
+    coeffs2 = getCoeffs( std::make_unique<SpecularScalarStrategy>()->Execute(sample_2.slices(), k) );
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );
@@ -99,8 +107,8 @@ TEST_F(RTTest, SplitBilayers)
     ProcessedSample sample_1(sample1, options);
     ProcessedSample sample_2(sample2, options);
 
-    coeffs1 = std::make_unique<SpecularScalarStrategy>()->Execute(sample_1.slices(), k);
-    coeffs2 = std::make_unique<SpecularScalarStrategy>()->Execute(sample_2.slices(), k);
+    coeffs1 = getCoeffs( std::make_unique<SpecularScalarStrategy>()->Execute(sample_1.slices(), k) );
+    coeffs2 = getCoeffs( std::make_unique<SpecularScalarStrategy>()->Execute(sample_2.slices(), k) );
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );

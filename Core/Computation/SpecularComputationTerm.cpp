@@ -46,7 +46,7 @@ void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
     auto coeff = std::make_unique<SpecularScalarStrategy>()->Execute(slices, elem.produceKz(slices));
-    elem.setIntensity(std::norm(coeff.front().getScalarR()));
+    elem.setIntensity(std::norm(coeff.front()->getScalarR()));
 }
 
 SpecularMatrixTerm::~SpecularMatrixTerm() = default;

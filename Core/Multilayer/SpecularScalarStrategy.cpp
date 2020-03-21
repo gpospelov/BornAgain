@@ -42,18 +42,24 @@ const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices,
 const double pi2_15 = std::pow(M_PI_2, 1.5);
 } // namespace
 
-std::vector<ScalarRTCoefficients> SpecularScalarStrategy::Execute(const std::vector<Slice>& slices,
-                                                                  kvector_t k)
+std::vector<std::unique_ptr<ScalarRTCoefficients>>
+SpecularScalarStrategy::Execute(const std::vector<Slice>& slices, kvector_t k)
 {
     std::vector<complex_t> kz = KzComputation::computeReducedKz(slices, k);
-    return computeTR(slices, kz);
+    return Execute(slices, kz);
 }
 
-std::vector<ScalarRTCoefficients> SpecularScalarStrategy::Execute(const std::vector<Slice>& slices,
-                                                                  const std::vector<complex_t>& kz)
+std::vector<std::unique_ptr<ScalarRTCoefficients>>
+SpecularScalarStrategy::Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz)
 {
-    assert(slices.size() == kz.size());
-    return computeTR(slices, kz);
+    if(slices.size() != kz.size())
+        throw std::runtime_error("Number of slices does not match the size of the kz-vector");
+
+    std::vector<std::unique_ptr<ScalarRTCoefficients>> result;
+    for(auto& coeff : computeTR(slices, kz))
+        result.push_back( std::make_unique<ScalarRTCoefficients>(coeff) );
+
+    return result;
 }
 
 namespace

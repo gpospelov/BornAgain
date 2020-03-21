@@ -33,7 +33,7 @@ void SpecularMagneticTest_v2::testZeroField(const kvector_t& k, const ProcessedS
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());
 
     for (size_t i = 0; i < coeffs_scalar.size(); ++i) {
-        const ScalarRTCoefficients& RTScalar = coeffs_scalar[i];
+        const ScalarRTCoefficients& RTScalar = *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[i].get());
         Eigen::Vector2cd TPS = RTScalar.T1plus() + RTScalar.T2plus();
         Eigen::Vector2cd RPS = RTScalar.R1plus() + RTScalar.R2plus();
         Eigen::Vector2cd TMS = RTScalar.T1min() + RTScalar.T2min();

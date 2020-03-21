@@ -41,13 +41,13 @@ ScalarFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) con
 {
     if (!m_use_cache) {
         auto coeffs = std::make_unique<SpecularScalarStrategy>()->Execute(m_slices, kvec);
-        return std::make_unique<const ScalarRTCoefficients>(coeffs[layer_index]);
+        return std::unique_ptr<const ScalarRTCoefficients>(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec);
-    return std::make_unique<const ScalarRTCoefficients>(coef_vector[layer_index]);
+    return std::unique_ptr<const ScalarRTCoefficients>(coef_vector[layer_index]->clone());
 }
 
-const std::vector<ScalarRTCoefficients>&
+const std::vector<std::unique_ptr<ScalarRTCoefficients>>&
 ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
 {
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());

@@ -16,7 +16,7 @@
 #include "DelayedProgressCounter.h"
 #include "ScalarRTCoefficients.h"
 #include "SpecularScalarStrategy.h"
-#include "SpecularMagnetic_v2.h"
+#include "SpecularMagneticStrategy.h"
 #include "SpecularSimulationElement.h"
 
 SpecularComputationTerm::SpecularComputationTerm() = default;

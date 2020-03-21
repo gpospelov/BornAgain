@@ -4,7 +4,7 @@
 #include "MultiLayer.h"
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
-#include "SpecularMagnetic_v2.h"
+#include "SpecularMagneticStrategy.h"
 #include "SpecularScalarStrategy.h"
 #include "Units.h"
 

@@ -15,8 +15,8 @@
 #include "MatrixFresnelMap.h"
 #include "SimulationElement.h"
 #include "Slice.h"
-#include "SpecularMagnetic.h"
-#include "SpecularMagnetic_v2.h"
+#include "SpecularMagneticOldStrategy.h"
+#include "SpecularMagneticStrategy.h"
 #include <functional>
 
 namespace {

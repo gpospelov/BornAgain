@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "SpecularMagnetic.h"
+#include "SpecularMagneticOldStrategy.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "MultiLayer.h"

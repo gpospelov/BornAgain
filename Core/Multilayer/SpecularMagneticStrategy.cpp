@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "SpecularMagnetic_v2.h"
+#include "SpecularMagneticStrategy.h"
 #include "KzComputation.h"
 #include "PhysicalConstants.h"
 #include "Slice.h"

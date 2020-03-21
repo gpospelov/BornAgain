@@ -29,17 +29,19 @@ class Slice;
 class SpecularScalarStrategy
 {
 public:
-//! Computes refraction angles and transmission/reflection coefficients
-//! for given coherent wave propagation in a multilayer.
-//! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-BA_CORE_API_ std::vector<std::unique_ptr<ScalarRTCoefficients>>
-Execute(const std::vector<Slice>& slices, kvector_t k);
 
-//! Computes transmission/reflection coefficients
-//! for given set of z-components of wave-vectors in a multilayer.
-//! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-BA_CORE_API_ std::vector<std::unique_ptr<ScalarRTCoefficients>>
-Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz);
+    typedef std::unique_ptr<const ScalarRTCoefficients> single_coeff_t;
+    typedef std::vector<single_coeff_t> coeffs_t;
+
+    //! Computes refraction angles and transmission/reflection coefficients
+    //! for given coherent wave propagation in a multilayer.
+    //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
+    BA_CORE_API_ coeffs_t Execute(const std::vector<Slice>& slices, kvector_t k);
+
+    //! Computes transmission/reflection coefficients
+    //! for given set of z-components of wave-vectors in a multilayer.
+    //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
+    BA_CORE_API_ coeffs_t Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz);
 }; // namespace SpecularMatrix
 
 #endif // SPECULARSCALARSTRATEGY_H

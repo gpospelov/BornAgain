@@ -52,7 +52,7 @@ private:
         size_t operator()(const kvector_t& kvec) const noexcept;
     };
 
-    using CoefficientHash = std::unordered_map<kvector_t, SpecularMagneticStrategy::coeffs_t, HashKVector>;
+    using CoefficientHash = std::unordered_map<kvector_t, ISpecularStrategy::coeffs_t, HashKVector>;
 
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
@@ -64,7 +64,7 @@ private:
     mutable CoefficientHash m_hash_table_out;
     mutable CoefficientHash m_hash_table_in;
 
-    const SpecularMagneticStrategy::coeffs_t&
+    const ISpecularStrategy::coeffs_t&
     getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
                              CoefficientHash& hash_table) const;
 };

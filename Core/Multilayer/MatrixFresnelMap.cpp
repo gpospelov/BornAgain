@@ -81,13 +81,13 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
 {
     if (!m_use_cache) {
         auto coeffs = computeRT<MatrixRTCoefficients_v2>(slices, kvec);
-        return SpecularMagneticStrategy::single_coeff_t(coeffs[layer_index]->clone());
+        return ISpecularStrategy::single_coeff_t(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
-    return SpecularMagneticStrategy::single_coeff_t(coef_vector[layer_index]->clone());
+    return ISpecularStrategy::single_coeff_t(coef_vector[layer_index]->clone());
 }
 
-const SpecularMagneticStrategy::coeffs_t&
+const ISpecularStrategy::coeffs_t&
 MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
                                            MatrixFresnelMap::CoefficientHash& hash_table) const
 {

@@ -31,7 +31,7 @@ complex_t GetImExponential(complex_t exponent);
 const complex_t I(0, 1);
 }
 
-SpecularMagneticOldStrategy::coeffs_t
+ISpecularStrategy::coeffs_t
 SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
                                      const kvector_t& k) const
 {
@@ -46,7 +46,7 @@ SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
     return resultConvert;
 }
 
-SpecularMagneticOldStrategy::coeffs_t
+ISpecularStrategy::coeffs_t
 SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& k) const
 {
     throw std::runtime_error("Not implemented");

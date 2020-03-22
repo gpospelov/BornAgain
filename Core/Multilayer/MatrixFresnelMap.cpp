@@ -81,15 +81,15 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
 {
     if (!m_use_cache) {
         auto coeffs = computeRT<RTCoefficients>(slices, kvec);
-        return std::make_unique<RTCoefficients>(coeffs[layer_index]);
+        return std::unique_ptr<RTCoefficients>(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
-    return std::make_unique<RTCoefficients>(coef_vector[layer_index]);
+    return std::unique_ptr<RTCoefficients>(coef_vector[layer_index]->clone());
 }
 
-const std::vector<MatrixFresnelMap::RTCoefficients>&
+const std::vector<std::unique_ptr<MatrixFresnelMap::RTCoefficients>>&
 MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
-                                           MatrixFresnelMap::CoefficientHash& hash_table)
+                                           MatrixFresnelMap::CoefficientHash& hash_table) const
 {
     auto it = hash_table.find(kvec);
     if (it == hash_table.end())

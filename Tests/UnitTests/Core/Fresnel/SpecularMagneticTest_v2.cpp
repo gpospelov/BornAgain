@@ -39,7 +39,7 @@ void SpecularMagneticTest_v2::testZeroField(const kvector_t& k, const ProcessedS
         Eigen::Vector2cd TMS = RTScalar.T1min() + RTScalar.T2min();
         Eigen::Vector2cd RMS = RTScalar.R1min() + RTScalar.R2min();
 
-        const MatrixRTCoefficients_v2& RTMatrix = coeffs_zerofield[i];
+        const MatrixRTCoefficients_v2& RTMatrix = *dynamic_cast<const MatrixRTCoefficients_v2*>(coeffs_zerofield[i].get());
         Eigen::Vector2cd TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
         Eigen::Vector2cd RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
         Eigen::Vector2cd TMM = RTMatrix.T1min() + RTMatrix.T2min();
@@ -76,14 +76,14 @@ TEST_F(SpecularMagneticTest_v2, degenerate)
 
     auto result = std::make_unique<SpecularMagneticStrategy>()->Execute(sample.slices(), v);
     for (auto& coeff: result) {
-        ifEqual(coeff.T1plus(), Tp_ref);
-        ifEqual(coeff.T2plus(), Tp_ref);
-        ifEqual(coeff.T1min(), Tm_ref);
-        ifEqual(coeff.T2min(), Tm_ref);
-        ifEqual(coeff.R1plus(), Rp_ref);
-        ifEqual(coeff.R2plus(), Rp_ref);
-        ifEqual(coeff.R1min(), Rm_ref);
-        ifEqual(coeff.R2min(), Rm_ref);
+        ifEqual(coeff->T1plus(), Tp_ref);
+        ifEqual(coeff->T2plus(), Tp_ref);
+        ifEqual(coeff->T1min(), Tm_ref);
+        ifEqual(coeff->T2min(), Tm_ref);
+        ifEqual(coeff->R1plus(), Rp_ref);
+        ifEqual(coeff->R2plus(), Rp_ref);
+        ifEqual(coeff->R1min(), Rm_ref);
+        ifEqual(coeff->R2min(), Rm_ref);
     }
 }
 

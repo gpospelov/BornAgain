@@ -18,6 +18,7 @@
 #include "MatrixRTCoefficients_v2.h"
 #include "Vectors3D.h"
 #include <vector>
+#include <memory>
 
 class Slice;
 
@@ -29,13 +30,13 @@ class BA_CORE_API_ SpecularMagneticStrategy
 public:
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
-    std::vector<MatrixRTCoefficients_v2> Execute(const std::vector<Slice>& slices,
-                                                 const kvector_t& k) const;
+    std::vector<std::unique_ptr<MatrixRTCoefficients_v2>>
+    Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and a set of kz projections corresponding to each slice
-    std::vector<MatrixRTCoefficients_v2> Execute(const std::vector<Slice>& slices,
-                                                 const std::vector<complex_t>& kzs) const;
+    std::vector<std::unique_ptr<MatrixRTCoefficients_v2>>
+    Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const;
 
     static std::vector<MatrixRTCoefficients_v2> computeTR(const std::vector<Slice>& slices,
                                                           const std::vector<complex_t>& kzs);

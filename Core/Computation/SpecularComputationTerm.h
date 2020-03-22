@@ -57,7 +57,7 @@ class SpecularMatrixTerm : public SpecularComputationTerm
 protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
     double intensity(const SpecularSimulationElement& elem,
-                     const MatrixRTCoefficients_v2& coeff) const;
+                     std::unique_ptr<MatrixRTCoefficients_v2>& coeff) const;
 };
 
 #endif /* SPECULARCOMPUTATIONTERM_H_ */

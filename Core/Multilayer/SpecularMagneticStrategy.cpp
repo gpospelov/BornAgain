@@ -29,16 +29,25 @@ constexpr double magnetic_prefactor = PhysConsts::m_n * PhysConsts::g_factor_n *
 constexpr complex_t I(0.0, 1.0);
 }
 
-std::vector<MatrixRTCoefficients_v2> SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
-                                                              const kvector_t& k) const
+std::vector<std::unique_ptr<MatrixRTCoefficients_v2>>
+SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
+                                  const kvector_t& k) const
 {
     return Execute(slices, KzComputation::computeReducedKz(slices, k));
 }
 
-std::vector<MatrixRTCoefficients_v2> SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
-                                                              const std::vector<complex_t>& kzs) const
+std::vector<std::unique_ptr<MatrixRTCoefficients_v2>>
+SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
+                                  const std::vector<complex_t>& kz) const
 {
-    return computeTR(slices, kzs);
+    if(slices.size() != kz.size())
+        throw std::runtime_error("Number of slices does not match the size of the kz-vector");
+
+    std::vector<std::unique_ptr<MatrixRTCoefficients_v2>> result;
+    for(auto& coeff : computeTR(slices, kz))
+        result.push_back( std::make_unique<MatrixRTCoefficients_v2>(coeff) );
+
+    return result;
 }
 
 

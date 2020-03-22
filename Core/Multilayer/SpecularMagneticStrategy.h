@@ -28,7 +28,7 @@ class Slice;
 class BA_CORE_API_ SpecularMagneticStrategy
 {
 public:
-    typedef std::unique_ptr<const MatrixRTCoefficients_v2> single_coeff_t;
+    typedef std::unique_ptr<const ILayerRTCoefficients> single_coeff_t;
     typedef std::vector<single_coeff_t> coeffs_t;
 
     //! Computes refraction angle reflection/transmission coefficients

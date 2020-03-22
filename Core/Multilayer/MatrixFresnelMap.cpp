@@ -30,7 +30,7 @@ template <class T> auto computeRT(const std::vector<Slice>&, const kvector_t&)
 template <>
 auto computeRT<MatrixRTCoefficients>(const std::vector<Slice>& slices, const kvector_t& k)
 {
-    return SpecularMagnetic::Execute(slices, k);
+    return std::make_unique<SpecularMagneticOldStrategy>()->Execute(slices, k);
 }
 
 template <>

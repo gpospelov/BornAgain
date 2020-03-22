@@ -15,6 +15,7 @@
 #ifndef SPECULARMAGNETICSTRATEGY_H
 #define SPECULARMAGNETICSTRATEGY_H
 
+#include "ISpecularStrategy.h"
 #include "MatrixRTCoefficients_v2.h"
 #include "Vectors3D.h"
 #include <vector>
@@ -25,12 +26,9 @@ class Slice;
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer with magnetization.
 //! @ingroup algorithms_internal
-class BA_CORE_API_ SpecularMagneticStrategy
+class BA_CORE_API_ SpecularMagneticStrategy : public ISpecularStrategy
 {
 public:
-    typedef std::unique_ptr<const ILayerRTCoefficients> single_coeff_t;
-    typedef std::vector<single_coeff_t> coeffs_t;
-
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
     coeffs_t

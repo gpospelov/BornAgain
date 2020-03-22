@@ -80,19 +80,19 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
                                   const std::vector<Slice>& slices, CoefficientHash& hash_table) const
 {
     if (!m_use_cache) {
-        auto coeffs = computeRT<RTCoefficients>(slices, kvec);
-        return std::unique_ptr<RTCoefficients>(coeffs[layer_index]->clone());
+        auto coeffs = computeRT<MatrixRTCoefficients_v2>(slices, kvec);
+        return SpecularMagneticStrategy::single_coeff_t(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
-    return std::unique_ptr<RTCoefficients>(coef_vector[layer_index]->clone());
+    return SpecularMagneticStrategy::single_coeff_t(coef_vector[layer_index]->clone());
 }
 
-const std::vector<std::unique_ptr<MatrixFresnelMap::RTCoefficients>>&
+const SpecularMagneticStrategy::coeffs_t&
 MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
                                            MatrixFresnelMap::CoefficientHash& hash_table) const
 {
     auto it = hash_table.find(kvec);
     if (it == hash_table.end())
-        it = hash_table.insert({kvec, computeRT<RTCoefficients>(slices, kvec)}).first;
+        it = hash_table.insert({kvec, computeRT<MatrixRTCoefficients_v2>(slices, kvec)}).first;
     return it->second;
 }

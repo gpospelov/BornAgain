@@ -16,7 +16,6 @@
 #include "DelayedProgressCounter.h"
 #include "ScalarRTCoefficients.h"
 #include "SpecularScalarStrategy.h"
-#include "SpecularMagneticStrategy.h"
 #include "SpecularSimulationElement.h"
 
 SpecularComputationTerm::SpecularComputationTerm() = default;
@@ -59,7 +58,7 @@ void SpecularMatrixTerm::eval(SpecularSimulationElement& elem,
 }
 
 double SpecularMatrixTerm::intensity(const SpecularSimulationElement& elem,
-                                     std::unique_ptr<MatrixRTCoefficients_v2>& coeff) const
+                                     SpecularMagneticStrategy::single_coeff_t& coeff) const
 {
     const auto& polarization = elem.polarizationHandler().getPolarization();
     const auto& analyzer = elem.polarizationHandler().getAnalyzerOperator();

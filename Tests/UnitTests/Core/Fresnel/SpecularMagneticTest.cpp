@@ -67,7 +67,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     Eigen::Vector2cd RMS = RTScalar.R1min() + RTScalar.R2min();
 
     auto coeffs_zerofield = std::make_unique<SpecularMagneticOldStrategy>()->Execute(sample_zerofield.slices(), k1);
-    MatrixRTCoefficients RTMatrix = coeffs_zerofield[1];
+    MatrixRTCoefficients RTMatrix = *dynamic_cast<MatrixRTCoefficients*>(coeffs_zerofield[1].get());
     Eigen::Vector2cd TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
     Eigen::Vector2cd RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
     Eigen::Vector2cd TMM = RTMatrix.T1min() + RTMatrix.T2min();
@@ -91,7 +91,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     RMS = RTScalar.R1min() + RTScalar.R2min();
 
     coeffs_zerofield = std::make_unique<SpecularMagneticOldStrategy>()->Execute(sample_zerofield.slices(), k2);
-    RTMatrix = coeffs_zerofield[1];
+    RTMatrix = *dynamic_cast<MatrixRTCoefficients*>(coeffs_zerofield[1].get());
     TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
     RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
     TMM = RTMatrix.T1min() + RTMatrix.T2min();
@@ -115,7 +115,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     RMS = RTScalar.R1min() + RTScalar.R2min();
 
     coeffs_zerofield = std::make_unique<SpecularMagneticOldStrategy>()->Execute(sample_zerofield.slices(), k3);
-    RTMatrix = coeffs_zerofield[1];
+    RTMatrix = *dynamic_cast<MatrixRTCoefficients*>(coeffs_zerofield[1].get());
     TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
     RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
     TMM = RTMatrix.T1min() + RTMatrix.T2min();

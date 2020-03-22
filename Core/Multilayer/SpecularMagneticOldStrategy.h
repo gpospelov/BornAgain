@@ -29,12 +29,15 @@ class Slice;
 class SpecularMagneticOldStrategy
 {
 public:
+    typedef std::unique_ptr<const MatrixRTCoefficients> single_coeff_t;
+    typedef std::vector<single_coeff_t> coeffs_t;
+
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
-    BA_CORE_API_ std::vector<std::unique_ptr<MatrixRTCoefficients>>
+    BA_CORE_API_ coeffs_t
     Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
 
-    BA_CORE_API_ std::vector<std::unique_ptr<MatrixRTCoefficients>>
+    BA_CORE_API_ coeffs_t
     Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const;
 
 }; // class SpecularMagneticOldStrategy

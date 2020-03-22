@@ -31,7 +31,7 @@ complex_t GetImExponential(complex_t exponent);
 const complex_t I(0, 1);
 }
 
-std::vector<std::unique_ptr<MatrixRTCoefficients>>
+SpecularMagneticOldStrategy::coeffs_t
 SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
                                      const kvector_t& k) const
 {
@@ -39,14 +39,14 @@ SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
     CalculateEigenvalues(slices, k, result);
     CalculateTransferAndBoundary(slices, result);
 
-    std::vector<std::unique_ptr<MatrixRTCoefficients>> resultConvert;
+    coeffs_t resultConvert;
     for(auto& coeff : result)
         resultConvert.push_back( std::make_unique<MatrixRTCoefficients>(coeff));
 
     return resultConvert;
 }
 
-std::vector<std::unique_ptr<MatrixRTCoefficients>>
+SpecularMagneticOldStrategy::coeffs_t
 SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& k) const
 {
     throw std::runtime_error("Not implemented");

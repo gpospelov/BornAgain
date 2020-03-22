@@ -31,12 +31,12 @@ class BA_CORE_API_ SpecularMagneticStrategy : public ISpecularStrategy
 public:
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
-    coeffs_t
+    ISpecularStrategy::coeffs_t
     Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and a set of kz projections corresponding to each slice
-    coeffs_t
+    ISpecularStrategy::coeffs_t
     Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const;
 
     static std::vector<MatrixRTCoefficients_v2> computeTR(const std::vector<Slice>& slices,

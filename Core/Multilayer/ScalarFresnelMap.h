@@ -17,7 +17,7 @@
 
 #include "IFresnelMap.h"
 #include "ScalarRTCoefficients.h"
-#include "SpecularScalarStrategy.h"
+#include "ISpecularStrategy.h"
 #include <cstddef>
 #include <unordered_map>
 #include <utility>
@@ -33,7 +33,7 @@ class Slice;
 class BA_CORE_API_ ScalarFresnelMap : public IFresnelMap
 {
 public:
-    ScalarFresnelMap();
+    ScalarFresnelMap(std::unique_ptr<ISpecularStrategy> strategy);
     ~ScalarFresnelMap() final;
 
     ScalarFresnelMap(const ScalarFresnelMap& other) = delete;
@@ -52,8 +52,8 @@ private:
 
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
-    const SpecularScalarStrategy::coeffs_t& getCoefficientsFromCache(kvector_t kvec) const;
-    mutable std::unordered_map<std::pair<double, double>, SpecularScalarStrategy::coeffs_t,
+    const ISpecularStrategy::coeffs_t& getCoefficientsFromCache(kvector_t kvec) const;
+    mutable std::unordered_map<std::pair<double, double>, ISpecularStrategy::coeffs_t,
                                Hash2Doubles> m_cache;
 };
 

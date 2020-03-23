@@ -16,6 +16,8 @@
 #include "MultiLayer.h"
 #include "ProcessedSample.h"
 #include "ProgressHandler.h"
+#include "SpecularScalarStrategy.h"
+#include "SpecularMagneticStrategy.h"
 #include "SpecularSimulationElement.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
@@ -33,9 +35,9 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
 {
     if (mP_processed_sample->containsMagneticMaterial()
         || mP_processed_sample->externalField() != kvector_t{})
-        m_computation_term.reset(new SpecularMatrixTerm);
+        m_computation_term.reset(new SpecularMatrixTerm(std::make_unique<SpecularMagneticStrategy>()));
     else
-        m_computation_term.reset(new SpecularScalarTerm);
+        m_computation_term.reset(new SpecularScalarTerm(std::make_unique<SpecularScalarStrategy>()));
 }
 
 SpecularComputation::~SpecularComputation() = default;

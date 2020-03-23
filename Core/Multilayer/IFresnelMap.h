@@ -16,6 +16,7 @@
 #define IFRESNELMAP_H
 
 #include "ILayerRTCoefficients.h"
+#include "ISpecularStrategy.h"
 #include "Slice.h"
 #include "Vectors3D.h"
 #include "WinDllMacros.h"
@@ -32,7 +33,7 @@ class SimulationElement;
 class BA_CORE_API_ IFresnelMap
 {
 public:
-    IFresnelMap();
+    IFresnelMap(std::unique_ptr<ISpecularStrategy> strategy);
     virtual ~IFresnelMap();
 
     //! Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
@@ -59,6 +60,8 @@ protected:
 
     std::vector<Slice> m_slices;
     bool m_use_cache;
+
+    std::unique_ptr<ISpecularStrategy> m_Strategy;
 };
 
 #endif // IFRESNELMAP_H

@@ -24,6 +24,8 @@
 #include "ScalarFresnelMap.h"
 #include "SimulationOptions.h"
 #include "Slice.h"
+#include "SpecularScalarStrategy.h"
+#include "SpecularMagneticStrategy.h"
 
 namespace
 {
@@ -282,9 +284,9 @@ std::unique_ptr<IFresnelMap> CreateFresnelMap(const std::vector<Slice>& slices,
 {
     std::unique_ptr<IFresnelMap> P_result;
     if (ContainsMagneticSlice(slices))
-        P_result.reset(new MatrixFresnelMap());
+        P_result.reset(new MatrixFresnelMap(std::make_unique<SpecularMagneticStrategy>()));
     else
-        P_result.reset(new ScalarFresnelMap());
+        P_result.reset(new ScalarFresnelMap(std::make_unique<SpecularScalarStrategy>()));
     if (options.isIntegrate())
         P_result->disableCaching();
     return P_result;

@@ -35,7 +35,7 @@ class SimulationElement;
 class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
-    MatrixFresnelMap();
+    MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy);
     ~MatrixFresnelMap() override;
 
     MatrixFresnelMap(const MatrixFresnelMap& other) = delete;

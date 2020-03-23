@@ -20,7 +20,7 @@
 #include <functional>
 
 
-MatrixFresnelMap::MatrixFresnelMap() = default;
+MatrixFresnelMap::MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy) : IFresnelMap(std::move(strategy)) {};
 
 MatrixFresnelMap::~MatrixFresnelMap() = default;
 
@@ -60,7 +60,7 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
                                   const std::vector<Slice>& slices, CoefficientHash& hash_table) const
 {
     if (!m_use_cache) {
-        auto coeffs = std::make_unique<SpecularMagneticStrategy>()->Execute(slices, kvec);
+        auto coeffs = m_Strategy->Execute(slices, kvec);
         return ISpecularStrategy::single_coeff_t(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
@@ -73,6 +73,6 @@ MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Sli
 {
     auto it = hash_table.find(kvec);
     if (it == hash_table.end())
-        it = hash_table.emplace(kvec, std::make_unique<SpecularMagneticStrategy>()->Execute(slices, kvec)).first;
+        it = hash_table.emplace(kvec, m_Strategy->Execute(slices, kvec)).first;
     return it->second;
 }

@@ -43,6 +43,7 @@ protected:
     virtual void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const = 0;
 
     std::unique_ptr<ISpecularStrategy> m_Strategy;
+
 private:
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
 };
@@ -51,8 +52,10 @@ class SpecularScalarTerm : public SpecularComputationTerm
 {
 public:
     SpecularScalarTerm(std::unique_ptr<ISpecularStrategy> strategy);
+
 private:
     ~SpecularScalarTerm() override;
+
 protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
 };
@@ -61,8 +64,10 @@ class SpecularMatrixTerm : public SpecularComputationTerm
 {
 public:
     SpecularMatrixTerm(std::unique_ptr<ISpecularStrategy> strategy);
+
 private:
     ~SpecularMatrixTerm() override;
+
 protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
     double intensity(const SpecularSimulationElement& elem,

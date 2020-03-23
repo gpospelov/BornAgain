@@ -19,17 +19,16 @@
 #include "SpecularMagneticStrategy.h"
 #include <functional>
 
-
-MatrixFresnelMap::MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy) : IFresnelMap(std::move(strategy)) {};
+MatrixFresnelMap::MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)
+    : IFresnelMap(std::move(strategy)){};
 
 MatrixFresnelMap::~MatrixFresnelMap() = default;
 
 //! Returns hash value of a 3-vector, computed by exclusive-or of the component hash values.
 size_t MatrixFresnelMap::HashKVector::operator()(const kvector_t& kvec) const noexcept
 {
-    return std::hash<double>{}(kvec.x())
-         ^ std::hash<double>{}(kvec.y())
-         ^ std::hash<double>{}(kvec.z());
+    return std::hash<double>{}(kvec.x()) ^ std::hash<double>{}(kvec.y())
+           ^ std::hash<double>{}(kvec.z());
 }
 
 std::unique_ptr<const ILayerRTCoefficients>
@@ -39,7 +38,7 @@ MatrixFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_
                            m_hash_table_out);
 }
 
-void MatrixFresnelMap::setSlices(const std::vector<Slice> &slices)
+void MatrixFresnelMap::setSlices(const std::vector<Slice>& slices)
 {
     IFresnelMap::setSlices(slices);
     m_inverted_slices.clear();
@@ -57,7 +56,8 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) con
 
 std::unique_ptr<const ILayerRTCoefficients>
 MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
-                                  const std::vector<Slice>& slices, CoefficientHash& hash_table) const
+                                  const std::vector<Slice>& slices,
+                                  CoefficientHash& hash_table) const
 {
     if (!m_use_cache) {
         auto coeffs = m_Strategy->Execute(slices, kvec);

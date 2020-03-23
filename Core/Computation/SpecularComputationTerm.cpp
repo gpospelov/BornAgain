@@ -18,9 +18,13 @@
 #include "SpecularScalarStrategy.h"
 #include "SpecularSimulationElement.h"
 
-SpecularComputationTerm::SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy) : m_Strategy(std::move(strategy)) {};
+SpecularComputationTerm::SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy)
+    : m_Strategy(std::move(strategy)){};
 
-SpecularScalarTerm::SpecularScalarTerm(std::unique_ptr<ISpecularStrategy> strategy) : SpecularComputationTerm(std::move(strategy)) {}
+SpecularScalarTerm::SpecularScalarTerm(std::unique_ptr<ISpecularStrategy> strategy)
+    : SpecularComputationTerm(std::move(strategy))
+{
+}
 
 SpecularComputationTerm::~SpecularComputationTerm() = default;
 
@@ -46,11 +50,15 @@ SpecularScalarTerm::~SpecularScalarTerm() = default;
 void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = std::make_unique<SpecularScalarStrategy>()->Execute(slices, elem.produceKz(slices));
+    auto coeff =
+        std::make_unique<SpecularScalarStrategy>()->Execute(slices, elem.produceKz(slices));
     elem.setIntensity(std::norm(coeff.front()->getScalarR()));
 }
 
-SpecularMatrixTerm::SpecularMatrixTerm(std::unique_ptr<ISpecularStrategy> strategy) : SpecularComputationTerm(std::move(strategy)) {}
+SpecularMatrixTerm::SpecularMatrixTerm(std::unique_ptr<ISpecularStrategy> strategy)
+    : SpecularComputationTerm(std::move(strategy))
+{
+}
 
 SpecularMatrixTerm::~SpecularMatrixTerm() = default;
 

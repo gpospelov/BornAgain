@@ -19,7 +19,10 @@
 #include "Vectors3D.h"
 #include <functional>
 
-ScalarFresnelMap::ScalarFresnelMap(std::unique_ptr<ISpecularStrategy> strategy) : IFresnelMap(std::move(strategy)) {}
+ScalarFresnelMap::ScalarFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)
+    : IFresnelMap(std::move(strategy))
+{
+}
 
 ScalarFresnelMap::~ScalarFresnelMap() = default;
 
@@ -46,8 +49,7 @@ ScalarFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) con
     return ISpecularStrategy::single_coeff_t(coef_vector[layer_index]->clone());
 }
 
-const ISpecularStrategy::coeffs_t&
-ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
+const ISpecularStrategy::coeffs_t& ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
 {
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
     auto it = m_cache.find(k2_theta);

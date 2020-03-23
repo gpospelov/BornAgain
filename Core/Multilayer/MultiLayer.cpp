@@ -39,6 +39,7 @@ MultiLayer* MultiLayer::clone() const
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
     P_result->setExternalField(externalField());
+    P_result->setRoughnessModel(roughnessModel());
     for (size_t i = 0; i < numberOfLayers(); ++i) {
         auto p_interface = i > 0 ? m_interfaces[i - 1] : nullptr;
         std::unique_ptr<Layer> P_layer(m_layers[i]->clone());
@@ -100,6 +101,11 @@ void MultiLayer::setCrossCorrLength(double crossCorrLength)
 void MultiLayer::setExternalField(kvector_t ext_field)
 {
     m_ext_field = ext_field;
+}
+
+void MultiLayer::setRoughnessModel(std::string strategy)
+{
+    m_roughness_model = strategy;
 }
 
 std::vector<const INode*> MultiLayer::getChildren() const

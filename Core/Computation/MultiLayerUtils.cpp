@@ -83,6 +83,16 @@ std::vector<ZLimits> MultiLayerUtils::ParticleRegions(const MultiLayer& multilay
     return layer_fill_limits.layerZLimits();
 }
 
+bool MultiLayerUtils::hasRoughness(const MultiLayer& sample)
+{
+    for(size_t i = 0; i < sample.numberOfLayers() - 1; i++ )
+    {
+        if( sample.layerInterface(i)->getRoughness() )
+            return true;
+    }
+    return false;
+}
+
 namespace
 {
 std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer)

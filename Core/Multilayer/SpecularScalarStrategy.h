@@ -30,18 +30,13 @@ class Slice;
 class BA_CORE_API_ SpecularScalarStrategy : public ISpecularStrategy
 {
 public:
-
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.
-    //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
     virtual ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,
-                                                             const kvector_t& k) const override;
+                                                const kvector_t& k) const override;
 
-    //! Computes transmission/reflection coefficients
-    //! for given set of z-components of wave-vectors in a multilayer.
-    //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
     virtual ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,
-                                                             const std::vector<complex_t>& kz) const override;
+                                                const std::vector<complex_t>& kz) const override;
 
 private:
     virtual Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma, double thickness,

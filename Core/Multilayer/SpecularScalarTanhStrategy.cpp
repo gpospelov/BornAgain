@@ -13,16 +13,9 @@
 // ************************************************************************** //
 
 #include "SpecularScalarTanhStrategy.h"
-#include "KzComputation.h"
-#include "Layer.h"
-#include "LayerRoughness.h"
 #include "MathConstants.h"
 #include "MathFunctions.h"
-#include "Slice.h"
 #include <Eigen/Dense>
-#include <stdexcept>
-#include <valarray>
-
 
 namespace
 {
@@ -50,4 +43,3 @@ Eigen::Vector2cd SpecularScalarTanhStrategy::transition(complex_t kzi, complex_t
         (a01 * t_r1(0) + a00 * t_r1(1)) * phase_shift;
     return result;
 }
-

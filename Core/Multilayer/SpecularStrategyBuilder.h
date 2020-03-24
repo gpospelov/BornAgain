@@ -17,10 +17,6 @@
 
 #include "ISpecularStrategy.h"
 #include "MultiLayer.h"
-#include "MultiLayerUtils.h"
-#include "SpecularMagneticStrategy.h"
-#include "SpecularScalarNCStrategy.h"
-#include "SpecularScalarTanhStrategy.h"
 
 class SpecularStrategyBuilder
 {

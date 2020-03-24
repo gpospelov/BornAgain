@@ -13,16 +13,7 @@
 // ************************************************************************** //
 
 #include "SpecularScalarNCStrategy.h"
-#include "KzComputation.h"
-#include "Layer.h"
-#include "LayerRoughness.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
-#include "Slice.h"
 #include <Eigen/Dense>
-#include <stdexcept>
-#include <valarray>
-
 
 Eigen::Vector2cd SpecularScalarNCStrategy::transition(complex_t kzi, complex_t kzi1, double sigma, double thickness,
                                      const Eigen::Vector2cd& t_r1) const

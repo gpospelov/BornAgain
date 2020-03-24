@@ -24,7 +24,6 @@
 #include "MultiLayerUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
-#include <iomanip>
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {

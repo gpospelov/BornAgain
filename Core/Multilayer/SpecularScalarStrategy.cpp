@@ -16,12 +16,9 @@
 #include "KzComputation.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
 #include "Slice.h"
 #include <Eigen/Dense>
 #include <stdexcept>
-#include <valarray>
 
 namespace
 {

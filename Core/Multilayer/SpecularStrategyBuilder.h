@@ -19,7 +19,7 @@
 #include "MultiLayer.h"
 #include "MultiLayerUtils.h"
 #include "SpecularMagneticStrategy.h"
-#include "SpecularScalarStrategy.h"
+#include "SpecularScalarNCStrategy.h"
 #include "SpecularScalarTanhStrategy.h"
 
 class SpecularStrategyBuilder

@@ -5,7 +5,7 @@
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
 #include "SpecularMagneticOldStrategy.h"
-#include "SpecularScalarStrategy.h"
+#include "SpecularScalarTanhStrategy.h"
 #include "Units.h"
 
 class SpecularMagneticTest : public ::testing::Test
@@ -59,7 +59,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     ProcessedSample sample_zerofield(multi_layer_zerofield, options);
 
     // k1
-    auto coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k1);
+    auto coeffs_scalar = std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_scalar.slices(), k1);
     ScalarRTCoefficients RTScalar = *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[1].get());
     Eigen::Vector2cd TPS = RTScalar.T1plus() + RTScalar.T2plus();
     Eigen::Vector2cd RPS = RTScalar.R1plus() + RTScalar.R2plus();
@@ -83,7 +83,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     EXPECT_NEAR(0.0, std::abs(RMS(1) - RMM(1)), eps);
 
     // k2
-    coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k2);
+    coeffs_scalar = std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_scalar.slices(), k2);
     RTScalar = *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[1].get());
     TPS = RTScalar.T1plus() + RTScalar.T2plus();
     RPS = RTScalar.R1plus() + RTScalar.R2plus();
@@ -107,7 +107,7 @@ TEST_F(SpecularMagneticTest, zerofield)
     EXPECT_NEAR(0.0, std::abs(RMS(1) - RMM(1)), eps);
 
     // k3
-    coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k3);
+    coeffs_scalar = std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_scalar.slices(), k3);
     RTScalar = *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[1].get());
     TPS = RTScalar.T1plus() + RTScalar.T2plus();
     RPS = RTScalar.R1plus() + RTScalar.R2plus();

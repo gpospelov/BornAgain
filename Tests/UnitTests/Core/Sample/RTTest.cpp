@@ -10,7 +10,7 @@
 #include "ParticleLayout.h"
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
-#include "SpecularScalarStrategy.h"
+#include "SpecularScalarTanhStrategy.h"
 
 class RTTest : public ::testing::Test
 {
@@ -32,7 +32,7 @@ protected:
         EXPECT_NEAR(coeff1.t_r(1).real(), coeff2.t_r(1).real(), 1e-10);
         EXPECT_NEAR(coeff1.t_r(1).imag(), coeff2.t_r(1).imag(), 1e-10);
     }
-    std::vector<ScalarRTCoefficients> getCoeffs(SpecularScalarStrategy::coeffs_t&& inputCoeffs)
+    std::vector<ScalarRTCoefficients> getCoeffs(SpecularScalarTanhStrategy::coeffs_t&& inputCoeffs)
     {
         std::vector<ScalarRTCoefficients> result;
         for(auto& coeff : inputCoeffs)
@@ -70,8 +70,8 @@ TEST_F(RTTest, SplitLayer)
     ProcessedSample sample_1(sample1, options);
     ProcessedSample sample_2(sample2, options);
 
-    coeffs1 = getCoeffs( std::make_unique<SpecularScalarStrategy>()->Execute(sample_1.slices(), k) );
-    coeffs2 = getCoeffs( std::make_unique<SpecularScalarStrategy>()->Execute(sample_2.slices(), k) );
+    coeffs1 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k) );
+    coeffs2 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k) );
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );
@@ -107,8 +107,8 @@ TEST_F(RTTest, SplitBilayers)
     ProcessedSample sample_1(sample1, options);
     ProcessedSample sample_2(sample2, options);
 
-    coeffs1 = getCoeffs( std::make_unique<SpecularScalarStrategy>()->Execute(sample_1.slices(), k) );
-    coeffs2 = getCoeffs( std::make_unique<SpecularScalarStrategy>()->Execute(sample_2.slices(), k) );
+    coeffs1 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k) );
+    coeffs2 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k) );
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );

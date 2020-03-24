@@ -5,7 +5,7 @@
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
 #include "SpecularMagneticStrategy.h"
-#include "SpecularScalarStrategy.h"
+#include "SpecularScalarTanhStrategy.h"
 #include "Units.h"
 
 constexpr double eps = 1e-10;
@@ -27,7 +27,7 @@ SpecularMagneticTest_v2::~SpecularMagneticTest_v2() = default;
 void SpecularMagneticTest_v2::testZeroField(const kvector_t& k, const ProcessedSample& sample_scalar,
                                           const ProcessedSample& sample_zerofield)
 {
-    auto coeffs_scalar = std::make_unique<SpecularScalarStrategy>()->Execute(sample_scalar.slices(), k);
+    auto coeffs_scalar = std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_scalar.slices(), k);
     auto coeffs_zerofield = std::make_unique<SpecularMagneticStrategy>()->Execute(sample_zerofield.slices(), k);
 
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());

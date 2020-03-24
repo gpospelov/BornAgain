@@ -27,8 +27,6 @@ namespace
 {
 const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices,
                                          const size_t slice_index);
-
-const double pi2_15 = std::pow(M_PI_2, 1.5);
 } // namespace
 
 ISpecularStrategy::coeffs_t
@@ -48,28 +46,6 @@ SpecularScalarStrategy::Execute(const std::vector<Slice>& slices, const std::vec
     for(auto& coeff : computeTR(slices, kz))
         result.push_back( std::make_unique<ScalarRTCoefficients>(coeff) );
 
-    return result;
-}
-
-Eigen::Vector2cd SpecularScalarStrategy::transition(complex_t kzi, complex_t kzi1, double sigma, double thickness,
-                            const Eigen::Vector2cd& t_r1) const
-{
-    complex_t roughness = 1;
-    if (sigma > 0.0) {
-        const double sigeff = pi2_15 * sigma;
-        roughness =
-            std::sqrt(MathFunctions::tanhc(sigeff * kzi1) / MathFunctions::tanhc(sigeff * kzi));
-    }
-    const complex_t inv_roughness = 1.0 / roughness;
-    const complex_t phase_shift = exp_I(kzi * thickness);
-    const complex_t kz_ratio = kzi1 / kzi * roughness;
-
-    const complex_t a00 = 0.5 * (inv_roughness + kz_ratio);
-    const complex_t a01 = 0.5 * (inv_roughness - kz_ratio);
-
-    Eigen::Vector2cd result;
-    result << (a00 * t_r1(0) + a01 * t_r1(1)) / phase_shift,
-        (a01 * t_r1(0) + a00 * t_r1(1)) * phase_shift;
     return result;
 }
 

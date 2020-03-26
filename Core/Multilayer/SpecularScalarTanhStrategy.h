@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SpecularMatrix.h
-//! @brief     Defines namespace SpecularMatrix.
+//! @file      Core/Multilayer/SpecularScalarTanhStrategy.h
+//! @brief     Defines class SpecularScalarTanhStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -19,6 +19,7 @@
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
 #include "ZLimits.h"
+#include "RoughnessModels.h"
 
 #include <functional>
 
@@ -80,9 +81,9 @@ public:
 
     std::vector<const INode*> getChildren() const final override;
 
-    void setRoughnessModel(std::string strategy);
+    void setRoughnessModel(RoughnessModel roughnessModel);
 
-    std::string roughnessModel() const { return m_roughness_model; }
+    RoughnessModel roughnessModel() const { return m_roughness_model; }
 
 private:
     //! Registers some class members for later access via parameter pool
@@ -112,7 +113,7 @@ private:
     //! external magnetic field (in A/m)
     kvector_t m_ext_field;
 
-    std::string m_roughness_model;
+    RoughnessModel m_roughness_model = RoughnessModel::DEFAULT;
 };
 
 #endif // MULTILAYER_H

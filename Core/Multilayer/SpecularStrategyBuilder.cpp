@@ -21,7 +21,6 @@
 std::unique_ptr<ISpecularStrategy> SpecularStrategyBuilder::build(const MultiLayer& sample,
                                                                   const bool magnetic)
 {
-
     auto roughnessModel = sample.roughnessModel();
 
     if (magnetic) {
@@ -31,15 +30,12 @@ std::unique_ptr<ISpecularStrategy> SpecularStrategyBuilder::build(const MultiLay
         return std::make_unique<SpecularMagneticStrategy>();
 
     } else {
-        if (roughnessModel == "") {
+        if (roughnessModel == RoughnessModel::TANH || roughnessModel == RoughnessModel::DEFAULT) {
             return std::make_unique<SpecularScalarTanhStrategy>();
 
-        } else if (roughnessModel == "nc" || roughnessModel == "nevot-croce") {
+        } else if (roughnessModel == RoughnessModel::NEVOT_CROCE) {
 
             return std::make_unique<SpecularScalarNCStrategy>();
-
-        } else if (roughnessModel == "tanh") {
-            return std::make_unique<SpecularScalarTanhStrategy>();
 
         } else
             throw std::logic_error("Invalid roughness model");

@@ -299,6 +299,7 @@
 
 // SWIG workaround for using axes units the same way as they are used in cpp files
 %rename(AxesUnits) AxesUnitsWrap;
+%rename(RoughnessModel) RoughnessModelWrap;
 
 %include "Complex.h"
 %include "Units.h"
@@ -469,6 +470,7 @@
 %include "RectangularDetector.h"
 %include "ResolutionFunction2DGaussian.h"
 %include "Rotations.h"
+%include "RoughnessModels.h"
 %include "ISelectionRule.h"
 %include "DepthProbeSimulation.h"
 %include "SpecularSimulation.h"

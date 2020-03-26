@@ -25391,13 +25391,13 @@ class MultiLayer(ISample):
         return _libBornAgainCore.MultiLayer_getChildren(self)
 
 
-    def setRoughnessModel(self, strategy):
-        """setRoughnessModel(MultiLayer self, std::string strategy)"""
-        return _libBornAgainCore.MultiLayer_setRoughnessModel(self, strategy)
+    def setRoughnessModel(self, roughnessModel):
+        """setRoughnessModel(MultiLayer self, RoughnessModel roughnessModel)"""
+        return _libBornAgainCore.MultiLayer_setRoughnessModel(self, roughnessModel)
 
 
     def roughnessModel(self):
-        """roughnessModel(MultiLayer self) -> std::string"""
+        """roughnessModel(MultiLayer self) -> RoughnessModel"""
         return _libBornAgainCore.MultiLayer_roughnessModel(self)
 
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
@@ -28461,6 +28461,25 @@ class ResolutionFunction2DGaussian(IResolutionFunction2D):
     __del__ = lambda self: None
 ResolutionFunction2DGaussian_swigregister = _libBornAgainCore.ResolutionFunction2DGaussian_swigregister
 ResolutionFunction2DGaussian_swigregister(ResolutionFunction2DGaussian)
+
+class RoughnessModel(_object):
+    """Proxy of C++ RoughnessModelWrap class."""
+
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, RoughnessModel, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, RoughnessModel, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    DEFAULT = _libBornAgainCore.RoughnessModel_DEFAULT
+    TANH = _libBornAgainCore.RoughnessModel_TANH
+    NEVOT_CROCE = _libBornAgainCore.RoughnessModel_NEVOT_CROCE
+    __swig_destroy__ = _libBornAgainCore.delete_RoughnessModel
+    __del__ = lambda self: None
+RoughnessModel_swigregister = _libBornAgainCore.RoughnessModel_swigregister
+RoughnessModel_swigregister(RoughnessModel)
 
 class DepthProbeSimulation(Simulation):
     """Proxy of C++ DepthProbeSimulation class."""

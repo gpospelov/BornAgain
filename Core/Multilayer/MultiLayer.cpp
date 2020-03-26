@@ -102,9 +102,9 @@ void MultiLayer::setExternalField(kvector_t ext_field)
     m_ext_field = ext_field;
 }
 
-void MultiLayer::setRoughnessModel(std::string strategy)
+void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
 {
-    m_roughness_model = strategy;
+    m_roughness_model = roughnessModel;
 }
 
 std::vector<const INode*> MultiLayer::getChildren() const

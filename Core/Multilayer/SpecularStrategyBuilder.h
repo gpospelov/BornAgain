@@ -17,6 +17,7 @@
 
 #include "ISpecularStrategy.h"
 #include "MultiLayer.h"
+#include "RoughnessModels.h"
 
 class SpecularStrategyBuilder
 {

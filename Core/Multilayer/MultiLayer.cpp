@@ -25,7 +25,7 @@
 #include "ParameterPool.h"
 #include "RealParameter.h"
 
-MultiLayer::MultiLayer() : m_crossCorrLength(0)
+MultiLayer::MultiLayer() : m_crossCorrLength(0), m_roughness_model(RoughnessModel::DEFAULT)
 {
     setName(BornAgain::MultiLayerType);
     init_parameters();

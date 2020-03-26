@@ -113,7 +113,7 @@ private:
     //! external magnetic field (in A/m)
     kvector_t m_ext_field;
 
-    RoughnessModel m_roughness_model = RoughnessModel::DEFAULT;
+    RoughnessModel m_roughness_model;
 };
 
 #endif // MULTILAYER_H

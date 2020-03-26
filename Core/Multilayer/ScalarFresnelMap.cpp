@@ -52,8 +52,8 @@ ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
     auto it = m_cache.find(k2_theta);
     if (it == m_cache.end()) {
-        it = m_cache.insert({k2_theta,
-                             std::make_unique<SpecularScalarStrategy>()->Execute(m_slices, kvec)}).first;
+        it = m_cache.emplace(k2_theta,
+                             std::make_unique<SpecularScalarStrategy>()->Execute(m_slices, kvec)).first;
     }
     return it->second;
 }

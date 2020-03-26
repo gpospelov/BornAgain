@@ -73,6 +73,6 @@ MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Sli
 {
     auto it = hash_table.find(kvec);
     if (it == hash_table.end())
-        it = hash_table.insert({kvec, std::move(std::make_unique<SpecularMagneticStrategy>()->Execute(slices, kvec))}).first;
+        it = hash_table.emplace(kvec, std::make_unique<SpecularMagneticStrategy>()->Execute(slices, kvec)).first;
     return it->second;
 }

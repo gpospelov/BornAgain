@@ -36,6 +36,9 @@ public:
     ScalarFresnelMap();
     ~ScalarFresnelMap() final;
 
+    ScalarFresnelMap(const ScalarFresnelMap& other) = delete;
+    ScalarFresnelMap& operator=(const ScalarFresnelMap& other) = delete;
+
     std::unique_ptr<const ILayerRTCoefficients>
     getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const override;
 

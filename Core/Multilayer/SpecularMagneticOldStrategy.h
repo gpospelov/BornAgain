@@ -27,15 +27,15 @@ class Slice;
 //! the coherent wave solution in a multilayer with magnetization.
 //! @ingroup algorithms_internal
 
-class SpecularMagneticOldStrategy : public ISpecularStrategy
+class BA_CORE_API_ SpecularMagneticOldStrategy : public ISpecularStrategy
 {
 public:
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
-    BA_CORE_API_ coeffs_t
+    coeffs_t
     Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
 
-    BA_CORE_API_ coeffs_t
+    coeffs_t
     Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const;
 
 }; // class SpecularMagneticOldStrategy

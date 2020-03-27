@@ -441,10 +441,12 @@ computed with $R=4$~nm, $H=11$~nm, and $\alpha=75^\circ$,
 for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
-\paragraph{History}\strut\\
+\paragraph{History and Derivation}\strut\\
 Agrees with \E{Cone} form factor of \IsGISAXS\
 \cite[Eq.~2.28]{Laz06} \cite[Eq.~225]{ReLL09},
 except for a substitution $z\to\rho$ in our expression for~$F$.
+Justification for complex~$q$ in the same way as for the \E{Cylinder} form factor
+in \cref{SCylinder}.
 
 
 %===============================================================================
@@ -917,7 +919,7 @@ so that the exponential reduces to a cosine:
   = 2\pi \int_0^R \d r\,r^2 \int_0^{\pi} \d\theta\, \sin\theta
    \cos\left(q_z \cos \theta\right) J_0\left(q_\parallel r\sin \theta\right).
 \end{equation}
-Expand the cosine and the Bessel function:
+Expand the outer cosine and the Bessel function:
 \begin{equation}
   I(\q,R)
   = 2\pi \int_0^R \d r\,r^2 \int_0^{\pi} \d\theta\, \sin\theta
@@ -1017,11 +1019,13 @@ computed with $R=3.5$~nm and $H=9.8$~nm.}
 % changes very little under tilt !
 \end{figure}
 
-\paragraph{History}\strut\\
+\paragraph{History and Derivation}\strut\\
 Agrees with the \E{Full spheroid} form factor of \IsGISAXS\
 \cite[Eq.~2.37]{Laz06} \cite[Eq.~227]{ReLL09},
 with corrected volume formula.
-We also discovered a wrong factor of~2 in the \IsGISAXS\ code.
+We also found a wrong factor of~2 in the \IsGISAXS\ code.
+Justification for complex~$q$ in the same way as for the \E{Cylinder} form factor
+in \cref{SCylinder}.
 
 
 %===============================================================================
@@ -1593,10 +1597,12 @@ computed with $R=4.2$~nm and $H=6.1$~nm,
 for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
-\paragraph{History}\strut\\
+\paragraph{History and Derivation}\strut\\
 Agrees with the \IsGISAXS\ form factor
 \E{Sphere} \cite[Eq.~2.33]{Laz06} or
 \E{Truncated sphere} \cite[Eq.~228]{ReLL09}.
+Justification for complex~$q$ in the same way as for the \E{Cylinder} form factor
+in \cref{SCylinder}.
 
 
 %===============================================================================
@@ -1670,12 +1676,14 @@ computed with $R=3.3$~nm, $H=9.8$~nm, and $f_p=1.8$,
 for four different tilt angles~$\vartheta$ (rotation around the $y$ axis).}
 \end{figure}
 
-\paragraph{History}\strut\\
+\paragraph{History and Derivation}\strut\\
 Agrees with the \IsGISAXS\ form factor
 \E{Sphere} \cite[Eq.~2.33]{Laz06} or
 \E{TruncatedSpheroid} \cite[Eq.~228]{ReLL09}.
 % Note an erroneous factor~2 in the expression of the volume
 % in the \Code{IsGISAXS} manual.
+Justification for complex~$q$ in the same way as for the \E{Cylinder} form factor
+in \cref{SCylinder}.
 
 \index{Shape transform!catalogue|)}
 \index{Form factor!catalogue|)}

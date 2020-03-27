@@ -30,7 +30,7 @@ std::unique_ptr<ISpecularStrategy> SpecularStrategyBuilder::build(const MultiLay
         if (roughnessModel == "") {
             return std::make_unique<SpecularScalarStrategy>();
 
-        } else if (roughnessModel == "nc" or roughnessModel == "nevot-croce") {
+        } else if (roughnessModel == "nc" || roughnessModel == "nevot-croce") {
 
             throw std::runtime_error("Nevot-Croce not yet implemented");
 

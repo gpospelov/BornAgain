@@ -15,30 +15,10 @@
 #include "MatrixFresnelMap.h"
 #include "SimulationElement.h"
 #include "Slice.h"
-#include "SpecularMagnetic.h"
-#include "SpecularMagnetic_v2.h"
+#include "SpecularMagneticOldStrategy.h"
+#include "SpecularMagneticStrategy.h"
 #include <functional>
 
-namespace {
-template <class T> auto computeRT(const std::vector<Slice>&, const kvector_t&)
-{
-    constexpr bool value = std::is_same<T, MatrixRTCoefficients>::value
-                           || std::is_same<T, MatrixRTCoefficients_v2>::value;
-    static_assert(value, "Error in MatrixFresnelMap:computeRT: unknown coefficient type");
-};
-
-template <>
-auto computeRT<MatrixRTCoefficients>(const std::vector<Slice>& slices, const kvector_t& k)
-{
-    return SpecularMagnetic::Execute(slices, k);
-}
-
-template <>
-auto computeRT<MatrixRTCoefficients_v2>(const std::vector<Slice>& slices, const kvector_t& k)
-{
-    return SpecularMagnetic_v2::execute(slices, k);
-}
-}
 
 MatrixFresnelMap::MatrixFresnelMap() = default;
 
@@ -80,19 +60,19 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
                                   const std::vector<Slice>& slices, CoefficientHash& hash_table) const
 {
     if (!m_use_cache) {
-        auto coeffs = computeRT<RTCoefficients>(slices, kvec);
-        return std::make_unique<RTCoefficients>(coeffs[layer_index]);
+        auto coeffs = std::make_unique<SpecularMagneticStrategy>()->Execute(slices, kvec);
+        return ISpecularStrategy::single_coeff_t(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
-    return std::make_unique<RTCoefficients>(coef_vector[layer_index]);
+    return ISpecularStrategy::single_coeff_t(coef_vector[layer_index]->clone());
 }
 
-const std::vector<MatrixFresnelMap::RTCoefficients>&
+const ISpecularStrategy::coeffs_t&
 MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
-                                           MatrixFresnelMap::CoefficientHash& hash_table)
+                                           MatrixFresnelMap::CoefficientHash& hash_table) const
 {
     auto it = hash_table.find(kvec);
     if (it == hash_table.end())
-        it = hash_table.insert({kvec, computeRT<RTCoefficients>(slices, kvec)}).first;
+        it = hash_table.emplace(kvec, std::make_unique<SpecularMagneticStrategy>()->Execute(slices, kvec)).first;
     return it->second;
 }

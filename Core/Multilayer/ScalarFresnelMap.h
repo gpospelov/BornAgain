@@ -17,6 +17,7 @@
 
 #include "IFresnelMap.h"
 #include "ScalarRTCoefficients.h"
+#include "SpecularScalarStrategy.h"
 #include <cstddef>
 #include <unordered_map>
 #include <utility>
@@ -35,6 +36,9 @@ public:
     ScalarFresnelMap();
     ~ScalarFresnelMap() final;
 
+    ScalarFresnelMap(const ScalarFresnelMap& other) = delete;
+    ScalarFresnelMap& operator=(const ScalarFresnelMap& other) = delete;
+
     std::unique_ptr<const ILayerRTCoefficients>
     getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const override;
 
@@ -48,8 +52,8 @@ private:
 
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
-    const std::vector<ScalarRTCoefficients>& getCoefficientsFromCache(kvector_t kvec) const;
-    mutable std::unordered_map<std::pair<double, double>, std::vector<ScalarRTCoefficients>,
+    const SpecularScalarStrategy::coeffs_t& getCoefficientsFromCache(kvector_t kvec) const;
+    mutable std::unordered_map<std::pair<double, double>, SpecularScalarStrategy::coeffs_t,
                                Hash2Doubles> m_cache;
 };
 

@@ -15,6 +15,8 @@
 #ifndef SPECULARCOMPUTATIONTERM_H_
 #define SPECULARCOMPUTATIONTERM_H_
 
+#include "SpecularMagneticStrategy.h"
+
 #include <memory>
 #include <vector>
 
@@ -57,7 +59,7 @@ class SpecularMatrixTerm : public SpecularComputationTerm
 protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
     double intensity(const SpecularSimulationElement& elem,
-                     const MatrixRTCoefficients_v2& coeff) const;
+                     SpecularMagneticStrategy::single_coeff_t& coeff) const;
 };
 
 #endif /* SPECULARCOMPUTATIONTERM_H_ */

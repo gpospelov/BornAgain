@@ -12,30 +12,35 @@
 //
 // ************************************************************************** //
 
-#ifndef SPECULARMAGNETIC_V2_H
-#define SPECULARMAGNETIC_V2_H
+#ifndef SPECULARMAGNETICSTRATEGY_H
+#define SPECULARMAGNETICSTRATEGY_H
 
+#include "ISpecularStrategy.h"
 #include "MatrixRTCoefficients_v2.h"
 #include "Vectors3D.h"
 #include <vector>
+#include <memory>
 
 class Slice;
 
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer with magnetization.
 //! @ingroup algorithms_internal
-class BA_CORE_API_ SpecularMagnetic_v2
+class BA_CORE_API_ SpecularMagneticStrategy : public ISpecularStrategy
 {
 public:
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
-    static std::vector<MatrixRTCoefficients_v2> execute(const std::vector<Slice>& slices,
-                                                      const kvector_t& k);
+    ISpecularStrategy::coeffs_t
+    Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and a set of kz projections corresponding to each slice
-    static std::vector<MatrixRTCoefficients_v2> execute(const std::vector<Slice>& slices,
-                                                      const std::vector<complex_t>& kzs);
+    ISpecularStrategy::coeffs_t
+    Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const;
+
+    static std::vector<MatrixRTCoefficients_v2> computeTR(const std::vector<Slice>& slices,
+                                                          const std::vector<complex_t>& kzs);
 
     //! Computes frobenius matrices for multilayer solution
     static void calculateTR(MatrixRTCoefficients_v2& coeff);
@@ -62,4 +67,4 @@ public:
                                   const Eigen::Matrix2cd& weights);
 };
 
-#endif // SPECULARMAGNETIC_V2_H
+#endif // SPECULARMAGNETICSTRATEGY_H

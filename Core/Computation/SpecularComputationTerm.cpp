@@ -15,8 +15,7 @@
 #include "SpecularComputationTerm.h"
 #include "DelayedProgressCounter.h"
 #include "ScalarRTCoefficients.h"
-#include "SpecularMatrix.h"
-#include "SpecularMagnetic_v2.h"
+#include "SpecularScalarStrategy.h"
 #include "SpecularSimulationElement.h"
 
 SpecularComputationTerm::SpecularComputationTerm() = default;
@@ -45,8 +44,8 @@ SpecularScalarTerm::~SpecularScalarTerm() = default;
 void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = SpecularMatrix::Execute(slices, elem.produceKz(slices));
-    elem.setIntensity(std::norm(coeff.front().getScalarR()));
+    auto coeff = std::make_unique<SpecularScalarStrategy>()->Execute(slices, elem.produceKz(slices));
+    elem.setIntensity(std::norm(coeff.front()->getScalarR()));
 }
 
 SpecularMatrixTerm::~SpecularMatrixTerm() = default;
@@ -54,20 +53,20 @@ SpecularMatrixTerm::~SpecularMatrixTerm() = default;
 void SpecularMatrixTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = SpecularMagnetic_v2::execute(slices, elem.produceKz(slices));
+    auto coeff = std::make_unique<SpecularMagneticStrategy>()->Execute(slices, elem.produceKz(slices));
     elem.setIntensity(intensity(elem, coeff.front()));
 }
 
 double SpecularMatrixTerm::intensity(const SpecularSimulationElement& elem,
-                                     const MatrixRTCoefficients_v2& coeff) const
+                                     SpecularMagneticStrategy::single_coeff_t& coeff) const
 {
     const auto& polarization = elem.polarizationHandler().getPolarization();
     const auto& analyzer = elem.polarizationHandler().getAnalyzerOperator();
 
     // constructing reflection operator
     Eigen::Matrix2cd R;
-    R.col(0) = coeff.R1plus() + coeff.R2plus();
-    R.col(1) = coeff.R1min() + coeff.R2min();
+    R.col(0) = coeff->R1plus() + coeff->R2plus();
+    R.col(1) = coeff->R1min() + coeff->R2min();
 
     const complex_t result = (polarization * R.adjoint() * analyzer * R).trace();
 

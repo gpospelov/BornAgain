@@ -18,6 +18,7 @@
 #include "IFresnelMap.h"
 #include "MatrixRTCoefficients.h"
 #include "MatrixRTCoefficients_v2.h"
+#include "SpecularMagneticStrategy.h"
 #include <cstddef>
 #include <memory>
 #include <unordered_map>
@@ -34,10 +35,11 @@ class SimulationElement;
 class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
-    using RTCoefficients = MatrixRTCoefficients_v2;
-
     MatrixFresnelMap();
     ~MatrixFresnelMap() override;
+
+    MatrixFresnelMap(const MatrixFresnelMap& other) = delete;
+    MatrixFresnelMap& operator=(const MatrixFresnelMap& other) = delete;
 
     std::unique_ptr<const ILayerRTCoefficients>
     getOutCoefficients(const SimulationElement& sim_element,
@@ -53,7 +55,7 @@ private:
         size_t operator()(const kvector_t& kvec) const noexcept;
     };
 
-    using CoefficientHash = std::unordered_map<kvector_t, std::vector<RTCoefficients>, HashKVector>;
+    using CoefficientHash = std::unordered_map<kvector_t, ISpecularStrategy::coeffs_t, HashKVector>;
 
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
@@ -65,9 +67,9 @@ private:
     mutable CoefficientHash m_hash_table_out;
     mutable CoefficientHash m_hash_table_in;
 
-    static const std::vector<RTCoefficients>&
+    const ISpecularStrategy::coeffs_t&
     getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
-                             CoefficientHash& hash_table);
+                             CoefficientHash& hash_table) const;
 };
 
 #endif // MATRIXFRESNELMAP_H

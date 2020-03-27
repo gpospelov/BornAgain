@@ -16,7 +16,6 @@
 #include "ScalarRTCoefficients.h"
 #include "SimulationElement.h"
 #include "Slice.h"
-#include "SpecularMatrix.h"
 #include "Vectors3D.h"
 #include <functional>
 
@@ -40,20 +39,21 @@ std::unique_ptr<const ILayerRTCoefficients>
 ScalarFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) const
 {
     if (!m_use_cache) {
-        auto coeffs = SpecularMatrix::Execute(m_slices, kvec);
-        return std::make_unique<const ScalarRTCoefficients>(coeffs[layer_index]);
+        auto coeffs = std::make_unique<SpecularScalarStrategy>()->Execute(m_slices, kvec);
+        return SpecularScalarStrategy::single_coeff_t(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec);
-    return std::make_unique<const ScalarRTCoefficients>(coef_vector[layer_index]);
+    return SpecularScalarStrategy::single_coeff_t(coef_vector[layer_index]->clone());
 }
 
-const std::vector<ScalarRTCoefficients>&
+const SpecularScalarStrategy::coeffs_t&
 ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
 {
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
     auto it = m_cache.find(k2_theta);
     if (it == m_cache.end()) {
-        it = m_cache.insert({k2_theta, SpecularMatrix::Execute(m_slices, kvec)}).first;
+        it = m_cache.emplace(k2_theta,
+                             std::make_unique<SpecularScalarStrategy>()->Execute(m_slices, kvec)).first;
     }
     return it->second;
 }

@@ -36,6 +36,9 @@ public:
     SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy);
     virtual ~SpecularComputationTerm();
 
+    SpecularComputationTerm(const SpecularComputationTerm& other) = delete;
+    SpecularComputationTerm& operator=(const SpecularComputationTerm& other) = delete;
+
     void setProgressHandler(ProgressHandler* p_progress);
     void compute(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const;
 

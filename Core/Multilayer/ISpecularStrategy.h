@@ -21,8 +21,8 @@
 class BA_CORE_API_ ISpecularStrategy
 {
 public:
-    typedef std::unique_ptr<const ILayerRTCoefficients> single_coeff_t;
-    typedef std::vector<single_coeff_t> coeffs_t;
+    using single_coeff_t = std::unique_ptr<const ILayerRTCoefficients>;
+    using coeffs_t = std::vector<single_coeff_t>;
 
     virtual coeffs_t
     Execute(const std::vector<Slice>& slices, const kvector_t& k) const = 0;

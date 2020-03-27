@@ -19,17 +19,16 @@
 #include "SpecularMagneticStrategy.h"
 #include <functional>
 
-
-MatrixFresnelMap::MatrixFresnelMap() = default;
+MatrixFresnelMap::MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)
+    : IFresnelMap(std::move(strategy)){};
 
 MatrixFresnelMap::~MatrixFresnelMap() = default;
 
 //! Returns hash value of a 3-vector, computed by exclusive-or of the component hash values.
 size_t MatrixFresnelMap::HashKVector::operator()(const kvector_t& kvec) const noexcept
 {
-    return std::hash<double>{}(kvec.x())
-         ^ std::hash<double>{}(kvec.y())
-         ^ std::hash<double>{}(kvec.z());
+    return std::hash<double>{}(kvec.x()) ^ std::hash<double>{}(kvec.y())
+           ^ std::hash<double>{}(kvec.z());
 }
 
 std::unique_ptr<const ILayerRTCoefficients>
@@ -39,7 +38,7 @@ MatrixFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_
                            m_hash_table_out);
 }
 
-void MatrixFresnelMap::setSlices(const std::vector<Slice> &slices)
+void MatrixFresnelMap::setSlices(const std::vector<Slice>& slices)
 {
     IFresnelMap::setSlices(slices);
     m_inverted_slices.clear();
@@ -57,10 +56,11 @@ MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) con
 
 std::unique_ptr<const ILayerRTCoefficients>
 MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
-                                  const std::vector<Slice>& slices, CoefficientHash& hash_table) const
+                                  const std::vector<Slice>& slices,
+                                  CoefficientHash& hash_table) const
 {
     if (!m_use_cache) {
-        auto coeffs = std::make_unique<SpecularMagneticStrategy>()->Execute(slices, kvec);
+        auto coeffs = m_Strategy->Execute(slices, kvec);
         return ISpecularStrategy::single_coeff_t(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
@@ -73,6 +73,6 @@ MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Sli
 {
     auto it = hash_table.find(kvec);
     if (it == hash_table.end())
-        it = hash_table.emplace(kvec, std::make_unique<SpecularMagneticStrategy>()->Execute(slices, kvec)).first;
+        it = hash_table.emplace(kvec, m_Strategy->Execute(slices, kvec)).first;
     return it->second;
 }

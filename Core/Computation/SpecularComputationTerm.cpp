@@ -18,7 +18,13 @@
 #include "SpecularScalarStrategy.h"
 #include "SpecularSimulationElement.h"
 
-SpecularComputationTerm::SpecularComputationTerm() = default;
+SpecularComputationTerm::SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy)
+    : m_Strategy(std::move(strategy)){};
+
+SpecularScalarTerm::SpecularScalarTerm(std::unique_ptr<ISpecularStrategy> strategy)
+    : SpecularComputationTerm(std::move(strategy))
+{
+}
 
 SpecularComputationTerm::~SpecularComputationTerm() = default;
 
@@ -44,8 +50,13 @@ SpecularScalarTerm::~SpecularScalarTerm() = default;
 void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = std::make_unique<SpecularScalarStrategy>()->Execute(slices, elem.produceKz(slices));
+    auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
     elem.setIntensity(std::norm(coeff.front()->getScalarR()));
+}
+
+SpecularMatrixTerm::SpecularMatrixTerm(std::unique_ptr<ISpecularStrategy> strategy)
+    : SpecularComputationTerm(std::move(strategy))
+{
 }
 
 SpecularMatrixTerm::~SpecularMatrixTerm() = default;
@@ -53,12 +64,12 @@ SpecularMatrixTerm::~SpecularMatrixTerm() = default;
 void SpecularMatrixTerm::eval(SpecularSimulationElement& elem,
                               const std::vector<Slice>& slices) const
 {
-    auto coeff = std::make_unique<SpecularMagneticStrategy>()->Execute(slices, elem.produceKz(slices));
+    auto coeff = m_Strategy->Execute(slices, elem.produceKz(slices));
     elem.setIntensity(intensity(elem, coeff.front()));
 }
 
 double SpecularMatrixTerm::intensity(const SpecularSimulationElement& elem,
-                                     SpecularMagneticStrategy::single_coeff_t& coeff) const
+                                     ISpecularStrategy::single_coeff_t& coeff) const
 {
     const auto& polarization = elem.polarizationHandler().getPolarization();
     const auto& analyzer = elem.polarizationHandler().getAnalyzerOperator();

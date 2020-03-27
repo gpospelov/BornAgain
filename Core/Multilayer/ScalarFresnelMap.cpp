@@ -19,7 +19,10 @@
 #include "Vectors3D.h"
 #include <functional>
 
-ScalarFresnelMap::ScalarFresnelMap() {}
+ScalarFresnelMap::ScalarFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)
+    : IFresnelMap(std::move(strategy))
+{
+}
 
 ScalarFresnelMap::~ScalarFresnelMap() = default;
 
@@ -39,21 +42,19 @@ std::unique_ptr<const ILayerRTCoefficients>
 ScalarFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) const
 {
     if (!m_use_cache) {
-        auto coeffs = std::make_unique<SpecularScalarStrategy>()->Execute(m_slices, kvec);
-        return SpecularScalarStrategy::single_coeff_t(coeffs[layer_index]->clone());
+        auto coeffs = m_Strategy->Execute(m_slices, kvec);
+        return ISpecularStrategy::single_coeff_t(coeffs[layer_index]->clone());
     }
     const auto& coef_vector = getCoefficientsFromCache(kvec);
-    return SpecularScalarStrategy::single_coeff_t(coef_vector[layer_index]->clone());
+    return ISpecularStrategy::single_coeff_t(coef_vector[layer_index]->clone());
 }
 
-const SpecularScalarStrategy::coeffs_t&
-ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
+const ISpecularStrategy::coeffs_t& ScalarFresnelMap::getCoefficientsFromCache(kvector_t kvec) const
 {
     std::pair<double, double> k2_theta(kvec.mag2(), kvec.theta());
     auto it = m_cache.find(k2_theta);
     if (it == m_cache.end()) {
-        it = m_cache.emplace(k2_theta,
-                             std::make_unique<SpecularScalarStrategy>()->Execute(m_slices, kvec)).first;
+        it = m_cache.emplace(k2_theta, m_Strategy->Execute(m_slices, kvec)).first;
     }
     return it->second;
 }

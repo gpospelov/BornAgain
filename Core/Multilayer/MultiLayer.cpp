@@ -24,9 +24,8 @@
 #include "MultiLayerUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
-#include <iomanip>
 
-MultiLayer::MultiLayer() : m_crossCorrLength(0)
+MultiLayer::MultiLayer() : m_crossCorrLength(0), m_roughness_model(RoughnessModel::DEFAULT)
 {
     setName(BornAgain::MultiLayerType);
     init_parameters();
@@ -103,9 +102,9 @@ void MultiLayer::setExternalField(kvector_t ext_field)
     m_ext_field = ext_field;
 }
 
-void MultiLayer::setRoughnessModel(std::string strategy)
+void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
 {
-    m_roughness_model = strategy;
+    m_roughness_model = roughnessModel;
 }
 
 std::vector<const INode*> MultiLayer::getChildren() const

@@ -16,30 +16,14 @@
 #include "KzComputation.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
-#include "MathConstants.h"
-#include "MathFunctions.h"
 #include "Slice.h"
 #include <Eigen/Dense>
 #include <stdexcept>
-#include <valarray>
 
 namespace
 {
-Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma, double thickness,
-                            const Eigen::Vector2cd& t_r1);
-std::vector<ScalarRTCoefficients> computeTR(const std::vector<Slice>& slices,
-                                            const std::vector<complex_t>& kz);
-void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer);
-bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
-                          const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
-                          size_t layer_index);
-size_t bisectRTcomputation(std::vector<ScalarRTCoefficients>& coeff,
-                           const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
-                           const size_t lgood, const size_t lbad, const size_t l);
 const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices,
                                          const size_t slice_index);
-
-const double pi2_15 = std::pow(M_PI_2, 1.5);
 } // namespace
 
 ISpecularStrategy::coeffs_t
@@ -62,32 +46,8 @@ SpecularScalarStrategy::Execute(const std::vector<Slice>& slices, const std::vec
     return result;
 }
 
-namespace
-{
-Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma, double thickness,
-                            const Eigen::Vector2cd& t_r1)
-{
-    complex_t roughness = 1;
-    if (sigma > 0.0) {
-        const double sigeff = pi2_15 * sigma;
-        roughness =
-            std::sqrt(MathFunctions::tanhc(sigeff * kzi1) / MathFunctions::tanhc(sigeff * kzi));
-    }
-    const complex_t inv_roughness = 1.0 / roughness;
-    const complex_t phase_shift = exp_I(kzi * thickness);
-    const complex_t kz_ratio = kzi1 / kzi * roughness;
-
-    const complex_t a00 = 0.5 * (inv_roughness + kz_ratio);
-    const complex_t a01 = 0.5 * (inv_roughness - kz_ratio);
-
-    Eigen::Vector2cd result;
-    result << (a00 * t_r1(0) + a01 * t_r1(1)) / phase_shift,
-        (a01 * t_r1(0) + a00 * t_r1(1)) * phase_shift;
-    return result;
-}
-
-std::vector<ScalarRTCoefficients> computeTR(const std::vector<Slice>& slices,
-                                            const std::vector<complex_t>& kz)
+std::vector<ScalarRTCoefficients> SpecularScalarStrategy::computeTR(const std::vector<Slice>& slices,
+                                                                    const std::vector<complex_t>& kz) const
 {
     const size_t N = slices.size();
     std::vector<ScalarRTCoefficients> coeff(N);
@@ -136,7 +96,7 @@ std::vector<ScalarRTCoefficients> computeTR(const std::vector<Slice>& slices,
     return coeff;
 }
 
-void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer)
+void SpecularScalarStrategy::setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer)
 {
     size_t N = coeff.size();
     for (size_t i = current_layer + 1; i < N; ++i) {
@@ -144,9 +104,9 @@ void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer
     }
 }
 
-bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
+bool SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
                           const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
-                          size_t slice_index)
+                          size_t slice_index) const
 {
     coeff[slice_index + 1].t_r(0) = 1.0;
     coeff[slice_index + 1].t_r(1) = 0.0;
@@ -166,9 +126,9 @@ bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
 //! Recursive bisection to determine the number of the deepest layer where RT computation
 //! can be started without running into overflow.
 //! Computes coeff, and returns largest possible start layer index.
-size_t bisectRTcomputation(std::vector<ScalarRTCoefficients>& coeff,
+size_t SpecularScalarStrategy::bisectRTcomputation(std::vector<ScalarRTCoefficients>& coeff,
                            const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
-                           const size_t lgood, const size_t lbad, const size_t l)
+                           const size_t lgood, const size_t lbad, const size_t l) const
 {
     if (calculateUpFromLayer(coeff, slices, kz, l)) {
         // success => highest valid l must be in l..lbad-1
@@ -187,10 +147,11 @@ size_t bisectRTcomputation(std::vector<ScalarRTCoefficients>& coeff,
     }
 }
 
+namespace  {
 const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices, const size_t slice_index)
 {
     if (slice_index + 1 < slices.size())
         return slices[slice_index + 1].topRoughness();
     return nullptr;
 }
-} // unnamed namespace
+}

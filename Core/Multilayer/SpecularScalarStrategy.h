@@ -30,18 +30,31 @@ class Slice;
 class BA_CORE_API_ SpecularScalarStrategy : public ISpecularStrategy
 {
 public:
-
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.
-    //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
     virtual ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,
-                                                             const kvector_t& k) const override;
+                                                const kvector_t& k) const override;
 
-    //! Computes transmission/reflection coefficients
-    //! for given set of z-components of wave-vectors in a multilayer.
-    //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
     virtual ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,
-                                                             const std::vector<complex_t>& kz) const override;
+                                                const std::vector<complex_t>& kz) const override;
+
+private:
+    virtual Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma, double thickness,
+                                        const Eigen::Vector2cd& t_r1) const = 0;
+
+    std::vector<ScalarRTCoefficients> computeTR(const std::vector<Slice>& slices,
+                                                       const std::vector<complex_t>& kz) const;
+
+    static void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer);
+
+    bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
+                                     const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
+                                     size_t slice_index) const;
+
+    size_t bisectRTcomputation(std::vector<ScalarRTCoefficients>& coeff,
+                                      const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
+                                      const size_t lgood, const size_t lbad, const size_t l) const;
+
 };
 
 #endif // SPECULARSCALARSTRATEGY_H

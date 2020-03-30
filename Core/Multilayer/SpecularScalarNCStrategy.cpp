@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/SpecularMatrix.cpp
-//! @brief     Implements class SpecularMatrix.
+//! @file      Core/Multilayer/SpecularScalarNCStrategy.cpp
+//! @brief     Implements class SpecularScalarNCStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/ProcessedSample.h
-//! @brief     Defines class ProcessedSample.
+//! @file      Core/Multilayer/ISpecularStrategy.h
+//! @brief     Defines class ISpecularStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

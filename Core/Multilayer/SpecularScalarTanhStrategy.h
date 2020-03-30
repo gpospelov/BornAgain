@@ -23,7 +23,7 @@ class Slice;
 //! coefficients for coherent wave propagation in a multilayer.
 //! @ingroup algorithms_internal
 
-class SpecularScalarTanhStrategy : public SpecularScalarStrategy
+class BA_CORE_API_ SpecularScalarTanhStrategy : public SpecularScalarStrategy
 {
 private:
 

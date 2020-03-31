@@ -67,32 +67,7 @@ std::vector<ScalarRTCoefficients> SpecularScalarStrategy::computeTR(const std::v
 
     // Calculate transmission/refraction coefficients t_r for each layer, from bottom to top.
     size_t start_index = N - 2;
-    if (!calculateUpFromLayer(coeff, slices, kz, start_index)) {
-        // If excessive damping leads to infinite amplitudes, then use bisection to determine
-        // the maximum number of layers for which results remain finite.
-        start_index = bisectRTcomputation(coeff, slices, kz, 0, N - 2, (N - 2) / 2);
-    }
-    setZeroBelow(coeff, start_index + 1);
-
-    // Normalize to incoming downward travelling amplitude = 1.
-    complex_t T0 = coeff[0].t_r(0);
-    // This trick is used to avoid overflows in the intermediate steps of
-    // complex division:
-    double tmax = std::max(std::abs(T0.real()), std::abs(T0.imag()));
-    if (std::isinf(tmax))
-        throw std::runtime_error("Unexpected tmax=infty");
-    for (size_t i = 0; i < N; ++i) {
-        coeff[i].t_r(0) /= tmax;
-        coeff[i].t_r(1) /= tmax;
-    }
-
-    // Now the real normalization to T_0 proceeds
-    T0 = coeff[0].t_r(0);
-    if (std::isinf(abs(T0)))
-        throw std::runtime_error("Unexpected tmax=infty");
-    for (size_t i = 0; i < N; ++i)
-        coeff[i].t_r = coeff[i].t_r / T0;
-
+    calculateUpFromLayer(coeff, slices, kz, start_index);
     return coeff;
 }
 
@@ -110,6 +85,8 @@ bool SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
 {
     coeff[slice_index + 1].t_r(0) = 1.0;
     coeff[slice_index + 1].t_r(1) = 0.0;
+    std::vector<complex_t> factors(slice_index+2);
+    factors[slice_index + 1] = complex_t(1, 0);
     for (size_t j = 0; j <= slice_index; ++j) {
         size_t i = slice_index - j; // start from bottom
         double sigma = 0.0;
@@ -117,34 +94,40 @@ bool SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
             sigma = roughness->getSigma();
 
         coeff[i].t_r = transition(kz[i], kz[i + 1], sigma, slices[i].thickness(), coeff[i + 1].t_r);
-        if (std::isinf(std::norm(coeff[i].t_r(0))))
-            return false; // overflow => retry calulation starting from a higher layer
-    }
-    return true; // no overflow => result is definitive
-}
 
-//! Recursive bisection to determine the number of the deepest layer where RT computation
-//! can be started without running into overflow.
-//! Computes coeff, and returns largest possible start layer index.
-size_t SpecularScalarStrategy::bisectRTcomputation(std::vector<ScalarRTCoefficients>& coeff,
-                           const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
-                           const size_t lgood, const size_t lbad, const size_t l) const
-{
-    if (calculateUpFromLayer(coeff, slices, kz, l)) {
-        // success => highest valid l must be in l..lbad-1
-        if (l + 1 == lbad)
-            return l;
-        return bisectRTcomputation(coeff, slices, kz, l, lbad, (l + lbad) / 2);
-    } else {
-        // failure => highest valid l must be in lgood..l-1
-        if (l - 1 == lgood) {
-            if (!calculateUpFromLayer(coeff, slices, kz, l - 1))
-                throw std::runtime_error(
-                    "Bisection failed: Unexpected non-monotonicity in RT computation");
-            return l - 1;
+        // normalize the t-coefficient in each step of the computation
+        // this avoids an overflow in the backwards propagation
+        // the used factors are stored in order to correct the amplitudes
+        // in forward direction at the end of the computation
+
+        if (std::isinf(std::norm(coeff[i].t_r(0)))){
+//            throw std::runtime_error("Unexpected inf");
+            // catching this inf is not correctly covered by existing tests
+            // it is possible to pass all tests by moving the normalization before
+            // this check and hence corrupting all amplitudes
+            coeff[i].t_r(0) = 1.0;
+            coeff[i].t_r(1) = 0.0;
+
+            setZeroBelow(coeff, i);
         }
-        return bisectRTcomputation(coeff, slices, kz, lgood, l, (lgood + l) / 2);
+        factors[i] = coeff[i].t_r(0);
+        coeff[i].t_r = coeff[i].t_r / coeff[i].t_r(0);
     }
+
+    // now correct all amplitudes by dividing the with the remaining factors in forward direction
+    // at some point this divison underflows, which is the point when all further amplitudes are set to zero
+    auto dumpingFactor = complex_t(1, 0);
+    for (size_t j = 1; j <= slice_index + 1; ++j){
+        dumpingFactor = dumpingFactor * factors[j-1];
+        if (std::isinf(std::norm( dumpingFactor ))){
+            setZeroBelow(coeff, j-1);
+            break;
+        }
+        coeff[j].t_r = coeff[j].t_r / dumpingFactor;
+    }
+
+    // this return value is meaningless now, this procedure should always succeed
+    return true;
 }
 
 namespace  {

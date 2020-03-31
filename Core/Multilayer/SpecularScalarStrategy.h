@@ -50,11 +50,6 @@ private:
     bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
                                      const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
                                      size_t slice_index) const;
-
-    size_t bisectRTcomputation(std::vector<ScalarRTCoefficients>& coeff,
-                                      const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
-                                      const size_t lgood, const size_t lbad, const size_t l) const;
-
 };
 
 #endif // SPECULARSCALARSTRATEGY_H

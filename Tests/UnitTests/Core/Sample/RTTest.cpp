@@ -46,7 +46,7 @@ protected:
     const Material stone = HomogeneousMaterial("substrate material", 1e-6, 1e-7);
     const Layer topLayer{air, 0};
     const Layer substrate{stone, 0};
-    const kvector_t k{1, 0, 1e-3};
+    const kvector_t k{1, 0, -1e-3};
     MultiLayer sample1, sample2;
     std::vector<ScalarRTCoefficients> coeffs1, coeffs2;
 };

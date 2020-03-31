@@ -90,16 +90,16 @@ TEST_F(RTTest, SplitBilayers)
     sample1.addLayer(topLayer);
     for (size_t i = 0; i < n; ++i) {
         sample1.addLayer(Layer(amat, 100));
-        sample1.addLayer(Layer(bmat, 200));
+        sample1.addLayer(Layer(bmat, 200000));
     }
     sample1.addLayer(substrate);
 
     sample2.addLayer(topLayer);
     for (size_t i = 0; i < n; ++i) {
         sample2.addLayer(Layer(amat, 100));
-        sample2.addLayer(Layer(bmat, 100));
+        sample2.addLayer(Layer(bmat, 100000));
         sample2.addLayer(Layer(amat, 0));
-        sample2.addLayer(Layer(bmat, 100));
+        sample2.addLayer(Layer(bmat, 100000));
     }
     sample2.addLayer(substrate);
 
@@ -110,8 +110,8 @@ TEST_F(RTTest, SplitBilayers)
     coeffs1 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k) );
     coeffs2 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k) );
 
-    // printCoeffs( coeffs1 );
-    // printCoeffs( coeffs2 );
+     printCoeffs( coeffs1 );
+     printCoeffs( coeffs2 );
 
     compareCoeffs(coeffs1[0], coeffs2[0]);
     compareCoeffs(coeffs1[1], coeffs2[1]);

@@ -12,29 +12,24 @@
 //
 // ************************************************************************** //
 
-#ifndef MULTILAYERWITHROUGHNESSBUILDER_H
-#define MULTILAYERWITHROUGHNESSBUILDER_H
+#ifndef MULTILAYERWITHNCROUGHNESSBUILDER_H
+#define MULTILAYERWITHNCROUGHNESSBUILDER_H
 
 #include "IMultiLayerBuilder.h"
+#include "MultiLayerWithRoughnessBuilder.h"
 
 class ISample;
 
 //! Builds sample: layers with correlated roughness.
 //! @ingroup standard_samples
 
-class BA_CORE_API_ MultiLayerWithRoughnessBuilder : public IMultiLayerBuilder
+class BA_CORE_API_ MultiLayerWithNCRoughnessBuilder : public MultiLayerWithRoughnessBuilder
 {
 public:
-    MultiLayerWithRoughnessBuilder();
-    virtual MultiLayer* buildSample() const;
+    MultiLayerWithNCRoughnessBuilder();
+    MultiLayer* buildSample() const override;
 
 private:
-    double m_thicknessA;
-    double m_thicknessB;
-    double m_sigma;
-    double m_hurst;
-    double m_lateralCorrLength;
-    double m_crossCorrLength;
 };
 
-#endif // MULTILAYERWITHROUGHNESSBUILDER_H
+#endif // MULTILAYERWITHNCROUGHNESSBUILDER_H

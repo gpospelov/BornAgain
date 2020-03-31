@@ -110,8 +110,8 @@ TEST_F(RTTest, SplitBilayers)
     coeffs1 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k) );
     coeffs2 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k) );
 
-     printCoeffs( coeffs1 );
-     printCoeffs( coeffs2 );
+//     printCoeffs( coeffs1 );
+//     printCoeffs( coeffs2 );
 
     compareCoeffs(coeffs1[0], coeffs2[0]);
     compareCoeffs(coeffs1[1], coeffs2[1]);

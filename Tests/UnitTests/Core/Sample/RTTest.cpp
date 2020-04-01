@@ -90,13 +90,55 @@ TEST_F(RTTest, SplitBilayers)
     sample1.addLayer(topLayer);
     for (size_t i = 0; i < n; ++i) {
         sample1.addLayer(Layer(amat, 100));
-        sample1.addLayer(Layer(bmat, 200000));
+        sample1.addLayer(Layer(bmat, 200));
     }
     sample1.addLayer(substrate);
 
     sample2.addLayer(topLayer);
     for (size_t i = 0; i < n; ++i) {
         sample2.addLayer(Layer(amat, 100));
+        sample2.addLayer(Layer(bmat, 100));
+        sample2.addLayer(Layer(amat, 0));
+        sample2.addLayer(Layer(bmat, 100));
+    }
+    sample2.addLayer(substrate);
+
+    SimulationOptions options;
+    ProcessedSample sample_1(sample1, options);
+    ProcessedSample sample_2(sample2, options);
+
+    coeffs1 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k) );
+    coeffs2 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k) );
+
+//     printCoeffs( coeffs1 );
+//     printCoeffs( coeffs2 );
+
+    compareCoeffs(coeffs1[0], coeffs2[0]);
+    compareCoeffs(coeffs1[1], coeffs2[1]);
+
+    // Amplitudes at bottom must be strictly zero.
+    // The new algorithm handles this without an overflow
+    EXPECT_EQ(complex_t(), coeffs1[coeffs1.size() - 2].t_r(0));
+    EXPECT_EQ(complex_t(), coeffs1[coeffs1.size() - 2].t_r(1));
+    EXPECT_EQ(complex_t(), coeffs2[coeffs2.size() - 2].t_r(0));
+    EXPECT_EQ(complex_t(), coeffs2[coeffs2.size() - 2].t_r(1));
+}
+
+TEST_F(RTTest, Overflow)
+{
+    // Text extra thick layers to also provoke an overflow in the new algorithm
+    const int n = 5;
+
+    sample1.addLayer(topLayer);
+    for (size_t i = 0; i < n; ++i) {
+        sample1.addLayer(Layer(amat, 1000));
+        sample1.addLayer(Layer(bmat, 200000));
+    }
+    sample1.addLayer(substrate);
+
+    sample2.addLayer(topLayer);
+    for (size_t i = 0; i < n; ++i) {
+        sample2.addLayer(Layer(amat, 1000));
         sample2.addLayer(Layer(bmat, 100000));
         sample2.addLayer(Layer(amat, 0));
         sample2.addLayer(Layer(bmat, 100000));

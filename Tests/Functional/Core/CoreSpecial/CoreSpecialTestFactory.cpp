@@ -20,6 +20,7 @@
 #include "FourierTransformationTest.h"
 #include "MesoCrystalPerformanceTest.h"
 #include "MultilayerPerformanceTest.h"
+#include "MultiThreadPerformanceTest.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
@@ -50,4 +51,8 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("MultilayerPerformance",
                  create_new<MultilayerPerformanceTest>,
                  "Reflectometry performance on samples with a large number of layers");
+
+    registerItem("MultiThreadPerformance",
+                 create_new<MultiThreadPerformanceTest>,
+                 "Performance scaling with number of threads");
 }

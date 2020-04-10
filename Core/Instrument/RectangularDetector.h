@@ -111,7 +111,6 @@ class RectangularPixel : public IPixel
 {
 public:
     RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height);
-    virtual ~RectangularPixel() {}
 
     RectangularPixel* clone() const override;
     RectangularPixel* createZeroSizePixel(double x, double y) const override;

@@ -27,7 +27,7 @@ ScalarFresnelMap::ScalarFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)
 ScalarFresnelMap::~ScalarFresnelMap() = default;
 
 //! Returns hash value of a pair of doubles, computed by exclusive-or of the component hash values.
-size_t ScalarFresnelMap::Hash2Doubles::operator()(std::pair<double, double> doubles) const noexcept
+size_t ScalarFresnelMap::Hash2Doubles::operator()(const std::pair<double, double>& doubles) const noexcept
 {
     return std::hash<double>{}(doubles.first) ^ std::hash<double>{}(doubles.second);
 }

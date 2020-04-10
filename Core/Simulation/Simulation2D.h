@@ -25,12 +25,14 @@
 class BA_CORE_API_ Simulation2D : public Simulation
 {
 public:
-    Simulation2D() =default;
+    Simulation2D();
     Simulation2D(const MultiLayer& p_sample);
     Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
-    ~Simulation2D() override = default;
+    ~Simulation2D() override;
 
-    Simulation2D* clone() const override =0;
+    Simulation2D* clone() const override = 0;
+
+    void prepareSimulation() override;
 
     //! Sets spherical detector parameters using angle ranges
     //! @param n_phi number of phi-axis bins
@@ -39,8 +41,8 @@ public:
     //! @param n_alpha number of alpha-axis bins
     //! @param alpha_min low edge of first alpha-bin
     //! @param alpha_max upper edge of last alpha-bin
-    void setDetectorParameters(size_t n_phi, double phi_min, double phi_max,
-                               size_t n_alpha, double alpha_min, double alpha_max);
+    void setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha,
+                               double alpha_min, double alpha_max);
 
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
@@ -89,7 +91,9 @@ protected:
     std::vector<SimulationElement> m_sim_elements;
     std::vector<double> m_cache;
 
-private:
+    size_t numberOfSimulationElements() const override;
+
+private:        
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
 };

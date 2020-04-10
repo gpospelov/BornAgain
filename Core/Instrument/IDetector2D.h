@@ -30,16 +30,15 @@ class IShape2D;
 class BA_CORE_API_ IDetector2D : public IDetector
 {
 public:
-
     IDetector2D();
 
-    IDetector2D* clone() const override =0;
+    IDetector2D* clone() const override = 0;
 
     virtual ~IDetector2D();
 
     //! Sets detector parameters using angle ranges
-    void setDetectorParameters(size_t n_x, double x_min, double x_max,
-                               size_t n_y, double y_min, double y_max);
+    void setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min,
+                               double y_max);
 
     //! Sets detector parameters using axes
     void setDetectorAxes(const IAxis& axis0, const IAxis& axis1);
@@ -77,7 +76,7 @@ protected:
     IDetector2D(const IDetector2D& other);
 
     //! Create an IPixel for the given OutputData object and index
-    virtual IPixel* createPixel(size_t index) const=0;
+    virtual IPixel* createPixel(size_t index) const = 0;
 
     //! Calculate global index from two axis indices
     size_t getGlobalIndex(size_t x, size_t y) const;
@@ -85,7 +84,7 @@ protected:
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is
     //! returned. This corresponds to an overflow index.
-    virtual size_t getIndexOfSpecular(const Beam& beam) const=0;
+    virtual size_t getIndexOfSpecular(const Beam& beam) const = 0;
 
 private:
     DetectorMask m_detector_mask;

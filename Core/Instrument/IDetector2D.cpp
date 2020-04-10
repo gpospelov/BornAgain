@@ -19,24 +19,23 @@
 #include "DetectorFunctions.h"
 #include "InfinitePlane.h"
 #include "RegionOfInterest.h"
-#include "SimulationElement.h"
 #include "SimulationArea.h"
+#include "SimulationElement.h"
 #include "Units.h"
 
 IDetector2D::IDetector2D() = default;
 
 IDetector2D::IDetector2D(const IDetector2D& other)
-    : IDetector(other)
-    , m_detector_mask(other.m_detector_mask)
+    : IDetector(other), m_detector_mask(other.m_detector_mask)
 {
-    if(other.regionOfInterest())
+    if (other.regionOfInterest())
         m_region_of_interest.reset(other.regionOfInterest()->clone());
 }
 
 IDetector2D::~IDetector2D() = default;
 
-void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
-                                        size_t n_y, double y_min, double y_max)
+void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
+                                        double y_min, double y_max)
 {
     clear();
     addAxis(*createAxis(BornAgain::X_AXIS_INDEX, n_x, x_min, x_max));
@@ -72,7 +71,7 @@ void IDetector2D::removeMasks()
     m_detector_mask.removeMasks();
 }
 
-void IDetector2D::addMask(const IShape2D &shape, bool mask_value)
+void IDetector2D::addMask(const IShape2D& shape, bool mask_value)
 {
     m_detector_mask.addMask(shape, mask_value);
     m_detector_mask.initMaskData(*this);
@@ -80,7 +79,8 @@ void IDetector2D::addMask(const IShape2D &shape, bool mask_value)
 
 void IDetector2D::maskAll()
 {
-    if(dimension() != 2) return;
+    if (dimension() != 2)
+        return;
     m_detector_mask.removeMasks();
     addMask(InfinitePlane(), true);
 }
@@ -100,9 +100,9 @@ std::vector<DetectorElement> IDetector2D::createDetectorElements(const Beam& bea
     size_t spec_index = getIndexOfSpecular(beam);
 
     result.reserve(numberOfSimulationElements());
-    iterate([&](const_iterator it){
+    iterate([&](const_iterator it) {
         result.emplace_back(createPixel(it.detectorIndex()), analyzer_operator);
-        if (it.detectorIndex()==spec_index) {
+        if (it.detectorIndex() == spec_index) {
             auto& detector_element = result.back();
             detector_element.setSpecular();
         }
@@ -117,4 +117,3 @@ size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
         return totalSize();
     return x * getAxis(1).size() + y;
 }
-

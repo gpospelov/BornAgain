@@ -15,6 +15,7 @@
 #include "IDetector2D.h"
 #include "Beam.h"
 #include "BornAgainNamespace.h"
+#include "DetectorContext.h"
 #include "DetectorElement.h"
 #include "DetectorFunctions.h"
 #include "InfinitePlane.h"
@@ -64,6 +65,20 @@ void IDetector2D::resetRegionOfInterest()
 {
     m_region_of_interest.reset();
     m_detector_mask.initMaskData(*this);
+}
+
+std::vector<size_t> IDetector2D::active_indices() const
+{
+    std::vector<size_t> result;
+    SimulationArea area(this);
+    for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it)
+        result.push_back(it.detectorIndex());
+    return result;
+}
+
+std::unique_ptr<DetectorContext> IDetector2D::createContext() const
+{
+    return std::make_unique<DetectorContext>(this);
 }
 
 void IDetector2D::removeMasks()

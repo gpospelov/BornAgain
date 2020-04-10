@@ -23,6 +23,7 @@ class Beam;
 class DetectorElement;
 class IPixel;
 class IShape2D;
+class DetectorContext;
 
 //! Abstract 2D detector interface.
 //! @ingroup simulation
@@ -72,19 +73,24 @@ public:
     //! Resets region of interest making whole detector plane available for the simulation.
     void resetRegionOfInterest() override;
 
-protected:
-    IDetector2D(const IDetector2D& other);
+    //! Returns vector of unmasked detector indices.
+    std::vector<size_t> active_indices() const;
 
     //! Create an IPixel for the given OutputData object and index
     virtual IPixel* createPixel(size_t index) const = 0;
-
-    //! Calculate global index from two axis indices
-    size_t getGlobalIndex(size_t x, size_t y) const;
 
     //! Returns index of pixel that contains the specular wavevector.
     //! If no pixel contains this specular wavevector, the number of pixels is
     //! returned. This corresponds to an overflow index.
     virtual size_t getIndexOfSpecular(const Beam& beam) const = 0;
+
+    std::unique_ptr<DetectorContext> createContext() const;
+
+protected:
+    IDetector2D(const IDetector2D& other);
+
+    //! Calculate global index from two axis indices
+    size_t getGlobalIndex(size_t x, size_t y) const;
 
 private:
     DetectorMask m_detector_mask;

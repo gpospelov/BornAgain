@@ -18,6 +18,8 @@
 #include "Simulation.h"
 #include "SimulationResult.h"
 
+class DetectorContext;
+
 //! Pure virtual base class of OffSpecularSimulation and GISASSimulation.
 //! Holds the common implementations for simulations with a 2D detector
 //! @ingroup simulation
@@ -32,6 +34,7 @@ public:
 
     Simulation2D* clone() const override = 0;
 
+    //! Put into a clean state for running a simulation
     void prepareSimulation() override;
 
     //! Sets spherical detector parameters using angle ranges
@@ -68,6 +71,9 @@ protected:
 
     virtual void initUnitConverter() {}
 
+    //! Gets the number of elements this simulation needs to calculate
+    size_t numberOfSimulationElements() const override;
+
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param n_elements Number of elements to process
@@ -90,10 +96,9 @@ protected:
 
     std::vector<SimulationElement> m_sim_elements;
     std::vector<double> m_cache;
+    std::unique_ptr<DetectorContext> detector_context;
 
-    size_t numberOfSimulationElements() const override;
-
-private:        
+private:
     std::vector<double> rawResults() const override;
     void setRawResults(const std::vector<double>& raw_data) override;
 };

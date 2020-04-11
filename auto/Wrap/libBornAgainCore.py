@@ -2227,14 +2227,7 @@ class ICloneable(_object):
 
 
     def transferToCPP(self):
-        """
-        transferToCPP(ICloneable self)
-
-        virtual void ICloneable::transferToCPP()
-
-        Used for Python overriding of clone (see swig/tweaks.py) 
-
-        """
+        """transferToCPP(ICloneable self)"""
         return self.__disown__()
 
 ICloneable_swigregister = _libBornAgainCore.ICloneable_swigregister
@@ -2594,7 +2587,7 @@ class INode(IParameterized):
         parent(INode self) -> INode
         parent(INode self) -> INode
 
-        INode * INode::parent()
+        INode* INode::parent()
 
         """
         return _libBornAgainCore.INode_parent(self, *args)
@@ -16861,6 +16854,18 @@ class Simulation2D(Simulation):
         return _libBornAgainCore.Simulation2D_clone(self)
 
 
+    def prepareSimulation(self):
+        """
+        prepareSimulation(Simulation2D self)
+
+        void Simulation2D::prepareSimulation() override
+
+        Put into a clean state for running a simulation. 
+
+        """
+        return _libBornAgainCore.Simulation2D_prepareSimulation(self)
+
+
     def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
         """
         setDetectorParameters(Simulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
@@ -18914,6 +18919,42 @@ class IDetector2D(IDetector):
 
         """
         return _libBornAgainCore.IDetector2D_resetRegionOfInterest(self)
+
+
+    def active_indices(self):
+        """
+        active_indices(IDetector2D self) -> std::vector< size_t,std::allocator< size_t > >
+
+        std::vector< size_t > IDetector2D::active_indices() const
+
+        Returns vector of unmasked detector indices. 
+
+        """
+        return _libBornAgainCore.IDetector2D_active_indices(self)
+
+
+    def createPixel(self, index):
+        """
+        createPixel(IDetector2D self, size_t index) -> IPixel
+
+        virtual IPixel* IDetector2D::createPixel(size_t index) const =0
+
+        Create an  IPixel for the given  OutputData object and index. 
+
+        """
+        return _libBornAgainCore.IDetector2D_createPixel(self, index)
+
+
+    def getIndexOfSpecular(self, beam):
+        """
+        getIndexOfSpecular(IDetector2D self, Beam beam) -> size_t
+
+        virtual size_t IDetector2D::getIndexOfSpecular(const Beam &beam) const =0
+
+        Returns index of pixel that contains the specular wavevector. If no pixel contains this specular wavevector, the number of pixels is returned. This corresponds to an overflow index. 
+
+        """
+        return _libBornAgainCore.IDetector2D_getIndexOfSpecular(self, beam)
 
 IDetector2D_swigregister = _libBornAgainCore.IDetector2D_swigregister
 IDetector2D_swigregister(IDetector2D)
@@ -21148,7 +21189,7 @@ class Instrument(INode):
         getDetector(Instrument self) -> IDetector
         getDetector(Instrument self) -> IDetector
 
-        IDetector * Instrument::getDetector()
+        IDetector* Instrument::getDetector()
 
         """
         return _libBornAgainCore.Instrument_getDetector(self, *args)
@@ -23303,7 +23344,7 @@ class SphericalPixel(IPixel):
         """
         __init__(SphericalPixel self, Bin1D alpha_bin, Bin1D phi_bin) -> SphericalPixel
 
-        SphericalPixel::SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin)
+        SphericalPixel::SphericalPixel(const Bin1D &alpha_bin, const Bin1D &phi_bin)
 
         """
         this = _libBornAgainCore.new_SphericalPixel(alpha_bin, phi_bin)
@@ -23311,8 +23352,6 @@ class SphericalPixel(IPixel):
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_SphericalPixel
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -23363,6 +23402,8 @@ class SphericalPixel(IPixel):
         """
         return _libBornAgainCore.SphericalPixel_getSolidAngle(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_SphericalPixel
+    __del__ = lambda self: None
 SphericalPixel_swigregister = _libBornAgainCore.SphericalPixel_swigregister
 SphericalPixel_swigregister(SphericalPixel)
 
@@ -25214,7 +25255,7 @@ class MultiLayer(ISample):
     """
 
 
-    Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
+    Our sample model: a stack of layers one below the other. Example of system of 4 layers (3 interfaces):
 
     ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
 
@@ -25392,12 +25433,22 @@ class MultiLayer(ISample):
 
 
     def setRoughnessModel(self, roughnessModel):
-        """setRoughnessModel(MultiLayer self, RoughnessModel roughnessModel)"""
+        """
+        setRoughnessModel(MultiLayer self, RoughnessModel roughnessModel)
+
+        void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
+
+        """
         return _libBornAgainCore.MultiLayer_setRoughnessModel(self, roughnessModel)
 
 
     def roughnessModel(self):
-        """roughnessModel(MultiLayer self) -> RoughnessModel"""
+        """
+        roughnessModel(MultiLayer self) -> RoughnessModel
+
+        RoughnessModel MultiLayer::roughnessModel() const
+
+        """
         return _libBornAgainCore.MultiLayer_roughnessModel(self)
 
 MultiLayer_swigregister = _libBornAgainCore.MultiLayer_swigregister
@@ -25410,7 +25461,7 @@ def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
 
     BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
-    Calculate average material profile for given multilayer 
+    Calculate average material profile for given multilayer. 
 
     """
     return _libBornAgainCore.MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
@@ -25707,7 +25758,7 @@ class IntensityData(_object):
         begin(IntensityData self) -> OutputData< double >::iterator
         begin(IntensityData self) -> OutputData< double >::const_iterator
 
-        OutputData< T >::const_iterator OutputData< T >::begin() const
+        const_iterator OutputData< T >::begin() const
 
         Returns read-only iterator that points to the first element. 
 
@@ -26116,7 +26167,7 @@ class ParameterDistribution(IParameterized):
         getDistribution(ParameterDistribution self) -> IDistribution1D
         getDistribution(ParameterDistribution self) -> IDistribution1D
 
-        IDistribution1D * ParameterDistribution::getDistribution()
+        IDistribution1D* ParameterDistribution::getDistribution()
 
         """
         return _libBornAgainCore.ParameterDistribution_getDistribution(self, *args)
@@ -27422,7 +27473,7 @@ class Polygon(IShape2D):
     """
 
 
-    A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+    A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
     C++ includes: Polygon.h
 
@@ -28308,8 +28359,6 @@ class RectangularPixel(IPixel):
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
-    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
-    __del__ = lambda self: None
 
     def clone(self):
         """
@@ -28370,6 +28419,8 @@ class RectangularPixel(IPixel):
         """
         return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
 
+    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
+    __del__ = lambda self: None
 RectangularPixel_swigregister = _libBornAgainCore.RectangularPixel_swigregister
 RectangularPixel_swigregister(RectangularPixel)
 

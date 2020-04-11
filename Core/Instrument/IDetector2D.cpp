@@ -16,7 +16,6 @@
 #include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "DetectorContext.h"
-#include "DetectorElement.h"
 #include "DetectorFunctions.h"
 #include "InfinitePlane.h"
 #include "RegionOfInterest.h"
@@ -103,27 +102,6 @@ void IDetector2D::maskAll()
 const DetectorMask* IDetector2D::detectorMask() const
 {
     return &m_detector_mask;
-}
-
-std::vector<DetectorElement> IDetector2D::createDetectorElements(const Beam& beam)
-{
-    std::vector<DetectorElement> result;
-    const Eigen::Matrix2cd& analyzer_operator = detectionProperties().analyzerOperator();
-
-    if (!detectorMask()->hasMasks())
-        m_detector_mask.initMaskData(*this);
-    size_t spec_index = getIndexOfSpecular(beam);
-
-    result.reserve(numberOfSimulationElements());
-    iterate([&](const_iterator it) {
-        result.emplace_back(createPixel(it.detectorIndex()), analyzer_operator);
-        if (it.detectorIndex() == spec_index) {
-            auto& detector_element = result.back();
-            detector_element.setSpecular();
-        }
-    });
-
-    return result;
 }
 
 size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const

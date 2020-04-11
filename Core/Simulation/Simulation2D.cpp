@@ -15,7 +15,6 @@
 #include "Simulation2D.h"
 #include "DWBAComputation.h"
 #include "DetectorContext.h"
-#include "DetectorElement.h"
 #include "DetectorFunctions.h"
 #include "Histogram2D.h"
 #include "IBackground.h"

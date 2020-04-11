@@ -1594,31 +1594,26 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classDetectorElement.xml
-%feature("docstring") DetectorElement "
+// File: classDetectorContext.xml
+%feature("docstring") DetectorContext "
 
-Data stucture containing input elements of detector cells.
+Holds precalculated information for faster  SimulationElement generation.
 
-C++ includes: DetectorElement.h
+C++ includes: DetectorContext.h
 ";
 
-%feature("docstring")  DetectorElement::DetectorElement "DetectorElement::DetectorElement(IPixel *p_pixel, Eigen::Matrix2cd analyzer_operator)
+%feature("docstring")  DetectorContext::DetectorContext "DetectorContext::DetectorContext(const IDetector2D *detector)
 ";
 
-%feature("docstring")  DetectorElement::setSpecular "void DetectorElement::setSpecular(bool specular=true)
+%feature("docstring")  DetectorContext::numberOfSimulationElements "size_t DetectorContext::numberOfSimulationElements() const
 ";
 
-%feature("docstring")  DetectorElement::isSpecular "bool DetectorElement::isSpecular() const
+%feature("docstring")  DetectorContext::createPixel "std::unique_ptr< IPixel > DetectorContext::createPixel(size_t element_index) const
+
+Creates pixel for given element index. Element index is sequetial index in a vector of SimulationElements. Corresponds to sequence of detector bins inside ROI and outside of masked areas. 
 ";
 
-%feature("docstring")  DetectorElement::getAnalyzerOperator "Eigen::Matrix2cd DetectorElement::getAnalyzerOperator() const
-
-Gets the polarization analyzer operator (in spin basis along z-axis) 
-";
-
-%feature("docstring")  DetectorElement::pixel "std::unique_ptr< IPixel > DetectorElement::pixel() const
-
-Gets the pixel information. 
+%feature("docstring")  DetectorContext::detectorIndex "size_t DetectorContext::detectorIndex(size_t element_index) const
 ";
 
 
@@ -5908,29 +5903,10 @@ C++ includes: PercusYevickBuilder.h
 ";
 
 
-// File: classHash2Doubles.xml
-%feature("docstring") Hash2Doubles "
-
-Provides a hash function for a pair of doubles, for use in  ScalarFresnelMap.
-
-C++ includes: Hash2Doubles.h
-";
-
-%feature("docstring")  Hash2Doubles::Hash2Doubles "Hash2Doubles::Hash2Doubles()
-";
-
-%feature("docstring")  Hash2Doubles::~Hash2Doubles "Hash2Doubles::~Hash2Doubles()
-";
+// File: classScalarFresnelMap_1_1Hash2Doubles.xml
 
 
-// File: classHashKVector.xml
-%feature("docstring") HashKVector "";
-
-%feature("docstring")  HashKVector::HashKVector "HashKVector::HashKVector()
-";
-
-%feature("docstring")  HashKVector::~HashKVector "HashKVector::~HashKVector()
-";
+// File: classMatrixFresnelMap_1_1HashKVector.xml
 
 
 // File: classHexagonalLattice.xml
@@ -6499,11 +6475,6 @@ C++ includes: ICloneable.h
 %feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
 ";
 
-%feature("docstring")  ICloneable::transferToCPP "virtual void ICloneable::transferToCPP()
-
-Used for Python overriding of clone (see swig/tweaks.py) 
-";
-
 
 // File: classIClusteredParticles.xml
 %feature("docstring") IClusteredParticles "
@@ -6686,11 +6657,6 @@ Returns a pointer to detector resolution object.
 Returns empty detector map in given axes units. 
 ";
 
-%feature("docstring")  IDetector::createDetectorElements "virtual std::vector<DetectorElement> IDetector::createDetectorElements(const Beam &beam)=0
-
-Create a vector of  DetectorElement objects according to the detector and its mask. 
-";
-
 %feature("docstring")  IDetector::regionOfInterest "virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
 
 Returns region of interest if exists. 
@@ -6786,11 +6752,6 @@ The value of mask
 Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
 ";
 
-%feature("docstring")  IDetector2D::createDetectorElements "std::vector< DetectorElement > IDetector2D::createDetectorElements(const Beam &beam) override
-
-Create a vector of  DetectorElement objects according to the detector and its mask. 
-";
-
 %feature("docstring")  IDetector2D::regionOfInterest "const RegionOfInterest * IDetector2D::regionOfInterest() const override
 
 Returns region of interest if exists. 
@@ -6804,6 +6765,24 @@ Sets rectangular region of interest with lower left and upper right corners defi
 %feature("docstring")  IDetector2D::resetRegionOfInterest "void IDetector2D::resetRegionOfInterest() override
 
 Resets region of interest making whole detector plane available for the simulation. 
+";
+
+%feature("docstring")  IDetector2D::active_indices "std::vector< size_t > IDetector2D::active_indices() const
+
+Returns vector of unmasked detector indices. 
+";
+
+%feature("docstring")  IDetector2D::createPixel "virtual IPixel* IDetector2D::createPixel(size_t index) const =0
+
+Create an  IPixel for the given  OutputData object and index. 
+";
+
+%feature("docstring")  IDetector2D::getIndexOfSpecular "virtual size_t IDetector2D::getIndexOfSpecular(const Beam &beam) const =0
+
+Returns index of pixel that contains the specular wavevector. If no pixel contains this specular wavevector, the number of pixels is returned. This corresponds to an overflow index. 
+";
+
+%feature("docstring")  IDetector2D::createContext "std::unique_ptr< DetectorContext > IDetector2D::createContext() const
 ";
 
 
@@ -7179,7 +7158,7 @@ Holds the necessary information to calculate the radiation wavefunction in every
 C++ includes: IFresnelMap.h
 ";
 
-%feature("docstring")  IFresnelMap::IFresnelMap "IFresnelMap::IFresnelMap()
+%feature("docstring")  IFresnelMap::IFresnelMap "IFresnelMap::IFresnelMap(std::unique_ptr< ISpecularStrategy > strategy)
 ";
 
 %feature("docstring")  IFresnelMap::~IFresnelMap "IFresnelMap::~IFresnelMap()
@@ -8064,10 +8043,10 @@ Returns a vector of children (const).
 %feature("docstring")  INode::setParent "void INode::setParent(const INode *newParent)
 ";
 
-%feature("docstring")  INode::parent "const INode * INode::parent() const
+%feature("docstring")  INode::parent "INode * INode::parent() const
 ";
 
-%feature("docstring")  INode::parent "INode * INode::parent()
+%feature("docstring")  INode::parent "INode* INode::parent()
 ";
 
 %feature("docstring")  INode::copyNumber "int INode::copyNumber(const INode *node) const
@@ -8524,12 +8503,12 @@ Sets the beam's polarization according to the given Bloch vector.
 Returns the beam's intensity. 
 ";
 
-%feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
+%feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector() const
 
 Returns the detector data. 
 ";
 
-%feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector()
+%feature("docstring")  Instrument::getDetector "IDetector* Instrument::getDetector()
 ";
 
 %feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const
@@ -10122,6 +10101,16 @@ Print scan definition in python format.
 ";
 
 
+// File: classISpecularStrategy.xml
+%feature("docstring") ISpecularStrategy "";
+
+%feature("docstring")  ISpecularStrategy::Execute "virtual coeffs_t ISpecularStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const =0
+";
+
+%feature("docstring")  ISpecularStrategy::Execute "virtual coeffs_t ISpecularStrategy::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const =0
+";
+
+
 // File: classIterationInfo.xml
 %feature("docstring") IterationInfo "
 
@@ -10728,7 +10717,7 @@ Returns lateral correlation length.
 // File: classLayersWithAbsorptionBuilder.xml
 %feature("docstring") LayersWithAbsorptionBuilder "
 
-The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part).The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
+The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part). The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
 
 C++ includes: LayersWithAbsorptionBuilder.h
 ";
@@ -10976,6 +10965,21 @@ C++ includes: MagneticParticlesBuilder.h
 ";
 
 %feature("docstring")  MagneticCylindersBuilder::buildSample "MultiLayer * MagneticCylindersBuilder::buildSample() const
+";
+
+
+// File: classMagneticLayerBuilder.xml
+%feature("docstring") MagneticLayerBuilder "
+
+Builds sample: magnetic spheres in a magnetized layer on a non-magnetized substrate.
+
+C++ includes: MagneticLayersBuilder.h
+";
+
+%feature("docstring")  MagneticLayerBuilder::MagneticLayerBuilder "MagneticLayerBuilder::MagneticLayerBuilder()
+";
+
+%feature("docstring")  MagneticLayerBuilder::buildSample "MultiLayer * MagneticLayerBuilder::buildSample() const
 ";
 
 
@@ -11235,10 +11239,13 @@ Implementation of  IFresnelMap for matrix valued reflection/transmission coeffic
 C++ includes: MatrixFresnelMap.h
 ";
 
-%feature("docstring")  MatrixFresnelMap::MatrixFresnelMap "MatrixFresnelMap::MatrixFresnelMap()
+%feature("docstring")  MatrixFresnelMap::MatrixFresnelMap "MatrixFresnelMap::MatrixFresnelMap(std::unique_ptr< ISpecularStrategy > strategy)
 ";
 
 %feature("docstring")  MatrixFresnelMap::~MatrixFresnelMap "MatrixFresnelMap::~MatrixFresnelMap() override
+";
+
+%feature("docstring")  MatrixFresnelMap::MatrixFresnelMap "MatrixFresnelMap::MatrixFresnelMap(const MatrixFresnelMap &other)=delete
 ";
 
 %feature("docstring")  MatrixFresnelMap::getOutCoefficients "std::unique_ptr< const ILayerRTCoefficients > MatrixFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const final override
@@ -11305,6 +11312,58 @@ Returns z-part of the two wavevector eigenmodes.
 ";
 
 %feature("docstring")  MatrixRTCoefficients::initializeBottomLayerPhiPsi "void MatrixRTCoefficients::initializeBottomLayerPhiPsi()
+";
+
+
+// File: classMatrixRTCoefficients__v2.xml
+%feature("docstring") MatrixRTCoefficients_v2 "
+
+Specular reflection and transmission coefficients in a layer in case of magnetic interactions between the scattered particle and the layer.
+
+C++ includes: MatrixRTCoefficients_v2.h
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::MatrixRTCoefficients_v2 "MatrixRTCoefficients_v2::MatrixRTCoefficients_v2(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b)
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::MatrixRTCoefficients_v2 "MatrixRTCoefficients_v2::MatrixRTCoefficients_v2(const MatrixRTCoefficients_v2 &other)
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::~MatrixRTCoefficients_v2 "MatrixRTCoefficients_v2::~MatrixRTCoefficients_v2() override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::clone "MatrixRTCoefficients_v2 * MatrixRTCoefficients_v2::clone() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::T1plus "Eigen::Vector2cd MatrixRTCoefficients_v2::T1plus() const override
+
+The following functions return the transmitted and reflected amplitudes for different incoming beam polarizations and eigenmodes 
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::R1plus "Eigen::Vector2cd MatrixRTCoefficients_v2::R1plus() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::T2plus "Eigen::Vector2cd MatrixRTCoefficients_v2::T2plus() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::R2plus "Eigen::Vector2cd MatrixRTCoefficients_v2::R2plus() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::T1min "Eigen::Vector2cd MatrixRTCoefficients_v2::T1min() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::R1min "Eigen::Vector2cd MatrixRTCoefficients_v2::R1min() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::T2min "Eigen::Vector2cd MatrixRTCoefficients_v2::T2min() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::R2min "Eigen::Vector2cd MatrixRTCoefficients_v2::R2min() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients_v2::getKz "Eigen::Vector2cd MatrixRTCoefficients_v2::getKz() const override
+
+Returns z-part of the two wavevector eigenmodes. 
 ";
 
 
@@ -11406,7 +11465,7 @@ This constructor is best explained by an example. Arguments QX, (1,1,0), QY, (0,
 // File: classMultiLayer.xml
 %feature("docstring") MultiLayer "
 
-Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
+Our sample model: a stack of layers one below the other. Example of system of 4 layers (3 interfaces):
 
 ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
 
@@ -11477,6 +11536,12 @@ Returns the external field applied to the multilayer (units: A/m)
 %feature("docstring")  MultiLayer::getChildren "std::vector< const INode * > MultiLayer::getChildren() const final override
 
 Returns a vector of children (const). 
+";
+
+%feature("docstring")  MultiLayer::setRoughnessModel "void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
+";
+
+%feature("docstring")  MultiLayer::roughnessModel "RoughnessModel MultiLayer::roughnessModel() const
 ";
 
 
@@ -11861,12 +11926,12 @@ Returns copy of raw data vector.
 Returns sum of all values in the data structure. 
 ";
 
-%feature("docstring")  OutputData::begin "OutputData< T >::iterator OutputData< T >::begin()
+%feature("docstring")  OutputData::begin "OutputData< T >::const_iterator OutputData< T >::begin()
 
 Returns read/write iterator that points to the first element. 
 ";
 
-%feature("docstring")  OutputData::begin "OutputData< T >::const_iterator OutputData< T >::begin() const
+%feature("docstring")  OutputData::begin "const_iterator OutputData< T >::begin() const
 
 Returns read-only iterator that points to the first element. 
 ";
@@ -12296,10 +12361,10 @@ get number of samples for this distribution
 get the sigma factor 
 ";
 
-%feature("docstring")  ParameterDistribution::getDistribution "const IDistribution1D * ParameterDistribution::getDistribution() const
+%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D * ParameterDistribution::getDistribution() const
 ";
 
-%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D * ParameterDistribution::getDistribution()
+%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D* ParameterDistribution::getDistribution()
 ";
 
 %feature("docstring")  ParameterDistribution::generateSamples "std::vector< ParameterSample > ParameterDistribution::generateSamples() const
@@ -12827,7 +12892,7 @@ Builds a sample with 10 interchanging homogeneous layers of Ti and Ni on silicon
 C++ includes: PlainMultiLayerBySLDBuilder.h
 ";
 
-%feature("docstring")  PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder "PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder()
+%feature("docstring")  PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder "PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder(int n_layers=10)
 ";
 
 %feature("docstring")  PlainMultiLayerBySLDBuilder::buildSample "MultiLayer * PlainMultiLayerBySLDBuilder::buildSample() const override
@@ -13001,6 +13066,9 @@ C++ includes: PolarizationHandler.h
 %feature("docstring")  PolarizationHandler::PolarizationHandler "PolarizationHandler::PolarizationHandler()
 ";
 
+%feature("docstring")  PolarizationHandler::PolarizationHandler "PolarizationHandler::PolarizationHandler(const Eigen::Matrix2cd &polarization, const Eigen::Matrix2cd &analyzer)
+";
+
 %feature("docstring")  PolarizationHandler::setPolarization "void PolarizationHandler::setPolarization(const Eigen::Matrix2cd &polarization)
 
 Sets the polarization density matrix (in spin basis along z-axis) 
@@ -13011,7 +13079,7 @@ Sets the polarization density matrix (in spin basis along z-axis)
 Gets the polarization density matrix (in spin basis along z-axis) 
 ";
 
-%feature("docstring")  PolarizationHandler::setAnalyzerOperator "void PolarizationHandler::setAnalyzerOperator(const Eigen::Matrix2cd &polarization_operator)
+%feature("docstring")  PolarizationHandler::setAnalyzerOperator "void PolarizationHandler::setAnalyzerOperator(const Eigen::Matrix2cd &analyzer)
 
 Sets the polarization analyzer operator (in spin basis along z-axis) 
 ";
@@ -13028,7 +13096,7 @@ Gets the polarization analyzer operator (in spin basis along z-axis)
 // File: classPolygon.xml
 %feature("docstring") Polygon "
 
-A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
 C++ includes: Polygon.h
 ";
@@ -13989,9 +14057,6 @@ return default axes units
 %feature("docstring")  RectangularPixel::RectangularPixel "RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
 ";
 
-%feature("docstring")  RectangularPixel::~RectangularPixel "virtual RectangularPixel::~RectangularPixel()
-";
-
 %feature("docstring")  RectangularPixel::clone "RectangularPixel * RectangularPixel::clone() const override
 ";
 
@@ -14504,6 +14569,10 @@ C++ includes: RoughMultiLayerComputation.h
 ";
 
 
+// File: structRoughnessModelWrap.xml
+%feature("docstring") RoughnessModelWrap "";
+
+
 // File: classRQ4Metric.xml
 %feature("docstring") RQ4Metric "
 
@@ -14861,10 +14930,13 @@ Implementation of  IFresnelMap for scalar valued reflection/transmission coeffic
 C++ includes: ScalarFresnelMap.h
 ";
 
-%feature("docstring")  ScalarFresnelMap::ScalarFresnelMap "ScalarFresnelMap::ScalarFresnelMap()
+%feature("docstring")  ScalarFresnelMap::ScalarFresnelMap "ScalarFresnelMap::ScalarFresnelMap(std::unique_ptr< ISpecularStrategy > strategy)
 ";
 
 %feature("docstring")  ScalarFresnelMap::~ScalarFresnelMap "ScalarFresnelMap::~ScalarFresnelMap() final
+";
+
+%feature("docstring")  ScalarFresnelMap::ScalarFresnelMap "ScalarFresnelMap::ScalarFresnelMap(const ScalarFresnelMap &other)=delete
 ";
 
 %feature("docstring")  ScalarFresnelMap::getOutCoefficients "std::unique_ptr< const ILayerRTCoefficients > ScalarFresnelMap::getOutCoefficients(const SimulationElement &sim_element, size_t layer_index) const override
@@ -15092,6 +15164,21 @@ Returns a flat array of user weights cut to the ROI area.
 ";
 
 
+// File: classSimpleMagneticLayerBuilder.xml
+%feature("docstring") SimpleMagneticLayerBuilder "
+
+Builds sample: ambient and one magnetized layer on a non-magnetized substrate.
+
+C++ includes: MagneticLayersBuilder.h
+";
+
+%feature("docstring")  SimpleMagneticLayerBuilder::SimpleMagneticLayerBuilder "SimpleMagneticLayerBuilder::SimpleMagneticLayerBuilder()
+";
+
+%feature("docstring")  SimpleMagneticLayerBuilder::buildSample "MultiLayer * SimpleMagneticLayerBuilder::buildSample() const
+";
+
+
 // File: classSimpleSelectionRule.xml
 %feature("docstring") SimpleSelectionRule "
 
@@ -15251,7 +15338,7 @@ Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the
 C++ includes: Simulation2D.h
 ";
 
-%feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D()=default
+%feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D()
 ";
 
 %feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D(const MultiLayer &p_sample)
@@ -15260,10 +15347,15 @@ C++ includes: Simulation2D.h
 %feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D(const std::shared_ptr< IMultiLayerBuilder > p_sample_builder)
 ";
 
-%feature("docstring")  Simulation2D::~Simulation2D "Simulation2D::~Simulation2D() override=default
+%feature("docstring")  Simulation2D::~Simulation2D "Simulation2D::~Simulation2D() override
 ";
 
 %feature("docstring")  Simulation2D::clone "Simulation2D* Simulation2D::clone() const override=0
+";
+
+%feature("docstring")  Simulation2D::prepareSimulation "void Simulation2D::prepareSimulation() override
+
+Put into a clean state for running a simulation. 
 ";
 
 %feature("docstring")  Simulation2D::setDetectorParameters "void Simulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
@@ -15770,6 +15862,9 @@ Return the potential term that is used in the one-dimensional Fresnel calculatio
 Initializes the magnetic B field from a given ambient field strength H. 
 ";
 
+%feature("docstring")  Slice::bField "kvector_t Slice::bField() const
+";
+
 %feature("docstring")  Slice::invertBField "void Slice::invertBField()
 ";
 
@@ -15871,10 +15966,13 @@ Computes the specular scattering. Used by  SpecularComputation.
 C++ includes: SpecularComputationTerm.h
 ";
 
-%feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm()
+%feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm(std::unique_ptr< ISpecularStrategy > strategy)
 ";
 
 %feature("docstring")  SpecularComputationTerm::~SpecularComputationTerm "SpecularComputationTerm::~SpecularComputationTerm()
+";
+
+%feature("docstring")  SpecularComputationTerm::SpecularComputationTerm "SpecularComputationTerm::SpecularComputationTerm(const SpecularComputationTerm &other)=delete
 ";
 
 %feature("docstring")  SpecularComputationTerm::setProgressHandler "void SpecularComputationTerm::setProgressHandler(ProgressHandler *p_progress)
@@ -15911,11 +16009,6 @@ Calls the  INodeVisitor's visit method.
 Returns detector masks container. 
 ";
 
-%feature("docstring")  SpecularDetector1D::createDetectorElements "std::vector< DetectorElement > SpecularDetector1D::createDetectorElements(const Beam &beam) override
-
-Create a vector of  DetectorElement objects according to the detector. 
-";
-
 %feature("docstring")  SpecularDetector1D::regionOfInterest "const RegionOfInterest* SpecularDetector1D::regionOfInterest() const override
 
 Returns region of interest if exists. 
@@ -15929,6 +16022,91 @@ Resets region of interest making whole detector plane available for the simulati
 %feature("docstring")  SpecularDetector1D::defaultAxesUnits "AxesUnits SpecularDetector1D::defaultAxesUnits() const override
 
 Return default axes units. 
+";
+
+
+// File: classSpecularMagneticOldStrategy.xml
+%feature("docstring") SpecularMagneticOldStrategy "
+
+Implements the matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization.
+
+C++ includes: SpecularMagneticOldStrategy.h
+";
+
+%feature("docstring")  SpecularMagneticOldStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const
+
+Computes refraction angle reflection/transmission coefficients for given sliced multilayer and wavevector k 
+";
+
+%feature("docstring")  SpecularMagneticOldStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const
+";
+
+
+// File: classSpecularMagneticStrategy.xml
+%feature("docstring") SpecularMagneticStrategy "
+
+Implements the matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization.
+
+C++ includes: SpecularMagneticStrategy.h
+";
+
+%feature("docstring")  SpecularMagneticStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const
+
+Computes refraction angle reflection/transmission coefficients for given sliced multilayer and wavevector k 
+";
+
+%feature("docstring")  SpecularMagneticStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticStrategy::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const
+
+Computes refraction angle reflection/transmission coefficients for given sliced multilayer and a set of kz projections corresponding to each slice 
+";
+
+
+// File: classSpecularMatrixTerm.xml
+%feature("docstring") SpecularMatrixTerm "";
+
+%feature("docstring")  SpecularMatrixTerm::SpecularMatrixTerm "SpecularMatrixTerm::SpecularMatrixTerm(std::unique_ptr< ISpecularStrategy > strategy)
+";
+
+
+// File: classSpecularScalarNCStrategy.xml
+%feature("docstring") SpecularScalarNCStrategy "
+
+Implements method 'execute' to compute refraction angles and transmission/reflection coefficients for coherent wave propagation in a multilayer.
+
+C++ includes: SpecularScalarNCStrategy.h
+";
+
+
+// File: classSpecularScalarStrategy.xml
+%feature("docstring") SpecularScalarStrategy "
+
+Implements method 'execute' to compute refraction angles and transmission/reflection coefficients for coherent wave propagation in a multilayer.
+
+C++ includes: SpecularScalarStrategy.h
+";
+
+%feature("docstring")  SpecularScalarStrategy::Execute "ISpecularStrategy::coeffs_t SpecularScalarStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const override
+
+Computes refraction angles and transmission/reflection coefficients for given coherent wave propagation in a multilayer. 
+";
+
+%feature("docstring")  SpecularScalarStrategy::Execute "ISpecularStrategy::coeffs_t SpecularScalarStrategy::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const override
+";
+
+
+// File: classSpecularScalarTanhStrategy.xml
+%feature("docstring") SpecularScalarTanhStrategy "
+
+Implements method 'execute' to compute refraction angles and transmission/reflection coefficients for coherent wave propagation in a multilayer.
+
+C++ includes: SpecularScalarTanhStrategy.h
+";
+
+
+// File: classSpecularScalarTerm.xml
+%feature("docstring") SpecularScalarTerm "";
+
+%feature("docstring")  SpecularScalarTerm::SpecularScalarTerm "SpecularScalarTerm::SpecularScalarTerm(std::unique_ptr< ISpecularStrategy > strategy)
 ";
 
 
@@ -16019,7 +16197,7 @@ C++ includes: SpecularSimulationElement.h
 %feature("docstring")  SpecularSimulationElement::~SpecularSimulationElement "SpecularSimulationElement::~SpecularSimulationElement()
 ";
 
-%feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(const PolarizationHandler &handler)
+%feature("docstring")  SpecularSimulationElement::setPolarizationHandler "void SpecularSimulationElement::setPolarizationHandler(PolarizationHandler handler)
 
 Assigns  PolarizationHandler. 
 ";
@@ -16047,6 +16225,10 @@ Set calculation flag (if it's false, zero intensity is assigned to the element)
 
 Returns kz values for Abeles computation of reflection/transition coefficients. 
 ";
+
+
+// File: classSpecularStrategyBuilder.xml
+%feature("docstring") SpecularStrategyBuilder "";
 
 
 // File: classSpheresWithLimitsDistributionBuilder.xml
@@ -16150,10 +16332,7 @@ return default axes units
 // File: classSphericalPixel.xml
 %feature("docstring") SphericalPixel "";
 
-%feature("docstring")  SphericalPixel::SphericalPixel "SphericalPixel::SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin)
-";
-
-%feature("docstring")  SphericalPixel::~SphericalPixel "virtual SphericalPixel::~SphericalPixel()
+%feature("docstring")  SphericalPixel::SphericalPixel "SphericalPixel::SphericalPixel(const Bin1D &alpha_bin, const Bin1D &phi_bin)
 ";
 
 %feature("docstring")  SphericalPixel::clone "SphericalPixel * SphericalPixel::clone() const override
@@ -16957,163 +17136,172 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0D104.xml
+// File: namespace_0d104.xml
 
 
-// File: namespace_0D106.xml
+// File: namespace_0d106.xml
 
 
-// File: namespace_0D108.xml
+// File: namespace_0d108.xml
 
 
-// File: namespace_0D112.xml
+// File: namespace_0d112.xml
 
 
-// File: namespace_0D12.xml
+// File: namespace_0d12.xml
 
 
-// File: namespace_0D127.xml
+// File: namespace_0d127.xml
 
 
-// File: namespace_0D136.xml
+// File: namespace_0d136.xml
 
 
-// File: namespace_0D141.xml
+// File: namespace_0d141.xml
 
 
-// File: namespace_0D150.xml
+// File: namespace_0d150.xml
 
 
-// File: namespace_0D152.xml
+// File: namespace_0d152.xml
 
 
-// File: namespace_0D156.xml
+// File: namespace_0d156.xml
 
 
-// File: namespace_0D18.xml
+// File: namespace_0d18.xml
 
 
-// File: namespace_0D198.xml
+// File: namespace_0d198.xml
 
 
-// File: namespace_0D20.xml
+// File: namespace_0d20.xml
 
 
-// File: namespace_0D225.xml
+// File: namespace_0d225.xml
 
 
-// File: namespace_0D233.xml
+// File: namespace_0d233.xml
 
 
-// File: namespace_0D239.xml
+// File: namespace_0d239.xml
 
 
-// File: namespace_0D243.xml
+// File: namespace_0d243.xml
 
 
-// File: namespace_0D293.xml
+// File: namespace_0d293.xml
 
 
-// File: namespace_0D302.xml
+// File: namespace_0d302.xml
 
 
-// File: namespace_0D310.xml
+// File: namespace_0d310.xml
 
 
-// File: namespace_0D314.xml
+// File: namespace_0d314.xml
 
 
-// File: namespace_0D316.xml
+// File: namespace_0d316.xml
 
 
-// File: namespace_0D32.xml
+// File: namespace_0d32.xml
 
 
-// File: namespace_0D328.xml
+// File: namespace_0d328.xml
 
 
-// File: namespace_0D334.xml
+// File: namespace_0d334.xml
 
 
-// File: namespace_0D355.xml
+// File: namespace_0d355.xml
 
 
-// File: namespace_0D359.xml
+// File: namespace_0d359.xml
 
 
-// File: namespace_0D361.xml
+// File: namespace_0d361.xml
 
 
-// File: namespace_0D363.xml
+// File: namespace_0d363.xml
 
 
-// File: namespace_0D373.xml
+// File: namespace_0d373.xml
 
 
-// File: namespace_0D388.xml
+// File: namespace_0d386.xml
 
 
-// File: namespace_0D392.xml
+// File: namespace_0d390.xml
 
 
-// File: namespace_0D40.xml
+// File: namespace_0d40.xml
 
 
-// File: namespace_0D400.xml
+// File: namespace_0d402.xml
 
 
-// File: namespace_0D411.xml
+// File: namespace_0d408.xml
 
 
-// File: namespace_0D413.xml
+// File: namespace_0d413.xml
 
 
-// File: namespace_0D42.xml
+// File: namespace_0d415.xml
 
 
-// File: namespace_0D421.xml
+// File: namespace_0d419.xml
 
 
-// File: namespace_0D434.xml
+// File: namespace_0d42.xml
 
 
-// File: namespace_0D443.xml
+// File: namespace_0d421.xml
 
 
-// File: namespace_0D445.xml
+// File: namespace_0d431.xml
 
 
-// File: namespace_0D479.xml
+// File: namespace_0d444.xml
 
 
-// File: namespace_0D486.xml
+// File: namespace_0d453.xml
 
 
-// File: namespace_0D524.xml
+// File: namespace_0d455.xml
 
 
-// File: namespace_0D532.xml
+// File: namespace_0d489.xml
 
 
-// File: namespace_0D534.xml
+// File: namespace_0d496.xml
 
 
-// File: namespace_0D536.xml
+// File: namespace_0d534.xml
 
 
-// File: namespace_0D6.xml
+// File: namespace_0d542.xml
 
 
-// File: namespace_0D618.xml
+// File: namespace_0d544.xml
 
 
-// File: namespace_0D622.xml
+// File: namespace_0d546.xml
 
 
-// File: namespace_0D646.xml
+// File: namespace_0d6.xml
 
 
-// File: namespace_0D98.xml
+// File: namespace_0d628.xml
+
+
+// File: namespace_0d632.xml
+
+
+// File: namespace_0d656.xml
+
+
+// File: namespace_0d98.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -17664,6 +17852,9 @@ Returns true if the multilayer contains non-default materials of one type only.
 Calculate z-regions occupied by particles. 
 ";
 
+%feature("docstring")  MultiLayerUtils::hasRoughness "bool MultiLayerUtils::hasRoughness(const MultiLayer &sample)
+";
+
 
 // File: namespaceNodeUtils.xml
 %feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode &node)
@@ -17953,29 +18144,7 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 
-// File: namespaceSpecularMagnetic.xml
-%feature("docstring")  SpecularMagnetic::Execute "void SpecularMagnetic::Execute(const std::vector< Slice > &slices, const kvector_t k, std::vector< MatrixRTCoefficients > &coeff)
-
-Computes refraction angle reflection/transmission coefficients for given sliced multilayer and wavevector k 
-";
-
-
-// File: namespaceSpecularMatrix.xml
-%feature("docstring")  SpecularMatrix::Execute "std::vector< ScalarRTCoefficients > SpecularMatrix::Execute(const std::vector< Slice > &slices, kvector_t k)
-
-Computes refraction angles and transmission/reflection coefficients for given coherent wave propagation in a multilayer. Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)]. 
-";
-
-%feature("docstring")  SpecularMatrix::Execute "std::vector< ScalarRTCoefficients > SpecularMatrix::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz)
-
-Computes transmission/reflection coefficients for given set of z-components of wave-vectors in a multilayer. Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)]. 
-";
-
-
 // File: namespaceStandardSimulations.xml
-%feature("docstring")  StandardSimulations::PolarizedDWBAMagCylinders2 "GISASSimulation * StandardSimulations::PolarizedDWBAMagCylinders2()
-";
-
 %feature("docstring")  StandardSimulations::BasicGISAS "GISASSimulation * StandardSimulations::BasicGISAS()
 
 Basic GISAS simulation with the detector phi[0,2], theta[0,2]. 
@@ -18009,12 +18178,6 @@ GISAS simulation with beam divergence applied.
 %feature("docstring")  StandardSimulations::MiniGISASDetectorResolution "GISASSimulation * StandardSimulations::MiniGISASDetectorResolution()
 
 GISAS simulation with detector resolution. 
-";
-
-%feature("docstring")  StandardSimulations::MiniGISASPolarizationPP "GISASSimulation * StandardSimulations::MiniGISASPolarizationPP()
-";
-
-%feature("docstring")  StandardSimulations::MiniGISASSpinFlipZ "GISASSimulation * StandardSimulations::MiniGISASSpinFlipZ()
 ";
 
 %feature("docstring")  StandardSimulations::MiniGISASSpecularPeak "GISASSimulation * StandardSimulations::MiniGISASSpecularPeak()
@@ -18100,10 +18263,19 @@ Simulation with fitting.  Beam intensity set to provide reasonably large values 
 GISAS simulation with an extra long wavelength. 
 ";
 
-%feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
+%feature("docstring")  StandardSimulations::MiniGISASPolarizationPP "GISASSimulation * StandardSimulations::MiniGISASPolarizationPP()
 ";
 
-%feature("docstring")  StandardSimulations::BasicSpecularTOF "BA_CORE_API_ SpecularSimulation* StandardSimulations::BasicSpecularTOF()
+%feature("docstring")  StandardSimulations::MiniGISASPolarizationPM "GISASSimulation * StandardSimulations::MiniGISASPolarizationPM()
+";
+
+%feature("docstring")  StandardSimulations::MiniGISASPolarizationMP "GISASSimulation * StandardSimulations::MiniGISASPolarizationMP()
+";
+
+%feature("docstring")  StandardSimulations::MiniGISASPolarizationMM "GISASSimulation * StandardSimulations::MiniGISASPolarizationMM()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecular "SpecularSimulation * StandardSimulations::BasicSpecular()
 ";
 
 %feature("docstring")  StandardSimulations::BasicSpecularQ "SpecularSimulation * StandardSimulations::BasicSpecularQ()
@@ -18122,6 +18294,18 @@ GISAS simulation with an extra long wavelength.
 ";
 
 %feature("docstring")  StandardSimulations::TOFRWithPointwiseResolution "SpecularSimulation * StandardSimulations::TOFRWithPointwiseResolution()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularPP "SpecularSimulation * StandardSimulations::BasicSpecularPP()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularMM "SpecularSimulation * StandardSimulations::BasicSpecularMM()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularQPP "SpecularSimulation * StandardSimulations::BasicSpecularQPP()
+";
+
+%feature("docstring")  StandardSimulations::BasicSpecularQMM "SpecularSimulation * StandardSimulations::BasicSpecularQMM()
 ";
 
 %feature("docstring")  StandardSimulations::MiniOffSpec "OffSpecSimulation * StandardSimulations::MiniOffSpec()
@@ -18977,10 +19161,10 @@ global helper function for comparison of axes
 // File: DetectionProperties_8h.xml
 
 
-// File: DetectorElement_8cpp.xml
+// File: DetectorContext_8cpp.xml
 
 
-// File: DetectorElement_8h.xml
+// File: DetectorContext_8h.xml
 
 
 // File: DetectorFunctions_8cpp.xml
@@ -19409,18 +19593,6 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: FormFactorDWBAPol_8h.xml
 
 
-// File: Hash2Doubles_8cpp.xml
-
-
-// File: Hash2Doubles_8h.xml
-
-
-// File: HashKVector_8cpp.xml
-
-
-// File: HashKVector_8h.xml
-
-
 // File: IFresnelMap_8cpp.xml
 
 
@@ -19446,6 +19618,12 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: InterferenceFunctionUtils_8h.xml
+
+
+// File: ISpecularStrategy_8cpp.xml
+
+
+// File: ISpecularStrategy_8h.xml
 
 
 // File: KzComputation_8cpp.xml
@@ -19496,6 +19674,12 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: MatrixRTCoefficients_8h.xml
 
 
+// File: MatrixRTCoefficients__v2_8cpp.xml
+
+
+// File: MatrixRTCoefficients__v2_8h.xml
+
+
 // File: MultiLayer_8cpp.xml
 
 
@@ -19505,7 +19689,7 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: MultiLayerFuncs_8cpp.xml
 %feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
-Calculate average material profile for given multilayer 
+Calculate average material profile for given multilayer. 
 ";
 
 %feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
@@ -19522,7 +19706,7 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: MultiLayerFuncs_8h.xml
 %feature("docstring")  MaterialProfile "BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
-Calculate average material profile for given multilayer 
+Calculate average material profile for given multilayer. 
 ";
 
 %feature("docstring")  DefaultMaterialProfileLimits "BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
@@ -19536,6 +19720,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 ";
 
 
+// File: RoughnessModels_8cpp.xml
+
+
+// File: RoughnessModels_8h.xml
+
+
 // File: ScalarFresnelMap_8cpp.xml
 
 
@@ -19545,16 +19735,40 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: ScalarRTCoefficients_8h.xml
 
 
-// File: SpecularMagnetic_8cpp.xml
+// File: SpecularMagneticOldStrategy_8cpp.xml
 
 
-// File: SpecularMagnetic_8h.xml
+// File: SpecularMagneticOldStrategy_8h.xml
 
 
-// File: SpecularMatrix_8cpp.xml
+// File: SpecularMagneticStrategy_8cpp.xml
 
 
-// File: SpecularMatrix_8h.xml
+// File: SpecularMagneticStrategy_8h.xml
+
+
+// File: SpecularScalarNCStrategy_8cpp.xml
+
+
+// File: SpecularScalarNCStrategy_8h.xml
+
+
+// File: SpecularScalarStrategy_8cpp.xml
+
+
+// File: SpecularScalarStrategy_8h.xml
+
+
+// File: SpecularScalarTanhStrategy_8cpp.xml
+
+
+// File: SpecularScalarTanhStrategy_8h.xml
+
+
+// File: SpecularStrategyBuilder_8cpp.xml
+
+
+// File: SpecularStrategyBuilder_8h.xml
 
 
 // File: SSCAHelper_8cpp.xml

@@ -16,7 +16,6 @@
 #include "BatchSimulation.h"
 #include "CoreIOPathTest.h"
 #include "CoreIOPerformanceTest.h"
-#include "DetectorTest.h"
 #include "FourierTransformationTest.h"
 #include "MesoCrystalPerformanceTest.h"
 #include "MultilayerPerformanceTest.h"
@@ -35,10 +34,6 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("CoreIOPath",
                  create_new<CoreIOPathTest>,
                  "Input/output to files containing non-ascii characters in a path");
-
-    registerItem("DetectorTest",
-                 create_new<DetectorTest>,
-                 "Performance on set of detectors of different size");
 
     registerItem("FourierTransformation",
                  create_new<FourierTransformationTest>,

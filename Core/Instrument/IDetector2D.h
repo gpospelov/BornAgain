@@ -20,7 +20,6 @@
 #include <memory>
 
 class Beam;
-class DetectorElement;
 class IPixel;
 class IShape2D;
 class DetectorContext;
@@ -59,11 +58,6 @@ public:
     //! Put the mask for all detector channels (i.e. exclude whole detector from the analysis)
     void maskAll();
 
-#ifndef SWIG
-    //! Create a vector of DetectorElement objects according to the detector and its mask
-    std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
-#endif
-
     //! Returns region of  interest if exists.
     const RegionOfInterest* regionOfInterest() const override;
 
@@ -84,7 +78,9 @@ public:
     //! returned. This corresponds to an overflow index.
     virtual size_t getIndexOfSpecular(const Beam& beam) const = 0;
 
+#ifndef SWIG
     std::unique_ptr<DetectorContext> createContext() const;
+#endif
 
 protected:
     IDetector2D(const IDetector2D& other);

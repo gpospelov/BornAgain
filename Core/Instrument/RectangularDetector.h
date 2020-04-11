@@ -107,7 +107,7 @@ private:
     kvector_t m_v_unit;
 };
 
-class RectangularPixel : public IPixel
+class BA_CORE_API_ RectangularPixel : public IPixel
 {
 public:
     RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height);

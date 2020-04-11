@@ -61,7 +61,7 @@ protected:
     size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
-class SphericalPixel : public IPixel
+class BA_CORE_API_ SphericalPixel : public IPixel
 {
 public:
     SphericalPixel(const Bin1D& alpha_bin, const Bin1D& phi_bin);

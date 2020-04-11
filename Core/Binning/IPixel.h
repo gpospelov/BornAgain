@@ -15,12 +15,13 @@
 #ifndef IPIXEL_H
 #define IPIXEL_H
 
+#include "WinDllMacros.h"
 #include "Vectors3D.h"
 
 //! Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
 //! @ingroup simulation
 
-class IPixel
+class BA_CORE_API_ IPixel
 {
 public:
     virtual ~IPixel() {}

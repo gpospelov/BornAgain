@@ -198,5 +198,5 @@ MultiThreadPerformanceTest::test_case(const std::string& sim_type, int nrepetiti
     for (int i_rep = 0; i_rep < nrepetitions; i_rep++)
         simulation->runSimulation();
 
-    return {sim_type, nrepetitions, nthreads, duration(now() - start_time), 0.0};
+    return {sim_type, nrepetitions, nthreads, static_cast<int>(duration(now() - start_time)), 0.0};
 }

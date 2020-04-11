@@ -30,6 +30,10 @@ class BA_CORE_API_ DetectorContext
 {
 public:
     DetectorContext(const IDetector2D* detector);
+
+    DetectorContext(const DetectorContext& other) = delete;
+    DetectorContext& operator=(const DetectorContext& other) = delete;
+
     size_t numberOfSimulationElements() const;
 
     std::unique_ptr<IPixel> createPixel(size_t element_index) const;

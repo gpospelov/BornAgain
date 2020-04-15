@@ -95,21 +95,17 @@ bool SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
 
         coeff[i].t_r = transition(kz[i], kz[i + 1], sigma, slices[i].thickness(), coeff[i + 1].t_r);
 
-        // normalize the t-coefficient in each step of the computation
-        // this avoids an overflow in the backwards propagation
-        // the used factors are stored in order to correct the amplitudes
-        // in forward direction at the end of the computation
-
-        if (std::isinf(std::norm(coeff[i].t_r(0)))){
-//            throw std::runtime_error("Unexpected inf");
-            // catching this inf is not correctly covered by existing tests
-            // it is possible to pass all tests by moving the normalization before
-            // this check and hence corrupting all amplitudes
+        if (std::isinf(std::norm(coeff[i].t_r(0))) || std::isnan(std::norm(coeff[i].t_r(0)))){
             coeff[i].t_r(0) = 1.0;
             coeff[i].t_r(1) = 0.0;
 
             setZeroBelow(coeff, i);
         }
+
+        // normalize the t-coefficient in each step of the computation
+        // this avoids an overflow in the backwards propagation
+        // the used factors are stored in order to correct the amplitudes
+        // in forward direction at the end of the computation
         factors[i] = coeff[i].t_r(0);
         coeff[i].t_r = coeff[i].t_r / coeff[i].t_r(0);
     }

@@ -465,6 +465,12 @@ StandardTestCatalogue::StandardTestCatalogue()
         "MultiLayerWithRoughnessBuilder",
         2e-9);
 
+    add("NCRoughnessInSpecular",
+        "Specular simulation with rough sample (Nevot-Croce)",
+        "BasicSpecular",
+        "MultiLayerWithNCRoughnessBuilder",
+        2e-9);
+    
     add("GaussianBeamFootprint",
         "Similar to HomogeneousTiNiSample, but with finite-sized gaussian beam",
         "SpecularWithGaussianBeam",

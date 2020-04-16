@@ -74,6 +74,7 @@ set(test_cases
     HomogeneousTiNiSample
     HomogeneousTiNiSampleWithAbsorption
     RoughnessInSpecular
+    NCRoughnessInSpecular
     GaussianBeamFootprint
     SquareBeamFootprint
     SpecularDivergentBeam

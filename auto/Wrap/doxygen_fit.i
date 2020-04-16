@@ -805,16 +805,16 @@ C++ includes: Parameters.h
 %feature("docstring")  Fit::Parameters::add "void Parameters::add(const Parameter &par)
 ";
 
-%feature("docstring")  Fit::Parameters::begin "Parameters::const_iterator Parameters::begin() const
+%feature("docstring")  Fit::Parameters::begin "Parameters::iterator Parameters::begin() const
 ";
 
-%feature("docstring")  Fit::Parameters::end "Parameters::const_iterator Parameters::end() const
+%feature("docstring")  Fit::Parameters::end "Parameters::iterator Parameters::end() const
 ";
 
-%feature("docstring")  Fit::Parameters::begin "Parameters::iterator Parameters::begin()
+%feature("docstring")  Fit::Parameters::begin "iterator Fit::Parameters::begin()
 ";
 
-%feature("docstring")  Fit::Parameters::end "Parameters::iterator Parameters::end()
+%feature("docstring")  Fit::Parameters::end "iterator Fit::Parameters::end()
 ";
 
 %feature("docstring")  Fit::Parameters::size "size_t Parameters::size() const
@@ -1284,28 +1284,28 @@ returns run time in sec.msec
 ";
 
 
-// File: namespace_0D11.xml
+// File: namespace_0d11.xml
 
 
-// File: namespace_0D26.xml
+// File: namespace_0d26.xml
 
 
-// File: namespace_0D30.xml
+// File: namespace_0d30.xml
 
 
-// File: namespace_0D32.xml
+// File: namespace_0d32.xml
 
 
-// File: namespace_0D36.xml
+// File: namespace_0d36.xml
 
 
-// File: namespace_0D38.xml
+// File: namespace_0d38.xml
 
 
-// File: namespace_0D4.xml
+// File: namespace_0d4.xml
 
 
-// File: namespace_0D42.xml
+// File: namespace_0d42.xml
 
 
 // File: namespaceAlgorithmNames.xml

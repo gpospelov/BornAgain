@@ -52,15 +52,8 @@ SimulationAreaIterator SimulationArea::end()
 
 bool SimulationArea::isMasked(size_t index) const
 {
-    if(index >= totalSize()) {
-        std::ostringstream message;
-        message << "SimulationArea::isActive: index " << index << " is out of range, "
-                << "total size = " << totalSize();
-        throw std::runtime_error(message.str());
-    }
-
-    return (m_detector->detectorMask()
-            && m_detector->detectorMask()->isMasked(detectorIndex(index)));
+    auto masks = m_detector->detectorMask();
+    return (masks && masks->hasMasks() && masks->isMasked(detectorIndex(index)));
 }
 
 size_t SimulationArea::roiIndex(size_t index) const

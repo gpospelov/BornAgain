@@ -20,6 +20,8 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
     : m_wavelength(wavelength)
     , m_alpha_i(alpha_i)
     , m_phi_i(phi_i)
+    , m_k_i(vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i))
+    , m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength))
     , m_intensity(0.0)
     , mP_pixel(std::move(pixel))
     , m_is_specular(false)
@@ -31,6 +33,8 @@ SimulationElement::SimulationElement(const SimulationElement& other)
     , m_wavelength(other.m_wavelength)
     , m_alpha_i(other.m_alpha_i)
     , m_phi_i(other.m_phi_i)
+    , m_k_i(other.m_k_i)
+    , m_mean_kf(other.m_mean_kf)
     , m_intensity(other.m_intensity)
     , m_is_specular(other.isSpecular())
 {
@@ -42,10 +46,13 @@ SimulationElement::SimulationElement(const SimulationElement& other, double x, d
     , m_wavelength(other.m_wavelength)
     , m_alpha_i(other.m_alpha_i)
     , m_phi_i(other.m_phi_i)
+    , m_k_i(other.m_k_i)
+    , m_mean_kf(other.m_mean_kf)
     , m_intensity(other.m_intensity)
     , m_is_specular(other.isSpecular())
 {
     mP_pixel.reset(other.mP_pixel->createZeroSizePixel(x, y));
+    m_mean_kf = mP_pixel->getK(0.5, 0.5, m_wavelength);
 }
 
 SimulationElement::SimulationElement(SimulationElement&& other) noexcept
@@ -53,6 +60,8 @@ SimulationElement::SimulationElement(SimulationElement&& other) noexcept
     , m_wavelength(other.m_wavelength)
     , m_alpha_i(other.m_alpha_i)
     , m_phi_i(other.m_phi_i)
+    , m_k_i(std::move(other.m_k_i))
+    , m_mean_kf(other.m_mean_kf)
     , m_intensity(other.m_intensity)
     , mP_pixel(std::move(other.mP_pixel))
     , m_is_specular(other.isSpecular())
@@ -72,12 +81,12 @@ SimulationElement& SimulationElement::operator=(const SimulationElement &other)
 
 kvector_t SimulationElement::getKi() const
 {
-    return vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+    return m_k_i;
 }
 
 kvector_t SimulationElement::getMeanKf() const
 {
-    return mP_pixel->getK(0.5, 0.5, m_wavelength);
+    return m_mean_kf;
 }
 
 //! Returns outgoing wavevector Kf for in-pixel coordinates x,y.
@@ -104,6 +113,8 @@ void SimulationElement::swapContent(SimulationElement &other)
     std::swap(m_wavelength, other.m_wavelength);
     std::swap(m_alpha_i, other.m_alpha_i);
     std::swap(m_phi_i, other.m_phi_i);
+    std::swap(m_k_i, other.m_k_i);
+    std::swap(m_mean_kf, other.m_mean_kf);
     std::swap(m_intensity, other.m_intensity);
     std::swap(mP_pixel, other.mP_pixel);
     std::swap(m_is_specular, other.m_is_specular);

@@ -304,10 +304,11 @@ void RectangularDetector::initUandV(double alpha_i)
 }
 
 RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
-    : m_corner_pos(corner_pos), m_width(width), m_height(height)
+    : m_corner_pos(std::move(corner_pos)), m_width(std::move(width)), m_height(std::move(height))
 {
     m_normal = m_width.cross(m_height);
-    m_solid_angle = calculateSolidAngle();
+    auto solid_angle_value = calculateSolidAngle();
+    m_solid_angle = solid_angle_value <= 0.0 ? 1.0 : solid_angle_value;
 }
 
 RectangularPixel* RectangularPixel::clone() const
@@ -344,7 +345,6 @@ double RectangularPixel::getIntegrationFactor(double x, double y) const
 
 double RectangularPixel::getSolidAngle() const
 {
-    if (m_solid_angle<=0.0) return 1.0;
     return m_solid_angle;
 }
 

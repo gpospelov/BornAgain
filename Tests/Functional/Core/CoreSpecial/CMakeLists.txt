@@ -5,9 +5,9 @@ set(test_cases
     FourierTransformation
     MultilayerPerformance
 #    CoreIOPerformance
-#    DetectorTest
 #    MesoPerformance
 #    CoreIOPath
+#    MultiThreadPerformance
 )
 
 # build executables for each test case

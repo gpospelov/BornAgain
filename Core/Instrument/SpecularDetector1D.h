@@ -34,11 +34,6 @@ public:
     //! Returns detector masks container.
     const DetectorMask* detectorMask() const override { return nullptr; }
 
-#ifndef SWIG
-    //! Create a vector of DetectorElement objects according to the detector
-    std::vector<DetectorElement> createDetectorElements(const Beam& beam) override;
-#endif // SWIG
-
     //! Returns region of interest if exists.
     const RegionOfInterest* regionOfInterest() const override { return nullptr; }
 

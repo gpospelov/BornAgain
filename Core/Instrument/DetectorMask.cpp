@@ -81,13 +81,7 @@ void DetectorMask::initMaskData(const OutputData<double>& data)
 
 bool DetectorMask::isMasked(size_t index) const
 {
-    if(!m_mask_data.isInitialized())
-        return false;
-
-    if(index >= m_mask_data.getAllocatedSize())
-        throw Exceptions::RuntimeErrorException("DetectorMask::isMasked() -> Error. "
-                                              "Index is out of range "+std::to_string(index));
-    return m_mask_data[index];
+    return m_number_of_masked_channels == 0 ? false : m_mask_data[index];
 }
 
 Histogram2D* DetectorMask::createHistogram() const

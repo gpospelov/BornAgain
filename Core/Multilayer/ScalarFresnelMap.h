@@ -47,7 +47,7 @@ private:
     class Hash2Doubles
     {
     public:
-        size_t operator()(std::pair<double, double> doubles) const noexcept;
+        size_t operator()(const std::pair<double, double>& doubles) const noexcept;
     };
 
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,

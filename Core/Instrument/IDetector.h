@@ -24,7 +24,6 @@
 #include "SimulationAreaIterator.h"
 
 class Beam;
-class DetectorElement;
 class DetectorMask;
 class IDetectorResolution;
 class IResolutionFunction2D;
@@ -86,9 +85,6 @@ public:
 #ifndef SWIG
     //! Returns empty detector map in given axes units.
     std::unique_ptr<OutputData<double>> createDetectorMap() const;
-
-    //! Create a vector of DetectorElement objects according to the detector and its mask
-    virtual std::vector<DetectorElement> createDetectorElements(const Beam& beam) =0;
 #endif // SWIG
 
     //! Returns region of  interest if exists.

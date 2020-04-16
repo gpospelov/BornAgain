@@ -61,11 +61,10 @@ protected:
     size_t getIndexOfSpecular(const Beam& beam) const override;
 };
 
-class SphericalPixel : public IPixel
+class BA_CORE_API_ SphericalPixel : public IPixel
 {
 public:
-    SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin);
-    virtual ~SphericalPixel() {}
+    SphericalPixel(const Bin1D& alpha_bin, const Bin1D& phi_bin);
 
     SphericalPixel* clone() const override;
     SphericalPixel* createZeroSizePixel(double x, double y) const override;

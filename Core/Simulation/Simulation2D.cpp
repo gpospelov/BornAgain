@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Simulation2D.h"
-#include "DetectorElement.h"
-#include "DetectorFunctions.h"
 #include "DWBAComputation.h"
+#include "DetectorContext.h"
+#include "DetectorFunctions.h"
 #include "Histogram2D.h"
 #include "IBackground.h"
 #include "SimulationElement.h"
@@ -25,13 +25,22 @@ namespace
 IDetector2D* Detector2D(Instrument& instrument);
 }
 
-Simulation2D::Simulation2D(const MultiLayer& p_sample)
-    : Simulation(p_sample)
-{}
+Simulation2D::Simulation2D() = default;
+
+Simulation2D::Simulation2D(const MultiLayer& p_sample) : Simulation(p_sample) {}
 
 Simulation2D::Simulation2D(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder)
     : Simulation(p_sample_builder)
-{}
+{
+}
+
+Simulation2D::~Simulation2D() = default;
+
+void Simulation2D::prepareSimulation()
+{
+    Simulation::prepareSimulation();
+    detector_context = Detector2D(m_instrument)->createContext();
+}
 
 void Simulation2D::removeMasks()
 {
@@ -54,13 +63,19 @@ void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, dou
 }
 
 Simulation2D::Simulation2D(const Simulation2D& other)
-    : Simulation(other)
-    , m_sim_elements(other.m_sim_elements)
-    , m_cache(other.m_cache)
-{}
+    : Simulation(other), m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
+{
+}
 
-void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max,
-                                         size_t n_y, double y_min, double y_max)
+size_t Simulation2D::numberOfSimulationElements() const
+{
+    if (!detector_context)
+        throw std::runtime_error("Error in numberOfSimulationElements(): no detector context");
+    return detector_context->numberOfSimulationElements();
+}
+
+void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
+                                         double y_min, double y_max)
 {
     if (auto detector = Detector2D(m_instrument))
         detector->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
@@ -90,20 +105,25 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
     std::vector<SimulationElement> result;
 
     const double wavelength = beam.getWavelength();
-    const double alpha_i = - beam.getAlpha();  // Defined to be always positive in Beam
+    const double alpha_i = -beam.getAlpha(); // Defined to be always positive in Beam
     const double phi_i = beam.getPhi();
-    const Eigen::Matrix2cd& beam_polarization = beam.getPolarization();
-    auto detector = Detector2D(m_instrument);
-    auto detector_elements = detector->createDetectorElements(beam);
 
-    result.reserve(detector_elements.size());
-    for (auto it=detector_elements.begin(); it!=detector_elements.end(); ++it) {
-        result.emplace_back(wavelength, alpha_i, phi_i, it->pixel());
-        auto& sim_element = result.back();
-        sim_element.setPolarization(beam_polarization);
-        sim_element.setAnalyzerOperator(it->getAnalyzerOperator());
-        if (it->isSpecular())
-            sim_element.setSpecular(true);
+    auto detector = Detector2D(m_instrument);
+
+    const Eigen::Matrix2cd beam_polarization = beam.getPolarization();
+    const Eigen::Matrix2cd analyzer_operator = detector->detectionProperties().analyzerOperator();
+    size_t spec_index = detector->getIndexOfSpecular(beam);
+
+    result.reserve(detector_context->numberOfSimulationElements());
+    for (size_t element_index = 0; element_index < detector_context->numberOfSimulationElements();
+         ++element_index) {
+        SimulationElement element(wavelength, alpha_i, phi_i,
+                                  detector_context->createPixel(element_index));
+        element.setPolarization(beam_polarization);
+        element.setAnalyzerOperator(analyzer_operator);
+        if (detector_context->detectorIndex(element_index) == spec_index)
+            element.setSpecular(true);
+        result.emplace_back(std::move(element));
     }
     return result;
 }
@@ -138,8 +158,8 @@ void Simulation2D::addDataToCache(double weight)
     if (m_sim_elements.size() != m_cache.size())
         throw std::runtime_error("Error in Simulation2D::addDataToCache(double): cache size"
                                  " not the same as element size");
-    for (unsigned i=0; i<m_sim_elements.size(); i++) {
-        m_cache[i] += m_sim_elements[i].getIntensity()*weight;
+    for (unsigned i = 0; i < m_sim_elements.size(); i++) {
+        m_cache[i] += m_sim_elements[i].getIntensity() * weight;
     }
 }
 
@@ -147,8 +167,8 @@ void Simulation2D::moveDataFromCache()
 {
     assert(!m_cache.empty());
     if (!m_cache.empty()) {
-        for (unsigned i=0; i<m_sim_elements.size(); i++) {
-             m_sim_elements[i].setIntensity(m_cache[i]);
+        for (unsigned i = 0; i < m_sim_elements.size(); i++) {
+            m_sim_elements[i].setIntensity(m_cache[i]);
         }
         m_cache.clear();
     }
@@ -158,7 +178,7 @@ std::vector<double> Simulation2D::rawResults() const
 {
     std::vector<double> result;
     result.resize(m_sim_elements.size());
-    for (unsigned i=0; i<m_sim_elements.size(); ++i) {
+    for (unsigned i = 0; i < m_sim_elements.size(); ++i) {
         result[i] = m_sim_elements[i].getIntensity();
     }
     return result;
@@ -170,7 +190,7 @@ void Simulation2D::setRawResults(const std::vector<double>& raw_data)
     if (raw_data.size() != m_sim_elements.size())
         throw std::runtime_error("Simulation2D::setRawResults: size of vector passed as "
                                  "argument doesn't match number of elements in this simulation");
-    for (unsigned i=0; i<raw_data.size(); i++) {
+    for (unsigned i = 0; i < raw_data.size(); i++) {
         m_sim_elements[i].setIntensity(raw_data[i]);
     }
     transferResultsToIntensityMap();
@@ -182,8 +202,7 @@ IDetector2D* Detector2D(Instrument& instrument)
 {
     IDetector2D* p_detector = dynamic_cast<IDetector2D*>(instrument.getDetector());
     if (!p_detector)
-        throw std::runtime_error(
-            "Error in Simulation2D: wrong detector type");
+        throw std::runtime_error("Error in Simulation2D: wrong detector type");
     return p_detector;
 }
-}
+} // namespace

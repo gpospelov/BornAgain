@@ -94,6 +94,8 @@ private:
 
     PolarizationHandler m_polarization;
     double m_wavelength, m_alpha_i, m_phi_i;  //!< wavelength and angles of beam
+    kvector_t m_k_i;                          //!< cached value of k_i
+    kvector_t m_mean_kf;                      //!< cached value of mean_kf
     double m_intensity;                       //!< simulated intensity for detector cell
     std::unique_ptr<IPixel> mP_pixel;
     bool m_is_specular;

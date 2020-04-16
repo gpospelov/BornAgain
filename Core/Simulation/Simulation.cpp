@@ -124,15 +124,15 @@ void Simulation::runSimulation()
 {
     prepareSimulation();
 
+    const size_t total_size = numberOfSimulationElements();
     size_t param_combinations = m_distribution_handler.getTotalNumberOfSamples();
 
     m_progress.reset();
-    m_progress.setExpectedNTicks(param_combinations * numberOfSimulationElements());
+    m_progress.setExpectedNTicks(param_combinations * total_size);
 
     // restrict calculation to current batch
     const size_t n_batches = m_options.getNumberOfBatches();
     const size_t current_batch = m_options.getCurrentBatch();
-    const size_t total_size = numberOfSimulationElements();
 
     const size_t batch_start = getStartIndex(n_batches, current_batch, total_size);
     const size_t batch_size = getNumberOfElements(n_batches, current_batch, total_size);

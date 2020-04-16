@@ -35,12 +35,6 @@ AxesUnits SpecularDetector1D::defaultAxesUnits() const {
     return AxesUnits::RADIANS;
 }
 
-std::vector<DetectorElement> SpecularDetector1D::createDetectorElements(const Beam&)
-{
-    throw std::runtime_error(
-        "Error in SpecularDetector1D::createDetectorElements: not implemented.");
-}
-
 std::string SpecularDetector1D::axisName(size_t index) const
 {
     if (index == 0) {

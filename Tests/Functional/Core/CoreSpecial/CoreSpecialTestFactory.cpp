@@ -16,10 +16,10 @@
 #include "BatchSimulation.h"
 #include "CoreIOPathTest.h"
 #include "CoreIOPerformanceTest.h"
-#include "DetectorTest.h"
 #include "FourierTransformationTest.h"
 #include "MesoCrystalPerformanceTest.h"
 #include "MultilayerPerformanceTest.h"
+#include "MultiThreadPerformanceTest.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
@@ -35,10 +35,6 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
                  create_new<CoreIOPathTest>,
                  "Input/output to files containing non-ascii characters in a path");
 
-    registerItem("DetectorTest",
-                 create_new<DetectorTest>,
-                 "Performance on set of detectors of different size");
-
     registerItem("FourierTransformation",
                  create_new<FourierTransformationTest>,
                  "Fourier transformation of GISAS images");
@@ -50,4 +46,8 @@ CoreSpecialTestFactory::CoreSpecialTestFactory()
     registerItem("MultilayerPerformance",
                  create_new<MultilayerPerformanceTest>,
                  "Reflectometry performance on samples with a large number of layers");
+
+    registerItem("MultiThreadPerformance",
+                 create_new<MultiThreadPerformanceTest>,
+                 "Performance scaling with number of threads");
 }

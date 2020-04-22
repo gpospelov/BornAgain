@@ -30,7 +30,9 @@ MaterialBySLDImpl::MaterialBySLDImpl(const std::string& name, double sld_real, d
                                      kvector_t magnetization)
     : MagneticMaterialImpl(name, magnetization)
     , m_sld_real(sld_real)
-    , m_sld_imag(sld_imag)
+    , m_sld_imag(sld_imag < 0. ?
+                 throw std::runtime_error("The imaginary part of the SLD must be greater or equal zero") :
+                 sld_imag)
 {}
 
 MaterialBySLDImpl* MaterialBySLDImpl::clone() const

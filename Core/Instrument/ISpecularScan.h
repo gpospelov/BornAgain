@@ -19,6 +19,7 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
 
 class IAxis;
 class IFootprintFactor;

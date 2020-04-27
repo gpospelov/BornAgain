@@ -183,7 +183,7 @@ void JobItem::setDuration(int duration)
 {
     QString str;
     if (duration != 0)
-        str.sprintf("%7.3f", duration / 1000.);
+        str = QString("%7.3f").arg(duration / 1000.);
     setItemValue(P_DURATION, str.simplified());
 }
 

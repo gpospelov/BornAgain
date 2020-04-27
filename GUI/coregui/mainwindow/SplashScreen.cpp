@@ -17,6 +17,7 @@
 #include <QStyle>
 #include <QCoreApplication>
 #include <QTime>
+#include <QElapsedTimer>
 
 namespace {
 const int panel_height = 380;
@@ -38,7 +39,7 @@ void SplashScreen::start(int show_during)
 {
     show();
     QTime dieTime = QTime::currentTime().addMSecs(show_during);
-    QTime timer;
+    QElapsedTimer timer;
     timer.start();
     while (QTime::currentTime() < dieTime) {
         setProgress(timer.elapsed() / (show_during / 100));

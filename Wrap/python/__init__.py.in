@@ -7,8 +7,8 @@ sys.path.append(os.path.abspath(
 # this line needed to fix python3 import problem
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
-from .libBornAgainFit import *
-from .libBornAgainCore import *
+from libBornAgainFit import *
+from libBornAgainCore import *
 
 
 # To prevent inclusion of plotting tools during functional tests:

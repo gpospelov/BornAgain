@@ -223,7 +223,12 @@ void DistributionWidget::plot_multiple_values()
     double sumOfWeights = std::accumulate(yp.begin(), yp.end(), 0.0);
     Q_ASSERT(sumOfWeights != 0.0);
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    QVector<double> xBar(xp.begin(), xp.end());
+#else
     QVector<double> xBar = QVector<double>::fromStdVector(xp);
+#endif
+
     QVector<double> yBar(xBar.size());
     std::transform(yp.begin(), yp.end(), yBar.begin(),
                    [&](double value) { return value / sumOfWeights; });
@@ -239,7 +244,11 @@ void DistributionWidget::plot_multiple_values()
     std::transform(xf.begin(), xf.end(), yf.begin(),
                    [&](double value) { return dist->probabilityDensity(value); });
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    QVector<double> xFunc(xf.begin(), xf.end());
+#else
     QVector<double> xFunc = QVector<double>::fromStdVector(xf);
+#endif
     QVector<double> yFunc(xFunc.size());
     std::transform(yf.begin(), yf.end(), yFunc.begin(),
                    [&](double value) { return value / sumOfWeights; });

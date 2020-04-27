@@ -120,8 +120,15 @@ bool ProjectUtils::removeFiles(const QString &dirname, const QStringList &filena
 
 QStringList ProjectUtils::substract(const QStringList &lhs, const QStringList &rhs)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    auto lhs_set = QSet<QString>{lhs.begin(), lhs.end()};
+    auto rhs_set = QSet<QString>{rhs.begin(), rhs.end()};
+    QSet<QString> diff = lhs_set.subtract(rhs_set);
+    return diff.values();
+#else
     QSet<QString> diff = lhs.toSet().subtract(rhs.toSet());
     return diff.toList();
+#endif
 }
 
 QString ProjectUtils::readTextFile(const QString& fileName)

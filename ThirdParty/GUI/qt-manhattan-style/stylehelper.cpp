@@ -181,9 +181,15 @@ void StyleHelper::verticalGradient(QPainter *painter, const QRect &spanRect, con
     if (StyleHelper::usePixmapCache()) {
         QString key;
         QColor keyColor = baseColor(lightColored);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        key = QString("mh_vertical %d %d %d %d %d").arg(
+            spanRect.width(), spanRect.height(), clipRect.width(),
+            clipRect.height(), keyColor.rgb());
+#else
         key.sprintf("mh_vertical %d %d %d %d %d",
             spanRect.width(), spanRect.height(), clipRect.width(),
             clipRect.height(), keyColor.rgb());
+#endif
 
         QPixmap pixmap;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
@@ -243,9 +249,15 @@ void StyleHelper::horizontalGradient(QPainter *painter, const QRect &spanRect, c
     if (StyleHelper::usePixmapCache()) {
         QString key;
         QColor keyColor = baseColor(lightColored);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        key.asprintf("mh_horizontal %d %d %d %d %d %d",
+            spanRect.width(), spanRect.height(), clipRect.width(),
+            clipRect.height(), keyColor.rgb(), spanRect.x());
+#else
         key.sprintf("mh_horizontal %d %d %d %d %d %d",
             spanRect.width(), spanRect.height(), clipRect.width(),
             clipRect.height(), keyColor.rgb(), spanRect.x());
+#endif
 
         QPixmap pixmap;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
@@ -287,10 +299,18 @@ void StyleHelper::drawArrow(QStyle::PrimitiveElement element, QPainter *painter,
     int size = qMin(r.height(), r.width());
     QPixmap pixmap;
     QString pixmapName;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    pixmapName.asprintf("arrow-%s-%d-%d-%d-%lld",
+                       "$qt_ia",
+                       uint(option->state), element,
+                       size, option->palette.cacheKey());
+#else
     pixmapName.sprintf("arrow-%s-%d-%d-%d-%lld",
                        "$qt_ia",
                        uint(option->state), element,
                        size, option->palette.cacheKey());
+#endif
+
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
         if (!QPixmapCache::find(pixmapName, &pixmap)) {
 #else
@@ -335,7 +355,6 @@ void StyleHelper::drawArrow(QStyle::PrimitiveElement element, QPainter *painter,
         imagePainter.translate(sx + bsx, sy + bsy);
 
         if (!(option->state & QStyle::State_Enabled)) {
-            QColor foreGround(150, 150, 150, 150);
             imagePainter.setBrush(option->palette.mid().color());
             imagePainter.setPen(option->palette.mid().color());
         } else {
@@ -363,9 +382,15 @@ void StyleHelper::menuGradient(QPainter *painter, const QRect &spanRect, const Q
 {
     if (StyleHelper::usePixmapCache()) {
         QString key;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        key.asprintf("mh_menu %d %d %d %d %d",
+            spanRect.width(), spanRect.height(), clipRect.width(),
+            clipRect.height(), StyleHelper::baseColor().rgb());
+#else
         key.sprintf("mh_menu %d %d %d %d %d",
             spanRect.width(), spanRect.height(), clipRect.width(),
             clipRect.height(), StyleHelper::baseColor().rgb());
+#endif
 
         QPixmap pixmap;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)

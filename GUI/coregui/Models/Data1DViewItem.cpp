@@ -155,8 +155,18 @@ QPair<QVector<double>, QVector<double>> Data1DViewItem::graphData(Data1DProperti
     const auto data = DataViewUtils::getTranslatedData(this, property_item->dataItem());
     if (!data)
         return {};
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    auto centers = data->getAxis(0).getBinCenters();
+    auto values = data->getRawDataVector();
+    return {QVector<double>(centers.begin(), centers.end()),
+                   QVector<double>(values.begin(), values.end())};
+#else
     return {QVector<double>::fromStdVector(data->getAxis(0).getBinCenters()),
                 QVector<double>::fromStdVector(data->getRawDataVector())};
+#endif
+
+
 }
 
 JobItem* Data1DViewItem::jobItem()

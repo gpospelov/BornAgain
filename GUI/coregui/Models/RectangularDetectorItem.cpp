@@ -188,7 +188,7 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() con
         result->setPerpendicularToReflectedBeam(distance);
         result->setDirectBeamPosition(dbeam_u0, dbeam_v0);
     }
-    return std::move(result);
+    return std::unique_ptr<IDetector2D>(result.release());
 }
 
 //! updates property tooltips and visibility flags, depending from type of alignment selected

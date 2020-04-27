@@ -62,7 +62,7 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDomainDetector() const
 
     result->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
 
-    return std::move(result);
+    return std::unique_ptr<IDetector2D>(result.release());
 }
 
 int SphericalDetectorItem::xSize() const

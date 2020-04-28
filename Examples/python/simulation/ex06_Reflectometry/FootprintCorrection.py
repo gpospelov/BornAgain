@@ -66,8 +66,10 @@ def plot(sim_result_1, sim_result_2):
     Plots results from two different simulations
     """
 
-    plt.semilogy(*get_plot_data(sim_result_1), *get_plot_data(sim_result_2))
-
+    x1, y1 = get_plot_data(sim_result_1)
+    x2, y2 = get_plot_data(sim_result_2)
+    plt.semilogy(x1, y1, x2, y2)
+    
     plt.xlabel(r'$\alpha_i \; (deg)$', fontsize=16)
     plt.ylabel(r'Intensity', fontsize=16)
 

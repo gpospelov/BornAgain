@@ -158,7 +158,7 @@ void ActionManager::aboutToShowFileMenu()
         hasRecentProjects = true;
         QAction* action = m_recentProjectsMenu->addAction(
             QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file)));
-        action->setData(qVariantFromValue(file));
+        action->setData(QVariant::fromValue(file));
         connect(action, &QAction::triggered, m_mainWindow, &MainWindow::openRecentProject);
     }
     m_recentProjectsMenu->setEnabled(hasRecentProjects);

@@ -22,12 +22,6 @@ Transform3D::Transform3D()
     m_inverse_matrix.setIdentity();
 }
 
-Transform3D::Transform3D(const Transform3D& other)
-: m_matrix(other.m_matrix)
-, m_inverse_matrix(other.m_inverse_matrix)
-{
-}
-
 Transform3D::Transform3D(const Eigen::Matrix3d& matrix)
     : m_matrix(matrix)
 {

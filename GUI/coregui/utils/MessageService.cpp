@@ -59,7 +59,12 @@ QStringList MessageService::senderList() const
     for (auto message : messages())
         set.insert(message->senderName());
 
-    return set.toList();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        return set.values();
+#else
+        return set.toList();
+#endif
+
 }
 
 //! Reports number of messages of given type reported by the sender.

@@ -163,11 +163,10 @@ FTDistribution2DCauchyItem::FTDistribution2DCauchyItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DCauchyItem::createFTDistribution() const
 {
-    auto result = std::make_unique<FTDistribution2DCauchy>(
+    return std::make_unique<FTDistribution2DCauchy>(
                 getItemValue(P_OMEGA_X).toDouble(),
                 getItemValue(P_OMEGA_Y).toDouble(),
                 Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
-    return std::move(result);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -181,11 +180,9 @@ FTDistribution2DGaussItem::FTDistribution2DGaussItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DGaussItem::createFTDistribution() const
 {
-    auto result = std::make_unique<FTDistribution2DGauss>(
+    return std::make_unique<FTDistribution2DGauss>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
-
-    return std::move(result);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -199,10 +196,9 @@ FTDistribution2DGateItem::FTDistribution2DGateItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DGateItem::createFTDistribution() const
 {
-    auto result = std::make_unique<FTDistribution2DGate>(
+    return std::make_unique<FTDistribution2DGate>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
-    return std::move(result);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -216,10 +212,9 @@ FTDistribution2DConeItem::FTDistribution2DConeItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DConeItem::createFTDistribution() const
 {
-    auto result = std::make_unique<FTDistribution2DCone>(
+    return std::make_unique<FTDistribution2DCone>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
-    return std::move(result);
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -239,9 +234,8 @@ FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DVoigtItem::createFTDistribution() const
 {
-    auto result = std::make_unique<FTDistribution2DVoigt>(
+    return std::make_unique<FTDistribution2DVoigt>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
         getItemValue(P_ETA).toDouble(),
         Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
-    return std::move(result);
 }

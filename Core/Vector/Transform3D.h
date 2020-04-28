@@ -31,9 +31,6 @@ public:
     //! Constructs unit transformation
     Transform3D();
 
-    //! Copy constructor
-    Transform3D(const Transform3D& other);
-
 #ifndef SWIG
     //! Constructor from matrix (no checks if this is an element of SO(3)!)
     Transform3D(const Eigen::Matrix3d& matrix);

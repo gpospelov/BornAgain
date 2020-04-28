@@ -68,8 +68,8 @@ TEST_F(RectangularDetectorTest, PerpToSample)
     size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
-    double dx = width / nbinsx;
-    double dy = height / nbinsy;
+//    double dx = width / nbinsx;
+//    double dy = height / nbinsy;
 
     RectangularDetector det(nbinsx, width, nbinsy, height);
 
@@ -121,8 +121,8 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
     size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
-    double dx = width / nbinsx;
-    double dy = height / nbinsy;
+//    double dx = width / nbinsx;
+//    double dy = height / nbinsy;
     double alpha_i(10.0 * Units::degree);
 
     RectangularDetector det(nbinsx, width, nbinsy, height);
@@ -164,8 +164,8 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
     size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
-    double dx = width / nbinsx;
-    double dy = height / nbinsy;
+//    double dx = width / nbinsx;
+//    double dy = height / nbinsy;
     double alpha_i(10.0 * Units::degree);
 
     RectangularDetector det(nbinsx, width, nbinsy, height);
@@ -209,8 +209,8 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
     size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
-    double dx = width / nbinsx;
-    double dy = height / nbinsy;
+//    double dx = width / nbinsx;
+//    double dy = height / nbinsy;
     double alpha_i(10.0 * Units::degree);
 
     RectangularDetector det(nbinsx, width, nbinsy, height);

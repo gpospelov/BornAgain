@@ -80,7 +80,7 @@ InterferenceFunction1DLatticeItem::createInterferenceFunction() const
         getGroupItem(InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION));
     result->setDecayFunction(*pdfItem->createFTDecayFunction());
     setPositionVariance(result.get());
-    return std::move(result);
+    return std::unique_ptr<IInterferenceFunction>(result.release());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -124,7 +124,7 @@ InterferenceFunction2DLatticeItem::createInterferenceFunction() const
     result->setIntegrationOverXi(getItemValue(P_XI_INTEGRATION).toBool());
     setPositionVariance(result.get());
 
-    return std::move(result);
+    return std::unique_ptr<IInterferenceFunction>(result.release());
 }
 
 void InterferenceFunction2DLatticeItem::update_rotation_availability()
@@ -210,7 +210,7 @@ InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
                                         *pdf2Item.createFTDistribution());
 
     setPositionVariance(result.get());
-    return std::move(result);
+    return std::unique_ptr<IInterferenceFunction>(result.release());
 }
 
 //! Sets rotation property of the lattice enabled/disabled depending on integration flag.
@@ -292,7 +292,7 @@ InterferenceFunctionFinite2DLatticeItem::createInterferenceFunction() const
     result->setIntegrationOverXi(getItemValue(P_XI_INTEGRATION).toBool());
     setPositionVariance(result.get());
 
-    return std::move(result);
+    return std::unique_ptr<IInterferenceFunction>(result.release());
 }
 
 void InterferenceFunctionFinite2DLatticeItem::update_rotation_availability()
@@ -326,7 +326,7 @@ std::unique_ptr<IInterferenceFunction> InterferenceFunctionHardDiskItem::createI
     auto result = std::make_unique<InterferenceFunctionHardDisk>(
         getItemValue(P_RADIUS).toDouble(), getItemValue(P_DENSITY).toDouble());
     setPositionVariance(result.get());
-    return std::move(result);
+    return std::unique_ptr<IInterferenceFunction>(result.release());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -371,5 +371,5 @@ InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
     auto& pdfItem = groupItem<FTDistribution1DItem>(P_PDF);
     result->setProbabilityDistribution(*pdfItem.createFTDistribution());
     setPositionVariance(result.get());
-    return std::move(result);
+    return std::unique_ptr<IInterferenceFunction>(result.release());
 }

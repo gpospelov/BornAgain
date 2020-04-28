@@ -126,9 +126,20 @@ SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
             data.axis_value = item->getItemValue(VerticalLineItem::P_POSX).toDouble();
             hist.reset(m_hist2d->projectionY(data.axis_value));
         }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        auto values = hist->getBinValues();
+        auto centers = hist->getBinCenters();
+        data.bin_values = QVector<double>(values.begin(), values.end());
+        if (result.bin_centers.isEmpty())
+            result.bin_centers = QVector<double>(centers.begin(), centers.end());
+#else
         data.bin_values = QVector<double>::fromStdVector(hist->getBinValues());
         if (result.bin_centers.isEmpty())
             result.bin_centers = QVector<double>::fromStdVector(hist->getBinCenters());
+#endif
+
+
 
         result.projections.push_back(data);
     }

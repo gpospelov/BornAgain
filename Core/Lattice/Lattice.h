@@ -75,16 +75,23 @@ public:
     //! Sets a selection rule for the reciprocal vectors
     void setSelectionRule(const ISelectionRule& p_selection_rule);
 
+    //! Returns a primitive cubic (cP) lattice with edge length a.
     static Lattice createCubicLattice(double a);
 
+    //! Returns a face-centered cubic (cF) lattice with edge length a.
     static Lattice createFCCLattice(double a);
 
+    //! Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c.
     static Lattice createHexagonalLattice(double a, double c);
 
+    //! TODO: Clarify how this is meant: HCP is not a Bravais lattice.
     static Lattice createHCPLattice(double a, double c);
 
+    //! Returns a primitive tetragonal (tP) lattice with square base edge a and height c.
     static Lattice createTetragonalLattice(double a, double c);
 
+    //! Returns a body-centered cubic (cI) lattice with edge length a.
+    //! TODO: Clarify meaning of c
     static Lattice createBCTLattice(double a, double c);
 
     void onChange() override;

@@ -53,7 +53,7 @@ endif()
 
 if (NOT DEFINED Python_ADDITIONAL_VERSIONS)
     if (BORNAGAIN_USE_PYTHON3)
-        set(Python_ADDITIONAL_VERSIONS 3.7 3.6 3.5 3.4 3.3)
+        set(Python_ADDITIONAL_VERSIONS 3.8 3.7 3.6 3.5 3.4 3.3)
     else()
         set(Python_ADDITIONAL_VERSIONS 2.7)
     endif()
@@ -84,7 +84,7 @@ endif()
 
 # --- Swig ---
 if(BORNAGAIN_PYTHON AND BORNAGAIN_GENERATE_BINDINGS)
-    find_package(SWIG 3.0 REQUIRED)
+    find_package(SWIG 4.0 REQUIRED)
     include(${SWIG_USE_FILE})
     message(STATUS "Found SWIG version ${SWIG_VERSION} at ${SWIG_EXECUTABLE} with flags '${SWIG_FLAGS}'; CMake definitions in ${SWIG_USE_FILE}")
 endif()

@@ -15,7 +15,7 @@
 //
 // ************************************************************************** //
 
-%module(directors="1") "libBornAgainFit"
+%module(directors="1", moduleimport="import $module") "libBornAgainFit"
 
 %feature("autodoc");
 

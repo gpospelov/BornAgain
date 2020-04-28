@@ -7,6 +7,7 @@ set(test_cases
     MethodCall
     CompiledFunction
     ObjectExtract
+    EmbeddedMultiLayer
     ExportToPythonAndBack
     ModuleFunctionsList
 )

@@ -53,7 +53,7 @@ endif()
 
 if (NOT DEFINED Python_ADDITIONAL_VERSIONS)
     if (BORNAGAIN_USE_PYTHON3)
-        set(Python_ADDITIONAL_VERSIONS 3.8 3.7 3.6 3.5 3.4 3.3)
+        set(Python_ADDITIONAL_VERSIONS 3.7 3.6 3.5 3.4 3.3)
     else()
         set(Python_ADDITIONAL_VERSIONS 2.7)
     endif()

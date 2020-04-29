@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "MinimizerOptions.h"
+#include "google_test.h"
 #include <exception>
 
 class MinimizerOptionsTest : public ::testing::Test

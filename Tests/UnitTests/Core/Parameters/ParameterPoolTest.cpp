@@ -1,7 +1,7 @@
-#include "google_test.h"
-#include "Exceptions.h"
 #include "ParameterPool.h"
+#include "Exceptions.h"
 #include "RealParameter.h"
+#include "google_test.h"
 
 class ParameterPoolTest : public ::testing::Test
 {

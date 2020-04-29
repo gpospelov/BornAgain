@@ -1,9 +1,9 @@
-#include "google_test.h"
+#include "SampleProvider.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
-#include "SampleProvider.h"
+#include "google_test.h"
 #include <memory>
 
 class SampleProviderTest : public ::testing::Test

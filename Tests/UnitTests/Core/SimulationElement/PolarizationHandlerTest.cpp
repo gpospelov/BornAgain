@@ -1,6 +1,6 @@
-#include "google_test.h"
-#include "EigenCore.h"
 #include "PolarizationHandler.h"
+#include "EigenCore.h"
+#include "google_test.h"
 
 class PolarizationHandlerTest : public ::testing::Test
 {
@@ -16,17 +16,16 @@ private:
 };
 
 PolarizationHandlerTest::PolarizationHandlerTest()
-    : identity(Eigen::Matrix2cd::Identity())
-    , test_matrix(testMatrix())
-{}
+    : identity(Eigen::Matrix2cd::Identity()), test_matrix(testMatrix())
+{
+}
 
 PolarizationHandlerTest::~PolarizationHandlerTest() = default;
 
 Eigen::Matrix2cd PolarizationHandlerTest::testMatrix()
 {
     Eigen::Matrix2cd result;
-    result << 0, 1,
-              1, 0;
+    result << 0, 1, 1, 0;
     return result;
 }
 

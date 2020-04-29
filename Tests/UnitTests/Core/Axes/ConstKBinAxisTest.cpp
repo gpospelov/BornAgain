@@ -1,7 +1,7 @@
-#include "google_test.h"
 #include "ConstKBinAxis.h"
 #include "DataFormatUtils.h"
 #include "Units.h"
+#include "google_test.h"
 #include <vector>
 
 class ConstKBinAxisTest : public ::testing::Test
@@ -37,7 +37,7 @@ protected:
 ConstKBinAxisTest::~ConstKBinAxisTest() = default;
 
 //[-5.0, -3.99816897832528, -2.9975609824866662, -1.99786732193833, -0.9987818274427882, 0.0,
-//0.9987818274427874, 1.9978673219383292, 2.997560982486666, 3.998168978325279, 5.0]
+// 0.9987818274427874, 1.9978673219383292, 2.997560982486666, 3.998168978325279, 5.0]
 TEST_F(ConstKBinAxisTest, TypicalAxis)
 {
     EXPECT_EQ(m_nbins, m_axis.size());
@@ -75,7 +75,7 @@ TEST_F(ConstKBinAxisTest, IOStream)
 }
 
 //[-5.0, -3.99816897832528, -2.9975609824866662, -1.99786732193833, -0.9987818274427882, 0.0,
-//0.9987818274427874, 1.9978673219383292, 2.997560982486666, 3.998168978325279, 5.0]
+// 0.9987818274427874, 1.9978673219383292, 2.997560982486666, 3.998168978325279, 5.0]
 
 TEST_F(ConstKBinAxisTest, ClippedAxis)
 {

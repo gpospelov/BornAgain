@@ -1,12 +1,12 @@
-#include "google_test.h"
 #include "Exceptions.h"
+#include "HomogeneousRegion.h"
 #include "MaterialBySLDImpl.h"
 #include "MaterialFactoryFuncs.h"
 #include "RefractiveMaterialImpl.h"
 #include "Rotations.h"
-#include "HomogeneousRegion.h"
 #include "Units.h"
 #include "WavevectorInfo.h"
+#include "google_test.h"
 
 class MaterialTest : public ::testing::Test
 {
@@ -27,14 +27,14 @@ TEST_F(MaterialTest, MaterialConstruction)
     EXPECT_EQ(material_data, material.materialData());
     EXPECT_EQ(magnetism, material.magnetization());
 
-    Material material2
-        = HomogeneousMaterial("MagMaterial", material_data.real(), material_data.imag(), magnetism);
+    Material material2 =
+        HomogeneousMaterial("MagMaterial", material_data.real(), material_data.imag(), magnetism);
     EXPECT_EQ("MagMaterial", material2.getName());
     EXPECT_EQ(material_data, material2.materialData());
     EXPECT_EQ(magnetism, material2.magnetization());
 
-    Material material3
-        = MaterialBySLD("MagMaterial", material_data.real(), material_data.imag(), magnetism);
+    Material material3 =
+        MaterialBySLD("MagMaterial", material_data.real(), material_data.imag(), magnetism);
     EXPECT_EQ("MagMaterial", material3.getName());
     EXPECT_EQ(material_data, material3.materialData());
     EXPECT_EQ(magnetism, material3.magnetization());
@@ -46,8 +46,8 @@ TEST_F(MaterialTest, MaterialConstruction)
     EXPECT_EQ(material_data, material4.materialData());
     EXPECT_EQ(default_magnetism, material4.magnetization());
 
-    Material material5
-        = HomogeneousMaterial("Material", material_data.real(), material_data.imag());
+    Material material5 =
+        HomogeneousMaterial("Material", material_data.real(), material_data.imag());
     EXPECT_EQ("Material", material5.getName());
     EXPECT_EQ(material_data, material5.materialData());
     EXPECT_EQ(default_magnetism, material5.magnetization());
@@ -71,8 +71,8 @@ TEST_F(MaterialTest, MaterialTransform)
     EXPECT_EQ(material_data, material2.materialData());
     EXPECT_EQ(transformed_mag, material2.magnetization());
 
-    Material material3
-        = MaterialBySLD("Material", material_data.real(), material_data.imag(), magnetism);
+    Material material3 =
+        MaterialBySLD("Material", material_data.real(), material_data.imag(), magnetism);
     Material material4 = material.transformedMaterial(transform.getTransform3D());
 
     EXPECT_EQ("Material", material4.getName());
@@ -115,10 +115,10 @@ TEST_F(MaterialTest, ComputationTest)
     const double density = 7.874e-21;          // g/nm^3, Fe material density
     const double number_density = avog_number * density / mol_mass; // 1/nm^3, Fe number density
     const double sld_real = number_density * bc;
-    const double sld_imag = number_density * abs_cs / ( 2.0 * basic_wavelength);
+    const double sld_imag = number_density * abs_cs / (2.0 * basic_wavelength);
     const double sq_angstroms = Units::angstrom * Units::angstrom;
 
-    const complex_t sld_ref(8.0241e-04,  // nm^{-2}, reference data
+    const complex_t sld_ref(8.0241e-04, // nm^{-2}, reference data
                             6.0448e-8); // taken from https://sld-calculator.appspot.com/
 
     // checking input data and reference values are the same
@@ -131,10 +131,9 @@ TEST_F(MaterialTest, ComputationTest)
     // MaterialBySLD accepts sld in AA^{-2}
     Material material = MaterialBySLD("Fe", sld_real * sq_angstroms, sld_imag * sq_angstroms);
 
-    complex_t sld_res_2200
-        = (1.0 - material.refractiveIndex2(basic_wavelength)) / wl_factor_2200;
-    complex_t sld_res_1100
-        = (1.0 - material.refractiveIndex2(2.0 * basic_wavelength)) / wl_factor_1100;
+    complex_t sld_res_2200 = (1.0 - material.refractiveIndex2(basic_wavelength)) / wl_factor_2200;
+    complex_t sld_res_1100 =
+        (1.0 - material.refractiveIndex2(2.0 * basic_wavelength)) / wl_factor_1100;
 
     // change the sign of imaginary part according to internal convention
     sld_res_2200 = std::conj(sld_res_2200);
@@ -148,8 +147,8 @@ TEST_F(MaterialTest, ComputationTest)
     const complex_t refr_index = material.refractiveIndex(2.0 * basic_wavelength);
     WavevectorInfo wv_info(cvector_t{}, cvector_t{}, 2.0 * basic_wavelength);
 
-    Material material2
-        = HomogeneousMaterial("Fe", 1.0 - refr_index.real(), std::abs(refr_index.imag()));
+    Material material2 =
+        HomogeneousMaterial("Fe", 1.0 - refr_index.real(), std::abs(refr_index.imag()));
     const complex_t subtrSLD = material2.scalarSubtrSLD(wv_info);
     const complex_t subtrSLDWlIndep = material.scalarSubtrSLD(wv_info);
     EXPECT_NEAR(subtrSLD.real(), subtrSLDWlIndep.real(), 1e-10);
@@ -160,8 +159,8 @@ TEST_F(MaterialTest, AveragedMaterialTest)
 {
     kvector_t magnetization = kvector_t{1.0, 0.0, 0.0};
     const Material material = HomogeneousMaterial("Material", 0.5, 0.5, magnetization);
-    const std::vector<HomogeneousRegion> regions
-        = {HomogeneousRegion{0.25, material}, HomogeneousRegion{0.25, material}};
+    const std::vector<HomogeneousRegion> regions = {HomogeneousRegion{0.25, material},
+                                                    HomogeneousRegion{0.25, material}};
 
     const Material material_avr = CreateAveragedMaterial(material, regions);
     EXPECT_EQ(material_avr.getName(), material.getName() + "_avg");
@@ -182,8 +181,8 @@ TEST_F(MaterialTest, AveragedMaterialTest)
     EXPECT_THROW(CreateAveragedMaterial(material3, regions), std::runtime_error);
 
     const Material material4 = HomogeneousMaterial();
-    const std::vector<HomogeneousRegion> regions2
-        = {HomogeneousRegion{0.25, material3}, HomogeneousRegion{0.25, material3}};
+    const std::vector<HomogeneousRegion> regions2 = {HomogeneousRegion{0.25, material3},
+                                                     HomogeneousRegion{0.25, material3}};
     const Material material_avr3 = CreateAveragedMaterial(material4, regions2);
     EXPECT_DOUBLE_EQ(material_avr3.materialData().real(), 0.25);
     EXPECT_DOUBLE_EQ(material_avr3.materialData().imag(), 0.25);

@@ -1,7 +1,7 @@
-#include "google_test.h"
-#include "SessionItemTags.h"
-#include "item_constants.h"
 #include "GUIHelpers.h"
+#include "SessionItemTags.h"
+#include "google_test.h"
+#include "item_constants.h"
 
 class TestSessionItemTags : public ::testing::Test
 {
@@ -34,8 +34,8 @@ TEST_F(TestSessionItemTags, registerTag)
     EXPECT_FALSE(tags.registerTag("tag1", 0, 1, QStringList() << Constants::ParticleType));
 
     // registering another tag
-    EXPECT_TRUE(tags.registerTag("tag2", 0, 1, QStringList() << Constants::ParticleType
-                                                             << Constants::LayerType));
+    EXPECT_TRUE(tags.registerTag("tag2", 0, 1,
+                                 QStringList() << Constants::ParticleType << Constants::LayerType));
     expected = QStringList() << Constants::ParticleType << Constants::LayerType;
     EXPECT_EQ(tags.modelTypesForTag("tag2"), expected);
 }
@@ -64,8 +64,8 @@ TEST_F(TestSessionItemTags, tagStartIndex)
     EXPECT_EQ(tags.childCount("tag1"), 0);
     EXPECT_EQ(tags.tagStartIndex("tag1"), 0);
 
-    EXPECT_TRUE(tags.registerTag("tag2", 0, 1, QStringList() << Constants::ParticleType
-                                                             << Constants::LayerType));
+    EXPECT_TRUE(tags.registerTag("tag2", 0, 1,
+                                 QStringList() << Constants::ParticleType << Constants::LayerType));
     EXPECT_EQ(tags.childCount("tag2"), 0);
     EXPECT_EQ(tags.tagStartIndex("tag2"), 0);
 
@@ -157,7 +157,7 @@ TEST_F(TestSessionItemTags, insertIndexFromTagRow)
 
     EXPECT_EQ(tags.insertIndexFromTagRow("tag2", 0), 3);
     EXPECT_EQ(tags.insertIndexFromTagRow("tag2", -1), 4);
-    tags.addChild("tag2"); // index=4, row=1
-    EXPECT_EQ(tags.insertIndexFromTagRow("tag2", 0), -1); // maximum reached
+    tags.addChild("tag2");                                 // index=4, row=1
+    EXPECT_EQ(tags.insertIndexFromTagRow("tag2", 0), -1);  // maximum reached
     EXPECT_EQ(tags.insertIndexFromTagRow("tag2", -1), -1); // maximum reached
 }

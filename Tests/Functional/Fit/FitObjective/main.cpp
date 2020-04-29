@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "TestService.h"
 #include "FitObjectiveTestFactory.h"
+#include "TestService.h"
 
 //! Runs functional tests.
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     return TestService<FitObjectiveTestFactory>().execute(argc, argv) ? 0 : 1;
 }

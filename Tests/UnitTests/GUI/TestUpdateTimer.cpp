@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "UpdateTimer.h"
+#include "google_test.h"
 #include <QSignalSpy>
 
 class TestUpdateTimer : public ::testing::Test

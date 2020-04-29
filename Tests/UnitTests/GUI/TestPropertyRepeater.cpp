@@ -17,7 +17,7 @@ BasicAxisItem* createAxis(SessionModel& model)
 {
     return dynamic_cast<BasicAxisItem*>(model.insertNewItem(Constants::BasicAxisType));
 }
-}
+} // namespace
 
 class TestPropertyRepeater : public ::testing::Test
 {

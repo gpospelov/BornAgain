@@ -19,7 +19,8 @@
 
 //! Transforms GISAS image and compares results against reference file.
 
-class FourierTransformationTest : public IFunctionalTest {
+class FourierTransformationTest : public IFunctionalTest
+{
 protected:
     bool runTest();
 
@@ -27,5 +28,4 @@ private:
     bool test_fft(const std::string& input_image_name, const std::string& reference_fft_name);
 };
 
-#endif  // FOURIERTRANSFORMATIONTEST_H
-
+#endif // FOURIERTRANSFORMATIONTEST_H

@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "TestService.h"
 #include "MinimizerTestFactory.h"
+#include "TestService.h"
 
 //! Runs functional tests.
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     return TestService<MinimizerTestFactory>().execute(argc, argv) ? 0 : 1;
 }

@@ -1,12 +1,12 @@
-#include "google_test.h"
+#include "ParticleCoreShell.h"
 #include "BornAgainNamespace.h"
 #include "HardParticles.h"
 #include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
 #include "Particle.h"
-#include "ParticleCoreShell.h"
 #include "Rotations.h"
 #include "Units.h"
+#include "google_test.h"
 
 class ParticleCoreShellTest : public ::testing::Test
 {
@@ -25,7 +25,10 @@ ParticleCoreShellTest::ParticleCoreShellTest() : mp_coreshell(nullptr)
     mp_coreshell = new ParticleCoreShell(shell, core, position);
 }
 
-ParticleCoreShellTest::~ParticleCoreShellTest() { delete mp_coreshell; }
+ParticleCoreShellTest::~ParticleCoreShellTest()
+{
+    delete mp_coreshell;
+}
 
 TEST_F(ParticleCoreShellTest, InitialState)
 {

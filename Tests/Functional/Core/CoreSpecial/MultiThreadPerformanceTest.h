@@ -47,7 +47,7 @@ public:
 private:
     void warm_up() const;
     test_map_t run_measurements(std::vector<size_t> threads_data,
-                                    std::vector<SimData> sim_data) const;
+                                std::vector<SimData> sim_data) const;
     void fancy_print(const test_map_t& results) const;
     TestResult test_case(const std::string& sim_type, int nrepetitions, int nthreads) const;
 };

@@ -1,6 +1,6 @@
-#include "google_test.h"
 #include "GUIHelpers.h"
 #include "ProjectUtils.h"
+#include "google_test.h"
 #include <QDir>
 #include <QFile>
 #include <QTextStream>

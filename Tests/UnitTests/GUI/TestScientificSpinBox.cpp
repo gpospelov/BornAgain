@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "ScientificSpinBox.h"
+#include "google_test.h"
 #include <limits>
 
 class TestScientificSpinBox : public ::testing::Test
@@ -9,9 +9,7 @@ public:
     ~TestScientificSpinBox() override;
 };
 
-TestScientificSpinBox::TestScientificSpinBox()
-{
-}
+TestScientificSpinBox::TestScientificSpinBox() {}
 
 TestScientificSpinBox::~TestScientificSpinBox() = default;
 
@@ -43,8 +41,7 @@ TEST_F(TestScientificSpinBox, testValueFromText)
     EXPECT_EQ(0.1, to_value(QString()));
 
     auto to_value_2 = [&validator](QString text) {
-        return ScientificSpinBox::toDouble(text, validator, -0.1,
-                                           1e+7, 0.1);
+        return ScientificSpinBox::toDouble(text, validator, -0.1, 1e+7, 0.1);
     };
 
     // translation fails due to out-of-bounds condition
@@ -65,7 +62,7 @@ TEST_F(TestScientificSpinBox, testValueFromText)
 TEST_F(TestScientificSpinBox, testTextFromValue)
 {
     int decimals = 3;
-    auto to_string = [&decimals](double val){return ScientificSpinBox::toString(val, decimals);};
+    auto to_string = [&decimals](double val) { return ScientificSpinBox::toString(val, decimals); };
 
     EXPECT_EQ(std::string("-1.235e+2"), to_string(-123.45).toStdString());
     EXPECT_EQ(std::string("-100"), to_string(-99.9999).toStdString());
@@ -112,7 +109,7 @@ TEST_F(TestScientificSpinBox, testTextFromValue)
 
 TEST_F(TestScientificSpinBox, testRound)
 {
-    auto round_3 = [](double val){return ScientificSpinBox::round(val, 3);};
+    auto round_3 = [](double val) { return ScientificSpinBox::round(val, 3); };
     EXPECT_DOUBLE_EQ(1.232e-12, round_3(1.2323e-12));
     EXPECT_DOUBLE_EQ(0.1232, round_3(0.12323));
     EXPECT_DOUBLE_EQ(1.002e+2, round_3(100.23));

@@ -16,8 +16,8 @@
 #define IMINIMIZERTEST_H
 
 #include "IFunctionalTest.h"
-#include <string>
 #include <memory>
+#include <string>
 
 class MinimizerTestPlan;
 
@@ -27,7 +27,7 @@ class BA_CORE_API_ IMinimizerTest : public IFunctionalTest
 {
 public:
     IMinimizerTest(const std::string& minimizer_name, const std::string& algorithm_name,
-                  const std::string& fit_plan_name);
+                   const std::string& fit_plan_name);
 
     bool runTest();
 

@@ -1,15 +1,15 @@
-#include "google_test.h"
-#include "RectangularDetectorItem.h"
-#include "InstrumentModel.h"
 #include "ComboProperty.h"
-#include "InstrumentItems.h"
-#include "DetectorItems.h"
 #include "ConvolutionDetectorResolution.h"
-#include "ResolutionFunction2DGaussian.h"
+#include "DetectorItems.h"
 #include "IDetector2D.h"
+#include "InstrumentItems.h"
+#include "InstrumentModel.h"
+#include "RectangularDetectorItem.h"
+#include "ResolutionFunction2DGaussian.h"
 #include "Units.h"
+#include "google_test.h"
 
-class TestDetectorItems :  public ::testing::Test
+class TestDetectorItems : public ::testing::Test
 {
 public:
     ~TestDetectorItems();
@@ -22,8 +22,8 @@ TEST_F(TestDetectorItems, test_detectorAlignment)
     InstrumentModel model;
     SessionItem* detector = model.insertNewItem(Constants::RectangularDetectorType);
 
-    ComboProperty alignment
-        = detector->getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
+    ComboProperty alignment =
+        detector->getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
     // generic has some more items visible
     alignment.setValue(Constants::ALIGNMENT_GENERIC);
     detector->setItemValue(RectangularDetectorItem::P_ALIGNMENT,
@@ -40,8 +40,8 @@ TEST_F(TestDetectorItems, test_detectorAlignment)
 TEST_F(TestDetectorItems, test_resolutionFunction)
 {
     InstrumentModel model;
-    GISASInstrumentItem* instrument
-        = dynamic_cast<GISASInstrumentItem*>(model.insertNewItem(Constants::GISASInstrumentType));
+    GISASInstrumentItem* instrument =
+        dynamic_cast<GISASInstrumentItem*>(model.insertNewItem(Constants::GISASInstrumentType));
 
     DetectorItem* detectorItem = instrument->detectorItem();
 
@@ -49,10 +49,10 @@ TEST_F(TestDetectorItems, test_resolutionFunction)
                                    Constants::ResolutionFunction2DGaussianType);
 
     auto detector = detectorItem->createDetector();
-    auto convol
-        = dynamic_cast<const ConvolutionDetectorResolution*>(detector->detectorResolution());
-    auto gaussian
-        = dynamic_cast<const ResolutionFunction2DGaussian*>(convol->getResolutionFunction2D());
+    auto convol =
+        dynamic_cast<const ConvolutionDetectorResolution*>(detector->detectorResolution());
+    auto gaussian =
+        dynamic_cast<const ResolutionFunction2DGaussian*>(convol->getResolutionFunction2D());
 
     EXPECT_EQ(Units::rad2deg(gaussian->getSigmaX()), 0.02);
 }

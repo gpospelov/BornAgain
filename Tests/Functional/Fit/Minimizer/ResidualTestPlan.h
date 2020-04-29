@@ -23,7 +23,7 @@ class ResidualTestPlan : public MinimizerTestPlan
 public:
     using test_funct_t = std::function<double(double, const std::vector<double>&)>;
 
-    ResidualTestPlan(const std::string &name, test_funct_t func);
+    ResidualTestPlan(const std::string& name, test_funct_t func);
     ~ResidualTestPlan();
 
     fcn_residual_t residualFunction();

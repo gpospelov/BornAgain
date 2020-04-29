@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "ApplicationModels.h"
 #include "ExternalProperty.h"
 #include "LayerItem.h"
@@ -6,6 +5,7 @@
 #include "MaterialModel.h"
 #include "ModelMapper.h"
 #include "SampleModel.h"
+#include "google_test.h"
 
 class TestLayerItems : public ::testing::Test
 {
@@ -24,8 +24,8 @@ TEST_F(TestLayerItems, test_LayerDefaultMaterial)
     auto materials = models.materialModel()->topItems();
     auto defMaterial = materials.front();
 
-    ExternalProperty material
-        = layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
+    ExternalProperty material =
+        layer->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
     EXPECT_EQ(material.text(), QString("Default"));
     EXPECT_EQ(material.identifier(),
               defMaterial->getItemValue(MaterialItem::P_IDENTIFIER).toString());

@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "FourierTransformationTest.h"
+#include "BATesting.h"
 #include "FileSystemUtils.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataIOFactory.h"
 #include "OutputData.h"
 #include "TestUtils.h"
-#include "BATesting.h"
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -29,7 +29,8 @@ namespace
 const double threshold = 1e-10;
 
 //! Returns file names to test fft.
-std::vector<std::string> inputImages() {
+std::vector<std::string> inputImages()
+{
     return {"CylindersAndPrisms.int.gz", "RectDetectorGeneric.int.gz"};
 }
 
@@ -48,7 +49,7 @@ std::string fftReferenceImage(const std::string& input_image);
 //! Returns name of directory for output fft images.
 std::string outputDir();
 
-}
+} // namespace
 
 bool FourierTransformationTest::runTest()
 {
@@ -78,8 +79,7 @@ bool FourierTransformationTest::test_fft(const std::string& input_image_name,
     }
 
     // making fourier transformation
-    std::unique_ptr<OutputData<double>> fft =
-            IntensityDataFunctions::createFFT(*input_image.get());
+    std::unique_ptr<OutputData<double>> fft = IntensityDataFunctions::createFFT(*input_image.get());
 
     // loading reference fft
     std::unique_ptr<OutputData<double>> reference_fft;
@@ -96,8 +96,8 @@ bool FourierTransformationTest::test_fft(const std::string& input_image_name,
 
     if (!success) {
         FileSystemUtils::createDirectory(outputDir());
-        std::string out_fname = FileSystemUtils::jointPath(
-            outputDir(), FileSystemUtils::filename(reference_fft_name));
+        std::string out_fname =
+            FileSystemUtils::jointPath(outputDir(), FileSystemUtils::filename(reference_fft_name));
         IntensityDataIOFactory::writeOutputData(*fft, out_fname);
         std::cout << "New fft image stored in " << out_fname << "\n";
     }
@@ -137,4 +137,4 @@ std::string outputDir()
     return std::string(BATesting::CoreOutputDir());
 }
 
-}
+} // namespace

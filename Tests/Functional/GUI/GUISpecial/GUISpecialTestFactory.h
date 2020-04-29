@@ -27,4 +27,3 @@ public:
 };
 
 #endif // GUISPECIALTESTFACTORY_H
-

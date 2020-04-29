@@ -26,9 +26,6 @@ public:
     AdjustMinimizerPlan();
 
     bool checkMinimizer(Fit::Minimizer& minimizer);
-
 };
 
-#endif  //  ADJUSTMINIMIZERPLAN_H
-
-
+#endif //  ADJUSTMINIMIZERPLAN_H

@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "FitPlanCases.h"
+#include "FTDecayFunctions.h"
 #include "FitObjective.h"
 #include "FormFactorCylinder.h"
 #include "GISASSimulation.h"
@@ -25,53 +26,50 @@
 #include "ParticleLayout.h"
 #include "Rectangle.h"
 #include "RectangularDetector.h"
-#include "FTDecayFunctions.h"
 #include "Units.h"
 
 using namespace Fit;
 
-namespace {
-    const double nm = Units::nanometer;
+namespace
+{
+const double nm = Units::nanometer;
 }
 
-CylindersInBAPlan::CylindersInBAPlan()
-    : FitPlan("CylindersInBAPlan")
+CylindersInBAPlan::CylindersInBAPlan() : FitPlan("CylindersInBAPlan")
 {
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISAS");
-    addParameter(Parameter("height", 4.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
-    addParameter(Parameter("radius", 5.5*nm, AttLimits::lowerLimited(0.01), 0.01), 5.0*nm);
+    addParameter(Parameter("height", 4.5 * nm, AttLimits::lowerLimited(0.01), 0.01), 5.0 * nm);
+    addParameter(Parameter("radius", 5.5 * nm, AttLimits::lowerLimited(0.01), 0.01), 5.0 * nm);
 }
 
-CylindersInBAEasyPlan::CylindersInBAEasyPlan()
-    : FitPlan("CylindersInBAEasyPlan")
+CylindersInBAEasyPlan::CylindersInBAEasyPlan() : FitPlan("CylindersInBAEasyPlan")
 {
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISASFit");
     const double tolerance = 0.1;
-    addParameter(Parameter("height", 4.5*nm, AttLimits::limited(4.0, 6.0), 0.1),
-                 5.0*nm, tolerance);
-    addParameter(Parameter("radius", 5.5*nm, AttLimits::limited(4.0, 6.0), 0.1),
-                 5.0*nm, tolerance);
+    addParameter(Parameter("height", 4.5 * nm, AttLimits::limited(4.0, 6.0), 0.1), 5.0 * nm,
+                 tolerance);
+    addParameter(Parameter("radius", 5.5 * nm, AttLimits::limited(4.0, 6.0), 0.1), 5.0 * nm,
+                 tolerance);
 }
 
 CylindersInBAResidualPlan::CylindersInBAResidualPlan()
-    : FitPlan("CylindersInBAResidualPlan", /*residual_based*/true)
+    : FitPlan("CylindersInBAResidualPlan", /*residual_based*/ true)
 {
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISAS");
-    addParameter(Parameter("height", 4.5*nm, AttLimits::limitless(), 0.01), 5.0*nm);
-    addParameter(Parameter("radius", 5.5*nm, AttLimits::limitless(), 0.01), 5.0*nm);
+    addParameter(Parameter("height", 4.5 * nm, AttLimits::limitless(), 0.01), 5.0 * nm);
+    addParameter(Parameter("radius", 5.5 * nm, AttLimits::limitless(), 0.01), 5.0 * nm);
 }
 
 // ----------------------------------------------------------------------------
 
-RectDetPlan::RectDetPlan()
-    : FitPlan("RectDetPlan")
+RectDetPlan::RectDetPlan() : FitPlan("RectDetPlan")
 {
     setBuilderName("CylindersInBABuilder");
-    addParameter(Parameter("height", 4.5*nm, AttLimits::limited(4.0, 6.0), 0.01), 5.0*nm);
-    addParameter(Parameter("radius", 5.5*nm, AttLimits::limited(4.0, 6.0), 0.01), 5.0*nm);
+    addParameter(Parameter("height", 4.5 * nm, AttLimits::limited(4.0, 6.0), 0.01), 5.0 * nm);
+    addParameter(Parameter("radius", 5.5 * nm, AttLimits::limited(4.0, 6.0), 0.01), 5.0 * nm);
 }
 
 RectDetPlan::~RectDetPlan() = default;
@@ -83,9 +81,9 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
     double detector_distance(500.0);
     double width(20.0), height(18.0);
     RectangularDetector detector(20u, width, 18u, height);
-    detector.setPerpendicularToSampleX(detector_distance, width/2., 0.0);
+    detector.setPerpendicularToSampleX(detector_distance, width / 2., 0.0);
 
-    result->setBeamParameters(1.0*Units::angstrom, 0.2*Units::degree, 0.0*Units::degree);
+    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);
     result->setDetector(detector);
     result->setRegionOfInterest(5.0, 6.0, 15.0, 12.0);
     result->addMask(Rectangle(0.0, 0.0, 2.0, 2.0), true);
@@ -94,8 +92,7 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
 
 // ----------------------------------------------------------------------------
 
-SpecularPlan::SpecularPlan()
-    : FitPlan("SpecularPlan")
+SpecularPlan::SpecularPlan() : FitPlan("SpecularPlan")
 {
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -107,8 +104,7 @@ SpecularPlan::~SpecularPlan() = default;
 
 // ----------------------------------------------------------------------------
 
-SpecularPlanQ::SpecularPlanQ()
-    : FitPlan("SpecularPlanQ")
+SpecularPlanQ::SpecularPlanQ() : FitPlan("SpecularPlanQ")
 {
     setSimulationName("BasicSpecularQ");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -120,8 +116,7 @@ SpecularPlanQ::~SpecularPlanQ() = default;
 
 // ----------------------------------------------------------------------------
 
-MultipleSpecPlan::MultipleSpecPlan()
-    : FitPlan("MultipleSpecPlan")
+MultipleSpecPlan::MultipleSpecPlan() : FitPlan("MultipleSpecPlan")
 {
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
@@ -148,8 +143,7 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
 
 // ----------------------------------------------------------------------------
 
-OffSpecFitPlan::OffSpecFitPlan()
-    : FitPlan("OffSpecFitPlan")
+OffSpecFitPlan::OffSpecFitPlan() : FitPlan("OffSpecFitPlan")
 {
     setBuilderName("ResonatorBuilder");
     setSimulationName("OffSpecMini");

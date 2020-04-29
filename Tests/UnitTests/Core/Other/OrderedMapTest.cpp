@@ -1,6 +1,6 @@
-#include "google_test.h"
-#include "INamed.h"
 #include "OrderedMap.h"
+#include "INamed.h"
+#include "google_test.h"
 
 class OrderedMapTest : public ::testing::Test
 {

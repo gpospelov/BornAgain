@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "ComboProperty.h"
 #include "DocumentModel.h"
 #include "ParticleItem.h"
@@ -6,6 +5,7 @@
 #include "SampleModel.h"
 #include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
+#include "google_test.h"
 #include <QtTest>
 
 using SessionItemUtils::ParentRow;
@@ -26,15 +26,15 @@ TEST_F(TestMapperCases, test_ParticeleCompositionUpdate)
     SessionItem* layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
 
     // composition added to layout should have abundance enabled
-    SessionItem* compositionFree
-        = model.insertNewItem(Constants::ParticleCompositionType, layout->index());
+    SessionItem* compositionFree =
+        model.insertNewItem(Constants::ParticleCompositionType, layout->index());
     EXPECT_TRUE(compositionFree->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
     // composition added to distribution should have abundance disabled
-    SessionItem* distribution
-        = model.insertNewItem(Constants::ParticleDistributionType, layout->index());
-    SessionItem* composition
-        = model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
+    SessionItem* distribution =
+        model.insertNewItem(Constants::ParticleDistributionType, layout->index());
+    SessionItem* composition =
+        model.insertNewItem(Constants::ParticleCompositionType, distribution->index());
     EXPECT_TRUE(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled() == false);
 
     composition = distribution->takeRow(ParentRow(*composition));
@@ -49,8 +49,8 @@ TEST_F(TestMapperCases, test_SimulationOptionsComputationToggle)
 
     SimulationOptionsItem* item = model.simulationOptionsItem();
 
-    ComboProperty combo
-        = item->getItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD).value<ComboProperty>();
+    ComboProperty combo =
+        item->getItemValue(SimulationOptionsItem::P_COMPUTATION_METHOD).value<ComboProperty>();
     EXPECT_EQ(combo.getValue(), Constants::SIMULATION_ANALYTICAL);
     EXPECT_TRUE(item->getItem(SimulationOptionsItem::P_MC_POINTS)->isEnabled() == false);
 

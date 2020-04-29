@@ -1,7 +1,7 @@
-#include "google_test.h"
-#include "Exceptions.h"
 #include "FormFactorCoherentSum.h"
+#include "Exceptions.h"
 #include "FormFactorDot.h"
+#include "google_test.h"
 
 class FormFactorCoherentSumTest : public ::testing::Test
 {

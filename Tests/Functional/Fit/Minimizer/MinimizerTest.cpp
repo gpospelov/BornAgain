@@ -26,4 +26,3 @@ std::unique_ptr<MinimizerTestPlan> MinimizerTest::createPlan() const
     FunctionTestPlanFactory plan_factory;
     return plan_factory.create(m_fit_plan_name);
 }
-

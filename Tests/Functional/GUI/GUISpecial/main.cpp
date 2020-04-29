@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "TestService.h"
 #include "GUISpecialTestFactory.h"
+#include "TestService.h"
 #include <QCoreApplication>
 
 //! Runs PyEmbedded functional test.

@@ -1,9 +1,10 @@
-#include "google_test.h"
-#include <QCoreApplication>
-#include <QAbstractItemModel>
 #include "Comparators.h"
+#include "google_test.h"
+#include <QAbstractItemModel>
+#include <QCoreApplication>
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     QCoreApplication app(argc, argv);
     Q_UNUSED(app);
 

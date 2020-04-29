@@ -1,11 +1,11 @@
-#include "google_test.h"
-#include "test_utils.h"
-#include "GroupInfo.h"
-#include "GroupItem.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
-#include "SessionModel.h"
+#include "GroupInfo.h"
+#include "GroupItem.h"
 #include "SessionItemUtils.h"
+#include "SessionModel.h"
+#include "google_test.h"
+#include "test_utils.h"
 
 class TestGroupItem : public ::testing::Test
 {
@@ -26,8 +26,12 @@ TEST_F(TestGroupItem, test_groupInfo)
     // sorted group (default behavior)
     EXPECT_EQ(info.groupType(), QString("Group"));
     EXPECT_EQ(info.defaultType(), QString("AAA"));
-    EXPECT_EQ(info.itemTypes(), QStringList() << "AAA" << "BBB" << "CCC");
-    EXPECT_EQ(info.itemLabels(), QStringList() << "a_label" << "b_label" << "c_label");
+    EXPECT_EQ(info.itemTypes(), QStringList() << "AAA"
+                                              << "BBB"
+                                              << "CCC");
+    EXPECT_EQ(info.itemLabels(), QStringList() << "a_label"
+                                               << "b_label"
+                                               << "c_label");
 
     // unsorted group
     info = GroupInfo("Group2", false);
@@ -36,8 +40,12 @@ TEST_F(TestGroupItem, test_groupInfo)
     info.add("CCC2", "c_label2");
     info.setDefaultType("AAA2");
     EXPECT_EQ(info.defaultType(), QString("AAA2"));
-    EXPECT_EQ(info.itemTypes(), QStringList() << "BBB2" << "AAA2" << "CCC2");
-    EXPECT_EQ(info.itemLabels(), QStringList() << "b_label2" << "a_label2" << "c_label2");
+    EXPECT_EQ(info.itemTypes(), QStringList() << "BBB2"
+                                              << "AAA2"
+                                              << "CCC2");
+    EXPECT_EQ(info.itemLabels(), QStringList() << "b_label2"
+                                               << "a_label2"
+                                               << "c_label2");
 
     // attempt to set non-existing default type
     EXPECT_THROW(info.setDefaultType("XXX"), GUIHelpers::Error);

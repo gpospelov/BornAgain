@@ -13,26 +13,26 @@
 // ************************************************************************** //
 
 #include "AdjustMinimizerPlan.h"
-#include "Units.h"
-#include "Parameters.h"
-#include "Minimizer.h"
-#include "KernelTypes.h"
 #include "FitObjective.h"
+#include "KernelTypes.h"
+#include "Minimizer.h"
+#include "Parameters.h"
+#include "Units.h"
 #include <iostream>
 
-namespace {
+namespace
+{
 const double nm = Units::nanometer;
 }
 
 using namespace Fit;
 
-AdjustMinimizerPlan::AdjustMinimizerPlan()
-    : FitPlan("AdjustMinimizerPlan")
+AdjustMinimizerPlan::AdjustMinimizerPlan() : FitPlan("AdjustMinimizerPlan")
 {
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISASFit");
-    addParameter(Parameter("height", 2.0*nm, AttLimits::limited(0.01, 30.0), 0.05), 5.0*nm);
-    addParameter(Parameter("radius", 10.0*nm, AttLimits::limited(0.01, 30.0), 0.05), 5.0*nm);
+    addParameter(Parameter("height", 2.0 * nm, AttLimits::limited(0.01, 30.0), 0.05), 5.0 * nm);
+    addParameter(Parameter("radius", 10.0 * nm, AttLimits::limited(0.01, 30.0), 0.05), 5.0 * nm);
 }
 
 bool AdjustMinimizerPlan::checkMinimizer(Fit::Minimizer& minimizer)

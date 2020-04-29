@@ -1,10 +1,10 @@
-#include "google_test.h"
-#include "item_constants.h"
 #include "LayerItem.h"
 #include "MultiLayerItem.h"
 #include "SampleModel.h"
 #include "SessionItem.h"
 #include "SessionItemUtils.h"
+#include "google_test.h"
+#include "item_constants.h"
 #include <memory>
 
 using SessionItemUtils::ParentRow;
@@ -247,7 +247,7 @@ TEST_F(TestMapperForItem, test_onSiblingsChange)
     EXPECT_TRUE(w.m_reported_items.isEmpty());
     EXPECT_TRUE(w.m_reported_names.isEmpty());
 
-    delete  multilayer->takeItem(1, MultiLayerItem::T_LAYERS);
+    delete multilayer->takeItem(1, MultiLayerItem::T_LAYERS);
     EXPECT_EQ(w.m_onSiblingsChangeCount, 2);
 }
 

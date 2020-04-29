@@ -1,6 +1,4 @@
-#include "google_test.h"
 #include "BornAgainNamespace.h"
-#include "Layer.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -11,6 +9,7 @@
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
 #include "SpecularScalarTanhStrategy.h"
+#include "google_test.h"
 
 class RTTest : public ::testing::Test
 {
@@ -35,8 +34,8 @@ protected:
     std::vector<ScalarRTCoefficients> getCoeffs(SpecularScalarTanhStrategy::coeffs_t&& inputCoeffs)
     {
         std::vector<ScalarRTCoefficients> result;
-        for(auto& coeff : inputCoeffs)
-            result.push_back( *dynamic_cast<const ScalarRTCoefficients*>(coeff.get()) );
+        for (auto& coeff : inputCoeffs)
+            result.push_back(*dynamic_cast<const ScalarRTCoefficients*>(coeff.get()));
 
         return result;
     }
@@ -70,8 +69,10 @@ TEST_F(RTTest, SplitLayer)
     ProcessedSample sample_1(sample1, options);
     ProcessedSample sample_2(sample2, options);
 
-    coeffs1 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k) );
-    coeffs2 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k) );
+    coeffs1 =
+        getCoeffs(std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k));
+    coeffs2 =
+        getCoeffs(std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k));
 
     // printCoeffs( coeffs1 );
     // printCoeffs( coeffs2 );
@@ -107,11 +108,13 @@ TEST_F(RTTest, SplitBilayers)
     ProcessedSample sample_1(sample1, options);
     ProcessedSample sample_2(sample2, options);
 
-    coeffs1 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k) );
-    coeffs2 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k) );
+    coeffs1 =
+        getCoeffs(std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k));
+    coeffs2 =
+        getCoeffs(std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k));
 
-//     printCoeffs( coeffs1 );
-//     printCoeffs( coeffs2 );
+    //     printCoeffs( coeffs1 );
+    //     printCoeffs( coeffs2 );
 
     compareCoeffs(coeffs1[0], coeffs2[0]);
     compareCoeffs(coeffs1[1], coeffs2[1]);
@@ -149,11 +152,13 @@ TEST_F(RTTest, Overflow)
     ProcessedSample sample_1(sample1, options);
     ProcessedSample sample_2(sample2, options);
 
-    coeffs1 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k) );
-    coeffs2 = getCoeffs( std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k) );
+    coeffs1 =
+        getCoeffs(std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_1.slices(), k));
+    coeffs2 =
+        getCoeffs(std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_2.slices(), k));
 
-//     printCoeffs( coeffs1 );
-//     printCoeffs( coeffs2 );
+    //     printCoeffs( coeffs1 );
+    //     printCoeffs( coeffs2 );
 
     compareCoeffs(coeffs1[0], coeffs2[0]);
     compareCoeffs(coeffs1[1], coeffs2[1]);

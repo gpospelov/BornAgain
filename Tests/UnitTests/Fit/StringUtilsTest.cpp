@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "StringUtils.h"
+#include "google_test.h"
 
 class StringUtilsTest : public ::testing::Test
 {

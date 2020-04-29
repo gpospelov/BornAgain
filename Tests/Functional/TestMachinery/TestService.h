@@ -16,24 +16,23 @@
 #define TESTSERVICE_H
 
 #include "ITestService.h"
-#include <string>
-#include <iostream>
 #include <boost/format.hpp>
+#include <iostream>
+#include <string>
 
 //! @class TestService
 //! @ingroup standard_samples
 //! @brief Main class to run standard functional test from standalone executable.
 //! Test name is obtained from command line parameters and then constructed via templated factory.
 
-template<typename T>
-class TestService : public ITestService
+template <typename T> class TestService : public ITestService
 {
 public:
-    TestService(){}
+    TestService() {}
 
     bool execute(int argc, char** argv)
     {
-        std::string test_name = argc>1 ? std::string(argv[1]) : std::string();
+        std::string test_name = argc > 1 ? std::string(argv[1]) : std::string();
 
         if (!m_test_factory.contains(test_name)) {
             if (!test_name.empty())
@@ -46,12 +45,10 @@ public:
         auto test = m_test_factory.createTest(test_name);
         bool result = test->execute();
 
-        std::cout << boost::format("%-15s | %-50s -> %-5s\n") %
-                     test->getName() % test->description() %
-                     (result ? "OK" : "FAILED");
+        std::cout << boost::format("%-15s | %-50s -> %-5s\n") % test->getName()
+                         % test->description() % (result ? "OK" : "FAILED");
 
         return result;
-
     }
 
 private:
@@ -59,4 +56,3 @@ private:
 };
 
 #endif
-

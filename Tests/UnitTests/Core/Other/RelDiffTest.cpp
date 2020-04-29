@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "Numeric.h"
+#include "google_test.h"
 #include <algorithm>
 
 class RelDiffTest : public ::testing::Test

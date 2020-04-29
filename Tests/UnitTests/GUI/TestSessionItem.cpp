@@ -1,7 +1,7 @@
-#include "google_test.h"
+#include "GUIHelpers.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
-#include "GUIHelpers.h"
+#include "google_test.h"
 
 class TestSessionItem : public ::testing::Test
 {

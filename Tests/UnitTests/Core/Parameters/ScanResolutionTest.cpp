@@ -1,7 +1,7 @@
-#include "google_test.h"
+#include "ScanResolution.h"
 #include "ParameterSample.h"
 #include "RangedDistributions.h"
-#include "ScanResolution.h"
+#include "google_test.h"
 #include <cmath>
 
 class ScanResolutionTest : public ::testing::Test

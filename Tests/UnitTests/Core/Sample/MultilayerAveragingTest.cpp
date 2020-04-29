@@ -1,5 +1,4 @@
 #include "FormFactorCylinder.h"
-#include "google_test.h"
 #include "InterferenceFunction2DLattice.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
@@ -10,6 +9,7 @@
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
 #include "Slice.h"
+#include "google_test.h"
 
 class MultilayerAveragingTest : public ::testing::Test
 {
@@ -90,8 +90,7 @@ TEST_F(MultilayerAveragingTest, AverageMultilayer)
 
     EXPECT_EQ(sample_1->numberOfSlices(), sample_2->numberOfSlices());
 
-    for (size_t i = 0; i < sample_1->numberOfSlices(); ++i)
-    {
+    for (size_t i = 0; i < sample_1->numberOfSlices(); ++i) {
         auto mat_1 = sample_1->slices()[i].material().materialData();
         auto mat_2 = sample_2->slices()[i].material().materialData();
         EXPECT_DOUBLE_EQ(mat_1.real(), mat_2.real());

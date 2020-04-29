@@ -1,8 +1,8 @@
-#include "google_test.h"
 #include "FormFactorItems.h"
 #include "ParticleItem.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
+#include "google_test.h"
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <memory>
@@ -22,7 +22,7 @@ void itemFromXML(QString buffer, SessionItem* item)
     QXmlStreamReader reader(buffer);
     SessionXML::readItems(&reader, item);
 }
-}
+} // namespace
 
 class TestSessionXML : public ::testing::Test
 {

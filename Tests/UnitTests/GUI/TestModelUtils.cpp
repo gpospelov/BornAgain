@@ -1,9 +1,9 @@
-#include "google_test.h"
+#include "LayerItem.h"
 #include "ModelUtils.h"
 #include "SessionModel.h"
-#include "item_constants.h"
 #include "VectorItem.h"
-#include "LayerItem.h"
+#include "google_test.h"
+#include "item_constants.h"
 #include <QVector>
 
 class TestModelUtils : public ::testing::Test
@@ -52,7 +52,6 @@ TEST_F(TestModelUtils, test_topItemNames)
     QStringList expected = {"name1", Constants::LayerType, "name2"};
     EXPECT_EQ(ModelUtils::topItemNames(&model), expected);
 }
-
 
 //! Testing iteration over empty model.
 

@@ -26,7 +26,9 @@ class BA_CORE_API_ IFunctionalTest : public INamed
 public:
     IFunctionalTest() {}
     IFunctionalTest(const std::string& name, const std::string& description)
-        : INamed(name), m_description(description) {}
+        : INamed(name), m_description(description)
+    {
+    }
     virtual ~IFunctionalTest();
 
     bool execute();

@@ -1,19 +1,18 @@
-#include "google_test.h"
+#include "MultiLayer.h"
 #include "BornAgainNamespace.h"
-#include "Layer.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
-#include "MultiLayer.h"
 #include "MultiLayerUtils.h"
 #include "ParticleLayout.h"
 #include "Units.h"
+#include "google_test.h"
 
+using MultiLayerUtils::LayerBottomInterface;
 using MultiLayerUtils::LayerThickness;
 using MultiLayerUtils::LayerTopInterface;
-using MultiLayerUtils::LayerBottomInterface;
 
 class MultiLayerTest : public ::testing::Test
 {
@@ -23,10 +22,8 @@ protected:
         : air(HomogeneousMaterial("air", 1e-6, 9e-4)),
           iron(HomogeneousMaterial("iron", 2e-5, 8e-5)),
           chromium(HomogeneousMaterial("chromium", 3e-7, 7e-6)),
-          stone(HomogeneousMaterial("stone", 4e-4, 8e-7)),
-          topLayer(air, 0 * Units::nanometer),
-          layer1(iron, 20 * Units::nanometer),
-          layer2(chromium, 40 * Units::nanometer),
+          stone(HomogeneousMaterial("stone", 4e-4, 8e-7)), topLayer(air, 0 * Units::nanometer),
+          layer1(iron, 20 * Units::nanometer), layer2(chromium, 40 * Units::nanometer),
           substrate(stone, 0 * Units::nanometer)
     {
     }

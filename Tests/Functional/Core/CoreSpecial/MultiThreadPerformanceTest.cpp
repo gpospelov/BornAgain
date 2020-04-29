@@ -137,7 +137,7 @@ MultiThreadPerformanceTest::run_measurements(std::vector<size_t> threads_data,
         }
     }
 
-    std::cout << "Total time:" << duration(now() - start_time)/1000. << " sec." << std::endl;
+    std::cout << "Total time:" << duration(now() - start_time) / 1000. << " sec." << std::endl;
     return results;
 }
 

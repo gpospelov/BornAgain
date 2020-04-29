@@ -1,8 +1,7 @@
-#include "google_test.h"
 #include "ArrayUtils.h"
 #include "IAxis.h"
+#include "google_test.h"
 #include <vector>
-
 
 class ArrayUtilsTest : public ::testing::Test
 {
@@ -11,7 +10,6 @@ protected:
 };
 
 ArrayUtilsTest::~ArrayUtilsTest() = default;
-
 
 TEST_F(ArrayUtilsTest, OutputDataFromVector1D)
 {
@@ -50,10 +48,7 @@ TEST_F(ArrayUtilsTest, OutputDataToVector1D)
 TEST_F(ArrayUtilsTest, OutputDataFromVector2D)
 {
     const std::vector<std::vector<double>> vec_double = {
-        {0.0, 1.0, 2.0,  3.0},
-        {4.0, 5.0, 6.0,  7.0},
-        {8.0, 9.0, 10.0, 11.0}
-    };
+        {0.0, 1.0, 2.0, 3.0}, {4.0, 5.0, 6.0, 7.0}, {8.0, 9.0, 10.0, 11.0}};
     auto data = ArrayUtils::createData(vec_double);
 
     EXPECT_EQ(data->getRank(), 2u);
@@ -65,8 +60,8 @@ TEST_F(ArrayUtilsTest, OutputDataFromVector2D)
     EXPECT_EQ(data->getAxis(1).getMin(), 0.0);
     EXPECT_EQ(data->getAxis(1).getMax(), 3.0);
 
-    const std::vector<double> expected =
-        {8.0, 4.0, 0.0, 9.0, 5.0, 1.0, 10.0, 6.0, 2.0, 11.0, 7.0, 3.0};
+    const std::vector<double> expected = {8.0,  4.0, 0.0, 9.0,  5.0, 1.0,
+                                          10.0, 6.0, 2.0, 11.0, 7.0, 3.0};
 
     EXPECT_EQ(data->getRawDataVector(), expected);
 }
@@ -76,16 +71,13 @@ TEST_F(ArrayUtilsTest, OutputDataToVector2D)
     OutputData<double> data;
     data.addAxis("axis0", 4, 10.0, 20.0);
     data.addAxis("axis1", 3, 30.0, 40.0);
-    const std::vector<double> values =
-        {8.0, 4.0, 0.0, 9.0, 5.0, 1.0, 10.0, 6.0, 2.0, 11.0, 7.0, 3.0};
+    const std::vector<double> values = {8.0,  4.0, 0.0, 9.0,  5.0, 1.0,
+                                        10.0, 6.0, 2.0, 11.0, 7.0, 3.0};
 
     data.setRawDataVector(values);
 
     auto vec = ArrayUtils::createVector2D(data);
     const std::vector<std::vector<double>> expected = {
-        {0.0, 1.0, 2.0,  3.0},
-        {4.0, 5.0, 6.0,  7.0},
-        {8.0, 9.0, 10.0, 11.0}
-    };
+        {0.0, 1.0, 2.0, 3.0}, {4.0, 5.0, 6.0, 7.0}, {8.0, 9.0, 10.0, 11.0}};
     EXPECT_EQ(vec, expected);
 }

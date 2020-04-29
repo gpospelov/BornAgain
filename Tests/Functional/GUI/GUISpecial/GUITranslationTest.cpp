@@ -20,8 +20,8 @@
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
 #include "GUIObjectBuilder.h"
-#include "InstrumentModel.h"
 #include "InstrumentItems.h"
+#include "InstrumentModel.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "MaterialItem.h"
@@ -39,19 +39,21 @@
 #include "StringUtils.h"
 #include <QStack>
 
-namespace {
-    std::string header(size_t width=80) { return std::string(width, '-'); }
-
-    //! Returns true, if it makes sence to look for GUI translation for given domain name.
-    //! Intended to supress warnings about not-yet implemented translations.
-    bool requiresTranslation(ParameterItem* parItem);
-    bool containsNames(const QString& text, const QStringList& names);
+namespace
+{
+std::string header(size_t width = 80)
+{
+    return std::string(width, '-');
 }
 
+//! Returns true, if it makes sence to look for GUI translation for given domain name.
+//! Intended to supress warnings about not-yet implemented translations.
+bool requiresTranslation(ParameterItem* parItem);
+bool containsNames(const QString& text, const QStringList& names);
+} // namespace
+
 GUITranslationTest::GUITranslationTest(const std::string& simName, const std::string& sampleName)
-    : m_models(new ApplicationModels(nullptr))
-    , m_simulationName(simName)
-    , m_sampleName(sampleName)
+    : m_models(new ApplicationModels(nullptr)), m_simulationName(simName), m_sampleName(sampleName)
 {
     SimulationFactory simFactory;
     std::unique_ptr<Simulation> simulation = simFactory.create(m_simulationName);
@@ -65,10 +67,7 @@ GUITranslationTest::GUITranslationTest(const std::string& simName, const std::st
     m_simulation->setSample(*sampleFactory.createSample(m_sampleName));
 }
 
-GUITranslationTest::~GUITranslationTest()
-{
-
-}
+GUITranslationTest::~GUITranslationTest() {}
 
 bool GUITranslationTest::runTest()
 {
@@ -78,9 +77,9 @@ bool GUITranslationTest::runTest()
     bool success = checkExistingTranslations();
     success &= checkMissedTranslations();
 
-    if(!success) {
-        std::cout << "GUITranslationTest failed: " << m_simulationName
-                  << " " << m_sampleName << std::endl;
+    if (!success) {
+        std::cout << "GUITranslationTest failed: " << m_simulationName << " " << m_sampleName
+                  << std::endl;
     }
 
     return success;
@@ -93,27 +92,26 @@ void GUITranslationTest::processParameterTree()
     m_models->instrumentModel()->clear();
     // populating GUI models from domain
     GUIObjectBuilder::populateSampleModelFromSim(m_models->sampleModel(), m_models->materialModel(),
-                                          *m_simulation);
+                                                 *m_simulation);
     GUIObjectBuilder::populateInstrumentModel(m_models->instrumentModel(), *m_simulation);
     GUIObjectBuilder::populateDocumentModel(m_models->documentModel(), *m_simulation);
 
-    JobItem *jobItem = m_models->jobModel()->addJob(
-                m_models->sampleModel()->multiLayerItem(),
-                m_models->instrumentModel()->instrumentItem(),
-                nullptr,
-                m_models->documentModel()->simulationOptionsItem());
+    JobItem* jobItem = m_models->jobModel()->addJob(
+        m_models->sampleModel()->multiLayerItem(), m_models->instrumentModel()->instrumentItem(),
+        nullptr, m_models->documentModel()->simulationOptionsItem());
 
-    SessionItem *container = jobItem->parameterContainerItem();
+    SessionItem* container = jobItem->parameterContainerItem();
 
-    ParameterTreeUtils::visitParameterContainer(container, [&](ParameterItem *parItem){
-        if(requiresTranslation(parItem)) {
+    ParameterTreeUtils::visitParameterContainer(container, [&](ParameterItem* parItem) {
+        if (requiresTranslation(parItem)) {
             std::string sampleParLink =
-                    parItem->getItemValue(ParameterItem::P_LINK).toString().toStdString();
+                parItem->getItemValue(ParameterItem::P_LINK).toString().toStdString();
 
             std::string parPath = FitParameterHelper::getParameterItemPath(parItem).toStdString();
 
-            std::string domainName = std::string("*") +
-                    parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
+            std::string domainName =
+                std::string("*")
+                + parItem->getItemValue(ParameterItem::P_DOMAIN).toString().toStdString();
 
             QString translation = ModelPath::itemPathTranslation(*parItem->linkedItem(), jobItem);
             domainName = std::string("*/") + translation.toStdString();
@@ -140,7 +138,7 @@ std::string GUITranslationTest::translationResultsToString() const
     ostr << domainPars;
     ostr << header(10) << "\n";
 
-    for(auto guiPar : m_translations) {
+    for (auto guiPar : m_translations) {
         ostr << "GUI sampleLink : " << guiPar.sampleParLink << "\n";
         ostr << "GUI parPath    : " << guiPar.parPath << "\n";
         ostr << "Translated     : " << guiPar.translatedName << "\n\n";
@@ -150,13 +148,9 @@ std::string GUITranslationTest::translationResultsToString() const
 
 bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 {
-    std::vector<std::string> invalidNames {
-        BornAgain::Direction,
-        BornAgain::Efficiency,
-        BornAgain::Transmission,
-        BornAgain::Inclination,
-        BornAgain::Azimuth
-    };
+    std::vector<std::string> invalidNames{BornAgain::Direction, BornAgain::Efficiency,
+                                          BornAgain::Transmission, BornAgain::Inclination,
+                                          BornAgain::Azimuth};
     for (auto name : invalidNames) {
         if (domainName.find(name) != std::string::npos)
             return false;
@@ -169,8 +163,7 @@ bool GUITranslationTest::isValidDomainName(const std::string& domainName) const
 
 bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
 {
-    std::vector<std::string> invalidNames {
-    };
+    std::vector<std::string> invalidNames{};
     for (auto name : invalidNames) {
         if (guiName.find(name) != std::string::npos)
             return false;
@@ -183,28 +176,28 @@ bool GUITranslationTest::isValidGUIName(const std::string& guiName) const
 
 bool GUITranslationTest::checkExistingTranslations()
 {
-    if(m_translations.empty())
+    if (m_translations.empty())
         throw GUIHelpers::Error("GUITranslationTest::validateParameterTree() -> Error. "
                                 "Empty list of translations.");
 
     std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
     std::vector<ParItem> wrong_translations;
-    for(auto guiPar : m_translations) {
+    for (auto guiPar : m_translations) {
         if (!isValidGUIName(guiPar.parPath))
             continue;
         try {
             pool->getMatchedParameters(guiPar.translatedName);
-        } catch (const std::runtime_error &/*ex*/) {
+        } catch (const std::runtime_error& /*ex*/) {
             wrong_translations.push_back(guiPar);
         }
     }
 
     std::ostringstream ostr;
-    if(wrong_translations.size() > 0) {
+    if (wrong_translations.size() > 0) {
         ostr << header() << std::endl;
         ostr << "Translation doesn't match domain parameters:" << std::endl;
         ostr << header() << std::endl;
-        for(auto guiPar : wrong_translations) {
+        for (auto guiPar : wrong_translations) {
             ostr << "GUI sampleLink : " << guiPar.sampleParLink << "\n";
             ostr << "GUI parPath    : " << guiPar.parPath << "\n";
             ostr << "Translated     : " << guiPar.translatedName << "\n";
@@ -221,33 +214,33 @@ bool GUITranslationTest::checkExistingTranslations()
 
 bool GUITranslationTest::checkMissedTranslations()
 {
-    if(m_translations.empty())
+    if (m_translations.empty())
         throw GUIHelpers::Error("GUITranslationTest::validateParameterTree() -> Error. "
                                 "Empty list of translations.");
 
     std::unique_ptr<ParameterPool> pool(m_simulation->createParameterTree());
     std::vector<std::string> domainNames = pool->parameterNames();
     std::vector<std::string> missedNames;
-    for(auto name : domainNames) {
+    for (auto name : domainNames) {
         std::string domainName = "*" + StringUtils::removeSubstring(name, "/GISASSimulation");
 
         bool translationFound(false);
-        for(auto pair : m_translations) {
-            if(pair.translatedName == domainName) {
+        for (auto pair : m_translations) {
+            if (pair.translatedName == domainName) {
                 translationFound = true;
                 break;
             }
         }
-        if(!translationFound && isValidDomainName(domainName)) {
+        if (!translationFound && isValidDomainName(domainName)) {
             missedNames.push_back(name);
         }
     }
 
-    if(missedNames.size()) {
+    if (missedNames.size()) {
         std::cout << header() << std::endl;
         std::cout << "Translation doesn't exist:" << std::endl;
         std::cout << header() << std::endl;
-        for(auto name : missedNames)
+        for (auto name : missedNames)
             std::cout << "domain : " << name << std::endl;
     }
 
@@ -255,49 +248,37 @@ bool GUITranslationTest::checkMissedTranslations()
     return isSuccess;
 }
 
-namespace {
-const QVector<QPair<QStringList, QStringList>> black_list {
+namespace
+{
+const QVector<QPair<QStringList, QStringList>> black_list{
     {// Global scope
-        {
-            QString()
-        },
-        {
-            Constants::DistributionSigmaFactor,
-            Constants::MaterialRefractiveDataType,
-            Constants::MaterialSLDDataType,
-            MaterialItem::P_MAGNETIZATION
-        }
-    },
+     {QString()},
+     {Constants::DistributionSigmaFactor, Constants::MaterialRefractiveDataType,
+      Constants::MaterialSLDDataType, MaterialItem::P_MAGNETIZATION}},
     {// Instrument scope
-        {
-            Constants::GISASInstrumentType,
-            Constants::OffSpecInstrumentType,
-            Constants::SpecularInstrumentType
-        },
-        {// Distribution types
-            Constants::DistributionGateType, Constants::DistributionLorentzType,
-            Constants::DistributionGaussianType, Constants::DistributionLogNormalType,
-            Constants::DistributionCosineType, Constants::DistributionTrapezoidType,
+     {Constants::GISASInstrumentType, Constants::OffSpecInstrumentType,
+      Constants::SpecularInstrumentType},
+     {// Distribution types
+      Constants::DistributionGateType, Constants::DistributionLorentzType,
+      Constants::DistributionGaussianType, Constants::DistributionLogNormalType,
+      Constants::DistributionCosineType, Constants::DistributionTrapezoidType,
 
-            // Detector axes
-            SphericalDetectorItem::P_PHI_AXIS, SphericalDetectorItem::P_ALPHA_AXIS,
-            RectangularDetectorItem::P_X_AXIS, RectangularDetectorItem::P_Y_AXIS,
-            OffSpecInstrumentItem::P_ALPHA_AXIS,
+      // Detector axes
+      SphericalDetectorItem::P_PHI_AXIS, SphericalDetectorItem::P_ALPHA_AXIS,
+      RectangularDetectorItem::P_X_AXIS, RectangularDetectorItem::P_Y_AXIS,
+      OffSpecInstrumentItem::P_ALPHA_AXIS,
 
-            // Rectangular detector positioning
-            RectangularDetectorItem::P_ALIGNMENT, RectangularDetectorItem::P_NORMAL,
-            RectangularDetectorItem::P_DIRECTION, RectangularDetectorItem::P_U0,
-            RectangularDetectorItem::P_V0, RectangularDetectorItem::P_DBEAM_U0,
-            RectangularDetectorItem::P_DBEAM_V0, RectangularDetectorItem::P_DISTANCE,
+      // Rectangular detector positioning
+      RectangularDetectorItem::P_ALIGNMENT, RectangularDetectorItem::P_NORMAL,
+      RectangularDetectorItem::P_DIRECTION, RectangularDetectorItem::P_U0,
+      RectangularDetectorItem::P_V0, RectangularDetectorItem::P_DBEAM_U0,
+      RectangularDetectorItem::P_DBEAM_V0, RectangularDetectorItem::P_DISTANCE,
 
-            // Detector resolution
-            Constants::ResolutionFunction2DGaussianType,
+      // Detector resolution
+      Constants::ResolutionFunction2DGaussianType,
 
-            // Beam angle parameters
-            BeamItem::P_INCLINATION_ANGLE, BeamItem::P_AZIMUTHAL_ANGLE
-        }
-    }
-};
+      // Beam angle parameters
+      BeamItem::P_INCLINATION_ANGLE, BeamItem::P_AZIMUTHAL_ANGLE}}};
 
 bool requiresTranslation(ParameterItem* parItem)
 {
@@ -325,4 +306,4 @@ bool containsNames(const QString& text, const QStringList& names)
             return true;
     return false;
 }
-}
+} // namespace

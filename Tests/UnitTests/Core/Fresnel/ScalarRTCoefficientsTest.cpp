@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "ScalarRTCoefficients.h"
+#include "google_test.h"
 
 class ScalarRTCoefficientsTest : public ::testing::Test
 {

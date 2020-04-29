@@ -14,9 +14,9 @@
 
 #include "ScalarTestPlan.h"
 #include "Minimizer.h"
+#include <cmath>
 #include <iostream>
 #include <sstream>
-#include <cmath>
 
 using namespace Fit;
 
@@ -63,7 +63,8 @@ bool ScalarTestPlan::checkMinimizer(Minimizer& minimizer)
 
 fcn_scalar_t ScalarTestPlan::scalarFunction() const
 {
-    fcn_scalar_t func
-        = [&](const Parameters& params) { return m_objective_function(params.values()); };
+    fcn_scalar_t func = [&](const Parameters& params) {
+        return m_objective_function(params.values());
+    };
     return func;
 }

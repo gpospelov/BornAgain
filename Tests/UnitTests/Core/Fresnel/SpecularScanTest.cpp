@@ -1,12 +1,12 @@
-#include "google_test.h"
 #include "AngularSpecScan.h"
 #include "FixedBinAxis.h"
 #include "FootprintFactorGaussian.h"
 #include "PointwiseAxis.h"
-#include "RangedDistributions.h"
 #include "QSpecScan.h"
+#include "RangedDistributions.h"
 #include "ScanResolution.h"
 #include "SpecularSimulationElement.h"
+#include "google_test.h"
 
 class SpecularScanTest : public ::testing::Test
 {
@@ -18,7 +18,7 @@ SpecularScanTest::~SpecularScanTest() = default;
 
 TEST_F(SpecularScanTest, AngularScanInit)
 {
-    auto check = [](const AngularSpecScan& scan, const IAxis& axis){
+    auto check = [](const AngularSpecScan& scan, const IAxis& axis) {
         EXPECT_EQ(scan.wavelength(), 0.1);
         EXPECT_EQ(axis, *scan.coordinateAxis());
         EXPECT_EQ(scan.numberOfSimulationElements(), axis.size());
@@ -129,7 +129,7 @@ TEST_F(SpecularScanTest, FootprintAndAllResolutions)
 
 TEST_F(SpecularScanTest, QScanInit)
 {
-    auto check = [](const QSpecScan& scan, const IAxis& axis){
+    auto check = [](const QSpecScan& scan, const IAxis& axis) {
         EXPECT_EQ(axis, *scan.coordinateAxis());
         EXPECT_EQ(scan.numberOfSimulationElements(), axis.size());
         EXPECT_EQ(scan.dataType(), ISpecularScan::q);

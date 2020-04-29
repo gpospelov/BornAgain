@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "FitPlanFactory.h"
-#include "FitPlanCases.h"
 #include "AdjustMinimizerPlan.h"
+#include "FitPlanCases.h"
 
 FitPlanFactory::FitPlanFactory()
 {

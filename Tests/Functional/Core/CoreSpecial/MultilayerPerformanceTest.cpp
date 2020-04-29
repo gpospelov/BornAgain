@@ -44,7 +44,7 @@ bool MultilayerPerformanceTest::runTest()
     Results results;
     results.reserve(n_layers.size());
 
-    for (int layer_mult: n_layers) {
+    for (int layer_mult : n_layers) {
         const auto start_time = now();
         std::unique_ptr<MultiLayer> sample(PlainMultiLayerBySLDBuilder(layer_mult).buildSample());
         std::unique_ptr<SpecularSimulation> simulation(StandardSimulations::BasicSpecular());

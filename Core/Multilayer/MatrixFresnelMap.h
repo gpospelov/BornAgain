@@ -67,9 +67,9 @@ private:
     mutable CoefficientHash m_hash_table_out;
     mutable CoefficientHash m_hash_table_in;
 
-    const ISpecularStrategy::coeffs_t&
-    getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
-                             CoefficientHash& hash_table) const;
+    const ISpecularStrategy::coeffs_t& getCoefficientsFromCache(kvector_t kvec,
+                                                                const std::vector<Slice>& slices,
+                                                                CoefficientHash& hash_table) const;
 };
 
 #endif // MATRIXFRESNELMAP_H

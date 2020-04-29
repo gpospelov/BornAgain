@@ -17,25 +17,21 @@
 #include "Complex.h"
 #include "Exceptions.h"
 #include "FootprintFactorGaussian.h"
-#include "RealParameter.h"
 #include "MathConstants.h"
+#include "RealParameter.h"
 
 // Allow for 90 degrees by adding a relatively small constant to pi/2
 static constexpr double INCLINATION_LIMIT = M_PI_2 + 1e-10;
 
-Beam::Beam()
-    : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0)
-    , m_intensity(1.0)
+Beam::Beam() : m_wavelength(1.0), m_alpha(0.0), m_phi(0.0), m_intensity(1.0)
 {
     setName(BornAgain::BeamType);
     init_parameters();
 }
 
 Beam::Beam(const Beam& other)
-    : m_wavelength(other.m_wavelength), m_alpha(other.m_alpha)
-    , m_phi(other.m_phi)
-    , m_intensity(other.m_intensity)
-    , m_bloch_vector(other.m_bloch_vector)
+    : m_wavelength(other.m_wavelength), m_alpha(other.m_alpha), m_phi(other.m_phi),
+      m_intensity(other.m_intensity), m_bloch_vector(other.m_bloch_vector)
 {
     setName(other.getName());
     if (other.m_shape_factor)
@@ -53,7 +49,7 @@ Beam& Beam::operator=(const Beam& other)
     return *this;
 }
 
-Beam::~Beam() =default;
+Beam::~Beam() = default;
 
 kvector_t Beam::getCentralK() const
 {
@@ -115,7 +111,7 @@ Eigen::Matrix2cd Beam::getPolarization() const
     double z = m_bloch_vector.z();
     result(0, 0) = (1.0 + z) / 2.0;
     result(0, 1) = complex_t(x, -y) / 2.0;
-    result(1, 0) = complex_t(x,  y) / 2.0;
+    result(1, 0) = complex_t(x, y) / 2.0;
     result(1, 1) = (1.0 - z) / 2.0;
     return result;
 }
@@ -131,11 +127,14 @@ std::vector<const INode*> Beam::getChildren() const
 void Beam::init_parameters()
 {
     registerParameter(BornAgain::Intensity, &m_intensity).setNonnegative();
-    registerParameter(BornAgain::Wavelength, &m_wavelength).setUnit(BornAgain::UnitsNm)
+    registerParameter(BornAgain::Wavelength, &m_wavelength)
+        .setUnit(BornAgain::UnitsNm)
         .setNonnegative();
-    registerParameter(BornAgain::Inclination, &m_alpha).setUnit(BornAgain::UnitsRad)
+    registerParameter(BornAgain::Inclination, &m_alpha)
+        .setUnit(BornAgain::UnitsRad)
         .setLimited(0, INCLINATION_LIMIT);
-    registerParameter(BornAgain::Azimuth, &m_phi).setUnit(BornAgain::UnitsRad)
+    registerParameter(BornAgain::Azimuth, &m_phi)
+        .setUnit(BornAgain::UnitsRad)
         .setLimited(-M_PI_2, M_PI_2);
     registerVector(BornAgain::BlochVector, &m_bloch_vector, BornAgain::UnitsNone);
 }

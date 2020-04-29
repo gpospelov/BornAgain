@@ -21,7 +21,8 @@
 
 //! Utility functions to deal with file system.
 
-namespace FileSystemUtils {
+namespace FileSystemUtils
+{
 
 //! Returns extension of given filename.
 //! "/home/user/filename.int" -> ".int", "/home/user/filename.int.gz" -> ".gz"

@@ -13,19 +13,18 @@
 // ************************************************************************** //
 
 #include "CylindersAndPrismsBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 #include "Units.h"
 
-CylindersAndPrismsBuilder::CylindersAndPrismsBuilder()
-{}
+CylindersAndPrismsBuilder::CylindersAndPrismsBuilder() {}
 
 MultiLayer* CylindersAndPrismsBuilder::buildSample() const
 {

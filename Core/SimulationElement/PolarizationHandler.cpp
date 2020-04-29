@@ -16,15 +16,16 @@
 
 // corresponds to completely unpolarized beam and the absence of spin selection in the analyzer
 PolarizationHandler::PolarizationHandler()
-    : m_polarization(Eigen::Matrix2cd::Identity() / 2.0)
-    , m_analyzer_operator(Eigen::Matrix2cd::Identity())
-{}
+    : m_polarization(Eigen::Matrix2cd::Identity() / 2.0),
+      m_analyzer_operator(Eigen::Matrix2cd::Identity())
+{
+}
 
 PolarizationHandler::PolarizationHandler(const Eigen::Matrix2cd& polarization,
                                          const Eigen::Matrix2cd& analyzer)
-    : m_polarization(polarization)
-    , m_analyzer_operator(analyzer)
-{}
+    : m_polarization(polarization), m_analyzer_operator(analyzer)
+{
+}
 
 void PolarizationHandler::swapContent(PolarizationHandler& other)
 {

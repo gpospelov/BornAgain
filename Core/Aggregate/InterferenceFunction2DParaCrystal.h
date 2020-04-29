@@ -15,9 +15,9 @@
 #ifndef INTERFERENCEFUNCTION2DPARACRYSTAL_H
 #define INTERFERENCEFUNCTION2DPARACRYSTAL_H
 
-#include "IInterferenceFunction.h"
 #include "Complex.h"
 #include "FTDistributions2D.h"
+#include "IInterferenceFunction.h"
 #include "Lattice2D.h"
 #include <memory>
 
@@ -31,8 +31,7 @@ class BA_CORE_API_ InterferenceFunction2DParaCrystal : public IInterferenceFunct
 {
 public:
     InterferenceFunction2DParaCrystal(const Lattice2D& lattice, double damping_length = 0.0,
-                                      double domain_size_1 = 0.0,
-                                      double domain_size_2 = 0.0);
+                                      double domain_size_1 = 0.0, double domain_size_2 = 0.0);
 
     InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha,
                                       double xi = 0.0, double damping_length = 0.0);
@@ -71,15 +70,9 @@ public:
 
     std::vector<const INode*> getChildren() const override final;
 
-    const IFTDistribution2D* pdf1() const
-    {
-        return m_pdf1.get();
-    }
+    const IFTDistribution2D* pdf1() const { return m_pdf1.get(); }
 
-    const IFTDistribution2D* pdf2() const
-    {
-        return m_pdf2.get();
-    }
+    const IFTDistribution2D* pdf2() const { return m_pdf2.get(); }
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
@@ -96,7 +89,7 @@ private:
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<IFTDistribution2D> m_pdf1, m_pdf2;
     std::unique_ptr<Lattice2D> m_lattice;
-    double m_damping_length; //!< Damping length for removing delta function singularity at q=0.
+    double m_damping_length;  //!< Damping length for removing delta function singularity at q=0.
     double m_domain_sizes[2]; //!< Coherence domain sizes
     mutable double m_qx;
     mutable double m_qy;

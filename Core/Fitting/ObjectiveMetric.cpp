@@ -19,13 +19,13 @@
 #include <cmath>
 #include <limits>
 
-namespace {
+namespace
+{
 const double double_max = std::numeric_limits<double>::max();
 const double double_min = std::numeric_limits<double>::min();
 const double ln10 = std::log(10.0);
 
-template<class T>
-T* copyMetric(const T& metric)
+template <class T> T* copyMetric(const T& metric)
 {
     std::unique_ptr<T> result(new T());
     result->setNorm(metric.norm());
@@ -37,8 +37,7 @@ void checkIntegrity(const std::vector<double>& sim_data, const std::vector<doubl
 {
     const size_t sim_size = sim_data.size();
     if (sim_size != exp_data.size() || sim_size != weight_factors.size())
-        throw std::runtime_error(
-            "Error in ObjectiveMetric: input arrays have different sizes");
+        throw std::runtime_error("Error in ObjectiveMetric: input arrays have different sizes");
 
     for (size_t i = 0; i < sim_size; ++i)
         if (sim_data[i] < 0.0)
@@ -51,16 +50,13 @@ void checkIntegrity(const std::vector<double>& sim_data, const std::vector<doubl
                     const std::vector<double>& weight_factors)
 {
     if (sim_data.size() != uncertainties.size())
-        throw std::runtime_error(
-            "Error in ObjectiveMetric: input arrays have different sizes");
+        throw std::runtime_error("Error in ObjectiveMetric: input arrays have different sizes");
 
     checkIntegrity(sim_data, exp_data, weight_factors);
 }
-}
+} // namespace
 
-ObjectiveMetric::ObjectiveMetric(std::function<double(double)> norm)
-    : m_norm(std::move(norm))
-{}
+ObjectiveMetric::ObjectiveMetric(std::function<double(double)> norm) : m_norm(std::move(norm)) {}
 
 double ObjectiveMetric::compute(const SimDataPair& data_pair, bool use_weights) const
 {
@@ -83,9 +79,7 @@ void ObjectiveMetric::setNorm(std::function<double(double)> norm)
 
 // ----------------------- Chi2 metric ---------------------------
 
-Chi2Metric::Chi2Metric()
-    : ObjectiveMetric(ObjectiveMetricUtils::l2Norm())
-{}
+Chi2Metric::Chi2Metric() : ObjectiveMetric(ObjectiveMetricUtils::l2Norm()) {}
 
 Chi2Metric* Chi2Metric::clone() const
 {
@@ -123,9 +117,7 @@ double Chi2Metric::computeFromArrays(std::vector<double> sim_data, std::vector<d
 
 // ----------------------- Poisson-like metric ---------------------------
 
-PoissonLikeMetric::PoissonLikeMetric()
-    : Chi2Metric()
-{}
+PoissonLikeMetric::PoissonLikeMetric() : Chi2Metric() {}
 
 PoissonLikeMetric* PoissonLikeMetric::clone() const
 {
@@ -140,8 +132,7 @@ double PoissonLikeMetric::computeFromArrays(std::vector<double> sim_data,
 
     double result = 0.0;
     auto norm_fun = norm();
-    for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i)
-    {
+    for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i) {
         if (weight_factors[i] <= 0.0 || exp_data[i] < 0.0)
             continue;
         const double variance = std::max(1.0, sim_data[i]);
@@ -154,9 +145,7 @@ double PoissonLikeMetric::computeFromArrays(std::vector<double> sim_data,
 
 // ----------------------- Log metric ---------------------------
 
-LogMetric::LogMetric()
-    : ObjectiveMetric(ObjectiveMetricUtils::l2Norm())
-{}
+LogMetric::LogMetric() : ObjectiveMetric(ObjectiveMetricUtils::l2Norm()) {}
 
 LogMetric* LogMetric::clone() const
 {
@@ -171,8 +160,7 @@ double LogMetric::computeFromArrays(std::vector<double> sim_data, std::vector<do
 
     double result = 0.0;
     auto norm_fun = norm();
-    for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i)
-    {
+    for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i) {
         if (weight_factors[i] <= 0.0 || exp_data[i] < 0.0 || uncertainties[i] <= 0.0)
             continue;
         const double sim_val = std::max(double_min, sim_data[i]);
@@ -192,8 +180,7 @@ double LogMetric::computeFromArrays(std::vector<double> sim_data, std::vector<do
 
     double result = 0.0;
     auto norm_fun = norm();
-    for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i)
-    {
+    for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i) {
         if (weight_factors[i] <= 0.0 || exp_data[i] < 0.0)
             continue;
         const double sim_val = std::max(double_min, sim_data[i]);
@@ -206,9 +193,7 @@ double LogMetric::computeFromArrays(std::vector<double> sim_data, std::vector<do
 
 // ----------------------- Relative difference ---------------------------
 
-RelativeDifferenceMetric::RelativeDifferenceMetric()
-    : Chi2Metric ()
-{}
+RelativeDifferenceMetric::RelativeDifferenceMetric() : Chi2Metric() {}
 
 RelativeDifferenceMetric* RelativeDifferenceMetric::clone() const
 {
@@ -223,8 +208,7 @@ double RelativeDifferenceMetric::computeFromArrays(std::vector<double> sim_data,
 
     double result = 0.0;
     auto norm_fun = norm();
-    for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i)
-    {
+    for (size_t i = 0, sim_size = sim_data.size(); i < sim_size; ++i) {
         if (weight_factors[i] <= 0.0 || exp_data[i] < 0.0)
             continue;
         const double sim_val = std::max(double_min, sim_data[i]);
@@ -237,9 +221,7 @@ double RelativeDifferenceMetric::computeFromArrays(std::vector<double> sim_data,
 
 // ----------------------- RQ4 metric ---------------------------
 
-RQ4Metric::RQ4Metric()
-    : Chi2Metric()
-{}
+RQ4Metric::RQ4Metric() : Chi2Metric() {}
 
 RQ4Metric* RQ4Metric::clone() const
 {

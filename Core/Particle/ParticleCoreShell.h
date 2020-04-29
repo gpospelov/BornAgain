@@ -26,7 +26,7 @@ class BA_CORE_API_ ParticleCoreShell : public IParticle
 {
 public:
     ParticleCoreShell(const Particle& shell, const Particle& core,
-                      kvector_t relative_core_position=kvector_t(0.0, 0.0, 0.0));
+                      kvector_t relative_core_position = kvector_t(0.0, 0.0, 0.0));
     ~ParticleCoreShell();
 
     ParticleCoreShell* clone() const override final;

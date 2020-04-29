@@ -21,7 +21,7 @@ void VisitNodesPreorder(const INode& node, INodeVisitor& visitor)
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());
-        const INode *child = it.getCurrent();
+        const INode* child = it.getCurrent();
         child->accept(&visitor);
         it.next();
     }
@@ -33,7 +33,7 @@ void VisitNodesPostorder(const INode& node, INodeVisitor& visitor)
     it.first();
     while (!it.isDone()) {
         visitor.setDepth(it.depth());
-        const INode *child = it.getCurrent();
+        const INode* child = it.getCurrent();
         child->accept(&visitor);
         it.next();
     }

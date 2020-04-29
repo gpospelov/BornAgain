@@ -13,38 +13,35 @@
 // ************************************************************************** //
 
 #include "DetectionProperties.h"
-#include "Exceptions.h"
 #include "Complex.h"
+#include "Exceptions.h"
 #include "RealParameter.h"
 
 DetectionProperties::DetectionProperties()
-    : m_direction {}
-    , m_efficiency {}
-    , m_total_transmission { 1.0 }
+    : m_direction{}, m_efficiency{}, m_total_transmission{1.0}
 {
     setName(BornAgain::DetectorAnalyzer);
     init_parameters();
 }
 
 DetectionProperties::DetectionProperties(const DetectionProperties& other)
-    : m_direction { other.m_direction }
-    , m_efficiency { other.m_efficiency }
-    , m_total_transmission { other.m_total_transmission }
+    : m_direction{other.m_direction}, m_efficiency{other.m_efficiency},
+      m_total_transmission{other.m_total_transmission}
 {
     setName(other.getName());
     init_parameters();
 }
 
-DetectionProperties::~DetectionProperties() =default;
+DetectionProperties::~DetectionProperties() = default;
 
 void DetectionProperties::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                               double total_transmission)
+                                                double total_transmission)
 {
     if (!checkAnalyzerProperties(direction, efficiency, total_transmission))
         throw Exceptions::ClassInitializationException("IDetector2D::setAnalyzerProperties: the "
                                                        "given properties are not physical");
-    if (efficiency==0.0 || total_transmission==0.0 || direction.mag()==0.0) {
-        m_direction = kvector_t {};
+    if (efficiency == 0.0 || total_transmission == 0.0 || direction.mag() == 0.0) {
+        m_direction = kvector_t{};
         m_efficiency = 0.0;
     } else {
         m_direction = direction.unit();
@@ -55,19 +52,19 @@ void DetectionProperties::setAnalyzerProperties(const kvector_t direction, doubl
 
 Eigen::Matrix2cd DetectionProperties::analyzerOperator() const
 {
-    if (m_direction.mag()==0.0 || m_efficiency==0.0)
-        return m_total_transmission*Eigen::Matrix2cd::Identity();
+    if (m_direction.mag() == 0.0 || m_efficiency == 0.0)
+        return m_total_transmission * Eigen::Matrix2cd::Identity();
     Eigen::Matrix2cd result;
-    double x = m_direction.x()/m_direction.mag();
-    double y = m_direction.y()/m_direction.mag();
-    double z = m_direction.z()/m_direction.mag();
+    double x = m_direction.x() / m_direction.mag();
+    double y = m_direction.y() / m_direction.mag();
+    double z = m_direction.z() / m_direction.mag();
     double sum = m_total_transmission * 2.0;
     double diff = m_total_transmission * m_efficiency * 2.0;
     complex_t im(0.0, 1.0);
-    result(0, 0) = (sum + diff*z) / 2.0;
-    result(0, 1) = diff*(x - im * y) / 2.0;
-    result(1, 0) = diff*(x + im * y) / 2.0;
-    result(1, 1) = (sum - diff*z) / 2.0;
+    result(0, 0) = (sum + diff * z) / 2.0;
+    result(0, 1) = diff * (x - im * y) / 2.0;
+    result(1, 0) = diff * (x + im * y) / 2.0;
+    result(1, 1) = (sum - diff * z) / 2.0;
     return result;
 }
 
@@ -93,8 +90,8 @@ void DetectionProperties::init_parameters()
     registerParameter(BornAgain::Transmission, &m_total_transmission).setNonnegative();
 }
 
-bool DetectionProperties::checkAnalyzerProperties(
-    const kvector_t direction, double efficiency, double total_transmission) const
+bool DetectionProperties::checkAnalyzerProperties(const kvector_t direction, double efficiency,
+                                                  double total_transmission) const
 {
     if (direction.mag() == 0.0)
         return false;

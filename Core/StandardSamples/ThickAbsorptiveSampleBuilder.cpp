@@ -19,9 +19,7 @@
 #include "MultiLayer.h"
 #include "Units.h"
 
-ThickAbsorptiveSampleBuilder::ThickAbsorptiveSampleBuilder()
-    : IMultiLayerBuilder ()
-{}
+ThickAbsorptiveSampleBuilder::ThickAbsorptiveSampleBuilder() : IMultiLayerBuilder() {}
 
 MultiLayer* ThickAbsorptiveSampleBuilder::buildSample() const
 {

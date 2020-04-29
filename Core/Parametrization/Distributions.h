@@ -35,33 +35,34 @@ public:
     IDistribution1D() {}
     virtual ~IDistribution1D() {}
 
-    virtual IDistribution1D* clone() const =0;
+    virtual IDistribution1D* clone() const = 0;
 
     //! Returns the distribution-specific probability density for value x.
-    virtual double probabilityDensity(double x) const =0;
+    virtual double probabilityDensity(double x) const = 0;
 
     //! Returns the distribution-specific mean.
-    virtual double getMean() const =0;
+    virtual double getMean() const = 0;
 
     //! Returns equidistant samples, using intrinsic parameters, weighted with probabilityDensity().
-    std::vector<ParameterSample> equidistantSamples(
-        size_t nbr_samples, double sigma_factor=0., const RealLimits& limits=RealLimits()) const;
+    std::vector<ParameterSample> equidistantSamples(size_t nbr_samples, double sigma_factor = 0.,
+                                                    const RealLimits& limits = RealLimits()) const;
 
     //! Returns equidistant samples from xmin to xmax, weighted with probabilityDensity().
-    std::vector<ParameterSample> equidistantSamplesInRange(
-        size_t nbr_samples, double xmin, double xmax) const;
+    std::vector<ParameterSample> equidistantSamplesInRange(size_t nbr_samples, double xmin,
+                                                           double xmax) const;
 
     //! Returns equidistant interpolation points, with range computed in distribution-specific
     //! way from mean and width parameter, taking into account limits and sigma_factor.
-    virtual std::vector<double> equidistantPoints(
-        size_t nbr_samples, double sigma_factor, const RealLimits& limits=RealLimits()) const =0;
+    virtual std::vector<double>
+    equidistantPoints(size_t nbr_samples, double sigma_factor,
+                      const RealLimits& limits = RealLimits()) const = 0;
 
     //! Returns equidistant interpolation points from xmin to xmax.
-    virtual std::vector<double> equidistantPointsInRange(
-        size_t nbr_samples, double xmin, double xmax) const;
+    virtual std::vector<double> equidistantPointsInRange(size_t nbr_samples, double xmin,
+                                                         double xmax) const;
 
     //! Returns true if the distribution is in the limit case of a Dirac delta distribution.
-    virtual bool isDelta() const =0;
+    virtual bool isDelta() const = 0;
 
     //! Sets distribution units.
     virtual void setUnits(const std::string& units);
@@ -76,10 +77,9 @@ protected:
     void adjustMinMaxForLimits(double& xmin, double& xmax, const RealLimits& limits) const;
 
     //! Returns weighted samples from given interpolation points and probabilityDensity().
-    std::vector<ParameterSample> generateSamplesFromValues(
-        const std::vector<double>& sample_values) const;
+    std::vector<ParameterSample>
+    generateSamplesFromValues(const std::vector<double>& sample_values) const;
 };
-
 
 // ************************************************************************** //
 // specific distribution classes
@@ -91,20 +91,20 @@ protected:
 class BA_CORE_API_ DistributionGate : public IDistribution1D
 {
 public:
-    DistributionGate() : DistributionGate( 0., 1. ) {}
+    DistributionGate() : DistributionGate(0., 1.) {}
     DistributionGate(double min, double max);
     virtual ~DistributionGate() {}
 
     DistributionGate* clone() const final { return new DistributionGate(m_min, m_max); }
 
     double probabilityDensity(double x) const final;
-    double getMean() const final { return (m_min+m_max)/2.0; }
+    double getMean() const final { return (m_min + m_max) / 2.0; }
     double getMin() const { return m_min; }
     double getMax() const { return m_max; }
 
     //! Returns list of sample values
-    virtual std::vector<double> equidistantPoints(
-        size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
+    virtual std::vector<double> equidistantPoints(size_t nbr_samples, double sigma_factor,
+                                                  const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
 
@@ -120,7 +120,6 @@ private:
     double m_min;
     double m_max;
 };
-
 
 //! Lorentz distribution with half width hwhm.
 //! @ingroup paramDistribution
@@ -139,8 +138,8 @@ public:
     double getHWHM() const { return m_hwhm; }
 
     //! generate list of sample values
-    virtual std::vector<double> equidistantPoints(
-        size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
+    virtual std::vector<double> equidistantPoints(size_t nbr_samples, double sigma_factor,
+                                                  const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
 
@@ -157,27 +156,28 @@ private:
     double m_hwhm;
 };
 
-
 //! Gaussian distribution with standard deviation std_dev.
 //! @ingroup paramDistribution
 
-class BA_CORE_API_ DistributionGaussian: public IDistribution1D
+class BA_CORE_API_ DistributionGaussian : public IDistribution1D
 {
 public:
     DistributionGaussian() : DistributionGaussian(0., 1.) {}
     DistributionGaussian(double mean, double std_dev);
     virtual ~DistributionGaussian() {}
 
-    DistributionGaussian* clone() const final {
-        return new DistributionGaussian(m_mean, m_std_dev); }
+    DistributionGaussian* clone() const final
+    {
+        return new DistributionGaussian(m_mean, m_std_dev);
+    }
 
     double probabilityDensity(double x) const final;
     double getMean() const final { return m_mean; }
     double getStdDev() const { return m_std_dev; }
 
     //! generate list of sample values
-    virtual std::vector<double> equidistantPoints(
-        size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
+    virtual std::vector<double> equidistantPoints(size_t nbr_samples, double sigma_factor,
+                                                  const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
 
@@ -194,19 +194,20 @@ private:
     double m_std_dev;
 };
 
-
 //! Log-normal distribution.
 //! @ingroup paramDistribution
 
-class BA_CORE_API_ DistributionLogNormal: public IDistribution1D
+class BA_CORE_API_ DistributionLogNormal : public IDistribution1D
 {
 public:
     DistributionLogNormal(double scale_param) : DistributionLogNormal(1., scale_param) {}
     DistributionLogNormal(double median, double scale_param);
     virtual ~DistributionLogNormal() {}
 
-    DistributionLogNormal* clone() const final {
-        return new DistributionLogNormal(m_median, m_scale_param); }
+    DistributionLogNormal* clone() const final
+    {
+        return new DistributionLogNormal(m_median, m_scale_param);
+    }
 
     double probabilityDensity(double x) const final;
     double getMean() const final;
@@ -214,8 +215,8 @@ public:
     double getScalePar() const { return m_scale_param; }
 
     //! generate list of sample values
-    virtual std::vector<double> equidistantPoints(
-        size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
+    virtual std::vector<double> equidistantPoints(size_t nbr_samples, double sigma_factor,
+                                                  const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
 
@@ -234,11 +235,10 @@ private:
     double m_scale_param;
 };
 
-
 //! Cosine distribution.
 //! @ingroup paramDistribution
 
-class BA_CORE_API_ DistributionCosine: public IDistribution1D
+class BA_CORE_API_ DistributionCosine : public IDistribution1D
 {
 public:
     DistributionCosine() : DistributionCosine(0., 1.) {}
@@ -252,8 +252,8 @@ public:
     double getSigma() const { return m_sigma; }
 
     //! generate list of sample values
-    virtual std::vector<double> equidistantPoints(
-        size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
+    virtual std::vector<double> equidistantPoints(size_t nbr_samples, double sigma_factor,
+                                                  const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
 
@@ -273,16 +273,18 @@ private:
 //! Trapezoidal distribution.
 //! @ingroup paramDistribution
 
-class BA_CORE_API_ DistributionTrapezoid: public IDistribution1D
+class BA_CORE_API_ DistributionTrapezoid : public IDistribution1D
 {
 public:
     DistributionTrapezoid() : DistributionTrapezoid(0., 0., 1., 0.) {}
-    DistributionTrapezoid(double center, double left_width,
-                            double middle_width, double right_width);
+    DistributionTrapezoid(double center, double left_width, double middle_width,
+                          double right_width);
     virtual ~DistributionTrapezoid() {}
 
-    DistributionTrapezoid* clone() const final {
-        return new DistributionTrapezoid(m_center, m_left, m_middle, m_right); }
+    DistributionTrapezoid* clone() const final
+    {
+        return new DistributionTrapezoid(m_center, m_left, m_middle, m_right);
+    }
 
     double probabilityDensity(double x) const final;
     double getMean() const final { return m_center; }
@@ -291,8 +293,8 @@ public:
     double getRightWidth() const { return m_right; }
 
     //! generate list of sample values
-    virtual std::vector<double> equidistantPoints(
-        size_t nbr_samples, double sigma_factor, const RealLimits& limits = RealLimits()) const;
+    virtual std::vector<double> equidistantPoints(size_t nbr_samples, double sigma_factor,
+                                                  const RealLimits& limits = RealLimits()) const;
 
     bool isDelta() const final;
 

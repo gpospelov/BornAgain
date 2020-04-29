@@ -27,8 +27,7 @@ FormFactorDebyeBueche::FormFactorDebyeBueche(double I0, double xi)
 
 complex_t FormFactorDebyeBueche::evaluate_for_q(cvector_t q) const
 {
-    complex_t denominator = 1.0 + m_xi*m_xi*q.mag2();
+    complex_t denominator = 1.0 + m_xi * m_xi * q.mag2();
 
-    return std::sqrt(m_I0)/denominator;
+    return std::sqrt(m_I0) / denominator;
 }
-

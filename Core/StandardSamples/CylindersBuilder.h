@@ -75,5 +75,4 @@ private:
     double m_radius;
 };
 
-
 #endif // CYLINDERSBUILDER_H

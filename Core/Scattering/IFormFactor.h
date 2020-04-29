@@ -15,9 +15,9 @@
 #ifndef IFORMFACTOR_H
 #define IFORMFACTOR_H
 
-#include "ISample.h"
 #include "Complex.h"
 #include "EigenCore.h"
+#include "ISample.h"
 #include "Material.h"
 #include "Vectors3D.h"
 #include "ZLimits.h"
@@ -42,7 +42,7 @@ class BA_CORE_API_ IFormFactor : public ISample
 public:
     IFormFactor() {}
     ~IFormFactor() override;
-    IFormFactor* clone() const override=0;
+    IFormFactor* clone() const override = 0;
 
     //! Creates a (possibly sliced) form factor with the given rotation and translation
     IFormFactor* createSlicedFormFactor(ZLimits limits, const IRotation& rot,
@@ -52,7 +52,7 @@ public:
     virtual void setAmbientMaterial(Material) = 0;
 
     //! Returns scattering amplitude for complex wavevectors ki, kf.
-    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const=0;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const = 0;
 
 #ifndef SWIG
     //! Returns scattering amplitude for matrix interactions
@@ -64,13 +64,13 @@ public:
 
     //! Returns the (approximate in some cases) radial size of the particle of this
     //! form factor's shape. This is used for SSCA calculations
-    virtual double radialExtension() const=0;
+    virtual double radialExtension() const = 0;
 
     //! Returns the z-coordinate of the lowest point in this shape after a given rotation
-    virtual double bottomZ(const IRotation& rotation) const=0;
+    virtual double bottomZ(const IRotation& rotation) const = 0;
 
     //! Returns the z-coordinate of the lowest point in this shape after a given rotation
-    virtual double topZ(const IRotation& rotation) const=0;
+    virtual double topZ(const IRotation& rotation) const = 0;
 
 #ifndef SWIG
     //! Sets reflection/transmission info

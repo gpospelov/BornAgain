@@ -29,10 +29,10 @@ public:
         double m_bsx, m_bsy; //!< x,y coordinates of b*
     };
 
-    virtual double length1() const=0;
-    virtual double length2() const=0;
-    virtual double latticeAngle() const=0;
-    virtual double unitCellArea() const=0;
+    virtual double length1() const = 0;
+    virtual double length2() const = 0;
+    virtual double latticeAngle() const = 0;
+    virtual double unitCellArea() const = 0;
 
     double rotationAngle() const { return m_xi; }
 

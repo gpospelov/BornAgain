@@ -23,15 +23,13 @@
 //! @param material: material the layer is made of
 //! @param thickness: thickness of a layer in nanometers
 Layer::Layer(Material material, double thickness)
-    : m_material(std::move(material))
-    , m_thickness(thickness)
+    : m_material(std::move(material)), m_thickness(thickness)
 {
     setName(BornAgain::LayerType);
     registerThickness();
 }
 
-Layer::~Layer()
-{}
+Layer::~Layer() {}
 
 Layer* Layer::clone() const
 {
@@ -75,16 +73,17 @@ std::vector<const ILayout*> Layer::layouts() const
 std::vector<const INode*> Layer::getChildren() const
 {
     std::vector<const INode*> result;
-    for(auto layout : m_layouts)
+    for (auto layout : m_layouts)
         result.push_back(layout);
     return result;
 }
 
 void Layer::registerThickness(bool make_registered)
 {
-    if(make_registered) {
-        if(!parameter(BornAgain::Thickness))
-            registerParameter(BornAgain::Thickness, &m_thickness).setUnit(BornAgain::UnitsNm)
+    if (make_registered) {
+        if (!parameter(BornAgain::Thickness))
+            registerParameter(BornAgain::Thickness, &m_thickness)
+                .setUnit(BornAgain::UnitsNm)
                 .setNonnegative();
     } else {
         removeParameter(BornAgain::Thickness);

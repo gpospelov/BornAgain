@@ -46,7 +46,7 @@ public:
     std::vector<SpecularSimulationElement> generateSimulationElements() const override;
 
     //! Returns coordinate axis assigned to the data holder
-    virtual const IAxis* coordinateAxis() const override {return m_qs.get();}
+    virtual const IAxis* coordinateAxis() const override { return m_qs.get(); }
 
     //! Returns IFootprintFactor object pointer
     virtual const IFootprintFactor* footprintFactor() const override { return nullptr; }
@@ -64,7 +64,7 @@ public:
 
     //! Print scan definition in python format
     std::string print() const override;
-#endif //SWIG
+#endif // SWIG
 
     //! Sets q resolution values via ScanResolution object.
     void setQResolution(const ScanResolution& resolution);

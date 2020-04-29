@@ -26,8 +26,10 @@ class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorat
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor& form_factor, const kvector_t& position);
 
-    FormFactorDecoratorPositionFactor* clone() const override final {
-        return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position); }
+    FormFactorDecoratorPositionFactor* clone() const override final
+    {
+        return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
+    }
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 

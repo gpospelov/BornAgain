@@ -17,8 +17,10 @@
 
 #include "INode.h"
 
-namespace INodeUtils {
-template<typename T> std::vector<const T*> ChildNodesOfType(const INode& node) {
+namespace INodeUtils
+{
+template <typename T> std::vector<const T*> ChildNodesOfType(const INode& node)
+{
     std::vector<const T*> result;
     for (auto p_child : node.getChildren()) {
         if (auto t = dynamic_cast<const T*>(p_child))
@@ -27,13 +29,16 @@ template<typename T> std::vector<const T*> ChildNodesOfType(const INode& node) {
     return result;
 }
 
-template<typename T> const T* OnlyChildOfType(const INode& node) {
+template <typename T> const T* OnlyChildOfType(const INode& node)
+{
     auto list = ChildNodesOfType<T>(node);
-    if (list.size()!=1) return nullptr;
+    if (list.size() != 1)
+        return nullptr;
     return list.front();
 }
 
-template<typename T> std::vector<const T*> AllDescendantsOfType(const INode& node) {
+template <typename T> std::vector<const T*> AllDescendantsOfType(const INode& node)
+{
     std::vector<const T*> result;
     for (auto p_child : node.getChildren()) {
         if (auto t = dynamic_cast<const T*>(p_child))
@@ -43,7 +48,6 @@ template<typename T> std::vector<const T*> AllDescendantsOfType(const INode& nod
     }
     return result;
 }
-}
-
+} // namespace INodeUtils
 
 #endif // INODEUTILS_H

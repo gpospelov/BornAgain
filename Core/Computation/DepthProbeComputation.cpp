@@ -27,9 +27,8 @@ DepthProbeComputation::DepthProbeComputation(const MultiLayer& multilayer,
                                              ProgressHandler& progress,
                                              DepthProbeElementIter begin_it,
                                              DepthProbeElementIter end_it)
-    : IComputation(multilayer, options, progress)
-    , m_begin_it(begin_it), m_end_it(end_it)
-    , m_computation_term(mP_processed_sample.get())
+    : IComputation(multilayer, options, progress), m_begin_it(begin_it), m_end_it(end_it),
+      m_computation_term(mP_processed_sample.get())
 {
 }
 
@@ -40,7 +39,7 @@ void DepthProbeComputation::runProtected()
     if (!mp_progress->alive())
         return;
     m_computation_term.setProgressHandler(mp_progress);
-    for (auto it=m_begin_it; it != m_end_it; ++it) {
+    for (auto it = m_begin_it; it != m_end_it; ++it) {
         m_computation_term.compute(*it);
     }
 }

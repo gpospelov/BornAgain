@@ -22,7 +22,9 @@ size_t n_boxes = 256; // number of boxes for Ziggurat sampling
 
 struct BA_CORE_API_ ZigguratBox {
     ZigguratBox(double x_min, double x_max, double y_max, double y_lower)
-        : m_x_min(x_min), m_x_max(x_max), m_y_max(y_max), m_y_lower(y_lower) {}
+        : m_x_min(x_min), m_x_max(x_max), m_y_max(y_max), m_y_lower(y_lower)
+    {
+    }
 
     double m_x_min; // left edge of the box
     double m_x_max; // right edge of the box
@@ -120,7 +122,7 @@ double func_phi_Cone(double phi)
     // The independent "phi" density function of the 2D Cone distribution
     return 6 * (1 - phi) * phi;
 }
-}
+} // namespace
 
 IDistribution2DSampler::~IDistribution2DSampler() = default;
 

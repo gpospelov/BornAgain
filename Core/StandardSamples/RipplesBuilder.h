@@ -27,7 +27,6 @@ public:
     MultiLayer* buildSample() const;
 };
 
-
 //! Builds sample: triangular ripple within the 1D-paracrystal model (from PRB 85, 235415, 2012).
 //! @ingroup standard_samples
 

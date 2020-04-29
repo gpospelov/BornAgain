@@ -15,8 +15,8 @@
 #include "FormFactorCylinder.h"
 #include "BornAgainNamespace.h"
 #include "DoubleEllipse.h"
-#include "MathFunctions.h"
 #include "MathConstants.h"
+#include "MathFunctions.h"
 #include "RealParameter.h"
 
 //! Constructor of a cylinder with a circular base.

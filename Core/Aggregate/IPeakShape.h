@@ -29,16 +29,15 @@ class BA_CORE_API_ IPeakShape : public ISample
 public:
     virtual ~IPeakShape();
 
-    virtual IPeakShape* clone() const=0;
+    virtual IPeakShape* clone() const = 0;
 
     //! Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
-    virtual double evaluate(const kvector_t q, const kvector_t q_lattice_point) const=0;
+    virtual double evaluate(const kvector_t q, const kvector_t q_lattice_point) const = 0;
 
     //! Indicates if the peak shape encodes angular disorder, in which case all peaks in a
     //! spherical shell are needed
     virtual bool angularDisorder() const { return false; }
 };
-
 
 //! Class that implements an isotropic Gaussian peak shape of a Bragg peak.
 //!
@@ -55,6 +54,7 @@ public:
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
+
 private:
     double evaluate(const kvector_t q) const;
     double m_max_intensity;
@@ -76,6 +76,7 @@ public:
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
+
 private:
     double evaluate(const kvector_t q) const;
     double m_max_intensity;
@@ -100,6 +101,7 @@ public:
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 
     bool angularDisorder() const override { return true; }
+
 private:
     double m_max_intensity;
     double m_radial_size;
@@ -124,6 +126,7 @@ public:
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 
     bool angularDisorder() const override { return true; }
+
 private:
     double m_max_intensity;
     double m_radial_size;
@@ -150,6 +153,7 @@ public:
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 
     bool angularDisorder() const override { return true; }
+
 private:
     double integrand(double phi) const;
     double m_max_intensity;
@@ -182,6 +186,7 @@ public:
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 
     bool angularDisorder() const override { return true; }
+
 private:
     double integrand(double phi) const;
     double m_max_intensity;
@@ -194,6 +199,5 @@ private:
     std::unique_ptr<IntegratorReal<VonMisesGaussPeakShape>> mP_integrator;
 #endif
 };
-
 
 #endif // IPEAKSHAPE_H

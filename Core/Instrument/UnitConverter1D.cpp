@@ -34,16 +34,14 @@ std::unique_ptr<PointwiseAxis>
 createTranslatedAxis(const IAxis& axis, std::function<double(double)> translator, std::string name);
 } // namespace
 
-std::unique_ptr<UnitConverter1D>
-UnitConverter1D::createUnitConverter(const ISpecularScan& handler)
+std::unique_ptr<UnitConverter1D> UnitConverter1D::createUnitConverter(const ISpecularScan& handler)
 {
     if (handler.dataType() == ISpecularScan::angle)
         return std::make_unique<UnitConverterConvSpec>(
             static_cast<const AngularSpecScan&>(handler));
 
     if (handler.dataType() == ISpecularScan::q)
-        return std::make_unique<UnitConverterQSpec>(
-            static_cast<const QSpecScan&>(handler));
+        return std::make_unique<UnitConverterQSpec>(static_cast<const QSpecScan&>(handler));
 
     throw std::runtime_error("No known unit conversions for passed type of specular data handler.");
 }
@@ -115,9 +113,9 @@ UnitConverterConvSpec::UnitConverterConvSpec(const Beam& beam, const IAxis& axis
 }
 
 UnitConverterConvSpec::UnitConverterConvSpec(const AngularSpecScan& handler)
-    : m_wavelength(handler.wavelength())
-    , m_axis(handler.coordinateAxis()->clone())
-{}
+    : m_wavelength(handler.wavelength()), m_axis(handler.coordinateAxis()->clone())
+{
+}
 
 UnitConverterConvSpec::~UnitConverterConvSpec() = default;
 
@@ -125,7 +123,6 @@ UnitConverterConvSpec* UnitConverterConvSpec::clone() const
 {
     return new UnitConverterConvSpec(*this);
 }
-
 
 size_t UnitConverterConvSpec::axisSize(size_t i_axis) const
 {
@@ -145,8 +142,7 @@ AxesUnits UnitConverterConvSpec::defaultUnits() const
 }
 
 UnitConverterConvSpec::UnitConverterConvSpec(const UnitConverterConvSpec& other)
-    : m_wavelength(other.m_wavelength)
-    , m_axis(other.m_axis->clone())
+    : m_wavelength(other.m_wavelength), m_axis(other.m_axis->clone())
 {
 }
 
@@ -180,9 +176,9 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits un
     case AxesUnits::DEGREES:
         return [](double value) { return Units::rad2deg(value); };
     case AxesUnits::QSPACE:
-        return [wl=m_wavelength](double value) { return getQ(wl, value); };
+        return [wl = m_wavelength](double value) { return getQ(wl, value); };
     case AxesUnits::RQ4:
-        return [wl=m_wavelength](double value) { return getQ(wl, value); };
+        return [wl = m_wavelength](double value) { return getQ(wl, value); };
     default:
         throwUnitsError("UnitConverterConvSpec::getTraslatorTo", availableUnits());
     }
@@ -190,7 +186,8 @@ std::function<double(double)> UnitConverterConvSpec::getTraslatorTo(AxesUnits un
 
 UnitConverterQSpec::UnitConverterQSpec(const QSpecScan& handler)
     : m_axis(handler.coordinateAxis()->clone())
-{}
+{
+}
 
 UnitConverterQSpec::~UnitConverterQSpec() = default;
 
@@ -220,7 +217,8 @@ AxesUnits UnitConverterQSpec::defaultUnits() const
 
 UnitConverterQSpec::UnitConverterQSpec(const UnitConverterQSpec& other)
     : m_axis(std::unique_ptr<IAxis>(other.coordinateAxis()->clone()))
-{}
+{
+}
 
 //! Creates name map for axis in various units
 std::vector<std::map<AxesUnits, std::string>> UnitConverterQSpec::createNameMaps() const

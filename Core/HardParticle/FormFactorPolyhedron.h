@@ -19,14 +19,16 @@
 #include <memory>
 
 //! For internal use in PolyhedralFace.
-class PolygonalTopology {
+class PolygonalTopology
+{
 public:
     std::vector<int> vertexIndices;
     bool symmetry_S2;
 };
 
 //! For internal use in FormFactorPolyhedron.
-class PolyhedralTopology {
+class PolyhedralTopology
+{
 public:
     std::vector<PolygonalTopology> faces;
     bool symmetry_Ci;
@@ -34,14 +36,15 @@ public:
 
 //! One edge of a polygon, for form factor computation.
 
-class PolyhedralEdge {
+class PolyhedralEdge
+{
 public:
     PolyhedralEdge(const kvector_t _Vlow, const kvector_t _Vhig);
 
     kvector_t E() const { return m_E; }
     kvector_t R() const { return m_R; }
-    complex_t qE( cvector_t q ) const { return m_E.dot(q); }
-    complex_t qR( cvector_t q ) const { return m_R.dot(q); }
+    complex_t qE(cvector_t q) const { return m_E.dot(q); }
+    complex_t qR(cvector_t q) const { return m_R.dot(q); }
 
     complex_t contrib(int m, cvector_t qpa, complex_t qrperp) const;
 
@@ -50,21 +53,22 @@ private:
     kvector_t m_R; //!< position vector of edge midpoint
 };
 
-
 //! A polygon, for form factor computation.
 
-class PolyhedralFace {
+class PolyhedralFace
+{
 public:
     static double diameter(const std::vector<kvector_t>& V);
 #ifdef POLYHEDRAL_DIAGNOSTIC
     static void setLimits(double _qpa, int _n);
 #endif
 
-    PolyhedralFace( const std::vector<kvector_t>& _V=std::vector<kvector_t>(), bool _sym_S2=false );
+    PolyhedralFace(const std::vector<kvector_t>& _V = std::vector<kvector_t>(),
+                   bool _sym_S2 = false);
 
     double area() const { return m_area; }
     kvector_t center() const { return m_center; }
-    double pyramidalVolume() const { return m_rperp*m_area/3; }
+    double pyramidalVolume() const { return m_rperp * m_area / 3; }
     double radius3d() const { return m_radius_3d; }
     //! Returns conj(q)*normal [BasicVector3D::dot is antilinear in 'this' argument]
     complex_t normalProjectionConj(cvector_t q) const { return q.dot(m_normal); }
@@ -81,7 +85,7 @@ private:
     std::vector<PolyhedralEdge> edges;
     double m_area;
     kvector_t m_normal; //!< normal vector of this polygon's plane
-    double m_rperp; //!< distance of this polygon's plane from the origin, along 'm_normal'
+    double m_rperp;     //!< distance of this polygon's plane from the origin, along 'm_normal'
     double m_radius_2d; //!< radius of enclosing cylinder
     double m_radius_3d; //!< radius of enclosing sphere
     kvector_t m_center; //!< center of mass
@@ -89,17 +93,17 @@ private:
     void decompose_q(cvector_t q, complex_t& qperp, cvector_t& qpa) const;
     complex_t ff_n_core(int m, cvector_t qpa, complex_t qperp) const;
     complex_t edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) const;
-    complex_t expansion(
-        complex_t fac_even, complex_t fac_odd, cvector_t qpa, double abslevel ) const;
+    complex_t expansion(complex_t fac_even, complex_t fac_odd, cvector_t qpa,
+                        double abslevel) const;
 };
-
 
 //! A polyhedron, for form factor computation.
 
-class BA_CORE_API_ FormFactorPolyhedron : public IFormFactorBorn {
+class BA_CORE_API_ FormFactorPolyhedron : public IFormFactorBorn
+{
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC
-    static void setLimits( double _q, int _n );
+    static void setLimits(double _q, int _n);
 #endif
 
     FormFactorPolyhedron() {}
@@ -127,10 +131,10 @@ private:
     double m_volume;
 };
 
-
 //! A prism with a polygonal base, for form factor computation.
 
-class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn {
+class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn
+{
 public:
     FormFactorPolygonalPrism(double height) : m_height(height) {}
 
@@ -142,13 +146,13 @@ public:
 protected:
     std::unique_ptr<PolyhedralFace> m_base;
     double m_height;
-    void setPrism( bool symmetry_Ci, const std::vector<kvector_t>& vertices );
+    void setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices);
 };
-
 
 //! A polygonal surface, for testing form factor computations.
 
-class BA_CORE_API_ FormFactorPolygonalSurface : public IFormFactorBorn {
+class BA_CORE_API_ FormFactorPolygonalSurface : public IFormFactorBorn
+{
 public:
     FormFactorPolygonalSurface() {}
 

@@ -23,7 +23,7 @@
 class BA_CORE_API_ SlicedCompositionBuilder : public IMultiLayerBuilder
 {
 public:
-    SlicedCompositionBuilder(){}
+    SlicedCompositionBuilder() {}
     MultiLayer* buildSample() const;
 };
 

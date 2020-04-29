@@ -22,13 +22,14 @@ template <class T> class TRange
 {
 public:
     TRange(T lowerBound, T upperBound) : m_lower_bound(lowerBound), m_upper_bound(upperBound) {}
-    virtual ~TRange(){}
+    virtual ~TRange() {}
 
     T getLowerBound() const { return m_lower_bound; }
     T getUpperBound() const { return m_upper_bound; }
-    T getDifference() const { return m_upper_bound-m_lower_bound; }
+    T getDifference() const { return m_upper_bound - m_lower_bound; }
 
     bool inRange(T value) const { return value >= m_lower_bound && value < m_upper_bound; }
+
 private:
     T m_lower_bound, m_upper_bound;
 };
@@ -39,9 +40,12 @@ template <class T> class TSampledRange : public TRange<T>
 {
 public:
     TSampledRange(size_t n_samples, T lowerBound, T upperBound)
-        : TRange<T>(lowerBound, upperBound), m_n_samples(n_samples) {}
+        : TRange<T>(lowerBound, upperBound), m_n_samples(n_samples)
+    {
+    }
 
     size_t getNSamples() const { return m_n_samples; }
+
 private:
     size_t m_n_samples;
 };

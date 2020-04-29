@@ -22,13 +22,13 @@
 //! @param base_edge: length of the base edge in nanometers
 //! @param height: height in nanometers
 FormFactorPrism3::FormFactorPrism3(double base_edge, double height)
-    : FormFactorPolygonalPrism( height ), m_base_edge( base_edge )
+    : FormFactorPolygonalPrism(height), m_base_edge(base_edge)
 {
     setName(BornAgain::FFPrism3Type);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit(BornAgain::UnitsNm)
+    registerParameter(BornAgain::BaseEdge, &m_base_edge)
+        .setUnit(BornAgain::UnitsNm)
         .setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
     onChange();
 }
 
@@ -38,19 +38,15 @@ IFormFactor* FormFactorPrism3::sliceFormFactor(ZLimits limits, const IRotation& 
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorPrism3 slicedff(m_base_edge, m_height - effects.dz_bottom - effects.dz_top);
     return CreateTransformedFormFactor(slicedff, rot, effects.position);
-
 }
 
 void FormFactorPrism3::onChange()
 {
     mP_shape.reset(new Pyramid3(m_base_edge, m_height, M_PI_2));
     double a = m_base_edge;
-    double as = a/2;
-    double ac = a/sqrt(3)/2;
-    double ah = a/sqrt(3);
-    std::vector<kvector_t> V {
-        { -ac,  as, 0. },
-        { -ac, -as, 0. },
-        {  ah,  0., 0. } };
-    setPrism( false, V );
+    double as = a / 2;
+    double ac = a / sqrt(3) / 2;
+    double ah = a / sqrt(3);
+    std::vector<kvector_t> V{{-ac, as, 0.}, {-ac, -as, 0.}, {ah, 0., 0.}};
+    setPrism(false, V);
 }

@@ -38,13 +38,13 @@ FormFactorRipple2::FormFactorRipple2(double length, double width, double height,
 
 double FormFactorRipple2::radialExtension() const
 {
-    return ( m_width + m_length ) / 4.0;
+    return (m_width + m_length) / 4.0;
 }
 
 //! Complex formfactor.
 complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
 {
-    complex_t factor = m_length * MathFunctions::sinc(q.x()*m_length/2.) * m_height * m_width;
+    complex_t factor = m_length * MathFunctions::sinc(q.x() * m_length / 2.) * m_height * m_width;
     complex_t result;
     const complex_t qyW2 = q.y() * m_width * 0.5;
     const complex_t qyd = q.y() * m_d;
@@ -54,20 +54,20 @@ complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const
     const double a_scale = std::abs(a);
     const double w_scale = std::abs(qyW2);
 
-    if (w_scale < 1.e-5) { // |q_y*W| << 1
+    if (w_scale < 1.e-5) {    // |q_y*W| << 1
         if (a_scale < 1e-5) { // |q_y*W| << 1 && |q_z*H + q_y*d| << 1
             // relative error is O((q_y*W)^2) and O((q_z*H + q_y*d)^2)
-            result = exp_I(-qyd)*(0.5 + mul_I(a)/6.);
+            result = exp_I(-qyd) * (0.5 + mul_I(a) / 6.);
         } else {
             // relative error is O((q_y*W)^2)
-            result = exp_I(-qyd)*(1.0 + mul_I(a) - exp_I(a)) / (a * a);
+            result = exp_I(-qyd) * (1.0 + mul_I(a) - exp_I(a)) / (a * a);
         }
     } else {
         const complex_t gamma_p = (a + qyW2) * 0.5;
         const complex_t gamma_m = (a - qyW2) * 0.5;
         result = exp_I(gamma_m) * MathFunctions::sinc(gamma_p)
-               - exp_I(gamma_p) * MathFunctions::sinc(gamma_m);
-        result = mul_I(exp_I(-qyd)*result / (qyW2*2.));
+                 - exp_I(gamma_p) * MathFunctions::sinc(gamma_m);
+        result = mul_I(exp_I(-qyd) * result / (qyW2 * 2.));
     }
     return factor * result;
 }
@@ -81,20 +81,20 @@ bool FormFactorRipple2::check_initialization() const
 {
     bool result(true);
     std::string message;
-    if(-1*m_width > 2.*m_d) {
+    if (-1 * m_width > 2. * m_d) {
         result = false;
         message = std::string("Check for '-1*width <= 2.*asymmetry' failed.");
     }
-    if(m_width < 2.*m_d) {
+    if (m_width < 2. * m_d) {
         result = false;
         message = std::string("Check for 'width >= 2.*asymmetry' failed.");
     }
-    if(m_height <=0) {
+    if (m_height <= 0) {
         result = false;
         message = std::string("Check for 'height > 0' failed.");
     }
 
-    if(!result) {
+    if (!result) {
         std::ostringstream ostr;
         ostr << "FormFactorRipple2() -> Error in class initialization with parameters ";
         ostr << " width:" << m_width;

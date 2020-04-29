@@ -34,13 +34,12 @@ complex_t FormFactorLongBox::evaluate_for_q(cvector_t q) const
     complex_t qyWdiv2 = m_width * q.y() / 2.0;
     complex_t qzHdiv2 = m_height * q.z() / 2.0;
 
-    return m_height * m_length * m_width * exp_I(qzHdiv2)
-            * MathFunctions::sinc(qyWdiv2) * MathFunctions::sinc(qzHdiv2)
-            / std::sqrt(1.0 + qxL2);
+    return m_height * m_length * m_width * exp_I(qzHdiv2) * MathFunctions::sinc(qyWdiv2)
+           * MathFunctions::sinc(qzHdiv2) / std::sqrt(1.0 + qxL2);
 }
 
 IFormFactor* FormFactorLongBox::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                     kvector_t translation) const
+                                                kvector_t translation) const
 {
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorLongBox slicedff(m_length, m_width, m_height - effects.dz_bottom - effects.dz_top);

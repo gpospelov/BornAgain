@@ -44,6 +44,7 @@ public:
 
     void setSpecularInfo(const IFresnelMap* p_fresnel_map, size_t layer_index);
     double radialExtension() const;
+
 private:
     std::unique_ptr<IFormFactor> mP_ff;
     const IFresnelMap* mp_fresnel_map;

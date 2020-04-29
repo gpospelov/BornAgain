@@ -33,5 +33,3 @@
 #endif // BORNAGAIN_PYTHON
 
 #endif // PYTHONCORE_H
-
-

@@ -19,20 +19,18 @@
 #include "WavevectorInfo.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)
-    : IFormFactorDecorator(form_factor)
-    , m_material(HomogeneousMaterial())
-    , m_ambient_material(HomogeneousMaterial())
+    : IFormFactorDecorator(form_factor), m_material(HomogeneousMaterial()),
+      m_ambient_material(HomogeneousMaterial())
 {
     setName(BornAgain::FormFactorDecoratorMaterialType);
 }
 
-FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial()
-{}
+FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() {}
 
 FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
 {
     std::unique_ptr<FormFactorDecoratorMaterial> P_result(
-                new FormFactorDecoratorMaterial(*mp_form_factor));
+        new FormFactorDecoratorMaterial(*mp_form_factor));
     P_result->setMaterial(m_material);
     P_result->setAmbientMaterial(m_ambient_material);
     return P_result.release();
@@ -50,7 +48,7 @@ void FormFactorDecoratorMaterial::setAmbientMaterial(Material material)
 
 complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const
 {
-    return getRefractiveIndexFactor(wavevectors)*mp_form_factor->evaluate(wavevectors);
+    return getRefractiveIndexFactor(wavevectors) * mp_form_factor->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const
@@ -62,13 +60,13 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& 
     time_reverse_conj(1, 0) = -1.0;
     // the interaction and time reversal taken together:
     Eigen::Matrix2cd V_eff = time_reverse_conj
-                             * (  m_material.polarizedSubtrSLD(wavevectors)
-                                - m_ambient_material.polarizedSubtrSLD(wavevectors) );
+                             * (m_material.polarizedSubtrSLD(wavevectors)
+                                - m_ambient_material.polarizedSubtrSLD(wavevectors));
     return mp_form_factor->evaluate(wavevectors) * V_eff;
 }
 
-complex_t FormFactorDecoratorMaterial::getRefractiveIndexFactor(
-        const WavevectorInfo& wavevectors) const
+complex_t
+FormFactorDecoratorMaterial::getRefractiveIndexFactor(const WavevectorInfo& wavevectors) const
 {
     return m_material.scalarSubtrSLD(wavevectors) - m_ambient_material.scalarSubtrSLD(wavevectors);
 }

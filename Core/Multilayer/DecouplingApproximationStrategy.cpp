@@ -21,19 +21,20 @@
 #include "RealParameter.h"
 #include "SimulationElement.h"
 
-using InterferenceFunctionUtils::PrecomputeScalarFormFactors;
 using InterferenceFunctionUtils::PrecomputePolarizedFormFactors;
+using InterferenceFunctionUtils::PrecomputeScalarFormFactors;
 
-DecouplingApproximationStrategy::DecouplingApproximationStrategy(
-        SimulationOptions sim_params, bool polarized)
+DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationOptions sim_params,
+                                                                 bool polarized)
     : IInterferenceFunctionStrategy(sim_params, polarized)
-{}
+{
+}
 
 //! Returns the total incoherent and coherent scattering intensity for given kf and
 //! for one particle layout (implied by the given particle form factors).
 //! This is the scalar version
-double DecouplingApproximationStrategy::scalarCalculation(
-        const SimulationElement& sim_element) const
+double
+DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_element) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
@@ -53,8 +54,8 @@ double DecouplingApproximationStrategy::scalarCalculation(
 }
 
 //! This is the polarized version
-double DecouplingApproximationStrategy::polarizedCalculation(
-        const SimulationElement& sim_element) const
+double
+DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& sim_element) const
 {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
@@ -72,7 +73,8 @@ double DecouplingApproximationStrategy::polarizedCalculation(
         mean_intensity += fraction * (ff * polarization_handler.getPolarization() * ff.adjoint());
     }
     Eigen::Matrix2cd amplitude_matrix = polarization_handler.getAnalyzerOperator() * mean_amplitude
-            * polarization_handler.getPolarization() * mean_amplitude.adjoint();
+                                        * polarization_handler.getPolarization()
+                                        * mean_amplitude.adjoint();
     Eigen::Matrix2cd intensity_matrix = polarization_handler.getAnalyzerOperator() * mean_intensity;
     double amplitude_trace = std::abs(amplitude_matrix.trace());
     double intensity_trace = std::abs(intensity_matrix.trace());

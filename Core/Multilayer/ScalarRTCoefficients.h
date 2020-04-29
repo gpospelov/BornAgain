@@ -15,9 +15,9 @@
 #ifndef SCALARRTCOEFFICIENTS_H
 #define SCALARRTCOEFFICIENTS_H
 
-#include "ILayerRTCoefficients.h"
 #include "Complex.h"
 #include "EigenCore.h"
+#include "ILayerRTCoefficients.h"
 
 //! Specular reflection and transmission coefficients in a layer in case
 //! of scalar interactions between the layers and the scattered particle.
@@ -70,8 +70,7 @@ private:
 // implementation
 // ************************************************************************** //
 
-inline ScalarRTCoefficients::ScalarRTCoefficients()
-    : kz(0)
+inline ScalarRTCoefficients::ScalarRTCoefficients() : kz(0)
 {
     m_plus(0) = 1.0;
     m_plus(1) = 0.0;
@@ -127,7 +126,7 @@ inline Eigen::Vector2cd ScalarRTCoefficients::R2min() const
 
 inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const
 {
-    return (m_plus+m_min) * kz;
+    return (m_plus + m_min) * kz;
 }
 
 inline complex_t ScalarRTCoefficients::getScalarR() const

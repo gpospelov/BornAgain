@@ -27,16 +27,11 @@ class Histogram1D;
 class BA_CORE_API_ IHistogram
 {
 public:
-    enum DataType {
-        INTEGRAL,
-        AVERAGE,
-        STANDARD_ERROR,
-        NENTRIES
-    };
+    enum DataType { INTEGRAL, AVERAGE, STANDARD_ERROR, NENTRIES };
 
     IHistogram();
     IHistogram(const IHistogram& other);
-    virtual ~IHistogram(){}
+    virtual ~IHistogram() {}
 
     IHistogram(const IAxis& axis_x);
     IHistogram(const IAxis& axis_x, const IAxis& axis_y);
@@ -160,9 +155,8 @@ public:
     //! @brief Returns integral of bins content (computed as a sum of all bin content).
     double integral() const;
 
-//    double& operator[](size_t index);
-//    const double& operator[](size_t index) const;
-
+    //    double& operator[](size_t index);
+    //    const double& operator[](size_t index) const;
 
 #ifdef BORNAGAIN_PYTHON
     //! Returns numpy array with bin content (accumulated values).

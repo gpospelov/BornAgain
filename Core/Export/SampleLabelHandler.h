@@ -35,11 +35,9 @@ class ParticleCoreShell;
 class ParticleDistribution;
 class MesoCrystal;
 
-template<class Key>
-class LabelMap : public OrderedMap<Key, std::string>
+template <class Key> class LabelMap : public OrderedMap<Key, std::string>
 {
 };
-
 
 //! The handler which construct labels for sample variables during python script generation.
 //! @ingroup tools_internal

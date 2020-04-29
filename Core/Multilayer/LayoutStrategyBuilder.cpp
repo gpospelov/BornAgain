@@ -14,24 +14,20 @@
 
 #include "LayoutStrategyBuilder.h"
 #include "DecouplingApproximationStrategy.h"
-#include "SSCApproximationStrategy.h"
 #include "Exceptions.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "ProcessedLayout.h"
+#include "SSCApproximationStrategy.h"
 
-
-LayoutStrategyBuilder::LayoutStrategyBuilder(
-    const ProcessedLayout* p_layout, const SimulationOptions& sim_params, bool polarized)
-    : mp_layout(p_layout)
-    , m_sim_params(sim_params)
-    , m_polarized(polarized)
+LayoutStrategyBuilder::LayoutStrategyBuilder(const ProcessedLayout* p_layout,
+                                             const SimulationOptions& sim_params, bool polarized)
+    : mp_layout(p_layout), m_sim_params(sim_params), m_polarized(polarized)
 {
     createStrategy();
 }
 
 // needs class definitions => don't move to .h
-LayoutStrategyBuilder::~LayoutStrategyBuilder()
-{}
+LayoutStrategyBuilder::~LayoutStrategyBuilder() {}
 
 IInterferenceFunctionStrategy* LayoutStrategyBuilder::releaseStrategy()
 {
@@ -45,7 +41,7 @@ void LayoutStrategyBuilder::createStrategy()
     checkInterferenceFunction(p_iff);
 
     auto p_radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(p_iff);
-    if (p_radial_para && p_radial_para->kappa()>0.0) {
+    if (p_radial_para && p_radial_para->kappa() > 0.0) {
         double kappa = p_radial_para->kappa();
         mP_strategy.reset(new SSCApproximationStrategy(m_sim_params, kappa, m_polarized));
     } else {
@@ -60,7 +56,7 @@ void LayoutStrategyBuilder::createStrategy()
 void LayoutStrategyBuilder::checkInterferenceFunction(const IInterferenceFunction* p_iff)
 {
     auto n_slices = mp_layout->numberOfSlices();
-    if (p_iff && n_slices>1 && !p_iff->supportsMultilayer())
+    if (p_iff && n_slices > 1 && !p_iff->supportsMultilayer())
         throw std::runtime_error("LayoutStrategyBuilder::checkInterferenceFunction: "
                                  "interference function does not support multiple layers");
 }

@@ -15,13 +15,13 @@
 #ifndef SOFTPARTICLES_H
 #define SOFTPARTICLES_H
 
-#include "SoftParticles.h"
+#include "FormFactorDebyeBueche.h"
 #include "FormFactorGauss.h"
 #include "FormFactorLorentz.h"
+#include "FormFactorOrnsteinZernike.h"
 #include "FormFactorSphereGaussianRadius.h"
 #include "FormFactorSphereLogNormalRadius.h"
 #include "FormFactorSphereUniformRadius.h"
-#include "FormFactorOrnsteinZernike.h"
-#include "FormFactorDebyeBueche.h"
+#include "SoftParticles.h"
 
 #endif // SOFTPARTICLES_H

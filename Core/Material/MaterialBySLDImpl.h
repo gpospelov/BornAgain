@@ -43,16 +43,14 @@ public:
     complex_t materialData() const override;
 
     //! Returns type of material implementation
-    MATERIAL_TYPES typeID() const override
-    {
-        return MATERIAL_TYPES::MaterialBySLD;
-    }
+    MATERIAL_TYPES typeID() const override { return MATERIAL_TYPES::MaterialBySLD; }
 
-    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density
+    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length
+    //! density
     complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
 
     //! Prints object data
-    void print(std::ostream &ostr) const override;
+    void print(std::ostream& ostr) const override;
 
 private:
     //! Constructs a wavelength-independent material with a given complex-valued
@@ -61,7 +59,6 @@ private:
                       kvector_t magnetization);
     //! Returns the scattering length density
     complex_t sld() const;
-
 
     double m_sld_real; //!< complex-valued scattering length density
     double m_sld_imag; //!< imaginary part of scattering length density (negative by default)

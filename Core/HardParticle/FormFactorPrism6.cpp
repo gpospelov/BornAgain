@@ -21,14 +21,13 @@
 //! @param base_edge: length of the hexagonal base in nanometers
 //! @param height: height in nanometers
 FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
-    : FormFactorPolygonalPrism( height )
-    , m_base_edge(base_edge)
+    : FormFactorPolygonalPrism(height), m_base_edge(base_edge)
 {
     setName(BornAgain::FFPrism6Type);
-    registerParameter(BornAgain::BaseEdge, &m_base_edge).setUnit(BornAgain::UnitsNm)
+    registerParameter(BornAgain::BaseEdge, &m_base_edge)
+        .setUnit(BornAgain::UnitsNm)
         .setNonnegative();
-    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
+    registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
     onChange();
 }
 
@@ -44,14 +43,9 @@ void FormFactorPrism6::onChange()
 {
     mP_shape.reset(new Pyramid6(m_base_edge, m_height, M_PI_2));
     double a = m_base_edge;
-    double as = a*sqrt(3)/2;
-    double ac = a/2;
-    std::vector<kvector_t> V {
-        {  a,   0., 0. },
-        {  ac,  as, 0. },
-        { -ac,  as, 0. },
-        { -a,   0., 0. },
-        { -ac, -as, 0. },
-        {  ac, -as, 0. } };
-    setPrism( true, V );
+    double as = a * sqrt(3) / 2;
+    double ac = a / 2;
+    std::vector<kvector_t> V{{a, 0., 0.},  {ac, as, 0.},   {-ac, as, 0.},
+                             {-a, 0., 0.}, {-ac, -as, 0.}, {ac, -as, 0.}};
+    setPrism(true, V);
 }

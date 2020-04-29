@@ -31,8 +31,8 @@ RealParameter::RealParameter(const std::string& name, double* par, const std::st
 
 RealParameter* RealParameter::clone(const std::string& new_name) const
 {
-    auto* ret = new RealParameter(
-        new_name!="" ? new_name : getName(), m_data, m_parent_name, m_onChange, m_limits );
+    auto* ret = new RealParameter(new_name != "" ? new_name : getName(), m_data, m_parent_name,
+                                  m_onChange, m_limits);
     ret->setUnit(unit());
     return ret;
 }
@@ -79,27 +79,27 @@ RealLimits RealParameter::limits() const
 
 RealParameter& RealParameter::setLimited(double lower, double upper)
 {
-    setLimits( RealLimits::limited(lower, upper) );
+    setLimits(RealLimits::limited(lower, upper));
     return *this;
 }
 
 RealParameter& RealParameter::setPositive()
 {
-    setLimits( RealLimits::positive() );
+    setLimits(RealLimits::positive());
     return *this;
 }
 
 RealParameter& RealParameter::setNonnegative()
 {
-    setLimits( RealLimits::nonnegative() );
+    setLimits(RealLimits::nonnegative());
     return *this;
 }
 
 RealParameter& RealParameter::setUnit(const std::string& name)
 {
-    if (! (name==BornAgain::UnitsNone || name == BornAgain::UnitsNm || name == BornAgain::UnitsRad
-           || name == BornAgain::UnitsNm2) )
-        throw std::runtime_error("RealParameter::setUnit() -> Error. Unexpected unit name "+name);
+    if (!(name == BornAgain::UnitsNone || name == BornAgain::UnitsNm || name == BornAgain::UnitsRad
+          || name == BornAgain::UnitsNm2))
+        throw std::runtime_error("RealParameter::setUnit() -> Error. Unexpected unit name " + name);
 
     m_unit.setUnit(name);
     return *this;
@@ -109,4 +109,3 @@ std::string RealParameter::unit() const
 {
     return m_unit.getName();
 }
-

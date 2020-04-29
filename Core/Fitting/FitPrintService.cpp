@@ -14,14 +14,14 @@
 
 #include "FitPrintService.h"
 #include "FitObjective.h"
-#include "StringUtils.h"
 #include "MinimizerResult.h"
-#include <iostream>
+#include "StringUtils.h"
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 
-
-namespace {
+namespace
+{
 
 size_t length_of_longest_name(const Fit::Parameters& params)
 {
@@ -33,7 +33,7 @@ size_t length_of_longest_name(const Fit::Parameters& params)
     return result;
 }
 
-}
+} // namespace
 
 FitPrintService::FitPrintService() = default;
 
@@ -61,9 +61,8 @@ std::string FitPrintService::iterationHeaderString(const FitObjective& objective
     std::ostringstream result;
 
     result << "FitPrintService::update() -> Info."
-           << " NCall:" << objective.iterationInfo().iterationCount()
-           << " Chi2:" << std::scientific << std::setprecision(8)
-           << objective.iterationInfo().chi2() << "\n";
+           << " NCall:" << objective.iterationInfo().iterationCount() << " Chi2:" << std::scientific
+           << std::setprecision(8) << objective.iterationInfo().chi2() << "\n";
 
     return result.str();
 }
@@ -88,9 +87,8 @@ std::string FitPrintService::parameterString(const FitObjective& objective)
     const auto length = length_of_longest_name(params);
 
     for (const auto& par : params) {
-        result << StringUtils::padRight(par.name(), length)
-               << std::scientific << std::setprecision(6)
-               << "  " << par.startValue() << " " << par.limits().toString()
+        result << StringUtils::padRight(par.name(), length) << std::scientific
+               << std::setprecision(6) << "  " << par.startValue() << " " << par.limits().toString()
                << "  " << par.value() << "\n";
     }
 
@@ -104,8 +102,9 @@ std::string FitPrintService::fitResultString(const FitObjective& objective)
     m_run_time.stop();
 
     result << "This was the last iteration." << std::endl;
-    result << "Total time spend: " << std::fixed << std::setprecision(2)
-           << m_run_time.runTime() << " sec." << "\n\n";
+    result << "Total time spend: " << std::fixed << std::setprecision(2) << m_run_time.runTime()
+           << " sec."
+           << "\n\n";
 
     result << objective.minimizerResult().toString();
     return result.str();

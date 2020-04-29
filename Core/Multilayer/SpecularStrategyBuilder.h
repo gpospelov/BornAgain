@@ -23,7 +23,7 @@ class SpecularStrategyBuilder
 {
 
 public:
-    static std::unique_ptr<ISpecularStrategy> build( const MultiLayer& sample, const bool magnetic );
+    static std::unique_ptr<ISpecularStrategy> build(const MultiLayer& sample, const bool magnetic);
 };
 
 #endif // SPECULARSTRATEGYBUILDER_H

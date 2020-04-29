@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "ConvolutionDetectorResolution.h"
 #include "IDetector.h"
+#include "ConvolutionDetectorResolution.h"
+#include "DetectorMask.h"
 #include "IDetectorResolution.h"
 #include "OutputData.h"
 #include "RegionOfInterest.h"
 #include "SimulationArea.h"
 #include "SimulationElement.h"
-#include "DetectorMask.h"
 
 IDetector::IDetector()
 {
@@ -27,11 +27,9 @@ IDetector::IDetector()
 }
 
 IDetector::IDetector(const IDetector& other)
-    : ICloneable()
-    , m_axes(other.m_axes)
-    , m_detection_properties(other.m_detection_properties)
+    : ICloneable(), m_axes(other.m_axes), m_detection_properties(other.m_detection_properties)
 {
-    if(other.mP_detector_resolution)
+    if (other.mP_detector_resolution)
         setDetectorResolution(*other.mP_detector_resolution);
     setName(other.getName());
     registerChild(&m_detection_properties);
@@ -66,12 +64,11 @@ size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
                              "Error! No axis with given number");
 }
 
-std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins,
-                                             double min, double max) const
+std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins, double min,
+                                             double max) const
 {
     if (max <= min)
-        throw Exceptions::LogicErrorException(
-            "IDetector::createAxis() -> Error! max <= min");
+        throw Exceptions::LogicErrorException("IDetector::createAxis() -> Error! max <= min");
     if (n_bins == 0)
         throw Exceptions::LogicErrorException(
             "IDetector::createAxis() -> Error! Number n_bins can't be zero.");
@@ -91,7 +88,7 @@ size_t IDetector::totalSize() const
 }
 
 void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                        double total_transmission)
+                                      double total_transmission)
 {
     m_detection_properties.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
@@ -113,7 +110,7 @@ void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) con
 {
     if (!p_intensity_map)
         throw std::runtime_error("IDetector::applyDetectorResolution() -> "
-                                   "Error! Null pointer to intensity map");
+                                 "Error! Null pointer to intensity map");
     if (mP_detector_resolution) {
         mP_detector_resolution->applyDetectorResolution(p_intensity_map);
         if (detectorMask() && detectorMask()->hasMasks()) {
@@ -171,10 +168,10 @@ std::unique_ptr<OutputData<double>> IDetector::createDetectorMap() const
     return result;
 }
 
-void IDetector::setDataToDetectorMap(OutputData<double> &detectorMap,
-                                       const std::vector<SimulationElement> &elements) const
+void IDetector::setDataToDetectorMap(OutputData<double>& detectorMap,
+                                     const std::vector<SimulationElement>& elements) const
 {
-    if(elements.empty())
+    if (elements.empty())
         return;
     iterate([&](const_iterator it) {
         detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
@@ -184,7 +181,7 @@ void IDetector::setDataToDetectorMap(OutputData<double> &detectorMap,
 size_t IDetector::numberOfSimulationElements() const
 {
     size_t result(0);
-    iterate([&result](const_iterator) { ++result;});
+    iterate([&result](const_iterator) { ++result; });
     return result;
 }
 
@@ -193,19 +190,18 @@ std::vector<const INode*> IDetector::getChildren() const
     return std::vector<const INode*>() << &m_detection_properties << mP_detector_resolution;
 }
 
-void IDetector::iterate(std::function<void (IDetector::const_iterator)> func,
-                        bool visit_masks) const
+void IDetector::iterate(std::function<void(IDetector::const_iterator)> func, bool visit_masks) const
 {
     if (this->dimension() == 0)
         return;
 
     if (visit_masks) {
         SimulationRoiArea area(this);
-        for(SimulationRoiArea::iterator it = area.begin(); it!=area.end(); ++it)
+        for (SimulationRoiArea::iterator it = area.begin(); it != area.end(); ++it)
             func(it);
     } else {
         SimulationArea area(this);
-        for(SimulationArea::iterator it = area.begin(); it!=area.end(); ++it)
+        for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it)
             func(it);
     }
 }

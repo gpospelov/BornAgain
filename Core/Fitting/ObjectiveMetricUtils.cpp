@@ -19,7 +19,8 @@
 #include <map>
 #include <sstream>
 
-namespace {
+namespace
+{
 const std::function<double(double)> l1_norm = [](double term) { return std::abs(term); };
 const std::function<double(double)> l2_norm = [](double term) { return term * term; };
 
@@ -28,20 +29,18 @@ const std::map<std::string, std::function<std::unique_ptr<ObjectiveMetric>()>> m
     {"poisson-like", []() { return std::make_unique<PoissonLikeMetric>(); }},
     {"log", []() { return std::make_unique<LogMetric>(); }},
     {"reldiff", []() { return std::make_unique<RelativeDifferenceMetric>(); }},
-    {"rq4", []() { return std::make_unique<RQ4Metric>(); }}
-};
+    {"rq4", []() { return std::make_unique<RQ4Metric>(); }}};
 const std::string default_metric_name = "poisson-like";
 
 const std::map<std::string, std::function<double(double)>> norm_factory = {{"l1", l1_norm},
                                                                            {"l2", l2_norm}};
 const std::string default_norm_name = "l2";
 
-template<class U>
-std::vector<std::string> keys(const std::map<std::string, U>& map)
+template <class U> std::vector<std::string> keys(const std::map<std::string, U>& map)
 {
     std::vector<std::string> result;
     result.reserve(map.size());
-    for (auto& item: map)
+    for (auto& item : map)
         result.push_back(item.first);
     return result;
 }
@@ -86,11 +85,11 @@ std::string ObjectiveMetricUtils::availableMetricOptions()
 {
     std::stringstream ss;
     ss << "Available metrics:\n";
-    for (auto& item: metricNames())
+    for (auto& item : metricNames())
         ss << "\t" << item << "\n";
     ss << "default metric: " << defaultMetricName() << "\n";
     ss << "Available norms:\n";
-    for (auto& item: normNames())
+    for (auto& item : normNames())
         ss << "\t" << item << "\n";
     ss << "default norm: " << defaultNormName() << "\n";
     return ss.str();

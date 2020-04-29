@@ -27,10 +27,12 @@ template <class T> class IntegratorComplex;
 class BA_CORE_API_ FormFactorCone : public IFormFactorBorn
 {
 public:
-    FormFactorCone(double radius, double height,  double alpha);
+    FormFactorCone(double radius, double height, double alpha);
 
-    FormFactorCone* clone() const override final {
-        return new FormFactorCone(m_radius, m_height, m_alpha); }
+    FormFactorCone* clone() const override final
+    {
+        return new FormFactorCone(m_radius, m_height, m_alpha);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
@@ -39,7 +41,7 @@ public:
 
     double radialExtension() const override final { return m_radius; }
 
-    complex_t evaluate_for_q (cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,

@@ -17,8 +17,8 @@
 
 #ifdef BORNAGAIN_MPI
 
-#include <mpi.h>
 #include "Simulation.h"
+#include <mpi.h>
 
 // -----------------------------------------------------------------------------
 // MPI support
@@ -32,7 +32,7 @@ void MPISimulation::runSimulation(Simulation* simulation)
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
 
-    if(world_size == 1) {
+    if (world_size == 1) {
         simulation->runSimulation();
         return;
     }
@@ -48,17 +48,17 @@ void MPISimulation::runSimulation(Simulation* simulation)
     sim_options.setThreadInfo(info);
     simulation->runSimulation();
 
-    if(world_rank != 0) {
+    if (world_rank != 0) {
         std::vector<double> raw = simulation->rawResults();
         MPI_Send(&raw[0], raw.size(), MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
     }
-    if(world_rank == 0) {
+    if (world_rank == 0) {
         auto sum_of_raw = simulation->rawResults();
         size_t total_size = sum_of_raw.size();
-        for(int i=1; i<world_size; ++i) {
+        for (int i = 1; i < world_size; ++i) {
             std::vector<double> raw(total_size);
             MPI_Recv(&raw[0], total_size, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, &st);
-            for(size_t i_raw=0; i_raw<total_size; ++i_raw)
+            for (size_t i_raw = 0; i_raw < total_size; ++i_raw)
                 sum_of_raw[i_raw] += raw[i_raw];
         }
         simulation->setRawResults(sum_of_raw);
@@ -76,6 +76,6 @@ void MPISimulation::runSimulation(Simulation* /* simulation */)
 {
     throw std::runtime_error(
         "MPISimulation::runSimulation() -> Error! Can't run MPI simulation. "
-        "The package was compiled without MPI support (compile with -DBORNAGAIN_MPI=ON)" );
+        "The package was compiled without MPI support (compile with -DBORNAGAIN_MPI=ON)");
 }
-#endif  // BORNAGAIN_MPI
+#endif // BORNAGAIN_MPI

@@ -18,10 +18,8 @@
 #include <stdexcept>
 
 FitStatus::FitStatus(const FitObjective* fit_objective)
-    : m_fit_status(IDLE)
-    , m_fit_objective(fit_objective)
+    : m_fit_status(IDLE), m_fit_objective(fit_objective)
 {
-
 }
 
 FitStatus::~FitStatus() = default;
@@ -43,7 +41,8 @@ bool FitStatus::isCompleted() const
 
 void FitStatus::update(const Fit::Parameters& params, double chi2)
 {
-    if (!isInterrupted()) m_fit_status = RUNNING;
+    if (!isInterrupted())
+        m_fit_status = RUNNING;
 
     m_iterationInfo.update(params, chi2);
 
@@ -86,4 +85,3 @@ void FitStatus::finalize(const Fit::MinimizerResult& result)
     m_fit_status = COMPLETED;
     m_observers.notify_all(*m_fit_objective);
 }
-

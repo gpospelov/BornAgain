@@ -32,18 +32,18 @@ public:
     ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d);
 
     //! Constructor taking a 2 dimensional resolution function as argument.
-    ConvolutionDetectorResolution(const IResolutionFunction2D &p_res_function_2d);
+    ConvolutionDetectorResolution(const IResolutionFunction2D& p_res_function_2d);
 
     virtual ~ConvolutionDetectorResolution();
 
     //! Convolve given intensities with the encapsulated resolution.
-    virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+    virtual void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
-    virtual ConvolutionDetectorResolution *clone() const;
+    virtual ConvolutionDetectorResolution* clone() const;
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    const IResolutionFunction2D *getResolutionFunction2D() const;
+    const IResolutionFunction2D* getResolutionFunction2D() const;
 
     std::vector<const INode*> getChildren() const;
 
@@ -54,8 +54,8 @@ protected:
 
 private:
     void setResolutionFunction(const IResolutionFunction2D& resFunc);
-    void apply1dConvolution(OutputData<double> *p_intensity_map) const;
-    void apply2dConvolution(OutputData<double> *p_intensity_map) const;
+    void apply1dConvolution(OutputData<double>* p_intensity_map) const;
+    void apply2dConvolution(OutputData<double>* p_intensity_map) const;
     double getIntegratedPDF1d(double x, double step) const;
     double getIntegratedPDF2d(double x, double step_x, double y, double step_y) const;
 
@@ -64,7 +64,7 @@ private:
     std::unique_ptr<IResolutionFunction2D> mp_res_function_2d;
 };
 
-inline const IResolutionFunction2D *ConvolutionDetectorResolution::getResolutionFunction2D() const
+inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolutionFunction2D() const
 {
     return mp_res_function_2d.get();
 }

@@ -44,6 +44,7 @@ public:
     void setPositionVariance(double position_variance) { m_position_variance = position_variance; }
 
     std::vector<const INode*> getChildren() const override final;
+
 private:
     Crystal(IParticle* p_lattice_basis, const Lattice& lattice);
 

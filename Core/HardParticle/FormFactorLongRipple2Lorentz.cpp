@@ -22,8 +22,8 @@
 //! @param width of triangular cross section
 //! @param height of triangular cross section
 //! @param asymmetry length of triangular cross section
-FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(
-    double length, double width, double height, double asymetry)
+FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width,
+                                                           double height, double asymetry)
     : m_length(length), m_width(width), m_height(height), m_d(asymetry)
 {
     setName(BornAgain::FFLongRipple2LorentzType);
@@ -38,20 +38,20 @@ void FormFactorLongRipple2Lorentz::check_parameters() const
 {
     bool ok = true;
     std::string message;
-    if(-1*m_width > 2.*m_d) {
+    if (-1 * m_width > 2. * m_d) {
         ok = false;
         message = std::string("Check for '-1*width <= 2.*asymmetry' failed.");
     }
-    if(m_width < 2.*m_d) {
+    if (m_width < 2. * m_d) {
         ok = false;
         message = std::string("Check for 'width >= 2.*asymmetry' failed.");
     }
-    if(m_height <=0) {
+    if (m_height <= 0) {
         ok = false;
         message = std::string("Check for 'height > 0' failed.");
     }
 
-    if(ok)
+    if (ok)
         return;
 
     std::ostringstream ostr;
@@ -66,7 +66,7 @@ void FormFactorLongRipple2Lorentz::check_parameters() const
 
 double FormFactorLongRipple2Lorentz::radialExtension() const
 {
-    return ( m_width + m_length ) / 4.0;
+    return (m_width + m_length) / 4.0;
 }
 
 //! Complex formfactor.
@@ -76,12 +76,12 @@ complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const
 
     m_q = q;
 
-    complex_t qxL2 = 2.5*std::pow(m_length * q.x(), 2);
+    complex_t qxL2 = 2.5 * std::pow(m_length * q.x(), 2);
     complex_t factor = m_length / (1.0 + qxL2) * m_width;
 
     complex_t result = 0;
-    complex_t iqzH = mul_I( q.z() * m_height );
-    complex_t iqyW = mul_I( q.y() * m_width );
+    complex_t iqzH = mul_I(q.z() * m_height);
+    complex_t iqyW = mul_I(q.y() * m_width);
     complex_t aaa = 2.0 * (m_d * q.y() + m_height * q.z());
 
     if (0.0 == q.y() && 0.0 == q.z())

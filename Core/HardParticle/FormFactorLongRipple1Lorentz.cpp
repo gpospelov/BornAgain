@@ -16,12 +16,12 @@
 #include "BornAgainNamespace.h"
 #include "Box.h"
 #include "Exceptions.h"
-#include "MathFunctions.h"
 #include "MathConstants.h"
+#include "MathFunctions.h"
 #include "RealParameter.h"
 
-FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(
-    double length, double width, double height)
+FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(double length, double width,
+                                                           double height)
     : m_length(length), m_width(width), m_height(height)
 {
     setName(BornAgain::FFLongRipple1LorentzType);
@@ -36,7 +36,7 @@ FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(
 bool FormFactorLongRipple1Lorentz::check_initialization() const
 {
     bool result(true);
-    if(m_height <=0.0 || m_width<=0.0 || m_length<=0.0) {
+    if (m_height <= 0.0 || m_width <= 0.0 || m_length <= 0.0) {
         std::ostringstream ostr;
         ostr << "FormFactorLongRipple1Lorentz() -> Error in class initialization with parameters ";
         ostr << " height:" << m_height;
@@ -50,37 +50,38 @@ bool FormFactorLongRipple1Lorentz::check_initialization() const
 
 double FormFactorLongRipple1Lorentz::radialExtension() const
 {
-    return ( m_width + m_length ) / 4.0;
+    return (m_width + m_length) / 4.0;
 }
 
 //! Integrand for complex formfactor.
 complex_t FormFactorLongRipple1Lorentz::Integrand(double u) const
 {
-    return sin(u) * exp(m_az*std::cos(u)) * ( m_ay==0. ? u : sin(m_ay*u)/m_ay );
+    return sin(u) * exp(m_az * std::cos(u)) * (m_ay == 0. ? u : sin(m_ay * u) / m_ay);
 }
 
 //! Complex formfactor.
 complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(cvector_t q) const
 {
-    complex_t qxL2 = 2.5*std::pow(m_length * q.x(), 2);
-    complex_t factor = m_length/(1.0 + qxL2)*m_width/M_PI;
+    complex_t qxL2 = 2.5 * std::pow(m_length * q.x(), 2);
+    complex_t factor = m_length / (1.0 + qxL2) * m_width / M_PI;
 
     // analytical expressions for some particular cases
-    if ( q.z()==0. ) {
-        if( q.y()==0. )
-            return factor*M_PI_2*m_height;
-        complex_t aaa = q.y()*m_width/(M_TWOPI);
-        complex_t aaa2 = aaa*aaa;
-        if ( aaa2==1. )
-            return factor*M_PI_4*m_height;
-        return factor*M_PI_2*m_height*MathFunctions::sinc(q.y()*m_width*0.5)/(1.0-aaa2);
+    if (q.z() == 0.) {
+        if (q.y() == 0.)
+            return factor * M_PI_2 * m_height;
+        complex_t aaa = q.y() * m_width / (M_TWOPI);
+        complex_t aaa2 = aaa * aaa;
+        if (aaa2 == 1.)
+            return factor * M_PI_4 * m_height;
+        return factor * M_PI_2 * m_height * MathFunctions::sinc(q.y() * m_width * 0.5)
+               / (1.0 - aaa2);
     }
 
     // numerical integration otherwise
     m_ay = q.y() * m_width / M_TWOPI;
-    m_az = complex_t(0,1) * q.z() * (m_height/2);
+    m_az = complex_t(0, 1) * q.z() * (m_height / 2);
     complex_t integral = mP_integrator->integrate(0, M_PI);
-    return factor * integral * exp(m_az) * (m_height/2);
+    return factor * integral * exp(m_az) * (m_height / 2);
 }
 
 void FormFactorLongRipple1Lorentz::onChange()

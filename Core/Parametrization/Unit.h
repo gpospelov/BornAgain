@@ -23,7 +23,7 @@
 class Unit : public INamed
 {
 public:
-    explicit Unit(const std::string& name="") { setUnit(name); }
+    explicit Unit(const std::string& name = "") { setUnit(name); }
     void setUnit(const std::string& name);
 };
 

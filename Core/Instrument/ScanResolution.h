@@ -25,9 +25,11 @@ class RangedDistribution;
 class RealLimits;
 
 //! Container for reflectivity resolution data.
-class BA_CORE_API_ ScanResolution : public ICloneable {
+class BA_CORE_API_ ScanResolution : public ICloneable
+{
 protected:
     using DistrOutput = std::vector<std::vector<ParameterSample>>;
+
 public:
     ~ScanResolution() override;
     static ScanResolution* scanRelativeResolution(const RangedDistribution& distr, double stddev);
@@ -51,7 +53,7 @@ public:
 
     //! Prints object definition in python format.
     std::string print() const;
-#endif //SWIG
+#endif // SWIG
 protected:
     ScanResolution();
     ScanResolution(const RangedDistribution& distr);

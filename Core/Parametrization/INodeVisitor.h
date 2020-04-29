@@ -147,7 +147,7 @@ class BA_CORE_API_ INodeVisitor
 {
 public:
     INodeVisitor() : m_depth(0) {}
-    virtual ~INodeVisitor(){}
+    virtual ~INodeVisitor() {}
 
     virtual void visit(const BasicLattice*) {}
     virtual void visit(const Beam*) {}

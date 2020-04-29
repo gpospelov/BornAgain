@@ -15,8 +15,8 @@
 #include "FormFactorLorentz.h"
 #include "BornAgainNamespace.h"
 #include "Box.h"
-#include "RealLimits.h"
 #include "MathConstants.h"
+#include "RealLimits.h"
 #include "RealParameter.h"
 
 FormFactorLorentz::FormFactorLorentz(double width, double height)
@@ -26,13 +26,10 @@ FormFactorLorentz::FormFactorLorentz(double width, double height)
     initialize();
 }
 
-FormFactorLorentz::FormFactorLorentz(double length)
-    : m_width { length }
-    , m_height { length }
+FormFactorLorentz::FormFactorLorentz(double length) : m_width{length}, m_height{length}
 {
     initialize();
 }
-
 
 double FormFactorLorentz::radialExtension() const
 {
@@ -41,15 +38,15 @@ double FormFactorLorentz::radialExtension() const
 
 complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
 {
-    static const double sigma2 = 4.0*std::pow(M_PI, 2.0/3.0);
+    static const double sigma2 = 4.0 * std::pow(M_PI, 2.0 / 3.0);
     double R = m_width;
     double H = m_height;
 
-    complex_t xnorm = R*R*q.x()*q.x()/sigma2;
-    complex_t ynorm = R*R*q.y()*q.y()/sigma2;
-    complex_t znorm = H*H*q.z()*q.z()/sigma2;
+    complex_t xnorm = R * R * q.x() * q.x() / sigma2;
+    complex_t ynorm = R * R * q.y() * q.y() / sigma2;
+    complex_t znorm = H * H * q.z() * q.z() / sigma2;
 
-    complex_t result = H*R*R/(1.0 + xnorm + ynorm + znorm);
+    complex_t result = H * R * R / (1.0 + xnorm + ynorm + znorm);
 
     return result;
 }

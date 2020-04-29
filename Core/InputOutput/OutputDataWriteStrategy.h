@@ -27,7 +27,7 @@ class BA_CORE_API_ IOutputDataWriteStrategy
 {
 public:
     IOutputDataWriteStrategy() {}
-    virtual ~IOutputDataWriteStrategy(){}
+    virtual ~IOutputDataWriteStrategy() {}
 
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream) = 0;
 };
@@ -63,6 +63,7 @@ public:
     OutputDataWriteTiffStrategy();
     virtual ~OutputDataWriteTiffStrategy();
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
+
 private:
     TiffHandler* m_d;
 };

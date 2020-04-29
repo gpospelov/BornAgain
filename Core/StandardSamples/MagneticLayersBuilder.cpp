@@ -13,22 +13,22 @@
 // ************************************************************************** //
 
 #include "MagneticLayersBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorFullSphere.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 #include "Units.h"
 
-
 MagneticSubstrateZeroFieldBuilder::MagneticSubstrateZeroFieldBuilder()
-    : m_sphere_radius(5*Units::nanometer)
-{}
+    : m_sphere_radius(5 * Units::nanometer)
+{
+}
 
-MultiLayer*MagneticSubstrateZeroFieldBuilder::buildSample() const
+MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 
@@ -39,7 +39,7 @@ MultiLayer*MagneticSubstrateZeroFieldBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, particle_field);
 
     ParticleLayout particle_layout;
-    kvector_t position(0.0, 0.0, -10.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, -10.0 * Units::nanometer);
     FormFactorFullSphere ff_sphere(m_sphere_radius);
     Particle particle(particle_material, ff_sphere);
     particle_layout.addParticle(particle, 1.0, position);
@@ -74,9 +74,7 @@ MultiLayer* SimpleMagneticLayerBuilder::buildSample() const
     return multi_layer;
 }
 
-MagneticLayerBuilder::MagneticLayerBuilder()
-    : m_sphere_radius(5*Units::nanometer)
-{}
+MagneticLayerBuilder::MagneticLayerBuilder() : m_sphere_radius(5 * Units::nanometer) {}
 
 MultiLayer* MagneticLayerBuilder::buildSample() const
 {
@@ -105,9 +103,7 @@ MultiLayer* MagneticLayerBuilder::buildSample() const
     return multi_layer;
 }
 
-MagneticRotationBuilder::MagneticRotationBuilder()
-    : m_sphere_radius(5*Units::nanometer)
-{}
+MagneticRotationBuilder::MagneticRotationBuilder() : m_sphere_radius(5 * Units::nanometer) {}
 
 MultiLayer* MagneticRotationBuilder::buildSample() const
 {
@@ -120,10 +116,10 @@ MultiLayer* MagneticRotationBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, particle_field);
 
     ParticleLayout particle_layout;
-    kvector_t position(0.0, 0.0, -10.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, -10.0 * Units::nanometer);
     FormFactorFullSphere ff_sphere(m_sphere_radius);
     Particle particle(particle_material, ff_sphere);
-    RotationZ rot_z(90*Units::deg);
+    RotationZ rot_z(90 * Units::deg);
     particle_layout.addParticle(particle, 1.0, position, rot_z);
 
     Layer air_layer(air_material);

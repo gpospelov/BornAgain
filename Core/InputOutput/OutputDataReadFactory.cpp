@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "OutputDataReadFactory.h"
-#include "Exceptions.h"
 #include "DataFormatUtils.h"
+#include "Exceptions.h"
 
 OutputDataReader* OutputDataReadFactory::getReader(const std::string& file_name)
 {
@@ -33,16 +33,16 @@ OutputDataReader* OutputDataReadFactory::getReflectometryReader(const std::strin
 IOutputDataReadStrategy* OutputDataReadFactory::getReadStrategy(const std::string& file_name)
 {
     IOutputDataReadStrategy* result(nullptr);
-    if(DataFormatUtils::isIntFile(file_name))
+    if (DataFormatUtils::isIntFile(file_name))
         result = new OutputDataReadINTStrategy();
 #ifdef BORNAGAIN_TIFF_SUPPORT
-    else if(DataFormatUtils::isTiffFile(file_name))
-       result = new OutputDataReadTiffStrategy();
+    else if (DataFormatUtils::isTiffFile(file_name))
+        result = new OutputDataReadTiffStrategy();
 #endif // BORNAGAIN_TIFF_SUPPORT
     else
-        //Try to read ASCII by default. Binary maps to ASCII.
-        //If the file is not actually a matrix of numbers,
-        //the error will be thrown during the reading.
+        // Try to read ASCII by default. Binary maps to ASCII.
+        // If the file is not actually a matrix of numbers,
+        // the error will be thrown during the reading.
         result = new OutputDataReadNumpyTXTStrategy();
     return result;
 }

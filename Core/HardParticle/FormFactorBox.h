@@ -23,10 +23,12 @@
 class BA_CORE_API_ FormFactorBox : public IFormFactorBorn
 {
 public:
-    FormFactorBox( double length, double width, double height);
+    FormFactorBox(double length, double width, double height);
 
-    FormFactorBox* clone() const override final {
-        return new FormFactorBox(m_length, m_width, m_height); }
+    FormFactorBox* clone() const override final
+    {
+        return new FormFactorBox(m_length, m_width, m_height);
+    }
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
@@ -34,7 +36,7 @@ public:
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
 
-    double radialExtension() const override final { return m_length/2.0; }
+    double radialExtension() const override final { return m_length / 2.0; }
 
     complex_t evaluate_for_q(cvector_t q) const override final;
 

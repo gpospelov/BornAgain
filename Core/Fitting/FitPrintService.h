@@ -15,8 +15,8 @@
 #ifndef FITPRINTSERVICE_H
 #define FITPRINTSERVICE_H
 
-#include "WinDllMacros.h"
 #include "TimeInterval.h"
+#include "WinDllMacros.h"
 #include <string>
 
 class FitObjective;

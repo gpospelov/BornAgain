@@ -26,8 +26,10 @@ class BA_CORE_API_ FormFactorRipple1 : public IFormFactorBorn
 public:
     FormFactorRipple1(double length, double width, double height);
 
-    FormFactorRipple1* clone() const override final {
-        return new FormFactorRipple1(m_length, m_width, m_height); }
+    FormFactorRipple1* clone() const override final
+    {
+        return new FormFactorRipple1(m_length, m_width, m_height);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getLength() const { return m_length; }

@@ -18,8 +18,8 @@
 #include "IParticle.h"
 #include "ZLimits.h"
 #include <cstddef>
-#include <vector>
 #include <utility>
+#include <vector>
 
 //! Helper class for the graded layer approximation. Generates limits for each layer, indicating
 //! the region of the layer (along z) that contains particle(s)
@@ -34,10 +34,11 @@ public:
     LayerFillLimits(std::vector<double> layers_bottomz);
 
     //! Particle limits are given in global coordinates
-    void update(ParticleLimits particle_limits, double offset=0.0);
+    void update(ParticleLimits particle_limits, double offset = 0.0);
 
     //! Returns the filled region limits for each layer (in local layer coordinates)
     std::vector<ZLimits> layerZLimits() const;
+
 private:
     size_t layerIndexTop(double top_z) const;
     size_t layerIndexBottom(double bottom_z) const;

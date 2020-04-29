@@ -15,8 +15,8 @@
 #ifndef BEAM_H
 #define BEAM_H
 
-#include "INode.h"
 #include "EigenCore.h"
+#include "INode.h"
 #include "Vectors3D.h"
 
 class IFootprintFactor;
@@ -77,10 +77,10 @@ private:
 
     void swapContent(Beam& other);
 
-    double m_wavelength, m_alpha, m_phi; //!< wavelength and angles of beam
-    double m_intensity;                  //!< beam intensity (neutrons/sec)
+    double m_wavelength, m_alpha, m_phi;              //!< wavelength and angles of beam
+    double m_intensity;                               //!< beam intensity (neutrons/sec)
     std::unique_ptr<IFootprintFactor> m_shape_factor; //!< footprint correction handler
-    kvector_t m_bloch_vector;            //!< Bloch vector encoding the beam's polarization
+    kvector_t m_bloch_vector; //!< Bloch vector encoding the beam's polarization
 };
 
 #endif // BEAM_H

@@ -16,9 +16,9 @@
 #define MAGNETICMATERIALIMPL_H_
 
 #include "BaseMaterialImpl.h"
-#include "Vectors3D.h"
 #include "Complex.h"
 #include "EigenCore.h"
+#include "Vectors3D.h"
 
 class Transform3D;
 class WavevectorInfo;
@@ -36,7 +36,7 @@ public:
     virtual ~MagneticMaterialImpl() = default;
 
     //! Returns pointer to a copy of material
-    MagneticMaterialImpl* clone() const override =0;
+    MagneticMaterialImpl* clone() const override = 0;
 
     //! Constructs a material with inverted magnetization
     MagneticMaterialImpl* inverted() const override final;
@@ -56,10 +56,7 @@ public:
     MagneticMaterialImpl* transformedMaterial(const Transform3D& transform) const override final;
 
 private:
-    void setMagnetization(kvector_t magnetization)
-    {
-        m_magnetization = magnetization;
-    }
+    void setMagnetization(kvector_t magnetization) { m_magnetization = magnetization; }
 
     kvector_t m_magnetization; //!< magnetization
 };

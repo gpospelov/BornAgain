@@ -16,32 +16,27 @@
 #include "MultiLayer.h"
 #include <cassert>
 
-SampleProvider::SampleProvider()
-{
-}
+SampleProvider::SampleProvider() {}
 
 SampleProvider::SampleProvider(const SampleProvider& other)
 {
     if (other.m_multilayer)
         setSample(*other.m_multilayer);
 
-    if(other.m_sample_builder)
+    if (other.m_sample_builder)
         setSampleBuilder(other.m_sample_builder.builder());
 }
 
 SampleProvider& SampleProvider::operator=(const SampleProvider& other)
 {
-    if ( this != &other ) {
+    if (this != &other) {
         SampleProvider tmp(other);
         tmp.swapContent(*this);
     }
     return *this;
 }
 
-SampleProvider::~SampleProvider()
-{
-
-}
+SampleProvider::~SampleProvider() {}
 
 void SampleProvider::setSample(const MultiLayer& multilayer)
 {
@@ -68,7 +63,7 @@ const MultiLayer* SampleProvider::sample() const
 
 void SampleProvider::updateSample()
 {
-    if(m_sample_builder)
+    if (m_sample_builder)
         m_multilayer = m_sample_builder.createMultiLayer();
 
     if (!m_multilayer)
@@ -81,7 +76,7 @@ std::vector<const INode*> SampleProvider::getChildren() const
     if (m_sample_builder) {
         result.push_back(&m_sample_builder);
     } else {
-        if(m_multilayer)
+        if (m_multilayer)
             result.push_back(m_multilayer.get());
     }
     return result;
@@ -90,7 +85,7 @@ std::vector<const INode*> SampleProvider::getChildren() const
 void SampleProvider::setParent(const INode* newParent)
 {
     INode::setParent(newParent);
-    if ( m_sample_builder) {
+    if (m_sample_builder) {
         m_sample_builder.setParent(parent());
     } else {
         if (m_multilayer)
@@ -103,6 +98,3 @@ void SampleProvider::swapContent(SampleProvider& other)
     std::swap(m_multilayer, other.m_multilayer);
     std::swap(m_sample_builder, other.m_sample_builder);
 }
-
-
-

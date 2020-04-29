@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "MultipleLayoutBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
@@ -25,12 +25,11 @@
 #include "Units.h"
 
 MultipleLayoutBuilder::MultipleLayoutBuilder()
-    : m_cylinder_height(5*Units::nanometer)
-    , m_cylinder_radius(5*Units::nanometer)
-    , m_prism_height(5*Units::nanometer)
-    , m_prism_length(10*Units::nanometer)
-    , m_cylinder_weight(0.5)
-{}
+    : m_cylinder_height(5 * Units::nanometer), m_cylinder_radius(5 * Units::nanometer),
+      m_prism_height(5 * Units::nanometer), m_prism_length(10 * Units::nanometer),
+      m_cylinder_weight(0.5)
+{
+}
 
 MultiLayer* MultipleLayoutBuilder::buildSample() const
 {
@@ -53,7 +52,7 @@ MultiLayer* MultipleLayoutBuilder::buildSample() const
     Particle prism3(particle_material, ff_prism3);
 
     particle_layout_1.addParticle(cylinder, m_cylinder_weight);
-    particle_layout_2.addParticle(prism3, 1.0-m_cylinder_weight);
+    particle_layout_2.addParticle(prism3, 1.0 - m_cylinder_weight);
 
     air_layer.addLayout(particle_layout_1);
     air_layer.addLayout(particle_layout_2);

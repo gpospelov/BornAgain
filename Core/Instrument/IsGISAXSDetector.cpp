@@ -16,7 +16,6 @@
 #include "BornAgainNamespace.h"
 #include "CustomBinAxis.h"
 
-
 IsGISAXSDetector::IsGISAXSDetector()
 {
     setName(BornAgain::IsGISAXSDetectorType);
@@ -29,18 +28,18 @@ IsGISAXSDetector::IsGISAXSDetector(size_t n_phi, double phi_min, double phi_max,
     setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
-IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector &other)
-    : SphericalDetector(other)
+IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector& other) : SphericalDetector(other)
 {
     setName(BornAgain::IsGISAXSDetectorType);
 }
 
-IsGISAXSDetector *IsGISAXSDetector::clone() const
+IsGISAXSDetector* IsGISAXSDetector::clone() const
 {
     return new IsGISAXSDetector(*this);
 }
 
-std::unique_ptr<IAxis> IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min, double max) const
+std::unique_ptr<IAxis> IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min,
+                                                    double max) const
 {
     if (max <= min) {
         throw Exceptions::LogicErrorException(

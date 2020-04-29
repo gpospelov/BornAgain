@@ -15,10 +15,9 @@
 #ifndef IDETECTORRESOLUTION_H
 #define IDETECTORRESOLUTION_H
 
+#include "ICloneable.h"
 #include "INode.h"
-#include "ICloneable.h"
 #include "OutputData.h"
-#include "ICloneable.h"
 
 //! Interface for detector resolution algorithms
 //! @ingroup algorithms_internal
@@ -28,7 +27,7 @@ class BA_CORE_API_ IDetectorResolution : public ICloneable, public INode
 public:
     virtual ~IDetectorResolution() {}
     //! Apply the resolution function to the intensity data
-    virtual void applyDetectorResolution(OutputData<double>* p_intensity_map) const=0;
+    virtual void applyDetectorResolution(OutputData<double>* p_intensity_map) const = 0;
 #ifndef SWIG
     //! Applies the detector resolution to the matrix-valued intensity data
     void applyDetectorResolutionPol(OutputData<Eigen::Matrix2d>* p_matrix_intensity) const;

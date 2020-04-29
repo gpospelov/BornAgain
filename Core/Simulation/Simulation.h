@@ -15,16 +15,16 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#include "INode.h"
 #include "DistributionHandler.h"
 #include "IDetector2D.h"
+#include "INode.h"
 #include "Instrument.h"
 #include "ProgressHandler.h"
+#include "SampleProvider.h"
 #include "SimulationOptions.h"
 #include "SimulationResult.h"
-#include "SampleProvider.h"
 
-template<class T> class OutputData;
+template <class T> class OutputData;
 class IBackground;
 class IComputation;
 class IMultiLayerBuilder;
@@ -43,7 +43,7 @@ public:
     Simulation(const std::shared_ptr<IMultiLayerBuilder> p_sample_builder);
     virtual ~Simulation();
 
-    virtual Simulation* clone() const =0;
+    virtual Simulation* clone() const = 0;
 
     //! Put into a clean state for running a simulation
     virtual void prepareSimulation();
@@ -82,11 +82,12 @@ public:
 
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays
-    virtual SimulationResult result() const=0;
+    virtual SimulationResult result() const = 0;
 
-    void addParameterDistribution(
-        const std::string& param_name, const IDistribution1D& distribution, size_t nbr_samples,
-        double sigma_factor=0.0, const RealLimits& limits = RealLimits());
+    void addParameterDistribution(const std::string& param_name,
+                                  const IDistribution1D& distribution, size_t nbr_samples,
+                                  double sigma_factor = 0.0,
+                                  const RealLimits& limits = RealLimits());
     void addParameterDistribution(const ParameterDistribution& par_distr);
     const DistributionHandler& getDistributionHandler() const { return m_distribution_handler; }
 
@@ -100,6 +101,7 @@ public:
     std::vector<const INode*> getChildren() const;
 
     friend class MPISimulation;
+
 protected:
     Simulation(const Simulation& other);
 
@@ -133,8 +135,8 @@ private:
     //! Generate a single threaded computation for a given range of simulation elements
     //! @param start Index of the first element to include into computation
     //! @param n_elements Number of elements to process
-    virtual std::unique_ptr<IComputation>
-    generateSingleThreadedComputation(size_t start, size_t n_elements) = 0;
+    virtual std::unique_ptr<IComputation> generateSingleThreadedComputation(size_t start,
+                                                                            size_t n_elements) = 0;
 
     //! Checks the distribution validity for simulation.
     virtual void validateParametrization(const ParameterDistribution&) const {}
@@ -151,8 +153,8 @@ private:
     virtual void moveDataFromCache() = 0;
 
     // used in MPI calculations for transfer of partial results
-    virtual std::vector<double> rawResults() const=0;
-    virtual void setRawResults(const std::vector<double>& raw_data) =0;
+    virtual std::vector<double> rawResults() const = 0;
+    virtual void setRawResults(const std::vector<double>& raw_data) = 0;
 };
 
 #endif // SIMULATION_H

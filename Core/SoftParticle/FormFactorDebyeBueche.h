@@ -25,8 +25,10 @@ class BA_CORE_API_ FormFactorDebyeBueche : public IFormFactorBorn
 public:
     FormFactorDebyeBueche(double I0, double xi);
 
-    FormFactorDebyeBueche* clone() const override final {
-        return new FormFactorDebyeBueche(m_I0, m_xi); }
+    FormFactorDebyeBueche* clone() const override final
+    {
+        return new FormFactorDebyeBueche(m_I0, m_xi);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double radialExtension() const override final { return m_xi; }

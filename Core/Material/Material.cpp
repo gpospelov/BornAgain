@@ -14,26 +14,29 @@
 
 #include "Material.h"
 #include "BaseMaterialImpl.h"
-#include "WavevectorInfo.h"
-#include "Transform3D.h"
 #include "Exceptions.h"
+#include "Transform3D.h"
+#include "WavevectorInfo.h"
 #include <typeinfo>
 
 Material::Material(const Material& material)
 {
     if (material.isEmpty())
-        throw Exceptions::NullPointerException("Material: Error! Attempt to initialize material with nullptr.");
+        throw Exceptions::NullPointerException(
+            "Material: Error! Attempt to initialize material with nullptr.");
     m_material_impl.reset(material.m_material_impl->clone());
 }
 
 Material::Material(std::unique_ptr<BaseMaterialImpl> material_impl)
     : m_material_impl(std::move(material_impl))
-{}
+{
+}
 
 Material& Material::operator=(const Material& other)
 {
     if (other.isEmpty())
-        throw Exceptions::NullPointerException("Material: Error! Attempt to assign nullptr to material.");
+        throw Exceptions::NullPointerException(
+            "Material: Error! Attempt to assign nullptr to material.");
     m_material_impl.reset(other.m_material_impl->clone());
     return *this;
 }
@@ -59,7 +62,8 @@ bool Material::isScalarMaterial() const
     return m_material_impl->isScalarMaterial();
 }
 
-bool Material::isMagneticMaterial() const {
+bool Material::isMagneticMaterial() const
+{
     return m_material_impl->isMagneticMaterial();
 }
 
@@ -100,7 +104,8 @@ Eigen::Matrix2cd Material::polarizedSubtrSLD(const WavevectorInfo& wavevectors) 
 
 Material Material::transformedMaterial(const Transform3D& transform) const
 {
-    std::unique_ptr<BaseMaterialImpl> material_impl(m_material_impl->transformedMaterial(transform));
+    std::unique_ptr<BaseMaterialImpl> material_impl(
+        m_material_impl->transformedMaterial(transform));
     return Material(std::move(material_impl));
 }
 
@@ -112,10 +117,14 @@ std::ostream& operator<<(std::ostream& ostr, const Material& m)
 
 bool operator==(const Material& left, const Material& right)
 {
-    if (left.getName() != right.getName()) return false;
-    if (left.magnetization() != right.magnetization()) return false;
-    if (left.materialData() != right.materialData()) return false;
-    if (left.typeID() != right.typeID()) return false;
+    if (left.getName() != right.getName())
+        return false;
+    if (left.magnetization() != right.magnetization())
+        return false;
+    if (left.materialData() != right.materialData())
+        return false;
+    if (left.typeID() != right.typeID())
+        return false;
     return true;
 }
 
@@ -123,4 +132,3 @@ bool operator!=(const Material& left, const Material& right)
 {
     return !(left == right);
 }
-

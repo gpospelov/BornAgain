@@ -41,9 +41,9 @@ public:
     double relativeAbundance() const { return m_abundance; }
     void scaleRelativeAbundance(double total_abundance);
     double radialExtension() const;
+
 private:
-    FormFactorCoherentSum(const std::vector<FormFactorCoherentPart>& parts,
-                          double abundance);
+    FormFactorCoherentSum(const std::vector<FormFactorCoherentPart>& parts, double abundance);
     std::vector<FormFactorCoherentPart> m_parts;
     double m_abundance;
 };

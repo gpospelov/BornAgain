@@ -26,8 +26,10 @@ class BA_CORE_API_ FormFactorSphereGaussianRadius : public IFormFactorBorn
 public:
     FormFactorSphereGaussianRadius(double mean, double sigma);
 
-    FormFactorSphereGaussianRadius* clone() const override final {
-        return new FormFactorSphereGaussianRadius(m_mean, m_sigma); }
+    FormFactorSphereGaussianRadius* clone() const override final
+    {
+        return new FormFactorSphereGaussianRadius(m_mean, m_sigma);
+    }
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 

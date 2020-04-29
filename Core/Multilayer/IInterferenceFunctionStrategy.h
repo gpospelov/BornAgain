@@ -62,9 +62,9 @@ private:
     double evaluate_for_fixed_angles(double* fractions, size_t dim, void* params) const;
     virtual void strategy_specific_post_init();
     //! Evaluates the intensity in the scalar case
-    virtual double scalarCalculation(const SimulationElement& sim_element) const =0;
+    virtual double scalarCalculation(const SimulationElement& sim_element) const = 0;
     //! Evaluates the intensity in the polarized case
-    virtual double polarizedCalculation(const SimulationElement& sim_element) const =0;
+    virtual double polarizedCalculation(const SimulationElement& sim_element) const = 0;
 
     bool m_polarized;
 

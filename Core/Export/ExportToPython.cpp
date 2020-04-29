@@ -13,11 +13,12 @@
 // ************************************************************************** //
 
 #include "ExportToPython.h"
-#include "SimulationToPython.h"
-#include "SampleToPython.h"
 #include "GISASSimulation.h"
+#include "SampleToPython.h"
+#include "SimulationToPython.h"
 
-namespace {
+namespace
+{
 std::string simulationCode(const Simulation& simulation,
                            SimulationToPython::EMainType mainFunctionType)
 {
@@ -27,7 +28,7 @@ std::string simulationCode(const Simulation& simulation,
     SimulationToPython generator;
     return generator.generateSimulationCode(*sim, mainFunctionType);
 }
-}
+} // namespace
 
 std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
 {

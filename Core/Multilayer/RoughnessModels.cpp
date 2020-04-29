@@ -16,11 +16,12 @@
 
 #include <map>
 
-namespace {
+namespace
+{
 const std::map<RoughnessModel, std::string> roughnessModelNames = {
     {RoughnessModel::DEFAULT, "RoughnessModel::DEFAULT"},
     {RoughnessModel::TANH, "RoughnessModel::TANH"},
-    {RoughnessModel::NEVOT_CROCE, "RoughnessModel::NEVOT_CROCE"} };
+    {RoughnessModel::NEVOT_CROCE, "RoughnessModel::NEVOT_CROCE"}};
 }
 
 std::string RoughnessModelWrap::roughnessModelName(RoughnessModel model)
@@ -30,5 +31,3 @@ std::string RoughnessModelWrap::roughnessModelName(RoughnessModel model)
         return iter->second;
     return "Invalid roughness model";
 }
-
-

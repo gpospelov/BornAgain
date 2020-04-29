@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "FormFactorFullSphere.h"
+#include "BornAgainNamespace.h"
 #include "FormFactorTruncatedSphere.h"
 #include "FormFactorWeighted.h"
-#include "BornAgainNamespace.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include "Rotations.h"
@@ -52,23 +52,23 @@ double FormFactorFullSphere::topZ(const IRotation& rotation) const
 complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const
 {
     double R = m_radius;
-    complex_t q1 = sqrt( q.x()*q.x() + q.y()*q.y() + q.z()*q.z() ); // NO sesquilinear dot product!
-    complex_t qR = q1*R;
+    complex_t q1 =
+        sqrt(q.x() * q.x() + q.y() * q.y() + q.z() * q.z()); // NO sesquilinear dot product!
+    complex_t qR = q1 * R;
 
     complex_t ret;
     if (std::abs(qR) < 1e-4) { // relative error is O(qR^4) with small prefactor
 #ifdef POLYHEDRAL_DIAGNOSTIC
-        diagnosis = { 0, 1 };
+        diagnosis = {0, 1};
 #endif
-        ret = 4*M_PI/3*pow(R,3) * ( 1. - 0.1*pow(qR,2) );
-    }
-    else {
+        ret = 4 * M_PI / 3 * pow(R, 3) * (1. - 0.1 * pow(qR, 2));
+    } else {
 #ifdef POLYHEDRAL_DIAGNOSTIC
-        diagnosis = { 0, 0 };
+        diagnosis = {0, 0};
 #endif
-        ret = 4*M_PI*pow(q1,-3)*(sin(qR) - qR*cos(qR));
+        ret = 4 * M_PI * pow(q1, -3) * (sin(qR) - qR * cos(qR));
     }
-    auto prefactor = m_position_at_center ? 1.0 : exp_I(q.z()*R);
+    auto prefactor = m_position_at_center ? 1.0 : exp_I(q.z() * R);
     return prefactor * ret;
 }
 
@@ -76,12 +76,12 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
                                                    kvector_t translation) const
 {
     kvector_t center(0.0, 0.0, m_radius);
-    kvector_t rotation_offset = m_position_at_center ? kvector_t(0.0, 0.0, 0.0)
-                                                     : rot.getTransform3D().transformed(center)
-                                                       - center;
+    kvector_t rotation_offset = m_position_at_center
+                                    ? kvector_t(0.0, 0.0, 0.0)
+                                    : rot.getTransform3D().transformed(center) - center;
     kvector_t new_translation = translation + rotation_offset;
     std::unique_ptr<IRotation> P_identity(IRotation::createIdentity());
-    double height = 2.0*m_radius;
+    double height = 2.0 * m_radius;
     auto effects = computeSlicingEffects(limits, new_translation, height);
     FormFactorTruncatedSphere slicedff(m_radius, height - effects.dz_bottom, effects.dz_top);
     return CreateTransformedFormFactor(slicedff, *P_identity, effects.position);

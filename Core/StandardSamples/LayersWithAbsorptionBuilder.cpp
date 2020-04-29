@@ -13,23 +13,22 @@
 // ************************************************************************** //
 
 #include "LayersWithAbsorptionBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "Exceptions.h"
+#include "FormFactors.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
-#include "Units.h"
 #include "SampleComponents.h"
-#include "FormFactors.h"
+#include "Units.h"
 
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
-    : m_ff(new FormFactorFullSphere(5.0*Units::nanometer))
+    : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))
 {
-
 }
 
 LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder() = default;
@@ -41,13 +40,13 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
     Material mSubstrate = HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8);
     Material mParticle = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
 
-    const double middle_layer_thickness(60.0*Units::nanometer);
+    const double middle_layer_thickness(60.0 * Units::nanometer);
 
     Particle particle(mParticle, *m_ff);
-    particle.setRotation(RotationZ(10.0*Units::degree));
-    particle.rotate(RotationY(10.0*Units::degree));
-    particle.rotate(RotationX(10.0*Units::degree));
-    particle.setPosition(kvector_t(0.0, 0.0, -middle_layer_thickness/2.0 ));
+    particle.setRotation(RotationZ(10.0 * Units::degree));
+    particle.rotate(RotationY(10.0 * Units::degree));
+    particle.rotate(RotationX(10.0 * Units::degree));
+    particle.setPosition(kvector_t(0.0, 0.0, -middle_layer_thickness / 2.0));
 
     ParticleLayout layout;
     layout.addParticle(particle);
@@ -67,7 +66,7 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 
 MultiLayer* LayersWithAbsorptionBuilder::createSample(size_t index)
 {
-    if(index >= size())
+    if (index >= size())
         throw std::runtime_error("ParticleInTheAirBuilder::createSample() -> Error. "
                                  "Sample index is out of range.");
 
@@ -89,4 +88,3 @@ FormFactorComponents& LayersWithAbsorptionBuilder::ff_components()
     static FormFactorComponents result = FormFactorComponents();
     return result;
 }
-

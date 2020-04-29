@@ -15,12 +15,12 @@
 #ifndef INSTRUMENT_H
 #define INSTRUMENT_H
 
+#include "Beam.h"
 #include "IDetector.h"
 #include "INode.h"
-#include "Beam.h"
 #include <memory>
 
-template<class T> class OutputData;
+template <class T> class OutputData;
 class Histogram2D;
 class DetectorMask;
 class IAxis;
@@ -87,8 +87,8 @@ public:
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
     //! Returns new intensity map with detector resolution applied and axes in requested units
-    OutputData<double>* createDetectorIntensity(
-            const std::vector<SimulationElement> &elements) const;
+    OutputData<double>*
+    createDetectorIntensity(const std::vector<SimulationElement>& elements) const;
 
     //! init detector with beam settings
     void initDetector();

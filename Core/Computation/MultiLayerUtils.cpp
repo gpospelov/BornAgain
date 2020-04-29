@@ -85,9 +85,8 @@ std::vector<ZLimits> MultiLayerUtils::ParticleRegions(const MultiLayer& multilay
 
 bool MultiLayerUtils::hasRoughness(const MultiLayer& sample)
 {
-    for(size_t i = 0; i < sample.numberOfLayers() - 1; i++ )
-    {
-        if( sample.layerInterface(i)->getRoughness() )
+    for (size_t i = 0; i < sample.numberOfLayers() - 1; i++) {
+        if (sample.layerInterface(i)->getRoughness())
             return true;
     }
     return false;

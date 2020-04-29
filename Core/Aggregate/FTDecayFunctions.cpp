@@ -14,17 +14,15 @@
 
 #include "FTDecayFunctions.h"
 #include "BornAgainNamespace.h"
+#include "MathConstants.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
-#include "MathConstants.h"
 #include "RealParameter.h"
 #include <algorithm>
 
 //===============1D======================
 
-IFTDecayFunction1D::IFTDecayFunction1D(double decay_length)
-    : m_decay_length(decay_length)
-{}
+IFTDecayFunction1D::IFTDecayFunction1D(double decay_length) : m_decay_length(decay_length) {}
 
 void IFTDecayFunction1D::register_decay_length()
 {
@@ -146,13 +144,14 @@ double FTDecayFunction1DCosine::evaluate(double q) const
 //! in radians
 IFTDecayFunction2D::IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma)
     : m_decay_length_x(decay_length_x), m_decay_length_y(decay_length_y), m_gamma(gamma)
-{}
+{
+}
 
 //! Calculates bounding values of reciprocal lattice coordinates that contain the centered
 //! rectangle with a corner defined by qX and qY
 std::pair<double, double>
-IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(
-        double qX, double qY, double a, double b, double alpha) const
+IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, double a, double b,
+                                                         double alpha) const
 {
     auto q_bounds_1 = transformToRecLatticeCoordinates(qX, qY, a, b, alpha);
     auto q_bounds_2 = transformToRecLatticeCoordinates(qX, -qY, a, b, alpha);
@@ -163,15 +162,18 @@ IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(
 
 void IFTDecayFunction2D::register_decay_lengths()
 {
-    registerParameter(BornAgain::DecayLengthX, &m_decay_length_x).setUnit(BornAgain::UnitsNm)
+    registerParameter(BornAgain::DecayLengthX, &m_decay_length_x)
+        .setUnit(BornAgain::UnitsNm)
         .setNonnegative();
-    registerParameter(BornAgain::DecayLengthY, &m_decay_length_y).setUnit(BornAgain::UnitsNm)
+    registerParameter(BornAgain::DecayLengthY, &m_decay_length_y)
+        .setUnit(BornAgain::UnitsNm)
         .setNonnegative();
 }
 
 void IFTDecayFunction2D::register_gamma()
 {
-    registerParameter(BornAgain::Gamma, &m_gamma).setUnit(BornAgain::UnitsRad)
+    registerParameter(BornAgain::Gamma, &m_gamma)
+        .setUnit(BornAgain::UnitsRad)
         .setLimited(-M_PI_2, M_PI_2);
 }
 
@@ -181,8 +183,9 @@ void IFTDecayFunction2D::init_parameters()
     register_gamma();
 }
 
-std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(
-        double qX, double qY, double a, double b, double alpha) const
+std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(double qX, double qY,
+                                                                               double a, double b,
+                                                                               double alpha) const
 {
     double qa = (a * qX * std::cos(m_gamma) - a * qY * std::sin(m_gamma)) / M_TWOPI;
     double qb = (b * qX * std::cos(alpha - m_gamma) + b * qY * std::sin(alpha - m_gamma)) / M_TWOPI;

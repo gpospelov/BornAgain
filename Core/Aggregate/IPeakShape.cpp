@@ -142,8 +142,7 @@ VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape(double max_intensity,
     : m_max_intensity(max_intensity), m_radial_size(radial_size), m_zenith(zenith.unit()),
       m_kappa_1(kappa_1), m_kappa_2(kappa_2)
 {
-    mP_integrator
-        = make_integrator_real(this, &VonMisesFisherGaussPeakShape::integrand);
+    mP_integrator = make_integrator_real(this, &VonMisesFisherGaussPeakShape::integrand);
 }
 
 VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape() = default;
@@ -188,24 +187,23 @@ double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q,
 double VonMisesFisherGaussPeakShape::integrand(double phi) const
 {
     kvector_t u_q = std::sin(m_theta) * std::cos(phi) * m_ux
-                  + std::sin(m_theta) * std::sin(phi) * m_uy
-                  + std::cos(m_theta) * m_zenith;
-    double fisher = std::exp(m_kappa_1*(u_q.dot(m_up) - 1.0));
-    double vonmises = std::exp(m_kappa_2*(std::cos(m_phi - phi) - 1.0));
+                    + std::sin(m_theta) * std::sin(phi) * m_uy + std::cos(m_theta) * m_zenith;
+    double fisher = std::exp(m_kappa_1 * (u_q.dot(m_up) - 1.0));
+    double vonmises = std::exp(m_kappa_2 * (std::cos(m_phi - phi) - 1.0));
     return fisher * vonmises;
 }
 
 VonMisesGaussPeakShape::VonMisesGaussPeakShape(double max_intensity, double radial_size,
                                                kvector_t zenith, double kappa)
-    : m_max_intensity(max_intensity), m_radial_size(radial_size), m_zenith(zenith.unit())
-    , m_kappa(kappa)
+    : m_max_intensity(max_intensity), m_radial_size(radial_size), m_zenith(zenith.unit()),
+      m_kappa(kappa)
 {
     mP_integrator = make_integrator_real(this, &VonMisesGaussPeakShape::integrand);
 }
 
 VonMisesGaussPeakShape::~VonMisesGaussPeakShape() = default;
 
-VonMisesGaussPeakShape *VonMisesGaussPeakShape::clone() const
+VonMisesGaussPeakShape* VonMisesGaussPeakShape::clone() const
 {
     return new VonMisesGaussPeakShape(m_max_intensity, m_radial_size, m_zenith, m_kappa);
 }
@@ -232,15 +230,14 @@ double VonMisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lat
 
 double VonMisesGaussPeakShape::integrand(double phi) const
 {
-    kvector_t q_rot = m_qr * (std::sin(m_theta) * std::cos(phi) * m_ux
-                            + std::sin(m_theta) * std::sin(phi) * m_uy
-                            + std::cos(m_theta) * m_zenith);
+    kvector_t q_rot = m_qr
+                      * (std::sin(m_theta) * std::cos(phi) * m_ux
+                         + std::sin(m_theta) * std::sin(phi) * m_uy + std::cos(m_theta) * m_zenith);
     double dq2 = (q_rot - m_p).mag2();
     double gauss = Gauss3D(dq2, m_radial_size);
-    double vonmises = std::exp(m_kappa*(std::cos(m_phi - phi) - 1.0));
+    double vonmises = std::exp(m_kappa * (std::cos(m_phi - phi) - 1.0));
     return gauss * vonmises;
 }
-
 
 namespace
 {
@@ -272,7 +269,7 @@ double VonMisesPrefactor(double kappa)
         return 1.0 / (2.0 * M_PI);
     }
     if (kappa > maxkappa2) {
-        return std::sqrt(kappa / 2.0 / M_PI) / (1.0 + 1.0/(8.0*kappa));
+        return std::sqrt(kappa / 2.0 / M_PI) / (1.0 + 1.0 / (8.0 * kappa));
     } else {
         return std::exp(kappa) / (2.0 * M_PI * MathFunctions::Bessel_I0(kappa));
     }
@@ -290,4 +287,3 @@ double Cauchy3D(double q2, double domainsize)
     return domainsize * lorentz1 * lorentz1;
 }
 } // namespace
-

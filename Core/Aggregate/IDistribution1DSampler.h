@@ -23,7 +23,7 @@ public:
     IDistribution1DSampler() {}
     virtual ~IDistribution1DSampler();
 
-    virtual double randomSample() const=0;
+    virtual double randomSample() const = 0;
 };
 
 class BA_CORE_API_ Distribution1DCauchySampler : public IDistribution1DSampler

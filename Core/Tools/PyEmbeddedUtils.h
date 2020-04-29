@@ -15,15 +15,16 @@
 #ifndef PYEMBEDDEDUTILS_H
 #define PYEMBEDDEDUTILS_H
 
-#include "WinDllMacros.h"
 #include "PyObject.h"
+#include "WinDllMacros.h"
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 class MultiLayer;
 
-namespace PyEmbeddedUtils {
+namespace PyEmbeddedUtils
+{
 
 //! Converts PyObject into string, if possible, or throws exception.
 BA_CORE_API_ std::string toString(PyObject* obj);
@@ -43,7 +44,6 @@ BA_CORE_API_ std::string pythonRuntimeInfo();
 
 //! Returns string representing python stack trace.
 BA_CORE_API_ std::string pythonStackTrace();
-}
+} // namespace PyEmbeddedUtils
 
 #endif
-

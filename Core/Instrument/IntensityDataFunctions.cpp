@@ -285,8 +285,8 @@ SimulationResult IntensityDataFunctions::ConvertData(const Simulation& simulatio
                                                      bool put_masked_areas_to_zero)
 {
     auto converter = UnitConverterUtils::createConverter(simulation);
-    auto roi_data
-        = UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
+    auto roi_data =
+        UnitConverterUtils::createOutputData(*converter.get(), converter->defaultUnits());
 
     auto detector = simulation.getInstrument().getDetector();
 
@@ -296,7 +296,8 @@ SimulationResult IntensityDataFunctions::ConvertData(const Simulation& simulatio
             detector->iterate(
                 [&](IDetector::const_iterator it) {
                     (*roi_data)[it.roiIndex()] = data[it.roiIndex()];
-                }, /*visit_masked*/ false);
+                },
+                /*visit_masked*/ false);
         } else {
             roi_data->setRawDataVector(data.getRawDataVector());
         }

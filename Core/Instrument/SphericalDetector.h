@@ -34,10 +34,10 @@ public:
     //! @param n_alpha number of alpha-axis bins
     //! @param alpha_min low edge of first alpha-bin
     //! @param alpha_max upper edge of last alpha-bin
-    SphericalDetector(size_t n_phi, double phi_min, double phi_max,
-                      size_t n_alpha, double alpha_min, double alpha_max);
+    SphericalDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha,
+                      double alpha_min, double alpha_max);
 
-    SphericalDetector(const SphericalDetector &other);
+    SphericalDetector(const SphericalDetector& other);
 
     SphericalDetector* clone() const override;
 
@@ -71,6 +71,7 @@ public:
     kvector_t getK(double x, double y, double wavelength) const override;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;
+
 private:
     double m_alpha, m_phi;
     double m_dalpha, m_dphi;

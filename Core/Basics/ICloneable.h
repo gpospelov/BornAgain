@@ -29,10 +29,10 @@ public:
     ICloneable();
     virtual ~ICloneable();
 
-    ICloneable(const ICloneable&) =delete;
-    ICloneable& operator=(const ICloneable&) =delete;
+    ICloneable(const ICloneable&) = delete;
+    ICloneable& operator=(const ICloneable&) = delete;
 
-    virtual ICloneable* clone() const =0;
+    virtual ICloneable* clone() const = 0;
     virtual void transferToCPP() {} //!< Used for Python overriding of clone (see swig/tweaks.py)
 };
 

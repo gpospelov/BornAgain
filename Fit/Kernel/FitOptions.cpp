@@ -14,8 +14,7 @@
 
 #include "FitOptions.h"
 
-FitOptions::FitOptions()
-    : m_deriv_epsilon(1e-09), m_step_factor(0.01) {}
+FitOptions::FitOptions() : m_deriv_epsilon(1e-09), m_step_factor(0.01) {}
 
 void FitOptions::setStepFactor(double step_factor)
 {

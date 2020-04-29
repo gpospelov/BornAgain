@@ -17,7 +17,13 @@
 
 #include "RootMinimizerAdapter.h"
 
-namespace ROOT { namespace Math { class GSLSimAnMinimizer; } }
+namespace ROOT
+{
+namespace Math
+{
+class GSLSimAnMinimizer;
+}
+} // namespace ROOT
 
 //! Wrapper for the CERN ROOT facade of the GSL simmulated annealing minimizer.
 //! @ingroup fitting_internal

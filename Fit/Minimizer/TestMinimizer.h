@@ -21,7 +21,7 @@
 
 class BA_CORE_API_ TestMinimizer : public IMinimizer
 {
- public:
+public:
     TestMinimizer();
     ~TestMinimizer() override;
 
@@ -30,7 +30,7 @@ class BA_CORE_API_ TestMinimizer : public IMinimizer
 
     Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
 
- private:
+private:
     std::vector<double> m_parameter_values;
     scalar_function_t m_fcn;
 };

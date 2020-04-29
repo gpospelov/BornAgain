@@ -19,7 +19,13 @@
 #include "RootMinimizerAdapter.h"
 #include <memory>
 
-namespace ROOT { namespace Minuit2 { class Minuit2Minimizer; } }
+namespace ROOT
+{
+namespace Minuit2
+{
+class Minuit2Minimizer;
+}
+} // namespace ROOT
 
 //! Wrapper for the CERN ROOT facade of the Minuit2 minimizer.
 //! See Minuit2 user manual https://root.cern.ch/root/htmldoc/guides/minuit2/Minuit2.pdf.

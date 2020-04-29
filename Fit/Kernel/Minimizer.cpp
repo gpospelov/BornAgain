@@ -18,8 +18,7 @@
 
 using namespace Fit;
 
-Minimizer::Minimizer()
-    : m_kernel(new Kernel) {}
+Minimizer::Minimizer() : m_kernel(new Kernel) {}
 
 void Minimizer::setMinimizer(const std::string& minimizerName, const std::string& algorithmName,
                              const std::string& options)

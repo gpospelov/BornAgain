@@ -45,10 +45,10 @@ void TimeInterval::stop()
 
 double TimeInterval::runTime() const
 {
-    duration_unit diff
-        = m_imp->m_is_running
-              ? std::chrono::duration_cast<duration_unit>(clock_used::now() - m_imp->m_start_time)
-              : std::chrono::duration_cast<duration_unit>(m_imp->m_end_time - m_imp->m_start_time);
+    duration_unit diff =
+        m_imp->m_is_running
+            ? std::chrono::duration_cast<duration_unit>(clock_used::now() - m_imp->m_start_time)
+            : std::chrono::duration_cast<duration_unit>(m_imp->m_end_time - m_imp->m_start_time);
 
     return diff.count() / 1000.;
 }

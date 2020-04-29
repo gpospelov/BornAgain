@@ -59,7 +59,7 @@ public:
 #ifndef SWIG
     //! Returns true if minimizer computations are residual-based, false otherwise
     virtual bool requiresResiduals() { return false; }
-#endif //SWIG
+#endif // SWIG
 };
 
 #endif // IMINIMIZER_H

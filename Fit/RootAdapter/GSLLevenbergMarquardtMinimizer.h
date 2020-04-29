@@ -17,7 +17,13 @@
 
 #include "RootMinimizerAdapter.h"
 
-namespace ROOT { namespace Math { class GSLNLSMinimizer; } }
+namespace ROOT
+{
+namespace Math
+{
+class GSLNLSMinimizer;
+}
+} // namespace ROOT
 
 //! It's a facade to ROOT::Math::GSLNLSMinimizer which, in turn, is a facade to the
 //! actual GSL's gsl_multifit_fdfsolver_type

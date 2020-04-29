@@ -21,11 +21,21 @@
 #include <memory>
 #include <string>
 
-namespace Fit {
-    class Parameters; class Parameter; class ObjectiveFunctionAdapter; class MinimizerResult;
-}
+namespace Fit
+{
+class Parameters;
+class Parameter;
+class ObjectiveFunctionAdapter;
+class MinimizerResult;
+} // namespace Fit
 
-namespace ROOT { namespace Math { class Minimizer; } }
+namespace ROOT
+{
+namespace Math
+{
+class Minimizer;
+}
+} // namespace ROOT
 
 //! Pure virtual interface that adapts the CERN ROOT minimizer to our IMinimizer.
 //! @ingroup fitting_internal

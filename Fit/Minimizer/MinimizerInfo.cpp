@@ -62,7 +62,10 @@ void MinimizerInfo::setAlgorithmName(const std::string& algorithmName)
     throw std::runtime_error(msg.str());
 }
 
-std::string MinimizerInfo::algorithmName() const { return m_current_algorithm; }
+std::string MinimizerInfo::algorithmName() const
+{
+    return m_current_algorithm;
+}
 
 //! Return list of defined algorithm names.
 

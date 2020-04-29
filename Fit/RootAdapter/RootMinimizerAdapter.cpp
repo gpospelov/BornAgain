@@ -25,9 +25,7 @@
 using namespace Fit;
 
 RootMinimizerAdapter::RootMinimizerAdapter(const MinimizerInfo& minimizerInfo)
-    : m_minimizerInfo(minimizerInfo)
-    , m_adapter(new Fit::ObjectiveFunctionAdapter)
-    , m_status(false)
+    : m_minimizerInfo(minimizerInfo), m_adapter(new Fit::ObjectiveFunctionAdapter), m_status(false)
 {
 }
 
@@ -82,7 +80,10 @@ void RootMinimizerAdapter::setParameters(const Fit::Parameters& parameters)
         setParameter(index++, par);
 }
 
-double RootMinimizerAdapter::minValue() const { return rootMinimizer()->MinValue(); }
+double RootMinimizerAdapter::minValue() const
+{
+    return rootMinimizer()->MinValue();
+}
 
 std::string RootMinimizerAdapter::statusToString() const
 {

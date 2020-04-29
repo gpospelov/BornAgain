@@ -20,16 +20,17 @@
 
 //------------------------------------------------------------------------------
 
-class ModelShowcase : public RealSpace::Model {
+class ModelShowcase : public RealSpace::Model
+{
 public:
-  using Particle = RealSpace::Particles::Particle;
-  using kind     = RealSpace::Particles::EShape;
+    using Particle = RealSpace::Particles::Particle;
+    using kind = RealSpace::Particles::EShape;
 
-  ModelShowcase();
-  void showKind(kind);
+    ModelShowcase();
+    void showKind(kind);
 
 private:
-  Particle *p;
+    Particle* p;
 };
 
 //------------------------------------------------------------------------------

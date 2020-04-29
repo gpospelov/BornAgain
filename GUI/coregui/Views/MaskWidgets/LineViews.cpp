@@ -24,7 +24,7 @@ namespace
 {
 const double mask_width = 8.0;
 const double mask_visible_width = 3.0;
-}
+} // namespace
 
 VerticalLineView::VerticalLineView()
 {

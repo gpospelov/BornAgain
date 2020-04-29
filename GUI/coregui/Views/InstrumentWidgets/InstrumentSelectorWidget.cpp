@@ -33,12 +33,13 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel* model, QWidg
     listView()->setSpacing(12);
 
     listView()->setObjectName("listView");
-    listView()->setStyleSheet(QString::fromUtf8("QListView#listView\n"
-    "{\n"
-    "   selection-background-color : rgb(98,100,105); \n"
-    "   selection-color: rgb(255,255,255);\n"
-    "   border: 1px solid rgb(98,100,105);\n"
-    "}\n"));
+    listView()->setStyleSheet(
+        QString::fromUtf8("QListView#listView\n"
+                          "{\n"
+                          "   selection-background-color : rgb(98,100,105); \n"
+                          "   selection-color: rgb(255,255,255);\n"
+                          "   border: 1px solid rgb(98,100,105);\n"
+                          "}\n"));
 
     setModel(model);
     layout()->setMargin(10);
@@ -53,4 +54,3 @@ QSize InstrumentSelectorWidget::minimumSizeHint() const
 {
     return QSize(96, 200);
 }
-

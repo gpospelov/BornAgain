@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "JobView.h"
-#include "JobViewStatusBar.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobOutputDataWidget.h"
@@ -21,15 +20,14 @@
 #include "JobSelectorWidget.h"
 #include "JobViewDocks.h"
 #include "JobViewFlags.h"
+#include "JobViewStatusBar.h"
 #include "mainwindow.h"
 #include <QMenu>
 
-JobView::JobView(MainWindow *mainWindow)
-    : m_docks(new JobViewDocks(this))
-    , m_statusBar(new JobViewStatusBar(mainWindow))
-    , m_progressAssistant(new JobProgressAssistant(mainWindow))
-    , m_currentItem(nullptr)
-    , m_mainWindow(mainWindow)
+JobView::JobView(MainWindow* mainWindow)
+    : m_docks(new JobViewDocks(this)), m_statusBar(new JobViewStatusBar(mainWindow)),
+      m_progressAssistant(new JobProgressAssistant(mainWindow)), m_currentItem(nullptr),
+      m_mainWindow(mainWindow)
 {
     setObjectName("JobView");
     m_docks->initViews(mainWindow->jobModel());
@@ -68,7 +66,8 @@ void JobView::onDockMenuRequest()
 
 //! Propagates change in JobItem's selection down into main widgets.
 
-void JobView::onSelectionChanged(JobItem* jobItem) {
+void JobView::onSelectionChanged(JobItem* jobItem)
+{
     m_docks->setItem(jobItem);
 }
 
@@ -100,16 +99,14 @@ void JobView::connectSignals()
 void JobView::connectActivityRelated()
 {
     // Change activity requests: JobViewStatusBar -> this
-    connect(m_statusBar, &JobViewStatusBar::changeActivityRequest,
-            this, &JobView::setActivity);
+    connect(m_statusBar, &JobViewStatusBar::changeActivityRequest, this, &JobView::setActivity);
 
     // Activity was changed: this -> JobViewStatusBar
-    connect(this, &JobView::activityChanged,
-            m_statusBar, &JobViewStatusBar::onActivityChanged);
+    connect(this, &JobView::activityChanged, m_statusBar, &JobViewStatusBar::onActivityChanged);
 
     // Activity was changed: this -> JobOutputDataWidget
-    connect(this, &JobView::activityChanged,
-            m_docks->jobOutputDataWidget(), &JobOutputDataWidget::onActivityChanged);
+    connect(this, &JobView::activityChanged, m_docks->jobOutputDataWidget(),
+            &JobOutputDataWidget::onActivityChanged);
 }
 
 //! Connects signals related to dock layout.
@@ -119,12 +116,11 @@ void JobView::connectLayoutRelated()
     connect(this, &JobView::resetLayout, m_docks, &JobViewDocks::onResetLayout);
 
     // Toggling of JobSelector request: JobViewStatusBar -> this
-    connect(m_statusBar, &JobViewStatusBar::toggleJobSelectorRequest,
-            m_docks, &JobViewDocks::onToggleJobSelector);
+    connect(m_statusBar, &JobViewStatusBar::toggleJobSelectorRequest, m_docks,
+            &JobViewDocks::onToggleJobSelector);
 
     // Dock menu request: JobViewStatusBar -> this
-    connect(m_statusBar, &JobViewStatusBar::dockMenuRequest,
-            this, &JobView::onDockMenuRequest);
+    connect(m_statusBar, &JobViewStatusBar::dockMenuRequest, this, &JobView::onDockMenuRequest);
 }
 
 //! Connects signals related to JobItem
@@ -135,15 +131,16 @@ void JobView::connectJobRelated()
     connect(m_mainWindow->jobModel(), &JobModel::focusRequest, this, &JobView::onFocusRequest);
 
     // JobItem selection: JobSelectorWidget -> this
-    connect(m_docks->jobSelector(), &JobSelectorWidget::selectionChanged,
-            this, &JobView::onSelectionChanged);
+    connect(m_docks->jobSelector(), &JobSelectorWidget::selectionChanged, this,
+            &JobView::onSelectionChanged);
 }
 
 //! Sets appropriate activity for new JobItem
 
 void JobView::setAppropriateActivityForJob(JobItem* jobItem)
 {
-    if (!jobItem) return;
+    if (!jobItem)
+        return;
 
     if (jobItem->isValidForFitting())
         setActivity(JobViewFlags::FITTING_ACTIVITY);

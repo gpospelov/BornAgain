@@ -29,7 +29,7 @@ class BA_CORE_API_ ScientificPlot : public SessionItemWidget
     Q_OBJECT
 
 public:
-    enum class PLOT_TYPE {Plot1D, Plot2D};
+    enum class PLOT_TYPE { Plot1D, Plot2D };
 
     explicit ScientificPlot(QWidget* parent, PLOT_TYPE plot_type);
     ~ScientificPlot() override;
@@ -57,7 +57,7 @@ public:
     bool axesRangeContains(double xpos, double ypos) const;
 
     //! Returns the type of current plot
-    PLOT_TYPE plotType() const {return m_plot_type;}
+    PLOT_TYPE plotType() const { return m_plot_type; }
 
 signals:
     void statusString(const QString& text);

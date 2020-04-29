@@ -14,8 +14,4 @@
 
 #include "PropertyItem.h"
 
-PropertyItem::PropertyItem()
-    : SessionItem(Constants::PropertyType)
-{
-
-}
+PropertyItem::PropertyItem() : SessionItem(Constants::PropertyType) {}

@@ -15,11 +15,11 @@
 #ifndef COMPONENTPROXYMODEL_H
 #define COMPONENTPROXYMODEL_H
 
-#include "WinDllMacros.h"
 #include "ProxyModelStrategy.h"
+#include "WinDllMacros.h"
 #include <QAbstractProxyModel>
-#include <QPersistentModelIndex>
 #include <QMap>
+#include <QPersistentModelIndex>
 #include <memory>
 
 class SessionModel;
@@ -36,6 +36,7 @@ class BA_CORE_API_ ComponentProxyModel : public QAbstractProxyModel
     Q_OBJECT
 
     friend class ProxyModelStrategy;
+
 public:
     ComponentProxyModel(QObject* parent = nullptr);
 
@@ -45,21 +46,21 @@ public:
 
     void setProxyStrategy(ProxyModelStrategy* strategy);
 
-    QModelIndex mapToSource(const QModelIndex &proxyIndex) const;
-    QModelIndex mapFromSource(const QModelIndex &sourceIndex) const;
+    QModelIndex mapToSource(const QModelIndex& proxyIndex) const;
+    QModelIndex mapFromSource(const QModelIndex& sourceIndex) const;
 
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-    QModelIndex parent(const QModelIndex &child) const;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
+    QModelIndex parent(const QModelIndex& child) const;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const;
 
-    bool hasChildren(const QModelIndex &parent) const;
+    bool hasChildren(const QModelIndex& parent) const;
 
 private slots:
-    void sourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
-                             const QVector<int> &roles = QVector<int>());
-    void sourceRowsInserted(const QModelIndex &parent, int start, int end);
-    void sourceRowsRemoved(const QModelIndex &parent, int start, int end);
+    void sourceDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight,
+                           const QVector<int>& roles = QVector<int>());
+    void sourceRowsInserted(const QModelIndex& parent, int start, int end);
+    void sourceRowsRemoved(const QModelIndex& parent, int start, int end);
 
 private:
     void buildModelMap();
@@ -69,5 +70,4 @@ private:
     std::unique_ptr<ProxyModelStrategy> m_proxyStrategy;
 };
 
-#endif  // COMPONENTPROXYMODEL_H
-
+#endif // COMPONENTPROXYMODEL_H

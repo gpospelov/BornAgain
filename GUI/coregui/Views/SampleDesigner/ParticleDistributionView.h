@@ -25,14 +25,11 @@ class BA_CORE_API_ ParticleDistributionView : public ConnectableView
 public:
     enum { TYPE = DesignerHelper::PARTICLE };
 
-    ParticleDistributionView(QGraphicsItem *parent = 0);
+    ParticleDistributionView(QGraphicsItem* parent = 0);
 
     int type() const { return TYPE; }
 
-    void addView(IView *childView, int row = 0);
-
+    void addView(IView* childView, int row = 0);
 };
 
-
 #endif // PARTICLEDISTRIBUTIONVIEW_H
-

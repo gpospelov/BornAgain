@@ -18,21 +18,20 @@
 #include "mainwindow.h"
 #include "progressbar.h"
 
-JobProgressAssistant::JobProgressAssistant(MainWindow *mainWindow)
-    : QObject(mainWindow)
-    , m_mainWindow(mainWindow)
+JobProgressAssistant::JobProgressAssistant(MainWindow* mainWindow)
+    : QObject(mainWindow), m_mainWindow(mainWindow)
 {
-    connect(m_mainWindow->jobModel(), SIGNAL(globalProgress(int)),
-            this, SLOT(onGlobalProgress(int)));
+    connect(m_mainWindow->jobModel(), SIGNAL(globalProgress(int)), this,
+            SLOT(onGlobalProgress(int)));
 
-    connect(m_mainWindow->progressBar(), SIGNAL(clicked()),
-            m_mainWindow->jobModel(), SLOT(onCancelAllJobs()));
+    connect(m_mainWindow->progressBar(), SIGNAL(clicked()), m_mainWindow->jobModel(),
+            SLOT(onCancelAllJobs()));
 }
 
 void JobProgressAssistant::onGlobalProgress(int progress)
 {
     Q_ASSERT(m_mainWindow->progressBar());
-    if(progress<0 || progress >= 100) {
+    if (progress < 0 || progress >= 100) {
         m_mainWindow->progressBar()->setFinished(true);
         m_mainWindow->progressBar()->hide();
     } else {

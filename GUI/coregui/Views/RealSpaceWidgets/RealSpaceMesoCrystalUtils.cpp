@@ -45,12 +45,12 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double H = ff_AnisoPyramid->getHeight();
         double alpha = ff_AnisoPyramid->getAlpha();
 
-        double l_z
-            = L / 2
-              - positionInside.z() / std::tan(alpha); // half-length of rectangle at a given height
-        double w_z
-            = W / 2
-              - positionInside.z() / std::tan(alpha); // half-width of rectangle at a given height
+        double l_z =
+            L / 2
+            - positionInside.z() / std::tan(alpha); // half-length of rectangle at a given height
+        double w_z =
+            W / 2
+            - positionInside.z() / std::tan(alpha); // half-width of rectangle at a given height
         if (std::abs(positionInside.x()) <= l_z && std::abs(positionInside.y()) <= w_z
             && (positionInside.z() >= 0 && positionInside.z() <= H))
             check = true;
@@ -132,8 +132,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         ostr << "Cannot display particles inside the Mesocrystal!";
         ostr << "\n\nOuter shape is a Dot!";
         throw Exceptions::ClassInitializationException(ostr.str());
-    } else if (auto ff_EllipsoidalCylinder
-               = dynamic_cast<const FormFactorEllipsoidalCylinder*>(outerShape)) {
+    } else if (auto ff_EllipsoidalCylinder =
+                   dynamic_cast<const FormFactorEllipsoidalCylinder*>(outerShape)) {
         double a = ff_EllipsoidalCylinder->getRadiusX(); // semi-axis length along x
         double b = ff_EllipsoidalCylinder->getRadiusY(); // semi-axis length along y
         double H = ff_EllipsoidalCylinder->getHeight();
@@ -234,9 +234,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double H = ff_Pyramid->getHeight();
         double alpha = ff_Pyramid->getAlpha();
 
-        double l_z
-            = B / 2
-              - positionInside.z() / std::tan(alpha); // half-length of square at a given height
+        double l_z =
+            B / 2 - positionInside.z() / std::tan(alpha); // half-length of square at a given height
         if (std::abs(positionInside.x()) <= l_z && std::abs(positionInside.y()) <= l_z
             && (positionInside.z() >= 0 && positionInside.z() <= H))
             check = true;
@@ -257,8 +256,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         double H = ff_Tetrahedron->getHeight();
         double alpha = ff_Tetrahedron->getAlpha();
 
-        double B_z
-            = B - positionInside.z() * 2 / std::tan(alpha); // edge of triangle at a given height
+        double B_z =
+            B - positionInside.z() * 2 / std::tan(alpha); // edge of triangle at a given height
 
         double l = B_z * std::sin(M_PI / 3);
         double x_shift = B_z / 2 * std::tan(M_PI / 6);
@@ -285,8 +284,8 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         ostr << "Sorry, outer shape Truncated cube not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
-    } else if (auto ff_TruncatedSphere
-               = dynamic_cast<const FormFactorTruncatedSphere*>(outerShape)) {
+    } else if (auto ff_TruncatedSphere =
+                   dynamic_cast<const FormFactorTruncatedSphere*>(outerShape)) {
         double R = ff_TruncatedSphere->getRadius();
         double H = ff_TruncatedSphere->getHeight();
         double deltaH = ff_TruncatedSphere->getRemovedTop();
@@ -307,11 +306,9 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
     }
     return check;
 }
-}
+} // namespace
 
-RealSpaceMesoCrystal::~RealSpaceMesoCrystal()
-{
-}
+RealSpaceMesoCrystal::~RealSpaceMesoCrystal() {}
 
 RealSpaceMesoCrystal::RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalItem,
                                            double total_abundance, const QVector3D& origin)
@@ -340,13 +337,12 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
 
     if (dynamic_cast<const ParticleComposition*>(particleBasis.get())) {
         auto particleComposition = dynamic_cast<const ParticleComposition*>(particleBasis.get());
-        mesoCrystalBasis3DContainer
-            = RealSpaceBuilderUtils::particleComposition3DContainer(*particleComposition, 1.0,
-                                                                    m_origin);
+        mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::particleComposition3DContainer(
+            *particleComposition, 1.0, m_origin);
     } else if (dynamic_cast<const ParticleCoreShell*>(particleBasis.get())) {
         auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(particleBasis.get());
-        mesoCrystalBasis3DContainer
-            = RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell, 1.0, m_origin);
+        mesoCrystalBasis3DContainer =
+            RealSpaceBuilderUtils::particleCoreShell3DContainer(*particleCoreShell, 1.0, m_origin);
     } else if (dynamic_cast<const MesoCrystal*>(particleBasis.get())) {
         // TODO: Implement method to populate MesoCrystal from CORE and NOT from MesoCrystalItem
         // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer
@@ -356,7 +352,8 @@ Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
         throw Exceptions::ClassInitializationException(ostr.str());
     } else {
         auto particle = dynamic_cast<const Particle*>(particleBasis.get());
-        mesoCrystalBasis3DContainer = RealSpaceBuilderUtils::singleParticle3DContainer(*particle, 1.0, m_origin);
+        mesoCrystalBasis3DContainer =
+            RealSpaceBuilderUtils::singleParticle3DContainer(*particle, 1.0, m_origin);
     }
 
     Particle3DContainer mesoCrystal3DContainer;

@@ -15,10 +15,10 @@
 #include "Plot1D.h"
 #include "AxesItems.h"
 #include "ColorMapUtils.h"
-#include "DataItem.h"
-#include "DataPropertyContainer.h"
 #include "Data1DViewItem.h"
+#include "DataItem.h"
 #include "DataProperties.h"
+#include "DataPropertyContainer.h"
 #include "MathConstants.h"
 #include "PlotEventInfo.h"
 #include "UpdateTimer.h"
@@ -29,13 +29,11 @@ namespace
 const int replot_update_interval = 10;
 
 int getBin(double x, const QCPGraph* graph);
-}
+} // namespace
 
 Plot1D::Plot1D(QWidget* parent)
-    : ScientificPlot(parent, PLOT_TYPE::Plot1D)
-    , m_custom_plot(new QCustomPlot)
-    , m_update_timer(new UpdateTimer(replot_update_interval, this))
-    , m_block_update(false)
+    : ScientificPlot(parent, PLOT_TYPE::Plot1D), m_custom_plot(new QCustomPlot),
+      m_update_timer(new UpdateTimer(replot_update_interval, this)), m_block_update(false)
 {
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(0, 0, 0, 0);
@@ -125,7 +123,7 @@ void Plot1D::subscribeToItem()
         },
         this);
 
-    std::for_each(m_graph_map.begin(), m_graph_map.end(), [caller=this](auto pair) {
+    std::for_each(m_graph_map.begin(), m_graph_map.end(), [caller = this](auto pair) {
         auto property_item = pair.first;
         property_item->dataItem()->mapper()->setOnValueChange(
             [caller]() { caller->refreshPlotData(); }, caller);
@@ -137,7 +135,7 @@ void Plot1D::subscribeToItem()
 void Plot1D::unsubscribeFromItem()
 {
     m_custom_plot->clearGraphs();
-    std::for_each(m_graph_map.begin(), m_graph_map.end(), [caller=this](auto pair) {
+    std::for_each(m_graph_map.begin(), m_graph_map.end(), [caller = this](auto pair) {
         pair.first->dataItem()->mapper()->unsubscribe(caller);
     });
     m_graph_map.clear();
@@ -147,13 +145,12 @@ void Plot1D::unsubscribeFromItem()
 void Plot1D::initPlots()
 {
     auto property_items = viewItem()->propertyContainerItem()->propertyItems();
-    std::for_each(
-        property_items.begin(), property_items.end(), [this](Data1DProperties* item) {
-            auto graph = m_custom_plot->addGraph();
-            graph->setLineStyle(QCPGraph::lsLine);
-            graph->setPen(QPen(item->color()));
-            m_graph_map[item] = graph;
-        });
+    std::for_each(property_items.begin(), property_items.end(), [this](Data1DProperties* item) {
+        auto graph = m_custom_plot->addGraph();
+        graph->setLineStyle(QCPGraph::lsLine);
+        graph->setPen(QPen(item->color()));
+        m_graph_map[item] = graph;
+    });
 }
 
 void Plot1D::setConnected(bool isConnected)
@@ -187,11 +184,10 @@ void Plot1D::setAxesRangeConnected(bool isConnected)
 void Plot1D::setUpdateTimerConnected(bool isConnected)
 {
     if (isConnected)
-        connect(m_update_timer, &UpdateTimer::timeToUpdate, this,
-                &Plot1D::onTimeToReplot, Qt::UniqueConnection);
+        connect(m_update_timer, &UpdateTimer::timeToUpdate, this, &Plot1D::onTimeToReplot,
+                Qt::UniqueConnection);
     else
-        disconnect(m_update_timer, &UpdateTimer::timeToUpdate, this,
-                   &Plot1D::onTimeToReplot);
+        disconnect(m_update_timer, &UpdateTimer::timeToUpdate, this, &Plot1D::onTimeToReplot);
 }
 
 void Plot1D::refreshPlotData()
@@ -252,13 +248,12 @@ void Plot1D::updateGraph(Data1DProperties* item)
     auto data_points = viewItem()->graphData(item);
 
     auto graph = m_graph_map.at(item);
-    graph->setData(data_points.first, data_points.second, /*sorted =*/ true);
+    graph->setData(data_points.first, data_points.second, /*sorted =*/true);
 }
 
 Data1DViewItem* Plot1D::viewItem()
 {
-    return const_cast<Data1DViewItem*>(
-        static_cast<const Plot1D*>(this)->viewItem());
+    return const_cast<Data1DViewItem*>(static_cast<const Plot1D*>(this)->viewItem());
 }
 
 const Data1DViewItem* Plot1D::viewItem() const
@@ -268,8 +263,7 @@ const Data1DViewItem* Plot1D::viewItem() const
     return result;
 }
 
-void Plot1D::modifyAxesProperties(const QString& axisName,
-                                                    const QString& propertyName)
+void Plot1D::modifyAxesProperties(const QString& axisName, const QString& propertyName)
 {
     if (m_block_update)
         return;
@@ -316,4 +310,4 @@ int getBin(double x, const QCPGraph* graph)
     return (x - graph->dataSortKey(key_start)) <= (graph->dataSortKey(key_end) - x) ? key_start
                                                                                     : key_end;
 }
-}
+} // namespace

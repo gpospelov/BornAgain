@@ -25,7 +25,8 @@ class QTimer;
 
 //! Used in ColorMap plot to avoid often replot of CustomPlot.
 
-class BA_CORE_API_ UpdateTimer : public QObject {
+class BA_CORE_API_ UpdateTimer : public QObject
+{
     Q_OBJECT
 public:
     explicit UpdateTimer(int timerInterval, QObject* parent = 0);
@@ -45,7 +46,7 @@ private slots:
 
 private:
     qint64 m_update_request_count; //!< Number of requests accumulated so far.
-    int m_timer_interval; //!< Timer in msec.
+    int m_timer_interval;          //!< Timer in msec.
     bool m_is_busy;
     QTimer* m_timer;
 };

@@ -44,4 +44,4 @@ private:
     DetectorPresenter* m_detectorPresenter;
 };
 
-#endif  // GISASDETECTOREDITOR_H
+#endif // GISASDETECTOREDITOR_H

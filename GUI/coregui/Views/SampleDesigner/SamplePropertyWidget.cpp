@@ -21,9 +21,8 @@
 #include <QVBoxLayout>
 
 SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel* selection_model, QWidget* parent)
-    : QWidget(parent)
-    , m_selection_model(nullptr)
-    , m_propertyEditor(new ComponentEditor(ComponentEditor::FullTree))
+    : QWidget(parent), m_selection_model(nullptr),
+      m_propertyEditor(new ComponentEditor(ComponentEditor::FullTree))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(QLatin1String("Property Editor"));
@@ -55,30 +54,29 @@ void SamplePropertyWidget::setSelectionModel(QItemSelectionModel* selection_mode
         return;
 
     if (m_selection_model) {
-        disconnect(m_selection_model, &QItemSelectionModel::selectionChanged,
-                   this, &SamplePropertyWidget::selectionChanged);
+        disconnect(m_selection_model, &QItemSelectionModel::selectionChanged, this,
+                   &SamplePropertyWidget::selectionChanged);
     }
 
     m_selection_model = selection_model;
 
     if (m_selection_model) {
-        connect(m_selection_model, &QItemSelectionModel::selectionChanged,
-                this, &SamplePropertyWidget::selectionChanged);
+        connect(m_selection_model, &QItemSelectionModel::selectionChanged, this,
+                &SamplePropertyWidget::selectionChanged);
     }
 }
 
 // TODO Refactor this together with whole SampleView. Remove knowledge about proxy model.
 
-void SamplePropertyWidget::selectionChanged(const QItemSelection& selected,
-                                            const QItemSelection&)
+void SamplePropertyWidget::selectionChanged(const QItemSelection& selected, const QItemSelection&)
 {
     QModelIndexList indices = selected.indexes();
 
     if (indices.size()) {
         QModelIndex index = indices.back();
 
-        if(auto proxy = dynamic_cast<QSortFilterProxyModel*>(
-            const_cast<QAbstractItemModel*>(indices.front().model())))
+        if (auto proxy = dynamic_cast<QSortFilterProxyModel*>(
+                const_cast<QAbstractItemModel*>(indices.front().model())))
             index = proxy->mapToSource(indices.back());
 
         SessionItem* item = static_cast<SessionItem*>(index.internalPointer());

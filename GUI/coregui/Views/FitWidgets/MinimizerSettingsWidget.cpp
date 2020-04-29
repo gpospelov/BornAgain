@@ -20,10 +20,8 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_currentItem(nullptr)
-    , m_componentEditor(new ComponentEditor)
+MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget* parent)
+    : QWidget(parent), m_currentItem(nullptr), m_componentEditor(new ComponentEditor)
 {
     setWindowTitle(QLatin1String("Minimizer Settings"));
 

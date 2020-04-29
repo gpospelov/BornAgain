@@ -16,22 +16,21 @@
 #include "AxesItems.h"
 #include "ColorMapUtils.h"
 #include "MathConstants.h"
-#include "plot_constants.h"
 #include "PlotEventInfo.h"
 #include "SpecularDataItem.h"
 #include "UpdateTimer.h"
+#include "plot_constants.h"
 
-namespace {
+namespace
+{
 const int replot_update_interval = 10;
 
 int getBin(double x, const QCPGraph* graph);
-}
+} // namespace
 
 SpecularPlot::SpecularPlot(QWidget* parent)
-    : ScientificPlot(parent, PLOT_TYPE::Plot1D)
-    , m_custom_plot(new QCustomPlot)
-    , m_update_timer(new UpdateTimer(replot_update_interval, this))
-    , m_block_update(true)
+    : ScientificPlot(parent, PLOT_TYPE::Plot1D), m_custom_plot(new QCustomPlot),
+      m_update_timer(new UpdateTimer(replot_update_interval, this)), m_block_update(true)
 {
     initPlot();
 
@@ -111,8 +110,8 @@ void SpecularPlot::subscribeToItem()
 
     specularItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString name) {
-            if(item->modelType() == Constants::BasicAxisType ||
-               item->modelType() == Constants::AmplitudeAxisType)
+            if (item->modelType() == Constants::BasicAxisType
+                || item->modelType() == Constants::AmplitudeAxisType)
                 modifyAxesProperties(item->itemName(), name);
         },
         this);
@@ -216,7 +215,7 @@ void SpecularPlot::setAxesLabelsFromItem(SpecularDataItem* item)
 void SpecularPlot::setLabel(const BasicAxisItem* item, QCPAxis* axis, QString label)
 {
     Q_ASSERT(item && axis);
-    if(item->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
+    if (item->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
         axis->setLabel(std::move(label));
     else
         axis->setLabel(QString());
@@ -238,8 +237,7 @@ void SpecularPlot::setDataFromItem(SpecularDataItem* item)
 
 SpecularDataItem* SpecularPlot::specularItem()
 {
-    return const_cast<SpecularDataItem*>(
-        static_cast<const SpecularPlot*>(this)->specularItem());
+    return const_cast<SpecularDataItem*>(static_cast<const SpecularPlot*>(this)->specularItem());
 }
 
 const SpecularDataItem* SpecularPlot::specularItem() const
@@ -253,8 +251,8 @@ void SpecularPlot::modifyAxesProperties(const QString& axisName, const QString& 
     if (m_block_update)
         return;
 
-    if (propertyName == BasicAxisItem::P_TITLE  ||
-        propertyName == BasicAxisItem::P_TITLE_IS_VISIBLE) {
+    if (propertyName == BasicAxisItem::P_TITLE
+        || propertyName == BasicAxisItem::P_TITLE_IS_VISIBLE) {
         setAxesLabelsFromItem(specularItem());
         replot();
     }
@@ -262,14 +260,16 @@ void SpecularPlot::modifyAxesProperties(const QString& axisName, const QString& 
     if (axisName == SpecularDataItem::P_XAXIS) {
         if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
             setAxesRangeConnected(false);
-            m_custom_plot->xAxis->setRange(specularItem()->getLowerX(), specularItem()->getUpperX());
+            m_custom_plot->xAxis->setRange(specularItem()->getLowerX(),
+                                           specularItem()->getUpperX());
             setAxesRangeConnected(true);
             replot();
         }
     } else if (axisName == SpecularDataItem::P_YAXIS) {
         if (propertyName == BasicAxisItem::P_MIN || propertyName == BasicAxisItem::P_MAX) {
             setAxesRangeConnected(false);
-            m_custom_plot->yAxis->setRange(specularItem()->getLowerY(), specularItem()->getUpperY());
+            m_custom_plot->yAxis->setRange(specularItem()->getLowerY(),
+                                           specularItem()->getUpperY());
             setAxesRangeConnected(true);
             replot();
         } else if (propertyName == AmplitudeAxisItem::P_IS_LOGSCALE) {
@@ -284,8 +284,10 @@ void SpecularPlot::replot()
     m_update_timer->scheduleUpdate();
 }
 
-namespace {
-int getBin(double x, const QCPGraph* graph) {
+namespace
+{
+int getBin(double x, const QCPGraph* graph)
+{
     const int key_start = graph->findBegin(x);
     const int key_end = graph->findBegin(x, false); // false = do not expand range
     if (key_end == key_start || key_end == graph->dataCount())
@@ -293,4 +295,4 @@ int getBin(double x, const QCPGraph* graph) {
     return (x - graph->dataSortKey(key_start)) <= (graph->dataSortKey(key_end) - x) ? key_start
                                                                                     : key_end;
 }
-}
+} // namespace

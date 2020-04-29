@@ -44,5 +44,4 @@ private:
     MainWindow* m_mainWindow;
 };
 
-
 #endif // PYIMPORTASSISTANT_H

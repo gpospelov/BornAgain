@@ -18,9 +18,7 @@
 namespace RealSpace
 {
 
-Model::Model() : defCamPos(Vector3D::_1, Vector3D::_0, Vector3D::_z)
-{
-}
+Model::Model() : defCamPos(Vector3D::_1, Vector3D::_0, Vector3D::_z) {}
 
 Model::~Model()
 {

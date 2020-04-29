@@ -42,7 +42,7 @@ BA_CORE_API_ int ParentVisibleRow(const SessionItem& item);
 BA_CORE_API_ QVariant TextColorRole(const SessionItem& item);
 
 //! Returns tooltip for given item.
-BA_CORE_API_ QVariant ToolTipRole(const SessionItem& item, int ncol=0);
+BA_CORE_API_ QVariant ToolTipRole(const SessionItem& item, int ncol = 0);
 
 //! Returns tooltip for given item.
 BA_CORE_API_ QVariant DecorationRole(const SessionItem& item);
@@ -73,6 +73,6 @@ BA_CORE_API_ bool IsPositionRelated(const SessionItem& item);
 
 BA_CORE_API_ bool HasOwnAbundance(const SessionItem* item);
 
-}  // namespace SessionItemUtils
+} // namespace SessionItemUtils
 
 #endif // SESSIONITEMUTILS_H

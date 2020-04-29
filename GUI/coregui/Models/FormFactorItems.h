@@ -22,9 +22,8 @@ class IFormFactor;
 class BA_CORE_API_ FormFactorItem : public SessionItem
 {
 public:
-    explicit FormFactorItem(const QString &model_type)
-        : SessionItem(model_type) {}
-    virtual std::unique_ptr<IFormFactor> createFormFactor() const=0;
+    explicit FormFactorItem(const QString& model_type) : SessionItem(model_type) {}
+    virtual std::unique_ptr<IFormFactor> createFormFactor() const = 0;
 };
 
 class BA_CORE_API_ AnisoPyramidItem : public FormFactorItem

@@ -46,14 +46,14 @@ public:
 
     // vertices (for GL)
     struct Vertices : private QVector<Vector3D> {
-        using QVector::QVector;
         using QVector::append;
+        using QVector::QVector;
         using QVector::reserve;
         using QVector::resize;
         using QVector::operator[];
         using QVector::at;
-        using QVector::count;
         using QVector::begin;
+        using QVector::count;
         using QVector::end;
 
         void addVertex(const Vector3D&, int n = 1); // add a vertex, possibly multiple copies

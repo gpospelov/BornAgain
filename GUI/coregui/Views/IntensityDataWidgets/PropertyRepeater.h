@@ -16,9 +16,9 @@
 #define PROPERTYREPEATER_H
 
 #include "WinDllMacros.h"
+#include <QMap>
 #include <QObject>
 #include <QVector>
-#include <QMap>
 
 class SessionItem;
 
@@ -37,6 +37,7 @@ public:
     void clear();
 
     void setActive(bool isActive);
+
 private:
     void onPropertyChanged(SessionItem* item, const QString& propertyName);
     void setOnChildPropertyChange(SessionItem* item, const QString& propertyName);

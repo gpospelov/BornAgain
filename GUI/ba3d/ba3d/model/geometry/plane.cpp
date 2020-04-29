@@ -14,17 +14,20 @@
 
 #include "../geometry.h"
 
-namespace RealSpace {
+namespace RealSpace
+{
 
-Geometry::Mesh Geometry::meshPlane() {
+Geometry::Mesh Geometry::meshPlane()
+{
     float const D = .5f;
 
-    Vertices vs; vs.reserve(4);
-    vs.addQuad({+D,+D, 0}, {-D,+D, 0}, {-D,-D, 0}, {+D,-D, 0});
+    Vertices vs;
+    vs.reserve(4);
+    vs.addQuad({+D, +D, 0}, {-D, +D, 0}, {-D, -D, 0}, {+D, -D, 0});
 
     Q_ASSERT(4 == vs.count());
 
     return makeMesh(vs);
 }
 
-}  // namespace RealSpace
+} // namespace RealSpace

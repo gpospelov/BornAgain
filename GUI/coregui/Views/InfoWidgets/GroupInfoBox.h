@@ -20,26 +20,26 @@
 //! The class which extends QGroupBox with clickable icon next to the label
 class GroupInfoBox : public QGroupBox
 {
-        Q_OBJECT
+    Q_OBJECT
 
 public:
-        GroupInfoBox( QWidget *parent = 0 );
-        GroupInfoBox( const QString &title, QWidget *parent = 0 );
+    GroupInfoBox(QWidget* parent = 0);
+    GroupInfoBox(const QString& title, QWidget* parent = 0);
 
-        void setButtonToolTip(const QString &text);
+    void setButtonToolTip(const QString& text);
 
 protected:
-        void mousePressEvent( QMouseEvent *e );
-        void paintEvent( QPaintEvent * );
-        void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent* e);
+    void paintEvent(QPaintEvent*);
+    void mouseMoveEvent(QMouseEvent* event);
 
 private:
-        void init_box();
+    void init_box();
 
-        QString m_title;
-        QString m_toolTipText;
-        int m_xImage;
-        int m_yImage;
+    QString m_title;
+    QString m_toolTipText;
+    int m_xImage;
+    int m_yImage;
 };
 
 #endif // GROUPINFOBOX_H

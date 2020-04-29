@@ -21,17 +21,14 @@
 #include <QMenu>
 #include <QVariant>
 
-namespace {
+namespace
+{
 const int toolbar_icon_size = 32;
 }
 
 MaterialEditorToolBar::MaterialEditorToolBar(MaterialModel* materialModel, QWidget* parent)
-    : QToolBar(parent)
-    , m_materialModel(materialModel)
-    , m_selectionModel(nullptr)
-    , m_newMaterialAction(nullptr)
-    , m_cloneMaterialAction(nullptr)
-    , m_removeMaterialAction(nullptr)
+    : QToolBar(parent), m_materialModel(materialModel), m_selectionModel(nullptr),
+      m_newMaterialAction(nullptr), m_cloneMaterialAction(nullptr), m_removeMaterialAction(nullptr)
 {
     setIconSize(QSize(toolbar_icon_size, toolbar_icon_size));
     setProperty("_q_custom_style_disabled", QVariant(true));
@@ -39,22 +36,22 @@ MaterialEditorToolBar::MaterialEditorToolBar(MaterialModel* materialModel, QWidg
     m_newMaterialAction = new QAction(QStringLiteral("Add new material"), parent);
     m_newMaterialAction->setIcon(QIcon(":/images/toolbar32dark_newitem.svg"));
     m_newMaterialAction->setToolTip(QStringLiteral("Add new material"));
-    connect(m_newMaterialAction, &QAction::triggered,
-            this, &MaterialEditorToolBar::onNewMaterialAction);
+    connect(m_newMaterialAction, &QAction::triggered, this,
+            &MaterialEditorToolBar::onNewMaterialAction);
     addAction(m_newMaterialAction);
 
     m_cloneMaterialAction = new QAction(QStringLiteral("Clone material"), parent);
     m_cloneMaterialAction->setIcon(QIcon(":/images/toolbar32dark_cloneitem.svg"));
     m_cloneMaterialAction->setToolTip(QStringLiteral("Clone selected material"));
-    connect(m_cloneMaterialAction, &QAction::triggered,
-            this, &MaterialEditorToolBar::onCloneMaterialAction);
+    connect(m_cloneMaterialAction, &QAction::triggered, this,
+            &MaterialEditorToolBar::onCloneMaterialAction);
     addAction(m_cloneMaterialAction);
 
     m_removeMaterialAction = new QAction(QStringLiteral("Remove selected material"), parent);
     m_removeMaterialAction->setIcon(QIcon(":/images/toolbar32dark_remove.svg"));
     m_removeMaterialAction->setToolTip(QStringLiteral("Remove selected material"));
-    connect(m_removeMaterialAction, &QAction::triggered,
-            this, &MaterialEditorToolBar::onRemoveMaterialAction);
+    connect(m_removeMaterialAction, &QAction::triggered, this,
+            &MaterialEditorToolBar::onRemoveMaterialAction);
     addAction(m_removeMaterialAction);
 }
 

@@ -44,7 +44,7 @@ bool OutputDataSaveInfo::wasSavedBefore(const QDateTime& dtime) const
 
 //-----------------------------------------------------------------------------
 
-void OutputDataDirHistory::markAsSaved(const SaveLoadInterface *item)
+void OutputDataDirHistory::markAsSaved(const SaveLoadInterface* item)
 {
     if (contains(item))
         throw GUIHelpers::Error("OutputDataDirHistory::markAsSaved() -> Error. "
@@ -60,9 +60,10 @@ bool OutputDataDirHistory::wasModifiedSinceLastSave(const SaveLoadInterface* ite
     return contains(item) ? itemInfo(item).wasModifiedSinceLastSave() : true;
 }
 
-bool OutputDataDirHistory::contains(const SaveLoadInterface* item) {
-    for(auto& info : m_history)
-        if(info.item() == item)
+bool OutputDataDirHistory::contains(const SaveLoadInterface* item)
+{
+    for (auto& info : m_history)
+        if (info.item() == item)
             return true;
 
     return false;
@@ -74,7 +75,7 @@ QStringList OutputDataDirHistory::savedFileNames() const
 {
     QStringList result;
 
-    for(auto& info : m_history)
+    for (auto& info : m_history)
         result.append(info.fileName());
 
     return result;
@@ -82,7 +83,7 @@ QStringList OutputDataDirHistory::savedFileNames() const
 
 OutputDataSaveInfo OutputDataDirHistory::itemInfo(const SaveLoadInterface* item) const
 {
-    for(auto& info : m_history) {
+    for (auto& info : m_history) {
         if (info.item() == item)
             return info;
     }
@@ -102,7 +103,8 @@ bool OutputDataIOHistory::wasModifiedSinceLastSave(const QString& dirname,
 {
     if (!hasHistory(dirname))
         throw GUIHelpers::Error("OutputDataIOHistory::wasModifiedSinceLastSave() -> Error. "
-                                "No info for directory '"+dirname+"'.");
+                                "No info for directory '"
+                                + dirname + "'.");
     return m_dir_history[dirname].wasModifiedSinceLastSave(item);
 }
 
@@ -119,8 +121,8 @@ QStringList OutputDataIOHistory::savedFileNames(const QString& dirname) const
 {
     if (!hasHistory(dirname))
         throw GUIHelpers::Error("OutputDataIOHistory::savedFileNames() -> Error. "
-                                "No info for directory '"+dirname+"'.");
+                                "No info for directory '"
+                                + dirname + "'.");
 
     return m_dir_history[dirname].savedFileNames();
 }
-

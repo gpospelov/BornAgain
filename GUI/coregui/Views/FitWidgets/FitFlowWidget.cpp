@@ -17,9 +17,8 @@
 #include "HistogramPlot.h"
 #include <QVBoxLayout>
 
-FitFlowWidget::FitFlowWidget(QWidget *parent)
-    : SessionItemWidget(parent)
-    , m_histPlot(new HistogramPlot)
+FitFlowWidget::FitFlowWidget(QWidget* parent)
+    : SessionItemWidget(parent), m_histPlot(new HistogramPlot)
 {
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
@@ -57,4 +56,3 @@ FitSuiteItem* FitFlowWidget::fitSuiteItem()
 {
     return dynamic_cast<FitSuiteItem*>(currentItem());
 }
-

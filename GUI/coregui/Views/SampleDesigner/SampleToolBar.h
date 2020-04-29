@@ -34,8 +34,7 @@ class BA_CORE_API_ SampleToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    explicit SampleToolBar(SampleViewActions* sampleActions = nullptr,
-                           QWidget* parent = nullptr);
+    explicit SampleToolBar(SampleViewActions* sampleActions = nullptr, QWidget* parent = nullptr);
 
 signals:
     void deleteItems();

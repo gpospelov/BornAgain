@@ -16,9 +16,9 @@
 #include "GUIHelpers.h"
 #include "fancymainwindow.h"
 #include <QAbstractItemView>
+#include <QAction>
 #include <QDockWidget>
 #include <QTimer>
-#include <QAction>
 
 DocksController::DocksController(Manhattan::FancyMainWindow* mainWindow)
     : QObject(mainWindow), m_mainWindow(mainWindow)
@@ -55,10 +55,10 @@ void DocksController::onResetLayout()
     for (auto& it : m_docks)
         m_mainWindow->addDockWidget(it.second.area(), it.second.dock());
 
-    // Fixes issue: https://bugreports.qt.io/browse/QTBUG-65592
+        // Fixes issue: https://bugreports.qt.io/browse/QTBUG-65592
 #if QT_VERSION >= 0x050600
     dockWidgetList = m_mainWindow->dockWidgets();
-    if (dockWidgetList.size()>0)
+    if (dockWidgetList.size() > 0)
         m_mainWindow->resizeDocks({dockWidgetList.first()}, {10}, Qt::Horizontal);
 #endif
 
@@ -82,13 +82,12 @@ QDockWidget* DocksController::findDock(QWidget* widget)
     throw GUIHelpers::Error("DocksController::findDock() -> Can't find dock for widget");
 }
 
-
 //! Show docks with id's from the list. Other docks will be hidden.
 
 void DocksController::show_docks(const std::vector<int>& docks_to_show)
 {
     for (auto& it : m_docks) {
-        if(std::find(docks_to_show.begin(), docks_to_show.end(), it.first) != docks_to_show.end())
+        if (std::find(docks_to_show.begin(), docks_to_show.end(), it.first) != docks_to_show.end())
             it.second.dock()->show();
         else
             it.second.dock()->hide();

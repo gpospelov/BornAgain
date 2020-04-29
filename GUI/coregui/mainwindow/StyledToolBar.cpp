@@ -16,7 +16,8 @@
 #include <QLabel>
 #include <QStyle>
 
-namespace {
+namespace
+{
 const int fixed_height = 25;
 }
 

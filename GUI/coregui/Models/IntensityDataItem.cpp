@@ -22,10 +22,11 @@
 #include "MaskItems.h"
 #include "MaskUnitsConverter.h"
 #include "ProjectionItems.h"
-#include "BornAgainNamespace.h"
 
-namespace {
-ComboProperty gradientCombo() {
+namespace
+{
+ComboProperty gradientCombo()
+{
     ComboProperty result;
     result << Constants::GRADIENT_GRAYSCALE << Constants::GRADIENT_HOT << Constants::GRADIENT_COLD
            << Constants::GRADIENT_NIGHT << Constants::GRADIENT_CANDY
@@ -35,7 +36,7 @@ ComboProperty gradientCombo() {
     result.setValue(Constants::GRADIENT_JET);
     return result;
 }
-}
+} // namespace
 
 const QString x_axis_default_name = "X [nbins]";
 const QString y_axis_default_name = "Y [nbins]";

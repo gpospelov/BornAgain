@@ -15,7 +15,7 @@
 #include "FilterPropertyProxy.h"
 #include "SessionModel.h"
 
-int FilterPropertyProxy::columnCount(const QModelIndex &parent) const
+int FilterPropertyProxy::columnCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
     return m_columns;
@@ -23,14 +23,14 @@ int FilterPropertyProxy::columnCount(const QModelIndex &parent) const
 
 QModelIndex FilterPropertyProxy::toSourceIndex(QModelIndex index)
 {
-    FilterPropertyProxy *proxy
-        = dynamic_cast<FilterPropertyProxy *>(const_cast<QAbstractItemModel *>(index.model()));
+    FilterPropertyProxy* proxy =
+        dynamic_cast<FilterPropertyProxy*>(const_cast<QAbstractItemModel*>(index.model()));
     if (proxy)
         return proxy->mapToSource(index);
     return index;
 }
 
-bool FilterPropertyProxy::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+bool FilterPropertyProxy::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const
 {
     QModelIndex index = sourceModel()->index(sourceRow, 1, sourceParent);
     if (!sourceParent.isValid())

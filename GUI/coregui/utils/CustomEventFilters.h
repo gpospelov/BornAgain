@@ -76,11 +76,10 @@ class BA_CORE_API_ ShortcodeFilter : public QObject
 {
     Q_OBJECT
 public:
-
-    ShortcodeFilter(const QString& shortcode, QObject *parent = 0);
+    ShortcodeFilter(const QString& shortcode, QObject* parent = 0);
 
 signals:
-   void found();
+    void found();
 
 protected:
     bool eventFilter(QObject* obj, QEvent* event);
@@ -100,7 +99,6 @@ protected:
     bool eventFilter(QObject* obj, QEvent* event);
 };
 
-
 //! Propagate tab events from focusProxy to parent.
 
 class BA_CORE_API_ TabFromFocusProxy : public QObject
@@ -113,6 +111,5 @@ protected:
     bool eventFilter(QObject* obj, QEvent* event);
     QWidget* m_parent;
 };
-
 
 #endif // CUSTOMEVENTFILTERS_H

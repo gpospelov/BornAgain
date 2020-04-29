@@ -18,8 +18,8 @@
 #include "WinDllMacros.h"
 #include "qcustomplot.h"
 #include <QMap>
-#include <QString>
 #include <QMargins>
+#include <QString>
 
 class IntensityDataItem;
 class ColorMap;
@@ -56,6 +56,6 @@ BA_CORE_API_ void setLogz(QCPAxis* axis, bool isLogz);
 //! Sets default margins for axes rectangle plot.
 BA_CORE_API_ void setDefaultMargins(QCustomPlot* customPlot);
 
-}
+} // namespace ColorMapUtils
 
 #endif // COLORMAPUTILS_H

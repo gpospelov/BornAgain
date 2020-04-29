@@ -15,9 +15,9 @@
 #include "DistributionWidget.h"
 #include "DistributionItems.h"
 #include "Distributions.h"
-#include "qcustomplot.h"
 #include "RealLimitsItems.h"
 #include "WarningSign.h"
+#include "qcustomplot.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <algorithm>
@@ -33,26 +33,22 @@ QPair<double, double> xRangeForValues(const QVector<double>& xvec);
 QPair<double, double> yRangeForValues(const QVector<double>& yvec);
 double optimalBarWidth(double xmin, double xmax, int nbars = 1);
 
-}
+} // namespace
 
-DistributionWidget::DistributionWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_plot(new QCustomPlot)
-    , m_item(0)
-    , m_label(new QLabel)
-    , m_resetAction(new QAction(this))
-    , m_warningSign(new WarningSign(this))
+DistributionWidget::DistributionWidget(QWidget* parent)
+    : QWidget(parent), m_plot(new QCustomPlot), m_item(0), m_label(new QLabel),
+      m_resetAction(new QAction(this)), m_warningSign(new WarningSign(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_resetAction->setText("Reset View");
     connect(m_resetAction, SIGNAL(triggered()), this, SLOT(resetView()));
 
-    m_label->setAlignment(Qt::AlignVCenter| Qt::AlignLeft);
+    m_label->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     m_label->setStyleSheet("background-color:white;");
     m_label->setMargin(3);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(m_plot, 1);
@@ -60,17 +56,17 @@ DistributionWidget::DistributionWidget(QWidget *parent)
     setLayout(mainLayout);
 
     setStyleSheet("background-color:white;");
-    connect(m_plot, SIGNAL(mousePress(QMouseEvent *)), this, SLOT(onMousePress(QMouseEvent *)));
-    connect(m_plot, SIGNAL(mouseMove(QMouseEvent *)), this, SLOT(onMouseMove(QMouseEvent *)));
+    connect(m_plot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(onMousePress(QMouseEvent*)));
+    connect(m_plot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
 }
 
 DistributionWidget::~DistributionWidget()
 {
-    if(m_item)
+    if (m_item)
         m_item->mapper()->unsubscribe(this);
 }
 
-void DistributionWidget::setItem(DistributionItem *item)
+void DistributionWidget::setItem(DistributionItem* item)
 {
     if (m_item == item) {
         return;
@@ -82,22 +78,15 @@ void DistributionWidget::setItem(DistributionItem *item)
         }
 
         m_item = item;
-        if (!m_item) return;
+        if (!m_item)
+            return;
 
         plotItem();
 
-        m_item->mapper()->setOnPropertyChange(
-                    [this](QString)
-        {
-            plotItem();
-        }, this);
+        m_item->mapper()->setOnPropertyChange([this](QString) { plotItem(); }, this);
 
-        m_item->mapper()->setOnItemDestroy(
-                    [this](SessionItem *) {
-            m_item = 0;
-        }, this);
+        m_item->mapper()->setOnItemDestroy([this](SessionItem*) { m_item = 0; }, this);
     }
-
 }
 
 void DistributionWidget::plotItem()
@@ -107,11 +96,10 @@ void DistributionWidget::plotItem()
     try {
         plot_distributions();
 
-    } catch (const std::exception &ex) {
+    } catch (const std::exception& ex) {
         init_plot();
 
-        QString message
-            = QString("Wrong parameters\n\n").append(QString::fromStdString(ex.what()));
+        QString message = QString("Wrong parameters\n\n").append(QString::fromStdString(ex.what()));
         m_warningSign->setWarningMessage(message);
     }
 
@@ -120,7 +108,7 @@ void DistributionWidget::plotItem()
 
 //! Generates label with current mouse position.
 
-void DistributionWidget::onMouseMove(QMouseEvent *event)
+void DistributionWidget::onMouseMove(QMouseEvent* event)
 {
     QPoint point = event->pos();
     double xPos = m_plot->xAxis->pixelToCoord(point.x());
@@ -132,7 +120,7 @@ void DistributionWidget::onMouseMove(QMouseEvent *event)
     }
 }
 
-void DistributionWidget::onMousePress(QMouseEvent *event)
+void DistributionWidget::onMousePress(QMouseEvent* event)
 {
     if (event->button() == Qt::RightButton) {
         QPoint point = event->globalPos();
@@ -238,8 +226,8 @@ void DistributionWidget::plot_multiple_values()
     // calculating function points (for interval, bigger than bars)
     auto xRange = xRangeForValues(xBar);
     const int number_of_points = 400;
-    std::vector<double> xf
-        = dist->equidistantPointsInRange(number_of_points, xRange.first, xRange.second);
+    std::vector<double> xf =
+        dist->equidistantPointsInRange(number_of_points, xRange.first, xRange.second);
     std::vector<double> yf(xf.size());
     std::transform(xf.begin(), xf.end(), yf.begin(),
                    [&](double value) { return dist->probabilityDensity(value); });
@@ -274,12 +262,12 @@ void DistributionWidget::plotBars(const QVector<double>& xbars, const QVector<do
     setPlotRange(xRange, yRange);
 
     double barWidth(0.0);
-    if(xbars.size() == 1)
+    if (xbars.size() == 1)
         barWidth = optimalBarWidth(xRange.first, xRange.second, xbars.size());
     else
         barWidth = optimalBarWidth(xbars.front(), xbars.back(), xbars.size());
 
-    QCPBars *bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
+    QCPBars* bars = new QCPBars(m_plot->xAxis, m_plot->yAxis);
 
     bars->setWidth(barWidth);
     bars->setData(xbars, ybars);
@@ -312,12 +300,12 @@ void DistributionWidget::plotVerticalLine(double xMin, double yMin, double xMax,
 
 void DistributionWidget::plotLimits(const RealLimits& limits)
 {
-    if(limits.hasLowerLimit()) {
+    if (limits.hasLowerLimit()) {
         double value = limits.lowerLimit();
         plotVerticalLine(value, default_yrange.first, value, default_yrange.second, Qt::red);
     }
 
-    if(limits.hasUpperLimit()) {
+    if (limits.hasUpperLimit()) {
         double value = limits.upperLimit();
         plotVerticalLine(value, default_yrange.first, value, default_yrange.second, Qt::red);
     }
@@ -328,13 +316,14 @@ void DistributionWidget::setXAxisName(const QString& xAxisName)
     m_plot->xAxis->setLabel(xAxisName);
 }
 
-namespace {
+namespace
+{
 //! Returns (xmin, xmax) of x-axis to display single value.
 QPair<double, double> xRangeForValue(double value)
 {
     const double range_factor(0.1);
 
-    double dr = (value == 0.0 ? 1.0*range_factor : std::abs(value)*range_factor);
+    double dr = (value == 0.0 ? 1.0 * range_factor : std::abs(value) * range_factor);
     double xmin = value - dr;
     double xmax = value + dr;
 
@@ -346,7 +335,7 @@ QPair<double, double> xRangeForValue(double value)
 QPair<double, double> xRangeForValues(double value1, double value2)
 {
     const double range_factor(0.1);
-    double dr = (value2 - value1)*range_factor;
+    double dr = (value2 - value1) * range_factor;
     Q_ASSERT(dr > 0.0);
 
     return QPair<double, double>(value1 - dr, value2 + dr);
@@ -363,7 +352,7 @@ QPair<double, double> yRangeForValues(const QVector<double>& yvec)
 {
     const double range_factor(1.1);
     double ymax = *std::max_element(yvec.begin(), yvec.end());
-    return QPair<double, double>(default_yrange.first, ymax*range_factor);
+    return QPair<double, double>(default_yrange.first, ymax * range_factor);
 }
 
 //! Returns width of the bar, which will be optimally looking for x-axis range (xmin, xmax)
@@ -376,4 +365,4 @@ double optimalBarWidth(double xmin, double xmax, int nbars)
     return optimalWidth < width ? optimalWidth : width;
 }
 
-}
+} // namespace

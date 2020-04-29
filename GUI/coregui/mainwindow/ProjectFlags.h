@@ -21,8 +21,7 @@
 class BA_CORE_API_ ProjectFlags
 {
 public:
-    enum EDocumentStatus
-    {
+    enum EDocumentStatus {
         STATUS_OK = 0x0001,
         STATUS_WARNING = 0x0002,
         STATUS_FAILED = 0x0004,

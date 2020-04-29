@@ -33,8 +33,14 @@ class BA_CORE_API_ SampleViewDocks : public DocksController
     Q_OBJECT
 
 public:
-    enum ESubWindows { WIDGET_BOX, SAMPLE_TREE, PROPERTY_EDITOR, INFO, REALSPACEPANEL,
-                       NUMBER_OF_SUB_WINDOWS };
+    enum ESubWindows {
+        WIDGET_BOX,
+        SAMPLE_TREE,
+        PROPERTY_EDITOR,
+        INFO,
+        REALSPACEPANEL,
+        NUMBER_OF_SUB_WINDOWS
+    };
 
     SampleViewDocks(SampleView* parent = nullptr);
 

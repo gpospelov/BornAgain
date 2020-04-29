@@ -23,7 +23,7 @@
 
 class SessionModel;
 class IntensityDataItem;
-template<class T> class OutputData;
+template <class T> class OutputData;
 
 //! Updates bin values inside IntensityData to display current mask state. Returns IntensityData
 //! to original state when requested.
@@ -31,10 +31,10 @@ template<class T> class OutputData;
 class BA_CORE_API_ MaskResultsPresenter : public QObject
 {
 public:
-    MaskResultsPresenter(QWidget *parent = 0);
+    MaskResultsPresenter(QWidget* parent = 0);
 
-    void setMaskContext(SessionModel *maskModel, const QModelIndex &maskContainerIndex,
-                        IntensityDataItem *intensityItem);
+    void setMaskContext(SessionModel* maskModel, const QModelIndex& maskContainerIndex,
+                        IntensityDataItem* intensityItem);
 
     void resetContext();
 
@@ -44,14 +44,13 @@ private:
     void setShowMaskMode();
     void setOriginalMode();
     void backup_data();
-    OutputData<double> *createMaskPresentation() const;
+    OutputData<double>* createMaskPresentation() const;
 
-    SessionModel *m_maskModel;
+    SessionModel* m_maskModel;
     QModelIndex m_maskContainerIndex;
-    IntensityDataItem *m_intensityDataItem;
+    IntensityDataItem* m_intensityDataItem;
     std::unique_ptr<OutputData<double>> m_dataBackup;
     bool m_interpolation_flag_backup;
 };
 
 #endif // MASKRESULTSPRESENTER_H
-

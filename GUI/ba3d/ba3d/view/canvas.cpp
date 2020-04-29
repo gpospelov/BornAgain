@@ -45,7 +45,7 @@ const float rot_speed_v = 0.4f; // camera rotation speed in vertical direction
 // Default camera position in accordance with RealSpaceBuilder.h
 const float cameraDefaultPosY = -200.0f; // default camera position on Y axis
 const float cameraDefaultPosZ = 120.0f;  // default camera position on Z axis
-}
+} // namespace
 
 namespace RealSpace
 {
@@ -98,7 +98,7 @@ void Canvas::setModel(Model* m)
     });
 
     setCamera();
-    //connect(camera, &RealSpace::Camera::updated, model, &Model::cameraUpdated);
+    // connect(camera, &RealSpace::Camera::updated, model, &Model::cameraUpdated);
     camera->set();
 }
 
@@ -395,9 +395,9 @@ void Canvas::horizontalCameraTurn(float angle)
         RealSpace::Vector3D v_axis3DAxes = v_up3DAxes.normalized(); // normalized rotation axis
 
         // Rotating camera's position (eye) about up vector
-        RealSpace::Vector3D v_rot_eye3DAxes
-            = v_up3DAxes * (1 - std::cos(theta)) * dot(v_axis3DAxes, v_eye3DAxes)
-              + v_eye3DAxes * std::cos(theta) + cross(v_axis3DAxes, v_eye3DAxes) * std::sin(theta);
+        RealSpace::Vector3D v_rot_eye3DAxes =
+            v_up3DAxes * (1 - std::cos(theta)) * dot(v_axis3DAxes, v_eye3DAxes)
+            + v_eye3DAxes * std::cos(theta) + cross(v_axis3DAxes, v_eye3DAxes) * std::sin(theta);
 
         Camera::Position rotated_pos3DAxes(v_rot_eye3DAxes, v_ctr3DAxes, v_up3DAxes);
 
@@ -438,13 +438,13 @@ void Canvas::verticalCameraTurn(float angle)
         RealSpace::Vector3D v_ctr3DAxes = initial_pos3DAxes.ctr;
         RealSpace::Vector3D v_up3DAxes = initial_pos3DAxes.up;
 
-        RealSpace::Vector3D v_axis3DAxes
-            = cross(v_up3DAxes, v_eye3DAxes).normalized(); // normalized rotation axis
+        RealSpace::Vector3D v_axis3DAxes =
+            cross(v_up3DAxes, v_eye3DAxes).normalized(); // normalized rotation axis
 
         // Rotating camera's position (eye) about an axis perpendicular to up and eye vectors
-        RealSpace::Vector3D v_rot_eye3DAxes
-            = v_up3DAxes * (1 - std::cos(theta)) * dot(v_axis3DAxes, v_eye3DAxes)
-              + v_eye3DAxes * std::cos(theta) + cross(v_axis3DAxes, v_eye3DAxes) * std::sin(theta);
+        RealSpace::Vector3D v_rot_eye3DAxes =
+            v_up3DAxes * (1 - std::cos(theta)) * dot(v_axis3DAxes, v_eye3DAxes)
+            + v_eye3DAxes * std::cos(theta) + cross(v_axis3DAxes, v_eye3DAxes) * std::sin(theta);
 
         Camera::Position rotated_pos3DAxes(v_rot_eye3DAxes, v_ctr3DAxes, v_up3DAxes);
 

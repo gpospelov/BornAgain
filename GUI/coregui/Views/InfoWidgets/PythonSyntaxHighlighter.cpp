@@ -21,23 +21,23 @@ The following free software license applies for this file ("X11 license"):
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 and associated documentation files (the "Software"), to deal in the Software without restriction,
-including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+including without limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial
 portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "PythonSyntaxHighlighter.h"
 
-PythonSyntaxHighlighter::PythonSyntaxHighlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
+PythonSyntaxHighlighter::PythonSyntaxHighlighter(QTextDocument* parent) : QSyntaxHighlighter(parent)
 {
     keywords = QStringList() << "and"
                              << "assert"
@@ -128,15 +128,15 @@ PythonSyntaxHighlighter::PythonSyntaxHighlighter(QTextDocument *parent) : QSynta
 
 void PythonSyntaxHighlighter::initializeRules()
 {
-    for(QString currKeyword : keywords) {
+    for (QString currKeyword : keywords) {
         rules.append(HighlightingRule(QString("\\b%1\\b").arg(currKeyword), 0,
                                       basicStyles.value("keyword")));
     }
-    for(QString currOperator : operators) {
+    for (QString currOperator : operators) {
         rules.append(
             HighlightingRule(QString("%1").arg(currOperator), 0, basicStyles.value("operator")));
     }
-    for(QString currBrace : braces) {
+    for (QString currBrace : braces) {
         rules.append(HighlightingRule(QString("%1").arg(currBrace), 0, basicStyles.value("brace")));
     }
     // 'self'
@@ -172,9 +172,9 @@ void PythonSyntaxHighlighter::initializeRules()
         basicStyles.value("numbers"))); // r'\b[+-]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\b'
 }
 
-void PythonSyntaxHighlighter::highlightBlock(const QString &text)
+void PythonSyntaxHighlighter::highlightBlock(const QString& text)
 {
-    for(HighlightingRule currRule : rules) {
+    for (HighlightingRule currRule : rules) {
         int idx = currRule.pattern.indexIn(text, 0);
         while (idx >= 0) {
             // Get index of Nth match
@@ -187,12 +187,12 @@ void PythonSyntaxHighlighter::highlightBlock(const QString &text)
     setCurrentBlockState(0);
 
     // Do multi-line strings
-    if(!matchMultiline(text, triSingleQuote, 1, basicStyles.value("string2")))
+    if (!matchMultiline(text, triSingleQuote, 1, basicStyles.value("string2")))
         matchMultiline(text, triDoubleQuote, 2, basicStyles.value("string2"));
 }
 
-bool PythonSyntaxHighlighter::matchMultiline(const QString &text, const QRegExp &delimiter,
-                                             const int inState, const QTextCharFormat &style)
+bool PythonSyntaxHighlighter::matchMultiline(const QString& text, const QRegExp& delimiter,
+                                             const int inState, const QTextCharFormat& style)
 {
     int start = -1;
     int add = -1;
@@ -235,8 +235,8 @@ bool PythonSyntaxHighlighter::matchMultiline(const QString &text, const QRegExp 
         return false;
 }
 
-const QTextCharFormat PythonSyntaxHighlighter::getTextCharFormat(const QString &colorName,
-                                                                 const QString &style)
+const QTextCharFormat PythonSyntaxHighlighter::getTextCharFormat(const QString& colorName,
+                                                                 const QString& style)
 {
     QTextCharFormat charFormat;
     QColor color(colorName);

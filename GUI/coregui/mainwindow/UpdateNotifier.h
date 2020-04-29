@@ -25,11 +25,11 @@ class BA_CORE_API_ UpdateNotifier : public QObject
 {
     Q_OBJECT
 public:
-    UpdateNotifier(QObject *parent = 0);
+    UpdateNotifier(QObject* parent = 0);
     void checkForUpdates();
 
 public slots:
-    void replyFinished(QNetworkReply *reply);
+    void replyFinished(QNetworkReply* reply);
 
     void setCheckUpdatesFlag(bool flag);
 
@@ -38,11 +38,10 @@ public slots:
     bool hasDefinedUpdatesFlag() const;
 
 signals:
-    void onUpdateNotification(const QString &text);
+    void onUpdateNotification(const QString& text);
 
 private:
-    QNetworkAccessManager *m_networkAccessManager;
+    QNetworkAccessManager* m_networkAccessManager;
 };
-
 
 #endif // UPDATENOTIFIER_H

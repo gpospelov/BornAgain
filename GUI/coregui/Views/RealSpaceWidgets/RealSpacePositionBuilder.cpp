@@ -15,8 +15,9 @@
 #include "RealSpacePositionBuilder.h"
 #include "IPositionBuilder.h"
 
-RealSpacePositionBuilder::RealSpacePositionBuilder()
-    : mP_pos_builder{new DefaultPositionBuilder()} {}
+RealSpacePositionBuilder::RealSpacePositionBuilder() : mP_pos_builder{new DefaultPositionBuilder()}
+{
+}
 
 RealSpacePositionBuilder::~RealSpacePositionBuilder() = default;
 

@@ -41,6 +41,6 @@ BA_CORE_API_ QString instrumentDataFileName(const InstrumentItem& instrumentItem
 
 BA_CORE_API_ QStringList nonXMLFileNameFilters();
 
-}
+} // namespace ItemFileNameUtils
 
 #endif // JOBITEMFUNCTIONS_H

@@ -21,8 +21,10 @@
 
 using gradient_map_t = QMap<QString, QCPColorGradient::GradientPreset>;
 
-namespace {
-gradient_map_t createGradientMap() {
+namespace
+{
+gradient_map_t createGradientMap()
+{
     gradient_map_t result;
 
     result[Constants::GRADIENT_GRAYSCALE] = QCPColorGradient::gpGrayscale;
@@ -43,9 +45,10 @@ gradient_map_t createGradientMap() {
 
 // Converts xmin (low edge of first bin) and xmax (upper edge of last bin) to the
 // range expected by QCPColorMapData::setRange.
-QCPRange qcpRange(double xmin, double xmax, int nbins) {
-    double dx = (xmax-xmin)/nbins;
-    return QCPRange(xmin+dx/2., xmax-dx/2.);
+QCPRange qcpRange(double xmin, double xmax, int nbins)
+{
+    double dx = (xmax - xmin) / nbins;
+    return QCPRange(xmin + dx / 2., xmax - dx / 2.);
 }
 
 QMargins defaultMargins(const QWidget& widget)
@@ -63,7 +66,7 @@ QMargins defaultMargins(const QWidget& widget)
     return QMargins(left, top, right, bottom);
 }
 
-}
+} // namespace
 
 QCPColorGradient ColorMapUtils::getGradient(const QString& gradientName)
 {
@@ -132,7 +135,7 @@ void ColorMapUtils::setLogz(QCPAxis* axis, bool isLogz)
         axis->setScaleType(QCPAxis::stLogarithmic);
         QSharedPointer<QCPAxisTicker> ticker(new QCPAxisTickerLog);
         axis->setTicker(ticker);
-    } else  {
+    } else {
         axis->setNumberFormat("f");
         axis->setNumberPrecision(0);
         axis->setScaleType(QCPAxis::stLinear);

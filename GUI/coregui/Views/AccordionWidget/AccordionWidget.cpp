@@ -31,8 +31,7 @@
 #include "AccordionWidget.h"
 #include <QDebug>
 
-
-AccordionWidget::AccordionWidget(QWidget *parent) : QWidget(parent)
+AccordionWidget::AccordionWidget(QWidget* parent) : QWidget(parent)
 {
     // make sure our resource file gets initialized
     Q_INIT_RESOURCE(accordionwidgeticons);
@@ -44,30 +43,33 @@ AccordionWidget::AccordionWidget(QWidget *parent) : QWidget(parent)
     this->setLayout(new QVBoxLayout());
 
     // add a stretch to the end so all content panes are at the top
-    dynamic_cast<QVBoxLayout *>(this->layout())->addStretch();
+    dynamic_cast<QVBoxLayout*>(this->layout())->addStretch();
     this->layout()->setSpacing(1);
     this->layout()->setContentsMargins(QMargins());
     // TODO: Do we need to keep a pointer to the spacer?
-    this->spacer = dynamic_cast<QSpacerItem *>(this->layout()->itemAt(0));
+    this->spacer = dynamic_cast<QSpacerItem*>(this->layout()->itemAt(0));
 
     // seome things we want to do if the number of panes change
     QObject::connect(this, &AccordionWidget::numberOfContentPanesChanged, this,
                      &AccordionWidget::numberOfPanesChanged);
 }
 
-int AccordionWidget::numberOfContentPanes() { return static_cast<int>(contentPanes.size()); }
+int AccordionWidget::numberOfContentPanes()
+{
+    return static_cast<int>(contentPanes.size());
+}
 
 int AccordionWidget::addContentPane(QString header)
 {
     return this->internalAddContentPane(std::move(header));
 }
 
-int AccordionWidget::addContentPane(QString header, QFrame *contentFrame)
+int AccordionWidget::addContentPane(QString header, QFrame* contentFrame)
 {
     return this->internalAddContentPane(std::move(header), contentFrame);
 }
 
-int AccordionWidget::addContentPane(ContentPane *cpane)
+int AccordionWidget::addContentPane(ContentPane* cpane)
 {
     return this->internalAddContentPane("", nullptr, cpane);
 }
@@ -77,23 +79,21 @@ bool AccordionWidget::insertContentPane(uint index, QString header)
     return this->internalInsertContentPane(index, header);
 }
 
-bool AccordionWidget::insertContentPane(uint index, QString header,
-                                   QFrame *contentFrame)
+bool AccordionWidget::insertContentPane(uint index, QString header, QFrame* contentFrame)
 {
     return this->internalInsertContentPane(index, header, contentFrame);
 }
 
-bool AccordionWidget::insertContentPane(uint index, ContentPane *cpane)
+bool AccordionWidget::insertContentPane(uint index, ContentPane* cpane)
 {
     return this->internalInsertContentPane(index, "", nullptr, cpane);
 }
 
-bool AccordionWidget::swapContentPane(uint index, ContentPane *cpane)
+bool AccordionWidget::swapContentPane(uint index, ContentPane* cpane)
 {
     if (this->checkIndexError(index, false,
-                              "Can not swap content pane at index " +
-                                  QString::number(index) +
-                                  ". Index out of range.")) {
+                              "Can not swap content pane at index " + QString::number(index)
+                                  + ". Index out of range.")) {
         return false;
     }
 
@@ -104,16 +104,14 @@ bool AccordionWidget::swapContentPane(uint index, ContentPane *cpane)
     }
 
     // remove the old content pane from the accordion layout
-    dynamic_cast<QVBoxLayout *>(this->layout())
-        ->removeWidget(this->contentPanes.at(index));
+    dynamic_cast<QVBoxLayout*>(this->layout())->removeWidget(this->contentPanes.at(index));
     delete this->contentPanes.at(index);
 
     // add the new content pane to the appropriate vector
     this->contentPanes.at(index) = cpane;
 
     // add the new content pane to the layout
-    dynamic_cast<QVBoxLayout *>(this->layout())
-        ->insertWidget(index, this->contentPanes.at(index));
+    dynamic_cast<QVBoxLayout*>(this->layout())->insertWidget(index, this->contentPanes.at(index));
 
     return true;
 }
@@ -128,32 +126,30 @@ bool AccordionWidget::removeContentPane(bool deleteObject, QString header)
     return this->internalRemoveContentPane(deleteObject, -1, header);
 }
 
-bool AccordionWidget::removeContentPane(bool deleteObject, QFrame *contentframe)
+bool AccordionWidget::removeContentPane(bool deleteObject, QFrame* contentframe)
 {
     return this->internalRemoveContentPane(deleteObject, -1, "", contentframe);
 }
 
-bool AccordionWidget::removeContentPane(bool deleteObject, ContentPane *contentPane)
+bool AccordionWidget::removeContentPane(bool deleteObject, ContentPane* contentPane)
 {
-    return this->internalRemoveContentPane(deleteObject, -1, "", nullptr,
-                                           contentPane);
+    return this->internalRemoveContentPane(deleteObject, -1, "", nullptr, contentPane);
 }
 
 bool AccordionWidget::moveContentPane(uint currentIndex, uint newIndex)
 {
     if (this->checkIndexError(currentIndex, false,
-                              "Can not move from " +
-                                  QString::number(currentIndex) +
-                                  ". Index out of range.") ||
-        this->checkIndexError(newIndex, false, "Can not move to " +
-                                                   QString::number(newIndex) +
-                                                   ". Index out of range.")) {
+                              "Can not move from " + QString::number(currentIndex)
+                                  + ". Index out of range.")
+        || this->checkIndexError(newIndex, false,
+                                 "Can not move to " + QString::number(newIndex)
+                                     + ". Index out of range.")) {
         return false;
     }
 
-    QVBoxLayout *layout = dynamic_cast<QVBoxLayout *>(this->layout());
+    QVBoxLayout* layout = dynamic_cast<QVBoxLayout*>(this->layout());
     // get the pane we want to move
-    ContentPane *movePane = this->contentPanes.at(currentIndex);
+    ContentPane* movePane = this->contentPanes.at(currentIndex);
 
     // remove the widget from the layout and insert it at the new position
     layout->removeWidget(movePane);
@@ -166,11 +162,11 @@ bool AccordionWidget::moveContentPane(uint currentIndex, uint newIndex)
     return true;
 }
 
-ContentPane *AccordionWidget::getContentPane(uint index)
+ContentPane* AccordionWidget::getContentPane(uint index)
 {
     try {
         return this->contentPanes.at(index);
-    } catch (const std::out_of_range &ex) {
+    } catch (const std::out_of_range& ex) {
         qDebug() << Q_FUNC_INFO << "Can not return Content Pane: " << ex.what();
         this->errorString = "Can not return Content Pane: " + QString(ex.what());
         return nullptr;
@@ -182,41 +178,54 @@ int AccordionWidget::getContentPaneIndex(QString header)
     return this->findContentPaneIndex(header);
 }
 
-int AccordionWidget::getContentPaneIndex(QFrame *contentFrame)
+int AccordionWidget::getContentPaneIndex(QFrame* contentFrame)
 {
     return this->findContentPaneIndex("", contentFrame);
 }
 
-int AccordionWidget::getContentPaneIndex(ContentPane *contentPane)
+int AccordionWidget::getContentPaneIndex(ContentPane* contentPane)
 {
     return this->findContentPaneIndex("", nullptr, contentPane);
 }
 
-void AccordionWidget::getActiveContentPaneIndex(std::vector<int> &indexVector)
+void AccordionWidget::getActiveContentPaneIndex(std::vector<int>& indexVector)
 {
     // first of all make sure it is empty
     indexVector.clear();
     std::for_each(this->contentPanes.begin(), this->contentPanes.end(),
-                  [&indexVector, this](ContentPane *pane) {
+                  [&indexVector, this](ContentPane* pane) {
                       if (pane->getActive()) {
-                          indexVector.push_back(
-                              this->findContentPaneIndex("", nullptr, pane));
+                          indexVector.push_back(this->findContentPaneIndex("", nullptr, pane));
                       }
                   });
 }
 
-void AccordionWidget::setMultiActive(bool status) { this->multiActive = status; }
+void AccordionWidget::setMultiActive(bool status)
+{
+    this->multiActive = status;
+}
 
-bool AccordionWidget::getMultiActive() { return this->multiActive; }
+bool AccordionWidget::getMultiActive()
+{
+    return this->multiActive;
+}
 
-void AccordionWidget::setCollapsible(bool status) { this->collapsible = status; }
+void AccordionWidget::setCollapsible(bool status)
+{
+    this->collapsible = status;
+}
 
-bool AccordionWidget::getCollapsible() { return this->collapsible; }
+bool AccordionWidget::getCollapsible()
+{
+    return this->collapsible;
+}
 
-QString AccordionWidget::getError() { return this->errorString; }
+QString AccordionWidget::getError()
+{
+    return this->errorString;
+}
 
-int AccordionWidget::internalAddContentPane(QString header, QFrame *cframe,
-                                       ContentPane *cpane)
+int AccordionWidget::internalAddContentPane(QString header, QFrame* cframe, ContentPane* cpane)
 {
     if (this->findContentPaneIndex(header, cframe, cpane) != -1) {
         this->errorString = "Can not add content pane as it already exists";
@@ -230,8 +239,7 @@ int AccordionWidget::internalAddContentPane(QString header, QFrame *cframe,
             cpane = new ContentPane(std::move(header));
         }
     }
-    dynamic_cast<QVBoxLayout *>(this->layout())
-        ->insertWidget(this->layout()->count() - 1, cpane);
+    dynamic_cast<QVBoxLayout*>(this->layout())->insertWidget(this->layout()->count() - 1, cpane);
     this->contentPanes.push_back(cpane);
 
     // manage the clicked signal in a lambda expression
@@ -243,13 +251,12 @@ int AccordionWidget::internalAddContentPane(QString header, QFrame *cframe,
     return numberOfContentPanes() - 1;
 }
 
-bool AccordionWidget::internalInsertContentPane(uint index, QString header,
-                                           QFrame *contentFrame,
-                                           ContentPane *cpane)
+bool AccordionWidget::internalInsertContentPane(uint index, QString header, QFrame* contentFrame,
+                                                ContentPane* cpane)
 {
-    if (this->checkIndexError(
-            index, true, "Can not insert Content Pane at index " +
-                             QString::number(index) + ". Index out of range")) {
+    if (this->checkIndexError(index, true,
+                              "Can not insert Content Pane at index " + QString::number(index)
+                                  + ". Index out of range")) {
         return false;
     }
 
@@ -265,7 +272,7 @@ bool AccordionWidget::internalInsertContentPane(uint index, QString header,
         }
     }
 
-    dynamic_cast<QVBoxLayout *>(this->layout())->insertWidget(index, cpane);
+    dynamic_cast<QVBoxLayout*>(this->layout())->insertWidget(index, cpane);
 
     this->contentPanes.insert(this->contentPanes.begin() + index, cpane);
 
@@ -278,14 +285,13 @@ bool AccordionWidget::internalInsertContentPane(uint index, QString header,
     return true;
 }
 
-bool AccordionWidget::internalRemoveContentPane(bool deleteOject, int index,
-                                           QString name, QFrame *contentFrame,
-                                           ContentPane *cpane)
+bool AccordionWidget::internalRemoveContentPane(bool deleteOject, int index, QString name,
+                                                QFrame* contentFrame, ContentPane* cpane)
 {
-    if (index != -1 &&
-        this->checkIndexError(
-            index, false, "Can not remove content pane at index " +
-                              QString::number(index) + ". Index out of range")) {
+    if (index != -1
+        && this->checkIndexError(index, false,
+                                 "Can not remove content pane at index " + QString::number(index)
+                                     + ". Index out of range")) {
         return false;
     }
 
@@ -298,8 +304,7 @@ bool AccordionWidget::internalRemoveContentPane(bool deleteOject, int index,
         }
     }
 
-    dynamic_cast<QVBoxLayout *>(this->layout())
-        ->removeWidget(this->contentPanes.at(index));
+    dynamic_cast<QVBoxLayout*>(this->layout())->removeWidget(this->contentPanes.at(index));
 
     // only delete the object if user wants to.
     if (deleteOject) {
@@ -314,16 +319,15 @@ bool AccordionWidget::internalRemoveContentPane(bool deleteOject, int index,
     return true;
 }
 
-int AccordionWidget::findContentPaneIndex(QString name, QFrame *cframe,
-                                     ContentPane *cpane)
+int AccordionWidget::findContentPaneIndex(QString name, QFrame* cframe, ContentPane* cpane)
 {
     // simple method that finds the index of a content by Header, content frame
     // or content pane.
     int index = -1;
     if (name != "") {
-        auto result = std::find_if(
-            this->contentPanes.begin(), this->contentPanes.end(),
-            [&name](ContentPane *pane) { return pane->getHeader() == name; });
+        auto result =
+            std::find_if(this->contentPanes.begin(), this->contentPanes.end(),
+                         [&name](ContentPane* pane) { return pane->getHeader() == name; });
         if (result != std::end(this->contentPanes)) {
             // get the index by subtracting begin iterator from result
             // iterator
@@ -332,18 +336,15 @@ int AccordionWidget::findContentPaneIndex(QString name, QFrame *cframe,
         }
     }
     if (cframe != nullptr) {
-        auto result =
-            std::find_if(this->contentPanes.begin(), this->contentPanes.end(),
-                         [cframe](ContentPane *cpane) {
-                             return cpane->getContentFrame() == cframe;
-                         });
+        auto result = std::find_if(
+            this->contentPanes.begin(), this->contentPanes.end(),
+            [cframe](ContentPane* cpane) { return cpane->getContentFrame() == cframe; });
         if (result != std::end(this->contentPanes)) {
             index = static_cast<int>(result - this->contentPanes.begin());
         }
     }
     if (cpane != nullptr) {
-        auto result = std::find(this->contentPanes.begin(),
-                                this->contentPanes.end(), cpane);
+        auto result = std::find(this->contentPanes.begin(), this->contentPanes.end(), cpane);
         if (result != std::end(this->contentPanes)) {
             index = static_cast<int>(result - this->contentPanes.begin());
         }
@@ -351,8 +352,7 @@ int AccordionWidget::findContentPaneIndex(QString name, QFrame *cframe,
     return index;
 }
 
-bool AccordionWidget::checkIndexError(uint index, bool sizeIndexAllowed,
-                                 const QString &errMessage)
+bool AccordionWidget::checkIndexError(uint index, bool sizeIndexAllowed, const QString& errMessage)
 {
     // sizeIndexAllowed is only used by inserting. If there is one pane you will
     // be able to insert a new one before and after.
@@ -377,7 +377,7 @@ bool AccordionWidget::checkIndexError(uint index, bool sizeIndexAllowed,
     return false;
 }
 
-void AccordionWidget::handleClickedSignal(ContentPane *cpane)
+void AccordionWidget::handleClickedSignal(ContentPane* cpane)
 {
     // if the clicked content pane is open we simply close it and return
     if (cpane->getActive()) {
@@ -404,7 +404,7 @@ void AccordionWidget::handleClickedSignal(ContentPane *cpane)
         // check if multiActive is allowed
         if (!this->getMultiActive()) {
             std::for_each(this->contentPanes.begin(), this->contentPanes.end(),
-                          [](ContentPane *pane) {
+                          [](ContentPane* pane) {
                               if (pane->getActive())
                                   pane->closeContentPane();
                           });
@@ -422,7 +422,7 @@ void AccordionWidget::numberOfPanesChanged(int number)
     }
 }
 
-void AccordionWidget::paintEvent(ATTR_UNUSED QPaintEvent *event)
+void AccordionWidget::paintEvent(ATTR_UNUSED QPaintEvent* event)
 {
     QStyleOption o;
     o.initFrom(this);

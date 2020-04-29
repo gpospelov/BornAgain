@@ -34,89 +34,88 @@ class NodeEditor;
 class FilterPropertyProxy;
 class MaterialModel;
 
-
 //! Main class which represents SessionModel on graphics scene
 class BA_CORE_API_ DesignerScene : public QGraphicsScene
 {
     Q_OBJECT
 
 public:
-    explicit DesignerScene(QObject *parent = 0);
+    explicit DesignerScene(QObject* parent = 0);
     virtual ~DesignerScene();
 
-    void setSampleModel(SampleModel *sampleModel);
-    void setInstrumentModel(InstrumentModel *instrumentModel);
+    void setSampleModel(SampleModel* sampleModel);
+    void setInstrumentModel(InstrumentModel* instrumentModel);
     void setMaterialModel(MaterialModel* materialModel);
-    void setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy);
+    void setSelectionModel(QItemSelectionModel* model, FilterPropertyProxy* proxy);
 
-    SampleModel *getSampleModel() { return m_sampleModel; }
+    SampleModel* getSampleModel() { return m_sampleModel; }
 
-    IView *getViewForItem(SessionItem *item);
+    IView* getViewForItem(SessionItem* item);
 
-    NodeEditor *getNodeEditor() { return m_nodeEditor;}
+    NodeEditor* getNodeEditor() { return m_nodeEditor; }
 
 signals:
     void selectionModeChangeRequest(int);
 
 public slots:
     void onSceneSelectionChanged();
-    void onSessionSelectionChanged(const QItemSelection &, const QItemSelection &);
+    void onSessionSelectionChanged(const QItemSelection&, const QItemSelection&);
     void resetScene();
     void updateScene();
 
-    void onRowsInserted(const QModelIndex &parent, int first, int last);
-    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
-    void onRowsRemoved(const QModelIndex &parent, int first, int last);
+    void onRowsInserted(const QModelIndex& parent, int first, int last);
+    void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int last);
+    void onRowsRemoved(const QModelIndex& parent, int first, int last);
 
-    void setLayerInterfaceLine(const QLineF &line=QLineF()) { m_layer_interface_line = line;
-                                                              invalidate(); }
+    void setLayerInterfaceLine(const QLineF& line = QLineF())
+    {
+        m_layer_interface_line = line;
+        invalidate();
+    }
 
     void deleteSelectedItems();
 
-    void onEstablishedConnection(NodeEditorConnection *); // to process signals from NodeEditor
-    void removeConnection(NodeEditorConnection *);
+    void onEstablishedConnection(NodeEditorConnection*); // to process signals from NodeEditor
+    void removeConnection(NodeEditorConnection*);
 
-    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
-    void dropEvent(QGraphicsSceneDragDropEvent *event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent* event);
+    void dropEvent(QGraphicsSceneDragDropEvent* event);
 
     void onSmartAlign();
 
-
 protected:
     void drawForeground(QPainter* painter, const QRectF& rect);
-    const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    const DesignerMimeData* checkDragEvent(QGraphicsSceneDragDropEvent* event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 
 private:
-
-    IView *addViewForItem(SessionItem *item);
-    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IView *parentView = 0);
-    void deleteViews(const QModelIndex & parentIndex);
+    IView* addViewForItem(SessionItem* item);
+    void updateViews(const QModelIndex& parentIndex = QModelIndex(), IView* parentView = 0);
+    void deleteViews(const QModelIndex& parentIndex);
     void alignViews();
-    void removeItemViewFromScene(SessionItem *item);
-    bool isMultiLayerNearby(QGraphicsSceneDragDropEvent *event);
+    void removeItemViewFromScene(SessionItem* item);
+    bool isMultiLayerNearby(QGraphicsSceneDragDropEvent* event);
     void adjustSceneRect();
-    bool isAcceptedByMultiLayer(const DesignerMimeData *mimeData, QGraphicsSceneDragDropEvent *event);
+    bool isAcceptedByMultiLayer(const DesignerMimeData* mimeData,
+                                QGraphicsSceneDragDropEvent* event);
     bool isLayerDragged() const;
 
-    SampleModel *m_sampleModel;
-    InstrumentModel *m_instrumentModel;
+    SampleModel* m_sampleModel;
+    InstrumentModel* m_instrumentModel;
     MaterialModel* m_materialModel;
-    QItemSelectionModel *m_selectionModel;
-    FilterPropertyProxy *m_proxy;
+    QItemSelectionModel* m_selectionModel;
+    FilterPropertyProxy* m_proxy;
     bool m_block_selection;
 
-    QMap<SessionItem *, IView *> m_ItemToView;
+    QMap<SessionItem*, IView*> m_ItemToView;
     //!< Correspondance of model's item and scene's view
 
     QLineF m_layer_interface_line;
     //!< Foreground line representing appropriate interface during layer's movement
 
-    SampleViewAligner *m_aligner;
+    SampleViewAligner* m_aligner;
 
-    NodeEditor *m_nodeEditor;
+    NodeEditor* m_nodeEditor;
 };
 
-
 #endif // DESIGNERSCENE_H
-

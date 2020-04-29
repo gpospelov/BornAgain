@@ -67,7 +67,7 @@ kvector_t to_kvector(const QVector3D& origin)
                      static_cast<double>(origin.z()));
 }
 
-}
+} // namespace
 
 // compute cumulative abundances of particles
 QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const SessionItem& layoutItem)
@@ -77,8 +77,8 @@ QVector<double> RealSpaceBuilderUtils::computeCumulativeAbundances(const Session
     QVector<double> cumulative_abundances;
 
     for (auto particle : layoutItem.getItems(ParticleLayoutItem::T_PARTICLES)) {
-        total_abundance
-            = total_abundance + particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
+        total_abundance =
+            total_abundance + particle->getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
 
         cumulative_abundances.append(total_abundance);
     }
@@ -92,8 +92,8 @@ void RealSpaceBuilderUtils::populateParticlesAtLatticePositions(
     const SceneGeometry& sceneGeometry, const RealSpaceBuilder* builder3D)
 {
     double layer_size = sceneGeometry.layer_size();
-    double layer_thickness
-        = std::max(sceneGeometry.layer_top_thickness(), sceneGeometry.layer_bottom_thickness());
+    double layer_thickness =
+        std::max(sceneGeometry.layer_top_thickness(), sceneGeometry.layer_bottom_thickness());
 
     for (std::vector<double> position : lattice_positions) {
         // for random selection of particles based on their abundances
@@ -243,26 +243,26 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem,
                 || !particleCoreShellItem->getItem(ParticleCoreShellItem::T_SHELL))
                 continue;
             auto particleCoreShell = particleCoreShellItem->createParticleCoreShell();
-            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance,
-                                                               origin);
+            particle3DContainer =
+                particleCoreShell3DContainer(*particleCoreShell, total_abundance, origin);
         } else if (particleItem->modelType() == Constants::ParticleCompositionType) {
-            auto particleCompositionItem
-                = dynamic_cast<const ParticleCompositionItem*>(particleItem);
+            auto particleCompositionItem =
+                dynamic_cast<const ParticleCompositionItem*>(particleItem);
             // If there is no particle to populate inside ParticleCompositionItem
             if (!particleCompositionItem->getItem(ParticleCompositionItem::T_PARTICLES))
                 continue;
             auto particleComposition = particleCompositionItem->createParticleComposition();
-            particle3DContainer
-                = particleComposition3DContainer(*particleComposition, total_abundance, origin);
+            particle3DContainer =
+                particleComposition3DContainer(*particleComposition, total_abundance, origin);
         } else if (particleItem->modelType() == Constants::ParticleDistributionType) {
-            auto particleDistributionItem
-                = dynamic_cast<const ParticleDistributionItem*>(particleItem);
+            auto particleDistributionItem =
+                dynamic_cast<const ParticleDistributionItem*>(particleItem);
             // If there is no particle to populate inside ParticleDistributionItem
             if (!particleDistributionItem->getItem(ParticleDistributionItem::T_PARTICLES))
                 continue;
             auto particleDistribution = particleDistributionItem->createParticleDistribution();
-            std::vector<Particle3DContainer> pd_ContainerVector
-                = particleDistribution3DContainer(*particleDistribution, total_abundance, origin);
+            std::vector<Particle3DContainer> pd_ContainerVector =
+                particleDistribution3DContainer(*particleDistribution, total_abundance, origin);
             for (size_t i = 0; i < pd_ContainerVector.size(); ++i) {
                 cumulative_abundance += pd_ContainerVector[i].cumulativeAbundance();
                 pd_ContainerVector[i].setCumulativeAbundance(cumulative_abundance);
@@ -274,9 +274,8 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem,
             // If there is no particle to populate inside MesoCrystalItem
             if (!mesoCrystalItem->getItem(MesoCrystalItem::T_BASIS_PARTICLE))
                 continue;
-            particle3DContainer
-                = RealSpaceBuilderUtils::mesoCrystal3DContainer(*mesoCrystalItem, total_abundance,
-                                                                origin);
+            particle3DContainer = RealSpaceBuilderUtils::mesoCrystal3DContainer(
+                *mesoCrystalItem, total_abundance, origin);
         }
 
         cumulative_abundance += particle3DContainer.cumulativeAbundance();
@@ -288,7 +287,8 @@ RealSpaceBuilderUtils::particle3DContainerVector(const SessionItem& layoutItem,
 }
 
 Particle3DContainer RealSpaceBuilderUtils::singleParticle3DContainer(const Particle& particle,
-                                                                     double total_abundance, const QVector3D& origin)
+                                                                     double total_abundance,
+                                                                     const QVector3D& origin)
 {
     std::unique_ptr<Particle> P_clone(particle.clone()); // clone of the particle
 
@@ -331,8 +331,8 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell& par
     applyParticleColor(*PCS_clone->coreParticle(), *coreParticle3D);
 
     // shell (set an alpha value of 0.5 for transparency)
-    applyParticleCoreShellTransformations(*PCS_clone->shellParticle(), *shellParticle3D,
-                                          *PCS_clone, to_kvector(origin));
+    applyParticleCoreShellTransformations(*PCS_clone->shellParticle(), *shellParticle3D, *PCS_clone,
+                                          to_kvector(origin));
     applyParticleColor(*PCS_clone->shellParticle(), *shellParticle3D, 0.5);
 
     Particle3DContainer particleCoreShell3DContainer;
@@ -346,8 +346,7 @@ RealSpaceBuilderUtils::particleCoreShell3DContainer(const ParticleCoreShell& par
 }
 
 Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
-        const ParticleComposition& particleComposition, double total_abundance,
-        const QVector3D& origin)
+    const ParticleComposition& particleComposition, double total_abundance, const QVector3D& origin)
 {
     // clone of the particleComposition
     std::unique_ptr<ParticleComposition> PC_clone(particleComposition.clone());
@@ -387,8 +386,8 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
 }
 
 std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DContainer(
-        const ParticleDistribution& particleDistribution, double total_abundance,
-        const QVector3D& origin)
+    const ParticleDistribution& particleDistribution, double total_abundance,
+    const QVector3D& origin)
 {
     auto pd_vector = particleDistribution.generateParticles();
 
@@ -398,12 +397,12 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
         Particle3DContainer particle3DContainer;
         if (dynamic_cast<const ParticleComposition*>(pd_particle)) {
             auto particleComposition = dynamic_cast<const ParticleComposition*>(pd_particle);
-            particle3DContainer
-                = particleComposition3DContainer(*particleComposition, total_abundance, origin);
+            particle3DContainer =
+                particleComposition3DContainer(*particleComposition, total_abundance, origin);
         } else if (dynamic_cast<const ParticleCoreShell*>(pd_particle)) {
             auto particleCoreShell = dynamic_cast<const ParticleCoreShell*>(pd_particle);
-            particle3DContainer = particleCoreShell3DContainer(*particleCoreShell, total_abundance,
-                                                               origin);
+            particle3DContainer =
+                particleCoreShell3DContainer(*particleCoreShell, total_abundance, origin);
         } else if (dynamic_cast<const MesoCrystal*>(pd_particle)) {
             // TODO: Implement method to populate MesoCrystal from CORE and NOT from MesoCrystalItem
             // as it is done currently in RealSpaceBuilderUtils::mesoCrystal3DContainer

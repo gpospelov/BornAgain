@@ -54,9 +54,7 @@ QString const& name(EShape k)
 
 using namespace GeometricID;
 
-Particle::Particle(Key key) : Object(key), scale(Vector3D::_1)
-{
-}
+Particle::Particle(Key key) : Object(key), scale(Vector3D::_1) {}
 
 void Particle::set()
 {
@@ -86,7 +84,8 @@ void Particle::addTranslation(Vector3D translate_)
 
 void Particle::addExtrinsicRotation(Vector3D rotateExtrinsic)
 {
-    Object::addExtrinsicRotation(turn, scale, rotate, rotateExtrinsic , (translate = offset + translate));
+    Object::addExtrinsicRotation(turn, scale, rotate, rotateExtrinsic,
+                                 (translate = offset + translate));
 }
 
 //------------------------------------------------------------------------------
@@ -165,7 +164,7 @@ Dodecahedron::Dodecahedron(float L) : Particle(Key(BaseShape::Dodecahedron))
 Dot::Dot() : Particle(Key(BaseShape::Sphere, 0, 0.5f))
 {
     float R = 1.0f;
-    scale = Vector3D(R*2);
+    scale = Vector3D(R * 2);
     offset = Vector3D(0, 0, 0);
     set();
 }
@@ -279,7 +278,7 @@ TruncatedCube::TruncatedCube(float L, float t) : Particle(Key(BaseShape::Truncat
 }
 
 TruncatedSphere::TruncatedSphere(float R, float H, float deltaH)
-    : Particle(Key(BaseShape::Sphere, 1 - H / R / 2, (H - R) / R / 2, deltaH/ R / 2))
+    : Particle(Key(BaseShape::Sphere, 1 - H / R / 2, (H - R) / R / 2, deltaH / R / 2))
 {
     isNull = (R <= 0 || H <= 0);
     scale = Vector3D(R * 2);
@@ -288,13 +287,13 @@ TruncatedSphere::TruncatedSphere(float R, float H, float deltaH)
 }
 
 TruncatedSpheroid::TruncatedSpheroid(float R, float H, float fp, float deltaH)
-    : Particle(Key(BaseShape::Sphere, 1 - H / fp / R / 2, (H - fp * R) / fp / R / 2,
-                   deltaH / fp / R / 2))
+    : Particle(
+        Key(BaseShape::Sphere, 1 - H / fp / R / 2, (H - fp * R) / fp / R / 2, deltaH / fp / R / 2))
 {
     isNull = (R <= 0 || H <= 0 || fp <= 0);
     scale = Vector3D(R * 2, R * 2, fp * R * 2);
     offset = Vector3D(0, 0, 0);
     set();
 }
-}
-} // namespace RealSpace::Particles
+} // namespace Particles
+} // namespace RealSpace

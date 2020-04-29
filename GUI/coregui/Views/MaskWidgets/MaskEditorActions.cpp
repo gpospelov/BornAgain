@@ -20,32 +20,27 @@
 #include <QMenu>
 
 MaskEditorActions::MaskEditorActions(QWidget* parent)
-    : QObject(parent)
-    , m_toggleMaskValueAction(new QAction("Toggle mask value", parent))
-    , m_bringToFrontAction(new QAction("Rise mask up", parent))
-    , m_sendToBackAction(new QAction("Lower mask down", parent))
-    , m_deleteMaskAction(new QAction("Remove mask", parent))
-    , m_resetViewAction(new QAction(this))
-    , m_savePlotAction(new QAction(this))
-    , m_togglePanelAction(new QAction(this))
-    , m_maskModel(nullptr)
-    , m_selectionModel(nullptr)
+    : QObject(parent), m_toggleMaskValueAction(new QAction("Toggle mask value", parent)),
+      m_bringToFrontAction(new QAction("Rise mask up", parent)),
+      m_sendToBackAction(new QAction("Lower mask down", parent)),
+      m_deleteMaskAction(new QAction("Remove mask", parent)), m_resetViewAction(new QAction(this)),
+      m_savePlotAction(new QAction(this)), m_togglePanelAction(new QAction(this)),
+      m_maskModel(nullptr), m_selectionModel(nullptr)
 
 {
-    connect(m_toggleMaskValueAction, &QAction::triggered,
-            this, &MaskEditorActions::onToggleMaskValueAction);
+    connect(m_toggleMaskValueAction, &QAction::triggered, this,
+            &MaskEditorActions::onToggleMaskValueAction);
 
     m_bringToFrontAction->setIcon(QIcon(":/MaskWidgets/images/maskeditor_bringtofront.svg"));
     m_bringToFrontAction->setToolTip("Rise selected mask one level up (PgUp)");
     m_bringToFrontAction->setShortcuts(QKeySequence::MoveToPreviousPage);
-    connect(m_bringToFrontAction, &QAction::triggered,
-            this, &MaskEditorActions::onBringToFrontAction);
+    connect(m_bringToFrontAction, &QAction::triggered, this,
+            &MaskEditorActions::onBringToFrontAction);
 
     m_sendToBackAction->setIcon(QIcon(":/MaskWidgets/images/maskeditor_sendtoback.svg"));
     m_sendToBackAction->setToolTip("Lower selected mask one level down (PgDown)");
     m_sendToBackAction->setShortcuts(QKeySequence::MoveToNextPage);
-    connect(m_sendToBackAction, &QAction::triggered,
-            this, &MaskEditorActions::onSendToBackAction);
+    connect(m_sendToBackAction, &QAction::triggered, this, &MaskEditorActions::onSendToBackAction);
 
     m_deleteMaskAction->setToolTip("Remove selected mask (Del)");
     m_deleteMaskAction->setShortcuts(QKeySequence::Delete);
@@ -66,9 +61,8 @@ MaskEditorActions::MaskEditorActions(QWidget* parent)
     m_togglePanelAction->setText("Properties");
     m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
     m_togglePanelAction->setToolTip("Toggle Property Panel");
-    connect(m_togglePanelAction, &QAction::triggered,
-            this, &MaskEditorActions::propertyPanelRequest);
-
+    connect(m_togglePanelAction, &QAction::triggered, this,
+            &MaskEditorActions::propertyPanelRequest);
 }
 
 void MaskEditorActions::setModel(SessionModel* maskModel, const QModelIndex& rootIndex)
@@ -124,7 +118,7 @@ void MaskEditorActions::onToggleMaskValueAction()
 {
     Q_ASSERT(m_maskModel);
     Q_ASSERT(m_selectionModel);
-    for(auto itemIndex : m_selectionModel->selectedIndexes()) {
+    for (auto itemIndex : m_selectionModel->selectedIndexes()) {
         if (SessionItem* item = m_maskModel->itemForIndex(itemIndex)) {
             bool old_value = item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
             item->setItemValue(MaskItem::P_MASK_VALUE, !old_value);
@@ -156,12 +150,12 @@ void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
 
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
 
-    for(auto itemIndex : indexes) {
+    for (auto itemIndex : indexes) {
         if (SessionItem* item = m_maskModel->itemForIndex(itemIndex)) {
             int new_row = itemIndex.row() + change_in_row;
             if (new_row >= 0 && new_row <= m_maskModel->rowCount(m_rootIndex)) {
-                SessionItem* newItem = m_maskModel->moveItem(
-                    item, m_maskModel->itemForIndex(m_rootIndex), new_row);
+                SessionItem* newItem =
+                    m_maskModel->moveItem(item, m_maskModel->itemForIndex(m_rootIndex), new_row);
                 m_selectionModel->select(m_maskModel->indexOfItem(newItem),
                                          QItemSelectionModel::Select);
             }

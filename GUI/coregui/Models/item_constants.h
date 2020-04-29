@@ -17,7 +17,8 @@
 
 #include <QString>
 
-namespace Constants {
+namespace Constants
+{
 
 // --- Items -------------------------------------------------------------------
 
@@ -201,7 +202,7 @@ const ModelType FootprintNoneType = "NoFootprint";
 const ModelType FootprintGaussianType = "GaussianFootrpint";
 const ModelType FootprintSquareType = "SquareFootprint";
 
-const ModelType VarianceConstantFunctionType= "VarianceConstantFunction";
+const ModelType VarianceConstantFunctionType = "VarianceConstantFunction";
 const ModelType VarianceSimFunctionType = "VarianceSimFunction";
 
 // --- Groups ------------------------------------------------------------------
@@ -304,6 +305,6 @@ const ModelType ScientificSpinBoxType = "ScientificSpinBox";
 const ModelType MaterialEditorExternalType = "ExtMaterialEditor";
 const ModelType ColorEditorExternalType = "ExtColorEditor";
 const ModelType MultiSelectionComboEditorType = "MultiSelectionComboEditor";
-}
+} // namespace Constants
 
 #endif // ITEM_CONSTANTS_H

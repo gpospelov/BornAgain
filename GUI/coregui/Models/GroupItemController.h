@@ -38,7 +38,6 @@ public:
     int currentIndex() const;
     void setCurrentIndex(int index);
 
-
     QVariant createCombo() const;
 
 private:

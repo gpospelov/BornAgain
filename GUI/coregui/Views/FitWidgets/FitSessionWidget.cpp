@@ -15,23 +15,23 @@
 #include "FitSessionWidget.h"
 #include "FitParameterWidget.h"
 #include "FitResultsWidget.h"
+#include "FitSessionController.h"
 #include "JobItem.h"
 #include "MinimizerSettingsWidget.h"
-#include "mainwindow_constants.h"
-#include "FitSessionController.h"
 #include "RunFitControlWidget.h"
+#include "mainwindow_constants.h"
 #include <QTabWidget>
 #include <QVBoxLayout>
 
 FitSessionWidget::FitSessionWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_tabWidget(new QTabWidget)
-    , m_controlWidget(new RunFitControlWidget)
-    , m_fitParametersWidget(new FitParameterWidget)
-    , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
-    // , m_fitResultsWidget(new FitResultsWidget)
-    , m_fitResultsWidget(nullptr) // temporary replacement to fix a memory leak
-    , m_sessionController(nullptr)
+    : QWidget(parent), m_tabWidget(new QTabWidget), m_controlWidget(new RunFitControlWidget),
+      m_fitParametersWidget(new FitParameterWidget),
+      m_minimizerSettingsWidget(new MinimizerSettingsWidget)
+      // , m_fitResultsWidget(new FitResultsWidget)
+      ,
+      m_fitResultsWidget(nullptr) // temporary replacement to fix a memory leak
+      ,
+      m_sessionController(nullptr)
 {
     auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
@@ -73,13 +73,14 @@ void FitSessionWidget::setSessionController(FitSessionController* sessionControl
     m_sessionController = sessionController;
 
     if (m_sessionController) {
-        connect(m_sessionController, &FitSessionController::fittingError,
-                this, &FitSessionWidget::onFittingError);
-        connect(m_sessionController, &QObject::destroyed, [this] { m_sessionController=nullptr; });
-        connect(m_controlWidget, &RunFitControlWidget::startFittingPushed,
-                m_sessionController, &FitSessionController::onStartFittingRequest);
-        connect(m_controlWidget, &RunFitControlWidget::stopFittingPushed,
-                m_sessionController, &FitSessionController::onStopFittingRequest);
+        connect(m_sessionController, &FitSessionController::fittingError, this,
+                &FitSessionWidget::onFittingError);
+        connect(m_sessionController, &QObject::destroyed,
+                [this] { m_sessionController = nullptr; });
+        connect(m_controlWidget, &RunFitControlWidget::startFittingPushed, m_sessionController,
+                &FitSessionController::onStartFittingRequest);
+        connect(m_controlWidget, &RunFitControlWidget::stopFittingPushed, m_sessionController,
+                &FitSessionController::onStopFittingRequest);
     }
 }
 
@@ -97,4 +98,3 @@ void FitSessionWidget::onFittingError(const QString& text)
 {
     m_controlWidget->onFittingError(text);
 }
-

@@ -17,35 +17,29 @@
 #include "Lattice2D.h"
 #include "Units.h"
 
-namespace {
-    const QString axis_rotation_tooltip
-        = "Rotation of lattice with respect to x-axis of reference frame \n"
-          "(beam direction) in degrees";
-}
-
-const QString Lattice2DItem::P_LATTICE_ROTATION_ANGLE
-    = QString::fromStdString(BornAgain::Xi);
-
-Lattice2DItem::Lattice2DItem(const QString& modelType)
-    : SessionItem(modelType)
+namespace
 {
-
+const QString axis_rotation_tooltip =
+    "Rotation of lattice with respect to x-axis of reference frame \n"
+    "(beam direction) in degrees";
 }
+
+const QString Lattice2DItem::P_LATTICE_ROTATION_ANGLE = QString::fromStdString(BornAgain::Xi);
+
+Lattice2DItem::Lattice2DItem(const QString& modelType) : SessionItem(modelType) {}
 
 double Lattice2DItem::unitCellArea() const
 {
     return createLattice()->unitCellArea();
 }
 
-const QString BasicLatticeItem::P_LATTICE_LENGTH1
-    = QString::fromStdString(BornAgain::LatticeLength1);
-const QString BasicLatticeItem::P_LATTICE_LENGTH2
-    = QString::fromStdString(BornAgain::LatticeLength2);
-const QString BasicLatticeItem::P_LATTICE_ANGLE
-    = QString::fromStdString(BornAgain::LatticeAngle);
+const QString BasicLatticeItem::P_LATTICE_LENGTH1 =
+    QString::fromStdString(BornAgain::LatticeLength1);
+const QString BasicLatticeItem::P_LATTICE_LENGTH2 =
+    QString::fromStdString(BornAgain::LatticeLength2);
+const QString BasicLatticeItem::P_LATTICE_ANGLE = QString::fromStdString(BornAgain::LatticeAngle);
 
-BasicLatticeItem::BasicLatticeItem()
-    : Lattice2DItem(Constants::BasicLatticeType)
+BasicLatticeItem::BasicLatticeItem() : Lattice2DItem(Constants::BasicLatticeType)
 {
     setToolTip(QStringLiteral("Two dimensional lattice"));
     addProperty(P_LATTICE_LENGTH1, 20.0)
@@ -60,20 +54,17 @@ BasicLatticeItem::BasicLatticeItem()
 std::unique_ptr<Lattice2D> BasicLatticeItem::createLattice() const
 {
     return std::make_unique<BasicLattice>(
-                getItemValue(P_LATTICE_LENGTH1).toDouble(),
-                getItemValue(P_LATTICE_LENGTH2).toDouble(),
-                Units::deg2rad(getItemValue(P_LATTICE_ANGLE).toDouble()),
-                Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble())
-                );
+        getItemValue(P_LATTICE_LENGTH1).toDouble(), getItemValue(P_LATTICE_LENGTH2).toDouble(),
+        Units::deg2rad(getItemValue(P_LATTICE_ANGLE).toDouble()),
+        Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble()));
 }
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString SquareLatticeItem::P_LATTICE_LENGTH
-    = QString::fromStdString(BornAgain::LatticeLength);
+const QString SquareLatticeItem::P_LATTICE_LENGTH =
+    QString::fromStdString(BornAgain::LatticeLength);
 
-SquareLatticeItem::SquareLatticeItem()
-    : Lattice2DItem(Constants::SquareLatticeType)
+SquareLatticeItem::SquareLatticeItem() : Lattice2DItem(Constants::SquareLatticeType)
 {
     addProperty(P_LATTICE_LENGTH, 20.0)
         ->setToolTip(QStringLiteral("Length of first and second lattice vectors in nanometers"));
@@ -83,18 +74,16 @@ SquareLatticeItem::SquareLatticeItem()
 std::unique_ptr<Lattice2D> SquareLatticeItem::createLattice() const
 {
     return std::make_unique<SquareLattice>(
-                getItemValue(P_LATTICE_LENGTH).toDouble(),
-                Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble())
-                );
+        getItemValue(P_LATTICE_LENGTH).toDouble(),
+        Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble()));
 }
 
 // --------------------------------------------------------------------------------------------- //
 
-const QString HexagonalLatticeItem::P_LATTICE_LENGTH
-    = QString::fromStdString(BornAgain::LatticeLength);
+const QString HexagonalLatticeItem::P_LATTICE_LENGTH =
+    QString::fromStdString(BornAgain::LatticeLength);
 
-HexagonalLatticeItem::HexagonalLatticeItem()
-    : Lattice2DItem(Constants::HexagonalLatticeType)
+HexagonalLatticeItem::HexagonalLatticeItem() : Lattice2DItem(Constants::HexagonalLatticeType)
 {
     addProperty(P_LATTICE_LENGTH, 20.0)
         ->setToolTip(QStringLiteral("Length of first and second lattice vectors in nanometers"));
@@ -104,8 +93,6 @@ HexagonalLatticeItem::HexagonalLatticeItem()
 std::unique_ptr<Lattice2D> HexagonalLatticeItem::createLattice() const
 {
     return std::make_unique<HexagonalLattice>(
-                getItemValue(P_LATTICE_LENGTH).toDouble(),
-                Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble())
-                );
+        getItemValue(P_LATTICE_LENGTH).toDouble(),
+        Units::deg2rad(getItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE).toDouble()));
 }
-

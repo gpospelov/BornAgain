@@ -21,7 +21,10 @@
 class JobItem;
 class FitObjective;
 class Simulation;
-namespace Fit { class Parameters; }
+namespace Fit
+{
+class Parameters;
+}
 template <class T> class OutputData;
 class IMinimizer;
 class GUIFitObserver;

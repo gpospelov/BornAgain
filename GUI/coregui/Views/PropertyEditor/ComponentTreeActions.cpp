@@ -15,13 +15,10 @@
 #include "ComponentTreeActions.h"
 #include "SessionItem.h"
 #include "item_constants.h"
-#include <QMenu>
 #include <QAction>
+#include <QMenu>
 
-ComponentTreeActions::ComponentTreeActions(QObject* parent)
-    : QObject(parent)
-{
-}
+ComponentTreeActions::ComponentTreeActions(QObject* parent) : QObject(parent) {}
 
 //! Creates right-mouse-click context menu on top of ComponentTreeView
 //! which will allow user to switch between scientific notation and the notation
@@ -38,8 +35,7 @@ void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, Ses
 
     // To select scientific notation
     scientificAction->setChecked(sc_editor);
-    connect(scientificAction, &QAction::triggered, [&]()
-    {
+    connect(scientificAction, &QAction::triggered, [&]() {
         if (scientificAction->isChecked())
             item.setEditorType(Constants::ScientificEditorType);
         else
@@ -48,15 +44,14 @@ void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, Ses
 
     // to select number of decimals
     const int nmaxdigits = 8;
-    for (int i=1; i<=nmaxdigits; ++i) {
+    for (int i = 1; i <= nmaxdigits; ++i) {
         auto action = doubleMenu->addAction(QString("%1 digits").arg(i));
         if (!sc_editor && item.decimals() == i)
             action->setChecked(true);
-        connect(action, &QAction::triggered, [i,&item] {
+        connect(action, &QAction::triggered, [i, &item] {
             item.setEditorType(Constants::DefaultEditorType);
             item.setDecimals(i);
-            });
+        });
     }
     menu.exec(point);
 }
-

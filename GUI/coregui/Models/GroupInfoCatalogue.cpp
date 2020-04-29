@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "GroupInfoCatalogue.h"
-#include "item_constants.h"
 #include "GUIHelpers.h"
+#include "item_constants.h"
 
 GroupInfoCatalogue::GroupInfoCatalogue()
 {
@@ -199,8 +199,8 @@ GroupInfo GroupInfoCatalogue::groupInfo(const QString& groupType) const
         if (info.groupType() == groupType)
             return info;
 
-    throw GUIHelpers::Error("GroupInfoCatalogue::groupInfo() -> Error. No such group '"+
-                            groupType+"'");
+    throw GUIHelpers::Error("GroupInfoCatalogue::groupInfo() -> Error. No such group '" + groupType
+                            + "'");
 }
 
 bool GroupInfoCatalogue::containsGroup(const QString& groupType) const

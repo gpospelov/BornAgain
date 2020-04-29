@@ -15,8 +15,8 @@
 #ifndef FITLOG_H
 #define FITLOG_H
 
-#include "WinDllMacros.h"
 #include "FitLogFlags.h"
+#include "WinDllMacros.h"
 #include <string>
 #include <vector>
 

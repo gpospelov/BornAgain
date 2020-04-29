@@ -15,9 +15,7 @@
 #include "ColorMapSceneAdaptor.h"
 #include "ColorMap.h"
 
-ColorMapSceneAdaptor::ColorMapSceneAdaptor() : m_plot(0)
-{
-}
+ColorMapSceneAdaptor::ColorMapSceneAdaptor() : m_plot(0) {}
 
 qreal ColorMapSceneAdaptor::toSceneX(qreal mask_x) const
 {

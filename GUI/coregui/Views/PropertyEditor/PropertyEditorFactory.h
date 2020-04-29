@@ -37,6 +37,6 @@ BA_CORE_API_ QString toString(const QModelIndex& index);
 //! Creates an editor suitable for editing of item.value()
 BA_CORE_API_ QWidget* CreateEditor(const SessionItem& item, QWidget* parent = nullptr);
 
-}
+} // namespace PropertyEditorFactory
 
-#endif  //  PROPERTYEDITORFACTORY_H
+#endif //  PROPERTYEDITORFACTORY_H

@@ -18,13 +18,14 @@
 #include "SessionGraphicsItem.h"
 class IInterferenceFunction;
 
-class BA_CORE_API_ InterferenceFunctionItem  : public SessionGraphicsItem
+class BA_CORE_API_ InterferenceFunctionItem : public SessionGraphicsItem
 {
 public:
     static const QString P_POSITION_VARIANCE;
     explicit InterferenceFunctionItem(const QString& modelType);
     virtual ~InterferenceFunctionItem();
-    virtual std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const=0;
+    virtual std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const = 0;
+
 protected:
     void setPositionVariance(IInterferenceFunction* p_iff) const;
 };
@@ -47,6 +48,7 @@ public:
     static const QString P_XI_INTEGRATION;
     InterferenceFunction2DLatticeItem();
     std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
+
 private:
     void update_rotation_availability();
 };
@@ -62,6 +64,7 @@ public:
     static const QString P_PDF2;
     InterferenceFunction2DParaCrystalItem();
     std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
+
 private:
     void update_rotation_availability();
     void update_distribution_displaynames();
@@ -75,6 +78,7 @@ public:
     static const QString P_DOMAIN_SIZE_2;
     InterferenceFunctionFinite2DLatticeItem();
     std::unique_ptr<IInterferenceFunction> createInterferenceFunction() const;
+
 private:
     void update_rotation_availability();
 };

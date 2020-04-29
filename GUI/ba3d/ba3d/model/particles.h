@@ -99,13 +99,13 @@ public:
 class TruncatedSphere : public Particle
 {
 public:
-    TruncatedSphere(float R, float H, float deltaH=0.0f);
+    TruncatedSphere(float R, float H, float deltaH = 0.0f);
 };
 
 class TruncatedSpheroid : public Particle
 {
 public:
-    TruncatedSpheroid(float R, float H, float fp, float deltaH=0.0f);
+    TruncatedSpheroid(float R, float H, float fp, float deltaH = 0.0f);
 };
 
 class Cone : public Particle
@@ -209,6 +209,6 @@ class AnisoPyramid : public Particle
 public:
     AnisoPyramid(float L, float W, float H, float alpha);
 };
-}
-} // namespace RealSpace::Particles
+} // namespace Particles
+} // namespace RealSpace
 #endif // BA3D_PARTICLES_H

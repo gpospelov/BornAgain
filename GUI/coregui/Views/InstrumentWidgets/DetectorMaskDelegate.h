@@ -49,4 +49,3 @@ private:
 };
 
 #endif // DETECTORMASKDELEGATE_H
-

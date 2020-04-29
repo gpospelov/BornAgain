@@ -27,14 +27,14 @@ class MaskGraphicsView : public QGraphicsView
 {
     Q_OBJECT
 public:
-    MaskGraphicsView(QGraphicsScene *scene, QWidget *parent = 0);
+    MaskGraphicsView(QGraphicsScene* scene, QWidget* parent = 0);
     QSize sizeHint() const { return QSize(512, 512); }
     QSize minimumSizeHint() const { return QSize(128, 128); }
 
 public slots:
     void onResetViewRequest();
 
-    void updateSize(const QSize &newSize);
+    void updateSize(const QSize& newSize);
 
 signals:
     void changeActivityRequest(MaskEditorFlags::Activity);
@@ -42,12 +42,12 @@ signals:
 
 protected:
     void wheelEvent(QWheelEvent* event);
-    void resizeEvent(QResizeEvent *event);
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
+    void resizeEvent(QResizeEvent* event);
+    void keyPressEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent* event);
 
 private:
-    bool isControlButtonIsPressed(QWheelEvent *event);
+    bool isControlButtonIsPressed(QWheelEvent* event);
     void cancelCurrentDrawing();
 
     void setZoomValue(double zoom_value);
@@ -56,6 +56,5 @@ private:
 
     double m_current_zoom_value;
 };
-
 
 #endif // MASKGRAPHICSVIEW_H

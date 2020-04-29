@@ -25,16 +25,16 @@
 class WarningSignWidget : public QWidget
 {
 public:
-    WarningSignWidget(QWidget *parent = 0);
+    WarningSignWidget(QWidget* parent = 0);
 
     void setPosition(int x, int y);
 
-    void setWarningHeader(const QString &message);
-    void setWarningMessage(const QString &message) {m_warning_message = message;}
+    void setWarningHeader(const QString& message);
+    void setWarningMessage(const QString& message) { m_warning_message = message; }
 
 protected:
-    void paintEvent(QPaintEvent *event);
-    void mousePressEvent(QMouseEvent *event);
+    void paintEvent(QPaintEvent* event);
+    void mousePressEvent(QMouseEvent* event);
 
 private:
     QPixmap m_pixmap;

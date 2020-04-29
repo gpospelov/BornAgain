@@ -26,7 +26,7 @@ class BA_CORE_API_ AboutApplicationDialog : public QDialog
 {
     Q_OBJECT
 public:
-    AboutApplicationDialog(QWidget *parent = 0);
+    AboutApplicationDialog(QWidget* parent = 0);
 
 private:
     QBoxLayout* createLogoLayout();

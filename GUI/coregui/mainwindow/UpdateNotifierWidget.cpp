@@ -14,16 +14,16 @@
 
 #include "UpdateNotifierWidget.h"
 #include "UpdateNotifier.h"
+#include <QDebug>
+#include <QDesktopServices>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QTimer>
 #include <QSettings>
-#include <QDesktopServices>
+#include <QTimer>
 #include <QUrl>
-#include <QDebug>
 
-
-namespace {
+namespace
+{
 const QString yes = "yes";
 const QString no = "no";
 
@@ -31,16 +31,15 @@ QString update_question()
 {
     QString result = QString("Should BornAgain check for updates automatically? - "
                              " <a href=\"%1\">yes</a> /"
-                             " <a href=\"%2\">no</a>").arg(yes, no);
+                             " <a href=\"%2\">no</a>")
+                         .arg(yes, no);
     return result;
 }
-}
+} // namespace
 
 UpdateNotifierWidget::UpdateNotifierWidget(UpdateNotifier* updateNotifier, QWidget* parent)
-    : QWidget(parent)
-    , m_updateNotifier(updateNotifier)
-    , m_updateLabel(new QLabel)
-    , m_check_for_updates(true)
+    : QWidget(parent), m_updateNotifier(updateNotifier), m_updateLabel(new QLabel),
+      m_check_for_updates(true)
 {
     auto layout = new QHBoxLayout();
     layout->addWidget(m_updateLabel);
@@ -53,8 +52,8 @@ UpdateNotifierWidget::UpdateNotifierWidget(UpdateNotifier* updateNotifier, QWidg
     m_updateLabel->setText("");
 
     m_updateNotifier = updateNotifier;
-    connect(m_updateNotifier, &UpdateNotifier::onUpdateNotification,
-            this, &UpdateNotifierWidget::onUpdateNotification);
+    connect(m_updateNotifier, &UpdateNotifier::onUpdateNotification, this,
+            &UpdateNotifierWidget::onUpdateNotification);
 
     connect(m_updateLabel, &QLabel::linkActivated, this, &UpdateNotifierWidget::onLinkActivated);
 
@@ -72,9 +71,7 @@ void UpdateNotifierWidget::showEvent(QShowEvent* event)
     QWidget::showEvent(event);
     if (m_check_for_updates) {
         m_check_for_updates = false;
-        QTimer::singleShot(1000, this, [&](){
-            m_updateNotifier->checkForUpdates();
-        });
+        QTimer::singleShot(1000, this, [&]() { m_updateNotifier->checkForUpdates(); });
     }
 }
 
@@ -89,12 +86,12 @@ void UpdateNotifierWidget::onUpdateNotification(const QString& text)
 
 void UpdateNotifierWidget::onLinkActivated(const QString& text)
 {
-    if (text == yes ) {
+    if (text == yes) {
         m_updateNotifier->setCheckUpdatesFlag(true);
         m_updateNotifier->checkForUpdates();
-    } else if (text == no ) {
+    } else if (text == no) {
         m_updateNotifier->setCheckUpdatesFlag(false);
-        QTimer::singleShot(200, this, [&](){m_updateLabel->setText("");});
+        QTimer::singleShot(200, this, [&]() { m_updateLabel->setText(""); });
     } else {
         QDesktopServices::openUrl(QUrl(text));
     }

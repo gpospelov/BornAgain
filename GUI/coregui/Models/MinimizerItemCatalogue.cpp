@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "MinimizerItemCatalogue.h"
-#include "MinimizerFactory.h"
 #include "GUIHelpers.h"
+#include "MinimizerFactory.h"
 
 //! Returns ComboProperty representing list of algorithms defined for given minimizerType.
 
@@ -27,18 +27,18 @@ ComboProperty MinimizerItemCatalogue::algorithmCombo(const QString& minimizerTyp
 
 //! Returns list of algorithm names defined for given minimizer.
 
-QStringList MinimizerItemCatalogue::algorithmNames(const QString &minimizerType)
+QStringList MinimizerItemCatalogue::algorithmNames(const QString& minimizerType)
 {
-    std::vector<std::string> algos
-        = MinimizerFactory::catalogue().algorithmNames(minimizerType.toStdString());
+    std::vector<std::string> algos =
+        MinimizerFactory::catalogue().algorithmNames(minimizerType.toStdString());
     return GUIHelpers::fromStdStrings(algos);
 }
 
 //! Returns list of algoritm descriptions defined for given minimizer.
 
-QStringList MinimizerItemCatalogue::algorithmDescriptions(const QString &minimizerType)
+QStringList MinimizerItemCatalogue::algorithmDescriptions(const QString& minimizerType)
 {
-    std::vector<std::string> descr
-        = MinimizerFactory::catalogue().algorithmDescriptions(minimizerType.toStdString());
+    std::vector<std::string> descr =
+        MinimizerFactory::catalogue().algorithmDescriptions(minimizerType.toStdString());
     return GUIHelpers::fromStdStrings(descr);
 }

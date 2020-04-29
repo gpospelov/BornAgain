@@ -13,28 +13,25 @@
 // ************************************************************************** //
 
 #include "FitSessionController.h"
+#include "FitLog.h"
+#include "FitObjectiveBuilder.h"
+#include "FitParameterItems.h"
+#include "FitProgressInfo.h"
+#include "FitSuiteItem.h"
 #include "FitWorkerLauncher.h"
 #include "GUIFitObserver.h"
-#include "JobItem.h"
-#include "FitSuiteItem.h"
-#include "FitProgressInfo.h"
-#include "IntensityDataItem.h"
-#include "FitParameterItems.h"
 #include "GUIHelpers.h"
-#include "FitObjectiveBuilder.h"
-#include "FitLog.h"
+#include "IntensityDataItem.h"
+#include "JobItem.h"
 
-namespace  {
+namespace
+{
 const bool use_fit_objective = true;
 }
 
 FitSessionController::FitSessionController(QObject* parent)
-    : QObject(parent)
-    , m_jobItem(nullptr)
-    , m_runFitManager(new FitWorkerLauncher(this))
-    , m_observer(new GUIFitObserver)
-    , m_fitlog(new FitLog)
-    , m_block_progress_update(false)
+    : QObject(parent), m_jobItem(nullptr), m_runFitManager(new FitWorkerLauncher(this)),
+      m_observer(new GUIFitObserver), m_fitlog(new FitLog), m_block_progress_update(false)
 {
     connect(m_observer.get(), &GUIFitObserver::updateReady, this,
             &FitSessionController::onObserverUpdate);
@@ -43,7 +40,8 @@ FitSessionController::FitSessionController(QObject* parent)
             &FitSessionController::onFittingStarted);
     connect(m_runFitManager, &FitWorkerLauncher::fittingFinished, this,
             &FitSessionController::onFittingFinished);
-    connect(m_runFitManager, &FitWorkerLauncher::fittingError, this, &FitSessionController::onFittingError);
+    connect(m_runFitManager, &FitWorkerLauncher::fittingError, this,
+            &FitSessionController::onFittingError);
 }
 
 FitSessionController::~FitSessionController() = default;
@@ -113,7 +111,7 @@ void FitSessionController::onObserverUpdate()
 
     updateLog(progressInfo);
 
-    if(!progressInfo.logInfo().empty())
+    if (!progressInfo.logInfo().empty())
         m_fitlog->append(progressInfo.logInfo(), FitLogFlags::DEFAULT);
 
     m_observer->finishedPlotting();
@@ -178,7 +176,7 @@ void FitSessionController::updateLog(const FitProgressInfo& info)
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();
     int index(0);
     QVector<double> values = GUIHelpers::fromStdVector(info.parValues());
-    for(auto item : fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+    for (auto item : fitParContainer->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         if (item->getItems(FitParameterItem::T_LINK).size() == 0)
             continue;
         QString parinfo = QString("      %1 %2\n").arg(item->displayName()).arg(values[index++]);

@@ -15,8 +15,8 @@
 #ifndef MATERIALITEMUTILS_H
 #define MATERIALITEMUTILS_H
 
-#include "MaterialItem.h"
 #include "ExternalProperty.h"
+#include "MaterialItem.h"
 #include <QColor>
 #include <QString>
 #include <memory>
@@ -27,7 +27,7 @@ class MaterialItemContainer;
 namespace MaterialItemUtils
 {
 
-BA_CORE_API_ QColor suggestMaterialColor(const QString &name);
+BA_CORE_API_ QColor suggestMaterialColor(const QString& name);
 BA_CORE_API_ ExternalProperty defaultMaterialProperty();
 
 BA_CORE_API_ std::unique_ptr<Material>
@@ -37,7 +37,7 @@ createDomainMaterial(const ExternalProperty& material_property,
                      const MaterialItemContainer& container);
 BA_CORE_API_ MaterialItem* findMaterial(const ExternalProperty& material_property);
 
-BA_CORE_API_ QString materialTag(const SessionItem &item);
+BA_CORE_API_ QString materialTag(const SessionItem& item);
 BA_CORE_API_ QStringList materialRelatedModelTypes();
 
 //! Constructs material property corresponding to given material.
@@ -47,14 +47,15 @@ BA_CORE_API_ ExternalProperty materialProperty(const SessionItem& materialItem);
 BA_CORE_API_ ExternalProperty colorProperty(const QColor& color);
 
 //! Calls material selector dialog.
-BA_CORE_API_ ExternalProperty selectMaterialProperty(const ExternalProperty &previous=ExternalProperty());
+BA_CORE_API_ ExternalProperty
+selectMaterialProperty(const ExternalProperty& previous = ExternalProperty());
 
 //! Calls color selector dialog.
-BA_CORE_API_ ExternalProperty selectColorProperty(const ExternalProperty &previous=ExternalProperty());
+BA_CORE_API_ ExternalProperty
+selectColorProperty(const ExternalProperty& previous = ExternalProperty());
 
 //! Gather material property items from a given item
 BA_CORE_API_ QVector<SessionItem*> materialPropertyItems(SessionItem* item);
-}
-
+} // namespace MaterialItemUtils
 
 #endif // MATERIALITEMUTILS_H

@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "PolarizationAnalysisEditor.h"
-#include "ComponentEditor.h"
-#include "InstrumentItems.h"
 #include "BeamItems.h"
-#include "DetectorItems.h"
 #include "ColumnResizer.h"
+#include "ComponentEditor.h"
+#include "DetectorItems.h"
+#include "InstrumentItems.h"
 #include "LayoutUtils.h"
 #include <QGridLayout>
 #include <QSpacerItem>
@@ -27,15 +27,17 @@ namespace
 const QString beam_pol_title("Polarization (Bloch vector)");
 const QString analyzer_orientation_title = "Analyzer orientation";
 const QString analyzer_properties_title = "Analyzer properties";
-}
+} // namespace
 
-PolarizationAnalysisEditor::PolarizationAnalysisEditor(ColumnResizer* columnResizer, QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_columnResizer(columnResizer)
-    , m_polarizationEditor(new ComponentEditor(ComponentEditor::GroupWidget, beam_pol_title))
-    , m_analyserDirectionEditor(new ComponentEditor(ComponentEditor::GroupWidget, analyzer_orientation_title))
-    , m_analyserPropertiesEditor(new ComponentEditor(ComponentEditor::GroupWidget, analyzer_properties_title))
-    , m_gridLayout(new QGridLayout)
+PolarizationAnalysisEditor::PolarizationAnalysisEditor(ColumnResizer* columnResizer,
+                                                       QWidget* parent)
+    : SessionItemWidget(parent), m_columnResizer(columnResizer),
+      m_polarizationEditor(new ComponentEditor(ComponentEditor::GroupWidget, beam_pol_title)),
+      m_analyserDirectionEditor(
+          new ComponentEditor(ComponentEditor::GroupWidget, analyzer_orientation_title)),
+      m_analyserPropertiesEditor(
+          new ComponentEditor(ComponentEditor::GroupWidget, analyzer_properties_title)),
+      m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_polarizationEditor, 0, 0);
     m_gridLayout->addWidget(m_analyserDirectionEditor, 0, 1);
@@ -59,7 +61,8 @@ void PolarizationAnalysisEditor::subscribeToItem()
         [this](const QString& name) {
             if (name == Instrument2DItem::P_DETECTOR)
                 updateAnalyserEditor();
-        }, this);
+        },
+        this);
 
     updateAnalyserEditor();
 }
@@ -96,6 +99,8 @@ void PolarizationAnalysisEditor::updateAnalyserEditor()
     m_analyserDirectionEditor->clearEditor();
     m_analyserPropertiesEditor->clearEditor();
     m_analyserDirectionEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_DIRECTION));
-    m_analyserPropertiesEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
-    m_analyserPropertiesEditor->addItem(detectorItem()->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
+    m_analyserPropertiesEditor->addItem(
+        detectorItem()->getItem(DetectorItem::P_ANALYZER_EFFICIENCY));
+    m_analyserPropertiesEditor->addItem(
+        detectorItem()->getItem(DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION));
 }

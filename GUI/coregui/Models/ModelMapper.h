@@ -34,7 +34,7 @@ public:
     void setOnValueChange(std::function<void(void)> f, const void* caller = 0);
 
     void setOnPropertyChange(std::function<void(QString)> f, const void* caller = 0);
-    void setOnPropertyChange(std::function<void(SessionItem*, QString)>  f, const void* caller = 0);
+    void setOnPropertyChange(std::function<void(SessionItem*, QString)> f, const void* caller = 0);
 
     void setOnChildPropertyChange(std::function<void(SessionItem*, QString)> f,
                                   const void* caller = 0);
@@ -114,6 +114,5 @@ template <class U> inline void ModelMapper::clean_container(U& v, const void* ca
                            }),
             v.end());
 }
-
 
 #endif // MODELMAPPER_H

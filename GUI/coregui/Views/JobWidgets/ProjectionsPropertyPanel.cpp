@@ -17,12 +17,11 @@
 #include <QVBoxLayout>
 
 ProjectionsPropertyPanel::ProjectionsPropertyPanel(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_componentEditor(new ComponentEditor)
+    : SessionItemWidget(parent), m_componentEditor(new ComponentEditor)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 

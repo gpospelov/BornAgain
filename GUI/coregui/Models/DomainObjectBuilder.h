@@ -39,6 +39,6 @@ BA_CORE_API_ std::unique_ptr<Instrument> buildInstrument(const InstrumentItem& i
 //! Creates a unit converter corresponding to the given instrument item
 BA_CORE_API_ std::unique_ptr<IUnitConverter>
 createUnitConverter(const InstrumentItem* instrumentItem);
-};
+}; // namespace DomainObjectBuilder
 
 #endif // DOMAINOBJECTBUILDER_H

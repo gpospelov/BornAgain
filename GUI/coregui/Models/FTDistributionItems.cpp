@@ -13,16 +13,12 @@
 // ************************************************************************** //
 
 #include "FTDistributionItems.h"
-#include "Units.h"
 #include "BornAgainNamespace.h"
+#include "Units.h"
 
 const QString FTDistribution1DItem::P_OMEGA = QString::fromStdString(BornAgain::Omega);
 
-FTDistribution1DItem::FTDistribution1DItem(const QString& name)
-    : SessionItem(name)
-{
-
-}
+FTDistribution1DItem::FTDistribution1DItem(const QString& name) : SessionItem(name) {}
 
 void FTDistribution1DItem::add_omega_property()
 {
@@ -83,8 +79,7 @@ FTDistribution1DTriangleItem::FTDistribution1DTriangleItem()
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DTriangleItem::createFTDistribution() const
 {
-    return std::make_unique<FTDistribution1DTriangle>(
-                getItemValue(P_OMEGA).toDouble());
+    return std::make_unique<FTDistribution1DTriangle>(getItemValue(P_OMEGA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -110,14 +105,16 @@ FTDistribution1DVoigtItem::FTDistribution1DVoigtItem()
 {
     setToolTip(QStringLiteral("One-dimensional pseudo-Voigt probability distribution"));
     add_omega_property();
-    addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0)).setToolTip(QStringLiteral(
-        "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
+    addProperty(P_ETA, 0.5)
+        ->setLimits(RealLimits::limited(0.0, 1.0))
+        .setToolTip(QStringLiteral(
+            "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
 }
 
 std::unique_ptr<IFTDistribution1D> FTDistribution1DVoigtItem::createFTDistribution() const
 {
     return std::make_unique<FTDistribution1DVoigt>(getItemValue(P_OMEGA).toDouble(),
-                                                          getItemValue(P_ETA).toDouble());
+                                                   getItemValue(P_ETA).toDouble());
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -126,23 +123,24 @@ const QString FTDistribution2DItem::P_OMEGA_X = QString::fromStdString(BornAgain
 const QString FTDistribution2DItem::P_OMEGA_Y = QString::fromStdString(BornAgain::OmegaY);
 const QString FTDistribution2DItem::P_GAMMA = QString::fromStdString(BornAgain::Gamma);
 
-FTDistribution2DItem::FTDistribution2DItem(const QString& name)
-    : SessionItem(name)
-{
-}
+FTDistribution2DItem::FTDistribution2DItem(const QString& name) : SessionItem(name) {}
 
 void FTDistribution2DItem::add_omega_properties()
 {
-    addProperty(P_OMEGA_X, 1.0)->setToolTip(
-        QStringLiteral("Half-width of the distribution along its x-axis in nanometers"));
-    addProperty(P_OMEGA_Y, 1.0)->setToolTip(
-        QStringLiteral("Half-width of the distribution along its y-axis in nanometers"));
+    addProperty(P_OMEGA_X, 1.0)
+        ->setToolTip(
+            QStringLiteral("Half-width of the distribution along its x-axis in nanometers"));
+    addProperty(P_OMEGA_Y, 1.0)
+        ->setToolTip(
+            QStringLiteral("Half-width of the distribution along its y-axis in nanometers"));
 }
 
 void FTDistribution2DItem::add_gamma_property()
 {
-    addProperty(P_GAMMA, 0.0)->setToolTip(QStringLiteral("Angle in direct space between "
-        "first lattice vector \nand x-axis of the distribution in degrees"));
+    addProperty(P_GAMMA, 0.0)
+        ->setToolTip(
+            QStringLiteral("Angle in direct space between "
+                           "first lattice vector \nand x-axis of the distribution in degrees"));
 }
 
 void FTDistribution2DItem::add_properties()
@@ -150,7 +148,6 @@ void FTDistribution2DItem::add_properties()
     add_omega_properties();
     add_gamma_property();
 }
-
 
 // --------------------------------------------------------------------------------------------- //
 
@@ -164,9 +161,8 @@ FTDistribution2DCauchyItem::FTDistribution2DCauchyItem()
 std::unique_ptr<IFTDistribution2D> FTDistribution2DCauchyItem::createFTDistribution() const
 {
     return std::make_unique<FTDistribution2DCauchy>(
-                getItemValue(P_OMEGA_X).toDouble(),
-                getItemValue(P_OMEGA_Y).toDouble(),
-                Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
+        getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
+        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -196,9 +192,9 @@ FTDistribution2DGateItem::FTDistribution2DGateItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DGateItem::createFTDistribution() const
 {
-    return std::make_unique<FTDistribution2DGate>(
-        getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
+    return std::make_unique<FTDistribution2DGate>(getItemValue(P_OMEGA_X).toDouble(),
+                                                  getItemValue(P_OMEGA_Y).toDouble(),
+                                                  Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -212,9 +208,9 @@ FTDistribution2DConeItem::FTDistribution2DConeItem()
 
 std::unique_ptr<IFTDistribution2D> FTDistribution2DConeItem::createFTDistribution() const
 {
-    return std::make_unique<FTDistribution2DCone>(
-        getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
+    return std::make_unique<FTDistribution2DCone>(getItemValue(P_OMEGA_X).toDouble(),
+                                                  getItemValue(P_OMEGA_Y).toDouble(),
+                                                  Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 }
 
 // --------------------------------------------------------------------------------------------- //
@@ -227,8 +223,10 @@ FTDistribution2DVoigtItem::FTDistribution2DVoigtItem()
     setToolTip(QStringLiteral("Two-dimensional pseudo-Voigt probability distribution"));
 
     add_omega_properties();
-    addProperty(P_ETA, 0.5)->setLimits(RealLimits::limited(0.0, 1.0)).setToolTip(QStringLiteral(
-        "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
+    addProperty(P_ETA, 0.5)
+        ->setLimits(RealLimits::limited(0.0, 1.0))
+        .setToolTip(QStringLiteral(
+            "Parameter [0,1] to balance between Cauchy (eta=0.0) and Gauss (eta=1.0)"));
     add_gamma_property();
 }
 
@@ -236,6 +234,5 @@ std::unique_ptr<IFTDistribution2D> FTDistribution2DVoigtItem::createFTDistributi
 {
     return std::make_unique<FTDistribution2DVoigt>(
         getItemValue(P_OMEGA_X).toDouble(), getItemValue(P_OMEGA_Y).toDouble(),
-        getItemValue(P_ETA).toDouble(),
-        Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
+        getItemValue(P_ETA).toDouble(), Units::deg2rad(getItemValue(P_GAMMA).toDouble()));
 }

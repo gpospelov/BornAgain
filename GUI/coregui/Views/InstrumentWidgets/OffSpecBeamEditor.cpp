@@ -15,10 +15,10 @@
 #include "OffSpecBeamEditor.h"
 #include "BeamDistributionItem.h"
 #include "BeamItems.h"
+#include "ColumnResizer.h"
 #include "ComponentEditor.h"
 #include "DistributionDialog.h"
 #include "InstrumentItems.h"
-#include "ColumnResizer.h"
 #include <QGridLayout>
 #include <QGroupBox>
 
@@ -28,12 +28,11 @@ const QString wavelength_title("Wavelength [nm]");
 const QString inclination_title("Inclination angle [deg]");
 const QString azimuthal_title("Azimuthal angle [deg]");
 const QString polarization_title("Polarization (Bloch vector)");
-}
+} // namespace
 
 OffSpecBeamEditor::OffSpecBeamEditor(ColumnResizer* columnResizer, QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_columnResizer(columnResizer)
-    , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget)),
+    : SessionItemWidget(parent), m_columnResizer(columnResizer),
+      m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget)),
       m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title)),
       m_inclinationEditor(new ComponentEditor(ComponentEditor::GroupWidget, inclination_title)),
       m_azimuthalEditor(new ComponentEditor(ComponentEditor::InfoWidget, azimuthal_title)),
@@ -49,12 +48,12 @@ OffSpecBeamEditor::OffSpecBeamEditor(ColumnResizer* columnResizer, QWidget* pare
     mainLayout->addStretch();
     setLayout(mainLayout);
 
-    connect(m_wavelengthEditor, &ComponentEditor::dialogRequest,
-            this, &OffSpecBeamEditor::onDialogRequest);
-    connect(m_inclinationEditor, &ComponentEditor::dialogRequest,
-            this, &OffSpecBeamEditor::onDialogRequest);
-    connect(m_azimuthalEditor, &ComponentEditor::dialogRequest,
-            this, &OffSpecBeamEditor::onDialogRequest);
+    connect(m_wavelengthEditor, &ComponentEditor::dialogRequest, this,
+            &OffSpecBeamEditor::onDialogRequest);
+    connect(m_inclinationEditor, &ComponentEditor::dialogRequest, this,
+            &OffSpecBeamEditor::onDialogRequest);
+    connect(m_azimuthalEditor, &ComponentEditor::dialogRequest, this,
+            &OffSpecBeamEditor::onDialogRequest);
 
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
@@ -97,7 +96,7 @@ BeamItem* OffSpecBeamEditor::beamItem()
 
 void OffSpecBeamEditor::onDialogRequest(SessionItem* item, const QString& name)
 {
-    if(!item)
+    if (!item)
         return;
 
     auto dialog = new DistributionDialog(this);

@@ -18,7 +18,6 @@
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
-
 IntensityDataView::IntensityDataView()
 {
     // the key flag to not to draw children going outside ot given shape
@@ -27,12 +26,12 @@ IntensityDataView::IntensityDataView()
 
 void IntensityDataView::update_view()
 {
-//    prepareGeometryChange();
+    //    prepareGeometryChange();
     m_bounding_rect = m_adaptor->viewportRectangle();
     update();
 }
 
-void IntensityDataView::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void IntensityDataView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     Q_UNUSED(painter);
 }

@@ -16,8 +16,7 @@
 #include "ParticleCoreShellItem.h"
 #include "SessionItem.h"
 
-ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
-    : ConnectableView(parent)
+ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::ParticleCoreShellType);
     setColor(DesignerHelper::getDefaultParticleColor());
@@ -35,15 +34,16 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
     m_label_vspace = 45;
 }
 
-void ParticleCoreShellView::addView(IView *childView, int /* row */)
+void ParticleCoreShellView::addView(IView* childView, int /* row */)
 {
     int index = 0;
     if (this->getItem()->tagFromItem(childView->getItem()) == ParticleCoreShellItem::T_CORE) {
         index = 0;
-    } else if (this->getItem()->tagFromItem(childView->getItem()) == ParticleCoreShellItem::T_SHELL) {
+    } else if (this->getItem()->tagFromItem(childView->getItem())
+               == ParticleCoreShellItem::T_SHELL) {
         index = 1;
     } else {
         index = 2;
     }
-    connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
+    connectInputPort(dynamic_cast<ConnectableView*>(childView), index);
 }

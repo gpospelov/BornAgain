@@ -15,24 +15,22 @@
 #include "projectdocument.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
-#include "MessageService.h"
-#include "ProjectUtils.h"
-#include "OutputDataIOService.h"
 #include "JobModel.h"
+#include "MessageService.h"
+#include "OutputDataIOService.h"
+#include "ProjectUtils.h"
 #include <QDir>
-#include <QXmlStreamReader>
 #include <QElapsedTimer>
+#include <QXmlStreamReader>
 
-namespace {
+namespace
+{
 const QString minimal_supported_version = "1.6.0";
 }
 
 ProjectDocument::ProjectDocument(const QString& projectFileName)
-    : m_applicationModels(nullptr)
-    , m_modified(false)
-    , m_documentStatus(ProjectFlags::STATUS_OK)
-    , m_messageService(nullptr)
-    , m_dataService(new OutputDataIOService(this))
+    : m_applicationModels(nullptr), m_modified(false), m_documentStatus(ProjectFlags::STATUS_OK),
+      m_messageService(nullptr), m_dataService(new OutputDataIOService(this))
 {
     setObjectName("ProjectDocument");
     if (!projectFileName.isEmpty())
@@ -105,7 +103,8 @@ void ProjectDocument::save_project_file(const QString& project_file_name, bool a
     QFile file(project_file_name);
     if (!file.open(QFile::ReadWrite | QIODevice::Truncate | QFile::Text))
         throw GUIHelpers::Error("ProjectDocument::save_project_file() -> Error. Can't open "
-                                "file '"+project_file_name+"' for writing.");
+                                "file '"
+                                + project_file_name + "' for writing.");
 
     writeTo(&file);
     file.close();
@@ -124,7 +123,6 @@ void ProjectDocument::save_project_data(const QString& project_file_name)
 
     m_dataService->save(ProjectUtils::projectDir(project_file_name));
 }
-
 
 void ProjectDocument::load(const QString& project_file_name)
 {
@@ -175,7 +173,7 @@ bool ProjectDocument::isModified()
 void ProjectDocument::setModified(bool flag)
 {
     m_modified = flag;
-    if(m_modified)
+    if (m_modified)
         emit modified();
 }
 

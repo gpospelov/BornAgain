@@ -19,8 +19,7 @@
 
 const QString DataPropertyContainer::T_CHILDREN = "data links";
 
-DataPropertyContainer::DataPropertyContainer()
-    : SessionItem(Constants::DataPropertyContainerType)
+DataPropertyContainer::DataPropertyContainer() : SessionItem(Constants::DataPropertyContainerType)
 {
     registerTag(T_CHILDREN, 0, -1, QStringList() << Constants::DataItem1DPropertiesType);
     setDefaultTag(T_CHILDREN);
@@ -56,7 +55,8 @@ DataItem* DataPropertyContainer::basicDataItem()
 void DataPropertyContainer::addItem(DataItem* data_item)
 {
     if (this->model() != data_item->model())
-        throw GUIHelpers::Error("Error in DataPropertyContainer::addItem: hosting models are different");
+        throw GUIHelpers::Error(
+            "Error in DataPropertyContainer::addItem: hosting models are different");
 
     auto property_items = propertyItems();
     Data1DProperties* previous_item = nullptr;
@@ -73,11 +73,12 @@ std::vector<DataItem*> DataPropertyContainer::dataItems()
 {
     std::vector<DataItem*> result;
     auto items = propertyItems();
-    std::transform(items.begin(), items.end(), std::back_inserter(result), [](Data1DProperties* item) {
-        auto data_item = item->dataItem();
-        assert(data_item);
-        return data_item;
-    });
+    std::transform(items.begin(), items.end(), std::back_inserter(result),
+                   [](Data1DProperties* item) {
+                       auto data_item = item->dataItem();
+                       assert(data_item);
+                       return data_item;
+                   });
     return result;
 }
 

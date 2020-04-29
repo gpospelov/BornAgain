@@ -28,16 +28,16 @@ class BA_CORE_API_ IView : public QGraphicsObject
 public:
     enum { TYPE = DesignerHelper::IVIEW };
 
-    IView(QGraphicsItem *parent = 0);
+    IView(QGraphicsItem* parent = 0);
     virtual ~IView();
 
     int type() const;
 
-    virtual void setParameterizedItem(SessionItem *item);
+    virtual void setParameterizedItem(SessionItem* item);
 
-    virtual SessionItem *getItem();
+    virtual SessionItem* getItem();
 
-    virtual void addView(IView *childView, int row = 0);
+    virtual void addView(IView* childView, int row = 0);
 
 signals:
     void aboutToBeDeleted();
@@ -48,10 +48,10 @@ public slots:
 
 protected:
     virtual void update_appearance();
-    virtual void onPropertyChange(const QString &propertyName);
+    virtual void onPropertyChange(const QString& propertyName);
     virtual void onSiblingsChange();
 
-    SessionItem *m_item;
+    SessionItem* m_item;
 };
 
 inline int IView::type() const
@@ -59,7 +59,7 @@ inline int IView::type() const
     return TYPE;
 }
 
-inline SessionItem *IView::getItem()
+inline SessionItem* IView::getItem()
 {
     return m_item;
 }

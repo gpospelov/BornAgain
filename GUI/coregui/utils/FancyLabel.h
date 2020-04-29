@@ -24,10 +24,10 @@ class BA_CORE_API_ FancyLabel : public QLabel
 {
     Q_OBJECT
 public:
-    FancyLabel(const QString &text, QWidget *parent = 0);
-    FancyLabel(QWidget *parent = 0);
+    FancyLabel(const QString& text, QWidget* parent = 0);
+    FancyLabel(QWidget* parent = 0);
 
-    void setTextAnimated(const QString &animated_text);
+    void setTextAnimated(const QString& animated_text);
 
 private slots:
     void timeout();
@@ -36,7 +36,7 @@ private:
     void init_fancy_label();
 
     QString m_text;
-    QTimer *m_timer;
+    QTimer* m_timer;
     int m_total_effect_duration;
     int m_current_index;
 };

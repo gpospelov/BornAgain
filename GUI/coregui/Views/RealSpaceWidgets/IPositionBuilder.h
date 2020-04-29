@@ -15,8 +15,8 @@
 #ifndef IPOSITIONBUILDER_H
 #define IPOSITIONBUILDER_H
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 class InterferenceFunction1DLattice;
 class InterferenceFunction2DLattice;

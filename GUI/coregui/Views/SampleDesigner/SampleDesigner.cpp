@@ -13,26 +13,21 @@
 // ************************************************************************** //
 
 #include "SampleDesigner.h"
+#include "ApplicationModels.h"
 #include "DesignerScene.h"
 #include "DesignerView.h"
 #include "FilterPropertyProxy.h"
 #include "ISample.h"
 #include "MultiLayerView.h"
-#include "ApplicationModels.h"
 
-SampleDesigner::SampleDesigner(QWidget *parent)
-    : SampleDesignerInterface(parent)
-    , m_designerScene(0)
-    , m_designerView(0)
+SampleDesigner::SampleDesigner(QWidget* parent)
+    : SampleDesignerInterface(parent), m_designerScene(0), m_designerView(0)
 {
     m_designerScene = new DesignerScene(parent);
     m_designerView = new DesignerView(m_designerScene, parent);
 }
 
-
-SampleDesigner::~SampleDesigner()
-{
-}
+SampleDesigner::~SampleDesigner() {}
 
 void SampleDesigner::setModels(ApplicationModels* models)
 {
@@ -41,7 +36,8 @@ void SampleDesigner::setModels(ApplicationModels* models)
     m_designerScene->setMaterialModel(models->materialModel());
 }
 
-void SampleDesigner::setSelectionModel(QItemSelectionModel *model, FilterPropertyProxy *proxy)
+void SampleDesigner::setSelectionModel(QItemSelectionModel* model, FilterPropertyProxy* proxy)
 {
-    if(model) m_designerScene->setSelectionModel(model, proxy);
+    if (model)
+        m_designerScene->setSelectionModel(model, proxy);
 }

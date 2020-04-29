@@ -40,7 +40,7 @@ public slots:
 protected:
     virtual void subscribeToItem();
     virtual void unsubscribeFromItem();
-    void contextMenuEvent(QContextMenuEvent *);
+    void contextMenuEvent(QContextMenuEvent*);
 
 private:
     QAction* m_togglePanelAction;

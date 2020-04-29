@@ -30,7 +30,8 @@ class BA_CORE_API_ DetailedMessageBox : public QDialog
 {
     Q_OBJECT
 public:
-    DetailedMessageBox(QWidget *parent, const QString& title, const QString& text, const QString& details);
+    DetailedMessageBox(QWidget* parent, const QString& title, const QString& text,
+                       const QString& details);
 
     void setText(const QString& text);
     void setDetailedText(const QString& text);
@@ -45,4 +46,3 @@ private:
 };
 
 #endif // DETAILEDMESSAGEBOX_H
-

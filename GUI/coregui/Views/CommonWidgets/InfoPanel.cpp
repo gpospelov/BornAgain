@@ -23,7 +23,7 @@ namespace
 const int minimum_widget_height = 25; // height of toolbar
 const int minimum_height_before_collapse = 50;
 const int default_height = 200;
-}
+} // namespace
 
 InfoPanel::InfoPanel(QWidget* parent)
     : QFrame(parent), m_toolBar(new InfoPanelToolBar), m_stackedWidget(new QStackedWidget),
@@ -39,10 +39,10 @@ InfoPanel::InfoPanel(QWidget* parent)
 
     setLayout(mainLayout);
 
-    connect(m_toolBar, &InfoPanelToolBar::expandButtonClicked,
-            this, &InfoPanel::onExpandButtonClicked);
-    connect(m_toolBar, &InfoPanelToolBar::closeButtonClicked,
-            this, &InfoPanel::onCloseButtonClicked);
+    connect(m_toolBar, &InfoPanelToolBar::expandButtonClicked, this,
+            &InfoPanel::onExpandButtonClicked);
+    connect(m_toolBar, &InfoPanelToolBar::closeButtonClicked, this,
+            &InfoPanel::onCloseButtonClicked);
 }
 
 QSize InfoPanel::sizeHint() const

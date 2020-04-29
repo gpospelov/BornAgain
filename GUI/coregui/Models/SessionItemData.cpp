@@ -15,12 +15,7 @@
 #include "SessionItemData.h"
 #include "SessionItemUtils.h"
 
-SessionItemData::ItemData::ItemData(int r, const QVariant& v)
-    : role(r)
-    , data(v)
-{
-
-}
+SessionItemData::ItemData::ItemData(int r, const QVariant& v) : role(r), data(v) {}
 
 bool SessionItemData::ItemData::operator==(const SessionItemData::ItemData& other) const
 {

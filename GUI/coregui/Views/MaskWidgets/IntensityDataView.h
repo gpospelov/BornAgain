@@ -36,7 +36,7 @@ public slots:
     void update_view();
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
 #endif // INTENSITYDATAVIEW_H

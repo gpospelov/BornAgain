@@ -16,27 +16,25 @@
 #include "InstrumentModel.h"
 #include "JobModel.h"
 #include "MaterialModel.h"
+#include "ModelTreeView.h"
 #include "RealDataModel.h"
 #include "SampleModel.h"
-#include "ModelTreeView.h"
-#include "mainwindow.h"
 #include "SessionModelDelegate.h"
 #include "TestView.h"
+#include "mainwindow.h"
 #include <QToolBar>
 #include <QToolButton>
 #include <QVBoxLayout>
 
-namespace {
+namespace
+{
 const bool show_test_view = false;
 }
 
-SessionModelView::SessionModelView(MainWindow *mainWindow)
-    : QWidget(mainWindow)
-    , m_mainWindow(mainWindow)
-    , m_toolBar(new QToolBar)
-    , m_tabs(new QTabWidget)
-    , m_expandCollapseButton(new QToolButton)
-    , m_delegate(new SessionModelDelegate(this))
+SessionModelView::SessionModelView(MainWindow* mainWindow)
+    : QWidget(mainWindow), m_mainWindow(mainWindow), m_toolBar(new QToolBar),
+      m_tabs(new QTabWidget), m_expandCollapseButton(new QToolButton),
+      m_delegate(new SessionModelDelegate(this))
 {
     auto layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -83,11 +81,9 @@ void SessionModelView::init_tabs()
 QList<SessionModel*> SessionModelView::modelsForTabs()
 {
     QList<SessionModel*> result = QList<SessionModel*>()
-            << m_mainWindow->instrumentModel()
-            << m_mainWindow->sampleModel()
-            << m_mainWindow->realDataModel()
-            << m_mainWindow->materialModel()
-            << m_mainWindow->jobModel();
+                                  << m_mainWindow->instrumentModel() << m_mainWindow->sampleModel()
+                                  << m_mainWindow->realDataModel() << m_mainWindow->materialModel()
+                                  << m_mainWindow->jobModel();
     return result;
 }
 
@@ -97,4 +93,3 @@ void SessionModelView::init_test_view()
     int index = m_tabs->addTab(view, "Test View");
     m_tabs->setCurrentIndex(index);
 }
-

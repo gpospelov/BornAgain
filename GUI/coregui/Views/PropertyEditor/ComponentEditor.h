@@ -30,23 +30,23 @@ class BA_CORE_API_ ComponentEditor : public QWidget
     Q_OBJECT
 public:
     enum EditorFlags {
-        Tree      = 0x1000,
-        Widget    = 0x2000,
+        Tree = 0x1000,
+        Widget = 0x2000,
 
-        PlainLayout  = 0x0010, // editor embedded in standard box layout
-        GroupLayout  = 0x0020, // editor embedded in QGroupBox
-        InfoLayout   = 0x0040, // editor embedded in GroupInfoBox
+        PlainLayout = 0x0010, // editor embedded in standard box layout
+        GroupLayout = 0x0020, // editor embedded in QGroupBox
+        InfoLayout = 0x0040,  // editor embedded in GroupInfoBox
 
-        T_Header     = 0x0100, // to show QTreeView header (Tree mode only)
-        T_Root       = 0x0200, // to show root item  (Tree mode only)
+        T_Header = 0x0100,     // to show QTreeView header (Tree mode only)
+        T_Root = 0x0200,       // to show root item  (Tree mode only)
         W_NoChildren = 0x0400, // show no children (Widget mode only)
 
-        FullTree     = Tree | PlainLayout | T_Header | T_Root,
-        HeaderTree   = Tree | PlainLayout | T_Header,
-        MiniTree     = Tree | PlainLayout,
-        PlainWidget  = Widget | PlainLayout,
-        GroupWidget  = Widget | GroupLayout,
-        InfoWidget   = Widget | InfoLayout,
+        FullTree = Tree | PlainLayout | T_Header | T_Root,
+        HeaderTree = Tree | PlainLayout | T_Header,
+        MiniTree = Tree | PlainLayout,
+        PlainWidget = Widget | PlainLayout,
+        GroupWidget = Widget | GroupLayout,
+        InfoWidget = Widget | InfoLayout,
     };
     Q_DECLARE_FLAGS(EditorType, EditorFlags)
 
@@ -73,4 +73,4 @@ private:
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ComponentEditor::EditorType)
 
-#endif  // COMPONENTEDITOR_H
+#endif // COMPONENTEDITOR_H

@@ -77,7 +77,6 @@ ParticleDistributionItem::ParticleDistributionItem()
         if (name == P_DISTRIBUTED_PARAMETER)
             updateLinkedParameterList();
     });
-
 }
 
 std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDistribution() const

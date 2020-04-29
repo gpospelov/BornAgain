@@ -19,18 +19,20 @@
 #include "ParticleItem.h"
 #include "VectorItem.h"
 
-namespace {
-const QStringList expectedRoughnessPars = QStringList() << QString::fromStdString(BornAgain::Sigma)
-    << QString::fromStdString(BornAgain::Hurst)
-    << QString::fromStdString(BornAgain::CorrelationLength);
+namespace
+{
+const QStringList expectedRoughnessPars = QStringList()
+                                          << QString::fromStdString(BornAgain::Sigma)
+                                          << QString::fromStdString(BornAgain::Hurst)
+                                          << QString::fromStdString(BornAgain::CorrelationLength);
 }
 
 IPathTranslator::~IPathTranslator() {}
 
 ModelTypeTranslator::ModelTypeTranslator(QString gui_model_type, QString domain_name)
-    : m_gui_model_type { std::move(gui_model_type) }
-    , m_domain_name { std::move(domain_name) }
-{}
+    : m_gui_model_type{std::move(gui_model_type)}, m_domain_name{std::move(domain_name)}
+{
+}
 
 ModelTypeTranslator* ModelTypeTranslator::clone() const
 {
@@ -39,7 +41,7 @@ ModelTypeTranslator* ModelTypeTranslator::clone() const
 
 QStringList ModelTypeTranslator::translate(const QStringList& list) const
 {
-    if(list.back() != m_gui_model_type)
+    if (list.back() != m_gui_model_type)
         return list;
 
     QStringList result = list;
@@ -48,20 +50,19 @@ QStringList ModelTypeTranslator::translate(const QStringList& list) const
     return result;
 }
 
-
 AddElementTranslator::AddElementTranslator(QString gui_name, QString additional_name)
-    : m_gui_name { std::move(gui_name) }
-    , m_additional_name { std::move(additional_name) }
-{}
+    : m_gui_name{std::move(gui_name)}, m_additional_name{std::move(additional_name)}
+{
+}
 
-AddElementTranslator*AddElementTranslator::clone() const
+AddElementTranslator* AddElementTranslator::clone() const
 {
     return new AddElementTranslator(m_gui_name, m_additional_name);
 }
 
 QStringList AddElementTranslator::translate(const QStringList& list) const
 {
-    if(list.back() != m_gui_name)
+    if (list.back() != m_gui_name)
         return list;
 
     QStringList result = list;
@@ -71,7 +72,7 @@ QStringList AddElementTranslator::translate(const QStringList& list) const
 
 QStringList RotationTranslator::translate(const QStringList& list) const
 {
-    if(list.back() != Constants::RotationType)
+    if (list.back() != Constants::RotationType)
         return list;
 
     Q_ASSERT(list.size() == 3);
@@ -82,7 +83,7 @@ QStringList RotationTranslator::translate(const QStringList& list) const
 
 QStringList DistributionNoneTranslator::translate(const QStringList& list) const
 {
-    if(list.back() != Constants::DistributionNoneType)
+    if (list.back() != Constants::DistributionNoneType)
         return list;
 
     Q_UNUSED(list);
@@ -91,11 +92,9 @@ QStringList DistributionNoneTranslator::translate(const QStringList& list) const
 
 //! Converts "/Layer1/LayerBasicRoughness/Sigma" into "/LayerInterface0/LayerBasicRoughness/Sigma"
 
-RoughnessTranslator::RoughnessTranslator(const SessionItem* p_parent)
-    : mp_parent(p_parent)
-{}
+RoughnessTranslator::RoughnessTranslator(const SessionItem* p_parent) : mp_parent(p_parent) {}
 
-RoughnessTranslator*RoughnessTranslator::clone() const
+RoughnessTranslator* RoughnessTranslator::clone() const
 {
     return new RoughnessTranslator(mp_parent);
 }
@@ -110,9 +109,7 @@ QStringList RoughnessTranslator::translate(const QStringList& list) const
 
     QString layerName = result.takeLast();
     int layerIndex = getLayerIndex(layerName);
-    QString postfix = numberOfLayers()==2 ?
-                      QString() :
-                      QString::number(layerIndex - 1);
+    QString postfix = numberOfLayers() == 2 ? QString() : QString::number(layerIndex - 1);
 
     result.push_back(QString::fromStdString(BornAgain::LayerInterfaceType) + postfix);
     return result;
@@ -125,7 +122,7 @@ int RoughnessTranslator::getLayerIndex(QString layerName) const
     layerName.remove(Constants::LayerType);
     bool ok(true);
     int layerIndex = layerName.toInt(&ok);
-    if(!ok)
+    if (!ok)
         throw GUIHelpers::Error("RoughnessTranslator::getLayerIndex() -> Error. Can't parse.");
     return layerIndex;
 }
@@ -138,10 +135,10 @@ int RoughnessTranslator::numberOfLayers() const
 
 VectorParameterTranslator::VectorParameterTranslator(QString gui_name, std::string base_name,
                                                      QStringList additional_names)
-    : m_gui_name { std::move(gui_name) }
-    , m_base_name { std::move(base_name) }
-    , m_additional_names { std::move(additional_names) }
-{}
+    : m_gui_name{std::move(gui_name)}, m_base_name{std::move(base_name)},
+      m_additional_names{std::move(additional_names)}
+{
+}
 
 VectorParameterTranslator* VectorParameterTranslator::clone() const
 {
@@ -150,7 +147,7 @@ VectorParameterTranslator* VectorParameterTranslator::clone() const
 
 QStringList VectorParameterTranslator::translate(const QStringList& list) const
 {
-    if(list.back() != m_gui_name)
+    if (list.back() != m_gui_name)
         return list;
 
     Q_ASSERT(list.size() == 2);
@@ -165,7 +162,7 @@ QStringList VectorParameterTranslator::translate(const QStringList& list) const
     } else {
         GUIHelpers::Error("VectorParameterTranslator::translate() -> Unexpected list structure");
     }
-    for (auto add_name : m_additional_names ) {
+    for (auto add_name : m_additional_names) {
         result << add_name;
     }
     return result;

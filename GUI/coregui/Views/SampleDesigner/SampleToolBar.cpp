@@ -26,10 +26,8 @@
 #include <QToolButton>
 
 //! main tool bar on top of SampleView window
-SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
-                             QWidget* parent)
-    : StyledToolBar(parent)
-    , m_sampleViewActions(sampleActions)
+SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
+    : StyledToolBar(parent), m_sampleViewActions(sampleActions)
 {
     // Select & Pan
     auto selectionPointerButton = new QToolButton;
@@ -47,8 +45,8 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
     m_pointerModeGroup->addButton(selectionPointerButton, DesignerView::RUBBER_SELECTION);
     m_pointerModeGroup->addButton(handPointerButton, DesignerView::HAND_DRAG);
     connect(m_pointerModeGroup,
-            static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
-            this, &SampleToolBar::selectionMode);
+            static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this,
+            &SampleToolBar::selectionMode);
     addWidget(selectionPointerButton);
     addWidget(handPointerButton);
 
@@ -77,17 +75,22 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
     addSeparator();
     addWidget(new QLabel(" Zoom "));
     m_scaleCombo = new QComboBox;
-    QStringList scales = QStringList() << "25%" << "50%" << "75%" << "100%" << "125%" << "150%";
+    QStringList scales = QStringList() << "25%"
+                                       << "50%"
+                                       << "75%"
+                                       << "100%"
+                                       << "125%"
+                                       << "150%";
     m_scaleCombo->addItems(scales);
     m_scaleCombo->setCurrentIndex(3);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
     connect(m_scaleCombo,
-            static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentTextChanged),
-            this, &SampleToolBar::onScaleComboChanged);
+            static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentTextChanged), this,
+            &SampleToolBar::onScaleComboChanged);
 #else
     connect(m_scaleCombo,
-            static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged),
-            this, &SampleToolBar::onScaleComboChanged);
+            static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), this,
+            &SampleToolBar::onScaleComboChanged);
 #endif
 
     addWidget(m_scaleCombo);
@@ -100,8 +103,8 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
     m_materialEditorButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_materialEditorButton->setToolTip("Open material editor (m).");
     m_materialEditorButton->setShortcut(Qt::Key_M);
-    connect(m_materialEditorButton, &QToolButton::clicked,
-            this, &SampleToolBar::onMaterialEditorCall);
+    connect(m_materialEditorButton, &QToolButton::clicked, this,
+            &SampleToolBar::onMaterialEditorCall);
     addWidget(m_materialEditorButton);
 
     addStyledSeparator();
@@ -113,8 +116,8 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
     m_RealSpaceViewerButton->setText("3D Viewer");
     m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");
-    connect(m_RealSpaceViewerButton, &QToolButton::clicked,
-            m_sampleViewActions, &SampleViewActions::onToggleRealSpaceView);
+    connect(m_RealSpaceViewerButton, &QToolButton::clicked, m_sampleViewActions,
+            &SampleViewActions::onToggleRealSpaceView);
     addWidget(m_RealSpaceViewerButton);
 
     // Additional actions

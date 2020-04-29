@@ -26,7 +26,10 @@ class MaskEditorToolBar;
 class MaskEditorCanvas;
 class SessionModel;
 class IntensityDataItem;
-namespace Manhattan { class MiniSplitter; }
+namespace Manhattan
+{
+class MiniSplitter;
+}
 
 //! Main class to draw masks on top of intensity data map
 

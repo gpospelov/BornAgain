@@ -37,6 +37,6 @@ BA_CORE_API_ bool isValidItem(SessionModel* model, SessionItem* item, const QMod
 BA_CORE_API_ const SessionItem* ancestor(const SessionItem* item, const QString& requiredModelType);
 
 BA_CORE_API_ QString itemPathTranslation(const SessionItem& item, const SessionItem* topItem = 0);
-}
+} // namespace ModelPath
 
 #endif // MODELPATH_H namespace

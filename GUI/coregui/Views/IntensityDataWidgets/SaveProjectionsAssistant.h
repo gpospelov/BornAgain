@@ -17,8 +17,8 @@
 
 #include "WinDllMacros.h"
 #include <QString>
-#include <memory>
 #include <QVector>
+#include <memory>
 
 class IntensityDataItem;
 class QWidget;
@@ -51,11 +51,11 @@ private:
 
     std::unique_ptr<Histogram2D> m_hist2d;
     ProjectionsData projectionsData(const QString& projectionsType,
-                                            IntensityDataItem* intensityItem);
+                                    IntensityDataItem* intensityItem);
     QVector<SessionItem*> projectionItems(const QString& projectionsType,
                                           IntensityDataItem* intensityItem);
 
     QString projectionFileHeader(ProjectionsData& projectionsData);
 };
 
-#endif  // SAVEPROJECTIONSASSISTANT_H
+#endif // SAVEPROJECTIONSASSISTANT_H

@@ -45,8 +45,8 @@ public:
     void setShowChildren(bool show);
 
 public slots:
-    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
-                       const QVector<int> &roles);
+    void onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight,
+                       const QVector<int>& roles);
 
 private:
     void clearLayout();

@@ -16,8 +16,7 @@
 #include <QToolButton>
 
 JobRealTimeToolBar::JobRealTimeToolBar(QWidget* parent)
-    : StyledToolBar(parent)
-    , m_resetParametersButton(new QToolButton)
+    : StyledToolBar(parent), m_resetParametersButton(new QToolButton)
 {
     setMinimumSize(minimumHeight(), minimumHeight());
 
@@ -27,7 +26,6 @@ JobRealTimeToolBar::JobRealTimeToolBar(QWidget* parent)
     m_resetParametersButton->setToolTip("Reset parameter tree to initial values");
     addWidget(m_resetParametersButton);
 
-    connect(m_resetParametersButton, &QToolButton::clicked,
-            this, &JobRealTimeToolBar::resetParameters);
+    connect(m_resetParametersButton, &QToolButton::clicked, this,
+            &JobRealTimeToolBar::resetParameters);
 }
-

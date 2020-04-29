@@ -13,23 +13,23 @@
 // ************************************************************************** //
 
 #include "InstrumentPresenter.h"
-#include "item_constants.h"
-#include "GISASInstrumentEditor.h"
-#include "OffSpecInstrumentEditor.h"
-#include "SpecularInstrumentEditor.h"
 #include "DepthProbeInstrumentEditor.h"
+#include "GISASInstrumentEditor.h"
 #include "GUIHelpers.h"
+#include "OffSpecInstrumentEditor.h"
 #include "SessionItem.h"
+#include "SpecularInstrumentEditor.h"
+#include "item_constants.h"
 
-namespace {
+namespace
+{
 const QString GISASPresentation = "GISAS";
 const QString OffSpecPresentation = "OffSpec";
 const QString SpecularPresentation = "Specular";
 const QString DepthProbePresentation = "DepthProbe";
-}
+} // namespace
 
-InstrumentPresenter::InstrumentPresenter(QWidget* parent)
-    : ItemComboWidget(parent)
+InstrumentPresenter::InstrumentPresenter(QWidget* parent) : ItemComboWidget(parent)
 {
     registerWidget(GISASPresentation, create_new<GISASInstrumentEditor>);
     registerWidget(OffSpecPresentation, create_new<OffSpecInstrumentEditor>);
@@ -40,7 +40,7 @@ InstrumentPresenter::InstrumentPresenter(QWidget* parent)
 
 QString InstrumentPresenter::itemPresentation() const
 {
-    if(!currentItem())
+    if (!currentItem())
         return {};
 
     if (currentItem()->modelType() == Constants::GISASInstrumentType)
@@ -53,7 +53,8 @@ QString InstrumentPresenter::itemPresentation() const
         return DepthProbePresentation;
     else
         throw GUIHelpers::Error("InstrumentPresenter::itemPresentation() -> Error. Wrong item "
-                                "type '"+currentItem()->modelType()+"'");
+                                "type '"
+                                + currentItem()->modelType() + "'");
 }
 
 QStringList InstrumentPresenter::activePresentationList(SessionItem* item)

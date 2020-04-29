@@ -38,7 +38,7 @@ public:
 protected:
     void subscribeToItem();
     void unsubscribeFromItem();
-    void contextMenuEvent(QContextMenuEvent *);
+    void contextMenuEvent(QContextMenuEvent*);
 
 private slots:
     void onTextChanged();

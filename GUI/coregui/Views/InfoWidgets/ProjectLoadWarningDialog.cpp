@@ -31,7 +31,8 @@ const int top_panel_height = 80;
 }
 
 ProjectLoadWarningDialog::ProjectLoadWarningDialog(QWidget* parent,
-    const MessageService* messageService, const QString& documentVersion)
+                                                   const MessageService* messageService,
+                                                   const QString& documentVersion)
     : QDialog(parent), m_messageService(messageService), m_projectDocumentVersion(documentVersion)
 {
     setMinimumSize(256, 256);
@@ -179,7 +180,7 @@ QTableWidget* ProjectLoadWarningDialog::createTableWidget()
 {
     auto result = new QTableWidget;
     result->setWordWrap(true);
-//    result->setTextElideMode(Qt::ElideMiddle);
+    //    result->setTextElideMode(Qt::ElideMiddle);
 
     result->setStyleSheet(
         "QToolTip { color: #ffffff; background-color: #fcfcfc; border: 1px solid black; }");
@@ -227,7 +228,9 @@ int ProjectLoadWarningDialog::numberOfTableRows() const
 //! Returns labels for table header
 QStringList ProjectLoadWarningDialog::tableHeaderLabels() const
 {
-    return QStringList() << "Sender" << "Message" << "Description";
+    return QStringList() << "Sender"
+                         << "Message"
+                         << "Description";
 }
 
 QTableWidgetItem* ProjectLoadWarningDialog::createTableItem(const QString& name)
@@ -247,21 +250,19 @@ QString ProjectLoadWarningDialog::explanationText() const
 {
     QString result;
     if (m_projectDocumentVersion != GUIHelpers::getBornAgainVersionString()) {
-        result
-            = QString(
-                  "Given project was created using BornAgain version %1 "
-                  " which is different from version %2 you are currently using. "
-                  "At the moment we provide only limited support for import from older versions.")
-                  .arg(m_projectDocumentVersion)
-                  .arg(GUIHelpers::getBornAgainVersionString());
+        result =
+            QString("Given project was created using BornAgain version %1 "
+                    " which is different from version %2 you are currently using. "
+                    "At the moment we provide only limited support for import from older versions.")
+                .arg(m_projectDocumentVersion)
+                .arg(GUIHelpers::getBornAgainVersionString());
     } else {
-        result
-            = QString(
-                  "Given project was created using BornAgain version %1 "
-                  "which is the same as the current version of the framework. "
-                  "Strangely enough, some parts was not loaded correctly due to format mismatch. "
-                  "Please contact developpers.")
-                  .arg(m_projectDocumentVersion);
+        result =
+            QString("Given project was created using BornAgain version %1 "
+                    "which is the same as the current version of the framework. "
+                    "Strangely enough, some parts was not loaded correctly due to format mismatch. "
+                    "Please contact developpers.")
+                .arg(m_projectDocumentVersion);
     }
     return result;
 }

@@ -15,10 +15,10 @@
 #include "OutputDataIOService.h"
 #include "ApplicationModels.h"
 #include "IntensityDataIOFactory.h"
-#include "ProjectUtils.h"
-#include "MessageService.h"
 #include "JobItem.h"
+#include "MessageService.h"
 #include "ModelPath.h"
+#include "ProjectUtils.h"
 #include "SaveLoadInterface.h"
 #include "item_constants.h"
 
@@ -86,7 +86,8 @@ void OutputDataIOService::load(const QString& projectDir, MessageService* messag
         } catch (const std::exception& ex) {
             if (auto jobItem = parentJobItem(item)) {
                 // Handling corrupted file on disk
-                jobItem->setComments(QString("Load of the data from disk failed with '%1'").arg(QString(ex.what())));
+                jobItem->setComments(
+                    QString("Load of the data from disk failed with '%1'").arg(QString(ex.what())));
                 jobItem->setStatus(Constants::STATUS_FAILED);
             }
             if (messageService)
@@ -128,7 +129,7 @@ namespace
 {
 JobItem* parentJobItem(SaveLoadInterface* item)
 {
-    auto session_item = dynamic_cast<SessionItem*>(item); //sidecast
+    auto session_item = dynamic_cast<SessionItem*>(item); // sidecast
     auto jobItem =
         dynamic_cast<const JobItem*>(ModelPath::ancestor(session_item, Constants::JobItemType));
     return const_cast<JobItem*>(jobItem);

@@ -17,8 +17,8 @@
 
 #include "WinDllMacros.h"
 #include <QString>
-#include <QVector>
 #include <QStringList>
+#include <QVector>
 
 //! Defines info for GroupProperty, i.e. collection of model types, their labels and
 //! the name of default item's modelType.

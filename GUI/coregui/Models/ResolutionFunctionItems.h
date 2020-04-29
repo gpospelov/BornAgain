@@ -28,7 +28,7 @@ public:
     virtual ~ResolutionFunctionItem() {}
 
     virtual std::unique_ptr<IResolutionFunction2D>
-        createResolutionFunction(double scale = 1.0) const = 0;
+    createResolutionFunction(double scale = 1.0) const = 0;
 };
 
 class BA_CORE_API_ ResolutionFunctionNoneItem : public ResolutionFunctionItem
@@ -50,4 +50,3 @@ public:
 };
 
 #endif // RESOLUTIONFUNCTIONITEMS_H
-

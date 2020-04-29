@@ -18,7 +18,8 @@
 #include "def.h"
 #include <QWidget>
 
-namespace RealSpace {
+namespace RealSpace
+{
 //------------------------------------------------------------------------------
 
 class Model;
@@ -28,26 +29,26 @@ class Program;
 
 class Widget3D : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  Widget3D();
- ~Widget3D();
+    Widget3D();
+    ~Widget3D();
 
-  Camera& cam();
+    Camera& cam();
 
-  void setBackground(QColor const&);
-  void setModel(Model*); // model owned elsewhere, may be nullptr
+    void setBackground(QColor const&);
+    void setModel(Model*); // model owned elsewhere, may be nullptr
 
-  void defaultView();
-  void sideView();
-  void topView();
+    void defaultView();
+    void sideView();
+    void topView();
 
-  Model* model();
+    Model* model();
 
 private:
-  Canvas  *canvas;
+    Canvas* canvas;
 };
 
 //------------------------------------------------------------------------------
-}
+} // namespace RealSpace
 #endif

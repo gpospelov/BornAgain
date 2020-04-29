@@ -36,4 +36,3 @@ private:
 };
 
 #endif // INSTRUMENTVIEWTOOLBAR_H
-

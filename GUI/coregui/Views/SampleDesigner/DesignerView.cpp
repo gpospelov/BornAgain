@@ -24,7 +24,7 @@
 #include <QShortcut>
 #include <QVBoxLayout>
 
-DesignerView::DesignerView(QGraphicsScene *scene, QWidget *parent) : QGraphicsView(scene, parent)
+DesignerView::DesignerView(QGraphicsScene* scene, QWidget* parent) : QGraphicsView(scene, parent)
 {
     setAcceptDrops(true);
     setRenderHint(QPainter::Antialiasing);
@@ -85,20 +85,16 @@ void DesignerView::onChangeScale(double new_scale)
 
 void DesignerView::deleteSelectedItems()
 {
-    DesignerScene *designerScene = dynamic_cast<DesignerScene *>(scene());
+    DesignerScene* designerScene = dynamic_cast<DesignerScene*>(scene());
     Q_ASSERT(designerScene);
     designerScene->deleteSelectedItems();
 }
 
-void DesignerView::zoomIn()
-{
-}
+void DesignerView::zoomIn() {}
 
-void DesignerView::zoomOut()
-{
-}
+void DesignerView::zoomOut() {}
 
-void DesignerView::keyPressEvent(QKeyEvent *event)
+void DesignerView::keyPressEvent(QKeyEvent* event)
 {
     switch (event->key()) {
     case Qt::Key_Left:
@@ -119,7 +115,7 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void DesignerView::keyReleaseEvent(QKeyEvent *event)
+void DesignerView::keyReleaseEvent(QKeyEvent* event)
 {
     switch (event->key()) {
     case Qt::Key_Space:

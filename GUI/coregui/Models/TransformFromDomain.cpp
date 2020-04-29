@@ -91,8 +91,8 @@ void addDistributionToBeamItem(const std::string& parameter_name, const QString&
                                const ParameterDistribution& distribution,
                                const BeamItem* beam_item);
 
-void addRangedDistributionToItem(SessionItem *item, const RangedDistribution& ranged,
-                                 double mean, double std_dev);
+void addRangedDistributionToItem(SessionItem* item, const RangedDistribution& ranged, double mean,
+                                 double std_dev);
 } // namespace
 
 void TransformFromDomain::set1DLatticeItem(SessionItem* item,
@@ -165,10 +165,8 @@ void TransformFromDomain::setFinite2DLatticeItem(SessionItem* item,
 void TransformFromDomain::setHardDiskItem(SessionItem* item,
                                           const InterferenceFunctionHardDisk& sample)
 {
-    item->setItemValue(InterferenceFunctionHardDiskItem::P_RADIUS,
-                       sample.radius());
-    item->setItemValue(InterferenceFunctionHardDiskItem::P_DENSITY,
-                       sample.density());
+    item->setItemValue(InterferenceFunctionHardDiskItem::P_RADIUS, sample.radius());
+    item->setItemValue(InterferenceFunctionHardDiskItem::P_DENSITY, sample.density());
     setPositionVariance(item, sample);
 }
 
@@ -887,8 +885,8 @@ void addDistributionToBeamItem(const std::string& parameter_name, const QString&
     TransformFromDomain::setItemFromSample(beam_parameter, distribution);
 }
 
-void addRangedDistributionToItem(SessionItem* item, const RangedDistribution& ranged,
-                                 double mean, double std_dev)
+void addRangedDistributionToItem(SessionItem* item, const RangedDistribution& ranged, double mean,
+                                 double std_dev)
 {
     auto distr_item = dynamic_cast<BeamDistributionItem*>(item);
     if (!distr_item)

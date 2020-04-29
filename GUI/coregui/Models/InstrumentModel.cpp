@@ -16,7 +16,7 @@
 #include "InstrumentItems.h"
 #include "SpecularBeamInclinationItem.h"
 
-InstrumentModel::InstrumentModel(QObject *parent)
+InstrumentModel::InstrumentModel(QObject* parent)
     : SessionModel(SessionXML::InstrumentModelTag, parent)
 {
     setObjectName(SessionXML::InstrumentModelTag);
@@ -24,14 +24,14 @@ InstrumentModel::InstrumentModel(QObject *parent)
 
 InstrumentModel::~InstrumentModel() = default;
 
-InstrumentModel *InstrumentModel::createCopy(SessionItem *parent)
+InstrumentModel* InstrumentModel::createCopy(SessionItem* parent)
 {
-    InstrumentModel *result = new InstrumentModel();
+    InstrumentModel* result = new InstrumentModel();
     result->initFrom(this, parent);
     return result;
 }
 
-QVector<SessionItem *> InstrumentModel::nonXMLData() const
+QVector<SessionItem*> InstrumentModel::nonXMLData() const
 {
     QVector<SessionItem*> result;
 
@@ -51,4 +51,3 @@ InstrumentItem* InstrumentModel::instrumentItem()
 {
     return topItem<InstrumentItem>();
 }
-

@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "ComboProperty.h"
+#include "ExternalProperty.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
-#include "ItemFactory.h"
-#include "ExternalProperty.h"
 #include "GroupItemController.h"
-#include "SessionModel.h"
+#include "ItemFactory.h"
 #include "MessageService.h"
 #include "SessionItemTags.h"
+#include "SessionModel.h"
 #include <QtCore/QXmlStreamWriter>
 
 namespace
@@ -34,7 +34,7 @@ const QString qstring_type_name = "QString";
 void report_error(MessageService* messageService, SessionItem* item, const QString& message);
 
 SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag);
-}
+} // namespace
 
 void SessionXML::writeTo(QXmlStreamWriter* writer, SessionItem* parent)
 {
@@ -79,39 +79,30 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
         if (type_name == double_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toDouble(), 'e', 12));
-        }
-        else if (type_name == int_type_name) {
+        } else if (type_name == int_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toInt()));
-        }
-        else if (type_name == uint_type_name) {
+        } else if (type_name == uint_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toUInt()));
-        }
-        else if (type_name == bool_type_name) {
+        } else if (type_name == bool_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute,
                                    QString::number(variant.toBool()));
-        }
-        else if (type_name == qstring_type_name) {
+        } else if (type_name == qstring_type_name) {
             writer->writeAttribute(SessionXML::ParameterValueAttribute, variant.toString());
-        }
-        else if (type_name == Constants::ExternalPropertyType) {
+        } else if (type_name == Constants::ExternalPropertyType) {
             ExternalProperty prop = variant.value<ExternalProperty>();
             writer->writeAttribute(SessionXML::ExternalPropertyTextAtt, prop.text());
 
             QString tcol = prop.color().isValid() ? prop.color().name(QColor::HexArgb) : "";
             writer->writeAttribute(SessionXML::ExternalPropertyColorAtt, tcol);
             writer->writeAttribute(SessionXML::ExternalPropertyIdentifierAtt, prop.identifier());
-        }
-        else if (type_name == Constants::ComboPropertyType) {
+        } else if (type_name == Constants::ComboPropertyType) {
             ComboProperty combo = variant.value<ComboProperty>();
-            writer->writeAttribute(SessionXML::ParameterValueAttribute,
-                                   combo.stringOfSelections());
-            writer->writeAttribute(SessionXML::ParameterExtAttribute,
-                                   combo.stringOfValues());
+            writer->writeAttribute(SessionXML::ParameterValueAttribute, combo.stringOfSelections());
+            writer->writeAttribute(SessionXML::ParameterExtAttribute, combo.stringOfValues());
 
-        }
-        else {
+        } else {
             throw GUIHelpers::Error("SessionXML::writeVariant: Parameter type not supported "
                                     + type_name);
         }
@@ -129,11 +120,11 @@ void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QStrin
         reader->readNext();
         if (reader->isStartElement()) {
             if (reader->name() == SessionXML::ItemTag) {
-                const QString model_type
-                    = reader->attributes().value(SessionXML::ModelTypeAttribute).toString();
+                const QString model_type =
+                    reader->attributes().value(SessionXML::ModelTypeAttribute).toString();
                 QString tag = reader->attributes().value(SessionXML::TagAttribute).toString();
-                QString displayName
-                    = reader->attributes().value(SessionXML::DisplayNameAttribute).toString();
+                QString displayName =
+                    reader->attributes().value(SessionXML::DisplayNameAttribute).toString();
 
                 if (!topTag.isEmpty()) {
                     // to handle copying of item to another parent
@@ -143,7 +134,8 @@ void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QStrin
                 auto newItem = createItem(parent, model_type, tag);
                 if (!newItem) {
                     QString message = QString("Error while parsing XML. Can't create item of "
-                                              "modelType '%1' for tag '%2'").arg(model_type, tag);
+                                              "modelType '%1' for tag '%2'")
+                                          .arg(model_type, tag);
                     report_error(messageService, parent, message);
                     // risky attempt to recover the rest of the project
                     reader->skipCurrentElement();
@@ -167,73 +159,65 @@ void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QStrin
 QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
                                  MessageService* messageService)
 {
-    const QString parameter_name
-        = reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
-    const QString parameter_type
-        = reader->attributes().value(SessionXML::ParameterTypeAttribute).toString();
+    const QString parameter_name =
+        reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
+    const QString parameter_type =
+        reader->attributes().value(SessionXML::ParameterTypeAttribute).toString();
     const int role = reader->attributes().value(SessionXML::ParameterRoleAttribute).toInt();
 
     if (!item) {
-        QString message
-            = QString("Attempt to set property '%1' for non existing item").arg(parameter_name);
+        QString message =
+            QString("Attempt to set property '%1' for non existing item").arg(parameter_name);
         report_error(messageService, item, message);
         return parameter_name;
     }
 
     QVariant variant;
     if (parameter_type == double_type_name) {
-        double parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
+        double parameter_value =
+            reader->attributes().value(SessionXML::ParameterValueAttribute).toDouble();
         variant = parameter_value;
-    }
-    else if (parameter_type == int_type_name) {
-        int parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
+    } else if (parameter_type == int_type_name) {
+        int parameter_value =
+            reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
         variant = parameter_value;
-    }
-    else if (parameter_type == uint_type_name) {
-        unsigned parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toUInt();
+    } else if (parameter_type == uint_type_name) {
+        unsigned parameter_value =
+            reader->attributes().value(SessionXML::ParameterValueAttribute).toUInt();
         variant = parameter_value;
-    }
-    else if (parameter_type == bool_type_name) {
-        bool parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
+    } else if (parameter_type == bool_type_name) {
+        bool parameter_value =
+            reader->attributes().value(SessionXML::ParameterValueAttribute).toInt();
         variant = parameter_value;
-    }
-    else if (parameter_type == qstring_type_name) {
-        QString parameter_value
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
+    } else if (parameter_type == qstring_type_name) {
+        QString parameter_value =
+            reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
         variant = parameter_value;
-    }
-    else if (parameter_type == Constants::ExternalPropertyType) {
+    } else if (parameter_type == Constants::ExternalPropertyType) {
         QString text = reader->attributes().value(SessionXML::ExternalPropertyTextAtt).toString();
-        QString colorName
-            = reader->attributes().value(SessionXML::ExternalPropertyColorAtt).toString();
-        QString identifier
-            = reader->attributes().value(SessionXML::ExternalPropertyIdentifierAtt).toString();
+        QString colorName =
+            reader->attributes().value(SessionXML::ExternalPropertyColorAtt).toString();
+        QString identifier =
+            reader->attributes().value(SessionXML::ExternalPropertyIdentifierAtt).toString();
 
         ExternalProperty property;
         property.setText(text);
         property.setColor(QColor(colorName));
         property.setIdentifier(identifier);
         variant = property.variant();
-    }
-    else if (parameter_type == Constants::ComboPropertyType) {
-        QString selections
-            = reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
-        QString values
-            = reader->attributes().value(SessionXML::ParameterExtAttribute).toString();
+    } else if (parameter_type == Constants::ComboPropertyType) {
+        QString selections =
+            reader->attributes().value(SessionXML::ParameterValueAttribute).toString();
+        QString values = reader->attributes().value(SessionXML::ParameterExtAttribute).toString();
 
         ComboProperty combo_property;
         combo_property.setStringOfValues(values);
         combo_property.setStringOfSelections(selections);
 
         variant = combo_property.variant();
-    }
-    else {
-        QString message = QString("SessionModel::readProperty: parameter type not supported '"+
-                                  parameter_type+"'");
+    } else {
+        QString message = QString("SessionModel::readProperty: parameter type not supported '"
+                                  + parameter_type + "'");
         throw GUIHelpers::Error(message);
     }
 
@@ -275,4 +259,4 @@ SessionItem* createItem(SessionItem* item, const QString& modelType, const QStri
     }
     return result;
 }
-}
+} // namespace

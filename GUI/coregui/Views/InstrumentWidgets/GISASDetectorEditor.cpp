@@ -14,17 +14,16 @@
 
 #include "GISASDetectorEditor.h"
 #include "ComponentEditor.h"
-#include "DetectorPresenter.h"
-#include "InstrumentItems.h"
 #include "DetectorItems.h"
+#include "DetectorPresenter.h"
 #include "GroupItem.h"
+#include "InstrumentItems.h"
 #include <QVBoxLayout>
 
 GISASDetectorEditor::GISASDetectorEditor(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_detectorTypeEditor(new ComponentEditor(ComponentEditor::PlainWidget
-                                               | ComponentEditor::W_NoChildren))
-    , m_detectorPresenter(new DetectorPresenter)
+    : SessionItemWidget(parent), m_detectorTypeEditor(new ComponentEditor(
+                                     ComponentEditor::PlainWidget | ComponentEditor::W_NoChildren)),
+      m_detectorPresenter(new DetectorPresenter)
 {
     auto mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_detectorTypeEditor);
@@ -39,7 +38,8 @@ void GISASDetectorEditor::subscribeToItem()
         [this](const QString& name) {
             if (name == Instrument2DItem::P_DETECTOR)
                 updateDetectorPresenter();
-        }, this);
+        },
+        this);
 
     m_detectorTypeEditor->setItem(instrumentItem()->detectorGroup());
     updateDetectorPresenter();

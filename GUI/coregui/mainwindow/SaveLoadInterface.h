@@ -17,13 +17,14 @@
 
 #include "WinDllMacros.h"
 
-#include <QString>
 #include <QDateTime>
+#include <QString>
 
 //! Purely virtual interface to handle non-XML
 //! data save and load.
 
-class BA_CORE_API_ SaveLoadInterface {
+class BA_CORE_API_ SaveLoadInterface
+{
 public:
     virtual ~SaveLoadInterface();
 

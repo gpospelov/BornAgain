@@ -32,16 +32,16 @@ class DistributionWidget : public QWidget
     Q_OBJECT
 
 public:
-    DistributionWidget(QWidget *parent = 0);
+    DistributionWidget(QWidget* parent = 0);
     ~DistributionWidget();
 
-    void setItem(DistributionItem *item);
+    void setItem(DistributionItem* item);
     void plotItem();
     void setXAxisName(const QString& xAxisName);
 
 public slots:
-    void onMouseMove(QMouseEvent *event);
-    void onMousePress(QMouseEvent *event);
+    void onMouseMove(QMouseEvent* event);
+    void onMousePress(QMouseEvent* event);
 
 private slots:
     void resetView();
@@ -59,12 +59,12 @@ private:
     void plotLimits(const RealLimits& limits);
     QPoint positionForWarningSign();
 
-    QCustomPlot *m_plot;
-    DistributionItem *m_item;
-    QLabel *m_label;
-    QAction *m_resetAction;
+    QCustomPlot* m_plot;
+    DistributionItem* m_item;
+    QLabel* m_label;
+    QAction* m_resetAction;
     QCPRange m_xRange, m_yRange;
-    WarningSign *m_warningSign;
+    WarningSign* m_warningSign;
 };
 
 #endif // DISTRIBUTIONWIDGET_H

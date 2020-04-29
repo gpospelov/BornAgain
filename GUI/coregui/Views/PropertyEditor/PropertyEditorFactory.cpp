@@ -27,7 +27,8 @@
 #include <QSpinBox>
 #include <limits>
 
-namespace {
+namespace
+{
 QWidget* createCustomStringEditor(const SessionItem& item);
 double getStep(double val);
 
@@ -61,7 +62,7 @@ bool isBoolProperty(const QVariant& variant)
     return variant.type() == QVariant::Bool;
 }
 
-}
+} // namespace
 
 bool PropertyEditorFactory::hasStringRepresentation(const QModelIndex& index)
 {
@@ -91,15 +92,14 @@ QString PropertyEditorFactory::toString(const QModelIndex& index)
     if (isDoubleProperty(variant) && index.internalPointer()) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
         return item->editorType() == Constants::ScientificEditorType
-                  ? QString::number(item->value().toDouble(), 'g')
-                  : item->editorType() == Constants::ScientificSpinBoxType
-                  ? ScientificSpinBox::toString(item->value().toDouble(), item->decimals())
-                  : QString::number(item->value().toDouble(), 'f', item->decimals());
+                   ? QString::number(item->value().toDouble(), 'g')
+                   : item->editorType() == Constants::ScientificSpinBoxType
+                         ? ScientificSpinBox::toString(item->value().toDouble(), item->decimals())
+                         : QString::number(item->value().toDouble(), 'f', item->decimals());
     }
 
     return QString();
 }
-
 
 QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* parent)
 {
@@ -124,26 +124,21 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
             editor->setDecimals(item.decimals());
             result = editor;
         }
-    }
-    else if(isIntProperty(item.value())) {
+    } else if (isIntProperty(item.value())) {
         auto editor = new IntEditor;
         editor->setLimits(item.limits());
         result = editor;
-    }
-    else if(isBoolProperty(item.value())) {
+    } else if (isBoolProperty(item.value())) {
         auto editor = new BoolEditor;
         result = editor;
-    }
-    else if(isStringProperty(item.value())) {
+    } else if (isStringProperty(item.value())) {
         result = createCustomStringEditor(item);
-    }
-    else if(isExternalProperty(item.value())) {
+    } else if (isExternalProperty(item.value())) {
         auto editor = new ExternalPropertyEditor;
         if (item.editorType() != Constants::DefaultEditorType)
             editor->setExternalDialogType(item.editorType());
         result = editor;
-    }
-    else if(isComboProperty(item.value())) {
+    } else if (isComboProperty(item.value())) {
         if (item.editorType() == Constants::DefaultEditorType) {
             auto editor = new ComboPropertyEditor;
             result = editor;
@@ -158,9 +153,8 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
     return result;
 }
 
-
-
-namespace {
+namespace
+{
 
 QWidget* createCustomStringEditor(const SessionItem& item)
 {
@@ -184,5 +178,4 @@ double getStep(double val)
     return val == 0.0 ? 1.0 : val / 100.;
 }
 
-}
-
+} // namespace

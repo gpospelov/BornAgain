@@ -29,7 +29,10 @@ class ProjectionsPropertyPanel;
 class ProjectionsWidget;
 class QItemSelectionModel;
 class QSplitter;
-namespace Manhattan { class MiniSplitter; }
+namespace Manhattan
+{
+class MiniSplitter;
+}
 
 //! Editor to draw projections on top of intensity plot. Part of
 

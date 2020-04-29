@@ -21,7 +21,7 @@ namespace
 {
 const int default_label_height = 20;
 const int default_text_size = 11;
-}
+} // namespace
 
 StatusLabel::StatusLabel(QWidget* parent)
     : QFrame(parent), m_font("Monospace", default_text_size, QFont::Normal, false)

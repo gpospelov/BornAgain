@@ -17,9 +17,7 @@
 #include <QThread>
 
 FitWorkerLauncher::FitWorkerLauncher(QObject* parent)
-    : QObject(parent)
-    , m_is_fit_running(false)
-    , m_duration(0)
+    : QObject(parent), m_is_fit_running(false), m_duration(0)
 {
 }
 
@@ -36,8 +34,8 @@ void FitWorkerLauncher::runFitting(std::shared_ptr<FitObjectiveBuilder> suite)
     connect(thread, &QThread::started, fw, &FitWorker::startFit);
     connect(fw, &FitWorker::started, this, &FitWorkerLauncher::intern_workerStarted);
 
-    connect(this, &FitWorkerLauncher::intern_interruptFittingWorker,
-            fw, &FitWorker::interruptFitting, Qt::DirectConnection);
+    connect(this, &FitWorkerLauncher::intern_interruptFittingWorker, fw,
+            &FitWorker::interruptFitting, Qt::DirectConnection);
 
     connect(fw, &FitWorker::error, this, &FitWorkerLauncher::intern_error);
     connect(fw, &FitWorker::finished, this, &FitWorkerLauncher::intern_workerFinished);

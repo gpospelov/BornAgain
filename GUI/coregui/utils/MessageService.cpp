@@ -17,12 +17,16 @@
 #include <QObject>
 #include <QSet>
 
-namespace {
+namespace
+{
 const QString message_error_type = "Error";
 const QString message_warning_type = "Warning";
-}
+} // namespace
 
-MessageService::~MessageService() { clear(); }
+MessageService::~MessageService()
+{
+    clear();
+}
 
 void MessageService::clear()
 {
@@ -60,11 +64,10 @@ QStringList MessageService::senderList() const
         set.insert(message->senderName());
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-        return set.values();
+    return set.values();
 #else
-        return set.toList();
+    return set.toList();
 #endif
-
 }
 
 //! Reports number of messages of given type reported by the sender.

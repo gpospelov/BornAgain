@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "MaterialEditorDialog.h"
-#include "MaterialEditor.h"
-#include "MaterialModel.h"
-#include "MaterialItem.h"
-#include "mainwindow_constants.h"
 #include "ExternalProperty.h"
+#include "MaterialEditor.h"
+#include "MaterialItem.h"
 #include "MaterialItemUtils.h"
+#include "MaterialModel.h"
 #include "StyleUtils.h"
+#include "mainwindow_constants.h"
 #include <QAction>
 #include <QPushButton>
 #include <QSettings>
@@ -31,9 +31,7 @@ const QSize default_dialog_size(512, 400);
 }
 
 MaterialEditorDialog::MaterialEditorDialog(MaterialModel* materialModel, QWidget* parent)
-    : QDialog(parent)
-    , m_origMaterialModel(materialModel)
-    , m_materialEditor(nullptr)
+    : QDialog(parent), m_origMaterialModel(materialModel), m_materialEditor(nullptr)
 {
     setWindowTitle("Material Editor");
     setMinimumSize(128, 128);

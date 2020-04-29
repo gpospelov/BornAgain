@@ -32,10 +32,10 @@ public:
     explicit Error(const QString& message) noexcept : message(message) {}
     virtual ~Error() noexcept;
 
-    Error(const Error&) =default;
-    Error& operator=(const Error&) =default;
-    Error(Error&&) =default;
-    Error& operator=(Error&&) =default;
+    Error(const Error&) = default;
+    Error& operator=(const Error&) = default;
+    Error(Error&&) = default;
+    Error& operator=(Error&&) = default;
 
     const char* what() const noexcept override;
 
@@ -43,16 +43,15 @@ private:
     QString message;
 };
 
-BA_CORE_API_ void information(QWidget* parent, const QString& title,
-        const QString& text, const QString& detailedText=QString());
-BA_CORE_API_ void warning(QWidget* parent, const QString& title,
-        const QString& text, const QString& detailedText=QString());
-BA_CORE_API_ bool question(QWidget* parent, const QString& title,
-        const QString& text, const QString& detailedText=QString(),
-        const QString& yesText="&Yes",
-        const QString& noText="&No");
-BA_CORE_API_ bool okToDelete(QWidget* parent, const QString& title,
-        const QString& text, const QString& detailedText=QString());
+BA_CORE_API_ void information(QWidget* parent, const QString& title, const QString& text,
+                              const QString& detailedText = QString());
+BA_CORE_API_ void warning(QWidget* parent, const QString& title, const QString& text,
+                          const QString& detailedText = QString());
+BA_CORE_API_ bool question(QWidget* parent, const QString& title, const QString& text,
+                           const QString& detailedText = QString(), const QString& yesText = "&Yes",
+                           const QString& noText = "&No");
+BA_CORE_API_ bool okToDelete(QWidget* parent, const QString& title, const QString& text,
+                             const QString& detailedText = QString());
 
 BA_CORE_API_ QString getBornAgainVersionString();
 
@@ -63,8 +62,8 @@ BA_CORE_API_ QString baseName(const QString& fileName);
 
 BA_CORE_API_ void createSubdir(const QString& parentName, const QString& subdirName);
 
-BA_CORE_API_ bool parseVersion(
-    const QString& version, int& major_num, int& minor_num, int& patch_num);
+BA_CORE_API_ bool parseVersion(const QString& version, int& major_num, int& minor_num,
+                               int& patch_num);
 
 BA_CORE_API_ int versionCode(const QString& version);
 
@@ -82,12 +81,10 @@ BA_CORE_API_ QString readTextFile(const QString& fileName);
 
 } // namespace GUIHelpers
 
-inline std::ostream&  operator <<(std::ostream& stream,const QString& str)
+inline std::ostream& operator<<(std::ostream& stream, const QString& str)
 {
-   stream << str.toStdString();
-   return stream;
+    stream << str.toStdString();
+    return stream;
 }
-
-
 
 #endif // GUIHELPERS_H

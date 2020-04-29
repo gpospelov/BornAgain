@@ -26,15 +26,15 @@ class BA_CORE_API_ ParticleView : public ConnectableView
 public:
     enum { TYPE = DesignerHelper::PARTICLE };
 
-    ParticleView(QGraphicsItem *parent = 0);
+    ParticleView(QGraphicsItem* parent = 0);
 
     int type() const { return TYPE; }
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
-    void onPropertyChange(const QString &propertyName);
+    void onPropertyChange(const QString& propertyName);
 
-    void addView(IView *childView, int row = 0); // to add Transformation
+    void addView(IView* childView, int row = 0); // to add Transformation
 
 protected:
     void update_appearance();
@@ -45,7 +45,5 @@ private:
 
     QPixmap m_pixmap;
 };
-
-
 
 #endif // PARTICLEVIEW_H

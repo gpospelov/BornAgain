@@ -51,4 +51,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif  // POLARIZATIONANALYSISEDITOR_H
+#endif // POLARIZATIONANALYSISEDITOR_H

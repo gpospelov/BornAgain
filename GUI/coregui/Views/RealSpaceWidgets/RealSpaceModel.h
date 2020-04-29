@@ -21,7 +21,6 @@
 class RealSpaceModel : public RealSpace::Model
 {
 public:
-
 };
 
 #endif

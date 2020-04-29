@@ -29,7 +29,7 @@ namespace
 const QString undefinedInstrumentName = "Undefined";
 
 bool QuestionOnInstrumentReshaping(const QString& message);
-}
+} // namespace
 
 LinkInstrumentManager::InstrumentInfo::InstrumentInfo()
     : m_name(undefinedInstrumentName), m_instrument(nullptr)
@@ -149,8 +149,7 @@ void LinkInstrumentManager::setOnRealDataPropertyChange(SessionItem* dataItem,
 
 //! Perform actions on instrument children change.
 
-void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem* instrument,
-                                                    SessionItem* child)
+void LinkInstrumentManager::onInstrumentChildChange(InstrumentItem* instrument, SessionItem* child)
 {
     if (child == nullptr)
         return;
@@ -262,10 +261,10 @@ QList<RealDataItem*> LinkInstrumentManager::linkedItems(InstrumentItem* instrume
 {
     QList<RealDataItem*> result;
     for (auto realDataItem : m_realDataModel->topItems<RealDataItem>()) {
-        QString linkedIdentifier
-            = realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
-        QString instrumentIdentifier
-            = instrumentItem->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
+        QString linkedIdentifier =
+            realDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString();
+        QString instrumentIdentifier =
+            instrumentItem->getItemValue(InstrumentItem::P_IDENTIFIER).toString();
 
         if (linkedIdentifier == instrumentIdentifier)
             result.append(realDataItem);
@@ -278,19 +277,19 @@ QList<RealDataItem*> LinkInstrumentManager::linkedItems(InstrumentItem* instrume
 void LinkInstrumentManager::setInstrumentModel(InstrumentModel* model)
 {
     if (m_instrumentModel) {
-        disconnect(m_instrumentModel, &InstrumentModel::rowsInserted,
-                   this, &LinkInstrumentManager::onInstrumentRowsChange);
-        disconnect(m_instrumentModel, &InstrumentModel::rowsRemoved,
-                   this, &LinkInstrumentManager::onInstrumentRowsChange);
+        disconnect(m_instrumentModel, &InstrumentModel::rowsInserted, this,
+                   &LinkInstrumentManager::onInstrumentRowsChange);
+        disconnect(m_instrumentModel, &InstrumentModel::rowsRemoved, this,
+                   &LinkInstrumentManager::onInstrumentRowsChange);
     }
 
     m_instrumentModel = model;
 
     if (m_instrumentModel) {
-        connect(m_instrumentModel, &InstrumentModel::rowsInserted,
-                this, &LinkInstrumentManager::onInstrumentRowsChange);
-        connect(m_instrumentModel, &InstrumentModel::rowsRemoved,
-                this, &LinkInstrumentManager::onInstrumentRowsChange);
+        connect(m_instrumentModel, &InstrumentModel::rowsInserted, this,
+                &LinkInstrumentManager::onInstrumentRowsChange);
+        connect(m_instrumentModel, &InstrumentModel::rowsRemoved, this,
+                &LinkInstrumentManager::onInstrumentRowsChange);
     }
 }
 
@@ -299,23 +298,24 @@ void LinkInstrumentManager::setInstrumentModel(InstrumentModel* model)
 void LinkInstrumentManager::setRealDataModel(RealDataModel* model)
 {
     if (m_realDataModel) {
-        disconnect(m_realDataModel, &RealDataModel::rowsInserted,
-                   this, &LinkInstrumentManager::onRealDataRowsChange);
-        disconnect(m_realDataModel, &RealDataModel::rowsRemoved,
-                   this, &LinkInstrumentManager::onRealDataRowsChange);
+        disconnect(m_realDataModel, &RealDataModel::rowsInserted, this,
+                   &LinkInstrumentManager::onRealDataRowsChange);
+        disconnect(m_realDataModel, &RealDataModel::rowsRemoved, this,
+                   &LinkInstrumentManager::onRealDataRowsChange);
     }
 
     m_realDataModel = model;
 
     if (m_realDataModel) {
-        connect(m_realDataModel, &RealDataModel::rowsInserted,
-                this, &LinkInstrumentManager::onRealDataRowsChange);
-        connect(m_realDataModel, &RealDataModel::rowsRemoved,
-                this, &LinkInstrumentManager::onRealDataRowsChange);
+        connect(m_realDataModel, &RealDataModel::rowsInserted, this,
+                &LinkInstrumentManager::onRealDataRowsChange);
+        connect(m_realDataModel, &RealDataModel::rowsRemoved, this,
+                &LinkInstrumentManager::onRealDataRowsChange);
     }
 }
 
-namespace {
+namespace
+{
 bool QuestionOnInstrumentReshaping(const QString& message)
 {
     QMessageBox msgBox;
@@ -323,16 +323,15 @@ bool QuestionOnInstrumentReshaping(const QString& message)
 
     QString informative;
     informative.append(message);
-    informative.append(
-        "\n\nDo you want to adjust the instrument to the experimental data?\n\n");
+    informative.append("\n\nDo you want to adjust the instrument to the experimental data?\n\n");
     msgBox.setInformativeText(informative);
 
-    QPushButton* modifyInstrumentButton
-        = msgBox.addButton("Yes, please modify instrument", QMessageBox::YesRole);
+    QPushButton* modifyInstrumentButton =
+        msgBox.addButton("Yes, please modify instrument", QMessageBox::YesRole);
     msgBox.addButton("No, leave as it is", QMessageBox::NoRole);
 
     msgBox.exec();
 
     return msgBox.clickedButton() == modifyInstrumentButton;
 }
-}
+} // namespace

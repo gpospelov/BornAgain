@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "InfoPanelToolBar.h"
+#include <QAction>
 #include <QHBoxLayout>
 #include <QToolButton>
-#include <QAction>
 
 namespace
 {
@@ -25,13 +25,11 @@ const QString icon_down = ":/images/dark-angle-down.svg";
 const QString icon_close = ":/images/dark-close.svg";
 const QString expand_text = "Collapse/expand view";
 const QString close_text = "Close view";
-}
+} // namespace
 
 InfoPanelToolBar::InfoPanelToolBar(QWidget* parent)
-    : QToolBar(parent)
-    , m_expandAction(new QAction(expand_text, this))
-    , m_closeAction(new QAction(close_text, this))
-    , m_expanded(false)
+    : QToolBar(parent), m_expandAction(new QAction(expand_text, this)),
+      m_closeAction(new QAction(close_text, this)), m_expanded(false)
 {
     setMinimumSize(minimum_size, minimum_size);
     setProperty("_q_custom_style_disabled", QVariant(true));

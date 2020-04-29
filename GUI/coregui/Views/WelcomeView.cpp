@@ -15,14 +15,14 @@
 #include "WelcomeView.h"
 #include "DesignerHelper.h"
 #include "FancyLabel.h"
+#include "LayoutUtils.h"
+#include "StyleUtils.h"
+#include "UpdateNotifierWidget.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "projectdocument.h"
 #include "projectmanager.h"
 #include "qstringutils.h"
-#include "LayoutUtils.h"
-#include "StyleUtils.h"
-#include "UpdateNotifierWidget.h"
 #include <QCommandLinkButton>
 #include <QDesktopServices>
 #include <QUrl>
@@ -33,18 +33,15 @@ namespace
 const int buttonHeight = 45;
 const int buttonWidth = 140;
 
-const QString centralWidgetStyle = "QWidget#containerWidget "
+const QString centralWidgetStyle =
+    "QWidget#containerWidget "
     "{border-left: 1px solid gray; border-right: 1px solid gray;background-color:white;}";
-}
+} // namespace
 
 WelcomeView::WelcomeView(MainWindow* parent)
-    : m_mainWindow(parent)
-    , m_newProjectButton(nullptr)
-    , m_openProjectButton(nullptr)
-    , m_newUsertButton(nullptr)
-    , m_currentProjectLabel(nullptr)
-    , m_recentProjectLayout(nullptr)
-    , m_notifierWidget(new UpdateNotifierWidget(parent->updateNotifier()))
+    : m_mainWindow(parent), m_newProjectButton(nullptr), m_openProjectButton(nullptr),
+      m_newUsertButton(nullptr), m_currentProjectLabel(nullptr), m_recentProjectLayout(nullptr),
+      m_notifierWidget(new UpdateNotifierWidget(parent->updateNotifier()))
 {
     QPalette palette;
     palette.setColor(QPalette::Background, QColor(240, 240, 240, 255));
@@ -72,12 +69,12 @@ WelcomeView::WelcomeView(MainWindow* parent)
     mainLayout->addWidget(new QWidget);
     setLayout(mainLayout);
 
-    connect(m_newProjectButton, &QPushButton::clicked,
-            projectManager(), &ProjectManager::newProject);
-    connect(m_openProjectButton, &QPushButton::clicked, [=](){projectManager()->openProject();});
+    connect(m_newProjectButton, &QPushButton::clicked, projectManager(),
+            &ProjectManager::newProject);
+    connect(m_openProjectButton, &QPushButton::clicked, [=]() { projectManager()->openProject(); });
     connect(m_newUsertButton, &QPushButton::clicked, this, &WelcomeView::onNewUser);
-    connect(projectManager(), &ProjectManager::modified,
-            this, &WelcomeView::updateRecentProjectPanel);
+    connect(projectManager(), &ProjectManager::modified, this,
+            &WelcomeView::updateRecentProjectPanel);
 
     updateRecentProjectPanel();
 }
@@ -85,7 +82,7 @@ WelcomeView::WelcomeView(MainWindow* parent)
 void WelcomeView::generateRecentProjectList()
 {
     auto recentProLabel = new QLabel("Recent Projects:");
-    recentProLabel->setFont(StyleUtils::sectionFont(/*bold*/true));
+    recentProLabel->setFont(StyleUtils::sectionFont(/*bold*/ true));
 
     setCurrentProjectName(currentProjectFancyName());
     m_recentProjectLayout->addWidget(recentProLabel);
@@ -124,7 +121,7 @@ void WelcomeView::setCurrentProjectName(const QString& name)
     m_currentProjectLabel->setTextAnimated(name);
 }
 
-ProjectManager*WelcomeView::projectManager()
+ProjectManager* WelcomeView::projectManager()
 {
     return m_mainWindow->projectManager();
 }
@@ -238,4 +235,3 @@ QFrame* WelcomeView::createSeparationFrame()
     result->setFrameShadow(QFrame::Sunken);
     return result;
 }
-

@@ -13,10 +13,9 @@
 // ************************************************************************** //
 
 #include "GroupItem.h"
-#include "GUIHelpers.h"
-#include "GroupItemController.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
+#include "GroupItemController.h"
 
 const QString GroupItem::T_ITEMS = "Item tag";
 
@@ -86,4 +85,3 @@ void GroupItem::updateComboValue()
 {
     setValue(m_controller->createCombo());
 }
-

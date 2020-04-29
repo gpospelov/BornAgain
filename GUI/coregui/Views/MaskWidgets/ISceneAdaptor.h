@@ -26,7 +26,7 @@ class BA_CORE_API_ ISceneAdaptor : public QObject
 {
     Q_OBJECT
 public:
-    virtual ~ISceneAdaptor(){}
+    virtual ~ISceneAdaptor() {}
 
     //! convert native mask x-coordinate to scene coordinate
     virtual qreal toSceneX(qreal) const = 0;
@@ -51,12 +51,11 @@ class BA_CORE_API_ DefaultSceneAdaptor : public ISceneAdaptor
 {
     Q_OBJECT
 public:
-    DefaultSceneAdaptor(){}
+    DefaultSceneAdaptor() {}
     qreal toSceneX(qreal value) const { return value; }
     qreal toSceneY(qreal value) const { return value; }
     qreal fromSceneX(qreal value) const { return value; }
     qreal fromSceneY(qreal value) const { return value; }
 };
-
 
 #endif // ISCENEADAPTOR_H

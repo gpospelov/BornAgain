@@ -43,4 +43,4 @@ private:
     PolarizationAnalysisEditor* m_polarizationAnalysisEditor;
 };
 
-#endif  // OFFSPECINSTRUMENTEDITOR_H
+#endif // OFFSPECINSTRUMENTEDITOR_H

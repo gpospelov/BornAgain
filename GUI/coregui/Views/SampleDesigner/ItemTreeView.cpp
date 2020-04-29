@@ -18,8 +18,7 @@
 #include <QMimeData>
 #include <QtCore/QXmlStreamWriter>
 
-ItemTreeView::ItemTreeView(QWidget *parent)
-    : QTreeView(parent)
+ItemTreeView::ItemTreeView(QWidget* parent) : QTreeView(parent)
 {
 
     setAllColumnsShowFocus(true);
@@ -29,24 +28,21 @@ ItemTreeView::ItemTreeView(QWidget *parent)
     setDragDropMode(QAbstractItemView::InternalMove);
 }
 
-ItemTreeView::~ItemTreeView()
-{
-}
+ItemTreeView::~ItemTreeView() {}
 
-void ItemTreeView::dragMoveEvent(QDragMoveEvent *event)
+void ItemTreeView::dragMoveEvent(QDragMoveEvent* event)
 {
     QTreeView::dragMoveEvent(event);
-    SessionModel *model = static_cast<SessionModel *>(this->model());
+    SessionModel* model = static_cast<SessionModel*>(this->model());
     model->setDraggedItemType(QString());
-    QByteArray xml_data = qUncompress(
-                event->mimeData()->data(SessionXML::ItemMimeType));
+    QByteArray xml_data = qUncompress(event->mimeData()->data(SessionXML::ItemMimeType));
     QXmlStreamReader reader(xml_data);
     while (!reader.atEnd()) {
         reader.readNext();
         if (reader.isStartElement()) {
             if (reader.name() == SessionXML::ItemTag) {
-                const QString model_type = reader.attributes()
-                        .value(SessionXML::ModelTypeAttribute).toString();
+                const QString model_type =
+                    reader.attributes().value(SessionXML::ModelTypeAttribute).toString();
                 model->setDraggedItemType(model_type);
                 break;
             }

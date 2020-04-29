@@ -87,5 +87,5 @@ void HistogramPlot::initGraph()
 #endif
     auto* axisRectangle = m_customPlot->axisRect();
     axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
-    axisRectangle->setMargins(QMargins(em*4, fontAscent*2, em*2, fontAscent*2));
+    axisRectangle->setMargins(QMargins(em * 4, fontAscent * 2, em * 2, fontAscent * 2));
 }

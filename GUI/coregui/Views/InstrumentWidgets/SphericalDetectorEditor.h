@@ -39,4 +39,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif  // SPHERICALDETECTOREDITOR_H
+#endif // SPHERICALDETECTOREDITOR_H

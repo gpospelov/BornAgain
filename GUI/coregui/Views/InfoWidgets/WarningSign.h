@@ -34,12 +34,12 @@ public:
 
     void setWarningMessage(const QString& warningMessage);
 
-    void setArea(QWidget *area);
+    void setArea(QWidget* area);
 
     bool isShown() const;
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject* obj, QEvent* event);
 
 private:
     void updateLabelGeometry();
@@ -48,7 +48,7 @@ private:
     QString m_warning_header;
     QString m_warning_message;
     WarningSignWidget* m_warningWidget;
-    QWidget *m_area;
+    QWidget* m_area;
     bool m_clear_just_had_happened;
 };
 

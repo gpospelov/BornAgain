@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "ItemSelectorWidget.h"
+#include "SessionDecorationModel.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
-#include "SessionDecorationModel.h"
 #include "mainwindow_constants.h"
 #include <QListView>
 #include <QVBoxLayout>
@@ -38,17 +38,17 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget* parent)
             SLOT(onCustomContextMenuRequested(const QPoint&)));
 }
 
-ItemSelectorWidget::~ItemSelectorWidget()
-{
-
-}
+ItemSelectorWidget::~ItemSelectorWidget() {}
 
 QSize ItemSelectorWidget::sizeHint() const
 {
     return QSize(Constants::ITEM_SELECTOR_WIDGET_WIDTH, Constants::ITEM_SELECTOR_WIDGET_HEIGHT);
 }
 
-QSize ItemSelectorWidget::minimumSizeHint() const { return QSize(25, 25); }
+QSize ItemSelectorWidget::minimumSizeHint() const
+{
+    return QSize(25, 25);
+}
 
 void ItemSelectorWidget::setModel(SessionModel* model)
 {
@@ -75,7 +75,8 @@ QListView* ItemSelectorWidget::listView()
     return m_listView;
 }
 
-void ItemSelectorWidget::select(const QModelIndex& index, QItemSelectionModel::SelectionFlags command)
+void ItemSelectorWidget::select(const QModelIndex& index,
+                                QItemSelectionModel::SelectionFlags command)
 {
     selectionModel()->select(index, command);
 }
@@ -90,8 +91,7 @@ void ItemSelectorWidget::updateSelection()
 
 void ItemSelectorWidget::selectLast()
 {
-    QModelIndex itemIndex = m_model->index(
-        m_model->rowCount(QModelIndex()) - 1, 0, QModelIndex());
+    QModelIndex itemIndex = m_model->index(m_model->rowCount(QModelIndex()) - 1, 0, QModelIndex());
     selectionModel()->select(itemIndex, QItemSelectionModel::ClearAndSelect);
 }
 

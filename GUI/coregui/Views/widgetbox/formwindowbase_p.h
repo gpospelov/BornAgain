@@ -57,8 +57,8 @@
 
 #include <QtDesigner/QDesignerFormWindowInterface>
 
-#include <QtCore/QVariantMap>
 #include <QtCore/QList>
+#include <QtCore/QVariantMap>
 
 QT_BEGIN_NAMESPACE
 
@@ -67,7 +67,8 @@ class QMenu;
 class QtResourceSet;
 class QDesignerPropertySheet;
 
-namespace qdesigner_internal {
+namespace qdesigner_internal
+{
 
 class QEditorFormBuilder;
 class DeviceProfile;
@@ -77,17 +78,18 @@ class DesignerPixmapCache;
 class DesignerIconCache;
 class FormWindowBasePrivate;
 
-class QDESIGNER_SHARED_EXPORT FormWindowBase: public QDesignerFormWindowInterface
+class QDESIGNER_SHARED_EXPORT FormWindowBase : public QDesignerFormWindowInterface
 {
     Q_OBJECT
 public:
-    enum HighlightMode  { Restore, Highlight };
+    enum HighlightMode { Restore, Highlight };
 
-    explicit FormWindowBase(QDesignerFormEditorInterface *core, QWidget *parent = 0, Qt::WindowFlags flags = 0);
+    explicit FormWindowBase(QDesignerFormEditorInterface* core, QWidget* parent = 0,
+                            Qt::WindowFlags flags = 0);
     virtual ~FormWindowBase();
 
     QVariantMap formData();
-    void setFormData(const QVariantMap &vm);
+    void setFormData(const QVariantMap& vm);
 
     virtual QStringList checkContents() const;
 
@@ -95,14 +97,14 @@ public:
     virtual QPoint grid() const;
 
     // Deprecated
-    virtual void setGrid(const QPoint &grid);
+    virtual void setGrid(const QPoint& grid);
 
     virtual bool hasFeature(Feature f) const;
     virtual Feature features() const;
     virtual void setFeatures(Feature f);
 
-    const Grid &designerGrid() const;
-    void setDesignerGrid(const  Grid& grid);
+    const Grid& designerGrid() const;
+    void setDesignerGrid(const Grid& grid);
 
     bool hasFormGrid() const;
     void setHasFormGrid(bool b);
@@ -114,27 +116,28 @@ public:
     virtual void setResourceFileSaveMode(ResourceFileSaveMode behaviour);
 #endif
 
-    static const Grid &defaultDesignerGrid();
+    static const Grid& defaultDesignerGrid();
     static void setDefaultDesignerGrid(const Grid& grid);
 
     // Overwrite to initialize and return a full popup menu for a managed widget
-    virtual QMenu *initializePopupMenu(QWidget *managedWidget);
+    virtual QMenu* initializePopupMenu(QWidget* managedWidget);
     // Helper to create a basic popup menu from task menu extensions (internal/public)
-    static QMenu *createExtensionTaskMenu(QDesignerFormWindowInterface *fw, QObject *o, bool trailingSeparator = true);
+    static QMenu* createExtensionTaskMenu(QDesignerFormWindowInterface* fw, QObject* o,
+                                          bool trailingSeparator = true);
 
-    virtual bool dropWidgets(const QList<QDesignerDnDItemInterface*> &item_list, QWidget *target,
-                             const QPoint &global_mouse_pos) = 0;
+    virtual bool dropWidgets(const QList<QDesignerDnDItemInterface*>& item_list, QWidget* target,
+                             const QPoint& global_mouse_pos) = 0;
 
     // Helper to find the widget at the mouse position with some flags.
     enum WidgetUnderMouseMode { FindSingleSelectionDropTarget, FindMultiSelectionDropTarget };
-    QWidget *widgetUnderMouse(const QPoint &formPos, WidgetUnderMouseMode m);
+    QWidget* widgetUnderMouse(const QPoint& formPos, WidgetUnderMouseMode m);
 
-    virtual QWidget *widgetAt(const QPoint &pos) = 0;
-    virtual QWidget *findContainer(QWidget *w, bool excludeLayout) const = 0;
+    virtual QWidget* widgetAt(const QPoint& pos) = 0;
+    virtual QWidget* findContainer(QWidget* w, bool excludeLayout) const = 0;
 
-    void deleteWidgetList(const QWidgetList &widget_list);
+    void deleteWidgetList(const QWidgetList& widget_list);
 
-    virtual void highlightWidget(QWidget *w, const QPoint &pos, HighlightMode mode = Highlight) = 0;
+    virtual void highlightWidget(QWidget* w, const QPoint& pos, HighlightMode mode = Highlight) = 0;
 
     enum PasteMode { PasteAll, PasteActionsOnly };
 #ifndef QT_NO_CLIPBOARD
@@ -142,23 +145,23 @@ public:
 #endif
 
     // Factory method to create a form builder
-    virtual QEditorFormBuilder *createFormBuilder() = 0;
+    virtual QEditorFormBuilder* createFormBuilder() = 0;
 
     virtual bool blockSelectionChanged(bool blocked) = 0;
     virtual void emitSelectionChanged() = 0;
 
-    DesignerPixmapCache *pixmapCache() const;
-    DesignerIconCache *iconCache() const;
-    virtual QtResourceSet *resourceSet() const;
-    virtual void setResourceSet(QtResourceSet *resourceSet);
-    void addReloadableProperty(QDesignerPropertySheet *sheet, int index);
-    void removeReloadableProperty(QDesignerPropertySheet *sheet, int index);
-    void addReloadablePropertySheet(QDesignerPropertySheet *sheet, QObject *object);
-    void removeReloadablePropertySheet(QDesignerPropertySheet *sheet);
+    DesignerPixmapCache* pixmapCache() const;
+    DesignerIconCache* iconCache() const;
+    virtual QtResourceSet* resourceSet() const;
+    virtual void setResourceSet(QtResourceSet* resourceSet);
+    void addReloadableProperty(QDesignerPropertySheet* sheet, int index);
+    void removeReloadableProperty(QDesignerPropertySheet* sheet, int index);
+    void addReloadablePropertySheet(QDesignerPropertySheet* sheet, QObject* object);
+    void removeReloadablePropertySheet(QDesignerPropertySheet* sheet);
     void reloadProperties();
 
-    void emitWidgetRemoved(QWidget *w);
-    void emitObjectRemoved(QObject *o);
+    void emitWidgetRemoved(QWidget* w);
+    void emitObjectRemoved(QObject* o);
 
     DeviceProfile deviceProfile() const;
     QString styleName() const;
@@ -168,7 +171,7 @@ public:
         LFLineTerminator,
         CRLFLineTerminator,
         NativeLineTerminator =
-#if defined (Q_OS_WIN)
+#if defined(Q_OS_WIN)
             CRLFLineTerminator
 #else
             LFLineTerminator
@@ -179,18 +182,18 @@ public:
     LineTerminatorMode lineTerminatorMode() const;
 
 public slots:
-    void resourceSetActivated(QtResourceSet *resourceSet, bool resourceSetChanged);
+    void resourceSetActivated(QtResourceSet* resourceSet, bool resourceSetChanged);
 
 private slots:
-    void triggerDefaultAction(QWidget *w);
+    void triggerDefaultAction(QWidget* w);
 
 private:
     void syncGridFeature();
 
-    FormWindowBasePrivate *m_d;    
+    FormWindowBasePrivate* m_d;
 };
 
-}  // namespace qdesigner_internal
+} // namespace qdesigner_internal
 
 QT_END_NAMESPACE
 

@@ -26,16 +26,16 @@ class MaterialModel;
 class BA_CORE_API_ GUIExamplesFactory
 {
 public:
-    static bool isValidExampleName(const QString &name);
+    static bool isValidExampleName(const QString& name);
 
-    static SessionItem *createSampleItems(const QString &name, SampleModel *sampleModel, MaterialModel* materialModel);
-//    static SessionItem *createInstrumentItems(const QString &name, InstrumentModel *instrumentModel);
+    static SessionItem* createSampleItems(const QString& name, SampleModel* sampleModel,
+                                          MaterialModel* materialModel);
+    //    static SessionItem *createInstrumentItems(const QString &name, InstrumentModel
+    //    *instrumentModel);
 
 private:
     static QMap<QString, QString> m_name_to_registry;
     //!< correspondance of GUI example name and name from StandardSamples registry
 };
 
-
 #endif // GUIEXAMPLESFACTORY_H
-

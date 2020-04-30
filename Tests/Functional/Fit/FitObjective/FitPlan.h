@@ -18,10 +18,13 @@
 #include "MinimizerTestPlan.h"
 #include <memory>
 
-namespace Fit { class Parameters; }
+namespace Fit
+{
+class Parameters;
+}
 class Simulation;
 class MultiLayer;
-template<class T> class OutputData;
+template <class T> class OutputData;
 class FitObjective;
 
 //! Contains all logic to construct FitObjective, setup Minimizer and check minimization results.

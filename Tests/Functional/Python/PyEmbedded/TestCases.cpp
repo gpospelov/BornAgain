@@ -13,18 +13,17 @@
 // ************************************************************************** //
 
 #include "TestCases.h"
-#include "PythonCore.h"
+#include "BABuild.h"
+#include "BAVersion.h"
+#include "BornAgainNamespace.h"
+#include "ExportToPython.h"
+#include "MultiLayer.h"
 #include "PyEmbeddedUtils.h"
 #include "PyImport.h"
-#include "BornAgainNamespace.h"
-#include "BAVersion.h"
-#include "BABuild.h"
-#include "SysUtils.h"
-#include "MultiLayer.h"
-#include "BornAgainNamespace.h"
-#include "SampleBuilderFactory.h"
-#include "ExportToPython.h"
+#include "PythonCore.h"
 #include "PythonFormatting.h"
+#include "SampleBuilderFactory.h"
+#include "SysUtils.h"
 #include <iostream>
 #include <sstream>
 
@@ -56,7 +55,7 @@ bool ImportNumpy::runTest()
 {
     Py_Initialize();
 
-    PyObject *pmod = PyImport_ImportModule("numpy");
+    PyObject* pmod = PyImport_ImportModule("numpy");
     if (!pmod)
         throw std::runtime_error("Can't load numpy");
 
@@ -80,11 +79,11 @@ bool FunctionCall::runTest()
 {
     Py_Initialize();
 
-    PyObject *sysPath = PySys_GetObject((char*)"path");
+    PyObject* sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString("."));
     PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
 
-    PyObject *pmod = PyImport_ImportModule("bornagain");
+    PyObject* pmod = PyImport_ImportModule("bornagain");
     if (!pmod)
         throw std::runtime_error("Can't load module");
 
@@ -99,7 +98,7 @@ bool FunctionCall::runTest()
         throw std::runtime_error("Can't build arguments list");
     }
 
-    PyObject* result  = PyEval_CallObject(pfun, pargs);
+    PyObject* result = PyEval_CallObject(pfun, pargs);
     Py_DecRef(pfun);
     Py_DecRef(pargs);
     if (!result)
@@ -120,11 +119,11 @@ bool MethodCall::runTest()
     const double radius(5.0), height(6.0);
     Py_Initialize();
 
-    PyObject *sysPath = PySys_GetObject((char*)"path");
+    PyObject* sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString("."));
     PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
 
-    PyObject *pmod = PyImport_ImportModule("bornagain");
+    PyObject* pmod = PyImport_ImportModule("bornagain");
     if (!pmod)
         throw std::runtime_error("Can't load module");
 
@@ -139,15 +138,15 @@ bool MethodCall::runTest()
         throw std::runtime_error("Can't build arguments list");
     }
 
-    PyObject* pinst  = PyEval_CallObject(pclass, pargs);
+    PyObject* pinst = PyEval_CallObject(pclass, pargs);
     Py_DecRef(pclass);
     Py_DecRef(pargs);
 
-    if(!pinst)
+    if (!pinst)
         throw std::runtime_error("Error while creating object");
 
     // result of FormFactorCylinder
-    PyObject* pmeth  = PyObject_GetAttrString(pinst, "getHeight");
+    PyObject* pmeth = PyObject_GetAttrString(pinst, "getHeight");
     Py_DecRef(pinst);
     if (!pmeth)
         throw std::runtime_error("Can't fetch FormFactorCylinder.getHeight");
@@ -167,7 +166,7 @@ bool MethodCall::runTest()
 
     double value(0);
     if (!PyArg_Parse(pres, "d", &value))
-       throw std::runtime_error("Can't convert class method result");
+        throw std::runtime_error("Can't convert class method result");
 
     Py_DecRef(pres);
 
@@ -183,62 +182,61 @@ bool CompiledFunction::runTest()
     Py_Initialize();
 
     // compile our function
-    std::stringstream buf ;
-    buf << "def add( n1 , n2 ) :" << std::endl
-        << "    return n1+n2" << std::endl ;
+    std::stringstream buf;
+    buf << "def add( n1 , n2 ) :" << std::endl << "    return n1+n2" << std::endl;
 
-    PyObject* pCompiledFn = Py_CompileString( buf.str().c_str() , "" , Py_file_input ) ;
+    PyObject* pCompiledFn = Py_CompileString(buf.str().c_str(), "", Py_file_input);
     if (!pCompiledFn)
         throw std::runtime_error("Can't compile a function");
 
     // create a module
-    PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
+    PyObject* pModule = PyImport_ExecCodeModule((char*)"test", pCompiledFn);
     if (!pModule)
         throw std::runtime_error("Can't exec module");
 
     // locate the "add" function (it's an attribute of the module)
-    PyObject* pAddFn = PyObject_GetAttrString( pModule , "add" ) ;
+    PyObject* pAddFn = PyObject_GetAttrString(pModule, "add");
     if (!pAddFn)
         throw std::runtime_error("Can't locate compiled functione");
 
     // clean up
-    Py_DecRef( pAddFn ) ;
-    Py_DecRef( pModule ) ;
-    Py_DecRef( pCompiledFn ) ;
+    Py_DecRef(pAddFn);
+    Py_DecRef(pModule);
+    Py_DecRef(pCompiledFn);
 
     // ------------------------
     // using compiled function
     // ------------------------
 
     // create a new tuple with 2 elements
-    PyObject* pPosArgs = PyTuple_New( 2 ) ;
+    PyObject* pPosArgs = PyTuple_New(2);
 
-    PyObject* pVal1 = PyInt_FromLong( 10) ;
+    PyObject* pVal1 = PyInt_FromLong(10);
     if (!pVal1)
         throw std::runtime_error("Can't create PyInt");
-    int rc = PyTuple_SetItem( pPosArgs , 0 , pVal1 ) ; // nb: tuple position 0
-    if (rc!=0)
+    int rc = PyTuple_SetItem(pPosArgs, 0, pVal1); // nb: tuple position 0
+    if (rc != 0)
         throw std::runtime_error("Can't add to tuple");
 
-    PyObject* pVal2 = PyInt_FromLong( 20) ;
+    PyObject* pVal2 = PyInt_FromLong(20);
     if (!pVal2)
         throw std::runtime_error("Can't create PyInt");
-    rc = PyTuple_SetItem( pPosArgs , 1 , pVal2 ) ; // nb: tuple position 0
-    if (rc!=0)
+    rc = PyTuple_SetItem(pPosArgs, 1, pVal2); // nb: tuple position 0
+    if (rc != 0)
         throw std::runtime_error("Can't add to tuple");
 
     // create a new dictionary
-    PyObject* pKywdArgs = PyDict_New() ;
+    PyObject* pKywdArgs = PyDict_New();
     if (!pKywdArgs)
         throw std::runtime_error("Can't create dictionary");
 
     // call our function
-    PyObject* pResult = PyObject_Call( pAddFn , pPosArgs , pKywdArgs ) ;
+    PyObject* pResult = PyObject_Call(pAddFn, pPosArgs, pKywdArgs);
     if (!pResult)
         throw std::runtime_error("Can't get result out of function");
 
     // convert the result to a string
-    PyObject* pResultRepr = PyObject_Repr( pResult ) ;
+    PyObject* pResultRepr = PyObject_Repr(pResult);
     std::string result = PyEmbeddedUtils::toString(pResultRepr);
     Py_DecRef(pResultRepr);
 
@@ -254,24 +252,24 @@ bool ObjectExtract::runTest()
 {
     Py_Initialize();
 
-    PyObject *sysPath = PySys_GetObject((char*)"path");
+    PyObject* sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
 
     PyObject* pmod = PyImport_ImportModule("bornagain");
     if (!pmod)
         throw std::runtime_error("Can't load bornagain");
 
-    PyObject *ml = PyObject_GetAttrString(pmod, "MultiLayer");
+    PyObject* ml = PyObject_GetAttrString(pmod, "MultiLayer");
     Py_DecRef(pmod);
     if (!ml)
         throw std::runtime_error("Can't get MultiLayer attribute.");
 
-    PyObject *instance = PyObject_CallFunctionObjArgs(ml, NULL);
+    PyObject* instance = PyObject_CallFunctionObjArgs(ml, NULL);
 
-    void *argp1 = 0;
-    swig_type_info * pTypeInfo = SWIG_TypeQuery("MultiLayer *");
+    void* argp1 = 0;
+    swig_type_info* pTypeInfo = SWIG_TypeQuery("MultiLayer *");
 
-    const int res = SWIG_ConvertPtr(instance, &argp1,pTypeInfo, 0);
+    const int res = SWIG_ConvertPtr(instance, &argp1, pTypeInfo, 0);
     if (!SWIG_IsOK(res))
         throw std::runtime_error("SWIG failed extract object");
 
@@ -293,7 +291,7 @@ bool EmbeddedMultiLayer::runTest()
 {
     Py_Initialize();
 
-    PyObject *sysPath = PySys_GetObject((char*)"path");
+    PyObject* sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyString_FromString(BABuild::buildLibDir().c_str()));
 
     PyObject* pmod = PyImport_ImportModule("bornagain");
@@ -301,7 +299,7 @@ bool EmbeddedMultiLayer::runTest()
         throw std::runtime_error("Can't load bornagain");
 
     // compile our function
-    std::stringstream buf ;
+    std::stringstream buf;
     buf << "import bornagain as ba                                        \n";
     buf << "                                                              \n";
     buf << "def get_simulation():                                         \n";
@@ -311,33 +309,33 @@ bool EmbeddedMultiLayer::runTest()
     buf << "    multilayer.addLayer(air_layer)                            \n";
     buf << "    return multilayer                                         \n";
 
-    PyObject* pCompiledFn = Py_CompileString( buf.str().c_str() , "" , Py_file_input ) ;
+    PyObject* pCompiledFn = Py_CompileString(buf.str().c_str(), "", Py_file_input);
     if (!pCompiledFn)
         throw std::runtime_error("Can't compile a function");
 
     // create a module
-    PyObject* pModule = PyImport_ExecCodeModule((char *)"test" , pCompiledFn ) ;
+    PyObject* pModule = PyImport_ExecCodeModule((char*)"test", pCompiledFn);
     if (!pModule)
         throw std::runtime_error("Can't exec module");
 
     // locate the "get_simulation" function (it's an attribute of the module)
-    PyObject* pAddFn = PyObject_GetAttrString( pModule , "get_simulation" ) ;
+    PyObject* pAddFn = PyObject_GetAttrString(pModule, "get_simulation");
     if (!pAddFn)
         throw std::runtime_error("Can't locate compiled functione");
 
-    PyObject *instance =  PyObject_CallFunctionObjArgs(pAddFn, NULL);
+    PyObject* instance = PyObject_CallFunctionObjArgs(pAddFn, NULL);
     if (!instance)
         throw std::runtime_error("Can't call function");
 
     // clean up
-    Py_DecRef( pAddFn ) ;
-    Py_DecRef( pModule ) ;
-    Py_DecRef( pCompiledFn ) ;
+    Py_DecRef(pAddFn);
+    Py_DecRef(pModule);
+    Py_DecRef(pCompiledFn);
 
-    void *argp1 = 0;
-    swig_type_info * pTypeInfo = SWIG_TypeQuery("MultiLayer *");
+    void* argp1 = 0;
+    swig_type_info* pTypeInfo = SWIG_TypeQuery("MultiLayer *");
 
-    const int res = SWIG_ConvertPtr(instance, &argp1,pTypeInfo, 0);
+    const int res = SWIG_ConvertPtr(instance, &argp1, pTypeInfo, 0);
     if (!SWIG_IsOK(res))
         throw std::runtime_error("SWIG failed extract object");
 
@@ -367,8 +365,8 @@ bool ExportToPythonAndBack::runTest()
     std::stringstream snippet;
     snippet << PythonFormatting::scriptPreamble() << code;
 
-    auto multilayer = PyImport::createFromPython(snippet.str(),
-            PythonFormatting::getSampleFunctionName(), BABuild::buildLibDir());
+    auto multilayer = PyImport::createFromPython(
+        snippet.str(), PythonFormatting::getSampleFunctionName(), BABuild::buildLibDir());
     auto new_code = ExportToPython::generateSampleCode(*multilayer);
 
     return code == new_code;
@@ -380,7 +378,7 @@ bool ExportToPythonAndBack::runTest()
 bool ModuleFunctionsList::runTest()
 {
     // compile our function
-    std::stringstream buf ;
+    std::stringstream buf;
     buf << "import bornagain as ba                                        \n";
     buf << "                                                              \n";
     buf << "def get_simulation():                                         \n";
@@ -391,7 +389,7 @@ bool ModuleFunctionsList::runTest()
     buf << "    return multilayer                                         \n";
 
     auto listOfFunc = PyImport::listOfFunctions(buf.str(), BABuild::buildLibDir());
-    for(auto s: listOfFunc)
+    for (auto s : listOfFunc)
         std::cout << "AAA" << s << std::endl;
     return listOfFunc.size() == 1 && listOfFunc.at(0) == "get_simulation";
 }

@@ -18,8 +18,8 @@
 #include "ISpecularStrategy.h"
 #include "ScalarRTCoefficients.h"
 #include "Vectors3D.h"
-#include <vector>
 #include <memory>
+#include <vector>
 
 class Slice;
 
@@ -39,17 +39,17 @@ public:
                                                 const std::vector<complex_t>& kz) const override;
 
 private:
-    virtual Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma, double thickness,
-                                        const Eigen::Vector2cd& t_r1) const = 0;
+    virtual Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma,
+                                        double thickness, const Eigen::Vector2cd& t_r1) const = 0;
 
     std::vector<ScalarRTCoefficients> computeTR(const std::vector<Slice>& slices,
-                                                       const std::vector<complex_t>& kz) const;
+                                                const std::vector<complex_t>& kz) const;
 
     static void setZeroBelow(std::vector<ScalarRTCoefficients>& coeff, size_t current_layer);
 
     bool calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
-                                     const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
-                                     size_t slice_index) const;
+                              const std::vector<Slice>& slices, const std::vector<complex_t>& kz,
+                              size_t slice_index) const;
 };
 
 #endif // SPECULARSCALARSTRATEGY_H

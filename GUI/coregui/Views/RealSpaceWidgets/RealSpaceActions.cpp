@@ -14,8 +14,4 @@
 
 #include "RealSpaceActions.h"
 
-RealSpaceActions::RealSpaceActions(QObject* parent)
-    : QObject(parent)
-{
-
-}
+RealSpaceActions::RealSpaceActions(QObject* parent) : QObject(parent) {}

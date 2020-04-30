@@ -29,14 +29,10 @@
 #include <QVBoxLayout>
 
 FitComparisonWidget1D::FitComparisonWidget1D(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_data_plot(new Plot1DCanvas)
-    , m_diff_plot(new Plot1DCanvas)
-    , m_fitFlowWidget(new FitFlowWidget)
-    , m_statusLabel(new PlotStatusLabel(nullptr, this))
-    , m_propertyWidget(new IntensityDataPropertyWidget)
-    , m_resetViewAction(new QAction(this))
-    , m_comparisonController(new FitComparison1DViewController(this))
+    : SessionItemWidget(parent), m_data_plot(new Plot1DCanvas), m_diff_plot(new Plot1DCanvas),
+      m_fitFlowWidget(new FitFlowWidget), m_statusLabel(new PlotStatusLabel(nullptr, this)),
+      m_propertyWidget(new IntensityDataPropertyWidget), m_resetViewAction(new QAction(this)),
+      m_comparisonController(new FitComparison1DViewController(this))
 {
     auto vlayout = new QVBoxLayout;
     vlayout->setMargin(0);

@@ -26,11 +26,11 @@ class BA_CORE_API_ ComponentView : public QWidget
 {
     Q_OBJECT
 public:
-    ComponentView(QWidget* parent = nullptr) : QWidget(parent){}
+    ComponentView(QWidget* parent = nullptr) : QWidget(parent) {}
 
     virtual void clearEditor() = 0;
     virtual void setItem(SessionItem* item) = 0;
     virtual void addItem(SessionItem*) {}
 };
 
-#endif  // COMPONENTVIEW_H
+#endif // COMPONENTVIEW_H

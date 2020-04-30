@@ -28,21 +28,21 @@
 
 #include <QGraphicsOpacityEffect>
 #include <QGuiApplication>
-#include <QPropertyAnimation>
 #include <QPaintEvent>
 #include <QPainter>
+#include <QPropertyAnimation>
 #include <QStyleOption>
 
 using namespace Utils;
 
-namespace {
+namespace
+{
 const bool FlatProjectsMode(false);
 const QColor DetailsButtonBackgroundColorHover("#eff0f1");
-}
+} // namespace
 
-FadingWidget::FadingWidget(QWidget *parent) :
-    FadingPanel(parent),
-    m_opacityEffect(new QGraphicsOpacityEffect)
+FadingWidget::FadingWidget(QWidget* parent)
+    : FadingPanel(parent), m_opacityEffect(new QGraphicsOpacityEffect)
 {
     m_opacityEffect->setOpacity(0);
     setGraphicsEffect(m_opacityEffect);
@@ -62,7 +62,7 @@ void FadingWidget::setOpacity(qreal value)
 
 void FadingWidget::fadeTo(qreal value)
 {
-    QPropertyAnimation *animation = new QPropertyAnimation(m_opacityEffect, "opacity");
+    QPropertyAnimation* animation = new QPropertyAnimation(m_opacityEffect, "opacity");
     animation->setDuration(200);
     animation->setEndValue(value);
     animation->start(QAbstractAnimation::DeleteWhenStopped);
@@ -73,7 +73,7 @@ qreal FadingWidget::opacity()
     return m_opacityEffect->opacity();
 }
 
-DetailsButton::DetailsButton(QWidget *parent) : QAbstractButton(parent), m_fader(0)
+DetailsButton::DetailsButton(QWidget* parent) : QAbstractButton(parent), m_fader(0)
 {
     setCheckable(true);
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
@@ -94,32 +94,28 @@ QSize DetailsButton::sizeHint() const
     return QSize(w, 22);
 }
 
-bool DetailsButton::event(QEvent *e)
+bool DetailsButton::event(QEvent* e)
 {
     switch (e->type()) {
-    case QEvent::Enter:
-        {
-            QPropertyAnimation *animation = new QPropertyAnimation(this, "fader");
-            animation->setDuration(200);
-            animation->setEndValue(1.0);
-            animation->start(QAbstractAnimation::DeleteWhenStopped);
-        }
-        break;
-    case QEvent::Leave:
-        {
-            QPropertyAnimation *animation = new QPropertyAnimation(this, "fader");
-            animation->setDuration(200);
-            animation->setEndValue(0.0);
-            animation->start(QAbstractAnimation::DeleteWhenStopped);
-        }
-        break;
+    case QEvent::Enter: {
+        QPropertyAnimation* animation = new QPropertyAnimation(this, "fader");
+        animation->setDuration(200);
+        animation->setEndValue(1.0);
+        animation->start(QAbstractAnimation::DeleteWhenStopped);
+    } break;
+    case QEvent::Leave: {
+        QPropertyAnimation* animation = new QPropertyAnimation(this, "fader");
+        animation->setDuration(200);
+        animation->setEndValue(0.0);
+        animation->start(QAbstractAnimation::DeleteWhenStopped);
+    } break;
     default:
         return QAbstractButton::event(e);
     }
     return false;
 }
 
-void DetailsButton::paintEvent(QPaintEvent *e)
+void DetailsButton::paintEvent(QPaintEvent* e)
 {
     QWidget::paintEvent(e);
 
@@ -128,7 +124,7 @@ void DetailsButton::paintEvent(QPaintEvent *e)
     // draw hover animation
     if (!GUI_OS_Utils::HostOsInfo::isMacHost() && !isDown() && m_fader > 0) {
         QColor c = DetailsButtonBackgroundColorHover;
-        c.setAlpha (int(m_fader * c.alpha()));
+        c.setAlpha(int(m_fader * c.alpha()));
 
         QRect r = rect();
         if (!FlatProjectsMode)
@@ -137,11 +133,14 @@ void DetailsButton::paintEvent(QPaintEvent *e)
     }
 
     if (isChecked()) {
-        if (m_checkedPixmap.isNull() || m_checkedPixmap.size() / m_checkedPixmap.devicePixelRatio() != contentsRect().size())
+        if (m_checkedPixmap.isNull()
+            || m_checkedPixmap.size() / m_checkedPixmap.devicePixelRatio() != contentsRect().size())
             m_checkedPixmap = cacheRendering(contentsRect().size(), true);
         p.drawPixmap(contentsRect(), m_checkedPixmap);
     } else {
-        if (m_uncheckedPixmap.isNull() || m_uncheckedPixmap.size() / m_uncheckedPixmap.devicePixelRatio() != contentsRect().size())
+        if (m_uncheckedPixmap.isNull()
+            || m_uncheckedPixmap.size() / m_uncheckedPixmap.devicePixelRatio()
+                   != contentsRect().size())
             m_uncheckedPixmap = cacheRendering(contentsRect().size(), false);
         p.drawPixmap(contentsRect(), m_uncheckedPixmap);
     }
@@ -157,7 +156,7 @@ void DetailsButton::paintEvent(QPaintEvent *e)
     }
 }
 
-QPixmap DetailsButton::cacheRendering(const QSize &size, bool checked)
+QPixmap DetailsButton::cacheRendering(const QSize& size, bool checked)
 {
     const qreal pixelRatio = devicePixelRatio();
     QPixmap pixmap(size * pixelRatio);
@@ -179,8 +178,8 @@ QPixmap DetailsButton::cacheRendering(const QSize &size, bool checked)
             lg.setColorAt(1, QColor(255, 255, 255, 50));
         }
         p.setBrush(lg);
-        p.setPen(QColor(255,255,255,140));
-        p.drawRoundedRect(1, 1, size.width()-3, size.height()-3, 1, 1);
+        p.setPen(QColor(255, 255, 255, 140));
+        p.drawRoundedRect(1, 1, size.width() - 3, size.height() - 3, 1, 1);
         p.setPen(QPen(QColor(0, 0, 0, 40)));
         p.drawLine(0, 1, 0, size.height() - 2);
         if (checked)
@@ -204,8 +203,10 @@ QPixmap DetailsButton::cacheRendering(const QSize &size, bool checked)
     arrowOpt.initFrom(this);
     QPalette pal = arrowOpt.palette;
     pal.setBrush(QPalette::All, QPalette::Text, QColor(0, 0, 0));
-    arrowOpt.rect = QRect(size.width() - arrowsize - 6, height()/2-arrowsize/2, arrowsize, arrowsize);
+    arrowOpt.rect =
+        QRect(size.width() - arrowsize - 6, height() / 2 - arrowsize / 2, arrowsize, arrowsize);
     arrowOpt.palette = pal;
-    style()->drawPrimitive(checked ? QStyle::PE_IndicatorArrowUp : QStyle::PE_IndicatorArrowDown, &arrowOpt, &p, this);
+    style()->drawPrimitive(checked ? QStyle::PE_IndicatorArrowUp : QStyle::PE_IndicatorArrowDown,
+                           &arrowOpt, &p, this);
     return pixmap;
 }

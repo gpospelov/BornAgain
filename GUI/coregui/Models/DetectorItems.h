@@ -50,7 +50,7 @@ public:
 
     void clearMasks();
 
-    MaskContainerItem *maskContainerItem() const;
+    MaskContainerItem* maskContainerItem() const;
 
     void createMaskContainer();
 

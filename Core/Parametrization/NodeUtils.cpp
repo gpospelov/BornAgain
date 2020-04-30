@@ -13,53 +13,57 @@
 // ************************************************************************** //
 
 #include "NodeUtils.h"
-#include "NodeIterator.h"
-#include "IterationStrategy.h"
-#include "RealParameter.h"
-#include "ParameterPool.h"
-#include "INode.h"
 #include "Exceptions.h"
-#include <functional>
+#include "INode.h"
+#include "IterationStrategy.h"
+#include "NodeIterator.h"
+#include "ParameterPool.h"
+#include "RealParameter.h"
 #include <algorithm>
+#include <functional>
 #include <iterator>
 #include <sstream>
 
-namespace {
+namespace
+{
 
-    // Returns string filled with '.'
-    std::string s_indent(int depth) {
-        const int multiplier = 4;
-        return std::string(multiplier*depth, '.');
-    }
-
-    // Returns single line string representing pool parameters of given node.
-    std::string poolToString(const INode &node) {
-        std::ostringstream result;
-
-        const std::vector<RealParameter*> pars = node.parameterPool()->parameters();
-        if (pars.empty())
-            return {};
-
-        result << " (";
-        size_t index(0);
-        for (auto par : pars) {
-            result << "'" << par->getName() << "':" << par->value();
-            ++index;
-            if (index!=pars.size())
-                result << " ";
-        }
-        result << ")";
-
-        return result.str();
-    }
-
-    // Returns a string representing given node.
-    std::string nodeString(const INode& node, int depth) {
-        std::ostringstream result;
-        result << s_indent(depth) << node.displayName() << poolToString(node) << "\n";
-        return result.str();
-    }
+// Returns string filled with '.'
+std::string s_indent(int depth)
+{
+    const int multiplier = 4;
+    return std::string(multiplier * depth, '.');
 }
+
+// Returns single line string representing pool parameters of given node.
+std::string poolToString(const INode& node)
+{
+    std::ostringstream result;
+
+    const std::vector<RealParameter*> pars = node.parameterPool()->parameters();
+    if (pars.empty())
+        return {};
+
+    result << " (";
+    size_t index(0);
+    for (auto par : pars) {
+        result << "'" << par->getName() << "':" << par->value();
+        ++index;
+        if (index != pars.size())
+            result << " ";
+    }
+    result << ")";
+
+    return result.str();
+}
+
+// Returns a string representing given node.
+std::string nodeString(const INode& node, int depth)
+{
+    std::ostringstream result;
+    result << s_indent(depth) << node.displayName() << poolToString(node) << "\n";
+    return result.str();
+}
+} // namespace
 
 std::string NodeUtils::nodeToString(const INode& node)
 {
@@ -68,8 +72,8 @@ std::string NodeUtils::nodeToString(const INode& node)
     NodeIterator<PreorderStrategy> it(&node);
     it.first();
     while (!it.isDone()) {
-        const INode *child = it.getCurrent();
-        result << nodeString(*child, it.depth()-1);
+        const INode* child = it.getCurrent();
+        result << nodeString(*child, it.depth() - 1);
         it.next();
     }
 

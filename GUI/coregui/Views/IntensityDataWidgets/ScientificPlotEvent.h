@@ -15,10 +15,10 @@
 #ifndef SCIENTIFICPLOTEVENT_H
 #define SCIENTIFICPLOTEVENT_H
 
-#include <QObject>
-#include <memory>
 #include "PlotEventInfo.h"
 #include "WinDllMacros.h"
+#include <QObject>
+#include <memory>
 
 class ScientificPlot;
 class QMouseEvent;

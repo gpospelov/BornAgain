@@ -32,6 +32,6 @@ BA_CORE_API_ QStringList propertyRelatedTypes();
 //! Returns list of SessionItem's children suitable for editing in property editors.
 BA_CORE_API_ QList<const SessionItem*> componentItems(const SessionItem& item);
 
-}
+} // namespace ComponentUtils
 
 #endif

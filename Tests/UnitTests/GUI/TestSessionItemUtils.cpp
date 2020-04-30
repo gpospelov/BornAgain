@@ -1,10 +1,10 @@
-#include "google_test.h"
+#include "ComboProperty.h"
+#include "ExternalProperty.h"
+#include "SessionItem.h"
 #include "SessionItemUtils.h"
 #include "SessionModel.h"
-#include "SessionItem.h"
-#include "ExternalProperty.h"
-#include "ComboProperty.h"
 #include "VectorItem.h"
+#include "google_test.h"
 #include "item_constants.h"
 
 class TestSessionItemUtils : public ::testing::Test

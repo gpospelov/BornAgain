@@ -15,12 +15,12 @@
 #ifndef MATERIAL_H_
 #define MATERIAL_H_
 
-#include "Complex.h"
-#include "Vectors3D.h"
-#include "EigenCore.h"
 #include "BaseMaterialImpl.h"
-#include <vector>
+#include "Complex.h"
+#include "EigenCore.h"
+#include "Vectors3D.h"
 #include <memory>
+#include <vector>
 
 class Transform3D;
 class WavevectorInfo;
@@ -40,7 +40,7 @@ public:
 #ifndef SWIG
     //! Creates material with particular material implementation
     Material(std::unique_ptr<BaseMaterialImpl> material_impl);
-#endif //SWIG
+#endif // SWIG
 
     //! Material copy assignment
     Material& operator=(const Material& other);
@@ -69,7 +69,7 @@ public:
 #ifndef SWIG
     //! Returns the type of underlying material implementation
     MATERIAL_TYPES typeID() const;
-#endif //SWIG
+#endif // SWIG
 
     //! Get the magnetization (in A/m)
     kvector_t magnetization() const;
@@ -79,13 +79,14 @@ public:
     complex_t materialData() const;
 
     //! Returns true if material underlying data is nullptr
-    bool isEmpty() const {return !m_material_impl;}
+    bool isEmpty() const { return !m_material_impl; }
 
     //! Returns true if material has refractive index of (1.0, 0.0)
     //! and zero magnetization.
     bool isDefaultMaterial() const;
 
-    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density
+    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length
+    //! density
     complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const;
 
 #ifndef SWIG
@@ -95,8 +96,7 @@ public:
 
     Material transformedMaterial(const Transform3D& transform) const;
 
-    friend BA_CORE_API_ std::ostream& operator<<(
-            std::ostream& ostr, const Material& mat);
+    friend BA_CORE_API_ std::ostream& operator<<(std::ostream& ostr, const Material& mat);
 
 private:
     std::unique_ptr<BaseMaterialImpl> m_material_impl;

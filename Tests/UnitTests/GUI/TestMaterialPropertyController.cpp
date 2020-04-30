@@ -1,12 +1,12 @@
-#include "google_test.h"
-#include <QtTest>
-#include "MaterialPropertyController.h"
-#include "MaterialModel.h"
-#include "SampleModel.h"
+#include "ExternalProperty.h"
 #include "LayerItem.h"
 #include "MaterialItem.h"
-#include "ExternalProperty.h"
 #include "MaterialItemUtils.h"
+#include "MaterialModel.h"
+#include "MaterialPropertyController.h"
+#include "SampleModel.h"
+#include "google_test.h"
+#include <QtTest>
 
 class TestMaterialPropertyController : public ::testing::Test
 {
@@ -16,7 +16,7 @@ public:
 
 TestMaterialPropertyController::~TestMaterialPropertyController() = default;
 
-//TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
+// TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
 //{
 //    MaterialModel materialModel;
 //    auto mat1 = materialModel.addRefractiveMaterial("name1", 1.0, 2.0);
@@ -124,8 +124,8 @@ TEST_F(TestMaterialPropertyController, test_ControllerInEditorContext)
     materialModel.modelLoaded();
 
     // layer2 should have undefined material property
-    ExternalProperty property
-        = layer2->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
+    ExternalProperty property =
+        layer2->getItemValue(LayerItem::P_MATERIAL).value<ExternalProperty>();
     EXPECT_TRUE(property.isValid() == false);
 
     // layer3 should have different MaterialProperty name

@@ -34,4 +34,3 @@ private:
 };
 
 #endif // VECTORITEM_H
-

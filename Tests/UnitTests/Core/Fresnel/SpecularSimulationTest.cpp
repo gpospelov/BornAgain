@@ -1,4 +1,4 @@
-#include "google_test.h"
+#include "SpecularSimulation.h"
 #include "AngularSpecScan.h"
 #include "Distributions.h"
 #include "Exceptions.h"
@@ -12,9 +12,9 @@
 #include "ParameterPattern.h"
 #include "QSpecScan.h"
 #include "RealParameter.h"
-#include "SpecularSimulation.h"
 #include "Units.h"
 #include "VariableBinAxis.h"
+#include "google_test.h"
 #include <iostream>
 
 class SpecularSimulationTest : public ::testing::Test

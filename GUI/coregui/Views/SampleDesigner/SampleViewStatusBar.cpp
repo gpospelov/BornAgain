@@ -19,8 +19,7 @@
 #include <QToolButton>
 
 SampleViewStatusBar::SampleViewStatusBar(MainWindow* mainWindow)
-    : QWidget(mainWindow), m_dockMenuButton(nullptr)
-    , m_mainWindow(mainWindow)
+    : QWidget(mainWindow), m_dockMenuButton(nullptr), m_mainWindow(mainWindow)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -31,8 +30,7 @@ SampleViewStatusBar::SampleViewStatusBar(MainWindow* mainWindow)
     m_dockMenuButton = new QToolButton;
     m_dockMenuButton->setIcon(QIcon(":/images/statusbar_dockmenu.svg"));
     m_dockMenuButton->setToolTip("Docks layout menu");
-    connect(m_dockMenuButton, &QToolButton::clicked,
-            this, &SampleViewStatusBar::dockMenuRequest);
+    connect(m_dockMenuButton, &QToolButton::clicked, this, &SampleViewStatusBar::dockMenuRequest);
 
     layout->addStretch();
     layout->addWidget(m_dockMenuButton);

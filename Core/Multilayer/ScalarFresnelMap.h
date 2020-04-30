@@ -16,8 +16,8 @@
 #define SCALARFRESNELMAP_H
 
 #include "IFresnelMap.h"
-#include "ScalarRTCoefficients.h"
 #include "ISpecularStrategy.h"
+#include "ScalarRTCoefficients.h"
 #include <cstddef>
 #include <unordered_map>
 #include <utility>
@@ -53,8 +53,8 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
     const ISpecularStrategy::coeffs_t& getCoefficientsFromCache(kvector_t kvec) const;
-    mutable std::unordered_map<std::pair<double, double>, ISpecularStrategy::coeffs_t,
-                               Hash2Doubles> m_cache;
+    mutable std::unordered_map<std::pair<double, double>, ISpecularStrategy::coeffs_t, Hash2Doubles>
+        m_cache;
 };
 
 #endif // SCALARFRESNELMAP_H

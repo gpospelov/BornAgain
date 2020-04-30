@@ -34,12 +34,13 @@ public:
 
     void init(const std::vector<FormFactorCoherentSum>& ff_wrappers);
 
-    complex_t getCharacteristicSizeCoupling(double qp,
-            const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
+    complex_t
+    getCharacteristicSizeCoupling(double qp,
+                                  const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
     complex_t getCharacteristicDistribution(double qp, const IInterferenceFunction* p_iff) const;
     complex_t calculatePositionOffsetPhase(double qp, double radial_extension) const;
     complex_t getMeanFormfactorNorm(double qp, const std::vector<complex_t>& precomputed_ff,
-            const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
+                                    const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
     void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
                             const InterferenceFunctionUtils::matrixFFVector_t& precomputed_ff,
                             const std::vector<FormFactorCoherentSum>& ff_wrappers) const;

@@ -13,15 +13,15 @@
 // ************************************************************************** //
 
 #include "SaveProjectionsAssistant.h"
-#include "ProjectUtils.h"
 #include "GUIHelpers.h"
-#include "IntensityDataItem.h"
-#include "item_constants.h"
-#include "ProjectionItems.h"
 #include "Histogram1D.h"
 #include "Histogram2D.h"
+#include "IntensityDataItem.h"
 #include "MaskItems.h"
+#include "ProjectUtils.h"
+#include "ProjectionItems.h"
 #include "PythonFormatting.h"
+#include "item_constants.h"
 #include <QFileDialog>
 #include <QTextStream>
 
@@ -41,7 +41,7 @@ QString to_double_str(double value)
     auto str = PythonFormatting::printDouble(value);
     return QString("%1").arg(QString::fromStdString(str), -bin_centers_colwidth);
 }
-}  // unnamed namespace
+} // unnamed namespace
 
 SaveProjectionsAssistant::SaveProjectionsAssistant() = default;
 SaveProjectionsAssistant::~SaveProjectionsAssistant() = default;
@@ -138,8 +138,6 @@ SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
         if (result.bin_centers.isEmpty())
             result.bin_centers = QVector<double>::fromStdVector(hist->getBinCenters());
 #endif
-
-
 
         result.projections.push_back(data);
     }

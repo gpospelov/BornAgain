@@ -19,7 +19,8 @@
 #include "Units.h"
 #include <iostream>
 
-namespace {
+namespace
+{
 
 const double m_distance(909.99);
 const double m_pixel_size = 4 * 41.74e-3;
@@ -30,15 +31,16 @@ const double m_center_y = 942.0;
 
 std::unique_ptr<RectangularDetector> create_detector()
 {
-    double width = m_nx*m_pixel_size;
-    double height = m_ny*m_pixel_size;
-    double u0 = m_center_x*m_pixel_size;
-    double v0 = (m_ny - m_center_y)*m_pixel_size;
-    std::unique_ptr<RectangularDetector> result = std::make_unique<RectangularDetector>(m_nx, width, m_ny, height);
+    double width = m_nx * m_pixel_size;
+    double height = m_ny * m_pixel_size;
+    double u0 = m_center_x * m_pixel_size;
+    double v0 = (m_ny - m_center_y) * m_pixel_size;
+    std::unique_ptr<RectangularDetector> result =
+        std::make_unique<RectangularDetector>(m_nx, width, m_ny, height);
     result->setPerpendicularToDirectBeam(m_distance, u0, v0);
     return result;
 }
-}
+} // namespace
 
 bool MesoCrystalPerformanceTest::runTest()
 {
@@ -50,7 +52,7 @@ bool MesoCrystalPerformanceTest::runTest()
 
     simulation.setDetector(*detector.get());
 
-    simulation.setBeamParameters(1.77*Units::angstrom, 0.4*Units::deg, 0.0);
+    simulation.setBeamParameters(1.77 * Units::angstrom, 0.4 * Units::deg, 0.0);
     simulation.setBeamIntensity(6.1e+12);
 
     std::shared_ptr<IMultiLayerBuilder> builder(new MesoCrystalPerformanceBuilder);

@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "ComponentProxyModel.h"
 #include "ComponentProxyStrategy.h"
 #include "FormFactorItems.h"
@@ -7,6 +6,7 @@
 #include "ProxyModelStrategy.h"
 #include "SessionModel.h"
 #include "VectorItem.h"
+#include "google_test.h"
 #include "item_constants.h"
 
 class TestProxyModelStrategy : public ::testing::Test

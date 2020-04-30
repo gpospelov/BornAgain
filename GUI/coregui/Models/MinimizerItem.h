@@ -126,4 +126,3 @@ public:
 };
 
 #endif // MINIMIZERITEM_H
-

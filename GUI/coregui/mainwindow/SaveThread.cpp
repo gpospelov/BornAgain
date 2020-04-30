@@ -15,12 +15,7 @@
 #include "SaveThread.h"
 #include "projectdocument.h"
 
-SaveThread::SaveThread(QObject* parent)
-    : QThread(parent)
-    , m_document(nullptr)
-{
-
-}
+SaveThread::SaveThread(QObject* parent) : QThread(parent), m_document(nullptr) {}
 
 SaveThread::~SaveThread()
 {

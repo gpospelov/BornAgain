@@ -15,10 +15,10 @@
 #ifndef INODE_H
 #define INODE_H
 
-#include "IParameterized.h"
 #include "INodeVisitor.h"
-#include <vector>
+#include "IParameterized.h"
 #include <memory>
+#include <vector>
 
 //! Base class for tree-like structures containing parameterized objects.
 //! @ingroup tools_internal
@@ -27,10 +27,10 @@ class BA_CORE_API_ INode : public IParameterized
 {
 public:
     INode();
-    virtual ~INode(){}
+    virtual ~INode() {}
 
     //! Calls the INodeVisitor's visit method
-    virtual void accept(INodeVisitor* visitor) const=0;
+    virtual void accept(INodeVisitor* visitor) const = 0;
 
     //! Returns multiline string representing tree structure below the node.
     virtual std::string treeToString() const;
@@ -75,15 +75,13 @@ std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
     return v_node;
 }
 
-inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
-                                             const INode* node)
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node, const INode* node)
 {
     v_node.push_back(node);
     return v_node;
 }
 
-inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
-                                             const INode* node)
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node, const INode* node)
 {
     v_node.push_back(node);
     return v_node;

@@ -14,23 +14,19 @@
 
 #include "MaterialEditor.h"
 #include "ComponentEditor.h"
+#include "ExternalProperty.h"
 #include "MaterialEditorToolBar.h"
 #include "MaterialItem.h"
 #include "MaterialModel.h"
 #include "SessionDecorationModel.h"
-#include "ExternalProperty.h"
 #include <QListView>
 #include <QSplitter>
 #include <QVBoxLayout>
 
 MaterialEditor::MaterialEditor(MaterialModel* materialModel, QWidget* parent)
-    : QWidget(parent)
-    , m_materialModel(materialModel)
-    , m_toolBar(new MaterialEditorToolBar(materialModel, this))
-    , m_splitter(new QSplitter)
-    , m_listView(new QListView)
-    , m_componentEditor(new ComponentEditor)
-    , m_model_was_modified(false)
+    : QWidget(parent), m_materialModel(materialModel),
+      m_toolBar(new MaterialEditorToolBar(materialModel, this)), m_splitter(new QSplitter),
+      m_listView(new QListView), m_componentEditor(new ComponentEditor), m_model_was_modified(false)
 {
     setWindowTitle("MaterialEditorWidget");
     setMinimumSize(128, 128);
@@ -70,8 +66,10 @@ void MaterialEditor::setInitialMaterialProperty(const ExternalProperty& matPrope
 {
     if (MaterialItem* mat = m_materialModel->materialFromIdentifier(matProperty.identifier())) {
         selectionModel()->clearSelection();
-        selectionModel()->setCurrentIndex(m_materialModel->indexOfItem(mat), QItemSelectionModel::ClearAndSelect);
-        selectionModel()->select(m_materialModel->indexOfItem(mat), QItemSelectionModel::ClearAndSelect);
+        selectionModel()->setCurrentIndex(m_materialModel->indexOfItem(mat),
+                                          QItemSelectionModel::ClearAndSelect);
+        selectionModel()->select(m_materialModel->indexOfItem(mat),
+                                 QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -128,8 +126,8 @@ void MaterialEditor::init_views()
 
     m_toolBar->setSelectionModel(selectionModel());
 
-    connect(selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &MaterialEditor::onSelectionChanged);
+    connect(selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            &MaterialEditor::onSelectionChanged);
 
     // making first material selected
     if (!selectionModel()->hasSelection()) {
@@ -137,6 +135,6 @@ void MaterialEditor::init_views()
         selectionModel()->select(itemIndex, QItemSelectionModel::ClearAndSelect);
     }
 
-    connect(m_listView, &QListView::customContextMenuRequested,
-            m_toolBar, &MaterialEditorToolBar::onCustomContextMenuRequested);
+    connect(m_listView, &QListView::customContextMenuRequested, m_toolBar,
+            &MaterialEditorToolBar::onCustomContextMenuRequested);
 }

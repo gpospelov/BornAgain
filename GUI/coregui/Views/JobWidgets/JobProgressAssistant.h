@@ -26,13 +26,13 @@ class BA_CORE_API_ JobProgressAssistant : public QObject
 {
     Q_OBJECT
 public:
-    JobProgressAssistant(MainWindow *mainWindow);
+    JobProgressAssistant(MainWindow* mainWindow);
 
 private slots:
     void onGlobalProgress(int progress);
 
 private:
-    MainWindow *m_mainWindow;
+    MainWindow* m_mainWindow;
 };
 
 #endif // JOBPROGRESSASSISTANT_H

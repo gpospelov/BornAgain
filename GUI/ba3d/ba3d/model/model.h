@@ -51,9 +51,7 @@ public:
 
     bool modelIsEmpty();
 
-    virtual void cameraUpdated(Camera const&)
-    {
-    }
+    virtual void cameraUpdated(Camera const&) {}
 
     Camera::Position defCamPos; // default camera params
 

@@ -34,7 +34,7 @@ public:
     virtual IFootprintFactor* clone() const = 0;
 
     void setWidthRatio(double width_ratio);
-    double widthRatio() const {return m_width_ratio;}
+    double widthRatio() const { return m_width_ratio; }
 
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     virtual double calculate(double alpha) const = 0;

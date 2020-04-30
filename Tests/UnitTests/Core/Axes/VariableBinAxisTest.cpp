@@ -1,7 +1,7 @@
-#include "google_test.h"
+#include "VariableBinAxis.h"
 #include "DataFormatUtils.h"
 #include "Exceptions.h"
-#include "VariableBinAxis.h"
+#include "google_test.h"
 
 class VariableBinAxisTest : public ::testing::Test
 {

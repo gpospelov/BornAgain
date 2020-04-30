@@ -15,11 +15,11 @@
 #ifndef ORDEREDMAP_H
 #define ORDEREDMAP_H
 
-#include <list>
-#include <unordered_map>
-#include <stdexcept>
 #include <cassert>
 #include <iostream>
+#include <list>
+#include <stdexcept>
+#include <unordered_map>
 
 //! @class OrderedMap
 //! @ingroup tools_internal

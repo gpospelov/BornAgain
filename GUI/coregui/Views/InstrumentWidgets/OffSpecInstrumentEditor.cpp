@@ -13,25 +13,24 @@
 // ************************************************************************** //
 
 #include "OffSpecInstrumentEditor.h"
-#include "OffSpecBeamEditor.h"
-#include "GISASDetectorEditor.h"
-#include "EnvironmentEditor.h"
-#include "PolarizationAnalysisEditor.h"
-#include "InstrumentItems.h"
 #include "ColumnResizer.h"
+#include "EnvironmentEditor.h"
+#include "GISASDetectorEditor.h"
+#include "InstrumentItems.h"
+#include "OffSpecBeamEditor.h"
+#include "PolarizationAnalysisEditor.h"
 #include "StyleUtils.h"
 #include <QVBoxLayout>
 
 OffSpecInstrumentEditor::OffSpecInstrumentEditor(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_columnResizer(new ColumnResizer(this))
-    , m_beamEditor(new OffSpecBeamEditor(m_columnResizer))
-    , m_detectorEditor(new GISASDetectorEditor)
-    // temporary switched off to avoid memory leakage
-    //, m_environmentEditor(new EnvironmentEditor(m_columnResizer))
-    //, m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
-    , m_environmentEditor(nullptr)
-    , m_polarizationAnalysisEditor(nullptr)
+    : SessionItemWidget(parent), m_columnResizer(new ColumnResizer(this)),
+      m_beamEditor(new OffSpecBeamEditor(m_columnResizer)),
+      m_detectorEditor(new GISASDetectorEditor)
+      // temporary switched off to avoid memory leakage
+      //, m_environmentEditor(new EnvironmentEditor(m_columnResizer))
+      //, m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
+      ,
+      m_environmentEditor(nullptr), m_polarizationAnalysisEditor(nullptr)
 {
     auto mainLayout = new QVBoxLayout;
 
@@ -46,8 +45,8 @@ void OffSpecInstrumentEditor::subscribeToItem()
 {
     m_beamEditor->setItem(instrumentItem());
     m_detectorEditor->setItem(instrumentItem());
-//    m_environmentEditor->setItem(instrumentItem());
-//    m_polarizationAnalysisEditor->setItem(instrumentItem());
+    //    m_environmentEditor->setItem(instrumentItem());
+    //    m_polarizationAnalysisEditor->setItem(instrumentItem());
 }
 
 OffSpecInstrumentItem* OffSpecInstrumentEditor::instrumentItem()

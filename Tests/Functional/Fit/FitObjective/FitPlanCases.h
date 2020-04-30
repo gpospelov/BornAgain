@@ -95,6 +95,4 @@ public:
     ~OffSpecFitPlan() override = default;
 };
 
-#endif  //  FITPLANCASES_H
-
-
+#endif //  FITPLANCASES_H

@@ -25,7 +25,7 @@ class BA_CORE_API_ ParticleComposition : public IParticle
 {
 public:
     ParticleComposition();
-    ParticleComposition(const IParticle& particle, std::vector<kvector_t > positions);
+    ParticleComposition(const IParticle& particle, std::vector<kvector_t> positions);
 
     ~ParticleComposition();
     ParticleComposition* clone() const override final;
@@ -35,8 +35,8 @@ public:
     IFormFactor* createFormFactor() const override final;
 
     void addParticle(const IParticle& particle);
-    void addParticle(const IParticle& particle, kvector_t  position);
-    void addParticles(const IParticle& particle, std::vector<kvector_t > positions);
+    void addParticle(const IParticle& particle, kvector_t position);
+    void addParticles(const IParticle& particle, std::vector<kvector_t> positions);
 
     //! Returns number of different particles
     size_t nbrParticles() const { return m_particles.size(); }
@@ -46,6 +46,7 @@ public:
     SafePointerVector<IParticle> decompose() const override final;
 
     ParticleLimits bottomTopZ() const override final;
+
 private:
     size_t check_index(size_t index) const;
 

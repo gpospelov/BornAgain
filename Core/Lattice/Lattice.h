@@ -69,8 +69,8 @@ public:
     ivector_t getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const;
 
     //! Computes a list of reciprocal lattice vectors within a specified distance of a given vector
-    std::vector<kvector_t> reciprocalLatticeVectorsWithinRadius(
-        const kvector_t input_vector, double radius) const;
+    std::vector<kvector_t> reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector,
+                                                                double radius) const;
 
     //! Sets a selection rule for the reciprocal vectors
     void setSelectionRule(const ISelectionRule& p_selection_rule);
@@ -101,17 +101,17 @@ private:
 
     void registerBasisVectors();
 
-    std::vector<kvector_t> vectorsWithinRadius(
-        const kvector_t input_vector, const ivector_t& nearest_coords, double radius,
-        const kvector_t v1, const kvector_t v2, const kvector_t v3,
-        const kvector_t rec1, const kvector_t rec2, const kvector_t rec3) const;
+    std::vector<kvector_t> vectorsWithinRadius(const kvector_t input_vector,
+                                               const ivector_t& nearest_coords, double radius,
+                                               const kvector_t v1, const kvector_t v2,
+                                               const kvector_t v3, const kvector_t rec1,
+                                               const kvector_t rec2, const kvector_t rec3) const;
 
     void computeReciprocalVectors() const;
-    static void computeInverseVectors(
-        const kvector_t v1, const kvector_t v2, const kvector_t v3,
-        kvector_t o1, kvector_t o2, kvector_t o3);
+    static void computeInverseVectors(const kvector_t v1, const kvector_t v2, const kvector_t v3,
+                                      kvector_t o1, kvector_t o2, kvector_t o3);
     ISelectionRule* mp_selection_rule;
-    kvector_t m_a, m_b, m_c; //!< Basis vectors in real space
+    kvector_t m_a, m_b, m_c;            //!< Basis vectors in real space
     mutable kvector_t m_ra, m_rb, m_rc; //!< Cache of basis vectors in reciprocal space
     //! Boolean indicating if the reciprocal vectors are already initialized in the cache
     mutable bool m_cache_ok;

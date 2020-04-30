@@ -36,7 +36,8 @@ public:
     ~GUIDomainSampleVisitor();
 
     SessionItem* populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel,
-                                     const MultiLayer& sample, const QString& sample_name = QString());
+                                     const MultiLayer& sample,
+                                     const QString& sample_name = QString());
 
     using INodeVisitor::visit;
 

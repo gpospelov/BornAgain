@@ -18,8 +18,8 @@
 #include "ISpecularStrategy.h"
 #include "MatrixRTCoefficients_v2.h"
 #include "Vectors3D.h"
-#include <vector>
 #include <memory>
+#include <vector>
 
 class Slice;
 
@@ -31,13 +31,12 @@ class BA_CORE_API_ SpecularMagneticStrategy : public ISpecularStrategy
 public:
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
-    ISpecularStrategy::coeffs_t
-    Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
+    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and a set of kz projections corresponding to each slice
-    ISpecularStrategy::coeffs_t
-    Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const;
+    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,
+                                        const std::vector<complex_t>& kz) const;
 
     static std::vector<MatrixRTCoefficients_v2> computeTR(const std::vector<Slice>& slices,
                                                           const std::vector<complex_t>& kzs);

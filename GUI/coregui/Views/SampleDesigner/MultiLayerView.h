@@ -15,7 +15,6 @@
 #ifndef MULTILAYERVIEW_H
 #define MULTILAYERVIEW_H
 
-
 #include "ILayerView.h"
 
 class DesignerMimeData;
@@ -64,6 +63,5 @@ private:
     QList<QRectF> m_drop_areas;
     QList<QLineF> m_interfaces;
 };
-
 
 #endif // MULTILAYERVIEW_H

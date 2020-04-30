@@ -16,10 +16,9 @@
 #include "IntensityDataItem.h"
 
 PropertyRepeater::PropertyRepeater(QObject* parent, bool repeat_child_properties)
-    : QObject(parent)
-    , m_block_repeater(false)
-    , m_repeat_child_properties(repeat_child_properties)
-{}
+    : QObject(parent), m_block_repeater(false), m_repeat_child_properties(repeat_child_properties)
+{
+}
 
 PropertyRepeater::~PropertyRepeater()
 {
@@ -32,10 +31,8 @@ void PropertyRepeater::addItem(SessionItem* sessionItem)
     if (!sessionItem || m_dataItems.contains(sessionItem))
         return;
 
-    sessionItem->mapper()->setOnItemDestroy([this](SessionItem* item)
-    {
-        m_dataItems.removeAll(item);
-    }, this);
+    sessionItem->mapper()->setOnItemDestroy(
+        [this](SessionItem* item) { m_dataItems.removeAll(item); }, this);
 
     sessionItem->mapper()->setOnPropertyChange(
         [this](SessionItem* item, const QString& name) { onPropertyChanged(item, name); }, this);
@@ -44,7 +41,8 @@ void PropertyRepeater::addItem(SessionItem* sessionItem)
         sessionItem->mapper()->setOnChildPropertyChange(
             [this](SessionItem* item, const QString& name) {
                 setOnChildPropertyChange(item, name);
-            }, this);
+            },
+            this);
     }
     m_dataItems.push_back(sessionItem);
 }

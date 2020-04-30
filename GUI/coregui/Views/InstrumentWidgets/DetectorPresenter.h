@@ -33,4 +33,4 @@ protected:
     QStringList activePresentationList(SessionItem* item) override;
 };
 
-#endif  // DETECTORPRESENTER_H
+#endif // DETECTORPRESENTER_H

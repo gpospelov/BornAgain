@@ -17,7 +17,6 @@
 #include "Dot.h"
 #include "RealParameter.h"
 
-
 FormFactorDot::FormFactorDot()
 {
     setName(BornAgain::FFDotType);
@@ -26,8 +25,9 @@ FormFactorDot::FormFactorDot()
 
 IFormFactor* FormFactorDot::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const
 {
-    throw std::runtime_error(getName() + "::sliceFormFactor error: "
-                             "this shape should never be sliced!");
+    throw std::runtime_error(getName()
+                             + "::sliceFormFactor error: "
+                               "this shape should never be sliced!");
 }
 
 void FormFactorDot::onChange()

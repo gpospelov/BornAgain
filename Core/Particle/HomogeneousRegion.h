@@ -24,8 +24,7 @@
 //!
 //! @ingroup intern
 
-struct HomogeneousRegion
-{
+struct HomogeneousRegion {
     double m_volume;
     Material m_material;
 };

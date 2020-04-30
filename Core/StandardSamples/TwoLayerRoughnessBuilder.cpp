@@ -13,19 +13,18 @@
 // ************************************************************************** //
 
 #include "TwoLayerRoughnessBuilder.h"
-#include "MaterialFactoryFuncs.h"
+#include "BornAgainNamespace.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "RealParameter.h"
 #include "Units.h"
-#include "BornAgainNamespace.h"
 
 TwoLayerRoughnessBuilder::TwoLayerRoughnessBuilder()
-    : m_sigma(1.0*Units::nanometer)
-    , m_hurst(0.3)
-    , m_lateralCorrLength(5.0*Units::nanometer)
-{}
+    : m_sigma(1.0 * Units::nanometer), m_hurst(0.3), m_lateralCorrLength(5.0 * Units::nanometer)
+{
+}
 
 MultiLayer* TwoLayerRoughnessBuilder::buildSample() const
 {

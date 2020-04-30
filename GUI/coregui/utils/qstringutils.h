@@ -21,7 +21,7 @@
 namespace GUI_StringUtils
 {
 
-BA_CORE_API_ QString withTildeHomePath(const QString &path);
+BA_CORE_API_ QString withTildeHomePath(const QString& path);
 
 }
 

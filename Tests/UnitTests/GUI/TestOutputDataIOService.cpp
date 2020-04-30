@@ -1,19 +1,19 @@
-#include "google_test.h"
 #include "ApplicationModels.h"
 #include "DataItem.h"
 #include "GUIHelpers.h"
 #include "ImportDataInfo.h"
 #include "IntensityDataIOFactory.h"
-#include "JobModel.h"
-#include "JobModelFunctions.h"
 #include "JobItem.h"
 #include "JobItemUtils.h"
+#include "JobModel.h"
+#include "JobModelFunctions.h"
 #include "OutputData.h"
 #include "OutputDataIOHistory.h"
 #include "OutputDataIOService.h"
 #include "ProjectUtils.h"
 #include "RealDataItem.h"
 #include "RealDataModel.h"
+#include "google_test.h"
 #include "test_utils.h"
 #include <QTest>
 #include <memory>
@@ -36,7 +36,6 @@ TestOutputDataIOService::TestOutputDataIOService()
     m_data.addAxis(axis1);
 }
 
-
 TestOutputDataIOService::~TestOutputDataIOService() = default;
 
 //! Test methods for retrieving nonXML data.
@@ -50,8 +49,8 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     EXPECT_EQ(dataItems.size(), 0);
 
     // adding RealDataItem
-    RealDataItem* realData = dynamic_cast<RealDataItem*>(
-        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    RealDataItem* realData =
+        dynamic_cast<RealDataItem*>(models.realDataModel()->insertNewItem(Constants::RealDataType));
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 0);
     realData->setOutputData(TestUtils::createData().release());
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
@@ -228,7 +227,8 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
     QTest::qSleep(10);
 
     EXPECT_TRUE(TestUtils::isTheSame(*dataOnDisk1, *realData1->dataItem()->getOutputData()));
-    EXPECT_TRUE(TestUtils::isTheSame(*dataOnDisk2, *realData2->dataItem()->getOutputData()) == false);
+    EXPECT_TRUE(TestUtils::isTheSame(*dataOnDisk2, *realData2->dataItem()->getOutputData())
+                == false);
     // checking that data on disk has changed
     dataOnDisk2.reset(IntensityDataIOFactory::readOutputData(fname2.toStdString()));
     EXPECT_TRUE(TestUtils::isTheSame(*dataOnDisk2, *realData2->dataItem()->getOutputData()));
@@ -255,8 +255,8 @@ TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
     EXPECT_EQ(dataItems.size(), 0);
 
     // adding RealDataItem
-    RealDataItem* realData = dynamic_cast<RealDataItem*>(
-        models.realDataModel()->insertNewItem(Constants::RealDataType));
+    RealDataItem* realData =
+        dynamic_cast<RealDataItem*>(models.realDataModel()->insertNewItem(Constants::RealDataType));
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 0);
 
     ImportDataInfo import_data(std::unique_ptr<OutputData<double>>(m_data.clone()),
@@ -305,11 +305,10 @@ TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
     EXPECT_TRUE(ProjectUtils::exists(fname3));
     EXPECT_TRUE(ProjectUtils::exists(fname4));
 
-    auto readData =
-        [](const QString& filename) {
-            return std::unique_ptr<OutputData<double>>(
-                IntensityDataIOFactory::readOutputData(filename.toStdString()));
-        };
+    auto readData = [](const QString& filename) {
+        return std::unique_ptr<OutputData<double>>(
+            IntensityDataIOFactory::readOutputData(filename.toStdString()));
+    };
 
     // Reading data from disk, checking it is the same
     auto dataOnDisk1 = readData(fname1);

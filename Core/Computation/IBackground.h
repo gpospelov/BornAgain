@@ -26,7 +26,7 @@ class BA_CORE_API_ IBackground : public ICloneable, public INode
 {
 public:
     virtual ~IBackground();
-    virtual IBackground* clone() const =0;
+    virtual IBackground* clone() const = 0;
 
     virtual double addBackGround(double element) const = 0;
 };

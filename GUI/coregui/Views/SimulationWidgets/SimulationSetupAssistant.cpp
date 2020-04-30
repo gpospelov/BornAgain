@@ -21,15 +21,11 @@
 
 //! Returns true if given setup is valid for submitting the job
 
-SimulationSetupAssistant::SimulationSetupAssistant()
-    : m_isValid(false)
-{
+SimulationSetupAssistant::SimulationSetupAssistant() : m_isValid(false) {}
 
-}
-
-bool SimulationSetupAssistant::isValidSimulationSetup(const MultiLayerItem *multiLayerItem,
+bool SimulationSetupAssistant::isValidSimulationSetup(const MultiLayerItem* multiLayerItem,
                                                       const InstrumentItem* instrumentItem,
-                                                      const RealDataItem *realData)
+                                                      const RealDataItem* realData)
 {
     clear();
 
@@ -37,7 +33,7 @@ bool SimulationSetupAssistant::isValidSimulationSetup(const MultiLayerItem *mult
     checkInstrumentItem(instrumentItem);
     checkFittingSetup(instrumentItem, realData);
 
-    if(!m_isValid)
+    if (!m_isValid)
         QMessageBox::warning(nullptr, QStringLiteral("Can't run the job"), composeMessage());
 
     return m_isValid;
@@ -49,9 +45,9 @@ void SimulationSetupAssistant::clear()
     m_messages.clear();
 }
 
-void SimulationSetupAssistant::checkMultiLayerItem(const MultiLayerItem *multiLayerItem)
+void SimulationSetupAssistant::checkMultiLayerItem(const MultiLayerItem* multiLayerItem)
 {
-    if(!multiLayerItem) {
+    if (!multiLayerItem) {
         m_messages.append(QStringLiteral("No sample selected"));
         m_isValid = false;
     } else {
@@ -65,7 +61,7 @@ void SimulationSetupAssistant::checkMultiLayerItem(const MultiLayerItem *multiLa
 
 void SimulationSetupAssistant::checkInstrumentItem(const InstrumentItem* instrumentItem)
 {
-    if(!instrumentItem) {
+    if (!instrumentItem) {
         m_messages.append(QStringLiteral("No instrument selected"));
         m_isValid = false;
     }
@@ -90,7 +86,7 @@ void SimulationSetupAssistant::checkFittingSetup(const InstrumentItem* instrumen
 QString SimulationSetupAssistant::composeMessage()
 {
     QString result("Can't run the job with current settings\n\n");
-    for(auto message : m_messages) {
+    for (auto message : m_messages) {
         QString text = QString("- %1 \n").arg(message);
         result.append(text);
     }

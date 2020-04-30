@@ -15,9 +15,9 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "IParticle.h"
 #include "FormFactorDecoratorMaterial.h"
 #include "FormFactorDecoratorRotation.h"
+#include "IParticle.h"
 #include "Material.h"
 
 //! A particle with a form factor and refractive index.
@@ -29,8 +29,7 @@ public:
     Particle();
     Particle(Material material);
     Particle(Material material, const IFormFactor& form_factor);
-    Particle(Material material, const IFormFactor& form_factor,
-             const IRotation& rotation);
+    Particle(Material material, const IFormFactor& form_factor, const IRotation& rotation);
 
     Particle* clone() const override final;
 
@@ -48,6 +47,7 @@ public:
 protected:
     Material m_material;
     std::unique_ptr<IFormFactor> mP_form_factor;
+
 private:
     void initialize();
 };

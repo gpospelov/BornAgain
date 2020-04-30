@@ -15,11 +15,16 @@
 #ifndef MINIMIZERTESTPLAN_H
 #define MINIMIZERTESTPLAN_H
 
-#include "WinDllMacros.h"
 #include "ParameterPlan.h"
+#include "WinDllMacros.h"
 #include <vector>
 
-namespace Fit { class Parameter; class Parameters; class Minimizer; }
+namespace Fit
+{
+class Parameter;
+class Parameters;
+class Minimizer;
+} // namespace Fit
 
 //! Defines objective function to fit, expected minimum, initial fit parameters and
 //! expected values of fit parameters at minimum.

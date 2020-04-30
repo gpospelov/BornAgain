@@ -14,35 +14,34 @@
 
 #include "DetailedMessageBox.h"
 #include "DesignerHelper.h"
-#include <QPushButton>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <QApplication>
-#include <QTextEdit>
-#include <QStyle>
+#include <QLabel>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QStyle>
+#include <QTextEdit>
+#include <QVBoxLayout>
 
-namespace {
-    const QSize default_dialog_size(512, 300);
+namespace
+{
+const QSize default_dialog_size(512, 300);
 }
 
-DetailedMessageBox::DetailedMessageBox(QWidget* parent, const QString& title,
-                                       const QString& text, const QString& details)
-    : QDialog(parent)
-    , m_topLabel(new QLabel)
-    , m_textEdit(new QTextEdit)
+DetailedMessageBox::DetailedMessageBox(QWidget* parent, const QString& title, const QString& text,
+                                       const QString& details)
+    : QDialog(parent), m_topLabel(new QLabel), m_textEdit(new QTextEdit)
 {
     setWindowTitle(title);
     m_topLabel->setText(text);
     m_textEdit->setText(details);
     m_textEdit->setReadOnly(true);
     m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setWindowFlags( Qt::Dialog );
+    setWindowFlags(Qt::Dialog);
 
     resize(default_dialog_size);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QColor bgColor(240,240,240,255);
+    QColor bgColor(240, 240, 240, 255);
     QPalette palette;
     palette.setColor(QPalette::Background, bgColor);
     setAutoFillBackground(true);
@@ -62,7 +61,6 @@ DetailedMessageBox::DetailedMessageBox(QWidget* parent, const QString& title,
 
     setSizeGripEnabled(true);
 }
-
 
 void DetailedMessageBox::setText(const QString& text)
 {

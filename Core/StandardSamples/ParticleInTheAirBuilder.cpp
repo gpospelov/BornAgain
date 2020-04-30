@@ -13,20 +13,21 @@
 // ************************************************************************** //
 
 #include "ParticleInTheAirBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "Exceptions.h"
+#include "FormFactors.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
-#include "FormFactors.h"
 #include "SampleComponents.h"
 #include "Units.h"
 
 ParticleInTheAirBuilder::ParticleInTheAirBuilder()
-    : m_ff(new FormFactorFullSphere(5.0*Units::nanometer))
-{}
+    : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))
+{
+}
 
 ParticleInTheAirBuilder::~ParticleInTheAirBuilder() = default;
 
@@ -50,7 +51,7 @@ MultiLayer* ParticleInTheAirBuilder::buildSample() const
 
 MultiLayer* ParticleInTheAirBuilder::createSample(size_t index)
 {
-    if(index >= size())
+    if (index >= size())
         throw std::runtime_error("ParticleInTheAirBuilder::createSample() -> Error. "
                                  "Sample index is out of range.");
 

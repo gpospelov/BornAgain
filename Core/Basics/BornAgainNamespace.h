@@ -255,6 +255,6 @@ const std::string UnitsRad = "rad";
 const std::string UnitsNm = "nm";
 const std::string UnitsNm2 = "nm^2";
 const std::string UnitsNone = "";
-}
+} // namespace BornAgain
 
 #endif // BORNAGAINNAMESPACE_H

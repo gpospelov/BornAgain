@@ -13,16 +13,15 @@
 // ************************************************************************** //
 
 #include "MultiLayerWithNCRoughnessBuilder.h"
-#include "MaterialFactoryFuncs.h"
+#include "BornAgainNamespace.h"
 #include "Layer.h"
 #include "LayerRoughness.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "RealParameter.h"
 #include "Units.h"
-#include "BornAgainNamespace.h"
 
-MultiLayerWithNCRoughnessBuilder::MultiLayerWithNCRoughnessBuilder()
-{}
+MultiLayerWithNCRoughnessBuilder::MultiLayerWithNCRoughnessBuilder() {}
 
 MultiLayer* MultiLayerWithNCRoughnessBuilder::buildSample() const
 {

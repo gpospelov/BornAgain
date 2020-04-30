@@ -25,14 +25,14 @@ class DistributionDialog : public QDialog
     Q_OBJECT
 
 public:
-    DistributionDialog(QWidget *parent = 0);
-    virtual ~DistributionDialog(){}
+    DistributionDialog(QWidget* parent = 0);
+    virtual ~DistributionDialog() {}
 
-    void setItem(SessionItem *item);
-    void setNameOfEditor(const QString &name);
+    void setItem(SessionItem* item);
+    void setNameOfEditor(const QString& name);
 
 private:
-    DistributionEditor *m_editor;
+    DistributionEditor* m_editor;
 };
 
 #endif // DISTRIBUTIONDIALOG_H

@@ -15,12 +15,12 @@
 #include "PythonScriptWidget.h"
 #include "DesignerHelper.h"
 #include "DomainSimulationBuilder.h"
-#include "GISASSimulation.h"
 #include "ExportToPython.h"
-#include "PythonSyntaxHighlighter.h"
-#include "WarningSign.h"
+#include "GISASSimulation.h"
 #include "InstrumentItems.h"
+#include "PythonSyntaxHighlighter.h"
 #include "StyleUtils.h"
+#include "WarningSign.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPushButton>
@@ -32,11 +32,9 @@
 #include <QVBoxLayout>
 #include <memory>
 
-PythonScriptWidget::PythonScriptWidget(QWidget *parent)
-    : QDialog(parent)
-    , m_toolBar(nullptr)
-    , m_textEdit(new QTextEdit)
-    , m_warningSign(new WarningSign(m_textEdit))
+PythonScriptWidget::PythonScriptWidget(QWidget* parent)
+    : QDialog(parent), m_toolBar(nullptr), m_textEdit(new QTextEdit),
+      m_warningSign(new WarningSign(m_textEdit))
 {
     setWindowTitle("Python Script View");
     setMinimumSize(128, 128);
@@ -50,7 +48,7 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     m_toolBar->setIconSize(QSize(size, size));
     m_toolBar->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
-    QPushButton *exportToFileButton = new QPushButton;
+    QPushButton* exportToFileButton = new QPushButton;
     exportToFileButton->setText("Save to file");
     exportToFileButton->setToolTip("Opens dialog to save given script into the file");
     connect(exportToFileButton, SIGNAL(clicked()), this, SLOT(onExportToFileButton()));
@@ -62,10 +60,10 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     m_textEdit->setFont(textFont);
     m_textEdit->setFontPointSize(DesignerHelper::getPythonEditorFontSize());
     m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
-    PythonSyntaxHighlighter *highlighter = new PythonSyntaxHighlighter(m_textEdit->document());
+    PythonSyntaxHighlighter* highlighter = new PythonSyntaxHighlighter(m_textEdit->document());
     Q_UNUSED(highlighter);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
@@ -78,9 +76,10 @@ PythonScriptWidget::PythonScriptWidget(QWidget *parent)
     StyleUtils::setResizable(this);
 }
 
-void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
-        const InstrumentItem* instrumentItem, const SimulationOptionsItem *optionItem,
-                                              const QString &outputDir)
+void PythonScriptWidget::generatePythonScript(const MultiLayerItem* sampleItem,
+                                              const InstrumentItem* instrumentItem,
+                                              const SimulationOptionsItem* optionItem,
+                                              const QString& outputDir)
 {
     m_outputDir = outputDir;
     m_warningSign->clear();
@@ -89,22 +88,21 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem *sampleItem,
         const auto simulation =
             DomainSimulationBuilder::createSimulation(sampleItem, instrumentItem, optionItem);
 
-        QString code = QString::fromStdString(
-            ExportToPython::generateSimulationCode(*simulation));
+        QString code = QString::fromStdString(ExportToPython::generateSimulationCode(*simulation));
         m_textEdit->clear();
         m_textEdit->setText(code);
 
-    } catch(const std::exception &ex) {
-        QString message = QString(
-            "Generation of Python Script failed. Code is not complete.\n\n"
-            "It can happen if sample requires further assembling or some of sample parameters "
-            "are not valid. See details below.\n\n%1").arg(QString::fromStdString(ex.what()));
+    } catch (const std::exception& ex) {
+        QString message =
+            QString(
+                "Generation of Python Script failed. Code is not complete.\n\n"
+                "It can happen if sample requires further assembling or some of sample parameters "
+                "are not valid. See details below.\n\n%1")
+                .arg(QString::fromStdString(ex.what()));
 
         m_warningSign->setWarningMessage(message);
     }
 }
-
-
 
 void PythonScriptWidget::onExportToFileButton()
 {
@@ -116,13 +114,13 @@ void PythonScriptWidget::onExportToFileButton()
     QString defaultFilter("Python scripts (*.py)");
     QString defaultName = dirname + QString("/untitled");
 
-    QString fileName = QFileDialog::getSaveFileName(nullptr, "Save file", defaultName,
-        filters, &defaultFilter);
+    QString fileName =
+        QFileDialog::getSaveFileName(nullptr, "Save file", defaultName, filters, &defaultFilter);
 
     if (fileName.isEmpty())
         return;
 
-    if(!fileName.endsWith(".py"))
+    if (!fileName.endsWith(".py"))
         fileName += ".py";
 
     QFile file(fileName);

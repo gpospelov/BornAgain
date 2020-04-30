@@ -49,4 +49,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif  // OFFSPECBEAMEDITOR_H
+#endif // OFFSPECBEAMEDITOR_H

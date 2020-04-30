@@ -14,12 +14,13 @@
 
 #include "SplashScreen.h"
 #include "GUIHelpers.h"
-#include <QStyle>
 #include <QCoreApplication>
-#include <QTime>
 #include <QElapsedTimer>
+#include <QStyle>
+#include <QTime>
 
-namespace {
+namespace
+{
 const int panel_height = 380;
 }
 

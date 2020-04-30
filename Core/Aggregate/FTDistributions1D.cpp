@@ -14,26 +14,26 @@
 
 #include "FTDistributions1D.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
+#include "MathConstants.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
-#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
-#include "Exceptions.h"
 
-namespace {
-const double CosineDistributionFactor = 1.0/3.0 - 2.0/M_PI/M_PI;
+namespace
+{
+const double CosineDistributionFactor = 1.0 / 3.0 - 2.0 / M_PI / M_PI;
 }
 
-IFTDistribution1D::~IFTDistribution1D() =default;
+IFTDistribution1D::~IFTDistribution1D() = default;
 
 void IFTDistribution1D::init_parameters()
 {
     registerParameter(BornAgain::Omega, &m_omega);
 }
 
-FTDistribution1DCauchy::FTDistribution1DCauchy(double omega)
-: IFTDistribution1D(omega)
+FTDistribution1DCauchy::FTDistribution1DCauchy(double omega) : IFTDistribution1D(omega)
 {
     setName(BornAgain::FTDistribution1DCauchyType);
     init_parameters();
@@ -46,22 +46,21 @@ FTDistribution1DCauchy* FTDistribution1DCauchy::clone() const
 
 double FTDistribution1DCauchy::evaluate(double q) const
 {
-    double sum_sq = q*q*m_omega*m_omega;
-    return 1.0/(1.0 + sum_sq);
+    double sum_sq = q * q * m_omega * m_omega;
+    return 1.0 / (1.0 + sum_sq);
 }
 
 double FTDistribution1DCauchy::qSecondDerivative() const
 {
-    return 2.0*m_omega*m_omega;
+    return 2.0 * m_omega * m_omega;
 }
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DCauchy::createSampler() const
 {
-    return std::make_unique<Distribution1DCauchySampler>(1/m_omega);
+    return std::make_unique<Distribution1DCauchySampler>(1 / m_omega);
 }
 
-FTDistribution1DGauss::FTDistribution1DGauss(double omega)
-: IFTDistribution1D(omega)
+FTDistribution1DGauss::FTDistribution1DGauss(double omega) : IFTDistribution1D(omega)
 {
     setName(BornAgain::FTDistribution1DGaussType);
     init_parameters();
@@ -74,13 +73,13 @@ FTDistribution1DGauss* FTDistribution1DGauss::clone() const
 
 double FTDistribution1DGauss::evaluate(double q) const
 {
-    double sum_sq = q*q*m_omega*m_omega;
-    return std::exp(-sum_sq/2.0);
+    double sum_sq = q * q * m_omega * m_omega;
+    return std::exp(-sum_sq / 2.0);
 }
 
 double FTDistribution1DGauss::qSecondDerivative() const
 {
-    return m_omega*m_omega;
+    return m_omega * m_omega;
 }
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DGauss::createSampler() const
@@ -88,8 +87,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGauss::createSampler() c
     return std::make_unique<Distribution1DGaussSampler>(0.0, m_omega);
 }
 
-FTDistribution1DGate::FTDistribution1DGate(double omega)
-    : IFTDistribution1D(omega)
+FTDistribution1DGate::FTDistribution1DGate(double omega) : IFTDistribution1D(omega)
 {
     setName(BornAgain::FTDistribution1DGateType);
     init_parameters();
@@ -102,12 +100,12 @@ FTDistribution1DGate* FTDistribution1DGate::clone() const
 
 double FTDistribution1DGate::evaluate(double q) const
 {
-    return MathFunctions::sinc(q*m_omega);
+    return MathFunctions::sinc(q * m_omega);
 }
 
 double FTDistribution1DGate::qSecondDerivative() const
 {
-    return m_omega*m_omega/3.0;
+    return m_omega * m_omega / 3.0;
 }
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DGate::createSampler() const
@@ -115,8 +113,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGate::createSampler() co
     return std::make_unique<Distribution1DGateSampler>(-m_omega, m_omega);
 }
 
-FTDistribution1DTriangle::FTDistribution1DTriangle(double omega)
-    : IFTDistribution1D(omega)
+FTDistribution1DTriangle::FTDistribution1DTriangle(double omega) : IFTDistribution1D(omega)
 {
     setName(BornAgain::FTDistribution1DTriangleType);
     init_parameters();
@@ -129,13 +126,13 @@ FTDistribution1DTriangle* FTDistribution1DTriangle::clone() const
 
 double FTDistribution1DTriangle::evaluate(double q) const
 {
-    double sincqw2 = MathFunctions::sinc(q*m_omega/2.0);
-    return sincqw2*sincqw2;
+    double sincqw2 = MathFunctions::sinc(q * m_omega / 2.0);
+    return sincqw2 * sincqw2;
 }
 
 double FTDistribution1DTriangle::qSecondDerivative() const
 {
-    return m_omega*m_omega/6.0;
+    return m_omega * m_omega / 6.0;
 }
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler() const
@@ -143,8 +140,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler(
     return std::make_unique<Distribution1DTriangleSampler>(m_omega);
 }
 
-FTDistribution1DCosine::FTDistribution1DCosine(double omega)
-    : IFTDistribution1D(omega)
+FTDistribution1DCosine::FTDistribution1DCosine(double omega) : IFTDistribution1D(omega)
 {
     setName(BornAgain::FTDistribution1DCosineType);
     init_parameters();
@@ -157,15 +153,15 @@ FTDistribution1DCosine* FTDistribution1DCosine::clone() const
 
 double FTDistribution1DCosine::evaluate(double q) const
 {
-    double qw = std::abs(q*m_omega);
-    if (std::abs(1.0-qw*qw/M_PI/M_PI) < std::numeric_limits<double>::epsilon())
+    double qw = std::abs(q * m_omega);
+    if (std::abs(1.0 - qw * qw / M_PI / M_PI) < std::numeric_limits<double>::epsilon())
         return 0.5;
-    return MathFunctions::sinc(qw)/(1.0-qw*qw/M_PI/M_PI);
+    return MathFunctions::sinc(qw) / (1.0 - qw * qw / M_PI / M_PI);
 }
 
 double FTDistribution1DCosine::qSecondDerivative() const
 {
-    return CosineDistributionFactor*m_omega*m_omega;
+    return CosineDistributionFactor * m_omega * m_omega;
 }
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() const
@@ -174,8 +170,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() 
 }
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(double omega, double eta)
-    : IFTDistribution1D(omega)
-    , m_eta(eta)
+    : IFTDistribution1D(omega), m_eta(eta)
 {
     setName(BornAgain::FTDistribution1DVoigtType);
     init_parameters();
@@ -189,13 +184,13 @@ FTDistribution1DVoigt* FTDistribution1DVoigt::clone() const
 
 double FTDistribution1DVoigt::evaluate(double q) const
 {
-    double sum_sq = q*q*m_omega*m_omega;
-    return m_eta*std::exp(-sum_sq/2.0) + (1.0 - m_eta)*1.0/(1.0 + sum_sq);
+    double sum_sq = q * q * m_omega * m_omega;
+    return m_eta * std::exp(-sum_sq / 2.0) + (1.0 - m_eta) * 1.0 / (1.0 + sum_sq);
 }
 
 double FTDistribution1DVoigt::qSecondDerivative() const
 {
- return (2.0 - m_eta)*m_omega*m_omega;
+    return (2.0 - m_eta) * m_omega * m_omega;
 }
 
 std::unique_ptr<IDistribution1DSampler> FTDistribution1DVoigt::createSampler() const

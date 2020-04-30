@@ -1,8 +1,8 @@
-#include "google_test.h"
-#include "BornAgainNamespace.h"
 #include "Crystal.h"
+#include "BornAgainNamespace.h"
 #include "Lattice.h"
 #include "ParticleComposition.h"
+#include "google_test.h"
 
 class CrystalTest : public ::testing::Test
 {

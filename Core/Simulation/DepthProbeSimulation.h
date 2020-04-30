@@ -1,10 +1,10 @@
 #ifndef DEPTHPROBESIMULATION_H
 #define DEPTHPROBESIMULATION_H
 
-#include "Simulation.h"
 #include "DepthProbeElement.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
+#include "Simulation.h"
 
 #include <vector>
 
@@ -27,7 +27,7 @@ public:
 
     DepthProbeSimulation* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays

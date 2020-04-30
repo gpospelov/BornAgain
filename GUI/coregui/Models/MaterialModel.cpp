@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "MaterialModel.h"
-#include "MaterialItemUtils.h"
+#include "AppSvc.h"
 #include "GUIHelpers.h"
 #include "MaterialDataItems.h"
-#include "AppSvc.h"
+#include "MaterialItemUtils.h"
 
 MaterialModel::MaterialModel(QObject* parent) : SessionModel(SessionXML::MaterialModelTag, parent)
 {
@@ -59,7 +59,7 @@ MaterialItem* MaterialModel::materialFromIndex(const QModelIndex& index)
 
 MaterialItem* MaterialModel::materialFromName(const QString& name)
 {
-    for(auto materialItem : topItems<MaterialItem>())
+    for (auto materialItem : topItems<MaterialItem>())
         if (materialItem->itemName() == name)
             return materialItem;
 
@@ -68,7 +68,7 @@ MaterialItem* MaterialModel::materialFromName(const QString& name)
 
 MaterialItem* MaterialModel::materialFromIdentifier(const QString& identifier)
 {
-    for(auto materialItem : topItems<MaterialItem>())
+    for (auto materialItem : topItems<MaterialItem>())
         if (materialItem->identifier() == identifier)
             return materialItem;
 
@@ -93,7 +93,7 @@ MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
 
 MaterialItem* MaterialModel::createMaterial(const QString& name)
 {
-    auto result  = dynamic_cast<MaterialItem*>(insertNewItem(Constants::MaterialType));
+    auto result = dynamic_cast<MaterialItem*>(insertNewItem(Constants::MaterialType));
     result->setItemName(name);
 
     QColor color = MaterialItemUtils::suggestMaterialColor(name);

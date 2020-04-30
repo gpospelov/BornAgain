@@ -19,7 +19,8 @@
 #include "RealLimitsItems.h"
 #include <cmath>
 
-namespace {
+namespace
+{
 template <class DistrType>
 std::unique_ptr<RangedDistribution>
 createRangedDistribution(const SymmetricDistributionItem& distr_item, double scale);
@@ -55,25 +56,20 @@ void DistributionItem::init_limits_group(const RealLimits& limits, double factor
         return;
     if (limits.isLimitless()) {
         setGroupProperty(P_LIMITS, Constants::RealLimitsLimitlessType);
-    }
-    else if (limits.isPositive()) {
+    } else if (limits.isPositive()) {
         setGroupProperty(P_LIMITS, Constants::RealLimitsPositiveType);
-    }
-    else if (limits.isNonnegative()) {
+    } else if (limits.isNonnegative()) {
         setGroupProperty(P_LIMITS, Constants::RealLimitsNonnegativeType);
-    }
-    else if (limits.isLowerLimited()) {
+    } else if (limits.isLowerLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsLowerLimitedType);
-        lim->setItemValue(RealLimitsItem::P_XMIN, limits.lowerLimit()*factor);
-    }
-    else if (limits.isUpperLimited()) {
+        lim->setItemValue(RealLimitsItem::P_XMIN, limits.lowerLimit() * factor);
+    } else if (limits.isUpperLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsUpperLimitedType);
-        lim->setItemValue(RealLimitsItem::P_XMAX, limits.upperLimit()*factor);
-    }
-    else if (limits.isLimited()) {
+        lim->setItemValue(RealLimitsItem::P_XMAX, limits.upperLimit() * factor);
+    } else if (limits.isLimited()) {
         SessionItem* lim = setGroupProperty(P_LIMITS, Constants::RealLimitsLimitedType);
-        lim->setItemValue(RealLimitsItem::P_XMIN, limits.lowerLimit()*factor);
-        lim->setItemValue(RealLimitsItem::P_XMAX, limits.upperLimit()*factor);
+        lim->setItemValue(RealLimitsItem::P_XMIN, limits.lowerLimit() * factor);
+        lim->setItemValue(RealLimitsItem::P_XMAX, limits.upperLimit() * factor);
     }
 }
 
@@ -97,8 +93,7 @@ void DistributionItem::register_limits()
 
 const QString SymmetricDistributionItem::P_MEAN = QString::fromStdString(BornAgain::Mean);
 
-SymmetricDistributionItem::SymmetricDistributionItem(const QString& name)
-    :DistributionItem(name)
+SymmetricDistributionItem::SymmetricDistributionItem(const QString& name) : DistributionItem(name)
 {
 }
 
@@ -122,8 +117,7 @@ std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution(double
     return nullptr;
 }
 
-std::unique_ptr<RangedDistribution>
-DistributionNoneItem::createRangedDistribution(double) const
+std::unique_ptr<RangedDistribution> DistributionNoneItem::createRangedDistribution(double) const
 {
     return nullptr;
 }
@@ -156,7 +150,7 @@ std::unique_ptr<IDistribution1D> DistributionGateItem::createDistribution(double
 {
     double min = getItemValue(P_MIN).toDouble();
     double max = getItemValue(P_MAX).toDouble();
-    return std::make_unique<DistributionGate>(scale*min, scale*max);
+    return std::make_unique<DistributionGate>(scale * min, scale * max);
 }
 
 void DistributionGateItem::init_distribution(double value)
@@ -186,7 +180,7 @@ std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution(dou
 {
     double mean = getItemValue(P_MEAN).toDouble();
     double hwhm = getItemValue(P_HWHM).toDouble();
-    return std::make_unique<DistributionLorentz>(scale*mean, scale*hwhm);
+    return std::make_unique<DistributionLorentz>(scale * mean, scale * hwhm);
 }
 
 std::unique_ptr<RangedDistribution>
@@ -229,7 +223,7 @@ std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution(do
 {
     double mean = getItemValue(P_MEAN).toDouble();
     double std_dev = getItemValue(P_STD_DEV).toDouble();
-    return std::make_unique<DistributionGaussian>(scale*mean, scale*std_dev);
+    return std::make_unique<DistributionGaussian>(scale * mean, scale * std_dev);
 }
 
 std::unique_ptr<RangedDistribution>
@@ -257,8 +251,8 @@ void DistributionGaussianItem::init_distribution(double value)
 // --------------------------------------------------------------------------------------------- //
 
 const QString DistributionLogNormalItem::P_MEDIAN = QString::fromStdString(BornAgain::Median);
-const QString DistributionLogNormalItem::P_SCALE_PAR
-    = QString::fromStdString(BornAgain::ScaleParameter);
+const QString DistributionLogNormalItem::P_SCALE_PAR =
+    QString::fromStdString(BornAgain::ScaleParameter);
 
 DistributionLogNormalItem::DistributionLogNormalItem()
     : DistributionItem(Constants::DistributionLogNormalType)
@@ -274,7 +268,7 @@ std::unique_ptr<IDistribution1D> DistributionLogNormalItem::createDistribution(d
 {
     double median = getItemValue(P_MEDIAN).toDouble();
     double scale_par = getItemValue(P_SCALE_PAR).toDouble();
-    return std::make_unique<DistributionLogNormal>(scale*median, scale_par);
+    return std::make_unique<DistributionLogNormal>(scale * median, scale_par);
 }
 
 void DistributionLogNormalItem::init_distribution(double value)
@@ -311,7 +305,7 @@ std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution(doub
 {
     double mean = getItemValue(P_MEAN).toDouble();
     double sigma = getItemValue(P_SIGMA).toDouble();
-    return std::make_unique<DistributionCosine>(scale*mean, scale*sigma);
+    return std::make_unique<DistributionCosine>(scale * mean, scale * sigma);
 }
 
 std::unique_ptr<RangedDistribution>
@@ -341,9 +335,9 @@ void DistributionCosineItem::init_distribution(double value)
 const QString DistributionTrapezoidItem::P_CENTER = QString::fromStdString(BornAgain::Center);
 const QString DistributionTrapezoidItem::P_LEFTWIDTH = QString::fromStdString(BornAgain::LeftWidth);
 const QString DistributionTrapezoidItem::P_MIDDLEWIDTH =
-        QString::fromStdString(BornAgain::MiddleWidth);
+    QString::fromStdString(BornAgain::MiddleWidth);
 const QString DistributionTrapezoidItem::P_RIGHTWIDTH =
-        QString::fromStdString(BornAgain::RightWidth);
+    QString::fromStdString(BornAgain::RightWidth);
 
 DistributionTrapezoidItem::DistributionTrapezoidItem()
     : DistributionItem(Constants::DistributionTrapezoidType)
@@ -362,8 +356,8 @@ std::unique_ptr<IDistribution1D> DistributionTrapezoidItem::createDistribution(d
     double left = getItemValue(P_LEFTWIDTH).toDouble();
     double middle = getItemValue(P_MIDDLEWIDTH).toDouble();
     double right = getItemValue(P_RIGHTWIDTH).toDouble();
-    return std::make_unique<DistributionTrapezoid>(scale*center, scale*left,
-                                                          scale*middle, scale*right);
+    return std::make_unique<DistributionTrapezoid>(scale * center, scale * left, scale * middle,
+                                                   scale * right);
 }
 
 void DistributionTrapezoidItem::init_distribution(double value)
@@ -382,7 +376,8 @@ void DistributionTrapezoidItem::showMean(bool flag)
     getItem(P_CENTER)->setVisible(flag);
 }
 
-namespace {
+namespace
+{
 template <class DistrType>
 std::unique_ptr<RangedDistribution>
 createRangedDistribution(const SymmetricDistributionItem& distr_item, double scale)
@@ -391,10 +386,10 @@ createRangedDistribution(const SymmetricDistributionItem& distr_item, double sca
     double n_sig = distr_item.getItemValue(SymmetricDistributionItem::P_SIGMA_FACTOR).toDouble();
 
     auto limits_item = distr_item.getGroupItem(SymmetricDistributionItem::P_LIMITS);
-    const RealLimits limits = limits_item
-            ? dynamic_cast<RealLimitsItem*>(limits_item)->createRealLimits(scale)
-            : RealLimits::limitless();
+    const RealLimits limits =
+        limits_item ? dynamic_cast<RealLimitsItem*>(limits_item)->createRealLimits(scale)
+                    : RealLimits::limitless();
 
     return std::make_unique<DistrType>(n_samples, n_sig, limits);
 }
-}
+} // namespace

@@ -16,8 +16,8 @@
 #define FTDISTRIBUTIONS1D_H
 
 #include "ICloneable.h"
-#include "INode.h"
 #include "IDistribution1DSampler.h"
+#include "INode.h"
 
 //! Interface for a one-dimensional distribution, with normalization adjusted so that
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
@@ -31,27 +31,26 @@ public:
     IFTDistribution1D(double omega) : m_omega(omega) {}
     virtual ~IFTDistribution1D();
 
-    virtual IFTDistribution1D* clone() const=0;
+    virtual IFTDistribution1D* clone() const = 0;
 
     //! Returns Fourier transform of this distribution;
     //! is a decay function starting at evaluate(0)=1.
-    virtual double evaluate(double q) const=0;
+    virtual double evaluate(double q) const = 0;
 
     void setOmega(double omega) { m_omega = omega; }
     double omega() const { return m_omega; }
 
     //! Returns the negative of the second order derivative in q space around q=0
-    virtual double qSecondDerivative() const=0;
+    virtual double qSecondDerivative() const = 0;
 
 #ifndef SWIG
-    virtual std::unique_ptr<IDistribution1DSampler> createSampler() const=0;
+    virtual std::unique_ptr<IDistribution1DSampler> createSampler() const = 0;
 #endif
 
 protected:
     void init_parameters();
     double m_omega;
 };
-
 
 //! Exponential IFTDistribution1D exp(-|omega*x|);
 //! its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.
@@ -72,7 +71,6 @@ public:
 #endif
 };
 
-
 //! Gaussian IFTDistribution1D;
 //! its Fourier transform evaluate(q) is a Gaussian starting at evaluate(0)=1.
 //! @ingroup distributionFT
@@ -91,7 +89,6 @@ public:
     std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
-
 
 //! Square gate IFTDistribution1D;
 //! its Fourier transform evaluate(q) is a sinc function starting at evaluate(0)=1.
@@ -112,7 +109,6 @@ public:
 #endif
 };
 
-
 //! Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise];
 //! its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 //! @ingroup distributionFT
@@ -131,7 +127,6 @@ public:
     std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
 #endif
 };
-
 
 //! IFTDistribution1D consisting of one cosine wave
 //! [1+cos(pi*x/omega) if |x|<omega, and 0 otherwise];
@@ -153,7 +148,6 @@ public:
 #endif
 };
 
-
 //! IFTDistribution1D that provides a Fourier transform evaluate(q) in form
 //! of a pseudo-Voigt decay function eta*Gauss + (1-eta)*Cauchy, with both components
 //! starting at 1 for q=0.
@@ -170,7 +164,7 @@ public:
     FTDistribution1DVoigt* clone() const override final;
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
     double evaluate(double q) const override final;
-    double eta() const { return m_eta;}    
+    double eta() const { return m_eta; }
 
     double qSecondDerivative() const override final;
 #ifndef SWIG

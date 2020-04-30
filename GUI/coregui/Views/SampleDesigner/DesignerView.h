@@ -16,7 +16,7 @@
 #define DESIGNERVIEW_H
 
 #include "WinDllMacros.h"
-#include<QGraphicsView>
+#include <QGraphicsView>
 
 class QGraphicsView;
 class QGraphicsScene;
@@ -33,11 +33,10 @@ class BA_CORE_API_ DesignerView : public QGraphicsView
     Q_OBJECT
 
 public:
+    explicit DesignerView(QGraphicsScene* scene, QWidget* parent = 0);
+    virtual ~DesignerView() {}
 
-    explicit DesignerView(QGraphicsScene *scene, QWidget *parent = 0);
-    virtual ~DesignerView(){}
-
-    enum ESelectionModes { SIMPLE_SELECTION, RUBBER_SELECTION, HAND_DRAG};
+    enum ESelectionModes { SIMPLE_SELECTION, RUBBER_SELECTION, HAND_DRAG };
     int getSelectionMode() const;
 
 signals:
@@ -52,14 +51,11 @@ public slots:
     void zoomIn();
     void zoomOut();
 
-
 protected:
-//    void wheelEvent(QWheelEvent *event);
-//    void scaleView(qreal scaleFactor);
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
-
-
+    //    void wheelEvent(QWheelEvent *event);
+    //    void scaleView(qreal scaleFactor);
+    void keyPressEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent* event);
 };
 
 #endif // DESIGNERVIEW_H

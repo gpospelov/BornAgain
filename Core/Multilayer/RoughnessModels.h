@@ -12,7 +12,6 @@
 //
 // ************************************************************************** //
 
-
 #ifndef ROUGHNESSMODELS_H
 #define ROUGHNESSMODELS_H
 
@@ -30,7 +29,5 @@ struct BA_CORE_API_ RoughnessModelWrap {
 #endif
 };
 typedef RoughnessModelWrap::RoughnessModel RoughnessModel;
-
-
 
 #endif // ROUGHNESSMODELS_H

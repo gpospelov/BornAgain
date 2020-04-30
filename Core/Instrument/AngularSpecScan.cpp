@@ -23,41 +23,38 @@
 #include "ScanResolution.h"
 #include "SpecularSimulationElement.h"
 
-namespace {
+namespace
+{
 std::vector<std::vector<double>>
 extractValues(std::vector<std::vector<ParameterSample>> samples,
               const std::function<double(const ParameterSample&)> extractor);
 
 const RealLimits wl_limits = RealLimits::nonnegative();
 const RealLimits inc_limits = RealLimits::limited(0.0, M_PI_2);
-}
+} // namespace
 
 AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
-    : ISpecularScan(SPECULAR_DATA_TYPE::angle)
-    , m_wl(wl)
-    , m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle)))
-    , m_wl_resolution(ScanResolution::scanEmptyResolution())
-    , m_inc_resolution(ScanResolution::scanEmptyResolution())
+    : ISpecularScan(SPECULAR_DATA_TYPE::angle), m_wl(wl),
+      m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle))),
+      m_wl_resolution(ScanResolution::scanEmptyResolution()),
+      m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
 
 AngularSpecScan::AngularSpecScan(double wl, const IAxis& inc_angle)
-    : ISpecularScan(SPECULAR_DATA_TYPE::angle)
-    , m_wl(wl)
-    , m_inc_angle(inc_angle.clone())
-    , m_wl_resolution(ScanResolution::scanEmptyResolution())
-    , m_inc_resolution(ScanResolution::scanEmptyResolution())
+    : ISpecularScan(SPECULAR_DATA_TYPE::angle), m_wl(wl), m_inc_angle(inc_angle.clone()),
+      m_wl_resolution(ScanResolution::scanEmptyResolution()),
+      m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
 
 AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
-    : ISpecularScan(SPECULAR_DATA_TYPE::angle)
-    , m_wl(wl)
-    , m_inc_angle(std::make_unique<FixedBinAxis>("inc_angles", nbins, alpha_i_min, alpha_i_max))
-    , m_wl_resolution(ScanResolution::scanEmptyResolution())
-    , m_inc_resolution(ScanResolution::scanEmptyResolution())
+    : ISpecularScan(SPECULAR_DATA_TYPE::angle), m_wl(wl),
+      m_inc_angle(std::make_unique<FixedBinAxis>("inc_angles", nbins, alpha_i_min, alpha_i_max)),
+      m_wl_resolution(ScanResolution::scanEmptyResolution()),
+      m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
@@ -142,7 +139,7 @@ void AngularSpecScan::setAngleResolution(const ScanResolution& resolution)
     m_inc_res_cache.shrink_to_fit();
 }
 
-void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, double rel_dev)
+void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution& distr, double rel_dev)
 {
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanRelativeResolution(distr, rel_dev));
@@ -157,7 +154,7 @@ void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution& dis
     setAngleResolution(*resolution);
 }
 
-void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, double std_dev)
+void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution& distr, double std_dev)
 {
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanAbsoluteResolution(distr, std_dev));
@@ -244,8 +241,7 @@ std::string AngularSpecScan::print() const
     result << "\n" << PythonFormatting::indent() << "# Defining specular scan:\n";
     const std::string axis_def = PythonFormatting::indent() + "axis = ";
     result << axis_def
-           << PythonFormatting::printAxis(*coordinateAxis(), BornAgain::UnitsRad,
-                                          axis_def.size())
+           << PythonFormatting::printAxis(*coordinateAxis(), BornAgain::UnitsRad, axis_def.size())
            << "\n";
 
     result << PythonFormatting::indent() << "scan = ";
@@ -323,7 +319,7 @@ extractValues(std::vector<std::vector<ParameterSample>> samples,
 {
     std::vector<std::vector<double>> result;
     result.resize(samples.size());
-    for(size_t i = 0, size = result.size(); i < size; ++i) {
+    for (size_t i = 0, size = result.size(); i < size; ++i) {
         auto& sample_row = samples[i];
         auto& result_row = result[i];
         result_row.reserve(sample_row.size());
@@ -334,4 +330,4 @@ extractValues(std::vector<std::vector<ParameterSample>> samples,
     }
     return result;
 }
-}
+} // namespace

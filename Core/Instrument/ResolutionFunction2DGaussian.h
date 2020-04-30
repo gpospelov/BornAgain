@@ -27,8 +27,10 @@ public:
 
     virtual double evaluateCDF(double x, double y) const;
 
-    ResolutionFunction2DGaussian* clone() const {
-        return new ResolutionFunction2DGaussian(m_sigma_x, m_sigma_y); }
+    ResolutionFunction2DGaussian* clone() const
+    {
+        return new ResolutionFunction2DGaussian(m_sigma_x, m_sigma_y);
+    }
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 

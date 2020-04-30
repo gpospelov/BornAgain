@@ -1,10 +1,10 @@
-#include "google_test.h"
-#include "FormFactors.h"
-#include "InterferenceFunctions.h"
 #include "FormFactorItems.h"
+#include "FormFactors.h"
 #include "InterferenceFunctionItems.h"
+#include "InterferenceFunctions.h"
 #include "ParameterPool.h"
 #include "Units.h"
+#include "google_test.h"
 
 class TestGUICoreObjectCorrespondence : public ::testing::Test
 {

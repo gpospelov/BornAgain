@@ -45,7 +45,7 @@ public:
     void setShowRootItem(bool show);
 
 private slots:
-    void onCustomContextMenuRequested(const QPoint &pos);
+    void onCustomContextMenuRequested(const QPoint& pos);
 
 private:
     void setModel(SessionModel* model);
@@ -60,4 +60,4 @@ private:
     bool m_show_root_item; //!< Tree will starts from item itself, if true.
 };
 
-#endif  //  COMPONENTTREEVIEW_H
+#endif //  COMPONENTTREEVIEW_H

@@ -1,8 +1,8 @@
-#include "google_test.h"
 #include "BornAgainNamespace.h"
 #include "HardParticles.h"
 #include "IFormFactorBorn.h"
 #include "MathConstants.h"
+#include "google_test.h"
 
 class FormFactorBasicTest : public ::testing::Test
 {
@@ -74,8 +74,9 @@ TEST_F(FormFactorBasicTest, AnisoPyramid)
     double width = 14.;
     double alpha = 0.8;
     double tga = std::tan(alpha);
-    double volume = height * (length * width - (length + width) * height / tga
-                              + 4.0 / 3.0 * height * height / (tga * tga));
+    double volume = height
+                    * (length * width - (length + width) * height / tga
+                       + 4.0 / 3.0 * height * height / (tga * tga));
 
     FormFactorAnisoPyramid anisopyramid(length, width, height, alpha);
 
@@ -359,8 +360,8 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid)
     double radius = 3.;
     double height = 5.;
     double flattening = 1.5;
-    double volume
-        = M_PI * radius * height * height / flattening * (1. - height / (3. * flattening * radius));
+    double volume =
+        M_PI * radius * height * height / flattening * (1. - height / (3. * flattening * radius));
 
     FormFactorTruncatedSpheroid trspheroid(radius, height, flattening);
 

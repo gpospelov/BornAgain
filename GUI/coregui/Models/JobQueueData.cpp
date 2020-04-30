@@ -16,19 +16,23 @@
 #include "DomainSimulationBuilder.h"
 #include "GISASSimulation.h"
 #include "GUIHelpers.h"
+#include "InstrumentItems.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "JobWorker.h"
-#include "InstrumentItems.h"
 #include <QThread>
 
-namespace {
+namespace
+{
 
 }
 
 JobQueueData::JobQueueData(JobModel* jobModel) : m_jobModel(jobModel) {}
 
-bool JobQueueData::hasUnfinishedJobs() { return m_simulations.size(); }
+bool JobQueueData::hasUnfinishedJobs()
+{
+    return m_simulations.size();
+}
 
 //! Submits job and run it in a thread.
 
@@ -42,8 +46,8 @@ void JobQueueData::runJob(JobItem* jobItem)
         throw GUIHelpers::Error("JobQueueData::runJob() -> Error. Simulation is already existing.");
 
     try {
-        auto simulation = DomainSimulationBuilder::createSimulation(jobItem->multiLayerItem(),
-                     jobItem->instrumentItem(), jobItem->simulationOptionsItem());
+        auto simulation = DomainSimulationBuilder::createSimulation(
+            jobItem->multiLayerItem(), jobItem->instrumentItem(), jobItem->simulationOptionsItem());
         m_simulations[identifier] = simulation.release();
     } catch (const std::exception& ex) {
         QString message("JobQueueData::runJob() -> Error. "

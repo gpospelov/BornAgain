@@ -57,7 +57,7 @@ private:
     kvector_t m_B_field;                  //!< cached value of magnetic induction
     double m_thickness;                   //!< layer thickness in nanometers
     SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
-    unsigned int m_n_slices=1;            //!< number of slices to create for graded layer approach
+    unsigned int m_n_slices = 1;          //!< number of slices to create for graded layer approach
 };
 
 #endif // LAYER_H

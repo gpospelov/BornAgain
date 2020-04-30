@@ -22,39 +22,39 @@
 
 namespace
 {
-void CalculateEigenvalues(const std::vector<Slice> &slices, const kvector_t k,
+void CalculateEigenvalues(const std::vector<Slice>& slices, const kvector_t k,
                           std::vector<MatrixRTCoefficients>& coeff);
 void CalculateTransferAndBoundary(const std::vector<Slice>& slices,
                                   std::vector<MatrixRTCoefficients>& coeff);
 void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff);
 complex_t GetImExponential(complex_t exponent);
 const complex_t I(0, 1);
-}
+} // namespace
 
-ISpecularStrategy::coeffs_t
-SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
-                                     const kvector_t& k) const
+ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
+                                                                 const kvector_t& k) const
 {
     std::vector<MatrixRTCoefficients> result(slices.size());
     CalculateEigenvalues(slices, k, result);
     CalculateTransferAndBoundary(slices, result);
 
     coeffs_t resultConvert;
-    for(auto& coeff : result)
-        resultConvert.push_back( std::make_unique<MatrixRTCoefficients>(coeff));
+    for (auto& coeff : result)
+        resultConvert.push_back(std::make_unique<MatrixRTCoefficients>(coeff));
 
     return resultConvert;
 }
 
 ISpecularStrategy::coeffs_t
-SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& k) const
+SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
+                                     const std::vector<complex_t>& k) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-
-namespace {
-void CalculateEigenvalues(const std::vector<Slice> &slices, const kvector_t k,
+namespace
+{
+void CalculateEigenvalues(const std::vector<Slice>& slices, const kvector_t k,
                           std::vector<MatrixRTCoefficients>& coeff)
 {
     double mag_k = k.mag();
@@ -83,7 +83,7 @@ void CalculateEigenvalues(const std::vector<Slice> &slices, const kvector_t k,
 }
 
 // todo: avoid overflows (see SpecularMatrix.cpp)
-void CalculateTransferAndBoundary(const std::vector<Slice> &slices,
+void CalculateTransferAndBoundary(const std::vector<Slice>& slices,
                                   std::vector<MatrixRTCoefficients>& coeff)
 {
     size_t N = coeff.size();
@@ -162,5 +162,4 @@ complex_t GetImExponential(complex_t exponent)
         return 0.0;
     return std::exp(I * exponent);
 }
-}  // unnamed namespace
-
+} // unnamed namespace

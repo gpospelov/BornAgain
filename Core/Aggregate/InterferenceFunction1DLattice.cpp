@@ -20,19 +20,19 @@
 #include "RealParameter.h"
 #include <algorithm>
 
-namespace {
+namespace
+{
 // maximum value for qx*Lambdax
 static const int nmax = 20;
 // minimum number of neighboring reciprocal lattice points to use
 static const int min_points = 4;
-}
+} // namespace
 
 //! Constructor of interference function of one-dimensional lattice.
 //! @param length: lattice constant in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
-    : m_lattice_params(length, xi)
-    , m_na {0}
+    : m_lattice_params(length, xi), m_na{0}
 {
     setName(BornAgain::InterferenceFunction1DLatticeType);
     init_parameters();
@@ -92,10 +92,8 @@ double InterferenceFunction1DLattice::iff_without_dw(const kvector_t q) const
 }
 
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(
-        const InterferenceFunction1DLattice& other)
-    : IInterferenceFunction(other)
-    , m_lattice_params(other.m_lattice_params)
-    , m_na(other.m_na)
+    const InterferenceFunction1DLattice& other)
+    : IInterferenceFunction(other), m_lattice_params(other.m_lattice_params), m_na(other.m_na)
 {
     setName(other.getName());
     init_parameters();

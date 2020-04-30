@@ -15,12 +15,12 @@
 #include "GUIStandardTest.h"
 #include "DocumentModel.h"
 #include "DomainSimulationBuilder.h"
-#include "Simulation.h"
 #include "GUIObjectBuilder.h"
+#include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "MaterialModel.h"
 #include "SampleModel.h"
-#include "InstrumentItems.h"
+#include "Simulation.h"
 #include "TestUtils.h"
 
 namespace
@@ -39,11 +39,12 @@ std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
     GUIObjectBuilder::populateDocumentModel(documentModel.get(), origin);
 
     auto result = DomainSimulationBuilder::createSimulation(sampleModel->multiLayerItem(),
-            instrumentModel->instrumentItem(), documentModel->simulationOptionsItem());
+                                                            instrumentModel->instrumentItem(),
+                                                            documentModel->simulationOptionsItem());
 
     return result;
 }
-}
+} // namespace
 
 bool GUIStandardTest::runTest()
 {

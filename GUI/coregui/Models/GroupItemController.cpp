@@ -13,12 +13,11 @@
 // ************************************************************************** //
 
 #include "GroupItemController.h"
-#include "ItemFactory.h"
 #include "ComboProperty.h"
+#include "ItemFactory.h"
 
 GroupItemController::GroupItemController(SessionItem* groupItem, GroupInfo groupInfo)
-    : m_groupItem(groupItem)
-    , m_groupInfo(groupInfo)
+    : m_groupItem(groupItem), m_groupInfo(groupInfo)
 {
     m_current_type = m_groupInfo.defaultType();
     m_groupItem->insertItem(-1, createCorrespondingItem());

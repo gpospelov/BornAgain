@@ -20,14 +20,14 @@
 namespace ItemFactory
 {
 //! create SessionItem of specific type and parent
-SessionItem* CreateItem(const QString& model_name, SessionItem* parent=nullptr);
+SessionItem* CreateItem(const QString& model_name, SessionItem* parent = nullptr);
 
 //! create empty SessionItem that serves as a root item
-SessionItem *CreateEmptyItem();
+SessionItem* CreateEmptyItem();
 
 //! retrieve list of all possible item types suitable for
 QStringList ValidTopItemTypes();
 
-};
+}; // namespace ItemFactory
 
 #endif // ITEMFACTORY_H

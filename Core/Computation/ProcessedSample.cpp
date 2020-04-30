@@ -213,7 +213,7 @@ void ProcessedSample::initLayouts(const MultiLayer& sample)
     m_polarized = ContainsMagneticMaterial(sample);
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         if (i > 1)
-            z_ref -= MultiLayerUtils::LayerThickness(sample, i-1);
+            z_ref -= MultiLayerUtils::LayerThickness(sample, i - 1);
         auto p_layer = sample.layer(i);
         for (auto p_layout : p_layer->layouts()) {
             m_layouts.emplace_back(*p_layout, m_slices, z_ref, mP_fresnel_map.get(), m_polarized);

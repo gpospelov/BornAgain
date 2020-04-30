@@ -16,11 +16,12 @@
 #include <iomanip>
 #include <sstream>
 
-AttLimits::AttLimits()
-    : m_limits(RealLimits::limitless()), m_att_fixed(Attributes::free()) {}
+AttLimits::AttLimits() : m_limits(RealLimits::limitless()), m_att_fixed(Attributes::free()) {}
 
 AttLimits::AttLimits(const RealLimits& limits, const Attributes& fixedAttr)
-    : m_limits(limits), m_att_fixed(fixedAttr) { }
+    : m_limits(limits), m_att_fixed(fixedAttr)
+{
+}
 
 AttLimits AttLimits::limitless()
 {
@@ -57,7 +58,10 @@ AttLimits AttLimits::fixed()
     return AttLimits(RealLimits::limitless(), Attributes::fixed());
 }
 
-bool AttLimits::isFixed() const { return m_att_fixed.isFixed(); }
+bool AttLimits::isFixed() const
+{
+    return m_att_fixed.isFixed();
+}
 
 bool AttLimits::isLimited() const
 {
@@ -100,7 +104,10 @@ bool AttLimits::operator==(const AttLimits& other) const
     return m_limits == other.m_limits && m_att_fixed == other.m_att_fixed;
 }
 
-bool AttLimits::operator!=(const AttLimits& other) const { return !(*this == other); }
+bool AttLimits::operator!=(const AttLimits& other) const
+{
+    return !(*this == other);
+}
 
 std::string AttLimits::toString() const
 {

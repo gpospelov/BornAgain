@@ -15,8 +15,7 @@
 #include "ParticleDistributionView.h"
 #include "SessionItem.h"
 
-ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)
-    : ConnectableView(parent)
+ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::ParticleDistributionType);
     setColor(DesignerHelper::getDefaultParticleColor());
@@ -24,13 +23,13 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem *parent)
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
         ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
     addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
-    ->setToolTip(QStringLiteral("Connect particle to this port. It will be a prototype \n"
-                                "for parametric distribution."));
+        ->setToolTip(QStringLiteral("Connect particle to this port. It will be a prototype \n"
+                                    "for parametric distribution."));
     m_roundpar = 5;
     m_label_vspace = 45;
 }
 
-void ParticleDistributionView::addView(IView *childView, int /* row */)
+void ParticleDistributionView::addView(IView* childView, int /* row */)
 {
-    connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
+    connectInputPort(dynamic_cast<ConnectableView*>(childView), 0);
 }

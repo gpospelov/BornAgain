@@ -1,10 +1,10 @@
-#include "google_test.h"
-#include "BornAgainNamespace.h"
 #include "Distributions.h"
+#include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "MathConstants.h"
 #include "ParameterSample.h"
 #include "RealParameter.h"
+#include "google_test.h"
 #include <cmath>
 #include <memory>
 

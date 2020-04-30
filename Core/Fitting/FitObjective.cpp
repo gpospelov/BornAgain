@@ -64,9 +64,10 @@ simulation_builder_t FitObjective::simulationBuilder(PyBuilderCallback& callback
 
 FitObjective::FitObjective()
     : m_metric_module(
-          std::make_unique<ObjectiveMetricWrapper>(std::make_unique<PoissonLikeMetric>()))
-    , m_fit_status(std::make_unique<FitStatus>(this))
-{}
+        std::make_unique<ObjectiveMetricWrapper>(std::make_unique<PoissonLikeMetric>())),
+      m_fit_status(std::make_unique<FitStatus>(this))
+{
+}
 
 FitObjective::~FitObjective() = default;
 
@@ -185,9 +186,7 @@ void FitObjective::initPlot(int every_nth, fit_observer_t observer)
 
 void FitObjective::initPlot(int every_nth, PyObserverCallback& callback)
 {
-    fit_observer_t observer = [&](const FitObjective& objective) {
-        callback.update(objective);
-    };
+    fit_observer_t observer = [&](const FitObjective& objective) { callback.update(objective); };
     m_fit_status->addObserver(every_nth, observer);
 }
 
@@ -303,7 +302,7 @@ std::vector<double> FitObjective::composeArray(DataPairAccessor getter) const
 
     std::vector<double> result;
     result.reserve(numberOfFitElements());
-    for (auto& pair: m_fit_objects) {
+    for (auto& pair : m_fit_objects) {
         std::vector<double> array = (pair.*getter)();
         std::move(array.begin(), array.end(), std::back_inserter(result));
     }
@@ -322,8 +321,7 @@ size_t FitObjective::check_index(size_t index) const
 IMetricWrapper::~IMetricWrapper() = default;
 
 ChiModuleWrapper::ChiModuleWrapper(std::unique_ptr<IChiSquaredModule> module)
-    : IMetricWrapper()
-    , m_module(std::move(module))
+    : IMetricWrapper(), m_module(std::move(module))
 {
     if (!m_module)
         throw std::runtime_error("Error in ChiModuleWrapper: empty chi square module passed");
@@ -333,12 +331,12 @@ double ChiModuleWrapper::compute(const std::vector<SimDataPair>& fit_objects, si
 {
     size_t n_points = 0;
     double result = 0.0;
-    for (auto& obj: fit_objects) {
+    for (auto& obj : fit_objects) {
         const auto sim_array = obj.simulation_array();
         const auto exp_array = obj.experimental_array();
         const auto weights = obj.user_weights_array();
         const size_t n_elements = sim_array.size();
-        for(size_t i = 0; i < n_elements; ++i) {
+        for (size_t i = 0; i < n_elements; ++i) {
             double value = m_module->residual(sim_array[i], exp_array[i], weights[i]);
             result += value * value;
         }
@@ -353,23 +351,21 @@ double ChiModuleWrapper::compute(const std::vector<SimDataPair>& fit_objects, si
 }
 
 ObjectiveMetricWrapper::ObjectiveMetricWrapper(std::unique_ptr<ObjectiveMetric> module)
-    : IMetricWrapper()
-    , m_module(std::move(module))
+    : IMetricWrapper(), m_module(std::move(module))
 {
     if (!m_module)
         throw std::runtime_error("Error in ObjectiveMetricWrapper: empty objective metric passed");
 }
 
-double ObjectiveMetricWrapper::compute(const std::vector<SimDataPair>& fit_objects,
-                                       size_t) const
+double ObjectiveMetricWrapper::compute(const std::vector<SimDataPair>& fit_objects, size_t) const
 {
     // deciding whether to use uncertainties in metrics computation.
     bool use_uncertainties = true;
-    for (auto& obj: fit_objects)
+    for (auto& obj : fit_objects)
         use_uncertainties = use_uncertainties && obj.containsUncertainties();
 
     double result = 0.0;
-    for (auto& obj: fit_objects)
+    for (auto& obj : fit_objects)
         result += m_module->compute(obj, use_uncertainties);
     return result;
 }

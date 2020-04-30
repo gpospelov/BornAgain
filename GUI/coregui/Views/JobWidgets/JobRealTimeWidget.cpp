@@ -19,13 +19,13 @@
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 
-namespace {
+namespace
+{
 const bool reuse_widget = true;
 }
 
 JobRealTimeWidget::JobRealTimeWidget(JobModel* jobModel, QWidget* parent)
-    : QWidget(parent)
-    , m_stackedWidget(new ItemStackPresenter<ParameterTuningWidget>(reuse_widget))
+    : QWidget(parent), m_stackedWidget(new ItemStackPresenter<ParameterTuningWidget>(reuse_widget))
 {
     setWindowTitle(Constants::JobRealTimeWidgetName);
     setObjectName("JobRealTimeWidget");

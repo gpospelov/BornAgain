@@ -14,23 +14,23 @@
 
 #include "GUISaveLoadProject.h"
 #include "ApplicationModels.h"
+#include "BATesting.h"
 #include "DetectorItems.h"
 #include "DocumentModel.h"
+#include "FileSystemUtils.h"
 #include "GUIHelpers.h"
 #include "GUIObjectBuilder.h"
 #include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "JobItem.h"
 #include "JobModel.h"
+#include "MessageService.h"
 #include "MultiLayer.h"
 #include "ProjectUtils.h"
 #include "SampleBuilderFactory.h"
 #include "SampleModel.h"
 #include "SimulationOptionsItem.h"
-#include "MessageService.h"
 #include "projectdocument.h"
-#include "BATesting.h"
-#include "FileSystemUtils.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
 #include <QXmlStreamWriter>
@@ -42,11 +42,12 @@ const QString project_name = "untitled.pro";
 const int failure = 1;
 const int success = 0;
 
-QString path(const QString& projectName) {
+QString path(const QString& projectName)
+{
     return QString::fromStdString(
-                FileSystemUtils::jointPath(BATesting::GUIOutputDir(), projectName.toStdString()));
+        FileSystemUtils::jointPath(BATesting::GUIOutputDir(), projectName.toStdString()));
 }
-}
+} // namespace
 
 GUISaveLoadProject::GUISaveLoadProject() : m_models(new ApplicationModels) {}
 
@@ -89,7 +90,8 @@ int GUISaveLoadProject::run_job()
     GUIObjectBuilder::populateSampleModel(m_models->sampleModel(), m_models->materialModel(),
                                           *sample);
 
-    if (auto instrument2DItem = dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem())) {
+    if (auto instrument2DItem =
+            dynamic_cast<Instrument2DItem*>(m_models->instrumentModel()->instrumentItem())) {
         instrument2DItem->detectorItem()->setXSize(50);
         instrument2DItem->detectorItem()->setYSize(50);
     } else {
@@ -97,9 +99,9 @@ int GUISaveLoadProject::run_job()
                                 "in unexpected state");
     }
 
-    auto jobItem = m_models->jobModel()->addJob(m_models->sampleModel()->multiLayerItem(),
-                                                m_models->instrumentModel()->instrumentItem(), 0,
-                                                optionsItem);
+    auto jobItem =
+        m_models->jobModel()->addJob(m_models->sampleModel()->multiLayerItem(),
+                                     m_models->instrumentModel()->instrumentItem(), 0, optionsItem);
 
     m_models->jobModel()->runJob(jobItem->index());
 

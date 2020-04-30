@@ -30,7 +30,6 @@ BA_CORE_API_ double WoodFour(const std::vector<double>& par);
 
 BA_CORE_API_ double DecayingSin(double x, const std::vector<double>& par);
 
-}
+} // namespace TestFunctions
 
 #endif
-

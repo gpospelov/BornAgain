@@ -41,6 +41,7 @@ public:
     void updateItemRoles();
 
     const SessionItem* item();
+
 private:
     void connectEditor(QWidget* editor);
 

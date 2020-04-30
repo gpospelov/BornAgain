@@ -46,13 +46,13 @@ void Program::init()
         return;
     doInit = false;
 
-    auto shader_found
-        = addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vertex_shader.vert");
+    auto shader_found =
+        addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vertex_shader.vert");
     if (!shader_found)
         throw std::runtime_error("Vertex shader not loaded");
 
-    shader_found
-        = addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fragment_shader.frag");
+    shader_found =
+        addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fragment_shader.frag");
     if (!shader_found)
         throw std::runtime_error("Fragment shader not loaded");
 

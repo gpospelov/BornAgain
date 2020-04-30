@@ -35,7 +35,7 @@ QBrush MaskEditorHelper::getMaskBrush(bool mask_value)
 {
     QBrush result;
     result.setStyle(Qt::SolidPattern);
-    if(mask_value) {
+    if (mask_value) {
         result.setColor(QColor(209, 109, 97)); // deep red
     } else {
         result.setColor(QColor(0, 213, 106)); // deep green
@@ -45,14 +45,14 @@ QBrush MaskEditorHelper::getMaskBrush(bool mask_value)
 
 QPen MaskEditorHelper::getMaskPen(bool mask_value)
 {
-    if(mask_value) {
+    if (mask_value) {
         return QPen(QColor(165, 80, 76)); // dark red
     } else {
         return QPen(QColor(0, 140, 70)); // dark green
     }
 }
 
-QRectF MaskEditorHelper::getMarkerRectangle(const QPointF &pos)
+QRectF MaskEditorHelper::getMarkerRectangle(const QPointF& pos)
 {
     QRectF result(0, 0, 7, 7);
     result.moveCenter(pos);

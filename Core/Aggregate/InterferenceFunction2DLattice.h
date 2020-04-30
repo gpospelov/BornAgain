@@ -15,8 +15,8 @@
 #ifndef INTERFERENCEFUNCTION2DLATTICE_H
 #define INTERFERENCEFUNCTION2DLATTICE_H
 
-#include "IInterferenceFunction.h"
 #include "FTDecayFunctions.h"
+#include "IInterferenceFunction.h"
 #include "Lattice2D.h"
 
 template <class T> class IntegratorReal;
@@ -28,7 +28,7 @@ class BA_CORE_API_ InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
     InterferenceFunction2DLattice(const Lattice2D& lattice);
-    InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi=0.0);
+    InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi = 0.0);
     ~InterferenceFunction2DLattice() final;
 
     InterferenceFunction2DLattice* clone() const override final;
@@ -68,8 +68,8 @@ private:
 
     //! Returns qx,qy coordinates of q - qint, where qint is a reciprocal lattice vector
     //! bounding the reciprocal unit cell to which q belongs
-    std::pair<double, double> calculateReciprocalVectorFraction(
-            double qx, double qy, double xi) const;
+    std::pair<double, double> calculateReciprocalVectorFraction(double qx, double qy,
+                                                                double xi) const;
 
     //! Initializes the x,y coordinates of the a*,b* reciprocal bases
     void initialize_rec_vectors();
@@ -80,7 +80,7 @@ private:
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<IFTDecayFunction2D> m_decay;
     std::unique_ptr<Lattice2D> m_lattice;
-    Lattice2D::ReciprocalBases m_sbase;  //!< reciprocal lattice is stored without xi
+    Lattice2D::ReciprocalBases m_sbase; //!< reciprocal lattice is stored without xi
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
     mutable double m_qx;
     mutable double m_qy;

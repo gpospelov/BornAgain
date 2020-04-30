@@ -1,15 +1,16 @@
-#include "google_test.h"
 #include "Beam.h"
 #include "SimpleUnitConverters.h"
 #include "SphericalDetector.h"
 #include "Units.h"
 #include "Vectors3D.h"
+#include "google_test.h"
 
 class OffSpecularConverterTest : public ::testing::Test
 {
 public:
     OffSpecularConverterTest();
     ~OffSpecularConverterTest();
+
 protected:
     SphericalDetector m_detector;
     Beam m_beam;
@@ -17,10 +18,10 @@ protected:
 };
 
 OffSpecularConverterTest::OffSpecularConverterTest()
-    : m_detector(100, 0.0, 5.0*Units::deg, 70, -2.0*Units::deg, 1.5)
-    , m_alpha_i_axis("alpha_i", 51, 0.0, 7.0*Units::deg)
+    : m_detector(100, 0.0, 5.0 * Units::deg, 70, -2.0 * Units::deg, 1.5),
+      m_alpha_i_axis("alpha_i", 51, 0.0, 7.0 * Units::deg)
 {
-    m_beam.setCentralK(1.0, 1.0*Units::deg, 0.0);
+    m_beam.setCentralK(1.0, 1.0 * Units::deg, 0.0);
 }
 
 OffSpecularConverterTest::~OffSpecularConverterTest() = default;

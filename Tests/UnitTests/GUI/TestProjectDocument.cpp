@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
@@ -8,6 +7,7 @@
 #include "ProjectUtils.h"
 #include "RealDataItem.h"
 #include "RealDataModel.h"
+#include "google_test.h"
 #include "projectdocument.h"
 #include "test_utils.h"
 #include <QFileInfo>

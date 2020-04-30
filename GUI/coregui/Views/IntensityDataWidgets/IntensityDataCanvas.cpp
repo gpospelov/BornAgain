@@ -29,10 +29,19 @@
 namespace
 {
 
-QString group_name() { return QStringLiteral("IntensityDataCanvas/"); }
-QString gradient_setting_name() { return group_name() + IntensityDataItem::P_GRADIENT; }
-QString interpolation_setting_name() { return group_name() + IntensityDataItem::P_IS_INTERPOLATED; }
+QString group_name()
+{
+    return QStringLiteral("IntensityDataCanvas/");
 }
+QString gradient_setting_name()
+{
+    return group_name() + IntensityDataItem::P_GRADIENT;
+}
+QString interpolation_setting_name()
+{
+    return group_name() + IntensityDataItem::P_IS_INTERPOLATED;
+}
+} // namespace
 
 IntensityDataCanvas::IntensityDataCanvas(QWidget* parent)
     : SessionItemWidget(parent), m_colorMap(new ColorMapCanvas), m_resetViewAction(nullptr),
@@ -62,16 +71,25 @@ void IntensityDataCanvas::setItem(SessionItem* intensityItem)
     applyPersistentSettings();
 }
 
-QSize IntensityDataCanvas::sizeHint() const { return QSize(500, 400); }
+QSize IntensityDataCanvas::sizeHint() const
+{
+    return QSize(500, 400);
+}
 
-QSize IntensityDataCanvas::minimumSizeHint() const { return QSize(128, 128); }
+QSize IntensityDataCanvas::minimumSizeHint() const
+{
+    return QSize(128, 128);
+}
 
 QList<QAction*> IntensityDataCanvas::actionList()
 {
     return QList<QAction*>() << m_resetViewAction << m_savePlotAction;
 }
 
-void IntensityDataCanvas::onResetViewAction() { intensityDataItem()->resetView(); }
+void IntensityDataCanvas::onResetViewAction()
+{
+    intensityDataItem()->resetView();
+}
 
 void IntensityDataCanvas::onSavePlotAction()
 {
@@ -136,9 +154,8 @@ void IntensityDataCanvas::applyPersistentSettings()
     QSettings settings;
 
     if (settings.contains(gradient_setting_name())) {
-        ComboProperty combo = intensityDataItem()
-                                  ->getItemValue(IntensityDataItem::P_GRADIENT)
-                                  .value<ComboProperty>();
+        ComboProperty combo =
+            intensityDataItem()->getItemValue(IntensityDataItem::P_GRADIENT).value<ComboProperty>();
         QString persistentGradient = settings.value(gradient_setting_name()).toString();
         if (combo.getValue() != persistentGradient) {
             combo.setValue(settings.value(gradient_setting_name()).toString());

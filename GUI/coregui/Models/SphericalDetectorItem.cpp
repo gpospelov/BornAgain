@@ -20,8 +20,7 @@
 const QString SphericalDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString SphericalDetectorItem::P_ALPHA_AXIS = "Alpha axis";
 
-SphericalDetectorItem::SphericalDetectorItem()
-    : DetectorItem(Constants::SphericalDetectorType)
+SphericalDetectorItem::SphericalDetectorItem() : DetectorItem(Constants::SphericalDetectorType)
 {
     SessionItem* item = addGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);

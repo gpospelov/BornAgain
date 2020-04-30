@@ -33,11 +33,11 @@
 #include "projectmanager.h"
 #include "stylehelper.h"
 #include "tooltipdatabase.h"
+#include <QAction>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QSettings>
-#include <QAction>
 
 MainWindow::MainWindow(QWidget* parent)
     : Manhattan::FancyMainWindow(parent), m_tabWidget(new Manhattan::FancyTabWidget(this)),
@@ -217,8 +217,7 @@ void MainWindow::initViews()
     m_tabWidget->insertTab(SAMPLE, m_sampleView, QIcon(":/images/main_sampleview.svg"), "Sample");
     m_tabWidget->setTabToolTip(SAMPLE, QStringLiteral("Build the sample"));
 
-    m_tabWidget->insertTab(IMPORT, m_importDataView, QIcon(":/images/main_importview.svg"),
-                           "Data");
+    m_tabWidget->insertTab(IMPORT, m_importDataView, QIcon(":/images/main_importview.svg"), "Data");
     m_tabWidget->setTabToolTip(IMPORT, QStringLiteral("Import intensity data to fit"));
 
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulationview.svg"),

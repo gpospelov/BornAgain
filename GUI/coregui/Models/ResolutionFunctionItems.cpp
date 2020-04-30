@@ -13,12 +13,10 @@
 // ************************************************************************** //
 
 #include "ResolutionFunctionItems.h"
-#include "ResolutionFunction2DGaussian.h"
 #include "BornAgainNamespace.h"
+#include "ResolutionFunction2DGaussian.h"
 
-ResolutionFunctionItem::ResolutionFunctionItem(const QString& name)
-    : SessionItem(name)
-{}
+ResolutionFunctionItem::ResolutionFunctionItem(const QString& name) : SessionItem(name) {}
 
 /* --------------------------------------------------------------------------------------------- */
 
@@ -35,22 +33,27 @@ ResolutionFunctionNoneItem::createResolutionFunction(double) const
 
 /* --------------------------------------------------------------------------------------------- */
 
-const QString ResolutionFunction2DGaussianItem::P_SIGMA_X = QString::fromStdString(BornAgain::SigmaX);
-const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y = QString::fromStdString(BornAgain::SigmaY);
+const QString ResolutionFunction2DGaussianItem::P_SIGMA_X =
+    QString::fromStdString(BornAgain::SigmaX);
+const QString ResolutionFunction2DGaussianItem::P_SIGMA_Y =
+    QString::fromStdString(BornAgain::SigmaY);
 
 ResolutionFunction2DGaussianItem::ResolutionFunction2DGaussianItem()
     : ResolutionFunctionItem(Constants::ResolutionFunction2DGaussianType)
 {
-    addProperty(P_SIGMA_X, 0.02)->setLimits(RealLimits::lowerLimited(0.0)).setDecimals(3)
-            .setToolTip("Resolution along horizontal axis (in detector units)");
-    addProperty(P_SIGMA_Y, 0.02)->setLimits(RealLimits::lowerLimited(0.0)).setDecimals(3)
-            .setToolTip("Resolution along vertical axis (in detector units)");
+    addProperty(P_SIGMA_X, 0.02)
+        ->setLimits(RealLimits::lowerLimited(0.0))
+        .setDecimals(3)
+        .setToolTip("Resolution along horizontal axis (in detector units)");
+    addProperty(P_SIGMA_Y, 0.02)
+        ->setLimits(RealLimits::lowerLimited(0.0))
+        .setDecimals(3)
+        .setToolTip("Resolution along vertical axis (in detector units)");
 }
 
 std::unique_ptr<IResolutionFunction2D>
 ResolutionFunction2DGaussianItem::createResolutionFunction(double scale) const
 {
     return std::make_unique<ResolutionFunction2DGaussian>(
-                scale*getItemValue(P_SIGMA_X).toDouble(),
-                scale*getItemValue(P_SIGMA_Y).toDouble());
+        scale * getItemValue(P_SIGMA_X).toDouble(), scale * getItemValue(P_SIGMA_Y).toDouble());
 }

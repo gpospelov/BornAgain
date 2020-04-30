@@ -1,9 +1,9 @@
-#include "google_test.h"
-#include "Exceptions.h"
 #include "INode.h"
+#include "Exceptions.h"
 #include "NodeUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
+#include "google_test.h"
 #include <memory>
 
 namespace
@@ -11,7 +11,7 @@ namespace
 const std::string test_class_name = "TestClass";
 const std::string another_test_class_name = "AnotherTestClass";
 const double test_par1_value(1.0);
-}
+} // namespace
 
 class INodeTest : public ::testing::Test
 {

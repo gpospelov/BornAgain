@@ -17,7 +17,13 @@
 
 #include "RootMinimizerAdapter.h"
 
-namespace ROOT { namespace Math { class GeneticMinimizer; } }
+namespace ROOT
+{
+namespace Math
+{
+class GeneticMinimizer;
+}
+} // namespace ROOT
 
 //! Wrapper for the CERN ROOT Genetic minimizer.
 //! @ingroup fitting_internal

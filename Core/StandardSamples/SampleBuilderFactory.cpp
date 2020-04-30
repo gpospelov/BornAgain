@@ -26,8 +26,8 @@
 #include "MagneticLayersBuilder.h"
 #include "MagneticParticlesBuilder.h"
 #include "MesoCrystalBuilder.h"
-#include "MultiLayerWithRoughnessBuilder.h"
 #include "MultiLayerWithNCRoughnessBuilder.h"
+#include "MultiLayerWithRoughnessBuilder.h"
 #include "MultipleLayoutBuilder.h"
 #include "ParaCrystalBuilder.h"
 #include "ParticleCompositionBuilder.h"
@@ -155,7 +155,7 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("MultiLayerWithNCRoughnessBuilder", create_new<MultiLayerWithNCRoughnessBuilder>,
                  "Layer with correlated roughness");
-    
+
     registerItem("TwoLayerRoughnessBuilder", create_new<TwoLayerRoughnessBuilder>,
                  "Two layers with rough interface");
 

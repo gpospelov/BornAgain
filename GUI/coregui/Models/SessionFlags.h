@@ -23,19 +23,12 @@
 class BA_CORE_API_ SessionFlags
 {
 public:
-
     // SessionModel columns
-    enum EColumn
-    {
-        ITEM_NAME,
-        ITEM_VALUE,
-        MAX_COLUMNS
-    };
+    enum EColumn { ITEM_NAME, ITEM_VALUE, MAX_COLUMNS };
     Q_DECLARE_FLAGS(ModelColumn, EColumn)
 
     // SessionItem data roles
-    enum ERoles
-    {
+    enum ERoles {
         ModelTypeRole = Qt::UserRole + 1,
         FlagRole,
         DisplayNameRole,
@@ -48,17 +41,12 @@ public:
     Q_DECLARE_FLAGS(ItemDataRole, ERoles)
 
     // SessionItem appearance
-    enum EAppearance {
-        VISIBLE = 0x001,
-        ENABLED = 0x002,
-        EDITABLE = 0x004
-    };
+    enum EAppearance { VISIBLE = 0x001, ENABLED = 0x002, EDITABLE = 0x004 };
     Q_DECLARE_FLAGS(ItemAppearance, EAppearance)
-
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(SessionFlags::ModelColumn)
 Q_DECLARE_OPERATORS_FOR_FLAGS(SessionFlags::ItemDataRole)
 Q_DECLARE_OPERATORS_FOR_FLAGS(SessionFlags::ItemAppearance)
 
-#endif  // SESSIONFLAGS_H
+#endif // SESSIONFLAGS_H

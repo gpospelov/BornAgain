@@ -13,31 +13,28 @@
 // ************************************************************************** //
 
 #include "ParticleView.h"
+#include "FormFactorItems.h"
 #include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "ParticleItem.h"
-#include "FormFactorItems.h"
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
-ParticleView::ParticleView(QGraphicsItem *parent) : ConnectableView(parent)
+ParticleView::ParticleView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
-    setRectangle(
-        DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
+    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
         ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
-    addPort("transformation", NodeEditorPort::INPUT,NodeEditorPort::TRANSFORMATION)
+    addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect particle rotation to this port, if necessary"));
     m_roundpar = 5;
     m_label_vspace = 45;
 }
 
-void ParticleView::paint(QPainter *painter,
-                         const QStyleOptionGraphicsItem *option,
-                         QWidget *widget)
+void ParticleView::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     Q_UNUSED(widget);
     painter->setRenderHint(QPainter::SmoothPixmapTransform);
@@ -48,8 +45,7 @@ void ParticleView::paint(QPainter *painter,
         painter->setPen(Qt::DashLine);
     }
 
-    painter->setBrush(
-        DesignerHelper::getDecorationGradient(m_color, getRectangle()));
+    painter->setBrush(DesignerHelper::getDecorationGradient(m_color, getRectangle()));
     painter->drawRoundedRect(getRectangle(), m_roundpar, m_roundpar);
 
     if (m_label.isEmpty())
@@ -60,19 +56,18 @@ void ParticleView::paint(QPainter *painter,
     double yoffset = 5; // space above the label
     // double height = m_label_vspace - yoffset;
     double height = 20;
-    QFont serifFont("Monospace", DesignerHelper::getLabelFontSize(),
-                    QFont::Normal);
+    QFont serifFont("Monospace", DesignerHelper::getLabelFontSize(), QFont::Normal);
     painter->setFont(serifFont);
     QRectF textRect(getRectangle().x() + (getRectangle().width() - width) / 2.,
-                   getRectangle().y() + yoffset, width, height);
+                    getRectangle().y() + yoffset, width, height);
     painter->drawText(textRect, Qt::AlignCenter, m_label);
 
     QRectF target(getRectangle().width() / 2 - 16, 25, 32, 32);
     painter->drawPixmap(target, m_pixmap, QRectF(0.0, 0.0, m_pixmap.width(), m_pixmap.height()));
-//    painter->drawImage(target, m_pixmap);
+    //    painter->drawImage(target, m_pixmap);
 }
 
-void ParticleView::onPropertyChange(const QString &propertyName)
+void ParticleView::onPropertyChange(const QString& propertyName)
 {
     if (propertyName == ParticleItem::P_FORM_FACTOR)
         update_appearance();
@@ -80,13 +75,12 @@ void ParticleView::onPropertyChange(const QString &propertyName)
     IView::onPropertyChange(propertyName);
 }
 
-void ParticleView::addView(IView *childView, int /*row*/)
+void ParticleView::addView(IView* childView, int /*row*/)
 {
     if (childView->type() == DesignerHelper::TRANSFORMATION) {
-        connectInputPort(dynamic_cast<ConnectableView *>(childView), 0);
+        connectInputPort(dynamic_cast<ConnectableView*>(childView), 0);
     } else {
-        throw GUIHelpers::Error(
-            "ParticleView::addView() -> Error. Unknown view");
+        throw GUIHelpers::Error("ParticleView::addView() -> Error. Unknown view");
     }
 }
 

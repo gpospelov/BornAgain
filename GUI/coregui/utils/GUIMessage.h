@@ -23,10 +23,10 @@ class QObject;
 class BA_CORE_API_ GUIMessage
 {
 public:
-    GUIMessage(const QString &senderName, const QString &messageType,
-               const QString &messageDescription);
-    GUIMessage(const QObject* sender, const QString &messageType,
-               const QString &messageDescription);
+    GUIMessage(const QString& senderName, const QString& messageType,
+               const QString& messageDescription);
+    GUIMessage(const QObject* sender, const QString& messageType,
+               const QString& messageDescription);
 
     QString senderName() const;
     QString messageType() const;
@@ -44,4 +44,3 @@ private:
 };
 
 #endif // GUIMESSAGE_H
-

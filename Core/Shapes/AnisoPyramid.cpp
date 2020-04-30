@@ -21,12 +21,11 @@ AnisoPyramid::AnisoPyramid(double length, double width, double height, double al
 {
     m_vertices.resize(8);
     double cot_alpha = MathFunctions::cot(alpha);
-    double delta = 2.0*height*cot_alpha;
+    double delta = 2.0 * height * cot_alpha;
     auto bottom_face = RectangleVertices(length, width, 0.0);
-    auto top_face = RectangleVertices(length-delta, width-delta, height);
+    auto top_face = RectangleVertices(length - delta, width - delta, height);
     std::move(bottom_face.begin(), bottom_face.end(), m_vertices.begin());
-    std::move(top_face.begin(), top_face.end(), m_vertices.begin()+4);
+    std::move(top_face.begin(), top_face.end(), m_vertices.begin() + 4);
 }
 
-AnisoPyramid::~AnisoPyramid()
-{}
+AnisoPyramid::~AnisoPyramid() {}

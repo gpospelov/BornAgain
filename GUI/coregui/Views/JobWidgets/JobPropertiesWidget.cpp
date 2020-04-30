@@ -22,11 +22,8 @@
 #include <QVBoxLayout>
 
 JobPropertiesWidget::JobPropertiesWidget(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_tabWidget(new QTabWidget)
-    , m_componentEditor(new ComponentEditor)
-    , m_commentsEditor(new QTextEdit)
-    , m_block_update(false)
+    : SessionItemWidget(parent), m_tabWidget(new QTabWidget),
+      m_componentEditor(new ComponentEditor), m_commentsEditor(new QTextEdit), m_block_update(false)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(Constants::JobPropertiesWidgetName);
@@ -52,7 +49,8 @@ void JobPropertiesWidget::subscribeToItem()
         [this](const QString& name) {
             if (name == JobItem::P_COMMENTS)
                 updateItem();
-        }, this);
+        },
+        this);
 
     m_componentEditor->setItem(currentItem());
 

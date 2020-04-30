@@ -35,8 +35,8 @@ BA_CORE_API_ void iterate(const QModelIndex& index, const QAbstractItemModel* mo
 //! Iterates through all model indices and calls user function.
 //! If function returns false for given index, iteration will not go down to children.
 BA_CORE_API_ void iterate_if(const QModelIndex& index, const QAbstractItemModel* model,
-                          const std::function<bool(const QModelIndex&)>& fun);
+                             const std::function<bool(const QModelIndex&)>& fun);
 
-}
+} // namespace ModelUtils
 
-#endif  //  MODELUTILS_H
+#endif //  MODELUTILS_H

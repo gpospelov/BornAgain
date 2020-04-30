@@ -15,8 +15,8 @@
 #ifndef PROJECTIONSWIDGET_H
 #define PROJECTIONSWIDGET_H
 
-#include "SessionItemWidget.h"
 #include "MaskEditorFlags.h"
+#include "SessionItemWidget.h"
 
 class ProjectionsPlot;
 class QTabWidget;
@@ -28,7 +28,7 @@ class BA_CORE_API_ ProjectionsWidget : public SessionItemWidget
     Q_OBJECT
 
 public:
-    enum ETabId {HORIZONTAL, VERTICAL};
+    enum ETabId { HORIZONTAL, VERTICAL };
 
     ProjectionsWidget(QWidget* parent = 0);
     void setItem(SessionItem* intensityItem);

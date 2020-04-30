@@ -1,6 +1,6 @@
-#include "google_test.h"
 #include "LatticeUtils.h"
 #include "ILatticeOrientation.h"
+#include "google_test.h"
 
 class LatticeUtilsTest : public ::testing::Test
 {
@@ -13,16 +13,16 @@ LatticeUtilsTest::~LatticeUtilsTest() = default;
 // tests the creation of an FCC lattice with the primitive cube aligned along the q-axes
 TEST_F(LatticeUtilsTest, cubeAlignedFCCTest)
 {
-    MillerIndexOrientation q_aligned(MillerIndexOrientation::QZ, { 0, 0, 1},
-                                     MillerIndexOrientation::QY, { 0, 1, 0});
+    MillerIndexOrientation q_aligned(MillerIndexOrientation::QZ, {0, 0, 1},
+                                     MillerIndexOrientation::QY, {0, 1, 0});
     auto lattice = LatticeUtils::CreateFCCLattice(2.0, q_aligned);
     auto a1 = lattice.getBasisVectorA();
     auto a2 = lattice.getBasisVectorB();
     auto a3 = lattice.getBasisVectorC();
 
-    kvector_t v1 { 0.0, 1.0, 1.0 };
-    kvector_t v2 { 1.0, 0.0, 1.0 };
-    kvector_t v3 { 1.0, 1.0, 0.0 };
+    kvector_t v1{0.0, 1.0, 1.0};
+    kvector_t v2{1.0, 0.0, 1.0};
+    kvector_t v3{1.0, 1.0, 0.0};
 
     EXPECT_EQ(a1, v1);
     EXPECT_EQ(a2, v2);
@@ -32,8 +32,8 @@ TEST_F(LatticeUtilsTest, cubeAlignedFCCTest)
 // tests the creation of an FCC lattice with the primitive cube aligned along Miller indices
 TEST_F(LatticeUtilsTest, diagonalAlignedFCCTest)
 {
-    MillerIndexOrientation diagonal_aligned(MillerIndexOrientation::QZ, { 1, 1, 1},
-                                            MillerIndexOrientation::QX, { 1, 1, 0});
+    MillerIndexOrientation diagonal_aligned(MillerIndexOrientation::QZ, {1, 1, 1},
+                                            MillerIndexOrientation::QX, {1, 1, 0});
     auto lattice = LatticeUtils::CreateFCCLattice(2.0, diagonal_aligned);
     auto a1 = lattice.getBasisVectorA();
     auto a2 = lattice.getBasisVectorB();
@@ -48,16 +48,16 @@ TEST_F(LatticeUtilsTest, diagonalAlignedFCCTest)
 // tests the creation of an HCP lattice with a trivial orientation
 TEST_F(LatticeUtilsTest, trivialAlignedHCPTest)
 {
-    MillerIndexOrientation trivial_aligned(MillerIndexOrientation::QZ, { 0, 0, 1},
-                                           MillerIndexOrientation::QX, { 2, -1, 0});
+    MillerIndexOrientation trivial_aligned(MillerIndexOrientation::QZ, {0, 0, 1},
+                                           MillerIndexOrientation::QX, {2, -1, 0});
     auto lattice = LatticeUtils::CreateHCPLattice(2.0, 4.0, trivial_aligned);
     auto a1 = lattice.getBasisVectorA();
     auto a2 = lattice.getBasisVectorB();
     auto a3 = lattice.getBasisVectorC();
 
-    kvector_t v1 { 2.0, 0.0, 0.0 };
-    kvector_t v2 { -1.0, std::sqrt(3.0), 0.0 };
-    kvector_t v3 { 1.0, 1.0/std::sqrt(3.0), 2.0 };
+    kvector_t v1{2.0, 0.0, 0.0};
+    kvector_t v2{-1.0, std::sqrt(3.0), 0.0};
+    kvector_t v3{1.0, 1.0 / std::sqrt(3.0), 2.0};
 
     EXPECT_EQ(a1, v1);
     EXPECT_EQ(a2, v2);
@@ -67,16 +67,16 @@ TEST_F(LatticeUtilsTest, trivialAlignedHCPTest)
 // tests the creation of an BCT lattice with the primitive tetragonal aligned along the q-axes
 TEST_F(LatticeUtilsTest, tetraAlignedFCCTest)
 {
-    MillerIndexOrientation q_aligned(MillerIndexOrientation::QZ, { 0, 0, 1},
-                                     MillerIndexOrientation::QY, { 0, 1, 0});
+    MillerIndexOrientation q_aligned(MillerIndexOrientation::QZ, {0, 0, 1},
+                                     MillerIndexOrientation::QY, {0, 1, 0});
     auto lattice = LatticeUtils::CreateBCTLattice(2.0, 2.0, q_aligned);
     auto a1 = lattice.getBasisVectorA();
     auto a2 = lattice.getBasisVectorB();
     auto a3 = lattice.getBasisVectorC();
 
-    kvector_t v1 { 2.0, 0.0, 0.0 };
-    kvector_t v2 { 0.0, 2.0, 0.0 };
-    kvector_t v3 { 1.0, 1.0, 1.0 };
+    kvector_t v1{2.0, 0.0, 0.0};
+    kvector_t v2{0.0, 2.0, 0.0};
+    kvector_t v3{1.0, 1.0, 1.0};
 
     EXPECT_EQ(a1, v1);
     EXPECT_EQ(a2, v2);
@@ -86,8 +86,8 @@ TEST_F(LatticeUtilsTest, tetraAlignedFCCTest)
 // tests the creation of an BCT lattice with the primitive tetragonal aligned along Miller indices
 TEST_F(LatticeUtilsTest, diagonalAlignedBCTTest)
 {
-    MillerIndexOrientation diagonal_aligned(MillerIndexOrientation::QZ, { 1, 1, 1},
-                                            MillerIndexOrientation::QX, { 1, 1, 0});
+    MillerIndexOrientation diagonal_aligned(MillerIndexOrientation::QZ, {1, 1, 1},
+                                            MillerIndexOrientation::QX, {1, 1, 0});
     auto lattice = LatticeUtils::CreateBCTLattice(2.0, 2.0, diagonal_aligned);
     auto a1 = lattice.getBasisVectorA();
     auto a2 = lattice.getBasisVectorB();
@@ -100,4 +100,3 @@ TEST_F(LatticeUtilsTest, diagonalAlignedBCTTest)
     EXPECT_NEAR(a3.y(), 0.0, 1e-10);
     EXPECT_NEAR(a3.z(), std::sqrt(3.0), 1e-10);
 }
-

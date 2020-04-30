@@ -15,7 +15,7 @@
 #include "DetectorContext.h"
 #include "IDetector2D.h"
 
-DetectorContext::DetectorContext(const IDetector2D *detector)
+DetectorContext::DetectorContext(const IDetector2D* detector)
 {
     setup_context(detector);
 }
@@ -39,7 +39,7 @@ size_t DetectorContext::detectorIndex(size_t element_index) const
     return active_indices[element_index];
 }
 
-void DetectorContext::setup_context(const IDetector2D *detector)
+void DetectorContext::setup_context(const IDetector2D* detector)
 {
     active_indices = detector->active_indices();
     analyzer_operator = detector->detectionProperties().analyzerOperator();

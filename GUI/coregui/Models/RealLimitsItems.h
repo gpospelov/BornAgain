@@ -15,8 +15,8 @@
 #ifndef REALLIMITSITEMS_H
 #define REALLIMITSITEMS_H
 
-#include "SessionItem.h"
 #include "RealLimits.h"
+#include "SessionItem.h"
 
 class BA_CORE_API_ RealLimitsItem : public SessionItem
 {
@@ -24,8 +24,8 @@ public:
     static const QString P_XMIN;
     static const QString P_XMAX;
     RealLimitsItem(const QString& name);
-    virtual ~RealLimitsItem(){}
-    virtual RealLimits createRealLimits(double scale_factor = 1.0) const=0;
+    virtual ~RealLimitsItem() {}
+    virtual RealLimits createRealLimits(double scale_factor = 1.0) const = 0;
 };
 
 class BA_CORE_API_ LimitlessItem : public RealLimitsItem

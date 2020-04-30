@@ -17,11 +17,10 @@
 #include "SessionItemController.h"
 
 SessionItemWidget::SessionItemWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_itemController(new SessionItemController(this))
+    : QWidget(parent), m_itemController(new SessionItemController(this))
 {
-    m_itemController->setSubscribeCallback([this](){subscribeToItem();});
-    m_itemController->setUnsubscribeCallback([this](){unsubscribeFromItem();});
+    m_itemController->setSubscribeCallback([this]() { subscribeToItem(); });
+    m_itemController->setUnsubscribeCallback([this]() { unsubscribeFromItem(); });
 }
 
 SessionItemWidget::~SessionItemWidget() = default;
@@ -36,13 +35,12 @@ void SessionItemWidget::setItem(SessionItem* item)
 
 QList<QAction*> SessionItemWidget::actionList()
 {
-    return QList<QAction *>();
+    return QList<QAction*>();
 }
 
 SessionItem* SessionItemWidget::currentItem()
 {
-    return const_cast<SessionItem*>(
-        static_cast<const SessionItemWidget*>(this)->currentItem());
+    return const_cast<SessionItem*>(static_cast<const SessionItemWidget*>(this)->currentItem());
 }
 
 const SessionItem* SessionItemWidget::currentItem() const

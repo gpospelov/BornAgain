@@ -28,21 +28,21 @@ class FitParameterContainerItem;
 class BA_CORE_API_ FitParameterHelper
 {
 public:
-    static void createFitParameter(FitParameterContainerItem *container,
-                                   ParameterItem *parameterItem);
+    static void createFitParameter(FitParameterContainerItem* container,
+                                   ParameterItem* parameterItem);
 
-    static void removeFromFitParameters(FitParameterContainerItem *container,
-                                        ParameterItem *parameterItem);
-    static void addToFitParameter(FitParameterContainerItem *container,
-                                  ParameterItem *parameterItem, const QString &fitParName);
+    static void removeFromFitParameters(FitParameterContainerItem* container,
+                                        ParameterItem* parameterItem);
+    static void addToFitParameter(FitParameterContainerItem* container,
+                                  ParameterItem* parameterItem, const QString& fitParName);
 
-    static FitParameterItem *getFitParameterItem(FitParameterContainerItem *container,
-                                                 ParameterItem *parameterItem);
+    static FitParameterItem* getFitParameterItem(FitParameterContainerItem* container,
+                                                 ParameterItem* parameterItem);
 
-    static QStringList getFitParameterNames(FitParameterContainerItem *container);
-    static QString getParameterItemPath(const ParameterItem *parameterItem);
-    static ParameterItem *getParameterItem(FitParameterContainerItem *container,
-                                           const QString &link);
+    static QStringList getFitParameterNames(FitParameterContainerItem* container);
+    static QString getParameterItemPath(const ParameterItem* parameterItem);
+    static ParameterItem* getParameterItem(FitParameterContainerItem* container,
+                                           const QString& link);
 };
 
 #endif // FITPARAMETERHELPER_H

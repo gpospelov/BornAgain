@@ -1,10 +1,10 @@
-#include "google_test.h"
+#include "ParticleComposition.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorFullSphere.h"
 #include "MaterialFactoryFuncs.h"
 #include "MathConstants.h"
 #include "Particle.h"
-#include "ParticleComposition.h"
+#include "google_test.h"
 
 class ParticleCompositionTest : public ::testing::Test
 {

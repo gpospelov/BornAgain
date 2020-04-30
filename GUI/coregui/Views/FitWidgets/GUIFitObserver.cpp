@@ -13,23 +13,18 @@
 // ************************************************************************** //
 
 #include "GUIFitObserver.h"
+#include "FitObjective.h"
 #include "FitProgressInfo.h"
 #include "GUIHelpers.h"
-#include "MinimizerUtils.h"
-#include "FitObjective.h"
 #include "MinimizerResult.h"
+#include "MinimizerUtils.h"
 
 GUIFitObserver::GUIFitObserver(QObject* parent)
-    : QObject(parent)
-    , m_block_update_plots(false)
-    , m_update_interval(1)
+    : QObject(parent), m_block_update_plots(false), m_update_interval(1)
 {
 }
 
-GUIFitObserver::~GUIFitObserver()
-{
-}
-
+GUIFitObserver::~GUIFitObserver() {}
 
 void GUIFitObserver::update(const FitObjective* subject)
 {
@@ -56,7 +51,6 @@ void GUIFitObserver::update(const FitObjective* subject)
 
     m_iteration_info = info;
     emit updateReady();
-
 }
 
 //! Returns true if data could be plotted, when there are resources for it.
@@ -67,9 +61,8 @@ bool GUIFitObserver::is_suitable_iteration(const FitObjective* fitSuite) const
         return false;
 
     int n_iter = static_cast<int>(fitSuite->iterationInfo().iterationCount());
-    return fitSuite->isFirstIteration() ||
-           n_iter % m_update_interval == 0 ||
-           fitSuite->isCompleted();
+    return fitSuite->isFirstIteration() || n_iter % m_update_interval == 0
+           || fitSuite->isCompleted();
 }
 
 //! Returns true if given iteration should be obligary plotted.

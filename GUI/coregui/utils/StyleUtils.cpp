@@ -14,13 +14,14 @@
 
 #include "StyleUtils.h"
 #include "DesignerHelper.h"
-#include "hostosinfo.h"
 #include "detailswidget.h"
+#include "hostosinfo.h"
+#include <QBoxLayout>
 #include <QDialog>
 #include <QTreeView>
-#include <QBoxLayout>
 
-namespace {
+namespace
+{
 Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expanded);
 }
 
@@ -59,19 +60,19 @@ QString StyleUtils::propertyTreeStyle()
 
 QString StyleUtils::realtimeTreeStyle()
 {
-    QString result
-        = "QTreeView::branch {background: "
-          "palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
-          "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
-          "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
-          "!has-children:!has-siblings:adjoins-item {border-image: "
-          "url(:/images/treeview-branch-end.png) "
-          "0;}QTreeView::branch:has-children:!has-siblings:closed"
-          ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
-          "url(:/images/"
-          "treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
-          "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
-          "url(:/images/treeview-branch-open.png);}";
+    QString result =
+        "QTreeView::branch {background: "
+        "palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
+        "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
+        "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
+        "!has-children:!has-siblings:adjoins-item {border-image: "
+        "url(:/images/treeview-branch-end.png) "
+        "0;}QTreeView::branch:has-children:!has-siblings:closed"
+        ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
+        "url(:/images/"
+        "treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
+        "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
+        "url(:/images/treeview-branch-open.png);}";
 
     return result;
 }
@@ -117,8 +118,8 @@ QWidget* StyleUtils::createDetailsWidget(QLayout* layout, const QString& name, b
     return createDetailsWidget(placeholder, name, expanded);
 }
 
-
-namespace {
+namespace
+{
 
 Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expanded)
 {
@@ -130,4 +131,4 @@ Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expande
     return result;
 }
 
-}
+} // namespace

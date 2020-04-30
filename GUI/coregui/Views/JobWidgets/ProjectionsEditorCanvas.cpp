@@ -13,43 +13,36 @@
 // ************************************************************************** //
 
 #include "ProjectionsEditorCanvas.h"
+#include "ColorMap.h"
+#include "IntensityDataItem.h"
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
-#include "SessionModel.h"
-#include "IntensityDataItem.h"
-#include "ColorMap.h"
+#include "MaskItems.h"
 #include "PlotStatusLabel.h"
 #include "ScientificPlotEvent.h"
-#include "MaskItems.h"
-#include <QVBoxLayout>
+#include "SessionModel.h"
 #include <QItemSelectionModel>
+#include <QVBoxLayout>
 
 ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
-    : QWidget(parent)
-    , m_scene(new MaskGraphicsScene(this))
-    , m_view(new MaskGraphicsView(m_scene))
-    , m_colorMap(nullptr)
-    , m_statusLabel(new PlotStatusLabel(nullptr, this))
-    , m_liveProjection(nullptr)
-    , m_model(nullptr)
-    , m_intensityDataItem(nullptr)
-    , m_currentActivity(MaskEditorFlags::HORIZONTAL_LINE_MODE)
-    , m_block_update(false)
+    : QWidget(parent), m_scene(new MaskGraphicsScene(this)), m_view(new MaskGraphicsView(m_scene)),
+      m_colorMap(nullptr), m_statusLabel(new PlotStatusLabel(nullptr, this)),
+      m_liveProjection(nullptr), m_model(nullptr), m_intensityDataItem(nullptr),
+      m_currentActivity(MaskEditorFlags::HORIZONTAL_LINE_MODE), m_block_update(false)
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_view);
     mainLayout->addWidget(m_statusLabel);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     setLayout(mainLayout);
 
-    connect(m_view, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
-            this, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)));
-    connect(m_view, SIGNAL(deleteSelectedRequest()),
-            this, SIGNAL(deleteSelectedRequest()));
+    connect(m_view, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)), this,
+            SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)));
+    connect(m_view, SIGNAL(deleteSelectedRequest()), this, SIGNAL(deleteSelectedRequest()));
 }
 
 void ProjectionsEditorCanvas::setContext(SessionModel* model,
@@ -89,14 +82,14 @@ void ProjectionsEditorCanvas::onEnteringColorMap()
 
     m_block_update = true;
 
-    if(m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
-        m_liveProjection = m_model->insertNewItem(Constants::HorizontalLineMaskType,
-                                               m_containerIndex);
-    else if(m_currentActivity == MaskEditorFlags::VERTICAL_LINE_MODE)
-        m_liveProjection = m_model->insertNewItem(Constants::VerticalLineMaskType,
-                                               m_containerIndex);
+    if (m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
+        m_liveProjection =
+            m_model->insertNewItem(Constants::HorizontalLineMaskType, m_containerIndex);
+    else if (m_currentActivity == MaskEditorFlags::VERTICAL_LINE_MODE)
+        m_liveProjection =
+            m_model->insertNewItem(Constants::VerticalLineMaskType, m_containerIndex);
 
-    if(m_liveProjection)
+    if (m_liveProjection)
         m_liveProjection->setItemValue(MaskItem::P_IS_VISIBLE, false);
 
     m_block_update = false;
@@ -111,7 +104,7 @@ void ProjectionsEditorCanvas::onLeavingColorMap()
 
     if (m_liveProjection) {
         m_liveProjection->parent()->takeRow(
-                    m_liveProjection->parent()->rowOfChild(m_liveProjection));
+            m_liveProjection->parent()->rowOfChild(m_liveProjection));
         delete m_liveProjection;
         m_liveProjection = nullptr;
     }
@@ -126,10 +119,10 @@ void ProjectionsEditorCanvas::onPositionChanged(double x, double y)
 
     m_block_update = true;
 
-    if(m_liveProjection) {
-        if(m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
+    if (m_liveProjection) {
+        if (m_currentActivity == MaskEditorFlags::HORIZONTAL_LINE_MODE)
             m_liveProjection->setItemValue(HorizontalLineItem::P_POSY, y);
-        else if(m_currentActivity == MaskEditorFlags::VERTICAL_LINE_MODE)
+        else if (m_currentActivity == MaskEditorFlags::VERTICAL_LINE_MODE)
             m_liveProjection->setItemValue(VerticalLineItem::P_POSX, x);
     }
 
@@ -163,10 +156,10 @@ void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)
 
 void ProjectionsEditorCanvas::setConnected(bool isConnected)
 {
-    if(!m_colorMap)
+    if (!m_colorMap)
         return;
 
-    if(isConnected) {
+    if (isConnected) {
         connect(m_colorMap->plotEvent(), &ScientificPlotEvent::enteringPlot, this,
                 &ProjectionsEditorCanvas::onEnteringColorMap, Qt::UniqueConnection);
         connect(m_colorMap->plotEvent(), &ScientificPlotEvent::leavingPlot, this,

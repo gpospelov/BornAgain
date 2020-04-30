@@ -27,15 +27,15 @@ class BA_CORE_API_ OverlayLabelWidget : public QWidget
 {
     Q_OBJECT
 public:
-    OverlayLabelWidget(QWidget *parent = 0);
+    OverlayLabelWidget(QWidget* parent = 0);
 
-    void setRectangle(const QRect &rect);
+    void setRectangle(const QRect& rect);
     void setPosition(int x, int y);
 
-    void setText(const QString &text) {m_text = text;}
+    void setText(const QString& text) { m_text = text; }
 
 protected:
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent* event);
 
 private:
     QString m_text;

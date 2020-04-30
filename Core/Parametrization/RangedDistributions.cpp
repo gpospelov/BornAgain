@@ -18,35 +18,29 @@
 #include "PythonFormatting.h"
 #include <limits>
 
-namespace {
-template<class T>
-std::unique_ptr<T> makeCopy(const T& item);
+namespace
+{
+template <class T> std::unique_ptr<T> makeCopy(const T& item);
 
 const double gate_stddev_factor = 2.0 * std::sqrt(3.0);
-}
+} // namespace
 
 RangedDistribution::RangedDistribution()
-    : m_n_samples(5)
-    , m_sigma_factor(2.0)
-    , m_limits(RealLimits::limitless())
+    : m_n_samples(5), m_sigma_factor(2.0), m_limits(RealLimits::limitless())
 {
     checkInitialization();
 }
 
 RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor,
                                        const RealLimits& limits)
-    : m_n_samples(n_samples)
-    , m_sigma_factor(sigma_factor)
-    , m_limits(limits)
+    : m_n_samples(n_samples), m_sigma_factor(sigma_factor), m_limits(limits)
 {
     checkInitialization();
 }
 
 RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min,
                                        double max)
-    : m_n_samples(n_samples)
-    , m_sigma_factor(sigma_factor)
-    , m_limits(RealLimits::limited(min, max))
+    : m_n_samples(n_samples), m_sigma_factor(sigma_factor), m_limits(RealLimits::limited(min, max))
 {
     checkInitialization();
 }
@@ -144,8 +138,8 @@ std::string RangedDistributionGate::name() const
     return "ba.RangedDistributionGate";
 }
 
-std::unique_ptr<IDistribution1D>
-RangedDistributionGate::distribution_impl(double mean, double stddev) const
+std::unique_ptr<IDistribution1D> RangedDistributionGate::distribution_impl(double mean,
+                                                                           double stddev) const
 {
     const double x_min = mean - gate_stddev_factor * stddev;
     const double x_max = mean + gate_stddev_factor * stddev;
@@ -176,8 +170,8 @@ std::string RangedDistributionLorentz::name() const
     return "ba.RangedDistributionLorentz";
 }
 
-std::unique_ptr<IDistribution1D>
-RangedDistributionLorentz::distribution_impl(double median, double hwhm) const
+std::unique_ptr<IDistribution1D> RangedDistributionLorentz::distribution_impl(double median,
+                                                                              double hwhm) const
 {
     return std::make_unique<DistributionLorentz>(median, hwhm);
 }
@@ -206,8 +200,8 @@ std::string RangedDistributionGaussian::name() const
     return "ba.RangedDistributionGaussian";
 }
 
-std::unique_ptr<IDistribution1D>
-RangedDistributionGaussian::distribution_impl(double mean, double stddev) const
+std::unique_ptr<IDistribution1D> RangedDistributionGaussian::distribution_impl(double mean,
+                                                                               double stddev) const
 {
     return std::make_unique<DistributionGaussian>(mean, stddev);
 }
@@ -236,8 +230,8 @@ std::string RangedDistributionLogNormal::name() const
     return "ba.RangedDistributionLogNormal";
 }
 
-std::unique_ptr<IDistribution1D>
-RangedDistributionLogNormal::distribution_impl(double mean, double stddev) const
+std::unique_ptr<IDistribution1D> RangedDistributionLogNormal::distribution_impl(double mean,
+                                                                                double stddev) const
 {
     const double mean_2 = mean * mean;
     if (mean_2 <= std::numeric_limits<double>::min())
@@ -245,7 +239,7 @@ RangedDistributionLogNormal::distribution_impl(double mean, double stddev) const
                                  "is less or indistinguishable from zero.");
 
     const double scale = std::sqrt(std::log(stddev * stddev / mean_2 + 1.0));
-    const double median = mean * std::exp(- scale * scale / 2.0);
+    const double median = mean * std::exp(-scale * scale / 2.0);
     return std::make_unique<DistributionLogNormal>(median, scale);
 }
 
@@ -273,16 +267,16 @@ std::string RangedDistributionCosine::name() const
     return "ba.RangedDistributionCosine";
 }
 
-std::unique_ptr<IDistribution1D>
-RangedDistributionCosine::distribution_impl(double mean, double stddev) const
+std::unique_ptr<IDistribution1D> RangedDistributionCosine::distribution_impl(double mean,
+                                                                             double stddev) const
 {
     return std::make_unique<DistributionCosine>(mean, stddev);
 }
 
-namespace {
-template<class T>
-std::unique_ptr<T> makeCopy(const T& item)
+namespace
+{
+template <class T> std::unique_ptr<T> makeCopy(const T& item)
 {
     return std::make_unique<T>(item.nSamples(), item.sigmaFactor(), item.limits());
 }
-}
+} // namespace

@@ -15,9 +15,9 @@
 #ifndef COREIOPERFORMANCETEST_H
 #define COREIOPERFORMANCETEST_H
 
+#include "Benchmark.h"
 #include "IFunctionalTest.h"
 #include "OutputData.h"
-#include "Benchmark.h"
 #include <memory>
 
 //! Functional test to validate read/write of large data files.
@@ -31,7 +31,6 @@ public:
     bool runTest();
 
 private:
-
     struct TestResults {
         int m_nx;
         int m_ny;

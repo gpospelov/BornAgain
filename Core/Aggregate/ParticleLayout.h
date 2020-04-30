@@ -31,16 +31,16 @@ class BA_CORE_API_ ParticleLayout : public ILayout
 {
 public:
     ParticleLayout();
-    ParticleLayout(const IAbstractParticle& particle, double abundance=-1.0);
+    ParticleLayout(const IAbstractParticle& particle, double abundance = -1.0);
     ~ParticleLayout() override;
 
     ParticleLayout* clone() const final override;
 
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
-    void addParticle(const IAbstractParticle& particle, double abundance=-1.0,
-                     const kvector_t position=kvector_t(),
-                     const IRotation& rotation=IdentityRotation());
+    void addParticle(const IAbstractParticle& particle, double abundance = -1.0,
+                     const kvector_t position = kvector_t(),
+                     const IRotation& rotation = IdentityRotation());
 
     SafePointerVector<IParticle> particles() const final override;
 

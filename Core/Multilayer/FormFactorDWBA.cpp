@@ -17,24 +17,21 @@
 #include "ILayerRTCoefficients.h"
 #include "WavevectorInfo.h"
 
-FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor)
-    : mP_form_factor(form_factor.clone())
+FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor) : mP_form_factor(form_factor.clone())
 {
     setName(BornAgain::FormFactorDWBAType);
 }
 
-FormFactorDWBA::~FormFactorDWBA()
-{}
+FormFactorDWBA::~FormFactorDWBA() {}
 
 FormFactorDWBA* FormFactorDWBA::clone() const
 {
     FormFactorDWBA* result = new FormFactorDWBA(*mP_form_factor);
-    std::unique_ptr<const ILayerRTCoefficients> p_in_coefs
-        = mp_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(mp_in_coeffs->clone())
-                       : nullptr;
-    std::unique_ptr<const ILayerRTCoefficients> p_out_coefs
-        = mp_out_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(mp_out_coeffs->clone())
-                        : nullptr;
+    std::unique_ptr<const ILayerRTCoefficients> p_in_coefs =
+        mp_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(mp_in_coeffs->clone()) : nullptr;
+    std::unique_ptr<const ILayerRTCoefficients> p_out_coefs =
+        mp_out_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(mp_out_coeffs->clone())
+                      : nullptr;
     result->setSpecularInfo(std::move(p_in_coefs), std::move(p_out_coefs));
     return result;
 }
@@ -68,9 +65,9 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
 
     // The four different scattering contributions; S stands for scattering
     // off the particle, R for reflection off the layer interface
-    complex_t term_S   = T_in * mP_form_factor->evaluate(k_TT) * T_out;
-    complex_t term_RS  = R_in * mP_form_factor->evaluate(k_RT) * T_out;
-    complex_t term_SR  = T_in * mP_form_factor->evaluate(k_TR) * R_out;
+    complex_t term_S = T_in * mP_form_factor->evaluate(k_TT) * T_out;
+    complex_t term_RS = R_in * mP_form_factor->evaluate(k_RT) * T_out;
+    complex_t term_SR = T_in * mP_form_factor->evaluate(k_TR) * R_out;
     complex_t term_RSR = R_in * mP_form_factor->evaluate(k_RR) * R_out;
 
     return term_S + term_RS + term_SR + term_RSR;

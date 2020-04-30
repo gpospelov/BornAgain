@@ -17,10 +17,10 @@
 #include <string>
 
 #ifdef _WIN32
-#pragma warning ( push )
-#pragma warning ( disable: 4267 )
+#pragma warning(push)
+#pragma warning(disable : 4267)
 #include "Math/GSLMinimizer.h"
-#pragma warning ( pop )
+#pragma warning(pop)
 #else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -28,10 +28,9 @@
 #pragma GCC diagnostic pop
 #endif
 
-
-GSLMultiMinimizer::GSLMultiMinimizer(const std::string &algorithmName)
-    : RootMinimizerAdapter(MinimizerInfo::buildGSLMultiMinInfo(algorithmName))
-    , m_gsl_minimizer(new ROOT::Math::GSLMinimizer(algorithmName.c_str()))
+GSLMultiMinimizer::GSLMultiMinimizer(const std::string& algorithmName)
+    : RootMinimizerAdapter(MinimizerInfo::buildGSLMultiMinInfo(algorithmName)),
+      m_gsl_minimizer(new ROOT::Math::GSLMinimizer(algorithmName.c_str()))
 {
     addOption(OptionNames::PrintLevel, 0, "Minimizer internal print level");
     addOption(OptionNames::MaxIterations, 0, "Maximum number of iterations");
@@ -70,7 +69,7 @@ void GSLMultiMinimizer::propagateOptions()
     m_gsl_minimizer->SetMaxIterations(static_cast<unsigned int>(maxIterations()));
 }
 
-const RootMinimizerAdapter::root_minimizer_t *GSLMultiMinimizer::rootMinimizer() const
+const RootMinimizerAdapter::root_minimizer_t* GSLMultiMinimizer::rootMinimizer() const
 {
     return m_gsl_minimizer.get();
 }

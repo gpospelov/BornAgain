@@ -16,9 +16,9 @@
 #define PROJECTIONSEDITORACTIONS_H
 
 #include "WinDllMacros.h"
-#include <QObject>
 #include <QList>
 #include <QModelIndex>
+#include <QObject>
 
 class SessionModel;
 class QItemSelectionModel;

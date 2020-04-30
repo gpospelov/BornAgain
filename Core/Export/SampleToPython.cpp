@@ -504,8 +504,7 @@ std::string SampleToPython::defineParticleLayouts() const
             if (auto p_iff = INodeUtils::OnlyChildOfType<IInterferenceFunction>(*particleLayout))
                 result << indent() << it->second << ".setInterferenceFunction("
                        << m_label->labelInterferenceFunction(p_iff) << ")\n";
-            result << indent() << it->second << ".setWeight("
-                   << particleLayout->weight() << ")\n";
+            result << indent() << it->second << ".setWeight(" << particleLayout->weight() << ")\n";
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
                    << particleLayout->totalParticleSurfaceDensity() << ")\n";
         }

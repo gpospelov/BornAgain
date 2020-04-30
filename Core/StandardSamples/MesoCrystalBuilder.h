@@ -15,8 +15,8 @@
 #ifndef MESOCRYSTALBUILDER_H
 #define MESOCRYSTALBUILDER_H
 
-#include "IMultiLayerBuilder.h"
 #include "Complex.h"
+#include "IMultiLayerBuilder.h"
 
 class IFormFactor;
 class ISample;

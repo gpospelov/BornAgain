@@ -28,8 +28,8 @@ class ProcessedLayout;
 class BA_CORE_API_ LayoutStrategyBuilder
 {
 public:
-    LayoutStrategyBuilder(
-        const ProcessedLayout* p_layout, const SimulationOptions& sim_params, bool polarized);
+    LayoutStrategyBuilder(const ProcessedLayout* p_layout, const SimulationOptions& sim_params,
+                          bool polarized);
 
     ~LayoutStrategyBuilder();
 
@@ -41,7 +41,7 @@ private:
 
     const ProcessedLayout* mp_layout;
     SimulationOptions m_sim_params;
-    bool m_polarized;  //!< polarized computation required?
+    bool m_polarized; //!< polarized computation required?
     std::unique_ptr<IInterferenceFunctionStrategy> mP_strategy;
 };
 

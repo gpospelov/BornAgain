@@ -13,26 +13,26 @@
 // ************************************************************************** //
 
 #include "DepthProbeSimulation.h"
+#include "DepthProbeComputation.h"
 #include "Distributions.h"
 #include "Histogram1D.h"
 #include "IBackground.h"
 #include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
+#include "MaterialUtils.h"
 #include "MathConstants.h"
 #include "MultiLayer.h"
-#include "MaterialUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
-#include "DepthProbeComputation.h"
-#include "SpecularDetector1D.h"
 #include "SimpleUnitConverters.h"
+#include "SpecularDetector1D.h"
 
 namespace
 {
 const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
 const double zero_phi_i = 0.0;
 const double zero_alpha_i = 0.0;
-}
+} // namespace
 
 DepthProbeSimulation::DepthProbeSimulation() : Simulation()
 {
@@ -70,7 +70,7 @@ SimulationResult DepthProbeSimulation::result() const
 }
 
 void DepthProbeSimulation::setBeamParameters(double lambda, int nbins, double alpha_i_min,
-                                           double alpha_i_max, const IFootprintFactor* beam_shape)
+                                             double alpha_i_max, const IFootprintFactor* beam_shape)
 {
     FixedBinAxis axis("alpha_i", static_cast<size_t>(nbins), alpha_i_min, alpha_i_max);
     setBeamParameters(lambda, axis, beam_shape);
@@ -114,9 +114,7 @@ std::unique_ptr<IUnitConverter> DepthProbeSimulation::createUnitConverter() cons
 }
 
 DepthProbeSimulation::DepthProbeSimulation(const DepthProbeSimulation& other)
-    : Simulation(other)
-    , m_sim_elements(other.m_sim_elements)
-    , m_cache(other.m_cache)
+    : Simulation(other), m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
 {
     if (other.m_alpha_axis)
         m_alpha_axis.reset(other.m_alpha_axis->clone());
@@ -129,17 +127,19 @@ DepthProbeSimulation::DepthProbeSimulation(const DepthProbeSimulation& other)
 }
 
 void DepthProbeSimulation::setBeamParameters(double lambda, const IAxis& alpha_axis,
-                                           const IFootprintFactor* beam_shape)
+                                             const IFootprintFactor* beam_shape)
 {
     if (lambda <= 0.0)
         throw std::runtime_error(
             "Error in DepthProbeSimulation::setBeamParameters: wavelength must be positive.");
     if (alpha_axis.getMin() < 0.0)
-        throw std::runtime_error("Error in DepthProbeSimulation::setBeamParameters: minimum value on "
-                                 "angle axis is negative.");
+        throw std::runtime_error(
+            "Error in DepthProbeSimulation::setBeamParameters: minimum value on "
+            "angle axis is negative.");
     if (alpha_axis.getMin() >= alpha_axis.getMax())
-        throw std::runtime_error("Error in DepthProbeSimulation::setBeamParameters: maximal value on "
-                                 "angle axis is less or equal to the minimal one.");
+        throw std::runtime_error(
+            "Error in DepthProbeSimulation::setBeamParameters: maximal value on "
+            "angle axis is less or equal to the minimal one.");
     if (alpha_axis.size() == 0)
         throw std::runtime_error(
             "Error in DepthProbeSimulation::setBeamParameters: angle axis is empty");
@@ -167,8 +167,7 @@ void DepthProbeSimulation::initSimulationElementVector()
     m_cache.resize(m_sim_elements.size(), std::valarray<double>(0.0, getZAxis()->size()));
 }
 
-std::vector<DepthProbeElement>
-DepthProbeSimulation::generateSimulationElements(const Beam& beam)
+std::vector<DepthProbeElement> DepthProbeSimulation::generateSimulationElements(const Beam& beam)
 {
     std::vector<DepthProbeElement> result;
 
@@ -223,8 +222,8 @@ void DepthProbeSimulation::validateParametrization(const ParameterDistribution& 
         return;
 
     std::unique_ptr<ParameterPool> parameter_pool(createParameterTree());
-    const std::vector<RealParameter*> names
-        = parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
+    const std::vector<RealParameter*> names =
+        parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
     for (const auto par : names)
         if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
             throw std::runtime_error("Error in DepthProbeSimulation: parameter distribution of "

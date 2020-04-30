@@ -1,10 +1,10 @@
-#include "google_test.h"
 #include "Bin.h"
 #include "Ellipse.h"
 #include "Line.h"
 #include "MathConstants.h"
 #include "Rectangle.h"
 #include "Units.h"
+#include "google_test.h"
 #include <memory>
 
 class Shape2DTest : public ::testing::Test

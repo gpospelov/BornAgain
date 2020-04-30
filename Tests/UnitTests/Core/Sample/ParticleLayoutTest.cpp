@@ -1,13 +1,13 @@
-#include "google_test.h"
+#include "ParticleLayout.h"
 #include "BornAgainNamespace.h"
 #include "IAbstractParticle.h"
 #include "INodeUtils.h"
 #include "InterferenceFunction1DLattice.h"
 #include "InterferenceFunctionNone.h"
-#include "ParticleLayout.h"
+#include "MaterialFactoryFuncs.h"
 #include "Particle.h"
 #include "Units.h"
-#include "MaterialFactoryFuncs.h"
+#include "google_test.h"
 
 class ParticleLayoutTest : public ::testing::Test
 {

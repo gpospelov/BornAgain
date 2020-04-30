@@ -116,4 +116,3 @@ private:
 };
 
 #endif // INTENSITYDATAITEM_H
-

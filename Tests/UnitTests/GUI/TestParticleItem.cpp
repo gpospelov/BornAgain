@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "GroupItem.h"
 #include "ParticleCompositionItem.h"
 #include "ParticleDistributionItem.h"
@@ -6,6 +5,7 @@
 #include "SampleModel.h"
 #include "SessionItem.h"
 #include "SessionItemUtils.h"
+#include "google_test.h"
 
 using namespace SessionItemUtils;
 

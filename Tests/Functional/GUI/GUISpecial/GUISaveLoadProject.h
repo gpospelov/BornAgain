@@ -16,8 +16,8 @@
 #define GUISAVELOADPROJECT_H
 
 #include "IFunctionalTest.h"
-#include <QString>
 #include <QMap>
+#include <QString>
 #include <QVector>
 #include <memory>
 
@@ -35,7 +35,6 @@ protected:
     bool runTest();
 
 private:
-
     struct DataXML {
         QString m_model_tag;
         QString m_model_xml;

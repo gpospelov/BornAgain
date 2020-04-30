@@ -16,8 +16,8 @@
 #define FITSESSIONMANAGEER_H
 
 #include "WinDllMacros.h"
-#include <QObject>
 #include <QMap>
+#include <QObject>
 
 class JobModel;
 class SessionItem;
@@ -50,4 +50,3 @@ private:
 };
 
 #endif // FITSESSIONMANAGEER_H
-

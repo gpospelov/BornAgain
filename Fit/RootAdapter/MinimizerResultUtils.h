@@ -19,7 +19,10 @@
 #include <string>
 
 class RootMinimizerAdapter;
-namespace Fit { class Parameters; }
+namespace Fit
+{
+class Parameters;
+}
 
 //! Utility functions to generate reports
 
@@ -32,6 +35,6 @@ BA_CORE_API_ std::string reportToString(const RootMinimizerAdapter& minimizer);
 //! Reports fit parameters settings and final results
 std::string reportParameters(const Fit::Parameters& parameters);
 
-};
+}; // namespace MinimizerResultUtils
 
 #endif // MINIMIZERRESULTSHELPER_H

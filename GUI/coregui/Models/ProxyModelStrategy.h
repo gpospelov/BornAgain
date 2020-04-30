@@ -62,4 +62,4 @@ protected:
     bool processSourceIndex(const QModelIndex& index);
 };
 
-#endif  // ProxyModelStrategy
+#endif // ProxyModelStrategy

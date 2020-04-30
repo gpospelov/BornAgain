@@ -23,7 +23,7 @@ int DesignerHelper::m_default_layer_height = 30;
 int DesignerHelper::m_default_layer_width = 200;
 double DesignerHelper::m_current_zoom_level = 1.0;
 
-QGradient DesignerHelper::getLayerGradient(const QColor &color, const QRectF &rect)
+QGradient DesignerHelper::getLayerGradient(const QColor& color, const QRectF& rect)
 {
     QColor c = color;
     c.setAlpha(160);
@@ -40,7 +40,7 @@ QGradient DesignerHelper::getLayerGradient(const QColor &color, const QRectF &re
     return result;
 }
 
-QGradient DesignerHelper::getDecorationGradient(const QColor &color, const QRectF &rect)
+QGradient DesignerHelper::getDecorationGradient(const QColor& color, const QRectF& rect)
 {
     QColor c = color;
     // c.setAlpha(200);
@@ -151,7 +151,7 @@ int DesignerHelper::nanometerToScreen(double nanometer)
     return result;
 }
 
-QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
+QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
 {
     if (name == Constants::MultiLayerType) {
         return QRectF(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
@@ -173,7 +173,7 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
     }
 }
 
-QColor DesignerHelper::getDefaultColor(const QString &name)
+QColor DesignerHelper::getDefaultColor(const QString& name)
 {
     if (name == Constants::MultiLayerType) {
         // return QColor(Qt::blue);
@@ -188,19 +188,16 @@ QColor DesignerHelper::getDefaultColor(const QString &name)
         return QColor(210, 223, 237);
     } else if (name.startsWith("InterferenceFunction")) {
         return QColor(255, 236, 139);
-    }
-    else if(name == "Transparant red") {
+    } else if (name == "Transparant red") {
         return QColor(0xFF, 0, 0, 0x80);
-    }
-    else if(name == "Transparant blue") {
+    } else if (name == "Transparant blue") {
         return QColor(0, 0, 0xFF, 0x80);
-    }
-    else {
+    } else {
         return QColor(Qt::lightGray);
     }
 }
 
-QPixmap DesignerHelper::getMimePixmap(const QString &name)
+QPixmap DesignerHelper::getMimePixmap(const QString& name)
 {
     QRectF default_rect = getDefaultBoundingRect(name);
     QRectF mime_rect(0, 0, default_rect.width() * m_current_zoom_level,

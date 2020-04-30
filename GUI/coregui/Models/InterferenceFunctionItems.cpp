@@ -14,18 +14,19 @@
 
 #include "InterferenceFunctionItems.h"
 #include "BornAgainNamespace.h"
-#include "Lattice2DItems.h"
-#include "ModelPath.h"
-#include "Units.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDecayFunctions.h"
 #include "FTDistributionItems.h"
 #include "FTDistributions2D.h"
-#include "InterferenceFunctions.h"
 #include "GroupItem.h"
+#include "InterferenceFunctions.h"
+#include "Lattice2DItems.h"
+#include "ModelPath.h"
+#include "Units.h"
 
-namespace {
-    const QString decay_function_tag = "Decay Function";
+namespace
+{
+const QString decay_function_tag = "Decay Function";
 }
 
 // TODO (when back compatibility will be broken  again)
@@ -33,18 +34,18 @@ namespace {
 // InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION rely on same constant
 
 const QString InterferenceFunctionItem::P_POSITION_VARIANCE =
-        QString::fromStdString(BornAgain::PositionVariance);
+    QString::fromStdString(BornAgain::PositionVariance);
 
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
     : SessionGraphicsItem(modelType)
 {
     addProperty(P_POSITION_VARIANCE, 0.0)
-            ->setToolTip(QStringLiteral("Variance of the position in each dimension (nm^2)"));
+        ->setToolTip(QStringLiteral("Variance of the position in each dimension (nm^2)"));
 }
 
-InterferenceFunctionItem::~InterferenceFunctionItem(){}
+InterferenceFunctionItem::~InterferenceFunctionItem() {}
 
-void InterferenceFunctionItem::setPositionVariance(IInterferenceFunction *p_iff) const
+void InterferenceFunctionItem::setPositionVariance(IInterferenceFunction* p_iff) const
 {
     p_iff->setPositionVariance(getItemValue(P_POSITION_VARIANCE).toDouble());
 }
@@ -52,9 +53,9 @@ void InterferenceFunctionItem::setPositionVariance(IInterferenceFunction *p_iff)
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunction1DLatticeItem::P_LENGTH =
-        QString::fromStdString(BornAgain::Length);
+    QString::fromStdString(BornAgain::Length);
 const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE =
-        QString::fromStdString(BornAgain::Xi);
+    QString::fromStdString(BornAgain::Xi);
 const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = decay_function_tag;
 
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
@@ -62,7 +63,7 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
 {
     setToolTip(QStringLiteral("Interference function of a 1D lattice"));
     addProperty(P_LENGTH, 20.0 * Units::nanometer)
-            ->setToolTip(QStringLiteral("Lattice length in nanometers"));
+        ->setToolTip(QStringLiteral("Lattice length in nanometers"));
     addProperty(P_ROTATION_ANGLE, 0.0)
         ->setToolTip(QStringLiteral("Rotation of lattice with respect to x-axis of reference \n"
                                     "frame (beam direction) in degrees "));
@@ -96,8 +97,8 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
     addGroupProperty(P_LATTICE_TYPE, Constants::LatticeGroup)->setToolTip("Type of lattice");
     addGroupProperty(P_DECAY_FUNCTION, Constants::FTDecayFunction2DGroup)
         ->setToolTip("Two-dimensional decay function (finite size effects)");
-    addProperty(P_XI_INTEGRATION, false)->setToolTip(
-        QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
+    addProperty(P_XI_INTEGRATION, false)
+        ->setToolTip(QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
@@ -105,8 +106,8 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
         }
     });
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString&) {
-        if (item->modelType() == Constants::GroupItemType && item->displayName() ==
-            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
+        if (item->modelType() == Constants::GroupItemType
+            && item->displayName() == InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
             update_rotation_availability();
         }
     });
@@ -139,11 +140,11 @@ void InterferenceFunction2DLatticeItem::update_rotation_availability()
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH =
-        QString::fromStdString(BornAgain::DampingLength);
+    QString::fromStdString(BornAgain::DampingLength);
 const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE1 =
-        QString::fromStdString(BornAgain::DomainSize1);
+    QString::fromStdString(BornAgain::DomainSize1);
 const QString InterferenceFunction2DParaCrystalItem::P_DOMAIN_SIZE2 =
-        QString::fromStdString(BornAgain::DomainSize2);
+    QString::fromStdString(BornAgain::DomainSize2);
 const QString InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION = "Integration_over_xi";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
@@ -156,21 +157,25 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
     addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::LatticeGroup)
         ->setToolTip(QStringLiteral("Type of lattice"));
     getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
-        ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE)->setEnabled(false);
-    addProperty(P_XI_INTEGRATION, true)->setToolTip(
-        QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
+        ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE)
+        ->setEnabled(false);
+    addProperty(P_XI_INTEGRATION, true)
+        ->setToolTip(QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
 
-    addProperty(P_DAMPING_LENGTH, 0.0)->setToolTip(
-        QStringLiteral("The damping (coherence) length of the paracrystal in nanometers"));
+    addProperty(P_DAMPING_LENGTH, 0.0)
+        ->setToolTip(
+            QStringLiteral("The damping (coherence) length of the paracrystal in nanometers"));
 
-    addProperty(P_DOMAIN_SIZE1, 20.0 * Units::micrometer)->setToolTip(
-        QStringLiteral("Size of the coherent domain along the first basis vector in nanometers"));
-    addProperty(P_DOMAIN_SIZE2, 20.0 * Units::micrometer)->setToolTip(
-        QStringLiteral("Size of the coherent domain along the second basis vector in nanometers"));
-    addGroupProperty(P_PDF1, Constants::FTDistribution2DGroup)->setToolTip(
-        QStringLiteral("Probability distribution in first lattice direction"));
-    addGroupProperty(P_PDF2, Constants::FTDistribution2DGroup)->setToolTip(
-                QStringLiteral("Probability distribution in second lattice direction"));
+    addProperty(P_DOMAIN_SIZE1, 20.0 * Units::micrometer)
+        ->setToolTip(QStringLiteral(
+            "Size of the coherent domain along the first basis vector in nanometers"));
+    addProperty(P_DOMAIN_SIZE2, 20.0 * Units::micrometer)
+        ->setToolTip(QStringLiteral(
+            "Size of the coherent domain along the second basis vector in nanometers"));
+    addGroupProperty(P_PDF1, Constants::FTDistribution2DGroup)
+        ->setToolTip(QStringLiteral("Probability distribution in first lattice direction"));
+    addGroupProperty(P_PDF2, Constants::FTDistribution2DGroup)
+        ->setToolTip(QStringLiteral("Probability distribution in second lattice direction"));
 
     mapper()->setOnPropertyChange([this](const QString& name) {
         if (name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
@@ -179,8 +184,8 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
     });
 
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString& property) {
-        if (item->modelType() == Constants::GroupItemType && item->displayName() ==
-            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
+        if (item->modelType() == Constants::GroupItemType
+            && item->displayName() == InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
             update_rotation_availability();
         }
         if (item->modelType() == Constants::GroupItemType && property == GroupItem::T_ITEMS
@@ -226,19 +231,19 @@ void InterferenceFunction2DParaCrystalItem::update_rotation_availability()
 
 void InterferenceFunction2DParaCrystalItem::update_distribution_displaynames()
 {
-    GroupItem *group1 = dynamic_cast<GroupItem*>(getItem(P_PDF1));
-    GroupItem *group2 = dynamic_cast<GroupItem*>(getItem(P_PDF2));
+    GroupItem* group1 = dynamic_cast<GroupItem*>(getItem(P_PDF1));
+    GroupItem* group2 = dynamic_cast<GroupItem*>(getItem(P_PDF2));
 
-    if(!group1 || !group2)
+    if (!group1 || !group2)
         return;
 
-    SessionItem *pdf1 = group1->currentItem();
-    SessionItem *pdf2 = group2->currentItem();
+    SessionItem* pdf1 = group1->currentItem();
+    SessionItem* pdf2 = group2->currentItem();
 
-    if(pdf1 && pdf2) {
-        if(pdf1->modelType() == pdf2->modelType()) {
-            pdf1->setDisplayName(pdf1->modelType()+QString::number(0));
-            pdf2->setDisplayName(pdf2->modelType()+QString::number(1));
+    if (pdf1 && pdf2) {
+        if (pdf1->modelType() == pdf2->modelType()) {
+            pdf1->setDisplayName(pdf1->modelType() + QString::number(0));
+            pdf2->setDisplayName(pdf2->modelType() + QString::number(1));
         } else {
             pdf1->setDisplayName(pdf1->modelType());
             pdf2->setDisplayName(pdf2->modelType());
@@ -256,24 +261,23 @@ InterferenceFunctionFinite2DLatticeItem::InterferenceFunctionFinite2DLatticeItem
     : InterferenceFunctionItem(Constants::InterferenceFunctionFinite2DLatticeType)
 {
     setToolTip(QStringLiteral("Interference function of a finite 2D lattice"));
-    addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                     Constants::LatticeGroup)->setToolTip("Type of lattice");
-    addProperty(P_XI_INTEGRATION, false)->setToolTip(
-        QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
-    addProperty(P_DOMAIN_SIZE_1, 100u)->setToolTip(
-        QStringLiteral("Domain size 1 in number of unit cells"));
-    addProperty(P_DOMAIN_SIZE_2, 100u)->setToolTip(
-        QStringLiteral("Domain size 2 in number of unit cells"));
+    addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, Constants::LatticeGroup)
+        ->setToolTip("Type of lattice");
+    addProperty(P_XI_INTEGRATION, false)
+        ->setToolTip(QStringLiteral("Enables/disables averaging over the lattice rotation angle."));
+    addProperty(P_DOMAIN_SIZE_1, 100u)
+        ->setToolTip(QStringLiteral("Domain size 1 in number of unit cells"));
+    addProperty(P_DOMAIN_SIZE_2, 100u)
+        ->setToolTip(QStringLiteral("Domain size 2 in number of unit cells"));
 
     mapper()->setOnPropertyChange([this](const QString& name) {
-        if (name == P_XI_INTEGRATION
-            && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
+        if (name == P_XI_INTEGRATION && isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
             update_rotation_availability();
         }
     });
     mapper()->setOnChildPropertyChange([this](SessionItem* item, const QString&) {
-        if (item->modelType() == Constants::GroupItemType && item->displayName() ==
-            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
+        if (item->modelType() == Constants::GroupItemType
+            && item->displayName() == InterferenceFunction2DLatticeItem::P_LATTICE_TYPE) {
             update_rotation_availability();
         }
     });
@@ -282,8 +286,7 @@ InterferenceFunctionFinite2DLatticeItem::InterferenceFunctionFinite2DLatticeItem
 std::unique_ptr<IInterferenceFunction>
 InterferenceFunctionFinite2DLatticeItem::createInterferenceFunction() const
 {
-    auto& latticeItem = groupItem<Lattice2DItem>(
-                            InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
+    auto& latticeItem = groupItem<Lattice2DItem>(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
     auto size_1 = getItemValue(P_DOMAIN_SIZE_1).toUInt();
     auto size_2 = getItemValue(P_DOMAIN_SIZE_2).toUInt();
     std::unique_ptr<InterferenceFunctionFinite2DLattice> result(
@@ -307,21 +310,22 @@ void InterferenceFunctionFinite2DLatticeItem::update_rotation_availability()
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunctionHardDiskItem::P_RADIUS =
-        QString::fromStdString(BornAgain::Radius);
+    QString::fromStdString(BornAgain::Radius);
 const QString InterferenceFunctionHardDiskItem::P_DENSITY =
-        QString::fromStdString(BornAgain::TotalParticleDensity);
+    QString::fromStdString(BornAgain::TotalParticleDensity);
 
 InterferenceFunctionHardDiskItem::InterferenceFunctionHardDiskItem()
     : InterferenceFunctionItem(Constants::InterferenceFunctionHardDiskType)
 {
     setToolTip(QStringLiteral("Interference function for hard disk Percus-Yevick"));
-    addProperty(P_RADIUS, 5.0*Units::nanometer)
-            ->setToolTip(QStringLiteral("Hard disk radius in nanometers"));
+    addProperty(P_RADIUS, 5.0 * Units::nanometer)
+        ->setToolTip(QStringLiteral("Hard disk radius in nanometers"));
     addProperty(P_DENSITY, 0.002)
-            ->setToolTip(QStringLiteral("Particle density in particles per square nanometer"));
+        ->setToolTip(QStringLiteral("Particle density in particles per square nanometer"));
 }
 
-std::unique_ptr<IInterferenceFunction> InterferenceFunctionHardDiskItem::createInterferenceFunction() const
+std::unique_ptr<IInterferenceFunction>
+InterferenceFunctionHardDiskItem::createInterferenceFunction() const
 {
     auto result = std::make_unique<InterferenceFunctionHardDisk>(
         getItemValue(P_RADIUS).toDouble(), getItemValue(P_DENSITY).toDouble());
@@ -332,22 +336,22 @@ std::unique_ptr<IInterferenceFunction> InterferenceFunctionHardDiskItem::createI
 // --------------------------------------------------------------------------------------------- //
 
 const QString InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE =
-        QString::fromStdString(BornAgain::PeakDistance);
+    QString::fromStdString(BornAgain::PeakDistance);
 const QString InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH =
-        QString::fromStdString(BornAgain::DampingLength);
+    QString::fromStdString(BornAgain::DampingLength);
 const QString InterferenceFunctionRadialParaCrystalItem::P_DOMAIN_SIZE =
-        QString::fromStdString(BornAgain::DomainSize);
+    QString::fromStdString(BornAgain::DomainSize);
 const QString InterferenceFunctionRadialParaCrystalItem::P_KAPPA =
-        QString::fromStdString(BornAgain::SizeSpaceCoupling);
+    QString::fromStdString(BornAgain::SizeSpaceCoupling);
 const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
 
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem()
     : InterferenceFunctionItem(Constants::InterferenceFunctionRadialParaCrystalType)
 {
     setToolTip(QStringLiteral("Interference function of a radial paracrystal"));
-    addProperty(P_PEAK_DISTANCE, 20.0*Units::nanometer)
+    addProperty(P_PEAK_DISTANCE, 20.0 * Units::nanometer)
         ->setToolTip(QStringLiteral("Average distance to the next neighbor in nanometers"));
-    addProperty(P_DAMPING_LENGTH, 1000.0*Units::nanometer)
+    addProperty(P_DAMPING_LENGTH, 1000.0 * Units::nanometer)
         ->setToolTip(QStringLiteral("The damping (coherence) length of the paracrystal "
                                     "in nanometers"));
     addProperty(P_DOMAIN_SIZE, 0.0)

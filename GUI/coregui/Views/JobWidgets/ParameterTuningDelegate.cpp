@@ -212,8 +212,7 @@ void ParameterTuningDelegate::updateSlider(double value) const
 
     m_slider->setValue(m_tuning_info.value_to_slider(value));
 
-    connect(m_slider, &QSlider::valueChanged, this,
-            &ParameterTuningDelegate::sliderValueChanged);
+    connect(m_slider, &QSlider::valueChanged, this, &ParameterTuningDelegate::sliderValueChanged);
 }
 
 void ParameterTuningDelegate::sliderValueChanged(int position)
@@ -236,8 +235,7 @@ void ParameterTuningDelegate::editorValueChanged(double value)
 
     updateSlider(value);
 
-    connect(m_slider, &QSlider::valueChanged, this,
-            &ParameterTuningDelegate::sliderValueChanged);
+    connect(m_slider, &QSlider::valueChanged, this, &ParameterTuningDelegate::sliderValueChanged);
     emitSignals(value);
 }
 

@@ -26,21 +26,24 @@
 //! This class is templated on the data type of the wrapped parameter.
 //! @ingroup tools_internal
 
-template<class T>
-class IParameter : public INamed
+template <class T> class IParameter : public INamed
 {
 public:
-    IParameter() =delete;
+    IParameter() = delete;
     IParameter(const std::string& name, T* data, const std::string& parent_name,
                const std::function<void()>& onChange);
 
-    virtual IParameter* clone( const std::string& new_name="" ) const =0;
+    virtual IParameter* clone(const std::string& new_name = "") const = 0;
 
     //! Returns true if wrapped parameter was not initialized with proper real value
     virtual bool isNull() const { return m_data ? false : true; }
 
     T& getData() const { return *m_data; }
-    void setData(T& data) { m_data = &data; m_onChange(); }
+    void setData(T& data)
+    {
+        m_data = &data;
+        m_onChange();
+    }
 
     bool hasSameData(const IParameter& other);
 
@@ -53,23 +56,18 @@ protected:
     std::string fullName() { return m_parent_name + "/" + getName(); }
 };
 
-template<class T>
-IParameter<T>::IParameter(const std::string& name, T* data,
-                          const std::string& parent_name,
-                          const std::function<void ()>& onChange)
-    : INamed(name)
-    , m_data(data)
-    , m_parent_name(parent_name)
-    , m_onChange(onChange)
+template <class T>
+IParameter<T>::IParameter(const std::string& name, T* data, const std::string& parent_name,
+                          const std::function<void()>& onChange)
+    : INamed(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange)
 {
-    if(!m_data)
+    if (!m_data)
         throw std::runtime_error("Attempt to construct an IParameter with null data pointer");
 }
 
 //! Returns true if two parameters are pointing to the same raw data.
 
-template<class T>
-bool IParameter<T>::hasSameData(const IParameter<T>& other)
+template <class T> bool IParameter<T>::hasSameData(const IParameter<T>& other)
 {
     return &getData() == &other.getData();
 }

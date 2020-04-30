@@ -17,8 +17,8 @@
 #include "WavevectorInfo.h"
 #include <memory>
 
-FormFactorDecoratorRotation::FormFactorDecoratorRotation(
-    const IFormFactor& form_factor, const IRotation& rotation)
+FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor& form_factor,
+                                                         const IRotation& rotation)
     : IFormFactorDecorator(form_factor)
 {
     setName(BornAgain::FormFactorDecoratorRotationType);
@@ -33,14 +33,14 @@ FormFactorDecoratorRotation* FormFactorDecoratorRotation::clone() const
 double FormFactorDecoratorRotation::bottomZ(const IRotation& rotation) const
 {
     Transform3D transform = rotation.getTransform3D();
-    std::unique_ptr<IRotation> P_total_rotation(IRotation::createRotation(transform*m_transform));
+    std::unique_ptr<IRotation> P_total_rotation(IRotation::createRotation(transform * m_transform));
     return mp_form_factor->bottomZ(*P_total_rotation);
 }
 
 double FormFactorDecoratorRotation::topZ(const IRotation& rotation) const
 {
     Transform3D transform = rotation.getTransform3D();
-    std::unique_ptr<IRotation> P_total_rotation(IRotation::createRotation(transform*m_transform));
+    std::unique_ptr<IRotation> P_total_rotation(IRotation::createRotation(transform * m_transform));
     return mp_form_factor->topZ(*P_total_rotation);
 }
 
@@ -54,10 +54,9 @@ Eigen::Matrix2cd FormFactorDecoratorRotation::evaluatePol(const WavevectorInfo& 
     return mp_form_factor->evaluatePol(wavevectors.transformed(m_transform.getInverse()));
 }
 
-FormFactorDecoratorRotation::FormFactorDecoratorRotation(
-    const IFormFactor& form_factor, const Transform3D& transform)
-    : IFormFactorDecorator(form_factor)
-    , m_transform(transform)
+FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor& form_factor,
+                                                         const Transform3D& transform)
+    : IFormFactorDecorator(form_factor), m_transform(transform)
 {
     setName(BornAgain::FormFactorDecoratorRotationType);
 }

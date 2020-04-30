@@ -47,10 +47,8 @@ double InterferenceFunctionTwin::stdDev() const
 }
 
 InterferenceFunctionTwin::InterferenceFunctionTwin(const InterferenceFunctionTwin& other)
-    : IInterferenceFunction(other)
-    , m_direction(other.m_direction)
-    , m_distance(other.m_distance)
-    , m_std_dev(other.m_std_dev)
+    : IInterferenceFunction(other), m_direction(other.m_direction), m_distance(other.m_distance),
+      m_std_dev(other.m_std_dev)
 {
     setName(BornAgain::InterferenceFunctionTwinType);
     validateParameters();
@@ -60,7 +58,9 @@ InterferenceFunctionTwin::InterferenceFunctionTwin(const InterferenceFunctionTwi
 double InterferenceFunctionTwin::iff_without_dw(const kvector_t q) const
 {
     double q_proj = q.dot(m_direction.unit());
-    return 1.0 + std::exp(-q_proj*q_proj*m_std_dev*m_std_dev/2.0)*std::cos(q_proj*m_distance);
+    return 1.0
+           + std::exp(-q_proj * q_proj * m_std_dev * m_std_dev / 2.0)
+                 * std::cos(q_proj * m_distance);
 }
 
 void InterferenceFunctionTwin::validateParameters() const

@@ -16,9 +16,9 @@
 #define ITEMSTACKPRESENTER_H
 
 #include "ItemStackWidget.h"
+#include <QDebug>
 #include <QMap>
 #include <QStackedWidget>
-#include <QDebug>
 
 class SessionItem;
 
@@ -28,12 +28,11 @@ class SessionItem;
 template <class T> class BA_CORE_API_ ItemStackPresenter : public ItemStackWidget
 {
 public:
-    ItemStackPresenter(bool single_widget = false) : m_single_widget(single_widget){}
+    ItemStackPresenter(bool single_widget = false) : m_single_widget(single_widget) {}
 
     //! Shows the widget for given item (and hides previous one).
     //! If no widget yet exists, it will be created (flag isNew will become 'true' in this case).
-    template<class U>
-    void setItem(U* item, bool* isNew = 0);
+    template <class U> void setItem(U* item, bool* isNew = 0);
 
     T* currentWidget();
     T* itemWidget(SessionItem* item);
@@ -48,13 +47,11 @@ private:
     bool m_single_widget; //!< Different items will be served by same widget
 };
 
-template <class T>
-template <class U>
-void ItemStackPresenter<T>::setItem(U* item, bool* isNew)
+template <class T> template <class U> void ItemStackPresenter<T>::setItem(U* item, bool* isNew)
 {
     validateItem(item);
 
-    if(isNew)
+    if (isNew)
         *isNew = false;
 
     if (!item) {
@@ -66,7 +63,7 @@ void ItemStackPresenter<T>::setItem(U* item, bool* isNew)
 
     if (!widget) {
         widget = new T();
-        if(isNew)
+        if (isNew)
             *isNew = true;
         m_stackedWidget->addWidget(widget);
         m_itemToWidget[item] = widget;
@@ -79,16 +76,15 @@ void ItemStackPresenter<T>::setItem(U* item, bool* isNew)
     widget->setItem(item);
 }
 
-template <class T>
-T* ItemStackPresenter<T>::currentWidget() {
+template <class T> T* ItemStackPresenter<T>::currentWidget()
+{
     return dynamic_cast<T*>(m_stackedWidget->currentWidget());
 }
 
-template <class T>
-T* ItemStackPresenter<T>::itemWidget(SessionItem* item)
+template <class T> T* ItemStackPresenter<T>::itemWidget(SessionItem* item)
 {
-    if(m_single_widget) {
-        if(m_itemToWidget.size())
+    if (m_single_widget) {
+        if (m_itemToWidget.size())
             return m_itemToWidget.first();
     } else {
         return m_itemToWidget[item];
@@ -97,18 +93,17 @@ T* ItemStackPresenter<T>::itemWidget(SessionItem* item)
     return nullptr;
 }
 
-template <class T>
-void ItemStackPresenter<T>::hideWidgets() {
+template <class T> void ItemStackPresenter<T>::hideWidgets()
+{
     if (m_stackedWidget->currentWidget())
         m_stackedWidget->currentWidget()->hide();
 }
 
-template <class T>
-void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* item)
+template <class T> void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* item)
 {
     Q_ASSERT(item);
 
-    if(m_single_widget)
+    if (m_single_widget)
         return;
 
     T* widget = m_itemToWidget[item];
@@ -127,8 +122,7 @@ void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* item)
     delete widget;
 }
 
-template <class T>
-void ItemStackPresenter<T>::removeWidgets()
+template <class T> void ItemStackPresenter<T>::removeWidgets()
 {
     typename QMap<SessionItem*, T*>::iterator it = m_itemToWidget.begin();
     while (it != m_itemToWidget.end()) {

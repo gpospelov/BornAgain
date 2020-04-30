@@ -18,20 +18,18 @@
 #include "IntensityDataItem.h"
 #include "MaskItems.h"
 #include "OutputData.h"
-#include "SessionModel.h"
 #include "RegionOfInterest.h"
+#include "SessionModel.h"
 #include <QVBoxLayout>
 
-MaskResultsPresenter::MaskResultsPresenter(QWidget *parent)
-    : QObject(parent)
-    , m_interpolation_flag_backup(false)
+MaskResultsPresenter::MaskResultsPresenter(QWidget* parent)
+    : QObject(parent), m_interpolation_flag_backup(false)
 {
-
 }
 
-void MaskResultsPresenter::setMaskContext(SessionModel *maskModel,
-                                          const QModelIndex &maskContainerIndex,
-                                          IntensityDataItem *intensityItem)
+void MaskResultsPresenter::setMaskContext(SessionModel* maskModel,
+                                          const QModelIndex& maskContainerIndex,
+                                          IntensityDataItem* intensityItem)
 {
     m_maskModel = maskModel;
     m_maskContainerIndex = maskContainerIndex;
@@ -45,12 +43,12 @@ void MaskResultsPresenter::resetContext()
 
 void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType presentationType)
 {
-    if(!m_maskContainerIndex.isValid())
+    if (!m_maskContainerIndex.isValid())
         return;
 
-    if(presentationType == MaskEditorFlags::MASK_PRESENTER) {
+    if (presentationType == MaskEditorFlags::MASK_PRESENTER) {
         setShowMaskMode();
-    } else if(presentationType == MaskEditorFlags::MASK_EDITOR) {
+    } else if (presentationType == MaskEditorFlags::MASK_EDITOR) {
         setOriginalMode();
     }
 }
@@ -60,7 +58,7 @@ void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType pre
 
 void MaskResultsPresenter::setShowMaskMode()
 {
-    if (OutputData<double> *maskedData = createMaskPresentation()) {
+    if (OutputData<double>* maskedData = createMaskPresentation()) {
         backup_data();
         m_intensityDataItem->setOutputData(maskedData);
         m_intensityDataItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED, false);
@@ -82,31 +80,31 @@ void MaskResultsPresenter::setOriginalMode()
 
 void MaskResultsPresenter::backup_data()
 {
-    m_interpolation_flag_backup
-        = m_intensityDataItem->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool();
+    m_interpolation_flag_backup =
+        m_intensityDataItem->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool();
     m_dataBackup.reset(m_intensityDataItem->getOutputData()->clone());
 }
 
 //! Constructs OutputData which contains original intensity data except masked areas,
 //! and areas outside of ROI, where bin content is set to zero.
 
-OutputData<double> *MaskResultsPresenter::createMaskPresentation() const
+OutputData<double>* MaskResultsPresenter::createMaskPresentation() const
 {
     // Requesting mask information
     std::unique_ptr<RegionOfInterest> roi;
     DetectorMask detectorMask;
     for (int i_row = m_maskModel->rowCount(m_maskContainerIndex); i_row > 0; --i_row) {
         QModelIndex itemIndex = m_maskModel->index(i_row - 1, 0, m_maskContainerIndex);
-        if (MaskItem *maskItem = dynamic_cast<MaskItem *>(m_maskModel->itemForIndex(itemIndex))) {
-            if(maskItem->modelType() == Constants::RegionOfInterestType) {
+        if (MaskItem* maskItem = dynamic_cast<MaskItem*>(m_maskModel->itemForIndex(itemIndex))) {
+            if (maskItem->modelType() == Constants::RegionOfInterestType) {
                 double xlow = maskItem->getItemValue(RectangleItem::P_XLOW).toDouble();
                 double ylow = maskItem->getItemValue(RectangleItem::P_YLOW).toDouble();
                 double xup = maskItem->getItemValue(RectangleItem::P_XUP).toDouble();
                 double yup = maskItem->getItemValue(RectangleItem::P_YUP).toDouble();
-                roi.reset(new RegionOfInterest(*m_intensityDataItem->getOutputData(),
-                                               xlow, ylow, xup, yup));
+                roi.reset(new RegionOfInterest(*m_intensityDataItem->getOutputData(), xlow, ylow,
+                                               xup, yup));
             } else {
-                std::unique_ptr<IShape2D > shape(maskItem->createShape());
+                std::unique_ptr<IShape2D> shape(maskItem->createShape());
                 bool mask_value = maskItem->getItemValue(MaskItem::P_MASK_VALUE).toBool();
                 detectorMask.addMask(*shape.get(), mask_value);
             }
@@ -116,13 +114,13 @@ OutputData<double> *MaskResultsPresenter::createMaskPresentation() const
     if (!detectorMask.hasMasks() && !roi)
         return 0;
 
-    OutputData<double> *result = m_intensityDataItem->getOutputData()->clone();
+    OutputData<double>* result = m_intensityDataItem->getOutputData()->clone();
     detectorMask.initMaskData(*result);
 
     for (size_t i = 0; i < result->getAllocatedSize(); ++i) {
         if (detectorMask.isMasked(i))
             (*result)[i] = 0.0;
-        if(roi && !roi->isInROI(i))
+        if (roi && !roi->isInROI(i))
             (*result)[i] = 0.0;
     }
 

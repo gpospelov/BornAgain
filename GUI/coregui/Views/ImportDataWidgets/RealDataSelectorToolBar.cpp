@@ -17,10 +17,8 @@
 #include <QToolButton>
 
 RealDataSelectorToolBar::RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent)
-    : StyledToolBar(parent)
-    , m_import2dDataButton(new QToolButton)
-    , m_import1dDataButton(new QToolButton)
-    , m_removeDataButton(new QToolButton)
+    : StyledToolBar(parent), m_import2dDataButton(new QToolButton),
+      m_import1dDataButton(new QToolButton), m_removeDataButton(new QToolButton)
 {
     setMinimumSize(minimumHeight(), minimumHeight());
 

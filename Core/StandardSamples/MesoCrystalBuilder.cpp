@@ -13,7 +13,6 @@
 // ************************************************************************** //
 
 #include "MesoCrystalBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "Crystal.h"
 #include "FormFactorCylinder.h"
@@ -22,17 +21,17 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "MaterialFactoryFuncs.h"
+#include "MathConstants.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleComposition.h"
 #include "ParticleLayout.h"
-#include "MathConstants.h"
 #include "RealParameter.h"
 #include "Units.h"
 
-MesoCrystalBuilder::MesoCrystalBuilder()
-{}
+MesoCrystalBuilder::MesoCrystalBuilder() {}
 
 MultiLayer* MesoCrystalBuilder::buildSample() const
 {

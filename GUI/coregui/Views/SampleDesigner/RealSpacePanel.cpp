@@ -20,8 +20,7 @@
 
 RealSpacePanel::RealSpacePanel(SampleModel* sampleModel, QItemSelectionModel* selectionModel,
                                QWidget* parent)
-    : QWidget(parent)
-    , m_realSpaceWidget(nullptr)
+    : QWidget(parent), m_realSpaceWidget(nullptr)
 {
     setWindowTitle("Real Space");
     setObjectName("Sample3DPanel");

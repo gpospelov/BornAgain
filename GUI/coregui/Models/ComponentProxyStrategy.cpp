@@ -14,12 +14,12 @@
 
 #include "ComponentProxyStrategy.h"
 #include "ComponentProxyModel.h"
-#include "SessionModel.h"
-#include "SessionItem.h"
-#include "ModelPath.h"
-#include "GroupItem.h"
-#include "SessionItemUtils.h"
 #include "ComponentUtils.h"
+#include "GroupItem.h"
+#include "ModelPath.h"
+#include "SessionItem.h"
+#include "SessionItemUtils.h"
+#include "SessionModel.h"
 
 void ComponentProxyStrategy::onDataChanged(SessionModel* source, ComponentProxyModel* proxy)
 {
@@ -37,7 +37,7 @@ bool ComponentProxyStrategy::processSourceIndex(const QModelIndex& index)
     if (item->parent())
         tag = item->parent()->tagFromItem(item);
 
-    if ( !isPropertyRelated(item))
+    if (!isPropertyRelated(item))
         return false; // not going to visit non-property items
 
     if (isNewRootItem(item)) {
@@ -63,8 +63,8 @@ bool ComponentProxyStrategy::isPropertyRelated(SessionItem* item)
 {
     static QStringList propertyRelated = ComponentUtils::propertyRelatedTypes();
 
-    if (m_sourceRootIndex.isValid() && item->parent()->index() == m_sourceRootIndex &&
-        item->parent()->modelType() != Constants::GroupItemType)
+    if (m_sourceRootIndex.isValid() && item->parent()->index() == m_sourceRootIndex
+        && item->parent()->modelType() != Constants::GroupItemType)
         return propertyRelated.contains(item->modelType()) ? true : false;
 
     return true;
@@ -94,8 +94,8 @@ void ComponentProxyStrategy::processRootItem(SessionItem* item,
 bool ComponentProxyStrategy::isSubGroup(SessionItem* item)
 {
     const SessionItem* ancestor = ModelPath::ancestor(item->parent(), Constants::GroupItemType);
-    if (item->modelType() == Constants::GroupItemType && ancestor &&
-        ancestor->modelType() == Constants::GroupItemType) {
+    if (item->modelType() == Constants::GroupItemType && ancestor
+        && ancestor->modelType() == Constants::GroupItemType) {
         return true;
     }
 
@@ -128,35 +128,32 @@ void ComponentProxyStrategy::processGroupItem(SessionItem* item,
 
         auto groupItem = dynamic_cast<const GroupItem*>(ancestor);
         if (item->parent() == groupItem->currentItem()) {
-            QPersistentModelIndex proxyIndex
-                = createProxyIndex(parentVisibleRow(*item), sourceIndex.column(), sourceIndex.internalPointer());
+            QPersistentModelIndex proxyIndex = createProxyIndex(
+                parentVisibleRow(*item), sourceIndex.column(), sourceIndex.internalPointer());
 
             m_sourceToProxy.insert(sourceIndex, proxyIndex);
             m_proxySourceParent.insert(proxyIndex, groupItem->index());
         }
-
     }
 }
-
 
 //! Process group property which is inside of other group property.
 
 void ComponentProxyStrategy::processSubGroupItem(SessionItem* item,
                                                  const QPersistentModelIndex& sourceIndex)
 {
-    if(const SessionItem* ancestor = ModelPath::ancestor(item->parent(), Constants::GroupItemType)) {
+    if (const SessionItem* ancestor =
+            ModelPath::ancestor(item->parent(), Constants::GroupItemType)) {
         auto groupItem = dynamic_cast<const GroupItem*>(ancestor);
 
         if (item->parent() == groupItem->currentItem()) {
-            QPersistentModelIndex proxyIndex
-                = createProxyIndex(parentVisibleRow(*item), sourceIndex.column(), sourceIndex.internalPointer());
+            QPersistentModelIndex proxyIndex = createProxyIndex(
+                parentVisibleRow(*item), sourceIndex.column(), sourceIndex.internalPointer());
 
             m_sourceToProxy.insert(sourceIndex, proxyIndex);
             m_proxySourceParent.insert(proxyIndex, groupItem->index());
         }
-
     }
-
 }
 
 void ComponentProxyStrategy::processDefaultItem(SessionItem* item,
@@ -166,8 +163,8 @@ void ComponentProxyStrategy::processDefaultItem(SessionItem* item,
     if (!item->isVisible())
         return;
 
-    QPersistentModelIndex proxyIndex
-        = createProxyIndex(parentVisibleRow(*item), sourceIndex.column(), item);
+    QPersistentModelIndex proxyIndex =
+        createProxyIndex(parentVisibleRow(*item), sourceIndex.column(), item);
 
     m_sourceToProxy.insert(sourceIndex, proxyIndex);
 
@@ -185,7 +182,7 @@ int ComponentProxyStrategy::parentVisibleRow(const SessionItem& item)
     if (!item.parent() || !item.isVisible())
         return result;
 
-    for(auto child : item.parent()->children()) {
+    for (auto child : item.parent()->children()) {
         if (child->isVisible() && isPropertyRelated(child))
             ++result;
 

@@ -46,9 +46,9 @@
 
 #ifdef Q_OS_WIN
 #ifdef QT_WIDGETBOX_LIBRARY
-# define QT_WIDGETBOX_EXPORT
+#define QT_WIDGETBOX_EXPORT
 #else
-# define QT_WIDGETBOX_EXPORT
+#define QT_WIDGETBOX_EXPORT
 #endif
 #else
 #define QT_WIDGETBOX_EXPORT

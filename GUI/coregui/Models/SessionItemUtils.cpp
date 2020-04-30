@@ -13,30 +13,32 @@
 // ************************************************************************** //
 
 #include "SessionItemUtils.h"
+#include "ExternalProperty.h"
+#include "GUIHelpers.h"
+#include "GroupInfoCatalogue.h"
+#include "MaterialItem.h"
+#include "SessionGraphicsItem.h"
 #include "SessionItem.h"
 #include "VectorItem.h"
-#include "MaterialItem.h"
-#include "ExternalProperty.h"
-#include "GroupInfoCatalogue.h"
-#include "GUIHelpers.h"
-#include "SessionGraphicsItem.h"
 #include <QColor>
 #include <QIcon>
 #include <QPixmap>
 
-namespace {
+namespace
+{
 const GroupInfoCatalogue& groupInfoCatalogue()
 {
     static GroupInfoCatalogue s_catalogue = GroupInfoCatalogue();
     return s_catalogue;
 }
 
-QStringList parents_with_abundance() {
+QStringList parents_with_abundance()
+{
     return QStringList() << Constants::ParticleCoreShellType << Constants::ParticleCompositionType
                          << Constants::ParticleDistributionType << Constants::MesoCrystalType;
 }
 
-}
+} // namespace
 
 int SessionItemUtils::ParentRow(const SessionItem& item)
 {
@@ -52,7 +54,7 @@ kvector_t SessionItemUtils::GetVectorItem(const SessionItem& item, const QString
     double x = vectorItem->getItemValue(VectorItem::P_X).toDouble();
     double y = vectorItem->getItemValue(VectorItem::P_Y).toDouble();
     double z = vectorItem->getItemValue(VectorItem::P_Z).toDouble();
-    return { x, y, z };
+    return {x, y, z};
 }
 
 void SessionItemUtils::SetVectorItem(const SessionItem& item, const QString& name, kvector_t value)
@@ -70,7 +72,7 @@ int SessionItemUtils::ParentVisibleRow(const SessionItem& item)
     if (!item.parent() || !item.isVisible())
         return result;
 
-    for(auto child : item.parent()->children()) {
+    for (auto child : item.parent()->children()) {
         if (child->isVisible())
             ++result;
 
@@ -97,7 +99,6 @@ QVariant SessionItemUtils::ToolTipRole(const SessionItem& item, int ncol)
 
     return QVariant(result);
 }
-
 
 QVariant SessionItemUtils::DecorationRole(const SessionItem& item)
 {
@@ -162,9 +163,9 @@ bool SessionItemUtils::IsTheSame(const QVariant& var1, const QVariant& var2)
 
 bool SessionItemUtils::IsPositionRelated(const SessionItem& item)
 {
-    if (item.modelType() == Constants::PropertyType &&
-            (item.displayName() == SessionGraphicsItem::P_XPOS
-                          || item.displayName() == SessionGraphicsItem::P_YPOS))
+    if (item.modelType() == Constants::PropertyType
+        && (item.displayName() == SessionGraphicsItem::P_XPOS
+            || item.displayName() == SessionGraphicsItem::P_YPOS))
         return true;
 
     return false;

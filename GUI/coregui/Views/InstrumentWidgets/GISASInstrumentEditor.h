@@ -43,4 +43,4 @@ private:
     PolarizationAnalysisEditor* m_polarizationAnalysisEditor;
 };
 
-#endif  // GISASINSTRUMENTEDITOR_H
+#endif // GISASINSTRUMENTEDITOR_H

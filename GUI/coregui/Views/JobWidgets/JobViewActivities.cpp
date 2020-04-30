@@ -16,21 +16,22 @@
 #include "GUIHelpers.h"
 #include "mainwindow_constants.h"
 
-namespace {
+namespace
+{
 JobViewActivities::activity_map_t createActivityMap()
 {
     JobViewActivities::activity_map_t result;
     result[JobViewFlags::JOB_VIEW_ACTIVITY] = QVector<JobViewFlags::Dock>()
-                                            << JobViewFlags::JOB_LIST_DOCK;
+                                              << JobViewFlags::JOB_LIST_DOCK;
     result[JobViewFlags::REAL_TIME_ACTIVITY] = QVector<JobViewFlags::Dock>()
-                                             << JobViewFlags::REAL_TIME_DOCK;
+                                               << JobViewFlags::REAL_TIME_DOCK;
     result[JobViewFlags::FITTING_ACTIVITY] = QVector<JobViewFlags::Dock>()
-                                           << JobViewFlags::REAL_TIME_DOCK
-                                           << JobViewFlags::FIT_PANEL_DOCK
-                                           << JobViewFlags::JOB_MESSAGE_DOCK;
+                                             << JobViewFlags::REAL_TIME_DOCK
+                                             << JobViewFlags::FIT_PANEL_DOCK
+                                             << JobViewFlags::JOB_MESSAGE_DOCK;
     return result;
 }
-}
+} // namespace
 
 JobViewActivities::activity_map_t JobViewActivities::m_activityToDocks = createActivityMap();
 
@@ -38,8 +39,9 @@ JobViewActivities::activity_map_t JobViewActivities::m_activityToDocks = createA
 
 QStringList JobViewActivities::activityList()
 {
-    QStringList result = QStringList() << Constants::JobViewActivityName
-        << Constants::JobRealTimeActivityName << Constants::JobFittingActivityName;
+    QStringList result = QStringList()
+                         << Constants::JobViewActivityName << Constants::JobRealTimeActivityName
+                         << Constants::JobFittingActivityName;
     return result;
 }
 
@@ -48,7 +50,7 @@ QStringList JobViewActivities::activityList()
 QVector<JobViewFlags::Dock> JobViewActivities::activeDocks(JobViewFlags::Activity activity)
 {
     activity_map_t::iterator it = m_activityToDocks.find(activity);
-    if(it == m_activityToDocks.end()) {
+    if (it == m_activityToDocks.end()) {
         GUIHelpers::Error("JobViewActivities::activeDocks -> Error. Unknown activity");
     }
     return m_activityToDocks[activity];

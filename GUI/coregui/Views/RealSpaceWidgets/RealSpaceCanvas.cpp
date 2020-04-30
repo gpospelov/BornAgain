@@ -12,20 +12,20 @@
 //
 // ************************************************************************** //
 
-#include "AppSvc.h"
-#include "projectmanager.h"
 #include "RealSpaceCanvas.h"
+#include "AppSvc.h"
+#include "FilterPropertyProxy.h"
 #include "RealSpaceBuilder.h"
 #include "RealSpaceModel.h"
 #include "RealSpaceView.h"
 #include "SampleModel.h"
 #include "SessionItemUtils.h"
 #include "WarningSign.h"
-#include "FilterPropertyProxy.h"
-#include <QFileDialog>
+#include "projectmanager.h"
 #include <QApplication>
-#include <QVBoxLayout>
+#include <QFileDialog>
 #include <QMessageBox>
+#include <QVBoxLayout>
 
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     : QWidget(parent), m_sampleModel(nullptr), m_view(new RealSpaceView), m_selectionModel(nullptr),
@@ -55,14 +55,14 @@ void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* se
 
     if (selectionModel != m_selectionModel) {
         if (m_selectionModel)
-            disconnect(m_selectionModel, &QItemSelectionModel::selectionChanged,
-                       this, &RealSpaceCanvas::onSelectionChanged);
+            disconnect(m_selectionModel, &QItemSelectionModel::selectionChanged, this,
+                       &RealSpaceCanvas::onSelectionChanged);
 
         m_selectionModel = selectionModel;
 
         if (m_selectionModel)
-            connect(m_selectionModel, &QItemSelectionModel::selectionChanged,
-                    this, &RealSpaceCanvas::onSelectionChanged);
+            connect(m_selectionModel, &QItemSelectionModel::selectionChanged, this,
+                    &RealSpaceCanvas::onSelectionChanged);
     }
 
     updateToSelection();
@@ -131,19 +131,21 @@ void RealSpaceCanvas::onSavePictureAction()
     savePicture(pixmap);
 }
 
-void RealSpaceCanvas::savePicture(const QPixmap &pixmap)
+void RealSpaceCanvas::savePicture(const QPixmap& pixmap)
 {
     QString dirname = AppSvc::projectManager()->userExportDir();
     QString defaultExtension = ".png";
-    QString selectedFilter("*"+defaultExtension);
+    QString selectedFilter("*" + defaultExtension);
     QString defaultName = dirname + QString("/untitled");
-    QString fileName =QFileDialog::getSaveFileName(nullptr, "Save 3D real space view", defaultName, selectedFilter);
-    QString nameToSave = fileName.endsWith(defaultExtension) ? fileName : fileName + defaultExtension;
+    QString fileName = QFileDialog::getSaveFileName(nullptr, "Save 3D real space view", defaultName,
+                                                    selectedFilter);
+    QString nameToSave =
+        fileName.endsWith(defaultExtension) ? fileName : fileName + defaultExtension;
 
-    if(!nameToSave.isEmpty()) {
+    if (!nameToSave.isEmpty()) {
         try {
             pixmap.save(nameToSave);
-        } catch(const std::exception &ex) {
+        } catch (const std::exception& ex) {
             QString message = "Attempt to save file with the name '";
             message.append(nameToSave);
             message.append("' has failed with following error message\n\n");
@@ -152,7 +154,6 @@ void RealSpaceCanvas::savePicture(const QPixmap &pixmap)
         }
     }
 }
-
 
 void RealSpaceCanvas::onDataChanged(const QModelIndex& index)
 {
@@ -232,8 +233,9 @@ void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
                 Qt::UniqueConnection);
         connect(model, &SampleModel::modelReset, this, &RealSpaceCanvas::resetScene,
                 Qt::UniqueConnection);
-        connect(model, &SampleModel::modelAboutToBeReset, this,
-                [&]() { m_currentSelection = QModelIndex(); }, Qt::UniqueConnection);
+        connect(
+            model, &SampleModel::modelAboutToBeReset, this,
+            [&]() { m_currentSelection = QModelIndex(); }, Qt::UniqueConnection);
 
     } else {
         disconnect(model, &SampleModel::rowsInserted, this, &RealSpaceCanvas::updateScene);

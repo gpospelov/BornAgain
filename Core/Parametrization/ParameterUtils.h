@@ -34,6 +34,6 @@ BA_CORE_API_ std::string mainParUnits(const ParticleDistribution& distr);
 //! Returns units of main parameter.
 BA_CORE_API_ std::string poolParameterUnits(const IParameterized& node, const std::string& parName);
 
-}
+} // namespace ParameterUtils
 
 #endif // PARAMETERPATTERN_H

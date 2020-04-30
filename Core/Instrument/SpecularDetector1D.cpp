@@ -27,11 +27,13 @@ SpecularDetector1D::SpecularDetector1D(const SpecularDetector1D& detector) : IDe
 
 SpecularDetector1D::~SpecularDetector1D() = default;
 
-SpecularDetector1D* SpecularDetector1D::clone() const {
+SpecularDetector1D* SpecularDetector1D::clone() const
+{
     return new SpecularDetector1D(*this);
 }
 
-AxesUnits SpecularDetector1D::defaultAxesUnits() const {
+AxesUnits SpecularDetector1D::defaultAxesUnits() const
+{
     return AxesUnits::RADIANS;
 }
 

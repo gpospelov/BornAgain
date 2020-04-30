@@ -39,18 +39,18 @@ class BA_CORE_API_ FitParameterWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    FitParameterWidget(QWidget *parent = 0);
+    FitParameterWidget(QWidget* parent = 0);
 
-    void setParameterTuningWidget(ParameterTuningWidget *tuningWidget);
+    void setParameterTuningWidget(ParameterTuningWidget* tuningWidget);
 
-//    QSize sizeHint() const;
-//    QSize minimumSizeHint() const;
+    //    QSize sizeHint() const;
+    //    QSize minimumSizeHint() const;
 
 public slots:
-    void onTuningWidgetContextMenu(const QPoint &point);
-    void onFitParameterTreeContextMenu(const QPoint &point);
-    void onTuningWidgetSelectionChanged(const QItemSelection&selection);
-    void onFitParametersSelectionChanged(const QItemSelection &selection);
+    void onTuningWidgetContextMenu(const QPoint& point);
+    void onFitParameterTreeContextMenu(const QPoint& point);
+    void onTuningWidgetSelectionChanged(const QItemSelection& selection);
+    void onFitParametersSelectionChanged(const QItemSelection& selection);
 
 private slots:
     void onCreateFitParAction();
@@ -60,13 +60,13 @@ private slots:
     void onFitParameterModelChange();
 
 protected:
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent* event);
     void subscribeToItem();
 
 private:
     void init_actions();
-    void initTuningWidgetContextMenu(QMenu &menu);
-    void initFitParameterTreeContextMenu(QMenu &menu);
+    void initTuningWidgetContextMenu(QMenu& menu);
+    void initFitParameterTreeContextMenu(QMenu& menu);
 
     void init_fit_model();
 
@@ -78,22 +78,22 @@ private:
     void connectFitParametersSelection(bool active);
     JobItem* jobItem();
 
-    QVector<FitParameterItem *> selectedFitParameters();
-    QVector<FitParameterItem *> emptyFitParameters();
-    QVector<FitParameterLinkItem *> selectedFitParameterLinks();
+    QVector<FitParameterItem*> selectedFitParameters();
+    QVector<FitParameterItem*> emptyFitParameters();
+    QVector<FitParameterLinkItem*> selectedFitParameterLinks();
 
     void spanParameters();
     void updateInfoLabel();
 
-    QTreeView *m_treeView;
-    ParameterTuningWidget *m_tuningWidget;
-    QAction *m_createFitParAction;
-    QAction *m_removeFromFitParAction;
-    QAction *m_removeFitParAction;
+    QTreeView* m_treeView;
+    ParameterTuningWidget* m_tuningWidget;
+    QAction* m_createFitParAction;
+    QAction* m_removeFromFitParAction;
+    QAction* m_removeFitParAction;
     FitParameterProxyModel* m_fitParameterModel;
-    SessionModelDelegate *m_delegate;
-    DeleteEventFilter *m_keyboardFilter;
-    OverlayLabelController *m_infoLabel;
+    SessionModelDelegate* m_delegate;
+    DeleteEventFilter* m_keyboardFilter;
+    OverlayLabelController* m_infoLabel;
 };
 
 #endif // FITPARAMETERWIDGET_H

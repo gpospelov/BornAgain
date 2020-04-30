@@ -14,24 +14,20 @@
 
 #include "ComponentTreeView.h"
 #include "ComponentProxyModel.h"
-#include "StyleUtils.h"
-#include "SessionModelDelegate.h"
-#include "SessionModel.h"
-#include "CustomEventFilters.h"
 #include "ComponentTreeActions.h"
-#include <QTreeView>
+#include "CustomEventFilters.h"
+#include "SessionModel.h"
+#include "SessionModelDelegate.h"
+#include "StyleUtils.h"
 #include <QBoxLayout>
 #include <QStandardItemModel>
+#include <QTreeView>
 
 ComponentTreeView::ComponentTreeView(QWidget* parent)
-    : ComponentView(parent)
-    , m_tree(new QTreeView)
-    , m_delegate(new SessionModelDelegate(this))
-    , m_proxyModel(new ComponentProxyModel(this))
-    , m_placeHolderModel(new QStandardItemModel(this))
-    , m_eventFilter(new RightMouseButtonEater)
-    , m_actions(new ComponentTreeActions(this))
-    , m_show_root_item(false)
+    : ComponentView(parent), m_tree(new QTreeView), m_delegate(new SessionModelDelegate(this)),
+      m_proxyModel(new ComponentProxyModel(this)), m_placeHolderModel(new QStandardItemModel(this)),
+      m_eventFilter(new RightMouseButtonEater), m_actions(new ComponentTreeActions(this)),
+      m_show_root_item(false)
 {
     auto layout = new QVBoxLayout;
 
@@ -55,9 +51,8 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
 
     // custom context menu setup
     m_tree->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_tree, &QTreeView::customContextMenuRequested,
-            this, &ComponentTreeView::onCustomContextMenuRequested);
-
+    connect(m_tree, &QTreeView::customContextMenuRequested, this,
+            &ComponentTreeView::onCustomContextMenuRequested);
 }
 
 ComponentTreeView::~ComponentTreeView() = default;
@@ -122,5 +117,3 @@ void ComponentTreeView::onCustomContextMenuRequested(const QPoint& pos)
 
     m_actions->onCustomContextMenuRequested(point, *item);
 }
-
-

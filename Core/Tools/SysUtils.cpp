@@ -35,20 +35,20 @@ void SysUtils::enableFloatingPointExceptions()
 #ifdef DEBUG_FPE
 #ifndef _WIN32
     std::cout << "SysUtils::EnableFloatingPointExceptions() -> "
-        "Enabling floating point exception debugging\n";
+                 "Enabling floating point exception debugging\n";
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 //    feenableexcept(-1);
 #endif // _WIN32
 #else
     std::cout << "SysUtils::EnableFloatingPointExceptions() -> "
-        "Can't enable floating point exceptions. Available in debug mode only.\n";
+                 "Can't enable floating point exceptions. Available in debug mode only.\n";
 #endif
 }
 
 std::string SysUtils::getenv(const std::string& name)
 {
-    if(char* c = std::getenv(name.c_str()))
-       return std::string(c);
+    if (char* c = std::getenv(name.c_str()))
+        return std::string(c);
     else
         return std::string();
 }

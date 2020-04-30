@@ -1,10 +1,10 @@
-#include "google_test.h"
-#include "JobModel.h"
-#include "FitParameterProxyModel.h"
 #include "FitParameterItems.h"
+#include "FitParameterProxyModel.h"
 #include "FitSuiteItem.h"
+#include "JobModel.h"
+#include "google_test.h"
 
-class TestFitParameterModel :  public ::testing::Test
+class TestFitParameterModel : public ::testing::Test
 {
 public:
     ~TestFitParameterModel();
@@ -16,9 +16,9 @@ TEST_F(TestFitParameterModel, test_InitialState)
 {
     JobModel source;
     SessionItem* fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
-    SessionItem* container
-        = source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
-                               FitSuiteItem::T_FIT_PARAMETERS);
+    SessionItem* container =
+        source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+                             FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     EXPECT_EQ(0, proxy.rowCount(QModelIndex()));
@@ -31,9 +31,9 @@ TEST_F(TestFitParameterModel, test_addFitParameter)
 {
     JobModel source;
     SessionItem* fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
-    SessionItem* container
-        = source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
-                               FitSuiteItem::T_FIT_PARAMETERS);
+    SessionItem* container =
+        source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+                             FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameter
@@ -136,9 +136,9 @@ TEST_F(TestFitParameterModel, test_addFitParameterAndLink)
 {
     JobModel source;
     SessionItem* fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
-    SessionItem* container
-        = source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
-                               FitSuiteItem::T_FIT_PARAMETERS);
+    SessionItem* container =
+        source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+                             FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameter
@@ -200,9 +200,9 @@ TEST_F(TestFitParameterModel, test_addTwoFitParameterAndLinks)
 {
     JobModel source;
     SessionItem* fitSuiteItem = source.insertNewItem(Constants::FitSuiteType);
-    SessionItem* container
-        = source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
-                               FitSuiteItem::T_FIT_PARAMETERS);
+    SessionItem* container =
+        source.insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+                             FitSuiteItem::T_FIT_PARAMETERS);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameters

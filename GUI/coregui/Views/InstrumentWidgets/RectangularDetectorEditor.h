@@ -50,4 +50,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif  // RECTANGULARDETECTOREDITOR_H
+#endif // RECTANGULARDETECTOREDITOR_H

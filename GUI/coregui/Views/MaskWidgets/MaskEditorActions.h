@@ -17,9 +17,9 @@
 
 #include "MaskEditorFlags.h"
 #include "WinDllMacros.h"
+#include <QList>
 #include <QModelIndex>
 #include <QObject>
-#include <QList>
 
 class QAction;
 class SessionModel;

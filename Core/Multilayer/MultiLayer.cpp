@@ -81,7 +81,6 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
             throw std::runtime_error(
                 "Invalid call to MultiLayer::addLayer(): the semi-infinite top layer "
                 "cannot have roughness.");
-
     }
     addAndRegisterLayer(p_new_layer);
 }

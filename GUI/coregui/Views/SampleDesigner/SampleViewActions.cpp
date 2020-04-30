@@ -15,16 +15,12 @@
 #include "SampleViewActions.h"
 #include "SampleView.h"
 #include "SampleViewDocks.h"
-#include <QDockWidget>
 #include <QAction>
+#include <QDockWidget>
 
 SampleViewActions::SampleViewActions(SampleModel* model, SampleView* parent)
-    : QObject(parent)
-    , m_model(model)
-    , m_sampleView(parent)
-    , m_selection_model(nullptr)
+    : QObject(parent), m_model(model), m_sampleView(parent), m_selection_model(nullptr)
 {
-
 }
 
 void SampleViewActions::setSelectionModel(QItemSelectionModel* selection_model)

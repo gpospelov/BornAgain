@@ -46,21 +46,21 @@ public:
 
     const std::valarray<double>& getIntensities() const { return m_intensities; }
 
-    void setZPositions(const IAxis* z_positions) {m_z_positions = z_positions;}
-    const IAxis* getZPositions() const {return m_z_positions;}
+    void setZPositions(const IAxis* z_positions) { m_z_positions = z_positions; }
+    const IAxis* getZPositions() const { return m_z_positions; }
 
-    size_t size() const {return m_intensities.size();}
+    size_t size() const { return m_intensities.size(); }
 
     //! Set calculation flag (if it's false, zero intensity is assigned to the element)
-    void setCalculationFlag(bool calculation_flag) {m_calculation_flag = calculation_flag;}
-    bool isCalculated() const {return m_calculation_flag;}
+    void setCalculationFlag(bool calculation_flag) { m_calculation_flag = calculation_flag; }
+    bool isCalculated() const { return m_calculation_flag; }
 
 private:
     void swapContent(DepthProbeElement& other);
 
-    double m_wavelength, m_alpha_i;  //!< the wavelength and the incident angle of the beam
+    double m_wavelength, m_alpha_i;      //!< the wavelength and the incident angle of the beam
     std::valarray<double> m_intensities; //!< simulated intensity for the set of z positions
-    const IAxis* m_z_positions; //!< positions (lower z corresponds to a greater depth)
+    const IAxis* m_z_positions;          //!< positions (lower z corresponds to a greater depth)
     bool m_calculation_flag;
 };
 

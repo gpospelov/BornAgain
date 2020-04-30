@@ -49,4 +49,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif  // GISASBEAMEDITOR_H
+#endif // GISASBEAMEDITOR_H

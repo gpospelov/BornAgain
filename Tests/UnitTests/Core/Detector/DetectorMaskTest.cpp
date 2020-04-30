@@ -1,7 +1,7 @@
-#include "google_test.h"
 #include "DetectorMask.h"
 #include "Polygon.h"
 #include "SphericalDetector.h"
+#include "google_test.h"
 #include <memory>
 
 class DetectorMaskTest : public ::testing::Test
@@ -149,10 +149,10 @@ TEST_F(DetectorMaskTest, CopyConstructor)
 
     EXPECT_TRUE(mask.getMaskData()->isInitialized());
 
-    for(size_t index=0; index<mask.getMaskData()->getAllocatedSize(); ++index) {
+    for (size_t index = 0; index < mask.getMaskData()->getAllocatedSize(); ++index) {
         double x = mask.getMaskData()->getAxisValue(index, 0);
         double y = mask.getMaskData()->getAxisValue(index, 1);
-        if( x>= -4.0 && x <=4.0 && y>=-2.0 && y<=2.0) {
+        if (x >= -4.0 && x <= 4.0 && y >= -2.0 && y <= 2.0) {
             EXPECT_TRUE(mask.isMasked(index));
         } else {
             EXPECT_FALSE(mask.isMasked(index));

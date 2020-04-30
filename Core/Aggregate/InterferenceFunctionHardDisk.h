@@ -40,6 +40,7 @@ public:
 
     double radius() const;
     double density() const;
+
 private:
     InterferenceFunctionHardDisk(const InterferenceFunctionHardDisk& other);
     double iff_without_dw(const kvector_t q) const override final;

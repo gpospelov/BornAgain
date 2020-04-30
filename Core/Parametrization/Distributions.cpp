@@ -24,7 +24,8 @@
 #include <limits>
 #include <sstream>
 
-namespace {
+namespace
+{
 bool DoubleEqual(double a, double b);
 }
 
@@ -283,7 +284,7 @@ DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
 double DistributionLogNormal::probabilityDensity(double x) const
 {
     if (m_scale_param == 0.0)
-        return DoubleEqual(x, m_median)  ? 1.0 : 0.0;
+        return DoubleEqual(x, m_median) ? 1.0 : 0.0;
     double t = std::log(x / m_median) / m_scale_param;
     return std::exp(-t * t / 2.0) / (x * m_scale_param * std::sqrt(M_TWOPI));
 }
@@ -465,11 +466,13 @@ void DistributionTrapezoid::adjustLimitsToNonZeroSamples(double& min, double& ma
         max -= step;
 }
 
-namespace {
+namespace
+{
 bool DoubleEqual(double a, double b)
 {
-    double eps = 10.0 * std::max(std::abs(a)*std::numeric_limits<double>::epsilon(),
-                                 std::numeric_limits<double>::min());
-    return std::abs(a-b) < eps;
+    double eps = 10.0
+                 * std::max(std::abs(a) * std::numeric_limits<double>::epsilon(),
+                            std::numeric_limits<double>::min());
+    return std::abs(a - b) < eps;
 }
-}
+} // namespace

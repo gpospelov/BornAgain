@@ -24,7 +24,8 @@ class OffSpecSimulation;
 
 //! Standard pre-defined simulations.
 
-namespace StandardSimulations {
+namespace StandardSimulations
+{
 
 // CoreSuite tests:
 BA_CORE_API_ GISASSimulation* BasicGISAS();

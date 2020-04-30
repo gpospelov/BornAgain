@@ -15,8 +15,8 @@
 #ifndef FITPLANFACTORY_H
 #define FITPLANFACTORY_H
 
-#include "MinimizerTestPlan.h"
 #include "IFactory.h"
+#include "MinimizerTestPlan.h"
 
 //! Factory to generate plans for fitting with FitObjective.
 

@@ -26,8 +26,7 @@ public:
     FormFactorGauss(double length);
     FormFactorGauss(double width, double height);
 
-    FormFactorGauss* clone() const override final {
-        return new FormFactorGauss(m_width, m_height); }
+    FormFactorGauss* clone() const override final { return new FormFactorGauss(m_width, m_height); }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getWidth() const { return m_width; }

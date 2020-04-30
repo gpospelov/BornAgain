@@ -45,5 +45,4 @@ private:
     bool m_is_expanded;
 };
 
-
-#endif  // MODELTREEVIEW_H
+#endif // MODELTREEVIEW_H

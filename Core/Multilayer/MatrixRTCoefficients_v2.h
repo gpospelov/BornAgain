@@ -53,7 +53,7 @@ private:
     kvector_t m_b; //!< normalized magnetic field impact (with correction for external mag. field)
 
     Eigen::Vector4cd m_w_plus; //!< boundary values for up-polarization
-    Eigen::Vector4cd m_w_min; //!< boundary values for down-polarization
+    Eigen::Vector4cd m_w_min;  //!< boundary values for down-polarization
 
     Eigen::Matrix4cd T1; //!< matrix selecting the transmitted part of
                          //!< the first eigenmode

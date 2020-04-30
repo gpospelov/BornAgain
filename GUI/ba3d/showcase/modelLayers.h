@@ -20,13 +20,14 @@
 
 //------------------------------------------------------------------------------
 
-class ModelLayers : public RealSpace::Model {
+class ModelLayers : public RealSpace::Model
+{
 public:
-  ModelLayers();
-  void showKind(RealSpace::Particles::EShape);
+    ModelLayers();
+    void showKind(RealSpace::Particles::EShape);
 
 private:
-  QVector<RealSpace::Particles::Particle*> ps;
+    QVector<RealSpace::Particles::Particle*> ps;
 };
 
 //------------------------------------------------------------------------------

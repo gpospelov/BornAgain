@@ -1,9 +1,9 @@
-#include "google_test.h"
+#include "LayerInterface.h"
 #include "BornAgainNamespace.h"
 #include "Layer.h"
-#include "LayerInterface.h"
 #include "LayerRoughness.h"
 #include "MaterialFactoryFuncs.h"
+#include "google_test.h"
 #include <memory>
 
 class LayerInterfaceTest : public ::testing::Test

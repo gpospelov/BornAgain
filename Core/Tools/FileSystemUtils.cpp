@@ -15,11 +15,11 @@
 #include "FileSystemUtils.h"
 #include "Exceptions.h"
 #include <boost/filesystem.hpp>
-#include <regex>
 #include <cassert>
-#include <stdexcept>
 #include <codecvt>
 #include <locale>
+#include <regex>
+#include <stdexcept>
 
 std::string FileSystemUtils::extension(const std::string& path)
 {
@@ -29,8 +29,8 @@ std::string FileSystemUtils::extension(const std::string& path)
 std::string FileSystemUtils::extensions(const std::string& path)
 {
     auto name = FileSystemUtils::filename(path);
-    auto npos =name.find_first_of('.');
-    return npos != std::string::npos ? name.substr(npos, name.size()-npos) : std::string();
+    auto npos = name.find_first_of('.');
+    return npos != std::string::npos ? name.substr(npos, name.size() - npos) : std::string();
 }
 
 bool FileSystemUtils::createDirectory(const std::string& dir_name)
@@ -102,10 +102,9 @@ std::string FileSystemUtils::stem(const std::string& path)
 std::string FileSystemUtils::stem_ext(const std::string& path)
 {
     auto name = FileSystemUtils::filename(path);
-    auto npos =name.find_first_of('.');
+    auto npos = name.find_first_of('.');
     return npos != std::string::npos ? name.substr(0, npos) : std::string();
 }
-
 
 std::wstring FileSystemUtils::convert_utf8_to_utf16(const std::string& str)
 {

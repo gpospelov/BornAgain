@@ -20,7 +20,8 @@
 
 class SessionItem;
 
-class ItemIDFactory {
+class ItemIDFactory
+{
 public:
     // delete copy/move constructor/assignment:
     ItemIDFactory(const ItemIDFactory&) = delete;

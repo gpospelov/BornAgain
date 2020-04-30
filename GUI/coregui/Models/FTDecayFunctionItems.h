@@ -15,16 +15,17 @@
 #ifndef FTDECAYFUNCTIONITEMS_H
 #define FTDECAYFUNCTIONITEMS_H
 
-#include "SessionItem.h"
 #include "FTDecayFunctions.h"
+#include "SessionItem.h"
 
 class BA_CORE_API_ FTDecayFunction1DItem : public SessionItem
 {
 public:
     static const QString P_DECAY_LENGTH;
     explicit FTDecayFunction1DItem(const QString& name);
-    virtual std::unique_ptr<IFTDecayFunction1D> createFTDecayFunction() const=0;
-    virtual ~FTDecayFunction1DItem(){}
+    virtual std::unique_ptr<IFTDecayFunction1D> createFTDecayFunction() const = 0;
+    virtual ~FTDecayFunction1DItem() {}
+
 protected:
     void add_decay_property();
 };
@@ -68,8 +69,9 @@ public:
     static const QString P_GAMMA;
     static const QString P_DELTA;
     explicit FTDecayFunction2DItem(const QString& name);
-    virtual std::unique_ptr<IFTDecayFunction2D> createFTDecayFunction() const=0;
-    virtual ~FTDecayFunction2DItem(){}
+    virtual std::unique_ptr<IFTDecayFunction2D> createFTDecayFunction() const = 0;
+    virtual ~FTDecayFunction2DItem() {}
+
 protected:
     void add_decay_property();
     void add_gammadelta_property();
@@ -98,4 +100,3 @@ public:
 };
 
 #endif // FTDECAYFUNCTIONITEMS_H
-

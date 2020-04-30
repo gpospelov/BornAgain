@@ -16,8 +16,7 @@
 
 using namespace Fit;
 
-IFunctionAdapter::IFunctionAdapter()
-    : m_number_of_calls(0), m_number_of_gradient_calls(0) {}
+IFunctionAdapter::IFunctionAdapter() : m_number_of_calls(0), m_number_of_gradient_calls(0) {}
 
 IFunctionAdapter::~IFunctionAdapter() = default;
 

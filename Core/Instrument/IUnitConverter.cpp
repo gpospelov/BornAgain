@@ -16,12 +16,13 @@
 #include "OutputData.h"
 #include "UnitConverterUtils.h"
 
-namespace {
+namespace
+{
 const std::map<AxesUnits, std::string> unit_names = {
     {AxesUnits::NBINS, "AxesUnits::NBINS"},     {AxesUnits::RADIANS, "AxesUnits::RADIANS"},
     {AxesUnits::DEGREES, "AxesUnits::DEGREES"}, {AxesUnits::MM, "AxesUnits::MM"},
     {AxesUnits::QSPACE, "AxesUnits::QSPACE"},   {AxesUnits::QXQY, "AxesUnits::QXQY"},
-    {AxesUnits::RQ4, "AxesUnits::RQ4"} };
+    {AxesUnits::RQ4, "AxesUnits::RQ4"}};
 }
 
 std::string AxesUnitsWrap::unitName(AxesUnits unit)
@@ -32,7 +33,7 @@ std::string AxesUnitsWrap::unitName(AxesUnits unit)
     return "Unknown units";
 }
 
-IUnitConverter::~IUnitConverter() =default;
+IUnitConverter::~IUnitConverter() = default;
 
 std::string IUnitConverter::axisName(size_t i_axis, AxesUnits units_type) const
 {
@@ -62,7 +63,8 @@ IUnitConverter::createConvertedData(const OutputData<double>& data, AxesUnits un
 
 void IUnitConverter::checkIndex(size_t i_axis) const
 {
-    if (i_axis < dimension()) return;
+    if (i_axis < dimension())
+        return;
     throw std::runtime_error("Error in IUnitConverter::checkIndex: passed axis index too big: "
                              + std::to_string(static_cast<int>(i_axis)));
 }
@@ -70,9 +72,10 @@ void IUnitConverter::checkIndex(size_t i_axis) const
 void IUnitConverter::throwUnitsError(std::string method, std::vector<AxesUnits> available) const
 {
     std::stringstream ss;
-    ss << "Unit type error in " << method << ": unknown or unsupported unit type. Available units "
+    ss << "Unit type error in " << method
+       << ": unknown or unsupported unit type. Available units "
           "are:\n";
-    for (auto unit: available)
+    for (auto unit : available)
         ss << AxesUnitsWrap::unitName(unit) << "\n";
     throw std::runtime_error(ss.str());
 }

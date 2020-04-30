@@ -17,7 +17,7 @@
 #include "ParticleItem.h"
 #include "SessionItem.h"
 
-MesoCrystalView::MesoCrystalView(QGraphicsItem *parent) : ConnectableView(parent)
+MesoCrystalView::MesoCrystalView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::MesoCrystalType);
     setColor(DesignerHelper::getDefaultParticleColor());
@@ -32,10 +32,10 @@ MesoCrystalView::MesoCrystalView(QGraphicsItem *parent) : ConnectableView(parent
     m_label_vspace = 45;
 }
 
-void MesoCrystalView::addView(IView *childView, int /* row */)
+void MesoCrystalView::addView(IView* childView, int /* row */)
 {
     int index = 0;
     if (this->getItem()->tagFromItem(childView->getItem()) == ParticleItem::T_TRANSFORMATION)
         index = 1;
-    connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
+    connectInputPort(dynamic_cast<ConnectableView*>(childView), index);
 }

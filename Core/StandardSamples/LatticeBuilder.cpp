@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "LatticeBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FTDecayFunctions.h"
 #include "FormFactorCylinder.h"
 #include "InterferenceFunction1DLattice.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
@@ -26,12 +26,11 @@
 #include "Units.h"
 
 Lattice1DBuilder::Lattice1DBuilder()
-    : m_length(20.0*Units::nanometer)
-    , m_xi(10.0*Units::deg)
-    , m_corr_length(1000.0*Units::nanometer)
-    , m_cylinder_height(5*Units::nanometer)
-    , m_cylinder_radius(5*Units::nanometer)
-{}
+    : m_length(20.0 * Units::nanometer), m_xi(10.0 * Units::deg),
+      m_corr_length(1000.0 * Units::nanometer), m_cylinder_height(5 * Units::nanometer),
+      m_cylinder_radius(5 * Units::nanometer)
+{
+}
 
 MultiLayer* Lattice1DBuilder::buildSample() const
 {

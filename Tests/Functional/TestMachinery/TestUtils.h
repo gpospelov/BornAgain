@@ -15,9 +15,9 @@
 #ifndef TESTUTILS_H
 #define TESTUTILS_H
 
-#include "WinDllMacros.h"
-#include "StandardTestInfo.h"
 #include "OutputData.h"
+#include "StandardTestInfo.h"
+#include "WinDllMacros.h"
 
 namespace TestUtils
 {
@@ -26,12 +26,12 @@ namespace TestUtils
 BA_CORE_API_ StandardTestInfo testInfo(int argc, char** argv);
 
 //! Returns true if intensity maps are the same within given threshold.
-BA_CORE_API_ bool isTheSame(const OutputData<double>& dat, const OutputData<double>& ref, double threshold);
+BA_CORE_API_ bool isTheSame(const OutputData<double>& dat, const OutputData<double>& ref,
+                            double threshold);
 
 //! Executes script in external (system) Python interpreter
 BA_CORE_API_ bool runPython(const std::string& py_command);
 
-}
-
+} // namespace TestUtils
 
 #endif

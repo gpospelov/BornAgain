@@ -21,9 +21,15 @@ TestObject::TestObject(TestListener* listener)
     m_controller->setUnsubscribeCallback([this]() { onUnsubscribe(); });
 }
 
-TestObject::~TestObject() { m_listener->m_onWidgetDestroyed++; }
+TestObject::~TestObject()
+{
+    m_listener->m_onWidgetDestroyed++;
+}
 
-void TestObject::setItem(SessionItem* item) { m_controller->setItem(item); }
+void TestObject::setItem(SessionItem* item)
+{
+    m_controller->setItem(item);
+}
 
 void TestObject::onSubscribe()
 {
@@ -35,9 +41,15 @@ void TestObject::onSubscribe()
         [this](SessionItem*) { m_listener->m_onItemDestroyedCount++; }, this);
 }
 
-SessionItem* TestObject::currentItem() { return m_controller->currentItem(); }
+SessionItem* TestObject::currentItem()
+{
+    return m_controller->currentItem();
+}
 
-void TestObject::onUnsubscribe() { m_is_subscribed = false; }
+void TestObject::onUnsubscribe()
+{
+    m_is_subscribed = false;
+}
 
 void TestObject::setVisible(bool isVisible)
 {

@@ -13,15 +13,13 @@
 // ************************************************************************** //
 
 #include "SimulationResult.h"
-#include "Histogram2D.h"
 #include "FixedBinAxis.h"
+#include "Histogram2D.h"
 #include "OutputData.h"
 
-
 SimulationResult::SimulationResult(const OutputData<double>& data,
-                                     const IUnitConverter& unit_converter)
-    : mP_data(data.clone())
-    , mP_unit_converter(unit_converter.clone())
+                                   const IUnitConverter& unit_converter)
+    : mP_data(data.clone()), mP_unit_converter(unit_converter.clone())
 {
     checkDimensions();
 }
@@ -36,9 +34,9 @@ SimulationResult::SimulationResult(const SimulationResult& other)
 }
 
 SimulationResult::SimulationResult(SimulationResult&& other)
-    : mP_data(std::move(other.mP_data))
-    , mP_unit_converter(std::move(other.mP_unit_converter))
-{}
+    : mP_data(std::move(other.mP_data)), mP_unit_converter(std::move(other.mP_unit_converter))
+{
+}
 
 SimulationResult& SimulationResult::operator=(const SimulationResult& other)
 {
@@ -58,7 +56,7 @@ SimulationResult& SimulationResult::operator=(SimulationResult&& other)
     return *this;
 }
 
-std::unique_ptr<OutputData<double> > SimulationResult::data(AxesUnits units) const
+std::unique_ptr<OutputData<double>> SimulationResult::data(AxesUnits units) const
 {
     if (!mP_data)
         throw std::runtime_error(
@@ -78,13 +76,14 @@ Histogram2D* SimulationResult::histogram2d(AxesUnits units) const
 
 std::vector<AxisInfo> SimulationResult::axisInfo(AxesUnits units) const
 {
-    if (!mP_unit_converter) return {};
+    if (!mP_unit_converter)
+        return {};
     std::vector<AxisInfo> result;
     auto dim = mP_unit_converter->dimension();
-    for (size_t i=0; i<dim; ++i) {
-        AxisInfo info = { mP_unit_converter->axisName(i, units),
-                          mP_unit_converter->calculateMin(i, units),
-                          mP_unit_converter->calculateMax(i, units) };
+    for (size_t i = 0; i < dim; ++i) {
+        AxisInfo info = {mP_unit_converter->axisName(i, units),
+                         mP_unit_converter->calculateMin(i, units),
+                         mP_unit_converter->calculateMax(i, units)};
         result.push_back(info);
     }
     return result;
@@ -100,14 +99,16 @@ const IUnitConverter& SimulationResult::converter() const
 
 double& SimulationResult::operator[](size_t i)
 {
-    if (mP_data) return (*mP_data)[i];
+    if (mP_data)
+        return (*mP_data)[i];
     throw std::runtime_error("Error in SimulationResult::operator[]: "
                              "no data initialized");
 }
 
 const double& SimulationResult::operator[](size_t i) const
 {
-    if (mP_data) return (*mP_data)[i];
+    if (mP_data)
+        return (*mP_data)[i];
     throw std::runtime_error("Error in SimulationResult::operator[]: "
                              "no data initialized");
 }

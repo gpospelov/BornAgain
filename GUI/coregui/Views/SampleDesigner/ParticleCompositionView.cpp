@@ -16,7 +16,7 @@
 #include "ParticleItem.h"
 #include "SessionItem.h"
 
-ParticleCompositionView::ParticleCompositionView(QGraphicsItem *parent) : ConnectableView(parent)
+ParticleCompositionView::ParticleCompositionView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::ParticleCompositionType);
     setColor(DesignerHelper::getDefaultParticleColor());
@@ -31,10 +31,10 @@ ParticleCompositionView::ParticleCompositionView(QGraphicsItem *parent) : Connec
     m_label_vspace = 45;
 }
 
-void ParticleCompositionView::addView(IView *childView, int /* row */)
+void ParticleCompositionView::addView(IView* childView, int /* row */)
 {
     int index = 0;
     if (this->getItem()->tagFromItem(childView->getItem()) == ParticleItem::T_TRANSFORMATION)
         index = 1;
-    connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
+    connectInputPort(dynamic_cast<ConnectableView*>(childView), index);
 }

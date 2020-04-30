@@ -58,8 +58,8 @@ TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
     input_data.addAxis("axis1", 3, 3.0, 4.0);
     input_data.setRawDataVector(std::vector<double>{1.0, 2.0, 3.0, 4.0, 5.0, 6.0});
 
-    std::unique_ptr<OutputData<double>> output_data
-        = IntensityDataFunctions::createRearrangedDataSet(input_data, 5);
+    std::unique_ptr<OutputData<double>> output_data =
+        IntensityDataFunctions::createRearrangedDataSet(input_data, 5);
 
     EXPECT_EQ(3.0, output_data->getAxis(0).getBinBoundaries().front());
     EXPECT_EQ(4.0, output_data->getAxis(0).getBinBoundaries().back());

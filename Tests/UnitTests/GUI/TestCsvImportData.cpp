@@ -1,6 +1,5 @@
-#include "google_test.h"
 #include "CsvImportTable.h"
-
+#include "google_test.h"
 
 class TestCsvImportData : public ::testing::Test
 {
@@ -12,7 +11,7 @@ TestCsvImportData::~TestCsvImportData() = default;
 
 TEST_F(TestCsvImportData, test_setting_data)
 {
-    csv::DataArray test_data {{"1.0", "2.0"}, {"3.0", "4.0"}, {"5.0", "6.0"}};
+    csv::DataArray test_data{{"1.0", "2.0"}, {"3.0", "4.0"}, {"5.0", "6.0"}};
 
     CsvImportData model;
     EXPECT_EQ(model.data(), csv::DataArray());
@@ -36,7 +35,7 @@ TEST_F(TestCsvImportData, test_data_columns)
     EXPECT_EQ(model.column(CsvImportData::Intensity), -1);
     EXPECT_EQ(model.column(CsvImportData::Coordinate), -1);
 
-    csv::DataArray test_data {{"1.0", "2.0"}, {"3.0", "4.0"}, {"5.0", "6.0"}};
+    csv::DataArray test_data{{"1.0", "2.0"}, {"3.0", "4.0"}, {"5.0", "6.0"}};
     model.setData(test_data);
 
     int previous = model.setColumnAs(0, csv::_intensity_);
@@ -71,9 +70,9 @@ TEST_F(TestCsvImportData, test_data_columns)
 
     EXPECT_EQ(model.values(-1), csv::DataColumn());
     EXPECT_EQ(model.values(2), csv::DataColumn());
-    csv::DataColumn result0 {"1.0", "3.0", "5.0"};
+    csv::DataColumn result0{"1.0", "3.0", "5.0"};
     EXPECT_EQ(model.values(0), result0);
-    csv::DataColumn result1 {"2.0", "4.0", "6.0"};
+    csv::DataColumn result1{"2.0", "4.0", "6.0"};
     EXPECT_EQ(model.values(1), result1);
 }
 
@@ -85,7 +84,7 @@ TEST_F(TestCsvImportData, test_multpiliers)
     EXPECT_EQ(model.multipliedValues(CsvImportData::Intensity), csv::DataColumn());
     EXPECT_EQ(model.multipliedValues(CsvImportData::Coordinate), csv::DataColumn());
 
-    csv::DataArray test_data {{"1.0", "abc"}, {"3.0", "4.0_"}, {"5.0", "6.0"}};
+    csv::DataArray test_data{{"1.0", "abc"}, {"3.0", "4.0_"}, {"5.0", "6.0"}};
     model.setData(test_data);
     model.setColumnAs(0, csv::_theta_);
     model.setColumnAs(1, csv::_intensity_);
@@ -109,7 +108,7 @@ TEST_F(TestCsvImportData, test_labels)
     EXPECT_EQ(model.columnLabel(CsvImportData::Intensity), QString());
     EXPECT_EQ(model.columnLabel(CsvImportData::Coordinate), QString());
 
-    csv::DataArray test_data {{"1.0", "abc"}, {"3.0", "4.0_"}, {"5.0", "6.0"}};
+    csv::DataArray test_data{{"1.0", "abc"}, {"3.0", "4.0_"}, {"5.0", "6.0"}};
     model.setData(test_data);
     model.setColumnAs(0, csv::_theta_);
     model.setColumnAs(1, csv::_intensity_);
@@ -134,30 +133,25 @@ TEST_F(TestCsvImportData, test_format_check)
     CsvImportData model;
     EXPECT_TRUE(model.checkData().empty());
 
-    csv::DataArray test_data{{"ad", "abc"},
-                             {"3.0", "4.0_"},
-                             {"2.0", "6.0"},
-                             {"3.0", "6.0"},
-                             {"4.0", "6.0"},
-                             {"5.0", "1.e-14"},
-                             {"6.0", "0.0"}};
+    csv::DataArray test_data{{"ad", "abc"},  {"3.0", "4.0_"},   {"2.0", "6.0"}, {"3.0", "6.0"},
+                             {"4.0", "6.0"}, {"5.0", "1.e-14"}, {"6.0", "0.0"}};
     model.setData(test_data);
     EXPECT_TRUE(model.checkData().empty());
 
     model.setColumnAs(0, csv::_intensity_);
-    std::set<std::pair<int, int>> expected {{0,0}};
+    std::set<std::pair<int, int>> expected{{0, 0}};
     EXPECT_EQ(model.checkData(), expected);
 
     model.setColumnAs(0, csv::_theta_);
-    expected  = {{0,0}, {2,0}, {3,0}};
+    expected = {{0, 0}, {2, 0}, {3, 0}};
     EXPECT_EQ(model.checkData(), expected);
 
     model.setColumnAs(1, csv::_intensity_);
-    expected  = {{0,0}, {0,1}, {1,1}, {2,0}, {3,0}, {6,1}};
+    expected = {{0, 0}, {0, 1}, {1, 1}, {2, 0}, {3, 0}, {6, 1}};
     EXPECT_EQ(model.checkData(), expected);
 
     model.setFirstRow(1);
-    expected  = {{1,1}, {2,0}, {3,0}, {6,1}};
+    expected = {{1, 1}, {2, 0}, {3, 0}, {6, 1}};
     EXPECT_EQ(model.checkData(), expected);
 
     model.setFirstRow(2);

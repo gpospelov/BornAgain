@@ -20,8 +20,8 @@
 UpdateNotifier::UpdateNotifier(QObject* parent)
     : QObject(parent), m_networkAccessManager(new QNetworkAccessManager(parent))
 {
-    connect(m_networkAccessManager, &QNetworkAccessManager::finished,
-            this, &UpdateNotifier::replyFinished);
+    connect(m_networkAccessManager, &QNetworkAccessManager::finished, this,
+            &UpdateNotifier::replyFinished);
 }
 
 void UpdateNotifier::checkForUpdates()

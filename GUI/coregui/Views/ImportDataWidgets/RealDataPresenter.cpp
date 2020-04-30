@@ -14,17 +14,16 @@
 
 #include "RealDataPresenter.h"
 #include "GUIHelpers.h"
-#include "IntensityDataWidget.h"
 #include "IntensityDataProjectionsWidget.h"
-#include "item_constants.h"
+#include "IntensityDataWidget.h"
 #include "RealDataItem.h"
 #include "RealDataMaskWidget.h"
 #include "SpecularDataWidget.h"
-#include <cassert>
+#include "item_constants.h"
 #include <QAction>
+#include <cassert>
 
-RealDataPresenter::RealDataPresenter(QWidget* parent)
-    : ItemComboWidget(parent)
+RealDataPresenter::RealDataPresenter(QWidget* parent) : ItemComboWidget(parent)
 {
     registerWidget(Constants::IntensityDataPresentation, create_new<IntensityDataWidget>);
     registerWidget(Constants::IntensityProjectionsPresentation,
@@ -46,8 +45,7 @@ QStringList RealDataPresenter::activePresentationList(SessionItem* item)
     QStringList result;
     if (underlying_data_model == Constants::IntensityDataType)
         result << Constants::IntensityDataPresentation
-               << Constants::IntensityProjectionsPresentation
-               << Constants::MaskEditorPresentation;
+               << Constants::IntensityProjectionsPresentation << Constants::MaskEditorPresentation;
     else if (underlying_data_model == Constants::SpecularDataType)
         result << Constants::SpecularDataPresentation;
     else

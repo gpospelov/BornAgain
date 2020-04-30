@@ -13,31 +13,29 @@
 // ************************************************************************** //
 
 #include "ComponentEditor.h"
-#include "ComponentView.h"
-#include "ComponentTreeView.h"
 #include "ComponentFlatView.h"
+#include "ComponentTreeView.h"
+#include "ComponentView.h"
 #include "GroupInfoBox.h"
-#include <QGroupBox>
 #include <QBoxLayout>
+#include <QGroupBox>
 
-namespace {
+namespace
+{
 
-template<typename T> T* createGroupBox(ComponentView* componentView, QString title)
+template <typename T> T* createGroupBox(ComponentView* componentView, QString title)
 {
     auto box = new T(title);
     auto boxlayout = new QVBoxLayout;
-    boxlayout->setContentsMargins( 0, 0, 0, 0 );
+    boxlayout->setContentsMargins(0, 0, 0, 0);
     boxlayout->addWidget(componentView);
     box->setLayout(boxlayout);
     return box;
 }
-}
+} // namespace
 
 ComponentEditor::ComponentEditor(EditorType editorType, const QString& title)
-    : m_type(editorType)
-    , m_componentView(nullptr)
-    , m_item(nullptr)
-    , m_title(title)
+    : m_type(editorType), m_componentView(nullptr), m_item(nullptr), m_title(title)
 {
     m_componentView = createComponentView();
 
@@ -51,7 +49,7 @@ ComponentEditor::ComponentEditor(EditorType editorType, const QString& title)
         mainLayout->setMargin(4);
         mainLayout->addStretch();
 
-    } else if(m_type.testFlag(InfoLayout)) {
+    } else if (m_type.testFlag(InfoLayout)) {
         auto box = createGroupBox<GroupInfoBox>(m_componentView, title);
         connect(box, &GroupInfoBox::clicked, this, &ComponentEditor::onDialogRequest);
         mainLayout->addWidget(box);

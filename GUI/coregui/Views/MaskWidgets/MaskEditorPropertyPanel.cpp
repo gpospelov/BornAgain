@@ -40,20 +40,16 @@ public:
 };
 
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget* parent)
-    : QWidget(parent)
-    , m_listView(new QListView)
-    , m_maskPropertyEditor(new ComponentEditor)
-    , m_plotPropertyEditor(new ComponentEditor(ComponentEditor::MiniTree))
-    , m_accordion(new AccordionWidget)
-    , m_maskModel(nullptr)
-    , m_intensityDataItem(nullptr)
+    : QWidget(parent), m_listView(new QListView), m_maskPropertyEditor(new ComponentEditor),
+      m_plotPropertyEditor(new ComponentEditor(ComponentEditor::MiniTree)),
+      m_accordion(new AccordionWidget), m_maskModel(nullptr), m_intensityDataItem(nullptr)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     setObjectName(QLatin1String("MaskEditorToolPanel"));
 
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_listView, &QListView::customContextMenuRequested,
-            this, &MaskEditorPropertyPanel::onCustomContextMenuRequested);
+    connect(m_listView, &QListView::customContextMenuRequested, this,
+            &MaskEditorPropertyPanel::onCustomContextMenuRequested);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -92,8 +88,8 @@ void MaskEditorPropertyPanel::setMaskContext(SessionModel* model,
 
     m_listView->setRootIndex(m_rootIndex);
 
-    connect(m_listView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &MaskEditorPropertyPanel::onSelectionChanged, Qt::UniqueConnection);
+    connect(m_listView->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            &MaskEditorPropertyPanel::onSelectionChanged, Qt::UniqueConnection);
 
     m_plotPropertyEditor->setItem(m_intensityDataItem);
 }

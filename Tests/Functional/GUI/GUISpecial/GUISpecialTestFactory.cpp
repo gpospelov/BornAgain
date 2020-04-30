@@ -14,84 +14,62 @@
 
 #include "GUISpecialTestFactory.h"
 #include "CsvImportAssistantPerformanceTest.h"
-#include "TranslationCases.h"
 #include "GUIPerformanceTest.h"
 #include "GUISaveLoadProject.h"
+#include "TranslationCases.h"
 
 GUISpecialTestFactory::GUISpecialTestFactory()
 {
-    registerItem("BasicTranslation",
-                 create_new<BasicTranslationTest>,
-                 "BasicTranslation test");
+    registerItem("BasicTranslation", create_new<BasicTranslationTest>, "BasicTranslation test");
 
-    registerItem("RadialParaTranslation",
-                 create_new<RadialParaTranslationTest>,
+    registerItem("RadialParaTranslation", create_new<RadialParaTranslationTest>,
                  "RadialParaTranslation test");
 
-    registerItem("HardDiskTranslation",
-                 create_new<HardDiskTranslationTest>,
+    registerItem("HardDiskTranslation", create_new<HardDiskTranslationTest>,
                  "HardDiskTranslation test ");
 
-    registerItem("HexParaTranslation",
-                 create_new<HexParaTranslationTest>,
+    registerItem("HexParaTranslation", create_new<HexParaTranslationTest>,
                  "HexParaTranslation test");
 
-    registerItem("CoreShellTranslation",
-                 create_new<CoreShellTranslationTest>,
+    registerItem("CoreShellTranslation", create_new<CoreShellTranslationTest>,
                  "CoreShellTranslation test");
 
-    registerItem("RoughnessTranslation",
-                 create_new<RoughnessTranslationTest>,
+    registerItem("RoughnessTranslation", create_new<RoughnessTranslationTest>,
                  "RoughnessTranslation test");
 
-    registerItem("SquareLatticeTranslation",
-                 create_new<SquareLatticeTranslationTest>,
+    registerItem("SquareLatticeTranslation", create_new<SquareLatticeTranslationTest>,
                  "SquareLatticeTranslation test");
 
-    registerItem("RotationTranslation",
-                 create_new<RotationTranslationTest>,
+    registerItem("RotationTranslation", create_new<RotationTranslationTest>,
                  "RotationTranslation test");
 
-    registerItem("SizeDistributionTranslation",
-                 create_new<SizeDistributionTranslationTest>,
+    registerItem("SizeDistributionTranslation", create_new<SizeDistributionTranslationTest>,
                  "SizeDistributionTranslation test");
 
-    registerItem("CompositionTranslation",
-                 create_new<CompositionTranslationTest>,
+    registerItem("CompositionTranslation", create_new<CompositionTranslationTest>,
                  "CompositionTranslation test");
 
-    registerItem("Para2DTranslation",
-                 create_new<Para2DTranslationTest>,
-                 "Para2DTranslation test");
+    registerItem("Para2DTranslation", create_new<Para2DTranslationTest>, "Para2DTranslation test");
 
-    registerItem("Lattice1DTranslation",
-                 create_new<Lattice1DTranslationTest>,
+    registerItem("Lattice1DTranslation", create_new<Lattice1DTranslationTest>,
                  "Lattice1DTranslation test");
 
-    registerItem("Lattice2DTranslation",
-                 create_new<Lattice2DTranslationTest>,
+    registerItem("Lattice2DTranslation", create_new<Lattice2DTranslationTest>,
                  "Lattice2DTranslation test");
 
-    registerItem("TwoLayerRoughnessTranslation",
-                 create_new<TwoLayerRoughnessTranslationTest>,
+    registerItem("TwoLayerRoughnessTranslation", create_new<TwoLayerRoughnessTranslationTest>,
                  "TwoLayerRoughnessTranslation test");
 
-    registerItem("MesoCrystalTranslation",
-                 create_new<MesoCrystalTranslationTest>,
+    registerItem("MesoCrystalTranslation", create_new<MesoCrystalTranslationTest>,
                  "MesoCrystalTranslation test");
 
-    registerItem("MagneticSpheresTranslation",
-                 create_new<MagneticSpheresTranslationTest>,
+    registerItem("MagneticSpheresTranslation", create_new<MagneticSpheresTranslationTest>,
                  "MagneticSpheresTranslation test");
 
-    registerItem("GUIPerformance",
-                 create_new<GUIPerformanceTest>,
+    registerItem("GUIPerformance", create_new<GUIPerformanceTest>,
                  "Measuring GUI performance on typical tasks.");
 
-    registerItem("SaveLoadProject",
-                 create_new<GUISaveLoadProject>,
-                 "Save/load project test");
-    registerItem("CsvImportAssistantPerformanceTest",
-                 create_new<CsvImportAssistantPerformanceTest>,
+    registerItem("SaveLoadProject", create_new<GUISaveLoadProject>, "Save/load project test");
+    registerItem("CsvImportAssistantPerformanceTest", create_new<CsvImportAssistantPerformanceTest>,
                  "Measuring performance of loading ascii files");
 }

@@ -16,23 +16,19 @@
 #include "IIntensityFunction.h"
 #include <VarianceFunctions.h>
 
-IChiSquaredModule::IChiSquaredModule()
-    : m_variance_function(new VarianceSimFunction)
-{
-}
+IChiSquaredModule::IChiSquaredModule() : m_variance_function(new VarianceSimFunction) {}
 
 const IVarianceFunction* IChiSquaredModule::varianceFunction() const
 {
     return m_variance_function.get();
 }
 
-IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other)
-    : ICloneable()
+IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other) : ICloneable()
 {
-    if(other.m_variance_function)
+    if (other.m_variance_function)
         m_variance_function.reset(other.m_variance_function->clone());
 
-    if(other.mp_intensity_function)
+    if (other.mp_intensity_function)
         mp_intensity_function.reset(other.mp_intensity_function->clone());
 }
 

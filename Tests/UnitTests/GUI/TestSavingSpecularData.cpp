@@ -1,21 +1,21 @@
-#include "google_test.h"
 #include "ApplicationModels.h"
 #include "DataItem.h"
-#include "GroupItem.h"
 #include "GUIHelpers.h"
+#include "GroupItem.h"
 #include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "IntensityDataIOFactory.h"
 #include "ItemFileNameUtils.h"
+#include "JobItem.h"
 #include "JobModel.h"
 #include "JobModelFunctions.h"
-#include "JobItem.h"
 #include "OutputData.h"
 #include "OutputDataIOService.h"
 #include "PointwiseAxis.h"
 #include "PointwiseAxisItem.h"
 #include "ProjectUtils.h"
 #include "SpecularBeamInclinationItem.h"
+#include "google_test.h"
 #include "test_utils.h"
 #include <QTest>
 
@@ -231,7 +231,8 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService)
 
     // Reading data from disk, checking it is the same
     EXPECT_TRUE(isSame(fname1, pointwise_axis_item1->getAxis()));
-    EXPECT_TRUE(isSame(fname2, pointwise_axis_item2->getAxis()));;
+    EXPECT_TRUE(isSame(fname2, pointwise_axis_item2->getAxis()));
+    ;
 
     // Modifying data and saving the project.
     PointwiseAxis tmp2("z", std::vector<double>{2.0, 3.0, 4.0});
@@ -270,8 +271,7 @@ TEST_F(TestSavingSpecularData, test_CopyInstrumentToJobItem)
     pointwise_axis_item->init(*m_axis, Constants::UnitsQyQz);
 
     // adding JobItem and copying instrument
-    auto jobItem =
-        dynamic_cast<JobItem*>(models.jobModel()->insertNewItem(Constants::JobItemType));
+    auto jobItem = dynamic_cast<JobItem*>(models.jobModel()->insertNewItem(Constants::JobItemType));
     JobModelFunctions::setupJobItemInstrument(jobItem, instrument);
     auto job_instrument =
         dynamic_cast<SpecularInstrumentItem*>(jobItem->getItem(JobItem::T_INSTRUMENT));

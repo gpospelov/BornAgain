@@ -16,34 +16,29 @@
 #include "DocumentModel.h"
 #include "GUIObjectBuilder.h"
 #include "ISample.h"
+#include "ImportDataUtils.h"
+#include "InstrumentItems.h"
 #include "InstrumentModel.h"
+#include "IntensityDataIOFactory.h"
+#include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "JobModel.h"
-#include "InstrumentItems.h"
 #include "MaterialModel.h"
+#include "MaterialPropertyController.h"
+#include "MessageService.h"
 #include "MultiLayer.h"
+#include "OffSpecSimulation.h"
+#include "RealDataItem.h"
 #include "RealDataModel.h"
 #include "SampleBuilderFactory.h"
 #include "SampleModel.h"
-#include "MessageService.h"
-#include "RealDataItem.h"
-#include "IntensityDataIOFactory.h"
-#include "IntensityDataItem.h"
-#include "ImportDataUtils.h"
-#include "MaterialPropertyController.h"
 #include "StandardSimulations.h"
-#include "OffSpecSimulation.h"
 #include <QtCore/QXmlStreamWriter>
 
 ApplicationModels::ApplicationModels(QObject* parent)
-    : QObject(parent)
-    , m_documentModel(nullptr)
-    , m_materialModel(nullptr)
-    , m_instrumentModel(nullptr)
-    , m_sampleModel(nullptr)
-    , m_realDataModel(nullptr)
-    , m_jobModel(nullptr)
-    , m_materialPropertyController(new MaterialPropertyController(this))
+    : QObject(parent), m_documentModel(nullptr), m_materialModel(nullptr),
+      m_instrumentModel(nullptr), m_sampleModel(nullptr), m_realDataModel(nullptr),
+      m_jobModel(nullptr), m_materialPropertyController(new MaterialPropertyController(this))
 {
     createModels();
     // createTestSample();
@@ -186,7 +181,7 @@ void ApplicationModels::createTestJob()
 void ApplicationModels::createTestRealData()
 {
     auto realDataItem =
-            dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
+        dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem(Constants::RealDataType));
     realDataItem->setItemName("realdata");
 
     std::unique_ptr<OutputData<double>> data(
@@ -199,13 +194,13 @@ void ApplicationModels::createTestRealData()
 
 void ApplicationModels::writeTo(QXmlStreamWriter* writer)
 {
-    for(auto model : modelList())
+    for (auto model : modelList())
         model->writeTo(writer);
 }
 
 void ApplicationModels::readFrom(QXmlStreamReader* reader, MessageService* messageService)
 {
-    for(auto model : modelList()) {
+    for (auto model : modelList()) {
         if (model->getModelTag() == reader->name()) {
             model->readFrom(reader, messageService);
             break;
@@ -248,11 +243,11 @@ void ApplicationModels::disconnectModel(SessionModel* model)
 void ApplicationModels::connectModel(SessionModel* model)
 {
     if (model) {
-        connect(model, &SessionModel::dataChanged,
-                this, &ApplicationModels::modelChanged, Qt::UniqueConnection);
-        connect(model, &SessionModel::rowsRemoved,
-                this, &ApplicationModels::modelChanged, Qt::UniqueConnection);
-        connect(model, &SessionModel::rowsInserted,
-                this, &ApplicationModels::modelChanged, Qt::UniqueConnection);
+        connect(model, &SessionModel::dataChanged, this, &ApplicationModels::modelChanged,
+                Qt::UniqueConnection);
+        connect(model, &SessionModel::rowsRemoved, this, &ApplicationModels::modelChanged,
+                Qt::UniqueConnection);
+        connect(model, &SessionModel::rowsInserted, this, &ApplicationModels::modelChanged,
+                Qt::UniqueConnection);
     }
 }

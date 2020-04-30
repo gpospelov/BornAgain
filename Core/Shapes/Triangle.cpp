@@ -14,11 +14,9 @@
 
 #include "Triangle.h"
 
-
 Triangle::Triangle(double length, double z)
 {
     m_vertices = TriangleVertices(length, z);
 }
 
-Triangle::~Triangle()
-{}
+Triangle::~Triangle() {}

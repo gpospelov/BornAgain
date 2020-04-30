@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "Layer.h"
 #include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
@@ -7,6 +6,7 @@
 #include "SpecularMagneticStrategy.h"
 #include "SpecularScalarTanhStrategy.h"
 #include "Units.h"
+#include "google_test.h"
 
 constexpr double eps = 1e-10;
 
@@ -24,22 +24,27 @@ protected:
 
 SpecularMagneticTest_v2::~SpecularMagneticTest_v2() = default;
 
-void SpecularMagneticTest_v2::testZeroField(const kvector_t& k, const ProcessedSample& sample_scalar,
-                                          const ProcessedSample& sample_zerofield)
+void SpecularMagneticTest_v2::testZeroField(const kvector_t& k,
+                                            const ProcessedSample& sample_scalar,
+                                            const ProcessedSample& sample_zerofield)
 {
-    auto coeffs_scalar = std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_scalar.slices(), k);
-    auto coeffs_zerofield = std::make_unique<SpecularMagneticStrategy>()->Execute(sample_zerofield.slices(), k);
+    auto coeffs_scalar =
+        std::make_unique<SpecularScalarTanhStrategy>()->Execute(sample_scalar.slices(), k);
+    auto coeffs_zerofield =
+        std::make_unique<SpecularMagneticStrategy>()->Execute(sample_zerofield.slices(), k);
 
     EXPECT_EQ(coeffs_scalar.size(), coeffs_zerofield.size());
 
     for (size_t i = 0; i < coeffs_scalar.size(); ++i) {
-        const ScalarRTCoefficients& RTScalar = *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[i].get());
+        const ScalarRTCoefficients& RTScalar =
+            *dynamic_cast<const ScalarRTCoefficients*>(coeffs_scalar[i].get());
         Eigen::Vector2cd TPS = RTScalar.T1plus() + RTScalar.T2plus();
         Eigen::Vector2cd RPS = RTScalar.R1plus() + RTScalar.R2plus();
         Eigen::Vector2cd TMS = RTScalar.T1min() + RTScalar.T2min();
         Eigen::Vector2cd RMS = RTScalar.R1min() + RTScalar.R2min();
 
-        const MatrixRTCoefficients_v2& RTMatrix = *dynamic_cast<const MatrixRTCoefficients_v2*>(coeffs_zerofield[i].get());
+        const MatrixRTCoefficients_v2& RTMatrix =
+            *dynamic_cast<const MatrixRTCoefficients_v2*>(coeffs_zerofield[i].get());
         Eigen::Vector2cd TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
         Eigen::Vector2cd RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
         Eigen::Vector2cd TMM = RTMatrix.T1min() + RTMatrix.T2min();
@@ -69,13 +74,13 @@ TEST_F(SpecularMagneticTest_v2, degenerate)
     mLayer.addLayer(Layer(air, 0 * Units::nanometer));
     ProcessedSample sample(mLayer, SimulationOptions());
 
-    Eigen::Vector2cd Tp_ref {0.5, 0.0};
-    Eigen::Vector2cd Rp_ref {-0.5, 0.0};
-    Eigen::Vector2cd Tm_ref {0.0, 0.5};
-    Eigen::Vector2cd Rm_ref {0.0, -0.5};
+    Eigen::Vector2cd Tp_ref{0.5, 0.0};
+    Eigen::Vector2cd Rp_ref{-0.5, 0.0};
+    Eigen::Vector2cd Tm_ref{0.0, 0.5};
+    Eigen::Vector2cd Rm_ref{0.0, -0.5};
 
     auto result = std::make_unique<SpecularMagneticStrategy>()->Execute(sample.slices(), v);
-    for (auto& coeff: result) {
+    for (auto& coeff : result) {
         ifEqual(coeff->T1plus(), Tp_ref);
         ifEqual(coeff->T2plus(), Tp_ref);
         ifEqual(coeff->T1min(), Tm_ref);

@@ -23,10 +23,9 @@
 class BA_CORE_API_ Basic2DLatticeBuilder : public IMultiLayerBuilder
 {
 public:
-    Basic2DLatticeBuilder(){}
+    Basic2DLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
-
 
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
@@ -34,10 +33,9 @@ public:
 class BA_CORE_API_ SquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
-    SquareLatticeBuilder(){}
+    SquareLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
-
 
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
@@ -45,10 +43,9 @@ public:
 class BA_CORE_API_ CenteredSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
-    CenteredSquareLatticeBuilder(){}
+    CenteredSquareLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
-
 
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
@@ -56,7 +53,7 @@ public:
 class BA_CORE_API_ RotatedSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
-    RotatedSquareLatticeBuilder(){}
+    RotatedSquareLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -66,7 +63,7 @@ public:
 class BA_CORE_API_ FiniteSquareLatticeBuilder : public IMultiLayerBuilder
 {
 public:
-    FiniteSquareLatticeBuilder(){}
+    FiniteSquareLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -76,7 +73,7 @@ public:
 class BA_CORE_API_ SuperLatticeBuilder : public IMultiLayerBuilder
 {
 public:
-    SuperLatticeBuilder(){}
+    SuperLatticeBuilder() {}
     MultiLayer* buildSample() const;
 };
 

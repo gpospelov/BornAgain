@@ -17,8 +17,8 @@
 #include "Rotations.h"
 #include "WavevectorInfo.h"
 
-FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
-    const IFormFactor& form_factor, const kvector_t& position)
+FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor& form_factor,
+                                                                     const kvector_t& position)
     : IFormFactorDecorator(form_factor), m_position(position)
 {
     setName(BornAgain::FormFactorDecoratorPositionFactorType);
@@ -38,21 +38,20 @@ double FormFactorDecoratorPositionFactor::topZ(const IRotation& rotation) const
     return mp_form_factor->topZ(rotation) + rotated_translation.z();
 }
 
-complex_t FormFactorDecoratorPositionFactor::evaluate(
-    const WavevectorInfo& wavevectors) const
+complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
     return getPositionFactor(wavevectors) * mp_form_factor->evaluate(wavevectors);
 }
 
-Eigen::Matrix2cd FormFactorDecoratorPositionFactor::evaluatePol(
-        const WavevectorInfo& wavevectors) const
+Eigen::Matrix2cd
+FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo& wavevectors) const
 {
     return getPositionFactor(wavevectors) * mp_form_factor->evaluatePol(wavevectors);
 }
 
-complex_t FormFactorDecoratorPositionFactor::getPositionFactor(
-    const WavevectorInfo& wavevectors) const
+complex_t
+FormFactorDecoratorPositionFactor::getPositionFactor(const WavevectorInfo& wavevectors) const
 {
     cvector_t q = wavevectors.getQ();
-    return exp_I( m_position.dot(q) );
+    return exp_I(m_position.dot(q));
 }

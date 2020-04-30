@@ -26,25 +26,24 @@ class SampleValidator
 public:
     SampleValidator();
 
-    bool isValidMultiLayer(const  MultiLayerItem *multilayer);
+    bool isValidMultiLayer(const MultiLayerItem* multilayer);
 
     QString getValidationMessage() const { return m_validation_message; }
 
 private:
     void initValidator();
 
-    void iterateItems(const SessionItem *parentItem);
-    void validateItem(const SessionItem *item);
+    void iterateItems(const SessionItem* parentItem);
+    void validateItem(const SessionItem* item);
 
-    QString validateMultiLayerItem(const SessionItem *item);
-    QString validateParticleLayoutItem(const SessionItem *item);
-    QString validateParticleCoreShellItem(const SessionItem *item);
-    QString validateParticleCompositionItem(const SessionItem *item);
-    QString validateParticleDistributionItem(const SessionItem *item);
+    QString validateMultiLayerItem(const SessionItem* item);
+    QString validateParticleLayoutItem(const SessionItem* item);
+    QString validateParticleCoreShellItem(const SessionItem* item);
+    QString validateParticleCompositionItem(const SessionItem* item);
+    QString validateParticleDistributionItem(const SessionItem* item);
 
     bool m_valid_sample;
     QString m_validation_message;
 };
-
 
 #endif // SAMPLEVALIDATOR_H

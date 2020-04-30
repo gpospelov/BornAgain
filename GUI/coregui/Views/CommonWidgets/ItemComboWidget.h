@@ -16,8 +16,8 @@
 #define ITEMCOMBOWIDGET_H
 
 #include "IFactory.h"
-#include "WinDllMacros.h"
 #include "SessionItemWidget.h"
+#include "WinDllMacros.h"
 #include <QMap>
 #include <QString>
 #include <QWidget>
@@ -47,13 +47,14 @@ public:
     virtual void setPresentation(const QString& presentationType);
 
     void setToolBarVisible(bool value);
+
 protected:
     virtual QStringList activePresentationList(SessionItem* item);
     virtual QStringList presentationList(SessionItem* item);
     virtual QString itemPresentation() const;
     QString selectedPresentation() const;
-//    SessionItem* currentItem();
-//    const SessionItem* currentItem() const;
+    //    SessionItem* currentItem();
+    //    const SessionItem* currentItem() const;
     void subscribeToItem();
 
 private slots:
@@ -64,7 +65,7 @@ private:
 
     ItemComboToolBar* m_toolBar;
     QStackedWidget* m_stackedWidget;
-//    SessionItem* m_currentItem;
+    //    SessionItem* m_currentItem;
     IFactory<QString, SessionItemWidget> m_widgetFactory;
     QMap<QString, SessionItemWidget*> m_presentationTypeToWidget;
 };

@@ -19,16 +19,13 @@
 #include <algorithm>
 
 InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice& lattice)
-    : m_lattice(lattice)
-    , mP_peak_shape(nullptr)
-    , m_rec_radius(0.0)
+    : m_lattice(lattice), mP_peak_shape(nullptr), m_rec_radius(0.0)
 {
     setName(BornAgain::InterferenceFunction3DLatticeType);
     initRecRadius();
 }
 
-InterferenceFunction3DLattice::~InterferenceFunction3DLattice() =default;
-
+InterferenceFunction3DLattice::~InterferenceFunction3DLattice() = default;
 
 InterferenceFunction3DLattice* InterferenceFunction3DLattice::clone() const
 {
@@ -65,13 +62,13 @@ double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const
     double inner_radius = 0.0;
     if (mP_peak_shape->angularDisorder()) {
         center = kvector_t(0.0, 0.0, 0.0);
-        inner_radius = std::max(0.0, q.mag()-radius);
+        inner_radius = std::max(0.0, q.mag() - radius);
         radius += q.mag();
     }
     auto rec_vectors = m_lattice.reciprocalLatticeVectorsWithinRadius(center, radius);
     double result = 0.0;
     for (const auto& q_rec : rec_vectors) {
-        if (!(q_rec.mag()<inner_radius)) {
+        if (!(q_rec.mag() < inner_radius)) {
             result += mP_peak_shape->evaluate(q, q_rec);
         }
     }
@@ -79,11 +76,9 @@ double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const
 }
 
 InterferenceFunction3DLattice::InterferenceFunction3DLattice(
-        const InterferenceFunction3DLattice& other)
-    : IInterferenceFunction(other)
-    , m_lattice(other.m_lattice)
-    , mP_peak_shape(nullptr)
-    , m_rec_radius(0.0)
+    const InterferenceFunction3DLattice& other)
+    : IInterferenceFunction(other), m_lattice(other.m_lattice), mP_peak_shape(nullptr),
+      m_rec_radius(0.0)
 {
     setName(other.getName());
     initRecRadius();

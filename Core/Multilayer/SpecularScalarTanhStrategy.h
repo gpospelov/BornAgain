@@ -26,12 +26,10 @@ class Slice;
 class BA_CORE_API_ SpecularScalarTanhStrategy : public SpecularScalarStrategy
 {
 private:
-
     //! Roughness is modelled by tanh profile [see e.g. Phys. Rev. B, vol. 47 (8), p. 4385 (1993)].
-    virtual Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma, double thickness,
+    virtual Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma,
+                                        double thickness,
                                         const Eigen::Vector2cd& t_r1) const override;
-
-
 };
 
 #endif // SPECULARSCALARTANHSTRATEGY_H

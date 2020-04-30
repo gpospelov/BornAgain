@@ -15,10 +15,10 @@
 #ifndef FONTSCALINGEVENT_H
 #define FONTSCALINGEVENT_H
 
+#include "WinDllMacros.h"
 #include <QFont>
 #include <QMap>
 #include <QObject>
-#include "WinDllMacros.h"
 
 class QEvent;
 class ScientificPlot;

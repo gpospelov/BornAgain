@@ -13,44 +13,40 @@
 // ************************************************************************** //
 
 #include "MaskEditorCanvas.h"
+#include "AppSvc.h"
+#include "ColorMap.h"
+#include "IntensityDataItem.h"
 #include "MaskGraphicsScene.h"
 #include "MaskGraphicsView.h"
+#include "MaskItems.h"
 #include "MaskResultsPresenter.h"
 #include "PlotStatusLabel.h"
 #include "SavePlotAssistant.h"
-#include "AppSvc.h"
 #include "projectmanager.h"
-#include "ColorMap.h"
-#include "IntensityDataItem.h"
-#include "MaskItems.h"
 #include <QVBoxLayout>
 
-MaskEditorCanvas::MaskEditorCanvas(QWidget *parent)
-    : QWidget(parent)
-    , m_scene(new MaskGraphicsScene(this))
-    , m_view(new MaskGraphicsView(m_scene))
-    , m_intensityDataItem(0)
-    , m_statusLabel(new PlotStatusLabel(0, this))
-    , m_resultsPresenter(new MaskResultsPresenter(this))
+MaskEditorCanvas::MaskEditorCanvas(QWidget* parent)
+    : QWidget(parent), m_scene(new MaskGraphicsScene(this)), m_view(new MaskGraphicsView(m_scene)),
+      m_intensityDataItem(0), m_statusLabel(new PlotStatusLabel(0, this)),
+      m_resultsPresenter(new MaskResultsPresenter(this))
 {
     setObjectName(QStringLiteral("MaskEditorCanvas"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_view);
     mainLayout->addWidget(m_statusLabel);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     setLayout(mainLayout);
 
-    connect(m_view, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)),
-            this, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)));
-    connect(m_view, SIGNAL(deleteSelectedRequest()),
-            this, SIGNAL(deleteSelectedRequest()));
+    connect(m_view, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)), this,
+            SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)));
+    connect(m_view, SIGNAL(deleteSelectedRequest()), this, SIGNAL(deleteSelectedRequest()));
 }
 
-void MaskEditorCanvas::setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
-                                      IntensityDataItem *intensityItem)
+void MaskEditorCanvas::setMaskContext(SessionModel* model, const QModelIndex& maskContainerIndex,
+                                      IntensityDataItem* intensityItem)
 {
     m_intensityDataItem = intensityItem;
 
@@ -68,12 +64,12 @@ void MaskEditorCanvas::resetContext()
     m_statusLabel->reset();
 }
 
-void MaskEditorCanvas::setSelectionModel(QItemSelectionModel *model)
+void MaskEditorCanvas::setSelectionModel(QItemSelectionModel* model)
 {
     m_scene->setSelectionModel(model);
 }
 
-MaskGraphicsScene *MaskEditorCanvas::getScene()
+MaskGraphicsScene* MaskEditorCanvas::getScene()
 {
     return m_scene;
 }
@@ -82,9 +78,9 @@ void MaskEditorCanvas::onPresentationTypeRequest(MaskEditorFlags::PresentationTy
 {
     m_resultsPresenter->updatePresenter(presentationType);
 
-    if(auto container = m_intensityDataItem->maskContainerItem()) {
+    if (auto container = m_intensityDataItem->maskContainerItem()) {
         bool isVisible = presentationType.testFlag(MaskEditorFlags::MASK_EDITOR);
-        for(auto mask : container->getItems())
+        for (auto mask : container->getItems())
             mask->setItemValue(MaskItem::P_IS_VISIBLE, isVisible);
     }
 }
@@ -104,7 +100,7 @@ void MaskEditorCanvas::onResetViewRequest()
 {
     m_view->onResetViewRequest();
 
-    if(isAxisRangeMatchData()) {
+    if (isAxisRangeMatchData()) {
         setZoomToROI();
     } else {
         m_intensityDataItem->resetView();
@@ -117,17 +113,21 @@ bool MaskEditorCanvas::isAxisRangeMatchData() const
 {
     Q_ASSERT(m_intensityDataItem);
 
-    if(m_intensityDataItem->getLowerX() != m_intensityDataItem->getXmin()) return false;
-    if(m_intensityDataItem->getUpperX() != m_intensityDataItem->getXmax()) return false;
-    if(m_intensityDataItem->getLowerY() != m_intensityDataItem->getYmin()) return false;
-    if(m_intensityDataItem->getUpperY() != m_intensityDataItem->getYmax()) return false;
+    if (m_intensityDataItem->getLowerX() != m_intensityDataItem->getXmin())
+        return false;
+    if (m_intensityDataItem->getUpperX() != m_intensityDataItem->getXmax())
+        return false;
+    if (m_intensityDataItem->getLowerY() != m_intensityDataItem->getYmin())
+        return false;
+    if (m_intensityDataItem->getUpperY() != m_intensityDataItem->getYmax())
+        return false;
     return true;
 }
 
 void MaskEditorCanvas::setZoomToROI()
 {
-    if(MaskContainerItem *maskContainer = m_intensityDataItem->maskContainerItem()) {
-        if(SessionItem *roiItem = maskContainer->getChildOfType(Constants::RegionOfInterestType)) {
+    if (MaskContainerItem* maskContainer = m_intensityDataItem->maskContainerItem()) {
+        if (SessionItem* roiItem = maskContainer->getChildOfType(Constants::RegionOfInterestType)) {
             m_intensityDataItem->setLowerX(roiItem->getItemValue(RectangleItem::P_XLOW).toDouble());
             m_intensityDataItem->setUpperX(roiItem->getItemValue(RectangleItem::P_XUP).toDouble());
             m_intensityDataItem->setLowerY(roiItem->getItemValue(RectangleItem::P_YLOW).toDouble());

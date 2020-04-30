@@ -17,7 +17,8 @@
 
 #include "object.h"
 
-namespace RealSpace {
+namespace RealSpace
+{
 
 // particle layer: a transparent box
 class Layer : public Object
@@ -25,5 +26,5 @@ class Layer : public Object
 public:
     Layer(VectorRange);
 };
-}  // namespace RealSpace
-#endif  // BA3D_LAYER_H
+} // namespace RealSpace
+#endif // BA3D_LAYER_H

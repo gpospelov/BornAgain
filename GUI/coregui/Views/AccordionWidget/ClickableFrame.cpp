@@ -31,10 +31,8 @@
 #include "ClickableFrame.h"
 #include <QStyleOption>
 
-ClickableFrame::ClickableFrame(QString header, QWidget *parent,
-                               Qt::WindowFlags f)
-    : QFrame(parent, f)
-    , header(header)
+ClickableFrame::ClickableFrame(QString header, QWidget* parent, Qt::WindowFlags f)
+    : QFrame(parent, f), header(header)
 {
     this->setAttribute(Qt::WA_Hover, true);
     this->clickable = true;
@@ -56,7 +54,10 @@ void ClickableFrame::setClickable(bool status)
     }
 }
 
-bool ClickableFrame::getClickable() { return this->clickable; }
+bool ClickableFrame::getClickable()
+{
+    return this->clickable;
+}
 
 void ClickableFrame::setHeader(QString header)
 {
@@ -64,7 +65,10 @@ void ClickableFrame::setHeader(QString header)
     this->nameLabel->setText(this->header);
 }
 
-QString ClickableFrame::getHeader() { return this->header; }
+QString ClickableFrame::getHeader()
+{
+    return this->header;
+}
 
 void ClickableFrame::setNormalStylesheet(QString stylesheet)
 {
@@ -72,14 +76,20 @@ void ClickableFrame::setNormalStylesheet(QString stylesheet)
     this->setStyleSheet(this->normalStylesheet);
 }
 
-QString ClickableFrame::getNormalStylesheet() { return this->normalStylesheet; }
+QString ClickableFrame::getNormalStylesheet()
+{
+    return this->normalStylesheet;
+}
 
 void ClickableFrame::setHoverStylesheet(QString stylesheet)
 {
     this->hoverStylesheet = stylesheet;
 }
 
-QString ClickableFrame::getHoverStylesheet() { return this->hoverStylesheet; }
+QString ClickableFrame::getHoverStylesheet()
+{
+    return this->hoverStylesheet;
+}
 
 void ClickableFrame::setCaretPixmap(QString pixmapPath)
 {
@@ -88,8 +98,7 @@ void ClickableFrame::setCaretPixmap(QString pixmapPath)
 
 void ClickableFrame::initFrame()
 {
-    this->setSizePolicy(QSizePolicy::Policy::Preferred,
-                        QSizePolicy::Policy::Fixed);
+    this->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
     this->setLayout(new QHBoxLayout());
 
     this->caretLabel = new QLabel();
@@ -100,12 +109,12 @@ void ClickableFrame::initFrame()
     nameLabel->setText(this->header);
     this->layout()->addWidget(nameLabel);
 
-    dynamic_cast<QHBoxLayout *>(this->layout())->addStretch();
+    dynamic_cast<QHBoxLayout*>(this->layout())->addStretch();
 
     this->setStyleSheet(this->normalStylesheet);
 }
 
-void ClickableFrame::mousePressEvent(QMouseEvent *event)
+void ClickableFrame::mousePressEvent(QMouseEvent* event)
 {
     if (this->clickable) {
         emit this->singleClick(event->pos());
@@ -115,14 +124,14 @@ void ClickableFrame::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void ClickableFrame::enterEvent(ATTR_UNUSED QEvent *event)
+void ClickableFrame::enterEvent(ATTR_UNUSED QEvent* event)
 {
     if (this->clickable) {
         this->setStyleSheet(this->hoverStylesheet);
     }
 }
 
-void ClickableFrame::leaveEvent(ATTR_UNUSED QEvent *event)
+void ClickableFrame::leaveEvent(ATTR_UNUSED QEvent* event)
 {
     if (this->clickable) {
         this->setStyleSheet(this->normalStylesheet);

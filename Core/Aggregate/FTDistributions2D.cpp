@@ -14,13 +14,13 @@
 
 #include "FTDistributions2D.h"
 #include "BornAgainNamespace.h"
+#include "Exceptions.h"
 #include "IntegratorReal.h"
+#include "MathConstants.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
-#include "MathConstants.h"
 #include "RealParameter.h"
 #include <limits>
-#include "Exceptions.h"
 
 //! Constructor of two-dimensional probability distribution.
 //! @param omega_x: half-width of the distribution along its x-axis in nanometers
@@ -45,7 +45,8 @@ void IFTDistribution2D::register_omega()
 
 void IFTDistribution2D::register_gamma()
 {
-    registerParameter(BornAgain::Gamma, &m_gamma).setUnit(BornAgain::UnitsRad)
+    registerParameter(BornAgain::Gamma, &m_gamma)
+        .setUnit(BornAgain::UnitsRad)
         .setLimited(-M_PI_2, M_PI_2);
 }
 
@@ -153,7 +154,6 @@ double FTDistribution2DCone::coneIntegrand2(double value) const
 {
     return value * value * MathFunctions::Bessel_J0(value);
 }
-
 
 //! Constructor of two-dimensional pseudo-Voigt probability distribution.
 //! @param omega_x: half-width of the distribution along its x-axis in nanometers

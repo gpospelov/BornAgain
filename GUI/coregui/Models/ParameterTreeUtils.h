@@ -16,9 +16,9 @@
 #define PARAMETERTREEUTILS_H
 
 #include "WinDllMacros.h"
-#include <functional>
-#include <QString>
 #include <QPair>
+#include <QString>
+#include <functional>
 
 class JobItem;
 class SessionItem;
@@ -44,13 +44,14 @@ BA_CORE_API_ QStringList translatedParameterTreeNames(const SessionItem* source)
 
 BA_CORE_API_ QVector<QPair<QString, QString>> parameterDictionary(const SessionItem* source);
 
-BA_CORE_API_ QString domainNameToParameterName(const QString& domainName, const SessionItem* source);
+BA_CORE_API_ QString domainNameToParameterName(const QString& domainName,
+                                               const SessionItem* source);
 
 BA_CORE_API_ QString parameterNameToDomainName(const QString& parName, const SessionItem* source);
 
 BA_CORE_API_ SessionItem* parameterNameToLinkedItem(const QString& parName,
                                                     const SessionItem* source);
 
-}
+} // namespace ParameterTreeUtils
 
 #endif // PARAMETERTREEUTILS_H

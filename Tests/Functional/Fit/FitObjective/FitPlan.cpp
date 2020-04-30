@@ -13,19 +13,17 @@
 // ************************************************************************** //
 
 #include "FitPlan.h"
-#include "SimulationFactory.h"
-#include "SampleBuilderFactory.h"
-#include "Parameters.h"
-#include "MultiLayer.h"
 #include "FitObjective.h"
 #include "KernelTypes.h"
 #include "Minimizer.h"
+#include "MultiLayer.h"
+#include "Parameters.h"
+#include "SampleBuilderFactory.h"
+#include "SimulationFactory.h"
 
 FitPlan::FitPlan(const std::string& name, bool residual_based)
-    : MinimizerTestPlan(name)
-    , m_residual_based(residual_based)
+    : MinimizerTestPlan(name), m_residual_based(residual_based)
 {
-
 }
 
 FitPlan::~FitPlan() = default;
@@ -111,7 +109,7 @@ std::unique_ptr<MultiLayer> FitPlan::createMultiLayer(const Fit::Parameters& par
     auto sample_builder = factory.create(m_sample_builder_name);
 
     // propagating current values of fit parameters to sample builder before building the sample
-    for(const auto& par : params)
+    for (const auto& par : params)
         sample_builder->setParameterValue(par.name(), par.value());
 
     return std::unique_ptr<MultiLayer>(sample_builder->buildSample());
@@ -119,7 +117,7 @@ std::unique_ptr<MultiLayer> FitPlan::createMultiLayer(const Fit::Parameters& par
 
 //! Creates "experimental" data for fitting.
 
-std::unique_ptr<OutputData<double> > FitPlan::createOutputData() const
+std::unique_ptr<OutputData<double>> FitPlan::createOutputData() const
 {
     // use expected values of fit parameters to construct simulation
     auto params = parameters();

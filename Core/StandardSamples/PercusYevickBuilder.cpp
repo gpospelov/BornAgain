@@ -23,13 +23,12 @@
 #include "Units.h"
 
 HardDiskBuilder::HardDiskBuilder()
-    : m_cylinder_height(5*Units::nanometer)
-    , m_cylinder_radius(5*Units::nanometer)
-    , m_disk_radius(5*Units::nanometer)
-    , m_density(0.006)
-{}
+    : m_cylinder_height(5 * Units::nanometer), m_cylinder_radius(5 * Units::nanometer),
+      m_disk_radius(5 * Units::nanometer), m_density(0.006)
+{
+}
 
-MultiLayer *HardDiskBuilder::buildSample() const
+MultiLayer* HardDiskBuilder::buildSample() const
 {
     MultiLayer* multi_layer = new MultiLayer();
 

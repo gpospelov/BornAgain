@@ -17,9 +17,7 @@
 #include <qcustomplot.h>
 
 ScientificPlotEvent::ScientificPlotEvent(ScientificPlot* scientific_plot)
-    : QObject(scientific_plot)
-    , m_plot(scientific_plot)
-    , m_prevPos(scientific_plot->plotType())
+    : QObject(scientific_plot), m_plot(scientific_plot), m_prevPos(scientific_plot->plotType())
 {
 }
 
@@ -33,11 +31,11 @@ void ScientificPlotEvent::setMouseTrackingEnabled(bool enable)
     customPlot()->setMouseTracking(enable);
 
     if (enable)
-        connect(customPlot(), &QCustomPlot::mouseMove,
-                this, &ScientificPlotEvent::onCustomMouseMove, Qt::UniqueConnection);
+        connect(customPlot(), &QCustomPlot::mouseMove, this,
+                &ScientificPlotEvent::onCustomMouseMove, Qt::UniqueConnection);
     else
-        disconnect(customPlot(), &QCustomPlot::mouseMove,
-                this, &ScientificPlotEvent::onCustomMouseMove);
+        disconnect(customPlot(), &QCustomPlot::mouseMove, this,
+                   &ScientificPlotEvent::onCustomMouseMove);
 }
 
 //! Constructs status string on mouse move event coming from QCustomPlot. String is emitted

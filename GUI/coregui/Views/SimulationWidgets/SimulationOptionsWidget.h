@@ -34,7 +34,7 @@ public:
     void setItem(SimulationOptionsItem* item);
 
 private:
-    ComponentFlatView *m_boxEditor;
+    ComponentFlatView* m_boxEditor;
 };
 
 #endif // SIMULATIONOPTIONSWIDGET_H

@@ -1,6 +1,6 @@
-#include "google_test.h"
-#include "SessionModel.h"
 #include "DataItem.h"
+#include "SessionModel.h"
+#include "google_test.h"
 #include <QTest>
 
 class TestDataItems : public ::testing::Test

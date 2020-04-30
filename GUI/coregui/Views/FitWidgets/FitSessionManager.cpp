@@ -13,18 +13,15 @@
 // ************************************************************************** //
 
 #include "FitSessionManager.h"
-#include "FitSessionController.h"
 #include "FitLog.h"
-#include "JobItem.h"
+#include "FitSessionController.h"
 #include "GUIHelpers.h"
+#include "JobItem.h"
 #include "JobMessagePanel.h"
 
 FitSessionManager::FitSessionManager(QObject* parent)
-    : QObject(parent)
-    , m_activeController(nullptr)
-    , m_jobMessagePanel(nullptr)
+    : QObject(parent), m_activeController(nullptr), m_jobMessagePanel(nullptr)
 {
-
 }
 
 void FitSessionManager::setMessagePanel(JobMessagePanel* messagePanel)
@@ -60,10 +57,10 @@ void FitSessionManager::disableLogging()
     m_jobMessagePanel->onClearLog();
 }
 
-
 FitSessionController* FitSessionManager::createController(JobItem* jobItem)
 {
-    jobItem->mapper()->setOnItemDestroy([this](SessionItem* item) {removeController(item);}, this);
+    jobItem->mapper()->setOnItemDestroy([this](SessionItem* item) { removeController(item); },
+                                        this);
 
     auto result = new FitSessionController(this);
     result->setItem(jobItem);
@@ -79,7 +76,7 @@ void FitSessionManager::removeController(SessionItem* jobItem)
         throw GUIHelpers::Error("FitActivityManager::removeFitSession() -> Error. "
                                 "Can't find fit session");
 
-    if (m_activeController==it.value())
+    if (m_activeController == it.value())
         m_activeController = nullptr;
     delete it.value();
     m_item_to_controller.erase(it);

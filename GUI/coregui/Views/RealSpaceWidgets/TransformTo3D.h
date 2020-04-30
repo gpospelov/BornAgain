@@ -16,9 +16,9 @@
 #define TRANSFORMTO3D_H
 
 #include "WinDllMacros.h"
+#include <Vectors3D.h>
 #include <ba3d/model/layer.h>
 #include <ba3d/model/particles.h>
-#include <Vectors3D.h>
 #include <memory>
 
 class SessionItem;
@@ -42,8 +42,9 @@ BA_CORE_API_
 std::unique_ptr<RealSpace::Particles::Particle> createParticle3D(const SessionItem& particleItem);
 
 BA_CORE_API_
-std::unique_ptr<RealSpace::Particles::Particle> createParticlefromIFormFactor(const IFormFactor *ff);
+std::unique_ptr<RealSpace::Particles::Particle>
+createParticlefromIFormFactor(const IFormFactor* ff);
 
-}
+} // namespace TransformTo3D
 
 #endif

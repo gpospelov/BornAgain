@@ -22,9 +22,10 @@
 
 DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample* p_sample)
     : mp_sample{p_sample}
-{}
+{
+}
 
-DepthProbeComputationTerm::~DepthProbeComputationTerm() =default;
+DepthProbeComputationTerm::~DepthProbeComputationTerm() = default;
 
 void DepthProbeComputationTerm::setProgressHandler(ProgressHandler* p_progress)
 {
@@ -55,8 +56,7 @@ void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const
 
             // Compute intensity for z's of the layer
             size_t ip1_z = start_z_ind;
-            for (; ip1_z > 0; --ip1_z)
-            {
+            for (; ip1_z > 0; --ip1_z) {
                 const size_t i_z = ip1_z - 1;
                 if (i_layer + 1 != n_layers && z_positions[i_z] <= z_layer_bottom)
                     break;

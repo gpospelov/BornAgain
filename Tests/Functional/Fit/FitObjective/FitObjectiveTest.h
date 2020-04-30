@@ -27,7 +27,6 @@ public:
 
 protected:
     std::unique_ptr<MinimizerTestPlan> createPlan() const;
-
 };
 
 #endif // FITOBJECTIVETEST_H

@@ -1,10 +1,11 @@
-#include "google_test.h"
 #include "FitObserver.h"
+#include "google_test.h"
 
 class FitObserverTest : public ::testing::Test
 {
 public:
-    class TestHelper {
+    class TestHelper
+    {
     public:
         TestHelper() : m_ncalls(0), m_data(42) {}
         int m_ncalls;
@@ -40,7 +41,7 @@ TEST_F(FitObserverTest, oneObserverOneEveryIteration)
     EXPECT_EQ(data, 42);
 
     // calling observer few times
-    for (int i=0; i<10; ++i)
+    for (int i = 0; i < 10; ++i)
         observer.notify(helper);
 
     // it should be called on every iteration
@@ -55,13 +56,11 @@ TEST_F(FitObserverTest, oneObserverEverySecondIteration)
     FitObserver<TestHelper> observer;
 
     int ncalls(0);
-    std::function<void(const TestHelper&)> fun = [&](const TestHelper&) {
-        ncalls++;
-    };
+    std::function<void(const TestHelper&)> fun = [&](const TestHelper&) { ncalls++; };
     observer.addObserver(2, fun);
 
     EXPECT_EQ(ncalls, 0);
-    for (int i=0; i<11; ++i)
+    for (int i = 0; i < 11; ++i)
         observer.notify(helper);
 
     EXPECT_EQ(ncalls, 6);
@@ -91,7 +90,7 @@ TEST_F(FitObserverTest, twoObservers)
     observer.addObserver(20, fun2);
 
     // calling observer 100 times and checking corresponding number of callbacks calls
-    for (int i=0; i<101; ++i)
+    for (int i = 0; i < 101; ++i)
         observer.notify(helper);
 
     EXPECT_EQ(ncalls1, 11);

@@ -1,15 +1,16 @@
-#include "google_test.h"
 #include "Beam.h"
 #include "SimpleUnitConverters.h"
 #include "SphericalDetector.h"
 #include "Units.h"
 #include "Vectors3D.h"
+#include "google_test.h"
 
 class SphericalConverterTest : public ::testing::Test
 {
 public:
     SphericalConverterTest();
     ~SphericalConverterTest();
+
 protected:
     SphericalDetector m_detector;
     Beam m_beam;
@@ -17,15 +18,15 @@ protected:
 };
 
 SphericalConverterTest::SphericalConverterTest()
-    : m_detector(100, 0.0, 5.0*Units::deg, 70, -2.0*Units::deg, 1.5)
+    : m_detector(100, 0.0, 5.0 * Units::deg, 70, -2.0 * Units::deg, 1.5)
 {
-    m_beam.setCentralK(1.0, 1.0*Units::deg, 0.0);
+    m_beam.setCentralK(1.0, 1.0 * Units::deg, 0.0);
     auto k_i = m_beam.getCentralK();
     m_kiz = k_i.z();
-    double K = 2.0*M_PI/m_beam.getWavelength();
-    m_kfy = K*std::sin(5.0*Units::deg);
-    m_kfz1 = K*std::sin(-2.0*Units::deg);
-    m_kfz2 = K*std::sin(1.5);
+    double K = 2.0 * M_PI / m_beam.getWavelength();
+    m_kfy = K * std::sin(5.0 * Units::deg);
+    m_kfz1 = K * std::sin(-2.0 * Units::deg);
+    m_kfz2 = K * std::sin(1.5);
 }
 
 SphericalConverterTest::~SphericalConverterTest() = default;

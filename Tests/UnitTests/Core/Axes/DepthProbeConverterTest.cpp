@@ -1,9 +1,9 @@
-#include "google_test.h"
 #include "Beam.h"
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
 #include "SimpleUnitConverters.h"
 #include "Units.h"
+#include "google_test.h"
 
 class DepthProbeConverterTest : public ::testing::Test
 {
@@ -16,7 +16,7 @@ protected:
     void checkAlphaAxis(AxesUnits units, const DepthProbeConverter& test_object);
     void checkZAxis(AxesUnits units, const DepthProbeConverter& test_object);
     const double m_alpha_start = 0.5; // first axis value in rads
-    const double m_alpha_end = 1.0; // last axis value in rads
+    const double m_alpha_end = 1.0;   // last axis value in rads
     const double m_z_start = -30.0;
     const double m_z_end = 10.0;
     const size_t m_nbins = 100;
@@ -27,7 +27,8 @@ protected:
 
 DepthProbeConverterTest::DepthProbeConverterTest()
     : m_inclination_axis("Angles", m_nbins, m_alpha_start, m_alpha_end) // angles in radians
-    , m_z_axis("Positions", m_nbins, m_z_start, m_z_end) // z positions in nm
+      ,
+      m_z_axis("Positions", m_nbins, m_z_start, m_z_end) // z positions in nm
 {
     m_beam.setCentralK(1.0, 0.0, 0.0); // wavelength = 1.0 nm
 }

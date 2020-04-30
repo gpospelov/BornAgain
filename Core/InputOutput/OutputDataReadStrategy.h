@@ -26,7 +26,7 @@ template <class T> class OutputData;
 class BA_CORE_API_ IOutputDataReadStrategy
 {
 public:
-    virtual ~IOutputDataReadStrategy(){}
+    virtual ~IOutputDataReadStrategy() {}
     virtual OutputData<double>* readOutputData(std::istream& input_stream) = 0;
 };
 
@@ -48,7 +48,6 @@ public:
     OutputData<double>* readOutputData(std::istream& input_stream);
 };
 
-
 //! Strategy to read OutputData from simple ASCII file with the layout as in numpy.savetxt.
 //! @ingroup input_output_internal
 
@@ -57,7 +56,6 @@ class BA_CORE_API_ OutputDataReadNumpyTXTStrategy : public IOutputDataReadStrate
 public:
     OutputData<double>* readOutputData(std::istream& input_stream);
 };
-
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
@@ -72,8 +70,9 @@ public:
     OutputDataReadTiffStrategy();
     virtual ~OutputDataReadTiffStrategy();
     virtual OutputData<double>* readOutputData(std::istream& input_stream);
+
 private:
-    TiffHandler *m_d;
+    TiffHandler* m_d;
 };
 #endif // BORNAGAIN_TIFF_SUPPORT
 

@@ -53,7 +53,7 @@ bool DataItem::containsNonXMLData() const
     return static_cast<bool>(m_data);
 }
 
-bool DataItem::load(const QString &projectDir)
+bool DataItem::load(const QString& projectDir)
 {
     QString filename = fileName(projectDir);
     auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());

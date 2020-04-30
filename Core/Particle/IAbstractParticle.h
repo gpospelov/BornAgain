@@ -32,7 +32,7 @@ public:
     IAbstractParticle();
     virtual ~IAbstractParticle();
 
-    virtual IAbstractParticle* clone() const =0;
+    virtual IAbstractParticle* clone() const = 0;
 
     virtual void accept(INodeVisitor* visitor) const;
 
@@ -44,10 +44,10 @@ public:
     void setAbundance(double abundance) { m_abundance = abundance; }
 
     //! Translates the particle with the given vector
-    virtual void translate(kvector_t translation) =0;
+    virtual void translate(kvector_t translation) = 0;
 
     //! Applies the given rotation to the particle
-    virtual void rotate(const IRotation& rotation) =0;
+    virtual void rotate(const IRotation& rotation) = 0;
 
 protected:
     double m_abundance;

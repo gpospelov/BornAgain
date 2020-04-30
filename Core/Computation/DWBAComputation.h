@@ -15,8 +15,8 @@
 #ifndef MAINCOMPUTATION_H
 #define MAINCOMPUTATION_H
 
-#include "IComputation.h"
 #include "DWBASingleComputation.h"
+#include "IComputation.h"
 #include "SimulationOptions.h"
 
 class MultiLayer;
@@ -32,8 +32,7 @@ class DWBAComputation : public IComputation
 {
 public:
     DWBAComputation(const MultiLayer& multilayer, const SimulationOptions& options,
-                    ProgressHandler& progress,
-                    std::vector<SimulationElement>::iterator begin_it,
+                    ProgressHandler& progress, std::vector<SimulationElement>::iterator begin_it,
                     std::vector<SimulationElement>::iterator end_it);
     ~DWBAComputation() override;
 

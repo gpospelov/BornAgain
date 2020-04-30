@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "LayoutUtils.h"
+#include <QBoxLayout>
 #include <QGridLayout>
 #include <QLayoutItem>
-#include <QBoxLayout>
 #include <QWidget>
 
 void LayoutUtils::clearLayout(QLayout* layout, bool deleteWidgets)
@@ -34,7 +34,6 @@ void LayoutUtils::clearLayout(QLayout* layout, bool deleteWidgets)
     }
 }
 
-
 //!
 //! Solution was taken from
 //! https://stackoverflow.com/questions/5395266/removing-widgets-from-qgridlayout
@@ -42,10 +41,11 @@ void LayoutUtils::clearLayout(QLayout* layout, bool deleteWidgets)
 //! Important: according to explanations given, grid layouts can only grow and never shrink.
 //!
 
-namespace {
-void remove(QGridLayout *layout, int row, int column, bool deleteWidgets);
-void deleteChildWidgets(QLayoutItem *item);
-}
+namespace
+{
+void remove(QGridLayout* layout, int row, int column, bool deleteWidgets);
+void deleteChildWidgets(QLayoutItem* item);
+} // namespace
 
 /**
  * Removes all layout items on the given row from the given grid
@@ -81,13 +81,13 @@ void LayoutUtils::removeColumn(QGridLayout* layout, int column, bool deleteWidge
 
 void LayoutUtils::clearGridLayout(QGridLayout* layout, bool deleteWidgets)
 {
-    for (int i_row = 0; i_row<layout->rowCount(); ++i_row) {
+    for (int i_row = 0; i_row < layout->rowCount(); ++i_row) {
         LayoutUtils::removeRow(layout, i_row, deleteWidgets);
     }
 }
 
-
-namespace {
+namespace
+{
 
 /**
  * Helper function. Removes all layout items within the given layout
@@ -128,7 +128,7 @@ void deleteChildWidgets(QLayoutItem* item)
     delete item->widget();
 }
 
-}
+} // namespace
 
 QWidget* LayoutUtils::placeHolder()
 {

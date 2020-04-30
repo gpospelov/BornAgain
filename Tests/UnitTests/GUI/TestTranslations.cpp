@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "BeamDistributionItem.h"
 #include "BeamItems.h"
 #include "DistributionItems.h"
@@ -9,6 +8,7 @@
 #include "SampleModel.h"
 #include "TransformationItem.h"
 #include "VectorItem.h"
+#include "google_test.h"
 
 class TestTranslations : public ::testing::Test
 {
@@ -44,8 +44,8 @@ TEST_F(TestTranslations, test_TranslateRotation)
     SessionItem* transformation = model.insertNewItem(Constants::RotationType, particle->index(),
                                                       -1, ParticleItem::T_TRANSFORMATION);
 
-    SessionItem* rotationItem
-        = transformation->setGroupProperty(TransformationItem::P_ROT, Constants::XRotationType);
+    SessionItem* rotationItem =
+        transformation->setGroupProperty(TransformationItem::P_ROT, Constants::XRotationType);
 
     SessionItem* angleItem = rotationItem->getItem(XRotationItem::P_ANGLE);
     EXPECT_EQ(ModelPath::itemPathTranslation(*angleItem, multilayer->parent()),

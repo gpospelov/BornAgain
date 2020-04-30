@@ -1,7 +1,7 @@
-#include "google_test.h"
 #include "ComboProperty.h"
 #include "DistributionItems.h"
 #include "Distributions.h"
+#include "FormFactors.h"
 #include "MaterialEditor.h"
 #include "MaterialFactoryFuncs.h"
 #include "MaterialModel.h"
@@ -12,7 +12,7 @@
 #include "RealLimitsItems.h"
 #include "SampleModel.h"
 #include "TransformFromDomain.h"
-#include "FormFactors.h"
+#include "google_test.h"
 #include <QXmlStreamWriter>
 
 namespace
@@ -31,7 +31,7 @@ const QStringList expectedBoxParams = {"None",
                                        "Particle/Position Offset/X",
                                        "Particle/Position Offset/Y",
                                        "Particle/Position Offset/Z"};
-}
+} // namespace
 
 class TestParticleDistributionItem : public ::testing::Test
 {
@@ -66,8 +66,8 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
     // linked parameter
-    prop = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
-                             .value<ComboProperty>();
+    prop =
+        distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
     EXPECT_EQ(prop.getValues(), QStringList());
     EXPECT_EQ(prop.getValue(), "");
 }
@@ -89,8 +89,7 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
     // linked parameter
-    prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
-                             .value<ComboProperty>();
+    prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
 
     QStringList expectedLinked = expectedCylinderParams;
     expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
@@ -107,8 +106,7 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
     // cheking linked
-    prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
-                             .value<ComboProperty>();
+    prop = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
 
     expectedLinked = expectedBoxParams;
     expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
@@ -126,14 +124,14 @@ TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
     model.insertNewItem(Constants::ParticleType, dist->index());
 
     ComboProperty mainCombo = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
-                             .value<ComboProperty>();
+                                  .value<ComboProperty>();
 
     EXPECT_EQ(mainCombo.getValues(), expectedCylinderParams);
     EXPECT_EQ(mainCombo.getValue(), ParticleDistributionItem::NO_SELECTION);
 
     // linked parameter
-    ComboProperty linkedCombo = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
-                             .value<ComboProperty>();
+    ComboProperty linkedCombo =
+        dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
 
     QStringList expectedLinked = expectedCylinderParams;
     expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
@@ -151,8 +149,8 @@ TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
     expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
     expectedLinked.removeAll(mainPar);
 
-    linkedCombo = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
-                             .value<ComboProperty>();
+    linkedCombo =
+        dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
     EXPECT_EQ(linkedCombo.getValues(), expectedLinked);
     EXPECT_EQ(linkedCombo.getValue(), "");
     EXPECT_EQ(linkedCombo.selectedValues(), QStringList());
@@ -169,8 +167,8 @@ TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
     dist->setItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER, mainCombo.variant());
 
     // checking linked
-    linkedCombo = dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
-                             .value<ComboProperty>();
+    linkedCombo =
+        dist->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
     expectedLinked = expectedCylinderParams;
     expectedLinked.removeAll(ParticleDistributionItem::NO_SELECTION);
     expectedLinked.removeAll(mainPar);
@@ -245,8 +243,8 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
                              .value<ComboProperty>();
     EXPECT_EQ(prop.getValue(), ParticleDistributionItem::NO_SELECTION);
 
-    ComboProperty linkedProp = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
-                             .value<ComboProperty>();
+    ComboProperty linkedProp =
+        distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
     EXPECT_EQ(linkedProp.getValue(), "");
 
     // changing particle type and check that distribution picked up domain name
@@ -256,8 +254,8 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
                .value<ComboProperty>();
     EXPECT_EQ(prop.getValue(), QString("Particle/Cylinder/Radius"));
 
-    linkedProp = distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER)
-               .value<ComboProperty>();
+    linkedProp =
+        distItem->getItemValue(ParticleDistributionItem::P_LINKED_PARAMETER).value<ComboProperty>();
     QStringList expectedLinked = QStringList() << QString("Particle/Cylinder/Height");
     EXPECT_EQ(linkedProp.selectedValues(), expectedLinked);
     EXPECT_EQ(linkedProp.getValue(), expectedLinked.at(0));
@@ -287,8 +285,8 @@ TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
 
     SessionItem* distItem = partDistItem->getGroupItem(ParticleDistributionItem::P_DISTRIBUTION);
     Q_ASSERT(distItem);
-    RealLimitsItem* limitsItem
-        = dynamic_cast<RealLimitsItem*>(distItem->getGroupItem(DistributionItem::P_LIMITS));
+    RealLimitsItem* limitsItem =
+        dynamic_cast<RealLimitsItem*>(distItem->getGroupItem(DistributionItem::P_LIMITS));
     Q_ASSERT(limitsItem);
 
     EXPECT_EQ(limitsItem->createRealLimits(), domainLimits);

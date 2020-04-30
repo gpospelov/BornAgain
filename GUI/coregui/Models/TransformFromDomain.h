@@ -63,8 +63,7 @@ BA_CORE_API_ void set2DParaCrystalItem(SessionItem* item,
 BA_CORE_API_ void setFinite2DLatticeItem(SessionItem* item,
                                          const InterferenceFunctionFinite2DLattice& sample);
 
-BA_CORE_API_ void setHardDiskItem(SessionItem* item,
-                                  const InterferenceFunctionHardDisk& sample);
+BA_CORE_API_ void setHardDiskItem(SessionItem* item, const InterferenceFunctionHardDisk& sample);
 
 BA_CORE_API_ void setRadialParaCrystalItem(SessionItem* item,
                                            const InterferenceFunctionRadialParaCrystal& sample);
@@ -115,6 +114,6 @@ BA_CORE_API_ void setFootprintFactor(const IFootprintFactor* footprint,
 
 BA_CORE_API_ void setAxisItem(SessionItem* item, const IAxis& axis, double factor = 1.0);
 
-}
+} // namespace TransformFromDomain
 
 #endif // TRANSFORMFROMDOMAIN_H

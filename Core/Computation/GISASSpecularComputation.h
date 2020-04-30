@@ -27,6 +27,7 @@ public:
     GISASSpecularComputation(const IFresnelMap* p_fresnel_map);
 
     void compute(SimulationElement& elem) const;
+
 private:
     const IFresnelMap* mp_fresnel_map;
 };

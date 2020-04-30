@@ -16,8 +16,8 @@
 #define STYLEUTILS_H
 
 #include "WinDllMacros.h"
-#include <QString>
 #include <QFont>
+#include <QString>
 
 class QTreeView;
 class QWidget;
@@ -46,12 +46,12 @@ BA_CORE_API_ void setResizable(QDialog* dialog);
 
 //! Creates details widget holding user content inside.
 BA_CORE_API_ QWidget* createDetailsWidget(QWidget* content, const QString& name,
-                                          bool expanded=true);
+                                          bool expanded = true);
 
 //! Creates details widget holding user layout inside.
 BA_CORE_API_ QWidget* createDetailsWidget(QLayout* content, const QString& name,
-                                          bool expanded=true);
+                                          bool expanded = true);
 
-}
+} // namespace StyleUtils
 
 #endif

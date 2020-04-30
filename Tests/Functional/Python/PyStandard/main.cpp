@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "StandardTestService.h"
 #include "PyStandardTest.h"
+#include "StandardTestService.h"
 
 //! Runs PyStandardTest on a standard simulation indicated by argv[1].
 

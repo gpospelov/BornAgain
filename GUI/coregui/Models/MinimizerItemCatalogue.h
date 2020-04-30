@@ -22,13 +22,14 @@ class MinimizerItem;
 //! The MinimizerItemCatalogue class is a static class to provide MinimizerItem
 //! with the list of available minimizers/algorithms.
 
-class BA_CORE_API_ MinimizerItemCatalogue {
+class BA_CORE_API_ MinimizerItemCatalogue
+{
 public:
-    static ComboProperty algorithmCombo(const QString &minimizerType);
+    static ComboProperty algorithmCombo(const QString& minimizerType);
 
 private:
-    static QStringList algorithmNames(const QString &minimizerType);
-    static QStringList algorithmDescriptions(const QString &minimizerType);
+    static QStringList algorithmNames(const QString& minimizerType);
+    static QStringList algorithmDescriptions(const QString& minimizerType);
 };
 
 #endif // MINIMIZERITEMCATALOGUE_H

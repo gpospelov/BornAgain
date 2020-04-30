@@ -15,8 +15,8 @@
 #include "FormFactorTruncatedSpheroid.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "MathFunctions.h"
 #include "MathConstants.h"
+#include "MathFunctions.h"
 #include "RealParameter.h"
 #include "TruncatedEllipsoid.h"
 #include <limits>
@@ -26,12 +26,9 @@
 //! @param height: height of the truncated spheroid in nanometers
 //! @param height_flattening: ratio of the height of the corresponding full spheroid to its diameter
 //! @param dh: length of cup truncated from the top
-FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
-    double radius, double height, double height_flattening, double dh)
-    : m_radius(radius)
-    , m_height(height)
-    , m_height_flattening(height_flattening)
-    , m_dh(dh)
+FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height,
+                                                         double height_flattening, double dh)
+    : m_radius(radius), m_height(height), m_height_flattening(height_flattening), m_dh(dh)
 {
     setName(BornAgain::FFTruncatedSpheroidType);
     check_initialization();
@@ -46,8 +43,7 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(
 bool FormFactorTruncatedSpheroid::check_initialization() const
 {
     bool result(true);
-    if(m_height > 2.*m_radius*m_height_flattening ||
-       m_dh > m_height) {
+    if (m_height > 2. * m_radius * m_height_flattening || m_dh > m_height) {
         std::ostringstream ostr;
         ostr << "::FormFactorTruncatedSpheroid() -> Error in class initialization with parameters ";
         ostr << " radius:" << m_radius;
@@ -65,11 +61,11 @@ complex_t FormFactorTruncatedSpheroid::Integrand(double Z) const
     double R = m_radius;
     double fp = m_height_flattening;
 
-    double Rz  = std::sqrt(R*R-Z*Z/(fp*fp));
-    complex_t qrRz = std::sqrt(m_q.x()*m_q.x()+m_q.y()*m_q.y())*Rz;
+    double Rz = std::sqrt(R * R - Z * Z / (fp * fp));
+    complex_t qrRz = std::sqrt(m_q.x() * m_q.x() + m_q.y() * m_q.y()) * Rz;
     complex_t J1_qrRz_div_qrRz = MathFunctions::Bessel_J1c(qrRz);
 
-    return Rz * Rz * J1_qrRz_div_qrRz * std::exp(complex_t(0.0,1.0)*m_q.z()*Z);
+    return Rz * Rz * J1_qrRz_div_qrRz * std::exp(complex_t(0.0, 1.0) * m_q.z() * Z);
 }
 
 complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const
@@ -80,9 +76,9 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const
     m_q = q;
 
     if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
-        return M_PI/3./fp*( H*H*(3.*R-H/fp) - m_dh*m_dh*(3.*R-m_dh/fp));
-    complex_t z_part    =  std::exp(complex_t(0.0, 1.0)*m_q.z()*(H-fp*R));
-    return M_TWOPI * z_part *mP_integrator->integrate(fp*R-H,fp*R-m_dh );
+        return M_PI / 3. / fp * (H * H * (3. * R - H / fp) - m_dh * m_dh * (3. * R - m_dh / fp));
+    complex_t z_part = std::exp(complex_t(0.0, 1.0) * m_q.z() * (H - fp * R));
+    return M_TWOPI * z_part * mP_integrator->integrate(fp * R - H, fp * R - m_dh);
 }
 
 IFormFactor* FormFactorTruncatedSpheroid::sliceFormFactor(ZLimits limits, const IRotation& rot,
@@ -90,13 +86,13 @@ IFormFactor* FormFactorTruncatedSpheroid::sliceFormFactor(ZLimits limits, const 
 {
     double height = m_height - m_dh;
     auto effects = computeSlicingEffects(limits, translation, height);
-    FormFactorTruncatedSpheroid slicedff(m_radius, height - effects.dz_bottom,
-                                         m_height_flattening, effects.dz_top + m_dh);
+    FormFactorTruncatedSpheroid slicedff(m_radius, height - effects.dz_bottom, m_height_flattening,
+                                         effects.dz_top + m_dh);
     return CreateTransformedFormFactor(slicedff, rot, effects.position);
 }
 
 void FormFactorTruncatedSpheroid::onChange()
 {
-    mP_shape.reset(new TruncatedEllipsoid(m_radius, m_radius, m_height_flattening*m_radius,
-                                          m_height, m_dh));
+    mP_shape.reset(
+        new TruncatedEllipsoid(m_radius, m_radius, m_height_flattening * m_radius, m_height, m_dh));
 }

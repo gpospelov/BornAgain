@@ -26,10 +26,12 @@ class BA_CORE_API_ FormFactorTruncatedSpheroid : public IFormFactorBorn
 {
 public:
     FormFactorTruncatedSpheroid(double radius, double height, double height_flattening,
-                                double dh=0.0);
+                                double dh = 0.0);
 
-    FormFactorTruncatedSpheroid* clone() const override final {
-        return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening, m_dh); }
+    FormFactorTruncatedSpheroid* clone() const override final
+    {
+        return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening, m_dh);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadius() const { return m_radius; }

@@ -35,6 +35,6 @@ std::unique_ptr<Simulation> CreateWavelengthGISAS();
 
 std::unique_ptr<Simulation> CreateMCGISAS();
 
-}
+} // namespace TestComponents
 
 #endif // MULTITHREADPERFORMANCETESTCOMPONENTS_H

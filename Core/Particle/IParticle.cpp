@@ -20,7 +20,7 @@
 
 IFormFactor* IParticle::createFormFactor() const
 {
-    return createSlicedParticle(ZLimits {}).mP_slicedff.release();
+    return createSlicedParticle(ZLimits{}).mP_slicedff.release();
 }
 
 SlicedParticle IParticle::createSlicedParticle(ZLimits) const
@@ -63,8 +63,8 @@ std::vector<const INode*> IParticle::getChildren() const
 
 void IParticle::registerAbundance(bool make_registered)
 {
-    if(make_registered) {
-        if(!parameter(BornAgain::Abundance))
+    if (make_registered) {
+        if (!parameter(BornAgain::Abundance))
             registerParameter(BornAgain::Abundance, &m_abundance);
     } else {
         removeParameter(BornAgain::Abundance);
@@ -73,8 +73,8 @@ void IParticle::registerAbundance(bool make_registered)
 
 void IParticle::registerPosition(bool make_registered)
 {
-    if(make_registered) {
-        if(!parameter(XComponentName(BornAgain::Position))) {
+    if (make_registered) {
+        if (!parameter(XComponentName(BornAgain::Position))) {
             registerVector(BornAgain::Position, &m_position, BornAgain::UnitsNm);
         }
     } else {
@@ -93,7 +93,7 @@ ParticleLimits IParticle::bottomTopZ() const
 {
     std::unique_ptr<IFormFactor> P_ff(createFormFactor());
     std::unique_ptr<IRotation> P_rot(IRotation::createIdentity());
-    return { P_ff->bottomZ(*P_rot), P_ff->topZ(*P_rot) };
+    return {P_ff->bottomZ(*P_rot), P_ff->topZ(*P_rot)};
 }
 
 IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
@@ -111,8 +111,7 @@ IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
     }
 }
 
-kvector_t IParticle::composedTranslation(
-    const IRotation* p_rotation, kvector_t translation) const
+kvector_t IParticle::composedTranslation(const IRotation* p_rotation, kvector_t translation) const
 {
     if (p_rotation) {
         Transform3D transform = p_rotation->getTransform3D();
@@ -127,4 +126,3 @@ void IParticle::registerParticleProperties()
     registerAbundance();
     registerPosition();
 }
-

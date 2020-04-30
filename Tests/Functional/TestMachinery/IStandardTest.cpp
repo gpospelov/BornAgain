@@ -17,10 +17,9 @@
 
 IStandardTest::IStandardTest(const std::string& name, const std::string& description,
                              const Simulation& simulation, double threshold)
-    : IFunctionalTest(name, description)
-    , m_reference_simulation(simulation.clone())
-    , m_threshold(threshold)
-{}
+    : IFunctionalTest(name, description), m_reference_simulation(simulation.clone()),
+      m_threshold(threshold)
+{
+}
 
 IStandardTest::~IStandardTest() = default;
-

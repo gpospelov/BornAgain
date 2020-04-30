@@ -16,15 +16,14 @@
 #define SESSIONITEMDATA_H
 
 #include "WinDllMacros.h"
-#include <QVector>
 #include <QVariant>
+#include <QVector>
 
 //! Handles all data roles for SessionItem.
 
 class BA_CORE_API_ SessionItemData
 {
 public:
-
     QVector<int> roles() const;
 
     QVariant data(int role) const;

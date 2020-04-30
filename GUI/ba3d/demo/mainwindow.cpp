@@ -16,10 +16,10 @@
 
 #include <QApplication>
 #include <QBoxLayout>
-#include <QSlider>
-#include <QSettings>
-#include <QPushButton>
 #include <QKeyEvent>
+#include <QPushButton>
+#include <QSettings>
+#include <QSlider>
 
 static QString const MAINWIN_GEOMETRY("MainWin Geometry");
 
@@ -54,7 +54,7 @@ void MainWindow::createLayout()
     vb->addWidget((w3d = new RealSpace::Widget3D));
 
 #ifdef Q_OS_OSX
-    QColor clrBg(160,160,160);
+    QColor clrBg(160, 160, 160);
 #else
     QColor clrBg(palette().color(QPalette::Background));
 #endif
@@ -63,14 +63,14 @@ void MainWindow::createLayout()
     auto hb = new QHBoxLayout;
     vb->addLayout(hb);
 
-    auto btnSide  = new QPushButton("side");
-    auto btnTop   = new QPushButton("top");
-    auto btnOne   = new QPushButton("one");
-    auto btn0     = new QPushButton("=");
-    auto btn1     = new QPushButton("1|n");
-    auto btnP     = new QPushButton("p");
+    auto btnSide = new QPushButton("side");
+    auto btnTop = new QPushButton("top");
+    auto btnOne = new QPushButton("one");
+    auto btn0 = new QPushButton("=");
+    auto btn1 = new QPushButton("1|n");
+    auto btnP = new QPushButton("p");
     auto sldSigma = new QSlider(Qt::Horizontal);
-    auto btnSq    = new QPushButton("><");
+    auto btnSq = new QPushButton("><");
 
     hb->addWidget(btnSide);
     hb->addWidget(btnTop);
@@ -83,38 +83,25 @@ void MainWindow::createLayout()
     hb->addWidget(sldSigma);
     hb->addWidget(btnSq);
 
-    sldSigma->setRange(0,30);
+    sldSigma->setRange(0, 30);
     sldSigma->setSingleStep(5);
     sldSigma->setTickInterval(5);
     sldSigma->setTickPosition(QSlider::TicksBelow);
 
-    connect(btnSide, &QPushButton::clicked, [this]() {
-        model()->setCameraSide(true);
-    });
+    connect(btnSide, &QPushButton::clicked, [this]() { model()->setCameraSide(true); });
 
-    connect(btnTop, &QPushButton::clicked, [this]() {
-        model()->setCameraTop(true);
-    });
+    connect(btnTop, &QPushButton::clicked, [this]() { model()->setCameraTop(true); });
 
-    connect(btnOne, &QPushButton::clicked, [this]() {
-        model()->setCameraOne(true);
-    });
+    connect(btnOne, &QPushButton::clicked, [this]() { model()->setCameraOne(true); });
 
-    connect(btn0, &QPushButton::clicked, [this]() {
-        model()->switchBack();
-    });
+    connect(btn0, &QPushButton::clicked, [this]() { model()->switchBack(); });
 
-    connect(btn1, &QPushButton::clicked, [this]() {
-        model()->switchFront();
-    });
+    connect(btn1, &QPushButton::clicked, [this]() { model()->switchFront(); });
 
-    connect(btnP, &QPushButton::clicked, [this]() {
-        model()->switchOne();
-    });
+    connect(btnP, &QPushButton::clicked, [this]() { model()->switchOne(); });
 
-    connect(btnSq, &QPushButton::clicked, [this, sldSigma]() {
-        model()->square(sldSigma->value() / 100.f);
-    });
+    connect(btnSq, &QPushButton::clicked,
+            [this, sldSigma]() { model()->square(sldSigma->value() / 100.f); });
 }
 
 DemoModel* MainWindow::model()

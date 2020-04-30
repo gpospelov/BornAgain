@@ -29,7 +29,7 @@ public:
     ComponentTreeActions(QObject* parent = nullptr);
 
 public slots:
-    void onCustomContextMenuRequested(const QPoint &point, SessionItem& item);
+    void onCustomContextMenuRequested(const QPoint& point, SessionItem& item);
 };
 
-#endif  // COMPONENTREEACTIONS_H
+#endif // COMPONENTREEACTIONS_H

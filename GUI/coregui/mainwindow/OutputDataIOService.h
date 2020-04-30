@@ -15,8 +15,8 @@
 #ifndef OUTPUTDATAIOSERVICE_H
 #define OUTPUTDATAIOSERVICE_H
 
-#include "WinDllMacros.h"
 #include "OutputDataIOHistory.h"
+#include "WinDllMacros.h"
 #include <QObject>
 
 class ApplicationModels;
@@ -41,7 +41,7 @@ public:
 
     void load(const QString& projectDir, MessageService* messageService = nullptr);
 
-    QVector<SaveLoadInterface* > nonXMLItems() const;
+    QVector<SaveLoadInterface*> nonXMLItems() const;
 
 private:
     void cleanOldFiles(const QString& projectDir, const QStringList& oldSaves,

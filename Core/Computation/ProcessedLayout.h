@@ -50,7 +50,8 @@ public:
 
 private:
     void collectFormFactors(const ILayout& layout, const std::vector<Slice>& slices, double z_ref);
-    FormFactorCoherentSum ProcessParticle(const IParticle& particle, const std::vector<Slice>& slices, double z_ref);
+    FormFactorCoherentSum ProcessParticle(const IParticle& particle,
+                                          const std::vector<Slice>& slices, double z_ref);
     void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);
     const IFresnelMap* mp_fresnel_map;
     bool m_polarized;

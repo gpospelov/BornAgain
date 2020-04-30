@@ -25,10 +25,9 @@ class ISample;
 class BA_CORE_API_ CoreShellParticleBuilder : public IMultiLayerBuilder
 {
 public:
-    CoreShellParticleBuilder(){}
+    CoreShellParticleBuilder() {}
     MultiLayer* buildSample() const;
 };
-
 
 //! Rotation and translation of core shell box particle in 3 layers system.
 //! @ingroup standard_samples
@@ -36,7 +35,7 @@ public:
 class BA_CORE_API_ CoreShellBoxRotateZandYBuilder : public IMultiLayerBuilder
 {
 public:
-    CoreShellBoxRotateZandYBuilder(){}
+    CoreShellBoxRotateZandYBuilder() {}
     MultiLayer* buildSample() const;
 };
 

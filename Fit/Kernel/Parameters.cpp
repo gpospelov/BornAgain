@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "Parameters.h"
-#include <stdexcept>
-#include <sstream>
 #include <cmath>
+#include <sstream>
+#include <stdexcept>
 
 using namespace Fit;
 
@@ -23,7 +23,7 @@ void Parameters::add(const Parameter& par)
 {
     if (exists(par.name()))
         throw std::runtime_error("Parameters::add() -> Error. Parameter with the name '"
-                                 +par.name()+"' already exists.");
+                                 + par.name() + "' already exists.");
 
     m_parameters.push_back(par);
 }
@@ -56,7 +56,7 @@ size_t Parameters::size() const
 std::vector<double> Parameters::values() const
 {
     std::vector<double> result;
-    for (const auto& par: m_parameters)
+    for (const auto& par : m_parameters)
         result.push_back(par.value());
     return result;
 }
@@ -66,13 +66,14 @@ void Parameters::setValues(const std::vector<double>& values)
     check_array_size(values);
 
     size_t index = 0;
-    for (auto& par: m_parameters) {
+    for (auto& par : m_parameters) {
         if (std::isnan(values[index]))
             throw std::runtime_error("Parameters::setValues() -> Error."
-                                     " Attempt to set nan '"+par.name() + std::string("'."));
+                                     " Attempt to set nan '"
+                                     + par.name() + std::string("'."));
         if (std::isinf(values[index]))
-            throw std::runtime_error("Parameters::setValues() -> Error. Attempt to set inf '"+
-                                      par.name()  + std::string("'."));
+            throw std::runtime_error("Parameters::setValues() -> Error. Attempt to set inf '"
+                                     + par.name() + std::string("'."));
         par.setValue(values[index]);
         ++index;
     }
@@ -81,7 +82,7 @@ void Parameters::setValues(const std::vector<double>& values)
 std::vector<double> Parameters::errors() const
 {
     std::vector<double> result;
-    for (const auto& par: m_parameters)
+    for (const auto& par : m_parameters)
         result.push_back(par.error());
     return result;
 }
@@ -90,20 +91,20 @@ void Parameters::setErrors(const std::vector<double>& errors)
 {
     check_array_size(errors);
     size_t index = 0;
-    for (auto& par: m_parameters)
+    for (auto& par : m_parameters)
         par.setError(errors[index++]);
 }
 
 const Parameter& Parameters::operator[](const std::string& name) const
 {
-    for (const auto& par: m_parameters)
+    for (const auto& par : m_parameters)
         if (par.name() == name)
             return par;
 
     std::ostringstream ostr;
     ostr << "Parameters::operator[] -> Error. No parameter with name '" << name << "'. ";
     ostr << "Existing names:\n";
-    for (const auto& par: m_parameters)
+    for (const auto& par : m_parameters)
         ostr << par.name() << "\n";
     throw std::runtime_error(ostr.str());
 }
@@ -120,7 +121,7 @@ Parameters::corr_matrix_t Parameters::correlationMatrix() const
 
 void Parameters::setCorrelationMatrix(const Parameters::corr_matrix_t& matrix)
 {
-    if(matrix.size() != size())
+    if (matrix.size() != size())
         throw std::runtime_error("Parameters::setCorrelationMatrix() -> Error. Wrong "
                                  "dimension of correlation matrix.");
     m_corr_matrix = matrix;
@@ -131,7 +132,7 @@ void Parameters::setCorrelationMatrix(const Parameters::corr_matrix_t& matrix)
 size_t Parameters::freeParameterCount() const
 {
     size_t result(0);
-    for (const auto& par: m_parameters)
+    for (const auto& par : m_parameters)
         if (!par.limits().isFixed())
             result++;
     return result;
@@ -139,7 +140,7 @@ size_t Parameters::freeParameterCount() const
 
 bool Parameters::exists(const std::string& name) const
 {
-    for (const auto& par: m_parameters)
+    for (const auto& par : m_parameters)
         if (par.name() == name)
             return true;
     return false;
@@ -149,9 +150,9 @@ void Parameters::check_array_size(const std::vector<double>& values) const
 {
     if (values.size() != m_parameters.size()) {
         std::ostringstream ostr;
-        ostr << "Parameters::check_array_size() -> Error. Size of input array "
-             << values.size() << " doesn't mach number of fit parameters "
-             << m_parameters.size() << "." << std::endl;
+        ostr << "Parameters::check_array_size() -> Error. Size of input array " << values.size()
+             << " doesn't mach number of fit parameters " << m_parameters.size() << "."
+             << std::endl;
         throw std::runtime_error(ostr.str());
     }
 }

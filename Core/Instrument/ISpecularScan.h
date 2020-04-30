@@ -17,9 +17,9 @@
 
 #include "ICloneable.h"
 
+#include <sstream>
 #include <string>
 #include <vector>
-#include <sstream>
 
 class IAxis;
 class IFootprintFactor;
@@ -29,7 +29,7 @@ class SpecularSimulationElement;
 class BA_CORE_API_ ISpecularScan : public ICloneable
 {
 public:
-    enum SPECULAR_DATA_TYPE {angle, q};
+    enum SPECULAR_DATA_TYPE { angle, q };
 
     ISpecularScan(SPECULAR_DATA_TYPE data_type);
     ~ISpecularScan() override;
@@ -58,9 +58,9 @@ public:
 
     //! Print scan definition in python format
     virtual std::string print() const = 0;
-#endif //SWIG
+#endif // SWIG
 
-    SPECULAR_DATA_TYPE dataType() const {return m_data_type;}
+    SPECULAR_DATA_TYPE dataType() const { return m_data_type; }
 
 private:
     SPECULAR_DATA_TYPE m_data_type;

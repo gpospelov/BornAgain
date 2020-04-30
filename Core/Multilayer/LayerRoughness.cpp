@@ -17,10 +17,7 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 
-LayerRoughness::LayerRoughness()
-    : m_sigma(0)
-    , m_hurstParameter(0)
-    , m_lateralCorrLength(0)
+LayerRoughness::LayerRoughness() : m_sigma(0), m_hurstParameter(0), m_lateralCorrLength(0)
 {
     initialize();
 }
@@ -31,9 +28,7 @@ LayerRoughness::LayerRoughness()
 //! dimensionless [0.0, 1.0], where 0.0 gives more spikes, 1.0 more smoothness
 //! @param lateralCorrLength: lateral correlation length of the roughness in nanometers
 LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
-    : m_sigma(sigma)
-    , m_hurstParameter(hurstParameter)
-    , m_lateralCorrLength(lateralCorrLength)
+    : m_sigma(sigma), m_hurstParameter(hurstParameter), m_lateralCorrLength(lateralCorrLength)
 {
     initialize();
 }
@@ -43,10 +38,10 @@ void LayerRoughness::initialize()
     setName(BornAgain::LayerBasicRoughnessType);
     registerParameter(BornAgain::Sigma, &m_sigma);
     registerParameter(BornAgain::Hurst, &m_hurstParameter);
-    registerParameter(BornAgain::CorrelationLength, &m_lateralCorrLength).
-        setUnit(BornAgain::UnitsNm).setNonnegative();
+    registerParameter(BornAgain::CorrelationLength, &m_lateralCorrLength)
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
 }
-
 
 /* ************************************************************************* */
 //! Power spectral density of the surface roughness is a result of two-dimensional
@@ -59,10 +54,10 @@ void LayerRoughness::initialize()
 double LayerRoughness::getSpectralFun(const kvector_t kvec) const
 {
     double H = m_hurstParameter;
-    double clength2 = m_lateralCorrLength*m_lateralCorrLength;
-    double Qpar2 = kvec.x()*kvec.x() + kvec.y()*kvec.y();
-    return 4.0*M_PI*H * m_sigma*m_sigma * clength2 *
-        std::pow( (1.0 + Qpar2*clength2), (-1-H) );
+    double clength2 = m_lateralCorrLength * m_lateralCorrLength;
+    double Qpar2 = kvec.x() * kvec.x() + kvec.y() * kvec.y();
+    return 4.0 * M_PI * H * m_sigma * m_sigma * clength2
+           * std::pow((1.0 + Qpar2 * clength2), (-1 - H));
 }
 
 //! Correlation function of the roughness profile
@@ -71,6 +66,6 @@ double LayerRoughness::getCorrFun(const kvector_t k) const
 {
     double H = m_hurstParameter;
     double clength = m_lateralCorrLength;
-    double R = sqrt(k.x()*k.x() + k.y()*k.y());
-    return m_sigma*m_sigma*std::exp( -1.0*std::pow(R/clength, 2.*H) );
+    double R = sqrt(k.x() * k.x() + k.y() * k.y());
+    return m_sigma * m_sigma * std::exp(-1.0 * std::pow(R / clength, 2. * H));
 }

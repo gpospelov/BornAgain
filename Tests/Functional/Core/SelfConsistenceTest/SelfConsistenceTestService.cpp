@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "SelfConsistenceTestService.h"
-#include "SelfConsistenceTest.h"
 #include "SampleBuilderFactory.h"
+#include "SelfConsistenceTest.h"
 #include "Simulation.h"
 #include "SimulationFactory.h"
 #include "TestUtils.h"

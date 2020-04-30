@@ -18,7 +18,7 @@
 #include "FitTypes.h"
 #include "SimulationResult.h"
 
-template<class T> class OutputData;
+template <class T> class OutputData;
 
 //! Holds pair of simulation/experimental data to fit.
 

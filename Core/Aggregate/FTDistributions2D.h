@@ -16,9 +16,9 @@
 #define FTDISTRIBUTIONS2D_H
 
 #include "ICloneable.h"
+#include "IDistribution2DSampler.h"
 #include "INode.h"
 #include "MathConstants.h"
-#include "IDistribution2DSampler.h"
 
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal
@@ -26,8 +26,8 @@
 class BA_CORE_API_ IFTDistribution2D : public ICloneable, public INode
 {
 public:
-    IFTDistribution2D(double omega_x, double omega_y, double gamma=0);
-    IFTDistribution2D* clone() const =0;
+    IFTDistribution2D(double omega_x, double omega_y, double gamma = 0);
+    IFTDistribution2D* clone() const = 0;
 
     void setGamma(double gamma) { m_gamma = gamma; }
     double gamma() const { return m_gamma; }
@@ -40,14 +40,14 @@ public:
     //! evaluate Fourier transformed distribution for q in X,Y coordinates
     //! the original distribution (in real space) is assumed to be normalized:
     //! total integral is equal to 1
-    virtual double evaluate(double qx, double qy) const=0;
+    virtual double evaluate(double qx, double qy) const = 0;
 
 #ifndef SWIG
-    virtual std::unique_ptr<IDistribution2DSampler> createSampler() const=0;
+    virtual std::unique_ptr<IDistribution2DSampler> createSampler() const = 0;
 #endif
 
 protected:
-    double sumsq( double qx, double qy) const;
+    double sumsq(double qx, double qy) const;
 
     void register_omega();
     void register_gamma();
@@ -60,7 +60,6 @@ protected:
     //! Angle in direct space between X- and Y-axis of distribution.
     double m_delta;
 };
-
 
 //! Two-dimensional Cauchy distribution in Fourier space;
 //! corresponds to a normalized exp(-r) in real space,

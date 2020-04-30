@@ -6,10 +6,10 @@
 #endif
 
 #ifdef _WIN32
-#pragma warning ( push )
-#pragma warning ( disable: 4275 )
+#pragma warning(push)
+#pragma warning(disable : 4275)
 #include <gtest/gtest.h>
-#pragma warning ( pop )
+#pragma warning(pop)
 #else
 #include <gtest/gtest.h>
 #endif
@@ -17,4 +17,3 @@
 #include <memory>
 
 #endif
-

@@ -30,24 +30,25 @@ class BA_CORE_API_ SizeHandleElement : public QGraphicsObject
 public:
     int type() const { return MaskEditorHelper::SIZEHANDLE; }
 
-    enum EHandleLocation
-    {
+    enum EHandleLocation {
         NONE,
-        TOPLEFT,     TOPMIDDLE,   TOPRIGHT,
-        MIDDLELEFT,               MIDDLERIGHT,
-        BOTTOMLEFT, BOTTOMMIDLE, BOTTOMRIGHT,
+        TOPLEFT,
+        TOPMIDDLE,
+        TOPRIGHT,
+        MIDDLELEFT,
+        MIDDLERIGHT,
+        BOTTOMLEFT,
+        BOTTOMMIDLE,
+        BOTTOMRIGHT,
     };
 
-    enum EHandleType
-    {
-        RESIZE, RESIZE_WIDTH, RESIZE_HEIGHT
-    };
+    enum EHandleType { RESIZE, RESIZE_WIDTH, RESIZE_HEIGHT };
 
-    SizeHandleElement(EHandleLocation pointType, QGraphicsObject *parent =0);
+    SizeHandleElement(EHandleLocation pointType, QGraphicsObject* parent = 0);
 
     QRectF boundingRect() const;
 
-    void updateHandleElementPosition(const QRectF &rect);
+    void updateHandleElementPosition(const QRectF& rect);
 
     EHandleLocation getHandleLocation() const;
     EHandleLocation getOppositeHandleLocation() const;
@@ -60,9 +61,9 @@ signals:
     void resize_request(bool going_to_resize);
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 
 private:
     EHandleLocation m_handleLocation;

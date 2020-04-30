@@ -16,7 +16,8 @@
 #include "GUIHelpers.h"
 #include "ItemCatalogue.h"
 
-namespace {
+namespace
+{
 
 const ItemCatalogue& catalogue()
 {
@@ -24,7 +25,7 @@ const ItemCatalogue& catalogue()
     return item_catalogue;
 }
 
-}
+} // namespace
 
 SessionItem* ItemFactory::CreateItem(const QString& model_name, SessionItem* parent)
 {

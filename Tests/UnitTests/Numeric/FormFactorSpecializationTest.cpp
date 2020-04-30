@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "FormFactorTest.h"
+#include "google_test.h"
 
 class FFSpecializationTest : public FormFactorTest
 {
@@ -8,15 +8,16 @@ protected:
 
     void run_test(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps, double qmag1, double qmag2)
     {
-        test_all(qmag1, qmag2, [&](){test_ff_eq(p0, p1, eps);});
+        test_all(qmag1, qmag2, [&]() { test_ff_eq(p0, p1, eps); });
     }
 
-    void test_ff_eq(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps) {
+    void test_ff_eq(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps)
+    {
         complex_t f0 = p0->evaluate_for_q(m_q);
         complex_t f1 = p1->evaluate_for_q(m_q);
-        double avge = (std::abs(f0) + std::abs(f1))/2;
-        EXPECT_NEAR( real(f0), real(f1), eps*avge );
-        EXPECT_NEAR( imag(f0), imag(f1), eps*avge );
+        double avge = (std::abs(f0) + std::abs(f1)) / 2;
+        EXPECT_NEAR(real(f0), real(f1), eps * avge);
+        EXPECT_NEAR(imag(f0), imag(f1), eps * avge);
     }
 
     static double eps_polyh;
@@ -90,4 +91,3 @@ TEST_F(FFSpecializationTest, TruncatedSphereAsSphere)
     FormFactorFullSphere p1(R);
     run_test(&p0, &p1, 1e-12, .02, 5e1);
 }
-

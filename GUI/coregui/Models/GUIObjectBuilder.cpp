@@ -42,7 +42,7 @@ OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
 SpecularInstrumentItem* createSpecularInstrumentItem(InstrumentModel* model,
                                                      const SpecularSimulation& simulation,
                                                      const QString& name);
-}
+} // namespace
 
 SessionItem* GUIObjectBuilder::populateSampleModelFromSim(SampleModel* sampleModel,
                                                           MaterialModel* materialModel,
@@ -111,8 +111,8 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
                                                const GISASSimulation& simulation,
                                                const QString& name)
 {
-    auto result
-        = dynamic_cast<GISASInstrumentItem*>(model->insertNewItem(Constants::GISASInstrumentType));
+    auto result =
+        dynamic_cast<GISASInstrumentItem*>(model->insertNewItem(Constants::GISASInstrumentType));
 
     result->setItemName(name);
     TransformFromDomain::setGISASBeamItem(result->beamItem(), simulation);
@@ -153,4 +153,4 @@ SpecularInstrumentItem* createSpecularInstrumentItem(InstrumentModel* model,
 
     return result;
 }
-}
+} // namespace

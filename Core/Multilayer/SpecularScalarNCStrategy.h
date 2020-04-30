@@ -26,15 +26,13 @@ class Slice;
 class BA_CORE_API_ SpecularScalarNCStrategy : public SpecularScalarStrategy
 {
 private:
-
     //! Roughness is modelled by a Gaussian profile, i.e. Nevot-Croce factors for the
     //! reflection coefficients.
-    //! Implementation follows A. Gibaud and G. Vignaud, in X-ray and Neutron Reflectivity, edited by J. Daillant
-    //! and A. Gibaud, volume 770 of Lecture Notes in Physics (2009)
-    virtual Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma, double thickness,
+    //! Implementation follows A. Gibaud and G. Vignaud, in X-ray and Neutron Reflectivity, edited
+    //! by J. Daillant and A. Gibaud, volume 770 of Lecture Notes in Physics (2009)
+    virtual Eigen::Vector2cd transition(complex_t kzi, complex_t kzi1, double sigma,
+                                        double thickness,
                                         const Eigen::Vector2cd& t_r1) const override;
-
-
 };
 
 #endif // SPECULARSCALARNCSTRATEGY_H

@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
+#include "SpecularStrategyBuilder.h"
 #include "MultiLayerUtils.h"
 #include "SpecularMagneticStrategy.h"
 #include "SpecularScalarNCStrategy.h"
 #include "SpecularScalarTanhStrategy.h"
-#include "SpecularStrategyBuilder.h"
 
 std::unique_ptr<ISpecularStrategy> SpecularStrategyBuilder::build(const MultiLayer& sample,
                                                                   const bool magnetic)

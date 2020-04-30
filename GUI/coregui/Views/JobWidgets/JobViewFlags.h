@@ -20,9 +20,9 @@
 
 //! The JobViewFlags class is a namespace for various flags used in JobView.
 
-class JobViewFlags {
+class JobViewFlags
+{
 public:
-
     enum EDocksId {
         JOB_LIST_DOCK,
         REAL_TIME_DOCK,
@@ -38,7 +38,6 @@ public:
         FITTING_ACTIVITY,
     };
     Q_DECLARE_FLAGS(Activity, EActivities)
-
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(JobViewFlags::Dock)

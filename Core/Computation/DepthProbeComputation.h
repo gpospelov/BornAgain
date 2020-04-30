@@ -15,9 +15,9 @@
 #ifndef DEPTHPROBECOMPUTATION_H
 #define DEPTHPROBECOMPUTATION_H
 
+#include "DepthProbeComputationTerm.h"
 #include "IComputation.h"
 #include "SimulationOptions.h"
-#include "DepthProbeComputationTerm.h"
 
 class MultiLayer;
 
@@ -30,6 +30,7 @@ class MultiLayer;
 class DepthProbeComputation : public IComputation
 {
     using DepthProbeElementIter = std::vector<DepthProbeElement>::iterator;
+
 public:
     DepthProbeComputation(const MultiLayer& multilayer, const SimulationOptions& options,
                           ProgressHandler& progress, DepthProbeElementIter begin_it,

@@ -25,22 +25,24 @@ class BA_CORE_API_ FormFactorCrystal : public IFormFactor
 {
 public:
     FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
-                      const IFormFactor& meso_form_factor, double position_variance=0.0);
+                      const IFormFactor& meso_form_factor, double position_variance = 0.0);
     ~FormFactorCrystal() override final;
 
-    FormFactorCrystal* clone() const override final {
+    FormFactorCrystal* clone() const override final
+    {
         return new FormFactorCrystal(m_lattice, *mp_basis_form_factor, *mp_meso_form_factor,
-                                     m_position_variance); }
+                                     m_position_variance);
+    }
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    void setAmbientMaterial(Material material) override {
+    void setAmbientMaterial(Material material) override
+    {
         mp_basis_form_factor->setAmbientMaterial(std::move(material));
     }
 
     double volume() const override final { return mp_meso_form_factor->volume(); }
-    double radialExtension() const override final {
-        return mp_meso_form_factor->radialExtension(); }
+    double radialExtension() const override final { return mp_meso_form_factor->radialExtension(); }
 
     double bottomZ(const IRotation& rotation) const override;
 

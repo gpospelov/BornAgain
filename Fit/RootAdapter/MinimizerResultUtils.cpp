@@ -80,7 +80,8 @@ std::string MinimizerResultUtils::reportParameters(const Fit::Parameters& parame
     return result.str();
 }
 
-namespace {
+namespace
+{
 
 std::string reportDescription(const RootMinimizerAdapter& minimizer)
 {
@@ -120,4 +121,4 @@ std::string reportStatus(const RootMinimizerAdapter& minimizer)
     return result.str();
 }
 
-}
+} // namespace

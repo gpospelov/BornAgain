@@ -1,6 +1,6 @@
-#include "google_test.h"
 #include "Transform3D.h"
 #include "Vectors3D.h"
+#include "google_test.h"
 
 class KVectorTest : public ::testing::Test
 {

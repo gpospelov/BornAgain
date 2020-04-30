@@ -20,8 +20,8 @@
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
 #include "FootprintItems.h"
-#include "GroupItem.h"
 #include "GUIHelpers.h"
+#include "GroupItem.h"
 #include "IAxis.h"
 #include "ParameterTranslators.h"
 #include "PointwiseAxisItem.h"
@@ -38,7 +38,7 @@ const QString polarization_tooltip = "Polarization of the beam, given as the Blo
 
 // defines wavelength limits according to given maximum q value
 RealLimits getLimits(double max_q);
-}
+} // namespace
 
 const QString BeamItem::P_INTENSITY = QString::fromStdString(BornAgain::Intensity);
 const QString BeamItem::P_WAVELENGTH = QString::fromStdString(BornAgain::Wavelength);
@@ -93,8 +93,7 @@ void BeamItem::setInclinationAngle(double value)
 
 double BeamItem::getAzimuthalAngle() const
 {
-    const auto inclination
-        = dynamic_cast<BeamAzimuthalAngleItem*>(getItem(P_AZIMUTHAL_ANGLE));
+    const auto inclination = dynamic_cast<BeamAzimuthalAngleItem*>(getItem(P_AZIMUTHAL_ANGLE));
     Q_ASSERT(inclination);
     return inclination->azimuthalAngle();
 }
@@ -241,8 +240,7 @@ GISASBeamItem::~GISASBeamItem() = default;
 
 double GISASBeamItem::getInclinationAngle() const
 {
-    const auto inclination
-        = dynamic_cast<BeamInclinationAngleItem*>(getItem(P_INCLINATION_ANGLE));
+    const auto inclination = dynamic_cast<BeamInclinationAngleItem*>(getItem(P_INCLINATION_ANGLE));
     Q_ASSERT(inclination);
     return inclination->inclinationAngle();
 }
@@ -256,4 +254,4 @@ RealLimits getLimits(double max_q)
     result.setUpperLimit(upper_lim);
     return result;
 }
-}
+} // namespace

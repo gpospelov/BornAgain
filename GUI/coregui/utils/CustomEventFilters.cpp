@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "CustomEventFilters.h"
+#include <QApplication>
 #include <QComboBox>
 #include <QKeyEvent>
 #include <QString>
-#include <QApplication>
 
 SpaceKeyEater::SpaceKeyEater(QObject* parent) : QObject(parent) {}
 
@@ -98,11 +98,8 @@ bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event)
 // ----------------------------------------------------------------------------
 
 ShortcodeFilter::ShortcodeFilter(const QString& shortcode, QObject* parent)
-    : QObject(parent)
-    , m_shortcode(shortcode)
-    , m_index(0)
+    : QObject(parent), m_shortcode(shortcode), m_index(0)
 {
-
 }
 
 bool ShortcodeFilter::eventFilter(QObject* obj, QEvent* event)
@@ -130,10 +127,7 @@ bool ShortcodeFilter::eventFilter(QObject* obj, QEvent* event)
     return false;
 }
 
-RightMouseButtonEater::RightMouseButtonEater(QObject* parent)
-    : QObject(parent)
-{
-}
+RightMouseButtonEater::RightMouseButtonEater(QObject* parent) : QObject(parent) {}
 
 bool RightMouseButtonEater::eventFilter(QObject* obj, QEvent* event)
 {
@@ -156,9 +150,7 @@ bool RightMouseButtonEater::eventFilter(QObject* obj, QEvent* event)
 //! to trigger QTreeView delegate's mechanism to switch editors on "tab" press key.
 //! https://stackoverflow.com/questions/12145522/why-pressing-of-tab-key-emits-only-qeventshortcutoverride-event
 
-TabFromFocusProxy::TabFromFocusProxy(QWidget* parent)
-    : QObject(parent)
-    , m_parent(parent)
+TabFromFocusProxy::TabFromFocusProxy(QWidget* parent) : QObject(parent), m_parent(parent)
 {
     if (parent->focusProxy())
         parent->focusProxy()->installEventFilter(this);
@@ -166,23 +158,20 @@ TabFromFocusProxy::TabFromFocusProxy(QWidget* parent)
 
 bool TabFromFocusProxy::eventFilter(QObject* obj, QEvent* event)
 {
-    if(event->type() == QEvent::KeyPress)
-    {
-        QKeyEvent* keyEvent = static_cast<QKeyEvent *>(event);
-        if(keyEvent->key() == Qt::Key_Tab || keyEvent->key() == Qt::Key_Backtab)
-        {
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key() == Qt::Key_Tab || keyEvent->key() == Qt::Key_Backtab) {
             // we are posting event as if m_parent had "tab" key
-            QApplication::postEvent(m_parent,
-                new QKeyEvent(keyEvent->type(), keyEvent->key(), keyEvent->modifiers()));
+            QApplication::postEvent(
+                m_parent, new QKeyEvent(keyEvent->type(), keyEvent->key(), keyEvent->modifiers()));
 
             // but still let the origin (QSpinBox) to process it
             return false; // process
         }
     }
 
-    else if(event->type() == QEvent::FocusOut)
-    {
-        QFocusEvent* focusEvent = static_cast<QFocusEvent *>(event);
+    else if (event->type() == QEvent::FocusOut) {
+        QFocusEvent* focusEvent = static_cast<QFocusEvent*>(event);
         QApplication::postEvent(this, new QFocusEvent(focusEvent->type(), focusEvent->reason()));
 
         // Don't filter because focus can be changed internally in editor
@@ -191,4 +180,3 @@ bool TabFromFocusProxy::eventFilter(QObject* obj, QEvent* event)
 
     return QObject::eventFilter(obj, event);
 }
-

@@ -15,6 +15,8 @@
 #ifndef TRANGE_H
 #define TRANGE_H
 
+#include <cstddef>
+
 //! An interval [lowerBound..upperBound[.
 //! @ingroup tools_internal
 

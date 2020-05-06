@@ -135,6 +135,17 @@ if(NOT BORNAGAIN_BUILDBOT_SERVER)
 configure_file(${TEMPLATE_DIR}/CTestCustom.cmake.in ${CMAKE_BINARY_DIR}/CTestCustom.cmake)
 endif()
 
+if (WIN32)
+    # Necessary to provide correct slashes in BABuild.h
+    file(TO_CMAKE_PATH ${Python_EXECUTABLE} Python_EXECUTABLE)
+    file(TO_CMAKE_PATH ${Python_STDLIB} Python_STDLIB)
+    file(TO_CMAKE_PATH ${Python_LIBRARIES} Python_LIBRARIES)
+    file(TO_CMAKE_PATH ${Python_STDLIB} Python_STDLIB)
+    file(TO_CMAKE_PATH ${Python_INCLUDE_DIRS} Python_INCLUDE_DIRS)
+    file(TO_CMAKE_PATH ${Python_NumPy_INCLUDE_DIRS} Python_NumPy_INCLUDE_DIRS)
+    file(TO_CMAKE_PATH ${Python_SITELIB} Python_SITELIB)
+endif()
+
 configure_file(${TEMPLATE_DIR}/BAVersion.h.in  ${BUILD_INC_DIR}/BAVersion.h @ONLY)
 configure_file(${TEMPLATE_DIR}/BABuild.h.in  ${BUILD_INC_DIR}/BABuild.h @ONLY)
 configure_file(${TEMPLATE_DIR}/BATesting.h.in  ${BUILD_INC_DIR}/BATesting.h @ONLY)

@@ -51,17 +51,13 @@ if (BORNAGAIN_GENERATE_BINDINGS AND BORNAGAIN_GENERATE_PYTHON_DOCS)
     find_package(Doxygen REQUIRED)
 endif()
 
-if (NOT DEFINED Python_ADDITIONAL_VERSIONS)
-    if (BORNAGAIN_USE_PYTHON3)
-        set(Python_ADDITIONAL_VERSIONS 3.7 3.6 3.5 3.4 3.3)
-    else()
-        set(Python_ADDITIONAL_VERSIONS 2.7)
-    endif()
-endif()
-message(STATUS "Requested Python versions ${Python_ADDITIONAL_VERSIONS}")
-
 if(BORNAGAIN_PYTHON OR BORNAGAIN_GUI)
-    find_package (Python COMPONENTS Interpreter Development NumPy)
+
+    if (BORNAGAIN_USE_PYTHON2)
+        find_package (Python 2.7 COMPONENTS Interpreter Development NumPy)
+    else()
+        find_package (Python COMPONENTS Interpreter Development NumPy)
+    endif()
 
     message(STATUS "  Python_VERSION              : ${Python_VERSION}")
     message(STATUS "  Python_INTERPRETER_ID       : ${Python_INTERPRETER_ID}")

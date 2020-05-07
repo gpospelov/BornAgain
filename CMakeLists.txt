@@ -2,7 +2,7 @@
 # top-level CMakeLists.txt for building BornAgain
 ############################################################################
 
-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 
 set(CMAKE_MODULE_PATH

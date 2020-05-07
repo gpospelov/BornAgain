@@ -220,7 +220,9 @@ if(WIN32)
             DESTINATION ${destination_lib} COMPONENT Libraries)
     endforeach()
 
-    get_filename_component(UTF_BASE_NAME ${Python_LIBRARIES} NAME_WE)
+    set(win_python_lib "${Python_LIBRARY_DIRS}/python${Python_VERSION_MAJOR}${Python_VERSION_MINOR}.lib")
+    message(INFO "XXXXX ${win_python_lib}")
+    get_filename_component(UTF_BASE_NAME ${win_python_lib} NAME_WE)
     get_filename_component(UTF_PATH ${Python_EXECUTABLE} PATH)
     message(STATUS "Python dll: ${UTF_PATH}/${UTF_BASE_NAME}.dll")
     install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll

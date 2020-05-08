@@ -28,7 +28,7 @@ set(test_cases
     CylindersWithSizeDistribution
     DetectorResolution
     FormFactors
-    FormFactorsAbs
+    FormFactorsWithAbsorption
     GISASAbsorptiveSLDLayers
     HexParaCrystal
     LargeCylindersMonteCarlo

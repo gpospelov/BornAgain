@@ -994,16 +994,15 @@ with the parameters
 \paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:
 \begin{equation*}
- R_z \coloneqq R\sqrt{1-\frac{4z^2}{H^2}},\quad
- q_\plll \coloneqq \sqrt{q_x^2+q_y^2}.
+ h \coloneqq H/2, \quad
+ s \coloneqq \sqrt{(R q_x)^2 + (R q_y)^2 + (h q_z)^2}.
 \end{equation*}
 Results:
 \begin{equation*}
-  F = 4\pi \exp(i q_z H/2) \int_0^{H/2} \!\d z\,
-     R_z^2 \frac{J_1(q_{\parallel}R_z)}{q_{\parallel}R_z} \cos(q_z z),
+  F = 4\pi \exp(i q_z h) R^2 h\frac{\sin(s)-s\cos(s)}{s^3},
 \end{equation*}
 \begin{equation*}
-  V =\dfrac{2}{3}R^2H,
+  V =\dfrac{4\pi}{3}R^2h,
 \end{equation*}
 \begin{equation*}
   S =\pi R^2.
@@ -1021,13 +1020,21 @@ computed with $R=3.5$~nm and $H=9.8$~nm.}
 \end{figure}
 
 \paragraph{History and Derivation}\strut\\
-Agrees with the \E{Full spheroid} form factor of \IsGISAXS\
+Replicates the \E{Full spheroid} of \IsGISAXS
 \cite[Eq.~2.37]{Laz06} \cite[Eq.~227]{ReLL09},
-with corrected volume formula.
-We also found a wrong factor of~2 in the \IsGISAXS\ code.
-Justification for complex~$q$ in the same way as for the \E{Cylinder} form factor
-in \cref{SCylinder}.
+except for wrong factors of~2 in their volume formula and in their implementation.
+Up to BornAgain 1.16,
+our form factor computation followed \IsGISAXS\
+in using numeric integration in the~$z$ coordinate.
 
+Thanks to Matt Thompson (Australian National University)
+who pointed out that
+the form factor of any spheroid
+can be reduced to that of the regular sphere (\cref{SFullSphere})
+by rescaling $\r\q=(M\r)(M^{-1}\q)$.
+It seems that this was already known to Guinier (1939).
+In the present case (with revolution axis along~$z$),
+the transformation matrix is just $M=\text{diag}(1/R, 1/R, 1/h)$.
 
 %===============================================================================
 \ffsection{HemiEllipsoid} \label{SHemiEllipsoid}

@@ -38,9 +38,9 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
 complex_t FormFactorFullSpheroid::Integrand(double Z) const
 {
     double R = m_radius;
-    double H = m_height;
+    double h = m_height / 2;
 
-    double Rz = R * std::sqrt(1 - 4.0 * Z * Z / (H * H));
+    double Rz = R * std::sqrt(1 - Z * Z / (h * h));
     complex_t qxy = std::sqrt(m_q.x() * m_q.x() + m_q.y() * m_q.y());
     complex_t qrRz = qxy * Rz;
     complex_t J1_qrRz_div_qrRz = MathFunctions::Bessel_J1c(qrRz);
@@ -50,14 +50,14 @@ complex_t FormFactorFullSpheroid::Integrand(double Z) const
 
 complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const
 {
-    double H = m_height;
+    double h = m_height / 2;
     double R = m_radius;
     m_q = q;
 
     if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
-        return M_TWOPI * R * R * H / 3.;
-    complex_t qzH_half = H / 2 * q.z();
-    return 4 * M_PI * mP_integrator->integrate(0.0, H / 2.0) * exp_I(qzH_half);
+        return 4 * M_PI * R * R * h / 3.;
+
+    return 4 * M_PI * mP_integrator->integrate(0.0, h) * exp_I(h * q.z());
 }
 
 IFormFactor* FormFactorFullSpheroid::sliceFormFactor(ZLimits limits, const IRotation& rot,

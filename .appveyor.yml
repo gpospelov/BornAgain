@@ -8,7 +8,6 @@ platform:
 
 # http://www.appveyor.com/docs/installed-software
 environment:
-  APPVEYOR_RDP_PASSWORD: 7bKajQWvq4uhfpvc!
   BOOSTDIR: C:\Libraries\boost_1_73_0
   PYTHONDIR: "C:\\Python38-x64"
   QTDIR: "C:\\Qt\\5.14\\msvc2017_64"
@@ -81,5 +80,5 @@ test_script:
     }
 
 on_failure:
-- appveyor PushArtifact Testing/Temporary/LastTest.log
-#- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- echo "Going RDP"
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

@@ -30,34 +30,26 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
     setName(BornAgain::FFFullSpheroidType);
     registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    mP_integrator = make_integrator_complex(this, &FormFactorFullSpheroid::Integrand);
     onChange();
-}
-
-//! Integrand for complex formfactor.
-complex_t FormFactorFullSpheroid::Integrand(double Z) const
-{
-    double R = m_radius;
-    double h = m_height / 2;
-
-    double Rz = R * std::sqrt(1 - Z * Z / (h * h));
-    complex_t qxy = std::sqrt(m_q.x() * m_q.x() + m_q.y() * m_q.y());
-    complex_t qrRz = qxy * Rz;
-    complex_t J1_qrRz_div_qrRz = MathFunctions::Bessel_J1c(qrRz);
-
-    return Rz * Rz * J1_qrRz_div_qrRz * std::cos(m_q.z() * Z);
 }
 
 complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const
 {
     double h = m_height / 2;
     double R = m_radius;
-    m_q = q;
 
-    if (std::abs(m_q.mag()) <= std::numeric_limits<double>::epsilon())
-        return 4 * M_PI * R * R * h / 3.;
+    // complex length of q (not a sesquilinear dot product!),
+    // xy components multiplied with R, z component multiplied with h
+    complex_t qR =
+        sqrt( R * R * (q.x() * q.x() + q.y() * q.y()) + h * h * q.z() * q.z());
 
-    return 4 * M_PI * mP_integrator->integrate(0.0, h) * exp_I(h * q.z());
+    complex_t zFactor = exp_I(h * q.z());
+
+    if (std::abs(qR) < 1e-4)
+        // expand sin(qR)-qR*cos(qR) up to qR^5
+        return 4 * M_PI / 3 * R * R * h * (1. - 0.1 * pow(qR, 2)) * zFactor;
+
+    return 4 * M_PI / pow(qR, 3) * R * R * h * (sin(qR) - qR * cos(qR)) * zFactor;
 }
 
 IFormFactor* FormFactorFullSpheroid::sliceFormFactor(ZLimits limits, const IRotation& rot,

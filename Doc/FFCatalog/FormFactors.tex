@@ -831,6 +831,7 @@ or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 %===============================================================================
 \ffsection{FullSphere} \label{SFullSphere}
 %===============================================================================
+  \index{Ball (form factor)|see {Sphere}}
   \index{Full sphere (form factor)}
   \index{Sphere (form factor)}
   \index{FormFactorFullSphere@\Code{FormFactorFullSphere}}
@@ -1537,9 +1538,13 @@ of a polygonal prism \cite{Wut17}.
 %===============================================================================
 \ffsection{TruncatedSphere}\label{STruncatedSphere}
 %===============================================================================
+  \index{Sphere (form factor)!segment|see{truncated}}
   \index{Sphere (form factor)!truncated}
   \index{Truncated sphere (form factor)}
   \index{FormFactorTruncatedSphere@\Code{FormFactorTruncatedSphere}}
+  \index{Segment (spherical)}
+
+A \E{spherical segment}, obtained from a spherical ball by two parallel cuts.
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1572,6 +1577,16 @@ They must fulfill
 \begin{equation*}
   dh < H.
 \end{equation*}
+
+\paragraph{Special cases}\strut\\
+\index{Cap (spherical)}
+  \index{Sphere (form factor)!cap}
+A \E{spherical cap} is obtained from a spherical ball by a single cut.
+This is covered by the following special parameterization of \texttt{TruncatedSphere}:
+\begin{itemize}
+\item Single cut at the bottom: $dh=0$.
+\item Single cut at the top: $H=2R$.
+\end{itemize}
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
 Notation:

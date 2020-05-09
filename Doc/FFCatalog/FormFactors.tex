@@ -22,13 +22,19 @@
 \renewcommand{\@thesubfigure}{\relax}
 \makeatother
 
+\index{Cone|see{Frustum}}
+\index{Tilt|see{Rotation}}
+\index{Truncation|seealso{Facetting}}
+\index{Truncation!cone|see{Frustum}}
+\index{Truncation!pyramid|see{Frustum}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}\label{SPFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-BornAgain comes with a comprehensive collection of hard-coded
-shape transforms for standard particle geometries like
+BornAgain comes with a comprehensive collection of hard-coded shape transforms
+\index{Shape transform}%
+for standard particle geometries like
 spheres, cylinders, prisms, pyramids or ripples.
 This collection is documented in the following.
 For each shape,
@@ -76,8 +82,7 @@ then no analytical form was found,
 and the integral is evaluated by numeric quadrature.
 \index{Quadrature}%
 For polyhedral figures,
-\index{Polyhedron!form factor}
-\index{Form factor!polyhedron}
+\index{Polyhedron!generic algorithm}%
 except a few simple ones like the rectangular box,
 we use a generic form factor computation,
 parametrized by the vertices of the figure,
@@ -86,8 +91,7 @@ that is described in full detail in a mathematical paper~\cite{Wut17}.
 Almost all analytical expressions for $F(\q)$ contain
 removable singularities for certain values of $\q$.
 Our implementation uses proper analytic continuations at these singularities,
-\index{Form factor!singularities}
-\index{Singularitiy!in form factor computation}
+\index{Singularitiy!in form factor computation}%
 though this is not explicitly denoted in the following formula collection.
 Furthermore, series expansions are used to ensure numeric accuracies
 in the neighborhood of the singularities.
@@ -167,8 +171,6 @@ than in the preceding one-quadrant representation.}
 \index{Oscillation!from large particle form factor}%
 \index{Monte-Carlo integration!for large particle form factor}%
 \index{Particle!rapid form factor oscillation}%
-\index{Form factor!rapid oscillation}%
-\index{Form factor!large particle}%
 Finally, one warning: For large particles (typically of order 1000nm),
   the form factor oscillates rapidly within one detector bin
   so that analytical calculations (performed for the bin center)
@@ -179,8 +181,7 @@ of our reference paper~\cite{PoHB20}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Hard particles}\label{SHPFF}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\index{Form factor!hard particles|(}
+\index{Particle!hard|(}
 
 The following tables summarize the implemented particle geometries,
  roughly ordered by decreasing symmetry.
@@ -234,18 +235,13 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 \index{CreateRotateX@\Code{CreateRotateX}}
 \index{Transform3D@\Code{Transform3D}}
 
-
-
-\index{Shape transform!catalogue|(}
-\index{Form factor!catalogue|(}
-
 %===============================================================================
 \ffsection{AnisoPyramid (rectangle-based)} \label{SAnisoPyramid}
 %===============================================================================
-  \index{Anisotropic pyramid}
-  \index{Pyramid!rectangular (AnisoPyramid)}
-  \index{Truncated pyramid!rectangular (AnisoPyramid)}
-  \index{FormFactorAnisoPyramid@\Code{FormFactorAnisoPyramid}}
+\index{Frustum!reactangular base}
+\index{Anisotropic pyramid}
+\index{Pyramid!rectangular}
+\index{FormFactorAnisoPyramid@\Code{FormFactorAnisoPyramid}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -313,11 +309,12 @@ and were found to fully agree.
 %===============================================================================
 \ffsection{Box (cuboid)} \label{SBox}
 %===============================================================================
-  \index{Box}
-  \index{Cuboid}
-  \index{Prism!reactangular (Box)}
-  \index{Platonic solid!cube}
-  \index{FormFactorBox@\Code{FormFactorBox}}
+\index{Box}
+\index{Cube}
+\index{Cuboid}
+\index{Prism!reactangular}
+\index{Platonic solid!cube}
+\index{FormFactorBox@\Code{FormFactorBox}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -378,9 +375,8 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 %===============================================================================
 \ffsection{Cone (circular)} \label{SCone}
 %===============================================================================
-  \index{Cone!circular}
-  \index{Truncated cone}
-  \index{FormFactorCone@\Code{FormFactorCone}}
+\index{Frustum!circular base}
+\index{FormFactorCone@\Code{FormFactorCone}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -452,10 +448,9 @@ in \cref{SCylinder}.
 %===============================================================================
 \ffsection{Cone6 (hexagonal)} \label{SCone6}
 %===============================================================================
-  \index{Cone!hexagonal (Cone6)}
-  \index{Pyramid!hexagonal (Cone6)}
-  \index{Truncated pyramid!hexagonal (Cone6)}
-  \index{FormFactorCone6@\Code{FormFactorCone6}}
+\index{Frustum!hexagonal base}
+\index{Pyramid!hexagonal}
+\index{FormFactorCone6@\Code{FormFactorCone6}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -524,9 +519,9 @@ with series expansions near singularities.
 %===============================================================================
 \ffsection{Cuboctahedron} \label{SCuboctahedron}
 %===============================================================================
-  \index{Cuboctahedron}
-  \index{Platonic solid!octahedron}
-  \index{FormFactorCuboctahedron@\Code{FormFactorCuboctahedron}}
+\index{Cuboctahedron}
+\index{Platonic solid!octahedron}
+\index{FormFactorCuboctahedron@\Code{FormFactorCuboctahedron}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -598,8 +593,8 @@ using the generic polyhedron form factor \cite{Wut17}.
 %===============================================================================
 \ffsection{Cylinder} \label{SCylinder}
 %===============================================================================
-  \index{Cylinder}
-  \index{FormFactorCylinder@\Code{FormFactorCylinder}}
+\index{Cylinder}
+\index{FormFactorCylinder@\Code{FormFactorCylinder}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -691,9 +686,9 @@ use $t J_0(t)= \d[t J_1(t)]/\d t$ \cite[Formula~9.1.30a]{AbSt64}.
 %===============================================================================
 \ffsection{Dodecahedron} \label{SDodecahedron}
 %===============================================================================
-  \index{Dodecahedron}
-  \index{Platonic solid!dodecahedron}
-  \index{FormFactorDodecahedron@\Code{FormFactorDodecahedron}}
+\index{Dodecahedron}
+\index{Platonic solid!dodecahedron}
+\index{FormFactorDodecahedron@\Code{FormFactorDodecahedron}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -766,9 +761,9 @@ based on the generic form factor of the polyhedron~\cite{Wut17}.
 %===============================================================================
 \ffsection{EllipsoidalCylinder} \label{SEllipsoidalCylinder}
 %===============================================================================
-  \index{Ellipsoidal cylinder}
-  \index{Cylinder!ellipsoidal}
-  \index{FormFactorEllipsoidalCylinder@\Code{FormFactorEllipsoidalCylinder}}
+\index{Ellipsoidal cylinder}
+\index{Cylinder!ellipsoidal}
+\index{FormFactorEllipsoidalCylinder@\Code{FormFactorEllipsoidalCylinder}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -831,10 +826,10 @@ or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 %===============================================================================
 \ffsection{FullSphere} \label{SFullSphere}
 %===============================================================================
-  \index{Ball|see {Sphere}}
-  \index{Full sphere}
-  \index{Sphere}
-  \index{FormFactorFullSphere@\Code{FormFactorFullSphere}}
+\index{Ball|see{Sphere}}
+\index{Full sphere}
+\index{Sphere}
+\index{FormFactorFullSphere@\Code{FormFactorFullSphere}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -963,9 +958,9 @@ which is what we wanted to prove.
 %===============================================================================
 \ffsection{FullSpheroid} \label{SFullSpheroid}
 %===============================================================================
-  \index{Full spheroid}
-  \index{Spheroid}
-  \index{FormFactorFullSpheroid@\Code{FormFactorFullSpheroid}}
+\index{Full spheroid}
+\index{Spheroid}
+\index{FormFactorFullSpheroid@\Code{FormFactorFullSpheroid}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1040,10 +1035,10 @@ the transformation matrix is just $M=\text{diag}(1/R, 1/R, 1/h)$.
 %===============================================================================
 \ffsection{HemiEllipsoid} \label{SHemiEllipsoid}
 %===============================================================================
-  \index{Hemi ellipsoid}
-  \index{Ellipsoid!truncated}
-  \index{Truncated ellipsoid}
-  \index{FormFactorHemiEllipsoid@\Code{FormFactorHemiEllipsoid}}
+\index{Hemi ellipsoid}
+\index{Ellipsoid!truncated}
+\index{Truncation!ellipsoid}
+\index{FormFactorHemiEllipsoid@\Code{FormFactorHemiEllipsoid}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1109,9 +1104,9 @@ or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
 %===============================================================================
 \ffsection{Icosahedron} \label{SIcosahedron}
 %===============================================================================
-  \index{Icosahedron}
-  \index{Platonic solid!icosahedron}
-  \index{FormFactorIcosahedron@\Code{FormFactorIcosahedron}}
+\index{Icosahedron}
+\index{Platonic solid!icosahedron}
+\index{FormFactorIcosahedron@\Code{FormFactorIcosahedron}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1184,8 +1179,8 @@ based on the generic form factor of the polyhedron~\cite{Wut17}.
 %===============================================================================
 \ffsection{Prism3 (triangular)} \label{SPrism3}
 %===============================================================================
-  \index{Prism!triangular (Prism3)}
-  \index{FormFactorPrism3@\Code{FormFactorPrism3}}
+\index{Prism!triangular}
+\index{FormFactorPrism3@\Code{FormFactorPrism3}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1253,8 +1248,8 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 %===============================================================================
 \ffsection{Prism6 (hexagonal)} \label{SPrism6}
 %===============================================================================
-  \index{Prism!hexagonal (Prism6)}
-  \index{FormFactorPrism6@\Code{FormFactorPrism6}}
+\index{Prism!hexagonal}
+\index{FormFactorPrism6@\Code{FormFactorPrism6}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1321,9 +1316,9 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 %===============================================================================
 \ffsection{Pyramid (square-based)}\label{SPyramid}
 %===============================================================================
-  \index{Pyramid!square}
-  \index{Truncated pyramid!square}
-  \index{FormFactorPyramid@\Code{FormFactorPyramid}}
+\index{Pyramid!square}
+\index{Frustum!square base}
+\index{FormFactorPyramid@\Code{FormFactorPyramid}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1392,10 +1387,11 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 %===============================================================================
 \ffsection{Tetrahedron} \label{STetrahedron}
 %===============================================================================
-  \index{Tetrahedron}
-  \index{Truncated tetrahedron}
-  \index{Platonic solid!tetrahedron}
-  \index{FormFactorTetrahedron@\Code{FormFactorTetrahedron}}
+\index{Tetrahedron}
+\index{Frustum!triangular base}
+\index{Pyramid!rectangular}
+\index{Platonic solid!tetrahedron}
+\index{FormFactorTetrahedron@\Code{FormFactorTetrahedron}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1472,9 +1468,9 @@ with series expansions near singularities.
 %===============================================================================
 \ffsection{TruncatedCube} \label{STruncatedCube}
 %===============================================================================
-  \index{Cube!facetted}
-  \index{Facetted cube}
-  \index{FormFactorTruncatedCube@\Code{FormFactorTruncatedCube}}
+\index{Cube!facetted}
+\index{Facetting!cube}
+\index{FormFactorTruncatedCube@\Code{FormFactorTruncatedCube}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1538,11 +1534,10 @@ of a polygonal prism \cite{Wut17}.
 %===============================================================================
 \ffsection{TruncatedSphere}\label{STruncatedSphere}
 %===============================================================================
-  \index{Sphere!segment|see{truncated}}
-  \index{Sphere!truncated}
-  \index{Truncated sphere}
-  \index{FormFactorTruncatedSphere@\Code{FormFactorTruncatedSphere}}
-  \index{Segment (spherical)}
+\index{Sphere!segment}
+\index{Truncation!sphere}
+\index{FormFactorTruncatedSphere@\Code{FormFactorTruncatedSphere}}
+\index{Segment!spherical}
 
 A \E{spherical segment}, obtained from a spherical ball by two parallel cuts.
 
@@ -1579,8 +1574,8 @@ They must fulfill
 \end{equation*}
 
 \paragraph{Special cases}\strut\\
-\index{Cap (spherical)}
-  \index{Sphere!cap}
+\index{Cap}%
+\index{Sphere!cap}%
 A \E{spherical cap} is obtained from a spherical ball by a single cut.
 This is covered by the following special parameterization of \texttt{TruncatedSphere}:
 \begin{itemize}
@@ -1631,9 +1626,9 @@ in \cref{SCylinder}.
 %===============================================================================
 \ffsection{TruncatedSpheroid} \label{STruncatedSpheroid}
 %===============================================================================
-  \index{Spheroid!truncated}
-  \index{Truncated spheroid}
-  \index{FormFactorTruncatedSpheroid@\Code{FormFactorTruncatedSpheroid}}
+\index{Spheroid!truncated}
+\index{Truncation!spheroid}
+\index{FormFactorTruncatedSpheroid@\Code{FormFactorTruncatedSpheroid}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1708,20 +1703,20 @@ Agrees with the \IsGISAXS\ form factor
 Justification for complex~$q$ in the same way as for the \E{Cylinder} form factor
 in \cref{SCylinder}.
 
-\index{Shape transform!catalogue|)}
-\index{Form factor!catalogue|)}
+
+\index{Particle!hard|)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Ripples}\label{SRipple}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\index{Ripple|(}
 
 %===============================================================================
 \ffsection{Ripple1 (sinusoidal)} \label{SRipple1}
 %===============================================================================
-  \index{Ripple!sinusoidal (Ripple1)}
-  \index{Sinusoidal ripple}
-  \index{FormFactorRipple1@\Code{FormFactorRipple1}}
+\index{Ripple!sinusoidal}
+\index{Sinusoidal ripple}
+\index{FormFactorRipple1@\Code{FormFactorRipple1}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1790,9 +1785,9 @@ Agrees with the \E{Ripple1} form factor of \FitGISAXS\ \cite{Bab13}.
 %===============================================================================
 \ffsection{Ripple2 (saw-tooth)} \label{SRipple2}
 %===============================================================================
-  \index{Ripple!saw-tooth (Ripple2)}
-  \index{Saw-tooth ripple}
-  \index{FormFactorRipple2@\Code{FormFactorRipple2}}
+\index{Ripple!saw-tooth}
+\index{Saw-tooth ripple}
+\index{FormFactorRipple2@\Code{FormFactorRipple2}}
 
 \paragraph{Real-space geometry}\strut\\
 
@@ -1861,4 +1856,4 @@ The low symmetry requires other angular ranges than used in most other figures.}
 \paragraph{History}\strut\\
 Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 
-\index{Form factor!hard particles|)}
+\index{Ripple|)}

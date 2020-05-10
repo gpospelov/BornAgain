@@ -71,11 +71,15 @@ In the following,
 information about the implemented geometries is given in standardized form.
 Analytical expressions are given for the form factor $F(\q)$,
 for the volume $V=F(0)$,
+\index{Volume}%
 and for the maximum horizontal section $S$
 (the area of the particle as seen from above).
 Mathematical notation in the form factor expressions includes
 the cardinal sine functions $\sinc(z)\coloneqq\sin(z)/z$
+\index{sinc (sinus cardinalis)}%
 and the Bessel function of first kind and first order $J_1(z)$
+\index{J@$J_1$ (Bessel function)}%
+\index{Bessel function}%
 \cite[Ch.~9]{AbSt64}.
 If results contain an integral,
 then no analytical form was found,
@@ -121,8 +125,11 @@ we use alternate internal parameters to alleviate the formul\ae.
 
 Examplary form factors are numerically computed in Born approximation.
 The particles are assigned a refractive index of $n=10^{-5}$.
+\index{Refractive index}%
 Parameters are chosen such that
-the particle volume~$V$ is about 250~nm$^3$ (within $\pm5$~\%);
+the particle volume~$V$
+\index{Volume}%
+is about 250~nm$^3$ (within $\pm5$~\%);
 except ripples, which are chosen with a vertical section $V/L$ of 40~nm$^2$
 and a length of 25~nm.
 The incident wavelength is 1~\AA.
@@ -131,12 +138,17 @@ Simulated detector images are normalized to the maximum scattering intensity at 
 \begin{equation}
   I(\alpha_\sf,\phi_\sf)\coloneqq |F(q(\alpha_\sf,\phi_\sf))|^2/V^2.
 \end{equation}
-All plots have the same logarithmic color scale,
-extending over ten decades from $10^{-1)}$ to~1.
+All plots
+\index{Plotting}%
+have the same logarithmic color scale,
+extending over eight decades from $10^{-8}$ to~1.
 Plot ranges in $\alpha_\sf$ and $\phi_\sf$ are also standardized as far as
 reasonably possible.
-For most particle geometries,
-$I$ has horizontal and vertical mirror planes:
+For some geometries,
+the simulated detector image has some symmetry,
+\index{Symmetry}
+namely horizontal or/and vertical mirror planes:
+\index{Mirror planes}
 \begin{equation}\label{EFq4sym}
   I(\alpha_\sf,\phi_\sf)
   = I(\alpha_\sf,-\phi_\sf)
@@ -145,8 +157,8 @@ $I$ has horizontal and vertical mirror planes:
 \end{equation}
 % TODO RESTORE TEMPORARILY REMOVED XREF
 % The physical origin this symmetry is discussed in \cref{Ssym}.
-For these particles,
-plots of $I$ are restricted to the quadrant $\alpha_\sf\ge0$, $\phi_\sf\ge0$.
+In these cases, we tend to restrict
+plots of $I$ to the quadrant $\alpha_\sf\ge0$, $\phi_\sf\ge0$.
 However, it requires some experience to fully appreciate the
 information content of these plots.
 For a demonstration of this,
@@ -171,7 +183,7 @@ than in the preceding one-quadrant representation.}
 \index{Oscillation!from large particle form factor}%
 \index{Monte-Carlo integration!for large particle form factor}%
 \index{Particle!rapid form factor oscillation}%
-Finally, one warning: For large particles (typically of order 1000nm),
+Finally, one warning: For large particles (typically of order 1000~nm),
   the form factor oscillates rapidly within one detector bin
   so that analytical calculations (performed for the bin center)
   may give a completely wrong intensity pattern.

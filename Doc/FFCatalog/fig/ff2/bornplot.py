@@ -1,7 +1,7 @@
 """
 Utilities to plot form factors of particles in Born approximation
 """
-import numpy
+import math, numpy
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import rc
@@ -100,7 +100,13 @@ def make_plot(results, det, name, nrow=1):
                             0.25*xskip, 1-bottomskip-topskip])
     cb = fig.colorbar(im, cax=cbar_ax)
     cb.set_label(r'$\left|F(q)\right|^2/V^{\,2}$', fontsize=fontsize)
-    # Output to file or display.
+    # Output to data file, image file, and display.
+    nDigits = int(math.log10(len(results)))+1
+    formatN = "%" + str(nDigits) + "i"
+    for i in range(len(results)):
+        fname = name+"."+(formatN % i)+".int"
+        print(fname)
+        numpy.savetxt(fname, results[i].data)
     plt.savefig(name+".pdf", format="pdf", bbox_inches='tight')
     plt.show()
 

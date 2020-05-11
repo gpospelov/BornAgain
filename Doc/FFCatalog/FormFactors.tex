@@ -124,6 +124,9 @@ Where our parametrization made analytic expressions too tedious,
 we use alternate internal parameters to alleviate the formul\ae.
 
 Examplary form factors are numerically computed in Born approximation.
+All simulations scripts can be found in the BornAgain sources in directory
+\href{https://github.com/scgmlz/BornAgain/tree/master/Doc/FFCatalog/fig/ff2}%
+{Doc/FFCatalog/fig/ff2}.
 The particles are assigned a refractive index of $n=10^{-5}$.
 \index{Refractive index}%
 Parameters are chosen such that
@@ -1028,9 +1031,9 @@ computed with $R=3.5$~nm and $H=9.8$~nm.}
 \end{figure}
 
 \paragraph{History and Derivation}\strut\\
-Replicates the \E{Full spheroid} of \IsGISAXS
+Replicates the \E{Full spheroid} of \IsGISAXS\
 \cite[Eq.~2.37]{Laz06} \cite[Eq.~227]{ReLL09},
-except for wrong factors of~2 in their volume formula and in their implementation.
+except for wrong factors of~2 in their volume formula and form factor implementation.
 Up to BornAgain 1.16,
 our form factor computation followed \IsGISAXS\
 in using numeric integration in the~$z$ coordinate.
@@ -1040,9 +1043,11 @@ who pointed out that
 the form factor of any spheroid
 can be reduced to that of the regular sphere (\cref{SFullSphere})
 by rescaling $\r\q=(M\r)(M^{-1}\q)$.
-It seems that this was already known to Guinier (1939).
 In the present case (with revolution axis along~$z$),
 the transformation matrix is just $M=\text{diag}(1/R, 1/R, 1/h)$.
+The resulting simple expression for the form factor
+goes back at least to Guinier \cite[p.~193]{Gui39}.
+
 
 %===============================================================================
 \ffsection{HemiEllipsoid} \label{SHemiEllipsoid}

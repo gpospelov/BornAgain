@@ -96,7 +96,7 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     EXPECT_EQ(prop.getValues(), expectedLinked);
     EXPECT_EQ(prop.getValue(), "");
 
-    // changing formfactor of the particle
+    // changing form factor of the particle
     particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, Constants::BoxType);
 
     prop = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)

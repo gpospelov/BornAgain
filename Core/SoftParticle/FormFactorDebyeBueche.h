@@ -17,7 +17,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! The formfactor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
+//! The form factor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
 //! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorDebyeBueche : public IFormFactorBorn

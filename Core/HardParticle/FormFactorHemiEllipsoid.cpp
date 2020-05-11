@@ -40,7 +40,7 @@ double FormFactorHemiEllipsoid::radialExtension() const
     return (m_radius_x + m_radius_y) / 2.0;
 }
 
-//! Integrand for complex formfactor.
+//! Integrand for complex form factor.
 complex_t FormFactorHemiEllipsoid::Integrand(double Z) const
 {
     double R = m_radius_x;

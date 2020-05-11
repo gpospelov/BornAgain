@@ -17,7 +17,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! The formfactor for a long rectangular box.
+//! The form factor for a long rectangular box.
 //! @ingroup legacyGrating
 
 class BA_CORE_API_ FormFactorLongBoxGauss : public IFormFactorBorn

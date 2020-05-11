@@ -57,15 +57,15 @@ SampleBuilderFactory::SampleBuilderFactory()
                  "Mixture of cylinder particles with two types size distribution ");
 
     registerItem("CylindersInBABuilder", create_new<CylindersInBABuilder>,
-                 "Cylinder formfactor in BA");
+                 "Cylinder form factor in BA");
     registerItem("CylindersInDWBABuilder", create_new<CylindersInDWBABuilder>,
-                 "Cylinder formfactor in DWBA");
+                 "Cylinder form factor in DWBA");
     registerItem("LargeCylindersInDWBABuilder", create_new<LargeCylindersInDWBABuilder>,
                  "Large cylinders in DWBA");
 
     registerItem("CylindersWithSizeDistributionBuilder",
                  create_new<CylindersWithSizeDistributionBuilder>,
-                 "Cylinder formfactor in BA with size distribution");
+                 "Cylinder form factor in BA with size distribution");
 
     registerItem("RadialParaCrystalBuilder", create_new<RadialParaCrystalBuilder>,
                  "Interference function of radial paracrystal");

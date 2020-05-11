@@ -18,7 +18,7 @@
 #include "IFormFactorDecorator.h"
 #include "Rotations.h"
 
-//! Equips a formfactor with a rotation.
+//! Equips a form factor with a rotation.
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ FormFactorDecoratorRotation : public IFormFactorDecorator

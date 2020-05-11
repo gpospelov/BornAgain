@@ -57,13 +57,13 @@ double FormFactorRipple1::radialExtension() const
     return (m_width + m_length) / 4.0;
 }
 
-//! Integrand for complex formfactor.
+//! Integrand for complex form factor.
 complex_t FormFactorRipple1::Integrand(double u) const
 {
     return sin(u) * exp(m_az * std::cos(u)) * (m_ay == 0. ? u : sin(m_ay * u) / m_ay);
 }
 
-//! Complex formfactor.
+//! Complex form factor.
 complex_t FormFactorRipple1::evaluate_for_q(cvector_t q) const
 {
     complex_t factor = m_length * MathFunctions::sinc(q.x() * m_length * 0.5) * m_width / M_PI;

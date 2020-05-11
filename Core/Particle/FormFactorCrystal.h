@@ -18,7 +18,7 @@
 #include "IFormFactorBorn.h"
 #include "Lattice.h"
 
-//! The formfactor of a MesoCrystal.
+//! The form factor of a MesoCrystal.
 //! @ingroup formfactors
 
 class BA_CORE_API_ FormFactorCrystal : public IFormFactor

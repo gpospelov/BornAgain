@@ -17,7 +17,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! The formfactor of a gaussian.
+//! The form factor of a gaussian.
 //! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorGauss : public IFormFactorBorn

@@ -2,8 +2,8 @@
 
 from __future__ import print_function
 import gzip, numpy, os, sys, utils
-import libBornAgainCore as ba
-from libBornAgainCore import nanometer, angstrom, degree
+import bornagain as ba
+from bornagain import nanometer, angstrom, degree
 
 
 # ----------------------------------

@@ -5,7 +5,7 @@ from __future__ import print_function
 import ctypes, math, numpy, os, sys, time
 
 import utils
-from libBornAgainCore import *
+from bornagain import *
 
 # ----------------------------------------------------------------------------
 # Sample builder to build mixture of cylinders and prisms on top of substrate

@@ -3,8 +3,8 @@
 import math, numpy, os, sys, time, unittest
 
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
-import libBornAgainCore as ba
-from libBornAgainCore import degree, deg2rad, rad2deg
+import bornagain as ba
+from bornagain import degree, deg2rad, rad2deg
 
 def fill_data(data):
     """

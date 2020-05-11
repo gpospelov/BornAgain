@@ -45,7 +45,7 @@ TEST_F(ParticleTest, Constructors)
     EXPECT_EQ(nullptr, p1->createFormFactor());
     EXPECT_EQ(nullptr, p1->rotation());
 
-    // construction with formfactor
+    // construction with form factor
     std::unique_ptr<Particle> p2(new Particle(mat, sphere));
     EXPECT_EQ(mat, *p2->material());
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial*>(p2->createFormFactor()));

@@ -1,5 +1,5 @@
 """
-All formfactors available in BornAgain in the Born Approximation
+All form factors available in BornAgain in the Born Approximation
 """
 import numpy
 import bornagain as ba
@@ -97,7 +97,7 @@ def run_simulation():
         plt.subplot(5, 5, nplot+1)
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
-        ba.plot_colormap(result, xlabel="", ylabel="", zlabel="", 
+        ba.plot_colormap(result, xlabel="", ylabel="", zlabel="",
                          cmap='jet', aspect='auto')
 
         plt.tick_params(axis='both', which='major', labelsize=8)

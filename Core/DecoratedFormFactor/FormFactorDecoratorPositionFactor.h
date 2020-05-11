@@ -18,7 +18,7 @@
 #include "IFormFactorDecorator.h"
 #include "Vectors3D.h"
 
-//! Decorates a formfactor with a position dependent phase factor.
+//! Decorates a form factor with a position dependent phase factor.
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorator

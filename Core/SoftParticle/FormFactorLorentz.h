@@ -17,7 +17,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! The formfactor of a lorentzian.
+//! The form factor of a lorentzian.
 //! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorLorentz : public IFormFactorBorn

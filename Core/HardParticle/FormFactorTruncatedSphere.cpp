@@ -52,7 +52,7 @@ bool FormFactorTruncatedSphere::check_initialization() const
     return result;
 }
 
-//! Integrand for complex formfactor.
+//! Integrand for complex form factor.
 complex_t FormFactorTruncatedSphere::Integrand(double Z) const
 {
     double Rz = std::sqrt(m_radius * m_radius - Z * Z);
@@ -62,7 +62,7 @@ complex_t FormFactorTruncatedSphere::Integrand(double Z) const
     return Rz * Rz * MathFunctions::Bessel_J1c(q_p * Rz) * exp_I(m_q.z() * Z);
 }
 
-//! Complex formfactor.
+//! Complex form factor.
 complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const
 {
     m_q = q;

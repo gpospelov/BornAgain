@@ -17,7 +17,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! The formfactor for a long rectangular box.
+//! The form factor for a long rectangular box.
 //! Approximates the rapidly oscillating sinc function by the square root of a Lorentzian
 //! @ingroup legacyGrating
 

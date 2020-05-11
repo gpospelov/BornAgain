@@ -1879,3 +1879,69 @@ The low symmetry requires other angular ranges than used in most other figures.}
 Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 
 \index{Ripple|)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Soft particles}\label{SSoft}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{Particle!soft|(}
+
+A soft particle is characterized by a scattering length density~$\rho(\r)$.
+\index{Scattering length density}%
+Its form factor is defined as the Fourier transform
+\index{Fourier transform}%
+\begin{equation}
+  F(\q) = \int\!\d^3r\,\e^{i\q\r}\rho(\r).
+\end{equation}
+
+%===============================================================================
+\ffsection{Gaussian ellispoid} \label{SGauss}
+%===============================================================================
+\index{Ellipsoid!Gaussian}
+\index{Gaussian!soft particle}
+\index{FormFactorGauss@\Code{FormFactorGauss}}
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorGauss(double width, double height)
+\end{lstlisting}
+with the parameters
+\begin{itemize}
+\item \texttt{width}, $W$,
+\item \texttt{height}, $H$.
+\end{itemize}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+\begin{equation*}
+  F = \frac{L H}{q_y}
+  \sinc\left(\frac{q_xL}{2}\right)
+  i\e^{-i q_y d}
+  \left[
+    \e^{i \alpha_{-}/2} \sinc\left( \frac{\alpha_{+}}{2} \right)
+    - \e^{i \alpha_{+}/2} \sinc\left( \frac{\alpha_{-}}{2} \right)
+  \right],
+\end{equation*}
+\begin{equation*}
+  \alpha_{+} = H q_z + \frac{q_y W}{2} + q_y d, \quad
+  \alpha_{-} = H q_z - \frac{q_y W}{2} + q_y d,
+\end{equation*}
+\begin{equation*}
+  V = \dfrac{L W H}{2},
+\end{equation*}
+\begin{equation*}
+  S = L W.
+\end{equation*}
+
+\paragraph{Examples}\strut
+
+\begin{figure}[H]
+\begin{center}
+\includefinal{1\TW}{fig/ff2/ff_Ripple2.pdf}
+\end{center}
+\caption{Normalized intensity $|F|^2/V^2$,
+computed with $L=25$~nm, $W=10$~nm, $H=8$~nm, and $d=5$~nm,
+for four different angles~$\omega$ of rotation around the $z$ axis.
+The low symmetry requires other angular ranges than used in most other figures.}
+\end{figure}
+
+
+\index{Particle!soft|)}

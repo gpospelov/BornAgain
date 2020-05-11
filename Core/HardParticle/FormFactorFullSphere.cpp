@@ -61,6 +61,7 @@ complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis = {0, 1};
 #endif
+        // expand sin(qR)-qR*cos(qR) up to qR^5
         ret = 4 * M_PI / 3 * pow(R, 3) * (1. - 0.1 * pow(qR, 2));
     } else {
 #ifdef POLYHEDRAL_DIAGNOSTIC

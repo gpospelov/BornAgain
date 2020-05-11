@@ -46,15 +46,8 @@ protected:
     void onChange() override final;
 
 private:
-    complex_t Integrand(double Z) const;
-
     double m_radius;
     double m_height;
-    mutable cvector_t m_q;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorFullSpheroid>> mP_integrator;
-#endif
 };
 
 #endif // FORMFACTORFULLSPHEROID_H

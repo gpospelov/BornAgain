@@ -1,12 +1,13 @@
 """
 Utilities to plot form factors of particles in Born approximation
 """
-import numpy
+import math, numpy
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import rc
 rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
 rc('text', usetex=True)
+rc('image', cmap='inferno')
 
 import bornagain as ba
 from bornagain import nanometer, degree, angstrom, deg2rad
@@ -77,7 +78,7 @@ def make_plot(results, det, name, nrow=1):
     else:
         axes = [tmp]
     # Always the same color scale, to facilitate comparisons between figures.
-    norm = mpl.colors.LogNorm(1e-10, 1)
+    norm = mpl.colors.LogNorm(1e-8, 1)
     # Plot the subfigures.
     for res in results:
         ax = axes[res.idx]
@@ -100,9 +101,15 @@ def make_plot(results, det, name, nrow=1):
                             0.25*xskip, 1-bottomskip-topskip])
     cb = fig.colorbar(im, cax=cbar_ax)
     cb.set_label(r'$\left|F(q)\right|^2/V^{\,2}$', fontsize=fontsize)
-    # Output to file or display.
+    # Output to data file, image file, and display.
+    nDigits = int(math.log10(len(results)))+1
+    formatN = "%" + str(nDigits) + "i"
+    for i in range(len(results)):
+        fname = name+"."+(formatN % i)+".int"
+        print(fname)
+        numpy.savetxt(fname, results[i].data)
     plt.savefig(name+".pdf", format="pdf", bbox_inches='tight')
-    plt.show()
+    # plt.show()
 
 
 def get_sample(ff, trafo):

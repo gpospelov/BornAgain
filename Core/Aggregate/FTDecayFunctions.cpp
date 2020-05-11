@@ -113,7 +113,7 @@ FTDecayFunction1DGate::FTDecayFunction1DGate(double omega)
 
 double FTDecayFunction1DGate::evaluate(double q) const
 {
-    return 2.0*m_omega*MathFunctions::Sinc(q*m_omega);
+    return 2.0*m_omega*MathFunctions::sinc(q*m_omega);
 }
 
 FTDecayFunction1DCosine::FTDecayFunction1DCosine(double omega)
@@ -130,7 +130,7 @@ double FTDecayFunction1DCosine::evaluate(double q) const
         return m_omega/2.0;
     }
     else {
-        return m_omega*MathFunctions::Sinc(qw)/(1.0-qw*qw/M_PI/M_PI);
+        return m_omega*MathFunctions::sinc(qw)/(1.0-qw*qw/M_PI/M_PI);
     }
 }
 */

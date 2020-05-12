@@ -55,7 +55,7 @@ bool FormFactorTruncatedSpheroid::check_initialization() const
     return result;
 }
 
-//! Integrand for complex formfactor.
+//! Integrand for complex form factor.
 complex_t FormFactorTruncatedSpheroid::Integrand(double Z) const
 {
     double R = m_radius;

@@ -53,13 +53,13 @@ double FormFactorLongRipple1Lorentz::radialExtension() const
     return (m_width + m_length) / 4.0;
 }
 
-//! Integrand for complex formfactor.
+//! Integrand for complex form factor.
 complex_t FormFactorLongRipple1Lorentz::Integrand(double u) const
 {
     return sin(u) * exp(m_az * std::cos(u)) * (m_ay == 0. ? u : sin(m_ay * u) / m_ay);
 }
 
-//! Complex formfactor.
+//! Complex form factor.
 complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(cvector_t q) const
 {
     complex_t qxL2 = 2.5 * std::pow(m_length * q.x(), 2);

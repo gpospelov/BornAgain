@@ -35,7 +35,7 @@ void IInterferenceFunctionStrategy::init(
 {
     if (weighted_formfactors.size() == 0)
         throw Exceptions::ClassInitializationException(
-            "IInterferenceFunctionStrategy::init: strategy gets no formfactors.");
+            "IInterferenceFunctionStrategy::init: strategy gets no form factors.");
     m_formfactor_wrappers = weighted_formfactors;
     if (p_iff)
         mP_iff.reset(p_iff->clone());

@@ -66,7 +66,7 @@ double FormFactorLongRipple2Gauss::radialExtension() const
     return (m_width + m_length) / 4.0;
 }
 
-//! Complex formfactor.
+//! Complex form factor.
 complex_t FormFactorLongRipple2Gauss::evaluate_for_q(cvector_t q) const
 {
     m_q = q;

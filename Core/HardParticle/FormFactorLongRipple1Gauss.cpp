@@ -53,13 +53,13 @@ double FormFactorLongRipple1Gauss::radialExtension() const
     return (m_width + m_length) / 4.0;
 }
 
-//! Integrand for complex formfactor.
+//! Integrand for complex form factor.
 complex_t FormFactorLongRipple1Gauss::Integrand(double u) const
 {
     return sin(u) * exp(m_az * std::cos(u)) * (m_ay == 0. ? u : sin(m_ay * u) / m_ay);
 }
 
-//! Complex formfactor.
+//! Complex form factor.
 complex_t FormFactorLongRipple1Gauss::evaluate_for_q(cvector_t q) const
 {
     complex_t qxL2 = std::pow(m_length * q.x(), 2) / 2.0;

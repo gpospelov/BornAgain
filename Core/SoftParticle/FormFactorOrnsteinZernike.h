@@ -17,7 +17,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! The formfactor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
+//! The form factor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
 //! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorOrnsteinZernike : public IFormFactorBorn

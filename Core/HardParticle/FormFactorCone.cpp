@@ -51,7 +51,7 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     onChange();
 }
 
-//! Integrand for complex formfactor.
+//! Integrand for complex form factor.
 complex_t FormFactorCone::Integrand(double Z) const
 {
     double Rz = m_radius - Z * m_cot_alpha;

@@ -69,7 +69,7 @@ double FormFactorLongRipple2Lorentz::radialExtension() const
     return (m_width + m_length) / 4.0;
 }
 
-//! Complex formfactor.
+//! Complex form factor.
 complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const
 {
     check_parameters();

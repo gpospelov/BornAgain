@@ -283,7 +283,7 @@ TEST_F(TestComponentProxyModel, test_componentStrategy)
 }
 
 //! Checking the mapping of ComponentProxyStrategy in the case of ParticleItem inserted in
-//! the source. We are changing Particle's formfactor back and forth and checking for change
+//! the source. We are changing Particle's form factor back and forth and checking for change
 //! in GroupProperty.
 
 TEST_F(TestComponentProxyModel, test_componentStrategyFormFactorChanges)

@@ -1,5 +1,5 @@
 """
-Cylinder formfactor in Born approximation
+Cylinder form factor in Born approximation
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm

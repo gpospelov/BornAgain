@@ -3,7 +3,7 @@
 import numpy, os, sys, unittest
 
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
-import libBornAgainCore as ba
+import bornagain as ba
 
 
 class IntensityDataTest(unittest.TestCase):

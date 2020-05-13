@@ -5,8 +5,8 @@ Collection of utils for testing
 import gzip, numpy, sys, os
 
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
-import libBornAgainCore as ba
-from libBornAgainCore import deg, angstrom
+import bornagain as ba
+from bornagain import deg, angstrom
 
 REFERENCE_DIR = "@PYCORE_REFERENCE_DIR@"
 

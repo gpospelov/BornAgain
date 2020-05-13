@@ -17,6 +17,8 @@
 \FloatBarrier\clearpage
 \section{#1}}
 
+\def\ffref#1{\texttt{#1} (\cref{S#1})}
+
 % Don't number subfigures in this chapter.
 \makeatletter
 \renewcommand{\@thesubfigure}{\relax}
@@ -327,6 +329,12 @@ which is a true pyramid with an off-center apex \cite{Bab13}.
 Formfactors~$F(\q)$ have been checked against the different computation of \IsGISAXS,
 and were found to fully agree.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Box} if $\alpha=0$,
+\item \ffref{Pyramid} if $L=W$.
+\end{itemize}
+
 %===============================================================================
 \ffsection{Box (cuboid)} \label{SBox}
 %===============================================================================
@@ -392,6 +400,13 @@ Agrees with \E{Box} form factor of \IsGISAXS\
 \cite[Eq.~2.38]{Laz06} \cite[Eq.~214]{ReLL09},
 except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{AnisoPyramid} or \ffref{Pyramid}
+  if sides are not vertical,
+\item \ffref{TruncatedCube} if $L=W=H$ and corners are facetted,
+\item \ffref{LongBox} if stretched in one horizontal direction
+\end{itemize}
 
 %===============================================================================
 \ffsection{Cone (circular)} \label{SCone}
@@ -465,6 +480,11 @@ except for a substitution $z\to\rho$ in our expression for~$F$.
 Justification for complex~$q$ in the same way as for the \E{Cylinder} form factor
 in \cref{SCylinder}.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Cylinder} if $\alpha=0$.
+\end{itemize}
+
 
 %===============================================================================
 \ffsection{Cone6 (hexagonal)} \label{SCone6}
@@ -536,6 +556,12 @@ Up to \BornAgain-1.5 computed by numeric integration, as in \IsGISAXS.
 Since \BornAgain-1.6 higher speed and better accuracy are achieved
 by using the generic polyhedron form factor \cite{Wut17},
 with series expansions near singularities.
+
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Prism6} if $\alpha=0$.
+\end{itemize}
+
 
 %===============================================================================
 \ffsection{Cuboctahedron} \label{SCuboctahedron}
@@ -609,6 +635,12 @@ Agrees with \E{Cuboctahedron} form factor of \IsGISAXS\
 except for different parametrization $L=2R_{\rm{\Code{IsGISAXS}}}$.
 Since \BornAgain-1.6 implemented
 using the generic polyhedron form factor \cite{Wut17}.
+
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Box} if $\alpha=0$,
+\item \ffref{Pyramid} if $r_H\to\infty$.
+\end{itemize}
 
 
 %===============================================================================
@@ -702,6 +734,12 @@ The integral over $\varphi$ vanishes except for $n=2k$. Hence
 \end{equation}
 To compute the ensueing radial integral $\int \d r r J_0(rq_\parallel)$,
 use $t J_0(t)= \d[t J_1(t)]/\d t$ \cite[Formula~9.1.30a]{AbSt64}.
+
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Cone} or \ffref{FullSpheroid} if radius varies with~$z$,
+\item \ffref{EllipsoidalCylinder} if cross secion is an ellipse.
+\end{itemize}
 
 
 %===============================================================================
@@ -843,6 +881,11 @@ Agrees with the \IsGISAXS\ form factor
 \E{Ellipsoid} \cite[Eq.~2.41, wrongly labeled in Fig.~2.4]{Laz06}
 or \E{Ellipsoidal Cylinder} \cite[Eq.~224]{ReLL09}.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Cylinder} if $R_a=R_b$.
+\end{itemize}
+
 
 %===============================================================================
 \ffsection{FullSphere} \label{SFullSphere}
@@ -976,6 +1019,13 @@ Therefore \cref{ESphereU} coincides with the series expansion of
 \end{equation}
 which is what we wanted to prove.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Cylinder},
+\item \ffref{FullSpheroid},
+\item \ffref{TruncatedSphere}.
+\end{itemize}
+
 %===============================================================================
 \ffsection{FullSpheroid} \label{SFullSpheroid}
 %===============================================================================
@@ -1054,6 +1104,11 @@ the transformation matrix is just $M=\text{diag}(1/R, 1/R, 1/h)$.
 The resulting simple expression for the form factor
 goes back at least to Guinier \cite[p.~193]{Gui39}.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{FullSphere} if $H=2R$,
+\item \ffref{TruncatedSpheroid} if cut horizontally.
+\end{itemize}
 
 %===============================================================================
 \ffsection{HemiEllipsoid} \label{SHemiEllipsoid}
@@ -1122,6 +1177,12 @@ Agrees with the \IsGISAXS\ form factor
 \E{Anisotropic hemi-ellipsoid}
 \cite[Eq.~2.42, with wrong sign in the $z$-dependent phase factor]{Laz06}
 or \E{Hemi-spheroid} \cite[Eq.~229]{ReLL09}.
+
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{TruncatedSpheroid} if $R_a=R_b$,
+\item \ffref{TruncatedSphere} if $R_a=R_b=H$.
+\end{itemize}
 
 
 %===============================================================================
@@ -1268,6 +1329,12 @@ Reimplemented in \BornAgain-1.6 using the generic form factor
 of a polygonal prism \cite{Wut17},
 to achieve numerical stability near the removable singularity at $q\to0$.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Tetrahedron} (trigonal pyramid) if sides are not vertical.
+\end{itemize}
+
+
 %===============================================================================
 \ffsection{Prism6 (hexagonal)} \label{SPrism6}
 %===============================================================================
@@ -1334,6 +1401,11 @@ and lacks a factor $H$ in $F(\q)$.
 Reimplemented in \BornAgain-1.5 using the generic form factor
 of a polygonal prism with symmetry~$S_2$ \cite{Wut17},
 to achieve numerical stability near the removable singularity at $q\to0$.
+
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Cone6} (frustum with hexagonal base) if sides are not vertical.
+\end{itemize}
 
 
 %===============================================================================
@@ -1406,6 +1478,12 @@ Reimplemented in \BornAgain-1.6 using the generic form factor
 of a polygonal prism \cite{Wut17},
 to achieve numerical stability near the removable singularity at $q\to0$.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{AnisoPyramid} if base is rectangular,
+\item \ffref{Box} if $\alpha=0$.
+\end{itemize}
+
 
 %===============================================================================
 \ffsection{Tetrahedron} \label{STetrahedron}
@@ -1420,6 +1498,7 @@ to achieve numerical stability near the removable singularity at $q\to0$.
 
 \noindent
 Incorrectly named so, since it actually has five, not four surfaces.
+It's a frustum with trigonal base.
 
 \begin{figure}[H]
 \hfill
@@ -1488,6 +1567,12 @@ Since \BornAgain-1.6 higher speed and accuracy are achieved
 by using the generic polyhedron form factor \cite{Wut17},
 with series expansions near singularities.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Prism3} if $\alpha=0$.
+\end{itemize}
+
+
 %===============================================================================
 \ffsection{TruncatedCube} \label{STruncatedCube}
 %===============================================================================
@@ -1552,6 +1637,11 @@ for four different angles~$\omega$ of rotation around the $z$ axis.}
 Motivated by \cite{HeSS74}.
 Reimplemented in \BornAgain-1.6 using the generic form factor
 of a polygonal prism \cite{Wut17}.
+
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{Box} if $t=0$.
+\end{itemize}
 
 
 %===============================================================================
@@ -1645,6 +1735,13 @@ Agrees with the \IsGISAXS\ form factor
 Justification for complex~$q$ in the same way as for the \E{Cylinder} form factor
 in \cref{SCylinder}.
 
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{FullSphere} if $dh=0$ and $H=2R$,
+\item \ffref{TruncatedSpheroid} if vertically stretched or squeezed.
+\end{itemize}
+
+
 
 %===============================================================================
 \ffsection{TruncatedSpheroid} \label{STruncatedSpheroid}
@@ -1725,6 +1822,12 @@ Agrees with the \IsGISAXS\ form factor
 % in the \Code{IsGISAXS} manual.
 Justification for complex~$q$ in the same way as for the \E{Cylinder} form factor
 in \cref{SCylinder}.
+
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{FullSpheroid} if $dh=0$ and $H=2f_p R$,
+\item \ffref{TruncatedSphere} if $f_p=1$.
+\end{itemize}
 
 
 \index{Particle!hard|)}

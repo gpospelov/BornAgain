@@ -1885,12 +1885,23 @@ Agrees with the \E{Ripple2} form factor of \FitGISAXS\ \cite{Bab13}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Particle!soft|(}
 
-A soft particle is characterized by a scattering length density~$\rho(\r)$.
+A soft particle is characterized by a relative density~$\rho(\r)$
+\index{r@$\rho$ (density)}%
+\index{Density}%
+that varies smoothly from $\rho(0)=1$ to $\rho(\infty)=0$.
+The actual scattering length density~$\rho_\text{s}(\r)$
 \index{Scattering length density}%
-Its form factor is defined as the Fourier transform
+is the product of a constant bulk value~$\rho_\text{s}$ with~$\rho(\r)$.
+
+The form factor of a soft particle is defined as the Fourier transform of~$\rho(\r)$,
 \index{Fourier transform}%
 \begin{equation}
   F(\q) = \int\!\d^3r\,\e^{i\q\r}\rho(\r).
+\end{equation}
+The forward scattering power of the soft particle is the same
+as that of a hard particle with volume
+\begin{equation}
+  V = F(0) = \int\!\d^3r\,\rho(\r).
 \end{equation}
 
 %===============================================================================

@@ -1734,6 +1734,17 @@ in \cref{SCylinder}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \index{Ripple|(}
 
+Gratings can be modelled
+as one-dimensional arrangement of elongated particles.
+As everywhere else in BornAgain
+only single scattering in the DWBA is simulated.
+This can be insufficient for periodic gratings
+that cause noticeable higher-order diffraction.
+To account for such dynamic scattering effects,
+it may be advisable to compute Bloch waves \cite{AsSW10}
+or use finite elements to solve the exact wave equation \cite{SoFP17}.
+For the foreseeable future, this is not in the scope of BornAgain.
+
 %===============================================================================
 \ffsection{Ripple1 (sinusoidal)} \label{SRipple1}
 %===============================================================================

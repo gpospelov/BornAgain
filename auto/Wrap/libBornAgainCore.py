@@ -9919,7 +9919,7 @@ class FormFactorCrystal(IFormFactor):
     r"""
 
 
-    The formfactor of a  MesoCrystal.
+    The form factor of a  MesoCrystal.
 
     C++ includes: FormFactorCrystal.h
 
@@ -10210,7 +10210,7 @@ class FormFactorDebyeBueche(IFormFactorBorn):
     r"""
 
 
-    The formfactor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
+    The form factor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
 
     C++ includes: FormFactorDebyeBueche.h
 
@@ -10344,7 +10344,7 @@ class FormFactorDot(IFormFactorBorn):
     r"""
 
 
-    A dot, with trivial formfactor F(q)=1.
+    A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
 
     C++ includes: FormFactorDot.h
 
@@ -10353,13 +10353,21 @@ class FormFactorDot(IFormFactorBorn):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, radius):
         r"""
-        __init__(FormFactorDot self) -> FormFactorDot
-        FormFactorDot::FormFactorDot()
+        __init__(FormFactorDot self, double radius) -> FormFactorDot
+        FormFactorDot::FormFactorDot(double radius)
+
+        Constructor.
+
+        Parameters:
+        -----------
+
+        rscat: 
+        radius of a sphere with same forward scattering power, in nanometers 
 
         """
-        _libBornAgainCore.FormFactorDot_swiginit(self, _libBornAgainCore.new_FormFactorDot())
+        _libBornAgainCore.FormFactorDot_swiginit(self, _libBornAgainCore.new_FormFactorDot(radius))
 
     def clone(self):
         r"""
@@ -10391,15 +10399,35 @@ class FormFactorDot(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorDot_radialExtension(self)
 
-    def evaluate_for_q(self, arg2):
+    def bottomZ(self, arg2):
         r"""
-        evaluate_for_q(FormFactorDot self, cvector_t arg2) -> complex_t
-        complex_t FormFactorDot::evaluate_for_q(cvector_t) const override final
+        bottomZ(FormFactorDot self, IRotation arg2) -> double
+        double FormFactorDot::bottomZ(const IRotation &) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorDot_bottomZ(self, arg2)
+
+    def topZ(self, arg2):
+        r"""
+        topZ(FormFactorDot self, IRotation arg2) -> double
+        double FormFactorDot::topZ(const IRotation &) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorDot_topZ(self, arg2)
+
+    def evaluate_for_q(self, q):
+        r"""
+        evaluate_for_q(FormFactorDot self, cvector_t q) -> complex_t
+        complex_t FormFactorDot::evaluate_for_q(cvector_t q) const override final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainCore.FormFactorDot_evaluate_for_q(self, arg2)
+        return _libBornAgainCore.FormFactorDot_evaluate_for_q(self, q)
     __swig_destroy__ = _libBornAgainCore.delete_FormFactorDot
 
 # Register FormFactorDot in _libBornAgainCore:
@@ -10705,7 +10733,7 @@ class FormFactorGauss(IFormFactorBorn):
     r"""
 
 
-    The formfactor of a gaussian.
+    The form factor of a gaussian.
 
     C++ includes: FormFactorGauss.h
 
@@ -10951,7 +10979,7 @@ class FormFactorLongBox(IFormFactorBorn):
     r"""
 
 
-    The formfactor for a long rectangular box. Approximates the rapidly oscillating sinc function by the square root of a Lorentzian
+    The form factor for a long rectangular box. Approximates the rapidly oscillating sinc function by the square root of a Lorentzian
 
     C++ includes: FormFactorLongBox.h
 
@@ -11054,7 +11082,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
     r"""
 
 
-    The formfactor for a long rectangular box.
+    The form factor for a long rectangular box.
 
     C++ includes: FormFactorLongBoxGauss.h
 
@@ -11157,7 +11185,7 @@ class FormFactorLongBoxLorentz(IFormFactorBorn):
     r"""
 
 
-    The formfactor for a long rectangular box.
+    The form factor for a long rectangular box.
 
     C++ includes: FormFactorLongBoxLorentz.h
 
@@ -11260,7 +11288,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
     r"""
 
 
-    The formfactor for a cosine ripple.
+    The form factor for a cosine ripple.
 
     C++ includes: FormFactorLongRipple1Gauss.h
 
@@ -11350,7 +11378,7 @@ class FormFactorLongRipple1Gauss(IFormFactorBorn):
         evaluate_for_q(FormFactorLongRipple1Gauss self, cvector_t q) -> complex_t
         complex_t FormFactorLongRipple1Gauss::evaluate_for_q(cvector_t q) const override final
 
-        Complex formfactor. 
+        Complex form factor. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Gauss_evaluate_for_q(self, q)
@@ -11363,7 +11391,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
     r"""
 
 
-    The formfactor for a cosine ripple.
+    The form factor for a cosine ripple.
 
     C++ includes: FormFactorLongRipple1Lorentz.h
 
@@ -11453,7 +11481,7 @@ class FormFactorLongRipple1Lorentz(IFormFactorBorn):
         evaluate_for_q(FormFactorLongRipple1Lorentz self, cvector_t q) -> complex_t
         complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(cvector_t q) const override final
 
-        Complex formfactor. 
+        Complex form factor. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple1Lorentz_evaluate_for_q(self, q)
@@ -11466,7 +11494,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
     r"""
 
 
-    The formfactor for a triangular ripple.
+    The form factor for a triangular ripple.
 
     C++ includes: FormFactorLongRipple2Gauss.h
 
@@ -11567,7 +11595,7 @@ class FormFactorLongRipple2Gauss(IFormFactorBorn):
         evaluate_for_q(FormFactorLongRipple2Gauss self, cvector_t q) -> complex_t
         complex_t FormFactorLongRipple2Gauss::evaluate_for_q(cvector_t q) const override final
 
-        Complex formfactor. 
+        Complex form factor. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Gauss_evaluate_for_q(self, q)
@@ -11580,7 +11608,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
     r"""
 
 
-    The formfactor for a triangular ripple.
+    The form factor for a triangular ripple.
 
     C++ includes: FormFactorLongRipple2Lorentz.h
 
@@ -11679,7 +11707,7 @@ class FormFactorLongRipple2Lorentz(IFormFactorBorn):
         evaluate_for_q(FormFactorLongRipple2Lorentz self, cvector_t q) -> complex_t
         complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const override final
 
-        Complex formfactor. 
+        Complex form factor. 
 
         """
         return _libBornAgainCore.FormFactorLongRipple2Lorentz_evaluate_for_q(self, q)
@@ -11692,7 +11720,7 @@ class FormFactorLorentz(IFormFactorBorn):
     r"""
 
 
-    The formfactor of a lorentzian.
+    The form factor of a lorentzian.
 
     C++ includes: FormFactorLorentz.h
 
@@ -11774,7 +11802,7 @@ class FormFactorOrnsteinZernike(IFormFactorBorn):
     r"""
 
 
-    The formfactor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
+    The form factor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
 
     C++ includes: FormFactorOrnsteinZernike.h
 
@@ -12050,7 +12078,7 @@ class FormFactorRipple1(IFormFactorBorn):
     r"""
 
 
-    The formfactor for a cosine ripple.
+    The form factor for a cosine ripple.
 
     C++ includes: FormFactorRipple1.h
 
@@ -12140,7 +12168,7 @@ class FormFactorRipple1(IFormFactorBorn):
         evaluate_for_q(FormFactorRipple1 self, cvector_t q) -> complex_t
         complex_t FormFactorRipple1::evaluate_for_q(cvector_t q) const override final
 
-        Complex formfactor. 
+        Complex form factor. 
 
         """
         return _libBornAgainCore.FormFactorRipple1_evaluate_for_q(self, q)
@@ -12153,7 +12181,7 @@ class FormFactorRipple2(IFormFactorBorn):
     r"""
 
 
-    The formfactor for a triangular ripple.
+    The form factor for a triangular ripple.
 
     C++ includes: FormFactorRipple2.h
 
@@ -12254,7 +12282,7 @@ class FormFactorRipple2(IFormFactorBorn):
         evaluate_for_q(FormFactorRipple2 self, cvector_t q) -> complex_t
         complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const override final
 
-        Complex formfactor. 
+        Complex form factor. 
 
         """
         return _libBornAgainCore.FormFactorRipple2_evaluate_for_q(self, q)
@@ -12707,7 +12735,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
         evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t
         complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const override final
 
-        Complex formfactor. 
+        Complex form factor. 
 
         """
         return _libBornAgainCore.FormFactorTruncatedSphere_evaluate_for_q(self, q)
@@ -19964,7 +19992,7 @@ class Material(object):
         scalarSubtrSLD(Material self, WavevectorInfo wavevectors) -> complex_t
         complex_t Material::scalarSubtrSLD(const WavevectorInfo &wavevectors) const
 
-        Returns (  $ \\pi/\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density. 
+        Returns (  $ \\pi/\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density 
 
         """
         return _libBornAgainCore.Material_scalarSubtrSLD(self, wavevectors)

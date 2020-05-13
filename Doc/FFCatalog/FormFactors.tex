@@ -211,12 +211,14 @@ The following tables summarize the implemented particle geometries,
 Afterwards, the detailed documentation is in alphabetical order.
 
 %\clearpage\thispagestyle{empty}
-\def\entry#1#2#3#4#5#6{%
-\raisebox{-3.8ex}{\includefinal{5em}{fig/blue/#2.png}} &
+\def\figuredentry#1#2#3#4#5#6{%
+ #2 &
  \texttt{#1}& %\newline\textsl{#1} &
 #5 & % symmetry
 #4 & % parameters
 Page~\pageref{S#3}\\} % , \cref{S#3}
+\def\sizedentry#1#2#3#4#5{\figuredentry{#1}{\hspace{#5ex}\raisebox{#4ex}{\includefinal{#3em}{fig/blue/#2.png}}}}
+\def\entry#1#2{\sizedentry{#1}{#2}{5}{-3.8}{0}}
 \begin{center}
   \def\h{\text{h}}
   \def\v{\text{v}}
@@ -228,7 +230,8 @@ Page~\pageref{S#3}\\} % , \cref{S#3}
    @{}p{.19\textwidth}
    @{}p{.15\textwidth}@{}}
 % Shape&{Name\newline \textsl{Legacy Name}}&Symmetry&Parameters&Reference\\\hline
-Shape&Name&Symmetry&Parameters&Reference\\\hline
+Shape&Name&Symmetry&Parameters&Reference\\\hline\\[-2ex]
+\sizedentry{Dot}{Dot3d}{2}{-2}{2}{Dot}{$R_\text{scat}$}{R$_3$}{Dot}
 \entry{FullSphere}{FullSphere3d}{FullSphere}{$R$}{R$_3$}{Sphere}
 \entry{FullSpheroid}{FullSpheroid3d}{FullSpheroid}{$R$, $H$}{D$_{\infty\h}$}{Spheroid}
 \entry{Cylinder}{Cylinder3d}{Cylinder}{$R$, $H$}{D$_{\infty\h}$}{Cylinder}
@@ -237,7 +240,7 @@ Shape&Name&Symmetry&Parameters&Reference\\\hline
 \entry{Cone}{Cone3d}{Cone}{$R$, $H$, $\alpha$}{C$_{\infty\v}$}{ConicalFrustum}
 \entry{Icosahedron}{Icosahedron3d}{Icosahedron}{$L$}{I$_\h$}{Icosahedron}
 \entry{Dodecahedron}{Dodecahedron3d}{Dodecahedron}{$L$}{I$_\h$}{Dodecahedron}
-\entry{TruncatedCube}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}{O$_\h$}{TruncatedCube}
+\entry{TruncatedCube}{TruncatedCube3d}{TruncatedCube}{$L$, $t$}{O$_\h$}{FacettedCube}
 \entry{Prism6}{Prism63d}{Prism6}{$R$, $H$}{D$_{6\h}$}{Prism6}
 \entry{Cone6}{Cone63d}{Cone6}{$R$, $H$, $\alpha$}{C$_{6\v}$}{Frustum6}
 \entry{Pyramid}{Pyramid3d}{Pyramid}{$L$, $H$, $\alpha$}{C$_{4\v}$}{Frustum4}
@@ -818,6 +821,56 @@ based on the generic form factor of the polyhedron~\cite{Wut17}.
 
 
 %===============================================================================
+\ffsection{Dot} \label{SDot}
+%===============================================================================
+\index{Dot}
+\index{FormFactorDot@\Code{FormFactorDot}}
+
+\paragraph{Real-space geometry}\strut\\
+
+A point with no spatial extension,
+hence with a constant form factor.
+This is unphysical,
+but can be used e.~g.\ to study structure factors without overlayed form factor oscillations.
+To get dimensions right, this form factor nonetheless takes an argument
+that specifies the radius of a \ffref{FullSphere} with same forward scattering power.
+
+\FloatBarrier
+
+\paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
+\begin{lstlisting}
+  FormFactorDot(double radius)
+\end{lstlisting}
+with parameter
+\begin{itemize}
+\item \texttt{radius}, $R_\text{scat}$, radius of sphere with same~$F(0)$.
+\end{itemize}
+
+\paragraph{Form factor, volume, horizontal section}\strut\\
+\begin{equation*}
+  F = \frac{4\pi}{3} R_\text{scat}^3,
+\end{equation*}
+\begin{equation*}
+  V = 0,
+\end{equation*}
+\begin{equation*}
+  S= 0.
+\end{equation*}
+
+\paragraph{History}\strut\\
+
+Up to BornAgain 1.16, we simply had $F=1$.
+The parameter $R_\text{scat}$ was introduced in release 1.17 to get
+dimensions right and to ensure correct intensity scales.
+
+\paragraph{See also}
+\begin{itemize}
+\item \ffref{FullSphere},
+\item \ffref{GaussianCoil}.
+\end{itemize}
+
+
+%===============================================================================
 \ffsection{EllipsoidalCylinder} \label{SEllipsoidalCylinder}
 %===============================================================================
 \index{Ellipsoidal cylinder}
@@ -1021,6 +1074,7 @@ which is what we wanted to prove.
 
 \paragraph{See also}
 \begin{itemize}
+\item \ffref{Dot} for $R\to0$ (but keeping $V$ finite),
 \item \ffref{Cylinder},
 \item \ffref{FullSpheroid},
 \item \ffref{TruncatedSphere}.

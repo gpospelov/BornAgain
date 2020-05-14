@@ -28,19 +28,19 @@ namespace
 std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
 {
     // initializing necessary GUI
-    const std::unique_ptr<DocumentModel> documentModel(new DocumentModel);
-    const std::unique_ptr<SampleModel> sampleModel(new SampleModel);
-    const std::unique_ptr<InstrumentModel> instrumentModel(new InstrumentModel);
-    const std::unique_ptr<MaterialModel> materialModel(new MaterialModel);
+    DocumentModel documentModel;
+    SampleModel sampleModel;
+    InstrumentModel instrumentModel;
+    MaterialModel materialModel;
 
     // populating GUI models from domain
-    GUIObjectBuilder::populateSampleModelFromSim(sampleModel.get(), materialModel.get(), origin);
-    GUIObjectBuilder::populateInstrumentModel(instrumentModel.get(), origin);
-    GUIObjectBuilder::populateDocumentModel(documentModel.get(), origin);
+    GUIObjectBuilder::populateSampleModelFromSim(&sampleModel, &materialModel, origin);
+    GUIObjectBuilder::populateInstrumentModel(&instrumentModel, origin);
+    GUIObjectBuilder::populateDocumentModel(&documentModel, origin);
 
-    auto result = DomainSimulationBuilder::createSimulation(sampleModel->multiLayerItem(),
-                                                            instrumentModel->instrumentItem(),
-                                                            documentModel->simulationOptionsItem());
+    auto result = DomainSimulationBuilder::createSimulation(sampleModel.multiLayerItem(),
+                                                            instrumentModel.instrumentItem(),
+                                                            documentModel.simulationOptionsItem());
 
     return result;
 }

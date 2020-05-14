@@ -49,14 +49,11 @@ std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
 bool GUIStandardTest::runTest()
 {
     m_reference_simulation->runSimulation();
-    auto ref_result = m_reference_simulation->result();
+    const SimulationResult& ref_result = m_reference_simulation->result();
 
-    auto domain_simulation = createDomainSimulation(*m_reference_simulation);
+    std::unique_ptr<Simulation> domain_simulation = createDomainSimulation(*m_reference_simulation);
     domain_simulation->runSimulation();
-    auto domain_result = domain_simulation->result();
+    const SimulationResult& domain_result = domain_simulation->result();
 
-    const auto domain_data = domain_result.data();
-    const auto reference_data = ref_result.data();
-
-    return TestUtils::isTheSame(*domain_data, *reference_data, m_threshold);
+    return TestUtils::isTheSame(*domain_result.data(), *ref_result.data(), m_threshold);
 }

@@ -14,14 +14,12 @@
 
 #include "Line.h"
 #include "Bin.h"
-#include "Macros.h"
 #include "Numeric.h"
+
 #include <limits>
-GCC_DIAG_OFF(unused - parameter)
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/linestring.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
-GCC_DIAG_ON(unused - parameter)
 
 using namespace boost::geometry;
 typedef model::d2::point_xy<double> point_t;

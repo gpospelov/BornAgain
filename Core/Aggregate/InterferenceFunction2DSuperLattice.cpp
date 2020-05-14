@@ -17,7 +17,6 @@
 #include "Exceptions.h"
 #include "IntegratorReal.h"
 #include "InterferenceFunctionNone.h"
-#include "Macros.h"
 #include "MathConstants.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"

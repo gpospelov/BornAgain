@@ -3218,6 +3218,10 @@ namespace swig {
 }
 
 
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+    
+
 #include <stdint.h>		// Use the C99 official header
 
 

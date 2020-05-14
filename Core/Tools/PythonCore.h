@@ -28,7 +28,11 @@
 #define NO_IMPORT_ARRAY
 #include <numpy/arrayobject.h>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include "swig_runtime.h"
+#pragma GCC diagnostic pop
 
 #endif // BORNAGAIN_PYTHON
 

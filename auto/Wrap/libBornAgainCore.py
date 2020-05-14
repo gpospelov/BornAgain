@@ -10389,6 +10389,14 @@ class FormFactorDot(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorDot_accept(self, visitor)
 
+    def getRadius(self):
+        r"""
+        getRadius(FormFactorDot self) -> double
+        double FormFactorDot::getRadius() const
+
+        """
+        return _libBornAgainCore.FormFactorDot_getRadius(self)
+
     def radialExtension(self):
         r"""
         radialExtension(FormFactorDot self) -> double

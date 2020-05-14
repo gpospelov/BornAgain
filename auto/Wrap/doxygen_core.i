@@ -3573,6 +3573,9 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
+%feature("docstring")  FormFactorDot::getRadius "double FormFactorDot::getRadius() const
+";
+
 %feature("docstring")  FormFactorDot::radialExtension "double FormFactorDot::radialExtension() const override final
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 

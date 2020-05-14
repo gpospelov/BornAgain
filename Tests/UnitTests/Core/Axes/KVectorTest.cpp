@@ -77,7 +77,11 @@ TEST_F(KVectorTest, BasicArithmetics)
     EXPECT_EQ(double(6.), a.z());
     // -=
     a = kvector_t(1., 2., 3.);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wself-assign-overloaded"
+// https://stackoverflow.com/a/57646029/1017348: a pretty stupid warning
     a -= a;
+#pragma clang diagnostic pop
     EXPECT_EQ(double(0.), a.x());
     EXPECT_EQ(double(0.), a.y());
     EXPECT_EQ(double(0.), a.z());

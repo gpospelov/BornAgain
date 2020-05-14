@@ -14,6 +14,9 @@ file(GLOB include_files "*.h")
 
 add_executable(${test} ${source_files} ${include_files})
 target_link_libraries(${test} ${BornAgainCore_LIBRARY} gtest)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(${test} PUBLIC "-Wno-deprecated-copy")
+endif()
 
 # Registering in ctest section
 add_test(${test} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${test})

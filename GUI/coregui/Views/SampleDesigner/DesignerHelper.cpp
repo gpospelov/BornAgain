@@ -37,7 +37,7 @@ QGradient DesignerHelper::getLayerGradient(const QColor& color, const QRectF& re
     result.setColorAt(0.5, c.light(200));
     result.setColorAt(1, c.dark(150));
 #endif
-    return result;
+    return std::move(result);
 }
 
 QGradient DesignerHelper::getDecorationGradient(const QColor& color, const QRectF& rect)
@@ -49,7 +49,7 @@ QGradient DesignerHelper::getDecorationGradient(const QColor& color, const QRect
     result.setColorAt(0, c);
     result.setColorAt(0.5, c.lighter(150));
     result.setColorAt(1, c);
-    return result;
+    return std::move(result);
 }
 
 QPixmap DesignerHelper::getSceneBackground()

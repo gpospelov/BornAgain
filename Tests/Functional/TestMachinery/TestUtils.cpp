@@ -40,12 +40,15 @@ bool TestUtils::isTheSame(const OutputData<double>& dat, const OutputData<double
 {
     double diff = IntensityDataFunctions::getRelativeDifference(dat, ref);
     if (diff > threshold) {
-        std::cerr << "Failed: Relative difference between dat and ref = " << diff
-                  << " is above given threshold = " << threshold << "\n";
+        std::cerr << "  => FAILED: relative deviation of dat from ref is " << diff
+                  << ", above given threshold " << threshold << "\n";
         return false;
     }
-    std::cout << "Relative difference between dat and ref = " << diff
-              << " is within given threshold = " << threshold << "\n";
+    if (diff)
+        std::cerr << "  => OK: relative deviation of dat from ref is " << diff
+                  << ", within given threshold " << threshold << "\n";
+    else
+        std::cout << "  => OK: dat = ref\n";
     return true;
 }
 

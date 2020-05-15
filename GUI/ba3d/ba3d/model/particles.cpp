@@ -239,7 +239,7 @@ Pyramid::Pyramid(float L, float H, float alpha)
     set();
 }
 
-Ripple1::Ripple1(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
+Ripple1Box::Ripple1Box(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
 {
     isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 0);

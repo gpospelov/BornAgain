@@ -4121,116 +4121,6 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
-// File: classFormFactorLongRipple1Gauss.xml
-%feature("docstring") FormFactorLongRipple1Gauss "
-
-The form factor for a cosine ripple.
-
-C++ includes: FormFactorLongRipple1Gauss.h
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss "FormFactorLongRipple1Gauss::FormFactorLongRipple1Gauss(double length, double width, double height)
-
-Ripple1 constructor.
-
-Parameters:
------------
-
-length: 
-of Ripple1
-
-width: 
-of cosine cross section
-
-height: 
-of cosine cross section 
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::clone "FormFactorLongRipple1Gauss* FormFactorLongRipple1Gauss::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::accept "void FormFactorLongRipple1Gauss::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::getHeight "double FormFactorLongRipple1Gauss::getHeight() const
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::getWidth "double FormFactorLongRipple1Gauss::getWidth() const
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::getLength "double FormFactorLongRipple1Gauss::getLength() const
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::radialExtension "double FormFactorLongRipple1Gauss::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorLongRipple1Gauss::evaluate_for_q "complex_t FormFactorLongRipple1Gauss::evaluate_for_q(cvector_t q) const override final
-
-Complex form factor. 
-";
-
-
-// File: classFormFactorLongRipple1Lorentz.xml
-%feature("docstring") FormFactorLongRipple1Lorentz "
-
-The form factor for a cosine ripple.
-
-C++ includes: FormFactorLongRipple1Lorentz.h
-";
-
-%feature("docstring")  FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz "FormFactorLongRipple1Lorentz::FormFactorLongRipple1Lorentz(double length, double width, double height)
-
-FormFactorLongRipple1Lorentz constructor.
-
-Parameters:
------------
-
-length: 
-of Ripple1
-
-width: 
-of cosine cross section
-
-height: 
-of cosine cross section 
-";
-
-%feature("docstring")  FormFactorLongRipple1Lorentz::clone "FormFactorLongRipple1Lorentz* FormFactorLongRipple1Lorentz::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorLongRipple1Lorentz::accept "void FormFactorLongRipple1Lorentz::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorLongRipple1Lorentz::radialExtension "double FormFactorLongRipple1Lorentz::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorLongRipple1Lorentz::getHeight "double FormFactorLongRipple1Lorentz::getHeight() const
-";
-
-%feature("docstring")  FormFactorLongRipple1Lorentz::getWidth "double FormFactorLongRipple1Lorentz::getWidth() const
-";
-
-%feature("docstring")  FormFactorLongRipple1Lorentz::getLength "double FormFactorLongRipple1Lorentz::getLength() const
-";
-
-%feature("docstring")  FormFactorLongRipple1Lorentz::evaluate_for_q "complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(cvector_t q) const override final
-
-Complex form factor. 
-";
-
-
 // File: classFormFactorLongRipple2Gauss.xml
 %feature("docstring") FormFactorLongRipple2Gauss "
 
@@ -4635,23 +4525,67 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classFormFactorRipple1.xml
-%feature("docstring") FormFactorRipple1 "
+// File: classFormFactorRipple1Box.xml
+%feature("docstring") FormFactorRipple1Box "
 
-The form factor for a cosine ripple.
+The form factor for a cosine ripple, with box profile in elongation direction.
 
 C++ includes: FormFactorRipple1.h
 ";
 
-%feature("docstring")  FormFactorRipple1::FormFactorRipple1 "FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
+%feature("docstring")  FormFactorRipple1Box::FormFactorRipple1Box "FormFactorRipple1Box::FormFactorRipple1Box(double length, double width, double height)
 ";
 
-%feature("docstring")  FormFactorRipple1::clone "FormFactorRipple1* FormFactorRipple1::clone() const override final
+%feature("docstring")  FormFactorRipple1Box::clone "FormFactorRipple1Box * FormFactorRipple1Box::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorRipple1::accept "void FormFactorRipple1::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  FormFactorRipple1Box::accept "void FormFactorRipple1Box::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classFormFactorRipple1Gauss.xml
+%feature("docstring") FormFactorRipple1Gauss "
+
+The form factor for a cosine ripple, with Gaussian profile in elongation direction.
+
+C++ includes: FormFactorRipple1.h
+";
+
+%feature("docstring")  FormFactorRipple1Gauss::FormFactorRipple1Gauss "FormFactorRipple1Gauss::FormFactorRipple1Gauss(double length, double width, double height)
+";
+
+%feature("docstring")  FormFactorRipple1Gauss::clone "FormFactorRipple1Gauss * FormFactorRipple1Gauss::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorRipple1Gauss::accept "void FormFactorRipple1Gauss::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classFormFactorRipple1Lorentz.xml
+%feature("docstring") FormFactorRipple1Lorentz "
+
+The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
+
+C++ includes: FormFactorRipple1.h
+";
+
+%feature("docstring")  FormFactorRipple1Lorentz::FormFactorRipple1Lorentz "FormFactorRipple1Lorentz::FormFactorRipple1Lorentz(double length, double width, double height)
+";
+
+%feature("docstring")  FormFactorRipple1Lorentz::clone "FormFactorRipple1Lorentz * FormFactorRipple1Lorentz::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorRipple1Lorentz::accept "void FormFactorRipple1Lorentz::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
@@ -8134,7 +8068,13 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorPyramid *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple1 *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple1Box *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple1Gauss *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple1Lorentz *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple2 *)
@@ -17102,10 +17042,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17171,133 +17111,133 @@ C++ includes: ZLimits.h
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d195.xml
+// File: namespace_0d191.xml
 
 
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d225.xml
+// File: namespace_0d222.xml
 
 
-// File: namespace_0d233.xml
+// File: namespace_0d230.xml
 
 
-// File: namespace_0d239.xml
+// File: namespace_0d236.xml
 
 
-// File: namespace_0d243.xml
+// File: namespace_0d240.xml
 
 
-// File: namespace_0d293.xml
+// File: namespace_0d290.xml
 
 
-// File: namespace_0d302.xml
+// File: namespace_0d299.xml
 
 
-// File: namespace_0d310.xml
+// File: namespace_0d307.xml
 
 
-// File: namespace_0d314.xml
+// File: namespace_0d311.xml
 
 
-// File: namespace_0d316.xml
+// File: namespace_0d313.xml
 
 
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d328.xml
+// File: namespace_0d325.xml
 
 
-// File: namespace_0d334.xml
+// File: namespace_0d331.xml
 
 
-// File: namespace_0d355.xml
+// File: namespace_0d352.xml
 
 
-// File: namespace_0d359.xml
+// File: namespace_0d356.xml
 
 
-// File: namespace_0d361.xml
+// File: namespace_0d358.xml
 
 
-// File: namespace_0d363.xml
+// File: namespace_0d360.xml
 
 
-// File: namespace_0d373.xml
+// File: namespace_0d370.xml
 
 
-// File: namespace_0d386.xml
+// File: namespace_0d383.xml
 
 
-// File: namespace_0d390.xml
+// File: namespace_0d387.xml
+
+
+// File: namespace_0d399.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d402.xml
+// File: namespace_0d405.xml
 
 
-// File: namespace_0d408.xml
+// File: namespace_0d410.xml
 
 
-// File: namespace_0d413.xml
+// File: namespace_0d412.xml
 
 
-// File: namespace_0d415.xml
+// File: namespace_0d416.xml
 
 
-// File: namespace_0d419.xml
+// File: namespace_0d418.xml
 
 
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d421.xml
+// File: namespace_0d428.xml
 
 
-// File: namespace_0d431.xml
+// File: namespace_0d441.xml
 
 
-// File: namespace_0d444.xml
+// File: namespace_0d450.xml
 
 
-// File: namespace_0d453.xml
+// File: namespace_0d452.xml
 
 
-// File: namespace_0d455.xml
+// File: namespace_0d486.xml
 
 
-// File: namespace_0d489.xml
+// File: namespace_0d493.xml
 
 
-// File: namespace_0d496.xml
+// File: namespace_0d531.xml
 
 
-// File: namespace_0d534.xml
+// File: namespace_0d539.xml
 
 
-// File: namespace_0d542.xml
+// File: namespace_0d541.xml
 
 
-// File: namespace_0d544.xml
-
-
-// File: namespace_0d546.xml
+// File: namespace_0d543.xml
 
 
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d630.xml
+// File: namespace_0d627.xml
 
 
-// File: namespace_0d634.xml
+// File: namespace_0d631.xml
 
 
-// File: namespace_0d658.xml
+// File: namespace_0d655.xml
 
 
 // File: namespace_0d97.xml
@@ -18955,18 +18895,6 @@ global helper function for comparison of axes
 // File: FormFactorLongBoxLorentz_8h.xml
 
 
-// File: FormFactorLongRipple1Gauss_8cpp.xml
-
-
-// File: FormFactorLongRipple1Gauss_8h.xml
-
-
-// File: FormFactorLongRipple1Lorentz_8cpp.xml
-
-
-// File: FormFactorLongRipple1Lorentz_8h.xml
-
-
 // File: FormFactorLongRipple2Gauss_8cpp.xml
 
 
@@ -19001,6 +18929,9 @@ global helper function for comparison of axes
 
 
 // File: FormFactorPyramid_8h.xml
+
+
+// File: FormFactorRipple1_8cpp.xml
 
 
 // File: FormFactorRipple1_8h.xml

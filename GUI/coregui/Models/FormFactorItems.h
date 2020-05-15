@@ -176,13 +176,13 @@ public:
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
-class BA_CORE_API_ Ripple1Item : public FormFactorItem
+class BA_CORE_API_ Ripple1BoxItem : public FormFactorItem
 {
 public:
     static const QString P_LENGTH;
     static const QString P_WIDTH;
     static const QString P_HEIGHT;
-    Ripple1Item();
+    Ripple1BoxItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 

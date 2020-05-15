@@ -56,7 +56,9 @@ class FormFactorLorentz;
 class FormFactorPrism3;
 class FormFactorPrism6;
 class FormFactorPyramid;
-class FormFactorRipple1;
+class FormFactorRipple1Box;
+class FormFactorRipple1Gauss;
+class FormFactorRipple1Lorentz;
 class FormFactorRipple2;
 class FormFactorSphereGaussianRadius;
 class FormFactorSphereLogNormalRadius;
@@ -187,7 +189,9 @@ public:
     virtual void visit(const FormFactorPrism3*) {}
     virtual void visit(const FormFactorPrism6*) {}
     virtual void visit(const FormFactorPyramid*) {}
-    virtual void visit(const FormFactorRipple1*) {}
+    virtual void visit(const FormFactorRipple1Box*) {}
+    virtual void visit(const FormFactorRipple1Gauss*) {}
+    virtual void visit(const FormFactorRipple1Lorentz*) {}
     virtual void visit(const FormFactorRipple2*) {}
     virtual void visit(const FormFactorSphereGaussianRadius*) {}
     virtual void visit(const FormFactorSphereLogNormalRadius*) {}

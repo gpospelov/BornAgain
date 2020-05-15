@@ -22,10 +22,10 @@ complex_t ripples::factor_x_box(complex_t q, double r)
 
 complex_t ripples::factor_x_Gauss(complex_t q, double r)
 {
-    return r * MathFunctions::sinc(q*r/2.0);
+    return r * exp(-q*r/8.0);
 }
 
 complex_t ripples::factor_x_Lorentz(complex_t q, double r)
 {
-    return r * MathFunctions::sinc(q*r/2.0);
+    return r / (1.0 + (q*r)*(q*r));
 }

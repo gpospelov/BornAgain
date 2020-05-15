@@ -28,7 +28,6 @@
 ProfileRipple1::ProfileRipple1(double length, double width, double height)
     : m_length(length), m_width(width), m_height(height)
 {
-    setName(BornAgain::FFRipple1Type);
     check_initialization();
     registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();

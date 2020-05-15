@@ -15,16 +15,17 @@
 #ifndef FORMFACTORRIPPLE1_H
 #define FORMFACTORRIPPLE1_H
 
-#include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
+#include "ProfileRipple1.h"
+#include "Ripples.h"
 
 //! The form factor for a cosine ripple.
 //! @ingroup legacyGrating
 
-class BA_CORE_API_ FormFactorRipple1 : public IFormFactorBorn
+class BA_CORE_API_ FormFactorRipple1 : public ProfileRipple1
 {
 public:
-    FormFactorRipple1(double length, double width, double height);
+    FormFactorRipple1(double length, double width, double height) :
+        ProfileRipple1{length, width, height} {}
 
     FormFactorRipple1* clone() const override final
     {
@@ -32,31 +33,11 @@ public:
     }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    double getLength() const { return m_length; }
-    double getHeight() const { return m_height; }
-    double getWidth() const { return m_width; }
-
-    double radialExtension() const override final;
-
-    complex_t evaluate_for_q(cvector_t q) const override final;
-
-protected:
-    void onChange() override final;
-
 private:
-    complex_t Integrand(double u) const;
-    bool check_initialization() const;
+    complex_t factor_x(complex_t qx) const override final {
+        return ripples::factor_x_box(qx, m_length);
+    }
 
-    double m_length;
-    double m_width;
-    double m_height;
-
-    mutable complex_t m_ay;
-    mutable complex_t m_az;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorRipple1>> mP_integrator;
-#endif
 };
 
 #endif // FORMFACTORRIPPLE1_H

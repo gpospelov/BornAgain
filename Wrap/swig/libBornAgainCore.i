@@ -346,6 +346,8 @@
 %include "IFormFactorBorn.h"
 %include "IFormFactorDecorator.h"
 %include "FormFactorPolyhedron.h"
+%include "ProfileRipple1.h"
+%include "Ripples.h"
 
 %include "FormFactorAnisoPyramid.h"
 %include "FormFactorBox.h"

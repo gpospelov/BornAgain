@@ -4644,20 +4644,6 @@ C++ includes: FormFactorRipple1.h
 ";
 
 %feature("docstring")  FormFactorRipple1::FormFactorRipple1 "FormFactorRipple1::FormFactorRipple1(double length, double width, double height)
-
-Constructor of cosine ripple.
-
-Parameters:
------------
-
-length: 
-length of the rectangular base in nanometers
-
-width: 
-width of the rectangular base in nanometers
-
-height: 
-height of the ripple in nanometers 
 ";
 
 %feature("docstring")  FormFactorRipple1::clone "FormFactorRipple1* FormFactorRipple1::clone() const override final
@@ -4668,25 +4654,6 @@ Returns a clone of this  ISample object.
 %feature("docstring")  FormFactorRipple1::accept "void FormFactorRipple1::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorRipple1::getLength "double FormFactorRipple1::getLength() const
-";
-
-%feature("docstring")  FormFactorRipple1::getHeight "double FormFactorRipple1::getHeight() const
-";
-
-%feature("docstring")  FormFactorRipple1::getWidth "double FormFactorRipple1::getWidth() const
-";
-
-%feature("docstring")  FormFactorRipple1::radialExtension "double FormFactorRipple1::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorRipple1::evaluate_for_q "complex_t FormFactorRipple1::evaluate_for_q(cvector_t q) const override final
-
-Complex form factor. 
 ";
 
 
@@ -13417,6 +13384,51 @@ Fourier transform of the correlation function of roughnesses between the interfa
 ";
 
 
+// File: classProfileRipple1.xml
+%feature("docstring") ProfileRipple1 "
+
+Base class for form factors with a cosine ripple profile in the yz plane.
+
+C++ includes: ProfileRipple1.h
+";
+
+%feature("docstring")  ProfileRipple1::ProfileRipple1 "ProfileRipple1::ProfileRipple1(double length, double width, double height)
+
+Constructor of cosine ripple.
+
+Parameters:
+-----------
+
+length: 
+length of the rectangular base in nanometers
+
+width: 
+width of the rectangular base in nanometers
+
+height: 
+height of the ripple in nanometers 
+";
+
+%feature("docstring")  ProfileRipple1::getLength "double ProfileRipple1::getLength() const
+";
+
+%feature("docstring")  ProfileRipple1::getHeight "double ProfileRipple1::getHeight() const
+";
+
+%feature("docstring")  ProfileRipple1::getWidth "double ProfileRipple1::getWidth() const
+";
+
+%feature("docstring")  ProfileRipple1::radialExtension "double ProfileRipple1::radialExtension() const override final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  ProfileRipple1::evaluate_for_q "complex_t ProfileRipple1::evaluate_for_q(cvector_t q) const override final
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+
 // File: classProgressHandler.xml
 %feature("docstring") ProgressHandler "
 
@@ -17090,10 +17102,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17165,127 +17177,127 @@ C++ includes: ZLimits.h
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d222.xml
+// File: namespace_0d225.xml
 
 
-// File: namespace_0d230.xml
+// File: namespace_0d233.xml
 
 
-// File: namespace_0d236.xml
+// File: namespace_0d239.xml
 
 
-// File: namespace_0d240.xml
+// File: namespace_0d243.xml
 
 
-// File: namespace_0d290.xml
+// File: namespace_0d293.xml
 
 
-// File: namespace_0d299.xml
+// File: namespace_0d302.xml
 
 
-// File: namespace_0d307.xml
+// File: namespace_0d310.xml
 
 
-// File: namespace_0d311.xml
+// File: namespace_0d314.xml
 
 
-// File: namespace_0d313.xml
+// File: namespace_0d316.xml
 
 
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d325.xml
+// File: namespace_0d328.xml
 
 
-// File: namespace_0d331.xml
+// File: namespace_0d334.xml
 
 
-// File: namespace_0d352.xml
+// File: namespace_0d355.xml
 
 
-// File: namespace_0d356.xml
+// File: namespace_0d359.xml
 
 
-// File: namespace_0d358.xml
+// File: namespace_0d361.xml
 
 
-// File: namespace_0d360.xml
+// File: namespace_0d363.xml
 
 
-// File: namespace_0d370.xml
+// File: namespace_0d373.xml
 
 
-// File: namespace_0d383.xml
+// File: namespace_0d386.xml
 
 
-// File: namespace_0d387.xml
-
-
-// File: namespace_0d399.xml
+// File: namespace_0d390.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d405.xml
+// File: namespace_0d402.xml
 
 
-// File: namespace_0d410.xml
+// File: namespace_0d408.xml
 
 
-// File: namespace_0d412.xml
+// File: namespace_0d413.xml
 
 
-// File: namespace_0d416.xml
+// File: namespace_0d415.xml
 
 
-// File: namespace_0d418.xml
+// File: namespace_0d419.xml
 
 
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d428.xml
+// File: namespace_0d421.xml
 
 
-// File: namespace_0d441.xml
+// File: namespace_0d431.xml
 
 
-// File: namespace_0d450.xml
+// File: namespace_0d444.xml
 
 
-// File: namespace_0d452.xml
+// File: namespace_0d453.xml
 
 
-// File: namespace_0d486.xml
+// File: namespace_0d455.xml
 
 
-// File: namespace_0d493.xml
+// File: namespace_0d489.xml
 
 
-// File: namespace_0d531.xml
+// File: namespace_0d496.xml
 
 
-// File: namespace_0d539.xml
+// File: namespace_0d534.xml
 
 
-// File: namespace_0d541.xml
+// File: namespace_0d542.xml
 
 
-// File: namespace_0d543.xml
+// File: namespace_0d544.xml
+
+
+// File: namespace_0d546.xml
 
 
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d627.xml
+// File: namespace_0d630.xml
 
 
-// File: namespace_0d631.xml
+// File: namespace_0d634.xml
 
 
-// File: namespace_0d655.xml
+// File: namespace_0d658.xml
 
 
 // File: namespace_0d97.xml
@@ -18123,6 +18135,17 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 %feature("docstring")  PythonFormatting::printInt "BA_CORE_API_ std::string PythonFormatting::printInt(int value)
+";
+
+
+// File: namespaceripples.xml
+%feature("docstring")  ripples::factor_x_box "complex_t ripples::factor_x_box(complex_t q, double l)
+";
+
+%feature("docstring")  ripples::factor_x_Gauss "complex_t ripples::factor_x_Gauss(complex_t q, double l)
+";
+
+%feature("docstring")  ripples::factor_x_Lorentz "complex_t ripples::factor_x_Lorentz(complex_t q, double l)
 ";
 
 
@@ -18980,9 +19003,6 @@ global helper function for comparison of axes
 // File: FormFactorPyramid_8h.xml
 
 
-// File: FormFactorRipple1_8cpp.xml
-
-
 // File: FormFactorRipple1_8h.xml
 
 
@@ -19020,6 +19040,18 @@ global helper function for comparison of axes
 
 
 // File: FormFactorTruncatedSpheroid_8h.xml
+
+
+// File: ProfileRipple1_8cpp.xml
+
+
+// File: ProfileRipple1_8h.xml
+
+
+// File: Ripples_8cpp.xml
+
+
+// File: Ripples_8h.xml
 
 
 // File: FormFactors_8h.xml

@@ -8,8 +8,8 @@ from __future__ import print_function
 import os, sys, unittest
 
 import utils
-import libBornAgainCore as ba
-from libBornAgainCore import deg, kvector_t
+import bornagain as ba
+from bornagain import deg, kvector_t
 
 layer_thickness = 100
 

@@ -100,7 +100,6 @@ const std::string FFFullSpheroidType = "FullSpheroid";
 const std::string FFGaussType = "FormFactorGauss";
 const std::string FFHemiEllipsoidType = "HemiEllipsoid";
 const std::string FFIcosahedronType = "Icosahedron";
-const std::string FFLongBoxType = "FormFactorLongBox";
 const std::string FFLongBoxGaussType = "FormFactorLongBoxGauss";
 const std::string FFLongBoxLorentzType = "FormFactorLongBoxLorentz";
 const std::string FFLorentzType = "FormFactorLorentz";

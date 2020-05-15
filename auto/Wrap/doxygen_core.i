@@ -4011,61 +4011,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classFormFactorLongBox.xml
-%feature("docstring") FormFactorLongBox "
-
-The form factor for a long rectangular box. Approximates the rapidly oscillating sinc function by the square root of a Lorentzian
-
-C++ includes: FormFactorLongBox.h
-";
-
-%feature("docstring")  FormFactorLongBox::FormFactorLongBox "FormFactorLongBox::FormFactorLongBox(double length, double width, double height)
-
-Box constructor.
-
-Parameters:
------------
-
-length: 
-of  Box's base
-
-width: 
-of  Box's base
-
-height: 
-of  Box
-";
-
-%feature("docstring")  FormFactorLongBox::clone "FormFactorLongBox* FormFactorLongBox::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorLongBox::accept "void FormFactorLongBox::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorLongBox::getLength "double FormFactorLongBox::getLength() const
-";
-
-%feature("docstring")  FormFactorLongBox::getHeight "double FormFactorLongBox::getHeight() const
-";
-
-%feature("docstring")  FormFactorLongBox::getWidth "double FormFactorLongBox::getWidth() const
-";
-
-%feature("docstring")  FormFactorLongBox::radialExtension "double FormFactorLongBox::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorLongBox::evaluate_for_q "complex_t FormFactorLongBox::evaluate_for_q(cvector_t q) const override final
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
 // File: classFormFactorLongBoxGauss.xml
 %feature("docstring") FormFactorLongBoxGauss "
 
@@ -8202,9 +8147,6 @@ C++ includes: INodeVisitor.h
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorIcosahedron *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorLongBox *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorLongBoxGauss *)
@@ -17217,49 +17159,52 @@ C++ includes: ZLimits.h
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d197.xml
+// File: namespace_0d195.xml
 
 
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d224.xml
+// File: namespace_0d222.xml
 
 
-// File: namespace_0d232.xml
+// File: namespace_0d230.xml
 
 
-// File: namespace_0d238.xml
+// File: namespace_0d236.xml
 
 
-// File: namespace_0d242.xml
+// File: namespace_0d240.xml
 
 
-// File: namespace_0d292.xml
+// File: namespace_0d290.xml
 
 
-// File: namespace_0d301.xml
+// File: namespace_0d299.xml
 
 
-// File: namespace_0d309.xml
+// File: namespace_0d307.xml
+
+
+// File: namespace_0d311.xml
 
 
 // File: namespace_0d313.xml
 
 
-// File: namespace_0d315.xml
-
-
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d327.xml
+// File: namespace_0d325.xml
 
 
-// File: namespace_0d333.xml
+// File: namespace_0d331.xml
 
 
-// File: namespace_0d354.xml
+// File: namespace_0d352.xml
+
+
+// File: namespace_0d356.xml
 
 
 // File: namespace_0d358.xml
@@ -17268,31 +17213,31 @@ C++ includes: ZLimits.h
 // File: namespace_0d360.xml
 
 
-// File: namespace_0d362.xml
+// File: namespace_0d370.xml
 
 
-// File: namespace_0d372.xml
+// File: namespace_0d383.xml
 
 
-// File: namespace_0d385.xml
+// File: namespace_0d387.xml
 
 
-// File: namespace_0d389.xml
+// File: namespace_0d399.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d401.xml
+// File: namespace_0d405.xml
 
 
-// File: namespace_0d407.xml
+// File: namespace_0d410.xml
 
 
 // File: namespace_0d412.xml
 
 
-// File: namespace_0d414.xml
+// File: namespace_0d416.xml
 
 
 // File: namespace_0d418.xml
@@ -17301,28 +17246,28 @@ C++ includes: ZLimits.h
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d420.xml
+// File: namespace_0d428.xml
 
 
-// File: namespace_0d430.xml
+// File: namespace_0d441.xml
 
 
-// File: namespace_0d443.xml
+// File: namespace_0d450.xml
 
 
 // File: namespace_0d452.xml
 
 
-// File: namespace_0d454.xml
+// File: namespace_0d486.xml
 
 
-// File: namespace_0d488.xml
+// File: namespace_0d493.xml
 
 
-// File: namespace_0d495.xml
+// File: namespace_0d531.xml
 
 
-// File: namespace_0d533.xml
+// File: namespace_0d539.xml
 
 
 // File: namespace_0d541.xml
@@ -17331,19 +17276,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d543.xml
 
 
-// File: namespace_0d545.xml
-
-
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d629.xml
+// File: namespace_0d627.xml
 
 
-// File: namespace_0d633.xml
+// File: namespace_0d631.xml
 
 
-// File: namespace_0d657.xml
+// File: namespace_0d655.xml
 
 
 // File: namespace_0d97.xml
@@ -18976,12 +18918,6 @@ global helper function for comparison of axes
 
 
 // File: FormFactorIcosahedron_8h.xml
-
-
-// File: FormFactorLongBox_8cpp.xml
-
-
-// File: FormFactorLongBox_8h.xml
 
 
 // File: FormFactorLongBoxGauss_8cpp.xml

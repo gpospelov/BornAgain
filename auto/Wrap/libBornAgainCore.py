@@ -5839,7 +5839,6 @@ class INodeVisitor(object):
         visit(INodeVisitor self, FormFactorGauss arg2)
         visit(INodeVisitor self, FormFactorHemiEllipsoid arg2)
         visit(INodeVisitor self, FormFactorIcosahedron arg2)
-        visit(INodeVisitor self, FormFactorLongBox arg2)
         visit(INodeVisitor self, FormFactorLongBoxGauss arg2)
         visit(INodeVisitor self, FormFactorLongBoxLorentz arg2)
         visit(INodeVisitor self, FormFactorLorentz arg2)
@@ -10982,109 +10981,6 @@ class FormFactorIcosahedron(FormFactorPolyhedron):
 
 # Register FormFactorIcosahedron in _libBornAgainCore:
 _libBornAgainCore.FormFactorIcosahedron_swigregister(FormFactorIcosahedron)
-
-class FormFactorLongBox(IFormFactorBorn):
-    r"""
-
-
-    The form factor for a long rectangular box. Approximates the rapidly oscillating sinc function by the square root of a Lorentzian
-
-    C++ includes: FormFactorLongBox.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, length, width, height):
-        r"""
-        __init__(FormFactorLongBox self, double length, double width, double height) -> FormFactorLongBox
-        FormFactorLongBox::FormFactorLongBox(double length, double width, double height)
-
-        Box constructor.
-
-        Parameters:
-        -----------
-
-        length: 
-        of  Box's base
-
-        width: 
-        of  Box's base
-
-        height: 
-        of  Box
-
-        """
-        _libBornAgainCore.FormFactorLongBox_swiginit(self, _libBornAgainCore.new_FormFactorLongBox(length, width, height))
-
-    def clone(self):
-        r"""
-        clone(FormFactorLongBox self) -> FormFactorLongBox
-        FormFactorLongBox* FormFactorLongBox::clone() const override final
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainCore.FormFactorLongBox_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(FormFactorLongBox self, INodeVisitor visitor)
-        void FormFactorLongBox::accept(INodeVisitor *visitor) const override final
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.FormFactorLongBox_accept(self, visitor)
-
-    def getLength(self):
-        r"""
-        getLength(FormFactorLongBox self) -> double
-        double FormFactorLongBox::getLength() const
-
-        """
-        return _libBornAgainCore.FormFactorLongBox_getLength(self)
-
-    def getHeight(self):
-        r"""
-        getHeight(FormFactorLongBox self) -> double
-        double FormFactorLongBox::getHeight() const
-
-        """
-        return _libBornAgainCore.FormFactorLongBox_getHeight(self)
-
-    def getWidth(self):
-        r"""
-        getWidth(FormFactorLongBox self) -> double
-        double FormFactorLongBox::getWidth() const
-
-        """
-        return _libBornAgainCore.FormFactorLongBox_getWidth(self)
-
-    def radialExtension(self):
-        r"""
-        radialExtension(FormFactorLongBox self) -> double
-        double FormFactorLongBox::radialExtension() const override final
-
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-
-        """
-        return _libBornAgainCore.FormFactorLongBox_radialExtension(self)
-
-    def evaluate_for_q(self, q):
-        r"""
-        evaluate_for_q(FormFactorLongBox self, cvector_t q) -> complex_t
-        complex_t FormFactorLongBox::evaluate_for_q(cvector_t q) const override final
-
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-
-        """
-        return _libBornAgainCore.FormFactorLongBox_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorLongBox
-
-# Register FormFactorLongBox in _libBornAgainCore:
-_libBornAgainCore.FormFactorLongBox_swigregister(FormFactorLongBox)
 
 class FormFactorLongBoxGauss(IFormFactorBorn):
     r"""

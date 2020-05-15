@@ -49,7 +49,7 @@ FormFactorComponents::FormFactorComponents()
 
     add(BornAgain::FFDodecahedronType, new FormFactorDodecahedron(5.0));
 
-    add(BornAgain::FFDotType, new FormFactorDot());
+    add(BornAgain::FFDotType, new FormFactorDot(5.0));
 
     add(BornAgain::FFEllipsoidalCylinderType, new FormFactorEllipsoidalCylinder(5.0, 10.0, 15.0));
 

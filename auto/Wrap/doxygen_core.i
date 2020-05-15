@@ -1295,7 +1295,7 @@ C++ includes: CylindersAndPrismsBuilder.h
 // File: classCylindersInBABuilder.xml
 %feature("docstring") CylindersInBABuilder "
 
-Builds sample: cylinder formfactor in BA (IsGISAXS example #3, part II).
+Builds sample: cylinder form factor in BA (IsGISAXS example #3, part II).
 
 C++ includes: CylindersBuilder.h
 ";
@@ -1310,7 +1310,7 @@ C++ includes: CylindersBuilder.h
 // File: classCylindersInDWBABuilder.xml
 %feature("docstring") CylindersInDWBABuilder "
 
-Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I).
+Builds sample: cylinder form factor in DWBA (IsGISAXS example #3, part I).
 
 C++ includes: CylindersBuilder.h
 ";
@@ -1603,6 +1603,9 @@ C++ includes: DetectorContext.h
 ";
 
 %feature("docstring")  DetectorContext::DetectorContext "DetectorContext::DetectorContext(const IDetector2D *detector)
+";
+
+%feature("docstring")  DetectorContext::DetectorContext "DetectorContext::DetectorContext(const DetectorContext &other)=delete
 ";
 
 %feature("docstring")  DetectorContext::numberOfSimulationElements "size_t DetectorContext::numberOfSimulationElements() const
@@ -3180,7 +3183,7 @@ Calculates and returns a polarized form factor calculation in DWBA.
 // File: classFormFactorCrystal.xml
 %feature("docstring") FormFactorCrystal "
 
-The formfactor of a  MesoCrystal.
+The form factor of a  MesoCrystal.
 
 C++ includes: FormFactorCrystal.h
 ";
@@ -3340,7 +3343,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 // File: classFormFactorDebyeBueche.xml
 %feature("docstring") FormFactorDebyeBueche "
 
-The formfactor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
+The form factor of a Debye-Bueche (see doi:10.1038/pj.2010.110).
 
 C++ includes: FormFactorDebyeBueche.h
 ";
@@ -3417,7 +3420,7 @@ Returns scattering amplitude for matrix interactions.
 // File: classFormFactorDecoratorPositionFactor.xml
 %feature("docstring") FormFactorDecoratorPositionFactor "
 
-Decorates a formfactor with a position dependent phase factor.
+Decorates a form factor with a position dependent phase factor.
 
 C++ includes: FormFactorDecoratorPositionFactor.h
 ";
@@ -3459,7 +3462,7 @@ Returns scattering amplitude for matrix interactions.
 // File: classFormFactorDecoratorRotation.xml
 %feature("docstring") FormFactorDecoratorRotation "
 
-Equips a formfactor with a rotation.
+Equips a form factor with a rotation.
 
 C++ includes: FormFactorDecoratorRotation.h
 ";
@@ -3544,12 +3547,20 @@ Calls the  INodeVisitor's visit method.
 // File: classFormFactorDot.xml
 %feature("docstring") FormFactorDot "
 
-A dot, with trivial formfactor F(q)=1.
+A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
 
 C++ includes: FormFactorDot.h
 ";
 
-%feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot()
+%feature("docstring")  FormFactorDot::FormFactorDot "FormFactorDot::FormFactorDot(double radius)
+
+Constructor.
+
+Parameters:
+-----------
+
+rscat: 
+radius of a sphere with same forward scattering power, in nanometers 
 ";
 
 %feature("docstring")  FormFactorDot::clone "FormFactorDot* FormFactorDot::clone() const override final
@@ -3562,12 +3573,25 @@ Returns a clone of this  ISample object.
 Calls the  INodeVisitor's visit method. 
 ";
 
+%feature("docstring")  FormFactorDot::getRadius "double FormFactorDot::getRadius() const
+";
+
 %feature("docstring")  FormFactorDot::radialExtension "double FormFactorDot::radialExtension() const override final
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
 
-%feature("docstring")  FormFactorDot::evaluate_for_q "complex_t FormFactorDot::evaluate_for_q(cvector_t) const override final
+%feature("docstring")  FormFactorDot::bottomZ "double FormFactorDot::bottomZ(const IRotation &) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorDot::topZ "double FormFactorDot::topZ(const IRotation &) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorDot::evaluate_for_q "complex_t FormFactorDot::evaluate_for_q(cvector_t q) const override final
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
@@ -3858,7 +3882,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 // File: classFormFactorGauss.xml
 %feature("docstring") FormFactorGauss "
 
-The formfactor of a gaussian.
+The form factor of a gaussian.
 
 C++ includes: FormFactorGauss.h
 ";
@@ -3990,7 +4014,7 @@ Calls the  INodeVisitor's visit method.
 // File: classFormFactorLongBox.xml
 %feature("docstring") FormFactorLongBox "
 
-The formfactor for a long rectangular box. Approximates the rapidly oscillating sinc function by the square root of a Lorentzian
+The form factor for a long rectangular box. Approximates the rapidly oscillating sinc function by the square root of a Lorentzian
 
 C++ includes: FormFactorLongBox.h
 ";
@@ -4045,7 +4069,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 // File: classFormFactorLongBoxGauss.xml
 %feature("docstring") FormFactorLongBoxGauss "
 
-The formfactor for a long rectangular box.
+The form factor for a long rectangular box.
 
 C++ includes: FormFactorLongBoxGauss.h
 ";
@@ -4100,7 +4124,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 // File: classFormFactorLongBoxLorentz.xml
 %feature("docstring") FormFactorLongBoxLorentz "
 
-The formfactor for a long rectangular box.
+The form factor for a long rectangular box.
 
 C++ includes: FormFactorLongBoxLorentz.h
 ";
@@ -4155,7 +4179,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 // File: classFormFactorLongRipple1Gauss.xml
 %feature("docstring") FormFactorLongRipple1Gauss "
 
-The formfactor for a cosine ripple.
+The form factor for a cosine ripple.
 
 C++ includes: FormFactorLongRipple1Gauss.h
 ";
@@ -4203,14 +4227,14 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorLongRipple1Gauss::evaluate_for_q "complex_t FormFactorLongRipple1Gauss::evaluate_for_q(cvector_t q) const override final
 
-Complex formfactor. 
+Complex form factor. 
 ";
 
 
 // File: classFormFactorLongRipple1Lorentz.xml
 %feature("docstring") FormFactorLongRipple1Lorentz "
 
-The formfactor for a cosine ripple.
+The form factor for a cosine ripple.
 
 C++ includes: FormFactorLongRipple1Lorentz.h
 ";
@@ -4258,14 +4282,14 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorLongRipple1Lorentz::evaluate_for_q "complex_t FormFactorLongRipple1Lorentz::evaluate_for_q(cvector_t q) const override final
 
-Complex formfactor. 
+Complex form factor. 
 ";
 
 
 // File: classFormFactorLongRipple2Gauss.xml
 %feature("docstring") FormFactorLongRipple2Gauss "
 
-The formfactor for a triangular ripple.
+The form factor for a triangular ripple.
 
 C++ includes: FormFactorLongRipple2Gauss.h
 ";
@@ -4319,14 +4343,14 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorLongRipple2Gauss::evaluate_for_q "complex_t FormFactorLongRipple2Gauss::evaluate_for_q(cvector_t q) const override final
 
-Complex formfactor. 
+Complex form factor. 
 ";
 
 
 // File: classFormFactorLongRipple2Lorentz.xml
 %feature("docstring") FormFactorLongRipple2Lorentz "
 
-The formfactor for a triangular ripple.
+The form factor for a triangular ripple.
 
 C++ includes: FormFactorLongRipple2Lorentz.h
 ";
@@ -4378,14 +4402,14 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorLongRipple2Lorentz::evaluate_for_q "complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const override final
 
-Complex formfactor. 
+Complex form factor. 
 ";
 
 
 // File: classFormFactorLorentz.xml
 %feature("docstring") FormFactorLorentz "
 
-The formfactor of a lorentzian.
+The form factor of a lorentzian.
 
 C++ includes: FormFactorLorentz.h
 ";
@@ -4426,7 +4450,7 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 // File: classFormFactorOrnsteinZernike.xml
 %feature("docstring") FormFactorOrnsteinZernike "
 
-The formfactor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
+The form factor of a Ornstein-Zernike (see doi:10.1038/pj.2010.110).
 
 C++ includes: FormFactorOrnsteinZernike.h
 ";
@@ -4669,7 +4693,7 @@ Calls the  INodeVisitor's visit method.
 // File: classFormFactorRipple1.xml
 %feature("docstring") FormFactorRipple1 "
 
-The formfactor for a cosine ripple.
+The form factor for a cosine ripple.
 
 C++ includes: FormFactorRipple1.h
 ";
@@ -4717,14 +4741,14 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorRipple1::evaluate_for_q "complex_t FormFactorRipple1::evaluate_for_q(cvector_t q) const override final
 
-Complex formfactor. 
+Complex form factor. 
 ";
 
 
 // File: classFormFactorRipple2.xml
 %feature("docstring") FormFactorRipple2 "
 
-The formfactor for a triangular ripple.
+The form factor for a triangular ripple.
 
 C++ includes: FormFactorRipple2.h
 ";
@@ -4778,7 +4802,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorRipple2::evaluate_for_q "complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const override final
 
-Complex formfactor. 
+Complex form factor. 
 ";
 
 
@@ -5038,7 +5062,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorTruncatedSphere::evaluate_for_q "complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const override final
 
-Complex formfactor. 
+Complex form factor. 
 ";
 
 
@@ -10104,6 +10128,9 @@ Print scan definition in python format.
 // File: classISpecularStrategy.xml
 %feature("docstring") ISpecularStrategy "";
 
+%feature("docstring")  ISpecularStrategy::~ISpecularStrategy "virtual ISpecularStrategy::~ISpecularStrategy()=default
+";
+
 %feature("docstring")  ISpecularStrategy::Execute "virtual coeffs_t ISpecularStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const =0
 ";
 
@@ -11169,7 +11196,7 @@ Returns true if material has refractive index of (1.0, 0.0) and zero magnetizati
 
 %feature("docstring")  Material::scalarSubtrSLD "complex_t Material::scalarSubtrSLD(const WavevectorInfo &wavevectors) const
 
-Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density. 
+Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density 
 ";
 
 %feature("docstring")  Material::polarizedSubtrSLD "Eigen::Matrix2cd Material::polarizedSubtrSLD(const WavevectorInfo &wavevectors) const
@@ -11219,7 +11246,7 @@ Returns type of material implementation.
 
 %feature("docstring")  MaterialBySLDImpl::scalarSubtrSLD "complex_t MaterialBySLDImpl::scalarSubtrSLD(const WavevectorInfo &wavevectors) const override
 
-Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density. 
+Returns (  $ \\\\pi/\\\\lambda^2 $ - sld), sld (in  $nm^{-2}$) being the scattering length density 
 ";
 
 %feature("docstring")  MaterialBySLDImpl::print "void MaterialBySLDImpl::print(std::ostream &ostr) const override
@@ -11542,6 +11569,21 @@ Returns a vector of children (const).
 ";
 
 %feature("docstring")  MultiLayer::roughnessModel "RoughnessModel MultiLayer::roughnessModel() const
+";
+
+
+// File: classMultiLayerWithNCRoughnessBuilder.xml
+%feature("docstring") MultiLayerWithNCRoughnessBuilder "
+
+Builds sample: layers with correlated roughness.
+
+C++ includes: MultiLayerWithNCRoughnessBuilder.h
+";
+
+%feature("docstring")  MultiLayerWithNCRoughnessBuilder::MultiLayerWithNCRoughnessBuilder "MultiLayerWithNCRoughnessBuilder::MultiLayerWithNCRoughnessBuilder()
+";
+
+%feature("docstring")  MultiLayerWithNCRoughnessBuilder::buildSample "MultiLayer * MultiLayerWithNCRoughnessBuilder::buildSample() const override
 ";
 
 
@@ -13114,6 +13156,14 @@ Vector of y-coordinates of polygon points.
 ";
 
 %feature("docstring")  Polygon::Polygon "Polygon::Polygon(const std::vector< std::vector< double >> points)
+
+Polygon defined by two dimensional array with (x,y) coordinates of polygon points. The size of second dimension should be 2. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+
+Parameters:
+-----------
+
+points: 
+Two dimensional vector of (x,y) coordinates of polygon points. 
 ";
 
 %feature("docstring")  Polygon::Polygon "Polygon::Polygon(const PolygonPrivate *d)
@@ -14333,7 +14383,7 @@ C++ includes: ResonatorBuilder.h
 // File: classRotatedCylindersBuilder.xml
 %feature("docstring") RotatedCylindersBuilder "
 
-Builds sample: cylinder formfactor in DWBA (IsGISAXS example #3, part I).
+Builds sample: cylinder form factor in DWBA (IsGISAXS example #3, part I).
 
 C++ includes: CylindersBuilder.h
 ";
@@ -16512,11 +16562,6 @@ C++ includes: Transform3D.h
 Constructs unit transformation. 
 ";
 
-%feature("docstring")  Transform3D::Transform3D "Transform3D::Transform3D(const Transform3D &other)
-
-Copy constructor. 
-";
-
 %feature("docstring")  Transform3D::Transform3D "Transform3D::Transform3D(const Eigen::Matrix3d &matrix)
 
 Constructor from matrix (no checks if this is an element of SO(3)!) 
@@ -17136,172 +17181,172 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d104.xml
+// File: namespace_0d103.xml
 
 
-// File: namespace_0d106.xml
+// File: namespace_0d105.xml
 
 
-// File: namespace_0d108.xml
+// File: namespace_0d107.xml
 
 
-// File: namespace_0d112.xml
+// File: namespace_0d111.xml
 
 
 // File: namespace_0d12.xml
 
 
-// File: namespace_0d127.xml
+// File: namespace_0d126.xml
 
 
-// File: namespace_0d136.xml
+// File: namespace_0d135.xml
 
 
-// File: namespace_0d141.xml
+// File: namespace_0d140.xml
 
 
-// File: namespace_0d150.xml
+// File: namespace_0d149.xml
 
 
-// File: namespace_0d152.xml
+// File: namespace_0d151.xml
 
 
-// File: namespace_0d156.xml
+// File: namespace_0d155.xml
 
 
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d198.xml
+// File: namespace_0d197.xml
 
 
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d225.xml
+// File: namespace_0d224.xml
 
 
-// File: namespace_0d233.xml
+// File: namespace_0d232.xml
 
 
-// File: namespace_0d239.xml
+// File: namespace_0d238.xml
 
 
-// File: namespace_0d243.xml
+// File: namespace_0d242.xml
 
 
-// File: namespace_0d293.xml
+// File: namespace_0d292.xml
 
 
-// File: namespace_0d302.xml
+// File: namespace_0d301.xml
 
 
-// File: namespace_0d310.xml
+// File: namespace_0d309.xml
 
 
-// File: namespace_0d314.xml
+// File: namespace_0d313.xml
 
 
-// File: namespace_0d316.xml
+// File: namespace_0d315.xml
 
 
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d328.xml
+// File: namespace_0d327.xml
 
 
-// File: namespace_0d334.xml
+// File: namespace_0d333.xml
 
 
-// File: namespace_0d355.xml
+// File: namespace_0d354.xml
 
 
-// File: namespace_0d359.xml
+// File: namespace_0d358.xml
 
 
-// File: namespace_0d361.xml
+// File: namespace_0d360.xml
 
 
-// File: namespace_0d363.xml
+// File: namespace_0d362.xml
 
 
-// File: namespace_0d373.xml
+// File: namespace_0d372.xml
 
 
-// File: namespace_0d386.xml
+// File: namespace_0d385.xml
 
 
-// File: namespace_0d390.xml
+// File: namespace_0d389.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d402.xml
+// File: namespace_0d401.xml
 
 
-// File: namespace_0d408.xml
+// File: namespace_0d407.xml
 
 
-// File: namespace_0d413.xml
+// File: namespace_0d412.xml
 
 
-// File: namespace_0d415.xml
+// File: namespace_0d414.xml
 
 
-// File: namespace_0d419.xml
+// File: namespace_0d418.xml
 
 
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d421.xml
+// File: namespace_0d420.xml
 
 
-// File: namespace_0d431.xml
+// File: namespace_0d430.xml
 
 
-// File: namespace_0d444.xml
+// File: namespace_0d443.xml
 
 
-// File: namespace_0d453.xml
+// File: namespace_0d452.xml
 
 
-// File: namespace_0d455.xml
+// File: namespace_0d454.xml
 
 
-// File: namespace_0d489.xml
+// File: namespace_0d488.xml
 
 
-// File: namespace_0d496.xml
+// File: namespace_0d495.xml
 
 
-// File: namespace_0d534.xml
+// File: namespace_0d533.xml
 
 
-// File: namespace_0d542.xml
+// File: namespace_0d541.xml
 
 
-// File: namespace_0d544.xml
+// File: namespace_0d543.xml
 
 
-// File: namespace_0d546.xml
+// File: namespace_0d545.xml
 
 
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d628.xml
+// File: namespace_0d629.xml
 
 
-// File: namespace_0d632.xml
+// File: namespace_0d633.xml
 
 
-// File: namespace_0d656.xml
+// File: namespace_0d657.xml
 
 
-// File: namespace_0d98.xml
+// File: namespace_0d97.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -17886,7 +17931,7 @@ Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in spec
 
 %feature("docstring")  Numeric::GetLogDifference "double BA_CORE_API_ Numeric::GetLogDifference(double a, double b)
 
-Returns the difference of the logarithm; input values are truncated at the minimum positive value. 
+Returns the difference of the logarithm; input values are truncated at the minimum positive value 
 ";
 
 
@@ -18529,9 +18574,6 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: ISingleton_8h.xml
-
-
-// File: Macros_8h.xml
 
 
 // File: MathConstants_8h.xml
@@ -20380,6 +20422,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: MesoCrystalBuilder_8h.xml
 
 
+// File: MultiLayerWithNCRoughnessBuilder_8cpp.xml
+
+
+// File: MultiLayerWithNCRoughnessBuilder_8h.xml
+
+
 // File: MultiLayerWithRoughnessBuilder_8cpp.xml
 
 
@@ -20663,86 +20711,83 @@ Calculates the z-coordinate of the highest vertex after rotation.
 // File: deprecated.xml
 
 
-// File: dir_52a2c863b7b3435f7dcd40f26828d521.xml
+// File: dir_5f1a4a05eca575eab319839347bb4113.xml
 
 
-// File: dir_41e08c09ca0aab46c4ada92f12a8c00b.xml
+// File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml
 
 
-// File: dir_62267e76eb3874f0ae495e190c69ec26.xml
+// File: dir_2afd61a498231c74441502b63b50f75c.xml
 
 
-// File: dir_4544cbc948815333bef1258cf6b298b8.xml
+// File: dir_629bf8536959f2975d8caec326cd60c0.xml
 
 
-// File: dir_d0c8f8fb9032c27878972645c4679f14.xml
+// File: dir_7de90f35ae2a2c7b4fa95823d333cc96.xml
 
 
-// File: dir_404b7d29693a4f046d60c2eccafd1df4.xml
+// File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
-// File: dir_c83916cd1ff49c9e86c8a91c5655951d.xml
+// File: dir_e5c18127747cd9d7214e02067b529d74.xml
 
 
-// File: dir_59be1faf7048e95263c2fcba140abda1.xml
+// File: dir_cca9b87b2505f372a6ce58947a507789.xml
 
 
-// File: dir_e746abb3ff095e53619d5a61a48e781a.xml
+// File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
 
 
-// File: dir_554fcc4911648c79d524724e80d45fa4.xml
+// File: dir_05b265732c0b4c8e8dad02f2f774744b.xml
 
 
-// File: dir_cc3c45a5d33be920aaf94cb9b9fbdb35.xml
+// File: dir_72a38c5b455c03a72881c3c65e21783d.xml
 
 
-// File: dir_9a756f0b2738ef3b5663c172b32b6a4b.xml
+// File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
 
 
-// File: dir_e8bc32d0cf85ef86a42504cd31af1370.xml
+// File: dir_602d2305564088eb1fd2ee9e74929d48.xml
 
 
-// File: dir_8b890ad49a09d8f36525f5af93e5737c.xml
+// File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml
 
 
-// File: dir_9bdb7f774cce5b77ddd3ed60472b168c.xml
+// File: dir_24998d15d4ee11ef081e71321705b47b.xml
 
 
-// File: dir_74beab5553c7ad06e27a6baadceea9c3.xml
+// File: dir_0bf70e747e161ad6105733dd3b116e64.xml
 
 
-// File: dir_bcc7f66c041cef9b775368068412e104.xml
+// File: dir_c21740227f50b02f28bdacfb625f042a.xml
 
 
-// File: dir_95667ae48b286f0957284f712e6e3af5.xml
+// File: dir_d4e34ce36424db6c5895519defe19e58.xml
 
 
-// File: dir_4251a3aefb390b6051267154c2f94d1e.xml
+// File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
 
 
-// File: dir_529c0a19338d84aadf389c7b83eb56b1.xml
+// File: dir_6babb1605c026604526d064f820d612b.xml
 
 
-// File: dir_051c0ff7ebc48614253af3001519ace0.xml
+// File: dir_39b907ea01a3fff6bda4d39415594941.xml
 
 
-// File: dir_36d1defb21dc876b1f67ee9031b0bd99.xml
+// File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml
 
 
-// File: dir_f59c6b3c978505a5ca3672a364c1918e.xml
+// File: dir_98377dc177883022b630a05f6f34fc13.xml
 
 
-// File: dir_a6771983dbfae0fa34418cceda77572a.xml
+// File: dir_bf872a709c84554e66a8525bb546523f.xml
 
 
-// File: dir_871fae137308712382f6192f4445a900.xml
+// File: dir_5d2259b43612a5a0ff7512df653d7370.xml
 
 
-// File: dir_44b1a8f39c14c02f6e3c2be419aa97b0.xml
+// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
 
 
-// File: dir_1a0696269c107461a4ce8ff1a48cd2f2.xml
-
-
-// File: dir_7f288243cf9c204a176dfbf45ea9d349.xml
+// File: dir_19cd2158bba3b9a051f8f27403820580.xml
 

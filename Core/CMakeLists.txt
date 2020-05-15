@@ -66,6 +66,14 @@ if(BORNAGAIN_PYTHON)
             list(APPEND SWIG_FLAGS "-I${dir}")
         endforeach(dir)
 
+        if ((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+                OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
+            # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
+            set_source_files_properties(${AUTO_DIR}/libBornAgainCore_wrap.cpp
+                PROPERTIES COMPILE_OPTIONS
+                "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-sometimes-uninitialized;-Wno-deprecated-declarations")
+        endif()
+
         add_custom_command (
             OUTPUT ${AUTO_DIR}/libBornAgainCore.py
             COMMAND ${Python_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py

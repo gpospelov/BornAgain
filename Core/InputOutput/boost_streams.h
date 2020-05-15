@@ -15,8 +15,6 @@
 #ifndef BOOST_STREAMS_H
 #define BOOST_STREAMS_H
 
-#include "Macros.h"
-GCC_DIAG_OFF(unused - parameter)
 #include <boost/iostreams/copy.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #ifdef _MSC_VER
@@ -28,6 +26,5 @@ GCC_DIAG_OFF(unused - parameter)
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
-GCC_DIAG_ON(unused - parameter)
 
 #endif // BOOST_STREAMS_H

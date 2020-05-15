@@ -28,19 +28,19 @@ namespace
 std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
 {
     // initializing necessary GUI
-    const std::unique_ptr<DocumentModel> documentModel(new DocumentModel);
-    const std::unique_ptr<SampleModel> sampleModel(new SampleModel);
-    const std::unique_ptr<InstrumentModel> instrumentModel(new InstrumentModel);
-    const std::unique_ptr<MaterialModel> materialModel(new MaterialModel);
+    DocumentModel documentModel;
+    SampleModel sampleModel;
+    InstrumentModel instrumentModel;
+    MaterialModel materialModel;
 
     // populating GUI models from domain
-    GUIObjectBuilder::populateSampleModelFromSim(sampleModel.get(), materialModel.get(), origin);
-    GUIObjectBuilder::populateInstrumentModel(instrumentModel.get(), origin);
-    GUIObjectBuilder::populateDocumentModel(documentModel.get(), origin);
+    GUIObjectBuilder::populateSampleModelFromSim(&sampleModel, &materialModel, origin);
+    GUIObjectBuilder::populateInstrumentModel(&instrumentModel, origin);
+    GUIObjectBuilder::populateDocumentModel(&documentModel, origin);
 
-    auto result = DomainSimulationBuilder::createSimulation(sampleModel->multiLayerItem(),
-                                                            instrumentModel->instrumentItem(),
-                                                            documentModel->simulationOptionsItem());
+    auto result = DomainSimulationBuilder::createSimulation(sampleModel.multiLayerItem(),
+                                                            instrumentModel.instrumentItem(),
+                                                            documentModel.simulationOptionsItem());
 
     return result;
 }
@@ -49,14 +49,11 @@ std::unique_ptr<Simulation> createDomainSimulation(const Simulation& origin)
 bool GUIStandardTest::runTest()
 {
     m_reference_simulation->runSimulation();
-    auto ref_result = m_reference_simulation->result();
+    const SimulationResult& ref_result = m_reference_simulation->result();
 
-    auto domain_simulation = createDomainSimulation(*m_reference_simulation);
+    std::unique_ptr<Simulation> domain_simulation = createDomainSimulation(*m_reference_simulation);
     domain_simulation->runSimulation();
-    auto domain_result = domain_simulation->result();
+    const SimulationResult& domain_result = domain_simulation->result();
 
-    const auto domain_data = domain_result.data();
-    const auto reference_data = ref_result.data();
-
-    return TestUtils::isTheSame(*domain_data, *reference_data, m_threshold);
+    return TestUtils::isTheSame(*domain_result.data(), *ref_result.data(), m_threshold);
 }

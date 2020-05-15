@@ -17,29 +17,35 @@
 
 #include "IFormFactorBorn.h"
 
-//! A dot, with trivial formfactor F(q)=1.
+//! A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorDot : public IFormFactorBorn
 {
 public:
-    FormFactorDot();
+    FormFactorDot(double radius);
 
-    FormFactorDot* clone() const override final { return new FormFactorDot(); }
-
+    FormFactorDot* clone() const override final
+    {
+        return new FormFactorDot(m_radius);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+
+    double getRadius() const { return m_radius; }
 
     double radialExtension() const override final { return 0; }
 
-    complex_t evaluate_for_q(cvector_t) const override final { return 1; }
+    double bottomZ(const IRotation&) const override final { return 0; }
+
+    double topZ(const IRotation&) const override final { return 0; }
+
+    complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
-    bool canSliceAnalytically(const IRotation&) const override final { return true; }
+    bool canSliceAnalytically(const IRotation&) const override final { return false; }
 
-    IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
-
-    void onChange() override final;
+private:
+    double m_radius;
 };
 
 #endif // FORMFACTORDOT_H

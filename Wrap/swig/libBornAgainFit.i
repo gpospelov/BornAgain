@@ -52,9 +52,6 @@
 import_array();
 %}
 
-#define GCC_DIAG_OFF(x)
-#define GCC_DIAG_ON(x)
-
 #ifndef BORNAGAIN_PYTHON
 #define BORNAGAIN_PYTHON
 #endif

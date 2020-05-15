@@ -163,8 +163,6 @@ complex_t MathFunctions::Bessel_J1c(const complex_t z)
 complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
 {
     complex_t cj0;
-    static const complex_t cone(1.0, 0.0);
-    static const complex_t czero(0.0, 0.0);
     static const double eps = 1e-15;
     static double a[] = {-7.03125e-2,           0.112152099609375,     -0.5725014209747314,
                          6.074042001273483,     -1.100171402692467e2,  3.038090510922384e3,

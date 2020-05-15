@@ -251,10 +251,11 @@ void GUIDomainSampleVisitor::visit(const FormFactorDodecahedron* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorDot*)
+void GUIDomainSampleVisitor::visit(const FormFactorDot* p_sample)
 {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
-    AddFormFactorItem(p_particle_item, Constants::DotType);
+    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, Constants::DotType);
+    p_ff_item->setItemValue(FullSphereItem::P_RADIUS, p_sample->getRadius());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 

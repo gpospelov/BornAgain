@@ -46,8 +46,8 @@ ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vect
 }
 
 ISpecularStrategy::coeffs_t
-SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
-                                     const std::vector<complex_t>& k) const
+SpecularMagneticOldStrategy::Execute(const std::vector<Slice>&,
+                                     const std::vector<complex_t>&) const
 {
     throw std::runtime_error("Not implemented");
 }

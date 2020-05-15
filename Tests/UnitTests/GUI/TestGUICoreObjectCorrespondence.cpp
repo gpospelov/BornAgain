@@ -62,6 +62,13 @@ TEST_F(TestGUICoreObjectCorrespondence, test_Cuboctahedron)
     GUICoreObjectCorrespondence(gui_cuboctahedron, core_cuboctahedron);
 }
 
+TEST_F(TestGUICoreObjectCorrespondence, test_Cylinder)
+{
+    CylinderItem gui_cylinder;
+    FormFactorCylinder core_cylinder(1.0, 3.0);
+    GUICoreObjectCorrespondence(gui_cylinder, core_cylinder);
+}
+
 TEST_F(TestGUICoreObjectCorrespondence, test_Dodecahedron)
 {
     DodecahedronItem gui_dodecahedron;
@@ -72,15 +79,8 @@ TEST_F(TestGUICoreObjectCorrespondence, test_Dodecahedron)
 TEST_F(TestGUICoreObjectCorrespondence, test_Dot)
 {
     DotItem gui_dot;
-    FormFactorDot core_dot;
+    FormFactorDot core_dot(5.0);
     GUICoreObjectCorrespondence(gui_dot, core_dot);
-}
-
-TEST_F(TestGUICoreObjectCorrespondence, test_Cylinder)
-{
-    CylinderItem gui_cylinder;
-    FormFactorCylinder core_cylinder(1.0, 3.0);
-    GUICoreObjectCorrespondence(gui_cylinder, core_cylinder);
 }
 
 TEST_F(TestGUICoreObjectCorrespondence, test_EllipsoidalCylinder)

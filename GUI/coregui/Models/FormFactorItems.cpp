@@ -175,14 +175,18 @@ std::unique_ptr<IFormFactor> DodecahedronItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
+const QString DotItem::P_RADIUS = QString::fromStdString(BornAgain::Radius);
+
 DotItem::DotItem() : FormFactorItem(Constants::DotType)
 {
-    setToolTip(QStringLiteral("A dot, with trivial formfactor F(q)=1"));
+    setToolTip(QStringLiteral("A dot, with constant formfactor F(q)=4pi/3 R^3"));
+    addProperty(P_RADIUS, 8.0)->setToolTip(QStringLiteral(
+                                               "Radius of reference sphere in nanometers"));
 }
 
 std::unique_ptr<IFormFactor> DotItem::createFormFactor() const
 {
-    return std::make_unique<FormFactorDot>();
+    return std::make_unique<FormFactorDot>(getItemValue(P_RADIUS).toDouble());
 }
 
 /* ------------------------------------------------ */

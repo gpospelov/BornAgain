@@ -16,7 +16,6 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "IntegratorReal.h"
-#include "Macros.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include <algorithm>

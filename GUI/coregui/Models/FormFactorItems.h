@@ -78,6 +78,15 @@ public:
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
+class BA_CORE_API_ CylinderItem : public FormFactorItem
+{
+public:
+    static const QString P_RADIUS;
+    static const QString P_HEIGHT;
+    CylinderItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
 class BA_CORE_API_ DodecahedronItem : public FormFactorItem
 {
 public:
@@ -89,16 +98,8 @@ public:
 class BA_CORE_API_ DotItem : public FormFactorItem
 {
 public:
-    DotItem();
-    std::unique_ptr<IFormFactor> createFormFactor() const;
-};
-
-class BA_CORE_API_ CylinderItem : public FormFactorItem
-{
-public:
     static const QString P_RADIUS;
-    static const QString P_HEIGHT;
-    CylinderItem();
+    DotItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 

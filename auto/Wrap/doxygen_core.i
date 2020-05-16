@@ -756,21 +756,21 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
 structure holding the object and possible extra parameters
 
 C++ includes: IntegratorMCMiser.h
+";
+
+
+// File: structIntegratorReal_1_1CallBackHolder.xml
+%feature("docstring") IntegratorReal::CallBackHolder "
+
+structure holding the object and possible extra parameters
+
+C++ includes: IntegratorReal.h
 ";
 
 
@@ -884,6 +884,18 @@ clone method
 %feature("docstring") Exceptions::ClassInitializationException "";
 
 %feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
+";
+
+
+// File: classComplexIntegrator.xml
+%feature("docstring") ComplexIntegrator "
+
+To integrate a complex function of a real variable.
+
+C++ includes: Integrator.h
+";
+
+%feature("docstring")  ComplexIntegrator::integrate "complex_t ComplexIntegrator::integrate(const std::function< complex_t(double)> &f, double lmin, double lmax)
 ";
 
 
@@ -13748,6 +13760,24 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 ";
 
 
+// File: classRealIntegrator.xml
+%feature("docstring") RealIntegrator "
+
+To integrate a real function of a real variable.
+
+C++ includes: Integrator.h
+";
+
+%feature("docstring")  RealIntegrator::RealIntegrator "RealIntegrator::RealIntegrator()
+";
+
+%feature("docstring")  RealIntegrator::~RealIntegrator "RealIntegrator::~RealIntegrator()
+";
+
+%feature("docstring")  RealIntegrator::integrate "double RealIntegrator::integrate(const std::function< double(double)> &f, double lmin, double lmax)
+";
+
+
 // File: classRealParameter.xml
 %feature("docstring") RealParameter "
 
@@ -17237,7 +17267,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d631.xml
 
 
-// File: namespace_0d655.xml
+// File: namespace_0d657.xml
 
 
 // File: namespace_0d97.xml
@@ -20480,6 +20510,12 @@ David N. Williams
 
 %feature("docstring")  fhdl "void fhdl(int sig, siginfo_t *sip, ucontext_t *scp)
 ";
+
+
+// File: Integrator_8cpp.xml
+
+
+// File: Integrator_8h.xml
 
 
 // File: IntegratorComplex_8h.xml

@@ -16,10 +16,7 @@
 #define FORMFACTORCONE_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
-
-// Forward declaration to prevent IntegratorComplex.h to be parsed for Python API:
-template <class T> class IntegratorComplex;
+#include "Integrator.h"
 
 //! A conical frustum (cone truncated parallel to the base) with circular base.
 //! @ingroup hardParticle
@@ -57,10 +54,7 @@ private:
     double m_alpha;
     double m_cot_alpha;
     mutable cvector_t m_q;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorCone>> mP_integrator;
-#endif
+    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // FORMFACTORCONE_H

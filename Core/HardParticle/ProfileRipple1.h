@@ -16,7 +16,7 @@
 #define PROFILERIPPLE1_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
+#include "Integrator.h"
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
@@ -46,15 +46,8 @@ protected:
 
 private:
     complex_t factor_yz(complex_t qy, complex_t qz) const;
-    complex_t Integrand(double u) const;
     bool check_initialization() const;
-
-    mutable complex_t m_ay;
-    mutable complex_t m_az;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<ProfileRipple1>> mP_integrator;
-#endif
+    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // PROFILERIPPLE1_H

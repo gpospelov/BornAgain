@@ -34,7 +34,6 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double heigh
     registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter(BornAgain::DeltaHeight, &m_dh).setUnit(BornAgain::UnitsNm).setNonnegative();
-    mP_integrator = make_integrator_complex(this, &FormFactorTruncatedSphere::Integrand);
     onChange();
 }
 
@@ -72,7 +71,8 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const
                   - m_dh * m_dh * (3. * m_radius - m_dh));
     }
     // else
-    complex_t integral = mP_integrator->integrate(m_radius - m_height, m_radius - m_dh);
+    complex_t integral = m_integrator.integrate(
+            [&](double Z){return Integrand(Z);}, m_radius - m_height, m_radius - m_dh);
     return M_TWOPI * integral * exp_I(q.z() * (m_height - m_radius));
 }
 

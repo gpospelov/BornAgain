@@ -16,7 +16,6 @@
 #define FORMFACTORFULLSPHEROID_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
 
 //! A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
 //! @ingroup hardParticle

@@ -16,7 +16,7 @@
 #define FORMFACTORHEMIELLIPSOID_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
+#include "Integrator.h"
 
 //! An hemi ellipsoid,
 //!   obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
@@ -52,10 +52,7 @@ private:
     double m_radius_y;
     double m_height;
     mutable cvector_t m_q;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorHemiEllipsoid>> mP_integrator;
-#endif
+    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // FORMFACTORHEMIELLIPSOID_H

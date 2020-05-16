@@ -46,8 +46,6 @@ FormFactorCone::FormFactorCone(double radius, double height, double alpha)
     registerParameter(BornAgain::Alpha, &m_alpha)
         .setUnit(BornAgain::UnitsRad)
         .setLimited(0., M_PI_2);
-
-    mP_integrator = make_integrator_complex(this, &FormFactorCone::Integrand);
     onChange();
 }
 
@@ -71,7 +69,8 @@ complex_t FormFactorCone::evaluate_for_q(cvector_t q) const
         double apex_height = R / m_cot_alpha;
         return M_PI / 3. * (R * R * H + (R * R - R2 * R2) * (apex_height - H));
     } else {
-        complex_t integral = mP_integrator->integrate(0., m_height);
+        complex_t integral = m_integrator.integrate(
+            [&](double Z){return Integrand(Z);}, 0., m_height);
         return M_TWOPI * integral;
     }
 }

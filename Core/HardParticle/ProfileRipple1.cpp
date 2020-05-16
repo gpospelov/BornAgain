@@ -32,7 +32,6 @@ ProfileRipple1::ProfileRipple1(double length, double width, double height)
     registerParameter(BornAgain::Length, &m_length).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter(BornAgain::Width, &m_width).setUnit(BornAgain::UnitsNm).setNonnegative();
     registerParameter(BornAgain::Height, &m_height).setUnit(BornAgain::UnitsNm).setNonnegative();
-    mP_integrator = make_integrator_complex(this, &ProfileRipple1::Integrand);
     onChange();
 }
 
@@ -56,12 +55,6 @@ double ProfileRipple1::radialExtension() const
     return (m_width + m_length) / 4.0;
 }
 
-//! Integrand for complex form factor.
-complex_t ProfileRipple1::Integrand(double u) const
-{
-    return sin(u) * exp(m_az * std::cos(u)) * (m_ay == 0. ? u : sin(m_ay * u) / m_ay);
-}
-
 //! Complex form factor.
 complex_t ProfileRipple1::factor_yz(complex_t qy, complex_t qz) const
 {
@@ -80,10 +73,13 @@ complex_t ProfileRipple1::factor_yz(complex_t qy, complex_t qz) const
     }
 
     // numerical integration otherwise
-    m_ay = qy * m_width / M_TWOPI;
-    m_az = complex_t(0, 1) * qz * (m_height / 2);
-    complex_t integral = mP_integrator->integrate(0, M_PI);
-    return factor * integral * exp(m_az) * (m_height / 2);
+    const complex_t ay = qy * m_width / M_TWOPI;
+    const complex_t az = complex_t(0, 1) * qz * (m_height / 2);
+
+    const auto integrand = [&](double u)
+        ->complex_t{ return sin(u) * exp(az * std::cos(u)) * (ay == 0. ? u : sin(ay * u) / ay); };
+    complex_t integral = m_integrator.integrate(integrand, 0, M_PI);
+    return factor * integral * exp(az) * (m_height / 2);
 }
 
 void ProfileRipple1::onChange()

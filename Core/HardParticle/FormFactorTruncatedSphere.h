@@ -16,7 +16,7 @@
 #define FORMFACTORTRUNCATEDSPHERE_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
+#include "Integrator.h"
 
 //! A truncated Sphere.
 //! @ingroup hardParticle
@@ -54,10 +54,7 @@ private:
     double m_height;
     double m_dh;
     mutable cvector_t m_q;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorTruncatedSphere>> mP_integrator;
-#endif
+    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // FORMFACTORTRUNCATEDSPHERE_H

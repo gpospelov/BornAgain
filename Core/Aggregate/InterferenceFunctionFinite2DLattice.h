@@ -16,8 +16,8 @@
 #define INTERFERENCEFUNCTIONFINITE2DLATTICE_H
 
 #include "IInterferenceFunction.h"
-#include "Lattice2D.h"
 #include "Integrator.h"
+#include "Lattice2D.h"
 
 //! Interference function of a finite 2D lattice.
 //! @ingroup interference

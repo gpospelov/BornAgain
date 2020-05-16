@@ -18,7 +18,8 @@
 
 #include <limits>
 
-namespace {
+namespace
+{
 
 const double maxkappa = std::log(1.0 / std::numeric_limits<double>::epsilon()) / 2.0;
 const double maxkappa2 = std::log(std::numeric_limits<double>::max());
@@ -247,8 +248,8 @@ double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q,
     m_theta = std::acos(q.unit().dot(m_zenith));
     double pre_1 = FisherPrefactor(m_kappa_1);
     double pre_2 = VonMisesPrefactor(m_kappa_2);
-    double integral = m_integrator.integrate(
-        [&](double phi)->double{ return integrand(phi); }, 0.0, M_TWOPI);
+    double integral =
+        m_integrator.integrate([&](double phi) -> double { return integrand(phi); }, 0.0, M_TWOPI);
     return m_max_intensity * radial_part * pre_1 * pre_2 * integral;
 }
 
@@ -295,8 +296,8 @@ double VonMisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lat
     m_phi = std::acos(q_ortho.unit().dot(m_ux));
     m_theta = std::acos(q.unit().dot(m_zenith));
     double pre = VonMisesPrefactor(m_kappa);
-    double integral = m_integrator.integrate(
-        [&](double phi)->double{ return integrand(phi); }, 0.0, M_TWOPI);
+    double integral =
+        m_integrator.integrate([&](double phi) -> double { return integrand(phi); }, 0.0, M_TWOPI);
     return m_max_intensity * pre * integral;
 }
 

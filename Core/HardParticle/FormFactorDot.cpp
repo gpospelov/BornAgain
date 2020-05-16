@@ -19,8 +19,7 @@
 
 //! Constructor.
 //! @param rscat: radius of a sphere with same forward scattering power, in nanometers
-FormFactorDot::FormFactorDot(double radius)
-    : m_radius(radius)
+FormFactorDot::FormFactorDot(double radius) : m_radius(radius)
 {
     setName(BornAgain::FFDotType);
     registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();

@@ -109,9 +109,9 @@ double InterferenceFunction2DParaCrystal::iff_without_dw(const kvector_t q) cons
     m_qy = q.y();
     if (!m_integrate_xi)
         return interferenceForXi(m_lattice->rotationAngle());
-    return m_integrator.integrate(
-        [&](double xi)->double{return interferenceForXi(xi);}, 0.0, M_TWOPI)
-        / M_TWOPI;
+    return m_integrator.integrate([&](double xi) -> double { return interferenceForXi(xi); }, 0.0,
+                                  M_TWOPI)
+           / M_TWOPI;
 }
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(

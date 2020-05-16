@@ -73,8 +73,9 @@ double InterferenceFunctionHardDisk::iff_without_dw(const kvector_t q) const
     m_packing = packingRatio();
     m_c_zero = Czero(m_packing);
     m_s2 = S2(m_packing);
-    double c_q = 2.0 * M_PI * m_integrator.integrate(
-        [&](double x)->double { return integrand(x); }, 0.0, 1.0);
+    double c_q =
+        2.0 * M_PI
+        * m_integrator.integrate([&](double x) -> double { return integrand(x); }, 0.0, 1.0);
     double rho = 4.0 * m_packing / M_PI;
     return 1.0 / (1.0 - rho * c_q);
 }

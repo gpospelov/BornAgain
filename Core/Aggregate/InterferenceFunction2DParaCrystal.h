@@ -18,8 +18,8 @@
 #include "Complex.h"
 #include "FTDistributions2D.h"
 #include "IInterferenceFunction.h"
-#include "Lattice2D.h"
 #include "Integrator.h"
+#include "Lattice2D.h"
 #include <memory>
 
 class IFTDistribution2D;

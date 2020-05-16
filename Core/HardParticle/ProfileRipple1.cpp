@@ -68,16 +68,16 @@ complex_t ProfileRipple1::factor_yz(complex_t qy, complex_t qz) const
         complex_t aaa2 = aaa * aaa;
         if (aaa2 == 1.)
             return factor * M_PI_4 * m_height;
-        return factor * M_PI_2 * m_height * MathFunctions::sinc(qy * m_width * 0.5)
-               / (1.0 - aaa2);
+        return factor * M_PI_2 * m_height * MathFunctions::sinc(qy * m_width * 0.5) / (1.0 - aaa2);
     }
 
     // numerical integration otherwise
     const complex_t ay = qy * m_width / M_TWOPI;
     const complex_t az = complex_t(0, 1) * qz * (m_height / 2);
 
-    const auto integrand = [&](double u)
-        ->complex_t{ return sin(u) * exp(az * std::cos(u)) * (ay == 0. ? u : sin(ay * u) / ay); };
+    const auto integrand = [&](double u) -> complex_t {
+        return sin(u) * exp(az * std::cos(u)) * (ay == 0. ? u : sin(ay * u) / ay);
+    };
     complex_t integral = m_integrator.integrate(integrand, 0, M_PI);
     return factor * integral * exp(az) * (m_height / 2);
 }

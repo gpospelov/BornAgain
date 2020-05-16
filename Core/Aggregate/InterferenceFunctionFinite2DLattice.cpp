@@ -110,9 +110,7 @@ std::vector<const INode*> InterferenceFunctionFinite2DLattice::getChildren() con
     return std::vector<const INode*>() << mP_lattice;
 }
 
-void InterferenceFunctionFinite2DLattice::init_parameters()
-{
-}
+void InterferenceFunctionFinite2DLattice::init_parameters() {}
 
 double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) const
 {
@@ -120,9 +118,9 @@ double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) co
     m_qy = q.y();
     if (!m_integrate_xi)
         return interferenceForXi(mP_lattice->rotationAngle());
-    return m_integrator.integrate(
-        [&](double xi)->double{return interferenceForXi(xi);}, 0.0, M_TWOPI)
-        / M_TWOPI;
+    return m_integrator.integrate([&](double xi) -> double { return interferenceForXi(xi); }, 0.0,
+                                  M_TWOPI)
+           / M_TWOPI;
 }
 
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(

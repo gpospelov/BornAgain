@@ -97,9 +97,9 @@ double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double ou
     m_qy = q.y();
     if (!m_integrate_xi)
         return interferenceForXi(mP_lattice->rotationAngle());
-    return m_integrator.integrate(
-        [&](double xi)->double{return interferenceForXi(xi);}, 0.0, M_TWOPI)
-        / M_TWOPI;
+    return m_integrator.integrate([&](double xi) -> double { return interferenceForXi(xi); }, 0.0,
+                                  M_TWOPI)
+           / M_TWOPI;
 }
 
 void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
@@ -151,9 +151,7 @@ void InterferenceFunction2DSuperLattice::setLattice(const Lattice2D& lattice)
     registerChild(mP_lattice.get());
 }
 
-void InterferenceFunction2DSuperLattice::init_parameters()
-{
-}
+void InterferenceFunction2DSuperLattice::init_parameters() {}
 
 double InterferenceFunction2DSuperLattice::interferenceForXi(double xi) const
 {

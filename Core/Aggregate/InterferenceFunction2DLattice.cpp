@@ -15,7 +15,6 @@
 #include "InterferenceFunction2DLattice.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "IntegratorReal.h"
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include <algorithm>
@@ -124,7 +123,9 @@ double InterferenceFunction2DLattice::iff_without_dw(const kvector_t q) const
     m_qy = q.y();
     if (!m_integrate_xi)
         return interferenceForXi(m_lattice->rotationAngle());
-    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
+    return m_integrator.integrate(
+        [&](double xi)->double{return interferenceForXi(xi);}, 0.0, M_TWOPI)
+        / M_TWOPI;
 }
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
@@ -149,7 +150,6 @@ void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
 
 void InterferenceFunction2DLattice::init_parameters()
 {
-    mP_integrator = make_integrator_real(this, &InterferenceFunction2DLattice::interferenceForXi);
 }
 
 double InterferenceFunction2DLattice::interferenceForXi(double xi) const

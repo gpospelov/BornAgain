@@ -15,7 +15,6 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "IntegratorReal.h"
 #include "MathConstants.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
@@ -59,6 +58,19 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() co
     return new InterferenceFunction2DParaCrystal(*this);
 }
 
+void InterferenceFunction2DParaCrystal::init_parameters()
+{
+    registerParameter(BornAgain::DampingLength, &m_damping_length)
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::DomainSize1, &m_domain_sizes[0])
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+    registerParameter(BornAgain::DomainSize2, &m_domain_sizes[1])
+        .setUnit(BornAgain::UnitsNm)
+        .setNonnegative();
+}
+
 //! Sets the probability distributions (Fourier transformed) for the two lattice directions.
 //! @param pdf_1: probability distribution in first lattice direction
 //! @param pdf_2: probability distribution in second lattice direction
@@ -97,7 +109,9 @@ double InterferenceFunction2DParaCrystal::iff_without_dw(const kvector_t q) cons
     m_qy = q.y();
     if (!m_integrate_xi)
         return interferenceForXi(m_lattice->rotationAngle());
-    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
+    return m_integrator.integrate(
+        [&](double xi)->double{return interferenceForXi(xi);}, 0.0, M_TWOPI)
+        / M_TWOPI;
 }
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(
@@ -169,22 +183,6 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx, doub
 {
     q_pa_1 = qx * std::cos(gamma) + qy * std::sin(gamma);
     q_pa_2 = qx * std::cos(gamma + delta) + qy * std::sin(gamma + delta);
-}
-
-void InterferenceFunction2DParaCrystal::init_parameters()
-{
-    mP_integrator =
-        make_integrator_real(this, &InterferenceFunction2DParaCrystal::interferenceForXi);
-
-    registerParameter(BornAgain::DampingLength, &m_damping_length)
-        .setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter(BornAgain::DomainSize1, &m_domain_sizes[0])
-        .setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
-    registerParameter(BornAgain::DomainSize2, &m_domain_sizes[1])
-        .setUnit(BornAgain::UnitsNm)
-        .setNonnegative();
 }
 
 //! Returns interference function for fixed angle xi.

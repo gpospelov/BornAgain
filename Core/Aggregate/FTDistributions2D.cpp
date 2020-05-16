@@ -15,7 +15,6 @@
 #include "FTDistributions2D.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "IntegratorReal.h"
 #include "MathConstants.h"
 #include "MathFunctions.h"
 #include "ParameterPool.h"
@@ -140,19 +139,15 @@ double FTDistribution2DCone::evaluate(double qx, double qy) const
     double scaled_q = std::sqrt(sumsq(qx, qy));
     if (scaled_q < std::numeric_limits<double>::epsilon())
         return 1.0 - 3.0 * scaled_q * scaled_q / 40.0;
-    auto integrator = make_integrator_real(this, &FTDistribution2DCone::coneIntegrand2);
-    double integral = integrator->integrate(0.0, scaled_q);
+    // second part of the integrand: \f$u^2\cdot J_0(u)\f$
+    double integral = m_integrator.integrate(
+        [](double x)->double{ return x*x*MathFunctions::Bessel_J0(x); }, 0.0, scaled_q);
     return 6.0 * (MathFunctions::Bessel_J1c(scaled_q) - integral / scaled_q / scaled_q / scaled_q);
 }
 
 std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() const
 {
     return std::make_unique<Distribution2DConeSampler>(m_omega_x, m_omega_y);
-}
-
-double FTDistribution2DCone::coneIntegrand2(double value) const
-{
-    return value * value * MathFunctions::Bessel_J0(value);
 }
 
 //! Constructor of two-dimensional pseudo-Voigt probability distribution.

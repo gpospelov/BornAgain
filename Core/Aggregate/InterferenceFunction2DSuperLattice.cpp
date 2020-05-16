@@ -15,7 +15,6 @@
 #include "InterferenceFunction2DSuperLattice.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "IntegratorReal.h"
 #include "InterferenceFunctionNone.h"
 #include "MathConstants.h"
 #include "MathFunctions.h"
@@ -98,7 +97,9 @@ double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double ou
     m_qy = q.y();
     if (!m_integrate_xi)
         return interferenceForXi(mP_lattice->rotationAngle());
-    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
+    return m_integrator.integrate(
+        [&](double xi)->double{return interferenceForXi(xi);}, 0.0, M_TWOPI)
+        / M_TWOPI;
 }
 
 void InterferenceFunction2DSuperLattice::setIntegrationOverXi(bool integrate_xi)
@@ -152,8 +153,6 @@ void InterferenceFunction2DSuperLattice::setLattice(const Lattice2D& lattice)
 
 void InterferenceFunction2DSuperLattice::init_parameters()
 {
-    mP_integrator =
-        make_integrator_real(this, &InterferenceFunction2DSuperLattice::interferenceForXi);
 }
 
 double InterferenceFunction2DSuperLattice::interferenceForXi(double xi) const

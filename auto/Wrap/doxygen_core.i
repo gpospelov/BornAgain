@@ -8450,33 +8450,6 @@ Returns a vector of children (const).
 ";
 
 
-// File: classIntegratorComplex.xml
-%feature("docstring") IntegratorComplex "
-
-Template class to integrate complex class member functions.
-
-Wraps an two integrators from the GNU Scientific Library. Since this class holds a persistent workspace, we need at least one instance per thread. Standard usage for integration inside a class T:
-Create a handle to an integrator: 'auto integrator = make_integrator_complex(this, mem_function)'
-
-Call: 'integrator.integrate(lmin, lmax)'
-
-C++ includes: IntegratorComplex.h
-";
-
-%feature("docstring")  IntegratorComplex::IntegratorComplex "IntegratorComplex< T >::IntegratorComplex(const T *p_object, complex_integrand< T > p_member_function)
-
-to integrate p_member_function, which must belong to p_object 
-";
-
-%feature("docstring")  IntegratorComplex::~IntegratorComplex "IntegratorComplex< T >::~IntegratorComplex()
-";
-
-%feature("docstring")  IntegratorComplex::integrate "complex_t IntegratorComplex< T >::integrate(double lmin, double lmax)
-
-perform the actual integration over the range [lmin, lmax] 
-";
-
-
 // File: classIntegratorMCMiser.xml
 %feature("docstring") IntegratorMCMiser "
 
@@ -17072,10 +17045,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17267,7 +17240,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d631.xml
 
 
-// File: namespace_0d657.xml
+// File: namespace_0d656.xml
 
 
 // File: namespace_0d97.xml
@@ -20516,13 +20489,6 @@ David N. Williams
 
 
 // File: Integrator_8h.xml
-
-
-// File: IntegratorComplex_8h.xml
-%feature("docstring")  make_integrator_complex "P_integrator_complex<T> make_integrator_complex(const T *object, complex_integrand< T > mem_function)
-
-Template function to create an integrator object. 
-";
 
 
 // File: IntegratorMCMiser_8h.xml

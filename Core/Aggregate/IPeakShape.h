@@ -17,8 +17,7 @@
 
 #include "ISample.h"
 #include "Vectors3D.h"
-
-template <class T> class IntegratorReal;
+#include "Integrator.h"
 
 //! Pure virtual interface class that defines the peak shape of a Bragg peak.
 //!
@@ -162,9 +161,7 @@ private:
     double m_kappa_1, m_kappa_2;
     mutable double m_theta, m_phi;
     mutable kvector_t m_ux, m_uy, m_up;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<VonMisesFisherGaussPeakShape>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
 
 //! Class that implements a peak shape that is a convolution of a von Mises-Fisher distribution
@@ -195,9 +192,7 @@ private:
     double m_kappa;
     mutable double m_theta, m_phi, m_qr;
     mutable kvector_t m_ux, m_uy, m_p;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<VonMisesGaussPeakShape>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
 
 #endif // IPEAKSHAPE_H

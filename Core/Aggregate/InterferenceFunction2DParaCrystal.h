@@ -19,9 +19,9 @@
 #include "FTDistributions2D.h"
 #include "IInterferenceFunction.h"
 #include "Lattice2D.h"
+#include "Integrator.h"
 #include <memory>
 
-template <class T> class IntegratorReal;
 class IFTDistribution2D;
 
 //! Interference function of a 2D paracrystal.
@@ -93,9 +93,7 @@ private:
     double m_domain_sizes[2]; //!< Coherence domain sizes
     mutable double m_qx;
     mutable double m_qy;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<InterferenceFunction2DParaCrystal>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
 
 #endif // INTERFERENCEFUNCTION2DPARACRYSTAL_H

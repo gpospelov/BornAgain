@@ -15,7 +15,6 @@
 #include "InterferenceFunctionFinite2DLattice.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "IntegratorReal.h"
 #include "MathConstants.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
@@ -111,13 +110,19 @@ std::vector<const INode*> InterferenceFunctionFinite2DLattice::getChildren() con
     return std::vector<const INode*>() << mP_lattice;
 }
 
+void InterferenceFunctionFinite2DLattice::init_parameters()
+{
+}
+
 double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) const
 {
     m_qx = q.x();
     m_qy = q.y();
     if (!m_integrate_xi)
         return interferenceForXi(mP_lattice->rotationAngle());
-    return mP_integrator->integrate(0.0, M_TWOPI) / M_TWOPI;
+    return m_integrator.integrate(
+        [&](double xi)->double{return interferenceForXi(xi);}, 0.0, M_TWOPI)
+        / M_TWOPI;
 }
 
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(
@@ -135,12 +140,6 @@ void InterferenceFunctionFinite2DLattice::setLattice(const Lattice2D& lattice)
 {
     mP_lattice.reset(lattice.clone());
     registerChild(mP_lattice.get());
-}
-
-void InterferenceFunctionFinite2DLattice::init_parameters()
-{
-    mP_integrator =
-        make_integrator_real(this, &InterferenceFunctionFinite2DLattice::interferenceForXi);
 }
 
 double InterferenceFunctionFinite2DLattice::interferenceForXi(double xi) const

@@ -17,8 +17,7 @@
 
 #include "IInterferenceFunction.h"
 #include "Lattice2D.h"
-
-template <class T> class IntegratorReal;
+#include "Integrator.h"
 
 //! Interference function of a 2D superlattice with a configurable interference function for
 //! each lattice site.
@@ -71,9 +70,7 @@ private:
     mutable double m_qx;
     mutable double m_qy;
     mutable double m_xi;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<InterferenceFunction2DSuperLattice>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
 
 #endif // INTERFERENCEFUNCTION2DSUPERLATTICE_H

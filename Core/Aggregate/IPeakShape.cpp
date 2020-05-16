@@ -13,24 +13,76 @@
 // ************************************************************************** //
 
 #include "IPeakShape.h"
-#include "IntegratorReal.h"
 #include "MathConstants.h"
 #include "MathFunctions.h"
 
 #include <limits>
 
-namespace
-{
+namespace {
+
 const double maxkappa = std::log(1.0 / std::numeric_limits<double>::epsilon()) / 2.0;
 const double maxkappa2 = std::log(std::numeric_limits<double>::max());
-double FisherDistribution(double x, double kappa);
-double FisherPrefactor(double kappa);
-double VonMisesPrefactor(double kappa);
-double Gauss3D(double q2, double domainsize);
-double Cauchy3D(double q2, double domainsize);
+
+double FisherDistribution(double x, double kappa)
+{
+    if (kappa <= 0.0) {
+        return 1.0 / (4.0 * M_PI);
+    }
+    double prefactor = kappa / (4.0 * M_PI);
+    if (kappa > maxkappa) {
+        return 2.0 * prefactor * std::exp(kappa * (x - 1.0));
+    }
+    return prefactor * std::exp(kappa * x) / std::sinh(kappa);
+}
+
+double FisherPrefactor(double kappa)
+{
+    if (kappa <= 0.0) {
+        return 1.0 / (4.0 * M_PI);
+    }
+    if (kappa > maxkappa) {
+        return kappa / 2.0 / M_PI;
+    } else {
+        return kappa * std::exp(kappa) / 4.0 / M_PI / std::sinh(kappa);
+    }
+}
+
+double VonMisesPrefactor(double kappa)
+{
+    if (kappa <= 0.0) {
+        return 1.0 / (2.0 * M_PI);
+    }
+    if (kappa > maxkappa2) {
+        return std::sqrt(kappa / 2.0 / M_PI) / (1.0 + 1.0 / (8.0 * kappa));
+    } else {
+        return std::exp(kappa) / (2.0 * M_PI * MathFunctions::Bessel_I0(kappa));
+    }
+}
+
+double Gauss3D(double q2, double domainsize)
+{
+    double norm_factor = std::pow(domainsize / std::sqrt(M_TWOPI), 3.0);
+    double exponent = -q2 * domainsize * domainsize / 2.0;
+    return norm_factor * std::exp(exponent);
+}
+
+double Cauchy3D(double q2, double domainsize)
+{
+    double lorentz1 = domainsize / (1.0 + q2 * domainsize * domainsize) / M_PI;
+    return domainsize * lorentz1 * lorentz1;
+}
+
 } // namespace
 
+// ************************************************************************** //
+// class IPeakShape
+// ************************************************************************** //
+
 IPeakShape::~IPeakShape() = default;
+
+// ************************************************************************** //
+// class IsotropicGaussPeakShape
+// ************************************************************************** //
 
 IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
     : m_max_intensity(max_intensity), m_domainsize(domainsize)
@@ -55,6 +107,10 @@ double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_la
     return evaluate(q - q_lattice_point);
 }
 
+// ************************************************************************** //
+// class IsotropicLorentzPeakShape
+// ************************************************************************** //
+
 IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, double domainsize)
     : m_max_intensity(max_intensity), m_domainsize(domainsize)
 {
@@ -77,6 +133,10 @@ double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_
 {
     return evaluate(q - q_lattice_point);
 }
+
+// ************************************************************************** //
+// class GaussFisherPeakShape
+// ************************************************************************** //
 
 GaussFisherPeakShape::GaussFisherPeakShape(double max_intensity, double radial_size, double kappa)
     : m_max_intensity(max_intensity), m_radial_size(radial_size), m_kappa(kappa)
@@ -107,6 +167,10 @@ double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_latti
     return m_max_intensity * radial_part * angular_part;
 }
 
+// ************************************************************************** //
+// class LorentzFisherPeakShape
+// ************************************************************************** //
+
 LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size,
                                                double kappa)
     : m_max_intensity(max_intensity), m_radial_size(radial_size), m_kappa(kappa)
@@ -136,13 +200,16 @@ double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lat
     return m_max_intensity * radial_part * angular_part;
 }
 
+// ************************************************************************** //
+// class VonMisesFisherGaussPeakShape
+// ************************************************************************** //
+
 VonMisesFisherGaussPeakShape::VonMisesFisherGaussPeakShape(double max_intensity, double radial_size,
                                                            kvector_t zenith, double kappa_1,
                                                            double kappa_2)
     : m_max_intensity(max_intensity), m_radial_size(radial_size), m_zenith(zenith.unit()),
       m_kappa_1(kappa_1), m_kappa_2(kappa_2)
 {
-    mP_integrator = make_integrator_real(this, &VonMisesFisherGaussPeakShape::integrand);
 }
 
 VonMisesFisherGaussPeakShape::~VonMisesFisherGaussPeakShape() = default;
@@ -180,7 +247,8 @@ double VonMisesFisherGaussPeakShape::evaluate(const kvector_t q,
     m_theta = std::acos(q.unit().dot(m_zenith));
     double pre_1 = FisherPrefactor(m_kappa_1);
     double pre_2 = VonMisesPrefactor(m_kappa_2);
-    double integral = mP_integrator->integrate(0.0, M_TWOPI);
+    double integral = m_integrator.integrate(
+        [&](double phi)->double{ return integrand(phi); }, 0.0, M_TWOPI);
     return m_max_intensity * radial_part * pre_1 * pre_2 * integral;
 }
 
@@ -193,12 +261,15 @@ double VonMisesFisherGaussPeakShape::integrand(double phi) const
     return fisher * vonmises;
 }
 
+// ************************************************************************** //
+// class VonMisesGaussPeakShape
+// ************************************************************************** //
+
 VonMisesGaussPeakShape::VonMisesGaussPeakShape(double max_intensity, double radial_size,
                                                kvector_t zenith, double kappa)
     : m_max_intensity(max_intensity), m_radial_size(radial_size), m_zenith(zenith.unit()),
       m_kappa(kappa)
 {
-    mP_integrator = make_integrator_real(this, &VonMisesGaussPeakShape::integrand);
 }
 
 VonMisesGaussPeakShape::~VonMisesGaussPeakShape() = default;
@@ -224,7 +295,8 @@ double VonMisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lat
     m_phi = std::acos(q_ortho.unit().dot(m_ux));
     m_theta = std::acos(q.unit().dot(m_zenith));
     double pre = VonMisesPrefactor(m_kappa);
-    double integral = mP_integrator->integrate(0.0, M_TWOPI);
+    double integral = m_integrator.integrate(
+        [&](double phi)->double{ return integrand(phi); }, 0.0, M_TWOPI);
     return m_max_intensity * pre * integral;
 }
 
@@ -238,52 +310,3 @@ double VonMisesGaussPeakShape::integrand(double phi) const
     double vonmises = std::exp(m_kappa * (std::cos(m_phi - phi) - 1.0));
     return gauss * vonmises;
 }
-
-namespace
-{
-double FisherDistribution(double x, double kappa)
-{
-    if (kappa <= 0.0) {
-        return 1.0 / (4.0 * M_PI);
-    }
-    double prefactor = kappa / (4.0 * M_PI);
-    if (kappa > maxkappa) {
-        return 2.0 * prefactor * std::exp(kappa * (x - 1.0));
-    }
-    return prefactor * std::exp(kappa * x) / std::sinh(kappa);
-}
-double FisherPrefactor(double kappa)
-{
-    if (kappa <= 0.0) {
-        return 1.0 / (4.0 * M_PI);
-    }
-    if (kappa > maxkappa) {
-        return kappa / 2.0 / M_PI;
-    } else {
-        return kappa * std::exp(kappa) / 4.0 / M_PI / std::sinh(kappa);
-    }
-}
-double VonMisesPrefactor(double kappa)
-{
-    if (kappa <= 0.0) {
-        return 1.0 / (2.0 * M_PI);
-    }
-    if (kappa > maxkappa2) {
-        return std::sqrt(kappa / 2.0 / M_PI) / (1.0 + 1.0 / (8.0 * kappa));
-    } else {
-        return std::exp(kappa) / (2.0 * M_PI * MathFunctions::Bessel_I0(kappa));
-    }
-}
-
-double Gauss3D(double q2, double domainsize)
-{
-    double norm_factor = std::pow(domainsize / std::sqrt(M_TWOPI), 3.0);
-    double exponent = -q2 * domainsize * domainsize / 2.0;
-    return norm_factor * std::exp(exponent);
-}
-double Cauchy3D(double q2, double domainsize)
-{
-    double lorentz1 = domainsize / (1.0 + q2 * domainsize * domainsize) / M_PI;
-    return domainsize * lorentz1 * lorentz1;
-}
-} // namespace

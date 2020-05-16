@@ -17,8 +17,7 @@
 
 #include "IInterferenceFunction.h"
 #include "Lattice2D.h"
-
-template <class T> class IntegratorReal;
+#include "Integrator.h"
 
 //! Interference function of a finite 2D lattice.
 //! @ingroup interference
@@ -66,9 +65,7 @@ private:
     unsigned m_N_1, m_N_2; //!< Size of the finite lattice in lattice units
     mutable double m_qx;
     mutable double m_qy;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<InterferenceFunctionFinite2DLattice>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
 
 #endif // INTERFERENCEFUNCTIONFINITE2DLATTICE_H

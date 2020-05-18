@@ -183,6 +183,16 @@ TransformTo3D::createParticlefromIFormFactor(const IFormFactor* ff)
         double width = ff_Ripple1Box->getWidth();
         double height = ff_Ripple1Box->getHeight();
         result = std::make_unique<RealSpace::Particles::Ripple1Box>(length, width, height);
+    } else if (auto ff_Ripple1Gauss = dynamic_cast<const FormFactorRipple1Gauss*>(ff)) {
+        double length = ff_Ripple1Gauss->getLength();
+        double width = ff_Ripple1Gauss->getWidth();
+        double height = ff_Ripple1Gauss->getHeight();
+        result = std::make_unique<RealSpace::Particles::Ripple1Gauss>(length, width, height);
+    } else if (auto ff_Ripple1Lorentz = dynamic_cast<const FormFactorRipple1Lorentz*>(ff)) {
+        double length = ff_Ripple1Lorentz->getLength();
+        double width = ff_Ripple1Lorentz->getWidth();
+        double height = ff_Ripple1Lorentz->getHeight();
+        result = std::make_unique<RealSpace::Particles::Ripple1Lorentz>(length, width, height);
     } else if (auto ff_Ripple2 = dynamic_cast<const FormFactorRipple2*>(ff)) {
         double length = ff_Ripple2->getLength();
         double width = ff_Ripple2->getWidth();

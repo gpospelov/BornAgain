@@ -31,9 +31,13 @@ If the form factor is supported by the GUI, then also:
 * GUI/coregui/Models/GUIDomainSampleVisitor.h and .cpp
 * GUI/coregui/Models/ItemCatalogue.cpp
 * GUI/coregui/Models/item_constants.h
+* GUI/coregui/Views/RealSpaceWidgets/RealSpaceMesoCrystalUtils.cpp
+* GUI/coregui/Views/widgetbox/widgetbox.qrc
+* GUI/coregui/Views/widgetbox/widgetbox.xml
 
 If there is a real-space view:
 * GUI/coregui/Models/item_constants.h
+* GUI/ba3d/ba3d/model/model.cpp
 * GUI/ba3d/ba3d/model/particles.h and .cpp
 * GUI/coregui/Views/RealSpaceWidgets/RealSpaceMesoCrystalUtils.cpp
 * GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.cpp

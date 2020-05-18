@@ -245,6 +245,18 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         ostr << "Sorry, outer shape Ripple1Box not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
+    } else if (dynamic_cast<const FormFactorRipple1Gauss*>(outerShape)) {
+        // TODO: Implement Ripple1Gauss
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Ripple1Gauss not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    } else if (dynamic_cast<const FormFactorRipple1Lorentz*>(outerShape)) {
+        // TODO: Implement Ripple1Lorentz
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Ripple1Lorentz not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
     } else if (dynamic_cast<const FormFactorRipple2*>(outerShape)) {
         // TODO: Implement Ripple2
         std::ostringstream ostr;

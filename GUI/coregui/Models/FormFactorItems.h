@@ -186,6 +186,26 @@ public:
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
+class BA_CORE_API_ Ripple1GaussItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    Ripple1GaussItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ Ripple1LorentzItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    Ripple1LorentzItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
 class BA_CORE_API_ Ripple2Item : public FormFactorItem
 {
 public:

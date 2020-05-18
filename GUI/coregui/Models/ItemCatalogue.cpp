@@ -121,6 +121,8 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::Prism6Type, create_new<Prism6Item>);
     add(Constants::PyramidType, create_new<PyramidItem>);
     add(Constants::Ripple1BoxType, create_new<Ripple1BoxItem>);
+    add(Constants::Ripple1GaussType, create_new<Ripple1GaussItem>);
+    add(Constants::Ripple1LorentzType, create_new<Ripple1LorentzItem>);
     add(Constants::Ripple2Type, create_new<Ripple2Item>);
     add(Constants::TetrahedronType, create_new<TetrahedronItem>);
     add(Constants::TruncatedCubeType, create_new<TruncatedCubeItem>);

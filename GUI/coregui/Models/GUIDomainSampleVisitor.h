@@ -70,6 +70,8 @@ public:
     void visit(const FormFactorPrism6*);
     void visit(const FormFactorPyramid*);
     void visit(const FormFactorRipple1Box*);
+    void visit(const FormFactorRipple1Gauss*);
+    void visit(const FormFactorRipple1Lorentz*);
     void visit(const FormFactorRipple2*);
     void visit(const FormFactorTetrahedron*);
     void visit(const FormFactorDot*);

@@ -342,6 +342,26 @@ void GUIDomainSampleVisitor::visit(const FormFactorRipple1Box* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
+void GUIDomainSampleVisitor::visit(const FormFactorRipple1Gauss* p_sample)
+{
+    SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
+    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, Constants::Ripple1GaussType);
+    p_ff_item->setItemValue(Ripple1GaussItem::P_LENGTH, p_sample->getLength());
+    p_ff_item->setItemValue(Ripple1GaussItem::P_WIDTH, p_sample->getWidth());
+    p_ff_item->setItemValue(Ripple1GaussItem::P_HEIGHT, p_sample->getHeight());
+    m_levelToParentItem[depth()] = p_particle_item;
+}
+
+void GUIDomainSampleVisitor::visit(const FormFactorRipple1Lorentz* p_sample)
+{
+    SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
+    SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, Constants::Ripple1LorentzType);
+    p_ff_item->setItemValue(Ripple1LorentzItem::P_LENGTH, p_sample->getLength());
+    p_ff_item->setItemValue(Ripple1LorentzItem::P_WIDTH, p_sample->getWidth());
+    p_ff_item->setItemValue(Ripple1LorentzItem::P_HEIGHT, p_sample->getHeight());
+    m_levelToParentItem[depth()] = p_particle_item;
+}
+
 void GUIDomainSampleVisitor::visit(const FormFactorRipple2* p_sample)
 {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];

@@ -380,6 +380,52 @@ std::unique_ptr<IFormFactor> Ripple1BoxItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
+const QString Ripple1GaussItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString Ripple1GaussItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString Ripple1GaussItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+
+Ripple1GaussItem::Ripple1GaussItem() : FormFactorItem(Constants::Ripple1GaussType)
+{
+    setToolTip(QStringLiteral("Particle with a cosine profile and a rectangular base"));
+    addProperty(P_LENGTH, 27.0)
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
+    addProperty(P_WIDTH, 20.0)
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
+    addProperty(P_HEIGHT, 14.0)->setToolTip(QStringLiteral("Height of the ripple in nanometers"));
+}
+
+std::unique_ptr<IFormFactor> Ripple1GaussItem::createFormFactor() const
+{
+    return std::make_unique<FormFactorRipple1Gauss>(getItemValue(P_LENGTH).toDouble(),
+                                                  getItemValue(P_WIDTH).toDouble(),
+                                                  getItemValue(P_HEIGHT).toDouble());
+}
+
+/* ------------------------------------------------ */
+
+const QString Ripple1LorentzItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString Ripple1LorentzItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString Ripple1LorentzItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+
+Ripple1LorentzItem::Ripple1LorentzItem() : FormFactorItem(Constants::Ripple1LorentzType)
+{
+    setToolTip(QStringLiteral("Particle with a cosine profile and a rectangular base"));
+    addProperty(P_LENGTH, 27.0)
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
+    addProperty(P_WIDTH, 20.0)
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
+    addProperty(P_HEIGHT, 14.0)->setToolTip(QStringLiteral("Height of the ripple in nanometers"));
+}
+
+std::unique_ptr<IFormFactor> Ripple1LorentzItem::createFormFactor() const
+{
+    return std::make_unique<FormFactorRipple1Lorentz>(getItemValue(P_LENGTH).toDouble(),
+                                                  getItemValue(P_WIDTH).toDouble(),
+                                                  getItemValue(P_HEIGHT).toDouble());
+}
+
+/* ------------------------------------------------ */
+
 const QString Ripple2Item::P_LENGTH = QString::fromStdString(BornAgain::Length);
 const QString Ripple2Item::P_WIDTH = QString::fromStdString(BornAgain::Width);
 const QString Ripple2Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);

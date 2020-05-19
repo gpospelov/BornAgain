@@ -765,15 +765,6 @@ C++ includes: IntegratorMCMiser.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: classCenteredSquareLatticeBuilder.xml
 %feature("docstring") CenteredSquareLatticeBuilder "
 
@@ -8474,33 +8465,6 @@ to integrate p_member_function, which must belong to p_object
 %feature("docstring")  IntegratorMCMiser::integrate "double IntegratorMCMiser< T >::integrate(double *min_array, double *max_array, void *params, size_t nbr_points)
 
 perform the actual integration over the ranges [min_array, max_array] 
-";
-
-
-// File: classIntegratorReal.xml
-%feature("docstring") IntegratorReal "
-
-Template class to integrate class member functions.
-
-Wraps an integrator from the GNU Scientific Library. Since this class holds a persistent workspace, we need at least one instance per thread. Standard usage for integration inside a class T:
-Create a handle to an integrator: 'auto integrator = make_integrator_real(this, mem_function)'
-
-Call: 'integrator.integrate(lmin, lmax)'
-
-C++ includes: IntegratorReal.h
-";
-
-%feature("docstring")  IntegratorReal::IntegratorReal "IntegratorReal< T >::IntegratorReal(const T *p_object, real_integrand< T > p_member_function)
-
-to integrate p_member_function, which must belong to p_object 
-";
-
-%feature("docstring")  IntegratorReal::~IntegratorReal "IntegratorReal< T >::~IntegratorReal()
-";
-
-%feature("docstring")  IntegratorReal::integrate "double IntegratorReal< T >::integrate(double lmin, double lmax)
-
-perform the actual integration over the range [lmin, lmax] 
 ";
 
 
@@ -17240,7 +17204,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d631.xml
 
 
-// File: namespace_0d656.xml
+// File: namespace_0d655.xml
 
 
 // File: namespace_0d97.xml
@@ -20495,13 +20459,6 @@ David N. Williams
 %feature("docstring")  make_integrator_miser "P_integrator_miser<T> make_integrator_miser(const T *object, miser_integrand< T > mem_function, size_t dim)
 
 Template function to create an integrator object 
-";
-
-
-// File: IntegratorReal_8h.xml
-%feature("docstring")  make_integrator_real "P_integrator_real<T> make_integrator_real(const T *object, real_integrand< T > mem_function)
-
-Template function to create an integrator object. 
 ";
 
 

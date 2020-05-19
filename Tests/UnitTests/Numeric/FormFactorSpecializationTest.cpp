@@ -41,7 +41,7 @@ TEST_F(FFSpecializationTest, AnisoPyramidAsPyramid)
     const double L = 1.5, H = .24, alpha = .6;
     FormFactorAnisoPyramid p0(L, L, H, alpha);
     FormFactorPyramid p1(L, H, alpha);
-    run_test(&p0, &p1, eps_polyh, 1e-99, 5e3);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 50);
 }
 
 TEST_F(FFSpecializationTest, Pyramid3AsPrism)
@@ -49,7 +49,7 @@ TEST_F(FFSpecializationTest, Pyramid3AsPrism)
     const double L = 1.8, H = .3;
     FormFactorTetrahedron p0(L, H, M_PI / 2);
     FormFactorPrism3 p1(L, H);
-    run_test(&p0, &p1, eps_polyh, 1e-99, 5e3);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 50);
 }
 
 TEST_F(FFSpecializationTest, PyramidAsBox)
@@ -83,7 +83,7 @@ TEST_F(FFSpecializationTest, EllipsoidalCylinderAsCylinder)
     const double R = .8, H = 1.2;
     FormFactorEllipsoidalCylinder p0(R, R, H);
     FormFactorCylinder p1(R, H);
-    run_test(&p0, &p1, 1e-11, 1e-99, 5e3);
+    run_test(&p0, &p1, 1e-11, 1e-99, 50);
 }
 
 TEST_F(FFSpecializationTest, TruncatedSphereAsSphere)
@@ -91,7 +91,7 @@ TEST_F(FFSpecializationTest, TruncatedSphereAsSphere)
     const double R = 1.;
     FormFactorTruncatedSphere p0(R, 2 * R);
     FormFactorFullSphere p1(R);
-    run_test(&p0, &p1, 1e-12, .02, 5e1);
+    run_test(&p0, &p1, 1e-11, .02, 5e1);
 }
 
 TEST_F(FFSpecializationTest, SpheroidAsSphere)
@@ -99,5 +99,5 @@ TEST_F(FFSpecializationTest, SpheroidAsSphere)
     const double R = 1.;
     FormFactorFullSpheroid p0(R, 2 * R);
     FormFactorFullSphere p1(R);
-    run_test(&p0, &p1, 1e-12, 1e-99, 5e3);
+    run_test(&p0, &p1, 1e-12, 1e-99, 50);
 }

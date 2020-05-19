@@ -42,10 +42,10 @@ TEST_F(FFSymmetryTest, Prism6)
     FormFactorPrism6 p(1.33, .42);
     run_test(
         &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_PI / 3); }, 1e-12, 1e-99,
-        2e3);
+        50);
     run_test(
         &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_TWOPI / 3); }, 3.8e-12,
-        1e-99, 2e3);
+        1e-99, 50);
 }
 
 TEST_F(FFSymmetryTest, Tetrahedron)
@@ -62,16 +62,16 @@ TEST_F(FFSymmetryTest, Cone6_flat)
     // TODO for larger q, imag(ff) is nan
     FormFactorCone6 p(4.3, .09, .1);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 3.8e-12, 1e-99,
-        2e2);
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 1e-11, 1e-99,
+        50);
 }
 
 TEST_F(FFSymmetryTest, Cone6_steep)
 {
     FormFactorCone6 p(.23, 3.5, .999 * M_PI / 2);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 2.5e-12, 1e-99,
-        2e2);
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 4e-12, 1e-99,
+        50);
 }
 
 //*********** spheroids ***************
@@ -99,7 +99,7 @@ TEST_F(FFSymmetryTest, FullSpheroid)
 {
     FormFactorFullSpheroid p(.73, .36);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(.123); }, 1e-13,
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(.123); }, 1e-12,
         1e-99, 2e2);
 }
 

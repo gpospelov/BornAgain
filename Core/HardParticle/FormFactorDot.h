@@ -25,10 +25,7 @@ class BA_CORE_API_ FormFactorDot : public IFormFactorBorn
 public:
     FormFactorDot(double radius);
 
-    FormFactorDot* clone() const override final
-    {
-        return new FormFactorDot(m_radius);
-    }
+    FormFactorDot* clone() const override final { return new FormFactorDot(m_radius); }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadius() const { return m_radius; }

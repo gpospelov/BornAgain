@@ -756,15 +756,6 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: structIntegratorReal_1_1CallBackHolder.xml
-%feature("docstring") IntegratorReal::CallBackHolder "
-
-structure holding the object and possible extra parameters
-
-C++ includes: IntegratorReal.h
-";
-
-
 // File: structIntegratorMCMiser_1_1CallBackHolder.xml
 %feature("docstring") IntegratorMCMiser::CallBackHolder "
 
@@ -884,6 +875,18 @@ clone method
 %feature("docstring") Exceptions::ClassInitializationException "";
 
 %feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
+";
+
+
+// File: classComplexIntegrator.xml
+%feature("docstring") ComplexIntegrator "
+
+To integrate a complex function of a real variable.
+
+C++ includes: Integrator.h
+";
+
+%feature("docstring")  ComplexIntegrator::integrate "complex_t ComplexIntegrator::integrate(const std::function< complex_t(double)> &f, double lmin, double lmax)
 ";
 
 
@@ -8438,33 +8441,6 @@ Returns a vector of children (const).
 ";
 
 
-// File: classIntegratorComplex.xml
-%feature("docstring") IntegratorComplex "
-
-Template class to integrate complex class member functions.
-
-Wraps an two integrators from the GNU Scientific Library. Since this class holds a persistent workspace, we need at least one instance per thread. Standard usage for integration inside a class T:
-Create a handle to an integrator: 'auto integrator = make_integrator_complex(this, mem_function)'
-
-Call: 'integrator.integrate(lmin, lmax)'
-
-C++ includes: IntegratorComplex.h
-";
-
-%feature("docstring")  IntegratorComplex::IntegratorComplex "IntegratorComplex< T >::IntegratorComplex(const T *p_object, complex_integrand< T > p_member_function)
-
-to integrate p_member_function, which must belong to p_object 
-";
-
-%feature("docstring")  IntegratorComplex::~IntegratorComplex "IntegratorComplex< T >::~IntegratorComplex()
-";
-
-%feature("docstring")  IntegratorComplex::integrate "complex_t IntegratorComplex< T >::integrate(double lmin, double lmax)
-
-perform the actual integration over the range [lmin, lmax] 
-";
-
-
 // File: classIntegratorMCMiser.xml
 %feature("docstring") IntegratorMCMiser "
 
@@ -8489,33 +8465,6 @@ to integrate p_member_function, which must belong to p_object
 %feature("docstring")  IntegratorMCMiser::integrate "double IntegratorMCMiser< T >::integrate(double *min_array, double *max_array, void *params, size_t nbr_points)
 
 perform the actual integration over the ranges [min_array, max_array] 
-";
-
-
-// File: classIntegratorReal.xml
-%feature("docstring") IntegratorReal "
-
-Template class to integrate class member functions.
-
-Wraps an integrator from the GNU Scientific Library. Since this class holds a persistent workspace, we need at least one instance per thread. Standard usage for integration inside a class T:
-Create a handle to an integrator: 'auto integrator = make_integrator_real(this, mem_function)'
-
-Call: 'integrator.integrate(lmin, lmax)'
-
-C++ includes: IntegratorReal.h
-";
-
-%feature("docstring")  IntegratorReal::IntegratorReal "IntegratorReal< T >::IntegratorReal(const T *p_object, real_integrand< T > p_member_function)
-
-to integrate p_member_function, which must belong to p_object 
-";
-
-%feature("docstring")  IntegratorReal::~IntegratorReal "IntegratorReal< T >::~IntegratorReal()
-";
-
-%feature("docstring")  IntegratorReal::integrate "double IntegratorReal< T >::integrate(double lmin, double lmax)
-
-perform the actual integration over the range [lmin, lmax] 
 ";
 
 
@@ -13748,6 +13697,24 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 ";
 
 
+// File: classRealIntegrator.xml
+%feature("docstring") RealIntegrator "
+
+To integrate a real function of a real variable.
+
+C++ includes: Integrator.h
+";
+
+%feature("docstring")  RealIntegrator::RealIntegrator "RealIntegrator::RealIntegrator()
+";
+
+%feature("docstring")  RealIntegrator::~RealIntegrator "RealIntegrator::~RealIntegrator()
+";
+
+%feature("docstring")  RealIntegrator::integrate "double RealIntegrator::integrate(const std::function< double(double)> &f, double lmin, double lmax)
+";
+
+
 // File: classRealParameter.xml
 %feature("docstring") RealParameter "
 
@@ -17042,10 +17009,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
+
+
+// File: classFourierTransform_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -20482,24 +20449,16 @@ David N. Williams
 ";
 
 
-// File: IntegratorComplex_8h.xml
-%feature("docstring")  make_integrator_complex "P_integrator_complex<T> make_integrator_complex(const T *object, complex_integrand< T > mem_function)
+// File: Integrator_8cpp.xml
 
-Template function to create an integrator object. 
-";
+
+// File: Integrator_8h.xml
 
 
 // File: IntegratorMCMiser_8h.xml
 %feature("docstring")  make_integrator_miser "P_integrator_miser<T> make_integrator_miser(const T *object, miser_integrand< T > mem_function, size_t dim)
 
 Template function to create an integrator object 
-";
-
-
-// File: IntegratorReal_8h.xml
-%feature("docstring")  make_integrator_real "P_integrator_real<T> make_integrator_real(const T *object, real_integrand< T > mem_function)
-
-Template function to create an integrator object. 
 ";
 
 

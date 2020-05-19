@@ -16,7 +16,7 @@
 #define FORMFACTORTRUNCATEDSPHEROID_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
+#include "Integrator.h"
 
 //! A truncated spheroid.
 //! An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
@@ -58,10 +58,7 @@ private:
     double m_height_flattening;
     double m_dh;
     mutable cvector_t m_q;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorTruncatedSpheroid>> mP_integrator;
-#endif
+    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // FORMFACTORTRUNCATEDSPHEROID_H

@@ -15,7 +15,8 @@
 #include "Complex.h"
 
 //! Computations for elongated particles.
-namespace ripples {
+namespace ripples
+{
 
 complex_t factor_x_box(complex_t q, double l);
 complex_t factor_x_Gauss(complex_t q, double l);

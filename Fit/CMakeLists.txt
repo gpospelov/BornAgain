@@ -54,13 +54,6 @@ if(BORNAGAIN_PYTHON)
             list(APPEND SWIG_FLAGS "-I${dir}")
         endforeach(dir)
 
-        if ((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-                OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
-            # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
-            set_source_files_properties(${AUTO_DIR}/libBornAgainFit_wrap.cpp
-                PROPERTIES COMPILE_OPTIONS "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-deprecated-declarations")
-        endif()
-
         add_custom_command (
             OUTPUT ${AUTO_DIR}/libBornAgainFit.py
             COMMAND ${Python_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
@@ -86,6 +79,13 @@ if(BORNAGAIN_PYTHON)
              ${CMAKE_BINARY_DIR}/lib/bornagain/libBornAgainFit.py
         DEPENDS ${AUTO_DIR}/libBornAgainFit.py
         )
+
+    if ((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+            OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
+        # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
+        set_source_files_properties(${AUTO_DIR}/libBornAgainFit_wrap.cpp
+            PROPERTIES COMPILE_OPTIONS "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-deprecated-declarations")
+    endif()
 
     list(APPEND source_files "${AUTO_DIR}/libBornAgainFit_wrap.cpp")
     #list(APPEND include_files "${AUTO_DIR}/libBornAgainFit_wrap.h")

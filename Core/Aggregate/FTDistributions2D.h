@@ -18,6 +18,7 @@
 #include "ICloneable.h"
 #include "IDistribution2DSampler.h"
 #include "INode.h"
+#include "Integrator.h"
 #include "MathConstants.h"
 
 //! Interface for two-dimensional distributions in Fourier space.
@@ -133,9 +134,7 @@ public:
 #endif
 
 private:
-    //! second part of the integrand:
-    //! \f$u^2\cdot J_0(u)\f$
-    double coneIntegrand2(double value) const;
+    mutable RealIntegrator m_integrator;
 };
 
 //! Two-dimensional Voigt distribution in Fourier space;

@@ -40,8 +40,7 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const
 
     // complex length of q (not a sesquilinear dot product!),
     // xy components multiplied with R, z component multiplied with h
-    complex_t qR =
-        sqrt( R * R * (q.x() * q.x() + q.y() * q.y()) + h * h * q.z() * q.z());
+    complex_t qR = sqrt(R * R * (q.x() * q.x() + q.y() * q.y()) + h * h * q.z() * q.z());
 
     complex_t zFactor = exp_I(h * q.z());
 

@@ -25,6 +25,7 @@ public:
     FormFactorRipple1Box(double length, double width, double height);
     FormFactorRipple1Box* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
+
 private:
     complex_t factor_x(complex_t qx) const override final;
 };
@@ -37,6 +38,7 @@ public:
     FormFactorRipple1Gauss(double length, double width, double height);
     FormFactorRipple1Gauss* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
+
 private:
     complex_t factor_x(complex_t qx) const override final;
 };
@@ -49,6 +51,7 @@ public:
     FormFactorRipple1Lorentz(double length, double width, double height);
     FormFactorRipple1Lorentz* clone() const override final;
     void accept(INodeVisitor* visitor) const override final;
+
 private:
     complex_t factor_x(complex_t qx) const override final;
 };

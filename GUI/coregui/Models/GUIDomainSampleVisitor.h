@@ -55,6 +55,8 @@ public:
     void visit(const Crystal*);
 
     void visit(const FormFactorAnisoPyramid*);
+    void visit(const FormFactorBarGauss*);
+    void visit(const FormFactorBarLorentz*);
     void visit(const FormFactorBox*);
     void visit(const FormFactorCone*);
     void visit(const FormFactorCone6*);
@@ -72,7 +74,9 @@ public:
     void visit(const FormFactorRipple1Box*);
     void visit(const FormFactorRipple1Gauss*);
     void visit(const FormFactorRipple1Lorentz*);
-    void visit(const FormFactorRipple2*);
+    void visit(const FormFactorRipple2Box*);
+    void visit(const FormFactorRipple2Gauss*);
+    void visit(const FormFactorRipple2Lorentz*);
     void visit(const FormFactorTetrahedron*);
     void visit(const FormFactorDot*);
     void visit(const FormFactorTruncatedCube*);

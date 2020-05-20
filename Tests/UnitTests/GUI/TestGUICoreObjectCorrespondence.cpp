@@ -146,10 +146,10 @@ TEST_F(TestGUICoreObjectCorrespondence, test_Ripple1Box)
     GUICoreObjectCorrespondence(gui_ripple1, core_ripple1);
 }
 
-TEST_F(TestGUICoreObjectCorrespondence, test_Ripple2)
+TEST_F(TestGUICoreObjectCorrespondence, test_Ripple2Box)
 {
-    Ripple2Item gui_ripple2;
-    FormFactorRipple2 core_ripple2(10.0, 2.0, 1.0, 0.1);
+    Ripple2BoxItem gui_ripple2;
+    FormFactorRipple2Box core_ripple2(10.0, 2.0, 1.0, 0.1);
     GUICoreObjectCorrespondence(gui_ripple2, core_ripple2);
 }
 

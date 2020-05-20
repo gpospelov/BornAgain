@@ -20,6 +20,8 @@ GroupInfoCatalogue::GroupInfoCatalogue()
 {
     GroupInfo info(Constants::FormFactorGroup);
     info.add(Constants::AnisoPyramidType, "Aniso Pyramid");
+    info.add(Constants::BarGaussType, "BarGauss");
+    info.add(Constants::BarLorentzType, "BarLorentz");
     info.add(Constants::BoxType, "Box");
     info.add(Constants::ConeType, "Cone");
     info.add(Constants::Cone6Type, "Cone6");
@@ -38,7 +40,9 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::Ripple1BoxType, "Ripple1Box");
     info.add(Constants::Ripple1GaussType, "Ripple1Gauss");
     info.add(Constants::Ripple1LorentzType, "Ripple1Lorentz");
-    info.add(Constants::Ripple2Type, "Ripple2");
+    info.add(Constants::Ripple2BoxType, "Ripple2Box");
+    info.add(Constants::Ripple2GaussType, "Ripple2Gauss");
+    info.add(Constants::Ripple2LorentzType, "Ripple2Lorentz");
     info.add(Constants::TetrahedronType, "Tetrahedron");
     info.add(Constants::TruncatedCubeType, "Truncated Cube");
     info.add(Constants::TruncatedSphereType, "Truncated Sphere");

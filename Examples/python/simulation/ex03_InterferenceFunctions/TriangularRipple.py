@@ -17,7 +17,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    ripple2_ff = ba.FormFactorRipple2(
+    ripple2_ff = ba.FormFactorRipple2Box(
         100*nm, 20*nm, 4*nm, -3.0*nm)
     ripple = ba.Particle(m_particle, ripple2_ff)
 

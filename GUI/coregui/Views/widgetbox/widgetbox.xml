@@ -251,6 +251,30 @@
 
     <category name="Ripples">
 
+        <categoryentry name="Box" icon="images/ff_Box_64x64.png">
+            <widget class="FormFactorBox">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="BarGauss" icon="images/ff_Box_64x64.png">
+            <widget class="FormFactorBarGauss">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="BarLorentz" icon="images/ff_Box_64x64.png">
+            <widget class="FormFactorBarLorentz">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
         <categoryentry name="Ripple1Box" icon="images/ff_Ripple1_64x64.png">
             <widget class="FormFactorRipple1Box">
                 <property name="objectName">
@@ -275,8 +299,24 @@
             </widget>
         </categoryentry>
 
-        <categoryentry name="Ripple2" icon="images/ff_Ripple2_64x64.png">
-            <widget class="FormFactorRipple2">
+        <categoryentry name="Ripple2Box" icon="images/ff_Ripple2_64x64.png">
+            <widget class="FormFactorRipple2Box">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="Ripple2Gauss" icon="images/ff_Ripple2_64x64.png">
+            <widget class="FormFactorRipple2Gauss">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="Ripple2Lorentz" icon="images/ff_Ripple2_64x64.png">
+            <widget class="FormFactorRipple2Lorentz">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

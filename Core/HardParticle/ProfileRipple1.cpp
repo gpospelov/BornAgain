@@ -19,7 +19,7 @@
 #include "MathFunctions.h"
 #include "RealLimits.h"
 #include "RealParameter.h"
-#include "RippleCosine.h"
+#include "RippleCosine.h" // from Shapes/
 
 //! @brief Constructor of cosine ripple.
 //! @param length: length of the rectangular base in nanometers

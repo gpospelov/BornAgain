@@ -31,6 +31,8 @@ class DistributionTrapezoid;
 class FootprintFactorGaussian;
 class FootprintFactorSquare;
 class FormFactorAnisoPyramid;
+class FormFactorBarGauss;
+class FormFactorBarLorentz;
 class FormFactorBox;
 class FormFactorCone;
 class FormFactorCone6;
@@ -59,7 +61,9 @@ class FormFactorPyramid;
 class FormFactorRipple1Box;
 class FormFactorRipple1Gauss;
 class FormFactorRipple1Lorentz;
-class FormFactorRipple2;
+class FormFactorRipple2Box;
+class FormFactorRipple2Gauss;
+class FormFactorRipple2Lorentz;
 class FormFactorSphereGaussianRadius;
 class FormFactorSphereLogNormalRadius;
 class FormFactorTetrahedron;
@@ -164,6 +168,8 @@ public:
     virtual void visit(const FootprintFactorGaussian*) {}
     virtual void visit(const FootprintFactorSquare*) {}
     virtual void visit(const FormFactorAnisoPyramid*) {}
+    virtual void visit(const FormFactorBarGauss*) {}
+    virtual void visit(const FormFactorBarLorentz*) {}
     virtual void visit(const FormFactorBox*) {}
     virtual void visit(const FormFactorCone*) {}
     virtual void visit(const FormFactorCone6*) {}
@@ -192,7 +198,9 @@ public:
     virtual void visit(const FormFactorRipple1Box*) {}
     virtual void visit(const FormFactorRipple1Gauss*) {}
     virtual void visit(const FormFactorRipple1Lorentz*) {}
-    virtual void visit(const FormFactorRipple2*) {}
+    virtual void visit(const FormFactorRipple2Box*) {}
+    virtual void visit(const FormFactorRipple2Gauss*) {}
+    virtual void visit(const FormFactorRipple2Lorentz*) {}
     virtual void visit(const FormFactorSphereGaussianRadius*) {}
     virtual void visit(const FormFactorSphereLogNormalRadius*) {}
     virtual void visit(const FormFactorTetrahedron*) {}

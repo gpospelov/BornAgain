@@ -37,6 +37,26 @@ public:
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
+class BA_CORE_API_ BarGaussItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    BarGaussItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ BarLorentzItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    BarLorentzItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
 class BA_CORE_API_ BoxItem : public FormFactorItem
 {
 public:
@@ -206,14 +226,36 @@ public:
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
-class BA_CORE_API_ Ripple2Item : public FormFactorItem
+class BA_CORE_API_ Ripple2BoxItem : public FormFactorItem
 {
 public:
     static const QString P_LENGTH;
     static const QString P_WIDTH;
     static const QString P_HEIGHT;
     static const QString P_ASYMMETRY;
-    Ripple2Item();
+    Ripple2BoxItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ Ripple2GaussItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    static const QString P_ASYMMETRY;
+    Ripple2GaussItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ Ripple2LorentzItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    static const QString P_ASYMMETRY;
+    Ripple2LorentzItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 

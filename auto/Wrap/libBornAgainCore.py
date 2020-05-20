@@ -5820,6 +5820,8 @@ class INodeVisitor(object):
         visit(INodeVisitor self, FootprintFactorGaussian arg2)
         visit(INodeVisitor self, FootprintFactorSquare arg2)
         visit(INodeVisitor self, FormFactorAnisoPyramid arg2)
+        visit(INodeVisitor self, FormFactorBarGauss const * arg2)
+        visit(INodeVisitor self, FormFactorBarLorentz const * arg2)
         visit(INodeVisitor self, FormFactorBox arg2)
         visit(INodeVisitor self, FormFactorCone arg2)
         visit(INodeVisitor self, FormFactorCone6 arg2)
@@ -5848,7 +5850,9 @@ class INodeVisitor(object):
         visit(INodeVisitor self, FormFactorRipple1Box arg2)
         visit(INodeVisitor self, FormFactorRipple1Gauss arg2)
         visit(INodeVisitor self, FormFactorRipple1Lorentz arg2)
-        visit(INodeVisitor self, FormFactorRipple2 arg2)
+        visit(INodeVisitor self, FormFactorRipple2Box arg2)
+        visit(INodeVisitor self, FormFactorRipple2Gauss arg2)
+        visit(INodeVisitor self, FormFactorRipple2Lorentz arg2)
         visit(INodeVisitor self, FormFactorSphereGaussianRadius arg2)
         visit(INodeVisitor self, FormFactorSphereLogNormalRadius arg2)
         visit(INodeVisitor self, FormFactorTetrahedron arg2)
@@ -9533,6 +9537,70 @@ class FormFactorPolygonalSurface(IFormFactorBorn):
 # Register FormFactorPolygonalSurface in _libBornAgainCore:
 _libBornAgainCore.FormFactorPolygonalSurface_swigregister(FormFactorPolygonalSurface)
 
+class ProfileBar(IFormFactorBorn):
+    r"""
+
+
+    Base class for form factors with a cosine ripple profile in the yz plane.
+
+    C++ includes: ProfileBar.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def getLength(self):
+        r"""
+        getLength(ProfileBar self) -> double
+        double ProfileBar::getLength() const
+
+        """
+        return _libBornAgainCore.ProfileBar_getLength(self)
+
+    def getHeight(self):
+        r"""
+        getHeight(ProfileBar self) -> double
+        double ProfileBar::getHeight() const
+
+        """
+        return _libBornAgainCore.ProfileBar_getHeight(self)
+
+    def getWidth(self):
+        r"""
+        getWidth(ProfileBar self) -> double
+        double ProfileBar::getWidth() const
+
+        """
+        return _libBornAgainCore.ProfileBar_getWidth(self)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(ProfileBar self) -> double
+        double ProfileBar::radialExtension() const override final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.ProfileBar_radialExtension(self)
+
+    def evaluate_for_q(self, q):
+        r"""
+        evaluate_for_q(ProfileBar self, cvector_t q) -> complex_t
+        complex_t ProfileBar::evaluate_for_q(cvector_t q) const override final
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+
+        """
+        return _libBornAgainCore.ProfileBar_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_ProfileBar
+
+# Register ProfileBar in _libBornAgainCore:
+_libBornAgainCore.ProfileBar_swigregister(ProfileBar)
+
 class ProfileRipple1(IFormFactorBorn):
     r"""
 
@@ -9596,6 +9664,78 @@ class ProfileRipple1(IFormFactorBorn):
 
 # Register ProfileRipple1 in _libBornAgainCore:
 _libBornAgainCore.ProfileRipple1_swigregister(ProfileRipple1)
+
+class ProfileRipple2(IFormFactorBorn):
+    r"""
+
+
+    Base class for form factors with a cosine ripple profile in the yz plane.
+
+    C++ includes: ProfileRipple2.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def getLength(self):
+        r"""
+        getLength(ProfileRipple2 self) -> double
+        double ProfileRipple2::getLength() const
+
+        """
+        return _libBornAgainCore.ProfileRipple2_getLength(self)
+
+    def getHeight(self):
+        r"""
+        getHeight(ProfileRipple2 self) -> double
+        double ProfileRipple2::getHeight() const
+
+        """
+        return _libBornAgainCore.ProfileRipple2_getHeight(self)
+
+    def getWidth(self):
+        r"""
+        getWidth(ProfileRipple2 self) -> double
+        double ProfileRipple2::getWidth() const
+
+        """
+        return _libBornAgainCore.ProfileRipple2_getWidth(self)
+
+    def getAsymmetry(self):
+        r"""
+        getAsymmetry(ProfileRipple2 self) -> double
+        double ProfileRipple2::getAsymmetry() const
+
+        """
+        return _libBornAgainCore.ProfileRipple2_getAsymmetry(self)
+
+    def radialExtension(self):
+        r"""
+        radialExtension(ProfileRipple2 self) -> double
+        double ProfileRipple2::radialExtension() const override final
+
+        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+
+        """
+        return _libBornAgainCore.ProfileRipple2_radialExtension(self)
+
+    def evaluate_for_q(self, q):
+        r"""
+        evaluate_for_q(ProfileRipple2 self, cvector_t q) -> complex_t
+        complex_t ProfileRipple2::evaluate_for_q(cvector_t q) const override final
+
+        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+
+        """
+        return _libBornAgainCore.ProfileRipple2_evaluate_for_q(self, q)
+    __swig_destroy__ = _libBornAgainCore.delete_ProfileRipple2
+
+# Register ProfileRipple2 in _libBornAgainCore:
+_libBornAgainCore.ProfileRipple2_swigregister(ProfileRipple2)
 
 
 def factor_x_box(q, l):
@@ -11771,11 +11911,11 @@ class FormFactorPyramid(FormFactorPolyhedron):
 # Register FormFactorPyramid in _libBornAgainCore:
 _libBornAgainCore.FormFactorPyramid_swigregister(FormFactorPyramid)
 
-class FormFactorRipple2(IFormFactorBorn):
+class FormFactorRipple2Box(ProfileRipple2):
     r"""
 
 
-    The form factor for a triangular ripple.
+    The form factor for a cosine ripple, with box profile in elongation direction.
 
     C++ includes: FormFactorRipple2.h
 
@@ -11786,104 +11926,125 @@ class FormFactorRipple2(IFormFactorBorn):
 
     def __init__(self, length, width, height, asymmetry):
         r"""
-        __init__(FormFactorRipple2 self, double length, double width, double height, double asymmetry) -> FormFactorRipple2
-        FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
-
-        Constructor of a triangular ripple.
-
-        Parameters:
-        -----------
-
-        length: 
-        length of the rectangular base in nanometers
-
-        width: 
-        width of the rectangular base in nanometers
-
-        height: 
-        height of the ripple in nanometers
-
-        asymmetry: 
-        asymmetry length of the triangular profile in nanometers 
+        __init__(FormFactorRipple2Box self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Box
+        FormFactorRipple2Box::FormFactorRipple2Box(double length, double width, double height, double asymmetry)
 
         """
-        _libBornAgainCore.FormFactorRipple2_swiginit(self, _libBornAgainCore.new_FormFactorRipple2(length, width, height, asymmetry))
+        _libBornAgainCore.FormFactorRipple2Box_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Box(length, width, height, asymmetry))
 
     def clone(self):
         r"""
-        clone(FormFactorRipple2 self) -> FormFactorRipple2
-        FormFactorRipple2* FormFactorRipple2::clone() const override final
+        clone(FormFactorRipple2Box self) -> FormFactorRipple2Box
+        FormFactorRipple2Box * FormFactorRipple2Box::clone() const override final
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorRipple2_clone(self)
+        return _libBornAgainCore.FormFactorRipple2Box_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(FormFactorRipple2 self, INodeVisitor visitor)
-        void FormFactorRipple2::accept(INodeVisitor *visitor) const override final
+        accept(FormFactorRipple2Box self, INodeVisitor visitor)
+        void FormFactorRipple2Box::accept(INodeVisitor *visitor) const override final
 
         Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorRipple2_accept(self, visitor)
+        return _libBornAgainCore.FormFactorRipple2Box_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2Box
 
-    def getHeight(self):
+# Register FormFactorRipple2Box in _libBornAgainCore:
+_libBornAgainCore.FormFactorRipple2Box_swigregister(FormFactorRipple2Box)
+
+class FormFactorRipple2Gauss(ProfileRipple2):
+    r"""
+
+
+    The form factor for a cosine ripple, with Gaussian profile in elongation direction.
+
+    C++ includes: FormFactorRipple2.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, length, width, height, asymmetry):
         r"""
-        getHeight(FormFactorRipple2 self) -> double
-        double FormFactorRipple2::getHeight() const
+        __init__(FormFactorRipple2Gauss self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Gauss
+        FormFactorRipple2Gauss::FormFactorRipple2Gauss(double length, double width, double height, double asymmetry)
 
         """
-        return _libBornAgainCore.FormFactorRipple2_getHeight(self)
+        _libBornAgainCore.FormFactorRipple2Gauss_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Gauss(length, width, height, asymmetry))
 
-    def getWidth(self):
+    def clone(self):
         r"""
-        getWidth(FormFactorRipple2 self) -> double
-        double FormFactorRipple2::getWidth() const
+        clone(FormFactorRipple2Gauss self) -> FormFactorRipple2Gauss
+        FormFactorRipple2Gauss * FormFactorRipple2Gauss::clone() const override final
+
+        Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorRipple2_getWidth(self)
+        return _libBornAgainCore.FormFactorRipple2Gauss_clone(self)
 
-    def getLength(self):
+    def accept(self, visitor):
         r"""
-        getLength(FormFactorRipple2 self) -> double
-        double FormFactorRipple2::getLength() const
+        accept(FormFactorRipple2Gauss self, INodeVisitor visitor)
+        void FormFactorRipple2Gauss::accept(INodeVisitor *visitor) const override final
+
+        Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorRipple2_getLength(self)
+        return _libBornAgainCore.FormFactorRipple2Gauss_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2Gauss
 
-    def getAsymmetry(self):
+# Register FormFactorRipple2Gauss in _libBornAgainCore:
+_libBornAgainCore.FormFactorRipple2Gauss_swigregister(FormFactorRipple2Gauss)
+
+class FormFactorRipple2Lorentz(ProfileRipple2):
+    r"""
+
+
+    The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
+
+    C++ includes: FormFactorRipple2.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, length, width, height, asymmetry):
         r"""
-        getAsymmetry(FormFactorRipple2 self) -> double
-        double FormFactorRipple2::getAsymmetry() const
+        __init__(FormFactorRipple2Lorentz self, double length, double width, double height, double asymmetry) -> FormFactorRipple2Lorentz
+        FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(double length, double width, double height, double asymmetry)
 
         """
-        return _libBornAgainCore.FormFactorRipple2_getAsymmetry(self)
+        _libBornAgainCore.FormFactorRipple2Lorentz_swiginit(self, _libBornAgainCore.new_FormFactorRipple2Lorentz(length, width, height, asymmetry))
 
-    def radialExtension(self):
+    def clone(self):
         r"""
-        radialExtension(FormFactorRipple2 self) -> double
-        double FormFactorRipple2::radialExtension() const override final
+        clone(FormFactorRipple2Lorentz self) -> FormFactorRipple2Lorentz
+        FormFactorRipple2Lorentz * FormFactorRipple2Lorentz::clone() const override final
 
-        Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+        Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainCore.FormFactorRipple2_radialExtension(self)
+        return _libBornAgainCore.FormFactorRipple2Lorentz_clone(self)
 
-    def evaluate_for_q(self, q):
+    def accept(self, visitor):
         r"""
-        evaluate_for_q(FormFactorRipple2 self, cvector_t q) -> complex_t
-        complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const override final
+        accept(FormFactorRipple2Lorentz self, INodeVisitor visitor)
+        void FormFactorRipple2Lorentz::accept(INodeVisitor *visitor) const override final
 
-        Complex form factor. 
+        Calls the  INodeVisitor's visit method. 
 
         """
-        return _libBornAgainCore.FormFactorRipple2_evaluate_for_q(self, q)
-    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2
+        return _libBornAgainCore.FormFactorRipple2Lorentz_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_FormFactorRipple2Lorentz
 
-# Register FormFactorRipple2 in _libBornAgainCore:
-_libBornAgainCore.FormFactorRipple2_swigregister(FormFactorRipple2)
+# Register FormFactorRipple2Lorentz in _libBornAgainCore:
+_libBornAgainCore.FormFactorRipple2Lorentz_swigregister(FormFactorRipple2Lorentz)
 
 class FormFactorSphereGaussianRadius(IFormFactorBorn):
     r"""

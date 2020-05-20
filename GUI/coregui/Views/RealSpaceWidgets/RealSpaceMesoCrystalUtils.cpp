@@ -54,6 +54,22 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         if (std::abs(positionInside.x()) <= l_z && std::abs(positionInside.y()) <= w_z
             && (positionInside.z() >= 0 && positionInside.z() <= H))
             check = true;
+    } else if (auto ff_BarGauss = dynamic_cast<const FormFactorBarGauss*>(outerShape)) {
+        double L = ff_BarGauss->getLength();
+        double W = ff_BarGauss->getWidth();
+        double H = ff_BarGauss->getHeight();
+
+        if (std::abs(positionInside.x()) <= L / 2 && std::abs(positionInside.y()) <= W / 2
+            && (positionInside.z() >= 0 && positionInside.z() <= H))
+            check = true;
+    } else if (auto ff_BarLorentz = dynamic_cast<const FormFactorBarLorentz*>(outerShape)) {
+        double L = ff_BarLorentz->getLength();
+        double W = ff_BarLorentz->getWidth();
+        double H = ff_BarLorentz->getHeight();
+
+        if (std::abs(positionInside.x()) <= L / 2 && std::abs(positionInside.y()) <= W / 2
+            && (positionInside.z() >= 0 && positionInside.z() <= H))
+            check = true;
     } else if (auto ff_Box = dynamic_cast<const FormFactorBox*>(outerShape)) {
         double L = ff_Box->getLength();
         double W = ff_Box->getWidth();
@@ -257,10 +273,22 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
         ostr << "Sorry, outer shape Ripple1Lorentz not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
-    } else if (dynamic_cast<const FormFactorRipple2*>(outerShape)) {
-        // TODO: Implement Ripple2
+    } else if (dynamic_cast<const FormFactorRipple2Box*>(outerShape)) {
+        // TODO: Implement Ripple2Box
         std::ostringstream ostr;
-        ostr << "Sorry, outer shape Ripple2 not yet implemented for Mesocrystal";
+        ostr << "Sorry, outer shape Ripple2Box not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    } else if (dynamic_cast<const FormFactorRipple2Gauss*>(outerShape)) {
+        // TODO: Implement Ripple2Gauss
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Ripple2Gauss not yet implemented for Mesocrystal";
+        ostr << "\n\nStay tuned!";
+        throw Exceptions::ClassInitializationException(ostr.str());
+    } else if (dynamic_cast<const FormFactorRipple2Lorentz*>(outerShape)) {
+        // TODO: Implement Ripple2Lorentz
+        std::ostringstream ostr;
+        ostr << "Sorry, outer shape Ripple2Lorentz not yet implemented for Mesocrystal";
         ostr << "\n\nStay tuned!";
         throw Exceptions::ClassInitializationException(ostr.str());
     } else if (auto ff_Tetrahedron = dynamic_cast<const FormFactorTetrahedron*>(outerShape)) {

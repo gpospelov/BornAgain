@@ -40,13 +40,17 @@ QString const& name(EShape k)
         "Prism3",
         "Tetrahedron",
         "EllipsoidalCylinder",
+        "BarGauss",
+        "BarLorentz",
         "Box",
         "HemiEllipsoid",
         "Dot",
         "Ripple1Box",
         "Ripple1Gauss",
         "Ripple1Lorentz",
-        "Ripple2",
+        "Ripple2Box",
+        "Ripple2Gauss",
+        "Ripple2Lorentz",
         "AnisoPyramid",
     };
     return names[uint(k)];
@@ -104,6 +108,24 @@ AnisoPyramid::AnisoPyramid(float L, float W, float H, float alpha)
                    (1.0f - H / (std::sqrt((L * L / 4) + (W * W / 4)) * std::tan(alpha))), 4))
 {
     isNull = (L <= 0 || W <= 0 || H <= 0 || alpha <= 0);
+    turn = Vector3D(0, 0, 45 * pi / 180.0f);
+    scale = Vector3D(L * sqrt2f, W * sqrt2f, H);
+    offset = Vector3D(0, 0, 0);
+    set();
+}
+
+BarGauss::BarGauss(float L, float W, float H) : Particle(Key(BaseShape::Column, 1.0f, 4))
+{
+    isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
+    turn = Vector3D(0, 0, 45 * pi / 180.0f);
+    scale = Vector3D(L * sqrt2f, W * sqrt2f, H);
+    offset = Vector3D(0, 0, 0);
+    set();
+}
+
+BarLorentz::BarLorentz(float L, float W, float H) : Particle(Key(BaseShape::Column, 1.0f, 4))
+{
+    isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 45 * pi / 180.0f);
     scale = Vector3D(L * sqrt2f, W * sqrt2f, H);
     offset = Vector3D(0, 0, 0);
@@ -268,11 +290,27 @@ Ripple1Lorentz::Ripple1Lorentz(float L, float W, float H) : Particle(Key(BaseSha
     set();
 }
 
-Ripple2::Ripple2(float L, float W, float H, float asymmetry)
-    : Particle(Key(BaseShape::Ripple, 3, asymmetry / W))
+Ripple2Box::Ripple2Box(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
 {
-    isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0)
-             || (std::abs(asymmetry) > W / 2.0f);
+    isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
+    turn = Vector3D(0, 0, 0);
+    scale = Vector3D(L, W, H);
+    offset = Vector3D(0, 0, 0);
+    set();
+}
+
+Ripple2Gauss::Ripple2Gauss(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
+{
+    isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
+    turn = Vector3D(0, 0, 0);
+    scale = Vector3D(L, W, H);
+    offset = Vector3D(0, 0, 0);
+    set();
+}
+
+Ripple2Lorentz::Ripple2Lorentz(float L, float W, float H) : Particle(Key(BaseShape::Ripple, 0, 0))
+{
+    isNull = (L < 0 || W < 0 || H < 0) || (L <= 0 && W <= 0 && H <= 0);
     turn = Vector3D(0, 0, 0);
     scale = Vector3D(L, W, H);
     offset = Vector3D(0, 0, 0);

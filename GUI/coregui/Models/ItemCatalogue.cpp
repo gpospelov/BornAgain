@@ -105,6 +105,8 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::PropertyType, create_new<PropertyItem>);
 
     add(Constants::AnisoPyramidType, create_new<AnisoPyramidItem>);
+    add(Constants::BarGaussType, create_new<BarGaussItem>);
+    add(Constants::BarLorentzType, create_new<BarLorentzItem>);
     add(Constants::BoxType, create_new<BoxItem>);
     add(Constants::ConeType, create_new<ConeItem>);
     add(Constants::Cone6Type, create_new<Cone6Item>);
@@ -123,7 +125,9 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::Ripple1BoxType, create_new<Ripple1BoxItem>);
     add(Constants::Ripple1GaussType, create_new<Ripple1GaussItem>);
     add(Constants::Ripple1LorentzType, create_new<Ripple1LorentzItem>);
-    add(Constants::Ripple2Type, create_new<Ripple2Item>);
+    add(Constants::Ripple2BoxType, create_new<Ripple2BoxItem>);
+    add(Constants::Ripple2GaussType, create_new<Ripple2GaussItem>);
+    add(Constants::Ripple2LorentzType, create_new<Ripple2LorentzItem>);
     add(Constants::TetrahedronType, create_new<TetrahedronItem>);
     add(Constants::TruncatedCubeType, create_new<TruncatedCubeItem>);
     add(Constants::TruncatedSphereType, create_new<TruncatedSphereItem>);

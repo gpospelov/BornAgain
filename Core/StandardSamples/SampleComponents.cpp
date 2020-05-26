@@ -37,6 +37,9 @@ FormFactorComponents::FormFactorComponents()
 
     add(BornAgain::FFBoxType, new FormFactorBox(10.0, 20.0, 5.0));
 
+//  TODO: activate this when supported by GUI
+//    add("CantellatedCube", new FormFactorCantellatedCube(15.0, 6.0));
+
     add(BornAgain::FFConeType, new FormFactorCone(5.0, 6.0, Units::deg2rad(54.73)));
 
     add(BornAgain::FFCone6Type,

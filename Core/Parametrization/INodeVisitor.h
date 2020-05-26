@@ -34,18 +34,20 @@ class FormFactorAnisoPyramid;
 class FormFactorBarGauss;
 class FormFactorBarLorentz;
 class FormFactorBox;
+class FormFactorCantellatedCube;
 class FormFactorCone;
 class FormFactorCone6;
 class FormFactorCoreShell;
 class FormFactorCrystal;
 class FormFactorCuboctahedron;
 class FormFactorCylinder;
+class FormFactorDWBA;
+class FormFactorDWBAPol;
 class FormFactorDecoratorMaterial;
 class FormFactorDecoratorPositionFactor;
 class FormFactorDecoratorRotation;
 class FormFactorDodecahedron;
-class FormFactorDWBA;
-class FormFactorDWBAPol;
+class FormFactorDot;
 class FormFactorEllipsoidalCylinder;
 class FormFactorFullSphere;
 class FormFactorFullSpheroid;
@@ -67,7 +69,6 @@ class FormFactorRipple2Lorentz;
 class FormFactorSphereGaussianRadius;
 class FormFactorSphereLogNormalRadius;
 class FormFactorTetrahedron;
-class FormFactorDot;
 class FormFactorTruncatedCube;
 class FormFactorTruncatedSphere;
 class FormFactorTruncatedSpheroid;
@@ -171,18 +172,20 @@ public:
     virtual void visit(const FormFactorBarGauss*) {}
     virtual void visit(const FormFactorBarLorentz*) {}
     virtual void visit(const FormFactorBox*) {}
+    virtual void visit(const FormFactorCantellatedCube*) {}
     virtual void visit(const FormFactorCone*) {}
     virtual void visit(const FormFactorCone6*) {}
     virtual void visit(const FormFactorCoreShell*) {}
     virtual void visit(const FormFactorCrystal*) {}
     virtual void visit(const FormFactorCuboctahedron*) {}
     virtual void visit(const FormFactorCylinder*) {}
+    virtual void visit(const FormFactorDWBA*) {}
+    virtual void visit(const FormFactorDWBAPol*) {}
     virtual void visit(const FormFactorDecoratorMaterial*) {}
     virtual void visit(const FormFactorDecoratorPositionFactor*) {}
     virtual void visit(const FormFactorDecoratorRotation*) {}
     virtual void visit(const FormFactorDodecahedron*) {}
-    virtual void visit(const FormFactorDWBA*) {}
-    virtual void visit(const FormFactorDWBAPol*) {}
+    virtual void visit(const FormFactorDot*) {}
     virtual void visit(const FormFactorEllipsoidalCylinder*) {}
     virtual void visit(const FormFactorFullSphere*) {}
     virtual void visit(const FormFactorFullSpheroid*) {}
@@ -204,7 +207,6 @@ public:
     virtual void visit(const FormFactorSphereGaussianRadius*) {}
     virtual void visit(const FormFactorSphereLogNormalRadius*) {}
     virtual void visit(const FormFactorTetrahedron*) {}
-    virtual void visit(const FormFactorDot*) {}
     virtual void visit(const FormFactorTruncatedCube*) {}
     virtual void visit(const FormFactorTruncatedSphere*) {}
     virtual void visit(const FormFactorTruncatedSpheroid*) {}

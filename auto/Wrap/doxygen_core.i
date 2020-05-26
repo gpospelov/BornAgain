@@ -2995,6 +2995,45 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
+// File: classFormFactorCantellatedCube.xml
+%feature("docstring") FormFactorCantellatedCube "
+
+A cube, with truncation of all edges and corners, as in Croset (2017) Fig 7
+
+C++ includes: FormFactorCantellatedCube.h
+";
+
+%feature("docstring")  FormFactorCantellatedCube::FormFactorCantellatedCube "FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
+
+Constructor of a truncated cube.
+
+Parameters:
+-----------
+
+length: 
+length of the full cube's edge in nanometers
+
+removed_length: 
+removed length from each edge of the cube in nanometers 
+";
+
+%feature("docstring")  FormFactorCantellatedCube::clone "FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorCantellatedCube::accept "void FormFactorCantellatedCube::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+%feature("docstring")  FormFactorCantellatedCube::getLength "double FormFactorCantellatedCube::getLength() const
+";
+
+%feature("docstring")  FormFactorCantellatedCube::getRemovedLength "double FormFactorCantellatedCube::getRemovedLength() const
+";
+
+
 // File: classFormFactorCoherentPart.xml
 %feature("docstring") FormFactorCoherentPart "
 
@@ -4753,7 +4792,7 @@ Calls the  INodeVisitor's visit method.
 // File: classFormFactorTruncatedCube.xml
 %feature("docstring") FormFactorTruncatedCube "
 
-A cube, with tetrahedral truncation of all edges.
+A cube, with tetrahedral truncation of all corners
 
 C++ includes: FormFactorTruncatedCube.h
 ";
@@ -7934,6 +7973,9 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorBox *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCantellatedCube *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCone *)
 ";
 
@@ -7952,6 +7994,12 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCylinder *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBA *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBAPol *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorMaterial *)
 ";
 
@@ -7964,10 +8012,7 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDodecahedron *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBA *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDWBAPol *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDot *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorEllipsoidalCylinder *)
@@ -8031,9 +8076,6 @@ C++ includes: INodeVisitor.h
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorTetrahedron *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDot *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorTruncatedCube *)
@@ -17112,52 +17154,49 @@ C++ includes: ZLimits.h
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d189.xml
+// File: namespace_0d191.xml
 
 
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d224.xml
+// File: namespace_0d226.xml
 
 
-// File: namespace_0d232.xml
+// File: namespace_0d234.xml
 
 
-// File: namespace_0d238.xml
+// File: namespace_0d240.xml
 
 
-// File: namespace_0d242.xml
+// File: namespace_0d244.xml
 
 
-// File: namespace_0d292.xml
+// File: namespace_0d294.xml
 
 
-// File: namespace_0d301.xml
+// File: namespace_0d303.xml
 
 
-// File: namespace_0d309.xml
-
-
-// File: namespace_0d313.xml
+// File: namespace_0d311.xml
 
 
 // File: namespace_0d315.xml
 
 
+// File: namespace_0d317.xml
+
+
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d327.xml
+// File: namespace_0d329.xml
 
 
-// File: namespace_0d333.xml
+// File: namespace_0d335.xml
 
 
-// File: namespace_0d354.xml
-
-
-// File: namespace_0d358.xml
+// File: namespace_0d356.xml
 
 
 // File: namespace_0d360.xml
@@ -17166,31 +17205,31 @@ C++ includes: ZLimits.h
 // File: namespace_0d362.xml
 
 
-// File: namespace_0d372.xml
+// File: namespace_0d364.xml
 
 
-// File: namespace_0d385.xml
+// File: namespace_0d374.xml
 
 
-// File: namespace_0d389.xml
+// File: namespace_0d387.xml
+
+
+// File: namespace_0d391.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d401.xml
+// File: namespace_0d403.xml
 
 
-// File: namespace_0d407.xml
-
-
-// File: namespace_0d412.xml
+// File: namespace_0d409.xml
 
 
 // File: namespace_0d414.xml
 
 
-// File: namespace_0d418.xml
+// File: namespace_0d416.xml
 
 
 // File: namespace_0d42.xml
@@ -17199,28 +17238,28 @@ C++ includes: ZLimits.h
 // File: namespace_0d420.xml
 
 
-// File: namespace_0d430.xml
+// File: namespace_0d422.xml
 
 
-// File: namespace_0d443.xml
+// File: namespace_0d432.xml
 
 
-// File: namespace_0d452.xml
+// File: namespace_0d445.xml
 
 
 // File: namespace_0d454.xml
 
 
-// File: namespace_0d488.xml
+// File: namespace_0d456.xml
 
 
-// File: namespace_0d495.xml
+// File: namespace_0d490.xml
 
 
-// File: namespace_0d533.xml
+// File: namespace_0d497.xml
 
 
-// File: namespace_0d541.xml
+// File: namespace_0d535.xml
 
 
 // File: namespace_0d543.xml
@@ -17229,16 +17268,19 @@ C++ includes: ZLimits.h
 // File: namespace_0d545.xml
 
 
+// File: namespace_0d547.xml
+
+
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d629.xml
+// File: namespace_0d631.xml
 
 
-// File: namespace_0d633.xml
+// File: namespace_0d635.xml
 
 
-// File: namespace_0d657.xml
+// File: namespace_0d659.xml
 
 
 // File: namespace_0d97.xml
@@ -18822,6 +18864,12 @@ global helper function for comparison of axes
 
 
 // File: FormFactorBox_8h.xml
+
+
+// File: FormFactorCantellatedCube_8cpp.xml
+
+
+// File: FormFactorCantellatedCube_8h.xml
 
 
 // File: FormFactorCone_8cpp.xml

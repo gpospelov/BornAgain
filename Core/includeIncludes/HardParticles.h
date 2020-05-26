@@ -18,6 +18,7 @@
 #include "FormFactorAnisoPyramid.h"
 #include "FormFactorBar.h"
 #include "FormFactorBox.h"
+#include "FormFactorCantellatedCube.h"
 #include "FormFactorCone.h"
 #include "FormFactorCone6.h"
 #include "FormFactorCuboctahedron.h"

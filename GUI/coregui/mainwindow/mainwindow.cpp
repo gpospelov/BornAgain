@@ -28,7 +28,6 @@
 #include "fancytabwidget.h"
 #include "hostosinfo.h"
 #include "mainwindow_constants.h"
-#include "manhattanstyle.h"
 #include "progressbar.h"
 #include "projectmanager.h"
 #include "stylehelper.h"
@@ -180,8 +179,6 @@ void MainWindow::initApplication()
     if (!GUI_OS_Utils::HostOsInfo::isMacHost())
         QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
 
-    QString baseName = QApplication::style()->objectName();
-    qApp->setStyle(new ManhattanStyle(baseName));
     Manhattan::Utils::StyleHelper::setBaseColor(QColor(Constants::MAIN_THEME_COLOR));
 
     setDockNestingEnabled(true);

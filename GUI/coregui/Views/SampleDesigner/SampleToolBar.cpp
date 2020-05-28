@@ -120,17 +120,6 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
     connect(m_RealSpaceViewerButton, &QToolButton::clicked, m_sampleViewActions,
             &SampleViewActions::onToggleRealSpaceView);
     addWidget(m_RealSpaceViewerButton);
-
-    // Additional actions
-    m_zoomOutAction = new QAction(this);
-    m_zoomOutAction->setShortcut(QKeySequence(Qt::Key_Minus));
-    connect(m_zoomOutAction, &QAction::triggered, this, &SampleToolBar::zoomOut);
-    addAction(m_zoomOutAction);
-
-    m_zoomInAction = new QAction(this);
-    m_zoomInAction->setShortcut(QKeySequence(Qt::Key_Equal));
-    connect(m_zoomInAction, &QAction::triggered, this, &SampleToolBar::zoomIn);
-    addAction(m_zoomInAction);
 }
 
 void SampleToolBar::onViewSelectionMode(int mode)

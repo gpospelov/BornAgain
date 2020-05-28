@@ -33,12 +33,12 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
     auto selectionPointerButton = new QToolButton;
     selectionPointerButton->setCheckable(true);
     selectionPointerButton->setChecked(true);
-    selectionPointerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_pointer.png"));
+    selectionPointerButton->setIcon(QIcon(":/SampleDesigner/images/arrow-top-left.svg"));
     selectionPointerButton->setToolTip("Edit mode.");
 
     auto handPointerButton = new QToolButton;
     handPointerButton->setCheckable(true);
-    handPointerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_hand.png"));
+    handPointerButton->setIcon(QIcon(":/SampleDesigner/images/hand-right.svg"));
     handPointerButton->setToolTip("Pan mode (space).");
 
     m_pointerModeGroup = new QButtonGroup(this);
@@ -55,7 +55,7 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
     // Remove item
     m_removeButton = new QToolButton;
     m_removeButton->setText("Remove item");
-    m_removeButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_removeButton->setIcon(QIcon(":/SampleDesigner/images/delete.svg"));
     m_removeButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_removeButton->setToolTip("Remove selected items and they child items (del).");
     connect(m_removeButton, &QToolButton::clicked, this, &SampleToolBar::deleteItems);
@@ -65,7 +65,7 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
 
     // Center view
     m_centerViewButton = new QToolButton;
-    m_centerViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_center.png"));
+    m_centerViewButton->setIcon(QIcon(":/SampleDesigner/images/camera-metering-center.svg"));
     m_centerViewButton->setToolTip("Center view.");
     addWidget(m_centerViewButton);
     connect(m_centerViewButton, &QToolButton::clicked, this, &SampleToolBar::centerView);
@@ -99,7 +99,7 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
     addWidget(new QLabel(" "));
     m_materialEditorButton = new QToolButton;
     m_materialEditorButton->setText("Material Editor");
-    m_materialEditorButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_materialeditor.png"));
+    m_materialEditorButton->setIcon(QIcon(":/SampleDesigner/images/alpha-m-box.svg"));
     m_materialEditorButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_materialEditorButton->setToolTip("Open material editor (m).");
     m_materialEditorButton->setShortcut(Qt::Key_M);
@@ -113,6 +113,7 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
     addWidget(new QLabel(" "));
     addWidget(new QLabel(" "));
     m_RealSpaceViewerButton = new QToolButton;
+    m_RealSpaceViewerButton->setIcon(QIcon(":/SampleDesigner/images/rotate-3d.svg"));
     m_RealSpaceViewerButton->setText("3D Viewer");
     m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");

@@ -1,9 +1,10 @@
 <RCC>
     <qresource prefix="/SampleDesigner">
-        <file>images/toolbar_hand.png</file>
-        <file>images/toolbar_pointer.png</file>
-        <file>images/toolbar_materialeditor.png</file>
-        <file>images/toolbar_recycle.png</file>
-        <file>images/toolbar_center.png</file>
+        <file>images/hand-right.svg</file>
+        <file>images/arrow-top-left.svg</file>
+        <file>images/delete.svg</file>
+        <file>images/camera-metering-center.svg</file>
+        <file>images/alpha-m-box.svg</file>
+        <file>images/rotate-3d.svg</file>
     </qresource>
 </RCC>

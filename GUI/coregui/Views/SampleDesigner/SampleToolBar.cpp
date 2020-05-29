@@ -69,11 +69,10 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
     m_centerViewButton->setToolTip("Center view.");
     addWidget(m_centerViewButton);
     connect(m_centerViewButton, &QToolButton::clicked, this, &SampleToolBar::centerView);
+    addWidget(new QLabel("Center view  "));
 
     // Zoom
     addWidget(new QLabel(" "));
-    addSeparator();
-    addWidget(new QLabel(" Zoom "));
     m_scaleCombo = new QComboBox;
     QStringList scales = QStringList() << "25%"
                                        << "50%"
@@ -94,6 +93,7 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
 #endif
 
     addWidget(m_scaleCombo);
+    addWidget(new QLabel(" Zoom "));
 
     // MaterialEditor
     addWidget(new QLabel(" "));

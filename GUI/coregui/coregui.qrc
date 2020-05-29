@@ -60,5 +60,6 @@
         <file>images/camera-metering-center.svg</file>
         <file>images/toolbar16light_refresh.svg</file>
         <file>images/hand-right.svg</file>
+        <file>images/menu-open.svg</file>
     </qresource>
 </RCC>

@@ -27,8 +27,7 @@ JobViewStatusBar::JobViewStatusBar(MainWindow* mainWindow)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto layout = new QHBoxLayout;
-    layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(5, 2, 5, 2);
 
     m_toggleJobListButton = new QToolButton;
     m_toggleJobListButton->setText("Job List");
@@ -45,7 +44,7 @@ JobViewStatusBar::JobViewStatusBar(MainWindow* mainWindow)
             this, &JobViewStatusBar::changeActivityRequest);
 
     m_dockMenuButton = new QToolButton;
-    m_dockMenuButton->setIcon(QIcon(":/images/statusbar_dockmenu.svg"));
+    m_dockMenuButton->setIcon(QIcon(":/images/menu-open.svg"));
     m_dockMenuButton->setToolTip("Docks layout menu");
     connect(m_dockMenuButton, &QToolButton::clicked, this, &JobViewStatusBar::dockMenuRequest);
 

@@ -80,14 +80,14 @@ void MaskEditorToolBar::onPresentationTypeReleased()
 void MaskEditorToolBar::setup_selection_group()
 {
     QToolButton* panButton = new QToolButton(this);
-    panButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_hand.svg"));
+    panButton->setIcon(QIcon(":/images/hand-right.svg"));
     panButton->setToolTip("Pan/zoom mode (space)");
     panButton->setCheckable(true);
     panButton->setChecked(true);
     addWidget(panButton);
 
     QToolButton* resetViewButton = new QToolButton(this);
-    resetViewButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
+    resetViewButton->setIcon(QIcon(":/images/camera-metering-center.svg"));
     resetViewButton->setToolTip("Reset pan/zoom to initial state");
     addWidget(resetViewButton);
     connect(resetViewButton, SIGNAL(clicked()), m_editorActions, SIGNAL(resetViewRequest()));

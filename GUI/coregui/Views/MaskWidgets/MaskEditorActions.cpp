@@ -48,18 +48,18 @@ MaskEditorActions::MaskEditorActions(QWidget* parent)
     connect(m_deleteMaskAction, &QAction::triggered, this, &MaskEditorActions::onDeleteMaskAction);
 
     // Actions for top toolbar
-    m_resetViewAction->setText("Reset");
-    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
-    m_resetViewAction->setToolTip("Reset View");
+    m_resetViewAction->setText("Center view");
+    m_resetViewAction->setIcon(QIcon(":/images/camera-metering-center.svg"));
+    m_resetViewAction->setToolTip("Center View");
     connect(m_resetViewAction, &QAction::triggered, this, &MaskEditorActions::resetViewRequest);
 
     m_savePlotAction->setText("Save");
-    m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
+    m_savePlotAction->setIcon(QIcon(":/images/content-save-outline.svg"));
     m_savePlotAction->setToolTip("Save Plot");
     connect(m_savePlotAction, &QAction::triggered, this, &MaskEditorActions::savePlotRequest);
 
     m_togglePanelAction->setText("Properties");
-    m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
+    m_togglePanelAction->setIcon(QIcon(":/images/dock-right.svg"));
     m_togglePanelAction->setToolTip("Toggle Property Panel");
     connect(m_togglePanelAction, &QAction::triggered, this,
             &MaskEditorActions::propertyPanelRequest);

@@ -48,9 +48,6 @@ public slots:
     void onChangeScale(double);
     void deleteSelectedItems();
 
-    void zoomIn();
-    void zoomOut();
-
 protected:
     //    void wheelEvent(QWheelEvent *event);
     //    void scaleView(qreal scaleFactor);

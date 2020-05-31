@@ -15,6 +15,7 @@
 #include "program.h"
 #include "camera.h"
 #include <QMatrix4x4>
+#include <stdexcept>
 
 // The macro call has to be in the global namespace
 inline void InitShaderResources()

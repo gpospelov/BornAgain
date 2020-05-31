@@ -34,7 +34,7 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
     setLayout(mainLayout);
 
     m_togglePanelAction->setText("Properties");
-    m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
+    m_togglePanelAction->setIcon(QIcon(":/images/dock-right.svg"));
     m_togglePanelAction->setToolTip("Toggle property panel");
     connect(m_togglePanelAction, &QAction::triggered, this,
             &IntensityDataPropertyWidget::onTogglePanelAction);

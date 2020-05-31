@@ -30,7 +30,7 @@ IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
 
     m_fftAction = new QAction(this);
     m_fftAction->setText("Fourier");
-    m_fftAction->setIcon(QIcon(":/images/toolbar16light_fft.svg"));
+    m_fftAction->setIcon(QIcon(":/images/alpha-f-box.svg"));
     m_fftAction->setToolTip("Get the Fourier Transform of current intensity map");
     connect(m_fftAction, &QAction::triggered, this, &IntensityDataFFTPresenter::onFFTActionRequest);
 }

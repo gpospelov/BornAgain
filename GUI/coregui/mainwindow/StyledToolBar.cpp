@@ -16,15 +16,10 @@
 #include <QLabel>
 #include <QStyle>
 
-namespace
-{
-const int fixed_height = 25;
-}
-
 StyledToolBar::StyledToolBar(QWidget* parent) : QToolBar(parent)
 {
     setMovable(false);
-    const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
+    const int size = style()->pixelMetric(QStyle::PM_ToolBarIconSize);
     setIconSize(QSize(size, size));
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
     setContentsMargins(0, 0, 0, 0);
@@ -51,11 +46,6 @@ void StyledToolBar::addStyledExpand()
     QWidget* empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     addWidget(empty);
-}
-
-int StyledToolBar::minimumHeight() const
-{
-    return fixed_height;
 }
 
 void StyledToolBar::contextMenuEvent(QContextMenuEvent*)

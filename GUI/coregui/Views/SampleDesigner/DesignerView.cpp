@@ -90,10 +90,6 @@ void DesignerView::deleteSelectedItems()
     designerScene->deleteSelectedItems();
 }
 
-void DesignerView::zoomIn() {}
-
-void DesignerView::zoomOut() {}
-
 void DesignerView::keyPressEvent(QKeyEvent* event)
 {
     switch (event->key()) {

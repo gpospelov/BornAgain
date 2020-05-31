@@ -100,7 +100,7 @@ void SpecularDataCanvas::initActions()
 
     m_save_plot_action = new QAction(this);
     m_save_plot_action->setText("Save");
-    m_save_plot_action->setIcon(QIcon(":/images/toolbar16light_save.svg"));
+    m_save_plot_action->setIcon(QIcon(":/images/content-save-outline.svg"));
     m_save_plot_action->setToolTip("Save plot");
     connect(m_save_plot_action, &QAction::triggered, this, &SpecularDataCanvas::onSavePlotAction);
 }

@@ -24,11 +24,10 @@ SampleViewStatusBar::SampleViewStatusBar(MainWindow* mainWindow)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto layout = new QHBoxLayout;
-    layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 1, 5, 1);
 
     m_dockMenuButton = new QToolButton;
-    m_dockMenuButton->setIcon(QIcon(":/images/statusbar_dockmenu.svg"));
+    m_dockMenuButton->setIcon(QIcon(":/images/menu-open.svg"));
     m_dockMenuButton->setToolTip("Docks layout menu");
     connect(m_dockMenuButton, &QToolButton::clicked, this, &SampleViewStatusBar::dockMenuRequest);
 

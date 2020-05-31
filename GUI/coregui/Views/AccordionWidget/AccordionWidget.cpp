@@ -30,6 +30,7 @@
 
 #include "AccordionWidget.h"
 #include <QDebug>
+#include <stdexcept>
 
 AccordionWidget::AccordionWidget(QWidget* parent) : QWidget(parent)
 {

@@ -29,14 +29,14 @@
 
 #include "stylehelper.h"
 
-#include <QPixmapCache>
-#include <QWidget>
-#include <QRect>
-#include <QPainter>
 #include <QApplication>
-#include <QPalette>
-#include <QStyleOption>
 #include <QObject>
+#include <QPainter>
+#include <QPalette>
+#include <QPixmapCache>
+#include <QRect>
+#include <QStyleOption>
+#include <QWidget>
 
 // Clamps float color values within (0, 255)
 static int clamp(float x)
@@ -54,16 +54,21 @@ static int range(float x, int min, int max)
 }
 */
 
-namespace Manhattan {
-namespace Utils {
+namespace Manhattan
+{
+namespace Utils
+{
 
-QColor StyleHelper::mergedColors(const QColor &colorA, const QColor &colorB, int factor)
+QColor StyleHelper::mergedColors(const QColor& colorA, const QColor& colorB, int factor)
 {
     const int maxFactor = 100;
     QColor tmp = colorA;
-    tmp.setRed((tmp.red() * factor) / maxFactor + (colorB.red() * (maxFactor - factor)) / maxFactor);
-    tmp.setGreen((tmp.green() * factor) / maxFactor + (colorB.green() * (maxFactor - factor)) / maxFactor);
-    tmp.setBlue((tmp.blue() * factor) / maxFactor + (colorB.blue() * (maxFactor - factor)) / maxFactor);
+    tmp.setRed((tmp.red() * factor) / maxFactor
+               + (colorB.red() * (maxFactor - factor)) / maxFactor);
+    tmp.setGreen((tmp.green() * factor) / maxFactor
+                 + (colorB.green() * (maxFactor - factor)) / maxFactor);
+    tmp.setBlue((tmp.blue() * factor) / maxFactor
+                + (colorB.blue() * (maxFactor - factor)) / maxFactor);
     return tmp;
 }
 
@@ -76,7 +81,7 @@ qreal StyleHelper::sidebarFontSize()
 #endif
 }
 
-QPalette StyleHelper::sidebarFontPalette(const QPalette &original)
+QPalette StyleHelper::sidebarFontPalette(const QPalette& original)
 {
     QPalette palette = original;
     palette.setColor(QPalette::Active, QPalette::Text, panelTextColor());
@@ -88,7 +93,7 @@ QPalette StyleHelper::sidebarFontPalette(const QPalette &original)
 
 QColor StyleHelper::panelTextColor(bool lightColored)
 {
-    //qApp->palette().highlightedText().color();
+    // qApp->palette().highlightedText().color();
     if (!lightColored)
         return Qt::white;
     else
@@ -112,54 +117,45 @@ QColor StyleHelper::highlightColor(bool lightColored)
 {
     QColor result = baseColor(lightColored);
     if (!lightColored)
-        result.setHsv(result.hue(),
-                  clamp(result.saturation()),
-                  clamp(result.value() * 1.16));
+        result.setHsv(result.hue(), clamp(result.saturation()), clamp(result.value() * 1.16));
     else
-        result.setHsv(result.hue(),
-                  clamp(result.saturation()),
-                  clamp(result.value() * 1.06));
+        result.setHsv(result.hue(), clamp(result.saturation()), clamp(result.value() * 1.06));
     return result;
 }
 
 QColor StyleHelper::shadowColor(bool lightColored)
 {
     QColor result = baseColor(lightColored);
-    result.setHsv(result.hue(),
-                  clamp(result.saturation() * 1.1),
-                  clamp(result.value() * 0.70));
+    result.setHsv(result.hue(), clamp(result.saturation() * 1.1), clamp(result.value() * 0.70));
     return result;
 }
 
 QColor StyleHelper::borderColor(bool lightColored)
 {
     QColor result = baseColor(lightColored);
-    result.setHsv(result.hue(),
-                  result.saturation(),
-                  result.value() / 2);
+    result.setHsv(result.hue(), result.saturation(), result.value() / 2);
     return result;
 }
 
 // We try to ensure that the actual color used are within
 // reasonalbe bounds while generating the actual baseColor
 // from the users request.
-void StyleHelper::setBaseColor(const QColor &newcolor)
+void StyleHelper::setBaseColor(const QColor& newcolor)
 {
     m_requestedBaseColor = newcolor;
 
     QColor color;
-    color.setHsv(newcolor.hue(),
-                 newcolor.saturation() * 0.7,
-                 64 + newcolor.value() / 3);
+    color.setHsv(newcolor.hue(), newcolor.saturation() * 0.7, 64 + newcolor.value() / 3);
 
     if (color.isValid() && color != m_baseColor) {
         m_baseColor = color;
-        foreach (QWidget *w, QApplication::topLevelWidgets())
+        foreach (QWidget* w, QApplication::topLevelWidgets())
             w->update();
     }
 }
 
-static void verticalGradientHelper(QPainter *p, const QRect &spanRect, const QRect &rect, bool lightColored)
+static void verticalGradientHelper(QPainter* p, const QRect& spanRect, const QRect& rect,
+                                   bool lightColored)
 {
     QColor highlight = StyleHelper::highlightColor(lightColored);
     QColor shadow = StyleHelper::shadowColor(lightColored);
@@ -176,19 +172,19 @@ static void verticalGradientHelper(QPainter *p, const QRect &spanRect, const QRe
     p->drawLine(rect.topLeft(), rect.bottomLeft());
 }
 
-void StyleHelper::verticalGradient(QPainter *painter, const QRect &spanRect, const QRect &clipRect, bool lightColored)
+void StyleHelper::verticalGradient(QPainter* painter, const QRect& spanRect, const QRect& clipRect,
+                                   bool lightColored)
 {
     if (StyleHelper::usePixmapCache()) {
         QString key;
         QColor keyColor = baseColor(lightColored);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-        key = QString("mh_vertical %d %d %d %d %d").arg(
-            spanRect.width(), spanRect.height(), clipRect.width(),
-            clipRect.height(), keyColor.rgb());
+        key = QString("mh_vertical %d %d %d %d %d")
+                  .arg(spanRect.width(), spanRect.height(), clipRect.width(), clipRect.height(),
+                       keyColor.rgb());
 #else
-        key.sprintf("mh_vertical %d %d %d %d %d",
-            spanRect.width(), spanRect.height(), clipRect.width(),
-            clipRect.height(), keyColor.rgb());
+        key.sprintf("mh_vertical %d %d %d %d %d", spanRect.width(), spanRect.height(),
+                    clipRect.width(), clipRect.height(), keyColor.rgb());
 #endif
 
         QPixmap pixmap;
@@ -211,8 +207,8 @@ void StyleHelper::verticalGradient(QPainter *painter, const QRect &spanRect, con
     }
 }
 
-static void horizontalGradientHelper(QPainter *p, const QRect &spanRect, const
-QRect &rect, bool lightColored)
+static void horizontalGradientHelper(QPainter* p, const QRect& spanRect, const QRect& rect,
+                                     bool lightColored)
 {
     if (lightColored) {
         QLinearGradient shadowGradient(rect.topLeft(), rect.bottomLeft());
@@ -235,28 +231,27 @@ QRect &rect, bool lightColored)
     p->fillRect(rect, grad);
 
     QLinearGradient shadowGradient(spanRect.topLeft(), spanRect.topRight());
-        shadowGradient.setColorAt(0, QColor(0, 0, 0, 30));
+    shadowGradient.setColorAt(0, QColor(0, 0, 0, 30));
     QColor lighterHighlight;
     lighterHighlight = highlight.lighter(130);
     lighterHighlight.setAlpha(100);
     shadowGradient.setColorAt(0.7, lighterHighlight);
-        shadowGradient.setColorAt(1, QColor(0, 0, 0, 40));
+    shadowGradient.setColorAt(1, QColor(0, 0, 0, 40));
     p->fillRect(rect, shadowGradient);
 }
 
-void StyleHelper::horizontalGradient(QPainter *painter, const QRect &spanRect, const QRect &clipRect, bool lightColored)
+void StyleHelper::horizontalGradient(QPainter* painter, const QRect& spanRect,
+                                     const QRect& clipRect, bool lightColored)
 {
     if (StyleHelper::usePixmapCache()) {
         QString key;
         QColor keyColor = baseColor(lightColored);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-        key.asprintf("mh_horizontal %d %d %d %d %d %d",
-            spanRect.width(), spanRect.height(), clipRect.width(),
-            clipRect.height(), keyColor.rgb(), spanRect.x());
+        key.asprintf("mh_horizontal %d %d %d %d %d %d", spanRect.width(), spanRect.height(),
+                     clipRect.width(), clipRect.height(), keyColor.rgb(), spanRect.x());
 #else
-        key.sprintf("mh_horizontal %d %d %d %d %d %d",
-            spanRect.width(), spanRect.height(), clipRect.width(),
-            clipRect.height(), keyColor.rgb(), spanRect.x());
+        key.sprintf("mh_horizontal %d %d %d %d %d %d", spanRect.width(), spanRect.height(),
+                    clipRect.width(), clipRect.height(), keyColor.rgb(), spanRect.x());
 #endif
 
         QPixmap pixmap;
@@ -280,16 +275,18 @@ void StyleHelper::horizontalGradient(QPainter *painter, const QRect &spanRect, c
     }
 }
 
-static void menuGradientHelper(QPainter *p, const QRect &spanRect, const QRect &rect)
+static void menuGradientHelper(QPainter* p, const QRect& spanRect, const QRect& rect)
 {
     QLinearGradient grad(spanRect.topLeft(), spanRect.bottomLeft());
-    QColor menuColor = StyleHelper::mergedColors(StyleHelper::baseColor(), QColor(244, 244, 244), 25);
+    QColor menuColor =
+        StyleHelper::mergedColors(StyleHelper::baseColor(), QColor(244, 244, 244), 25);
     grad.setColorAt(0, menuColor.lighter(112));
     grad.setColorAt(1, menuColor);
     p->fillRect(rect, grad);
 }
 
-void StyleHelper::drawArrow(QStyle::PrimitiveElement element, QPainter *painter, const QStyleOption *option)
+void StyleHelper::drawArrow(QStyle::PrimitiveElement element, QPainter* painter,
+                            const QStyleOption* option)
 {
     // From windowsstyle but modified to enable AA
     if (option->rect.width() <= 1 || option->rect.height() <= 1)
@@ -300,24 +297,20 @@ void StyleHelper::drawArrow(QStyle::PrimitiveElement element, QPainter *painter,
     QPixmap pixmap;
     QString pixmapName;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    pixmapName.asprintf("arrow-%s-%d-%d-%d-%lld",
-                       "$qt_ia",
-                       uint(option->state), element,
-                       size, option->palette.cacheKey());
+    pixmapName.asprintf("arrow-%s-%d-%d-%d-%lld", "$qt_ia", uint(option->state), element, size,
+                        option->palette.cacheKey());
 #else
-    pixmapName.sprintf("arrow-%s-%d-%d-%d-%lld",
-                       "$qt_ia",
-                       uint(option->state), element,
-                       size, option->palette.cacheKey());
+    pixmapName.sprintf("arrow-%s-%d-%d-%d-%lld", "$qt_ia", uint(option->state), element, size,
+                       option->palette.cacheKey());
 #endif
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
-        if (!QPixmapCache::find(pixmapName, &pixmap)) {
+    if (!QPixmapCache::find(pixmapName, &pixmap)) {
 #else
-        if (!QPixmapCache::find(pixmapName, pixmap)) {
+    if (!QPixmapCache::find(pixmapName, pixmap)) {
 #endif
-        int border = size/5;
-        int sqsize = 2*(size/2);
+        int border = size / 5;
+        int sqsize = 2 * (size / 2);
         QImage image(sqsize, sqsize, QImage::Format_ARGB32);
         image.fill(Qt::transparent);
         QPainter imagePainter(&image);
@@ -325,20 +318,22 @@ void StyleHelper::drawArrow(QStyle::PrimitiveElement element, QPainter *painter,
         imagePainter.translate(0.5, 0.5);
         QPolygon a;
         switch (element) {
-            case QStyle::PE_IndicatorArrowUp:
-                a.setPoints(3, border, sqsize/2,  sqsize/2, border,  sqsize - border, sqsize/2);
-                break;
-            case QStyle::PE_IndicatorArrowDown:
-                a.setPoints(3, border, sqsize/2,  sqsize/2, sqsize - border,  sqsize - border, sqsize/2);
-                break;
-            case QStyle::PE_IndicatorArrowRight:
-                a.setPoints(3, sqsize - border, sqsize/2,  sqsize/2, border,  sqsize/2, sqsize - border);
-                break;
-            case QStyle::PE_IndicatorArrowLeft:
-                a.setPoints(3, border, sqsize/2,  sqsize/2, border,  sqsize/2, sqsize - border);
-                break;
-            default:
-                break;
+        case QStyle::PE_IndicatorArrowUp:
+            a.setPoints(3, border, sqsize / 2, sqsize / 2, border, sqsize - border, sqsize / 2);
+            break;
+        case QStyle::PE_IndicatorArrowDown:
+            a.setPoints(3, border, sqsize / 2, sqsize / 2, sqsize - border, sqsize - border,
+                        sqsize / 2);
+            break;
+        case QStyle::PE_IndicatorArrowRight:
+            a.setPoints(3, sqsize - border, sqsize / 2, sqsize / 2, border, sqsize / 2,
+                        sqsize - border);
+            break;
+        case QStyle::PE_IndicatorArrowLeft:
+            a.setPoints(3, border, sqsize / 2, sqsize / 2, border, sqsize / 2, sqsize - border);
+            break;
+        default:
+            break;
         }
 
         int bsx = 0;
@@ -373,23 +368,21 @@ void StyleHelper::drawArrow(QStyle::PrimitiveElement element, QPainter *painter,
         pixmap = QPixmap::fromImage(image);
         QPixmapCache::insert(pixmapName, pixmap);
     }
-    int xOffset = r.x() + (r.width() - size)/2;
-    int yOffset = r.y() + (r.height() - size)/2;
+    int xOffset = r.x() + (r.width() - size) / 2;
+    int yOffset = r.y() + (r.height() - size) / 2;
     painter->drawPixmap(xOffset, yOffset, pixmap);
 }
 
-void StyleHelper::menuGradient(QPainter *painter, const QRect &spanRect, const QRect &clipRect)
+void StyleHelper::menuGradient(QPainter* painter, const QRect& spanRect, const QRect& clipRect)
 {
     if (StyleHelper::usePixmapCache()) {
         QString key;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-        key.asprintf("mh_menu %d %d %d %d %d",
-            spanRect.width(), spanRect.height(), clipRect.width(),
-            clipRect.height(), StyleHelper::baseColor().rgb());
+        key.asprintf("mh_menu %d %d %d %d %d", spanRect.width(), spanRect.height(),
+                     clipRect.width(), clipRect.height(), StyleHelper::baseColor().rgb());
 #else
-        key.sprintf("mh_menu %d %d %d %d %d",
-            spanRect.width(), spanRect.height(), clipRect.width(),
-            clipRect.height(), StyleHelper::baseColor().rgb());
+        key.sprintf("mh_menu %d %d %d %d %d", spanRect.width(), spanRect.height(), clipRect.width(),
+                    clipRect.height(), StyleHelper::baseColor().rgb());
 #endif
 
         QPixmap pixmap;
@@ -413,43 +406,41 @@ void StyleHelper::menuGradient(QPainter *painter, const QRect &spanRect, const Q
 }
 
 // Draws a cached pixmap with shadow
-void StyleHelper::drawIconWithShadow(const QIcon &icon, const QRect &rect,
-                                     QPainter *p, QIcon::Mode iconMode, int radius, const QColor &color, const QPoint &offset)
+// Draws a cached pixmap with shadow
+void StyleHelper::drawIconWithShadow(const QIcon& icon, const QRect& rect, QPainter* p,
+                                     QIcon::Mode iconMode, int dipRadius, const QColor& color,
+                                     const QPoint& dipOffset)
 {
     QPixmap cache;
-    QString pixmapName = QString::fromLatin1("icon %0 %1 %2").arg(icon.cacheKey()).arg(iconMode).arg(rect.height());
+    const int devicePixelRatio = p->device()->devicePixelRatio();
+    QString pixmapName = QString::fromLatin1("icon %0 %1 %2 %3")
+                             .arg(icon.cacheKey())
+                             .arg(iconMode)
+                             .arg(rect.height())
+                             .arg(devicePixelRatio);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
-        if (!QPixmapCache::find(pixmapName, &cache)) {
-#else
-        if (!QPixmapCache::find(pixmapName, cache)) {
-#endif
-        QPixmap px = icon.pixmap(rect.size());
+    if (!QPixmapCache::find(pixmapName, &cache)) {
+        // High-dpi support: The in parameters (rect, radius, offset) are in
+        // device-independent pixels. The call to QIcon::pixmap() below might
+        // return a high-dpi pixmap, which will in that case have a devicePixelRatio
+        // different than 1. The shadow drawing caluculations are done in device
+        // pixels.
+        QWindow* window = dynamic_cast<QWidget*>(p->device())->window()->windowHandle();
+        QPixmap px = icon.pixmap(window, rect.size(), iconMode);
+        int radius = dipRadius * devicePixelRatio;
+        QPoint offset = dipOffset * devicePixelRatio;
         cache = QPixmap(px.size() + QSize(radius * 2, radius * 2));
         cache.fill(Qt::transparent);
 
         QPainter cachePainter(&cache);
-        if (iconMode == QIcon::Disabled) {
-            QImage im = px.toImage().convertToFormat(QImage::Format_ARGB32);
-            for (int y=0; y<im.height(); ++y) {
-                QRgb *scanLine = (QRgb*)im.scanLine(y);
-                for (int x=0; x<im.width(); ++x) {
-                    QRgb pixel = *scanLine;
-                    char intensity = qGray(pixel);
-                    *scanLine = qRgba(intensity, intensity, intensity, qAlpha(pixel));
-                    ++scanLine;
-                }
-            }
-            px = QPixmap::fromImage(im);
-        }
-
         // Draw shadow
-        QImage tmp(px.size() + QSize(radius * 2, radius * 2 + 1), QImage::Format_ARGB32_Premultiplied);
+        QImage tmp(px.size() + QSize(radius * 2, radius * 2 + 1),
+                   QImage::Format_ARGB32_Premultiplied);
         tmp.fill(Qt::transparent);
 
         QPainter tmpPainter(&tmp);
         tmpPainter.setCompositionMode(QPainter::CompositionMode_Source);
-        tmpPainter.drawPixmap(QPoint(radius, radius), px);
+        tmpPainter.drawPixmap(QRect(radius, radius, px.width(), px.height()), px);
         tmpPainter.end();
 
         // blur the alpha channel
@@ -473,61 +464,73 @@ void StyleHelper::drawIconWithShadow(const QIcon &icon, const QRect &rect,
         tmpPainter.end();
 
         // draw the blurred drop shadow...
-        cachePainter.drawImage(QRect(0, 0, cache.rect().width(), cache.rect().height()), tmp);
+        //        cachePainter.drawImage(QRect(0, 0, cache.rect().width(), cache.rect().height()),
+        //        tmp);
 
         // Draw the actual pixmap...
-        cachePainter.drawPixmap(QPoint(radius, radius) + offset, px);
+        cachePainter.drawPixmap(
+            QRect(QPoint(radius, radius) + offset, QSize(px.width(), px.height()))
+                .marginsRemoved(QMargins(10, 10, 10, 10)),
+            px);
+        cachePainter.end();
+        cache.setDevicePixelRatio(devicePixelRatio);
         QPixmapCache::insert(pixmapName, cache);
     }
 
     QRect targetRect = cache.rect();
-    targetRect.moveCenter(rect.center());
-    p->drawPixmap(targetRect.topLeft() - offset, cache);
+    targetRect.setSize(targetRect.size() / cache.devicePixelRatio());
+    targetRect.moveCenter(rect.center() - dipOffset);
+    p->drawPixmap(targetRect, cache);
 }
 
 // Draws a CSS-like border image where the defined borders are not stretched
-void StyleHelper::drawCornerImage(const QImage &img, QPainter *painter, QRect rect,
-                                  int left, int top, int right, int bottom)
+void StyleHelper::drawCornerImage(const QImage& img, QPainter* painter, QRect rect, int left,
+                                  int top, int right, int bottom)
 {
     QSize size = img.size();
-    if (top > 0) { //top
-        painter->drawImage(QRect(rect.left() + left, rect.top(), rect.width() -right - left, top), img,
-                           QRect(left, 0, size.width() -right - left, top));
-        if (left > 0) //top-left
+    if (top > 0) { // top
+        painter->drawImage(QRect(rect.left() + left, rect.top(), rect.width() - right - left, top),
+                           img, QRect(left, 0, size.width() - right - left, top));
+        if (left > 0) // top-left
             painter->drawImage(QRect(rect.left(), rect.top(), left, top), img,
                                QRect(0, 0, left, top));
-        if (right > 0) //top-right
-            painter->drawImage(QRect(rect.left() + rect.width() - right, rect.top(), right, top), img,
-                               QRect(size.width() - right, 0, right, top));
+        if (right > 0) // top-right
+            painter->drawImage(QRect(rect.left() + rect.width() - right, rect.top(), right, top),
+                               img, QRect(size.width() - right, 0, right, top));
     }
-    //left
+    // left
     if (left > 0)
-        painter->drawImage(QRect(rect.left(), rect.top()+top, left, rect.height() - top - bottom), img,
-                           QRect(0, top, left, size.height() - bottom - top));
-    //center
-    painter->drawImage(QRect(rect.left() + left, rect.top()+top, rect.width() -right - left,
-                             rect.height() - bottom - top), img,
-                       QRect(left, top, size.width() -right -left,
-                             size.height() - bottom - top));
-    if (right > 0) //right
-        painter->drawImage(QRect(rect.left() +rect.width() - right, rect.top()+top, right, rect.height() - top - bottom), img,
+        painter->drawImage(QRect(rect.left(), rect.top() + top, left, rect.height() - top - bottom),
+                           img, QRect(0, top, left, size.height() - bottom - top));
+    // center
+    painter->drawImage(QRect(rect.left() + left, rect.top() + top, rect.width() - right - left,
+                             rect.height() - bottom - top),
+                       img,
+                       QRect(left, top, size.width() - right - left, size.height() - bottom - top));
+    if (right > 0) // right
+        painter->drawImage(QRect(rect.left() + rect.width() - right, rect.top() + top, right,
+                                 rect.height() - top - bottom),
+                           img,
                            QRect(size.width() - right, top, right, size.height() - bottom - top));
-    if (bottom > 0) { //bottom
-        painter->drawImage(QRect(rect.left() +left, rect.top() + rect.height() - bottom,
-                                 rect.width() - right - left, bottom), img,
-                           QRect(left, size.height() - bottom,
-                                 size.width() - right - left, bottom));
-    if (left > 0) //bottom-left
-        painter->drawImage(QRect(rect.left(), rect.top() + rect.height() - bottom, left, bottom), img,
-                           QRect(0, size.height() - bottom, left, bottom));
-    if (right > 0) //bottom-right
-        painter->drawImage(QRect(rect.left() + rect.width() - right, rect.top() + rect.height() - bottom, right, bottom), img,
-                           QRect(size.width() - right, size.height() - bottom, right, bottom));
+    if (bottom > 0) { // bottom
+        painter->drawImage(
+            QRect(rect.left() + left, rect.top() + rect.height() - bottom,
+                  rect.width() - right - left, bottom),
+            img, QRect(left, size.height() - bottom, size.width() - right - left, bottom));
+        if (left > 0) // bottom-left
+            painter->drawImage(
+                QRect(rect.left(), rect.top() + rect.height() - bottom, left, bottom), img,
+                QRect(0, size.height() - bottom, left, bottom));
+        if (right > 0) // bottom-right
+            painter->drawImage(QRect(rect.left() + rect.width() - right,
+                                     rect.top() + rect.height() - bottom, right, bottom),
+                               img,
+                               QRect(size.width() - right, size.height() - bottom, right, bottom));
     }
 }
 
 // Tints an image with tintColor, while preserving alpha and lightness
-void StyleHelper::tintImage(QImage &img, const QColor &tintColor)
+void StyleHelper::tintImage(QImage& img, const QColor& tintColor)
 {
     QPainter p(&img);
     p.setCompositionMode(QPainter::CompositionMode_Screen);
@@ -541,7 +544,8 @@ void StyleHelper::tintImage(QImage &img, const QColor &tintColor)
             if (alpha > 0) {
                 c.toHsl();
                 qreal l = c.lightnessF();
-                QColor newColor = QColor::fromHslF(tintColor.hslHueF(), tintColor.hslSaturationF(), l);
+                QColor newColor =
+                    QColor::fromHslF(tintColor.hslHueF(), tintColor.hslSaturationF(), l);
                 newColor.setAlpha(alpha);
                 img.setPixel(x, y, newColor.rgba());
             }
@@ -558,7 +562,6 @@ void StyleHelper::setNavigationWidgetHeight(int height)
 {
     m_navigationWidgetHeight = height;
 }
-
 
 } // namespace Utils
 } // namespace Manhattan

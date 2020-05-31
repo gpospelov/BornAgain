@@ -58,7 +58,7 @@ public:
 
     QSize mainWindowSize() const;
 
-    bool enableHighDPISupport();
+    bool disableHighDPISupport();
 
 private:
     //! true if options are consistent (no conflicts, no --help request)

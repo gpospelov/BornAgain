@@ -25,15 +25,15 @@ ProjectionsEditorActions::ProjectionsEditorActions(QWidget* parent)
       m_intensityDataItem(nullptr), m_selectionModel(nullptr), m_parent(parent)
 {
     // Actions for top toolbar
-    m_resetViewAction->setText("Reset");
-    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
+    m_resetViewAction->setText("Center view");
+    m_resetViewAction->setIcon(QIcon(":/images/camera-metering-center.svg"));
     m_resetViewAction->setToolTip("Reset view\n"
                                   "x,y,z axes range will be set to default");
     connect(m_resetViewAction, &QAction::triggered, this,
             &ProjectionsEditorActions::resetViewRequest);
 
     m_togglePanelAction->setText("Properties");
-    m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
+    m_togglePanelAction->setIcon(QIcon(":/images/dock-right.svg"));
     m_togglePanelAction->setToolTip("Toggle property panel");
     connect(m_togglePanelAction, &QAction::triggered, this,
             &ProjectionsEditorActions::propertyPanelRequest);

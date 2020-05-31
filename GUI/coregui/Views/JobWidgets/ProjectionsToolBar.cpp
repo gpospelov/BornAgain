@@ -83,14 +83,14 @@ void ProjectionsToolBar::onActivityGroupChange(int)
 void ProjectionsToolBar::setup_selection_group()
 {
     auto panButton = new QToolButton(this);
-    panButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_hand.svg"));
+    panButton->setIcon(QIcon(":/images/hand-right.svg"));
     panButton->setToolTip(pan_zoom_tooltip);
     panButton->setCheckable(true);
     panButton->setChecked(true);
     addWidget(panButton);
 
     auto resetViewButton = new QToolButton(this);
-    resetViewButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
+    resetViewButton->setIcon(QIcon(":/images/camera-metering-center.svg"));
     resetViewButton->setToolTip(reset_view_tooltip);
     addWidget(resetViewButton);
     connect(resetViewButton, &QToolButton::clicked, m_editorActions,

@@ -84,9 +84,6 @@ void SampleView::connectSignals()
     connect(m_toolBar, SIGNAL(changeScale(double)), sampleDesigner()->getView(),
             SLOT(onChangeScale(double)));
 
-    connect(m_toolBar, SIGNAL(zoomOut()), sampleDesigner()->getView(), SLOT(zoomOut()));
-    connect(m_toolBar, SIGNAL(zoomIn()), sampleDesigner()->getView(), SLOT(zoomIn()));
-
     connect(sampleDesigner()->getScene(), SIGNAL(selectionModeChangeRequest(int)),
             sampleDesigner()->getView(), SLOT(onSelectionMode(int)));
 

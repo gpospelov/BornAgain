@@ -120,15 +120,15 @@ IntensityDataItem* IntensityDataCanvas::intensityDataItem()
 void IntensityDataCanvas::initActions()
 {
     m_resetViewAction = new QAction(this);
-    m_resetViewAction->setText("Reset");
-    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
+    m_resetViewAction->setText("Center view");
+    m_resetViewAction->setIcon(QIcon(":/images/camera-metering-center.svg"));
     m_resetViewAction->setToolTip("Reset view\n"
                                   "x,y,z axes range will be set to default");
     connect(m_resetViewAction, &QAction::triggered, this, &IntensityDataCanvas::onResetViewAction);
 
     m_savePlotAction = new QAction(this);
     m_savePlotAction->setText("Save");
-    m_savePlotAction->setIcon(QIcon(":/images/toolbar16light_save.svg"));
+    m_savePlotAction->setIcon(QIcon(":/images/content-save-outline.svg"));
     m_savePlotAction->setToolTip("Save plot");
     connect(m_savePlotAction, &QAction::triggered, this, &IntensityDataCanvas::onSavePlotAction);
 }

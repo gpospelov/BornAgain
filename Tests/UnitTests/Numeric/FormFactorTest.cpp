@@ -1,6 +1,10 @@
 #include "FormFactorTest.h"
 #include "google_test.h" // tests segfault under Linux/clang-9.0.1 if this include is missing
 
+using ::testing::Combine;
+using ::testing::Values;
+using ::testing::internal::ParamGenerator;
+
 namespace formFactorTest
 {
 

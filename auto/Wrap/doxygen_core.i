@@ -2896,6 +2896,50 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 ";
 
 
+// File: classFormFactorBarGauss.xml
+%feature("docstring") FormFactorBarGauss "
+
+The form factor of an elongated bar, with Gaussian profile in elongation direction.
+
+C++ includes: FormFactorBar.h
+";
+
+%feature("docstring")  FormFactorBarGauss::FormFactorBarGauss "FormFactorBarGauss::FormFactorBarGauss(double length, double width, double height)
+";
+
+%feature("docstring")  FormFactorBarGauss::clone "FormFactorBarGauss * FormFactorBarGauss::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorBarGauss::accept "void FormFactorBarGauss::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
+// File: classFormFactorBarLorentz.xml
+%feature("docstring") FormFactorBarLorentz "
+
+The form factor of an elongated, with Lorentz form factor in elongation direction.
+
+C++ includes: FormFactorBar.h
+";
+
+%feature("docstring")  FormFactorBarLorentz::FormFactorBarLorentz "FormFactorBarLorentz::FormFactorBarLorentz(double length, double width, double height)
+";
+
+%feature("docstring")  FormFactorBarLorentz::clone "FormFactorBarLorentz * FormFactorBarLorentz::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorBarLorentz::accept "void FormFactorBarLorentz::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
+";
+
+
 // File: classFormFactorBox.xml
 %feature("docstring") FormFactorBox "
 
@@ -4124,126 +4168,6 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
-// File: classFormFactorLongRipple2Gauss.xml
-%feature("docstring") FormFactorLongRipple2Gauss "
-
-The form factor for a triangular ripple.
-
-C++ includes: FormFactorLongRipple2Gauss.h
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss "FormFactorLongRipple2Gauss::FormFactorLongRipple2Gauss(double length, double width, double height, double asymmetry)
-
-FormFactorLongRipple2Gauss constructor.
-
-Parameters:
------------
-
-length: 
-of Ripple2
-
-width: 
-of triangular cross section
-
-height: 
-of triangular cross section
-
-asymmetry: 
-length of triangular cross section 
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::clone "FormFactorLongRipple2Gauss* FormFactorLongRipple2Gauss::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::accept "void FormFactorLongRipple2Gauss::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::getHeight "double FormFactorLongRipple2Gauss::getHeight() const
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::getWidth "double FormFactorLongRipple2Gauss::getWidth() const
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::getLength "double FormFactorLongRipple2Gauss::getLength() const
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::getAsymmetry "double FormFactorLongRipple2Gauss::getAsymmetry() const
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::radialExtension "double FormFactorLongRipple2Gauss::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorLongRipple2Gauss::evaluate_for_q "complex_t FormFactorLongRipple2Gauss::evaluate_for_q(cvector_t q) const override final
-
-Complex form factor. 
-";
-
-
-// File: classFormFactorLongRipple2Lorentz.xml
-%feature("docstring") FormFactorLongRipple2Lorentz "
-
-The form factor for a triangular ripple.
-
-C++ includes: FormFactorLongRipple2Lorentz.h
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz "FormFactorLongRipple2Lorentz::FormFactorLongRipple2Lorentz(double length, double width, double height, double asymmetry)
-
-Parameters:
------------
-
-length: 
-of Ripple2
-
-width: 
-of triangular cross section
-
-height: 
-of triangular cross section
-
-asymmetry: 
-length of triangular cross section 
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::clone "FormFactorLongRipple2Lorentz* FormFactorLongRipple2Lorentz::clone() const override final
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::accept "void FormFactorLongRipple2Lorentz::accept(INodeVisitor *visitor) const override final
-
-Calls the  INodeVisitor's visit method. 
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::getHeight "double FormFactorLongRipple2Lorentz::getHeight() const
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::getWidth "double FormFactorLongRipple2Lorentz::getWidth() const
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::getLength "double FormFactorLongRipple2Lorentz::getLength() const
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::getAsymmetry "double FormFactorLongRipple2Lorentz::getAsymmetry() const
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::radialExtension "double FormFactorLongRipple2Lorentz::radialExtension() const override final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorLongRipple2Lorentz::evaluate_for_q "complex_t FormFactorLongRipple2Lorentz::evaluate_for_q(cvector_t q) const override final
-
-Complex form factor. 
-";
-
-
 // File: classFormFactorLorentz.xml
 %feature("docstring") FormFactorLorentz "
 
@@ -4594,64 +4518,69 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classFormFactorRipple2.xml
-%feature("docstring") FormFactorRipple2 "
+// File: classFormFactorRipple2Box.xml
+%feature("docstring") FormFactorRipple2Box "
 
-The form factor for a triangular ripple.
+The form factor for a cosine ripple, with box profile in elongation direction.
 
 C++ includes: FormFactorRipple2.h
 ";
 
-%feature("docstring")  FormFactorRipple2::FormFactorRipple2 "FormFactorRipple2::FormFactorRipple2(double length, double width, double height, double asymmetry)
-
-Constructor of a triangular ripple.
-
-Parameters:
------------
-
-length: 
-length of the rectangular base in nanometers
-
-width: 
-width of the rectangular base in nanometers
-
-height: 
-height of the ripple in nanometers
-
-asymmetry: 
-asymmetry length of the triangular profile in nanometers 
+%feature("docstring")  FormFactorRipple2Box::FormFactorRipple2Box "FormFactorRipple2Box::FormFactorRipple2Box(double length, double width, double height, double asymmetry)
 ";
 
-%feature("docstring")  FormFactorRipple2::clone "FormFactorRipple2* FormFactorRipple2::clone() const override final
+%feature("docstring")  FormFactorRipple2Box::clone "FormFactorRipple2Box * FormFactorRipple2Box::clone() const override final
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorRipple2::accept "void FormFactorRipple2::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  FormFactorRipple2Box::accept "void FormFactorRipple2Box::accept(INodeVisitor *visitor) const override final
 
 Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorRipple2::getHeight "double FormFactorRipple2::getHeight() const
+
+// File: classFormFactorRipple2Gauss.xml
+%feature("docstring") FormFactorRipple2Gauss "
+
+The form factor for a cosine ripple, with Gaussian profile in elongation direction.
+
+C++ includes: FormFactorRipple2.h
 ";
 
-%feature("docstring")  FormFactorRipple2::getWidth "double FormFactorRipple2::getWidth() const
+%feature("docstring")  FormFactorRipple2Gauss::FormFactorRipple2Gauss "FormFactorRipple2Gauss::FormFactorRipple2Gauss(double length, double width, double height, double asymmetry)
 ";
 
-%feature("docstring")  FormFactorRipple2::getLength "double FormFactorRipple2::getLength() const
+%feature("docstring")  FormFactorRipple2Gauss::clone "FormFactorRipple2Gauss * FormFactorRipple2Gauss::clone() const override final
+
+Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  FormFactorRipple2::getAsymmetry "double FormFactorRipple2::getAsymmetry() const
+%feature("docstring")  FormFactorRipple2Gauss::accept "void FormFactorRipple2Gauss::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
 ";
 
-%feature("docstring")  FormFactorRipple2::radialExtension "double FormFactorRipple2::radialExtension() const override final
 
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+// File: classFormFactorRipple2Lorentz.xml
+%feature("docstring") FormFactorRipple2Lorentz "
+
+The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
+
+C++ includes: FormFactorRipple2.h
 ";
 
-%feature("docstring")  FormFactorRipple2::evaluate_for_q "complex_t FormFactorRipple2::evaluate_for_q(cvector_t q) const override final
+%feature("docstring")  FormFactorRipple2Lorentz::FormFactorRipple2Lorentz "FormFactorRipple2Lorentz::FormFactorRipple2Lorentz(double length, double width, double height, double asymmetry)
+";
 
-Complex form factor. 
+%feature("docstring")  FormFactorRipple2Lorentz::clone "FormFactorRipple2Lorentz * FormFactorRipple2Lorentz::clone() const override final
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorRipple2Lorentz::accept "void FormFactorRipple2Lorentz::accept(INodeVisitor *visitor) const override final
+
+Calls the  INodeVisitor's visit method. 
 ";
 
 
@@ -7996,6 +7925,12 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorAnisoPyramid *)
 ";
 
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorBarGauss *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorBarLorentz *)
+";
+
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorBox *)
 ";
 
@@ -8080,7 +8015,13 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple1Lorentz *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple2 *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple2Box *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple2Gauss *)
+";
+
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorRipple2Lorentz *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorSphereGaussianRadius *)
@@ -13257,6 +13198,51 @@ Fourier transform of the correlation function of roughnesses between the interfa
 ";
 
 
+// File: classProfileBar.xml
+%feature("docstring") ProfileBar "
+
+Base class for form factors with a cosine ripple profile in the yz plane.
+
+C++ includes: ProfileBar.h
+";
+
+%feature("docstring")  ProfileBar::ProfileBar "ProfileBar::ProfileBar(double length, double width, double height)
+
+Constructor of elongated bar.
+
+Parameters:
+-----------
+
+length: 
+length of the rectangular base in nanometers
+
+width: 
+width of the rectangular base in nanometers
+
+height: 
+height of the ripple in nanometers 
+";
+
+%feature("docstring")  ProfileBar::getLength "double ProfileBar::getLength() const
+";
+
+%feature("docstring")  ProfileBar::getHeight "double ProfileBar::getHeight() const
+";
+
+%feature("docstring")  ProfileBar::getWidth "double ProfileBar::getWidth() const
+";
+
+%feature("docstring")  ProfileBar::radialExtension "double ProfileBar::radialExtension() const override final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  ProfileBar::evaluate_for_q "complex_t ProfileBar::evaluate_for_q(cvector_t q) const override final
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+
 // File: classProfileHelper.xml
 %feature("docstring") ProfileHelper "";
 
@@ -13313,6 +13299,54 @@ Returns the (approximate in some cases) radial size of the particle of this form
 ";
 
 %feature("docstring")  ProfileRipple1::evaluate_for_q "complex_t ProfileRipple1::evaluate_for_q(cvector_t q) const override final
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+
+// File: classProfileRipple2.xml
+%feature("docstring") ProfileRipple2 "
+
+Base class for form factors with a cosine ripple profile in the yz plane.
+
+C++ includes: ProfileRipple2.h
+";
+
+%feature("docstring")  ProfileRipple2::ProfileRipple2 "ProfileRipple2::ProfileRipple2(double length, double width, double height, double asymmetry)
+
+Constructor of triangular ripple.
+
+Parameters:
+-----------
+
+length: 
+length of the rectangular base in nanometers
+
+width: 
+width of the rectangular base in nanometers
+
+height: 
+height of the ripple in nanometers 
+";
+
+%feature("docstring")  ProfileRipple2::getLength "double ProfileRipple2::getLength() const
+";
+
+%feature("docstring")  ProfileRipple2::getHeight "double ProfileRipple2::getHeight() const
+";
+
+%feature("docstring")  ProfileRipple2::getWidth "double ProfileRipple2::getWidth() const
+";
+
+%feature("docstring")  ProfileRipple2::getAsymmetry "double ProfileRipple2::getAsymmetry() const
+";
+
+%feature("docstring")  ProfileRipple2::radialExtension "double ProfileRipple2::radialExtension() const override final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  ProfileRipple2::evaluate_for_q "complex_t ProfileRipple2::evaluate_for_q(cvector_t q) const override final
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
@@ -17078,52 +17112,49 @@ C++ includes: ZLimits.h
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d191.xml
+// File: namespace_0d189.xml
 
 
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d222.xml
+// File: namespace_0d224.xml
 
 
-// File: namespace_0d230.xml
+// File: namespace_0d232.xml
 
 
-// File: namespace_0d236.xml
+// File: namespace_0d238.xml
 
 
-// File: namespace_0d240.xml
+// File: namespace_0d242.xml
 
 
-// File: namespace_0d290.xml
+// File: namespace_0d292.xml
 
 
-// File: namespace_0d299.xml
+// File: namespace_0d301.xml
 
 
-// File: namespace_0d307.xml
-
-
-// File: namespace_0d311.xml
+// File: namespace_0d309.xml
 
 
 // File: namespace_0d313.xml
 
 
+// File: namespace_0d315.xml
+
+
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d325.xml
+// File: namespace_0d327.xml
 
 
-// File: namespace_0d331.xml
+// File: namespace_0d333.xml
 
 
-// File: namespace_0d352.xml
-
-
-// File: namespace_0d356.xml
+// File: namespace_0d354.xml
 
 
 // File: namespace_0d358.xml
@@ -17132,31 +17163,31 @@ C++ includes: ZLimits.h
 // File: namespace_0d360.xml
 
 
-// File: namespace_0d370.xml
+// File: namespace_0d362.xml
 
 
-// File: namespace_0d383.xml
+// File: namespace_0d372.xml
 
 
-// File: namespace_0d387.xml
+// File: namespace_0d385.xml
 
 
-// File: namespace_0d399.xml
+// File: namespace_0d389.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d405.xml
+// File: namespace_0d401.xml
 
 
-// File: namespace_0d410.xml
+// File: namespace_0d407.xml
 
 
 // File: namespace_0d412.xml
 
 
-// File: namespace_0d416.xml
+// File: namespace_0d414.xml
 
 
 // File: namespace_0d418.xml
@@ -17165,28 +17196,28 @@ C++ includes: ZLimits.h
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d428.xml
+// File: namespace_0d420.xml
 
 
-// File: namespace_0d441.xml
+// File: namespace_0d430.xml
 
 
-// File: namespace_0d450.xml
+// File: namespace_0d443.xml
 
 
 // File: namespace_0d452.xml
 
 
-// File: namespace_0d486.xml
+// File: namespace_0d454.xml
 
 
-// File: namespace_0d493.xml
+// File: namespace_0d488.xml
 
 
-// File: namespace_0d531.xml
+// File: namespace_0d495.xml
 
 
-// File: namespace_0d539.xml
+// File: namespace_0d533.xml
 
 
 // File: namespace_0d541.xml
@@ -17195,16 +17226,19 @@ C++ includes: ZLimits.h
 // File: namespace_0d543.xml
 
 
+// File: namespace_0d545.xml
+
+
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d627.xml
+// File: namespace_0d629.xml
 
 
-// File: namespace_0d631.xml
+// File: namespace_0d633.xml
 
 
-// File: namespace_0d655.xml
+// File: namespace_0d657.xml
 
 
 // File: namespace_0d97.xml
@@ -18778,6 +18812,12 @@ global helper function for comparison of axes
 // File: FormFactorAnisoPyramid_8h.xml
 
 
+// File: FormFactorBar_8cpp.xml
+
+
+// File: FormFactorBar_8h.xml
+
+
 // File: FormFactorBox_8cpp.xml
 
 
@@ -18862,18 +18902,6 @@ global helper function for comparison of axes
 // File: FormFactorLongBoxLorentz_8h.xml
 
 
-// File: FormFactorLongRipple2Gauss_8cpp.xml
-
-
-// File: FormFactorLongRipple2Gauss_8h.xml
-
-
-// File: FormFactorLongRipple2Lorentz_8cpp.xml
-
-
-// File: FormFactorLongRipple2Lorentz_8h.xml
-
-
 // File: FormFactorPolyhedron_8cpp.xml
 
 
@@ -18940,10 +18968,22 @@ global helper function for comparison of axes
 // File: FormFactorTruncatedSpheroid_8h.xml
 
 
+// File: ProfileBar_8cpp.xml
+
+
+// File: ProfileBar_8h.xml
+
+
 // File: ProfileRipple1_8cpp.xml
 
 
 // File: ProfileRipple1_8h.xml
+
+
+// File: ProfileRipple2_8cpp.xml
+
+
+// File: ProfileRipple2_8h.xml
 
 
 // File: Ripples_8cpp.xml

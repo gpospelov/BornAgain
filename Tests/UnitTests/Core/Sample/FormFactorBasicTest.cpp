@@ -428,7 +428,7 @@ TEST_F(FormFactorBasicTest, TruncatedCube)
     test_ff(&trcube);
 }
 
-TEST_F(FormFactorBasicTest, Ripple2)
+TEST_F(FormFactorBasicTest, Ripple2Box)
 {
     double width = 20.;
     double height = 4.;
@@ -436,9 +436,9 @@ TEST_F(FormFactorBasicTest, Ripple2)
     double d = 0.3; // asymmetry
     double volume = 0.5 * height * width * length;
 
-    FormFactorRipple2 ripple2(length, width, height, d);
+    FormFactorRipple2Box ripple2(length, width, height, d);
 
-    EXPECT_EQ(BornAgain::FFRipple2Type, ripple2.getName());
+    EXPECT_EQ(BornAgain::FFRipple2BoxType, ripple2.getName());
     EXPECT_EQ(4., ripple2.getHeight());
     EXPECT_DOUBLE_EQ(volume, ripple2.volume());
 

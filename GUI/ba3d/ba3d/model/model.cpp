@@ -56,6 +56,12 @@ Particles::Particle* Model::newParticle(Particles::EShape k, float R)
     switch (k) {
     case EShape::None:
         return nullptr;
+    case EShape::BarGauss:
+        return new BarGauss(D, D, 5*D);
+    case EShape::BarLorentz:
+        return new BarLorentz(D, D, 5*D);
+    case EShape::Box:
+        return new Box(D, D, D);
     case EShape::FullSphere:
         return new FullSphere(R);
     case EShape::FullSpheroid:
@@ -88,8 +94,6 @@ Particles::Particle* Model::newParticle(Particles::EShape k, float R)
         return new Tetrahedron(R, D, 1.3f);
     case EShape::EllipsoidalCylinder:
         return new EllipsoidalCylinder(R, R / 2, D);
-    case EShape::Box:
-        return new Box(D, D, D);
     case EShape::HemiEllipsoid:
         return new HemiEllipsoid(R, R, D);
     case EShape::Dot:
@@ -100,8 +104,12 @@ Particles::Particle* Model::newParticle(Particles::EShape k, float R)
         return new Ripple1Gauss(D, D, D); // TODO ripples should be elongated
     case EShape::Ripple1Lorentz:
         return new Ripple1Lorentz(D, D, D); // TODO ripples should be elongated
-    case EShape::Ripple2:
-        return new Ripple2(D, D, D, 0.3f);
+    case EShape::Ripple2Box:
+        return new Ripple2Box(D, D, D); // TODO ripples should be elongated
+    case EShape::Ripple2Gauss:
+        return new Ripple2Gauss(D, D, D); // TODO ripples should be elongated
+    case EShape::Ripple2Lorentz:
+        return new Ripple2Lorentz(D, D, D); // TODO ripples should be elongated
     case EShape::AnisoPyramid:
         return new AnisoPyramid(R, D, D, 1.3f);
     }

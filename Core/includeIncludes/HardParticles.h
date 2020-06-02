@@ -16,6 +16,7 @@
 #define HARDPARTICLES_H
 
 #include "FormFactorAnisoPyramid.h"
+#include "FormFactorBar.h"
 #include "FormFactorBox.h"
 #include "FormFactorCone.h"
 #include "FormFactorCone6.h"

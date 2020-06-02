@@ -98,6 +98,7 @@
 #include "FootprintFactorGaussian.h"
 #include "FootprintFactorSquare.h"
 #include "FormFactorAnisoPyramid.h"
+#include "FormFactorBar.h"
 #include "FormFactorBox.h"
 #include "FormFactorCone.h"
 #include "FormFactorCone6.h"
@@ -340,7 +341,9 @@
 %include "IFormFactorBorn.h"
 %include "IFormFactorDecorator.h"
 %include "FormFactorPolyhedron.h"
+%include "ProfileBar.h"
 %include "ProfileRipple1.h"
+%include "ProfileRipple2.h"
 %include "Ripples.h"
 
 %include "FormFactorAnisoPyramid.h"

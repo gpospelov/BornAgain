@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/HardParticle/FormFactorRipple2.h
-//! @brief     Defines class FormFactorRipple2.
+//! @brief     Defines classes FormFactorRipple2*.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,41 +15,45 @@
 #ifndef FORMFACTORRIPPLE2_H
 #define FORMFACTORRIPPLE2_H
 
-#include "IFormFactorBorn.h"
+#include "ProfileRipple2.h"
 
-//! The form factor for a triangular ripple.
+//! The form factor for a cosine ripple, with box profile in elongation direction.
 //! @ingroup legacyGrating
-
-class BA_CORE_API_ FormFactorRipple2 : public IFormFactorBorn
+class BA_CORE_API_ FormFactorRipple2Box : public ProfileRipple2
 {
 public:
-    FormFactorRipple2(double length, double width, double height, double asymmetry);
-
-    FormFactorRipple2* clone() const override final
-    {
-        return new FormFactorRipple2(m_length, m_width, m_height, m_d);
-    }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
-
-    double getHeight() const { return m_height; }
-    double getWidth() const { return m_width; }
-    double getLength() const { return m_length; }
-    double getAsymmetry() const { return m_d; }
-
-    double radialExtension() const override final;
-
-    complex_t evaluate_for_q(cvector_t q) const override final;
-
-protected:
-    void onChange() override final;
+    FormFactorRipple2Box(double length, double width, double height, double asymmetry);
+    FormFactorRipple2Box* clone() const override final;
+    void accept(INodeVisitor* visitor) const override final;
 
 private:
-    bool check_initialization() const;
-    double m_length;
-    double m_width;
-    double m_height;
-    double m_d;
-    mutable cvector_t m_q;
+    complex_t factor_x(complex_t qx) const override final;
+};
+
+//! The form factor for a cosine ripple, with Gaussian profile in elongation direction.
+//! @ingroup legacyGrating
+class BA_CORE_API_ FormFactorRipple2Gauss : public ProfileRipple2
+{
+public:
+    FormFactorRipple2Gauss(double length, double width, double height, double asymmetry);
+    FormFactorRipple2Gauss* clone() const override final;
+    void accept(INodeVisitor* visitor) const override final;
+
+private:
+    complex_t factor_x(complex_t qx) const override final;
+};
+
+//! The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
+//! @ingroup legacyGrating
+class BA_CORE_API_ FormFactorRipple2Lorentz : public ProfileRipple2
+{
+public:
+    FormFactorRipple2Lorentz(double length, double width, double height, double asymmetry);
+    FormFactorRipple2Lorentz* clone() const override final;
+    void accept(INodeVisitor* visitor) const override final;
+
+private:
+    complex_t factor_x(complex_t qx) const override final;
 };
 
 #endif // FORMFACTORRIPPLE2_H

@@ -45,6 +45,48 @@ std::unique_ptr<IFormFactor> AnisoPyramidItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
+const QString BarGaussItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString BarGaussItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString BarGaussItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+
+BarGaussItem::BarGaussItem() : FormFactorItem(Constants::BarGaussType)
+{
+    setToolTip(QStringLiteral("Rectangular cuboid"));
+    addProperty(P_LENGTH, 20.0)->setToolTip(QStringLiteral("Length of the base in nanometers"));
+    addProperty(P_WIDTH, 16.0)->setToolTip(QStringLiteral("Width of the base in nanometers"));
+    addProperty(P_HEIGHT, 13.0)->setToolTip(QStringLiteral("Height of the box in nanometers"));
+}
+
+std::unique_ptr<IFormFactor> BarGaussItem::createFormFactor() const
+{
+    return std::make_unique<FormFactorBarGauss>(getItemValue(P_LENGTH).toDouble(),
+                                           getItemValue(P_WIDTH).toDouble(),
+                                           getItemValue(P_HEIGHT).toDouble());
+}
+
+/* ------------------------------------------------ */
+
+const QString BarLorentzItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString BarLorentzItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString BarLorentzItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+
+BarLorentzItem::BarLorentzItem() : FormFactorItem(Constants::BarLorentzType)
+{
+    setToolTip(QStringLiteral("Rectangular cuboid"));
+    addProperty(P_LENGTH, 20.0)->setToolTip(QStringLiteral("Length of the base in nanometers"));
+    addProperty(P_WIDTH, 16.0)->setToolTip(QStringLiteral("Width of the base in nanometers"));
+    addProperty(P_HEIGHT, 13.0)->setToolTip(QStringLiteral("Height of the box in nanometers"));
+}
+
+std::unique_ptr<IFormFactor> BarLorentzItem::createFormFactor() const
+{
+    return std::make_unique<FormFactorBarLorentz>(getItemValue(P_LENGTH).toDouble(),
+                                           getItemValue(P_WIDTH).toDouble(),
+                                           getItemValue(P_HEIGHT).toDouble());
+}
+
+/* ------------------------------------------------ */
+
 const QString BoxItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
 const QString BoxItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
 const QString BoxItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
@@ -426,12 +468,12 @@ std::unique_ptr<IFormFactor> Ripple1LorentzItem::createFormFactor() const
 
 /* ------------------------------------------------ */
 
-const QString Ripple2Item::P_LENGTH = QString::fromStdString(BornAgain::Length);
-const QString Ripple2Item::P_WIDTH = QString::fromStdString(BornAgain::Width);
-const QString Ripple2Item::P_HEIGHT = QString::fromStdString(BornAgain::Height);
-const QString Ripple2Item::P_ASYMMETRY = QString::fromStdString(BornAgain::AsymmetryLength);
+const QString Ripple2BoxItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString Ripple2BoxItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString Ripple2BoxItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString Ripple2BoxItem::P_ASYMMETRY = QString::fromStdString(BornAgain::AsymmetryLength);
 
-Ripple2Item::Ripple2Item() : FormFactorItem(Constants::Ripple2Type)
+Ripple2BoxItem::Ripple2BoxItem() : FormFactorItem(Constants::Ripple2BoxType)
 {
     setToolTip(
         QStringLiteral("Particle with an asymmetric triangle profile and a rectangular base"));
@@ -444,9 +486,63 @@ Ripple2Item::Ripple2Item() : FormFactorItem(Constants::Ripple2Type)
         ->setToolTip(QStringLiteral("Asymmetry length of the triangular profile in nanometers"));
 }
 
-std::unique_ptr<IFormFactor> Ripple2Item::createFormFactor() const
+std::unique_ptr<IFormFactor> Ripple2BoxItem::createFormFactor() const
 {
-    return std::make_unique<FormFactorRipple2>(
+    return std::make_unique<FormFactorRipple2Box>(
+        getItemValue(P_LENGTH).toDouble(), getItemValue(P_WIDTH).toDouble(),
+        getItemValue(P_HEIGHT).toDouble(), getItemValue(P_ASYMMETRY).toDouble());
+}
+
+/* ------------------------------------------------ */
+
+const QString Ripple2GaussItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString Ripple2GaussItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString Ripple2GaussItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString Ripple2GaussItem::P_ASYMMETRY = QString::fromStdString(BornAgain::AsymmetryLength);
+
+Ripple2GaussItem::Ripple2GaussItem() : FormFactorItem(Constants::Ripple2GaussType)
+{
+    setToolTip(
+        QStringLiteral("Particle with an asymmetric triangle profile and a rectangular base"));
+    addProperty(P_LENGTH, 36.0)
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
+    addProperty(P_WIDTH, 25.0)
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
+    addProperty(P_HEIGHT, 14.0)->setToolTip(QStringLiteral("Height of the ripple in nanometers"));
+    addProperty(P_ASYMMETRY, 3.0)
+        ->setToolTip(QStringLiteral("Asymmetry length of the triangular profile in nanometers"));
+}
+
+std::unique_ptr<IFormFactor> Ripple2GaussItem::createFormFactor() const
+{
+    return std::make_unique<FormFactorRipple2Gauss>(
+        getItemValue(P_LENGTH).toDouble(), getItemValue(P_WIDTH).toDouble(),
+        getItemValue(P_HEIGHT).toDouble(), getItemValue(P_ASYMMETRY).toDouble());
+}
+
+/* ------------------------------------------------ */
+
+const QString Ripple2LorentzItem::P_LENGTH = QString::fromStdString(BornAgain::Length);
+const QString Ripple2LorentzItem::P_WIDTH = QString::fromStdString(BornAgain::Width);
+const QString Ripple2LorentzItem::P_HEIGHT = QString::fromStdString(BornAgain::Height);
+const QString Ripple2LorentzItem::P_ASYMMETRY = QString::fromStdString(BornAgain::AsymmetryLength);
+
+Ripple2LorentzItem::Ripple2LorentzItem() : FormFactorItem(Constants::Ripple2LorentzType)
+{
+    setToolTip(
+        QStringLiteral("Particle with an asymmetric triangle profile and a rectangular base"));
+    addProperty(P_LENGTH, 36.0)
+        ->setToolTip(QStringLiteral("Length of the rectangular base in nanometers"));
+    addProperty(P_WIDTH, 25.0)
+        ->setToolTip(QStringLiteral("Width of the rectangular base in nanometers"));
+    addProperty(P_HEIGHT, 14.0)->setToolTip(QStringLiteral("Height of the ripple in nanometers"));
+    addProperty(P_ASYMMETRY, 3.0)
+        ->setToolTip(QStringLiteral("Asymmetry length of the triangular profile in nanometers"));
+}
+
+std::unique_ptr<IFormFactor> Ripple2LorentzItem::createFormFactor() const
+{
+    return std::make_unique<FormFactorRipple2Lorentz>(
         getItemValue(P_LENGTH).toDouble(), getItemValue(P_WIDTH).toDouble(),
         getItemValue(P_HEIGHT).toDouble(), getItemValue(P_ASYMMETRY).toDouble());
 }

@@ -40,13 +40,17 @@ enum class EShape {
     Prism3,
     Tetrahedron,
     EllipsoidalCylinder,
+    BarGauss,
+    BarLorentz,
     Box,
     HemiEllipsoid,
     Dot,
     Ripple1Box,
     Ripple1Gauss,
     Ripple1Lorentz,
-    Ripple2,
+    Ripple2Box,
+    Ripple2Gauss,
+    Ripple2Lorentz,
     AnisoPyramid,
 };
 
@@ -182,6 +186,18 @@ public:
     EllipsoidalCylinder(float Ra, float Rb, float H);
 };
 
+class BarGauss : public Particle
+{
+public:
+    BarGauss(float L, float W, float H);
+};
+
+class BarLorentz : public Particle
+{
+public:
+    BarLorentz(float L, float W, float H);
+};
+
 class Box : public Particle
 {
 public:
@@ -210,6 +226,24 @@ class Ripple1Lorentz : public Particle
 {
 public:
     Ripple1Lorentz(float L, float W, float H);
+};
+
+class Ripple2Box : public Particle
+{
+public:
+    Ripple2Box(float L, float W, float H);
+};
+
+class Ripple2Gauss : public Particle
+{
+public:
+    Ripple2Gauss(float L, float W, float H);
+};
+
+class Ripple2Lorentz : public Particle
+{
+public:
+    Ripple2Lorentz(float L, float W, float H);
 };
 
 class Ripple2 : public Particle

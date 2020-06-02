@@ -69,7 +69,7 @@ FormFactorComponents::FormFactorComponents()
 
     add(BornAgain::FFRipple1BoxType, new FormFactorRipple1Box(100.0, 20.0, 4.0));
 
-    add(BornAgain::FFRipple2Type, new FormFactorRipple2(100.0, 20.0, 4.0, 0.0));
+    add(BornAgain::FFRipple2BoxType, new FormFactorRipple2Box(100.0, 20.0, 4.0, 0.0));
 
     add(BornAgain::FFTetrahedronType, new FormFactorTetrahedron(10.0, 4.0, Units::deg2rad(54.73)));
 

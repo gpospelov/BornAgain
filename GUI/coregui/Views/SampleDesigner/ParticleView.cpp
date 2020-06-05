@@ -26,7 +26,7 @@ ParticleView::ParticleView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
-    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
+    setRectangle(DesignerHelper::getParticleBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
         ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)

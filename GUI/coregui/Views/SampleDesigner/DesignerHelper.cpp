@@ -129,8 +129,7 @@ QPixmap DesignerHelper::getPixmapInterferenceFunction()
 
 QPixmap DesignerHelper::getPixmapParticle()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultParticleWidth(),
-               DesignerHelper::getDefaultParticleHeight());
+    auto rect = getParticleBoundingRect();
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -177,7 +176,7 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
     } else if (name.startsWith(Constants::FormFactorType) || name == Constants::ParticleType
                || name == Constants::ParticleCoreShellType
                || name == Constants::ParticleDistributionType) {
-        return QRectF(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
+        return getParticleBoundingRect();
     } else if (name.startsWith("Interference")) {
         return QRectF(0, 0, getDefaultInterferenceFunctionWidth(),
                       getDefaultInterferenceFunctionHeight());
@@ -285,19 +284,14 @@ int DesignerHelper::getDefaultInterferenceFunctionHeight()
     return m_default_layer_height * 4;
 }
 
-int DesignerHelper::getDefaultParticleWidth()
-{
-    return m_default_layer_height * 3.5;
-}
-
-int DesignerHelper::getDefaultParticleHeight()
-{
-    return m_default_layer_height * 4;
-}
-
 QColor DesignerHelper::getDefaultParticleColor()
 {
     return QColor(210, 223, 237);
+}
+
+QRectF DesignerHelper::getParticleBoundingRect()
+{
+    return QRectF(0, 0, m_default_layer_height * 3.5, m_default_layer_height * 4);
 }
 
 int DesignerHelper::getDefaultTransformationWidth()

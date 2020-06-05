@@ -39,9 +39,8 @@ public:
     static int getDefaultInterferenceFunctionWidth();
     static int getDefaultInterferenceFunctionHeight();
 
-    static int getDefaultParticleWidth();
-    static int getDefaultParticleHeight();
     static QColor getDefaultParticleColor();
+    static QRectF getParticleBoundingRect();
 
     static int getDefaultTransformationWidth();
     static int getDefaultTransformationHeight();

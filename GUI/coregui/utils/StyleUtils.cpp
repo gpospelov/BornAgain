@@ -23,6 +23,7 @@
 namespace
 {
 Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expanded);
+QSize FindSizeOfLetterM();
 }
 
 void StyleUtils::setPropertyStyle(QTreeView* tree)
@@ -118,6 +119,13 @@ QWidget* StyleUtils::createDetailsWidget(QLayout* layout, const QString& name, b
     return createDetailsWidget(placeholder, name, expanded);
 }
 
+QSize StyleUtils::SizeOfLetterM()
+{
+    static QSize result = FindSizeOfLetterM();
+    return result;
+}
+
+
 namespace
 {
 
@@ -129,6 +137,22 @@ Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expande
     if (expanded)
         result->setState(Utils::DetailsWidget::Expanded);
     return result;
+}
+
+//! Calculates size of letter `M` for current system font settings.
+
+QSize FindSizeOfLetterM()
+{
+    QWidget widget;
+    QFontMetrics fontMetric(widget.font());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+    auto em = fontMetric.horizontalAdvance('M');
+#else
+    auto em = fontMetric.width('M')
+#endif
+    auto fontAscent = fontMetric.ascent();
+
+    return QSize(em, fontAscent);
 }
 
 } // namespace

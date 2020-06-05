@@ -83,7 +83,7 @@ QSize JobListWidget::sizeHint() const
 
 QSize JobListWidget::minimumSizeHint() const
 {
-    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth()*2);
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth());
 }
 
 void JobListWidget::makeJobItemSelected(JobItem* jobItem)

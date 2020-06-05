@@ -29,9 +29,7 @@ class BA_CORE_API_ ILayerView : public ConnectableView
 public:
     ILayerView(QGraphicsItem* parent = 0);
 
-    enum { TYPE = DesignerHelper::LAYER };
-
-    int type() const { return TYPE; }
+    int type() const { return ViewTypes::LAYER; }
 
     virtual QString getLabel() const { return QString(); }
 

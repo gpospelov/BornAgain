@@ -21,7 +21,8 @@
  * Copyright (c) 2012, STANISLAW ADASZEWSKI
  */
 
-#include "DesignerHelper.h"
+#include "WinDllMacros.h"
+#include "ViewTypes.h"
 #include <QGraphicsPathItem>
 
 class NodeEditorPort;
@@ -30,8 +31,6 @@ class ConnectableView;
 class BA_CORE_API_ NodeEditorConnection : public QGraphicsPathItem
 {
 public:
-    enum { TYPE = DesignerHelper::NODE_EDITOR_CONNECTION };
-
     NodeEditorConnection(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
     virtual ~NodeEditorConnection();
 
@@ -48,7 +47,7 @@ public:
     NodeEditorPort* inputPort();
     NodeEditorPort* outputPort();
 
-    int type() const { return TYPE; }
+    int type() const { return ViewTypes::NODE_EDITOR_CONNECTION; }
 
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 

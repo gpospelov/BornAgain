@@ -14,6 +14,7 @@
 
 #include "ParticleCoreShellView.h"
 #include "ParticleCoreShellItem.h"
+#include "DesignerHelper.h"
 #include "SessionItem.h"
 
 ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem* parent) : ConnectableView(parent)

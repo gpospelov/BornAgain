@@ -17,6 +17,7 @@
 #include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "ParticleItem.h"
+#include "DesignerHelper.h"
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -77,7 +78,7 @@ void ParticleView::onPropertyChange(const QString& propertyName)
 
 void ParticleView::addView(IView* childView, int /*row*/)
 {
-    if (childView->type() == DesignerHelper::TRANSFORMATION) {
+    if (childView->type() == ViewTypes::TRANSFORMATION) {
         connectInputPort(dynamic_cast<ConnectableView*>(childView), 0);
     } else {
         throw GUIHelpers::Error("ParticleView::addView() -> Error. Unknown view");

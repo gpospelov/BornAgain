@@ -18,6 +18,7 @@
 #include "ParticleLayoutView.h"
 #include "SessionItem.h"
 #include "tooltipdatabase.h"
+#include "DesignerHelper.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 

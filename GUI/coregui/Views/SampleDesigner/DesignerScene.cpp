@@ -469,7 +469,7 @@ bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent* event)
     QRectF rect = DesignerHelper::getDefaultMultiLayerRect();
     rect.moveCenter(event->scenePos());
     for (QGraphicsItem* item : items(rect)) {
-        if (item->type() == DesignerHelper::MULTILAYER)
+        if (item->type() == ViewTypes::MULTILAYER)
             return true;
     }
     return false;

@@ -15,7 +15,8 @@
 #ifndef IVIEW_H
 #define IVIEW_H
 
-#include "DesignerHelper.h"
+#include "WinDllMacros.h"
+#include "ViewTypes.h"
 #include <QGraphicsObject>
 #include <memory>
 
@@ -26,7 +27,6 @@ class BA_CORE_API_ IView : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    enum { TYPE = DesignerHelper::IVIEW };
 
     IView(QGraphicsItem* parent = 0);
     virtual ~IView();
@@ -56,7 +56,7 @@ protected:
 
 inline int IView::type() const
 {
-    return TYPE;
+    return ViewTypes::IVIEW;
 }
 
 inline SessionItem* IView::getItem()

@@ -16,6 +16,7 @@
 #include "MesoCrystalItem.h"
 #include "ParticleItem.h"
 #include "SessionItem.h"
+#include "DesignerHelper.h"
 
 MesoCrystalView::MesoCrystalView(QGraphicsItem* parent) : ConnectableView(parent)
 {

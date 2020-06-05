@@ -21,7 +21,8 @@
  * Copyright (c) 2012, STANISLAW ADASZEWSKI
  */
 
-#include "DesignerHelper.h"
+#include "WinDllMacros.h"
+#include "ViewTypes.h"
 #include <QGraphicsPathItem>
 #include <QString>
 
@@ -31,8 +32,6 @@ class IView;
 class BA_CORE_API_ NodeEditorPort : public QGraphicsPathItem
 {
 public:
-    enum { TYPE = DesignerHelper::NODE_EDITOR_PORT };
-
     //! type of ports, same type can be connected together
     enum EPortType { DEFAULT, INTERFERENCE, PARTICLE_LAYOUT, FORM_FACTOR, TRANSFORMATION };
 
@@ -85,7 +84,7 @@ inline const QString& NodeEditorPort::portName() const
 
 inline int NodeEditorPort::type() const
 {
-    return TYPE;
+    return ViewTypes::NODE_EDITOR_PORT;
 }
 
 inline bool NodeEditorPort::isConnected()

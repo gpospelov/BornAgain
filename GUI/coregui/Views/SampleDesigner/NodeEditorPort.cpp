@@ -15,6 +15,7 @@
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
 #include "DesignerHelper.h"
+#include "StyleUtils.h"
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QPen>
@@ -23,8 +24,10 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem* parent, const QString& name,
                                NodeEditorPort::EPortDirection direction,
                                NodeEditorPort::EPortType port_type)
     : QGraphicsPathItem(parent), m_name(name), m_direction(direction), m_port_type(port_type),
-      m_radius(5), m_margin(2), m_label(nullptr)
+      m_radius(0), m_margin(0), m_label(nullptr)
 {
+    m_radius = StyleUtils::SizeOfLetterM().width()*0.4;
+    m_margin = m_radius*0.5;
     m_color = getPortTypeColor(port_type);
 
     QPainterPath p;

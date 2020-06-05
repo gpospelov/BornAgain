@@ -22,6 +22,7 @@
 class QTreeView;
 class QWidget;
 class QLayout;
+class QWidget;
 
 namespace StyleUtils
 {
@@ -53,7 +54,7 @@ BA_CORE_API_ QWidget* createDetailsWidget(QLayout* content, const QString& name,
                                           bool expanded = true);
 
 //! Returns size of largest letter of default system font.
-BA_CORE_API_ QSize SizeOfLetterM();
+BA_CORE_API_ QSize SizeOfLetterM(const QWidget* widget = nullptr);
 
 } // namespace StyleUtils
 

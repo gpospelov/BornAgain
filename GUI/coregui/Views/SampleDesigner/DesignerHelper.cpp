@@ -70,8 +70,8 @@ QPixmap DesignerHelper::getSceneBackground()
 
 QPixmap DesignerHelper::getPixmapLayer()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultLayerWidth(),
-               DesignerHelper::getDefaultLayerHeight());
+    QRect rect(0, 0, DesignerHelper::layerWidth(),
+               DesignerHelper::layerHeight());
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -84,7 +84,7 @@ QPixmap DesignerHelper::getPixmapLayer()
 QPixmap DesignerHelper::getPixmapMultiLayer()
 {
     QRect rect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(),
-               DesignerHelper::getDefaultLayerHeight());
+               DesignerHelper::layerHeight());
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -92,12 +92,12 @@ QPixmap DesignerHelper::getPixmapMultiLayer()
     painter.setBrush(DesignerHelper::getLayerGradient(QColor(75, 157, 249), rect));
     painter.drawRect(rect);
     painter.setPen(Qt::DashLine);
-    painter.drawLine(0, DesignerHelper::getDefaultLayerHeight() * 0.3,
+    painter.drawLine(0, DesignerHelper::layerHeight() * 0.3,
                      DesignerHelper::getDefaultMultiLayerWidth(),
-                     DesignerHelper::getDefaultLayerHeight() * 0.3);
-    painter.drawLine(0, DesignerHelper::getDefaultLayerHeight() * 0.6,
+                     DesignerHelper::layerHeight() * 0.3);
+    painter.drawLine(0, DesignerHelper::layerHeight() * 0.6,
                      DesignerHelper::getDefaultMultiLayerWidth(),
-                     DesignerHelper::getDefaultLayerHeight() * 0.6);
+                     DesignerHelper::layerHeight() * 0.6);
     return pixmap;
 }
 
@@ -155,7 +155,7 @@ bool DesignerHelper::sort_layers(QGraphicsItem* left, QGraphicsItem* right)
 // graphics representation
 int DesignerHelper::nanometerToScreen(double nanometer)
 {
-    const int ymin(m_default_layer_height);
+    const int ymin(layerHeight());
     const int ymax(500);
     int result(ymin);
     if (nanometer > 0)
@@ -168,7 +168,7 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
     if (name == Constants::MultiLayerType) {
         return QRectF(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
     } else if (name == Constants::LayerType) {
-        return QRectF(0, 0, getDefaultLayerWidth(), getDefaultLayerHeight());
+        return QRectF(0, 0, layerWidth(), layerHeight());
     } else if (name == Constants::ParticleLayoutType) {
         return QRectF(0, 0, getDefaultParticleLayoutWidth(), getDefaultParticleLayoutHeight());
     } else if (name == Constants::RotationType) {
@@ -233,12 +233,12 @@ int DesignerHelper::getHeaderFontSize()
 #endif
 }
 
-int DesignerHelper::getDefaultLayerWidth()
+int DesignerHelper::layerWidth()
 {
     return m_default_layer_width;
 }
 
-int DesignerHelper::getDefaultLayerHeight()
+int DesignerHelper::layerHeight()
 {
     return m_default_layer_height;
 }
@@ -250,12 +250,12 @@ QColor DesignerHelper::getDefaultLayerColor()
 
 int DesignerHelper::getDefaultMultiLayerWidth()
 {
-    return m_default_layer_width * 1.15;
+    return layerWidth() * 1.15;
 }
 
 int DesignerHelper::getDefaultMultiLayerHeight()
 {
-    return m_default_layer_height;
+    return layerHeight();
 }
 
 QRectF DesignerHelper::getDefaultMultiLayerRect()
@@ -266,22 +266,22 @@ QRectF DesignerHelper::getDefaultMultiLayerRect()
 
 int DesignerHelper::getDefaultParticleLayoutWidth()
 {
-    return m_default_layer_height * 3.5;
+    return layerHeight() * 3.5;
 }
 
 int DesignerHelper::getDefaultParticleLayoutHeight()
 {
-    return m_default_layer_height * 4.5;
+    return layerHeight() * 4.5;
 }
 
 int DesignerHelper::getDefaultInterferenceFunctionWidth()
 {
-    return m_default_layer_height * 4.5;
+    return layerHeight() * 4.5;
 }
 
 int DesignerHelper::getDefaultInterferenceFunctionHeight()
 {
-    return m_default_layer_height * 4;
+    return layerHeight() * 4;
 }
 
 QColor DesignerHelper::getDefaultParticleColor()
@@ -291,17 +291,17 @@ QColor DesignerHelper::getDefaultParticleColor()
 
 QRectF DesignerHelper::getParticleBoundingRect()
 {
-    return QRectF(0, 0, m_default_layer_height * 3.5, m_default_layer_height * 4);
+    return QRectF(0, 0, layerHeight() * 3.5, layerHeight() * 4);
 }
 
 int DesignerHelper::getDefaultTransformationWidth()
 {
-    return m_default_layer_height * 4;
+    return layerHeight() * 4;
 }
 
 int DesignerHelper::getDefaultTransformationHeight()
 {
-    return m_default_layer_height * 2;
+    return layerHeight() * 2;
 }
 
 QColor DesignerHelper::getDefaultTransformationColor()
@@ -311,12 +311,12 @@ QColor DesignerHelper::getDefaultTransformationColor()
 
 int DesignerHelper::getDefaultMaterialWidth()
 {
-    return m_default_layer_height * 1.2;
+    return layerHeight() * 1.2;
 }
 
 int DesignerHelper::getDefaultMaterialHeight()
 {
-    return m_default_layer_height * 1.2;
+    return layerHeight() * 1.2;
 }
 
 QColor DesignerHelper::getDefaultMaterialColor()

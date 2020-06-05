@@ -25,8 +25,8 @@
 class BA_CORE_API_ DesignerHelper
 {
 public:
-    static int getDefaultLayerWidth();
-    static int getDefaultLayerHeight();
+    static int layerWidth();
+    static int layerHeight();
     static QColor getDefaultLayerColor();
 
     static int getDefaultMultiLayerWidth();

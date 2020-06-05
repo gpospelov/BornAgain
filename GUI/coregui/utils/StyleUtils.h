@@ -56,6 +56,9 @@ BA_CORE_API_ QWidget* createDetailsWidget(QLayout* content, const QString& name,
 //! Returns size of largest letter of default system font.
 BA_CORE_API_ QSize SizeOfLetterM(const QWidget* widget = nullptr);
 
+//! Returns size in points of default system font.
+BA_CORE_API_ int SystemPointSize();
+
 } // namespace StyleUtils
 
 #endif

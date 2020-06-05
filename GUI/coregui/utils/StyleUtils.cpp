@@ -16,6 +16,7 @@
 #include "DesignerHelper.h"
 #include "detailswidget.h"
 #include "hostosinfo.h"
+#include <QApplication>
 #include <QBoxLayout>
 #include <QDialog>
 #include <QTreeView>
@@ -130,6 +131,10 @@ QSize StyleUtils::SizeOfLetterM(const QWidget* widget)
     return widget ? FindSizeOfLetterM(widget) : default_size;
 }
 
+int StyleUtils::SystemPointSize()
+{
+    return QApplication::font().pointSize();
+}
 
 namespace
 {

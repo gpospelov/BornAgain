@@ -139,6 +139,16 @@ QPixmap DesignerHelper::getPixmapParticle()
     return pixmap;
 }
 
+QColor DesignerHelper::getRandomColor()
+{
+    return QColor(qrand() % 256, qrand() % 256, qrand() % 256);
+}
+
+bool DesignerHelper::sort_layers(QGraphicsItem* left, QGraphicsItem* right)
+{
+    return left->y() < right->y();
+}
+
 // non-linear conversion of layer's thickness in nanometers to screen size to have reasonable
 // graphics representation
 int DesignerHelper::nanometerToScreen(double nanometer)
@@ -221,10 +231,100 @@ int DesignerHelper::getHeaderFontSize()
 #endif
 }
 
+int DesignerHelper::getDefaultLayerWidth()
+{
+    return m_default_layer_width;
+}
+
+int DesignerHelper::getDefaultLayerHeight()
+{
+    return m_default_layer_height;
+}
+
+QColor DesignerHelper::getDefaultLayerColor()
+{
+    return QColor(Qt::lightGray);
+}
+
+int DesignerHelper::getDefaultMultiLayerWidth()
+{
+    return m_default_layer_width * 1.15;
+}
+
+int DesignerHelper::getDefaultMultiLayerHeight()
+{
+    return m_default_layer_height;
+}
+
 QRectF DesignerHelper::getDefaultMultiLayerRect()
 {
     return QRectF(0, 0, DesignerHelper::getDefaultMultiLayerWidth(),
                   DesignerHelper::getDefaultMultiLayerHeight());
+}
+
+int DesignerHelper::getDefaultParticleLayoutWidth()
+{
+    return m_default_layer_height * 3.5;
+}
+
+int DesignerHelper::getDefaultParticleLayoutHeight()
+{
+    return m_default_layer_height * 4.5;
+}
+
+int DesignerHelper::getDefaultInterferenceFunctionWidth()
+{
+    return m_default_layer_height * 4.5;
+}
+
+int DesignerHelper::getDefaultInterferenceFunctionHeight()
+{
+    return m_default_layer_height * 4;
+}
+
+int DesignerHelper::getDefaultParticleWidth()
+{
+    return m_default_layer_height * 3.5;
+}
+
+int DesignerHelper::getDefaultParticleHeight()
+{
+    return m_default_layer_height * 4;
+}
+
+QColor DesignerHelper::getDefaultParticleColor()
+{
+    return QColor(210, 223, 237);
+}
+
+int DesignerHelper::getDefaultTransformationWidth()
+{
+    return m_default_layer_height * 4;
+}
+
+int DesignerHelper::getDefaultTransformationHeight()
+{
+    return m_default_layer_height * 2;
+}
+
+QColor DesignerHelper::getDefaultTransformationColor()
+{
+    return QColor(145, 50, 220);
+}
+
+int DesignerHelper::getDefaultMaterialWidth()
+{
+    return m_default_layer_height * 1.2;
+}
+
+int DesignerHelper::getDefaultMaterialHeight()
+{
+    return m_default_layer_height * 1.2;
+}
+
+QColor DesignerHelper::getDefaultMaterialColor()
+{
+    return QColor(qrand() % 256, qrand() % 256, qrand() % 256);
 }
 
 int DesignerHelper::getSectionFontSize()

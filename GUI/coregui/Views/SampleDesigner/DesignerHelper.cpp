@@ -217,21 +217,17 @@ QPixmap DesignerHelper::getMimePixmap(const QString& name)
 
 int DesignerHelper::getHeaderFontSize()
 {
-#ifdef Q_OS_MAC
-    return 14;
-#else
-    return 12;
-#endif
+    return StyleUtils::SystemPointSize()*1.5;
 }
 
 int DesignerHelper::layerWidth()
 {
-    return m_default_layer_width;
+    return StyleUtils::SizeOfLetterM().width()*18;
 }
 
 int DesignerHelper::layerHeight()
 {
-    return m_default_layer_height;
+    return StyleUtils::SizeOfLetterM().height()*2;
 }
 
 QColor DesignerHelper::getDefaultLayerColor()

@@ -38,9 +38,8 @@ public:
     static QColor getDefaultParticleColor();
     static QRectF getParticleBoundingRect();
 
-    static int getDefaultTransformationWidth();
-    static int getDefaultTransformationHeight();
     static QColor getDefaultTransformationColor();
+    static QRectF getTransformationBoundingRect();
 
     static QColor getDefaultMaterialColor();
 

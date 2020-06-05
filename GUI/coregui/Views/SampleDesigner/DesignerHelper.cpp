@@ -163,7 +163,7 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
     } else if (name == Constants::ParticleLayoutType) {
         return getParticleLayoutBoundingRect();
     } else if (name == Constants::RotationType) {
-        return QRectF(0, 0, getDefaultTransformationWidth(), getDefaultTransformationHeight());
+        return getTransformationBoundingRect();
     } else if (name.startsWith(Constants::FormFactorType) || name == Constants::ParticleType
                || name == Constants::ParticleCoreShellType
                || name == Constants::ParticleDistributionType) {
@@ -263,19 +263,14 @@ QRectF DesignerHelper::getParticleBoundingRect()
     return QRectF(0, 0, layerHeight() * 3.5, layerHeight() * 4);
 }
 
-int DesignerHelper::getDefaultTransformationWidth()
-{
-    return layerHeight() * 4;
-}
-
-int DesignerHelper::getDefaultTransformationHeight()
-{
-    return layerHeight() * 2;
-}
-
 QColor DesignerHelper::getDefaultTransformationColor()
 {
     return QColor(145, 50, 220);
+}
+
+QRectF DesignerHelper::getTransformationBoundingRect()
+{
+    return QRectF(0, 0, layerHeight() * 4, layerHeight() * 2);
 }
 
 QColor DesignerHelper::getDefaultMaterialColor()

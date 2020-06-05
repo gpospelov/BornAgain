@@ -31,7 +31,6 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem* parent) : ConnectableView(
     addPort("interference", NodeEditorPort::INPUT, NodeEditorPort::INTERFERENCE)
         ->setToolTip(QStringLiteral("Connect interference to this port "
                                     "to have coherent scattering"));
-    m_roundpar = 3;
 }
 
 void ParticleLayoutView::addView(IView* childView, int /* row */)

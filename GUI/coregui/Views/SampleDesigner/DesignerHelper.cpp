@@ -287,7 +287,7 @@ int DesignerHelper::getLabelFontSize()
 
 int DesignerHelper::getPortFontSize()
 {
-    return StyleUtils::SystemPointSize()*0.6;
+    return StyleUtils::SystemPointSize()*0.65;
 }
 
 int DesignerHelper::getPythonEditorFontSize()

@@ -57,7 +57,7 @@ WelcomeView::WelcomeView(MainWindow* parent)
     auto centralWidget = new QWidget;
     centralWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     centralWidget->setObjectName("containerWidget");
-    centralWidget->setMaximumWidth(800);
+    centralWidget->setMaximumWidth(1200);
     centralWidget->setContentsMargins(0, 30, 0, 0);
     centralWidget->setStyleSheet(centralWidgetStyle);
     centralWidget->setLayout(centralWidgetLayout);
@@ -82,7 +82,7 @@ WelcomeView::WelcomeView(MainWindow* parent)
 void WelcomeView::generateRecentProjectList()
 {
     auto recentProLabel = new QLabel("Recent Projects:");
-    recentProLabel->setFont(StyleUtils::sectionFont(/*bold*/ true));
+    recentProLabel->setFont(StyleUtils::sectionFont());
 
     setCurrentProjectName(currentProjectFancyName());
     m_recentProjectLayout->addWidget(recentProLabel);

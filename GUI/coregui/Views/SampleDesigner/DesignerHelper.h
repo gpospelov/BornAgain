@@ -33,8 +33,7 @@ public:
 
     static QRectF getParticleLayoutBoundingRect();
 
-    static int getDefaultInterferenceFunctionWidth();
-    static int getDefaultInterferenceFunctionHeight();
+    static QRectF getInterferenceFunctionBoundingRect();
 
     static QColor getDefaultParticleColor();
     static QRectF getParticleBoundingRect();
@@ -43,8 +42,6 @@ public:
     static int getDefaultTransformationHeight();
     static QColor getDefaultTransformationColor();
 
-    static int getDefaultMaterialWidth();
-    static int getDefaultMaterialHeight();
     static QColor getDefaultMaterialColor();
 
     static QGradient getLayerGradient(const QColor& color, const QRectF& rect);

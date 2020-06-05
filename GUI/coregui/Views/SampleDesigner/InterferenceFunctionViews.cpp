@@ -21,7 +21,7 @@ InterferenceFunction1DLatticeView::InterferenceFunction1DLatticeView(QGraphicsIt
 {
     setName(Constants::InterferenceFunction1DLatticeType);
     setColor(QColor(255, 236, 139));
-    setRectangle(DesignerHelper::getDefaultBoundingRect(getName()));
+    setRectangle(DesignerHelper::getInterferenceFunctionBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }
@@ -31,7 +31,7 @@ InterferenceFunction2DLatticeView::InterferenceFunction2DLatticeView(QGraphicsIt
 {
     setName(Constants::InterferenceFunction2DLatticeType);
     setColor(QColor(255, 236, 139));
-    setRectangle(DesignerHelper::getDefaultBoundingRect(getName()));
+    setRectangle(DesignerHelper::getInterferenceFunctionBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }
@@ -41,7 +41,7 @@ InterferenceFunction2DParaCrystalView::InterferenceFunction2DParaCrystalView(QGr
 {
     setName(Constants::InterferenceFunction2DParaCrystalType);
     setColor(QColor(255, 236, 139));
-    setRectangle(DesignerHelper::getDefaultBoundingRect(getName()));
+    setRectangle(DesignerHelper::getInterferenceFunctionBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }
@@ -52,7 +52,7 @@ InterferenceFunctionFinite2DLatticeView::InterferenceFunctionFinite2DLatticeView
 {
     setName(Constants::InterferenceFunctionFinite2DLatticeType);
     setColor(QColor(255, 236, 139));
-    setRectangle(DesignerHelper::getDefaultBoundingRect(getName()));
+    setRectangle(DesignerHelper::getInterferenceFunctionBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }
@@ -62,7 +62,7 @@ InterferenceFunctionHardDiskView::InterferenceFunctionHardDiskView(QGraphicsItem
 {
     setName(Constants::InterferenceFunctionHardDiskType);
     setColor(QColor(255, 236, 139));
-    setRectangle(DesignerHelper::getDefaultBoundingRect(getName()));
+    setRectangle(DesignerHelper::getInterferenceFunctionBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }
@@ -73,7 +73,7 @@ InterferenceFunctionRadialParaCrystalView::InterferenceFunctionRadialParaCrystal
 {
     setName(Constants::InterferenceFunctionRadialParaCrystalType);
     setColor(QColor(255, 236, 139));
-    setRectangle(DesignerHelper::getDefaultBoundingRect(getName()));
+    setRectangle(DesignerHelper::getInterferenceFunctionBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::INTERFERENCE);
     m_roundpar = 3;
 }

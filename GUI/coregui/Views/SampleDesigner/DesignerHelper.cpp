@@ -71,12 +71,12 @@ QPixmap DesignerHelper::getSceneBackground()
 
 QPixmap DesignerHelper::getPixmapLayer()
 {
-    QRect rect(0, 0, DesignerHelper::layerWidth(), DesignerHelper::layerHeight());
+    QRect rect(0, 0, layerWidth(), layerHeight());
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getLayerGradient(Qt::green, rect));
+    painter.setBrush(getLayerGradient(Qt::green, rect));
     painter.drawRect(rect);
     return pixmap;
 }
@@ -103,20 +103,19 @@ QPixmap DesignerHelper::getPixmapParticleLayout()
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(QColor(135, 206, 50), rect));
+    painter.setBrush(getDecorationGradient(QColor(135, 206, 50), rect));
     painter.drawRoundedRect(rect, 3, 3);
     return pixmap;
 }
 
 QPixmap DesignerHelper::getPixmapInterferenceFunction()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultInterferenceFunctionWidth(),
-               DesignerHelper::getDefaultInterferenceFunctionHeight());
+    auto rect = getInterferenceFunctionBoundingRect();
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(Qt::lightGray, rect));
+    painter.setBrush(getDecorationGradient(Qt::lightGray, rect));
     painter.drawRoundedRect(rect, 3, 3);
     return pixmap;
 }
@@ -128,9 +127,7 @@ QPixmap DesignerHelper::getPixmapParticle()
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    // painter.setBrush(DesignerHelper::getDecorationGradient(QColor(120, 165, 215), rect));
-    painter.setBrush(
-        DesignerHelper::getDecorationGradient(DesignerHelper::getDefaultParticleColor(), rect));
+    painter.setBrush(getDecorationGradient(getDefaultParticleColor(), rect));
     painter.drawRoundedRect(rect, 5, 5);
     return pixmap;
 }
@@ -172,8 +169,7 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
                || name == Constants::ParticleDistributionType) {
         return getParticleBoundingRect();
     } else if (name.startsWith("Interference")) {
-        return QRectF(0, 0, getDefaultInterferenceFunctionWidth(),
-                      getDefaultInterferenceFunctionHeight());
+        return getInterferenceFunctionBoundingRect();
     } else {
         return QRectF(0, 0, 50, 50);
     }
@@ -213,7 +209,7 @@ QPixmap DesignerHelper::getMimePixmap(const QString& name)
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(getDefaultColor(name), mime_rect));
+    painter.setBrush(getDecorationGradient(getDefaultColor(name), mime_rect));
     painter.drawRoundedRect(mime_rect, 1, 1);
     return pixmap;
 }
@@ -252,14 +248,9 @@ QRectF DesignerHelper::getParticleLayoutBoundingRect()
     return QRectF(0, 0, layerHeight() * 3.5, layerHeight() * 4.5);
 }
 
-int DesignerHelper::getDefaultInterferenceFunctionWidth()
+QRectF DesignerHelper::getInterferenceFunctionBoundingRect()
 {
-    return layerHeight() * 4.5;
-}
-
-int DesignerHelper::getDefaultInterferenceFunctionHeight()
-{
-    return layerHeight() * 4;
+    return QRectF(0, 0, layerHeight() * 4.5, layerHeight() * 4);
 }
 
 QColor DesignerHelper::getDefaultParticleColor()
@@ -285,16 +276,6 @@ int DesignerHelper::getDefaultTransformationHeight()
 QColor DesignerHelper::getDefaultTransformationColor()
 {
     return QColor(145, 50, 220);
-}
-
-int DesignerHelper::getDefaultMaterialWidth()
-{
-    return layerHeight() * 1.2;
-}
-
-int DesignerHelper::getDefaultMaterialHeight()
-{
-    return layerHeight() * 1.2;
 }
 
 QColor DesignerHelper::getDefaultMaterialColor()

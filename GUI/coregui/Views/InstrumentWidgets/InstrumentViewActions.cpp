@@ -32,10 +32,10 @@ InstrumentViewActions::InstrumentViewActions(QWidget* parent)
     initAddInstrumentMenu();
 
     m_removeInstrumentAction =
-        new QAction(QIcon(":/images/toolbar16dark_recycle.svg"), "Remove this instrument", this);
+        new QAction(QIcon(":/images/delete.svg"), "Remove this instrument", this);
 
     m_cloneInstrumentAction =
-        new QAction(QIcon(":/images/toolbar16dark_cloneitem.svg"), "Clone this instrument", this);
+        new QAction(QIcon(":/images/content-copy.svg"), "Clone this instrument", this);
 
     connect(m_removeInstrumentAction, &QAction::triggered, this,
             &InstrumentViewActions::onRemoveInstrument);

@@ -92,9 +92,9 @@ SpecularDataItem* SpecularDataCanvas::specularDataItem()
 void SpecularDataCanvas::initActions()
 {
     m_reset_view_action = new QAction(this);
-    m_reset_view_action->setText("Reset");
-    m_reset_view_action->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
-    m_reset_view_action->setToolTip("Reset view\n"
+    m_reset_view_action->setText("Center view");
+    m_reset_view_action->setIcon(QIcon(":/images/camera-metering-center.svg"));
+    m_reset_view_action->setToolTip("Center view\n"
                                     "x,y axes range will be set to default");
     connect(m_reset_view_action, &QAction::triggered, this, &SpecularDataCanvas::onResetViewAction);
 

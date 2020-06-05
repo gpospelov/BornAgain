@@ -87,25 +87,25 @@ RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
       m_selectionModel(nullptr)
 {
     m_import2dDataAction = new QAction(QStringLiteral("Import 2D data"), parent);
-    m_import2dDataAction->setIcon(QIcon(":/images/toolbar16dark_newitem.svg"));
+    m_import2dDataAction->setIcon(QIcon(":/images/import.svg"));
     m_import2dDataAction->setToolTip(QStringLiteral("Import 2D data"));
     connect(m_import2dDataAction, &QAction::triggered, this,
             &RealDataSelectorActions::onImport2dDataAction);
 
     m_import1dDataAction = new QAction(QStringLiteral("Import 1D data"), parent);
-    m_import1dDataAction->setIcon(QIcon(":/images/toolbar16dark_newitem.svg"));
+    m_import1dDataAction->setIcon(QIcon(":/images/import.svg"));
     m_import1dDataAction->setToolTip(QStringLiteral("Import 1D data"));
     connect(m_import1dDataAction, &QAction::triggered, this,
             &RealDataSelectorActions::onImport1dDataAction);
 
     m_removeDataAction = new QAction(QStringLiteral("Remove this data"), parent);
-    m_removeDataAction->setIcon(QIcon(":/images/toolbar16dark_recycle.svg"));
+    m_removeDataAction->setIcon(QIcon(":/images/delete.svg"));
     m_removeDataAction->setToolTip(QStringLiteral("Remove selected data"));
     connect(m_removeDataAction, &QAction::triggered, this,
             &RealDataSelectorActions::onRemoveDataAction);
 
     m_rotateDataAction->setText("Rotate this data");
-    m_rotateDataAction->setIcon(QIcon(":/images/toolbar16light_rotate.svg"));
+    m_rotateDataAction->setIcon(QIcon(":/images/rotate-left.svg"));
     m_rotateDataAction->setToolTip("Rotate intensity data by 90 deg counterclockwise");
     connect(m_rotateDataAction, &QAction::triggered, this,
             &RealDataSelectorActions::onRotateDataRequest);

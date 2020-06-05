@@ -18,6 +18,7 @@
 #include <QtGlobal>
 #include <cmath>
 #include <iostream>
+#include "StyleUtils.h"
 
 int DesignerHelper::m_default_layer_height = 30;
 int DesignerHelper::m_default_layer_width = 200;
@@ -280,36 +281,20 @@ QColor DesignerHelper::getDefaultMaterialColor()
 
 int DesignerHelper::getSectionFontSize()
 {
-#ifdef Q_OS_MAC
-    return 12;
-#else
-    return 10;
-#endif
+    return StyleUtils::SystemPointSize()*1.2;
 }
 
 int DesignerHelper::getLabelFontSize()
 {
-#ifdef Q_OS_MAC
-    return 12;
-#else
-    return 10;
-#endif
+    return StyleUtils::SystemPointSize()*0.8;
 }
 
 int DesignerHelper::getPortFontSize()
 {
-#ifdef Q_OS_MAC
-    return 10;
-#else
-    return 8;
-#endif
+    return StyleUtils::SystemPointSize()*0.6;
 }
 
 int DesignerHelper::getPythonEditorFontSize()
 {
-#ifdef Q_OS_MAC
-    return 13;
-#else
-    return 10;
-#endif
+    return StyleUtils::SystemPointSize();
 }

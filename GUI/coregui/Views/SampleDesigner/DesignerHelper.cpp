@@ -21,7 +21,10 @@
 
 int DesignerHelper::m_default_layer_height = 30;
 int DesignerHelper::m_default_layer_width = 200;
-double DesignerHelper::m_current_zoom_level = 1.0;
+
+namespace {
+double m_current_zoom_level = 1.0;
+}
 
 QGradient DesignerHelper::getLayerGradient(const QColor& color, const QRectF& rect)
 {
@@ -361,9 +364,4 @@ int DesignerHelper::getPythonEditorFontSize()
 #else
     return 10;
 #endif
-}
-
-void DesignerHelper::setZoomLevel(double value)
-{
-    m_current_zoom_level = value;
 }

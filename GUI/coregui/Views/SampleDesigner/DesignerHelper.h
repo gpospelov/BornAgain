@@ -106,12 +106,9 @@ public:
     static int getPortFontSize();
     static int getPythonEditorFontSize();
 
-    static void setZoomLevel(double value);
-
 private:
     static int m_default_layer_height;
     static int m_default_layer_width;
-    static double m_current_zoom_level;
 };
 
 typedef std::complex<double> complex_t;

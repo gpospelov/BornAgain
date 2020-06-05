@@ -136,6 +136,11 @@ int StyleUtils::SystemPointSize()
     return QApplication::font().pointSize();
 }
 
+int StyleUtils::PropertyPanelWidth()
+{
+    return SizeOfLetterM().width()*16;
+}
+
 namespace
 {
 

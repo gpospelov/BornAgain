@@ -59,6 +59,10 @@ BA_CORE_API_ QSize SizeOfLetterM(const QWidget* widget = nullptr);
 //! Returns size in points of default system font.
 BA_CORE_API_ int SystemPointSize();
 
+//! Returns typical width of the vertical property panel.
+
+BA_CORE_API_ int PropertyPanelWidth();
+
 } // namespace StyleUtils
 
 #endif

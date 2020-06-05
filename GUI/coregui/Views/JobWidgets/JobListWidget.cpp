@@ -17,6 +17,7 @@
 #include "JobItem.h"
 #include "JobListViewDelegate.h"
 #include "JobModel.h"
+#include "StyleUtils.h"
 #include <QItemSelectionModel>
 #include <QListView>
 #include <QVBoxLayout>
@@ -25,7 +26,7 @@ JobListWidget::JobListWidget(QWidget* parent)
     : QWidget(parent), m_listViewDelegate(new JobListViewDelegate(this)),
       m_listView(new ItemSelectorWidget(this)), m_jobModel(nullptr)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     m_listView->listView()->setItemDelegate(m_listViewDelegate);
     m_listView->listView()->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -73,6 +74,16 @@ const JobItem* JobListWidget::currentJobItem() const
 {
     QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
     return selected.size() == 1 ? m_jobModel->getJobItemForIndex(selected.at(0)) : nullptr;
+}
+
+QSize JobListWidget::sizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth()*2);
+}
+
+QSize JobListWidget::minimumSizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth()*2);
 }
 
 void JobListWidget::makeJobItemSelected(JobItem* jobItem)

@@ -16,6 +16,7 @@
 #include "ComponentEditor.h"
 #include "JobItem.h"
 #include "mainwindow_constants.h"
+#include "StyleUtils.h"
 #include <QTabBar>
 #include <QTabWidget>
 #include <QTextEdit>
@@ -41,6 +42,16 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget* parent)
     setLayout(mainLayout);
 
     connect(m_commentsEditor, &QTextEdit::textChanged, this, &JobPropertiesWidget::onTextChanged);
+}
+
+QSize JobPropertiesWidget::sizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth());
+}
+
+QSize JobPropertiesWidget::minimumSizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth()*2);
 }
 
 void JobPropertiesWidget::subscribeToItem()

@@ -20,9 +20,6 @@
 #include <iostream>
 #include "StyleUtils.h"
 
-int DesignerHelper::m_default_layer_height = 30;
-int DesignerHelper::m_default_layer_width = 200;
-
 namespace
 {
 double m_current_zoom_level = 1.0;

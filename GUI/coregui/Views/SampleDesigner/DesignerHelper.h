@@ -77,10 +77,6 @@ public:
     static int getLabelFontSize();
     static int getPortFontSize();
     static int getPythonEditorFontSize();
-
-private:
-    static int m_default_layer_height;
-    static int m_default_layer_width;
 };
 
 #endif // DESIGNERHELPER_H

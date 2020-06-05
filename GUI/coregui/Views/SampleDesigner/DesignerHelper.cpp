@@ -22,7 +22,8 @@
 int DesignerHelper::m_default_layer_height = 30;
 int DesignerHelper::m_default_layer_width = 200;
 
-namespace {
+namespace
+{
 double m_current_zoom_level = 1.0;
 }
 
@@ -70,8 +71,7 @@ QPixmap DesignerHelper::getSceneBackground()
 
 QPixmap DesignerHelper::getPixmapLayer()
 {
-    QRect rect(0, 0, DesignerHelper::layerWidth(),
-               DesignerHelper::layerHeight());
+    QRect rect(0, 0, DesignerHelper::layerWidth(), DesignerHelper::layerHeight());
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -83,21 +83,16 @@ QPixmap DesignerHelper::getPixmapLayer()
 
 QPixmap DesignerHelper::getPixmapMultiLayer()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(),
-               DesignerHelper::layerHeight());
+    auto rect = getDefaultMultiLayerRect();
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getLayerGradient(QColor(75, 157, 249), rect));
+    painter.setBrush(getLayerGradient(QColor(75, 157, 249), rect));
     painter.drawRect(rect);
     painter.setPen(Qt::DashLine);
-    painter.drawLine(0, DesignerHelper::layerHeight() * 0.3,
-                     DesignerHelper::getDefaultMultiLayerWidth(),
-                     DesignerHelper::layerHeight() * 0.3);
-    painter.drawLine(0, DesignerHelper::layerHeight() * 0.6,
-                     DesignerHelper::getDefaultMultiLayerWidth(),
-                     DesignerHelper::layerHeight() * 0.6);
+    painter.drawLine(0, layerHeight() * 0.3, rect.width(), layerHeight() * 0.3);
+    painter.drawLine(0, layerHeight() * 0.6, rect.width(), layerHeight() * 0.6);
     return pixmap;
 }
 
@@ -165,7 +160,7 @@ int DesignerHelper::nanometerToScreen(double nanometer)
 QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
 {
     if (name == Constants::MultiLayerType) {
-        return QRectF(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
+        return getDefaultMultiLayerRect();
     } else if (name == Constants::LayerType) {
         return QRectF(0, 0, layerWidth(), layerHeight());
     } else if (name == Constants::ParticleLayoutType) {
@@ -247,20 +242,9 @@ QColor DesignerHelper::getDefaultLayerColor()
     return QColor(Qt::lightGray);
 }
 
-int DesignerHelper::getDefaultMultiLayerWidth()
-{
-    return layerWidth() * 1.15;
-}
-
-int DesignerHelper::getDefaultMultiLayerHeight()
-{
-    return layerHeight();
-}
-
 QRectF DesignerHelper::getDefaultMultiLayerRect()
 {
-    return QRectF(0, 0, DesignerHelper::getDefaultMultiLayerWidth(),
-                  DesignerHelper::getDefaultMultiLayerHeight());
+    return QRectF(0, 0, layerWidth() * 1.15, layerHeight());
 }
 
 QRectF DesignerHelper::getParticleLayoutBoundingRect()

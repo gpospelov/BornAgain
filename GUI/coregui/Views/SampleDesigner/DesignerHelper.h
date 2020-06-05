@@ -29,8 +29,6 @@ public:
     static int layerHeight();
     static QColor getDefaultLayerColor();
 
-    static int getDefaultMultiLayerWidth();
-    static int getDefaultMultiLayerHeight();
     static QRectF getDefaultMultiLayerRect();
 
     static QRectF getParticleLayoutBoundingRect();

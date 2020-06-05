@@ -20,7 +20,6 @@
 #include <QGradient>
 #include <QGraphicsItem>
 #include <QRect>
-#include <complex>
 
 //! collection of static methods with SampleDesigner geometry settings
 class BA_CORE_API_ DesignerHelper
@@ -110,8 +109,5 @@ private:
     static int m_default_layer_height;
     static int m_default_layer_width;
 };
-
-typedef std::complex<double> complex_t;
-Q_DECLARE_METATYPE(complex_t)
 
 #endif // DESIGNERHELPER_H

@@ -22,7 +22,7 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem* parent) : ConnectableView(
 {
     setName(Constants::ParticleLayoutType);
     setColor(QColor(135, 206, 50));
-    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleLayoutType));
+    setRectangle(DesignerHelper::getParticleLayoutBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::PARTICLE_LAYOUT)
         ->setToolTip(QStringLiteral("Connect this port with the layer "
                                     "to populate it with particles"));

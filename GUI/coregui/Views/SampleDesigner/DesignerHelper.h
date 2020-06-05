@@ -33,8 +33,7 @@ public:
     static int getDefaultMultiLayerHeight();
     static QRectF getDefaultMultiLayerRect();
 
-    static int getDefaultParticleLayoutWidth();
-    static int getDefaultParticleLayoutHeight();
+    static QRectF getParticleLayoutBoundingRect();
 
     static int getDefaultInterferenceFunctionWidth();
     static int getDefaultInterferenceFunctionHeight();

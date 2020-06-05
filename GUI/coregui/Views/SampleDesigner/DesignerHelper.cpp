@@ -103,8 +103,7 @@ QPixmap DesignerHelper::getPixmapMultiLayer()
 
 QPixmap DesignerHelper::getPixmapParticleLayout()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultParticleLayoutWidth(),
-               DesignerHelper::getDefaultParticleLayoutHeight());
+    auto rect = getParticleLayoutBoundingRect();
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -170,7 +169,7 @@ QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
     } else if (name == Constants::LayerType) {
         return QRectF(0, 0, layerWidth(), layerHeight());
     } else if (name == Constants::ParticleLayoutType) {
-        return QRectF(0, 0, getDefaultParticleLayoutWidth(), getDefaultParticleLayoutHeight());
+        return getParticleLayoutBoundingRect();
     } else if (name == Constants::RotationType) {
         return QRectF(0, 0, getDefaultTransformationWidth(), getDefaultTransformationHeight());
     } else if (name.startsWith(Constants::FormFactorType) || name == Constants::ParticleType
@@ -264,14 +263,9 @@ QRectF DesignerHelper::getDefaultMultiLayerRect()
                   DesignerHelper::getDefaultMultiLayerHeight());
 }
 
-int DesignerHelper::getDefaultParticleLayoutWidth()
+QRectF DesignerHelper::getParticleLayoutBoundingRect()
 {
-    return layerHeight() * 3.5;
-}
-
-int DesignerHelper::getDefaultParticleLayoutHeight()
-{
-    return layerHeight() * 4.5;
+    return QRectF(0, 0, layerHeight() * 3.5, layerHeight() * 4.5);
 }
 
 int DesignerHelper::getDefaultInterferenceFunctionWidth()

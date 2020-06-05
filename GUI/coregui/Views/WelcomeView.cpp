@@ -168,20 +168,17 @@ QBoxLayout* WelcomeView::createButtonLayout()
     m_newProjectButton = new QPushButton("New Project");
     m_newProjectButton->setMinimumWidth(buttonWidth);
     m_newProjectButton->setMinimumHeight(buttonHeight);
-    m_newProjectButton->setFont(StyleUtils::labelFont());
     m_newProjectButton->setToolTip("Create new project");
     m_newProjectButton->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     m_openProjectButton = new QPushButton("Open Project");
     m_openProjectButton->setMinimumWidth(buttonWidth);
     m_openProjectButton->setMinimumHeight(buttonHeight);
-    m_openProjectButton->setFont(StyleUtils::labelFont());
     m_openProjectButton->setToolTip("Open existing project");
 
     m_newUsertButton = new QPushButton("Website");
     m_newUsertButton->setMinimumWidth(buttonWidth);
     m_newUsertButton->setMinimumHeight(buttonHeight);
-    m_newUsertButton->setFont(StyleUtils::labelFont());
     m_newUsertButton->setToolTip("Open BornAgain web site");
 
     auto buttonLayout = new QVBoxLayout;

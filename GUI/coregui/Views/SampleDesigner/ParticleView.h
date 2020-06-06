@@ -24,11 +24,9 @@ class BA_CORE_API_ ParticleView : public ConnectableView
     Q_OBJECT
 
 public:
-    enum { TYPE = DesignerHelper::PARTICLE };
-
     ParticleView(QGraphicsItem* parent = 0);
 
-    int type() const { return TYPE; }
+    int type() const { return ViewTypes::PARTICLE; }
 
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 

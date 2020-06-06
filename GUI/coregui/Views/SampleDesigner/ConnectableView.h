@@ -29,10 +29,9 @@ class BA_CORE_API_ ConnectableView : public IView
 {
     Q_OBJECT
 public:
-    enum { TYPE = DesignerHelper::ISAMPLE_RECT };
     ConnectableView(QGraphicsItem* parent = 0, QRectF rect = QRectF(0, 0, 50, 50));
     virtual ~ConnectableView() {}
-    int type() const { return TYPE; }
+    int type() const { return ViewTypes::ISAMPLE_RECT; }
 
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);

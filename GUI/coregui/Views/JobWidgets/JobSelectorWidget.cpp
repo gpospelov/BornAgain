@@ -22,6 +22,7 @@
 #include "StyledToolBar.h"
 #include "mainwindow_constants.h"
 #include "minisplitter.h"
+#include "StyleUtils.h"
 #include <QHBoxLayout>
 
 JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
@@ -34,8 +35,7 @@ JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     setWindowTitle(Constants::JobSelectorWidgetName);
     setObjectName("JobSelectorWidget");
 
-    setMinimumSize(128, 600);
-    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     setModel(jobModel);
 
@@ -64,6 +64,16 @@ void JobSelectorWidget::setModel(JobModel* jobModel)
 {
     m_jobModel = jobModel;
     m_jobListWidget->setModel(m_jobModel);
+}
+
+QSize JobSelectorWidget::sizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth()*2);
+}
+
+QSize JobSelectorWidget::minimumSizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth());
 }
 
 const JobItem* JobSelectorWidget::currentJobItem() const

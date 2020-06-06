@@ -17,6 +17,8 @@
 #include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "ParticleItem.h"
+#include "DesignerHelper.h"
+#include "StyleUtils.h"
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -25,13 +27,12 @@ ParticleView::ParticleView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::ParticleType);
     setColor(DesignerHelper::getDefaultParticleColor());
-    setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::ParticleType));
+    setRectangle(DesignerHelper::getParticleBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::FORM_FACTOR)
         ->setToolTip(QStringLiteral("Connect to the ParticleLayout"));
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect particle rotation to this port, if necessary"));
-    m_roundpar = 5;
-    m_label_vspace = 45;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
 }
 
 void ParticleView::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
@@ -77,7 +78,7 @@ void ParticleView::onPropertyChange(const QString& propertyName)
 
 void ParticleView::addView(IView* childView, int /*row*/)
 {
-    if (childView->type() == DesignerHelper::TRANSFORMATION) {
+    if (childView->type() == ViewTypes::TRANSFORMATION) {
         connectInputPort(dynamic_cast<ConnectableView*>(childView), 0);
     } else {
         throw GUIHelpers::Error("ParticleView::addView() -> Error. Unknown view");

@@ -16,6 +16,7 @@
 #include "ComponentEditor.h"
 #include "JobItem.h"
 #include "mainwindow_constants.h"
+#include "StyleUtils.h"
 #include <QTabBar>
 #include <QTabWidget>
 #include <QTextEdit>
@@ -25,7 +26,7 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget* parent)
     : SessionItemWidget(parent), m_tabWidget(new QTabWidget),
       m_componentEditor(new ComponentEditor), m_commentsEditor(new QTextEdit), m_block_update(false)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
     setWindowTitle(Constants::JobPropertiesWidgetName);
 
     auto mainLayout = new QVBoxLayout;
@@ -41,6 +42,16 @@ JobPropertiesWidget::JobPropertiesWidget(QWidget* parent)
     setLayout(mainLayout);
 
     connect(m_commentsEditor, &QTextEdit::textChanged, this, &JobPropertiesWidget::onTextChanged);
+}
+
+QSize JobPropertiesWidget::sizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth());
+}
+
+QSize JobPropertiesWidget::minimumSizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth());
 }
 
 void JobPropertiesWidget::subscribeToItem()

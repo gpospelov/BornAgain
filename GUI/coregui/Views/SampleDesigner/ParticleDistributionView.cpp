@@ -14,6 +14,8 @@
 
 #include "ParticleDistributionView.h"
 #include "SessionItem.h"
+#include "DesignerHelper.h"
+#include "StyleUtils.h"
 
 ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : ConnectableView(parent)
 {
@@ -25,8 +27,8 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : Conn
     addPort("particle", NodeEditorPort::INPUT, NodeEditorPort::FORM_FACTOR)
         ->setToolTip(QStringLiteral("Connect particle to this port. It will be a prototype \n"
                                     "for parametric distribution."));
-    m_roundpar = 5;
-    m_label_vspace = 45;
+
+    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
 }
 
 void ParticleDistributionView::addView(IView* childView, int /* row */)

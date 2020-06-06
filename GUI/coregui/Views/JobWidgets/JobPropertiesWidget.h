@@ -32,8 +32,8 @@ public:
     enum ETabId { JOB_PROPERTIES, JOB_COMMENTS };
     explicit JobPropertiesWidget(QWidget* parent = nullptr);
 
-    QSize sizeHint() const { return QSize(64, 256); }
-    QSize minimumSizeHint() const { return QSize(64, 64); }
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
 protected:
     void subscribeToItem();

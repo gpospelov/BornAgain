@@ -469,9 +469,7 @@ void StyleHelper::drawIconWithShadow(const QIcon& icon, const QRect& rect, QPain
 
         // Draw the actual pixmap...
         cachePainter.drawPixmap(
-            QRect(QPoint(radius, radius) + offset, QSize(px.width(), px.height()))
-                .marginsRemoved(QMargins(10, 10, 10, 10)),
-            px);
+            QRect(QPoint(radius, radius) + offset, QSize(px.width(), px.height())), px);
         cachePainter.end();
         cache.setDevicePixelRatio(devicePixelRatio);
         QPixmapCache::insert(pixmapName, cache);

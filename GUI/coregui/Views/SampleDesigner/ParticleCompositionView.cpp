@@ -15,6 +15,8 @@
 #include "ParticleCompositionView.h"
 #include "ParticleItem.h"
 #include "SessionItem.h"
+#include "DesignerHelper.h"
+#include "StyleUtils.h"
 
 ParticleCompositionView::ParticleCompositionView(QGraphicsItem* parent) : ConnectableView(parent)
 {
@@ -27,8 +29,7 @@ ParticleCompositionView::ParticleCompositionView(QGraphicsItem* parent) : Connec
         ->setToolTip(QStringLiteral("Connect particles"));
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect rotation to this port, if necessary"));
-    m_roundpar = 5;
-    m_label_vspace = 45;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
 }
 
 void ParticleCompositionView::addView(IView* childView, int /* row */)

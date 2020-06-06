@@ -227,7 +227,7 @@ MultiLayerCandidate ILayerView::getMultiLayerCandidate()
 
     QRectF layerRect = mapRectToScene(boundingRect());
     for (auto item : scene()->items()) {
-        if (item->type() == DesignerHelper::MULTILAYER && item != this
+        if (item->type() == ViewTypes::MULTILAYER && item != this
             && !childItems().contains(item)) {
             MultiLayerView* multilayer = qgraphicsitem_cast<MultiLayerView*>(item);
             if (multilayer->mapRectToScene(multilayer->boundingRect()).intersects(layerRect)) {

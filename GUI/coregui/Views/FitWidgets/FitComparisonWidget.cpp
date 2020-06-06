@@ -57,8 +57,8 @@ FitComparisonWidget::FitComparisonWidget(QWidget* parent)
     hlayout->addWidget(m_propertyWidget);
     setLayout(hlayout);
 
-    m_resetViewAction->setText("Reset View");
-    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
+    m_resetViewAction->setText("Center view");
+    m_resetViewAction->setIcon(QIcon(":/images/camera-metering-center.svg"));
     m_resetViewAction->setToolTip("Reset View");
     connect(m_resetViewAction, &QAction::triggered, this, &FitComparisonWidget::onResetViewAction);
 

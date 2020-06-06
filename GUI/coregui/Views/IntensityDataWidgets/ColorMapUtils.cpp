@@ -17,7 +17,7 @@
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "item_constants.h"
-#include <QFontMetrics>
+#include "StyleUtils.h"
 
 using gradient_map_t = QMap<QString, QCPColorGradient::GradientPreset>;
 
@@ -53,16 +53,11 @@ QCPRange qcpRange(double xmin, double xmax, int nbins)
 
 QMargins defaultMargins(const QWidget& widget)
 {
-    QFontMetrics fontMetric(widget.font());
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
-    auto em = fontMetric.horizontalAdvance('M'), fontAscent = fontMetric.ascent();
-#else
-    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
-#endif
-    int left = static_cast<int>(6.0 * em);
-    int top = static_cast<int>(fontAscent * 1.5);
-    int right = static_cast<int>(em * 1.2);
-    int bottom = static_cast<int>(4.5 * fontAscent);
+    auto base_size = StyleUtils::SizeOfLetterM(&widget);
+    int left = static_cast<int>(base_size.width()*6.0);
+    int top = static_cast<int>(base_size.height() * 1.5);
+    int right = static_cast<int>(base_size.width() * 1.2);
+    int bottom = static_cast<int>(base_size.height()* 4.5);
     return QMargins(left, top, right, bottom);
 }
 

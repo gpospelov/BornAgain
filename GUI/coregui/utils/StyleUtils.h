@@ -22,6 +22,7 @@
 class QTreeView;
 class QWidget;
 class QLayout;
+class QWidget;
 
 namespace StyleUtils
 {
@@ -51,6 +52,16 @@ BA_CORE_API_ QWidget* createDetailsWidget(QWidget* content, const QString& name,
 //! Creates details widget holding user layout inside.
 BA_CORE_API_ QWidget* createDetailsWidget(QLayout* content, const QString& name,
                                           bool expanded = true);
+
+//! Returns size of largest letter of default system font.
+BA_CORE_API_ QSize SizeOfLetterM(const QWidget* widget = nullptr);
+
+//! Returns size in points of default system font.
+BA_CORE_API_ int SystemPointSize();
+
+//! Returns typical width of the vertical property panel.
+
+BA_CORE_API_ int PropertyPanelWidth();
 
 } // namespace StyleUtils
 

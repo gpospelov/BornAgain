@@ -16,7 +16,17 @@
 #include "DesignerScene.h"
 #include "IView.h"
 #include "SampleModel.h"
+#include "StyleUtils.h"
 #include <QModelIndex>
+
+namespace {
+int step_width() {
+    return StyleUtils::SizeOfLetterM().width()*12.5;
+}
+int step_height() {
+    return StyleUtils::SizeOfLetterM().height()*11;
+}
+}
 
 SampleViewAligner::SampleViewAligner(DesignerScene* scene) : m_scene(scene)
 {
@@ -166,7 +176,7 @@ void SampleViewAligner::alignSample(const QModelIndex& parentIndex, QPointF refe
         QModelIndex itemIndex = sampleModel->index(i_row, 0, parentIndex);
         if (!getViewForIndex(itemIndex))
             continue;
-        QPointF child_reference = reference + QPointF(-150, 150 * child_counter++);
+        QPointF child_reference = reference + QPointF(-step_width(), step_height() * child_counter++);
         alignSample(itemIndex, child_reference, force_alignment);
     }
 }

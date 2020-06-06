@@ -134,7 +134,7 @@ void MultiLayerView::updateHeight()
         m_drop_areas.append(QRectF(0, drop_area_ypos, boundingRect().width(), drop_area_height));
         m_interfaces.append(QLineF(m_rect.left(), total_height, m_rect.right(), total_height));
     } else {
-        total_height = DesignerHelper::getDefaultMultiLayerHeight();
+        total_height = DesignerHelper::getDefaultMultiLayerRect().height();
         m_drop_areas.append(boundingRect());
         m_interfaces.append(
             QLineF(m_rect.left(), m_rect.center().y(), m_rect.right(), m_rect.center().y()));
@@ -157,7 +157,7 @@ void MultiLayerView::updateWidth()
     }
     max_width *= wider_than_children;
     if (max_width == 0) {
-        max_width = DesignerHelper::getDefaultMultiLayerWidth();
+        max_width = DesignerHelper::getDefaultMultiLayerRect().width();
     }
     m_rect.setWidth(max_width);
     update();

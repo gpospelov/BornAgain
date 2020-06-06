@@ -63,7 +63,7 @@ bool NodeEditor::processMousePress(QGraphicsSceneMouseEvent* event)
 
     if (m_conn == 0 && event->button() == Qt::LeftButton) {
         QGraphicsItem* item = itemAt(event->scenePos());
-        if (item && item->type() == NodeEditorPort::TYPE) {
+        if (item && item->type() == ViewTypes::NODE_EDITOR_PORT) {
             emit selectionModeChangeRequest(DesignerView::SIMPLE_SELECTION);
             m_conn = new NodeEditorConnection(0, m_scene);
             m_conn->setPort1((NodeEditorPort*)item);
@@ -97,7 +97,7 @@ bool NodeEditor::processMouseRelease(QGraphicsSceneMouseEvent* event)
         emit selectionModeChangeRequest(DesignerView::RUBBER_SELECTION);
 
         QGraphicsItem* item = itemAt(event->scenePos());
-        if (item && item->type() == NodeEditorPort::TYPE) {
+        if (item && item->type() == ViewTypes::NODE_EDITOR_PORT) {
             NodeEditorPort* port1 = m_conn->port1();
             NodeEditorPort* port2 = (NodeEditorPort*)item;
 

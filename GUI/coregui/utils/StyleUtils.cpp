@@ -65,25 +65,6 @@ QString StyleUtils::propertyTreeStyle()
     return result;
 }
 
-QString StyleUtils::realtimeTreeStyle()
-{
-    QString result =
-        "QTreeView::branch {background: "
-        "palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
-        "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
-        "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
-        "!has-children:!has-siblings:adjoins-item {border-image: "
-        "url(:/images/treeview-branch-end.png) "
-        "0;}QTreeView::branch:has-children:!has-siblings:closed"
-        ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
-        "url(:/images/"
-        "treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
-        "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
-        "url(:/images/treeview-branch-open.png);}";
-
-    return result;
-}
-
 QFont StyleUtils::sectionFont(bool bold)
 {
     QFont result;

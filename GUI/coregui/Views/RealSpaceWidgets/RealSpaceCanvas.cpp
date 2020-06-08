@@ -131,6 +131,13 @@ void RealSpaceCanvas::onSavePictureAction()
     savePicture(pixmap);
 }
 
+void RealSpaceCanvas::onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int)
+{
+    // clear scene if current selection will be removed
+    if (m_currentSelection == m_sampleModel->index(first, 0, parent))
+        resetScene();
+}
+
 void RealSpaceCanvas::savePicture(const QPixmap& pixmap)
 {
     QString dirname = AppSvc::projectManager()->userExportDir();
@@ -229,6 +236,8 @@ void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
                 Qt::UniqueConnection);
         connect(model, &SampleModel::rowsRemoved, this, &RealSpaceCanvas::updateScene,
                 Qt::UniqueConnection);
+        connect(model, &SampleModel::rowsAboutToBeRemoved, this,
+                &RealSpaceCanvas::onRowsAboutToBeRemoved, Qt::UniqueConnection);
         connect(model, &SampleModel::dataChanged, this, &RealSpaceCanvas::onDataChanged,
                 Qt::UniqueConnection);
         connect(model, &SampleModel::modelReset, this, &RealSpaceCanvas::resetScene,
@@ -240,6 +249,8 @@ void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
     } else {
         disconnect(model, &SampleModel::rowsInserted, this, &RealSpaceCanvas::updateScene);
         disconnect(model, &SampleModel::rowsRemoved, this, &RealSpaceCanvas::updateScene);
+        connect(model, &SampleModel::rowsAboutToBeMoved, this,
+                &RealSpaceCanvas::onRowsAboutToBeRemoved);
         disconnect(model, &SampleModel::dataChanged, this, &RealSpaceCanvas::onDataChanged);
         disconnect(model, &SampleModel::modelReset, this, &RealSpaceCanvas::resetScene);
     }

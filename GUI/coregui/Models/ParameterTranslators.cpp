@@ -101,6 +101,9 @@ RoughnessTranslator* RoughnessTranslator::clone() const
 
 QStringList RoughnessTranslator::translate(const QStringList& list) const
 {
+    if (list.empty())
+        return {};
+
     if (!list.back().contains(Constants::LayerType)
         || !expectedRoughnessPars.contains(list.front()))
         return list;
@@ -147,6 +150,9 @@ VectorParameterTranslator* VectorParameterTranslator::clone() const
 
 QStringList VectorParameterTranslator::translate(const QStringList& list) const
 {
+    if (list.empty())
+        return {};
+
     if (list.back() != m_gui_name)
         return list;
 

@@ -19,6 +19,7 @@
 #include "MathConstants.h"
 #include "PlotEventInfo.h"
 #include "UpdateTimer.h"
+#include "StyleUtils.h"
 #include "plot_constants.h"
 
 namespace
@@ -237,16 +238,17 @@ void ColorMap::initColorMap()
 
     m_colorBarLayout->addElement(0, 0, m_colorScale);
     m_colorBarLayout->setMinimumSize(colorbar_width_logz, 10);
-    m_colorBarLayout->setMargins(QMargins(0, 0, 0, 0));
+    auto base_size = StyleUtils::SizeOfLetterM(this).width()*0.5;
+    m_colorBarLayout->setMargins(QMargins(base_size, 0, base_size, 0));
 
     m_colorScale->axis()->axisRect()->setMargins(QMargins(0, 0, 0, 0));
     m_colorScale->axis()->axisRect()->setAutoMargins(QCP::msNone);
 
-    m_colorScale->setBarWidth(Constants::plot_colorbar_size);
+    m_colorScale->setBarWidth(Constants::plot_colorbar_size());
     m_colorScale->axis()->setTickLabelFont(
-        QFont(QFont().family(), Constants::plot_tick_label_size));
-    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
-    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+        QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
 
     connect(m_customPlot, SIGNAL(afterReplot()), this, SLOT(marginsChangedNotify()));
 }

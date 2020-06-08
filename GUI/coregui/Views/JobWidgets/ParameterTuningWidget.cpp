@@ -22,7 +22,6 @@
 #include "ParameterTuningDelegate.h"
 #include "ParameterTuningModel.h"
 #include "SliderSettingsWidget.h"
-#include "StyleUtils.h"
 #include "WarningSign.h"
 #include <QTreeView>
 #include <QVBoxLayout>
@@ -35,7 +34,6 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_treeView->setStyleSheet(StyleUtils::realtimeTreeStyle());
     m_treeView->setItemDelegate(m_delegate);
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);

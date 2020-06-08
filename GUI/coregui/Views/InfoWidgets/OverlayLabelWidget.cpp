@@ -14,6 +14,7 @@
 
 #include "OverlayLabelWidget.h"
 #include "DesignerHelper.h"
+#include "StyleUtils.h"
 #include <QColor>
 #include <QFont>
 #include <QPainter>
@@ -39,8 +40,10 @@ void OverlayLabelWidget::paintEvent(QPaintEvent* event)
     Q_UNUSED(event);
     QPainter painter(this);
     painter.setBrush(QColor(Qt::lightGray));
-    QFont serifFont("Monospace", DesignerHelper::getHeaderFontSize(), QFont::Normal, true);
+    QFont serifFont("Monospace", DesignerHelper::getSectionFontSize(), QFont::Normal, true);
     painter.setFont(serifFont);
     //    painter.drawRect(m_bounding_rect);
-    painter.drawText(m_bounding_rect, Qt::AlignCenter, m_text);
+    auto margin = StyleUtils::SizeOfLetterM().width();
+    painter.drawText(m_bounding_rect.marginsRemoved(QMargins(margin, margin, margin, margin)),
+                     Qt::AlignCenter, m_text);
 }

@@ -22,7 +22,6 @@ ItemComboToolBar::ItemComboToolBar(QWidget* parent)
 {
     setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
-    m_comboBox->setFixedWidth(125);
     m_comboBox->setToolTip("Select type of graphical presentation.");
 
     m_comboBoxAction = addWidget(m_comboBox);

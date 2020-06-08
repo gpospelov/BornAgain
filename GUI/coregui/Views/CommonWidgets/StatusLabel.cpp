@@ -16,18 +16,24 @@
 #include <QColor>
 #include <QFont>
 #include <QPainter>
+#include "StyleUtils.h"
 
 namespace
 {
-const int default_label_height = 20;
-const int default_text_size = 11;
+int default_text_size() {
+    return StyleUtils::SystemPointSize();
+}
+int default_label_height()
+{
+    return StyleUtils::SizeOfLetterM().height()*1.75;
+}
 } // namespace
 
 StatusLabel::StatusLabel(QWidget* parent)
-    : QFrame(parent), m_font("Monospace", default_text_size, QFont::Normal, false)
+    : QFrame(parent), m_font("Monospace", default_text_size(), QFont::Normal, false)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    setFixedHeight(default_label_height);
+    setFixedHeight(default_label_height());
 }
 
 void StatusLabel::setText(const QString& text)

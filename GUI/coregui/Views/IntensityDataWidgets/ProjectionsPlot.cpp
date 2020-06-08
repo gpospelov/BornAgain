@@ -35,8 +35,8 @@ ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
     vlayout->addWidget(m_customPlot);
     setLayout(vlayout);
 
-    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
-    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
 
     ColorMapUtils::setDefaultMargins(m_customPlot);
 }

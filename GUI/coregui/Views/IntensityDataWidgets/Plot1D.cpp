@@ -42,9 +42,9 @@ Plot1D::Plot1D(QWidget* parent)
     setLayout(vlayout);
 
     m_custom_plot->xAxis->setTickLabelFont(
-        QFont(QFont().family(), Constants::plot_tick_label_size));
+        QFont(QFont().family(), Constants::plot_tick_label_size()));
     m_custom_plot->yAxis->setTickLabelFont(
-        QFont(QFont().family(), Constants::plot_tick_label_size));
+        QFont(QFont().family(), Constants::plot_tick_label_size()));
 
     setMouseTrackingEnabled(true);
 }

@@ -60,6 +60,7 @@
 #include <QTreeView>
 #include <QToolButton>
 #include <QAbstractItemView>
+#include <QPainterPath>
 
 using namespace Manhattan;
 

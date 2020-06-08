@@ -16,6 +16,7 @@
 #include "ComponentEditor.h"
 #include "IntensityDataItem.h"
 #include "JobModel.h"
+#include "StyleUtils.h"
 #include <QAction>
 #include <QVBoxLayout>
 
@@ -42,12 +43,12 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
 
 QSize IntensityDataPropertyWidget::sizeHint() const
 {
-    return QSize(230, 256);
+    return QSize(StyleUtils::PropertyPanelWidth()*1.2, StyleUtils::PropertyPanelWidth()*2);
 }
 
 QSize IntensityDataPropertyWidget::minimumSizeHint() const
 {
-    return QSize(230, 64);
+    return QSize(StyleUtils::PropertyPanelWidth()*1.2, StyleUtils::PropertyPanelWidth());
 }
 
 QList<QAction*> IntensityDataPropertyWidget::actionList()

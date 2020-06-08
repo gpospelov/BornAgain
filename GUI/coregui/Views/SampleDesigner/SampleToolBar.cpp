@@ -65,11 +65,12 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
 
     // Center view
     m_centerViewButton = new QToolButton;
+    m_centerViewButton->setText("Center view");
+    m_centerViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_centerViewButton->setIcon(QIcon(":/SampleDesigner/images/camera-metering-center.svg"));
     m_centerViewButton->setToolTip("Center view.");
-    addWidget(m_centerViewButton);
     connect(m_centerViewButton, &QToolButton::clicked, this, &SampleToolBar::centerView);
-    addWidget(new QLabel("Center view  "));
+    addWidget(m_centerViewButton);
 
     // Zoom
     addWidget(new QLabel(" "));

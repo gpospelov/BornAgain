@@ -244,11 +244,11 @@ void ColorMap::initColorMap()
     m_colorScale->axis()->axisRect()->setMargins(QMargins(0, 0, 0, 0));
     m_colorScale->axis()->axisRect()->setAutoMargins(QCP::msNone);
 
-    m_colorScale->setBarWidth(Constants::plot_colorbar_size);
+    m_colorScale->setBarWidth(Constants::plot_colorbar_size());
     m_colorScale->axis()->setTickLabelFont(
-        QFont(QFont().family(), Constants::plot_tick_label_size));
-    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
-    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+        QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
 
     connect(m_customPlot, SIGNAL(afterReplot()), this, SLOT(marginsChangedNotify()));
 }

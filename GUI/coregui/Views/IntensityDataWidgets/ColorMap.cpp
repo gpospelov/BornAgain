@@ -19,6 +19,7 @@
 #include "MathConstants.h"
 #include "PlotEventInfo.h"
 #include "UpdateTimer.h"
+#include "StyleUtils.h"
 #include "plot_constants.h"
 
 namespace
@@ -237,7 +238,8 @@ void ColorMap::initColorMap()
 
     m_colorBarLayout->addElement(0, 0, m_colorScale);
     m_colorBarLayout->setMinimumSize(colorbar_width_logz, 10);
-    m_colorBarLayout->setMargins(QMargins(0, 0, 0, 0));
+    auto base_size = StyleUtils::SizeOfLetterM(this).width()*0.5;
+    m_colorBarLayout->setMargins(QMargins(base_size, 0, base_size, 0));
 
     m_colorScale->axis()->axisRect()->setMargins(QMargins(0, 0, 0, 0));
     m_colorScale->axis()->axisRect()->setAutoMargins(QCP::msNone);

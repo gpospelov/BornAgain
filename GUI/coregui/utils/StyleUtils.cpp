@@ -162,7 +162,7 @@ QSize FindSizeOfLetterM(const QWidget* widget)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
     auto em = fontMetric.horizontalAdvance('M');
 #else
-    auto em = fontMetric.width('M')
+    auto em = fontMetric.width('M');
 #endif
     auto fontAscent = fontMetric.ascent();
 

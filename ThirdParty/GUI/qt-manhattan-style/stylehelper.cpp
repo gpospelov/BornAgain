@@ -468,7 +468,12 @@ void StyleHelper::drawIconWithShadow(const QIcon& icon, const QRect& rect, QPain
         //        tmp);
 
         // Draw the actual pixmap...
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
         int space = p->fontMetrics().horizontalAdvance('M') * 0.05;
+#else
+        int space = p->fontMetrics().width('M') * 0.05;
+#endif
+
         cachePainter.drawPixmap(
             QRect(QPoint(radius, radius) + offset, QSize(px.width(), px.height()))
                 .marginsRemoved(QMargins(space, space, space, space)),

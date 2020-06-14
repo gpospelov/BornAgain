@@ -2,11 +2,12 @@ name: Linux
 
 on:
   push:
-    branches: [ master, develop ]    
+    branches: [ master, develop]    
     paths-ignore: 
       - 'Doc/**'    
   pull_request:
     branches: [ master, develop ]
+    paths-ignore: 
       - 'Doc/**'    
 
 jobs:

@@ -1,0 +1,157 @@
+name: Windows
+
+env:
+  CCACHE_VERSION: 3.7.7
+  NINJA_VERSION: 1.10.0
+
+on:
+  push:
+    branches: [ master, develop ]    
+    paths-ignore: 
+      - 'Doc/**'    
+  pull_request:
+    branches: [ master, develop ]
+      - 'Doc/**'    
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      max-parallel: 3
+      matrix:
+        python-version: [3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+      with: 
+        submodules: true    
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: setup dependencies
+      shell: powershell
+      run: |
+        Get-Date -Format G
+        $Env:Path += ";C:\msys64\usr\bin"
+        cd ${{github.workspace}}
+        mkdir deps
+        Get-Date -Format G
+        wget http://apps.jcns.fz-juelich.de/src/WinLibs/bornagain_deps_20200604.zip -O ${{runner.temp}}\local_x64.zip
+        Get-Date -Format G
+        7z x ${{runner.temp}}\local_x64.zip -odeps
+        Get-Date -Format G
+        dir deps
+        dir deps/local_x64
+        
+    - name: Install Python packages
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install wheel setuptools
+        python -m pip install numpy matplotlib
+        
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: '5.14.2'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_msvc2017_64'
+        dir: '${{ github.workspace }}/qt5/'
+        install-deps: 'true'
+        modules: 'qtcharts qtwebengine'
+        mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+        cached: 'false'
+
+    - name: Download ccache and Ninja
+      id: ccache
+      shell: cmake -P {0}
+      run: |
+        set(ccache_url "https://github.com/cristianadam/ccache/releases/download/v$ENV{CCACHE_VERSION}/${{ runner.os }}.tar.xz")
+        file(DOWNLOAD "${ccache_url}" ./ccache.tar.xz SHOW_PROGRESS)
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ./ccache.tar.xz)
+        
+        set(ninja_url "https://github.com/ninja-build/ninja/releases/download/v$ENV{NINJA_VERSION}/ninja-win.zip")
+        file(DOWNLOAD "${ninja_url}" ./ninja.zip SHOW_PROGRESS)
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ./ninja.zip)
+
+    - name: Download Nsis
+      id: nsis
+      shell: cmake -P {0}
+      run: |
+        set(nsis_url "https://sourceforge.net/projects/nsis/files/NSIS%203/3.04/nsis-3.04.zip")
+        file(DOWNLOAD "${nsis_url}" ./nsis.zip SHOW_PROGRESS)
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ./nsis.zip)
+
+    - name: Prepare ccache timestamp
+      id: ccache_cache_timestamp
+      shell: cmake -P {0}
+      run: |
+        string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+        message("::set-output name=timestamp::${current_date}")
+        
+    - name: ccache cache files for BornAgain
+      uses: actions/cache@v1.1.0
+      with:
+        path: .ccache
+        key: ba-windows-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+        restore-keys: |
+          ba-windows-ccache-
+          
+    - name: Build BornAgain
+      shell: cmd
+      env:
+        CCACHE_BASEDIR: $GITHUB_WORKSPACE
+        CCACHE_DIR: $GITHUB_WORKSPACE/.ccache
+        CCACHE_COMPRESS: "true"
+        CCACHE_COMPRESSLEVEL: "6"
+        CCACHE_MAXSIZE: "1000M"
+      run: |
+        call "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+        set OPTLIBS=${{github.workspace}}\deps\local_x64
+        set QTDIR=${{github.workspace}}\qt5\Qt\5.14.2\msvc2017_64
+        set PATH=${{github.workspace}};%OPTLIBS%\lib;%QTDIR%\bin;%PATH%
+        cd ${{github.workspace}}
+        dir
+        mkdir build
+        cd build
+        cmake -G "Visual Studio 16 2019" -G Ninja -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_INCLUDE_PATH=%OPTLIBS%/include -DCMAKE_LIBRARY_PATH=%OPTLIBS%/lib -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="cl.exe" -DCMAKE_CXX_COMPILER="cl.exe" ..
+        ccache -z
+        ccache -p
+        cmake --build . --config Release -j4
+        
+    - name: Testing
+      shell: cmd
+      run: |
+        echo %QTDIR%
+        echo %OPTLIBS%
+        set OPTLIBS=${{github.workspace}}\deps\local_x64
+        set PATH=%OPTLIBS%\lib;%QTDIR%\bin;%PATH%
+        echo %PATH%
+        cd ${{github.workspace}}\build
+        ccache -s
+        ctest -LE Fullcheck --output-on-failure
+
+    - name: Upload test logs
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+         name: LastTest.log
+         path: ./build/Testing/Temporary/LastTest.log  
+
+    - name: Build package
+      if: success()
+      shell: cmd
+      run: |
+        cd ${{github.workspace}}\build
+        set PATH=${{github.workspace}}\nsis-3.04;%PATH%
+        cpack -c Release
+
+    - name: Upload package
+      uses: actions/upload-artifact@v2
+      if: success()
+      with:
+         name: BornAgainWinInstaller
+         path: ./build/BornAgain-*.exe

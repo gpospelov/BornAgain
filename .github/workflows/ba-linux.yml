@@ -1,0 +1,91 @@
+name: Linux
+
+on:
+  push:
+    branches: [ master, develop]    
+    paths-ignore: 
+      - 'Doc/**'    
+  pull_request:
+    branches: [ master, develop ]
+    paths-ignore: 
+      - 'Doc/**'    
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      max-parallel: 3
+      matrix:
+        python-version: [3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+      with: 
+        submodules: true    
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: setup apt dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential\
+          gfortran cmake libgsl-dev libboost-all-dev libfftw3-dev libtiff5-dev \
+          qt5-default libqt5designercomponents5 qttools5-dev libqt5svg5-dev \
+          ccache
+    - name: Install Python packages
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install wheel setuptools
+        python -m pip install numpy matplotlib
+        
+    - name: Prepare ccache timestamp
+      id: ccache_cache_timestamp
+      shell: cmake -P {0}
+      run: |
+        string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+        message("::set-output name=timestamp::${current_date}")
+        
+    - name: ccache cache files for BornAgain
+      uses: actions/cache@v1.1.0
+      with:
+        path: .ccache
+        key: ba-linux-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+        restore-keys: |
+          ba-linux-ccache-
+          
+    - name: Build BornAgain
+      env:
+        CCACHE_DIR: $GITHUB_WORKSPACE/.ccache
+        CCACHE_COMPRESS: "true"
+        CCACHE_COMPRESSLEVEL: "6"
+        CCACHE_MAXSIZE: "400M"
+      run: |
+        cd $GITHUB_WORKSPACE && pwd && ls
+        mkdir build && cd build
+        cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=ccache ../
+        make package_source
+        make -j4
+
+    - name: Upload tarball
+      uses: actions/upload-artifact@v2
+      if: success()
+      with:
+         name: BornAgainTar
+         path: ./build/BornAgain-*.tar.gz  
+
+    - name: Testing
+      run: |
+        cd $GITHUB_WORKSPACE/build
+        ccache -s
+        ctest -LE Fullcheck --output-on-failure
+        
+    - name: Upload test logs
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+         name: LastTest.log
+         path: ./build/Testing/Temporary/LastTest.log  

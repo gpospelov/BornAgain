@@ -26,6 +26,7 @@
 
 \index{Cone|see{Frustum}}
 \index{Cuboid|see{Box}}
+\index{Expansion|see{Cantellation}}
 \index{Prism!reactangular|see{Box}}
 \index{Tilt|see{Rotation}}
 \index{Truncation|seealso{Facetting}}
@@ -419,7 +420,7 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 %===============================================================================
 \index{Cube!cantellated}
 \index{Octahedron!cantellated}
-\index{Facetting!cube}
+\index{Cantellation!cube}
 \index{FormFactorCantellatedCube@\Code{FormFactorCantellatedCube}}
 
 \paragraph{Real-space geometry}\strut\\
@@ -437,7 +438,7 @@ except for factors $1/2$ in the definitions of parameters $L$, $W$, $H$.
 % \end{figure}
 
 A cube with truncated edges and vertices as in Fig~7 of Croset 2017 \cite{Cro17}.
-Can also be obtained by cantellating an octhedron.
+Can also be obtained by cantellating an octahedron.
 \FloatBarrier
 
 \paragraph{Syntax and parameters}\strut\\[-2ex plus .2ex minus .2ex]
@@ -456,7 +457,7 @@ They must fulfill
 
 \paragraph{Form factor, volume, horizontal section}\strut\\
 \begin{equation*}
-  F \text{~: computed using the generic form factor of a polyhedron
+  F \text{~: use the generic form factor of a polyhedron
              with inversion symmetry~\cite{Wut17},}
 \end{equation*}
 \begin{equation*}
@@ -478,7 +479,7 @@ They must fulfill
 % \end{figure}
 
 \paragraph{History}\strut\\
-Introduced in BornAgain--1.18.
+Introduced in BornAgain--1.17 (Python only).
 Motivated by Croset 2017 \cite{Cro17}.
 
 \paragraph{See also}

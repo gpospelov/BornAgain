@@ -242,6 +242,21 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
     test_ff(&ellipscyl);
 }
 
+TEST_F(FormFactorBasicTest, CantellatedCube)
+{
+    double L = 10.;
+    double t = 2.; // side length of removed trirectangular tetrahedron at each vertex
+    double volume = L * L * L - 6 * L * t * t + 16 * t * t * t / 3;
+
+    FormFactorCantellatedCube trcube(L, t);
+
+    EXPECT_EQ(L, trcube.getLength());
+    EXPECT_DOUBLE_EQ(t, trcube.getRemovedLength());
+    EXPECT_DOUBLE_EQ(trcube.volume(), volume);
+
+    test_ff(&trcube);
+}
+
 TEST_F(FormFactorBasicTest, FullSphere)
 {
     double radius = 5.;

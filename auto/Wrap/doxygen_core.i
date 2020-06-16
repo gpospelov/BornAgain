@@ -6316,6 +6316,11 @@ C++ includes: ICloneable.h
 %feature("docstring")  ICloneable::clone "virtual ICloneable* ICloneable::clone() const =0
 ";
 
+%feature("docstring")  ICloneable::transferToCPP "virtual void ICloneable::transferToCPP()
+
+Used for Python overriding of clone (see swig/tweaks.py) 
+";
+
 
 // File: classIClusteredParticles.xml
 %feature("docstring") IClusteredParticles "
@@ -7884,10 +7889,10 @@ Returns a vector of children (const).
 %feature("docstring")  INode::setParent "void INode::setParent(const INode *newParent)
 ";
 
-%feature("docstring")  INode::parent "INode * INode::parent() const
+%feature("docstring")  INode::parent "const INode * INode::parent() const
 ";
 
-%feature("docstring")  INode::parent "INode* INode::parent()
+%feature("docstring")  INode::parent "INode * INode::parent()
 ";
 
 %feature("docstring")  INode::copyNumber "int INode::copyNumber(const INode *node) const
@@ -8362,12 +8367,12 @@ Sets the beam's polarization according to the given Bloch vector.
 Returns the beam's intensity. 
 ";
 
-%feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector() const
+%feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
 
 Returns the detector data. 
 ";
 
-%feature("docstring")  Instrument::getDetector "IDetector* Instrument::getDetector()
+%feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector()
 ";
 
 %feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const
@@ -11749,12 +11754,12 @@ Returns copy of raw data vector.
 Returns sum of all values in the data structure. 
 ";
 
-%feature("docstring")  OutputData::begin "OutputData< T >::const_iterator OutputData< T >::begin()
+%feature("docstring")  OutputData::begin "OutputData< T >::iterator OutputData< T >::begin()
 
 Returns read/write iterator that points to the first element. 
 ";
 
-%feature("docstring")  OutputData::begin "const_iterator OutputData< T >::begin() const
+%feature("docstring")  OutputData::begin "OutputData< T >::const_iterator OutputData< T >::begin() const
 
 Returns read-only iterator that points to the first element. 
 ";
@@ -12184,10 +12189,10 @@ get number of samples for this distribution
 get the sigma factor 
 ";
 
-%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D * ParameterDistribution::getDistribution() const
+%feature("docstring")  ParameterDistribution::getDistribution "const IDistribution1D * ParameterDistribution::getDistribution() const
 ";
 
-%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D* ParameterDistribution::getDistribution()
+%feature("docstring")  ParameterDistribution::getDistribution "IDistribution1D * ParameterDistribution::getDistribution()
 ";
 
 %feature("docstring")  ParameterDistribution::generateSamples "std::vector< ParameterSample > ParameterDistribution::generateSamples() const
@@ -20657,83 +20662,86 @@ Calculates the z-coordinate of the highest vertex after rotation.
 // File: deprecated.xml
 
 
-// File: dir_5f1a4a05eca575eab319839347bb4113.xml
+// File: dir_52a2c863b7b3435f7dcd40f26828d521.xml
 
 
-// File: dir_f2db70b1039b2dc98a7a13a1758f382f.xml
+// File: dir_41e08c09ca0aab46c4ada92f12a8c00b.xml
 
 
-// File: dir_2afd61a498231c74441502b63b50f75c.xml
+// File: dir_62267e76eb3874f0ae495e190c69ec26.xml
 
 
-// File: dir_629bf8536959f2975d8caec326cd60c0.xml
+// File: dir_4544cbc948815333bef1258cf6b298b8.xml
 
 
-// File: dir_7de90f35ae2a2c7b4fa95823d333cc96.xml
+// File: dir_d0c8f8fb9032c27878972645c4679f14.xml
 
 
-// File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
+// File: dir_404b7d29693a4f046d60c2eccafd1df4.xml
 
 
-// File: dir_e5c18127747cd9d7214e02067b529d74.xml
+// File: dir_c83916cd1ff49c9e86c8a91c5655951d.xml
 
 
-// File: dir_cca9b87b2505f372a6ce58947a507789.xml
+// File: dir_59be1faf7048e95263c2fcba140abda1.xml
 
 
-// File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
+// File: dir_e746abb3ff095e53619d5a61a48e781a.xml
 
 
-// File: dir_05b265732c0b4c8e8dad02f2f774744b.xml
+// File: dir_554fcc4911648c79d524724e80d45fa4.xml
 
 
-// File: dir_72a38c5b455c03a72881c3c65e21783d.xml
+// File: dir_cc3c45a5d33be920aaf94cb9b9fbdb35.xml
 
 
-// File: dir_d7044b5fc4daccc5700de9f07da81a11.xml
+// File: dir_9a756f0b2738ef3b5663c172b32b6a4b.xml
 
 
-// File: dir_602d2305564088eb1fd2ee9e74929d48.xml
+// File: dir_e8bc32d0cf85ef86a42504cd31af1370.xml
 
 
-// File: dir_7f8c371d7d9c2d18aea541845cde06e7.xml
+// File: dir_8b890ad49a09d8f36525f5af93e5737c.xml
 
 
-// File: dir_24998d15d4ee11ef081e71321705b47b.xml
+// File: dir_9bdb7f774cce5b77ddd3ed60472b168c.xml
 
 
-// File: dir_0bf70e747e161ad6105733dd3b116e64.xml
+// File: dir_74beab5553c7ad06e27a6baadceea9c3.xml
 
 
-// File: dir_c21740227f50b02f28bdacfb625f042a.xml
+// File: dir_bcc7f66c041cef9b775368068412e104.xml
 
 
-// File: dir_d4e34ce36424db6c5895519defe19e58.xml
+// File: dir_95667ae48b286f0957284f712e6e3af5.xml
 
 
-// File: dir_3a34810b9fbc1682c26e767b1a1a5860.xml
+// File: dir_4251a3aefb390b6051267154c2f94d1e.xml
 
 
-// File: dir_6babb1605c026604526d064f820d612b.xml
+// File: dir_529c0a19338d84aadf389c7b83eb56b1.xml
 
 
-// File: dir_39b907ea01a3fff6bda4d39415594941.xml
+// File: dir_051c0ff7ebc48614253af3001519ace0.xml
 
 
-// File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml
+// File: dir_36d1defb21dc876b1f67ee9031b0bd99.xml
 
 
-// File: dir_98377dc177883022b630a05f6f34fc13.xml
+// File: dir_f59c6b3c978505a5ca3672a364c1918e.xml
 
 
-// File: dir_bf872a709c84554e66a8525bb546523f.xml
+// File: dir_a6771983dbfae0fa34418cceda77572a.xml
 
 
-// File: dir_5d2259b43612a5a0ff7512df653d7370.xml
+// File: dir_871fae137308712382f6192f4445a900.xml
 
 
-// File: dir_e120110860f9b345e7b3217e8b15cbb8.xml
+// File: dir_44b1a8f39c14c02f6e3c2be419aa97b0.xml
 
 
-// File: dir_19cd2158bba3b9a051f8f27403820580.xml
+// File: dir_1a0696269c107461a4ce8ff1a48cd2f2.xml
+
+
+// File: dir_7f288243cf9c204a176dfbf45ea9d349.xml
 

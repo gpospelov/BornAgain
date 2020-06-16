@@ -1791,7 +1791,13 @@ class ICloneable(object):
         return _libBornAgainCore.ICloneable_clone(self)
 
     def transferToCPP(self):
-        r"""transferToCPP(ICloneable self)"""
+        r"""
+        transferToCPP(ICloneable self)
+        virtual void ICloneable::transferToCPP()
+
+        Used for Python overriding of clone (see swig/tweaks.py) 
+
+        """
         return self.__disown__()
 
 # Register ICloneable in _libBornAgainCore:
@@ -2078,7 +2084,7 @@ class INode(IParameterized):
         r"""
         parent(INode self) -> INode
         parent(INode self) -> INode
-        INode* INode::parent()
+        INode * INode::parent()
 
         """
         return _libBornAgainCore.INode_parent(self, *args)
@@ -16731,7 +16737,7 @@ class Instrument(INode):
         r"""
         getDetector(Instrument self) -> IDetector
         getDetector(Instrument self) -> IDetector
-        IDetector* Instrument::getDetector()
+        IDetector * Instrument::getDetector()
 
         """
         return _libBornAgainCore.Instrument_getDetector(self, *args)
@@ -20348,7 +20354,7 @@ class IntensityData(object):
         r"""
         begin(IntensityData self) -> OutputData< double >::iterator
         begin(IntensityData self) -> OutputData< double >::const_iterator
-        const_iterator OutputData< T >::begin() const
+        OutputData< T >::const_iterator OutputData< T >::begin() const
 
         Returns read-only iterator that points to the first element. 
 
@@ -20692,7 +20698,7 @@ class ParameterDistribution(IParameterized):
         r"""
         getDistribution(ParameterDistribution self) -> IDistribution1D
         getDistribution(ParameterDistribution self) -> IDistribution1D
-        IDistribution1D* ParameterDistribution::getDistribution()
+        IDistribution1D * ParameterDistribution::getDistribution()
 
         """
         return _libBornAgainCore.ParameterDistribution_getDistribution(self, *args)

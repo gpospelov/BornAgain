@@ -1,3 +1,43 @@
+BornAgain-1.17.0, released 2020.06.16
+  > API changes:
+    1) Add Nevot-Croce roughness model.
+    2) Add form factors for CantellatedCube and various ripples.
+    3) GUI: project compatibility with previous versions is partly broken.
+  > Summary:
+    1) Speed-up computations for samples with large number of layers
+    2) Add Nevot-Croce roughness model and possibility to switch between various models
+    3) Added support for polarized reflectometry
+    4) Update physical constants to 2020 CODATA recommended values
+    5) FormFactors: add CantellatedCube
+    6) FormFactors: speedup FormFactorFullSPheroid
+    7) FormFactors: revise and extend ripple form factor family
+    8) Fix HighDPI issues in GUI on various platforms
+    9) Various bug fixes
+
+  * Bug #2424: GUI crash by unexpected user behavior
+  * Bug #2441: Imaginary SLD
+  * Bug #2442: Roughness on first semi-infinite layer
+  * Bug #2461: GUI: crash in 3D view with lock function
+  * Feature #2428: Add Nevot-Croce roughness model
+  * Feature #2430: Try switch bindings to swig v4.0.1
+  * Feature #2438: Website: rename "python scripts" and "tutorial examples" menu entries.
+  * Feature #2443: Create document describing the release procedure.
+  * Feature #2445: GUI: fix fancy toolbars under Linux
+  * Feature #2446: GUI: fix HighDPI issues under Windows.
+  * Feature #2447: Update eigen3 submodule URL
+  * Feature #2448: Switch Appveyor Windows build to MSVC 2019
+  * Feature #2449: Enable Travis MacOS build
+  * Feature #2450: Provide Windows compilation with Python 3.8, switch Appveyor to it
+  * Feature #2463: Update macmini to High Sierra and provide BornAgain build
+  * Documentation #2431: Website: switch to latest Hugo in website travis based generation.
+  * Documentation #2437: Website: provide citing and news item for BornAgain publication
+  * Refactoring #2275: Refactor cmake machinery for consistent Python interpreter/libraries handling
+  * Refactoring #2432: Run code beautifier on the whole codebase.
+  * Refactoring #2439: Get rid of all Qt's deprecated compile warnings
+  * Refactoring #2454: print q vector if numeric form factor test fails
+  * Refactoring #2455: correct and document Ripple form factors
+  * Refactoring #2456: simplify integrators
+
 BornAgain-1.16.0, released 2019.07.31
   > API changes:
     1) Python: major changes in SpecularSimulation interface. Please consult web-documentation for details.

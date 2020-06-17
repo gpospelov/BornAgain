@@ -19,7 +19,10 @@
 
 class IteratorMemento;
 
-//! Abstract base class of PreorderStrategy and PostorderStrategy, for use in INodeVisitor.
+//! Abstract base class for tree traversal strategies, for use in INodeVisitor.
+//!
+//! For definition of different strategies see https://en.wikipedia.org/wiki/Tree_traversal.
+
 class BA_CORE_API_ IterationStrategy
 {
 public:
@@ -32,6 +35,7 @@ public:
     virtual bool isDone(IteratorMemento& iterator_stack) const = 0;
 };
 
+//! Traverse tree; visit parents before their children.
 class BA_CORE_API_ PreorderStrategy : public IterationStrategy
 {
 public:
@@ -45,6 +49,7 @@ public:
     virtual bool isDone(IteratorMemento& iterator_stack) const;
 };
 
+//! Traverse tree; visit children before their parents.
 class BA_CORE_API_ PostorderStrategy : public IterationStrategy
 {
 public:

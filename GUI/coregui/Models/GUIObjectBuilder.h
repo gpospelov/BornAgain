@@ -47,6 +47,6 @@ BA_CORE_API_ SessionItem* populateInstrumentModel(InstrumentModel* p_instrument_
 
 BA_CORE_API_ SessionItem* populateDocumentModel(DocumentModel* p_documentModel,
                                                 const Simulation& simulation);
-};
+}; // namespace GUIObjectBuilder
 
 #endif // GUIOBJECTBUILDER_H

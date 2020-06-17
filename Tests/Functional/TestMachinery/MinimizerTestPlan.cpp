@@ -13,21 +13,20 @@
 // ************************************************************************** //
 
 #include "MinimizerTestPlan.h"
-#include "Parameters.h"
 #include "Numeric.h"
+#include "Parameters.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>
 
 using namespace Fit;
 
-MinimizerTestPlan::MinimizerTestPlan(const std::string& name) : m_name(name)
-{
-}
+MinimizerTestPlan::MinimizerTestPlan(const std::string& name) : m_name(name) {}
 
 MinimizerTestPlan::~MinimizerTestPlan() = default;
 
-void MinimizerTestPlan::addParameter(const Parameter& param, double expected_value, double tolerance)
+void MinimizerTestPlan::addParameter(const Parameter& param, double expected_value,
+                                     double tolerance)
 {
     m_parameter_plan.push_back(ParameterPlan(param, expected_value, tolerance));
 }

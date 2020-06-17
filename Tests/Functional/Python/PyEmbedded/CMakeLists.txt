@@ -7,13 +7,14 @@ set(test_cases
     MethodCall
     CompiledFunction
     ObjectExtract
+    EmbeddedMultiLayer
     ExportToPythonAndBack
     ModuleFunctionsList
 )
 
 include_directories(
-    ${PYTHON_INCLUDE_DIRS}
-    ${NUMPY_INCLUDE_DIR}
+    ${Python_INCLUDE_DIRS}
+    ${Python_NumPy_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/auto/Wrap
 )
 

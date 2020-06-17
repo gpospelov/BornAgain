@@ -56,9 +56,6 @@ private:
     //! Initializes the vector of Simulation elements
     void initSimulationElementVector() override;
 
-    //! Gets the number of elements this simulation needs to calculate
-    size_t numberOfSimulationElements() const override;
-
     void initialize();
 };
 

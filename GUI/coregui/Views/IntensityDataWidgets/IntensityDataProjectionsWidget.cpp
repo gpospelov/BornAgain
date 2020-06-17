@@ -13,19 +13,18 @@
 // ************************************************************************** //
 
 #include "IntensityDataProjectionsWidget.h"
-#include "IntensityDataItem.h"
-#include "ProjectionItems.h"
-#include "SessionModel.h"
-#include "JobItem.h"
-#include "ProjectionsEditor.h"
 #include "DataItemUtils.h"
+#include "IntensityDataItem.h"
+#include "JobItem.h"
+#include "ProjectionItems.h"
+#include "ProjectionsEditor.h"
+#include "SessionModel.h"
 #include <QVBoxLayout>
 
 IntensityDataProjectionsWidget::IntensityDataProjectionsWidget(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_projectionsEditor(new ProjectionsEditor)
+    : SessionItemWidget(parent), m_projectionsEditor(new ProjectionsEditor)
 {
-    QVBoxLayout *vlayout = new QVBoxLayout(this);
+    QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
     vlayout->addWidget(m_projectionsEditor);
@@ -42,8 +41,8 @@ void IntensityDataProjectionsWidget::subscribeToItem()
 {
     auto container = projectionContainer(intensityDataItem());
 
-    m_projectionsEditor->setContext(intensityDataItem()->model(),
-                                    container->index(), intensityDataItem());
+    m_projectionsEditor->setContext(intensityDataItem()->model(), container->index(),
+                                    intensityDataItem());
 }
 
 void IntensityDataProjectionsWidget::unsubscribeFromItem()
@@ -69,5 +68,3 @@ IntensityDataProjectionsWidget::projectionContainer(IntensityDataItem* intensity
 
     return dynamic_cast<ProjectionContainerItem*>(containerItem);
 }
-
-

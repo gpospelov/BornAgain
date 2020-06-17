@@ -19,16 +19,18 @@
 
 class SessionItem;
 
-class IPathTranslator {
+class IPathTranslator
+{
 public:
     virtual ~IPathTranslator();
 
-    virtual IPathTranslator* clone() const=0;
+    virtual IPathTranslator* clone() const = 0;
 
-    virtual QStringList translate(const QStringList& list) const=0;
+    virtual QStringList translate(const QStringList& list) const = 0;
 };
 
-class ModelTypeTranslator : public IPathTranslator {
+class ModelTypeTranslator : public IPathTranslator
+{
 public:
     ModelTypeTranslator(QString gui_model_type, QString domain_name);
     ~ModelTypeTranslator() override {}
@@ -36,12 +38,14 @@ public:
     ModelTypeTranslator* clone() const override;
 
     QStringList translate(const QStringList& list) const override;
+
 private:
     QString m_gui_model_type;
     QString m_domain_name;
 };
 
-class AddElementTranslator : public IPathTranslator {
+class AddElementTranslator : public IPathTranslator
+{
 public:
     AddElementTranslator(QString gui_name, QString additional_name);
     ~AddElementTranslator() override {}
@@ -49,12 +53,14 @@ public:
     AddElementTranslator* clone() const override;
 
     QStringList translate(const QStringList& list) const override;
+
 private:
     QString m_gui_name;
     QString m_additional_name;
 };
 
-class RotationTranslator : public IPathTranslator {
+class RotationTranslator : public IPathTranslator
+{
 public:
     ~RotationTranslator() override {}
 
@@ -63,7 +69,8 @@ public:
     QStringList translate(const QStringList& list) const override;
 };
 
-class DistributionNoneTranslator : public IPathTranslator {
+class DistributionNoneTranslator : public IPathTranslator
+{
 public:
     ~DistributionNoneTranslator() override {}
 
@@ -72,7 +79,8 @@ public:
     QStringList translate(const QStringList& list) const override;
 };
 
-class RoughnessTranslator : public IPathTranslator {
+class RoughnessTranslator : public IPathTranslator
+{
 public:
     RoughnessTranslator(const SessionItem* p_parent);
     ~RoughnessTranslator() override {}
@@ -80,21 +88,24 @@ public:
     RoughnessTranslator* clone() const override;
 
     QStringList translate(const QStringList& list) const override;
+
 private:
     int getLayerIndex(QString layerName) const;
     int numberOfLayers() const;
     const SessionItem* mp_parent;
 };
 
-class VectorParameterTranslator : public IPathTranslator {
+class VectorParameterTranslator : public IPathTranslator
+{
 public:
     VectorParameterTranslator(QString gui_name, std::string base_name,
-                              QStringList additional_names=QStringList());
+                              QStringList additional_names = QStringList());
     ~VectorParameterTranslator() override {}
 
     VectorParameterTranslator* clone() const override;
 
     QStringList translate(const QStringList& list) const override;
+
 private:
     QString m_gui_name;
     std::string m_base_name;

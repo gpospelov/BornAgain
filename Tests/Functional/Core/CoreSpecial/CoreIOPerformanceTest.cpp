@@ -13,14 +13,14 @@
 // ************************************************************************** //
 
 #include "CoreIOPerformanceTest.h"
-#include "IntensityDataIOFactory.h"
 #include "Benchmark.h"
+#include "IntensityDataIOFactory.h"
 #include "Numeric.h"
-#include <iostream>
-#include <cassert>
-#include <random>
-#include <iomanip>
 #include <boost/format.hpp>
+#include <cassert>
+#include <iomanip>
+#include <iostream>
+#include <random>
 
 bool CoreIOPerformanceTest::runTest()
 {
@@ -50,8 +50,7 @@ bool CoreIOPerformanceTest::runTest()
 
 bool CoreIOPerformanceTest::test_io(int nx, int ny, bool random_data, const std::string& ext)
 {
-    std::cout << "Test " << nx << "x" << ny << ", "
-              << (random_data ? "random data" : "zeros")
+    std::cout << "Test " << nx << "x" << ny << ", " << (random_data ? "random data" : "zeros")
               << ", file_format: " << ext << "\n";
 
     TestResults result;
@@ -76,24 +75,25 @@ bool CoreIOPerformanceTest::test_io(int nx, int ny, bool random_data, const std:
 
     test_name = "write";
     mb.start(test_name);
-    IntensityDataIOFactory::writeOutputData(*ref_data, "xxx."+ext);
+    IntensityDataIOFactory::writeOutputData(*ref_data, "xxx." + ext);
     mb.stop(test_name);
     result.m_write_time = mb.runTime(test_name);
 
     test_name = "read";
     mb.start(test_name);
-    auto data = IntensityDataIOFactory::readOutputData("xxx."+ext);
+    auto data = IntensityDataIOFactory::readOutputData("xxx." + ext);
     mb.stop(test_name);
     result.m_read_time = mb.runTime(test_name);
 
-    result.m_biggest_diff = biggest_difference(*data, *ref_data);;
+    result.m_biggest_diff = biggest_difference(*data, *ref_data);
+    ;
 
     std::cout << mb.report() << std::endl;
     std::cout << "Diff: " << result.m_biggest_diff << std::endl;
 
     m_test_results.push_back(result);
 
-    bool success = result.m_biggest_diff  < 1e-10 ? true : false;
+    bool success = result.m_biggest_diff < 1e-10 ? true : false;
     return success;
 }
 
@@ -118,7 +118,8 @@ std::unique_ptr<OutputData<double>> CoreIOPerformanceTest::createData(int nx, in
 
 //! Returns biggest element difference found.
 
-double CoreIOPerformanceTest::biggest_difference(const OutputData<double>& data, const OutputData<double>& ref)
+double CoreIOPerformanceTest::biggest_difference(const OutputData<double>& data,
+                                                 const OutputData<double>& ref)
 {
     if (data.getAllocatedSize() != ref.getAllocatedSize())
         throw std::runtime_error("CoreIOTest::biggest_difference() -> Error. Size is different.");
@@ -138,13 +139,11 @@ std::string CoreIOPerformanceTest::report() const
 
     result << "--- CoreIOTest::report() ---\n";
     result << "Size      | format     | data  | create  clone   read    write   | diff \n";
-    for(auto res : m_test_results) {
+    for (auto res : m_test_results) {
         result << boost::format("%-4dx%-4d | %-10s |   %1d   | %-7.3f %-7.3f %-7.3f %-7.3f | %g \n")
-                  % res.m_nx % res.m_ny %res.m_file_format
-                  % res.m_data_type
-                  % res.m_create_data_time % res.m_clone_data_time
-                  % res.m_read_time % res.m_write_time
-                  % res.m_biggest_diff;
+                      % res.m_nx % res.m_ny % res.m_file_format % res.m_data_type
+                      % res.m_create_data_time % res.m_clone_data_time % res.m_read_time
+                      % res.m_write_time % res.m_biggest_diff;
     }
 
     return result.str();

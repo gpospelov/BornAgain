@@ -60,7 +60,8 @@ QT_BEGIN_NAMESPACE
 
 class DomUI;
 
-namespace qdesigner_internal {
+namespace qdesigner_internal
+{
 
 // A widget box with a load mode that allows for updating custom widgets.
 
@@ -70,31 +71,30 @@ class QDESIGNER_SHARED_EXPORT QDesignerWidgetBox : public QDesignerWidgetBoxInte
 public:
     enum LoadMode { LoadMerge, LoadReplace, LoadCustomWidgetsOnly };
 
-    explicit QDesignerWidgetBox(QWidget *parent = 0, Qt::WindowFlags flags = 0);
+    explicit QDesignerWidgetBox(QWidget* parent = 0, Qt::WindowFlags flags = 0);
 
     LoadMode loadMode() const;
     void setLoadMode(LoadMode lm);
 
-    virtual bool loadContents(const QString &contents) = 0;
+    virtual bool loadContents(const QString& contents) = 0;
 
     // Convenience to access the widget box icon of a widget. Empty category
     // matches all
-    virtual QIcon iconForWidget(const QString &className,
-                                const QString &category = QString()) const = 0;
+    virtual QIcon iconForWidget(const QString& className,
+                                const QString& category = QString()) const = 0;
 
     // Convenience to find a widget by class name. Empty category matches all
-    static bool findWidget(const QDesignerWidgetBoxInterface *wbox,
-                           const QString &className,
-                           const QString &category /* = QString()  */,
-                           Widget *widgetData);
+    static bool findWidget(const QDesignerWidgetBoxInterface* wbox, const QString& className,
+                           const QString& category /* = QString()  */, Widget* widgetData);
     // Convenience functions to create a DomWidget from widget box xml.
-    static DomUI *xmlToUi(const QString &name, const QString &xml, bool insertFakeTopLevel, QString *errorMessage);
-    static DomUI *xmlToUi(const QString &name, const QString &xml, bool insertFakeTopLevel);
+    static DomUI* xmlToUi(const QString& name, const QString& xml, bool insertFakeTopLevel,
+                          QString* errorMessage);
+    static DomUI* xmlToUi(const QString& name, const QString& xml, bool insertFakeTopLevel);
 
 private:
     LoadMode m_loadMode;
 };
-}  // namespace qdesigner_internal
+} // namespace qdesigner_internal
 
 QT_END_NAMESPACE
 

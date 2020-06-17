@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "AdjustingScrollArea.h"
-#include <QScrollBar>
 #include <QEvent>
+#include <QScrollBar>
 
 AdjustingScrollArea::AdjustingScrollArea(QWidget* parent) : QScrollArea(parent)
 {
     setObjectName("MyScrollArea");
-    setContentsMargins( 0, 0, 0, 0 );
+    setContentsMargins(0, 0, 0, 0);
     setWidgetResizable(true);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setStyleSheet("QScrollArea#MyScrollArea {border: 0px; background-color:transparent;}");

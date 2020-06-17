@@ -1,6 +1,6 @@
-#include "google_test.h"
 #include "ObjectiveMetric.h"
 #include "ObjectiveMetricUtils.h"
+#include "google_test.h"
 #include <cmath>
 
 class ObjectiveMetricTest : public ::testing::Test
@@ -13,10 +13,10 @@ ObjectiveMetricTest::~ObjectiveMetricTest() = default;
 
 TEST_F(ObjectiveMetricTest, Chi2WellFormed)
 {
-    std::vector<double> sim_data {1.0, 2.0, 3.0, 4.0};
-    std::vector<double> exp_data {2.0, 1.0, 4.0, 3.0};
-    std::vector<double> uncertainties {0.1, 0.1, 0.5, 0.5};
-    std::vector<double> weight_factors {1.0, 1.0, 1.0, 2.0};
+    std::vector<double> sim_data{1.0, 2.0, 3.0, 4.0};
+    std::vector<double> exp_data{2.0, 1.0, 4.0, 3.0};
+    std::vector<double> uncertainties{0.1, 0.1, 0.5, 0.5};
+    std::vector<double> weight_factors{1.0, 1.0, 1.0, 2.0};
 
     Chi2Metric metric;
 
@@ -51,10 +51,10 @@ TEST_F(ObjectiveMetricTest, Chi2WellFormed)
 
 TEST_F(ObjectiveMetricTest, Chi2IllFormed)
 {
-    std::vector<double> sim_data {1.0, 2.0, 3.0, 4.0};
-    std::vector<double> exp_data {2.0, 1.0, 4.0, 3.0};
-    std::vector<double> uncertainties {0.1, 0.1, 0.5, 0.5};
-    std::vector<double> weight_factors {1.0, 1.0, 1.0, 2.0};
+    std::vector<double> sim_data{1.0, 2.0, 3.0, 4.0};
+    std::vector<double> exp_data{2.0, 1.0, 4.0, 3.0};
+    std::vector<double> uncertainties{0.1, 0.1, 0.5, 0.5};
+    std::vector<double> weight_factors{1.0, 1.0, 1.0, 2.0};
 
     Chi2Metric metric;
 
@@ -113,9 +113,9 @@ TEST_F(ObjectiveMetricTest, PoissionLikeWellFormed)
 
 TEST_F(ObjectiveMetricTest, PoissionLikeIllFormed)
 {
-    std::vector<double> sim_data {1.0, 2.0, 3.0, 4.0};
-    std::vector<double> exp_data {2.0, 1.0, 4.0, 3.0};
-    std::vector<double> weight_factors {1.0, 1.0, 1.0, 2.0};
+    std::vector<double> sim_data{1.0, 2.0, 3.0, 4.0};
+    std::vector<double> exp_data{2.0, 1.0, 4.0, 3.0};
+    std::vector<double> weight_factors{1.0, 1.0, 1.0, 2.0};
 
     PoissonLikeMetric metric;
 
@@ -136,10 +136,10 @@ TEST_F(ObjectiveMetricTest, PoissionLikeIllFormed)
 
 TEST_F(ObjectiveMetricTest, LogWellFormed)
 {
-    std::vector<double> sim_data {1.0, 10.0, 1.e+2, 1.e+4};
-    std::vector<double> exp_data {10.0, 1.0, 1.e+3, 1.e+5};
-    std::vector<double> uncertainties {0.1, 0.1, 0.5, 0.5};
-    std::vector<double> weight_factors {1.0, 1.0, 1.0, 2.0};
+    std::vector<double> sim_data{1.0, 10.0, 1.e+2, 1.e+4};
+    std::vector<double> exp_data{10.0, 1.0, 1.e+3, 1.e+5};
+    std::vector<double> uncertainties{0.1, 0.1, 0.5, 0.5};
+    std::vector<double> weight_factors{1.0, 1.0, 1.0, 2.0};
 
     LogMetric metric;
 
@@ -175,10 +175,10 @@ TEST_F(ObjectiveMetricTest, LogWellFormed)
 
 TEST_F(ObjectiveMetricTest, LogIllFormed)
 {
-    std::vector<double> sim_data {1.0, 10.0, 1.e+2, 1.e+4};
-    std::vector<double> exp_data {10.0, 1.0, 1.e+3, 1.e+5};
-    std::vector<double> uncertainties {0.1, 0.1, 0.5, 0.5};
-    std::vector<double> weight_factors {1.0, 1.0, 1.0, 2.0};
+    std::vector<double> sim_data{1.0, 10.0, 1.e+2, 1.e+4};
+    std::vector<double> exp_data{10.0, 1.0, 1.e+3, 1.e+5};
+    std::vector<double> uncertainties{0.1, 0.1, 0.5, 0.5};
+    std::vector<double> weight_factors{1.0, 1.0, 1.0, 2.0};
 
     LogMetric metric;
 
@@ -205,10 +205,10 @@ TEST_F(ObjectiveMetricTest, LogIllFormed)
 
 TEST_F(ObjectiveMetricTest, RelativeDifferenceWellFormed)
 {
-    std::vector<double> sim_data {1.0, 2.0, 4.0, 4.0};
-    std::vector<double> exp_data {2.0, 1.0, 2.0, 2.0};
-    std::vector<double> uncertainties {1.0, 1.0, 2.0, 1.0};
-    std::vector<double> weight_factors {1.0, 1.0, 2.0, 1.0};
+    std::vector<double> sim_data{1.0, 2.0, 4.0, 4.0};
+    std::vector<double> exp_data{2.0, 1.0, 2.0, 2.0};
+    std::vector<double> uncertainties{1.0, 1.0, 2.0, 1.0};
+    std::vector<double> weight_factors{1.0, 1.0, 2.0, 1.0};
 
     RelativeDifferenceMetric metric;
 
@@ -236,10 +236,10 @@ TEST_F(ObjectiveMetricTest, RelativeDifferenceWellFormed)
 
 TEST_F(ObjectiveMetricTest, RelativeDifferenceIllFormed)
 {
-    std::vector<double> sim_data {1.0, 2.0, 4.0, 4.0};
-    std::vector<double> exp_data {2.0, 1.0, 3.0, 2.0};
-    std::vector<double> uncertainties {1.0, 1.0, 2.0, 1.0};
-    std::vector<double> weight_factors {1.0, 1.0, 2.0, 1.0};
+    std::vector<double> sim_data{1.0, 2.0, 4.0, 4.0};
+    std::vector<double> exp_data{2.0, 1.0, 3.0, 2.0};
+    std::vector<double> uncertainties{1.0, 1.0, 2.0, 1.0};
+    std::vector<double> weight_factors{1.0, 1.0, 2.0, 1.0};
 
     RelativeDifferenceMetric metric;
 
@@ -262,10 +262,10 @@ TEST_F(ObjectiveMetricTest, RelativeDifferenceIllFormed)
 
 TEST_F(ObjectiveMetricTest, RQ4WellFormed)
 {
-    std::vector<double> sim_data {1.0, 2.0, 4.0, 4.0};
-    std::vector<double> exp_data {2.0, 1.0, 2.0, 2.0};
-    std::vector<double> uncertainties {1.0, 1.0, 2.0, 1.0};
-    std::vector<double> weight_factors {1.0, 1.0, 2.0, 1.0};
+    std::vector<double> sim_data{1.0, 2.0, 4.0, 4.0};
+    std::vector<double> exp_data{2.0, 1.0, 2.0, 2.0};
+    std::vector<double> uncertainties{1.0, 1.0, 2.0, 1.0};
+    std::vector<double> weight_factors{1.0, 1.0, 2.0, 1.0};
 
     RQ4Metric metric;
 
@@ -293,10 +293,10 @@ TEST_F(ObjectiveMetricTest, RQ4WellFormed)
 
 TEST_F(ObjectiveMetricTest, RQ4IllFormed)
 {
-    std::vector<double> sim_data {1.0, 2.0, 4.0, 4.0};
-    std::vector<double> exp_data {2.0, 1.0, 3.0, 2.0};
-    std::vector<double> uncertainties {1.0, 1.0, 2.0, 1.0};
-    std::vector<double> weight_factors {1.0, 1.0, 2.0, 1.0};
+    std::vector<double> sim_data{1.0, 2.0, 4.0, 4.0};
+    std::vector<double> exp_data{2.0, 1.0, 3.0, 2.0};
+    std::vector<double> uncertainties{1.0, 1.0, 2.0, 1.0};
+    std::vector<double> weight_factors{1.0, 1.0, 2.0, 1.0};
 
     RQ4Metric metric;
 

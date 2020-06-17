@@ -21,4 +21,7 @@ ParameterPlan::ParameterPlan(const Parameter& param, double expected_value, doub
 {
 }
 
-Parameter ParameterPlan::fitParameter() const { return m_parameter; }
+Parameter ParameterPlan::fitParameter() const
+{
+    return m_parameter;
+}

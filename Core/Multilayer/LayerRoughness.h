@@ -32,8 +32,10 @@ public:
     LayerRoughness();
     LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength);
 
-    LayerRoughness* clone() const {
-        return new LayerRoughness(m_sigma, m_hurstParameter, m_lateralCorrLength); }
+    LayerRoughness* clone() const
+    {
+        return new LayerRoughness(m_sigma, m_hurstParameter, m_lateralCorrLength);
+    }
     virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns power spectral density of the surface roughness
@@ -52,15 +54,17 @@ public:
     double getHurstParameter() const { return m_hurstParameter; }
 
     //! Sets lateral correlation length
-    void setLatteralCorrLength(double lateralCorrLength) {
-        m_lateralCorrLength = lateralCorrLength; }
+    void setLatteralCorrLength(double lateralCorrLength)
+    {
+        m_lateralCorrLength = lateralCorrLength;
+    }
     //! Returns lateral correlation length
     double getLatteralCorrLength() const { return m_lateralCorrLength; }
 
 protected:
-    double m_sigma;                //!< rms of roughness
-    double m_hurstParameter;   //!< Hurst parameter which describes how jagged the interface, 0<H<=1
-    double m_lateralCorrLength;   //!< lateral correlation length of the roughness
+    double m_sigma;          //!< rms of roughness
+    double m_hurstParameter; //!< Hurst parameter which describes how jagged the interface, 0<H<=1
+    double m_lateralCorrLength; //!< lateral correlation length of the roughness
 
 private:
     void initialize();

@@ -3,7 +3,7 @@
 import math, numpy, os, sys, time, unittest
 
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
-import libBornAgainCore as ba
+import bornagain as ba
 
 
 def fill_data(data):

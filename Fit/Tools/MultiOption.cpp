@@ -15,8 +15,7 @@
 #include "MultiOption.h"
 #include <boost/lexical_cast.hpp>
 
-MultiOption::MultiOption(const std::string& name)
-    : m_name(name) {}
+MultiOption::MultiOption(const std::string& name) : m_name(name) {}
 
 std::string MultiOption::name() const
 {

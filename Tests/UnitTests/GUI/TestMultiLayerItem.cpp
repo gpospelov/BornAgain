@@ -148,7 +148,6 @@ TEST_F(TestMultiLayerItem, test_movingLayerOnCanvas)
     EXPECT_EQ(top->parent(), model.rootItem());
 
     // thickness should be reenabled
-//    EXPECT_TRUE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
-//    EXPECT_TRUE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
+    //    EXPECT_TRUE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
+    //    EXPECT_TRUE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
 }
-

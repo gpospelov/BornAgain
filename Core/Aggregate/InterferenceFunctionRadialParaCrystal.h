@@ -15,9 +15,9 @@
 #ifndef INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 #define INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 
-#include "IInterferenceFunction.h"
 #include "Complex.h"
 #include "FTDistributions1D.h"
+#include "IInterferenceFunction.h"
 #include <memory>
 
 //! Interference function of radial paracrystal.
@@ -26,7 +26,7 @@
 class BA_CORE_API_ InterferenceFunctionRadialParaCrystal : public IInterferenceFunction
 {
 public:
-    InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length=0.0);
+    InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length = 0.0);
     InterferenceFunctionRadialParaCrystal* clone() const override final;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
@@ -54,12 +54,12 @@ private:
     InterferenceFunctionRadialParaCrystal(const InterferenceFunctionRadialParaCrystal& other);
     void init_parameters();
 
-    double m_peak_distance; //!< the distance to the first neighbor peak
+    double m_peak_distance;  //!< the distance to the first neighbor peak
     double m_damping_length; //!< damping length of paracrystal
     //! Fourier transformed probability distribution of the nearest particle
     std::unique_ptr<IFTDistribution1D> mP_pdf;
     bool m_use_damping_length;
-    double m_kappa; //!< Size-spacing coupling parameter
+    double m_kappa;       //!< Size-spacing coupling parameter
     double m_domain_size; //!< Size of coherence domain
 };
 

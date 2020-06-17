@@ -14,8 +14,7 @@
 
 #include "PyCallback.h"
 
-PyCallback::PyCallback(PyCallback::CallbackType callback_type)
-    : m_callback_type(callback_type) {}
+PyCallback::PyCallback(PyCallback::CallbackType callback_type) : m_callback_type(callback_type) {}
 
 PyCallback::CallbackType PyCallback::callback_type() const
 {

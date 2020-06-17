@@ -12,11 +12,11 @@
 //
 // ************************************************************************** //
 
-#include "IBackground.h"
+#include "GISASSimulation.h"
 #include "BornAgainNamespace.h"
 #include "DWBAComputation.h"
-#include "GISASSimulation.h"
 #include "Histogram2D.h"
+#include "IBackground.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "SimulationElement.h"
@@ -27,8 +27,7 @@ GISASSimulation::GISASSimulation()
     initialize();
 }
 
-GISASSimulation::GISASSimulation(const MultiLayer& p_sample)
-    : Simulation2D(p_sample)
+GISASSimulation::GISASSimulation(const MultiLayer& p_sample) : Simulation2D(p_sample)
 {
     initialize();
 }
@@ -42,15 +41,11 @@ GISASSimulation::GISASSimulation(const std::shared_ptr<IMultiLayerBuilder> p_sam
 void GISASSimulation::prepareSimulation()
 {
     if (m_instrument.getDetectorDimension() != 2)
-        throw Exceptions::LogicErrorException("GISASSimulation::prepareSimulation() "
-                "-> Error. The detector was not properly configured.");
+        throw Exceptions::LogicErrorException(
+            "GISASSimulation::prepareSimulation() "
+            "-> Error. The detector was not properly configured.");
     getInstrument().initDetector();
-    Simulation::prepareSimulation();
-}
-
-size_t GISASSimulation::numberOfSimulationElements() const
-{
-    return getInstrument().getDetector()->numberOfSimulationElements();
+    Simulation2D::prepareSimulation();
 }
 
 SimulationResult GISASSimulation::result() const
@@ -64,7 +59,7 @@ SimulationResult GISASSimulation::result() const
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
-    if (wavelength<=0.0)
+    if (wavelength <= 0.0)
         throw Exceptions::ClassInitializationException(
             "Simulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
     m_instrument.setBeamParameters(wavelength, alpha_i, phi_i);
@@ -77,12 +72,11 @@ size_t GISASSimulation::intensityMapSize() const
         throw std::runtime_error(
             "Error in GISASSimulation::intensityMapSize: attempt to access non-initialized data.");
     size_t result = 0;
-    detector->iterate([&result](IDetector::const_iterator) { ++result;}, true);
+    detector->iterate([&result](IDetector::const_iterator) { ++result; }, true);
     return result;
 }
 
-GISASSimulation::GISASSimulation(const GISASSimulation& other)
-    : Simulation2D(other)
+GISASSimulation::GISASSimulation(const GISASSimulation& other) : Simulation2D(other)
 {
     initialize();
 }

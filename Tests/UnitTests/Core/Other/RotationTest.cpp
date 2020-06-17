@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "Rotations.h"
+#include "google_test.h"
 
 #include <memory>
 
@@ -8,7 +8,6 @@ class RotationTest : public ::testing::Test
 protected:
     RotationTest();
     virtual ~RotationTest();
-
 };
 
 RotationTest::RotationTest() {}
@@ -62,4 +61,3 @@ TEST_F(RotationTest, EulerRotations)
     EXPECT_DOUBLE_EQ(p_rot_cast->getBeta(), beta);
     EXPECT_DOUBLE_EQ(p_rot_cast->getGamma(), gamma);
 }
-

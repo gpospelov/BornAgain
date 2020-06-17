@@ -24,20 +24,19 @@ ParticleComposition::ParticleComposition()
 }
 
 ParticleComposition::ParticleComposition(const IParticle& particle,
-        std::vector<kvector_t> positions)
+                                         std::vector<kvector_t> positions)
 {
     initialize();
     addParticles(particle, positions);
 }
 
-ParticleComposition::~ParticleComposition()
-{}
+ParticleComposition::~ParticleComposition() {}
 
 ParticleComposition* ParticleComposition::clone() const
 {
     ParticleComposition* p_result = new ParticleComposition();
     p_result->setAbundance(m_abundance);
-    for (size_t index=0; index<m_particles.size(); ++index)
+    for (size_t index = 0; index < m_particles.size(); ++index)
         p_result->addParticle(*m_particles[index]);
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
@@ -49,16 +48,16 @@ IFormFactor* ParticleComposition::createFormFactor() const
 {
     if (m_particles.size() == 0)
         return {};
-    std::unique_ptr<FormFactorWeighted> P_result { new FormFactorWeighted() };
+    std::unique_ptr<FormFactorWeighted> P_result{new FormFactorWeighted()};
     auto particles = decompose();
     for (auto p_particle : particles) {
-        std::unique_ptr<IFormFactor> P_particle_ff { p_particle->createFormFactor() };
+        std::unique_ptr<IFormFactor> P_particle_ff{p_particle->createFormFactor()};
         P_result->addFormFactor(*P_particle_ff);
     }
     return P_result.release();
 }
 
-void ParticleComposition::addParticle(const IParticle &particle)
+void ParticleComposition::addParticle(const IParticle& particle)
 {
     IParticle* np = particle.clone();
     addParticlePointer(np);
@@ -75,7 +74,7 @@ void ParticleComposition::addParticle(const IParticle& particle, kvector_t posit
 // enable python lists to std::vector conversion
 void ParticleComposition::addParticles(const IParticle& particle, std::vector<kvector_t> positions)
 {
-    for (size_t i=0; i<positions.size(); ++i)
+    for (size_t i = 0; i < positions.size(); ++i)
         addParticle(particle, positions[i]);
 }
 
@@ -92,8 +91,7 @@ SafePointerVector<IParticle> ParticleComposition::decompose() const
     SafePointerVector<IParticle> result;
     auto p_rotation = rotation();
     auto translation = position();
-    for (auto& P_particle : m_particles)
-    {
+    for (auto& P_particle : m_particles) {
         auto sublist = P_particle->decompose();
         for (auto p_subparticle : sublist) {
             if (p_rotation)
@@ -109,8 +107,7 @@ ParticleLimits ParticleComposition::bottomTopZ() const
 {
     auto particles = decompose();
     ParticleLimits result = particles[check_index(0)]->bottomTopZ();
-    for (auto& P_particle : particles)
-    {
+    for (auto& P_particle : particles) {
         ParticleLimits limits = P_particle->bottomTopZ();
         result.m_bottom = std::min(result.m_bottom, limits.m_bottom);
         result.m_top = std::max(result.m_top, limits.m_top);
@@ -120,8 +117,10 @@ ParticleLimits ParticleComposition::bottomTopZ() const
 
 size_t ParticleComposition::check_index(size_t index) const
 {
-    return index < m_particles.size() ? index : throw Exceptions::OutOfBoundsException(
-        "ParticleComposition::check_index() -> Index is out of bounds");
+    return index < m_particles.size()
+               ? index
+               : throw Exceptions::OutOfBoundsException(
+                   "ParticleComposition::check_index() -> Index is out of bounds");
 }
 
 void ParticleComposition::addParticlePointer(IParticle* p_particle)

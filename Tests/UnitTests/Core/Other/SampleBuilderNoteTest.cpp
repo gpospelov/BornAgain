@@ -1,8 +1,8 @@
-#include "google_test.h"
 #include "IMultiLayerBuilder.h"
 #include "MultiLayer.h"
 #include "ParameterPool.h"
 #include "SampleBuilderNode.h"
+#include "google_test.h"
 #include <iostream>
 #include <memory>
 #include <stdexcept>

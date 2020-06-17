@@ -22,9 +22,7 @@
 #include <QVBoxLayout>
 
 ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget* parent)
-    : QDialog(parent)
-    , m_maskEditor(new MaskEditor)
-    , m_maskDelegate(new DetectorMaskDelegate(this))
+    : QDialog(parent), m_maskEditor(new MaskEditor), m_maskDelegate(new DetectorMaskDelegate(this))
 {
     setMinimumSize(256, 256);
 

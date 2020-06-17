@@ -16,8 +16,8 @@
 #define PARAMETERDISTRIBUTION_H
 
 #include "IParameterized.h"
-#include "RealLimits.h"
 #include "ParameterSample.h"
+#include "RealLimits.h"
 #include <memory>
 #include <vector>
 
@@ -26,13 +26,11 @@ class IDistribution1D;
 class BA_CORE_API_ ParameterDistribution : public IParameterized
 {
 public:
-    ParameterDistribution(const std::string& par_name,
-                          const IDistribution1D& distribution,
-                          size_t nbr_samples, double sigma_factor=0.0,
+    ParameterDistribution(const std::string& par_name, const IDistribution1D& distribution,
+                          size_t nbr_samples, double sigma_factor = 0.0,
                           const RealLimits& limits = RealLimits());
 
-    ParameterDistribution(const std::string& par_name,
-                          const IDistribution1D& distribution,
+    ParameterDistribution(const std::string& par_name, const IDistribution1D& distribution,
                           size_t nbr_samples, double xmin, double xmax);
 
     ParameterDistribution(const ParameterDistribution& other);

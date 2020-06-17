@@ -35,8 +35,7 @@ void IFootprintFactor::setWidthRatio(double width_ratio)
 }
 
 IFootprintFactor::IFootprintFactor(const IFootprintFactor& other)
-    : ICloneable()
-    , m_width_ratio(other.m_width_ratio)
+    : ICloneable(), m_width_ratio(other.m_width_ratio)
 {
     initialize();
 }

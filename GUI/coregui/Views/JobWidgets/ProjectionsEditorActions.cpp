@@ -13,43 +13,37 @@
 // ************************************************************************** //
 
 #include "ProjectionsEditorActions.h"
-#include "SessionModel.h"
 #include "SaveProjectionsAssistant.h"
+#include "SessionModel.h"
 #include <QAction>
 #include <QItemSelectionModel>
 #include <QModelIndexList>
 
 ProjectionsEditorActions::ProjectionsEditorActions(QWidget* parent)
-    : QObject(parent)
-    , m_resetViewAction(new QAction(this))
-    , m_togglePanelAction(new QAction(this))
-    , m_deleteAction(new QAction("Remove selected", this))
-    , m_model(nullptr)
-    , m_intensityDataItem(nullptr)
-    , m_selectionModel(nullptr)
-    , m_parent(parent)
+    : QObject(parent), m_resetViewAction(new QAction(this)), m_togglePanelAction(new QAction(this)),
+      m_deleteAction(new QAction("Remove selected", this)), m_model(nullptr),
+      m_intensityDataItem(nullptr), m_selectionModel(nullptr), m_parent(parent)
 {
     // Actions for top toolbar
-    m_resetViewAction->setText("Reset");
-    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
+    m_resetViewAction->setText("Center view");
+    m_resetViewAction->setIcon(QIcon(":/images/camera-metering-center.svg"));
     m_resetViewAction->setToolTip("Reset view\n"
                                   "x,y,z axes range will be set to default");
-    connect(m_resetViewAction, &QAction::triggered,
-            this, &ProjectionsEditorActions::resetViewRequest);
+    connect(m_resetViewAction, &QAction::triggered, this,
+            &ProjectionsEditorActions::resetViewRequest);
 
     m_togglePanelAction->setText("Properties");
-    m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
+    m_togglePanelAction->setIcon(QIcon(":/images/dock-right.svg"));
     m_togglePanelAction->setToolTip("Toggle property panel");
-    connect(m_togglePanelAction, &QAction::triggered,
-            this, &ProjectionsEditorActions::propertyPanelRequest);
+    connect(m_togglePanelAction, &QAction::triggered, this,
+            &ProjectionsEditorActions::propertyPanelRequest);
 
     m_deleteAction->setToolTip("Remove selected (Del)");
     m_deleteAction->setShortcuts(QKeySequence::Delete);
     connect(m_deleteAction, &QAction::triggered, this, &ProjectionsEditorActions::onDeleteAction);
 }
 
-void ProjectionsEditorActions::setContext(SessionModel* model,
-                                          const QModelIndex& containerIndex,
+void ProjectionsEditorActions::setContext(SessionModel* model, const QModelIndex& containerIndex,
                                           IntensityDataItem* intensityItem)
 {
     m_model = model;

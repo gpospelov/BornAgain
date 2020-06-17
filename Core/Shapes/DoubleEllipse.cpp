@@ -23,8 +23,7 @@ DoubleEllipse::DoubleEllipse(double r0_x, double r0_y, double z, double rz_x, do
     auto top_face = EllipseVertices(rz_x, rz_y, z);
     m_vertices.resize(n_bottom + top_face.size());
     std::move(bottom_face.begin(), bottom_face.end(), m_vertices.begin());
-    std::move(top_face.begin(), top_face.end(), m_vertices.begin()+n_bottom);
+    std::move(top_face.begin(), top_face.end(), m_vertices.begin() + n_bottom);
 }
 
-DoubleEllipse::~DoubleEllipse()
-{}
+DoubleEllipse::~DoubleEllipse() {}

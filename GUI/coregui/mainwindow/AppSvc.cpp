@@ -45,12 +45,7 @@ void AppSvc::unsubscribe(MaterialModel* materialModel)
     instance().this_unsubscribe(materialModel);
 }
 
-AppSvc::AppSvc()
-    : m_projectManager(nullptr)
-    , m_materialModel(nullptr)
-{
-
-}
+AppSvc::AppSvc() : m_projectManager(nullptr), m_materialModel(nullptr) {}
 
 ProjectManager* AppSvc::this_projectManager()
 {

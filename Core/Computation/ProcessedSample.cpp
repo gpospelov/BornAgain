@@ -24,10 +24,12 @@
 #include "ScalarFresnelMap.h"
 #include "SimulationOptions.h"
 #include "Slice.h"
+#include "SpecularStrategyBuilder.h"
 
 namespace
 {
-std::unique_ptr<IFresnelMap> CreateFresnelMap(const std::vector<Slice>& slices,
+std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& sample,
+                                              const std::vector<Slice>& slices,
                                               const SimulationOptions& options);
 bool ContainsMagneticMaterial(const MultiLayer& sample);
 bool ContainsMagneticSlice(const std::vector<Slice>& slices);
@@ -42,7 +44,7 @@ ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptio
       m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
-    mP_fresnel_map = CreateFresnelMap(m_slices, options);
+    mP_fresnel_map = CreateFresnelMap(sample, m_slices, options);
     initBFields();
     initLayouts(sample);
     initFresnelMap(options);
@@ -211,7 +213,7 @@ void ProcessedSample::initLayouts(const MultiLayer& sample)
     m_polarized = ContainsMagneticMaterial(sample);
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         if (i > 1)
-            z_ref -= MultiLayerUtils::LayerThickness(sample, i-1);
+            z_ref -= MultiLayerUtils::LayerThickness(sample, i - 1);
         auto p_layer = sample.layer(i);
         for (auto p_layout : p_layer->layouts()) {
             m_layouts.emplace_back(*p_layout, m_slices, z_ref, mP_fresnel_map.get(), m_polarized);
@@ -277,14 +279,15 @@ void ProcessedSample::initFresnelMap(const SimulationOptions& sim_options)
 
 namespace
 {
-std::unique_ptr<IFresnelMap> CreateFresnelMap(const std::vector<Slice>& slices,
+std::unique_ptr<IFresnelMap> CreateFresnelMap(const MultiLayer& sample,
+                                              const std::vector<Slice>& slices,
                                               const SimulationOptions& options)
 {
     std::unique_ptr<IFresnelMap> P_result;
     if (ContainsMagneticSlice(slices))
-        P_result.reset(new MatrixFresnelMap());
+        P_result.reset(new MatrixFresnelMap(SpecularStrategyBuilder::build(sample, true)));
     else
-        P_result.reset(new ScalarFresnelMap());
+        P_result.reset(new ScalarFresnelMap(SpecularStrategyBuilder::build(sample, false)));
     if (options.isIntegrate())
         P_result->disableCaching();
     return P_result;

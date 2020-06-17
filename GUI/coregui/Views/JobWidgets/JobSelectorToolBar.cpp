@@ -17,20 +17,18 @@
 #include <QToolButton>
 
 JobSelectorToolBar::JobSelectorToolBar(JobSelectorActions* actions, QWidget* parent)
-    : StyledToolBar(parent)
-    , m_runJobButton(new QToolButton)
-    , m_removeJobButton(new QToolButton)
+    : StyledToolBar(parent), m_runJobButton(new QToolButton), m_removeJobButton(new QToolButton)
 {
     setMinimumSize(minimumHeight(), minimumHeight());
 
     m_runJobButton->setText(QStringLiteral("Run"));
-    m_runJobButton->setIcon(QIcon(":/images/toolbar16light_run.svg"));
+    m_runJobButton->setIcon(QIcon(":/images/play.svg"));
     m_runJobButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_runJobButton->setToolTip("Run currently selected job");
     addWidget(m_runJobButton);
 
     m_removeJobButton->setText("Remove");
-    m_removeJobButton->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
+    m_removeJobButton->setIcon(QIcon(":/images/delete.svg"));
     m_removeJobButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_removeJobButton->setToolTip("Remove currently selected job.");
     addWidget(m_removeJobButton);

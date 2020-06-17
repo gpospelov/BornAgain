@@ -53,34 +53,31 @@
 //#include <QtWidgets/QItemDelegate>
 //#include <QtCore/QSortFilterProxyModel>
 
-#include <QListView>
-#include <QLineEdit>
 #include <QItemDelegate>
+#include <QLineEdit>
+#include <QListView>
 #include <QSortFilterProxyModel>
 
+#include <QXmlStreamReader>
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QList>
-#include <QtCore/QTextStream>
 #include <QtCore/QRegExp>
-#include <QXmlStreamReader>
+#include <QtCore/QTextStream>
 
-static const char *widgetElementC = "widget";
-static const char *nameAttributeC = "name";
-static const char *uiOpeningTagC = "<ui>";
-static const char *uiClosingTagC = "</ui>";
-
+static const char* widgetElementC = "widget";
+static const char* nameAttributeC = "name";
+static const char* uiOpeningTagC = "<ui>";
+static const char* uiClosingTagC = "</ui>";
 
 #if QT_VERSION < 0x050000
 #define QStringLiteral QString
 #endif
 
-
-
 QT_BEGIN_NAMESPACE
 
 enum { FILTER_ROLE = Qt::UserRole + 11 };
 
-static QString domToString(const QDomElement &elt)
+static QString domToString(const QDomElement& elt)
 {
     QString result;
     QTextStream stream(&result, QIODevice::WriteOnly);
@@ -89,23 +86,22 @@ static QString domToString(const QDomElement &elt)
     return result;
 }
 
-static QDomDocument stringToDom(const QString &xml)
+static QDomDocument stringToDom(const QString& xml)
 {
     QDomDocument result;
     result.setContent(xml);
     return result;
 }
 
-namespace qdesigner_internal {
+namespace qdesigner_internal
+{
 
 // Entry of the model list
 
 struct WidgetBoxCategoryEntry {
     WidgetBoxCategoryEntry();
-    explicit WidgetBoxCategoryEntry(const QDesignerWidgetBoxInterface::Widget &widget,
-                                    const QString &filter,
-                                    const QIcon &icon,
-                                    bool editable);
+    explicit WidgetBoxCategoryEntry(const QDesignerWidgetBoxInterface::Widget& widget,
+                                    const QString& filter, const QIcon& icon, bool editable);
 
     QDesignerWidgetBoxInterface::Widget widget;
     QString toolTip;
@@ -115,19 +111,11 @@ struct WidgetBoxCategoryEntry {
     bool editable;
 };
 
+WidgetBoxCategoryEntry::WidgetBoxCategoryEntry() : editable(false) {}
 
-WidgetBoxCategoryEntry::WidgetBoxCategoryEntry() :
-    editable(false)
-{
-}
-
-WidgetBoxCategoryEntry::WidgetBoxCategoryEntry(const QDesignerWidgetBoxInterface::Widget &w,
-                                               const QString &filterIn,
-                                               const QIcon &i, bool e) :
-    widget(w),
-    filter(filterIn),
-    icon(i),
-    editable(e)
+WidgetBoxCategoryEntry::WidgetBoxCategoryEntry(const QDesignerWidgetBoxInterface::Widget& w,
+                                               const QString& filterIn, const QIcon& i, bool e)
+    : widget(w), filter(filterIn), icon(i), editable(e)
 {
 }
 
@@ -135,28 +123,30 @@ WidgetBoxCategoryEntry::WidgetBoxCategoryEntry(const QDesignerWidgetBoxInterface
  * QAbstractListModel since the behaviour depends on the view mode of the list
  * view, it does not return text in the case of IconMode. */
 
-class WidgetBoxCategoryModel : public QAbstractListModel {
+class WidgetBoxCategoryModel : public QAbstractListModel
+{
 public:
-//    explicit WidgetBoxCategoryModel(QDesignerFormEditorInterface *core, QObject *parent = 0);
-    explicit WidgetBoxCategoryModel(SampleDesignerInterface *core, QObject *parent = 0);
+    //    explicit WidgetBoxCategoryModel(QDesignerFormEditorInterface *core, QObject *parent = 0);
+    explicit WidgetBoxCategoryModel(SampleDesignerInterface* core, QObject* parent = 0);
 
     // QAbstractListModel
-    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    virtual bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
-    virtual Qt::ItemFlags flags (const QModelIndex & index ) const;
-    virtual bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
+    virtual Qt::ItemFlags flags(const QModelIndex& index) const;
+    virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
 
     // The model returns no text in icon mode, so, it also needs to know it
     QListView::ViewMode viewMode() const;
     void setViewMode(QListView::ViewMode vm);
 
-    void addWidget(const QDesignerWidgetBoxInterface::Widget &widget, const QIcon &icon, bool editable);
+    void addWidget(const QDesignerWidgetBoxInterface::Widget& widget, const QIcon& icon,
+                   bool editable);
 
-    QDesignerWidgetBoxInterface::Widget widgetAt(const QModelIndex & index) const;
+    QDesignerWidgetBoxInterface::Widget widgetAt(const QModelIndex& index) const;
     QDesignerWidgetBoxInterface::Widget widgetAt(int row) const;
 
-    int indexOfWidget(const QString &name);
+    int indexOfWidget(const QString& name);
 
     QDesignerWidgetBoxInterface::Category category() const;
     bool removeCustomWidgets();
@@ -165,23 +155,24 @@ private:
     typedef QList<WidgetBoxCategoryEntry> WidgetBoxCategoryEntrys;
 
     QRegExp m_classNameRegExp;
-//    QDesignerFormEditorInterface *m_core;
-    //SampleDesignerInterface *m_core;
+    //    QDesignerFormEditorInterface *m_core;
+    // SampleDesignerInterface *m_core;
     WidgetBoxCategoryEntrys m_items;
     QListView::ViewMode m_viewMode;
 };
 
-//WidgetBoxCategoryModel::WidgetBoxCategoryModel(QDesignerFormEditorInterface *core, QObject *parent) :
-WidgetBoxCategoryModel::WidgetBoxCategoryModel(SampleDesignerInterface *core, QObject *parent) :
-    QAbstractListModel(parent),
+// WidgetBoxCategoryModel::WidgetBoxCategoryModel(QDesignerFormEditorInterface *core, QObject
+// *parent) :
+WidgetBoxCategoryModel::WidgetBoxCategoryModel(SampleDesignerInterface* core, QObject* parent)
+    : QAbstractListModel(parent),
 #if QT_VERSION >= 0x050000
-    m_classNameRegExp( QStringLiteral("<widget +class *= *\"([^\"]+)\"") ),
+      m_classNameRegExp(QStringLiteral("<widget +class *= *\"([^\"]+)\"")),
 #else
-    m_classNameRegExp( QString("<widget +class *= *\"([^\"]+)\"") ),
+      m_classNameRegExp(QString("<widget +class *= *\"([^\"]+)\"")),
 #endif
 
-//    m_core(core),
-    m_viewMode(QListView::ListMode)
+      //    m_core(core),
+      m_viewMode(QListView::ListMode)
 {
     Q_ASSERT(m_classNameRegExp.isValid());
     Q_UNUSED(core);
@@ -204,10 +195,10 @@ void WidgetBoxCategoryModel::setViewMode(QListView::ViewMode vm)
         endResetModel();
 }
 
-int WidgetBoxCategoryModel::indexOfWidget(const QString &name)
+int WidgetBoxCategoryModel::indexOfWidget(const QString& name)
 {
     const int count = m_items.size();
-    for (int  i = 0; i < count; i++)
+    for (int i = 0; i < count; i++)
         if (m_items.at(i).widget.name() == name)
             return i;
     return -1;
@@ -227,7 +218,7 @@ bool WidgetBoxCategoryModel::removeCustomWidgets()
     // Typically, we are a whole category of custom widgets, so, remove all
     // and do reset.
     bool changed = false;
-    for (WidgetBoxCategoryEntrys::iterator it = m_items.begin(); it != m_items.end(); )
+    for (WidgetBoxCategoryEntrys::iterator it = m_items.begin(); it != m_items.end();)
         if (it->widget.type() == QDesignerWidgetBoxInterface::Widget::Custom) {
             if (!changed)
                 beginResetModel();
@@ -241,11 +232,13 @@ bool WidgetBoxCategoryModel::removeCustomWidgets()
     return changed;
 }
 
-void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget &widget, const QIcon &icon,bool editable)
+void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget& widget,
+                                       const QIcon& icon, bool editable)
 {
     // build item. Filter on name + class name if it is different and not a layout.
     QString filter = widget.name();
-    if (!filter.contains(QStringLiteral("Layout")) && m_classNameRegExp.indexIn(widget.domXml()) != -1) {
+    if (!filter.contains(QStringLiteral("Layout"))
+        && m_classNameRegExp.indexIn(widget.domXml()) != -1) {
         const QString className = m_classNameRegExp.cap(1);
         if (!filter.contains(className))
             filter += className;
@@ -261,27 +254,27 @@ void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget
                 const QXmlStreamAttributes attributes = reader.attributes();
                 QString className = attributes.value("class").toString();
                 QString toolTip = ToolTipDataBase::widgetboxToolTip(className);
-                if(!toolTip.isEmpty())
+                if (!toolTip.isEmpty())
                     item.toolTip = toolTip;
             }
             break;
         }
-        default: break;
+        default:
+            break;
         }
     }
 
-
-//    const QDesignerWidgetDataBaseInterface *db = m_core->widgetDataBase();
-//    const int dbIndex = db->indexOfClassName(widget.name());
-//    if (dbIndex != -1) {
-//        const QDesignerWidgetDataBaseItemInterface *dbItem = db->item(dbIndex);
-//        const QString toolTip = dbItem->toolTip();
-//        if (!toolTip.isEmpty())
-//            item.toolTip = toolTip;
-//        const QString whatsThis = dbItem->whatsThis();
-//        if (!whatsThis.isEmpty())
-//            item.whatsThis = whatsThis;
-//    }
+    //    const QDesignerWidgetDataBaseInterface *db = m_core->widgetDataBase();
+    //    const int dbIndex = db->indexOfClassName(widget.name());
+    //    if (dbIndex != -1) {
+    //        const QDesignerWidgetDataBaseItemInterface *dbItem = db->item(dbIndex);
+    //        const QString toolTip = dbItem->toolTip();
+    //        if (!toolTip.isEmpty())
+    //            item.toolTip = toolTip;
+    //        const QString whatsThis = dbItem->whatsThis();
+    //        if (!whatsThis.isEmpty())
+    //            item.whatsThis = whatsThis;
+    //    }
     // insert
     const int row = m_items.size();
     beginInsertRows(QModelIndex(), row, row);
@@ -289,13 +282,13 @@ void WidgetBoxCategoryModel::addWidget(const QDesignerWidgetBoxInterface::Widget
     endInsertRows();
 }
 
-QVariant WidgetBoxCategoryModel::data(const QModelIndex &index, int role) const
+QVariant WidgetBoxCategoryModel::data(const QModelIndex& index, int role) const
 {
     const int row = index.row();
-    if (row < 0 || row >=  m_items.size())
+    if (row < 0 || row >= m_items.size())
         return QVariant();
 
-    const WidgetBoxCategoryEntry &item = m_items.at(row);
+    const WidgetBoxCategoryEntry& item = m_items.at(row);
     switch (role) {
     case Qt::DisplayRole:
         // No text in icon mode
@@ -308,13 +301,12 @@ QVariant WidgetBoxCategoryModel::data(const QModelIndex &index, int role) const
         if (m_viewMode == QListView::ListMode)
             return QVariant(item.toolTip);
         // Icon mode tooltip should contain the  class name
-        QString tt =  item.widget.name();
+        QString tt = item.widget.name();
         if (!item.toolTip.isEmpty()) {
             tt += QLatin1Char('\n');
             tt += item.toolTip;
         }
         return QVariant(tt);
-
     }
     case Qt::WhatsThisRole:
         return QVariant(item.whatsThis);
@@ -324,13 +316,14 @@ QVariant WidgetBoxCategoryModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-bool WidgetBoxCategoryModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool WidgetBoxCategoryModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
     const int row = index.row();
-    if (role != Qt::EditRole || row < 0 || row >=  m_items.size() || value.type() != QVariant::String)
+    if (role != Qt::EditRole || row < 0 || row >= m_items.size()
+        || value.type() != QVariant::String)
         return false;
     // Set name and adapt Xml
-    WidgetBoxCategoryEntry &item = m_items[row];
+    WidgetBoxCategoryEntry& item = m_items[row];
     const QString newName = value.toString();
     item.widget.setName(newName);
 
@@ -344,11 +337,11 @@ bool WidgetBoxCategoryModel::setData(const QModelIndex &index, const QVariant &v
     return true;
 }
 
-Qt::ItemFlags WidgetBoxCategoryModel::flags(const QModelIndex &index) const
+Qt::ItemFlags WidgetBoxCategoryModel::flags(const QModelIndex& index) const
 {
     Qt::ItemFlags rc = Qt::ItemIsEnabled;
     const int row = index.row();
-    if (row >= 0 && row <  m_items.size())
+    if (row >= 0 && row < m_items.size())
         if (m_items.at(row).editable) {
             rc |= Qt::ItemIsSelectable;
             // Can change name in list mode only
@@ -358,34 +351,34 @@ Qt::ItemFlags WidgetBoxCategoryModel::flags(const QModelIndex &index) const
     return rc;
 }
 
-int WidgetBoxCategoryModel::rowCount(const QModelIndex & /*parent*/) const
+int WidgetBoxCategoryModel::rowCount(const QModelIndex& /*parent*/) const
 {
     return m_items.size();
 }
 
-bool WidgetBoxCategoryModel::removeRows(int row, int count, const QModelIndex & parent)
+bool WidgetBoxCategoryModel::removeRows(int row, int count, const QModelIndex& parent)
 {
     if (row < 0 || count < 1)
         return false;
     const int size = m_items.size();
-    const int last =  row + count - 1;
+    const int last = row + count - 1;
     if (row >= size || last >= size)
         return false;
     beginRemoveRows(parent, row, last);
     for (int r = last; r >= row; r--)
-         m_items.removeAt(r);
+        m_items.removeAt(r);
     endRemoveRows();
     return true;
 }
 
-QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryModel::widgetAt(const QModelIndex & index) const
+QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryModel::widgetAt(const QModelIndex& index) const
 {
     return widgetAt(index.row());
 }
 
 QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryModel::widgetAt(int row) const
 {
-    if (row < 0 || row >=  m_items.size())
+    if (row < 0 || row >= m_items.size())
         return QDesignerWidgetBoxInterface::Widget();
     return m_items.at(row).widget;
 }
@@ -395,18 +388,17 @@ QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryModel::widgetAt(int row) co
 class WidgetBoxCategoryEntryDelegate : public QItemDelegate
 {
 public:
-    explicit WidgetBoxCategoryEntryDelegate(QWidget *parent = 0) : QItemDelegate(parent) {}
-    QWidget *createEditor(QWidget *parent,
-                          const QStyleOptionViewItem &option,
-                          const QModelIndex &index) const;
+    explicit WidgetBoxCategoryEntryDelegate(QWidget* parent = 0) : QItemDelegate(parent) {}
+    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option,
+                          const QModelIndex& index) const;
 };
 
-QWidget *WidgetBoxCategoryEntryDelegate::createEditor(QWidget *parent,
-                                                const QStyleOptionViewItem &option,
-                                                const QModelIndex &index) const
+QWidget* WidgetBoxCategoryEntryDelegate::createEditor(QWidget* parent,
+                                                      const QStyleOptionViewItem& option,
+                                                      const QModelIndex& index) const
 {
-    QWidget *result = QItemDelegate::createEditor(parent, option, index);
-    if (QLineEdit *line_edit = qobject_cast<QLineEdit*>(result)) {
+    QWidget* result = QItemDelegate::createEditor(parent, option, index);
+    if (QLineEdit* line_edit = qobject_cast<QLineEdit*>(result)) {
         QRegExp re = QRegExp(QStringLiteral("[_a-zA-Z][_a-zA-Z0-9]*"));
         Q_ASSERT(re.isValid());
         line_edit->setValidator(new QRegExpValidator(re, line_edit));
@@ -416,15 +408,15 @@ QWidget *WidgetBoxCategoryEntryDelegate::createEditor(QWidget *parent,
 
 // ----------------------  WidgetBoxCategoryListView
 
-//WidgetBoxCategoryListView::WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent) :
-WidgetBoxCategoryListView::WidgetBoxCategoryListView(SampleDesignerInterface *core, QWidget *parent) :
-    QListView(parent),
-    m_proxyModel(new QSortFilterProxyModel(this)),
-    m_model(new WidgetBoxCategoryModel(core, this))
+// WidgetBoxCategoryListView::WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget
+// *parent) :
+WidgetBoxCategoryListView::WidgetBoxCategoryListView(SampleDesignerInterface* core, QWidget* parent)
+    : QListView(parent), m_proxyModel(new QSortFilterProxyModel(this)),
+      m_model(new WidgetBoxCategoryModel(core, this))
 {
     setFocusPolicy(Qt::NoFocus);
     setFrameShape(QFrame::NoFrame);
-    //setIconSize(QSize(22, 22));
+    // setIconSize(QSize(22, 22));
     setIconSize(QSize(32, 32));
     setSpacing(1);
     setTextElideMode(Qt::ElideMiddle);
@@ -441,7 +433,8 @@ WidgetBoxCategoryListView::WidgetBoxCategoryListView(SampleDesignerInterface *co
     m_proxyModel->setSourceModel(m_model);
     m_proxyModel->setFilterRole(FILTER_ROLE);
     setModel(m_proxyModel);
-    connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(scratchPadChanged()));
+    connect(m_model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this,
+            SIGNAL(scratchPadChanged()));
 }
 
 void WidgetBoxCategoryListView::setViewMode(ViewMode vm)
@@ -452,17 +445,17 @@ void WidgetBoxCategoryListView::setViewMode(ViewMode vm)
 
 void WidgetBoxCategoryListView::setCurrentItem(EAccessMode am, int row)
 {
-    const QModelIndex index = am == FILTERED ?
-        m_proxyModel->index(row, 0) :
-        m_proxyModel->mapFromSource(m_model->index(row, 0));
+    const QModelIndex index = am == FILTERED ? m_proxyModel->index(row, 0)
+                                             : m_proxyModel->mapFromSource(m_model->index(row, 0));
 
     if (index.isValid())
         setCurrentIndex(index);
 }
 
-void WidgetBoxCategoryListView::slotPressed(const QModelIndex &index)
+void WidgetBoxCategoryListView::slotPressed(const QModelIndex& index)
 {
-    const QDesignerWidgetBoxInterface::Widget wgt = m_model->widgetAt(m_proxyModel->mapToSource(index));
+    const QDesignerWidgetBoxInterface::Widget wgt =
+        m_model->widgetAt(m_proxyModel->mapToSource(index));
     if (wgt.isNull())
         return;
     emit pressed(wgt.name(), widgetDomXml(wgt), QCursor::pos());
@@ -501,13 +494,15 @@ int WidgetBoxCategoryListView::mapRowToSource(int filterRow) const
     return m_proxyModel->mapToSource(filterIndex).row();
 }
 
-QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryListView::widgetAt(EAccessMode am, const QModelIndex & index) const
+QDesignerWidgetBoxInterface::Widget
+WidgetBoxCategoryListView::widgetAt(EAccessMode am, const QModelIndex& index) const
 {
     const QModelIndex unfilteredIndex = am == FILTERED ? m_proxyModel->mapToSource(index) : index;
     return m_model->widgetAt(unfilteredIndex);
 }
 
-QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryListView::widgetAt(EAccessMode am, int row) const
+QDesignerWidgetBoxInterface::Widget WidgetBoxCategoryListView::widgetAt(EAccessMode am,
+                                                                        int row) const
 {
     return m_model->widgetAt(am == UNFILTERED ? row : mapRowToSource(row));
 }
@@ -517,17 +512,18 @@ void WidgetBoxCategoryListView::removeRow(EAccessMode am, int row)
     m_model->removeRow(am == UNFILTERED ? row : mapRowToSource(row));
 }
 
-bool WidgetBoxCategoryListView::containsWidget(const QString &name)
+bool WidgetBoxCategoryListView::containsWidget(const QString& name)
 {
     return m_model->indexOfWidget(name) != -1;
 }
 
-void WidgetBoxCategoryListView::addWidget(const QDesignerWidgetBoxInterface::Widget &widget, const QIcon &icon, bool editable)
+void WidgetBoxCategoryListView::addWidget(const QDesignerWidgetBoxInterface::Widget& widget,
+                                          const QIcon& icon, bool editable)
 {
     m_model->addWidget(widget, icon, editable);
 }
 
-QString WidgetBoxCategoryListView::widgetDomXml(const QDesignerWidgetBoxInterface::Widget &widget)
+QString WidgetBoxCategoryListView::widgetDomXml(const QDesignerWidgetBoxInterface::Widget& widget)
 {
     QString domXml = widget.domXml();
 
@@ -541,7 +537,7 @@ QString WidgetBoxCategoryListView::widgetDomXml(const QDesignerWidgetBoxInterfac
     return domXml;
 }
 
-void WidgetBoxCategoryListView::filter(const QRegExp &re)
+void WidgetBoxCategoryListView::filter(const QRegExp& re)
 {
     m_proxyModel->setFilterRegExp(re);
 }
@@ -555,6 +551,6 @@ bool WidgetBoxCategoryListView::removeCustomWidgets()
 {
     return m_model->removeCustomWidgets();
 }
-}  // namespace qdesigner_internal
+} // namespace qdesigner_internal
 
 QT_END_NAMESPACE

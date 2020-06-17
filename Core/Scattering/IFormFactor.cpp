@@ -13,26 +13,27 @@
 // ************************************************************************** //
 
 #include "IFormFactor.h"
-#include "ILayerRTCoefficients.h"
 #include "Exceptions.h"
 #include "FormFactorDecoratorPositionFactor.h"
 #include "FormFactorDecoratorRotation.h"
+#include "ILayerRTCoefficients.h"
 #include "Rotations.h"
 #include "WavevectorInfo.h"
 #include <memory>
 #include <utility>
 
-namespace {
-bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
-                              const IRotation& rot, kvector_t translation);
-bool ShapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits,
-                        const IRotation& rot, kvector_t translation);
-}
+namespace
+{
+bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits, const IRotation& rot,
+                              kvector_t translation);
+bool ShapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits, const IRotation& rot,
+                        kvector_t translation);
+} // namespace
 
 IFormFactor::~IFormFactor() {}
 
 IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation& rot,
-                                                kvector_t translation) const
+                                                 kvector_t translation) const
 {
     if (ShapeIsContainedInLimits(*this, limits, rot, translation))
         return CreateTransformedFormFactor(*this, rot, translation);
@@ -40,8 +41,9 @@ IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation
         return nullptr;
     if (canSliceAnalytically(rot))
         return sliceFormFactor(limits, rot, translation);
-    throw std::runtime_error(getName() + "::createSlicedFormFactor error: not supported for "
-                             "the given rotation!");
+    throw std::runtime_error(getName()
+                             + "::createSlicedFormFactor error: not supported for "
+                               "the given rotation!");
 }
 
 Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
@@ -59,7 +61,8 @@ double IFormFactor::volume() const
 
 void IFormFactor::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients>,
                                   std::unique_ptr<const ILayerRTCoefficients>)
-{}
+{
+}
 
 bool IFormFactor::canSliceAnalytically(const IRotation&) const
 {
@@ -72,23 +75,24 @@ IFormFactor* IFormFactor::sliceFormFactor(ZLimits, const IRotation&, kvector_t) 
 }
 
 IFormFactor* CreateTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
-                                        kvector_t translation)
+                                         kvector_t translation)
 {
     std::unique_ptr<IFormFactor> P_fftemp, P_result;
     if (!rot.isIdentity())
         P_fftemp.reset(new FormFactorDecoratorRotation(formfactor, rot));
     else
         P_fftemp.reset(formfactor.clone());
-    if (translation!=kvector_t())
+    if (translation != kvector_t())
         P_result.reset(new FormFactorDecoratorPositionFactor(*P_fftemp, translation));
     else
         std::swap(P_fftemp, P_result);
     return P_result.release();
 }
 
-namespace {
-bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
-                              const IRotation& rot, kvector_t translation)
+namespace
+{
+bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits, const IRotation& rot,
+                              kvector_t translation)
 {
     double zbottom = formfactor.bottomZ(rot) + translation.z();
     double ztop = formfactor.topZ(rot) + translation.z();
@@ -100,8 +104,8 @@ bool ShapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits,
         return false;
     return true;
 }
-bool ShapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits,
-                        const IRotation& rot, kvector_t translation)
+bool ShapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits, const IRotation& rot,
+                        kvector_t translation)
 {
     double zbottom = formfactor.bottomZ(rot) + translation.z();
     double ztop = formfactor.topZ(rot) + translation.z();
@@ -113,4 +117,4 @@ bool ShapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits,
         return true;
     return false;
 }
-}
+} // namespace

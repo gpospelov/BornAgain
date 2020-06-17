@@ -19,20 +19,20 @@
 #include "DetectorItems.h"
 #include "DomainObjectBuilder.h"
 #include "FitSuiteItem.h"
-#include "GroupItem.h"
 #include "GUIHelpers.h"
+#include "GroupItem.h"
 #include "IDetector2D.h"
 #include "Instrument.h"
 #include "InstrumentItems.h"
 #include "IntensityDataItem.h"
-#include "JobItem.h"
 #include "ItemFileNameUtils.h"
+#include "JobItem.h"
 #include "JobItemUtils.h"
 #include "JobModel.h"
-#include "MaterialItemContainer.h"
-#include "MaterialItemUtils.h"
 #include "MaskItems.h"
 #include "MaskUnitsConverter.h"
+#include "MaterialItemContainer.h"
+#include "MaterialItemUtils.h"
 #include "MultiLayerItem.h"
 #include "PointwiseAxisItem.h"
 #include "RealDataItem.h"
@@ -71,8 +71,9 @@ void JobModelFunctions::initDataView(JobItem* job_item)
         Constants::Data1DViewItemType, job_item->index(), -1, JobItem::T_DATAVIEW));
     assert(view_item);
 
-    auto property_container = dynamic_cast<DataPropertyContainer*>(model->insertNewItem(
-        Constants::DataPropertyContainerType, view_item->index(), -1, Data1DViewItem::T_DATA_PROPERTIES));
+    auto property_container = dynamic_cast<DataPropertyContainer*>(
+        model->insertNewItem(Constants::DataPropertyContainerType, view_item->index(), -1,
+                             Data1DViewItem::T_DATA_PROPERTIES));
     assert(property_container);
 
     property_container->addItem(job_item->realDataItem()->dataItem());
@@ -97,7 +98,7 @@ void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLaye
         Constants::MaterialContainerType, jobItem->index(), -1, JobItem::T_MATERIAL_CONTAINER));
 
     std::map<MaterialItem*, QString> materials;
-    for (auto property_item: multilayer->materialPropertyItems()) {
+    for (auto property_item : multilayer->materialPropertyItems()) {
         auto material_property = property_item->value().value<ExternalProperty>();
         auto material = MaterialItemUtils::findMaterial(material_property);
 
@@ -112,8 +113,7 @@ void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLaye
     }
 }
 
-void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
-                                               const InstrumentItem* from)
+void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem, const InstrumentItem* from)
 {
     auto model = jobItem->model();
     SessionItem* to = model->copyItem(from, jobItem, JobItem::T_INSTRUMENT);
@@ -132,10 +132,10 @@ void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem,
     // copying axis data
     auto spec_from = static_cast<const SpecularInstrumentItem*>(from);
     auto axis_origin = getPointwiseAxisItem(spec_from);
-    const QString current_axis_type= spec_from->beamItem()->inclinationAxisGroup()->currentType();
+    const QString current_axis_type = spec_from->beamItem()->inclinationAxisGroup()->currentType();
     if (current_axis_type == Constants::PointwiseAxisType)
         spec_to->beamItem()->updateToData(*axis_origin->getAxis(), axis_origin->getUnitsLabel());
-    else if(axis_origin->containsNonXMLData())
+    else if (axis_origin->containsNonXMLData())
         getPointwiseAxisItem(spec_to)->init(*axis_origin->getAxis(), axis_origin->getUnitsLabel());
 }
 
@@ -152,7 +152,7 @@ void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
 
     } else if (instrumentType == Constants::GISASInstrumentType
                || instrumentType == Constants::OffSpecInstrumentType
-               || instrumentType == Constants::DepthProbeInstrumentType ) {
+               || instrumentType == Constants::DepthProbeInstrumentType) {
         model->insertNewItem(Constants::IntensityDataType, model->indexOfItem(jobItem), -1,
                              JobItem::T_OUTPUT);
 
@@ -201,8 +201,8 @@ void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* r
 
     SessionModel* model = jobItem->model();
 
-    RealDataItem* realDataItemCopy
-        = dynamic_cast<RealDataItem*>(model->copyItem(realDataItem, jobItem, JobItem::T_REALDATA));
+    RealDataItem* realDataItemCopy =
+        dynamic_cast<RealDataItem*>(model->copyItem(realDataItem, jobItem, JobItem::T_REALDATA));
     Q_ASSERT(realDataItemCopy);
 
     realDataItemCopy->dataItem()->setOutputData(realDataItem->dataItem()->getOutputData()->clone());
@@ -227,7 +227,8 @@ const JobItem* JobModelFunctions::findJobItem(const SessionItem* item)
     return static_cast<const JobItem*>(item);
 }
 
-namespace {
+namespace
+{
 void processInstrumentLink(JobItem* jobItem)
 {
     RealDataItem* realData = jobItem->realDataItem();
@@ -275,8 +276,8 @@ void createFitContainers(JobItem* jobItem)
                                 "a second FitSuiteItem.");
     }
 
-    fitSuiteItem
-        = model->insertNewItem(Constants::FitSuiteType, jobItem->index(), -1, JobItem::T_FIT_SUITE);
+    fitSuiteItem =
+        model->insertNewItem(Constants::FitSuiteType, jobItem->index(), -1, JobItem::T_FIT_SUITE);
 
     SessionItem* parsContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS);
     if (parsContainerItem != nullptr) {
@@ -284,9 +285,9 @@ void createFitContainers(JobItem* jobItem)
                                 "a second FitParameterContainer.");
     }
 
-    parsContainerItem
-        = model->insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
-                               FitSuiteItem::T_FIT_PARAMETERS);
+    parsContainerItem =
+        model->insertNewItem(Constants::FitParameterContainerType, fitSuiteItem->index(), -1,
+                             FitSuiteItem::T_FIT_PARAMETERS);
 
     // Minimizer settings
     SessionItem* minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);

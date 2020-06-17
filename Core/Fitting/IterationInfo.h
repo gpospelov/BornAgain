@@ -15,8 +15,8 @@
 #ifndef ITERATIONINFO_H
 #define ITERATIONINFO_H
 
-#include "WinDllMacros.h"
 #include "Parameters.h"
+#include "WinDllMacros.h"
 #include <map>
 #include <string>
 
@@ -45,6 +45,5 @@ private:
     Fit::Parameters m_current_parameters;
     unsigned m_iteration_count;
 };
-
 
 #endif // ITERATIONINFO_H

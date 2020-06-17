@@ -12,10 +12,11 @@
 //
 // ************************************************************************** //
 
+#include "FitProgressInfo.h"
 #include "SplashScreen.h"
 #include "appoptions.h"
 #include "mainwindow.h"
-#include "FitProgressInfo.h"
+#include "hostosinfo.h"
 #include <QApplication>
 #include <QLocale>
 #include <QMetaType>
@@ -31,7 +32,7 @@ int main(int argc, char* argv[])
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     qRegisterMetaType<QVector<double>>("QVector<double>");
 
-    if( options.enableHighDPISupport())
+    if (!options.disableHighDPISupport())
         QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     QApplication app(argc, argv);
@@ -42,7 +43,7 @@ int main(int argc, char* argv[])
     std::unique_ptr<SplashScreen> splash;
     if (!options.find("no-splash")) {
         splash.reset(new SplashScreen);
-        splash->start(/*show_during*/1200);
+        splash->start(/*show_during*/ 1200);
     }
 
     MainWindow win;

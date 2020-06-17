@@ -13,30 +13,27 @@
 // ************************************************************************** //
 
 #include "JobSelectorActions.h"
+#include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "StyledToolBar.h"
-#include "IntensityDataItem.h"
 #include <QAction>
 #include <QItemSelectionModel>
-#include <QPersistentModelIndex>
 #include <QMenu>
+#include <QPersistentModelIndex>
 #include <memory>
 
 JobSelectorActions::JobSelectorActions(JobModel* jobModel, QObject* parent)
-    : QObject(parent)
-    , m_runJobAction(nullptr)
-    , m_removeJobAction(nullptr)
-    , m_selectionModel(nullptr)
-    , m_jobModel(jobModel)
+    : QObject(parent), m_runJobAction(nullptr), m_removeJobAction(nullptr),
+      m_selectionModel(nullptr), m_jobModel(jobModel)
 {
     m_runJobAction = new QAction(QStringLiteral("Run"), this);
-    m_runJobAction->setIcon(QIcon(":/images/toolbar16dark_run.svg"));
+    m_runJobAction->setIcon(QIcon(":/images/play.svg"));
     m_runJobAction->setToolTip("Run currently selected job");
     connect(m_runJobAction, &QAction::triggered, this, &JobSelectorActions::onRunJob);
 
     m_removeJobAction = new QAction(QStringLiteral("Remove"), this);
-    m_removeJobAction->setIcon(QIcon(":/images/toolbar16dark_recycle.svg"));
+    m_removeJobAction->setIcon(QIcon(":/images/delete.svg"));
     m_removeJobAction->setToolTip("Remove currently selected job.");
     connect(m_removeJobAction, &QAction::triggered, this, &JobSelectorActions::onRemoveJob);
 }
@@ -49,7 +46,7 @@ void JobSelectorActions::setSelectionModel(QItemSelectionModel* selectionModel)
 void JobSelectorActions::onRunJob()
 {
     QModelIndexList indexList = m_selectionModel->selectedIndexes();
-    for(auto index : indexList) {
+    for (auto index : indexList) {
         if (canRunJob(index))
             m_jobModel->runJob(index);
     }
@@ -58,11 +55,11 @@ void JobSelectorActions::onRunJob()
 void JobSelectorActions::onRemoveJob()
 {
     QList<QPersistentModelIndex> toRemove;
-    for(auto index : m_selectionModel->selectedIndexes())
+    for (auto index : m_selectionModel->selectedIndexes())
         if (canRemoveJob(index))
             toRemove.append(QPersistentModelIndex(index));
 
-    for(auto index : toRemove)
+    for (auto index : toRemove)
         m_jobModel->removeJob(index);
 }
 
@@ -93,7 +90,7 @@ void JobSelectorActions::equalizeSelectedToJob(int selected_id)
     if (!referenceDataItem)
         return;
 
-    for(auto index : selectedList) {
+    for (auto index : selectedList) {
         JobItem* jobItem = m_jobModel->getJobItemForIndex(index);
         if (jobItem == referenceItem)
             continue;

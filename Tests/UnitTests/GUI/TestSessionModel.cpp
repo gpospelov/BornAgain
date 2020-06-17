@@ -1,14 +1,14 @@
 #include "InstrumentModel.h"
 #include "JobItem.h"
 #include "JobModel.h"
+#include "MaskItems.h"
 #include "MaterialModel.h"
 #include "SampleModel.h"
-#include "SessionModel.h"
 #include "SessionItemTags.h"
+#include "SessionModel.h"
 #include "google_test.h"
-#include "MaskItems.h"
-#include <QXmlStreamWriter>
 #include <QSignalSpy>
+#include <QXmlStreamWriter>
 #include <memory>
 
 class TestSessionModel : public ::testing::Test

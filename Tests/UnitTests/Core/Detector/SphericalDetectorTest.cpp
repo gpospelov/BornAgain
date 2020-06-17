@@ -1,4 +1,4 @@
-#include "google_test.h"
+#include "SphericalDetector.h"
 #include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "ConvolutionDetectorResolution.h"
@@ -11,8 +11,8 @@
 #include "RegionOfInterest.h"
 #include "ResolutionFunction2DGaussian.h"
 #include "SimulationArea.h"
-#include "SphericalDetector.h"
 #include "Units.h"
+#include "google_test.h"
 #include <memory>
 
 class SphericalDetectorTest : public ::testing::Test
@@ -214,11 +214,11 @@ TEST_F(SphericalDetectorTest, Clone)
 
     auto data = clone->createDetectorMap();
     EXPECT_EQ(data->getAxis(0).size(), 4u);
-    EXPECT_EQ(data->getAxis(0).getMin(), 0.0*Units::deg);
-    EXPECT_EQ(data->getAxis(0).getMax(), 4.0*Units::deg);
+    EXPECT_EQ(data->getAxis(0).getMin(), 0.0 * Units::deg);
+    EXPECT_EQ(data->getAxis(0).getMax(), 4.0 * Units::deg);
     EXPECT_EQ(data->getAxis(1).size(), 2u);
-    EXPECT_EQ(data->getAxis(1).getMin(), 1.0*Units::deg);
-    EXPECT_EQ(data->getAxis(1).getMax(), 3.0*Units::deg);
+    EXPECT_EQ(data->getAxis(1).getMin(), 1.0 * Units::deg);
+    EXPECT_EQ(data->getAxis(1).getMax(), 3.0 * Units::deg);
 
     EXPECT_EQ(std::string("ConvolutionDetectorResolution"), clone->detectorResolution()->getName());
 

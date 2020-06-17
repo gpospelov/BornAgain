@@ -16,17 +16,17 @@
 #ifndef TEST_UTILS
 #define TEST_UTILS
 
-#include <QString>
-#include "SessionXML.h"
 #include "PropertyItem.h"
+#include "SessionXML.h"
+#include <QString>
 #include <QXmlStreamWriter>
 
-template<class T> class OutputData;
+template <class T> class OutputData;
 class RealDataItem;
 
 namespace TestUtils
 {
-enum class DIM {D1 = 1, D2 = 2};
+enum class DIM { D1 = 1, D2 = 2 };
 
 //! Creates directory in current working directory. If such directory already exists,
 //! it will be removed with all its content.
@@ -40,18 +40,17 @@ RealDataItem* createRealData(const QString& name, SessionModel& model, double va
                              DIM n_dim = DIM::D2);
 
 //! Converts property to XML string
-template <typename T>
-QString propertyToXML(const T& property)
+template <typename T> QString propertyToXML(const T& property)
 {
     QString result;
     QXmlStreamWriter writer(&result);
-    SessionXML::writeVariant(&writer, property.variant(), /*role*/0);
+    SessionXML::writeVariant(&writer, property.variant(), /*role*/ 0);
     return result;
 }
 
 //! Converts XML string to property
-template <typename T>
-T propertyFromXML(const QString& buffer) {
+template <typename T> T propertyFromXML(const QString& buffer)
+{
     std::unique_ptr<PropertyItem> item(new PropertyItem);
     QXmlStreamReader reader(buffer);
 
@@ -73,6 +72,6 @@ bool isTheSame(const OutputData<double>& data1, const OutputData<double>& data2)
 //! Helper function to check if file on disk represents same data.
 bool isTheSame(const QString& fileName, const OutputData<double>& data);
 
-}
+} // namespace TestUtils
 
 #endif // TEST_UTILS

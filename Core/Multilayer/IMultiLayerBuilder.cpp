@@ -19,4 +19,3 @@ IMultiLayerBuilder::IMultiLayerBuilder()
 {
     setName(BornAgain::SampleBuilderType);
 }
-

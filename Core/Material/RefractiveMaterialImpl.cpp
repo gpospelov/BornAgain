@@ -16,11 +16,13 @@
 #include "WavevectorInfo.h"
 
 RefractiveMaterialImpl::RefractiveMaterialImpl(const std::string& name, double delta, double beta,
-                                                 kvector_t magnetization)
-    : MagneticMaterialImpl(name, magnetization)
-    , m_delta(delta)
-    , m_beta(beta)
-{}
+                                               kvector_t magnetization)
+    : MagneticMaterialImpl(name, magnetization), m_delta(delta),
+      m_beta(beta < 0. ? throw std::runtime_error(
+                 "The imaginary part of the refractive index must be greater or equal zero")
+                       : beta)
+{
+}
 
 RefractiveMaterialImpl* RefractiveMaterialImpl::clone() const
 {
@@ -46,13 +48,12 @@ complex_t RefractiveMaterialImpl::materialData() const
 complex_t RefractiveMaterialImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
 {
     double wavelength = wavevectors.getWavelength();
-    double prefactor = M_PI/wavelength/wavelength;
+    double prefactor = M_PI / wavelength / wavelength;
     return prefactor * refractiveIndex2(wavelength);
 }
 
 void RefractiveMaterialImpl::print(std::ostream& ostr) const
 {
     ostr << "RefractiveMaterial:" << getName() << "<" << this << ">{ "
-         << "delta=" << m_delta << ", beta=" << m_beta
-         << ", B=" << magnetization() << "}";
+         << "delta=" << m_delta << ", beta=" << m_beta << ", B=" << magnetization() << "}";
 }

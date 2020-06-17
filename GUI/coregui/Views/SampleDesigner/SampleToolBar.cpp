@@ -26,29 +26,27 @@
 #include <QToolButton>
 
 //! main tool bar on top of SampleView window
-SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
-                             QWidget* parent)
-    : StyledToolBar(parent)
-    , m_sampleViewActions(sampleActions)
+SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
+    : StyledToolBar(parent), m_sampleViewActions(sampleActions)
 {
     // Select & Pan
     auto selectionPointerButton = new QToolButton;
     selectionPointerButton->setCheckable(true);
     selectionPointerButton->setChecked(true);
-    selectionPointerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_pointer.png"));
+    selectionPointerButton->setIcon(QIcon(":/SampleDesigner/images/arrow-top-left.svg"));
     selectionPointerButton->setToolTip("Edit mode.");
 
     auto handPointerButton = new QToolButton;
     handPointerButton->setCheckable(true);
-    handPointerButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_hand.png"));
+    handPointerButton->setIcon(QIcon(":/SampleDesigner/images/hand-right.svg"));
     handPointerButton->setToolTip("Pan mode (space).");
 
     m_pointerModeGroup = new QButtonGroup(this);
     m_pointerModeGroup->addButton(selectionPointerButton, DesignerView::RUBBER_SELECTION);
     m_pointerModeGroup->addButton(handPointerButton, DesignerView::HAND_DRAG);
     connect(m_pointerModeGroup,
-            static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
-            this, &SampleToolBar::selectionMode);
+            static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this,
+            &SampleToolBar::selectionMode);
     addWidget(selectionPointerButton);
     addWidget(handPointerButton);
 
@@ -57,7 +55,7 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
     // Remove item
     m_removeButton = new QToolButton;
     m_removeButton->setText("Remove item");
-    m_removeButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_recycle.png"));
+    m_removeButton->setIcon(QIcon(":/SampleDesigner/images/delete.svg"));
     m_removeButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_removeButton->setToolTip("Remove selected items and they child items (del).");
     connect(m_removeButton, &QToolButton::clicked, this, &SampleToolBar::deleteItems);
@@ -67,41 +65,47 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
 
     // Center view
     m_centerViewButton = new QToolButton;
-    m_centerViewButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_center.png"));
+    m_centerViewButton->setText("Center view");
+    m_centerViewButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    m_centerViewButton->setIcon(QIcon(":/SampleDesigner/images/camera-metering-center.svg"));
     m_centerViewButton->setToolTip("Center view.");
-    addWidget(m_centerViewButton);
     connect(m_centerViewButton, &QToolButton::clicked, this, &SampleToolBar::centerView);
+    addWidget(m_centerViewButton);
 
     // Zoom
     addWidget(new QLabel(" "));
-    addSeparator();
-    addWidget(new QLabel(" Zoom "));
     m_scaleCombo = new QComboBox;
-    QStringList scales = QStringList() << "25%" << "50%" << "75%" << "100%" << "125%" << "150%";
+    QStringList scales = QStringList() << "25%"
+                                       << "50%"
+                                       << "75%"
+                                       << "100%"
+                                       << "125%"
+                                       << "150%";
     m_scaleCombo->addItems(scales);
     m_scaleCombo->setCurrentIndex(3);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
     connect(m_scaleCombo,
-            static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentTextChanged),
-            this, &SampleToolBar::onScaleComboChanged);
+            static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentTextChanged), this,
+            &SampleToolBar::onScaleComboChanged);
 #else
     connect(m_scaleCombo,
-            static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged),
-            this, &SampleToolBar::onScaleComboChanged);
+            static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), this,
+            &SampleToolBar::onScaleComboChanged);
 #endif
 
     addWidget(m_scaleCombo);
+    addWidget(new QLabel(" Zoom "));
 
     // MaterialEditor
     addWidget(new QLabel(" "));
     m_materialEditorButton = new QToolButton;
     m_materialEditorButton->setText("Material Editor");
-    m_materialEditorButton->setIcon(QIcon(":/SampleDesigner/images/toolbar_materialeditor.png"));
+    m_materialEditorButton->setIcon(QIcon(":/SampleDesigner/images/alpha-m-box.svg"));
     m_materialEditorButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_materialEditorButton->setToolTip("Open material editor (m).");
     m_materialEditorButton->setShortcut(Qt::Key_M);
-    connect(m_materialEditorButton, &QToolButton::clicked,
-            this, &SampleToolBar::onMaterialEditorCall);
+    connect(m_materialEditorButton, &QToolButton::clicked, this,
+            &SampleToolBar::onMaterialEditorCall);
     addWidget(m_materialEditorButton);
 
     addStyledSeparator();
@@ -110,23 +114,13 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions,
     addWidget(new QLabel(" "));
     addWidget(new QLabel(" "));
     m_RealSpaceViewerButton = new QToolButton;
+    m_RealSpaceViewerButton->setIcon(QIcon(":/SampleDesigner/images/rotate-3d.svg"));
     m_RealSpaceViewerButton->setText("3D Viewer");
     m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");
-    connect(m_RealSpaceViewerButton, &QToolButton::clicked,
-            m_sampleViewActions, &SampleViewActions::onToggleRealSpaceView);
+    connect(m_RealSpaceViewerButton, &QToolButton::clicked, m_sampleViewActions,
+            &SampleViewActions::onToggleRealSpaceView);
     addWidget(m_RealSpaceViewerButton);
-
-    // Additional actions
-    m_zoomOutAction = new QAction(this);
-    m_zoomOutAction->setShortcut(QKeySequence(Qt::Key_Minus));
-    connect(m_zoomOutAction, &QAction::triggered, this, &SampleToolBar::zoomOut);
-    addAction(m_zoomOutAction);
-
-    m_zoomInAction = new QAction(this);
-    m_zoomInAction->setShortcut(QKeySequence(Qt::Key_Equal));
-    connect(m_zoomInAction, &QAction::triggered, this, &SampleToolBar::zoomIn);
-    addAction(m_zoomInAction);
 }
 
 void SampleToolBar::onViewSelectionMode(int mode)

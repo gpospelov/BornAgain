@@ -28,15 +28,15 @@ public:
     static IRotation* createIdentity();
     virtual ~IRotation() {}
 
-    virtual IRotation* clone() const=0;
+    virtual IRotation* clone() const = 0;
 
     //! Returns a new IRotation object that is the current object's inverse
-    virtual IRotation* createInverse() const=0;
+    virtual IRotation* createInverse() const = 0;
 
     void accept(INodeVisitor* visitor) const { visitor->visit(this); }
 
     //! Returns transformation.
-    virtual Transform3D getTransform3D() const=0;
+    virtual Transform3D getTransform3D() const = 0;
 
     //! Returns true if rotation matrix is identity matrix (no rotations)
     virtual bool isIdentity() const;
@@ -49,7 +49,7 @@ bool IsZRotation(const IRotation& rot);
 class BA_CORE_API_ IdentityRotation : public IRotation
 {
 public:
-    IdentityRotation() =default;
+    IdentityRotation() = default;
 
     IdentityRotation* clone() const { return new IdentityRotation(); }
     IdentityRotation* createInverse() const { return new IdentityRotation(); }

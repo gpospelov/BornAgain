@@ -58,7 +58,8 @@ class QRegExp;
 
 class SampleDesignerInterface;
 
-namespace qdesigner_internal {
+namespace qdesigner_internal
+{
 
 class WidgetBoxCategoryModel;
 
@@ -71,51 +72,53 @@ public:
     // Whether to access the filtered or unfiltered view
     enum EAccessMode { FILTERED, UNFILTERED };
 
-//    explicit WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent = 0);
-    explicit WidgetBoxCategoryListView(SampleDesignerInterface *core, QWidget *parent = 0);
+    //    explicit WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent =
+    //    0);
+    explicit WidgetBoxCategoryListView(SampleDesignerInterface* core, QWidget* parent = 0);
     void setViewMode(ViewMode vm);
 
-    void dropWidgets(const QList<QDesignerDnDItemInterface*> &item_list);
+    void dropWidgets(const QList<QDesignerDnDItemInterface*>& item_list);
 
     using QListView::contentsSize;
 
     // These methods operate on the filtered/unfiltered model according to accessmode
     int count(EAccessMode am) const;
-    QDesignerWidgetBoxInterface::Widget widgetAt(EAccessMode am, const QModelIndex &index) const;
+    QDesignerWidgetBoxInterface::Widget widgetAt(EAccessMode am, const QModelIndex& index) const;
     QDesignerWidgetBoxInterface::Widget widgetAt(EAccessMode am, int row) const;
     void removeRow(EAccessMode am, int row);
     void setCurrentItem(EAccessMode am, int row);
 
     // These methods operate on the unfiltered model and are used for serialization
-    void addWidget(const QDesignerWidgetBoxInterface::Widget &widget, const QIcon &icon, bool editable);
-    bool containsWidget(const QString &name);
+    void addWidget(const QDesignerWidgetBoxInterface::Widget& widget, const QIcon& icon,
+                   bool editable);
+    bool containsWidget(const QString& name);
     QDesignerWidgetBoxInterface::Category category() const;
     bool removeCustomWidgets();
 
     // Helper: Ensure a <ui> tag in the case of empty XML
-    static QString widgetDomXml(const QDesignerWidgetBoxInterface::Widget &widget);
+    static QString widgetDomXml(const QDesignerWidgetBoxInterface::Widget& widget);
 
 signals:
     void scratchPadChanged();
-    void pressed(const QString &name, const QString &xml, const QPoint &globalPos);
+    void pressed(const QString& name, const QString& xml, const QPoint& globalPos);
     void itemRemoved();
     void lastItemRemoved();
 
 public slots:
-    void filter(const QRegExp &re);
+    void filter(const QRegExp& re);
 
 private slots:
-    void slotPressed(const QModelIndex &index);
+    void slotPressed(const QModelIndex& index);
     void removeCurrentItem();
     void editCurrentItem();
 
 private:
     int mapRowToSource(int filterRow) const;
-    QSortFilterProxyModel *m_proxyModel;
-    WidgetBoxCategoryModel *m_model;
+    QSortFilterProxyModel* m_proxyModel;
+    WidgetBoxCategoryModel* m_model;
 };
 
-}  // namespace qdesigner_internal
+} // namespace qdesigner_internal
 
 QT_END_NAMESPACE
 

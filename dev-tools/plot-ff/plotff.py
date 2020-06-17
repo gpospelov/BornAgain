@@ -1,18 +1,18 @@
-# script to plot the formfactor
+# script to plot the form factor
 # after the ROOT window with plots appear,
 # just save the picture in that format which you need
 
 import ROOT
 from libBornAgainCore import *
 
-# define a formfactor, I recommend a 10--20 nm diameter
+# define a form factor, I recommend a 10--20 nm diameter
 #ff = FormFactorFullSphere(10.0*nanometer)
 #ff =  FormFactorSphere(10.0*nanometer, 13.0*nanometer)
 ff =  FormFactorPyramid(13*nanometer, 10.0*nanometer, 60*degree)
 
 
 # volume
-# I suggest, that the formfactor evaluated for q=0 gives the volume
+# I suggest, that the form factor evaluated for q=0 gives the volume
 # please correct if not
 zero = cvector_t(0,0,0)
 V = abs(ff.evaluate_for_q(zero))

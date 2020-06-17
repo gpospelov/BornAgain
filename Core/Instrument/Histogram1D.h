@@ -45,7 +45,7 @@ public:
     Histogram1D* clone() const;
 
     //! Returns the number of histogram dimensions
-    size_t getRank() const { return 1;}
+    size_t getRank() const { return 1; }
 
     //! Increment bin with abscissa x with a weight.
     int fill(double x, double weight = 1.0);
@@ -67,8 +67,6 @@ public:
 
     //! Create new histogram by applying crop on axis.
     Histogram1D* crop(double xmin, double xmax);
-
 };
-
 
 #endif // HISTOGRAM1D_H

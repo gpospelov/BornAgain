@@ -19,7 +19,8 @@
 #include "SimulationElement.h"
 
 ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* p_layout,
-                                                     const SimulationOptions& options, bool polarized)
+                                                     const SimulationOptions& options,
+                                                     bool polarized)
     : mp_layout(p_layout)
 {
     LayoutStrategyBuilder builder(p_layout, options, polarized);
@@ -28,7 +29,7 @@ ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout* p_la
     m_surface_density = p_layout->surfaceDensity();
 }
 
-ParticleLayoutComputation::~ParticleLayoutComputation() =default;
+ParticleLayoutComputation::~ParticleLayoutComputation() = default;
 
 void ParticleLayoutComputation::compute(SimulationElement& elem) const
 {
@@ -42,10 +43,9 @@ void ParticleLayoutComputation::compute(SimulationElement& elem) const
 }
 
 void ParticleLayoutComputation::mergeRegionMap(
-        std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const
+    std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const
 {
-    for (auto& entry : m_region_map)
-    {
+    for (auto& entry : m_region_map) {
         size_t i = entry.first;
         auto& regions = entry.second;
         region_map[i].insert(region_map[i].begin(), regions.begin(), regions.end());

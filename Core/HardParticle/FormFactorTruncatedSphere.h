@@ -16,7 +16,7 @@
 #define FORMFACTORTRUNCATEDSPHERE_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
+#include "Integrator.h"
 
 //! A truncated Sphere.
 //! @ingroup hardParticle
@@ -24,11 +24,13 @@
 class BA_CORE_API_ FormFactorTruncatedSphere : public IFormFactorBorn
 {
 public:
-    FormFactorTruncatedSphere(double radius, double height, double dh=0.0);
+    FormFactorTruncatedSphere(double radius, double height, double dh = 0.0);
 
-    FormFactorTruncatedSphere *clone() const override final {
-        return new FormFactorTruncatedSphere(m_radius, m_height, m_dh); }
-    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
+    FormFactorTruncatedSphere* clone() const override final
+    {
+        return new FormFactorTruncatedSphere(m_radius, m_height, m_dh);
+    }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
@@ -52,10 +54,7 @@ private:
     double m_height;
     double m_dh;
     mutable cvector_t m_q;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorTruncatedSphere>> mP_integrator;
-#endif
+    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // FORMFACTORTRUNCATEDSPHERE_H

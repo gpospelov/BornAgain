@@ -13,9 +13,9 @@
 // ************************************************************************** //
 
 #include "aboutapplicationdialog.h"
+#include "CustomEventFilters.h"
 #include "DesignerHelper.h"
 #include "GUIHelpers.h"
-#include "CustomEventFilters.h"
 #include <QDate>
 #include <QLabel>
 #include <QPushButton>
@@ -37,8 +37,8 @@ QLabel* createLinkLabel()
 QLabel* createCopyrightLabel()
 {
     QDate date = QDate::currentDate();
-    QString copyright
-        = QString("Copyright: Forschungszentrum Jülich GmbH ").append(date.toString("yyyy"));
+    QString copyright =
+        QString("Copyright: Forschungszentrum Jülich GmbH ").append(date.toString("yyyy"));
 
     auto result = new QLabel(copyright);
     result->setContentsMargins(0, 0, 0, 15);
@@ -52,7 +52,7 @@ QLabel* createLogoLabel()
     result->setPixmap(logo.scaled(656, 674, Qt::KeepAspectRatio));
     return result;
 }
-}
+} // namespace
 
 AboutApplicationDialog::AboutApplicationDialog(QWidget* parent) : QDialog(parent)
 {
@@ -104,8 +104,8 @@ QBoxLayout* AboutApplicationDialog::createTextLayout()
     normalFont.setBold(false);
 
     // title
-    auto aboutTitleLabel
-        = new QLabel(QString("BornAgain version ").append(GUIHelpers::getBornAgainVersionString()));
+    auto aboutTitleLabel =
+        new QLabel(QString("BornAgain version ").append(GUIHelpers::getBornAgainVersionString()));
     aboutTitleLabel->setFont(titleFont);
     aboutTitleLabel->setContentsMargins(0, 0, 0, 15);
 
@@ -144,7 +144,7 @@ QBoxLayout* AboutApplicationDialog::createButtonLayout()
     static const char mydata[] = {0x64, 0x65, 0x76, 0x73};
     QByteArray b = QByteArray::fromRawData(mydata, sizeof(mydata));
     auto f = new ShortcodeFilter(b, this);
-    connect(f, &ShortcodeFilter::found, this, [=]() { layout()->addWidget(createLogoLabel());});
+    connect(f, &ShortcodeFilter::found, this, [=]() { layout()->addWidget(createLogoLabel()); });
     installEventFilter(f);
 
     return result;

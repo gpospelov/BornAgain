@@ -17,14 +17,13 @@
 #include "WavevectorInfo.h"
 #include <stdexcept>
 
-
 FormFactorBAPol::FormFactorBAPol(const IFormFactor& form_factor)
     : mP_form_factor(form_factor.clone())
 {
     setName(BornAgain::FormFactorPolarizedBAType);
 }
 
-FormFactorBAPol::~FormFactorBAPol() =default;
+FormFactorBAPol::~FormFactorBAPol() = default;
 
 FormFactorBAPol* FormFactorBAPol::clone() const
 {
@@ -41,10 +40,10 @@ Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo& wavevectors)
 {
     Eigen::Matrix2cd ff_BA = mP_form_factor->evaluatePol(wavevectors);
     Eigen::Matrix2cd result;
-    result(0,0) = -ff_BA(1,0);
-    result(0,1) = ff_BA(0,0);
-    result(1,0) = -ff_BA(1,1);
-    result(1,1) = ff_BA(0,1);
+    result(0, 0) = -ff_BA(1, 0);
+    result(0, 1) = ff_BA(0, 0);
+    result(1, 0) = -ff_BA(1, 1);
+    result(1, 1) = ff_BA(0, 1);
     return result;
 }
 

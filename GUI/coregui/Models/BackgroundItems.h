@@ -24,7 +24,7 @@ class BA_CORE_API_ BackgroundItem : public SessionItem
 public:
     explicit BackgroundItem(const QString& model_type);
 
-    virtual std::unique_ptr<IBackground> createBackground() const=0;
+    virtual std::unique_ptr<IBackground> createBackground() const = 0;
 };
 
 class BA_CORE_API_ BackgroundNoneItem : public BackgroundItem
@@ -51,4 +51,3 @@ public:
 };
 
 #endif // BACKGROUNDITEMS_H
-

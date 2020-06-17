@@ -1,8 +1,8 @@
 #include "FitComparisonViewController.h"
 #include "AxesItems.h"
+#include "Data1DViewItem.h"
 #include "DataItem.h"
 #include "DataPropertyContainer.h"
-#include "Data1DViewItem.h"
 #include "IntensityDataFunctions.h"
 #include "JobItem.h"
 #include "PropertyRepeater.h"
@@ -13,13 +13,13 @@ namespace
 {
 const double relative_diff_min_1d = 1e-05;
 const double relative_diff_max_1d = 4.0;
-}
+} // namespace
 
 FitComparison1DViewController::FitComparison1DViewController(QObject* parent)
     : QObject(parent),
       m_diff_item_controller(new DiffItemController(Constants::SpecularDataType, this)),
-      m_diff_view_item(nullptr),
-      m_appearanceRepeater(new PropertyRepeater(this)), m_xAxisRepeater(new PropertyRepeater(this))
+      m_diff_view_item(nullptr), m_appearanceRepeater(new PropertyRepeater(this)),
+      m_xAxisRepeater(new PropertyRepeater(this))
 {
 }
 
@@ -93,7 +93,7 @@ void FitComparison1DViewController::deleteDiffViewItem()
     auto parent = m_diff_view_item->parent();
     auto old_view_item = parent->takeRow(parent->rowOfChild(m_diff_view_item));
     assert(old_view_item == m_diff_view_item);
-    delete(old_view_item);
+    delete (old_view_item);
     m_diff_view_item = nullptr;
 }
 

@@ -30,8 +30,7 @@ class BA_CORE_API_ UnitConverter1D : public IUnitConverter
 {
 public:
     //! Factory function to create unit converter for particular type of specular data
-    static std::unique_ptr<UnitConverter1D>
-    createUnitConverter(const ISpecularScan& handler);
+    static std::unique_ptr<UnitConverter1D> createUnitConverter(const ISpecularScan& handler);
 
     ~UnitConverter1D() override = default;
 
@@ -93,7 +92,7 @@ protected:
     //! Returns translating functional (rads --> desired units)
     std::function<double(double)> getTraslatorTo(AxesUnits units_type) const override;
 
-    const IAxis* coordinateAxis() const override {return m_axis.get();}
+    const IAxis* coordinateAxis() const override { return m_axis.get(); }
 
     double m_wavelength;           //!< basic wavelength in nm (for translation to q-space).
     std::unique_ptr<IAxis> m_axis; //!< basic inclination angles (in rads).

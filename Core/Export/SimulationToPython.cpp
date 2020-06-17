@@ -20,6 +20,7 @@
 #include "GISASSimulation.h"
 #include "INodeUtils.h"
 #include "ISpecularScan.h"
+#include "OffSpecSimulation.h"
 #include "ParameterUtils.h"
 #include "PoissonNoiseBackground.h"
 #include "PythonFormatting.h"
@@ -29,7 +30,6 @@
 #include "SampleToPython.h"
 #include "SpecularSimulation.h"
 #include "SphericalDetector.h"
-#include "OffSpecSimulation.h"
 #include <iomanip>
 
 using namespace PythonFormatting;
@@ -37,12 +37,14 @@ using namespace PythonFormatting;
 namespace
 {
 const std::string defineSimulate = "def run_simulation():\n"
-                                   "    sample = "+getSampleFunctionName()+"()\n"
-                                   "    simulation = get_simulation()\n"
-                                   "    simulation.setSample(sample)\n"
-                                   "    simulation.runSimulation()\n"
-                                   "    return simulation.result()\n"
-                                   "\n\n";
+                                   "    sample = "
+                                   + getSampleFunctionName()
+                                   + "()\n"
+                                     "    simulation = get_simulation()\n"
+                                     "    simulation.setSample(sample)\n"
+                                     "    simulation.runSimulation()\n"
+                                     "    return simulation.result()\n"
+                                     "\n\n";
 
 //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
 std::function<std::string(double)> printFunc(const IDetector* detector)
@@ -237,8 +239,8 @@ SimulationToPython::defineDetectorPolarizationAnalysis(const Simulation* simulat
     const IDetector* detector = simulation->getInstrument().getDetector();
     kvector_t analyzer_direction = detector->detectionProperties().analyzerDirection();
     double analyzer_efficiency = detector->detectionProperties().analyzerEfficiency();
-    double analyzer_total_transmission
-        = detector->detectionProperties().analyzerTotalTransmission();
+    double analyzer_total_transmission =
+        detector->detectionProperties().analyzerTotalTransmission();
 
     if (analyzer_direction.mag() > 0.0) {
         std::string direction_name = "analyzer_direction";
@@ -327,8 +329,8 @@ std::string SimulationToPython::defineBeamIntensity(const Beam& beam) const
 std::string SimulationToPython::defineParameterDistributions(const Simulation* simulation) const
 {
     std::ostringstream result;
-    const std::vector<ParameterDistribution>& distributions
-        = simulation->getDistributionHandler().getDistributions();
+    const std::vector<ParameterDistribution>& distributions =
+        simulation->getDistributionHandler().getDistributions();
     if (distributions.size() == 0)
         return "";
     for (size_t i = 0; i < distributions.size(); ++i) {

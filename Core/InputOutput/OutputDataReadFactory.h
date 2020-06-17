@@ -24,7 +24,8 @@ class BA_CORE_API_ OutputDataReadFactory
 {
 public:
     static OutputDataReader* getReader(const std::string& file_name);
-    static OutputDataReader *getReflectometryReader(const std::string &file_name);
+    static OutputDataReader* getReflectometryReader(const std::string& file_name);
+
 private:
     static IOutputDataReadStrategy* getReadStrategy(const std::string& file_name);
 };

@@ -13,23 +13,19 @@
 // ************************************************************************** //
 
 #include "SaveService.h"
-#include "UpdateTimer.h"
-#include "SaveThread.h"
 #include "AutosaveController.h"
-#include "projectdocument.h"
-#include "ProjectUtils.h"
 #include "GUIHelpers.h"
+#include "ProjectUtils.h"
+#include "SaveThread.h"
+#include "UpdateTimer.h"
+#include "projectdocument.h"
 #include <QApplication>
-#include <QTime>
 #include <QCoreApplication>
+#include <QTime>
 
 SaveService::SaveService(QObject* parent)
-    : QObject(parent)
-    , m_is_saving(false)
-    , m_autosave(nullptr)
-    , m_document(nullptr)
+    : QObject(parent), m_is_saving(false), m_autosave(nullptr), m_document(nullptr)
 {
-
 }
 
 void SaveService::setDocument(ProjectDocument* document)
@@ -56,8 +52,8 @@ void SaveService::setAutosaveEnabled(bool value)
         delete m_autosave;
         m_autosave = new AutosaveController(this);
         m_autosave->setDocument(m_document);
-        connect(m_autosave, &AutosaveController::autosaveRequest,
-                this, &SaveService::onAutosaveRequest);
+        connect(m_autosave, &AutosaveController::autosaveRequest, this,
+                &SaveService::onAutosaveRequest);
     } else {
         delete m_autosave;
         m_autosave = 0;
@@ -71,7 +67,7 @@ bool SaveService::isAutosaveEnabled() const
 
 void SaveService::setAutosaveTime(int timerInterval)
 {
-    if(!m_autosave)
+    if (!m_autosave)
         setAutosaveEnabled(true);
 
     m_autosave->setAutosaveTime(timerInterval);
@@ -89,7 +85,7 @@ void SaveService::stopService()
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
     if (isSaving()) {
-        QTime dieTime= QTime::currentTime().addSecs(60);
+        QTime dieTime = QTime::currentTime().addSecs(60);
         while (QTime::currentTime() < dieTime) {
             QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
             if (!isSaving())
@@ -99,7 +95,7 @@ void SaveService::stopService()
             throw GUIHelpers::Error("SaveService::stopService() -> Error. Can't stop service. ");
     }
 
-    if(m_autosave)
+    if (m_autosave)
         m_autosave->removeAutosaveDir();
 
     setDocument(nullptr);
@@ -139,9 +135,9 @@ void SaveService::process_queue()
         const bool isAutosave = project_file_name.contains(ProjectUtils::autosaveSubdir());
         m_document->save_project_file(project_file_name, isAutosave);
 
-        if(m_document->hasData()) {
+        if (m_document->hasData()) {
             // saving heavy data in separate thread
-            SaveThread *saveThread = new SaveThread(this);
+            SaveThread* saveThread = new SaveThread(this);
             saveThread->setSaveContext(m_document, project_file_name);
 
             connect(saveThread, &SaveThread::saveReady, this, &SaveService::onProjectSaved);
@@ -152,4 +148,3 @@ void SaveService::process_queue()
         }
     }
 }
-

@@ -14,18 +14,16 @@
 
 #include "InstrumentViewToolBar.h"
 #include "InstrumentViewActions.h"
-#include <QToolButton>
 #include <QMenu>
+#include <QToolButton>
 
 InstrumentViewToolBar::InstrumentViewToolBar(InstrumentViewActions* actions, QWidget* parent)
-    : StyledToolBar(parent)
-    , m_addInstrumentButton(new QToolButton)
-    , m_removeInstrumentButton(new QToolButton)
-    , m_cloneInstrumentButton(new QToolButton)
-    , m_addInstrumentMenu(actions->instrumentMenu())
+    : StyledToolBar(parent), m_addInstrumentButton(new QToolButton),
+      m_removeInstrumentButton(new QToolButton), m_cloneInstrumentButton(new QToolButton),
+      m_addInstrumentMenu(actions->instrumentMenu())
 {
     m_addInstrumentButton->setText("Add");
-    m_addInstrumentButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
+    m_addInstrumentButton->setIcon(QIcon(":/images/shape-square-plus.svg"));
     m_addInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_addInstrumentButton->setToolTip("Add new instrument");
     m_addInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -34,23 +32,23 @@ InstrumentViewToolBar::InstrumentViewToolBar(InstrumentViewActions* actions, QWi
     addWidget(m_addInstrumentButton);
 
     m_removeInstrumentButton->setText("Remove");
-    m_removeInstrumentButton->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
+    m_removeInstrumentButton->setIcon(QIcon(":/images/delete.svg"));
     m_removeInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_removeInstrumentButton->setToolTip("Remove currently selected instrument");
     addWidget(m_removeInstrumentButton);
 
     m_cloneInstrumentButton->setText("Clone");
-    m_cloneInstrumentButton->setIcon(QIcon(":/images/toolbar16light_cloneitem.svg"));
+    m_cloneInstrumentButton->setIcon(QIcon(":/images/content-copy.svg"));
     m_cloneInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_cloneInstrumentButton->setToolTip("Clone currently selected instrument");
     addWidget(m_cloneInstrumentButton);
 
-    connect(m_addInstrumentButton, &QToolButton::clicked,
-            this, &InstrumentViewToolBar::onAddInstrument);
-    connect(m_removeInstrumentButton, &QToolButton::clicked,
-            actions, &InstrumentViewActions::onRemoveInstrument);
-    connect(m_cloneInstrumentButton, &QToolButton::clicked,
-            actions, &InstrumentViewActions::onCloneInstrument);
+    connect(m_addInstrumentButton, &QToolButton::clicked, this,
+            &InstrumentViewToolBar::onAddInstrument);
+    connect(m_removeInstrumentButton, &QToolButton::clicked, actions,
+            &InstrumentViewActions::onRemoveInstrument);
+    connect(m_cloneInstrumentButton, &QToolButton::clicked, actions,
+            &InstrumentViewActions::onCloneInstrument);
 }
 
 void InstrumentViewToolBar::onAddInstrument()

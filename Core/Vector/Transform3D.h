@@ -15,24 +15,22 @@
 #ifndef TRANSFORM3D_H
 #define TRANSFORM3D_H
 
-#include "Vectors3D.h"
 #include "Complex.h"
 #include "EigenCore.h"
+#include "Vectors3D.h"
 
 #include <vector>
 
 //! Vector transformations in three dimensions.
 //! @ingroup tools_internal
 
-class BA_CORE_API_ Transform3D {
+class BA_CORE_API_ Transform3D
+{
 public:
     enum ERotationType { EULER, XAXIS, YAXIS, ZAXIS };
 
     //! Constructs unit transformation
     Transform3D();
-
-    //! Copy constructor
-    Transform3D(const Transform3D& other);
 
 #ifndef SWIG
     //! Constructor from matrix (no checks if this is an element of SO(3)!)
@@ -43,7 +41,7 @@ public:
     ~Transform3D() {}
 
     //! Clones the transformation
-    Transform3D *clone() const;
+    Transform3D* clone() const;
 
     //! Creates identity transformation (default)
     static Transform3D createIdentity();
@@ -61,7 +59,7 @@ public:
     static Transform3D createRotateEuler(double alpha, double beta, double gamma);
 
     //! Calculates the Euler angles corresponding to the rotation
-    void calculateEulerAngles(double *p_alpha, double *p_beta, double *p_gamma) const;
+    void calculateEulerAngles(double* p_alpha, double* p_beta, double* p_gamma) const;
 
     //! Calculates the rotation angle for a rotation around the x-axis alone
     //! Only meaningfull if the actual rotation is around the x-axis
@@ -79,18 +77,16 @@ public:
     Transform3D getInverse() const;
 
     //! Return transformed vector _v_.
-    template <class ivector_t>
-    ivector_t transformed(const ivector_t& v) const;
+    template <class ivector_t> ivector_t transformed(const ivector_t& v) const;
 
     //! Return transformed vector _v_.
-    template <class ivector_t>
-    ivector_t transformedInverse(const ivector_t& v) const;
+    template <class ivector_t> ivector_t transformedInverse(const ivector_t& v) const;
 
     //! Composes two transformations
-    Transform3D operator*(const Transform3D &other) const;
+    Transform3D operator*(const Transform3D& other) const;
 
     //! Provides equality operator
-    bool operator==(const Transform3D &other) const;
+    bool operator==(const Transform3D& other) const;
 
     //! Retrieve the rotation type (general, around x, y or z-axis)
     ERotationType getRotationType() const;
@@ -99,13 +95,17 @@ public:
     bool isIdentity() const;
 
     friend std::ostream& operator<<(std::ostream& ostr, const Transform3D& m)
-    { m.print(ostr); return ostr; }
+    {
+        m.print(ostr);
+        return ostr;
+    }
 
     void print(std::ostream& ostr) const;
 
     bool isXRotation() const;
     bool isYRotation() const;
     bool isZRotation() const;
+
 private:
 #ifndef SWIG
     Eigen::Matrix3d m_matrix;

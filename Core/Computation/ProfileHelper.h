@@ -38,6 +38,7 @@ public:
 
     std::vector<complex_t> calculateProfile(const std::vector<double>& z_values) const;
     std::pair<double, double> defaultLimits() const;
+
 private:
     std::vector<complex_t> m_materialdata;
     std::vector<double> m_zlimits;

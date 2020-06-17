@@ -13,27 +13,23 @@
 // ************************************************************************** //
 
 #include "ProjectionsEditor.h"
+#include "IntensityDataItem.h"
 #include "ProjectionsEditorActions.h"
+#include "ProjectionsEditorCanvas.h"
+#include "ProjectionsPropertyPanel.h"
 #include "ProjectionsToolBar.h"
 #include "ProjectionsWidget.h"
-#include "ProjectionsPropertyPanel.h"
-#include "ProjectionsEditorCanvas.h"
-#include "minisplitter.h"
 #include "SessionModel.h"
-#include "IntensityDataItem.h"
+#include "minisplitter.h"
 #include <QItemSelectionModel>
 #include <QSplitter>
 
 ProjectionsEditor::ProjectionsEditor(QWidget* parent)
-    : QMainWindow(parent)
-    , m_editorActions(new ProjectionsEditorActions(this))
-    , m_toolBar(new ProjectionsToolBar(m_editorActions))
-    , m_projectionsCanvas(new ProjectionsEditorCanvas)
-    , m_projectionsWidget(new ProjectionsWidget)
-    , m_propertyPanel(new ProjectionsPropertyPanel)
-    , m_selectionModel(nullptr)
-    , m_rightSplitter(new Manhattan::MiniSplitter)
-    , m_bottomSplitter(new QSplitter)
+    : QMainWindow(parent), m_editorActions(new ProjectionsEditorActions(this)),
+      m_toolBar(new ProjectionsToolBar(m_editorActions)),
+      m_projectionsCanvas(new ProjectionsEditorCanvas), m_projectionsWidget(new ProjectionsWidget),
+      m_propertyPanel(new ProjectionsPropertyPanel), m_selectionModel(nullptr),
+      m_rightSplitter(new Manhattan::MiniSplitter), m_bottomSplitter(new QSplitter)
 {
     addToolBar(Qt::RightToolBarArea, m_toolBar);
 
@@ -84,36 +80,36 @@ QList<QAction*> ProjectionsEditor::topToolBarActions()
 void ProjectionsEditor::setup_connections()
 {
     // tool panel request is propagated from editorActions to this MaskEditor
-    connect(m_editorActions, &ProjectionsEditorActions::resetViewRequest,
-            m_projectionsCanvas, &ProjectionsEditorCanvas::onResetViewRequest);
+    connect(m_editorActions, &ProjectionsEditorActions::resetViewRequest, m_projectionsCanvas,
+            &ProjectionsEditorCanvas::onResetViewRequest);
 
     // tool panel request is propagated from editorActions to this MaskEditor
     connect(m_editorActions, &ProjectionsEditorActions::propertyPanelRequest,
-            [=](){m_propertyPanel->setHidden(!m_propertyPanel->isHidden());});
+            [=]() { m_propertyPanel->setHidden(!m_propertyPanel->isHidden()); });
 
     // selection/drawing activity is propagated from ToolBar to graphics scene
-    connect(m_toolBar, &ProjectionsToolBar::activityModeChanged,
-            m_projectionsCanvas, &ProjectionsEditorCanvas::onActivityModeChanged);
+    connect(m_toolBar, &ProjectionsToolBar::activityModeChanged, m_projectionsCanvas,
+            &ProjectionsEditorCanvas::onActivityModeChanged);
 
     // selection/drawing activity is propagated from ToolBar to Projections Widget
-    connect(m_toolBar, &ProjectionsToolBar::activityModeChanged,
-            m_projectionsWidget, &ProjectionsWidget::onActivityModeChanged);
+    connect(m_toolBar, &ProjectionsToolBar::activityModeChanged, m_projectionsWidget,
+            &ProjectionsWidget::onActivityModeChanged);
 
     // click on projections tab is propagated to tool bar
-    connect(m_projectionsWidget, &ProjectionsWidget::changeActivityRequest,
-            m_toolBar, &ProjectionsToolBar::onProjectionTabChange);
+    connect(m_projectionsWidget, &ProjectionsWidget::changeActivityRequest, m_toolBar,
+            &ProjectionsToolBar::onProjectionTabChange);
 
     // Delete request is propagated from canvas to actions
-    connect(m_projectionsCanvas, &ProjectionsEditorCanvas::deleteSelectedRequest,
-            m_editorActions,  &ProjectionsEditorActions::onDeleteAction);
+    connect(m_projectionsCanvas, &ProjectionsEditorCanvas::deleteSelectedRequest, m_editorActions,
+            &ProjectionsEditorActions::onDeleteAction);
 
     // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
-    connect(m_projectionsCanvas, &ProjectionsEditorCanvas::changeActivityRequest,
-            m_toolBar, &ProjectionsToolBar::onChangeActivityRequest);
+    connect(m_projectionsCanvas, &ProjectionsEditorCanvas::changeActivityRequest, m_toolBar,
+            &ProjectionsToolBar::onChangeActivityRequest);
 
     // ColorMap margins changed, canvas -> projection widget
-    connect(m_projectionsCanvas, &ProjectionsEditorCanvas::marginsChanged,
-            m_projectionsWidget, &ProjectionsWidget::onMarginsChanged);
+    connect(m_projectionsCanvas, &ProjectionsEditorCanvas::marginsChanged, m_projectionsWidget,
+            &ProjectionsWidget::onMarginsChanged);
 
     m_toolBar->onChangeActivityRequest(MaskEditorFlags::HORIZONTAL_LINE_MODE);
 }

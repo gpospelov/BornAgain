@@ -25,10 +25,8 @@ const QString SessionItem::P_NAME = "Name";
 
 //! Constructs new item with given model type. The type must be defined.
 SessionItem::SessionItem(const QString& modelType)
-    : m_parent(nullptr)
-    , m_model(nullptr)
-    , m_values(new SessionItemData)
-    , m_tags(new SessionItemTags)
+    : m_parent(nullptr), m_model(nullptr), m_values(new SessionItemData),
+      m_tags(new SessionItemTags)
 {
     if (modelType.isEmpty())
         throw GUIHelpers::Error("SessionItem::SessionItem() -> Empty modelType.");
@@ -332,8 +330,8 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
     if (SessionItemUtils::IsValidGroup(groupType)) {
         // create group item
         GroupInfo groupInfo = SessionItemUtils::GetGroupInfo(groupType);
-        GroupItem* groupItem
-            = dynamic_cast<GroupItem*>(ItemFactory::CreateItem(Constants::GroupItemType));
+        GroupItem* groupItem =
+            dynamic_cast<GroupItem*>(ItemFactory::CreateItem(Constants::GroupItemType));
         Q_ASSERT(groupItem);
         groupItem->setGroupInfo(groupInfo);
         registerTag(groupTag, 1, 1, QStringList() << Constants::GroupItemType);

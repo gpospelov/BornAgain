@@ -23,8 +23,8 @@
 #define COLUMNRESIZER_H
 
 #include <QFormLayout>
-#include <QObject>
 #include <QList>
+#include <QObject>
 
 class QEvent;
 class QGridLayout;
@@ -46,7 +46,7 @@ public:
     void addWidgetsFromGridLayout(QGridLayout*, int column);
     void addWidgetsFromFormLayout(QFormLayout*, QFormLayout::ItemRole role);
 
-    void dropWidgetsFromGridLayout(QGridLayout *layout);
+    void dropWidgetsFromGridLayout(QGridLayout* layout);
 
 private slots:
     void updateWidth();

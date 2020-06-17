@@ -15,8 +15,8 @@
 #ifndef GROUPITEM_H
 #define GROUPITEM_H
 
-#include "SessionItem.h"
 #include "GroupInfo.h"
+#include "SessionItem.h"
 #include <memory>
 
 class GroupInfo;
@@ -47,4 +47,3 @@ private:
 };
 
 #endif // GROUPITEM_H
-

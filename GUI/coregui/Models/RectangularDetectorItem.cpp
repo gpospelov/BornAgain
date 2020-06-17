@@ -20,30 +20,34 @@
 #include "ResolutionFunctionItems.h"
 #include "VectorItem.h"
 
-namespace {
+namespace
+{
 const double default_detector_width = 20.0;
 const double default_detector_height = 20.0;
 const double default_detector_distance = 1000.0;
-const QString tooltip_u0="u-coordinate of point of intersection of normal vector "
-                         "and detector plane, \n in local detector coordinates";
-const QString tooltip_v0="v-coordinate of point of intersection of normal vector "
-                         "and detector plane, \n in local detector coordinates";
+const QString tooltip_u0 = "u-coordinate of point of intersection of normal vector "
+                           "and detector plane, \n in local detector coordinates";
+const QString tooltip_v0 = "v-coordinate of point of intersection of normal vector "
+                           "and detector plane, \n in local detector coordinates";
 
-const QString tooltip_dbeam_u0="u-coordinate of point where direct beam hits the detector, \n"
-                               "in local detector coordinates [mm]";
-const QString tooltip_dbeam_v0="v-coordinate of point where direct beam hits the detector, \n"
-                               "in local detector coordinates [mm]";
+const QString tooltip_dbeam_u0 = "u-coordinate of point where direct beam hits the detector, \n"
+                                 "in local detector coordinates [mm]";
+const QString tooltip_dbeam_v0 = "v-coordinate of point where direct beam hits the detector, \n"
+                                 "in local detector coordinates [mm]";
 
-const QString tooltip_refbeam_u0="u-coordinate of point where reflected beam hits the detector, \n"
-                               "in local detector coordinates [mm]";
-const QString tooltip_refbeam_v0="v-coordinate of point where reflected beam hits the detector, \n"
-                               "in local detector coordinates [mm]";
+const QString tooltip_refbeam_u0 =
+    "u-coordinate of point where reflected beam hits the detector, \n"
+    "in local detector coordinates [mm]";
+const QString tooltip_refbeam_v0 =
+    "v-coordinate of point where reflected beam hits the detector, \n"
+    "in local detector coordinates [mm]";
 
-
-const QString tooltip_samplex_u0="u-coordinate of point where sample x-axis crosses the detector, \n"
-                               "in local detector coordinates [mm]";
-const QString tooltip_samplex_v0="v-coordinate of point where sample x-axis crosses the detector, \n"
-                               "in local detector coordinates [mm]";
+const QString tooltip_samplex_u0 =
+    "u-coordinate of point where sample x-axis crosses the detector, \n"
+    "in local detector coordinates [mm]";
+const QString tooltip_samplex_v0 =
+    "v-coordinate of point where sample x-axis crosses the detector, \n"
+    "in local detector coordinates [mm]";
 
 ComboProperty alignmentCombo()
 {
@@ -54,7 +58,7 @@ ComboProperty alignmentCombo()
     result.setValue(Constants::ALIGNMENT_TO_DIRECT_BEAM);
     return result;
 }
-}
+} // namespace
 
 const QString RectangularDetectorItem::P_X_AXIS = "X axis";
 const QString RectangularDetectorItem::P_Y_AXIS = "Y axis";
@@ -68,8 +72,7 @@ const QString RectangularDetectorItem::P_DBEAM_V0 = "v0 (dbeam)";
 const QString RectangularDetectorItem::P_DISTANCE = "Distance";
 
 RectangularDetectorItem::RectangularDetectorItem()
-    : DetectorItem(Constants::RectangularDetectorType)
-    , m_is_constructed(false)
+    : DetectorItem(Constants::RectangularDetectorType), m_is_constructed(false)
 {
     // axes parameters
     SessionItem* item = addGroupProperty(P_X_AXIS, Constants::BasicAxisType);
@@ -123,8 +126,8 @@ RectangularDetectorItem::RectangularDetectorItem()
 
 void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)
 {
-    ComboProperty combo_property
-        = getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
+    ComboProperty combo_property =
+        getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
 
     if (!combo_property.getValues().contains(alignment))
         throw GUIHelpers::Error(
@@ -188,7 +191,7 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() con
         result->setPerpendicularToReflectedBeam(distance);
         result->setDirectBeamPosition(dbeam_u0, dbeam_v0);
     }
-    return std::move(result);
+    return std::unique_ptr<IDetector2D>(result.release());
 }
 
 //! updates property tooltips and visibility flags, depending from type of alignment selected
@@ -198,7 +201,7 @@ void RectangularDetectorItem::update_properties_appearance()
     ComboProperty alignment = getItemValue(P_ALIGNMENT).value<ComboProperty>();
     QStringList prop_list;
     prop_list << P_NORMAL << P_DIRECTION << P_U0 << P_V0 << P_DBEAM_U0 << P_DBEAM_V0 << P_DISTANCE;
-    for(auto prop : prop_list)
+    for (auto prop : prop_list)
         getItem(prop)->setVisible(false);
 
     // enabling some properties back, depending from detector alignment mode

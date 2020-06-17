@@ -18,7 +18,7 @@
 #include "IFormFactorDecorator.h"
 #include "Vectors3D.h"
 
-//! Decorates a formfactor with a position dependent phase factor.
+//! Decorates a form factor with a position dependent phase factor.
 //! @ingroup formfactors_internal
 
 class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorator
@@ -26,8 +26,10 @@ class BA_CORE_API_ FormFactorDecoratorPositionFactor : public IFormFactorDecorat
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor& form_factor, const kvector_t& position);
 
-    FormFactorDecoratorPositionFactor* clone() const override final {
-        return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position); }
+    FormFactorDecoratorPositionFactor* clone() const override final
+    {
+        return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
+    }
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 

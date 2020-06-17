@@ -12,14 +12,14 @@
 //
 // ************************************************************************** //
 
-#include "Beam.h"
 #include "SphericalDetector.h"
+#include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
 #include "IPixel.h"
+#include "MathConstants.h"
 #include "SimulationElement.h"
 #include "Units.h"
-#include "MathConstants.h"
 
 SphericalDetector::SphericalDetector()
 {
@@ -33,8 +33,7 @@ SphericalDetector::SphericalDetector(size_t n_phi, double phi_min, double phi_ma
     setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
-SphericalDetector::SphericalDetector(const SphericalDetector& other)
-    : IDetector2D(other)
+SphericalDetector::SphericalDetector(const SphericalDetector& other) : IDetector2D(other)
 {
     setName(BornAgain::SphericalDetectorType);
 }
@@ -76,7 +75,8 @@ std::string SphericalDetector::axisName(size_t index) const
 
 size_t SphericalDetector::getIndexOfSpecular(const Beam& beam) const
 {
-    if (dimension()!=2) return totalSize();
+    if (dimension() != 2)
+        return totalSize();
     double alpha = beam.getAlpha();
     double phi = beam.getPhi();
     const IAxis& phi_axis = getAxis(BornAgain::X_AXIS_INDEX);
@@ -86,24 +86,23 @@ size_t SphericalDetector::getIndexOfSpecular(const Beam& beam) const
     return totalSize();
 }
 
-SphericalPixel::SphericalPixel(Bin1D alpha_bin, Bin1D phi_bin)
-    : m_alpha(alpha_bin.m_lower), m_phi(phi_bin.m_lower),
-      m_dalpha(alpha_bin.getBinSize()), m_dphi(phi_bin.getBinSize())
+SphericalPixel::SphericalPixel(const Bin1D& alpha_bin, const Bin1D& phi_bin)
+    : m_alpha(alpha_bin.m_lower), m_phi(phi_bin.m_lower), m_dalpha(alpha_bin.getBinSize()),
+      m_dphi(phi_bin.getBinSize())
 {
-    m_solid_angle = std::abs(m_dphi*(std::sin(m_alpha+m_dalpha) - std::sin(m_alpha)));
+    auto solid_angle_value = std::abs(m_dphi * (std::sin(m_alpha + m_dalpha) - std::sin(m_alpha)));
+    m_solid_angle = solid_angle_value <= 0.0 ? 1.0 : solid_angle_value;
 }
 
 SphericalPixel* SphericalPixel::clone() const
 {
-    Bin1D alpha_bin(m_alpha, m_alpha+m_dalpha);
-    Bin1D phi_bin(m_phi, m_phi+m_dphi);
-    return new SphericalPixel(alpha_bin, phi_bin);
+    return new SphericalPixel(*this);
 }
 
 SphericalPixel* SphericalPixel::createZeroSizePixel(double x, double y) const
 {
-    double phi = m_phi + x*m_dphi;
-    double alpha = m_alpha + y*m_dalpha;
+    double phi = m_phi + x * m_dphi;
+    double alpha = m_alpha + y * m_dalpha;
     Bin1D alpha_bin(alpha, alpha);
     Bin1D phi_bin(phi, phi);
     return new SphericalPixel(alpha_bin, phi_bin);
@@ -111,20 +110,20 @@ SphericalPixel* SphericalPixel::createZeroSizePixel(double x, double y) const
 
 kvector_t SphericalPixel::getK(double x, double y, double wavelength) const
 {
-    double phi = m_phi + x*m_dphi;
-    double alpha = m_alpha + y*m_dalpha;
+    double phi = m_phi + x * m_dphi;
+    double alpha = m_alpha + y * m_dalpha;
     return vecOfLambdaAlphaPhi(wavelength, alpha, phi);
 }
 
 double SphericalPixel::getIntegrationFactor(double /* x */, double y) const
 {
-    if (m_dalpha==0.0) return 1.0;
-    double alpha = m_alpha + y*m_dalpha;
-    return std::cos(alpha)*m_dalpha/(std::sin(m_alpha+m_dalpha)-std::sin(m_alpha));
+    if (m_dalpha == 0.0)
+        return 1.0;
+    double alpha = m_alpha + y * m_dalpha;
+    return std::cos(alpha) * m_dalpha / (std::sin(m_alpha + m_dalpha) - std::sin(m_alpha));
 }
 
 double SphericalPixel::getSolidAngle() const
 {
-    if (m_solid_angle<=0.0) return 1.0;
     return m_solid_angle;
 }

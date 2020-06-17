@@ -16,23 +16,21 @@
 #include "DataItem.h"
 #include "RealDataItem.h"
 
-RealDataModel::RealDataModel(QObject *parent)
-    : SessionModel(SessionXML::RealDataModelTag, parent)
+RealDataModel::RealDataModel(QObject* parent) : SessionModel(SessionXML::RealDataModelTag, parent)
 {
     setObjectName(SessionXML::RealDataModelTag);
 }
 
-//Qt::ItemFlags RealDataModel::flags(const QModelIndex &index) const
+// Qt::ItemFlags RealDataModel::flags(const QModelIndex &index) const
 //{
 //    Qt::ItemFlags result_flags =  SessionModel::flags(index);
 //    result_flags |= Qt::ItemIsEditable;
 //    return result_flags;
 //}
 
-
-QVector<SessionItem *> RealDataModel::nonXMLData() const
+QVector<SessionItem*> RealDataModel::nonXMLData() const
 {
-    QVector<SessionItem *> result;
+    QVector<SessionItem*> result;
 
     for (auto realData : topItems<RealDataItem>()) {
         if (auto intensityItem = realData->dataItem())

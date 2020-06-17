@@ -1,8 +1,8 @@
-#include "google_test.h"
 #include "AxesItems.h"
 #include "SessionItemController.h"
 #include "SessionModel.h"
 #include "TestSessionItemControllerHelper.h"
+#include "google_test.h"
 #include <QObject>
 
 class TestSessionItemController : public ::testing::Test

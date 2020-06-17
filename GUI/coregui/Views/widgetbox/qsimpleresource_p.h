@@ -55,8 +55,8 @@
 
 #include "shared_global_p.h"
 //#include "abstractformbuilder.h"
-#include <QtDesigner/abstractformbuilder.h>
 #include <QtCore/QStringList>
+#include <QtDesigner/abstractformbuilder.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -67,54 +67,55 @@ class DomSlots;
 
 class QDesignerFormEditorInterface;
 
-namespace qdesigner_internal {
+namespace qdesigner_internal
+{
 
 class WidgetDataBaseItem;
 
 class QDESIGNER_SHARED_EXPORT QSimpleResource : public QAbstractFormBuilder
 {
 public:
-    explicit QSimpleResource(QDesignerFormEditorInterface *core);
+    explicit QSimpleResource(QDesignerFormEditorInterface* core);
     virtual ~QSimpleResource();
 
-    QBrush setupBrush(DomBrush *brush);
-    DomBrush *saveBrush(const QBrush &brush);
+    QBrush setupBrush(DomBrush* brush);
+    DomBrush* saveBrush(const QBrush& brush);
 
-    inline QDesignerFormEditorInterface *core() const
-    { return m_core; }
+    inline QDesignerFormEditorInterface* core() const { return m_core; }
 
     // Query extensions for additional data
-    static void addExtensionDataToDOM(QAbstractFormBuilder *afb,
-                                      QDesignerFormEditorInterface *core,
-                                      DomWidget *ui_widget, QWidget *widget);
-    static void applyExtensionDataFromDOM(QAbstractFormBuilder *afb,
-                                          QDesignerFormEditorInterface *core,
-                                          DomWidget *ui_widget, QWidget *widget);
+    static void addExtensionDataToDOM(QAbstractFormBuilder* afb, QDesignerFormEditorInterface* core,
+                                      DomWidget* ui_widget, QWidget* widget);
+    static void applyExtensionDataFromDOM(QAbstractFormBuilder* afb,
+                                          QDesignerFormEditorInterface* core, DomWidget* ui_widget,
+                                          QWidget* widget);
     // Return the script returned by the CustomWidget codeTemplate API
-    static QString customWidgetScript(QDesignerFormEditorInterface *core, QObject *object);
-    static QString customWidgetScript(QDesignerFormEditorInterface *core, const QString &className);
-    static bool hasCustomWidgetScript(QDesignerFormEditorInterface *core, QObject *object);
+    static QString customWidgetScript(QDesignerFormEditorInterface* core, QObject* object);
+    static QString customWidgetScript(QDesignerFormEditorInterface* core, const QString& className);
+    static bool hasCustomWidgetScript(QDesignerFormEditorInterface* core, QObject* object);
 
     // Implementation for FormBuilder::createDomCustomWidgets() that adds
     // the custom widgets to the widget database
-    static void handleDomCustomWidgets(const QDesignerFormEditorInterface *core,
-                                       const DomCustomWidgets *dom_custom_widgets);
+    static void handleDomCustomWidgets(const QDesignerFormEditorInterface* core,
+                                       const DomCustomWidgets* dom_custom_widgets);
 
 protected:
     enum ScriptSource { ScriptDesigner, ScriptExtension, ScriptCustomWidgetPlugin };
-    static DomScript*createScript(const QString &script, ScriptSource source);
+    static DomScript* createScript(const QString& script, ScriptSource source);
     typedef QList<DomScript*> DomScripts;
-    static void addScript(const QString &script, ScriptSource source, DomScripts &domScripts);
+    static void addScript(const QString& script, ScriptSource source, DomScripts& domScripts);
 
-    static bool addFakeMethods(const DomSlots *domSlots, QStringList &fakeSlots, QStringList &fakeSignals);
+    static bool addFakeMethods(const DomSlots* domSlots, QStringList& fakeSlots,
+                               QStringList& fakeSignals);
 
 private:
-    static void addCustomWidgetsToWidgetDatabase(const QDesignerFormEditorInterface *core,
+    static void addCustomWidgetsToWidgetDatabase(const QDesignerFormEditorInterface* core,
                                                  QList<DomCustomWidget*>& custom_widget_list);
-    static void addFakeMethodsToWidgetDataBase(const DomCustomWidget *domCustomWidget, WidgetDataBaseItem *item);
+    static void addFakeMethodsToWidgetDataBase(const DomCustomWidget* domCustomWidget,
+                                               WidgetDataBaseItem* item);
 
     static bool m_warningsEnabled;
-    QDesignerFormEditorInterface *m_core;
+    QDesignerFormEditorInterface* m_core;
 };
 
 // Contents of clipboard for formbuilder copy and paste operations
@@ -123,7 +124,7 @@ struct QDESIGNER_SHARED_EXPORT FormBuilderClipboard {
     typedef QList<QAction*> ActionList;
 
     FormBuilderClipboard() {}
-    FormBuilderClipboard(QWidget *w);
+    FormBuilderClipboard(QWidget* w);
 
     bool empty() const;
 
@@ -136,15 +137,17 @@ struct QDESIGNER_SHARED_EXPORT FormBuilderClipboard {
 class QDESIGNER_SHARED_EXPORT QEditorFormBuilder : public QSimpleResource
 {
 public:
-    explicit QEditorFormBuilder(QDesignerFormEditorInterface *core) : QSimpleResource(core) {}
+    explicit QEditorFormBuilder(QDesignerFormEditorInterface* core) : QSimpleResource(core) {}
 
-    virtual bool copy(QIODevice *dev, const FormBuilderClipboard &selection) = 0;
-    virtual DomUI *copy(const FormBuilderClipboard &selection) = 0;
+    virtual bool copy(QIODevice* dev, const FormBuilderClipboard& selection) = 0;
+    virtual DomUI* copy(const FormBuilderClipboard& selection) = 0;
 
-    // A widget parent needs to be specified, otherwise, the widget factory cannot locate the form window via parent
-    // and thus is not able to construct special widgets (QLayoutWidget).
-    virtual FormBuilderClipboard paste(DomUI *ui, QWidget *widgetParent, QObject *actionParent = 0) = 0;
-    virtual FormBuilderClipboard paste(QIODevice *dev, QWidget *widgetParent, QObject *actionParent = 0) = 0;
+    // A widget parent needs to be specified, otherwise, the widget factory cannot locate the form
+    // window via parent and thus is not able to construct special widgets (QLayoutWidget).
+    virtual FormBuilderClipboard paste(DomUI* ui, QWidget* widgetParent,
+                                       QObject* actionParent = 0) = 0;
+    virtual FormBuilderClipboard paste(QIODevice* dev, QWidget* widgetParent,
+                                       QObject* actionParent = 0) = 0;
 };
 
 } // namespace qdesigner_internal

@@ -25,8 +25,10 @@ class BA_CORE_API_ FormFactorSphereUniformRadius : public IFormFactorBorn
 public:
     FormFactorSphereUniformRadius(double mean, double full_width);
 
-    FormFactorSphereUniformRadius* clone() const override final {
-        return new FormFactorSphereUniformRadius(m_mean, m_full_width); }
+    FormFactorSphereUniformRadius* clone() const override final
+    {
+        return new FormFactorSphereUniformRadius(m_mean, m_full_width);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double radialExtension() const override final { return m_mean; }
@@ -38,7 +40,7 @@ protected:
 
 private:
     bool checkParameters() const;
-    double m_mean; //!< This is the mean radius
+    double m_mean;       //!< This is the mean radius
     double m_full_width; //!< This is the full width of the radius distribution
 };
 

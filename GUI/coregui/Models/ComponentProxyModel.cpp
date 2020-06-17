@@ -13,17 +13,17 @@
 // ************************************************************************** //
 
 #include "ComponentProxyModel.h"
-#include "SessionModel.h"
-#include "ModelUtils.h"
 #include "ComponentProxyStrategy.h"
-#include <functional>
+#include "ModelUtils.h"
+#include "SessionModel.h"
 #include <QSet>
+#include <functional>
 
 ComponentProxyModel::ComponentProxyModel(QObject* parent)
-    : QAbstractProxyModel(parent)
-    , m_model(nullptr)
-//    , m_proxyStrategy(new IndentityProxyStrategy)
-    , m_proxyStrategy(new ComponentProxyStrategy)
+    : QAbstractProxyModel(parent), m_model(nullptr)
+      //    , m_proxyStrategy(new IndentityProxyStrategy)
+      ,
+      m_proxyStrategy(new ComponentProxyStrategy)
 {
 }
 
@@ -32,24 +32,23 @@ void ComponentProxyModel::setSessionModel(SessionModel* model)
     beginResetModel();
 
     if (sourceModel()) {
-        disconnect(sourceModel(), &QAbstractItemModel::dataChanged,
-                   this, &ComponentProxyModel::sourceDataChanged);
-        disconnect(sourceModel(), &QAbstractItemModel::rowsInserted,
-                   this, &ComponentProxyModel::sourceRowsInserted);
-        disconnect(sourceModel(), &QAbstractItemModel::rowsRemoved,
-                   this, &ComponentProxyModel::sourceRowsRemoved);
-
+        disconnect(sourceModel(), &QAbstractItemModel::dataChanged, this,
+                   &ComponentProxyModel::sourceDataChanged);
+        disconnect(sourceModel(), &QAbstractItemModel::rowsInserted, this,
+                   &ComponentProxyModel::sourceRowsInserted);
+        disconnect(sourceModel(), &QAbstractItemModel::rowsRemoved, this,
+                   &ComponentProxyModel::sourceRowsRemoved);
     }
 
     QAbstractProxyModel::setSourceModel(model);
 
     if (sourceModel()) {
-        connect(sourceModel(), &QAbstractItemModel::dataChanged,
-                   this, &ComponentProxyModel::sourceDataChanged);
-        connect(sourceModel(), &QAbstractItemModel::rowsInserted,
-                   this, &ComponentProxyModel::sourceRowsInserted);
-        connect(sourceModel(), &QAbstractItemModel::rowsRemoved,
-                   this, &ComponentProxyModel::sourceRowsRemoved);
+        connect(sourceModel(), &QAbstractItemModel::dataChanged, this,
+                &ComponentProxyModel::sourceDataChanged);
+        connect(sourceModel(), &QAbstractItemModel::rowsInserted, this,
+                &ComponentProxyModel::sourceRowsInserted);
+        connect(sourceModel(), &QAbstractItemModel::rowsRemoved, this,
+                &ComponentProxyModel::sourceRowsRemoved);
     }
 
     endResetModel();
@@ -92,11 +91,11 @@ QModelIndex ComponentProxyModel::index(int row, int column, const QModelIndex& p
     if (parent.isValid())
         sourceParent = mapToSource(parent);
 
-    QMapIterator<QPersistentModelIndex, QPersistentModelIndex> it(m_proxyStrategy->proxySourceParent());
+    QMapIterator<QPersistentModelIndex, QPersistentModelIndex> it(
+        m_proxyStrategy->proxySourceParent());
     while (it.hasNext()) {
         it.next();
-        if (it.value() == sourceParent && it.key().row() == row &&
-            it.key().column() == column)
+        if (it.value() == sourceParent && it.key().row() == row && it.key().column() == column)
             return it.key();
     }
     return QModelIndex();
@@ -116,7 +115,8 @@ int ComponentProxyModel::rowCount(const QModelIndex& parent) const
     QModelIndex sourceParent;
     if (parent.isValid())
         sourceParent = mapToSource(parent);
-    QMapIterator<QPersistentModelIndex, QPersistentModelIndex> it(m_proxyStrategy->proxySourceParent());
+    QMapIterator<QPersistentModelIndex, QPersistentModelIndex> it(
+        m_proxyStrategy->proxySourceParent());
 
     QSet<int> rows;
     while (it.hasNext()) {
@@ -144,8 +144,8 @@ bool ComponentProxyModel::hasChildren(const QModelIndex& parent) const
 }
 
 void ComponentProxyModel::sourceDataChanged(const QModelIndex& topLeft,
-                                              const QModelIndex& bottomRight,
-                                              const QVector<int>& roles)
+                                            const QModelIndex& bottomRight,
+                                            const QVector<int>& roles)
 {
     Q_ASSERT(topLeft.isValid() ? topLeft.model() == sourceModel() : true);
     Q_ASSERT(bottomRight.isValid() ? bottomRight.model() == sourceModel() : true);

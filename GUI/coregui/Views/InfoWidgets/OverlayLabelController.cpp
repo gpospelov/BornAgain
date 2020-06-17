@@ -18,20 +18,17 @@
 #include <QEvent>
 #include <QRect>
 
-OverlayLabelController::OverlayLabelController(QObject *parent)
-    : QObject(parent)
-    , m_label(0)
-    , m_area(0)
+OverlayLabelController::OverlayLabelController(QObject* parent)
+    : QObject(parent), m_label(0), m_area(0)
 {
-
 }
 
-void OverlayLabelController::setText(const QString &text)
+void OverlayLabelController::setText(const QString& text)
 {
     m_text = text;
 }
 
-void OverlayLabelController::setArea(QAbstractScrollArea *area)
+void OverlayLabelController::setArea(QAbstractScrollArea* area)
 {
     m_area = area;
     m_area->installEventFilter(this);
@@ -41,9 +38,9 @@ void OverlayLabelController::setArea(QAbstractScrollArea *area)
 
 void OverlayLabelController::setShown(bool shown)
 {
-    if(shown) {
+    if (shown) {
         Q_ASSERT(m_area);
-        if(!m_label) {
+        if (!m_label) {
             m_label = new OverlayLabelWidget(m_area);
             m_label->setText(m_text);
             updateLabelGeometry();
@@ -56,7 +53,7 @@ void OverlayLabelController::setShown(bool shown)
     }
 }
 
-bool OverlayLabelController::eventFilter(QObject *obj, QEvent *event)
+bool OverlayLabelController::eventFilter(QObject* obj, QEvent* event)
 {
     if (event->type() == QEvent::Resize)
         updateLabelGeometry();
@@ -66,7 +63,8 @@ bool OverlayLabelController::eventFilter(QObject *obj, QEvent *event)
 
 void OverlayLabelController::updateLabelGeometry()
 {
-    if(!m_label || !m_area) return;
+    if (!m_label || !m_area)
+        return;
     m_label->setRectangle(QRect(0, 0, m_area->width(), m_area->height()));
     m_label->setPosition(0, 0);
 }

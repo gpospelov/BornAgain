@@ -15,8 +15,7 @@
 #include "SampleModel.h"
 #include "MultiLayerItem.h"
 
-SampleModel::SampleModel(QObject* parent)
-    : SessionModel(SessionXML::SampleModelTag, parent)
+SampleModel::SampleModel(QObject* parent) : SessionModel(SessionXML::SampleModelTag, parent)
 {
     setObjectName(SessionXML::SampleModelTag);
 }

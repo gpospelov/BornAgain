@@ -13,16 +13,11 @@
 // ************************************************************************** //
 
 #include "ProxyModelStrategy.h"
-#include "ModelUtils.h"
 #include "ComponentProxyModel.h"
+#include "ModelUtils.h"
 #include "SessionModel.h"
 
-ProxyModelStrategy::ProxyModelStrategy()
-    : m_source(nullptr)
-    , m_proxy(nullptr)
-{
-
-}
+ProxyModelStrategy::ProxyModelStrategy() : m_source(nullptr), m_proxy(nullptr) {}
 
 void ProxyModelStrategy::buildModelMap(SessionModel* source, ComponentProxyModel* proxy)
 {
@@ -47,7 +42,10 @@ void ProxyModelStrategy::onDataChanged(SessionModel* source, ComponentProxyModel
     // we do not expect here change of model layout
 }
 
-const ProxyModelStrategy::map_t& ProxyModelStrategy::sourceToProxy() { return m_sourceToProxy; }
+const ProxyModelStrategy::map_t& ProxyModelStrategy::sourceToProxy()
+{
+    return m_sourceToProxy;
+}
 
 const ProxyModelStrategy::map_t& ProxyModelStrategy::proxySourceParent()
 {
@@ -72,8 +70,8 @@ QModelIndex ProxyModelStrategy::createProxyIndex(int nrow, int ncol, void* adata
 
 bool IndentityProxyStrategy::processSourceIndex(const QModelIndex& index)
 {
-    QPersistentModelIndex proxyIndex
-        = createProxyIndex(index.row(), index.column(), index.internalPointer());
+    QPersistentModelIndex proxyIndex =
+        createProxyIndex(index.row(), index.column(), index.internalPointer());
     m_sourceToProxy.insert(QPersistentModelIndex(index), proxyIndex);
 
     QPersistentModelIndex sourceParent;

@@ -22,19 +22,19 @@ PyObject* ArrayUtils::createNumpyArray(const std::vector<double>& data)
 {
     const size_t ndim(1);
     npy_int ndim_numpy = ndim;
-    npy_intp *ndimsizes_numpy = new npy_intp[ndim];
+    npy_intp* ndimsizes_numpy = new npy_intp[ndim];
     ndimsizes_numpy[0] = data.size();
 
     // creating standalone numpy array
-    PyObject *pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
-    delete [] ndimsizes_numpy;
-    if(pyarray == nullptr )
+    PyObject* pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
+    delete[] ndimsizes_numpy;
+    if (pyarray == nullptr)
         throw Exceptions::RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
 
     // getting pointer to data buffer of numpy array
-    double *array_buffer = (double *)PyArray_DATA((PyArrayObject*)pyarray);
+    double* array_buffer = (double*)PyArray_DATA((PyArrayObject*)pyarray);
 
-    for(size_t index=0; index<data.size(); ++index)
+    for (size_t index = 0; index < data.size(); ++index)
         *array_buffer++ = data[index];
 
     return pyarray;

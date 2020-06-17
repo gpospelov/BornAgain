@@ -15,36 +15,32 @@
 #include "InstrumentViewActions.h"
 #include "GroupItem.h"
 #include "InstrumentItems.h"
+#include "ModelUtils.h"
 #include "PointwiseAxisItem.h"
 #include "SessionModel.h"
-#include "ModelUtils.h"
 #include <QAction>
+#include <QDebug>
 #include <QItemSelectionModel>
 #include <QMenu>
 #include <QModelIndex>
 #include <QVariant>
-#include <QDebug>
 
 InstrumentViewActions::InstrumentViewActions(QWidget* parent)
-    : QObject(parent)
-    , m_addInstrumentMenu(nullptr)
-    , m_removeInstrumentAction(nullptr)
-    , m_cloneInstrumentAction(nullptr)
-    , m_model(nullptr)
-    , m_selectionModel(nullptr)
+    : QObject(parent), m_addInstrumentMenu(nullptr), m_removeInstrumentAction(nullptr),
+      m_cloneInstrumentAction(nullptr), m_model(nullptr), m_selectionModel(nullptr)
 {
     initAddInstrumentMenu();
 
-    m_removeInstrumentAction = new QAction(QIcon(":/images/toolbar16dark_recycle.svg"),
-            "Remove this instrument", this);
+    m_removeInstrumentAction =
+        new QAction(QIcon(":/images/delete.svg"), "Remove this instrument", this);
 
-    m_cloneInstrumentAction  = new QAction(QIcon(":/images/toolbar16dark_cloneitem.svg"),
-            "Clone this instrument", this);
+    m_cloneInstrumentAction =
+        new QAction(QIcon(":/images/content-copy.svg"), "Clone this instrument", this);
 
-    connect(m_removeInstrumentAction, &QAction::triggered,
-            this, &InstrumentViewActions::onRemoveInstrument);
-    connect(m_cloneInstrumentAction, &QAction::triggered,
-            this, &InstrumentViewActions::onCloneInstrument);
+    connect(m_removeInstrumentAction, &QAction::triggered, this,
+            &InstrumentViewActions::onRemoveInstrument);
+    connect(m_cloneInstrumentAction, &QAction::triggered, this,
+            &InstrumentViewActions::onCloneInstrument);
 }
 
 InstrumentViewActions::~InstrumentViewActions()
@@ -73,7 +69,7 @@ QMenu* InstrumentViewActions::instrumentMenu()
 
 void InstrumentViewActions::onAddInstrument()
 {
-    auto action = qobject_cast<QAction *>(sender());
+    auto action = qobject_cast<QAction*>(sender());
     Q_ASSERT(action && action->data().canConvert(QVariant::String));
 
     QString instrumentType = action->data().toString();
@@ -120,9 +116,9 @@ void InstrumentViewActions::onCloneInstrument()
     QModelIndex currentIndex = m_selectionModel->currentIndex();
 
     if (currentIndex.isValid()) {
-        SessionItem* item  = m_model->itemForIndex(currentIndex);
+        SessionItem* item = m_model->itemForIndex(currentIndex);
         QString nameOfClone = suggestInstrumentName(item->itemName());
-        SessionItem *clone = m_model->insertNewItem(item->modelType());
+        SessionItem* clone = m_model->insertNewItem(item->modelType());
         for (auto child : item->children()) {
             if (child->displayName() == InstrumentItem::P_IDENTIFIER)
                 continue;
@@ -174,8 +170,8 @@ void InstrumentViewActions::updateSelection()
 {
     if (!m_selectionModel->hasSelection()) {
         // select last item
-        QModelIndex itemIndex
-            = m_model->index(m_model->rowCount(QModelIndex()) - 1, 0, QModelIndex());
+        QModelIndex itemIndex =
+            m_model->index(m_model->rowCount(QModelIndex()) - 1, 0, QModelIndex());
         m_selectionModel->select(itemIndex, QItemSelectionModel::ClearAndSelect);
     }
 }
@@ -198,7 +194,7 @@ QMap<QString, int> InstrumentViewActions::mapOfNames()
 {
     QMap<QString, int> result;
 
-    for(auto& name : ModelUtils::topItemNames(m_model)) {
+    for (auto& name : ModelUtils::topItemNames(m_model)) {
         int ncopy(1);
         QRegExp regexp("\\((.*)\\)");
         if (regexp.indexIn(name) >= 0)

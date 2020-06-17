@@ -3,9 +3,7 @@
 #include <qcustomplot.h>
 
 ScientificPlot::ScientificPlot(QWidget* parent, PLOT_TYPE plot_type)
-    : SessionItemWidget(parent)
-    , m_plot_type(plot_type)
-    , m_event(new ScientificPlotEvent(this))
+    : SessionItemWidget(parent), m_plot_type(plot_type), m_event(new ScientificPlotEvent(this))
 {
 }
 

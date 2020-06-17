@@ -39,7 +39,8 @@
 #include <QDebug>
 #include <ba3d/model/layer.h>
 
-namespace {
+namespace
+{
 std::unique_ptr<IInterferenceFunction> GetInterferenceFunction(const SessionItem& layoutItem);
 }
 
@@ -196,7 +197,8 @@ void RealSpaceBuilder::populateParticleFromParticle3DContainer(
     }
 }
 
-namespace {
+namespace
+{
 std::unique_ptr<IInterferenceFunction> GetInterferenceFunction(const SessionItem& layoutItem)
 {
     auto interferenceLattice = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
@@ -208,5 +210,4 @@ std::unique_ptr<IInterferenceFunction> GetInterferenceFunction(const SessionItem
     }
     return std::make_unique<InterferenceFunctionNone>();
 }
-}
-
+} // namespace

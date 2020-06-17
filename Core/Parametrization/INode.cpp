@@ -14,29 +14,27 @@
 
 #include "INode.h"
 #include "Exceptions.h"
-#include "NodeUtils.h"
-#include "NodeIterator.h"
 #include "IterationStrategy.h"
+#include "NodeIterator.h"
+#include "NodeUtils.h"
 #include "ParameterPool.h"
 #include <algorithm>
 
-INode::INode()
-    : m_parent(nullptr)
-{}
+INode::INode() : m_parent(nullptr) {}
 
 std::string INode::treeToString() const
 {
     return NodeUtils::nodeToString(*this);
 }
 
-void INode::registerChild(INode *node)
+void INode::registerChild(INode* node)
 {
-    if(!node)
+    if (!node)
         throw Exceptions::NullPointerException("INode::registerChild -> Error. Null pointer.");
     node->setParent(this);
 }
 
-std::vector<const INode *> INode::getChildren() const
+std::vector<const INode*> INode::getChildren() const
 {
     return {};
 }
@@ -58,13 +56,13 @@ INode* INode::parent()
 
 int INode::copyNumber(const INode* node) const
 {
-    if(node->parent() != this)
+    if (node->parent() != this)
         return -1;
 
     int result(-1), count(0);
     for (auto child : getChildren()) {
 
-        if(child == nullptr)
+        if (child == nullptr)
             throw std::runtime_error("INode::copyNumber() -> Error. Nullptr as child.");
 
         if (child == node)
@@ -95,7 +93,7 @@ ParameterPool* INode::createParameterTree() const
     NodeIterator<PreorderStrategy> it(this);
     it.first();
     while (!it.isDone()) {
-        const INode *child = it.getCurrent();
+        const INode* child = it.getCurrent();
         const std::string path = NodeUtils::nodePath(*child, this->parent()) + "/";
         child->parameterPool()->copyToExternalPool(path, result.get());
         it.next();

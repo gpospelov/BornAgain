@@ -14,20 +14,19 @@
 
 #include "ParameterTreeUtils.h"
 #include "FitParameterHelper.h"
+#include "GUIHelpers.h"
 #include "GroupItem.h"
 #include "JobItem.h"
 #include "ModelPath.h"
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
 #include "SampleModel.h"
-#include "GUIHelpers.h"
-#include "FitParameterHelper.h"
-#include "SampleModel.h"
 #include <QStack>
 
-namespace {
+namespace
+{
 
-QString removeLeadingSlash(const QString& name )
+QString removeLeadingSlash(const QString& name)
 {
     return name.indexOf('/') == 0 ? name.mid(1) : name;
 }
@@ -38,14 +37,13 @@ QString removeLeadingSlash(const QString& name )
 
 void populateDomainLinks(SessionItem* container)
 {
-    if(container->modelType() != Constants::ParameterContainerType)
+    if (container->modelType() != Constants::ParameterContainerType)
         throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
                                 "Not a ParameterContainerType.");
 
-    ParameterTreeUtils::visitParameterContainer(container, [container](ParameterItem* parItem)
-    {
-        QString translation = "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(),
-                                                                    container->parent());
+    ParameterTreeUtils::visitParameterContainer(container, [container](ParameterItem* parItem) {
+        QString translation =
+            "*/" + ModelPath::itemPathTranslation(*parItem->linkedItem(), container->parent());
         parItem->setItemValue(ParameterItem::P_DOMAIN, translation);
     });
 }
@@ -54,12 +52,12 @@ void populateDomainLinks(SessionItem* container)
 
 void handleItem(SessionItem* tree, const SessionItem* source);
 
-}
+} // namespace
 
 void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
 {
-    SessionItem* container = jobItem->model()->insertNewItem(Constants::ParameterContainerType,
-        jobItem->index(), -1, JobItem::T_PARAMETER_TREE);
+    SessionItem* container = jobItem->model()->insertNewItem(
+        Constants::ParameterContainerType, jobItem->index(), -1, JobItem::T_PARAMETER_TREE);
 
     populateParameterContainer(container, jobItem->getItem(JobItem::T_MATERIAL_CONTAINER));
 
@@ -81,12 +79,12 @@ void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
 void ParameterTreeUtils::populateParameterContainer(SessionItem* container,
                                                     const SessionItem* source)
 {
-    if(container->modelType() != Constants::ParameterContainerType)
+    if (container->modelType() != Constants::ParameterContainerType)
         throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
                                 "Not a ParameterContainerType.");
 
-    SessionItem* sourceLabel
-        = container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
+    SessionItem* sourceLabel =
+        container->model()->insertNewItem(Constants::ParameterLabelType, container->index());
 
     handleItem(sourceLabel, source);
 }
@@ -118,7 +116,7 @@ QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source)
 {
     QStringList result;
 
-    for(auto pair : parameterDictionary(source))
+    for (auto pair : parameterDictionary(source))
         result << pair.first;
 
     return result;
@@ -130,7 +128,7 @@ QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* 
 {
     QStringList result;
 
-    for(auto pair : parameterDictionary(source))
+    for (auto pair : parameterDictionary(source))
         result << pair.second;
 
     return result;
@@ -139,8 +137,7 @@ QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* 
 //! Correspondance of parameter name to translated name for all properties found in source
 //! in its children.
 
-QVector<QPair<QString, QString>>
-ParameterTreeUtils::parameterDictionary(const SessionItem* source)
+QVector<QPair<QString, QString>> ParameterTreeUtils::parameterDictionary(const SessionItem* source)
 {
     Q_ASSERT(source);
 
@@ -152,18 +149,16 @@ ParameterTreeUtils::parameterDictionary(const SessionItem* source)
     populateParameterContainer(container, source);
 
     // Iterate through all ParameterItems and retrieve necessary data.
-    visitParameterContainer(container, [&](ParameterItem* parItem)
-    {
-         // TODO replace with the method from ModelPath
+    visitParameterContainer(container, [&](ParameterItem* parItem) {
+        // TODO replace with the method from ModelPath
         QString parPath = FitParameterHelper::getParameterItemPath(parItem);
 
-        QString relPath = source->displayName() + "/"
-                + parItem->getItemValue(ParameterItem::P_LINK).toString();
-        SessionItem *linkedItem = ModelPath::getItemFromPath(relPath, source);
+        QString relPath =
+            source->displayName() + "/" + parItem->getItemValue(ParameterItem::P_LINK).toString();
+        SessionItem* linkedItem = ModelPath::getItemFromPath(relPath, source);
         QString translation = ModelPath::itemPathTranslation(*linkedItem, source->parent());
 
         result.push_back(QPair<QString, QString>(parPath, translation));
-
     });
     std::reverse(result.begin(), result.end());
 
@@ -177,8 +172,8 @@ QString ParameterTreeUtils::domainNameToParameterName(const QString& domainName,
                                                       const SessionItem* source)
 {
     QString domain = removeLeadingSlash(domainName);
-    for(auto pair : parameterDictionary(source)) {// parName, domainName
-        if(pair.second == domain)
+    for (auto pair : parameterDictionary(source)) { // parName, domainName
+        if (pair.second == domain)
             return pair.first;
     }
 
@@ -191,9 +186,9 @@ QString ParameterTreeUtils::domainNameToParameterName(const QString& domainName,
 QString ParameterTreeUtils::parameterNameToDomainName(const QString& parName,
                                                       const SessionItem* source)
 {
-    for(auto pair : parameterDictionary(source)) // parName, domainName
-        if(pair.first == parName)
-            return "/"+pair.second;
+    for (auto pair : parameterDictionary(source)) // parName, domainName
+        if (pair.first == parName)
+            return "/" + pair.second;
 
     return {};
 }
@@ -201,7 +196,7 @@ QString ParameterTreeUtils::parameterNameToDomainName(const QString& parName,
 //! Converts parameter item name to the corresponding item in the tree below the source.
 
 SessionItem* ParameterTreeUtils::parameterNameToLinkedItem(const QString& parName,
-                                                     const SessionItem* source)
+                                                           const SessionItem* source)
 {
     SampleModel model;
     SessionItem* container = model.insertNewItem(Constants::ParameterContainerType);
@@ -209,22 +204,21 @@ SessionItem* ParameterTreeUtils::parameterNameToLinkedItem(const QString& parNam
 
     // Iterate through all ParameterItems and retrieve necessary data.
     SessionItem* result(nullptr);
-    visitParameterContainer(container, [&](ParameterItem* parItem)
-    {
-         // TODO replace with the method from ModelPath
+    visitParameterContainer(container, [&](ParameterItem* parItem) {
+        // TODO replace with the method from ModelPath
         QString parPath = FitParameterHelper::getParameterItemPath(parItem);
-        if(parPath == parName) {
+        if (parPath == parName) {
             QString relPath = source->displayName() + "/"
-                    + parItem->getItemValue(ParameterItem::P_LINK).toString();
+                              + parItem->getItemValue(ParameterItem::P_LINK).toString();
             result = ModelPath::getItemFromPath(relPath, source);
         }
-
     });
 
     return result;
 }
 
-namespace {
+namespace
+{
 
 void handleItem(SessionItem* tree, const SessionItem* source)
 {
@@ -254,21 +248,21 @@ void handleItem(SessionItem* tree, const SessionItem* source)
         if (child->isVisible() && child->isEnabled()) {
             if (child->modelType() == Constants::PropertyType) {
                 if (child->value().type() == QVariant::Double) {
-                    SessionItem* branch
-                        = tree->model()->insertNewItem(Constants::ParameterType, tree->index());
+                    SessionItem* branch =
+                        tree->model()->insertNewItem(Constants::ParameterType, tree->index());
                     handleItem(branch, child);
                 }
 
             } else if (child->modelType() == Constants::GroupItemType) {
                 SessionItem* currentItem = dynamic_cast<GroupItem*>(child)->currentItem();
                 if (currentItem && currentItem->numberOfChildren() > 0) {
-                    SessionItem* branch = tree->model()->insertNewItem(
-                        Constants::ParameterLabelType, tree->index());
+                    SessionItem* branch =
+                        tree->model()->insertNewItem(Constants::ParameterLabelType, tree->index());
                     handleItem(branch, currentItem);
                 }
             } else {
-                SessionItem* branch
-                    = tree->model()->insertNewItem(Constants::ParameterLabelType, tree->index());
+                SessionItem* branch =
+                    tree->model()->insertNewItem(Constants::ParameterLabelType, tree->index());
                 handleItem(branch, child);
             }
         }
@@ -276,4 +270,3 @@ void handleItem(SessionItem* tree, const SessionItem* source)
 }
 
 } // namespace
-

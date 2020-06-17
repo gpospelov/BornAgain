@@ -1,13 +1,14 @@
 #include "DataViewUtils.h"
-#include "DataItem.h"
 #include "Data1DViewItem.h"
+#include "DataItem.h"
+#include "DataPropertyContainer.h"
 #include "DomainObjectBuilder.h"
 #include "JobItem.h"
 #include "JobItemUtils.h"
-#include "DataPropertyContainer.h"
 #include "UnitConverterUtils.h"
 
-namespace {
+namespace
+{
 std::unique_ptr<IUnitConverter> getConverter(Data1DViewItem* view_item)
 {
     auto job_item = view_item->jobItem();
@@ -18,11 +19,11 @@ std::unique_ptr<IUnitConverter> getConverter(Data1DViewItem* view_item)
 
 AxesUnits selectedUnits(Data1DViewItem* view_item)
 {
-    auto current_unit_name
-        = view_item->getItemValue(Data1DViewItem::P_AXES_UNITS).value<ComboProperty>().getValue();
+    auto current_unit_name =
+        view_item->getItemValue(Data1DViewItem::P_AXES_UNITS).value<ComboProperty>().getValue();
     return JobItemUtils::axesUnitsFromName(current_unit_name);
 }
-}
+} // namespace
 
 void DataViewUtils::updateAxesTitle(Data1DViewItem* view_item)
 {

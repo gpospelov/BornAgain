@@ -15,5 +15,3 @@
 #include "INamed.h"
 
 INamed::~INamed() = default;
-
-

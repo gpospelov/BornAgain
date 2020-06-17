@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "ThreadInfo.h"
+#include "google_test.h"
 
 class ThreadInfoTest : public ::testing::Test
 {

@@ -17,7 +17,8 @@
 
 #include <QString>
 
-namespace Constants {
+namespace Constants
+{
 
 // --- Items -------------------------------------------------------------------
 
@@ -52,6 +53,8 @@ const ModelType SpecularBeamType = "SpecularBeam";
 
 const ModelType FormFactorType = "FormFactor";
 const ModelType AnisoPyramidType = "AnisoPyramid";
+const ModelType BarGaussType = "BarGauss";
+const ModelType BarLorentzType = "BarLorentz";
 const ModelType BoxType = "Box";
 const ModelType ConeType = "Cone";
 const ModelType Cone6Type = "Cone6";
@@ -67,8 +70,12 @@ const ModelType IcosahedronType = "Icosahedron";
 const ModelType Prism3Type = "Prism3";
 const ModelType Prism6Type = "Prism6";
 const ModelType PyramidType = "Pyramid";
-const ModelType Ripple1Type = "Ripple1";
-const ModelType Ripple2Type = "Ripple2";
+const ModelType Ripple1BoxType = "Ripple1Box";
+const ModelType Ripple1GaussType = "Ripple1Gauss";
+const ModelType Ripple1LorentzType = "Ripple1Lorentz";
+const ModelType Ripple2BoxType = "Ripple2Box";
+const ModelType Ripple2GaussType = "Ripple2Gauss";
+const ModelType Ripple2LorentzType = "Ripple2Lorentz";
 const ModelType TetrahedronType = "Tetrahedron";
 const ModelType TruncatedCubeType = "TruncatedCube";
 const ModelType TruncatedSphereType = "TruncatedSphere";
@@ -201,7 +208,7 @@ const ModelType FootprintNoneType = "NoFootprint";
 const ModelType FootprintGaussianType = "GaussianFootrpint";
 const ModelType FootprintSquareType = "SquareFootprint";
 
-const ModelType VarianceConstantFunctionType= "VarianceConstantFunction";
+const ModelType VarianceConstantFunctionType = "VarianceConstantFunction";
 const ModelType VarianceSimFunctionType = "VarianceSimFunction";
 
 // --- Groups ------------------------------------------------------------------
@@ -304,6 +311,6 @@ const ModelType ScientificSpinBoxType = "ScientificSpinBox";
 const ModelType MaterialEditorExternalType = "ExtMaterialEditor";
 const ModelType ColorEditorExternalType = "ExtColorEditor";
 const ModelType MultiSelectionComboEditorType = "MultiSelectionComboEditor";
-}
+} // namespace Constants
 
 #endif // ITEM_CONSTANTS_H

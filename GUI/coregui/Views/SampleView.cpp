@@ -17,19 +17,18 @@
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
 #include "SampleTreeWidget.h"
-#include "SampleViewDocks.h"
-#include "mainwindow.h"
 #include "SampleViewActions.h"
+#include "SampleViewDocks.h"
 #include "SampleViewStatusBar.h"
+#include "mainwindow.h"
 #include <QMenu>
 #include <memory>
 
 SampleView::SampleView(MainWindow* mainWindow)
-    : Manhattan::FancyMainWindow(mainWindow), m_models(mainWindow->models())
-    , m_docks(new SampleViewDocks(this))
-    , m_actions(new SampleViewActions(mainWindow->models()->sampleModel(), this))
-    , m_toolBar(nullptr)
-    , m_statusBar(new SampleViewStatusBar(mainWindow))
+    : Manhattan::FancyMainWindow(mainWindow), m_models(mainWindow->models()),
+      m_docks(new SampleViewDocks(this)),
+      m_actions(new SampleViewActions(mainWindow->models()->sampleModel(), this)),
+      m_toolBar(nullptr), m_statusBar(new SampleViewStatusBar(mainWindow))
 {
     setObjectName("SampleView");
     m_actions->setSelectionModel(selectionModel());
@@ -37,7 +36,10 @@ SampleView::SampleView(MainWindow* mainWindow)
     connectSignals();
 }
 
-ApplicationModels* SampleView::models() { return m_models; }
+ApplicationModels* SampleView::models()
+{
+    return m_models;
+}
 
 SampleViewDocks* SampleView::docks()
 {
@@ -50,7 +52,7 @@ void SampleView::onDockMenuRequest()
     menu->exec(QCursor::pos());
 }
 
-void SampleView::showEvent(QShowEvent*event)
+void SampleView::showEvent(QShowEvent* event)
 {
     if (isVisible())
         m_statusBar->show();
@@ -67,8 +69,8 @@ void SampleView::hideEvent(QHideEvent* event)
 void SampleView::connectSignals()
 {
     connect(this, &SampleView::resetLayout, m_docks, &SampleViewDocks::onResetLayout);
-    connect(m_statusBar, &SampleViewStatusBar::dockMenuRequest,
-            this, &SampleView::onDockMenuRequest);
+    connect(m_statusBar, &SampleViewStatusBar::dockMenuRequest, this,
+            &SampleView::onDockMenuRequest);
 
     // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(m_actions, this);
@@ -81,9 +83,6 @@ void SampleView::connectSignals()
     connect(m_toolBar, SIGNAL(centerView()), sampleDesigner()->getView(), SLOT(onCenterView()));
     connect(m_toolBar, SIGNAL(changeScale(double)), sampleDesigner()->getView(),
             SLOT(onChangeScale(double)));
-
-    connect(m_toolBar, SIGNAL(zoomOut()), sampleDesigner()->getView(), SLOT(zoomOut()));
-    connect(m_toolBar, SIGNAL(zoomIn()), sampleDesigner()->getView(), SLOT(zoomIn()));
 
     connect(sampleDesigner()->getScene(), SIGNAL(selectionModeChangeRequest(int)),
             sampleDesigner()->getView(), SLOT(onSelectionMode(int)));

@@ -37,10 +37,10 @@ public:
 
     void populate(RealSpaceModel* model, const SessionItem& item,
                   const SceneGeometry& sceneGeometry,
-                  const RealSpace::Camera::Position& cameraPosition
-                  = RealSpace::Camera::Position(RealSpace::Vector3D(0, -200, 120), // eye
-                                                RealSpace::Vector3D(0, 0, 0),      // center
-                                                RealSpace::Vector3D::_z));         // up
+                  const RealSpace::Camera::Position& cameraPosition =
+                      RealSpace::Camera::Position(RealSpace::Vector3D(0, -200, 120), // eye
+                                                  RealSpace::Vector3D(0, 0, 0),      // center
+                                                  RealSpace::Vector3D::_z));         // up
 
     void populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
                             const SceneGeometry& sceneGeometry,
@@ -56,10 +56,10 @@ public:
     void populateParticleFromParticleItem(RealSpaceModel* model,
                                           const SessionItem& particleItem) const;
 
-    void populateParticleFromParticle3DContainer(RealSpaceModel* model,
-                                                 const Particle3DContainer& particle3DContainer,
-                                                 const QVector3D& lattice_position
-                                                 = QVector3D()) const;
+    void
+    populateParticleFromParticle3DContainer(RealSpaceModel* model,
+                                            const Particle3DContainer& particle3DContainer,
+                                            const QVector3D& lattice_position = QVector3D()) const;
 };
 
 #endif // REALSPACEBUILDER_H

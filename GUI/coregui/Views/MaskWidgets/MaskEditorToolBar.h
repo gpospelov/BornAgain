@@ -28,7 +28,7 @@ class BA_CORE_API_ MaskEditorToolBar : public QToolBar
 {
     Q_OBJECT
 public:
-    MaskEditorToolBar(MaskEditorActions *editorActions, QWidget *parent = 0);
+    MaskEditorToolBar(MaskEditorActions* editorActions, QWidget* parent = 0);
 
 signals:
     void activityModeChanged(MaskEditorFlags::Activity);
@@ -55,11 +55,10 @@ private:
     MaskEditorFlags::Activity currentActivity() const;
     void setCurrentActivity(MaskEditorFlags::Activity value);
 
-    MaskEditorActions *m_editorActions;
-    QButtonGroup *m_activityButtonGroup;
-    QButtonGroup *m_maskValueGroup;
+    MaskEditorActions* m_editorActions;
+    QButtonGroup* m_activityButtonGroup;
+    QButtonGroup* m_maskValueGroup;
     MaskEditorFlags::Activity m_previousActivity;
 };
-
 
 #endif // MASKEDITORTOOLBAR_H

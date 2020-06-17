@@ -53,4 +53,3 @@ private:
 };
 
 #endif // ITEMCOMBOTOOLBAR_H
-

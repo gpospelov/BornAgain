@@ -63,13 +63,13 @@ void FitObjectiveBuilder::runFit()
     auto result =
         requires_residuals
             ? minimizer.minimize(
-                  [&](const Fit::Parameters& params) {
-                      return m_fit_objective->evaluate_residuals(params);
-                  },
-                  createParameters())
+                [&](const Fit::Parameters& params) {
+                    return m_fit_objective->evaluate_residuals(params);
+                },
+                createParameters())
             : minimizer.minimize(
-                  [&](const Fit::Parameters& params) { return m_fit_objective->evaluate(params); },
-                  createParameters());
+                [&](const Fit::Parameters& params) { return m_fit_objective->evaluate(params); },
+                createParameters());
     m_fit_objective->finalize(result);
 }
 

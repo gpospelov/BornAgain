@@ -14,15 +14,14 @@
 
 #include "ItemComboToolBar.h"
 #include <QAction>
-#include <QStandardItemModel>
 #include <QComboBox>
+#include <QStandardItemModel>
 
 ItemComboToolBar::ItemComboToolBar(QWidget* parent)
     : StyledToolBar(parent), m_comboBox(new QComboBox), m_comboBoxAction(nullptr)
 {
     setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
-    m_comboBox->setFixedWidth(125);
     m_comboBox->setToolTip("Select type of graphical presentation.");
 
     m_comboBoxAction = addWidget(m_comboBox);
@@ -50,7 +49,7 @@ void ItemComboToolBar::setPresentationList(const QStringList& presentationList,
     if (activeList.contains(previous))
         m_comboBox->setCurrentText(previous);
 
-    if(!activeList.isEmpty())
+    if (!activeList.isEmpty())
         makeItemsEnabled(activeList);
 
     setComboConnected(true);
@@ -65,10 +64,10 @@ QString ItemComboToolBar::currentPresentation() const
 
 void ItemComboToolBar::setActionList(const QList<QAction*>& actionList)
 {
-    for(auto action : actions())
+    for (auto action : actions())
         removeAction(action);
 
-    for(auto action : actionList) {
+    for (auto action : actionList) {
         addAction(action);
         addSpacing();
     }
@@ -93,7 +92,7 @@ void ItemComboToolBar::makeItemsEnabled(const QStringList& activePresentations)
     const QStandardItemModel* model = dynamic_cast<const QStandardItemModel*>(m_comboBox->model());
     Q_ASSERT(model);
 
-    for(int row=0; row<m_comboBox->count(); ++row) {
+    for (int row = 0; row < m_comboBox->count(); ++row) {
         QString text = m_comboBox->itemText(row);
         model->item(row)->setEnabled(activePresentations.contains(text));
     }

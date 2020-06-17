@@ -19,8 +19,10 @@
 #include "Simulation.h"
 #include "UnitConverterUtils.h"
 
-namespace {
-[[noreturn]] void throwInitializationException(std::string method) {
+namespace
+{
+[[noreturn]] void throwInitializationException(std::string method)
+{
     std::stringstream ss;
     ss << "Error in SimDataPair::" << method << ": Trying access non-initialized data\n";
     throw std::runtime_error(ss.str());
@@ -33,13 +35,12 @@ std::unique_ptr<OutputData<double>> initUserWeights(const OutputData<double>& sh
     result->setAllTo(value);
     return result;
 }
-}
+} // namespace
 
 SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData<double>& data,
                          std::unique_ptr<OutputData<double>> uncertainties, double user_weight)
-    : m_simulation_builder(builder)
-    , m_raw_data(data.clone())
-    , m_raw_uncertainties(std::move(uncertainties))
+    : m_simulation_builder(builder), m_raw_data(data.clone()),
+      m_raw_uncertainties(std::move(uncertainties))
 {
     m_raw_user_weights = initUserWeights(*m_raw_data, user_weight);
     validate();
@@ -48,10 +49,8 @@ SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData<double>&
 SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData<double>& data,
                          std::unique_ptr<OutputData<double>> uncertainties,
                          std::unique_ptr<OutputData<double>> user_weights)
-    : m_simulation_builder(builder)
-    , m_raw_data(data.clone())
-    , m_raw_uncertainties(std::move(uncertainties))
-    , m_raw_user_weights(std::move(user_weights))
+    : m_simulation_builder(builder), m_raw_data(data.clone()),
+      m_raw_uncertainties(std::move(uncertainties)), m_raw_user_weights(std::move(user_weights))
 {
     if (!m_raw_user_weights)
         m_raw_user_weights = initUserWeights(*m_raw_data, 1.0);
@@ -59,15 +58,12 @@ SimDataPair::SimDataPair(simulation_builder_t builder, const OutputData<double>&
 }
 
 SimDataPair::SimDataPair(SimDataPair&& other)
-    : m_simulation_builder(std::move(other.m_simulation_builder))
-    , m_simulation(std::move(other.m_simulation))
-    , m_sim_data(std::move(other.m_sim_data))
-    , m_exp_data(std::move(other.m_exp_data))
-    , m_uncertainties(std::move(other.m_uncertainties))
-    , m_user_weights(std::move(other.m_user_weights))
-    , m_raw_data(std::move(other.m_raw_data))
-    , m_raw_uncertainties(std::move(other.m_raw_uncertainties))
-    , m_raw_user_weights(std::move(other.m_raw_user_weights))
+    : m_simulation_builder(std::move(other.m_simulation_builder)),
+      m_simulation(std::move(other.m_simulation)), m_sim_data(std::move(other.m_sim_data)),
+      m_exp_data(std::move(other.m_exp_data)), m_uncertainties(std::move(other.m_uncertainties)),
+      m_user_weights(std::move(other.m_user_weights)), m_raw_data(std::move(other.m_raw_data)),
+      m_raw_uncertainties(std::move(other.m_raw_uncertainties)),
+      m_raw_user_weights(std::move(other.m_raw_user_weights))
 {
     validate();
 }
@@ -213,5 +209,5 @@ void SimDataPair::validate() const
 
     if (!m_raw_user_weights || !m_raw_user_weights->hasSameShape(*m_raw_data))
         throw std::runtime_error(
-                "Error in SimDataPair: user weights are not initialized or have invalid shape");
+            "Error in SimDataPair: user weights are not initialized or have invalid shape");
 }

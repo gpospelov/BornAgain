@@ -18,22 +18,25 @@
 #include "NodeEditorConnection.h"
 #include "NodeEditorPort.h"
 #include "SessionItem.h"
+#include "StyleUtils.h"
 #include <QObject>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <iostream>
 
-ConnectableView::ConnectableView(QGraphicsItem *parent, QRectF rect)
-    : IView(parent), m_name("Unnamed"), m_color(Qt::gray), m_rect(rect), m_roundpar(3),
-      m_label_vspace(35)
+ConnectableView::ConnectableView(QGraphicsItem* parent, QRectF rect)
+    : IView(parent), m_name("Unnamed"), m_color(Qt::gray), m_rect(rect), m_roundpar(0),
+      m_label_vspace(0)
 {
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+    m_label_vspace = StyleUtils::SizeOfLetterM().height()*2.5;
+    m_roundpar = StyleUtils::SizeOfLetterM().height()/3.0;
 }
 
-void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                            QWidget *widget)
+void ConnectableView::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
+                            QWidget* widget)
 {
     Q_UNUSED(widget);
 
@@ -50,20 +53,20 @@ void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
     painter->setPen(Qt::black);
     double width = getRectangle().width() * 0.9;
-    double yoffset = 5; // space above the label
+    double yoffset = StyleUtils::SizeOfLetterM().height()/2; // space above the label
     double height = m_label_vspace - yoffset;
     QFont serifFont("Monospace", DesignerHelper::getLabelFontSize(), QFont::Normal);
     painter->setFont(serifFont);
     QRectF textRect(getRectangle().x() + (getRectangle().width() - width) / 2.,
-                   getRectangle().y() + yoffset, width, height);
+                    getRectangle().y() + yoffset, width, height);
     painter->drawText(textRect, Qt::AlignCenter, m_label);
 }
 
-NodeEditorPort *ConnectableView::addPort(const QString &name,
+NodeEditorPort* ConnectableView::addPort(const QString& name,
                                          NodeEditorPort::EPortDirection direction,
                                          NodeEditorPort::EPortType port_type)
 {
-    NodeEditorPort *port = new NodeEditorPort(this, name, direction, port_type);
+    NodeEditorPort* port = new NodeEditorPort(this, name, direction, port_type);
     if (direction == NodeEditorPort::INPUT) {
         m_input_ports.append(port);
     } else if (direction == NodeEditorPort::OUTPUT) {
@@ -75,13 +78,13 @@ NodeEditorPort *ConnectableView::addPort(const QString &name,
     return port;
 }
 
-void ConnectableView::setLabel(const QString &name)
+void ConnectableView::setLabel(const QString& name)
 {
     m_label = name;
     setPortCoordinates();
 }
 
-void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
+void ConnectableView::connectInputPort(ConnectableView* other, int port_number)
 {
     Q_ASSERT(other);
 
@@ -94,18 +97,18 @@ void ConnectableView::connectInputPort(ConnectableView *other, int port_number)
     if (port_number < 0)
         return;
 
-    NodeEditorPort *input = m_input_ports.at(port_number);
-    NodeEditorPort *output = other->getOutputPorts().at(0);
+    NodeEditorPort* input = m_input_ports.at(port_number);
+    NodeEditorPort* output = other->getOutputPorts().at(0);
 
     if (!input->isConnected(output)) {
-        NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
+        NodeEditorConnection* conn = new NodeEditorConnection(0, scene());
         conn->setPort2(input);
         conn->setPort1(output);
         conn->updatePath();
     }
 }
 
-int ConnectableView::getInputPortIndex(NodeEditorPort *port)
+int ConnectableView::getInputPortIndex(NodeEditorPort* port)
 {
     return m_input_ports.indexOf(port);
 }
@@ -121,8 +124,8 @@ void ConnectableView::setPortCoordinates()
     if (!getLabel().isEmpty())
         hspace -= m_label_vspace;
 
-    double nintervals = getNumberOfPorts()
-                     + 2; // one spare interval for margin between input/output ports
+    double nintervals =
+        getNumberOfPorts() + 2; // one spare interval for margin between input/output ports
 
     double dy = hspace / double(nintervals);
     double ypos = getRectangle().height() - hspace + dy;
@@ -133,8 +136,8 @@ void ConnectableView::setPortCoordinates()
     }
     int nOutPorts = getNumberOfOutputPorts();
     int nport(0);
-    for(QGraphicsItem *item : childItems()) {
-        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
+    for (QGraphicsItem* item : childItems()) {
+        NodeEditorPort* port = dynamic_cast<NodeEditorPort*>(item);
         if (!port)
             continue;
         if (port->isOutput()) {
@@ -166,22 +169,21 @@ int ConnectableView::getNumberOfInputPorts()
 
 void ConnectableView::update_appearance()
 {
-    setLabel( hyphenate(m_item->displayName()) );
+    setLabel(hyphenate(m_item->displayName()));
     IView::update_appearance();
 }
 
-QString ConnectableView::hyphenate(const QString &name) const
+QString ConnectableView::hyphenate(const QString& name) const
 {
     QRegExp capital_letter("[A-Z]");
     QRegExp number("[0-9]");
     int next_capital = capital_letter.indexIn(name, 1);
     int next_number = number.indexIn(name, 1);
     if (next_capital > 0 && next_capital < name.size() - 2) {
-        int first_split_index = (next_number > 0 && next_number < next_capital)
-                ? next_number
-                : next_capital;
+        int first_split_index =
+            (next_number > 0 && next_number < next_capital) ? next_number : next_capital;
         QString result = name.left(first_split_index) + QString("\n")
-                + name.right(name.size()-first_split_index);
+                         + name.right(name.size() - first_split_index);
         return result;
     }
     return name;

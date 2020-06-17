@@ -51,14 +51,16 @@ public:
 
     //! Initializes the magnetic B field from a given ambient field strength H
     void initBField(kvector_t h_field, double b_z);
+    kvector_t bField() const { return m_B_field; }
 
     void invertBField();
 
     static constexpr double Magnetic_Permeability = 4e-7 * M_PI;
+
 private:
     double m_thickness;
     Material m_material;
-    kvector_t m_B_field;                  //!< cached value of magnetic induction
+    kvector_t m_B_field; //!< cached value of magnetic induction
     std::unique_ptr<LayerRoughness> mP_top_roughness;
 };
 

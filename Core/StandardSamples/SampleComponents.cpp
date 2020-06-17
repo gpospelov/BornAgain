@@ -33,68 +33,52 @@ FormFactorComponents::FormFactorComponents()
 // ************************************************************************** //
 {
     add(BornAgain::FFAnisoPyramidType,
-        new FormFactorAnisoPyramid(10.0, 20.0, 5.0, Units::deg2rad(54.73 )));
+        new FormFactorAnisoPyramid(10.0, 20.0, 5.0, Units::deg2rad(54.73)));
 
-    add(BornAgain::FFBoxType,
-        new FormFactorBox(10.0, 20.0, 5.0));
+    add(BornAgain::FFBoxType, new FormFactorBox(10.0, 20.0, 5.0));
 
-    add(BornAgain::FFConeType,
-        new FormFactorCone(5.0, 6.0, Units::deg2rad(54.73 )));
+//  TODO: activate this when supported by GUI
+//    add("CantellatedCube", new FormFactorCantellatedCube(15.0, 6.0));
+
+    add(BornAgain::FFConeType, new FormFactorCone(5.0, 6.0, Units::deg2rad(54.73)));
 
     add(BornAgain::FFCone6Type,
-        new FormFactorCone6(2./sqrt(3.)*5.0, 5.0, Units::deg2rad(54.73)));
+        new FormFactorCone6(2. / sqrt(3.) * 5.0, 5.0, Units::deg2rad(54.73)));
 
     add(BornAgain::FFCuboctahedronType,
-        new FormFactorCuboctahedron(10.0, 5.0, 1.0, Units::deg2rad(54.73 )));
+        new FormFactorCuboctahedron(10.0, 5.0, 1.0, Units::deg2rad(54.73)));
 
-    add(BornAgain::FFCylinderType,
-        new FormFactorCylinder(5.0, 10.0));
+    add(BornAgain::FFCylinderType, new FormFactorCylinder(5.0, 10.0));
 
-    add(BornAgain::FFDodecahedronType,
-        new FormFactorDodecahedron(5.0));
+    add(BornAgain::FFDodecahedronType, new FormFactorDodecahedron(5.0));
 
-    add(BornAgain::FFDotType,
-        new FormFactorDot());
+    add(BornAgain::FFDotType, new FormFactorDot(5.0));
 
-    add(BornAgain::FFEllipsoidalCylinderType,
-        new FormFactorEllipsoidalCylinder(5.0, 10.0, 15.0));
+    add(BornAgain::FFEllipsoidalCylinderType, new FormFactorEllipsoidalCylinder(5.0, 10.0, 15.0));
 
-    add(BornAgain::FFFullSphereType,
-        new FormFactorFullSphere(5.0));
+    add(BornAgain::FFFullSphereType, new FormFactorFullSphere(5.0));
 
-    add(BornAgain::FFFullSpheroidType,
-        new FormFactorFullSpheroid(5.0, 10.0));
+    add(BornAgain::FFFullSpheroidType, new FormFactorFullSpheroid(5.0, 10.0));
 
-    add(BornAgain::FFHemiEllipsoidType,
-        new FormFactorHemiEllipsoid(5.0, 10.0, 15.0));
+    add(BornAgain::FFHemiEllipsoidType, new FormFactorHemiEllipsoid(5.0, 10.0, 15.0));
 
-    add(BornAgain::FFIcosahedronType,
-        new FormFactorIcosahedron(10.0));
+    add(BornAgain::FFIcosahedronType, new FormFactorIcosahedron(10.0));
 
-    add(BornAgain::FFPrism3Type,
-        new FormFactorPrism3(10.0, 5.0));
+    add(BornAgain::FFPrism3Type, new FormFactorPrism3(10.0, 5.0));
 
-    add(BornAgain::FFPrism6Type,
-        new FormFactorPrism6(2./sqrt(3.)*5.0, 5.0));
+    add(BornAgain::FFPrism6Type, new FormFactorPrism6(2. / sqrt(3.) * 5.0, 5.0));
 
-    add(BornAgain::FFPyramidType,
-        new FormFactorPyramid(10.0, 5.0, Units::deg2rad(54.73 )));
+    add(BornAgain::FFPyramidType, new FormFactorPyramid(10.0, 5.0, Units::deg2rad(54.73)));
 
-    add(BornAgain::FFRipple1Type,
-        new FormFactorRipple1(100.0, 20.0, 4.0));
+    add(BornAgain::FFRipple1BoxType, new FormFactorRipple1Box(100.0, 20.0, 4.0));
 
-    add(BornAgain::FFRipple2Type,
-        new FormFactorRipple2(100.0, 20.0, 4.0, 0.0));
+    add(BornAgain::FFRipple2BoxType, new FormFactorRipple2Box(100.0, 20.0, 4.0, 0.0));
 
-    add(BornAgain::FFTetrahedronType,
-        new FormFactorTetrahedron(10.0, 4.0, Units::deg2rad(54.73 )));
+    add(BornAgain::FFTetrahedronType, new FormFactorTetrahedron(10.0, 4.0, Units::deg2rad(54.73)));
 
-    add(BornAgain::FFTruncatedCubeType,
-        new FormFactorTruncatedCube(15.0, 6.0));
+    add(BornAgain::FFTruncatedCubeType, new FormFactorTruncatedCube(15.0, 6.0));
 
-    add(BornAgain::FFTruncatedSphereType,
-        new FormFactorTruncatedSphere(5.0, 7.0));
+    add(BornAgain::FFTruncatedSphereType, new FormFactorTruncatedSphere(5.0, 7.0));
 
-    add(BornAgain::FFTruncatedSpheroidType,
-        new FormFactorTruncatedSpheroid(5.0, 7.0, 1.0));
+    add(BornAgain::FFTruncatedSpheroidType, new FormFactorTruncatedSpheroid(5.0, 7.0, 1.0));
 }

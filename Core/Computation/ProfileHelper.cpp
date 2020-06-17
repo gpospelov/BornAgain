@@ -66,17 +66,14 @@ std::vector<complex_t> ProfileHelper::calculateProfile(const std::vector<double>
 std::pair<double, double> ProfileHelper::defaultLimits() const
 {
     if (m_zlimits.size() < 1)
-        return { 0.0, 0.0 };
+        return {0.0, 0.0};
     double interface_span = m_zlimits.front() - m_zlimits.back();
-    double default_margin = interface_span > 0.0 ?
-                interface_span / 20.0 : 10.0;
-    double top_margin = m_sigmas.front() > 0.0 ?
-                5.0 * m_sigmas.front() : default_margin;
-    double bottom_margin = m_sigmas.back() > 0.0 ?
-                5.0 * m_sigmas.back() : default_margin;
+    double default_margin = interface_span > 0.0 ? interface_span / 20.0 : 10.0;
+    double top_margin = m_sigmas.front() > 0.0 ? 5.0 * m_sigmas.front() : default_margin;
+    double bottom_margin = m_sigmas.back() > 0.0 ? 5.0 * m_sigmas.back() : default_margin;
     double z_min = m_zlimits.back() - bottom_margin;
     double z_max = m_zlimits.front() + top_margin;
-    return { z_min, z_max };
+    return {z_min, z_max};
 }
 
 ProfileHelper::~ProfileHelper() = default;

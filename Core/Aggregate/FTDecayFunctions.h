@@ -31,15 +31,14 @@ public:
     //! @param decay_length: half-width of the distribution in nanometers
     IFTDecayFunction1D(double decay_length);
 
-    virtual IFTDecayFunction1D* clone() const=0;
-    virtual double evaluate(double q) const=0;
+    virtual IFTDecayFunction1D* clone() const = 0;
+    virtual double evaluate(double q) const = 0;
     double decayLength() const { return m_decay_length; }
 
 protected:
     void register_decay_length();
     double m_decay_length;
 };
-
 
 //! One-dimensional Cauchy decay function in reciprocal space;
 //! corresponds to exp(-|x|/decay_length) in real space.
@@ -54,7 +53,6 @@ public:
     double evaluate(double q) const final;
 };
 
-
 //! One-dimensional Gauss decay function in reciprocal space;
 //! corresponds to exp[-x^2/(2*decay_length^2)] in real space.
 //! @ingroup decayFT
@@ -68,7 +66,6 @@ public:
     double evaluate(double q) const final;
 };
 
-
 //! One-dimensional triangle decay function in reciprocal space;
 //! corresponds to 1-|x|/decay_length if |x|<decay_length (and 0 otherwise) in real space.
 //! @ingroup decayFT
@@ -81,7 +78,6 @@ public:
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
 };
-
 
 //! One-dimensional pseudo-Voigt decay function in reciprocal space;
 //! corresponds to eta*Gauss + (1-eta)*Cauchy.
@@ -97,20 +93,19 @@ public:
     FTDecayFunction1DVoigt* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double q) const final;
-    double eEta() const { return m_eta;}
+    double eEta() const { return m_eta; }
 
 private:
     double m_eta;
 };
-
 
 //! Interface for two-dimensional decay function in reciprocal space.
 //! @ingroup decayFT_internal
 class BA_CORE_API_ IFTDecayFunction2D : public ICloneable, public INode
 {
 public:
-    IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma=0);
-    virtual IFTDecayFunction2D* clone() const=0;
+    IFTDecayFunction2D(double decay_length_x, double decay_length_y, double gamma = 0);
+    virtual IFTDecayFunction2D* clone() const = 0;
 
     //! set angle between first lattice vector and X-axis of distribution (both in direct space)
     void setGamma(double gamma) { m_gamma = gamma; }
@@ -125,11 +120,11 @@ public:
     double decayLengthY() const { return m_decay_length_y; }
 
     //! evaluate Fourier transformed decay function for q in X,Y coordinates
-    virtual double evaluate(double qx, double qy) const=0;
+    virtual double evaluate(double qx, double qy) const = 0;
 
     //! transform back to a*, b* basis:
-    std::pair<double, double>  boundingReciprocalLatticeCoordinates(
-            double qX, double qY, double a, double b, double alpha) const;
+    std::pair<double, double> boundingReciprocalLatticeCoordinates(double qX, double qY, double a,
+                                                                   double b, double alpha) const;
 
 protected:
     void register_decay_lengths();
@@ -142,10 +137,9 @@ protected:
 private:
     //! transform reciprocal coordinate system of this decay function to the reciprocal
     //! lattice system
-    std::pair<double, double> transformToRecLatticeCoordinates(
-            double qX, double qY, double a, double b, double alpha) const;
+    std::pair<double, double> transformToRecLatticeCoordinates(double qX, double qY, double a,
+                                                               double b, double alpha) const;
 };
-
 
 //! Two-dimensional Cauchy decay function in reciprocal space;
 //! corresponds to exp(-r) in real space,
@@ -154,13 +148,12 @@ private:
 class BA_CORE_API_ FTDecayFunction2DCauchy : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma=0);
+    FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma = 0);
 
     FTDecayFunction2DCauchy* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
     double evaluate(double qx, double qy) const final;
 };
-
 
 //! Two-dimensional Gauss decay function in reciprocal space;
 //! corresponds to exp(-r^2/2) in real space,
@@ -169,7 +162,7 @@ public:
 class BA_CORE_API_ FTDecayFunction2DGauss : public IFTDecayFunction2D
 {
 public:
-    FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma=0);
+    FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma = 0);
 
     FTDecayFunction2DGauss* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
@@ -183,7 +176,7 @@ class BA_CORE_API_ FTDecayFunction2DVoigt : public IFTDecayFunction2D
 {
 public:
     FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double eta,
-                           double gamma=0);
+                           double gamma = 0);
 
     FTDecayFunction2DVoigt* clone() const;
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

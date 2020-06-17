@@ -1,6 +1,6 @@
-#include "google_test.h"
 #include "Polygon.h"
 #include "Bin.h"
+#include "google_test.h"
 #include <memory>
 
 class PolygonTest : public ::testing::Test

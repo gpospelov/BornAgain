@@ -42,7 +42,10 @@ void SessionModel::createRootItem()
     m_root_item->setDefaultTag("rootTag");
 }
 
-SessionModel::~SessionModel() { delete m_root_item; }
+SessionModel::~SessionModel()
+{
+    delete m_root_item;
+}
 
 // TODO make it relying on SessionItem::flags
 
@@ -213,8 +216,8 @@ bool SessionModel::canDropMimeData(const QMimeData* data, Qt::DropAction action,
         reader.readNext();
         if (reader.isStartElement()) {
             if (reader.name() == SessionXML::ItemTag) {
-                const QString model_type
-                    = reader.attributes().value(SessionXML::ModelTypeAttribute).toString();
+                const QString model_type =
+                    reader.attributes().value(SessionXML::ModelTypeAttribute).toString();
                 return acceptable_child_items.contains(model_type);
             }
         }
@@ -453,4 +456,3 @@ QVector<SessionItem*> SessionModel::nonXMLData() const
 {
     return QVector<SessionItem*>();
 }
-

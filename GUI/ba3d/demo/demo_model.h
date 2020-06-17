@@ -15,17 +15,18 @@
 #ifndef BA3D_DEMOMODEL_H
 #define BA3D_DEMOMODEL_H
 
-#include <ba3d/model/model.h>
-#include <ba3d/model/particles.h>
 #include "lattice.h"
 #include <QAtomicInteger>
+#include <ba3d/model/model.h>
+#include <ba3d/model/particles.h>
 
-class DemoModel : public RealSpace::Model {
+class DemoModel : public RealSpace::Model
+{
 public:
     using super = RealSpace::Model;
 
     using Particle = RealSpace::Particles::Particle;
-    using Camera   = RealSpace::Camera;
+    using Camera = RealSpace::Camera;
 
     DemoModel();
 
@@ -50,12 +51,17 @@ private:
     void addSubstrate();
     void addLayer();
 
-    enum {backNONE,  backSUBSTRATE, backLAYER }           back  = backNONE;
-    enum {frontNONE, frontONE, frontSQUARELOW,
-          frontSQUAREHIGH, frontSQUAREINSANE } front = frontNONE;
+    enum { backNONE, backSUBSTRATE, backLAYER } back = backNONE;
+    enum {
+        frontNONE,
+        frontONE,
+        frontSQUARELOW,
+        frontSQUAREHIGH,
+        frontSQUAREINSANE
+    } front = frontNONE;
 
     float szSample = 400;
-    float const spacing  = 20; // of particles
+    float const spacing = 20; // of particles
     float const R = 6;
     float const hgtLayer = 20, hgtSubstrate = 35;
 
@@ -65,7 +71,8 @@ private:
     void addLayer(RealSpace::Range, QColor);
 
     QVector<Particle*> ps;
-    Particle* p; RealSpace::Particles::EShape kind = RealSpace::Particles::EShape::None;
+    Particle* p;
+    RealSpace::Particles::EShape kind = RealSpace::Particles::EShape::None;
 
     Lattice activeMesh;
 
@@ -73,4 +80,4 @@ private:
     void snooze(bool withEye);
 };
 
-#endif  // BA3D_DEMOMODEL_H
+#endif // BA3D_DEMOMODEL_H

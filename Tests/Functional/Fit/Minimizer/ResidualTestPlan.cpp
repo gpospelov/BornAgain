@@ -14,29 +14,25 @@
 
 #include "ResidualTestPlan.h"
 #include "FixedBinAxis.h"
-#include "Parameters.h"
 #include "Minimizer.h"
+#include "Parameters.h"
 #include <iostream>
 #include <sstream>
 
 using namespace Fit;
 
 ResidualTestPlan::ResidualTestPlan(const std::string& name, test_funct_t func)
-    : MinimizerTestPlan(name)
-    , m_test_func(func)
+    : MinimizerTestPlan(name), m_test_func(func)
 {
     FixedBinAxis axis("x", 100, 0.0, 10.0);
     m_xvalues = axis.getBinBoundaries();
-
 }
 
 ResidualTestPlan::~ResidualTestPlan() = default;
 
 fcn_residual_t ResidualTestPlan::residualFunction()
 {
-    fcn_residual_t func =
-        [&](Fit::Parameters pars) -> std::vector<double>
-    {
+    fcn_residual_t func = [&](Fit::Parameters pars) -> std::vector<double> {
         return evaluate(pars.values());
     };
 
@@ -63,10 +59,9 @@ void ResidualTestPlan::init_data_values()
     for (const auto& plan : m_parameter_plan)
         pars.push_back(plan.expectedValue());
 
-    for(auto x : m_xvalues)
+    for (auto x : m_xvalues)
         m_data_values.push_back(m_test_func(x, pars));
 }
-
 
 std::vector<double> ResidualTestPlan::evaluate(const std::vector<double>& pars)
 {
@@ -76,11 +71,10 @@ std::vector<double> ResidualTestPlan::evaluate(const std::vector<double>& pars)
     std::vector<double> result;
 
     size_t index(0);
-    for(auto x : m_xvalues) {
+    for (auto x : m_xvalues) {
         result.push_back(m_test_func(x, pars) - m_data_values[index]);
         ++index;
     }
 
     return result;
 }
-

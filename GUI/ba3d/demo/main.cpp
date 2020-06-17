@@ -15,10 +15,10 @@
 #include <ba3d/def.h>
 #include <ba3d/view/camera.h>
 
-#include "mainwindow.h"
 #include "demo_model.h"
-#include <memory>
+#include "mainwindow.h"
 #include <QApplication>
+#include <memory>
 
 class App : public QApplication
 {

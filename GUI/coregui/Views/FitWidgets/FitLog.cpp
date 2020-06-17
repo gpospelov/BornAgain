@@ -15,11 +15,7 @@
 #include "FitLog.h"
 #include "JobMessagePanel.h"
 
-FitLog::FitLog()
-    : m_messagePanel(nullptr)
-{
-
-}
+FitLog::FitLog() : m_messagePanel(nullptr) {}
 
 void FitLog::setMessagePanel(JobMessagePanel* messagePanel)
 {
@@ -29,7 +25,7 @@ void FitLog::setMessagePanel(JobMessagePanel* messagePanel)
 
     m_messagePanel->onClearLog();
 
-    for(auto& record : m_records) {
+    for (auto& record : m_records) {
         m_messagePanel->onMessage(QString::fromStdString(record.m_text),
                                   QColor(FitLogFlags::color(record.m_type)));
     }
@@ -40,8 +36,7 @@ void FitLog::append(const std::string& text, FitLogFlags::MessageType type)
     m_records.push_back({text, type});
 
     if (m_messagePanel)
-        m_messagePanel->onMessage(QString::fromStdString(text),
-                                  QColor(FitLogFlags::color(type)));
+        m_messagePanel->onMessage(QString::fromStdString(text), QColor(FitLogFlags::color(type)));
 }
 
 void FitLog::clearLog()

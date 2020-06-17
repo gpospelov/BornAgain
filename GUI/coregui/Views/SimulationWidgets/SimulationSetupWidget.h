@@ -32,9 +32,9 @@ class BA_CORE_API_ SimulationSetupWidget : public QWidget
     Q_OBJECT
 
 public:
-    SimulationSetupWidget(QWidget *parent = 0);
+    SimulationSetupWidget(QWidget* parent = 0);
 
-    void setApplicationModels(ApplicationModels *model);
+    void setApplicationModels(ApplicationModels* model);
     void updateViewElements();
 
 public slots:
@@ -42,15 +42,15 @@ public slots:
     void onExportToPythonScript();
 
 private:
-    QWidget *createButtonWidget();
+    QWidget* createButtonWidget();
 
-    ApplicationModels *m_applicationModels;
+    ApplicationModels* m_applicationModels;
 
-    QPushButton *runSimulationButton;
-    QPushButton *exportToPyScriptButton;
+    QPushButton* runSimulationButton;
+    QPushButton* exportToPyScriptButton;
 
-    SimulationDataSelectorWidget *m_simDataSelectorWidget;
-    SimulationOptionsWidget *m_simOptionsWidget;
+    SimulationDataSelectorWidget* m_simDataSelectorWidget;
+    SimulationOptionsWidget* m_simOptionsWidget;
 };
 
 #endif // SIMULATIONSETUPWIDGET_H

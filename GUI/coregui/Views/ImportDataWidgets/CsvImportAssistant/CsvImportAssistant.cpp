@@ -164,7 +164,7 @@ ImportDataInfo CsvImportAssistant::fillData()
     std::vector<double> intensityValues;
     std::vector<double> coordinateValues;
 
-    getValuesFromColumns(intensityValues,coordinateValues);
+    getValuesFromColumns(intensityValues, coordinateValues);
 
     auto axisName = csv::UnitsLabels[m_units].toStdString();
     PointwiseAxis coordAxis(axisName, coordinateValues);

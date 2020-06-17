@@ -14,13 +14,13 @@
 
 #include "RealDataItem.h"
 #include "GUIHelpers.h"
-#include "IntensityDataItem.h"
+#include "ImportDataInfo.h"
 #include "InstrumentItems.h"
+#include "IntensityDataItem.h"
 #include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
 #include "SessionModel.h"
 #include "SpecularDataItem.h"
-#include "ImportDataInfo.h"
 
 const QString RealDataItem::P_INSTRUMENT_ID = "Instrument Id";
 const QString RealDataItem::P_INSTRUMENT_NAME = "Instrument";
@@ -28,9 +28,7 @@ const QString RealDataItem::T_INTENSITY_DATA = "Intensity data";
 const QString RealDataItem::T_NATIVE_DATA = "Native user data axis";
 const QString RealDataItem::P_NATIVE_UNITS = "Native user data units";
 
-RealDataItem::RealDataItem()
-    : SessionItem(Constants::RealDataType)
-    , m_linkedInstrument(nullptr)
+RealDataItem::RealDataItem() : SessionItem(Constants::RealDataType), m_linkedInstrument(nullptr)
 {
     setItemName(QStringLiteral("undefined"));
 
@@ -105,9 +103,9 @@ void RealDataItem::setOutputData(OutputData<double>* data)
     assert(data && "Assertion failed in RealDataItem::setOutputData: passed data is nullptr");
     assert(data->getRank() < 3 && data->getRank() > 0);
 
-    const QString& target_model_type
-        = data->getRank() == 2 ? Constants::IntensityDataType
-                               : data->getRank() == 1 ? Constants::SpecularDataType : "";
+    const QString& target_model_type =
+        data->getRank() == 2 ? Constants::IntensityDataType
+                             : data->getRank() == 1 ? Constants::SpecularDataType : "";
     auto data_item = getItem(T_INTENSITY_DATA);
     if (data_item && data_item->modelType() != target_model_type)
         throw GUIHelpers::Error("Error in RealDataItem::setOutputData: trying to set data "
@@ -122,7 +120,7 @@ void RealDataItem::setOutputData(OutputData<double>* data)
 
 void RealDataItem::initDataItem(size_t data_rank, const QString& tag)
 {
-    assert(data_rank <=2 && data_rank > 0);
+    assert(data_rank <= 2 && data_rank > 0);
     const QString& target_model_type =
         data_rank == 2 ? Constants::IntensityDataType : Constants::SpecularDataType;
     auto data_item = getItem(tag);
@@ -133,7 +131,8 @@ void RealDataItem::initDataItem(size_t data_rank, const QString& tag)
         this->model()->insertNewItem(target_model_type, this->index(), 0, tag);
 }
 
-void RealDataItem::setImportData(ImportDataInfo data) {
+void RealDataItem::setImportData(ImportDataInfo data)
+{
     if (!data)
         return;
 
@@ -154,10 +153,10 @@ bool RealDataItem::holdsDimensionalData() const
     return getItemValue(P_NATIVE_UNITS).toString() != Constants::UnitsNbins;
 }
 
-void RealDataItem::linkToInstrument(const InstrumentItem *instrument, bool make_update)
+void RealDataItem::linkToInstrument(const InstrumentItem* instrument, bool make_update)
 {
     m_linkedInstrument = instrument;
-    if(make_update)
+    if (make_update)
         updateToInstrument();
 }
 

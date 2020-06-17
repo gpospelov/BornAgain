@@ -22,9 +22,8 @@ class IFormFactor;
 class BA_CORE_API_ FormFactorItem : public SessionItem
 {
 public:
-    explicit FormFactorItem(const QString &model_type)
-        : SessionItem(model_type) {}
-    virtual std::unique_ptr<IFormFactor> createFormFactor() const=0;
+    explicit FormFactorItem(const QString& model_type) : SessionItem(model_type) {}
+    virtual std::unique_ptr<IFormFactor> createFormFactor() const = 0;
 };
 
 class BA_CORE_API_ AnisoPyramidItem : public FormFactorItem
@@ -35,6 +34,26 @@ public:
     static const QString P_HEIGHT;
     static const QString P_ALPHA;
     AnisoPyramidItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ BarGaussItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    BarGaussItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ BarLorentzItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    BarLorentzItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
@@ -79,6 +98,15 @@ public:
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
+class BA_CORE_API_ CylinderItem : public FormFactorItem
+{
+public:
+    static const QString P_RADIUS;
+    static const QString P_HEIGHT;
+    CylinderItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
 class BA_CORE_API_ DodecahedronItem : public FormFactorItem
 {
 public:
@@ -90,16 +118,8 @@ public:
 class BA_CORE_API_ DotItem : public FormFactorItem
 {
 public:
-    DotItem();
-    std::unique_ptr<IFormFactor> createFormFactor() const;
-};
-
-class BA_CORE_API_ CylinderItem : public FormFactorItem
-{
-public:
     static const QString P_RADIUS;
-    static const QString P_HEIGHT;
-    CylinderItem();
+    DotItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
@@ -176,24 +196,66 @@ public:
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
-class BA_CORE_API_ Ripple1Item : public FormFactorItem
+class BA_CORE_API_ Ripple1BoxItem : public FormFactorItem
 {
 public:
     static const QString P_LENGTH;
     static const QString P_WIDTH;
     static const QString P_HEIGHT;
-    Ripple1Item();
+    Ripple1BoxItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 
-class BA_CORE_API_ Ripple2Item : public FormFactorItem
+class BA_CORE_API_ Ripple1GaussItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    Ripple1GaussItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ Ripple1LorentzItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    Ripple1LorentzItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ Ripple2BoxItem : public FormFactorItem
 {
 public:
     static const QString P_LENGTH;
     static const QString P_WIDTH;
     static const QString P_HEIGHT;
     static const QString P_ASYMMETRY;
-    Ripple2Item();
+    Ripple2BoxItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ Ripple2GaussItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    static const QString P_ASYMMETRY;
+    Ripple2GaussItem();
+    std::unique_ptr<IFormFactor> createFormFactor() const;
+};
+
+class BA_CORE_API_ Ripple2LorentzItem : public FormFactorItem
+{
+public:
+    static const QString P_LENGTH;
+    static const QString P_WIDTH;
+    static const QString P_HEIGHT;
+    static const QString P_ASYMMETRY;
+    Ripple2LorentzItem();
     std::unique_ptr<IFormFactor> createFormFactor() const;
 };
 

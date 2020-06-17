@@ -20,9 +20,9 @@
 #include "IFootprintFactor.h"
 #include "IMultiLayerBuilder.h"
 #include "ISpecularScan.h"
+#include "MaterialUtils.h"
 #include "MathConstants.h"
 #include "MultiLayer.h"
-#include "MaterialUtils.h"
 #include "ParameterPool.h"
 #include "PointwiseAxis.h"
 #include "RealParameter.h"
@@ -35,12 +35,12 @@ namespace
 {
 // TODO: remove when pointwise resolution is implemented
 std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
-                                                         const Beam& beam);
+                                                  const Beam& beam);
 
 const RealLimits alpha_limits = RealLimits::limited(0.0, M_PI_2);
 const double zero_phi_i = 0.0;
 const double zero_alpha_i = 0.0;
-}
+} // namespace
 
 SpecularSimulation::SpecularSimulation() : Simulation()
 {
@@ -140,11 +140,22 @@ SpecularSimulation::generateSimulationElements(const Beam& beam)
         throw std::runtime_error("Error in SpecularSimulation::generateSimulationElements: beam "
                                  "parameters were not set.");
 
-    // TODO: remove when pointwise resolution is implemented
-    if (m_data_handler->dataType() == ISpecularScan::angle)
-        return mangledDataHandler(*m_data_handler, beam)->generateSimulationElements();
+    std::vector<SpecularSimulationElement> elements;
 
-    return m_data_handler->generateSimulationElements();
+    // TODO: remove if-else statement when pointwise resolution is implemented
+    if (m_data_handler->dataType() == ISpecularScan::angle)
+        elements = mangledDataHandler(*m_data_handler, beam)->generateSimulationElements();
+    else
+        elements = m_data_handler->generateSimulationElements();
+
+    // add polarization and analyzer operators
+    const auto& polarization = beam.getPolarization();
+    const auto& analyzer = m_instrument.getDetector()->detectionProperties().analyzerOperator();
+
+    for (auto& elem : elements)
+        elem.setPolarizationHandler({polarization, analyzer});
+
+    return elements;
 }
 
 std::unique_ptr<IComputation>
@@ -157,10 +168,9 @@ SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_ele
 }
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
-    : Simulation(other)
-    , m_data_handler(other.m_data_handler ? other.m_data_handler->clone() : nullptr)
-    , m_sim_elements(other.m_sim_elements)
-    , m_cache(other.m_cache)
+    : Simulation(other),
+      m_data_handler(other.m_data_handler ? other.m_data_handler->clone() : nullptr),
+      m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
 {
     initialize();
 }
@@ -179,8 +189,8 @@ void SpecularSimulation::validateParametrization(const ParameterDistribution& pa
         return;
 
     std::unique_ptr<ParameterPool> parameter_pool(createParameterTree());
-    const std::vector<RealParameter*> names
-        = parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
+    const std::vector<RealParameter*> names =
+        parameter_pool->getMatchedParameters(par_distr.getMainParameterName());
     for (const auto par : names)
         if (par->getName().find(BornAgain::Inclination) != std::string::npos && !zero_mean)
             throw std::runtime_error("Error in SpecularSimulation: parameter distribution of "
@@ -261,7 +271,7 @@ std::vector<double> SpecularSimulation::rawResults() const
 {
     std::vector<double> result;
     result.resize(m_sim_elements.size());
-    for (unsigned i=0; i<m_sim_elements.size(); ++i) {
+    for (unsigned i = 0; i < m_sim_elements.size(); ++i) {
         result[i] = m_sim_elements[i].getIntensity();
     }
     return result;
@@ -273,16 +283,17 @@ void SpecularSimulation::setRawResults(const std::vector<double>& raw_data)
     if (raw_data.size() != m_sim_elements.size())
         throw std::runtime_error("SpecularSimulation::setRawResults: size of vector passed as "
                                  "argument doesn't match number of elements in this simulation");
-    for (unsigned i=0; i<raw_data.size(); i++) {
+    for (unsigned i = 0; i < raw_data.size(); i++) {
         m_sim_elements[i].setIntensity(raw_data[i]);
     }
     transferResultsToIntensityMap();
 }
 
-namespace {
+namespace
+{
 // TODO: remove when pointwise resolution is implemented
 std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_handler,
-                                                         const Beam& beam)
+                                                  const Beam& beam)
 {
     if (data_handler.dataType() != ISpecularScan::angle)
         throw std::runtime_error("Error in mangledDataHandler: invalid usage");
@@ -300,4 +311,4 @@ std::unique_ptr<ISpecularScan> mangledDataHandler(const ISpecularScan& data_hand
     result->setAngleResolution(*scan.angleResolution());
     return std::unique_ptr<ISpecularScan>(result.release());
 }
-}
+} // namespace

@@ -15,7 +15,7 @@
 //
 // ************************************************************************** //
 
-%module(directors="1") "libBornAgainFit"
+%module(directors="1", moduleimport="import $module") "libBornAgainFit"
 
 %feature("autodoc");
 
@@ -51,9 +51,6 @@
 %init %{
 import_array();
 %}
-
-#define GCC_DIAG_OFF(x)
-#define GCC_DIAG_ON(x)
 
 #ifndef BORNAGAIN_PYTHON
 #define BORNAGAIN_PYTHON

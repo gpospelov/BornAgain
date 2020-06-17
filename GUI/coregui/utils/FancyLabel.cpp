@@ -15,27 +15,26 @@
 #include "FancyLabel.h"
 #include <QTimer>
 
-FancyLabel::FancyLabel(const QString &text, QWidget *parent)
-    : QLabel(text, parent)
+FancyLabel::FancyLabel(const QString& text, QWidget* parent) : QLabel(text, parent)
 {
     init_fancy_label();
 }
 
-FancyLabel::FancyLabel(QWidget *parent)
-    : QLabel(parent)
+FancyLabel::FancyLabel(QWidget* parent) : QLabel(parent)
 {
     init_fancy_label();
 }
 
-void FancyLabel::setTextAnimated(const QString &animated_text)
+void FancyLabel::setTextAnimated(const QString& animated_text)
 {
-    if(m_timer->isActive()) {
+    if (m_timer->isActive()) {
         m_timer->stop();
     }
 
-    if(animated_text == text()) return;
+    if (animated_text == text())
+        return;
 
-    if(animated_text.isEmpty()) {
+    if (animated_text.isEmpty()) {
         setText(animated_text);
         return;
     }
@@ -43,15 +42,14 @@ void FancyLabel::setTextAnimated(const QString &animated_text)
     m_text = animated_text;
     m_current_index = 0;
 
-    m_timer->setInterval(m_total_effect_duration/m_text.size());
+    m_timer->setInterval(m_total_effect_duration / m_text.size());
 
     m_timer->start();
-
 }
 
 void FancyLabel::timeout()
 {
-    if(m_current_index <= m_text.size()) {
+    if (m_current_index <= m_text.size()) {
         setText(m_text.left(m_current_index));
         m_current_index++;
         return;

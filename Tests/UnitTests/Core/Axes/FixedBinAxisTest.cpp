@@ -1,7 +1,7 @@
-#include "google_test.h"
+#include "FixedBinAxis.h"
 #include "DataFormatUtils.h"
 #include "Exceptions.h"
-#include "FixedBinAxis.h"
+#include "google_test.h"
 #include <iostream>
 
 class FixedBinAxisTest : public ::testing::Test

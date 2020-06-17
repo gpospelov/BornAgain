@@ -17,8 +17,8 @@
 
 //! Collection of wrapper classes to call Python callable from C++.
 
-#include "WinDllMacros.h"
 #include "Parameters.h"
+#include "WinDllMacros.h"
 
 class Simulation;
 
@@ -33,7 +33,6 @@ public:
     virtual ~PyBuilderCallback();
 
     virtual Simulation* build_simulation(Fit::Parameters);
-
 };
 
 class FitObjective;
@@ -49,7 +48,6 @@ public:
     virtual ~PyObserverCallback();
 
     virtual void update(const FitObjective&);
-
 };
 
 #endif //  PYFITTINGCALLBACKS_H

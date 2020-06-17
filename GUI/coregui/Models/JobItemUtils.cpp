@@ -14,16 +14,16 @@
 
 #include "JobItemUtils.h"
 #include "ComboProperty.h"
+#include "DataItem.h"
 #include "DomainObjectBuilder.h"
 #include "GUIHelpers.h"
 #include "InstrumentItems.h"
-#include "DataItem.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
 #include "Simulation.h"
 #include "UnitConverterUtils.h"
-#include <QFileInfo>
 #include <QDebug>
+#include <QFileInfo>
 
 namespace
 {
@@ -41,13 +41,12 @@ const std::map<AxesUnits, QString> names_from_units{{AxesUnits::NBINS, Constants
 
 //! Updates axes' titles
 void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, AxesUnits units);
-}
+} // namespace
 
 //! Updates axes of OutputData in IntensityData item to correspond with ::P_AXES_UNITS selection.
 //! InstrumentItem is used to get domain's detector map for given units.
 
-void JobItemUtils::updateDataAxes(DataItem* intensityItem,
-                                  const InstrumentItem* instrumentItem)
+void JobItemUtils::updateDataAxes(DataItem* intensityItem, const InstrumentItem* instrumentItem)
 {
     Q_ASSERT(intensityItem);
 
@@ -61,8 +60,7 @@ void JobItemUtils::updateDataAxes(DataItem* intensityItem,
     if (!intensityItem->getOutputData())
         return;
 
-    AxesUnits requested_units
-        = axesUnitsFromName(intensityItem->selectedAxesUnits());
+    AxesUnits requested_units = axesUnitsFromName(intensityItem->selectedAxesUnits());
 
     const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
     auto newData = UnitConverterUtils::createOutputData(*converter.get(), requested_units);
@@ -91,7 +89,7 @@ AxesUnits JobItemUtils::axesUnitsFromName(const QString& name)
 //! Sets axes units suitable for given instrument.
 
 void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
-                                              const InstrumentItem* instrumentItem)
+                                             const InstrumentItem* instrumentItem)
 {
     const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
     if (!converter)
@@ -99,7 +97,7 @@ void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
     setIntensityItemAxesUnits(intensityItem, *converter);
 }
 
-void JobItemUtils::setIntensityItemAxesUnits(DataItem *intensityItem,
+void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
                                              const IUnitConverter& converter)
 {
     ComboProperty combo = availableUnits(converter);
@@ -144,11 +142,10 @@ ComboProperty JobItemUtils::availableUnits(const IUnitConverter& converter)
 
 namespace
 {
-void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter,
-                     AxesUnits units)
+void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, AxesUnits units)
 {
     intensityItem->setXaxisTitle(QString::fromStdString(converter.axisName(0, units)));
     if (converter.dimension() > 1)
         intensityItem->setYaxisTitle(QString::fromStdString(converter.axisName(1, units)));
 }
-}
+} // namespace

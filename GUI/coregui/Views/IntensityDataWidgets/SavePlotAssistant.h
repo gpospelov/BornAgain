@@ -28,10 +28,11 @@ template <class T> class OutputData;
 class BA_CORE_API_ SavePlotAssistant
 {
 public:
-    class Format {
+    class Format
+    {
     public:
-        Format(){}
-        Format(const QString &file_extention, const QString &filter);
+        Format() {}
+        Format(const QString& file_extention, const QString& filter);
         QString m_file_extention;
         QString m_filter;
     };
@@ -41,14 +42,13 @@ public:
 private:
     void saveToFile(const QString& dirname, QCustomPlot* plot, OutputData<double>* output_data);
     QString getFilterString() const;
-    QString composeFileName(const QString &fileName, const QString &filterName) const;
-    bool isValidExtension(const QString &fileName) const;
-    QString getExtensionFromFilterName(const QString &filterName) const;
-    bool isPngFile(const QString &fileName) const;
-    bool isJpgFile(const QString &fileName) const;
-    bool isPdfFile(const QString &fileName) const;
+    QString composeFileName(const QString& fileName, const QString& filterName) const;
+    bool isValidExtension(const QString& fileName) const;
+    QString getExtensionFromFilterName(const QString& filterName) const;
+    bool isPngFile(const QString& fileName) const;
+    bool isJpgFile(const QString& fileName) const;
+    bool isPdfFile(const QString& fileName) const;
     static QVector<Format> m_formats;
 };
-
 
 #endif // SAVEPLOTASSISTANT_H

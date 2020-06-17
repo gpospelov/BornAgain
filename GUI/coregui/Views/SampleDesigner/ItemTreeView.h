@@ -22,14 +22,13 @@ class BA_CORE_API_ ItemTreeView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit ItemTreeView(QWidget *parent=0);
+    explicit ItemTreeView(QWidget* parent = 0);
     virtual ~ItemTreeView();
 
 protected:
 #ifndef QT_NO_DRAGANDDROP
-    virtual void dragMoveEvent(QDragMoveEvent *event);
+    virtual void dragMoveEvent(QDragMoveEvent* event);
 #endif
 };
-
 
 #endif // ITEMTREEVIEW_H

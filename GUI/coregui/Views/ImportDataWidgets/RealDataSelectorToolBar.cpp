@@ -17,27 +17,25 @@
 #include <QToolButton>
 
 RealDataSelectorToolBar::RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent)
-    : StyledToolBar(parent)
-    , m_import2dDataButton(new QToolButton)
-    , m_import1dDataButton(new QToolButton)
-    , m_removeDataButton(new QToolButton)
+    : StyledToolBar(parent), m_import2dDataButton(new QToolButton),
+      m_import1dDataButton(new QToolButton), m_removeDataButton(new QToolButton)
 {
     setMinimumSize(minimumHeight(), minimumHeight());
 
     m_import2dDataButton->setText(QStringLiteral("Import 2D"));
-    m_import2dDataButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
+    m_import2dDataButton->setIcon(QIcon(":/images/import.svg"));
     m_import2dDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_import2dDataButton->setToolTip("Automatic import of 2D data formats.");
     addWidget(m_import2dDataButton);
 
     m_import1dDataButton->setText(QStringLiteral("Import 1D"));
-    m_import1dDataButton->setIcon(QIcon(":/images/toolbar16light_newitem.svg"));
+    m_import1dDataButton->setIcon(QIcon(":/images/import.svg"));
     m_import1dDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_import1dDataButton->setToolTip("Import columnwise ascii files.");
     addWidget(m_import1dDataButton);
 
     m_removeDataButton->setText("Remove");
-    m_removeDataButton->setIcon(QIcon(":/images/toolbar16light_recycle.svg"));
+    m_removeDataButton->setIcon(QIcon(":/images/delete.svg"));
     m_removeDataButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_removeDataButton->setToolTip("Remove selected data.");
     addWidget(m_removeDataButton);

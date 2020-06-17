@@ -32,10 +32,9 @@
 class BA_CORE_API_ PointwiseAxis : public IAxis
 {
 public:
-    template<class String, class Vector>
+    template <class String, class Vector>
     PointwiseAxis(String&& name, Vector&& coordinate_values)
-        : IAxis(std::forward<String>(name))
-        , m_coordinates(std::forward<Vector>(coordinate_values))
+        : IAxis(std::forward<String>(name)), m_coordinates(std::forward<Vector>(coordinate_values))
     {
         sanityCheck();
     }
@@ -46,10 +45,10 @@ public:
     ~PointwiseAxis() override = default;
 
     //! retrieve the number of bins
-    size_t size() const override {return m_coordinates.size();}
+    size_t size() const override { return m_coordinates.size(); }
 
     //! indexed accessor retrieves a sample
-    double operator[](size_t index) const override {return getBinCenter(index);}
+    double operator[](size_t index) const override { return getBinCenter(index); }
 
     //! retrieve a 1d bin for the given index
     Bin1D getBin(size_t index) const override;
@@ -67,7 +66,7 @@ public:
     //! find index of the coordinate closest to the given value
     size_t findClosestIndex(double value) const override;
 
-    std::vector<double> getBinCenters() const override {return m_coordinates;}
+    std::vector<double> getBinCenters() const override { return m_coordinates; }
 
     std::vector<double> getBinBoundaries() const override;
 

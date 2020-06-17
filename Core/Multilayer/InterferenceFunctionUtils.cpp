@@ -17,25 +17,25 @@
 
 namespace InterferenceFunctionUtils
 {
-std::vector<complex_t> PrecomputeScalarFormFactors(
-        const SimulationElement& sim_element,
-        const std::vector<FormFactorCoherentSum>& ff_wrappers)
+std::vector<complex_t>
+PrecomputeScalarFormFactors(const SimulationElement& sim_element,
+                            const std::vector<FormFactorCoherentSum>& ff_wrappers)
 {
     std::vector<complex_t> result;
-    for (auto& ffw: ff_wrappers) {
+    for (auto& ffw : ff_wrappers) {
         result.push_back(ffw.evaluate(sim_element));
     }
     return result;
 }
 
-matrixFFVector_t PrecomputePolarizedFormFactors(
-        const SimulationElement& sim_element,
-        const std::vector<FormFactorCoherentSum>& ff_wrappers)
+matrixFFVector_t
+PrecomputePolarizedFormFactors(const SimulationElement& sim_element,
+                               const std::vector<FormFactorCoherentSum>& ff_wrappers)
 {
     matrixFFVector_t result;
-    for (auto& ffw: ff_wrappers) {
+    for (auto& ffw : ff_wrappers) {
         result.push_back(ffw.evaluatePol(sim_element));
     }
     return result;
 }
-}  // namespace InterferenceFunctionUtils
+} // namespace InterferenceFunctionUtils

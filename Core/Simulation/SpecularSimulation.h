@@ -15,9 +15,9 @@
 #ifndef SPECULARSIMULATION_H
 #define SPECULARSIMULATION_H
 
-#include "Simulation.h"
 #include "ILayerRTCoefficients.h"
 #include "OutputData.h"
+#include "Simulation.h"
 
 class IAxis;
 class IComputation;
@@ -44,7 +44,7 @@ public:
     //! Put into a clean state for running a simulation.
     void prepareSimulation() override;
 
-    void accept(INodeVisitor* visitor) const override final {visitor->visit(this);}
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays. If simulation was not run, returns an array of proper size filled with
@@ -66,7 +66,7 @@ public:
 #ifndef SWIG
     //! Returns internal data handler
     const ISpecularScan* dataHandler() const { return m_data_handler.get(); }
-#endif //SWIG
+#endif // SWIG
 
 private:
     SpecularSimulation(const SpecularSimulation& other);

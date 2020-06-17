@@ -15,25 +15,24 @@
 #include "RealDataMaskWidget.h"
 #include "IntensityDataItem.h"
 #include "MaskEditor.h"
-#include "RealDataItem.h"
 #include "MaskItems.h"
+#include "RealDataItem.h"
 #include "SessionModel.h"
 #include <QAction>
 #include <QBoxLayout>
 
-RealDataMaskWidget::RealDataMaskWidget(QWidget *parent)
-    : SessionItemWidget(parent)
-    , m_maskEditor(new MaskEditor)
+RealDataMaskWidget::RealDataMaskWidget(QWidget* parent)
+    : SessionItemWidget(parent), m_maskEditor(new MaskEditor)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QHBoxLayout *hlayout = new QHBoxLayout;
+    QHBoxLayout* hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
 
     hlayout->addWidget(m_maskEditor);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 

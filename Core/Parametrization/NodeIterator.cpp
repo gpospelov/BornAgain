@@ -14,17 +14,11 @@
 
 #include "NodeIterator.h"
 
-IteratorState::IteratorState(const INode *single_element)
-    : m_position(0)
+IteratorState::IteratorState(const INode* single_element) : m_position(0)
 {
     m_samples.push_back(single_element);
 }
 
-IteratorState::IteratorState(std::vector<const INode *> samples)
-    : m_samples(samples)
-    , m_position(0)
+IteratorState::IteratorState(std::vector<const INode*> samples) : m_samples(samples), m_position(0)
 {
 }
-
-
-

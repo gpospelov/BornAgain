@@ -14,24 +14,21 @@
 
 #include "ComponentFlatView.h"
 #include "ComponentUtils.h"
+#include "LayoutUtils.h"
 #include "PropertyEditorFactory.h"
+#include "PropertyWidgetItem.h"
 #include "SessionItem.h"
 #include "SessionModel.h"
-#include "LayoutUtils.h"
-#include "PropertyWidgetItem.h"
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QDataWidgetMapper>
-#include <QSpinBox>
 #include <QComboBox>
+#include <QDataWidgetMapper>
+#include <QGridLayout>
+#include <QLabel>
+#include <QSpinBox>
+#include <QVBoxLayout>
 
 ComponentFlatView::ComponentFlatView(QWidget* parent)
-    : ComponentView(parent)
-    , m_mainLayout(new QVBoxLayout)
-    , m_gridLayout(nullptr)
-    , m_model(nullptr)
-    , m_show_children(true)
+    : ComponentView(parent), m_mainLayout(new QVBoxLayout), m_gridLayout(nullptr), m_model(nullptr),
+      m_show_children(true)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -80,7 +77,7 @@ void ComponentFlatView::clearLayout()
     Q_ASSERT(m_gridLayout);
     LayoutUtils::clearGridLayout(m_gridLayout, false);
 
-    for(auto widget: m_widgetItems)
+    for (auto widget : m_widgetItems)
         widget->deleteLater();
     m_widgetItems.clear();
 }
@@ -90,11 +87,11 @@ void ComponentFlatView::setShowChildren(bool show)
     m_show_children = show;
 }
 
-void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIndex&bottomRight,
+void ComponentFlatView::onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight,
                                       const QVector<int>& roles)
 {
     Q_UNUSED(bottomRight);
-    SessionItem *item = m_model->itemForIndex(topLeft);
+    SessionItem* item = m_model->itemForIndex(topLeft);
     Q_ASSERT(item);
     if (item->modelType() == Constants::GroupItemType)
         updateItemProperties();
@@ -131,7 +128,7 @@ void ComponentFlatView::updateItemProperties()
 
 void ComponentFlatView::updateItemRoles(SessionItem* item)
 {
-    for(auto widget: m_widgetItems)
+    for (auto widget : m_widgetItems)
         if (widget->item() == item)
             widget->updateItemRoles();
 }

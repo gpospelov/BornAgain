@@ -16,18 +16,16 @@
 #include <QToolButton>
 
 JobRealTimeToolBar::JobRealTimeToolBar(QWidget* parent)
-    : StyledToolBar(parent)
-    , m_resetParametersButton(new QToolButton)
+    : StyledToolBar(parent), m_resetParametersButton(new QToolButton)
 {
     setMinimumSize(minimumHeight(), minimumHeight());
 
     m_resetParametersButton->setText("Reset values");
-    m_resetParametersButton->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
+    m_resetParametersButton->setIcon(QIcon(":/images/undo-variant.svg"));
     m_resetParametersButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_resetParametersButton->setToolTip("Reset parameter tree to initial values");
     addWidget(m_resetParametersButton);
 
-    connect(m_resetParametersButton, &QToolButton::clicked,
-            this, &JobRealTimeToolBar::resetParameters);
+    connect(m_resetParametersButton, &QToolButton::clicked, this,
+            &JobRealTimeToolBar::resetParameters);
 }
-

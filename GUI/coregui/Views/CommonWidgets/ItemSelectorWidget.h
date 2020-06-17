@@ -16,8 +16,8 @@
 #define ITEMSELECTORWIDGET_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QItemSelectionModel>
+#include <QWidget>
 #include <memory>
 
 class SessionModel;
@@ -49,7 +49,7 @@ public:
     QListView* listView();
 
 public slots:
-    void select(const QModelIndex &index, QItemSelectionModel::SelectionFlags command);
+    void select(const QModelIndex& index, QItemSelectionModel::SelectionFlags command);
     void updateSelection();
     void selectLast();
 

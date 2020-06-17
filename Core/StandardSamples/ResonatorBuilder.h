@@ -30,4 +30,4 @@ private:
     double m_l_ti; // titanium layer thickness
 };
 
-#endif  // RESONATORBUILDER_H
+#endif // RESONATORBUILDER_H

@@ -1,12 +1,12 @@
-#include "google_test.h"
 #include "KzComputation.h"
 #include "Layer.h"
-#include "MultiLayer.h"
 #include "MaterialFactoryFuncs.h"
+#include "MultiLayer.h"
 #include "PlainMultiLayerBySLDBuilder.h"
 #include "ProcessedSample.h"
 #include "SimulationOptions.h"
 #include "Units.h"
+#include "google_test.h"
 
 class KzComputationTest : public ::testing::Test
 {

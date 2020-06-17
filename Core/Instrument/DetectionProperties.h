@@ -15,15 +15,16 @@
 #ifndef DETECTIONPROPERTIES_H
 #define DETECTIONPROPERTIES_H
 
-#include "WinDllMacros.h"
 #include "EigenCore.h"
 #include "INode.h"
 #include "Vectors3D.h"
+#include "WinDllMacros.h"
 
 //! Detector properties (efficiency, transmission).
 //! @ingroup simulation
 
-class BA_CORE_API_ DetectionProperties : public INode {
+class BA_CORE_API_ DetectionProperties : public INode
+{
 public:
     DetectionProperties();
     DetectionProperties(const DetectionProperties& other);
@@ -50,9 +51,9 @@ private:
     bool checkAnalyzerProperties(const kvector_t direction, double efficiency,
                                  double total_transmission) const;
 
-    kvector_t m_direction;  //!< direction of polarization analysis
-    double m_efficiency;  //!< efficiency of polarization analysis
-    double m_total_transmission;  //!< total transmission of polarization analysis
+    kvector_t m_direction;       //!< direction of polarization analysis
+    double m_efficiency;         //!< efficiency of polarization analysis
+    double m_total_transmission; //!< total transmission of polarization analysis
 };
 
 #endif // DETECTIONPROPERTIES_H

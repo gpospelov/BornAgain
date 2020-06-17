@@ -21,7 +21,7 @@ class Simulation;
 class MPISimulation
 {
 public:
-    void runSimulation(Simulation *simulation);
+    void runSimulation(Simulation* simulation);
 };
 
 #endif // MPISIMULATION_H

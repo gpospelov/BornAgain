@@ -18,16 +18,17 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 
-namespace {
+namespace
+{
 const int horizontal_projection_tab = 0;
 const int vertical_projection_tab = 1;
-}
+} // namespace
 
 ProjectionsWidget::ProjectionsWidget(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_xProjection(new ProjectionsPlot(Constants::HorizontalLineMaskType))
-    , m_yProjection(new ProjectionsPlot(Constants::VerticalLineMaskType))
-    , m_tabWidget(new QTabWidget)
+    : SessionItemWidget(parent),
+      m_xProjection(new ProjectionsPlot(Constants::HorizontalLineMaskType)),
+      m_yProjection(new ProjectionsPlot(Constants::VerticalLineMaskType)),
+      m_tabWidget(new QTabWidget)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -54,7 +55,7 @@ void ProjectionsWidget::onActivityModeChanged(MaskEditorFlags::Activity value)
 {
     setConnected(false);
 
-    if(value == MaskEditorFlags::HORIZONTAL_LINE_MODE)
+    if (value == MaskEditorFlags::HORIZONTAL_LINE_MODE)
         m_tabWidget->setCurrentIndex(horizontal_projection_tab);
     else if (value == MaskEditorFlags::VERTICAL_LINE_MODE)
         m_tabWidget->setCurrentIndex(vertical_projection_tab);
@@ -81,5 +82,6 @@ void ProjectionsWidget::setConnected(bool isConnected)
     if (isConnected)
         connect(m_tabWidget, &QTabWidget::currentChanged, this, &ProjectionsWidget::onTabChanged);
     else
-        disconnect(m_tabWidget, &QTabWidget::currentChanged, this, &ProjectionsWidget::onTabChanged);
+        disconnect(m_tabWidget, &QTabWidget::currentChanged, this,
+                   &ProjectionsWidget::onTabChanged);
 }

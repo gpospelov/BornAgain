@@ -37,7 +37,7 @@ double PointwiseAxis::getMin() const
 
 double PointwiseAxis::getMax() const
 {
-    return upperBoundary(m_coordinates.size()-1);
+    return upperBoundary(m_coordinates.size() - 1);
 }
 
 double PointwiseAxis::getBinCenter(size_t index) const
@@ -48,10 +48,10 @@ double PointwiseAxis::getBinCenter(size_t index) const
 
 size_t PointwiseAxis::findClosestIndex(double value) const
 {
-    if( value <= m_coordinates.front())
+    if (value <= m_coordinates.front())
         return 0;
-    if(value >= m_coordinates.back())
-        return m_coordinates.size()-1;
+    if (value >= m_coordinates.back())
+        return m_coordinates.size() - 1;
 
     const auto begin = m_coordinates.begin();
     auto result = std::lower_bound(begin, m_coordinates.end(), value);
@@ -66,7 +66,7 @@ std::vector<double> PointwiseAxis::getBinBoundaries() const
     result.reserve(v_size + 1);
     for (size_t i = 0; i < v_size; ++i)
         result.push_back(lowerBoundary(i));
-    result.push_back(upperBoundary(v_size-1));
+    result.push_back(upperBoundary(v_size - 1));
     return result;
 }
 
@@ -86,7 +86,8 @@ PointwiseAxis* PointwiseAxis::createClippedAxis(double left, double right) const
 void PointwiseAxis::print(std::ostream& ostr) const
 {
     auto precision = std::setprecision(std::numeric_limits<double>::digits10 + 2);
-    ostr << "PointwiseAxis(\"" << getName() << "\", " << ", [";
+    ostr << "PointwiseAxis(\"" << getName() << "\", "
+         << ", [";
     for (size_t i = 0, fin = m_coordinates.size() - 1; i < fin; ++i)
         ostr << precision << m_coordinates[i] << ",";
     ostr << precision << m_coordinates.back() << "])";

@@ -12,35 +12,32 @@
 //
 // ************************************************************************** //
 #include "OutputDataWriteFactory.h"
-#include "Exceptions.h"
 #include "DataFormatUtils.h"
+#include "Exceptions.h"
 
-OutputDataWriter *OutputDataWriteFactory::getWriter(const std::string &file_name)
+OutputDataWriter* OutputDataWriteFactory::getWriter(const std::string& file_name)
 {
-    OutputDataWriter *result = new OutputDataWriter(file_name);
+    OutputDataWriter* result = new OutputDataWriter(file_name);
     result->setStrategy(getWriteStrategy(file_name));
     return result;
 }
 
-
-IOutputDataWriteStrategy *OutputDataWriteFactory::getWriteStrategy(const std::string &file_name)
+IOutputDataWriteStrategy* OutputDataWriteFactory::getWriteStrategy(const std::string& file_name)
 {
-    IOutputDataWriteStrategy *result(nullptr);
-    if(DataFormatUtils::isIntFile(file_name)) {
+    IOutputDataWriteStrategy* result(nullptr);
+    if (DataFormatUtils::isIntFile(file_name)) {
         result = new OutputDataWriteINTStrategy();
     }
 
-
 #ifdef BORNAGAIN_TIFF_SUPPORT
-    else if(DataFormatUtils::isTiffFile(file_name)) {
+    else if (DataFormatUtils::isTiffFile(file_name)) {
         result = new OutputDataWriteTiffStrategy();
     }
 #endif // BORNAGAIN_TIFF_SUPPORT
 
-    else{
+    else {
         result = new OutputDataWriteNumpyTXTStrategy();
     }
-
 
     return result;
 }

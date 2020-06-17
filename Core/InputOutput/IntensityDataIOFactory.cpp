@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "IntensityDataIOFactory.h"
+#include "FileSystemUtils.h"
 #include "IHistogram.h"
 #include "OutputDataReadFactory.h"
 #include "OutputDataWriteFactory.h"
 #include "SimulationResult.h"
-#include "FileSystemUtils.h"
 #include <fstream>
 #include <memory>
 
@@ -35,7 +35,8 @@ OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::str
 {
     if (!FileSystemUtils::IsFileExists(file_name))
         return nullptr;
-    std::unique_ptr<OutputDataReader> P_reader(OutputDataReadFactory::getReflectometryReader(file_name));
+    std::unique_ptr<OutputDataReader> P_reader(
+        OutputDataReadFactory::getReflectometryReader(file_name));
     if (P_reader)
         return P_reader->getOutputData();
     return nullptr;
@@ -50,7 +51,7 @@ IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_na
 void IntensityDataIOFactory::writeOutputData(const OutputData<double>& data,
                                              const std::string& file_name)
 {
-    auto *writer = OutputDataWriteFactory::getWriter(file_name);
+    auto* writer = OutputDataWriteFactory::getWriter(file_name);
     writer->writeOutputData(data);
     delete writer;
 }

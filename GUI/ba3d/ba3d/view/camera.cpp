@@ -29,9 +29,7 @@ Camera::Camera()
     setAspectRatio(1);
 }
 
-Camera::Position::Position() : eye(), ctr(), up()
-{
-}
+Camera::Position::Position() : eye(), ctr(), up() {}
 
 Camera::Position::Position(const Vector3D& eye_, const Vector3D& ctr_, const Vector3D& up_,
                            QQuaternion const& rot_)

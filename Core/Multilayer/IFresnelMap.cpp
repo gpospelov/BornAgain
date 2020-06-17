@@ -15,7 +15,10 @@
 #include "IFresnelMap.h"
 #include "Slice.h"
 
-IFresnelMap::IFresnelMap() : m_use_cache(true) {}
+IFresnelMap::IFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)
+    : m_use_cache(true), m_Strategy(std::move(strategy))
+{
+}
 
 void IFresnelMap::setSlices(const std::vector<Slice>& slices)
 {

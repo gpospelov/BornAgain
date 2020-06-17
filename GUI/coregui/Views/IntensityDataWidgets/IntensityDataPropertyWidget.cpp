@@ -13,16 +13,16 @@
 // ************************************************************************** //
 
 #include "IntensityDataPropertyWidget.h"
+#include "ComponentEditor.h"
 #include "IntensityDataItem.h"
 #include "JobModel.h"
-#include "ComponentEditor.h"
+#include "StyleUtils.h"
 #include <QAction>
 #include <QVBoxLayout>
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_togglePanelAction(new QAction(this))
-    , m_componentEditor(new ComponentEditor)
+    : SessionItemWidget(parent), m_togglePanelAction(new QAction(this)),
+      m_componentEditor(new ComponentEditor)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Intensity Data Properties"));
@@ -35,7 +35,7 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
     setLayout(mainLayout);
 
     m_togglePanelAction->setText("Properties");
-    m_togglePanelAction->setIcon(QIcon(":/images/toolbar16light_propertypanel.svg"));
+    m_togglePanelAction->setIcon(QIcon(":/images/dock-right.svg"));
     m_togglePanelAction->setToolTip("Toggle property panel");
     connect(m_togglePanelAction, &QAction::triggered, this,
             &IntensityDataPropertyWidget::onTogglePanelAction);
@@ -43,12 +43,12 @@ IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
 
 QSize IntensityDataPropertyWidget::sizeHint() const
 {
-    return QSize(230, 256);
+    return QSize(StyleUtils::PropertyPanelWidth()*1.2, StyleUtils::PropertyPanelWidth()*2);
 }
 
 QSize IntensityDataPropertyWidget::minimumSizeHint() const
 {
-    return QSize(230, 64);
+    return QSize(StyleUtils::PropertyPanelWidth()*1.2, StyleUtils::PropertyPanelWidth());
 }
 
 QList<QAction*> IntensityDataPropertyWidget::actionList()

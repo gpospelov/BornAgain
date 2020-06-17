@@ -34,15 +34,16 @@ class MaskEditorCanvas : public QWidget
 {
     Q_OBJECT
 public:
-    MaskEditorCanvas(QWidget *parent = 0);
+    MaskEditorCanvas(QWidget* parent = 0);
 
-    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex, IntensityDataItem *intensityItem);
+    void setMaskContext(SessionModel* model, const QModelIndex& maskContainerIndex,
+                        IntensityDataItem* intensityItem);
 
     void resetContext();
 
-    void setSelectionModel(QItemSelectionModel *model);
+    void setSelectionModel(QItemSelectionModel* model);
 
-    MaskGraphicsScene *getScene();
+    MaskGraphicsScene* getScene();
 
 signals:
     void changeActivityRequest(MaskEditorFlags::Activity);
@@ -57,12 +58,11 @@ private:
     bool isAxisRangeMatchData() const;
     void setZoomToROI();
 
-    MaskGraphicsScene *m_scene;
-    MaskGraphicsView *m_view;
-    IntensityDataItem *m_intensityDataItem;
-    PlotStatusLabel *m_statusLabel;
-    MaskResultsPresenter *m_resultsPresenter;
+    MaskGraphicsScene* m_scene;
+    MaskGraphicsView* m_view;
+    IntensityDataItem* m_intensityDataItem;
+    PlotStatusLabel* m_statusLabel;
+    MaskResultsPresenter* m_resultsPresenter;
 };
-
 
 #endif // MASKEDITORCANVAS_H

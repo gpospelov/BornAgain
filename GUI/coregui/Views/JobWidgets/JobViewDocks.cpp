@@ -94,8 +94,8 @@ JobMessagePanel* JobViewDocks::jobMessagePanel()
 
 void JobViewDocks::setActivity(int activity)
 {
-    QVector<JobViewFlags::Dock> docksToShow
-        = JobViewActivities::activeDocks(JobViewFlags::Activity(activity));
+    QVector<JobViewFlags::Dock> docksToShow =
+        JobViewActivities::activeDocks(JobViewFlags::Activity(activity));
 
     std::vector<int> docks_id;
     for (auto x : docksToShow)

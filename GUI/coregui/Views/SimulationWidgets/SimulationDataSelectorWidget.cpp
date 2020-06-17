@@ -16,11 +16,11 @@
 #include "ApplicationModels.h"
 #include "InstrumentItems.h"
 #include "InstrumentModel.h"
+#include "ModelUtils.h"
 #include "MultiLayerItem.h"
 #include "RealDataItem.h"
 #include "RealDataModel.h"
 #include "SampleModel.h"
-#include "ModelUtils.h"
 #include <QComboBox>
 #include <QFileDialog>
 #include <QGroupBox>
@@ -29,44 +29,39 @@
 
 namespace
 {
-const QString select_instrument_tooltip
-    = "Select Instrument to simulate from those defined in Instrument View";
-const QString select_sample_tooltip
-    = "Select Sample to simulate from those defined in Sample View";
-const QString select_realdata_tooltip
-    = "Select real data to use during the fitting. \n"
-      "If None is selected, the standard simulation will be run.";
-}
+const QString select_instrument_tooltip =
+    "Select Instrument to simulate from those defined in Instrument View";
+const QString select_sample_tooltip = "Select Sample to simulate from those defined in Sample View";
+const QString select_realdata_tooltip = "Select real data to use during the fitting. \n"
+                                        "If None is selected, the standard simulation will be run.";
+} // namespace
 
-SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_instrumentCombo(new QComboBox)
-    , m_sampleCombo(new QComboBox)
-    , m_realDataCombo(new QComboBox)
-    , m_applicationModels(0)
+SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget* parent)
+    : QWidget(parent), m_instrumentCombo(new QComboBox), m_sampleCombo(new QComboBox),
+      m_realDataCombo(new QComboBox), m_applicationModels(0)
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
     // selection of input parameters
-    QGroupBox *groupBox = new QGroupBox("Data selection");
+    QGroupBox* groupBox = new QGroupBox("Data selection");
 
-    QLabel *instrumentSelectionLabel = new QLabel(QStringLiteral("Select Instrument:"));
+    QLabel* instrumentSelectionLabel = new QLabel(QStringLiteral("Select Instrument:"));
     instrumentSelectionLabel->setToolTip(select_instrument_tooltip);
     m_instrumentCombo->setToolTip(select_instrument_tooltip);
     m_instrumentCombo->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    QLabel *sampleSelectionLabel = new QLabel(QStringLiteral("Select Sample:"));
+    QLabel* sampleSelectionLabel = new QLabel(QStringLiteral("Select Sample:"));
     sampleSelectionLabel->setToolTip(select_sample_tooltip);
     m_sampleCombo->setToolTip(select_sample_tooltip);
 
-    QLabel *readDataSelectionLabel = new QLabel(QStringLiteral("Select Real Data:"));
+    QLabel* readDataSelectionLabel = new QLabel(QStringLiteral("Select Real Data:"));
     readDataSelectionLabel->setToolTip(select_realdata_tooltip);
     m_realDataCombo->setToolTip(select_realdata_tooltip);
 
     // layout
-    QGridLayout *dataSelectionLayout = new QGridLayout;
+    QGridLayout* dataSelectionLayout = new QGridLayout;
     dataSelectionLayout->setMargin(12); // to match margin in SimulationOptionsWidget
 
     dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
@@ -79,10 +74,9 @@ SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget *parent)
 
     mainLayout->addWidget(groupBox);
     setLayout(mainLayout);
-
 }
 
-void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels *applicationModels)
+void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels* applicationModels)
 {
     m_applicationModels = applicationModels;
     updateViewElements();
@@ -91,11 +85,12 @@ void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels *appli
 //! Returns selected MultiLayerItem taking into account that there might be several
 //! multilayers with same name.
 
-const MultiLayerItem *SimulationDataSelectorWidget::selectedMultiLayerItem() const
+const MultiLayerItem* SimulationDataSelectorWidget::selectedMultiLayerItem() const
 {
     auto items = m_applicationModels->sampleModel()->topItems<MultiLayerItem>();
-    if(items.isEmpty()) return nullptr;
-    return dynamic_cast<const MultiLayerItem *>(items.at(selectedSampleIndex()));
+    if (items.isEmpty())
+        return nullptr;
+    return dynamic_cast<const MultiLayerItem*>(items.at(selectedSampleIndex()));
 }
 
 //! Returns selected InstrumentItem taking into account that there might be several
@@ -110,12 +105,13 @@ const InstrumentItem* SimulationDataSelectorWidget::selectedInstrumentItem() con
 //! Returns selected InstrumentItem taking into account that there might be several
 //! instruments with same name.
 
-const RealDataItem *SimulationDataSelectorWidget::selectedRealDataItem() const
+const RealDataItem* SimulationDataSelectorWidget::selectedRealDataItem() const
 {
     auto items = m_applicationModels->realDataModel()->topItems();
-    if(items.isEmpty()) return nullptr;
-    if(selectedRealDataIndex() >=0 && selectedRealDataIndex()<items.size()) {
-        return dynamic_cast<const RealDataItem *>(items.at(selectedRealDataIndex()));
+    if (items.isEmpty())
+        return nullptr;
+    if (selectedRealDataIndex() >= 0 && selectedRealDataIndex() < items.size()) {
+        return dynamic_cast<const RealDataItem*>(items.at(selectedRealDataIndex()));
     }
     return nullptr;
 }
@@ -123,9 +119,12 @@ const RealDataItem *SimulationDataSelectorWidget::selectedRealDataItem() const
 void SimulationDataSelectorWidget::updateViewElements()
 {
     Q_ASSERT(m_applicationModels);
-    updateSelection(m_instrumentCombo, ModelUtils::topItemNames(m_applicationModels->instrumentModel()));
-    updateSelection(m_sampleCombo, ModelUtils::topItemNames(m_applicationModels->sampleModel(), Constants::MultiLayerType));
-    updateSelection(m_realDataCombo, ModelUtils::topItemNames(m_applicationModels->realDataModel()), true);
+    updateSelection(m_instrumentCombo,
+                    ModelUtils::topItemNames(m_applicationModels->instrumentModel()));
+    updateSelection(m_sampleCombo, ModelUtils::topItemNames(m_applicationModels->sampleModel(),
+                                                            Constants::MultiLayerType));
+    updateSelection(m_realDataCombo, ModelUtils::topItemNames(m_applicationModels->realDataModel()),
+                    true);
 }
 
 int SimulationDataSelectorWidget::selectedInstrumentIndex() const
@@ -147,22 +146,22 @@ int SimulationDataSelectorWidget::selectedRealDataIndex() const
 //! Updates selection combo with string list while preserving previous selection.
 //! If allow_none == true, additional "None" item will be added to the combo.
 
-void SimulationDataSelectorWidget::updateSelection(QComboBox *comboBox,
-                                                        QStringList itemList, bool allow_none)
+void SimulationDataSelectorWidget::updateSelection(QComboBox* comboBox, QStringList itemList,
+                                                   bool allow_none)
 {
     QString previousItem = comboBox->currentText();
 
     comboBox->clear();
-    if(itemList.isEmpty()) {
+    if (itemList.isEmpty()) {
         comboBox->setEnabled(false);
         comboBox->addItem(QStringLiteral("Not yet defined"));
     } else {
         comboBox->setEnabled(true);
-        //qSort(itemList.begin(), itemList.end()); // uncomment, if we want alphabetical order
-        if(allow_none)
+        // qSort(itemList.begin(), itemList.end()); // uncomment, if we want alphabetical order
+        if (allow_none)
             itemList.insert(-1, QStringLiteral("None"));
         comboBox->addItems(itemList);
-        if(itemList.contains(previousItem))
+        if (itemList.contains(previousItem))
             comboBox->setCurrentIndex(itemList.indexOf(previousItem));
     }
 }

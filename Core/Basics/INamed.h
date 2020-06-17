@@ -15,8 +15,8 @@
 #ifndef INAMED_H
 #define INAMED_H
 
-#include <string>
 #include "WinDllMacros.h"
+#include <string>
 
 //! Interface for named objects.
 //! @ingroup tools_internal

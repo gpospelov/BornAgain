@@ -25,7 +25,7 @@ class BA_CORE_API_ FitResultsWidget : public QWidget
     Q_OBJECT
 
 public:
-    FitResultsWidget(QWidget *parent = 0);
+    FitResultsWidget(QWidget* parent = 0);
 };
 
 #endif // FITRESULTSWIDGET_H

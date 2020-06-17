@@ -16,34 +16,33 @@
 #include "AppSvc.h"
 #include "ApplicationModels.h"
 #include "GUIHelpers.h"
-#include "ProjectLoadWarningDialog.h"
 #include "MessageService.h"
+#include "ProjectLoadWarningDialog.h"
+#include "ProjectUtils.h"
+#include "SaveService.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "newprojectdialog.h"
 #include "projectdocument.h"
-#include "SaveService.h"
-#include "ProjectUtils.h"
+#include <QApplication>
+#include <QDateTime>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSettings>
-#include <QDateTime>
 #include <QStandardPaths>
-#include <QApplication>
 
-namespace {
-    const QString S_PROJECTMANAGER = "ProjectManager";
-    const QString S_AUTOSAVE = "EnableAutosave";
-    const QString S_DEFAULTPROJECTPATH = "DefaultProjectPath";
-    const QString S_RECENTPROJECTS  = "RecentProjects";
-    const QString S_LASTUSEDIMPORTDIR = "LastUsedImportDir";
-}
+namespace
+{
+const QString S_PROJECTMANAGER = "ProjectManager";
+const QString S_AUTOSAVE = "EnableAutosave";
+const QString S_DEFAULTPROJECTPATH = "DefaultProjectPath";
+const QString S_RECENTPROJECTS = "RecentProjects";
+const QString S_LASTUSEDIMPORTDIR = "LastUsedImportDir";
+} // namespace
 
 ProjectManager::ProjectManager(MainWindow* parent)
-    : m_mainWindow(parent)
-    , m_project_document(nullptr)
-    , m_messageService(new MessageService)
-    , m_saveService(new SaveService(this))
+    : m_mainWindow(parent), m_project_document(nullptr), m_messageService(new MessageService),
+      m_saveService(new SaveService(this))
 
 {
     createNewProject();
@@ -66,13 +65,13 @@ void ProjectManager::readSettings()
     if (settings.childGroups().contains(S_PROJECTMANAGER)) {
         settings.beginGroup(S_PROJECTMANAGER);
 
-        if(!settings.contains(S_AUTOSAVE))
+        if (!settings.contains(S_AUTOSAVE))
             settings.setValue(S_AUTOSAVE, true);
 
         m_workingDirectory = settings.value(S_DEFAULTPROJECTPATH).toString();
         m_recentProjects = settings.value(S_RECENTPROJECTS).toStringList();
 
-        if(settings.contains(S_LASTUSEDIMPORTDIR))
+        if (settings.contains(S_LASTUSEDIMPORTDIR))
             m_importDirectory = settings.value(S_LASTUSEDIMPORTDIR, QString()).toString();
 
         setAutosaveEnabled(settings.value(S_AUTOSAVE).toBool());
@@ -90,7 +89,7 @@ void ProjectManager::writeSettings()
     settings.setValue(S_DEFAULTPROJECTPATH, m_workingDirectory);
     settings.setValue(S_RECENTPROJECTS, m_recentProjects);
 
-    if(!m_importDirectory.isEmpty())
+    if (!m_importDirectory.isEmpty())
         settings.setValue(S_LASTUSEDIMPORTDIR, m_importDirectory);
 
     settings.endGroup();
@@ -106,7 +105,7 @@ ProjectDocument* ProjectManager::document()
 QStringList ProjectManager::recentProjects()
 {
     QStringList updatedList;
-    for(QString fileName : m_recentProjects) {
+    for (QString fileName : m_recentProjects) {
         QFile fin(fileName);
         if (fin.exists())
             updatedList.append(fileName);
@@ -159,7 +158,7 @@ void ProjectManager::setAutosaveEnabled(bool value)
 {
     m_saveService->setAutosaveEnabled(value);
     QSettings settings;
-    settings.setValue(S_PROJECTMANAGER+"/"+S_AUTOSAVE, value);
+    settings.setValue(S_PROJECTMANAGER + "/" + S_AUTOSAVE, value);
 }
 
 //! Updates title of main window when the project was modified.
@@ -190,7 +189,7 @@ void ProjectManager::newProject()
 
     QString projectFileName = acquireProjectFileName();
 
-    if(!projectFileName.isEmpty()) {
+    if (!projectFileName.isEmpty()) {
         createNewProject();
         saveProject(projectFileName);
     }
@@ -239,20 +238,20 @@ bool ProjectManager::closeCurrentProject()
 
 bool ProjectManager::saveProject(QString projectFileName)
 {
-    if(projectFileName.isEmpty()) {
-        if(m_project_document->hasValidNameAndPath())
+    if (projectFileName.isEmpty()) {
+        if (m_project_document->hasValidNameAndPath())
             projectFileName = m_project_document->projectFileName();
         else
             projectFileName = acquireProjectFileName();
     }
 
-    if(projectFileName.isEmpty())
+    if (projectFileName.isEmpty())
         return false;
 
     try {
         m_saveService->save(projectFileName);
 
-    } catch(const std::exception &ex) {
+    } catch (const std::exception& ex) {
         QString message = QString("Failed to save project under '%1'. \n\n").arg(projectFileName);
         message.append("Exception was thrown.\n\n");
         message.append(ex.what());
@@ -273,7 +272,7 @@ bool ProjectManager::saveProjectAs()
 {
     QString projectFileName = acquireProjectFileName();
 
-    if(projectFileName.isEmpty())
+    if (projectFileName.isEmpty())
         return false;
 
     return saveProject(projectFileName);
@@ -287,8 +286,9 @@ void ProjectManager::openProject(QString fileName)
         return;
 
     if (fileName.isEmpty()) {
-        fileName = QFileDialog::getOpenFileName(m_mainWindow, "Open project file",
-                workingDirectory(), "BornAgain project Files (*.pro)");
+        fileName =
+            QFileDialog::getOpenFileName(m_mainWindow, "Open project file", workingDirectory(),
+                                         "BornAgain project Files (*.pro)");
         if (fileName.isEmpty())
             return;
     }
@@ -341,7 +341,7 @@ void ProjectManager::loadProject(const QString& projectFileName)
 {
     bool useAutosave = m_saveService && ProjectUtils::hasAutosavedData(projectFileName);
 
-    if(useAutosave && restoreProjectDialog(projectFileName)) {
+    if (useAutosave && restoreProjectDialog(projectFileName)) {
         QApplication::setOverrideCursor(Qt::WaitCursor);
         m_project_document->load(ProjectUtils::autosaveName(projectFileName));
         m_project_document->setProjectFileName(projectFileName);
@@ -409,11 +409,11 @@ QString ProjectManager::untitledProjectName()
 
 void ProjectManager::riseProjectLoadFailedDialog()
 {
-    QString message = QString("Failed to load the project '%1' \n\n")
-                          .arg(m_project_document->projectFileName());
+    QString message =
+        QString("Failed to load the project '%1' \n\n").arg(m_project_document->projectFileName());
 
     for (auto details : m_messageService->errorDescriptionList(m_project_document))
-        message.append(details+"\n");
+        message.append(details + "\n");
 
     QMessageBox::warning(m_mainWindow, "Error while opening project file", message);
 }
@@ -434,11 +434,12 @@ bool ProjectManager::restoreProjectDialog(const QString& projectFileName)
 {
     QString title("Recover project");
 
-    QString message = QString("Project '%1' contains autosaved data.\n\n"
-              "Project saved at %2\nAutosave from %3")
-              .arg(ProjectUtils::projectName(projectFileName))
-              .arg(ProjectUtils::lastModified(projectFileName))
-              .arg(ProjectUtils::lastModified(ProjectUtils::autosaveName(projectFileName)));
+    QString message =
+        QString("Project '%1' contains autosaved data.\n\n"
+                "Project saved at %2\nAutosave from %3")
+            .arg(ProjectUtils::projectName(projectFileName))
+            .arg(ProjectUtils::lastModified(projectFileName))
+            .arg(ProjectUtils::lastModified(ProjectUtils::autosaveName(projectFileName)));
 
     return GUIHelpers::question(m_mainWindow, title, message,
                                 "\nDo you want to restore from autosave?\n", "Yes, please restore.",

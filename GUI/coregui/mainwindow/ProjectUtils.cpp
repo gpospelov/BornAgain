@@ -13,15 +13,15 @@
 // ************************************************************************** //
 
 #include "ProjectUtils.h"
-#include "projectdocument.h"
+#include "AppSvc.h"
 #include "GUIHelpers.h"
 #include "ItemFileNameUtils.h"
-#include "AppSvc.h"
+#include "projectdocument.h"
 #include "projectmanager.h"
-#include <QFileInfo>
 #include <QDateTime>
-#include <QDir>
 #include <QDebug>
+#include <QDir>
+#include <QFileInfo>
 
 QString ProjectUtils::projectName(const QString& projectFileName)
 {
@@ -51,8 +51,8 @@ QString ProjectUtils::autosaveDir(const QString& projectFileName)
 
 QString ProjectUtils::autosaveName(const QString& projectFileName)
 {
-    return ProjectUtils::autosaveDir(projectFileName) + "/" +
-           ProjectUtils::projectName(projectFileName) + ProjectDocument::projectFileExtension();
+    return ProjectUtils::autosaveDir(projectFileName) + "/"
+           + ProjectUtils::projectName(projectFileName) + ProjectDocument::projectFileExtension();
 }
 
 bool ProjectUtils::exists(const QString& fileName)
@@ -66,48 +66,50 @@ bool ProjectUtils::hasAutosavedData(const QString& projectFileName)
     return exists(projectFileName) && exists(autosaveName(projectFileName));
 }
 
-
 QString ProjectUtils::lastModified(const QString& fileName)
 {
     QFileInfo info(fileName);
     return info.lastModified().toString("hh:mm:ss, MMMM d, yyyy");
 }
 
-QStringList ProjectUtils::nonXMLDataInDir(const QString &dirname)
+QStringList ProjectUtils::nonXMLDataInDir(const QString& dirname)
 {
     QDir dir(dirname);
 
     if (!dir.exists())
         throw GUIHelpers::Error("ProjectUtils::nonXMLDataInDir() -> Error. Non existing "
-                                "directory '"+dirname+"'.");
+                                "directory '"
+                                + dirname + "'.");
 
     return dir.entryList(ItemFileNameUtils::nonXMLFileNameFilters());
 }
 
-bool ProjectUtils::removeRecursively(const QString &dirname)
+bool ProjectUtils::removeRecursively(const QString& dirname)
 {
     QDir dir(dirname);
 
     if (!dir.exists())
         throw GUIHelpers::Error("ProjectUtils::removeRecursively() -> Error. Non existing "
-                                "directory '"+dirname+"'.");
+                                "directory '"
+                                + dirname + "'.");
 
     return dir.removeRecursively();
 }
 
-bool ProjectUtils::removeFile(const QString &dirname, const QString &filename)
+bool ProjectUtils::removeFile(const QString& dirname, const QString& filename)
 {
     QString name = dirname + QStringLiteral("/") + filename;
     QFile fin(name);
 
     if (!fin.exists())
         throw GUIHelpers::Error("ProjectUtils::removeFile() -> Error. Non existing "
-                                "file '"+name+"'.");
+                                "file '"
+                                + name + "'.");
 
     return fin.remove();
 }
 
-bool ProjectUtils::removeFiles(const QString &dirname, const QStringList &filenames)
+bool ProjectUtils::removeFiles(const QString& dirname, const QStringList& filenames)
 {
     bool success(true);
 
@@ -117,23 +119,28 @@ bool ProjectUtils::removeFiles(const QString &dirname, const QStringList &filena
     return success;
 }
 
-
-QStringList ProjectUtils::substract(const QStringList &lhs, const QStringList &rhs)
+QStringList ProjectUtils::substract(const QStringList& lhs, const QStringList& rhs)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    auto lhs_set = QSet<QString>{lhs.begin(), lhs.end()};
+    auto rhs_set = QSet<QString>{rhs.begin(), rhs.end()};
+    QSet<QString> diff = lhs_set.subtract(rhs_set);
+    return diff.values();
+#else
     QSet<QString> diff = lhs.toSet().subtract(rhs.toSet());
     return diff.toList();
+#endif
 }
 
 QString ProjectUtils::readTextFile(const QString& fileName)
 {
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        throw GUIHelpers::Error("ProjectUtils::readTextFile -> Error. Can't open the file '"+
-                                fileName+"' for reading.");
+        throw GUIHelpers::Error("ProjectUtils::readTextFile -> Error. Can't open the file '"
+                                + fileName + "' for reading.");
     QTextStream in(&file);
     return in.readAll();
 }
-
 
 QString ProjectUtils::userExportDir()
 {

@@ -13,20 +13,16 @@
 // ************************************************************************** //
 
 #include "RealSpaceWidget.h"
-#include "RealSpaceToolBar.h"
-#include "RealSpaceCanvas.h"
 #include "RealSpaceActions.h"
-#include <QVBoxLayout>
+#include "RealSpaceCanvas.h"
+#include "RealSpaceToolBar.h"
 #include <QLabel>
+#include <QVBoxLayout>
 
-RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
-                                 QItemSelectionModel* selectionModel, QWidget* parent)
-    : QWidget(parent)
-    , m_actions(new RealSpaceActions(this))
-    , m_toolBar(new RealSpaceToolBar)
-    , m_canvas(new RealSpaceCanvas)
-    , m_sampleModel(sampleModel)
-    , m_selectionModel(selectionModel)
+RealSpaceWidget::RealSpaceWidget(SampleModel* sampleModel, QItemSelectionModel* selectionModel,
+                                 QWidget* parent)
+    : QWidget(parent), m_actions(new RealSpaceActions(this)), m_toolBar(new RealSpaceToolBar),
+      m_canvas(new RealSpaceCanvas), m_sampleModel(sampleModel), m_selectionModel(selectionModel)
 {
     auto hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
@@ -34,33 +30,32 @@ RealSpaceWidget::RealSpaceWidget(SampleModel *sampleModel,
     hlayout->setContentsMargins(0, 0, 0, 0);
     hlayout->addWidget(m_canvas);
 
-    auto *mainLayout = new QVBoxLayout;
+    auto* mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
-    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_toolBar);
     mainLayout->addLayout(hlayout);
 
     setLayout(mainLayout);
 
-    connect(m_toolBar, &RealSpaceToolBar::defaultViewAction,
-            m_canvas, &RealSpaceCanvas::onDefaultViewAction);
+    connect(m_toolBar, &RealSpaceToolBar::defaultViewAction, m_canvas,
+            &RealSpaceCanvas::onDefaultViewAction);
 
-    connect(m_toolBar, &RealSpaceToolBar::sideViewAction,
-            m_canvas, &RealSpaceCanvas::onSideViewAction);
+    connect(m_toolBar, &RealSpaceToolBar::sideViewAction, m_canvas,
+            &RealSpaceCanvas::onSideViewAction);
 
-    connect(m_toolBar, &RealSpaceToolBar::topViewAction,
-            m_canvas, &RealSpaceCanvas::onTopViewAction);
+    connect(m_toolBar, &RealSpaceToolBar::topViewAction, m_canvas,
+            &RealSpaceCanvas::onTopViewAction);
 
-    connect(m_toolBar, &RealSpaceToolBar::lockViewAction,
-            m_canvas, &RealSpaceCanvas::onLockViewAction);
+    connect(m_toolBar, &RealSpaceToolBar::lockViewAction, m_canvas,
+            &RealSpaceCanvas::onLockViewAction);
 
-    connect(m_toolBar, &RealSpaceToolBar::changeLayerSizeAction,
-            m_canvas, &RealSpaceCanvas::onChangeLayerSizeAction);
+    connect(m_toolBar, &RealSpaceToolBar::changeLayerSizeAction, m_canvas,
+            &RealSpaceCanvas::onChangeLayerSizeAction);
 
-    connect(m_toolBar, &RealSpaceToolBar::savePictureAction,
-            m_canvas, &RealSpaceCanvas::onSavePictureAction);
-
+    connect(m_toolBar, &RealSpaceToolBar::savePictureAction, m_canvas,
+            &RealSpaceCanvas::onSavePictureAction);
 }
 
 void RealSpaceWidget::showEvent(QShowEvent*)

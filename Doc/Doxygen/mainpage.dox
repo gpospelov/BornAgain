@@ -12,17 +12,19 @@ C++ API Reference of <a href="http://www.bornagainproject.org">BornAgain Project
 </ul>
 
 
-<B> License: </B>
-<BR>
+<b> License: </b>
+<br>
 GNU General Public License v3 or higher
-<BR>
+<br>
 Copyright Forschungszentrum Jülich GmbH 2015-
 
 
-<B> Authors:  </B>
-<BR>
-Scientific Computing Group at MLZ Garching:
-<BR>
-J. Burle, C. Durniak, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
+<b> Authors:  </b>
+<br>
+Scientific Computing Group at MLZ Garching.
+<br>
+Current maintainers: J. Carmona Loaiza, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke, D. Yurov.
+<br>
+Former contributors: J. Burle, C. Durniak, J. M. Fisher.
 
 */

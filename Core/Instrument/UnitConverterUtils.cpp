@@ -13,16 +13,16 @@
 // ************************************************************************** //
 
 #include "UnitConverterUtils.h"
+#include "DepthProbeSimulation.h"
+#include "GISASSimulation.h"
 #include "Instrument.h"
+#include "OffSpecSimulation.h"
 #include "OutputData.h"
 #include "RectangularDetector.h"
 #include "SimpleUnitConverters.h"
+#include "SpecularSimulation.h"
 #include "SphericalDetector.h"
 #include "UnitConverter1D.h"
-#include "GISASSimulation.h"
-#include "OffSpecSimulation.h"
-#include "SpecularSimulation.h"
-#include "DepthProbeSimulation.h"
 
 std::unique_ptr<OutputData<double>>
 UnitConverterUtils::createOutputData(const IUnitConverter& converter, AxesUnits units)
@@ -44,13 +44,12 @@ UnitConverterUtils::createConverterForGISAS(const Instrument& instrument)
     else if (const auto rect_detector = dynamic_cast<const RectangularDetector*>(detector))
         return std::make_unique<RectangularConverter>(*rect_detector, instrument.getBeam());
 
-    throw std::runtime_error(
-        "Error in createConverterForGISAS: wrong or absent detector type");
+    throw std::runtime_error("Error in createConverterForGISAS: wrong or absent detector type");
 }
 
 std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const Simulation& simulation)
 {
-    if(auto gisas = dynamic_cast<const GISASSimulation*>(&simulation)) {
+    if (auto gisas = dynamic_cast<const GISASSimulation*>(&simulation)) {
         return createConverterForGISAS(gisas->getInstrument());
 
     } else if (auto spec = dynamic_cast<const SpecularSimulation*>(&simulation)) {

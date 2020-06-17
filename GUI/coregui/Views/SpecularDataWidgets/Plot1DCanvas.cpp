@@ -19,10 +19,9 @@
 #include <QVBoxLayout>
 
 Plot1DCanvas::Plot1DCanvas(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_plot(new Plot1D)
-    , m_canvasEvent(new FontScalingEvent(m_plot, this))
-    , m_statusLabel(new PlotStatusLabel(m_plot, this))
+    : SessionItemWidget(parent), m_plot(new Plot1D),
+      m_canvasEvent(new FontScalingEvent(m_plot, this)),
+      m_statusLabel(new PlotStatusLabel(m_plot, this))
 {
     this->installEventFilter(m_canvasEvent);
     QVBoxLayout* layout = new QVBoxLayout;

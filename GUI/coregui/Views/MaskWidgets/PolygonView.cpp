@@ -18,7 +18,8 @@
 #include <QCursor>
 #include <QPainter>
 
-namespace {
+namespace
+{
 const double bbox_margins = 5; // additional margins around points to form bounding box
 }
 
@@ -63,7 +64,7 @@ QPointF PolygonView::lastAddedPoint() const
 bool PolygonView::closePolygonIfNecessary()
 {
     if (m_close_polygon_request) {
-        for(QGraphicsItem* childItem : childItems()) {
+        for (QGraphicsItem* childItem : childItems()) {
             childItem->setFlag(QGraphicsItem::ItemIsMovable);
             childItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
             childItem->setAcceptHoverEvents(false);
@@ -136,7 +137,7 @@ void PolygonView::update_polygon()
 
         m_polygon.clear();
 
-        for(SessionItem* item : m_item->getChildrenOfType(Constants::PolygonPointType)) {
+        for (SessionItem* item : m_item->getChildrenOfType(Constants::PolygonPointType)) {
             qreal px = toSceneX(item->getItemValue(PolygonPointItem::P_POSX).toReal());
             qreal py = toSceneY(item->getItemValue(PolygonPointItem::P_POSY).toReal());
             m_polygon << QPointF(px, py);
@@ -151,12 +152,12 @@ void PolygonView::update_polygon()
 
         m_polygon = mapFromScene(m_polygon);
 
-//        for (int i = 0; i < childItems().size(); ++i) {
-//            QGraphicsItem* childView = childItems()[i];
-//            childView->setPos(m_polygon[i]);
-//        }
+        //        for (int i = 0; i < childItems().size(); ++i) {
+        //            QGraphicsItem* childView = childItems()[i];
+        //            childView->setPos(m_polygon[i]);
+        //        }
         int index(0);
-        for(auto childView : childItems())
+        for (auto childView : childItems())
             childView->setPos(m_polygon[index++]);
 
         setPos(scene_rect.x(), scene_rect.y());
@@ -171,7 +172,7 @@ void PolygonView::update_points()
     if (m_block_on_point_update)
         return;
 
-    for(QGraphicsItem* childItem : childItems()) {
+    for (QGraphicsItem* childItem : childItems()) {
         PolygonPointView* view = dynamic_cast<PolygonPointView*>(childItem);
         QPointF pos = view->scenePos();
         disconnect(view, SIGNAL(propertyChanged()), this, SLOT(update_view()));
@@ -182,6 +183,6 @@ void PolygonView::update_points()
 
 void PolygonView::setChildrenVisible(bool value)
 {
-    for(QGraphicsItem* childItem : childItems())
+    for (QGraphicsItem* childItem : childItems())
         childItem->setVisible(value);
 }

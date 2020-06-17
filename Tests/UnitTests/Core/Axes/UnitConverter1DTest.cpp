@@ -1,13 +1,13 @@
-#include "google_test.h"
+#include "UnitConverter1D.h"
 #include "Beam.h"
 #include "FixedBinAxis.h"
 #include "MathConstants.h"
 #include "OutputData.h"
 #include "PointwiseAxis.h"
 #include "QSpecScan.h"
-#include "UnitConverter1D.h"
 #include "Units.h"
 #include "VariableBinAxis.h"
+#include "google_test.h"
 
 class UnitConverter1DTest : public ::testing::Test
 {
@@ -15,7 +15,8 @@ public:
     UnitConverter1DTest();
     ~UnitConverter1DTest();
 
-    double getQ(double angle) {return 4.0 * M_PI * std::sin(angle) / m_beam.getWavelength();}
+    double getQ(double angle) { return 4.0 * M_PI * std::sin(angle) / m_beam.getWavelength(); }
+
 protected:
     void checkConventionalConverter(const UnitConverter1D& test_object);
     void checkQSpecConverter(const UnitConverter1D& test_object);
@@ -27,8 +28,10 @@ protected:
 
 UnitConverter1DTest::UnitConverter1DTest()
     : m_axis("Angles", 5, 0.5, 1.0) // angles in radians
-    , m_q_axis("Q values", 5, 0.0, 1.0) // q axis in inv. nm
-    , m_qscan(m_q_axis)
+      ,
+      m_q_axis("Q values", 5, 0.0, 1.0) // q axis in inv. nm
+      ,
+      m_qscan(m_q_axis)
 {
     m_beam.setCentralK(1.0, 0.0, 0.0); // wavelength = 1.0 nm
 }
@@ -245,8 +248,7 @@ TEST_F(UnitConverter1DTest, NonDefaultUnitsInInput)
 {
     PointwiseAxis axis("x", std::vector<double>{0.0, 0.5, 1.0});
 
-    EXPECT_THROW(UnitConverterConvSpec(m_beam, axis, AxesUnits::NBINS),
-                 std::runtime_error);
+    EXPECT_THROW(UnitConverterConvSpec(m_beam, axis, AxesUnits::NBINS), std::runtime_error);
 
     UnitConverterConvSpec converter(m_beam, axis, AxesUnits::DEGREES);
     auto axis_deg_output = converter.createConvertedAxis(0, AxesUnits::DEGREES);
@@ -256,7 +258,7 @@ TEST_F(UnitConverter1DTest, NonDefaultUnitsInInput)
     EXPECT_DOUBLE_EQ(axis[2], (*axis_deg_output)[2]);
 
     auto values = axis.getBinCenters();
-    std::for_each(values.begin(), values.end(), [this](double& value){value = getQ(value);});
+    std::for_each(values.begin(), values.end(), [this](double& value) { value = getQ(value); });
     PointwiseAxis q_axis("q", values);
     UnitConverterConvSpec converter2(m_beam, q_axis, AxesUnits::QSPACE);
     auto axis_rad_output = converter2.createConvertedAxis(0, AxesUnits::RADIANS);

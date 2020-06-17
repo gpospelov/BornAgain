@@ -1,11 +1,11 @@
-#include "google_test.h"
-#include "ParticleItem.h"
+#include "ParticleCompositionItem.h"
 #include "ParticleCoreShellItem.h"
 #include "ParticleDistributionItem.h"
-#include "ParticleCompositionItem.h"
+#include "ParticleItem.h"
 #include "SampleModel.h"
 #include "SessionItemUtils.h"
 #include "VectorItem.h"
+#include "google_test.h"
 #include <QtTest>
 
 using namespace SessionItemUtils;
@@ -47,10 +47,8 @@ TEST_F(TestParticleCoreShell, test_moveCoreAndShell)
     model.moveItem(particle3, coreshell, -1, ParticleCoreShellItem::T_CORE);
     EXPECT_EQ(particle3->parent(), coreshell);
     EXPECT_EQ(coreshell->getItem(ParticleCoreShellItem::T_CORE), particle3);
-//    EXPECT_EQ(particle1->parent(), model.rootItem());
-
+    //    EXPECT_EQ(particle1->parent(), model.rootItem());
 }
-
 
 //! Checking that adding and removing core/shell leads to enabling/disabling of their position
 //! and abundance properties.
@@ -152,4 +150,3 @@ TEST_F(TestParticleCoreShell, test_compositionContext)
     EXPECT_TRUE(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     delete coreshell;
 }
-

@@ -25,4 +25,3 @@ public:
 };
 
 #endif // PROPERTYITEM_H
-

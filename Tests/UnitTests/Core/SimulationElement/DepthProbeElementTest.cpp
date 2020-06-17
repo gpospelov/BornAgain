@@ -1,11 +1,12 @@
-#include "google_test.h"
 #include "DepthProbeElement.h"
 #include "FixedBinAxis.h"
+#include "google_test.h"
 
 class DepthProbeElementTest : public ::testing::Test
 {
 public:
     ~DepthProbeElementTest();
+
 protected:
     DepthProbeElementTest();
     DepthProbeElement createDefaultElement();
@@ -17,9 +18,9 @@ protected:
 
 DepthProbeElementTest::~DepthProbeElementTest() = default;
 
-DepthProbeElementTest::DepthProbeElementTest()
-    : m_z_positions(new FixedBinAxis("z", 10, 0.0, 10.0))
-{}
+DepthProbeElementTest::DepthProbeElementTest() : m_z_positions(new FixedBinAxis("z", 10, 0.0, 10.0))
+{
+}
 
 DepthProbeElement DepthProbeElementTest::createDefaultElement()
 {
@@ -79,4 +80,3 @@ TEST_F(DepthProbeElementTest, CopyMoveAssign)
 
     compareEqualElements(element5, element3);
 }
-

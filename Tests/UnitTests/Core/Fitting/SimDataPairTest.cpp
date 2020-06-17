@@ -1,8 +1,7 @@
-#include "google_test.h"
 #include "SimDataPair.h"
-#include "Parameters.h"
 #include "FittingTestHelper.h"
-
+#include "Parameters.h"
+#include "google_test.h"
 
 class SimDataPairTest : public ::testing::Test
 {
@@ -18,7 +17,7 @@ TEST_F(SimDataPairTest, standardPair)
 {
     FittingTestHelper helper;
 
-    simulation_builder_t builder = [&](const Fit::Parameters &pars){
+    simulation_builder_t builder = [&](const Fit::Parameters& pars) {
         return helper.createSimulation(pars);
     };
 
@@ -43,7 +42,7 @@ TEST_F(SimDataPairTest, standardPair)
     EXPECT_EQ(helper.m_builder_calls, 1u);
 
     // checking simulated and experimental data
-    const size_t expected_size = helper.m_nx*helper.m_ny;
+    const size_t expected_size = helper.m_nx * helper.m_ny;
     EXPECT_EQ(obj.numberOfFitElements(), expected_size);
     EXPECT_EQ(obj.simulationResult().size(), expected_size);
     EXPECT_EQ(obj.experimentalData().size(), expected_size);
@@ -54,7 +53,7 @@ TEST_F(SimDataPairTest, standardPair)
     EXPECT_DOUBLE_EQ(std::accumulate(array.begin(), array.end(), 0), 0.0);
     array = obj.experimental_array();
     EXPECT_EQ(obj.experimental_array().size(), expected_size);
-    EXPECT_DOUBLE_EQ(std::accumulate(array.begin(), array.end(), 0), expected_size*exp_value);
+    EXPECT_DOUBLE_EQ(std::accumulate(array.begin(), array.end(), 0), expected_size * exp_value);
 
     // calling builder second time
     obj.runSimulation(params);
@@ -66,15 +65,14 @@ TEST_F(SimDataPairTest, standardPair)
     EXPECT_DOUBLE_EQ(std::accumulate(array.begin(), array.end(), 0), 0.0);
     array = obj.experimental_array();
     EXPECT_EQ(obj.experimental_array().size(), expected_size);
-    EXPECT_DOUBLE_EQ(std::accumulate(array.begin(), array.end(), 0), expected_size*exp_value);
+    EXPECT_DOUBLE_EQ(std::accumulate(array.begin(), array.end(), 0), expected_size * exp_value);
 }
-
 
 TEST_F(SimDataPairTest, moveTest)
 {
     FittingTestHelper helper;
 
-    simulation_builder_t builder = [&](const Fit::Parameters &pars){
+    simulation_builder_t builder = [&](const Fit::Parameters& pars) {
         return helper.createSimulation(pars);
     };
 
@@ -89,7 +87,7 @@ TEST_F(SimDataPairTest, moveTest)
     EXPECT_EQ(helper.m_builder_calls, 1u);
 
     // checking simulated and experimental data
-    const size_t expected_size = helper.m_nx*helper.m_ny;
+    const size_t expected_size = helper.m_nx * helper.m_ny;
     EXPECT_EQ(obj.numberOfFitElements(), expected_size);
     EXPECT_EQ(obj.simulationResult().size(), expected_size);
     EXPECT_EQ(obj.experimentalData().size(), expected_size);
@@ -115,4 +113,3 @@ TEST_F(SimDataPairTest, moveTest)
     EXPECT_EQ(moved.simulationResult().size(), expected_size);
     EXPECT_EQ(moved.experimentalData().size(), expected_size);
 }
-

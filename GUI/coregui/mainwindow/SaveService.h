@@ -63,5 +63,4 @@ private:
     ProjectDocument* m_document;
 };
 
-
 #endif

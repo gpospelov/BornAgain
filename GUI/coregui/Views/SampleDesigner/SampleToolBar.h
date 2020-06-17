@@ -34,8 +34,7 @@ class BA_CORE_API_ SampleToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    explicit SampleToolBar(SampleViewActions* sampleActions = nullptr,
-                           QWidget* parent = nullptr);
+    explicit SampleToolBar(SampleViewActions* sampleActions = nullptr, QWidget* parent = nullptr);
 
 signals:
     void deleteItems();
@@ -43,8 +42,6 @@ signals:
     void centerView();
     void smartAlign();
     void changeScale(double);
-    void zoomIn();
-    void zoomOut();
 
 public slots:
     void onViewSelectionMode(int);
@@ -57,8 +54,6 @@ private:
     QToolButton* m_centerViewButton;
     QComboBox* m_scaleCombo;
     QToolButton* m_materialEditorButton;
-    QAction* m_zoomInAction;
-    QAction* m_zoomOutAction;
     QToolButton* m_RealSpaceViewerButton;
     SampleViewActions* m_sampleViewActions;
 };

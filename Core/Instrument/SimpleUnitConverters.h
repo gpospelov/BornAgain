@@ -49,8 +49,8 @@ protected:
     UnitConverterSimple(const UnitConverterSimple& other);
     void addDetectorAxis(const IDetector& detector, size_t i_axis);
 
-    void addAxisData(std::string name, double min, double max,
-                     AxesUnits default_units, size_t nbins);
+    void addAxisData(std::string name, double min, double max, AxesUnits default_units,
+                     size_t nbins);
 
 #ifndef SWIG
     struct AxisData {
@@ -66,7 +66,7 @@ protected:
     double m_phi_i;
 
 private:
-    virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const=0;
+    virtual double calculateValue(size_t i_axis, AxesUnits units_type, double value) const = 0;
 };
 
 //! IUnitConverter class that handles the unit translations for spherical detectors

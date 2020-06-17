@@ -31,7 +31,6 @@ BA_CORE_API_ std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer
 //! Get default z limits for generating a material profile
 BA_CORE_API_ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer& multilayer);
 
-
 //! Generate z values (equidistant) for use in MaterialProfile
 BA_CORE_API_ std::vector<double> GenerateZValues(int n_points, double z_min, double z_max);
 

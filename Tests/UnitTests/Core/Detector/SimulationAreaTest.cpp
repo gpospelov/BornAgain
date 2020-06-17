@@ -1,8 +1,8 @@
-#include "google_test.h"
-#include "Rectangle.h"
 #include "SimulationArea.h"
-#include "SphericalDetector.h"
 #include "DetectorFunctions.h"
+#include "Rectangle.h"
+#include "SphericalDetector.h"
+#include "google_test.h"
 #include <iostream>
 #include <memory>
 
@@ -112,10 +112,10 @@ TEST_F(SimulationAreaTest, maskedCornerIteration)
     detector.addMask(Rectangle(3.1, 3.1, 3.9, 3.9), true);
     SimulationArea area(&detector);
 
-    std::vector<size_t> expectedIndexes
-        = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
-    std::vector<size_t> expectedElementIndexes
-        = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
+    std::vector<size_t> expectedIndexes = {1,  2,  3,  4,  5,  6,  7,  8,  9,
+                                           10, 11, 12, 13, 14, 15, 16, 17, 18};
+    std::vector<size_t> expectedElementIndexes = {0, 1,  2,  3,  4,  5,  6,  7,  8,
+                                                  9, 10, 11, 12, 13, 14, 15, 16, 17};
     std::vector<size_t> indexes;
     std::vector<size_t> elementIndexes;
     for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it) {
@@ -176,7 +176,7 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration)
     elementIndexes.clear();
     detectorIndexes.clear();
     roiIndexes.clear();
-    detector.iterate([&](IDetector::const_iterator it){
+    detector.iterate([&](IDetector::const_iterator it) {
         indexes.push_back(it.index());
         elementIndexes.push_back(it.elementIndex());
         detectorIndexes.push_back(it.detectorIndex());
@@ -220,12 +220,14 @@ TEST_F(SimulationAreaTest, maskAndRoiIterationVisitMasks)
     elementIndexes.clear();
     detectorIndexes.clear();
     roiIndexes.clear();
-    detector.iterate([&](IDetector::const_iterator it){
-        indexes.push_back(it.index());
-        elementIndexes.push_back(it.elementIndex());
-        detectorIndexes.push_back(it.detectorIndex());
-        roiIndexes.push_back(it.roiIndex());
-    }, /*visit_masked*/true);
+    detector.iterate(
+        [&](IDetector::const_iterator it) {
+            indexes.push_back(it.index());
+            elementIndexes.push_back(it.elementIndex());
+            detectorIndexes.push_back(it.detectorIndex());
+            roiIndexes.push_back(it.roiIndex());
+        },
+        /*visit_masked*/ true);
     EXPECT_EQ(indexes, expectedRoiIndexes);
     EXPECT_EQ(elementIndexes, expectedElementIndexes);
     EXPECT_EQ(detectorIndexes, expectedDetectorIndexes);

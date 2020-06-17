@@ -17,7 +17,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! The formfactor for a long rectangular box.
+//! The form factor for a long rectangular box.
 //! @ingroup legacyGrating
 
 class BA_CORE_API_ FormFactorLongBoxLorentz : public IFormFactorBorn
@@ -27,17 +27,19 @@ public:
     //! @param length of Box's base
     //! @param width of Box's base
     //! @param height of Box
-    FormFactorLongBoxLorentz( double length, double width, double height);
+    FormFactorLongBoxLorentz(double length, double width, double height);
 
-    FormFactorLongBoxLorentz* clone() const override final {
-        return new FormFactorLongBoxLorentz(m_length, m_width, m_height); }
-    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
+    FormFactorLongBoxLorentz* clone() const override final
+    {
+        return new FormFactorLongBoxLorentz(m_length, m_width, m_height);
+    }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
 
-    double radialExtension() const override final { return m_length/2.0; }
+    double radialExtension() const override final { return m_length / 2.0; }
 
     complex_t evaluate_for_q(cvector_t q) const override final;
 

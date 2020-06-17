@@ -22,19 +22,20 @@
 #include "ParticleLayout.h"
 #include "Units.h"
 
-namespace {
+namespace
+{
 //! Returns SLD input (in inverse square Angstroms) for MaterialBySLD from _delta_ and _beta_,
 //! i.e. the input for HomogeneousMaterial.
 complex_t getSLDFromN(double wavelength, double delta, double beta);
 complex_t averageSLD(complex_t sld_p, complex_t sld_l, double eff_vol);
-}
+} // namespace
 
 SlicedCylindersBuilder::SlicedCylindersBuilder()
-    : m_height(5*Units::nanometer)
-    , m_radius(5*Units::nanometer)
-    , m_wavelength(0.154) // nm
-    , m_n_slices(3)
-{}
+    : m_height(5 * Units::nanometer), m_radius(5 * Units::nanometer), m_wavelength(0.154) // nm
+      ,
+      m_n_slices(3)
+{
+}
 
 MultiLayer* SlicedCylindersBuilder::buildSample() const
 {
@@ -61,9 +62,7 @@ MultiLayer* SlicedCylindersBuilder::buildSample() const
     return multi_layer;
 }
 
-SLDSlicedCylindersBuilder::SLDSlicedCylindersBuilder()
-    : SlicedCylindersBuilder()
-{}
+SLDSlicedCylindersBuilder::SLDSlicedCylindersBuilder() : SlicedCylindersBuilder() {}
 
 MultiLayer* SLDSlicedCylindersBuilder::buildSample() const
 {
@@ -93,9 +92,9 @@ MultiLayer* SLDSlicedCylindersBuilder::buildSample() const
 }
 
 AveragedSlicedCylindersBuilder::AveragedSlicedCylindersBuilder()
-    : SlicedCylindersBuilder()
-    , m_par_surf_density(ParticleLayout().totalParticleSurfaceDensity())
-{}
+    : SlicedCylindersBuilder(), m_par_surf_density(ParticleLayout().totalParticleSurfaceDensity())
+{
+}
 
 MultiLayer* AveragedSlicedCylindersBuilder::buildSample() const
 {
@@ -123,10 +122,11 @@ MultiLayer* AveragedSlicedCylindersBuilder::buildSample() const
     return multi_layer;
 }
 
-namespace {
+namespace
+{
 complex_t getSLDFromN(double wavelength, double delta, double beta)
 {
-    complex_t result {2 * delta - delta * delta + beta * beta, 2 * beta - 2 * delta * beta};
+    complex_t result{2 * delta - delta * delta + beta * beta, 2 * beta - 2 * delta * beta};
     return result * M_PI / (wavelength * wavelength) * (Units::angstrom * Units::angstrom);
 }
 
@@ -134,4 +134,4 @@ complex_t averageSLD(complex_t sld_p, complex_t sld_l, double eff_vol)
 {
     return sld_l + eff_vol * (sld_p - sld_l);
 }
-}
+} // namespace

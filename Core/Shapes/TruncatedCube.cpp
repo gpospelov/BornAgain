@@ -14,37 +14,18 @@
 
 #include "TruncatedCube.h"
 
-
 TruncatedCube::TruncatedCube(double length, double removed_length)
 {
-    double L2 = length/2.0;
+    double L2 = length / 2.0;
     double t = removed_length;
-    m_vertices = {
-        { -L2+t, -L2  , 0.0 },
-        { -L2  , -L2+t, 0.0 },
-        { -L2  , -L2  , t   },
-        {  L2-t, -L2  , 0.0 },
-        {  L2  , -L2+t, 0.0 },
-        {  L2  , -L2  , t   },
-        { -L2+t,  L2  , 0.0 },
-        { -L2  ,  L2-t, 0.0 },
-        { -L2  ,  L2  , t   },
-        {  L2-t,  L2  , 0.0 },
-        {  L2  ,  L2-t, 0.0 },
-        {  L2  ,  L2  , t   },
-        { -L2+t, -L2  ,  length   },
-        { -L2  , -L2+t,  length   },
-        { -L2  , -L2  ,  length-t },
-        {  L2-t, -L2  ,  length   },
-        {  L2  , -L2+t,  length   },
-        {  L2  , -L2  ,  length-t },
-        { -L2+t,  L2  ,  length   },
-        { -L2  ,  L2-t,  length   },
-        { -L2  ,  L2  ,  length-t },
-        {  L2-t,  L2  ,  length   },
-        {  L2  ,  L2-t,  length   },
-        {  L2  ,  L2  ,  length-t } };
+    m_vertices = {{-L2 + t, -L2, 0.0},    {-L2, -L2 + t, 0.0},    {-L2, -L2, t},
+                  {L2 - t, -L2, 0.0},     {L2, -L2 + t, 0.0},     {L2, -L2, t},
+                  {-L2 + t, L2, 0.0},     {-L2, L2 - t, 0.0},     {-L2, L2, t},
+                  {L2 - t, L2, 0.0},      {L2, L2 - t, 0.0},      {L2, L2, t},
+                  {-L2 + t, -L2, length}, {-L2, -L2 + t, length}, {-L2, -L2, length - t},
+                  {L2 - t, -L2, length},  {L2, -L2 + t, length},  {L2, -L2, length - t},
+                  {-L2 + t, L2, length},  {-L2, L2 - t, length},  {-L2, L2, length - t},
+                  {L2 - t, L2, length},   {L2, L2 - t, length},   {L2, L2, length - t}};
 }
 
-TruncatedCube::~TruncatedCube()
-{}
+TruncatedCube::~TruncatedCube() {}

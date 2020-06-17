@@ -117,7 +117,6 @@ protected:
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
 
-
 //! Lorentz distribution with median and hwhm.
 //! @ingroup paramDistribution
 
@@ -143,11 +142,10 @@ protected:
     std::unique_ptr<IDistribution1D> distribution_impl(double median, double hwhm) const override;
 };
 
-
 //! Gaussian distribution with standard deviation std_dev.
 //! @ingroup paramDistribution
 
-class BA_CORE_API_ RangedDistributionGaussian: public RangedDistribution
+class BA_CORE_API_ RangedDistributionGaussian : public RangedDistribution
 {
 public:
     RangedDistributionGaussian();
@@ -169,11 +167,10 @@ protected:
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
 
-
 //! Log-normal distribution.
 //! @ingroup paramDistribution
 
-class BA_CORE_API_ RangedDistributionLogNormal: public RangedDistribution
+class BA_CORE_API_ RangedDistributionLogNormal : public RangedDistribution
 {
 public:
     RangedDistributionLogNormal();
@@ -195,11 +192,10 @@ protected:
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
 
-
 //! Cosine distribution.
 //! @ingroup paramDistribution
 
-class BA_CORE_API_ RangedDistributionCosine: public RangedDistribution
+class BA_CORE_API_ RangedDistributionCosine : public RangedDistribution
 {
 public:
     RangedDistributionCosine();
@@ -220,7 +216,6 @@ protected:
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
-
 
 inline std::ostream& operator<<(std::ostream& os, const RangedDistribution& distribution)
 {

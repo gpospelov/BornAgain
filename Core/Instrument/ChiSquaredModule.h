@@ -24,11 +24,10 @@ class BA_CORE_API_ ChiSquaredModule : public IChiSquaredModule
 {
 public:
     ChiSquaredModule() {}
-    ChiSquaredModule(const ChiSquaredModule& other)
-        : IChiSquaredModule(other) {}
+    ChiSquaredModule(const ChiSquaredModule& other) : IChiSquaredModule(other) {}
     virtual ~ChiSquaredModule() {}
 
-    virtual ChiSquaredModule *clone() const { return new ChiSquaredModule(*this); }
+    virtual ChiSquaredModule* clone() const { return new ChiSquaredModule(*this); }
 
     virtual double residual(double a, double b, double weight);
 };

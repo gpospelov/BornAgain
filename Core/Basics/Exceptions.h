@@ -22,13 +22,14 @@
 #ifdef _WIN32
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4275)
+#pragma warning(disable : 4275)
 #endif
 #endif
 
 //! Different exceptions, all inheriting from std::exception.
 
-namespace Exceptions {
+namespace Exceptions
+{
 
 class BA_CORE_API_ NotImplementedException : public std::logic_error
 {
@@ -110,7 +111,7 @@ public:
 
 void LogExceptionMessage(const std::string& message);
 
-} // namespace Exceptions;
+} // namespace Exceptions
 
 #ifdef _WIN32
 #ifdef _MSC_VER

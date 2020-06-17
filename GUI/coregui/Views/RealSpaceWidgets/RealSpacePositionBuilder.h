@@ -16,8 +16,8 @@
 #define REALSPACEPOSITIONBUILDER_H
 
 #include "INodeVisitor.h"
-#include <vector>
 #include <memory>
+#include <vector>
 
 class IPositionBuilder;
 
@@ -35,7 +35,9 @@ public:
     void visit(const InterferenceFunctionRadialParaCrystal* p_iff) override;
     void visit(const InterferenceFunctionNone* p_iff) override;
 
-    std::vector<std::vector<double>> generatePositions(double layer_size, double density=0.0) const;
+    std::vector<std::vector<double>> generatePositions(double layer_size,
+                                                       double density = 0.0) const;
+
 private:
     std::unique_ptr<IPositionBuilder> mP_pos_builder;
 };

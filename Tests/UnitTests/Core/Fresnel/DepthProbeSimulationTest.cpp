@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "DepthProbeSimulation.h"
 #include "Distributions.h"
 #include "FixedBinAxis.h"
@@ -11,6 +10,7 @@
 #include "ParameterPattern.h"
 #include "RealParameter.h"
 #include "Units.h"
+#include "google_test.h"
 
 class DepthProbeSimulationTest : public ::testing::Test
 {
@@ -119,14 +119,10 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters)
     sim.setBeamIntensity(2.0);
     EXPECT_EQ(2.0, beam.getIntensity());
 
-    EXPECT_THROW(sim.setBeamParameters(1.0, 10, -2.0, 3.0),
-                 std::runtime_error);
-    EXPECT_THROW(sim.setBeamParameters(1.0, 10, 2.0, 1.0),
-                 std::runtime_error);
-    EXPECT_THROW(sim.setBeamParameters(1.0, 0, 1.0, 2.0),
-                 std::runtime_error);
-    EXPECT_THROW(sim.setBeamParameters(-1.0, 1, 1.0, 2.0),
-                 std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(1.0, 10, -2.0, 3.0), std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(1.0, 10, 2.0, 1.0), std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(1.0, 0, 1.0, 2.0), std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(-1.0, 1, 1.0, 2.0), std::runtime_error);
 
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
     EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->getMin());

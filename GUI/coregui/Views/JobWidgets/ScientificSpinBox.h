@@ -43,13 +43,12 @@ public:
     int decimals() const;
 
     void stepBy(int steps) override;
-    QValidator::State validate(QString&, int&) const override {return QValidator::Acceptable;}
+    QValidator::State validate(QString&, int&) const override { return QValidator::Acceptable; }
     void fixup(QString&) const override {}
 
-
     static QString toString(double val, int decimal_points);
-    static double toDouble(QString text, const QDoubleValidator& validator,
-                           double min, double max, double default_value);
+    static double toDouble(QString text, const QDoubleValidator& validator, double min, double max,
+                           double default_value);
     static double round(double val, int decimals);
 
 signals:

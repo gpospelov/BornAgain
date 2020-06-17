@@ -22,17 +22,15 @@
 #include <sstream>
 #include <stdexcept>
 
-IParameterized::IParameterized(const std::string& name)
-    : INamed(name)
+IParameterized::IParameterized(const std::string& name) : INamed(name)
 {
     m_pool = new ParameterPool;
 }
 
-IParameterized::IParameterized(const IParameterized& other)
-    : IParameterized(other.getName())
+IParameterized::IParameterized(const IParameterized& other) : IParameterized(other.getName())
 {
-    if( other.parameterPool()->size() )
-        throw std::runtime_error( "BUG: not prepared to copy parameters of " + getName() );
+    if (other.parameterPool()->size())
+        throw std::runtime_error("BUG: not prepared to copy parameters of " + getName());
 }
 
 IParameterized::~IParameterized()
@@ -43,14 +41,14 @@ IParameterized::~IParameterized()
 ParameterPool* IParameterized::createParameterTree() const
 {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
-    m_pool->copyToExternalPool("/"+getName()+"/", result.get());
+    m_pool->copyToExternalPool("/" + getName() + "/", result.get());
     return result.release();
 }
 
 std::string IParameterized::parametersToString() const
 {
     std::ostringstream result;
-    std::unique_ptr<ParameterPool> P_pool( createParameterTree() );
+    std::unique_ptr<ParameterPool> P_pool(createParameterTree());
     result << *P_pool << "\n";
     return result.str();
 }
@@ -58,7 +56,7 @@ std::string IParameterized::parametersToString() const
 RealParameter& IParameterized::registerParameter(const std::string& name, double* data)
 {
     return m_pool->addParameter(
-                new RealParameter( name, data, getName(), [&]()->void{ onChange(); } ));
+        new RealParameter(name, data, getName(), [&]() -> void { onChange(); }));
 }
 
 void IParameterized::registerVector(const std::string& base_name, kvector_t* p_vec,
@@ -71,11 +69,11 @@ void IParameterized::registerVector(const std::string& base_name, kvector_t* p_v
 
 void IParameterized::setParameterValue(const std::string& name, double value)
 {
-    if(name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
+    if (name.find('*') == std::string::npos && name.find('/') == std::string::npos) {
         m_pool->setParameterValue(name, value);
     } else {
-        std::unique_ptr<ParameterPool> P_pool { createParameterTree() };
-        if(name.find('*') != std::string::npos)
+        std::unique_ptr<ParameterPool> P_pool{createParameterTree()};
+        if (name.find('*') != std::string::npos)
             P_pool->setMatchedParametersValue(name, value);
         else
             P_pool->setParameterValue(name, value);
@@ -90,7 +88,8 @@ void IParameterized::setVectorValue(const std::string& base_name, kvector_t valu
 }
 
 //! Returns parameter with given 'name'.
-RealParameter* IParameterized::parameter(const std::string& name) const {
+RealParameter* IParameterized::parameter(const std::string& name) const
+{
     return m_pool->parameter(name);
 }
 

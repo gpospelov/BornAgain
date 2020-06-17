@@ -20,9 +20,8 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-
-NewProjectDialog::NewProjectDialog(QWidget *parent, const QString &workingDirectory
-                                   , const QString &projectName)
+NewProjectDialog::NewProjectDialog(QWidget* parent, const QString& workingDirectory,
+                                   const QString& projectName)
     : QDialog(parent), m_projectNameEdit(0), m_workDirEdit(0), m_browseButton(0), m_warningLabel(0),
       m_cancelButton(0), m_createButton(0), m_valid_projectName(true), m_valid_projectPath(true)
 
@@ -30,14 +29,14 @@ NewProjectDialog::NewProjectDialog(QWidget *parent, const QString &workingDirect
     setMinimumSize(480, 280);
     setWindowTitle("New project");
 
-    QLabel *nameLabel = new QLabel("Project name:");
+    QLabel* nameLabel = new QLabel("Project name:");
     m_projectNameEdit = new QLineEdit;
     m_projectNameEdit->setText("Untitled");
     connect(m_projectNameEdit, SIGNAL(textEdited(QString)), this,
             SLOT(checkIfProjectNameIsValid(QString)));
     nameLabel->setBuddy(m_projectNameEdit);
 
-    QLabel *parentDirLabel = new QLabel("Create in:");
+    QLabel* parentDirLabel = new QLabel("Create in:");
     m_workDirEdit = new QLineEdit;
     m_workDirEdit->setText(QDir::homePath());
     connect(m_workDirEdit, SIGNAL(textEdited(QString)), this,
@@ -55,9 +54,9 @@ NewProjectDialog::NewProjectDialog(QWidget *parent, const QString &workingDirect
     m_cancelButton = new QPushButton("Cancel");
     connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-    QGroupBox *projectGroup = new QGroupBox("Project name and location");
+    QGroupBox* projectGroup = new QGroupBox("Project name and location");
 
-    QGridLayout *layout = new QGridLayout;
+    QGridLayout* layout = new QGridLayout;
     layout->addWidget(nameLabel, 0, 0);
     layout->addWidget(m_projectNameEdit, 0, 1);
     layout->addWidget(parentDirLabel, 1, 0);
@@ -66,12 +65,12 @@ NewProjectDialog::NewProjectDialog(QWidget *parent, const QString &workingDirect
 
     projectGroup->setLayout(layout);
 
-    QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    QHBoxLayout* buttonsLayout = new QHBoxLayout;
     buttonsLayout->addStretch(1);
     buttonsLayout->addWidget(m_createButton);
     buttonsLayout->addWidget(m_cancelButton);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(projectGroup);
     mainLayout->addWidget(m_warningLabel);
     mainLayout->addStretch();
@@ -88,12 +87,12 @@ QString NewProjectDialog::getWorkingDirectory() const
     return m_workDirEdit->text();
 }
 
-void NewProjectDialog::setWorkingDirectory(const QString &text)
+void NewProjectDialog::setWorkingDirectory(const QString& text)
 {
     return m_workDirEdit->setText(text);
 }
 
-void NewProjectDialog::setProjectName(const QString &text)
+void NewProjectDialog::setProjectName(const QString& text)
 {
     return m_projectNameEdit->setText(text);
 }
@@ -120,7 +119,7 @@ void NewProjectDialog::onBrowseDirectory()
 }
 
 //! Returns true if ProjectPath is valid. Corresponding directory should exists.
-void NewProjectDialog::checkIfProjectPathIsValid(const QString &dirname)
+void NewProjectDialog::checkIfProjectPathIsValid(const QString& dirname)
 {
     if (QFile::exists(dirname)) {
         setValidProjectPath(true);
@@ -133,7 +132,7 @@ void NewProjectDialog::checkIfProjectPathIsValid(const QString &dirname)
 
 //! Returns true if project name is valid. There should not be the directory with such
 //! name in ProjectPath
-void NewProjectDialog::checkIfProjectNameIsValid(const QString &projectName)
+void NewProjectDialog::checkIfProjectNameIsValid(const QString& projectName)
 {
     QDir projectDir = getWorkingDirectory() + "/" + projectName;
     if (projectDir.exists()) {

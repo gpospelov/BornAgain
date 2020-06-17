@@ -14,10 +14,11 @@
 
 #include "layer.h"
 
-namespace RealSpace {
+namespace RealSpace
+{
 
 Layer::Layer(VectorRange d) : Object(GeometricID::Key(GeometricID::BaseShape::Box))
 {
     transform(d.size(), Vector3D::_0, d.mid());
 }
-}  // namespace RealSpace
+} // namespace RealSpace

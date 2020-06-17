@@ -19,16 +19,16 @@
 #include "ModelPath.h"
 #include "SessionModel.h"
 
-namespace {
+namespace
+{
 // set of simple colors for representation of 1D graphs
-const std::vector<std::pair<QString, Qt::GlobalColor>> color_queue
-    = {{"Black", Qt::GlobalColor::black},   {"Blue", Qt::GlobalColor::blue},
-       {"Red", Qt::GlobalColor::darkRed},   {"Cyan", Qt::GlobalColor::darkCyan},
-       {"Gray", Qt::GlobalColor::darkGray}, {"Magenta", Qt::GlobalColor::darkMagenta}};
+const std::vector<std::pair<QString, Qt::GlobalColor>> color_queue = {
+    {"Black", Qt::GlobalColor::black},   {"Blue", Qt::GlobalColor::blue},
+    {"Red", Qt::GlobalColor::darkRed},   {"Cyan", Qt::GlobalColor::darkCyan},
+    {"Gray", Qt::GlobalColor::darkGray}, {"Magenta", Qt::GlobalColor::darkMagenta}};
 
 struct ColorNameComparator {
-    ColorNameComparator(const QString& value_to_comp) : m_value_to_comp(value_to_comp)
-    {}
+    ColorNameComparator(const QString& value_to_comp) : m_value_to_comp(value_to_comp) {}
     bool operator()(const std::pair<QString, Qt::GlobalColor>& value) const
     {
         return value.first == m_value_to_comp;
@@ -38,12 +38,11 @@ struct ColorNameComparator {
 };
 
 ComboProperty defaultColorCombo();
-}
+} // namespace
 
 const QString DataProperties::P_LINK = "data link";
 
-DataProperties::DataProperties(const QString& model_type)
-    : SessionItem(model_type)
+DataProperties::DataProperties(const QString& model_type) : SessionItem(model_type)
 {
     addProperty(P_LINK, "");
 }
@@ -71,8 +70,7 @@ DataItem* DataProperties::dataItem()
 
 const QString Data1DProperties::P_COLOR = "Color";
 
-Data1DProperties::Data1DProperties()
-    : DataProperties(Constants::DataItem1DPropertiesType)
+Data1DProperties::Data1DProperties() : DataProperties(Constants::DataItem1DPropertiesType)
 {
     addProperty(P_COLOR, defaultColorCombo().variant());
 }
@@ -80,7 +78,8 @@ Data1DProperties::Data1DProperties()
 QColor Data1DProperties::color()
 {
     const QString& color_name = getItemValue(P_COLOR).value<ComboProperty>().getValue();
-    auto iter = std::find_if(color_queue.begin(), color_queue.end(), ColorNameComparator(color_name));
+    auto iter =
+        std::find_if(color_queue.begin(), color_queue.end(), ColorNameComparator(color_name));
     if (iter == color_queue.end())
         throw GUIHelpers::Error("Error in Data1DPresentationProperties::color: unknown color name");
     return QColor(iter->second);
@@ -91,7 +90,8 @@ const QString& Data1DProperties::nextColorName(Data1DProperties* properties)
     if (!properties)
         return color_queue.front().first;
     const auto& current_color = properties->getItemValue(P_COLOR).value<ComboProperty>().getValue();
-    auto iter = std::find_if(color_queue.begin(), color_queue.end(), ColorNameComparator(current_color));
+    auto iter =
+        std::find_if(color_queue.begin(), color_queue.end(), ColorNameComparator(current_color));
     if (iter == color_queue.end() || *iter == color_queue.back())
         return color_queue.front().first;
     return (++iter)->first;
@@ -104,7 +104,8 @@ void Data1DProperties::setColorProperty(const QString& color_name)
     setItemValue(P_COLOR, color_combo.variant());
 }
 
-namespace {
+namespace
+{
 ComboProperty defaultColorCombo()
 {
     ComboProperty result;
@@ -113,4 +114,4 @@ ComboProperty defaultColorCombo()
     result.setValue(color_queue.front().first);
     return result;
 }
-}
+} // namespace

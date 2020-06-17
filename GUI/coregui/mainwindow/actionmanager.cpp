@@ -13,37 +13,26 @@
 // ************************************************************************** //
 
 #include "actionmanager.h"
+#include "PyImportAssistant.h"
+#include "SysUtils.h"
 #include "UpdateNotifier.h"
+#include "aboutapplicationdialog.h"
 #include "hostosinfo.h"
 #include "mainwindow.h"
 #include "mainwindow_constants.h"
 #include "projectmanager.h"
 #include "qstringutils.h"
-#include "aboutapplicationdialog.h"
-#include "PyImportAssistant.h"
-#include "hostosinfo.h"
-#include "SysUtils.h"
 #include <QDir>
 #include <QMenuBar>
 #include <QSettings>
 #include <QShortcut>
 
 ActionManager::ActionManager(MainWindow* parent)
-    : QObject(parent)
-    , m_mainWindow(parent)
-    , m_newAction(nullptr)
-    , m_openAction(nullptr)
-    , m_saveAction(nullptr)
-    , m_saveAsAction(nullptr)
-    , m_exitAction(nullptr)
-    , m_aboutAction(nullptr)
-    , m_menuBar(nullptr)
-    , m_fileMenu(nullptr)
-    , m_settingsMenu(nullptr)
-    , m_recentProjectsMenu(nullptr)
-    , m_helpMenu(nullptr)
-    , m_importMenu(nullptr)
-    , m_runSimulationShortcut(nullptr)
+    : QObject(parent), m_mainWindow(parent), m_newAction(nullptr), m_openAction(nullptr),
+      m_saveAction(nullptr), m_saveAsAction(nullptr), m_exitAction(nullptr), m_aboutAction(nullptr),
+      m_menuBar(nullptr), m_fileMenu(nullptr), m_settingsMenu(nullptr),
+      m_recentProjectsMenu(nullptr), m_helpMenu(nullptr), m_importMenu(nullptr),
+      m_runSimulationShortcut(nullptr)
 {
     createActions();
     createMenus();
@@ -65,16 +54,16 @@ void ActionManager::createActions()
     m_openAction = new QAction("&Open Project", m_mainWindow);
     m_openAction->setShortcuts(QKeySequence::Open);
     m_openAction->setStatusTip("Open an existing project");
-    connect(m_openAction, &QAction::triggered,
-            projectManager, [projectManager]() { projectManager->openProject(); });
+    connect(m_openAction, &QAction::triggered, projectManager,
+            [projectManager]() { projectManager->openProject(); });
 
     // save project action
     m_saveAction = new QAction("&Save Project", m_mainWindow);
     m_saveAction->setShortcuts(QKeySequence::Save);
     m_saveAction->setStatusTip("Save project");
     m_saveAction->setShortcutContext(Qt::ApplicationShortcut);
-    connect(m_saveAction, &QAction::triggered,
-            projectManager, [projectManager]() { projectManager->saveProject(); });
+    connect(m_saveAction, &QAction::triggered, projectManager,
+            [projectManager]() { projectManager->saveProject(); });
 
     // save-as project action
     m_saveAsAction = new QAction("Save &As...", m_mainWindow);
@@ -154,11 +143,11 @@ void ActionManager::aboutToShowFileMenu()
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
-    for(QString file : m_mainWindow->projectManager()->recentProjects()) {
+    for (QString file : m_mainWindow->projectManager()->recentProjects()) {
         hasRecentProjects = true;
         QAction* action = m_recentProjectsMenu->addAction(
             QDir::toNativeSeparators(GUI_StringUtils::withTildeHomePath(file)));
-        action->setData(qVariantFromValue(file));
+        action->setData(QVariant::fromValue(file));
         connect(action, &QAction::triggered, m_mainWindow, &MainWindow::openRecentProject);
     }
     m_recentProjectsMenu->setEnabled(hasRecentProjects);

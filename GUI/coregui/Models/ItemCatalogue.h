@@ -15,8 +15,8 @@
 #ifndef ITEMCATALOGUE_H
 #define ITEMCATALOGUE_H
 
-#include "WinDllMacros.h"
 #include "IFactory.h"
+#include "WinDllMacros.h"
 #include <QStringList>
 #include <memory>
 
@@ -43,6 +43,4 @@ private:
     QStringList m_valid_top_item_types;
 };
 
-#endif  // ITEMCATALOGUE_H
-
-
+#endif // ITEMCATALOGUE_H

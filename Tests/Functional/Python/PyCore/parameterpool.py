@@ -50,7 +50,7 @@ class ParameterPoolTest(unittest.TestCase):
     def test_parameterTreeAccess(self):
         """
         Checks values in particle's parameter tree. Parameter tree is a pool with parameters of
-        particle and its children (in given case, formfactor of cylinder)
+        particle and its children (in given case, form factor of cylinder)
         """
         ff = ba.FormFactorCylinder(5*nm, 6*nm)
         particle = ba.Particle(ba.HomogeneousMaterial("Air", 0.0, 0.0), ff)

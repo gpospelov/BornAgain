@@ -16,8 +16,8 @@
 #define INSTRUMENTVIEWACTIONS_H
 
 #include "WinDllMacros.h"
-#include <QObject>
 #include <QMap>
+#include <QObject>
 
 class QAction;
 class SessionModel;
@@ -44,7 +44,7 @@ public slots:
     void onAddInstrument();
     void onRemoveInstrument();
     void onCloneInstrument();
-    void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint);
+    void onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint);
 
 private:
     void setAllActionsEnabled(bool value);

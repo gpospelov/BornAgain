@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "FTDistributionItems.h"
 #include "FTDistributions2D.h"
 #include "InterferenceFunction2DParaCrystal.h"
@@ -9,6 +8,7 @@
 #include "SampleModel.h"
 #include "TransformFromDomain.h"
 #include "Units.h"
+#include "google_test.h"
 #include "item_constants.h"
 
 class TestParaCrystalItems : public ::testing::Test
@@ -86,16 +86,16 @@ TEST_F(TestParaCrystalItems, test_Inference2DRotationAngleToggle)
     SessionItem* layer = model.insertNewItem(Constants::LayerType, multilayer->index());
     SessionItem* layout = model.insertNewItem(Constants::ParticleLayoutType, layer->index());
 
-    SessionItem* interference
-        = model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType, layout->index(), -1,
-                              ParticleLayoutItem::T_INTERFERENCE);
+    SessionItem* interference =
+        model.insertNewItem(Constants::InterferenceFunction2DParaCrystalType, layout->index(), -1,
+                            ParticleLayoutItem::T_INTERFERENCE);
 
     // rotation (xi) should be disabled if integration is on
     interference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);
 
-    SessionItem* angleItem
-        = interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
-              ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
+    SessionItem* angleItem =
+        interference->getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)
+            ->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
 
     EXPECT_FALSE(angleItem->isEnabled());
 

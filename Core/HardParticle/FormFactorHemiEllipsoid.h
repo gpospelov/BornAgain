@@ -16,7 +16,7 @@
 #define FORMFACTORHEMIELLIPSOID_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
+#include "Integrator.h"
 
 //! An hemi ellipsoid,
 //!   obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
@@ -28,9 +28,11 @@ public:
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
     virtual ~FormFactorHemiEllipsoid() {}
 
-    FormFactorHemiEllipsoid* clone() const override final {
-        return new FormFactorHemiEllipsoid(m_radius_x, m_radius_y, m_height); }
-    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
+    FormFactorHemiEllipsoid* clone() const override final
+    {
+        return new FormFactorHemiEllipsoid(m_radius_x, m_radius_y, m_height);
+    }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadiusX() const { return m_radius_x; }
@@ -38,7 +40,7 @@ public:
 
     double radialExtension() const override final;
 
-    complex_t evaluate_for_q (cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const override final;
 
 protected:
     void onChange() override final;
@@ -50,10 +52,7 @@ private:
     double m_radius_y;
     double m_height;
     mutable cvector_t m_q;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorHemiEllipsoid>> mP_integrator;
-#endif
+    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // FORMFACTORHEMIELLIPSOID_H

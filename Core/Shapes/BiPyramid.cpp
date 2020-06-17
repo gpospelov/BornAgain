@@ -21,16 +21,15 @@ BiPyramid::BiPyramid(double length, double height, double height_ratio, double a
 {
     m_vertices.resize(12);
     double cot_alpha = MathFunctions::cot(alpha);
-    double delta_1 = 2.0*height*cot_alpha;
-    double delta_2 = 2.0*height_ratio*height*cot_alpha;
+    double delta_1 = 2.0 * height * cot_alpha;
+    double delta_2 = 2.0 * height_ratio * height * cot_alpha;
     auto bottom_face = RectangleVertices(length, length, 0.0);
-    auto mid_face = RectangleVertices(length+delta_1, length+delta_1, height);
-    auto top_face = RectangleVertices(length+delta_1-delta_2, length+delta_1-delta_2,
-                                      (height_ratio + 1.0)*height);
+    auto mid_face = RectangleVertices(length + delta_1, length + delta_1, height);
+    auto top_face = RectangleVertices(length + delta_1 - delta_2, length + delta_1 - delta_2,
+                                      (height_ratio + 1.0) * height);
     std::move(bottom_face.begin(), bottom_face.end(), m_vertices.begin());
-    std::move(mid_face.begin(), mid_face.end(), m_vertices.begin()+4);
-    std::move(top_face.begin(), top_face.end(), m_vertices.begin()+8);
+    std::move(mid_face.begin(), mid_face.end(), m_vertices.begin() + 4);
+    std::move(top_face.begin(), top_face.end(), m_vertices.begin() + 8);
 }
 
-BiPyramid::~BiPyramid()
-{}
+BiPyramid::~BiPyramid() {}

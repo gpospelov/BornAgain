@@ -13,20 +13,19 @@
 // ************************************************************************** //
 
 #include "IntensityDataWidget.h"
+#include "DataItemUtils.h"
+#include "IntensityDataCanvas.h"
+#include "IntensityDataFFTPresenter.h"
 #include "IntensityDataItem.h"
 #include "IntensityDataPropertyWidget.h"
-#include "IntensityDataCanvas.h"
 #include "JobItem.h"
-#include "DataItemUtils.h"
-#include "IntensityDataFFTPresenter.h"
 #include <QBoxLayout>
 #include <QMenu>
 
 IntensityDataWidget::IntensityDataWidget(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_intensityCanvas(new IntensityDataCanvas)
-    , m_propertyWidget(new IntensityDataPropertyWidget)
-    , m_fftPresenter(new IntensityDataFFTPresenter(this))
+    : SessionItemWidget(parent), m_intensityCanvas(new IntensityDataCanvas),
+      m_propertyWidget(new IntensityDataPropertyWidget),
+      m_fftPresenter(new IntensityDataFFTPresenter(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -62,7 +61,8 @@ void IntensityDataWidget::setItem(SessionItem* jobItem)
 
 QList<QAction*> IntensityDataWidget::actionList()
 {
-    return m_intensityCanvas->actionList() + m_fftPresenter->actionList() + m_propertyWidget->actionList();
+    return m_intensityCanvas->actionList() + m_fftPresenter->actionList()
+           + m_propertyWidget->actionList();
 }
 
 void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
@@ -78,7 +78,7 @@ void IntensityDataWidget::onFFTAction()
     if (!intensityDataItem() || !intensityDataItem()->getOutputData())
         return;
 
-    if(m_fftPresenter->inFFTMode()) {
+    if (m_fftPresenter->inFFTMode()) {
         auto fftItem = m_fftPresenter->fftItem(intensityDataItem());
         m_intensityCanvas->setItem(fftItem);
         m_propertyWidget->setItem(fftItem);

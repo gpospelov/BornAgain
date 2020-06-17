@@ -106,7 +106,7 @@ public:
     //! _std_dev_ can be either single-valued or a numpy array. In the latter case the length of the
     //! array should coinside with the length of the inclination angle axis.
     void setAbsoluteAngularResolution(const RangedDistribution& distr,
-                                         const std::vector<double>& std_dev);
+                                      const std::vector<double>& std_dev);
 
 private:
     using WlAnglePair = std::pair<double, double>;

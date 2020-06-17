@@ -16,14 +16,12 @@
 #include "DesignerHelper.h"
 #include "item_constants.h"
 
-
-TransformationView::TransformationView(QGraphicsItem *parent)
-    : ConnectableView(parent)
+TransformationView::TransformationView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::RotationType);
     setColor(DesignerHelper::getDefaultTransformationColor());
-    setRectangle( DesignerHelper::getDefaultBoundingRect(getName()) );
+    setRectangle(DesignerHelper::getTransformationBoundingRect());
     addPort("out", NodeEditorPort::OUTPUT, NodeEditorPort::TRANSFORMATION)
-        ->setToolTip(QStringLiteral("Connect this port to the particle to define its rotation"));
+        ->setToolTip("Connect this port to the particle to define its rotation");
     m_roundpar = 3;
 }

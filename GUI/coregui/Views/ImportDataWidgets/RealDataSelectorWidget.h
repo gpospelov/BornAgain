@@ -27,7 +27,10 @@ class SessionItem;
 class RealDataSelectorActions;
 class RealDataSelectorToolBar;
 class RealDataSelectorHBar;
-namespace Manhattan { class MiniSplitter;}
+namespace Manhattan
+{
+class MiniSplitter;
+}
 
 //! The RealDataSelectorWidget represents left panel of ImportDataView. Contains a widget to
 //! select data set (ItemSelectorWidget) and properties of currently selected data

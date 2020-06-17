@@ -22,14 +22,13 @@ namespace
 {
 const double increaseLayerSizeScale = 1.25;
 const double decreaseLayerSizeScale = 0.8;
-}
+} // namespace
 
 RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     : StyledToolBar(parent), m_defaultViewButton(new QToolButton),
       m_sideViewButton(new QToolButton), m_topViewButton(new QToolButton),
       m_lockViewCheckBox(new QCheckBox), m_increaseLayerSizeButton(new QToolButton),
-      m_decreaseLayerSizeButton(new QToolButton),
-      m_savePictureButton(new QToolButton)
+      m_decreaseLayerSizeButton(new QToolButton), m_savePictureButton(new QToolButton)
 {
     setMinimumSize(Constants::styled_toolbar_height, Constants::styled_toolbar_height);
 
@@ -104,5 +103,4 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     addWidget(m_decreaseLayerSizeButton);
 
     addSeparator();
-
 }

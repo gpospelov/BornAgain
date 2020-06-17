@@ -16,9 +16,8 @@
 #define IPEAKSHAPE_H
 
 #include "ISample.h"
+#include "Integrator.h"
 #include "Vectors3D.h"
-
-template <class T> class IntegratorReal;
 
 //! Pure virtual interface class that defines the peak shape of a Bragg peak.
 //!
@@ -29,16 +28,15 @@ class BA_CORE_API_ IPeakShape : public ISample
 public:
     virtual ~IPeakShape();
 
-    virtual IPeakShape* clone() const=0;
+    virtual IPeakShape* clone() const = 0;
 
     //! Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
-    virtual double evaluate(const kvector_t q, const kvector_t q_lattice_point) const=0;
+    virtual double evaluate(const kvector_t q, const kvector_t q_lattice_point) const = 0;
 
     //! Indicates if the peak shape encodes angular disorder, in which case all peaks in a
     //! spherical shell are needed
     virtual bool angularDisorder() const { return false; }
 };
-
 
 //! Class that implements an isotropic Gaussian peak shape of a Bragg peak.
 //!
@@ -55,6 +53,7 @@ public:
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
+
 private:
     double evaluate(const kvector_t q) const;
     double m_max_intensity;
@@ -76,6 +75,7 @@ public:
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
+
 private:
     double evaluate(const kvector_t q) const;
     double m_max_intensity;
@@ -100,6 +100,7 @@ public:
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 
     bool angularDisorder() const override { return true; }
+
 private:
     double m_max_intensity;
     double m_radial_size;
@@ -124,6 +125,7 @@ public:
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 
     bool angularDisorder() const override { return true; }
+
 private:
     double m_max_intensity;
     double m_radial_size;
@@ -150,6 +152,7 @@ public:
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 
     bool angularDisorder() const override { return true; }
+
 private:
     double integrand(double phi) const;
     double m_max_intensity;
@@ -158,9 +161,7 @@ private:
     double m_kappa_1, m_kappa_2;
     mutable double m_theta, m_phi;
     mutable kvector_t m_ux, m_uy, m_up;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<VonMisesFisherGaussPeakShape>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
 
 //! Class that implements a peak shape that is a convolution of a von Mises-Fisher distribution
@@ -182,6 +183,7 @@ public:
     double evaluate(const kvector_t q, const kvector_t q_lattice_point) const override;
 
     bool angularDisorder() const override { return true; }
+
 private:
     double integrand(double phi) const;
     double m_max_intensity;
@@ -190,10 +192,7 @@ private:
     double m_kappa;
     mutable double m_theta, m_phi, m_qr;
     mutable kvector_t m_ux, m_uy, m_p;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<VonMisesGaussPeakShape>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
-
 
 #endif // IPEAKSHAPE_H

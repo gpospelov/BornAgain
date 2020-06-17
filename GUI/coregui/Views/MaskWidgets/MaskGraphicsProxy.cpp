@@ -13,15 +13,13 @@
 // ************************************************************************** //
 
 #include "MaskGraphicsProxy.h"
-#include "ColorMapSceneAdaptor.h"
 #include "ColorMap.h"
+#include "ColorMapSceneAdaptor.h"
 #include "IntensityDataItem.h"
 #include <QGraphicsSceneMouseEvent>
 
 MaskGraphicsProxy::MaskGraphicsProxy()
-    : m_colorMap(new ColorMap)
-    , m_sceneAdaptor(0)
-    , m_send_signals_to_colormap(false)
+    : m_colorMap(new ColorMap), m_sceneAdaptor(0), m_send_signals_to_colormap(false)
 {
     resize(1200, 1000);
     setInZoomMode(true);
@@ -30,25 +28,25 @@ MaskGraphicsProxy::MaskGraphicsProxy()
 MaskGraphicsProxy::~MaskGraphicsProxy()
 {
     // no need to delete m_colorMap, base QGraphicsProxyWidget will take care about it
-    if(m_sceneAdaptor)
+    if (m_sceneAdaptor)
         m_sceneAdaptor->setColorMapPlot(0);
 }
 
-void MaskGraphicsProxy::setIntensityItem(IntensityDataItem *intensityDataItem)
+void MaskGraphicsProxy::setIntensityItem(IntensityDataItem* intensityDataItem)
 {
     m_colorMap->setItem(intensityDataItem);
-    if(widget() != m_colorMap)
+    if (widget() != m_colorMap)
         setWidget(m_colorMap);
 }
 
-void MaskGraphicsProxy::setSceneAdaptor(ISceneAdaptor *sceneAdaptor)
+void MaskGraphicsProxy::setSceneAdaptor(ISceneAdaptor* sceneAdaptor)
 {
-    if(m_sceneAdaptor)
+    if (m_sceneAdaptor)
         m_sceneAdaptor->setColorMapPlot(0);
 
-    m_sceneAdaptor = dynamic_cast<ColorMapSceneAdaptor *>(sceneAdaptor);
+    m_sceneAdaptor = dynamic_cast<ColorMapSceneAdaptor*>(sceneAdaptor);
 
-    if(m_sceneAdaptor)
+    if (m_sceneAdaptor)
         m_sceneAdaptor->setColorMapPlot(m_colorMap);
 }
 
@@ -57,39 +55,43 @@ void MaskGraphicsProxy::setSceneAdaptor(ISceneAdaptor *sceneAdaptor)
 void MaskGraphicsProxy::setInZoomMode(bool value)
 {
     m_send_signals_to_colormap = value;
-    if(value) {
+    if (value) {
         setAcceptedMouseButtons(Qt::LeftButton);
     } else {
         setAcceptedMouseButtons(Qt::NoButton);
     }
 }
 
-ColorMap *MaskGraphicsProxy::colorMap()
+ColorMap* MaskGraphicsProxy::colorMap()
 {
     return m_colorMap;
 }
 
-void MaskGraphicsProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void MaskGraphicsProxy::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    if(!m_send_signals_to_colormap) return;
+    if (!m_send_signals_to_colormap)
+        return;
     QGraphicsProxyWidget::mousePressEvent(event);
     event->accept();
 }
 
-void MaskGraphicsProxy::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void MaskGraphicsProxy::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
-    if(!m_send_signals_to_colormap) return;
+    if (!m_send_signals_to_colormap)
+        return;
     QGraphicsProxyWidget::mouseReleaseEvent(event);
 }
 
-void MaskGraphicsProxy::wheelEvent(QGraphicsSceneWheelEvent *event)
+void MaskGraphicsProxy::wheelEvent(QGraphicsSceneWheelEvent* event)
 {
-    if(!m_send_signals_to_colormap) return;
+    if (!m_send_signals_to_colormap)
+        return;
     QGraphicsProxyWidget::wheelEvent(event);
 }
 
-void MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void MaskGraphicsProxy::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    if(!m_send_signals_to_colormap) return;
+    if (!m_send_signals_to_colormap)
+        return;
     QGraphicsProxyWidget::mouseMoveEvent(event);
 }

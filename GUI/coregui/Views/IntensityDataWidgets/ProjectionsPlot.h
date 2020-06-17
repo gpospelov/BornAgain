@@ -17,8 +17,8 @@
 
 #include "SessionItemWidget.h"
 #include "qcustomplot.h"
-#include <memory>
 #include <QMap>
+#include <memory>
 
 class IntensityDataItem;
 class ProjectionContainerItem;

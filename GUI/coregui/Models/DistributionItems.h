@@ -30,18 +30,18 @@ public:
     explicit DistributionItem(const QString& name);
 
     virtual std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const = 0;
-    void init_parameters(double value, const RealLimits& limits=RealLimits::limitless());
+    void init_parameters(double value, const RealLimits& limits = RealLimits::limitless());
     void init_limits_group(const RealLimits& limits, double factor = 1.0);
     virtual void showMean(bool) = 0;
 
 protected:
-    virtual void init_distribution(double){}
+    virtual void init_distribution(double) {}
     void register_number_of_samples();
     void register_sigma_factor();
     void register_limits();
 };
 
-class BA_CORE_API_ SymmetricDistributionItem: public DistributionItem
+class BA_CORE_API_ SymmetricDistributionItem : public DistributionItem
 {
 public:
     static const QString P_MEAN;
@@ -76,7 +76,6 @@ public:
     void init_distribution(double value) override;
     void showMean(bool) override {}
 };
-
 
 class BA_CORE_API_ DistributionLorentzItem : public SymmetricDistributionItem
 {
@@ -114,7 +113,6 @@ public:
     void init_distribution(double value) override;
     void showMean(bool flag) override;
 };
-
 
 class BA_CORE_API_ DistributionCosineItem : public SymmetricDistributionItem
 {

@@ -27,16 +27,12 @@ class BA_CORE_API_ StandardTestInfo
 {
 public:
     StandardTestInfo();
-    StandardTestInfo(const std::string& test_name,
-                     const std::string& test_description,
-                     const std::string& simulation_name,
-                     const std::string& sample_builder_name,
+    StandardTestInfo(const std::string& test_name, const std::string& test_description,
+                     const std::string& simulation_name, const std::string& sample_builder_name,
                      double threshold);
-    StandardTestInfo(const std::string& test_name,
-                     const std::string& test_description,
+    StandardTestInfo(const std::string& test_name, const std::string& test_description,
                      std::initializer_list<std::string> simulation_names,
-                     std::initializer_list<std::string> sample_builder_names,
-                     double threshold);
+                     std::initializer_list<std::string> sample_builder_names, double threshold);
 
     size_t size() const;
 

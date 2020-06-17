@@ -1,9 +1,10 @@
-#include "google_test.h"
 #include "MathConstants.h"
 #include "MathFunctions.h"
+#include "google_test.h"
 
-#define EXPECT_CNEAR(a,b,epsi) \
-  EXPECT_NEAR((a).real(),(b).real(),epsi); EXPECT_NEAR((a).imag(),(b).imag(),epsi);
+#define EXPECT_CNEAR(a, b, epsi)                                                                   \
+    EXPECT_NEAR((a).real(), (b).real(), epsi);                                                     \
+    EXPECT_NEAR((a).imag(), (b).imag(), epsi);
 
 class SpecialFunctionsTest : public ::testing::Test
 {

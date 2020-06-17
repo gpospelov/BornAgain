@@ -21,7 +21,7 @@ namespace
 {
 // step size of derivative calculations
 const double kEps = 1.0E-9;
-}
+} // namespace
 
 using namespace Fit;
 
@@ -36,13 +36,12 @@ ResidualFunctionAdapter::ResidualFunctionAdapter(fcn_residual_t func,
 
 const RootResidualFunction* ResidualFunctionAdapter::rootResidualFunction()
 {
-    gradient_function_t gradient_fun
-        = [&](const std::vector<double>& pars, unsigned int index, std::vector<double>& gradients) {
-              return element_residual(pars, index, gradients);
-          };
+    gradient_function_t gradient_fun = [&](const std::vector<double>& pars, unsigned int index,
+                                           std::vector<double>& gradients) {
+        return element_residual(pars, index, gradients);
+    };
 
-    scalar_function_t objective_fun
-        = [&](const std::vector<double>& pars) { return chi2(pars); };
+    scalar_function_t objective_fun = [&](const std::vector<double>& pars) { return chi2(pars); };
 
     m_root_objective.reset(
         new RootResidualFunction(objective_fun, gradient_fun, m_parameters.size(), m_datasize));
@@ -127,10 +126,9 @@ double ResidualFunctionAdapter::chi2(const std::vector<double>& pars)
     for (auto x : get_residuals(pars))
         result += x * x;
 
-    int fnorm = static_cast<int>(m_datasize) -
-            static_cast<int>(m_parameters.freeParameterCount());
+    int fnorm = static_cast<int>(m_datasize) - static_cast<int>(m_parameters.freeParameterCount());
     if (fnorm <= 0)
         throw std::runtime_error("ResidualFunctionAdapter::chi2() -> Error. Normalization is 0");
 
-    return result/fnorm;
+    return result / fnorm;
 }

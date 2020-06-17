@@ -18,9 +18,8 @@
 #include <QGroupBox>
 #include <QVBoxLayout>
 
-SimulationOptionsWidget::SimulationOptionsWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_boxEditor(new ComponentFlatView)
+SimulationOptionsWidget::SimulationOptionsWidget(QWidget* parent)
+    : QWidget(parent), m_boxEditor(new ComponentFlatView)
 {
     auto groupBox = new QGroupBox("Simulation Parameters");
 

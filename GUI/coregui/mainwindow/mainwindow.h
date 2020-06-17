@@ -22,7 +22,7 @@ namespace Manhattan
 {
 class FancyTabWidget;
 class ProgressBar;
-}
+} // namespace Manhattan
 
 class WelcomeView;
 class InstrumentView;
@@ -102,4 +102,3 @@ private:
 };
 
 #endif // MAINWINDOW_H
-

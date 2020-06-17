@@ -22,9 +22,7 @@ const QString FitSuiteItem::P_CHI2 = "Chi2";
 const QString FitSuiteItem::T_FIT_PARAMETERS = "Fit parameters container";
 const QString FitSuiteItem::T_MINIMIZER = "Minimizer settings";
 
-
-FitSuiteItem::FitSuiteItem()
-    : SessionItem(Constants::FitSuiteType)
+FitSuiteItem::FitSuiteItem() : SessionItem(Constants::FitSuiteType)
 {
     addProperty(P_UPDATE_INTERVAL, 10);
     addProperty(P_ITERATION_COUNT, 0);
@@ -34,12 +32,12 @@ FitSuiteItem::FitSuiteItem()
     registerTag(T_MINIMIZER, 1, 1, QStringList() << Constants::MinimizerContainerType);
 }
 
-FitParameterContainerItem *FitSuiteItem::fitParameterContainerItem()
+FitParameterContainerItem* FitSuiteItem::fitParameterContainerItem()
 {
-    return dynamic_cast<FitParameterContainerItem *>(getItem(FitSuiteItem::T_FIT_PARAMETERS));
+    return dynamic_cast<FitParameterContainerItem*>(getItem(FitSuiteItem::T_FIT_PARAMETERS));
 }
 
-MinimizerContainerItem *FitSuiteItem::minimizerContainerItem()
+MinimizerContainerItem* FitSuiteItem::minimizerContainerItem()
 {
-    return dynamic_cast<MinimizerContainerItem *>(getItem(FitSuiteItem::T_MINIMIZER));
+    return dynamic_cast<MinimizerContainerItem*>(getItem(FitSuiteItem::T_MINIMIZER));
 }

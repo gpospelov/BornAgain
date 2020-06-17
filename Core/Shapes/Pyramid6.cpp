@@ -23,12 +23,11 @@ Pyramid6::Pyramid6(double length, double height, double alpha)
 {
     m_vertices.resize(12);
     double cot_alpha = MathFunctions::cot(alpha);
-    double delta = height*cot_alpha;
+    double delta = height * cot_alpha;
     auto bottom_face = HexagonVertices(length, 0.0);
-    auto top_face = HexagonVertices(length-delta, height);
+    auto top_face = HexagonVertices(length - delta, height);
     std::move(bottom_face.begin(), bottom_face.end(), m_vertices.begin());
-    std::move(top_face.begin(), top_face.end(), m_vertices.begin()+6);
+    std::move(top_face.begin(), top_face.end(), m_vertices.begin() + 6);
 }
 
-Pyramid6::~Pyramid6()
-{}
+Pyramid6::~Pyramid6() {}

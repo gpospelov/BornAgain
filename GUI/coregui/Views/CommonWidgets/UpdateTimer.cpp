@@ -16,11 +16,8 @@
 #include <QTimer>
 
 UpdateTimer::UpdateTimer(int timerInterval, QObject* parent)
-    : QObject(parent)
-    , m_update_request_count(0)
-    , m_timer_interval(timerInterval)
-    , m_is_busy(false)
-    , m_timer(new QTimer(this))
+    : QObject(parent), m_update_request_count(0), m_timer_interval(timerInterval), m_is_busy(false),
+      m_timer(new QTimer(this))
 {
     m_timer->setInterval(m_timer_interval);
     m_timer->setSingleShot(true);

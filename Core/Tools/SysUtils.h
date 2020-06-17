@@ -20,7 +20,8 @@
 
 //! Utility functions getCurrentDateAndTime, enableFloatingPointExceptions.
 
-namespace SysUtils {
+namespace SysUtils
+{
 
 BA_CORE_API_ std::string getCurrentDateAndTime();
 

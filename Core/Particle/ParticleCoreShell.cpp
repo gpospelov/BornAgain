@@ -17,8 +17,8 @@
 #include "FormFactorCoreShell.h"
 #include "Particle.h"
 
-ParticleCoreShell::ParticleCoreShell(
-    const Particle& shell, const Particle& core, kvector_t relative_core_position)
+ParticleCoreShell::ParticleCoreShell(const Particle& shell, const Particle& core,
+                                     kvector_t relative_core_position)
 {
     setName(BornAgain::ParticleCoreShellType);
     registerParticleProperties();
@@ -26,9 +26,7 @@ ParticleCoreShell::ParticleCoreShell(
     addAndRegisterShell(shell);
 }
 
-ParticleCoreShell::~ParticleCoreShell()
-{
-}
+ParticleCoreShell::~ParticleCoreShell() {}
 
 ParticleCoreShell* ParticleCoreShell::clone() const
 {
@@ -71,7 +69,7 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     }
 
     // set core ambient material
-    if (sliced_shell.m_regions.size()!=1)
+    if (sliced_shell.m_regions.size() != 1)
         return {};
     auto shell_material = sliced_shell.m_regions[0].m_material;
     sliced_core.mP_slicedff->setAmbientMaterial(shell_material);
@@ -91,8 +89,7 @@ std::vector<const INode*> ParticleCoreShell::getChildren() const
     return std::vector<const INode*>() << IParticle::getChildren() << mp_core << mp_shell;
 }
 
-void ParticleCoreShell::addAndRegisterCore(const Particle& core,
-                                           kvector_t relative_core_position)
+void ParticleCoreShell::addAndRegisterCore(const Particle& core, kvector_t relative_core_position)
 {
     mp_core.reset(core.clone());
     mp_core->translate(relative_core_position);
@@ -108,8 +105,7 @@ void ParticleCoreShell::addAndRegisterShell(const Particle& shell)
     mp_shell->registerPosition(false);
 }
 
-ParticleCoreShell::ParticleCoreShell()
-    : mp_shell { nullptr }, mp_core { nullptr }
+ParticleCoreShell::ParticleCoreShell() : mp_shell{nullptr}, mp_core{nullptr}
 {
     setName(BornAgain::ParticleCoreShellType);
 }

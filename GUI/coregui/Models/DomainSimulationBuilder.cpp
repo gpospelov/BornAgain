@@ -36,7 +36,8 @@
 #include "TransformToDomain.h"
 #include "Units.h"
 
-namespace {
+namespace
+{
 void addBackgroundToSimulation(const InstrumentItem& instrument, Simulation& simulation);
 
 std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
@@ -55,10 +56,10 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
 
 std::unique_ptr<DepthProbeSimulation>
 createDepthProbeSimulation(std::unique_ptr<MultiLayer> P_multilayer,
-                         const DepthProbeInstrumentItem* instrument,
-                         const SimulationOptionsItem* options_item);
+                           const DepthProbeInstrumentItem* instrument,
+                           const SimulationOptionsItem* options_item);
 
-}
+} // namespace
 
 std::unique_ptr<Simulation>
 DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
@@ -96,8 +97,8 @@ void addBackgroundToSimulation(const InstrumentItem& instrument, Simulation& sim
 }
 
 std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
-                                                  const GISASInstrumentItem* gisasInstrument,
-                                                  const SimulationOptionsItem* optionsItem)
+                                                       const GISASInstrumentItem* gisasInstrument,
+                                                       const SimulationOptionsItem* optionsItem)
 {
     std::unique_ptr<GISASSimulation> gisas(new GISASSimulation);
     auto P_instrument = DomainObjectBuilder::buildInstrument(*gisasInstrument);
@@ -115,9 +116,10 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
     return gisas;
 }
 
-std::unique_ptr<OffSpecSimulation> createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
-                                                    const OffSpecInstrumentItem* offspecInstrument,
-                                                    const SimulationOptionsItem* optionsItem)
+std::unique_ptr<OffSpecSimulation>
+createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                        const OffSpecInstrumentItem* offspecInstrument,
+                        const SimulationOptionsItem* optionsItem)
 {
     std::unique_ptr<OffSpecSimulation> offspec(new OffSpecSimulation);
     auto P_instrument = DomainObjectBuilder::buildInstrument(*offspecInstrument);
@@ -148,8 +150,8 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                          const SpecularInstrumentItem* specular_instrument,
                          const SimulationOptionsItem* options_item)
 {
-    std::unique_ptr<SpecularSimulation> specular_simulation
-        = std::make_unique<SpecularSimulation>(*P_multilayer);
+    std::unique_ptr<SpecularSimulation> specular_simulation =
+        std::make_unique<SpecularSimulation>(*P_multilayer);
 
     auto beam_item = specular_instrument->beamItem();
     const auto axis_item = beam_item->currentInclinationAxisItem();
@@ -172,11 +174,10 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     return specular_simulation;
 }
 
-
 std::unique_ptr<DepthProbeSimulation>
 createDepthProbeSimulation(std::unique_ptr<MultiLayer> P_multilayer,
-                         const DepthProbeInstrumentItem* instrument,
-                         const SimulationOptionsItem* options_item)
+                           const DepthProbeInstrumentItem* instrument,
+                           const SimulationOptionsItem* options_item)
 {
     std::unique_ptr<DepthProbeSimulation> simulation = instrument->createSimulation();
     simulation->setSample(*P_multilayer.get());
@@ -187,4 +188,4 @@ createDepthProbeSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     return simulation;
 }
 
-}
+} // namespace

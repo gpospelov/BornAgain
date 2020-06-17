@@ -60,8 +60,8 @@ void JobWorker::start()
         } catch (const std::exception& ex) {
             m_job_status = Constants::STATUS_FAILED;
             m_percentage_done = 100;
-            m_failure_message
-                = QString("JobRunner::start() -> Simulation failed with exception throw:\n\n");
+            m_failure_message =
+                QString("JobRunner::start() -> Simulation failed with exception throw:\n\n");
 
             m_failure_message.append(QString(ex.what()));
         }

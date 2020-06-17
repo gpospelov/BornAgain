@@ -19,11 +19,10 @@
 
 //! Runs heavy mesocrystal simulation to investigate where it spends time.
 
-class MesoCrystalPerformanceTest : public IFunctionalTest {
+class MesoCrystalPerformanceTest : public IFunctionalTest
+{
 protected:
     bool runTest();
-
 };
 
-#endif  // FOURIERTRANSFORMATIONTEST_H
-
+#endif // FOURIERTRANSFORMATIONTEST_H

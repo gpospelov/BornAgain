@@ -24,9 +24,8 @@
 #include "MultiLayerUtils.h"
 #include "ParameterPool.h"
 #include "RealParameter.h"
-#include <iomanip>
 
-MultiLayer::MultiLayer() : m_crossCorrLength(0)
+MultiLayer::MultiLayer() : m_crossCorrLength(0), m_roughness_model(RoughnessModel::DEFAULT)
 {
     setName(BornAgain::MultiLayerType);
     init_parameters();
@@ -39,6 +38,7 @@ MultiLayer* MultiLayer::clone() const
     std::unique_ptr<MultiLayer> P_result(new MultiLayer());
     P_result->setCrossCorrLength(crossCorrLength());
     P_result->setExternalField(externalField());
+    P_result->setRoughnessModel(roughnessModel());
     for (size_t i = 0; i < numberOfLayers(); ++i) {
         auto p_interface = i > 0 ? m_interfaces[i - 1] : nullptr;
         std::unique_ptr<Layer> P_layer(m_layers[i]->clone());
@@ -76,6 +76,11 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
             throw std::runtime_error(
                 "Invalid call to MultiLayer::addLayer(): the semi-infinite top layer "
                 "must have a pro forma thickness of 0");
+
+        if (roughness.getSigma() != 0.0)
+            throw std::runtime_error(
+                "Invalid call to MultiLayer::addLayer(): the semi-infinite top layer "
+                "cannot have roughness.");
     }
     addAndRegisterLayer(p_new_layer);
 }
@@ -102,14 +107,21 @@ void MultiLayer::setExternalField(kvector_t ext_field)
     m_ext_field = ext_field;
 }
 
+void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
+{
+    m_roughness_model = roughnessModel;
+}
+
 std::vector<const INode*> MultiLayer::getChildren() const
 {
     std::vector<const INode*> result;
-    for (auto p_layer : m_layers) {
-        result.push_back(p_layer);
-        auto i_layer = MultiLayerUtils::IndexOfLayer(*this, p_layer);
-        if (const LayerInterface* p_interface =
-                MultiLayerUtils::LayerBottomInterface(*this, i_layer))
+    const size_t layer_size = m_layers.size();
+    result.reserve(layer_size + m_interfaces.size());
+
+    for (size_t i = 0; i < layer_size; ++i) {
+        result.push_back(m_layers[i]);
+        const LayerInterface* p_interface = MultiLayerUtils::LayerBottomInterface(*this, i);
+        if (p_interface)
             result.push_back(p_interface);
     }
     return result;

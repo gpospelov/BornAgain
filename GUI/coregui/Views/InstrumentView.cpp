@@ -17,9 +17,9 @@
 #include "InstrumentEditorWidget.h"
 #include "InstrumentModel.h"
 #include "InstrumentSelectorWidget.h"
-#include "mainwindow.h"
-#include "InstrumentViewToolBar.h"
 #include "InstrumentViewActions.h"
+#include "InstrumentViewToolBar.h"
+#include "mainwindow.h"
 #include <QBoxLayout>
 
 InstrumentView::InstrumentView(MainWindow* mainWindow)
@@ -44,11 +44,11 @@ InstrumentView::InstrumentView(MainWindow* mainWindow)
     m_actions->setModel(m_instrumentModel);
     m_actions->setSelectionModel(m_instrumentSelector->selectionModel());
 
-    connect(m_instrumentSelector, &InstrumentSelectorWidget::contextMenuRequest,
-            m_actions, &InstrumentViewActions::onContextMenuRequest);
+    connect(m_instrumentSelector, &InstrumentSelectorWidget::contextMenuRequest, m_actions,
+            &InstrumentViewActions::onContextMenuRequest);
 
-    connect(m_instrumentSelector, &InstrumentSelectorWidget::selectionChanged,
-            this, &InstrumentView::onItemSelectionChanged);
+    connect(m_instrumentSelector, &InstrumentSelectorWidget::selectionChanged, this,
+            &InstrumentView::onItemSelectionChanged);
 }
 
 void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem* detectorItem)

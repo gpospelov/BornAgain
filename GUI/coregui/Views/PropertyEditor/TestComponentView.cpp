@@ -13,44 +13,39 @@
 // ************************************************************************** //
 
 #include "TestComponentView.h"
-#include "mainwindow.h"
+#include "ComponentEditor.h"
+#include "ComponentFlatView.h"
+#include "ComponentTreeView.h"
+#include "GUIObjectBuilder.h"
+#include "ISample.h"
+#include "MaterialDataItems.h"
+#include "MaterialItem.h"
+#include "MaterialItemUtils.h"
+#include "MaterialModel.h"
+#include "MultiLayer.h"
+#include "SampleBuilderFactory.h"
 #include "SampleModel.h"
-#include "item_constants.h"
 #include "SessionModelDelegate.h"
 #include "StyleUtils.h"
-#include "SampleBuilderFactory.h"
-#include "ISample.h"
-#include "GUIObjectBuilder.h"
-#include "MultiLayer.h"
-#include "SampleModel.h"
-#include "ComponentTreeView.h"
+#include "item_constants.h"
+#include "mainwindow.h"
 #include "minisplitter.h"
-#include "ComponentFlatView.h"
-#include "MaterialItem.h"
-#include "MaterialDataItems.h"
-#include "MaterialItemUtils.h"
-#include "ComponentEditor.h"
-#include "MaterialModel.h"
-#include <QTreeView>
 #include <QBoxLayout>
+#include <QDebug>
 #include <QItemSelectionModel>
 #include <QPushButton>
-#include <QDebug>
+#include <QTreeView>
 #include <limits>
 
 TestComponentView::TestComponentView(MainWindow* mainWindow)
-    : m_mainWindow(mainWindow)
-    , m_sampleModel(new SampleModel(this))
-    , m_materialModel(new MaterialModel(this))
-    , m_sourceTree(new QTreeView)
-    , m_componentTree(new ComponentEditor(ComponentEditor::FullTree))
-    , m_componentFlat(new ComponentEditor(ComponentEditor::PlainWidget))
-    , m_updateButton(new QPushButton("Update models"))
-    , m_addItemButton(new QPushButton("Add item"))
-    , m_expandButton(new QPushButton("Expand tree"))
-    , m_splitter(new Manhattan::MiniSplitter)
-    , m_delegate(new SessionModelDelegate(this))
-    , m_isExpaned(false)
+    : m_mainWindow(mainWindow), m_sampleModel(new SampleModel(this)),
+      m_materialModel(new MaterialModel(this)), m_sourceTree(new QTreeView),
+      m_componentTree(new ComponentEditor(ComponentEditor::FullTree)),
+      m_componentFlat(new ComponentEditor(ComponentEditor::PlainWidget)),
+      m_updateButton(new QPushButton("Update models")),
+      m_addItemButton(new QPushButton("Add item")), m_expandButton(new QPushButton("Expand tree")),
+      m_splitter(new Manhattan::MiniSplitter), m_delegate(new SessionModelDelegate(this)),
+      m_isExpaned(false)
 {
     auto buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(m_updateButton);
@@ -81,14 +76,13 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     m_sourceTree->setModel(m_sampleModel);
     m_sourceTree->setItemDelegate(m_delegate);
     StyleUtils::setPropertyStyle(m_sourceTree);
-    connect(m_sourceTree->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &TestComponentView::onSelectionChanged);
-
+    connect(m_sourceTree->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            &TestComponentView::onSelectionChanged);
 }
 
 void TestComponentView::onUpdateRequest()
 {
-//    m_componentTree->setModel(m_sourceModel);
+    //    m_componentTree->setModel(m_sourceModel);
 }
 
 void TestComponentView::onAddItemRequest()
@@ -102,15 +96,15 @@ void TestComponentView::onExpandRequest()
         m_sourceTree->expandAll();
         m_sourceTree->resizeColumnToContents(0);
         m_sourceTree->resizeColumnToContents(1);
-//        m_componentTree->treeView()->expandAll();
-//        m_componentTree->treeView()->resizeColumnToContents(0);
-//        m_componentTree->treeView()->resizeColumnToContents(1);
+        //        m_componentTree->treeView()->expandAll();
+        //        m_componentTree->treeView()->resizeColumnToContents(0);
+        //        m_componentTree->treeView()->resizeColumnToContents(1);
     } else {
         m_sourceTree->collapseAll();
-//        m_componentTree->treeView()->collapseAll();
+        //        m_componentTree->treeView()->collapseAll();
     }
 
-//    const auto imax = std::numeric_limits<int>::max();
+    //    const auto imax = std::numeric_limits<int>::max();
     const int imax = 1;
     QList<int> sizes = {imax, imax, imax};
     m_splitter->setSizes(sizes);
@@ -123,7 +117,8 @@ void TestComponentView::onExpandRequest()
 void TestComponentView::init_source()
 {
     SampleBuilderFactory factory;
-    const std::unique_ptr<MultiLayer> sample(factory.createSample("CylindersWithSizeDistributionBuilder"));
+    const std::unique_ptr<MultiLayer> sample(
+        factory.createSample("CylindersWithSizeDistributionBuilder"));
     GUIObjectBuilder::populateSampleModel(m_sampleModel, m_materialModel, *sample);
     m_sampleModel->insertNewItem(Constants::VectorType);
     m_sampleModel->insertNewItem(Constants::GISASBeamType);
@@ -137,15 +132,14 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
     QModelIndexList indices = selected.indexes();
 
     if (indices.size()) {
-//        QModelIndex selectedIndex = indices.front();
-//        m_componentTree->setRootIndex(selectedIndex);
-//        m_componentTree->treeView()->expandAll();
+        //        QModelIndex selectedIndex = indices.front();
+        //        m_componentTree->setRootIndex(selectedIndex);
+        //        m_componentTree->treeView()->expandAll();
 
         auto item = m_sampleModel->itemForIndex(indices.front());
         m_componentTree->setItem(item);
         m_componentFlat->setItem(item);
     }
-
 }
 
 QWidget* TestComponentView::componentTreePanel()

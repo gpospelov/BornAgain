@@ -15,47 +15,46 @@
 #ifndef IDETECTOR_H_
 #define IDETECTOR_H_
 
+#include "DetectionProperties.h"
 #include "IAxis.h"
 #include "ICloneable.h"
 #include "INode.h"
 #include "IUnitConverter.h"
-#include "DetectionProperties.h"
 #include "SafePointerVector.h"
 #include "SimulationAreaIterator.h"
 
 class Beam;
-class DetectorElement;
 class DetectorMask;
 class IDetectorResolution;
 class IResolutionFunction2D;
-template<class T> class OutputData;
+template <class T> class OutputData;
 class SimulationElement;
 class RegionOfInterest;
 
 //! Abstract detector interface.
 //! @ingroup simulation
 
-class BA_CORE_API_ IDetector :  public ICloneable, public INode
+class BA_CORE_API_ IDetector : public ICloneable, public INode
 {
 public:
     using const_iterator = const SimulationAreaIterator&;
     IDetector();
 
-    IDetector* clone() const override =0;
+    IDetector* clone() const override = 0;
 
     virtual ~IDetector();
 
     //! Inits detector with the beam settings
     virtual void init(const Beam&) {}
 
-    void clear() {m_axes.clear();}
+    void clear() { m_axes.clear(); }
 
     void addAxis(const IAxis& axis);
 
     const IAxis& getAxis(size_t index) const;
 
     //! Returns actual dimensionality of the detector (number of defined axes)
-    size_t dimension() const {return m_axes.size();}
+    size_t dimension() const { return m_axes.size(); }
 
     //! Calculate axis index for given global index
     size_t axisBinIndex(size_t index, size_t selected_axis) const;
@@ -86,9 +85,6 @@ public:
 #ifndef SWIG
     //! Returns empty detector map in given axes units.
     std::unique_ptr<OutputData<double>> createDetectorMap() const;
-
-    //! Create a vector of DetectorElement objects according to the detector and its mask
-    virtual std::vector<DetectorElement> createDetectorElements(const Beam& beam) =0;
 #endif // SWIG
 
     //! Returns region of  interest if exists.
@@ -98,22 +94,22 @@ public:
     virtual void resetRegionOfInterest() = 0;
 
     //! Returns detection properties
-    const DetectionProperties& detectionProperties() const {return m_detection_properties;}
+    const DetectionProperties& detectionProperties() const { return m_detection_properties; }
 
     //! Returns new intensity map with detector resolution applied. Map will be cropped to ROI
     //! if ROI is present.
-    OutputData<double>* createDetectorIntensity(
-            const std::vector<SimulationElement>& elements) const;
+    OutputData<double>*
+    createDetectorIntensity(const std::vector<SimulationElement>& elements) const;
 
     //! Return default axes units
-    virtual AxesUnits defaultAxesUnits() const {return AxesUnits::DEFAULT;}
+    virtual AxesUnits defaultAxesUnits() const { return AxesUnits::DEFAULT; }
 
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
 
     std::vector<const INode*> getChildren() const override;
 
-    void iterate(std::function<void(const_iterator)> func, bool visit_masks=false) const;
+    void iterate(std::function<void(const_iterator)> func, bool visit_masks = false) const;
 
 protected:
     IDetector(const IDetector& other);

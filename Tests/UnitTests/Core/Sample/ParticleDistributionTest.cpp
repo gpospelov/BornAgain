@@ -1,12 +1,12 @@
-#include "google_test.h"
+#include "ParticleDistribution.h"
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
+#include "FormFactors.h"
 #include "MaterialFactoryFuncs.h"
 #include "ParameterUtils.h"
 #include "Particle.h"
-#include "ParticleDistribution.h"
 #include "Units.h"
-#include "FormFactors.h"
+#include "google_test.h"
 
 class ParticleDistributionTest : public ::testing::Test
 {

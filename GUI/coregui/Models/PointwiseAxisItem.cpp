@@ -13,13 +13,14 @@
 // ************************************************************************** //
 
 #include "PointwiseAxisItem.h"
+#include "IUnitConverter.h"
 #include "InstrumentItems.h"
 #include "IntensityDataIOFactory.h"
-#include "IUnitConverter.h"
 #include "OutputData.h"
 #include "PointwiseAxis.h"
 
-namespace {
+namespace
+{
 std::unique_ptr<OutputData<double>> makeOutputData(const IAxis& axis);
 }
 
@@ -27,8 +28,7 @@ const QString PointwiseAxisItem::P_NATIVE_UNITS = "NativeUnits";
 const QString PointwiseAxisItem::P_FILE_NAME = "FileName";
 
 PointwiseAxisItem::PointwiseAxisItem()
-    : BasicAxisItem(Constants::PointwiseAxisType)
-    , m_instrument(nullptr)
+    : BasicAxisItem(Constants::PointwiseAxisType), m_instrument(nullptr)
 {
     getItem(P_MIN)->setEnabled(false);
     getItem(P_NBINS)->setEnabled(false);
@@ -71,7 +71,7 @@ std::unique_ptr<IAxis> PointwiseAxisItem::createAxis(double scale) const
     const auto converter = m_instrument->createUnitConverter();
     const auto converted_axis = converter->createConvertedAxis(0, AxesUnits::DEGREES);
 
-    //applying scaling
+    // applying scaling
     std::vector<double> centers = converted_axis->getBinCenters();
     std::for_each(centers.begin(), centers.end(), [scale](double& value) { value *= scale; });
 
@@ -147,11 +147,12 @@ void PointwiseAxisItem::updateIndicators()
     emitDataChanged();
 }
 
-namespace {
+namespace
+{
 std::unique_ptr<OutputData<double>> makeOutputData(const IAxis& axis)
 {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis(axis);
     return result;
 }
-}
+} // namespace

@@ -13,6 +13,7 @@
 // ************************************************************************** //
 
 #include "HistogramPlot.h"
+#include "StyleUtils.h"
 #include "plot_constants.h"
 
 HistogramPlot::HistogramPlot(QWidget* parent) : QWidget(parent), m_customPlot(new QCustomPlot)
@@ -28,8 +29,8 @@ HistogramPlot::HistogramPlot(QWidget* parent) : QWidget(parent), m_customPlot(ne
 
     initGraph();
 
-    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
-    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
 
     m_customPlot->yAxis->setScaleType(QCPAxis::stLogarithmic);
     m_customPlot->yAxis->setNumberFormat("eb");
@@ -38,8 +39,8 @@ HistogramPlot::HistogramPlot(QWidget* parent) : QWidget(parent), m_customPlot(ne
     m_customPlot->xAxis->setLabel("iteration");
     m_customPlot->yAxis->setLabel("chi2");
 
-    m_customPlot->xAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
-    m_customPlot->yAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size));
+    m_customPlot->xAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size()));
+    m_customPlot->yAxis->setLabelFont(QFont(QFont().family(), Constants::plot_axes_label_size()));
 }
 
 void HistogramPlot::addData(double x, double y)
@@ -79,13 +80,9 @@ void HistogramPlot::initGraph()
     m_customPlot->graph()->setPen(pen);
     m_customPlot->graph()->setBrush(QBrush(QColor(255 / 4, 160, 50, 150)));
 
-    QFontMetrics fontMetric(font());
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
-    auto em = fontMetric.horizontalAdvance('M'), fontAscent = fontMetric.ascent();
-#else
-    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
-#endif
-    auto* axisRectangle = m_customPlot->axisRect();
+    auto base_size = StyleUtils::SizeOfLetterM();
+    auto axisRectangle = m_customPlot->axisRect();
     axisRectangle->setAutoMargins(QCP::msTop | QCP::msBottom);
-    axisRectangle->setMargins(QMargins(em*4, fontAscent*2, em*2, fontAscent*2));
+    axisRectangle->setMargins(QMargins(base_size.width() * 4, base_size.height() * 2,
+                                       base_size.width() * 2, base_size.height() * 2));
 }

@@ -14,20 +14,24 @@
 
 #include "../geometry.h"
 
-namespace RealSpace {
+namespace RealSpace
+{
 
-Geometry::Mesh Geometry::meshBox() {
+Geometry::Mesh Geometry::meshBox()
+{
     float const D = .5f;
 
-    Vertices vs_; vs_.reserve(8);
+    Vertices vs_;
+    vs_.reserve(8);
     for (float x : {-D, +D})
         for (float y : {-D, +D})
             for (float z : {-D, +D})
-                vs_.append(Vector3D(x,y,z));
+                vs_.append(Vector3D(x, y, z));
 
     Q_ASSERT(8 == vs_.count());
 
-    Vertices vs; vs.reserve(36);
+    Vertices vs;
+    vs.reserve(36);
 
     vs.addQuad(vs_, 0, 2, 6, 4);
     vs.addQuad(vs_, 1, 5, 7, 3);
@@ -40,4 +44,4 @@ Geometry::Mesh Geometry::meshBox() {
 
     return makeMesh(vs);
 }
-}  // namespace RealSpace
+} // namespace RealSpace

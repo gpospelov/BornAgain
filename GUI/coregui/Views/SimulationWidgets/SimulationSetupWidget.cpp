@@ -16,6 +16,7 @@
 #include "AppSvc.h"
 #include "ApplicationModels.h"
 #include "DocumentModel.h"
+#include "InstrumentItems.h"
 #include "JobItem.h"
 #include "JobModel.h"
 #include "PythonScriptWidget.h"
@@ -23,20 +24,16 @@
 #include "SimulationOptionsWidget.h"
 #include "SimulationSetupAssistant.h"
 #include "projectmanager.h"
-#include "InstrumentItems.h"
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
 
-SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_applicationModels(0)
-    , runSimulationButton(0)
-    , exportToPyScriptButton(0)
-    , m_simDataSelectorWidget(new SimulationDataSelectorWidget(this))
-    , m_simOptionsWidget(new SimulationOptionsWidget(this))
+SimulationSetupWidget::SimulationSetupWidget(QWidget* parent)
+    : QWidget(parent), m_applicationModels(0), runSimulationButton(0), exportToPyScriptButton(0),
+      m_simDataSelectorWidget(new SimulationDataSelectorWidget(this)),
+      m_simOptionsWidget(new SimulationOptionsWidget(this))
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_simDataSelectorWidget);
     mainLayout->addWidget(m_simOptionsWidget);
     mainLayout->addWidget(createButtonWidget());
@@ -48,10 +45,10 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget *parent)
     connect(exportToPyScriptButton, SIGNAL(clicked()), this, SLOT(onExportToPythonScript()));
 }
 
-void SimulationSetupWidget::setApplicationModels(ApplicationModels *model)
+void SimulationSetupWidget::setApplicationModels(ApplicationModels* model)
 {
     Q_ASSERT(model);
-    if(model != m_applicationModels) {
+    if (model != m_applicationModels) {
         m_applicationModels = model;
         m_simDataSelectorWidget->setApplicationModels(model);
         updateViewElements();
@@ -66,19 +63,17 @@ void SimulationSetupWidget::updateViewElements()
 
 void SimulationSetupWidget::onRunSimulation()
 {
-    const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
+    const MultiLayerItem* multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
     const auto instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
-    const RealDataItem *realDataItem = m_simDataSelectorWidget->selectedRealDataItem();
+    const RealDataItem* realDataItem = m_simDataSelectorWidget->selectedRealDataItem();
 
     SimulationSetupAssistant assistant;
-    if(!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem, realDataItem))
+    if (!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem, realDataItem))
         return;
 
-    JobItem *jobItem = m_applicationModels->jobModel()->addJob(
-                multiLayerItem,
-                instrumentItem,
-                realDataItem,
-                m_applicationModels->documentModel()->simulationOptionsItem());
+    JobItem* jobItem = m_applicationModels->jobModel()->addJob(
+        multiLayerItem, instrumentItem, realDataItem,
+        m_applicationModels->documentModel()->simulationOptionsItem());
 
     if (jobItem->runImmediately() || jobItem->runInBackground())
         m_applicationModels->jobModel()->runJob(jobItem->index());
@@ -86,14 +81,14 @@ void SimulationSetupWidget::onRunSimulation()
 
 void SimulationSetupWidget::onExportToPythonScript()
 {
-    const MultiLayerItem *multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
+    const MultiLayerItem* multiLayerItem = m_simDataSelectorWidget->selectedMultiLayerItem();
     const auto instrumentItem = m_simDataSelectorWidget->selectedInstrumentItem();
 
     SimulationSetupAssistant assistant;
-    if(!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem))
+    if (!assistant.isValidSimulationSetup(multiLayerItem, instrumentItem))
         return;
 
-    PythonScriptWidget *pythonWidget = new PythonScriptWidget(this);
+    PythonScriptWidget* pythonWidget = new PythonScriptWidget(this);
     pythonWidget->show();
     pythonWidget->raise();
     pythonWidget->generatePythonScript(
@@ -102,11 +97,11 @@ void SimulationSetupWidget::onExportToPythonScript()
         AppSvc::projectManager()->projectDir());
 }
 
-QWidget *SimulationSetupWidget::createButtonWidget()
+QWidget* SimulationSetupWidget::createButtonWidget()
 {
-    QWidget *result = new QWidget;
+    QWidget* result = new QWidget;
 
-    QHBoxLayout *simButtonLayout = new QHBoxLayout;
+    QHBoxLayout* simButtonLayout = new QHBoxLayout;
     // run simulation button
     runSimulationButton = new QPushButton("Run Simulation");
     runSimulationButton->setIcon(QIcon(":/images/main_simulation.png"));
@@ -114,10 +109,10 @@ QWidget *SimulationSetupWidget::createButtonWidget()
     runSimulationButton->setMinimumHeight(50);
     runSimulationButton->setToolTip("Run the simulation using settings above.\n"
                                     " Global shortcut ctrl-r can be used to run from sample view.");
-//    QPalette palette = runSimulationButton->palette();
-//    palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
-//    palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
-//    runSimulationButton->setPalette(palette);
+    //    QPalette palette = runSimulationButton->palette();
+    //    palette.setColor(QPalette::Button, QColor(Constants::BUTTON_COLOR));
+    //    palette.setColor(QPalette::ButtonText, QColor(Constants::BUTTON_TEXT_COLOR));
+    //    runSimulationButton->setPalette(palette);
 
     // export simulation to a python script
     exportToPyScriptButton = new QPushButton("Export to Python Script");
@@ -126,7 +121,7 @@ QWidget *SimulationSetupWidget::createButtonWidget()
     exportToPyScriptButton->setMinimumHeight(50);
     exportToPyScriptButton->setToolTip("Export the simulation using settings above to "
                                        "a python script.\n");
-//    exportToPyScriptButton->setPalette(palette);
+    //    exportToPyScriptButton->setPalette(palette);
 
     simButtonLayout->addStretch();
     simButtonLayout->addWidget(runSimulationButton);

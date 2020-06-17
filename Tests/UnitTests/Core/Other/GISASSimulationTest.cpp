@@ -1,6 +1,6 @@
+#include "GISASSimulation.h"
 #include "Beam.h"
 #include "BornAgainNamespace.h"
-#include "GISASSimulation.h"
 #include "IMultiLayerBuilder.h"
 #include "Layer.h"
 #include "MultiLayer.h"

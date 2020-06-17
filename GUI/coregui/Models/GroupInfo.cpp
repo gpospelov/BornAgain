@@ -27,7 +27,8 @@ void GroupInfo::add(const QString& itemType, const QString& itemLabel)
 
     if (containsType(itemType))
         throw GUIHelpers::Error("GroupInfo::add() -> Error. "
-                                "Model type '"  + itemType + "' already exists.");
+                                "Model type '"
+                                + itemType + "' already exists.");
 
     m_info.push_back({itemType, itemLabel});
 
@@ -38,7 +39,7 @@ void GroupInfo::add(const QString& itemType, const QString& itemLabel)
 
 QString GroupInfo::defaultType() const
 {
-    if (m_defaultItemType == QString() && m_info.size()!=0)
+    if (m_defaultItemType == QString() && m_info.size() != 0)
         return m_info[0].m_itemType;
     return m_defaultItemType;
 }
@@ -72,7 +73,6 @@ QStringList GroupInfo::itemLabels() const
         result.append(pair.m_itemLabel);
 
     return result;
-
 }
 
 bool GroupInfo::isValid()

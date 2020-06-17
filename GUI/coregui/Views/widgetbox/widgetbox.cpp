@@ -40,8 +40,8 @@
 ****************************************************************************/
 
 #include "widgetbox.h"
-#include "widgetboxtreewidget.h"
 #include "qdesigner_dnditem_p.h"
+#include "widgetboxtreewidget.h"
 
 #include <QtDesigner/QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerFormWindowManagerInterface>
@@ -53,11 +53,11 @@
 //#include <QtWidgets/QVBoxLayout>
 //#include <QtWidgets/QApplication>
 //#include <QtWidgets/QToolBar>
-#include <QLineEdit>
-#include <QVBoxLayout>
 #include <QApplication>
-#include <QToolBar>
 #include <QDrag>
+#include <QLineEdit>
+#include <QToolBar>
+#include <QVBoxLayout>
 
 #include <QtGui/QIcon>
 
@@ -68,29 +68,34 @@
 #include <iostream>
 QT_BEGIN_NAMESPACE
 
-namespace qdesigner_internal {
+namespace qdesigner_internal
+{
 
-class WidgetBoxFilterLineEdit : public QLineEdit {
+class WidgetBoxFilterLineEdit : public QLineEdit
+{
 public:
-    explicit WidgetBoxFilterLineEdit(QWidget *parent = 0) : QLineEdit(parent), m_defaultFocusPolicy(focusPolicy())
-        { setFocusPolicy(Qt::NoFocus); }
+    explicit WidgetBoxFilterLineEdit(QWidget* parent = 0)
+        : QLineEdit(parent), m_defaultFocusPolicy(focusPolicy())
+    {
+        setFocusPolicy(Qt::NoFocus);
+    }
 
 protected:
-    virtual void mousePressEvent(QMouseEvent *event);
-    virtual void focusInEvent(QFocusEvent *e);
+    virtual void mousePressEvent(QMouseEvent* event);
+    virtual void focusInEvent(QFocusEvent* e);
 
 private:
     const Qt::FocusPolicy m_defaultFocusPolicy;
 };
 
-void WidgetBoxFilterLineEdit::mousePressEvent(QMouseEvent *e)
+void WidgetBoxFilterLineEdit::mousePressEvent(QMouseEvent* e)
 {
     if (!hasFocus()) // Explicitly focus on click.
         setFocus(Qt::OtherFocusReason);
     QLineEdit::mousePressEvent(e);
 }
 
-void WidgetBoxFilterLineEdit::focusInEvent(QFocusEvent *e)
+void WidgetBoxFilterLineEdit::focusInEvent(QFocusEvent* e)
 {
     // Refuse the focus if the mouse it outside. In addition to the mouse
     // press logic, this prevents a re-focussing which occurs once
@@ -107,25 +112,17 @@ void WidgetBoxFilterLineEdit::focusInEvent(QFocusEvent *e)
     QLineEdit::focusInEvent(e);
 }
 
-
-
-
-
-
-
-//WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
-WidgetBox::WidgetBox(SampleDesignerInterface *core, QWidget *parent, Qt::WindowFlags flags)
-    : QDesignerWidgetBox(parent, flags),
-      m_core(core),
-      m_view(new WidgetBoxTreeWidget(m_core))
+// WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
+WidgetBox::WidgetBox(SampleDesignerInterface* core, QWidget* parent, Qt::WindowFlags flags)
+    : QDesignerWidgetBox(parent, flags), m_core(core), m_view(new WidgetBoxTreeWidget(m_core))
 {
-    QVBoxLayout *l = new QVBoxLayout(this);
+    QVBoxLayout* l = new QVBoxLayout(this);
     l->setMargin(0);
     l->setSpacing(0);
 
     // Prevent the filter from grabbing focus since Our view has Qt::NoFocus
-    QToolBar *toolBar = new QToolBar(this);
-    QLineEdit *filterWidget = new WidgetBoxFilterLineEdit(toolBar);
+    QToolBar* toolBar = new QToolBar(this);
+    QLineEdit* filterWidget = new WidgetBoxFilterLineEdit(toolBar);
     filterWidget->setPlaceholderText("Filter");
     filterWidget->setClearButtonEnabled(true);
     connect(filterWidget, SIGNAL(textChanged(QString)), m_view, SLOT(filter(QString)));
@@ -133,56 +130,54 @@ WidgetBox::WidgetBox(SampleDesignerInterface *core, QWidget *parent, Qt::WindowF
     l->addWidget(toolBar);
 
     // View
-    connect(m_view, SIGNAL(pressed(QString,QString,QPoint)),
-            this, SLOT(handleMousePress(QString,QString,QPoint)));
+    connect(m_view, SIGNAL(pressed(QString, QString, QPoint)), this,
+            SLOT(handleMousePress(QString, QString, QPoint)));
     l->addWidget(m_view);
 
-    setAcceptDrops (true);
+    setAcceptDrops(true);
 
+    //    QVBoxLayout *l = new QVBoxLayout(this);
+    //    l->setMargin(0);
+    //    l->setSpacing(0);
 
-//    QVBoxLayout *l = new QVBoxLayout(this);
-//    l->setMargin(0);
-//    l->setSpacing(0);
+    //    // Prevent the filter from grabbing focus since Our view has Qt::NoFocus
+    //    FilterWidget *filterWidget = new FilterWidget(0, FilterWidget::LayoutAlignNone);
+    //    filterWidget->setRefuseFocus(true);
+    //    connect(filterWidget, SIGNAL(filterChanged(QString)), m_view, SLOT(filter(QString)));
 
-//    // Prevent the filter from grabbing focus since Our view has Qt::NoFocus
-//    FilterWidget *filterWidget = new FilterWidget(0, FilterWidget::LayoutAlignNone);
-//    filterWidget->setRefuseFocus(true);
-//    connect(filterWidget, SIGNAL(filterChanged(QString)), m_view, SLOT(filter(QString)));
+    //    QToolBar *toolBar = new QToolBar(this);
+    //    toolBar->addWidget(filterWidget);
+    //    l->addWidget(toolBar);
 
-//    QToolBar *toolBar = new QToolBar(this);
-//    toolBar->addWidget(filterWidget);
-//    l->addWidget(toolBar);
+    //    // View
+    //    connect(m_view, SIGNAL(pressed(QString,QString,QPoint)),
+    //            this, SLOT(handleMousePress(QString,QString,QPoint)));
+    //    l->addWidget(m_view);
 
-//    // View
-//    connect(m_view, SIGNAL(pressed(QString,QString,QPoint)),
-//            this, SLOT(handleMousePress(QString,QString,QPoint)));
-//    l->addWidget(m_view);
-
-//    setAcceptDrops (true);
+    //    setAcceptDrops (true);
 }
 
-WidgetBox::~WidgetBox()
-{
-}
+WidgetBox::~WidgetBox() {}
 
-//QDesignerFormEditorInterface *WidgetBox::core() const
+// QDesignerFormEditorInterface *WidgetBox::core() const
 //{
 //    return m_core;
 //}
 
-SampleDesignerInterface *WidgetBox::core() const
+SampleDesignerInterface* WidgetBox::core() const
 {
     return m_core;
 }
 
-
-void WidgetBox::handleMousePress(const QString &name, const QString &xml, const QPoint &global_mouse_pos)
+void WidgetBox::handleMousePress(const QString& name, const QString& xml,
+                                 const QPoint& global_mouse_pos)
 {
     Q_UNUSED(global_mouse_pos);
-    if (QApplication::mouseButtons() != Qt::LeftButton) return;
+    if (QApplication::mouseButtons() != Qt::LeftButton)
+        return;
 
-    //std::cout << "WidgetBox::handleMousePress() -> name:" << name.toStdString() << std::endl;
-    DesignerMimeData::execDrag(name, xml, this );
+    // std::cout << "WidgetBox::handleMousePress() -> name:" << name.toStdString() << std::endl;
+    DesignerMimeData::execDrag(name, xml, this);
 }
 
 int WidgetBox::categoryCount() const
@@ -195,7 +190,7 @@ QDesignerWidgetBoxInterface::Category WidgetBox::category(int cat_idx) const
     return m_view->category(cat_idx);
 }
 
-void WidgetBox::addCategory(const Category &cat)
+void WidgetBox::addCategory(const Category& cat)
 {
     m_view->addCategory(cat);
 }
@@ -215,7 +210,7 @@ QDesignerWidgetBoxInterface::Widget WidgetBox::widget(int cat_idx, int wgt_idx) 
     return m_view->widget(cat_idx, wgt_idx);
 }
 
-void WidgetBox::addWidget(int cat_idx, const Widget &wgt)
+void WidgetBox::addWidget(int cat_idx, const Widget& wgt)
 {
     m_view->addWidget(cat_idx, wgt);
 }
@@ -225,12 +220,12 @@ void WidgetBox::removeWidget(int cat_idx, int wgt_idx)
     m_view->removeWidget(cat_idx, wgt_idx);
 }
 
-void WidgetBox::dropWidgets(const QList<QDesignerDnDItemInterface*> &item_list, const QPoint&)
+void WidgetBox::dropWidgets(const QList<QDesignerDnDItemInterface*>& item_list, const QPoint&)
 {
     m_view->dropWidgets(item_list);
 }
 
-void WidgetBox::setFileName(const QString &file_name)
+void WidgetBox::setFileName(const QString& file_name)
 {
     m_view->setFileName(file_name);
 }
@@ -242,11 +237,11 @@ QString WidgetBox::fileName() const
 
 bool WidgetBox::load()
 {
-    //std::cout << "WidgetBox::load() -> We are here" << std::endl;
+    // std::cout << "WidgetBox::load() -> We are here" << std::endl;
     return m_view->load(loadMode());
 }
 
-bool WidgetBox::loadContents(const QString &contents)
+bool WidgetBox::loadContents(const QString& contents)
 {
     return m_view->loadContents(contents);
 }
@@ -256,11 +251,10 @@ bool WidgetBox::save()
     return m_view->save();
 }
 
-static const QDesignerMimeData *checkDragEvent(QDropEvent * event,
-                                               bool acceptEventsFromWidgetBox)
+static const QDesignerMimeData* checkDragEvent(QDropEvent* event, bool acceptEventsFromWidgetBox)
 {
-    //std::cout << "QDesignerMimeData *checkDragEvent() -> ?" << std::endl;
-    const QDesignerMimeData *mimeData = qobject_cast<const QDesignerMimeData *>(event->mimeData());
+    // std::cout << "QDesignerMimeData *checkDragEvent() -> ?" << std::endl;
+    const QDesignerMimeData* mimeData = qobject_cast<const QDesignerMimeData*>(event->mimeData());
     if (!mimeData) {
         event->ignore();
         return 0;
@@ -278,21 +272,21 @@ static const QDesignerMimeData *checkDragEvent(QDropEvent * event,
     return mimeData;
 }
 
-void WidgetBox::dragEnterEvent (QDragEnterEvent * event)
+void WidgetBox::dragEnterEvent(QDragEnterEvent* event)
 {
     // We accept event originating from the widget box also here,
     // because otherwise Windows will not show the DnD pixmap.
     checkDragEvent(event, true);
 }
 
-void WidgetBox::dragMoveEvent(QDragMoveEvent * event)
+void WidgetBox::dragMoveEvent(QDragMoveEvent* event)
 {
     checkDragEvent(event, true);
 }
 
-void WidgetBox::dropEvent(QDropEvent * event)
+void WidgetBox::dropEvent(QDropEvent* event)
 {
-    const QDesignerMimeData *mimeData = checkDragEvent(event, false);
+    const QDesignerMimeData* mimeData = checkDragEvent(event, false);
     if (!mimeData)
         return;
 
@@ -300,7 +294,7 @@ void WidgetBox::dropEvent(QDropEvent * event)
     QDesignerMimeData::removeMovedWidgetsFromSourceForm(mimeData->items());
 }
 
-QIcon WidgetBox::iconForWidget(const QString &className, const QString &category) const
+QIcon WidgetBox::iconForWidget(const QString& className, const QString& category) const
 {
     Widget widgetData;
     if (!findWidget(this, className, category, &widgetData))
@@ -308,6 +302,6 @@ QIcon WidgetBox::iconForWidget(const QString &className, const QString &category
     return m_view->iconForWidget(widgetData.iconName());
 }
 
-}  // namespace qdesigner_internal
+} // namespace qdesigner_internal
 
 QT_END_NAMESPACE

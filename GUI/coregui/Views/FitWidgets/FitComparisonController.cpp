@@ -22,12 +22,13 @@
 #include "SessionModel.h"
 #include "SpecularDataItem.h"
 
-namespace {
+namespace
+{
 // different limits on relative difference plot are required
 // to provide the best appearance
 const double relative_diff_min_2d = 1e-05;
 const double relative_diff_max_2d = 1.0;
-}
+} // namespace
 
 class FitComparisonController2D::DiffItemController : public QObject
 {
@@ -39,6 +40,7 @@ public:
     DataItem* diffItem();
     void subscribe();
     void unsubscribe();
+
 private:
     JobItem* m_current_item;
     SessionModel* m_tempIntensityDataModel;
@@ -48,12 +50,10 @@ private:
 using DiffItemController = FitComparisonController2D::DiffItemController;
 
 FitComparisonController2D::FitComparisonController2D(QObject* parent)
-    : QObject(parent)
-    , m_diff_item_controller(new DiffItemController(Constants::IntensityDataType, this))
-    , m_appearanceRepeater(new PropertyRepeater(this))
-    , m_xAxisRepeater(new PropertyRepeater(this))
-    , m_yAxisRepeater(new PropertyRepeater(this))
-    , m_zAxisRepeater(new PropertyRepeater(this))
+    : QObject(parent),
+      m_diff_item_controller(new DiffItemController(Constants::IntensityDataType, this)),
+      m_appearanceRepeater(new PropertyRepeater(this)), m_xAxisRepeater(new PropertyRepeater(this)),
+      m_yAxisRepeater(new PropertyRepeater(this)), m_zAxisRepeater(new PropertyRepeater(this))
 {
 }
 
@@ -120,10 +120,9 @@ void FitComparisonController2D::clear()
 }
 
 DiffItemController::DiffItemController(const QString& data_type, QObject* parent)
-    : QObject(parent)
-    , m_current_item(nullptr)
-    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
-    , m_diff_item(dynamic_cast<DataItem*>(m_tempIntensityDataModel->insertNewItem(data_type)))
+    : QObject(parent), m_current_item(nullptr),
+      m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this)),
+      m_diff_item(dynamic_cast<DataItem*>(m_tempIntensityDataModel->insertNewItem(data_type)))
 {
     assert(m_diff_item);
 }
@@ -156,7 +155,7 @@ void DiffItemController::updateDiffData()
 
     m_diff_item->setOutputData(IntensityDataFunctions::createRelativeDifferenceData(
                                    *sim_data->getOutputData(), *real_data->getOutputData())
-                               .release());
+                                   .release());
 }
 
 DataItem* DiffItemController::diffItem()

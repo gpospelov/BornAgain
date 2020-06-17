@@ -23,4 +23,3 @@ typedef _object PyObject;
 #endif
 
 #endif
-

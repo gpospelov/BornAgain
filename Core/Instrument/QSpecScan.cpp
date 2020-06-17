@@ -23,30 +23,30 @@
 #include "ScanResolution.h"
 #include "SpecularSimulationElement.h"
 
-namespace {
+namespace
+{
 const RealLimits qz_limits = RealLimits::nonnegative();
 }
 
 QSpecScan::QSpecScan(std::vector<double> qs_nm)
-    : ISpecularScan(SPECULAR_DATA_TYPE::q)
-    , m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm)))
-    , m_resolution(ScanResolution::scanEmptyResolution())
+    : ISpecularScan(SPECULAR_DATA_TYPE::q),
+      m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm))),
+      m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
 
 QSpecScan::QSpecScan(const IAxis& qs_nm)
-    : ISpecularScan(SPECULAR_DATA_TYPE::q)
-    , m_qs(qs_nm.clone())
-    , m_resolution(ScanResolution::scanEmptyResolution())
+    : ISpecularScan(SPECULAR_DATA_TYPE::q), m_qs(qs_nm.clone()),
+      m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
 
 QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
-    : ISpecularScan(SPECULAR_DATA_TYPE::q)
-    , m_qs(std::make_unique<FixedBinAxis>("qs", nbins, qz_min, qz_max))
-    , m_resolution(ScanResolution::scanEmptyResolution())
+    : ISpecularScan(SPECULAR_DATA_TYPE::q),
+      m_qs(std::make_unique<FixedBinAxis>("qs", nbins, qz_min, qz_max)),
+      m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
@@ -114,8 +114,7 @@ std::string QSpecScan::print() const
     std::stringstream result;
     const std::string axis_def = PythonFormatting::indent() + "axis = ";
     result << axis_def
-           << PythonFormatting::printAxis(*coordinateAxis(), BornAgain::UnitsNone,
-                                          axis_def.size())
+           << PythonFormatting::printAxis(*coordinateAxis(), BornAgain::UnitsNone, axis_def.size())
            << "\n";
 
     result << PythonFormatting::indent() << "scan = ba.QSpecScan(axis)";
@@ -149,7 +148,7 @@ void QSpecScan::setRelativeQResolution(const RangedDistribution& distr,
     setQResolution(*resolution);
 }
 
-void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, double std_dev)
+void QSpecScan::setAbsoluteQResolution(const RangedDistribution& distr, double std_dev)
 {
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanAbsoluteResolution(distr, std_dev));
@@ -188,7 +187,7 @@ std::vector<double> QSpecScan::generateQzVector() const
     return result;
 }
 
-std::vector<std::vector<ParameterSample> > QSpecScan::applyQResolution() const
+std::vector<std::vector<ParameterSample>> QSpecScan::applyQResolution() const
 {
     if (m_q_res_cache.empty())
         m_q_res_cache = m_resolution->generateSamples(m_qs->getBinCenters());

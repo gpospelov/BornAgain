@@ -27,20 +27,18 @@ class BA_CORE_API_ JobModel : public SessionModel
     Q_OBJECT
 
 public:
-    explicit JobModel(QObject *parent = 0);
+    explicit JobModel(QObject* parent = 0);
     virtual ~JobModel();
 
-    const JobItem *getJobItemForIndex(const QModelIndex &index) const;
-    JobItem *getJobItemForIndex(const QModelIndex &index);
+    const JobItem* getJobItemForIndex(const QModelIndex& index) const;
+    JobItem* getJobItemForIndex(const QModelIndex& index);
 
-    JobItem *getJobItemForIdentifier(const QString &identifier);
+    JobItem* getJobItemForIdentifier(const QString& identifier);
 
-    JobItem *addJob(const MultiLayerItem *multiLayerItem,
-                    const InstrumentItem *instrumentItem,
-                    const RealDataItem *realDataItem,
-                    const SimulationOptionsItem *optionItem);
+    JobItem* addJob(const MultiLayerItem* multiLayerItem, const InstrumentItem* instrumentItem,
+                    const RealDataItem* realDataItem, const SimulationOptionsItem* optionItem);
 
-    void restore(JobItem *jobItem);
+    void restore(JobItem* jobItem);
 
     bool hasUnfinishedJobs();
 
@@ -51,20 +49,20 @@ public:
     void link_instruments();
 
 signals:
-    void aboutToDeleteJobItem(JobItem *item);
-    void focusRequest(JobItem *item);
+    void aboutToDeleteJobItem(JobItem* item);
+    void focusRequest(JobItem* item);
     void globalProgress(int);
 
 public slots:
     void onCancelAllJobs();
-    void runJob(const QModelIndex &index);
-    void cancelJob(const QModelIndex &index);
-    void removeJob(const QModelIndex &index);
+    void runJob(const QModelIndex& index);
+    void cancelJob(const QModelIndex& index);
+    void removeJob(const QModelIndex& index);
 
 private:
     QString generateJobName();
-    void restoreItem(SessionItem *item);
-    JobQueueData *m_queue_data;
+    void restoreItem(SessionItem* item);
+    JobQueueData* m_queue_data;
 };
 
 #endif // JOBMODEL_H

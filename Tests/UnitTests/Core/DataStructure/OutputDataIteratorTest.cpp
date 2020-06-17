@@ -1,6 +1,6 @@
-#include "google_test.h"
-#include "OutputData.h"
 #include "OutputDataIterator.h"
+#include "OutputData.h"
+#include "google_test.h"
 
 class OutputDataIteratorTest : public ::testing::Test
 {
@@ -27,7 +27,10 @@ OutputDataIteratorTest::OutputDataIteratorTest()
     }
 }
 
-OutputDataIteratorTest::~OutputDataIteratorTest() { delete p_data; }
+OutputDataIteratorTest::~OutputDataIteratorTest()
+{
+    delete p_data;
+}
 
 TEST_F(OutputDataIteratorTest, Iterate)
 {

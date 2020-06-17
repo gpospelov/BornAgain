@@ -15,13 +15,14 @@ class BA_CORE_API_ DiffItemController : public QObject
 public:
     DiffItemController(const QString& data_type, QObject* parent);
     ~DiffItemController() override;
-    SessionModel* model() {return m_private_model;}
+    SessionModel* model() { return m_private_model; }
     void setJobItem(JobItem* job_item);
-    JobItem* jobItem() {return m_current_item;}
+    JobItem* jobItem() { return m_current_item; }
     void updateDiffData();
-    DataItem* diffItem() {return m_diff_item;}
+    DataItem* diffItem() { return m_diff_item; }
     void subscribe();
     void unsubscribe();
+
 private:
     JobItem* m_current_item;
     SessionModel* m_private_model;

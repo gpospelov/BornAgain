@@ -16,8 +16,7 @@
 #define INTERFERENCEFUNCTIONHARDDISK_H
 
 #include "IInterferenceFunction.h"
-
-template <class T> class IntegratorReal;
+#include "Integrator.h"
 
 //! Percus-Yevick hard disk interference function.
 //!
@@ -40,6 +39,7 @@ public:
 
     double radius() const;
     double density() const;
+
 private:
     InterferenceFunctionHardDisk(const InterferenceFunctionHardDisk& other);
     double iff_without_dw(const kvector_t q) const override final;
@@ -50,9 +50,7 @@ private:
     double m_radius;
     double m_density;
     mutable double m_q, m_c_zero, m_s2, m_packing;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<InterferenceFunctionHardDisk>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
 
 #endif // INTERFERENCEFUNCTIONHARDDISK_H

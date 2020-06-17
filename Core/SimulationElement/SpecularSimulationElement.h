@@ -16,8 +16,8 @@
 #define SPECULARSIMULATIONELEMENT_H
 
 #include "Complex.h"
-#include "Vectors3D.h"
 #include "PolarizationHandler.h"
+#include "Vectors3D.h"
 #include <memory>
 #include <vector>
 
@@ -43,13 +43,13 @@ public:
     SpecularSimulationElement& operator=(const SpecularSimulationElement& other);
 
     //! Assigns PolarizationHandler.
-    void setPolarizationHandler(const PolarizationHandler& handler) { m_polarization = handler; }
+    void setPolarizationHandler(PolarizationHandler handler);
 
     //! Returns assigned PolarizationHandler.
     const PolarizationHandler& polarizationHandler() const { return m_polarization; }
 
-    double getIntensity() const {return m_intensity;}
-    void setIntensity(double intensity) {m_intensity = intensity;}
+    double getIntensity() const { return m_intensity; }
+    void setIntensity(double intensity) { m_intensity = intensity; }
 
     //! Set calculation flag (if it's false, zero intensity is assigned to the element)
     void setCalculationFlag(bool calculation_flag) { m_calculation_flag = calculation_flag; }
@@ -64,7 +64,7 @@ private:
     PolarizationHandler m_polarization;
     double m_intensity; //!< simulated intensity for detector cell
     bool m_calculation_flag;
-    std::function<std::vector<complex_t> (const std::vector<Slice>&)> m_kz_computation;
+    std::function<std::vector<complex_t>(const std::vector<Slice>&)> m_kz_computation;
 };
 
 #endif // SPECULARSIMULATIONELEMENT_H

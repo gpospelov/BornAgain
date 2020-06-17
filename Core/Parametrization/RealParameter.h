@@ -15,8 +15,8 @@
 #ifndef REALPARAMETER_H
 #define REALPARAMETER_H
 
-#include "IParameter.h"
 #include "Attributes.h"
+#include "IParameter.h"
 #include "RealLimits.h"
 #include "Unit.h"
 #include <string>
@@ -28,15 +28,16 @@ class ParameterPool;
 //! this class holds Limits, Attributes (currently only fixed or not), and a Unit.
 //! @ingroup tools_internal
 
-class BA_CORE_API_ RealParameter : public IParameter<double> {
+class BA_CORE_API_ RealParameter : public IParameter<double>
+{
 public:
     RealParameter(const std::string& name, double* par,
                   const std::string& parent_name = std::string(),
-                  const std::function<void()>& onChange=std::function<void()>(),
-                  const RealLimits& limits=RealLimits::limitless(),
-                  const Attributes& attr=Attributes::free());
+                  const std::function<void()>& onChange = std::function<void()>(),
+                  const RealLimits& limits = RealLimits::limitless(),
+                  const Attributes& attr = Attributes::free());
 
-    RealParameter* clone(const std::string& new_name="" ) const;
+    RealParameter* clone(const std::string& new_name = "") const;
 
     //! Sets value of wrapped parameter and emit signal
     void setValue(double value);

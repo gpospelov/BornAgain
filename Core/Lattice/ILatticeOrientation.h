@@ -23,11 +23,11 @@ class BA_CORE_API_ ILatticeOrientation
 public:
     virtual ~ILatticeOrientation();
 
-    virtual ILatticeOrientation* clone() const=0;
+    virtual ILatticeOrientation* clone() const = 0;
 
-    virtual void usePrimitiveLattice(const Lattice& lattice) =0;
+    virtual void usePrimitiveLattice(const Lattice& lattice) = 0;
 
-    virtual Transform3D transformationMatrix() const=0;
+    virtual Transform3D transformationMatrix() const = 0;
 };
 
 //! A direction in reciprocal space, specified by double-valued indices hkl.
@@ -47,8 +47,7 @@ public:
     //! Arguments QX, (1,1,0), QY, (0,2,1) mean:
     //! Rotate the lattice such that the axis [110] points into x direction,
     //! and the axis [021], projected into the yz plane, points into z direction.
-    MillerIndexOrientation(QComponent q1, MillerIndex index1,
-                           QComponent q2, MillerIndex index2);
+    MillerIndexOrientation(QComponent q1, MillerIndex index1, QComponent q2, MillerIndex index2);
     ~MillerIndexOrientation() override;
 
     MillerIndexOrientation* clone() const override;
@@ -56,6 +55,7 @@ public:
     void usePrimitiveLattice(const Lattice& lattice) override;
 
     Transform3D transformationMatrix() const override;
+
 private:
     bool checkAlignment() const;
     Lattice m_prim_lattice;

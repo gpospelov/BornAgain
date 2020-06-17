@@ -40,7 +40,7 @@ public:
     ParameterItem();
 
     void propagateValueToLink(double newValue);
-    SessionItem *linkedItem();
+    SessionItem* linkedItem();
 
     void restoreFromBackup();
 };

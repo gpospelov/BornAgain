@@ -24,7 +24,7 @@ class BA_CORE_API_ CsvImportData : public QObject
 {
 public:
     // FIXME: move DATA_TYPE enumeration to csv namespace
-    enum DATA_TYPE {Intensity, Coordinate };
+    enum DATA_TYPE { Intensity, Coordinate };
 
     CsvImportData(QObject* parent = nullptr);
 
@@ -48,7 +48,7 @@ public:
     double multiplier(DATA_TYPE type) const;
     QString columnLabel(DATA_TYPE type) const;
     QList<QString> availableCoordinateUnits() const;
-    std::set<int> rowsToDiscard() const {return m_discarded_rows;}
+    std::set<int> rowsToDiscard() const { return m_discarded_rows; }
     size_t nCols() const;
     size_t nRows() const;
     bool rowExcluded(int row);

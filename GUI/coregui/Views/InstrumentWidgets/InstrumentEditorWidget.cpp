@@ -13,21 +13,18 @@
 // ************************************************************************** //
 
 #include "InstrumentEditorWidget.h"
-#include "InstrumentItems.h"
 #include "AdjustingScrollArea.h"
 #include "DetectorItems.h"
+#include "InstrumentItems.h"
 #include "InstrumentPresenter.h"
 #include <QBoxLayout>
-#include <QLabel>
 #include <QGroupBox>
+#include <QLabel>
 #include <QLineEdit>
 
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_nameLineEdit(new QLineEdit)
-    , m_instrumentPresenter(new InstrumentPresenter)
-    , m_currentItem(nullptr)
-    , m_block_signals(false)
+    : QWidget(parent), m_nameLineEdit(new QLineEdit),
+      m_instrumentPresenter(new InstrumentPresenter), m_currentItem(nullptr), m_block_signals(false)
 {
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -43,8 +40,8 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
 
     setLayout(mainLayout);
 
-    connect(m_nameLineEdit, &QLineEdit::textChanged,
-            this, &InstrumentEditorWidget::onChangedEditor);
+    connect(m_nameLineEdit, &QLineEdit::textChanged, this,
+            &InstrumentEditorWidget::onChangedEditor);
 }
 
 QSize InstrumentEditorWidget::sizeHint() const

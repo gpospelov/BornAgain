@@ -29,22 +29,22 @@ class BA_CORE_API_ OverlayLabelController : public QObject
 {
     Q_OBJECT
 public:
-    OverlayLabelController(QObject *parent = 0);
+    OverlayLabelController(QObject* parent = 0);
 
-    void setText(const QString &text);
+    void setText(const QString& text);
 
-    void setArea(QAbstractScrollArea *area);
+    void setArea(QAbstractScrollArea* area);
 
     void setShown(bool shown);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject* obj, QEvent* event);
 
 private:
     void updateLabelGeometry();
 
-    OverlayLabelWidget *m_label;
-    QAbstractScrollArea *m_area;
+    OverlayLabelWidget* m_label;
+    QAbstractScrollArea* m_area;
     QString m_text;
 };
 

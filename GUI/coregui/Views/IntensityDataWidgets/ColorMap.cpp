@@ -19,21 +19,20 @@
 #include "MathConstants.h"
 #include "PlotEventInfo.h"
 #include "UpdateTimer.h"
+#include "StyleUtils.h"
 #include "plot_constants.h"
 
-namespace {
+namespace
+{
 const int replot_update_interval = 10;
 const int colorbar_width_logz = 50;
 const int colorbar_width = 80;
-}
+} // namespace
 
 ColorMap::ColorMap(QWidget* parent)
-    : ScientificPlot(parent, PLOT_TYPE::Plot2D)
-    , m_customPlot(new QCustomPlot)
-    , m_colorMap(nullptr), m_colorScale(nullptr)
-    , m_updateTimer(new UpdateTimer(replot_update_interval, this))
-    , m_colorBarLayout(new  QCPLayoutGrid)
-    , m_block_update(true)    
+    : ScientificPlot(parent, PLOT_TYPE::Plot2D), m_customPlot(new QCustomPlot), m_colorMap(nullptr),
+      m_colorScale(nullptr), m_updateTimer(new UpdateTimer(replot_update_interval, this)),
+      m_colorBarLayout(new QCPLayoutGrid), m_block_update(true)
 {
     initColorMap();
 
@@ -85,7 +84,7 @@ PlotEventInfo ColorMap::eventInfo(double xpos, double ypos) const
 //! sets logarithmic scale
 void ColorMap::setLogz(bool logz)
 {
-    m_colorBarLayout->setMinimumSize(logz ? colorbar_width_logz : colorbar_width,10);
+    m_colorBarLayout->setMinimumSize(logz ? colorbar_width_logz : colorbar_width, 10);
     ColorMapUtils::setLogz(m_colorScale, logz);
 }
 
@@ -125,8 +124,8 @@ void ColorMap::onAxisPropertyChanged(const QString& axisName, const QString& pro
     if (m_block_update)
         return;
 
-    if (propertyName == BasicAxisItem::P_TITLE  ||
-        propertyName == BasicAxisItem::P_TITLE_IS_VISIBLE) {
+    if (propertyName == BasicAxisItem::P_TITLE
+        || propertyName == BasicAxisItem::P_TITLE_IS_VISIBLE) {
         setAxesLabelsFromItem(intensityItem());
         replot();
     }
@@ -214,8 +213,8 @@ void ColorMap::subscribeToItem()
 
     intensityItem()->mapper()->setOnChildPropertyChange(
         [this](SessionItem* item, const QString name) {
-            if(item->modelType() == Constants::BasicAxisType ||
-               item->modelType() == Constants::AmplitudeAxisType)
+            if (item->modelType() == Constants::BasicAxisType
+                || item->modelType() == Constants::AmplitudeAxisType)
                 onAxisPropertyChanged(item->itemName(), name);
         },
         this);
@@ -237,18 +236,19 @@ void ColorMap::initColorMap()
     m_colorScale = new QCPColorScale(m_customPlot);
     m_colorMap->setColorScale(m_colorScale);
 
-    m_colorBarLayout->addElement(0,0, m_colorScale);
-    m_colorBarLayout->setMinimumSize(colorbar_width_logz,10);
-    m_colorBarLayout->setMargins(QMargins(0,0,0,0));
+    m_colorBarLayout->addElement(0, 0, m_colorScale);
+    m_colorBarLayout->setMinimumSize(colorbar_width_logz, 10);
+    auto base_size = StyleUtils::SizeOfLetterM(this).width()*0.5;
+    m_colorBarLayout->setMargins(QMargins(base_size, 0, base_size, 0));
 
-    m_colorScale->axis()->axisRect()->setMargins(QMargins(0,0,0,0));
+    m_colorScale->axis()->axisRect()->setMargins(QMargins(0, 0, 0, 0));
     m_colorScale->axis()->axisRect()->setAutoMargins(QCP::msNone);
 
-    m_colorScale->setBarWidth(Constants::plot_colorbar_size);
+    m_colorScale->setBarWidth(Constants::plot_colorbar_size());
     m_colorScale->axis()->setTickLabelFont(
-        QFont(QFont().family(), Constants::plot_tick_label_size));
-    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
-    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size));
+        QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
+    m_customPlot->yAxis->setTickLabelFont(QFont(QFont().family(), Constants::plot_tick_label_size()));
 
     connect(m_customPlot, SIGNAL(afterReplot()), this, SLOT(marginsChangedNotify()));
 }
@@ -352,7 +352,7 @@ void ColorMap::setAxesZoomFromItem(IntensityDataItem* item)
 void ColorMap::setAxesLabelsFromItem(IntensityDataItem* item)
 {
     auto xaxis = item->xAxisItem();
-    if(xaxis->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
+    if (xaxis->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
         m_customPlot->xAxis->setLabel(item->getXaxisTitle());
     else
         m_customPlot->xAxis->setLabel(QString());
@@ -360,11 +360,10 @@ void ColorMap::setAxesLabelsFromItem(IntensityDataItem* item)
     m_colorScale->setMargins(QMargins(0, 0, 0, 0));
 
     auto yaxis = item->yAxisItem();
-    if(yaxis->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
+    if (yaxis->getItemValue(BasicAxisItem::P_TITLE_IS_VISIBLE).toBool())
         m_customPlot->yAxis->setLabel(item->getYaxisTitle());
     else
         m_customPlot->yAxis->setLabel(QString());
-
 }
 
 //! Sets the intensity values to ColorMap.
@@ -425,12 +424,12 @@ void ColorMap::setColorScaleVisible(bool visibility_flag)
 void ColorMap::marginsChangedNotify()
 {
     QMargins axesMargins = m_customPlot->axisRect()->margins();
-//    QMargins colorBarMargins = m_colorScale->margins();
-//    QMargins colorScaleMargins = m_colorScale->axis()->axisRect()->margins();
+    //    QMargins colorBarMargins = m_colorScale->margins();
+    //    QMargins colorScaleMargins = m_colorScale->axis()->axisRect()->margins();
 
     double left = axesMargins.left();
-//    double right = axesMargins.right() + colorBarMargins.right() + m_colorScale->barWidth()
-//            + colorScaleMargins.right() + m_colorBarLayout->rect().width();
+    //    double right = axesMargins.right() + colorBarMargins.right() + m_colorScale->barWidth()
+    //            + colorScaleMargins.right() + m_colorBarLayout->rect().width();
 
     double right = axesMargins.right() + m_colorBarLayout->rect().width();
 
@@ -439,8 +438,7 @@ void ColorMap::marginsChangedNotify()
 
 IntensityDataItem* ColorMap::intensityItem()
 {
-    return const_cast<IntensityDataItem*>(
-        static_cast<const ColorMap*>(this)->intensityItem());
+    return const_cast<IntensityDataItem*>(static_cast<const ColorMap*>(this)->intensityItem());
 }
 
 const IntensityDataItem* ColorMap::intensityItem() const

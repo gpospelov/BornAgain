@@ -27,55 +27,55 @@
 #include "SessionItem.h"
 #include "item_constants.h"
 
-IShape2DView *MaskViewFactory::createMaskView(SessionItem *item,
-                                           ISceneAdaptor *adaptor)
+IShape2DView* MaskViewFactory::createMaskView(SessionItem* item, ISceneAdaptor* adaptor)
 {
-    IShape2DView *result(0);
+    IShape2DView* result(0);
     QString model_type = item->modelType();
 
-    if(model_type == Constants::MaskContainerType) {
+    if (model_type == Constants::MaskContainerType) {
         result = new MaskContainerView();
     }
 
-    else if(model_type == Constants::ProjectionContainerType) {
+    else if (model_type == Constants::ProjectionContainerType) {
         result = new MaskContainerView();
     }
 
-    else if(model_type == Constants::RectangleMaskType) {
+    else if (model_type == Constants::RectangleMaskType) {
         result = new RectangleView();
     }
 
-    else if(model_type == Constants::PolygonMaskType) {
+    else if (model_type == Constants::PolygonMaskType) {
         result = new PolygonView();
     }
 
-    else if(model_type == Constants::PolygonPointType) {
+    else if (model_type == Constants::PolygonPointType) {
         result = new PolygonPointView();
     }
 
-    else if(model_type == Constants::VerticalLineMaskType) {
+    else if (model_type == Constants::VerticalLineMaskType) {
         result = new VerticalLineView();
     }
 
-    else if(model_type == Constants::HorizontalLineMaskType) {
+    else if (model_type == Constants::HorizontalLineMaskType) {
         result = new HorizontalLineView();
     }
 
-    else if(model_type == Constants::EllipseMaskType) {
+    else if (model_type == Constants::EllipseMaskType) {
         result = new EllipseView();
     }
 
-    else if(model_type == Constants::MaskAllType) {
+    else if (model_type == Constants::MaskAllType) {
         result = new MaskAllView();
     }
 
-    else if(model_type == Constants::RegionOfInterestType) {
+    else if (model_type == Constants::RegionOfInterestType) {
         result = new RegionOfInterestView();
     }
 
     else {
         throw GUIHelpers::Error("MaskViewFactory::createSampleView() -> Error! "
-                                "Can't create a view for " + model_type);
+                                "Can't create a view for "
+                                + model_type);
     }
 
     result->setParameterizedItem(item);

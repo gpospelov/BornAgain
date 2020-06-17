@@ -67,6 +67,6 @@ QString readTextFile(const QString& fileName);
 //! Returns directory which user is normally using to export files.
 BA_CORE_API_ QString userExportDir();
 
-}
+} // namespace ProjectUtils
 
 #endif // PROJECTUTILS_H

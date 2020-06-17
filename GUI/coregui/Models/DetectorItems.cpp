@@ -16,41 +16,43 @@
 #include "IDetector2D.h"
 #include "MaskItems.h"
 #include "ParameterTranslators.h"
-#include "ResolutionFunctionItems.h"
 #include "ResolutionFunction2DGaussian.h"
+#include "ResolutionFunctionItems.h"
 #include "SessionItemUtils.h"
 #include "SessionModel.h"
 
 using SessionItemUtils::GetVectorItem;
 
-namespace {
+namespace
+{
 const QString res_func_group_label = "Type";
 const QString analyzer_direction_tooltip = "Direction of the polarization analysis";
 const QString analyzer_efficiency_tooltip = "Efficiency of the polarization analysis";
 const QString analyzer_transmission_tooltip = "Total transmission of the polarization analysis";
-}
+} // namespace
 
 const QString DetectorItem::T_MASKS = "Masks";
 const QString DetectorItem::P_RESOLUTION_FUNCTION = "Resolution function";
 const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
 const QString DetectorItem::P_ANALYZER_EFFICIENCY = QString::fromStdString(BornAgain::Efficiency);
 const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION =
-        QString::fromStdString(BornAgain::Transmission);
+    QString::fromStdString(BornAgain::Transmission);
 
 DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
 {
     registerTag(T_MASKS, 0, -1, QStringList() << Constants::MaskContainerType);
     setDefaultTag(T_MASKS);
 
-    addGroupProperty(P_ANALYZER_DIRECTION, Constants::VectorType)->setToolTip(
-                analyzer_direction_tooltip);
-    addProperty(P_ANALYZER_EFFICIENCY, 0.0)->setLimits(RealLimits::limitless())
+    addGroupProperty(P_ANALYZER_DIRECTION, Constants::VectorType)
+        ->setToolTip(analyzer_direction_tooltip);
+    addProperty(P_ANALYZER_EFFICIENCY, 0.0)
+        ->setLimits(RealLimits::limitless())
         .setToolTip(analyzer_efficiency_tooltip);
     addProperty(P_ANALYZER_TOTAL_TRANSMISSION, 1.0)->setToolTip(analyzer_transmission_tooltip);
 
     QString additional_name = QString::fromStdString(BornAgain::DetectorAnalyzer);
-    addTranslator(VectorParameterTranslator(P_ANALYZER_DIRECTION, BornAgain::Direction,
-                                            { additional_name }));
+    addTranslator(
+        VectorParameterTranslator(P_ANALYZER_DIRECTION, BornAgain::Direction, {additional_name}));
     addTranslator(AddElementTranslator(P_ANALYZER_EFFICIENCY, additional_name));
     addTranslator(AddElementTranslator(P_ANALYZER_TOTAL_TRANSMISSION, additional_name));
 
@@ -113,13 +115,13 @@ void DetectorItem::update_resolution_function_tooltips()
 {
     auto& resfuncItem = groupItem<ResolutionFunctionItem>(DetectorItem::P_RESOLUTION_FUNCTION);
 
-    if(resfuncItem.modelType() == Constants::ResolutionFunction2DGaussianType) {
+    if (resfuncItem.modelType() == Constants::ResolutionFunction2DGaussianType) {
         QString units = modelType() == Constants::SphericalDetectorType ? "deg" : "mm";
 
         resfuncItem.getItem(ResolutionFunction2DGaussianItem::P_SIGMA_X)
-                ->setToolTip("Resolution along horizontal axis (in "+units+")");
+            ->setToolTip("Resolution along horizontal axis (in " + units + ")");
         resfuncItem.getItem(ResolutionFunction2DGaussianItem::P_SIGMA_Y)
-                ->setToolTip("Resolution along vertical axis (in "+units+")");
+            ->setToolTip("Resolution along vertical axis (in " + units + ")");
     }
 }
 

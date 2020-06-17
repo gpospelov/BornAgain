@@ -22,15 +22,15 @@
 //! Base class for singletons.
 //! @ingroup tools_internal
 
-template <class T>
-class ISingleton
+template <class T> class ISingleton
 {
 public:
-    static T& instance() {
+    static T& instance()
+    {
         static std::mutex single_mutex;
-        std::unique_lock<std::mutex> single_lock( single_mutex );
-        if( !m_instance) {
-            if( m_destroyed )
+        std::unique_lock<std::mutex> single_lock(single_mutex);
+        if (!m_instance) {
+            if (m_destroyed)
                 // In BornAgain, an ISingleton is deleted when and only when the application
                 // terminates. Therefore there is no point in re-creating a deleted ISingleton.
                 // To be 110% sure, we explicitly forbid re-creation.
@@ -38,13 +38,16 @@ public:
             static T theInstance;
             m_instance = &theInstance;
         }
-        return *m_instance; }
+        return *m_instance;
+    }
 
 protected:
-    ISingleton(){}
-    virtual ~ISingleton() {
+    ISingleton() {}
+    virtual ~ISingleton()
+    {
         m_instance = nullptr;
-        m_destroyed = true; }
+        m_destroyed = true;
+    }
 
 private:
     ISingleton(const ISingleton&) = delete;
@@ -54,7 +57,7 @@ private:
 };
 
 // for templated classes, initializations go into the .h file:
-template<class T> T* ISingleton<T>::m_instance = nullptr;
-template<class T> bool ISingleton<T>::m_destroyed = false;
+template <class T> T* ISingleton<T>::m_instance = nullptr;
+template <class T> bool ISingleton<T>::m_destroyed = false;
 
 #endif // ISINGLETON_H

@@ -15,8 +15,8 @@
 #ifndef BA3D_LATTICE_H
 #define BA3D_LATTICE_H
 
-#include <ba3d/def.h>
 #include <QVector>
+#include <ba3d/def.h>
 
 class Lattice : public QVector<RealSpace::Vector3D>
 {
@@ -34,4 +34,4 @@ public:
 
 Lattice squareLattice(uint n, float sigma); // n half-size
 
-#endif  // BA3D_LATTICE_H
+#endif // BA3D_LATTICE_H

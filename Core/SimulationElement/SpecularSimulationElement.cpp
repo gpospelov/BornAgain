@@ -28,7 +28,7 @@ SpecularSimulationElement::SpecularSimulationElement(double kz)
 SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha)
     : m_intensity(0.0), m_calculation_flag(true),
       m_kz_computation([k = vecOfLambdaAlphaPhi(wavelength, alpha, /*phi =*/0.0)](
-                             const std::vector<Slice>& slices) {
+                           const std::vector<Slice>& slices) {
           return KzComputation::computeKzFromRefIndices(slices, k);
       })
 {
@@ -36,8 +36,7 @@ SpecularSimulationElement::SpecularSimulationElement(double wavelength, double a
 
 SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement& other)
     : m_polarization(other.m_polarization), m_intensity(other.m_intensity),
-      m_calculation_flag(other.m_calculation_flag),
-      m_kz_computation(other.m_kz_computation)
+      m_calculation_flag(other.m_calculation_flag), m_kz_computation(other.m_kz_computation)
 {
 }
 
@@ -50,14 +49,19 @@ SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&&
 
 SpecularSimulationElement::~SpecularSimulationElement() = default;
 
-SpecularSimulationElement& SpecularSimulationElement::
-operator=(const SpecularSimulationElement& other)
+SpecularSimulationElement&
+SpecularSimulationElement::operator=(const SpecularSimulationElement& other)
 {
     if (this != &other) {
         SpecularSimulationElement tmp(other);
         tmp.swapContent(*this);
     }
     return *this;
+}
+
+void SpecularSimulationElement::setPolarizationHandler(PolarizationHandler handler)
+{
+    m_polarization = std::move(handler);
 }
 
 std::vector<complex_t> SpecularSimulationElement::produceKz(const std::vector<Slice>& slices)

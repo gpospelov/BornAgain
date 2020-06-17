@@ -15,19 +15,15 @@
 #include "BackgroundItems.h"
 #include "BornAgainNamespace.h"
 #include "ConstantBackground.h"
-#include "item_constants.h"
 #include "PoissonNoiseBackground.h"
+#include "item_constants.h"
 
-BackgroundItem::BackgroundItem(const QString& model_type)
-    : SessionItem(model_type)
-{}
+BackgroundItem::BackgroundItem(const QString& model_type) : SessionItem(model_type) {}
 
 // Background none
 /* ------------------------------------------------ */
 
-BackgroundNoneItem::BackgroundNoneItem()
-    : BackgroundItem(Constants::BackgroundNoneType)
-{}
+BackgroundNoneItem::BackgroundNoneItem() : BackgroundItem(Constants::BackgroundNoneType) {}
 
 std::unique_ptr<IBackground> BackgroundNoneItem::createBackground() const
 {
@@ -37,19 +33,18 @@ std::unique_ptr<IBackground> BackgroundNoneItem::createBackground() const
 // Constant background
 /* ------------------------------------------------ */
 
-namespace {
-const QString constant_background_value_tooltip =
-        "Constant background value [counts/pixel]";
+namespace
+{
+const QString constant_background_value_tooltip = "Constant background value [counts/pixel]";
 }
 
 const QString ConstantBackgroundItem::P_VALUE = QString::fromStdString(BornAgain::BackgroundValue);
 
-
-ConstantBackgroundItem::ConstantBackgroundItem()
-    : BackgroundItem(Constants::ConstantBackgroundType)
+ConstantBackgroundItem::ConstantBackgroundItem() : BackgroundItem(Constants::ConstantBackgroundType)
 {
-    addProperty(P_VALUE, 0.0)->setLimits(RealLimits::nonnegative())
-            .setToolTip(constant_background_value_tooltip);
+    addProperty(P_VALUE, 0.0)
+        ->setLimits(RealLimits::nonnegative())
+        .setToolTip(constant_background_value_tooltip);
 }
 
 std::unique_ptr<IBackground> ConstantBackgroundItem::createBackground() const
@@ -62,7 +57,8 @@ std::unique_ptr<IBackground> ConstantBackgroundItem::createBackground() const
 
 PoissonNoiseBackgroundItem::PoissonNoiseBackgroundItem()
     : BackgroundItem(Constants::PoissonNoiseBackgroundType)
-{}
+{
+}
 
 std::unique_ptr<IBackground> PoissonNoiseBackgroundItem::createBackground() const
 {

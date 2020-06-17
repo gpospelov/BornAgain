@@ -27,14 +27,14 @@ class BA_CORE_API_ JobMessagePanel : public InfoPanel
 {
     Q_OBJECT
 public:
-    JobMessagePanel(QWidget *parent = 0);
+    JobMessagePanel(QWidget* parent = 0);
 
 public slots:
     void onClearLog();
-    void onMessage(const QString &message, const QColor &color = QColor(Qt::black));
+    void onMessage(const QString& message, const QColor& color = QColor(Qt::black));
 
 private:
-    QTextEdit *m_plainLog;
+    QTextEdit* m_plainLog;
 };
 
 #endif // JOBMESSAGEPANEL_H

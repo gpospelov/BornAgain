@@ -15,11 +15,11 @@
 #include "FitParameterItems.h"
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
-#include "ModelPath.h"
-#include "ParameterTreeItems.h"
 #include "JobItem.h"
-#include "Parameters.h"
+#include "ModelPath.h"
 #include "Parameter.h"
+#include "ParameterTreeItems.h"
+#include "Parameters.h"
 #include <cmath>
 
 namespace
@@ -34,16 +34,15 @@ ComboProperty fitParameterTypeCombo()
                                          << QStringLiteral("No limits imposed to parameter value");
 
     ComboProperty result;
-    result << Constants::FITPAR_FIXED << Constants::FITPAR_LIMITED
-           << Constants::FITPAR_LOWERLIMITED << Constants::FITPAR_UPPERLIMITED
-           << Constants::FITPAR_FREE;
+    result << Constants::FITPAR_FIXED << Constants::FITPAR_LIMITED << Constants::FITPAR_LOWERLIMITED
+           << Constants::FITPAR_UPPERLIMITED << Constants::FITPAR_FREE;
     result.setValue(Constants::FITPAR_LIMITED);
     result.setToolTips(tooltips);
     return result;
 }
 
 const double range_factor = 0.5;
-}
+} // namespace
 
 // ----------------------------------------------------------------------------
 
@@ -248,8 +247,8 @@ FitParameterContainerItem::FitParameterContainerItem()
 
 FitParameterItem* FitParameterContainerItem::fitParameterItem(const QString& link)
 {
-    for(auto item : getItems(T_FIT_PARAMETERS)) {
-        for(auto linkItem : item->getItems(FitParameterItem::T_LINK)) {
+    for (auto item : getItems(T_FIT_PARAMETERS)) {
+        for (auto linkItem : item->getItems(FitParameterItem::T_LINK)) {
             if (link == linkItem->getItemValue(FitParameterLinkItem::P_LINK))
                 return dynamic_cast<FitParameterItem*>(item);
         }
@@ -260,7 +259,7 @@ FitParameterItem* FitParameterContainerItem::fitParameterItem(const QString& lin
 QVector<FitParameterItem*> FitParameterContainerItem::fitParameterItems()
 {
     QVector<FitParameterItem*> result;
-    for(auto parItem : getItems(T_FIT_PARAMETERS))
+    for (auto parItem : getItems(T_FIT_PARAMETERS))
         result.push_back(dynamic_cast<FitParameterItem*>(parItem));
     return result;
 }
@@ -284,10 +283,10 @@ void FitParameterContainerItem::setValuesInParameterContainer(
         auto link_list = fitPars[i]->getItems(FitParameterItem::T_LINK);
         if (link_list.size() == 0)
             continue;
-        for(auto linkItem : link_list) {
+        for (auto linkItem : link_list) {
             QString parPath = linkItem->getItemValue(FitParameterLinkItem::P_LINK).toString();
             auto itemInTuningTree = dynamic_cast<ParameterItem*>(
-                        ModelPath::getItemFromPath(parPath, parameterContainer));
+                ModelPath::getItemFromPath(parPath, parameterContainer));
             if (itemInTuningTree)
                 itemInTuningTree->propagateValueToLink(values[index]);
         }
@@ -300,7 +299,7 @@ Fit::Parameters FitParameterContainerItem::createParameters() const
     Fit::Parameters result;
 
     int index(0);
-    for(auto item : getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
+    for (auto item : getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         auto fitPar = dynamic_cast<FitParameterItem*>(item);
         if (!fitPar->isValid()) {
             std::stringstream ss;

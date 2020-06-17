@@ -16,8 +16,8 @@
 #define ISTANDARDTEST_H
 
 #include "IFunctionalTest.h"
-#include <string>
 #include <memory>
+#include <string>
 
 class Simulation;
 class GISASSimulation;
@@ -33,7 +33,7 @@ public:
 
     ~IStandardTest();
 
-    bool runTest() =0;
+    bool runTest() = 0;
 
 protected:
     std::unique_ptr<Simulation> m_reference_simulation;

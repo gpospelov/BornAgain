@@ -15,7 +15,8 @@
 #include "FitLogFlags.h"
 #include <QMap>
 
-namespace {
+namespace
+{
 
 QMap<FitLogFlags::MessageType, Qt::GlobalColor> messageTypeToColorMap()
 {
@@ -28,7 +29,7 @@ QMap<FitLogFlags::MessageType, Qt::GlobalColor> messageTypeToColorMap()
     return result;
 }
 
-}
+} // namespace
 
 Qt::GlobalColor FitLogFlags::color(MessageType messageType)
 {

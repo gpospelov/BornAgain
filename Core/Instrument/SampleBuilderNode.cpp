@@ -13,12 +13,13 @@
 // ************************************************************************** //
 
 #include "SampleBuilderNode.h"
-#include "ParameterPool.h"
-#include "MultiLayer.h"
 #include "IMultiLayerBuilder.h"
+#include "MultiLayer.h"
+#include "ParameterPool.h"
 #include <stdexcept>
 
-namespace {
+namespace
+{
 const std::string& default_name = "SampleBuilderNode";
 }
 
@@ -102,4 +103,3 @@ void SampleBuilderNode::borrow_builder_parameters()
 
     m_sample_builder->parameterPool()->copyToExternalPool("", parameterPool());
 }
-

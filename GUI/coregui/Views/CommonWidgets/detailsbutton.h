@@ -26,20 +26,18 @@
 #ifndef DETAILSBUTTON_H
 #define DETAILSBUTTON_H
 
-
 #include <QAbstractButton>
 
 class QGraphicsOpacityEffect;
 
-namespace Utils {
+namespace Utils
+{
 class FadingPanel : public QWidget
 {
     Q_OBJECT
 
 public:
-    FadingPanel(QWidget *parent = 0)
-        : QWidget(parent)
-    {}
+    FadingPanel(QWidget* parent = 0) : QWidget(parent) {}
     virtual void fadeTo(qreal value) = 0;
     virtual void setOpacity(qreal value) = 0;
 };
@@ -48,12 +46,13 @@ class FadingWidget : public FadingPanel
 {
     Q_OBJECT
 public:
-    FadingWidget(QWidget *parent = 0);
+    FadingWidget(QWidget* parent = 0);
     void fadeTo(qreal value);
     qreal opacity();
     void setOpacity(qreal value);
+
 protected:
-    QGraphicsOpacityEffect *m_opacityEffect;
+    QGraphicsOpacityEffect* m_opacityEffect;
 };
 
 class DetailsButton : public QAbstractButton
@@ -62,18 +61,22 @@ class DetailsButton : public QAbstractButton
     Q_PROPERTY(float fader READ fader WRITE setFader)
 
 public:
-    DetailsButton(QWidget *parent = 0);
+    DetailsButton(QWidget* parent = 0);
 
     QSize sizeHint() const;
     float fader() { return m_fader; }
-    void setFader(float value) { m_fader = value; update(); }
+    void setFader(float value)
+    {
+        m_fader = value;
+        update();
+    }
 
 protected:
-    void paintEvent(QPaintEvent *e);
-    bool event(QEvent *e);
+    void paintEvent(QPaintEvent* e);
+    bool event(QEvent* e);
 
 private:
-    QPixmap cacheRendering(const QSize &size, bool checked);
+    QPixmap cacheRendering(const QSize& size, bool checked);
     QPixmap m_checkedPixmap;
     QPixmap m_uncheckedPixmap;
     float m_fader;

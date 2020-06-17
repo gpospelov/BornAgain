@@ -43,4 +43,3 @@ private:
 };
 
 #endif // SAVETHREAD_H
-

@@ -23,7 +23,7 @@ class DataPropertyContainer;
 class Data1DProperties;
 class DataItem;
 class JobItem;
-template<class T> class OutputData;
+template <class T> class OutputData;
 
 //! View model for 1D DataItem. Can represent several items
 //! at once. In current implementation the first of carried
@@ -73,7 +73,7 @@ public:
 
     //! Sets job item (for unit conversion) if DataItemView
     //! is dynamically created outside of JobModel
-    void setJobItem(JobItem* job_item) {m_job_item = job_item;}
+    void setJobItem(JobItem* job_item) { m_job_item = job_item; }
 
     //! Returns either parenting JobItem or
     //! job item set with DataItem1DView::setJobItem.

@@ -16,6 +16,7 @@
 #define MULTILAYER_H
 
 #include "ISample.h"
+#include "RoughnessModels.h"
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
 #include "ZLimits.h"
@@ -80,6 +81,10 @@ public:
 
     std::vector<const INode*> getChildren() const final override;
 
+    void setRoughnessModel(RoughnessModel roughnessModel);
+
+    RoughnessModel roughnessModel() const { return m_roughness_model; }
+
 private:
     //! Registers some class members for later access via parameter pool
     void init_parameters();
@@ -107,6 +112,8 @@ private:
     double m_crossCorrLength;
     //! external magnetic field (in A/m)
     kvector_t m_ext_field;
+
+    RoughnessModel m_roughness_model;
 };
 
 #endif // MULTILAYER_H

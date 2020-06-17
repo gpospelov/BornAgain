@@ -1,10 +1,10 @@
-#include "google_test.h"
-#include "FormFactors.h"
 #include "FormFactorItems.h"
-#include "Units.h"
+#include "FormFactors.h"
 #include "Numeric.h"
+#include "Units.h"
+#include "google_test.h"
 
-class TestFormFactorItems :  public ::testing::Test
+class TestFormFactorItems : public ::testing::Test
 {
 public:
     ~TestFormFactorItems();

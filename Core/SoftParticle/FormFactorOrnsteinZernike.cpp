@@ -28,8 +28,7 @@ FormFactorOrnsteinZernike::FormFactorOrnsteinZernike(double I0, double xi_xy, do
 
 complex_t FormFactorOrnsteinZernike::evaluate_for_q(cvector_t q) const
 {
-    complex_t denominator = 1.0 + m_xi_xy*m_xi_xy*q.magxy2() + m_xi_z*m_xi_z*q.z()*q.z();
+    complex_t denominator = 1.0 + m_xi_xy * m_xi_xy * q.magxy2() + m_xi_z * m_xi_z * q.z() * q.z();
 
-    return std::sqrt(m_I0/denominator);
+    return std::sqrt(m_I0 / denominator);
 }
-

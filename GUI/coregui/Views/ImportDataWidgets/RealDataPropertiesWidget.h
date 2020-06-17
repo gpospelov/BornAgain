@@ -35,32 +35,32 @@ class BA_CORE_API_ RealDataPropertiesWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit RealDataPropertiesWidget(QWidget *parent = 0);
+    explicit RealDataPropertiesWidget(QWidget* parent = 0);
 
     QSize sizeHint() const { return QSize(64, 135); }
     QSize minimumSizeHint() const { return QSize(64, 128); }
 
-    void setModels(InstrumentModel *instrumentModel, RealDataModel *realDataModel);
-    void setItem(SessionItem *item);
+    void setModels(InstrumentModel* instrumentModel, RealDataModel* realDataModel);
+    void setItem(SessionItem* item);
 
 public slots:
     void onInstrumentComboIndexChanged(int index);
     void onInstrumentMapUpdate();
-    void onRealDataPropertyChanged(const QString &name);
+    void onRealDataPropertyChanged(const QString& name);
 
 private:
-    void setComboToIdentifier(const QString &identifier);
+    void setComboToIdentifier(const QString& identifier);
     void setComboConnected(bool isConnected);
     void setPropertiesEnabled(bool enabled);
 
-    LinkInstrumentManager *m_linkManager;
-    QDataWidgetMapper *m_dataNameMapper;
-    QLabel *m_dataNameLabel;
-    QLineEdit *m_dataNameEdit;
-    QLabel *m_instrumentLabel;
-    QComboBox *m_instrumentCombo;
+    LinkInstrumentManager* m_linkManager;
+    QDataWidgetMapper* m_dataNameMapper;
+    QLabel* m_dataNameLabel;
+    QLineEdit* m_dataNameEdit;
+    QLabel* m_instrumentLabel;
+    QComboBox* m_instrumentCombo;
     QString m_current_id;
-    RealDataItem *m_currentDataItem;
+    RealDataItem* m_currentDataItem;
 };
 
 #endif // REALDATAPROPERTIESWIDGET_H

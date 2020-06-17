@@ -1,5 +1,5 @@
 """
-All formfactors available in BornAgain in the Born Approximation
+All form factors available in BornAgain in the Born Approximation
 """
 import numpy
 import bornagain as ba
@@ -13,6 +13,7 @@ alpha_min, alpha_max = 0.0, 2.0
 formfactors = [
     ba.FormFactorAnisoPyramid(20.0, 16.0, 13.0, 60.0*deg),
     ba.FormFactorBox(20.0, 16.0, 13.0),
+    ba.FormFactorCantellatedCube(15.0, 6.0),
     ba.FormFactorCone(10.0, 13.0, 60.0*deg),
     ba.FormFactorCone6(10.0, 13.0, 60.0*deg),
     ba.FormFactorCuboctahedron(20.0, 13.0, 0.7, 60.0*deg),
@@ -26,12 +27,12 @@ formfactors = [
     ba.FormFactorPrism3(10.0, 13.0),
     ba.FormFactorPrism6(5.0, 11.0),
     ba.FormFactorPyramid(18.0, 13.0, 60.0*deg),
-    ba.FormFactorRipple1(27.0, 20.0, 14.0),
-    ba.FormFactorRipple2(36.0, 25.0, 14.0, 3.0),
+    ba.FormFactorRipple1Box(27.0, 20.0, 14.0),
+    ba.FormFactorRipple2Box(36.0, 25.0, 14.0, 3.0),
     ba.FormFactorTetrahedron(15.0, 6.0, 60.0*deg),
+    ba.FormFactorTruncatedCube(15.0, 6.0),
     ba.FormFactorTruncatedSphere(5.0, 7.0),
     ba.FormFactorTruncatedSpheroid(7.5, 9.0, 1.2),
-    ba.FormFactorTruncatedCube(15.0, 6.0)
 ]
 
 
@@ -97,7 +98,7 @@ def run_simulation():
         plt.subplot(5, 5, nplot+1)
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
-        ba.plot_colormap(result, xlabel="", ylabel="", zlabel="", 
+        ba.plot_colormap(result, xlabel="", ylabel="", zlabel="",
                          cmap='jet', aspect='auto')
 
         plt.tick_params(axis='both', which='major', labelsize=8)

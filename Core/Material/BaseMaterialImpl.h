@@ -15,19 +15,15 @@
 #ifndef BASEMATERIALIMPL_H_
 #define BASEMATERIALIMPL_H_
 
-#include "INamed.h"
-#include "Vectors3D.h"
 #include "Complex.h"
 #include "EigenCore.h"
+#include "INamed.h"
+#include "Vectors3D.h"
 
 class Transform3D;
 class WavevectorInfo;
 
-enum class MATERIAL_TYPES {
-    InvalidMaterialType = -1,
-    RefractiveMaterial = 0,
-    MaterialBySLD
-};
+enum class MATERIAL_TYPES { InvalidMaterialType = -1, RefractiveMaterial = 0, MaterialBySLD };
 
 //! @ingroup materials
 
@@ -75,7 +71,7 @@ public:
     virtual BaseMaterialImpl* transformedMaterial(const Transform3D& transform) const = 0;
 
     //! Prints object data
-    virtual void print(std::ostream &ostr) const = 0;
+    virtual void print(std::ostream& ostr) const = 0;
 };
 
 #endif /* BASEMATERIALIMPL_H_ */

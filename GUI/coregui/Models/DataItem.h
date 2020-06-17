@@ -15,9 +15,9 @@
 #ifndef DATAITEM_H
 #define DATAITEM_H
 
+#include "OutputData.h"
 #include "SaveLoadInterface.h"
 #include "SessionItem.h"
-#include "OutputData.h"
 #include <QDateTime>
 #include <mutex>
 

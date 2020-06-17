@@ -15,8 +15,8 @@
 #ifndef INSTRUMENTVIEW_H
 #define INSTRUMENTVIEW_H
 
-#include "WinDllMacros.h"
 #include "ItemStackPresenter.h"
+#include "WinDllMacros.h"
 #include <QWidget>
 
 class MainWindow;

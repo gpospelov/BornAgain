@@ -19,8 +19,7 @@
 
 const QString MaterialItemContainer::T_MATERIALS = "MaterialVector";
 
-MaterialItemContainer::MaterialItemContainer()
-    :SessionItem(Constants::MaterialContainerType)
+MaterialItemContainer::MaterialItemContainer() : SessionItem(Constants::MaterialContainerType)
 {
     setItemName("Materials");
     registerTag(T_MATERIALS, 0, -1, QStringList{Constants::MaterialType});
@@ -44,7 +43,7 @@ MaterialItem* MaterialItemContainer::findMaterialById(QString id)
 const MaterialItem* MaterialItemContainer::findMaterialById(QString id) const
 {
     auto materials = getItems(T_MATERIALS);
-    for (auto item: materials) {
+    for (auto item : materials) {
         auto material = dynamic_cast<MaterialItem*>(item);
         if (material->identifier() == id)
             return material;

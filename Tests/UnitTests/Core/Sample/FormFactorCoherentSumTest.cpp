@@ -1,7 +1,7 @@
-#include "google_test.h"
-#include "Exceptions.h"
 #include "FormFactorCoherentSum.h"
+#include "Exceptions.h"
 #include "FormFactorDot.h"
+#include "google_test.h"
 
 class FormFactorCoherentSumTest : public ::testing::Test
 {
@@ -14,7 +14,7 @@ FormFactorCoherentSumTest::~FormFactorCoherentSumTest() = default;
 TEST_F(FormFactorCoherentSumTest, RelAbundance)
 {
     const double epsilon = 1e-12;
-    auto p_ff = new FormFactorDot();
+    auto p_ff = new FormFactorDot(5.0);
     FormFactorCoherentSum ffw(1.0);
     FormFactorCoherentPart part(p_ff);
     ffw.addCoherentPart(part);
@@ -26,7 +26,7 @@ TEST_F(FormFactorCoherentSumTest, RelAbundance)
 
 TEST_F(FormFactorCoherentSumTest, FormFactor)
 {
-    auto p_ff = new FormFactorDot();
+    auto p_ff = new FormFactorDot(5.0);
     FormFactorCoherentSum ffw(1.0);
     FormFactorCoherentPart part(p_ff);
     ffw.addCoherentPart(part);

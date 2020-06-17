@@ -16,9 +16,9 @@
 #define SESSIONITEMTAGS_H
 
 #include "WinDllMacros.h"
-#include <QVector>
 #include <QString>
 #include <QStringList>
+#include <QVector>
 
 //! Holds all tag info for SessionItem.
 

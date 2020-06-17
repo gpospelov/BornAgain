@@ -16,7 +16,9 @@
 #define HARDPARTICLES_H
 
 #include "FormFactorAnisoPyramid.h"
+#include "FormFactorBar.h"
 #include "FormFactorBox.h"
+#include "FormFactorCantellatedCube.h"
 #include "FormFactorCone.h"
 #include "FormFactorCone6.h"
 #include "FormFactorCuboctahedron.h"
@@ -28,7 +30,6 @@
 #include "FormFactorFullSpheroid.h"
 #include "FormFactorHemiEllipsoid.h"
 #include "FormFactorIcosahedron.h"
-#include "FormFactorLongBox.h"
 #include "FormFactorLongBoxGauss.h"
 #include "FormFactorLongBoxLorentz.h"
 #include "FormFactorPrism3.h"

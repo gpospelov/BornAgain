@@ -17,17 +17,16 @@
 #include "JobItem.h"
 #include "JobListViewDelegate.h"
 #include "JobModel.h"
+#include "StyleUtils.h"
 #include <QItemSelectionModel>
 #include <QListView>
 #include <QVBoxLayout>
 
 JobListWidget::JobListWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_listViewDelegate(new JobListViewDelegate(this))
-    , m_listView(new ItemSelectorWidget(this))
-    , m_jobModel(nullptr)
+    : QWidget(parent), m_listViewDelegate(new JobListViewDelegate(this)),
+      m_listView(new ItemSelectorWidget(this)), m_jobModel(nullptr)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     m_listView->listView()->setItemDelegate(m_listViewDelegate);
     m_listView->listView()->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -45,11 +44,11 @@ JobListWidget::JobListWidget(QWidget* parent)
 
     setLayout(mainLayout);
 
-    connect(m_listView, &ItemSelectorWidget::contextMenuRequest,
-            this, &JobListWidget::contextMenuRequest);
+    connect(m_listView, &ItemSelectorWidget::contextMenuRequest, this,
+            &JobListWidget::contextMenuRequest);
 
-    connect(m_listView, &ItemSelectorWidget::selectionChanged,
-            this, &JobListWidget::onItemSelectionChanged);
+    connect(m_listView, &ItemSelectorWidget::selectionChanged, this,
+            &JobListWidget::onItemSelectionChanged);
 }
 
 void JobListWidget::setModel(JobModel* model)
@@ -59,8 +58,8 @@ void JobListWidget::setModel(JobModel* model)
         m_jobModel = model;
         m_listView->setModel(model);
 
-        connect(m_listViewDelegate, &JobListViewDelegate::cancelButtonClicked,
-                m_jobModel, &JobModel::cancelJob, Qt::UniqueConnection);
+        connect(m_listViewDelegate, &JobListViewDelegate::cancelButtonClicked, m_jobModel,
+                &JobModel::cancelJob, Qt::UniqueConnection);
     }
 }
 
@@ -75,6 +74,16 @@ const JobItem* JobListWidget::currentJobItem() const
 {
     QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
     return selected.size() == 1 ? m_jobModel->getJobItemForIndex(selected.at(0)) : nullptr;
+}
+
+QSize JobListWidget::sizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth()*2);
+}
+
+QSize JobListWidget::minimumSizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth());
 }
 
 void JobListWidget::makeJobItemSelected(JobItem* jobItem)

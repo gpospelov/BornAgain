@@ -15,18 +15,15 @@
 #include "ComboProperty.h"
 #include "GUIHelpers.h"
 
-namespace {
+namespace
+{
 const QString value_separator = ";";
 const QString selection_separator = ",";
-}
+} // namespace
 
 ComboProperty::ComboProperty() = default;
 
-ComboProperty::ComboProperty(QStringList values)
-    : m_values(std::move(values))
-{
-
-}
+ComboProperty::ComboProperty(QStringList values) : m_values(std::move(values)) {}
 
 ComboProperty ComboProperty::fromList(const QStringList& values, const QString& current_value)
 {
@@ -47,7 +44,8 @@ void ComboProperty::setValue(const QString& name)
 {
     if (!m_values.contains(name))
         throw GUIHelpers::Error("ComboProperty::setValue() -> Error. Combo doesn't contain "
-                                "value " + name);
+                                "value "
+                                + name);
     setCurrentIndex(m_values.indexOf(name));
 }
 
@@ -63,7 +61,7 @@ void ComboProperty::setValues(const QStringList& values)
     Q_ASSERT(values.size());
     QString current = getValue();
     m_values = values;
-   setCurrentIndex(m_values.contains(current) ? m_values.indexOf(current) : 0);
+    setCurrentIndex(m_values.contains(current) ? m_values.indexOf(current) : 0);
 }
 
 //! returns list of tool tips for all values
@@ -123,7 +121,8 @@ bool ComboProperty::operator!=(const ComboProperty& other) const
 
 bool ComboProperty::operator<(const ComboProperty& other) const
 {
-    return m_selected_indices.size() < other.m_selected_indices.size() && m_values.size() < other.m_values.size();
+    return m_selected_indices.size() < other.m_selected_indices.size()
+           && m_values.size() < other.m_values.size();
 }
 
 //! Returns a single string containing values delimited with ';'.
@@ -195,7 +194,7 @@ void ComboProperty::setSelected(const QString& name, bool value)
 QString ComboProperty::stringOfSelections() const
 {
     QStringList text;
-    for (auto  index : m_selected_indices)
+    for (auto index : m_selected_indices)
         text.append(QString::number(index));
     return text.join(selection_separator);
 }
@@ -220,7 +219,7 @@ void ComboProperty::setStringOfSelections(const QString& values)
 
 QString ComboProperty::label() const
 {
-    if (m_selected_indices.size() >1) {
+    if (m_selected_indices.size() > 1) {
         return QStringLiteral("Multiple");
     } else if (m_selected_indices.size() == 1) {
         return getValue();
@@ -228,4 +227,3 @@ QString ComboProperty::label() const
         return QStringLiteral("None");
     }
 }
-

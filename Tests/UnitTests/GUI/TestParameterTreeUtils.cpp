@@ -1,22 +1,23 @@
-#include "google_test.h"
+#include "FormFactorItems.h"
+#include "LayerItem.h"
 #include "ParameterTreeItems.h"
 #include "ParameterTreeUtils.h"
-#include "LayerItem.h"
-#include "SampleModel.h"
 #include "ParticleItem.h"
-#include "FormFactorItems.h"
+#include "SampleModel.h"
 #include "VectorItem.h"
+#include "google_test.h"
 
-namespace {
-    const QStringList expectedParticleParameterNames = {
-        "Particle/Cylinder/Radius", "Particle/Cylinder/Height", "Particle/Abundance",
-        "Particle/Position Offset/X", "Particle/Position Offset/Y", "Particle/Position Offset/Z"};
+namespace
+{
+const QStringList expectedParticleParameterNames = {
+    "Particle/Cylinder/Radius",   "Particle/Cylinder/Height",   "Particle/Abundance",
+    "Particle/Position Offset/X", "Particle/Position Offset/Y", "Particle/Position Offset/Z"};
 
-    const QStringList expectedParticleParameterTranslations = {
-        "Particle/Cylinder/Radius", "Particle/Cylinder/Height", "Particle/Abundance",
-        "Particle/PositionX", "Particle/PositionY", "Particle/PositionZ"};
+const QStringList expectedParticleParameterTranslations = {
+    "Particle/Cylinder/Radius", "Particle/Cylinder/Height", "Particle/Abundance",
+    "Particle/PositionX",       "Particle/PositionY",       "Particle/PositionZ"};
 
-}
+} // namespace
 
 class TestParameterTreeUtils : public ::testing::Test
 {

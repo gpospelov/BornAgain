@@ -13,27 +13,24 @@
 // ************************************************************************** //
 
 #include "PropertyWidgetItem.h"
-#include "SessionItem.h"
-#include "SessionModel.h"
-#include "SessionItemUtils.h"
-#include "SessionModelDelegate.h"
 #include "CustomEditors.h"
-#include <QLabel>
-#include <QWidget>
-#include <QDataWidgetMapper>
-#include <QGridLayout>
+#include "SessionItem.h"
+#include "SessionItemUtils.h"
+#include "SessionModel.h"
+#include "SessionModelDelegate.h"
 #include <QComboBox>
+#include <QDataWidgetMapper>
 #include <QDebug>
-#include <QSpinBox>
 #include <QDoubleSpinBox>
+#include <QGridLayout>
+#include <QLabel>
+#include <QSpinBox>
+#include <QWidget>
 
 PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
-    : QObject(parent)
-    , m_label(new QLabel)
-    , m_editor(nullptr)
-    , m_dataMapper(new QDataWidgetMapper(this))
-    , m_delegate(new SessionModelDelegate(nullptr))
-    , m_item(nullptr)
+    : QObject(parent), m_label(new QLabel), m_editor(nullptr),
+      m_dataMapper(new QDataWidgetMapper(this)), m_delegate(new SessionModelDelegate(nullptr)),
+      m_item(nullptr)
 {
     m_label->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed));
 }
@@ -100,7 +97,7 @@ const SessionItem* PropertyWidgetItem::item()
 void PropertyWidgetItem::connectEditor(QWidget* editor)
 {
     if (auto customEditor = dynamic_cast<CustomEditor*>(editor)) {
-        connect(customEditor, &CustomEditor::dataChanged,
-                m_delegate, &SessionModelDelegate::onCustomEditorDataChanged);
+        connect(customEditor, &CustomEditor::dataChanged, m_delegate,
+                &SessionModelDelegate::onCustomEditorDataChanged);
     }
 }

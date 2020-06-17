@@ -55,8 +55,8 @@
 
 #include "shared_global_p.h"
 
-#include <QtCore/QString>
 #include <QtCore/QSharedDataPointer>
+#include <QtCore/QString>
 
 QT_BEGIN_NAMESPACE
 
@@ -64,7 +64,8 @@ class QDesignerFormEditorInterface;
 class QWidget;
 class QStyle;
 
-namespace qdesigner_internal {
+namespace qdesigner_internal
+{
 
 class DeviceProfileData;
 
@@ -73,7 +74,8 @@ class DeviceProfileData;
  * style of the form. This class represents a device
  * profile. */
 
-class QDESIGNER_SHARED_EXPORT DeviceProfile {
+class QDESIGNER_SHARED_EXPORT DeviceProfile
+{
 public:
     DeviceProfile();
 
@@ -85,14 +87,14 @@ public:
 
     // Device name
     QString name() const;
-    void setName(const QString &);
+    void setName(const QString&);
 
     // System settings active
     bool isEmpty() const;
 
     // Default font family of the embedded system
     QString fontFamily() const;
-    void setFontFamily(const QString &);
+    void setFontFamily(const QString&);
 
     // Default font size of the embedded system
     int fontPointSize() const;
@@ -106,13 +108,13 @@ public:
 
     // Style
     QString style() const;
-    void setStyle(const QString &);
+    void setStyle(const QString&);
 
     // Initialize from desktop system
     void fromSystem();
 
-    static void systemResolution(int *dpiX, int *dpiY);
-    static void widgetResolution(const QWidget *w, int *dpiX, int *dpiY);
+    static void systemResolution(int* dpiX, int* dpiY);
+    static void widgetResolution(const QWidget* w, int* dpiX, int* dpiY);
 
     bool equals(const DeviceProfile& rhs) const;
 
@@ -126,26 +128,29 @@ public:
          * sub properties. */
         ApplyPreview
     };
-    void apply(const QDesignerFormEditorInterface *core, QWidget *widget, ApplyMode am) const;
+    void apply(const QDesignerFormEditorInterface* core, QWidget* widget, ApplyMode am) const;
 
-    static void applyDPI(int dpiX, int dpiY, QWidget *widget);
+    static void applyDPI(int dpiX, int dpiY, QWidget* widget);
 
     QString toString() const;
 
     QString toXml() const;
-    bool fromXml(const QString &xml, QString *errorMessage);
+    bool fromXml(const QString& xml, QString* errorMessage);
 
 private:
     QSharedDataPointer<DeviceProfileData> m_d;
 };
 
-inline bool operator==(const DeviceProfile &s1, const DeviceProfile &s2)
-    { return s1.equals(s2); }
-inline bool operator!=(const DeviceProfile &s1, const DeviceProfile &s2)
-    { return !s1.equals(s2); }
-
+inline bool operator==(const DeviceProfile& s1, const DeviceProfile& s2)
+{
+    return s1.equals(s2);
+}
+inline bool operator!=(const DeviceProfile& s1, const DeviceProfile& s2)
+{
+    return !s1.equals(s2);
 }
 
+} // namespace qdesigner_internal
 
 QT_END_NAMESPACE
 

@@ -10,7 +10,7 @@ from __future__ import print_function
 import os, sys, unittest
 
 import utils
-from libBornAgainCore import *
+from bornagain import *
 
 layer_thickness = 100.0
 

@@ -28,9 +28,9 @@ public:
     bool isCompleted() const { return m_status == COMPLETED; }
     std::string errorMessage() const { return m_error_message; }
 
-    void setRunning()   { m_status = RUNNING; }
+    void setRunning() { m_status = RUNNING; }
     void setCompleted() { m_status = COMPLETED; }
-    void setFailed()    { m_status = FAILED; }
+    void setFailed() { m_status = FAILED; }
     void setErrorMessage(const std::string& message) { m_error_message = message; }
 
 private:

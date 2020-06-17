@@ -17,6 +17,7 @@
 #include "ProcessedSample.h"
 #include "ProgressHandler.h"
 #include "SpecularSimulationElement.h"
+#include "SpecularStrategyBuilder.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
               "SpecularComputation should not be copy constructible");
@@ -31,8 +32,11 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
 {
     if (mP_processed_sample->containsMagneticMaterial()
         || mP_processed_sample->externalField() != kvector_t{})
-        throw std::runtime_error("Error in SpecularComputation::SpecularComputation: magnetized "
-                                 "samples are not currently handled.");
+        m_computation_term.reset(
+            new SpecularMatrixTerm(SpecularStrategyBuilder::build(multilayer, true)));
+    else
+        m_computation_term.reset(
+            new SpecularScalarTerm(SpecularStrategyBuilder::build(multilayer, false)));
 }
 
 SpecularComputation::~SpecularComputation() = default;
@@ -42,8 +46,8 @@ void SpecularComputation::runProtected()
     if (!mp_progress->alive())
         return;
 
-    m_computation_term.setProgressHandler(mp_progress);
+    m_computation_term->setProgressHandler(mp_progress);
     auto& slices = mP_processed_sample->averageSlices();
     for (auto it = m_begin_it; it != m_end_it; ++it)
-        m_computation_term.compute(*it, slices);
+        m_computation_term->compute(*it, slices);
 }

@@ -14,15 +14,11 @@
 
 #include "SessionGraphicsItem.h"
 
-
 const QString SessionGraphicsItem::P_XPOS = "xpos";
 const QString SessionGraphicsItem::P_YPOS = "ypos";
 
-
-SessionGraphicsItem::SessionGraphicsItem(const QString &model_type)
-    : SessionItem(model_type)
+SessionGraphicsItem::SessionGraphicsItem(const QString& model_type) : SessionItem(model_type)
 {
     addProperty(P_XPOS, qreal(0.0))->setVisible(false);
     addProperty(P_YPOS, qreal(0.0))->setVisible(false);
 }
-

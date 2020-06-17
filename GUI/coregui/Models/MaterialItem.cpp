@@ -63,7 +63,10 @@ void MaterialItem::setSLDData(double sld_real, double sld_imag)
     sldData->setItemValue(MaterialSLDDataItem::P_SLD_IMAG, sld_imag);
 }
 
-QString MaterialItem::identifier() const { return getItemValue(P_IDENTIFIER).toString(); }
+QString MaterialItem::identifier() const
+{
+    return getItemValue(P_IDENTIFIER).toString();
+}
 
 QColor MaterialItem::color() const
 {

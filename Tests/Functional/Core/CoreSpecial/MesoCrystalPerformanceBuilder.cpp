@@ -15,7 +15,6 @@
 #include "MesoCrystalPerformanceBuilder.h"
 #include "Crystal.h"
 #include "FormFactorCylinder.h"
-#include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorSphereLogNormalRadius.h"
 #include "ISelectionRule.h"
 #include "Lattice.h"
@@ -29,8 +28,8 @@
 #include "ParticleLayout.h"
 #include "Units.h"
 
-using Units::nm;
 using Units::deg;
+using Units::nm;
 
 namespace
 {
@@ -40,10 +39,10 @@ Lattice createLattice(double a, double c);
 MesoCrystalPerformanceBuilder::MesoCrystalPerformanceBuilder()
     : m_lattice_length_a(12.45 * nm), m_lattice_length_c(31.0 * nm),
       m_nanoparticle_radius(5.0 * nm), m_sigma_nanoparticle_radius(0.3 * nm),
-      m_meso_height(200 * nm), m_meso_radius(800 * nm), m_sigma_meso_height(20.0 * nm),
-      m_sigma_meso_radius(20.0 * nm), m_sigma_lattice_length_a(0.5 * nm), m_roughness(6.0 * nm),
-      m_surface_filling_ratio(0.25), m_phi_start(0.0 * deg), m_phi_stop(360.0 * deg),
-      m_phi_rotation_steps(5), m_tilt_start(0.0 * deg), m_tilt_stop(1.0 * deg), m_tilt_steps(1)
+      m_meso_height(200 * nm), m_meso_radius(800 * nm), m_sigma_lattice_length_a(0.5 * nm),
+      m_roughness(6.0 * nm), m_surface_filling_ratio(0.25), m_phi_start(0.0 * deg),
+      m_phi_stop(360.0 * deg), m_phi_rotation_steps(5), m_tilt_start(0.0 * deg),
+      m_tilt_stop(1.0 * deg), m_tilt_steps(1)
 {
 }
 
@@ -54,14 +53,12 @@ MultiLayer* MesoCrystalPerformanceBuilder::buildSample() const
     double surface_density = m_surface_filling_ratio / M_PI / m_meso_radius / m_meso_radius;
     complex_t n_particle(1.0 - 2.84e-5, 4.7e-7);
     auto avg_n_squared_meso = 0.7886 * n_particle * n_particle + 0.2114;
-    auto n_avg
-        = std::sqrt(m_surface_filling_ratio * avg_n_squared_meso + 1.0 - m_surface_filling_ratio);
+    auto n_avg =
+        std::sqrt(m_surface_filling_ratio * avg_n_squared_meso + 1.0 - m_surface_filling_ratio);
     auto n_particle_adapted = std::sqrt(n_avg * n_avg + n_particle * n_particle - 1.0);
     auto particle_material = HomogeneousMaterial("nanoparticle", n_particle_adapted);
 
-    FormFactorCylinder ff_cyl(m_meso_radius, m_meso_height);
-    FormFactorDecoratorDebyeWaller ff_meso(ff_cyl, m_sigma_meso_height * m_sigma_meso_height / 2.0,
-                                           m_sigma_meso_radius * m_sigma_meso_radius / 2.0);
+    FormFactorCylinder ff_meso(m_meso_radius, m_meso_height);
 
     auto multi_layer = new MultiLayer;
 
@@ -113,8 +110,8 @@ MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& 
     auto bas_b = lattice.getBasisVectorB();
     auto bas_c = lattice.getBasisVectorC();
 
-    double scale_param = std::sqrt(
-        std::log(std::pow(m_sigma_nanoparticle_radius / m_nanoparticle_radius, 2) + 1.0));
+    double scale_param =
+        std::sqrt(std::log(std::pow(m_sigma_nanoparticle_radius / m_nanoparticle_radius, 2) + 1.0));
     Particle particle(material,
                       FormFactorSphereLogNormalRadius(m_nanoparticle_radius, scale_param, 10));
 
@@ -125,8 +122,8 @@ MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& 
     ParticleComposition basis;
     basis.addParticles(particle, pos_vector);
     Crystal npc(basis, lattice);
-    double dw_factor = m_sigma_lattice_length_a * m_sigma_lattice_length_a / 6.0;
-    npc.setDWFactor(dw_factor);
+    double position_variance = m_sigma_lattice_length_a * m_sigma_lattice_length_a / 3.0;
+    npc.setPositionVariance(position_variance);
 
     return std::make_unique<MesoCrystal>(npc, form_factor);
 }
@@ -140,4 +137,4 @@ Lattice createLattice(double a, double c)
     result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return result;
 }
-}
+} // namespace

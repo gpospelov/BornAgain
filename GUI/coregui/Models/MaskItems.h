@@ -27,7 +27,6 @@ public:
     MaskContainerItem();
 };
 
-
 //! A base class for all mask items
 
 class BA_CORE_API_ MaskItem : public SessionItem
@@ -55,7 +54,6 @@ class BA_CORE_API_ RegionOfInterestItem : public RectangleItem
 public:
     RegionOfInterestItem();
 };
-
 
 class BA_CORE_API_ PolygonPointItem : public SessionItem
 {

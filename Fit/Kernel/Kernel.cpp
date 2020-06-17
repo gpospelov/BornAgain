@@ -22,7 +22,7 @@ namespace
 {
 const std::string default_minimizer = "Minuit2";
 const std::string default_algorithm = "Migrad";
-}
+} // namespace
 
 Kernel::Kernel()
 {

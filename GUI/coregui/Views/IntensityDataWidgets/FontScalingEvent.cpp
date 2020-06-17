@@ -14,14 +14,15 @@
 
 #include "FontScalingEvent.h"
 #include "ColorMap.h"
-#include "qcustomplot.h"
 #include "ScientificPlot.h"
+#include "qcustomplot.h"
 #include <QResizeEvent>
 
-namespace {
+namespace
+{
 const QString tick_font = "tick-font-key";
 const int widget_size_to_switch_font = 500;
-}
+} // namespace
 
 FontScalingEvent::FontScalingEvent(ScientificPlot* plot, QWidget* parent)
     : QObject(parent), m_plot(plot)

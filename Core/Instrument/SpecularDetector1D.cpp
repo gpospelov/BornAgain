@@ -27,18 +27,14 @@ SpecularDetector1D::SpecularDetector1D(const SpecularDetector1D& detector) : IDe
 
 SpecularDetector1D::~SpecularDetector1D() = default;
 
-SpecularDetector1D* SpecularDetector1D::clone() const {
+SpecularDetector1D* SpecularDetector1D::clone() const
+{
     return new SpecularDetector1D(*this);
 }
 
-AxesUnits SpecularDetector1D::defaultAxesUnits() const {
-    return AxesUnits::RADIANS;
-}
-
-std::vector<DetectorElement> SpecularDetector1D::createDetectorElements(const Beam&)
+AxesUnits SpecularDetector1D::defaultAxesUnits() const
 {
-    throw std::runtime_error(
-        "Error in SpecularDetector1D::createDetectorElements: not implemented.");
+    return AxesUnits::RADIANS;
 }
 
 std::string SpecularDetector1D::axisName(size_t index) const

@@ -15,91 +15,75 @@
 #include "SimulationFactory.h"
 #include "DepthProbeSimulation.h"
 #include "GISASSimulation.h"
-#include "SpecularSimulation.h"
-#include "RealParameter.h"
-#include "StandardSimulations.h"
 #include "OffSpecSimulation.h"
+#include "RealParameter.h"
+#include "SpecularSimulation.h"
+#include "StandardSimulations.h"
 
 SimulationFactory::SimulationFactory()
 {
-    registerItem("BasicGISAS",
-                 StandardSimulations::BasicGISAS,
+    registerItem("BasicGISAS", StandardSimulations::BasicGISAS,
                  "Basic GISAS simulation with the detector phi[0,2], theta[0,2]");
 
-    registerItem("BasicGISAS00",
-                 StandardSimulations::BasicGISAS00,
+    registerItem("BasicGISAS00", StandardSimulations::BasicGISAS00,
                  "Basic GISAS for polarization studies");
 
-    registerItem("BasicPolarizedGISAS",
-                 StandardSimulations::BasicPolarizedGISAS,
+    registerItem("BasicPolarizedGISAS", StandardSimulations::BasicPolarizedGISAS,
                  "Basic GISAS for spin flip channel");
 
-    registerItem("MiniGISAS",
-                 StandardSimulations::MiniGISAS,
+    registerItem("MiniGISAS", StandardSimulations::MiniGISAS,
                  "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2]");
 
-    registerItem("MiniGISAS_v2",
-                 StandardSimulations::MiniGISAS_v2,
+    registerItem("MiniGISAS_v2", StandardSimulations::MiniGISAS_v2,
                  "GISAS simulation with small 25x25 detector and phi[-1,1], theta[0,]");
 
-    registerItem("MiniGISASBeamDivergence",
-                 StandardSimulations::MiniGISASBeamDivergence,
+    registerItem("MiniGISASBeamDivergence", StandardSimulations::MiniGISASBeamDivergence,
                  "GISAS simulation with small detector and beam divergence");
 
-    registerItem("MiniGISASDetectorResolution",
-                 StandardSimulations::MiniGISASDetectorResolution,
+    registerItem("MiniGISASDetectorResolution", StandardSimulations::MiniGISASDetectorResolution,
                  "GISAS simulation with small detector and detector resolution");
 
-    registerItem("MiniGISASPolarizationPP",
-                 StandardSimulations::MiniGISASPolarizationPP,
-                 "GISAS simulation measuring plus-plus polarization");
-
-    registerItem("MiniGISASSpinFlipZ",
-                 StandardSimulations::MiniGISASSpinFlipZ,
-                 "GISAS simulation measuring spin flip channel");
-
-    registerItem("MiniGISASSpecular",
-                 StandardSimulations::MiniGISASSpecularPeak,
+    registerItem("MiniGISASSpecular", StandardSimulations::MiniGISASSpecularPeak,
                  "GISAS simulation including specular peak");
 
-    registerItem("GISASWithMasks",
-                 StandardSimulations::GISASWithMasks,
+    registerItem("GISASWithMasks", StandardSimulations::GISASWithMasks,
                  "GISAS simulation with small detector and various masks");
 
-    registerItem("MaxiGISAS",
-                 StandardSimulations::MaxiGISAS,
+    registerItem("MaxiGISAS", StandardSimulations::MaxiGISAS,
                  "GISAS simulation with large detector to test performance");
 
-    registerItem("MaxiGISAS00",
-                 StandardSimulations::MaxiGISAS00,
+    registerItem("MaxiGISAS00", StandardSimulations::MaxiGISAS00,
                  "GISAS simulation with large detector to test performance");
 
-    registerItem("IsGISAXSSimulation1",
-                 StandardSimulations::IsGISAXSSimulation1,
+    registerItem("IsGISAXSSimulation1", StandardSimulations::IsGISAXSSimulation1,
                  "Typical IsGISAXS simulation with the detector theta[-1,1], phi[0,2]");
 
-    registerItem("IsGISAXSSimulation2",
-                 StandardSimulations::IsGISAXSSimulation2,
+    registerItem("IsGISAXSSimulation2", StandardSimulations::IsGISAXSSimulation2,
                  "Typical IsGISAXS simulation with the detector theta[0,1], phi[0,2]");
 
     // polarization
 
-    registerItem(
-        "polmagcylinders2", StandardSimulations::PolarizedDWBAMagCylinders2,
-        "Polarized DWBA with non-zero magnetic field");
+    registerItem("MiniGISASPolarizationPP", StandardSimulations::MiniGISASPolarizationPP,
+                 "GISAS simulation measuring plus-plus polarization");
+
+    registerItem("MiniGISASPolarizationPM", StandardSimulations::MiniGISASPolarizationPM,
+                 "GISAS simulation measuring spin flip (+-) channel");
+
+    registerItem("MiniGISASPolarizationMP", StandardSimulations::MiniGISASPolarizationMP,
+                 "GISAS simulation measuring spin flip (-+) channel");
+
+    registerItem("MiniGISASPolarizationMM", StandardSimulations::MiniGISASPolarizationMM,
+                 "GISAS simulation measuring minus-minus polarization");
 
     // rectangular detectors
 
-    registerItem("RectDetectorGeneric",
-                 StandardSimulations::RectDetectorGeneric,
+    registerItem("RectDetectorGeneric", StandardSimulations::RectDetectorGeneric,
                  "Rectangular detector with generic alignment");
 
-    registerItem("RectDetectorPerpToSample",
-                 StandardSimulations::RectDetectorPerpToSample,
+    registerItem("RectDetectorPerpToSample", StandardSimulations::RectDetectorPerpToSample,
                  "Rectangular detector with generic alignment");
 
-    registerItem("RectDetectorPerpToDirectBeam",
-                 StandardSimulations::RectDetectorPerpToDirectBeam,
+    registerItem("RectDetectorPerpToDirectBeam", StandardSimulations::RectDetectorPerpToDirectBeam,
                  "Rectangular detector with generic alignment");
 
     registerItem("RectDetectorPerpToReflectedBeam",
@@ -110,35 +94,29 @@ SimulationFactory::SimulationFactory()
                  StandardSimulations::RectDetectorPerpToReflectedBeamDpos,
                  "Rectangular detector with generic alignment");
 
-    registerItem("ExtraLongWavelengthGISAS",
-                 StandardSimulations::ExtraLongWavelengthGISAS,
+    registerItem("ExtraLongWavelengthGISAS", StandardSimulations::ExtraLongWavelengthGISAS,
                  "GISAS with rectangular detector and extra long wavelentgh");
 
     // Monte-Carlo
-    registerItem("MiniGISASMonteCarlo",
-                 StandardSimulations::MiniGISASMonteCarlo,
+    registerItem("MiniGISASMonteCarlo", StandardSimulations::MiniGISASMonteCarlo,
                  "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2], "
                  "in Monte-Carlo mode");
 
     // region of interest
 
-    registerItem("SphericalDetWithRoi",
-                 StandardSimulations::SphericalDetWithRoi,
+    registerItem("SphericalDetWithRoi", StandardSimulations::SphericalDetWithRoi,
                  "Spherical detector with ROI and mask");
-    registerItem("RectDetWithRoi",
-                 StandardSimulations::RectDetWithRoi,
+    registerItem("RectDetWithRoi", StandardSimulations::RectDetWithRoi,
                  "Rectangular detector with ROI and mask");
 
     // background
 
-    registerItem("ConstantBackground",
-                 StandardSimulations::ConstantBackgroundGISAS,
+    registerItem("ConstantBackground", StandardSimulations::ConstantBackgroundGISAS,
                  "Simulation with a constant background value");
 
     // specular simulations
 
-    registerItem("BasicSpecular",
-                 StandardSimulations::BasicSpecular,
+    registerItem("BasicSpecular", StandardSimulations::BasicSpecular,
                  "Basic specular simulation with [0, 5] deg incident angle range and "
                  "1.54 angstroms wavelength.");
 
@@ -166,14 +144,26 @@ SimulationFactory::SimulationFactory()
     registerItem("OffSpecMini", StandardSimulations::MiniOffSpec,
                  "Mini OffSpecular simulation for resonator experiment.");
 
+    // polarized specular
+
+    registerItem("BasicSpecularPP", StandardSimulations::BasicSpecularPP,
+                 "Basic specular simulation for magnetized samples, ++ channel");
+
+    registerItem("BasicSpecularMM", StandardSimulations::BasicSpecularMM,
+                 "Basic specular simulation for magnetized samples, -- channel");
+
+    registerItem("BasicQSpecularPP", StandardSimulations::BasicSpecularQPP,
+                 "Basic q-defined specular simulation for magnetized samples, ++ channel");
+
+    registerItem("BasicQSpecularMM", StandardSimulations::BasicSpecularQMM,
+                 "Basic q-defined specular simulation for magnetized samples, -- channel");
+
     // depth probe simulations
 
-    registerItem("BasicDepthProbe",
-                 StandardSimulations::BasicDepthProbe,
+    registerItem("BasicDepthProbe", StandardSimulations::BasicDepthProbe,
                  "Basic 20x20 depth probe simulation with [0, 1] deg angle and [-100, 100] z span");
 
-    registerItem("MiniGISASFit",
-                 StandardSimulations::MiniGISASFit,
+    registerItem("MiniGISASFit", StandardSimulations::MiniGISASFit,
                  "GISAS simulation with small 25x25 detector and phi[-2,2], theta[0,2]. "
                  "Beam intensity is set");
 }

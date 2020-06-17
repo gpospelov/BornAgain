@@ -16,7 +16,6 @@
 #define FORMFACTORFULLSPHEROID_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
 
 //! A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
 //! @ingroup hardParticle
@@ -26,8 +25,10 @@ class BA_CORE_API_ FormFactorFullSpheroid : public IFormFactorBorn
 public:
     FormFactorFullSpheroid(double radius, double height);
 
-    FormFactorFullSpheroid* clone() const override final {
-        return new FormFactorFullSpheroid(m_radius, m_height); }
+    FormFactorFullSpheroid* clone() const override final
+    {
+        return new FormFactorFullSpheroid(m_radius, m_height);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
@@ -44,15 +45,8 @@ protected:
     void onChange() override final;
 
 private:
-    complex_t Integrand(double Z) const;
-
     double m_radius;
     double m_height;
-    mutable cvector_t m_q;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorFullSpheroid>> mP_integrator;
-#endif
 };
 
 #endif // FORMFACTORFULLSPHEROID_H

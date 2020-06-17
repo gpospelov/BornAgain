@@ -13,13 +13,15 @@
 // ************************************************************************** //
 
 #include "GroupInfoCatalogue.h"
-#include "item_constants.h"
 #include "GUIHelpers.h"
+#include "item_constants.h"
 
 GroupInfoCatalogue::GroupInfoCatalogue()
 {
     GroupInfo info(Constants::FormFactorGroup);
     info.add(Constants::AnisoPyramidType, "Aniso Pyramid");
+    info.add(Constants::BarGaussType, "BarGauss");
+    info.add(Constants::BarLorentzType, "BarLorentz");
     info.add(Constants::BoxType, "Box");
     info.add(Constants::ConeType, "Cone");
     info.add(Constants::Cone6Type, "Cone6");
@@ -35,8 +37,12 @@ GroupInfoCatalogue::GroupInfoCatalogue()
     info.add(Constants::Prism3Type, "Prism3");
     info.add(Constants::Prism6Type, "Prism6");
     info.add(Constants::PyramidType, "Pyramid");
-    info.add(Constants::Ripple1Type, "Ripple1");
-    info.add(Constants::Ripple2Type, "Ripple2");
+    info.add(Constants::Ripple1BoxType, "Ripple1Box");
+    info.add(Constants::Ripple1GaussType, "Ripple1Gauss");
+    info.add(Constants::Ripple1LorentzType, "Ripple1Lorentz");
+    info.add(Constants::Ripple2BoxType, "Ripple2Box");
+    info.add(Constants::Ripple2GaussType, "Ripple2Gauss");
+    info.add(Constants::Ripple2LorentzType, "Ripple2Lorentz");
     info.add(Constants::TetrahedronType, "Tetrahedron");
     info.add(Constants::TruncatedCubeType, "Truncated Cube");
     info.add(Constants::TruncatedSphereType, "Truncated Sphere");
@@ -199,8 +205,8 @@ GroupInfo GroupInfoCatalogue::groupInfo(const QString& groupType) const
         if (info.groupType() == groupType)
             return info;
 
-    throw GUIHelpers::Error("GroupInfoCatalogue::groupInfo() -> Error. No such group '"+
-                            groupType+"'");
+    throw GUIHelpers::Error("GroupInfoCatalogue::groupInfo() -> Error. No such group '" + groupType
+                            + "'");
 }
 
 bool GroupInfoCatalogue::containsGroup(const QString& groupType) const

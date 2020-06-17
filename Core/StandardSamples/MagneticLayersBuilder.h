@@ -32,6 +32,29 @@ private:
     double m_sphere_radius;
 };
 
+//! Builds sample: ambient and one magnetized layer on a non-magnetized substrate.
+//! @ingroup standard_samples
+
+class BA_CORE_API_ SimpleMagneticLayerBuilder : public IMultiLayerBuilder
+{
+public:
+    SimpleMagneticLayerBuilder();
+    MultiLayer* buildSample() const;
+};
+
+//! Builds sample: magnetic spheres in a magnetized layer on a non-magnetized substrate.
+//! @ingroup standard_samples
+
+class BA_CORE_API_ MagneticLayerBuilder : public IMultiLayerBuilder
+{
+public:
+    MagneticLayerBuilder();
+    MultiLayer* buildSample() const;
+
+private:
+    double m_sphere_radius;
+};
+
 //! Builds sample: rotated magnetic spheres in substrate layer with a unit magnetic field.
 //! @ingroup standard_samples
 

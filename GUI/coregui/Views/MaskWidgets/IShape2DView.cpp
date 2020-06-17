@@ -22,9 +22,7 @@
 #include <QPainter>
 
 IShape2DView::IShape2DView()
-    : m_item(nullptr)
-    , m_adaptor(nullptr)
-    , m_block_on_property_change(false)
+    : m_item(nullptr), m_adaptor(nullptr), m_block_on_property_change(false)
 {
     connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
@@ -58,7 +56,6 @@ void IShape2DView::setParameterizedItem(SessionItem* item)
             [this](const QString& name) { onItemPropertyChange(name); }, this);
 
         m_item->mapper()->setOnItemDestroy([this](SessionItem*) { m_item = 0; }, this);
-
     }
 }
 

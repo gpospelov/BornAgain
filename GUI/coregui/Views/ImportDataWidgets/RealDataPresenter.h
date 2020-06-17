@@ -33,7 +33,6 @@ public:
 
 protected:
     QStringList activePresentationList(SessionItem* item);
-
 };
 
-#endif  // REALDATAPRESENTER_H
+#endif // REALDATAPRESENTER_H

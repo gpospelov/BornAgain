@@ -89,16 +89,18 @@ def create_simulation(arg_dict, bin_start, bin_end):
     """
     Creates and returns specular simulation
     """
-    simulation = ba.SpecularSimulation()
-    scan = ba.AngularSpecScan(1.54 * ba.angstrom,
-                              get_real_data_axis(bin_start, bin_end))
+    wavelength = 1.54 * ba.angstrom
+    alpha_distr = ba.RangedDistributionGaussian(30, 3)
     footprint = ba.FootprintFactorGaussian(arg_dict["footprint_factor"])
+
+    scan = ba.AngularSpecScan(wavelength,
+                              get_real_data_axis(bin_start, bin_end))
+    scan.setAbsoluteAngularResolution(alpha_distr, arg_dict["divergence"])
     scan.setFootprintFactor(footprint)
+
+    simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
     simulation.setBeamIntensity(arg_dict["intensity"])
-    alpha_distr = ba.DistributionGaussian(0.0, arg_dict["divergence"])
-    simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
-                                        30, 3)
     return simulation
 
 
@@ -177,7 +179,7 @@ def objective_primary(args):
     arg_dict = create_par_dict(*args)
 
     sim_result = run_simulation(arg_dict, bin_start, bin_end)
-    sim_data = sim_result.data().getArray()
+    sim_data = sim_result.array()
     return chi_2(get_real_data_values(bin_start, bin_end),
                  sim_data, get_weights(bin_start, bin_end))
 
@@ -192,7 +194,7 @@ def objective_fine(args, intensity, footprint_factor, divergence):
     arg_dict = create_par_dict(intensity, footprint_factor, divergence, *args)
 
     sim_result = run_simulation(arg_dict, bin_start, bin_end)
-    sim_data = sim_result.data().getArray()
+    sim_data = sim_result.array()
     return chi_2(get_real_data_values(bin_start, bin_end),
                  sim_data, get_weights(bin_start, bin_end))
 
@@ -243,13 +245,13 @@ def plot_result(sim_result, ref_result, bin_start=0, bin_end=-1):
     """
     Plots the graphs of obtained simulation data
     """
-    sim_data = sim_result.data()
-    ref_data = ref_result.data()
+    sim_data = sim_result.array()
+    ref_data = ref_result.array()
 
     plt.semilogy(get_real_data_axis(bin_start, bin_end) * 180 / np.pi,
                  get_real_data_values(bin_start, bin_end),
-                 sim_data.getAxis(0).getBinCenters(), sim_data.getArray(),
-                 ref_data.getAxis(0).getBinCenters(), ref_data.getArray())
+                 sim_result.axis(), sim_data,
+                 ref_result.axis(), ref_data)
 
     xlabel = ba.get_axes_labels(sim_result, ba.AxesUnits.DEFAULT)[0]
     ylabel = "Intensity"

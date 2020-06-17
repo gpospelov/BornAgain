@@ -17,30 +17,29 @@
 #include "Exceptions.h"
 #include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
+#include "ParameterPool.h"
 #include "Particle.h"
 #include "ParticleDistribution.h"
 #include "RealParameter.h"
-#include "ParameterPool.h"
 
-namespace {
+namespace
+{
 
 //! Returns true if interference function is able to calculate particle density automatically,
 //! which is the case for 2D functions.
 bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
 {
-    if(iff.getName() == BornAgain::InterferenceFunction2DLatticeType ||
-       iff.getName() == BornAgain::InterferenceFunction2DParaCrystalType ||
-       iff.getName() == BornAgain::InterferenceFunction2DSuperLattice ||
-       iff.getName() == BornAgain::InterferenceFunctionFinite2DLatticeType ||
-       iff.getName() == BornAgain::InterferenceFunctionHardDiskType)
+    if (iff.getName() == BornAgain::InterferenceFunction2DLatticeType
+        || iff.getName() == BornAgain::InterferenceFunction2DParaCrystalType
+        || iff.getName() == BornAgain::InterferenceFunction2DSuperLattice
+        || iff.getName() == BornAgain::InterferenceFunctionFinite2DLatticeType
+        || iff.getName() == BornAgain::InterferenceFunctionHardDiskType)
         return true;
     return false;
 }
-}
+} // namespace
 
-ParticleLayout::ParticleLayout()
-    : mP_interference_function {nullptr}
-    , m_total_particle_density {0.01}
+ParticleLayout::ParticleLayout() : mP_interference_function{nullptr}, m_total_particle_density{0.01}
 {
     setName(BornAgain::ParticleLayoutType);
     registerParticleDensity();
@@ -50,8 +49,7 @@ ParticleLayout::ParticleLayout()
 ParticleLayout::~ParticleLayout() {} // needs member class definitions => don't move to .h
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
-    : mP_interference_function {nullptr}
-    , m_total_particle_density {0.01}
+    : mP_interference_function{nullptr}, m_total_particle_density{0.01}
 {
     setName(BornAgain::ParticleLayoutType);
     addParticle(particle, abundance);
@@ -83,12 +81,12 @@ ParticleLayout* ParticleLayout::clone() const
 void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance,
                                  const kvector_t position, const IRotation& rotation)
 {
-    std::unique_ptr<IAbstractParticle> P_particle_clone { particle.clone() };
-    if (abundance>=0.0)
+    std::unique_ptr<IAbstractParticle> P_particle_clone{particle.clone()};
+    if (abundance >= 0.0)
         P_particle_clone->setAbundance(abundance);
     if (!rotation.isIdentity())
         P_particle_clone->rotate(rotation);
-    if(position != kvector_t(0,0,0))
+    if (position != kvector_t(0, 0, 0))
         P_particle_clone->translate(position);
     addAndRegisterAbstractParticle(P_particle_clone.release());
 }
@@ -98,10 +96,10 @@ void ParticleLayout::addParticle(const IAbstractParticle& particle, double abund
 SafePointerVector<IParticle> ParticleLayout::particles() const
 {
     SafePointerVector<IParticle> particle_vector;
-    for (auto particle: m_particles) {
+    for (auto particle : m_particles) {
         if (const auto* p_part_distr = dynamic_cast<const ParticleDistribution*>(particle)) {
             SafePointerVector<IParticle> generated_particles = p_part_distr->generateParticles();
-            for (const IParticle* particle: generated_particles)
+            for (const IParticle* particle : generated_particles)
                 particle_vector.push_back(particle->clone());
         } else if (const auto* p_iparticle = dynamic_cast<const IParticle*>(particle)) {
             particle_vector.push_back(p_iparticle->clone());
@@ -110,7 +108,7 @@ SafePointerVector<IParticle> ParticleLayout::particles() const
     return particle_vector;
 }
 
-const IInterferenceFunction *ParticleLayout::interferenceFunction() const
+const IInterferenceFunction* ParticleLayout::interferenceFunction() const
 {
     return mP_interference_function.get();
 }
@@ -147,7 +145,7 @@ void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
 std::vector<const INode*> ParticleLayout::getChildren() const
 {
     std::vector<const INode*> result;
-    for(auto particle : m_particles)
+    for (auto particle : m_particles)
         result.push_back(particle);
     result << mP_interference_function;
     return result;
@@ -166,7 +164,7 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
     mP_interference_function.reset(child);
     registerChild(child);
 
-    if(particleDensityIsProvidedByInterference(*mP_interference_function))
+    if (particleDensityIsProvidedByInterference(*mP_interference_function))
         registerParticleDensity(false);
     else
         registerParticleDensity(true);
@@ -174,8 +172,8 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
 
 void ParticleLayout::registerParticleDensity(bool make_registered)
 {
-    if(make_registered) {
-        if(!parameter(BornAgain::TotalParticleDensity))
+    if (make_registered) {
+        if (!parameter(BornAgain::TotalParticleDensity))
             registerParameter(BornAgain::TotalParticleDensity, &m_total_particle_density);
     } else {
         removeParameter(BornAgain::TotalParticleDensity);

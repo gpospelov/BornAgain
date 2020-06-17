@@ -13,27 +13,23 @@
 // ************************************************************************** //
 
 #include "ParameterUtils.h"
-#include "ParameterDistribution.h"
 #include "BornAgainNamespace.h"
-#include "ParticleDistribution.h"
+#include "ParameterDistribution.h"
 #include "ParameterPool.h"
 #include "Particle.h"
+#include "ParticleDistribution.h"
 #include "RealParameter.h"
 
-namespace {
+namespace
+{
 //! Returns list of all angle related parameters used in Core library.
-std::vector<std::string> angleRelatedParameters() {
-    std::vector<std::string> result {
-        BornAgain::Inclination,
-        BornAgain::Azimuth,
-        BornAgain::Alpha,
-        BornAgain::Beta,
-        BornAgain::Gamma,
-        BornAgain::Angle
-    };
+std::vector<std::string> angleRelatedParameters()
+{
+    std::vector<std::string> result{BornAgain::Inclination, BornAgain::Azimuth, BornAgain::Alpha,
+                                    BornAgain::Beta,        BornAgain::Gamma,   BornAgain::Angle};
     return result;
 }
-}
+} // namespace
 
 bool ParameterUtils::isAngleRelated(const std::string& par_name)
 {
@@ -55,6 +51,6 @@ std::string ParameterUtils::mainParUnits(const ParticleDistribution& distr)
 std::string ParameterUtils::poolParameterUnits(const IParameterized& node,
                                                const std::string& parName)
 {
-    std::unique_ptr<ParameterPool> pool {node.createParameterTree()};
+    std::unique_ptr<ParameterPool> pool{node.createParameterTree()};
     return pool->getUniqueMatch(parName)->unit();
 }

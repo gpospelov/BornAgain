@@ -24,8 +24,8 @@ class BA_CORE_API_ RealDataModel : public SessionModel
     Q_OBJECT
 
 public:
-    explicit RealDataModel(QObject *parent = 0);
-//    Qt::ItemFlags flags(const QModelIndex &index) const;
+    explicit RealDataModel(QObject* parent = 0);
+    //    Qt::ItemFlags flags(const QModelIndex &index) const;
 
     QVector<SessionItem*> nonXMLData() const override;
 };

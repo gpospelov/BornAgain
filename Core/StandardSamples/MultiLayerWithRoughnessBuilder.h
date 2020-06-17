@@ -26,7 +26,7 @@ class BA_CORE_API_ MultiLayerWithRoughnessBuilder : public IMultiLayerBuilder
 {
 public:
     MultiLayerWithRoughnessBuilder();
-    MultiLayer* buildSample() const;
+    virtual MultiLayer* buildSample() const;
 
 private:
     double m_thicknessA;

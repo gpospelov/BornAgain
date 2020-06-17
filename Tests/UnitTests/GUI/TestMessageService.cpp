@@ -1,12 +1,13 @@
-#include "google_test.h"
-#include "MessageService.h"
-#include "GUIMessage.h"
-#include "item_constants.h"
 #include "GUIHelpers.h"
+#include "GUIMessage.h"
+#include "MessageService.h"
+#include "google_test.h"
+#include "item_constants.h"
 #include <QObject>
 #include <QString>
 
-namespace {
+namespace
+{
 const QString senderName1("senderName1");
 const QString senderName2("senderName2");
 
@@ -18,16 +19,17 @@ const QString description2("description2");
 
 const QString messageType3("messageType3");
 const QString description3("description3");
-}
+} // namespace
 
 class TestMessageService : public ::testing::Test
 {
 public:
     ~TestMessageService();
 
-    class Sender : public QObject {
+    class Sender : public QObject
+    {
     public:
-        Sender(const QString& name) { setObjectName(name);}
+        Sender(const QString& name) { setObjectName(name); }
         ~Sender();
     };
 };

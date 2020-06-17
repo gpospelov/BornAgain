@@ -15,8 +15,8 @@
 #ifndef FITOBJECTIVE_H
 #define FITOBJECTIVE_H
 
-#include "FitTypes.h"
 #include "ArrayUtils.h"
+#include "FitTypes.h"
 #include "IterationInfo.h"
 #include "MinimizerResult.h"
 #include "OutputData.h"
@@ -146,4 +146,4 @@ private:
     std::unique_ptr<FitStatus> m_fit_status;
 };
 
-#endif  // FITOBJECTIVE_H
+#endif // FITOBJECTIVE_H

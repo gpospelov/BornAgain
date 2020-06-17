@@ -41,6 +41,9 @@ public:
 
     const JobItem* currentJobItem() const;
 
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
+
 signals:
     void contextMenuRequest(const QPoint& point, const QModelIndex& index);
     void selectionChanged(JobItem*);

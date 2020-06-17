@@ -27,14 +27,16 @@ class BA_CORE_API_ FilterPropertyProxy : public QSortFilterProxyModel
     Q_OBJECT
 
 public:
-    FilterPropertyProxy(int columns, QObject *parent = 0) : QSortFilterProxyModel(parent)
-        , m_columns(columns) {}
-    int columnCount(const QModelIndex &parent) const;
+    FilterPropertyProxy(int columns, QObject* parent = 0)
+        : QSortFilterProxyModel(parent), m_columns(columns)
+    {
+    }
+    int columnCount(const QModelIndex& parent) const;
 
     static QModelIndex toSourceIndex(QModelIndex index);
 
 protected:
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+    bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const;
 
 private:
     int m_columns;

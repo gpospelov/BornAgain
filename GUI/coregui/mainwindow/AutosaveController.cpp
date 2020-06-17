@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "AutosaveController.h"
-#include "projectdocument.h"
-#include "UpdateTimer.h"
 #include "GUIHelpers.h"
 #include "ProjectUtils.h"
+#include "UpdateTimer.h"
+#include "projectdocument.h"
 #include <QDir>
 
 namespace

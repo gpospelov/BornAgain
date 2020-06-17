@@ -19,10 +19,10 @@
 
 //! Special test for simulation running in batch mode.
 
-class BatchSimulation : public IFunctionalTest {
+class BatchSimulation : public IFunctionalTest
+{
 protected:
     bool runTest();
 };
 
 #endif
-

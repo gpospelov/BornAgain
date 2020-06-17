@@ -20,9 +20,9 @@
 #include "MultiLayerItem.h"
 #include "PythonSyntaxHighlighter.h"
 #include "SampleModel.h"
+#include "SessionItemUtils.h"
 #include "UpdateTimer.h"
 #include "WarningSign.h"
-#include "SessionItemUtils.h"
 #include <QScrollBar>
 #include <QTextEdit>
 #include <QVBoxLayout>
@@ -33,10 +33,10 @@ const int accumulate_updates_during_msec = 20.;
 }
 
 PySampleWidget::PySampleWidget(QWidget* parent)
-    : QWidget(parent), m_textEdit(new QTextEdit)
-    , m_sampleModel(nullptr), m_instrumentModel(nullptr), m_highlighter(nullptr)
-    , m_updateTimer(new UpdateTimer(accumulate_updates_during_msec, this))
-    , m_warningSign(new WarningSign(m_textEdit))
+    : QWidget(parent), m_textEdit(new QTextEdit), m_sampleModel(nullptr),
+      m_instrumentModel(nullptr), m_highlighter(nullptr),
+      m_updateTimer(new UpdateTimer(accumulate_updates_during_msec, this)),
+      m_warningSign(new WarningSign(m_textEdit))
 {
     m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -104,32 +104,27 @@ void PySampleWidget::updateEditor()
 void PySampleWidget::setEditorConnected(bool isConnected)
 {
     if (isConnected) {
-        connect(m_sampleModel, &SampleModel::rowsInserted,
-                this, &PySampleWidget::onModifiedRow, Qt::UniqueConnection);
-        connect(m_sampleModel, &SampleModel::rowsRemoved,
-                this, &PySampleWidget::onModifiedRow, Qt::UniqueConnection);
-        connect(m_sampleModel, &SampleModel::dataChanged,
-                this, &PySampleWidget::onDataChanged, Qt::UniqueConnection);
-        connect(m_sampleModel, &SampleModel::modelReset, this,
-                &PySampleWidget::updateEditor, Qt::UniqueConnection);
+        connect(m_sampleModel, &SampleModel::rowsInserted, this, &PySampleWidget::onModifiedRow,
+                Qt::UniqueConnection);
+        connect(m_sampleModel, &SampleModel::rowsRemoved, this, &PySampleWidget::onModifiedRow,
+                Qt::UniqueConnection);
+        connect(m_sampleModel, &SampleModel::dataChanged, this, &PySampleWidget::onDataChanged,
+                Qt::UniqueConnection);
+        connect(m_sampleModel, &SampleModel::modelReset, this, &PySampleWidget::updateEditor,
+                Qt::UniqueConnection);
 
-        connect(m_updateTimer, &UpdateTimer::timeToUpdate,
-                this, &PySampleWidget::updateEditor, Qt::UniqueConnection);
+        connect(m_updateTimer, &UpdateTimer::timeToUpdate, this, &PySampleWidget::updateEditor,
+                Qt::UniqueConnection);
 
         m_updateTimer->scheduleUpdate();
 
     } else {
-        disconnect(m_sampleModel, &SampleModel::rowsInserted,
-                   this, &PySampleWidget::onModifiedRow);
-        disconnect(m_sampleModel, &SampleModel::rowsRemoved,
-                   this, &PySampleWidget::onModifiedRow);
-        disconnect(m_sampleModel, &SampleModel::dataChanged,
-                   this, &PySampleWidget::onDataChanged);
-        disconnect(m_sampleModel, &SampleModel::modelReset, this,
-                   &PySampleWidget::updateEditor);
+        disconnect(m_sampleModel, &SampleModel::rowsInserted, this, &PySampleWidget::onModifiedRow);
+        disconnect(m_sampleModel, &SampleModel::rowsRemoved, this, &PySampleWidget::onModifiedRow);
+        disconnect(m_sampleModel, &SampleModel::dataChanged, this, &PySampleWidget::onDataChanged);
+        disconnect(m_sampleModel, &SampleModel::modelReset, this, &PySampleWidget::updateEditor);
 
-        disconnect(m_updateTimer, &UpdateTimer::timeToUpdate,
-                   this, &PySampleWidget::updateEditor);
+        disconnect(m_updateTimer, &UpdateTimer::timeToUpdate, this, &PySampleWidget::updateEditor);
     }
 }
 
@@ -157,11 +152,11 @@ QString PySampleWidget::generateCodeSnippet()
                 result.append("\n");
             result.append(QString::fromStdString(ExportToPython::generateSampleCode(*multilayer)));
         } catch (const std::exception& ex) {
-            QString message
-                = QString("Generation of Python Script failed. Code is not complete.\n\n"
-                          "It can happen if sample requires further assembling or some of sample "
-                          "parameters are not valid. See details below.\n\n%1")
-                      .arg(QString::fromStdString(ex.what()));
+            QString message =
+                QString("Generation of Python Script failed. Code is not complete.\n\n"
+                        "It can happen if sample requires further assembling or some of sample "
+                        "parameters are not valid. See details below.\n\n%1")
+                    .arg(QString::fromStdString(ex.what()));
 
             m_warningSign->setWarningMessage(message);
         }

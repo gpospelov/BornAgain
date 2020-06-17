@@ -15,18 +15,15 @@
 #include "FormFactorCoreShell.h"
 #include "BornAgainNamespace.h"
 
-
 FormFactorCoreShell::FormFactorCoreShell(IFormFactor* core, IFormFactor* shell)
-    : mP_core(core)
-    , mP_shell(shell)
+    : mP_core(core), mP_shell(shell)
 {
     setName(BornAgain::FormFactorCoreShellType);
 }
 
-FormFactorCoreShell::~FormFactorCoreShell()
-{}
+FormFactorCoreShell::~FormFactorCoreShell() {}
 
-FormFactorCoreShell*FormFactorCoreShell::clone() const
+FormFactorCoreShell* FormFactorCoreShell::clone() const
 {
     return new FormFactorCoreShell(mP_core->clone(), mP_shell->clone());
 }

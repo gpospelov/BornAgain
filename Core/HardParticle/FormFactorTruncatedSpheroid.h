@@ -16,7 +16,7 @@
 #define FORMFACTORTRUNCATEDSPHEROID_H
 
 #include "IFormFactorBorn.h"
-#include "IntegratorComplex.h"
+#include "Integrator.h"
 
 //! A truncated spheroid.
 //! An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
@@ -26,10 +26,12 @@ class BA_CORE_API_ FormFactorTruncatedSpheroid : public IFormFactorBorn
 {
 public:
     FormFactorTruncatedSpheroid(double radius, double height, double height_flattening,
-                                double dh=0.0);
+                                double dh = 0.0);
 
-    FormFactorTruncatedSpheroid* clone() const override final {
-        return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening, m_dh); }
+    FormFactorTruncatedSpheroid* clone() const override final
+    {
+        return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening, m_dh);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getRadius() const { return m_radius; }
@@ -56,10 +58,7 @@ private:
     double m_height_flattening;
     double m_dh;
     mutable cvector_t m_q;
-
-#ifndef SWIG
-    std::unique_ptr<IntegratorComplex<FormFactorTruncatedSpheroid>> mP_integrator;
-#endif
+    mutable ComplexIntegrator m_integrator;
 };
 
 #endif // FORMFACTORTRUNCATEDSPHEROID_H

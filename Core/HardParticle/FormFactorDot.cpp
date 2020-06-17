@@ -17,20 +17,16 @@
 #include "Dot.h"
 #include "RealParameter.h"
 
-
-FormFactorDot::FormFactorDot()
+//! Constructor.
+//! @param rscat: radius of a sphere with same forward scattering power, in nanometers
+FormFactorDot::FormFactorDot(double radius) : m_radius(radius)
 {
     setName(BornAgain::FFDotType);
+    registerParameter(BornAgain::Radius, &m_radius).setUnit(BornAgain::UnitsNm).setNonnegative();
     onChange();
 }
 
-IFormFactor* FormFactorDot::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const
+complex_t FormFactorDot::evaluate_for_q(cvector_t) const
 {
-    throw std::runtime_error(getName() + "::sliceFormFactor error: "
-                             "this shape should never be sliced!");
-}
-
-void FormFactorDot::onChange()
-{
-    mP_shape.reset(new Dot());
+    return 4 * M_PI / 3 * pow(m_radius, 3);
 }

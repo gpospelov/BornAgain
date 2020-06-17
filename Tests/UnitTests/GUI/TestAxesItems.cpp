@@ -1,11 +1,11 @@
-#include "google_test.h"
 #include "AxesItems.h"
-#include "TransformFromDomain.h"
 #include "FixedBinAxis.h"
-#include "Units.h"
-#include "PropertyItem.h"
 #include "GUIHelpers.h"
+#include "PropertyItem.h"
+#include "TransformFromDomain.h"
+#include "Units.h"
 #include "VariableBinAxis.h"
+#include "google_test.h"
 
 class TestAxesItems : public ::testing::Test
 {
@@ -28,7 +28,7 @@ TEST_F(TestAxesItems, transformFromDomain)
     EXPECT_EQ(item.getItemValue(BasicAxisItem::P_TITLE), QString::fromStdString(axis0.getName()));
 
     // transform domain axis with limits given in radians
-    FixedBinAxis axis1("axis1", 42, -42.0*Units::deg, 42.0*Units::deg);
+    FixedBinAxis axis1("axis1", 42, -42.0 * Units::deg, 42.0 * Units::deg);
     const double scale = 1. / Units::deg;
     TransformFromDomain::setAxisItem(&item, axis1, scale);
     EXPECT_EQ(item.getItemValue(BasicAxisItem::P_NBINS), static_cast<int>(axis1.size()));

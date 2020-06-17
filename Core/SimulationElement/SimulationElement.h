@@ -16,9 +16,9 @@
 #define SIMULATIONELEMENT_H
 
 #include "Complex.h"
-#include "Vectors3D.h"
 #include "IPixel.h"
 #include "PolarizationHandler.h"
+#include "Vectors3D.h"
 #include <memory>
 
 class IPixel;
@@ -31,14 +31,14 @@ class BA_CORE_API_ SimulationElement
 public:
     SimulationElement(double wavelength, double alpha_i, double phi_i,
                       std::unique_ptr<IPixel> pixel);
-    SimulationElement(const SimulationElement &other);
-    SimulationElement &operator=(const SimulationElement &other);
+    SimulationElement(const SimulationElement& other);
+    SimulationElement& operator=(const SimulationElement& other);
 
     //! Construct SimulationElement from other element and restrict k_f to specific value in
     //! the original detector pixel
-    SimulationElement(const SimulationElement &other, double x, double y);
+    SimulationElement(const SimulationElement& other, double x, double y);
 
-    SimulationElement(SimulationElement &&other) noexcept;
+    SimulationElement(SimulationElement&& other) noexcept;
 
     ~SimulationElement();
 
@@ -55,10 +55,7 @@ public:
     }
 
     //! Returns assigned PolarizationHandler
-    const PolarizationHandler& polarizationHandler() const
-    {
-        return m_polarization;
-    }
+    const PolarizationHandler& polarizationHandler() const { return m_polarization; }
 
     double getWavelength() const { return m_wavelength; }
     double getAlphaI() const { return m_alpha_i; }
@@ -73,7 +70,6 @@ public:
     kvector_t getMeanQ() const;
     kvector_t getQ(double x, double y) const;
 
-
     double getIntegrationFactor(double x, double y) const;
 
     double getSolidAngle() const;
@@ -82,19 +78,21 @@ public:
     double getPhi(double x, double y) const;
 
     //! Set specularity indication on/off.
-    void setSpecular(bool is_specular) {m_is_specular = is_specular;}
+    void setSpecular(bool is_specular) { m_is_specular = is_specular; }
 
     //! Tells if simulation element corresponds to a specular peak
-    bool isSpecular() const {return m_is_specular;}
+    bool isSpecular() const { return m_is_specular; }
 
 private:
-    void swapContent(SimulationElement &other);
+    void swapContent(SimulationElement& other);
 
     kvector_t getKf(double x, double y) const;
 
     PolarizationHandler m_polarization;
-    double m_wavelength, m_alpha_i, m_phi_i;  //!< wavelength and angles of beam
-    double m_intensity;                       //!< simulated intensity for detector cell
+    double m_wavelength, m_alpha_i, m_phi_i; //!< wavelength and angles of beam
+    kvector_t m_k_i;                         //!< cached value of k_i
+    kvector_t m_mean_kf;                     //!< cached value of mean_kf
+    double m_intensity;                      //!< simulated intensity for detector cell
     std::unique_ptr<IPixel> mP_pixel;
     bool m_is_specular;
 };

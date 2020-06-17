@@ -26,22 +26,19 @@
 
 namespace
 {
-    int imageWidth = 16;
-    int imageheigth = 16;
-    int offset_of_tooltip_position = 20;
-    int offset_of_icon_position = 24;
-}
+int imageWidth = 16;
+int imageheigth = 16;
+int offset_of_tooltip_position = 20;
+int offset_of_icon_position = 24;
+} // namespace
 
-GroupInfoBox::GroupInfoBox( QWidget *parent )
-    : QGroupBox( parent )
-    , m_xImage(0)
-    , m_yImage(0)
+GroupInfoBox::GroupInfoBox(QWidget* parent) : QGroupBox(parent), m_xImage(0), m_yImage(0)
 {
     init_box();
 }
 
-GroupInfoBox::GroupInfoBox( const QString &title, QWidget* parent )
-    : QGroupBox( title, parent ), m_title(title)
+GroupInfoBox::GroupInfoBox(const QString& title, QWidget* parent)
+    : QGroupBox(title, parent), m_title(title)
 {
     init_box();
 }
@@ -51,13 +48,13 @@ void GroupInfoBox::setButtonToolTip(const QString& text)
     m_toolTipText = text;
 }
 
-void GroupInfoBox::mousePressEvent( QMouseEvent* e )
+void GroupInfoBox::mousePressEvent(QMouseEvent* e)
 {
-    if( e->button() == Qt::LeftButton ) {
+    if (e->button() == Qt::LeftButton) {
         QStyleOptionGroupBox option;
-        initStyleOption( &option );
-        QRect buttonArea( m_xImage, m_yImage, imageWidth , imageheigth );
-        if( buttonArea.contains( e->pos() ) )
+        initStyleOption(&option);
+        QRect buttonArea(m_xImage, m_yImage, imageWidth, imageheigth);
+        if (buttonArea.contains(e->pos()))
             emit clicked(true);
     }
 }
@@ -91,7 +88,7 @@ void GroupInfoBox::paintEvent(QPaintEvent*)
 
     // draw groupbox
     int shift(1);
-    if(GUI_OS_Utils::HostOsInfo::isLinuxHost())
+    if (GUI_OS_Utils::HostOsInfo::isLinuxHost())
         shift = 3;
 
     paint.drawItemPixmap(option.rect.adjusted(0, shift, 0, 0), Qt::AlignTop | Qt::AlignRight,

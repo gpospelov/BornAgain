@@ -13,32 +13,28 @@
 // ************************************************************************** //
 
 #include "FootprintItems.h"
+#include "BornAgainNamespace.h"
 #include "FootprintFactorGaussian.h"
 #include "FootprintFactorSquare.h"
-#include "BornAgainNamespace.h"
 #include "item_constants.h"
 
-namespace {
+namespace
+{
 const QString footprint_value_name = "Width ratio";
-const QString footprint_value_tooltip =
-        "The ratio of beam and sample full widths";
-}
+const QString footprint_value_tooltip = "The ratio of beam and sample full widths";
+} // namespace
 
 // Base class
 /* ------------------------------------------------ */
 
-FootprintItem::FootprintItem(const QString& model_type)
-    : SessionItem(model_type)
-{}
+FootprintItem::FootprintItem(const QString& model_type) : SessionItem(model_type) {}
 
 FootprintItem::~FootprintItem() = default;
 
 // Footprint none
 /* ------------------------------------------------ */
 
-FootprintNoneItem::FootprintNoneItem()
-    : FootprintItem(Constants::FootprintNoneType)
-{}
+FootprintNoneItem::FootprintNoneItem() : FootprintItem(Constants::FootprintNoneType) {}
 
 FootprintNoneItem::~FootprintNoneItem() = default;
 
@@ -52,11 +48,11 @@ std::unique_ptr<IFootprintFactor> FootprintNoneItem::createFootprint() const
 
 const QString FootprintGaussianItem::P_VALUE = footprint_value_name;
 
-FootprintGaussianItem::FootprintGaussianItem()
-    : FootprintItem(Constants::FootprintGaussianType)
+FootprintGaussianItem::FootprintGaussianItem() : FootprintItem(Constants::FootprintGaussianType)
 {
-    addProperty(P_VALUE, 0.0)->setLimits(RealLimits::nonnegative())
-            .setToolTip(footprint_value_tooltip);
+    addProperty(P_VALUE, 0.0)
+        ->setLimits(RealLimits::nonnegative())
+        .setToolTip(footprint_value_tooltip);
 }
 
 FootprintGaussianItem::~FootprintGaussianItem() = default;
@@ -71,11 +67,11 @@ std::unique_ptr<IFootprintFactor> FootprintGaussianItem::createFootprint() const
 
 const QString FootprintSquareItem::P_VALUE = footprint_value_name;
 
-FootprintSquareItem::FootprintSquareItem()
-    : FootprintItem(Constants::FootprintSquareType)
+FootprintSquareItem::FootprintSquareItem() : FootprintItem(Constants::FootprintSquareType)
 {
-    addProperty(P_VALUE, 0.0)->setLimits(RealLimits::nonnegative())
-            .setToolTip(footprint_value_tooltip);
+    addProperty(P_VALUE, 0.0)
+        ->setLimits(RealLimits::nonnegative())
+        .setToolTip(footprint_value_tooltip);
 }
 
 FootprintSquareItem::~FootprintSquareItem() = default;

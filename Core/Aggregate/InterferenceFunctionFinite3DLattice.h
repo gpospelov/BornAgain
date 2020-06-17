@@ -41,13 +41,14 @@ public:
     bool supportsMultilayer() const override final { return false; }
 
     std::vector<const INode*> getChildren() const override final;
+
 private:
     double iff_without_dw(const kvector_t q) const override final;
     InterferenceFunctionFinite3DLattice(const InterferenceFunctionFinite3DLattice& other);
     void setLattice(const Lattice& lattice);
 
     std::unique_ptr<Lattice> mP_lattice;
-    unsigned m_N_1, m_N_2, m_N_3;  //!< Size of the finite lattice in lattice units
+    unsigned m_N_1, m_N_2, m_N_3; //!< Size of the finite lattice in lattice units
 };
 
 #endif // INTERFERENCEFUNCTIONFINITE3DLATTICE_H

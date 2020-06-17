@@ -14,14 +14,22 @@
 
 #include "StyleUtils.h"
 #include "DesignerHelper.h"
-#include "hostosinfo.h"
 #include "detailswidget.h"
+#include "hostosinfo.h"
+#include <QApplication>
+#include <QBoxLayout>
 #include <QDialog>
 #include <QTreeView>
-#include <QBoxLayout>
 
-namespace {
+namespace
+{
 Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expanded);
+QSize FindSizeOfLetterM(const QWidget* widget);
+
+QSize DefaultSizeOfLetterM() {
+    QWidget widget;
+    return FindSizeOfLetterM(&widget);
+}
 }
 
 void StyleUtils::setPropertyStyle(QTreeView* tree)
@@ -53,25 +61,6 @@ QString StyleUtils::propertyTreeStyle()
 
     // background of selected rows restored
     result += "QTreeView::item:selected{background:#3daee9;}";
-
-    return result;
-}
-
-QString StyleUtils::realtimeTreeStyle()
-{
-    QString result
-        = "QTreeView::branch {background: "
-          "palette(base);}QTreeView::branch:has-siblings:!adjoins-item "
-          "{border-image: url(:/images/treeview-vline.png) 0;}QTreeView::branch:has-siblings:"
-          "adjoins-item {border-image: url(:/images/treeview-branch-more.png) 0;}QTreeView::branch:"
-          "!has-children:!has-siblings:adjoins-item {border-image: "
-          "url(:/images/treeview-branch-end.png) "
-          "0;}QTreeView::branch:has-children:!has-siblings:closed"
-          ",QTreeView::branch:closed:has-children:has-siblings {border-image: none;image: "
-          "url(:/images/"
-          "treeview-branch-closed.png);}QTreeView::branch:open:has-children:!has-siblings,"
-          "QTreeView::branch:open:has-children:has-siblings  {border-image: none;image: "
-          "url(:/images/treeview-branch-open.png);}";
 
     return result;
 }
@@ -117,8 +106,24 @@ QWidget* StyleUtils::createDetailsWidget(QLayout* layout, const QString& name, b
     return createDetailsWidget(placeholder, name, expanded);
 }
 
+QSize StyleUtils::SizeOfLetterM(const QWidget* widget)
+{
+    static QSize default_size = DefaultSizeOfLetterM();
+    return widget ? FindSizeOfLetterM(widget) : default_size;
+}
 
-namespace {
+int StyleUtils::SystemPointSize()
+{
+    return QApplication::font().pointSize();
+}
+
+int StyleUtils::PropertyPanelWidth()
+{
+    return SizeOfLetterM().width()*16;
+}
+
+namespace
+{
 
 Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expanded)
 {
@@ -130,4 +135,19 @@ Utils::DetailsWidget* createEmptyDetailsWidget(const QString& name, bool expande
     return result;
 }
 
+//! Calculates size of letter `M` for current system font settings.
+
+QSize FindSizeOfLetterM(const QWidget* widget)
+{
+    QFontMetrics fontMetric(widget->font());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+    auto em = fontMetric.horizontalAdvance('M');
+#else
+    auto em = fontMetric.width('M');
+#endif
+    auto fontAscent = fontMetric.ascent();
+
+    return QSize(em, fontAscent);
 }
+
+} // namespace

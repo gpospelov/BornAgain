@@ -1,7 +1,7 @@
-#include "google_test.h"
 #include "Distributions.h"
 #include "ParameterSample.h"
 #include "RangedDistributions.h"
+#include "google_test.h"
 
 class RangedDistributionTest : public ::testing::Test
 {
@@ -28,8 +28,7 @@ void RangedDistributionTest::checkDefaults(const RangedDistribution& distr)
     EXPECT_EQ(distr.limits(), RealLimits::limitless());
 }
 
-template<class T>
-void RangedDistributionTest::checkThrows()
+template <class T> void RangedDistributionTest::checkThrows()
 {
     EXPECT_THROW(T(0, 1.0, 0.0, 1.0), std::runtime_error);
     EXPECT_THROW(T(1, 1.0, 1.0, -1.0), std::runtime_error);
@@ -42,8 +41,7 @@ void RangedDistributionTest::checkThrows()
     EXPECT_NO_THROW(T(2, 0.1));
 }
 
-template<class T>
-void RangedDistributionTest::checkStandardSampling()
+template <class T> void RangedDistributionTest::checkStandardSampling()
 {
     T distr(3, 1.0);
 
@@ -75,8 +73,7 @@ void RangedDistributionTest::checkStandardSampling()
     EXPECT_EQ(samples_2.size(), 3u);
 }
 
-template <class T>
-void RangedDistributionTest::checkPrinting(std::string expected_name)
+template <class T> void RangedDistributionTest::checkPrinting(std::string expected_name)
 {
     T distr(3, 1.0);
     std::stringstream print_ref;
@@ -92,15 +89,14 @@ void RangedDistributionTest::checkPrinting(std::string expected_name)
     EXPECT_EQ(print_ref2.str(), actual);
 }
 
-template <class T>
-void RangedDistributionTest::checkZeroWidth()
+template <class T> void RangedDistributionTest::checkZeroWidth()
 {
     T distr(/*n_samples = */ 10, /*sigma_factor = */ 3.0);
     const std::vector<ParameterSample>& samples = distr.generateSamples(1.0, 0.0);
     EXPECT_EQ(distr.nSamples(), samples.size());
 
     double sum_weights = 0.0;
-    for(size_t i = 0; i < samples.size(); ++i)
+    for (size_t i = 0; i < samples.size(); ++i)
         sum_weights += samples[i].weight;
     EXPECT_DOUBLE_EQ(1.0, sum_weights);
 
@@ -111,7 +107,7 @@ void RangedDistributionTest::checkZeroWidth()
         EXPECT_EQ(distr.nSamples(), sample_row.size());
 
         double sum_weights = 0.0;
-        for(size_t j = 0; j < sample_row.size(); ++j)
+        for (size_t j = 0; j < sample_row.size(); ++j)
             sum_weights += sample_row[j].weight;
         EXPECT_DOUBLE_EQ(1.0, sum_weights);
     }

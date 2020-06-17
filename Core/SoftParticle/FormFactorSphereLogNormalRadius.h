@@ -15,9 +15,9 @@
 #ifndef FORMFACTORSPHERELOGNORMALRADIUS_H
 #define FORMFACTORSPHERELOGNORMALRADIUS_H
 
+#include "Distributions.h"
 #include "FormFactorFullSphere.h"
 #include "SafePointerVector.h"
-#include "Distributions.h"
 #include <memory>
 
 //! A sphere with log normal radius distribution.
@@ -28,8 +28,10 @@ class BA_CORE_API_ FormFactorSphereLogNormalRadius : public IFormFactorBorn
 public:
     FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples);
 
-    FormFactorSphereLogNormalRadius* clone() const override final {
-        return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples); }
+    FormFactorSphereLogNormalRadius* clone() const override final
+    {
+        return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double radialExtension() const override final { return m_mean; }

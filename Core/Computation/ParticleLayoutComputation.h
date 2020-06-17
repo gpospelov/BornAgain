@@ -32,8 +32,8 @@ class SimulationOptions;
 class ParticleLayoutComputation final
 {
 public:
-    ParticleLayoutComputation(const ProcessedLayout* p_layout,
-                              const SimulationOptions& options, bool polarized);
+    ParticleLayoutComputation(const ProcessedLayout* p_layout, const SimulationOptions& options,
+                              bool polarized);
     ~ParticleLayoutComputation();
 
     void compute(SimulationElement& elem) const;

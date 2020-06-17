@@ -38,8 +38,8 @@ MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters
     result.setMinValue(min_value);
 
     std::ostringstream report;
-    report << "TestMinimizer::printOutcome() -> Done. Objective function value = "
-           << min_value << std::endl;
+    report << "TestMinimizer::printOutcome() -> Done. Objective function value = " << min_value
+           << std::endl;
 
     result.setReport(report.str());
     result.setNumberOfCalls(1);

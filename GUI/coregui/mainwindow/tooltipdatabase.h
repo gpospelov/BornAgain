@@ -16,8 +16,8 @@
 #define TOOLTIPDATABASE_H
 
 #include "WinDllMacros.h"
-#include <QObject>
 #include <QMap>
+#include <QObject>
 
 //! The MaterialEditor is the main class to access materials.
 class BA_CORE_API_ ToolTipDataBase : public QObject

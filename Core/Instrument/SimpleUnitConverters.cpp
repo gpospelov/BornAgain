@@ -27,18 +27,18 @@
 #include "UnitConverterUtils.h"
 #include "Units.h"
 
-namespace {
+namespace
+{
 double getQ(double wavelength, double angle)
 {
     return 4.0 * M_PI * std::sin(angle) / wavelength;
 }
-}
+} // namespace
 
 UnitConverterSimple::UnitConverterSimple(const Beam& beam)
-    : m_wavelength(beam.getWavelength())
-    , m_alpha_i(-beam.getAlpha())
-    , m_phi_i(beam.getPhi())
-{}
+    : m_wavelength(beam.getWavelength()), m_alpha_i(-beam.getAlpha()), m_phi_i(beam.getPhi())
+{
+}
 
 size_t UnitConverterSimple::dimension() const
 {
@@ -48,7 +48,7 @@ size_t UnitConverterSimple::dimension() const
 void UnitConverterSimple::addAxisData(std::string name, double min, double max,
                                       AxesUnits default_units, size_t nbins)
 {
-    AxisData axis_data { name, min, max, default_units, nbins };
+    AxisData axis_data{name, min, max, default_units, nbins};
     m_axis_data_table.push_back(axis_data);
 }
 
@@ -57,7 +57,7 @@ double UnitConverterSimple::calculateMin(size_t i_axis, AxesUnits units_type) co
     checkIndex(i_axis);
     units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
     auto axis_data = m_axis_data_table[i_axis];
-    if (units_type==AxesUnits::NBINS) {
+    if (units_type == AxesUnits::NBINS) {
         return 0.0;
     }
     return calculateValue(i_axis, units_type, axis_data.min);
@@ -68,7 +68,7 @@ double UnitConverterSimple::calculateMax(size_t i_axis, AxesUnits units_type) co
     checkIndex(i_axis);
     units_type = UnitConverterUtils::substituteDefaultUnits(*this, units_type);
     auto axis_data = m_axis_data_table[i_axis];
-    if (units_type==AxesUnits::NBINS) {
+    if (units_type == AxesUnits::NBINS) {
         return static_cast<double>(axis_data.nbins);
     }
     return calculateValue(i_axis, units_type, axis_data.max);
@@ -97,11 +97,10 @@ std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
 }
 
 UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
-    : m_axis_data_table(other.m_axis_data_table)
-    , m_wavelength(other.m_wavelength)
-    , m_alpha_i(other.m_alpha_i)
-    , m_phi_i(other.m_phi_i)
-{}
+    : m_axis_data_table(other.m_axis_data_table), m_wavelength(other.m_wavelength),
+      m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
+{
+}
 
 void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_axis)
 {
@@ -130,7 +129,7 @@ SphericalConverter::SphericalConverter(const SphericalDetector& detector, const 
     addDetectorAxis(detector, 1);
 }
 
-SphericalConverter::~SphericalConverter() =default;
+SphericalConverter::~SphericalConverter() = default;
 
 SphericalConverter* SphericalConverter::clone() const
 {
@@ -144,21 +143,23 @@ std::vector<AxesUnits> SphericalConverter::availableUnits() const
     return result;
 }
 
-AxesUnits SphericalConverter::defaultUnits() const { return AxesUnits::DEGREES; }
+AxesUnits SphericalConverter::defaultUnits() const
+{
+    return AxesUnits::DEGREES;
+}
 
-SphericalConverter::SphericalConverter(const SphericalConverter& other)
-    : UnitConverterSimple(other)
-{}
+SphericalConverter::SphericalConverter(const SphericalConverter& other) : UnitConverterSimple(other)
+{
+}
 
 double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
 {
-    switch(units_type) {
+    switch (units_type) {
     case AxesUnits::RADIANS:
         return value;
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
-    case AxesUnits::QSPACE:
-    {
+    case AxesUnits::QSPACE: {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == BornAgain::X_AXIS_INDEX) {
             auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
@@ -171,14 +172,25 @@ double SphericalConverter::calculateValue(size_t i_axis, AxesUnits units_type, d
                                  "incorrect axis index: "
                                  + std::to_string(static_cast<int>(i_axis)));
     }
-    default:
+    case AxesUnits::QXQY: {
+        auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+        if (i_axis == BornAgain::X_AXIS_INDEX) {
+            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, 0.0, value);
+            return (k_i - k_f).y();
+        } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+            auto k_f = vecOfLambdaAlphaPhi(m_wavelength, value, 0.0);
+            return (k_f - k_i).x();
+        }
         throw std::runtime_error("Error in SphericalConverter::calculateValue: "
-                                 "target units not available: "
-                                 + std::to_string(static_cast<int>(units_type)));
+                                 "incorrect axis index: "
+                                 + std::to_string(static_cast<int>(i_axis)));
+    }
+    default:
+        throwUnitsError("SphericalConverter::calculateValue", availableUnits());
     }
 }
 
-std::vector<std::map<AxesUnits, std::string> > SphericalConverter::createNameMaps() const
+std::vector<std::map<AxesUnits, std::string>> SphericalConverter::createNameMaps() const
 {
     std::vector<std::map<AxesUnits, std::string>> result;
     result.push_back(AxisNames::InitSphericalAxis0());
@@ -200,7 +212,7 @@ RectangularConverter::RectangularConverter(const RectangularDetector& detector, 
     mP_detector_pixel.reset(detector.regionOfInterestPixel());
 }
 
-RectangularConverter::~RectangularConverter() =default;
+RectangularConverter::~RectangularConverter() = default;
 
 RectangularConverter* RectangularConverter::clone() const
 {
@@ -215,12 +227,15 @@ std::vector<AxesUnits> RectangularConverter::availableUnits() const
     return result;
 }
 
-AxesUnits RectangularConverter::defaultUnits() const { return AxesUnits::MM; }
+AxesUnits RectangularConverter::defaultUnits() const
+{
+    return AxesUnits::MM;
+}
 
 RectangularConverter::RectangularConverter(const RectangularConverter& other)
-    : UnitConverterSimple(other)
-    , mP_detector_pixel(other.mP_detector_pixel->clone())
-{}
+    : UnitConverterSimple(other), mP_detector_pixel(other.mP_detector_pixel->clone())
+{
+}
 
 double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
 {
@@ -229,16 +244,15 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
     const auto k00 = mP_detector_pixel->getPosition(0.0, 0.0);
     const auto k01 = mP_detector_pixel->getPosition(0.0, 1.0);
     const auto k10 = mP_detector_pixel->getPosition(1.0, 0.0);
-    const auto& max_pos = i_axis == 0 ? k10 : k01;  // position of max along given axis
+    const auto& max_pos = i_axis == 0 ? k10 : k01; // position of max along given axis
     const double shift = value - m_axis_data_table[i_axis].min;
-    auto k_f = normalizeToWavelength(k00 + shift*(max_pos - k00).unit());
-    switch(units_type) {
+    auto k_f = normalizeToWavelength(k00 + shift * (max_pos - k00).unit());
+    switch (units_type) {
     case AxesUnits::RADIANS:
         return axisAngle(i_axis, k_f);
     case AxesUnits::DEGREES:
         return Units::rad2deg(axisAngle(i_axis, k_f));
-    case AxesUnits::QSPACE:
-    {
+    case AxesUnits::QSPACE: {
         auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
         if (i_axis == BornAgain::X_AXIS_INDEX) {
             return (k_i - k_f).y();
@@ -249,10 +263,19 @@ double RectangularConverter::calculateValue(size_t i_axis, AxesUnits units_type,
                                  "incorrect axis index: "
                                  + std::to_string(static_cast<int>(i_axis)));
     }
-    default:
+    case AxesUnits::QXQY: {
+        auto k_i = vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i);
+        if (i_axis == BornAgain::X_AXIS_INDEX) {
+            return (k_i - k_f).y();
+        } else if (i_axis == BornAgain::Y_AXIS_INDEX) {
+            return (k_f - k_i).x();
+        }
         throw std::runtime_error("Error in RectangularConverter::calculateValue: "
-                                 "target units not available: "
-                                 + std::to_string(static_cast<int>(units_type)));
+                                 "incorrect axis index: "
+                                 + std::to_string(static_cast<int>(i_axis)));
+    }
+    default:
+        throwUnitsError("RectangularConverter::calculateValue", availableUnits());
     }
 }
 
@@ -269,8 +292,8 @@ kvector_t RectangularConverter::normalizeToWavelength(kvector_t vector) const
     if (m_wavelength <= 0.0)
         throw std::runtime_error("Error in RectangularConverter::normalizeToWavelength: "
                                  "wavelength <= 0");
-    double K = M_TWOPI/m_wavelength;
-    return vector.unit()*K;
+    double K = M_TWOPI / m_wavelength;
+    return vector.unit() * K;
 }
 
 double RectangularConverter::axisAngle(size_t i_axis, kvector_t k_f) const
@@ -301,30 +324,32 @@ OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Be
     addDetectorYAxis(detector);
 }
 
-OffSpecularConverter::~OffSpecularConverter() =default;
+OffSpecularConverter::~OffSpecularConverter() = default;
 
 OffSpecularConverter* OffSpecularConverter::clone() const
 {
     return new OffSpecularConverter(*this);
 }
 
-AxesUnits OffSpecularConverter::defaultUnits() const { return AxesUnits::DEGREES; }
+AxesUnits OffSpecularConverter::defaultUnits() const
+{
+    return AxesUnits::DEGREES;
+}
 
 OffSpecularConverter::OffSpecularConverter(const OffSpecularConverter& other)
     : UnitConverterSimple(other)
-{}
+{
+}
 
 double OffSpecularConverter::calculateValue(size_t, AxesUnits units_type, double value) const
 {
-    switch(units_type) {
+    switch (units_type) {
     case AxesUnits::RADIANS:
         return value;
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
     default:
-        throw std::runtime_error("Error in OffSpecularConverter::calculateValue: "
-                                 "target units not available: "
-                                 + std::to_string(static_cast<int>(units_type)));
+        throwUnitsError("OffSpecularConverter::calculateValue", availableUnits());
     }
 }
 
@@ -398,14 +423,15 @@ std::vector<AxesUnits> DepthProbeConverter::availableUnits() const
 
 DepthProbeConverter::DepthProbeConverter(const DepthProbeConverter& other)
     : UnitConverterSimple(other)
-{}
+{
+}
 
 double DepthProbeConverter::calculateValue(size_t i_axis, AxesUnits units_type, double value) const
 {
     checkUnits(units_type);
     if (i_axis == 1)
         return value; // unit conversions are not applied to sample position axis
-    switch(units_type) {
+    switch (units_type) {
     case AxesUnits::DEGREES:
         return Units::rad2deg(value);
     case AxesUnits::QSPACE:
@@ -428,6 +454,5 @@ void DepthProbeConverter::checkUnits(AxesUnits units_type) const
     const auto& available_units = availableUnits();
     if (std::find(available_units.begin(), available_units.end(), units_type)
         == available_units.cend())
-        throw std::runtime_error("Error in IUnitConverter::checkUnits: passed unit type is not "
-                                 "supported by the converter");
+        throwUnitsError("DepthProbeConverter::checkUnits", available_units);
 }

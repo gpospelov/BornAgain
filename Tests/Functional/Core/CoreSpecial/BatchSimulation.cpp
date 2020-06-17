@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreSpecial/BatchSimulation.h
+//! @file      Tests/Functional/Core/CoreSpecial/BatchSimulation.cpp
 //! @brief     Defines BatchSimulation class.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "BatchSimulation.h"
-#include "Simulation.h"
-#include "SimulationFactory.h"
 #include "IFunctionalTest.h"
 #include "IntensityDataFunctions.h"
 #include "SampleBuilderFactory.h"
+#include "Simulation.h"
+#include "SimulationFactory.h"
 #include <iostream>
 #include <memory>
 
@@ -32,13 +32,13 @@ bool BatchSimulation::runTest()
     simulation->setSampleBuilder(builder);
     simulation->runSimulation();
     auto sim_result = simulation->result();
-    const std::unique_ptr<OutputData<double>> reference(sim_result.data());
-    const std::unique_ptr<OutputData<double>> result(reference->clone());
+    const auto reference = sim_result.data();
+    const auto result = reference->clone();
     result->setAllTo(0.0);
 
     const unsigned n_batches = 9;
     const double threshold = 2e-10;
-    for(unsigned i_batch=0; i_batch < n_batches; ++i_batch) {
+    for (unsigned i_batch = 0; i_batch < n_batches; ++i_batch) {
         const std::unique_ptr<Simulation> batch(simulation->clone());
         ThreadInfo threadInfo;
         threadInfo.n_threads = 1;
@@ -53,8 +53,10 @@ bool BatchSimulation::runTest()
 
     double diff = IntensityDataFunctions::getRelativeDifference(*result, *reference);
 
-    std::cout << "BatchSimulation" << " " << "Running simulations in batch mode" << " " << diff
-              << " " << (diff>threshold ? "[FAILED]" : "[OK]") << "\n";
+    std::cout << "BatchSimulation"
+              << " "
+              << "Running simulations in batch mode"
+              << " " << diff << " " << (diff > threshold ? "[FAILED]" : "[OK]") << "\n";
 
     return diff <= threshold;
 }

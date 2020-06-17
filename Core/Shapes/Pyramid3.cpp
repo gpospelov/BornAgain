@@ -23,12 +23,11 @@ Pyramid3::Pyramid3(double length, double height, double alpha)
 {
     m_vertices.resize(6);
     double cot_alpha = MathFunctions::cot(alpha);
-    double delta = 2.0*sqrt3*height*cot_alpha;
+    double delta = 2.0 * sqrt3 * height * cot_alpha;
     auto bottom_face = TriangleVertices(length, 0.0);
-    auto top_face = TriangleVertices(length-delta, height);
+    auto top_face = TriangleVertices(length - delta, height);
     std::move(bottom_face.begin(), bottom_face.end(), m_vertices.begin());
-    std::move(top_face.begin(), top_face.end(), m_vertices.begin()+3);
+    std::move(top_face.begin(), top_face.end(), m_vertices.begin() + 3);
 }
 
-Pyramid3::~Pyramid3()
-{}
+Pyramid3::~Pyramid3() {}

@@ -33,7 +33,7 @@ public:
     virtual ~ParticleInTheAirBuilder();
     virtual MultiLayer* buildSample() const;
 
-    MultiLayer* createSample(size_t index=0);
+    MultiLayer* createSample(size_t index = 0);
     size_t size();
 
 protected:

@@ -16,11 +16,9 @@
 #include "item_constants.h"
 
 MaskDrawingContext::MaskDrawingContext()
-    : m_current_activity(MaskEditorFlags::PAN_ZOOM_MODE)
-    , m_mask_value(MaskEditorFlags::MASK_ON)
-    , m_drawing_in_progress(false)
+    : m_current_activity(MaskEditorFlags::PAN_ZOOM_MODE), m_mask_value(MaskEditorFlags::MASK_ON),
+      m_drawing_in_progress(false)
 {
-
 }
 
 MaskEditorFlags::Activity MaskDrawingContext::getActivityType() const
@@ -50,9 +48,9 @@ bool MaskDrawingContext::isInZoomMode() const
 
 bool MaskDrawingContext::isRectangleShapeMode() const
 {
-    return (m_current_activity == MaskEditorFlags::RECTANGLE_MODE) ||
-           (m_current_activity == MaskEditorFlags::ELLIPSE_MODE) ||
-           (m_current_activity == MaskEditorFlags::ROI_MODE);
+    return (m_current_activity == MaskEditorFlags::RECTANGLE_MODE)
+           || (m_current_activity == MaskEditorFlags::ELLIPSE_MODE)
+           || (m_current_activity == MaskEditorFlags::ROI_MODE);
 }
 
 bool MaskDrawingContext::isRectangleMode() const
@@ -112,10 +110,12 @@ bool MaskDrawingContext::getMaskValue() const
 
 //! return true, if proposed activity requires the cancel of drawing
 //! i.e. there is an ungoing polygon drawing, but user wants to start other drawing
-bool MaskDrawingContext::isActivityRequiresDrawingCancel(MaskEditorFlags::Activity proposed_new_activity)
+bool MaskDrawingContext::isActivityRequiresDrawingCancel(
+    MaskEditorFlags::Activity proposed_new_activity)
 {
-    if(isDrawingInProgress() && isPolygonMode()
-            && proposed_new_activity >= MaskEditorFlags::PAN_ZOOM_MODE) return true;
+    if (isDrawingInProgress() && isPolygonMode()
+        && proposed_new_activity >= MaskEditorFlags::PAN_ZOOM_MODE)
+        return true;
     return false;
 }
 
@@ -123,9 +123,12 @@ bool MaskDrawingContext::isActivityRequiresDrawingCancel(MaskEditorFlags::Activi
 
 QString MaskDrawingContext::activityToModelType() const
 {
-    if(isRectangleMode()) return Constants::RectangleMaskType;
-    if(isEllipseMode()) return Constants::EllipseMaskType;
-    if(isROIMode()) return Constants::RegionOfInterestType;
+    if (isRectangleMode())
+        return Constants::RectangleMaskType;
+    if (isEllipseMode())
+        return Constants::EllipseMaskType;
+    if (isROIMode())
+        return Constants::RegionOfInterestType;
     return QString();
 }
 
@@ -134,6 +137,7 @@ QString MaskDrawingContext::activityToModelType() const
 
 int MaskDrawingContext::activityToRow() const
 {
-    if(isROIMode()) return -1;
+    if (isROIMode())
+        return -1;
     return 0;
 }

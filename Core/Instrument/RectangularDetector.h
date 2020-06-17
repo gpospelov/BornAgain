@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Instrument/RectangularDetector.cpp
+//! @file      Core/Instrument/RectangularDetector.h
 //! @brief     Defines class RectangularDetector.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -92,26 +92,26 @@ protected:
 
     //! swap function
     void swapContent(RectangularDetector& other);
+
 private:
     void setDistanceAndOffset(double distance, double u0, double v0);
     void initNormalVector(const kvector_t central_k);
     void initUandV(double alpha_i);
 
     kvector_t m_normal_to_detector;
-    double m_u0, m_v0; //!< position of normal vector hitting point in detector coordinates
+    double m_u0, m_v0;     //!< position of normal vector hitting point in detector coordinates
     kvector_t m_direction; //!< direction vector of detector coordinate system
-    double m_distance; //!< distance from sample origin to the detector plane
+    double m_distance;     //!< distance from sample origin to the detector plane
     double m_dbeam_u0, m_dbeam_v0; //!< position of direct beam in detector coordinates
     EDetectorArrangement m_detector_arrangement;
     kvector_t m_u_unit;
     kvector_t m_v_unit;
 };
 
-class RectangularPixel : public IPixel
+class BA_CORE_API_ RectangularPixel : public IPixel
 {
 public:
     RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height);
-    virtual ~RectangularPixel() {}
 
     RectangularPixel* clone() const override;
     RectangularPixel* createZeroSizePixel(double x, double y) const override;
@@ -119,6 +119,7 @@ public:
     kvector_t getPosition(double x, double y) const;
     double getIntegrationFactor(double x, double y) const override;
     double getSolidAngle() const override;
+
 private:
     kvector_t normalizeLength(const kvector_t direction, double length) const;
     double calculateSolidAngle() const;

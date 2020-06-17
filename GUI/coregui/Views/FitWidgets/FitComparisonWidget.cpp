@@ -27,16 +27,12 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 
-FitComparisonWidget::FitComparisonWidget(QWidget *parent)
-    : SessionItemWidget(parent)
-    , m_realDataPlot(new ColorMapCanvas)
-    , m_simulatedDataPlot(new ColorMapCanvas)
-    , m_relativeDiffPlot(new ColorMapCanvas)
-    , m_fitFlowWidget(new FitFlowWidget)
-    , m_statusLabel(new PlotStatusLabel(nullptr, this))
-    , m_propertyWidget(new IntensityDataPropertyWidget)
-    , m_resetViewAction(new QAction(this))
-    , m_comparisonController(new FitComparisonController2D(this))
+FitComparisonWidget::FitComparisonWidget(QWidget* parent)
+    : SessionItemWidget(parent), m_realDataPlot(new ColorMapCanvas),
+      m_simulatedDataPlot(new ColorMapCanvas), m_relativeDiffPlot(new ColorMapCanvas),
+      m_fitFlowWidget(new FitFlowWidget), m_statusLabel(new PlotStatusLabel(nullptr, this)),
+      m_propertyWidget(new IntensityDataPropertyWidget), m_resetViewAction(new QAction(this)),
+      m_comparisonController(new FitComparisonController2D(this))
 {
     auto vlayout = new QVBoxLayout;
     vlayout->setMargin(0);
@@ -61,8 +57,8 @@ FitComparisonWidget::FitComparisonWidget(QWidget *parent)
     hlayout->addWidget(m_propertyWidget);
     setLayout(hlayout);
 
-    m_resetViewAction->setText("Reset View");
-    m_resetViewAction->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
+    m_resetViewAction->setText("Center view");
+    m_resetViewAction->setIcon(QIcon(":/images/camera-metering-center.svg"));
     m_resetViewAction->setToolTip("Reset View");
     connect(m_resetViewAction, &QAction::triggered, this, &FitComparisonWidget::onResetViewAction);
 

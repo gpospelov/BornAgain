@@ -1,7 +1,7 @@
-#include "google_test.h"
-#include "Exceptions.h"
 #include "RegionOfInterest.h"
+#include "Exceptions.h"
 #include "SphericalDetector.h"
+#include "google_test.h"
 #include <memory>
 
 class RegionOfInterestTest : public ::testing::Test

@@ -26,7 +26,10 @@ class SessionModelDelegate;
 class QItemSelection;
 class ComponentEditor;
 class ComponentTreeView;
-namespace Manhattan { class MiniSplitter; }
+namespace Manhattan
+{
+class MiniSplitter;
+}
 class QBoxLayout;
 class ComponentFlatView;
 class MaterialModel;
@@ -37,7 +40,7 @@ class TestComponentView : public QWidget
 {
     Q_OBJECT
 public:
-    TestComponentView(MainWindow *mainWindow = nullptr);
+    TestComponentView(MainWindow* mainWindow = nullptr);
 
 private slots:
     void onUpdateRequest();

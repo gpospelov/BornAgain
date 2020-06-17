@@ -14,4 +14,4 @@ private:
     static bool m_is_registered;
 };
 
-#endif  // COMPARATORS_H
+#endif // COMPARATORS_H

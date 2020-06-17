@@ -13,14 +13,13 @@
 // ************************************************************************** //
 
 #include "TransformToDomain.h"
+#include "AngularSpecScan.h"
 #include "BeamAngleItems.h"
 #include "BeamItems.h"
 #include "BeamWavelengthItem.h"
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
-#include "SphericalDetectorItem.h"
-#include "RectangularDetectorItem.h"
 #include "Distributions.h"
 #include "FTDecayFunctionItems.h"
 #include "FTDistributionItems.h"
@@ -45,11 +44,14 @@
 #include "ParticleDistributionItem.h"
 #include "ParticleItem.h"
 #include "ParticleLayoutItem.h"
+#include "RangedDistributions.h"
+#include "RectangularDetectorItem.h"
 #include "RotationItems.h"
+#include "ScanResolution.h"
 #include "SessionItemUtils.h"
 #include "SimulationOptionsItem.h"
 #include "SpecularBeamInclinationItem.h"
-#include "SpecularSimulation.h"
+#include "SphericalDetectorItem.h"
 #include "TransformationItem.h"
 #include "Units.h"
 #include "VectorItem.h"
@@ -61,10 +63,11 @@ namespace
 template <class T>
 void setParameterDistributionToSimulation(const std::string& parameter_name,
                                           const SessionItem* item, Simulation& simulation);
-}
 
-std::unique_ptr<Material>
-TransformToDomain::createDomainMaterial(const SessionItem& item)
+std::unique_ptr<ScanResolution> createScanResolution(const SessionItem* item);
+} // namespace
+
+std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
 {
     auto parent_job = JobModelFunctions::findJobItem(&item);
     const MaterialItemContainer* container =
@@ -78,8 +81,7 @@ TransformToDomain::createDomainMaterial(const SessionItem& item)
 std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem& item)
 {
     auto P_multilayer = std::make_unique<MultiLayer>();
-    auto cross_corr_length
-        = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
+    auto cross_corr_length = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
         P_multilayer->setCrossCorrLength(cross_corr_length);
     auto external_field = GetVectorItem(item, MultiLayerItem::P_EXTERNAL_FIELD);
@@ -89,9 +91,8 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
 
 std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item)
 {
-    auto P_layer = std::make_unique<Layer>(
-        *createDomainMaterial(item),
-        item.getItemValue(LayerItem::P_THICKNESS).toDouble());
+    auto P_layer = std::make_unique<Layer>(*createDomainMaterial(item),
+                                           item.getItemValue(LayerItem::P_THICKNESS).toDouble());
     P_layer->setNumberOfSlices(item.getItemValue(LayerItem::P_NSLICES).toUInt());
     return P_layer;
 }
@@ -105,8 +106,7 @@ TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
         return std::make_unique<LayerRoughness>(
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_SIGMA).toDouble(),
             roughnessItem.getItemValue(LayerBasicRoughnessItem::P_HURST).toDouble(),
-            roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH)
-                .toDouble());
+            roughnessItem.getItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH).toDouble());
     } else {
         throw GUIHelpers::Error("TransformToDomain::createLayerRoughness() -> Error.");
     }
@@ -115,13 +115,6 @@ TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
 std::unique_ptr<ParticleLayout> TransformToDomain::createParticleLayout(const SessionItem& item)
 {
     auto P_layout = std::make_unique<ParticleLayout>();
-    auto prop = item.getItemValue(ParticleLayoutItem::P_APPROX).value<ComboProperty>();
-    QString approximation = prop.getValue();
-    if (approximation == Constants::LAYOUT_DA) {
-        P_layout->setApproximation(ILayout::DA);
-    } else if (approximation == Constants::LAYOUT_SSCA) {
-        P_layout->setApproximation(ILayout::SSCA);
-    }
     auto total_density = item.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
     auto layout_weight = item.getItemValue(ParticleLayoutItem::P_WEIGHT).value<double>();
     P_layout->setTotalParticleSurfaceDensity(total_density);
@@ -148,8 +141,8 @@ std::unique_ptr<IParticle> TransformToDomain::createIParticle(const SessionItem&
     return P_particle;
 }
 
-std::unique_ptr<ParticleDistribution> TransformToDomain::createParticleDistribution(
-        const SessionItem& item)
+std::unique_ptr<ParticleDistribution>
+TransformToDomain::createParticleDistribution(const SessionItem& item)
 {
     auto& particle_distribution = static_cast<const ParticleDistributionItem&>(item);
     auto P_part_distr = particle_distribution.createParticleDistribution();
@@ -173,27 +166,25 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
         BornAgain::Azimuth, beam_item.getItem(BeamItem::P_AZIMUTHAL_ANGLE), simulation);
 }
 
-void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
-                                                              SpecularSimulation& simulation)
+void TransformToDomain::addBeamDivergencesToScan(const SessionItem& beam_item,
+                                                 AngularSpecScan& scan)
 {
     if (beam_item.modelType() != Constants::SpecularBeamType) {
         Q_ASSERT(beam_item.modelType() == Constants::SpecularBeamType);
         return;
     }
 
-    setParameterDistributionToSimulation<BeamWavelengthItem>(
-        BornAgain::Wavelength, beam_item.getItem(SpecularBeamItem::P_WAVELENGTH), simulation);
-    setParameterDistributionToSimulation<SpecularBeamInclinationItem>(
-        BornAgain::Inclination, beam_item.getItem(SpecularBeamItem::P_INCLINATION_ANGLE),
-        simulation);
+    auto resolution = createScanResolution(beam_item.getItem(SpecularBeamItem::P_WAVELENGTH));
+    if (resolution)
+        scan.setWavelengthResolution(*resolution);
+    resolution = createScanResolution(beam_item.getItem(SpecularBeamItem::P_INCLINATION_ANGLE));
+    if (resolution)
+        scan.setAngleResolution(*resolution);
 }
 
-// TODO Consider removal addDistributionParametersToSimulation and
-// template <class T> void setParameterDistributionToSimulation in the favor
-// of setBeamDistribution.
-
 void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
-                              const BeamDistributionItem& item, Simulation& simulation)
+                                            const BeamDistributionItem& item,
+                                            Simulation& simulation)
 {
     ParameterPattern parameter_pattern;
     parameter_pattern.beginsWith("*").add(BornAgain::BeamType).add(parameter_name);
@@ -203,16 +194,15 @@ void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
         simulation.addParameterDistribution(*P_par_distr);
 }
 
-void TransformToDomain::setSimulationOptions(Simulation* simulation,
-                                             const SessionItem& item)
+void TransformToDomain::setSimulationOptions(Simulation* simulation, const SessionItem& item)
 {
     Q_ASSERT(item.modelType() == Constants::SimulationOptionsType);
 
     if (auto optionItem = dynamic_cast<const SimulationOptionsItem*>(&item)) {
         simulation->getOptions().setNumberOfThreads(optionItem->getNumberOfThreads());
         if (optionItem->getComputationMethod() == Constants::SIMULATION_MONTECARLO) {
-            simulation->getOptions().setMonteCarloIntegration(true,
-                    optionItem->getNumberOfMonteCarloPoints());
+            simulation->getOptions().setMonteCarloIntegration(
+                true, optionItem->getNumberOfMonteCarloPoints());
         }
         if (optionItem->getFresnelMaterialMethod() == Constants::AVERAGE_LAYER_MATERIAL)
             simulation->getOptions().setUseAvgMaterials(true);
@@ -247,7 +237,8 @@ void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& it
     }
 }
 
-namespace  {
+namespace
+{
 template <class T>
 void setParameterDistributionToSimulation(const std::string& parameter_name,
                                           const SessionItem* item, Simulation& simulation)
@@ -261,9 +252,30 @@ void setParameterDistributionToSimulation(const std::string& parameter_name,
     ParameterPattern parameter_pattern;
     parameter_pattern.beginsWith("*").add(BornAgain::BeamType).add(parameter_name);
 
-    auto P_par_distr
-        = parameter_item->getParameterDistributionForName(parameter_pattern.toStdString());
+    auto P_par_distr =
+        parameter_item->getParameterDistributionForName(parameter_pattern.toStdString());
     if (P_par_distr)
         simulation.addParameterDistribution(*P_par_distr);
 }
+
+std::unique_ptr<ScanResolution> createScanResolution(const SessionItem* item)
+{
+    auto beam_item = dynamic_cast<const BeamDistributionItem*>(item);
+    if (!beam_item)
+        return nullptr;
+
+    auto distr_item = dynamic_cast<const SymmetricDistributionItem*>(
+        beam_item->getGroupItem(BeamDistributionItem::P_DISTRIBUTION));
+    if (!distr_item)
+        return nullptr;
+
+    const double scale = beam_item->scaleFactor();
+    auto ranged_distr = distr_item->createRangedDistribution(scale);
+    if (!ranged_distr)
+        return nullptr;
+
+    const double deviation = distr_item->deviation(scale);
+    return std::unique_ptr<ScanResolution>(
+        ScanResolution::scanAbsoluteResolution(*ranged_distr, deviation));
 }
+} // namespace

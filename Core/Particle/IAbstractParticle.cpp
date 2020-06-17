@@ -14,7 +14,6 @@
 
 #include "IAbstractParticle.h"
 
-
 IAbstractParticle::IAbstractParticle() : m_abundance(1.0) {}
 
 IAbstractParticle::~IAbstractParticle() {}

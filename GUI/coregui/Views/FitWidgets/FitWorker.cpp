@@ -33,7 +33,6 @@ void FitWorker::startFit()
     emit finished(duration);
 }
 
-
 void FitWorker::interruptFitting()
 {
     if (m_fit_objective)

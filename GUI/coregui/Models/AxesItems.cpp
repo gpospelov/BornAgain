@@ -17,8 +17,8 @@
 
 const QString BasicAxisItem::P_IS_VISIBLE = "Visibility";
 const QString BasicAxisItem::P_NBINS = "Nbins";
-const QString BasicAxisItem::P_MIN = "Min";
-const QString BasicAxisItem::P_MAX = "Max";
+const QString BasicAxisItem::P_MIN = "Min [deg]";
+const QString BasicAxisItem::P_MAX = "Max [deg]";
 const QString BasicAxisItem::P_TITLE = "title";
 const QString BasicAxisItem::P_TITLE_IS_VISIBLE = "Title Visibility";
 
@@ -33,8 +33,7 @@ std::unique_ptr<IAxis> BasicAxisItem::createAxis(double scale) const
 {
     return std::make_unique<FixedBinAxis>(
         getItemValue(P_TITLE).toString().toStdString(), getItemValue(P_NBINS).toInt(),
-        getItemValue(P_MIN).toDouble()*scale,
-        getItemValue(P_MAX).toDouble()*scale);
+        getItemValue(P_MIN).toDouble() * scale, getItemValue(P_MAX).toDouble() * scale);
 }
 
 BasicAxisItem::~BasicAxisItem() = default;
@@ -64,9 +63,8 @@ AmplitudeAxisItem::AmplitudeAxisItem() : BasicAxisItem(Constants::AmplitudeAxisT
     getItem(BasicAxisItem::P_IS_VISIBLE)->setVisible(true);
     setMinMaxEditor(Constants::ScientificEditorType);
 
-    mapper()->setOnPropertyChange([this](const QString& name)
-    {
-        if(name == P_IS_LOGSCALE) {
+    mapper()->setOnPropertyChange([this](const QString& name) {
+        if (name == P_IS_LOGSCALE) {
             if (getItemValue(P_IS_LOGSCALE).toBool())
                 setMinMaxEditor(Constants::ScientificEditorType);
             else

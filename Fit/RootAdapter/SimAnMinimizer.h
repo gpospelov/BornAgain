@@ -17,7 +17,13 @@
 
 #include "RootMinimizerAdapter.h"
 
-namespace ROOT { namespace Math { class GSLSimAnMinimizer; } }
+namespace ROOT
+{
+namespace Math
+{
+class GSLSimAnMinimizer;
+}
+} // namespace ROOT
 
 //! Wrapper for the CERN ROOT facade of the GSL simmulated annealing minimizer.
 //! @ingroup fitting_internal
@@ -26,7 +32,7 @@ class BA_CORE_API_ SimAnMinimizer : public RootMinimizerAdapter
 {
 public:
     SimAnMinimizer();
-    ~SimAnMinimizer();
+    ~SimAnMinimizer() override;
 
     //! Sets minimizer internal print level.
     //! Default value is 0 (silent).
@@ -62,7 +68,6 @@ public:
     double boltzmannMinTemp() const;
 
     std::map<std::string, std::string> statusMap() const override;
-    virtual bool isGradientBasedAgorithm() override;
 
 protected:
     void propagateOptions() override;

@@ -16,21 +16,20 @@
 #define SIMULATIONRESULT_H
 
 #include "IUnitConverter.h"
-#include "WinDllMacros.h"
 #include "PyObject.h"
+#include "WinDllMacros.h"
 #include <memory>
 #include <vector>
 
 class Histogram1D;
 class Histogram2D;
 class IAxis;
-template<class T> class OutputData;
+template <class T> class OutputData;
 
 //! Information about an axis in specific units. Can be used for plotting.
 //! @ingroup simulation
 
-struct AxisInfo
-{
+struct AxisInfo {
     std::string m_name;
     double m_min;
     double m_max;
@@ -42,7 +41,7 @@ struct AxisInfo
 class BA_CORE_API_ SimulationResult
 {
 public:
-    SimulationResult() =default;
+    SimulationResult() = default;
     SimulationResult(const OutputData<double>& data, const IUnitConverter& unit_converter);
     SimulationResult(const SimulationResult& other);
     SimulationResult(SimulationResult&& other);
@@ -50,7 +49,10 @@ public:
     SimulationResult& operator=(const SimulationResult& other);
     SimulationResult& operator=(SimulationResult&& other);
 
-    OutputData<double>* data(AxesUnits units = AxesUnits::DEFAULT) const;
+#ifndef SWIG
+    std::unique_ptr<OutputData<double>> data(AxesUnits units = AxesUnits::DEFAULT) const;
+#endif
+
     Histogram2D* histogram2d(AxesUnits units = AxesUnits::DEFAULT) const;
 
     //! Provide AxisInfo for each axis and the given units
@@ -66,7 +68,7 @@ public:
 
     //! returns intensity data as Python numpy array
 #ifdef BORNAGAIN_PYTHON
-    PyObject* array() const;
+    PyObject* array(AxesUnits units = AxesUnits::DEFAULT) const;
 #endif
 
     std::vector<double> axis(AxesUnits units = AxesUnits::DEFAULT) const;

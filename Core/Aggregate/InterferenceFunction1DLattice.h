@@ -20,7 +20,7 @@
 
 class IFTDecayFunction1D;
 
-//! Interference function of 1D lattice.
+//! Interference function of a 1D lattice.
 //! @ingroup interference
 
 class BA_CORE_API_ InterferenceFunction1DLattice : public IInterferenceFunction

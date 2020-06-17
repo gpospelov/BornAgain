@@ -31,30 +31,27 @@
 
 using SessionItemUtils::GetVectorItem;
 
-namespace {
-const QString abundance_tooltip =
-    "Proportion of this type of mesocrystal normalized to the \n"
-    "total number of particles in the layout";
+namespace
+{
+const QString abundance_tooltip = "Proportion of this type of mesocrystal normalized to the \n"
+                                  "total number of particles in the layout";
 
-const QString lattice_vector1_tooltip =
-    "Coordinates of the first lattice vector";
+const QString lattice_vector1_tooltip = "Coordinates of the first lattice vector";
 
-const QString lattice_vector2_tooltip =
-    "Coordinates of the second lattice vector";
+const QString lattice_vector2_tooltip = "Coordinates of the second lattice vector";
 
-const QString lattice_vector3_tooltip =
-    "Coordinates of the third lattice vector";
+const QString lattice_vector3_tooltip = "Coordinates of the third lattice vector";
 
-const QString position_tooltip =
-    "Relative position of the mesocrystal's reference point \n"
-    "in the coordinate system of the parent (nm)";
+const QString position_tooltip = "Relative position of the mesocrystal's reference point \n"
+                                 "in the coordinate system of the parent (nm)";
 
 const QString density_tooltip =
     "Number of mesocrystals per square nanometer (particle surface density).\n "
     "Should be defined for disordered and 1d-ordered particle collections.";
 
 bool IsIParticleName(QString name);
-}
+
+} // namespace
 
 const QString MesoCrystalItem::P_FORM_FACTOR = "Outer Shape";
 const QString MesoCrystalItem::T_BASIS_PARTICLE = "Basis Particle";
@@ -63,6 +60,7 @@ const QString MesoCrystalItem::P_VECTOR_A = "First " + MesoCrystalItem::LATTICE_
 const QString MesoCrystalItem::P_VECTOR_B = "Second " + MesoCrystalItem::LATTICE_VECTOR;
 const QString MesoCrystalItem::P_VECTOR_C = "Third " + MesoCrystalItem::LATTICE_VECTOR;
 
+// TODO make derived from ParticleItem
 
 MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalType)
 {
@@ -70,7 +68,9 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
 
-    addProperty(ParticleItem::P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)
+    addProperty(ParticleItem::P_ABUNDANCE, 1.0)
+        ->setLimits(RealLimits::limited(0.0, 1.0))
+        .setDecimals(3)
         .setToolTip(abundance_tooltip);
 
     addGroupProperty(P_VECTOR_A, Constants::VectorType)->setToolTip(lattice_vector1_tooltip);
@@ -78,29 +78,26 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
     addGroupProperty(P_VECTOR_C, Constants::VectorType)->setToolTip(lattice_vector3_tooltip);
     addGroupProperty(ParticleItem::P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
-    registerTag(T_BASIS_PARTICLE, 0, 1, QStringList() << Constants::ParticleType
-                                                      << Constants::ParticleCoreShellType
-                                                      << Constants::ParticleCompositionType
-                                                      << Constants::MesoCrystalType);
+    registerTag(T_BASIS_PARTICLE, 0, 1,
+                QStringList() << Constants::ParticleType << Constants::ParticleCoreShellType
+                              << Constants::ParticleCompositionType << Constants::MesoCrystalType);
     setDefaultTag(T_BASIS_PARTICLE);
 
-    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1,
-                QStringList() << Constants::RotationType);
+    registerTag(ParticleItem::T_TRANSFORMATION, 0, 1, QStringList() << Constants::RotationType);
 
     addTranslator(VectorParameterTranslator(ParticleItem::P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());
-    QStringList additional_names { QString::fromStdString(BornAgain::LatticeType),
-                                   QString::fromStdString(BornAgain::CrystalType) };
-    addTranslator(VectorParameterTranslator(P_VECTOR_A, BornAgain::BasisVector_A,
-                                            additional_names));
-    addTranslator(VectorParameterTranslator(P_VECTOR_B, BornAgain::BasisVector_B,
-                                            additional_names));
-    addTranslator(VectorParameterTranslator(P_VECTOR_C, BornAgain::BasisVector_C,
-                                            additional_names));
+    QStringList additional_names{QString::fromStdString(BornAgain::LatticeType),
+                                 QString::fromStdString(BornAgain::CrystalType)};
+    addTranslator(
+        VectorParameterTranslator(P_VECTOR_A, BornAgain::BasisVector_A, additional_names));
+    addTranslator(
+        VectorParameterTranslator(P_VECTOR_B, BornAgain::BasisVector_B, additional_names));
+    addTranslator(
+        VectorParameterTranslator(P_VECTOR_C, BornAgain::BasisVector_C, additional_names));
 
-    mapper()->setOnParentChange(
-                [this](SessionItem *parent) {
-        if (parent && parent->modelType() != Constants::ParticleLayoutType) {
+    mapper()->setOnParentChange([this](SessionItem* parent) {
+        if (SessionItemUtils::HasOwnAbundance(parent)) {
             setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         } else {
@@ -112,7 +109,7 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem(Constants::MesoCrystalT
 std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
 {
     auto lattice = getLattice();
-    if (!(lattice.volume()>0.0)) {
+    if (!(lattice.volume() > 0.0)) {
         throw GUIHelpers::Error("MesoCrystalItem::createMesoCrystal(): "
                                 "Lattice volume not strictly positive");
     }
@@ -156,19 +153,19 @@ Lattice MesoCrystalItem::getLattice() const
 
 std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const
 {
-    QVector<SessionItem *> childlist = children();
+    QVector<SessionItem*> childlist = children();
     for (int i = 0; i < childlist.size(); ++i) {
         if (childlist[i]->modelType() == Constants::ParticleType) {
-            auto *particle_item = static_cast<ParticleItem*>(childlist[i]);
+            auto* particle_item = static_cast<ParticleItem*>(childlist[i]);
             return particle_item->createParticle();
         } else if (childlist[i]->modelType() == Constants::ParticleCoreShellType) {
-            auto *particle_coreshell_item = static_cast<ParticleCoreShellItem*>(childlist[i]);
+            auto* particle_coreshell_item = static_cast<ParticleCoreShellItem*>(childlist[i]);
             return particle_coreshell_item->createParticleCoreShell();
         } else if (childlist[i]->modelType() == Constants::ParticleCompositionType) {
-            auto *particlecomposition_item = static_cast<ParticleCompositionItem*>(childlist[i]);
+            auto* particlecomposition_item = static_cast<ParticleCompositionItem*>(childlist[i]);
             return particlecomposition_item->createParticleComposition();
         } else if (childlist[i]->modelType() == Constants::MesoCrystalType) {
-            auto *mesocrystal_item = static_cast<MesoCrystalItem*>(childlist[i]);
+            auto* mesocrystal_item = static_cast<MesoCrystalItem*>(childlist[i]);
             return mesocrystal_item->createMesoCrystal();
         }
     }
@@ -181,11 +178,13 @@ std::unique_ptr<IFormFactor> MesoCrystalItem::getOuterShape() const
     return ff_item.createFormFactor();
 }
 
-namespace {
-bool IsIParticleName(QString name) {
+namespace
+{
+bool IsIParticleName(QString name)
+{
     return (name.startsWith(Constants::ParticleType)
-         || name.startsWith(Constants::ParticleCompositionType)
-         || name.startsWith(Constants::ParticleCoreShellType)
-         || name.startsWith(Constants::MesoCrystalType));
+            || name.startsWith(Constants::ParticleCompositionType)
+            || name.startsWith(Constants::ParticleCoreShellType)
+            || name.startsWith(Constants::MesoCrystalType));
 }
-}
+} // namespace

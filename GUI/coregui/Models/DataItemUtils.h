@@ -30,6 +30,6 @@ BA_CORE_API_ IntensityDataItem* intensityDataItem(SessionItem* parent);
 
 //! Returns SpecularDataItem contained as a child in givent parent.
 BA_CORE_API_ SpecularDataItem* specularDataItem(SessionItem* parent);
-}
+} // namespace DataItemUtils
 
-#endif  //  DATAITEMUTILS_H
+#endif //  DATAITEMUTILS_H

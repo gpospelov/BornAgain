@@ -13,21 +13,15 @@
 // ************************************************************************** //
 
 #include "RectangularDetectorEditor.h"
-#include "RectangularDetectorItem.h"
-#include "ComponentEditor.h"
 #include "ComboProperty.h"
+#include "ComponentEditor.h"
+#include "RectangularDetectorItem.h"
 #include <QGridLayout>
 
 RectangularDetectorEditor::RectangularDetectorEditor(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_xAxisEditor(nullptr)
-    , m_yAxisEditor(nullptr)
-    , m_resolutionFunctionEditor(nullptr)
-    , m_alignmentEditor(nullptr)
-    , m_positionsEditor(nullptr)
-    , m_normalEditor(nullptr)
-    , m_directionEditor(nullptr)
-    , m_gridLayout(new QGridLayout)
+    : SessionItemWidget(parent), m_xAxisEditor(nullptr), m_yAxisEditor(nullptr),
+      m_resolutionFunctionEditor(nullptr), m_alignmentEditor(nullptr), m_positionsEditor(nullptr),
+      m_normalEditor(nullptr), m_directionEditor(nullptr), m_gridLayout(new QGridLayout)
 {
     create_editors();
 
@@ -79,7 +73,8 @@ void RectangularDetectorEditor::create_editors()
     m_yAxisEditor = new ComponentEditor(ComponentEditor::GroupWidget, "Y axis");
     m_gridLayout->addWidget(m_yAxisEditor, 1, 1);
 
-    m_resolutionFunctionEditor = new ComponentEditor(ComponentEditor::GroupWidget, "Resolution function");
+    m_resolutionFunctionEditor =
+        new ComponentEditor(ComponentEditor::GroupWidget, "Resolution function");
     m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
 
     // alignment selector editors
@@ -87,7 +82,7 @@ void RectangularDetectorEditor::create_editors()
     m_gridLayout->addWidget(m_alignmentEditor, 2, 0);
 
     // editors for various positions
-    m_positionsEditor = new ComponentEditor(ComponentEditor::GroupWidget, "Positions");
+    m_positionsEditor = new ComponentEditor(ComponentEditor::GroupWidget, "Positions [mm]");
     m_gridLayout->addWidget(m_positionsEditor, 3, 0);
 
     m_normalEditor = new ComponentEditor(ComponentEditor::GroupWidget, "Normal vector");
@@ -128,8 +123,8 @@ void RectangularDetectorEditor::init_alignment_editors()
     m_directionEditor->clearEditor();
     m_directionEditor->hide();
 
-    ComboProperty alignment
-        = detectorItem()->getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
+    ComboProperty alignment =
+        detectorItem()->getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
 
     if (alignment.getValue() == Constants::ALIGNMENT_GENERIC) {
         m_positionsEditor->show();

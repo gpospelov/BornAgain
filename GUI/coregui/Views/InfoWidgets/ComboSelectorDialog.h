@@ -29,7 +29,7 @@ class BA_CORE_API_ ComboSelectorDialog : public QDialog
 {
     Q_OBJECT
 public:
-    ComboSelectorDialog(QWidget *parent = 0);
+    ComboSelectorDialog(QWidget* parent = 0);
 
     void addItems(const QStringList& selection, const QString& currentItem = QString());
     void setTextTop(const QString& text);

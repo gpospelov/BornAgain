@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "Parameter.h"
+#include "google_test.h"
 #include <string>
 
 class ParameterTest : public ::testing::Test
@@ -43,7 +43,7 @@ TEST_F(ParameterTest, defaultStep)
     const double start_value = 2.0;
     const double hardcoded_step_factor = 0.01;
     Fit::Parameter par("par0", start_value, AttLimits::limitless());
-    EXPECT_EQ(par.step(), start_value*hardcoded_step_factor);
+    EXPECT_EQ(par.step(), start_value * hardcoded_step_factor);
 
     // fit parameter with zero start value
     Fit::Parameter par2("par0", 0.0, AttLimits::limitless());
@@ -55,7 +55,7 @@ TEST_F(ParameterTest, setters)
     Fit::Parameter par("par0", 2.0, AttLimits::limitless(), 0.2);
     par.setValue(42.0);
     EXPECT_EQ(par.value(), 42.0);
-    EXPECT_EQ(par.startValue(), 2.0);  // start value shouldn't change
+    EXPECT_EQ(par.startValue(), 2.0); // start value shouldn't change
 
     par.setError(43.0);
     EXPECT_EQ(par.error(), 43.0);

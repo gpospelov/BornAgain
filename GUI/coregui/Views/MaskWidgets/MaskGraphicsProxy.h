@@ -36,21 +36,21 @@ public:
 
     int type() const { return MaskEditorHelper::MASKGRAPHICSPROXY; }
 
-    void setIntensityItem(IntensityDataItem *item);
-    void setSceneAdaptor(ISceneAdaptor *sceneAdaptor);
+    void setIntensityItem(IntensityDataItem* item);
+    void setSceneAdaptor(ISceneAdaptor* sceneAdaptor);
     void setInZoomMode(bool value);
 
-    ColorMap *colorMap();
+    ColorMap* colorMap();
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void wheelEvent(QGraphicsSceneWheelEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+    void wheelEvent(QGraphicsSceneWheelEvent* event);
 
 private:
-    ColorMap *m_colorMap;
-    ColorMapSceneAdaptor *m_sceneAdaptor;
+    ColorMap* m_colorMap;
+    ColorMapSceneAdaptor* m_sceneAdaptor;
     bool m_send_signals_to_colormap;
 };
 

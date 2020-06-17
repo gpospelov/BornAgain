@@ -49,7 +49,7 @@ protected slots:
     virtual void update_view() = 0;
     virtual void onChangedX() {}
     virtual void onChangedY() {}
-    virtual void onPropertyChange(const QString&){}
+    virtual void onPropertyChange(const QString&) {}
 
 protected:
     double par(const QString& property_name) const;
@@ -74,4 +74,3 @@ private:
 };
 
 #endif // ISHAPE2DVIEW_H
-

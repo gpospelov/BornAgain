@@ -18,6 +18,15 @@
     }
 };
 
+%extend SimulationResult {
+    double __getitem__(unsigned int i) { return (*($self))[i]; }
+    double __setitem__(unsigned int i, double value)
+    {
+        (*($self))[i] = value;
+        return (*($self))[i];
+    }
+};
+
 %extend FixedBinAxis {
     double __getitem__(unsigned int i) { return (*($self))[i]; }
 };
@@ -69,6 +78,34 @@
              self.setSampleBuilderCpp(ptr)
     %}
  };
+
+// fancy names for ScanResolution static functions
+%pythoncode %{
+    def ScanRelativeResolution(distribution, rel_dev):
+        """
+        Creates a scan resolution from the given distribution and
+        relative deviation values (that is, the ratios of standard
+        deviations and means).
+        :param distribution: bornagain.RangedDistribution object
+        :param rel_dev: either single-valued or a numpy array.
+                        In the latter case should coinside in
+                        size with later used mean values array.
+        :return: bornagain.ScanResolution object
+        """
+        return ScanResolution_scanRelativeResolution(distribution, rel_dev)
+
+    def ScanAbsoluteResolution(distribution, std_dev):
+        """
+        Creates a scan resolution from the given distribution and
+        standard deviation values.
+        :param distribution: bornagain.RangedDistribution object
+        :param std_dev: either single-valued or a numpy array.
+                        In the latter case should coinside in
+                        size with later used mean values array.
+        :return: bornagain.ScanResolution object
+        """
+        return ScanResolution_scanAbsoluteResolution(distribution, std_dev)
+%}
 
 // --- ParameterPool accessors -------------------------------------------------------------------
 
@@ -142,12 +179,29 @@ class ObserverCallbackWrapper(PyObserverCallback):
 
 %extend FitObjective {
 %pythoncode %{
-    def addSimulationAndData(self, callback, data, weight = 1.0):
+    def addSimulationAndData(self, callback, data, *args, **kwargs):
+        """
+        Sets simulation and experimental data to the fit objective.
+        Optionally accepts experimental data uncertainties and
+        user-defined dataset weight.
+
+        Arguments:
+
+        callback -- user-defined function returning fully-defined bornagain.Simulation object.
+        The function must use fit parameter dictionary as its input.
+
+        data -- numpy array with experimental data.
+
+        uncertainties -- numpy array with experimental data uncertainties.
+        Array shape must correspond to the shape of data. Optional argument.
+
+        weight -- user-defined weight of the dataset. If not specified, defaults to 1.0.
+        """
         if not hasattr(self, 'callback_container'):
             self.callback_container = []
         wrp = SimulationBuilderWrapper(callback)
         self.callback_container.append(wrp)
-        return self.addSimulationAndData_cpp(wrp, data, weight)
+        return self.addSimulationAndData_cpp(wrp, data, *args, **kwargs)
 
     def convert_params(self, params):
         """
@@ -193,6 +247,46 @@ class ObserverCallbackWrapper(PyObserverCallback):
         self.wrp_plot_observer = ObserverCallbackWrapper(callback)
         return self.initPlot_cpp(every_nth, self.wrp_plot_observer)
 
+    def uncertainties(self):
+        """
+        Returns one-dimensional array representing merged data uncertainties.
+        If any of the associated data pairs lack uncertainties, returns None.
+        """
+        if self.allPairsHaveUncertainties_cpp():
+            return self.uncertainties_cpp()
+        return None
+
+    def uncertaintyData(self, i=0):
+        """
+        Returns uncertainties for i-th simulation-data pair. If
+        no uncertainties are assigned to the data pair, returns
+        None.
+        """
+        if self.containsUncertainties_cpp(i):
+            return self.uncertaintyData_cpp(i)
+        return None
 %}
 };
 
+// --- MaterialProfile generation ----------------------------------------------------------------
+
+// Function with optional default limits and/or number of points
+%pythoncode %{
+    def MaterialProfile(multilayer, n_points=400, z_min=None, z_max=None):
+        """
+        Creates a material profile from the given multilayer. If no limits are given,
+        it will provide sensible default values, considering the included particles and
+        interface roughnesses.
+        :param multilayer: bornagain.MultiLayer object
+        :param n_points: number of points to generate
+        :param z_min: starting value for z
+        :param z_max: ending value for z
+        :return: numpy arrays containing z positions and the complex material values in those positions
+        """
+        def_z_min, def_z_max = DefaultMaterialProfileLimits(multilayer)
+        z_min = def_z_min if z_min is None else z_min
+        z_max = def_z_max if z_max is None else z_max
+        z_points = GenerateZValues(n_points, z_min, z_max)
+        material_values = MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
+        return (z_points, material_values)
+%}

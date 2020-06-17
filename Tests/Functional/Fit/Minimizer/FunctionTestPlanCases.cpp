@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/FunctionTestPlanCases.h
+//! @file      Tests/Functional/Fit/Minimizer/FunctionTestPlanCases.cpp
 //! @brief     Defines collection of FunctionTestPlan classes
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -16,10 +16,10 @@
 #include "ObjectiveTestFunctions.h"
 #include "Parameter.h"
 
-namespace {
+namespace
+{
 const double loose_tolerance_on_function_min = 0.1;
 }
-
 
 using namespace Fit;
 
@@ -27,8 +27,7 @@ using namespace Fit;
 //! start point: F(-1.2,1.0) = 24.20
 //! minimum    : F(1.0,1.0)  = 0.
 
-RosenbrockPlan::RosenbrockPlan()
-    : ScalarTestPlan("RosenbrockPlan", TestFunctions::RosenBrock, 0.0)
+RosenbrockPlan::RosenbrockPlan() : ScalarTestPlan("RosenbrockPlan", TestFunctions::RosenBrock, 0.0)
 {
     addParameter(Parameter("par0", -1.2, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
     addParameter(Parameter("par1", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
@@ -68,8 +67,7 @@ EasyWoodFourPlan::EasyWoodFourPlan()
     addParameter(Parameter("par3", 1.1, AttLimits::limited(0.8, 1.2)), 1.0, tolerance);
 }
 
-DecayingSinPlan::DecayingSinPlan()
-    : ResidualTestPlan("DecayingSinPlan", TestFunctions::DecayingSin)
+DecayingSinPlan::DecayingSinPlan() : ResidualTestPlan("DecayingSinPlan", TestFunctions::DecayingSin)
 {
     addParameter(Parameter("amp", 1.0, AttLimits::nonnegative()), 10.0);
     addParameter(Parameter("frequency", 1.0, AttLimits::nonnegative()), 4.0);

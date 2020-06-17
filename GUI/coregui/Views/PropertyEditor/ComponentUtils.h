@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/ComponentUtis.h
+//! @file      GUI/coregui/Views/PropertyEditor/ComponentUtils.h
 //! @brief     Defines ComponentUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -32,6 +32,6 @@ BA_CORE_API_ QStringList propertyRelatedTypes();
 //! Returns list of SessionItem's children suitable for editing in property editors.
 BA_CORE_API_ QList<const SessionItem*> componentItems(const SessionItem& item);
 
-}
+} // namespace ComponentUtils
 
 #endif

@@ -34,7 +34,7 @@ public:
     QVector<SessionItem*> materialPropertyItems();
 
 private:
-    void updatePropertiesAppearance(SessionItem* newParent);
+    void updatePropertiesAppearance(SessionItem*);
     bool isShellParticle() const;
     bool parentIsParticleLayout() const;
 };

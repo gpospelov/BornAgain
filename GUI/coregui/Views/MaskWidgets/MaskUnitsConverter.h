@@ -20,7 +20,7 @@
 class IntensityDataItem;
 class SessionItem;
 class IAxis;
-template<class T> class OutputData;
+template <class T> class OutputData;
 class QString;
 
 //! The MaskUnitsConverter converts coordinates of all masks from one units to anoter.

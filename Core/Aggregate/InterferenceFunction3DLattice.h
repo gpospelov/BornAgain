@@ -20,7 +20,7 @@
 
 class IPeakShape;
 
-//! Interference function of 3D lattice.
+//! Interference function of a 3D lattice.
 //! @ingroup interference
 
 class BA_CORE_API_ InterferenceFunction3DLattice : public IInterferenceFunction
@@ -42,13 +42,14 @@ public:
     std::vector<const INode*> getChildren() const override final;
 
     void onChange() override final;
+
 private:
     double iff_without_dw(const kvector_t q) const override final;
     InterferenceFunction3DLattice(const InterferenceFunction3DLattice& other);
     void initRecRadius();
     Lattice m_lattice;
     std::unique_ptr<IPeakShape> mP_peak_shape;
-    double m_rec_radius;  //!< radius in reciprocal space defining the nearest q vectors to use
+    double m_rec_radius; //!< radius in reciprocal space defining the nearest q vectors to use
 };
 
 #endif // INTERFERENCEFUNCTION3DLATTICE_H

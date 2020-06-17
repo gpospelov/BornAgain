@@ -18,7 +18,8 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 
-namespace {
+namespace
+{
 QMap<SizeHandleElement::EHandleLocation, Qt::CursorShape> create_cursors_map()
 {
     QMap<SizeHandleElement::EHandleLocation, Qt::CursorShape> result;
@@ -50,7 +51,8 @@ create_location_to_type_map()
     return result;
 }
 
-QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleLocation> getMapOfOppositeCorners()
+QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleLocation>
+getMapOfOppositeCorners()
 {
     QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleLocation> result;
     result[SizeHandleElement::TOPLEFT] = SizeHandleElement::BOTTOMRIGHT;
@@ -64,24 +66,22 @@ QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleLocation> get
     return result;
 }
 
-}
+} // namespace
 
 QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleType>
-SizeHandleElement::m_location_to_type = create_location_to_type_map();
+    SizeHandleElement::m_location_to_type = create_location_to_type_map();
 
 QMap<SizeHandleElement::EHandleLocation, Qt::CursorShape> SizeHandleElement::m_cursors =
-        create_cursors_map();
+    create_cursors_map();
 
 QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleLocation>
-SizeHandleElement::m_opposite_handle_location = getMapOfOppositeCorners();
-
+    SizeHandleElement::m_opposite_handle_location = getMapOfOppositeCorners();
 
 // ----------------------------------------------------------------------------
 
-SizeHandleElement::SizeHandleElement(EHandleLocation pointType, QGraphicsObject *parent)
-    : QGraphicsObject(parent)
-    , m_handleLocation(pointType)
-    , m_handleType(m_location_to_type[pointType])
+SizeHandleElement::SizeHandleElement(EHandleLocation pointType, QGraphicsObject* parent)
+    : QGraphicsObject(parent), m_handleLocation(pointType),
+      m_handleType(m_location_to_type[pointType])
 {
     setCursor(m_cursors[m_handleLocation]);
     setParentItem(parent);
@@ -92,65 +92,64 @@ QRectF SizeHandleElement::boundingRect() const
     return QRectF(-4, -4, 8, 8);
 }
 
-void SizeHandleElement::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void SizeHandleElement::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     painter->setRenderHints(QPainter::Antialiasing);
 
     painter->setBrush(MaskEditorHelper::getSelectionMarkerBrush());
     painter->setPen(MaskEditorHelper::getSelectionMarkerPen());
-    if(getHandleType() == RESIZE) {
+    if (getHandleType() == RESIZE) {
         painter->drawRect(boundingRect());
     } else {
         painter->drawEllipse(boundingRect());
     }
 }
 
-void SizeHandleElement::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void SizeHandleElement::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     emit resize_request(true);
     QGraphicsObject::mousePressEvent(event);
 }
 
-void SizeHandleElement::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void SizeHandleElement::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     emit resize_request(false);
     QGraphicsObject::mouseReleaseEvent(event);
 }
 
-
 //! set position from location type using coordinates of external rectangle
-void SizeHandleElement::updateHandleElementPosition(const QRectF &rect)
+void SizeHandleElement::updateHandleElementPosition(const QRectF& rect)
 {
-    if(m_handleLocation == TOPLEFT) {
+    if (m_handleLocation == TOPLEFT) {
         setPos(rect.topLeft());
     }
 
-    else if(m_handleLocation == TOPMIDDLE) {
-        setPos(QPointF(rect.x()+rect.width()/2., rect.y()));
+    else if (m_handleLocation == TOPMIDDLE) {
+        setPos(QPointF(rect.x() + rect.width() / 2., rect.y()));
     }
 
-    else if(m_handleLocation == TOPRIGHT) {
+    else if (m_handleLocation == TOPRIGHT) {
         setPos(rect.topRight());
     }
 
-    else if(m_handleLocation == MIDDLERIGHT) {
-        setPos(QPointF(rect.x()+rect.width(), rect.y()+rect.height()/2.));
+    else if (m_handleLocation == MIDDLERIGHT) {
+        setPos(QPointF(rect.x() + rect.width(), rect.y() + rect.height() / 2.));
     }
 
-    else if(m_handleLocation == BOTTOMRIGHT) {
+    else if (m_handleLocation == BOTTOMRIGHT) {
         setPos(rect.bottomRight());
     }
 
-    else if(m_handleLocation == BOTTOMMIDLE) {
-        setPos(QPointF(rect.x()+rect.width()/2., rect.y()+rect.height()));
+    else if (m_handleLocation == BOTTOMMIDLE) {
+        setPos(QPointF(rect.x() + rect.width() / 2., rect.y() + rect.height()));
     }
 
-    else if(m_handleLocation == BOTTOMLEFT) {
+    else if (m_handleLocation == BOTTOMLEFT) {
         setPos(rect.bottomLeft());
     }
 
-    else if(m_handleLocation == MIDDLELEFT) {
-        setPos(QPointF(rect.x(), rect.y()+rect.height()/2.));
+    else if (m_handleLocation == MIDDLELEFT) {
+        setPos(QPointF(rect.x(), rect.y() + rect.height() / 2.));
     }
 }
 

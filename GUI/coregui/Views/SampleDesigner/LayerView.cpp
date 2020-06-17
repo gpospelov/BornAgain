@@ -18,23 +18,20 @@
 #include "ParticleLayoutView.h"
 #include "SessionItem.h"
 #include "tooltipdatabase.h"
+#include "DesignerHelper.h"
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
-
-
-LayerView::LayerView(QGraphicsItem *parent)
-    : ILayerView(parent)
+LayerView::LayerView(QGraphicsItem* parent) : ILayerView(parent)
 {
-    setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
+    setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
     setName(Constants::LayerType);
     setRectangle(DesignerHelper::getDefaultBoundingRect(Constants::LayerType));
     setAcceptDrops(false);
     addPort(QString(), NodeEditorPort::INPUT, NodeEditorPort::PARTICLE_LAYOUT);
 }
 
-
-void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void LayerView::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     Q_UNUSED(widget);
 
@@ -42,15 +39,13 @@ void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
         painter->setPen(Qt::DashLine);
     }
-    painter->setBrush(DesignerHelper::getLayerGradient(m_color, getRectangle() ) );
+    painter->setBrush(DesignerHelper::getLayerGradient(m_color, getRectangle()));
     painter->drawRect(getRectangle());
 }
 
-
-void LayerView::addView(IView *childView, int /* row */)
+void LayerView::addView(IView* childView, int /* row */)
 {
-    ParticleLayoutView *layout = dynamic_cast<ParticleLayoutView *>(childView);
+    ParticleLayoutView* layout = dynamic_cast<ParticleLayoutView*>(childView);
     Q_ASSERT(layout);
     connectInputPort(layout, 0);
 }
-

@@ -37,22 +37,13 @@ public:
     };
     Q_DECLARE_FLAGS(Activity, EActivityType)
 
-    enum EMoveType {
-        BRING_TO_FRONT,
-        SEND_TO_BACK
-    };
+    enum EMoveType { BRING_TO_FRONT, SEND_TO_BACK };
     Q_DECLARE_FLAGS(Stacking, EMoveType)
 
-    enum EMaskValue {
-        MASK_OFF,
-        MASK_ON
-    };
+    enum EMaskValue { MASK_OFF, MASK_ON };
     Q_DECLARE_FLAGS(MaskValue, EMaskValue)
 
-    enum EPresentationType {
-        MASK_EDITOR,
-        MASK_PRESENTER
-    };
+    enum EPresentationType { MASK_EDITOR, MASK_PRESENTER };
     Q_DECLARE_FLAGS(PresentationType, EPresentationType)
 };
 

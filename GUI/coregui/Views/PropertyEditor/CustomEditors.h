@@ -16,8 +16,8 @@
 #define CUSTOMEDITORS_H
 
 #include "WinDllMacros.h"
-#include <QWidget>
 #include <QVariant>
+#include <QWidget>
 
 class LostFocusFilter;
 class QLabel;
@@ -76,7 +76,7 @@ class BA_CORE_API_ ComboPropertyEditor : public CustomEditor
 {
     Q_OBJECT
 public:
-    explicit ComboPropertyEditor(QWidget *parent = nullptr);
+    explicit ComboPropertyEditor(QWidget* parent = nullptr);
 
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
@@ -100,7 +100,7 @@ class BA_CORE_API_ ScientificDoublePropertyEditor : public CustomEditor
 {
     Q_OBJECT
 public:
-    ScientificDoublePropertyEditor(QWidget *parent = nullptr);
+    ScientificDoublePropertyEditor(QWidget* parent = nullptr);
 
     void setLimits(const RealLimits& limits);
 
@@ -121,7 +121,7 @@ class BA_CORE_API_ DoubleEditor : public CustomEditor
 {
     Q_OBJECT
 public:
-    DoubleEditor(QWidget *parent = nullptr);
+    DoubleEditor(QWidget* parent = nullptr);
 
     void setLimits(const RealLimits& limits);
     void setDecimals(int decimals);
@@ -136,14 +136,13 @@ private:
     class QDoubleSpinBox* m_doubleEditor;
 };
 
-
 //! Editor for Double variant using ScientificSpinBox.
 
 class BA_CORE_API_ ScientificSpinBoxEditor : public CustomEditor
 {
     Q_OBJECT
 public:
-    ScientificSpinBoxEditor(QWidget *parent = nullptr);
+    ScientificSpinBoxEditor(QWidget* parent = nullptr);
 
     void setLimits(const RealLimits& limits);
     void setDecimals(int decimals);
@@ -165,7 +164,7 @@ class BA_CORE_API_ IntEditor : public CustomEditor
 {
     Q_OBJECT
 public:
-    IntEditor(QWidget *parent = nullptr);
+    IntEditor(QWidget* parent = nullptr);
 
     void setLimits(const RealLimits& limits);
 
@@ -196,7 +195,7 @@ protected:
     void initEditor();
 
 private:
-    QCheckBox *m_checkBox;
+    QCheckBox* m_checkBox;
 };
 
-#endif  //  CUSTOMEDITORS_H
+#endif //  CUSTOMEDITORS_H

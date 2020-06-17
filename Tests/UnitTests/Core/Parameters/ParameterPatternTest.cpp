@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "ParameterPattern.h"
+#include "google_test.h"
 #include <string>
 
 class ParameterPatternTest : public ::testing::Test

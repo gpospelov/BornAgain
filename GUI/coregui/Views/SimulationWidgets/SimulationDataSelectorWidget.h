@@ -32,13 +32,13 @@ class BA_CORE_API_ SimulationDataSelectorWidget : public QWidget
     Q_OBJECT
 
 public:
-    SimulationDataSelectorWidget(QWidget *parent = 0);
+    SimulationDataSelectorWidget(QWidget* parent = 0);
 
-    void setApplicationModels(ApplicationModels *applicationModels);
+    void setApplicationModels(ApplicationModels* applicationModels);
 
-    const MultiLayerItem *selectedMultiLayerItem() const;
-    const InstrumentItem *selectedInstrumentItem() const;
-    const RealDataItem *selectedRealDataItem() const;
+    const MultiLayerItem* selectedMultiLayerItem() const;
+    const InstrumentItem* selectedInstrumentItem() const;
+    const RealDataItem* selectedRealDataItem() const;
 
     void updateViewElements();
 
@@ -46,12 +46,12 @@ private:
     int selectedInstrumentIndex() const;
     int selectedSampleIndex() const;
     int selectedRealDataIndex() const;
-    void updateSelection(QComboBox *comboBox, QStringList itemList, bool allow_none = false);
+    void updateSelection(QComboBox* comboBox, QStringList itemList, bool allow_none = false);
 
-    QComboBox *m_instrumentCombo;
-    QComboBox *m_sampleCombo;
-    QComboBox *m_realDataCombo;
-    ApplicationModels *m_applicationModels;
+    QComboBox* m_instrumentCombo;
+    QComboBox* m_sampleCombo;
+    QComboBox* m_realDataCombo;
+    ApplicationModels* m_applicationModels;
 };
 
 #endif // SIMULATIONDATASELECTORWIDGET_H

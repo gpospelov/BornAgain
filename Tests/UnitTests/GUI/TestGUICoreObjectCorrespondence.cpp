@@ -1,10 +1,10 @@
-#include "google_test.h"
-#include "FormFactors.h"
-#include "InterferenceFunctions.h"
 #include "FormFactorItems.h"
+#include "FormFactors.h"
 #include "InterferenceFunctionItems.h"
+#include "InterferenceFunctions.h"
 #include "ParameterPool.h"
 #include "Units.h"
+#include "google_test.h"
 
 class TestGUICoreObjectCorrespondence : public ::testing::Test
 {
@@ -62,6 +62,13 @@ TEST_F(TestGUICoreObjectCorrespondence, test_Cuboctahedron)
     GUICoreObjectCorrespondence(gui_cuboctahedron, core_cuboctahedron);
 }
 
+TEST_F(TestGUICoreObjectCorrespondence, test_Cylinder)
+{
+    CylinderItem gui_cylinder;
+    FormFactorCylinder core_cylinder(1.0, 3.0);
+    GUICoreObjectCorrespondence(gui_cylinder, core_cylinder);
+}
+
 TEST_F(TestGUICoreObjectCorrespondence, test_Dodecahedron)
 {
     DodecahedronItem gui_dodecahedron;
@@ -72,15 +79,8 @@ TEST_F(TestGUICoreObjectCorrespondence, test_Dodecahedron)
 TEST_F(TestGUICoreObjectCorrespondence, test_Dot)
 {
     DotItem gui_dot;
-    FormFactorDot core_dot;
+    FormFactorDot core_dot(5.0);
     GUICoreObjectCorrespondence(gui_dot, core_dot);
-}
-
-TEST_F(TestGUICoreObjectCorrespondence, test_Cylinder)
-{
-    CylinderItem gui_cylinder;
-    FormFactorCylinder core_cylinder(1.0, 3.0);
-    GUICoreObjectCorrespondence(gui_cylinder, core_cylinder);
 }
 
 TEST_F(TestGUICoreObjectCorrespondence, test_EllipsoidalCylinder)
@@ -139,17 +139,17 @@ TEST_F(TestGUICoreObjectCorrespondence, test_Pyramid)
     GUICoreObjectCorrespondence(gui_pyramid, core_pyramid);
 }
 
-TEST_F(TestGUICoreObjectCorrespondence, test_Ripple1)
+TEST_F(TestGUICoreObjectCorrespondence, test_Ripple1Box)
 {
-    Ripple1Item gui_ripple1;
-    FormFactorRipple1 core_ripple1(10.0, 2.0, 1.0);
+    Ripple1BoxItem gui_ripple1;
+    FormFactorRipple1Box core_ripple1(10.0, 2.0, 1.0);
     GUICoreObjectCorrespondence(gui_ripple1, core_ripple1);
 }
 
-TEST_F(TestGUICoreObjectCorrespondence, test_Ripple2)
+TEST_F(TestGUICoreObjectCorrespondence, test_Ripple2Box)
 {
-    Ripple2Item gui_ripple2;
-    FormFactorRipple2 core_ripple2(10.0, 2.0, 1.0, 0.1);
+    Ripple2BoxItem gui_ripple2;
+    FormFactorRipple2Box core_ripple2(10.0, 2.0, 1.0, 0.1);
     GUICoreObjectCorrespondence(gui_ripple2, core_ripple2);
 }
 

@@ -1,6 +1,6 @@
-#include "google_test.h"
-#include "EigenCore.h"
 #include "PolarizationHandler.h"
+#include "EigenCore.h"
+#include "google_test.h"
 
 class PolarizationHandlerTest : public ::testing::Test
 {
@@ -16,24 +16,23 @@ private:
 };
 
 PolarizationHandlerTest::PolarizationHandlerTest()
-    : identity(Eigen::Matrix2cd::Identity())
-    , test_matrix(testMatrix())
-{}
+    : identity(Eigen::Matrix2cd::Identity()), test_matrix(testMatrix())
+{
+}
 
 PolarizationHandlerTest::~PolarizationHandlerTest() = default;
 
 Eigen::Matrix2cd PolarizationHandlerTest::testMatrix()
 {
     Eigen::Matrix2cd result;
-    result << 0, 1,
-              1, 0;
+    result << 0, 1, 1, 0;
     return result;
 }
 
 TEST_F(PolarizationHandlerTest, InitialState)
 {
     PolarizationHandler handler;
-    EXPECT_EQ(identity, handler.getPolarization());
+    EXPECT_EQ(identity / 2.0, handler.getPolarization());
     EXPECT_EQ(identity, handler.getAnalyzerOperator());
 }
 
@@ -55,7 +54,7 @@ TEST_F(PolarizationHandlerTest, Swap)
     handler2.swapContent(handler);
 
     EXPECT_EQ(test_matrix, handler2.getPolarization());
-    EXPECT_EQ(identity, handler.getPolarization());
+    EXPECT_EQ(identity / 2.0, handler.getPolarization());
 
     handler.setAnalyzerOperator(test_matrix);
     handler2.swapContent(handler);

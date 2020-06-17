@@ -36,7 +36,8 @@ public:
     ~GUIDomainSampleVisitor();
 
     SessionItem* populateSampleModel(SampleModel* sampleModel, MaterialModel* materialModel,
-                                     const MultiLayer& sample, const QString& sample_name = QString());
+                                     const MultiLayer& sample,
+                                     const QString& sample_name = QString());
 
     using INodeVisitor::visit;
 
@@ -54,6 +55,8 @@ public:
     void visit(const Crystal*);
 
     void visit(const FormFactorAnisoPyramid*);
+    void visit(const FormFactorBarGauss*);
+    void visit(const FormFactorBarLorentz*);
     void visit(const FormFactorBox*);
     void visit(const FormFactorCone*);
     void visit(const FormFactorCone6*);
@@ -68,8 +71,12 @@ public:
     void visit(const FormFactorPrism3*);
     void visit(const FormFactorPrism6*);
     void visit(const FormFactorPyramid*);
-    void visit(const FormFactorRipple1*);
-    void visit(const FormFactorRipple2*);
+    void visit(const FormFactorRipple1Box*);
+    void visit(const FormFactorRipple1Gauss*);
+    void visit(const FormFactorRipple1Lorentz*);
+    void visit(const FormFactorRipple2Box*);
+    void visit(const FormFactorRipple2Gauss*);
+    void visit(const FormFactorRipple2Lorentz*);
     void visit(const FormFactorTetrahedron*);
     void visit(const FormFactorDot*);
     void visit(const FormFactorTruncatedCube*);

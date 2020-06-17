@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "Parameters.h"
+#include "google_test.h"
 #include <string>
 
 class ParametersTest : public ::testing::Test
@@ -39,12 +39,12 @@ TEST_F(ParametersTest, addParameter)
     EXPECT_THROW(pars.add(par2), std::runtime_error);
 
     // access to parameters by name
-    EXPECT_EQ(pars["par0"].name(),  "par0");
+    EXPECT_EQ(pars["par0"].name(), "par0");
     // access to non-existing parameters
     EXPECT_THROW(pars["non-existing"], std::runtime_error);
 
     // access to parameters by index
-    EXPECT_EQ(pars[0].name(),  "par0");
+    EXPECT_EQ(pars[0].name(), "par0");
     EXPECT_THROW(pars[2], std::runtime_error);
 }
 

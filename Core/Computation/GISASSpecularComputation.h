@@ -15,9 +15,7 @@
 #ifndef GISASSPECULARCOMPUTATION_H_
 #define GISASSPECULARCOMPUTATION_H_
 
-#include "MultilayerInfo.h"
-#include <vector>
-
+class IFresnelMap;
 class SimulationElement;
 
 //! Computes the specular signal in the bin where q_parallel = 0. Used by DWBAComputation.
@@ -26,11 +24,12 @@ class SimulationElement;
 class GISASSpecularComputation final
 {
 public:
-    GISASSpecularComputation(const MultiLayer* p_multi_layer, const IFresnelMap* p_fresnel_map);
+    GISASSpecularComputation(const IFresnelMap* p_fresnel_map);
 
     void compute(SimulationElement& elem) const;
+
 private:
-    MultilayerInfo m_multilayer_info;
+    const IFresnelMap* mp_fresnel_map;
 };
 
 #endif // GISASSPECULARCOMPUTATION_H_

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Shapes/SlicedParticle.cpp
+//! @file      Core/Particle/SlicedParticle.cpp
 //! @brief     Defines class SlicedParticle.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -11,6 +11,5 @@
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 // ************************************************************************** //
-
 
 #include "SlicedParticle.h"

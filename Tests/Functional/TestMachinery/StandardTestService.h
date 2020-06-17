@@ -16,8 +16,8 @@
 #define STANDARDTESTSERVICE_H
 
 #include "WinDllMacros.h"
-#include <string>
 #include <memory>
+#include <string>
 class IFunctionalTest;
 class Simulation;
 
@@ -33,18 +33,15 @@ public:
 
 private:
     virtual IFunctionalTest* createTest(const std::string& name, const std::string& description,
-                                        const Simulation& simulation,
-                                        double threshold) = 0;
+                                        const Simulation& simulation, double threshold) = 0;
 };
-
 
 //! @class StandardTestService
 //! @ingroup standard_samples
 //! @brief Extends main class to run standard functional test from standalone executable.
 //! Concrete test type is templated.
 
-template<typename T>
-class StandardTestService : public StandardTestServiceBase
+template <typename T> class StandardTestService : public StandardTestServiceBase
 {
 
 private:

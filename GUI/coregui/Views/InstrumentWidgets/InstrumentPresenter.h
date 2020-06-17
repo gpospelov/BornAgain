@@ -32,4 +32,4 @@ protected:
     QStringList activePresentationList(SessionItem* item) override;
 };
 
-#endif  // INSTRUMENTPRESENTER_H
+#endif // INSTRUMENTPRESENTER_H

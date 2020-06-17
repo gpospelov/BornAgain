@@ -18,15 +18,14 @@
 #include "SessionItem.h"
 
 class IMinimizer;
-class IIntensityFunction;
-class IVarianceFunction;
+class ObjectiveMetric;
 
 //! The MinimizerItem class is the base item to hold minimizer settings.
 
 class BA_CORE_API_ MinimizerItem : public SessionItem
 {
 public:
-    explicit MinimizerItem(const QString &model_type);
+    explicit MinimizerItem(const QString& model_type);
     virtual std::unique_ptr<IMinimizer> createMinimizer() const = 0;
 };
 
@@ -36,13 +35,13 @@ class BA_CORE_API_ MinimizerContainerItem : public MinimizerItem
 {
 public:
     static const QString P_MINIMIZERS;
-    static const QString P_INTENSITY_FUNCTION;
-    static const QString P_VARIANCE_FUNCTIONS;
+    static const QString P_METRIC;
+    static const QString P_NORM;
+
     MinimizerContainerItem();
 
     std::unique_ptr<IMinimizer> createMinimizer() const;
-    std::unique_ptr<IIntensityFunction> createIntensityFunction() const;
-    std::unique_ptr<IVarianceFunction> createVarianceFunction() const;
+    std::unique_ptr<ObjectiveMetric> createMetric() const;
 };
 
 //! The MinuitMinimizerItem class represents settings for ROOT Minuit2 minimizer.
@@ -127,4 +126,3 @@ public:
 };
 
 #endif // MINIMIZERITEM_H
-

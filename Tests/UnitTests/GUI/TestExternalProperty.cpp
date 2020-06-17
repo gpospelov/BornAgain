@@ -1,16 +1,16 @@
-#include "google_test.h"
-#include "ExternalProperty.h"
 #include "Comparators.h"
+#include "ExternalProperty.h"
+#include "google_test.h"
 #include "test_utils.h"
 
-class TestExternalProperty :  public ::testing::Test
+class TestExternalProperty : public ::testing::Test
 {
 public:
     ~TestExternalProperty();
-    ExternalProperty propertyFromXML(const QString& buffer) {
+    ExternalProperty propertyFromXML(const QString& buffer)
+    {
         return TestUtils::propertyFromXML<ExternalProperty>(buffer);
     }
-
 };
 
 TestExternalProperty::~TestExternalProperty() = default;
@@ -43,16 +43,16 @@ TEST_F(TestExternalProperty, test_equalityOperators)
     ExternalProperty prop1;
     ExternalProperty prop2;
 
-    EXPECT_TRUE (prop1 == prop2);
+    EXPECT_TRUE(prop1 == prop2);
     prop1.setColor(QColor(Qt::red));
-    EXPECT_TRUE (prop1 != prop2);
+    EXPECT_TRUE(prop1 != prop2);
     prop2.setColor(QColor(Qt::red));
-    EXPECT_TRUE (prop1 == prop2);
+    EXPECT_TRUE(prop1 == prop2);
 
     prop1.setIdentifier("aaa");
-    EXPECT_TRUE (prop1 != prop2);
+    EXPECT_TRUE(prop1 != prop2);
     prop2.setIdentifier("aaa");
-    EXPECT_TRUE (prop1 == prop2);
+    EXPECT_TRUE(prop1 == prop2);
 }
 
 //! Testing equality operators for QVariants based on ExternalProperty.
@@ -82,7 +82,8 @@ TEST_F(TestExternalProperty, test_toXML)
 
     // empty property to XML
     ExternalProperty property;
-    expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"\" Color=\"\" Identifier=\"\"/>";
+    expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"\" Color=\"\" "
+               "Identifier=\"\"/>";
     EXPECT_EQ(TestUtils::propertyToXML(property), expected);
 
     // from XML to empty property
@@ -95,7 +96,8 @@ TEST_F(TestExternalProperty, test_toXML)
     property.setIdentifier("{123456}");
     property.setText("abc");
     property.setColor(QColor(Qt::red));
-    expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"abc\" Color=\"#ffff0000\" Identifier=\"{123456}\"/>";
+    expected = "<Parameter ParType=\"ExternalProperty\" ParRole=\"0\" Text=\"abc\" "
+               "Color=\"#ffff0000\" Identifier=\"{123456}\"/>";
     EXPECT_EQ(TestUtils::propertyToXML(property), expected);
 
     // from XML to initialized property

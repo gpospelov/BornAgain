@@ -16,36 +16,25 @@
 #include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "IDetectorResolution.h"
+#include "MathConstants.h"
 #include "RegionOfInterest.h"
 #include "SimulationElement.h"
-#include "MathConstants.h"
 #include "Units.h"
 
 RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nybins, double height)
-    : m_u0(0.0)
-    , m_v0(0.0)
-    , m_direction(kvector_t(0.0, -1.0, 0.0))
-    , m_distance(0.0)
-    , m_dbeam_u0(0.0)
-    , m_dbeam_v0(0.0)
-    , m_detector_arrangement(GENERIC)
+    : m_u0(0.0), m_v0(0.0), m_direction(kvector_t(0.0, -1.0, 0.0)), m_distance(0.0),
+      m_dbeam_u0(0.0), m_dbeam_v0(0.0), m_detector_arrangement(GENERIC)
 {
     setDetectorParameters(nxbins, 0.0, width, nybins, 0.0, height);
     setName(BornAgain::RectangularDetectorType);
 }
 
 RectangularDetector::RectangularDetector(const RectangularDetector& other)
-    : IDetector2D(other)
-    , m_normal_to_detector(other.m_normal_to_detector)
-    , m_u0(other.m_u0)
-    , m_v0(other.m_v0)
-    , m_direction(other.m_direction)
-    , m_distance(other.m_distance)
-    , m_dbeam_u0(other.m_dbeam_u0)
-    , m_dbeam_v0(other.m_dbeam_v0)
-    , m_detector_arrangement(other.m_detector_arrangement)
-    , m_u_unit(other.m_u_unit)
-    , m_v_unit(other.m_v_unit)
+    : IDetector2D(other), m_normal_to_detector(other.m_normal_to_detector), m_u0(other.m_u0),
+      m_v0(other.m_v0), m_direction(other.m_direction), m_distance(other.m_distance),
+      m_dbeam_u0(other.m_dbeam_u0), m_dbeam_v0(other.m_dbeam_v0),
+      m_detector_arrangement(other.m_detector_arrangement), m_u_unit(other.m_u_unit),
+      m_v_unit(other.m_v_unit)
 {
     setName(BornAgain::RectangularDetectorType);
 }
@@ -65,8 +54,8 @@ void RectangularDetector::init(const Beam& beam)
     initUandV(alpha_i);
 }
 
-void RectangularDetector::setPosition(const kvector_t normal_to_detector,
-                                      double u0, double v0, const kvector_t direction)
+void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0,
+                                      const kvector_t direction)
 {
     m_detector_arrangement = GENERIC;
     m_normal_to_detector = normal_to_detector;
@@ -222,14 +211,16 @@ std::string RectangularDetector::axisName(size_t index) const
 
 size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
 {
-    if (dimension()!=2) return totalSize();
+    if (dimension() != 2)
+        return totalSize();
     double alpha = beam.getAlpha();
     double phi = beam.getPhi();
     kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);
     kvector_t normal_unit = m_normal_to_detector.unit();
     double kd = k_spec.dot(normal_unit);
-    if (kd<=0.0) return totalSize();
-    kvector_t k_orth = (k_spec/kd - normal_unit)*m_distance;
+    if (kd <= 0.0)
+        return totalSize();
+    kvector_t k_orth = (k_spec / kd - normal_unit) * m_distance;
     double u = k_orth.dot(m_u_unit) + m_u0;
     double v = k_orth.dot(m_v_unit) + m_v0;
     const IAxis& u_axis = getAxis(BornAgain::X_AXIS_INDEX);
@@ -241,7 +232,7 @@ size_t RectangularDetector::getIndexOfSpecular(const Beam& beam) const
 
 void RectangularDetector::setDistanceAndOffset(double distance, double u0, double v0)
 {
-    if(distance <= 0.0) {
+    if (distance <= 0.0) {
         std::ostringstream message;
         message << "RectangularDetector::setPerpendicularToSample() -> Error. "
                 << "Distance to sample can't be negative or zero";
@@ -260,21 +251,21 @@ void RectangularDetector::initNormalVector(const kvector_t central_k)
         // do nothing
     }
 
-    else if(m_detector_arrangement == PERPENDICULAR_TO_SAMPLE) {
+    else if (m_detector_arrangement == PERPENDICULAR_TO_SAMPLE) {
         m_normal_to_detector = kvector_t(m_distance, 0.0, 0.0);
     }
 
-    else if(m_detector_arrangement == PERPENDICULAR_TO_DIRECT_BEAM) {
-        m_normal_to_detector = m_distance*central_k_unit;
+    else if (m_detector_arrangement == PERPENDICULAR_TO_DIRECT_BEAM) {
+        m_normal_to_detector = m_distance * central_k_unit;
     }
 
-    else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM) {
-        m_normal_to_detector = m_distance*central_k_unit;
+    else if (m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM) {
+        m_normal_to_detector = m_distance * central_k_unit;
         m_normal_to_detector.setZ(-m_normal_to_detector.z());
     }
 
-    else if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
-        m_normal_to_detector = m_distance*central_k_unit;
+    else if (m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
+        m_normal_to_detector = m_distance * central_k_unit;
         m_normal_to_detector.setZ(-m_normal_to_detector.z());
     }
 
@@ -288,26 +279,27 @@ void RectangularDetector::initUandV(double alpha_i)
 {
     double d2 = m_normal_to_detector.dot(m_normal_to_detector);
     kvector_t u_direction =
-            d2 * m_direction - m_direction.dot(m_normal_to_detector) * m_normal_to_detector;
+        d2 * m_direction - m_direction.dot(m_normal_to_detector) * m_normal_to_detector;
     m_u_unit = u_direction.unit();
     m_v_unit = m_u_unit.cross(m_normal_to_detector).unit();
 
-    if(m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
+    if (m_detector_arrangement == PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
         kvector_t z(0.0, 0.0, 1.0);
         kvector_t normal_unit = m_normal_to_detector.unit();
-        kvector_t zp = z - z.dot(normal_unit)*normal_unit;
-        double uz = zp.dot(m_u_unit)/zp.mag();
-        double vz = zp.dot(m_v_unit)/zp.mag();
-        m_u0 = m_dbeam_u0 + m_distance*std::tan(2*alpha_i)*uz;
-        m_v0 = m_dbeam_v0 + m_distance*std::tan(2*alpha_i)*vz;
+        kvector_t zp = z - z.dot(normal_unit) * normal_unit;
+        double uz = zp.dot(m_u_unit) / zp.mag();
+        double vz = zp.dot(m_v_unit) / zp.mag();
+        m_u0 = m_dbeam_u0 + m_distance * std::tan(2 * alpha_i) * uz;
+        m_v0 = m_dbeam_v0 + m_distance * std::tan(2 * alpha_i) * vz;
     }
 }
 
 RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
-    : m_corner_pos(corner_pos), m_width(width), m_height(height)
+    : m_corner_pos(std::move(corner_pos)), m_width(std::move(width)), m_height(std::move(height))
 {
     m_normal = m_width.cross(m_height);
-    m_solid_angle = calculateSolidAngle();
+    auto solid_angle_value = calculateSolidAngle();
+    m_solid_angle = solid_angle_value <= 0.0 ? 1.0 : solid_angle_value;
 }
 
 RectangularPixel* RectangularPixel::clone() const
@@ -317,45 +309,45 @@ RectangularPixel* RectangularPixel::clone() const
 
 RectangularPixel* RectangularPixel::createZeroSizePixel(double x, double y) const
 {
-    kvector_t position = m_corner_pos + x*m_width + y*m_height;
+    kvector_t position = m_corner_pos + x * m_width + y * m_height;
     kvector_t null_vector;
     return new RectangularPixel(position, null_vector, null_vector);
 }
 
 kvector_t RectangularPixel::getK(double x, double y, double wavelength) const
 {
-    kvector_t direction = m_corner_pos + x*m_width + y*m_height;
-    double length = M_TWOPI/wavelength;
+    kvector_t direction = m_corner_pos + x * m_width + y * m_height;
+    double length = M_TWOPI / wavelength;
     return normalizeLength(direction, length);
 }
 
 kvector_t RectangularPixel::getPosition(double x, double y) const
 {
-    return m_corner_pos + x*m_width + y*m_height;
+    return m_corner_pos + x * m_width + y * m_height;
 }
 
 double RectangularPixel::getIntegrationFactor(double x, double y) const
 {
-    if (m_solid_angle==0.0) return 1.0;
-    kvector_t position = m_corner_pos + x*m_width + y*m_height;
+    if (m_solid_angle == 0.0)
+        return 1.0;
+    kvector_t position = m_corner_pos + x * m_width + y * m_height;
     double length = position.mag();
-    return std::abs(position.dot(m_normal))/std::pow(length, 3)/m_solid_angle;
+    return std::abs(position.dot(m_normal)) / std::pow(length, 3) / m_solid_angle;
 }
 
 double RectangularPixel::getSolidAngle() const
 {
-    if (m_solid_angle<=0.0) return 1.0;
     return m_solid_angle;
 }
 
 kvector_t RectangularPixel::normalizeLength(const kvector_t direction, double length) const
 {
-    return direction.unit()*length;
+    return direction.unit() * length;
 }
 
 double RectangularPixel::calculateSolidAngle() const
 {
-    kvector_t position = m_corner_pos + 0.5*m_width + 0.5*m_height;
+    kvector_t position = m_corner_pos + 0.5 * m_width + 0.5 * m_height;
     double length = position.mag();
-    return std::abs(position.dot(m_normal))/std::pow(length, 3);
+    return std::abs(position.dot(m_normal)) / std::pow(length, 3);
 }

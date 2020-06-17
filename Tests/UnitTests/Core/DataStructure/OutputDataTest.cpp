@@ -1,10 +1,10 @@
-#include "google_test.h"
 #include "OutputData.h"
-#include <algorithm>
-#include "IntensityDataFunctions.h"
-#include "VariableBinAxis.h"
 #include "FixedBinAxis.h"
+#include "IntensityDataFunctions.h"
 #include "ThreadInfo.h"
+#include "VariableBinAxis.h"
+#include "google_test.h"
+#include <algorithm>
 
 class OutputDataTest : public ::testing::Test
 {

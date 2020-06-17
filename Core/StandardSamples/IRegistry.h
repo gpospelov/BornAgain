@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/IRegistry.h
+//! @file      Core/StandardSamples/IRegistry.h
 //! @brief     Defines templated registry for ICloneable objects
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -25,30 +25,32 @@
 //! @ingroup tools_internal
 //! @brief Templated object registry.
 
-template<class ValueType>
-class IRegistry
+template <class ValueType> class IRegistry
 {
 public:
-    const ValueType* getItem(const std::string& key) const {
+    const ValueType* getItem(const std::string& key) const
+    {
         auto it = m_data.find(key);
-        if(it == m_data.end())
+        if (it == m_data.end())
             throw Exceptions::UnknownClassRegistrationException(
                 "IRegistry::createItem() -> Error. Not existing item key '" + key + "'");
         return it->second.get();
     }
 
-    std::vector<std::string> keys() {
+    std::vector<std::string> keys()
+    {
         std::vector<std::string> result;
-        for( auto it=m_data.begin(); it!=m_data.end(); ++it )
-            result.push_back( it->first );
+        for (auto it = m_data.begin(); it != m_data.end(); ++it)
+            result.push_back(it->first);
         return result;
     }
 
     size_t size() const { return m_data.size(); }
 
 protected:
-    void add(const std::string& key, ValueType* item) {
-        if(m_data.find(key) != m_data.end())
+    void add(const std::string& key, ValueType* item)
+    {
+        if (m_data.find(key) != m_data.end())
             throw Exceptions::ExistingClassRegistrationException(
                 "IRegistry::createItem() -> Error. Already existing item with key '" + key + "'");
         m_data[key] = std::unique_ptr<ValueType>(item);

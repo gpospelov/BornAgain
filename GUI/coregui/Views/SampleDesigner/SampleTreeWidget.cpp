@@ -13,18 +13,16 @@
 // ************************************************************************** //
 
 #include "SampleTreeWidget.h"
-#include <QVBoxLayout>
-#include "ItemTreeView.h"
 #include "FilterPropertyProxy.h"
-#include "SampleModel.h"
 #include "ItemFactory.h"
-#include <QMenu>
+#include "ItemTreeView.h"
+#include "SampleModel.h"
 #include <QAction>
+#include <QMenu>
+#include <QVBoxLayout>
 
 SampleTreeWidget::SampleTreeWidget(QWidget* parent, SampleModel* model)
-    : QWidget(parent)
-    , m_treeView(new ItemTreeView)
-    , m_sampleModel(model)
+    : QWidget(parent), m_treeView(new ItemTreeView), m_sampleModel(model)
 {
     setWindowTitle(QString("Sample Tree"));
     setObjectName(QLatin1String("SampleTreeWidget"));
@@ -36,23 +34,21 @@ SampleTreeWidget::SampleTreeWidget(QWidget* parent, SampleModel* model)
     mainLayout->addWidget(m_treeView);
     setLayout(mainLayout);
 
-    FilterPropertyProxy *proxy = new FilterPropertyProxy(1, parent);
+    FilterPropertyProxy* proxy = new FilterPropertyProxy(1, parent);
     proxy->setSourceModel(m_sampleModel);
     m_treeView->setModel(proxy);
     m_treeView->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint &)),
-            this, SLOT(showContextMenu(const QPoint &)));
-
+    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint&)), this,
+            SLOT(showContextMenu(const QPoint&)));
 
     m_delete_item_action = new QAction("Delete", this);
     m_delete_item_action->setStatusTip("Delete current object");
-    connect(m_delete_item_action, SIGNAL(triggered()),
-            this, SLOT(deleteItem()));
+    connect(m_delete_item_action, SIGNAL(triggered()), this, SLOT(deleteItem()));
 
     m_treeView->expandAll();
-    connect(m_treeView->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
-            m_treeView, SLOT(expandAll()));
+    connect(m_treeView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)), m_treeView,
+            SLOT(expandAll()));
 }
 
 QTreeView* SampleTreeWidget::treeView()
@@ -73,12 +69,11 @@ void SampleTreeWidget::showContextMenu(const QPoint& pnt)
         addItemNames = m_sampleModel->acceptableDefaultItemTypes(parent_index);
     }
     if (addItemNames.size() > 0) {
-        for(QString item_name : addItemNames) {
-            QAction *add_action = nullptr;
+        for (QString item_name : addItemNames) {
+            QAction* add_action = nullptr;
             if (m_add_action_map.contains(item_name)) {
                 add_action = m_add_action_map[item_name];
-            }
-            else {
+            } else {
                 add_action = new QAction(item_name, this);
                 m_add_action_map[item_name] = add_action;
                 connect(add_action, &QAction::triggered, [=] { addItem(item_name); });
@@ -93,7 +88,6 @@ void SampleTreeWidget::showContextMenu(const QPoint& pnt)
     if (!menu.isEmpty()) {
         menu.exec(treeView()->mapToGlobal(pnt));
     }
-
 }
 
 void SampleTreeWidget::addItem(const QString& item_name)
@@ -101,20 +95,19 @@ void SampleTreeWidget::addItem(const QString& item_name)
     QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(treeView()->currentIndex());
 
     QModelIndex currentIndexAtColumnZero = getIndexAtColumnZero(currentIndex);
-    SessionItem *new_item
-        = m_sampleModel->insertNewItem(item_name, currentIndexAtColumnZero);
+    SessionItem* new_item = m_sampleModel->insertNewItem(item_name, currentIndexAtColumnZero);
     if (new_item) {
         QModelIndex new_index = m_sampleModel->indexOfItem(new_item);
         scrollToIndex(new_index);
     }
-
 }
 
 void SampleTreeWidget::deleteItem()
 {
     QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(treeView()->currentIndex());
 
-    if (!currentIndex.isValid()) return;
+    if (!currentIndex.isValid())
+        return;
     QModelIndex parent_index = m_sampleModel->parent(currentIndex);
     int row = currentIndex.row();
     if (currentIndex.isValid()) {
@@ -131,8 +124,8 @@ void SampleTreeWidget::scrollToIndex(const QModelIndex& index)
 
 QModelIndex SampleTreeWidget::getIndexAtColumnZero(const QModelIndex& index)
 {
-    if (index==QModelIndex() || index.column()==0) return index;
+    if (index == QModelIndex() || index.column() == 0)
+        return index;
     QModelIndex parent_index = m_sampleModel->parent(index);
     return m_sampleModel->index(index.row(), 0, parent_index);
 }
-

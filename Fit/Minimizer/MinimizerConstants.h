@@ -72,6 +72,6 @@ const std::string BoltzmannInitT = "t_init";
 const std::string BoltzmannMu = "mu";
 const std::string BoltzmannTmin = "t_min";
 
-} // namespace OptionsNames
+} // namespace OptionNames
 
 #endif // MINIMIZERCONSTANTS_H

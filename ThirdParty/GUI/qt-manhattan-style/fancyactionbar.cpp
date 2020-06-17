@@ -48,6 +48,12 @@
 #include <QAnimationGroup>
 #include <QPropertyAnimation>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+#define WIDTH_METHOD horizontalAdvance
+#else
+#define WIDTH_METHOD width
+#endif
+
 using namespace Manhattan;
 
 FancyToolButton::FancyToolButton(QWidget *parent)
@@ -105,29 +111,29 @@ static QVector<QString> splitInTwoLines(const QString &text, const QFontMetrics 
                                       nextSplitPos - text.length() - 1);
         if (nextSplitPos != -1) {
             int splitCandidate = nextSplitPos + rx.matchedLength();
-            if (fontMetrics.width(text.mid(splitCandidate)) <= availableWidth) {
+            if (fontMetrics.WIDTH_METHOD(text.mid(splitCandidate)) <= availableWidth) {
                 splitPos = splitCandidate;
             } else {
                 break;
             }
         }
-    } while (nextSplitPos > 0 && fontMetrics.width(text.left(nextSplitPos)) > availableWidth);
+    } while (nextSplitPos > 0 && fontMetrics.WIDTH_METHOD(text.left(nextSplitPos)) > availableWidth);
     // check if we could split at white space at all
     if (splitPos < 0) {
         splitLines[0] = fontMetrics.elidedText(text, Qt::ElideRight,
-                                                       availableWidth);
+                                                       static_cast<int>(availableWidth));
         QString common = Manhattan::commonPrefix(QStringList()
                                              << splitLines[0] << text);
         splitLines[1] = text.mid(common.length());
         // elide the second line even if it fits, since it is cut off in mid-word
-        while (fontMetrics.width(QChar(0x2026) /*'...'*/ + splitLines[1]) > availableWidth
+        while (fontMetrics.WIDTH_METHOD(QChar(0x2026) /*'...'*/ + splitLines[1]) > availableWidth
                && splitLines[1].length() > 3
                /*keep at least three original characters (should not happen)*/) {
             splitLines[1].remove(0, 1);
         }
         splitLines[1] = QChar(0x2026) /*'...'*/ + splitLines[1];
     } else {
-        splitLines[0] = fontMetrics.elidedText(text.left(splitPos).trimmed(), Qt::ElideRight, availableWidth);
+        splitLines[0] = fontMetrics.elidedText(text.left(splitPos).trimmed(), Qt::ElideRight, static_cast<int>(availableWidth));
         splitLines[1] = text.mid(splitPos);
     }
     return splitLines;
@@ -173,7 +179,6 @@ void FancyToolButton::paintEvent(QPaintEvent *event)
         painter.restore();
     }
     QPixmap borderPixmap;
-    QMargins margins;
 
     QRect iconRect(0, 0, Manhattan::Constants::TARGET_ICON_SIZE, Manhattan::Constants::TARGET_ICON_SIZE);
     // draw popup texts
@@ -212,7 +217,7 @@ void FancyToolButton::paintEvent(QPaintEvent *event)
         // draw project name
         const int margin = 6;
         const qreal availableWidth = r.width() - margin;
-        QString ellidedProjectName = fm.elidedText(projectName, Qt::ElideMiddle, availableWidth);
+        QString ellidedProjectName = fm.elidedText(projectName, Qt::ElideMiddle, static_cast<int>(availableWidth));
         if (isEnabled()) {
             const QRectF shadowR = r.translated(0, 1);
             painter.setPen(QColor(30, 30, 30, 80));
@@ -229,7 +234,7 @@ void FancyToolButton::paintEvent(QPaintEvent *event)
         painter.setFont(boldFont);
         QVector<QString> splitBuildConfiguration(2);
         const QString buildConfiguration = defaultAction()->property("subtitle").toString();
-        if (boldFm.width(buildConfiguration) <= availableWidth) {
+        if (boldFm.WIDTH_METHOD(buildConfiguration) <= availableWidth) {
             // text fits in one line
             splitBuildConfiguration[0] = buildConfiguration;
         } else {

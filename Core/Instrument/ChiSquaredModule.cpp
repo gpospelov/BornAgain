@@ -16,21 +16,21 @@
 #include "IIntensityFunction.h"
 #include "VarianceFunctions.h"
 #include <cassert>
-#include <limits>
 #include <cmath>
+#include <limits>
 
 double ChiSquaredModule::residual(double a, double b, double weight)
 {
     double value_simu = a;
     double value_real = b;
 
-    if(mp_intensity_function) {
+    if (mp_intensity_function) {
         value_simu = mp_intensity_function->evaluate(value_simu);
         value_real = mp_intensity_function->evaluate(value_real);
     }
 
     double variance = m_variance_function->variance(value_real, value_simu);
-    double normalize = variance <=0 ? std::numeric_limits<double>::min() : std::sqrt(variance);
+    double normalize = variance <= 0 ? std::numeric_limits<double>::min() : std::sqrt(variance);
 
-    return std::sqrt(weight)*(value_simu - value_real)/normalize;
+    return std::sqrt(weight) * (value_simu - value_real) / normalize;
 }

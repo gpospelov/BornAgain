@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/model/geometry.cpp
+//! @file      GUI/ba3d/ba3d/model/geometry.cpp
 //! @brief     Implements Geometry class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -19,9 +19,7 @@ namespace RealSpace
 {
 //------------------------------------------------------------------------------
 
-Geometry::Vert_Normal::Vert_Normal(const Vector3D& v_, const Vector3D& n_) : v(v_), n(n_)
-{
-}
+Geometry::Vert_Normal::Vert_Normal(const Vector3D& v_, const Vector3D& n_) : v(v_), n(n_) {}
 
 void Geometry::Vertices::addVertex(const Vector3D& v, int n)
 {
@@ -172,4 +170,4 @@ GeometryStore& geometryStore()
 }
 
 //------------------------------------------------------------------------------
-}
+} // namespace RealSpace

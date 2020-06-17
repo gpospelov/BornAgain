@@ -30,8 +30,6 @@ public:
     void addSpacing(int width = 2);
     void addStyledExpand();
 
-    int minimumHeight() const;
-
 protected:
     void contextMenuEvent(QContextMenuEvent*);
 };

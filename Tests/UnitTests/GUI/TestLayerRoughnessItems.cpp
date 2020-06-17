@@ -1,8 +1,8 @@
-#include "google_test.h"
 #include "LayerRoughness.h"
 #include "LayerRoughnessItems.h"
-#include "TransformToDomain.h"
 #include "TransformFromDomain.h"
+#include "TransformToDomain.h"
+#include "google_test.h"
 
 class TestLayerRoughnessItems : public ::testing::Test
 {

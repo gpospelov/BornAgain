@@ -23,7 +23,7 @@
 
 class BA_CORE_API_ Attributes
 {
- public:
+public:
     Attributes() : m_is_fixed(false) {}
     //! Creates a fixed value object
     static Attributes fixed() { return Attributes(true); }
@@ -33,13 +33,16 @@ class BA_CORE_API_ Attributes
     bool isFixed() const { return m_is_fixed; }
     bool isFree() const { return !isFixed(); }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const Attributes& m) {
-        m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const Attributes& m)
+    {
+        m.print(ostr);
+        return ostr;
+    }
 
-    bool operator==(const Attributes &other) const { return isFixed()==other.isFixed(); }
-    bool operator!=(const Attributes &other) const { return !(*this == other); }
+    bool operator==(const Attributes& other) const { return isFixed() == other.isFixed(); }
+    bool operator!=(const Attributes& other) const { return !(*this == other); }
 
- protected:
+protected:
     Attributes(bool is_fixed) : m_is_fixed(is_fixed) {}
 
     bool m_is_fixed; //! parameter is fixed
@@ -50,7 +53,7 @@ class BA_CORE_API_ Attributes
 //! Prints class
 inline void Attributes::print(std::ostream& ostr) const
 {
-    if(isFixed())
+    if (isFixed())
         ostr << "fixed";
     else
         ostr << "free";

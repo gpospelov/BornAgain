@@ -21,7 +21,8 @@
 #include "JobItem.h"
 #include "SpecularDataWidget.h"
 
-namespace {
+namespace
+{
 // Will switch to the presentation which was used before for given item
 const bool use_job_last_presentation = true;
 
@@ -43,23 +44,26 @@ const std::map<JobViewFlags::EActivities, std::map<QString, QString>> activity_t
 
 const std::map<QString, QStringList> default_active_presentation_list{
     {Constants::SpecularInstrumentType, {Constants::SpecularDataPresentation}},
-    {{Constants::GISASInstrumentType}, {Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}},
-    {{Constants::OffSpecInstrumentType},{Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}},
-    {{Constants::DepthProbeInstrumentType},{Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}}
-};
+    {{Constants::GISASInstrumentType},
+     {Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}},
+    {{Constants::OffSpecInstrumentType},
+     {Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}},
+    {{Constants::DepthProbeInstrumentType},
+     {Constants::IntensityDataPresentation, Constants::IntensityProjectionsPresentation}}};
 
-template<class QStringObj>
-QStringObj getPresentations(const SessionItem* job_item, const std::map<QString, QStringObj>& presentation_map) {
+template <class QStringObj>
+QStringObj getPresentations(const SessionItem* job_item,
+                            const std::map<QString, QStringObj>& presentation_map)
+{
     const QString& instrument_type = job_item->getItem(JobItem::T_INSTRUMENT)->modelType();
     const auto list_iter = presentation_map.find(instrument_type);
     if (list_iter == presentation_map.cend())
         return QStringObj();
     return list_iter->second;
 }
-}
+} // namespace
 
-JobResultsPresenter::JobResultsPresenter(QWidget* parent)
-    : ItemComboWidget(parent)
+JobResultsPresenter::JobResultsPresenter(QWidget* parent) : ItemComboWidget(parent)
 {
     registerWidget(Constants::IntensityDataPresentation, create_new<IntensityDataWidget>);
 
@@ -97,8 +101,7 @@ void JobResultsPresenter::setPresentation(JobViewFlags::EActivities activity)
 
     auto iter = activity_to_presentation.find(activity);
     if (iter == activity_to_presentation.cend())
-        throw GUIHelpers::Error(
-            "Error in JobResultsPresenter::setPresentation: unknown activity.");
+        throw GUIHelpers::Error("Error in JobResultsPresenter::setPresentation: unknown activity.");
 
     setPresentation(getPresentations(currentItem(), iter->second));
 }

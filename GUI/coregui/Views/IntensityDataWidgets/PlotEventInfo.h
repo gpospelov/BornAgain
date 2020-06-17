@@ -27,6 +27,7 @@ class SpecularPlot;
 class BA_CORE_API_ PlotEventInfo
 {
     using PLOT_TYPE = ScientificPlot::PLOT_TYPE;
+
 public:
     PlotEventInfo(PLOT_TYPE type);
 
@@ -36,22 +37,21 @@ public:
     void setInAxesRange(bool flag) { m_in_axes_range = flag; }
     bool inAxesRange() const { return m_in_axes_range; }
 
-    void setLogValueAxis(bool flag) {m_log_valued_axis = flag;}
-    bool isLogValueAxis() const {return m_log_valued_axis;}
+    void setLogValueAxis(bool flag) { m_log_valued_axis = flag; }
+    bool isLogValueAxis() const { return m_log_valued_axis; }
 
-    void setX(double x) {m_x = x;}
-    double x() const {return m_x;}
-    void setY(double y) {m_y = y;}
-    double y() const {return m_y;}
+    void setX(double x) { m_x = x; }
+    double x() const { return m_x; }
+    void setY(double y) { m_y = y; }
+    double y() const { return m_y; }
 
-    void setValue(double value) {m_value = value;}
-    double value() const {return m_value;}
+    void setValue(double value) { m_value = value; }
+    double value() const { return m_value; }
 
-    void setNx(int nx) {m_nx = nx;}
-    int nx() const {return m_nx;}
-    void setNy(int ny) {m_ny = ny;}
-    int ny() const {return m_ny;}
-
+    void setNx(int nx) { m_nx = nx; }
+    int nx() const { return m_nx; }
+    void setNy(int ny) { m_ny = ny; }
+    int ny() const { return m_ny; }
 
 private:
     QString valueToString() const;

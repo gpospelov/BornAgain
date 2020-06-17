@@ -15,8 +15,8 @@
 #ifndef SIMULATIONAREA_H
 #define SIMULATIONAREA_H
 
-#include "WinDllMacros.h"
 #include "SimulationAreaIterator.h"
+#include "WinDllMacros.h"
 
 class IDetector;
 
@@ -55,7 +55,6 @@ inline size_t SimulationArea::totalSize() const
     return m_max_index;
 }
 
-
 //! Holds iteration logic over active detector channels in the presence of ROI. On the contrary
 //! to SimulationArea class, iterates also over masked areas.
 //! @ingroup simulation
@@ -66,7 +65,6 @@ public:
     explicit SimulationRoiArea(const IDetector* detector);
 
     virtual bool isMasked(size_t) const;
-
 };
 
 #endif // SIMULATIONAREA_H

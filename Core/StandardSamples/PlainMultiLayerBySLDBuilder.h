@@ -24,15 +24,15 @@
 class BA_CORE_API_ PlainMultiLayerBySLDBuilder : public IMultiLayerBuilder
 {
 public:
-    PlainMultiLayerBySLDBuilder();
-    MultiLayer* buildSample() const override;
+    PlainMultiLayerBySLDBuilder(int n_layers = 10);
+    MultiLayer* buildSample() const override; // passes ownership
 
 protected:
     struct MaterialData {
         double sld_real; //!< real part of sld in AA^{-2}
         double sld_imag; //!< imaginary part of sld in AA^{-2}
     };
-    size_t m_number_of_layers;
+    int m_number_of_layers;
     MaterialData m_si;
     MaterialData m_ti;
     MaterialData m_ni;

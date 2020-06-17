@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "MaterialFactoryFuncs.h"
-#include "MaterialBySLDImpl.h"
-#include "RefractiveMaterialImpl.h"
 #include "HomogeneousRegion.h"
+#include "MaterialBySLDImpl.h"
 #include "MaterialUtils.h"
+#include "RefractiveMaterialImpl.h"
 #include "Units.h"
 #include <functional>
 
@@ -26,10 +26,10 @@ const double inv_sq_angstroms = 1.0 / (Units::angstrom * Units::angstrom);
 template <class T>
 T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions,
               std::function<T(const Material&)> average);
-}
+} // namespace
 
 Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
-                                 kvector_t magnetization)
+                             kvector_t magnetization)
 {
     const double delta = 1.0 - refractive_index.real();
     const double beta = refractive_index.imag();
@@ -37,7 +37,7 @@ Material HomogeneousMaterial(const std::string& name, complex_t refractive_index
 }
 
 Material HomogeneousMaterial(const std::string& name, double delta, double beta,
-                                 kvector_t magnetization)
+                             kvector_t magnetization)
 {
     std::unique_ptr<RefractiveMaterialImpl> mat_impl(
         new RefractiveMaterialImpl(name, delta, beta, magnetization));
@@ -79,9 +79,8 @@ Material CreateAveragedMaterial(const Material& layer_mat,
     const std::string avr_mat_name = layer_mat.getName() + "_avg";
 
     // calculate averaged magnetization
-    const kvector_t mag_avr =
-            averageData<kvector_t>(layer_mat, regions,
-                                   [](const Material& mat) { return mat.magnetization(); });
+    const kvector_t mag_avr = averageData<kvector_t>(
+        layer_mat, regions, [](const Material& mat) { return mat.magnetization(); });
 
     if (avr_material_type == MATERIAL_TYPES::RefractiveMaterial) {
         // avrData returns (1 - mdc)^2 - 1, where mdc is material data conjugate
@@ -89,15 +88,15 @@ Material CreateAveragedMaterial(const Material& layer_mat,
             const complex_t mdc = std::conj(mat.materialData());
             return mdc * mdc - 2.0 * mdc;
         };
-        const complex_t avr_mat_data
-            = std::conj(1.0 - std::sqrt(1.0 + averageData<complex_t>(layer_mat, regions, avrData)));
+        const complex_t avr_mat_data =
+            std::conj(1.0 - std::sqrt(1.0 + averageData<complex_t>(layer_mat, regions, avrData)));
         return HomogeneousMaterial(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(), mag_avr);
     } else if (avr_material_type == MATERIAL_TYPES::MaterialBySLD) {
-        complex_t (*avrData)(const Material&)
-            = [](const Material& mat) { return mat.materialData(); };
+        complex_t (*avrData)(const Material&) = [](const Material& mat) {
+            return mat.materialData();
+        };
         const complex_t avr_mat_data = averageData<complex_t>(layer_mat, regions, avrData);
-        return MaterialBySLD(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(),
-                                          mag_avr);
+        return MaterialBySLD(avr_mat_name, avr_mat_data.real(), avr_mat_data.imag(), mag_avr);
     } else
         throw std::runtime_error("Error in CalculateAverageMaterial: unknown material type.");
 }
@@ -114,4 +113,4 @@ T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& r
         averaged_data += region.m_volume * (average(region.m_material) - layer_data);
     return averaged_data;
 }
-}
+} // namespace

@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "GSLLevenbergMarquardtMinimizer.h"
+#include "AttLimits.h"
 #include "GSLMultiMinimizer.h"
 #include "MinimizerUtils.h"
 #include "StringUtils.h"
-#include "AttLimits.h"
 #include <stdexcept>
 
 #ifdef _WIN32
@@ -100,8 +100,6 @@ std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() c
     return result;
 }
 
-bool GSLLevenbergMarquardtMinimizer::isGradientBasedAgorithm() { return true; }
-
 void GSLLevenbergMarquardtMinimizer::propagateOptions()
 {
     m_gsl_minimizer->SetTolerance(tolerance());
@@ -117,7 +115,7 @@ const RootMinimizerAdapter::root_minimizer_t* GSLLevenbergMarquardtMinimizer::ro
 void GSLLevenbergMarquardtMinimizer::setParameter(unsigned int index, const Fit::Parameter& par)
 {
     auto limits = par.limits();
-    if (!limits.isLimitless() && !limits.isFixed() )
+    if (!limits.isLimitless() && !limits.isFixed())
         throw std::runtime_error("GSLLMA minimizer can't handle limited parameters."
                                  "Please make them free");
     RootMinimizerAdapter::setParameter(index, par);

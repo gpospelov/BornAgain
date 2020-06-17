@@ -28,7 +28,10 @@ FourierTransform::Workspace::Workspace()
 {
 }
 
-FourierTransform::Workspace::~Workspace() { clear(); }
+FourierTransform::Workspace::~Workspace()
+{
+    clear();
+}
 
 void FourierTransform::Workspace::clear()
 {
@@ -202,8 +205,7 @@ void FourierTransform::fftw_forward_FT(const double2d_t& src)
     for (size_t row = 0; row < static_cast<size_t>(ws.h_src); ++row)
         for (size_t col = 0; col < static_cast<size_t>(ws.w_src); ++col)
             ws.in_src[(static_cast<int>(row) % ws.h_fftw) * ws.w_fftw
-                      + (static_cast<int>(col) % ws.w_fftw)]
-                += src[row][col];
+                      + (static_cast<int>(col) % ws.w_fftw)] += src[row][col];
 
     // Computing the FFT with fftw plan
     fftw_execute(ws.p_forw_src);

@@ -47,21 +47,22 @@ def translate_axis_label(label):
     :return: LaTeX representation
     """
     label_dict = {
-                 'X [nbins]'     : r'$X \; (bins)$',
-                 'phi_f [rad]'   : r'$\varphi_f \; (rad)$',
-                 'phi_f [deg]'   : r'$\varphi_f \; (deg)$',
-                 'alpha_i [rad]' : r'$\alpha_i \; (rad)$',
-                 'alpha_i [deg]' : r'$\alpha_i \; (deg)$',
-                 'X [mm]'        : r'$X \; (mm)$',
-                 'Qy [1/nm]'     : r'$Q_y \; (nm^{-1})$',
-                 'Q [1/nm]'      : r'$Q \; (nm^{-1})$',
+                 'X [nbins]'     : r'$X \; $(bins)',
+                 'phi_f [rad]'   : r'$\varphi_f \; $(rad)',
+                 'phi_f [deg]'   : r'$\varphi_f \; $(deg)',
+                 'alpha_i [rad]' : r'$\alpha_i \; $(rad)',
+                 'alpha_i [deg]' : r'$\alpha_i \; $(deg)',
+                 'X [mm]'        : r'$X \; $(mm)',
+                 'Qx [1/nm]'     : r'$Q_x \; $(nm$^{-1}$)',
+                 'Qy [1/nm]'     : r'$Q_y \; $(nm$^{-1}$)',
+                 'Q [1/nm]'      : r'$Q \; $(nm$^{-1}$)',
 
-                 'Y [nbins]'     : r'$Y \; (bins)$',
-                 'alpha_f [rad]' : r'$\alpha_f \; (rad)$',
-                 'alpha_f [deg]' : r'$\alpha_f \; (deg)$',
-                 'Y [mm]'        : r'$Y \; (mm)$',
-                 'Qz [1/nm]'     : r'$Q_z \; (nm^{-1})$',
-                 'Position [nm]' : r'$Position \; (nm)$'
+                 'Y [nbins]'     : r'$Y \; $(bins)',
+                 'alpha_f [rad]' : r'$\alpha_f \; $(rad)',
+                 'alpha_f [deg]' : r'$\alpha_f \; $(deg)',
+                 'Y [mm]'        : r'$Y \; $(mm)',
+                 'Qz [1/nm]'     : r'$Q_z \; $(nm$^{-1}$)',
+                 'Position [nm]' : r'$Position \; $(nm)'
                  }
     if label in label_dict.keys():
         return label_dict[label]
@@ -83,13 +84,12 @@ def get_axes_labels(result, units):
 
 
 def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
-               title=None, axes_limits=None, aspect=None):
+               title=None, axes_limits=None, **kwargs):
     """
     Plots numpy array as a colormap in log scale.
     """
 
     zlabel = "Intensity" if zlabel is None else zlabel
-    aspect = 'auto' if aspect is None else aspect
 
     zmax = np.amax(array) if zmax is None else zmax
     zmin = 1e-6*zmax if zmin is None else zmin
@@ -99,7 +99,7 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
     else:
         norm = colors.LogNorm(zmin, zmax)
 
-    im = plt.imshow(array, norm=norm, extent=axes_limits, aspect=aspect)
+    im = plt.imshow(array, norm=norm, extent=axes_limits, **kwargs)
     cb = plt.colorbar(im, pad=0.025)
 
     if xlabel:
@@ -116,13 +116,12 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
 
 
 def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
-                  title=None, aspect=None):
+                  title=None, **kwargs):
     """
     Plots intensity data as color map
     :param intensity: Histogram2D object obtained from GISASSimulation
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
-    :param aspect: 'auto' (default) or 'equal'
     """
 
     if not xlabel:
@@ -135,12 +134,12 @@ def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=
                    hist.getYmin(), hist.getYmax()]
 
     plot_array(hist.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
-               zlabel=zlabel, title=title, axes_limits=axes_limits, aspect=aspect)
+               zlabel=zlabel, title=title, axes_limits=axes_limits, **kwargs)
 
 
 def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
                   xlabel=None, ylabel=None, zlabel=None,
-                  title=None, aspect=None):
+                  title=None, **kwargs):
     """
     Plots intensity data as color map
     :param result: SimulationResult from GISAS/OffSpecSimulation
@@ -154,11 +153,11 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.AxesUnits.DEFAULT,
     ylabel = axes_labels[1] if ylabel is None else ylabel
 
     plot_array(result.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
-               zlabel=zlabel, title=title, axes_limits=axes_limits, aspect=aspect)
+               zlabel=zlabel, title=title, axes_limits=axes_limits, **kwargs)
 
 
 def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesUnits.DEFAULT,
-              xlabel=None, ylabel=None, title=None):
+              xlabel=None, ylabel=None, title=None, **kwargs):
     """
     Plots intensity data for specular simulation result
     :param result: SimulationResult from SpecularSimulation
@@ -167,7 +166,7 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesU
     :param units: units on the x-axis
     """
 
-    intensity = result.array()
+    intensity = result.array(units)
     x_axis = result.axis(units)
     ymax = np.amax(intensity) * 2.0 if ymax is None else ymax
     ymin = max(np.amin(intensity) * 0.5, 1e-18 * ymax) if ymin is None else ymin
@@ -175,7 +174,7 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesU
     xlabel = get_axes_labels(result, units)[0] if xlabel is None else xlabel
     ylabel = "Intensity" if ylabel is None else ylabel
 
-    plt.semilogy(x_axis, intensity)
+    plt.semilogy(x_axis, intensity, **kwargs)
 
     plt.ylim([ymin, ymax])
 
@@ -190,7 +189,7 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.AxesU
 
 
 def plot_simulation_result(result, intensity_min=None, intensity_max=None, units=ba.AxesUnits.DEFAULT,
-                           xlabel=None, ylabel=None, postpone_show=False, title=None, aspect=None):
+                           xlabel=None, ylabel=None, postpone_show=False, title=None, **kwargs):
     """
     Draws simulation result and (optionally) shows the plot.
     :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
@@ -198,13 +197,12 @@ def plot_simulation_result(result, intensity_min=None, intensity_max=None, units
     :param intensity_max: Max value on amplitude's axis or color bar
     :param units: units for plot axes
     :param postpone_show: postpone showing the plot for later tuning (False by default)
-    :param aspect: aspect ratio, 'auto' (default) or 'equal'
     """
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
-        plot_specular_simulation_result(result, intensity_min, intensity_max, units)
+        plot_specular_simulation_result(result, intensity_min, intensity_max, units, **kwargs)
     else:
         plot_colormap(result, intensity_min, intensity_max, units, xlabel, ylabel,
-                      title=title, aspect=aspect)
+                      title=title, **kwargs)
     plt.tight_layout()
     if not postpone_show:
         plt.show()
@@ -246,7 +244,7 @@ class PlotterGISAS(Plotter):
 
         real_data = fit_objective.experimentalData()
         sim_data = fit_objective.simulationResult()
-        diff = fit_objective.relativeDifference()
+        diff = fit_objective.absoluteDifference()
 
         self.make_subplot(1)
 
@@ -265,7 +263,7 @@ class PlotterGISAS(Plotter):
                          zlabel='', aspect=self._aspect)
 
         self.make_subplot(3)
-        ba.plot_colormap(diff, title="Relative difference", zmin=0.001, zmax=10.0,
+        ba.plot_colormap(diff, title="Difference", zmin=zmin, zmax=zmax,
                          units=self._units, xlabel=self._xlabel, ylabel=self._ylabel,
                          zlabel='', aspect=self._aspect)
 
@@ -293,9 +291,10 @@ class PlotterSpecular(Plotter):
     specular data fit.
     """
 
-    def __init__(self):
+    def __init__(self, units=ba.AxesUnits.DEFAULT):
         Plotter.__init__(self)
         self.gs = gridspec.GridSpec(1, 2, width_ratios=[2.5, 1], wspace=0)
+        self.units = units
 
     def __call__(self, fit_objective):
         self.plot(fit_objective)
@@ -358,10 +357,12 @@ class PlotterSpecular(Plotter):
         # retrieving data from fit suite
         real_data = fit_objective.experimentalData()
         sim_data = fit_objective.simulationResult()
+        unc_data = fit_objective.uncertaintyData()
 
         # data values
-        sim_values = sim_data.array()
-        real_values = real_data.array()
+        sim_values = sim_data.array(self.units)
+        real_values = real_data.array(self.units)
+        unc_values = None if unc_data is None else unc_data.array(self.units)
 
         # default font properties dictionary to use
         font = {'family': 'serif',
@@ -371,10 +372,16 @@ class PlotterSpecular(Plotter):
         plt.subplot(self.gs[0])
         plt.semilogy(sim_data.axis(), sim_values, 'b',
                      real_data.axis(), real_values, 'k--')
+        if unc_values is not None:
+            plt.semilogy(real_data.axis(), real_values - unc_values, 'xkcd:grey', alpha=0.6)
+            plt.semilogy(real_data.axis(), real_values + unc_values, 'xkcd:grey', alpha=0.6)
         plt.ylim((0.5 * np.min(real_values), 5 * np.max(real_values)))
 
-        xlabel = get_axes_labels(real_data, ba.AxesUnits.DEFAULT)[0]
-        plt.legend(['BornAgain', 'Reference'], loc='upper right', prop=font)
+        xlabel = get_axes_labels(real_data, self.units)[0]
+        legend = ['BornAgain', 'Data']
+        if unc_values is not None:
+            legend = ['BornAgain', 'Data', r'Data $\pm \sigma$']
+        plt.legend(legend, loc='upper right', prop=font)
         plt.xlabel(xlabel, fontdict=font)
         plt.ylabel("Intensity", fontdict=font)
         plt.title("Specular data fitting", fontdict=font)

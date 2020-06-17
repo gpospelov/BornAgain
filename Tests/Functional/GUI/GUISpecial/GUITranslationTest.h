@@ -16,10 +16,10 @@
 #define GUITRANSLATIONTEST_H
 
 #include "IFunctionalTest.h"
-#include <memory>
-#include <vector>
-#include <string>
 #include <map>
+#include <memory>
+#include <string>
+#include <vector>
 
 class GISASSimulation;
 class ApplicationModels;
@@ -41,8 +41,8 @@ public:
 
 private:
     struct ParItem {
-        std::string sampleParLink; //!< Link to GUI sample parameter
-        std::string parPath; //!< Path of corresponding ParameterItem
+        std::string sampleParLink;  //!< Link to GUI sample parameter
+        std::string parPath;        //!< Path of corresponding ParameterItem
         std::string translatedName; //!< It's name translated to domain name
     };
 

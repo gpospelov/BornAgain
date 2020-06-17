@@ -13,31 +13,30 @@
 // ************************************************************************** //
 
 #include "ProjectionsToolBar.h"
-#include "mainwindow_constants.h"
 #include "MaskEditorFlags.h"
 #include "ProjectionsEditorActions.h"
+#include "mainwindow_constants.h"
 #include <QButtonGroup>
-#include <QToolButton>
 #include <QLabel>
+#include <QToolButton>
 
-namespace {
-const QString pan_zoom_tooltip =
-        "Pan/zoom mode (space)\n"
-        "Drag axes with the mouse, use mouse wheel to zoom in/out";
+namespace
+{
+const QString pan_zoom_tooltip = "Pan/zoom mode (space)\n"
+                                 "Drag axes with the mouse, use mouse wheel to zoom in/out";
 
-const QString reset_view_tooltip =
-        "Reset view\nx,y,z axes range will be set to default";
+const QString reset_view_tooltip = "Reset view\nx,y,z axes range will be set to default";
 
 const QString selection_mode_tooltip =
-        "Selection mode\nYou can select existing projections and move them around";
+    "Selection mode\nYou can select existing projections and move them around";
 
 const QString horizontal_mode_tooltip =
-        "Horizontal projections mode\nCreate projection along x-axis by clicking on color map";
+    "Horizontal projections mode\nCreate projection along x-axis by clicking on color map";
 
 const QString vertical_mode_tooltip =
-        "Vertical projections mode\nCreate projection along y-axis by clicking on color map";
+    "Vertical projections mode\nCreate projection along y-axis by clicking on color map";
 
-}
+} // namespace
 
 ProjectionsToolBar::ProjectionsToolBar(ProjectionsEditorActions* editorActions, QWidget* parent)
     : QToolBar(parent), m_editorActions(editorActions),
@@ -71,8 +70,8 @@ void ProjectionsToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value
 //! projections drawing).
 void ProjectionsToolBar::onProjectionTabChange(MaskEditorFlags::Activity value)
 {
-    if (currentActivity() == MaskEditorFlags::HORIZONTAL_LINE_MODE ||
-        currentActivity() == MaskEditorFlags::VERTICAL_LINE_MODE)
+    if (currentActivity() == MaskEditorFlags::HORIZONTAL_LINE_MODE
+        || currentActivity() == MaskEditorFlags::VERTICAL_LINE_MODE)
         onChangeActivityRequest(value);
 }
 
@@ -84,18 +83,18 @@ void ProjectionsToolBar::onActivityGroupChange(int)
 void ProjectionsToolBar::setup_selection_group()
 {
     auto panButton = new QToolButton(this);
-    panButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_hand.svg"));
+    panButton->setIcon(QIcon(":/images/hand-right.svg"));
     panButton->setToolTip(pan_zoom_tooltip);
     panButton->setCheckable(true);
     panButton->setChecked(true);
     addWidget(panButton);
 
     auto resetViewButton = new QToolButton(this);
-    resetViewButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_refresh.svg"));
+    resetViewButton->setIcon(QIcon(":/images/camera-metering-center.svg"));
     resetViewButton->setToolTip(reset_view_tooltip);
     addWidget(resetViewButton);
-    connect(resetViewButton, &QToolButton::clicked,
-            m_editorActions, &ProjectionsEditorActions::resetViewRequest);
+    connect(resetViewButton, &QToolButton::clicked, m_editorActions,
+            &ProjectionsEditorActions::resetViewRequest);
 
     add_separator();
 
@@ -135,8 +134,8 @@ void ProjectionsToolBar::setup_extratools_group()
     saveButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_save.svg"));
     saveButton->setToolTip("Save created projections in multi-column ASCII file.");
     addWidget(saveButton);
-    connect(saveButton, &QToolButton::clicked,
-            m_editorActions, &ProjectionsEditorActions::onSaveAction);
+    connect(saveButton, &QToolButton::clicked, m_editorActions,
+            &ProjectionsEditorActions::onSaveAction);
 }
 
 void ProjectionsToolBar::add_separator()

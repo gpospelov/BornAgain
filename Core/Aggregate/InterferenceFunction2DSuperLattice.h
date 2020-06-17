@@ -16,11 +16,10 @@
 #define INTERFERENCEFUNCTION2DSUPERLATTICE_H
 
 #include "IInterferenceFunction.h"
+#include "Integrator.h"
 #include "Lattice2D.h"
 
-template <class T> class IntegratorReal;
-
-//! Interference function of 2D superlattice with a configurable interference function for
+//! Interference function of a 2D superlattice with a configurable interference function for
 //! each lattice site.
 //! @ingroup interference
 
@@ -28,8 +27,8 @@ class BA_CORE_API_ InterferenceFunction2DSuperLattice : public IInterferenceFunc
 {
 public:
     InterferenceFunction2DSuperLattice(const Lattice2D& lattice, unsigned size_1, unsigned size_2);
-    InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha,
-                                        double xi, unsigned size_1, unsigned size_2);
+    InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi,
+                                       unsigned size_1, unsigned size_2);
     ~InterferenceFunction2DSuperLattice() final;
 
     InterferenceFunction2DSuperLattice* clone() const override final;
@@ -39,12 +38,12 @@ public:
     void setSubstructureIFF(const IInterferenceFunction& sub_iff);
     const IInterferenceFunction& substructureIFF() const;
 
-    static InterferenceFunction2DSuperLattice* createSquare(
-            double lattice_length, double xi, unsigned size_1, unsigned size_2);
-    static InterferenceFunction2DSuperLattice* createHexagonal(
-            double lattice_length, double xi, unsigned size_1, unsigned size_2);
+    static InterferenceFunction2DSuperLattice* createSquare(double lattice_length, double xi,
+                                                            unsigned size_1, unsigned size_2);
+    static InterferenceFunction2DSuperLattice* createHexagonal(double lattice_length, double xi,
+                                                               unsigned size_1, unsigned size_2);
 
-    double evaluate(const kvector_t q, double outer_iff=1.0) const override final;
+    double evaluate(const kvector_t q, double outer_iff = 1.0) const override final;
     unsigned domainSize1() const { return m_size_1; }
     unsigned domainSize2() const { return m_size_2; }
 
@@ -65,15 +64,13 @@ private:
 
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<Lattice2D> mP_lattice;
-    std::unique_ptr<IInterferenceFunction> mP_substructure;  //!< IFF of substructure
-    unsigned m_size_1, m_size_2;  //!< Size of the finite lattice in lattice units
+    std::unique_ptr<IInterferenceFunction> mP_substructure; //!< IFF of substructure
+    unsigned m_size_1, m_size_2; //!< Size of the finite lattice in lattice units
     mutable double m_outer_iff;
     mutable double m_qx;
     mutable double m_qy;
     mutable double m_xi;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<InterferenceFunction2DSuperLattice>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
 
 #endif // INTERFERENCEFUNCTION2DSUPERLATTICE_H

@@ -15,8 +15,8 @@
 #ifndef HISTOGRAM2D_H
 #define HISTOGRAM2D_H
 
-#include "IHistogram.h"
 #include "ArrayUtils.h"
+#include "IHistogram.h"
 
 //! Two dimensional histogram.
 //! @ingroup tools
@@ -40,8 +40,8 @@ public:
     //! @param nbinsy number of bins on Y-axis
     //! @param ybins Array of size nbins+1 containing low-edges for each
     //! bin and upper edge of last bin.
-    Histogram2D(int nbinsx, const std::vector<double>& xbins,
-                int nbinsy, const std::vector<double>& ybins);
+    Histogram2D(int nbinsx, const std::vector<double>& xbins, int nbinsy,
+                const std::vector<double>& ybins);
 
     //! Constructor for 2D histogram with custom axes
     Histogram2D(const IAxis& axis_x, const IAxis& axis_y);
@@ -56,7 +56,7 @@ public:
     Histogram2D* clone() const;
 
     //! Returns the number of histogram dimensions
-    size_t getRank() const { return 2;}
+    size_t getRank() const { return 2; }
 
     //! Increment bin with abscissa x and ordinate y with a weight.
     int fill(double x, double y, double weight = 1.0);
@@ -101,8 +101,7 @@ public:
     void addContent(const std::vector<std::vector<double>>& data);
 
 protected:
-    template<typename T>
-    void initFromShape(const T& data);
+    template <typename T> void initFromShape(const T& data);
 
     //! Creates projection along X. The projections is made by collecting the data in the range
     //! between [ybinlow, ybinup].
@@ -113,20 +112,18 @@ protected:
     Histogram1D* create_projectionY(int xbinlow, int xbinup);
 };
 
-
-template<typename T> void Histogram2D::initFromShape(const T& data)
+template <typename T> void Histogram2D::initFromShape(const T& data)
 {
     auto shape = ArrayUtils::getShape(data);
     const size_t nrows = shape.first;
     const size_t ncols = shape.second;
 
-    if(nrows == 0 || ncols == 0)
+    if (nrows == 0 || ncols == 0)
         throw Exceptions::LogicErrorException("Histogram2D::Histogram2D() -> Error. "
                                               "Not a two-dimensional numpy array");
 
     m_data.addAxis(FixedBinAxis("x-axis", ncols, 0.0, static_cast<double>(ncols)));
     m_data.addAxis(FixedBinAxis("y-axis", nrows, 0.0, static_cast<double>(nrows)));
-
 }
 
 #endif // HISTOGRAM2D_H

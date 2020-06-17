@@ -28,7 +28,7 @@ set(test_cases
     CylindersWithSizeDistribution
     DetectorResolution
     FormFactors
-    FormFactorsAbs
+    FormFactorsWithAbsorption
     GISASAbsorptiveSLDLayers
     HexParaCrystal
     LargeCylindersMonteCarlo
@@ -37,6 +37,10 @@ set(test_cases
     MagneticSpheres
     MagneticSubstrateZeroField
     MagneticRotation
+    MagneticCylindersPP
+    MagneticCylindersPM
+    MagneticCylindersMP
+    MagneticCylindersMM
     MesoCrystal
     MultiLayerWithRoughness
     MultipleLayout
@@ -70,11 +74,18 @@ set(test_cases
     HomogeneousTiNiSample
     HomogeneousTiNiSampleWithAbsorption
     RoughnessInSpecular
+    NCRoughnessInSpecular
     GaussianBeamFootprint
     SquareBeamFootprint
     SpecularDivergentBeam
+    RelativeResolutionTOF
     OffSpecularResonator
     DepthProbeTest
+    ThickAbsorptiveSampleWithRoughness
+    MagneticSpheresInMagLayerPP
+    MagneticSpheresInMagLayerMP
+    BasicSpecularPP
+    BasicSpecularMM
     )
 
 add_executable(${test} main.cpp CoreStandardTest.h CoreStandardTest.cpp)

@@ -18,12 +18,11 @@
 #include "ParticleLayoutComputation.h"
 #include "RoughMultiLayerComputation.h"
 
+DWBASingleComputation::DWBASingleComputation() = default;
 
-DWBASingleComputation::DWBASingleComputation() =default;
+DWBASingleComputation::~DWBASingleComputation() = default;
 
-DWBASingleComputation::~DWBASingleComputation() =default;
-
-DWBASingleComputation::DWBASingleComputation(DWBASingleComputation&&) =default;
+DWBASingleComputation::DWBASingleComputation(DWBASingleComputation&&) = default;
 
 void DWBASingleComputation::setProgressHandler(ProgressHandler* p_progress)
 {

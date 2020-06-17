@@ -24,6 +24,7 @@ class BA_CORE_API_ SessionModel : public QAbstractItemModel
 {
     Q_OBJECT
     friend class SessionItem;
+
 public:
     explicit SessionModel(QString model_tag, QObject* parent = 0);
     virtual ~SessionModel();
@@ -82,8 +83,8 @@ public:
 
     virtual SessionModel* createCopy(SessionItem* parent = 0);
 
-    template<typename T = SessionItem> T* topItem() const;
-    template<typename T = SessionItem> QVector<T*> topItems() const;
+    template <typename T = SessionItem> T* topItem() const;
+    template <typename T = SessionItem> QVector<T*> topItems() const;
 
     virtual void initFrom(SessionModel* model, SessionItem* parent);
     SessionItem* rootItem() const;
@@ -103,23 +104,21 @@ private:
     QString m_model_tag; //!< model tag (SampleModel, InstrumentModel)
 };
 
-template<typename T>
-T* SessionModel::topItem() const
+template <typename T> T* SessionModel::topItem() const
 {
     auto items = topItems<T>();
     return items.isEmpty() ? nullptr : items.front();
 }
 
-template<typename T>
-QVector<T*> SessionModel::topItems() const
+template <typename T> QVector<T*> SessionModel::topItems() const
 {
     QVector<T*> result;
 
     QModelIndex parentIndex;
     for (int i_row = 0; i_row < rowCount(parentIndex); ++i_row) {
-         QModelIndex itemIndex = index(i_row, 0, parentIndex);
-            if (auto item = dynamic_cast<T*>(itemForIndex(itemIndex)))
-                result.push_back(item);
+        QModelIndex itemIndex = index(i_row, 0, parentIndex);
+        if (auto item = dynamic_cast<T*>(itemForIndex(itemIndex)))
+            result.push_back(item);
     }
 
     return result;
@@ -130,14 +129,29 @@ inline bool SessionModel::setHeaderData(int, Qt::Orientation, const QVariant&, i
     return false;
 }
 
-inline Qt::DropActions SessionModel::supportedDragActions() const { return Qt::MoveAction; }
+inline Qt::DropActions SessionModel::supportedDragActions() const
+{
+    return Qt::MoveAction;
+}
 
-inline Qt::DropActions SessionModel::supportedDropActions() const { return Qt::MoveAction; }
+inline Qt::DropActions SessionModel::supportedDropActions() const
+{
+    return Qt::MoveAction;
+}
 
-inline QString SessionModel::getModelTag() const { return m_model_tag; }
+inline QString SessionModel::getModelTag() const
+{
+    return m_model_tag;
+}
 
-inline QString SessionModel::getModelName() const { return m_name; }
+inline QString SessionModel::getModelName() const
+{
+    return m_name;
+}
 
-inline void SessionModel::setDraggedItemType(const QString& type) { m_dragged_item_type = type; }
+inline void SessionModel::setDraggedItemType(const QString& type)
+{
+    m_dragged_item_type = type;
+}
 
 #endif // SESSIONMODEL_H

@@ -32,7 +32,10 @@ class BA_CORE_API_ FormFactorCoherentPart
 public:
     FormFactorCoherentPart(IFormFactor* p_ff);
     FormFactorCoherentPart(const FormFactorCoherentPart& other);
-    virtual ~FormFactorCoherentPart();
+    FormFactorCoherentPart(FormFactorCoherentPart&& other);
+    FormFactorCoherentPart& operator=(const FormFactorCoherentPart& other);
+    FormFactorCoherentPart& operator=(FormFactorCoherentPart&& other);
+    ~FormFactorCoherentPart();
 
     complex_t evaluate(const SimulationElement& sim_element) const;
 #ifndef SWIG
@@ -41,6 +44,7 @@ public:
 
     void setSpecularInfo(const IFresnelMap* p_fresnel_map, size_t layer_index);
     double radialExtension() const;
+
 private:
     std::unique_ptr<IFormFactor> mP_ff;
     const IFresnelMap* mp_fresnel_map;

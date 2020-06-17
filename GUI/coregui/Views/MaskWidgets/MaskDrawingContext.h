@@ -52,11 +52,9 @@ public:
     int activityToRow() const;
 
 private:
-
     MaskEditorFlags::Activity m_current_activity;
     MaskEditorFlags::MaskValue m_mask_value;
     bool m_drawing_in_progress;
 };
-
 
 #endif // MASKDRAWINGCONTEXT_H

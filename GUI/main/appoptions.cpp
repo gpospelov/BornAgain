@@ -14,18 +14,20 @@
 
 #include "appoptions.h"
 #include "GUIHelpers.h"
+#include <QSize>
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <fstream>
 #include <iostream>
-#include <QSize>
 
-namespace {
+namespace
+{
 const char* geometry = "geometry";
-const char* highdpi  = "highdpi";
+const char* nohighdpi = "nohighdpi";
 
 //! Converts string "1600x1000" to QSize(1600, 1000)
-QSize windowSize(const QString& size_string) {
+QSize windowSize(const QString& size_string)
+{
     auto list = size_string.split("x");
 
     if (list.size() != 2)
@@ -35,22 +37,24 @@ QSize windowSize(const QString& size_string) {
 }
 
 //! Returns true if windows size makes sence.
-bool isValid(const QSize& win_size) {
+bool isValid(const QSize& win_size)
+{
     if (win_size.width() > 640 && win_size.height() > 480)
         return true;
 
     return false;
 }
 
-}
+} // namespace
 
 ApplicationOptions::ApplicationOptions(int argc, char** argv) : m_options_is_consistent(false)
 {
     m_options.add_options()("help,h", "print help message");
     m_options.add_options()("with-debug", "run application with debug printout");
-    m_options.add_options()("no-splash",  "do not show splash screen");
-    m_options.add_options()(geometry,  bpo::value<std::string>(), "Main window geometry, e.g. 1600x1000");
-    m_options.add_options()(highdpi, "Run with experimental high-dpi monitor support");
+    m_options.add_options()("no-splash", "do not show splash screen");
+    m_options.add_options()(geometry, bpo::value<std::string>(),
+                            "Main window geometry, e.g. 1600x1000");
+    m_options.add_options()(nohighdpi, "Run without high-dpi support");
 
     parseCommandLine(argc, argv);
 
@@ -69,7 +73,10 @@ bool ApplicationOptions::find(std::string name) const
     return (m_variables_map.count(name.c_str()) ? true : false);
 }
 
-bool ApplicationOptions::isConsistent() const { return m_options_is_consistent; }
+bool ApplicationOptions::isConsistent() const
+{
+    return m_options_is_consistent;
+}
 
 //! parse command line arguments
 
@@ -104,7 +111,10 @@ boost::program_options::variables_map& ApplicationOptions::getVariables()
     return m_variables_map;
 }
 
-boost::program_options::options_description& ApplicationOptions::getOptions() { return m_options; }
+boost::program_options::options_description& ApplicationOptions::getOptions()
+{
+    return m_options;
+}
 
 void ApplicationOptions::processOptions()
 {
@@ -119,12 +129,11 @@ void ApplicationOptions::processOptions()
         m_options_is_consistent = false;
     }
 
-    else if(m_variables_map.count(geometry)) {
+    else if (m_variables_map.count(geometry)) {
         if (!isValid(mainWindowSize())) {
             std::cout << "Wrong window size, try --geometry=1600x900\n";
             m_options_is_consistent = false;
         }
-
     }
 }
 
@@ -140,7 +149,7 @@ QSize ApplicationOptions::mainWindowSize() const
     return windowSize(size_str);
 }
 
-bool ApplicationOptions::enableHighDPISupport()
+bool ApplicationOptions::disableHighDPISupport()
 {
-    return find(highdpi);
+    return find(nohighdpi);
 }

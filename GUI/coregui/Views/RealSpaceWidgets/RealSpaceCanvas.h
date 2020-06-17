@@ -39,35 +39,14 @@ public:
         l_min_thickness = min_thickness;       // minimum layer thickness
     }
 
-    double layer_size() const
-    {
-        return l_size;
-    }
-    double layer_top_thickness() const
-    {
-        return l_top_thickness;
-    }
-    double layer_bottom_thickness() const
-    {
-        return l_top_thickness;
-    }
-    double layer_min_thickness() const
-    {
-        return l_min_thickness;
-    }
+    double layer_size() const { return l_size; }
+    double layer_top_thickness() const { return l_top_thickness; }
+    double layer_bottom_thickness() const { return l_top_thickness; }
+    double layer_min_thickness() const { return l_min_thickness; }
 
-    void set_layer_size(double size)
-    {
-        l_size = size;
-    }
-    void set_layer_top_thickness(double top_thickness)
-    {
-        l_top_thickness = top_thickness;
-    }
-    void set_layer_bottom_thickness(double bottom_thickness)
-    {
-        l_top_thickness = bottom_thickness;
-    }
+    void set_layer_size(double size) { l_size = size; }
+    void set_layer_top_thickness(double top_thickness) { l_top_thickness = top_thickness; }
+    void set_layer_bottom_thickness(double bottom_thickness) { l_top_thickness = bottom_thickness; }
 
 private:
     double l_size;
@@ -97,6 +76,8 @@ public slots:
     void onTopViewAction();
     void onLockViewAction(bool view_locked);
     void onChangeLayerSizeAction(double layer_size_scale);
+    void onSavePictureAction();
+    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
 
 private slots:
     void onDataChanged(const QModelIndex& index);
@@ -118,6 +99,7 @@ private:
     bool m_view_locked;
     std::unique_ptr<SceneGeometry> m_sceneGeometry;
     WarningSign* m_warningSign;
+    void savePicture(const QPixmap& pixmap);
 };
 
 #endif // REALSPACESCENE_H

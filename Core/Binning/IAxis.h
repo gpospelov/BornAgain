@@ -28,13 +28,13 @@ public:
     IAxis(const std::string& name) : m_name(name) {}
 
     //! clone function
-    virtual IAxis* clone() const=0;
+    virtual IAxis* clone() const = 0;
 
     //! destructor
     virtual ~IAxis() {}
 
     //! retrieve the number of bins
-    virtual size_t size() const=0;
+    virtual size_t size() const = 0;
 
     //! retrieve the label of the axis
     std::string getName() const { return m_name; }
@@ -43,28 +43,31 @@ public:
     void setName(std::string name) { m_name = name; }
 
     //! indexed accessor retrieves a sample
-    virtual double operator[](size_t index) const=0;
+    virtual double operator[](size_t index) const = 0;
 
     //! retrieve a 1d bin for the given index
-    virtual Bin1D getBin(size_t index) const=0;
+    virtual Bin1D getBin(size_t index) const = 0;
 
     //! Returns value of first point of axis
-    virtual double getMin() const=0;
+    virtual double getMin() const = 0;
 
     //! Returns value of last point of axis
-    virtual double getMax() const=0;
+    virtual double getMax() const = 0;
 
-    virtual double getBinCenter(size_t index) const=0;
+    virtual double getBinCenter(size_t index) const = 0;
 
     //! find bin index which is best match for given value
-    virtual size_t findClosestIndex(double value) const=0;
+    virtual size_t findClosestIndex(double value) const = 0;
 
     //! test for equality
     bool operator==(const IAxis& right) const { return equals(right); }
-    bool operator!=(const IAxis& right) const { return !(*this==right); }
+    bool operator!=(const IAxis& right) const { return !(*this == right); }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m) {
-        m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m)
+    {
+        m.print(ostr);
+        return ostr;
+    }
 
     virtual std::vector<double> getBinCenters() const;
 
@@ -77,14 +80,14 @@ public:
     virtual bool contains(double value) const;
 
 protected:
-    virtual void print(std::ostream& ostr) const=0;
+    virtual void print(std::ostream& ostr) const = 0;
     virtual bool equals(const IAxis& other) const; // overloaded in child classes
 
 private:
     IAxis(const IAxis&);
     IAxis& operator=(const IAxis&);
 
-    std::string m_name;  //!< axis name
+    std::string m_name; //!< axis name
 };
 
 //! global helper function for comparison of axes

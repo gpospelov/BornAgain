@@ -16,20 +16,17 @@
 #include "AxesItems.h"
 #include "ComboProperty.h"
 #include "DetectorItems.h"
+#include "InstrumentItems.h"
 #include "InstrumentModel.h"
 #include "IntensityDataItem.h"
+#include "JobItemUtils.h"
 #include "MaskEditor.h"
 #include "MaskItems.h"
 #include "ModelPath.h"
-#include "JobItemUtils.h"
-#include "InstrumentItems.h"
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject* parent)
-    : QObject(parent)
-    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
-    , m_instrumentModel(nullptr)
-    , m_detectorItem(nullptr)
-    , m_intensityItem(nullptr)
+    : QObject(parent), m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this)),
+      m_instrumentModel(nullptr), m_detectorItem(nullptr), m_intensityItem(nullptr)
 {
 }
 
@@ -74,7 +71,7 @@ void DetectorMaskDelegate::createIntensityDataItem()
 
     // creating output data corresponding to the detector
     auto instrument = dynamic_cast<const GISASInstrumentItem*>(
-                ModelPath::ancestor(m_detectorItem, Constants::GISASInstrumentType));
+        ModelPath::ancestor(m_detectorItem, Constants::GISASInstrumentType));
     JobItemUtils::createDefaultDetectorMap(m_intensityItem, instrument);
 
     m_intensityItem->getOutputData()->setAllTo(1.0);

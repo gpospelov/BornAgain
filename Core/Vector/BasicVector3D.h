@@ -25,8 +25,8 @@
 //! Three-dimensional vector template, for use with integer, double, or complex components.
 //! @ingroup tools_internal
 
-template<class T>
-class BasicVector3D {
+template <class T> class BasicVector3D
+{
 private:
     T v_[3];
 
@@ -36,10 +36,20 @@ public:
     // -------------------------------------------------------------------------
 
     //! Default constructor.
-    BasicVector3D() { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
+    BasicVector3D()
+    {
+        v_[0] = 0.0;
+        v_[1] = 0.0;
+        v_[2] = 0.0;
+    }
 
     //! Constructor from cartesian components.
-    BasicVector3D(const T x1, const T y1, const T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    BasicVector3D(const T x1, const T y1, const T z1)
+    {
+        v_[0] = x1;
+        v_[1] = y1;
+        v_[2] = z1;
+    }
 
     // -------------------------------------------------------------------------
     // Component access
@@ -59,37 +69,54 @@ public:
     T z() const { return v_[2]; }
 
     //! Sets x-component in cartesian coordinate system.
-    void setX(const T&a) { v_[0] = a; }
+    void setX(const T& a) { v_[0] = a; }
     //! Sets y-component in cartesian coordinate system.
-    void setY(const T&a) { v_[1] = a; }
+    void setY(const T& a) { v_[1] = a; }
     //! Sets z-component in cartesian coordinate system.
-    void setZ(const T&a) { v_[2] = a; }
+    void setZ(const T& a) { v_[2] = a; }
 
     // -------------------------------------------------------------------------
     // In-place operations
     // -------------------------------------------------------------------------
 
     //! Adds other vector to this, and returns result.
-    BasicVector3D<T>& operator+=(const BasicVector3D<T>& v) {
-        v_[0] += v.v_[0]; v_[1] += v.v_[1]; v_[2] += v.v_[2]; return *this; }
+    BasicVector3D<T>& operator+=(const BasicVector3D<T>& v)
+    {
+        v_[0] += v.v_[0];
+        v_[1] += v.v_[1];
+        v_[2] += v.v_[2];
+        return *this;
+    }
 
     //! Subtracts other vector from this, and returns result.
-    BasicVector3D<T>& operator-=(const BasicVector3D<T>& v) {
-        v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
-
+    BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
+    {
+        v_[0] -= v.v_[0];
+        v_[1] -= v.v_[1];
+        v_[2] -= v.v_[2];
+        return *this;
+    }
 
     //! Multiplies this with a scalar, and returns result.
 #ifndef SWIG
-    template<class U>
-    auto operator*=(U a) -> BasicVector3D<decltype(this->x()*a)>& {
-        v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this; }
+    template <class U> auto operator*=(U a) -> BasicVector3D<decltype(this->x() * a)>&
+    {
+        v_[0] *= a;
+        v_[1] *= a;
+        v_[2] *= a;
+        return *this;
+    }
 #endif // SWIG
 
     //! Divides this by a scalar, and returns result.
 #ifndef SWIG
-    template<class U>
-    auto operator/=(U a) -> BasicVector3D<decltype(this->x()*a)>& {
-        v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
+    template <class U> auto operator/=(U a) -> BasicVector3D<decltype(this->x() * a)>&
+    {
+        v_[0] /= a;
+        v_[1] /= a;
+        v_[2] /= a;
+        return *this;
+    }
 #endif // SWIG
 
     // -------------------------------------------------------------------------
@@ -138,22 +165,23 @@ public:
 
     //! Returns dot product of vectors (antilinear in the first [=self] argument).
 #ifndef SWIG
-    template<class U>
-    auto dot(const BasicVector3D<U>& v) const -> decltype(this->x()*v.x());
+    template <class U> auto dot(const BasicVector3D<U>& v) const -> decltype(this->x() * v.x());
 #endif // SWIG
 
     //! Returns cross product of vectors (linear in both arguments).
 #ifndef SWIG
-    template<class U>
-    auto cross(const BasicVector3D<U>& v) const -> BasicVector3D<decltype(this->x()*v.x())>;
+    template <class U>
+    auto cross(const BasicVector3D<U>& v) const -> BasicVector3D<decltype(this->x() * v.x())>;
 #endif // SWIG
 
     //! Returns angle with respect to another vector.
     double angle(const BasicVector3D<T>& v) const;
 
     //! Returns projection of this onto other vector: (this*v)*v/|v|^2.
-    inline BasicVector3D<T> project(const BasicVector3D<T>& v) const {
-        return dot(v)*v/v.mag2(); }
+    inline BasicVector3D<T> project(const BasicVector3D<T>& v) const
+    {
+        return dot(v) * v / v.mag2();
+    }
 
     // -------------------------------------------------------------------------
     // Rotations
@@ -164,8 +192,9 @@ public:
     //! Returns result of rotation around y-axis.
     BasicVector3D<T> rotatedY(double a) const;
     //! Returns result of rotation around z-axis.
-    BasicVector3D<T> rotatedZ(double a) const {
-        return BasicVector3D<T>( cos(a)*x()+sin(a)*y(), -sin(a)*x()+cos(a)*y(), z() );
+    BasicVector3D<T> rotatedZ(double a) const
+    {
+        return BasicVector3D<T>(cos(a) * x() + sin(a) * y(), -sin(a) * x() + cos(a) * y(), z());
     }
     //! Returns result of rotation around the axis specified by another vector.
     BasicVector3D<T> rotated(double a, const BasicVector3D<T>& v) const;
@@ -177,10 +206,10 @@ public:
 
 //! Output to stream.
 //! @relates BasicVector3D
-template <class T>
-std::ostream&
-operator<<(std::ostream& os, const BasicVector3D<T>& a)
-{ return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")"; }
+template <class T> std::ostream& operator<<(std::ostream& os, const BasicVector3D<T>& a)
+{
+    return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")";
+}
 
 // -----------------------------------------------------------------------------
 // Unary operators
@@ -188,15 +217,17 @@ operator<<(std::ostream& os, const BasicVector3D<T>& a)
 
 //! Unary plus.
 //! @relates BasicVector3D
-template <class T>
-inline BasicVector3D<T> operator+ (const BasicVector3D<T>& v)
-{ return v; }
+template <class T> inline BasicVector3D<T> operator+(const BasicVector3D<T>& v)
+{
+    return v;
+}
 
 //! Unary minus.
 //! @relates BasicVector3D
-template <class T>
-inline BasicVector3D<T> operator- (const BasicVector3D<T>& v)
-{ return BasicVector3D<T>(-v.x(), -v.y(), -v.z()); }
+template <class T> inline BasicVector3D<T> operator-(const BasicVector3D<T>& v)
+{
+    return BasicVector3D<T>(-v.x(), -v.y(), -v.z());
+}
 
 // -----------------------------------------------------------------------------
 // Binary operators
@@ -206,28 +237,36 @@ inline BasicVector3D<T> operator- (const BasicVector3D<T>& v)
 //! @relates BasicVector3D
 template <class T>
 inline BasicVector3D<T> operator+(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
-{ return BasicVector3D<T>(a.x()+b.x(), a.y()+b.y(), a.z()+b.z()); }
+{
+    return BasicVector3D<T>(a.x() + b.x(), a.y() + b.y(), a.z() + b.z());
+}
 
 //! Subtraction of two vectors.
 //! @relates BasicVector3D
 template <class T>
 inline BasicVector3D<T> operator-(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
-{ return BasicVector3D<T>(a.x()-b.x(), a.y()-b.y(), a.z()-b.z()); }
+{
+    return BasicVector3D<T>(a.x() - b.x(), a.y() - b.y(), a.z() - b.z());
+}
 
 //! Multiplication vector by scalar.
 //! @relates BasicVector3D
 #ifndef SWIG
 template <class T, class U>
-inline auto operator* (const BasicVector3D<T>& v, const U a) -> BasicVector3D<decltype(v.x()*a)>
-{ return BasicVector3D<decltype(v.x()*a)>(v.x()*a, v.y()*a, v.z()*a); }
+inline auto operator*(const BasicVector3D<T>& v, const U a) -> BasicVector3D<decltype(v.x() * a)>
+{
+    return BasicVector3D<decltype(v.x() * a)>(v.x() * a, v.y() * a, v.z() * a);
+}
 #endif // SWIG
 
 //! Multiplication scalar by vector.
 //! @relates BasicVector3D
 #ifndef SWIG
 template <class T, class U>
-inline auto operator* (const U a, const BasicVector3D<T>& v) -> BasicVector3D<decltype(a*v.x())>
-{ return BasicVector3D<decltype(a*v.x())>(a*v.x(), a*v.y(), a*v.z()); }
+inline auto operator*(const U a, const BasicVector3D<T>& v) -> BasicVector3D<decltype(a * v.x())>
+{
+    return BasicVector3D<decltype(a * v.x())>(a * v.x(), a * v.y(), a * v.z());
+}
 #endif // SWIG
 
 // vector*vector not supported
@@ -237,21 +276,24 @@ inline auto operator* (const U a, const BasicVector3D<T>& v) -> BasicVector3D<de
 
 //! Division vector by scalar.
 //! @relates BasicVector3D
-template <class T, class U>
-inline BasicVector3D<T> operator/ (const BasicVector3D<T>& v, U a)
-{ return BasicVector3D<T>(v.x()/a, v.y()/a, v.z()/a); }
+template <class T, class U> inline BasicVector3D<T> operator/(const BasicVector3D<T>& v, U a)
+{
+    return BasicVector3D<T>(v.x() / a, v.y() / a, v.z() / a);
+}
 
 //! Comparison of two vectors for equality.
 //! @relates BasicVector3D
-template <class T>
-inline bool operator==(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
-{ return (a.x()==b.x()&& a.y()==b.y()&& a.z()==b.z()); }
+template <class T> inline bool operator==(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{
+    return (a.x() == b.x() && a.y() == b.y() && a.z() == b.z());
+}
 
 //! Comparison of two vectors for inequality.
 //! @relates BasicVector3D
-template <class T>
-inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
-{ return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z()); }
+template <class T> inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{
+    return (a.x() != b.x() || a.y() != b.y() || a.z() != b.z());
+}
 
 // -----------------------------------------------------------------------------
 // Quasi constructor
@@ -261,58 +303,57 @@ inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 //! Specifically needed for grazing-incidence scattering.
 BA_CORE_API_ BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi);
 
-
 // =============================================================================
 // ?? for API generation ??
 // =============================================================================
 
 //! Returns dot product of (complex) vectors (antilinear in the first [=self] argument).
 #ifndef SWIG
-template<class T> template<class U>
-inline auto BasicVector3D<T>::dot(const BasicVector3D<U> &v) const
--> decltype(this->x()*v.x())
+template <class T>
+template <class U>
+inline auto BasicVector3D<T>::dot(const BasicVector3D<U>& v) const -> decltype(this->x() * v.x())
 {
     BasicVector3D<T> left_star = this->conj();
-    return left_star.x()*v.x() + left_star.y()*v.y() + left_star.z()*v.z();
+    return left_star.x() * v.x() + left_star.y() * v.y() + left_star.z() * v.z();
 }
 #endif // SWIG
 
 //! Returns cross product of (complex) vectors.
 #ifndef SWIG
-template<class T> template<class U>
+template <class T>
+template <class U>
 inline auto BasicVector3D<T>::cross(const BasicVector3D<U>& v) const
--> BasicVector3D<decltype(this->x()*v.x())>
+    -> BasicVector3D<decltype(this->x() * v.x())>
 {
-    return BasicVector3D<decltype(this->x()*v.x())>(y()*v.z()-v.y()*z(),
-                                                    z()*v.x()-v.z()*x(),
-                                                    x()*v.y()-v.x()*y());
+    return BasicVector3D<decltype(this->x() * v.x())>(
+        y() * v.z() - v.y() * z(), z() * v.x() - v.z() * x(), x() * v.y() - v.x() * y());
 }
 #endif // SWIG
 
-template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::conj() const;
+template <> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::conj() const;
 
-template<> BA_CORE_API_ BasicVector3D<std::complex<double>>
-    BasicVector3D<std::complex<double>>::conj() const;
+template <>
+BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::conj() const;
 
-template<> BA_CORE_API_ double BasicVector3D<double>::phi() const;
+template <> BA_CORE_API_ double BasicVector3D<double>::phi() const;
 
-template<> BA_CORE_API_ double BasicVector3D<double>::theta() const;
+template <> BA_CORE_API_ double BasicVector3D<double>::theta() const;
 
-template<> BA_CORE_API_ double BasicVector3D<double>::cosTheta() const;
+template <> BA_CORE_API_ double BasicVector3D<double>::cosTheta() const;
 
-template<> BA_CORE_API_ double BasicVector3D<double>::sin2Theta() const;
+template <> BA_CORE_API_ double BasicVector3D<double>::sin2Theta() const;
 
-template<> BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const;
+template <> BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const;
 
-template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::real() const;
+template <> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::real() const;
 
-template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<std::complex<double>>::real() const;
+template <> BA_CORE_API_ BasicVector3D<double> BasicVector3D<std::complex<double>>::real() const;
 
-template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::unit() const;
+template <> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::unit() const;
 
-template<> BA_CORE_API_ BasicVector3D<std::complex<double>>
-    BasicVector3D<std::complex<double>>::unit() const;
+template <>
+BA_CORE_API_ BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::unit() const;
 
-template<> BA_CORE_API_ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const;
+template <> BA_CORE_API_ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const;
 
 #endif // BASICVECTOR3D_H

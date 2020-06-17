@@ -16,8 +16,10 @@
 #include "MesoCrystalItem.h"
 #include "ParticleItem.h"
 #include "SessionItem.h"
+#include "DesignerHelper.h"
+#include "StyleUtils.h"
 
-MesoCrystalView::MesoCrystalView(QGraphicsItem *parent) : ConnectableView(parent)
+MesoCrystalView::MesoCrystalView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::MesoCrystalType);
     setColor(DesignerHelper::getDefaultParticleColor());
@@ -28,14 +30,13 @@ MesoCrystalView::MesoCrystalView(QGraphicsItem *parent) : ConnectableView(parent
         ->setToolTip(QStringLiteral("Connect basis particles"));
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect rotation to this port, if necessary"));
-    m_roundpar = 5;
-    m_label_vspace = 45;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height()*2.5;
 }
 
-void MesoCrystalView::addView(IView *childView, int /* row */)
+void MesoCrystalView::addView(IView* childView, int /* row */)
 {
     int index = 0;
     if (this->getItem()->tagFromItem(childView->getItem()) == ParticleItem::T_TRANSFORMATION)
         index = 1;
-    connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
+    connectInputPort(dynamic_cast<ConnectableView*>(childView), index);
 }

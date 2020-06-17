@@ -56,7 +56,7 @@ if(BORNAGAIN_PYTHON)
 
         add_custom_command (
             OUTPUT ${AUTO_DIR}/libBornAgainFit.py
-            COMMAND ${PYTHON_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
+            COMMAND ${Python_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
                    ${TMP_DIR}/libBornAgainFit.py
                    ${AUTO_DIR}/libBornAgainFit.py
             DEPENDS ${TMP_DIR}/libBornAgainFit.py
@@ -80,6 +80,13 @@ if(BORNAGAIN_PYTHON)
         DEPENDS ${AUTO_DIR}/libBornAgainFit.py
         )
 
+    if ((CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+            OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
+        # suppress warnings from auto-generated code (last updated for Swig 4.0.1)
+        set_source_files_properties(${AUTO_DIR}/libBornAgainFit_wrap.cpp
+            PROPERTIES COMPILE_OPTIONS "-Wno-unused-parameter;-Wno-missing-field-initializers;-Wno-deprecated-declarations")
+    endif()
+
     list(APPEND source_files "${AUTO_DIR}/libBornAgainFit_wrap.cpp")
     #list(APPEND include_files "${AUTO_DIR}/libBornAgainFit_wrap.h")
 
@@ -87,12 +94,12 @@ endif()
 
 # --- definitions ---------
 if(WIN32)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
 
 # --- making library ---------
 add_library(${library_name} SHARED ${include_files} ${source_files})
-set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+set_target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 
 if(BORNAGAIN_PYTHON)
@@ -109,8 +116,8 @@ target_include_directories(${library_name} PUBLIC ${include_dirs})
 target_link_libraries(${library_name} ${RootMinimizers_LIBRARY}  ${Boost_LIBRARIES})
 
 if(BORNAGAIN_PYTHON)
-    include_directories(${PYTHON_INCLUDE_DIRS} ${NUMPY_INCLUDE_DIR})
-    target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
+    include_directories(${Python_INCLUDE_DIRS} ${Python_NumPy_INCLUDE_DIRS})
+    target_link_libraries(${library_name} ${Python_LIBRARIES})
 endif()
 
 # --- custom actions

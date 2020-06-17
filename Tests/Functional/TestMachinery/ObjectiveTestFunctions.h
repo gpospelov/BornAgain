@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/ObjectiveTestFunctions.h
+//! @file      Tests/Functional/TestMachinery/ObjectiveTestFunctions.h
 //! @brief     Declares set of ObjectiveTestFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -30,7 +30,6 @@ BA_CORE_API_ double WoodFour(const std::vector<double>& par);
 
 BA_CORE_API_ double DecayingSin(double x, const std::vector<double>& par);
 
-}
+} // namespace TestFunctions
 
 #endif
-

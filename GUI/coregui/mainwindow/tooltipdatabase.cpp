@@ -18,7 +18,8 @@
 #include <QFile>
 #include <QXmlStreamReader>
 
-namespace {
+namespace
+{
 const QString modelTag = "ToolTipsData";
 const QString contextTag = "context";
 const QString categoryTag = "category";
@@ -29,7 +30,7 @@ const QString nameAttribute = "name";
 const QString sampleViewContext = "SampleView";
 const QString titleProperty = "Title";
 const QString descriptionProperty = "Description";
-}
+} // namespace
 
 ToolTipDataBase* ToolTipDataBase::m_instance = 0;
 QMap<QString, QString> ToolTipDataBase::m_tagToToolTip = QMap<QString, QString>();
@@ -42,7 +43,10 @@ ToolTipDataBase::ToolTipDataBase(QObject* parent) : QObject(parent)
     initDataBase();
 }
 
-ToolTipDataBase::~ToolTipDataBase() { m_instance = 0; }
+ToolTipDataBase::~ToolTipDataBase()
+{
+    m_instance = 0;
+}
 
 QString ToolTipDataBase::widgetboxToolTip(const QString& className)
 {

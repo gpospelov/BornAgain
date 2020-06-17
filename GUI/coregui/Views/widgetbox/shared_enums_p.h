@@ -57,42 +57,44 @@
 
 QT_BEGIN_NAMESPACE
 
-namespace qdesigner_internal {
+namespace qdesigner_internal
+{
 
-    // Validation mode of text property line edits
-    enum TextPropertyValidationMode {
-        // Allow for multiline editing using literal "\n".
-        ValidationMultiLine,
-        // Allow for HTML rich text including multiline editing using literal "\n".
-        ValidationRichText,
-        // Validate a stylesheet
-        ValidationStyleSheet,
-        // Single line mode, suppresses newlines
-        ValidationSingleLine,
-        // Allow only for identifier characters
-        ValidationObjectName,
-        // Allow only for identifier characters and colons
-        ValidationObjectNameScope,
-        // URL
-        ValidationURL
-        };
+// Validation mode of text property line edits
+enum TextPropertyValidationMode {
+    // Allow for multiline editing using literal "\n".
+    ValidationMultiLine,
+    // Allow for HTML rich text including multiline editing using literal "\n".
+    ValidationRichText,
+    // Validate a stylesheet
+    ValidationStyleSheet,
+    // Single line mode, suppresses newlines
+    ValidationSingleLine,
+    // Allow only for identifier characters
+    ValidationObjectName,
+    // Allow only for identifier characters and colons
+    ValidationObjectNameScope,
+    // URL
+    ValidationURL
+};
 
-    // Container types
-    enum ContainerType {
-        // A container with pages, at least one of which one must always be present (for example, QTabWidget)
-        PageContainer,
-        // Mdi type container. All pages may be deleted, no concept of page order
-        MdiContainer,
-        // Wizard container
-        WizardContainer
-        };
+// Container types
+enum ContainerType {
+    // A container with pages, at least one of which one must always be present (for example,
+    // QTabWidget)
+    PageContainer,
+    // Mdi type container. All pages may be deleted, no concept of page order
+    MdiContainer,
+    // Wizard container
+    WizardContainer
+};
 
-    enum AuxiliaryItemDataRoles {
-        // item->flags while being edited
-        ItemFlagsShadowRole = 0x13370551
-    };
+enum AuxiliaryItemDataRoles {
+    // item->flags while being edited
+    ItemFlagsShadowRole = 0x13370551
+};
 
-}
+} // namespace qdesigner_internal
 
 QT_END_NAMESPACE
 

@@ -18,7 +18,8 @@
 #include "WinDllMacros.h"
 #include <QString>
 
-namespace GUI_OS_Utils {
+namespace GUI_OS_Utils
+{
 
 #define QTC_WIN_EXE_SUFFIX ".exe"
 
@@ -27,24 +28,25 @@ enum EOsType { WINDOWS_OS, LINUX_OS, MAC_OS, OTHER_UNIX_OS, OTHER_OS };
 class BA_CORE_API_ OsSpecificAspects
 {
 public:
-    OsSpecificAspects(EOsType osType) : m_osType(osType) { }
+    OsSpecificAspects(EOsType osType) : m_osType(osType) {}
 
-    QString withExecutableSuffix(const QString &executable) const {
+    QString withExecutableSuffix(const QString& executable) const
+    {
         QString finalName = executable;
         if (m_osType == WINDOWS_OS)
             finalName += QLatin1String(QTC_WIN_EXE_SUFFIX);
         return finalName;
     }
 
-    Qt::CaseSensitivity fileNameCaseSensitivity() const {
+    Qt::CaseSensitivity fileNameCaseSensitivity() const
+    {
         return m_osType == WINDOWS_OS ? Qt::CaseInsensitive : Qt::CaseSensitive;
     }
 
-    QChar pathListSeparator() const {
-        return QLatin1Char(m_osType == WINDOWS_OS ? ';' : ':');
-    }
+    QChar pathListSeparator() const { return QLatin1Char(m_osType == WINDOWS_OS ? ';' : ':'); }
 
-    Qt::KeyboardModifier controlModifier() const {
+    Qt::KeyboardModifier controlModifier() const
+    {
         return m_osType == MAC_OS ? Qt::MetaModifier : Qt::ControlModifier;
     }
 
@@ -52,15 +54,18 @@ private:
     const EOsType m_osType;
 };
 
-
 class BA_CORE_API_ HostOsInfo
 {
 public:
-
     static inline EOsType hostOs();
 
-    enum HostArchitecture { HostArchitectureX86, HostArchitectureAMD64, HostArchitectureItanium,
-                            HostArchitectureArm, HostArchitectureUnknown };
+    enum HostArchitecture {
+        HostArchitectureX86,
+        HostArchitectureAMD64,
+        HostArchitectureItanium,
+        HostArchitectureArm,
+        HostArchitectureUnknown
+    };
     static HostArchitecture hostArchitecture();
 
     static bool isWindowsHost() { return hostOs() == WINDOWS_OS; }
@@ -68,7 +73,7 @@ public:
     static bool isMacHost() { return hostOs() == MAC_OS; }
     static inline bool isAnyUnixHost();
 
-    static QString withExecutableSuffix(const QString &executable)
+    static QString withExecutableSuffix(const QString& executable)
     {
         return hostOsAspects().withExecutableSuffix(executable);
     }
@@ -78,20 +83,13 @@ public:
         return hostOsAspects().fileNameCaseSensitivity();
     }
 
-    static QChar pathListSeparator()
-    {
-        return hostOsAspects().pathListSeparator();
-    }
+    static QChar pathListSeparator() { return hostOsAspects().pathListSeparator(); }
 
-    static Qt::KeyboardModifier controlModifier()
-    {
-        return hostOsAspects().controlModifier();
-    }
+    static Qt::KeyboardModifier controlModifier() { return hostOsAspects().controlModifier(); }
 
 private:
     static OsSpecificAspects hostOsAspects() { return OsSpecificAspects(hostOs()); }
 };
-
 
 BA_CORE_API_ EOsType HostOsInfo::hostOs()
 {
@@ -117,6 +115,6 @@ BA_CORE_API_ bool HostOsInfo::isAnyUnixHost()
 #endif
 }
 
-} // namespace Utils
+} // namespace GUI_OS_Utils
 
 #endif // HOSTOSINFO_H

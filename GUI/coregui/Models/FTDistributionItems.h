@@ -15,17 +15,18 @@
 #ifndef FTDISTRIBUTIONITEMS_H
 #define FTDISTRIBUTIONITEMS_H
 
-#include "SessionItem.h"
 #include "FTDistributions1D.h"
 #include "FTDistributions2D.h"
+#include "SessionItem.h"
 
 class BA_CORE_API_ FTDistribution1DItem : public SessionItem
 {
 public:
     static const QString P_OMEGA;
     explicit FTDistribution1DItem(const QString& name);
-    virtual std::unique_ptr<IFTDistribution1D> createFTDistribution() const=0;
-    virtual ~FTDistribution1DItem(){}
+    virtual std::unique_ptr<IFTDistribution1D> createFTDistribution() const = 0;
+    virtual ~FTDistribution1DItem() {}
+
 protected:
     void add_omega_property();
 };
@@ -82,7 +83,8 @@ public:
     static const QString P_OMEGA_Y;
     static const QString P_GAMMA;
     explicit FTDistribution2DItem(const QString& name);
-    virtual std::unique_ptr<IFTDistribution2D> createFTDistribution() const=0;
+    virtual std::unique_ptr<IFTDistribution2D> createFTDistribution() const = 0;
+
 protected:
     void add_omega_properties();
     void add_gamma_property();

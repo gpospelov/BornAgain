@@ -17,7 +17,13 @@
 
 #include "RootMinimizerAdapter.h"
 
-namespace ROOT { namespace Math { class GSLNLSMinimizer; } }
+namespace ROOT
+{
+namespace Math
+{
+class GSLNLSMinimizer;
+}
+} // namespace ROOT
 
 //! It's a facade to ROOT::Math::GSLNLSMinimizer which, in turn, is a facade to the
 //! actual GSL's gsl_multifit_fdfsolver_type
@@ -28,9 +34,9 @@ class BA_CORE_API_ GSLLevenbergMarquardtMinimizer : public RootMinimizerAdapter
 {
 public:
     GSLLevenbergMarquardtMinimizer();
-    ~GSLLevenbergMarquardtMinimizer();
+    ~GSLLevenbergMarquardtMinimizer() override;
 
-    //!< Sets tolerance on the function value at the minimum.
+    //! Sets tolerance on the function value at the minimum.
     void setTolerance(double value);
     double tolerance() const;
 
@@ -47,8 +53,9 @@ public:
     std::string statusToString() const override;
     std::map<std::string, std::string> statusMap() const override;
 
+    bool requiresResiduals() override { return true; }
+
 protected:
-    virtual bool isGradientBasedAgorithm() override;
     void propagateOptions() override;
     const root_minimizer_t* rootMinimizer() const override;
     void setParameter(unsigned int index, const Fit::Parameter& par) override;

@@ -15,11 +15,10 @@
 #ifndef MAINCOMPUTATION_H
 #define MAINCOMPUTATION_H
 
-#include "IComputation.h"
 #include "DWBASingleComputation.h"
+#include "IComputation.h"
 #include "SimulationOptions.h"
 
-class IFresnelMap;
 class MultiLayer;
 class SimulationElement;
 
@@ -33,8 +32,7 @@ class DWBAComputation : public IComputation
 {
 public:
     DWBAComputation(const MultiLayer& multilayer, const SimulationOptions& options,
-                    ProgressHandler& progress,
-                    std::vector<SimulationElement>::iterator begin_it,
+                    ProgressHandler& progress, std::vector<SimulationElement>::iterator begin_it,
                     std::vector<SimulationElement>::iterator end_it);
     ~DWBAComputation() override;
 
@@ -44,7 +42,6 @@ private:
     //! These iterators define the span of detector bins this simulation will work on
     std::vector<SimulationElement>::iterator m_begin_it, m_end_it;
     //! Contains the information, necessary to calculate the Fresnel coefficients.
-    std::unique_ptr<IFresnelMap> mP_fresnel_map;
     DWBASingleComputation m_single_computation;
 };
 

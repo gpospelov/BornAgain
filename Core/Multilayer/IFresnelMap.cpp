@@ -13,22 +13,24 @@
 // ************************************************************************** //
 
 #include "IFresnelMap.h"
-#include "MultiLayer.h"
+#include "Slice.h"
 
-static_assert(std::is_copy_constructible<IFresnelMap>::value == false,
-    "IFresnelMap should not be copy constructable");
-static_assert(std::is_copy_assignable<IFresnelMap>::value == false,
-    "IFresnelMap should not be copy assignable");
-
-IFresnelMap::IFresnelMap()
-    : m_use_cache(true)
-{}
-IFresnelMap::~IFresnelMap() {}
-
-void IFresnelMap::setMultilayer(const MultiLayer& multilayer)
+IFresnelMap::IFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)
+    : m_use_cache(true), m_Strategy(std::move(strategy))
 {
-    mP_multilayer.reset(multilayer.clone());
 }
+
+void IFresnelMap::setSlices(const std::vector<Slice>& slices)
+{
+    m_slices = slices;
+}
+
+const std::vector<Slice>& IFresnelMap::slices() const
+{
+    return m_slices;
+}
+
+IFresnelMap::~IFresnelMap() = default;
 
 void IFresnelMap::disableCaching()
 {

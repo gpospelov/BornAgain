@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/model/particle.h
+//! @file      GUI/ba3d/ba3d/model/particles.h
 //! @brief     Defines Particle class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -40,11 +40,17 @@ enum class EShape {
     Prism3,
     Tetrahedron,
     EllipsoidalCylinder,
+    BarGauss,
+    BarLorentz,
     Box,
     HemiEllipsoid,
     Dot,
-    Ripple1,
-    Ripple2,
+    Ripple1Box,
+    Ripple1Gauss,
+    Ripple1Lorentz,
+    Ripple2Box,
+    Ripple2Gauss,
+    Ripple2Lorentz,
     AnisoPyramid,
 };
 
@@ -99,13 +105,13 @@ public:
 class TruncatedSphere : public Particle
 {
 public:
-    TruncatedSphere(float R, float H, float deltaH=0.0f);
+    TruncatedSphere(float R, float H, float deltaH = 0.0f);
 };
 
 class TruncatedSpheroid : public Particle
 {
 public:
-    TruncatedSpheroid(float R, float H, float fp, float deltaH=0.0f);
+    TruncatedSpheroid(float R, float H, float fp, float deltaH = 0.0f);
 };
 
 class Cone : public Particle
@@ -180,6 +186,18 @@ public:
     EllipsoidalCylinder(float Ra, float Rb, float H);
 };
 
+class BarGauss : public Particle
+{
+public:
+    BarGauss(float L, float W, float H);
+};
+
+class BarLorentz : public Particle
+{
+public:
+    BarLorentz(float L, float W, float H);
+};
+
 class Box : public Particle
 {
 public:
@@ -192,10 +210,40 @@ public:
     HemiEllipsoid(float Ra, float Rb, float H);
 };
 
-class Ripple1 : public Particle
+class Ripple1Box : public Particle
 {
 public:
-    Ripple1(float L, float W, float H);
+    Ripple1Box(float L, float W, float H);
+};
+
+class Ripple1Gauss : public Particle
+{
+public:
+    Ripple1Gauss(float L, float W, float H);
+};
+
+class Ripple1Lorentz : public Particle
+{
+public:
+    Ripple1Lorentz(float L, float W, float H);
+};
+
+class Ripple2Box : public Particle
+{
+public:
+    Ripple2Box(float L, float W, float H);
+};
+
+class Ripple2Gauss : public Particle
+{
+public:
+    Ripple2Gauss(float L, float W, float H);
+};
+
+class Ripple2Lorentz : public Particle
+{
+public:
+    Ripple2Lorentz(float L, float W, float H);
 };
 
 class Ripple2 : public Particle
@@ -209,6 +257,6 @@ class AnisoPyramid : public Particle
 public:
     AnisoPyramid(float L, float W, float H, float alpha);
 };
-}
-} // namespace RealSpace::Particles
+} // namespace Particles
+} // namespace RealSpace
 #endif // BA3D_PARTICLES_H

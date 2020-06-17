@@ -20,7 +20,10 @@
 #include <memory>
 
 class Simulation;
-namespace Fit { class Parameters; }
+namespace Fit
+{
+class Parameters;
+}
 class FitObjective;
 
 using simulation_builder_t = std::function<std::unique_ptr<Simulation>(const Fit::Parameters&)>;

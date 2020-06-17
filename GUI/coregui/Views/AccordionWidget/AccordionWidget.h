@@ -84,7 +84,7 @@ public:
      * @brief QAccordion constructor
      * @param parent Optionally provide a parent widget
      */
-    explicit AccordionWidget(QWidget *parent = 0);
+    explicit AccordionWidget(QWidget* parent = 0);
 
     /**
      * @brief Returns the number of content panes
@@ -115,7 +115,7 @@ public:
      * @warning
      * Headers have to be unique
      */
-    int addContentPane(QString header, QFrame *contentFrame);
+    int addContentPane(QString header, QFrame* contentFrame);
     /**
      * @brief Add content pane
      * @param cpane New content pane to add
@@ -125,7 +125,7 @@ public:
      * This is an overloaded method of addContentPane(QString), that
      * allows you to provide your own content pane.
      */
-    int addContentPane(ContentPane *cpane);
+    int addContentPane(ContentPane* cpane);
     /**
      * @brief Insert content pane
      * @param index Index of the content pane
@@ -154,7 +154,7 @@ public:
      * @warning
      * Headers have to be unique
      */
-    bool insertContentPane(uint index, QString header, QFrame *contentFrame);
+    bool insertContentPane(uint index, QString header, QFrame* contentFrame);
     /**
      * @brief Insert content pane
      * @param index Index of the content pane
@@ -166,7 +166,7 @@ public:
      * Use this method when you already created a content pane that you want to
      * insert.
      */
-    bool insertContentPane(uint index, ContentPane *cpane);
+    bool insertContentPane(uint index, ContentPane* cpane);
 
     /**
      * @brief Swap the content pane
@@ -182,7 +182,7 @@ public:
      *
      * The old content pane will be __deleted__.
      */
-    bool swapContentPane(uint index, ContentPane *cpane);
+    bool swapContentPane(uint index, ContentPane* cpane);
 
     /**
      * @brief Remove a content pane
@@ -217,7 +217,7 @@ public:
      * @details
      * This is an overloaded method of removeContentPane(bool, uint).
      */
-    bool removeContentPane(bool deleteObject, QFrame *contentframe);
+    bool removeContentPane(bool deleteObject, QFrame* contentframe);
     /**
      * @brief Remove a content pane
      * @param deleteObject Delete the object and free memory
@@ -227,7 +227,7 @@ public:
      * @details
      * This is an overloaded method of removeContentPane(bool, uint).
      */
-    bool removeContentPane(bool deleteObject, ContentPane *contentPane);
+    bool removeContentPane(bool deleteObject, ContentPane* contentPane);
 
     /**
      * @brief Move content pane
@@ -250,7 +250,7 @@ public:
      * Get a content pane (QFrame*) with \p index. This method will return a
      * __nullptr__ if the content pane does not exist.
      */
-    ContentPane *getContentPane(uint index);
+    ContentPane* getContentPane(uint index);
 
     /**
      * @brief Get the index of a content pane
@@ -270,7 +270,7 @@ public:
      * @details
      * This is an overloaded function of getContentPaneIndex(QString)
      */
-    int getContentPaneIndex(QFrame *contentFrame);
+    int getContentPaneIndex(QFrame* contentFrame);
     /**
      * @brief Get the index of a content pane
      * @param contentPane ContentPane*
@@ -279,7 +279,7 @@ public:
      * @details
      * This is an overloaded function of getContentPaneIndex(QString)
      */
-    int getContentPaneIndex(ContentPane *contentPane);
+    int getContentPaneIndex(ContentPane* contentPane);
 
     /**
      * @brief Get the index of the active ContentPane
@@ -289,7 +289,7 @@ public:
      * This method will fill a vector with the index of all active ContentPanes.
      * The vector will be empty if no ContentPane is active
      */
-    void getActiveContentPaneIndex(std::vector<int> &indexVector);
+    void getActiveContentPaneIndex(std::vector<int>& indexVector);
 
     /**
      * @brief Allow multiple ContentPane to be open
@@ -350,30 +350,26 @@ signals:
 public slots:
 
 private:
-    std::vector<ContentPane *> contentPanes;
+    std::vector<ContentPane*> contentPanes;
 
-    QSpacerItem *spacer;
+    QSpacerItem* spacer;
 
     QString errorString;
 
     bool multiActive;
     bool collapsible;
 
-    int internalAddContentPane(QString header, QFrame *cframe = nullptr,
-                               ContentPane *cpane = nullptr);
-    bool internalInsertContentPane(uint index, QString header,
-                                   QFrame *contentFrame = nullptr,
-                                   ContentPane *cpane = nullptr);
-    bool internalRemoveContentPane(bool deleteOject, int index = -1,
-                                   QString name = "",
-                                   QFrame *contentFrame = nullptr,
-                                   ContentPane *cpane = nullptr);
-    int findContentPaneIndex(QString name = "", QFrame *cframe = nullptr,
-                             ContentPane *cpane = nullptr);
+    int internalAddContentPane(QString header, QFrame* cframe = nullptr,
+                               ContentPane* cpane = nullptr);
+    bool internalInsertContentPane(uint index, QString header, QFrame* contentFrame = nullptr,
+                                   ContentPane* cpane = nullptr);
+    bool internalRemoveContentPane(bool deleteOject, int index = -1, QString name = "",
+                                   QFrame* contentFrame = nullptr, ContentPane* cpane = nullptr);
+    int findContentPaneIndex(QString name = "", QFrame* cframe = nullptr,
+                             ContentPane* cpane = nullptr);
 
-    bool checkIndexError(uint index, bool sizeIndexAllowed,
-                         const QString &errMessage);
-    void handleClickedSignal(ContentPane *cpane);
+    bool checkIndexError(uint index, bool sizeIndexAllowed, const QString& errMessage);
+    void handleClickedSignal(ContentPane* cpane);
 
 private slots:
     void numberOfPanesChanged(int number);
@@ -383,7 +379,7 @@ protected:
      * @brief paintEvent Reimplement paintEvent to use stylesheets in derived Widgets
      * @param event
      */
-    void paintEvent(ATTR_UNUSED QPaintEvent *event);
+    void paintEvent(ATTR_UNUSED QPaintEvent* event);
 };
 
 #endif // ACCORDIONWIDGET_H

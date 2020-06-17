@@ -27,14 +27,18 @@ class BA_CORE_API_ IMultiLayerBuilder : public IParameterized
 public:
     IMultiLayerBuilder();
 
-    virtual MultiLayer* buildSample() const =0;
+    virtual MultiLayer* buildSample() const = 0;
 
     // this method is extended in the Python wrappers (needed to solve ownership issues with
     // the created sample in buildSample()
     static bool isPythonBuilder() { return false; }
 
-    virtual MultiLayer* createSample(size_t index=0) { (void)index; return buildSample(); }
-    virtual size_t size() { return 1;}
+    virtual MultiLayer* createSample(size_t index = 0)
+    {
+        (void)index;
+        return buildSample();
+    }
+    virtual size_t size() { return 1; }
 };
 
 #endif // IMULTILAYERBUILDER_H

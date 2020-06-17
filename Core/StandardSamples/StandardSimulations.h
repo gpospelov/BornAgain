@@ -24,10 +24,8 @@ class OffSpecSimulation;
 
 //! Standard pre-defined simulations.
 
-namespace StandardSimulations {
-
-// Special tests:
-BA_CORE_API_ GISASSimulation* PolarizedDWBAMagCylinders2();
+namespace StandardSimulations
+{
 
 // CoreSuite tests:
 BA_CORE_API_ GISASSimulation* BasicGISAS();
@@ -37,8 +35,6 @@ BA_CORE_API_ GISASSimulation* MiniGISAS();
 BA_CORE_API_ GISASSimulation* MiniGISAS_v2();
 BA_CORE_API_ GISASSimulation* MiniGISASBeamDivergence();
 BA_CORE_API_ GISASSimulation* MiniGISASDetectorResolution();
-BA_CORE_API_ GISASSimulation* MiniGISASPolarizationPP();
-BA_CORE_API_ GISASSimulation* MiniGISASSpinFlipZ();
 BA_CORE_API_ GISASSimulation* MiniGISASSpecularPeak();
 BA_CORE_API_ GISASSimulation* GISASWithMasks();
 BA_CORE_API_ GISASSimulation* MaxiGISAS();
@@ -55,14 +51,28 @@ BA_CORE_API_ GISASSimulation* SphericalDetWithRoi();
 BA_CORE_API_ GISASSimulation* RectDetWithRoi();
 BA_CORE_API_ GISASSimulation* ConstantBackgroundGISAS();
 BA_CORE_API_ GISASSimulation* MiniGISASFit();
+BA_CORE_API_ GISASSimulation* ExtraLongWavelengthGISAS();
+
+// polarized GISAS:
+BA_CORE_API_ GISASSimulation* MiniGISASPolarizationPP();
+BA_CORE_API_ GISASSimulation* MiniGISASPolarizationPM();
+BA_CORE_API_ GISASSimulation* MiniGISASPolarizationMP();
+BA_CORE_API_ GISASSimulation* MiniGISASPolarizationMM();
 
 // Specular simulation tests:
 BA_CORE_API_ SpecularSimulation* BasicSpecular();
-BA_CORE_API_ SpecularSimulation* BasicSpecularTOF();
 BA_CORE_API_ SpecularSimulation* BasicSpecularQ();
 BA_CORE_API_ SpecularSimulation* SpecularWithGaussianBeam();
 BA_CORE_API_ SpecularSimulation* SpecularWithSquareBeam();
 BA_CORE_API_ SpecularSimulation* SpecularDivergentBeam();
+BA_CORE_API_ SpecularSimulation* TOFRWithRelativeResolution();
+BA_CORE_API_ SpecularSimulation* TOFRWithPointwiseResolution();
+
+// polarized specular:
+BA_CORE_API_ SpecularSimulation* BasicSpecularPP();
+BA_CORE_API_ SpecularSimulation* BasicSpecularMM();
+BA_CORE_API_ SpecularSimulation* BasicSpecularQPP();
+BA_CORE_API_ SpecularSimulation* BasicSpecularQMM();
 
 // OffSpec simulations
 BA_CORE_API_ OffSpecSimulation* MiniOffSpec();

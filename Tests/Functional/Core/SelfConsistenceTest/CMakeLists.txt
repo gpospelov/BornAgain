@@ -8,6 +8,9 @@ set(test TestSelfConsistence)
 set(test_cases
     SpecularWithSlicing
     InstrumentDefinitionComparison
+    TOFResolutionComparison
+    PolarizedQAngleReflectivityPP
+    PolarizedQAngleReflectivityMM
     )
 
 file(GLOB source_files "*.cpp")

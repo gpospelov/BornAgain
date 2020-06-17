@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/model/geometry/sphere.cpp
+//! @file      GUI/ba3d/ba3d/model/geometry/sphere.cpp
 //! @brief     Implements utility functions in ba3d namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -36,15 +36,14 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop
     {
         minPh = asinf(2 * cut - 1);
         if (removedTop > 0) // North pole absent
-            maxPh = asinf(1-2*removedTop);
+            maxPh = asinf(1 - 2 * removedTop);
         else // North pole present
             maxPh = float(M_PI_2) - float(M_PI) / RINGS;
-    }
-    else // South pole present
+    } else // South pole present
     {
-        minPh =  - float(M_PI_2) + float(M_PI) / RINGS;
+        minPh = -float(M_PI_2) + float(M_PI) / RINGS;
         if (removedTop > 0) // North pole absent
-            maxPh = asinf(1-removedTop);
+            maxPh = asinf(1 - removedTop);
         else // North pole present
             maxPh = float(M_PI_2) - float(M_PI) / RINGS;
     }
@@ -64,7 +63,7 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop
     float const R = .5f;
 
     for (int r = 0; r < rings; ++r) {
-        float ph = minPh + phRge * r / (rings-1);
+        float ph = minPh + phRge * r / (rings - 1);
         float cp = cosf(ph), sp = sinf(ph);
 
         for (int s = 0; s < slices; ++s) {
@@ -78,7 +77,7 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop
     }
 
     // make into triangles
-    int const nv = 6*(rings)*slices;
+    int const nv = 6 * (rings)*slices;
     Vertices vs;
     vs.reserve(nv);
     Vertices ns;
@@ -119,8 +118,7 @@ Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop
                 }
                 vs.addTriangle(v0, v1, vp);
                 ns.addTriangle(n0, n1, np);
-            }
-            else { // in between poles
+            } else { // in between poles
                 auto &vr1 = vs_.at(r + 1), &nr1 = ns_.at(r + 1);
                 auto &n2 = nr1.at(s1), &n3 = nr1.at(s0);
                 vs.addQuad(v0, v1, vr1.at(s1), vr1.at(s0));

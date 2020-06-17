@@ -14,33 +14,26 @@
 
 #include "ParameterTuningWidget.h"
 #include "GUIHelpers.h"
-#include "JobRealTimeToolBar.h"
 #include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "JobModel.h"
+#include "JobRealTimeToolBar.h"
 #include "ParameterTreeItems.h"
 #include "ParameterTuningDelegate.h"
 #include "ParameterTuningModel.h"
 #include "SliderSettingsWidget.h"
 #include "WarningSign.h"
-#include "StyleUtils.h"
 #include <QTreeView>
 #include <QVBoxLayout>
 
-
 ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_toolBar(new JobRealTimeToolBar(this))
-    , m_jobModel(nullptr)
-    , m_parameterTuningModel(nullptr)
-    , m_sliderSettingsWidget(new SliderSettingsWidget(this))
-    , m_treeView(new QTreeView)
-    , m_delegate(new ParameterTuningDelegate(this))
-    , m_warningSign(new WarningSign(m_treeView))
+    : SessionItemWidget(parent), m_toolBar(new JobRealTimeToolBar(this)), m_jobModel(nullptr),
+      m_parameterTuningModel(nullptr), m_sliderSettingsWidget(new SliderSettingsWidget(this)),
+      m_treeView(new QTreeView), m_delegate(new ParameterTuningDelegate(this)),
+      m_warningSign(new WarningSign(m_treeView))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    m_treeView->setStyleSheet(StyleUtils::realtimeTreeStyle());
     m_treeView->setItemDelegate(m_delegate);
     m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_treeView->setDragDropMode(QAbstractItemView::NoDragDrop);
@@ -54,16 +47,16 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
     mainLayout->addWidget(m_treeView);
     setLayout(mainLayout);
 
-    connect(m_sliderSettingsWidget, &SliderSettingsWidget::sliderRangeFactorChanged,
-            this, &ParameterTuningWidget::onSliderValueChanged);
-    connect(m_sliderSettingsWidget, &SliderSettingsWidget::lockzChanged,
-            this, &ParameterTuningWidget::onLockZValueChanged);
-    connect(m_delegate, &ParameterTuningDelegate::currentLinkChanged,
-            this, &ParameterTuningWidget::onCurrentLinkChanged);
-    connect(m_treeView, &QTreeView::customContextMenuRequested,
-            this, &ParameterTuningWidget::onCustomContextMenuRequested);
-    connect(m_toolBar, &JobRealTimeToolBar::resetParameters,
-            this, &ParameterTuningWidget::restoreModelsOfCurrentJobItem);
+    connect(m_sliderSettingsWidget, &SliderSettingsWidget::sliderRangeFactorChanged, this,
+            &ParameterTuningWidget::onSliderValueChanged);
+    connect(m_sliderSettingsWidget, &SliderSettingsWidget::lockzChanged, this,
+            &ParameterTuningWidget::onLockZValueChanged);
+    connect(m_delegate, &ParameterTuningDelegate::currentLinkChanged, this,
+            &ParameterTuningWidget::onCurrentLinkChanged);
+    connect(m_treeView, &QTreeView::customContextMenuRequested, this,
+            &ParameterTuningWidget::onCustomContextMenuRequested);
+    connect(m_toolBar, &JobRealTimeToolBar::resetParameters, this,
+            &ParameterTuningWidget::restoreModelsOfCurrentJobItem);
 }
 
 QItemSelectionModel* ParameterTuningWidget::selectionModel()
@@ -78,7 +71,7 @@ QVector<ParameterItem*> ParameterTuningWidget::getSelectedParameters()
 {
     QVector<ParameterItem*> result;
     QModelIndexList proxyIndexes = selectionModel()->selectedIndexes();
-    for(auto proxyIndex : proxyIndexes) {
+    for (auto proxyIndex : proxyIndexes) {
         if (ParameterItem* parItem = m_parameterTuningModel->getParameterItem(proxyIndex))
             result.push_back(parItem);
     }
@@ -160,7 +153,7 @@ void ParameterTuningWidget::makeSelected(ParameterItem* item)
         selectionModel()->select(proxyIndex, QItemSelectionModel::Select);
 }
 
-void ParameterTuningWidget::contextMenuEvent(QContextMenuEvent* )
+void ParameterTuningWidget::contextMenuEvent(QContextMenuEvent*)
 {
     // reimplemented to suppress context menu from QMainWindow
 }
@@ -198,7 +191,6 @@ JobItem* ParameterTuningWidget::jobItem()
 {
     return dynamic_cast<JobItem*>(currentItem());
 }
-
 
 //! Disable drag-and-drop abilities, if job is in fit running state.
 

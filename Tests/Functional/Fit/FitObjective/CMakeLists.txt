@@ -4,6 +4,7 @@ set(test_cases
     MigradCylindersInBA
     MigradResidualCylindersInBA
     SpecularFitTest
+    SpecularFitTestQ
     MultipleSpecFittingTest
     FumuliCylindersInBA
     LevenbergMarquardtCylindersInBA

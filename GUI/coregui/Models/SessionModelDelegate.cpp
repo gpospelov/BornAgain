@@ -19,14 +19,12 @@
 #include "SessionItem.h"
 #include <QApplication>
 
-namespace {
-QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent);
-}  // unnamed namespace
-
-SessionModelDelegate::SessionModelDelegate(QObject* parent)
-    : QStyledItemDelegate(parent)
+namespace
 {
-}
+QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent);
+} // unnamed namespace
+
+SessionModelDelegate::SessionModelDelegate(QObject* parent) : QStyledItemDelegate(parent) {}
 
 void SessionModelDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
                                  const QModelIndex& index) const
@@ -49,7 +47,7 @@ QWidget* SessionModelDelegate::createEditor(QWidget* parent, const QStyleOptionV
                 &SessionModelDelegate::onCustomEditorDataChanged);
     }
 
-    if (!result) //falling back to default behaviour
+    if (!result) // falling back to default behaviour
         result = QStyledItemDelegate::createEditor(parent, option, index);
 
     return result;
@@ -105,7 +103,7 @@ void SessionModelDelegate::updateEditorGeometry(QWidget* editor, const QStyleOpt
 
 //! Notifies everyone that the editor has completed editing the data.
 
-void SessionModelDelegate::onCustomEditorDataChanged(const QVariant& )
+void SessionModelDelegate::onCustomEditorDataChanged(const QVariant&)
 {
     CustomEditor* editor = qobject_cast<CustomEditor*>(sender());
     Q_ASSERT(editor);
@@ -125,12 +123,14 @@ void SessionModelDelegate::paintCustomLabel(QPainter* painter, const QStyleOptio
     style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, widget);
 }
 
-namespace {
-QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent) {
+namespace
+{
+QWidget* createEditorFromIndex(const QModelIndex& index, QWidget* parent)
+{
     if (index.internalPointer()) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
         return PropertyEditorFactory::CreateEditor(*item, parent);
     }
     return nullptr;
 }
-}  // unnamed namespace
+} // unnamed namespace

@@ -80,7 +80,7 @@ if(BORNAGAIN_CRASHHANDLER)
 endif()
 
 if(WIN32)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBA_CORE_BUILD_DLL")
 endif()
 
 
@@ -119,7 +119,7 @@ install (TARGETS ${library_name} DESTINATION ${destination_lib} COMPONENT Librar
 
 if(WIN32)
     # --- Qt ---
-    STRING(REGEX REPLACE "\\\\" "/" QTDIR $ENV{QTDIR} ) # Convert C:\Qt\ to C:/Qt/
+    string(REGEX REPLACE "\\\\" "/" QTDIR $ENV{QTDIR} ) # Convert C:\Qt\ to C:/Qt/
     install(FILES
     ${QTDIR}/bin/Qt5Widgets.DLL
     ${QTDIR}/bin/Qt5Core.dll
@@ -143,6 +143,11 @@ if(WIN32)
     ${QTDIR}/plugins/imageformats/qjpeg.dll
     ${QTDIR}/plugins/imageformats/qsvg.dll
     DESTINATION bin/imageformats COMPONENT Libraries)
+
+    install(FILES
+    ${QTDIR}/bin/libEGL.dll
+    ${QTDIR}/bin/libGLESv2.dll
+    DESTINATION ${destination_lib} COMPONENT Libraries)
 
     set(QT_VISTA_STYLE "${QTDIR}/plugins/styles/qwindowsvistastyle.dll")
     if(EXISTS "${QT_VISTA_STYLE}")

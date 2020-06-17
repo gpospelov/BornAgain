@@ -31,19 +31,18 @@ class IInterferenceFunction;
 class BA_CORE_API_ ILayout : public ISample
 {
 public:
-    enum EInterferenceApproximation { DA, SSCA };
-
-    ILayout() : m_weight(1.0), me_approx(DA) {}
+    ILayout();
     virtual ~ILayout();
 
     virtual ILayout* clone() const = 0;
-    virtual ILayout* cloneWithOffset(double offset) const = 0;
-
     virtual void accept(INodeVisitor* visitor) const = 0;
 
     //! Returns information on all particles (type and abundance)
     //! and generates new particles if an IAbstractParticle denotes a collection
     virtual SafePointerVector<IParticle> particles() const = 0;
+
+    //! Returns the interference function
+    virtual const IInterferenceFunction* interferenceFunction() const = 0;
 
     /// Get total abundance of all particles
     virtual double getTotalAbundance() const = 0;
@@ -60,18 +59,8 @@ public:
     //! Sets the relative weight of this layout
     void setWeight(double weight) { m_weight = weight; }
 
-    //! Gets the used approximation for particles and interference functions
-    EInterferenceApproximation getApproximation() const { return me_approx; }
-
-    //! Sets the used approximation for particles and interference functions
-    void setApproximation(EInterferenceApproximation approximation) { me_approx = approximation; }
-
 protected:
     double m_weight;
-
-private:
-    //! Approximation used for combining particles and interference functions
-    EInterferenceApproximation me_approx;
 };
 
 #endif // ILAYOUT_H

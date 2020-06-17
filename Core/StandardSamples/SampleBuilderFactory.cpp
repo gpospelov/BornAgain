@@ -26,6 +26,7 @@
 #include "MagneticLayersBuilder.h"
 #include "MagneticParticlesBuilder.h"
 #include "MesoCrystalBuilder.h"
+#include "MultiLayerWithNCRoughnessBuilder.h"
 #include "MultiLayerWithRoughnessBuilder.h"
 #include "MultipleLayoutBuilder.h"
 #include "ParaCrystalBuilder.h"
@@ -41,6 +42,7 @@
 #include "SizeDistributionModelsBuilder.h"
 #include "SlicedCylindersBuilder.h"
 #include "SlicedParticleBuilder.h"
+#include "ThickAbsorptiveSampleBuilder.h"
 #include "TransformationsBuilder.h"
 #include "TwoDimLatticeBuilder.h"
 #include "TwoLayerRoughnessBuilder.h"
@@ -55,15 +57,15 @@ SampleBuilderFactory::SampleBuilderFactory()
                  "Mixture of cylinder particles with two types size distribution ");
 
     registerItem("CylindersInBABuilder", create_new<CylindersInBABuilder>,
-                 "Cylinder formfactor in BA");
+                 "Cylinder form factor in BA");
     registerItem("CylindersInDWBABuilder", create_new<CylindersInDWBABuilder>,
-                 "Cylinder formfactor in DWBA");
+                 "Cylinder form factor in DWBA");
     registerItem("LargeCylindersInDWBABuilder", create_new<LargeCylindersInDWBABuilder>,
                  "Large cylinders in DWBA");
 
     registerItem("CylindersWithSizeDistributionBuilder",
                  create_new<CylindersWithSizeDistributionBuilder>,
-                 "Cylinder formfactor in BA with size distribution");
+                 "Cylinder form factor in BA with size distribution");
 
     registerItem("RadialParaCrystalBuilder", create_new<RadialParaCrystalBuilder>,
                  "Interference function of radial paracrystal");
@@ -136,6 +138,12 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem("MagneticSubstrateZeroFieldBuilder", create_new<MagneticSubstrateZeroFieldBuilder>,
                  "Polarized DWBA with zero field substrate");
 
+    registerItem("MagneticLayerBuilder", create_new<SimpleMagneticLayerBuilder>,
+                 "Sample with one magnetic 10nm-thick layer");
+
+    registerItem("MagnetizedLayerWithSpheresBuilder", create_new<MagneticLayerBuilder>,
+                 "Magnetized particles in a magnetized layer");
+
     registerItem("MagneticRotationBuilder", create_new<MagneticRotationBuilder>,
                  "Rotated magnetic particle in magnetic substrate");
 
@@ -143,6 +151,9 @@ SampleBuilderFactory::SampleBuilderFactory()
                  "Spheres with magnetization inside substrate");
 
     registerItem("MultiLayerWithRoughnessBuilder", create_new<MultiLayerWithRoughnessBuilder>,
+                 "Layer with correlated roughness");
+
+    registerItem("MultiLayerWithNCRoughnessBuilder", create_new<MultiLayerWithNCRoughnessBuilder>,
                  "Layer with correlated roughness");
 
     registerItem("TwoLayerRoughnessBuilder", create_new<TwoLayerRoughnessBuilder>,
@@ -232,6 +243,9 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("AveragedSlicedCylindersBuilder", create_new<AveragedSlicedCylindersBuilder>,
                  "Manually sliced multilayer with cylinders on substrate (sld-based materials)");
+
+    registerItem("ThickAbsorptiveSampleBuilder", create_new<ThickAbsorptiveSampleBuilder>,
+                 "Thick highly-absorptive multilayer with a rough substrate");
 }
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.

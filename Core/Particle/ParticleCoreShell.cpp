@@ -17,8 +17,8 @@
 #include "FormFactorCoreShell.h"
 #include "Particle.h"
 
-ParticleCoreShell::ParticleCoreShell(
-    const Particle& shell, const Particle& core, kvector_t relative_core_position)
+ParticleCoreShell::ParticleCoreShell(const Particle& shell, const Particle& core,
+                                     kvector_t relative_core_position)
 {
     setName(BornAgain::ParticleCoreShellType);
     registerParticleProperties();
@@ -26,9 +26,7 @@ ParticleCoreShell::ParticleCoreShell(
     addAndRegisterShell(shell);
 }
 
-ParticleCoreShell::~ParticleCoreShell()
-{
-}
+ParticleCoreShell::~ParticleCoreShell() {}
 
 ParticleCoreShell* ParticleCoreShell::clone() const
 {
@@ -53,8 +51,6 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     P_core->rotate(*P_rotation);
     P_core->translate(m_position);
     auto sliced_core = P_core->createSlicedParticle(limits);
-    if (!sliced_core.mP_slicedff || sliced_core.m_regions.size()!=1)
-        return {};
 
     // shell
     std::unique_ptr<Particle> P_shell(mp_shell->clone());
@@ -64,14 +60,21 @@ SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const
     if (!sliced_shell.mP_slicedff)
         return {};
 
+    SlicedParticle result;
+    // if core out of limits, return sliced shell
+    if (!sliced_core.mP_slicedff) {
+        result.mP_slicedff.reset(sliced_shell.mP_slicedff.release());
+        result.m_regions.push_back(sliced_shell.m_regions.back());
+        return result;
+    }
+
     // set core ambient material
-    if (sliced_shell.m_regions.size()!=1)
+    if (sliced_shell.m_regions.size() != 1)
         return {};
     auto shell_material = sliced_shell.m_regions[0].m_material;
     sliced_core.mP_slicedff->setAmbientMaterial(shell_material);
 
     // construct sliced particle
-    SlicedParticle result;
     sliced_shell.m_regions.back().m_volume -= sliced_core.m_regions.back().m_volume;
     result.mP_slicedff.reset(new FormFactorCoreShell(sliced_core.mP_slicedff.release(),
                                                      sliced_shell.mP_slicedff.release()));
@@ -86,8 +89,7 @@ std::vector<const INode*> ParticleCoreShell::getChildren() const
     return std::vector<const INode*>() << IParticle::getChildren() << mp_core << mp_shell;
 }
 
-void ParticleCoreShell::addAndRegisterCore(const Particle& core,
-                                           kvector_t relative_core_position)
+void ParticleCoreShell::addAndRegisterCore(const Particle& core, kvector_t relative_core_position)
 {
     mp_core.reset(core.clone());
     mp_core->translate(relative_core_position);
@@ -103,8 +105,7 @@ void ParticleCoreShell::addAndRegisterShell(const Particle& shell)
     mp_shell->registerPosition(false);
 }
 
-ParticleCoreShell::ParticleCoreShell()
-    : mp_shell { nullptr }, mp_core { nullptr }
+ParticleCoreShell::ParticleCoreShell() : mp_shell{nullptr}, mp_core{nullptr}
 {
     setName(BornAgain::ParticleCoreShellType);
 }

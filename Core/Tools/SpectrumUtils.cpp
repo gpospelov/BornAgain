@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/SpectrumUtils.h
+//! @file      Core/Tools/SpectrumUtils.cpp
 //! @brief     PyObvject forward declaration.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,13 +13,14 @@
 // ************************************************************************** //
 
 #include "SpectrumUtils.h"
-#include "tspectrum.h"
 #include "ArrayUtils.h"
+#include "tspectrum.h"
 #include <cmath>
 
-std::vector<std::pair<double, double>>
-SpectrumUtils::FindPeaks(const Histogram2D& hist, double sigma,
-                          const std::string& option, double threshold)
+std::vector<std::pair<double, double>> SpectrumUtils::FindPeaks(const Histogram2D& hist,
+                                                                double sigma,
+                                                                const std::string& option,
+                                                                double threshold)
 {
     std::unique_ptr<OutputData<double>> data(hist.createOutputData());
     std::vector<std::vector<double>> arr = ArrayUtils::createVector2D(*data);
@@ -29,7 +30,7 @@ SpectrumUtils::FindPeaks(const Histogram2D& hist, double sigma,
     // coordinates of peaks in histogram axes units
     std::vector<std::pair<double, double>> result;
 
-    for(const auto& p : peaks) {
+    for (const auto& p : peaks) {
         double row_value = p.first;
         double col_value = p.second;
 
@@ -40,10 +41,10 @@ SpectrumUtils::FindPeaks(const Histogram2D& hist, double sigma,
         Bin1D ybin = hist.getYaxis().getBin(yaxis_index);
 
         double dx = col_value - static_cast<size_t>(col_value);
-        double dy = -1.0*(row_value - static_cast<size_t>(row_value));
+        double dy = -1.0 * (row_value - static_cast<size_t>(row_value));
 
-        double x = xbin.getMidPoint()+xbin.getBinSize()*dx;
-        double y = ybin.getMidPoint()+ybin.getBinSize()*dy;
+        double x = xbin.getMidPoint() + xbin.getBinSize() * dx;
+        double y = ybin.getMidPoint() + ybin.getBinSize() * dy;
 
         result.push_back(std::make_pair(x, y));
     }

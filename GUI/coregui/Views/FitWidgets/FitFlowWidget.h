@@ -27,7 +27,7 @@ class BA_CORE_API_ FitFlowWidget : public SessionItemWidget
 {
     Q_OBJECT
 public:
-    explicit FitFlowWidget(QWidget *parent = nullptr);
+    explicit FitFlowWidget(QWidget* parent = nullptr);
 
 protected:
     void subscribeToItem();
@@ -36,12 +36,9 @@ protected:
 private:
     FitSuiteItem* fitSuiteItem();
 
-    HistogramPlot *m_histPlot;
+    HistogramPlot* m_histPlot;
     QVector<double> m_x;
     QVector<double> m_y;
 };
 
-
-
 #endif // FITFLOWWIDGET_H
-

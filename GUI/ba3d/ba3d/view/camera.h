@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/model/camera.h
+//! @file      GUI/ba3d/ba3d/view/camera.h
 //! @brief     Defines Camera class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -50,14 +50,8 @@ public:
     void lookAt(const Position&);       // camera position for 3D object
     void lookAt3DAxes(const Position&); // camera position for 3D axes
 
-    const Position& getPos() const
-    {
-        return pos;
-    }
-    const Position& getPos3DAxes() const
-    {
-        return pos3DAxes;
-    }
+    const Position& getPos() const { return pos; }
+    const Position& getPos3DAxes() const { return pos3DAxes; }
 
     void set();
 

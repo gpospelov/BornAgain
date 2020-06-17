@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/ComponentUtis.cpp
+//! @file      GUI/coregui/Views/PropertyEditor/ComponentUtils.cpp
 //! @brief     Implements ComponentUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,19 +13,20 @@
 // ************************************************************************** //
 
 #include "ComponentUtils.h"
-#include "item_constants.h"
 #include "SessionItem.h"
+#include "item_constants.h"
 
-namespace {
+namespace
+{
 QList<const SessionItem*> groupItems(const SessionItem& item);
 }
 
 QStringList ComponentUtils::propertyRelatedTypes()
 {
-    QStringList result = QStringList() << Constants::PropertyType << Constants::GroupItemType
-                                       << Constants::VectorType << Constants::BasicAxisType
-                                       << Constants::AmplitudeAxisType
-                                       << Constants::MaterialRefractiveDataType;
+    QStringList result = QStringList()
+                         << Constants::PropertyType << Constants::GroupItemType
+                         << Constants::VectorType << Constants::BasicAxisType
+                         << Constants::AmplitudeAxisType << Constants::MaterialRefractiveDataType;
     return result;
 }
 
@@ -59,7 +60,8 @@ QList<const SessionItem*> ComponentUtils::componentItems(const SessionItem& item
     return result;
 }
 
-namespace {
+namespace
+{
 QList<const SessionItem*> groupItems(const SessionItem& item)
 {
     Q_ASSERT(item.modelType() == Constants::GroupItemType);
@@ -67,9 +69,9 @@ QList<const SessionItem*> groupItems(const SessionItem& item)
     QList<const SessionItem*> result;
     for (auto grandchild : item.children()) {
         if (grandchild->isVisible())
-            result+= ComponentUtils::componentItems(*grandchild);
+            result += ComponentUtils::componentItems(*grandchild);
     }
 
     return result;
 }
-}
+} // namespace

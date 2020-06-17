@@ -17,30 +17,25 @@
 #include "FormFactorDecoratorPositionFactor.h"
 #include "MaterialFactoryFuncs.h"
 
-Particle::Particle()
-    : m_material(HomogeneousMaterial())
+Particle::Particle() : m_material(HomogeneousMaterial())
 {
     initialize();
 }
 
-Particle::Particle(Material material)
-    : m_material(std::move(material))
+Particle::Particle(Material material) : m_material(std::move(material))
 {
     initialize();
 }
 
 Particle::Particle(Material material, const IFormFactor& form_factor)
-    : m_material(std::move(material))
-    , mP_form_factor(form_factor.clone())
+    : m_material(std::move(material)), mP_form_factor(form_factor.clone())
 {
     initialize();
     registerChild(mP_form_factor.get());
 }
 
-Particle::Particle(Material material, const IFormFactor& form_factor,
-                   const IRotation& rotation)
-    : m_material(std::move(material))
-    , mP_form_factor(form_factor.clone())
+Particle::Particle(Material material, const IFormFactor& form_factor, const IRotation& rotation)
+    : m_material(std::move(material)), mP_form_factor(form_factor.clone())
 {
     initialize();
     setRotation(rotation);
@@ -68,14 +63,15 @@ SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
     if (mP_rotation)
         P_rotation.reset(mP_rotation->clone());
     std::unique_ptr<IFormFactor> P_temp_ff(
-                mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
+        mP_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
+    if (!P_temp_ff)
+        return {};
     std::unique_ptr<FormFactorDecoratorMaterial> P_ff(new FormFactorDecoratorMaterial(*P_temp_ff));
     double volume = P_temp_ff->volume();
-    Material transformed_material(
-                m_material.transformedMaterial(P_rotation->getTransform3D()));
+    Material transformed_material(m_material.transformedMaterial(P_rotation->getTransform3D()));
     P_ff->setMaterial(transformed_material);
     SlicedParticle result;
-    result.m_regions.push_back( { volume, transformed_material } );
+    result.m_regions.push_back({volume, transformed_material});
     result.mP_slicedff = std::move(P_ff);
     return result;
 }

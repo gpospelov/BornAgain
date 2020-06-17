@@ -21,8 +21,11 @@
 class JobItem;
 class FitObjective;
 class Simulation;
-namespace Fit { class Parameters; }
-template<class T> class OutputData;
+namespace Fit
+{
+class Parameters;
+}
+template <class T> class OutputData;
 class IMinimizer;
 class GUIFitObserver;
 class IChiSquaredModule;
@@ -44,6 +47,7 @@ public:
     void attachObserver(std::shared_ptr<GUIFitObserver> observer);
 
     void interruptFitting();
+
 private:
     JobItem* m_jobItem;
 

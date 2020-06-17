@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/NewKernel/Kernel.cpp
+//! @file      Fit/Kernel/Kernel.cpp
 //! @brief     Implements class Kernel.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -22,7 +22,7 @@ namespace
 {
 const std::string default_minimizer = "Minuit2";
 const std::string default_algorithm = "Migrad";
-}
+} // namespace
 
 Kernel::Kernel()
 {
@@ -47,6 +47,10 @@ MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters)
     setParameters(parameters);
 
     m_time_interval.start();
+    if (m_minimizer->requiresResiduals())
+        throw std::runtime_error(
+            "Error in Kernel::minimize: the chosen minimizer requires residuals computation. "
+            "Please use FitObjective::evaluate_residuals with this minimizer.");
     auto result = m_minimizer->minimize_scalar(fcn, parameters);
     m_time_interval.stop();
 

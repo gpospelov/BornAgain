@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/model/camera.cpp
+//! @file      GUI/ba3d/ba3d/view/camera.cpp
 //! @brief     Implements Camera class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -29,9 +29,7 @@ Camera::Camera()
     setAspectRatio(1);
 }
 
-Camera::Position::Position() : eye(), ctr(), up()
-{
-}
+Camera::Position::Position() : eye(), ctr(), up() {}
 
 Camera::Position::Position(const Vector3D& eye_, const Vector3D& ctr_, const Vector3D& up_,
                            QQuaternion const& rot_)

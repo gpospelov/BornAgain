@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/PropertyEditor/CustomEditors.h
+//! @file      GUI/coregui/Views/PropertyEditor/CustomEditors.cpp
 //! @brief     Implements CustomEditors classes
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,36 +13,37 @@
 // ************************************************************************** //
 
 #include "CustomEditors.h"
+#include "ComboProperty.h"
 #include "CustomEventFilters.h"
 #include "ExternalProperty.h"
-#include "GroupItemController.h"
-#include "ComboProperty.h"
-#include "MaterialItemUtils.h"
 #include "GUIHelpers.h"
+#include "GroupItemController.h"
+#include "MaterialItemUtils.h"
 #include "ScientificSpinBox.h"
+#include <QApplication>
 #include <QBoxLayout>
-#include <QLabel>
-#include <QToolButton>
-#include <QComboBox>
-#include <QColorDialog>
-#include <QLineEdit>
 #include <QCheckBox>
+#include <QColorDialog>
+#include <QComboBox>
 #include <QDoubleSpinBox>
 #include <QEvent>
 #include <QKeyEvent>
-#include <QApplication>
+#include <QLabel>
+#include <QLineEdit>
+#include <QToolButton>
 #include <cmath>
 
-
-namespace {
+namespace
+{
 //! Single step for QDoubleSpinBox.
 
-double singleStep(int decimals) {
+double singleStep(int decimals)
+{
     // For item with decimals=3 (i.e. 0.001) single step will be 0.1
     return 1. / std::pow(10., decimals - 1);
 }
 
-}
+} // namespace
 
 //! Sets the data from the model to editor.
 
@@ -51,7 +52,6 @@ void CustomEditor::setData(const QVariant& data)
     m_data = data;
     initEditor();
 }
-
 
 //! Inits editor widgets from m_data.
 
@@ -68,11 +68,9 @@ void CustomEditor::setDataIntern(const QVariant& data)
 // --- MaterialPropertyEditor ---
 
 ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_textLabel(new QLabel)
-    , m_pixmapLabel(new QLabel)
-    , m_focusFilter(new LostFocusFilter(this))
-    , m_extDialogType(Constants::MaterialEditorExternalType)
+    : CustomEditor(parent), m_textLabel(new QLabel), m_pixmapLabel(new QLabel),
+      m_focusFilter(new LostFocusFilter(this)),
+      m_extDialogType(Constants::MaterialEditorExternalType)
 {
     setMouseTracking(true);
     setAutoFillBackground(true);
@@ -113,7 +111,7 @@ void ExternalPropertyEditor::buttonClicked()
     ExternalProperty newProperty;
     if (m_extDialogType == Constants::MaterialEditorExternalType) {
         newProperty = MaterialItemUtils::selectMaterialProperty(property);
-    } else if(m_extDialogType == Constants::ColorEditorExternalType) {
+    } else if (m_extDialogType == Constants::ColorEditorExternalType) {
         newProperty = MaterialItemUtils::selectColorProperty(property);
     } else {
         throw GUIHelpers::Error("ExternalPropertyEditor::buttonClicked() -> Unexpected dialog");
@@ -136,9 +134,7 @@ void ExternalPropertyEditor::initEditor()
 // --- CustomComboEditor ---
 
 ComboPropertyEditor::ComboPropertyEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_box(new QComboBox)
-    , m_wheel_event_filter(new WheelEventEater(this))
+    : CustomEditor(parent), m_box(new QComboBox), m_wheel_event_filter(new WheelEventEater(this))
 {
     setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -208,8 +204,8 @@ int ComboPropertyEditor::internIndex()
 void ComboPropertyEditor::setConnected(bool isConnected)
 {
     if (isConnected)
-        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-                this, &ComboPropertyEditor::onIndexChanged, Qt::UniqueConnection);
+        connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+                &ComboPropertyEditor::onIndexChanged, Qt::UniqueConnection);
     else
         disconnect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
                    this, &ComboPropertyEditor::onIndexChanged);
@@ -218,9 +214,7 @@ void ComboPropertyEditor::setConnected(bool isConnected)
 // --- ScientificDoublePropertyEditor ---
 
 ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_lineEdit(new QLineEdit)
-    , m_validator(nullptr)
+    : CustomEditor(parent), m_lineEdit(new QLineEdit), m_validator(nullptr)
 {
     setAutoFillBackground(true);
 
@@ -230,12 +224,12 @@ ScientificDoublePropertyEditor::ScientificDoublePropertyEditor(QWidget* parent)
 
     layout->addWidget(m_lineEdit);
 
-    m_validator  = new QDoubleValidator(0.0, 1e+200, 1000, this);
+    m_validator = new QDoubleValidator(0.0, 1e+200, 1000, this);
     m_validator->setNotation(QDoubleValidator::ScientificNotation);
     m_lineEdit->setValidator(m_validator);
 
-    connect(m_lineEdit, &QLineEdit::editingFinished,
-            this, &ScientificDoublePropertyEditor::onEditingFinished);
+    connect(m_lineEdit, &QLineEdit::editingFinished, this,
+            &ScientificDoublePropertyEditor::onEditingFinished);
 
     setLayout(layout);
 }
@@ -251,7 +245,7 @@ void ScientificDoublePropertyEditor::onEditingFinished()
 {
     double new_value = m_lineEdit->text().toDouble();
 
-    if(new_value != m_data.toDouble())
+    if (new_value != m_data.toDouble())
         setDataIntern(QVariant::fromValue(new_value));
 }
 
@@ -264,8 +258,7 @@ void ScientificDoublePropertyEditor::initEditor()
 // --- DoubleEditor ---
 
 DoubleEditor::DoubleEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_doubleEditor(new QDoubleSpinBox)
+    : CustomEditor(parent), m_doubleEditor(new QDoubleSpinBox)
 {
     setAutoFillBackground(true);
     setFocusPolicy(Qt::StrongFocus);
@@ -308,7 +301,7 @@ void DoubleEditor::onEditingFinished()
 {
     double new_value = m_doubleEditor->value();
 
-    if(new_value != m_data.toDouble())
+    if (new_value != m_data.toDouble())
         setDataIntern(QVariant::fromValue(new_value));
 }
 
@@ -321,8 +314,7 @@ void DoubleEditor::initEditor()
 // --- DoubleEditor ---
 
 ScientificSpinBoxEditor::ScientificSpinBoxEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_doubleEditor(new ScientificSpinBox)
+    : CustomEditor(parent), m_doubleEditor(new ScientificSpinBox)
 {
     setAutoFillBackground(true);
     setFocusPolicy(Qt::StrongFocus);
@@ -335,9 +327,7 @@ ScientificSpinBoxEditor::ScientificSpinBoxEditor(QWidget* parent)
 
     layout->addWidget(m_doubleEditor);
 
-    connect(m_doubleEditor,
-            &ScientificSpinBox::valueChanged,
-            [=] { this->onEditingFinished(); });
+    connect(m_doubleEditor, &ScientificSpinBox::valueChanged, [=] { this->onEditingFinished(); });
 
     setLayout(layout);
 
@@ -346,13 +336,10 @@ ScientificSpinBoxEditor::ScientificSpinBoxEditor(QWidget* parent)
 
 void ScientificSpinBoxEditor::setLimits(const RealLimits& limits)
 {
-    m_doubleEditor->setMaximum(std::numeric_limits<double>::max());
-    m_doubleEditor->setMinimum(std::numeric_limits<double>::lowest());
-
-    if (limits.hasLowerLimit())
-        m_doubleEditor->setMinimum(limits.lowerLimit());
-    if (limits.hasUpperLimit())
-        m_doubleEditor->setMaximum(static_cast<int>(limits.upperLimit()));
+    m_doubleEditor->setMinimum(limits.hasLowerLimit() ? limits.lowerLimit()
+                                                      : std::numeric_limits<double>::lowest());
+    m_doubleEditor->setMaximum(limits.hasUpperLimit() ? limits.upperLimit()
+                                                      : std::numeric_limits<double>::max());
 }
 
 void ScientificSpinBoxEditor::setDecimals(int decimals)
@@ -370,7 +357,7 @@ void ScientificSpinBoxEditor::onEditingFinished()
 {
     double new_value = m_doubleEditor->value();
 
-    if(new_value != m_data.toDouble())
+    if (new_value != m_data.toDouble())
         setDataIntern(QVariant::fromValue(new_value));
 }
 
@@ -380,12 +367,9 @@ void ScientificSpinBoxEditor::initEditor()
     m_doubleEditor->setValue(m_data.toDouble());
 }
 
-
 // --- IntEditor ---
 
-IntEditor::IntEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_intEditor(new QSpinBox)
+IntEditor::IntEditor(QWidget* parent) : CustomEditor(parent), m_intEditor(new QSpinBox)
 {
     setAutoFillBackground(true);
     m_intEditor->setFocusPolicy(Qt::StrongFocus);
@@ -397,8 +381,7 @@ IntEditor::IntEditor(QWidget* parent)
 
     layout->addWidget(m_intEditor);
 
-    connect(m_intEditor,
-            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+    connect(m_intEditor, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             [=] { this->onEditingFinished(); });
 
     setLayout(layout);
@@ -420,7 +403,7 @@ void IntEditor::onEditingFinished()
 {
     int new_value = m_intEditor->value();
 
-    if(new_value != m_data.toInt())
+    if (new_value != m_data.toInt())
         setDataIntern(QVariant::fromValue(new_value));
 }
 
@@ -433,9 +416,7 @@ void IntEditor::initEditor()
 
 // --- BoolEditor ---
 
-BoolEditor::BoolEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_checkBox(new QCheckBox)
+BoolEditor::BoolEditor(QWidget* parent) : CustomEditor(parent), m_checkBox(new QCheckBox)
 {
     setAutoFillBackground(true);
     auto layout = new QHBoxLayout;
@@ -450,7 +431,7 @@ BoolEditor::BoolEditor(QWidget* parent)
 
 void BoolEditor::onCheckBoxChange(bool value)
 {
-    if(value != m_data.toBool())
+    if (value != m_data.toBool())
         setDataIntern(QVariant(value));
 }
 

@@ -16,12 +16,13 @@
 #define STYLEUTILS_H
 
 #include "WinDllMacros.h"
-#include <QString>
 #include <QFont>
+#include <QString>
 
 class QTreeView;
 class QWidget;
 class QLayout;
+class QWidget;
 
 namespace StyleUtils
 {
@@ -31,9 +32,6 @@ BA_CORE_API_ void setPropertyStyle(QTreeView* tree);
 
 //! Returns string representing the style of QTreeView intended for property editor.
 BA_CORE_API_ QString propertyTreeStyle();
-
-//! Returns string representing the style of QTreeView intended for real time view.
-BA_CORE_API_ QString realtimeTreeStyle();
 
 //! Returns font for sections.
 BA_CORE_API_ QFont sectionFont(bool bold = false);
@@ -46,12 +44,22 @@ BA_CORE_API_ void setResizable(QDialog* dialog);
 
 //! Creates details widget holding user content inside.
 BA_CORE_API_ QWidget* createDetailsWidget(QWidget* content, const QString& name,
-                                          bool expanded=true);
+                                          bool expanded = true);
 
 //! Creates details widget holding user layout inside.
 BA_CORE_API_ QWidget* createDetailsWidget(QLayout* content, const QString& name,
-                                          bool expanded=true);
+                                          bool expanded = true);
 
-}
+//! Returns size of largest letter of default system font.
+BA_CORE_API_ QSize SizeOfLetterM(const QWidget* widget = nullptr);
+
+//! Returns size in points of default system font.
+BA_CORE_API_ int SystemPointSize();
+
+//! Returns typical width of the vertical property panel.
+
+BA_CORE_API_ int PropertyPanelWidth();
+
+} // namespace StyleUtils
 
 #endif

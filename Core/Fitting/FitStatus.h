@@ -15,14 +15,17 @@
 #ifndef FITSTATUS_H
 #define FITSTATUS_H
 
-#include "WinDllMacros.h"
-#include "FitTypes.h"
 #include "FitObserver.h"
+#include "FitTypes.h"
 #include "IterationInfo.h"
-#include <vector>
+#include "WinDllMacros.h"
 #include <functional>
+#include <vector>
 
-namespace Fit { class MinimizerResult; }
+namespace Fit
+{
+class MinimizerResult;
+}
 class FitObjective;
 class FitPrintService;
 

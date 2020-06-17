@@ -21,12 +21,11 @@ QStringList ModelUtils::topItemNames(SessionModel* model, const QString& modelTy
 {
     QStringList result;
 
-    for(auto item : model->topItems())
+    for (auto item : model->topItems())
         if (modelType.isEmpty())
             result.append(item->itemName());
-        else
-            if(modelType == item->modelType())
-                result.append(item->itemName());
+        else if (modelType == item->modelType())
+            result.append(item->itemName());
 
     return result;
 }
@@ -46,7 +45,7 @@ void ModelUtils::iterate(const QModelIndex& index, const QAbstractItemModel* mod
 }
 
 void ModelUtils::iterate_if(const QModelIndex& index, const QAbstractItemModel* model,
-                            const std::function<bool (const QModelIndex&)>& fun)
+                            const std::function<bool(const QModelIndex&)>& fun)
 {
     bool proceed_with_children(true);
     if (index.isValid())
@@ -58,5 +57,4 @@ void ModelUtils::iterate_if(const QModelIndex& index, const QAbstractItemModel* 
     for (int i = 0; i < model->rowCount(index); ++i)
         for (int j = 0; j < model->columnCount(index); ++j)
             iterate_if(model->index(i, j, index), model, fun);
-
 }

@@ -26,7 +26,7 @@ template <class T> class OutputData;
 class BA_CORE_API_ IOutputDataReadStrategy
 {
 public:
-    virtual ~IOutputDataReadStrategy(){}
+    virtual ~IOutputDataReadStrategy() {}
     virtual OutputData<double>* readOutputData(std::istream& input_stream) = 0;
 };
 
@@ -34,6 +34,15 @@ public:
 //! @ingroup input_output_internal
 
 class BA_CORE_API_ OutputDataReadINTStrategy : public IOutputDataReadStrategy
+{
+public:
+    OutputData<double>* readOutputData(std::istream& input_stream);
+};
+
+//! Strategy to read Reflectometry data from ASCII file.
+//! @ingroup input_output_internal
+
+class BA_CORE_API_ OutputDataReadReflectometryStrategy : public IOutputDataReadStrategy
 {
 public:
     OutputData<double>* readOutputData(std::istream& input_stream);
@@ -48,7 +57,6 @@ public:
     OutputData<double>* readOutputData(std::istream& input_stream);
 };
 
-
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
 class TiffHandler;
@@ -62,8 +70,9 @@ public:
     OutputDataReadTiffStrategy();
     virtual ~OutputDataReadTiffStrategy();
     virtual OutputData<double>* readOutputData(std::istream& input_stream);
+
 private:
-    TiffHandler *m_d;
+    TiffHandler* m_d;
 };
 #endif // BORNAGAIN_TIFF_SUPPORT
 

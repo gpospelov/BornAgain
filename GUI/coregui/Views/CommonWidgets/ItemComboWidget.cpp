@@ -13,16 +13,17 @@
 // ************************************************************************** //
 
 #include "ItemComboWidget.h"
+#include "GUIHelpers.h"
 #include "ItemComboToolBar.h"
 #include "SessionItemWidget.h"
-#include "GUIHelpers.h"
 #include <QComboBox>
 #include <QEvent>
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
 ItemComboWidget::ItemComboWidget(QWidget* parent)
-    : SessionItemWidget(parent), m_toolBar(new ItemComboToolBar), m_stackedWidget(new QStackedWidget)
+    : SessionItemWidget(parent), m_toolBar(new ItemComboToolBar),
+      m_stackedWidget(new QStackedWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -123,8 +124,7 @@ void ItemComboWidget::onComboChanged(const QString&)
 
 void ItemComboWidget::setSizeToCurrentWidget()
 {
-    for (int i = 0; i < m_stackedWidget->count (); ++i)
-    {
+    for (int i = 0; i < m_stackedWidget->count(); ++i) {
         // determine the vertical size policy
         QSizePolicy::Policy policy = QSizePolicy::Ignored;
         if (i == m_stackedWidget->currentIndex())

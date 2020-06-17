@@ -15,7 +15,6 @@
 #ifndef MULTILAYERVIEW_H
 #define MULTILAYERVIEW_H
 
-
 #include "ILayerView.h"
 
 class DesignerMimeData;
@@ -28,11 +27,9 @@ class BA_CORE_API_ MultiLayerView : public ILayerView
     Q_OBJECT
 
 public:
-    enum { TYPE = DesignerHelper::MULTILAYER };
-
     MultiLayerView(QGraphicsItem* parent = 0);
 
-    int type() const override { return TYPE; }
+    int type() const override { return ViewTypes::MULTILAYER; }
 
     QRectF boundingRect() const override;
 
@@ -64,6 +61,5 @@ private:
     QList<QRectF> m_drop_areas;
     QList<QLineF> m_interfaces;
 };
-
 
 #endif // MULTILAYERVIEW_H

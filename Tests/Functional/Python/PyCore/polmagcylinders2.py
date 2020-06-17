@@ -6,7 +6,7 @@ import numpy
 import gzip
 from utils import get_difference
 
-from libBornAgainCore import *
+from bornagain import *
 
 REFERENCE_DIR = "@TEST_REFERENCE_DIR@/Core"
 

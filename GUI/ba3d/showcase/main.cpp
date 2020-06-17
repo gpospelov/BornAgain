@@ -25,46 +25,50 @@
 class App : public QApplication
 {
 public:
-  App(int& argc, char* argv[]);
- ~App();
+    App(int& argc, char* argv[]);
+    ~App();
 
-  int exec();
+    int exec();
 };
 
-App::App(int& argc, char* argv[]) : QApplication(argc, argv) {
-  setOrganizationName("c53");
-  setApplicationName("ba3d");
+App::App(int& argc, char* argv[]) : QApplication(argc, argv)
+{
+    setOrganizationName("c53");
+    setApplicationName("ba3d");
 }
 
 App::~App() {}
 
-int App::exec() {
-  MainWindow win;
-  win.show();
+int App::exec()
+{
+    MainWindow win;
+    win.show();
 
-  QScopedPointer<ModelLayers>   ml(new ModelLayers);
-  QScopedPointer<ModelShowcase> ms(new ModelShowcase);
+    QScopedPointer<ModelLayers> ml(new ModelLayers);
+    QScopedPointer<ModelShowcase> ms(new ModelShowcase);
 
-  auto &w1(win.widg3t_1()), &w2(win.widg3t_2()), &w3(win.widg3t_3());
+    auto &w1(win.widg3t_1()), &w2(win.widg3t_2()), &w3(win.widg3t_3());
 
-  w1.setModel(ml.data());
-  w2.setModel(ml.data());
-  w3.setModel(ms.data());
+    w1.setModel(ml.data());
+    w2.setModel(ml.data());
+    w3.setModel(ms.data());
 
-  w2.cam().lookAt(RealSpace::Camera::Position(
-    RealSpace::Vector3D::_z*90, RealSpace::Vector3D(0,0,0), RealSpace::Vector3D::_y));
+    w2.cam().lookAt(RealSpace::Camera::Position(
+        RealSpace::Vector3D::_z * 90, RealSpace::Vector3D(0, 0, 0), RealSpace::Vector3D::_y));
 
-  connect(&win, &MainWindow::showKind, [&](RealSpace::Particles::EShape kind) {
-    ml->showKind(kind); ms->showKind(kind);
-  });
+    connect(&win, &MainWindow::showKind, [&](RealSpace::Particles::EShape kind) {
+        ml->showKind(kind);
+        ms->showKind(kind);
+    });
 
-  return QApplication::exec();
+    return QApplication::exec();
 }
 
 //------------------------------------------------------------------------------
 
-int main(int argc, char* argv[]) {
-  App(argc, argv).exec();
+int main(int argc, char* argv[])
+{
+    App(argc, argv).exec();
 }
 
 //------------------------------------------------------------------------------

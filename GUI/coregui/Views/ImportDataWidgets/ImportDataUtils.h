@@ -15,8 +15,8 @@
 #ifndef IMPORTDATAUTILS_H
 #define IMPORTDATAUTILS_H
 
-#include "WinDllMacros.h"
 #include "ImportDataInfo.h"
+#include "WinDllMacros.h"
 #include <QString>
 #include <memory>
 #include <vector>
@@ -33,8 +33,9 @@ namespace ImportDataUtils
 BA_CORE_API_ std::unique_ptr<OutputData<double>> Import2dData(QString& baseNameOfLoadedFile);
 BA_CORE_API_ ImportDataInfo Import1dData(QString& baseNameOfLoadedFile);
 BA_CORE_API_ std::unique_ptr<OutputData<double>> ImportKnownData(QString& baseNameOfLoadedFile);
+BA_CORE_API_ std::unique_ptr<OutputData<double>>
+ImportReflectometryData(QString& baseNameOfLoadedFile);
 BA_CORE_API_ ImportDataInfo getFromImportAssistant(QString& fileName);
-
 
 //! Creates OutputData with bin-valued axes.
 BA_CORE_API_ std::unique_ptr<OutputData<double>>
@@ -46,7 +47,7 @@ BA_CORE_API_ bool Compatible(const InstrumentItem& instrumentItem,
 
 //! Composes a message with the shapes of InstrumentItem and RealDataItem.
 BA_CORE_API_ QString printShapeMessage(const std::vector<int>& instrument_shape,
-                                           const std::vector<int>& data_shape);
-};
+                                       const std::vector<int>& data_shape);
+}; // namespace ImportDataUtils
 
 #endif // IMPORTDATAUTILS_H

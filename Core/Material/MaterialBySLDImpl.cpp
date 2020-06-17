@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "MaterialBySLDImpl.h"
-#include "WavevectorInfo.h"
 #include "Units.h"
+#include "WavevectorInfo.h"
 
 namespace
 {
@@ -24,19 +24,16 @@ inline double getWlPrefactor(double wavelength)
 {
     return wavelength * wavelength / M_PI;
 }
-
-inline complex_t getSLD(double sld_real, double sld_imag)
-{
-    return complex_t(sld_real, -sld_imag);
-}
-}
+} // namespace
 
 MaterialBySLDImpl::MaterialBySLDImpl(const std::string& name, double sld_real, double sld_imag,
                                      kvector_t magnetization)
-    : MagneticMaterialImpl(name, magnetization)
-    , m_sld_real(sld_real)
-    , m_sld_imag(sld_imag)
-{}
+    : MagneticMaterialImpl(name, magnetization), m_sld_real(sld_real),
+      m_sld_imag(sld_imag < 0. ? throw std::runtime_error(
+                     "The imaginary part of the SLD must be greater or equal zero")
+                               : sld_imag)
+{
+}
 
 MaterialBySLDImpl* MaterialBySLDImpl::clone() const
 {
@@ -50,7 +47,7 @@ complex_t MaterialBySLDImpl::refractiveIndex(double wavelength) const
 
 complex_t MaterialBySLDImpl::refractiveIndex2(double wavelength) const
 {
-    return 1.0 - getWlPrefactor(wavelength) * getSLD(m_sld_real, m_sld_imag);
+    return 1.0 - getWlPrefactor(wavelength) * sld();
 }
 
 complex_t MaterialBySLDImpl::materialData() const
@@ -61,12 +58,17 @@ complex_t MaterialBySLDImpl::materialData() const
 complex_t MaterialBySLDImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
 {
     double wavelength = wavevectors.getWavelength();
-    return 1.0 / getWlPrefactor(wavelength) - getSLD(m_sld_real, m_sld_imag);
+    return 1.0 / getWlPrefactor(wavelength) - sld();
 }
 
 void MaterialBySLDImpl::print(std::ostream& ostr) const
 {
     ostr << "MaterialBySLD:" << getName() << "<" << this << ">{ "
-         << "sld_real=" << m_sld_real << ", sld_imag = " << m_sld_imag
-         << ", B=" << magnetization() << "}";
+         << "sld_real=" << m_sld_real << ", sld_imag = " << m_sld_imag << ", B=" << magnetization()
+         << "}";
+}
+
+complex_t MaterialBySLDImpl::sld() const
+{
+    return complex_t(m_sld_real, -m_sld_imag);
 }

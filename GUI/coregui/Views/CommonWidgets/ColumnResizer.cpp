@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/CommonWidgets/columnresizer.cpp
+//! @file      GUI/coregui/Views/CommonWidgets/ColumnResizer.cpp
 //! @brief     Implements class ColumnResizer
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,22 +18,20 @@
  */
 #include "ColumnResizer.h"
 
+#include <QDebug>
 #include <QEvent>
 #include <QFormLayout>
 #include <QGridLayout>
 #include <QTimer>
 #include <QWidget>
-#include <QDebug>
 
 class FormLayoutWidgetItem : public QWidgetItem
 {
 public:
     FormLayoutWidgetItem(QWidget* widget, QFormLayout* formLayout, QFormLayout::ItemRole itemRole)
-    : QWidgetItem(widget)
-    , m_width(-1)
-    , m_formLayout(formLayout)
-    , m_itemRole(itemRole)
-    {}
+        : QWidgetItem(widget), m_width(-1), m_formLayout(formLayout), m_itemRole(itemRole)
+    {
+    }
 
     QSize sizeHint() const
     {
@@ -74,16 +72,14 @@ public:
     {
         QRect rect = _rect;
         int width = widget()->sizeHint().width();
-        if (m_itemRole == QFormLayout::LabelRole && m_formLayout->labelAlignment() & Qt::AlignRight) {
+        if (m_itemRole == QFormLayout::LabelRole
+            && m_formLayout->labelAlignment() & Qt::AlignRight) {
             rect.setLeft(rect.right() - width);
         }
         QWidgetItem::setGeometry(rect);
     }
 
-    QFormLayout* formLayout() const
-    {
-        return m_formLayout;
-    }
+    QFormLayout* formLayout() const { return m_formLayout; }
 
 private:
     int m_width;
@@ -97,9 +93,7 @@ class ColumnResizerPrivate
 {
 public:
     ColumnResizerPrivate(ColumnResizer* q_ptr)
-    : q(q_ptr)
-    , m_updateTimer(new QTimer(q))
-    , block_update(false)
+        : q(q_ptr), m_updateTimer(new QTimer(q)), block_update(false)
     {
         m_updateTimer->setSingleShot(true);
         m_updateTimer->setInterval(0);
@@ -108,7 +102,8 @@ public:
 
     void scheduleWidthUpdate()
     {
-        if(block_update) return;
+        if (block_update)
+            return;
         m_updateTimer->start();
     }
 
@@ -120,10 +115,9 @@ public:
     bool block_update;
 };
 
-ColumnResizer::ColumnResizer(QObject* parent)
-: QObject(parent)
-, d(new ColumnResizerPrivate(this))
-{}
+ColumnResizer::ColumnResizer(QObject* parent) : QObject(parent), d(new ColumnResizerPrivate(this))
+{
+}
 
 ColumnResizer::~ColumnResizer()
 {
@@ -134,29 +128,30 @@ void ColumnResizer::addWidget(QWidget* widget)
 {
     d->m_widgets.append(widget);
     widget->installEventFilter(this);
-//    connect(widget, SIGNAL(destroyed(QObject*)), this, SLOT(onObjectDestroyed(QObject*)));
+    //    connect(widget, SIGNAL(destroyed(QObject*)), this, SLOT(onObjectDestroyed(QObject*)));
     d->scheduleWidthUpdate();
 }
 
 void ColumnResizer::updateWidth()
 {
-    if(d->block_update) return;
+    if (d->block_update)
+        return;
     int width = 0;
-    for(auto widget : d->m_widgets) {
+    for (auto widget : d->m_widgets) {
         width = qMax(widget->sizeHint().width(), width);
     }
-    for(auto item : d->m_wrWidgetItemList) {
+    for (auto item : d->m_wrWidgetItemList) {
         item->setWidth(width);
         item->formLayout()->update();
     }
-    for(auto info : d->m_gridColumnInfoList) {
+    for (auto info : d->m_gridColumnInfoList) {
         info.first->setColumnMinimumWidth(info.second, width);
     }
 }
 
-void ColumnResizer::removeWidget(QWidget *widget)
+void ColumnResizer::removeWidget(QWidget* widget)
 {
-    if(d->m_widgets.contains(widget)) {
+    if (d->m_widgets.contains(widget)) {
         d->m_widgets.removeAll(widget);
         widget->removeEventFilter(this);
     }
@@ -179,7 +174,8 @@ void ColumnResizer::addWidgetsFromLayout(QLayout* layout, int column)
         addWidgetsFromGridLayout(gridLayout, column);
     } else if (formLayout) {
         if (column > QFormLayout::SpanningRole) {
-            qCritical() << "column should not be more than" << QFormLayout::SpanningRole << "for QFormLayout";
+            qCritical() << "column should not be more than" << QFormLayout::SpanningRole
+                        << "for QFormLayout";
             return;
         }
         QFormLayout::ItemRole role = static_cast<QFormLayout::ItemRole>(column);
@@ -203,8 +199,7 @@ void ColumnResizer::addWidgetsFromGridLayout(QGridLayout* layout, int column)
         addWidget(widget);
     }
     d->m_gridColumnInfoList << GridColumnInfo(layout, column);
-//    connect(layout, SIGNAL(destroyed(QObject*)), this, SLOT(onObjectDestroyed(QObject*)));
-
+    //    connect(layout, SIGNAL(destroyed(QObject*)), this, SLOT(onObjectDestroyed(QObject*)));
 }
 
 void ColumnResizer::addWidgetsFromFormLayout(QFormLayout* layout, QFormLayout::ItemRole role)
@@ -227,12 +222,12 @@ void ColumnResizer::addWidgetsFromFormLayout(QFormLayout* layout, QFormLayout::I
     }
 }
 
-void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout *layout)
+void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout* layout)
 {
-//    d->block_update = true;
+    //    d->block_update = true;
     // removing all widgets from being supervised
     for (int row = 0; row < layout->rowCount(); ++row) {
-        for(int column =0; column<layout->columnCount(); ++column) {
+        for (int column = 0; column < layout->columnCount(); ++column) {
             QLayoutItem* item = layout->itemAtPosition(row, column);
             if (!item) {
                 continue;
@@ -249,16 +244,16 @@ void ColumnResizer::dropWidgetsFromGridLayout(QGridLayout *layout)
     QMutableListIterator<GridColumnInfo> it(d->m_gridColumnInfoList);
     while (it.hasNext()) {
         GridColumnInfo ci = it.next();
-        if(ci.first == layout) {
+        if (ci.first == layout) {
             it.remove();
         }
     }
 
-//    d->block_update = false;
-    //d->scheduleWidthUpdate();
+    //    d->block_update = false;
+    // d->scheduleWidthUpdate();
 }
 
-//void ColumnResizer::onObjectDestroyed(QObject *object)
+// void ColumnResizer::onObjectDestroyed(QObject *object)
 //{
 //    qDebug() << "================================";
 //    qDebug() << "ColumnResizer::onObjectDestroyed" << object;

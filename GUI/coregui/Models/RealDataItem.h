@@ -69,5 +69,3 @@ private:
 };
 
 #endif // REALDATAITEM_H
-
-

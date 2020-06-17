@@ -23,16 +23,11 @@ class BA_CORE_API_ ParticleCoreShellView : public ConnectableView
     Q_OBJECT
 
 public:
-    enum { TYPE = DesignerHelper::PARTICLE };
+    ParticleCoreShellView(QGraphicsItem* parent = 0);
 
-    ParticleCoreShellView(QGraphicsItem *parent = 0);
+    int type() const { return ViewTypes::PARTICLE; }
 
-    int type() const { return TYPE; }
-
-    void addView(IView *childView, int row = 0);
-
+    void addView(IView* childView, int row = 0);
 };
 
-
 #endif // PARTICLECORESHELLVIEW_H
-

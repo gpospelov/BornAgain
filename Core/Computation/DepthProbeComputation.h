@@ -15,11 +15,10 @@
 #ifndef DEPTHPROBECOMPUTATION_H
 #define DEPTHPROBECOMPUTATION_H
 
+#include "DepthProbeComputationTerm.h"
 #include "IComputation.h"
 #include "SimulationOptions.h"
-#include "DepthProbeComputationTerm.h"
 
-class IFresnelMap;
 class MultiLayer;
 
 //! Performs a single-threaded depth probe computation with given sample.
@@ -31,6 +30,7 @@ class MultiLayer;
 class DepthProbeComputation : public IComputation
 {
     using DepthProbeElementIter = std::vector<DepthProbeElement>::iterator;
+
 public:
     DepthProbeComputation(const MultiLayer& multilayer, const SimulationOptions& options,
                           ProgressHandler& progress, DepthProbeElementIter begin_it,
@@ -41,7 +41,6 @@ private:
     void runProtected() override;
 
     DepthProbeElementIter m_begin_it, m_end_it;
-    std::unique_ptr<IFresnelMap> mP_fresnel_map;
     DepthProbeComputationTerm m_computation_term;
 };
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/Widget.h
+//! @file      GUI/ba3d/ba3d/widget.h
 //! @brief     Defines Widget class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,7 +18,8 @@
 #include "def.h"
 #include <QWidget>
 
-namespace RealSpace {
+namespace RealSpace
+{
 //------------------------------------------------------------------------------
 
 class Model;
@@ -28,26 +29,26 @@ class Program;
 
 class Widget3D : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  Widget3D();
- ~Widget3D();
+    Widget3D();
+    ~Widget3D();
 
-  Camera& cam();
+    Camera& cam();
 
-  void setBackground(QColor const&);
-  void setModel(Model*); // model owned elsewhere, may be nullptr
+    void setBackground(QColor const&);
+    void setModel(Model*); // model owned elsewhere, may be nullptr
 
-  void defaultView();
-  void sideView();
-  void topView();
+    void defaultView();
+    void sideView();
+    void topView();
 
-  Model* model();
+    Model* model();
 
 private:
-  Canvas  *canvas;
+    Canvas* canvas;
 };
 
 //------------------------------------------------------------------------------
-}
+} // namespace RealSpace
 #endif

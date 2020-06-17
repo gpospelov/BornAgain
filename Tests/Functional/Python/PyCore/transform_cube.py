@@ -6,7 +6,7 @@ from __future__ import print_function
 import os, sys, unittest
 
 import utils
-from libBornAgainCore import *
+from bornagain import *
 
 
 class RotationsCubeTest(unittest.TestCase):

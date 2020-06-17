@@ -24,9 +24,11 @@ class BA_CORE_API_ FormFactorPrism6 : public FormFactorPolygonalPrism
 public:
     FormFactorPrism6(double base_edge, double height);
 
-    FormFactorPrism6 *clone() const override final {
-        return new FormFactorPrism6(m_base_edge, m_height); }
-    void accept(INodeVisitor *visitor) const override final { visitor->visit(this); }
+    FormFactorPrism6* clone() const override final
+    {
+        return new FormFactorPrism6(m_base_edge, m_height);
+    }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
 

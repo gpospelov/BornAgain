@@ -21,7 +21,7 @@ function(test_example example tolerance)
     set(example_mod ${OUTPUT_DIR}/${EXAMPLE_NAME}_mod.py)
     configure_file(example_template.py ${example_mod} @ONLY)
 
-    add_test(${test_name} ${PYTHON_EXECUTABLE} "-B" "${example_mod}")
+    add_test(${test_name} ${Python_EXECUTABLE} "-B" "${example_mod}")
 endfunction()
 
 test_example("simulation/ex01_BasicParticles/CylindersAndPrisms" 2e-10)
@@ -59,6 +59,8 @@ test_example("simulation/ex05_BeamAndDetector/ConstantBackground" 2e-10)
 test_example("simulation/ex06_Reflectometry/BasicSpecularSimulation" 2e-10)
 test_example("simulation/ex06_Reflectometry/BeamAngularDivergence" 2e-10)
 test_example("simulation/ex06_Reflectometry/BeamFullDivergence" 2e-10)
+test_example("simulation/ex06_Reflectometry/TimeOfFlightReflectometry" 2e-10)
+test_example("simulation/ex06_Reflectometry/TOFRWithResolution" 2e-10)
 
 test_example("simulation/ex07_Miscellaneous/CylindersInAverageLayer" 2e-10)
 test_example("simulation/ex07_Miscellaneous/DepthProbe" 2e-10)

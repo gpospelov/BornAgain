@@ -23,14 +23,11 @@ class BA_CORE_API_ MesoCrystalView : public ConnectableView
     Q_OBJECT
 
 public:
-    enum { TYPE = DesignerHelper::PARTICLE };
+    MesoCrystalView(QGraphicsItem* parent = 0);
 
-    MesoCrystalView(QGraphicsItem *parent = 0);
+    int type() const { return ViewTypes::PARTICLE; }
 
-    int type() const { return TYPE; }
-
-    void addView(IView *childView, int row = 0);
-
+    void addView(IView* childView, int row = 0);
 };
 
 #endif // MESOCRYSTALVIEW_H

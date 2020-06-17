@@ -31,7 +31,7 @@
 
 class RootScalarFunction : public ROOT::Math::Functor
 {
- public:
+public:
     RootScalarFunction(root_scalar_t fcn, int ndims);
 };
 

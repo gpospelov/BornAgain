@@ -14,10 +14,11 @@
 
 #include "ParticleCoreShellView.h"
 #include "ParticleCoreShellItem.h"
+#include "DesignerHelper.h"
 #include "SessionItem.h"
+#include "StyleUtils.h"
 
-ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
-    : ConnectableView(parent)
+ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem* parent) : ConnectableView(parent)
 {
     setName(Constants::ParticleCoreShellType);
     setColor(DesignerHelper::getDefaultParticleColor());
@@ -31,19 +32,19 @@ ParticleCoreShellView::ParticleCoreShellView(QGraphicsItem *parent)
     addPort("transformation", NodeEditorPort::INPUT, NodeEditorPort::TRANSFORMATION)
         ->setToolTip(QStringLiteral("Connect particle rotation to this port, if necessary"));
 
-    m_roundpar = 5;
-    m_label_vspace = 45;
+    m_label_vspace = StyleUtils::SizeOfLetterM().height()*3.0;
 }
 
-void ParticleCoreShellView::addView(IView *childView, int /* row */)
+void ParticleCoreShellView::addView(IView* childView, int /* row */)
 {
     int index = 0;
     if (this->getItem()->tagFromItem(childView->getItem()) == ParticleCoreShellItem::T_CORE) {
         index = 0;
-    } else if (this->getItem()->tagFromItem(childView->getItem()) == ParticleCoreShellItem::T_SHELL) {
+    } else if (this->getItem()->tagFromItem(childView->getItem())
+               == ParticleCoreShellItem::T_SHELL) {
         index = 1;
     } else {
         index = 2;
     }
-    connectInputPort(dynamic_cast<ConnectableView *>(childView), index);
+    connectInputPort(dynamic_cast<ConnectableView*>(childView), index);
 }

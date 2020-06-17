@@ -19,17 +19,15 @@
 #include <QScrollBar>
 #include <QTimer>
 
-namespace {
+namespace
+{
 const int xpos_offset = 40;
 const int ypos_offset = 40;
-}
+} // namespace
 
 WarningSign::WarningSign(QWidget* parent)
-    : QObject(parent)
-    , m_warning_header(QStringLiteral("Houston, we have a problem."))
-    , m_warningWidget(0)
-    , m_area(nullptr)
-    , m_clear_just_had_happened(false)
+    : QObject(parent), m_warning_header(QStringLiteral("Houston, we have a problem.")),
+      m_warningWidget(0), m_area(nullptr), m_clear_just_had_happened(false)
 {
     setArea(parent);
 }
@@ -44,7 +42,6 @@ void WarningSign::clear()
 
     m_clear_just_had_happened = true;
     QTimer::singleShot(10, this, [=]() { m_clear_just_had_happened = false; });
-
 }
 
 void WarningSign::setWarningHeader(const QString& warningHeader)
@@ -59,7 +56,7 @@ void WarningSign::setWarningMessage(const QString& warningMessage)
 {
     Q_ASSERT(m_area);
 
-    if(m_clear_just_had_happened) {
+    if (m_clear_just_had_happened) {
         m_clear_just_had_happened = false;
         QTimer::singleShot(50, this, [=]() { setWarningMessage(warningMessage); });
     } else {
@@ -125,5 +122,3 @@ QPoint WarningSign::positionForWarningSign() const
 
     return QPoint(x, y);
 }
-
-

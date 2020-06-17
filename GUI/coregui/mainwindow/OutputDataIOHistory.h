@@ -16,9 +16,9 @@
 #define OUTPUTDATAIOHISTORY_H
 
 #include "WinDllMacros.h"
+#include <QDateTime>
 #include <QMap>
 #include <QVector>
-#include <QDateTime>
 
 class SaveLoadInterface;
 
@@ -47,7 +47,8 @@ private:
 
 //! Save history information for collection of items with non-XML data.
 
-class BA_CORE_API_ OutputDataDirHistory {
+class BA_CORE_API_ OutputDataDirHistory
+{
 public:
     OutputDataDirHistory() {}
 
@@ -67,7 +68,8 @@ private:
 
 //! Save history information for set of directories.
 
-class BA_CORE_API_ OutputDataIOHistory {
+class BA_CORE_API_ OutputDataIOHistory
+{
 public:
     bool hasHistory(const QString& dirname) const;
 
@@ -78,7 +80,6 @@ public:
     QStringList savedFileNames(const QString& dirname) const;
 
 private:
-
     //!< Correspondance of directory name to save history.
     QMap<QString, OutputDataDirHistory> m_dir_history;
 };

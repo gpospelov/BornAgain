@@ -20,21 +20,16 @@
 #include "RealLimitsItems.h"
 #include "Units.h"
 
-
 const QString BeamDistributionItem::P_DISTRIBUTION = "Distribution";
 
-BeamDistributionItem::BeamDistributionItem(const QString& name, bool show_mean)
-    : SessionItem(name)
+BeamDistributionItem::BeamDistributionItem(const QString& name, bool show_mean) : SessionItem(name)
 {
     addTranslator(DistributionNoneTranslator());
 
-    mapper()->setOnChildPropertyChange(
-                [this, show_mean](SessionItem* item, const QString &)
-    {
-        if(item->modelType() == Constants::GroupItemType && item->parent() == this)
+    mapper()->setOnChildPropertyChange([this, show_mean](SessionItem* item, const QString&) {
+        if (item->modelType() == Constants::GroupItemType && item->parent() == this)
             initDistributionItem(show_mean);
     });
-
 }
 
 //! returns parameter distribution to add into the Simulation
@@ -46,16 +41,16 @@ BeamDistributionItem::getParameterDistributionForName(const std::string& paramet
         auto P_distribution = createDistribution1D();
 
         if (P_distribution) {
-            int nbr_samples
-                = distributionItem->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
+            int nbr_samples =
+                distributionItem->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
             double sigma_factor(0);
             if (distributionItem->isTag(DistributionItem::P_SIGMA_FACTOR)) {
-                sigma_factor
-                    = distributionItem->getItemValue(DistributionItem::P_SIGMA_FACTOR).toInt();
+                sigma_factor =
+                    distributionItem->getItemValue(DistributionItem::P_SIGMA_FACTOR).toInt();
             }
 
             RealLimitsItem* limitsItem = dynamic_cast<RealLimitsItem*>(
-                        distributionItem->getGroupItem(DistributionItem::P_LIMITS));
+                distributionItem->getGroupItem(DistributionItem::P_LIMITS));
             Q_ASSERT(limitsItem);
 
             RealLimits limits = limitsItem->createRealLimits(scaleFactor());
@@ -115,15 +110,15 @@ double BeamDistributionItem::meanValue() const
 {
     std::unique_ptr<IDistribution1D> domainDistr = createDistribution1D();
     if (domainDistr)
-        return domainDistr->getMean()/scaleFactor();
+        return domainDistr->getMean() / scaleFactor();
     else
         return getGroupItem(P_DISTRIBUTION)->getItemValue(DistributionNoneItem::P_MEAN).toDouble();
 }
 
 void BeamDistributionItem::resetToValue(double value)
 {
-    SessionItem* distributionItem = setGroupProperty(
-        BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
+    SessionItem* distributionItem =
+        setGroupProperty(BeamDistributionItem::P_DISTRIBUTION, Constants::DistributionNoneType);
     Q_ASSERT(distributionItem);
     distributionItem->setItemValue(DistributionNoneItem::P_MEAN, value);
 }

@@ -44,12 +44,12 @@ TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle)
 TEST_F(TestRealSpaceBuilderUtils, test_computeCumulativeAbundances)
 {
     SampleModel sampleModel;
-    auto layout = dynamic_cast<ParticleLayoutItem*>(
-        sampleModel.insertNewItem(Constants::ParticleLayoutType));
+    auto layout =
+        dynamic_cast<ParticleLayoutItem*>(sampleModel.insertNewItem(Constants::ParticleLayoutType));
 
-    auto particle1
-        = sampleModel.insertNewItem(Constants::ParticleType, sampleModel.indexOfItem(layout), -1,
-                                    ParticleLayoutItem::T_PARTICLES);
+    auto particle1 =
+        sampleModel.insertNewItem(Constants::ParticleType, sampleModel.indexOfItem(layout), -1,
+                                  ParticleLayoutItem::T_PARTICLES);
     EXPECT_EQ(particle1->parent(), layout);
 
     SessionItem* particle2 = sampleModel.insertNewItem(Constants::ParticleType);

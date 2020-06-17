@@ -13,20 +13,20 @@
 // ************************************************************************** //
 
 #include "TestUtils.h"
-#include "StandardTestCatalogue.h"
-#include "IntensityDataFunctions.h"
 #include "BABuild.h"
-#include <iostream>
+#include "IntensityDataFunctions.h"
+#include "StandardTestCatalogue.h"
 #include <cstdlib>
+#include <iostream>
 
 StandardTestInfo TestUtils::testInfo(int argc, char** argv)
 {
     static StandardTestCatalogue catalogue = StandardTestCatalogue();
 
-    std::string test_name = argc>1 ? std::string(argv[1]) : std::string();
+    std::string test_name = argc > 1 ? std::string(argv[1]) : std::string();
 
     if (!catalogue.contains(test_name)) {
-        std::cout<<"There is no test named '"<< test_name << "'\n";
+        std::cout << "There is no test named '" << test_name << "'\n";
         std::cout << "Available tests:\n";
         catalogue.printCatalogue(std::cout);
         return StandardTestInfo();
@@ -39,30 +39,34 @@ bool TestUtils::isTheSame(const OutputData<double>& dat, const OutputData<double
                           double threshold)
 {
     double diff = IntensityDataFunctions::getRelativeDifference(dat, ref);
-    if ( diff > threshold ) {
-        std::cerr << "Failed: Relative difference between dat and ref = " << diff
-                  << " is above given threshold = " << threshold << "\n";
+    if (diff > threshold) {
+        std::cerr << "  => FAILED: relative deviation of dat from ref is " << diff
+                  << ", above given threshold " << threshold << "\n";
         return false;
     }
-    std::cout << "Relative difference between dat and ref = " << diff
-              << " is within given threshold = " << threshold << "\n";
+    if (diff)
+        std::cerr << "  => OK: relative deviation of dat from ref is " << diff
+                  << ", within given threshold " << threshold << "\n";
+    else
+        std::cout << "  => OK: dat = ref\n";
     return true;
 }
-
 
 //! Runs a python command, prints messages, returns true unless the system call failed.
 bool TestUtils::runPython(const std::string& py_command)
 {
 #ifndef _WIN32
-    std::string sys_command = std::string("PYTHONPATH=") + BABuild::buildLibDir() + " " +
-        std::string("NOPLOT=TRUE") + " " + BABuild::pythonExecutable() + " -B " + py_command;
+    std::string sys_command = std::string("PYTHONPATH=") + BABuild::buildLibDir() + " "
+                              + std::string("NOPLOT=TRUE") + " " + BABuild::pythonExecutable()
+                              + " -B " + py_command;
 #else
-    std::string sys_command = std::string("set PYTHONPATH=") + BABuild::buildLibDir() + " & " +
-        std::string("set NOPLOT=TRUE") + " & \"" +BABuild::pythonExecutable() + "\" -B " + py_command;
+    std::string sys_command = std::string("set PYTHONPATH=") + BABuild::buildLibDir() + " & "
+                              + std::string("set NOPLOT=TRUE") + " & \""
+                              + BABuild::pythonExecutable() + "\" -B " + py_command;
 #endif
-    std::cout << sys_command << std::endl/*sic*/; // flush output before calling std::system
+    std::cout << sys_command << std::endl /*sic*/; // flush output before calling std::system
     int ret = std::system(sys_command.c_str());
-    if (ret!=0) {
+    if (ret != 0) {
         std::cerr << "Command returned non-zero value " << ret << "\n";
         return false;
     }

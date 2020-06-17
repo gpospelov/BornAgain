@@ -16,17 +16,17 @@
 #include "ConstKBinAxis.h"
 #include "CustomBinAxis.h"
 #include "FileSystemUtils.h"
-#include "PointwiseAxis.h"
 #include "OutputData.h"
+#include "PointwiseAxis.h"
 #include "StringUtils.h"
-#include <iterator>
 #include <iostream>
+#include <iterator>
 
-namespace {
+namespace
+{
 std::istringstream getAxisStringRepresentation(std::istream& input_stream);
 
-template<class Axis>
-std::unique_ptr<IAxis> createFixedBinLikeAxis(std::istringstream iss);
+template <class Axis> std::unique_ptr<IAxis> createFixedBinLikeAxis(std::istringstream iss);
 std::unique_ptr<IAxis> createVariableBinAxis(std::istringstream iss);
 std::unique_ptr<IAxis> createPointwiseAxis(std::istringstream iss);
 
@@ -41,10 +41,9 @@ const std::vector<std::pair<std::string, createAxisFun>> type_map = {
 const std::string GzipExtension = ".gz";
 const std::string BzipExtension = ".bz2";
 const std::string IntExtension = ".int";
-const std::string TxtExtension = ".txt";
 const std::string TiffExtension = ".tif";
 const std::string TiffExtension2 = ".tiff";
-}
+} // namespace
 
 bool DataFormatUtils::isCompressed(const std::string& name)
 {
@@ -63,29 +62,17 @@ bool DataFormatUtils::isBZipped(const std::string& name)
     return FileSystemUtils::extension(name) == BzipExtension;
 }
 
-
 //! Returns file main extension (without .gz).
 
 std::string DataFormatUtils::GetFileMainExtension(const std::string& name)
 {
     std::string stripped_name(name);
-    if(isGZipped(name)) {
-        stripped_name = name.substr(0, name.size()-GzipExtension.size());
-    } else if(isBZipped(name)) {
-        stripped_name = name.substr(0, name.size()-BzipExtension.size());
+    if (isGZipped(name)) {
+        stripped_name = name.substr(0, name.size() - GzipExtension.size());
+    } else if (isBZipped(name)) {
+        stripped_name = name.substr(0, name.size() - BzipExtension.size());
     }
     return FileSystemUtils::extension(stripped_name);
-}
-
-bool DataFormatUtils::isBinaryFile(const std::string& file_name)
-{
-    // all compressed files are always binary.
-    if(isCompressed(file_name)) return true;
-    // uncompressed "int" or "txt" files are ascii
-    if(isIntFile(file_name)) return false;
-    if(isTxtFile(file_name)) return false;
-    // the rest (e.g. tif) is also binary
-    return true;
 }
 
 bool DataFormatUtils::isIntFile(const std::string& file_name)
@@ -93,15 +80,10 @@ bool DataFormatUtils::isIntFile(const std::string& file_name)
     return GetFileMainExtension(file_name) == IntExtension;
 }
 
-bool DataFormatUtils::isTxtFile(const std::string& file_name)
-{
-    return GetFileMainExtension(file_name) == TxtExtension;
-}
-
 bool DataFormatUtils::isTiffFile(const std::string& file_name)
 {
-    return (GetFileMainExtension(file_name) == TiffExtension ||
-            GetFileMainExtension(file_name) == TiffExtension2 );
+    return (GetFileMainExtension(file_name) == TiffExtension
+            || GetFileMainExtension(file_name) == TiffExtension2);
 }
 
 //! Creates axis of certain type from input stream
@@ -127,8 +109,9 @@ void DataFormatUtils::fillOutputData(OutputData<double>* data, std::istream& inp
     std::string line;
     data->setAllTo(0.0);
     OutputData<double>::iterator it = data->begin();
-    while( std::getline(input_stream, line) ) {
-        if(line.empty() || line[0] == '#') break;
+    while (std::getline(input_stream, line)) {
+        if (line.empty() || line[0] == '#')
+            break;
 
         std::istringstream iss(line);
         std::vector<double> buffer;
@@ -138,7 +121,7 @@ void DataFormatUtils::fillOutputData(OutputData<double>* data, std::istream& inp
             ++it;
         }
     }
-    if(it!= data->end())
+    if (it != data->end())
         throw Exceptions::FormatErrorException(
             "DataFormatUtils::fillOutputData() -> Error while parsing data.");
 }
@@ -150,14 +133,15 @@ std::vector<double> DataFormatUtils::parse_doubles(const std::string& str)
     std::vector<double> result;
     std::istringstream iss(str);
     DataFormatUtils::readLineOfDoubles(result, iss);
-    if( result.empty() ) {
+    if (result.empty()) {
         std::string out = str;
         const size_t max_string_length(10);
-        if(out.size() > max_string_length)
+        if (out.size() > max_string_length)
             out.resize(max_string_length, ' ');
         out += " ...";
         throw std::runtime_error("DataFormatUtils::parse_doubles -> Error! Can't parse double "
-                                 "values from a string '"+out+"'");
+                                 "values from a string '"
+                                 + out + "'");
     }
     return result;
 }
@@ -165,11 +149,12 @@ std::vector<double> DataFormatUtils::parse_doubles(const std::string& str)
 void DataFormatUtils::readLineOfDoubles(std::vector<double>& buffer, std::istringstream& iss)
 {
     iss.imbue(std::locale::classic());
-    std::copy(std::istream_iterator<double>(iss),
-              std::istream_iterator<double>(), back_inserter(buffer));
+    std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(),
+              back_inserter(buffer));
 }
 
-namespace {
+namespace
+{
 std::istringstream getAxisStringRepresentation(std::istream& input_stream)
 {
     std::string line;
@@ -183,18 +168,17 @@ std::istringstream getAxisStringRepresentation(std::istream& input_stream)
 //! FixedBinAxis("axis0", 10, -1, 1)
 //! ConstKBinAxis("axis0", 10, -1, 1)
 //! CustomBinAxis("axis0", 10, -1, 1)
-template<class Axis>
-std::unique_ptr<IAxis> createFixedBinLikeAxis(std::istringstream iss)
+template <class Axis> std::unique_ptr<IAxis> createFixedBinLikeAxis(std::istringstream iss)
 {
     std::string name;
     size_t nbins(0);
-    if( !(iss >> name >> nbins) )
+    if (!(iss >> name >> nbins))
         throw Exceptions::FormatErrorException(
             "createFixedBinLikeAxis() -> Error. Can't parse the string.");
 
     std::vector<double> boundaries;
     DataFormatUtils::readLineOfDoubles(boundaries, iss);
-    if(boundaries.size() != 2)
+    if (boundaries.size() != 2)
         throw Exceptions::FormatErrorException(
             "Error in createFixedBinLikeAxis: Can't parse the string while "
             "reading boundaries.");
@@ -202,20 +186,19 @@ std::unique_ptr<IAxis> createFixedBinLikeAxis(std::istringstream iss)
     return std::make_unique<Axis>(name, nbins, boundaries[0], boundaries[1]);
 }
 
-
 //! Create VariableBinAxis from string representation
 //! VariableBinAxis("axis0", 4, [-1, -0.5, 0.5, 1, 2])
 std::unique_ptr<IAxis> createVariableBinAxis(std::istringstream iss)
 {
     std::string name;
     size_t nbins(0);
-    if( !(iss >> name >> nbins) )
+    if (!(iss >> name >> nbins))
         throw Exceptions::FormatErrorException(
             "Error in createVariableBinAxis: Can't parse the string.");
 
     std::vector<double> boundaries;
     DataFormatUtils::readLineOfDoubles(boundaries, iss);
-    if(boundaries.size() != nbins+1)
+    if (boundaries.size() != nbins + 1)
         throw Exceptions::FormatErrorException(
             "Error in createVariableBinAxis: wrong number of boundaries read.");
 
@@ -236,4 +219,4 @@ std::unique_ptr<IAxis> createPointwiseAxis(std::istringstream iss)
 
     return std::make_unique<PointwiseAxis>(name, coordinates);
 }
-}
+} // namespace

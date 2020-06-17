@@ -42,8 +42,6 @@ private:
     double m_sigma_nanoparticle_radius;
     double m_meso_height;
     double m_meso_radius;
-    double m_sigma_meso_height;
-    double m_sigma_meso_radius;
     double m_sigma_lattice_length_a;
     double m_roughness;
     double m_surface_filling_ratio;

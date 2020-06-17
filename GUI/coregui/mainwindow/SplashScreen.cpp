@@ -14,13 +14,12 @@
 
 #include "SplashScreen.h"
 #include "GUIHelpers.h"
-#include <QStyle>
+#include "StyleUtils.h"
 #include <QCoreApplication>
+#include <QDebug>
+#include <QElapsedTimer>
+#include <QStyle>
 #include <QTime>
-
-namespace {
-const int panel_height = 380;
-}
 
 SplashScreen::SplashScreen(QWidget* parent) : QSplashScreen(parent), m_percentage_done(0)
 
@@ -29,7 +28,7 @@ SplashScreen::SplashScreen(QWidget* parent) : QSplashScreen(parent), m_percentag
     this->setCursor(Qt::BusyCursor);
 
     QFont font;
-    font.setPointSize(10);
+    font.setPointSize(StyleUtils::SystemPointSize() * 0.9);
     font.setBold(false);
     this->setFont(font);
 }
@@ -38,7 +37,7 @@ void SplashScreen::start(int show_during)
 {
     show();
     QTime dieTime = QTime::currentTime().addMSecs(show_during);
-    QTime timer;
+    QElapsedTimer timer;
     timer.start();
     while (QTime::currentTime() < dieTime) {
         setProgress(timer.elapsed() / (show_during / 100));
@@ -60,7 +59,11 @@ void SplashScreen::drawContents(QPainter* painter)
 {
     QSplashScreen::drawContents(painter);
 
-    QRect textRect(15.0, panel_height - 40, 100, 30);
+    auto img_rect = frameGeometry();
+    auto char_height = StyleUtils::SizeOfLetterM().height();
+
+    QRect textRect(img_rect.width() * 0.02, img_rect.height() - char_height * 2.5,
+                   img_rect.width() * 0.5, char_height * 3);
 
     QString versionText = QString("version ").append(GUIHelpers::getBornAgainVersionString());
     style()->drawItemText(painter, textRect, 0, this->palette(), true, versionText);
@@ -70,6 +73,7 @@ void SplashScreen::drawContents(QPainter* painter)
         loadingText.append(". ");
     }
 
-    QRect loadingRect(380.0, panel_height - 40, 100, 30);
+    QRect loadingRect(img_rect.width() * 0.8, img_rect.height() - char_height * 2.5,
+                      img_rect.width(), char_height * 3);
     style()->drawItemText(painter, loadingRect, 0, this->palette(), true, loadingText);
 }

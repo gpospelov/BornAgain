@@ -1,3 +1,17 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Core/Beam/IFootprintFactor.cpp
+//! @brief     Implements class IFootprintFactor.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+// ************************************************************************** //
+
 #include "IFootprintFactor.h"
 #include "RealParameter.h"
 #include <stdexcept>
@@ -21,8 +35,7 @@ void IFootprintFactor::setWidthRatio(double width_ratio)
 }
 
 IFootprintFactor::IFootprintFactor(const IFootprintFactor& other)
-    : ICloneable()
-    , m_width_ratio(other.m_width_ratio)
+    : ICloneable(), m_width_ratio(other.m_width_ratio)
 {
     initialize();
 }

@@ -20,16 +20,15 @@
 //! @param ylow y-coordinate of lower left corner
 //! @param xup x-coordinate of upper right corner
 //! @param yup y-coordinate of upper right corner
-Rectangle::Rectangle(double xlow, double ylow, double xup, double yup)
-    : IShape2D("Rectangle")
+Rectangle::Rectangle(double xlow, double ylow, double xup, double yup) : IShape2D("Rectangle")
 {
-    if(xup <= xlow) {
+    if (xup <= xlow) {
         std::ostringstream message;
         message << "Rectangle(double xlow, double ylow, double xup, double yup) -> Error. ";
         message << " xup <= xlow" << std::endl;
         throw Exceptions::LogicErrorException(message.str());
     }
-    if(yup <= ylow) {
+    if (yup <= ylow) {
         std::ostringstream message;
         message << "Rectangle(double xlow, double ylow, double xup, double yup) -> Error. ";
         message << " yup <= ylow" << std::endl;
@@ -53,5 +52,5 @@ bool Rectangle::contains(const Bin1D& binx, const Bin1D& biny) const
 
 double Rectangle::getArea() const
 {
-    return (m_xup-m_xlow)*(m_yup-m_ylow);
+    return (m_xup - m_xlow) * (m_yup - m_ylow);
 }

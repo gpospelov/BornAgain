@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/ParameterPlan.cpp
+//! @file      Tests/Functional/TestMachinery/ParameterPlan.cpp
 //! @brief     Implements class ParameterPlan
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,4 +21,7 @@ ParameterPlan::ParameterPlan(const Parameter& param, double expected_value, doub
 {
 }
 
-Parameter ParameterPlan::fitParameter() const { return m_parameter; }
+Parameter ParameterPlan::fitParameter() const
+{
+    return m_parameter;
+}

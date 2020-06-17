@@ -16,7 +16,6 @@
 #include "JobItem.h"
 #include "SessionModel.h"
 
-
 QString ModelPath::getPathFromIndex(const QModelIndex& index)
 {
     if (index.isValid()) {

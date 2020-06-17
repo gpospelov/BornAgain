@@ -13,37 +13,43 @@
 // ************************************************************************** //
 
 #include "OutputDataWriter.h"
-#include "OutputData.h"
 #include "DataFormatUtils.h"
+#include "OutputData.h"
 #ifdef _WIN32
-#pragma warning ( push )
-#pragma warning ( disable: 4244 4275 )
+#pragma warning(push)
+#pragma warning(disable : 4244 4275)
 #include "boost_streams.h"
-#pragma warning ( pop )
+#pragma warning(pop)
 #else
 #include "boost_streams.h"
 #endif
+#include "FileSystemUtils.h"
 #include <fstream>
 
-OutputDataWriter::OutputDataWriter(const std::string& file_name)
-    : m_file_name(file_name)
-{
-}
+OutputDataWriter::OutputDataWriter(const std::string& file_name) : m_file_name(file_name) {}
 
 void OutputDataWriter::writeOutputData(const OutputData<double>& data)
 {
-    if(!m_write_strategy)
+    using namespace DataFormatUtils;
+    if (!m_write_strategy)
         throw Exceptions::NullPointerException("OutputDataWriter::getOutputData() ->"
                                                " Error! No read strategy defined");
+
     std::ofstream fout;
     std::ios_base::openmode openmode = std::ios::out;
-    if(DataFormatUtils::isBinaryFile(m_file_name))
+    if (isTiffFile(m_file_name) || isCompressed(m_file_name))
         openmode = std::ios::out | std::ios_base::binary;
 
-    fout.open(m_file_name.c_str(), openmode );
-    if(!fout.is_open())
+#ifdef _WIN32
+    fout.open(FileSystemUtils::convert_utf8_to_utf16(m_file_name), openmode);
+#else
+    fout.open(m_file_name, openmode);
+#endif
+
+    if (!fout.is_open())
         throw Exceptions::FileNotIsOpenException("OutputDataWriter::writeOutputData() -> Error. "
-                                                 "Can't open file '"+m_file_name+"' for writing.");
+                                                 "Can't open file '"
+                                                 + m_file_name + "' for writing.");
     if (!fout.good())
         throw Exceptions::FileIsBadException("OutputDataReader::writeOutputData() -> Error! "
                                              "File is not good, probably it is a directory.");
@@ -51,9 +57,9 @@ void OutputDataWriter::writeOutputData(const OutputData<double>& data)
     m_write_strategy->writeOutputData(data, ss);
 
     boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
-    if(DataFormatUtils::isGZipped(m_file_name))
+    if (DataFormatUtils::isGZipped(m_file_name))
         input_filtered.push(boost::iostreams::gzip_compressor());
-    else if(DataFormatUtils::isBZipped(m_file_name))
+    else if (DataFormatUtils::isBZipped(m_file_name))
         input_filtered.push(boost::iostreams::bzip2_compressor());
     input_filtered.push(ss);
 
@@ -61,7 +67,6 @@ void OutputDataWriter::writeOutputData(const OutputData<double>& data)
 
     fout.close();
 }
-
 
 void OutputDataWriter::setStrategy(IOutputDataWriteStrategy* write_strategy)
 {

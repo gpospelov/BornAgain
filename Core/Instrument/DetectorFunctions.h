@@ -15,21 +15,21 @@
 #ifndef DETECTORFUNCTIONS_H
 #define DETECTORFUNCTIONS_H
 
-#include "WinDllMacros.h"
 #include "IDetector.h"
-#include <string>
-#include <memory>
+#include "WinDllMacros.h"
 #include <functional>
-template<class T> class OutputData;
+#include <memory>
+#include <string>
+template <class T> class OutputData;
 class Instrument;
 class IDetector;
 class SimulationAreaIterator;
 
-
 //! Contains set of detector-related convenience functions.
 //! @ingroup simulation
 
-namespace DetectorFunctions {
+namespace DetectorFunctions
+{
 
 //! Returns true if the data has same axes size (nx,ny) with the detector.
 BA_CORE_API_ bool hasSameDimensions(const IDetector& detector, const OutputData<double>& data);
@@ -43,7 +43,6 @@ BA_CORE_API_ std::string axesToString(const IDetector& detector);
 //! Returns string representation of axes dimension in the form "(nx,ny)"
 BA_CORE_API_ std::string axesToString(const OutputData<double>& data);
 
-}
+} // namespace DetectorFunctions
 
 #endif // DETECTORFUNCTIONS_H
-

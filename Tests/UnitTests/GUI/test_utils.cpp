@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/UnitTests/GUI/test_utils.h
+//! @file      Tests/UnitTests/GUI/test_utils.cpp
 //! @brief     Implements auxiliary test functions in a namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,17 +15,18 @@
 
 #include "test_utils.h"
 #include "GUIHelpers.h"
-#include "IntensityDataIOFactory.h"
 #include "IntensityDataFunctions.h"
+#include "IntensityDataIOFactory.h"
 #include "OutputData.h"
 #include "ProjectUtils.h"
 #include "RealDataItem.h"
 #include "SessionModel.h"
 
-namespace {
+namespace
+{
 const int nxsize = 5;
 const int nysize = 10;
-}
+} // namespace
 
 void TestUtils::create_dir(const QString& dir_name)
 {
@@ -48,8 +49,8 @@ std::unique_ptr<OutputData<double>> TestUtils::createData(double value, DIM n_di
 RealDataItem* TestUtils::createRealData(const QString& name, SessionModel& model, double value,
                                         DIM n_dim)
 {
-    RealDataItem* result = dynamic_cast<RealDataItem*>(
-        model.insertNewItem(Constants::RealDataType));
+    RealDataItem* result =
+        dynamic_cast<RealDataItem*>(model.insertNewItem(Constants::RealDataType));
     result->setOutputData(createData(value, n_dim).release());
     result->setItemValue(SessionItem::P_NAME, name);
     return result;

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Aggregate/InterferenceFunctionFinite2DLattice.cpp
+//! @file      Core/Aggregate/InterferenceFunctionFinite3DLattice.cpp
 //! @brief     Implements class InterferenceFunctionFinite2DLattice.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,6 @@
 #include "InterferenceFunctionFinite3DLattice.h"
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
-#include "Macros.h"
 #include "MathConstants.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
@@ -28,8 +27,9 @@ using MathFunctions::Laue;
 //! @param lattice: object specifying a 2d lattice structure
 //! @param N_1: number of lattice cells in the first lattice direction
 //! @param N_2: number of lattice cells in the second lattice direction
-InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(
-        const Lattice& lattice, unsigned N_1, unsigned N_2, unsigned N_3)
+InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice& lattice,
+                                                                         unsigned N_1, unsigned N_2,
+                                                                         unsigned N_3)
     : m_N_1(N_1), m_N_2(N_2), m_N_3(N_3)
 {
     setName(BornAgain::InterferenceFunctionFinite3DLatticeType);

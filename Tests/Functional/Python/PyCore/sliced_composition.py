@@ -7,8 +7,8 @@ from __future__ import print_function
 import os, sys, unittest
 
 import utils
-import libBornAgainCore as ba
-from libBornAgainCore import deg, kvector_t, nm
+import bornagain as ba
+from bornagain import deg, kvector_t, nm
 
 mSubstrate = ba.HomogeneousMaterial("Substrate", 3.212e-6, 3.244e-8)
 mAmbience = ba.HomogeneousMaterial("Air", 0.0, 0.0)

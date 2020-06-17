@@ -17,7 +17,7 @@
 #include "SessionGraphicsItem.h"
 #include <QString>
 
-IView::IView(QGraphicsItem *parent) : QGraphicsObject(parent), m_item(0)
+IView::IView(QGraphicsItem* parent) : QGraphicsObject(parent), m_item(0)
 {
     connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
     connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
@@ -25,57 +25,44 @@ IView::IView(QGraphicsItem *parent) : QGraphicsObject(parent), m_item(0)
 
 IView::~IView()
 {
-    if(m_item)
+    if (m_item)
         m_item->mapper()->unsubscribe(this);
 }
 
-void IView::setParameterizedItem(SessionItem *item)
+void IView::setParameterizedItem(SessionItem* item)
 {
     Q_ASSERT(item);
     Q_ASSERT(m_item == nullptr);
 
-    if(toolTip().isEmpty())
+    if (toolTip().isEmpty())
         setToolTip(item->toolTip());
 
     m_item = item;
     setX(m_item->getItemValue(SessionGraphicsItem::P_XPOS).toReal());
     setY(m_item->getItemValue(SessionGraphicsItem::P_YPOS).toReal());
 
-    m_item->mapper()->setOnPropertyChange(
-                [this] (const QString &name)
-    {
-        onPropertyChange(name);
-    }, this);
+    m_item->mapper()->setOnPropertyChange([this](const QString& name) { onPropertyChange(name); },
+                                          this);
 
-    m_item->mapper()->setOnSiblingsChange(
-                [this]()
-    {
-         onSiblingsChange();
-    }, this);
+    m_item->mapper()->setOnSiblingsChange([this]() { onSiblingsChange(); }, this);
 
-    m_item->mapper()->setOnItemDestroy(
-                [this](SessionItem *) {
-        m_item = 0;
-    }, this);
-
+    m_item->mapper()->setOnItemDestroy([this](SessionItem*) { m_item = 0; }, this);
 
     update_appearance();
 }
 
-void IView::addView(IView *, int )
-{
-}
+void IView::addView(IView*, int) {}
 
 void IView::onChangedX()
 {
-    if(!m_item)
+    if (!m_item)
         return;
     m_item->setItemValue(SessionGraphicsItem::P_XPOS, x());
 }
 
 void IView::onChangedY()
 {
-    if(!m_item)
+    if (!m_item)
         return;
     m_item->setItemValue(SessionGraphicsItem::P_YPOS, y());
 }
@@ -86,7 +73,7 @@ void IView::update_appearance()
     update();
 }
 
-void IView::onPropertyChange(const QString &propertyName)
+void IView::onPropertyChange(const QString& propertyName)
 {
     Q_ASSERT(m_item);
     if (propertyName == SessionGraphicsItem::P_XPOS) {

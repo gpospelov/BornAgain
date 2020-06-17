@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/model/geometry/truncbox.cpp
+//! @file      GUI/ba3d/ba3d/model/geometry/truncbox.cpp
 //! @brief     Implements utility functions in ba3d namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -32,10 +32,10 @@ Geometry::Mesh Geometry::meshTruncBox(float tD)
     auto side = [&](int ax, int ay, int az, int bx, int by, int bz, const Vector3D& d, bool rev) {
         Vertices vs_(8);
         for (int i = 0; i < 8; ++i)
-            vs_[rev ? 7 - i : i]
-                = Vector3D(ax * as.at(i) + bx * bs.at(i), ay * as.at(i) + by * bs.at(i),
-                           az * as.at(i) + bz * bs.at(i))
-                  + d;
+            vs_[rev ? 7 - i : i] =
+                Vector3D(ax * as.at(i) + bx * bs.at(i), ay * as.at(i) + by * bs.at(i),
+                         az * as.at(i) + bz * bs.at(i))
+                + d;
         vs.addFan(vs_, {0, 1, 2, 3, 4, 5, 6, 7, 0});
     };
 

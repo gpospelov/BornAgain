@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/SampleDesigner/SampleViewDocks.h
+//! @file      GUI/coregui/Views/SampleDesigner/SampleViewDocks.cpp
 //! @brief     Defines class SampleViewDocks
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,26 +15,26 @@
 #include "SampleViewDocks.h"
 #include "ApplicationModels.h"
 #include "FilterPropertyProxy.h"
-#include "ScriptPanel.h"
+#include "RealSpacePanel.h"
 #include "SampleDesigner.h"
 #include "SamplePropertyWidget.h"
 #include "SampleTreeWidget.h"
 #include "SampleView.h"
 #include "SampleWidgetBox.h"
-#include "RealSpacePanel.h"
+#include "ScriptPanel.h"
+#include <QAction>
 #include <QDockWidget>
 #include <QTreeView>
-#include <QAction>
 
 SampleViewDocks::SampleViewDocks(SampleView* parent)
     : DocksController(parent), m_sampleDesigner(new SampleDesigner(parent)),
       m_widgetBox(new SampleWidgetBox(sampleDesigner(), parent)),
       m_treeWidget(new SampleTreeWidget(parent, parent->models()->sampleModel())),
       m_propertyWidget(
-          new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent))
-    , m_scriptPanel(new ScriptPanel(parent))
-    , m_realSpacePanel(new RealSpacePanel(parent->models()->sampleModel(),
-                                         m_treeWidget->treeView()->selectionModel(), parent))
+          new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent)),
+      m_scriptPanel(new ScriptPanel(parent)),
+      m_realSpacePanel(new RealSpacePanel(parent->models()->sampleModel(),
+                                          m_treeWidget->treeView()->selectionModel(), parent))
 {
     addWidget(WIDGET_BOX, m_widgetBox, Qt::LeftDockWidgetArea);
     addWidget(SAMPLE_TREE, m_treeWidget, Qt::RightDockWidgetArea);
@@ -85,7 +85,7 @@ void SampleViewDocks::onResetLayout()
     findDock(INFO)->hide();
 }
 
-void SampleViewDocks::togleDock(int id)
+void SampleViewDocks::toggleDock(int id)
 {
     auto dock = findDock(id);
     dock->setHidden(!dock->isHidden());

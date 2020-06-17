@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/ba3d/model/program.cpp
+//! @file      GUI/ba3d/ba3d/view/program.cpp
 //! @brief     Implements Program class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,6 +15,7 @@
 #include "program.h"
 #include "camera.h"
 #include <QMatrix4x4>
+#include <stdexcept>
 
 // The macro call has to be in the global namespace
 inline void InitShaderResources()
@@ -46,13 +47,13 @@ void Program::init()
         return;
     doInit = false;
 
-    auto shader_found
-        = addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vertex_shader.vert");
+    auto shader_found =
+        addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vertex_shader.vert");
     if (!shader_found)
         throw std::runtime_error("Vertex shader not loaded");
 
-    shader_found
-        = addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fragment_shader.frag");
+    shader_found =
+        addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/fragment_shader.frag");
     if (!shader_found)
         throw std::runtime_error("Fragment shader not loaded");
 

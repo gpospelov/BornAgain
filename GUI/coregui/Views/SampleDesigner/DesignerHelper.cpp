@@ -18,23 +18,31 @@
 #include <QtGlobal>
 #include <cmath>
 #include <iostream>
+#include "StyleUtils.h"
 
-int DesignerHelper::m_default_layer_height = 30;
-int DesignerHelper::m_default_layer_width = 200;
-double DesignerHelper::m_current_zoom_level = 1.0;
+namespace
+{
+double m_current_zoom_level = 1.0;
+}
 
-QGradient DesignerHelper::getLayerGradient(const QColor &color, const QRectF &rect)
+QGradient DesignerHelper::getLayerGradient(const QColor& color, const QRectF& rect)
 {
     QColor c = color;
     c.setAlpha(160);
     QLinearGradient result(rect.topLeft(), rect.bottomRight());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+    result.setColorAt(0, c.darker(150));
+    result.setColorAt(0.5, c.lighter(200));
+    result.setColorAt(1, c.darker(150));
+#else
     result.setColorAt(0, c.dark(150));
     result.setColorAt(0.5, c.light(200));
     result.setColorAt(1, c.dark(150));
-    return result;
+#endif
+    return std::move(result);
 }
 
-QGradient DesignerHelper::getDecorationGradient(const QColor &color, const QRectF &rect)
+QGradient DesignerHelper::getDecorationGradient(const QColor& color, const QRectF& rect)
 {
     QColor c = color;
     // c.setAlpha(200);
@@ -43,7 +51,7 @@ QGradient DesignerHelper::getDecorationGradient(const QColor &color, const QRect
     result.setColorAt(0, c);
     result.setColorAt(0.5, c.lighter(150));
     result.setColorAt(1, c);
-    return result;
+    return std::move(result);
 }
 
 QPixmap DesignerHelper::getSceneBackground()
@@ -61,83 +69,82 @@ QPixmap DesignerHelper::getSceneBackground()
 
 QPixmap DesignerHelper::getPixmapLayer()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultLayerWidth(),
-               DesignerHelper::getDefaultLayerHeight());
+    QRect rect(0, 0, layerWidth(), layerHeight());
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getLayerGradient(Qt::green, rect));
+    painter.setBrush(getLayerGradient(Qt::green, rect));
     painter.drawRect(rect);
     return pixmap;
 }
 
 QPixmap DesignerHelper::getPixmapMultiLayer()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(),
-               DesignerHelper::getDefaultLayerHeight());
+    auto rect = getDefaultMultiLayerRect();
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getLayerGradient(QColor(75, 157, 249), rect));
+    painter.setBrush(getLayerGradient(QColor(75, 157, 249), rect));
     painter.drawRect(rect);
     painter.setPen(Qt::DashLine);
-    painter.drawLine(0, DesignerHelper::getDefaultLayerHeight() * 0.3,
-                     DesignerHelper::getDefaultMultiLayerWidth(),
-                     DesignerHelper::getDefaultLayerHeight() * 0.3);
-    painter.drawLine(0, DesignerHelper::getDefaultLayerHeight() * 0.6,
-                     DesignerHelper::getDefaultMultiLayerWidth(),
-                     DesignerHelper::getDefaultLayerHeight() * 0.6);
+    painter.drawLine(0, layerHeight() * 0.3, rect.width(), layerHeight() * 0.3);
+    painter.drawLine(0, layerHeight() * 0.6, rect.width(), layerHeight() * 0.6);
     return pixmap;
 }
 
 QPixmap DesignerHelper::getPixmapParticleLayout()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultParticleLayoutWidth(),
-               DesignerHelper::getDefaultParticleLayoutHeight());
+    auto rect = getParticleLayoutBoundingRect();
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(QColor(135, 206, 50), rect));
+    painter.setBrush(getDecorationGradient(QColor(135, 206, 50), rect));
     painter.drawRoundedRect(rect, 3, 3);
     return pixmap;
 }
 
 QPixmap DesignerHelper::getPixmapInterferenceFunction()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultInterferenceFunctionWidth(),
-               DesignerHelper::getDefaultInterferenceFunctionHeight());
+    auto rect = getInterferenceFunctionBoundingRect();
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(Qt::lightGray, rect));
+    painter.setBrush(getDecorationGradient(Qt::lightGray, rect));
     painter.drawRoundedRect(rect, 3, 3);
     return pixmap;
 }
 
 QPixmap DesignerHelper::getPixmapParticle()
 {
-    QRect rect(0, 0, DesignerHelper::getDefaultParticleWidth(),
-               DesignerHelper::getDefaultParticleHeight());
+    auto rect = getParticleBoundingRect();
     QPixmap pixmap(rect.width() + 1, rect.height() + 1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    // painter.setBrush(DesignerHelper::getDecorationGradient(QColor(120, 165, 215), rect));
-    painter.setBrush(
-        DesignerHelper::getDecorationGradient(DesignerHelper::getDefaultParticleColor(), rect));
+    painter.setBrush(getDecorationGradient(getDefaultParticleColor(), rect));
     painter.drawRoundedRect(rect, 5, 5);
     return pixmap;
+}
+
+QColor DesignerHelper::getRandomColor()
+{
+    return QColor(qrand() % 256, qrand() % 256, qrand() % 256);
+}
+
+bool DesignerHelper::sort_layers(QGraphicsItem* left, QGraphicsItem* right)
+{
+    return left->y() < right->y();
 }
 
 // non-linear conversion of layer's thickness in nanometers to screen size to have reasonable
 // graphics representation
 int DesignerHelper::nanometerToScreen(double nanometer)
 {
-    const int ymin(m_default_layer_height);
+    const int ymin(layerHeight());
     const int ymax(500);
     int result(ymin);
     if (nanometer > 0)
@@ -145,29 +152,28 @@ int DesignerHelper::nanometerToScreen(double nanometer)
     return result;
 }
 
-QRectF DesignerHelper::getDefaultBoundingRect(const QString &name)
+QRectF DesignerHelper::getDefaultBoundingRect(const QString& name)
 {
     if (name == Constants::MultiLayerType) {
-        return QRectF(0, 0, getDefaultMultiLayerWidth(), getDefaultMultiLayerHeight());
+        return getDefaultMultiLayerRect();
     } else if (name == Constants::LayerType) {
-        return QRectF(0, 0, getDefaultLayerWidth(), getDefaultLayerHeight());
+        return QRectF(0, 0, layerWidth(), layerHeight());
     } else if (name == Constants::ParticleLayoutType) {
-        return QRectF(0, 0, getDefaultParticleLayoutWidth(), getDefaultParticleLayoutHeight());
+        return getParticleLayoutBoundingRect();
     } else if (name == Constants::RotationType) {
-        return QRectF(0, 0, getDefaultTransformationWidth(), getDefaultTransformationHeight());
+        return getTransformationBoundingRect();
     } else if (name.startsWith(Constants::FormFactorType) || name == Constants::ParticleType
                || name == Constants::ParticleCoreShellType
                || name == Constants::ParticleDistributionType) {
-        return QRectF(0, 0, getDefaultParticleWidth(), getDefaultParticleHeight());
+        return getParticleBoundingRect();
     } else if (name.startsWith("Interference")) {
-        return QRectF(0, 0, getDefaultInterferenceFunctionWidth(),
-                      getDefaultInterferenceFunctionHeight());
+        return getInterferenceFunctionBoundingRect();
     } else {
         return QRectF(0, 0, 50, 50);
     }
 }
 
-QColor DesignerHelper::getDefaultColor(const QString &name)
+QColor DesignerHelper::getDefaultColor(const QString& name)
 {
     if (name == Constants::MultiLayerType) {
         // return QColor(Qt::blue);
@@ -182,19 +188,16 @@ QColor DesignerHelper::getDefaultColor(const QString &name)
         return QColor(210, 223, 237);
     } else if (name.startsWith("InterferenceFunction")) {
         return QColor(255, 236, 139);
-    }
-    else if(name == "Transparant red") {
+    } else if (name == "Transparant red") {
         return QColor(0xFF, 0, 0, 0x80);
-    }
-    else if(name == "Transparant blue") {
+    } else if (name == "Transparant blue") {
         return QColor(0, 0, 0xFF, 0x80);
-    }
-    else {
+    } else {
         return QColor(Qt::lightGray);
     }
 }
 
-QPixmap DesignerHelper::getMimePixmap(const QString &name)
+QPixmap DesignerHelper::getMimePixmap(const QString& name)
 {
     QRectF default_rect = getDefaultBoundingRect(name);
     QRectF mime_rect(0, 0, default_rect.width() * m_current_zoom_level,
@@ -204,63 +207,87 @@ QPixmap DesignerHelper::getMimePixmap(const QString &name)
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getDecorationGradient(getDefaultColor(name), mime_rect));
+    painter.setBrush(getDecorationGradient(getDefaultColor(name), mime_rect));
     painter.drawRoundedRect(mime_rect, 1, 1);
     return pixmap;
 }
 
 int DesignerHelper::getHeaderFontSize()
 {
-#ifdef Q_OS_MAC
-    return 14;
-#else
-    return 12;
-#endif
+    return StyleUtils::SystemPointSize()*1.5;
+}
+
+int DesignerHelper::layerWidth()
+{
+    return StyleUtils::SizeOfLetterM().width()*18;
+}
+
+int DesignerHelper::layerHeight()
+{
+    return StyleUtils::SizeOfLetterM().height()*2;
+}
+
+QColor DesignerHelper::getDefaultLayerColor()
+{
+    return QColor(Qt::lightGray);
 }
 
 QRectF DesignerHelper::getDefaultMultiLayerRect()
 {
-    return QRectF(0, 0, DesignerHelper::getDefaultMultiLayerWidth(),
-                  DesignerHelper::getDefaultMultiLayerHeight());
+    return QRectF(0, 0, layerWidth() * 1.15, layerHeight());
+}
+
+QRectF DesignerHelper::getParticleLayoutBoundingRect()
+{
+    return QRectF(0, 0, layerHeight() * 3.5, layerHeight() * 4.5);
+}
+
+QRectF DesignerHelper::getInterferenceFunctionBoundingRect()
+{
+    return QRectF(0, 0, layerHeight() * 4.5, layerHeight() * 4);
+}
+
+QColor DesignerHelper::getDefaultParticleColor()
+{
+    return QColor(210, 223, 237);
+}
+
+QRectF DesignerHelper::getParticleBoundingRect()
+{
+    return QRectF(0, 0, layerHeight() * 3.5, layerHeight() * 4);
+}
+
+QColor DesignerHelper::getDefaultTransformationColor()
+{
+    return QColor(145, 50, 220);
+}
+
+QRectF DesignerHelper::getTransformationBoundingRect()
+{
+    return QRectF(0, 0, layerHeight() * 4, layerHeight() * 2);
+}
+
+QColor DesignerHelper::getDefaultMaterialColor()
+{
+    return QColor(qrand() % 256, qrand() % 256, qrand() % 256);
 }
 
 int DesignerHelper::getSectionFontSize()
 {
-#ifdef Q_OS_MAC
-    return 12;
-#else
-    return 10;
-#endif
+    return StyleUtils::SystemPointSize()*1.2;
 }
 
 int DesignerHelper::getLabelFontSize()
 {
-#ifdef Q_OS_MAC
-    return 12;
-#else
-    return 10;
-#endif
+    return StyleUtils::SystemPointSize()*0.9;
 }
 
 int DesignerHelper::getPortFontSize()
 {
-#ifdef Q_OS_MAC
-    return 10;
-#else
-    return 8;
-#endif
+    return StyleUtils::SystemPointSize()*0.7;
 }
 
 int DesignerHelper::getPythonEditorFontSize()
 {
-#ifdef Q_OS_MAC
-    return 13;
-#else
-    return 10;
-#endif
-}
-
-void DesignerHelper::setZoomLevel(double value)
-{
-    m_current_zoom_level = value;
+    return StyleUtils::SystemPointSize();
 }

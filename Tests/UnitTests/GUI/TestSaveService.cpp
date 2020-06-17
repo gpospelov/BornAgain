@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "ApplicationModels.h"
 #include "AutosaveController.h"
 #include "GUIHelpers.h"
@@ -10,6 +9,7 @@
 #include "RealDataItem.h"
 #include "RealDataModel.h"
 #include "SaveService.h"
+#include "google_test.h"
 #include "projectdocument.h"
 #include "test_utils.h"
 #include <QSignalSpy>

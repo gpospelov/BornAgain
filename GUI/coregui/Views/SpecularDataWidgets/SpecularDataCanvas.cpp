@@ -12,20 +12,18 @@
 //
 // ************************************************************************** //
 
-#include "AppSvc.h"
-#include "projectmanager.h"
-#include "SavePlotAssistant.h"
 #include "SpecularDataCanvas.h"
+#include "AppSvc.h"
+#include "SavePlotAssistant.h"
 #include "SpecularDataItem.h"
 #include "SpecularPlotCanvas.h"
 #include "plot_constants.h"
+#include "projectmanager.h"
 #include "qcustomplot.h"
 
 SpecularDataCanvas::SpecularDataCanvas(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_plot_canvas(new SpecularPlotCanvas)
-    , m_reset_view_action(nullptr)
-    , m_save_plot_action(nullptr)
+    : SessionItemWidget(parent), m_plot_canvas(new SpecularPlotCanvas),
+      m_reset_view_action(nullptr), m_save_plot_action(nullptr)
 
 {
     QVBoxLayout* vlayout = new QVBoxLayout(this);
@@ -49,16 +47,25 @@ void SpecularDataCanvas::setItem(SessionItem* intensityItem)
     m_plot_canvas->setItem(intensityItem);
 }
 
-QSize SpecularDataCanvas::sizeHint() const { return QSize(500, 400); }
+QSize SpecularDataCanvas::sizeHint() const
+{
+    return QSize(500, 400);
+}
 
-QSize SpecularDataCanvas::minimumSizeHint() const { return QSize(128, 128); }
+QSize SpecularDataCanvas::minimumSizeHint() const
+{
+    return QSize(128, 128);
+}
 
 QList<QAction*> SpecularDataCanvas::actionList()
 {
     return QList<QAction*>() << m_reset_view_action << m_save_plot_action;
 }
 
-void SpecularDataCanvas::onResetViewAction() { specularDataItem()->resetView(); }
+void SpecularDataCanvas::onResetViewAction()
+{
+    specularDataItem()->resetView();
+}
 
 void SpecularDataCanvas::onSavePlotAction()
 {
@@ -85,15 +92,15 @@ SpecularDataItem* SpecularDataCanvas::specularDataItem()
 void SpecularDataCanvas::initActions()
 {
     m_reset_view_action = new QAction(this);
-    m_reset_view_action->setText("Reset");
-    m_reset_view_action->setIcon(QIcon(":/images/toolbar16light_refresh.svg"));
-    m_reset_view_action->setToolTip("Reset view\n"
+    m_reset_view_action->setText("Center view");
+    m_reset_view_action->setIcon(QIcon(":/images/camera-metering-center.svg"));
+    m_reset_view_action->setToolTip("Center view\n"
                                     "x,y axes range will be set to default");
     connect(m_reset_view_action, &QAction::triggered, this, &SpecularDataCanvas::onResetViewAction);
 
     m_save_plot_action = new QAction(this);
     m_save_plot_action->setText("Save");
-    m_save_plot_action->setIcon(QIcon(":/images/toolbar16light_save.svg"));
+    m_save_plot_action->setIcon(QIcon(":/images/content-save-outline.svg"));
     m_save_plot_action->setToolTip("Save plot");
     connect(m_save_plot_action, &QAction::triggered, this, &SpecularDataCanvas::onSavePlotAction);
 }

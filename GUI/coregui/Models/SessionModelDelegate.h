@@ -38,7 +38,7 @@ public:
 
     void setEditorData(QWidget* editor, const QModelIndex& index) const;
 
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
 
     void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option,
                               const QModelIndex& index) const;
@@ -49,7 +49,6 @@ public slots:
 private:
     void paintCustomLabel(QPainter* painter, const QStyleOptionViewItem& option,
                           const QModelIndex& index, const QString& text) const;
-
 };
 
 #endif // SESSIONMODELDELEGATE_H

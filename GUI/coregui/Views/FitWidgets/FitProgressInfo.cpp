@@ -14,6 +14,4 @@
 
 #include "FitProgressInfo.h"
 
-FitProgressInfo::FitProgressInfo() : m_chi2(0.0), m_iteration_count(0)
-{
-}
+FitProgressInfo::FitProgressInfo() : m_chi2(0.0), m_iteration_count(0) {}

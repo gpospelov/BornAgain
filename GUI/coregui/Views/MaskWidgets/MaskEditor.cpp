@@ -24,12 +24,10 @@
 #include <QContextMenuEvent>
 
 MaskEditor::MaskEditor(QWidget* parent)
-    : QMainWindow(parent)
-    , m_editorActions(new MaskEditorActions(this))
-    , m_toolBar(new MaskEditorToolBar(m_editorActions))
-    , m_editorPropertyPanel(new MaskEditorPropertyPanel)
-    , m_editorCanvas(new MaskEditorCanvas)
-    , m_splitter(new Manhattan::MiniSplitter)
+    : QMainWindow(parent), m_editorActions(new MaskEditorActions(this)),
+      m_toolBar(new MaskEditorToolBar(m_editorActions)),
+      m_editorPropertyPanel(new MaskEditorPropertyPanel), m_editorCanvas(new MaskEditorCanvas),
+      m_splitter(new Manhattan::MiniSplitter)
 {
     setObjectName(QStringLiteral("MaskEditor"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -91,40 +89,40 @@ QList<QAction*> MaskEditor::topToolBarActions()
 void MaskEditor::setup_connections()
 {
     // reset view request is propagated from editorActions to graphics view
-    connect(m_editorActions, &MaskEditorActions::resetViewRequest,
-            m_editorCanvas, &MaskEditorCanvas::onResetViewRequest);
+    connect(m_editorActions, &MaskEditorActions::resetViewRequest, m_editorCanvas,
+            &MaskEditorCanvas::onResetViewRequest);
 
     // tool panel request is propagated from editorActions to this MaskEditor
-    connect(m_editorActions, &MaskEditorActions::propertyPanelRequest,
-            this, &MaskEditor::onPropertyPanelRequest);
+    connect(m_editorActions, &MaskEditorActions::propertyPanelRequest, this,
+            &MaskEditor::onPropertyPanelRequest);
 
     // save plot request is propagated from editorActions to graphics scene
-    connect(m_editorActions, &MaskEditorActions::savePlotRequest,
-            m_editorCanvas, &MaskEditorCanvas::onSavePlotRequest);
+    connect(m_editorActions, &MaskEditorActions::savePlotRequest, m_editorCanvas,
+            &MaskEditorCanvas::onSavePlotRequest);
 
     // selection/drawing activity is propagated from ToolBar to graphics scene
-    connect(m_toolBar, &MaskEditorToolBar::activityModeChanged,
-            m_editorCanvas->getScene(), &MaskGraphicsScene::onActivityModeChanged);
+    connect(m_toolBar, &MaskEditorToolBar::activityModeChanged, m_editorCanvas->getScene(),
+            &MaskGraphicsScene::onActivityModeChanged);
 
     // mask value is propagated from ToolBar to graphics scene
-    connect(m_toolBar, &MaskEditorToolBar::maskValueChanged,
-            m_editorCanvas->getScene(), &MaskGraphicsScene::onMaskValueChanged);
+    connect(m_toolBar, &MaskEditorToolBar::maskValueChanged, m_editorCanvas->getScene(),
+            &MaskGraphicsScene::onMaskValueChanged);
 
     // show results request is propagated from ToolBar to Canvas
-    connect(m_toolBar, &MaskEditorToolBar::presentationTypeRequest,
-            m_editorCanvas, &MaskEditorCanvas::onPresentationTypeRequest);
+    connect(m_toolBar, &MaskEditorToolBar::presentationTypeRequest, m_editorCanvas,
+            &MaskEditorCanvas::onPresentationTypeRequest);
 
     // space bar push (request for zoom mode) is propagated from graphics view to ToolBar
-    connect(m_editorCanvas, &MaskEditorCanvas::changeActivityRequest,
-            m_toolBar, &MaskEditorToolBar::onChangeActivityRequest);
+    connect(m_editorCanvas, &MaskEditorCanvas::changeActivityRequest, m_toolBar,
+            &MaskEditorToolBar::onChangeActivityRequest);
 
     // Delete request is propagated from canvas to actions
-    connect(m_editorCanvas, &MaskEditorCanvas::deleteSelectedRequest,
-            m_editorActions, &MaskEditorActions::onDeleteMaskAction);
+    connect(m_editorCanvas, &MaskEditorCanvas::deleteSelectedRequest, m_editorActions,
+            &MaskEditorActions::onDeleteMaskAction);
 
     // context menu request is propagated from graphics scene to MaskEditorActions
-    connect(m_editorCanvas->getScene(), &MaskGraphicsScene::itemContextMenuRequest,
-            m_editorActions, &MaskEditorActions::onItemContextMenuRequest);
+    connect(m_editorCanvas->getScene(), &MaskGraphicsScene::itemContextMenuRequest, m_editorActions,
+            &MaskEditorActions::onItemContextMenuRequest);
 
     // context menu request is propagated from PropertyPanel to MaskEditorActions
     connect(m_editorPropertyPanel, &MaskEditorPropertyPanel::itemContextMenuRequest,

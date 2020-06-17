@@ -2,12 +2,12 @@ set(test TestCoreSpecial)
 
 set(test_cases
     BatchSimulation
-    PolDWBAMagCylinders
     FourierTransformation
-    AxisComparisonTest
-#    CoreIO
-#    DetectorTest
+    MultilayerPerformance
+#    CoreIOPerformance
 #    MesoPerformance
+#    CoreIOPath
+#    MultiThreadPerformance
 )
 
 # build executables for each test case

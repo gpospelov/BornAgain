@@ -14,10 +14,10 @@
 
 #include "DistributionEditor.h"
 #include "ComponentFlatView.h"
+#include "DistributionItems.h"
 #include "DistributionWidget.h"
 #include "GroupItem.h"
 #include "SessionItem.h"
-#include "DistributionItems.h"
 #include <QBoxLayout>
 
 namespace
@@ -26,11 +26,8 @@ int minimum_width = 250;
 }
 
 DistributionEditor::DistributionEditor(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_propertyEditor(new ComponentFlatView)
-    , m_item(nullptr)
-    , m_plotwidget(new DistributionWidget)
-    , m_box(new QGroupBox)
+    : SessionItemWidget(parent), m_propertyEditor(new ComponentFlatView), m_item(nullptr),
+      m_plotwidget(new DistributionWidget), m_box(new QGroupBox)
 {
 
     auto boxLayout = new QVBoxLayout;

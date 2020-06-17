@@ -10,7 +10,8 @@ set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyExamples)
 file(MAKE_DIRECTORY ${output_dir})
 
 file(GLOB sim_examples "${PY_EXAMPLES_DIR}/simulation/ex*/*.py")
-file(GLOB fit_examples "${PY_EXAMPLES_DIR}/fitting/ex09_FitSpecular/FitSpecularBasics.py")
+file(GLOB fit_examples
+    "${PY_EXAMPLES_DIR}/fitting/ex03_ExtendedExamples/specular/FitSpecularBasics.py")
 set(examples ${sim_examples} ${fit_examples})
 
 set(test_script ${output_dir}/check_functionality.py)
@@ -23,6 +24,6 @@ foreach(example ${examples})
     get_filename_component(script_name ${script_path} NAME_WE)
     set(test_name PyExamples/${script_name})
 
-    add_test(${test_name} ${PYTHON_EXECUTABLE} ${test_script} ${script_path})
+    add_test(${test_name} ${Python_EXECUTABLE} ${test_script} ${script_path})
     set_tests_properties(${test_name} PROPERTIES LABELS "Fullcheck")
 endforeach()

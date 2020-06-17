@@ -24,20 +24,18 @@
 #include <QPushButton>
 #include <QSlider>
 
-namespace {
+namespace
+{
 const int default_interval = 10;
-const std::vector<int> slider_to_interval = {1,2,3,4,5,10,15,20,25,30,50,100,200,500,1000};
+const std::vector<int> slider_to_interval = {1,  2,  3,  4,   5,   10,  15,  20,
+                                             25, 30, 50, 100, 200, 500, 1000};
 const QString slider_tooltip = "Updates fit progress every Nth iteration";
-}
+} // namespace
 
 RunFitControlWidget::RunFitControlWidget(QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_startButton(new QPushButton)
-    , m_stopButton(new QPushButton)
-    , m_intervalSlider(new QSlider)
-    , m_updateIntervalLabel(new QLabel)
-    , m_iterationsCountLabel(new QLabel)
-    , m_warningSign(new WarningSign(this))
+    : SessionItemWidget(parent), m_startButton(new QPushButton), m_stopButton(new QPushButton),
+      m_intervalSlider(new QSlider), m_updateIntervalLabel(new QLabel),
+      m_iterationsCountLabel(new QLabel), m_warningSign(new WarningSign(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setFixedHeight(Constants::RUN_FIT_CONTROL_WIDGET_HEIGHT);
@@ -78,10 +76,10 @@ RunFitControlWidget::RunFitControlWidget(QWidget* parent)
     layout->addWidget(m_iterationsCountLabel);
     setLayout(layout);
 
-    connect(m_startButton, &QPushButton::clicked, [&](){startFittingPushed();});
-    connect(m_stopButton, &QPushButton::clicked, this, [&](){stopFittingPushed();});
-    connect(m_intervalSlider, &QSlider::valueChanged,
-            this, &RunFitControlWidget::onSliderValueChanged);
+    connect(m_startButton, &QPushButton::clicked, [&]() { startFittingPushed(); });
+    connect(m_stopButton, &QPushButton::clicked, this, [&]() { stopFittingPushed(); });
+    connect(m_intervalSlider, &QSlider::valueChanged, this,
+            &RunFitControlWidget::onSliderValueChanged);
 
     setEnabled(false);
 }

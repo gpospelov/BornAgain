@@ -1,6 +1,6 @@
-#include "google_test.h"
-#include "IParameterized.h"
 #include "RealParameter.h"
+#include "IParameterized.h"
+#include "google_test.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -43,8 +43,9 @@ TEST_F(RealParameterTest, extendedConstructor)
 {
     double value(42.0);
     bool is_changed(false);
-    RealParameter par("name", &value, "parent_name", [&]() { is_changed = true; },
-                      RealLimits::limited(1.0, 43.0), Attributes::free());
+    RealParameter par(
+        "name", &value, "parent_name", [&]() { is_changed = true; }, RealLimits::limited(1.0, 43.0),
+        Attributes::free());
 
     EXPECT_EQ(par.getName(), "name");
     EXPECT_EQ(par.value(), value);
@@ -62,9 +63,9 @@ TEST_F(RealParameterTest, clone)
 {
     double value(42.0);
     bool is_changed(false);
-    std::unique_ptr<RealParameter> par(
-        new RealParameter("name", &value, "parent_name", [&]() { is_changed = true; },
-                          RealLimits::limited(1.0, 43.0), Attributes::free()));
+    std::unique_ptr<RealParameter> par(new RealParameter(
+        "name", &value, "parent_name", [&]() { is_changed = true; }, RealLimits::limited(1.0, 43.0),
+        Attributes::free()));
 
     // cloning and deleting original
     std::unique_ptr<RealParameter> clone(par->clone());

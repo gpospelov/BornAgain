@@ -15,8 +15,8 @@
 #ifndef PARTICLEDISTRIBUTIONITEM_H
 #define PARTICLEDISTRIBUTIONITEM_H
 
-#include "SessionGraphicsItem.h"
 #include "ParticleDistribution.h"
+#include "SessionGraphicsItem.h"
 #include <string>
 #include <vector>
 
@@ -49,4 +49,3 @@ private:
 };
 
 #endif // PARTICLEDISTRIBUTIONITEM_H
-

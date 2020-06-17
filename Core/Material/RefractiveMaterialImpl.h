@@ -24,8 +24,7 @@
 class BA_CORE_API_ RefractiveMaterialImpl : public MagneticMaterialImpl
 {
 public:
-    friend BA_CORE_API_ Material HomogeneousMaterial(const std::string&, double, double,
-                                                         kvector_t);
+    friend BA_CORE_API_ Material HomogeneousMaterial(const std::string&, double, double, kvector_t);
 
     virtual ~RefractiveMaterialImpl() = default;
 
@@ -46,25 +45,23 @@ public:
     complex_t materialData() const override;
 
     //! Returns type of material implementation
-    MATERIAL_TYPES typeID() const override
-    {
-        return MATERIAL_TYPES::RefractiveMaterial;
-    }
+    MATERIAL_TYPES typeID() const override { return MATERIAL_TYPES::RefractiveMaterial; }
 
-    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length density.
-    //! If the wavelength associated with passed wavevector is different from the one
+    //! Returns (\f$ \pi/\lambda^2 \f$ - sld), sld (in \f$nm^{-2}\f$) being the scattering length
+    //! density. If the wavelength associated with passed wavevector is different from the one
     //! associated with refractive coefficients used during the object construction,
     //! provided result is inconsistent.
     complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
 
     //! Prints object data
-    void print(std::ostream &ostr) const override;
+    void print(std::ostream& ostr) const override;
 
 private:
     RefractiveMaterialImpl(const std::string& name, double delta, double beta,
                            kvector_t magnetization);
 
-    double m_delta; //!< \f$\delta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
+    double
+        m_delta;   //!< \f$\delta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
     double m_beta; //!< \f$\beta\f$ coefficient for refractive index \f$n = 1 - \delta + i \beta\f$
 };
 

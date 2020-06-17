@@ -1,8 +1,8 @@
-#include "google_test.h"
 #include "BornAgainNamespace.h"
 #include "HardParticles.h"
 #include "IFormFactorBorn.h"
 #include "MathConstants.h"
+#include "google_test.h"
 
 class FormFactorBasicTest : public ::testing::Test
 {
@@ -74,8 +74,9 @@ TEST_F(FormFactorBasicTest, AnisoPyramid)
     double width = 14.;
     double alpha = 0.8;
     double tga = std::tan(alpha);
-    double volume = height * (length * width - (length + width) * height / tga
-                              + 4.0 / 3.0 * height * height / (tga * tga));
+    double volume = height
+                    * (length * width - (length + width) * height / tga
+                       + 4.0 / 3.0 * height * height / (tga * tga));
 
     FormFactorAnisoPyramid anisopyramid(length, width, height, alpha);
 
@@ -241,6 +242,21 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
     test_ff(&ellipscyl);
 }
 
+TEST_F(FormFactorBasicTest, CantellatedCube)
+{
+    double L = 10.;
+    double t = 2.; // side length of removed trirectangular tetrahedron at each vertex
+    double volume = L * L * L - 6 * L * t * t + 16 * t * t * t / 3;
+
+    FormFactorCantellatedCube trcube(L, t);
+
+    EXPECT_EQ(L, trcube.getLength());
+    EXPECT_DOUBLE_EQ(t, trcube.getRemovedLength());
+    EXPECT_DOUBLE_EQ(trcube.volume(), volume);
+
+    test_ff(&trcube);
+}
+
 TEST_F(FormFactorBasicTest, FullSphere)
 {
     double radius = 5.;
@@ -359,8 +375,8 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid)
     double radius = 3.;
     double height = 5.;
     double flattening = 1.5;
-    double volume
-        = M_PI * radius * height * height / flattening * (1. - height / (3. * flattening * radius));
+    double volume =
+        M_PI * radius * height * height / flattening * (1. - height / (3. * flattening * radius));
 
     FormFactorTruncatedSpheroid trspheroid(radius, height, flattening);
 
@@ -393,16 +409,16 @@ TEST_F(FormFactorBasicTest, Tetrahedron)
     test_ff(&tetrahedron);
 }
 
-TEST_F(FormFactorBasicTest, Ripple1)
+TEST_F(FormFactorBasicTest, Ripple1Box)
 {
     double width = 20.;
     double height = 4.;
     double length = 100.0;
     double volume = 0.5 * height * width * length;
 
-    FormFactorRipple1 ripple1(length, width, height);
+    FormFactorRipple1Box ripple1(length, width, height);
 
-    EXPECT_EQ(BornAgain::FFRipple1Type, ripple1.getName());
+    EXPECT_EQ(BornAgain::FFRipple1BoxType, ripple1.getName());
     EXPECT_EQ(4., ripple1.getHeight());
     EXPECT_EQ(20., ripple1.getWidth());
     EXPECT_EQ(100., ripple1.getLength());
@@ -427,7 +443,7 @@ TEST_F(FormFactorBasicTest, TruncatedCube)
     test_ff(&trcube);
 }
 
-TEST_F(FormFactorBasicTest, Ripple2)
+TEST_F(FormFactorBasicTest, Ripple2Box)
 {
     double width = 20.;
     double height = 4.;
@@ -435,9 +451,9 @@ TEST_F(FormFactorBasicTest, Ripple2)
     double d = 0.3; // asymmetry
     double volume = 0.5 * height * width * length;
 
-    FormFactorRipple2 ripple2(length, width, height, d);
+    FormFactorRipple2Box ripple2(length, width, height, d);
 
-    EXPECT_EQ(BornAgain::FFRipple2Type, ripple2.getName());
+    EXPECT_EQ(BornAgain::FFRipple2BoxType, ripple2.getName());
     EXPECT_EQ(4., ripple2.getHeight());
     EXPECT_DOUBLE_EQ(volume, ripple2.volume());
 

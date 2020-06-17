@@ -25,23 +25,24 @@ class RealDataItem;
 //! The SimulationSetupAssistant class provides sample, instrument and real data validation before
 //! submitting the job.
 
-class BA_CORE_API_ SimulationSetupAssistant {
+class BA_CORE_API_ SimulationSetupAssistant
+{
 public:
     SimulationSetupAssistant();
 
-    bool isValidSimulationSetup(const MultiLayerItem *multiLayerItem,
-                                const InstrumentItem *instrumentItem,
-                                const RealDataItem *realData = 0);
+    bool isValidSimulationSetup(const MultiLayerItem* multiLayerItem,
+                                const InstrumentItem* instrumentItem,
+                                const RealDataItem* realData = 0);
+
 private:
     void clear();
-    void checkMultiLayerItem(const MultiLayerItem *multiLayerItem);
-    void checkInstrumentItem(const InstrumentItem *instrumentItem);
-    void checkFittingSetup(const InstrumentItem *instrumentItem, const RealDataItem *realData);
+    void checkMultiLayerItem(const MultiLayerItem* multiLayerItem);
+    void checkInstrumentItem(const InstrumentItem* instrumentItem);
+    void checkFittingSetup(const InstrumentItem* instrumentItem, const RealDataItem* realData);
     QString composeMessage();
 
     bool m_isValid;
     QStringList m_messages;
 };
-
 
 #endif // SIMULATIONSETUPASSISTANT_H

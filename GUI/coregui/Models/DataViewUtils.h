@@ -22,7 +22,7 @@
 class DataItem;
 class Data1DViewItem;
 class JobItem;
-template<class T> class OutputData;
+template <class T> class OutputData;
 
 namespace DataViewUtils
 {
@@ -30,6 +30,6 @@ void updateAxesTitle(Data1DViewItem* view_item);
 
 std::unique_ptr<OutputData<double>> getTranslatedData(Data1DViewItem* view_item,
                                                       DataItem* data_item);
-};
+}; // namespace DataViewUtils
 
 #endif // DATAVIEWUTILS_H

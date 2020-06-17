@@ -1,9 +1,9 @@
+#include "SpecularDetector1D.h"
 #include "Beam.h"
 #include "BornAgainNamespace.h"
 #include "FixedBinAxis.h"
 #include "OutputData.h"
 #include "SimulationArea.h"
-#include "SpecularDetector1D.h"
 #include "Units.h"
 #include "google_test.h"
 #include <memory>

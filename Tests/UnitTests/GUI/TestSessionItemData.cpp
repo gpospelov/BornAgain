@@ -1,7 +1,7 @@
-#include "google_test.h"
-#include "SessionItemData.h"
 #include "ExternalProperty.h"
 #include "SessionFlags.h"
+#include "SessionItemData.h"
+#include "google_test.h"
 
 class TestSessionItemData : public ::testing::Test
 {
@@ -25,7 +25,7 @@ TEST_F(TestSessionItemData, setData)
     // setting DisplayRole
     QVariant v(42.0);
     EXPECT_TRUE(itemData.setData(Qt::DisplayRole, v));
-    QVector<int> expected {Qt::DisplayRole};
+    QVector<int> expected{Qt::DisplayRole};
     EXPECT_EQ(itemData.roles(), expected);
     EXPECT_TRUE(itemData.data(Qt::DisplayRole) == v);
 
@@ -49,7 +49,8 @@ TEST_F(TestSessionItemData, setData)
     ep.setIdentifier("abc");
 
     EXPECT_TRUE(itemData.setData(Qt::DisplayRole, ep.variant()));
-    EXPECT_TRUE(itemData.setData(SessionFlags::CustomEditorRole, QVariant::fromValue(QString("abc"))));
+    EXPECT_TRUE(
+        itemData.setData(SessionFlags::CustomEditorRole, QVariant::fromValue(QString("abc"))));
 
     expected = {Qt::DisplayRole, SessionFlags::CustomEditorRole};
     EXPECT_EQ(itemData.roles(), expected);

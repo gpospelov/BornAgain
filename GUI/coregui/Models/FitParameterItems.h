@@ -15,8 +15,8 @@
 #ifndef FITPARAMETERITEMS_H
 #define FITPARAMETERITEMS_H
 
-#include "SessionItem.h"
 #include "AttLimits.h"
+#include "SessionItem.h"
 
 //! FitParameterItems is a collection of items to define fit parameters in GUI.
 
@@ -45,7 +45,7 @@ public:
     static const QString T_LINK;
     FitParameterItem();
 
-    void initMinMaxValues(const RealLimits &limits);
+    void initMinMaxValues(const RealLimits& limits);
 
     AttLimits attLimits() const;
 
@@ -54,7 +54,7 @@ public:
 private:
     QString parameterType() const;
     void onTypeChange();
-    void setLimitEnabled(const QString &name, bool enabled);
+    void setLimitEnabled(const QString& name, bool enabled);
     bool isLimited() const;
     bool isFree() const;
     bool isLowerLimited() const;
@@ -64,7 +64,10 @@ private:
 
 //! The FitParameterContainerItem class is a collection of all defined fit parameters in JobItem.
 
-namespace Fit { class Parameters; }
+namespace Fit
+{
+class Parameters;
+}
 
 class BA_CORE_API_ FitParameterContainerItem : public SessionItem
 {
@@ -72,13 +75,12 @@ class BA_CORE_API_ FitParameterContainerItem : public SessionItem
 public:
     static const QString T_FIT_PARAMETERS;
     FitParameterContainerItem();
-    FitParameterItem *fitParameterItem(const QString &link);
-    QVector<FitParameterItem *> fitParameterItems();
+    FitParameterItem* fitParameterItem(const QString& link);
+    QVector<FitParameterItem*> fitParameterItems();
     bool isEmpty();
-    void setValuesInParameterContainer(const QVector<double> &values,
-                                       class ParameterContainerItem *parameterContainer);
+    void setValuesInParameterContainer(const QVector<double>& values,
+                                       class ParameterContainerItem* parameterContainer);
     Fit::Parameters createParameters() const;
-
 };
 
 #endif // FITPARAMETERITEMS_H

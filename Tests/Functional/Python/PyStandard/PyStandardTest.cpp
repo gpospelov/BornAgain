@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/PyCore/export/PyStandardTest.cpp
+//! @file      Tests/Functional/Python/PyStandard/PyStandardTest.cpp
 //! @brief     Implements class PyExportTest
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -26,15 +26,15 @@
 bool PyStandardTest::runTest()
 {
     // Set output data filename, and remove old output files
-    std::string output_name
-        = FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), getName());
+    std::string output_name =
+        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), getName());
     std::string output_path = output_name + ".ref.int.gz";
     std::remove(output_path.c_str());
     std::cout << "Removed old output " << output_path << "\n";
 
     // Generate Python script
-    std::string pyscript_filename
-        = FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), getName() + ".py");
+    std::string pyscript_filename =
+        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), getName() + ".py");
     std::ofstream pythonFile(pyscript_filename);
     pythonFile << ExportToPython::generatePyExportTest(*m_reference_simulation);
     pythonFile.close();
@@ -48,7 +48,7 @@ bool PyStandardTest::runTest()
     m_reference_simulation->runSimulation();
     auto ref_result = m_reference_simulation->result();
 
-    const std::unique_ptr<OutputData<double>> reference_data(ref_result.data());
+    const auto reference_data = ref_result.data();
 
     // Compare results
     const std::unique_ptr<OutputData<double>> domain_data(

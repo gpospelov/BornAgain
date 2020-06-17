@@ -25,7 +25,8 @@ class QItemSelectionModel;
 //! The RealDataSelectorActions class contains actions to run/remove real data.
 //! Actions are used by the toolbar and context menu of selector list.
 
-class BA_CORE_API_ RealDataSelectorActions : public QObject {
+class BA_CORE_API_ RealDataSelectorActions : public QObject
+{
     Q_OBJECT
 public:
     RealDataSelectorActions(QObject* parent = nullptr);
@@ -38,11 +39,12 @@ public slots:
     void onImport2dDataAction();
     void onRemoveDataAction();
     void onRotateDataRequest();
-    void onContextMenuRequest(const QPoint &point, const QModelIndex &indexAtPoint);
+    void onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint);
 
 private:
     void setAllActionsEnabled(bool value);
     void updateSelection();
+    void importDataLoop(int ndim);
 
     QAction* m_import2dDataAction;
     QAction* m_import1dDataAction;
@@ -51,6 +53,5 @@ private:
     RealDataModel* m_realDataModel;
     QItemSelectionModel* m_selectionModel;
 };
-
 
 #endif

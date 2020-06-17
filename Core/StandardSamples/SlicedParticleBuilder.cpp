@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/StandardSamples/SlicedParticleBuilder.h
+//! @file      Core/StandardSamples/SlicedParticleBuilder.cpp
 //! @brief     Defines classes to build various particles crossing interfaces.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "SlicedParticleBuilder.h"
-#include "MaterialFactoryFuncs.h"
-#include "MultiLayer.h"
-#include "Layer.h"
 #include "FormFactorFullSphere.h"
 #include "FormFactorTruncatedSphere.h"
-#include "ParticleComposition.h"
+#include "Layer.h"
+#include "MaterialFactoryFuncs.h"
+#include "MultiLayer.h"
 #include "Particle.h"
+#include "ParticleComposition.h"
 #include "ParticleLayout.h"
 #include "Transform3D.h"
 #include "Units.h"
@@ -37,9 +37,11 @@ MultiLayer* SlicedCompositionBuilder::buildSample() const
     const double bottom_cup_height = 4.0;
     const double composition_shift = bottom_cup_height;
 
-    Particle topCup(topCupMaterial, FormFactorTruncatedSphere(sphere_radius, sphere_radius*2 - bottom_cup_height));
-    Particle bottomCup(bottomCupMaterial, FormFactorTruncatedSphere(sphere_radius, bottom_cup_height));
-    bottomCup.setRotation(RotationX(180*Units::deg));
+    Particle topCup(topCupMaterial, FormFactorTruncatedSphere(
+                                        sphere_radius, sphere_radius * 2 - bottom_cup_height));
+    Particle bottomCup(bottomCupMaterial,
+                       FormFactorTruncatedSphere(sphere_radius, bottom_cup_height));
+    bottomCup.setRotation(RotationX(180 * Units::deg));
 
     ParticleComposition composition;
     composition.addParticle(topCup, kvector_t(0.0, 0.0, bottom_cup_height));
@@ -58,5 +60,4 @@ MultiLayer* SlicedCompositionBuilder::buildSample() const
     p_multi_layer->addLayer(substrate_layer);
 
     return p_multi_layer;
-
 }

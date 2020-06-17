@@ -13,73 +13,66 @@
 // ************************************************************************** //
 
 #include "MatrixFresnelMap.h"
-#include "ILayerRTCoefficients.h"
-#include "MatrixRTCoefficients.h"
-#include "MultiLayer.h"
 #include "SimulationElement.h"
-#include "SpecularMagnetic.h"
+#include "Slice.h"
+#include "SpecularMagneticOldStrategy.h"
+#include "SpecularMagneticStrategy.h"
+#include <functional>
 
-namespace {
-std::vector<MatrixRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
-                                                        kvector_t kvec);
-
-const std::vector<MatrixRTCoefficients>&
-getCoefficientsFromCache(kvector_t kvec, const MultiLayer& multilayer,
-                         MatrixFresnelMap::CoefficientHash& hash_table);
-}
-
-MatrixFresnelMap::MatrixFresnelMap() = default;
+MatrixFresnelMap::MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)
+    : IFresnelMap(std::move(strategy)){};
 
 MatrixFresnelMap::~MatrixFresnelMap() = default;
+
+//! Returns hash value of a 3-vector, computed by exclusive-or of the component hash values.
+size_t MatrixFresnelMap::HashKVector::operator()(const kvector_t& kvec) const noexcept
+{
+    return std::hash<double>{}(kvec.x()) ^ std::hash<double>{}(kvec.y())
+           ^ std::hash<double>{}(kvec.z());
+}
 
 std::unique_ptr<const ILayerRTCoefficients>
 MatrixFresnelMap::getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const
 {
-    return getCoefficients(-sim_element.getMeanKf(), layer_index, *mP_inverted_multilayer,
+    return getCoefficients(-sim_element.getMeanKf(), layer_index, m_inverted_slices,
                            m_hash_table_out);
+}
+
+void MatrixFresnelMap::setSlices(const std::vector<Slice>& slices)
+{
+    IFresnelMap::setSlices(slices);
+    m_inverted_slices.clear();
+    for (auto slice : slices) {
+        slice.invertBField();
+        m_inverted_slices.push_back(slice);
+    }
 }
 
 std::unique_ptr<const ILayerRTCoefficients>
 MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index) const
 {
-    return getCoefficients(kvec, layer_index, *mP_multilayer, m_hash_table_in);
+    return getCoefficients(kvec, layer_index, m_slices, m_hash_table_in);
 }
 
 std::unique_ptr<const ILayerRTCoefficients>
 MatrixFresnelMap::getCoefficients(const kvector_t& kvec, size_t layer_index,
-                                  const MultiLayer& multilayer, CoefficientHash& hash_table) const
+                                  const std::vector<Slice>& slices,
+                                  CoefficientHash& hash_table) const
 {
     if (!m_use_cache) {
-        auto coeffs = calculateCoefficients(multilayer, kvec);
-        return std::make_unique<MatrixRTCoefficients>(coeffs[layer_index]);
+        auto coeffs = m_Strategy->Execute(slices, kvec);
+        return ISpecularStrategy::single_coeff_t(coeffs[layer_index]->clone());
     }
-    const auto& coef_vector = getCoefficientsFromCache(kvec, multilayer, hash_table);
-    return std::make_unique<MatrixRTCoefficients>(coef_vector[layer_index]);
+    const auto& coef_vector = getCoefficientsFromCache(kvec, slices, hash_table);
+    return ISpecularStrategy::single_coeff_t(coef_vector[layer_index]->clone());
 }
 
-void MatrixFresnelMap::setMultilayer(const MultiLayer& multilayer)
-{
-    IFresnelMap::setMultilayer(multilayer);
-    mP_inverted_multilayer.reset(multilayer.cloneInvertB());
-}
-
-namespace {
-std::vector<MatrixRTCoefficients> calculateCoefficients(const MultiLayer& multilayer,
-                                                        kvector_t kvec)
-{
-    std::vector<MatrixRTCoefficients> coeffs;
-    SpecularMagnetic::execute(multilayer, kvec, coeffs);
-    return coeffs;
-}
-
-const std::vector<MatrixRTCoefficients>&
-getCoefficientsFromCache(kvector_t kvec, const MultiLayer& multilayer,
-                         MatrixFresnelMap::CoefficientHash& hash_table)
+const ISpecularStrategy::coeffs_t&
+MatrixFresnelMap::getCoefficientsFromCache(kvector_t kvec, const std::vector<Slice>& slices,
+                                           MatrixFresnelMap::CoefficientHash& hash_table) const
 {
     auto it = hash_table.find(kvec);
     if (it == hash_table.end())
-        it = hash_table.insert({kvec, calculateCoefficients(multilayer, kvec)}).first;
+        it = hash_table.emplace(kvec, m_Strategy->Execute(slices, kvec)).first;
     return it->second;
 }
-}
-

@@ -17,27 +17,25 @@
 #include "JobListWidget.h"
 #include "JobModel.h"
 #include "JobPropertiesWidget.h"
-#include "JobSelectorToolBar.h"
 #include "JobSelectorActions.h"
+#include "JobSelectorToolBar.h"
 #include "StyledToolBar.h"
 #include "mainwindow_constants.h"
 #include "minisplitter.h"
+#include "StyleUtils.h"
 #include <QHBoxLayout>
 
 JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
-    : QWidget(parent)
-    , m_splitter(new Manhattan::MiniSplitter)
-    , m_jobSelectorActions(new JobSelectorActions(jobModel, this))
-    , m_toolBar(new JobSelectorToolBar(m_jobSelectorActions, this))
-    , m_jobListWidget(new JobListWidget)
-    , m_jobProperties(new JobPropertiesWidget)
-    , m_jobModel(nullptr)
+    : QWidget(parent), m_splitter(new Manhattan::MiniSplitter),
+      m_jobSelectorActions(new JobSelectorActions(jobModel, this)),
+      m_toolBar(new JobSelectorToolBar(m_jobSelectorActions, this)),
+      m_jobListWidget(new JobListWidget), m_jobProperties(new JobPropertiesWidget),
+      m_jobModel(nullptr)
 {
     setWindowTitle(Constants::JobSelectorWidgetName);
     setObjectName("JobSelectorWidget");
 
-    setMinimumSize(128, 600);
-    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     setModel(jobModel);
 
@@ -56,8 +54,8 @@ JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
 
     m_jobSelectorActions->setSelectionModel(m_jobListWidget->selectionModel());
 
-    connect(m_jobListWidget, &JobListWidget::contextMenuRequest,
-            m_jobSelectorActions, &JobSelectorActions::onContextMenuRequest);
+    connect(m_jobListWidget, &JobListWidget::contextMenuRequest, m_jobSelectorActions,
+            &JobSelectorActions::onContextMenuRequest);
     connect(m_jobListWidget, &JobListWidget::selectionChanged, this,
             &JobSelectorWidget::onSelectionChanged);
 }
@@ -66,6 +64,16 @@ void JobSelectorWidget::setModel(JobModel* jobModel)
 {
     m_jobModel = jobModel;
     m_jobListWidget->setModel(m_jobModel);
+}
+
+QSize JobSelectorWidget::sizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth()*2);
+}
+
+QSize JobSelectorWidget::minimumSizeHint() const
+{
+    return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth());
 }
 
 const JobItem* JobSelectorWidget::currentJobItem() const

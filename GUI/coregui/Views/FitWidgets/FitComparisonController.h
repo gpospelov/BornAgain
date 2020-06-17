@@ -51,4 +51,4 @@ private:
     PropertyRepeater* m_zAxisRepeater;
 };
 
-#endif  // FITCOMPARISONCONTROLLER_H
+#endif // FITCOMPARISONCONTROLLER_H

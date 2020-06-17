@@ -17,7 +17,7 @@
 
 bool IAxis::equals(const IAxis& other) const
 {
-    return getName()==other.getName();
+    return getName() == other.getName();
 }
 
 std::vector<double> IAxis::getBinCenters() const

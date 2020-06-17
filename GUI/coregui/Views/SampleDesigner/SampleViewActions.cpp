@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/SampleViewActions.h
+//! @file      GUI/coregui/Views/SampleDesigner/SampleViewActions.cpp
 //! @brief     Implements class SampleViewActions
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,16 +15,12 @@
 #include "SampleViewActions.h"
 #include "SampleView.h"
 #include "SampleViewDocks.h"
-#include <QDockWidget>
 #include <QAction>
+#include <QDockWidget>
 
 SampleViewActions::SampleViewActions(SampleModel* model, SampleView* parent)
-    : QObject(parent)
-    , m_model(model)
-    , m_sampleView(parent)
-    , m_selection_model(nullptr)
+    : QObject(parent), m_model(model), m_sampleView(parent), m_selection_model(nullptr)
 {
-
 }
 
 void SampleViewActions::setSelectionModel(QItemSelectionModel* selection_model)
@@ -44,5 +40,5 @@ QItemSelectionModel* SampleViewActions::selectionModel()
 
 void SampleViewActions::onToggleRealSpaceView()
 {
-    m_sampleView->docks()->togleDock(SampleViewDocks::REALSPACEPANEL);
+    m_sampleView->docks()->toggleDock(SampleViewDocks::REALSPACEPANEL);
 }

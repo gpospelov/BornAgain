@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/IntensityDataItem.cpp
+//! @file      GUI/coregui/Models/DataItem.cpp
 //! @brief     Implements class IntensityDataItem
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -53,7 +53,7 @@ bool DataItem::containsNonXMLData() const
     return static_cast<bool>(m_data);
 }
 
-bool DataItem::load(const QString &projectDir)
+bool DataItem::load(const QString& projectDir)
 {
     QString filename = fileName(projectDir);
     auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());

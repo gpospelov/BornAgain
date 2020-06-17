@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      unused/MPISimulation.h
+//! @file      Core/Simulation/MPISimulation.h
 //! @brief     Defines class MPISimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,7 +21,7 @@ class Simulation;
 class MPISimulation
 {
 public:
-    void runSimulation(Simulation *simulation);
+    void runSimulation(Simulation* simulation);
 };
 
 #endif // MPISIMULATION_H

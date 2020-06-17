@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/mainwindow/SaveThread.h
+//! @file      GUI/coregui/mainwindow/SaveThread.cpp
 //! @brief     Defines SaveThread classes
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,12 +15,7 @@
 #include "SaveThread.h"
 #include "projectdocument.h"
 
-SaveThread::SaveThread(QObject* parent)
-    : QThread(parent)
-    , m_document(nullptr)
-{
-
-}
+SaveThread::SaveThread(QObject* parent) : QThread(parent), m_document(nullptr) {}
 
 SaveThread::~SaveThread()
 {

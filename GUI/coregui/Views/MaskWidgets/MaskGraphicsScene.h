@@ -42,83 +42,83 @@ class BA_CORE_API_ MaskGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    MaskGraphicsScene(QObject *parent = 0);
+    MaskGraphicsScene(QObject* parent = 0);
     ~MaskGraphicsScene();
 
-    void setMaskContext(SessionModel *model, const QModelIndex &maskContainerIndex,
-                        IntensityDataItem *intensityItem);
+    void setMaskContext(SessionModel* model, const QModelIndex& maskContainerIndex,
+                        IntensityDataItem* intensityItem);
 
     void resetContext();
 
-    void setSelectionModel(QItemSelectionModel *model);
+    void setSelectionModel(QItemSelectionModel* model);
 
-    ColorMap *colorMap();
+    ColorMap* colorMap();
 signals:
-    void itemContextMenuRequest(const QPoint &point);
+    void itemContextMenuRequest(const QPoint& point);
 
 public slots:
     void onActivityModeChanged(MaskEditorFlags::Activity value);
     void onMaskValueChanged(MaskEditorFlags::MaskValue value);
-    void onRowsInserted(const QModelIndex &, int, int);
-    void onRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
-    void onRowsRemoved(const QModelIndex &, int, int);
+    void onRowsInserted(const QModelIndex&, int, int);
+    void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int last);
+    void onRowsRemoved(const QModelIndex&, int, int);
     void cancelCurrentDrawing();
     void resetScene();
     void updateScene();
 
 private slots:
-    void onSessionSelectionChanged(const QItemSelection & /* selected */,
-                                   const QItemSelection & /* deselected */);
+    void onSessionSelectionChanged(const QItemSelection& /* selected */,
+                                   const QItemSelection& /* deselected */);
     void onSceneSelectionChanged();
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void drawForeground(QPainter *painter, const QRectF &rect);
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+    void drawForeground(QPainter* painter, const QRectF& rect);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 private:
     void updateProxyWidget();
-    void updateViews(const QModelIndex &parentIndex = QModelIndex(), IShape2DView *parentView = 0);
-    IShape2DView* addViewForItem(SessionItem *item);
-    void deleteViews(const QModelIndex & itemIndex);
-    void removeItemViewFromScene(SessionItem *item);
+    void updateViews(const QModelIndex& parentIndex = QModelIndex(), IShape2DView* parentView = 0);
+    IShape2DView* addViewForItem(SessionItem* item);
+    void deleteViews(const QModelIndex& itemIndex);
+    void removeItemViewFromScene(SessionItem* item);
 
-    bool isValidMouseClick(QGraphicsSceneMouseEvent *event);
-    bool isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent *event);
-    bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent *event);
-    bool isValidForLineDrawing(QGraphicsSceneMouseEvent *event);
-    bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent *event);
+    bool isValidMouseClick(QGraphicsSceneMouseEvent* event);
+    bool isValidForRectangleShapeDrawing(QGraphicsSceneMouseEvent* event);
+    bool isValidForPolygonDrawing(QGraphicsSceneMouseEvent* event);
+    bool isValidForLineDrawing(QGraphicsSceneMouseEvent* event);
+    bool isValidForMaskAllDrawing(QGraphicsSceneMouseEvent* event);
 
-    bool isAreaContains(QGraphicsSceneMouseEvent *event, MaskEditorHelper::EViewTypes viewType);
+    bool isAreaContains(QGraphicsSceneMouseEvent* event, MaskEditorHelper::EViewTypes viewType);
     bool isDrawingInProgress() const;
     void setDrawingInProgress(bool value);
     void setInPanAndZoomMode(bool value);
     void updateCursors();
 
-    void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent *event);
+    void makeViewAtMousePosSelected(QGraphicsSceneMouseEvent* event);
 
-    void processRectangleShapeItem(QGraphicsSceneMouseEvent *event);
-    void processPolygonItem(QGraphicsSceneMouseEvent *event);
-    void processLineItem(QGraphicsSceneMouseEvent *event);
-    void processVerticalLineItem(const QPointF &pos);
-    void processHorizontalLineItem(const QPointF &pos);
-    void processMaskAllItem(QGraphicsSceneMouseEvent *event);
+    void processRectangleShapeItem(QGraphicsSceneMouseEvent* event);
+    void processPolygonItem(QGraphicsSceneMouseEvent* event);
+    void processLineItem(QGraphicsSceneMouseEvent* event);
+    void processVerticalLineItem(const QPointF& pos);
+    void processHorizontalLineItem(const QPointF& pos);
+    void processMaskAllItem(QGraphicsSceneMouseEvent* event);
 
     void setZValues();
-    PolygonView *currentPolygon() const;
-    void setItemName(SessionItem *itemToChange);
+    PolygonView* currentPolygon() const;
+    void setItemName(SessionItem* itemToChange);
 
-    SessionModel *m_maskModel;
-    QItemSelectionModel *m_selectionModel;
-    QMap<SessionItem *, IShape2DView *> m_ItemToView;
-    MaskGraphicsProxy *m_proxy;
+    SessionModel* m_maskModel;
+    QItemSelectionModel* m_selectionModel;
+    QMap<SessionItem*, IShape2DView*> m_ItemToView;
+    MaskGraphicsProxy* m_proxy;
     QSharedPointer<ISceneAdaptor> m_adaptor;
     bool m_block_selection;
     QModelIndex m_maskContainerIndex;
-    IntensityDataItem *m_intensityItem;
-    SessionItem *m_currentItem;
+    IntensityDataItem* m_intensityItem;
+    SessionItem* m_currentItem;
     QPointF m_currentMousePosition;
     MaskDrawingContext m_context;
 };

@@ -1,5 +1,5 @@
 """
-Cylinder formfactor in Born approximation
+Cylinder form factor in Born approximation
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm
@@ -51,4 +51,4 @@ def run_simulation():
 
 if __name__ == '__main__':
     result = run_simulation()
-    ba.plot_simulation_result(result)
+    ba.plot_simulation_result(result, cmap='jet', aspect='auto')

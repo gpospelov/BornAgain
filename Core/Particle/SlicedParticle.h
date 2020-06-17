@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Shapes/SlicedParticle.h
+//! @file      Core/Particle/SlicedParticle.h
 //! @brief     Defines class SlicedParticle.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,8 +15,8 @@
 #ifndef SLICEDPARTICLE_H
 #define SLICEDPARTICLE_H
 
-#include "IFormFactor.h"
 #include "HomogeneousRegion.h"
+#include "IFormFactor.h"
 #include <memory>
 
 //! Struct that contains information on a sliced particle.
@@ -25,8 +25,7 @@
 //!
 //! @ingroup intern
 
-struct SlicedParticle
-{
+struct SlicedParticle {
     std::unique_ptr<IFormFactor> mP_slicedff;
     std::vector<HomogeneousRegion> m_regions;
 };

@@ -42,5 +42,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-
 #endif

@@ -14,13 +14,7 @@
 
 #include "IterationInfo.h"
 
-
-IterationInfo::IterationInfo()
-    : m_chi2(0.0)
-    , m_iteration_count(0)
-{
-
-}
+IterationInfo::IterationInfo() : m_chi2(0.0), m_iteration_count(0) {}
 
 void IterationInfo::update(const Fit::Parameters& params, double chi2)
 {
@@ -33,7 +27,6 @@ unsigned IterationInfo::iterationCount() const
 {
     return m_iteration_count;
 }
-
 
 double IterationInfo::chi2() const
 {
@@ -49,7 +42,7 @@ std::map<std::string, double> IterationInfo::parameterMap() const
 {
     std::map<std::string, double> result;
 
-    for(const auto& par : m_current_parameters)
+    for (const auto& par : m_current_parameters)
         result.insert(std::make_pair(par.name(), par.value()));
 
     return result;

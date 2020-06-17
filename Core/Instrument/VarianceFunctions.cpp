@@ -28,9 +28,7 @@ double VarianceConstantFunction::variance(double, double) const
     return 1.0;
 }
 
-VarianceSimFunction::VarianceSimFunction(double epsilon) : m_epsilon(epsilon)
-{
-}
+VarianceSimFunction::VarianceSimFunction(double epsilon) : m_epsilon(epsilon) {}
 
 VarianceSimFunction* VarianceSimFunction::clone() const
 {

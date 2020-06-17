@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Shapes/ZLimits.h
+//! @file      Core/Particle/ZLimits.h
 //! @brief     Defines class ZLimits.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -22,8 +22,7 @@
 //!
 //! @ingroup intern
 
-struct BA_CORE_API_ OneSidedLimit
-{
+struct BA_CORE_API_ OneSidedLimit {
     bool m_limitless;
     double m_value;
 };
@@ -44,6 +43,7 @@ public:
 
     OneSidedLimit lowerLimit() const;
     OneSidedLimit upperLimit() const;
+
 private:
     OneSidedLimit m_lower;
     OneSidedLimit m_upper;
@@ -61,6 +61,5 @@ BA_CORE_API_ bool operator==(const ZLimits& left, const ZLimits& right);
 BA_CORE_API_ bool operator!=(const ZLimits& left, const ZLimits& right);
 
 BA_CORE_API_ std::ostream& operator<<(std::ostream& ostr, const ZLimits& limits);
-
 
 #endif // ZLIMITS_H

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/SelfConsistenceTest/SelfConsistenceTest.cpp
+//! @file      Tests/Functional/Core/SelfConsistenceTest/SelfConsistenceTest.cpp
 //! @brief     Implements class SelfConsistenceTest.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -19,16 +19,16 @@
 #include "Simulation.h"
 #include "TestUtils.h"
 
-namespace {
+namespace
+{
 std::string composeName(std::string d_name, std::string test_name, size_t index);
 }
 
 SelfConsistenceTest::SelfConsistenceTest(const std::string& name, const std::string& description,
                                          std::vector<std::unique_ptr<Simulation>> simulations,
                                          double threshold)
-    : IFunctionalTest(name, description)
-    , m_simulations(std::move(simulations))
-    , m_threshold(threshold)
+    : IFunctionalTest(name, description), m_simulations(std::move(simulations)),
+      m_threshold(threshold)
 {
     if (m_simulations.size() < 2)
         throw std::runtime_error("Error in SelfConsistenceTest::SelfConsistenceTest: not enough "
@@ -41,11 +41,10 @@ bool SelfConsistenceTest::runTest()
 {
     // Run simulation.
     std::vector<std::unique_ptr<OutputData<double>>> results;
-    for (auto& simulation: m_simulations)
-    {
+    for (auto& simulation : m_simulations) {
         simulation->runSimulation();
         auto sim_result = simulation->result();
-        results.push_back(std::unique_ptr<OutputData<double>>(sim_result.data()));
+        results.push_back(sim_result.data());
     }
 
     // Compare with reference if available.
@@ -55,12 +54,13 @@ bool SelfConsistenceTest::runTest()
         if (!outcome) { // compose message and save results
             std::stringstream ss;
             ss << "Comparison between the following simulations failed:\n";
-            ss << "\t1st simulation index: " << "0\n";
+            ss << "\t1st simulation index: "
+               << "0\n";
             ss << "\t2nd simulation index: " << i << "\n";
             ss << "Results are stored in\n";
             const std::string output_dname = BATesting::SelfConsistenceOutputDir();
             FileSystemUtils::createDirectories(output_dname);
-            for (size_t index: {size_t(0), i}) {
+            for (size_t index : {size_t(0), i}) {
                 const std::string fname = composeName(output_dname, getName(), index);
                 IntensityDataIOFactory::writeOutputData(*results[index], fname);
                 ss << fname << "\n";
@@ -71,15 +71,16 @@ bool SelfConsistenceTest::runTest()
     }
 
     if (!success)
-        std::cout << "Test " << getName() <<" failed." << std::endl;
+        std::cout << "Test " << getName() << " failed." << std::endl;
     return success;
 }
 
-namespace {
+namespace
+{
 std::string composeName(std::string d_name, std::string test_name, size_t index)
 {
     std::stringstream ss;
     ss << index;
     return FileSystemUtils::jointPath(d_name, test_name + ss.str() + ".int.gz");
 }
-}
+} // namespace

@@ -18,17 +18,16 @@
 #include "SessionModel.h"
 #include <QMimeData>
 
-ParameterTuningModel::ParameterTuningModel(QObject *parent)
-    : FilterPropertyProxy(2, parent)
-{}
+ParameterTuningModel::ParameterTuningModel(QObject* parent) : FilterPropertyProxy(2, parent) {}
 
-Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
+Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex& proxyIndex) const
 {
     Qt::ItemFlags result = Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 
     QModelIndex sourceIndex = toSourceIndex(proxyIndex);
-    if(sourceIndex.isValid()) {
-        if (sourceIndex.column() == SessionFlags::ITEM_VALUE) result |= Qt::ItemIsEditable;
+    if (sourceIndex.isValid()) {
+        if (sourceIndex.column() == SessionFlags::ITEM_VALUE)
+            result |= Qt::ItemIsEditable;
 
         const QString modelType = sourceIndex.data(SessionFlags::ModelTypeRole).toString();
         if (modelType == Constants::ParameterType && getParameterItem(proxyIndex))
@@ -37,12 +36,12 @@ Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex &proxyIndex) const
     return result;
 }
 
-QMimeData *ParameterTuningModel::mimeData(const QModelIndexList &proxyIndexes) const
+QMimeData* ParameterTuningModel::mimeData(const QModelIndexList& proxyIndexes) const
 {
-    QMimeData *mimeData = new QMimeData();
+    QMimeData* mimeData = new QMimeData();
 
-    for(auto proxyIndex : proxyIndexes) {
-        if(ParameterItem *parameterItem = getParameterItem(proxyIndex)) {
+    for (auto proxyIndex : proxyIndexes) {
+        if (ParameterItem* parameterItem = getParameterItem(proxyIndex)) {
             QString path = FitParameterHelper::getParameterItemPath(parameterItem);
             mimeData->setData(SessionXML::LinkMimeType, path.toLatin1());
             break;
@@ -53,14 +52,14 @@ QMimeData *ParameterTuningModel::mimeData(const QModelIndexList &proxyIndexes) c
 
 //! Returns ParameterItem from given proxy index
 
-ParameterItem *ParameterTuningModel::getParameterItem(const QModelIndex &proxyIndex) const
+ParameterItem* ParameterTuningModel::getParameterItem(const QModelIndex& proxyIndex) const
 {
-    SessionModel *sessionModel = dynamic_cast<SessionModel *>(sourceModel());
+    SessionModel* sessionModel = dynamic_cast<SessionModel*>(sourceModel());
     Q_ASSERT(sessionModel);
 
     QModelIndex sourceIndex = toSourceIndex(proxyIndex);
-    if(sourceIndex.column() == 0) {
-        return dynamic_cast<ParameterItem *>(sessionModel->itemForIndex(sourceIndex));
+    if (sourceIndex.column() == 0) {
+        return dynamic_cast<ParameterItem*>(sessionModel->itemForIndex(sourceIndex));
     }
     return nullptr;
 }

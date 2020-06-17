@@ -1,20 +1,20 @@
-#include "google_test.h"
-#include "ModelUtils.h"
-#include "SessionModel.h"
-#include "item_constants.h"
+#include "ComboProperty.h"
 #include "ComponentProxyModel.h"
-#include "VectorItem.h"
-#include "ProxyModelStrategy.h"
 #include "ComponentProxyStrategy.h"
-#include "ParticleItem.h"
 #include "FormFactorItems.h"
 #include "GroupItem.h"
-#include <QSignalSpy>
-#include <QDebug>
-#include "ComboProperty.h"
+#include "ModelUtils.h"
+#include "ParticleItem.h"
+#include "ProxyModelStrategy.h"
+#include "SessionModel.h"
+#include "VectorItem.h"
+#include "google_test.h"
+#include "item_constants.h"
 #include "test_utils.h"
+#include <QDebug>
+#include <QSignalSpy>
 
-class TestComponentProxyModel :  public ::testing::Test
+class TestComponentProxyModel : public ::testing::Test
 {
 public:
     ~TestComponentProxyModel();
@@ -274,7 +274,7 @@ TEST_F(TestComponentProxyModel, test_componentStrategy)
     EXPECT_EQ(proxy.columnCount(groupProxyIndex), 2);
 
     // CylinderItem shouldn't exist anymore in proxy
-    QModelIndex ffProxyIndex =  proxy.mapFromSource(ffIndex);
+    QModelIndex ffProxyIndex = proxy.mapFromSource(ffIndex);
     EXPECT_TRUE(ffProxyIndex.isValid() == false);
 
     QModelIndex radiusProxyIndex = proxy.mapFromSource(radiusIndex);
@@ -283,7 +283,7 @@ TEST_F(TestComponentProxyModel, test_componentStrategy)
 }
 
 //! Checking the mapping of ComponentProxyStrategy in the case of ParticleItem inserted in
-//! the source. We are changing Particle's formfactor back and forth and checking for change
+//! the source. We are changing Particle's form factor back and forth and checking for change
 //! in GroupProperty.
 
 TEST_F(TestComponentProxyModel, test_componentStrategyFormFactorChanges)
@@ -337,11 +337,15 @@ TEST_F(TestComponentProxyModel, test_setRootPropertyItem)
     EXPECT_EQ(proxy.rowCount(QModelIndex()), 1);
     EXPECT_EQ(proxy.columnCount(QModelIndex()), ncols);
 
-    EXPECT_TRUE(proxy.index(0,0,QModelIndex()) == proxy.mapFromSource(model.index(0,0,QModelIndex())));
-    EXPECT_TRUE(proxy.index(0,1,QModelIndex()) == proxy.mapFromSource(model.index(0,1,QModelIndex())));
-    EXPECT_TRUE(model.index(0,0,QModelIndex()) == proxy.mapToSource(proxy.index(0,0,QModelIndex())));
-    EXPECT_TRUE(proxy.index(0,1,QModelIndex()).isValid());
-    EXPECT_TRUE(model.index(0,1,QModelIndex()) == proxy.mapToSource(proxy.index(0,1,QModelIndex())));
+    EXPECT_TRUE(proxy.index(0, 0, QModelIndex())
+                == proxy.mapFromSource(model.index(0, 0, QModelIndex())));
+    EXPECT_TRUE(proxy.index(0, 1, QModelIndex())
+                == proxy.mapFromSource(model.index(0, 1, QModelIndex())));
+    EXPECT_TRUE(model.index(0, 0, QModelIndex())
+                == proxy.mapToSource(proxy.index(0, 0, QModelIndex())));
+    EXPECT_TRUE(proxy.index(0, 1, QModelIndex()).isValid());
+    EXPECT_TRUE(model.index(0, 1, QModelIndex())
+                == proxy.mapToSource(proxy.index(0, 1, QModelIndex())));
 
     EXPECT_EQ(model.data(model.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 42.0);
     EXPECT_EQ(proxy.data(proxy.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 42.0);
@@ -382,5 +386,4 @@ TEST_F(TestComponentProxyModel, test_setRootIndexLayer)
     // ParticleLayout should be excluded from proxy tree
     QModelIndex layoutProxyIndex = proxy.mapFromSource(model.indexOfItem(layout));
     EXPECT_TRUE(layoutProxyIndex.isValid() == false);
-
 }

@@ -21,11 +21,21 @@
 #include <memory>
 #include <string>
 
-namespace Fit {
-    class Parameters; class Parameter; class ObjectiveFunctionAdapter; class MinimizerResult;
-}
+namespace Fit
+{
+class Parameters;
+class Parameter;
+class ObjectiveFunctionAdapter;
+class MinimizerResult;
+} // namespace Fit
 
-namespace ROOT { namespace Math { class Minimizer; } }
+namespace ROOT
+{
+namespace Math
+{
+class Minimizer;
+}
+} // namespace ROOT
 
 //! Pure virtual interface that adapts the CERN ROOT minimizer to our IMinimizer.
 //! @ingroup fitting_internal
@@ -72,7 +82,6 @@ protected:
 
     void propagateResults(Fit::Parameters& parameters);
 
-    virtual bool isGradientBasedAgorithm() { return false; }
     virtual void setParameter(unsigned int index, const Fit::Parameter& par);
     size_t fitDimension() const;
     std::vector<double> parValuesAtMinimum() const;

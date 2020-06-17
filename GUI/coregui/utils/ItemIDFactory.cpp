@@ -14,20 +14,20 @@
 
 #include "ItemIDFactory.h"
 
-
 ItemIDFactory& ItemIDFactory::instance()
 {
     static ItemIDFactory instance;
     return instance;
 }
 
-QString ItemIDFactory::createID(SessionItem *toBeInsertedItem){
+QString ItemIDFactory::createID(SessionItem* toBeInsertedItem)
+{
 
     QUuid id = QUuid::createUuid();
     QString id_String = id.toString();
 
     // prevent duplicates (very improbable that this ever happens though)
-    while(instance().IDtoItemMap.contains(id_String)) {
+    while (instance().IDtoItemMap.contains(id_String)) {
         id = QUuid::createUuid();
         id_String = id.toString();
     }
@@ -37,9 +37,9 @@ QString ItemIDFactory::createID(SessionItem *toBeInsertedItem){
     return id_String;
 }
 
-QString ItemIDFactory::getID(SessionItem *existingItem)
+QString ItemIDFactory::getID(SessionItem* existingItem)
 {
-    if(instance().ItemtoIDMap.contains(existingItem))
+    if (instance().ItemtoIDMap.contains(existingItem))
         return instance().ItemtoIDMap.value(existingItem);
     else
         return QString();
@@ -47,7 +47,7 @@ QString ItemIDFactory::getID(SessionItem *existingItem)
 
 SessionItem* ItemIDFactory::getItem(QString existingID)
 {
-    if(instance().IDtoItemMap.contains(existingID))
+    if (instance().IDtoItemMap.contains(existingID))
         return instance().IDtoItemMap.value(existingID);
     else
         return nullptr;

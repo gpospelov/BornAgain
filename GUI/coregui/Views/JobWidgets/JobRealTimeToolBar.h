@@ -26,7 +26,7 @@ class BA_CORE_API_ JobRealTimeToolBar : public StyledToolBar
     Q_OBJECT
 
 public:
-    explicit JobRealTimeToolBar(QWidget *parent = nullptr);
+    explicit JobRealTimeToolBar(QWidget* parent = nullptr);
 
 signals:
     void resetParameters();
@@ -36,4 +36,3 @@ private:
 };
 
 #endif // JOBREALTIMETOOLBAR_H
-

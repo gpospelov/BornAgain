@@ -23,9 +23,9 @@ bool IFunctionalTest::execute()
 
     try {
         success = runTest();
-    } catch (std::exception &ex) {
-        std::cout << "IFunctionalTest::execute() -> Error. Exception was caught '"
-                  << ex.what() << "'" << std::endl;
+    } catch (std::exception& ex) {
+        std::cout << "IFunctionalTest::execute() -> Error. Exception was caught '" << ex.what()
+                  << "'" << std::endl;
     }
     return success;
 }

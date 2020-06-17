@@ -15,32 +15,27 @@
 #include "ILatticeOrientation.h"
 #include "EigenCore.h"
 
-namespace {
+namespace
+{
 bool ValidMillerIndex(MillerIndex index);
-bool ParallelMillerIndices(MillerIndex index1,
-                           MillerIndex index2);
+bool ParallelMillerIndices(MillerIndex index1, MillerIndex index2);
 double SignForCrossProduct(MillerIndexOrientation::QComponent q1,
                            MillerIndexOrientation::QComponent q2);
 MillerIndexOrientation::QComponent ThirdQComponent(MillerIndexOrientation::QComponent q1,
                                                    MillerIndexOrientation::QComponent q2);
 void FillVectorInRow(Eigen::Matrix3d& matrix, kvector_t vec,
                      MillerIndexOrientation::QComponent row);
-}  // unnamed namespace
+} // unnamed namespace
 
+ILatticeOrientation::~ILatticeOrientation() = default;
 
-ILatticeOrientation::~ILatticeOrientation() =default;
+MillerIndex::MillerIndex(double h_, double k_, double l_) : h(h_), k(k_), l(l_) {}
 
-MillerIndex::MillerIndex(double h_, double k_, double l_)
-    : h(h_), k(k_), l(l_)
-{}
-
-MillerIndexOrientation::MillerIndexOrientation(
-        MillerIndexOrientation::QComponent q1, MillerIndex index1,
-        MillerIndexOrientation::QComponent q2, MillerIndex index2)
-    : m_prim_lattice()
-    , m_q1(q1), m_q2(q2)
-    , m_ind1 { index1 }
-    , m_ind2 { index2 }
+MillerIndexOrientation::MillerIndexOrientation(MillerIndexOrientation::QComponent q1,
+                                               MillerIndex index1,
+                                               MillerIndexOrientation::QComponent q2,
+                                               MillerIndex index2)
+    : m_prim_lattice(), m_q1(q1), m_q2(q2), m_ind1{index1}, m_ind2{index2}
 {
     if (!checkAlignment())
         throw std::runtime_error("MillerIndexOrientation constructor: "
@@ -54,7 +49,7 @@ MillerIndexOrientation* MillerIndexOrientation::clone() const
     return P_result.release();
 }
 
-MillerIndexOrientation::~MillerIndexOrientation() =default;
+MillerIndexOrientation::~MillerIndexOrientation() = default;
 
 void MillerIndexOrientation::usePrimitiveLattice(const Lattice& lattice)
 {
@@ -88,13 +83,13 @@ bool MillerIndexOrientation::checkAlignment() const
     return true;
 }
 
-namespace {
+namespace
+{
 bool ValidMillerIndex(MillerIndex index)
 {
     return (index.h != 0.0 || index.k != 0.0 || index.l != 0.0);
 }
-bool ParallelMillerIndices(MillerIndex index1,
-                           MillerIndex index2)
+bool ParallelMillerIndices(MillerIndex index1, MillerIndex index2)
 {
     double ratio = 0.0;
     if (index2.h != 0.0) {
@@ -104,15 +99,17 @@ bool ParallelMillerIndices(MillerIndex index1,
     } else if (index2.l != 0.0) {
         ratio = index1.l / index2.l;
     }
-    if (ratio == 0.0) return false;
-    return (index1.h == ratio*index2.h && index1.k == ratio*index2.k && index1.l == ratio*index2.l);
+    if (ratio == 0.0)
+        return false;
+    return (index1.h == ratio * index2.h && index1.k == ratio * index2.k
+            && index1.l == ratio * index2.l);
 }
 double SignForCrossProduct(MillerIndexOrientation::QComponent q1,
                            MillerIndexOrientation::QComponent q2)
 {
-    if ((q1 == MillerIndexOrientation::QX && q2 == MillerIndexOrientation::QY) ||
-        (q1 == MillerIndexOrientation::QY && q2 == MillerIndexOrientation::QZ) ||
-        (q1 == MillerIndexOrientation::QZ && q2 == MillerIndexOrientation::QX) )
+    if ((q1 == MillerIndexOrientation::QX && q2 == MillerIndexOrientation::QY)
+        || (q1 == MillerIndexOrientation::QY && q2 == MillerIndexOrientation::QZ)
+        || (q1 == MillerIndexOrientation::QZ && q2 == MillerIndexOrientation::QX))
         return 1.0;
     return -1.0;
 }
@@ -125,13 +122,10 @@ MillerIndexOrientation::QComponent ThirdQComponent(MillerIndexOrientation::QComp
         return MillerIndexOrientation::QY;
     return MillerIndexOrientation::QZ;
 }
-void FillVectorInRow(Eigen::Matrix3d& mat, kvector_t vec,
-                     MillerIndexOrientation::QComponent row)
+void FillVectorInRow(Eigen::Matrix3d& mat, kvector_t vec, MillerIndexOrientation::QComponent row)
 {
-    int i = row == MillerIndexOrientation::QX ? 0
-          : row == MillerIndexOrientation::QY ? 1 : 2;
-    for (int j=0; j<3; ++j)
+    int i = row == MillerIndexOrientation::QX ? 0 : row == MillerIndexOrientation::QY ? 1 : 2;
+    for (int j = 0; j < 3; ++j)
         mat(i, j) = vec[j];
 }
-}  // unnamed namespace
-
+} // unnamed namespace

@@ -26,7 +26,8 @@ class QAction;
 //! Provides support in Fast Fourier transformation of IntensityDataItem.
 //! Contains own model to hold IntensityDataItem with fft-transformed results.
 
-class BA_CORE_API_ IntensityDataFFTPresenter : public QObject {
+class BA_CORE_API_ IntensityDataFFTPresenter : public QObject
+{
     Q_OBJECT
 public:
     IntensityDataFFTPresenter(QWidget* parent = nullptr);
@@ -47,9 +48,9 @@ private slots:
 
 private:
     QAction* m_fftAction;
-    SessionModel *m_fftModel;
+    SessionModel* m_fftModel;
     IntensityDataItem* m_fftItem;
     bool m_in_fft_mode;
 };
 
-#endif  //  INTENSITYDATAFFTPRESENTER_H
+#endif //  INTENSITYDATAFFTPRESENTER_H

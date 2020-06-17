@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/SessionDecorationModel.h
+//! @file      GUI/coregui/Models/SessionDecorationModel.cpp
 //! @brief     Defines class SessionDecorationModel
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -83,7 +83,7 @@ QVariant itemIcon(const SessionItem* item)
 
     return result;
 }
-}
+} // namespace
 
 SessionDecorationModel::SessionDecorationModel(QObject* parent, SessionModel* model)
     : QIdentityProxyModel(parent), m_model(nullptr)

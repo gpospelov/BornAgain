@@ -1,6 +1,6 @@
-#include "google_test.h"
 #include "Exceptions.h"
 #include "SoftParticles.h"
+#include "google_test.h"
 
 class FormFactorSoftParticleTest : public ::testing::Test
 {
@@ -24,7 +24,7 @@ TEST_F(FormFactorSoftParticleTest, FormFactorOrnsteinZernike)
     EXPECT_NEAR(sqrt(0.2), ff2.real(), epsilon);
     EXPECT_NEAR(0.0, ff2.imag(), epsilon);
     complex_t ff3 = ff->evaluate_for_q(cvector_t(0.1, 0.2, 0.3));
-    EXPECT_NEAR(sqrt(1.0/1.81), ff3.real(), epsilon);
+    EXPECT_NEAR(sqrt(1.0 / 1.81), ff3.real(), epsilon);
     EXPECT_NEAR(0.0, ff3.imag(), epsilon);
 }
 
@@ -42,6 +42,6 @@ TEST_F(FormFactorSoftParticleTest, FormFactorDebyeBueche)
     EXPECT_NEAR(0.2, ff2.real(), epsilon);
     EXPECT_NEAR(0.0, ff2.imag(), epsilon);
     complex_t ff3 = ff->evaluate_for_q(cvector_t(0.1, 0.2, 0.3));
-    EXPECT_NEAR(2.0/2.26, ff3.real(), epsilon);
+    EXPECT_NEAR(2.0 / 2.26, ff3.real(), epsilon);
     EXPECT_NEAR(0.0, ff3.imag(), epsilon);
 }

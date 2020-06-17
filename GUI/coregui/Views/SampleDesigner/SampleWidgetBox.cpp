@@ -21,15 +21,12 @@
 #define QStringLiteral QString
 #endif
 
-
-SampleWidgetBox::SampleWidgetBox(SampleDesignerInterface *core, QWidget *parent)
-    : QWidget(parent)
-    , m_core(core)
-    , m_widgetBox(0)
+SampleWidgetBox::SampleWidgetBox(SampleDesignerInterface* core, QWidget* parent)
+    : QWidget(parent), m_core(core), m_widgetBox(0)
 {
     setWindowTitle(QLatin1String("Widget Box"));
     setObjectName(QLatin1String("WidgetBox"));
-    //Manhattan::StyledBar *bar = new Manhattan::StyledBar(this);
+    // Manhattan::StyledBar *bar = new Manhattan::StyledBar(this);
 
     setWindowTitle("Items Toolbox");
 
@@ -37,11 +34,10 @@ SampleWidgetBox::SampleWidgetBox(SampleDesignerInterface *core, QWidget *parent)
     m_widgetBox->setFileName(QStringLiteral(":/widgetbox/widgetbox.xml"));
     m_widgetBox->load();
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
-//    layout->addWidget(bar);
+    //    layout->addWidget(bar);
     layout->addWidget(m_widgetBox);
     setLayout(layout);
-
 }

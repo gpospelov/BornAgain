@@ -16,8 +16,7 @@
 #include "MaterialItem.h"
 #include "MaterialModel.h"
 
-ExternalProperty::ExternalProperty()
-{}
+ExternalProperty::ExternalProperty() {}
 
 QString ExternalProperty::text() const
 {
@@ -29,7 +28,6 @@ void ExternalProperty::setText(const QString& name)
     m_text = name;
 }
 
-
 QColor ExternalProperty::color() const
 {
     return m_color;
@@ -40,7 +38,8 @@ void ExternalProperty::setColor(const QColor& color)
     m_color = color;
 }
 
-QString ExternalProperty::identifier() const {
+QString ExternalProperty::identifier() const
+{
     return m_identifier;
 }
 
@@ -51,7 +50,7 @@ void ExternalProperty::setIdentifier(const QString& identifier)
 
 QPixmap ExternalProperty::pixmap() const
 {
-    QPixmap pixmap(10,10);
+    QPixmap pixmap(10, 10);
     pixmap.fill(color());
     return pixmap;
 }
@@ -94,4 +93,3 @@ bool ExternalProperty::operator<(const ExternalProperty& other) const
 {
     return m_identifier < other.m_identifier && m_text < other.m_text;
 }
-

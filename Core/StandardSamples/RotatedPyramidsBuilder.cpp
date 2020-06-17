@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "RotatedPyramidsBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorPyramid.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
@@ -24,11 +24,10 @@
 #include "Units.h"
 
 RotatedPyramidsBuilder::RotatedPyramidsBuilder()
-    : m_length(10*Units::nanometer)
-    , m_height(5*Units::nanometer)
-    , m_alpha(Units::deg2rad(54.73 ))
-    , m_zangle(45.*Units::degree)
-{}
+    : m_length(10 * Units::nanometer), m_height(5 * Units::nanometer),
+      m_alpha(Units::deg2rad(54.73)), m_zangle(45. * Units::degree)
+{
+}
 
 MultiLayer* RotatedPyramidsBuilder::buildSample() const
 {
@@ -48,7 +47,7 @@ MultiLayer* RotatedPyramidsBuilder::buildSample() const
     RotationZ z_rotation(m_zangle);
 
     ParticleLayout particle_layout;
-    particle_layout.addParticle(pyramid, 1.0, kvector_t(0,0,0), z_rotation);
+    particle_layout.addParticle(pyramid, 1.0, kvector_t(0, 0, 0), z_rotation);
 
     air_layer.addLayout(particle_layout);
 

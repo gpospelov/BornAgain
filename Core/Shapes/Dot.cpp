@@ -14,11 +14,9 @@
 
 #include "Dot.h"
 
-
 Dot::Dot()
 {
     m_vertices.push_back(kvector_t(0.0, 0.0, 0.0));
 }
 
-Dot::~Dot()
-{}
+Dot::~Dot() {}

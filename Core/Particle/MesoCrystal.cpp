@@ -25,13 +25,12 @@ MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
     initialize();
 }
 
-MesoCrystal::~MesoCrystal()
-{}
+MesoCrystal::~MesoCrystal() {}
 
 MesoCrystal* MesoCrystal::clone() const
 {
-    MesoCrystal* p_result
-        = new MesoCrystal(mp_particle_structure->clone(), mp_meso_form_factor->clone());
+    MesoCrystal* p_result =
+        new MesoCrystal(mp_particle_structure->clone(), mp_meso_form_factor->clone());
     p_result->setAbundance(m_abundance);
     if (mP_rotation)
         p_result->setRotation(*mP_rotation);
@@ -52,9 +51,9 @@ SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const
     if (mP_rotation)
         P_rotation.reset(mP_rotation->clone());
     std::unique_ptr<IFormFactor> P_temp_ff(
-                mp_meso_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
-    std::unique_ptr<IFormFactor> P_total_ff( mp_particle_structure->createTotalFormFactor(
-                                                 *P_temp_ff, P_rotation.get(), m_position) );
+        mp_meso_form_factor->createSlicedFormFactor(limits, *P_rotation, m_position));
+    std::unique_ptr<IFormFactor> P_total_ff(
+        mp_particle_structure->createTotalFormFactor(*P_temp_ff, P_rotation.get(), m_position));
     double meso_volume = mp_meso_form_factor->volume();
     auto regions = mp_particle_structure->homogeneousRegions();
     for (auto& region : regions)
@@ -67,8 +66,8 @@ SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const
 
 std::vector<const INode*> MesoCrystal::getChildren() const
 {
-    return std::vector<const INode*>() <<  IParticle::getChildren()
-                                       << mp_particle_structure << mp_meso_form_factor;
+    return std::vector<const INode*>()
+           << IParticle::getChildren() << mp_particle_structure << mp_meso_form_factor;
 }
 
 MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor)

@@ -43,5 +43,4 @@ private:
     bool m_check_for_updates;
 };
 
-
 #endif

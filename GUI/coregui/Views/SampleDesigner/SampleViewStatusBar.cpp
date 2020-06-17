@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/SampleDesigner/SampleViewActivityStatusBar.cpp
+//! @file      GUI/coregui/Views/SampleDesigner/SampleViewStatusBar.cpp
 //! @brief     Implements class SampleViewActivityStatusBar
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -19,20 +19,17 @@
 #include <QToolButton>
 
 SampleViewStatusBar::SampleViewStatusBar(MainWindow* mainWindow)
-    : QWidget(mainWindow), m_dockMenuButton(nullptr)
-    , m_mainWindow(mainWindow)
+    : QWidget(mainWindow), m_dockMenuButton(nullptr), m_mainWindow(mainWindow)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto layout = new QHBoxLayout;
-    layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 1, 5, 1);
 
     m_dockMenuButton = new QToolButton;
-    m_dockMenuButton->setIcon(QIcon(":/images/statusbar_dockmenu.svg"));
+    m_dockMenuButton->setIcon(QIcon(":/images/menu-open.svg"));
     m_dockMenuButton->setToolTip("Docks layout menu");
-    connect(m_dockMenuButton, &QToolButton::clicked,
-            this, &SampleViewStatusBar::dockMenuRequest);
+    connect(m_dockMenuButton, &QToolButton::clicked, this, &SampleViewStatusBar::dockMenuRequest);
 
     layout->addStretch();
     layout->addWidget(m_dockMenuButton);

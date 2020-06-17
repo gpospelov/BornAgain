@@ -1,10 +1,10 @@
-#include "google_test.h"
+#include "MesoCrystal.h"
 #include "BornAgainNamespace.h"
 #include "Crystal.h"
 #include "FormFactorFullSphere.h"
 #include "Lattice.h"
-#include "MesoCrystal.h"
 #include "ParticleComposition.h"
+#include "google_test.h"
 
 class MesoCrystalTest : public ::testing::Test
 {

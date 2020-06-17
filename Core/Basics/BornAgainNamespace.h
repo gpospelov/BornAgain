@@ -100,7 +100,6 @@ const std::string FFFullSpheroidType = "FullSpheroid";
 const std::string FFGaussType = "FormFactorGauss";
 const std::string FFHemiEllipsoidType = "HemiEllipsoid";
 const std::string FFIcosahedronType = "Icosahedron";
-const std::string FFLongBoxType = "FormFactorLongBox";
 const std::string FFLongBoxGaussType = "FormFactorLongBoxGauss";
 const std::string FFLongBoxLorentzType = "FormFactorLongBoxLorentz";
 const std::string FFLorentzType = "FormFactorLorentz";
@@ -108,12 +107,14 @@ const std::string FFOrnsteinZernikeType = "FormFactorOrnsteinZernike";
 const std::string FFPrism3Type = "Prism3";
 const std::string FFPrism6Type = "Prism6";
 const std::string FFPyramidType = "Pyramid";
-const std::string FFRipple1Type = "Ripple1";
-const std::string FFRipple2Type = "Ripple2";
-const std::string FFLongRipple1GaussType = "LongRipple1Gauss";
-const std::string FFLongRipple1LorentzType = "LongRipple1Lorentz";
-const std::string FFLongRipple2GaussType = "LongRipple2Gauss";
-const std::string FFLongRipple2LorentzType = "LongRipple2Lorentz";
+const std::string FFBarGaussType = "BarGauss";
+const std::string FFBarLorentzType = "BarLorentz";
+const std::string FFRipple1BoxType = "Ripple1Box";
+const std::string FFRipple1GaussType = "Ripple1Gauss";
+const std::string FFRipple1LorentzType = "Ripple1Lorentz";
+const std::string FFRipple2BoxType = "Ripple2Box";
+const std::string FFRipple2GaussType = "Ripple2Gauss";
+const std::string FFRipple2LorentzType = "Ripple2Lorentz";
 const std::string FFTetrahedronType = "Tetrahedron";
 const std::string FFTruncatedCubeType = "TruncatedCube";
 const std::string FFTruncatedSphereType = "TruncatedSphere";
@@ -130,7 +131,6 @@ const std::string FormFactorPolarizedBAType = "FormFactorBAPol";
 const std::string FormFactorCoreShellType = "FormFactorCoreShell";
 const std::string FormFactorDecoratorPositionFactorType = "FormFactorDecoratorPositionFactor";
 const std::string FormFactorDecoratorRotationType = "FormFactorDecoratorRotation";
-const std::string FormFactorDecoratorDebyeWallerType = "FormFactorDecoratorDebyeWaller";
 const std::string FormFactorDecoratorMaterialType = "FormFactorDecoratorMaterial";
 const std::string FormFactorWeightedType = "FormFactorWeighted";
 
@@ -256,6 +256,6 @@ const std::string UnitsRad = "rad";
 const std::string UnitsNm = "nm";
 const std::string UnitsNm2 = "nm^2";
 const std::string UnitsNone = "";
-}
+} // namespace BornAgain
 
 #endif // BORNAGAINNAMESPACE_H

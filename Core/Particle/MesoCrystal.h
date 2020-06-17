@@ -41,7 +41,7 @@ private:
     void initialize();
 
     std::unique_ptr<IClusteredParticles> mp_particle_structure; //!< Crystal  structure
-    std::unique_ptr<IFormFactor> mp_meso_form_factor; //!< Outer shape of this mesocrystal
+    std::unique_ptr<IFormFactor> mp_meso_form_factor;           //!< Outer shape of this mesocrystal
 };
 
 #endif // MESOCRYSTAL_H

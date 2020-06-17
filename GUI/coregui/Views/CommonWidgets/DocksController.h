@@ -15,13 +15,16 @@
 #ifndef DOCKSCONTROLLER_H
 #define DOCKSCONTROLLER_H
 
-#include "WinDllMacros.h"
 #include "DockWidgetInfo.h"
+#include "WinDllMacros.h"
 #include <QObject>
 #include <QSize>
 #include <map>
 
-namespace Manhattan { class FancyMainWindow; }
+namespace Manhattan
+{
+class FancyMainWindow;
+}
 
 //! Handles appearance of docked widgets in the context of FancyMainWindow.
 

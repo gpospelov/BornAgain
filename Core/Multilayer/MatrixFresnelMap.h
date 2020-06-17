@@ -15,15 +15,18 @@
 #ifndef MATRIXFRESNELMAP_H
 #define MATRIXFRESNELMAP_H
 
-#include "HashKVector.h"
 #include "IFresnelMap.h"
+#include "MatrixRTCoefficients.h"
+#include "MatrixRTCoefficients_v2.h"
+#include "SpecularMagneticStrategy.h"
+#include <cstddef>
 #include <memory>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 class ILayerRTCoefficients;
-class MatrixRTCoefficients;
-class MultiLayer;
+class Slice;
 class SimulationElement;
 
 //! Implementation of IFresnelMap for matrix valued reflection/transmission coefficients.
@@ -32,29 +35,41 @@ class SimulationElement;
 class BA_CORE_API_ MatrixFresnelMap : public IFresnelMap
 {
 public:
-    MatrixFresnelMap();
+    MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy);
     ~MatrixFresnelMap() override;
+
+    MatrixFresnelMap(const MatrixFresnelMap& other) = delete;
+    MatrixFresnelMap& operator=(const MatrixFresnelMap& other) = delete;
 
     std::unique_ptr<const ILayerRTCoefficients>
     getOutCoefficients(const SimulationElement& sim_element,
                        size_t layer_index) const final override;
 
-    void setMultilayer(const MultiLayer& multilayer) final override;
-
-    typedef std::unordered_map<kvector_t, std::vector<MatrixRTCoefficients>, HashKVector>
-        CoefficientHash;
+    void setSlices(const std::vector<Slice>& slices) final override;
 
 private:
+    //! Provides a hash function for a 3-vector of doubles, for use in MatrixFresnelMap.
+    class HashKVector
+    {
+    public:
+        size_t operator()(const kvector_t& kvec) const noexcept;
+    };
+
+    using CoefficientHash = std::unordered_map<kvector_t, ISpecularStrategy::coeffs_t, HashKVector>;
+
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index,
-                                                                const MultiLayer& multilayer,
+                                                                const std::vector<Slice>& slices,
                                                                 CoefficientHash& hash_table) const;
-
-    std::unique_ptr<MultiLayer> mP_inverted_multilayer;
+    std::vector<Slice> m_inverted_slices;
     mutable CoefficientHash m_hash_table_out;
     mutable CoefficientHash m_hash_table_in;
+
+    const ISpecularStrategy::coeffs_t& getCoefficientsFromCache(kvector_t kvec,
+                                                                const std::vector<Slice>& slices,
+                                                                CoefficientHash& hash_table) const;
 };
 
 #endif // MATRIXFRESNELMAP_H

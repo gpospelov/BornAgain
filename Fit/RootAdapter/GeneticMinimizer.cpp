@@ -27,7 +27,7 @@ std::map<int, std::string> statusDescription()
     result[1] = std::string("Maximum number of iterations reached");
     return result;
 }
-}
+} // namespace
 
 GeneticMinimizer::GeneticMinimizer()
     : RootMinimizerAdapter(MinimizerInfo::buildGeneticInfo()),

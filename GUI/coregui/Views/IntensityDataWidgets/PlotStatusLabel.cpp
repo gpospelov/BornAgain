@@ -50,7 +50,10 @@ void PlotStatusLabel::reset()
     m_plots.clear();
 }
 
-void PlotStatusLabel::onPlotStatusString(const QString& text) { setText(text); }
+void PlotStatusLabel::onPlotStatusString(const QString& text)
+{
+    setText(text);
+}
 
 //! Enables/disables showing of label for given plot.
 
@@ -65,8 +68,8 @@ void PlotStatusLabel::setPlotLabelEnabled(ScientificPlot* plot, bool flag)
 void PlotStatusLabel::setConnected(ScientificPlot* plot, bool flag)
 {
     if (flag) {
-        connect(plot, &ScientificPlot::statusString, this,
-                &PlotStatusLabel::onPlotStatusString, Qt::UniqueConnection);
+        connect(plot, &ScientificPlot::statusString, this, &PlotStatusLabel::onPlotStatusString,
+                Qt::UniqueConnection);
         connect(plot, &ScientificPlot::destroyed, this, &PlotStatusLabel::onPlotDestroyed);
     } else {
         disconnect(plot, &ScientificPlot::statusString, this, &PlotStatusLabel::onPlotStatusString);

@@ -45,13 +45,8 @@ namespace Fit {
 
 %extend Parameter{
 %pythoncode %{
-__swig_getmethods__["value"] = value
-__swig_setmethods__["value"] = setValue
-__swig_getmethods__["error"] = error
-__swig_setmethods__["error"] = setError
-if _newclass:
-    value = property(value, setValue)
-    error = property(error, setError)
+value = property(value, setValue)
+error = property(error, setError)
 
 
 %}

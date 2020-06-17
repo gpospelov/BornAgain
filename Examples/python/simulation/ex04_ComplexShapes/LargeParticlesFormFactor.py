@@ -1,7 +1,7 @@
 """
 Large cylinders in DWBA.
 
-This example demonstrates that for large particles (~1000nm) the formfactor
+This example demonstrates that for large particles (~1000nm) the form factor
 oscillates rapidly within one detector bin and analytical calculations
 (performed for the bin center) give completely wrong intensity pattern.
 In this case Monte-Carlo integration over detector bin should be used.
@@ -94,7 +94,7 @@ def run_simulation():
 
         zmin = condition['zmin']
         zmax = condition['zmax']
-        ba.plot_colormap(result, zmin=zmin, zmax=zmax)
+        ba.plot_colormap(result, zmin=zmin, zmax=zmax, cmap='jet', aspect='auto')
 
         plt.text(0.0, 2.1, conditions[i_plot]['title'],
                  horizontalalignment='center', verticalalignment='center',

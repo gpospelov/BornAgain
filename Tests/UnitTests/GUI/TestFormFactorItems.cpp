@@ -1,10 +1,10 @@
-#include "google_test.h"
-#include "FormFactors.h"
 #include "FormFactorItems.h"
-#include "Units.h"
+#include "FormFactors.h"
 #include "Numeric.h"
+#include "Units.h"
+#include "google_test.h"
 
-class TestFormFactorItems :  public ::testing::Test
+class TestFormFactorItems : public ::testing::Test
 {
 public:
     ~TestFormFactorItems();
@@ -26,5 +26,5 @@ TEST_F(TestFormFactorItems, test_AnisoPyramidItem)
     EXPECT_EQ(p_ff->getLength(), 20.0);
     EXPECT_EQ(p_ff->getWidth(), 16.0);
     EXPECT_EQ(p_ff->getHeight(), 13.0);
-    EXPECT_TRUE(Numeric::areAlmostEqual(p_ff->getAlpha(), Units::deg2rad(60.0)));
+    EXPECT_TRUE(Numeric::AreAlmostEqual(p_ff->getAlpha(), Units::deg2rad(60.0)));
 }

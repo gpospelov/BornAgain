@@ -20,9 +20,9 @@ PoissonNoiseBackground::PoissonNoiseBackground()
     setName(BornAgain::PoissonNoiseBackgroundType);
 }
 
-PoissonNoiseBackground::~PoissonNoiseBackground() =default;
+PoissonNoiseBackground::~PoissonNoiseBackground() = default;
 
-PoissonNoiseBackground*PoissonNoiseBackground::clone() const
+PoissonNoiseBackground* PoissonNoiseBackground::clone() const
 {
     return new PoissonNoiseBackground;
 }

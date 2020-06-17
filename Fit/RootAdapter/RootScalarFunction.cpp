@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/RootScalarFunction.h
+//! @file      Fit/RootAdapter/RootScalarFunction.cpp
 //! @brief     Implements class RootScalarFunction
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,4 +15,6 @@
 #include "RootScalarFunction.h"
 
 RootScalarFunction::RootScalarFunction(root_scalar_t fcn, int ndims)
-    : ROOT::Math::Functor(fcn, static_cast<unsigned int>(ndims)) {}
+    : ROOT::Math::Functor(fcn, static_cast<unsigned int>(ndims))
+{
+}

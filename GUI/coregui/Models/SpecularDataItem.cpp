@@ -20,7 +20,6 @@
 #include "ImportDataUtils.h"
 #include "JobItemUtils.h"
 
-
 const QString SpecularDataItem::P_TITLE = "Title";
 const QString SpecularDataItem::P_XAXIS = "x-axis";
 const QString SpecularDataItem::P_YAXIS = "y-axis";

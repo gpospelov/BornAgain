@@ -31,7 +31,6 @@ private:
     double m_radius;
 };
 
-
 //! Builds mixture of cylinder particles with different size distribution (IsGISAXS example #2)
 //! @ingroup standard_samples
 
@@ -72,7 +71,7 @@ private:
 class SpheresWithLimitsDistributionBuilder : public IMultiLayerBuilder
 {
 public:
-    SpheresWithLimitsDistributionBuilder(){}
+    SpheresWithLimitsDistributionBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -82,7 +81,7 @@ public:
 class ConesWithLimitsDistributionBuilder : public IMultiLayerBuilder
 {
 public:
-    ConesWithLimitsDistributionBuilder(){}
+    ConesWithLimitsDistributionBuilder() {}
     MultiLayer* buildSample() const;
 };
 
@@ -95,6 +94,5 @@ public:
     LinkedBoxDistributionBuilder() = default;
     MultiLayer* buildSample() const;
 };
-
 
 #endif // PARTICLEDISTRIBUTIONSBUILDER_H

@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "CylindersBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "Layer.h"
 #include "LayerInterface.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
@@ -29,9 +29,9 @@
 // Cylinders in DWBA
 // -----------------------------------------------------------------------------
 CylindersInDWBABuilder::CylindersInDWBABuilder()
-    : m_height(5*Units::nanometer)
-    , m_radius(5*Units::nanometer)
-{}
+    : m_height(5 * Units::nanometer), m_radius(5 * Units::nanometer)
+{
+}
 
 MultiLayer* CylindersInDWBABuilder::buildSample() const
 {
@@ -61,8 +61,7 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
 // Cylinders in BA
 // -----------------------------------------------------------------------------
 CylindersInBABuilder::CylindersInBABuilder()
-    : m_height(5*Units::nanometer)
-    , m_radius(5*Units::nanometer)
+    : m_height(5 * Units::nanometer), m_radius(5 * Units::nanometer)
 {
     registerParameter("height", &m_height);
     registerParameter("radius", &m_radius);
@@ -78,7 +77,7 @@ MultiLayer* CylindersInBABuilder::buildSample() const
     Layer air_layer(air_material);
 
     FormFactorCylinder ff_cylinder(m_radius, m_height);
-    Particle cylinder(particle_material,ff_cylinder);
+    Particle cylinder(particle_material, ff_cylinder);
 
     ParticleLayout particle_layout(cylinder);
 
@@ -92,9 +91,9 @@ MultiLayer* CylindersInBABuilder::buildSample() const
 // Large cylinders in DWBA
 // -----------------------------------------------------------------------------
 LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
-    : m_height(1000*Units::nanometer)
-    , m_radius(500*Units::nanometer)
-{}
+    : m_height(1000 * Units::nanometer), m_radius(500 * Units::nanometer)
+{
+}
 
 MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 {
@@ -124,9 +123,9 @@ MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 // Rotated cylinders in DWBA
 // -----------------------------------------------------------------------------
 RotatedCylindersBuilder::RotatedCylindersBuilder()
-    : m_height(5*Units::nanometer)
-    , m_radius(5*Units::nanometer)
-{}
+    : m_height(5 * Units::nanometer), m_radius(5 * Units::nanometer)
+{
+}
 
 MultiLayer* RotatedCylindersBuilder::buildSample() const
 {

@@ -13,13 +13,13 @@
 // ************************************************************************** //
 
 #include "MagneticParticlesBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorFullSphere.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
@@ -30,9 +30,9 @@
 // Magnetic cylinders and zero magnetic field
 // ----------------------------------------------------------------------------
 MagneticParticleZeroFieldBuilder::MagneticParticleZeroFieldBuilder()
-    :  m_cylinder_radius(5*Units::nanometer)
-    ,  m_cylinder_height(5*Units::nanometer)
-{}
+    : m_cylinder_radius(5 * Units::nanometer), m_cylinder_height(5 * Units::nanometer)
+{
+}
 
 MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 {
@@ -62,9 +62,9 @@ MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 // Magnetic cylinders and non-zero magnetization
 // ----------------------------------------------------------------------------
 MagneticCylindersBuilder::MagneticCylindersBuilder()
-    :  m_cylinder_radius(5*Units::nanometer)
-    ,  m_cylinder_height(5*Units::nanometer)
-{}
+    : m_cylinder_radius(5 * Units::nanometer), m_cylinder_height(5 * Units::nanometer)
+{
+}
 
 MultiLayer* MagneticCylindersBuilder::buildSample() const
 {
@@ -93,9 +93,7 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
 // ----------------------------------------------------------------------------
 // Magnetic spheres inside substrate
 // ----------------------------------------------------------------------------
-MagneticSpheresBuilder::MagneticSpheresBuilder()
-    : m_sphere_radius(5*Units::nanometer)
-{}
+MagneticSpheresBuilder::MagneticSpheresBuilder() : m_sphere_radius(5 * Units::nanometer) {}
 
 MultiLayer* MagneticSpheresBuilder::buildSample() const
 {
@@ -107,7 +105,7 @@ MultiLayer* MagneticSpheresBuilder::buildSample() const
 
     FormFactorFullSphere ff_sphere(m_sphere_radius);
     Particle particle(particle_material, ff_sphere);
-    kvector_t position(0.0, 0.0, -2.0*m_sphere_radius);
+    kvector_t position(0.0, 0.0, -2.0 * m_sphere_radius);
 
     ParticleLayout particle_layout;
     particle_layout.addParticle(particle, 1.0, position);

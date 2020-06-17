@@ -20,7 +20,7 @@
 class DataItem;
 class DataProperties;
 class Data1DProperties;
-template<class T> class OutputData;
+template <class T> class OutputData;
 
 class BA_CORE_API_ DataPropertyContainer : public SessionItem
 {

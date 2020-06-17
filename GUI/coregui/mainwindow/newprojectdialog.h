@@ -26,20 +26,20 @@ class BA_CORE_API_ NewProjectDialog : public QDialog
 {
     Q_OBJECT
 public:
-    NewProjectDialog(QWidget *parent = 0, const QString &workingDirectory = QString(),
-                     const QString &projectName = QString());
+    NewProjectDialog(QWidget* parent = 0, const QString& workingDirectory = QString(),
+                     const QString& projectName = QString());
 
     QString getWorkingDirectory() const;
-    void setWorkingDirectory(const QString &text);
+    void setWorkingDirectory(const QString& text);
 
-    void setProjectName(const QString &text);
+    void setProjectName(const QString& text);
 
     QString getProjectFileName() const;
 
 private slots:
     void onBrowseDirectory();
-    void checkIfProjectPathIsValid(const QString &dirname);
-    void checkIfProjectNameIsValid(const QString &projectName);
+    void checkIfProjectPathIsValid(const QString& dirname);
+    void checkIfProjectNameIsValid(const QString& projectName);
     void createProjectDir();
 
 private:
@@ -49,12 +49,12 @@ private:
     void setValidProjectPath(bool status);
     void updateWarningStatus();
 
-    QLineEdit *m_projectNameEdit;
-    QLineEdit *m_workDirEdit;
-    QPushButton *m_browseButton;
-    QLabel *m_warningLabel;
-    QPushButton *m_cancelButton;
-    QPushButton *m_createButton;
+    QLineEdit* m_projectNameEdit;
+    QLineEdit* m_workDirEdit;
+    QPushButton* m_browseButton;
+    QLabel* m_warningLabel;
+    QPushButton* m_cancelButton;
+    QPushButton* m_createButton;
 
     bool m_valid_projectName;
     bool m_valid_projectPath;

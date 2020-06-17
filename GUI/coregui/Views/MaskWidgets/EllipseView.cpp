@@ -18,9 +18,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 
-EllipseView::EllipseView()
-{
-}
+EllipseView::EllipseView() {}
 
 void EllipseView::onChangedX()
 {

@@ -1,7 +1,7 @@
-#include "google_test.h"
-#include "BornAgainNamespace.h"
 #include "LayerRoughness.h"
+#include "BornAgainNamespace.h"
 #include "ParameterPattern.h"
+#include "google_test.h"
 
 class LayerRoughnessTest : public ::testing::Test
 {

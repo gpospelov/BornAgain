@@ -1,7 +1,7 @@
-#include "google_test.h"
 #include "SimulationResult.h"
 #include "GISASSimulation.h"
 #include "OutputData.h"
+#include "google_test.h"
 
 class SimulationResultTest : public ::testing::Test
 {
@@ -32,11 +32,11 @@ TEST_F(SimulationResultTest, accessToEmptySimulation)
 
     // With detector set the data has correct size.
     auto result = simulation.result();
-    EXPECT_EQ(result.size(), size_t(nx*ny));
+    EXPECT_EQ(result.size(), size_t(nx * ny));
 
     // OutputData has correct size and amplitudes
-    std::unique_ptr<OutputData<double>> data(result.data());
-    EXPECT_EQ(data->getAllocatedSize(), size_t(nx*ny));
+    auto data = result.data();
+    EXPECT_EQ(data->getAllocatedSize(), size_t(nx * ny));
     EXPECT_EQ(data->totalSum(), 0.0);
 }
 
@@ -53,7 +53,7 @@ TEST_F(SimulationResultTest, accessToEmptyRoiSimulation)
     EXPECT_EQ(result.size(), 9u);
 
     // OutputData has correct size and amplitudes
-    std::unique_ptr<OutputData<double>> data(result.data());
+    auto data = result.data();
     EXPECT_EQ(data->getAllocatedSize(), 9u);
     EXPECT_EQ(data->totalSum(), 0.0);
 }

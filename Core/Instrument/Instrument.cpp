@@ -14,15 +14,14 @@
 
 #include "Instrument.h"
 #include "Beam.h"
-#include "IResolutionFunction2D.h"
-#include "SimulationElement.h"
-#include "SphericalDetector.h"
 #include "BornAgainNamespace.h"
 #include "DetectorFunctions.h"
 #include "Histogram2D.h"
+#include "IResolutionFunction2D.h"
+#include "SimulationElement.h"
+#include "SphericalDetector.h"
 
-Instrument::Instrument()
-    : mP_detector(new SphericalDetector)
+Instrument::Instrument() : mP_detector(new SphericalDetector)
 {
     setName(BornAgain::InstrumentType);
     registerChild(mP_detector.get());
@@ -32,7 +31,7 @@ Instrument::Instrument()
 
 Instrument::Instrument(const Instrument& other) : m_beam(other.m_beam)
 {
-    if(other.mP_detector)
+    if (other.mP_detector)
         setDetector(*other.mP_detector);
     registerChild(&m_beam);
     setName(other.getName());
@@ -46,7 +45,7 @@ Instrument& Instrument::operator=(const Instrument& other)
     if (this != &other) {
         m_beam = other.m_beam;
         registerChild(&m_beam);
-        if(other.mP_detector)
+        if (other.mP_detector)
             setDetector(*other.mP_detector);
         init_parameters();
     }
@@ -62,7 +61,7 @@ void Instrument::setDetector(const IDetector& detector)
 
 void Instrument::initDetector()
 {
-    if(!mP_detector)
+    if (!mP_detector)
         throw Exceptions::RuntimeErrorException(
             "Instrument::initDetector() -> Error. Detector is not initialized.");
     getDetector()->init(getBeam());
@@ -72,11 +71,10 @@ std::vector<const INode*> Instrument::getChildren() const
 {
     std::vector<const INode*> result;
     result.push_back(&m_beam);
-    if(mP_detector)
+    if (mP_detector)
         result.push_back(mP_detector.get());
     return result;
 }
-
 
 void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function)
 {
@@ -102,7 +100,8 @@ Instrument::createDetectorIntensity(const std::vector<SimulationElement>& elemen
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
 {
     m_beam.setCentralK(wavelength, alpha_i, phi_i);
-    if(mP_detector) initDetector();
+    if (mP_detector)
+        initDetector();
 }
 
 const DetectorMask* Instrument::getDetectorMask() const
@@ -113,7 +112,8 @@ const DetectorMask* Instrument::getDetectorMask() const
 void Instrument::setBeam(const Beam& beam)
 {
     m_beam = beam;
-    if(mP_detector) initDetector();
+    if (mP_detector)
+        initDetector();
 }
 
 void Instrument::setBeamIntensity(double intensity)

@@ -15,10 +15,7 @@
 #include "SessionModel.h"
 
 ModelMapper::ModelMapper(QObject* parent)
-    : QObject(parent)
-    , m_active(true)
-    , m_model(nullptr)
-    , m_item(nullptr)
+    : QObject(parent), m_active(true), m_model(nullptr), m_item(nullptr)
 {
 }
 
@@ -44,7 +41,7 @@ void ModelMapper::setOnPropertyChange(std::function<void(QString)> f, const void
     m_onPropertyChange.push_back(call_item_str_t(ff, caller));
 }
 
-void ModelMapper::setOnPropertyChange(std::function<void (SessionItem*, QString)> f,
+void ModelMapper::setOnPropertyChange(std::function<void(SessionItem*, QString)> f,
                                       const void* caller)
 {
     m_onPropertyChange.push_back(call_item_str_t(f, caller));
@@ -119,16 +116,16 @@ void ModelMapper::setModel(SessionModel* model)
     if (m_model) {
         disconnect(m_model, &SessionModel::dataChanged, this, &ModelMapper::onDataChanged);
         disconnect(m_model, &SessionModel::rowsInserted, this, &ModelMapper::onRowsInserted);
-        disconnect(m_model, &SessionModel::rowsAboutToBeRemoved,
-                   this, &ModelMapper::onBeginRemoveRows);
+        disconnect(m_model, &SessionModel::rowsAboutToBeRemoved, this,
+                   &ModelMapper::onBeginRemoveRows);
         disconnect(m_model, &SessionModel::rowsRemoved, this, &ModelMapper::onRowRemoved);
     }
     m_model = model;
     if (m_model) {
         connect(m_model, &SessionModel::dataChanged, this, &ModelMapper::onDataChanged);
         connect(m_model, &SessionModel::rowsInserted, this, &ModelMapper::onRowsInserted);
-        connect(m_model, &SessionModel::rowsAboutToBeRemoved,
-                   this, &ModelMapper::onBeginRemoveRows);
+        connect(m_model, &SessionModel::rowsAboutToBeRemoved, this,
+                &ModelMapper::onBeginRemoveRows);
         connect(m_model, &SessionModel::rowsRemoved, this, &ModelMapper::onRowRemoved);
     }
 }
@@ -258,7 +255,7 @@ void ModelMapper::onDataChanged(const QModelIndex& topLeft, const QModelIndex& b
 
 void ModelMapper::onRowsInserted(const QModelIndex& parent, int first, int /*last*/)
 {
-    SessionItem* newChild = m_model->itemForIndex(parent.child(first, 0));
+    SessionItem* newChild = m_model->itemForIndex(m_model->index(first, 0, parent));
 
     int nestling = nestlingDepth(newChild);
 
@@ -269,7 +266,7 @@ void ModelMapper::onRowsInserted(const QModelIndex& parent, int first, int /*las
         callOnChildrenChange(newChild);
     if (SessionItem* parent = newChild->parent()) {
         QVector<SessionItem*> items = parent->getChildrenOfType(newChild->modelType());
-        for(auto sibling : items)
+        for (auto sibling : items)
             if (m_item == sibling)
                 callOnSiblingsChange();
     }
@@ -280,7 +277,7 @@ void ModelMapper::onRowsInserted(const QModelIndex& parent, int first, int /*las
 
 void ModelMapper::onBeginRemoveRows(const QModelIndex& parent, int first, int /*last*/)
 {
-    SessionItem* oldChild = m_model->itemForIndex(parent.child(first, 0));
+    SessionItem* oldChild = m_model->itemForIndex(m_model->index(first, 0, parent));
 
     int nestling = nestlingDepth(m_model->itemForIndex(parent));
 
@@ -290,8 +287,9 @@ void ModelMapper::onBeginRemoveRows(const QModelIndex& parent, int first, int /*
         if (nestling == 0)
             callOnAboutToRemoveChild(oldChild);
     }
+
     if (m_item == oldChild)
-        m_aboutToDelete = parent.child(first, 0);
+        m_aboutToDelete = m_model->index(first, 0, parent);
 }
 
 void ModelMapper::onRowRemoved(const QModelIndex& parent, int first, int /*last*/)
@@ -302,8 +300,9 @@ void ModelMapper::onRowRemoved(const QModelIndex& parent, int first, int /*last*
         callOnAnyChildChange(nullptr);
         callOnSiblingsChange();
     }
-    if (nestling == 0 )
+    if (nestling == 0)
         callOnChildrenChange(nullptr);
-    if (m_aboutToDelete.isValid() && m_aboutToDelete == parent.child(first, 0))
+
+    if (m_aboutToDelete.isValid() && m_aboutToDelete == m_model->index(first, 0, parent))
         clearMapper();
 }

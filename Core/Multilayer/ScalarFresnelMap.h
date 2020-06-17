@@ -15,16 +15,17 @@
 #ifndef SCALARFRESNELMAP_H
 #define SCALARFRESNELMAP_H
 
-#include "Hash2Doubles.h"
 #include "IFresnelMap.h"
+#include "ISpecularStrategy.h"
+#include "ScalarRTCoefficients.h"
+#include <cstddef>
 #include <unordered_map>
 #include <utility>
 #include <vector>
 
 class ILayerRTCoefficients;
-class MultiLayer;
-class ScalarRTCoefficients;
 class SimulationElement;
+class Slice;
 
 //! Implementation of IFresnelMap for scalar valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
@@ -32,20 +33,28 @@ class SimulationElement;
 class BA_CORE_API_ ScalarFresnelMap : public IFresnelMap
 {
 public:
-    ScalarFresnelMap();
+    ScalarFresnelMap(std::unique_ptr<ISpecularStrategy> strategy);
     ~ScalarFresnelMap() final;
 
+    ScalarFresnelMap(const ScalarFresnelMap& other) = delete;
+    ScalarFresnelMap& operator=(const ScalarFresnelMap& other) = delete;
+
     std::unique_ptr<const ILayerRTCoefficients>
-    getOutCoefficients(const SimulationElement& sim_element,
-                       size_t layer_index) const override;
+    getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const override;
 
 private:
+    //! Provides a hash function for a pair of doubles.
+    class Hash2Doubles
+    {
+    public:
+        size_t operator()(const std::pair<double, double>& doubles) const noexcept;
+    };
+
     std::unique_ptr<const ILayerRTCoefficients> getCoefficients(const kvector_t& kvec,
                                                                 size_t layer_index) const override;
-    const std::vector<ScalarRTCoefficients>& getCoefficientsFromCache(kvector_t kvec) const;
-
-    mutable std::unordered_map<std::pair<double, double>, std::vector<ScalarRTCoefficients>,
-                               Hash2Doubles> m_hash_table;
+    const ISpecularStrategy::coeffs_t& getCoefficientsFromCache(kvector_t kvec) const;
+    mutable std::unordered_map<std::pair<double, double>, ISpecularStrategy::coeffs_t, Hash2Doubles>
+        m_cache;
 };
 
 #endif // SCALARFRESNELMAP_H

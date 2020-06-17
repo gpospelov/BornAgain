@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/CommonWidgets/columnresizer.h
+//! @file      GUI/coregui/Views/CommonWidgets/ColumnResizer.h
 //! @brief     Defines class ColumnResizer
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -23,8 +23,8 @@
 #define COLUMNRESIZER_H
 
 #include <QFormLayout>
-#include <QObject>
 #include <QList>
+#include <QObject>
 
 class QEvent;
 class QGridLayout;
@@ -46,7 +46,7 @@ public:
     void addWidgetsFromGridLayout(QGridLayout*, int column);
     void addWidgetsFromFormLayout(QFormLayout*, QFormLayout::ItemRole role);
 
-    void dropWidgetsFromGridLayout(QGridLayout *layout);
+    void dropWidgetsFromGridLayout(QGridLayout* layout);
 
 private slots:
     void updateWidth();

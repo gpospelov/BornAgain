@@ -17,17 +17,14 @@
 #include <thread>
 
 SimulationOptions::SimulationOptions()
-    : m_mc_integration(false)
-    , m_include_specular(false)
-    , m_use_avg_materials(false)
-    , m_mc_points(1)
+    : m_mc_integration(false), m_include_specular(false), m_use_avg_materials(false), m_mc_points(1)
 {
     m_thread_info.n_threads = getHardwareConcurrency();
 }
 
 bool SimulationOptions::isIntegrate() const
 {
-    return m_mc_integration && m_mc_points>1;
+    return m_mc_integration && m_mc_points > 1;
 }
 
 void SimulationOptions::setMonteCarloIntegration(bool flag, size_t mc_points)

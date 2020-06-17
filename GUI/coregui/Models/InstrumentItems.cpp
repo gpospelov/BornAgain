@@ -18,24 +18,25 @@
 #include "BeamItems.h"
 #include "DataItem.h"
 #include "DetectorItems.h"
-#include "GroupItem.h"
 #include "GUIHelpers.h"
+#include "GroupItem.h"
 #include "IDetector2D.h"
 #include "Instrument.h"
 #include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
+#include "MaskItems.h"
 #include "PointwiseAxisItem.h"
 #include "RealDataItem.h"
-#include "UnitConverter1D.h"
-#include "MaskItems.h"
 #include "SessionModel.h"
+#include "UnitConverter1D.h"
 
-namespace {
+namespace
+{
 const QString background_group_label = "Type";
 const QStringList instrument_names{Constants::GISASInstrumentType, Constants::OffSpecInstrumentType,
                                    Constants::SpecularInstrumentType};
 void addAxisGroupProperty(SessionItem* parent, const QString& tag);
-}
+} // namespace
 
 const QString InstrumentItem::P_IDENTIFIER = "Identifier";
 const QString InstrumentItem::P_BEAM = "Beam";
@@ -44,7 +45,7 @@ const QString InstrumentItem::P_BACKGROUND = "Background";
 QStringList InstrumentItem::translateList(const QStringList& list) const
 {
     QStringList result;
-    if (list.back().endsWith(P_BACKGROUND) && list.size()==2) {
+    if (list.back().endsWith(P_BACKGROUND) && list.size() == 2) {
         result << list[0] << list[1];
     } else {
         result = SessionItem::translateList(list);
@@ -86,8 +87,7 @@ std::unique_ptr<Instrument> InstrumentItem::createInstrument() const
     return result;
 }
 
-InstrumentItem::InstrumentItem(const QString& modelType)
-    : SessionItem(modelType)
+InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType)
 {
     setItemName(modelType);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
@@ -105,8 +105,7 @@ void InstrumentItem::initBackgroundGroup()
     item->setToolTip("Background type");
 }
 
-SpecularInstrumentItem::SpecularInstrumentItem()
-    : InstrumentItem(Constants::SpecularInstrumentType)
+SpecularInstrumentItem::SpecularInstrumentItem() : InstrumentItem(Constants::SpecularInstrumentType)
 {
     initBeamGroup(Constants::SpecularBeamType);
     initBackgroundGroup();
@@ -149,8 +148,7 @@ bool SpecularInstrumentItem::alignedWith(const RealDataItem* item) const
         return beamItem()->currentInclinationAxisItem()->modelType() == Constants::BasicAxisType
                && shape() == item->shape();
     } else {
-        auto axis_item =
-            dynamic_cast<PointwiseAxisItem*>(beamItem()->currentInclinationAxisItem());
+        auto axis_item = dynamic_cast<PointwiseAxisItem*>(beamItem()->currentInclinationAxisItem());
         if (!axis_item)
             return false;
         if (axis_item->getUnitsLabel() != native_units)
@@ -162,7 +160,8 @@ bool SpecularInstrumentItem::alignedWith(const RealDataItem* item) const
 
         const auto& native_axis = item->nativeData()->getOutputData()->getAxis(0);
         return *instrument_axis == native_axis;
-;    }
+        ;
+    }
 }
 
 std::unique_ptr<IUnitConverter> SpecularInstrumentItem::createUnitConverter() const
@@ -182,8 +181,7 @@ std::unique_ptr<IUnitConverter> SpecularInstrumentItem::createUnitConverter() co
 
 const QString Instrument2DItem::P_DETECTOR = "Detector";
 
-Instrument2DItem::Instrument2DItem(const QString& modelType)
-    : InstrumentItem(modelType)
+Instrument2DItem::Instrument2DItem(const QString& modelType) : InstrumentItem(modelType)
 {
     initBeamGroup(Constants::GISASBeamType);
     addGroupProperty(P_DETECTOR, Constants::DetectorGroup);
@@ -229,10 +227,7 @@ std::unique_ptr<Instrument> Instrument2DItem::createInstrument() const
     return result;
 }
 
-GISASInstrumentItem::GISASInstrumentItem()
-    : Instrument2DItem(Constants::GISASInstrumentType)
-{
-}
+GISASInstrumentItem::GISASInstrumentItem() : Instrument2DItem(Constants::GISASInstrumentType) {}
 
 std::vector<int> GISASInstrumentItem::shape() const
 {
@@ -255,10 +250,16 @@ void GISASInstrumentItem::updateToRealData(const RealDataItem* item)
 
 const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
 
-OffSpecInstrumentItem::OffSpecInstrumentItem()
-    : Instrument2DItem(Constants::OffSpecInstrumentType)
+OffSpecInstrumentItem::OffSpecInstrumentItem() : Instrument2DItem(Constants::OffSpecInstrumentType)
 {
     addAxisGroupProperty(this, P_ALPHA_AXIS);
+    auto inclination_item = getItem(P_ALPHA_AXIS)->getItem(BasicAxisItem::P_MIN);
+    auto beam_item = beamItem();
+    beam_item->setInclinationAngle(inclination_item->value().toDouble());
+    beam_item->getItem(BeamItem::P_INCLINATION_ANGLE)->setEnabled(false);
+    inclination_item->mapper()->setOnValueChange([beam_item, inclination_item]() {
+        beam_item->setInclinationAngle(inclination_item->value().toDouble());
+    });
 }
 
 std::vector<int> OffSpecInstrumentItem::shape() const
@@ -298,4 +299,3 @@ void addAxisGroupProperty(SessionItem* parent, const QString& tag)
     item->setItemValue(BasicAxisItem::P_MAX, 10.0);
 }
 } // namespace
-

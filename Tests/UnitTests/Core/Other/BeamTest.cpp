@@ -26,13 +26,13 @@ TEST_F(BeamTest, BeamInitialState)
     EXPECT_EQ(0.0, m_empty_beam.getCentralK()[1]);
     EXPECT_EQ(0.0, m_empty_beam.getCentralK()[2]);
     EXPECT_EQ(1.0, m_empty_beam.getIntensity());
-    //EXPECT_EQ(size_t(4), m_empty_beam.parameterPool()->size());
-//    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter(BornAgain::Intensity)->value());
-//    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter(BornAgain::Wavelength)->value());
-//    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter(BornAgain::Alpha)->value());
-//    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter(BornAgain::Phi)->value());
-//    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(0, 0));
-//    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(1, 1));
+    // EXPECT_EQ(size_t(4), m_empty_beam.parameterPool()->size());
+    //    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter(BornAgain::Intensity)->value());
+    //    EXPECT_EQ(1.0, m_empty_beam.parameterPool()->parameter(BornAgain::Wavelength)->value());
+    //    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter(BornAgain::Alpha)->value());
+    //    EXPECT_EQ(0.0, m_empty_beam.parameterPool()->parameter(BornAgain::Phi)->value());
+    //    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(0, 0));
+    //    EXPECT_EQ(complex_t(0.5, 0.0), m_empty_beam.getPolarization()(1, 1));
 }
 
 TEST_F(BeamTest, BeamAssignment)

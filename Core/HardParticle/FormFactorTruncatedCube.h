@@ -17,7 +17,7 @@
 
 #include "FormFactorPolyhedron.h"
 
-//! A cube, with tetrahedral truncation of all edges.
+//! A cube, with tetrahedral truncation of all corners
 //! @ingroup hardParticle
 
 class BA_CORE_API_ FormFactorTruncatedCube : public FormFactorPolyhedron
@@ -25,9 +25,11 @@ class BA_CORE_API_ FormFactorTruncatedCube : public FormFactorPolyhedron
 public:
     FormFactorTruncatedCube(double length, double removed_length);
 
-    FormFactorTruncatedCube*clone() const override final {
-        return new FormFactorTruncatedCube(m_length, m_removed_length); }
-    void accept(INodeVisitor*visitor) const override final { visitor->visit(this); }
+    FormFactorTruncatedCube* clone() const override final
+    {
+        return new FormFactorTruncatedCube(m_length, m_removed_length);
+    }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getRemovedLength() const { return m_removed_length; }

@@ -25,6 +25,7 @@ class SpecularInstrumentItem;
 class BA_CORE_API_ PointwiseAxisItem : public BasicAxisItem, public SaveLoadInterface
 {
     static const QString P_NATIVE_UNITS;
+
 public:
     static const QString P_FILE_NAME;
 

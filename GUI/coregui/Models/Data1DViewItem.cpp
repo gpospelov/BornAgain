@@ -17,19 +17,20 @@
 #include "BornAgainNamespace.h"
 #include "ComboProperty.h"
 #include "DataItem.h"
-#include "DataPropertyContainer.h"
 #include "DataProperties.h"
+#include "DataPropertyContainer.h"
 #include "DataViewUtils.h"
 #include "GUIHelpers.h"
 #include "JobItem.h"
 
-namespace {
+namespace
+{
 const QString x_axis_default_name = "X [nbins]";
 const QString y_axis_default_name = "Signal [a.u.]";
 
 const double default_min = 0.0;
 const double default_max = 1.0;
-}
+} // namespace
 
 const QString Data1DViewItem::P_TITLE = "Title";
 const QString Data1DViewItem::P_XAXIS = "x-axis";
@@ -37,9 +38,7 @@ const QString Data1DViewItem::P_YAXIS = "y-axis";
 const QString Data1DViewItem::P_AXES_UNITS = "Axes Units";
 const QString Data1DViewItem::T_DATA_PROPERTIES = "Data property container";
 
-Data1DViewItem::Data1DViewItem()
-    : SessionItem(Constants::Data1DViewItemType)
-    , m_job_item(nullptr)
+Data1DViewItem::Data1DViewItem() : SessionItem(Constants::Data1DViewItemType), m_job_item(nullptr)
 {
     addProperty(P_TITLE, QString())->setVisible(false);
 
@@ -127,8 +126,8 @@ void Data1DViewItem::setYaxisTitle(QString ytitle)
 //! set zoom range of x,y axes to axes of input data
 void Data1DViewItem::setAxesRangeToData()
 {
-    const auto data
-        = DataViewUtils::getTranslatedData(this, propertyContainerItem()->basicDataItem());
+    const auto data =
+        DataViewUtils::getTranslatedData(this, propertyContainerItem()->basicDataItem());
 
     // For data loading from disk: items appear earlier than
     // actual data.
@@ -138,7 +137,6 @@ void Data1DViewItem::setAxesRangeToData()
     setLowerX(data->getAxis(BornAgain::X_AXIS_INDEX).getMin());
     setUpperX(data->getAxis(BornAgain::X_AXIS_INDEX).getMax());
 
-
     auto data_range = dataRange(data.get());
     setLowerY(data_range.first);
     setUpperY(data_range.second);
@@ -146,7 +144,7 @@ void Data1DViewItem::setAxesRangeToData()
 
 void Data1DViewItem::resetToDefault()
 {
-    //TODO: implement when applying DataITem1DView in ImportView
+    // TODO: implement when applying DataITem1DView in ImportView
     throw GUIHelpers::Error("Error in DataItem1DView::resetToDefault: not implemented");
 }
 
@@ -155,8 +153,16 @@ QPair<QVector<double>, QVector<double>> Data1DViewItem::graphData(Data1DProperti
     const auto data = DataViewUtils::getTranslatedData(this, property_item->dataItem());
     if (!data)
         return {};
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    auto centers = data->getAxis(0).getBinCenters();
+    auto values = data->getRawDataVector();
+    return {QVector<double>(centers.begin(), centers.end()),
+            QVector<double>(values.begin(), values.end())};
+#else
     return {QVector<double>::fromStdVector(data->getAxis(0).getBinCenters()),
-                QVector<double>::fromStdVector(data->getRawDataVector())};
+            QVector<double>::fromStdVector(data->getRawDataVector())};
+#endif
 }
 
 JobItem* Data1DViewItem::jobItem()
@@ -200,7 +206,7 @@ void Data1DViewItem::setLog(bool log_flag)
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, log_flag);
 }
 
-DataPropertyContainer *Data1DViewItem::propertyContainerItem()
+DataPropertyContainer* Data1DViewItem::propertyContainerItem()
 {
     return dynamic_cast<DataPropertyContainer*>(getItem(T_DATA_PROPERTIES));
 }

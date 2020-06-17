@@ -60,6 +60,7 @@
 #include <QTreeView>
 #include <QToolButton>
 #include <QAbstractItemView>
+#include <QPainterPath>
 
 using namespace Manhattan;
 
@@ -175,7 +176,7 @@ ManhattanStyle::ManhattanStyle(const QString &baseStyleName)
 ManhattanStyle::~ManhattanStyle()
 {
     delete d;
-    d = 0;
+    d = nullptr;
 }
 
 QPixmap ManhattanStyle::generatedIconPixmap(QIcon::Mode iconMode, const QPixmap &pixmap, const QStyleOption *opt) const
@@ -583,7 +584,11 @@ void ManhattanStyle::drawPrimitive(PrimitiveElement element, const QStyleOption 
                             rect.topLeft().y() + margin);
             } else { //Draw vertical separator
                 const int offset = rect.height()/2;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+                painter->setPen(QPen(option->palette.window().color().darker(110)));
+#else
                 painter->setPen(QPen(option->palette.background().color().darker(110)));
+#endif
                 painter->drawLine(rect.topLeft().x() + margin ,
                             rect.topLeft().y() + offset,
                             rect.topRight().x() - margin,
@@ -976,7 +981,11 @@ void ManhattanStyle::drawComplexControl(ComplexControl control, const QStyleOpti
             QRect arrowRect((left + right) / 2 + (reverse ? 6 : -6), rect.center().y() - 3, 9, 9);
 
             if (!alignarrow) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+                int labelwidth = option->fontMetrics.horizontalAdvance(cb->currentText);
+#else
                 int labelwidth = option->fontMetrics.width(cb->currentText);
+#endif
                 if (reverse)
                     arrowRect.moveLeft(qMax(rect.width() - labelwidth - menuButtonWidth - 2, 4));
                 else

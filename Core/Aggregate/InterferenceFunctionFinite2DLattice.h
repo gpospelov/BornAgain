@@ -16,29 +16,28 @@
 #define INTERFERENCEFUNCTIONFINITE2DLATTICE_H
 
 #include "IInterferenceFunction.h"
+#include "Integrator.h"
 #include "Lattice2D.h"
 
-template <class T> class IntegratorReal;
-
-//! Interference function of 2D lattice.
+//! Interference function of a finite 2D lattice.
 //! @ingroup interference
 
 class BA_CORE_API_ InterferenceFunctionFinite2DLattice : public IInterferenceFunction
 {
 public:
     InterferenceFunctionFinite2DLattice(const Lattice2D& lattice, unsigned N_1, unsigned N_2);
-    InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha,
-                                        double xi, unsigned N_1, unsigned N_2);
+    InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi,
+                                        unsigned N_1, unsigned N_2);
     ~InterferenceFunctionFinite2DLattice() final;
 
     InterferenceFunctionFinite2DLattice* clone() const override final;
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    static InterferenceFunctionFinite2DLattice* createSquare(
-            double lattice_length, double xi, unsigned N_1, unsigned N_2);
-    static InterferenceFunctionFinite2DLattice* createHexagonal(
-            double lattice_length, double xi, unsigned N_1, unsigned N_2);
+    static InterferenceFunctionFinite2DLattice* createSquare(double lattice_length, double xi,
+                                                             unsigned N_1, unsigned N_2);
+    static InterferenceFunctionFinite2DLattice* createHexagonal(double lattice_length, double xi,
+                                                                unsigned N_1, unsigned N_2);
 
     unsigned numberUnitCells1() const { return m_N_1; }
     unsigned numberUnitCells2() const { return m_N_2; }
@@ -63,12 +62,10 @@ private:
 
     bool m_integrate_xi; //!< Integrate over the orientation xi
     std::unique_ptr<Lattice2D> mP_lattice;
-    unsigned m_N_1, m_N_2;  //!< Size of the finite lattice in lattice units
+    unsigned m_N_1, m_N_2; //!< Size of the finite lattice in lattice units
     mutable double m_qx;
     mutable double m_qy;
-#ifndef SWIG
-    std::unique_ptr<IntegratorReal<InterferenceFunctionFinite2DLattice>> mP_integrator;
-#endif
+    mutable RealIntegrator m_integrator;
 };
 
 #endif // INTERFERENCEFUNCTIONFINITE2DLATTICE_H

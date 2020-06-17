@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/mainwindow/PyImportAssistant.h
+//! @file      GUI/coregui/mainwindow/PyImportAssistant.cpp
 //! @brief     Implements class PyImportAssistant
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,29 +14,31 @@
 
 #include "PyImportAssistant.h"
 #include "AppSvc.h"
-#include "mainwindow.h"
-#include "projectmanager.h"
-#include "GUIHelpers.h"
-#include "PyImport.h"
-#include "MultiLayer.h"
 #include "BABuild.h"
-#include "GUIObjectBuilder.h"
-#include "ProjectUtils.h"
-#include "SysUtils.h"
 #include "BornAgainNamespace.h"
 #include "ComboSelectorDialog.h"
 #include "DetailedMessageBox.h"
-#include <QFileDialog>
-#include <QTextStream>
+#include "GUIHelpers.h"
+#include "GUIObjectBuilder.h"
+#include "MultiLayer.h"
+#include "ProjectUtils.h"
+#include "PyImport.h"
+#include "SysUtils.h"
+#include "mainwindow.h"
+#include "projectmanager.h"
 #include <QApplication>
 #include <QDebug>
+#include <QFileDialog>
+#include <QTextStream>
 
-namespace {
+namespace
+{
 
 //! Returns directory with BornAgain library. If PYTHONPATH is not empty,
 //! returns an empty string.
 
-std::string bornagainDir() {
+std::string bornagainDir()
+{
     std::string pythonPath = SysUtils::getenv("PYTHONPATH");
     return pythonPath.empty() ? BABuild::buildLibDir() : std::string();
 }
@@ -44,11 +46,12 @@ std::string bornagainDir() {
 //! Returns a name from the list which looks like a function name intended for sample
 //! creation.
 
-QString getCandidate(const QStringList& funcNames) {
+QString getCandidate(const QStringList& funcNames)
+{
     if (funcNames.isEmpty())
         return QString();
 
-    for(auto str : funcNames) {
+    for (auto str : funcNames) {
         QString name = str.toLower();
         if (name.contains(QStringLiteral("sample")) || name.contains(QStringLiteral("multilayer")))
             return str;
@@ -57,13 +60,10 @@ QString getCandidate(const QStringList& funcNames) {
     return funcNames.front();
 }
 
-}
+} // namespace
 
-PyImportAssistant::PyImportAssistant(MainWindow* mainwin)
-    : QObject(mainwin)
-    , m_mainWindow(mainwin)
+PyImportAssistant::PyImportAssistant(MainWindow* mainwin) : QObject(mainwin), m_mainWindow(mainwin)
 {
-
 }
 
 void PyImportAssistant::exec()
@@ -94,8 +94,8 @@ QString PyImportAssistant::fileNameToOpen()
 {
     QString dirname = AppSvc::projectManager()->userImportDir();
 
-    QString result = QFileDialog::getOpenFileName(m_mainWindow, "Open python script",
-            dirname, "Python scripts (*.py)");
+    QString result = QFileDialog::getOpenFileName(m_mainWindow, "Open python script", dirname,
+                                                  "Python scripts (*.py)");
 
     saveImportDir(result);
 
@@ -163,11 +163,11 @@ QString PyImportAssistant::selectPySampleFunction(const QStringList& funcNames)
 {
     QString result;
 
-    if(funcNames.empty()) {
+    if (funcNames.empty()) {
         QString message("Python code doesn't contain any functions.\n\n");
         GUIHelpers::warning(m_mainWindow, "Python failure", message);
 
-    } else if(funcNames.size() == 1) {
+    } else if (funcNames.size() == 1) {
         return funcNames.front();
 
     } else {
@@ -175,8 +175,9 @@ QString PyImportAssistant::selectPySampleFunction(const QStringList& funcNames)
         dialog.addItems(funcNames, getCandidate(funcNames));
         dialog.setTextTop("Python code contains a few functions. Do you know by chance, "
                           "which one is intended to produce a valid MultiLayer?");
-        dialog.setTextBottom("Please select a valid function in combo box and press OK to continue.");
-        if(dialog.exec() == QDialog::Accepted)
+        dialog.setTextBottom(
+            "Please select a valid function in combo box and press OK to continue.");
+        if (dialog.exec() == QDialog::Accepted)
             result = dialog.currentText();
     }
 
@@ -193,8 +194,8 @@ std::unique_ptr<MultiLayer> PyImportAssistant::createMultiLayer(const QString& s
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
     try {
-        result = PyImport::createFromPython(snippet.toStdString(),
-                                            funcName.toStdString(), bornagainDir());
+        result = PyImport::createFromPython(snippet.toStdString(), funcName.toStdString(),
+                                            bornagainDir());
 
     } catch (const std::exception& ex) {
         QApplication::restoreOverrideCursor();
@@ -218,19 +219,17 @@ void PyImportAssistant::populateModels(const MultiLayer& multilayer, const QStri
             name = QString::fromStdString(multilayer.getName());
 
         GUIObjectBuilder::populateSampleModel(m_mainWindow->sampleModel(),
-                m_mainWindow->materialModel(), multilayer, name);
+                                              m_mainWindow->materialModel(), multilayer, name);
 
         QString message("Seems that import was successfull.\n\n"
                         "Check SampleView for new sample and material editor for new materials.");
         GUIHelpers::information(m_mainWindow, "PyImport", message);
 
-    } catch(const std::exception& ex) {
+    } catch (const std::exception& ex) {
         QString message("Exception thrown while trying to build GUI models.\n"
                         "GUI models might be in unconsistent state.\n\n");
         QString details = QString::fromStdString(std::string(ex.what()));
         DetailedMessageBox warning(m_mainWindow, "GUIObjectBuilder failure", message, details);
         warning.exec();
     }
-
 }
-

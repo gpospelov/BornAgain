@@ -22,6 +22,7 @@ class Pyramid6 : public IShape
 public:
     Pyramid6(double length, double height, double alpha);
     ~Pyramid6();
+
 private:
     static const double sqrt3;
 };

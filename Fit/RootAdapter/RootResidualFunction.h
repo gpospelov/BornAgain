@@ -53,8 +53,8 @@ private:
     //! evaluation of chi2
     double DoEval(const double* pars) const override;
 
-    scalar_function_t m_objective_fun; //!< User function to get value to minimizer.
-    gradient_function_t m_gradient_fun;   //!< User function to get residual and gradients.
+    scalar_function_t m_objective_fun;  //!< User function to get value to minimizer.
+    gradient_function_t m_gradient_fun; //!< User function to get residual and gradients.
     size_t m_npars;
     size_t m_datasize;
 };

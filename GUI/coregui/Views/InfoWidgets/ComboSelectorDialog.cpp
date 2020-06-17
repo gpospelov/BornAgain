@@ -14,20 +14,18 @@
 
 #include "ComboSelectorDialog.h"
 #include "DesignerHelper.h"
-#include <QPushButton>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <QApplication>
 #include <QComboBox>
+#include <QLabel>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 ComboSelectorDialog::ComboSelectorDialog(QWidget* parent)
-    : QDialog(parent)
-    , m_topLabel(new QLabel)
-    , m_comboSelector(new QComboBox)
-    , m_bottomLabel(new QLabel)
+    : QDialog(parent), m_topLabel(new QLabel), m_comboSelector(new QComboBox),
+      m_bottomLabel(new QLabel)
 {
-    QColor bgColor(240,240,240,255);
+    QColor bgColor(240, 240, 240, 255);
     QPalette palette;
     palette.setColor(QPalette::Background, bgColor);
     setAutoFillBackground(true);
@@ -35,7 +33,7 @@ ComboSelectorDialog::ComboSelectorDialog(QWidget* parent)
 
     setFixedSize(500, 250);
     setWindowTitle("Please make a selection");
-    setWindowFlags( Qt::Dialog );
+    setWindowFlags(Qt::Dialog);
 
     auto topLayout = new QHBoxLayout;
     topLayout->addLayout(createLogoLayout(), 0);

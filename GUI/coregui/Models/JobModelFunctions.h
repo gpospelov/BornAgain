@@ -50,7 +50,6 @@ BA_CORE_API_ void copyRealDataItem(JobItem* jobItem, const RealDataItem* realDat
 //! is no parent of JobItem type
 
 BA_CORE_API_ const JobItem* findJobItem(const SessionItem* item);
-}
+} // namespace JobModelFunctions
 
 #endif // JOBMODELFUNCTIONS_H
-

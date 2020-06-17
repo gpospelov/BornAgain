@@ -20,13 +20,13 @@
 #include "mainwindow_constants.h"
 #include <QVBoxLayout>
 
-namespace {
+namespace
+{
 const bool reuse_widget = true;
 }
 
-JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
-    : QWidget(parent)
-    , m_stackedWidget(new ItemStackPresenter<JobResultsPresenter>(reuse_widget))
+JobOutputDataWidget::JobOutputDataWidget(JobModel* jobModel, QWidget* parent)
+    : QWidget(parent), m_stackedWidget(new ItemStackPresenter<JobResultsPresenter>(reuse_widget))
 {
     setWindowTitle(QLatin1String("Job OutputData"));
     setObjectName("JobOutputDataWidget");
@@ -34,7 +34,7 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel *jobModel, QWidget *parent)
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
 
@@ -62,9 +62,9 @@ void JobOutputDataWidget::onActivityChanged(int activity)
         widget->setPresentation(static_cast<JobViewFlags::EActivities>(activity));
 }
 
-bool JobOutputDataWidget::isValidJobItem(JobItem *item)
+bool JobOutputDataWidget::isValidJobItem(JobItem* item)
 {
-    if(!item)
+    if (!item)
         return false;
 
     // do not show running job items, the rest (canceled, fitted, etc) are shown

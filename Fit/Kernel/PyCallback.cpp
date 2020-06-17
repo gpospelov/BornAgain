@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/NewKernel/PyCallback.cpp
+//! @file      Fit/Kernel/PyCallback.cpp
 //! @brief     Implements class PyCallback.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -14,8 +14,7 @@
 
 #include "PyCallback.h"
 
-PyCallback::PyCallback(PyCallback::CallbackType callback_type)
-    : m_callback_type(callback_type) {}
+PyCallback::PyCallback(PyCallback::CallbackType callback_type) : m_callback_type(callback_type) {}
 
 PyCallback::CallbackType PyCallback::callback_type() const
 {

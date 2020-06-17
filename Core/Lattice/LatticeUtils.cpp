@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Multilayer/LatticeUtils.cpp
+//! @file      Core/Lattice/LatticeUtils.cpp
 //! @brief     Implements factory functions for different types of lattices and orientations.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -26,9 +26,9 @@ Lattice LatticeUtils::CreateFCCLattice(double lattice_constant,
     return fcc.createTransformedLattice(rotation);
 }
 
-Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrientation& orientation)
 {
-    Lattice prim_hexagonal = Lattice::createHexagonalLattice(1.0, c/a);
+    Lattice prim_hexagonal = Lattice::createHexagonalLattice(1.0, c / a);
     std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
     P_orientation->usePrimitiveLattice(prim_hexagonal);
     auto rotation = P_orientation->transformationMatrix();
@@ -36,9 +36,9 @@ Lattice LatticeUtils::CreateHCPLattice(double a, double c, const ILatticeOrienta
     return hcp.createTransformedLattice(rotation);
 }
 
-Lattice LatticeUtils::CreateBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+Lattice LatticeUtils::CreateBCTLattice(double a, double c, const ILatticeOrientation& orientation)
 {
-    Lattice prim_tetragonal = Lattice::createTetragonalLattice(1.0, c/a);
+    Lattice prim_tetragonal = Lattice::createTetragonalLattice(1.0, c / a);
     std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
     P_orientation->usePrimitiveLattice(prim_tetragonal);
     auto rotation = P_orientation->transformationMatrix();

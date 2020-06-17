@@ -13,11 +13,11 @@
 // ************************************************************************** //
 
 #include "BoxesSquareLatticeBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorBox.h"
 #include "InterferenceFunction2DLattice.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
@@ -29,9 +29,9 @@
 // -----------------------------------------------------------------------------
 
 BoxesSquareLatticeBuilder::BoxesSquareLatticeBuilder()
-    : m_length(5*Units::nanometer)
-    , m_height(10*Units::nanometer)
-{}
+    : m_length(5 * Units::nanometer), m_height(10 * Units::nanometer)
+{
+}
 
 MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
 {
@@ -45,9 +45,9 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
     Layer substrate_layer(substrate_material);
 
     std::unique_ptr<InterferenceFunction2DLattice> P_interference_function(
-                InterferenceFunction2DLattice::createSquare(8*Units::nanometer));
+        InterferenceFunction2DLattice::createSquare(8 * Units::nanometer));
 
-    FTDecayFunction2DCauchy pdf(100.0*Units::nanometer, 100.0*Units::nanometer);
+    FTDecayFunction2DCauchy pdf(100.0 * Units::nanometer, 100.0 * Units::nanometer);
     P_interference_function->setDecayFunction(pdf);
 
     // particles

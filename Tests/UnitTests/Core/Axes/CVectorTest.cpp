@@ -1,7 +1,7 @@
-#include "google_test.h"
 #include "Complex.h"
 #include "EigenCore.h"
 #include "Vectors3D.h"
+#include "google_test.h"
 
 class CVectorTest : public ::testing::Test
 {

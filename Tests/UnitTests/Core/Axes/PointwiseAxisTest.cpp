@@ -1,7 +1,7 @@
-#include "google_test.h"
+#include "PointwiseAxis.h"
 #include "DataFormatUtils.h"
 #include "FixedBinAxis.h"
-#include "PointwiseAxis.h"
+#include "google_test.h"
 #include <iostream>
 
 class PointwiseAxisTest : public ::testing::Test
@@ -19,14 +19,14 @@ TEST_F(PointwiseAxisTest, Construction)
     EXPECT_THROW(PointwiseAxis("length", std::vector<double>{0.0, 1.0, 0.5}), std::runtime_error);
     EXPECT_THROW(PointwiseAxis("length", std::vector<double>{0.0, 1.0, 1.0}), std::runtime_error);
     PointwiseAxis a1("length", std::vector<double>{0.0, 1.0});
-    std::vector<double> coordinates {0.0, 1.0};
+    std::vector<double> coordinates{0.0, 1.0};
     PointwiseAxis a2("length", coordinates);
     EXPECT_TRUE(a1 == a2);
 }
 
 TEST_F(PointwiseAxisTest, BasicProperties)
 {
-    std::vector<double> coordinates {0.0, 1.0, 4.0, 8.0};
+    std::vector<double> coordinates{0.0, 1.0, 4.0, 8.0};
     PointwiseAxis a1("length", coordinates);
     EXPECT_EQ(std::string("length"), a1.getName());
     EXPECT_EQ(4u, a1.size());
@@ -187,4 +187,19 @@ TEST_F(PointwiseAxisTest, FixedBinAxisComparison)
     EXPECT_EQ(clipped_fixed->size(), clipped_pointwise->size());
     EXPECT_DOUBLE_EQ(clipped_fixed->getBinCenter(0), clipped_pointwise->getBinCenter(0));
     EXPECT_DOUBLE_EQ(clipped_fixed->getBinCenter(2), clipped_pointwise->getBinCenter(2));
+}
+
+TEST_F(PointwiseAxisTest, FixedBinAxisComparisonWithMask)
+{
+    FixedBinAxis axis("reference", 10, 0.0, 10.0);
+
+    const std::vector<size_t> mask{0u, 2u, 3u, 4u, 7u, 8u, 9u};
+    std::vector<double> coordinates;
+    for (auto index : mask)
+        coordinates.push_back(axis.getBinCenter(index));
+    PointwiseAxis pointwise_axis("pointwise", coordinates);
+
+    // comparing on-axis values
+    for (size_t i = 0; i < mask.size(); ++i)
+        EXPECT_DOUBLE_EQ(axis.getBinCenter(mask[i]), pointwise_axis.getBinCenter(i));
 }

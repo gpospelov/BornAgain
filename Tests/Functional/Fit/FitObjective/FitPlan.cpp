@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/FitObjective/FitPlan.h
+//! @file      Tests/Functional/Fit/FitObjective/FitPlan.cpp
 //! @brief     Defines class FitPlan
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,19 +13,17 @@
 // ************************************************************************** //
 
 #include "FitPlan.h"
-#include "SimulationFactory.h"
-#include "SampleBuilderFactory.h"
-#include "Parameters.h"
-#include "MultiLayer.h"
 #include "FitObjective.h"
 #include "KernelTypes.h"
 #include "Minimizer.h"
+#include "MultiLayer.h"
+#include "Parameters.h"
+#include "SampleBuilderFactory.h"
+#include "SimulationFactory.h"
 
 FitPlan::FitPlan(const std::string& name, bool residual_based)
-    : MinimizerTestPlan(name)
-    , m_residual_based(residual_based)
+    : MinimizerTestPlan(name), m_residual_based(residual_based)
 {
-
 }
 
 FitPlan::~FitPlan() = default;
@@ -77,7 +75,7 @@ std::unique_ptr<FitObjective> FitPlan::createFitObjective() const
         return buildSimulation(params);
     };
 
-    result->addSimulationAndData(builder, *createOutputData(), 1.0);
+    result->addSimulationAndData(builder, *createOutputData(), nullptr, 1.0);
     result->initPrint(1);
 
     return result;
@@ -111,7 +109,7 @@ std::unique_ptr<MultiLayer> FitPlan::createMultiLayer(const Fit::Parameters& par
     auto sample_builder = factory.create(m_sample_builder_name);
 
     // propagating current values of fit parameters to sample builder before building the sample
-    for(const auto& par : params)
+    for (const auto& par : params)
         sample_builder->setParameterValue(par.name(), par.value());
 
     return std::unique_ptr<MultiLayer>(sample_builder->buildSample());
@@ -119,12 +117,12 @@ std::unique_ptr<MultiLayer> FitPlan::createMultiLayer(const Fit::Parameters& par
 
 //! Creates "experimental" data for fitting.
 
-std::unique_ptr<OutputData<double> > FitPlan::createOutputData() const
+std::unique_ptr<OutputData<double>> FitPlan::createOutputData() const
 {
     // use expected values of fit parameters to construct simulation
     auto params = parameters();
     params.setValues(expectedValues());
     auto simulation = buildSimulation(params);
     simulation->runSimulation();
-    return std::unique_ptr<OutputData<double>>(simulation->result().data());
+    return simulation->result().data();
 }

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/ParameterPlan.h
+//! @file      Tests/Functional/TestMachinery/ParameterPlan.h
 //! @brief     Defines class ParameterPlan
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,8 +15,8 @@
 #ifndef PARAMETERPLAN_H
 #define PARAMETERPLAN_H
 
-#include "WinDllMacros.h"
 #include "Parameter.h"
+#include "WinDllMacros.h"
 
 //! Defines initial settings of single fit parameter and the final value which has to be found
 //! in the course of the fit.

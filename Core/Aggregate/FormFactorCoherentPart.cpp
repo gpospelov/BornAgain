@@ -13,26 +13,33 @@
 // ************************************************************************** //
 
 #include "FormFactorCoherentPart.h"
-#include "IFresnelMap.h"
 #include "IFormFactor.h"
+#include "IFresnelMap.h"
+#include "ILayerRTCoefficients.h"
 #include "SimulationElement.h"
 #include "WavevectorInfo.h"
-#include "ILayerRTCoefficients.h"
 
-
-FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff)
-    : mP_ff(p_ff)
-{
-}
+FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff) : mP_ff(p_ff) {}
 
 FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart& other)
-    : mP_ff(other.mP_ff->clone())
-    , mp_fresnel_map(other.mp_fresnel_map)
-    , m_layer_index(other.m_layer_index)
+    : mP_ff(other.mP_ff->clone()), mp_fresnel_map(other.mp_fresnel_map),
+      m_layer_index(other.m_layer_index)
 {
 }
 
-FormFactorCoherentPart::~FormFactorCoherentPart() {}
+FormFactorCoherentPart& FormFactorCoherentPart::operator=(const FormFactorCoherentPart& other)
+{
+    mP_ff.reset(other.mP_ff->clone());
+    mp_fresnel_map = other.mp_fresnel_map;
+    m_layer_index = other.m_layer_index;
+    return *this;
+}
+
+FormFactorCoherentPart& FormFactorCoherentPart::operator=(FormFactorCoherentPart&&) = default;
+
+FormFactorCoherentPart::FormFactorCoherentPart(FormFactorCoherentPart&&) = default;
+
+FormFactorCoherentPart::~FormFactorCoherentPart() = default;
 
 complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element) const
 {

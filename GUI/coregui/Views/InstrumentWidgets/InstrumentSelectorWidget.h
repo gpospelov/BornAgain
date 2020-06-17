@@ -33,4 +33,3 @@ public:
 };
 
 #endif // INSTRUMENTSELECTORWIDGET_H
-

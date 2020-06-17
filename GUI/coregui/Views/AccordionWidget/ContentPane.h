@@ -60,9 +60,9 @@
  * to manage the content. You are absolutely free to do anything what you like with
  * this QFrame. Just keep in mind there is a maximumHeight for the container in which
  * the content frame is placed (currently 150). If your content exceeds this height
- * you have to either increase it with setMaximumHeight() or add a [QScrollArea](http://doc.qt.io/qt-5/qscrollarea.html)
- * to the content frame. You may use setContainerFrameStyle() to change the frame
- * style of the container.
+ * you have to either increase it with setMaximumHeight() or add a
+ * [QScrollArea](http://doc.qt.io/qt-5/qscrollarea.html) to the content frame. You may use
+ * setContainerFrameStyle() to change the frame style of the container.
  *
  * The Header can be changed after the creation of the ContentPane with setHeader().
  * Additionally you can set a tooltip, a standard stylesheet and a mouseover
@@ -83,14 +83,14 @@ public:
      * @param header The Header of the content pane
      * @param parent Parent widget or 0
      */
-    explicit ContentPane(QString header, QWidget *parent = 0);
+    explicit ContentPane(QString header, QWidget* parent = 0);
     /**
      * @brief ContentPane constructor
      * @param header The Header of the content pane
      * @param content Content to display when expanded
      * @param parent Parent widget or 0
      */
-    explicit ContentPane(QString header, QFrame *content, QWidget *parent = 0);
+    explicit ContentPane(QString header, QFrame* content, QWidget* parent = 0);
 
     /**
      * @brief Check if this Content pane is active
@@ -106,7 +106,7 @@ public:
      * Use this method to get a pointer to a QFrame where you can place
      * your content. The widget lifetime is managed by qAccordion.
      */
-    QFrame *getContentFrame();
+    QFrame* getContentFrame();
     /**
      * @brief Set the content frame
      * @param content QFrame* with your content
@@ -114,7 +114,7 @@ public:
      * Set / change the content frame of this content pane with \p content. The
      * lifecycle
      */
-    void setContentFrame(QFrame *content);
+    void setContentFrame(QFrame* content);
 
     /**
      * @brief Get the maximum height of the content pane container frame
@@ -168,9 +168,9 @@ public:
      * @param stylesheet CSS Style Sheet as string
      *
      * @details
-     * You can use [Cascading Style Sheets](http://doc.qt.io/qt-5/stylesheet.html) as supported by Qt to
-     * style the header. This is the standard style sheet. You may also set a
-     * style for mouse over with setHeaderHoverStylesheet().
+     * You can use [Cascading Style Sheets](http://doc.qt.io/qt-5/stylesheet.html) as supported by
+     * Qt to style the header. This is the standard style sheet. You may also set a style for mouse
+     * over with setHeaderHoverStylesheet().
      */
     void setHeaderStylesheet(QString stylesheet);
     /**
@@ -206,7 +206,8 @@ public:
      *
      * @details
      * The style is the bitwise OR between a frame shape and a frame shadow style.
-     * See the [Qt Documentation](http://doc.qt.io/qt-5/qframe.html#setFrameStyle) for additional details.
+     * See the [Qt Documentation](http://doc.qt.io/qt-5/qframe.html#setFrameStyle) for additional
+     * details.
      */
     void setHeaderFrameStyle(int style);
     /**
@@ -283,9 +284,9 @@ private:
     // closeContentPane private
     friend class AccordionWidget;
 
-    QFrame *content;
-    ClickableFrame *header;
-    QFrame *container;
+    QFrame* content;
+    ClickableFrame* header;
+    QFrame* container;
 
     int headerFrameStyle;
     int contentPaneFrameStyle;
@@ -327,7 +328,7 @@ protected:
      * @brief paintEvent Reimplement paintEvent to use stylesheets in derived Widgets
      * @param event
      */
-    void paintEvent(ATTR_UNUSED QPaintEvent *event);
+    void paintEvent(ATTR_UNUSED QPaintEvent* event);
 };
 
 #endif // CONTENTPANE_H

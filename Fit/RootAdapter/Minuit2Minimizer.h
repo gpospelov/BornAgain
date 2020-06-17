@@ -19,7 +19,13 @@
 #include "RootMinimizerAdapter.h"
 #include <memory>
 
-namespace ROOT { namespace Minuit2 { class Minuit2Minimizer; } }
+namespace ROOT
+{
+namespace Minuit2
+{
+class Minuit2Minimizer;
+}
+} // namespace ROOT
 
 //! Wrapper for the CERN ROOT facade of the Minuit2 minimizer.
 //! See Minuit2 user manual https://root.cern.ch/root/htmldoc/guides/minuit2/Minuit2.pdf.
@@ -44,16 +50,16 @@ public:
     void setErrorDefinition(double value);
     double errorDefinition() const;
 
-    //!< Sets tolerance on the function value at the minimum.
-    //!< Minimization will stop when the estimated vertical distance to the minimum (EDM) is less
+    //! Sets tolerance on the function value at the minimum.
+    //! Minimization will stop when the estimated vertical distance to the minimum (EDM) is less
     //! than 0.001*tolerance*ErrorDef. Here ErrorDef=1.0 for chi squared fit and ErrorDef=0.5
     //! for negative log likelihood fit.
     void setTolerance(double value);
     double tolerance() const;
 
-    //!< Sets relative floating point arithmetic precision.
-    //!< Should be adjusted when the user knows that objectiove function value is not
-    //!< calculated to the nominal machine accuracy. Typical values are between 10^-5 and 10^-14.
+    //! Sets relative floating point arithmetic precision.
+    //! Should be adjusted when the user knows that objectiove function value is not
+    //! calculated to the nominal machine accuracy. Typical values are between 10^-5 and 10^-14.
     void setPrecision(double value);
     double precision() const;
 
@@ -69,8 +75,9 @@ public:
     std::string statusToString() const override;
     std::map<std::string, std::string> statusMap() const override;
 
+    bool requiresResiduals() override;
+
 protected:
-    bool isGradientBasedAgorithm() override;
     void propagateOptions() override;
     const root_minimizer_t* rootMinimizer() const override;
 

@@ -17,7 +17,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! The formfactor of a lorentzian.
+//! The form factor of a lorentzian.
 //! @ingroup softParticle
 
 class BA_CORE_API_ FormFactorLorentz : public IFormFactorBorn
@@ -26,8 +26,10 @@ public:
     FormFactorLorentz(double length);
     FormFactorLorentz(double width, double height);
 
-    FormFactorLorentz* clone() const override final {
-        return new FormFactorLorentz(m_width, m_height); }
+    FormFactorLorentz* clone() const override final
+    {
+        return new FormFactorLorentz(m_width, m_height);
+    }
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double getWidth() const { return m_width; }

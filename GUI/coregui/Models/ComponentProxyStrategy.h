@@ -26,6 +26,7 @@ public:
 
 protected:
     bool processSourceIndex(const QModelIndex& index);
+
 private:
     bool isPropertyRelated(SessionItem* item);
     bool isNewRootItem(SessionItem* item);
@@ -39,4 +40,4 @@ private:
     int parentVisibleRow(const SessionItem& item);
 };
 
-#endif  //  COMPONENTPROXYSTRATEGY_H
+#endif //  COMPONENTPROXYSTRATEGY_H

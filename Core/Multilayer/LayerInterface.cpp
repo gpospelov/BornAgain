@@ -22,9 +22,7 @@ LayerInterface::LayerInterface() : m_topLayer(nullptr), m_bottomLayer(nullptr)
     setName(BornAgain::LayerInterfaceType);
 }
 
-LayerInterface::~LayerInterface()
-{
-}
+LayerInterface::~LayerInterface() {}
 
 LayerInterface* LayerInterface::clone() const
 {

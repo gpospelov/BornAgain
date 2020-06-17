@@ -13,41 +13,34 @@
 // ************************************************************************** //
 
 #include "CoreSpecialTestFactory.h"
-#include "AxisComparisonTest.h"
 #include "BatchSimulation.h"
-#include "DetectorTest.h"
-#include "PolDWBAMagCylinders.h"
-#include "CoreIOTest.h"
+#include "CoreIOPathTest.h"
+#include "CoreIOPerformanceTest.h"
 #include "FourierTransformationTest.h"
 #include "MesoCrystalPerformanceTest.h"
+#include "MultiThreadPerformanceTest.h"
+#include "MultilayerPerformanceTest.h"
 
 CoreSpecialTestFactory::CoreSpecialTestFactory()
 {
-    registerItem("BatchSimulation",
-                 create_new<BatchSimulation>,
+    registerItem("BatchSimulation", create_new<BatchSimulation>,
                  "Running GISASSimulation in batch mode");
 
-    registerItem("PolDWBAMagCylinders",
-                 create_new<PolDWBAMagCylinders>,
-                 "Special test for polarized materials");
-
-    registerItem("CoreIO",
-                 create_new<CoreIOTest>,
+    registerItem("CoreIOPerformance", create_new<CoreIOPerformanceTest>,
                  "Input/output of heavy files");
 
-    registerItem("DetectorTest",
-                 create_new<DetectorTest>,
-                 "Performance on set of detectors of different size");
+    registerItem("CoreIOPath", create_new<CoreIOPathTest>,
+                 "Input/output to files containing non-ascii characters in a path");
 
-    registerItem("FourierTransformation",
-                 create_new<FourierTransformationTest>,
+    registerItem("FourierTransformation", create_new<FourierTransformationTest>,
                  "Fourier transformation of GISAS images");
 
-    registerItem("MesoPerformance",
-                 create_new<MesoCrystalPerformanceTest>,
+    registerItem("MesoPerformance", create_new<MesoCrystalPerformanceTest>,
                  "Heavy mesocrystal simulation");
 
-    registerItem("AxisComparisonTest",
-                 create_new<AxisComparisonTest>,
-                 "Comparing simulation results for FixedBinAxis and PointwiseAxis");
+    registerItem("MultilayerPerformance", create_new<MultilayerPerformanceTest>,
+                 "Reflectometry performance on samples with a large number of layers");
+
+    registerItem("MultiThreadPerformance", create_new<MultiThreadPerformanceTest>,
+                 "Performance scaling with number of threads");
 }

@@ -30,16 +30,15 @@ const QString wavelength_title("Wavelength [nm]");
 const QString inclination_title("Inclination angles [deg]");
 const QString footprint_title("Footprint correction");
 const QString polarization_title("Polarization (Bloch vector)");
-}
+} // namespace
 
 SpecularBeamEditor::SpecularBeamEditor(ColumnResizer* columnResizer, QWidget* parent)
-    : SessionItemWidget(parent)
-    , m_columnResizer(columnResizer)
-    , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget))
-    , m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title))
-    , m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title))
-    , m_footprint_editor(new ComponentEditor(ComponentEditor::GroupWidget, footprint_title))
-    , m_gridLayout(new QGridLayout)
+    : SessionItemWidget(parent), m_columnResizer(columnResizer),
+      m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget)),
+      m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title)),
+      m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title)),
+      m_footprint_editor(new ComponentEditor(ComponentEditor::GroupWidget, footprint_title)),
+      m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
     m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);
@@ -52,10 +51,10 @@ SpecularBeamEditor::SpecularBeamEditor(ColumnResizer* columnResizer, QWidget* pa
     mainLayout->addStretch();
     setLayout(mainLayout);
 
-    connect(m_wavelengthEditor, &ComponentEditor::dialogRequest,
-            this, &SpecularBeamEditor::onDialogRequest);
-    connect(m_inclinationEditor, &ComponentEditor::dialogRequest,
-            this, &SpecularBeamEditor::onDialogRequest);
+    connect(m_wavelengthEditor, &ComponentEditor::dialogRequest, this,
+            &SpecularBeamEditor::onDialogRequest);
+    connect(m_inclinationEditor, &ComponentEditor::dialogRequest, this,
+            &SpecularBeamEditor::onDialogRequest);
 
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 0);
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 1);
@@ -98,7 +97,7 @@ SpecularInstrumentItem* SpecularBeamEditor::instrumentItem()
 
 void SpecularBeamEditor::onDialogRequest(SessionItem* item, const QString& name)
 {
-    if(!item)
+    if (!item)
         return;
 
     auto dialog = new DistributionDialog(this);

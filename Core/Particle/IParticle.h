@@ -23,9 +23,8 @@
 #include "ZLimits.h"
 #include <memory>
 
-
-struct ParticleLimits
-{
+//! Vertical extension of a particle, specified by bottom and top z coordinate.
+struct ParticleLimits {
     double m_bottom;
     double m_top;
 };
@@ -39,7 +38,7 @@ class BA_CORE_API_ IParticle : public IAbstractParticle
 {
 public:
     ~IParticle() {}
-    IParticle* clone() const  override=0;
+    IParticle* clone() const override = 0;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 

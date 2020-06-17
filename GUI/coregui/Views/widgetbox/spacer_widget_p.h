@@ -50,7 +50,6 @@
 // We mean it.
 //
 
-
 #ifndef SPACER_WIDGET_P_H
 #define SPACER_WIDGET_P_H
 
@@ -58,31 +57,32 @@
 
 //#include <QtWidgets/QWidget>
 //#include <QtWidgets/QSizePolicy>
-#include <QWidget>
 #include <QSizePolicy>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 
 class QDesignerFormWindowInterface;
 
-class QDESIGNER_SHARED_EXPORT Spacer: public QWidget
+class QDESIGNER_SHARED_EXPORT Spacer : public QWidget
 {
     Q_OBJECT
 
     Q_ENUMS(SizeType)
     // Special hack: Make name appear as "spacer name"
-    Q_PROPERTY(QString spacerName  READ objectName WRITE setObjectName)
+    Q_PROPERTY(QString spacerName READ objectName WRITE setObjectName)
     Q_PROPERTY(Qt::Orientation orientation READ orientation WRITE setOrientation)
     Q_PROPERTY(QSizePolicy::Policy sizeType READ sizeType WRITE setSizeType)
-    Q_PROPERTY(QSize sizeHint READ sizeHintProperty WRITE setSizeHintProperty DESIGNABLE true STORED true)
+    Q_PROPERTY(
+        QSize sizeHint READ sizeHintProperty WRITE setSizeHintProperty DESIGNABLE true STORED true)
 
 public:
-    Spacer(QWidget *parent = 0);
+    Spacer(QWidget* parent = 0);
 
     QSize sizeHint() const;
 
     QSize sizeHintProperty() const;
-    void setSizeHintProperty(const QSize &s);
+    void setSizeHintProperty(const QSize& s);
 
     QSizePolicy::Policy sizeType() const;
     void setSizeType(QSizePolicy::Policy t);
@@ -93,10 +93,10 @@ public:
     void setOrientation(Qt::Orientation o);
     void setInteractiveMode(bool b) { m_interactive = b; };
 
-    virtual bool event(QEvent *e);
+    virtual bool event(QEvent* e);
 
 protected:
-    void paintEvent(QPaintEvent *e);
+    void paintEvent(QPaintEvent* e);
     void resizeEvent(QResizeEvent* e);
     void updateMask();
 
@@ -105,7 +105,7 @@ private:
     void updateToolTip();
 
     const QSize m_SizeOffset;
-    QDesignerFormWindowInterface *m_formWindow;
+    QDesignerFormWindowInterface* m_formWindow;
     Qt::Orientation m_orientation;
     bool m_interactive;
     // Cache information about 'being in layout' which is expensive to calculate.

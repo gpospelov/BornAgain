@@ -1,4 +1,3 @@
-#include "google_test.h"
 #include "DepthProbeSimulation.h"
 #include "Distributions.h"
 #include "FixedBinAxis.h"
@@ -11,6 +10,7 @@
 #include "ParameterPattern.h"
 #include "RealParameter.h"
 #include "Units.h"
+#include "google_test.h"
 
 class DepthProbeSimulationTest : public ::testing::Test
 {
@@ -119,14 +119,10 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters)
     sim.setBeamIntensity(2.0);
     EXPECT_EQ(2.0, beam.getIntensity());
 
-    EXPECT_THROW(sim.setBeamParameters(1.0, 10, -2.0, 3.0),
-                 std::runtime_error);
-    EXPECT_THROW(sim.setBeamParameters(1.0, 10, 2.0, 1.0),
-                 std::runtime_error);
-    EXPECT_THROW(sim.setBeamParameters(1.0, 0, 1.0, 2.0),
-                 std::runtime_error);
-    EXPECT_THROW(sim.setBeamParameters(-1.0, 1, 1.0, 2.0),
-                 std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(1.0, 10, -2.0, 3.0), std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(1.0, 10, 2.0, 1.0), std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(1.0, 0, 1.0, 2.0), std::runtime_error);
+    EXPECT_THROW(sim.setBeamParameters(-1.0, 1, 1.0, 2.0), std::runtime_error);
 
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
     EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->getMin());
@@ -166,7 +162,7 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
 
     EXPECT_THROW(sim_result.data(AxesUnits::MM), std::runtime_error);
 
-    const std::unique_ptr<OutputData<double>> output(sim_result.data());
+    const auto output = sim_result.data();
     EXPECT_EQ(depth_map->getTotalNumberOfBins(), output->getAllocatedSize());
     EXPECT_EQ(depth_map->getRank(), output->getRank());
     EXPECT_EQ(depth_map->getXaxis().getMin(), output->getAxis(0).getMin());
@@ -186,8 +182,8 @@ TEST_F(DepthProbeSimulationTest, SimulationClone)
 
     SimulationResult clone_result = clone->result();
 
-    std::unique_ptr<OutputData<double>> sim_output(sim_result.data());
-    std::unique_ptr<OutputData<double>> clone_output(clone_result.data());
+    auto sim_output = sim_result.data();
+    auto clone_output = clone_result.data();
 
     EXPECT_EQ(sim_output->getAllocatedSize(), clone_output->getAllocatedSize());
     for (size_t i = 0; i < sim_output->getAllocatedSize(); ++i) {

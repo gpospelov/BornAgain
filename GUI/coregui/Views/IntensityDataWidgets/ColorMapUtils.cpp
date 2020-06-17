@@ -17,12 +17,14 @@
 #include "GUIHelpers.h"
 #include "IntensityDataItem.h"
 #include "item_constants.h"
-#include <QFontMetrics>
+#include "StyleUtils.h"
 
 using gradient_map_t = QMap<QString, QCPColorGradient::GradientPreset>;
 
-namespace {
-gradient_map_t createGradientMap() {
+namespace
+{
+gradient_map_t createGradientMap()
+{
     gradient_map_t result;
 
     result[Constants::GRADIENT_GRAYSCALE] = QCPColorGradient::gpGrayscale;
@@ -43,23 +45,23 @@ gradient_map_t createGradientMap() {
 
 // Converts xmin (low edge of first bin) and xmax (upper edge of last bin) to the
 // range expected by QCPColorMapData::setRange.
-QCPRange qcpRange(double xmin, double xmax, int nbins) {
-    double dx = (xmax-xmin)/nbins;
-    return QCPRange(xmin+dx/2., xmax-dx/2.);
+QCPRange qcpRange(double xmin, double xmax, int nbins)
+{
+    double dx = (xmax - xmin) / nbins;
+    return QCPRange(xmin + dx / 2., xmax - dx / 2.);
 }
 
 QMargins defaultMargins(const QWidget& widget)
 {
-    QFontMetrics fontMetric(widget.font());
-    auto em = fontMetric.width('M'), fontAscent = fontMetric.ascent();
-    int left = static_cast<int>(6.0 * em);
-    int top = static_cast<int>(fontAscent * 1.5);
-    int right = static_cast<int>(em * 1.2);
-    int bottom = static_cast<int>(4.5 * fontAscent);
+    auto base_size = StyleUtils::SizeOfLetterM(&widget);
+    int left = static_cast<int>(base_size.width()*6.0);
+    int top = static_cast<int>(base_size.height() * 1.5);
+    int right = static_cast<int>(base_size.width() * 1.2);
+    int bottom = static_cast<int>(base_size.height()* 4.5);
     return QMargins(left, top, right, bottom);
 }
 
-}
+} // namespace
 
 QCPColorGradient ColorMapUtils::getGradient(const QString& gradientName)
 {
@@ -128,7 +130,7 @@ void ColorMapUtils::setLogz(QCPAxis* axis, bool isLogz)
         axis->setScaleType(QCPAxis::stLogarithmic);
         QSharedPointer<QCPAxisTicker> ticker(new QCPAxisTickerLog);
         axis->setTicker(ticker);
-    } else  {
+    } else {
         axis->setNumberFormat("f");
         axis->setNumberPrecision(0);
         axis->setScaleType(QCPAxis::stLinear);

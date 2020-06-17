@@ -15,8 +15,8 @@
 #ifndef PROJECTDOCUMENT_H
 #define PROJECTDOCUMENT_H
 
-#include "WinDllMacros.h"
 #include "ProjectFlags.h"
+#include "WinDllMacros.h"
 #include <QObject>
 
 class QIODevice;
@@ -30,8 +30,7 @@ const QString BornAgainTag("BornAgain");
 const QString BornAgainVersionAttribute("Version");
 const QString InfoTag("DocumentInfo");
 const QString InfoNameAttribute("ProjectName");
-}
-
+} // namespace ProjectDocumentXML
 
 //! Project document class handles all data related to the opened project
 //! (sample, jobModel, project specific windows settings)

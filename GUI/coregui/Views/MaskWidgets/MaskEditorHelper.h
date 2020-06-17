@@ -29,7 +29,7 @@ class BA_CORE_API_ MaskEditorHelper
 {
 public:
     enum EViewTypes {
-        IMASKVIEW = QGraphicsItem::UserType+1, // = 65537
+        IMASKVIEW = QGraphicsItem::UserType + 1, // = 65537
         RECTANGLEBASE,
         RECTANGLE,
         SIZEHANDLE,
@@ -48,9 +48,7 @@ public:
     static QPen getSelectionMarkerPen();
     static QBrush getMaskBrush(bool mask_value);
     static QPen getMaskPen(bool mask_value);
-    static QRectF getMarkerRectangle(const QPointF &pos);
+    static QRectF getMarkerRectangle(const QPointF& pos);
 };
 
-
 #endif // MASKEDITORHELPER_H
-

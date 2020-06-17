@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/MinimizerFactory.cpp
+//! @file      Fit/Minimizer/MinimizerFactory.cpp
 //! @brief     Implements class MinimizerFactory.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -73,12 +73,18 @@ IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
     return result;
 }
 
-void MinimizerFactory::printCatalogue() { std::cout << catalogueToString() << std::endl; }
+void MinimizerFactory::printCatalogue()
+{
+    std::cout << catalogueToString() << std::endl;
+}
 
 //! Returns multi-line string representing catalogue content: minimizer names and list of their
 //! algorithms.
 
-std::string MinimizerFactory::catalogueToString() { return catalogue().toString(); }
+std::string MinimizerFactory::catalogueToString()
+{
+    return catalogue().toString();
+}
 
 //! Returns multi-line string representing detailed catalogue content:
 //! minimizer names, list of their algorithms and description, list of minimizer options.

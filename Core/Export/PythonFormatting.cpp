@@ -16,20 +16,20 @@
 #include "BornAgainNamespace.h"
 #include "Distributions.h"
 #include "Ellipse.h"
+#include "FixedBinAxis.h"
 #include "IParameterized.h"
 #include "InfinitePlane.h"
 #include "Line.h"
 #include "MathConstants.h"
 #include "Numeric.h"
-#include "ParameterPool.h"
 #include "ParameterDistribution.h"
+#include "ParameterPool.h"
 #include "PointwiseAxis.h"
 #include "Polygon.h"
 #include "RealParameter.h"
 #include "Rectangle.h"
 #include "StringUtils.h"
 #include "Units.h"
-#include "FixedBinAxis.h"
 #include <iomanip>
 
 namespace PythonFormatting
@@ -48,7 +48,6 @@ std::string getSampleFunctionName()
 {
     return "get_sample";
 }
-
 
 //! Returns fixed Python code snippet that defines the function "runSimulation".
 
@@ -109,7 +108,10 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape, 
     return result.str();
 }
 
-std::string printBool(double value) { return value ? "True" : "False"; }
+std::string printBool(double value)
+{
+    return value ? "True" : "False";
+}
 
 std::string printDouble(double input)
 {
@@ -194,12 +196,12 @@ std::string printString(const std::string& value)
 
 bool isSquare(double length1, double length2, double angle)
 {
-    return length1 == length2 && Numeric::areAlmostEqual(angle, M_PI_2);
+    return length1 == length2 && Numeric::AreAlmostEqual(angle, M_PI_2);
 }
 
 bool isHexagonal(double length1, double length2, double angle)
 {
-    return length1 == length2 && Numeric::areAlmostEqual(angle, M_TWOPI / 3.0);
+    return length1 == length2 && Numeric::AreAlmostEqual(angle, M_TWOPI / 3.0);
 }
 
 std::string printKvector(const kvector_t value)
@@ -213,9 +215,9 @@ std::string printKvector(const kvector_t value)
 //! returns true if it is (0, -1, 0) vector
 bool isDefaultDirection(const kvector_t direction)
 {
-    return Numeric::areAlmostEqual(direction.x(), 0.0)
-           && Numeric::areAlmostEqual(direction.y(), -1.0)
-           && Numeric::areAlmostEqual(direction.z(), 0.0);
+    return Numeric::AreAlmostEqual(direction.x(), 0.0)
+           && Numeric::AreAlmostEqual(direction.y(), -1.0)
+           && Numeric::AreAlmostEqual(direction.z(), 0.0);
 }
 
 //! Returns parameter value, followed by its unit multiplicator (like "* nm").
@@ -315,10 +317,8 @@ std::string printAxis(const IAxis& axis, const std::string& units, size_t offset
     std::ostringstream result;
 
     if (auto fixedAxis = dynamic_cast<const FixedBinAxis*>(&axis)) {
-        result << "ba.FixedBinAxis("
-               << printString(fixedAxis->getName()) << ", "
-               << fixedAxis->size() << ", "
-               << printValue(fixedAxis->getMin(), units) << ", "
+        result << "ba.FixedBinAxis(" << printString(fixedAxis->getName()) << ", "
+               << fixedAxis->size() << ", " << printValue(fixedAxis->getMin(), units) << ", "
                << printValue(fixedAxis->getMax(), units) << ")";
     } else if (auto pointwise_axis = dynamic_cast<const PointwiseAxis*>(&axis)) {
         const std::string py_def_call = "numpy.asarray([";
@@ -326,7 +326,7 @@ std::string printAxis(const IAxis& axis, const std::string& units, size_t offset
         result << py_def_call;
 
         std::vector<double> points = pointwise_axis->getBinCenters();
-        for (auto iter = points.begin(); iter != points.end()-1; ++iter) {
+        for (auto iter = points.begin(); iter != points.end() - 1; ++iter) {
             result << printValue(*iter, units) << ",\n";
             result << indent(total_offset);
         }

@@ -58,11 +58,11 @@ std::string MinimizerResultUtils::reportParameters(const Fit::Parameters& parame
 
     result << MinimizerUtils::sectionString("FitParameters");
 
-    result << "Name       StartValue  Limits                        FitValue     Error"
-           << std::endl;
+    result << "Name                       StartValue  Limits                        FitValue"
+           << "     Error" << std::endl;
 
     for (const auto& par : parameters) {
-        result << boost::format("# %-8s %-8.3e   %-28s  %-8.3e    %8.3e \n") % par.name()
+        result << boost::format("%-26.26s %-8.3e   %-28s  %-8.3e    %8.3e \n") % par.name()
                       % par.startValue() % par.limits().toString() % par.value() % par.error();
     }
 
@@ -80,7 +80,8 @@ std::string MinimizerResultUtils::reportParameters(const Fit::Parameters& parame
     return result.str();
 }
 
-namespace {
+namespace
+{
 
 std::string reportDescription(const RootMinimizerAdapter& minimizer)
 {
@@ -120,4 +121,4 @@ std::string reportStatus(const RootMinimizerAdapter& minimizer)
     return result.str();
 }
 
-}
+} // namespace

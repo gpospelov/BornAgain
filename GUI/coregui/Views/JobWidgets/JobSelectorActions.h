@@ -56,4 +56,3 @@ private:
 };
 
 #endif // JOBSELECTORACTIONS_H
-

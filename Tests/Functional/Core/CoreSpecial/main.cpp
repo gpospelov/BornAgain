@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Core/CoreSpecial/CoreSpecialTestFactory.h
+//! @file      Tests/Functional/Core/CoreSpecial/main.cpp
 //! @brief     Implements program to run tests from CoreSpecialTestFactory
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "TestService.h"
 #include "CoreSpecialTestFactory.h"
+#include "TestService.h"
 
 //! Runs PyEmbedded functional test.
 int main(int argc, char** argv)

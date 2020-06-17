@@ -64,7 +64,6 @@
 #include "SpecularDataItem.h"
 #include "SphericalDetectorItem.h"
 #include "TransformationItem.h"
-#include "VarianceFunctionItems.h"
 #include "VectorItem.h"
 
 ItemCatalogue::ItemCatalogue()
@@ -106,6 +105,8 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::PropertyType, create_new<PropertyItem>);
 
     add(Constants::AnisoPyramidType, create_new<AnisoPyramidItem>);
+    add(Constants::BarGaussType, create_new<BarGaussItem>);
+    add(Constants::BarLorentzType, create_new<BarLorentzItem>);
     add(Constants::BoxType, create_new<BoxItem>);
     add(Constants::ConeType, create_new<ConeItem>);
     add(Constants::Cone6Type, create_new<Cone6Item>);
@@ -121,8 +122,12 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::Prism3Type, create_new<Prism3Item>);
     add(Constants::Prism6Type, create_new<Prism6Item>);
     add(Constants::PyramidType, create_new<PyramidItem>);
-    add(Constants::Ripple1Type, create_new<Ripple1Item>);
-    add(Constants::Ripple2Type, create_new<Ripple2Item>);
+    add(Constants::Ripple1BoxType, create_new<Ripple1BoxItem>);
+    add(Constants::Ripple1GaussType, create_new<Ripple1GaussItem>);
+    add(Constants::Ripple1LorentzType, create_new<Ripple1LorentzItem>);
+    add(Constants::Ripple2BoxType, create_new<Ripple2BoxItem>);
+    add(Constants::Ripple2GaussType, create_new<Ripple2GaussItem>);
+    add(Constants::Ripple2LorentzType, create_new<Ripple2LorentzItem>);
     add(Constants::TetrahedronType, create_new<TetrahedronItem>);
     add(Constants::TruncatedCubeType, create_new<TruncatedCubeItem>);
     add(Constants::TruncatedSphereType, create_new<TruncatedSphereItem>);
@@ -244,9 +249,6 @@ ItemCatalogue::ItemCatalogue()
     add(Constants::ProjectionContainerType, create_new<ProjectionContainerItem>);
 
     add(Constants::DepthProbeInstrumentType, create_new<DepthProbeInstrumentItem>);
-
-    add(Constants::VarianceConstantFunctionType, create_new<VarianceConstantFunctionItem>);
-    add(Constants::VarianceSimFunctionType, create_new<VarianceSimFunctionItem>);
 }
 
 bool ItemCatalogue::contains(const QString& modelType) const

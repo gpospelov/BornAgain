@@ -21,8 +21,8 @@
 #include "IntensityDataItem.h"
 #include "ItemFileNameUtils.h"
 #include "JobItemUtils.h"
-#include "MaterialItemContainer.h"
 #include "MaskUnitsConverter.h"
+#include "MaterialItemContainer.h"
 #include "MultiLayerItem.h"
 #include "ParameterTreeItems.h"
 #include "RealDataItem.h"
@@ -75,12 +75,11 @@ JobItem::JobItem() : SessionItem(Constants::JobItemType)
     registerTag(T_SAMPLE, 1, 1, QStringList() << Constants::MultiLayerType);
     registerTag(T_MATERIAL_CONTAINER, 1, 1, QStringList{Constants::MaterialContainerType});
     registerTag(T_INSTRUMENT, 1, 1,
-                QStringList() << Constants::GISASInstrumentType
-                              << Constants::OffSpecInstrumentType
+                QStringList() << Constants::GISASInstrumentType << Constants::OffSpecInstrumentType
                               << Constants::SpecularInstrumentType
                               << Constants::DepthProbeInstrumentType);
-    registerTag(T_OUTPUT, 1, 1, QStringList() << Constants::IntensityDataType
-                << Constants::SpecularDataType);
+    registerTag(T_OUTPUT, 1, 1,
+                QStringList() << Constants::IntensityDataType << Constants::SpecularDataType);
     registerTag(T_REALDATA, 1, 1, QStringList() << Constants::RealDataType);
     registerTag(T_DATAVIEW, 1, 1, QStringList() << Constants::Data1DViewItemType);
     registerTag(T_PARAMETER_TREE, 0, -1, QStringList() << Constants::ParameterContainerType);
@@ -183,7 +182,7 @@ void JobItem::setDuration(int duration)
 {
     QString str;
     if (duration != 0)
-        str.sprintf("%7.3f", duration / 1000.);
+        str = QString("%7.3f").arg(duration / 1000.);
     setItemValue(P_DURATION, str.simplified());
 }
 
@@ -277,8 +276,7 @@ Data1DViewItem* JobItem::dataItemView()
 void JobItem::updateIntensityDataFileName()
 {
     if (DataItem* item = dataItem())
-        item->setItemValue(DataItem::P_FILE_NAME,
-                           ItemFileNameUtils::jobResultsFileName(*this));
+        item->setItemValue(DataItem::P_FILE_NAME, ItemFileNameUtils::jobResultsFileName(*this));
 
     if (RealDataItem* realItem = realDataItem()) {
         if (DataItem* item = realItem->dataItem())

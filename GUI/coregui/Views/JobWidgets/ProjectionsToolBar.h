@@ -15,8 +15,8 @@
 #ifndef PROJECTIONSTOOLBAR_H
 #define PROJECTIONSTOOLBAR_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorFlags.h"
+#include "WinDllMacros.h"
 #include <QToolBar>
 
 class ProjectionsEditorActions;
@@ -54,6 +54,5 @@ private:
     QButtonGroup* m_activityButtonGroup;
     MaskEditorFlags::Activity m_previousActivity;
 };
-
 
 #endif // PROJECTIONSTOOLBAR_H

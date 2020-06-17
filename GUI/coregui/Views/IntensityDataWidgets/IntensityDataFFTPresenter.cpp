@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataFFTPresenter.h
+//! @file      GUI/coregui/Views/IntensityDataWidgets/IntensityDataFFTPresenter.cpp
 //! @brief     Defines class IntensityDataFFTPresenter
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,27 +13,24 @@
 // ************************************************************************** //
 
 #include "IntensityDataFFTPresenter.h"
+#include "GUIHelpers.h"
 #include "IntensityDataFunctions.h"
 #include "IntensityDataItem.h"
 #include "SessionModel.h"
-#include "GUIHelpers.h"
-#include <QWidget>
-#include <QApplication>
 #include <QAction>
+#include <QApplication>
+#include <QWidget>
 
 IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
-    : QObject(parent)
-    , m_fftAction(nullptr)
-    , m_fftModel(new SessionModel("TempFFTModel", this))
-    , m_fftItem(nullptr)
-    , m_in_fft_mode(false)
+    : QObject(parent), m_fftAction(nullptr), m_fftModel(new SessionModel("TempFFTModel", this)),
+      m_fftItem(nullptr), m_in_fft_mode(false)
 {
-    m_fftItem
-        = dynamic_cast<IntensityDataItem*>(m_fftModel->insertNewItem(Constants::IntensityDataType));
+    m_fftItem =
+        dynamic_cast<IntensityDataItem*>(m_fftModel->insertNewItem(Constants::IntensityDataType));
 
     m_fftAction = new QAction(this);
     m_fftAction->setText("Fourier");
-    m_fftAction->setIcon(QIcon(":/images/toolbar16light_fft.svg"));
+    m_fftAction->setIcon(QIcon(":/images/alpha-f-box.svg"));
     m_fftAction->setToolTip("Get the Fourier Transform of current intensity map");
     connect(m_fftAction, &QAction::triggered, this, &IntensityDataFFTPresenter::onFFTActionRequest);
 }

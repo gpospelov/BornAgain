@@ -23,7 +23,7 @@
 class BA_CORE_API_ ParticleCompositionBuilder : public IMultiLayerBuilder
 {
 public:
-    ParticleCompositionBuilder(){}
+    ParticleCompositionBuilder() {}
     MultiLayer* buildSample() const;
 };
 

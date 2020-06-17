@@ -42,8 +42,8 @@ public:
 
     void setModel(JobModel* jobModel);
 
-    QSize sizeHint() const { return QSize(210, 600); }
-    QSize minimumSizeHint() const { return QSize(64, 300); }
+    QSize sizeHint() const;
+    QSize minimumSizeHint() const;
 
     const JobItem* currentJobItem() const;
 

@@ -21,9 +21,11 @@
 //! Convenience class for handling polarization density matrix and polarization analyzer operator
 //! @ingroup simulation
 
-class BA_CORE_API_ PolarizationHandler {
+class BA_CORE_API_ PolarizationHandler
+{
 public:
     PolarizationHandler();
+    PolarizationHandler(const Eigen::Matrix2cd& polarization, const Eigen::Matrix2cd& analyzer);
 
     //! Sets the polarization density matrix (in spin basis along z-axis)
     void setPolarization(const Eigen::Matrix2cd& polarization) { m_polarization = polarization; }
@@ -32,8 +34,7 @@ public:
     Eigen::Matrix2cd getPolarization() const { return m_polarization; }
 
     //! Sets the polarization analyzer operator (in spin basis along z-axis)
-    void setAnalyzerOperator(const Eigen::Matrix2cd& polarization_operator) {
-        m_analyzer_operator = polarization_operator; }
+    void setAnalyzerOperator(const Eigen::Matrix2cd& analyzer) { m_analyzer_operator = analyzer; }
 
     //! Gets the polarization analyzer operator (in spin basis along z-axis)
     Eigen::Matrix2cd getAnalyzerOperator() const { return m_analyzer_operator; }
@@ -41,8 +42,8 @@ public:
     void swapContent(PolarizationHandler& other);
 
 private:
-    Eigen::Matrix2cd m_polarization;         //!< polarization density matrix
-    Eigen::Matrix2cd m_analyzer_operator;    //!< polarization analyzer operator
+    Eigen::Matrix2cd m_polarization;      //!< polarization density matrix
+    Eigen::Matrix2cd m_analyzer_operator; //!< polarization analyzer operator
 };
 
 #endif /* POLARIZATIONHANDLER_H_ */

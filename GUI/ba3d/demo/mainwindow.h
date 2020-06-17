@@ -16,9 +16,9 @@
 #define BA3D_MAINWINDOW_H
 
 #include "demo_model.h"
-#include <ba3d/widget.h>
-#include <ba3d/model/particles.h>
 #include <QMainWindow>
+#include <ba3d/model/particles.h>
+#include <ba3d/widget.h>
 
 class QSlider;
 
@@ -28,18 +28,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
 
-    RealSpace::Widget3D& widget3d() {
-        return *w3d;
-    }
+    RealSpace::Widget3D& widget3d() { return *w3d; }
 
 private:
     void closeEvent(QCloseEvent*);
     void keyPressEvent(QKeyEvent*);
 
     void createLayout();
-    RealSpace::Widget3D *w3d;
+    RealSpace::Widget3D* w3d;
 
     class DemoModel* model();
 };
 
-#endif  // BA3D_MAINWINDOW_H
+#endif // BA3D_MAINWINDOW_H

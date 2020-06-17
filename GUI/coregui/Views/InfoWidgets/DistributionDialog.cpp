@@ -19,22 +19,21 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 
-DistributionDialog::DistributionDialog(QWidget *parent)
-    : QDialog(parent)
-    , m_editor(new DistributionEditor)
+DistributionDialog::DistributionDialog(QWidget* parent)
+    : QDialog(parent), m_editor(new DistributionEditor)
 {
     setMinimumSize(256, 256);
     resize(700, 480);
     setWindowTitle("Select Distribution");
-//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setModal(true);
 
-    QVBoxLayout *layout = new QVBoxLayout;
-    QPushButton *button = new QPushButton("Close", this);
+    QVBoxLayout* layout = new QVBoxLayout;
+    QPushButton* button = new QPushButton("Close", this);
     button->setAutoDefault(false);
     connect(button, SIGNAL(clicked()), this, SLOT(close()));
 
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
+    QHBoxLayout* buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);
     buttonLayout->setContentsMargins(4, 4, 4, 4);
     buttonLayout->addWidget(button);
@@ -49,12 +48,12 @@ DistributionDialog::DistributionDialog(QWidget *parent)
     StyleUtils::setResizable(this);
 }
 
-void DistributionDialog::setItem(SessionItem *item)
+void DistributionDialog::setItem(SessionItem* item)
 {
     m_editor->setItem(item);
 }
 
-void DistributionDialog::setNameOfEditor(const QString &name)
+void DistributionDialog::setNameOfEditor(const QString& name)
 {
     m_editor->setNameOfEditor(name);
 }

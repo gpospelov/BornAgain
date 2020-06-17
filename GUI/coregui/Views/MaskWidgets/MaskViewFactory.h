@@ -27,8 +27,7 @@ class ISceneAdaptor;
 class BA_CORE_API_ MaskViewFactory
 {
 public:
-    static IShape2DView *createMaskView(SessionItem *item,
-                                     ISceneAdaptor *adaptor = 0);
+    static IShape2DView* createMaskView(SessionItem* item, ISceneAdaptor* adaptor = 0);
 };
 
 #endif // MASKVIEWFACTORY_H

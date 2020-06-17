@@ -20,8 +20,7 @@
 const QString SphericalDetectorItem::P_PHI_AXIS = "Phi axis";
 const QString SphericalDetectorItem::P_ALPHA_AXIS = "Alpha axis";
 
-SphericalDetectorItem::SphericalDetectorItem()
-    : DetectorItem(Constants::SphericalDetectorType)
+SphericalDetectorItem::SphericalDetectorItem() : DetectorItem(Constants::SphericalDetectorType)
 {
     SessionItem* item = addGroupProperty(P_PHI_AXIS, Constants::BasicAxisType);
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
@@ -62,7 +61,7 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDomainDetector() const
 
     result->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
 
-    return std::move(result);
+    return std::unique_ptr<IDetector2D>(result.release());
 }
 
 int SphericalDetectorItem::xSize() const

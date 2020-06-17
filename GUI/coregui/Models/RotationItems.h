@@ -15,15 +15,15 @@
 #ifndef ROTATIONITEMS_H
 #define ROTATIONITEMS_H
 
-#include "WinDllMacros.h"
 #include "SessionItem.h"
+#include "WinDllMacros.h"
 
 class IRotation;
 
 class BA_CORE_API_ RotationItem : public SessionItem
 {
 public:
-    explicit RotationItem(const QString& name) : SessionItem(name){}
+    explicit RotationItem(const QString& name) : SessionItem(name) {}
     virtual std::unique_ptr<IRotation> createRotation() const = 0;
 };
 
@@ -62,4 +62,3 @@ public:
 };
 
 #endif // ROTATIONITEMS_H
-

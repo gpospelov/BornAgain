@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Tools/PyEmbeddedUtils.h
+//! @file      Core/Tools/PyEmbeddedUtils.cpp
 //! @brief     IOmplements various functions from PyEmbeddedUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,13 +13,12 @@
 // ************************************************************************** //
 
 #include "PyEmbeddedUtils.h"
+#include "MultiLayer.h"
 #include "PythonCore.h"
 #include "PythonFormatting.h"
-#include "MultiLayer.h"
 #include "SysUtils.h"
-#include <stdexcept>
 #include <iostream>
-
+#include <stdexcept>
 
 std::string PyEmbeddedUtils::toString(PyObject* obj)
 {
@@ -41,14 +40,14 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj)
 
     if (PyTuple_Check(obj)) {
         for (Py_ssize_t i = 0; i < PyTuple_Size(obj); i++) {
-            PyObject *value = PyTuple_GetItem(obj, i);
-            result.push_back( toString(value) );
+            PyObject* value = PyTuple_GetItem(obj, i);
+            result.push_back(toString(value));
         }
 
     } else if (PyList_Check(obj)) {
         for (Py_ssize_t i = 0; i < PyList_Size(obj); i++) {
-            PyObject *value = PyList_GetItem(obj, i);
-            result.push_back( toString(value) );
+            PyObject* value = PyList_GetItem(obj, i);
+            result.push_back(toString(value));
         }
 
     } else {
@@ -58,7 +57,6 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj)
     return result;
 }
 
-
 std::string PyEmbeddedUtils::toString(char* c)
 {
     if (c)
@@ -67,12 +65,11 @@ std::string PyEmbeddedUtils::toString(char* c)
         return std::string();
 }
 
-
 std::string PyEmbeddedUtils::toString(wchar_t* c)
 {
     if (c) {
         std::wstring wstr(c);
-        std::string result( wstr.begin(), wstr.end() );
+        std::string result(wstr.begin(), wstr.end());
         return result;
     } else {
         return std::string();
@@ -85,10 +82,9 @@ void PyEmbeddedUtils::import_bornagain(const std::string& path)
         Py_InitializeEx(0);
 
         if (!path.empty()) {
-            PyObject *sysPath = PySys_GetObject((char*)"path");
+            PyObject* sysPath = PySys_GetObject((char*)"path");
             PyList_Append(sysPath, PyString_FromString(path.c_str()));
         }
-
 
         // Stores signal handler before numpy's mess it up.
         // This is to make ctrl-c working from terminal.
@@ -106,9 +102,7 @@ void PyEmbeddedUtils::import_bornagain(const std::string& path)
 #ifndef _WIN32
         PyOS_setsig(SIGINT, sighandler);
 #endif
-
     }
-
 }
 
 std::string PyEmbeddedUtils::pythonRuntimeInfo()
@@ -124,17 +118,14 @@ std::string PyEmbeddedUtils::pythonRuntimeInfo()
     result << "PYTHONHOME: " << SysUtils::getenv("PYTHONHOME") << "\n";
 
     // Embedded Python details
-    result << "Py_GetProgramName(): "
-           << PyEmbeddedUtils::toString(Py_GetProgramName()) << "\n";
-    result << "Py_GetProgramFullPath(): "
-           << PyEmbeddedUtils::toString(Py_GetProgramFullPath()) << "\n";
-    result << "Py_GetPath(): "
-           << PyEmbeddedUtils::toString(Py_GetPath()) << "\n";
-    result << "Py_GetPythonHome(): "
-           << PyEmbeddedUtils::toString(Py_GetPythonHome()) << "\n";
+    result << "Py_GetProgramName(): " << PyEmbeddedUtils::toString(Py_GetProgramName()) << "\n";
+    result << "Py_GetProgramFullPath(): " << PyEmbeddedUtils::toString(Py_GetProgramFullPath())
+           << "\n";
+    result << "Py_GetPath(): " << PyEmbeddedUtils::toString(Py_GetPath()) << "\n";
+    result << "Py_GetPythonHome(): " << PyEmbeddedUtils::toString(Py_GetPythonHome()) << "\n";
 
     // Runtime Python's sys.path
-    PyObject *sysPath = PySys_GetObject((char*)"path");
+    PyObject* sysPath = PySys_GetObject((char*)"path");
     auto content = PyEmbeddedUtils::toVectorString(sysPath);
     result << "sys.path: ";
     for (auto s : content)
@@ -167,7 +158,8 @@ std::string PyEmbeddedUtils::pythonStackTrace()
             result << "\n";
             PyObject* pyth_func = PyObject_GetAttrString(pyth_module, "format_exception");
             if (pyth_func && PyCallable_Check(pyth_func)) {
-                PyObject* pyth_val = PyObject_CallFunctionObjArgs(pyth_func, ptype, pvalue, ptraceback, NULL);
+                PyObject* pyth_val =
+                    PyObject_CallFunctionObjArgs(pyth_func, ptype, pvalue, ptraceback, NULL);
                 if (pyth_val) {
                     pystr = PyObject_Str(pyth_val);
                     if (char* str = PyString_AsString(pystr))

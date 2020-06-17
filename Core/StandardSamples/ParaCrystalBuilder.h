@@ -50,7 +50,7 @@ public:
     virtual ~Basic2DParaCrystalBuilder();
     virtual MultiLayer* buildSample() const;
 
-    MultiLayer* createSample(size_t index=0);
+    MultiLayer* createSample(size_t index = 0);
     size_t size();
 
 private:
@@ -83,7 +83,7 @@ private:
 class BA_CORE_API_ RectParaCrystalBuilder : public IMultiLayerBuilder
 {
 public:
-    RectParaCrystalBuilder(){}
+    RectParaCrystalBuilder() {}
     virtual MultiLayer* buildSample() const;
 };
 

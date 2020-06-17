@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/CommonWidgets/SessionItemController.h
+//! @file      GUI/coregui/Views/CommonWidgets/SessionItemController.cpp
 //! @brief     Implements class SessionItemController
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,13 +13,11 @@
 // ************************************************************************** //
 
 #include "SessionItemController.h"
-#include "SessionItem.h"
 #include "GUIHelpers.h"
+#include "SessionItem.h"
 
 SessionItemController::SessionItemController(QObject* prt)
-    : QObject(prt)
-    , m_item(nullptr)
-    , m_parent_subscribed(false)
+    : QObject(prt), m_item(nullptr), m_parent_subscribed(false)
 {
     Q_ASSERT(parent());
 }
@@ -31,7 +29,7 @@ SessionItemController::~SessionItemController()
 
 void SessionItemController::setItem(SessionItem* item)
 {
-    if(m_item == item)
+    if (m_item == item)
         return;
 
     if (m_item) {
@@ -118,6 +116,3 @@ void SessionItemController::unsubscribeParent()
     m_unsubscribe_callback();
     m_parent_subscribed = false;
 }
-
-
-

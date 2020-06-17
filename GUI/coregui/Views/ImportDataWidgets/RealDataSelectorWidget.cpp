@@ -14,21 +14,21 @@
 
 #include "RealDataSelectorWidget.h"
 #include "ItemSelectorWidget.h"
-#include "RealDataPropertiesWidget.h"
 #include "RealDataModel.h"
-#include "minisplitter.h"
+#include "RealDataPropertiesWidget.h"
 #include "RealDataSelectorActions.h"
+#include "RealDataSelectorHBar.h"
 #include "RealDataSelectorToolBar.h"
-#include <QVBoxLayout>
+#include "minisplitter.h"
 #include <QItemSelectionModel>
+#include <QVBoxLayout>
 
 RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_selectorActions(new RealDataSelectorActions(this))
-    , m_toolBar(new RealDataSelectorToolBar(m_selectorActions, this))
-    , m_splitter(new Manhattan::MiniSplitter)
-    , m_selectorWidget(new ItemSelectorWidget)
-    , m_propertiesWidget(new RealDataPropertiesWidget)
+    : QWidget(parent), m_selectorActions(new RealDataSelectorActions(this)),
+      m_toolBar(new RealDataSelectorToolBar(m_selectorActions, this)),
+      m_hamBar(new RealDataSelectorHBar(m_selectorActions, this)),
+      m_splitter(new Manhattan::MiniSplitter), m_selectorWidget(new ItemSelectorWidget),
+      m_propertiesWidget(new RealDataPropertiesWidget)
 {
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
@@ -44,14 +44,15 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     mainLayout->setSpacing(0);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_toolBar);
+    mainLayout->addWidget(m_hamBar);
     mainLayout->addWidget(m_splitter);
     setLayout(mainLayout);
 
-    connect(m_selectorWidget, &ItemSelectorWidget::contextMenuRequest,
-            m_selectorActions,&RealDataSelectorActions::onContextMenuRequest);
+    connect(m_selectorWidget, &ItemSelectorWidget::contextMenuRequest, m_selectorActions,
+            &RealDataSelectorActions::onContextMenuRequest);
 
-    connect(m_selectorWidget, &ItemSelectorWidget::selectionChanged,
-            this, &RealDataSelectorWidget::onSelectionChanged);
+    connect(m_selectorWidget, &ItemSelectorWidget::selectionChanged, this,
+            &RealDataSelectorWidget::onSelectionChanged);
 }
 
 QSize RealDataSelectorWidget::sizeHint() const

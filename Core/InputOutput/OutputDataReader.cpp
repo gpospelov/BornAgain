@@ -13,42 +13,46 @@
 // ************************************************************************** //
 
 #include "OutputDataReader.h"
-#include "OutputData.h"
 #include "DataFormatUtils.h"
+#include "OutputData.h"
 #ifdef _WIN32
-#pragma warning ( push )
-#pragma warning ( disable: 4244 4275 )
+#pragma warning(push)
+#pragma warning(disable : 4244 4275)
 #include "boost_streams.h"
-#pragma warning ( pop )
+#pragma warning(pop)
 #else
 #include "boost_streams.h"
 #endif
+#include "FileSystemUtils.h"
 #include <fstream>
 
-OutputDataReader::OutputDataReader(const std::string& file_name)
-    : m_file_name(file_name)
-{}
+OutputDataReader::OutputDataReader(const std::string& file_name) : m_file_name(file_name) {}
 
 OutputData<double>* OutputDataReader::getOutputData()
 {
-    if(!m_read_strategy)
+    using namespace DataFormatUtils;
+    if (!m_read_strategy)
         throw Exceptions::NullPointerException(
             "OutputDataReader::getOutputData() -> Error! No read strategy defined");
 
     std::ifstream fin;
     std::ios_base::openmode openmode = std::ios::in;
-    if (DataFormatUtils::isBinaryFile(m_file_name))
+    if (isTiffFile(m_file_name) || isCompressed(m_file_name))
         openmode = std::ios::in | std::ios_base::binary;
 
-    fin.open(m_file_name.c_str(), openmode );
-    if(!fin.is_open())
+#ifdef _WIN32
+    fin.open(FileSystemUtils::convert_utf8_to_utf16(m_file_name), openmode);
+#else
+    fin.open(m_file_name, openmode);
+#endif
+
+    if (!fin.is_open())
         throw Exceptions::FileNotIsOpenException(
-            "OutputDataReader::getOutputData() -> Error. Can't open file '"
-            + m_file_name + "' for reading.");
+            "OutputDataReader::getOutputData() -> Error. Can't open file '" + m_file_name
+            + "' for reading.");
     if (!fin.good())
-        throw Exceptions::FileIsBadException(
-            "OutputDataReader::getOutputData() -> Error! "
-            "File is not good, probably it is a directory.");
+        throw Exceptions::FileIsBadException("OutputDataReader::getOutputData() -> Error! "
+                                             "File is not good, probably it is a directory.");
     OutputData<double>* result = getFromFilteredStream(fin);
     fin.close();
     return result;

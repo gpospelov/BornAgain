@@ -22,7 +22,7 @@ namespace
 {
 void setupDistributionMean(SessionItem* distribution);
 void setAxisPresentationDefaults(SessionItem* axis_item, const QString& type);
-}
+} // namespace
 
 const QString SpecularBeamInclinationItem::P_ALPHA_AXIS = "Alpha axis";
 
@@ -98,6 +98,8 @@ void setAxisPresentationDefaults(SessionItem* axis_item, const QString& type)
     axis_item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");
     axis_item->getItem(BasicAxisItem::P_MIN)->setToolTip("Starting value [deg]");
     axis_item->getItem(BasicAxisItem::P_MAX)->setToolTip("Ending value [deg]");
+    axis_item->getItem(BasicAxisItem::P_MIN)->setLimits(RealLimits::limited(0., 90.));
+    axis_item->getItem(BasicAxisItem::P_MAX)->setLimits(RealLimits::limited(0., 90.));
 
     if (type == Constants::BasicAxisType) {
         axis_item->setItemValue(BasicAxisItem::P_MIN, 0.0);

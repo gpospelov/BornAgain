@@ -43,4 +43,4 @@ private:
     QGridLayout* m_gridLayout;
 };
 
-#endif  // ENVIRONMENTEDITOR_H
+#endif // ENVIRONMENTEDITOR_H

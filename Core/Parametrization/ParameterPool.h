@@ -60,8 +60,11 @@ public:
 
     std::vector<std::string> parameterNames() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
-        obj.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj)
+    {
+        obj.print(ostr);
+        return ostr;
+    }
 
     void removeParameter(const std::string& name);
 
@@ -73,7 +76,7 @@ private:
 #ifndef SWIG
     [[noreturn]] void report_find_matched_parameters_error(const std::string& pattern) const;
     [[noreturn]] void report_set_value_error(const std::string& parname, double value,
-                                             std::string message={}) const;
+                                             std::string message = {}) const;
 #endif
     size_t check_index(size_t index) const;
 

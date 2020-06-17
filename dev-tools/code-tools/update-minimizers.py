@@ -6,8 +6,8 @@ import os
 import filecmp
 import shutil
 
-ROOT_SOURCE = "/home/pospelov/software/root/root-6.12.06-source"
-BORNAGAIN_SOURCE = "/home/pospelov/development/BornAgainHub/BornAgain/ThirdParty/Fit/RootMinimizers"
+ROOT_SOURCE = "/home/pospelov/software/source/root"
+BORNAGAIN_SOURCE = "/home/pospelov/development/BornAgain/BornAgain/ThirdParty/Fit/RootMinimizers"
 
 
 def copy_file_to_file(source, destination):
@@ -78,7 +78,7 @@ def build_difference_map():
             if filecmp.cmp(ba_file, found_files[0]) == False:
                 cmd = "cp " + found_files[0] + " " + os.path.dirname(ba_file)
                 print(len(found_files), found_files[0], ba_file)
-                #copy_file_to_file(found_files[0], ba_file)
+                copy_file_to_file(found_files[0], ba_file)
         else:
             print(len(found_files), found_files, ba_file)
 

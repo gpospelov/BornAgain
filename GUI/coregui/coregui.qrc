@@ -16,37 +16,20 @@
         <file>images/warning@2x.png</file>
         <file>images/magnifier.png</file>
         <file>images/warning_64x64.png</file>
-        <file>images/toolbar32dark_cloneitem.svg</file>
-        <file>images/toolbar32dark_newitem.svg</file>
-        <file>images/toolbar32dark_remove.svg</file>
         <file>images/statusbar_dockmenu.svg</file>
         <file>images/statusbar_joblist.svg</file>
         <file>images/main_sessionmodel.svg</file>
         <file>images/toolbar_expand_collapse_tree.svg</file>
-        <file>images/toolbar16light_recycle.svg</file>
-        <file>images/toolbar16light_newitem.svg</file>
-        <file>images/toolbar16light_cloneitem.svg</file>
-        <file>images/toolbar16light_run.svg</file>
         <file>images/main_importview.svg</file>
         <file>images/main_instrumentview.svg</file>
         <file>images/main_jobview.svg</file>
         <file>images/main_sampleview.svg</file>
         <file>images/main_simulationview.svg</file>
         <file>images/main_welcomeview.svg</file>
-        <file>images/toolbar16light_rotate.svg</file>
-        <file>images/toolbar16light_refresh.svg</file>
-        <file>images/toolbar16light_save.svg</file>
-        <file>images/toolbar16light_projections.svg</file>
-        <file>images/toolbar16light_propertypanel.svg</file>
         <file>images/main_testview.svg</file>
-        <file>images/toolbar16dark_newitem.svg</file>
-        <file>images/toolbar16dark_cloneitem.svg</file>
-        <file>images/toolbar16dark_recycle.svg</file>
         <file>images/about_icon.awk</file>
-        <file>images/toolbar16dark_run.svg</file>
         <file>images/caret-down.svg</file>
         <file>images/caret-right.svg</file>
-        <file>images/toolbar16light_fft.svg</file>
         <file>images/gisas_instrument.svg</file>
         <file>images/gisas_instrument_shaded.svg</file>
         <file>images/offspec_instrument.svg</file>
@@ -58,5 +41,19 @@
         <file>images/dark-close.svg</file>
         <file>images/depth_instrument.svg</file>
         <file>images/depth_instrument_shaded.svg</file>
+        <file>images/toolbar24dark_hambar.svg</file>
+        <file>images/import.svg</file>
+        <file>images/delete.svg</file>
+        <file>images/shape-square-plus.svg</file>
+        <file>images/content-copy.svg</file>
+        <file>images/play.svg</file>
+        <file>images/alpha-f-box.svg</file>
+        <file>images/dock-right.svg</file>
+        <file>images/content-save-outline.svg</file>
+        <file>images/camera-metering-center.svg</file>
+        <file>images/hand-right.svg</file>
+        <file>images/menu-open.svg</file>
+        <file>images/rotate-left.svg</file>
+        <file>images/undo-variant.svg</file>
     </qresource>
 </RCC>

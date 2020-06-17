@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/NewKernel/Minimizer.cpp
+//! @file      Fit/Kernel/Minimizer.cpp
 //! @brief     Implements class Minimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,8 +18,7 @@
 
 using namespace Fit;
 
-Minimizer::Minimizer()
-    : m_kernel(new Kernel) {}
+Minimizer::Minimizer() : m_kernel(new Kernel) {}
 
 void Minimizer::setMinimizer(const std::string& minimizerName, const std::string& algorithmName,
                              const std::string& options)

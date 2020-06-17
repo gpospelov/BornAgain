@@ -16,6 +16,7 @@
 #define MULTILAYER_H
 
 #include "ISample.h"
+#include "RoughnessModels.h"
 #include "SafePointerVector.h"
 #include "Vectors3D.h"
 #include "ZLimits.h"
@@ -32,24 +33,27 @@ class LayerRoughness;
 
 //! Example of system of 4 layers (3 interfaces):
 //!
-//!  ambience    layer #0        z=getLayerBottomZ(0)=0.0
-//!  ---------   interface #0
-//!  Fe, 20A     layer #1        z=getLayerBottomZ(1)=-20.0
-//!  ---------   interface #1
-//!  Cr, 40A     layer #2        z=getLayerBottomZ(2)=-60.0
-//!  ---------   interface #2
-//!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
+//!  ambience    layer #0
+//!  ---------   interface #0    z=0.0
+//!  Fe, 20A     layer #1
+//!  ---------   interface #1    z=-20.0
+//!  Cr, 40A     layer #2
+//!  ---------   interface #2    z=-60.0
+//!  substrate   layer #3
 
 class BA_CORE_API_ MultiLayer : public ISample
 {
 public:
     MultiLayer();
-    virtual ~MultiLayer();
+    ~MultiLayer() override;
+
+    //! Returns a clone of multilayer with clones of all layers and
+    //! interfaces between layers
+    MultiLayer* clone() const final override;
 
     void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
 
     size_t numberOfLayers() const { return m_layers.size(); }
-    size_t numberOfInterfaces() const { return m_interfaces.size(); }
 
     //! Adds object to multilayer
     void addLayer(const Layer& layer);
@@ -58,45 +62,10 @@ public:
     void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
 
     //! Returns layer with given index
-    const Layer* layer(size_t i_layer) const { return m_layers[check_layer_index(i_layer)]; }
+    const Layer* layer(size_t i_layer) const;
 
-    //! Returns layer with given index
-    const LayerInterface* layerInterface(size_t i_interface) const {
-        return m_interfaces[check_interface_index(i_interface)]; }
-
-    //! Returns z-coordinate of the layer's bottom
-    double layerTopZ(size_t i_layer) const;
-
-    //! Returns z-coordinate of the layer's bottom
-    double layerBottomZ(size_t i_layer) const;
-
-    //! Returns thickness of layer
-    double layerThickness(size_t i_layer) const;
-
-    //! Returns top interface of layer
-    const LayerInterface* layerTopInterface(size_t i_layer) const;
-
-    //! Returns bottom interface of layer
-    const LayerInterface* layerBottomInterface(size_t i_layer) const;
-
-    //! Returns layer material
-    Material layerMaterial(size_t i_layer) const;
-
-    //! Changes a layer's material
-    void setLayerMaterial(size_t i_layer, Material material);
-
-    //! Returns a clone of multilayer with clones of all layers and recreated
-    //! interfaces between layers
-    MultiLayer* clone() const final override;
-
-    //! Returns a clone with inverted magnetic fields
-    MultiLayer* cloneInvertB() const;
-
-#ifndef SWIG
-    //! Returns a clone of multilayer where the original layers may be sliced into several sublayers
-    //! for usage with the graded layer approximation
-    std::unique_ptr<MultiLayer> cloneSliced(bool use_average_layers) const;
-#endif // SWIG
+    //! Returns interface with given index
+    const LayerInterface* layerInterface(size_t i_interface) const;
 
     //! Sets cross correlation length of roughnesses between interfaces
     void setCrossCorrLength(double crossCorrLength);
@@ -110,37 +79,11 @@ public:
     //! Returns the external field applied to the multilayer (units: A/m)
     kvector_t externalField() const { return m_ext_field; }
 
-    //! Fourier transform of the correlation function of roughnesses between
-    //! the interfaces
-    double crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const;
-
-    //! returns layer index
-    size_t indexOfLayer(const Layer* p_layer) const;
-
-    //! returns true if contains magnetic materials and matrix calculations are required
-    bool requiresMatrixRTCoefficients() const;
-
-    //! returns layer index corresponding to given global z coordinate
-    //! The top interface position of a layer is considered to belong to the layer above
-    size_t bottomZToLayerIndex(double z_value) const;
-
-    //! returns layer index corresponding to given global z coordinate
-    //! The top interface position of a layer is considered to belong to the layer beneath
-    size_t topZToLayerIndex(double z_value) const;
-
-    bool containsMagneticMaterial() const;
-
-    //! Returns true if the multilayer contains non-default materials of one type only
-    bool containsCompatibleMaterials() const;
-
-    //! precalculate the magnetic B fields in each layer
-    void initBFields();
-
-    bool hasRoughness() const;
-
-    size_t totalNofLayouts() const;
-
     std::vector<const INode*> getChildren() const final override;
+
+    void setRoughnessModel(RoughnessModel roughnessModel);
+
+    RoughnessModel roughnessModel() const { return m_roughness_model; }
 
 private:
     //! Registers some class members for later access via parameter pool
@@ -161,22 +104,16 @@ private:
     //! Checks index of interface w.r.t. vector length
     size_t check_interface_index(size_t i_interface) const;
 
-    //! Shared implementation for different clones
-    MultiLayer* genericClone(const std::function<Layer*(const Layer*)>& layer_clone) const;
-
-    //! Calculates the z-region in each layer that holds particles
-    std::vector<ZLimits> calculateLayerZLimits() const;
-
     //! stack of layers [nlayers]
     SafePointerVector<Layer> m_layers;
-    //! coordinate of layer's bottoms [nlayers]
-    std::vector<double> m_layers_bottomz;
     //! stack of layer interfaces [nlayers-1]
     SafePointerVector<LayerInterface> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
     //! external magnetic field (in A/m)
     kvector_t m_ext_field;
+
+    RoughnessModel m_roughness_model;
 };
 
 #endif // MULTILAYER_H

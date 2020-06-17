@@ -30,11 +30,12 @@ class BA_CORE_API_ ParameterTuningDelegate : public QItemDelegate
     Q_OBJECT
 
 public:
-    class TuningData {
+    class TuningData
+    {
     public:
         TuningData();
         void setRangeFactor(double range_factor);
-        void setItemLimits(const RealLimits &item_limits);
+        void setItemLimits(const RealLimits& item_limits);
         int value_to_slider(double value);
         double slider_to_value(int slider);
         double step() const;
@@ -46,23 +47,20 @@ public:
         RealLimits m_item_limits;
     };
 
-
-    ParameterTuningDelegate(QObject *parent = 0);
+    ParameterTuningDelegate(QObject* parent = 0);
     ~ParameterTuningDelegate();
 
-    QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & /* index */) const
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& /* index */) const
     {
-        return QSize(option.rect.width(),25);
+        return QSize(option.rect.width(), 25);
     }
 
-    void paint(QPainter *painter, const QStyleOptionViewItem &option,
-               const QModelIndex &index) const;
-    QWidget *createEditor(QWidget *parent,
-                          const QStyleOptionViewItem &option,
-                          const QModelIndex &index) const;
-    void setEditorData(QWidget *editor, const QModelIndex &index) const;
-    void setModelData(QWidget *editor, QAbstractItemModel *model,
-                      const QModelIndex &index) const;
+    void paint(QPainter* painter, const QStyleOptionViewItem& option,
+               const QModelIndex& index) const;
+    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option,
+                          const QModelIndex& index) const;
+    void setEditorData(QWidget* editor, const QModelIndex& index) const;
+    void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
     void setSliderRangeFactor(double value);
 
     void setValueColumn(int valueColumn) { m_valueColumn = valueColumn; }
@@ -70,7 +68,7 @@ public:
     void setReadOnly(bool isReadOnly);
 
 signals:
-    void currentLinkChanged(SessionItem *item);
+    void currentLinkChanged(SessionItem* item);
 
 private slots:
     void sliderValueChanged(int position);
@@ -81,11 +79,11 @@ private:
     void emitSignals(double value);
 
     int m_valueColumn;
-    mutable QSlider *m_slider;
+    mutable QSlider* m_slider;
     mutable ScientificSpinBox* m_valueBox;
-    mutable QWidget *m_contentWidget;
-    mutable QHBoxLayout * m_contentLayout;
-    mutable ParameterItem *m_currentItem;
+    mutable QWidget* m_contentWidget;
+    mutable QHBoxLayout* m_contentLayout;
+    mutable ParameterItem* m_currentItem;
     mutable TuningData m_tuning_info;
     bool m_isReadOnly;
 };

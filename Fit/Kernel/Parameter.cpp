@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/NewKernel/Parameter.cpp
+//! @file      Fit/Kernel/Parameter.cpp
 //! @brief     Implements class Parameter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -24,12 +24,11 @@ double step_for_value(double value)
 {
     return value == 0.0 ? default_step : std::abs(value) * step_factor;
 }
-}
+} // namespace
 
 using namespace Fit;
 
-Parameter::Parameter()
-    : m_start_value(0.0), m_value(0.0), m_step(0.0), m_error(0.0) {}
+Parameter::Parameter() : m_start_value(0.0), m_value(0.0), m_step(0.0), m_error(0.0) {}
 
 Parameter::Parameter(const std::string& name, double value, const AttLimits& limits, double step)
     : m_name(name), m_start_value(value), m_value(value), m_step(step), m_error(0.0),

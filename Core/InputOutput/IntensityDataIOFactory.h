@@ -49,6 +49,7 @@ class BA_CORE_API_ IntensityDataIOFactory
 public:
     //! Reads file and returns newly created OutputData object
     static OutputData<double>* readOutputData(const std::string& file_name);
+    static OutputData<double>* readReflectometryData(const std::string& file_name);
 
     //! Reads file and returns newly created Histogram object
     static IHistogram* readIntensityData(const std::string& file_name);
@@ -57,7 +58,7 @@ public:
     static void writeOutputData(const OutputData<double>& data, const std::string& file_name);
 
     //! Writes histogram in file
-    static void writeIntensityData(const IHistogram &histogram, const std::string& file_name);
+    static void writeIntensityData(const IHistogram& histogram, const std::string& file_name);
 
     //! Writes OutputData contained in the given SimulationResult object
     static void writeSimulationResult(const SimulationResult& result, const std::string& file_name);

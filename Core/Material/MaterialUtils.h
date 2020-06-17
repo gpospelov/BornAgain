@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Material/MaterialUtils.h
-//! @brief     materials-related global functions and utilities
+//! @brief     Declares functions in namespace MaterialUtils
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,14 +16,15 @@
 #define MATERIALUTILS_H_
 
 #include "Complex.h"
-#include "Vectors3D.h"
 #include "EigenCore.h"
 #include "Material.h"
+#include "Vectors3D.h"
 
-//! A number of helper functions for internal use
+//! A number of materials-related helper functions for internal use
 //! @ingroup materials
 
-namespace MaterialUtils {
+namespace MaterialUtils
+{
 
 //! Function for calculating the reduced potential, used for obtaining the Fresnel coefficients
 //! (non-polarized material case)
@@ -46,6 +47,7 @@ BA_CORE_API_ Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, dou
 //! If several types of materials are involved, InvalidMaterialType identifier is returned.
 
 BA_CORE_API_ MATERIAL_TYPES checkMaterialTypes(const std::vector<const Material*>& materials);
-}
+
+} // namespace MaterialUtils
 
 #endif /* MATERIALUTILS_H_ */

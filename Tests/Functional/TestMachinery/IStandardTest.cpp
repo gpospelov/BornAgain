@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/TestMachinery/IStandardTest.h
+//! @file      Tests/Functional/TestMachinery/IStandardTest.cpp
 //! @brief     Defines pure virtual base class IStandardTest.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,10 +17,9 @@
 
 IStandardTest::IStandardTest(const std::string& name, const std::string& description,
                              const Simulation& simulation, double threshold)
-    : IFunctionalTest(name, description)
-    , m_reference_simulation(simulation.clone())
-    , m_threshold(threshold)
-{}
+    : IFunctionalTest(name, description), m_reference_simulation(simulation.clone()),
+      m_threshold(threshold)
+{
+}
 
 IStandardTest::~IStandardTest() = default;
-

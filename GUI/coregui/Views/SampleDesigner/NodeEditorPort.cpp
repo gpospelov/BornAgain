@@ -14,16 +14,20 @@
 
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
+#include "DesignerHelper.h"
+#include "StyleUtils.h"
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QPen>
 
-NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
+NodeEditorPort::NodeEditorPort(QGraphicsItem* parent, const QString& name,
                                NodeEditorPort::EPortDirection direction,
                                NodeEditorPort::EPortType port_type)
     : QGraphicsPathItem(parent), m_name(name), m_direction(direction), m_port_type(port_type),
-      m_radius(5), m_margin(2)
+      m_radius(0), m_margin(0), m_label(nullptr)
 {
+    m_radius = StyleUtils::SizeOfLetterM().width()*0.4;
+    m_margin = m_radius*0.5;
     m_color = getPortTypeColor(port_type);
 
     QPainterPath p;
@@ -36,23 +40,13 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem *parent, const QString &name,
     setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
 
     if (!m_name.isEmpty()) {
-        QGraphicsTextItem *label = new QGraphicsTextItem(this);
-        label->setPlainText(m_name);
-        QFont serifFont("Monospace", DesignerHelper::getPortFontSize(), QFont::Normal);
-        label->setFont(serifFont);
-
-        if (isOutput()) {
-            label->setPos(-m_radius - m_margin - label->boundingRect().width(),
-                          -label->boundingRect().height() / 2);
-        } else {
-            label->setPos(m_radius + m_margin, -label->boundingRect().height() / 2);
-        }
+        setLabel(m_name);
     }
 }
 
 NodeEditorPort::~NodeEditorPort()
 {
-    while (m_connections.size()>0) {
+    while (m_connections.size() > 0) {
         auto conn = m_connections.last();
         conn->setSelected(false);
         delete conn;
@@ -69,20 +63,20 @@ bool NodeEditorPort::isInput()
     return !isOutput();
 }
 
-void NodeEditorPort::remove(NodeEditorConnection *connection)
+void NodeEditorPort::remove(NodeEditorConnection* connection)
 {
-    if(m_connections.contains(connection))
+    if (m_connections.contains(connection))
         m_connections.remove(m_connections.indexOf(connection));
 }
 
-void NodeEditorPort::append(NodeEditorConnection *connection)
+void NodeEditorPort::append(NodeEditorConnection* connection)
 {
-   m_connections.append(connection);
+    m_connections.append(connection);
 }
 
-bool NodeEditorPort::isConnected(NodeEditorPort *other)
+bool NodeEditorPort::isConnected(NodeEditorPort* other)
 {
-    for(auto conn : m_connections)
+    for (auto conn : m_connections)
         if (conn->port1() == other || conn->port2() == other)
             return true;
 
@@ -107,13 +101,29 @@ QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::EPortType port_type)
     }
 }
 
-QVariant NodeEditorPort::itemChange(GraphicsItemChange change, const QVariant &value)
+QVariant NodeEditorPort::itemChange(GraphicsItemChange change, const QVariant& value)
 {
     if (change == ItemScenePositionHasChanged) {
-        for(auto conn : m_connections) {
+        for (auto conn : m_connections) {
             conn->updatePosFromPorts();
             conn->updatePath();
         }
     }
     return value;
+}
+
+void NodeEditorPort::setLabel(QString name)
+{
+    if (!m_label)
+        m_label = new QGraphicsTextItem(this);
+    m_label->setPlainText(name);
+    QFont serifFont("Monospace", DesignerHelper::getPortFontSize(), QFont::Normal);
+    m_label->setFont(serifFont);
+
+    if (isOutput()) {
+        m_label->setPos(-m_radius - m_margin - m_label->boundingRect().width(),
+                        -m_label->boundingRect().height() / 2);
+    } else {
+        m_label->setPos(m_radius + m_margin, -m_label->boundingRect().height() / 2);
+    }
 }

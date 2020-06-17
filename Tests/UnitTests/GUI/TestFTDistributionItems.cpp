@@ -1,8 +1,8 @@
-#include "google_test.h"
-#include "FTDistributions1D.h"
 #include "FTDistributionItems.h"
+#include "FTDistributions1D.h"
+#include "google_test.h"
 
-class TestFTDistributionItems :  public ::testing::Test
+class TestFTDistributionItems : public ::testing::Test
 {
 public:
     ~TestFTDistributionItems();

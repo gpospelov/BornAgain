@@ -15,7 +15,6 @@
 #include "ConstantBackground.h"
 #include "RealParameter.h"
 
-
 ConstantBackground::ConstantBackground(double background_value)
     : m_background_value(background_value)
 {
@@ -23,7 +22,7 @@ ConstantBackground::ConstantBackground(double background_value)
     init_parameters();
 }
 
-ConstantBackground::~ConstantBackground() =default;
+ConstantBackground::~ConstantBackground() = default;
 
 ConstantBackground* ConstantBackground::clone() const
 {

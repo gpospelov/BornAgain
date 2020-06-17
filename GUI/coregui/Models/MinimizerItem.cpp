@@ -13,49 +13,45 @@
 // ************************************************************************** //
 
 #include "MinimizerItem.h"
-#include "MinimizerItemCatalogue.h"
-#include "MinimizerConstants.h"
-#include "Minuit2Minimizer.h"
+#include "GSLLevenbergMarquardtMinimizer.h"
 #include "GSLMultiMinimizer.h"
 #include "GeneticMinimizer.h"
-#include "GSLLevenbergMarquardtMinimizer.h"
+#include "MinimizerConstants.h"
+#include "MinimizerItemCatalogue.h"
+#include "Minuit2Minimizer.h"
+#include "ObjectiveMetric.h"
+#include "ObjectiveMetricUtils.h"
 #include "SimAnMinimizer.h"
 #include "TestMinimizer.h"
-#include "IIntensityFunction.h"
-#include "VarianceFunctions.h"
-#include "VarianceFunctionItems.h"
 
-namespace  {
-const QString none_fun = "None";
-const QString sqrt_fun = "sqrt";
-const QString log10_fun = "log";
-}
-
-// ----------------------------------------------------------------------------
-
-MinimizerItem::MinimizerItem(const QString &model_type) : SessionItem(model_type)
-{
-}
+MinimizerItem::MinimizerItem(const QString& model_type) : SessionItem(model_type) {}
 
 // ----------------------------------------------------------------------------
 
 const QString MinimizerContainerItem::P_MINIMIZERS = "Minimizer";
-const QString MinimizerContainerItem::P_INTENSITY_FUNCTION = "Intensity function";
-const QString MinimizerContainerItem::P_VARIANCE_FUNCTIONS = "Variance";
+const QString MinimizerContainerItem::P_METRIC = "Objective metric";
+const QString MinimizerContainerItem::P_NORM = "Norm function";
 
 MinimizerContainerItem::MinimizerContainerItem() : MinimizerItem(Constants::MinimizerContainerType)
 {
     addGroupProperty(P_MINIMIZERS, Constants::MinimizerLibraryGroup)
         ->setToolTip(QStringLiteral("Minimizer library"));
 
-    ComboProperty combo = ComboProperty() << none_fun << sqrt_fun << log10_fun;
-    addProperty(P_INTENSITY_FUNCTION, combo.variant())->setToolTip(
-                "Function to apply for both simulated and experimental intensities \n"
-                "before calculating the value of residual.");
+    ComboProperty metric_combo;
+    for (auto& item : ObjectiveMetricUtils::metricNames())
+        metric_combo << QString::fromStdString(item);
+    metric_combo.setValue(QString::fromStdString(ObjectiveMetricUtils::defaultMetricName()));
+    addProperty(P_METRIC, metric_combo.variant())
+        ->setToolTip("Objective metric to use for estimating distance between simulated and "
+                     "experimental data.");
 
-    addGroupProperty(P_VARIANCE_FUNCTIONS, Constants::VarianceFunctionGroup)
-        ->setToolTip(QStringLiteral("Variance functions for residual normalization"));
-
+    ComboProperty norm_combo;
+    for (auto& item : ObjectiveMetricUtils::normNames())
+        norm_combo << QString::fromStdString(item);
+    norm_combo.setValue(QString::fromStdString(ObjectiveMetricUtils::defaultNormName()));
+    addProperty(P_NORM, norm_combo.variant())
+        ->setToolTip("Normalization to use for estimating distance between simulated and "
+                     "experimental data.");
 }
 
 std::unique_ptr<IMinimizer> MinimizerContainerItem::createMinimizer() const
@@ -63,23 +59,11 @@ std::unique_ptr<IMinimizer> MinimizerContainerItem::createMinimizer() const
     return groupItem<MinimizerItem>(P_MINIMIZERS).createMinimizer();
 }
 
-std::unique_ptr<IIntensityFunction> MinimizerContainerItem::createIntensityFunction() const
+std::unique_ptr<ObjectiveMetric> MinimizerContainerItem::createMetric() const
 {
-    QString value = getItemValue(P_INTENSITY_FUNCTION).value<ComboProperty>().getValue();
-
-    if (value == sqrt_fun) {
-        return std::make_unique<IntensityFunctionSqrt>();
-    } else if(value == log10_fun) {
-        return std::make_unique<IntensityFunctionLog>();
-    } else {
-        return std::unique_ptr<IIntensityFunction>();
-    }
-}
-
-std::unique_ptr<IVarianceFunction> MinimizerContainerItem::createVarianceFunction() const
-{
-    auto& variance_item = groupItem<IVarianceFunctionItem>(P_VARIANCE_FUNCTIONS);
-    return variance_item.createVarianceFunction();
+    QString metric = getItemValue(P_METRIC).value<ComboProperty>().getValue();
+    QString norm = getItemValue(P_NORM).value<ComboProperty>().getValue();
+    return ObjectiveMetricUtils::createMetric(metric.toStdString(), norm.toStdString());
 }
 
 // ----------------------------------------------------------------------------
@@ -89,8 +73,8 @@ const QString MinuitMinimizerItem::P_STRATEGY = QString::fromStdString(OptionNam
 const QString MinuitMinimizerItem::P_ERRORDEF = QString::fromStdString(OptionNames::ErrorDef);
 const QString MinuitMinimizerItem::P_TOLERANCE = QString::fromStdString(OptionNames::Tolerance);
 const QString MinuitMinimizerItem::P_PRECISION = QString::fromStdString(OptionNames::Precision);
-const QString MinuitMinimizerItem::P_MAXFUNCTIONCALLS
-    = QString::fromStdString(OptionNames::MaxFunctionCalls);
+const QString MinuitMinimizerItem::P_MAXFUNCTIONCALLS =
+    QString::fromStdString(OptionNames::MaxFunctionCalls);
 
 MinuitMinimizerItem::MinuitMinimizerItem() : MinimizerItem(Constants::MinuitMinimizerType)
 {
@@ -116,7 +100,7 @@ std::unique_ptr<IMinimizer> MinuitMinimizerItem::createMinimizer() const
 {
     QString algorithmName = getItemValue(P_ALGORITHMS).value<ComboProperty>().getValue();
 
-    Minuit2Minimizer *domainMinimizer = new Minuit2Minimizer(algorithmName.toStdString());
+    Minuit2Minimizer* domainMinimizer = new Minuit2Minimizer(algorithmName.toStdString());
     domainMinimizer->setStrategy(getItemValue(P_STRATEGY).toInt());
     domainMinimizer->setErrorDefinition(getItemValue(P_ERRORDEF).toDouble());
     domainMinimizer->setTolerance(getItemValue(P_TOLERANCE).toDouble());
@@ -129,8 +113,8 @@ std::unique_ptr<IMinimizer> MinuitMinimizerItem::createMinimizer() const
 // ----------------------------------------------------------------------------
 
 const QString GSLMultiMinimizerItem::P_ALGORITHMS = "Algorithms";
-const QString GSLMultiMinimizerItem::P_MAXITERATIONS
-    = QString::fromStdString(OptionNames::MaxIterations);
+const QString GSLMultiMinimizerItem::P_MAXITERATIONS =
+    QString::fromStdString(OptionNames::MaxIterations);
 
 GSLMultiMinimizerItem::GSLMultiMinimizerItem() : MinimizerItem(Constants::GSLMultiMinimizerType)
 {
@@ -142,7 +126,7 @@ std::unique_ptr<IMinimizer> GSLMultiMinimizerItem::createMinimizer() const
 {
     QString algorithmName = getItemValue(P_ALGORITHMS).value<ComboProperty>().getValue();
 
-    GSLMultiMinimizer *domainMinimizer = new GSLMultiMinimizer(algorithmName.toStdString());
+    GSLMultiMinimizer* domainMinimizer = new GSLMultiMinimizer(algorithmName.toStdString());
     domainMinimizer->setMaxIterations(getItemValue(P_MAXITERATIONS).toInt());
     return std::unique_ptr<IMinimizer>(domainMinimizer);
 }
@@ -150,10 +134,10 @@ std::unique_ptr<IMinimizer> GSLMultiMinimizerItem::createMinimizer() const
 // ----------------------------------------------------------------------------
 
 const QString GeneticMinimizerItem::P_TOLERANCE = QString::fromStdString(OptionNames::Tolerance);
-const QString GeneticMinimizerItem::P_MAXITERATIONS
-    = QString::fromStdString(OptionNames::MaxIterations);
-const QString GeneticMinimizerItem::P_POPULATIONSIZE
-    = QString::fromStdString(OptionNames::PopulationSize);
+const QString GeneticMinimizerItem::P_MAXITERATIONS =
+    QString::fromStdString(OptionNames::MaxIterations);
+const QString GeneticMinimizerItem::P_POPULATIONSIZE =
+    QString::fromStdString(OptionNames::PopulationSize);
 const QString GeneticMinimizerItem::P_RANDOMSEED = QString::fromStdString(OptionNames::RandomSeed);
 
 GeneticMinimizerItem::GeneticMinimizerItem() : MinimizerItem(Constants::GeneticMinimizerType)
@@ -166,7 +150,7 @@ GeneticMinimizerItem::GeneticMinimizerItem() : MinimizerItem(Constants::GeneticM
 
 std::unique_ptr<IMinimizer> GeneticMinimizerItem::createMinimizer() const
 {
-    GeneticMinimizer *domainMinimizer = new GeneticMinimizer();
+    GeneticMinimizer* domainMinimizer = new GeneticMinimizer();
     domainMinimizer->setTolerance(getItemValue(P_TOLERANCE).toDouble());
     domainMinimizer->setMaxIterations(getItemValue(P_MAXITERATIONS).toInt());
     domainMinimizer->setPopulationSize(getItemValue(P_POPULATIONSIZE).toInt());
@@ -176,17 +160,17 @@ std::unique_ptr<IMinimizer> GeneticMinimizerItem::createMinimizer() const
 
 // ----------------------------------------------------------------------------
 
-const QString SimAnMinimizerItem::P_MAXITERATIONS
-    = QString::fromStdString(OptionNames::MaxIterations);
-const QString SimAnMinimizerItem::P_ITERATIONSTEMP
-    = QString::fromStdString(OptionNames::IterationTemp);
+const QString SimAnMinimizerItem::P_MAXITERATIONS =
+    QString::fromStdString(OptionNames::MaxIterations);
+const QString SimAnMinimizerItem::P_ITERATIONSTEMP =
+    QString::fromStdString(OptionNames::IterationTemp);
 const QString SimAnMinimizerItem::P_STEPSIZE = QString::fromStdString(OptionNames::StepSize);
 const QString SimAnMinimizerItem::P_BOLTZMANN_K = QString::fromStdString(OptionNames::BoltzmannK);
-const QString SimAnMinimizerItem::P_BOLTZMANN_TINIT
-    = QString::fromStdString(OptionNames::BoltzmannInitT);
+const QString SimAnMinimizerItem::P_BOLTZMANN_TINIT =
+    QString::fromStdString(OptionNames::BoltzmannInitT);
 const QString SimAnMinimizerItem::P_BOLTZMANN_MU = QString::fromStdString(OptionNames::BoltzmannMu);
-const QString SimAnMinimizerItem::P_BOLTZMANN_TMIN
-    = QString::fromStdString(OptionNames::BoltzmannTmin);
+const QString SimAnMinimizerItem::P_BOLTZMANN_TMIN =
+    QString::fromStdString(OptionNames::BoltzmannTmin);
 
 SimAnMinimizerItem::SimAnMinimizerItem() : MinimizerItem(Constants::GSLSimAnMinimizerType)
 {
@@ -201,7 +185,7 @@ SimAnMinimizerItem::SimAnMinimizerItem() : MinimizerItem(Constants::GSLSimAnMini
 
 std::unique_ptr<IMinimizer> SimAnMinimizerItem::createMinimizer() const
 {
-    SimAnMinimizer *domainMinimizer = new SimAnMinimizer();
+    SimAnMinimizer* domainMinimizer = new SimAnMinimizer();
     domainMinimizer->setMaxIterations(getItemValue(P_MAXITERATIONS).toInt());
     domainMinimizer->setIterationsAtEachTemp(getItemValue(P_ITERATIONSTEMP).toInt());
     domainMinimizer->setStepSize(getItemValue(P_STEPSIZE).toDouble());
@@ -215,11 +199,10 @@ std::unique_ptr<IMinimizer> SimAnMinimizerItem::createMinimizer() const
 // ----------------------------------------------------------------------------
 
 const QString GSLLMAMinimizerItem::P_TOLERANCE = QString::fromStdString(OptionNames::Tolerance);
-const QString GSLLMAMinimizerItem::P_MAXITERATIONS
-    = QString::fromStdString(OptionNames::MaxIterations);
+const QString GSLLMAMinimizerItem::P_MAXITERATIONS =
+    QString::fromStdString(OptionNames::MaxIterations);
 
-GSLLMAMinimizerItem::GSLLMAMinimizerItem()
-    : MinimizerItem(Constants::GSLLMAMinimizerType)
+GSLLMAMinimizerItem::GSLLMAMinimizerItem() : MinimizerItem(Constants::GSLLMAMinimizerType)
 {
     addProperty(P_TOLERANCE, 0.01)->setToolTip("Tolerance on the function value at the minimum");
     addProperty(P_MAXITERATIONS, 0)->setToolTip("Maximum number of iterations");
@@ -227,7 +210,7 @@ GSLLMAMinimizerItem::GSLLMAMinimizerItem()
 
 std::unique_ptr<IMinimizer> GSLLMAMinimizerItem::createMinimizer() const
 {
-    GSLLevenbergMarquardtMinimizer *domainMinimizer = new GSLLevenbergMarquardtMinimizer();
+    GSLLevenbergMarquardtMinimizer* domainMinimizer = new GSLLevenbergMarquardtMinimizer();
     domainMinimizer->setTolerance(getItemValue(P_TOLERANCE).toDouble());
     domainMinimizer->setMaxIterations(getItemValue(P_MAXITERATIONS).toInt());
     return std::unique_ptr<IMinimizer>(domainMinimizer);
@@ -235,11 +218,7 @@ std::unique_ptr<IMinimizer> GSLLMAMinimizerItem::createMinimizer() const
 
 // ----------------------------------------------------------------------------
 
-TestMinimizerItem::TestMinimizerItem()
-    : MinimizerItem(Constants::TestMinimizerType)
-{
-
-}
+TestMinimizerItem::TestMinimizerItem() : MinimizerItem(Constants::TestMinimizerType) {}
 
 std::unique_ptr<IMinimizer> TestMinimizerItem::createMinimizer() const
 {

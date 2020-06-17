@@ -23,16 +23,11 @@ class BA_CORE_API_ ParticleCompositionView : public ConnectableView
     Q_OBJECT
 
 public:
-    enum { TYPE = DesignerHelper::PARTICLE };
+    ParticleCompositionView(QGraphicsItem* parent = 0);
 
-    ParticleCompositionView(QGraphicsItem *parent = 0);
+    int type() const { return ViewTypes::PARTICLE; }
 
-    int type() const { return TYPE; }
-
-    void addView(IView *childView, int row = 0);
-
+    void addView(IView* childView, int row = 0);
 };
 
-
 #endif // PARTICLECOMPOSITIONVIEW_H
-

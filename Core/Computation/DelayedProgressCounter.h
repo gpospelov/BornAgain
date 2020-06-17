@@ -29,6 +29,7 @@ public:
 
     //! Increments inner counter; at regular intervals updates progress handler.
     void stepProgress();
+
 private:
     ProgressHandler* mp_progress;
     const size_t m_interval;

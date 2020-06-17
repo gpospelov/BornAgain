@@ -13,20 +13,19 @@
 // ************************************************************************** //
 
 #include "RipplesBuilder.h"
-#include "MaterialFactoryFuncs.h"
 #include "BornAgainNamespace.h"
 #include "FormFactorRipple1.h"
 #include "FormFactorRipple2.h"
 #include "InterferenceFunctionRadialParaCrystal.h"
 #include "Layer.h"
+#include "MaterialFactoryFuncs.h"
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "ParticleLayout.h"
 #include "RealParameter.h"
 #include "Units.h"
 
-CosineRippleBuilder::CosineRippleBuilder()
-{}
+CosineRippleBuilder::CosineRippleBuilder() {}
 
 MultiLayer* CosineRippleBuilder::buildSample() const
 {
@@ -37,11 +36,11 @@ MultiLayer* CosineRippleBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
-    FormFactorRipple1 ff_ripple1(100.0, 20.0, 4.0);
+    FormFactorRipple1Box ff_ripple1(100.0, 20.0, 4.0);
     Particle ripple(particle_material, ff_ripple1);
 
     ParticleLayout particle_layout;
-    particle_layout.addParticle(ripple,1.0);
+    particle_layout.addParticle(ripple, 1.0);
     InterferenceFunctionRadialParaCrystal interference_function(20.0, 1e7);
     FTDistribution1DGauss pdf(4.0);
     interference_function.setProbabilityDistribution(pdf);
@@ -59,8 +58,7 @@ MultiLayer* CosineRippleBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-TriangularRippleBuilder::TriangularRippleBuilder()
-    : m_d(0.0*Units::nanometer)
+TriangularRippleBuilder::TriangularRippleBuilder() : m_d(0.0 * Units::nanometer)
 {
     init_parameters();
 }
@@ -74,11 +72,11 @@ MultiLayer* TriangularRippleBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
 
     Layer air_layer(air_material);
-    FormFactorRipple2 ff_ripple2(100.0, 20.0, 4.0, m_d);
-    Particle ripple(particle_material, ff_ripple2 );
+    FormFactorRipple2Box ff_ripple2(100.0, 20.0, 4.0, m_d);
+    Particle ripple(particle_material, ff_ripple2);
 
     ParticleLayout particle_layout;
-    particle_layout.addParticle(ripple,1.0);
+    particle_layout.addParticle(ripple, 1.0);
     InterferenceFunctionRadialParaCrystal interference_function(20.0, 1e7);
     FTDistribution1DGauss pdf(4.0);
     interference_function.setProbabilityDistribution(pdf);

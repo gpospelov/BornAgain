@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Models/MaterialPropertyController.h
+//! @file      GUI/coregui/Models/MaterialPropertyController.cpp
 //! @brief     Defines MaterialPropertyController class
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,17 +13,15 @@
 // ************************************************************************** //
 
 #include "MaterialPropertyController.h"
-#include "MaterialModel.h"
-#include "SampleModel.h"
-#include "ModelUtils.h"
 #include "MaterialItemUtils.h"
+#include "MaterialModel.h"
 #include "ModelPath.h"
+#include "ModelUtils.h"
+#include "SampleModel.h"
 #include <QVector>
 
 MaterialPropertyController::MaterialPropertyController(QObject* parent)
-    : QObject(parent)
-    , m_materialModel(nullptr)
-    , m_sampleModel(nullptr)
+    : QObject(parent), m_materialModel(nullptr), m_sampleModel(nullptr)
 {
 }
 
@@ -32,11 +30,11 @@ void MaterialPropertyController::setModels(MaterialModel* materialModel, SampleM
     m_materialModel = materialModel;
     m_sampleModel = sampleModel;
 
-//    connect(m_materialModel, &MaterialModel::dataChanged, this,
-//            &MaterialPropertyController::onMaterialDataChanged);
+    //    connect(m_materialModel, &MaterialModel::dataChanged, this,
+    //            &MaterialPropertyController::onMaterialDataChanged);
 
-//    connect(m_materialModel, &MaterialModel::rowsAboutToBeRemoved, this,
-//            &MaterialPropertyController::onMaterialRowsAboutToBeRemoved);
+    //    connect(m_materialModel, &MaterialModel::rowsAboutToBeRemoved, this,
+    //            &MaterialPropertyController::onMaterialRowsAboutToBeRemoved);
 
     connect(m_materialModel, &MaterialModel::modelLoaded, this,
             &MaterialPropertyController::onMaterialModelLoad);
@@ -52,8 +50,8 @@ void MaterialPropertyController::onMaterialModelLoad()
         Q_ASSERT(!tag.isEmpty());
 
         ExternalProperty property = sampleItem->getItemValue(tag).value<ExternalProperty>();
-        if (MaterialItem* material
-            = m_materialModel->materialFromIdentifier(property.identifier())) {
+        if (MaterialItem* material =
+                m_materialModel->materialFromIdentifier(property.identifier())) {
             ExternalProperty new_property = MaterialItemUtils::materialProperty(*material);
             sampleItem->setItemValue(tag, new_property.variant());
         } else {

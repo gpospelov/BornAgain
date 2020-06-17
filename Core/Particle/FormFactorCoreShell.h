@@ -33,7 +33,7 @@ public:
 
     FormFactorCoreShell* clone() const override final;
 
-    void accept(INodeVisitor* visitor) const override  final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
     double radialExtension() const override final;
 

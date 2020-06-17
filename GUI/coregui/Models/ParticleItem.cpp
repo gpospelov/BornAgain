@@ -20,20 +20,21 @@
 #include "Particle.h"
 #include "ParticleCoreShellItem.h"
 #include "SessionItemUtils.h"
+#include "SessionModel.h"
 #include "TransformToDomain.h"
 #include "VectorItem.h"
 
 using SessionItemUtils::SetVectorItem;
 
-namespace {
-const QString abundance_tooltip =
-    "Proportion of this type of particles normalized to the \n"
-    "total number of particles in the layout";
+namespace
+{
+const QString abundance_tooltip = "Proportion of this type of particles normalized to the \n"
+                                  "total number of particles in the layout";
 
-const QString position_tooltip =
-    "Relative position of the particle's reference point \n"
-    "in the coordinate system of the parent (nm)";
-}
+const QString position_tooltip = "Relative position of the particle's reference point \n"
+                                 "in the coordinate system of the parent (nm)";
+
+} // namespace
 
 const QString ParticleItem::P_FORM_FACTOR = "Form Factor";
 const QString ParticleItem::P_ABUNDANCE = QString::fromStdString(BornAgain::Abundance);
@@ -41,15 +42,16 @@ const QString ParticleItem::P_MATERIAL = "Material";
 const QString ParticleItem::P_POSITION = "Position Offset";
 const QString ParticleItem::T_TRANSFORMATION = "Transformation Tag";
 
-ParticleItem::ParticleItem()
-    : SessionGraphicsItem(Constants::ParticleType)
+ParticleItem::ParticleItem() : SessionGraphicsItem(Constants::ParticleType)
 {
     addGroupProperty(P_FORM_FACTOR, Constants::FormFactorGroup);
     addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().variant())
         ->setToolTip(QStringLiteral("Material of particle"))
         .setEditorType(Constants::MaterialEditorExternalType);
 
-    addProperty(P_ABUNDANCE, 1.0)->setLimits(RealLimits::limited(0.0, 1.0)).setDecimals(3)
+    addProperty(P_ABUNDANCE, 1.0)
+        ->setLimits(RealLimits::limited(0.0, 1.0))
+        .setDecimals(3)
         .setToolTip(abundance_tooltip);
     addGroupProperty(P_POSITION, Constants::VectorType)->setToolTip(position_tooltip);
 
@@ -59,9 +61,8 @@ ParticleItem::ParticleItem()
     addTranslator(VectorParameterTranslator(P_POSITION, BornAgain::Position));
     addTranslator(RotationTranslator());
 
-    mapper()->setOnParentChange([this](SessionItem* newParent) {
-        updatePropertiesAppearance(newParent);
-    });
+    mapper()->setOnParentChange(
+        [this](SessionItem* newParent) { updatePropertiesAppearance(newParent); });
 }
 
 std::unique_ptr<Particle> ParticleItem::createParticle() const
@@ -92,13 +93,13 @@ QVector<SessionItem*> ParticleItem::materialPropertyItems()
 
 void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
 {
-    if (newParent && !parentIsParticleLayout()) {
+    if (SessionItemUtils::HasOwnAbundance(newParent)) {
         setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
             kvector_t zero_vector;
             SetVectorItem(*this, ParticleItem::P_POSITION, zero_vector);
-            SessionItem *positionItem = getItem(ParticleItem::P_POSITION);
+            SessionItem* positionItem = getItem(ParticleItem::P_POSITION);
             positionItem->setEnabled(false);
         }
     } else {
@@ -115,7 +116,7 @@ bool ParticleItem::isShellParticle() const
         return false;
 
     return parent()->modelType() == Constants::ParticleCoreShellType
-            && parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL;
+           && parent()->tagFromItem(this) == ParticleCoreShellItem::T_SHELL;
 }
 
 //! Returns true if this particle is directly connected to a ParticleLayout

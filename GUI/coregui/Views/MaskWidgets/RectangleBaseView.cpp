@@ -14,7 +14,8 @@
 
 #include "RectangleBaseView.h"
 
-namespace {
+namespace
+{
 const double bbox_margins = 5; // additional margins around rectangle to form bounding box
 }
 
@@ -34,8 +35,8 @@ void RectangleBaseView::onSizeHandleElementRequest(bool going_to_resize)
         setFlag(QGraphicsItem::ItemIsMovable, false);
         m_activeHandleElement = qobject_cast<SizeHandleElement*>(sender());
         Q_ASSERT(m_activeHandleElement);
-        SizeHandleElement::EHandleLocation oposite_corner
-            = m_activeHandleElement->getOppositeHandleLocation();
+        SizeHandleElement::EHandleLocation oposite_corner =
+            m_activeHandleElement->getOppositeHandleLocation();
         m_resize_opposite_origin = m_resize_handles[oposite_corner]->scenePos();
     } else {
         setFlag(QGraphicsItem::ItemIsMovable, true);
@@ -48,8 +49,7 @@ QVariant RectangleBaseView::itemChange(QGraphicsItem::GraphicsItemChange change,
                                        const QVariant& value)
 {
     if (change == QGraphicsItem::ItemSelectedChange) {
-        for (auto it = m_resize_handles.begin();
-             it != m_resize_handles.end(); ++it) {
+        for (auto it = m_resize_handles.begin(); it != m_resize_handles.end(); ++it) {
             it.value()->setVisible(!this->isSelected());
         }
     }
@@ -78,8 +78,8 @@ void RectangleBaseView::update_bounding_rect()
         m_bounding_rect = m_mask_rect.marginsAdded(
             QMarginsF(bbox_margins, bbox_margins, bbox_margins, bbox_margins));
     }
-    for (QMap<SizeHandleElement::EHandleLocation, SizeHandleElement*>::iterator it
-         = m_resize_handles.begin();
+    for (QMap<SizeHandleElement::EHandleLocation, SizeHandleElement*>::iterator it =
+             m_resize_handles.begin();
          it != m_resize_handles.end(); ++it) {
         it.value()->updateHandleElementPosition(m_mask_rect);
     }
@@ -105,7 +105,7 @@ void RectangleBaseView::create_size_handle_elements()
            << SizeHandleElement::BOTTOMRIGHT << SizeHandleElement::BOTTOMMIDLE
            << SizeHandleElement::BOTTOMLEFT << SizeHandleElement::MIDDLELEFT;
 
-    for(SizeHandleElement::EHandleLocation point_type : points) {
+    for (SizeHandleElement::EHandleLocation point_type : points) {
         SizeHandleElement* el = new SizeHandleElement(point_type, this);
         connect(el, SIGNAL(resize_request(bool)), this, SLOT(onSizeHandleElementRequest(bool)));
         el->setVisible(false);

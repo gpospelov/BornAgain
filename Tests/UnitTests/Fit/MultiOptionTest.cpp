@@ -1,5 +1,5 @@
-#include "google_test.h"
 #include "MultiOption.h"
+#include "google_test.h"
 #include <string>
 
 class MultiOptionTest : public ::testing::Test

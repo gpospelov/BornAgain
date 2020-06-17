@@ -20,23 +20,19 @@ IRotation* IRotation::createRotation(const Transform3D& transform)
 {
     auto rot_type = transform.getRotationType();
     switch (rot_type) {
-    case Transform3D::XAXIS:
-    {
+    case Transform3D::XAXIS: {
         double angle = transform.calculateRotateXAngle();
         return new RotationX(angle);
     }
-    case Transform3D::YAXIS:
-    {
+    case Transform3D::YAXIS: {
         double angle = transform.calculateRotateYAngle();
         return new RotationY(angle);
     }
-    case Transform3D::ZAXIS:
-    {
+    case Transform3D::ZAXIS: {
         double angle = transform.calculateRotateZAngle();
         return new RotationZ(angle);
     }
-    case Transform3D::EULER:
-    {
+    case Transform3D::EULER: {
         double alpha, beta, gamma;
         transform.calculateEulerAngles(&alpha, &beta, &gamma);
         return new RotationEuler(alpha, beta, gamma);
@@ -61,7 +57,7 @@ IRotation* createProduct(const IRotation& left, const IRotation& right)
 {
     Transform3D tr_left = left.getTransform3D();
     Transform3D tr_right = right.getTransform3D();
-    IRotation *p_result = IRotation::createRotation(tr_left*tr_right);
+    IRotation* p_result = IRotation::createRotation(tr_left * tr_right);
     return p_result;
 }
 
@@ -82,8 +78,7 @@ Transform3D IdentityRotation::getTransform3D() const
 
 //! Constructor of rotation around x-axis
 //! @param angle: rotation angle around x-axis in radians
-RotationX::RotationX(double angle)
-    : m_angle(angle)
+RotationX::RotationX(double angle) : m_angle(angle)
 {
     setName(BornAgain::XRotationType);
     registerParameter(BornAgain::Angle, &m_angle).setUnit(BornAgain::UnitsRad);
@@ -98,8 +93,7 @@ Transform3D RotationX::getTransform3D() const
 
 //! Constructor of rotation around y-axis
 //! @param angle: rotation angle around y-axis in radians
-RotationY::RotationY(double angle)
-    : m_angle(angle)
+RotationY::RotationY(double angle) : m_angle(angle)
 {
     setName(BornAgain::YRotationType);
     registerParameter(BornAgain::Angle, &m_angle).setUnit(BornAgain::UnitsRad);
@@ -114,8 +108,7 @@ Transform3D RotationY::getTransform3D() const
 
 //! Constructor of rotation around z-axis
 //! @param angle: rotation angle around z-axis in radians
-RotationZ::RotationZ(double angle)
-    : m_angle(angle)
+RotationZ::RotationZ(double angle) : m_angle(angle)
 {
     setName(BornAgain::ZRotationType);
     registerParameter(BornAgain::Angle, &m_angle).setUnit(BornAgain::UnitsRad);
@@ -138,7 +131,7 @@ RotationEuler::RotationEuler(double alpha, double beta, double gamma)
 {
     setName(BornAgain::EulerRotationType);
     registerParameter(BornAgain::Alpha, &m_alpha).setUnit(BornAgain::UnitsRad);
-    registerParameter(BornAgain::Beta, &m_beta  ).setUnit(BornAgain::UnitsRad);
+    registerParameter(BornAgain::Beta, &m_beta).setUnit(BornAgain::UnitsRad);
     registerParameter(BornAgain::Gamma, &m_gamma).setUnit(BornAgain::UnitsRad);
 }
 

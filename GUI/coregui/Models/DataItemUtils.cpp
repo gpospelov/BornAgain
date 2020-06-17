@@ -14,27 +14,27 @@
 
 #include "DataItemUtils.h"
 #include "GUIHelpers.h"
+#include "IntensityDataItem.h"
 #include "JobItem.h"
 #include "RealDataItem.h"
-#include "IntensityDataItem.h"
 #include "SpecularDataItem.h"
 
-namespace {
-template<class DataItemType>
-DataItemType* dataItem(SessionItem* parent)
+namespace
+{
+template <class DataItemType> DataItemType* dataItem(SessionItem* parent)
 {
     assert(parent && "Assertion failed in DataItemUtils::dataItem: nullptr passed.");
 
     if (parent->modelType() == Constants::JobItemType)
         return dynamic_cast<DataItemType*>(parent->getItem(JobItem::T_OUTPUT));
-    else if(auto real_data = dynamic_cast<RealDataItem*>(parent))
+    else if (auto real_data = dynamic_cast<RealDataItem*>(parent))
         return dynamic_cast<DataItemType*>(real_data->dataItem());
-    else if(auto self = dynamic_cast<DataItemType*>(parent))
+    else if (auto self = dynamic_cast<DataItemType*>(parent))
         return self;
 
     throw GUIHelpers::Error("Error in DataItemUtils::dataItem: unexpected item passed.");
 }
-}
+} // namespace
 
 IntensityDataItem* DataItemUtils::intensityDataItem(SessionItem* parent)
 {

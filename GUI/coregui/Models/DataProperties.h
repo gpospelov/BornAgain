@@ -25,13 +25,13 @@ class DataItem;
 class BA_CORE_API_ DataProperties : public SessionItem
 {
 public:
-   static const QString P_LINK;
+    static const QString P_LINK;
 
-   void setDataItem(DataItem* item);
-   DataItem* dataItem();
+    void setDataItem(DataItem* item);
+    DataItem* dataItem();
 
 protected:
-   DataProperties(const QString& model_type);
+    DataProperties(const QString& model_type);
 };
 
 //! Holds data required for 1D DataItem representation

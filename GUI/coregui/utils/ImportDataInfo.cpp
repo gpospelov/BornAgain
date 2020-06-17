@@ -19,12 +19,13 @@
 #include "JobItemUtils.h"
 #include "OutputData.h"
 
-namespace {
+namespace
+{
 std::vector<AxesUnits> specularUnits()
 {
     std::vector<AxesUnits> result;
     const auto units_map = AxisNames::InitSpecAxis();
-    for (auto& pair: units_map)
+    for (auto& pair : units_map)
         result.push_back(pair.first);
     return result;
 }
@@ -32,30 +33,25 @@ std::vector<AxesUnits> specularUnits()
 // map: data rank --> available units
 std::map<size_t, std::vector<AxesUnits>> available_units = {{1u, specularUnits()},
                                                             {2u, {AxesUnits::NBINS}}};
-}
+} // namespace
 
-ImportDataInfo::ImportDataInfo()
-{
-}
+ImportDataInfo::ImportDataInfo() {}
 
 ImportDataInfo::ImportDataInfo(ImportDataInfo&& other)
-    : m_data(std::move(other.m_data))
-    , m_units(other.m_units)
+    : m_data(std::move(other.m_data)), m_units(other.m_units)
 {
 }
 
 ImportDataInfo::ImportDataInfo(std::unique_ptr<OutputData<double>> data, AxesUnits units)
-    : m_data(units == AxesUnits::NBINS && data
-                 ? ImportDataUtils::CreateSimplifiedOutputData(*data)
-                 : std::move(data))
-    , m_units(units)
+    : m_data(units == AxesUnits::NBINS && data ? ImportDataUtils::CreateSimplifiedOutputData(*data)
+                                               : std::move(data)),
+      m_units(units)
 {
     checkValidity();
 }
 
 ImportDataInfo::ImportDataInfo(std::unique_ptr<OutputData<double>> data, const QString& units_label)
-    : m_data(std::move(data))
-    , m_units(JobItemUtils::axesUnitsFromName(units_label))
+    : m_data(std::move(data)), m_units(JobItemUtils::axesUnitsFromName(units_label))
 {
     checkValidity();
 }
@@ -67,14 +63,14 @@ ImportDataInfo::operator bool() const
     return static_cast<bool>(m_data);
 }
 
-std::unique_ptr<OutputData<double> > ImportDataInfo::intensityData() const &
+std::unique_ptr<OutputData<double>> ImportDataInfo::intensityData() const&
 {
     if (!m_data)
         return nullptr;
     return std::unique_ptr<OutputData<double>>(m_data->clone());
 }
 
-std::unique_ptr<OutputData<double> > ImportDataInfo::intensityData() &&
+std::unique_ptr<OutputData<double>> ImportDataInfo::intensityData() &&
 {
     return std::move(m_data);
 }
@@ -116,7 +112,7 @@ void ImportDataInfo::checkValidity()
     auto iter = available_units.find(m_data->getRank());
     if (iter == available_units.end())
         throw GUIHelpers::Error("Error in ImportDataInfo constructor: unsupported data type");
-    for (auto& value: iter->second)
+    for (auto& value : iter->second)
         if (m_units == value)
             return;
 

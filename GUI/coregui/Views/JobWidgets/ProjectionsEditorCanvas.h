@@ -15,10 +15,10 @@
 #ifndef PROJECTIONSEDITORCANVAS_H
 #define PROJECTIONSEDITORCANVAS_H
 
-#include "WinDllMacros.h"
 #include "MaskEditorFlags.h"
-#include <QWidget>
+#include "WinDllMacros.h"
 #include <QModelIndex>
+#include <QWidget>
 
 class MaskGraphicsScene;
 class MaskGraphicsView;
@@ -47,9 +47,9 @@ public:
 
     void resetContext();
 
-    void setSelectionModel(QItemSelectionModel *model);
+    void setSelectionModel(QItemSelectionModel* model);
 
-    MaskGraphicsScene *getScene() { return m_scene; }
+    MaskGraphicsScene* getScene() { return m_scene; }
 
 signals:
     void changeActivityRequest(MaskEditorFlags::Activity);
@@ -75,7 +75,7 @@ private:
     SessionItem* m_liveProjection; //!< temporary projection item matching mouse move
     SessionModel* m_model;
     QModelIndex m_containerIndex;
-    IntensityDataItem *m_intensityDataItem;
+    IntensityDataItem* m_intensityDataItem;
 
     MaskEditorFlags::Activity m_currentActivity;
     bool m_block_update;

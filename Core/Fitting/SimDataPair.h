@@ -15,68 +15,109 @@
 #ifndef SIMDATAPAIR_H
 #define SIMDATAPAIR_H
 
-#include "ICloneable.h"
 #include "FitTypes.h"
-#include "OutputData.h"
 #include "SimulationResult.h"
+
+template <class T> class OutputData;
 
 //! Holds pair of simulation/experimental data to fit.
 
-class BA_CORE_API_ SimDataPair : public ICloneable
+class BA_CORE_API_ SimDataPair
 {
 public:
-    SimDataPair(simulation_builder_t builder, const OutputData<double>& data, double weight = 1.0);
+    //! Constructs simulation/data pair for later fit.
+    //! @param simulation: simulation builder capable of producing simulations
+    //! @param data: experimental data
+    //! @param uncertainties: uncertainties associated with experimental data
+    //! @param user_weight: weight of dataset in objective metric computations
+    SimDataPair(simulation_builder_t builder, const OutputData<double>& data,
+                std::unique_ptr<OutputData<double>> uncertainties, double user_weight = 1.0);
 
-    virtual ~SimDataPair() override;
+    //! Constructs simulation/data pair for later fit.
+    //! @param simulation: simulation builder capable of producing simulations
+    //! @param data: experimental data
+    //! @param uncertainties: uncertainties associated with experimental data
+    //! @param user_weights: user weights associated with experimental data
+    SimDataPair(simulation_builder_t builder, const OutputData<double>& data,
+                std::unique_ptr<OutputData<double>> uncertainties,
+                std::unique_ptr<OutputData<double>> user_weights);
 
-    SimDataPair* clone() const override;
+    SimDataPair(SimDataPair&& other);
 
-    size_t numberOfFitElements() const;
-
-    double weight() const;
-
-    SimulationResult simulationResult() const;
-
-    SimulationResult experimentalData() const;
-
-    SimulationResult relativeDifference() const;
-
-    SimulationResult absoluteDifference() const;
+    ~SimDataPair();
 
     void runSimulation(const Fit::Parameters& params);
 
-    std::vector<double> experimental_array() const;
+    bool containsUncertainties() const;
 
+    //! Returns the number of elements in the fit area
+    size_t numberOfFitElements() const;
+
+    //! Returns the result of last computed simulation
+    SimulationResult simulationResult() const;
+
+    //! Returns the experimental data cut to the ROI area
+    SimulationResult experimentalData() const;
+
+    //! Returns the data uncertainties cut to the ROI area
+    //! If no uncertainties present, returns zero-filled
+    //! SimulationResult.
+    SimulationResult uncertainties() const;
+
+    //! Returns the user uncertainties cut to the ROI area.
+    SimulationResult userWeights() const;
+
+    //! Returns the relative difference between simulated
+    //! and expeimental data cut to the ROI area
+    SimulationResult relativeDifference() const;
+
+    //! Returns the absolute difference between simulated
+    //! and expeimental data cut to the ROI area
+    SimulationResult absoluteDifference() const;
+
+    //! Returns the flattened simulated intensities
+    //! cut to the ROI area
     std::vector<double> simulation_array() const;
 
-    std::vector<double> weights_array() const;
+    //! Returns the flattened experimental data
+    //! cut to the ROI area
+    std::vector<double> experimental_array() const;
+
+    //! Returns the flattened experimental uncertainties
+    //! cut to the ROI area. If no uncertainties are
+    //! available, returns a zero-filled array
+    //! sized to the ROI area.
+    std::vector<double> uncertainties_array() const;
+
+    //! Returns a flat array of user weights
+    //! cut to the ROI area.
+    std::vector<double> user_weights_array() const;
 
 private:
-    void create_simulation(const Fit::Parameters& params);
+    void initResultArrays();
+    void validate() const;
 
-    //!< Current simulation for given set of parameters.
-    std::unique_ptr<Simulation> m_simulation;
-    //!< Current simulation results.
-    SimulationResult m_simulation_result;
-    //!< Experimental data.
-    SimulationResult m_experimental_data;
-
-    //!< Simulated data in the form of flat array (masked areas excluded, ROI only).
-    std::vector<double> m_simulation_array;
-    //!< Experimental data in the form of flat array (masked areas excluded, ROI only).
-    std::vector<double> m_experimental_array;
-    //!< Weight of detector bin in residual calculations
-    std::vector<double> m_weights_array;
-
-    //!< Simulation builder from the user to construct simulation for given set of parameters.
+    //! Simulation builder from the user to construct simulation for given set of parameters.
     simulation_builder_t m_simulation_builder;
-    //!< Raw experimental data as obtained from the user.
-    std::unique_ptr<OutputData<double>> m_data;
-    //!< Weight of dataset in 'fitting multiple datasets' scenario.
-    double m_weight;
-    //!< Cached number of fit elements (unmasked detector chanels inside region of interest).
-    size_t m_fit_elements_count;
+
+    //! Current simulation for given set of parameters.
+    std::unique_ptr<Simulation> m_simulation;
+
+    //! Current simulation results. Masked areas are nullified.
+    SimulationResult m_sim_data;
+    //! Experimental data cut to the ROI. Masked areas are nullified.
+    SimulationResult m_exp_data;
+    //! Weights from experimental data uncertainties. Masked areas are nullified.
+    SimulationResult m_uncertainties;
+    //! Manually defined (user) weights. Masked areas are nullified.
+    SimulationResult m_user_weights;
+
+    //! Raw experimental data as obtained from the user.
+    std::unique_ptr<OutputData<double>> m_raw_data;
+    //! Data uncertainties as provided by the user
+    std::unique_ptr<OutputData<double>> m_raw_uncertainties;
+    //! User-defined weights
+    std::unique_ptr<OutputData<double>> m_raw_user_weights;
 };
 
 #endif // SIMDATAPAIR_H
-

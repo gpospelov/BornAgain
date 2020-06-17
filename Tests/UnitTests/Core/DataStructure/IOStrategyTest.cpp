@@ -1,8 +1,8 @@
-#include "google_test.h"
 #include "FixedBinAxis.h"
 #include "OutputData.h"
-#include "OutputDataWriteStrategy.h"
 #include "OutputDataReadStrategy.h"
+#include "OutputDataWriteStrategy.h"
+#include "google_test.h"
 
 class IOStrategyTest : public ::testing::Test
 {
@@ -21,7 +21,7 @@ IOStrategyTest::IOStrategyTest()
     FixedBinAxis axis2("y", 10, 6.0, 7.0);
     m_model_data.addAxis(axis1);
     m_model_data.addAxis(axis2);
-    for(size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)
+    for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)
         m_model_data[i] = static_cast<double>(i);
 }
 
@@ -43,7 +43,7 @@ TEST_F(IOStrategyTest, TestINTStrategies)
     EXPECT_EQ(m_model_data.getAllSizes(), result->getAllSizes());
     compare_axis(0);
     compare_axis(1);
-    for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size ;++i)
+    for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)
         EXPECT_EQ(m_model_data[i], (*result)[i]);
 }
 
@@ -57,7 +57,7 @@ TEST_F(IOStrategyTest, TestNumpyTXTStrategies)
     auto result = std::unique_ptr<OutputData<double>>(read_txt_strategy.readOutputData(ss));
     EXPECT_EQ(m_model_data.getRank(), result->getRank());
     EXPECT_EQ(m_model_data.getAllSizes(), result->getAllSizes());
-    for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size ;++i)
+    for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)
         EXPECT_EQ(m_model_data[i], (*result)[i]);
 }
 
@@ -73,7 +73,7 @@ TEST_F(IOStrategyTest, TestTIFFStrategies)
     auto result = std::unique_ptr<OutputData<double>>(read_tiff_strategy.readOutputData(ss));
     EXPECT_EQ(m_model_data.getRank(), result->getRank());
     EXPECT_EQ(m_model_data.getAllSizes(), result->getAllSizes());
-    for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size ;++i)
+    for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)
         EXPECT_EQ(m_model_data[i], (*result)[i]);
 }
 

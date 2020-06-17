@@ -24,7 +24,8 @@
 //! The JobViewActivities class is a helper static class to get info related to JobView activities
 //! (JobViewActivity, RealTimeActivity and FittingActivity).
 
-class BA_CORE_API_ JobViewActivities {
+class BA_CORE_API_ JobViewActivities
+{
 
 public:
     using activity_map_t = QMap<JobViewFlags::Activity, QVector<JobViewFlags::Dock>>;

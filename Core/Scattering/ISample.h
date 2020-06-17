@@ -28,7 +28,7 @@ class BA_CORE_API_ ISample : public ICloneable, public INode
 {
 public:
     //! Returns a clone of this ISample object.
-    ISample* clone() const override=0;
+    ISample* clone() const override = 0;
 
     //! Returns nullptr, unless overwritten to return a specific material.
     virtual const Material* material() const { return nullptr; }

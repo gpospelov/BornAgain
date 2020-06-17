@@ -28,11 +28,11 @@ public:
     IInterferenceFunction(const IInterferenceFunction& other);
     virtual ~IInterferenceFunction();
 
-    virtual IInterferenceFunction* clone() const=0;
-    virtual void accept(INodeVisitor* visitor) const =0;
+    virtual IInterferenceFunction* clone() const = 0;
+    virtual void accept(INodeVisitor* visitor) const = 0;
 
     //! Evaluates the interference function for a given wavevector transfer
-    virtual double evaluate(const kvector_t q, double outer_iff=1.0) const;
+    virtual double evaluate(const kvector_t q, double outer_iff = 1.0) const;
 
     //! Sets the variance of the position for the calculation of the DW factor
     //! It is defined as the variance in each relevant dimension
@@ -56,7 +56,8 @@ protected:
     double iff_no_inner(const kvector_t q, double outer_iff) const;
 
     //! Calculates the structure factor without Debye-Waller factor
-    virtual double iff_without_dw(const kvector_t q) const=0;
+    virtual double iff_without_dw(const kvector_t q) const = 0;
+
 private:
     void init_parameters();
     double m_position_var;

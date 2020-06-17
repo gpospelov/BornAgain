@@ -1722,7 +1722,7 @@ class Parameters(object):
         r"""
         begin(Parameters self) -> Fit::Parameters::const_iterator
         begin(Parameters self) -> Fit::Parameters::iterator
-        iterator Fit::Parameters::begin()
+        Parameters::iterator Parameters::begin()
 
         """
         return _libBornAgainFit.Parameters_begin(self, *args)
@@ -1731,7 +1731,7 @@ class Parameters(object):
         r"""
         end(Parameters self) -> Fit::Parameters::const_iterator
         end(Parameters self) -> Fit::Parameters::iterator
-        iterator Fit::Parameters::end()
+        Parameters::iterator Parameters::end()
 
         """
         return _libBornAgainFit.Parameters_end(self, *args)

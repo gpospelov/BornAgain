@@ -1,3 +1,5 @@
+BornAgain-1.17.99, work in progress
+
 BornAgain-1.17.0, released 2020.06.16
   > API changes:
     1) Add Nevot-Croce roughness model.
@@ -43,7 +45,7 @@ BornAgain-1.16.0, released 2019.07.31
     1) Python: major changes in SpecularSimulation interface. Please consult web-documentation for details.
     2) GUI: project compatibility with previous versions is broken.
   > Summary:
-    1) Hadnling intensity uncertainties in experimental data
+    1) Handling intensity uncertainties in experimental data
     2) Support for arbitrary resolutions in reflectometry
     3) SLD/refractive index profiles across sample layers
     4) Importing reflectometry data as Qz-Intensity by default
@@ -84,7 +86,7 @@ BornAgain-1.16.0, released 2019.07.31
   * Documentation #2283: Fix starting value of prism_base_edge in fit example
   * Documentation #2308: Fix Windows PyCharm tutorial
   * Documentation #2325: Proofread Windows installation tutorials
-  * Documentation #2381: Examples present on the website and missing on the BA repo 
+  * Documentation #2381: Examples present on the website and missing on the BA repo
   * Refactoring #2361: Use **kwargs in python plotting routines
   * Testing #2210: Test 1d data import on known file formats
   * Testing #2287: Reflectometry cross-validation
@@ -364,7 +366,7 @@ BornAgain-1.11.0, released 2018.03.02
     9) GUI: Fourier transform of simulation results.
     10) GUI: beam polarization and polarization analysis are now supported.
     11) Documentation: large part of website has been migrated to Hugo website
-    12) Bugfix: BornAgain GUI no longer contains a limit on number of threads. 
+    12) Bugfix: BornAgain GUI no longer contains a limit on number of threads.
     13) Numerous other bugfixes.
 
   * Bug #1871: Prevent using WavelengthIndependentMaterial in computations with material averaging or make universal averaging procedure

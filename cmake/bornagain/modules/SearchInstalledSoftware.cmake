@@ -43,7 +43,7 @@ endif()
 # --- Tiff ---
 if(BORNAGAIN_TIFF_SUPPORT)
     message(STATUS "Looking for libtiff (use -DBORNAGAIN_TIFF_SUPPORT=OFF to disable)")
-    find_package(TIFF 4.0.2 REQUIRED)
+    find_package(TIFF 4.0.2 REQUIRED COMPONENTS CXX)
 endif()
 
 # --- Python ---

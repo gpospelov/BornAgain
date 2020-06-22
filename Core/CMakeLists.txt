@@ -161,9 +161,9 @@ endif()
 
 target_include_directories(${library_name} PUBLIC ${include_dirs})
 target_include_directories(${library_name} SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
-target_include_directories(${library_name} PUBLIC ${Boost_INCLUDE_DIRS} ${FFTW_INCLUDE_DIR}
+target_include_directories(${library_name} PUBLIC ${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR} ${tspectrum_INCLUDE_DIR} PRIVATE ${Faddeeva_INCLUDE_DIR})
-target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW_LIBRARY} ${GSL_LIBRARIES}
+target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARY} ${GSL_LIBRARIES}
     ${Faddeeva_LIBRARY} ${tspectrum_LIBRARY})
 
 if(BORNAGAIN_MPI)
@@ -236,7 +236,7 @@ if(WIN32)
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
     install(FILES
-        ${FFTW_LIBRARY_DLL}
+        ${FFTW3_LIBRARY_DLL}
         ${TIFF_LIBRARY_DLL}
         DESTINATION ${destination_lib} COMPONENT Libraries)
 

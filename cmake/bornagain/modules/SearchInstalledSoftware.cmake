@@ -1,7 +1,7 @@
 # Search for installed software required by BornAgain
 
 find_package(Threads REQUIRED)
-find_package(FFTW REQUIRED)
+find_package(FFTW3 REQUIRED)
 find_package(GSL REQUIRED)
 
 # --- Eigen3 is a git submodule; throw an error if submodule is not initialized ---

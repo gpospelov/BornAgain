@@ -163,7 +163,7 @@ target_include_directories(${library_name} PUBLIC ${include_dirs})
 target_include_directories(${library_name} SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 target_include_directories(${library_name} PUBLIC ${Boost_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR}
     ${GSL_INCLUDE_DIR} ${tspectrum_INCLUDE_DIR} PRIVATE ${Faddeeva_INCLUDE_DIR})
-target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARY} ${GSL_LIBRARIES}
+target_link_libraries(${library_name} ${Boost_LIBRARIES} ${FFTW3_LIBRARIES} ${GSL_LIBRARIES}
     ${Faddeeva_LIBRARY} ${tspectrum_LIBRARY})
 
 if(BORNAGAIN_MPI)
@@ -235,10 +235,13 @@ if(WIN32)
     install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
-    install(FILES
-        ${FFTW3_LIBRARY_DLL}
-        ${TIFF_LIBRARY_DLL}
-        DESTINATION ${destination_lib} COMPONENT Libraries)
+    foreach(LIB IN LISTS ${FFTW3_LIBRARIES} ${TIFF_LIBRARIES})
+        string(REPLACE ".lib" ".dll" DLL "${LIB}")
+        if (NOT EXISTS ${DLL})
+            message(FATAL_ERROR "Dynamic load library ${DLL} (derived from ${LIB}) does not exist")
+        endif()
+        install(FILES ${DLL} DESTINATION ${destination_lib} COMPONENT Libraries)
+    endforeach()
 
 else()
     # Install thisbornagain.sh.

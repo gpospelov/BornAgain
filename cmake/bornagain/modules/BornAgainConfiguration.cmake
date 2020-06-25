@@ -107,10 +107,14 @@ message(STATUS "Destination directories:
 # configure files
 # -----------------------------------------------------------------------------
 
-if(BORNAGAIN_RELEASE)
-    # configure Doxyfile
-    configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.in
-        ${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile @ONLY)
+if(BORNAGAIN_CONFIGURE_DOXY)
+    # configure Doxyfiles
+    set(AUTO_DOX_DIR ${CMAKE_SOURCE_DIR}/auto/Doxygen)
+    file(MAKE_DIRECTORY ${AUTO_DOX_DIR})
+    foreach(type user long dirgraphs)
+        configure_file(${CMAKE_SOURCE_DIR}/Doc/Doxygen/Doxyfile.${type}.in
+            ${AUTO_DOX_DIR}/Doxyfile.${type} @ONLY)
+    endforeach()
 endif()
 
 if(NOT BORNAGAIN_BUILDBOT_SERVER)

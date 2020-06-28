@@ -110,7 +110,16 @@ bool FunctionCall::runTest()
 
     Py_Finalize();
 
-    return str == BornAgain::GetVersionNumber();
+    std::cout << "BornAgain version via Python: '" << str << "'\n";
+    std::cout << "BornAgain version from Core:  '" << BornAgain::GetVersionNumber() << "'\n";
+    if (str!=BornAgain::GetVersionNumber()) {
+        std::cout << "Version numbers disagree, test will fail.\n"
+                  << "Possible reasons:\n"
+                  << "- Python bindings not regenerated\n"
+                  << "- Python module load from wrong location\n";
+        return false;
+    }
+    return true;
 }
 
 //! Creating instance of FormFactorCylinder and calling its method in embedded Python.

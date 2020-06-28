@@ -9368,6 +9368,26 @@ class FormFactorPolyhedron(IFormFactorBorn):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
 
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(FormFactorPolyhedron self, IRotation rotation) -> double
+        double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorPolyhedron_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(FormFactorPolyhedron self, IRotation rotation) -> double
+        double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorPolyhedron_topZ(self, rotation)
+
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
@@ -9437,6 +9457,26 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(FormFactorPolygonalPrism self, IRotation rotation) -> double
+        double FormFactorPolygonalPrism::bottomZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalPrism_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(FormFactorPolygonalPrism self, IRotation rotation) -> double
+        double FormFactorPolygonalPrism::topZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalPrism_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
         r"""

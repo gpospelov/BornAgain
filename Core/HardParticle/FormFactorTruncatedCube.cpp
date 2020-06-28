@@ -16,7 +16,6 @@
 #include "BornAgainNamespace.h"
 #include "Exceptions.h"
 #include "RealParameter.h"
-#include "TruncatedCube.h"
 
 const PolyhedralTopology FormFactorTruncatedCube::topology = {
     {{{0, 1, 7, 6, 9, 10, 4, 3}, true},
@@ -59,7 +58,6 @@ void FormFactorTruncatedCube::onChange()
         ostr << "Check for removed_length <= 0.5*length failed.";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    mP_shape.reset(new TruncatedCube(m_length, m_removed_length));
 
     double a = m_length / 2;
     double b = m_removed_length;

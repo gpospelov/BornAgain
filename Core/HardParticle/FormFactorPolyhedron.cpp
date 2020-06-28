@@ -20,6 +20,7 @@
 #include "MathFunctions.h"
 #include "Precomputed.h"
 #include "RealParameter.h"
+#include "Rotations.h"
 #include <iomanip>
 #include <stdexcept> // need overlooked by g++ 5.4
 
@@ -424,6 +425,10 @@ void FormFactorPolyhedron::setLimits(double _q, int _n)
 void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_bottom,
                                          const std::vector<kvector_t>& vertices)
 {
+    m_vertices.clear();
+    for (const kvector_t& vertex: vertices)
+        m_vertices.push_back(vertex - kvector_t{0, 0, z_bottom});
+
     try {
         m_z_bottom = z_bottom;
         m_sym_Ci = topology.symmetry_Ci;
@@ -470,6 +475,16 @@ void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, dou
         throw std::runtime_error("Unexpected exception in " + getName() + ": " + e.what()
                                  + " [please report to the maintainers]");
     }
+}
+
+double FormFactorPolyhedron::bottomZ(const IRotation& rotation) const
+{
+    return BottomZ(m_vertices, rotation.getTransform3D());
+}
+
+double FormFactorPolyhedron::topZ(const IRotation& rotation) const
+{
+    return TopZ(m_vertices, rotation.getTransform3D());
 }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom.
@@ -587,6 +602,12 @@ void FormFactorPolyhedron::assert_platonic() const
 
 void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices)
 {
+    m_vertices.clear();
+    for (const kvector_t& vertex: vertices) {
+        m_vertices.push_back(vertex);
+        m_vertices.push_back(vertex + kvector_t{0, 0, m_height});
+    }
+
     try {
         m_base = std::unique_ptr<PolyhedralFace>(new PolyhedralFace(vertices, symmetry_Ci));
     } catch (std::invalid_argument& e) {
@@ -598,6 +619,16 @@ void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvec
         throw std::runtime_error("Unexpected exception in " + getName() + ": " + e.what()
                                  + " [please report to the maintainers]");
     }
+}
+
+double FormFactorPolygonalPrism::bottomZ(const IRotation& rotation) const
+{
+    return BottomZ(m_vertices, rotation.getTransform3D());
+}
+
+double FormFactorPolygonalPrism::topZ(const IRotation& rotation) const
+{
+    return TopZ(m_vertices, rotation.getTransform3D());
 }
 
 //! Returns the volume of this prism.

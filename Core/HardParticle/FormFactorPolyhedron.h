@@ -106,6 +106,9 @@ public:
 
     FormFactorPolyhedron() {}
 
+    double bottomZ(const IRotation& rotation) const override final;
+    double topZ(const IRotation& rotation) const override final;
+
     complex_t evaluate_for_q(cvector_t q) const override final;
     complex_t evaluate_centered(cvector_t q) const;
 
@@ -127,6 +130,7 @@ private:
     std::vector<PolyhedralFace> m_faces;
     double m_radius;
     double m_volume;
+    std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
 };
 
 //! A prism with a polygonal base, for form factor computation.
@@ -135,6 +139,9 @@ class BA_CORE_API_ FormFactorPolygonalPrism : public IFormFactorBorn
 {
 public:
     FormFactorPolygonalPrism(double height) : m_height(height) {}
+
+    double bottomZ(const IRotation& rotation) const override final;
+    double topZ(const IRotation& rotation) const override final;
 
     complex_t evaluate_for_q(cvector_t q) const override final;
     double volume() const override final;
@@ -145,6 +152,7 @@ protected:
     std::unique_ptr<PolyhedralFace> m_base;
     double m_height;
     void setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices);
+    std::vector<kvector_t> m_vertices; //! for topZ, bottomZ computation only
 };
 
 //! A polygonal surface, for testing form factor computations.

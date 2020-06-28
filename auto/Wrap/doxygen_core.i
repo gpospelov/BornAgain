@@ -118,16 +118,6 @@ Sets angular resolution values via  RangedDistribution and values of standard de
 ";
 
 
-// File: classAnisoPyramid.xml
-%feature("docstring") AnisoPyramid "";
-
-%feature("docstring")  AnisoPyramid::AnisoPyramid "AnisoPyramid::AnisoPyramid(double length, double width, double height, double alpha)
-";
-
-%feature("docstring")  AnisoPyramid::~AnisoPyramid "AnisoPyramid::~AnisoPyramid()
-";
-
-
 // File: classAsymRippleBuilder.xml
 %feature("docstring") AsymRippleBuilder "";
 
@@ -628,16 +618,6 @@ creation on  Bin1DKVector from alpha and phi bins
 ";
 
 %feature("docstring")  Bin1DKVector::getDelta "kvector_t Bin1DKVector::getDelta() const
-";
-
-
-// File: classBiPyramid.xml
-%feature("docstring") BiPyramid "";
-
-%feature("docstring")  BiPyramid::BiPyramid "BiPyramid::BiPyramid(double length, double height, double height_ratio, double alpha)
-";
-
-%feature("docstring")  BiPyramid::~BiPyramid "BiPyramid::~BiPyramid()
 ";
 
 
@@ -2134,16 +2114,6 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring") Exceptions::DivisionByZeroException "";
 
 %feature("docstring")  Exceptions::DivisionByZeroException::DivisionByZeroException "Exceptions::DivisionByZeroException::DivisionByZeroException(const std::string &message)
-";
-
-
-// File: classDodecahedron.xml
-%feature("docstring") Dodecahedron "";
-
-%feature("docstring")  Dodecahedron::Dodecahedron "Dodecahedron::Dodecahedron(double edge)
-";
-
-%feature("docstring")  Dodecahedron::~Dodecahedron "Dodecahedron::~Dodecahedron()
 ";
 
 
@@ -4291,6 +4261,16 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
 ";
 
+%feature("docstring")  FormFactorPolygonalPrism::bottomZ "double FormFactorPolygonalPrism::bottomZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorPolygonalPrism::topZ "double FormFactorPolygonalPrism::topZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const override final
 
 Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
@@ -4346,6 +4326,16 @@ C++ includes: FormFactorPolyhedron.h
 ";
 
 %feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
+";
+
+%feature("docstring")  FormFactorPolyhedron::bottomZ "double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorPolyhedron::topZ "double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
@@ -6369,16 +6359,6 @@ C++ includes: IComputation.h
 ";
 
 %feature("docstring")  IComputation::errorMessage "std::string IComputation::errorMessage() const
-";
-
-
-// File: classIcosahedron.xml
-%feature("docstring") Icosahedron "";
-
-%feature("docstring")  Icosahedron::Icosahedron "Icosahedron::Icosahedron(double edge)
-";
-
-%feature("docstring")  Icosahedron::~Icosahedron "Icosahedron::~Icosahedron()
 ";
 
 
@@ -13459,26 +13439,6 @@ C++ includes: PyFittingCallbacks.h
 ";
 
 
-// File: classPyramid3.xml
-%feature("docstring") Pyramid3 "";
-
-%feature("docstring")  Pyramid3::Pyramid3 "Pyramid3::Pyramid3(double length, double height, double alpha)
-";
-
-%feature("docstring")  Pyramid3::~Pyramid3 "Pyramid3::~Pyramid3()
-";
-
-
-// File: classPyramid6.xml
-%feature("docstring") Pyramid6 "";
-
-%feature("docstring")  Pyramid6::Pyramid6 "Pyramid6::Pyramid6(double length, double height, double alpha)
-";
-
-%feature("docstring")  Pyramid6::~Pyramid6 "Pyramid6::~Pyramid6()
-";
-
-
 // File: classQSpecScan.xml
 %feature("docstring") QSpecScan "
 
@@ -16609,16 +16569,6 @@ C++ includes: RipplesBuilder.h
 ";
 
 
-// File: classTruncatedCube.xml
-%feature("docstring") TruncatedCube "";
-
-%feature("docstring")  TruncatedCube::TruncatedCube "TruncatedCube::TruncatedCube(double length, double removed_length)
-";
-
-%feature("docstring")  TruncatedCube::~TruncatedCube "TruncatedCube::~TruncatedCube()
-";
-
-
 // File: classTruncatedEllipsoid.xml
 %feature("docstring") TruncatedEllipsoid "";
 
@@ -17256,28 +17206,28 @@ C++ includes: ZLimits.h
 // File: namespace_0d497.xml
 
 
-// File: namespace_0d535.xml
+// File: namespace_0d521.xml
 
 
-// File: namespace_0d543.xml
+// File: namespace_0d529.xml
 
 
-// File: namespace_0d545.xml
+// File: namespace_0d531.xml
 
 
-// File: namespace_0d547.xml
+// File: namespace_0d533.xml
 
 
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d631.xml
+// File: namespace_0d617.xml
 
 
-// File: namespace_0d635.xml
+// File: namespace_0d621.xml
 
 
-// File: namespace_0d659.xml
+// File: namespace_0d645.xml
 
 
 // File: namespace_0d98.xml
@@ -20057,28 +20007,10 @@ Returns concatenated rotation (first right, then left).
 ";
 
 
-// File: AnisoPyramid_8cpp.xml
-
-
-// File: AnisoPyramid_8h.xml
-
-
-// File: BiPyramid_8cpp.xml
-
-
-// File: BiPyramid_8h.xml
-
-
 // File: Box_8cpp.xml
 
 
 // File: Box_8h.xml
-
-
-// File: Dodecahedron_8cpp.xml
-
-
-// File: Dodecahedron_8h.xml
 
 
 // File: Dot_8cpp.xml
@@ -20091,12 +20023,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: DoubleEllipse_8h.xml
-
-
-// File: Icosahedron_8cpp.xml
-
-
-// File: Icosahedron_8h.xml
 
 
 // File: IShape_8cpp.xml
@@ -20147,18 +20073,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 ";
 
 
-// File: Pyramid3_8cpp.xml
-
-
-// File: Pyramid3_8h.xml
-
-
-// File: Pyramid6_8cpp.xml
-
-
-// File: Pyramid6_8h.xml
-
-
 // File: RippleCosine_8cpp.xml
 
 
@@ -20175,12 +20089,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: Triangle_8h.xml
-
-
-// File: TruncatedCube_8cpp.xml
-
-
-// File: TruncatedCube_8h.xml
 
 
 // File: TruncatedEllipsoid_8cpp.xml

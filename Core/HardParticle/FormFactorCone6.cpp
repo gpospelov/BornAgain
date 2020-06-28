@@ -17,7 +17,6 @@
 #include "Exceptions.h"
 #include "MathConstants.h"
 #include "MathFunctions.h"
-#include "Pyramid6.h"
 #include "RealParameter.h"
 
 const PolyhedralTopology FormFactorCone6::topology = {{{{5, 4, 3, 2, 1, 0}, true},
@@ -72,7 +71,6 @@ void FormFactorCone6::onChange()
         ostr << ", alpha[rad]:" << m_alpha << ")";
         throw Exceptions::ClassInitializationException(ostr.str());
     }
-    mP_shape.reset(new Pyramid6(m_base_edge, m_height, m_alpha));
 
     double a = m_base_edge;
     double as = a / 2;

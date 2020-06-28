@@ -14,7 +14,6 @@
 
 #include "FormFactorBox.h"
 #include "BornAgainNamespace.h"
-#include "Box.h"
 #include "MathFunctions.h"
 #include "RealParameter.h"
 
@@ -50,5 +49,4 @@ IFormFactor* FormFactorBox::sliceFormFactor(ZLimits limits, const IRotation& rot
 
 void FormFactorBox::onChange()
 {
-    mP_shape.reset(new Box(m_length, m_width, m_height));
 }

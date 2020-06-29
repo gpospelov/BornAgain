@@ -82,28 +82,28 @@ TEST_F(FormFactorBasicTest, AnisoPyramid)
 
     EXPECT_EQ(BornAgain::FFAnisoPyramidType, anisopyramid.getName());
     EXPECT_DOUBLE_EQ(volume, anisopyramid.volume());
-    EXPECT_EQ(12., anisopyramid.getLength());
-    EXPECT_EQ(14., anisopyramid.getWidth());
-    EXPECT_EQ(5., anisopyramid.getHeight());
-    EXPECT_EQ(0.8, anisopyramid.getAlpha());
+    EXPECT_EQ(length, anisopyramid.getLength());
+    EXPECT_EQ(width, anisopyramid.getWidth());
+    EXPECT_EQ(height, anisopyramid.getHeight());
+    EXPECT_EQ(alpha, anisopyramid.getAlpha());
 
     test_ff(&anisopyramid);
 }
 
 TEST_F(FormFactorBasicTest, HemiEllipsoid)
 {
-    double radius_a = 6.;
-    double radius_b = 7.;
+    double radiusx = 6.;
+    double radiusy = 7.;
     double height = 5.;
 
-    double volume = M_TWOPI * radius_a * radius_b * height / 3.;
+    double volume = M_TWOPI * radiusx * radiusy * height / 3.;
 
-    FormFactorHemiEllipsoid hemiellipsoid(radius_a, radius_b, height);
+    FormFactorHemiEllipsoid hemiellipsoid(radiusx, radiusy, height);
 
     EXPECT_EQ(BornAgain::FFHemiEllipsoidType, hemiellipsoid.getName());
-    EXPECT_EQ(6., hemiellipsoid.getRadiusX());
-    EXPECT_EQ(7., hemiellipsoid.getRadiusY());
-    EXPECT_EQ(5., hemiellipsoid.getHeight());
+    EXPECT_EQ(radiusx, hemiellipsoid.getRadiusX());
+    EXPECT_EQ(radiusy, hemiellipsoid.getRadiusY());
+    EXPECT_EQ(height, hemiellipsoid.getHeight());
     EXPECT_DOUBLE_EQ(volume, hemiellipsoid.volume());
 
     test_ff(&hemiellipsoid);
@@ -119,8 +119,8 @@ TEST_F(FormFactorBasicTest, Box)
     FormFactorBox box(length, width, height);
 
     EXPECT_EQ(BornAgain::FFBoxType, box.getName());
-    EXPECT_EQ(7., box.getWidth());
-    EXPECT_EQ(5., box.getHeight());
+    EXPECT_EQ(width, box.getWidth());
+    EXPECT_EQ(height, box.getHeight());
     EXPECT_EQ(3., box.radialExtension());
     EXPECT_DOUBLE_EQ(volume, box.volume());
 
@@ -140,9 +140,9 @@ TEST_F(FormFactorBasicTest, Cone)
     FormFactorCone cone(radius, height, alpha);
 
     EXPECT_EQ(BornAgain::FFConeType, cone.getName());
-    EXPECT_EQ(6., cone.getRadius());
-    EXPECT_EQ(5., cone.getHeight());
-    EXPECT_EQ(0.8, cone.getAlpha());
+    EXPECT_EQ(radius, cone.getRadius());
+    EXPECT_EQ(height, cone.getHeight());
+    EXPECT_EQ(alpha, cone.getAlpha());
     EXPECT_DOUBLE_EQ(volume, cone.volume());
 
     test_ff(&cone);
@@ -161,9 +161,9 @@ TEST_F(FormFactorBasicTest, Cone6)
     FormFactorCone6 cone6(base_edge, height, alpha);
 
     EXPECT_EQ(BornAgain::FFCone6Type, cone6.getName());
-    EXPECT_EQ(6., cone6.getBaseEdge());
-    EXPECT_EQ(5., cone6.getHeight());
-    EXPECT_EQ(0.8, cone6.getAlpha());
+    EXPECT_EQ(base_edge, cone6.getBaseEdge());
+    EXPECT_EQ(height, cone6.getHeight());
+    EXPECT_EQ(alpha, cone6.getAlpha());
     EXPECT_DOUBLE_EQ(volume, cone6.volume());
 
     test_ff(&cone6);
@@ -186,10 +186,10 @@ TEST_F(FormFactorBasicTest, Cuboctahedron)
     FormFactorCuboctahedron cuboctahedron(length, height, height_ratio, alpha);
 
     EXPECT_EQ(BornAgain::FFCuboctahedronType, cuboctahedron.getName());
-    EXPECT_EQ(4., cuboctahedron.getHeight());
-    EXPECT_EQ(10., cuboctahedron.getLength());
-    EXPECT_EQ(1., cuboctahedron.getHeightRatio());
-    EXPECT_EQ(0.8, cuboctahedron.getAlpha());
+    EXPECT_EQ(height, cuboctahedron.getHeight());
+    EXPECT_EQ(length, cuboctahedron.getLength());
+    EXPECT_EQ(height_ratio, cuboctahedron.getHeightRatio());
+    EXPECT_EQ(alpha, cuboctahedron.getAlpha());
     EXPECT_DOUBLE_EQ(volume, cuboctahedron.volume());
 
     test_ff(&cuboctahedron);
@@ -204,8 +204,8 @@ TEST_F(FormFactorBasicTest, Cylinder)
     FormFactorCylinder cylinder(radius, height);
 
     EXPECT_EQ(BornAgain::FFCylinderType, cylinder.getName());
-    EXPECT_EQ(5., cylinder.getHeight());
-    EXPECT_EQ(3., cylinder.getRadius());
+    EXPECT_EQ(height, cylinder.getHeight());
+    EXPECT_EQ(radius, cylinder.getRadius());
     EXPECT_DOUBLE_EQ(volume, cylinder.volume());
 
     test_ff(&cylinder);
@@ -226,17 +226,17 @@ TEST_F(FormFactorBasicTest, Dodecahedron)
 
 TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
 {
-    double radius_a = 3.;
-    double radius_b = 5.;
+    double radiusx = 3.;
+    double radiusy = 5.;
     double height = 4;
-    double volume = M_PI * radius_a * radius_b * height;
+    double volume = M_PI * radiusx * radiusy * height;
 
-    FormFactorEllipsoidalCylinder ellipscyl(radius_a, radius_b, height);
+    FormFactorEllipsoidalCylinder ellipscyl(radiusx, radiusy, height);
 
     EXPECT_EQ(BornAgain::FFEllipsoidalCylinderType, ellipscyl.getName());
-    EXPECT_EQ(4., ellipscyl.getHeight());
-    EXPECT_EQ(3., ellipscyl.getRadiusX());
-    EXPECT_EQ(5., ellipscyl.getRadiusY());
+    EXPECT_EQ(height, ellipscyl.getHeight());
+    EXPECT_EQ(radiusx, ellipscyl.getRadiusX());
+    EXPECT_EQ(radiusy, ellipscyl.getRadiusY());
     EXPECT_DOUBLE_EQ(volume, ellipscyl.volume());
 
     test_ff(&ellipscyl);
@@ -264,7 +264,7 @@ TEST_F(FormFactorBasicTest, FullSphere)
 
     FormFactorFullSphere fullsphere(radius);
     EXPECT_EQ(BornAgain::FFFullSphereType, fullsphere.getName());
-    EXPECT_EQ(5., fullsphere.getRadius());
+    EXPECT_EQ(radius, fullsphere.getRadius());
     EXPECT_DOUBLE_EQ(volume, fullsphere.volume());
 
     test_ff(&fullsphere);
@@ -279,8 +279,8 @@ TEST_F(FormFactorBasicTest, FullSpheroid)
     FormFactorFullSpheroid fullspheroid(radius, height);
 
     EXPECT_EQ(BornAgain::FFFullSpheroidType, fullspheroid.getName());
-    EXPECT_EQ(3., fullspheroid.getRadius());
-    EXPECT_EQ(5., fullspheroid.getHeight());
+    EXPECT_EQ(radius, fullspheroid.getRadius());
+    EXPECT_EQ(height, fullspheroid.getHeight());
     EXPECT_DOUBLE_EQ(volume, fullspheroid.volume());
 
     test_ff(&fullspheroid);
@@ -309,8 +309,8 @@ TEST_F(FormFactorBasicTest, Prism3)
     FormFactorPrism3 prism3(base_edge, height);
 
     EXPECT_EQ(BornAgain::FFPrism3Type, prism3.getName());
-    EXPECT_EQ(4., prism3.getHeight());
-    EXPECT_EQ(6., prism3.getBaseEdge());
+    EXPECT_EQ(height, prism3.getHeight());
+    EXPECT_EQ(base_edge, prism3.getBaseEdge());
     EXPECT_DOUBLE_EQ(volume, prism3.volume());
 
     test_ff(&prism3);
@@ -325,8 +325,8 @@ TEST_F(FormFactorBasicTest, Prism6)
     FormFactorPrism6 prism6(base_edge, height);
 
     EXPECT_EQ(BornAgain::FFPrism6Type, prism6.getName());
-    EXPECT_EQ(4., prism6.getHeight());
-    EXPECT_EQ(3., prism6.getBaseEdge());
+    EXPECT_EQ(height, prism6.getHeight());
+    EXPECT_EQ(base_edge, prism6.getBaseEdge());
     EXPECT_DOUBLE_EQ(volume, prism6.volume());
 
     test_ff(&prism6);
@@ -335,19 +335,19 @@ TEST_F(FormFactorBasicTest, Prism6)
 TEST_F(FormFactorBasicTest, Pyramid)
 {
     double height = 4.;
-    double length = 10.;
+    double base_edge = 10.;
     double alpha = 0.8;
     double tga = std::tan(alpha);
-    double H2divLtga = height * 2. / length / tga;
-    double volume = 1. / 6. * tga * length * length * length
+    double H2divLtga = height * 2. / base_edge / tga;
+    double volume = 1. / 6. * tga * base_edge * base_edge * base_edge
                     * (1. - (1. - H2divLtga) * (1. - H2divLtga) * (1. - H2divLtga));
 
-    FormFactorPyramid pyramid(length, height, alpha);
+    FormFactorPyramid pyramid(base_edge, height, alpha);
 
     EXPECT_EQ(BornAgain::FFPyramidType, pyramid.getName());
-    EXPECT_EQ(4., pyramid.getHeight());
-    EXPECT_EQ(10., pyramid.getBaseEdge());
-    EXPECT_EQ(0.8, pyramid.getAlpha());
+    EXPECT_EQ(height, pyramid.getHeight());
+    EXPECT_EQ(base_edge, pyramid.getBaseEdge());
+    EXPECT_EQ(alpha, pyramid.getAlpha());
     EXPECT_DOUBLE_EQ(volume, pyramid.volume());
 
     test_ff(&pyramid);
@@ -364,7 +364,7 @@ TEST_F(FormFactorBasicTest, TruncatedSphere)
     FormFactorTruncatedSphere trsphere(radius, height);
 
     EXPECT_EQ(BornAgain::FFTruncatedSphereType, trsphere.getName());
-    EXPECT_EQ(3., trsphere.getHeight());
+    EXPECT_EQ(height, trsphere.getHeight());
     EXPECT_DOUBLE_EQ(volume, trsphere.volume());
 
     test_ff(&trsphere);
@@ -381,8 +381,8 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid)
     FormFactorTruncatedSpheroid trspheroid(radius, height, flattening);
 
     EXPECT_EQ(BornAgain::FFTruncatedSpheroidType, trspheroid.getName());
-    EXPECT_EQ(5., trspheroid.getHeight());
-    EXPECT_EQ(3., trspheroid.getRadius());
+    EXPECT_EQ(height, trspheroid.getHeight());
+    EXPECT_EQ(radius, trspheroid.getRadius());
     EXPECT_DOUBLE_EQ(volume, trspheroid.volume());
 
     test_ff(&trspheroid);
@@ -401,9 +401,9 @@ TEST_F(FormFactorBasicTest, Tetrahedron)
     FormFactorTetrahedron tetrahedron(base_edge, height, alpha);
 
     EXPECT_EQ(BornAgain::FFTetrahedronType, tetrahedron.getName());
-    EXPECT_EQ(4., tetrahedron.getHeight());
-    EXPECT_EQ(16., tetrahedron.getBaseEdge());
-    EXPECT_EQ(0.8, tetrahedron.getAlpha());
+    EXPECT_EQ(height, tetrahedron.getHeight());
+    EXPECT_EQ(base_edge, tetrahedron.getBaseEdge());
+    EXPECT_EQ(alpha, tetrahedron.getAlpha());
     EXPECT_DOUBLE_EQ(volume, tetrahedron.volume());
 
     test_ff(&tetrahedron);
@@ -419,9 +419,9 @@ TEST_F(FormFactorBasicTest, Ripple1Box)
     FormFactorRipple1Box ripple1(length, width, height);
 
     EXPECT_EQ(BornAgain::FFRipple1BoxType, ripple1.getName());
-    EXPECT_EQ(4., ripple1.getHeight());
-    EXPECT_EQ(20., ripple1.getWidth());
-    EXPECT_EQ(100., ripple1.getLength());
+    EXPECT_EQ(height, ripple1.getHeight());
+    EXPECT_EQ(width, ripple1.getWidth());
+    EXPECT_EQ(length, ripple1.getLength());
     EXPECT_DOUBLE_EQ(volume, ripple1.volume());
 
     test_ff(&ripple1);
@@ -454,7 +454,7 @@ TEST_F(FormFactorBasicTest, Ripple2Box)
     FormFactorRipple2Box ripple2(length, width, height, d);
 
     EXPECT_EQ(BornAgain::FFRipple2BoxType, ripple2.getName());
-    EXPECT_EQ(4., ripple2.getHeight());
+    EXPECT_EQ(height, ripple2.getHeight());
     EXPECT_DOUBLE_EQ(volume, ripple2.volume());
 
     // test_ff( &ripple2 ); WAITING: restore once getRadius returns the umkreis radius

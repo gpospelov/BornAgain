@@ -7851,7 +7851,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     r"""
 
 
-    Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
+    Triangle  IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 
     C++ includes: FTDistributions1D.h
 

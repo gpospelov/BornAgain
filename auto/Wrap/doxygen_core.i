@@ -5371,7 +5371,7 @@ Returns the negative of the second order derivative in q space around q=0.
 // File: classFTDistribution1DTriangle.xml
 %feature("docstring") FTDistribution1DTriangle "
 
-Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
+Triangle  IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 
 C++ includes: FTDistributions1D.h
 ";
@@ -16544,16 +16544,6 @@ C++ includes: TransformationsBuilder.h
 ";
 
 
-// File: classTriangle.xml
-%feature("docstring") Triangle "";
-
-%feature("docstring")  Triangle::Triangle "Triangle::Triangle(double length, double z)
-";
-
-%feature("docstring")  Triangle::~Triangle "Triangle::~Triangle()
-";
-
-
 // File: classTriangularRippleBuilder.xml
 %feature("docstring") TriangularRippleBuilder "
 
@@ -17206,7 +17196,10 @@ C++ includes: ZLimits.h
 // File: namespace_0d497.xml
 
 
-// File: namespace_0d521.xml
+// File: namespace_0d519.xml
+
+
+// File: namespace_0d527.xml
 
 
 // File: namespace_0d529.xml
@@ -17215,19 +17208,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d531.xml
 
 
-// File: namespace_0d533.xml
-
-
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d617.xml
+// File: namespace_0d615.xml
 
 
-// File: namespace_0d621.xml
+// File: namespace_0d619.xml
 
 
-// File: namespace_0d645.xml
+// File: namespace_0d643.xml
 
 
 // File: namespace_0d98.xml
@@ -20033,16 +20023,6 @@ Helper functions to construct lists of vertices
 Generate vertices of centered rectangle at height z 
 ";
 
-%feature("docstring")  TriangleVertices "std::vector<kvector_t> TriangleVertices(double length, double z)
-
-Generate vertices of centered regular triangle with vertex on x-axis at height z. 
-";
-
-%feature("docstring")  HexagonVertices "std::vector<kvector_t> HexagonVertices(double length, double z)
-
-Generate vertices of centered regular hexagon with vertex on x-axis at height z. 
-";
-
 %feature("docstring")  EllipseVertices "std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
 
 Generate vertices of centered ellipse with given semi-axes at height z. 
@@ -20055,16 +20035,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 Helper functions to construct lists of vertices
 
 Generate vertices of centered rectangle at height z 
-";
-
-%feature("docstring")  TriangleVertices "std::vector<kvector_t> TriangleVertices(double length, double z)
-
-Generate vertices of centered regular triangle with vertex on x-axis at height z. 
-";
-
-%feature("docstring")  HexagonVertices "std::vector<kvector_t> HexagonVertices(double length, double z)
-
-Generate vertices of centered regular hexagon with vertex on x-axis at height z. 
 ";
 
 %feature("docstring")  EllipseVertices "std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
@@ -20083,12 +20053,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: RippleSawtooth_8h.xml
-
-
-// File: Triangle_8cpp.xml
-
-
-// File: Triangle_8h.xml
 
 
 // File: TruncatedEllipsoid_8cpp.xml

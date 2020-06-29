@@ -19,7 +19,6 @@
 #include "MathConstants.h"
 #include "RealParameter.h"
 #include "Rotations.h"
-#include "TruncatedEllipsoid.h"
 
 //! Constructor of a full sphere.
 //! @param radius: radius of the sphere in nanometers

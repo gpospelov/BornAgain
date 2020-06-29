@@ -2124,16 +2124,6 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classDot.xml
-%feature("docstring") Dot "";
-
-%feature("docstring")  Dot::Dot "Dot::Dot()
-";
-
-%feature("docstring")  Dot::~Dot "Dot::~Dot()
-";
-
-
 // File: classDoubleEllipse.xml
 %feature("docstring") DoubleEllipse "";
 
@@ -6874,7 +6864,7 @@ In contrast to the generic  IFormFactor, a Born form factor does not depend on t
 C++ includes: IFormFactorBorn.h
 ";
 
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()
+%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()=default
 ";
 
 %feature("docstring")  IFormFactorBorn::~IFormFactorBorn "IFormFactorBorn::~IFormFactorBorn() override
@@ -17022,10 +17012,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17196,7 +17186,10 @@ C++ includes: ZLimits.h
 // File: namespace_0d497.xml
 
 
-// File: namespace_0d519.xml
+// File: namespace_0d517.xml
+
+
+// File: namespace_0d525.xml
 
 
 // File: namespace_0d527.xml
@@ -17205,19 +17198,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d529.xml
 
 
-// File: namespace_0d531.xml
-
-
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d615.xml
+// File: namespace_0d613.xml
 
 
-// File: namespace_0d619.xml
+// File: namespace_0d617.xml
 
 
-// File: namespace_0d643.xml
+// File: namespace_0d641.xml
 
 
 // File: namespace_0d98.xml
@@ -20001,12 +19991,6 @@ Returns concatenated rotation (first right, then left).
 
 
 // File: Box_8h.xml
-
-
-// File: Dot_8cpp.xml
-
-
-// File: Dot_8h.xml
 
 
 // File: DoubleEllipse_8cpp.xml

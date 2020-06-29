@@ -14,12 +14,9 @@
 
 #include "IFormFactorBorn.h"
 #include "Algorithms.h"
-#include "Dot.h"
 #include "Exceptions.h"
 #include "Rotations.h"
 #include "WavevectorInfo.h"
-
-IFormFactorBorn::IFormFactorBorn() : mP_shape(new Dot()) {}
 
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {
@@ -33,11 +30,15 @@ Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors)
 
 double IFormFactorBorn::bottomZ(const IRotation& rotation) const
 {
+    if (!mP_shape)
+        return 0;
     return BottomZ(mP_shape->vertices(), rotation.getTransform3D());
 }
 
 double IFormFactorBorn::topZ(const IRotation& rotation) const
 {
+    if (!mP_shape)
+        return 0;
     return TopZ(mP_shape->vertices(), rotation.getTransform3D());
 }
 

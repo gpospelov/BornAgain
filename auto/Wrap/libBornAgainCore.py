@@ -8887,7 +8887,7 @@ class IFormFactorBorn(IFormFactor):
     def __init__(self):
         r"""
         __init__(IFormFactorBorn self) -> IFormFactorBorn
-        IFormFactorBorn::IFormFactorBorn()
+        IFormFactorBorn::IFormFactorBorn()=default
 
         """
         if self.__class__ == IFormFactorBorn:

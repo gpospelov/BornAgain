@@ -32,7 +32,7 @@ struct SlicingEffects;
 class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
 public:
-    IFormFactorBorn();
+    IFormFactorBorn() = default;
     ~IFormFactorBorn() override {}
 
     IFormFactorBorn* clone() const override = 0;

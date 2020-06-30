@@ -2,6 +2,8 @@
 # CMakeLists.txt file for building libBornAgainCore library
 ############################################################################
 
+message(STATUS "Configuring BornAgain GUI")
+
 set(library_name BornAgainCore)
 
 if(BORNAGAIN_TIDY)
@@ -235,13 +237,16 @@ if(WIN32)
     install(FILES ${UTF_PATH}/${UTF_BASE_NAME}.dll
         DESTINATION ${destination_lib} COMPONENT Libraries)
 
-    foreach(LIB IN LISTS ${FFTW3_LIBRARIES} ${TIFF_LIBRARIES})
+    set(DLL_MSG "")
+    foreach(LIB IN LISTS FFTW3_LIBRARIES TIFF_LIBRARIES)
         string(REPLACE ".lib" ".dll" DLL "${LIB}")
         if (NOT EXISTS ${DLL})
             message(FATAL_ERROR "Dynamic load library ${DLL} (derived from ${LIB}) does not exist")
         endif()
         install(FILES ${DLL} DESTINATION ${destination_lib} COMPONENT Libraries)
+        string(APPEND DLL_MSG " ${DLL}")
     endforeach()
+    message(STATUS "Other dlls: ${DLL_MSG}")
 
 else()
     # Install thisbornagain.sh.

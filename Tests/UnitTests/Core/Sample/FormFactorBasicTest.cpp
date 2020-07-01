@@ -126,8 +126,8 @@ TEST_F(FormFactorBasicTest, Box)
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(3., particle.radialExtension());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
-    // TODO EXPECT_EQ(0., particle.bottomZ(RotationZ()));
-    // TODO EXPECT_EQ(height, particle.topZ(RotationZ()));
+    EXPECT_EQ(0., particle.bottomZ(RotationZ()));
+    EXPECT_EQ(height, particle.topZ(RotationZ()));
 
     test_ff(&particle);
 }

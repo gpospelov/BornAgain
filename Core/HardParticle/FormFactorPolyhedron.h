@@ -143,10 +143,10 @@ public:
     double bottomZ(const IRotation& rotation) const override final;
     double topZ(const IRotation& rotation) const override final;
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
-    double volume() const override final;
+    virtual complex_t evaluate_for_q(cvector_t q) const override;
+    virtual double volume() const override;
     double getHeight() const { return m_height; }
-    double radialExtension() const override final { return std::sqrt(m_base->area()); }
+    virtual double radialExtension() const override { return std::sqrt(m_base->area()); }
 
 protected:
     std::unique_ptr<PolyhedralFace> m_base;

@@ -5,8 +5,6 @@
 class IParameterizedTest : public ::testing::Test
 {
 protected:
-    ~IParameterizedTest();
-
     IParameterized m_initial_object;
 
     class ParameterizedObject : public IParameterized
@@ -29,8 +27,6 @@ protected:
     };
     ParameterizedObject m_parameterized;
 };
-
-IParameterizedTest::~IParameterizedTest() = default;
 
 // TODO enable tests
 

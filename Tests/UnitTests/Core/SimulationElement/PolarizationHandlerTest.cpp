@@ -6,7 +6,6 @@ class PolarizationHandlerTest : public ::testing::Test
 {
 protected:
     PolarizationHandlerTest();
-    ~PolarizationHandlerTest();
 
     Eigen::Matrix2cd identity;
     Eigen::Matrix2cd test_matrix;
@@ -19,8 +18,6 @@ PolarizationHandlerTest::PolarizationHandlerTest()
     : identity(Eigen::Matrix2cd::Identity()), test_matrix(testMatrix())
 {
 }
-
-PolarizationHandlerTest::~PolarizationHandlerTest() = default;
 
 Eigen::Matrix2cd PolarizationHandlerTest::testMatrix()
 {

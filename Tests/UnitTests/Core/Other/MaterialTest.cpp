@@ -10,11 +10,7 @@
 
 class MaterialTest : public ::testing::Test
 {
-public:
-    ~MaterialTest();
 };
-
-MaterialTest::~MaterialTest() = default;
 
 TEST_F(MaterialTest, MaterialConstruction)
 {

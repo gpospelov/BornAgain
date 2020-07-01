@@ -6,11 +6,7 @@
 
 class CrystalTest : public ::testing::Test
 {
-protected:
-    ~CrystalTest();
 };
-
-CrystalTest::~CrystalTest() = default;
 
 TEST_F(CrystalTest, getChildren)
 {

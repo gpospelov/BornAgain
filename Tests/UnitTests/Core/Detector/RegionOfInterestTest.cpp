@@ -6,11 +6,7 @@
 
 class RegionOfInterestTest : public ::testing::Test
 {
-protected:
-    ~RegionOfInterestTest();
 };
-
-RegionOfInterestTest::~RegionOfInterestTest() = default;
 
 //! Testing region of interest with reasonable area within the detector.
 

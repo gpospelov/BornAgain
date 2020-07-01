@@ -8,11 +8,7 @@
 
 class ParticleCompositionTest : public ::testing::Test
 {
-protected:
-    ~ParticleCompositionTest();
 };
-
-ParticleCompositionTest::~ParticleCompositionTest() = default;
 
 TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
 {

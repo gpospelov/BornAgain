@@ -13,16 +13,12 @@ constexpr double eps = 1e-10;
 class SpecularMagneticTest_v2 : public ::testing::Test
 {
 protected:
-    ~SpecularMagneticTest_v2();
-
     //! Compares results with scalar case
     void testZeroField(const kvector_t& k, const ProcessedSample& m_layer_scalar,
                        const ProcessedSample& m_layer_zerofield);
 
     void ifEqual(const Eigen::Vector2cd& lhs, const Eigen::Vector2cd& rhs);
 };
-
-SpecularMagneticTest_v2::~SpecularMagneticTest_v2() = default;
 
 void SpecularMagneticTest_v2::testZeroField(const kvector_t& k,
                                             const ProcessedSample& sample_scalar,

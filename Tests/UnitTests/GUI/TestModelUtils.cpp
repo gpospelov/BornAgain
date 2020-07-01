@@ -9,8 +9,6 @@
 class TestModelUtils : public ::testing::Test
 {
 public:
-    ~TestModelUtils();
-
     //! Returns true if model contains given item using iterate_if procedure.
     bool modelContainsItem(SessionModel* model, SessionItem* selectedItem)
     {
@@ -24,8 +22,6 @@ public:
         return result;
     }
 };
-
-TestModelUtils::~TestModelUtils() = default;
 
 //! Testing top item names.
 

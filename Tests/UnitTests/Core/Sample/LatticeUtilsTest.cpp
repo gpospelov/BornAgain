@@ -4,11 +4,7 @@
 
 class LatticeUtilsTest : public ::testing::Test
 {
-protected:
-    ~LatticeUtilsTest();
 };
-
-LatticeUtilsTest::~LatticeUtilsTest() = default;
 
 // tests the creation of an FCC lattice with the primitive cube aligned along the q-axes
 TEST_F(LatticeUtilsTest, cubeAlignedFCCTest)

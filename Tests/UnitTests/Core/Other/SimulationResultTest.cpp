@@ -5,11 +5,7 @@
 
 class SimulationResultTest : public ::testing::Test
 {
-public:
-    ~SimulationResultTest();
 };
-
-SimulationResultTest::~SimulationResultTest() = default;
 
 TEST_F(SimulationResultTest, initialState)
 {

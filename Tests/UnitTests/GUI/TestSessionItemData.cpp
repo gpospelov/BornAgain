@@ -5,11 +5,7 @@
 
 class TestSessionItemData : public ::testing::Test
 {
-public:
-    ~TestSessionItemData();
 };
-
-TestSessionItemData::~TestSessionItemData() = default;
 
 TEST_F(TestSessionItemData, initialState)
 {

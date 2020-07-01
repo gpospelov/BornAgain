@@ -11,11 +11,7 @@ using namespace SessionItemUtils;
 
 class TestParticleItem : public ::testing::Test
 {
-public:
-    ~TestParticleItem();
 };
-
-TestParticleItem::~TestParticleItem() = default;
 
 TEST_F(TestParticleItem, test_InitialState)
 {

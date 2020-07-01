@@ -10,13 +10,7 @@
 
 class DistributionsTest : public ::testing::Test
 {
-protected:
-    ~DistributionsTest();
 };
-
-DistributionsTest::~DistributionsTest() = default;
-
-// -------------------------------------------------------------------------- //
 
 TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
 {

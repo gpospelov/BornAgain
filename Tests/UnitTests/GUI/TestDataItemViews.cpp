@@ -14,12 +14,8 @@
 class TestDataItemViews : public ::testing::Test
 {
 public:
-    ~TestDataItemViews();
-
     DataItem* insertNewDataItem(SessionModel& model, double val);
 };
-
-TestDataItemViews::~TestDataItemViews() = default;
 
 DataItem* TestDataItemViews::insertNewDataItem(SessionModel& model, double val)
 {

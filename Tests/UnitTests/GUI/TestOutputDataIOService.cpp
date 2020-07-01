@@ -20,11 +20,8 @@
 
 class TestOutputDataIOService : public ::testing::Test
 {
-public:
-    TestOutputDataIOService();
-    ~TestOutputDataIOService();
-
 protected:
+    TestOutputDataIOService();
     OutputData<double> m_data;
 };
 
@@ -35,8 +32,6 @@ TestOutputDataIOService::TestOutputDataIOService()
     m_data.addAxis(axis0);
     m_data.addAxis(axis1);
 }
-
-TestOutputDataIOService::~TestOutputDataIOService() = default;
 
 //! Test methods for retrieving nonXML data.
 

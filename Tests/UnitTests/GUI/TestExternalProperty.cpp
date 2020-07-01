@@ -6,14 +6,11 @@
 class TestExternalProperty : public ::testing::Test
 {
 public:
-    ~TestExternalProperty();
     ExternalProperty propertyFromXML(const QString& buffer)
     {
         return TestUtils::propertyFromXML<ExternalProperty>(buffer);
     }
 };
-
-TestExternalProperty::~TestExternalProperty() = default;
 
 TEST_F(TestExternalProperty, test_initialState)
 {

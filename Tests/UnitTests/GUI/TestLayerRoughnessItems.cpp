@@ -6,11 +6,7 @@
 
 class TestLayerRoughnessItems : public ::testing::Test
 {
-public:
-    ~TestLayerRoughnessItems();
 };
-
-TestLayerRoughnessItems::~TestLayerRoughnessItems() = default;
 
 TEST_F(TestLayerRoughnessItems, test_LayerRoughnessToDomain)
 {

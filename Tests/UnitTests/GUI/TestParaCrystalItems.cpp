@@ -13,11 +13,7 @@
 
 class TestParaCrystalItems : public ::testing::Test
 {
-public:
-    ~TestParaCrystalItems();
 };
-
-TestParaCrystalItems::~TestParaCrystalItems() = default;
 
 TEST_F(TestParaCrystalItems, test_Para2D_fromToDomain)
 {

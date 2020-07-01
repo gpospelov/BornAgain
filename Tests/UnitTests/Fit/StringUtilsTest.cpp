@@ -3,11 +3,7 @@
 
 class StringUtilsTest : public ::testing::Test
 {
-protected:
-    ~StringUtilsTest();
 };
-
-StringUtilsTest::~StringUtilsTest() = default;
 
 TEST_F(StringUtilsTest, removeSubstring)
 {

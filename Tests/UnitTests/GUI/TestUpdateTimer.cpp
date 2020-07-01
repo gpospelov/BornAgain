@@ -4,11 +4,7 @@
 
 class TestUpdateTimer : public ::testing::Test
 {
-public:
-    ~TestUpdateTimer();
 };
-
-TestUpdateTimer::~TestUpdateTimer() = default;
 
 TEST_F(TestUpdateTimer, test_updateTimerShort)
 {

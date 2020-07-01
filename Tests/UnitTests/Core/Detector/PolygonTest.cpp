@@ -5,11 +5,7 @@
 
 class PolygonTest : public ::testing::Test
 {
-public:
-    ~PolygonTest();
 };
-
-PolygonTest::~PolygonTest() = default;
 
 TEST_F(PolygonTest, SimpleRectangle)
 {

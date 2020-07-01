@@ -12,11 +12,7 @@ using namespace SessionItemUtils;
 
 class TestParticleCoreShell : public ::testing::Test
 {
-public:
-    ~TestParticleCoreShell();
 };
-
-TestParticleCoreShell::~TestParticleCoreShell() = default;
 
 TEST_F(TestParticleCoreShell, test_moveCoreAndShell)
 {

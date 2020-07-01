@@ -6,11 +6,7 @@
 
 class FixedBinAxisTest : public ::testing::Test
 {
-protected:
-    ~FixedBinAxisTest();
 };
-
-FixedBinAxisTest::~FixedBinAxisTest() = default;
 
 TEST_F(FixedBinAxisTest, IndexedAccessor)
 {

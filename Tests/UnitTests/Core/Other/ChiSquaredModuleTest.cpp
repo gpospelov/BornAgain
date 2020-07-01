@@ -9,15 +9,11 @@
 class ChiSquaredModuleTest : public ::testing::Test
 {
 protected:
-    ~ChiSquaredModuleTest();
-
     ChiSquaredModule m_chi_empty;
     ChiSquaredModule m_chi_default;
     OutputData<double> m_real_data;
     OutputData<double> m_simul_data;
 };
-
-ChiSquaredModuleTest::~ChiSquaredModuleTest() = default;
 
 TEST_F(ChiSquaredModuleTest, InitialState)
 {

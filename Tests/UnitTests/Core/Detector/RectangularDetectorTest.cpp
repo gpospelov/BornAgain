@@ -9,8 +9,6 @@
 class RectangularDetectorTest : public ::testing::Test
 {
 protected:
-    ~RectangularDetectorTest();
-
     //    double phi(DetectorElement& element, double wavelength);
     //    double alpha(DetectorElement& element, double wavelength);
     double phi(kvector_t k) { return k.phi() / Units::degree; }
@@ -27,8 +25,6 @@ protected:
         return is_equal;
     }
 };
-
-RectangularDetectorTest::~RectangularDetectorTest() = default;
 
 TEST_F(RectangularDetectorTest, InitialState)
 {

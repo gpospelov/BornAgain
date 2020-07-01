@@ -20,12 +20,8 @@ protected:
     {
     }
 
-    ~MultilayerAveragingTest() override;
-
     const Material vacuum, stone;
 };
-
-MultilayerAveragingTest::~MultilayerAveragingTest() = default;
 
 TEST_F(MultilayerAveragingTest, AverageMultilayer)
 {

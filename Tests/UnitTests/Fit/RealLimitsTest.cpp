@@ -4,11 +4,7 @@
 
 class RealLimitsTest : public ::testing::Test
 {
-protected:
-    ~RealLimitsTest();
 };
-
-RealLimitsTest::~RealLimitsTest() = default;
 
 TEST_F(RealLimitsTest, LimitsInitial)
 {

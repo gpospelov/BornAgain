@@ -13,11 +13,7 @@
 
 class TestSessionModel : public ::testing::Test
 {
-public:
-    ~TestSessionModel();
 };
-
-TestSessionModel::~TestSessionModel() = default;
 
 //! Testing SessionModel::setData notifications.
 

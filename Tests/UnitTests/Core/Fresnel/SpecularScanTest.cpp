@@ -10,11 +10,7 @@
 
 class SpecularScanTest : public ::testing::Test
 {
-protected:
-    ~SpecularScanTest();
 };
-
-SpecularScanTest::~SpecularScanTest() = default;
 
 TEST_F(SpecularScanTest, AngularScanInit)
 {

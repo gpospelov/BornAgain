@@ -12,9 +12,7 @@ const QString& projectDir = "test_ProjectUtils";
 
 class TestProjectUtils : public ::testing::Test
 {
-public:
-    ~TestProjectUtils();
-
+protected:
     //! Helper function to create test file in a given directory (directory should exist).
     void createTestFile(const QString& dirname, const QString& fileName)
     {
@@ -30,8 +28,6 @@ public:
         file.close();
     }
 };
-
-TestProjectUtils::~TestProjectUtils() = default;
 
 TEST_F(TestProjectUtils, test_basicFileOperations)
 {

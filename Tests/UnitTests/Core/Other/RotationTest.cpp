@@ -5,14 +5,7 @@
 
 class RotationTest : public ::testing::Test
 {
-protected:
-    RotationTest();
-    virtual ~RotationTest();
 };
-
-RotationTest::RotationTest() {}
-
-RotationTest::~RotationTest() {}
 
 TEST_F(RotationTest, XRotations)
 {

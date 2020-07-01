@@ -6,11 +6,7 @@
 
 class PointwiseAxisTest : public ::testing::Test
 {
-public:
-    ~PointwiseAxisTest();
 };
-
-PointwiseAxisTest::~PointwiseAxisTest() = default;
 
 TEST_F(PointwiseAxisTest, Construction)
 {

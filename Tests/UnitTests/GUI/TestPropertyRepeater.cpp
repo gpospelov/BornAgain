@@ -21,11 +21,7 @@ BasicAxisItem* createAxis(SessionModel& model)
 
 class TestPropertyRepeater : public ::testing::Test
 {
-public:
-    ~TestPropertyRepeater();
 };
-
-TestPropertyRepeater::~TestPropertyRepeater() = default;
 
 //! Repeater handles two items.
 

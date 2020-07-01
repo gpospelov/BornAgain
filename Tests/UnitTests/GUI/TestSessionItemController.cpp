@@ -7,11 +7,7 @@
 
 class TestSessionItemController : public ::testing::Test
 {
-public:
-    ~TestSessionItemController();
 };
-
-TestSessionItemController::~TestSessionItemController() = default;
 
 //! Testing helper classes which will be used for controller testing.
 

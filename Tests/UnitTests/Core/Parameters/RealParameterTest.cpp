@@ -6,11 +6,7 @@
 
 class RealParameterTest : public ::testing::Test
 {
-protected:
-    ~RealParameterTest();
 };
-
-RealParameterTest::~RealParameterTest() = default;
 
 TEST_F(RealParameterTest, simpleConstructor)
 {

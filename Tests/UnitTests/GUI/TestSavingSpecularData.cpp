@@ -23,7 +23,6 @@ class TestSavingSpecularData : public ::testing::Test
 {
 public:
     TestSavingSpecularData();
-    ~TestSavingSpecularData();
 
 protected:
     SpecularInstrumentItem* createSpecularInstrument(ApplicationModels& models);
@@ -38,8 +37,6 @@ TestSavingSpecularData::TestSavingSpecularData()
     : m_axis(new PointwiseAxis("x", std::vector<double>{0.1, 0.2, 1.0}))
 {
 }
-
-TestSavingSpecularData::~TestSavingSpecularData() = default;
 
 SpecularInstrumentItem* TestSavingSpecularData::createSpecularInstrument(ApplicationModels& models)
 {

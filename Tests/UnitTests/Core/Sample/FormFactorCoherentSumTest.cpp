@@ -5,11 +5,7 @@
 
 class FormFactorCoherentSumTest : public ::testing::Test
 {
-protected:
-    ~FormFactorCoherentSumTest();
 };
-
-FormFactorCoherentSumTest::~FormFactorCoherentSumTest() = default;
 
 TEST_F(FormFactorCoherentSumTest, RelAbundance)
 {

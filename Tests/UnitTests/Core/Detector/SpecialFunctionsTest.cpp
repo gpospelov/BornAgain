@@ -8,11 +8,7 @@
 
 class SpecialFunctionsTest : public ::testing::Test
 {
-protected:
-    ~SpecialFunctionsTest();
 };
-
-SpecialFunctionsTest::~SpecialFunctionsTest() = default;
 
 // Test complex Bessel function J1
 TEST_F(SpecialFunctionsTest, BesselJ1)

@@ -9,11 +9,7 @@
 
 class FourierTransformTest : public ::testing::Test
 {
-protected:
-    ~FourierTransformTest();
 };
-
-FourierTransformTest::~FourierTransformTest() = default;
 
 // Testing implementation of 1D FT with with low freuency centering
 TEST_F(FourierTransformTest, fft1DTest)

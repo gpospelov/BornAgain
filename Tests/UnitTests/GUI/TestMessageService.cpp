@@ -24,18 +24,12 @@ const QString description3("description3");
 class TestMessageService : public ::testing::Test
 {
 public:
-    ~TestMessageService();
-
     class Sender : public QObject
     {
     public:
         Sender(const QString& name) { setObjectName(name); }
-        ~Sender();
     };
 };
-
-TestMessageService::~TestMessageService() = default;
-TestMessageService::Sender::~Sender() = default;
 
 TEST_F(TestMessageService, guiMessage)
 {

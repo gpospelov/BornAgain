@@ -5,11 +5,7 @@
 
 class LatticeTest : public ::testing::Test
 {
-protected:
-    ~LatticeTest();
 };
-
-LatticeTest::~LatticeTest() = default;
 
 // tests the declaration of Lattice object, copy constructor and the getBasisVector_() functions
 TEST_F(LatticeTest, declarationTest)

@@ -13,12 +13,8 @@
 class BeamTest : public ::testing::Test
 {
 protected:
-    ~BeamTest();
-
     Beam m_empty_beam;
 };
-
-BeamTest::~BeamTest() = default;
 
 TEST_F(BeamTest, BeamInitialState)
 {

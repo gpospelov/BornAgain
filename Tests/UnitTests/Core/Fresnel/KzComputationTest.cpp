@@ -10,8 +10,6 @@
 
 class KzComputationTest : public ::testing::Test
 {
-protected:
-    ~KzComputationTest() override = default;
 };
 
 TEST_F(KzComputationTest, initial)

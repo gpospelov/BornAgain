@@ -5,11 +5,7 @@
 
 class CVectorTest : public ::testing::Test
 {
-protected:
-    ~CVectorTest();
 };
-
-CVectorTest::~CVectorTest() = default;
 
 TEST_F(CVectorTest, TrivialOperations)
 {

@@ -8,11 +8,8 @@ class CusomBinAxisTest : public ::testing::Test
 {
 protected:
     CusomBinAxisTest() : m_axis("name", 100, -1.0, 1.0) {}
-    ~CusomBinAxisTest();
     CustomBinAxis m_axis;
 };
-
-CusomBinAxisTest::~CusomBinAxisTest() = default;
 
 TEST_F(CusomBinAxisTest, CheckClone)
 {

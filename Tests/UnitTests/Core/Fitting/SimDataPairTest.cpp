@@ -5,13 +5,7 @@
 
 class SimDataPairTest : public ::testing::Test
 {
-public:
-    ~SimDataPairTest();
-
-protected:
 };
-
-SimDataPairTest::~SimDataPairTest() = default;
 
 TEST_F(SimDataPairTest, standardPair)
 {

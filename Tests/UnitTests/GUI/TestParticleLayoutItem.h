@@ -8,11 +8,7 @@
 
 class TestParticleLayoutItem : public ::testing::Test
 {
-public:
-    ~TestParticleLayoutItem();
 };
-
-TestParticleLayoutItem::~TestParticleLayoutItem() = default;
 
 using namespace SessionItemUtils;
 

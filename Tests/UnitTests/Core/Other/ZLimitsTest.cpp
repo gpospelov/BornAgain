@@ -4,11 +4,7 @@
 
 class ZLimitsTest : public ::testing::Test
 {
-protected:
-    ~ZLimitsTest();
 };
-
-ZLimitsTest::~ZLimitsTest() = default;
 
 TEST_F(ZLimitsTest, ZLimitsDefaultConstructor)
 {

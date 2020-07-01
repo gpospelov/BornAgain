@@ -4,14 +4,7 @@
 
 class TestScientificSpinBox : public ::testing::Test
 {
-public:
-    TestScientificSpinBox();
-    ~TestScientificSpinBox() override;
 };
-
-TestScientificSpinBox::TestScientificSpinBox() {}
-
-TestScientificSpinBox::~TestScientificSpinBox() = default;
 
 TEST_F(TestScientificSpinBox, testValueFromText)
 {

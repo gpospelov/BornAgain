@@ -5,11 +5,7 @@
 
 class ObjectiveMetricTest : public ::testing::Test
 {
-public:
-    ~ObjectiveMetricTest() override;
 };
-
-ObjectiveMetricTest::~ObjectiveMetricTest() = default;
 
 TEST_F(ObjectiveMetricTest, Chi2WellFormed)
 {

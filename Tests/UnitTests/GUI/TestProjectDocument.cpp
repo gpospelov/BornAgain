@@ -15,9 +15,7 @@
 
 class TestProjectDocument : public ::testing::Test
 {
-public:
-    ~TestProjectDocument();
-
+protected:
     //! helper method to modify something in a model
     void modify_models(ApplicationModels* models)
     {
@@ -25,8 +23,6 @@ public:
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
 };
-
-TestProjectDocument::~TestProjectDocument() = default;
 
 TEST_F(TestProjectDocument, test_documentFlags)
 {

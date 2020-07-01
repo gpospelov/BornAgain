@@ -17,8 +17,6 @@
 class TestSaveService : public ::testing::Test
 {
 protected:
-    ~TestSaveService();
-
     // helper method to modify something in a model
     void modify_models(ApplicationModels* models)
     {
@@ -27,8 +25,6 @@ protected:
     }
     const int m_save_wait = 10000;
 };
-
-TestSaveService::~TestSaveService() = default;
 
 //! Testing AutosaveController. It watches ProjectDocument and sends autosaveRequest() when
 //! number of document changes has been accumulated.

@@ -7,11 +7,9 @@
 
 class DepthProbeConverterTest : public ::testing::Test
 {
-public:
-    DepthProbeConverterTest();
-    ~DepthProbeConverterTest();
-
 protected:
+    DepthProbeConverterTest();
+
     void checkMainFunctionality(const DepthProbeConverter& test_object);
     void checkAlphaAxis(AxesUnits units, const DepthProbeConverter& test_object);
     void checkZAxis(AxesUnits units, const DepthProbeConverter& test_object);
@@ -32,8 +30,6 @@ DepthProbeConverterTest::DepthProbeConverterTest()
 {
     m_beam.setCentralK(1.0, 0.0, 0.0); // wavelength = 1.0 nm
 }
-
-DepthProbeConverterTest::~DepthProbeConverterTest() = default;
 
 void DepthProbeConverterTest::checkMainFunctionality(const DepthProbeConverter& test_object)
 {

@@ -6,12 +6,8 @@
 class TestDataItems : public ::testing::Test
 {
 public:
-    ~TestDataItems();
-
     void testItemClock(QString type);
 };
-
-TestDataItems::~TestDataItems() = default;
 
 void TestDataItems::testItemClock(QString model_type)
 {

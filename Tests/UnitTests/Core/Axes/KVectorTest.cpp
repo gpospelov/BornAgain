@@ -4,11 +4,7 @@
 
 class KVectorTest : public ::testing::Test
 {
-protected:
-    ~KVectorTest();
 };
-
-KVectorTest::~KVectorTest() = default;
 
 TEST_F(KVectorTest, BasicMethods)
 {

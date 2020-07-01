@@ -8,11 +8,8 @@ class ScanResolutionTest : public ::testing::Test
 {
 protected:
     using DistrOutput = std::vector<std::vector<ParameterSample>>;
-    ~ScanResolutionTest();
     void compareResults(const DistrOutput& lhs, const DistrOutput& rhs);
 };
-
-ScanResolutionTest::~ScanResolutionTest() = default;
 
 void ScanResolutionTest::compareResults(const DistrOutput& lhs, const DistrOutput& rhs)
 {

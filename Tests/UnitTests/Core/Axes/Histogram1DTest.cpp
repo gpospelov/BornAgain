@@ -5,11 +5,7 @@
 
 class Histogram1DTest : public ::testing::Test
 {
-protected:
-    ~Histogram1DTest();
 };
-
-Histogram1DTest::~Histogram1DTest() = default;
 
 TEST_F(Histogram1DTest, FixedBinConstructor)
 {

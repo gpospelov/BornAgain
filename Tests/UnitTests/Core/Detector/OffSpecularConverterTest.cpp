@@ -9,7 +9,6 @@ class OffSpecularConverterTest : public ::testing::Test
 {
 public:
     OffSpecularConverterTest();
-    ~OffSpecularConverterTest();
 
 protected:
     SphericalDetector m_detector;
@@ -23,8 +22,6 @@ OffSpecularConverterTest::OffSpecularConverterTest()
 {
     m_beam.setCentralK(1.0, 1.0 * Units::deg, 0.0);
 }
-
-OffSpecularConverterTest::~OffSpecularConverterTest() = default;
 
 TEST_F(OffSpecularConverterTest, OffSpecularConverter)
 {

@@ -9,11 +9,7 @@
 
 class TestAxesItems : public ::testing::Test
 {
-public:
-    ~TestAxesItems();
 };
-
-TestAxesItems::~TestAxesItems() = default;
 
 TEST_F(TestAxesItems, transformFromDomain)
 {

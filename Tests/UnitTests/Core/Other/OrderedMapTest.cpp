@@ -4,11 +4,7 @@
 
 class OrderedMapTest : public ::testing::Test
 {
-protected:
-    ~OrderedMapTest();
 };
-
-OrderedMapTest::~OrderedMapTest() = default;
 
 TEST_F(OrderedMapTest, OrderedMapInsert)
 {

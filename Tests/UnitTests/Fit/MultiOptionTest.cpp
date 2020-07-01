@@ -4,11 +4,7 @@
 
 class MultiOptionTest : public ::testing::Test
 {
-protected:
-    ~MultiOptionTest();
 };
-
-MultiOptionTest::~MultiOptionTest() = default;
 
 TEST_F(MultiOptionTest, Variant)
 {

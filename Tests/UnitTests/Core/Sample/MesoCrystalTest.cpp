@@ -8,11 +8,7 @@
 
 class MesoCrystalTest : public ::testing::Test
 {
-protected:
-    ~MesoCrystalTest();
 };
-
-MesoCrystalTest::~MesoCrystalTest() = default;
 
 TEST_F(MesoCrystalTest, getChildren)
 {

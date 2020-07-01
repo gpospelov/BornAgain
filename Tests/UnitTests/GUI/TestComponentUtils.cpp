@@ -9,11 +9,7 @@
 
 class TestComponentUtils : public ::testing::Test
 {
-public:
-    ~TestComponentUtils();
 };
-
-TestComponentUtils::~TestComponentUtils() = default;
 
 //! Testing component items of particle item.
 

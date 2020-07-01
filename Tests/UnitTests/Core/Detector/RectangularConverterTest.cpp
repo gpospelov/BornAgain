@@ -19,7 +19,6 @@ class RectangularConverterTest : public ::testing::Test
 {
 public:
     RectangularConverterTest();
-    ~RectangularConverterTest();
 
 protected:
     RectangularDetector m_detector;
@@ -42,8 +41,6 @@ RectangularConverterTest::RectangularConverterTest()
     m_kfy = K * std::sin(m_phi);
     m_kfz = K * std::sin(m_alpha);
 }
-
-RectangularConverterTest::~RectangularConverterTest() = default;
 
 TEST_F(RectangularConverterTest, RectangularConverter)
 {

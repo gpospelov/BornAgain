@@ -10,11 +10,7 @@
 
 class SpecularDetectorTest : public ::testing::Test
 {
-protected:
-    ~SpecularDetectorTest();
 };
-
-SpecularDetectorTest::~SpecularDetectorTest() = default;
 
 // Default detector construction
 TEST_F(SpecularDetectorTest, basicBehaviour)

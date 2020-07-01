@@ -6,14 +6,11 @@
 class TestComboProperty : public ::testing::Test
 {
 public:
-    ~TestComboProperty();
     ComboProperty propertyFromXML(const QString& buffer)
     {
         return TestUtils::propertyFromXML<ComboProperty>(buffer);
     }
 };
-
-TestComboProperty::~TestComboProperty() = default;
 
 TEST_F(TestComboProperty, initialState)
 {

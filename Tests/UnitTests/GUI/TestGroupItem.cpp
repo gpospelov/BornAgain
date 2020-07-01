@@ -9,11 +9,7 @@
 
 class TestGroupItem : public ::testing::Test
 {
-public:
-    ~TestGroupItem();
 };
-
-TestGroupItem::~TestGroupItem() = default;
 
 TEST_F(TestGroupItem, test_groupInfo)
 {

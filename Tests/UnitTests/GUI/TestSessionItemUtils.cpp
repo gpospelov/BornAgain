@@ -9,11 +9,7 @@
 
 class TestSessionItemUtils : public ::testing::Test
 {
-public:
-    ~TestSessionItemUtils();
 };
-
-TestSessionItemUtils::~TestSessionItemUtils() = default;
 
 //! Test SessionItemUtils::ParentVisibleRow utility method.
 

@@ -3,6 +3,7 @@
 #include "IFormFactorBorn.h"
 #include "MathConstants.h"
 #include "Rotations.h"
+#include "Units.h"
 #include "google_test.h"
 
 class FormFactorBasicTest : public ::testing::Test
@@ -126,8 +127,15 @@ TEST_F(FormFactorBasicTest, Box)
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(3., particle.radialExtension());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
+
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
     EXPECT_EQ(height, particle.topZ(RotationZ()));
+
+    EXPECT_EQ(0., particle.bottomZ(RotationZ(17*Units::degree)));
+    EXPECT_EQ(height, particle.topZ(RotationZ(39*Units::degree)));
+
+    EXPECT_NEAR(-width/2, particle.bottomZ(RotationX(90*Units::degree)), 1e-12);
+    EXPECT_NEAR(-length/2, particle.bottomZ(RotationY(90*Units::degree)), 1e-12);
 
     test_ff(&particle);
 }
@@ -216,8 +224,17 @@ TEST_F(FormFactorBasicTest, Cylinder)
     EXPECT_EQ(height, particle.getHeight());
     EXPECT_EQ(radius, particle.getRadius());
     EXPECT_DOUBLE_EQ(volume, particle.volume());
+
     EXPECT_EQ(0., particle.bottomZ(RotationZ()));
     EXPECT_EQ(height, particle.topZ(RotationZ()));
+
+    EXPECT_NEAR(-radius, particle.bottomZ(RotationX(90*Units::degree)), 1e-13);
+    EXPECT_NEAR(+radius, particle.topZ   (RotationX(90*Units::degree)), 1e-13);
+    EXPECT_NEAR(-radius, particle.bottomZ(RotationY(90*Units::degree)), 1e-13);
+    EXPECT_NEAR(+radius, particle.topZ   (RotationY(90*Units::degree)), 1e-13);
+
+    EXPECT_NEAR(-height, particle.bottomZ(RotationY(180*Units::degree)), 1e-13);
+    EXPECT_NEAR(0,       particle.topZ   (RotationY(180*Units::degree)), 1e-13);
 
     test_ff(&particle);
 }

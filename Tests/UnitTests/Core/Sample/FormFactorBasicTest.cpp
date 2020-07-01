@@ -236,6 +236,12 @@ TEST_F(FormFactorBasicTest, Cylinder)
     EXPECT_NEAR(-height, particle.bottomZ(RotationY(180*Units::degree)), 1e-13);
     EXPECT_NEAR(0,       particle.topZ   (RotationY(180*Units::degree)), 1e-13);
 
+    for (double gamma: { 1.123, -2.34, 7.5, -9. })
+        // 7.5deg is worst case for 24-vertex circle
+        EXPECT_NEAR(-radius, particle.bottomZ(
+                        RotationEuler(0, 90*Units::degree, gamma*Units::degree)),
+                    3e-2); // TODO decrease epsilon after replacement of vertex-based approximation
+
     test_ff(&particle);
 }
 

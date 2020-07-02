@@ -9,11 +9,7 @@
 
 class Shape2DTest : public ::testing::Test
 {
-public:
-    ~Shape2DTest();
 };
-
-Shape2DTest::~Shape2DTest() = default;
 
 TEST_F(Shape2DTest, Rectangle)
 {

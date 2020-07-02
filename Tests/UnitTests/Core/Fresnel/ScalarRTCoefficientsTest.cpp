@@ -5,7 +5,6 @@ class ScalarRTCoefficientsTest : public ::testing::Test
 {
 protected:
     ScalarRTCoefficientsTest();
-    ~ScalarRTCoefficientsTest();
 
     ScalarRTCoefficients scrtDefault;
     ScalarRTCoefficients scrtCustom;
@@ -17,8 +16,6 @@ ScalarRTCoefficientsTest::ScalarRTCoefficientsTest()
     scrtCustom.t_r(0) = complex_t(0.0, 0.5);
     scrtCustom.t_r(1) = complex_t(1.0, 0.5);
 }
-
-ScalarRTCoefficientsTest::~ScalarRTCoefficientsTest() = default;
 
 TEST_F(ScalarRTCoefficientsTest, T1plus)
 {

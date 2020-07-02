@@ -10,11 +10,7 @@
 
 class TestMaterialPropertyController : public ::testing::Test
 {
-public:
-    ~TestMaterialPropertyController();
 };
-
-TestMaterialPropertyController::~TestMaterialPropertyController() = default;
 
 // TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
 //{

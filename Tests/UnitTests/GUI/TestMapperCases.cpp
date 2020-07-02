@@ -12,11 +12,7 @@ using SessionItemUtils::ParentRow;
 
 class TestMapperCases : public ::testing::Test
 {
-public:
-    ~TestMapperCases();
 };
-
-TestMapperCases::~TestMapperCases() = default;
 
 TEST_F(TestMapperCases, test_ParticeleCompositionUpdate)
 {

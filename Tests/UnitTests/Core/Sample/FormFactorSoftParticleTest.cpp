@@ -4,11 +4,7 @@
 
 class FormFactorSoftParticleTest : public ::testing::Test
 {
-protected:
-    ~FormFactorSoftParticleTest();
 };
-
-FormFactorSoftParticleTest::~FormFactorSoftParticleTest() = default;
 
 TEST_F(FormFactorSoftParticleTest, FormFactorOrnsteinZernike)
 {

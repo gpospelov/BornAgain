@@ -8,11 +8,7 @@
 
 class FTDistributionsTest : public ::testing::Test
 {
-protected:
-    ~FTDistributionsTest();
 };
-
-FTDistributionsTest::~FTDistributionsTest() = default;
 
 // test 1D
 

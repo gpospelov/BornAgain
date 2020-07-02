@@ -9,7 +9,6 @@ class SphericalConverterTest : public ::testing::Test
 {
 public:
     SphericalConverterTest();
-    ~SphericalConverterTest();
 
 protected:
     SphericalDetector m_detector;
@@ -28,8 +27,6 @@ SphericalConverterTest::SphericalConverterTest()
     m_kfz1 = K * std::sin(-2.0 * Units::deg);
     m_kfz2 = K * std::sin(1.5);
 }
-
-SphericalConverterTest::~SphericalConverterTest() = default;
 
 TEST_F(SphericalConverterTest, SphericalConverter)
 {

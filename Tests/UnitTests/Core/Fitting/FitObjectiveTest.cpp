@@ -5,13 +5,7 @@
 
 class FitObjectiveTest : public ::testing::Test
 {
-public:
-    ~FitObjectiveTest();
-
-protected:
 };
-
-FitObjectiveTest::~FitObjectiveTest() = default;
 
 TEST_F(FitObjectiveTest, twoDatasets)
 {

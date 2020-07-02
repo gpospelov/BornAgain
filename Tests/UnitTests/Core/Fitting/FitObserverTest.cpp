@@ -11,13 +11,7 @@ public:
         int m_ncalls;
         int m_data;
     };
-
-    ~FitObserverTest();
-
-protected:
 };
-
-FitObserverTest::~FitObserverTest() = default;
 
 //! Checks that single observer is called on every iteration.
 

@@ -17,8 +17,6 @@ const double phi_i = 0.0 * Units::deg;
 class SimulationElementTest : public ::testing::Test
 {
 public:
-    ~SimulationElementTest();
-
     std::unique_ptr<IPixel> createPixel() const
     {
         return std::make_unique<SphericalPixel>(alpha_bin, phi_bin);
@@ -29,8 +27,6 @@ public:
         return std::make_unique<SimulationElement>(wavelength, alpha_i, phi_i, createPixel());
     }
 };
-
-SimulationElementTest::~SimulationElementTest() = default;
 
 TEST_F(SimulationElementTest, basicConstructor)
 {

@@ -26,11 +26,7 @@ void itemFromXML(QString buffer, SessionItem* item)
 
 class TestSessionXML : public ::testing::Test
 {
-public:
-    ~TestSessionXML();
 };
-
-TestSessionXML::~TestSessionXML() = default;
 
 //! Testing to/from xml: simple property item.
 

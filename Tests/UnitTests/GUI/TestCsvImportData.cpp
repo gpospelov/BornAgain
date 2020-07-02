@@ -3,11 +3,7 @@
 
 class TestCsvImportData : public ::testing::Test
 {
-public:
-    ~TestCsvImportData() override;
 };
-
-TestCsvImportData::~TestCsvImportData() = default;
 
 TEST_F(TestCsvImportData, test_setting_data)
 {

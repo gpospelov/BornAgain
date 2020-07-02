@@ -9,11 +9,7 @@ constexpr auto ReciprocalFactorialArray = Precomputed::GenerateReciprocalFactori
 
 class PrecomputedTest : public ::testing::Test
 {
-public:
-    ~PrecomputedTest();
 };
-
-PrecomputedTest::~PrecomputedTest() = default;
 
 TEST_F(PrecomputedTest, ReciprocalFactorial)
 {

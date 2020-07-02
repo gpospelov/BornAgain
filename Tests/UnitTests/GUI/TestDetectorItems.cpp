@@ -11,11 +11,7 @@
 
 class TestDetectorItems : public ::testing::Test
 {
-public:
-    ~TestDetectorItems();
 };
-
-TestDetectorItems::~TestDetectorItems() = default;
 
 TEST_F(TestDetectorItems, test_detectorAlignment)
 {

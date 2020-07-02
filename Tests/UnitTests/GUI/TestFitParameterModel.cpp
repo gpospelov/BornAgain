@@ -6,11 +6,7 @@
 
 class TestFitParameterModel : public ::testing::Test
 {
-public:
-    ~TestFitParameterModel();
 };
-
-TestFitParameterModel::~TestFitParameterModel() = default;
 
 TEST_F(TestFitParameterModel, test_InitialState)
 {

@@ -4,11 +4,7 @@
 
 class ParameterPatternTest : public ::testing::Test
 {
-protected:
-    ~ParameterPatternTest();
 };
-
-ParameterPatternTest::~ParameterPatternTest() = default;
 
 TEST_F(ParameterPatternTest, declarationTest)
 {

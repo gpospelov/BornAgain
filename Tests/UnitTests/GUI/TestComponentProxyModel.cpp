@@ -16,11 +16,7 @@
 
 class TestComponentProxyModel : public ::testing::Test
 {
-public:
-    ~TestComponentProxyModel();
 };
-
-TestComponentProxyModel::~TestComponentProxyModel() = default;
 
 //! Empty proxy model.
 

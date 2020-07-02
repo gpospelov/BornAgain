@@ -7,7 +7,6 @@
 class FormFactorBasicTest : public ::testing::Test
 {
 protected:
-    ~FormFactorBasicTest();
     void test_eps_q(const IFormFactorBorn* p, cvector_t qdir, double eps)
     {
         cvector_t q = eps * qdir;
@@ -64,8 +63,6 @@ protected:
     }
     double V, R;
 };
-
-FormFactorBasicTest::~FormFactorBasicTest() = default;
 
 TEST_F(FormFactorBasicTest, AnisoPyramid)
 {

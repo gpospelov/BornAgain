@@ -9,11 +9,8 @@ class DistributionHandlerTest : public ::testing::Test
 {
 protected:
     DistributionHandlerTest() : m_value(99.0) {}
-    ~DistributionHandlerTest();
     double m_value;
 };
-
-DistributionHandlerTest::~DistributionHandlerTest() = default;
 
 TEST_F(DistributionHandlerTest, DistributionHandlerConstructor)
 {

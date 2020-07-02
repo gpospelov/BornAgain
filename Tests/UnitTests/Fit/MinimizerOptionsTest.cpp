@@ -4,11 +4,7 @@
 
 class MinimizerOptionsTest : public ::testing::Test
 {
-protected:
-    ~MinimizerOptionsTest();
 };
-
-MinimizerOptionsTest::~MinimizerOptionsTest() = default;
 
 TEST_F(MinimizerOptionsTest, toOptionString)
 {

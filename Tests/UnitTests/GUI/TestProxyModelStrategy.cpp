@@ -11,11 +11,7 @@
 
 class TestProxyModelStrategy : public ::testing::Test
 {
-public:
-    ~TestProxyModelStrategy();
 };
-
-TestProxyModelStrategy::~TestProxyModelStrategy() = default;
 
 //! Checking the mapping in the case of PropertyItem inserted in the source.
 

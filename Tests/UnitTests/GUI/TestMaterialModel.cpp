@@ -7,11 +7,7 @@
 
 class TestMaterialModel : public ::testing::Test
 {
-public:
-    ~TestMaterialModel();
 };
-
-TestMaterialModel::~TestMaterialModel() = default;
 
 TEST_F(TestMaterialModel, addRefractiveMaterial)
 {

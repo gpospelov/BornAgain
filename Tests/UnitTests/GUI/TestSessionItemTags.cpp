@@ -5,11 +5,7 @@
 
 class TestSessionItemTags : public ::testing::Test
 {
-public:
-    ~TestSessionItemTags();
 };
-
-TestSessionItemTags::~TestSessionItemTags() = default;
 
 TEST_F(TestSessionItemTags, initialState)
 {

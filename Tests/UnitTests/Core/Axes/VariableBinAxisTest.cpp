@@ -5,11 +5,7 @@
 
 class VariableBinAxisTest : public ::testing::Test
 {
-protected:
-    ~VariableBinAxisTest();
 };
-
-VariableBinAxisTest::~VariableBinAxisTest() = default;
 
 TEST_F(VariableBinAxisTest, VectorOfUnitLength)
 {

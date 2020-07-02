@@ -10,11 +10,7 @@
 
 class PythonFormattingTest : public ::testing::Test
 {
-public:
-    ~PythonFormattingTest();
 };
-
-PythonFormattingTest::~PythonFormattingTest() = default;
 
 TEST_F(PythonFormattingTest, ValueTimesUnits)
 {

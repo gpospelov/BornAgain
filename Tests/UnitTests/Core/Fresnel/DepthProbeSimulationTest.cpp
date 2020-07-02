@@ -16,7 +16,6 @@ class DepthProbeSimulationTest : public ::testing::Test
 {
 protected:
     DepthProbeSimulationTest();
-    ~DepthProbeSimulationTest();
 
     std::unique_ptr<DepthProbeSimulation> defaultSimulation();
     void checkBeamState(const DepthProbeSimulation& sim);
@@ -39,8 +38,6 @@ DepthProbeSimulationTest::DepthProbeSimulationTest()
     multilayer.addLayer(layer1);
     multilayer.addLayer(layer2);
 }
-
-DepthProbeSimulationTest::~DepthProbeSimulationTest() = default;
 
 std::unique_ptr<DepthProbeSimulation> DepthProbeSimulationTest::defaultSimulation()
 {

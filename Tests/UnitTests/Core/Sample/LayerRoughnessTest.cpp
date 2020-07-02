@@ -5,11 +5,7 @@
 
 class LayerRoughnessTest : public ::testing::Test
 {
-protected:
-    ~LayerRoughnessTest();
 };
-
-LayerRoughnessTest::~LayerRoughnessTest() = default;
 
 TEST_F(LayerRoughnessTest, LayerRoughnessInitial)
 {

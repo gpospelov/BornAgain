@@ -6,11 +6,7 @@
 
 class TestFormFactorItems : public ::testing::Test
 {
-public:
-    ~TestFormFactorItems();
 };
-
-TestFormFactorItems::~TestFormFactorItems() = default;
 
 TEST_F(TestFormFactorItems, test_AnisoPyramidItem)
 {

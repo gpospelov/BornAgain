@@ -3,11 +3,7 @@
 
 class AttLimitsTest : public ::testing::Test
 {
-protected:
-    ~AttLimitsTest();
 };
-
-AttLimitsTest::~AttLimitsTest() = default;
 
 TEST_F(AttLimitsTest, InitialState)
 {

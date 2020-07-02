@@ -4,12 +4,8 @@
 class MatrixRTCoefficientsTest : public ::testing::Test
 {
 protected:
-    ~MatrixRTCoefficientsTest();
-
     MatrixRTCoefficients mrtcDefault;
 };
-
-MatrixRTCoefficientsTest::~MatrixRTCoefficientsTest() = default;
 
 TEST_F(MatrixRTCoefficientsTest, T1plus)
 {

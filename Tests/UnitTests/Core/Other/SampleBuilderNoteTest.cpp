@@ -10,8 +10,6 @@
 class SampleBuilderNodeTest : public ::testing::Test
 {
 public:
-    ~SampleBuilderNodeTest();
-
     //! Returns test multilayer.
     static std::unique_ptr<MultiLayer> testMultiLayer(double length)
     {
@@ -34,8 +32,6 @@ public:
         double m_length;
     };
 };
-
-SampleBuilderNodeTest::~SampleBuilderNodeTest() = default;
 
 //! Checks children and pool parameters.
 

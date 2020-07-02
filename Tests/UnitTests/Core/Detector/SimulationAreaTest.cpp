@@ -8,11 +8,7 @@
 
 class SimulationAreaTest : public ::testing::Test
 {
-protected:
-    ~SimulationAreaTest();
 };
-
-SimulationAreaTest::~SimulationAreaTest() = default;
 
 // Iterators test
 

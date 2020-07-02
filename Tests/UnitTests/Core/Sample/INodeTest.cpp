@@ -16,8 +16,6 @@ const double test_par1_value(1.0);
 class INodeTest : public ::testing::Test
 {
 public:
-    ~INodeTest();
-
     class TestClass : public INode
     {
     public:
@@ -50,8 +48,6 @@ public:
         double m_parameter1;
     };
 };
-
-INodeTest::~INodeTest() = default;
 
 TEST_F(INodeTest, initialState)
 {

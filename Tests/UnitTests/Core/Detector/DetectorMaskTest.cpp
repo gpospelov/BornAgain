@@ -6,11 +6,7 @@
 
 class DetectorMaskTest : public ::testing::Test
 {
-public:
-    ~DetectorMaskTest();
 };
-
-DetectorMaskTest::~DetectorMaskTest() = default;
 
 TEST_F(DetectorMaskTest, InitialState)
 {

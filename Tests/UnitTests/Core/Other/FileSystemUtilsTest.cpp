@@ -3,11 +3,7 @@
 
 class FileSystemUtilsTest : public ::testing::Test
 {
-protected:
-    ~FileSystemUtilsTest();
 };
-
-FileSystemUtilsTest::~FileSystemUtilsTest() = default;
 
 TEST_F(FileSystemUtilsTest, extention)
 {

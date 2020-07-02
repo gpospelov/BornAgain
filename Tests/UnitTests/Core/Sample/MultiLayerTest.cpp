@@ -35,14 +35,10 @@ protected:
         mLayer.addLayer(substrate);
     }
 
-    ~MultiLayerTest();
-
     MultiLayer mLayer;
     const Material air, iron, chromium, stone;
     Layer topLayer, layer1, layer2, substrate;
 };
-
-MultiLayerTest::~MultiLayerTest() = default;
 
 TEST_F(MultiLayerTest, BasicProperty)
 {

@@ -9,11 +9,7 @@
 
 class TestLayerItems : public ::testing::Test
 {
-public:
-    ~TestLayerItems();
 };
-
-TestLayerItems::~TestLayerItems() = default;
 
 //! Checking default material of the layer.
 

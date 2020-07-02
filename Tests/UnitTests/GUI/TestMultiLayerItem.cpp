@@ -6,11 +6,7 @@
 
 class TestMultiLayerItem : public ::testing::Test
 {
-public:
-    ~TestMultiLayerItem();
 };
-
-TestMultiLayerItem::~TestMultiLayerItem() = default;
 
 //! Testing layer appearance (enabled, disabled) in a MultiLayer made of two default layers.
 //!

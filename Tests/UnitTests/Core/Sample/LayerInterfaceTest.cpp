@@ -8,11 +8,7 @@
 
 class LayerInterfaceTest : public ::testing::Test
 {
-protected:
-    ~LayerInterfaceTest();
 };
-
-LayerInterfaceTest::~LayerInterfaceTest() = default;
 
 TEST_F(LayerInterfaceTest, createSmoothInterface)
 {

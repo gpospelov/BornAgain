@@ -9,11 +9,7 @@
 
 class ParameterDistributionTest : public ::testing::Test
 {
-protected:
-    ~ParameterDistributionTest();
 };
-
-ParameterDistributionTest::~ParameterDistributionTest() = default;
 
 TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
 {

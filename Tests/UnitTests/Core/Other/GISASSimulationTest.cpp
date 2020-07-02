@@ -12,11 +12,8 @@
 class GISASSimulationTest : public ::testing::Test
 {
 protected:
-    ~GISASSimulationTest();
     GISASSimulation m_simulation;
 };
-
-GISASSimulationTest::~GISASSimulationTest() = default;
 
 TEST_F(GISASSimulationTest, SimulationInitialState)
 {

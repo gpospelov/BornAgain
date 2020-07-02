@@ -8,12 +8,9 @@ class IOStrategyTest : public ::testing::Test
 {
 protected:
     IOStrategyTest();
-    ~IOStrategyTest() override;
 
     OutputData<double> m_model_data;
 };
-
-IOStrategyTest::~IOStrategyTest() = default;
 
 IOStrategyTest::IOStrategyTest()
 {

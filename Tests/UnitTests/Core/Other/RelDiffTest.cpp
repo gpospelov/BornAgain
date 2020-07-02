@@ -4,11 +4,7 @@
 
 class RelDiffTest : public ::testing::Test
 {
-protected:
-    ~RelDiffTest();
 };
-
-RelDiffTest::~RelDiffTest() = default;
 
 TEST_F(RelDiffTest, RelDiffAlmostEq)
 {

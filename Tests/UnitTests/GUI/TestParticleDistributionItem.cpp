@@ -35,11 +35,7 @@ const QStringList expectedBoxParams = {"None",
 
 class TestParticleDistributionItem : public ::testing::Test
 {
-public:
-    ~TestParticleDistributionItem();
 };
-
-TestParticleDistributionItem::~TestParticleDistributionItem() = default;
 
 TEST_F(TestParticleDistributionItem, test_InitialState)
 {

@@ -4,11 +4,7 @@
 
 class IntensityDataFunctionsTest : public ::testing::Test
 {
-protected:
-    ~IntensityDataFunctionsTest();
 };
-
-IntensityDataFunctionsTest::~IntensityDataFunctionsTest() = default;
 
 TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed)
 {

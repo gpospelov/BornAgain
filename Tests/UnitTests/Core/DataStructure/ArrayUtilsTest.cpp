@@ -5,11 +5,7 @@
 
 class ArrayUtilsTest : public ::testing::Test
 {
-protected:
-    ~ArrayUtilsTest();
 };
-
-ArrayUtilsTest::~ArrayUtilsTest() = default;
 
 TEST_F(ArrayUtilsTest, OutputDataFromVector1D)
 {

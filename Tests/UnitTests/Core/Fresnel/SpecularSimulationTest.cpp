@@ -21,7 +21,6 @@ class SpecularSimulationTest : public ::testing::Test
 {
 protected:
     SpecularSimulationTest();
-    ~SpecularSimulationTest();
 
     std::unique_ptr<SpecularSimulation> defaultSimulation();
     void checkBeamState(const SpecularSimulation& sim);
@@ -43,8 +42,6 @@ SpecularSimulationTest::SpecularSimulationTest()
     multilayer.addLayer(layer1);
     multilayer.addLayer(layer2);
 }
-
-SpecularSimulationTest::~SpecularSimulationTest() = default;
 
 TEST_F(SpecularSimulationTest, InitialState)
 {

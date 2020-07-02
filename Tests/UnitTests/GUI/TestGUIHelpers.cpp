@@ -3,11 +3,7 @@
 
 class TestGUIHelpers : public ::testing::Test
 {
-public:
-    ~TestGUIHelpers();
 };
-
-TestGUIHelpers::~TestGUIHelpers() = default;
 
 TEST_F(TestGUIHelpers, test_VersionString)
 {

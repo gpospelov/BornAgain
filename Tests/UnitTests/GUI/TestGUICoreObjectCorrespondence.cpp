@@ -9,8 +9,6 @@
 class TestGUICoreObjectCorrespondence : public ::testing::Test
 {
 public:
-    ~TestGUICoreObjectCorrespondence();
-
     void GUICoreObjectCorrespondence(const SessionItem& gui_object,
                                      const IParameterized& core_object)
     {
@@ -24,8 +22,6 @@ public:
         }
     }
 };
-
-TestGUICoreObjectCorrespondence::~TestGUICoreObjectCorrespondence() = default;
 
 TEST_F(TestGUICoreObjectCorrespondence, test_AnisoPyramid)
 {

@@ -6,11 +6,7 @@
 
 class LayerTest : public ::testing::Test
 {
-protected:
-    virtual ~LayerTest();
 };
-
-LayerTest::~LayerTest() = default;
 
 TEST_F(LayerTest, LayerGetAndSet)
 {

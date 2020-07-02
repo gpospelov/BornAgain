@@ -20,11 +20,7 @@
 
 class TestRealSpaceBuilderUtils : public ::testing::Test
 {
-public:
-    ~TestRealSpaceBuilderUtils();
 };
-
-TestRealSpaceBuilderUtils::~TestRealSpaceBuilderUtils() = default;
 
 TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle)
 {

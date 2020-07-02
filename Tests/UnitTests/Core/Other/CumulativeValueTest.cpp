@@ -3,11 +3,7 @@
 
 class CumulativeValueTest : public ::testing::Test
 {
-protected:
-    ~CumulativeValueTest();
 };
-
-CumulativeValueTest::~CumulativeValueTest() = default;
 
 TEST_F(CumulativeValueTest, InitialState)
 {

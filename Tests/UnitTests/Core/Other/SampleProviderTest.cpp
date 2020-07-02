@@ -9,8 +9,6 @@
 class SampleProviderTest : public ::testing::Test
 {
 public:
-    ~SampleProviderTest();
-
     //! Returns test multilayer.
     static std::unique_ptr<MultiLayer> testMultiLayer(double length)
     {
@@ -57,8 +55,6 @@ public:
         double m_length;
     };
 };
-
-SampleProviderTest::~SampleProviderTest() = default;
 
 //! Test initial state,  assignment operator.
 

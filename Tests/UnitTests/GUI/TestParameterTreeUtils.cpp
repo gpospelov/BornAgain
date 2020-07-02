@@ -21,11 +21,7 @@ const QStringList expectedParticleParameterTranslations = {
 
 class TestParameterTreeUtils : public ::testing::Test
 {
-public:
-    ~TestParameterTreeUtils();
 };
-
-TestParameterTreeUtils::~TestParameterTreeUtils() = default;
 
 //! Tests parameter names of given item.
 

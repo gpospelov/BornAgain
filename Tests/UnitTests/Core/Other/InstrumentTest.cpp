@@ -8,7 +8,6 @@ class InstrumentTest : public ::testing::Test
 {
 protected:
     InstrumentTest();
-    ~InstrumentTest();
 
     Instrument m_instrument;
     OutputData<double> m_data;
@@ -19,8 +18,6 @@ InstrumentTest::InstrumentTest()
     m_data.addAxis(BornAgain::PHI_AXIS_NAME, 10, 0., 10.);
     m_data.addAxis("theta_f", 20, 0., 20.);
 }
-
-InstrumentTest::~InstrumentTest() = default;
 
 TEST_F(InstrumentTest, InstrumentInitialState)
 {

@@ -4,11 +4,7 @@
 
 class Lattice2DTest : public ::testing::Test
 {
-protected:
-    ~Lattice2DTest();
 };
-
-Lattice2DTest::~Lattice2DTest() = default;
 
 TEST_F(Lattice2DTest, basicLattice)
 {

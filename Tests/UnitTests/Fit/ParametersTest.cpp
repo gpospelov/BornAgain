@@ -4,11 +4,7 @@
 
 class ParametersTest : public ::testing::Test
 {
-protected:
-    ~ParametersTest();
 };
-
-ParametersTest::~ParametersTest() = default;
 
 TEST_F(ParametersTest, defaultConstructor)
 {

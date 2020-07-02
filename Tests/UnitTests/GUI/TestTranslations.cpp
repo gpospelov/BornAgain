@@ -12,11 +12,7 @@
 
 class TestTranslations : public ::testing::Test
 {
-public:
-    ~TestTranslations();
 };
-
-TestTranslations::~TestTranslations() = default;
 
 TEST_F(TestTranslations, test_TranslatePosition)
 {

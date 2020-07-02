@@ -14,11 +14,7 @@
 
 class TestLinkInstrument : public ::testing::Test
 {
-public:
-    ~TestLinkInstrument();
 };
-
-TestLinkInstrument::~TestLinkInstrument() = default;
 
 //! Checks that LinkInstrumentManager listens instrument model.
 

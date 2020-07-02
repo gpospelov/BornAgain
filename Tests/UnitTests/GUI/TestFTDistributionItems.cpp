@@ -4,11 +4,7 @@
 
 class TestFTDistributionItems : public ::testing::Test
 {
-public:
-    ~TestFTDistributionItems();
 };
-
-TestFTDistributionItems::~TestFTDistributionItems() = default;
 
 TEST_F(TestFTDistributionItems, test_FTDistribution1DCauchy)
 {

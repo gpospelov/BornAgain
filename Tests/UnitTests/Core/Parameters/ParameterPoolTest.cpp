@@ -5,11 +5,7 @@
 
 class ParameterPoolTest : public ::testing::Test
 {
-protected:
-    ~ParameterPoolTest();
 };
-
-ParameterPoolTest::~ParameterPoolTest() = default;
 
 TEST_F(ParameterPoolTest, initialState)
 {

@@ -13,7 +13,6 @@ class UnitConverter1DTest : public ::testing::Test
 {
 public:
     UnitConverter1DTest();
-    ~UnitConverter1DTest();
 
     double getQ(double angle) { return 4.0 * M_PI * std::sin(angle) / m_beam.getWavelength(); }
 
@@ -35,8 +34,6 @@ UnitConverter1DTest::UnitConverter1DTest()
 {
     m_beam.setCentralK(1.0, 0.0, 0.0); // wavelength = 1.0 nm
 }
-
-UnitConverter1DTest::~UnitConverter1DTest() = default;
 
 void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test_object)
 {

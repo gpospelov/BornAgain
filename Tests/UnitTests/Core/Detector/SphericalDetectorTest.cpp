@@ -17,11 +17,7 @@
 
 class SphericalDetectorTest : public ::testing::Test
 {
-protected:
-    ~SphericalDetectorTest();
 };
-
-SphericalDetectorTest::~SphericalDetectorTest() = default;
 
 // Default detector construction
 TEST_F(SphericalDetectorTest, initialState)

@@ -24,7 +24,6 @@ protected:
             m_boundaries.push_back(std::asin(start_sin + step * i));
         }
     }
-    ~ConstKBinAxisTest();
 
     size_t m_nbins;
     double m_start;
@@ -33,8 +32,6 @@ protected:
     std::vector<double> m_centers;
     std::vector<double> m_boundaries;
 };
-
-ConstKBinAxisTest::~ConstKBinAxisTest() = default;
 
 //[-5.0, -3.99816897832528, -2.9975609824866662, -1.99786732193833, -0.9987818274427882, 0.0,
 // 0.9987818274427874, 1.9978673219383292, 2.997560982486666, 3.998168978325279, 5.0]

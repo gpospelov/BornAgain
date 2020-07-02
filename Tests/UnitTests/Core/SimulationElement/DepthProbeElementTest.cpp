@@ -4,9 +4,6 @@
 
 class DepthProbeElementTest : public ::testing::Test
 {
-public:
-    ~DepthProbeElementTest();
-
 protected:
     DepthProbeElementTest();
     DepthProbeElement createDefaultElement();
@@ -15,8 +12,6 @@ protected:
 
     std::unique_ptr<FixedBinAxis> m_z_positions;
 };
-
-DepthProbeElementTest::~DepthProbeElementTest() = default;
 
 DepthProbeElementTest::DepthProbeElementTest() : m_z_positions(new FixedBinAxis("z", 10, 0.0, 10.0))
 {

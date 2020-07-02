@@ -6,11 +6,7 @@
 
 class SpectrumTest : public ::testing::Test
 {
-protected:
-    ~SpectrumTest();
 };
-
-SpectrumTest::~SpectrumTest() = default;
 
 TEST_F(SpectrumTest, arrayPeaks)
 {

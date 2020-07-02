@@ -10,11 +10,7 @@
 
 class SpecularMagneticTest : public ::testing::Test
 {
-protected:
-    ~SpecularMagneticTest();
 };
-
-SpecularMagneticTest::~SpecularMagneticTest() = default;
 
 TEST_F(SpecularMagneticTest, initial)
 {

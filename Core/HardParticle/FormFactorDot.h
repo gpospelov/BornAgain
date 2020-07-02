@@ -33,7 +33,6 @@ public:
     double radialExtension() const override final { return 0; }
 
     double bottomZ(const IRotation&) const override final { return 0; }
-
     double topZ(const IRotation&) const override final { return 0; }
 
     complex_t evaluate_for_q(cvector_t q) const override final;

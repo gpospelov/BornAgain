@@ -13,12 +13,10 @@
 // ************************************************************************** //
 
 #include "IFormFactorBorn.h"
-#include "Dot.h"
+#include "Algorithms.h"
 #include "Exceptions.h"
 #include "Rotations.h"
 #include "WavevectorInfo.h"
-
-IFormFactorBorn::IFormFactorBorn() : mP_shape(new Dot()) {}
 
 complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
 {
@@ -32,11 +30,15 @@ Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors)
 
 double IFormFactorBorn::bottomZ(const IRotation& rotation) const
 {
+    if (!mP_shape)
+        return 0;
     return BottomZ(mP_shape->vertices(), rotation.getTransform3D());
 }
 
 double IFormFactorBorn::topZ(const IRotation& rotation) const
 {
+    if (!mP_shape)
+        return 0;
     return TopZ(mP_shape->vertices(), rotation.getTransform3D());
 }
 
@@ -86,4 +88,24 @@ SlicingEffects IFormFactorBorn::computeSlicingEffects(ZLimits limits, const kvec
     if (dz_bottom > 0)
         new_position.setZ(lower_limit.m_value);
     return {new_position, dz_bottom, dz_top};
+}
+
+
+
+double IFormFactorBorn::BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation)
+{
+    if (vertices.size() == 0)
+        throw std::runtime_error("BottomZ() error: no vertices passed!");
+    return algo::min_value(vertices.begin(), vertices.end(),
+                           [&](const kvector_t& vertex) -> double
+                               { return rotation.transformed(vertex).z(); });
+}
+
+double IFormFactorBorn::TopZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation)
+{
+    if (vertices.size() == 0)
+        throw std::runtime_error("TopZ() error: no vertices passed!");
+    return algo::max_value(vertices.begin(), vertices.end(),
+                           [&](const kvector_t& vertex) -> double
+                               { return rotation.transformed(vertex).z(); });
 }

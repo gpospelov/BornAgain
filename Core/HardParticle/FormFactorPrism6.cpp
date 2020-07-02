@@ -14,7 +14,6 @@
 
 #include "FormFactorPrism6.h"
 #include "BornAgainNamespace.h"
-#include "Pyramid6.h"
 #include "RealParameter.h"
 
 //! Constructor of a prism with a regular hexagonal base.
@@ -41,7 +40,6 @@ IFormFactor* FormFactorPrism6::sliceFormFactor(ZLimits limits, const IRotation& 
 
 void FormFactorPrism6::onChange()
 {
-    mP_shape.reset(new Pyramid6(m_base_edge, m_height, M_PI_2));
     double a = m_base_edge;
     double as = a * sqrt(3) / 2;
     double ac = a / 2;

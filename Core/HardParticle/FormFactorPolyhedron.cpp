@@ -20,6 +20,7 @@
 #include "MathFunctions.h"
 #include "Precomputed.h"
 #include "RealParameter.h"
+#include "Rotations.h"
 #include <iomanip>
 #include <stdexcept> // need overlooked by g++ 5.4
 
@@ -421,11 +422,15 @@ void FormFactorPolyhedron::setLimits(double _q, int _n)
 
 //! Called by child classes to set faces and other internal variables.
 
-void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_origin,
+void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, double z_bottom,
                                          const std::vector<kvector_t>& vertices)
 {
+    m_vertices.clear();
+    for (const kvector_t& vertex: vertices)
+        m_vertices.push_back(vertex - kvector_t{0, 0, z_bottom});
+
     try {
-        m_z_origin = z_origin;
+        m_z_bottom = z_bottom;
         m_sym_Ci = topology.symmetry_Ci;
 
         double diameter = 0;
@@ -472,12 +477,22 @@ void FormFactorPolyhedron::setPolyhedron(const PolyhedralTopology& topology, dou
     }
 }
 
-//! Returns the form factor F(q) of this polyhedron, respecting the offset z_origin.
+double FormFactorPolyhedron::bottomZ(const IRotation& rotation) const
+{
+    return BottomZ(m_vertices, rotation.getTransform3D());
+}
+
+double FormFactorPolyhedron::topZ(const IRotation& rotation) const
+{
+    return TopZ(m_vertices, rotation.getTransform3D());
+}
+
+//! Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom.
 
 complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const
 {
     try {
-        return exp_I(-m_z_origin * q.z()) * evaluate_centered(q);
+        return exp_I(-m_z_bottom * q.z()) * evaluate_centered(q);
     } catch (std::logic_error& e) {
         throw std::logic_error("Bug in " + getName() + ": " + e.what()
                                + " [please report to the maintainers]");
@@ -587,6 +602,12 @@ void FormFactorPolyhedron::assert_platonic() const
 
 void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvector_t>& vertices)
 {
+    m_vertices.clear();
+    for (const kvector_t& vertex: vertices) {
+        m_vertices.push_back(vertex);
+        m_vertices.push_back(vertex + kvector_t{0, 0, m_height});
+    }
+
     try {
         m_base = std::unique_ptr<PolyhedralFace>(new PolyhedralFace(vertices, symmetry_Ci));
     } catch (std::invalid_argument& e) {
@@ -598,6 +619,16 @@ void FormFactorPolygonalPrism::setPrism(bool symmetry_Ci, const std::vector<kvec
         throw std::runtime_error("Unexpected exception in " + getName() + ": " + e.what()
                                  + " [please report to the maintainers]");
     }
+}
+
+double FormFactorPolygonalPrism::bottomZ(const IRotation& rotation) const
+{
+    return BottomZ(m_vertices, rotation.getTransform3D());
+}
+
+double FormFactorPolygonalPrism::topZ(const IRotation& rotation) const
+{
+    return TopZ(m_vertices, rotation.getTransform3D());
 }
 
 //! Returns the volume of this prism.

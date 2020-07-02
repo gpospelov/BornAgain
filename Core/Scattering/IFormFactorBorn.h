@@ -32,7 +32,7 @@ struct SlicingEffects;
 class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
 public:
-    IFormFactorBorn();
+    IFormFactorBorn() = default;
     ~IFormFactorBorn() override {}
 
     IFormFactorBorn* clone() const override = 0;
@@ -45,9 +45,8 @@ public:
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 #endif
 
-    double bottomZ(const IRotation& rotation) const override;
-
-    double topZ(const IRotation& rotation) const override;
+    virtual double bottomZ(const IRotation& rotation) const override;
+    virtual double topZ(const IRotation& rotation) const override;
 
     //! Returns scattering amplitude for complex scattering wavevector q=k_i-k_f.
     //! This method is public only for convenience of plotting form factors in Python.
@@ -71,6 +70,12 @@ protected:
     //! Helper method for slicing
     SlicingEffects computeSlicingEffects(ZLimits limits, const kvector_t& position,
                                          double height) const;
+
+    //! Calculates the z-coordinate of the lowest vertex after rotation
+    static double BottomZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
+
+    //! Calculates the z-coordinate of the highest vertex after rotation
+    static double TopZ(const std::vector<kvector_t>& vertices, const Transform3D& rotation);
 };
 
 //! Nested structure that holds slicing effects on position and removed parts.

@@ -118,16 +118,6 @@ Sets angular resolution values via  RangedDistribution and values of standard de
 ";
 
 
-// File: classAnisoPyramid.xml
-%feature("docstring") AnisoPyramid "";
-
-%feature("docstring")  AnisoPyramid::AnisoPyramid "AnisoPyramid::AnisoPyramid(double length, double width, double height, double alpha)
-";
-
-%feature("docstring")  AnisoPyramid::~AnisoPyramid "AnisoPyramid::~AnisoPyramid()
-";
-
-
 // File: classAsymRippleBuilder.xml
 %feature("docstring") AsymRippleBuilder "";
 
@@ -628,16 +618,6 @@ creation on  Bin1DKVector from alpha and phi bins
 ";
 
 %feature("docstring")  Bin1DKVector::getDelta "kvector_t Bin1DKVector::getDelta() const
-";
-
-
-// File: classBiPyramid.xml
-%feature("docstring") BiPyramid "";
-
-%feature("docstring")  BiPyramid::BiPyramid "BiPyramid::BiPyramid(double length, double height, double height_ratio, double alpha)
-";
-
-%feature("docstring")  BiPyramid::~BiPyramid "BiPyramid::~BiPyramid()
 ";
 
 
@@ -2137,30 +2117,10 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
-// File: classDodecahedron.xml
-%feature("docstring") Dodecahedron "";
-
-%feature("docstring")  Dodecahedron::Dodecahedron "Dodecahedron::Dodecahedron(double edge)
-";
-
-%feature("docstring")  Dodecahedron::~Dodecahedron "Dodecahedron::~Dodecahedron()
-";
-
-
 // File: classExceptions_1_1DomainErrorException.xml
 %feature("docstring") Exceptions::DomainErrorException "";
 
 %feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
-";
-
-
-// File: classDot.xml
-%feature("docstring") Dot "";
-
-%feature("docstring")  Dot::Dot "Dot::Dot()
-";
-
-%feature("docstring")  Dot::~Dot "Dot::~Dot()
 ";
 
 
@@ -4291,6 +4251,16 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolygonalPrism::FormFactorPolygonalPrism "FormFactorPolygonalPrism::FormFactorPolygonalPrism(double height)
 ";
 
+%feature("docstring")  FormFactorPolygonalPrism::bottomZ "double FormFactorPolygonalPrism::bottomZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorPolygonalPrism::topZ "double FormFactorPolygonalPrism::topZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const override final
 
 Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
@@ -4348,9 +4318,19 @@ C++ includes: FormFactorPolyhedron.h
 %feature("docstring")  FormFactorPolyhedron::FormFactorPolyhedron "FormFactorPolyhedron::FormFactorPolyhedron()
 ";
 
+%feature("docstring")  FormFactorPolyhedron::bottomZ "double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorPolyhedron::topZ "double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
 %feature("docstring")  FormFactorPolyhedron::evaluate_for_q "complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
 
-Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
+Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
 ";
 
 %feature("docstring")  FormFactorPolyhedron::evaluate_centered "complex_t FormFactorPolyhedron::evaluate_centered(cvector_t q) const
@@ -5381,7 +5361,7 @@ Returns the negative of the second order derivative in q space around q=0.
 // File: classFTDistribution1DTriangle.xml
 %feature("docstring") FTDistribution1DTriangle "
 
-Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
+Triangle  IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 
 C++ includes: FTDistributions1D.h
 ";
@@ -6372,16 +6352,6 @@ C++ includes: IComputation.h
 ";
 
 
-// File: classIcosahedron.xml
-%feature("docstring") Icosahedron "";
-
-%feature("docstring")  Icosahedron::Icosahedron "Icosahedron::Icosahedron(double edge)
-";
-
-%feature("docstring")  Icosahedron::~Icosahedron "Icosahedron::~Icosahedron()
-";
-
-
 // File: classIdentityRotation.xml
 %feature("docstring") IdentityRotation "";
 
@@ -6894,7 +6864,7 @@ In contrast to the generic  IFormFactor, a Born form factor does not depend on t
 C++ includes: IFormFactorBorn.h
 ";
 
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()
+%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()=default
 ";
 
 %feature("docstring")  IFormFactorBorn::~IFormFactorBorn "IFormFactorBorn::~IFormFactorBorn() override
@@ -13049,9 +13019,6 @@ true if face has a perpedicular two-fold symmetry axis
 %feature("docstring")  PolyhedralFace::area "double PolyhedralFace::area() const
 ";
 
-%feature("docstring")  PolyhedralFace::center "kvector_t PolyhedralFace::center() const
-";
-
 %feature("docstring")  PolyhedralFace::pyramidalVolume "double PolyhedralFace::pyramidalVolume() const
 ";
 
@@ -13459,26 +13426,6 @@ C++ includes: PyFittingCallbacks.h
 ";
 
 %feature("docstring")  PyObserverCallback::update "void PyObserverCallback::update(const FitObjective &)
-";
-
-
-// File: classPyramid3.xml
-%feature("docstring") Pyramid3 "";
-
-%feature("docstring")  Pyramid3::Pyramid3 "Pyramid3::Pyramid3(double length, double height, double alpha)
-";
-
-%feature("docstring")  Pyramid3::~Pyramid3 "Pyramid3::~Pyramid3()
-";
-
-
-// File: classPyramid6.xml
-%feature("docstring") Pyramid6 "";
-
-%feature("docstring")  Pyramid6::Pyramid6 "Pyramid6::Pyramid6(double length, double height, double alpha)
-";
-
-%feature("docstring")  Pyramid6::~Pyramid6 "Pyramid6::~Pyramid6()
 ";
 
 
@@ -16587,16 +16534,6 @@ C++ includes: TransformationsBuilder.h
 ";
 
 
-// File: classTriangle.xml
-%feature("docstring") Triangle "";
-
-%feature("docstring")  Triangle::Triangle "Triangle::Triangle(double length, double z)
-";
-
-%feature("docstring")  Triangle::~Triangle "Triangle::~Triangle()
-";
-
-
 // File: classTriangularRippleBuilder.xml
 %feature("docstring") TriangularRippleBuilder "
 
@@ -16609,16 +16546,6 @@ C++ includes: RipplesBuilder.h
 ";
 
 %feature("docstring")  TriangularRippleBuilder::buildSample "MultiLayer * TriangularRippleBuilder::buildSample() const
-";
-
-
-// File: classTruncatedCube.xml
-%feature("docstring") TruncatedCube "";
-
-%feature("docstring")  TruncatedCube::TruncatedCube "TruncatedCube::TruncatedCube(double length, double removed_length)
-";
-
-%feature("docstring")  TruncatedCube::~TruncatedCube "TruncatedCube::~TruncatedCube()
 ";
 
 
@@ -17085,10 +17012,10 @@ C++ includes: WavevectorInfo.h
 ";
 
 
-// File: classConvolve_1_1Workspace.xml
-
-
 // File: classFourierTransform_1_1Workspace.xml
+
+
+// File: classConvolve_1_1Workspace.xml
 
 
 // File: classZLimits.xml
@@ -17118,172 +17045,184 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d103.xml
+// File: namespace_0d104.xml
 
 
-// File: namespace_0d105.xml
+// File: namespace_0d106.xml
 
 
-// File: namespace_0d107.xml
+// File: namespace_0d108.xml
 
 
-// File: namespace_0d111.xml
+// File: namespace_0d112.xml
 
 
 // File: namespace_0d12.xml
 
 
-// File: namespace_0d126.xml
+// File: namespace_0d127.xml
 
 
-// File: namespace_0d135.xml
+// File: namespace_0d136.xml
 
 
-// File: namespace_0d140.xml
+// File: namespace_0d141.xml
 
 
-// File: namespace_0d149.xml
+// File: namespace_0d150.xml
 
 
-// File: namespace_0d151.xml
+// File: namespace_0d152.xml
 
 
-// File: namespace_0d155.xml
+// File: namespace_0d156.xml
 
 
 // File: namespace_0d18.xml
 
 
-// File: namespace_0d191.xml
+// File: namespace_0d192.xml
 
 
 // File: namespace_0d20.xml
 
 
-// File: namespace_0d226.xml
+// File: namespace_0d227.xml
 
 
-// File: namespace_0d234.xml
+// File: namespace_0d235.xml
 
 
-// File: namespace_0d240.xml
+// File: namespace_0d241.xml
 
 
-// File: namespace_0d244.xml
+// File: namespace_0d245.xml
 
 
-// File: namespace_0d294.xml
+// File: namespace_0d295.xml
 
 
-// File: namespace_0d303.xml
+// File: namespace_0d304.xml
 
 
-// File: namespace_0d311.xml
+// File: namespace_0d312.xml
 
 
-// File: namespace_0d315.xml
+// File: namespace_0d316.xml
 
 
-// File: namespace_0d317.xml
+// File: namespace_0d318.xml
 
 
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d329.xml
+// File: namespace_0d330.xml
 
 
-// File: namespace_0d335.xml
+// File: namespace_0d336.xml
 
 
-// File: namespace_0d356.xml
+// File: namespace_0d357.xml
 
 
-// File: namespace_0d360.xml
+// File: namespace_0d361.xml
 
 
-// File: namespace_0d362.xml
+// File: namespace_0d363.xml
 
 
-// File: namespace_0d364.xml
+// File: namespace_0d365.xml
 
 
-// File: namespace_0d374.xml
+// File: namespace_0d375.xml
 
 
-// File: namespace_0d386.xml
+// File: namespace_0d387.xml
 
 
-// File: namespace_0d390.xml
+// File: namespace_0d391.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d402.xml
+// File: namespace_0d403.xml
 
 
-// File: namespace_0d408.xml
+// File: namespace_0d409.xml
 
 
-// File: namespace_0d413.xml
+// File: namespace_0d414.xml
 
 
-// File: namespace_0d415.xml
-
-
-// File: namespace_0d419.xml
+// File: namespace_0d416.xml
 
 
 // File: namespace_0d42.xml
 
 
-// File: namespace_0d421.xml
+// File: namespace_0d420.xml
 
 
-// File: namespace_0d431.xml
+// File: namespace_0d422.xml
 
 
-// File: namespace_0d444.xml
+// File: namespace_0d432.xml
 
 
-// File: namespace_0d453.xml
+// File: namespace_0d445.xml
 
 
-// File: namespace_0d455.xml
+// File: namespace_0d454.xml
 
 
-// File: namespace_0d489.xml
+// File: namespace_0d456.xml
 
 
-// File: namespace_0d496.xml
+// File: namespace_0d490.xml
 
 
-// File: namespace_0d534.xml
+// File: namespace_0d497.xml
 
 
-// File: namespace_0d542.xml
+// File: namespace_0d517.xml
 
 
-// File: namespace_0d544.xml
+// File: namespace_0d525.xml
 
 
-// File: namespace_0d546.xml
+// File: namespace_0d527.xml
+
+
+// File: namespace_0d529.xml
 
 
 // File: namespace_0d6.xml
 
 
-// File: namespace_0d630.xml
+// File: namespace_0d613.xml
 
 
-// File: namespace_0d634.xml
+// File: namespace_0d617.xml
 
 
-// File: namespace_0d658.xml
+// File: namespace_0d641.xml
 
 
-// File: namespace_0d97.xml
+// File: namespace_0d98.xml
+
+
+// File: namespacealgo.xml
+%feature("docstring")  algo::min_value "double algo::min_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
+
+Returns the minimum value of function evaluate as applied to the elements of an iterator range. 
+";
+
+%feature("docstring")  algo::max_value "double algo::max_value(const Iterator &begin, const Iterator &end, const Evaluator &evaluate)
+
+Returns the maximum value of function evaluate as applied to the elements of an iterator range. 
+";
 
 
 // File: namespaceArrayUtils.xml
@@ -18486,6 +18425,9 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: ParticleLayout_8h.xml
+
+
+// File: Algorithms_8h.xml
 
 
 // File: BornAgainNamespace_8h.xml
@@ -20045,34 +19987,10 @@ Returns concatenated rotation (first right, then left).
 ";
 
 
-// File: AnisoPyramid_8cpp.xml
-
-
-// File: AnisoPyramid_8h.xml
-
-
-// File: BiPyramid_8cpp.xml
-
-
-// File: BiPyramid_8h.xml
-
-
 // File: Box_8cpp.xml
 
 
 // File: Box_8h.xml
-
-
-// File: Dodecahedron_8cpp.xml
-
-
-// File: Dodecahedron_8h.xml
-
-
-// File: Dot_8cpp.xml
-
-
-// File: Dot_8h.xml
 
 
 // File: DoubleEllipse_8cpp.xml
@@ -20081,28 +19999,12 @@ Returns concatenated rotation (first right, then left).
 // File: DoubleEllipse_8h.xml
 
 
-// File: Icosahedron_8cpp.xml
-
-
-// File: Icosahedron_8h.xml
-
-
 // File: IShape_8cpp.xml
 %feature("docstring")  RectangleVertices "std::vector<kvector_t> RectangleVertices(double length, double width, double z)
 
 Helper functions to construct lists of vertices
 
 Generate vertices of centered rectangle at height z 
-";
-
-%feature("docstring")  TriangleVertices "std::vector<kvector_t> TriangleVertices(double length, double z)
-
-Generate vertices of centered regular triangle with vertex on x-axis at height z. 
-";
-
-%feature("docstring")  HexagonVertices "std::vector<kvector_t> HexagonVertices(double length, double z)
-
-Generate vertices of centered regular hexagon with vertex on x-axis at height z. 
 ";
 
 %feature("docstring")  EllipseVertices "std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
@@ -20119,32 +20021,10 @@ Helper functions to construct lists of vertices
 Generate vertices of centered rectangle at height z 
 ";
 
-%feature("docstring")  TriangleVertices "std::vector<kvector_t> TriangleVertices(double length, double z)
-
-Generate vertices of centered regular triangle with vertex on x-axis at height z. 
-";
-
-%feature("docstring")  HexagonVertices "std::vector<kvector_t> HexagonVertices(double length, double z)
-
-Generate vertices of centered regular hexagon with vertex on x-axis at height z. 
-";
-
 %feature("docstring")  EllipseVertices "std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
 
 Generate vertices of centered ellipse with given semi-axes at height z. 
 ";
-
-
-// File: Pyramid3_8cpp.xml
-
-
-// File: Pyramid3_8h.xml
-
-
-// File: Pyramid6_8cpp.xml
-
-
-// File: Pyramid6_8h.xml
 
 
 // File: RippleCosine_8cpp.xml
@@ -20157,18 +20037,6 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: RippleSawtooth_8h.xml
-
-
-// File: Triangle_8cpp.xml
-
-
-// File: Triangle_8h.xml
-
-
-// File: TruncatedCube_8cpp.xml
-
-
-// File: TruncatedCube_8h.xml
 
 
 // File: TruncatedEllipsoid_8cpp.xml
@@ -20623,27 +20491,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: Transform3D_8cpp.xml
-%feature("docstring")  BottomZ "double BottomZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
-
-Calculates the z-coordinate of the lowest vertex after rotation. 
-";
-
-%feature("docstring")  TopZ "double TopZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
-
-Calculates the z-coordinate of the highest vertex after rotation. 
-";
 
 
 // File: Transform3D_8h.xml
-%feature("docstring")  BottomZ "double BottomZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
-
-Calculates the z-coordinate of the lowest vertex after rotation. 
-";
-
-%feature("docstring")  TopZ "double TopZ(const std::vector< kvector_t > &vertices, const Transform3D &rotation)
-
-Calculates the z-coordinate of the highest vertex after rotation. 
-";
 
 
 // File: Vectors3D_8h.xml

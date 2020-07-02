@@ -14,7 +14,6 @@
 
 #include "FormFactorDot.h"
 #include "BornAgainNamespace.h"
-#include "Dot.h"
 #include "RealParameter.h"
 
 //! Constructor.

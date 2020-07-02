@@ -7851,7 +7851,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     r"""
 
 
-    Triangle IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
+    Triangle  IFTDistribution1D [1-|x|/omega if |x|<omega, and 0 otherwise]; its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 
     C++ includes: FTDistributions1D.h
 
@@ -8887,7 +8887,7 @@ class IFormFactorBorn(IFormFactor):
     def __init__(self):
         r"""
         __init__(IFormFactorBorn self) -> IFormFactorBorn
-        IFormFactorBorn::IFormFactorBorn()
+        IFormFactorBorn::IFormFactorBorn()=default
 
         """
         if self.__class__ == IFormFactorBorn:
@@ -9278,14 +9278,6 @@ class PolyhedralFace(object):
         """
         return _libBornAgainCore.PolyhedralFace_area(self)
 
-    def center(self):
-        r"""
-        center(PolyhedralFace self) -> kvector_t
-        kvector_t PolyhedralFace::center() const
-
-        """
-        return _libBornAgainCore.PolyhedralFace_center(self)
-
     def pyramidalVolume(self):
         r"""
         pyramidalVolume(PolyhedralFace self) -> double
@@ -9376,12 +9368,32 @@ class FormFactorPolyhedron(IFormFactorBorn):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
 
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(FormFactorPolyhedron self, IRotation rotation) -> double
+        double FormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorPolyhedron_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(FormFactorPolyhedron self, IRotation rotation) -> double
+        double FormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorPolyhedron_topZ(self, rotation)
+
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorPolyhedron self, cvector_t q) -> complex_t
         complex_t FormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
 
-        Returns the form factor F(q) of this polyhedron, respecting the offset z_origin. 
+        Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom. 
 
         """
         return _libBornAgainCore.FormFactorPolyhedron_evaluate_for_q(self, q)
@@ -9445,6 +9457,26 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
+
+    def bottomZ(self, rotation):
+        r"""
+        bottomZ(FormFactorPolygonalPrism self, IRotation rotation) -> double
+        double FormFactorPolygonalPrism::bottomZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalPrism_bottomZ(self, rotation)
+
+    def topZ(self, rotation):
+        r"""
+        topZ(FormFactorPolygonalPrism self, IRotation rotation) -> double
+        double FormFactorPolygonalPrism::topZ(const IRotation &rotation) const override final
+
+        Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+
+        """
+        return _libBornAgainCore.FormFactorPolygonalPrism_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
         r"""

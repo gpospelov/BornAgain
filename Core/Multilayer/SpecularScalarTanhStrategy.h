@@ -19,10 +19,13 @@
 
 class Slice;
 
-//! Implements method 'execute' to compute refraction angles and transmission/reflection
-//! coefficients for coherent wave propagation in a multilayer.
+//! Implements an tanh transition function to model roughness in a scaler computation.
+//!
+//! Implements the transition function that includes the analytical roughness model
+//! of an tanh interface transition in the computation of the coefficients for
+//! coherent wave propagation in a multilayer by applying modified Fresnel coefficients.
+//!
 //! @ingroup algorithms_internal
-
 class BA_CORE_API_ SpecularScalarTanhStrategy : public SpecularScalarStrategy
 {
 private:

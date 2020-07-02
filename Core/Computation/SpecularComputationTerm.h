@@ -28,6 +28,9 @@ class Slice;
 
 //! Computes the specular scattering.
 //! Used by SpecularComputation.
+//!
+//! Inherited by SpecularScalarTerm, SpecularMatrixTerm
+//!
 //! @ingroup algorithms_internal
 
 class SpecularComputationTerm
@@ -51,6 +54,10 @@ private:
     std::unique_ptr<DelayedProgressCounter> mP_progress_counter;
 };
 
+//! Computes the specular scattering for a scalar sample
+//! Used by SpecularComputation.
+//! @ingroup algorithms_internal
+
 class SpecularScalarTerm : public SpecularComputationTerm
 {
 public:
@@ -62,6 +69,10 @@ private:
 protected:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
 };
+
+//! Computes the specular scattering for a magnetic sample
+//! Used by SpecularComputation.
+//! @ingroup algorithms_internal
 
 class SpecularMatrixTerm : public SpecularComputationTerm
 {

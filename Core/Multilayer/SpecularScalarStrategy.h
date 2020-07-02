@@ -23,10 +23,14 @@
 
 class Slice;
 
+//! Implements the scalar Fresnel computation
+//!
 //! Implements method 'execute' to compute refraction angles and transmission/reflection
 //! coefficients for coherent wave propagation in a multilayer.
+//!
+//! Inherited by SpecularScalarNCStrategy, SpecularScalarTanhStrategy
+//!
 //! @ingroup algorithms_internal
-
 class BA_CORE_API_ SpecularScalarStrategy : public ISpecularStrategy
 {
 public:

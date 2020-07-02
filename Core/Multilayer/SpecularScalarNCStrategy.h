@@ -19,8 +19,12 @@
 
 class Slice;
 
-//! Implements method 'execute' to compute refraction angles and transmission/reflection
-//! coefficients for coherent wave propagation in a multilayer.
+//! Implements Nevot-Croce roughness for a scaler computation.
+//!
+//! Implements the transition function that includes Nevot-Croce roughness
+//! in the computation of the coefficients for coherent wave propagation
+//! in a multilayer by applying modified Fresnel coefficients.
+//!
 //! @ingroup algorithms_internal
 
 class BA_CORE_API_ SpecularScalarNCStrategy : public SpecularScalarStrategy

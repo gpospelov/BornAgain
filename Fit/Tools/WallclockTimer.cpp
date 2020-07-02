@@ -18,7 +18,7 @@
 using clock_used = std::chrono::high_resolution_clock;
 using duration_unit = std::chrono::seconds;
 
-// Internal state of a WallclockTimer object.
+//! Internal state of a WallclockTimer object.
 
 struct WallclockTimerState
 {

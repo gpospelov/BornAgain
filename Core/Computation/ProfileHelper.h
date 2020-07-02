@@ -21,14 +21,14 @@
 #include <utility>
 #include <vector>
 
+class ProcessedSample;
+
 //! Object that can generate the material profile of a sample as a function of depth.
 //!
 //! The generated profile contains the complex SLD for SLD materials and the parameters
 //! delta and beta for refractive index materials
 //!
 //! @ingroup algorithms_internal
-
-class ProcessedSample;
 
 class BA_CORE_API_ ProfileHelper
 {

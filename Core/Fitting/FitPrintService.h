@@ -15,7 +15,7 @@
 #ifndef FITPRINTSERVICE_H
 #define FITPRINTSERVICE_H
 
-#include "TimeInterval.h"
+#include "WallclockTimer.h"
 #include "WinDllMacros.h"
 #include <string>
 
@@ -36,8 +36,8 @@ private:
     std::string parameterString(const FitObjective& objective);
     std::string fitResultString(const FitObjective& objective);
 
-    TimeInterval m_run_time;
-    TimeInterval m_last_call_time;
+    WallclockTimer m_run_time;
+    WallclockTimer m_last_call_time;
 };
 
 #endif

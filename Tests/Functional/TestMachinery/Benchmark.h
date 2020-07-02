@@ -16,7 +16,7 @@
 #define BENCHMARK_H
 
 #include "OrderedMap.h"
-#include "TimeInterval.h"
+#include "WallclockTimer.h"
 #include "WinDllMacros.h"
 #include <functional>
 #include <map>
@@ -27,16 +27,16 @@ class BA_CORE_API_ Duration
 public:
     Duration() : m_totalTime(0) {}
 
-    void start() { m_time_interval.start(); }
+    void start() { m_timer.start(); }
     void stop()
     {
-        m_time_interval.stop();
-        m_totalTime += m_time_interval.runTime();
+        m_timer.stop();
+        m_totalTime += m_timer.runTime();
     }
     double runTime() const { return m_totalTime; }
 
 private:
-    TimeInterval m_time_interval;
+    WallclockTimer m_timer;
     double m_totalTime;
 };
 

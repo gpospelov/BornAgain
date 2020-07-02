@@ -23,6 +23,8 @@
 
 class IDistribution1D;
 
+//! A parametric distribution function, for use with any model parameter.
+
 class BA_CORE_API_ ParameterDistribution : public IParameterized
 {
 public:

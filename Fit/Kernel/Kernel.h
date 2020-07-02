@@ -18,7 +18,7 @@
 #include "KernelTypes.h"
 #include "MinimizerResult.h"
 #include "Parameters.h"
-#include "TimeInterval.h"
+#include "WallclockTimer.h"
 #include "WinDllMacros.h"
 #include <functional>
 #include <memory>
@@ -51,7 +51,7 @@ private:
 
     Parameters m_parameters;
     std::unique_ptr<IMinimizer> m_minimizer;
-    TimeInterval m_time_interval;
+    WallclockTimer m_timer;
 };
 
 } // namespace Fit

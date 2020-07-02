@@ -33,7 +33,7 @@ public:
 
     void reset();
 
-    void setTimeInterval(int timerInterval);
+    void setWallclockTimer(int timerInterval);
 
 signals:
     void timeToUpdate();

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Tools/TimeInterval.h
-//! @brief     Defines TimeInterval class.
+//! @file      Fit/Tools/WallclockTimer.h
+//! @brief     Defines WallclockTimer class.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,22 +18,24 @@
 #include "WinDllMacros.h"
 #include <memory>
 
-class TimeIntervalImp;
+struct WallclockTimerState;
 
-class BA_CORE_API_ TimeInterval
+//! A timer for measuring real (wall-clock) time spent between 'start' and 'stop' commands.
+
+class BA_CORE_API_ WallclockTimer
 {
 public:
-    TimeInterval();
-    ~TimeInterval();
+    WallclockTimer();
+    ~WallclockTimer();
 
     void start();
     void stop();
 
-    //! returns run time in sec.msec
+    //! returns run time in sec.
     double runTime() const;
 
 private:
-    std::unique_ptr<TimeIntervalImp> m_imp;
+    std::unique_ptr<WallclockTimerState> m_state;
 };
 
 #endif // TIMEINTERVAL_H

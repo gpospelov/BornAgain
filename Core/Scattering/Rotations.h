@@ -46,6 +46,8 @@ BA_CORE_API_ IRotation* createProduct(const IRotation& left, const IRotation& ri
 
 bool IsZRotation(const IRotation& rot);
 
+//! The identity rotation, which leaves everything in place.
+
 class BA_CORE_API_ IdentityRotation : public IRotation
 {
 public:
@@ -60,6 +62,8 @@ public:
 
     bool isIdentity() const { return true; }
 };
+
+//! A rotation about the x axis.
 
 class BA_CORE_API_ RotationX : public IRotation
 {
@@ -79,6 +83,8 @@ protected:
     double m_angle;
 };
 
+//! A rotation about the y axis.
+
 class BA_CORE_API_ RotationY : public IRotation
 {
 public:
@@ -97,6 +103,8 @@ protected:
     double m_angle;
 };
 
+//! A rotation about the z axis.
+
 class BA_CORE_API_ RotationZ : public IRotation
 {
 public:
@@ -114,6 +122,8 @@ public:
 protected:
     double m_angle;
 };
+
+//! A sequence of rotations about the z-x'-z'' axes.
 
 class BA_CORE_API_ RotationEuler : public IRotation
 {

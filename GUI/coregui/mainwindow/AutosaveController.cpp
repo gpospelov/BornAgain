@@ -51,7 +51,7 @@ void AutosaveController::setDocument(ProjectDocument* document)
 void AutosaveController::setAutosaveTime(int timerInterval)
 {
     m_timer->reset();
-    m_timer->setTimeInterval(timerInterval);
+    m_timer->setWallclockTimer(timerInterval);
 }
 
 //! Returns the name of autosave directory.

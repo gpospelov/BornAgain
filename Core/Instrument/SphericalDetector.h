@@ -18,8 +18,26 @@
 #include "IDetector2D.h"
 #include "IPixel.h"
 
+//! A pixel in a SphericalDetector
+
+class BA_CORE_API_ SphericalPixel : public IPixel
+{
+public:
+    SphericalPixel(const Bin1D& alpha_bin, const Bin1D& phi_bin);
+
+    SphericalPixel* clone() const override;
+    SphericalPixel* createZeroSizePixel(double x, double y) const override;
+    kvector_t getK(double x, double y, double wavelength) const override;
+    double getIntegrationFactor(double x, double y) const override;
+    double getSolidAngle() const override;
+
+private:
+    double m_alpha, m_phi;
+    double m_dalpha, m_dphi;
+    double m_solid_angle;
+};
+
 //! A spherical detector with axes and resolution function.
-//! SphericalDetector
 //! @ingroup detector
 
 class BA_CORE_API_ SphericalDetector : public IDetector2D
@@ -59,23 +77,6 @@ protected:
     //! If no pixel contains this specular wavevector, the number of pixels is
     //! returned. This corresponds to an overflow index.
     size_t getIndexOfSpecular(const Beam& beam) const override;
-};
-
-class BA_CORE_API_ SphericalPixel : public IPixel
-{
-public:
-    SphericalPixel(const Bin1D& alpha_bin, const Bin1D& phi_bin);
-
-    SphericalPixel* clone() const override;
-    SphericalPixel* createZeroSizePixel(double x, double y) const override;
-    kvector_t getK(double x, double y, double wavelength) const override;
-    double getIntegrationFactor(double x, double y) const override;
-    double getSolidAngle() const override;
-
-private:
-    double m_alpha, m_phi;
-    double m_dalpha, m_dphi;
-    double m_solid_angle;
 };
 
 #endif // SPHERICALDETECTOR_H

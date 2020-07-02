@@ -18,7 +18,29 @@
 #include "IDetector2D.h"
 #include "IPixel.h"
 
-class RectangularPixel;
+//! A pixel in a RectangularDetector.
+
+class BA_CORE_API_ RectangularPixel : public IPixel
+{
+public:
+    RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height);
+
+    RectangularPixel* clone() const override;
+    RectangularPixel* createZeroSizePixel(double x, double y) const override;
+    kvector_t getK(double x, double y, double wavelength) const override;
+    kvector_t getPosition(double x, double y) const;
+    double getIntegrationFactor(double x, double y) const override;
+    double getSolidAngle() const override;
+
+private:
+    kvector_t normalizeLength(const kvector_t direction, double length) const;
+    double calculateSolidAngle() const;
+    kvector_t m_corner_pos;
+    kvector_t m_width;
+    kvector_t m_height;
+    double m_solid_angle;
+    kvector_t m_normal;
+};
 
 //! A flat rectangular detector with axes and resolution function.
 //! @ingroup detector
@@ -106,28 +128,6 @@ private:
     EDetectorArrangement m_detector_arrangement;
     kvector_t m_u_unit;
     kvector_t m_v_unit;
-};
-
-class BA_CORE_API_ RectangularPixel : public IPixel
-{
-public:
-    RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height);
-
-    RectangularPixel* clone() const override;
-    RectangularPixel* createZeroSizePixel(double x, double y) const override;
-    kvector_t getK(double x, double y, double wavelength) const override;
-    kvector_t getPosition(double x, double y) const;
-    double getIntegrationFactor(double x, double y) const override;
-    double getSolidAngle() const override;
-
-private:
-    kvector_t normalizeLength(const kvector_t direction, double length) const;
-    double calculateSolidAngle() const;
-    kvector_t m_corner_pos;
-    kvector_t m_width;
-    kvector_t m_height;
-    double m_solid_angle;
-    kvector_t m_normal;
 };
 
 #endif // RECTANGULARDETECTOR_H

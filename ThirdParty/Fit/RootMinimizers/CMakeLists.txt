@@ -19,16 +19,6 @@ file(GLOB source_files
     "base/*.cxx"
 )
 
-file(GLOB include_files
-    "base/*.h"
-    "Minuit2/*.h"
-    "Math/*.h"
-    "mathcore/Math/*.h"
-    "Fit/*.h"
-    "TMVA/*.h"
-    "base/*.h"
-)
-
 # --- definitions ---------
 add_definitions(-DWARNINGMSG)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DMATH_NO_PLUGIN_MANAGER -DHAS_MINUIT2 -DR__HAS_MATHMORE")
@@ -39,7 +29,7 @@ else()
 endif()
 
 # --- making library ------------
-add_library(${library_name} STATIC ${source_files} ${include_files})
+add_library(${library_name} STATIC ${source_files})
 set(${library_name}_INCLUDE_DIRS ${include_dirs} CACHE INTERNAL "")
 set(${library_name}_LIBRARY ${library_name} CACHE INTERNAL "")
 

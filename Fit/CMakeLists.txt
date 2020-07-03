@@ -88,7 +88,6 @@ if(BORNAGAIN_PYTHON)
     endif()
 
     list(APPEND source_files "${AUTO_DIR}/libBornAgainFit_wrap.cpp")
-    #list(APPEND include_files "${AUTO_DIR}/libBornAgainFit_wrap.h")
 
 endif()
 
@@ -98,7 +97,7 @@ if(WIN32)
 endif()
 
 # --- making library ---------
-add_library(${library_name} SHARED ${include_files} ${source_files})
+add_library(${library_name} SHARED ${source_files})
 set_target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 

@@ -9,9 +9,8 @@ set(resource_files
     )
 qt5_add_resources(RC_SHADERS ${resource_files})
 
-add_library (${lib} STATIC ${source_files} ${include_files} ${RC_SHADERS})
+add_library (${lib} STATIC ${source_files} ${RC_SHADERS})
 
 target_link_libraries (${lib}
   Qt5::Core Qt5::Widgets Qt5::OpenGL
 )
-

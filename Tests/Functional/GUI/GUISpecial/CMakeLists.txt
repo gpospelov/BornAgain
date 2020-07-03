@@ -25,11 +25,10 @@ set(test_cases
 )
 
 file(GLOB source_files "*.cpp")
-file(GLOB include_files "*.h")
 
 find_package(Qt5Core REQUIRED)
 
-add_executable(${test} ${include_files} ${source_files})
+add_executable(${test} ${source_files})
 target_link_libraries(${test} BornAgainCore BornAgainGUI BornAgainTestMachinery)
 target_link_libraries(${test} Qt5::Core)
 

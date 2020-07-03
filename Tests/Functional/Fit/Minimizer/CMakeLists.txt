@@ -25,9 +25,8 @@ set(test_cases
 include_directories(${RootMinimizers_INCLUDE_DIRS})
 
 file(GLOB source_files "*.cpp")
-file(GLOB include_files "*.h")
 
-add_executable(${test} ${include_files} ${source_files})
+add_executable(${test} ${source_files})
 target_link_libraries(${test} BornAgainCore BornAgainTestMachinery)
 
 foreach(test_case ${test_cases})

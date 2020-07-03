@@ -12,8 +12,8 @@ set(test_cases
 
 # build executables for each test case
 file(GLOB source_files "*.cpp")
-file(GLOB include_files "*.h")
-add_executable(${test} ${include_files} ${source_files})
+
+add_executable(${test} ${source_files})
 target_link_libraries(${test} BornAgainCore BornAgainTestMachinery)
 
 # create test cases

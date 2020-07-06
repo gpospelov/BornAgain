@@ -1,16 +1,10 @@
-get_filename_component (lib ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+set(lib ba3d)
 
-# --- source, include and resource files ---
 file (GLOB_RECURSE source_files *.cpp)
-file (GLOB_RECURSE include_files *.h)
 
-set(resource_files
-    "shaders.qrc"
-    )
-qt5_add_resources(RC_SHADERS ${resource_files})
+set(CMAKE_AUTORCC ON)
+qt5_add_resources(RC_SHADERS "shaders.qrc")
 
 add_library (${lib} STATIC ${source_files} ${RC_SHADERS})
 
-target_link_libraries (${lib}
-  Qt5::Core Qt5::Widgets Qt5::OpenGL
-)
+target_link_libraries (${lib} Qt5::Core Qt5::Widgets Qt5::OpenGL)

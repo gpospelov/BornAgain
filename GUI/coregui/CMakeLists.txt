@@ -71,7 +71,6 @@ set(resource_files
 
 # --- Qt configuration ---------
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOMOC ON)
 qt5_add_resources(RC_SRCS ${resource_files})
 
 # --- definitions ------

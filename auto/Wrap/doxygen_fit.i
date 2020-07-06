@@ -1256,31 +1256,36 @@ run minimization
 ";
 
 
-// File: classTimeInterval.xml
-%feature("docstring") TimeInterval "";
+// File: classWallclockTimer.xml
+%feature("docstring") WallclockTimer "
 
-%feature("docstring")  TimeInterval::TimeInterval "TimeInterval::TimeInterval()
+A timer for measuring real (wall-clock) time spent between 'start' and 'stop' commands.
+
+C++ includes: WallclockTimer.h
 ";
 
-%feature("docstring")  TimeInterval::~TimeInterval "TimeInterval::~TimeInterval()
+%feature("docstring")  WallclockTimer::WallclockTimer "WallclockTimer::WallclockTimer()
 ";
 
-%feature("docstring")  TimeInterval::start "void TimeInterval::start()
+%feature("docstring")  WallclockTimer::~WallclockTimer "WallclockTimer::~WallclockTimer()
 ";
 
-%feature("docstring")  TimeInterval::stop "void TimeInterval::stop()
+%feature("docstring")  WallclockTimer::start "void WallclockTimer::start()
 ";
 
-%feature("docstring")  TimeInterval::runTime "double TimeInterval::runTime() const
+%feature("docstring")  WallclockTimer::stop "void WallclockTimer::stop()
+";
 
-returns run time in sec.msec 
+%feature("docstring")  WallclockTimer::runTime "double WallclockTimer::runTime() const
+
+returns run time in sec. 
 ";
 
 
-// File: classTimeIntervalImp.xml
-%feature("docstring") TimeIntervalImp "";
+// File: structWallclockTimerState.xml
+%feature("docstring") WallclockTimerState "
 
-%feature("docstring")  TimeIntervalImp::TimeIntervalImp "TimeIntervalImp::TimeIntervalImp()
+Internal state of a  WallclockTimer object. 
 ";
 
 
@@ -1607,10 +1612,10 @@ Returns new string which is lower case of text.
 // File: StringUtils_8h.xml
 
 
-// File: TimeInterval_8cpp.xml
+// File: WallclockTimer_8cpp.xml
 
 
-// File: TimeInterval_8h.xml
+// File: WallclockTimer_8h.xml
 
 
 // File: dir_892d84e8d1420bf45a9053cf0eede900.xml

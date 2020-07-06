@@ -2938,10 +2938,12 @@ Calls the  INodeVisitor's visit method.
 %feature("docstring")  FormFactorBox::getLength "double FormFactorBox::getLength() const
 ";
 
-%feature("docstring")  FormFactorBox::getHeight "double FormFactorBox::getHeight() const
+%feature("docstring")  FormFactorBox::getWidth "double FormFactorBox::getWidth() const
 ";
 
-%feature("docstring")  FormFactorBox::getWidth "double FormFactorBox::getWidth() const
+%feature("docstring")  FormFactorBox::volume "double FormFactorBox::volume() const override final
+
+Returns the volume of this prism. 
 ";
 
 %feature("docstring")  FormFactorBox::radialExtension "double FormFactorBox::radialExtension() const override final
@@ -2951,7 +2953,7 @@ Returns the (approximate in some cases) radial size of the particle of this form
 
 %feature("docstring")  FormFactorBox::evaluate_for_q "complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
 
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 ";
 
 
@@ -4261,12 +4263,12 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const override final
+%feature("docstring")  FormFactorPolygonalPrism::evaluate_for_q "complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const override
 
 Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::volume "double FormFactorPolygonalPrism::volume() const override final
+%feature("docstring")  FormFactorPolygonalPrism::volume "double FormFactorPolygonalPrism::volume() const override
 
 Returns the volume of this prism. 
 ";
@@ -4274,7 +4276,7 @@ Returns the volume of this prism.
 %feature("docstring")  FormFactorPolygonalPrism::getHeight "double FormFactorPolygonalPrism::getHeight() const
 ";
 
-%feature("docstring")  FormFactorPolygonalPrism::radialExtension "double FormFactorPolygonalPrism::radialExtension() const override final
+%feature("docstring")  FormFactorPolygonalPrism::radialExtension "virtual double FormFactorPolygonalPrism::radialExtension() const override
 
 Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 ";
@@ -6353,7 +6355,12 @@ C++ includes: IComputation.h
 
 
 // File: classIdentityRotation.xml
-%feature("docstring") IdentityRotation "";
+%feature("docstring") IdentityRotation "
+
+The identity rotation, which leaves everything in place.
+
+C++ includes: Rotations.h
+";
 
 %feature("docstring")  IdentityRotation::IdentityRotation "IdentityRotation::IdentityRotation()=default
 ";
@@ -9877,7 +9884,14 @@ Print scan definition in python format.
 
 
 // File: classISpecularStrategy.xml
-%feature("docstring") ISpecularStrategy "";
+%feature("docstring") ISpecularStrategy "
+
+Interface for the Fresnel computations, both in the scalar and magnetic case
+
+Inherited by  SpecularScalarStrategy,  SpecularMagneticOldStrategy,  SpecularMagneticStrategy, SpecularMagneticNewStrategy
+
+C++ includes: ISpecularStrategy.h
+";
 
 %feature("docstring")  ISpecularStrategy::~ISpecularStrategy "virtual ISpecularStrategy::~ISpecularStrategy()=default
 ";
@@ -12122,7 +12136,12 @@ Sets concrete writing strategy.
 
 
 // File: classParameterDistribution.xml
-%feature("docstring") ParameterDistribution "";
+%feature("docstring") ParameterDistribution "
+
+A parametric distribution function, for use with any model parameter.
+
+C++ includes: ParameterDistribution.h
+";
 
 %feature("docstring")  ParameterDistribution::ParameterDistribution "ParameterDistribution::ParameterDistribution(const std::string &par_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
 ";
@@ -13253,7 +13272,14 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 
 
 // File: classProfileHelper.xml
-%feature("docstring") ProfileHelper "";
+%feature("docstring") ProfileHelper "
+
+Object that can generate the material profile of a sample as a function of depth.
+
+The generated profile contains the complex SLD for SLD materials and the parameters delta and beta for refractive index materials
+
+C++ includes: ProfileHelper.h
+";
 
 %feature("docstring")  ProfileHelper::ProfileHelper "ProfileHelper::ProfileHelper(const ProcessedSample &sample)
 ";
@@ -13986,7 +14012,12 @@ return default axes units
 
 
 // File: classRectangularPixel.xml
-%feature("docstring") RectangularPixel "";
+%feature("docstring") RectangularPixel "
+
+A pixel in a  RectangularDetector.
+
+C++ includes: RectangularDetector.h
+";
 
 %feature("docstring")  RectangularPixel::RectangularPixel "RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
 ";
@@ -14325,7 +14356,12 @@ C++ includes: TwoDimLatticeBuilder.h
 
 
 // File: classRotationEuler.xml
-%feature("docstring") RotationEuler "";
+%feature("docstring") RotationEuler "
+
+A sequence of rotations about the z-x'-z'' axes.
+
+C++ includes: Rotations.h
+";
 
 %feature("docstring")  RotationEuler::RotationEuler "RotationEuler::RotationEuler(double alpha, double beta, double gamma)
 
@@ -14375,7 +14411,12 @@ Returns transformation.
 
 
 // File: classRotationX.xml
-%feature("docstring") RotationX "";
+%feature("docstring") RotationX "
+
+A rotation about the x axis.
+
+C++ includes: Rotations.h
+";
 
 %feature("docstring")  RotationX::RotationX "RotationX::RotationX(double angle)
 
@@ -14413,7 +14454,12 @@ Returns transformation.
 
 
 // File: classRotationY.xml
-%feature("docstring") RotationY "";
+%feature("docstring") RotationY "
+
+A rotation about the y axis.
+
+C++ includes: Rotations.h
+";
 
 %feature("docstring")  RotationY::RotationY "RotationY::RotationY(double angle)
 
@@ -14451,7 +14497,12 @@ Returns transformation.
 
 
 // File: classRotationZ.xml
-%feature("docstring") RotationZ "";
+%feature("docstring") RotationZ "
+
+A rotation about the z axis.
+
+C++ includes: Rotations.h
+";
 
 %feature("docstring")  RotationZ::RotationZ "RotationZ::RotationZ(double angle=0.0)
 
@@ -15897,6 +15948,8 @@ C++ includes: SpecularComputation.h
 
 Computes the specular scattering. Used by  SpecularComputation.
 
+Inherited by  SpecularScalarTerm,  SpecularMatrixTerm
+
 C++ includes: SpecularComputationTerm.h
 ";
 
@@ -15979,7 +16032,9 @@ Computes refraction angle reflection/transmission coefficients for given sliced 
 // File: classSpecularMagneticStrategy.xml
 %feature("docstring") SpecularMagneticStrategy "
 
-Implements the matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization.
+Implements the magnetic Fresnel computation without roughness
+
+Implements the matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a detailed description see internal document \"Polarized Specular Reflectometry\"
 
 C++ includes: SpecularMagneticStrategy.h
 ";
@@ -15996,7 +16051,12 @@ Computes refraction angle reflection/transmission coefficients for given sliced 
 
 
 // File: classSpecularMatrixTerm.xml
-%feature("docstring") SpecularMatrixTerm "";
+%feature("docstring") SpecularMatrixTerm "
+
+Computes the specular scattering for a magnetic sample Used by  SpecularComputation.
+
+C++ includes: SpecularComputationTerm.h
+";
 
 %feature("docstring")  SpecularMatrixTerm::SpecularMatrixTerm "SpecularMatrixTerm::SpecularMatrixTerm(std::unique_ptr< ISpecularStrategy > strategy)
 ";
@@ -16005,7 +16065,9 @@ Computes refraction angle reflection/transmission coefficients for given sliced 
 // File: classSpecularScalarNCStrategy.xml
 %feature("docstring") SpecularScalarNCStrategy "
 
-Implements method 'execute' to compute refraction angles and transmission/reflection coefficients for coherent wave propagation in a multilayer.
+Implements Nevot-Croce roughness for a scaler computation.
+
+Implements the transition function that includes Nevot-Croce roughness in the computation of the coefficients for coherent wave propagation in a multilayer by applying modified Fresnel coefficients.
 
 C++ includes: SpecularScalarNCStrategy.h
 ";
@@ -16014,7 +16076,11 @@ C++ includes: SpecularScalarNCStrategy.h
 // File: classSpecularScalarStrategy.xml
 %feature("docstring") SpecularScalarStrategy "
 
+Implements the scalar Fresnel computation
+
 Implements method 'execute' to compute refraction angles and transmission/reflection coefficients for coherent wave propagation in a multilayer.
+
+Inherited by  SpecularScalarNCStrategy,  SpecularScalarTanhStrategy
 
 C++ includes: SpecularScalarStrategy.h
 ";
@@ -16031,14 +16097,21 @@ Computes refraction angles and transmission/reflection coefficients for given co
 // File: classSpecularScalarTanhStrategy.xml
 %feature("docstring") SpecularScalarTanhStrategy "
 
-Implements method 'execute' to compute refraction angles and transmission/reflection coefficients for coherent wave propagation in a multilayer.
+Implements an tanh transition function to model roughness in a scaler computation.
+
+Implements the transition function that includes the analytical roughness model of an tanh interface transition in the computation of the coefficients for coherent wave propagation in a multilayer by applying modified Fresnel coefficients.
 
 C++ includes: SpecularScalarTanhStrategy.h
 ";
 
 
 // File: classSpecularScalarTerm.xml
-%feature("docstring") SpecularScalarTerm "";
+%feature("docstring") SpecularScalarTerm "
+
+Computes the specular scattering for a scalar sample Used by  SpecularComputation.
+
+C++ includes: SpecularComputationTerm.h
+";
 
 %feature("docstring")  SpecularScalarTerm::SpecularScalarTerm "SpecularScalarTerm::SpecularScalarTerm(std::unique_ptr< ISpecularStrategy > strategy)
 ";
@@ -16209,7 +16282,7 @@ Returns the list of all available units.
 // File: classSphericalDetector.xml
 %feature("docstring") SphericalDetector "
 
-A spherical detector with axes and resolution function.  SphericalDetector
+A spherical detector with axes and resolution function.
 
 C++ includes: SphericalDetector.h
 ";
@@ -16264,7 +16337,12 @@ return default axes units
 
 
 // File: classSphericalPixel.xml
-%feature("docstring") SphericalPixel "";
+%feature("docstring") SphericalPixel "
+
+A pixel in a  SphericalDetector.
+
+C++ includes: SphericalDetector.h
+";
 
 %feature("docstring")  SphericalPixel::SphericalPixel "SphericalPixel::SphericalPixel(const Bin1D &alpha_bin, const Bin1D &phi_bin)
 ";
@@ -17108,49 +17186,49 @@ C++ includes: ZLimits.h
 // File: namespace_0d312.xml
 
 
-// File: namespace_0d316.xml
-
-
-// File: namespace_0d318.xml
+// File: namespace_0d314.xml
 
 
 // File: namespace_0d32.xml
 
 
-// File: namespace_0d330.xml
+// File: namespace_0d326.xml
 
 
-// File: namespace_0d336.xml
+// File: namespace_0d332.xml
+
+
+// File: namespace_0d353.xml
 
 
 // File: namespace_0d357.xml
 
 
+// File: namespace_0d359.xml
+
+
 // File: namespace_0d361.xml
 
 
-// File: namespace_0d363.xml
+// File: namespace_0d371.xml
 
 
-// File: namespace_0d365.xml
-
-
-// File: namespace_0d375.xml
+// File: namespace_0d383.xml
 
 
 // File: namespace_0d387.xml
 
 
-// File: namespace_0d391.xml
+// File: namespace_0d399.xml
 
 
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d403.xml
+// File: namespace_0d405.xml
 
 
-// File: namespace_0d409.xml
+// File: namespace_0d407.xml
 
 
 // File: namespace_0d414.xml
@@ -19258,18 +19336,6 @@ make Swappable
 // File: ResolutionFunction2DGaussian_8h.xml
 
 
-// File: SampleBuilderNode_8cpp.xml
-
-
-// File: SampleBuilderNode_8h.xml
-
-
-// File: SampleProvider_8cpp.xml
-
-
-// File: SampleProvider_8h.xml
-
-
 // File: ScanResolution_8cpp.xml
 
 
@@ -19659,6 +19725,18 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: RoughnessModels_8h.xml
+
+
+// File: SampleBuilderNode_8cpp.xml
+
+
+// File: SampleBuilderNode_8h.xml
+
+
+// File: SampleProvider_8cpp.xml
+
+
+// File: SampleProvider_8h.xml
 
 
 // File: ScalarFresnelMap_8cpp.xml

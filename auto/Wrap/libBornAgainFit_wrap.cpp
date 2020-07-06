@@ -5958,17 +5958,17 @@ SWIGINTERN void std_vector_Sl_std_string_Sg__insert__SWIG_1(std::vector< std::st
 #include <numpy/arrayobject.h>
 
 
-#include "RealLimits.h"
-#include "AttLimits.h"
-#include "Parameter.h"
-#include "Parameters.h"
-#include "IMinimizer.h"
-#include "MinimizerCatalogue.h"
-#include "MinimizerFactory.h"
+#include "Fit/Tools/RealLimits.h"
+#include "Fit/Tools/AttLimits.h"
+#include "Fit/Kernel/Parameter.h"
+#include "Fit/Kernel/Parameters.h"
+#include "Fit/Minimizer/IMinimizer.h"
+#include "Fit/Minimizer/MinimizerCatalogue.h"
+#include "Fit/Minimizer/MinimizerFactory.h"
 
-#include "PyCallback.h"
-#include "MinimizerResult.h"
-#include "Minimizer.h"
+#include "Fit/Kernel/PyCallback.h"
+#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Kernel/Minimizer.h"
 
 
 SWIGINTERN int

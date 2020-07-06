@@ -9481,7 +9481,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorPolygonalPrism self, cvector_t q) -> complex_t
-        complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorPolygonalPrism::evaluate_for_q(cvector_t q) const override
 
         Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 
@@ -9491,7 +9491,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     def volume(self):
         r"""
         volume(FormFactorPolygonalPrism self) -> double
-        double FormFactorPolygonalPrism::volume() const override final
+        double FormFactorPolygonalPrism::volume() const override
 
         Returns the volume of this prism. 
 
@@ -9509,7 +9509,7 @@ class FormFactorPolygonalPrism(IFormFactorBorn):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorPolygonalPrism self) -> double
-        double FormFactorPolygonalPrism::radialExtension() const override final
+        virtual double FormFactorPolygonalPrism::radialExtension() const override
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9888,7 +9888,7 @@ class FormFactorAnisoPyramid(FormFactorPolyhedron):
 # Register FormFactorAnisoPyramid in _libBornAgainCore:
 _libBornAgainCore.FormFactorAnisoPyramid_swigregister(FormFactorAnisoPyramid)
 
-class FormFactorBox(IFormFactorBorn):
+class FormFactorBox(FormFactorPolygonalPrism):
     r"""
 
 
@@ -9951,14 +9951,6 @@ class FormFactorBox(IFormFactorBorn):
         """
         return _libBornAgainCore.FormFactorBox_getLength(self)
 
-    def getHeight(self):
-        r"""
-        getHeight(FormFactorBox self) -> double
-        double FormFactorBox::getHeight() const
-
-        """
-        return _libBornAgainCore.FormFactorBox_getHeight(self)
-
     def getWidth(self):
         r"""
         getWidth(FormFactorBox self) -> double
@@ -9966,6 +9958,16 @@ class FormFactorBox(IFormFactorBorn):
 
         """
         return _libBornAgainCore.FormFactorBox_getWidth(self)
+
+    def volume(self):
+        r"""
+        volume(FormFactorBox self) -> double
+        double FormFactorBox::volume() const override final
+
+        Returns the volume of this prism. 
+
+        """
+        return _libBornAgainCore.FormFactorBox_volume(self)
 
     def radialExtension(self):
         r"""
@@ -9982,7 +9984,7 @@ class FormFactorBox(IFormFactorBorn):
         evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t
         complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
 
-        Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+        Returns the form factor F(q) of this polyhedron, respecting the offset height/2. 
 
         """
         return _libBornAgainCore.FormFactorBox_evaluate_for_q(self, q)
@@ -16207,7 +16209,14 @@ def IsZRotation(rot):
     """
     return _libBornAgainCore.IsZRotation(rot)
 class IdentityRotation(IRotation):
-    r"""Proxy of C++ IdentityRotation class."""
+    r"""
+
+
+    The identity rotation, which leaves everything in place.
+
+    C++ includes: Rotations.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -16275,7 +16284,14 @@ class IdentityRotation(IRotation):
 _libBornAgainCore.IdentityRotation_swigregister(IdentityRotation)
 
 class RotationX(IRotation):
-    r"""Proxy of C++ RotationX class."""
+    r"""
+
+
+    A rotation about the x axis.
+
+    C++ includes: Rotations.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -16349,7 +16365,14 @@ class RotationX(IRotation):
 _libBornAgainCore.RotationX_swigregister(RotationX)
 
 class RotationY(IRotation):
-    r"""Proxy of C++ RotationY class."""
+    r"""
+
+
+    A rotation about the y axis.
+
+    C++ includes: Rotations.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -16423,7 +16446,14 @@ class RotationY(IRotation):
 _libBornAgainCore.RotationY_swigregister(RotationY)
 
 class RotationZ(IRotation):
-    r"""Proxy of C++ RotationZ class."""
+    r"""
+
+
+    A rotation about the z axis.
+
+    C++ includes: Rotations.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -16497,7 +16527,14 @@ class RotationZ(IRotation):
 _libBornAgainCore.RotationZ_swigregister(RotationZ)
 
 class RotationEuler(IRotation):
-    r"""Proxy of C++ RotationEuler class."""
+    r"""
+
+
+    A sequence of rotations about the z-x'-z'' axes.
+
+    C++ includes: Rotations.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -18416,63 +18453,15 @@ class IPixel(object):
 # Register IPixel in _libBornAgainCore:
 _libBornAgainCore.IPixel_swigregister(IPixel)
 
-class SphericalDetector(IDetector2D):
+class SphericalPixel(IPixel):
     r"""
 
 
-    A spherical detector with axes and resolution function.  SphericalDetector
+    A pixel in a  SphericalDetector.
 
     C++ includes: SphericalDetector.h
 
     """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(SphericalDetector self) -> SphericalDetector
-        __init__(SphericalDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> SphericalDetector
-        __init__(SphericalDetector self, SphericalDetector other) -> SphericalDetector
-        SphericalDetector::SphericalDetector(const SphericalDetector &other)
-
-        """
-        _libBornAgainCore.SphericalDetector_swiginit(self, _libBornAgainCore.new_SphericalDetector(*args))
-
-    def clone(self):
-        r"""
-        clone(SphericalDetector self) -> SphericalDetector
-        SphericalDetector * SphericalDetector::clone() const override
-
-        """
-        return _libBornAgainCore.SphericalDetector_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(SphericalDetector self, INodeVisitor visitor)
-        void SphericalDetector::accept(INodeVisitor *visitor) const override
-
-        Calls the  INodeVisitor's visit method. 
-
-        """
-        return _libBornAgainCore.SphericalDetector_accept(self, visitor)
-    __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
-
-    def defaultAxesUnits(self):
-        r"""
-        defaultAxesUnits(SphericalDetector self) -> AxesUnits
-        AxesUnits SphericalDetector::defaultAxesUnits() const override
-
-        return default axes units 
-
-        """
-        return _libBornAgainCore.SphericalDetector_defaultAxesUnits(self)
-
-# Register SphericalDetector in _libBornAgainCore:
-_libBornAgainCore.SphericalDetector_swigregister(SphericalDetector)
-
-class SphericalPixel(IPixel):
-    r"""Proxy of C++ SphericalPixel class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -18528,6 +18517,61 @@ class SphericalPixel(IPixel):
 
 # Register SphericalPixel in _libBornAgainCore:
 _libBornAgainCore.SphericalPixel_swigregister(SphericalPixel)
+
+class SphericalDetector(IDetector2D):
+    r"""
+
+
+    A spherical detector with axes and resolution function.
+
+    C++ includes: SphericalDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(SphericalDetector self) -> SphericalDetector
+        __init__(SphericalDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> SphericalDetector
+        __init__(SphericalDetector self, SphericalDetector other) -> SphericalDetector
+        SphericalDetector::SphericalDetector(const SphericalDetector &other)
+
+        """
+        _libBornAgainCore.SphericalDetector_swiginit(self, _libBornAgainCore.new_SphericalDetector(*args))
+
+    def clone(self):
+        r"""
+        clone(SphericalDetector self) -> SphericalDetector
+        SphericalDetector * SphericalDetector::clone() const override
+
+        """
+        return _libBornAgainCore.SphericalDetector_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(SphericalDetector self, INodeVisitor visitor)
+        void SphericalDetector::accept(INodeVisitor *visitor) const override
+
+        Calls the  INodeVisitor's visit method. 
+
+        """
+        return _libBornAgainCore.SphericalDetector_accept(self, visitor)
+    __swig_destroy__ = _libBornAgainCore.delete_SphericalDetector
+
+    def defaultAxesUnits(self):
+        r"""
+        defaultAxesUnits(SphericalDetector self) -> AxesUnits
+        AxesUnits SphericalDetector::defaultAxesUnits() const override
+
+        return default axes units 
+
+        """
+        return _libBornAgainCore.SphericalDetector_defaultAxesUnits(self)
+
+# Register SphericalDetector in _libBornAgainCore:
+_libBornAgainCore.SphericalDetector_swigregister(SphericalDetector)
 
 class IsGISAXSDetector(SphericalDetector):
     r"""
@@ -20666,7 +20710,14 @@ class IntensityData(object):
 _libBornAgainCore.IntensityData_swigregister(IntensityData)
 
 class ParameterDistribution(IParameterized):
-    r"""Proxy of C++ ParameterDistribution class."""
+    r"""
+
+
+    A parametric distribution function, for use with any model parameter.
+
+    C++ includes: ParameterDistribution.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -22211,6 +22262,79 @@ class Rectangle(IShape2D):
 # Register Rectangle in _libBornAgainCore:
 _libBornAgainCore.Rectangle_swigregister(Rectangle)
 
+class RectangularPixel(IPixel):
+    r"""
+
+
+    A pixel in a  RectangularDetector.
+
+    C++ includes: RectangularDetector.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, corner_pos, width, height):
+        r"""
+        __init__(RectangularPixel self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectangularPixel
+        RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
+
+        """
+        _libBornAgainCore.RectangularPixel_swiginit(self, _libBornAgainCore.new_RectangularPixel(corner_pos, width, height))
+
+    def clone(self):
+        r"""
+        clone(RectangularPixel self) -> RectangularPixel
+        RectangularPixel * RectangularPixel::clone() const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_clone(self)
+
+    def createZeroSizePixel(self, x, y):
+        r"""
+        createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
+        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
+
+    def getK(self, x, y, wavelength):
+        r"""
+        getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
+        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
+
+    def getPosition(self, x, y):
+        r"""
+        getPosition(RectangularPixel self, double x, double y) -> kvector_t
+        kvector_t RectangularPixel::getPosition(double x, double y) const
+
+        """
+        return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
+
+    def getIntegrationFactor(self, x, y):
+        r"""
+        getIntegrationFactor(RectangularPixel self, double x, double y) -> double
+        double RectangularPixel::getIntegrationFactor(double x, double y) const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
+
+    def getSolidAngle(self):
+        r"""
+        getSolidAngle(RectangularPixel self) -> double
+        double RectangularPixel::getSolidAngle() const override
+
+        """
+        return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
+    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
+
+# Register RectangularPixel in _libBornAgainCore:
+_libBornAgainCore.RectangularPixel_swigregister(RectangularPixel)
+
 class RectangularDetector(IDetector2D):
     r"""
 
@@ -22428,72 +22552,6 @@ class RectangularDetector(IDetector2D):
 
 # Register RectangularDetector in _libBornAgainCore:
 _libBornAgainCore.RectangularDetector_swigregister(RectangularDetector)
-
-class RectangularPixel(IPixel):
-    r"""Proxy of C++ RectangularPixel class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, corner_pos, width, height):
-        r"""
-        __init__(RectangularPixel self, kvector_t corner_pos, kvector_t width, kvector_t height) -> RectangularPixel
-        RectangularPixel::RectangularPixel(kvector_t corner_pos, kvector_t width, kvector_t height)
-
-        """
-        _libBornAgainCore.RectangularPixel_swiginit(self, _libBornAgainCore.new_RectangularPixel(corner_pos, width, height))
-
-    def clone(self):
-        r"""
-        clone(RectangularPixel self) -> RectangularPixel
-        RectangularPixel * RectangularPixel::clone() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_clone(self)
-
-    def createZeroSizePixel(self, x, y):
-        r"""
-        createZeroSizePixel(RectangularPixel self, double x, double y) -> RectangularPixel
-        RectangularPixel * RectangularPixel::createZeroSizePixel(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_createZeroSizePixel(self, x, y)
-
-    def getK(self, x, y, wavelength):
-        r"""
-        getK(RectangularPixel self, double x, double y, double wavelength) -> kvector_t
-        kvector_t RectangularPixel::getK(double x, double y, double wavelength) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getK(self, x, y, wavelength)
-
-    def getPosition(self, x, y):
-        r"""
-        getPosition(RectangularPixel self, double x, double y) -> kvector_t
-        kvector_t RectangularPixel::getPosition(double x, double y) const
-
-        """
-        return _libBornAgainCore.RectangularPixel_getPosition(self, x, y)
-
-    def getIntegrationFactor(self, x, y):
-        r"""
-        getIntegrationFactor(RectangularPixel self, double x, double y) -> double
-        double RectangularPixel::getIntegrationFactor(double x, double y) const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getIntegrationFactor(self, x, y)
-
-    def getSolidAngle(self):
-        r"""
-        getSolidAngle(RectangularPixel self) -> double
-        double RectangularPixel::getSolidAngle() const override
-
-        """
-        return _libBornAgainCore.RectangularPixel_getSolidAngle(self)
-    __swig_destroy__ = _libBornAgainCore.delete_RectangularPixel
-
-# Register RectangularPixel in _libBornAgainCore:
-_libBornAgainCore.RectangularPixel_swigregister(RectangularPixel)
 
 class ResolutionFunction2DGaussian(IResolutionFunction2D):
     r"""

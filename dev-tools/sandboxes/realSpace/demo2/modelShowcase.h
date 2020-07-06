@@ -15,8 +15,8 @@
 #ifndef BA3D_MODEL_SHOWCASE_H
 #define BA3D_MODEL_SHOWCASE_H
 
-#include <ba3d/model/model.h>
-#include <ba3d/model/particles.h>
+#include "GUI/ba3d/model/model.h"
+#include "GUI/ba3d/model/particles.h"
 
 //------------------------------------------------------------------------------
 

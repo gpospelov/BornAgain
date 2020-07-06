@@ -14,7 +14,7 @@
 
 #include "modelLayers.h"
 #include "modelShowcase.h"
-#include <ba3d/model/layer.h>
+#include "GUI/ba3d/model/layer.h"
 
 //------------------------------------------------------------------------------
 

@@ -17,8 +17,8 @@
 
 #include "lattice.h"
 #include <QAtomicInteger>
-#include <ba3d/model/model.h>
-#include <ba3d/model/particles.h>
+#include "GUI/ba3d/model/model.h"
+#include "GUI/ba3d/model/particles.h"
 
 class DemoModel : public RealSpace::Model
 {

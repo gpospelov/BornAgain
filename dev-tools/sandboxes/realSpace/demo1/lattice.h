@@ -16,7 +16,7 @@
 #define BA3D_LATTICE_H
 
 #include <QVector>
-#include <ba3d/def.h>
+#include "GUI/ba3d/def.h"
 
 class Lattice : public QVector<RealSpace::Vector3D>
 {

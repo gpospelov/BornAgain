@@ -17,8 +17,8 @@
 
 #include "WinDllMacros.h"
 #include <Vectors3D.h>
-#include <ba3d/model/layer.h>
-#include <ba3d/model/particles.h>
+#include "GUI/ba3d/model/layer.h"
+#include "GUI/ba3d/model/particles.h"
 #include <memory>
 
 class SessionItem;

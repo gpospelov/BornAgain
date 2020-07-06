@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include <ba3d/def.h>
-#include <ba3d/view/camera.h>
+#include "GUI/ba3d/def.h"
+#include "GUI/ba3d/view/camera.h"
 
 #include "demo_model.h"
 #include "mainwindow.h"

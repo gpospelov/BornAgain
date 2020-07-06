@@ -37,7 +37,7 @@
 #include "Units.h"
 #include "VectorItem.h"
 #include <QDebug>
-#include <ba3d/model/layer.h>
+#include "GUI/ba3d/model/layer.h"
 
 namespace
 {

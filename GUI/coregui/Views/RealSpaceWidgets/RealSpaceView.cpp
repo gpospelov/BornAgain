@@ -15,7 +15,7 @@
 #include "RealSpaceView.h"
 #include "RealSpaceModel.h"
 #include <QVBoxLayout>
-#include <ba3d/widget.h>
+#include "GUI/ba3d/widget.h"
 
 RealSpaceView::RealSpaceView(QWidget* parent) : QWidget(parent), m_3dview(new RealSpace::Widget3D)
 {

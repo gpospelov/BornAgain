@@ -14,7 +14,7 @@
 
 #include "demo_model.h"
 #include <QApplication>
-#include <ba3d/model/layer.h>
+#include "GUI/ba3d/model/layer.h"
 #include <qmath.h>
 #include <thread>
 

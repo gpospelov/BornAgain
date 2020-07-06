@@ -16,8 +16,8 @@
 #define BA3D_MAINWINDOW_H
 
 #include <QMainWindow>
-#include <ba3d/model/particles.h>
-#include <ba3d/widget.h>
+#include "GUI/ba3d/model/particles.h"
+#include "GUI/ba3d/widget.h"
 
 //------------------------------------------------------------------------------
 

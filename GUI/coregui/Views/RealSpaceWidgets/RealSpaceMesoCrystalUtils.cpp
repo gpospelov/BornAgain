@@ -30,7 +30,7 @@
 #include "RealSpaceBuilderUtils.h"
 #include "TransformTo3D.h"
 #include "Units.h"
-#include <ba3d/model/particles.h>
+#include "GUI/ba3d/model/particles.h"
 
 namespace
 {

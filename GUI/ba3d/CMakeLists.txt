@@ -9,12 +9,6 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets OpenGL)
-
-if(${Qt5Core_VERSION} VERSION_LESS "5.5.1")
-    message (FATAL_ERROR "Qt 5.5.1+ is required, have ${Qt5Core_VERSION_STRING}")
-endif()
-
 set(include_dirs ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${include_dirs})
 

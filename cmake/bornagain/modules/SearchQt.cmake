@@ -9,16 +9,9 @@ find_package(Qt5Svg REQUIRED)
 
 message(STATUS "Found Qt5 version ${Qt5Widgets_VERSION}")
 
-if(${Qt5Widgets_VERSION_MINOR} LESS 4)
-    message(FATAL_ERROR "Qt5 version 5.4 required")
-endif()
-
-# checking 3D
-if(BORNAGAIN_OPENGL)
-    if(${Qt5Widgets_VERSION_MINOR} LESS 5)
-        message(WARNING "3D in BornAgain requires Qt=5.5.1+. Switching 3D support off: BORNAGAIN_OPENGL=OFF.")
-        set(BORNAGAIN_OPENGL OFF)
-    endif()
+if(${Qt5Core_VERSION} VERSION_LESS "5.5.1")
+    # required for OpenGL, hence for ba3d
+    message (FATAL_ERROR "Qt 5.5.1+ is required, have ${Qt5Core_VERSION_STRING}")
 endif()
 
 if(BORNAGAIN_OPENGL)

@@ -22,8 +22,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 add_subdirectory (ba3d)
-add_subdirectory (showcase)
-add_subdirectory (demo)
 
 set(library_name ba3d)
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
